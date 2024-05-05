@@ -238,7 +238,7 @@ class DNumericPaginator : IPaginator {
      * @param array<string, mixed> settings The settings/configuration used for pagination.
      * @return array Array with keys "defaults", "options" and "finder"
      * /
-    // TODO protected array extractData(IRepository object, array params, array settings) {
+    // TODO protected array Json[string] extractData(IRepository object, array params, array settings) {
         alias = object.aliasName();
         defaults = this.getDefaults(alias, settings);
         options = this.mergeOptions(params, defaults);
@@ -259,7 +259,7 @@ class DNumericPaginator : IPaginator {
      *   "count", "defaults", "finder", "numResults".
      * @return array<string, mixed> Paging params.
      * /
-    // TODO protected array buildParams(Json[string] data) {
+    // TODO protected array Json[string] buildParams(Json[string] data) {
         limit = data["options"]["limit"];
 
         paging = [
@@ -291,7 +291,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Paginator data.
      * @return array<string, mixed> Updated params.
      * /
-    // TODO protected array addPageCountParams(Json[string] params, array data) {
+    // TODO protected array Json[string] addPageCountParams(Json[string] params, array data) {
         page = params["page"];
         pageCount = 0;
 
@@ -315,7 +315,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Paginator data.
      * @return array<string, mixed> Updated params.
      * /
-    // TODO protected array addStartEndParams(Json[string] params, array data) {
+    // TODO protected array Json[string] addStartEndParams(Json[string] params, array data) {
         start = end = 0;
 
         if (params["current"] > 0) {
@@ -336,7 +336,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Paging data.
      * @return array<string, mixed> Updated params.
      * /
-    // TODO protected array addPrevNextParams(Json[string] params, array data) {
+    // TODO protected array Json[string] addPrevNextParams(Json[string] params, array data) {
         params["prevPage"] = params["page"] > 1;
         if (params["count"] == null) {
             params["nextPage"] = true;
@@ -354,7 +354,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Paging data.
      * @return array<string, mixed> Updated params.
      * /
-    // TODO protected array addSortingParams(Json[string] params, array data) {
+    // TODO protected array Json[string] addSortingParams(Json[string] params, array data) {
         defaults = data["defaults"];
         order = (array)data["options"]["order"];
         sortDefault = directionDefault = false;
@@ -382,7 +382,7 @@ class DNumericPaginator : IPaginator {
      * @return array An array containing in the first position the finder name
      *   and in the second the options to be passed to it.
      * /
-    // TODO protected array _extractFinder(Json[string] optionData) {
+    // TODO protected array Json[string] _extractFinder(Json[string] optionData) {
         type = !empty(options["finder"]) ? options["finder"] : "all";
         unset(options["finder"], options["maxLimit"]);
 
@@ -589,7 +589,7 @@ class DNumericPaginator : IPaginator {
      * @param string model Current model alias
      * @return array<string, mixed> fields Unaliased fields where applicable
      * /
-    // TODO protected array _removeAliases(string[] fieldNames, string model) {
+    // TODO protected array Json[string] _removeAliases(string[] fieldNames, string model) {
         result = null;
         foreach (fields as field: sort) {
             if (indexOf(field, ".") == false) {
@@ -618,7 +618,7 @@ class DNumericPaginator : IPaginator {
      * @param bool allowed Whether the field was allowed.
      * @return array Final order array.
      * /
-    // TODO protected array _prefix(IRepository object, array order, bool allowed = false) {
+    // TODO protected array Json[string] _prefix(IRepository object, array order, bool allowed = false) {
         tableAlias = object.aliasName();
         tableOrder = null;
         foreach (order as key: value) {

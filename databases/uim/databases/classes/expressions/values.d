@@ -43,11 +43,11 @@ class DValuesExpression : DExpression {
     /**
      * Add a row of data to be inserted.
      * Params:
-     * \UIM\Database\Query|Json[string]  someValues Array of data to append into the insert, or
+     * \UIM\Database\Query|Json[string] someValues Array of data to append into the insert, or
      *  a query for doing INSERT INTO .. SELECT style commands
      * @throws \UIM\Database\Exception\DatabaseException When mixing Json[string] + Query data types.
      * /
-    void add(Query|Json[string]  someValues) {
+    void add(Query|Json[string] someValues) {
         if (
             (count(_values) && cast(Query)someValues) ||
             (_query && isArray(someValues))
@@ -94,7 +94,7 @@ class DValuesExpression : DExpression {
     }
 
     // Sets the values to be inserted.
-    void setValues(Json[string]  valuesToInsert) {
+    void setValues(Json[string] valuesToInsert) {
        _values = valuesToInsert;
        _castedExpressions = false;
     }

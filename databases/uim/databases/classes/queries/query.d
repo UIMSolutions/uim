@@ -855,7 +855,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * @param array  someValues Array of values
      * @param Json[string] options Options
      * /
-    auto whereNotInListOrNull(string fieldName, Json[string]  someValues, Json[string] options = null) {
+    auto whereNotInListOrNull(string fieldName, Json[string] someValues, Json[string] options = null) {
         auto options = options.update() [
             "types": Json.emptyArray,
             "allowEmpty": Json(false),

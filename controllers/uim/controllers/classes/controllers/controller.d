@@ -151,7 +151,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Middlewares list.
      * @psalm-var array<int, array{middleware:\Psr\Http\Server\IMiddleware|\Closure|string, options:array{only?: string[], except?: string[]}}>
      */
-    protected Json[string]  middlewares = null;
+    protected Json[string] middlewares = null;
 
 
     /**
@@ -495,7 +495,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Params:
      * array  viewClasses View classes list.
      * /
-    void addViewClasses(Json[string]  viewClasses) {
+    void addViewClasses(Json[string] viewClasses) {
         this.viewClasses = array_merge(this.viewClasses,  viewClasses);
     }
     

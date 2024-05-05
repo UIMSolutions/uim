@@ -32,11 +32,11 @@ mixin template TConsoleIntegrationTest() {
      * Runs CLI integration test
      * Params:
      * string acommand Command to run
-     * @param Json[string]  anInput Input values to pass to an interactive shell
+     * @param Json[string] anInput Input values to pass to an interactive shell
      * @throws \UIM\Console\TestSuite\MissingConsoleInputException
      * @throws \InvalidArgumentException
      * /
-    void exec(string acommand, Json[string]   anInput = []) {
+    void exec(string acommand, Json[string]  anInput = []) {
         runner = this.makeRunner();
 
        _out ??= new DStubConsoleOutput();

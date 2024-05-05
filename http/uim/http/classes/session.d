@@ -36,7 +36,7 @@ class DSession {
      *
      * @var array{filename: string, line: int}|null
      * /
-    // TODO protected array Json[string] aHeaderSentInfo = null;
+    // TODO protected Json[string] aHeaderSentInfo = null;
 
     /**
      * Returns a new instance of a session after building a configuration bundle for it.

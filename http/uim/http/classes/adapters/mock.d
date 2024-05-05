@@ -15,7 +15,7 @@ import uim.http;
 class DMockAdapter { //}: IAdapter {
     /*alias Alias = ;
     // List of mocked responses.
-    // TODO protected array Json[string] responses = null;
+    // TODO protected Json[string] responses = null;
 
     /**
      * Add a mocked response.

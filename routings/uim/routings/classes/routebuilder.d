@@ -84,7 +84,7 @@ class DRouteBuilder {
      * @param array myparams The scope"s routing parameters.
      * @param Json[string] options Options list.
      * /
-    this(RouteCollection mycollection, string mypath, array myparams = [], Json[string] optionData = null) {
+    this(RouteCollection mycollection, string mypath, Json[string] myparams = [], Json[string] optionData = null) {
        _collection = mycollection;
        _path = mypath;
        _params = myparams;
@@ -601,7 +601,7 @@ class DRouteBuilder {
      * @param array mydefaults Default parameters.
      * @param Json[string] options Additional options parameters.
      * /
-    protected DRoute _makeRoute(Route|string myroute, array mydefaults, Json[string] options) {
+    protected DRoute _makeRoute(Route|string myroute, Json[string] mydefaults, Json[string] options) {
         if (isString(myroute)) {
             /** @var class-string<\UIM\Routing\Route\Route>|null myrouteClass * /
             myrouteClass = App.className(options["routeClass"], "Routing/Route");
@@ -866,7 +866,7 @@ class DRouteBuilder {
      * string routings Name of the middleware group
      * @param string[] mymiddlewareNames Names of the middleware
      * /
-    auto middlewareGroup(string routings, array mymiddlewareNames) {
+    auto middlewareGroup(string routings, Json[string] mymiddlewareNames) {
        _collection.middlewareGroup(routings, mymiddlewareNames);
 
         return this;

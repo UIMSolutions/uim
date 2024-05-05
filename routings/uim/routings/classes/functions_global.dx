@@ -23,7 +23,7 @@ if (!function_exists("urlArray")) {
      * @param array params An array specifying any additional parameters.
      *  Can be also any special parameters supported by `Router.url()`.
      * /
-    array URL urlArray(string routePath, array params = []) {
+    array URL urlArray(string routePath, Json[string] params = []) {
         return uimUrlArray(routePath, params);
     }
 }

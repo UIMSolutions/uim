@@ -11,7 +11,7 @@ import uim.routings;
  * @param array params An array specifying any additional parameters.
  *  Can be also any special parameters supported by `Router.url()`.
  * /
-array urlArray(string aPath, array params = []) {
+array urlArray(string aPath, Json[string] params = []) {
     url = Router.parseRoutePath(somePath);
     url += [
         "plugin": Json(false),

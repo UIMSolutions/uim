@@ -19,22 +19,18 @@ class DDashedRoute : DRoute {
      *
      * Default values need to be inflected so that they match the inflections that
      * match() will create.
-     * /
-    // TODO protected Json[string] _inflectedDefaults = null;
+     */
+    protected Json[string] _inflectedDefaults = null;
 
-    /**
-     * Camelizes the previously dashed plugin route taking into account plugin vendors
-     * Params:
-     * string myplugin Plugin name
-     * /
-    protected string _camelizePlugin(string myplugin) {
-        myplugin = myplugin.replace("-", "_");
-        if (!myplugin.has("/")) {
-            return Inflector.camelize(myplugin);
+    // Camelizes the previously dashed plugin route taking into account plugin vendors
+    protected string _camelizePlugin(string pluginName) {
+        auto updatedPluginName = pluginName.replace("-", "_");
+        if (!updatedPluginName.has("/")) {
+            return Inflector.camelize(updatedPluginName);
         }
-        [myvendor, myplugin] = split("/", myplugin, 2);
+        [myvendor, updatedPluginName] = split("/", updatedPluginName, 2);
 
-        return Inflector.camelize(myvendor) ~ "/" ~ Inflector.camelize(myplugin);
+        return Inflector.camelize(myvendor) ~ "/" ~ Inflector.camelize(updatedPluginName);
     }
     
     /**
@@ -43,10 +39,9 @@ class DDashedRoute : DRoute {
      * camelBacked form.
      * Params:
      * string urlToParse The URL to parse
-     * @param string mymethod The HTTP method.
      * /
-    array parse(string urlToParse, string mymethod= null) {
-        myparams = super.parse(urlToParse, mymethod);
+    array parse(string urlToParse, string httpMethod= null) {
+        myparams = super.parse(urlToParse, httpMethod);
         if (!myparams) {
             return null;
         }
@@ -74,7 +69,7 @@ class DDashedRoute : DRoute {
      *  Contains information such as the current host, scheme, port, and base
      *  directory.
      * /
-    string match(Json[string] myurl, array mycontext = []) {
+    string match(Json[string] myurl, Json[string] mycontext = []) {
         auto myurl = _dasherize(myurl);
         if (_inflectedDefaults.isNull) {
             this.compile();

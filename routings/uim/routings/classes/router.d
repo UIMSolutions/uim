@@ -372,7 +372,7 @@ class DRouter {
      * @param bool myfull If true, the full base URL will be prepended to the result.
      *  Default is false.
      * /
-    static string pathUrl(string mypath, array myparams = [], bool myfull = false) {
+    static string pathUrl(string mypath, Json[string] myparams = [], bool myfull = false) {
         return url(["_path": mypath] + myparams, myfull);
     }
     

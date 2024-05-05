@@ -222,7 +222,7 @@ class DRouteCollection {
      * @param array mycontext The request context to use. Contains _base, _port,
      *  _host, _scheme and params keys.
      * /
-    string match(Json[string] myurl, array mycontext) {
+    string match(Json[string] myurl, Json[string] mycontext) {
         // Named routes support optimization.
         if (isSet(myurl["_name"])) {
             routings = myurl["_name"];
@@ -252,7 +252,7 @@ class DRouteCollection {
         throw new DMissingRouteException(["url": var_export(myurl, true), "context": mycontext]);
     }
 
-    protected string matchRoute(Route routeToCheck, array myurl, array mycontext) {
+    protected string matchRoute(Route routeToCheck, Json[string] myurl, Json[string] mycontext) {
         if (auto match = routeToCheck.match(myurl, mycontext)) {
             return match == "/" ? match : strip(match, "/");
         }
@@ -326,7 +326,7 @@ class DRouteCollection {
      * string routings Name of the middleware group
      * @param string[] mymiddlewareNames Names of the middleware
      * /
-    void middlewareGroup(string routings, array mymiddlewareNames) {
+    void middlewareGroup(string routings, Json[string] mymiddlewareNames) {
         if (this.hasMiddleware(routings)) {
             mymessage = "Cannot add middleware group " routings". A middleware by this name has already been registered.";
             throw new DInvalidArgumentException(mymessage);

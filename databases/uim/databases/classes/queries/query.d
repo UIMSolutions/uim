@@ -885,7 +885,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * condition, but all the conditions as a whole.
      *
      * When using an array for defining conditions, creating constraints form each
-     * array entry will use the same logic as with the `where()` function. This means
+     * Json[string] entry will use the same logic as with the `where()` function. This means
      * that each array entry will be joined to the other using the AND operator, unless
      * you nest the conditions in the array using other operator.
      *

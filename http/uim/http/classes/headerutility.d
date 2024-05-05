@@ -9,7 +9,7 @@ class DHeaderUtility {
     /**
      * Get an array representation of the HTTP Link header values.
      * Params:
-     * array linkHeaders An array of Link header strings.
+     * Json[string] linkHeaders An array of Link header strings.
      * /
     static Json[string] parseLinks(Json[string] linkHeaders) {
         auto result = linkHeaders

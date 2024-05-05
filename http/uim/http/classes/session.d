@@ -61,7 +61,7 @@ class DSession {
      * - ini: A list of D.ini directives to set before the session starts.
      * - timeout: The time in minutes the session should stay active
      * Params:
-     * array sessionConfig Session config.
+     * Json[string] sessionConfig Session config.
      * /
     static static create(arraysessionConfig = []) {
         if (isSet(sessionConfig["defaults"])) {
@@ -450,7 +450,7 @@ class DSession {
     /**
      * Used to write new data to _SESSION, since D doesn`t like us setting the _SESSION var itself.
      * Params:
-     * array old Set of old variables: values
+     * Json[string] old Set of old variables: values
      * @param array new DNew set of variable: value
      * /
     protected void _overwrite(Json[string] & old, arraynew) {

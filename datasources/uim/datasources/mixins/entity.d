@@ -853,7 +853,7 @@ mixin template TEntity() {
      * entity.setErrors(["salary": ["message"], "name": ["another message"]]);
      * ```
      * Params:
-     * array errors The array of errors to set.
+     * Json[string] errors The array of errors to set.
      * @param bool overwrite Whether to overwrite pre-existing errors for fields
     * /
                     auto setErrors(arrayerrors, booloverwrite = false) {

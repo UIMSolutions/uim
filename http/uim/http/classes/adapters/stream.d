@@ -55,7 +55,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Creates one or many response objects based on the number
      * of redirects that occurred.
      * Params:
-     * array  aHeaders The list of headers from the request(s)
+     * Json[string] aHeaders The list of headers from the request(s)
      * @param string acontent The response content.
      * /
     Response[] createResponses(Json[string] aHeaders, string acontent) {
@@ -233,7 +233,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
     /**
      * Build a response object
      * Params:
-     * array  aHeaders Unparsed headers.
+     * Json[string] aHeaders Unparsed headers.
      * @param string abody The response body.
      * /
     protected DResponse _buildResponse(Json[string] aHeaders, string abody) {

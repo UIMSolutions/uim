@@ -144,7 +144,7 @@ interface IRepository {
      * on the primary key data existing in the database when the entity
      * is saved. Until the entity is saved, it will be a detached record.
      * Params:
-     * array data The data to build an entity with.
+     * Json[string] data The data to build an entity with.
      * @param Json[string] options A list of options for the object hydration.
      * /
     IEntity newEntity(Json[string] data, Json[string] optionData = null);

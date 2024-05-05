@@ -39,7 +39,7 @@ class DOrderByExpression : DQueryExpression {
      *
      * New order by expressions are merged to existing ones
      * Params:
-     * array conditions list of order by expressions
+     * Json[string] conditions list of order by expressions
      * @param array types list of types associated on fields referenced in conditions
      * /
     protected void _addConditions(Json[string] conditions, Json[string] types) {

@@ -544,7 +544,7 @@ class DDebugger {
      * - prefix
      * - schema
      * Params:
-     * array var The array to export.
+     * Json[string] var The array to export.
      * @param \UIM\Error\Debug\DebugContext context The current dump context.
      * @return \UIM\Error\Debug\ArrayNode Exported array.
      * /

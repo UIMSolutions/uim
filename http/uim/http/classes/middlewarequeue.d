@@ -18,7 +18,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     /**
      * Constructor
      * Params:
-     * array middleware The list of middleware to append.
+     * Json[string] middleware The list of middleware to append.
      * @param \UIM\Core\IContainer container Container instance.
      * /
     this(Json[string] middleware = [], ?IContainer container = null) {

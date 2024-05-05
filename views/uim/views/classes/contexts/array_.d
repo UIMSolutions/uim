@@ -70,7 +70,7 @@ class DArrayContext : DContext {
             "schema": Json.emptyObject,
             "required": Json.emptyObject,
             "defaults": Json.emptyObject,
-            "errors": Json.emptemptyObjectyArray,
+            "errors": Json.emptyObject,
         ]);
 
        // TODO _context = merge(configuration, merge(mycontext, defaultData), true);

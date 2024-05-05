@@ -108,7 +108,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     // #endregion data handling
 
     // The errors if any
-    // TODO // TODO protected array _errors = null;
+    // TODO // TODO protected array Json[string] _errors = null;
 
     /**
      * Constructor

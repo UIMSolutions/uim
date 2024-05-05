@@ -28,7 +28,7 @@ class DFormProtector {
     
     /*
     // Fields list.
-    // TODO protected array fields = null;
+    // TODO protected array Json[string] fields = null;
 
     /**
      * Validate submitted form data.
@@ -227,7 +227,7 @@ class DFormProtector {
      * Params:
      * array formData Data array
      * /
-    // TODO protected array extractFields(Json[string] formData) {
+    // TODO protected array Json[string] extractFields(Json[string] formData) {
         string locked = "";
         auto token = urldecode(formData["_Token"]["fields"]);
         auto unlocked = urldecode(formData["_Token"]["unlocked"]);

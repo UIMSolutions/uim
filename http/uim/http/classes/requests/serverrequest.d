@@ -894,8 +894,8 @@ class DServerRequest { // }: IServerRequest {
      *  While `example.co.uk` contains 2.
      * /
     string[] subdomains(int tldLength = 1) {
-        host = this.host();
-        if (isEmpty(host)) {
+        auto host = host();
+        if (host.isEmpty() {
             return null;
         }
         
@@ -948,14 +948,13 @@ class DServerRequest { // }: IServerRequest {
      * ```request.acceptLanguage("es-es");```
      * Params:
      * string|null language The language to test.
-     * @return array|bool If a language is provided, a boolean. Otherwise, the array of accepted languages.
+     * @return Json If a language is provided, a boolean. Otherwise, the array of accepted languages.
      * /
-    array|bool acceptLanguage(string alanguage = null) {
+    Json acceptLanguage(string languageToTest = null) {
         content = new DContentTypeNegotiation();
-        if (language !isNull) {
-            return content.acceptLanguage(this, language);
-        }
-        return content.acceptedLanguages(this);
+        return languageToTest.isEmpty
+            ? content.acceptedLanguages(this)
+            : content.acceptLanguage(this, language);
     }
     
     /**
@@ -973,11 +972,10 @@ class DServerRequest { // }: IServerRequest {
      * string|null name The name or dotted path to the query param or null to read all.
      * @param Json defaultValue The default value if the named parameter is not set, and name is not null.
      * /
-    Json getQuery(string aName = null, Json defaultValue = Json(null)) {
-        if (name.isNull) {
-            return _queryArguments;
-        }
-        return Hash.get(this.query, name, default);
+    Json getQuery(string nameOrPath = null, Json defaultValue = Json(null)) {
+        return nameOrPath.isNull
+            ? _queryArguments
+            : Hash.get(this.query, nameOrPath, default);
     }
     
     /**
@@ -1015,10 +1013,9 @@ class DServerRequest { // }: IServerRequest {
         if (name.isNull) {
             return _data;
         }
-        if (!isArray(this.data)) {
-            return default;
-        }
-        return Hash.get(this.data, name, default);
+        return !isArray(this.data)  
+            ? Hash.get(this.data, name, defaultValue)
+            : defaultValue;
     }
     
     /**
@@ -1027,8 +1024,8 @@ class DServerRequest { // }: IServerRequest {
      * string aKey The key or dotted path you want to read.
      * @param string[] default The default value if the cookie is not set.
      * /
-    string[] getCookie(string aKey, string[] default = null) {
-        return Hash.get(this.cookies, aKey, default);
+    string[] getCookie(string keyOrPath, string[] defaultValue = null) {
+        return Hash.get(this.cookies, keyOrPath, defaultValue);
     }
     
     /**
@@ -1044,7 +1041,7 @@ class DServerRequest { // }: IServerRequest {
      * `getCookie()` and `getCookieParams()` over this method. Using a CookieCollection
      * is ideal if your cookies contain complex Json encoded data.
      * /
-    CookieCollection getCookieCollection() {
+    DCookieCollection getCookieCollection() {
         return CookieCollection.createFromServerRequest(this);
     }
     
@@ -1065,9 +1062,7 @@ class DServerRequest { // }: IServerRequest {
         return new;
     }
     
-    /**
-     * Get all the cookie data from the request.
-     * /
+    // Get all the cookie data from the request.
     Json[string] getCookieParams() {
         return _cookies;
     }

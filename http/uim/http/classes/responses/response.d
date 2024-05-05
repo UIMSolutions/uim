@@ -14,7 +14,7 @@ import uim.http;
  * `\InvalidArgumentException`.
  */
 class DResponse : IResponse {
-    use MessageTemplate;
+    mixin TMessage;
 
     const int STATUS_CODE_MIN = 100;
 

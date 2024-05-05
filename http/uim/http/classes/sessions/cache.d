@@ -24,8 +24,8 @@ class DCacheSession { // }: !SessionHandler {
      * storing the session
      * @throws \InvalidArgumentException if the 'config' key is not provided
      * /
-    this(Json[string] configData = null) {
-        if (isEmpty(configData("config"])) {
+    this(Json[string] initData = null) {
+        if (configData.isEmpty("config")) {
             throw new DInvalidArgumentException("The cache configuration name to use is required");
         }
        _options = configData;

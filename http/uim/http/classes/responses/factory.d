@@ -4,9 +4,7 @@ import uim.http;
 
 @safe:
 
-/**
- * Factory class for creating response instances.
- */
+// Factory class for creating response instances.
 class DResponseFactory : IResponseFactory {
     /**
      * Create a new response.

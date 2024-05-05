@@ -12,6 +12,7 @@ import uim.http;
  */
 class DServer { // }: IEventDispatcher {
         mixin TConfigurable;
+    mixin TEventDispatcher;
 
     this() {
         initialize;
@@ -34,10 +35,7 @@ class DServer { // }: IEventDispatcher {
     }
 
     mixin(TProperty!("string", "name"));
-    /**
-     * @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IHttpApplication>
-     * /
-    mixin TEventDispatcher;
+
 
     protected IHttpApplication _app;
 

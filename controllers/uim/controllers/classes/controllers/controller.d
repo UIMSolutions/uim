@@ -564,7 +564,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      *  Careful with trusting external sources.
      * returns Referring URL
      * /
-    string referer(string[] default = "/", bool  local = true) {
+    string referer(string[] defaultValue = "/", bool  local = true) {
          referer = this.request.referer(local);
         if (referer !isNull) {
             return  referer;

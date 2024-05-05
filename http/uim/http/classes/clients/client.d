@@ -476,7 +476,7 @@ class DClient { // }: IClient {
     if (_mockAdapter) {
       myresponses = _mockAdapter.send(myrequest, options);
     }
-    if (isEmpty(myresponses)) {
+    if (myresponses.isEmpty) {
       myresponses = _adapter.send(myrequest, options);
     }
     myresponses.each!(response => _cookies = _cookies.addFromResponse(response, myrequest));
@@ -493,7 +493,7 @@ class DClient { // }: IClient {
      * @param Json[string] options The config options stored with Client.config()
      * /
   string buildUrl(string myurl, string[] myquery = [], Json[string] options = null) {
-    if (isEmpty(options) && empty(myquery)) {
+    if (options.isEmpty && myquery.isEmpty) {
       return myurl;
     }
     Json[string] mydefaults = [

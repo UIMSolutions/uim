@@ -183,7 +183,7 @@ class DInflector {
      * Params:
      * string mytype The type of inflection, either "plural", "singular",
      *   or "uninflected".
-     * @param array myrules Array of rules to be added.
+     * @param Json[string] myrules Array of rules to be added.
      * @param bool myreset If true, will unset default inflections for all
      *       new rules that are being defined in myrules.
      * /

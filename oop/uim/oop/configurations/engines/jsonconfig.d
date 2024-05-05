@@ -81,7 +81,7 @@ class DJsonConfig : IConfigEngine {
      * Params:
      * string aKey The identifier to write to. If the key has a ~ it will
      * be treated as a plugin prefix.
-     * @param array data Data to dump.
+     * @param Json[string] data Data to dump.
          * /
     bool dump(string dataId, Json[string] data) {
         auto filename = _getFileKey(dataId);

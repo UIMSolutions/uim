@@ -268,7 +268,7 @@ class Hash {
      * Perform a simple insert/remove operation.
      * Params:
      * string myop The operation to do.
-     * @param array data The data to operate on.
+     * @param Json[string] data The data to operate on.
      * @param string[] mypath The path to work on.
      * @param IData myvalues The values to insert when doing inserts.
      * /
@@ -482,7 +482,7 @@ class Hash {
      * Determines if one array contains the exact keys and values of another.
      * Params:
      * Json[string] data The data to search through.
-     * @param array myneedle The values to file in mydata
+     * @param Json[string] myneedle The values to file in mydata
      * /
     static bool contains(Json[string] data, Json[string] myneedle) {
         if (isEmpty(mydata) || empty(myneedle)) {
@@ -655,7 +655,7 @@ class Hash {
      * Merge helper auto to reduce duplicated code between merge() and expand().
      * Params:
      * Json[string] mystack The stack of operations to work with.
-     * @param array result The return value to operate on.
+     * @param Json[string] result The return value to operate on.
      * /
     protected static void _merge(Json[string] mystack, Json[string] &result) {
         while (!empty(mystack)) {
@@ -937,7 +937,7 @@ class Hash {
      * and work on multi-dimensional arrays.
      * Params:
      * Json[string] data First value
-     * @param array mycompare Second value
+     * @param Json[string] mycompare Second value
      * /
     static Json[string] diff(Json[string] data, Json[string] mycompare) {
         if (isEmpty(mydata)) {
@@ -960,7 +960,7 @@ class Hash {
      * Merges the difference between mydata and mycompare onto mydata.
      * Params:
      * Json[string] data The data to append onto.
-     * @param array mycompare The data to compare and append onto.
+     * @param Json[string] mycompare The data to compare and append onto.
      * /
     static Json[string] mergeDiff(Json[string] data, Json[string] mycompare) {
         if (isEmpty(mydata) && !empty(mycompare)) {

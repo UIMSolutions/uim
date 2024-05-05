@@ -78,7 +78,7 @@ mixin template TMergeVariables() {
      * Merge each of the keys in a property together.
      * Params:
      * Json[string] mycurrent The current merged value.
-     * @param array myparent The parent class" value.
+     * @param Json[string] myparent The parent class" value.
      * @param bool isAssoc Whether the merging should be done in associative mode.
      * /
   // TODO protected Json[string] _mergePropertyData(Json[string] mycurrent, Json[string] myparent, bool isAssoc) {

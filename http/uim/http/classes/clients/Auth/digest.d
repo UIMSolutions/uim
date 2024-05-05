@@ -104,7 +104,7 @@ class DDigest {
      * challenge.
      * Params:
      * \UIM\Http\Client\Request request The request object.
-     * @param array credentials Authentication credentials.
+     * @param Json[string] credentials Authentication credentials.
      * /
     // TODO protected Json[string] _getServerInfo(Request request, Json[string] credentials) {
         response = _client.get(

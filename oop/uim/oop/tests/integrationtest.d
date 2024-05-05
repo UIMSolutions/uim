@@ -505,7 +505,7 @@ mixin template TIntegrationTest() {
      * Add the CSRF and Security Component tokens if necessary.
      * Params:
      * string aurl The URL the form is being submitted on.
-     * @param array data The request body data.
+     * @param Json[string] data The request body data.
      * /
     // TODO protected Json[string] _addTokens(string aurl, Json[string] data) {
         if (_securityToken == true) {

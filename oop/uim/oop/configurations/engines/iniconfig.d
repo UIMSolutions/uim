@@ -124,7 +124,7 @@ class DIniConfig : IConfigEngine {
      * Params:
      * string aKey The identifier to write to. If the key has a ~ it will be treated
      * as a plugin prefix.
-     * @param array data The data to convert to ini file.
+     * @param Json[string] data The data to convert to ini file.
      * /
     bool dump(string key, Json[string] data) {
         auto result;

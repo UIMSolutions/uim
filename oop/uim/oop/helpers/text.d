@@ -152,7 +152,7 @@ class DText {
      * - clean: A boolean or array with instructions for Text.cleanInsert
      * Params:
      * string mystr A string containing variable placeholders
-     * @param array data A key: val array where each key stands for a placeholder variable name
+     * @param Json[string] data A key: val array where each key stands for a placeholder variable name
      *    to be replaced with val
      * @param IData[string] options An array of options, see description above
      * /

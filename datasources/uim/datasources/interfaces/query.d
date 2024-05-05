@@ -7,7 +7,7 @@ import uim.datasources;
 /**
  * The basis for every query object
  *
- * @method this andWhere(conditions, array types = []) Connects any previously defined set of conditions to the
+ * @method this andWhere(conditions, Json[string] types = []) Connects any previously defined set of conditions to the
  *  provided list using the AND operator. {@see \UIM\Database\Query.andWhere()}
  * @method \UIM\Datasource\IEntity|array firstOrFail() Get the first result from the executing query or raise an exception.
  *  {@see \UIM\Database\Query.firstOrFail()}
@@ -172,7 +172,7 @@ interface IQuery {
 
     /**
      * Adds a single or multiple fields to be used in the ORDER clause for this query.
-     * Fields can be passed as an array of strings, array of expression
+     * Fields can be passed as an array of strings, Json[string] of expression
      * objects, a single expression or a single string.
      *
      * If an array is passed, keys will be used as the field itself and the value will
@@ -363,5 +363,5 @@ interface IQuery {
      * @param STRINGAA types Associative array of type names used to bind values to query
      * @param bool overwrite whether to reset conditions with passed list or not
      */
-    // TODO auto where(Closure|string[] conditions = null, array types = [], bool overwrite = false);
+    // TODO auto where(Closure|string[] conditions = null, Json[string] types = [], bool overwrite = false);
 }

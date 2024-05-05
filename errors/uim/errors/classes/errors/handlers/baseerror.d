@@ -275,7 +275,7 @@ abstract class DERRErrorHandler {
      * @param string|int level The level name of the log.
      * @param array data Array of error data.
      * /
-    protected bool _logError(level, array data) {
+    protected bool _logError(level, Json[string] data) {
         message = sprintf(
             "%s (%s): %s in [%s, line %s]",
             data["error"],

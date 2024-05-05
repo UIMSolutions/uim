@@ -486,7 +486,7 @@ mixin template TQuery() {
      * @return mixed
      * @throws \BadMethodCallException if no such method exists in result set
      * /
-    function __call(string method, array arguments) {
+    function __call(string method, Json[string] arguments) {
         resultSetClass = _decoratorClass();
         if (hasAllValues(method, get_class_methods(resultSetClass), true)) {
             deprecationWarning(sprintf(

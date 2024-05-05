@@ -54,7 +54,7 @@ class DConsoleFormatter : IErrorFormatter {
         return true;
     }
  
-    string formatWrapper(string acontents, array location) {
+    string formatWrapper(string acontents, Json[string] location) {
         string alineInfo = "";
         if (isSet(location["file"], location["file"])) {
             lineInfo = "%s (line %s)".format(location["file"], location["line"]);

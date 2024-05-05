@@ -75,7 +75,7 @@ class DRuleInvoker {
      * @param array scope The rule`s scope/options.
      * returns Whether the rule passed.
      * /
-    bool __invoke(IEntity entity, array scope) {
+    bool __invoke(IEntity entity, Json[string] scope) {
         rule = _rule;
         pass = rule(entity, this.options + scope);
         if (pass == true || empty(configuration.update("errorField"])) {

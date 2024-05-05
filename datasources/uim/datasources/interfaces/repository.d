@@ -179,7 +179,7 @@ interface IRepository {
      * @param array data key value list of fields to be merged into the entity
      * @param Json[string] options A list of options for the object hydration.
      * /
-    IEntity patchEntity(IEntityentity, array data, Json[string] optionData = null);
+    IEntity patchEntity(IEntityentity, Json[string] data, Json[string] optionData = null);
 
     /**
      * Merges each of the elements passed in `someData` into the entities
@@ -198,6 +198,6 @@ interface IRepository {
      * @param array data list of arrays to be merged into the entities
      * @param Json[string] options A list of options for the objects hydration.
      * /
-    IEntity[] patchEntities(iterableentities, array data, Json[string] optionData = null);
+    IEntity[] patchEntities(iterableentities, Json[string] data, Json[string] optionData = null);
     */
 }

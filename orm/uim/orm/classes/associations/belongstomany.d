@@ -416,7 +416,7 @@ class DBelongsToManyAssociation : DAssociation {
 
 
     protected void _appendNotMatching(Query query, Json[string] optionData) {
-        if (empty(options["negateMatch"])) {
+        if (options.isEmpty("negateMatch")) {
             return;
         }
         options["conditions"] = options["conditions"] ?? [];

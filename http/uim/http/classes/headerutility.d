@@ -50,11 +50,7 @@ class DHeaderUtility {
         return myParsedParams;
     }
     
-    /**
-     * Parse the Accept header value into weight: value mapping.
-     * Params:
-     * string aheader The header value to parse
-     * /
+    // Parse the Accept header value into weight: value mapping.
     static string[][string] parseAccept(string headerValue) {
         accept = null;
         if (!headerValue) {

@@ -163,7 +163,7 @@ class DAssociation : IAssociation {
             }
         }
 
-        if (empty(_className)) {
+        if (_className.isEmpty) {
             _className = anAliasName;
         }
 

@@ -77,7 +77,7 @@ abstract class DCell { // }: IEventDispatcher {
     protected string[] _validCellOptions = null;
 
     // Caching setup.
-    // TODO protected array|bool _cache = false;
+    // TODO protected Json _cache = false;
 
     /**
      * Constructor.

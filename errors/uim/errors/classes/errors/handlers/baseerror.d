@@ -303,7 +303,7 @@ abstract class DERRErrorHandler {
      * @param \Psr\Http\messages.IServerRequest|null request The current request.
      * /
     bool logException(Throwable exception, ?IServerRequest request = null) {
-        if (empty(_config["log"])) {
+        if (_config.isEmpty("log"])) {
             return false;
         }
         foreach (_config["skipLog"] as aClassName) {

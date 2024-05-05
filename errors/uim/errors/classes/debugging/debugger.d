@@ -498,9 +498,10 @@ class DDebugger {
             return [];
         }
         data = file_get_contents(file);
-        if (empty(data)) {
+        if (data.isEmpty) {
             return lines;
         }
+        
         if (indexOf(data, "\n") != false) {
             data = explode("\n", data);
         }

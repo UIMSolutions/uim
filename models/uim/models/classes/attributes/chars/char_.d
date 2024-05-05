@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.models.classes.attributes.chars.char_;
+module models.uim.models.classes.attributes.chars.char_;
 
 import uim.models;
 
@@ -27,9 +27,7 @@ class DCharAttribute : DAttribute {
 
 mixin(AttributeCalls!"CharAttribute");
 
-version (test_uim_models) {
   unittest {
     testAttribute(new DCharAttribute);
     testAttribute(CharAttribute);
-  }
 }

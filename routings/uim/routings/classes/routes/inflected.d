@@ -19,7 +19,7 @@ class DInflectedRoute : DRoute {
      *
      * @var array|null
      * /
-    // TODO protected array _inflectedDefaults = null;
+    // TODO protected array Json[string] _inflectedDefaults = null;
 
     /**
      * Parses a string URL into an array. If it matches, it will convert the prefix, controller and
@@ -77,7 +77,7 @@ class DInflectedRoute : DRoute {
      * Params:
      * array myurl An array of URL keys.
      * /
-    // TODO protected array _underscore(Json[string] myurl) {
+    // TODO protected array Json[string] _underscore(Json[string] myurl) {
         if (!empty(myurl["controller"])) {
             myurl["controller"] = Inflector.underscore(myurl["controller"]);
         }

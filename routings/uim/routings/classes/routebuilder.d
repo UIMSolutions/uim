@@ -55,7 +55,7 @@ class DRouteBuilder {
      *
      * @var array
      * /
-    // TODO protected array _params;
+    // TODO protected array Json[string] _params;
 
     // Name prefix for connected routes.
     protected string _namePrefix = "";
@@ -587,7 +587,7 @@ class DRouteBuilder {
      * Params:
      * string[] mydefaults Defaults array from the connect() method.
      * /
-    // TODO protected array parseDefaults(string[] mydefaults) {
+    // TODO protected array Json[string] parseDefaults(string[] mydefaults) {
         if (!isString(mydefaults)) {
             return mydefaults;
         }

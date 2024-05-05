@@ -133,7 +133,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      * @param \Psr\Http\Message\IUri|string auri The URI associated with the request. If
      *    the value is a string, the factory MUST create a IUri
      *    instance based on it.
-     * @param array serverParams Array of SAPI parameters with which to seed
+     * @param Json[string] serverParams Array of SAPI parameters with which to seed
      *    the generated request instance.
      * /
     IServerRequest createServerRequest(string amethod, anUri, Json[string] serverParams = []) {

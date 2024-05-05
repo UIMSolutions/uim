@@ -94,7 +94,7 @@ class DFileLog { // TODO /*}: BaseLog {
      * Params:
      * Json logLevel The severity level of the message being written.
      * @param \string messageToLog The message you want to log.
-     * @param array messageContext Additional information about the logged message
+     * @param Json[string] messageContext Additional information about the logged message
      * /
     void log(logLevel, string messageToLog, Json[string] messageContext = []) {
         string message = this.interpolate(messageToLog, messageContext);

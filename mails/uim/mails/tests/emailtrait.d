@@ -134,7 +134,7 @@ mixin template TEmail() {
      * Asserts an email contains expected attachment
      * Params:
      * string afilename Filename
-     * @param array file Additional file properties
+     * @param Json[string] file Additional file properties
      * @param string amessage Message
      * /
     void assertMailContainsAttachment(string afilename, Json[string] file = [], string amessage = null) {

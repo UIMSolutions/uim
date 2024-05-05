@@ -399,7 +399,7 @@ class DServerRequest { // }: IServerRequest {
      * Missing method handler, handles wrapping older style isAjax() type methods
      * Params:
      * string aName The method called
-     * @param array params Array of parameters for the method call
+     * @param Json[string] params Array of parameters for the method call
      * /
     bool __call(string aName, Json[string] params) {
         if (name.startWith("is")) {
@@ -453,7 +453,7 @@ class DServerRequest { // }: IServerRequest {
      * Worker for the is() function
      * Params:
      * string atype The type of request you want to check.
-     * @param array someArguments Array of custom detector arguments.
+     * @param Json[string] someArguments Array of custom detector arguments.
      * /
     protected bool _is(string atype, Json[string] someArguments) {
         auto detect = _detectors[type];

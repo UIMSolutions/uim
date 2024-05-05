@@ -68,7 +68,7 @@ class DSysLogger : DLogger {
      * Params:
      * Json level The severity level of log you are making.
      * @param \string messageToLog The message you want to log.
-     * @param array context Additional information about the logged message
+     * @param Json[string] context Additional information about the logged message
      * /
     void log(level, string messageToLog, Json[string] context = []) {
         if (!_open) {

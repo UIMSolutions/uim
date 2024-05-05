@@ -81,7 +81,7 @@ class DLogger : ILogger {
      * Replaces placeholders in message string with context values.
      * Params:
      * \string amessage Formatted message.
-     * @param array context DContext for placeholder values.
+     * @param Json[string] context DContext for placeholder values.
      * /
     protected string interpolate(string formattedMessage, Json[string] context = []) {
         if (!formattedMessage.has("{", "}")) {

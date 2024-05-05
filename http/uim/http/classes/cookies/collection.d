@@ -171,7 +171,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * when this method is called will be applied to the request.
      * Params:
      * \Psr\Http\Message\IRequest request The request to update.
-     * @param array extraCookies Associative array of additional cookies to add into the request. This
+     * @param Json[string] extraCookies Associative array of additional cookies to add into the request. This
      *  is useful when you have cookie data from outside the collection you want to send.
      * /
     IRequest addToRequest(IRequest request, Json[string] extraCookies = []) {

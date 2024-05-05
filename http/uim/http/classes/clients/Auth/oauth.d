@@ -19,7 +19,7 @@ class DOauth {
      * Add headers for Oauth authorization.
      * Params:
      * \UIM\Http\Client\Request request The request object.
-     * @param array credentials Authentication credentials.
+     * @param Json[string] credentials Authentication credentials.
      * /
     Request authentication(Request request, Json[string] credentials) {
         if (!credentials.hasKey("consumerKey")) {
@@ -72,7 +72,7 @@ class DOauth {
      * services.
      * Params:
      * \UIM\Http\Client\Request request The request object.
-     * @param array credentials Authentication credentials.
+     * @param Json[string] credentials Authentication credentials.
      * /
     protected string _plaintext(Request request, Json[string] credentials) {
         auto someValues = [
@@ -100,7 +100,7 @@ class DOauth {
      * This method is suitable for plain HTTP or HTTPS.
      * Params:
      * \UIM\Http\Client\Request request The request object.
-     * @param array credentials Authentication credentials.
+     * @param Json[string] credentials Authentication credentials.
      * /
     protected string _hmacSha1(Request request, Json[string] credentials) {
         auto nonce = credentials["nonce"] ?? uniqid();
@@ -139,7 +139,7 @@ class DOauth {
      * This method is suitable for plain HTTP or HTTPS.
      * Params:
      * \UIM\Http\Client\Request request The request object.
-     * @param array credentials Authentication credentials.
+     * @param Json[string] credentials Authentication credentials.
      * /
     protected string _rsaSha1(Request request, Json[string] credentials) {
         if (!function_exists("openssl_pkey_get_private")) {
@@ -206,7 +206,7 @@ class DOauth {
      * - The HTTP method, URL and request parameters are concatenated and returned.
      * Params:
      * \UIM\Http\Client\Request request The request object.
-     * @param array oauthValues Oauth values.
+     * @param Json[string] oauthValues Oauth values.
      * /
     string baseString(Request request, Json[string] oauthValues) {
         auto someParts = [
@@ -233,7 +233,7 @@ class DOauth {
      * - Sort keys & values by byte value.
      * Params:
      * \UIM\Http\Client\Request request The request object.
-     * @param array oauthValues Oauth values.
+     * @param Json[string] oauthValues Oauth values.
      * /
     protected string _normalizedParams(Request request, Json[string] oauthValues) {
         aQuery = parse_url((string)request.getUri(), UIM_URL_QUERY);

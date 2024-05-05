@@ -33,8 +33,8 @@ class DPluginShortRoute : DInflectedRoute {
      * Reverses route plugin shortcut URLs. If the plugin and controller
      * are not the same the match is an auto fail.
      * Params:
-     * array myurl Array of parameters to convert to a string.
-     * @param array mycontext An array of the current request context.
+     * Json[string] myurl Array of parameters to convert to a string.
+     * @param Json[string] mycontext An array of the current request context.
      *  Contains information such as the current host, scheme, port, and base
      *  directory.
      * /

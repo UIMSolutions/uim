@@ -15,7 +15,7 @@ class DContextFactory {
     /**
      * Constructor.
      * Params:
-     * array myproviders Array of provider callables. Each element should
+     * Json[string] myproviders Array of provider callables. Each element should
      *  be of form `["type": "a-string", "callable": ..]`
      * /
     this(Json[string] myproviders = []) {
@@ -27,7 +27,7 @@ class DContextFactory {
     /**
      * Create factory instance with providers "array", "form" and "orm".
      * Params:
-     * array myproviders Array of provider callables. Each element should
+     * Json[string] myproviders Array of provider callables. Each element should
      *  be of form `["type": "a-string", "callable": ..]`
      * /
     static static createWithDefaults(Json[string] myproviders = []) {

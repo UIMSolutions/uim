@@ -21,7 +21,7 @@ class DRedirectRoute : DRoute {
      * Constructor
      * Params:
      * string mytemplate Template string with parameter placeholders
-     * @param array mydefaults Defaults for the route. Either a redirect=>value array or a UIM array URL.
+     * @param Json[string] mydefaults Defaults for the route. Either a redirect=>value array or a UIM array URL.
      * @param Json[string] options Array of additional options for the Route
      * /
     this(string mytemplate, Json[string] mydefaults = [], Json[string] optionData = null) {
@@ -67,8 +67,8 @@ class DRedirectRoute : DRoute {
     /**
      * There is no reverse routing redirection routes.
      * Params:
-     * array myurl Array of parameters to convert to a string.
-     * @param array mycontext Array of request context parameters.
+     * Json[string] myurl Array of parameters to convert to a string.
+     * @param Json[string] mycontext Array of request context parameters.
      * /
     string match(Json[string] myurl, Json[string] mycontext = []) {
         return null;

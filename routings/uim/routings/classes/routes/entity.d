@@ -22,8 +22,8 @@ class DEntityRoute : DRoute {
      * If a routing key is defined in both `myurl` and the entity, the value defined
      * in `myurl` will be preferred.
      * Params:
-     * array myurl Array of parameters to convert to a string.
-     * @param array mycontext An array of the current request context.
+     * Json[string] myurl Array of parameters to convert to a string.
+     * @param Json[string] mycontext An array of the current request context.
      *  Contains information such as the current host, scheme, port, and base
      *  directory.
      * /

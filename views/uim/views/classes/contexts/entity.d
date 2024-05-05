@@ -465,7 +465,7 @@ class DEntityContext : DContext {
      * Get the validator associated to an entity based on naming
      * conventions.
      * Params:
-     * array pathParts Each one of the parts in a path for a field name
+     * Json[string] pathParts Each one of the parts in a path for a field name
      * /
     protected IValidator _getValidator(Json[string] pathParts) {
         mykeyParts = array_filter(array_slice(pathParts, 0, -1), auto (mypart) {

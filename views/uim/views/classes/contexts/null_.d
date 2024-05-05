@@ -46,7 +46,7 @@ class DNullContext : DContext {
         return null;
     }
  
-    /* array attributes(string myfield) {
+    /* Json[string] attributes(string myfield) {
         return null;
     } */
  
@@ -54,7 +54,7 @@ class DNullContext : DContext {
         return false;
     }
  
-   /* array error(string myfield) {
+   /* Json[string] error(string myfield) {
         return null;
     } */
 }

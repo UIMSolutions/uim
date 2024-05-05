@@ -51,8 +51,8 @@ class DInflectedRoute : DRoute {
      * Underscores the prefix, controller and plugin params before passing them on to the
      * parent class
      * Params:
-     * array myurl Array of parameters to convert to a string.
-     * @param array mycontext An array of the current request context.
+     * Json[string] myurl Array of parameters to convert to a string.
+     * @param Json[string] mycontext An array of the current request context.
      *  Contains information such as the current host, scheme, port, and base
      *  directory.
      * /
@@ -75,7 +75,7 @@ class DInflectedRoute : DRoute {
     /**
      * Helper method for underscoring keys in a URL array.
      * Params:
-     * array myurl An array of URL keys.
+     * Json[string] myurl An array of URL keys.
      * /
     // TODO protected Json[string] _underscore(Json[string] myurl) {
         if (!empty(myurl["controller"])) {

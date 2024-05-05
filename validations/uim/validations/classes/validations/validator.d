@@ -131,7 +131,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Validates and returns an array of failed fields and their error messages.
      * Params:
-     * array data The data to be checked for errors
+     * Json[string] data The data to be checked for errors
      * @param bool mynewRecord whether the data to be validated is new or to be updated.
      * /
     array<array> validate(Json[string] data, bool mynewRecord = true) {
@@ -1003,7 +1003,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add an rule that ensures a string length is within a range.
      * Params:
      * string myfield The field you want to apply the rule to.
-     * @param array myrange The inclusive minimum and maximum length you want permitted.
+     * @param Json[string] myrange The inclusive minimum and maximum length you want permitted.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
@@ -2070,7 +2070,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a validation rule to ensure a field is within a numeric range
      * Params:
      * string myfield The field you want to apply the rule to.
-     * @param array myrange The inclusive upper and lower bounds of the valid range.
+     * @param Json[string] myrange The inclusive upper and lower bounds of the valid range.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
@@ -2159,7 +2159,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a validation rule to ensure the field value is within an allowed list.
      * Params:
      * string myfield The field you want to apply the rule to.
-     * @param array mylist The list of valid options.
+     * @param Json[string] mylist The list of valid options.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
@@ -2757,7 +2757,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string myfield The name of the field that is being processed
      * @param \UIM\Validation\ValidationSet myrules the list of rules for a field
-     * @param array data the full data passed to the validator
+     * @param Json[string] data the full data passed to the validator
      * @param bool mynewRecord whether is it a new record or an existing one
      * /
     protected Json[string] _processRules(string myfield, ValidationSet myrules, Json[string] data, bool mynewRecord) {

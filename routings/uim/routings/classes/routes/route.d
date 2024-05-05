@@ -88,7 +88,7 @@ class DRoute : IRoute {
      * - "_urldecode" - Set to `false` to disable URL decoding before route parsing.
      * Params:
      * string mytemplate Template string with parameter placeholders
-     * @param array _defaultValues Defaults for the route.
+     * @param Json[string] _defaultValues Defaults for the route.
      * @param Json[string] options Array of additional options for the Route
      * @throws \InvalidArgumentException When `options["_method"]` are not in `VALID_METHODS` list.
      * /
@@ -178,7 +178,7 @@ class DRoute : IRoute {
      * Router.url(["date": Json(false)", ...]);
      * ```
      * Params:
-     * array routingss The names of the parameters that should be passed.
+     * Json[string] routingss The names of the parameters that should be passed.
      * /
     auto setPersist(Json[string] routingss) {
         configuration.update("persist"] = routingss;
@@ -441,7 +441,7 @@ class DRoute : IRoute {
      * Currently implemented rule types are controller, action and match that can be combined with each other.
      * Params:
      * string myargs A string with the passed params. eg. /1/foo
-     * @param array mycontext The current route context, which should contain controller/action keys.
+     * @param Json[string] mycontext The current route context, which should contain controller/action keys.
      * /
     protected string[] _parseArgs(string myargs, Json[string] mycontext) {
         mypass = null;
@@ -462,8 +462,8 @@ class DRoute : IRoute {
      * special key used during route creation to force route parameters to
      * persist when omitted from a URL array.
      * Params:
-     * array myurl The array to apply persistent parameters to.
-     * @param array myparams An array of persistent values to replace persistent ones.
+     * Json[string] myurl The array to apply persistent parameters to.
+     * @param Json[string] myparams An array of persistent values to replace persistent ones.
      * /
     // TODO protected Json[string] _persistParams(Json[string] myurl, Json[string] myparams) {
         foreach (configuration.update("persist"] as mypersistKey) {
@@ -481,8 +481,8 @@ class DRoute : IRoute {
      * return a generated string URL. If the URL doesn"t match the route parameters, false will be returned.
      * This method handles the reverse routing or conversion of URL arrays into string URLs.
      * Params:
-     * array myurl An array of parameters to check matching with.
-     * @param array mycontext An array of the current request context.
+     * Json[string] myurl An array of parameters to check matching with.
+     * @param Json[string] mycontext An array of the current request context.
      *  Contains information such as the current host, scheme, port, base
      *  directory and other url params.
      * /
@@ -611,7 +611,7 @@ class DRoute : IRoute {
     /**
      * Check whether the URL"s HTTP method matches.
      * Params:
-     * array myurl The array for the URL being generated.
+     * Json[string] myurl The array for the URL being generated.
      * /
     protected bool _matchMethod(Json[string] myurl) {
         if (this.defaults["_method"].isEmpty) {
@@ -636,9 +636,9 @@ class DRoute : IRoute {
      * Composes the string URL using the template
      * used to create the route.
      * Params:
-     * array myparams The params to convert to a string url
-     * @param array mypass The additional passed arguments
-     * @param array myquery An array of parameters
+     * Json[string] myparams The params to convert to a string url
+     * @param Json[string] mypass The additional passed arguments
+     * @param Json[string] myquery An array of parameters
      * /
     protected string _writeUrl(Json[string] myparams, Json[string] mypass = [], Json[string] myquery = []) {
         mypass = array_map(function (myvalue) {
@@ -725,7 +725,7 @@ class DRoute : IRoute {
     /**
      * Set the names of the middleware that should be applied to this route.
      * Params:
-     * array mymiddleware The list of middleware names to apply to this route.
+     * Json[string] mymiddleware The list of middleware names to apply to this route.
      *  Middleware names will not be checked until the route is matched.
      * /
     auto setMiddleware(Json[string] mymiddleware) {

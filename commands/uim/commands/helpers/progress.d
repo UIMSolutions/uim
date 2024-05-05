@@ -68,7 +68,7 @@ class DProgressHelper { // } : Helper {
      * Params:
      * array commandArguments The arguments/options to use when outputing the progress bar.
      * /
-  void output(array commandArguments) {
+  void output(Json[string] commandArguments) {
     commandArguments ~= ["callback": null];
     if (isSet(commandArguments[0])) {
       commandArguments["callback"] = commandArguments[0];
@@ -98,7 +98,7 @@ class DProgressHelper { // } : Helper {
      * array commandArguments The initialization data.
 
      * /
-  bool initialize(array commandArguments = []) {
+  bool initialize(Json[string] commandArguments = []) {
     commandArguments += ["total": self: : DEFAULT_TOTAL, "width": self: : DEFAULT_WIDTH];
     _progress = 0;
     _width = commandArguments["width"];

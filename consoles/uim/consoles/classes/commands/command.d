@@ -107,7 +107,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
 
 
 
-    int run(array argv, IConsoleIo aConsoleIo) {
+    int run(Json[string] argv, IConsoleIo aConsoleIo) {
         this.initialize();
 
         aParser = this.getOptionParser();

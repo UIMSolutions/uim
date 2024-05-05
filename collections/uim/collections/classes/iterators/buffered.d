@@ -125,7 +125,7 @@ class DBufferedIterator : DCollection { // }, Countable {
      * Params:
      * array data Data array.
      * /
-  void __unserialize(array data) {
+  void __unserialize(Json[string] data) {
     __construct([]);
 
     someData.each!(value => _buffer.push(value));

@@ -232,11 +232,11 @@ mixin template TCollection() {
         return _newCollection(new DLimitIterator(this, mylength));
     }
  
-    ICollection match(array myconditions) {
+    ICollection match(Json[string] myconditions) {
         return _filter(_createMatcherFilter(myconditions));
     }
  
-    Json firstMatch(array myconditions) {
+    Json firstMatch(Json[string] myconditions) {
         return _match(myconditions).first();
     }
  

@@ -219,7 +219,7 @@ class DConsoleOptionParser {
      * Json[string] spec The spec to build the OptionParser with.
      * @param bool defaultOptions Whether you want the verbose and quiet options set.
      * /
-    static auto buildFromArray(array spec, bool defaultOptions = true) {
+    static auto buildFromArray(Json[string] spec, bool defaultOptions = true) {
         auto aParser = new static(spec["command"], defaultOptions);
         if (!spec["arguments"].isEmpty) {
              aParser.addArguments(spec["arguments"]);
@@ -369,7 +369,7 @@ class DConsoleOptionParser {
      * array<string, Json[string]|\UIM\Console\ConsoleInputArgument> someArguments Array of arguments to add.
      * @see \UIM\Console\DConsoleOptionParser buildOptionParser.addArgument()
      * /
-    void addArguments(array someArguments) {
+    void addArguments(Json[string] someArguments) {
         foreach (name: params; someArguments) {
             if (cast(DConsoleInputArgument)params) {
                 name = params;
@@ -418,7 +418,7 @@ class DConsoleOptionParser {
      * array argv Array of args (argv) to parse.
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo A ConsoleIo instance or null. If null prompt options will error.
      * /
-    array parse(array argv, IConsoleIo aConsoleIo = null) {
+    array parse(Json[string] argv, IConsoleIo aConsoleIo = null) {
         params = someArguments = null;
        _tokens = argv;
 

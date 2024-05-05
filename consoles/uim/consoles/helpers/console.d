@@ -43,6 +43,6 @@ abstract class DConsoleHelper {
      * Params:
      * array someArguments The arguments for the helper.
      * /
-    abstract void output(array someArguments);
+    abstract void output(Json[string] someArguments);
     */ 
 }

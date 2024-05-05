@@ -94,7 +94,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * array argv The arguments from the CLI environment.
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo The ConsoleIo instance. Used primarily for testing.
      * /
-    int run(array argv, IConsoleIo aConsoleIo = null) {
+    int run(Json[string] argv, IConsoleIo aConsoleIo = null) {
         assert(!argv.isEmpty, "Cannot run any commands. No arguments received.");
 
         this.bootstrap();

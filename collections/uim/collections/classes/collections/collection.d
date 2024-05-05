@@ -44,7 +44,7 @@ class DCollection : /* IteratorIterator, */ ICollection {
   }
 
   //  Rebuilds the Collection instance.
-  void __unserialize(array data) {
+  void __unserialize(Json[string] data) {
     __construct(someData);
   }
 

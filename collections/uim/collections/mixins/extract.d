@@ -104,7 +104,7 @@ mixin template TExtract() {
      * key is the property path to get from the current item and the value is the
      * value to be compared the item with.
      * /
-    protected IClosure _createMatcherFilter(array conditions) {
+    protected IClosure _createMatcherFilter(Json[string] conditions) {
          someMatchers = null;
         foreach (aProperty, aValue; conditions) {
              anExtractor = _propertyExtractor(aProperty);

@@ -36,11 +36,9 @@ class DServerCommand : DCommand {
      * Starts up the Command and displays the welcome message.
      * Allows for checking and configuring prior to command or main execution
      * Params:
-     * \UIM\Console\Json [string] arguments The command arguments.
-     * @param \UIM\Console\IConsoleIo aConsoleIo The console io
-     * @link https://book.UIM.org/5/en/console-and-shells.html#hook-methods
+     * \UIM\Console\Json[string] arguments The command arguments.
      * /
-    protected void startup(Json [string] arguments, IConsoleIo aConsoleIo) {
+    protected void startup(Json[string] arguments, IConsoleIo aConsoleIo) {
         _host = commandArguments.getString("host", _host); 
 
         _port = commandArguments.getInteger("port", _port));

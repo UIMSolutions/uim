@@ -23,10 +23,8 @@ class DReplaceIterator : DCollection {
      * Each time the callback is executed it will receive the value of the element
      * in the current iteration, the key of the element and the passed  someItems iterator
      * as arguments, in that order.
-     * Params:
-     * @param callable aCallback Callback.
      * /
-  this(Json[string] itemToFilter, callableaCallback) {
+  this(Json[string] itemToFilter, callable callableaCallback) {
    _callback = aCallback;
   super(itemToFilter);
    _innerIterator = this.getInnerIterator();

@@ -17,7 +17,6 @@ class DUnfoldIterator {  /* }: IteratorIterator, RecursiveIterator {
     /**
      * A auto that is passed each element in this iterator and
      * must return an array or Traversable object.
-     *
           * /
     protected callable  _unfolder;
 
@@ -28,14 +27,13 @@ class DUnfoldIterator {  /* }: IteratorIterator, RecursiveIterator {
      * Creates the iterator that will generate child iterators from each of the
      * elements it was constructed with.
      * Params:
-     * \Traversable  someItems The list of values to iterate
      * @param callable unfolder A callable auto that will receive the
      * current item and key. It must return an array or Traversable object
      * out of which the nested iterators will be yielded.
      * /
-    this(Traversable someItems, callable unfolder) {
+    this(Traversable valuesToIterate, callable unfolder) {
        _unfolder = unfolder;
-        super(someItems);
+        super(valuesToIterate);
        _innerIterator = this.getInnerIterator();
     }
     

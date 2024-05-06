@@ -188,17 +188,17 @@ class DSqlserverDriver : DDriver {
     }
  
     protected ISelectQuery _selectQueryTranslator(SelectQuery aQuery) {
-        aLimit = aQuery.clause("limit");
+        numberOfRows = aQuery.clause("limit");
          anOffset = aQuery.clause("offset");
 
-        if (aLimit &&  anOffset.isNull) {
-            aQuery.modifier(["_auto_top_": "TOP %d".format(aLimit)]);
+        if (numberOfRows &&  anOffset.isNull) {
+            aQuery.modifier(["_auto_top_": "TOP %d".format(numberOfRows)]);
         }
         if (anOffset !isNull && !aQuery.clause("order")) {
             aQuery.orderBy(aQuery.newExpr().add("(SELECT NULL)"));
         }
         if (this.currentVersion() < 11 &&  anOffset !isNull) {
-            return _pagingSubquery(aQuery, aLimit,  anOffset);
+            return _pagingSubquery(aQuery, numberOfRows,  anOffset);
         }
         return _transformDistinct(aQuery);
     }
@@ -210,10 +210,8 @@ class DSqlserverDriver : DDriver {
      * be used.
      * Params:
      * \UIM\Database\Query\SelectQuery<mixed>  original The query to wrap in a subquery.
-     * @param int aLimit The number of rows to fetch.
-     * @param int  anOffset The number of rows to offset.
      * /
-    protected ISelectQuery _pagingSubquery(SelectQuery  original, int aLimit, int rowsOffset) {
+    protected ISelectQuery _pagingSubquery(SelectQuery  original, int numberOfRows, int rowsOffset) {
         auto field = "_uim_paging_._uim_page_rownum_";
 
         if (original.clause("order")) {
@@ -256,8 +254,8 @@ class DSqlserverDriver : DDriver {
         if (rowsOffset) {
              outer.where(["field > " ~  rowsOffset]);
         }
-        if (aLimit) {
-            aValue = (int) rowsOffset + aLimit;
+        if (numberOfRows) {
+            aValue = (int) rowsOffset + numberOfRows;
              outer.where(["field <= aValue"]);
         }
         // Decorate the original query as that is what the

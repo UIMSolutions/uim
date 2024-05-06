@@ -28,15 +28,10 @@ class DStoppableIterator : DCollection {
      * Each time the condition callback is executed it will receive the value of the element
      * in the current iteration, the key of the element and the passed  someItems iterator
      * as arguments, in that order.
-     * Params:
-     * Json[string] someItems The list of values to iterate
-     * @param callable condition A auto that will be called for each item in
-     * the collection, if the result evaluates to false, no more items will be
-     * yielded from this iterator.
      * /
-  this(Json[string] someItems, callablecondition) {
+  this(Json[string] valuesToIterate, callable condition) {
     _condition = condition;
-    super(someItems);
+    super(valuesToIterate);
     _innerIterator = this.getInnerIterator();
   }
 

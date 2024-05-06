@@ -8,7 +8,7 @@ import uim.commands;
  * @internal
  */
 mixin template TPluginAssets() {
-    protected Json [string] arguments;
+    protected Json[string] arguments;
 
     /*
     // Console IO

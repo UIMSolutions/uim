@@ -18,33 +18,33 @@ class DInsertIterator : DCollection {
 
   // The property name to which values will be assigned
   protected string _target;
-  
+
   // The collection from which to extract the values to be inserted
   protected ICollection _values;
 
 
   /**
      * Constructs a new DCollection that will dynamically add properties to it out of
-     * the values found in  someValues.
+     * the values found in  sourceValues.
      * Params:
      * range anInto The target collection to which the values will
      * be inserted at the specified path.
      * @param string aPath A dot separated list of properties that need to be traversed
      * to insert the value into the target collection.
-     * @param  range someValues The source collection from which the values will
+     * @param  range sourceValues The source collection from which the values will
      * be inserted at the specified path.
      * /
-  this(Json[string] anInto, string aPath, Json[string] someValues) {
+  this(Json[string] anInto, string aPath, Json[string] sourceValues) {
     super(anInto);
 
-    if (!(cast(DCollection) someValues)) {
-       someValues = new DCollection(someValues);
+    if (!(cast(DCollection) sourceValues)) {
+       sourceValues = new DCollection(sourceValues);
     }
     string[] pathParts = somePath.split(".");
     auto mytarget = array_pop(pathParts);
    _path = somePath;
    _target = target;
-   _values = someValues;
+   _values = sourceValues;
   }
 
   // Advances the cursor to the next record

@@ -1013,10 +1013,10 @@ abstract class DQuery : IQuery { // : IExpression {
      * DOrder fields are not suitable for use with user supplied data as they are
      * not sanitized by the query builder.
      * Params:
-     * \UIM\Database\IExpression|\Closure|string afield The field to order on.
+     * \UIM\Database\IExpression|\Closure|string fieldName The field to order on.
      * @param bool overwrite Whether to reset the order clauses.
      * /
-    auto orderByAsc(IExpression|Closure|string afield, bool overwrite = false) {
+    auto orderByAsc(IExpression|Closure|string fieldName, bool overwrite = false) {
         if (overwrite) {
            _parts["order"] = null;
         }
@@ -1043,10 +1043,10 @@ abstract class DQuery : IQuery { // : IExpression {
      * DOrder fields are not suitable for use with user supplied data as they are
      * not sanitized by the query builder.
      * Params:
-     * \UIM\Database\IExpression|\Closure|string afield The field to order on.
+     * \UIM\Database\IExpression|\Closure|string fieldName The field to order on.
      * @param bool overwrite Whether to reset the order clauses.
       * /
-    auto orderByDesc(IExpression|Closure|string afield, bool overwrite = false) {
+    auto orderByDesc(IExpression|Closure|string fieldName, bool overwrite = false) {
         if (overwrite) {
            _parts["order"] = null;
         }

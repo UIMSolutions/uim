@@ -86,7 +86,7 @@ class DCommonTableExpression : IExpression {
     /**
      * Adds one or more fields (arguments) to the CTE.
      * Params:
-     * \UIM\Database\Expression\IdentifierExpression|array<\UIM\Database\Expression\IdentifierExpression>|string[]|string afields Field names
+     * \UIM\Database\Expression\IdentifierExpression|array<\UIM\Database\Expression\IdentifierExpression>|string[]|string fieldNames Field names
      * /
     void field(IdentifierExpression|string[] fieldNames) {
         auto fields = (array)fields;

@@ -37,11 +37,11 @@ class DComparisonExpression : DExpression { // TODO}, IField {
     /**
      * Constructor
      * Params:
-     * \UIM\Database\IExpression|string afield the field name to compare to a value
+     * \UIM\Database\IExpression|string fieldName the field name to compare to a value
      * @param Json aValue The value to be used in comparison
      * /
     this(
-        IExpression|string afield,
+        IExpression|string fieldName,
         Json aValue,
         string typeName = null,
         string operator = "="

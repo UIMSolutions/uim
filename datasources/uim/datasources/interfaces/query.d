@@ -34,7 +34,7 @@ interface IQuery {
      * If the field is already aliased, then it will not be changed.
      * If no alias is passed, the default table for this query will be used.
      * Params:
-     * string afield The field to alias
+     * string fieldName The field to alias
      * @param string|null alias the alias used to prefix the field
      */
     STRINGAA aliasField(string fieldName, string aliasName = null);

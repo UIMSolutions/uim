@@ -838,12 +838,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Converts validator to fieldName: mysettings array
      * Params:
-     * string aFieldName name of field
+     * string fieldNameName name of field
      * @param Json[string] mydefaults default settings
      * @param array<string|int, mixed>|string|int mysettings settings from data
      * /
     // TODO protected array<string, array<string|int, mixed>> _convertValidatorToArray(
-        string aFieldName,
+        string fieldNameName,
         array mydefaults = [],
         string[]|int mysettings = []
     ) {

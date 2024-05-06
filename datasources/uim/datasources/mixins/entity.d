@@ -138,10 +138,10 @@ mixin template TEntity() {
                                                                   /**
      * Sets a field as invalid and not patchable into the entity.
      * Params:
-     * string afield The value to set.
+     * string fieldName The value to set.
      * @param Json aValue The invalid value to be set for field.
     * /
-                                                                  auto setInvalidField(string afield, Json aValue) {
+                                                                  auto setInvalidField(string fieldName, Json aValue) {
                                                                     _invalidFields[field] = aValue;
 
                                                                     return this;}
@@ -162,7 +162,7 @@ mixin template TEntity() {
   /**
      * Magic getter to access fields that have been set in this entity
      * Params:
-     * string afield Name of the field to access
+     * string fieldName Name of the field to access
    * /
   Json & __get(string fieldName) {
     return get(field);
@@ -245,7 +245,7 @@ mixin template TEntity() {
      * print_r(entity.getOriginalFields()) // prints ["name", "id", "phone_number"]
      * ```
      * Params:
-     * Json[string]|string afield the name of field to set or a list of
+     * Json[string]|string fieldName the name of field to set or a list of
      * fields with their respective values
      * @param Json aValue The value to set to the field or an array if the
      * first argument is also an array, in which case will be treated as options
@@ -405,7 +405,7 @@ mixin template TEntity() {
      * When checking multiple fields all fields must have a value (even `null`)
      * present for the method to return `true`.
      * Params:
-     * string[]|string afield The field or fields to check.
+     * string[]|string fieldName The field or fields to check.
     * /
   bool has(string[] afield) {
     foreach ((array)field asprop) {
@@ -460,7 +460,7 @@ mixin template TEntity() {
      * entity.unset(["name", "last_name"]);
      * ```
      * Params:
-     * string[]|string afield The field to unset.
+     * string[]|string fieldName The field to unset.
     * /
   auto unset(string[] afield) {
     field = (array)field;
@@ -692,7 +692,7 @@ mixin template TEntity() {
      * Sets the given field or a list of fields to as original.
      * Normally there is no need to call this method manually.
      * Params:
-     * string[]|string afield the name of a field or a list of fields to set as original
+     * string[]|string fieldName the name of a field or a list of fields to set as original
      * @param bool merge
     * /
   protected void setOriginalField(string | arrayfield, bool merge = true) {
@@ -713,11 +713,11 @@ mixin template TEntity() {
     /**
      * Sets the dirty status of a single field.
      * Params:
-     * string afield the field to set or check status for
+     * string fieldName the field to set or check status for
      * @param bool  isDirty true means the field was changed, false means
      * it was not changed. Defaults to true.
     * /
-    bool isDirty(string afield, bool dirtyMode = true) {
+    bool isDirty(string fieldName, bool dirtyMode = true) {
       if (!dirtyMode) {
         this.setOriginalField(field);
 
@@ -738,7 +738,7 @@ mixin template TEntity() {
      * Params:
      * string field The field to check the status for. Null for the whole entity.
     * /
-    bool isDirty(string afield = null) {
+    bool isDirty(string fieldName = null) {
       if (field.isNull) {
         return !_isDirty.isEmpty;
       }
@@ -838,9 +838,9 @@ mixin template TEntity() {
                   /**
      * Returns validation errors of a field
      * Params:
-     * string afield Field name to get the errors from
+     * string fieldName Field name to get the errors from
     * /
-                  array getError(string afield) {
+                  array getError(string fieldName) {
                     return _fieldErrors[field] ?  ? _nestedErrors(field);}
 
                     /**
@@ -883,11 +883,11 @@ mixin template TEntity() {
      * entity.setErrors("salary", ["must be numeric", "must be a positive number"]);
      * ```
      * Params:
-     * string afield The field to get errors for, or the array of errors to set.
+     * string fieldName The field to get errors for, or the array of errors to set.
      * @param string[] aerrors The errors to be set for field
      * @param bool overwrite Whether to overwrite pre-existing errors for field
     * /
-                              auto setErrors(string afield, string[] aerrors, booloverwrite = false) {
+                              auto setErrors(string fieldName, string[] aerrors, booloverwrite = false) {
                                 if (isString(errors)) {
                                   errors = [errors];}
                                   return _setErrors([field: errors], overwrite);
@@ -896,7 +896,7 @@ mixin template TEntity() {
                                 /**
      * Auxiliary method for getting errors in nested entities
      * Params:
-     * string afield the field in this entity to check for errors
+     * string fieldName the field in this entity to check for errors
     * /
   // TODO protected Json[string] _nestedErrors(
     string fieldName) {
@@ -1015,7 +1015,7 @@ mixin template TEntity() {
      * entity.setAccess("*", false); // Mark all fields as protected
      * ```
      * Params:
-     * string[]|string afield Single or list of fields to change its accessibility
+     * string[]|string fieldName Single or list of fields to change its accessibility
      * @param bool set True marks the field as accessible, false will
      * mark it as protected.
     * /
@@ -1050,9 +1050,9 @@ mixin template TEntity() {
      * entity.isAccessible("id"); // Returns whether it can be set or not
      * ```
      * Params:
-     * string afield Field name to check
+     * string fieldName Field name to check
     * /
-                                                                    bool isAccessible(string afield) {
+                                                                    bool isAccessible(string fieldName) {
                                                                       aValue = _accessible[field] ?  ? null;
 
                                                                       return (aValue.isNull && !empty(

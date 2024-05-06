@@ -27,7 +27,7 @@ interface IWindow {
     /**
      * Adds one or more order by clauses to the window.
      * Params:
-     * \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string afields DOrder expressions
+     * \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string fieldNames DOrder expressions
      * /
     auto orderBy(IExpression|Closure|string[] fieldNames);
 

@@ -29,7 +29,7 @@ class DStoppableIterator : DCollection {
      * in the current iteration, the key of the element and the passed  someItems iterator
      * as arguments, in that order.
      * Params:
-     * range someItems The list of values to iterate
+     * Json[string] someItems The list of values to iterate
      * @param callable condition A auto that will be called for each item in
      * the collection, if the result evaluates to false, no more items will be
      * yielded from this iterator.

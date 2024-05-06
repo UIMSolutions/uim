@@ -29,7 +29,7 @@ class DFilterIterator : DCollection {
      * range myitems The items to be filtered.
      * @param callable aCallback Callback.
      * /
-    this(Range myitems, callable aCallback) {
+    this(Json[string] myitems, callable aCallback) {
         if (!cast(Iterator)myitems) {
             myitems = new DCollection(myitems);
         }

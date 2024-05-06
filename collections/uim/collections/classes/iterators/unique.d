@@ -17,7 +17,7 @@ class DUniqueIterator : DCollection {
      * The callback is passed the value as the first argument and the key as the
      * second argument.
      * Params:
-     * range someItems The items to be filtered.
+     * Json[string] someItems The items to be filtered.
      * @param callable aCallback Callback.
      * /
     this(Json[string] someItems, callable aCallback) {

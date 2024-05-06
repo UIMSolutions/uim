@@ -328,14 +328,10 @@ class DResponse : IResponse {
         "bmp": "image/bmp",
     ];
 
-    /**
-     * Status code to send to the client
-     */
+    // Status code to send to the client
     protected int _status = 200;
 
-    /**
-     * File object for file to be read out as response
-     */
+    // File object for file to be read out as response
     protected ISplFileInfo _file = null;
 
     /**
@@ -345,9 +341,7 @@ class DResponse : IResponse {
      */
     // TODO protected Json[string] _fileRange = null;
 
-    /**
-     * The charset the response body is encoded with
-     */
+    // The charset the response body is encoded with
     protected string _charset = "UTF-8";
 
     /**
@@ -356,11 +350,7 @@ class DResponse : IResponse {
      */
     protected Json[string] _cacheDirectives = null;
 
-    /**
-     * Collection of cookies to send to the client
-     *
-     * @var \UIM\Http\Cookie\CookieCollection
-     */
+    // Collection of cookies to send to the client
     protected ICookieCollection _cookies;
 
     // Reason Phrase

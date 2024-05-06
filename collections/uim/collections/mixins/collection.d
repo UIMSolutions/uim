@@ -349,7 +349,7 @@ mixin template TCollection() {
         return _newCollection(mygenerator(myiterator, mylength));
     }
  
-    ICollection append(Range myitems) {
+    ICollection append(Json[string] myitems) {
         mylist = new AppendIterator();
         mylist.append(this.unwrap());
         mylist.append(this.newCollection(myitems).unwrap());
@@ -575,7 +575,7 @@ mixin template TCollection() {
         return new DZipIterator(chain([this.unwrap()], myitems));
     }
  
-    ICollection zipWith(Range myitems, mycallback) {
+    ICollection zipWith(Json[string] myitems, mycallback) {
         if (func_num_args() > 2) {
             myitems = func_get_args();
             mycallback = array_pop(myitems);

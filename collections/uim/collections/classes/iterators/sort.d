@@ -32,24 +32,16 @@ class DSortIterator : DCollection {
      * element. Please note that the callback auto could be called more than once
      * per element.
      * Params:
-     * range someItems The values to sort
      * @param string acallback A auto used to return the actual value to
      * be compared. It can also be a string representing the path to use to fetch a
      * column or property in each element
-     * @param int sortDirection either SORT_DESC or SORT_ASC
-     * @param int type the type of comparison to perform, either SORT_STRING
-     * SORT_NUMERIC or SORT_NATURAL
      * /
   this(
-    range someItems,
+    Json[string] someItems,
     string mycallback,
     int sortDirection = SORT_DESC,
     int sortType = SORT_NUMERIC
   ) {
-    if (!isArray(someItems)) {
-      someItems = iterator_to_array((new DCollection(someItems)).unwrap(), false);
-    }
-
     auto aCallback = _propertyExtractor(aCallback);
     auto myResults = null;
     foreach (aKey, val; someItems) {

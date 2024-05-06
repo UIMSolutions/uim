@@ -34,7 +34,7 @@ class DStoppableIterator : DCollection {
      * the collection, if the result evaluates to false, no more items will be
      * yielded from this iterator.
      * /
-  this(Range someItems, callablecondition) {
+  this(Json[string] someItems, callablecondition) {
     _condition = condition;
     super(someItems);
     _innerIterator = this.getInnerIterator();

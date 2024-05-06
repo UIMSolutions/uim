@@ -20,7 +20,7 @@ class DUniqueIterator : DCollection {
      * range someItems The items to be filtered.
      * @param callable aCallback Callback.
      * /
-    this(Range someItems, callable aCallback) {
+    this(Json[string] someItems, callable aCallback) {
         if (!cast(Iterator)someItems) {
             someItems = new DCollection(someItems);
         }

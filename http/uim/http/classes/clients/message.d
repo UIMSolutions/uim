@@ -7,8 +7,7 @@ import uim.http;
 /**
  * Base class for other HTTP requests/responses
  *
- * Defines some common helper methods, constants
- * and properties.
+ * Defines some common helper methods, constants and properties.
  */
 class DMessage {
     // HTTP 200 code
@@ -41,56 +40,35 @@ class DMessage {
     // HTTP 308 code
     const int STATUS_PERMANENT_REDIRECT = 308;
 
-    /**
-     * HTTP GET method
-     */
+    // HTTP GET method
     const string METHOD_GET = "GET";
 
-    /**
-     * HTTP POST method
-     */
+    // HTTP POST method
     const string METHOD_POST = "POST";
 
-    /**
-     * HTTP PUT method
-     */
+    // HTTP PUT method
     const string METHOD_PUT = "PUT";
 
-    /**
-     * HTTP DELETE method
-     */
+    // HTTP DELETE method
     const string METHOD_DELETE = "DELETE";
 
     // HTTP PATCH method
     const string METHOD_PATCH = "PATCH";
 
-    /**
-     * HTTP OPTIONS method
-     */
+    // HTTP OPTIONS method
     const string METHOD_OPTIONS = "OPTIONS";
 
-    /**
-     * HTTP TRACE method
-     */
+    // HTTP TRACE method
     const string METHOD_TRACE = "TRACE";
 
-    /**
-     * HTTP HEAD method
-     */
+    // HTTP HEAD method
     const string METHOD_HEAD = "HEAD";
 
-    /**
-     * The array of cookies in the response.
-     *
-     * @var array
-     * /
-    // TODO protected Json[string] _cookies = null;
+    // The array of cookies in the response.
+    protected Json[string] _cookies = null;
 
-    /**
-     * Get all cookies
-     *
-     * /
-    array cookies() {
+    // Get all cookies
+    Json[string] cookies() {
         return _cookies;
-    } */
+    }
 }

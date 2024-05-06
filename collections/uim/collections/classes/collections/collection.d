@@ -30,7 +30,7 @@ class DCollection : /* IteratorIterator, */ ICollection {
 		return true;
 	}
 
-  /* this(Range someItems) {
+  /* this(Json[string] someItems) {
     if (someItems.isArray) {
       someItems = new DArrayIterator(someItems);
     }

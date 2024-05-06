@@ -12,25 +12,19 @@ import uim.collections;
  */
 class DNestIterator : DCollection {// }, RecursiveIterator {
     // The name of the property that contains the nested items for each element
-    protected string _nestKey;
+    protected string _nestedKey;
 
-    /**
-     * Constructor
-     * Params:
-     * range someItems Collection items.
-     * @param string anestKey the property that contains the nested items
-     * If a callable is passed, it should return the childrens for the passed item
-     * /
-    this(Range someItems, string mynestKey) {
+    /* 
+    this(Json[string] someItems, string nestedKey) {
         super(someItems);
-       _nestKey = nestKey;
+       _nestedKey = nestedKey;
     }
     
     // Returns a traversable containing the children for the current item
     RecursiveIterator getChildren() {
-         aProperty = _propertyExtractor(_nestKey);
+        auto aProperty = _propertyExtractor(_nestedKey);
 
-        return new static(aProperty(this.current()), _nestKey);
+        return new static(aProperty(this.current()), _nestedKey);
     }
     
     /**
@@ -38,7 +32,7 @@ class DNestIterator : DCollection {// }, RecursiveIterator {
      * configured nestKey for the current item
      * /
     bool hasChildren() {
-        auto myProperty = _propertyExtractor(_nestKey);
+        auto myProperty = _propertyExtractor(_nestedKey);
         auto myChildren = myProperty(this.current());
 
         if (myChildren.isArray) {

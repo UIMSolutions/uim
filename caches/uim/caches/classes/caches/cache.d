@@ -265,8 +265,6 @@ class DCache : ICache {
      * ```
      * Cache.read("_data", "long_term");
      * ```
-     * Params:
-     * @param string configName optional name of the configuration to use. Defaults to "default"
      */
     /* static Json read(string dataId, string configName = "default") {
         return pool(configName).get(dataId);

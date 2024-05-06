@@ -249,14 +249,7 @@ override bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
   return _Memory.set(_key(itemKey), dataToCache, myduration);
 }
 
-/**
-     * Write many cache entries to the cache at once
-     * Params:
-     * range myvalues An array of data to be stored in the cache
-     * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
-     *  the driver supports TTL then the library may set a default value
-     *  for it or let the driver take care of that.
-     * /
+// Write many cache entries to the cache at once
 override bool set(Json[string] values, long timeToLive = 0) {
   auto cacheData = null;
   myvalues.byKeyValue
@@ -322,12 +315,8 @@ override bool clear() {
   return true;
 }
 
-/**
-     * Add a key to the cache if it does not already exist.
-     * Params:
-     * @param Json aValue Data to be cached.
-     * /
-override bool add(string itemKey, Json aValue) {
+// Add a key to the cache if it does not already exist.
+override bool add(string itemKey, Json dataToCache) {
   auto myduration = configuration.get("duration");
   aKey = _key(itemKey);
 
@@ -341,8 +330,8 @@ override bool add(string itemKey, Json aValue) {
      * /
   string[] groups() {
   if (_compiledGroupNames.isEmpty) {
-    foreach (mygroup; configuration.get("groups"]) {
-      _compiledGroupNames ~= configuration.get("prefix") ~ mygroup;
+    foreach (mygroup; configuration.getStringArray("groups")) {
+      _compiledGroupNames ~= configuration.getString("prefix") ~ mygroup;
     }
   }
   mygroups = _Memory.getMulti(_compiledGroupNames) ?  : [];

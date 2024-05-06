@@ -188,10 +188,10 @@ class DMarshaller {
      * Returns the validation errors for a data set based on the passed options
      * Params:
      * Json[string] data The data to validate.
-     * @param string|bool myvalidator Validator name or `true` for default validator.
+     * @param string myvalidator Validator name or `true` for default validator.
      * @param bool myisNew Whether it is a new DORMEntity or one to be updated.
      * /
-    // TODO protected Json[string] _validate(Json[string] data, string|bool myvalidator, bool myisNew) {
+    // TODO protected Json[string] _validate(Json[string] data, string myvalidator, bool myisNew) {
         if (!myvalidator) {
             return null;
         }

@@ -40,7 +40,7 @@ class DConsoleInputOption {
     protected string _help;
 
     // Default value for the option
-    // TODO protected string|bool|null _default = null;
+    // TODO protected string|null _default = null;
 
     // An array of choices for the option.
     protected string[] _choices;
@@ -75,7 +75,7 @@ class DConsoleInputOption {
      * string aName The long name of the option, or an array with all the properties.
      * @param string ahelp The help text for this option
      * @param bool isBooleanOption Whether this option is a boolean option. Boolean options don`t consume extra tokens
-     * @param string|bool|null default The default value for this option.
+     * @param string|null default The default value for this option.
      * @param bool multiple Whether this option can accept multiple value definition.
      * @param string prompt The prompt string.
      * @throws \UIM\Console\Exception\ConsoleException
@@ -85,7 +85,7 @@ class DConsoleInputOption {
         string newShortAlias = "",
         string ahelp = "",
         bool isBooleanOption = false,
-        string|bool|null default = null,
+        string|null default = null,
         string[] validChoices = [],
         bool acceptsMultiple = false,
         bool isRequiredOption = false,
@@ -169,7 +169,7 @@ class DConsoleInputOption {
     }
     
     // Get the default value for this option
-    string|bool|null defaultValue() {
+    string|null defaultValue() {
         return _default;
     }
     
@@ -178,9 +178,9 @@ class DConsoleInputOption {
     /**
      * Check that a value is a valid choice for this option.
      * Params:
-     * string|bool aValue The choice to validate.
+     * string aValue The choice to validate.
      * /
-    bool validChoice(string|bool aValue) {
+    bool validChoice(string aValue) {
         if (_choices.isEmpty) {
             return true;
         }

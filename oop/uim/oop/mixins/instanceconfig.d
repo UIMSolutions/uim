@@ -164,11 +164,11 @@ mixin template TInstanceConfig() {
      * Params:
      * IData[string]|string keyToWrite Key to write to.
      * @param IData aValue Value to write.
-     * @param string|bool merge True to merge recursively, "shallow' for simple merge,
+     * @param string merge True to merge recursively, "shallow' for simple merge,
      *  false to overwrite, defaults to false.
      * @throws \UIM\Core\Exception\UimException if attempting to clobber existing config
      * /
-    protected void _configWrite(string[] keyToWrite, IData aValue, string|bool merge = false) {
+    protected void _configWrite(string[] keyToWrite, IData aValue, string merge = false) {
         if (isString(keyToWrite) && aValue.isNull) {
            _configDelete(keyToWrite);
 

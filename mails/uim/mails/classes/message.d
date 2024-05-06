@@ -798,14 +798,9 @@ class DMessage { //: JsonSerializable {
     /**
      * Sets message ID.
      * Params:
-     * string|bool message True to generate a new DMessage-ID, False to ignore (not send in email),
+     * string message True to generate a new DMessage-ID, False to ignore (not send in email),
      *  String to set as Message-ID.
      * /
-    void setMessageId(bool message) {
-            this.messageId = message;
-        // TODO
-        
-    }
     void setMessageId(string message) {
         if (!preg_match("/^\<.+@.+\>/", message)) {
             throw new DInvalidArgumentException(
@@ -816,7 +811,7 @@ class DMessage { //: JsonSerializable {
     }
     
     // Gets message ID.
-    string|bool getMessageId() {
+    string getMessageId() {
         return _messageId;
     }
     

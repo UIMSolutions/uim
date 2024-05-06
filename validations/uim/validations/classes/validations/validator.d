@@ -499,12 +499,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * setting takes precedence over group settings.
      * Params:
      * array<string|int, mixed>|string fieldName the name of the field or list of fields.
-     * @param \Closure|string|bool mymode Valid values are true, false, "create", "update".
+     * @param \Closure|string mymode Valid values are true, false, "create", "update".
      *  If a Closure is passed then the field will be required only when the callback
      *  returns true.
      * @param string|null myMessage The message to show if the field presence validation fails.
      * /
-    void requirePresence(string[] fieldName, IClosure|string|bool mymode = true, string myMessage = null) {
+    void requirePresence(string[] fieldName, IClosure|string mymode = true, string myMessage = null) {
         mydefaults = [
             "mode": mymode,
             "message": myMessage,
@@ -586,7 +586,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * string fieldName The name of the field.
      * @param int myflags A bitmask of EMPTY_* flags which specify what is empty.
      *  If no flags/bitmask is provided only `null` will be allowed as empty value.
-     * @param \Closure|string|bool mywhen Indicates when the field is allowed to be empty
+     * @param \Closure|string mywhen Indicates when the field is allowed to be empty
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      * @param string|null myMessage The message to show if the field is not
@@ -595,7 +595,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     void allowEmptyFor(
         string fieldName,
         int myflags = null,
-        Closure|string|bool mywhen = true,
+        Closure|string mywhen = true,
         string myMessage = null
     ) {
         this.field(fieldName).allowEmpty(mywhen);
@@ -614,12 +614,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName The name of the field.
      * @param string|null myMessage The message to show if the field is not
-     * @param \Closure|string|bool mywhen Indicates when the field is allowed to be empty
+     * @param \Closure|string mywhen Indicates when the field is allowed to be empty
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      * @return this
      * /
-    auto allowEmptyString(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
+    auto allowEmptyString(string fieldName, string myMessage = null, IClosure|string mywhen = true) {
         return _allowEmptyFor(fieldName, self.EMPTY_STRING, mywhen, myMessage);
     }
     
@@ -630,13 +630,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName The name of the field.
      * @param string|null myMessage The message to show if the field is empty.
-     * @param \Closure|string|bool mywhen Indicates when the field is not allowed
+     * @param \Closure|string mywhen Indicates when the field is not allowed
      *  to be empty. Valid values are false (never), "create", "update". If a
      *  Closure is passed then the field will be required to be not empty when
      *  the callback returns true.
      * @return this
      * /
-    auto notEmptyString(string fieldName, string myMessage = null, IClosure|string|bool mywhen = false) {
+    auto notEmptyString(string fieldName, string myMessage = null, IClosure|string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, self.EMPTY_STRING, mywhen, myMessage);
@@ -650,12 +650,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName The name of the field.
      * @param string|null myMessage The message to show if the field is not
-     * @param \Closure|string|bool mywhen Indicates when the field is allowed to be empty
+     * @param \Closure|string mywhen Indicates when the field is allowed to be empty
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      * @return this
      * /
-    auto allowEmptyArray(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
+    auto allowEmptyArray(string fieldName, string myMessage = null, IClosure|string mywhen = true) {
         return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_ARRAY, mywhen, myMessage);
     }
     
@@ -666,13 +666,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName The name of the field.
      * @param string|null myMessage The message to show if the field is empty.
-     * @param \Closure|string|bool mywhen Indicates when the field is not allowed
+     * @param \Closure|string mywhen Indicates when the field is not allowed
      *  to be empty. Valid values are false (never), "create", "update". If a
      *  Closure is passed then the field will be required to be not empty when
      *  the callback returns true.
      * @return this
      * /
-    auto notEmptyArray(string fieldName, string myMessage = null, IClosure|string|bool mywhen = false) {
+    auto notEmptyArray(string fieldName, string myMessage = null, IClosure|string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_ARRAY, mywhen, myMessage);
@@ -687,12 +687,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName The name of the field.
      * @param string|null myMessage The message to show if the field is not
-     * @param \Closure|string|bool mywhen Indicates when the field is allowed to be empty
+     * @param \Closure|string mywhen Indicates when the field is allowed to be empty
      *  Valid values are true, "create", "update". If a Closure is passed then
      *  the field will allowed to be empty only when the callback returns true.
      * @return this
      * /
-    auto allowEmptyFile(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
+    auto allowEmptyFile(string fieldName, string myMessage = null, IClosure|string mywhen = true) {
         return _allowEmptyFor(fieldName, self.EMPTY_FILE, mywhen, myMessage);
     }
     
@@ -703,13 +703,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName The name of the field.
      * @param string|null myMessage The message to show if the field is empty.
-     * @param \Closure|string|bool mywhen Indicates when the field is not allowed
+     * @param \Closure|string mywhen Indicates when the field is not allowed
      *  to be empty. Valid values are false (never), "create", "update". If a
      *  Closure is passed then the field will be required to be not empty when
      *  the callback returns true.
      * @return this
      * /
-    auto notEmptyFile(string fieldName, string myMessage = null, IClosure|string|bool mywhen = false) {
+    auto notEmptyFile(string fieldName, string myMessage = null, IClosure|string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, self.EMPTY_FILE, mywhen, myMessage);
@@ -723,12 +723,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName The name of the field.
      * @param string|null myMessage The message to show if the field is not
-     * @param \Closure|string|bool mywhen Indicates when the field is allowed to be empty
+     * @param \Closure|string mywhen Indicates when the field is allowed to be empty
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      * @return this
      * /
-    auto allowEmptyDate(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
+    auto allowEmptyDate(string fieldName, string myMessage = null, IClosure|string mywhen = true) {
         return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_DATE, mywhen, myMessage);
     }
     
@@ -737,14 +737,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName The name of the field.
      * @param string|null myMessage The message to show if the field is empty.
-     * @param \Closure|string|bool mywhen Indicates when the field is not allowed
+     * @param \Closure|string mywhen Indicates when the field is not allowed
      *  to be empty. Valid values are false (never), "create", "update". If a
      *  Closure is passed then the field will be required to be not empty when
      *  the callback returns true.
      * @return this
-     * @see \UIM\Validation\Validator.allowEmptyDate() for examples
+     * @see\UIM\Validation\Validator.allowEmptyDate() for examples
      * /
-    auto notEmptyDate(string fieldName, string myMessage = null, IClosure|string|bool mywhen = false) {
+    auto notEmptyDate(string fieldName, string myMessage = null, IClosure|string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_DATE, mywhen, myMessage);
@@ -761,14 +761,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName The name of the field.
      * @param string|null myMessage The message to show if the field is not
-     * @param \Closure|string|bool mywhen Indicates when the field is allowed to be empty
+     * @param \Closure|string mywhen Indicates when the field is allowed to be empty
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      * @return this
     
      * @see \UIM\Validation\Validator.allowEmptyFor() for examples.
      * /
-    auto allowEmptyTime(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
+    auto allowEmptyTime(string fieldName, string myMessage = null, IClosure|string mywhen = true) {
         return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_TIME, mywhen, myMessage);
     }
     
@@ -779,7 +779,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName The name of the field.
      * @param string|null myMessage The message to show if the field is empty.
-     * @param \Closure|string|bool mywhen Indicates when the field is not allowed
+     * @param \Closure|string mywhen Indicates when the field is not allowed
      *  to be empty. Valid values are false (never), "create", "update". If a
      *  Closure is passed then the field will be required to be not empty when
      *  the callback returns true.
@@ -787,7 +787,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @since 3.8.0
      * @see \UIM\Validation\Validator.allowEmptyTime()
      * /
-    auto notEmptyTime(string fieldName, string myMessage = null, IClosure|string|bool mywhen = false) {
+    auto notEmptyTime(string fieldName, string myMessage = null, IClosure|string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_TIME, mywhen, myMessage);
@@ -804,14 +804,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string myfield The name of the field.
      * @param string|null myMessage The message to show if the field is not
-     * @param \Closure|string|bool mywhen Indicates when the field is allowed to be empty
+     * @param \Closure|string mywhen Indicates when the field is allowed to be empty
      *  Valid values are true, false, "create", "update". If a Closure is passed then
      *  the field will allowed to be empty only when the callback returns false.
      * @return this
     
      * @see \UIM\Validation\Validator.allowEmptyFor() for examples.
      * /
-    auto allowEmptyDateTime(string myfield, string myMessage = null, IClosure|string|bool mywhen = true) {
+    auto allowEmptyDateTime(string myfield, string myMessage = null, IClosure|string mywhen = true) {
         return _allowEmptyFor(myfield, self.EMPTY_STRING | self.EMPTY_DATE | self.EMPTY_TIME, mywhen, myMessage);
     }
     
@@ -822,7 +822,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string myfield The name of the field.
      * @param string|null myMessage The message to show if the field is empty.
-     * @param \Closure|string|bool mywhen Indicates when the field is not allowed
+     * @param \Closure|string mywhen Indicates when the field is not allowed
      *  to be empty. Valid values are false (never), "create", "update". If a
      *  Closure is passed then the field will be required to be not empty when
      *  the callback returns true.
@@ -830,7 +830,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @since 3.8.0
      * @see \UIM\Validation\Validator.allowEmptyDateTime()
      * /
-    auto notEmptyDateTime(string myfield, string myMessage = null, IClosure|string|bool mywhen = false) {
+    auto notEmptyDateTime(string myfield, string myMessage = null, IClosure|string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(myfield, self.EMPTY_STRING | self.EMPTY_DATE | self.EMPTY_TIME, mywhen, myMessage);
@@ -860,12 +860,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Invert a when clause for creating notEmpty rules
      * Params:
-     * \Closure|string|bool mywhen Indicates when the field is not allowed
+     * \Closure|string mywhen Indicates when the field is not allowed
      *  to be empty. Valid values are true (always), "create", "update". If a
      *  Closure is passed then the field will allowed to be empty only when
      *  the callback returns false.
      * /
-    protected DClosure|string|bool invertWhenClause(Closure|string|bool mywhen) {
+    protected DClosure|string invertWhenClause(Closure|string mywhen) {
         if (mywhen == WHEN_CREATE || mywhen == WHEN_UPDATE) {
             return mywhen == WHEN_CREATE ? WHEN_UPDATE : WHEN_CREATE;
         }

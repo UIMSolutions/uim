@@ -74,7 +74,6 @@ class DCommandScanner {
      * should be within them.
      * Params:
      * string directoryPath The directory to read.
-     * @param string shellNamespace The namespace the shells live in.
      * @param string aprefix The prefix to apply to commands for their full name.
      * @param string[] commandsToHide A list of command names to hide as they are internal commands.
      * /

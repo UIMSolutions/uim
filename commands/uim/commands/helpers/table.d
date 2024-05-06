@@ -33,48 +33,48 @@ class DTableHelper { // }: Helper {
 
   mixin(TProperty!("string", "name"));
 
-  /**
-     * Calculate the column widths
-     * @param Json[string] rows The rows on which the columns width will be calculated on.
-     * /
-  protected int[string] _calculateWidths(arrayrows) {
-    auto results;
+  // Calculate the column widths
+  protected int[string] _calculateWidths(Json[string] rows) {
+    int[string] results;
     rows.each!((line) {
       line.values.byKeyValue
         .each!((kv) {
-          auto columnWidth = _cellWidth(to!string(kv.value)); if (columnWidth >= results.get(kv.key, 0)) {
-            results[kv.key] = columnWidth;}
-          });});
-          return results;
-        }
+          auto columnWidth = _cellWidth(to!string(kv.value));
+          if (columnWidth >= results.get(kv.key, 0)) {
+            results[kv.key] = columnWidth;
+          }
+        });
+    });
+    return results;
+  }
 
-      // Get the width of a cell exclusive of style tags.
-      protected size_t _cellWidth(string maxText) {
-        if (maxText.isEmpty) {
-          return 0;
-        }
-        if (!maxText.has("<") && !maxText.has(">")) {
-          return mb_strwidth(maxText);
-        }
-        styles = _io.styles();
-        tags = styles.keys.join("|",);
-        maxText = to!string(preg_replace("#</?(?:" ~ tags ~ ")>#", "", maxText));
+  // Get the width of a cell exclusive of style tags.
+  protected size_t _cellWidth(string maxText) {
+    if (maxText.isEmpty) {
+      return 0;
+    }
+    if (!maxText.has("<") && !maxText.has(">")) {
+      return mb_strwidth(maxText);
+    }
+    styles = _io.styles();
+    tags = styles.keys.join("|",);
+    maxText = to!string(preg_replace("#</?(?:" ~ tags ~ ")>#", "", maxText));
 
-        return mb_strwidth(maxText);
-      }
+    return mb_strwidth(maxText);
+  }
 
-      // Output a row separator.
-      protected void _rowSeparator(int[] columnWidths) {
-        string outputResult = columnWidths
-          .map!(width => "+" ~ str_repeat("-", width + 2))
-          .join;
+  // Output a row separator.
+  protected void _rowSeparator(int[] columnWidths) {
+    string outputResult = columnWidths
+      .map!(width => "+" ~ str_repeat("-", width + 2))
+      .join;
 
-        outputResult ~= "+";
-        _io.
-        out (outputResult);
-      }
+    outputResult ~= "+";
+    _io.
+    out (outputResult);
+  }
 
-      /**
+  /**
      * Output a row.
      * Params:
      * Json[string] row The row to output.

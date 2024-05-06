@@ -152,7 +152,6 @@ class DConsoleIo {
     /**
      * Convenience method for out() that wraps message between <info> tag
      * Params:
-     * @param int newLinesToAppend Number of newLinesToAppend to append
      * @param int level The message`s output level, see above.
      * /
     int info(string[] outputMessages...) {

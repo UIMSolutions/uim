@@ -563,17 +563,12 @@ class DI18nExtractCommand : DCommand {
         return oldChecksum == newChecksum;
     }
     
-    /**
-     * Get the strings from the position forward
-     * Params:
-     * int position Actual position on tokens array
-     * @param int target Number of strings to extract
-     * /
-    protected string[] _getStrings(int &position, int target) {
+    // Get the strings from the position forward
+    protected string[] _getStrings(ref int position, int numberOfStrings) {
         string[] strings = null;
         count = 0;
         while (
-            count < target
+            count < numberOfStrings
             && (_tokens[position] == ","
                 || _tokens[position][0] == T_CONSTANT_ENCAPSED_STRING
                 || _tokens[position][0] == T_LNUMBER

@@ -25,10 +25,8 @@ interface ICollection {
      *  writeln("Element  key: value";
      * });
      * ```
-     *
-     * @param callable callback Callback to run for each element in collection.
      */
-    // ICollection each(callable callback);
+    // ICollection each(callable callbackforeachElement);
 
     /**
      * Looks through each value in the collection, and returns another collection with
@@ -74,11 +72,8 @@ interface ICollection {
      *  return value % 2 == 0;
      * });
      * ```
-     *
-     * @param callable callback the method that will receive each of the elements and
-     * returns true whether they should be out of the resulting collection.
      */
-    // ICollection reject(callable callback);
+    // ICollection reject(callable callbackForEachElement);
 
     /**
      * Returns true if all values in this collection pass the truth test provided
@@ -113,16 +108,12 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $hasYoungPeople = (new DCollection([24, 45, 15])).some(// function (value,  key) {
+     * $hasYoungPeople = (new DCollection([24, 45, 15])).any(// function (value,  key) {
      *  return value < 21;
      * });
      * ```
-     *
-     * @param callable callback a callback function
-     * @return bool true if the provided callback returns true for any element in this
-     * collection, false otherwise
      */
-    // bool some(callable callback);
+    // bool any(callable callback);
 
     /**
      * Returns true if value is present in this collection. Comparisons are made
@@ -150,9 +141,6 @@ interface ICollection {
      *  return person.gender == "female";
      * });
      * ```
-     *
-     * @param callable callback the method that will receive each of the elements and
-     * returns the new value for the key that is being iterated
      */
     // ICollection map(callable callback);
 
@@ -745,7 +733,7 @@ interface ICollection {
      * ```
      * collection.map(mapper).sortBy("age").extract("name");
      * compiled = collection.compile();
-     * isJohnHere = compiled.some(johnMatcher);
+     * isJohnHere = compiled.any(johnMatcher);
      * allButJohn = compiled.filter(johnMatcher);
      * ```
      *

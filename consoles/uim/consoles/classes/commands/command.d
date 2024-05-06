@@ -11,7 +11,7 @@ import uim.consoles;
  *
  * - `initialize` Acts as a post-construct hook.
  * - `buildOptionParser` Build/Configure the option parser for your command.
- * - `execute` Execute your command with parsed Arguments and ConsoleIo
+ * - `execute` Execute your command with parsed Json[string] and ConsoleIo
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\Command\Command>
  */
@@ -113,7 +113,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         aParser = this.getOptionParser();
         try {
             [options, arguments] = aParser.parse(argv, aConsoleIo);
-            someArguments = new Arguments(
+            someArguments = new Json[string](
                 arguments,
                 options,
                 aParser.argumentNames()
@@ -148,11 +148,11 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * Output help content
      * Params:
      * \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The option parser.
-     * @param \UIM\Console\Arguments someArguments The command arguments.
+     * @param \UIM\Console\Json[string] someArguments The command arguments.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * /
-    protected void displayHelp(DConsoleOptionParser buildOptionParser aParser, Arguments someArguments, IConsoleIo aConsoleIo) {
-        format = "text";
+    protected void displayHelp(DConsoleOptionParser buildOptionParser aParser, Json[string] someArguments, IConsoleIo aConsoleIo) {
+        string format = "text";
         if (someArguments.getArgumentAt(0) == "xml") {
             format = "xml";
             aConsoleIo.setOutputAs(ConsoleOutput.RAW);
@@ -161,18 +161,18 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
     }
 
     /**
-     * Set the output level based on the Arguments.
+     * Set the output level based on the Json[string].
      * Params:
-     * \UIM\Console\Arguments someArguments The command arguments.
+     * \UIM\Console\Json[string] someArguments The command arguments.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * /
-    protected void setOutputLevel(Arguments someArguments, IConsoleIo aConsoleIo) {
+    protected void setOutputLevel(Json[string] someArguments, IConsoleIo aConsoleIo) {
         aConsoleIo.setLoggers(ConsoleIo.NORMAL);
-        if (someArguments.getOption("quiet")) {
+        if (someArguments.hasKey("quiet")) {
             aConsoleIo.level(ConsoleIo.QUIET);
             aConsoleIo.setLoggers(ConsoleIo.QUIET);
         }
-        if (someArguments.getOption("verbose")) {
+        if (someArguments.hasKey("verbose")) {
             aConsoleIo.level(ConsoleIo.VERBOSE);
             aConsoleIo.setLoggers(ConsoleIo.VERBOSE);
         }
@@ -181,10 +181,10 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
     /**
      * Implement this method with your command`s logic.
      * Params:
-     * \UIM\Console\Arguments someArguments The command arguments.
+     * \UIM\Console\Json[string] someArguments The command arguments.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * /
-    abstract int | void execute(Arguments someArguments, IConsoleIo aConsoleIo);
+    abstract int | void execute(Json[string] someArguments, IConsoleIo aConsoleIo);
 
     /**
      * Halt the current process with a StopException.

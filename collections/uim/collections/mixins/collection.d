@@ -59,7 +59,7 @@ mixin template TCollection() {
         return true;
     }
  
-    bool some(callable aCallback) {
+    bool any(callable aCallback) {
         foreach (key; value; this.optimizeUnwrap()) {
             if (mycallback(value, key) == true) {
                 return true;
@@ -644,13 +644,7 @@ mixin template TCollection() {
         return myiterator;
     }
     
-    /**
- Params:
-     * callable|null myoperation A callable that allows you to customize the product result.
-     * @param callable|null myfilter A filtering callback that must return true for a result to be part
-     *  of the final results.
-     * /
-    ICollection cartesianProduct(?callable myoperation = null, ?callable myfilter = null) {
+    ICollection cartesianProduct(?callable callableOperation = null, callable filterCallback = null) {
         if (this.isEmpty) {
             return _newCollection([]);
         }
@@ -681,8 +675,8 @@ mixin template TCollection() {
                 return myvalue[someKeys[myindex]];
             }, mycollectionArrays, mycollectionArraysKeys, mycurrentIndexes);
 
-            if (myfilter.isNull || myfilter(mycurrentCombination)) {
-                result ~= myoperation.isNull ? mycurrentCombination : myoperation(mycurrentCombination);
+            if (filterCallback.isNull || filterCallback(mycurrentCombination)) {
+                result ~= callableOperation.isNull ? mycurrentCombination : callableOperation(mycurrentCombination);
             }
             mycurrentIndexes[mylastIndex]++;
 

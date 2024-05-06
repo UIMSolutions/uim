@@ -10,8 +10,6 @@ import uim.collections;
  * each of the values from one collection into a property inside the other collection.
  */
 class DInsertIterator : DCollection {
-
-
   // Holds whether the values collection is still valid. (has more records)
   protected bool _validValues = true;
 
@@ -20,6 +18,7 @@ class DInsertIterator : DCollection {
 
   // The property name to which values will be assigned
   protected string _target;
+  
   // The collection from which to extract the values to be inserted
   protected ICollection _values;
 
@@ -35,7 +34,7 @@ class DInsertIterator : DCollection {
      * @param  range someValues The source collection from which the values will
      * be inserted at the specified path.
      * /
-  this(Json[string] anInto, string aPath,  range someValues) {
+  this(Json[string] anInto, string aPath, Json[string] someValues) {
     super(anInto);
 
     if (!(cast(DCollection) someValues)) {

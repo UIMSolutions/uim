@@ -171,10 +171,8 @@ class DConsoleOptionParser {
      * Construct an OptionParser so you can define its behavior
      * Params:
      * string acommand The command name this parser is for. The command name is used for generating help.
-     * @param bool defaultOptions Whether you want the verbose and quiet options set. Setting
-     * this to false will prevent the addition of `--verbose` & `--quiet` options.
      * /
-    this(string newCommand = "", bool defaultOptions = true) {
+    this(string newCommand = "", bool isVerboseAndQuiet = true) {
         this.setCommand(command);
 
         this.addOption("help", [
@@ -183,7 +181,7 @@ class DConsoleOptionParser {
             "boolean": Json(true),
         ]);
 
-        if (defaultOptions) {
+        if (isVerboseAndQuiet) {
             this.addOption("verbose", [
                 "short": "v",
                 "help": "Enable verbose output.",

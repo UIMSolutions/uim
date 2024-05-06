@@ -27,15 +27,17 @@ class DCacheClearGroupCommand : DCommand {
      * /
   DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToDefine) {
     auto definedParser = super.buildOptionParser(parserToDefine);
-    definedParser.description("Clear all data in a single cache group.");
-    definedParser.addArgument("group", [
-        "help": "The cache group to clear. For example, `uim cache clear_group mygroup` will clear "
-        ."all cache items belonging to group " mygroup".",
-        "required": Json(true),
+    with(definedParser) {
+      description("Clear all data in a single cache group.");
+      addArgument("group", [
+          "help": Json("The cache group to clear. For example, `uim cache clear_group mygroup` will clear "
+            ~"all cache items belonging to group 'mygroup'."),
+          "required": Json(true),
+        ]);
+      addArgument("config", [
+        "help": Json("Name of the configuration to use. Defaults to no value which clears all cache configurations."),
       ]);
-    definedParser.addArgument("config", [
-        "help": "Name of the configuration to use. Defaults to no value which clears all cache configurations.",
-      ]);
+    }
 
     return definedParser;
   }
@@ -57,20 +59,20 @@ class DCacheClearGroupCommand : DCommand {
 
       return CODE_ERROR;
     }
-    foreach (anGroupConfig,  anGroupConfigs[anGroup]) {
-      if (!configData.isNull && configData != anGroupConfig) {
+    anGroupConfigs[anGroup]).each!((config) {
+      if (!configData.isNull && configData != config) {
         continue;
       }
-      if (!Cache.clearGroup(anGroup,  anGroupConfig)) {
+      if (!Cache.clearGroup(anGroup,  config)) {
         aConsoleIo.error(
             "Error encountered clearing group " % s". Was unable to clear entries for " % s"."
-            .format(anGroup, anGroupConfig
-        ));
+            .format(anGroup, config));
         this.abort();
       } else {
         aConsoleIo.success("Group " % s" was cleared.".format(anGroup));
       }
-    }
+    });
+
     return CODE_SUCCESS;
   } */
 }

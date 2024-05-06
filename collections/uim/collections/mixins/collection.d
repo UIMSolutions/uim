@@ -571,7 +571,7 @@ mixin template TCollection() {
         return cast(ICollection)result ? result : this.newCollection(result);
     }
  
-    ICollection zip(Range ...myitems) {
+    ICollection zip(Json[string] ...myitems) {
         return new DZipIterator(chain([this.unwrap()], myitems));
     }
  

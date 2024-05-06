@@ -35,7 +35,7 @@ class DInsertIterator : DCollection {
      * @param  range someValues The source collection from which the values will
      * be inserted at the specified path.
      * /
-  this(Range anInto, string aPath,  range someValues) {
+  this(Json[string] anInto, string aPath,  range someValues) {
     super(anInto);
 
     if (!(cast(DCollection) someValues)) {

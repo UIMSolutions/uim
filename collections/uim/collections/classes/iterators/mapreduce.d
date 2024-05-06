@@ -73,7 +73,7 @@ class DMapReduce { // }: IteratorAggregate {
      * of the bucket that was created during the mapping phase and third one is an
      * instance of this class.
      * /
-    this(Range someData, callable mapper, ?callable reducer = null) {
+    this(Json[string] someData, callable mapper, ?callable reducer = null) {
        _data = someData;
        _mapper = mapper;
        _reducer = reducer;

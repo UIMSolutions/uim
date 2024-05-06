@@ -83,7 +83,6 @@ class DFlashComponent : DComponent {
      * Proxy method to FlashMessage instance.
      * Params:
      * string|null aKey The key to get or null for the whole config.
-     * @param Json defaultValue The return value when the key does not exist.
      * /
     Json getConfig(string aKey = null, Json defaultValue = Json(null)) {
         return _flash().configuration.get(aKey, default);
@@ -98,10 +97,13 @@ class DFlashComponent : DComponent {
     //  Proxy method to FlashMessage instance.
      * Params:
      * Json[string]|string aKey The key to set, or a complete array of configs.
-     * @param Json aValue The value to set.
      * /
-    void configShallow(string[] aKey, Json aValue = null) {
-        this.flash().configShallow(aKey, aValue);
+    void configShallow(string aKey, Json valueToSet = null) {
+        this.flash().configShallow(aKey, valueToSet);
+    }
+
+    void configShallow(string[] keys, Json valueToSet = null) {
+        this.flash().configShallow(keys, valueToSet);
     }
 
     /**

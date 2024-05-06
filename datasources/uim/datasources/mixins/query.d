@@ -85,7 +85,7 @@ mixin template TQuery() {
      * @param range results The results this query should return.
      * @return this
      * /
-    function setResult(Range results) {
+    function setResult(Json[string] results) {
         _results = results;
 
         return this;

@@ -242,19 +242,17 @@ class DConsoleIo {
      * Params:
      * string[]|string amessage The message to output.
      * @param int newLinesToAppend Number of newLinesToAppend to append.
-     * @param int size The number of bytes to overwrite. Defaults to the
-     *   length of the last message output.
      * /
-    void overwrite(string[] amessage, int newLinesToAppend = 1, int size = null) {
-        size = size ?: _lastWritten;
+    void overwrite(string[] amessage, int newLinesToAppend = 1, int bytesToOverwrite = 0) {
+        bytesToOverwrite = bytesToOverwrite ?: _lastWritten;
 
         // Output backspaces.
-        writeln(str_repeat("\x08", size), 0);
+        writeln(str_repeat("\x08", bytesToOverwrite), 0);
 
         newBytes = (int)writeln(message, 0);
 
         // Fill any remaining bytes with spaces.
-        fill = size - newBytes;
+        auto fill = bytesToOverwrite - newBytes;
         if (fill > 0) {
             writeln(str_repeat(" ", fill), 0);
         }
@@ -291,15 +289,10 @@ class DConsoleIo {
         return str_repeat(ConsoleOutput.LF, linefeedMultiplier);
     }
     
-    /**
-     * Outputs a series of minus characters to the standard output, acts as a visual separator.
-     * Params:
-     * int newLinesToAppend Number of newLinesToAppend to pre- and append
-     * @param int width Width of the line, defaults to 79
-     * /
-    void hr(int newLinesToAppend = 0, int width = 79) {
+    // Outputs a series of minus characters to the standard output, acts as a visual separator.
+    void hr(int newLinesToAppend = 0, int widthOfLine = 79) {
         writeln("", newLinesToAppend);
-        writeln(str_repeat("-", width));
+        writeln(str_repeat("-", widthOfLine));
         writeln("", newLinesToAppend);
     }
     

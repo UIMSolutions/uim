@@ -7,38 +7,48 @@ import uim.databases;
 class DSqlserverDriver : DDriver {
     mixin TTupleComparisonTranslator;
     mixin(DriverThis!("Sqlserver"));
-    
-    
-  	override bool initialize(Json[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
+
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         configuration.update([
-        "host": Json("localhost\\SQLEXPRESS"),
-        "username": Json(""),
-        "password": Json(""),
-        "database": Json("uim"),
-        "port": Json(""),
-        // PDO.SQLSRV_ENCODING_UTF8
-        "encoding": Json(65001),
-        "flags": Json.emptyArray,
-        "init": Json.emptyArray,
-        "settings": Json.emptyArray,
-        "attributes": Json.emptyArray,
-        "app": Json(null),
-        "connectionPooling": Json(null),
-        "failoverPartner": Json(null),
-        "loginTimeout": Json(null),
-        "multiSubnetFailover": Json(null),
-        "encrypt": Json(null),
-        "trustServerCertificate": Json(null),
-    ]);
+            "host": Json("localhost\\SQLEXPRESS"),
+            "username": Json(""),
+            "password": Json(""),
+            "database": Json("uim"),
+            "port": Json(""),
+            // PDO.SQLSRV_ENCODING_UTF8
+            "encoding": Json(65001),
+            "flags": Json.emptyArray,
+            "init": Json.emptyArray,
+            "settings": Json.emptyArray,
+            "attributes": Json.emptyArray,
+            "app": Json(null),
+            "connectionPooling": Json(null),
+            "failoverPartner": Json(null),
+            "loginTimeout": Json(null),
+            "multiSubnetFailover": Json(null),
+            "encrypt": Json(null),
+            "trustServerCertificate": Json(null),
+        ]);
 
         startQuote("[");
         endQuote("]");
 
-		return true;
-	}
-/*
+        return true;
+    }
+
+    string savePointSQL(name) {
+        return "SAVE TRANSACTION t" ~ name;
+    }
+
+    string releaseSavePointSQL(name) {
+        // SQLServer has no release save point operation.
+        return "";
+    }
+    /*
 
     protected const MAX_ALIAS_LENGTH = 128;
  
@@ -142,14 +152,7 @@ class DSqlserverDriver : DDriver {
         return new (STATEMENT_CLASS)(statement, this, typeMap);
      }
 
-    string savePointSQL(name) {
-        return "SAVE TRANSACTION t" ~ name;
-    }
 
-    string releaseSavePointSQL(name) {
-        // SQLServer has no release save point operation.
-        return "";
-    }
 
     string rollbackSavePointSQL(name) {
         return "ROLLBACK TRANSACTION t" ~ name;
@@ -210,7 +213,7 @@ class DSqlserverDriver : DDriver {
      * @param int aLimit The number of rows to fetch.
      * @param int  anOffset The number of rows to offset.
      * /
-    protected ISelectQuery _pagingSubquery(SelectQuery  original, int aLimit, int anOffset) {
+    protected ISelectQuery _pagingSubquery(SelectQuery  original, int aLimit, int rowsOffset) {
         auto field = "_uim_paging_._uim_page_rownum_";
 
         if (original.clause("order")) {
@@ -250,11 +253,11 @@ class DSqlserverDriver : DDriver {
          outer.select("*")
             .from(["_uim_paging_": aQuery]);
 
-        if (anOffset) {
-             outer.where(["field > " ~  anOffset]);
+        if (rowsOffset) {
+             outer.where(["field > " ~  rowsOffset]);
         }
         if (aLimit) {
-            aValue = (int) anOffset + aLimit;
+            aValue = (int) rowsOffset + aLimit;
              outer.where(["field <= aValue"]);
         }
         // Decorate the original query as that is what the

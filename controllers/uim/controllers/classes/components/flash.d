@@ -140,6 +140,6 @@ class DFlashComponent : DComponent {
             }
             options = options.update(array) someArguments[1];
         }
-        this.set(someArguments[0], options);
+        set(someArguments[0], options);
     } */
 }

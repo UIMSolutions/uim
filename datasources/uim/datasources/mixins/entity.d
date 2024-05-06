@@ -174,7 +174,7 @@ mixin template TEntity() {
      * @param Json aValue The value to set to the field
     * /
   void __set(string fieldName, Json aValue) {
-    this.set(fieldName, aValue);
+    set(fieldName, aValue);
   }
 
   // Returns whether this entity contains a field named field and is not set to null.
@@ -572,7 +572,7 @@ mixin template TEntity() {
      * @param Json aValue The value to set.
     * /
   void offsetSet(Json offsetToSet, Json aValue) {
-    this.set(offsetToSet, aValue);
+    set(offsetToSet, aValue);
   }
 
   // unset(result[anOffset]);

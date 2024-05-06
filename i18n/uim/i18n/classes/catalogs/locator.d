@@ -25,7 +25,7 @@ class DCatalogLocator {
   this(ICatalog[string][string] registry = null) {
     foreach (name, locales; registry) {
       locales.byKeyValue
-        .each!(localeSpec => this.set(name, localeSpec.key, localeSpec.value));
+        .each!(localeSpec => set(name, localeSpec.key, localeSpec.value));
     }
   }
 

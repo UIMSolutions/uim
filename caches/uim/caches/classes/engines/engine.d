@@ -86,7 +86,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         }
         try {
             foreach (aKey: myvalue; myvalues) {
-                mysuccess = this.set(aKey, myvalue);
+                mysuccess = set(aKey, myvalue);
                 if (mysuccess == false) {
                     return false;
                 }

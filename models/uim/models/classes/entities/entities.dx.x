@@ -54,7 +54,7 @@ class DOOPEntities {
   }
 
   void opCall(DEntity[] newEntities) {
-    this.set(newEntities);
+    set(newEntities);
     
   }
 }

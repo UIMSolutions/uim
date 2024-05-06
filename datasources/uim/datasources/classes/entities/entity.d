@@ -82,7 +82,7 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
         }
 
         if (!properties.isEmpty) {
-            this.set(properties, [
+            set(properties, [
                 "setter": options["useSetters"],
                 "guard": options["guard"],
             ]);

@@ -120,7 +120,7 @@ class DFlashMessage {
         options["params"]["code"] ??= exception.getCode();
 
         message = exception.getMessage();
-        this.set(message, options);
+        set(message, options);
     }
     
     // Get the messages for given key and remove from session.
@@ -134,7 +134,7 @@ class DFlashMessage {
      * /
     void success(string successMessage, Json[string] options = null) {
         options["element"] = "Success";
-        this.set(successMessage, options);
+        set(successMessage, options);
     }
     
     /**
@@ -143,7 +143,7 @@ class DFlashMessage {
      * /
     void error(string errorMessage, Json[string] options = null) {
         options["element"] = "error";
-        this.set(errorMessage, options);
+        set(errorMessage, options);
     }
     
     /**
@@ -152,7 +152,7 @@ class DFlashMessage {
      * /
     void warning(string warningMessage, Json[string] options = null) {
         options["element"] = "warning";
-        this.set(warningMessage, options);
+        set(warningMessage, options);
     }
     
     /**
@@ -161,6 +161,6 @@ class DFlashMessage {
      * /
     void info(string infoMessage, Json[string] options = null) {
         options["element"] = "info";
-        this.set(infoMessage, options);
+        set(infoMessage, options);
     } */
 }

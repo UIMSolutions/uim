@@ -22,7 +22,7 @@ class DFormatterLocator {
     // registry An array of key-value pairs where the key is the formatter name the value is a FQCN for the formatter.
     this(STRINGAA registry = null) {
         //TODO registry.byKeyValue
-        //TODO     .each!(nameSpec => this.set(nameSpec.key, nameSpec.value));
+        //TODO     .each!(nameSpec => set(nameSpec.key, nameSpec.value));
     }
     
     /**

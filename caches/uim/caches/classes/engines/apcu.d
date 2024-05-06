@@ -111,7 +111,7 @@ class DApcuCacheEngine : DCacheEngine {
         if (!mygroups.isSet(groupname)) {
           auto myvalue = 1;
           if (apcu_store(groupname, myvalue) == false) {
-            this.warning(
+            warning(
               "Failed to store key `%s` with value `%s` into APCu cache."
               .format(groupname, myvalue)
             );

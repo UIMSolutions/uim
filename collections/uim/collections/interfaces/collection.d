@@ -541,7 +541,7 @@ interface ICollection {
      * conditions.
      *
      * @param Json[string] conditions a key-value list of conditions where the key is
-     * a property path as accepted by `Collection::extract`, and the value the
+     * a property path as accepted by `Collection.extract`, and the value the
      * condition against with each element will be matched
      * /
     Json firstMatch(Json[string] conditions);
@@ -765,9 +765,9 @@ interface ICollection {
      * The possible values for the first argument are aliases for the following
      * constants and it is valid to pass those instead of the alias:
      *
-     * - desc: RecursiveIteratorIterator::SELF_FIRST
-     * - asc: RecursiveIteratorIterator::CHILD_FIRST
-     * - leaves: RecursiveIteratorIterator::LEAVES_ONLY
+     * - desc: RecursiveIteratorIterator.SELF_FIRST
+     * - asc: RecursiveIteratorIterator.CHILD_FIRST
+     * - leaves: RecursiveIteratorIterator.LEAVES_ONLY
      *
      * ### Example:
      *
@@ -812,7 +812,7 @@ interface ICollection {
      * @param callable|array condition the method that will receive each of the elements and
      * returns true when the iteration should be stopped.
      * If an array, it will be interpreted as a key-value list of conditions where
-     * the key is a property path as accepted by `Collection::extract`,
+     * the key is a property path as accepted by `Collection.extract`,
      * and the value the condition against with each element will be matched.
      * /
     ICollection stopWhen(condition):;
@@ -1019,7 +1019,7 @@ interface ICollection {
      * Returns the number of unique keys in this iterator. This is the same as the number of
      * elements the collection will contain after calling `toArray()`
      *
-     * This method comes with a number of caveats. Please refer to `ICollection::count()`
+     * This method comes with a number of caveats. Please refer to `ICollection.count()`
      * for details.
      */
     size_t countKeys();

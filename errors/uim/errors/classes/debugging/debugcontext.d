@@ -9,7 +9,7 @@ module uim.errors.classes.debugging.debugcontext;
 import uim.errors;
 
 /**
- * DContext tracking for Debugger::exportVar()
+ * DContext tracking for Debugger.exportVar()
  *
  * This class is used by Debugger to track element depth, and
  * prevent cyclic references from being traversed multiple times.

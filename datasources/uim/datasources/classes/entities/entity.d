@@ -26,7 +26,7 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
     protected string[] _hidden;
 
     // Indicates whether this entity is yet to be persisted.
-    // Entities default to assuming they are new. You can use Table::persisted()
+    // Entities default to assuming they are new. You can use Table.persisted()
     // to set the new flag on an entity based on records in the database.
     protected bool _new = true;
 

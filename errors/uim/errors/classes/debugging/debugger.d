@@ -60,7 +60,7 @@ class DDebugger {
      * /
     protected _stringContents = [
         "log": [
-            // These templates are not actually used, as Debugger::log() is called instead.
+            // These templates are not actually used, as Debugger.log() is called instead.
             "trace": "{:reference} - {:path}, line {:line}",
             "error": "{:error} ({:code}): {:description} in [{:file}, line {:line}]",
         ],
@@ -79,7 +79,7 @@ class DDebugger {
             'escapeContext': true,
         ],
         'txt': [
-            'error': "{:error}: {:code} :: {:description} on line {:line} of {:path}\n{:info}",
+            'error': "{:error}: {:code} . {:description} on line {:line} of {:path}\n{:info}",
             'code': '',
             'info': '',
         ],
@@ -139,7 +139,7 @@ class DDebugger {
             define('E_RECOVERABLE_ERROR', 4096);
         }
 
-        aConfig = array_intersect_key((array)Configure::read('Debugger'), _defaultConfig);
+        aConfig = array_intersect_key((array)Configure.read('Debugger'), _defaultConfig);
         configuration.update(aConfig);
 
         e = '<pre class="uim-error">';
@@ -239,7 +239,7 @@ class DDebugger {
      *
      * ### Example
      *
-     * Debugger::setOutputMask(['password': '[*************]');
+     * Debugger.setOutputMask(['password': '[*************]');
      *
      * @param array<string, string> value An array where keys are replaced by their values in output.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
@@ -324,7 +324,7 @@ class DDebugger {
     static void log(var, level = 'debug', int maxDepth = 3) {
         string source = trace(["start": 1]) ~ "\n";
 
-        Log::write(
+        Log.write(
             level,
             "\n" ~ source ~ exportVarAsPlainText(var, maxDepth)
         );
@@ -347,7 +347,7 @@ class DDebugger {
      * @link https://book.uimD.org/4/en/development/debugging.html#generating-stack-traces
      * /
     static function trace(Json[string] optionData = null) {
-        return Debugger::formatTrace(debug_backtrace(), options);
+        return Debugger.formatTrace(debug_backtrace(), options);
     }
 
     /**
@@ -371,7 +371,7 @@ class DDebugger {
         if (backtrace instanceof Throwable) {
             backtrace = backtrace.getTrace();
         }
-        self = Debugger::getInstance();
+        self = Debugger.getInstance();
         defaults = [
             'depth': 999,
             'format': self._outputFormat,
@@ -380,33 +380,34 @@ class DDebugger {
             'scope': null,
             'exclude': ['call_user_func_array', 'trigger_error'],
         ];
-        options = Hash::merge(defaults, options);
+        options = Hash.merge(defaults, options);
 
         count = count(backtrace);
         back = null;
 
         _trace = [
-            'line': '??',
-            'file': '[internal]',
-            'class': null,
-            'function': '[main]',
+            "line": "??".toJson,
+            "file": "[internal]".toJson,
+            "class": Json(null),
+            "function": "[main]".toJson,
         ];
 
         for (i = options['start']; i < count && i < options['depth']; i++) {
             trace = backtrace[i] + ['file': '[internal]', 'line': '??'];
-            signature = reference = '[main]';
+            string signature = "[main]";
+            string reference = "[main]";
 
             if (isset(backtrace[i + 1])) {
                 next = backtrace[i + 1] + _trace;
                 signature = reference = next['function'];
 
                 if (!next.isEmpty("class")) {
-                    signature = next['class'] . '::' . next['function'];
+                    signature = next['class'] . '.' . next['function'];
                     reference = signature . '(';
                     if (options['args'] && isset(next['args'])) {
                         args = null;
-                        foreach (next['args'] as arg) {
-                            args ~= Debugger::exportVar(arg);
+                        foreach (next["args"] as arg) {
+                            args ~= Debugger.exportVar(arg);
                         }
                         reference ~= implode(', ', args);
                     }
@@ -424,15 +425,14 @@ class DDebugger {
                 }
                 back ~= trace;
             } else {
-                if (isset(self._stringContents[options['format']]['traceLine'])) {
-                    tpl = self._stringContents[options['format']]['traceLine'];
-                } else {
-                    tpl = self._stringContents['base']['traceLine'];
+                tpl = isset(self._stringContents[options['format']]['traceLine']))
+                    ? self._stringContents[options['format']]['traceLine'];
+                    : self._stringContents['base']['traceLine'];
                 }
                 trace['path'] = trimPath(trace['file']);
                 trace['reference'] = reference;
                 unset(trace['object'], trace['args']);
-                back ~= Text::insert(tpl, trace, ['before': '{:', 'after': '}']);
+                back ~= Text.insert(tpl, trace, ['before': '{:', 'after': '}']);
             }
         }
 
@@ -474,7 +474,7 @@ class DDebugger {
      * Usage:
      *
      * ```
-     * Debugger::excerpt('/path/to/file', 100, 4);
+     * Debugger.excerpt('/path/to/file', 100, 4);
      * ```
      *
      * The above would return an array of 8 items. The 4th item would be the provided line,
@@ -559,18 +559,18 @@ class DDebugger {
         instance = getInstance();
         aClassName = instance.getConfig('exportFormatter');
         if (!aClassName) {
-            if (ConsoleFormatter::environmentMatches()) {
-                aClassName = ConsoleFormatter::class;
-            } elseif (HtmlFormatter::environmentMatches()) {
-                aClassName = HtmlFormatter::class;
+            if (ConsoleFormatter.environmentMatches()) {
+                aClassName = ConsoleFormatter.class;
+            } elseif (HtmlFormatter.environmentMatches()) {
+                aClassName = HtmlFormatter.class;
             } else {
-                aClassName = TextFormatter::class;
+                aClassName = TextFormatter.class;
             }
         }
         instance = new aClassName();
         if (!instance instanceof IErrorFormatter) {
             throw new DRuntimeException(
-                "The `{aClassName}` formatter does not implement " ~ IErrorFormatter::class
+                "The `{aClassName}` formatter does not implement " ~ IErrorFormatter.class
             );
         }
 
@@ -756,8 +756,8 @@ class DDebugger {
             ref = new DReflectionObject(var);
 
             filters = [
-                ReflectionProperty::IS_PROTECTED: 'protected',
-                ReflectionProperty::IS_PRIVATE: 'private',
+                ReflectionProperty.IS_PROTECTED: 'protected',
+                ReflectionProperty.IS_PRIVATE: 'private',
             ];
             foreach (filters as filter: visibility) {
                 reflectionProperties = ref.getProperties(filter);
@@ -794,13 +794,13 @@ class DDebugger {
      * @deprecated 4.4.0 Update your application so use ErrorTrap instead.
      * /
     static void addRenderer(string aName, string aClassName) {
-        deprecationWarning('Debugger::addRenderer() is deprecated.');
-        if (!hasAllValues(IErrorRenderer::class, class_implements(aClassName))) {
+        deprecationWarning('Debugger.addRenderer() is deprecated.');
+        if (!hasAllValues(IErrorRenderer.class, class_implements(aClassName))) {
             throw new DInvalidArgumentException(
-                'Invalid renderer class. aClassName must implement ' . IErrorRenderer::class
+                'Invalid renderer class. aClassName must implement ' . IErrorRenderer.class
             );
         }
-        self = Debugger::getInstance();
+        self = Debugger.getInstance();
         self.renderers[name] = aClassName;
     }
 
@@ -830,7 +830,7 @@ class DDebugger {
             trace = trace(['start': data['start'], 'format': 'points']);
             error = new DError(data['code'], data['description'], data['file'], data['line'], trace);
             renderer = new this.renderers[outputFormat]();
-            writeln(renderer.render(error, Configure::read('debug'));
+            writeln(renderer.render(error, Configure.read('debug'));
 
             return;
         }
@@ -873,7 +873,7 @@ class DDebugger {
 
         if (isset(tpl['links'])) {
             foreach (tpl['links'] as key: val) {
-                links[key] = Text::insert(val, data, insertOpts);
+                links[key] = Text.insert(val, data, insertOpts);
             }
         }
 
@@ -889,7 +889,7 @@ class DDebugger {
             if ((value.isArray) {
                 value = implode("\n", value);
             }
-            info ~= Text::insert(tpl[key], [key: value] + data, insertOpts);
+            info ~= Text.insert(tpl[key], [key: value] + data, insertOpts);
         }
         links = implode(" ", links);
 
@@ -898,7 +898,7 @@ class DDebugger {
 
             return;
         }
-        writeln(Text::insert(tpl['error'], compact('links', 'info') + data, insertOpts);
+        writeln(Text.insert(tpl['error'], compact('links', 'info') + data, insertOpts);
     }
 
     /**
@@ -947,7 +947,7 @@ class DDebugger {
         restore = null;
         if (showHtml != null) {
             restore = debugger.getConfig('exportFormatter');
-            debugger.setConfig('exportFormatter', showHtml ? HtmlFormatter::class : TextFormatter::class);
+            debugger.setConfig('exportFormatter', showHtml ? HtmlFormatter.class : TextFormatter.class);
         }
         contents = exportVar(var, 25);
         formatter = debugger.getExportFormatter();
@@ -981,7 +981,7 @@ class DDebugger {
      * Verifies that the application's salt and cipher seed value has been changed from the default value.
      * /
     static void checkSecurityKeys() {
-        salt = Security::getSalt();
+        salt = Security.getSalt();
         if (salt == '__SALT__' || strlen(salt) < 32) {
             trigger_error(
                 'Please change the value of `Security.salt` in `ROOT/config/app_local.D` ' .

@@ -66,9 +66,9 @@ writeln(article->title;
 
 You can also use the get() and set() methods.
 
-uim\ORM\Entity::set(field, value = null, Json[string] options = null)
+uim\ORM\Entity.set(field, value = null, Json[string] options = null)
 
-uim\ORM\Entity::get(field)
+uim\ORM\Entity.get(field)
 
 For example:
 
@@ -160,7 +160,7 @@ use uim\Utility\Text;
 class DArticle extends Entity
 {
     protected function _setTitle(title) {
-        this->slug = Text::slug(title);
+        this->slug = Text.slug(title);
 
         return strtouppercase(title);
     }
@@ -195,7 +195,7 @@ writeln(user->get('full_name');
 Do bear in mind that virtual fields cannot be used in finds. If you want them to be part of Json or array representations of your entities, see Exposing Virtual Fields.
 Checking if an Entity Has Been Modified
 
-uim\ORM\Entity::dirty(field = null,  dirty = null)
+uim\ORM\Entity.dirty(field = null,  dirty = null)
 
 You may want to make code conditional based on whether or not fields have changed in an entity. For example, you may only want to validate fields when they change:
 

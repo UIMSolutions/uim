@@ -77,18 +77,18 @@ class DConnectionManager {
     /**
      * Parses a DSN into a valid connection configuration
      *
-     * This method allows setting a DSN using formatting similar to that used by PEAR::DB.
+     * This method allows setting a DSN using formatting similar to that used by PEAR.DB.
      * The following is an example of its usage:
      *
      * ```
      * dsn = "mysql://user:pass@localhost/database";
-     * myConfiguration = ConnectionManager::parseDsn(dsn);
+     * myConfiguration = ConnectionManager.parseDsn(dsn);
      *
      * dsn = "uim\databases.Driver\Mysql://localhost:3306/database?className=uim\databases.Connection";
-     * myConfiguration = ConnectionManager::parseDsn(dsn);
+     * myConfiguration = ConnectionManager.parseDsn(dsn);
      *
      * dsn = "uim\databases.Connection://localhost:3306/database?driver=uim\databases.Driver\Mysql";
-     * myConfiguration = ConnectionManager::parseDsn(dsn);
+     * myConfiguration = ConnectionManager.parseDsn(dsn);
      * ```
      *
      * For all classes, the value of `scheme` is set as the value of both the `className` and `driver`
@@ -123,13 +123,13 @@ class DConnectionManager {
      * if you alias "default" to "test", fetching "default" will always return the "test"
      * connection as long as the alias is defined.
      *
-     * You can remove aliases with ConnectionManager::dropAlias().
+     * You can remove aliases with ConnectionManager.dropAlias().
      *
      * ### Usage
      *
      * ```
      * // Make "things" resolve to "test_things" connection
-     * ConnectionManager::alias("test_things", "things");
+     * ConnectionManager.alias("test_things", "things");
      * ```
      *
      * @param string source The existing connection to alias.

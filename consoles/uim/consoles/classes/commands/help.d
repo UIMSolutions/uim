@@ -97,8 +97,8 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     // Output relevant paths if defined
     protected void outputPaths(IConsoleIo aConsoleIo) {
         STRINGAA myPaths;
-        if (Configure::check("App.dir")) {
-            string appPath = stripRight(Configure::read("App.dir"), DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
+        if (Configure.check("App.dir")) {
+            string appPath = stripRight(Configure.read("App.dir"), DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
             // Extra space is to align output
             myPaths["app"] = " " ~ appPath;
         }

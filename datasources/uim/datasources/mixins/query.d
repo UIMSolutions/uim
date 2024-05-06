@@ -380,19 +380,19 @@ mixin template TQuery() {
      * @return this
      * @throws \InvalidArgumentException
      * /
-    function formatResults(?callable formatter = null, mode = self::APPEND) {
-        if (mode == self::OVERWRITE) {
+    function formatResults(?callable formatter = null, mode = self.APPEND) {
+        if (mode == self.OVERWRITE) {
             _formatters = null;
         }
         if (formatter == null) {
-            if (mode != self::OVERWRITE) {
+            if (mode != self.OVERWRITE) {
                 throw new DInvalidArgumentException("formatter can be null only when mode is overwrite.");
             }
 
             return this;
         }
 
-        if (mode == self::PREPEND) {
+        if (mode == self.PREPEND) {
             array_unshift(_formatters, formatter);
 
             return this;
@@ -480,7 +480,7 @@ mixin template TQuery() {
             deprecationWarning(sprintf(
                 "Calling `%s` methods, such as `%s()`, on queries is deprecated~ " ~
                 "You must call `all()` first (for example, `all().%s()`).",
-                IResultset::class,
+                IResultset.class,
                 method,
                 method,
             ), 2);
@@ -544,6 +544,6 @@ mixin template TQuery() {
      * @psalm-return class-string<uim.Datasource\IResultset>
      * /
     protected string _decoratorClass() {
-        return ResultsetDecorator::class;
+        return ResultsetDecorator.class;
     } */
 }

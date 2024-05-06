@@ -27,7 +27,7 @@ class DCacheClearCommand : DCommand {
      * aDConsoleOptionParser buildOptionParser - The parser to be defined
      * returns - The built parser.
      * /
-  DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToBeDefined) {
+  DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToBeDefined) {
     auto myParser = super.buildOptionParser(parserToBeDefined);
     myParser.description("Clear all data in a single cache engine");
     myParser.addArgument("engine", [

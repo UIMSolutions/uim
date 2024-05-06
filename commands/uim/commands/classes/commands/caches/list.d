@@ -20,7 +20,7 @@ class DCacheListCommand : DCommand {
 
   // Hook method for defining this command`s option parser.
   /* 
-  DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToBeDefined) {
+  DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToBeDefined) {
     auto myParser = super.buildOptionParser(parserToBeDefinedr);
     myParser.description("Show a list of configured caches.");
 

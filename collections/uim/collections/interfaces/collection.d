@@ -914,10 +914,8 @@ interface ICollection {
      * collection = new DCollection([1, 2]);
      * collection.zip([3, 4], [5, 6]).toList(); // returns [[1, 3, 5], [2, 4, 6]]
      * ```
-     *
-     * @param range ...items The collections to zip.
      */
-    // ICollection zip(Json[string] items): ;
+    // ICollection zip(Json[string] itemsToZip): ;
 
     /**
      * Combines the elements of this collection with each of the elements of the

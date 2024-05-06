@@ -64,16 +64,9 @@ class DMapReduce { // }: IteratorAggregate {
      * ```
      * Params:
      * range someData The original data to be processed.
-     * @param callable mapper the mapper callback. This auto will receive 3 arguments.
-     * The first one is the current value, second the current results key and third is
-     * this class instance so you can call the result emitters.
-     * @param callable|null reducer the reducer callback. This auto will receive 3 arguments.
-     * The first one is the list of values inside a bucket, second one is the name
-     * of the bucket that was created during the mapping phase and third one is an
-     * instance of this class.
      * /
-    this(Json[string] someData, callable mapper, ?callable reducer = null) {
-       _data = someData;
+    this(Json[string] dataToProcess, callable mapper, ?callable reducer = null) {
+       _data = dataToProcess;
        _mapper = mapper;
        _reducer = reducer;
     }

@@ -22,7 +22,7 @@ class DTextareaWidget : DWidget {
         "val": Json(""),
         "name": Json(""),
         "escape": Json(true),
-        "rows": IntegerData(5),
+        "rows": Json(5),
         "templateVars": Json.emptyArray,
     ]);
     

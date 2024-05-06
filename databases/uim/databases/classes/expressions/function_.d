@@ -39,10 +39,10 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      * passed arguments
      * @param string resultType The return type of this expression
      * /
-    this(string newName, Json[string] arguments = [], Json[string] types = [], string resultType = "string") {
+    this(string newName, Json[string] arguments = [], Json[string] associatedTypes = [], string resultType = "string") {
        this.name(newName);
        _returnType = resultType;
-        super(arguments, types, ",");
+        super(arguments, associatedTypes, ",");
     }
 
     /**
@@ -50,13 +50,13 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      * Params:
      * \UIM\Database\IExpression|string[] aconditions list of arguments to be passed to the function
      * If associative the key would be used as argument when value is 'literal'
-     * @param STRINGAA types Associative array of types to be associated with the
+     * @param STRINGAA associatedTypes Associative array of associatedTypes to be associated with the
      * passed arguments
      * @param bool prepend Whether to prepend or append to the list of arguments
      * /
-    void add(IExpression|string[] aconditions, Json[string] types = [], bool prepend = false) {
+    void add(IExpression|string[] aconditions, Json[string] associatedTypes = [], bool prepend = false) {
         put = prepend ? "array_unshift' : 'array_push";
-        typeMap = this.getTypeMap().setTypes(types);
+        typeMap = this.getTypeMap().setTypes(associatedTypes);
 
         conditions.byKeyValue
             .each!(kv => addCondtion(conditions, kv.key, kv.value));

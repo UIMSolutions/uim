@@ -19,14 +19,14 @@ class DTupleComparisonExpression : DComparisonExpression {
     /**
      * Constructor
      * Params:
-     * \UIM\Database\IExpression|string[] afields the fields to use to form a tuple
+     * \UIM\Database\IExpression|string[] fieldNames the fields to use to form a tuple
      * @param \UIM\Database\IExpression|array  someValues the values to use to form a tuple
      * @param array<string|null> types the types names to use for casting each of the values, only
      * one type per position in the value array in needed
      * @param string aconjunction the operator used for comparing field and value
      * /
     this(
-        IExpression | string[] afields,
+        IExpression | string[] fieldNames,
         IExpression | array someValues,
         Json[string] types = [],
         string aconjunction = "="

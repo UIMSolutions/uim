@@ -29,7 +29,7 @@ interface IWindow {
      * Params:
      * \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string afields DOrder expressions
      * /
-    auto orderBy(IExpression|Closure|string[] afields);
+    auto orderBy(IExpression|Closure|string[] fieldNames);
 
     /**
      * Adds a simple range frame to the window.

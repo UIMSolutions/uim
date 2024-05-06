@@ -766,10 +766,10 @@ abstract class DQuery : IQuery { // : IExpression {
     /**
      * Convenience method that adds a NOT NULL condition to the query
      * Params:
-     * \UIM\Database\IExpression|string[] afields A single field or expressions or a list of them
+     * \UIM\Database\IExpression|string[] fieldNames A single field or expressions or a list of them
      * that should be not null.
      * /
-    auto whereNotNull(IExpression|string[] afields) {
+    auto whereNotNull(IExpression|string[] fieldNames) {
         if (!isArray(fields)) {
             fields = [fields];
         }
@@ -782,10 +782,10 @@ abstract class DQuery : IQuery { // : IExpression {
     /**
      * Convenience method that adds a isNull condition to the query
      * Params:
-     * \UIM\Database\IExpression|string[] afields A single field or expressions or a list of them
+     * \UIM\Database\IExpression|string[] fieldNames A single field or expressions or a list of them
      *  that should be null.
      * /
-    auto whereNull(IExpression|string[] afields) {
+    auto whereNull(IExpression|string[] fieldNames) {
         if (!isArray(fields)) {
             fields = [fields];
         }
@@ -986,10 +986,10 @@ abstract class DQuery : IQuery { // : IExpression {
      * If you need to set complex expressions as order conditions, you
      * should use `orderByAsc()` or `orderByDesc()`.
      * Params:
-     * \UIM\Database\IExpression|\Closure|string[] afields fields to be added to the list
+     * \UIM\Database\IExpression|\Closure|string[] fieldNames fields to be added to the list
      * @param bool overwrite whether to reset order with field list or not
      * /
-    auto orderBy(IExpression|Closure|string[] afields, bool overwrite = false) {
+    auto orderBy(IExpression|Closure|string[] fieldNames, bool overwrite = false) {
         if (overwrite) {
            _parts["order"] = null;
         }

@@ -71,11 +71,11 @@ interface IRepository {
      * This method will *not* trigger beforeSave/afterSave events. If you need those
      * first load a collection of records and update them.
      * Params:
-     * \Closure|string[] afields A hash of field: new value.
+     * \Closure|string[] fieldNames A hash of field: new value.
      * @param \Closure|string[] conditions Conditions to be used, accepts anything Query.where()
      * can take.
      * /
-    int updateAll(Closure|string[] afields, IClosure|string[] conditions);
+    int updateAll(Closure|string[] fieldNames, IClosure|string[] conditions);
 
     /**
      * Deletes all records matching the provided conditions.

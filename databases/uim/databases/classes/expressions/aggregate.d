@@ -52,11 +52,11 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
         this.getWindow().partition(partitions);
     }
 
-    auto order(IExpression|Closure|string[] afields) {
+    auto order(IExpression|Closure|string[] fieldNames) {
         return _orderBy(fields);
     }
  
-    void orderBy(IExpression|Closure|string[] afields) {
+    void orderBy(IExpression|Closure|string[] fieldNames) {
         this.getWindow().orderBy(fields);
     }
  

@@ -411,8 +411,8 @@ string[] replace(string[] texts, string originText, string newText) {
 		.array;
 }
 
-string[] split(string[] texts, string splitText) {
+string[] splits(string[] texts, string splitText) {
 	auto splitTexts = texts
-		.map!(text => text.split(splitText)).array;
+		.map!(text => text.splits(splitText)).array;
 	return chain(splitTexts);
 }

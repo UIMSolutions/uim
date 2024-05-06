@@ -110,8 +110,8 @@ class DConsoleOutput {
     /**
      * Styles that are available as tags in console output.
      * You can modify these styles with ConsoleOutput.styles()
-     * /
-    protected static array<string, array> _styles = [
+     */
+    protected static STRINGAA[string] _styles = [
         "emergency": ["text": "red"],
         "alert": ["text": "red"],
         "critical": ["text": "red"],
@@ -132,7 +132,6 @@ class DConsoleOutput {
      * pretty consoles on Windows, and is supported.
      * Params:
      * resource|string astream The identifier of the stream to write output to.
-     * @throws \UIM\Console\Exception\ConsoleException If the given stream is not a valid resource.
      * /
     this(string streamIdentifier = "uim://stdout") {
         auto fileStream = fopen(streamIdentifier, "wb");

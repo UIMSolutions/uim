@@ -102,7 +102,7 @@ class DRedisCacheEngine : DCacheEngine {
     // Write data for key into cache.
     override bool set(string dataId, Json dataToCache, long timeToLive = null) {
         auto myKey = _key(dataId);
-        auto serializedData = this.serialize(dataToCache);
+        auto serializedData = serialize(dataToCache);
 
         auto myDuration = duration(timeToLive);
         return myDuration == 0
@@ -215,7 +215,7 @@ class DRedisCacheEngine : DCacheEngine {
     override bool add(string dataId, Json dataToCache) {
         auto aDuration = configuration.get("duration");
         auto aKey = _key(dataId);
-        auto aValue = this.serialize(dataToCache);
+        auto aValue = serialize(dataToCache);
 
         return (_redis.set(aKey, aValue, ["nx", "ex":  aDuration]));
     }
@@ -230,7 +230,7 @@ class DRedisCacheEngine : DCacheEngine {
         configuration.get("groups").each!((group) {
             auto aValue = _redis.get(configuration.get("prefix") ~  group);
             if (!aValue) {
-                aValue = this.serialize(1);
+                aValue = serialize(1);
                _redis.set(configuration.get("prefix") ~  group, aValue);
             }
             result ~= anGroup ~ aValue;

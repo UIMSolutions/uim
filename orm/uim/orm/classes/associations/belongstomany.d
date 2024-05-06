@@ -1341,9 +1341,9 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param string|null name The name of the junction table.
      * /
-    protected string _junctionTableName(string aName = null) {
-        if (name == null) {
-            if (empty(_junctionTableName)) {
+    protected string _junctionTableName(string tableName = null) {
+        if (tableName.isNull) {
+            if (_junctionTableName.isEmpty) {
                 tablesNames = array_map("uim\Utility\Inflector.underscore", [
                     this.getSource().getTable(),
                     this.getTarget().getTable(),
@@ -1354,7 +1354,7 @@ class DBelongsToManyAssociation : DAssociation {
             return _junctionTableName;
         }
 
-        return _junctionTableName = name;
+        return _junctionTableName = tableName;
     }
 
     /**

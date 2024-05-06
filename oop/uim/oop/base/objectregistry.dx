@@ -179,7 +179,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
 
   // Sets an object.
   void __set(string propertyName, Object objectToSet) {
-    this.set(propertyName, objectToSet);
+    set(propertyName, objectToSet);
   }
 
   // Unsets an object.

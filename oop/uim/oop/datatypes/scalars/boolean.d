@@ -13,7 +13,7 @@ class DBooleanData : DScalarData {
   mixin(DataThis!("Boolean"));
   this(bool newValue) {
     this();
-    this.set(newValue);
+    set(newValue);
   }
 
   // Initialization hook method.

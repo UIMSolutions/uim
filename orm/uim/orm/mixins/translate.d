@@ -36,7 +36,7 @@ mixin template TTranslate() {
         }
 
         if (created) {
-            this.set("_translations", i18n);
+            set("_translations", i18n);
         }
 
         // Assume the user will modify any of the internal translations, helps with saving

@@ -889,15 +889,15 @@ protected void _bindNewAssociations(Query query, Query surrogate, Json[string] o
      * @throws \RuntimeException if the number of columns in the foreignKeys do not
      * match the number of columns in the source table primaryKeys
      * /
-// TODO protected Json[string] _joinCondition(Json[string] optionData) {
-    conditions = null;
-    tAlias = _name;
-    sAlias = this.getSource().aliasName();
-    foreignKeys = (array) options["foreignKeys"];
-    bindingKeys = (array) this.getBindingKeys();
+protected Json[string] _joinCondition(Json[string] optionData) {
+    auto conditions = null;
+    auto tAlias = _name;
+    auto sAlias = this.getSource().aliasName();
+    auto foreignKeys = (array) options["foreignKeys"];
+    auto bindingKeys = (array) this.getBindingKeys();
 
     if (count(foreignKeys) != count(bindingKeys)) {
-        if (empty(bindingKeys)) {
+        if (bindingKeys.isEmpty) {
             table = this.getTarget().getTable();
             if (this.isOwningSide(this.getSource())) {
                 table = this.getSource().getTable();

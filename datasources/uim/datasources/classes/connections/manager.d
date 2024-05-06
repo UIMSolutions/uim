@@ -169,7 +169,7 @@ class DConnectionManager {
         if (useAliases && isset(_aliasMap[name])) {
             name = _aliasMap[name];
         }
-        if (empty(configuration.get(name])) {
+        if (configuration.isEmpty(name])) {
             throw new DMissingDatasourceConfigException(["name": name]);
         }
         /** @psalm-suppress RedundantPropertyInitializationCheck  * /

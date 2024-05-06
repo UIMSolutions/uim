@@ -55,7 +55,7 @@ class DORMEntity { // }: IEntity, IInvalidProperty {
 
                 return;
             }
-            this.set(myproperties, [
+            set(myproperties, [
                 "setter": options["useSetters"],
                 "guard": options["guard"],
             ]);

@@ -14,7 +14,7 @@ class DIntegerData : DScalarData {
   /*
   this(long newValue) {
     this();
-    this.set(newValue);
+    set(newValue);
   }
 
   // Initialization hook method.

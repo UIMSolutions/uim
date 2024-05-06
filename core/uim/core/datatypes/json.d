@@ -10,9 +10,8 @@ import uim.core;
 @safe:
 // #region Properties
 string[] keys(Json anObject) {
- return !anObject.isNull 
-  ? anObject.byKeyValue.map!(kv => kv.key).array
-  : null;
+  return !anObject.isNull
+    ? anObject.byKeyValue.map!(kv => kv.key).array : null;
 }
 // #endregion Properties
 
@@ -66,6 +65,7 @@ unittest {
 bool isInt(Json aJson) {
   return (aJson.type == Json.Type.int_);
 }
+
 bool isInteger(Json aJson) {
   return (aJson.type == Json.Type.int_);
 }
@@ -82,7 +82,7 @@ bool isNull(Json aJson) {
 unittest {
   /* assert(Json(null).isNull);
   assert(!Json.emptyObject.isNull);
-  assert(!Json.emptyArray.isNull); */ 
+  assert(!Json.emptyArray.isNull); */
 }
 
 bool isString(Json aJson) {
@@ -337,10 +337,10 @@ Json removeKey(Json json, string aKey) {
   }
 
   Json result = Json.emptyObject;
-   json
+  json
     .byKeyValue
     .filter!(kv => kv.key != aKey)
-    .each!(kv => result[kv.key] = kv.value); 
+    .each!(kv => result[kv.key] = kv.value);
 
   return result;
 }
@@ -452,15 +452,15 @@ T minValue(T)(Json[] jsons, string key) {
   return result;
 }
 
-  unittest {
-    assert(minValue!string(
-        [
-        ["a": "5"].toJson,
-        ["a": "2"].toJson,
-        ["a": "1"].toJson,
-        ["a": "4"].toJson
-      ], "a") == "1");
-  }
+unittest {
+  assert(minValue!string(
+      [
+      ["a": "5"].toJson,
+      ["a": "2"].toJson,
+      ["a": "1"].toJson,
+      ["a": "4"].toJson
+    ], "a") == "1");
+}
 
 T maxValue(T)(Json[] jsons, string key) {
   T result;
@@ -812,45 +812,75 @@ unittest {
 }
 
 Json toJsonObject(Json[string] map, string[] excludeKeys = null) {
-    auto json = Json.emptyObject;
-    map.byKeyValue
-      .filter!(kv => !excludeKeys.has(kv.key))
-      .each!(kv => json[kv.key] = kv.value);
-    return json;
+  auto json = Json.emptyObject;
+  map.byKeyValue
+    .filter!(kv => !excludeKeys.has(kv.key))
+    .each!(kv => json[kv.key] = kv.value);
+  return json;
 }
 
 Json toJsonObject(string[string] map, string[] excludeKeys = null) {
-    auto json = Json.emptyObject;
-    map.byKeyValue
-      .filter!(kv => !excludeKeys.has(kv.key))
-      .each!(kv => json[kv.key] = Json(kv.value));
-    return json;
+  auto json = Json.emptyObject;
+  map.byKeyValue
+    .filter!(kv => !excludeKeys.has(kv.key))
+    .each!(kv => json[kv.key] = Json(kv.value));
+  return json;
 }
 
 string[] toStringArray(Json value) {
   if (value.isArray) {
-    string[] results; 
-    
+    string[] results;
+
     // TODO foreach(v; value) results ~= v.to!string;
 
     return results;
   }
 
-  return null; 
+  return null;
+}
+
+Json toJson(bool value) {
+  return Json(value);
+}
+
+Json toJson(int value) {
+  return Json(value);
+}
+
+Json toJson(long value) {
+  return Json(value);
+}
+
+Json toJson(float value) {
+  return Json(value);
+}
+
+Json toJson(double value) {
+  return Json(value);
+}
+
+Json toJson(string value) {
+  return Json(value);
+}
+
+Json toJson(string[] values) {
+  auto json = Json.emptyArray;
+  values.each!(value => json ~= value.toJson);
+  return json;
 }
 
 Json toJson(STRINGAA map, string[] excludeKeys = null) {
-    auto json = Json.emptyObject;
-    map.byKeyValue
-      .filter!(kv => !excludeKeys.has(kv.key))
-      .each!(kv => json[kv.key] = kv.value);
-    return json;
+  auto json = Json.emptyObject;
+  map.byKeyValue
+    .filter!(kv => !excludeKeys.has(kv.key))
+    .each!(kv => json[kv.key] = kv.value);
+  return json;
 }
 
 Json[string] toJsonMap(STRINGAA map, string[] excludeKeys = null) {
-    Json[string] json;
-    map.byKeyValue
-      .filter!(kv => !excludeKeys.has(kv.key))
-      .each!(kv => json[kv.key] = Json(kv.value));
-    return json;
+  Json[string] json;
+  map.byKeyValue
+    .filter!(kv => !excludeKeys.has(kv.key))
+    .each!(kv => json[kv.key] = Json(kv.value));
+  return json;
 }

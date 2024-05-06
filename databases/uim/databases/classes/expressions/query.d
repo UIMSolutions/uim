@@ -114,23 +114,22 @@ class DQueryExpression : DExpression { // }, Countable {
      * If it is suffixed with "[]" and the value is an array then multiple placeholders
      * will be created, one per each value in the array.
      * /
-    auto notEq(IExpression|string afield, Json aValue, string atype = null) {
+    auto notEq(IExpression|string afield, Json valueToBound, string atype = null) {
         auto type ??= _calculateType(field);
 
-        return _add(new DComparisonExpression(field, aValue, type, "!="));
+        return _add(new DComparisonExpression(field, valueToBound, type, "!="));
     }
     
     /**
      * Adds a new condition to the expression object in the form "field > value".
      * Params:
      * \UIM\Database\IExpression|string afield Database field to be compared against value
-     * @param Json aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
      * /
-    auto gt(IExpression|string afield, Json aValue, string atype = null) {
+    auto gt(IExpression|string afield, Json valueToBound, string atype = null) {
         auto type ??= _calculateType(field);
 
-        return _add(new DComparisonExpression(field, aValue, type, ">"));
+        return _add(new DComparisonExpression(field, valueToBound, type, ">"));
     }
     
     /**
@@ -337,14 +336,12 @@ class DQueryExpression : DExpression { // }, Countable {
      * "field BETWEEN from AND to".
      * Params:
      * \UIM\Database\IExpression|string afield The field name to compare for values inbetween the range.
-     * @param Json from The initial value of the range.
-     * @param Json to The ending value in the comparison range.
      * @param string|null type the type name for aValue as configured using the Type map.
      * /
-    auto between(IExpression|string afield, Json from, Json to, string atype = null) {
+    auto between(IExpression|string afield, Json fromValue, Json toValue, string atype = null) {
         type ??= _calculateType(field);
 
-        return _add(new BetweenExpression(field, from, to, type));
+        return _add(new BetweenExpression(field, fromValue, toValue, type));
     }
     
     /**
@@ -356,10 +353,9 @@ class DQueryExpression : DExpression { // }, Countable {
      * values that are being passed. Used for correctly binding values to statements.
      * /
     static and(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = null) {
-        if (cast(DClosure)conditions) {
-            return conditions(new static([], this.getTypeMap().setTypes(passedTypes)));
-        }
-        return new static(conditions, this.getTypeMap().setTypes(passedTypes));
+        return cast(DClosure)conditions
+            ? conditions(new static([], this.getTypeMap().setTypes(passedTypes)))
+            : new static(conditions, this.getTypeMap().setTypes(passedTypes));
     }
     
     /**

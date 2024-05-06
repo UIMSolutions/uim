@@ -219,14 +219,8 @@ interface ICollection {
      * // Display employee name
      * writeln(max.name;
      * ```
-     *
-     * @param callable|string path The column name to use for sorting or callback that returns the value.
-     * @param int sort The sort type, one of SORT_STRING
-     * SORT_NUMERIC or SORT_NATURAL
-     * @see uim.collections.ICollection::sortBy()
-     * @return mixed The value of the top element in the collection
      */
-    // Json max(path, int sort = SORT_NUMERIC);
+    // Json max(string columnName, int sortType = SORT_NUMERIC);
 
     /**
      * Returns the bottom element in this collection after being sorted by a property.
@@ -245,14 +239,8 @@ interface ICollection {
      * // Display employee name
      * writeln(min.name;
      * ```
-     *
-     * @param callable|string path The column name to use for sorting or callback that returns the value.
-     * @param int sortType The sortType type, one of SORT_STRING
-     * SORT_NUMERIC or SORT_NATURAL
-     * @see uim.collections.ICollection::sortBy()
-     * @return mixed The value of the bottom element in the collection
      */
-    // Json min(path, int sortType = SORT_NUMERIC);
+    // Json min(columnName, int sortType = SORT_NUMERIC);
 
     /**
      * Returns the average of all the values extracted with path
@@ -276,13 +264,8 @@ interface ICollection {
      *
      * The average of an empty set or 0 rows is `null`. Collections with `null`
      * values are not considered empty.
-     *
-     * @param callable|string|null path The property name to sum or a function
-     * If no value is passed, an identity // function will be used.
-     * that will return the value of the property to sum.
-     * @return float|int|null
      */
-    // float avg(path = null);
+    // float avg(string propertyName = null);
 
     /**
      * Returns the median of all the values extracted with path

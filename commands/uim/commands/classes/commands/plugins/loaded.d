@@ -28,7 +28,6 @@ class DPluginLoadedCommand : DCommand {
     //  Displays all currently loaded plugins.
      * Params:
      * \UIM\Console\Json[string] arguments The command arguments.
-     * @param \UIM\Console\IConsoleIo aConsoleIo The console io
   int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         loaded = Plugin. loaded();
         aConsoleIo.out (loaded);

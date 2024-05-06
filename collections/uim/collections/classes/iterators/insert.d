@@ -27,15 +27,13 @@ class DInsertIterator : DCollection {
      * Constructs a new DCollection that will dynamically add properties to it out of
      * the values found in  sourceValues.
      * Params:
-     * range anInto The target collection to which the values will
-     * be inserted at the specified path.
      * @param string aPath A dot separated list of properties that need to be traversed
      * to insert the value into the target collection.
      * @param  range sourceValues The source collection from which the values will
      * be inserted at the specified path.
      * /
-  this(Json[string] anInto, string aPath, Json[string] sourceValues) {
-    super(anInto);
+  this(Json[string] targetValues, string aPath, Json[string] sourceValues) {
+    super(targetValues);
 
     if (!(cast(DCollection) sourceValues)) {
        sourceValues = new DCollection(sourceValues);

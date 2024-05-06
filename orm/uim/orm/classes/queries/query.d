@@ -19,7 +19,7 @@ import uim.orm;
  * @method DORMcollections.ICollection filter(callable c = null) Keeps the results using passing the callable test
  * @method DORMcollections.ICollection reject(callable c) Removes the results passing the callable test
  * @method bool every(callable c) Returns true if all the results pass the callable test
- * @method bool some(callable c) Returns true if at least one of the results pass the callable test
+ * @method bool any(callable c) Returns true if at least one of the results pass the callable test
  * @method DORMcollections.ICollection map(callable c) Modifies each of the results using the callable
  * @method mixed reduce(callable c, zero = null) Folds all the results into a single value using the callable.
  * @method DORMcollections.ICollection extract(field) Extracts a single column from each row

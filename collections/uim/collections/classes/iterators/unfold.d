@@ -26,10 +26,6 @@ class DUnfoldIterator {  /* }: IteratorIterator, RecursiveIterator {
     /**
      * Creates the iterator that will generate child iterators from each of the
      * elements it was constructed with.
-     * Params:
-     * @param callable unfolder A callable auto that will receive the
-     * current item and key. It must return an array or Traversable object
-     * out of which the nested iterators will be yielded.
      * /
     this(Traversable valuesToIterate, callable unfolder) {
        _unfolder = unfolder;

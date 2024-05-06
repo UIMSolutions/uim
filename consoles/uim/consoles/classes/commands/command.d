@@ -149,7 +149,6 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * Params:
      * \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The option parser.
      * @param \UIM\Console\Json[string] someArguments The command arguments.
-     * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * /
     protected void displayHelp(DConsoleOptionParser buildOptionParser aParser, Json[string] someArguments, IConsoleIo aConsoleIo) {
         string format = "text";

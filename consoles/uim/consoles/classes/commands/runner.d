@@ -248,7 +248,6 @@ class DCommandRunner { // }: IEventDispatcher {
      * Params:
      * \UIM\Console\ICommand command The command to run.
      * @param Json[string] argv The CLI arguments to invoke.
-     * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * /
     protected int runCommand(ICommand command, Json[string] argv, IConsoleIo aConsoleIo) {
         try {

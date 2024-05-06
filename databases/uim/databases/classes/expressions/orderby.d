@@ -42,7 +42,7 @@ class DOrderByExpression : DQueryExpression {
      * Json[string] conditions list of order by expressions
      * @param Json[string] types list of types associated on fields referenced in conditions
      * /
-    protected void _addConditions(Json[string] conditions, Json[string] types) {
+    protected void _addConditions(Json[string] conditions, Json[string] associatedTypes) {
         conditions.byKeyValue.each!((kv) {
             if (
                 isString(kv.key) &&
@@ -53,7 +53,7 @@ class DOrderByExpression : DQueryExpression {
                     "Passing extra expressions by associative array (`\'%s\": \'%s\'`) " ~
                     "is not allowed to avoid potential SQL injection. " ~
                     "Use QueryExpression or numeric array instead."
-                    .format(kv.key,  kv.value)
+                    .format(kv.key, kv.value)
                 );
             }
         });

@@ -12,9 +12,8 @@ import uim.databases;
  */
 class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResult {
     mixin(ExpressionThis!("Function"));
-
-    // TODO mixin TExpressionTypeCaster;
-    // TODO mixin TypedResultTemplate;
+    mixin TExpressionTypeCaster;
+    mixin TypedResultTemplate;
 
     /**
      * Constructor. Takes a name for the auto to be invoked and a list of params
@@ -34,16 +33,16 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      *
      * Will produce `CONCAT(name, " rules")`
      * Params:
-     * @param Json[string] params list of arguments to be passed to the function
+     * @param Json[string] arguments list of arguments to be passed to the function
      * If associative the key would be used as argument when value is 'literal'
      * @param STRINGAA|array<string|null> types Associative array of types to be associated with the
      * passed arguments
      * @param string resultType The return type of this expression
      * /
-    this(string newName, Json[string] params = [], Json[string] types = [], string resultType = "string") {
+    this(string newName, Json[string] arguments = [], Json[string] types = [], string resultType = "string") {
        this.name(newName);
        _returnType = resultType;
-        super(params, types, ",");
+        super(arguments, types, ",");
     }
 
     /**

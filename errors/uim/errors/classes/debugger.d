@@ -9,8 +9,6 @@ import uim.errors;
  *
  * Debugger : D`s default error handling and gives
  * simpler to use more powerful interfaces.
- *
- * @link https://book.UIM.org/5/en/development/debugging.html#namespace-UIM\Error
  */
 class DDebugger {
     mixin TConfigurable;

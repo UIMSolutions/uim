@@ -922,8 +922,6 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \UIM\Database\IExpression|\Closure|string[] aconditions The conditions to add with AND.
      * @param STRINGAA types Associative array of type names used to bind values to query
-     * @see \UIM\Database\Query.where()
-     * @see \UIM\Database\TypeFactory
      * /
     auto andWhere(IExpression|Closure|string[] aconditions, Json[string] types = []) {
        _conjugate("where", conditions, "AND", types);

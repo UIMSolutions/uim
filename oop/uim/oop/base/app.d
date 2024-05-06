@@ -153,7 +153,6 @@ class DApp {
      * Params:
      * string pathType Type of path
      * @param string plugin Plugin name
-     * @link https://book.UIM.org/5/en/core-libraries/app.html#finding-paths-to-namespaces
      * /
     static string[] path(string pathType, string aplugin = null) {
         if (plugin.isNull) {

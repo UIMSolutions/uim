@@ -47,7 +47,6 @@ import uim.controllers;
  * @property \UIM\Controller\Component\FlashComponent flash
  * @property \UIM\Controller\Component\FormProtectionComponent formProtection
  * @property \UIM\Controller\Component\CheckHttpCacheComponent checkHttpCache
- * @link https://book.UIM.org/5/en/controllers.html
  * @implements \UIM\Event\IEventDispatcher<\UIM\Controller\Controller>
  */
 class DController : IController { // IEventListener, IEventDispatcher {    

@@ -1447,7 +1447,6 @@ class DFormHelper : DHelper {
      * string aFieldName Name of a field, in the form "modelname.fieldname"
      * @param Json[string] options Array of HTML attributes.
      * @return string A generated file input.
-     * @link https://book.UIM.org/5/en/views/helpers/form.html#creating-file-inputs
      * /
     string file(string aFieldName, Json[string] options  = null) {
         options = options.update["secure": Json(true)];

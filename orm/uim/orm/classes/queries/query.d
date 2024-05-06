@@ -1078,8 +1078,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * using `contain`
      *
      * It also sets the default types for the columns in the select clause
-     *
-     * @see DORMdatabases.Query::execute()
      * /
     protected void _transformQuery() {
         if (!_isDirty || _type != "select") {

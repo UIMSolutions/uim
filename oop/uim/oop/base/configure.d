@@ -139,7 +139,6 @@ static Json readOrFail(string avar) {
      * ```
      * Params:
      * string avar the var to be deleted
-     * @link https://book.UIM.org/5/en/development/configuration.html#deleting-configuration-data
      * /
 static void delete(string avar) {
     _values = Hash.remove(_values, var);

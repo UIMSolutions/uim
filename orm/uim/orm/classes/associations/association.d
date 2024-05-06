@@ -1062,7 +1062,6 @@ abstract bool isOwningSide(Table side);
      * @param array<string, mixed> options The options for saving associated data.
      * @return DORMDatasource\IEntity|false false if entity could not be saved, otherwise it returns
      * the saved entity
-     * @see DORMTable::save()
      * /
 abstract function saveAssociated(IEntity anEntity, Json[string] optionData = null);
     */ 

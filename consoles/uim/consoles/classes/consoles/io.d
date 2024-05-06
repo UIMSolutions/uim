@@ -306,7 +306,6 @@ class DConsoleIo {
     
     /**
      * Gets defined styles.
-     * @see \UIM\Console\ConsoleOutput.styles()
      * /
     array styles() {
         return _out.styles();
@@ -314,8 +313,6 @@ class DConsoleIo {
     
     /**
      * Get defined style.
-     * Params:
-     * @see \UIM\Console\ConsoleOutput.getStyle()
      * /
     array getStyle(string styleToGet) {
         return _out.getStyle(styleToGet);

@@ -9,8 +9,6 @@ import uim.validations;
  * It also provides an API to dynamically change validation rules for each model field.
  *
  * : ArrayAccess to easily modify rules in the set
- *
- * @link https://book.UIM.org/5/en/core-libraries/validation.html
  * @template-implements \ArrayAccess<string, \UIM\Validation\ValidationSet>
  * @template-implements \IteratorAggregate<string, \UIM\Validation\ValidationSet>
  */
@@ -656,8 +654,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      * @return this
-    
-     * @see \UIM\Validation\Validator.allowEmptyFor() for examples.
      * /
     auto allowEmptyArray(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
         return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_ARRAY, mywhen, myMessage);

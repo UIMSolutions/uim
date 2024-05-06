@@ -8,9 +8,6 @@ import uim.views;
  * Time Helper class for easy use of time data.
  *
  * Manipulation of time data.
- *
- * @link https://book.UIM.org/5/en/views/helpers/time.html
- * @see \UIM\I18n\Time
  */
 class DTimeHelper : DHelper {
     mixin(HelperThis!("Time"));

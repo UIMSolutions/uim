@@ -366,7 +366,6 @@ class DConsoleOptionParser {
      * The keys are used as the argument names, and the values as params for the argument.
      * Params:
      * array<string, Json[string]|\UIM\Console\ConsoleInputArgument> someArguments Array of arguments to add.
-     * @see \UIM\Console\DConsoleOptionParser buildOptionParser.addArgument()
      * /
     void addArguments(Json[string] someArguments) {
         foreach (name: params; someArguments) {

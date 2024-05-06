@@ -66,10 +66,6 @@ class DFlashMessage {
      * - `params` An array of variables to be made available to the element.
      * - `clear` A bool stating if the current stack should be cleared to start a new one.
      * - `escape` Set to false to allow templates to print out HTML content.
-     *
-     * messageToBeFlashed - Message to be flashed.
-     * @param Json[string] options An array of options
-     * @see FlashMessage._defaultConfigData For default values for the options.
      * /
     void set(string messageToBeFlashed, Json[string] options = null) {
         auto options = options.update(this.configuration.data);

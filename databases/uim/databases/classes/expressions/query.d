@@ -79,7 +79,6 @@ class DQueryExpression : DExpression { // }, Countable {
      * as conditions.
      * @param array<int|string, string> types Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
-     * @see \UIM\Database\Query.where() for examples on conditions
      * /
     void add(IExpression|string[] aconditions, Json[string] types = []) {
         if (isString(conditions) || cast(IExpression)conditions ) {

@@ -308,9 +308,6 @@ class DDebugger {
      *
      * @param mixed var The variable to dump.
      * @param int maxDepth The depth to output to. Defaults to 3.
-     * @return void
-     * @see uim.errors.Debugger::exportVar()
-     * @link https://book.uimD.org/4/en/development/debugging.html#outputting-values
      * /
     static void dump(var, int maxDepth = 3) {
         pr(exportVar(var, maxDepth));

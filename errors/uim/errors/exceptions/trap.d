@@ -174,7 +174,6 @@ class DExceptionTrap {
      * Params:
      * \Throwable anException Exception instance.
      * @throws \Exception When renderer class not found
-     * @see https://secure.d.net/manual/en/function.set-exception-handler.d
      * /
     void handleException(Throwable anException) {
         if (this.disabled) {

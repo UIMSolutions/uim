@@ -7,11 +7,6 @@ import uim.collections;
 /**
  * An iterator that can be used to generate nested iterators out of a collection
  * of items by applying an auto to each of the elements in this iterator.
- *
- * @internal
- * @see \UIM\Collection\Collection.unfold()
- * @template-implements \RecursiveIterator<mixed, mixed>
- * @template-extends \IteratorIterator<mixed, mixed, \Traversable<mixed, mixed>>
  */
 class DUnfoldIterator {  /* }: IteratorIterator, RecursiveIterator {
     /**

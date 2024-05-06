@@ -53,9 +53,6 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      * @param STRINGAA types Associative array of types to be associated with the
      * passed arguments
      * @param bool prepend Whether to prepend or append to the list of arguments
-     * @see \UIM\Database\Expression\FunctionExpression.__construct() for more details.
-
-     * @psalm-suppress MoreSpecificImplementedParamType
      * /
     void add(IExpression|string[] aconditions, Json[string] types = [], bool prepend = false) {
         put = prepend ? "array_unshift' : 'array_push";

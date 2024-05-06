@@ -60,7 +60,7 @@ class DHasManyAssociation : DAssociation {
      * @param DORMTable side The potential Table with ownership
      * /
     bool isOwningSide(Table side) {
-        return side == this.getSource();
+        return side == source();
     }
 
     /**
@@ -128,7 +128,7 @@ class DHasManyAssociation : DAssociation {
             entity.extract((array)this.getBindingKey())
         );
 
-        options["_sourceTable"] = this.getSource();
+        options["_sourceTable"] = source();
 
         if (
             _saveStrategy == self.SAVE_REPLACE &&
@@ -534,7 +534,7 @@ class DHasManyAssociation : DAssociation {
     // Gets the name of the field representing the foreign key to the source table.
     string[] getForeignKeys() {
         if (_foreignKey.isNull) {
-            _foreignKey = _modelKey(this.getSource().getTable());
+            _foreignKey = _modelKey(source().getTable());
         }
 
         return _foreignKey;
@@ -563,7 +563,7 @@ class DHasManyAssociation : DAssociation {
 
 
     array defaultRowValue(Json[string] row, bool joined) {
-        sourceAlias = this.getSource().aliasName();
+        sourceAlias = source().aliasName();
         if (isset(row[sourceAlias])) {
             row[sourceAlias][this.getProperty()] = joined ? null : [];
         }
@@ -589,7 +589,7 @@ class DHasManyAssociation : DAssociation {
     Closure eagerLoader(Json[string] options) {
         loader = new DSelectLoader([
             "alias":this.aliasName(),
-            "sourceAlias":this.getSource().aliasName(),
+            "sourceAlias":source().aliasName(),
             "targetAlias":this.getTarget().aliasName(),
             "foreignKey":this.getForeignKeys(),
             "bindingKey":this.getBindingKey(),

@@ -105,7 +105,7 @@ interface IEntity { // : ArrayAccess, JsonSerializable
    /**
      * Returns the alias of the repository from which this entity came from.
      */
-   // string getSource();
+   // string source();
 
    /**
      * Returns an array with the requested original fields

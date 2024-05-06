@@ -149,7 +149,7 @@ class DBelongsToManyAssociation : DAssociation {
      * /
     string[] getForeignKeys() {
         if (_foreignKey == null) {
-            _foreignKey = _modelKey(this.getSource().getTable());
+            _foreignKey = _modelKey(source().getTable());
         }
 
         return _foreignKey;
@@ -178,7 +178,7 @@ class DBelongsToManyAssociation : DAssociation {
 
 
     array defaultRowValue(Json[string] row, bool joined) {
-        sourceAlias = this.getSource().aliasName();
+        sourceAlias = source().aliasName();
         if (isset(row[sourceAlias])) {
             row[sourceAlias][this.getProperty()] = joined ? null : [];
         }
@@ -213,7 +213,7 @@ class DBelongsToManyAssociation : DAssociation {
 
                 // Propagate the connection if we"ll get an auto-model
                 if (!App.className(tableAlias, "Model/Table", "Table")) {
-                    configuration.get("connection"] = this.getSource().getConnection();
+                    configuration.get("connection"] = source().getConnection();
                 }
             }
             table = tableLocator.get(tableAlias, myConfiguration);
@@ -223,7 +223,7 @@ class DBelongsToManyAssociation : DAssociation {
             table = tableLocator.get(table);
         }
 
-        source = this.getSource();
+        source = source();
         target = this.getTarget();
         if (source.aliasName() == target.aliasName()) {
             throw new DInvalidArgumentException(sprintf(
@@ -390,7 +390,7 @@ class DBelongsToManyAssociation : DAssociation {
         }
 
         junction = this.junction();
-        belongsTo = junction.getAssociation(this.getSource().aliasName());
+        belongsTo = junction.getAssociation(source().aliasName());
         cond = belongsTo._joinCondition(["foreignKey": belongsTo.getForeignKeys()]);
         cond += this.junctionConditions();
 
@@ -421,7 +421,7 @@ class DBelongsToManyAssociation : DAssociation {
         }
         options["conditions"] = options["conditions"] ?? [];
         junction = this.junction();
-        belongsTo = junction.getAssociation(this.getSource().aliasName());
+        belongsTo = junction.getAssociation(source().aliasName());
         conds = belongsTo._joinCondition(["foreignKey": belongsTo.getForeignKeys()]);
 
         subquery = this.find()
@@ -473,7 +473,7 @@ class DBelongsToManyAssociation : DAssociation {
         name = _junctionAssociationName();
         loader = new DSelectWithPivotLoader([
             "alias": this.aliasName(),
-            "sourceAlias": this.getSource().aliasName(),
+            "sourceAlias": source().aliasName(),
             "targetAlias": this.getTarget().aliasName(),
             "foreignKey": this.getForeignKeys(),
             "bindingKey": this.getBindingKey(),
@@ -512,7 +512,7 @@ class DBelongsToManyAssociation : DAssociation {
         }
 
         table = this.junction();
-        hasMany = this.getSource().getAssociation(table.aliasName());
+        hasMany = source().getAssociation(table.aliasName());
         if (_cascadeCallbacks) {
             foreach (hasMany.find("all").where(conditions).all().toList() as related) {
                 success = table.remove(related, options);
@@ -1266,7 +1266,7 @@ class DBelongsToManyAssociation : DAssociation {
      * /
     // TODO protected Json[string] _collectJointEntities(IEntity sourceEntity, Json[string] targetEntities) {
         target = this.getTarget();
-        source = this.getSource();
+        source = source();
         junction = this.junction();
         jointProperty = _junctionProperty;
         primary = (array)target.primaryKeys();
@@ -1345,7 +1345,7 @@ class DBelongsToManyAssociation : DAssociation {
         if (tableName.isNull) {
             if (_junctionTableName.isEmpty) {
                 tablesNames = array_map("uim\Utility\Inflector.underscore", [
-                    this.getSource().getTable(),
+                    source().getTable(),
                     this.getTarget().getTable(),
                 ])().sort;
                 _junctionTableName = implode("_", tablesNames);

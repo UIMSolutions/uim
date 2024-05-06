@@ -161,7 +161,7 @@ class DBelongsToAssociation : DAssociation {
     {
         loader = new DSelectLoader([
             "alias": this.aliasName(),
-            "sourceAlias": this.getSource().aliasName(),
+            "sourceAlias": source().aliasName(),
             "targetAlias": this.getTarget().aliasName(),
             "foreignKeys": this.getForeignKeyss(),
             "bindingKey": this.getBindingKey(),

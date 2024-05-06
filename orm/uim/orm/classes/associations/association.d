@@ -218,7 +218,7 @@ string getClassName() {
     }
 
     // Gets the table instance for the source side of the association.
-    Table getSource() {
+    Table source() {
         return _sourceTable;
     }
 
@@ -321,8 +321,8 @@ function setBindingKeys(key) {
      * /
 function getBindingKeys() {
     if (_bindingKeys == null) {
-        _bindingKeys = this.isOwningSide(this.getSource()) ?
-            this.getSource().primaryKeys() 
+        _bindingKeys = this.isOwningSide(source()) ?
+            source().primaryKeys() 
             : this.getTarget().primaryKeys();
     }
 
@@ -639,7 +639,7 @@ protected void _appendNotMatching(Query query, Json[string] optionData) {
      * data shuld be nested in. Will use the default one if not provided.
      * /
 array transformRow(Json[string] row, string nestKey, bool joined, string targetProperty = null) {
-    sourceAlias = this.getSource().aliasName();
+    sourceAlias = source().aliasName();
     nestKey = nestKey ?  : _name;
     targetProperty = targetProperty ?  : this.getProperty();
     if (isset(row[sourceAlias])) {
@@ -661,7 +661,7 @@ array transformRow(Json[string] row, string nestKey, bool joined, string targetP
      * @return Json[string]
      * /
 array defaultRowValue(Json[string] row, bool joined) {
-    sourceAlias = this.getSource().aliasName();
+    sourceAlias = source().aliasName();
     if (isset(row[sourceAlias])) {
         row[sourceAlias][this.getProperty()] = null;
     }
@@ -892,15 +892,15 @@ protected void _bindNewAssociations(Query query, Query surrogate, Json[string] o
 protected Json[string] _joinCondition(Json[string] optionData) {
     auto conditions = null;
     auto tAlias = _name;
-    auto sAlias = this.getSource().aliasName();
+    auto sAlias = source().aliasName();
     auto foreignKeys = (array) options["foreignKeys"];
     auto bindingKeys = (array) this.getBindingKeys();
 
     if (count(foreignKeys) != count(bindingKeys)) {
         if (bindingKeys.isEmpty) {
             table = this.getTarget().getTable();
-            if (this.isOwningSide(this.getSource())) {
-                table = this.getSource().getTable();
+            if (this.isOwningSide(source())) {
+                table = source().getTable();
             }
             msg = "The '%s' table does not define a primary key, and cannot have join conditions generated.";
             throw new DRuntimeException(sprintf(msg, table));

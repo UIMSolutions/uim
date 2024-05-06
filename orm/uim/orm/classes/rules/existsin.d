@@ -80,7 +80,7 @@ class DExistsIn {
             mysource = options["repository"];
         }
         if (cast(DAssociation)mysource) {
-            mysource = mysource.getSource();
+            mysource = mysource.source();
         }
         if (!myentity.extract(_fields, true)) {
             return true;

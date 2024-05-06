@@ -582,7 +582,7 @@ class DEagerLoader {
             contain = meta.associations();
             instance = meta.instance();
             myConfiguration = meta.configuration.data;
-            alias = instance.getSource().aliasName();
+            alias = instance.source().aliasName();
             path = meta.aliasPath();
 
             requiresKeys = instance.requiresKeys(myConfiguration);
@@ -723,7 +723,7 @@ class DEagerLoader {
                 continue;
             }
 
-            source = instance.getSource();
+            source = instance.source();
             keys = instance.type() == Association.MANY_TO_ONE ?
                 (array)instance.getForeignKeys() :
                 (array)instance.getBindingKey();

@@ -1062,7 +1062,7 @@ mixin template TEntity() {
                                                                     /**
      * Returns the alias of the repository from which this entity came from.
     * /
-                                                                    string getSource() {
+                                                                    string source() {
                                                                       return _registryAlias;
                                                                     }
 

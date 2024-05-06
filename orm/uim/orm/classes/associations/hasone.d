@@ -34,7 +34,7 @@ class DHasOneAssociation : DAssociation {
      * /
     function getForeignKeys() {
         if (_foreignKey == null) {
-            _foreignKey = _modelKey(this.getSource().aliasName());
+            _foreignKey = _modelKey(source().aliasName());
         }
 
         return _foreignKey;
@@ -55,7 +55,7 @@ class DHasOneAssociation : DAssociation {
      * @param DORMTable side The potential Table with ownership
      * /
     bool isOwningSide(Table side) {
-        return side == this.getSource();
+        return side == source();
     }
 
     // Get the relationship type.
@@ -100,7 +100,7 @@ class DHasOneAssociation : DAssociation {
     {
         loader = new DSelectLoader([
             "alias": this.aliasName(),
-            "sourceAlias": this.getSource().aliasName(),
+            "sourceAlias": source().aliasName(),
             "targetAlias": this.getTarget().aliasName(),
             "foreignKey": this.getForeignKeys(),
             "bindingKey": this.getBindingKey(),

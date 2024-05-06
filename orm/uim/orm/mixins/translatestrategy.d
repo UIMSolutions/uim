@@ -111,7 +111,7 @@ mixin template TTranslateStrategy() {
      *
      * @param DORMMarshaller marshaller The marhshaller of the table the behavior is attached to.
      * @param Json[string] map The property map being built.
-     * @param array<string, mixed> options The options array used in the marshalling call.
+     * @param Json[string] options The options array used in the marshalling call.
      * @return array A map of `[property: callable]` of additional properties to marshal.
      * /
     array buildMarshalMap(DMarshaller marshaller, Json[string] map, Json[string] optionData) {

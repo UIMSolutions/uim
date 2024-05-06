@@ -114,7 +114,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      * which the filter should be applied
      *
      * @param Json[string] options the options to use for getting the link field.
-     * @return array<string>|string
+     * @return string[]|string
      * /
     protected function _linkField(Json[string] optionData) {
         links = null;

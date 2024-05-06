@@ -742,7 +742,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *  Closure is passed then the field will be required to be not empty when
      *  the callback returns true.
      * @return this
-     * @see\UIM\Validation\Validator.allowEmptyDate() for examples
      * /
     auto notEmptyDate(string fieldName, string myMessage = null, IClosure|string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);

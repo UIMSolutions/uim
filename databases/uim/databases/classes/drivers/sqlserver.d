@@ -20,7 +20,7 @@ class DSqlserverDriver : DDriver {
             "database": Json("uim"),
             "port": Json(""),
             // PDO.SQLSRV_ENCODING_UTF8
-            "encoding": Json(65001),
+            "encoding": Json(65_001),
             "flags": Json.emptyArray,
             "init": Json.emptyArray,
             "settings": Json.emptyArray,

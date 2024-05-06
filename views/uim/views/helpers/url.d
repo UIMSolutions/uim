@@ -184,9 +184,9 @@ class UrlHelper : DHelper {
      * a timestamp will be added.
      * Params:
      * string mypath The file path to timestamp, the path must be inside `App.wwwRoot` in Configure.
-     * @param string|bool mytimestamp If set will overrule the value of `Asset.timestamp` in Configure.
+     * @param string mytimestamp If set will overrule the value of `Asset.timestamp` in Configure.
      * /
-    string assetTimestamp(string mypath, string|bool|null mytimestamp = null) {
+    string assetTimestamp(string mypath, string|null mytimestamp = null) {
         return htmlAttribEscape(_assetUrlClassName.assetTimestamp(mypath, mytimestamp));
     }
     

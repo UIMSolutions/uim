@@ -13,7 +13,6 @@ import uim.views;
  * @property \UIM\View\Helper\NumberHelper myNumber
  * @property \UIM\View\Helper\HtmlHelper myHtml
  * @property \UIM\View\Helper\FormHelper myForm
- * @link https://book.UIM.org/5/en/views/helpers/paginator.html
  */
 class DPaginatorHelper : DHelper {
     mixin(HelperThis!("Paginator"));

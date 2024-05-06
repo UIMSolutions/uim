@@ -207,7 +207,7 @@ class DRadioWidget : DWidget {
      * input types (multi-checkboxes) will also need labels generated.
      * Params:
      * Json[string] myradio The input properties.
-     * @param Json[string]|string|bool|null mylabel The properties for a label.
+     * @param Json[string]|string|null mylabel The properties for a label.
      * @param string myinput The input widget.
      * @param \UIM\View\Form\IContext formContext The form context.
      * @param bool shouldEscape Whether to HTML escape the label.

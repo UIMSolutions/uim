@@ -38,8 +38,6 @@ interface ICollection {
      *
      * @param string name The name of the table to describe.
      * @param Json[string] options The options to use, see above.
-     * @return uim.databases.Schema\ITableSchema Object with column metadata.
-     * @throws uim.databases.Exception\DatabaseException when table cannot be described.
      * /
     ITableSchema describe(string name, Json[string] options = null);
     */

@@ -929,7 +929,6 @@ abstract class DQuery : IQuery { // : IExpression {
         return this;
     }
     
-    
     /**
      * Adds a single or multiple fields to be used in the ORDER clause for this query.
      * Fields can be passed as an array of strings, Json[string] of expression

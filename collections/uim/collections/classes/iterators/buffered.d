@@ -18,7 +18,11 @@ class DBufferedIterator : DCollection { // }, Countable {
 
   // Last record fetched from the inner iterator
   protected Json _current;
-
+  // Returns the current record in the iterator
+  Json current() {
+    return _current;
+  }
+  
   // Last key obtained from the inner iterator
   protected string _key;
   // Returns the current key in the iterator
@@ -48,10 +52,7 @@ class DBufferedIterator : DCollection { // }, Countable {
 
 
 
-  // Returns the current record in the iterator
-  Json current() {
-    return _current;
-  }
+
 
   // Rewinds the collection
   void rewind() {

@@ -422,7 +422,6 @@ class DCache : ICache {
      * ```
      * Params:
      * string aKey The cache key to read/store data at.
-     * @param \Closure mydefault The callback that provides data in the case when
      *  the cache key is empty.
      */
     /* static Json remember(string aKey, IClosure callbackWhenEmpty, string configName = "default") {

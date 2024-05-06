@@ -84,7 +84,7 @@ class DExceptionTrap {
       "log": Json(true),
       "skipLog": Json.emptyArray,
       "trace": Json(false),
-      "extraFatalErrorMemory": IntegerData(4)
+      "extraFatalErrorMemory": Json(4)
     ];
 
     _configData = merge(initData, defaultData);

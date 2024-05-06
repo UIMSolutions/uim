@@ -25,7 +25,7 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
      * /
     protected Json[string] configData = [
         "redirect": Json(true),
-        "statusCode": IntegerData(301),
+        "statusCode": Json(301),
         "headers": Json.emptyArray,
         "disableOnDebug": Json(true),
         "trustedProxies": null,

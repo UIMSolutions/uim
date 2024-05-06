@@ -30,12 +30,13 @@ class DCollection : /* IteratorIterator, */ ICollection {
 		return true;
 	}
 
-  /* this(Json[string] someItems) {
+  this(Json[string] someItems) {
+    /* 
     if (someItems.isArray) {
       someItems = new DArrayIterator(someItems);
-    }
+    } */
     super(someItems);
-  } */ 
+  }
 
 
   // Returns an array for serializing this of this object.
@@ -50,14 +51,14 @@ class DCollection : /* IteratorIterator, */ ICollection {
 
   // Returns an array that can be used to describe the internal state of this object.
   protected Json[string] debugInfo() {
-    size_t myCount;
+    size_t countItems;
     try {
-      myCount = this.count();
+      countItems = count();
     } catch (Exception exception) {
-      myCount = "An exception occurred while getting count";
+      countItems = "An exception occurred while getting count";
     }
     return [
-      "count": IntegerData(myCount),
+      "count": Json(countItems),
     ];
   } */ 
 }

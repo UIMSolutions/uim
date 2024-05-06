@@ -13,18 +13,20 @@ import uim.collections;
  * @template-implements \IteratorAggregate<mixed>
  */
 class DMapReduce { // }: IteratorAggregate {
+    // Whether the Map-Reduce routine has been executed already on the data
+    protected bool _executed = false;
+
+    // Holds the original data that needs to be processed
+    protected Json[string] _data;
+
+    // Count of elements emitted during the Reduce phase
+    protected size_t _counter = 0;
     /* 
     // Holds the shuffled results that were emitted from the map phase
     // TODO protected Json[string] _intermediate = null;
 
     // Holds the results as emitted during the reduce phase
     // TODO protected Json[string] _auto result;
-
-    // Whether the Map-Reduce routine has been executed already on the data
-    protected bool _executed = false;
-
-    // Holds the original data that needs to be processed
-    protected range _data;
 
     // A callable that will be executed for each record in the original data
     protected callable _mapper;
@@ -34,9 +36,6 @@ class DMapReduce { // }: IteratorAggregate {
      * the Map phase
      * /
     protected callable _reducer;
-
-    // Count of elements emitted during the Reduce phase
-    protected size_t _counter = 0;
 
     /**
      * Constructor

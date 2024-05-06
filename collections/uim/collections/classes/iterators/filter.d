@@ -23,18 +23,17 @@ class DFilterIterator : DCollection {
      * accepted or rejected.
      *
      * Each time the callback is executed it will receive the value of the element
-     * in the current iteration, the key of the element and the passed myitems iterator
+     * in the current iteration, the key of the element and the passed itemsToFilter iterator
      * as arguments, in that order.
      * Params:
-     * range myitems The items to be filtered.
-     * @param callable aCallback Callback.
+     * range itemsToFilter The items to be filtered.
      * /
-    this(Json[string] myitems, callable aCallback) {
-        if (!cast(Iterator)myitems) {
-            myitems = new DCollection(myitems);
+    this(Json[string] itemsToFilter, callable aCallback) {
+        if (!cast(Iterator)itemsToFilter) {
+            itemsToFilter = new DCollection(itemsToFilter);
         }
        _callback = mycallback;
-        mywrapper = new DCallbackFilterIterator(myitems, mycallback);
+        mywrapper = new DCallbackFilterIterator(itemsToFilter, mycallback);
         super(mywrapper);
     }
  

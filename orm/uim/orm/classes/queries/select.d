@@ -82,7 +82,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * @var iterable|null
      * @see \UIM\Datasource\QueryTrait.setResult()
      * /
-    protected range _results = null;
+    protected Json[string] _results = null;
 
     /**
      * List of map-reduce routines that should be applied over the query
@@ -1329,7 +1329,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     /**
      * Executes this query and returns an range containing the results.
      * /
-    protected range _execute() {
+    protected Json[string] _execute() {
         this.triggerBeforeFind();
         if (_results) {
             return _results;

@@ -27,9 +27,9 @@ import uim.collections;
  * ```
  */
 class DZipIterator : ICollection {
-    /* 
     mixin TCollection;
 
+    /* 
     protected DMultipleIterator multipleIterator;
 
     // The auto to use for zipping items together

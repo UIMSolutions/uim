@@ -767,7 +767,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * options = query.getOptions();
      * ```
      *
-     * @param array<string, mixed> options The options to be applied
+     * @param Json[string] options The options to be applied
      * @return this
      * /
     function applyOptions(Json[string] optionData) {
@@ -1144,7 +1144,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * {@inheritDoc}
      *
      * @param string finder The finder method to use.
-     * @param array<string, mixed> options The options for the finder.
+     * @param Json[string] options The options for the finder.
      * @return static Returns a modified query.
      * @psalm-suppress MoreSpecificReturnType
      * /

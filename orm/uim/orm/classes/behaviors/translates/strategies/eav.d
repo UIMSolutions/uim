@@ -64,7 +64,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * Constructor
      *
      * @param DORMDORMTable aTable The table this strategy is attached to.
-     * @param array<string, mixed> myConfiguration The config for this strategy.
+     * @param Json[string] myConfiguration The config for this strategy.
      * /
     this(DORMTable aTable, Json[string] configData) {
         if (configuration.has("tableLocator"])) {

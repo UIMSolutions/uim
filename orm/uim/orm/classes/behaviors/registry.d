@@ -104,7 +104,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      *
      * @param string aClassName  The classname that is missing.
      * @param string anAlias The alias of the object.
-     * @param array<string, mixed> myConfiguration An array of config to use for the behavior.
+     * @param Json[string] myConfiguration An array of config to use for the behavior.
      * @return DORMBehavior The constructed behavior class.
      * @psalm-suppress MoreSpecificImplementedParamType
      * /

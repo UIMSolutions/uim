@@ -70,7 +70,7 @@ class DHasOneAssociation : DAssociation {
      * `options`
      *
      * @param DORMDatasource\IEntity anEntity an entity from the source table
-     * @param array<string, mixed> options options to be passed to the save method in the target table
+     * @param Json[string] options options to be passed to the save method in the target table
      * @return DORMDatasource\IEntity|false false if entity could not be saved, otherwise it returns
      * the saved entity
      * /

@@ -332,7 +332,7 @@ class DTreeBehavior : DBehavior {
      * is passed in the options containing the id of the node to get its path for.
      *
      * @param DORMQuery query The constructed query to modify
-     * @param array<string, mixed> options the list of options for the query
+     * @param Json[string] options the list of options for the query
      * @return 
      * @throws \InvalidArgumentException If the "for" key is missing in options
      * /
@@ -394,7 +394,7 @@ class DTreeBehavior : DBehavior {
      * If the direct option is set to true, only the direct children are returned (based upon the parent_id field)
      *
      * @param DORMQuery query Query.
-     * @param array<string, mixed> options Array of options as described above
+     * @param Json[string] options Array of options as described above
      * @return DORMQuery
      * @throws \InvalidArgumentException When the "for" key is not passed in options
      * /
@@ -446,7 +446,7 @@ class DTreeBehavior : DBehavior {
      * - spacer: A string to be used as prefix for denoting the depth in the tree for each item
      *
      * @param DORMQuery query Query.
-     * @param array<string, mixed> options Array of options as described above.
+     * @param Json[string] options Array of options as described above.
      * @return DORMQuery
      * /
     function findTreeList(Query query, Json[string] optionData): Query
@@ -476,7 +476,7 @@ class DTreeBehavior : DBehavior {
      * - spacer: A string to be used as prefix for denoting the depth in the tree for each item.
      *
      * @param DORMQuery query The query object to format.
-     * @param array<string, mixed> options Array of options as described above.
+     * @param Json[string] options Array of options as described above.
      * @return DORMQuery Augmented query.
      * /
     function formatTreeList(Query query, Json[string] optionData = null): Query

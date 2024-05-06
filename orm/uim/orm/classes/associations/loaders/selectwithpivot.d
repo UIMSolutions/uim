@@ -48,7 +48,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      *
      * This is used for eager loading records on the target table based on conditions.
      *
-     * @param array<string, mixed> options options accepted by eagerLoader()
+     * @param Json[string] options options accepted by eagerLoader()
      * @return DORMQuery
      * @throws \InvalidArgumentException When a key is required for associations but not selected.
      * /
@@ -113,7 +113,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      * Generates a string used as a table field that contains the values upon
      * which the filter should be applied
      *
-     * @param array<string, mixed> options the options to use for getting the link field.
+     * @param Json[string] options the options to use for getting the link field.
      * @return array<string>|string
      * /
     protected function _linkField(Json[string] optionData) {
@@ -136,8 +136,8 @@ class DSelectWithPivotLoader : DSelectLoader {
      * the foreignKey value corresponding to this association.
      *
      * @param DORMQuery fetchQuery The query to get results from
-     * @param array<string, mixed> options The options passed to the eager loader
-     * @return array<string, mixed>
+     * @param Json[string] options The options passed to the eager loader
+     * @return Json[string]
      * @throws \RuntimeException when the association property is not part of the results set.
      * /
     // TODO protected Json[string] _buildResultMap(Query fetchQuery, Json[string] optionData) {

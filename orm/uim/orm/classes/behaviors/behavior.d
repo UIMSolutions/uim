@@ -147,7 +147,7 @@ class DBehavior : IEventListener {
      * Merges config with the default and store in the config property
      *
      * @param DORMDORMTable aTable The table this behavior is attached to.
-     * @param array<string, mixed> myConfiguration The config for this behavior.
+     * @param Json[string] myConfiguration The config for this behavior.
      * /
     this(DORMTable aTable, Json[string] configData) {
         myConfiguration = _resolveMethodAliases(
@@ -178,8 +178,8 @@ class DBehavior : IEventListener {
      * Removes aliased methods that would otherwise be duplicated by userland configuration.
      *
      * @param string aKey The key to filter.
-     * @param array<string, mixed> defaults The default method mappings.
-     * @param array<string, mixed> myConfiguration The customized method mappings.
+     * @param Json[string] defaults The default method mappings.
+     * @param Json[string] myConfiguration The customized method mappings.
      * @return array A de-duped list of config data.
      * /
     // TODO protected Json[string] _resolveMethodAliases(string aKey, Json[string] defaults, Json myConfiguration) {
@@ -242,7 +242,7 @@ class DBehavior : IEventListener {
      * Override this method if you need to add non-conventional event listeners.
      * Or if you want your behavior to listen to non-standard events.
      *
-     * @return array<string, mixed>
+     * @return Json[string]
      * /
     array implementedEvents() {
         eventMap = [

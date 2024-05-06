@@ -53,7 +53,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * Constructor
      *
      * @param DORMDORMTable aTable Table instance.
-     * @param array<string, mixed> myConfiguration Configuration.
+     * @param Json[string] myConfiguration Configuration.
      * /
     this(DORMTable aTable, Json[string] configData) {
         tableAlias = table.aliasName();
@@ -186,7 +186,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * add the locale field though.
      *
      * @param DORMQuery query The query to check.
-     * @param array<string, mixed> myConfiguration The config to use for adding fields.
+     * @param Json[string] myConfiguration The config to use for adding fields.
      * @return bool Whether a join to the translation table is required.
      * /
         protected function addFieldsToQuery(query, Json myConfiguration) {
@@ -226,7 +226,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      *
      * @param DORMQuery query the query to check.
      * @param string aName The clause name.
-     * @param array<string, mixed> myConfiguration The config to use for adding fields.
+     * @param Json[string] myConfiguration The config to use for adding fields.
      * @return bool Whether a join to the translation table is required.
      * /
             protected bool iterateClause(query, name = "", myConfiguration = null) {
@@ -268,7 +268,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      *
      * @param DORMQuery query the query to check.
      * @param string aName The clause name.
-     * @param array<string, mixed> myConfiguration The config to use for adding fields.
+     * @param Json[string] myConfiguration The config to use for adding fields.
      * @return bool Whether a join to the translation table is required.
      * /
                             protected bool traverseClause(query, name = "", myConfiguration = null) {

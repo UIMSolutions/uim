@@ -44,7 +44,7 @@ class DResultset : IResultset {
      * List of associations that should be placed under the `_matchingData`
      * result key.
      *
-     * @var array<string, mixed>
+     * @var Json[string]
      * /
     protected _matchingMap = null;
 
@@ -59,7 +59,7 @@ class DResultset : IResultset {
      * Map of fields that are fetched from the statement with
      * their type and the table they belong to
      *
-     * @var array<string, mixed>
+     * @var Json[string]
      * /
     protected _map = null;
 
@@ -67,7 +67,7 @@ class DResultset : IResultset {
      * List of matching associations and the column keys to expect
      * from each of them.
      *
-     * @var array<string, mixed>
+     * @var Json[string]
      * /
     protected _matchingMapColumns = null;
 
@@ -500,7 +500,7 @@ class DResultset : IResultset {
      * Returns an array that can be used to describe the internal state of this
      * object.
      *
-     * @return array<string, mixed>
+     * @return Json[string]
      * /
     array __debugInfo() {
         currentIndex = _index;

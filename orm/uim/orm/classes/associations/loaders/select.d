@@ -51,7 +51,7 @@ class DSelectLoader {
      * Copies the options array to properties in this class. The keys in the array correspond
      * to properties in this class.
      *
-     * @param array<string, mixed> options Properties to be copied to this class
+     * @param Json[string] options Properties to be copied to this class
      * /
     this(Json[string] optionData) {
         this.alias = options["alias"];
@@ -69,7 +69,7 @@ class DSelectLoader {
      * Returns a callable that can be used for injecting association results into a given
      * iterator. The options accepted by this method are the same as `Association::eagerLoader()`
      *
-     * @param array<string, mixed> options Same options as `Association::eagerLoader()`
+     * @param Json[string] options Same options as `Association::eagerLoader()`
      * @return \Closure
      * /
     function buildEagerLoader(Json[string] optionData): Closure
@@ -97,7 +97,7 @@ class DSelectLoader {
      * in the target table that are associated to those specified in options from
      * the source table
      *
-     * @param array<string, mixed> options options accepted by eagerLoader()
+     * @param Json[string] options options accepted by eagerLoader()
      * @return DORMQuery
      * @throws \InvalidArgumentException When a key is required for associations but not selected.
      * /
@@ -305,7 +305,7 @@ class DSelectLoader {
      * Generates a string used as a table field that contains the values upon
      * which the filter should be applied
      *
-     * @param array<string, mixed> options The options for getting the link field.
+     * @param Json[string] options The options for getting the link field.
      * @return array<string>|string
      * @throws \RuntimeException
      * /
@@ -402,8 +402,8 @@ class DSelectLoader {
      * the foreignKey value corresponding to this association.
      *
      * @param DORMQuery fetchQuery The query to get results from
-     * @param array<string, mixed> options The options passed to the eager loader
-     * @return array<string, mixed>
+     * @param Json[string] options The options passed to the eager loader
+     * @return Json[string]
      * /
     // TODO protected Json[string] _buildResultMap(Query fetchQuery, Json[string] optionData) {
         resultMap = null;
@@ -433,9 +433,9 @@ class DSelectLoader {
      * for injecting the eager loaded rows
      *
      * @param DORMQuery fetchQuery the Query used to fetch results
-     * @param array<string, mixed> resultMap an array with the foreignKey as keys and
+     * @param Json[string] resultMap an array with the foreignKey as keys and
      * the corresponding target table results as value.
-     * @param array<string, mixed> options The options passed to the eagerLoader method
+     * @param Json[string] options The options passed to the eagerLoader method
      * @return \Closure
      * /
     protected function _resultInjector(Query fetchQuery, Json[string] resultMap, Json[string] optionData): Closure
@@ -471,7 +471,7 @@ class DSelectLoader {
      * for injecting the eager loaded rows when the matching needs to
      * be done with multiple foreign keys
      *
-     * @param array<string, mixed> resultMap A keyed arrays containing the target table
+     * @param Json[string] resultMap A keyed arrays containing the target table
      * someSourceKeys - An array with aliased keys to match
      * @param string nestKey The key under which results should be nested
      * /

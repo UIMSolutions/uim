@@ -20,6 +20,10 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         initialize(initData);
     }
 
+    this(IContainer container) {
+        this.container = container;
+    }
+
     bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
@@ -29,22 +33,16 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
 
     mixin(TProperty!("string", "name"));
 
-    /* 
-    // \UIM\Core\IContainer
     protected IContainer container;
 
     protected IController controller;
 
-    this(IContainer container) {
-        this.container = container;
-    }
-    
     /**
      * Create a controller for a given request.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request to build a controller for.
      * /
-    Controller create(IServerRequest serverRequest) {
+    IController create(IServerRequest serverRequest) {
         assert(cast(DServerRequest) request);
         auto className = this.getControllerClass(request);
         if (className.isNull) {
@@ -66,7 +64,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * Params:
      * \UIM\Controller\Controller controller The controller to invoke.
      * /
-    IResponse invoke(Json controller) {
+    IResponse invoke(IController controller) {
         this.controller = controller;
 
          middlewares = controller.getMiddleware();

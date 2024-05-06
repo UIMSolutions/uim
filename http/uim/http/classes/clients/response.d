@@ -86,12 +86,8 @@ class DClientResponse { // }: Message : IResponse {
      * /
     protected ISimpleXMLElement _xml = null;
 
-    /**
-     * Cached decoded Json data.
-     *
-     * @var mixed
-     * /
-    protected Json _Json = null;
+    // Cached decoded Json data.
+    protected Json _data = null;
 
     /**
      * Constructor
@@ -148,7 +144,7 @@ class DClientResponse { // }: Message : IResponse {
             if (aValue.startWith("HTTP/")) {
                 preg_match("/HTTP\/([\d.]+) ([0-9]+)(.*)/i", aValue, matches);
                 this.protocol = matches[1];
-                this.code = to!int(matches[2]);
+                _statusCode = to!int(matches[2]);
                 this.reasonPhrase = strip(matches[3]);
                 continue;
             }
@@ -173,14 +169,14 @@ class DClientResponse { // }: Message : IResponse {
      * Check if the response status code was in the 2xx/3xx range
      * /
     bool isOk() {
-        return _code >= 200 && this.code <= 399;
+        return _statusCode >= 200 && _statusCode <= 399;
     }
     
     /**
      * Check if the response status code was in the 2xx range
      * /
     bool isSuccess() {
-        return _code >= 200 && this.code <= 299;
+        return _statusCode >= 200 && _statusCode <= 299;
     }
     
     /**
@@ -195,12 +191,12 @@ class DClientResponse { // }: Message : IResponse {
             STATUS_PERMANENT_REDIRECT,
         ];
 
-        return in_array(this.code, codes, true) &&
+        return in_array(_statusCode, codes, true) &&
             this.getHeaderLine("Location");
     }
     
     @property int statusCode() {
-        return _code;
+        return _statusCode;
     }
     
     /**

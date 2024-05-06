@@ -29,15 +29,15 @@ class DErrorController : DController {
     
 
     // beforeRender callback.
-    Response beforeRender(IEvent anEvent) {
+    DResponse beforeRender(IEvent anEvent) {
         auto viewBuilder = this.viewBuilder();
         string templatePath = "Error";
 
         if (
-            this.request.getParam("prefix") &&
+            _request.getParam("prefix") &&
             viewBuilder.getTemplate().has(["error400", "error500"])
         ) {
-            string parts = split(DIRECTORY_SEPARATOR, (string)viewBuilder.templatePath, -1);
+            string[] parts = viewBuilder.templatePath, -1).toString.split(DIRECTORY_SEPARATOR);
             templatePath = parts.join(DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR ~ "Error";
         }
 

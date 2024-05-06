@@ -79,7 +79,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      */
     mixin(TProperty!("string", "name"));
     mixin(TProperty!("string", "pluginName"));
-    // TODO mixin(TProperty!("Response", "response"));
+    mixin(TProperty!("DResponse", "response"));
 
 
     // View classes for content negotiation.
@@ -183,15 +183,15 @@ class DController : IController { // IEventListener, IEventDispatcher {
             _name = substr(name, 0, -10);
         }
         this.setRequest(request);
-        this.response = new DResponse();
+        _response = new DResponse();
 
         if (!eventManager.isNull) {
             this.setEventManager(eventManager);
         }
-        if (this.defaultTable.isNull) {
+        if (_defaultTable.isNull) {
             _pluginName = this.request.getParam("plugin");
             aTableAlias = (_pluginName ? _pluginName ~ "." : "") ~ _name;
-            this.defaultTable = aTableAlias;
+            _defaultTable = aTableAlias;
         }
         this.initialize();
 
@@ -224,11 +224,11 @@ class DController : IController { // IEventListener, IEventDispatcher {
     
     //  Magic accessor for the default table.
     Table __get(string propertyName) {
-        if (!this.defaultTable.isEmpty) {
-            if (this.defaultTable.has("\\")) {
-                 className = App.shortName(this.defaultTable, "Model/Table", "Table");
+        if (!_defaultTable.isEmpty) {
+            if (_defaultTable.has("\\")) {
+                 className = App.shortName(_defaultTable, "Model/Table", "Table");
             } else {
-                [,  className] = pluginSplit(this.defaultTable, true);
+                [,  className] = pluginSplit(_defaultTable, true);
             }
             if (className == propertyName) {
                 return _fetchTable();
@@ -238,6 +238,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
             /** @var \UIM\Controller\Component   * /
             return _components().get(propertyName);
         }
+
         /** @var array<int, Json[string]> trace * /
         trace = debug_backtrace();
         someParts = class.split("\\");
@@ -306,7 +307,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
             result = this.render();
         }
         if (result) {
-            this.response = result;
+            _response = result;
         }
     }
     
@@ -417,9 +418,9 @@ class DController : IController { // IEventListener, IEventDispatcher {
                     "`300` - `399` for redirect responses.".format(status)
             );
         }
-        this.response = this.response.withStatus(status);
+        _response = _response.withStatus(status);
         
-        auto event = this.dispatchEvent("Controller.beforeRedirect", [url, this.response]);
+        auto event = this.dispatchEvent("Controller.beforeRedirect", [url, _response]);
         auto result = event.getResult();
         if (cast(Response)result) {
             return _response = result;
@@ -427,7 +428,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         if (event.isStopped()) {
             return null;
         }
-        response = this.response;
+        response = _response;
 
         if (!response.getHeaderLine("Location")) {
             response = response.withLocation(Router.url(url, true));
@@ -526,7 +527,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         // Prefer the _ext route parameter if it is defined.
         ext = request.getParam("_ext");
         if (ext) {
-            auto extTypes = (array)(this.response.getMimeType(ext) ?: []);
+            auto extTypes = (array)(_response.getMimeType(ext) ?: []);
             extTypes.each!((extType) {
                 if (typeMap.isSet(extTypes)) {
                     return typeMap[extType];

@@ -8,13 +8,6 @@ import uim.controllers;
 class DInvalidParameterException : DControllersException {
   mixin(ExceptionThis!("InvalidParameter"));
 
-  // Switches message template based on `template` key in message array.
-  /* this(string messageKey = "default", int errorCode = 0, Throwable previousException = null) {
-    super();
-    _stringContents["default"] = _stringContents.get(messageKey, null);
-  }
-  // mixin(ExceptionThis!("InvalidParameterException"));
-
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
@@ -28,7 +21,15 @@ class DInvalidParameterException : DControllersException {
     ];
 
     return true;
-  } */ 
+  }
+  // Switches message template based on `template` key in message array.
+  /* this(string messageKey = "default", int errorCode = 0, Throwable previousException = null) {
+    super();
+    _stringContents["default"] = _stringContents.get(messageKey, null);
+  }
+  // mixin(ExceptionThis!("InvalidParameterException"));
+
+  } */
 }
 
 mixin(ExceptionCalls!("InvalidParameter"));

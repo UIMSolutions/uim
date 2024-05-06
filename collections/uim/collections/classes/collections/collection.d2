@@ -43,12 +43,8 @@ class DCollection : IteratorIterator : ICollection, Serializable {
         return _buffered().toArray();
     }
 
-    /**
-     * Unserializes the passed string and rebuilds the Collection instance
-     *
-     * @param string collection The serialized collection
-     */
-    void unserialize(collection) {
+    // Unserializes the passed string and rebuilds the Collection instance
+    void unserialize(string serializedCollection) {
         __construct(unserialize(collection));
     }
 

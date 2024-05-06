@@ -14,49 +14,31 @@ class DMessage {
     // HTTP 200 code
     const int STATUS_OK = 200;
 
-    /**
-     * HTTP 201 code
-     */
+    // HTTP 201 code
     const int STATUS_CREATED = 201;
 
-    /**
-     * HTTP 202 code
-     */
+    // HTTP 202 code
     const int STATUS_ACCEPTED = 202;
 
-    /**
-     * HTTP 203 code
-     */
+    // HTTP 203 code
     const int STATUS_NON_AUTHORITATIVE_INFORMATION = 203;
 
-    /**
-     * HTTP 204 code
-     */
+    // HTTP 204 code
     const int STATUS_NO_CONTENT = 204;
 
-    /**
-     * HTTP 301 code
-     */
+    // HTTP 301 code
     const int STATUS_MOVED_PERMANENTLY = 301;
 
-    /**
-     * HTTP 302 code
-     */
+    // HTTP 302 code
     const int STATUS_FOUND = 302;
 
-    /**
-     * HTTP 303 code
-     */
+    // HTTP 303 code
     const int STATUS_SEE_OTHER = 303;
 
-    /**
-     * HTTP 307 code
-     */
+    // HTTP 307 code
     const int STATUS_TEMPORARY_REDIRECT = 307;
 
-    /**
-     * HTTP 308 code
-     */
+    // HTTP 308 code
     const int STATUS_PERMANENT_REDIRECT = 308;
 
     /**

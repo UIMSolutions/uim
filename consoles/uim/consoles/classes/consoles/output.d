@@ -230,7 +230,7 @@ class DConsoleOutput {
     /**
      * Gets the current styles offered
      * /
-    array getStyle(string styleName) {
+    Json[string] getStyle(string styleName) {
         return _styles.get(styleName, null);
     }
     

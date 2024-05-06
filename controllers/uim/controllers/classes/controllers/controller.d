@@ -328,7 +328,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
     }
 
     // Get middleware to be applied for this controller.
-    array getMiddlewares() {
+    Json[string] getMiddlewares() {
         auto  matching = null;
         auto requestAction = this.request.getParam("action");
 

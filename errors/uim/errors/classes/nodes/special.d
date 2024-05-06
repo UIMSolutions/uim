@@ -25,7 +25,7 @@ class DSpecialNode : IErrorNode {
   }
 
   /* 
-  array getChildren() {
+  Json[string] getChildren() {
       return null;
   } */
 }

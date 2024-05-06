@@ -67,7 +67,7 @@ interface IEntity { // : ArrayAccess, JsonSerializable
    bool hasErrors(bool includeNested = true);
 
    // Returns all validation errors.
-   // TODO array getErrors();
+   Json[string] getErrors();
 
    // Returns validation errors of a field
    // TODO array getError(string fieldName);
@@ -142,8 +142,6 @@ interface IEntity { // : ArrayAccess, JsonSerializable
      * Enable/disable field presence check when accessing a property.
      *
      * If enabled an exception will be thrown when trying to access a non-existent property.
-     * Params:
-     * bool aValue `true` to enable, `false` to disable.
      * /
    void requireFieldPresence(bool enableField = true);
 

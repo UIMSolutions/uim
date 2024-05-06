@@ -367,7 +367,7 @@ mixin template TEntity() {
   }
 
   // Gets all original values of the entity.
-  array getOriginalValues() {
+  Json[string] getOriginalValues() {
     originals = _original;
     originalKeys = originals.keys;
     _fields.byKeyValue

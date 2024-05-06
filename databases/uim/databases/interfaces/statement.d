@@ -65,7 +65,7 @@ interface IStatement {
      *
      * This behaves the same as `PDOStatement.errorInfo()`.
      * /
-    array errorInfo();
+    Json[string] errorInfo();
 
     /**
      * Executes the statement by sending the SQL query to the database. It can optionally
@@ -115,7 +115,7 @@ interface IStatement {
      * This behaves the same as `PDOStatement.fetch()` except an
      * empty array is returned instead of false.
      * /
-    array fetchAssoc();
+    Json[string] fetchAssoc();
 
     /**
      * Returns the number of rows affected by the last SQL statement.

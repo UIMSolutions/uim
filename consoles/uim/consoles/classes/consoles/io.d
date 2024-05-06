@@ -307,7 +307,7 @@ class DConsoleIo {
     /**
      * Gets defined styles.
      * /
-    array styles() {
+    Json[string] styles() {
         return _out.styles();
     }
     

@@ -76,7 +76,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      *  instead of creating a new one.
      * /
     this(Throwable exception, ?ServerRequest serverRequest = null) {
-        this.error = exception;
+        _error = exception;
         this.request = request;
         this.controller = _getController();
     }
@@ -142,7 +142,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     
     // Renders the response for the exception.
     IResponse render() {
-        exception = this.error;
+        exception = _error;
         code = this.getHttpCode(exception);
         method = _method(exception);
         template = _template(exception, method, code);
@@ -363,11 +363,11 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * /
     Json[string] debugInfo() {
         return [
-            'error": this.error,
-            'request": this.request,
-            'controller": this.controller,
-            'template": this.template,
-            'method": this.method,
+            "error": _error,
+            "request": this.request,
+            "controller": this.controller,
+            "template": this.template,
+            "method": this.method,
         ];
     } */
 }

@@ -34,7 +34,7 @@ class DCommandScanner {
      *
      * returs A list of command metadata.
      * /
-    array scanCore() {
+    Json[string] scanCore() {
         return _scanDir(
             dirname(__DIR__) ~ DIRECTORY_SEPARATOR ~ "Command" ~ DIRECTORY_SEPARATOR,
             "UIM\Command\\",

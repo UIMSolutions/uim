@@ -40,10 +40,6 @@ import uim.caches;
  *   Fast reads/writes, and benefits from memcache being distributed.
  * - `RedisEngine` - Uses redis and D-redis extension to store cache data.
  * - `XcacheEngine` - Uses the Xcache extension, an alternative to APCu.
- *
- * See Cache engine documentation for expected configuration keys.
- *
- * @see config/app.d for configuration settings
  */
 class DCache : ICache {
     mixin TConfigurable;

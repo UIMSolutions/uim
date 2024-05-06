@@ -905,8 +905,6 @@ static string contentType() {
      * Set sub-directory for this template files.
      * Params:
      * string mysubDir Sub-directory name.
-
-     * @see \UIM\View\View.mysubDi 
      * /
     void setSubDir(string mysubDir) {
         thirs.subDir = mysubDir;

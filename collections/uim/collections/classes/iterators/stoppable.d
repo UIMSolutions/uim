@@ -8,14 +8,10 @@ import uim.collections;
  * Creates an iterator from another iterator that will verify a condition on each
  * step. If the condition evaluates to false, the iterator will not yield more
  * results.
- *
- * @internal
- * @see \UIM\Collection\Collection.stopWhen()
  */
 class DStoppableIterator : DCollection {
   /**
      * The condition to evaluate for each item of the collection
-     *
           * /
   protected callable _condition;
 

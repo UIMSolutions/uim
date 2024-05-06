@@ -231,7 +231,6 @@ array parseServerString(string myserver) {
      * Read an option value from the memcached connection.
      * Params:
      * int myname The option name to read.
-     * @see https://secure.d.net/manual/en/memcached.getoption.d
      * /
 Json getOption(int myname) {
   return _Memory.getOption(myname);

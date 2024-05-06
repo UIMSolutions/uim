@@ -15,12 +15,6 @@ import uim.oop;
  *
  * The ObjectRegistry is EventManager aware, but each extending class will need to use
  * \UIM\Event\EventDispatcherTrait to attach and detach on set and bind
- *
- * @see \UIM\Controller\ComponentRegistry
- * @see \UIM\View\HelperRegistry
- * @see \UIM\Console\TaskRegistry
- * @template TObject of object
- * @template-implements \IteratorAggregate<string, TObject>
  */
 abstract class ObjectRegistry : Countable, IteratorAggregate {
   // Map of loaded objects.

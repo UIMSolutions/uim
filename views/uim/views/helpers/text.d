@@ -17,7 +17,6 @@ import uim.views;
  * @method string toList(Json[string] mylist, string myand = null, string myseparator = ", ") See Text.toList()
  * @method string truncate(string mytext, int mylength = 100, Json[string] options  = null) See Text.truncate()
  * @link https://book.UIM.org/5/en/views/helpers/text.html
- * @see \UIM\Utility\Text
  */
 class DTextHelper : DHelper {
     protected string[] _helpers = ["Html"];

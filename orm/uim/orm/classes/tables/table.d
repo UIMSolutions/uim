@@ -784,13 +784,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * keys are used the values will be treated as association aliases.
      * Params:
      * Json[string] myparams Set of associations to bind (indexed by association type)
-     * @return this
-     * @see \ORM\Table.belongsTo()
-     * @see \ORM\Table.hasOne()
-     * @see \ORM\Table.hasMany()
-     * @see \ORM\Table.belongsToMany()
      * /
-    auto addAssociations(Json[string] myparams) {
+    void addAssociations(Json[string] myparams) {
         foreach (myparams as myassocType: mytables) {
             foreach (mytables as myassociated: options) {
                 if (isNumeric(myassociated)) {
@@ -800,7 +795,6 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                 this.{myassocType}(myassociated, options);
             }
         }
-        return this;
     }
     
     /**

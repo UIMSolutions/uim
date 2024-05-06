@@ -31,11 +31,7 @@ class DFormHelper : DHelper {
      */
     protected string[] mysupportedValueSources = ["context", "data", "query"];
 
-    /**
-     * The default sources.
-     *
-     * @see FormHelper.mysupportedValueSources for valid values.
-     */
+    // The default sources.
     protected string[] _valueSources = ["data", "context"];
 
     /**

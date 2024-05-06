@@ -22,7 +22,7 @@ class DCollection : IteratorIterator : ICollection, Serializable {
      * @param range items Items.
      * @throws \InvalidArgumentException If passed incorrect type for items.
      */
-    this(Range items) {
+    this(Json[string] items) {
         if (items.isArray) {
             items = new DArrayIterator(items);
         }
@@ -38,10 +38,8 @@ class DCollection : IteratorIterator : ICollection, Serializable {
         return serialize(this.buffered());
     }
 
-    /**
-     * Returns an array for serializing this of this object.
-     */
-    array __serialize() {
+    // Returns an array for serializing this of this object.
+    Json[string] __serialize() {
         return _buffered().toArray();
     }
 
@@ -54,44 +52,34 @@ class DCollection : IteratorIterator : ICollection, Serializable {
         __construct(unserialize(collection));
     }
 
-    /**
-     * Rebuilds the Collection instance.
-     *
-     * @param Json[string]  data Data array.
-     */
+    // Rebuilds the Collection instance.
     void __unserialize(Json[string] data) {
         __construct(data);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     size_t count() {
-        traversable = this.optimizeUnwrap();
+        auto traversable = this.optimizeUnwrap();
 
-        if ((traversable.isArray) {
-            return count(traversable);
-        }
-
-        return iterator_count(traversable);
+        return traversable.isArray
+            ? count(traversable)
+            : iterator_count(traversable);
     }
 
     size_t countKeys() {
         return count(this.toArray());
     }
 
-    /**
-     * Returns an array that can be used to describe the internal state of this object.
-     */
+    // Returns an array that can be used to describe the internal state of this object.
     Json[string] __debugInfo() {
+        size_t count;
         try {
-            count = this.count();
+            count = count();
         } catch (Exception e) {
             count = "An exception occurred while getting count";
         }
 
         return [
-            "count": count,
+            "count": Json(count),
         ];
     }
 }

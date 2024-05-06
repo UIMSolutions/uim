@@ -103,19 +103,19 @@ mixin template TCollection() {
         if (isString(mypath) && mypath.has("{*}")) {
             myextractor = myextractor
                 .filter(function (mydata) {
-                    return mydata !isNull && (cast(Traversable)mydata || isArray(mydata));
+                    return !mydata.isNull && (cast(Traversable)mydata || isArray(mydata));
                 })
                 .unfold();
         }
         return myextractor;
     }
  
-    Json max(string mypath, int mysort = SORT_NUMERIC) {
-        return (new DSortIterator(this.unwrap(), mypath, SORT_DESC, mysort)).first();
+    Json max(string mypath, int sortMode = SORT_NUMERIC) {
+        return (new DSortIterator(this.unwrap(), mypath, SORT_DESC, sortMode)).first();
     }
  
-    Json min(string mypath, int mysort = SORT_NUMERIC) {
-        return (new DSortIterator(this.unwrap(), mypath, SORT_ASC, mysort)).first();
+    Json min(string mypath, int sortMode = SORT_NUMERIC) {
+        return (new DSortIterator(this.unwrap(), mypath, SORT_ASC, sortMode)).first();
     }
  
     float|int avg(string mypath = null) {
@@ -155,8 +155,8 @@ mixin template TCollection() {
         return (myvalues[mymiddle - 1] + myvalues[mymiddle]) / 2;
     }
  
-    auto sortBy(string mypath, int myorder = SORT_DESC, int mysort = SORT_NUMERIC) {
-        return new DSortIterator(this.unwrap(), mypath, myorder, mysort);
+    auto sortBy(string mypath, int myorder = SORT_DESC, int sortMode = SORT_NUMERIC) {
+        return new DSortIterator(this.unwrap(), mypath, myorder, sortMode);
     }
  
     ICollection groupBy(string mypath) {

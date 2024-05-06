@@ -131,7 +131,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      * Params:
      * \UIM\Database\DValueBinder aBinder The value binder to use.
      * /
-    // TODO protected Json[string] _stringExpression(DValueBinder valueBinder) {
+    protected Json[string] _stringExpression(DValueBinder valueBinder) {
         auto template = "%s ";
 
         if (cast(IExpression)_field  && !cast(IdentifierExpression)_field) {
@@ -140,14 +140,14 @@ class DComparisonExpression : DExpression { // TODO}, IField {
         if (_isMultiple) {
             template ~= "%s (%s)";
             type = _type;
-            if (type !isNull) {
+            if (!type.isNull) {
                 type = type.replace("[]", "");
             }
             aValue = _flattenValue(_value, valueBinder, type);
 
             // To avoid SQL errors when comparing a field to a list of empty values,
             // better just throw an exception here
-            if (aValue == "") {
+            if (aValue.isEmpty) {
                 string field = cast(IExpression)_field  ? _field.sql(valueBinder): _field;
                 throw new DatabaseException(
                     "Impossible to generate condition with empty list of values for field (%s)".format(field)

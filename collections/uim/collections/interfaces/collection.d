@@ -932,7 +932,7 @@ interface ICollection {
      *
      * @param range ...items The collections to zip.
      */
-    // ICollection zip(Range items): ;
+    // ICollection zip(Json[string] items): ;
 
     /**
      * Combines the elements of this collection with each of the elements of the
@@ -953,7 +953,7 @@ interface ICollection {
      * @param range ...items The collections to zip.
      * @param callable callback The // function to use for zipping the elements together.
      */
-    // TODO ICollection zipWith(Range items, callback);
+    // TODO ICollection zipWith(Json[string] items, callback);
 
     /**
      * Breaks the collection into smaller arrays of the given size.

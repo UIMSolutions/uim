@@ -41,7 +41,7 @@ class DBufferedIterator : DCollection { // }, Countable {
      * Params:
      * range itemsToBeFiltered The items to be filtered.
      * /
-  this(Range itemsToBeFiltered) {
+  this(Json[string] itemsToBeFiltered) {
     _buffer = new DSplDoublyLinkedList();
     super(itemsToBeFiltered);
   }

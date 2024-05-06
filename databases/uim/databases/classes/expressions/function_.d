@@ -75,9 +75,9 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
                 put(_conditions, new DIdentifierExpression(key));
                 return;
             }
-            type = typeMap.type(myKey);
-
-            if (type !isNull && !cast(IExpression)p ) {
+            
+            quto type = typeMap.type(myKey);
+            if (!type.isNull && !cast(IExpression)p ) {
                 condition = _castToExpression(p, type);
             }
             if (cast(IExpression)condition) {

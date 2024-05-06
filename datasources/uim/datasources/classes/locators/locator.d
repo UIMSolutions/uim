@@ -17,13 +17,11 @@ abstract class DAbstractLocator : ILocator {
     protected Json[string] _options = null;
 
     /**
-     * {@inheritDoc}
-     *
      * @param string aliasName The alias name you want to get.
      * @param array<string, mixed> options The options you want to build the table with.
      * /
-    IRepository get(string alias, Json[string] optionData = null) {
-        auto storeOptions = options;
+    IRepository get(string aliasName, Json[string] buildOptions = null) {
+        auto storeOptions = buildOptions.dup;
         storeOptions.remove("allowFallbackClass");
 
         if (this.instances.isSet(alias)) {

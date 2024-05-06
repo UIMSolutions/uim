@@ -37,7 +37,7 @@ mixin template TCaseExpression() {
         ) {
             type = "String";
         } elseif (
-           _typeMap !isNull &&
+           !_typeMap.isNull &&
             cast(IdentifierExpression)aValue 
         ) {
             type = _typeMap.type(aValue.getIdentifier());

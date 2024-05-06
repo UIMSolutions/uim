@@ -172,25 +172,25 @@ class DController : IController { // IEventListener, IEventDispatcher {
     ) {
         if (aName) {
             name(aName);
-        } elseif (!isSet(this.name)) {
-            controller = request.getParam("controller");
+        } elseif (!isSet(_name)) {
+            auto controller = request.getParam("controller");
             if (controller) {
-                this.name = controller;
+                _name = controller;
             }
         }
-        if (!isSet(this.name)) {
+        if (!isSet(_name)) {
             [, name] = namespaceSplit(class);
-            this.name = substr(name, 0, -10);
+            _name = substr(name, 0, -10);
         }
         this.setRequest(request);
         this.response = new DResponse();
 
-        if (eventManager !isNull) {
+        if (!eventManager.isNull) {
             this.setEventManager(eventManager);
         }
         if (this.defaultTable.isNull) {
             _pluginName = this.request.getParam("plugin");
-            aTableAlias = (_pluginName ? _pluginName ~ "." : "") ~ this.name;
+            aTableAlias = (_pluginName ? _pluginName ~ "." : "") ~ _name;
             this.defaultTable = aTableAlias;
         }
         this.initialize();
@@ -278,7 +278,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
 
         if (!this.isAction(action)) {
             throw new DMissingActionException([
-                "controller": this.name ~ "Controller",
+                "controller": _name ~ "Controller",
                 "action":  request.getParam("action"),
                 "prefix":  request.getParam("prefix") ?: "",
                 "plugin":  request.getParam("plugin"),
@@ -545,7 +545,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
 
     // Get the templatePath based on controller name and request prefix.
     protected string _templatePath() {
-        string templatePath = this.name;
+        string templatePath = _name;
         if (this.request.getParam("prefix")) {
             prefixes = array_map(
                 "UIM\Utility\Inflector.camelize",

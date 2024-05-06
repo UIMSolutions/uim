@@ -176,7 +176,7 @@ class DI18nExtractCommand : DCommand {
         }
        _markerError = (bool)commandArguments.getOption("marker-error");
 
-        if (isEmpty(_fileNames)) {
+        if (_fileNames.isEmpty) {
            _searchFiles();
         }
        _output = stripRight(_output, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;

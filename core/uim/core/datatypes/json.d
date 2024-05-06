@@ -452,7 +452,6 @@ T minValue(T)(Json[] jsons, string key) {
   return result;
 }
 
-version (test_uim_core) {
   unittest {
     assert(minValue!string(
         [
@@ -462,7 +461,6 @@ version (test_uim_core) {
         ["a": "4"].toJson
       ], "a") == "1");
   }
-}
 
 T maxValue(T)(Json[] jsons, string key) {
   T result;

@@ -400,7 +400,7 @@ class DDebugger {
                 next = backtrace[i + 1] + _trace;
                 signature = reference = next['function'];
 
-                if (!empty(next['class'])) {
+                if (!next.isEmpty("class")) {
                     signature = next['class'] . '::' . next['function'];
                     reference = signature . '(';
                     if (options['args'] && isset(next['args'])) {

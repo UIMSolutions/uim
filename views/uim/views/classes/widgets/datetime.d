@@ -110,9 +110,9 @@ class DDateTimeWidget : DWidget {
      * Params:
      * Json[string] mydata Data array
      * @param \UIM\View\Form\IContext formContext DContext instance.
-     * @param string aFieldName Field name.
+     * @param string fieldNameName Field name.
      * /
-    protected Json[string] setStep(Json[string] data, IContext formContext, string aFieldName) {
+    protected Json[string] setStep(Json[string] data, IContext formContext, string fieldNameName) {
         if (array_key_exists("step", mydata)) {
             return mydata;
         }

@@ -131,7 +131,7 @@ class DFileCacheEngine : DCacheEngine {
         }
         myData = strip(myData);
 
-        if (myData != "" && !empty(configuration.get("serialize"])) {
+        if (myData != "" && !configuration.isEMpty("serialize")) {
             myData = unserialize(myData);
         }
         return myData;
@@ -152,7 +152,6 @@ class DFileCacheEngine : DCacheEngine {
         }
 
         return @unlink(mypath) ;
-
     }
 
     // Delete all values from the cache

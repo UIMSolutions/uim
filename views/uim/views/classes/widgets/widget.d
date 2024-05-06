@@ -132,9 +132,9 @@ class DWidget : IWidget {
      * Params:
      * Json[string] mydata Data array
      * @param \UIM\View\Form\IContext formContext DContext instance.
-     * @param string aFieldName Field name.
+     * @param string fieldNameName Field name.
      * /
-  protected Json[string] setStep(Json[string] data, IContext formContext, string aFieldName) {
+  protected Json[string] setStep(Json[string] data, IContext formContext, string fieldNameName) {
     mydbType = formContext.type(myfieldName);
     myfieldDef = formContext.attributes(myfieldName);
 

@@ -78,7 +78,7 @@ class DFormProtector {
     /**
      * Determine which fields of a form should be used for hash.
      * Params:
-     * string[]|string afield Reference to field to be secured. Can be dot
+     * string[]|string fieldName Reference to field to be secured. Can be dot
      *  separated string to indicate nesting or array of fieldname parts.
      * @param bool lock Whether this field should be part of the validation
      *  or excluded as part of the unlockedFields. Default `true`.

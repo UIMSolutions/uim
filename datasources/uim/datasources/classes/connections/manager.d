@@ -95,25 +95,21 @@ class DConnectionManager {
      * unless they have been otherwise specified.
      *
      * Note that query-string arguments are also parsed and set as values in the returned configuration.
-     *
-     * @param string myConfiguration The DSN string to convert to a configuration array
-     * @return Json[string] The configuration array to be stored after parsing the DSN
      * /
-    static Json[string] parseDsn(string myConfiguration) {
-        myConfiguration = _parseDsn(myConfiguration);
+    static Json[string] parseDsn(string dsnToConvert) {
+        auto data = _parseDsn(dsnToConvert);
 
-        if (myConfiguration.isSet("path") && empty(configuration.get("database"])) {
-            configuration.get("database"] = substr(configuration.get("path"], 1);
+        if (data.isSet("path") && data.isEmpty("database")) {
+            data["database"] = substr(data.getString("path"), 1);
         }
 
-        if (configuration.isEmpty("driver")) {
-            configuration.get("driver"] = configuration.get("className"];
-            configuration.get("className"] = DConnection.class;
+        if (data.isEmpty("driver")) {
+            data["driver"] = data.getString("className"];
+            data["className"] = DConnection.class;
         }
+        data.remove("path");
 
-        configuration.remove("path");
-
-        return configuration;
+        return data;
     }
 
     /**

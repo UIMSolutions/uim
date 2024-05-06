@@ -62,7 +62,6 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * will be used to format the time part.
      *
      * @var \Closure|array<int>|string|int
-     * @see \UIM\I18n\DateTime.i18nFormat()
      * /
     protected auto Closure|string[]|int _JsonEncodeFormat = "yyyy-MM-dd'T'HH':'mm':'ssxxx'";
 

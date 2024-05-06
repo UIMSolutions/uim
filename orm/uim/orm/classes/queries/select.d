@@ -69,7 +69,6 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
 
     /**
      * Resultset factory
-     *
      * @var \ORM\ResultsetFactory<\UIM\Datasource\IEntity|array>
      * /
     protected DResultsetFactory resultSetFactory;
@@ -78,9 +77,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * A Resultset.
      *
      * When set, SelectQuery execution will be bypassed.
-     *
      * @var iterable|null
-     * @see \UIM\Datasource\QueryTrait.setResult()
      * /
     protected Json[string] _results = null;
 

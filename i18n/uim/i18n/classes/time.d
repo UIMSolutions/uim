@@ -54,7 +54,6 @@ class DTime { // : ChronosTime, JsonSerializable {
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      *
      * @var string|int
-     * @see \UIM\I18n\Time.i18nFormat()
      * /
     protected static string|int _toStringFormat = IntlDateFormatter.SHORT;
 

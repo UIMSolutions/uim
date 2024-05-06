@@ -10,7 +10,6 @@ import uim.orm;
  * into a specific iterator that will be responsible for hydrating results if
  * required.
  *
- * @see DORMcollections.ICollection For a full description of the collection methods supported by this class
  * @property DORMTable _repository Instance of a table object this query is bound to.
  * @method DORMTable getRepository() Returns the default table object that will be used by this query,
  *   that is, the table that will appear in the from clause.

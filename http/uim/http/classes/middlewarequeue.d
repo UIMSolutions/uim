@@ -199,10 +199,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
         this.position = 0;
     }
     
-    /**
-     * Returns the current middleware.
-     * @see \Iterator.current()
-     * /
+    // Returns the current middleware.
     IHttpMiddleware current() {
         if (!isSet(this.queue[this.position])) {
             throw new DOutOfBoundsException("Invalid current position (%s).".format(this.position));

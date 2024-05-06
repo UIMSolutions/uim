@@ -601,7 +601,6 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] options The options for the behavior to use.
      * @return this
      * @throws \RuntimeException If a behavior is being reloaded.
-     * @see \ORM\Behavior
      * /
     auto addBehavior(string behaviorName, Json[string] optionData = null) {
        _behaviors.load(behaviorName, options);
@@ -2491,7 +2490,6 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Json[string] data The data to build an entity with.
      * @param Json[string] options A list of options for the object hydration.
      * @return \UIM\Datasource\IEntity
-     * @see \ORM\Marshaller.one()
      * /
     auto newEntity(Json[string] data, Json[string] optionData = null): IEntity
     {

@@ -63,10 +63,6 @@ mixin template TTranslateStrategy() {
      *
      * If no locale has been explicitly set via `setLocale()`, this method will return
      * the currently configured global locale.
-     *
-     * @return string
-     * @see DORMI18n\I18n::getLocale()
-     * @see DORMBehavior\TranslateBehavior::setLocale()
      * /
     string getLocale() {
         return _locale ?: I18n::getLocale();

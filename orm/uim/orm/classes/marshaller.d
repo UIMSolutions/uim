@@ -6,18 +6,12 @@ import uim.orm;
 
 /**
  * Contains logic to convert array data into entities.
- *
  * Useful when converting request data into entities.
- *
- * @see \ORM\Table.newEntity()
- * @see \ORM\Table.newEntities()
- * @see \ORM\Table.patchEntity()
- * @see \ORM\Table.patchEntities()
  */
 class DMarshaller {
-    /*
-    mixin TAssociationsNormalizer();
+    mixin TAssociationsNormalizer;
 
+    /*
     // The table instance this marshaller is for.
     protected ITable _table;
 

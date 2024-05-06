@@ -32,8 +32,6 @@ class DText {
      *
      * It should also not be used to create identifiers that have security implications, such as
      * "unguessable" URL identifiers. Instead, you should use {@link \UIM\Utility\Security.randomBytes()}` for that.
-     *
-     * @see https://www.ietf.org/rfc/rfc4122.txt
      * /
     static string uuid() {
         return 

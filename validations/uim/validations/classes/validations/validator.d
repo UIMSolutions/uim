@@ -2439,7 +2439,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
-     * @see \UIM\Validation\Validation.isScalar()
      * /
     auto scalar(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {

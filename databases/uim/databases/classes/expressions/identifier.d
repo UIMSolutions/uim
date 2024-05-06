@@ -9,8 +9,6 @@ import uim.databases;
  *
  * Identifier values are unsafe with user supplied data.
  * Values will be quoted when identifier quoting is enabled.
- *
- * @see \UIM\Database\Query.identifier()
  */
 class DIdentifierExpression : DExpression {
     mixin(ExpressionThis!("Identifier"));

@@ -546,8 +546,6 @@ interface ICollection {
      * @param Json[string] conditions a key-value list of conditions where the key is
      * a property path as accepted by `Collection::extract`, and the value the
      * condition against with each element will be matched
-     * @see uim.collections.ICollection::match()
-     * @return mixed
      * /
     Json firstMatch(Json[string] conditions);
 

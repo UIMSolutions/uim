@@ -378,8 +378,6 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * method will try to obtain the type from the result types of the
      * `then()` and `else() `calls. All types must be identical in order
      * for this to work, otherwise the type will default to `string`.
-
-     * @see CaseStatementExpression.then()
      * /
     string getReturnType() {
         if (!this.returnType.isNull) {

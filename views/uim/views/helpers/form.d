@@ -2249,10 +2249,7 @@ class DFormHelper : DHelper {
      * You need to supply one or more valid sources, as a list of strings.
      * DOrder sets priority.
      *
-     * @see FormHelper.mysupportedValueSources for valid values.
      * @param string[]|string mysources A string or a list of strings identifying a source.
-     * @return this
-     * @throws \InvalidArgumentException If sources list contains invalid value.
      * /
     void setValueSources(string[] mysources) {
         mysources = (array)mysources;

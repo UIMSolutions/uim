@@ -266,8 +266,6 @@ mixin template TQuery() {
      * @param callable|null mapper The mapper callable.
      * @param callable|null reducer The reducing function.
      * @param bool canOverwrite Set to true to overwrite existing map + reduce functions.
-     * @return this
-     * @see uim.collections.Iterator\MapReduce for details on how to use emit data to the map reducer.
      * /
     function mapReduce(?callable mapper = null, ?callable reducer = null, bool canOverwrite = false) {
         if (canOverwrite) {
@@ -278,11 +276,9 @@ mixin template TQuery() {
                 throw new DInvalidArgumentException("mapper can be null only when canOverwrite is true.");
             }
 
-            return this;
+            return;
         }
         _mapReduce[] = compact("mapper", "reducer");
-
-        return this;
     }
 
     /**

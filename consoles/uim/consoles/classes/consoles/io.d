@@ -299,7 +299,6 @@ class DConsoleIo {
      * Change the output mode of the stdout stream
      * Params:
      * outputMode = The output mode.
-     * @see \UIM\Console\ConsoleOutput.setOutputAs()
      * /
     void setOutputAs(int outputMode) {
        _out.setOutputAs(outputMode);

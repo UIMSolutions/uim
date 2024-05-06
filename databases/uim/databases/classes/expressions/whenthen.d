@@ -151,10 +151,7 @@ class DWhenThenExpression : DExpression {
         this.hasThenBeenDefined = true;
     }
     
-    /**
-     * Returns the expression`s result value type.
-     * @see WhenThenExpression.then()
-     * /
+    // Returns the expression`s result value type.
     string getResultType() {
         return _thenType;
     }

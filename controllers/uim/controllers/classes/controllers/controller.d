@@ -112,8 +112,6 @@ class DController : IController { // IEventListener, IEventDispatcher {
      *  parameters. Modifying this list will allow users to have more influence
      *  over pagination, be careful with what you permit.
      * - `className` - The paginator class to use. Defaults to `UIM\Datasource\Paging\NumericPaginator.classname`.
-     *
-     * @see \UIM\Datasource\Paging\NumericPaginator
      * /
     protected Json[string] paginate;
 

@@ -1956,7 +1956,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * iterable<\UIM\Datasource\IEntity> myentities Entities to save.
      * @param Json[string] options Options used when calling Table.save() for each entity.
      * /
-    iterable<\UIM\Datasource\IEntity> saveManyOrFail(Range myentities, Json[string] optionData = null) {
+    iterable<\UIM\Datasource\IEntity> saveManyOrFail(Json[string] myentities, Json[string] optionData = null) {
         return _saveMany(myentities, options);
     }
     
@@ -2100,7 +2100,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * iterable<\UIM\Datasource\IEntity> myentities Entities to delete.
      * @param Json[string] options Options used when calling Table.save() for each entity.
      * /
-    IEntity[] deleteMany(Range myentities, Json[string] optionData = null) {
+    IEntity[] deleteMany(Json[string] myentities, Json[string] optionData = null) {
         myfailed = _deleteMany(myentities, options);
 
         if (myfailed !isNull) {
@@ -2119,7 +2119,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * iterable<\UIM\Datasource\IEntity> myentities Entities to delete.
      * @param Json[string] options Options used when calling Table.save() for each entity.
      * /
-    iterable<\UIM\Datasource\IEntity> deleteManyOrFail(Range myentities, Json[string] optionData = null) {
+    iterable<\UIM\Datasource\IEntity> deleteManyOrFail(Json[string] myentities, Json[string] optionData = null) {
         myfailed = _deleteMany(myentities, options);
 
         if (myfailed !isNull) {
@@ -2132,7 +2132,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param iterable<\UIM\Datasource\IEntity> myentities Entities to delete.
      * @param Json[string] options Options used.
      * /
-    protected IEntity _deleteMany(Range myentities, Json[string] optionData = null) {
+    protected IEntity _deleteMany(Json[string] myentities, Json[string] optionData = null) {
         options = new ArrayObject(options ~ [
                 "atomic": Json(true),
                 "checkRules": Json(true),
@@ -2629,7 +2629,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] data list of arrays to be merged into the entities
      * @param Json[string] options A list of options for the objects hydration.
      * /
-    IEntity[] patchEntities(Range myentities, Json[string] data, Json[string] optionData = null) {
+    IEntity[] patchEntities(Json[string] myentities, Json[string] data, Json[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().mergeMany(myentities, mydata, options);

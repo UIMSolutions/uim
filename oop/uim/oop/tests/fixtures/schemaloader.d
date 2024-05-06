@@ -51,7 +51,7 @@ class DSchemaLoader {
         /** @var \UIM\Database\Connection aConnection * /
         aConnection = ConnectionManager.get(aConnectionName);
         files.each!((file) {
-            if (!file_exists(file)) {
+            if (!fileExists(file)) {
                 throw new DInvalidArgumentException(
                     "Unable to load SQL file `%s`.".format(file));
             }

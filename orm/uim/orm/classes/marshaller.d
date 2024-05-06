@@ -554,7 +554,7 @@ class DMarshaller {
      * @param Json[string] data list of arrays to be merged into the entities
      * @param Json[string] options List of options.
      * /
-    IEntity[] mergeMany(Range myentities, Json[string] data, Json[string] optionData = null) {
+    IEntity[] mergeMany(Json[string] myentities, Json[string] data, Json[string] optionData = null) {
         myprimary = (array)_table.primaryKeys();
 
         myindexed = (new DCollection(mydata))

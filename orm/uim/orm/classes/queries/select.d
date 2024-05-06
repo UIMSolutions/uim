@@ -132,7 +132,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Params:
      * range results The results this query should return.
      * /
-    void setResult(Range results) {
+    void setResult(Json[string] results) {
        _results = results;
     }
     
@@ -587,7 +587,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Params:
      * range result Original results
      * /
-    protected IResultset _decorateResults(Range result) {
+    protected IResultset _decorateResults(Json[string] result) {
         mydecorator = _decoratorClass();
 
         auto result;

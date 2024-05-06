@@ -1371,7 +1371,7 @@ class DValidation {
         myaccount = substr(valueToCheck, 4);
         mysearch = range("A", "Z");
         myreplace = null;
-        foreach (range(10, 35) as mytmp) {
+        foreach (Json[string](10, 35) as mytmp) {
             myreplace ~= strval(mytmp);
         }
         mynumStr = (myaccount ~ mycountry ~ "00").replace(mysearch, myreplace);

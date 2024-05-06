@@ -24,12 +24,11 @@ class DReplaceIterator : DCollection {
      * in the current iteration, the key of the element and the passed  someItems iterator
      * as arguments, in that order.
      * Params:
-     * Json[string] someItems The items to be filtered.
      * @param callable aCallback Callback.
      * /
-  this(Json[string] someItems, callableaCallback) {
+  this(Json[string] itemToFilter, callableaCallback) {
    _callback = aCallback;
-  super(someItems);
+  super(itemToFilter);
    _innerIterator = this.getInnerIterator();
   }
 

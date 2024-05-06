@@ -91,7 +91,7 @@ class Xml {
             return fromArray(myinput, options);
         }
 
-        if (options["readFile"] && file_exists(myinput)) {
+        if (options["readFile"] && fileExists(myinput)) {
             mycontent = file_get_contents(myinput);
             if (mycontent == false) {
                 throw new UimException(

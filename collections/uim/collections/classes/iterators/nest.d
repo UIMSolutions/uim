@@ -15,8 +15,8 @@ class DNestIterator : DCollection {// }, RecursiveIterator {
     protected string _nestedKey;
 
     /* 
-    this(Json[string] someItems, string nestedKey) {
-        super(someItems);
+    this(Json[string] itemToFilter, string nestedKey) {
+        super(itemToFilter);
        _nestedKey = nestedKey;
     }
     

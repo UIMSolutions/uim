@@ -39,7 +39,7 @@ abstract class DERRErrorHandler {
             "log": Json(true),
             "trace": Json(false),
             "skipLog": Json.emptyArray,
-            "errorLogger": Json("ErrorLogger::class")
+            "errorLogger": Json("ErrorLogger.class")
         ]);
 
         return true;
@@ -164,7 +164,7 @@ abstract class DERRErrorHandler {
             "line": myLine,
         ];
 
-        debug = (bool)Configure::read("debug");
+        debug = (bool)Configure.read("debug");
         if (debug) {
             // By default trim 3 frames off for the and protected methods
             // used by ErrorHandler instances.
@@ -179,7 +179,7 @@ abstract class DERRErrorHandler {
             data += [
                 "context": context,
                 "start": start,
-                "path": Debugger::trimPath((string)file),
+                "path": Debugger.trimPath((string)file),
             ];
         }
         _displayError(data, debug);
@@ -285,11 +285,11 @@ abstract class DERRErrorHandler {
         );
         context = null;
         if (!empty(_config["trace"])) {
-            context["trace"] = Debugger::trace([
+            context["trace"] = Debugger.trace([
                 "start": 1,
                 "format": "log",
             ]);
-            context["request"] = Router::getRequest();
+            context["request"] = Router.getRequest();
         }
 
         return _getLogger().logMessage(level, message, context);
@@ -311,7 +311,7 @@ abstract class DERRErrorHandler {
             }
         }
 
-        return _getLogger().log(exception, request ?? Router::getRequest());
+        return _getLogger().log(exception, request ?? Router.getRequest());
     }
 
     /**
@@ -328,7 +328,7 @@ abstract class DERRErrorHandler {
                 // Set the logger so that the next error can be logged.
                 this.logger = new DErrorLogger(_config);
 
-                interface = IErrorLogger::class;
+                interface = IErrorLogger.class;
                 type = getTypeName(logger);
                 throw new DRuntimeException("Cannot create logger. `{type}` does not implement `{interface}`.");
             }

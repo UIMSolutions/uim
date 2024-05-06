@@ -37,7 +37,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
 
     /**
      * Handle errors in the console environment. Writes errors to stderr,
-     * and logs messages if Configure::read("debug") is false.
+     * and logs messages if Configure.read("debug") is false.
      *
      * @param \Throwable exception Exception instance.
      * @return void
@@ -47,7 +47,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
         _displayException(exception);
         this.logException(exception);
 
-        exitCode = Command::CODE_ERROR;
+        exitCode = Command.CODE_ERROR;
         if (exception instanceof ConsoleException) {
             exitCode = exception.getCode();
         }

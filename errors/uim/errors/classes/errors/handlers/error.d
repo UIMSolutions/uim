@@ -81,7 +81,7 @@ class DErrorHandler { // }: DERRErrorHandler
      * /
     this(Json aConfig = null) {
         aConfig += [
-            "exceptionRenderer": ExceptionRenderer::class,
+            "exceptionRenderer": ExceptionRenderer.class,
         ];
 
         configuration.update(aConfig);
@@ -99,7 +99,7 @@ class DErrorHandler { // }: DERRErrorHandler
         if (!debug) {
             return;
         }
-        Debugger::getInstance().outputError(error);
+        Debugger.getInstance().outputError(error);
     }
 
     /**
@@ -113,7 +113,7 @@ class DErrorHandler { // }: DERRErrorHandler
         try {
             renderer = this.getRenderer(
                 exception,
-                Router::getRequest()
+                Router.getRequest()
             );
             response = renderer.render();
             _sendResponse(response);
@@ -138,7 +138,7 @@ class DErrorHandler { // }: DERRErrorHandler
 
         if (renderer.isString) {
             /** @var class-string<uim.errors.IExceptionRenderer>|null aClassName * /
-            aClassName = App::className(renderer, "Error");
+            aClassName = App.className(renderer, "Error");
             if (!aClassName) {
                 throw new DRuntimeException(sprintf(
                     "The '%s' renderer class DCould not be found.",

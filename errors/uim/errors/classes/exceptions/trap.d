@@ -76,7 +76,7 @@ class DExceptionTrap {
      * /
     configuration.updateDefaults([
         "exceptionRenderer": null,
-        "logger": ErrorLogger::class,
+        "logger": ErrorLogger.class,
         "stderr": null,
         "log": Json(true),
         "skipLog": Json.emptyArray,
@@ -131,11 +131,11 @@ class DExceptionTrap {
      * @return uim.errors.IExceptionRenderer
      * /
     function renderer(Throwable exception, request = null) {
-        request = request ?? Router::getRequest();
+        request = request ?? Router.getRequest();
 
         /** @var class-string|callable aClassName * /
         aClassName = this.getConfig("exceptionRenderer");
-        deprecatedConfig = (aClassName == ExceptionRenderer::class && D_SAPI == "cli");
+        deprecatedConfig = (aClassName == ExceptionRenderer.class && D_SAPI == "cli");
         if (deprecatedConfig) {
             deprecationWarning(
                 "Your application is using a deprecated `Error.exceptionRenderer`~ " ~
@@ -174,7 +174,7 @@ class DExceptionTrap {
      * /
     protected string chooseRenderer() {
         /** @var class-string<uim.errors.IExceptionRenderer> * /
-        return D_SAPI == "cli" ? ConsoleExceptionRenderer::class : ExceptionRenderer::class;
+        return D_SAPI == "cli" ? ConsoleExceptionRenderer.class : ExceptionRenderer.class;
     }
 
     /**
@@ -243,7 +243,7 @@ class DExceptionTrap {
         if (this.disabled) {
             return;
         }
-        request = Router::getRequest();
+        request = Router.getRequest();
 
         this.logException(exception, request);
 

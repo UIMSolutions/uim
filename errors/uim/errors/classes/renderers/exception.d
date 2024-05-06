@@ -63,15 +63,15 @@ class DExceptionRenderer : IExceptionRenderer {
      * /
     protected myExceptionHttpCodes = [
         // Controller exceptions
-        InvalidParameterException::class: 404,
-        MissingActionException::class: 404,
+        InvalidParameterException.class: 404,
+        MissingActionException.class: 404,
         // Datasource exceptions
-        PageOutOfBoundsException::class: 404,
-        RecordNotFoundException::class: 404,
+        PageOutOfBoundsException.class: 404,
+        RecordNotFoundException.class: 404,
         // Http exceptions
-        MissingControllerException::class: 404,
+        MissingControllerException.class: 404,
         // Routing exceptions
-        MissingRouteException::class: 404,
+        MissingRouteException.class: 404,
     ];
 
     /**
@@ -98,11 +98,11 @@ class DExceptionRenderer : IExceptionRenderer {
      * /
     protected IController _getController() {
         myRequest = this.request;
-        routerRequest = Router::getRequest();
+        routerRequest = Router.getRequest();
         // Fallback to the request in the router or make a new one from
         // _SERVER
         if (myRequest.isNull) {
-            myRequest = routerRequest ?: ServerRequestFactory::fromGlobals();
+            myRequest = routerRequest ?: ServerRequestFactory.fromGlobals();
         }
 
         // If the current request doesn"t have routing data, but we
@@ -121,7 +121,7 @@ class DExceptionRenderer : IExceptionRenderer {
             string myClass = factory.getControllerClass(myRequest.withAttribute("params", myParams));
 
             if (myClass.isEmpty) {
-                myClass = App::className("Error", "Controller", "Controller");
+                myClass = App.className("Error", "Controller", "Controller");
             }
 
             controller = new myClass(myRequest);
@@ -203,9 +203,9 @@ class DExceptionRenderer : IExceptionRenderer {
         ];
         serialize = ["message", "url", "code"];
 
-        isDebug = Configure::read("debug");
+        isDebug = Configure.read("debug");
         if (isDebug) {
-            trace = (array)Debugger::formatTrace(myException.getTrace(), [
+            trace = (array)Debugger.formatTrace(myException.getTrace(), [
                 "format":"array",
                 "args":false,
             ]);
@@ -257,7 +257,7 @@ class DExceptionRenderer : IExceptionRenderer {
         }
 
         // baseClass would be an empty string if the exception class is \Exception.
-        method = baseClass == "" ? "error500" : Inflector::variable(baseClass);
+        method = baseClass == "" ? "error500" : Inflector.variable(baseClass);
 
         return _method = method;
     }
@@ -273,7 +273,7 @@ class DExceptionRenderer : IExceptionRenderer {
         auto myMessage = myException.getMessage();
 
         if (
-            !Configure::read("debug") &&
+            !Configure.read("debug") &&
             !(myException instanceof HttpException)
         ) {
             myMessage = errorCode < 500
@@ -293,7 +293,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * @return string Template name
      * /
     protected string _template(Throwable myException, string method, int errorCode) {
-        if (myException instanceof HttpException || !Configure::read("debug")) {
+        if (myException instanceof HttpException || !Configure.read("debug")) {
             return _template = errorCode < 500 ? "error400" : "error500";
         }
 

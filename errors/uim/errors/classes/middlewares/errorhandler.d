@@ -63,7 +63,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
         "skipLog":[],
         "log":true,
         "trace":false,
-        "exceptionRenderer":ExceptionRenderer::class,
+        "exceptionRenderer":ExceptionRenderer.class,
     ]);
 
     /**
@@ -83,14 +83,14 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
     this(myErrorHandler = null) {
         if (func_num_args() > 1) {
             deprecationWarning(
-                "The signature of ErrorHandlerMiddleware::this() has changed~ "
+                "The signature of ErrorHandlerMiddleware.this() has changed~ "
                 ~ "Pass the config array as 1st argument instead."
             );
 
             myErrorHandler = func_get_arg(1);
         }
 
-        if (D_VERSION_ID >= 70400 && Configure::read("debug")) {
+        if (D_VERSION_ID >= 70400 && Configure.read("debug")) {
             ini_set("zend.exception_ignore_args", "0");
         }
 
@@ -183,7 +183,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
     {
         if (this.errorHandler.isNull) {
             /** @var class-string<uim.errorss.ErrorHandler> myClassName * /
-            myClassName = App::className("ErrorHandler", "Error");
+            myClassName = App.className("ErrorHandler", "Error");
             this.errorHandler = new myClassName(this.configuration.data);
         }
 

@@ -48,7 +48,7 @@ class DTextErrorRenderer { // }: IErrorRenderer {
 
     // isDebug
     return 
-      "%s: %s :: %s on line %s of %s\nTrace:\n%s".format(
+      "%s: %s . %s on line %s of %s\nTrace:\n%s".format(
         error.getLabel(),
         error.getCode(),
         error.getMessage(),

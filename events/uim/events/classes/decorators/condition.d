@@ -40,7 +40,7 @@ class DConditionDecorator : DDecorator {
             return conditionType != "unless";
         }
         if (!_options[conditionType].isCallable) {
-            throw new DInvalidArgumentException(self::class ~ " the `" ~ conditionType ~ "` condition is not a callable!");
+            throw new DInvalidArgumentException(self.class ~ " the `" ~ conditionType ~ "` condition is not a callable!");
         }
         return (bool)_options[conditionType](event);
     } */

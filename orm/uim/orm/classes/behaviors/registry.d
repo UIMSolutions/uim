@@ -62,14 +62,14 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @psalm-return class-string|null
      * /
     static string className(string aClassName ) {
-        return App::className(class, "Model/Behavior", "Behavior")
-            ?: App::className(class, "ORM/Behavior", "Behavior");
+        return App.className(class, "Model/Behavior", "Behavior")
+            ?: App.className(class, "ORM/Behavior", "Behavior");
     }
 
     /**
      * Resolve a behavior classname.
      *
-     * Part of the template method for uim\Core\ObjectRegistry::load()
+     * Part of the template method for uim\Core\ObjectRegistry.load()
      *
      * @param string aClassName  Partial classname to resolve.
      * @return string|null Either the correct class name or null.
@@ -82,8 +82,8 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
     /**
      * Throws an exception when a behavior is missing.
      *
-     * Part of the template method for uim\Core\ObjectRegistry::load()
-     * and uim\Core\ObjectRegistry::remove()
+     * Part of the template method for uim\Core\ObjectRegistry.load()
+     * and uim\Core\ObjectRegistry.remove()
      *
      * aClassName - The classname that is missing.
      * @param string|null plugin The plugin the behavior is missing in.
@@ -99,7 +99,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
     /**
      * Create the behavior instance.
      *
-     * Part of the template method for uim\Core\ObjectRegistry::load()
+     * Part of the template method for uim\Core\ObjectRegistry.load()
      * Enabled behaviors will be registered with the event manager.
      *
      * @param string aClassName  The classname that is missing.

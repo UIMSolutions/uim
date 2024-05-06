@@ -44,7 +44,7 @@ class DHasOneAssociation : DAssociation {
     protected string _propertyName() {
         [, name] = pluginSplit(_name);
 
-        return Inflector.underscore(Inflector::singularize(name));
+        return Inflector.underscore(Inflector.singularize(name));
     }
 
     /**

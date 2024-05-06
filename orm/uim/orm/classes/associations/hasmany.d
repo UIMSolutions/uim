@@ -36,21 +36,21 @@ class DHasManyAssociation : DAssociation {
     /**
      * The type of join to be used when adding the association to a query
      * /
-    protected string _joinType = Query::JOIN_TYPE_INNER;
+    protected string _joinType = Query.JOIN_TYPE_INNER;
 
     // The strategy name to be used to fetch associated records.
-    protected string _strategy = self::STRATEGY_SELECT;
+    protected string _strategy = self.STRATEGY_SELECT;
 
     // Valid strategies for this type of association
     protected string[] _validStrategies = [
-        self::STRATEGY_SELECT,
-        self::STRATEGY_SUBQUERY,
+        self.STRATEGY_SELECT,
+        self.STRATEGY_SUBQUERY,
     ];
 
 
 
     // Saving strategy to be used by this association
-    protected string _saveStrategy = self::SAVE_APPEND;
+    protected string _saveStrategy = self.SAVE_APPEND;
 
     /**
      * Returns whether the passed table is the owning side for this
@@ -71,7 +71,7 @@ class DHasManyAssociation : DAssociation {
      * @return this
      * /
     auto setSaveStrategy(string strategy) {
-        if (!in_array(strategy, [self::SAVE_APPEND, self::SAVE_REPLACE], true)) {
+        if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
             msg = sprintf("Invalid save strategy '%s'", strategy);
             throw new DInvalidArgumentException(msg);
         }
@@ -109,7 +109,7 @@ class DHasManyAssociation : DAssociation {
         if (isEmpty) {
             if (
                 entity.isNew() ||
-                this.getSaveStrategy() != self::SAVE_REPLACE
+                this.getSaveStrategy() != self.SAVE_REPLACE
             ) {
                 return entity;
             }
@@ -131,7 +131,7 @@ class DHasManyAssociation : DAssociation {
         options["_sourceTable"] = this.getSource();
 
         if (
-            _saveStrategy == self::SAVE_REPLACE &&
+            _saveStrategy == self.SAVE_REPLACE &&
             !_unlinkAssociated(foreignKeyReference, entity, this.getTarget(), myTargetEntities, options)
         ) {
             return false;
@@ -157,7 +157,7 @@ class DHasManyAssociation : DAssociation {
      * entities to be saved.
      * @param Json[string] entities list of entities
      * to persist in target table and to link to the parent entity
-     * @param Json[string] options list of options accepted by `Table::save()`.
+     * @param Json[string] options list of options accepted by `Table.save()`.
      * @return bool `true` on success, `false` otherwise.
      * /
     protected bool _saveTarget(
@@ -230,7 +230,7 @@ class DHasManyAssociation : DAssociation {
      * /
     bool link(IEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
         saveStrategy = this.getSaveStrategy();
-        this.setSaveStrategy(self::SAVE_APPEND);
+        this.setSaveStrategy(self.SAVE_APPEND);
         property = this.getProperty();
 
         currentEntities = array_unique(
@@ -265,7 +265,7 @@ class DHasManyAssociation : DAssociation {
      *
      * ### Options
      *
-     * Additionally to the default options accepted by `Table::remove()`, the following
+     * Additionally to the default options accepted by `Table.remove()`, the following
      * keys are supported:
      *
      * - cleanProperty: Whether to remove all the objects in `myTargetEntities` that
@@ -363,7 +363,7 @@ class DHasManyAssociation : DAssociation {
      * in the corresponding property for this association.
      *
      * Additional options for new links to be saved can be passed in the third argument,
-     * check `Table::save()` for information on the accepted options.
+     * check `Table.save()` for information on the accepted options.
      *
      * ### Example:
      *
@@ -389,7 +389,7 @@ class DHasManyAssociation : DAssociation {
         property = this.getProperty();
         sourceEntity.set(property, myTargetEntities);
         saveStrategy = this.getSaveStrategy();
-        this.setSaveStrategy(self::SAVE_REPLACE);
+        this.setSaveStrategy(self.SAVE_REPLACE);
         myResult = this.saveAssociated(sourceEntity, options);
         ok = (myResult instanceof IEntity);
 
@@ -410,7 +410,7 @@ class DHasManyAssociation : DAssociation {
      * @param DORMDatasource\IEntity anEntity the entity which should have its associated entities unassigned
      * @param DORMTable myTarget The associated table
      * @param range remainingEntities Entities that should not be deleted
-     * @param Json[string] options list of options accepted by `Table::remove()`
+     * @param Json[string] options list of options accepted by `Table.remove()`
      * @return bool success
      * /
     protected bool _unlinkAssociated(
@@ -458,7 +458,7 @@ class DHasManyAssociation : DAssociation {
      * @param Json[string] foreignKey array of foreign key properties
      * @param DORMTable myTarget The associated table
      * @param Json[string] conditions The conditions that specifies what are the objects to be unlinked
-     * @param Json[string] options list of options accepted by `Table::remove()`
+     * @param Json[string] options list of options accepted by `Table.remove()`
      * @return bool success
      * /
     protected bool _unlink(Json[string] foreignKey, Table myTarget, Json[string] conditions = null, Json[string] options = null) {
@@ -517,7 +517,7 @@ class DHasManyAssociation : DAssociation {
      * Get the relationship type.
      * /
     string type() {
-        return self::ONE_TO_MANY;
+        return self.ONE_TO_MANY;
     }
 
     /**

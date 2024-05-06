@@ -183,7 +183,7 @@ class DResultset : IResultset {
 
         if (!_useBuffering) {
             msg = "You cannot rewind an un-buffered Resultset~ "
-                ~ "Use Query::bufferResults() to get a buffered Resultset.";
+                ~ "Use Query.bufferResults() to get a buffered Resultset.";
             throw new DatabaseException(msg);
         }
 
@@ -257,7 +257,7 @@ class DResultset : IResultset {
     Json[string] __serialize() {
         if (!_useBuffering) {
             msg = "You cannot serialize an un-buffered Resultset~ "
-                ~ "Use Query::bufferResults() to get a buffered Resultset.";
+                ~ "Use Query.bufferResults() to get a buffered Resultset.";
             throw new DatabaseException(msg);
         }
 
@@ -289,7 +289,7 @@ class DResultset : IResultset {
      * @param Json[string] data Data array.
      * /
     void __unserialize(Json[string] data) {
-        _results = SplFixedArray::fromArray(data);
+        _results = SplFixedArray.fromArray(data);
         _useBuffering = true;
         _count = _results.count();
     }

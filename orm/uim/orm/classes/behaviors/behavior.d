@@ -355,8 +355,8 @@ class DBehavior : IEventListener {
      * /
     // TODO protected Json[string] _reflectionCache() {
         class = class;
-        if (isset(self::_reflectionCache[class])) {
-            return self::_reflectionCache[class];
+        if (isset(self._reflectionCache[class])) {
+            return self._reflectionCache[class];
         }
 
         events = this.implementedEvents();
@@ -370,12 +370,12 @@ class DBehavior : IEventListener {
             eventMethods[binding] = true;
         }
 
-        baseClass = self::class;
-        if (isset(self::_reflectionCache[baseClass])) {
-            baseMethods = self::_reflectionCache[baseClass];
+        baseClass = self.class;
+        if (isset(self._reflectionCache[baseClass])) {
+            baseMethods = self._reflectionCache[baseClass];
         } else {
             baseMethods = get_class_methods(baseClass);
-            self::_reflectionCache[baseClass] = baseMethods;
+            self._reflectionCache[baseClass] = baseMethods;
         }
 
         return = [
@@ -385,7 +385,7 @@ class DBehavior : IEventListener {
 
         reflection = new DReflectionClass(class);
 
-        foreach (reflection.getMethods(ReflectionMethod::IS_PUBLIC) as method) {
+        foreach (reflection.getMethods(ReflectionMethod.IS_PUBLIC) as method) {
             methodName = method.getName();
             if (
                 in_array(methodName, baseMethods, true) ||
@@ -401,6 +401,6 @@ class DBehavior : IEventListener {
             }
         }
 
-        return self::_reflectionCache[class] = return;
+        return self._reflectionCache[class] = return;
     } */
 }

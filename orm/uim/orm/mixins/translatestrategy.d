@@ -65,7 +65,7 @@ mixin template TTranslateStrategy() {
      * the currently configured global locale.
      * /
     string getLocale() {
-        return _locale ?: I18n::getLocale();
+        return _locale ?: I18n.getLocale();
     }
 
     /**
@@ -107,7 +107,7 @@ mixin template TTranslateStrategy() {
 
      * Add in `_translations` marshalling handlers. You can disable marshalling
      * of translations by setting `"translations": Json(false)` in the options
-     * provided to `Table::newEntity()` or `Table::patchEntity()`.
+     * provided to `Table.newEntity()` or `Table.patchEntity()`.
      *
      * @param DORMMarshaller marshaller The marhshaller of the table the behavior is attached to.
      * @param Json[string] map The property map being built.

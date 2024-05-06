@@ -67,9 +67,9 @@ class DSelectLoader {
 
     /**
      * Returns a callable that can be used for injecting association results into a given
-     * iterator. The options accepted by this method are the same as `Association::eagerLoader()`
+     * iterator. The options accepted by this method are the same as `Association.eagerLoader()`
      *
-     * @param Json[string] options Same options as `Association::eagerLoader()`
+     * @param Json[string] options Same options as `Association.eagerLoader()`
      * @return \Closure
      * /
     function buildEagerLoader(Json[string] optionData): Closure
@@ -104,7 +104,7 @@ class DSelectLoader {
     protected DORMQuery _buildQuery(Json[string] optionData) {
         key = _linkField(options);
         filter = options["keys"];
-        useSubquery = options["strategy"] == Association::STRATEGY_SUBQUERY;
+        useSubquery = options["strategy"] == Association.STRATEGY_SUBQUERY;
         finder = this.finder;
         options["fields"] = options["fields"] ?? [];
 
@@ -313,13 +313,13 @@ class DSelectLoader {
         links = null;
         name = this.alias;
 
-        if (options["foreignKey"] == false && this.associationType == Association::ONE_TO_MANY) {
+        if (options["foreignKey"] == false && this.associationType == Association.ONE_TO_MANY) {
             msg = "Cannot have foreignKey = false for hasMany associations~ " ~
                    "You must provide a foreignKey column.";
             throw new DRuntimeException(msg);
         }
 
-        keys = in_array(this.associationType, [Association::ONE_TO_ONE, Association::ONE_TO_MANY], true) ?
+        keys = in_array(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) ?
             this.foreignKey :
             this.bindingKey;
 
@@ -377,7 +377,7 @@ class DSelectLoader {
     // TODO protected Json[string] _subqueryFields(Query query) {
         keys = (array)this.bindingKey;
 
-        if (this.associationType == Association::MANY_TO_ONE) {
+        if (this.associationType == Association.MANY_TO_ONE) {
             keys = (array)this.foreignKey;
         }
 
@@ -407,8 +407,8 @@ class DSelectLoader {
      * /
     // TODO protected Json[string] _buildResultMap(Query fetchQuery, Json[string] optionData) {
         resultMap = null;
-        singleResult = in_array(this.associationType, [Association::MANY_TO_ONE, Association::ONE_TO_ONE], true);
-        keys = in_array(this.associationType, [Association::ONE_TO_ONE, Association::ONE_TO_MANY], true) ?
+        singleResult = in_array(this.associationType, [Association.MANY_TO_ONE, Association.ONE_TO_ONE], true);
+        keys = in_array(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) ?
             this.foreignKey :
             this.bindingKey;
         key = (array)keys;
@@ -440,7 +440,7 @@ class DSelectLoader {
      * /
     protected function _resultInjector(Query fetchQuery, Json[string] resultMap, Json[string] optionData): Closure
     {
-        keys = this.associationType == Association::MANY_TO_ONE ?
+        keys = this.associationType == Association.MANY_TO_ONE ?
             this.foreignKey :
             this.bindingKey;
 

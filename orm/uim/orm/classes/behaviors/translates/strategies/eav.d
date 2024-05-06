@@ -124,7 +124,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             this.table.hasOne(name, [
                 "targetTable": fieldTable,
                 "foreignKey": "foreign_key",
-                "joinType": filter ? Query::JOIN_TYPE_INNER : Query::JOIN_TYPE_LEFT,
+                "joinType": filter ? Query.JOIN_TYPE_INNER : Query.JOIN_TYPE_LEFT,
                 "conditions": conditions,
                 "propertyName": field ~ "_translation",
             ]);
@@ -155,7 +155,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * @param \ArrayObject options The options for the query
      * /
     void beforeFind(IEvent event, Query query, ArrayObject options) {
-        locale = Hash::get(options, "locale", this.getLocale());
+        locale = Hash.get(options, "locale", this.getLocale());
 
         if (locale == this.getConfig("defaultLocale")) {
             return;
@@ -197,8 +197,8 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
             if (changeFilter) {
                 filter = options["filterByCurrentLocale"]
-                    ? Query::JOIN_TYPE_INNER
-                    : Query::JOIN_TYPE_LEFT;
+                    ? Query.JOIN_TYPE_INNER
+                    : Query.JOIN_TYPE_LEFT;
                 contain[name]["joinType"] = filter;
             }
         }
@@ -206,7 +206,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         query.contain(contain);
         query.formatResults(function (results) use (locale) {
             return _rowMapper(results, locale);
-        }, query::PREPEND);
+        }, query.PREPEND);
     }
 
     /**

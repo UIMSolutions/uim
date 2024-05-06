@@ -167,7 +167,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ```
      *
      * By default no fields are selected, if you have an instance of `uim\orm.Query` and try to append
-     * fields you should also call `uim\orm.Query::enableAutoFields()` to select the default fields
+     * fields you should also call `uim\orm.Query.enableAutoFields()` to select the default fields
      * from the table.
      *
      * If you pass an instance of a `uim\orm.Table` or `uim\orm.Association` class,
@@ -446,7 +446,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param DORMDORMTable aTable The table instance to pluck associations from.
      * @param DORMdatabases.TypeMap typeMap The typemap to check for columns in.
-     *   This typemap is indirectly mutated via {@link DORMQuery::addDefaultTypes()}
+     *   This typemap is indirectly mutated via {@link DORMQuery.addDefaultTypes()}
      * @param array<string, array> associations The nested tree of associations to walk.
      * /
     protected void _addAssociationsToTypeMap(DORMTable aTable, TypeMap typeMap, Json[string] associations) {
@@ -590,7 +590,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     function leftJoinWith(string assoc, ?callable builder = null) {
         result = this.getEagerLoader()
             .setMatching(assoc, builder, [
-                "joinType": Query::JOIN_TYPE_LEFT,
+                "joinType": Query.JOIN_TYPE_LEFT,
                 "fields": Json(false),
             ])
             .getMatching();
@@ -636,7 +636,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     void innerJoinWith(string assoc, ?callable builder = null) {
         result = this.getEagerLoader()
             .setMatching(assoc, builder, [
-                "joinType": Query::JOIN_TYPE_INNER,
+                "joinType": Query.JOIN_TYPE_INNER,
                 "fields": Json(false),
             ])
             .getMatching();
@@ -697,7 +697,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     function notMatching(string assoc, ?callable builder = null) {
         result = this.getEagerLoader()
             .setMatching(assoc, builder, [
-                "joinType": Query::JOIN_TYPE_LEFT,
+                "joinType": Query.JOIN_TYPE_LEFT,
                 "fields": Json(false),
                 "negateMatch": Json(true),
             ])
@@ -821,7 +821,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         clone.order([], true);
         clone.offset(null);
         clone.mapReduce(null, null, true);
-        clone.formatResults(null, self::OVERWRITE);
+        clone.formatResults(null, self.OVERWRITE);
         clone.setSelectTypeMap(new DTypeMap());
         clone.decorateResults(null, true);
 
@@ -1205,7 +1205,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * This changes the query type to be "insert".
      * Note calling this method will reset any data previously set
-     * with Query::values()
+     * with Query.values()
      *
      * Can be combined with the where() method to create delete queries.
      *

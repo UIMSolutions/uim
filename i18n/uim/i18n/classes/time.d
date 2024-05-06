@@ -64,9 +64,6 @@ class DTime { // : ChronosTime, JsonSerializable {
      * The format should be either the formatting constants from IntlDateFormatter as
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
-     *
-     * @var \Closure|string|int
-     * @see \UIM\I18n\Date.i18nFormat()
      * /
     protected static DClosure|string|int _JsonEncodeFormat = "HH':'mm':'ss";
 

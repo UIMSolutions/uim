@@ -222,11 +222,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
         return _position;
     }
     
-    /**
-     * Moves the current position to the next middleware.
-     *
-     * @see \Iterator.next()
-     * /
+    // Moves the current position to the next middleware.
     void next() {
         ++this.position;
     }

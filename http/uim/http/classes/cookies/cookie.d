@@ -24,11 +24,6 @@ import uim.http;
  * ```
  * cookie = cookie.withValue("0");
  * ```
- *
- * @link https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-03
- * @link https://en.wikipedia.org/wiki/HTTP_cookie
- * @see \UIM\Http\Cookie\CookieCollection for working with collections of cookies.
- * @see \UIM\Http\Response.getCookieCollection() for working with response cookies.
  */
 
 class DCookie : ICookie {

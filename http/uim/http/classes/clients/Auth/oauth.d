@@ -135,7 +135,7 @@ class DOauth {
     
     /**
      * Use RSA-SHA1 signing.
-     * This method is suitable for plain HTTP or HTTPS. */
+     * This method is suitable for plain HTTP or HTTPS. * /
     protected string _rsaSha1(Request request, Json[string] credentials) {
         if (!function_exists("openssl_pkey_get_private")) {
             throw new UimException("RSA-SHA1 signature method requires the OpenSSL extension.");

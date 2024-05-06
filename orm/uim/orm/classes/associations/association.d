@@ -298,8 +298,6 @@ function setConditions(conditions) {
 /**
      * Gets a list of conditions to be always included when fetching records from
      * the target association.
-     *
-     * @see DORMdatabases.Query::where() for examples on the format of the array
      * @return \Closure|array
      * /
 function getConditions() {

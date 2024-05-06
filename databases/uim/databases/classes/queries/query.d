@@ -750,8 +750,6 @@ abstract class DQuery : IQuery { // : IExpression {
      * \UIM\Database\IExpression|\Closure|string[] conditions The conditions to filter on.
      * @param STRINGAA types Associative array of type names used to bind values to query
      * @param bool overwrite whether to reset conditions with passed list or not
-     * @see \UIM\Database\TypeFactory
-     * @see \UIM\Database\Expression\QueryExpression
      * /
     auto where(
         IExpression|Closure|string[] conditions = null,

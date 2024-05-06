@@ -13,8 +13,6 @@ import uim.http;
  * a modified Response.
  *
  * It is most convenient to get this object via `Response.cors()`.
- *
- * @see \UIM\Http\Response.cors()
  */
 class DCorsBuilder {
     /* 

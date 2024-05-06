@@ -72,8 +72,6 @@ import uim.errors;
  * ```
  *
  * Would enable handling for all non Notice errors.
- *
- * @see uim.errors.ExceptionRenderer for more information on how to customize exception rendering.
  */
 class DErrorHandler { // }: DERRErrorHandler
     /**

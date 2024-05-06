@@ -720,7 +720,6 @@ class DDebugger {
      * @param object var Object to convert.
      * @param uim.errors.debugs.DebugContext context The dump context.
      * @return uim.errors.debugs.IErrorNode
-     * @see uim.errors.Debugger::exportVar()
      * /
     protected static function exportObject(object var, DebugContext context): IErrorNode
     {

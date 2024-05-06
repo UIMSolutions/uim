@@ -10,7 +10,6 @@ import uim.datasources;
  * @method this andWhere(conditions, Json[string] types = []) Connects any previously defined set of conditions to the
  *  provided list using the AND operator. {@see \UIM\Database\Query.andWhere()}
  * @method \UIM\Datasource\IEntity|array firstOrFail() Get the first result from the executing query or raise an exception.
- *  {@see \UIM\Database\Query.firstOrFail()}
  */
 interface IQuery {
     /**

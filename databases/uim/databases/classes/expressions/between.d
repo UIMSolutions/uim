@@ -31,12 +31,12 @@ class DBetweenExpression : DExpression { // TODO}, IField {
      * \UIM\Database\IExpression|string afield The field name to compare for values inbetween the range.
      * @param string|null typeName The data typeName name to bind the values with.
      * /
-    this(IExpression|string afield, Json fromValue, Json toValue, string typeName = null) {
+    this(IExpression|string fieldName, Json fromValue, Json toValue, string typeName = null) {
         if (!typeName.isNull) {
             from = _castToExpression(fromValue, typeName);
             to = _castToExpression(toValue, typeName);
         }
-       _field = field;
+       _field = fieldName;
        _from = fromValue;
        _to = toValue;
        _type = typeName;
@@ -75,7 +75,6 @@ class DBetweenExpression : DExpression { // TODO}, IField {
      * Params:
      * Json aValue The value to bind
      * @param \UIM\Database\DValueBinder aValueBinder The value binder to use
-     * @param string valueType The valueType of aValue
      * /
     protected string _bindValue(Json aValue, DValueBinder aValueBinder, string valueType) {
         placeholder = aValueBinder.placeholder("c");

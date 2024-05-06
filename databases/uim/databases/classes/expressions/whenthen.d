@@ -79,7 +79,6 @@ class DWhenThenExpression : DExpression {
      * an array, nor null.
      * @throws \InvalidArgumentException In case the ` when` argument is a non-array value, and the `type` argument is
      * neither a string, nor null.
-     * @see CaseStatementExpression.when() for a more detailed usage explanation.
      * /
     void when(object|string[]|float|int|bool  when, string[] type = null) {
         if (isArray(when)) {

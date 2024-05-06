@@ -79,10 +79,10 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * case expression variant!
      * Params:
      * \UIM\Database\IExpression|object|scalar|null aValue The case value.
-     * @param string|null type The case value type. If no type is provided, the type will be tried to be inferred
+     * @param string|null valueType The case value type. If no type is provided, the type will be tried to be inferred
      * from the value.
      * /
-    this(Json aValue = null, string atype = null) {
+    this(Json aValue = null, string valueType = null) {
         if (func_num_args() > 0) {
             if (
                 aValue !isNull &&
@@ -243,14 +243,14 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * be a non-array, and then always binds the data), use a conditions array where the user data is only passed on
      * the value side of the array entries, or custom bindings!
      * @param STRINGAA|string|null type The when value type. Either an associative array when using array style
-     * conditions, or else a string. If no type is provided, the type will be tried to be inferred from the value.
+     * conditions, or else a string. If no valueType is provided, the valueType will be tried to be inferred from the value.
 
      * @throws \LogicException In case this a closing `then()` call is required before calling this method.
      * @throws \LogicException In case the callable doesn`t return an instance of
      * `\UIM\Database\Expression\WhenThenExpression`.
      * /
-    void when(Json  when, string[] type = null) {
-        if (!this.whenBuffer.isNull) {
+    void when(Json  when, string[] valueType = null) {
+        if (!_whenBuffer.isNull) {
             throw new DLogicException("Cannot call `when()` between `when()` and `then()`.");
         }
         if (cast(DClosure) when) {
@@ -263,9 +263,9 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
             }
         }
         if (cast(WhenThenExpression) when) {
-            this.when ~= when;
+            _when ~= when;
         } else {
-            this.whenBuffer = ["when":  when, "type": type];
+            _whenBuffer = ["when":  when, "type": valueType];
         }
     }
 
@@ -319,23 +319,23 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * ```
      * Params:
      * \UIM\Database\IExpression|object|scalar|null result The result value.
-     * @param string|null type The result type. If no type is provided, the type will be tried to be inferred from the
+     * @param string|null resultType The result resultType. If no resultType is provided, the resultType will be tried to be inferred from the
      * value.
 
      * @throws \LogicException In case `when()` wasn`t previously called with a value other than a closure or an
      * instance of `\UIM\Database\Expression\WhenThenExpression`.
      * /
-    void then(Json result, string atype = null) {
-        if (this.whenBuffer.isNull) {
+    void then(Json result, string resultType = null) {
+        if (_whenBuffer.isNull) {
             throw new DLogicException("Cannot call `then()` before `when()`.");
         }
          whenThen = (new WhenThenExpression(this.getTypeMap()))
-            .when(this.whenBuffer["when"], this.whenBuffer["type"])
-            .then(result, type);
+            .when(_whenBuffer["when"], _whenBuffer["type"])
+            .then(result, resultType);
 
-        this.whenBuffer = null;
+        _whenBuffer = null;
 
-        this.when ~= whenThen;
+        _when ~= whenThen;
     }
     
     /**
@@ -350,7 +350,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * instance of `\UIM\Database\IExpression`, or `null`.
      * /
     void else(Json result, string atype = null) {
-        if (!this.whenBuffer.isNull) {
+        if (!_whenBuffer.isNull) {
             throw new DLogicException("Cannot call `else()` between `when()` and `then()`.");
         }
         if (
@@ -387,7 +387,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
         }
         
         auto types = null;
-        this.when.each!((w) {
+        _when.each!((w) {
             auto type = w.getResultType();
             if (!type.isNull) {
                 types ~= type;
@@ -436,10 +436,10 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
     }
  
     string sql(DValueBinder aBinder) {
-        if (!this.whenBuffer.isNull) {
+        if (!_whenBuffer.isNull) {
             throw new DLogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }
-        if (this.when.isEmpty) {
+        if (_when.isEmpty) {
             throw new DLogicException("Case expression must have at least one when statement.");
         }
         
@@ -448,7 +448,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
             aValue = this.compileNullableValue(aBinder, this.value, this.valueType) ~ " ";
         }
         
-        auto whenThenExpressions = this.when
+        auto whenThenExpressions = _when
             .map!(whenThen => whenThenExpressions ~= whenThen.sql(aBinder))
             .array;        
         string whenThen = whenThenExpressions.join(" ");
@@ -458,7 +458,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
     }
  
     void traverse(Closure aCallback) {
-        if (this.whenBuffer !isNull) {
+        if (_whenBuffer !isNull) {
             throw new DLogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }
         
@@ -466,7 +466,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
             aCallback(this.value);
             this.value.traverse(aCallback);
         }
-        this.when.each!(when => {
+        _when.each!(when => {
             aCallback(when);
             when.traverse(aCallback);
         });
@@ -485,8 +485,8 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
         if (cast(IExpression)this.value ) {
             this.value = clone this.value;
         }
-        foreach (this.when as aKey:  when) {
-            this.when[aKey] = clone this.when[aKey];
+        foreach (_when as aKey:  when) {
+            _when[aKey] = clone _when[aKey];
         }
         if (cast(IExpression)this.else ) {
             this.else = clone this.else;

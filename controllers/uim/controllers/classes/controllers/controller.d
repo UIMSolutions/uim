@@ -409,16 +409,16 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * @param int status HTTP status code. Defaults to `302`.
      * @link https://book.UIM.org/5/en/controllers.html#Controller.redirect
      * /
-    Response redirect(IUri|string[] aurl, int status = 302) {
+    Response redirect(IUri|string[] aurl, int httpStatusCode = 302) {
         this.autoRender = false;
 
-        if (status < 300 || status > 399) {
+        if (httpStatusCode < 300 || httpStatusCode > 399) {
             throw new DInvalidArgumentException(
                 "Invalid status code `%s`. It should be within the range " ~
-                    "`300` - `399` for redirect responses.".format(status)
+                    "`300` - `399` for redirect responses.".format(httpStatusCode)
             );
         }
-        _response = _response.withStatus(status);
+        _response = _response.withStatus(httpStatusCode);
         
         auto event = this.dispatchEvent("Controller.beforeRedirect", [url, _response]);
         auto result = event.getResult();

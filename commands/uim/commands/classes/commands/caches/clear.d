@@ -23,7 +23,6 @@ class DCacheClearCommand : DCommand {
   /**
      * Hook method for defining this command`s option parser.
      *
-     * @see https://book.UIM.org/5/en/console-commands/option-parsers.html
      * aDConsoleOptionParser buildOptionParser - The parser to be defined
      * returns - The built parser.
      * /

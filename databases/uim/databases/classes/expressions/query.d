@@ -39,7 +39,6 @@ class DQueryExpression : DExpression { // }, Countable {
      * passed in conditions.
      * @param string aconjunction the glue that will join all the string conditions at this
      * level of the expression tree. For example "AND", "OR", "XOR"...
-     * @see \UIM\Database\Expression\QueryExpression.add() for more details on conditions and types
      * /
     this(
         IExpression|string[] aconditions = [],

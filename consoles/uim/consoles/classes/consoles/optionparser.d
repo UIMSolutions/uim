@@ -218,8 +218,8 @@ class DConsoleOptionParser {
      * Json[string] spec The spec to build the OptionParser with.
      * @param bool defaultOptions Whether you want the verbose and quiet options set.
      * /
-    static auto buildFromArray(Json[string] spec, bool defaultOptions = true) {
-        auto aParser = new static(spec["command"], defaultOptions);
+    static auto buildFromArray(Json[string] spec, bool isVerboseAndQuiet = true) {
+        auto aParser = new static(spec["command"], isVerboseAndQuiet);
         if (!spec["arguments"].isEmpty) {
              aParser.addArguments(spec["arguments"]);
         }

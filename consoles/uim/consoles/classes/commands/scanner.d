@@ -72,12 +72,8 @@ class DCommandScanner {
     /**
      * Scan a directory for .d files and return the class names that
      * should be within them.
-     * Params:
-     * string directoryPath The directory to read.
-     * @param string aprefix The prefix to apply to commands for their full name.
-     * @param string[] commandsToHide A list of command names to hide as they are internal commands.
      * /
-    // TODO protected Json[string] scanDir(string directoryPath, string shellNamespace, string aprefix, string[] commandsToHide) {
+    protected Json[string] scanDir(string directoryPath, string shellNamespace, string commandPrefix, string[] commandsToHide) {
         if (!isDir(directoryPath)) {
             return null;
         }
@@ -110,7 +106,7 @@ class DCommandScanner {
             }
             commands[somePath ~ file] = [
                 "file": somePath ~ file,
-                "fullName": prefix ~ name,
+                "fullName": commandPrefix ~ name,
                 "name": name,
                 "class":  className,
             ];

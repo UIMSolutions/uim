@@ -130,26 +130,21 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
        _contextOptions["content"] = body.getContents();
     }
     
-    /**
-     * Build miscellaneous options for the request.
-     * Params:
-     * \Psr\Http\Message\IRequest request The request being sent.
-     * @param Json[string] options Array of options to use.
-     * /
-    protected void _buildOptions(IRequest request, Json[string] options = null) {
+    // Build miscellaneous options for the request.
+    protected void _buildOptions(IRequest request, Json[string] optionsToUse = null) {
        _contextOptions["method"] = request.getMethod();
        _contextOptions["protocol_version"] = request.getProtocolVersion();
        _contextOptions["ignore_errors"] = true;
 
-        if (isSet(options["timeout"])) {
-           _contextOptions["timeout"] = options["timeout"];
+        if (isSet(optionsToUse["timeout"])) {
+           _contextOptions["timeout"] = optionsToUse["timeout"];
         }
         // Redirects are handled in the client layer because of cookie handling issues.
        _contextOptions["max_redirects"] = 0;
 
-        if (isSet(options["proxy"]["proxy"])) {
+        if (isSet(optionsToUse["proxy"]["proxy"])) {
            _contextOptions["request_fulluri"] = true;
-           _contextOptions["proxy"] = options["proxy"]["proxy"];
+           _contextOptions["proxy"] = optionsToUse["proxy"]["proxy"];
         }
     }
     
@@ -157,9 +152,9 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Build SSL options for the request.
      * Params:
      * \Psr\Http\Message\IRequest request The request being sent.
-     * @param Json[string] options Array of options to use.
+     * @param Json[string] optionsToUse Array of optionsToUse to use.
      * /
-    protected void _buildSslContext(IRequest request, Json[string] options = null) {
+    protected void _buildSslContext(IRequest request, Json[string] optionsToUse = null) {
         sslOptions = [
             "ssl_verify_peer",
             "ssl_verify_peer_name",
@@ -170,18 +165,18 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             "ssl_local_pk",
             "ssl_passphrase",
         ];
-        if (options.isEmpty("ssl_cafile")) {
-            options["ssl_cafile"] = CaBundle.getBundledCaBundlePath();
+        if (optionsToUse.isEmpty("ssl_cafile")) {
+            optionsToUse["ssl_cafile"] = CaBundle.getBundledCaBundlePath();
         }
-        if (!options.isEmpty("ssl_verify_host")) {
+        if (!optionsToUse.isEmpty("ssl_verify_host")) {
             url = request.getUri();
             host = parse_url((string)url, UIM_URL_HOST);
            _sslContextOptions["peer_name"] = host;
         }
         sslOptions.each!((key) {
-            if (isSet(options[aKey])) {
+            if (isSet(optionsToUse[aKey])) {
                 name = substr(aKey, 4);
-               _sslContextOptions[name] = options[aKey];
+               _sslContextOptions[name] = optionsToUse[aKey];
             }
         });
     }
@@ -272,11 +267,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         }
     }
     
-    /**
-     * Get the context options
-     *
-     * Useful for debugging and testing context creation.
-     * /
+    // Get the context options
     Json[string] contextOptions() {
         return array_merge(_contextOptions, _sslContextOptions);
     } */

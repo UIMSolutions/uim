@@ -49,7 +49,6 @@ class DConsoleInputArgument {
      * Params:
      * Json[string]|string aName The long name of the option, or an array with all the properties.
      * @param string ahelp The help text for this option
-     * @param bool required Whether this argument is required. Missing required args will trigger exceptions
      * @param string[] choices Valid choices for this option.
      * /
     this(string propertyName, string ahelp = "", bool isArgumentRequired = false, string[] optionChoices = []) {

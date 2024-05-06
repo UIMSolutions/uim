@@ -7,20 +7,20 @@ import uim.http;
 /**
  * : sending UIM\Http\Client\Request via ext/curl.
  *
- * In addition to the standard options documented in {@link \UIM\Http\Client},
- * this adapter supports all available curl options. Additional curl options
+ * In addition to the standard curlOptions documented in {@link \UIM\Http\Client},
+ * this adapter supports all available curl curlOptions. Additional curl curlOptions
  * can be set via the `curl` option key when making requests or configuring
  * a client.
  */
 class DCurl { // }: IAdapter {
     /*
-    array send(IRequest request, Json[string] options = null) {
+    array send(IRequest request, Json[string] curlOptions = null) {
         if (!extension_loaded("curl")) {
             throw new DClientException("curl extension is not loaded.");
         }
         ch = curl_initialize();
-        options = this.buildOptions(request, options);
-        curl_setopt_array(ch, options);
+        curlOptions = this.buildOptions(request, curlOptions);
+        curl_setopt_array(ch, curlOptions);
 
         body = this.exec(ch);
         assert(body != true);
@@ -46,13 +46,8 @@ class DCurl { // }: IAdapter {
         return responses;
     }
     
-    /**
-     * Convert client options into curl options.
-     * Params:
-     * \Psr\Http\Message\IRequest request The request.
-     * @param Json[string] options The client options
-     * /
-    array buildOptions(IRequest request, Json[string] options = null) {
+    // Convert client options into curl options.
+    Json[string] buildOptions(IRequest request, Json[string] clientOptions = null) {
         string[] aHeaders = request.getHeaders().byKeyValue
             .map!(keyValues => aKey ~ ": " ~ someValues.join(", ")).array;
 
@@ -91,12 +86,12 @@ class DCurl { // }: IAdapter {
         if (result[CURLOPT_POSTFIELDS].isEmpty) {
             unset(result[CURLOPT_POSTFIELDS]);
         }
-        if (options.isEmpty("ssl_cafile")) {
-            options["ssl_cafile"] = CaBundle.getBundledCaBundlePath();
+        if (clientOptions.isEmpty("ssl_cafile")) {
+            clientOptions["ssl_cafile"] = CaBundle.getBundledCaBundlePath();
         }
-        if (!empty(options["ssl_verify_host"])) {
+        if (!empty(clientOptions["ssl_verify_host"])) {
             // Value of 1 or true is deprecated. Only 2 or 0 should be used now.
-            options["ssl_verify_host"] = 2;
+            clientOptions["ssl_verify_host"] = 2;
         }
         optionMap = [
             "timeout": CURLOPT_TIMEOUT,
@@ -108,19 +103,19 @@ class DCurl { // }: IAdapter {
         ];
         
         optionMap.byKeyValue
-            .filter!(optionCurlOpt => options.isSet(optionCurlOpt.key))
-            .each!(optionCurlOpt => result[optionCurlOpt.value] = options[optionCurlOpt.key]);
+            .filter!(optionCurlOpt => clientOptions.isSet(optionCurlOpt.key))
+            .each!(optionCurlOpt => result[optionCurlOpt.value] = clientOptions[optionCurlOpt.key]);
             
-        if (isSet(options["proxy"]["proxy"])) {
-             result[CURLOPT_PROXY] = options["proxy"]["proxy"];
+        if (isSet(clientOptions["proxy"]["proxy"])) {
+             result[CURLOPT_PROXY] = clientOptions["proxy"]["proxy"];
         }
-        if (isSet(options["proxy"]["username"])) {
-            password = !empty(options["proxy"]["password"]) ? options["proxy"]["password"] : "";
-             result[CURLOPT_PROXYUSERPWD] = options["proxy"]["username"] ~ ":" ~ password;
+        if (isSet(clientOptions["proxy"]["username"])) {
+            password = !empty(clientOptions["proxy"]["password"]) ? clientOptions["proxy"]["password"] : "";
+             result[CURLOPT_PROXYUSERPWD] = clientOptions["proxy"]["username"] ~ ":" ~ password;
         }
-        if (isSet(options["curl"]) && isArray(options["curl"])) {
+        if (isSet(clientOptions["curl"]) && isArray(clientOptions["curl"])) {
             // Can`t use array_merge() because keys will be re-ordered.
-            options["curl"].byKeyValue
+            clientOptions["curl"].byKeyValue
                 .each!(kv => result[kv.key] = kv.value);
 
         }

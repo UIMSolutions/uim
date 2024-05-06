@@ -149,11 +149,7 @@ class DConsoleIo {
         return _lastWritten;
     }
     
-    /**
-     * Convenience method for out() that wraps message between <info> tag
-     * Params:
-     * @param int level The message`s output level, see above.
-     * /
+    // Convenience method for out() that wraps message between <info> tag
     int info(string[] outputMessages...) {
         return info(ouztputMessages.dup);
     }
@@ -162,7 +158,7 @@ class DConsoleIo {
         string messageType = "info";
         auto myOutputMessages = wrapMessageWithType(messageType, outputMessages);
 
-        return _writeln(myOutputMessages, newLinesToAppend, level);
+        return _writeln(myOutputMessages, newLinesToAppend, outputLevel);
     }
     
     // Convenience method for out() that wraps message between <comment> tag
@@ -187,7 +183,6 @@ class DConsoleIo {
      * Convenience method for writeErrorMessages() that wraps message between <error> tag
      * Params:
      * string[]|string amessage A string or an array of strings to output
-     * @param int newLinesToAppend Number of newLinesToAppend to append
      * /
     int error(string[] messagesToOutput, int newLinesToAppend = 1) {
         string messageType = "error";
@@ -337,12 +332,8 @@ class DConsoleIo {
        _out.setStyle(styleToSet, definition);
     }
     
-    /**
-     * Prompts the user for input based on a list of options, and returns it.
-     * Params:
-     * @param string default Default input value.
-     * /
-    string askChoice(string promptText, string option, string adefault = null) {
+    // Prompts the user for input based on a list of options, and returns it.
+    string askChoice(string promptText, string option, string defaultInput = null) {
         string[] options; 
         if (option.has(",")) {
             options = option.split(",");

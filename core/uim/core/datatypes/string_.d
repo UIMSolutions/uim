@@ -368,3 +368,51 @@ unittest {
 	assert(toPath(["a ", "/b", "c/"]) == "a/b/c");
 	assert(toPath(["a ", "", "/b", "c/"]) == "a/b/c");
 }
+
+string[] toLower(string[] texts) {
+	return texts
+		.map!(text => text.toLower)
+		.array;
+}
+
+string[] toUpper(string[] texts) {
+	return texts
+		.map!(text => text.toUpper)
+		.array;
+}
+
+string[] capitalize(string[] texts) {
+	return texts
+		.map!(text => text.capitalize)
+		.array;
+}
+
+string[] strip(string[] texts) {
+	return texts
+		.map!(text => text.strip)
+		.array;
+}
+
+string[] stripLeft(string[] texts) {
+	return texts
+		.map!(text => text.stripLeft)
+		.array;
+}
+
+string[] stripRight(string[] texts) {
+	return texts
+		.map!(text => text.stripRight)
+		.array;
+}
+
+string[] replace(string[] texts, string originText, string newText) {
+	return texts
+		.map!(text => text.replace(originText, newText))
+		.array;
+}
+
+string[] split(string[] texts, string splitText) {
+	auto splitTexts = texts
+		.map!(text => text.split(splitText)).array;
+	return chain(splitTexts);
+}

@@ -166,23 +166,18 @@ class DConsoleOutput {
      * are passed, outputs just a newline.
      * Params:
      * string[]|string amessage A string or an array of strings to output
-     * @param int newlines Number of newlines to append
      * /
-    int write(string[] amessage, int newlines = 1) {
+    int write(string[] amessage, int numberOfLines = 1) {
         if (isArray(message)) {
             message = join(LF, message);
         }
-        return _write(this.styleText(message ~ str_repeat(LF, newlines)));
+        return _write(this.styleText(message ~ str_repeat(LF, numberOfLines)));
     }
     
-    /**
-     * Apply styling to text.
-     * Params:
-     * string atext Text with styling tags.
-     * /
-    string styleText(string atext) {
+    // Apply styling to text.
+    string styleText(string stylingText) {
         if (_outputAs == RAW) {
-            return text;
+            return stylingText;
         }
         if (_outputAs != PLAIN) {
             /** @var \Closure replaceTags * /
@@ -191,16 +186,16 @@ class DConsoleOutput {
             output = preg_replace_callback(
                 "/<(?P<tag>[a-z0-9-_]+)>(?P<text>.*?)<\/(\1)>/ims",
                 replaceTags,
-                text
+                stylingText
             );
             if (output !isNull) {
                 return output;
             }
         }
         tags = join("|", _styles.keys);
-        output = preg_replace("#</?(?:" ~ tags ~ ")>#", "", text);
+        output = preg_replace("#</?(?:" ~ tags ~ ")>#", "", stylingText);
 
-        return output ?? text;
+        return output ? output : stylingText;
     }
     
     /**

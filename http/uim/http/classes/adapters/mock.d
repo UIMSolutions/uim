@@ -84,12 +84,8 @@ class DMockAdapter { //}: IAdapter {
         throw new DMissingResponseException(["method": method, "url": requestUri]);
     }
     
-    /**
-     * Check if the request URI matches the mock URI.
-     * Params:
-     * @param \Psr\Http\Message\IRequest mock The request being mocked.
-     * /
-    protected bool urlMatches(string sentRequestUri, IRequest mock) {
+    // Check if the request URI matches the mock URI.
+    protected bool urlMatches(string sentRequestUri, IRequest requestToMock) {
         string mockUri = (string)mock.getUri();
         if (sentRequestUri == mockUri) {
             return true;

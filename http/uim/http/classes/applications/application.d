@@ -71,11 +71,7 @@ class DApplication {
         this.controllerFactory = controllerFactory;
     }
     
-    /**
-     * @param \UIM\Http\MiddlewareQueue middlewareQueue The middleware queue to set in your App Class
-     * /
     abstract MiddlewareQueue middleware(MiddlewareQueue middlewareQueue);
-
  
     auto pluginMiddleware(MiddlewareQueue middleware): MiddlewareQueue
     {

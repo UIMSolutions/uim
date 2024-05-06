@@ -966,11 +966,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param array<string, mixed>|string|null type the type of query to perform, if an array is passed,
      *   it will be interpreted as the `options` parameter
      * @param array<string, mixed> options The options to for the find
-     * @see DORMTable::find()
-     * @return DORMQuery
-     * /
-    function find(type = null, Json[string] optionData = null): Query
-    {
+    Query find(type = null, Json[string] optionData = null) {
         type = type ?: this.getFinder();
         [type, opts] = _extractFinder(type);
         query = this.getTarget()

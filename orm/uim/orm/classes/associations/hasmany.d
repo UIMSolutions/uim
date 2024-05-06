@@ -100,7 +100,6 @@ class DHasManyAssociation : DAssociation {
      * @param array<string, mixed> options options to be passed to the save method in the target table
      * @return DORMDatasource\IEntity|false false if entity could not be saved, otherwise it returns
      * the saved entity
-     * @see DORMTable::save()
      * @throws \InvalidArgumentException when the association data cannot be traversed.
      * /
     function saveAssociated(IEntity anEntity, Json[string] options = null) {

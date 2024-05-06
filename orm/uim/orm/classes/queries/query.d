@@ -773,7 +773,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param array<string, mixed> options The options to be applied
      * @return this
-     * @see getOptions()
      * /
     function applyOptions(Json[string] optionData) {
         valid = [

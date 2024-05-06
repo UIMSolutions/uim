@@ -96,8 +96,6 @@ import uim.orm;
  * findSlugged(Query query, Json[string] optionData)
  * ```
  *
- * @see DORMTable::addBehavior()
- * @see DORMevents.EventManager
  */
 class DBehavior : IEventListener {
     mixin TConfigurable;

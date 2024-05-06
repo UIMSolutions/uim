@@ -2771,7 +2771,6 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * \UIM\Datasource\IEntity|array<\UIM\Datasource\IEntity> myentities a single entity or list of entities
      * @param Json[string] mycontain A `contain()` compatible array.
-     * @see \ORM\Query.contain()
      * /
     IEntity[] loadInto(IEntity|array myentities, Json[string] mycontain) {
         return (new DLazyEagerLoader()).loadInto(myentities, mycontain, this);

@@ -297,8 +297,6 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * \Closure|null mymapper The mapper function
      * @param \Closure|null myreducer The reducing function
      * @param bool myoverwrite Set to true to overwrite existing map + reduce functions.
-     * @return this
-     * @see \UIM\Collection\Iterator\MapReduce for details on how to use emit data to the map reducer.
      * /
     void mapReduce(?Closure mymapper = null, ?Closure myreducer = null, bool myoverwrite = false) {
         if (myoverwrite) {
@@ -479,11 +477,8 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * myquery.applyOptions(["doABarrelRoll": Json(true), "fields": ["id", "name"]);
      * myquery.getOptions(); // Returns ["doABarrelRoll": Json(true)]
      * ```
-     *
-     * @see \UIM\Datasource\IQuery.applyOptions() to read about the options that will
-     * be processed by this class DAnd not returned by this function
      * /
-    array getOptions() {
+    Json[string] getOptions() {
         return _options;
     }
     

@@ -428,9 +428,6 @@ class DValidation {
     /**
      * Validates an iso8601 datetime format
      * ISO8601 recognize datetime like 2019 as a valid date. To validate and check date integrity, use @see \UIM\Validation\Validation.datetime()
-     * Params:
-     * Json valueToCheck Value to check
-     * @see Regex credits: https://www.myintervals.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/
      * /
 
     static bool iso8601(IDateTime valueToCheck) {

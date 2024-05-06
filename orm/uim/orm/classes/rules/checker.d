@@ -6,10 +6,7 @@ import uim.orm;
 
 /**
  * ORM flavoured rules checker.
- *
  * Adds ORM related features to the RulesChecker class.
- *
- * @see \UIM\Datasource\RulesChecker
  */
 class DRulesChecker { // }: BaseRulesChecker {
     /**

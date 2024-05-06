@@ -19,8 +19,6 @@ import uim.http;
  * when `this.Form.create(...)` is used in a view.
  *
  * If you use this middleware *do not* also use CsrfProtectionMiddleware.
- *
- * @see https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#synchronizer-token-pattern
  */
 class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
     /**
@@ -29,7 +27,6 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * - `key` The session key to use. Defaults to `csrfToken`
      * - `field` The form field to check. Changing this will also require configuring
      *   FormHelper.
-     *
      * /
     protected Json _config = [
         "key": Json("csrfToken"),

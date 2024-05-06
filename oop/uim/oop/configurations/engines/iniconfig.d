@@ -34,10 +34,9 @@ import uim.oop;
  * IniConfig also manipulates how the special ini values of
  * 'yes", "no", "on", "off", "null' are handled. These values will be
  * converted to their boolean equivalents.
- *
- * @see https://secure.d.net/parse_ini_file
  */
 class DIniConfig : IConfigEngine {
+    mixin TFileConfig();
     /*
   	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
@@ -45,7 +44,6 @@ class DIniConfig : IConfigEngine {
 		return true;
 	}
 
-    mixin TFileConfig();
 
     // File extension.
     protected string _fileExtension = ".ini";

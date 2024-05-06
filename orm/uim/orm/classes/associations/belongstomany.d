@@ -594,8 +594,6 @@ class DBelongsToManyAssociation : DAssociation {
      * in the parent entity cannot be traversed
      * @return DORMDatasource\IEntity|false false if entity could not be saved, otherwise it returns
      * the saved entity
-     * @see DORMTable::save()
-     * @see DORMassociations.BelongsToMany::replaceLinks()
      * /
     function saveAssociated(IEntity anEntity, Json[string] optionData = null) {
         targetEntity = entity.get(this.getProperty());

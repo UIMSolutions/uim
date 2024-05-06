@@ -94,10 +94,6 @@ import uim.orm;
  * - `beforeremove(IEvent myevent, IEntity myentity, ArrayObject options)`
  * - `afterremove(IEvent myevent, IEntity myentity, ArrayObject options)`
  * - `afterDeleteCommit(IEvent myevent, IEntity myentity, ArrayObject options)`
- *
- * @see \UIM\Event\EventManager for reference on the events system.
- * @link https://book.UIM.org/5/en/orm/table-objects.html#event-list
- * @implements \UIM\Event\IEventDispatcher<\ORM\Table>
  */
 class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     mixin TEventDispatcher;

@@ -383,7 +383,6 @@ class DRouter {
      *
      * ### Usage
      *
-     * @see Router.url()
      * @param string[] myurl An array specifying any of the following:
      *  "controller", "action", "plugin" additionally, you can provide routed
      *  elements or query string parameters. If string it can be name any valid url

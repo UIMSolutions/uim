@@ -551,7 +551,6 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Params:
      * Json[string] options The options to be applied
      * @return this
-     * @see getOptions()
      * /
     auto applyOptions(Json[string] options) {
         myvalid = [

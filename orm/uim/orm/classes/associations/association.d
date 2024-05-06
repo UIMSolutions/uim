@@ -286,13 +286,9 @@ function getTarget() : Table {
      * the target association.
      *
      * @param \Closure|array conditions list of conditions to be used
-     * @see DORMdatabases.Query::where() for examples on the format of the array
-     * @return this
      * /
-function setConditions(conditions) {
+void setConditions(conditions) {
     _conditions = conditions;
-
-    return this;
 }
 
 /**

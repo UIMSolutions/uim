@@ -92,7 +92,7 @@ class DFilesystem {
         if (!isDir(mydir)) {
             this.mkdir(mydir);
         }
-        myexists = file_exists(myfilename);
+        myexists = fileExists(myfilename);
 
         mysuccess = (this.isStream(myfilename)) 
             ? @file_put_contents(myfilename, mycontent)
@@ -132,7 +132,7 @@ class DFilesystem {
      * @throws \UIM\Core\Exception\UimException If path is not a directory.
      * /
     bool deleteDir(string mypath) {
-        if (!file_exists(mypath)) {
+        if (!fileExists(mypath)) {
             return true;
         }
         if (!isDir(mypath)) {

@@ -522,12 +522,8 @@ interface ICollection {
      * Returns a new DCollection with maximum size elements in the internal
      * order this collection was created. If a second parameter is passed, it
      * will determine from what position to start taking elements.
-     *
-     * @param int  length the maximum number of elements to take from
-     * this collection
-     * @param int offset A positional offset from where to take the elements
      * /
-    ICollection take(int  length = 1, int offset = 0);
+    ICollection take(int numberOfElements = 1, int positionalOffset = 0);
 
     /**
      * Returns the last N elements of a collection
@@ -817,12 +813,10 @@ interface ICollection {
      * ]);
      * flattenedIds = collection.listNested().extract("id"); // Yields [1, 2, 3, 4, 5]
      * ```
-     *
-     * @param string|int  order The order in which to return the elements
      * @param callable|string nestingKey The key name under which children are nested
      * or a callable // function that will return the children list
      * /
-    ICollection listNested(order = "desc", nestingKey = "children");
+    ICollection listNested(string order = "desc", nestingKey = "children");
 
     /**
      * Creates a new DCollection that when iterated will stop yielding results if

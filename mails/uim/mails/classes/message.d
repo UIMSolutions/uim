@@ -906,7 +906,7 @@ class DMessage { //: JsonSerializable {
             } else if (isString(dirEntry["file"])) {
                 string fileName = dirEntry["file"];
                 dirEntry["file"] = realpath(dirEntry["file"]);
-                if (dirEntry["file"] == false || !file_exists(dirEntry["file"])) {
+                if (dirEntry["file"] == false || !fileExists(dirEntry["file"])) {
                     throw new DInvalidArgumentException("File not found: `%s`".format(fileName));
                 }
                 if (isInt(attName)) {

@@ -494,7 +494,7 @@ class DDebugger {
      * /
     static string[] excerpt(string file, int line, int context = 2) {
         lines = null;
-        if (!file_exists(file)) {
+        if (!fileExists(file)) {
             return [];
         }
         data = file_get_contents(file);

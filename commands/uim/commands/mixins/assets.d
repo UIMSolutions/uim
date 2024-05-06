@@ -53,14 +53,8 @@ mixin template TPluginAssets() {
         return plugins;
     }
     
-    /**
-     * Process plugins
-     * Params:
-     *  pluginsToProcess List of plugins to process
-     * @param bool copy Force copy mode. Default false.
-     * @param bool overwrite Overwrite existing files.
-     * /
-    protected void _process(Json[string] pluginsToProcess, bool copy = false, bool overwrite = false) {
+    // Process plugins
+    protected void _process(Json[string] pluginsToProcess, bool copyMode = false, bool overwriteExisting = false) {
         foreach (plugin: configData; pluginsToProcess) {
             this.io.writeln();
             this.io.writeln("For plugin: " ~ plugin);
@@ -74,11 +68,11 @@ mixin template TPluginAssets() {
                 continue;
             }
             
-            auto dest = configData("destDir") ~ configData("link");
-            if (file_exists(dest)) {
-                if (overwrite && !_remove(configData)) {
+            string dest = configData("destDir") ~ configData("link");
+            if (fileExists(dest)) {
+                if (overwriteExisting && !_remove(configData)) {
                     continue;
-                } else if (!overwrite) {
+                } else if (!overwriteExisting) {
                     this.io.verbose(
                         dest ~ " already exists",
                         1
@@ -87,7 +81,7 @@ mixin template TPluginAssets() {
                     continue;
                 }
             }
-            if (!copy) {
+            if (!copyMode) {
                 result = _createSymlink(
                     configData("srcPath"],
                     dest
@@ -121,7 +115,7 @@ mixin template TPluginAssets() {
         }
         dest = configData("destDir"] ~ configData("link"];
 
-        if (!file_exists(dest)) {
+        if (!fileExists(dest)) {
             this.io.verbose(
                 dest ~ " does not exist",
                 1

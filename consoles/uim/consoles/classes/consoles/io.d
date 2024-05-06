@@ -486,7 +486,7 @@ class DConsoleIo {
         writeln();
         shouldOverwrite = shouldOverwrite || this.forceOverwrite;
 
-        if (file_exists(somePath) && shouldOverwrite == false) {
+        if (fileExists(somePath) && shouldOverwrite == false) {
             this.warning("File `{somePath}` exists");
             aKey = this.askChoice("Do you want to overwrite?", ["y", "n", "a", "q"], "n");
             aKey = aKey.toLower;
@@ -510,7 +510,7 @@ class DConsoleIo {
         try {
             // Create the directory using the current user permissions.
             directory = dirname(somePath);
-            if (!file_exists(directory)) {
+            if (!fileExists(directory)) {
                 mkdir(directory, 0777 ^ umask(), true);
             }
             file = new DSplFileObject(somePath, "w");
@@ -521,7 +521,7 @@ class DConsoleIo {
         }
         file.rewind();
         file.fwrite(contents);
-        if (file_exists(somePath)) {
+        if (fileExists(somePath)) {
             writeln("<success>Wrote</success> `{somePath}`");
 
             return true;

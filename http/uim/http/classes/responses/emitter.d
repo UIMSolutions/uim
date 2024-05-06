@@ -38,8 +38,8 @@ class DResponseEmitter {
         this.flush();
 
         range = this.parseContentRange(response.getHeaderLine("Content-Range"));
-        if (isArray(range)) {
-            this.emitBodyRange(range, response);
+        if (isArray(Json[string])) {
+            this.emitBodyRange(Json[string], response);
         } else {
             this.emitBody(response);
         }

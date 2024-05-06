@@ -96,7 +96,7 @@ class DI18nExtractCommand : DCommand {
     }
 
     // Execute the command
-  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
+  int execute(Json[string] commandArguments, IConsoleIo aConsoleIo) {
         string myPlugin = "";
         if (commandArguments.getOption("exclude")) {
            _exclude = to!string(commandArguments.getOption("exclude")).split(",");
@@ -198,24 +198,24 @@ class DI18nExtractCommand : DCommand {
      * @param Json[string] details DContext and plural form if any, file and line references
      * /
     protected void _addTranslation(string domainName, string messageId, Json[string] details = []) {
-        context = details.get("msgctxt", "");
+        context = contextData.get("msgctxt", "");
 
         if (isEmpty(_translations[domainName][messageId][context])) {
            _translations[domainName][messageId][context] = [
                 "msgid_plural": Json(false),
             ];
         }
-        if (isSet(details["msgid_plural"])) {
-           _translations[domainName][messageId][context]["msgid_plural"] = details["msgid_plural"];
+        if (isSet(contextData["msgid_plural"])) {
+           _translations[domainName][messageId][context]["msgid_plural"] = contextData["msgid_plural"];
         }
-        if (isSet(details["file"])) {
-            line = details["line"] ?? 0;
-           _translations[domainName][messageId][context]["references"][details["file"]] ~= line;
+        if (isSet(contextData["file"])) {
+            line = contextData["line"] ?? 0;
+           _translations[domainName][messageId][context]["references"][contextData["file"]] ~= line;
         }
     }
     
     // Extract text
-    protected void _extract(Json[string] arguments, IConsoleIo aConsoleIo) {
+    protected void _extract(Json[string] commandArguments, IConsoleIo aConsoleIo) {
          aConsoleIo.writeln();
          aConsoleIo.writeln();
          aConsoleIo.writeln("Extracting...");
@@ -306,10 +306,10 @@ class DI18nExtractCommand : DCommand {
     /**
      * Extract tokens out of all files to be processed
      * Params:
-     * \UIM\Console\Json[string] arguments The io instance
+     * \UIM\Console\Json[string] commandArguments The io instance
      * @param \UIM\Console\IConsoleIo aConsoleIo The io instance
      * /
-    protected void _extractTokens(Json[string] arguments, IConsoleIo aConsoleIo) {
+    protected void _extractTokens(Json[string] commandArguments, IConsoleIo aConsoleIo) {
         progress = aConsoleIo.helper("progress");
         assert(cast(ProgressHelper)progress);
         progress.initialize(["total": count(_fileNames)]);
@@ -356,16 +356,10 @@ class DI18nExtractCommand : DCommand {
         }
     }
     
-    /**
-     * Parse tokens
-     * Params:
-     * \UIM\Console\IConsoleIo aConsoleIo The io instance
-     * @param string afunctionName auto name that indicates translatable string (e.g: '__")
-     * @param Json[string] map Array containing what variables it will find (e.g: domain, singular, plural)
-     * /
-    protected void _parse(IConsoleIo aConsoleIo, string afunctionName, Json[string] map) {
-        count = 0;
-        tokenCount = count(_tokens);
+    // Parse tokens
+    protected void _parse(IConsoleIo aConsoleIo, string funcName, Json[string] map) {
+        size_t count = 0;
+        size_t tokenCount = count(_tokens);
 
         while (tokenCount - count > 1) {
             countToken = _tokens[count];
@@ -415,12 +409,8 @@ class DI18nExtractCommand : DCommand {
         }
     }
     
-    /**
-     * Build the translate template file contents out of obtained strings
-     * Params:
-     * \UIM\Console\Json[string] arguments Console arguments
-     * /
-    protected void _buildFiles(Json[string] arguments) {
+    // Build the translate template file contents out of obtained strings
+    protected void _buildFiles(Json[string] consoleArguments) {
         somePaths = _paths;
         /** @psalm-suppress UndefinedConstant  /
         somePaths ~= realpath(APP) ~ DIRECTORY_SEPARATOR;
@@ -484,10 +474,9 @@ class DI18nExtractCommand : DCommand {
     /**
      * Write the files that need to be stored
      * Params:
-     * \UIM\Console\Json[string] arguments The command arguments.
-     * @param \UIM\Console\IConsoleIo aConsoleIo The console io
+     * \UIM\Console\Json[string] commandArguments The command commandArguments.
      * /
-    protected void _writeFiles(Json[string] arguments, IConsoleIo aConsoleIo) {
+    protected void _writeFiles(Json[string] commandArguments, IConsoleIo aConsoleIo) {
          aConsoleIo.writeln();
         bool overwriteAll = false;
         if (commandArguments.getOption("overwrite")) {
@@ -507,7 +496,7 @@ class DI18nExtractCommand : DCommand {
             }
             
             string response = "";
-            while (overwriteAll == false && file_exists(outputPath) && strtoupper(response) != "Y") {
+            while (overwriteAll == false && fileExists(outputPath) && strtoupper(response) != "Y") {
                  aConsoleIo.writeln();
                 response = aConsoleIo.askChoice(
                     "Error: %s already exists in this location. Overwrite? [Y]es, [N]o, [A]ll".format(filename),
@@ -560,7 +549,7 @@ class DI18nExtractCommand : DCommand {
      * Compares the sha1 hashes of the old and new file without header.
      * /
     protected bool checkUnchanged(string oldFile, int lengthOfFileheader, string newFileContent) {
-        if (!file_exists(oldFile)) {
+        if (!fileExists(oldFile)) {
             return false;
         }
         

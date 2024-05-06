@@ -57,7 +57,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * @param string anClassName The name of association class.
      * @param string associated The alias for the target table.
-     * @param array<string, mixed> options List of options to configure the association definition.
+     * @param Json[string] options List of options to configure the association definition.
      * @return DORMAssociation
      * @throws \InvalidArgumentException
      * @psalm-param class-string<DORMAssociation> className
@@ -159,7 +159,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * anEntity - The entity to save associated data for.
      * @param Json[string] associations The list of associations to save parents from.
      *   associations not in this list will not be saved.
-     * @param array<string, mixed> options The options for the save operation.
+     * @param Json[string] options The options for the save operation.
      * @return bool Success
      * /
     bool saveParents(DORMTable aTable, IEntity anEntity, Json[string] associations, Json[string] optionData = null) {
@@ -179,7 +179,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param DORMDatasource\IEntity anEntity The entity to save associated data for.
      * @param Json[string] associations The list of associations to save children from.
      *   associations not in this list will not be saved.
-     * @param array<string, mixed> options The options for the save operation.
+     * @param Json[string] options The options for the save operation.
      * @return bool Success
      * /
     bool saveChildren(DORMTable aTable, IEntity anEntity, Json[string] associations, Json[string] optionData) {
@@ -196,7 +196,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param DORMDORMTable aTable The table the save is currently operating on
      * @param DORMDatasource\IEntity anEntity The entity to save
      * @param Json[string] associations Array of associations to save.
-     * @param array<string, mixed> options Original options
+     * @param Json[string] options Original options
      * @param bool owningSide Compared with association classes" isOwningSide method.
      * returns True if Success
      * @throws \InvalidArgumentException When an unknown alias is used.
@@ -239,8 +239,8 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * @param DORMDORMAssociation anAssociation The association object to save with.
      * @param DORMDatasource\IEntity anEntity The entity to save
-     * @param array<string, mixed> nested Options for deeper associations
-     * @param array<string, mixed> options Original options
+     * @param Json[string] nested Options for deeper associations
+     * @param Json[string] options Original options
      * @return bool Success
      * /
     protected bool _save(
@@ -264,7 +264,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * Cascade first across associations for which cascadeCallbacks is true.
      *
      * @param DORMDatasource\IEntity anEntity The entity to delete associations for.
-     * @param array<string, mixed> options The options used in the delete operation.
+     * @param Json[string] options The options used in the delete operation.
      * /
     bool cascaderemove(IEntity anEntity, Json[string] optionData) {
         noCascade = null;

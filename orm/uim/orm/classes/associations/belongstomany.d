@@ -134,7 +134,7 @@ class DBelongsToManyAssociation : DAssociation {
     /**
      * Whether this association can be expressed directly in a query join
      *
-     * @param array<string, mixed> options custom options key that could alter the return value
+     * @param Json[string] options custom options key that could alter the return value
      * @return bool if the "matching" key in option is true then this function
      * will return true, false otherwise
      * /
@@ -380,7 +380,7 @@ class DBelongsToManyAssociation : DAssociation {
      * - type: The type of join to be used (e.g. INNER)
      *
      * @param DORMQuery query the query to be altered to include the target table data
-     * @param array<string, mixed> options Any extra options or overrides to be taken in account
+     * @param Json[string] options Any extra options or overrides to be taken in account
      * /
     void attachTo(Query query, Json[string] optionData = null) {
         if (!empty(options["negateMatch"])) {
@@ -461,7 +461,7 @@ class DBelongsToManyAssociation : DAssociation {
     /**
      * Return false as join conditions are defined in the junction table
      *
-     * @param array<string, mixed> options list of options passed to attachTo method
+     * @param Json[string] options list of options passed to attachTo method
      * /
     // TODO protected Json[string] _joinCondition(Json[string] optionData) {
         return [];
@@ -496,7 +496,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Clear out the data in the junction table for a given entity.
      *
      * @param DORMDatasource\IEntity anEntity The entity that started the cascading delete.
-     * @param array<string, mixed> options The options for the original delete.
+     * @param Json[string] options The options for the original delete.
      * @return bool Success.
      * /
     bool cascaderemove(IEntity anEntity, Json[string] optionData = null) {
@@ -589,7 +589,7 @@ class DBelongsToManyAssociation : DAssociation {
      * not deleted.
      *
      * @param DORMDatasource\IEntity anEntity an entity from the source table
-     * @param array<string, mixed> options options to be passed to the save method in the target table
+     * @param Json[string] options options to be passed to the save method in the target table
      * @throws \InvalidArgumentException if the property representing the association
      * in the parent entity cannot be traversed
      * @return DORMDatasource\IEntity|false false if entity could not be saved, otherwise it returns
@@ -626,7 +626,7 @@ class DBelongsToManyAssociation : DAssociation {
      * entities to be saved.
      * @param Json[string] entities list of entities to persist in target table and to
      * link to the parent entity
-     * @param array<string, mixed> options list of options accepted by `Table::save()`
+     * @param Json[string] options list of options accepted by `Table::save()`
      * @throws \InvalidArgumentException if the property representing the association
      * in the parent entity cannot be traversed
      * @return DORMDatasource\IEntity|false The parent entity after all links have been
@@ -691,7 +691,7 @@ class DBelongsToManyAssociation : DAssociation {
      * association
      * @param array<DORMDatasource\IEntity> targetEntities list of entities to link to link to the source entity using the
      * junction table
-     * @param array<string, mixed> options list of options accepted by `Table::save()`
+     * @param Json[string] options list of options accepted by `Table::save()`
      * @return bool success
      * /
     protected bool _saveLinks(IEntity sourceEntity, Json[string] targetEntities, Json[string] optionData) {
@@ -764,7 +764,7 @@ class DBelongsToManyAssociation : DAssociation {
      *   of this association
      * @param array<DORMDatasource\IEntity> targetEntities list of entities belonging to the `target` side
      *   of this association
-     * @param array<string, mixed> options list of options to be passed to the internal `save` call
+     * @param Json[string] options list of options to be passed to the internal `save` call
      * @throws \InvalidArgumentException when any of the values in targetEntities is
      *   detected to not be already persisted
      * @return bool true on success, false otherwise
@@ -963,9 +963,9 @@ class DBelongsToManyAssociation : DAssociation {
      * If your association includes conditions or a finder, the junction table will be
      * included in the query"s contained associations.
      *
-     * @param array<string, mixed>|string|null type the type of query to perform, if an array is passed,
+     * @param Json[string]|string|null type the type of query to perform, if an array is passed,
      *   it will be interpreted as the `options` parameter
-     * @param array<string, mixed> options The options to for the find
+     * @param Json[string] options The options to for the find
     Query find(type = null, Json[string] optionData = null) {
         type = type ?: this.getFinder();
         [type, opts] = _extractFinder(type);
@@ -1060,7 +1060,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param DORMDatasource\IEntity sourceEntity an entity persisted in the source table for
      *   this association
      * @param Json[string] targetEntities list of entities from the target table to be linked
-     * @param array<string, mixed> options list of options to be passed to the internal `save`/`delete` calls
+     * @param Json[string] options list of options to be passed to the internal `save`/`delete` calls
      *   when persisting/updating new links, or deleting existing ones
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      *   any of them is lacking a primary key value
@@ -1147,7 +1147,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param array<DORMDatasource\IEntity> jointEntities link entities that should be persisted
      * @param Json[string] targetEntities entities in target table that are related to
      * the `jointEntities`
-     * @param array<string, mixed> options list of options accepted by `Table::remove()`
+     * @param Json[string] options list of options accepted by `Table::remove()`
      * @return array|false Array of entities not deleted or false in case of deletion failure for atomic saves.
      * /
     protected function _diffLinks(
@@ -1360,7 +1360,7 @@ class DBelongsToManyAssociation : DAssociation {
     /**
      * Parse extra options passed in the constructor.
      *
-     * @param array<string, mixed> options original list of options passed in constructor
+     * @param Json[string] options original list of options passed in constructor
      * /
     protected void _options(Json[string] optionData) {
         if (!empty(options["targetForeignKey"])) {

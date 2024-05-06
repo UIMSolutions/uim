@@ -194,7 +194,7 @@ class DEagerLoader {
      * @param string associationPath Dot separated association path, "Name1.Name2.Name3"
      * @param callable|null builder the callback function to be used for setting extra
      * options to the filtering query
-     * @param array<string, mixed> options Extra options for the association matching.
+     * @param Json[string] options Extra options for the association matching.
      * @return this
      * /
     function setMatching(string associationPath, ?callable builder = null, Json[string] optionData = null) {
@@ -422,8 +422,8 @@ class DEagerLoader {
      *
      * @param DORMTable parent owning side of the association
      * @param string anAliasName name of the association to be loaded
-     * @param array<string, mixed> options list of extra options to use for this association
-     * @param array<string, mixed> paths An array with two values, the first one is a list of dot
+     * @param Json[string] options list of extra options to use for this association
+     * @param Json[string] paths An array with two values, the first one is a list of dot
      * separated strings representing associations that lead to this `alias` in the
      * chain of associations to be loaded. The second value is the path to follow in
      * entities" properties to fetch a record of the corresponding association.

@@ -22,7 +22,7 @@ class DDependentDeleteHelper {
      *
      * anAssociation - The association callbacks are being cascaded on.
      * @param DORMDatasource\IEntity anEntity The entity that started the cascaded delete.
-     * @param array<string, mixed> options The options for the original delete.
+     * @param Json[string] options The options for the original delete.
      * @return bool Success.
      * /
     bool cascaderemove(DORMAssociation anAssociation, IEntity anEntity, Json[string] optionData = null) {

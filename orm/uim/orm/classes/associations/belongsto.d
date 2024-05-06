@@ -54,7 +54,7 @@ class DBelongsToAssociation : DAssociation {
      * BelongsTo associations are never cleared in a cascading delete scenario.
      *
      * @param DORMDatasource\IEntity anEntity The entity that started the cascaded delete.
-     * @param array<string, mixed> options The options for the original delete.
+     * @param Json[string] options The options for the original delete.
      * @return bool Success.
      * /
     bool cascaderemove(IEntity anEntity, Json[string] optionData = null) {
@@ -91,7 +91,7 @@ class DBelongsToAssociation : DAssociation {
      * `options`
      *
      * @param DORMDatasource\IEntity anEntity an entity from the source table
-     * @param array<string, mixed> options options to be passed to the save method in the target table
+     * @param Json[string] options options to be passed to the save method in the target table
      * @return DORMDatasource\IEntity|false false if entity could not be saved, otherwise it returns
      * the saved entity
      * /
@@ -120,7 +120,7 @@ class DBelongsToAssociation : DAssociation {
      * Returns a single or multiple conditions to be appended to the generated join
      * clause for getting the results on the target table.
      *
-     * @param array<string, mixed> options list of options passed to attachTo method
+     * @param Json[string] options list of options passed to attachTo method
      * @return array<DORMdatabases.Expression\IdentifierExpression>
      * @throws \RuntimeException if the number of columns in the foreignKeys do not
      * match the number of columns in the target table primaryKeys

@@ -140,7 +140,7 @@ class DAssociation : IAssociation {
      * list of passed options if expecting any other special key
      *
      * anAliasName - The name given to the association
-     * @param array<string, mixed> options A list of properties to be set on this object
+     * @param Json[string] options A list of properties to be set on this object
      * /
     this(string anAliasName, Json[string] optionData = null) {
         defaults = [
@@ -380,7 +380,7 @@ bool getDependent() {
 /**
      * Whether this association can be expressed directly in a query join
      *
-     * @param array<string, mixed> options custom options key that could alter the return value
+     * @param Json[string] options custom options key that could alter the return value
      * /
 bool canBeJoined(Json[string] optionData = null) {
     strategy = options.get() "strategy", this.getStrategy());
@@ -505,7 +505,7 @@ function setFinder(finder) {
      * Override this function to initialize any concrete association class, it will
      * get passed the original list of options used in the constructor
      *
-     * @param array<string, mixed> options List of options used for initialization
+     * @param Json[string] options List of options used for initialization
      * /
 protected void _options(Json[string] optionData) {
 }
@@ -532,7 +532,7 @@ protected void _options(Json[string] optionData) {
      *   with this association.
      *
      * @param DORMQuery query the query to be altered to include the target table data
-     * @param array<string, mixed> options Any extra options or overrides to be taken in account
+     * @param Json[string] options Any extra options or overrides to be taken in account
      * @return void
      * @throws \RuntimeException Unable to build the query or associations.
      * /
@@ -612,7 +612,7 @@ void attachTo(Query query, Json[string] optionData = null) {
      * records where there is no match with this association.
      *
      * @param DORMQuery query The query to modify
-     * @param array<string, mixed> options Options array containing the `negateMatch` key.
+     * @param Json[string] options Options array containing the `negateMatch` key.
      * /
 protected void _appendNotMatching(Query query, Json[string] optionData) {
     target = _targetTable;
@@ -655,10 +655,10 @@ array transformRow(Json[string] row, string nestKey, bool joined, string targetP
      * with the default empty value according to whether the association was
      * joined or fetched externally.
      *
-     * @param array<string, mixed> row The row to set a default on.
+     * @param Json[string] row The row to set a default on.
      * @param bool joined Whether the row is a result of a direct join
      *   with this association
-     * @return array<string, mixed>
+     * @return Json[string]
      * /
 array defaultRowValue(Json[string] row, bool joined) {
     sourceAlias = this.getSource().aliasName();
@@ -674,9 +674,9 @@ array defaultRowValue(Json[string] row, bool joined) {
      * and modifies the query accordingly based of this association
      * configuration
      *
-     * @param array<string, mixed>|string|null type the type of query to perform, if an array is passed,
+     * @param Json[string]|string|null type the type of query to perform, if an array is passed,
      *   it will be interpreted as the `options` parameter
-     * @param array<string, mixed> options The options to for the find
+     * @param Json[string] options The options to for the find
      * /
 IQuery find(type = null, Json[string] optionData = null) {
     type = type ?  : this.getFinder();
@@ -737,7 +737,7 @@ int deleteAll(conditions) {
      * Returns true if the eager loading process will require a set of the owning table"s
      * binding keys in order to use them as a filter in the finder query.
      *
-     * @param array<string, mixed> options The options containing the strategy to be used.
+     * @param Json[string] options The options containing the strategy to be used.
      * @return bool true if a list of keys will be required
      * /
 bool requiresKeys(Json[string] optionData = null) {
@@ -762,7 +762,7 @@ protected void _dispatchBeforeFind(Query query) {
      *
      * @param DORMQuery query the query that will get the fields appended to
      * @param DORMQuery surrogate the query having the fields to be copied from
-     * @param array<string, mixed> options options passed to the method `attachTo`
+     * @param Json[string] options options passed to the method `attachTo`
      * /
 protected void _appendFields(Query query, Query surrogate, Json[string] optionData) {
     if (query.getEagerLoader().isAutoFieldsEnabled() == false) {
@@ -792,7 +792,7 @@ protected void _appendFields(Query query, Query surrogate, Json[string] optionDa
      * @param DORMQuery query the query that will get the formatter applied to
      * @param DORMQuery surrogate the query having formatters for the associated
      * target table.
-     * @param array<string, mixed> options options passed to the method `attachTo`
+     * @param Json[string] options options passed to the method `attachTo`
      * /
 protected void _formatAssociationResults(Query query, Query surrogate, Json[string] optionData) {
     formatters = surrogate.getResultFormatters();
@@ -850,7 +850,7 @@ Query:
      *
      * @param DORMQuery query the query that will get the associations attached to
      * @param DORMQuery surrogate the query having the containments to be attached
-     * @param array<string, mixed> options options passed to the method `attachTo`
+     * @param Json[string] options options passed to the method `attachTo`
      * /
 protected void _bindNewAssociations(Query query, Query surrogate, Json[string] optionData) {
     loader = surrogate.getEagerLoader();
@@ -884,7 +884,7 @@ protected void _bindNewAssociations(Query query, Query surrogate, Json[string] o
      * Returns a single or multiple conditions to be appended to the generated join
      * clause for getting the results on the target table.
      *
-     * @param array<string, mixed> options list of options passed to attachTo method
+     * @param Json[string] options list of options passed to attachTo method
      * @return array
      * @throws \RuntimeException if the number of columns in the foreignKeys do not
      * match the number of columns in the source table primaryKeys
@@ -1026,7 +1026,7 @@ abstract string type();
      * - strategy: The name of strategy to use for finding target table records
      * - nestKey: The array key under which results will be found when transforming the row
      *
-     * @param array<string, mixed> options The options for eager loading.
+     * @param Json[string] options The options for eager loading.
      * @return \Closure
      * /
 abstract function eagerLoader(Json[string] optionData) : Closure;
@@ -1038,7 +1038,7 @@ abstract function eagerLoader(Json[string] optionData) : Closure;
      * required.
      *
      * @param DORMDatasource\IEntity anEntity The entity that started the cascaded delete.
-     * @param array<string, mixed> options The options for the original delete.
+     * @param Json[string] options The options for the original delete.
      * @return bool Success
      *  /
 abstract bool cascaderemove(IEntity anEntity, Json[string] optionData = null);
@@ -1058,7 +1058,7 @@ abstract bool isOwningSide(Table side);
      * the saving operation to the target table.
      *
      * @param DORMDatasource\IEntity anEntity the data to be saved
-     * @param array<string, mixed> options The options for saving associated data.
+     * @param Json[string] options The options for saving associated data.
      * @return DORMDatasource\IEntity|false false if entity could not be saved, otherwise it returns
      * the saved entity
      * /

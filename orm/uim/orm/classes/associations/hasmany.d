@@ -97,7 +97,7 @@ class DHasManyAssociation : DAssociation {
      * `options`
      *
      * @param DORMDatasource\IEntity anEntity an entity from the source table
-     * @param array<string, mixed> options options to be passed to the save method in the target table
+     * @param Json[string] options options to be passed to the save method in the target table
      * @return DORMDatasource\IEntity|false false if entity could not be saved, otherwise it returns
      * the saved entity
      * @throws \InvalidArgumentException when the association data cannot be traversed.
@@ -157,7 +157,7 @@ class DHasManyAssociation : DAssociation {
      * entities to be saved.
      * @param Json[string] entities list of entities
      * to persist in target table and to link to the parent entity
-     * @param array<string, mixed> options list of options accepted by `Table::save()`.
+     * @param Json[string] options list of options accepted by `Table::save()`.
      * @return bool `true` on success, `false` otherwise.
      * /
     protected bool _saveTarget(
@@ -225,7 +225,7 @@ class DHasManyAssociation : DAssociation {
      * of this association
      * @param Json[string] myTargetEntities list of entities belonging to the `target` side
      * of this association
-     * @param array<string, mixed> options list of options to be passed to the internal `save` call
+     * @param Json[string] options list of options to be passed to the internal `save` call
      * @return bool true on success, false otherwise
      * /
     bool link(IEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
@@ -292,7 +292,7 @@ class DHasManyAssociation : DAssociation {
      * this association
      * @param Json[string] myTargetEntities list of entities persisted in the target table for
      * this association
-     * @param array<string, mixed>|bool options list of options to be passed to the internal `delete` call.
+     * @param Json[string]|bool options list of options to be passed to the internal `delete` call.
      *   If boolean it will be used a value for "cleanProperty" option.
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      * any of them is lacking a primary key value
@@ -379,7 +379,7 @@ class DHasManyAssociation : DAssociation {
      * @param DORMDatasource\IEntity sourceEntity an entity persisted in the source table for
      * this association
      * @param Json[string] myTargetEntities list of entities from the target table to be linked
-     * @param array<string, mixed> options list of options to be passed to the internal `save`/`delete` calls
+     * @param Json[string] options list of options to be passed to the internal `save`/`delete` calls
      * when persisting/updating new links, or deleting existing ones
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      * any of them is lacking a primary key value
@@ -410,7 +410,7 @@ class DHasManyAssociation : DAssociation {
      * @param DORMDatasource\IEntity anEntity the entity which should have its associated entities unassigned
      * @param DORMTable myTarget The associated table
      * @param range remainingEntities Entities that should not be deleted
-     * @param array<string, mixed> options list of options accepted by `Table::remove()`
+     * @param Json[string] options list of options accepted by `Table::remove()`
      * @return bool success
      * /
     protected bool _unlinkAssociated(
@@ -458,7 +458,7 @@ class DHasManyAssociation : DAssociation {
      * @param Json[string] foreignKey array of foreign key properties
      * @param DORMTable myTarget The associated table
      * @param Json[string] conditions The conditions that specifies what are the objects to be unlinked
-     * @param array<string, mixed> options list of options accepted by `Table::remove()`
+     * @param Json[string] options list of options accepted by `Table::remove()`
      * @return bool success
      * /
     protected bool _unlink(Json[string] foreignKey, Table myTarget, Json[string] conditions = null, Json[string] options = null) {
@@ -523,7 +523,7 @@ class DHasManyAssociation : DAssociation {
     /**
      * Whether this association can be expressed directly in a query join
      *
-     * @param array<string, mixed> options custom options key that could alter the return value
+     * @param Json[string] options custom options key that could alter the return value
      * @return bool if the "matching" key in option is true then this function
      * will return true, false otherwise
      * /
@@ -574,7 +574,7 @@ class DHasManyAssociation : DAssociation {
     /**
      * Parse extra options passed in the constructor.
      *
-     * @param array<string, mixed> options original list of options passed in constructor
+     * @param Json[string] options original list of options passed in constructor
      * /
     protected void _options(Json[string] options) {
         if (!empty(options["saveStrategy"])) {

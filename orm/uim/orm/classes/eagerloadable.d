@@ -30,7 +30,7 @@ class DEagerLoadable {
     // A list of options to pass to the association object for loading
      * the records.
      *
-     * @var array<string, mixed>
+     * @var Json[string]
      * /
     protected configuration = null;
 
@@ -96,7 +96,7 @@ class DEagerLoadable {
      * The keys maps to the settable properties in this class.
      *
      * @param string aName The Association name.
-     * @param array<string, mixed> myConfiguration The list of properties to set.
+     * @param Json[string] myConfiguration The list of properties to set.
      * /
     this(string aName, Json[string] configData) {
         _name = name;
@@ -173,7 +173,7 @@ class DEagerLoadable {
      * Sets the list of options to pass to the association object for loading
      * the records.
      *
-     * @param array<string, mixed> myConfiguration The value to set.
+     * @param Json[string] myConfiguration The value to set.
      * @return this
      * /
     auto configuration.update(Json myConfiguration) {

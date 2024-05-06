@@ -77,7 +77,7 @@ class DErrorHandler { // }: DERRErrorHandler
     /**
      * Constructor
      *
-     * @param array<string, mixed> aConfig The options for error handling.
+     * @param Json[string] aConfig The options for error handling.
      * /
     this(Json aConfig = null) {
         aConfig += [

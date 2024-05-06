@@ -397,7 +397,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * Returns an array that can be used to describe the internal state of this
      * object.
      *
-     * @return array<string, mixed>
+     * @return Json[string]
      * /
     Json[string] __debugInfo() {
         return [

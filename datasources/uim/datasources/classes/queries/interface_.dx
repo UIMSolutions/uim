@@ -94,7 +94,7 @@ interface IQuery {
      *  .limit(10)
      * ```
      *
-     * @param array<string, mixed> options list of query clauses to apply new parts to.
+     * @param Json[string] options list of query clauses to apply new parts to.
      * @return this
      */
     function applyOptions(Json[string] optionData);
@@ -112,7 +112,7 @@ interface IQuery {
      * a single query.
      *
      * @param string finder The finder method to use.
-     * @param array<string, mixed> options The options for the finder.
+     * @param Json[string] options The options for the finder.
      * @return static Returns a modified query.
      */
     function find(string finder, Json[string] optionData = null);

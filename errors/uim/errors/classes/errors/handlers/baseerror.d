@@ -136,7 +136,7 @@ abstract class DERRErrorHandler {
      * @param string description Error description
      * @param string|null file File on which error occurred
      * @param int|null line Line that triggered the error
-     * @param array<string, mixed>|null context DContext
+     * @param Json[string]|null context DContext
      * @return bool True if error was handled
      * /
     bool handleError(

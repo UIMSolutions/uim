@@ -19,7 +19,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
     /**
      * Constructor
      *
-     * @param array<string, mixed> aConfig Config options for the error handler.
+     * @param Json[string] aConfig Config options for the error handler.
      * /
     this(Json aConfig = null) {
         super();

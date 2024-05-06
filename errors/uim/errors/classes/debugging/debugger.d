@@ -56,7 +56,7 @@ class DDebugger {
      * Templates used when generating trace or error strings. Can be global or indexed by the format
      * value used in _outputFormat.
      *
-     * @var array<string, array<string, mixed>>
+     * @var array<string, Json[string]>
      * /
     protected _stringContents = [
         "log": [
@@ -207,7 +207,7 @@ class DDebugger {
     /**
      * Read or write configuration options for the Debugger instance.
      *
-     * @param array<string, mixed>|string|null key The key to get/set, or a complete array of configs.
+     * @param Json[string]|string|null key The key to get/set, or a complete array of configs.
      * @param mixed|null value The value to set.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      * @return mixed Config value being read, or the object itself on write operations.
@@ -342,7 +342,7 @@ class DDebugger {
      *   will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      *
-     * @param array<string, mixed> options Format for outputting stack trace.
+     * @param Json[string] options Format for outputting stack trace.
      * @return array|string Formatted stack trace.
      * @link https://book.uimD.org/4/en/development/debugging.html#generating-stack-traces
      * /
@@ -363,7 +363,7 @@ class DDebugger {
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      *
      * @param \Throwable|array backtrace Trace as array or an exception object.
-     * @param array<string, mixed> options Format for outputting stack trace.
+     * @param Json[string] options Format for outputting stack trace.
      * @return array|string Formatted stack trace.
      * @link https://book.uimD.org/4/en/development/debugging.html#generating-stack-traces
      * /

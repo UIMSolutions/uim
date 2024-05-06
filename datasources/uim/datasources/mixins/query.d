@@ -497,7 +497,7 @@ mixin template TQuery() {
      * Populates or adds parts to current query clauses using an array.
      * This is handy for passing all query clauses at once.
      *
-     * @param array<string, mixed> options the options to be applied
+     * @param Json[string] options the options to be applied
      * @return this
      * /
     abstract function applyOptions(Json[string] optionData);

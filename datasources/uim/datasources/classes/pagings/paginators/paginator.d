@@ -42,7 +42,7 @@ class DPaginator : IPaginator {
         *   parameters. Modifying this list will allow users to have more influence
         *   over pagination, be careful with what you permit.
         *
-        * @var array<string, mixed>
+        * @var Json[string]
         */
         configuration.updateDefaults([
             "page":Json(1),
@@ -199,7 +199,7 @@ class DPaginator : IPaginator {
     // Get query for fetching paginated results.
     // \uim\Datasource\IRepository object Repository instance.
     // \uim\Datasource\IQuery|null myQuery Query Instance.
-    //  array<string, mixed> myData Pagination data.
+    //  Json[string] myData Pagination data.
     protected IDSQuery getQuery(IRepository object, ?IQuery myQuery, Json[string] myData) {
         if (myQuery == null) {
             myQuery = object.find(myData["finder"], myData["options"]);
@@ -225,8 +225,8 @@ class DPaginator : IPaginator {
      * Extract pagination data needed
      *
      * @param \uim\Datasource\IRepository object The repository object.
-     * @param array<string, mixed> myParams Request params
-     * @param array<string, mixed> settings The settings/configuration used for pagination.
+     * @param Json[string] myParams Request params
+     * @param Json[string] settings The settings/configuration used for pagination.
      * @return array Array with keys "defaults", "options" and "finder"
      * /
     protected auto extractData(IRepository anRepository, Json[string] myParams, Json[string] settings): array
@@ -247,9 +247,9 @@ class DPaginator : IPaginator {
     /**
      * Build pagination params.
      *
-     * @param array<string, mixed> myData Paginator data containing keys "options",
+     * @param Json[string] myData Paginator data containing keys "options",
      *   "count", "defaults", "finder", "numResults".
-     * @return array<string, mixed> Paging params.
+     * @return Json[string] Paging params.
      * /
     protected auto buildParams(Json[string] myData): array
     {
@@ -280,9 +280,9 @@ class DPaginator : IPaginator {
     /**
      * Add "page" and "pageCount" params.
      *
-     * @param array<string, mixed> myParams Paging params.
+     * @param Json[string] myParams Paging params.
      * @param Json[string] myData Paginator data.
-     * @return array<string, mixed> Updated params.
+     * @return Json[string] Updated params.
      * /
     protected auto addPageCountParams(Json[string] myParams, Json[string] myData): array
     {
@@ -305,9 +305,9 @@ class DPaginator : IPaginator {
     /**
      * Add "start" and "end" params.
      *
-     * @param array<string, mixed> myParams Paging params.
+     * @param Json[string] myParams Paging params.
      * @param Json[string] myData Paginator data.
-     * @return array<string, mixed> Updated params.
+     * @return Json[string] Updated params.
      * /
     protected auto addStartEndParams(Json[string] myParams, Json[string] myData): array
     {
@@ -327,9 +327,9 @@ class DPaginator : IPaginator {
     /**
      * Add "prevPage" and "nextPage" params.
      *
-     * @param array<string, mixed> myParams Paginator params.
+     * @param Json[string] myParams Paginator params.
      * @param Json[string] myData Paging data.
-     * @return array<string, mixed> Updated params.
+     * @return Json[string] Updated params.
      * /
     protected auto addPrevNextParams(Json[string] myParams, Json[string] myData): array
     {
@@ -346,9 +346,9 @@ class DPaginator : IPaginator {
     /**
      * Add sorting / ordering params.
      *
-     * @param array<string, mixed> myParams Paginator params.
+     * @param Json[string] myParams Paginator params.
      * @param Json[string] myData Paging data.
-     * @return array<string, mixed> Updated params.
+     * @return Json[string] Updated params.
      * /
     protected auto addSortingParams(Json[string] myParams, Json[string] myData): array
     {
@@ -375,7 +375,7 @@ class DPaginator : IPaginator {
     /**
      * Extracts the finder name and options out of the provided pagination options.
      *
-     * @param array<string, mixed> options the pagination options.
+     * @param Json[string] options the pagination options.
      * @return Json[string] An array containing in the first position the finder name
      *   and in the second the options to be passed to it.
      * /
@@ -422,7 +422,7 @@ class DPaginator : IPaginator {
 
     /**
      * Shim method for reading the deprecated sortWhitelist or sortableFields options.
-     * @param array<string, mixed> myConfig The configuration data to coalesce and emit warnings on.
+     * @param Json[string] myConfig The configuration data to coalesce and emit warnings on.
      * /
     protected string[] getSortableFields(Json[string] myConfig) {
         allowed = myConfig.get("sortableFields", null);
@@ -449,9 +449,9 @@ class DPaginator : IPaginator {
      * combined together. You can change config value `allowedParameters` to modify
      * which options/values can be set using request parameters.
      *
-     * @param array<string, mixed> myParams Request params.
+     * @param Json[string] myParams Request params.
      * @param Json[string] settings The settings to merge with the request data.
-     * @return array<string, mixed> Array of merged options.
+     * @return Json[string] Array of merged options.
      * /
     function mergeOptions(Json[string] myParams, Json[string] settings): array
     {
@@ -471,8 +471,8 @@ class DPaginator : IPaginator {
      * repository, the general settings will be used.
      *
      * @param string aliasName Model name to get settings for.
-     * @param array<string, mixed> settings The settings which is used for combining.
-     * @return array<string, mixed> An array of pagination settings for a model,
+     * @param Json[string] settings The settings which is used for combining.
+     * @return Json[string] An array of pagination settings for a model,
      *   or the general settings.
      * /
     auto getDefaults(string aliasName, Json[string] settings): array
@@ -519,8 +519,8 @@ class DPaginator : IPaginator {
      * requested sorting field/direction.
      *
      * @param \uim\Datasource\IRepository object Repository object.
-     * @param array<string, mixed> options The pagination options being used for this request.
-     * @return array<string, mixed> An array of options with sort + direction removed and
+     * @param Json[string] options The pagination options being used for this request.
+     * @return Json[string] An array of options with sort + direction removed and
      *   replaced with order if possible.
      * /
     function validateSort(IRepository object, Json[string] options): array
@@ -583,9 +583,9 @@ class DPaginator : IPaginator {
     /**
      * Remove alias if needed.
      *
-     * @param array<string, mixed> fieldNames Current fields
+     * @param Json[string] fieldNames Current fields
      * @param string myModel Current model alias
-     * @return array<string, mixed> fieldNames Unaliased fields where applicable
+     * @return Json[string] fieldNames Unaliased fields where applicable
      * /
     protected auto _removeAliases(Json[string] fieldNames, string myModel): array
     {
@@ -653,8 +653,8 @@ class DPaginator : IPaginator {
     /**
      * Check the limit parameter and ensure it"s within the maxLimit bounds.
      *
-     * @param array<string, mixed> options An array of options with a limit key to be checked.
-     * @return array<string, mixed> An array of options for pagination.
+     * @param Json[string] options An array of options with a limit key to be checked.
+     * @return Json[string] An array of options for pagination.
      * /
     function checkLimit(Json[string] options): array
     {

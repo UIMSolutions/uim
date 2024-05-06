@@ -72,7 +72,7 @@ class DExceptionTrap {
      *   encountered. This allows breathing room to complete logging or error handling.
      * - `stderr` Used in console environments so that renderers have access to the current console output stream.
      *
-     * @var array<string, mixed>
+     * @var Json[string]
      * /
     configuration.updateDefaults([
         "exceptionRenderer": null,
@@ -117,7 +117,7 @@ class DExceptionTrap {
     /**
      * Constructor
      *
-     * @param array<string, mixed> options An options array. See _defaultConfig.
+     * @param Json[string] options An options array. See _defaultConfig.
      * /
     this(Json[string] optionData = null) {
         configuration.update(options);

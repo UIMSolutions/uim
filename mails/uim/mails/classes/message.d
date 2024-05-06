@@ -943,9 +943,7 @@ class DMessage { //: JsonSerializable {
      * Add attachments
      * Params:
      * Json[string] attachments Array of filenames.
-     * @return this
      * @throws \InvalidArgumentException
-     * @see \UIM\Mailer\Email.setAttachments()
      * /
     void addAttachments(Json[string] attachments) {
         current = this.attachments;

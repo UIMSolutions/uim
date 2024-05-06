@@ -79,16 +79,6 @@ class DSocket {
     protected string[] _connectionErrors = null;
 
     /**
-     * Constructor.
-     *
-     * @param Json[string] aConfig Socket configuration, which will be merged with the base configuration
-     * @see \UIM\Network\Socket._defaultConfigData
-     * /
-    this(Json[string] configData = null) {
-        configuration.update(configData);
-    }
-
-    /**
      * Connect the socket to the given host and port.
      * /
     bool connect() {

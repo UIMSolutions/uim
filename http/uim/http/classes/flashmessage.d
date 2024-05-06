@@ -131,7 +131,6 @@ class DFlashMessage {
     /**
      * Set a success message.
      * The `'element'` option will be set to  ``success'`.
-     * @see FlashMessage.set() For list of valid options
      * /
     void success(string successMessage, Json[string] options = null) {
         options["element"] = "Success";
@@ -141,7 +140,6 @@ class DFlashMessage {
     /**
      * Set an success message.
      * The `'element'` option will be set to  `'error'`.
-     * @see FlashMessage.set() For list of valid options
      * /
     void error(string errorMessage, Json[string] options = null) {
         options["element"] = "error";

@@ -213,11 +213,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
         return _queue[this.position] = this.resolve(this.queue[this.position]);
     }
     
-    /**
-     * Return the key of the middleware.
-     *
-     * @see \Iterator.key()
-     * /
+    // Return the key of the middleware.
     int key() {
         return _position;
     }
@@ -227,11 +223,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
         ++this.position;
     }
     
-    /**
-     * Checks if current position is valid.
-     *
-     * @see \Iterator.valid()
-     * /
+    // Checks if current position is valid.
     bool valid() {
         return isSet(this.queue[this.position]);
     } */ 

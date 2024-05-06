@@ -8,11 +8,8 @@ import uim.http;
 use !SessionHandler;
 /**
  * CacheSession provides method for saving sessions into a Cache engine. Used with Session
- *
- * @see \UIM\Http\Session for configuration information.
  */
 class DCacheSession { // }: !SessionHandler {
-    /* 
     // Options for this session engine
     protected Json[string] _options = null;
 

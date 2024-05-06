@@ -103,8 +103,6 @@ class Date { // }: DChronosDate, JsonSerializable {
      *
      * Alternatively, the format can provide a callback. In this case, the callback
      * can receive this object and return a formatted string.
-     *
-     * @see \UIM\I18n\Date.i18nFormat()
      * /
     static void setJsonEncodeFormat(Closure format) {
         _JsonEncodeFormat = format;

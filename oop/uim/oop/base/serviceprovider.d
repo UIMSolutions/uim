@@ -12,11 +12,8 @@ import uim.oop;
  * improve performance of applications with many services by
  * allowing service registration to be deferred until services are needed.
  */
-abstract class DServiceProvider { /* : DAbstractServiceProvider, IBootableServiceProvider {
-    /**
-     * List of ids of services this provider provides.
-     * @see ServiceProvider.provides()
-     * /
+abstract class DServiceProvider { // TODO  : DAbstractServiceProvider, IBootableServiceProvider {
+    // List of ids of services this provider provides.
     protected string[] provides = null;
 
     /**

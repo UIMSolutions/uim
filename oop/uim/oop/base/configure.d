@@ -25,8 +25,6 @@ class DConfigure {
 
     /**
      * Configured engine classes, used to load config files from resources
-     *
-     * @see \UIM\Core\Configure.load()
      * @var array<\UIM\Core\Configure\IConfigEngine>
      * /
     protected static IConfigEngine[] _engines;

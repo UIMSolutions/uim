@@ -10,9 +10,6 @@ import uim.oop;
  * Use this class if you want to re-throw exceptions that would otherwise be
  * caught by the ErrorHandlerMiddleware. This is useful while debugging or
  * writing integration test cases.
- *
- * @see \UIM\TestSuite\IntegrationTestCase.disableErrorHandlerMiddleware()
- * @internal
  */
 class DTestExceptionRenderer : IExceptionRenderer {
     /**

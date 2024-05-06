@@ -75,7 +75,6 @@ class DTime { // : ChronosTime, JsonSerializable {
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      *
      * @var string|int
-     * @see \UIM\I18n\Time.nice()
      * /
     static string|int niceFormat = IntlDateFormatter.MEDIUM;
     

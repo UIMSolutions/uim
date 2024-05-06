@@ -105,9 +105,8 @@ interface IDriver : INamed {
      *
      * @param string|null myTable table name or sequence to get last insert value from.
      * @param string|null column the name of the column representing the primary key.
-     * @return string|int
      */
-    // function lastInsertId(string myTable = null, string column = null);
+    // string lastInsertId(string myTable = null, string column = null);
 
     // Checks whether the driver is connected.
     bool isConnected();

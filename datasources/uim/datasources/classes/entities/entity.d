@@ -55,8 +55,8 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
      *  entity = new DEntity(["id": 1, "name": "Andrew"])
      * ```
      *
-     * @param array<string, mixed> properties hash of properties to set in this entity
-     * @param array<string, mixed> options list of options to use when creating this entity
+     * @param Json[string] properties hash of properties to set in this entity
+     * @param Json[string] options list of options to use when creating this entity
      * /
     /* this(Json[string] properties = null, Json[string] optionData = null) {
         options = options.update[

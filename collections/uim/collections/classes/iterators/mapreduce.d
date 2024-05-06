@@ -21,13 +21,13 @@ class DMapReduce { // }: IteratorAggregate {
 
     // Count of elements emitted during the Reduce phase
     protected size_t _counter = 0;
-    /* 
     // Holds the shuffled results that were emitted from the map phase
-    // TODO protected Json[string] _intermediate = null;
+    protected Json[string] _intermediate = null;
 
     // Holds the results as emitted during the reduce phase
-    // TODO protected Json[string] _auto result;
+    protected Json[string] _autoResults;
 
+    /* 
     // A callable that will be executed for each record in the original data
     protected callable _mapper;
 

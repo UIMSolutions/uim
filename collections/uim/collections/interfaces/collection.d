@@ -153,9 +153,8 @@ interface ICollection {
      *
      * @param callable callback The callback // function to be called
      * @param mixed initial The state of reduction
-     * @return mixed
      */
-    // Json reduce(callable callback, initial = null);
+    // TODO Json reduce(callable callback, initial = null);
 
     /**
      * Returns a new DCollection containing the column or property value found in each
@@ -295,7 +294,6 @@ interface ICollection {
      * @param callable|string|null path The property name to sum or a function
      * If no value is passed, an identity // function will be used.
      * that will return the value of the property to sum.
-     * @return float|int|null
      */
     // float median(path = null);
 
@@ -469,7 +467,6 @@ interface ICollection {
      * @param callable|string|null path The property name to sum or a function
      * If no value is passed, an identity // function will be used.
      * that will return the value of the property to sum.
-     * @return float|int
      * /
     float sumOf(path = null);
 

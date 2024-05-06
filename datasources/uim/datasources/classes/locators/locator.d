@@ -18,7 +18,7 @@ abstract class DAbstractLocator : ILocator {
 
     /**
      * @param string aliasName The alias name you want to get.
-     * @param array<string, mixed> options The options you want to build the table with.
+     * @param Json[string] options The options you want to build the table with.
      * /
     IRepository get(string aliasName, Json[string] buildOptions = null) {
         auto storeOptions = buildOptions.dup;
@@ -44,7 +44,7 @@ abstract class DAbstractLocator : ILocator {
      * Create an instance of a given classname.
      *
      * @param string aliasName Repository aliasName.
-     * @param array<string, mixed> options The options you want to build the instance with.
+     * @param Json[string] options The options you want to build the instance with.
      * @return uim.Datasource\
      * /
     abstract protected IRepository createInstance(string aliasName, Json[string] optionData);

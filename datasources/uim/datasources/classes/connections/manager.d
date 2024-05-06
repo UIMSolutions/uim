@@ -97,7 +97,7 @@ class DConnectionManager {
      * Note that query-string arguments are also parsed and set as values in the returned configuration.
      *
      * @param string myConfiguration The DSN string to convert to a configuration array
-     * @return array<string, mixed> The configuration array to be stored after parsing the DSN
+     * @return Json[string] The configuration array to be stored after parsing the DSN
      * /
     static Json[string] parseDsn(string myConfiguration) {
         myConfiguration = _parseDsn(myConfiguration);

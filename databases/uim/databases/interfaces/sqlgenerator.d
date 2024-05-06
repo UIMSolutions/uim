@@ -68,10 +68,10 @@ interface ISqlGenerator {
      * to generate platform specific SQL.
      *
      * @param DDBAConnection connection The connection to generate SQL for.
-     * @return array List of SQL statements to create the table and the
+     * @return Json[string] List of SQL statements to create the table and the
      *    required indexes.
      * /
-    array createSql(Connection connection);
+    Json[string] createSql(Connection connection);
 
     /**
      * Generate the SQL to drop a table.
@@ -80,32 +80,32 @@ interface ISqlGenerator {
      * specific SQL.
      *
      * @param DDBAConnection connection The connection to generate SQL for.
-     * @return array SQL to drop a table.
+     * @return Json[string] SQL to drop a table.
      * /
-    array dropSql(Connection connection);
+    Json[string] dropSql(Connection connection);
 
     /**
      * Generate the SQL statements to truncate a table
      *
      * @param DDBAConnection connection The connection to generate SQL for.
-     * @return array SQL to truncate a table.
+     * @return Json[string] SQL to truncate a table.
      * /
-    array truncateSql(Connection connection);
+    Json[string] truncateSql(Connection connection);
 
     /**
      * Generate the SQL statements to add the constraints to the table
      *
      * @param DDBAConnection connection The connection to generate SQL for.
-     * @return array SQL to add the constraints.
+     * @return Json[string] SQL to add the constraints.
      * /
-    array addConstraintSql(Connection connection);
+    Json[string] addConstraintSql(Connection connection);
 
     /**
      * Generate the SQL statements to drop the constraints to the table
      *
      * @param DDBAConnection connection The connection to generate SQL for.
-     * @return array SQL to drop a table.
+     * @return Json[string] SQL to drop a table.
      * /
-    array dropConstraintSql(Connection connection);
+    Json[string] dropConstraintSql(Connection connection);
     
 } */

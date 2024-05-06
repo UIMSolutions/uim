@@ -116,7 +116,7 @@ class DTestFixture : IFixture {
         auto someColumns = _schema.columns();
         this.records.each!(record => fields = chain(fields, array_intersect(record.keys, someColumns)));
 
-        string[] fields = array_unique(fields.values);
+        string[] fieldNames = array_unique(fields.values);
         fields.each!((field) {
             auto column = _schema.getColumn(field);
             assert(!column.isNull);

@@ -473,7 +473,7 @@ mixin template TEntity() {
   /**
      * Sets hidden fields.
      * Params:
-     * string[] fields An array of fields to hide from array exports.
+     * string[] fieldNames An array of fields to hide from array exports.
      * @param bool merge Merge the new fields with the existing. By default false.
     * /
   void setHidden(string[]fields, bool merge = false) {
@@ -494,7 +494,7 @@ mixin template TEntity() {
   /**
      * Sets the virtual fields on this entity.
      * Params:
-     * string[] fields An array of fields to treat as virtual.
+     * string[] fieldNames An array of fields to treat as virtual.
      * @param bool merge Merge the new fields with the existing. By default false.
     * /
   void setVirtual(arrayfields, bool merge = false) {
@@ -624,7 +624,7 @@ mixin template TEntity() {
      * Params:
      * @param bool onlyDirty Return the requested field only if it is dirty
     * /
-  array extract(string[] fieldsToReturn, bool returnOnlyDirty = false) {
+  array extract(string[] fieldNamesToReturn, bool returnOnlyDirty = false) {
     STRINGAA result;
     fieldsToReturn
       .filter!(field => !returnOnlyDirty || this.isDirty(field))
@@ -640,7 +640,7 @@ mixin template TEntity() {
      * Fields that are unchanged from their original value will be included in the
      * return of this method.
      * Params:
-     * string[] fields List of fields to be returned
+     * string[] fieldNames List of fields to be returned
     * /
   array extractOriginal(arrayfields) {
     auto result;
@@ -662,7 +662,7 @@ mixin template TEntity() {
      * This method will only return fields that have been modified since
      * the entity was built. Unchanged fields will be omitted.
     * /
-  array extractOriginalChanged(string[] fields) {
+  array extractOriginalChanged(string[] fieldNames) {
     auto result;
     fields
       .filter!(field => this.hasOriginal(field))
@@ -697,7 +697,7 @@ mixin template TEntity() {
     * /
   protected void setOriginalField(string | arrayfield, bool merge = true) {
   }
-  protected void setOriginalField(string[] fields, bool merge = true) {
+  protected void setOriginalField(string[] fieldNames, bool merge = true) {
     if (! merge) {
       _originalFields = fields;
 

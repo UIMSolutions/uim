@@ -12,7 +12,7 @@ import uim.views;
  * In your controller, you could do the following:
  *
  * ```
- * this.set(["posts": myposts]);
+ * set(["posts": myposts]);
  * this.viewBuilder().setOption("serialize", true);
  * ```
  *
@@ -23,7 +23,7 @@ import uim.views;
  * a top level object containing all the named view variables:
  *
  * ```
- * this.set(compact("posts", "users", "stuff"));
+ * set(compact("posts", "users", "stuff"));
  * this.viewBuilder().setOption("serialize", true);
  * ```
  *

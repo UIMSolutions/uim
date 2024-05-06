@@ -98,7 +98,7 @@ class DEntityContext : DContext {
                 }
             }
             if (cast(IEntity)myentity) {
-                mytable = myentity.getSource();
+                mytable = myentity.source();
             }
             if (!mytable && cast(IEntity)myentity && myentity.classname != Entity.classname) {
                 [, myentityClass] = namespaceSplit(myentity.classname);

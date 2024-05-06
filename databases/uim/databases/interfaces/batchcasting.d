@@ -16,5 +16,5 @@ interface IBatchCasting
      * @param Json[string] values The original array of values containing the fields to be casted
      * @return Json[string]
      */
-    // TODO array manyToD(Json[string] values, string[] fields, IDriver driver);
+    // TODO array manyToD(Json[string] values, string[] fieldNames, IDriver driver);
 }

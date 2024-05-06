@@ -114,7 +114,7 @@ class DLinkConstraint {
      * @param \UIM\Datasource\IEntity myentity The entity involved in the operation.
      * /
     protected int _countLinks(Association myassociation, IEntity myentity) {
-        mysource = myassociation.getSource();
+        mysource = myassociation.source();
 
         myprimaryKey = (array)mysource.primaryKeys();
         if (!myentity.has(myprimaryKey)) {

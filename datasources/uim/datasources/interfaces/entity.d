@@ -31,10 +31,10 @@ interface IEntity { // : ArrayAccess, JsonSerializable
    /**
      * Sets the virtual fields on this entity.
      * Params:
-     * string[] fields An array of fields to treat as virtual.
+     * string[] fieldNames An array of fields to treat as virtual.
      * @param bool  merge Merge the new fields with the existing. By default false.
      * /
-   void setVirtual(string[] fields, bool canMergeExisting = false);
+   void setVirtual(string[] fieldNames, bool canMergeExisting = false);
 
    // Gets the virtual fields on this entity.
    string[] getVirtual();
@@ -111,17 +111,17 @@ interface IEntity { // : ArrayAccess, JsonSerializable
      * Returns an array with the requested original fields
      * stored in this entity, indexed by field name.
      * Params:
-     * string[] fields List of fields to be returned
+     * string[] fieldNames List of fields to be returned
      * /
-    array extractOriginal(string[] fields);
+    array extractOriginal(string[] fieldNames);
 
     /**
      * Returns an array with only the original fields
      * stored in this entity, indexed by field name.
      * Params:
-     * string[] fields List of fields to be returned
+     * string[] fieldNames List of fields to be returned
      * /
-    array extractOriginalChanged(string[] fields);
+    array extractOriginalChanged(string[] fieldNames);
 
     /**
      * Sets one or multiple fields to the specified value
@@ -189,7 +189,7 @@ interface IEntity { // : ArrayAccess, JsonSerializable
      * Returns an array with the requested fields
      * stored in this entity, indexed by field name
      * Params:
-     * string[] fields list of fields to be returned
+     * string[] fieldNames list of fields to be returned
      * @param bool  onlyDirty Return the requested field only if it is dirty
      * /
   array extract(string[] fieldNames, bool onlyDirty = false);

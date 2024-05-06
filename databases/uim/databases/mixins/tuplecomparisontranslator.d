@@ -29,7 +29,7 @@ mixin template TTupleComparisonTranslator() {
      * @param \UIM\Database\Query aQuery The query to update.
      * /
     protected void _transformTupleComparison(TupleComparisonexpression, Query aQuery) {
-        string[] fields = expression.getFieldNames();
+        string[] fieldNames = expression.getFieldNames();
         string operator = expression.getOperator().toUpper;
         if (!in_array(operator, ["IN", "="])) {
             throw new DInvalidArgumentException(

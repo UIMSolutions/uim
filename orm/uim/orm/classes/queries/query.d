@@ -184,7 +184,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     }
 
     IQuery select(DORMTable anTable, bool canOverwrite = false) {
-      string[] fields; 
+      string[] fieldNames; 
 
       if (this.aliasingEnabled) {
           fields = this.aliasFields(anTable.getSchema().columns(), anTable.aliasName());
@@ -195,10 +195,10 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     }
 
     IQuery select(DORMAssociation anAssociation, bool canOverwrite = false) {
-      string[] fields = anAssociation.getTarget();
+      string[] fieldNames = anAssociation.getTarget();
     }
 
-    IQuery select(string[] fields, bool canOverwrite = false) {
+    IQuery select(string[] fieldNames, bool canOverwrite = false) {
       return super.select(fields, canOverwrite);
     }
 

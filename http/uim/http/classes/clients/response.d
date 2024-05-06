@@ -323,7 +323,7 @@ class DClientResponse { // }: Message : IResponse {
     
     // Get the response body as XML decoded data.
     protected ISimpleXMLElement _getXml() {
-        if (_xml !isNull) {
+        if (!_xml.isNull) {
             return _xml;
         }
         libxml_use_internal_errors();

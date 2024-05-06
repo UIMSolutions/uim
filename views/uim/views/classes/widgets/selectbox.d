@@ -151,20 +151,17 @@ class DSelectBoxWidget : DWidget {
         return _renderOptions(options, mydisabled, myselected, mytemplateVars, renderData["escape"]);
     }
     
-    /**
-     * Generate the empty value based on the input.
-     * Params:
-     * string[]|bool myvalue The provided empty value.
-     * /
+    // Generate the empty value based on the input.
     protected Json[string] _emptyValue(bool myvalue) {
-        return myvalue ? ["": ""] : ["": myvalue];
+        return myvalue 
+            ? ["": Json("")] 
+            : ["": Json(myvalue)];
     }
 
-    protected Json[string] _emptyValue(string[] myvalue) {
-        if (myvalue.isArray) {
-            return myvalue;
-        }
-        return ["": myvalue];
+    protected Json[string] _emptyValue(Json[string] values) {
+        return myvalue.isEmpty
+            ? ["": myvalue]
+            : return myvalue;
     }
     
     /**

@@ -254,7 +254,7 @@ class DResultset : IResultset {
     /**
      * Serializes a resultset.
      * /
-    array __serialize() {
+    Json[string] __serialize() {
         if (!_useBuffering) {
             msg = "You cannot serialize an un-buffered Resultset~ "
                 ~ "Use Query::bufferResults() to get a buffered Resultset.";

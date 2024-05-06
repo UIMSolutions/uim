@@ -22,29 +22,21 @@ import uim.errors;
  * can configure your class in your config/app.d.
  */
 class DWebExceptionRenderer { // }: IExceptionRenderer {
+    // Controller instance.
+    protected IController controller;
+
+    // Template to render for {@link \UIM\Core\Exception\UimException}
+    protected string atemplate = "";
+
+    // The method corresponding to the Exception this object is for.
+    protected string amethod = "";
+
     /**
      * The exception being handled.
      *
      * @var \Throwable
      * /
     protected Throwable error;
-
-    /**
-     * Controller instance.
-     *
-     * @var \UIM\Controller\Controller
-     * /
-    protected IController controller;
-
-    /**
-     * Template to render for {@link \UIM\Core\Exception\UimException}
-     * /
-    protected string atemplate = "";
-
-    /**
-     * The method corresponding to the Exception this object is for.
-     * /
-    protected string amethod = "";
 
     /**
      * If set, this will be request used to create the controller that will render
@@ -171,7 +163,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
 
         exceptions = [exception];
         previous = exception.getPrevious();
-        while (previous !isNull) {
+        while (!previous.isNull) {
             exceptions ~= previous;
             previous = previous.getPrevious();
         }

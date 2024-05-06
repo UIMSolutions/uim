@@ -479,7 +479,7 @@ class DNumericPaginator : IPaginator {
      * @return array<string, mixed> An array of pagination settings for a model,
      *   or the general settings.
      * /
-    array getDefaults(string alias, Json[string] settings) {
+    array getDefaults(string aliasName, Json[string] settings) {
         if (isset(settings[alias])) {
             settings = settings[alias];
         }

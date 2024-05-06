@@ -435,7 +435,7 @@ class DViewBuilder { // }: DJsonSerializable {
     /**
      * Magic method used for serializing the view builder object.
      * /
-    array __serialize() {
+    Json[string] __serialize() {
         return _JsonSerialize();
     }
     

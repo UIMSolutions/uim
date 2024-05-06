@@ -922,12 +922,13 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string|null type The content type to check for. Leave null to get all types a client accepts.
      * /
-    string[]|bool accepts(string atype = null) {
-        content = new DContentTypeNegotiation();
+    string[] accepts(string atype = null) {
+        auto content = new DContentTypeNegotiation();
         if (type) {
-            return content.preferredType(this, [type]) !isNull;
+            return !content.preferredType(this, [type]).isNull;
         }
-        accept = null;
+        
+        auto accept = null;
         foreach (content.parseAccept(this) as types) {
             accept = array_merge(accept, types);
         }

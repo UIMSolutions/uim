@@ -53,7 +53,7 @@ class DErrorLogger : IErrorLogger {
     ) {
         exceptionMessage = this.getMessage(exception, false,  anIncludeTrace);
 
-        if (request !isNull) {
+        if (!request.isNull) {
             exceptionMessage ~= this.getRequestContext(request);
         }
         Log.error(exceptionMessage);

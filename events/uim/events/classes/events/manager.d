@@ -232,7 +232,7 @@ class DEventManager { // }: IEventManager {
             if (result == false) {
                 event.stopPropagation();
             }
-            if (result !isNull) {
+            if (!result.isNull) {
                 event.setResult(result);
             }
         }

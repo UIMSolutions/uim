@@ -486,8 +486,6 @@ class DDebugger {
      * @param int line Line number to highlight.
      * @param int context Number of lines of context to extract above and below line.
      * @return array<string> Set of lines highlighted
-     * @see https://secure.D.net/highlight_string
-     * @link https://book.uimD.org/4/en/development/debugging.html#getting-an-excerpt-from-a-file
      * /
     static string[] excerpt(string file, int line, int context = 2) {
         lines = null;

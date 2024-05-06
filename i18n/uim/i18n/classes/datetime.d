@@ -77,7 +77,6 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * will be used to format the time part.
      *
      * @var array<int>|string|int
-     * @see \UIM\I18n\DateTime.nice()
      * /
     // string[] niceFormat = [IntlDateFormatter.MEDIUM, IntlDateFormatter.SHORT];
 

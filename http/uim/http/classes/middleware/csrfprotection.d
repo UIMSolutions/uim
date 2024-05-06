@@ -17,8 +17,6 @@ import uim.http;
  * This middleware integrates with the FormHelper automatically and when
  * used together your forms will have CSRF tokens automatically added
  * when `this.Form.create(...)` is used in a view.
- *
- * @see https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie
  */
 class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
     /**

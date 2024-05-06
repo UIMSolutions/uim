@@ -94,7 +94,6 @@ TEXT;
      * Params:
      * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\ReferenceNode nodeToConvert Object to convert.
      * @param int indentSize Current indentation level.
-     * @see \UIM\Error\Debugger.exportVar()
      * /
     protected string exportObject(ClassNode|ReferenceNode nodeToConvert, int indentSize) {
         return "object({nodeToConvert.getValue()}) id:{nodeToConvert.getId()} {}";

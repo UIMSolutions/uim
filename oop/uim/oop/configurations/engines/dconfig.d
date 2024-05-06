@@ -25,17 +25,14 @@ import uim.oop;
  *    ]
  * ];
  * ```
- *
- * @see \UIM\Core\Configure.load() for how to load custom configuration files.
  */
 class DConfig : IConfigEngine {
-    /* 
     mixin TFileConfig();
 
     // File extension.
     protected string _extension = ".d";
 
-    /*
+    /* 
     this(string keyToConfigFiles = null) {
        _key = keyToConfigFiles ?? CONFIG;
     }

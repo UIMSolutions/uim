@@ -32,11 +32,6 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
         "hsts": null,
     ];
 
-    /**
-     * Constructor
-     * Params:
-     * @see \UIM\Http\Middleware\HttpsEnforcerMiddleware.configData
-     * /
     this(Json[string] configData = null) {
         this.config = configData + this.config;
     }

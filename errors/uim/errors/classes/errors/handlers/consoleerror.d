@@ -42,7 +42,6 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
      * @param \Throwable exception Exception instance.
      * @return void
      * @throws \Exception When renderer class not found
-     * @see https://secure.D.net/manual/en/function.set-exception-handler.D
      * /
     void handleException(Throwable exception) {
         _displayException(exception);

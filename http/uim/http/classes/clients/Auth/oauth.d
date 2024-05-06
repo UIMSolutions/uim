@@ -255,7 +255,6 @@ class DOauth {
      * Params:
      * Json[string] someArguments The arguments to normalize.
      * @param string aPath The current path being converted.
-     * @see https://tools.ietf.org/html/rfc5849#section-3.4.1.3.2
      * /
     // TODO protected Json[string] _normalizeData(Json[string] someArguments, string aPath= null) {
         someData = null;

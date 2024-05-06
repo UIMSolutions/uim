@@ -122,9 +122,6 @@ class DFlashComponent : DComponent {
      * For example: `this.Flash.warning("My message", ["plugin": 'PluginName"])` would
      * use the `warning.d` element under `plugins/PluginName/templates/element/flash/` for
      * rendering the flash message.
-     * Params:
-     * @param Json[string] someArguments Parameters to pass when calling `FlashComponent.set()`.
-     * @throws \UIM\Http\Exception\InternalErrorException If missing the flash message.
      * /
     void __call(string elementName, Json[string] someArguments) {
         auto anElement = Inflector.underscore(elementName);

@@ -249,7 +249,6 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * Params:
      * string atoken The token to add.
      * @param \Psr\Http\Message\IServerRequest serverRequest The request to validate against.
-     * @param \Psr\Http\Message\IResponse response The response.
      * /
     protected IResponse _addTokenCookie(
         string tokenToAdd,

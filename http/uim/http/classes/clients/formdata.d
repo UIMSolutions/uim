@@ -39,10 +39,9 @@ class DFormData { // }: Countable {
      * Method for creating new instances of Part
      * Params:
      * string aName The name of the part.
-     * @param string avalue The value to add.
      * /
-    FormDataPart newPart(string aName, string avalue) {
-        return new DFormDataPart(name, aValue);
+    FormDataPart newPart(string aName, string valueToAdd) {
+        return new DFormDataPart(name, valueToAdd);
     }
     
     /**

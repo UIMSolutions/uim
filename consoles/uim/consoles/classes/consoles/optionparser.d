@@ -533,7 +533,6 @@ class DConsoleOptionParser {
      * If the option is a combination of multiple shortcuts like -otf
      * they will be shifted onto the token stack and parsed individually.
      * Params:
-     * string optionToParse The option to parse.
      * @param  params The params to append the parsed value into
      * params with option added in.
      * @throws \UIM\Console\Exception\ConsoleException When unknown short options are encountered.

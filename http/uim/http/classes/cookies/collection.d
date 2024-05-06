@@ -169,10 +169,6 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * This allows CookieCollections to be used as a 'cookie jar' in an HTTP client
      * situation. Cookies that match the request`s domain + path that are not expired
      * when this method is called will be applied to the request.
-     * Params:
-     * \Psr\Http\Message\IRequest request The request to update.
-     * @param Json[string] extraCookies Associative array of additional cookies to add into the request. This
-     *  is useful when you have cookie data from outside the collection you want to send.
      * /
     IRequest addToRequest(IRequest request, Json[string] extraCookies = []) {
         auto anUri = request.getUri();

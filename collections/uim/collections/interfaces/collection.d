@@ -92,7 +92,6 @@ interface ICollection {
      *
      * Empty collections always return true.
      *
-     * @param callable callback a callback function
      * @return bool true if for all elements in this collection the provided
      *   callback returns true, false otherwise.
      */

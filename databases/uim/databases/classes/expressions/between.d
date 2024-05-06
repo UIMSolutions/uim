@@ -22,24 +22,24 @@ class DBetweenExpression : DExpression { // TODO}, IField {
      * /
     protected Json _to;
 
-    // The data type for the from and to arguments
+    // The data valueType for the from and to arguments
     protected Json _type;
 
     /**
      * Constructor
      * Params:
      * \UIM\Database\IExpression|string afield The field name to compare for values inbetween the range.
-     * @param string|null type The data type name to bind the values with.
+     * @param string|null typeName The data typeName name to bind the values with.
      * /
-    this(IExpression|string afield, Json fromValue, Json toValue, string atype = null) {
-        if (!type.isNull) {
-            from = _castToExpression(fromValue, type);
-            to = _castToExpression(toValue, type);
+    this(IExpression|string afield, Json fromValue, Json toValue, string typeName = null) {
+        if (!typeName.isNull) {
+            from = _castToExpression(fromValue, typeName);
+            to = _castToExpression(toValue, typeName);
         }
        _field = field;
        _from = fromValue;
        _to = toValue;
-       _type = type;
+       _type = typeName;
     }
  
     string sql(DValueBinder aValueBinder) {
@@ -75,11 +75,11 @@ class DBetweenExpression : DExpression { // TODO}, IField {
      * Params:
      * Json aValue The value to bind
      * @param \UIM\Database\DValueBinder aValueBinder The value binder to use
-     * @param string atype The type of aValue
+     * @param string valueType The valueType of aValue
      * /
-    protected string _bindValue(Json aValue, DValueBinder aValueBinder, string atype) {
+    protected string _bindValue(Json aValue, DValueBinder aValueBinder, string valueType) {
         placeholder = aValueBinder.placeholder("c");
-        aValueBinder.bind(placeholder, aValue, type);
+        aValueBinder.bind(placeholder, aValue, valueType);
 
         return placeholder;
     }

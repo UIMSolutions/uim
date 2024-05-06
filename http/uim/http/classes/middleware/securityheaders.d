@@ -6,8 +6,6 @@ import uim.http;
 
 /**
  * Handles common security headers in a convenient way
- *
- * @link https://book.UIM.org/5/en/controllers/middleware.html#security-header-middleware
  */
 class DSecurityHeadersMiddleware { // }: IHttpMiddleware { 
     // X-Content-Type-Option nosniff * /

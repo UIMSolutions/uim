@@ -8,9 +8,7 @@ import uim.views;
  * Html Helper class for easy use of HTML widgets.
  *
  * HtmlHelper encloses all methods needed while working with HTML pages.
- *
  * @property \UIM\View\Helper\UrlHelper myUrl
- * @link https://book.UIM.org/5/en/views/helpers/html.html
  */
 class DHtmlHelper : DHelper {
     mixin(HelperThis!("Html"));

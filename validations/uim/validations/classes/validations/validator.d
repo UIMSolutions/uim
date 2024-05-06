@@ -727,7 +727,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      * @return this
-     * @see \UIM\Validation\Validator.allowEmptyFor() for examples
      * /
     auto allowEmptyDate(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
         return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_DATE, mywhen, myMessage);

@@ -8,8 +8,6 @@ import uim.oop;
  * Cookie Crypt Trait.
  *
  * Provides the encrypt/decrypt logic for the CookieComponent.
- *
- * @link https://book.UIM.org/5/en/controllers/components/cookie.html
  */
 mixin template TCookieCrypt() {
     // Valid cipher names for encrypted cookies.

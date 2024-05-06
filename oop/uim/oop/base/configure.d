@@ -10,8 +10,6 @@ import uim.oop;
  * Provides features for reading and writing to the runtime configuration, as well
  * as methods for loading additional configuration files or storing runtime configuration
  * for future use.
- *
- * @link https://book.UIM.org/5/en/development/configuration.html
  * /
 class DConfigure {
   	bool initialize(IData[string] initData = null) {
@@ -53,7 +51,6 @@ class DConfigure {
      * IData[string]|string configData The key to write, can be a dot notation value.
      * Alternatively can be an array containing key(s) and value(s).
      * @param Json aValue Value to set for the given key.
-     * @link https://book.UIM.org/5/en/development/configuration.html#writing-configuration-data
      * /
     static void write(string key, Json aValue = null) {
         auto configData = [key: aValue];

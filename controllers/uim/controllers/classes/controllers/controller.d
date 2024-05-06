@@ -93,8 +93,6 @@ class DController : IController { // IEventListener, IEventDispatcher {
 
     /**
      * An instance of a Response object that contains information about the impending response
-     *
-     * @link https://book.UIM.org/5/en/controllers/request-response.html#response
      * /
     protected DResponse response;
 
@@ -404,7 +402,6 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Params:
      * \Psr\Http\Message\IUri|string[] aurl A string, array-based URL or IUri instance.
      * @param int status HTTP status code. Defaults to `302`.
-     * @link https://book.UIM.org/5/en/controllers.html#Controller.redirect
      * /
     Response redirect(IUri|string[] aurl, int httpStatusCode = 302) {
         this.autoRender = false;
@@ -439,7 +436,6 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * string|null template Template to use for rendering
      * @param string|null  layout Layout to use
      * returns A response object containing the rendered view.
-     * @link https://book.UIM.org/5/en/controllers.html#rendering-a-view
      * /
     Response render(string atemplate = null, string alayout = null) {
          builder = this.viewBuilder();

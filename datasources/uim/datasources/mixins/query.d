@@ -461,11 +461,8 @@ mixin template TQuery() {
      *  query.applyOptions(["doABarrelRoll": Json(true), "fields": ["id", "name"]);
      *  query.getOptions(); // Returns ["doABarrelRoll": Json(true)]
      * ```
-     *
-     * @see uim.datasources.IQuery::applyOptions() to read about the options that will
-     * be processed by this class DAnd not returned by this function
      * /
-    json[array] getOptions() {
+    Json[array] getOptions() {
         return _options;
     }
 

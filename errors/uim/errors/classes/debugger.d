@@ -281,7 +281,6 @@ class DDebugger {
      * Params:
      * \Throwable|array backtrace Trace as array or an exception object.
      * @param Json[string] options Format for outputting stack trace.
-     * @link https://book.UIM.org/5/en/development/debugging.html#generating-stack-traces
      * /
     static string[] formatTrace(Throwable|array backtrace, Json[string] options = null) {
         if (cast(Throwable)backtrace) {

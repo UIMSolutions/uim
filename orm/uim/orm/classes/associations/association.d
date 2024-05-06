@@ -724,7 +724,6 @@ int updateAll(string[] fieldNames, conditions) {
      * @param DORMdatabases.IExpression|\Closure|array|string|null conditions Conditions to be used, accepts anything Query::where()
      * can take.
      * @return int Returns the number of affected rows.
-     * @see DORMTable::deleteAll()
      * /
 int deleteAll(conditions) {
     expression = this.find()

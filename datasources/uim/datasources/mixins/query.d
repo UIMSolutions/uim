@@ -29,9 +29,7 @@ mixin template TQuery() {
      * A Resultset.
      *
      * When set, query execution will be bypassed.
-     *
      * @var iterable|null
-     * @see uim.datasources.QueryTrait::setResult()
      * /
     protected _results;
 
@@ -43,7 +41,6 @@ mixin template TQuery() {
 
     /**
      * A query cacher instance if this query has caching enabled.
-     *
      * @var uim.datasources.QueryCacher|null
      * /
     protected _cache;

@@ -693,7 +693,6 @@ IQuery find(type = null, Json[string] optionData = null) {
      *
      * @param DORMdatabases.IExpression|\Closure|array|string|null conditions The conditions to use
      * for checking if any record matches.
-     * @see DORMTable::exists()
      * /
 bool exists(conditions) {
     conditions = this.find()

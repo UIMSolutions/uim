@@ -481,8 +481,6 @@ class DController : IController { // IEventListener, IEventDispatcher {
      *
      * Each view class must implement the `getContentType()` hook method
      * to participate in negotiation.
-     *
-     * @see UIM\Http\ContentTypeNegotiation
      * /
     string[] viewClasses() {
         return _viewClasses;

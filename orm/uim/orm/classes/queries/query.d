@@ -632,10 +632,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param string assoc The association to join with
      * @param callable|null builder a function that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
-     * @return this
-     * @see DORMQuery::matching()
      * /
-    function innerJoinWith(string assoc, ?callable builder = null) {
+    void innerJoinWith(string assoc, ?callable builder = null) {
         result = this.getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query::JOIN_TYPE_INNER,
@@ -644,8 +642,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             .getMatching();
         _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
         _isDirty();
-
-        return this;
     }
 
     /**

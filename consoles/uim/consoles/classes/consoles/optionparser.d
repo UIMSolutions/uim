@@ -380,9 +380,6 @@ class DConsoleOptionParser {
     /**
      * Add multiple options at once. Takes an array of option definitions.
      * The keys are used as option names, and the values as params for the option.
-     * Params:
-     * Json[string] optionsToAdd Array of options to add.
-     * @see \UIM\Console\DConsoleOptionParser buildOptionParser.addOption()
      * /
     void addOptions(Json[string] optionsToAdd = null) {
         foreach (name: params; optionsToAdd) {

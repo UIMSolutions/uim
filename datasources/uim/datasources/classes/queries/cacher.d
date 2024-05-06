@@ -6,11 +6,7 @@ import uim.datasources;
 
 /**
  * Handles caching queries and loading results from the cache.
- *
  * Used by {@link \UIM\Datasource\QueryTrait} internally.
- *
- * @internal
- * @see \UIM\Datasource\QueryTrait.cache() for the interface.
  */
 class DQueryCacher {
     /* 

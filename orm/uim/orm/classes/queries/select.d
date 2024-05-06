@@ -1349,8 +1349,6 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * using `contain`
      *
      * It also sets the default types for the columns in the select clause
-     *
-     * @see \UIM\Database\Query.execute()
      * /
     protected void _transformQuery() {
         if (!_isDirty) {

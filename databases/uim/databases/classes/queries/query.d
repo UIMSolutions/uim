@@ -457,7 +457,6 @@ abstract class DQuery : IQuery { // : IExpression {
      * Json[string]|string atables list of tables to be joined in the query
      * @param STRINGAA types Associative array of type names used to bind values to query
      * @param bool overwrite whether to reset joins with passed list or not
-     * @see \UIM\Database\TypeFactory
     * /
     auto join(string[] atables, Json[string] types = [], bool overwrite = false) {
         if (isString(aTables) || isSet(aTables["table"])) {

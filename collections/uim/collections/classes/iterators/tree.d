@@ -59,16 +59,8 @@ class DTreeIterator { // TODO }: RecursiveIteratorIterator, ICollection {
      *         return anItem.name;
      *     });
      * ```
-     * Params:
-     * string avaluePath The property to extract or a callable to return
-     * the display value
-     * @param string keyPath The property to use as iteration key or a
-     * callable returning the key value.
-     * @param string aspacer The string to use for prefixing the values according to
-     * their depth in the tree
-     * /
     DTreePrinter printer(
-        string avaluePath,
+        string propertyPath,
         string keyPath = null,
         string aspacer = "__"
     ) {

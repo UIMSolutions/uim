@@ -33,7 +33,7 @@ class DUnfoldIterator {  /* }: IteratorIterator, RecursiveIterator {
      * current item and key. It must return an array or Traversable object
      * out of which the nested iterators will be yielded.
      * /
-    this(Traversable  someItems, callable unfolder) {
+    this(Traversable someItems, callable unfolder) {
        _unfolder = unfolder;
         super(someItems);
        _innerIterator = this.getInnerIterator();

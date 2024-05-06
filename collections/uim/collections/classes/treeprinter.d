@@ -31,14 +31,12 @@ class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
      * Constructor
      * Params:
      * \RecursiveIterator<mixed, mixed>  someItems The iterator to flatten.
-     * @param string aspacer The string to use for prefixing the values according to
-     * their depth in the tree.
      * /
   this(
     IRecursiveIterator someItems,
     string pathToValue,
     string pathToKey,
-    string myspacer,
+    string prefixSpacer,
     int iteratorMode = RecursiveIteratorIterator.SELF_FIRST
   ) {
     super.__construct(someItems, iteratorMode);
@@ -58,9 +56,9 @@ class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
   string current() {
     auto myExtractor = _value;
     auto myCurrent = _fetchCurrent();
-    auto mySpacer = str_repeat(_spacer, this.getDepth());
+    auto prefixSpacer = str_repeat(_spacer, this.getDepth());
 
-    return mySpacer ~ myExtractor(myCurrent, super.key(), this);
+    return prefixSpacer ~ myExtractor(myCurrent, super.key(), this);
   }
 
   // Advances the cursor one position

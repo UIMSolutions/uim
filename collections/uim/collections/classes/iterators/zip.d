@@ -41,18 +41,15 @@ class DZipIterator : ICollection {
     /**
      * Creates the iterator to merge together the values by for all the passed
      * iterators by their corresponding index.
-     *
-     * @param Json[string] sets The list of array or iterators to be zipped.
-     * @param callable|null aCallable The auto to use for zipping the elements of each iterator.
      * /
-    this(Json[string] sets, ?callable aCallable = null) {
+    this(Json[string] listToZip, ?callable aCallable = null) {
         _multipleIterator = new DMultipleIterator(
             MultipleIterator.MIT_NEED_ALL | MultipleIterator.MIT_KEYS_NUMERIC
         );
 
        _callback = aCallable;
 
-        sets.each!((set) {
+        listToZip.each!((set) {
              anIterator = (new DCollection(set)).unwrap();
            _iterators ~= anIterator;
             _multipleIterator.attachIterator(anIterator);

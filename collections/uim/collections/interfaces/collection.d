@@ -242,7 +242,7 @@ interface ICollection {
 
     /**
      * Returns the bottom element in this collection after being sorted by a property.
-     * Check the sortBy method for information on the callback and sort parameters
+     * Check the sortBy method for information on the callback and sortType parameters
      *
      * ### Examples:
      *
@@ -259,12 +259,12 @@ interface ICollection {
      * ```
      *
      * @param callable|string path The column name to use for sorting or callback that returns the value.
-     * @param int sort The sort type, one of SORT_STRING
+     * @param int sortType The sortType type, one of SORT_STRING
      * SORT_NUMERIC or SORT_NATURAL
      * @see uim.collections.ICollection::sortBy()
      * @return mixed The value of the bottom element in the collection
      */
-    // Json min(path, int sort = SORT_NUMERIC);
+    // Json min(path, int sortType = SORT_NUMERIC);
 
     /**
      * Returns the average of all the values extracted with path
@@ -358,13 +358,9 @@ interface ICollection {
      *  writeln(user.name;
      * }
      * ```
-     *
      * @param callable|string path The column name to use for sorting or callback that returns the value.
-     * @param int  order The sort order, either SORT_DESC or SORT_ASC
-     * @param int sort The sort type, one of SORT_STRING
-     * SORT_NUMERIC or SORT_NATURAL
      * /
-    ICollection sortBy(path, int  order = SORT_DESC, int sort = SORT_NUMERIC);
+    ICollection sortBy(path, int sortOrder = SORT_DESC, int sortType = SORT_NUMERIC);
 
     /**
      * Splits a collection into sets, grouped by the result of running each value
@@ -440,11 +436,8 @@ interface ICollection {
      *  2: ["id": 2, "name": "bar"],
      * ];
      * ```
-     *
-     * @param callable|string path The column name to use for indexing or callback that returns the value.
-     * or a // function returning the indexing key out of the provided element
      * /
-    ICollection indexBy(string path);
+    ICollection indexBy(string columnName);
 
     /**
      * Sorts a list into groups and returns a count for the number of elements
@@ -621,11 +614,9 @@ interface ICollection {
 
     /**
      * Prepend a single item creating a new DCollection.
-     *
-     * @param mixed item The item to prepend.
      * @param mixed  key The key to prepend the item with. If null a key will be generated.
      * /
-    ICollection prependItem(item,  key = null);
+    ICollection prependItem(json itemToPrepend,  key = null);
 
     /**
      * Returns a new DCollection where the values extracted based on a value path

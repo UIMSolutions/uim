@@ -31,10 +31,6 @@ class DSortIterator : DCollection {
      * the value returned in the callback will be used as the value for sorting such
      * element. Please note that the callback auto could be called more than once
      * per element.
-     * Params:
-     * @param string acallback A auto used to return the actual value to
-     * be compared. It can also be a string representing the path to use to fetch a
-     * column or property in each element
      * /
   this(
     Json[string] someItems,
@@ -51,7 +47,7 @@ class DSortIterator : DCollection {
         cast(DChronosTime)callbackValue ||
         cast(IDateTime)callbackValue;
 
-      if (isDateTime &&  sortType == SORT_NUMERIC) {
+      if (isDateTime && sortType == SORT_NUMERIC) {
         callbackValue = callbackValue.format("U");
       }
       myResults[aKey] = callbackValue;

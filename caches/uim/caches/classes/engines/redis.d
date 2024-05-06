@@ -110,12 +110,7 @@ class DRedisCacheEngine : DCacheEngine {
             : _redis.setEx(myKey, myDuration, serializedData);
     }
     
-    /**
-     * Read a key from the cache
-     * Params:
-     * string aKey Identifier for the data
-     * @param Json defaultValue Default value to return if the key does not exist.
-     * /
+    // Read a key from the cache
     Json get(string aKey, Json defaultValue = Json(null)) {
         aValue = _redis.get(_key(aKey));
         if (aValue == false) {

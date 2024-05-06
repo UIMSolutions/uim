@@ -558,12 +558,8 @@ class DI18nExtractCommand : DCommand {
      * Check whether the old and new output are the same, thus unchanged
      *
      * Compares the sha1 hashes of the old and new file without header.
-     * Params:
-     * string aoldFile The existing file.
-     * @param int  lengthOfFileheader The length of the file header in bytes.
-     * @param string anewFileContent The content of the new file.
      * /
-    protected bool checkUnchanged(string aoldFile, int lengthOfFileheader, string anewFileContent) {
+    protected bool checkUnchanged(string oldFile, int lengthOfFileheader, string newFileContent) {
         if (!file_exists(oldFile)) {
             return false;
         }

@@ -426,7 +426,7 @@ class DNumericPaginator : IPaginator {
      * Shim method for reading the deprecated sortWhitelist or sortableFields options.
      *
      * @param Json[string] myConfiguration The configuration data to coalesce and emit warnings on.
-     * @return array<string>|null
+     * @return string[]|null
      * /
     protected string[] getSortableFields(Json myConfiguration): ?array
     {

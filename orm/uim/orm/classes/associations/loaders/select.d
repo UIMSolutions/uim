@@ -181,7 +181,7 @@ class DSelectLoader {
      * If the required fields are missing, throws an exception.
      *
      * @param DORMQuery fetchQuery The association fetching query
-     * @param array<string> key The foreign key fields to check
+     * @param string[] key The foreign key fields to check
      * @return void
      * @throws \InvalidArgumentException
      * /
@@ -227,7 +227,7 @@ class DSelectLoader {
      * filtering needs to be done using a subquery.
      *
      * @param DORMQuery query Target table"s query
-     * @param array<string>|string aKey the fields that should be used for filtering
+     * @param string[]|string aKey the fields that should be used for filtering
      * @param DORMQuery subquery The Subquery to use for filtering
      * @return DORMQuery
      * /
@@ -263,7 +263,7 @@ class DSelectLoader {
      * target table query given a filter key and some filtering values.
      *
      * @param DORMQuery query Target table"s query
-     * @param array<string>|string aKey The fields that should be used for filtering
+     * @param string[]|string aKey The fields that should be used for filtering
      * @param mixed filter The value that should be used to match for key
      * @return DORMQuery
      * /
@@ -283,7 +283,7 @@ class DSelectLoader {
      * from keys with the tuple values in filter using the provided operator.
      *
      * @param DORMQuery query Target table"s query
-     * @param array<string> keys the fields that should be used for filtering
+     * @param string[] keys the fields that should be used for filtering
      * @param mixed filter the value that should be used to match for key
      * @param string operator The operator for comparing the tuples
      * @return DORMdatabases.Expression\TupleComparison
@@ -306,7 +306,7 @@ class DSelectLoader {
      * which the filter should be applied
      *
      * @param Json[string] options The options for getting the link field.
-     * @return array<string>|string
+     * @return string[]|string
      * @throws \RuntimeException
      * /
     protected function _linkField(Json[string] optionData) {

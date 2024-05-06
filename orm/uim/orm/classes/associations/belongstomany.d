@@ -59,7 +59,7 @@ class DBelongsToManyAssociation : DAssociation {
     /**
      * The name of the field representing the foreign key to the target table
      *
-     * @var array<string>|string|null
+     * @var string[]|string|null
      * /
     protected _targetForeignKey;
 
@@ -73,7 +73,7 @@ class DBelongsToManyAssociation : DAssociation {
     /**
      * Valid strategies for this type of association
      *
-     * @var array<string>
+     * @var string[]
      * /
     protected _validStrategies = [
         self::STRATEGY_SELECT,
@@ -112,7 +112,7 @@ class DBelongsToManyAssociation : DAssociation {
     /**
      * Sets the name of the field representing the foreign key to the target table.
      *
-     * @param array<string>|string aKey the key to be used to link both tables together
+     * @param string[]|string aKey the key to be used to link both tables together
      * /
     void setTargetForeignKey(key) {
         _targetForeignKey = key;
@@ -121,7 +121,7 @@ class DBelongsToManyAssociation : DAssociation {
     /**
      * Gets the name of the field representing the foreign key to the target table.
      *
-     * @return array<string>|string
+     * @return string[]|string
      * /
     string[] getTargetForeignKey() {
         if (_targetForeignKey == null) {
@@ -145,7 +145,7 @@ class DBelongsToManyAssociation : DAssociation {
     /**
      * Gets the name of the field representing the foreign key to the source table.
      *
-     * @return array<string>|string
+     * @return string[]|string
      * /
     string[] getForeignKeys() {
         if (_foreignKey == null) {
@@ -813,7 +813,7 @@ class DBelongsToManyAssociation : DAssociation {
      *   this association.
      * @param array<DORMDatasource\IEntity> targetEntities List of entities persisted in the target table for
      *   this association.
-     * @param array<string>|bool options List of options to be passed to the internal `delete` call,
+     * @param string[]|bool options List of options to be passed to the internal `delete` call,
      *   or a `boolean` as `cleanProperty` key shortcut.
      * @throws \InvalidArgumentException If non persisted entities are passed or if
      *   any of them is lacking a primary key value.

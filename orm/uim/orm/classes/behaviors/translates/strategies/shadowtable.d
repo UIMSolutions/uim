@@ -593,7 +593,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                             /**
      * Lazy define and return the main table fields.
      *
-     * @return array<string>
+     * @return string[]
      * /
                                                                             protected string[] mainFields() {
                                                                                 fields = this.getConfig(

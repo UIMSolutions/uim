@@ -14,16 +14,16 @@ import uim.databases;
  * Used to access information about the tables,
  * and other data in a database.
  *
- * @method array<string> listTablesWithoutViews() Get the list of tables available in the current connection.
+ * @method string[] listTablesWithoutViews() Get the list of tables available in the current connection.
  * This will exclude any views in the schema.
  */
 interface ICollection {
     /**
      * Get the list of tables available in the current connection.
      *
-     * @return array<string> The list of tables in the connected database/schema.
+     * @return string[] The list of tables in the connected database/schema.
      * /
-    array listTables(): ;
+    string[] listTables(): ;
 
     /**
      * Get the column metadata for a table.
@@ -42,6 +42,5 @@ interface ICollection {
      * @throws uim.databases.Exception\DatabaseException when table cannot be described.
      * /
     ITableSchema describe(string name, Json[string] options = null);
-
     */
 }

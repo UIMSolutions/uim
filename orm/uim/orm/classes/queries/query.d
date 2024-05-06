@@ -210,7 +210,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * pass overwrite boolean true which will reset the select clause removing all previous additions.
      *
      * @param DORMTable|DORMAssociation table The table to use to get an array of columns
-     * @param array<string> excludedFields The un-aliased column names you do not want selected from table
+     * @param string[] excludedFields The un-aliased column names you do not want selected from table
      * @param bool canOverwrite Whether to reset/remove previous selected fields
      * @return this
      * @throws \InvalidArgumentException If Association|Table is not passed in first argument
@@ -1210,7 +1210,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * Can be combined with the where() method to create delete queries.
      *
      * @param Json[string] columns The columns to insert into.
-     * @param array<string> types A map between columns & their datatypes.
+     * @param string[] types A map between columns & their datatypes.
      * @return this
      * /
     function insert(Json[string] columns, Json[string] types = null) {

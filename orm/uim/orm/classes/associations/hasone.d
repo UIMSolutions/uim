@@ -20,7 +20,7 @@ class DHasOneAssociation : DAssociation {
     /**
      * Valid strategies for this type of association
      *
-     * @var array<string>
+     * @var string[]
      * /
     protected string[] _validStrategies = [
         STRATEGY_JOIN,
@@ -30,7 +30,7 @@ class DHasOneAssociation : DAssociation {
     /**
      * Gets the name of the field representing the foreign key to the target table.
      *
-     * @return array<string>|string
+     * @return string[]|string
      * /
     function getForeignKeys() {
         if (_foreignKey == null) {

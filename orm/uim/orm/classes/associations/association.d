@@ -304,7 +304,7 @@ function getConditions() {
      * Sets the name of the field representing the binding field with the target table.
      * When not manually specified the primary key of the owning side table is used.
      *
-     * @param array<string>|string aKey the table field or fields to be used to link both tables together
+     * @param string[]|string aKey the table field or fields to be used to link both tables together
      * @return this
      * /
 function setBindingKeys(key) {
@@ -317,7 +317,7 @@ function setBindingKeys(key) {
      * Gets the name of the field representing the binding field with the target table.
      * When not manually specified the primary key of the owning side table is used.
      *
-     * @return array<string>|string
+     * @return string[]|string
      * /
 function getBindingKeys() {
     if (_bindingKeys == null) {
@@ -332,7 +332,7 @@ function getBindingKeys() {
 /**
      * Gets the name of the field representing the foreign key to the target table.
      *
-     * @return array<string>|string
+     * @return string[]|string
      * /
 function getForeignKeys() {
     return _foreignKeys;
@@ -341,7 +341,7 @@ function getForeignKeys() {
 /**
      * Sets the name of the field representing the foreign key to the target table.
      *
-     * @param array<string>|string aKey the key or keys to be used to link both tables together
+     * @param string[]|string aKey the key or keys to be used to link both tables together
      * @return this
      * /
 function setForeignKeys(key) {

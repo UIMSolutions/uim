@@ -113,7 +113,7 @@ class DAssociationCollection { // }: IteratorAggregate {
     /**
      * Get an array of associations matching a specific type.
      *
-     * @param array<string>|string class DThe type of associations you want.
+     * @param string[]|string class DThe type of associations you want.
      *   For example "BelongsTo" or array like ["BelongsTo", "HasOne"]
      * returns an array of Association objects.
      * /

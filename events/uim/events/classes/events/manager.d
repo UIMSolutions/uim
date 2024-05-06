@@ -64,7 +64,7 @@ class DEventManager { // }: IEventManager {
         }
         if (!aCallable && !isCallable(options)) {
             throw new DInvalidArgumentException(
-                "second argument of `EventManager::on()` must be a callable if `aCallable`.isNull."
+                "second argument of `EventManager.on()` must be a callable if `aCallable`.isNull."
             );
         }
         if (!aCallable) {
@@ -382,7 +382,7 @@ class DEventManager { // }: IEventManager {
                 event = _eventList[anI];
                 try {
                     subject = event.getSubject();
-                    properties["_dispatchedEvents"] ~= event.name ~ " with subject " ~ subject::class;
+                    properties["_dispatchedEvents"] ~= event.name ~ " with subject " ~ subject.class;
                 } catch (UimException) {
                     properties["_dispatchedEvents"] ~= event.name ~ " with no subject";
                 }

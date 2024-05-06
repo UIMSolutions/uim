@@ -216,7 +216,7 @@ class DEagerLoadable {
 
     /**
      * Returns a representation of this object that can be passed to
-     * uim\orm.EagerLoader::contain()
+     * uim\orm.EagerLoader.contain()
      *
      * @return array<string, array>
      * /

@@ -202,7 +202,7 @@ class DEagerLoader {
             _matching = new static();
         }
 
-        options = options.update["joinType": Query::JOIN_TYPE_INNER];
+        options = options.update["joinType": Query.JOIN_TYPE_INNER];
         sharedOptions = ["negateMatch": Json(false), "matching": Json(true)] + options;
 
         contains = null;
@@ -514,7 +514,7 @@ class DEagerLoader {
             return;
         }
 
-        configuration.get("strategy"] = Association::STRATEGY_SELECT;
+        configuration.get("strategy"] = Association.STRATEGY_SELECT;
         loadable.configuration.update(myConfiguration);
         loadable.setCanBeJoined(false);
     }
@@ -724,7 +724,7 @@ class DEagerLoader {
             }
 
             source = instance.getSource();
-            keys = instance.type() == Association::MANY_TO_ONE ?
+            keys = instance.type() == Association.MANY_TO_ONE ?
                 (array)instance.getForeignKeys() :
                 (array)instance.getBindingKey();
 

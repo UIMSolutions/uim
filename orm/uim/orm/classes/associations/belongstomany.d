@@ -39,10 +39,10 @@ class DBelongsToManyAssociation : DAssociation {
 
     /*
     // The type of join to be used when adding the association to a query
-    protected string _joinType = Query::JOIN_TYPE_INNER;
+    protected string _joinType = Query.JOIN_TYPE_INNER;
 
     // The strategy name to be used to fetch associated records.
-    protected string _strategy = self::STRATEGY_SELECT;
+    protected string _strategy = self.STRATEGY_SELECT;
 
     /**
      * Junction table instance
@@ -54,7 +54,7 @@ class DBelongsToManyAssociation : DAssociation {
     /**
      * Saving strategy to be used by this association
      * /
-    protected string _saveStrategy = self::SAVE_REPLACE;
+    protected string _saveStrategy = self.SAVE_REPLACE;
 
     /**
      * The name of the field representing the foreign key to the target table
@@ -76,8 +76,8 @@ class DBelongsToManyAssociation : DAssociation {
      * @var string[]
      * /
     protected _validStrategies = [
-        self::STRATEGY_SELECT,
-        self::STRATEGY_SUBQUERY,
+        self.STRATEGY_SELECT,
+        self.STRATEGY_SUBQUERY,
     ];
 
     /**
@@ -205,14 +205,14 @@ class DBelongsToManyAssociation : DAssociation {
             table = _through;
         } elseif (table == null) {
             tableName = _junctionTableName();
-            tableAlias = Inflector::camelize(tableName);
+            tableAlias = Inflector.camelize(tableName);
 
             myConfiguration = null;
             if (!tableLocator.exists(tableAlias)) {
                 myConfiguration = ["table": tableName, "allowFallbackClass": Json(true)];
 
                 // Propagate the connection if we"ll get an auto-model
-                if (!App::className(tableAlias, "Model/Table", "Table")) {
+                if (!App.className(tableAlias, "Model/Table", "Table")) {
                     configuration.get("connection"] = this.getSource().getConnection();
                 }
             }
@@ -455,7 +455,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Get the relationship type.
      * /
     string type() {
-        return self::MANY_TO_MANY;
+        return self.MANY_TO_MANY;
     }
 
     /**
@@ -554,7 +554,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @return this
      * /
     function setSaveStrategy(string strategy) {
-        if (!in_array(strategy, [self::SAVE_APPEND, self::SAVE_REPLACE], true)) {
+        if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
             msg = sprintf("Invalid save strategy '%s'", strategy);
             throw new DInvalidArgumentException(msg);
         }
@@ -607,7 +607,7 @@ class DBelongsToManyAssociation : DAssociation {
             targetEntity = null;
         }
 
-        if (strategy == self::SAVE_APPEND) {
+        if (strategy == self.SAVE_APPEND) {
             return _saveTarget(entity, targetEntity, options);
         }
 
@@ -626,7 +626,7 @@ class DBelongsToManyAssociation : DAssociation {
      * entities to be saved.
      * @param Json[string] entities list of entities to persist in target table and to
      * link to the parent entity
-     * @param Json[string] options list of options accepted by `Table::save()`
+     * @param Json[string] options list of options accepted by `Table.save()`
      * @throws \InvalidArgumentException if the property representing the association
      * in the parent entity cannot be traversed
      * @return DORMDatasource\IEntity|false The parent entity after all links have been
@@ -691,7 +691,7 @@ class DBelongsToManyAssociation : DAssociation {
      * association
      * @param array<DORMDatasource\IEntity> targetEntities list of entities to link to link to the source entity using the
      * junction table
-     * @param Json[string] options list of options accepted by `Table::save()`
+     * @param Json[string] options list of options accepted by `Table.save()`
      * @return bool success
      * /
     protected bool _saveLinks(IEntity sourceEntity, Json[string] targetEntities, Json[string] optionData) {
@@ -790,7 +790,7 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * ### Options
      *
-     * Additionally to the default options accepted by `Table::remove()`, the following
+     * Additionally to the default options accepted by `Table.remove()`, the following
      * keys are supported:
      *
      * - cleanProperty: Whether to remove all the objects in `targetEntities` that
@@ -1006,7 +1006,7 @@ class DBelongsToManyAssociation : DAssociation {
             name: [
                 "table": junctionTable.getTable(),
                 "conditions": conditions,
-                "type": Query::JOIN_TYPE_INNER,
+                "type": Query.JOIN_TYPE_INNER,
             ],
         ];
 
@@ -1044,7 +1044,7 @@ class DBelongsToManyAssociation : DAssociation {
      * the target table.
      *
      * Additional options for new links to be saved can be passed in the third argument,
-     * check `Table::save()` for information on the accepted options.
+     * check `Table.save()` for information on the accepted options.
      *
      * ### Example:
      *
@@ -1070,7 +1070,7 @@ class DBelongsToManyAssociation : DAssociation {
         bindingKey = (array)this.getBindingKey();
         primaryValue = sourceEntity.extract(bindingKey);
 
-        if (count(Hash::filter(primaryValue)) != count(bindingKey)) {
+        if (count(Hash.filter(primaryValue)) != count(bindingKey)) {
             message = "Could not find primary key value for source entity";
             throw new DInvalidArgumentException(message);
         }
@@ -1147,7 +1147,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param array<DORMDatasource\IEntity> jointEntities link entities that should be persisted
      * @param Json[string] targetEntities entities in target table that are related to
      * the `jointEntities`
-     * @param Json[string] options list of options accepted by `Table::remove()`
+     * @param Json[string] options list of options accepted by `Table.remove()`
      * @return array|false Array of entities not deleted or false in case of deletion failure for atomic saves.
      * /
     protected function _diffLinks(
@@ -1344,7 +1344,7 @@ class DBelongsToManyAssociation : DAssociation {
     protected string _junctionTableName(string aName = null) {
         if (name == null) {
             if (empty(_junctionTableName)) {
-                tablesNames = array_map("uim\Utility\Inflector::underscore", [
+                tablesNames = array_map("uim\Utility\Inflector.underscore", [
                     this.getSource().getTable(),
                     this.getTarget().getTable(),
                 ])().sort;

@@ -65,7 +65,7 @@ class DBelongsToAssociation : DAssociation {
     protected string _propertyName() {
         [, name] = pluginSplit(_name);
 
-        return Inflector::underscore(Inflector::singularize(name));
+        return Inflector.underscore(Inflector.singularize(name));
     }
 
     /**
@@ -81,7 +81,7 @@ class DBelongsToAssociation : DAssociation {
 
     // Get the relationship type.
     string type() {
-        return self::MANY_TO_ONE;
+        return self.MANY_TO_ONE;
     }
 
     /**

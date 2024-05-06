@@ -706,7 +706,7 @@ bool exists(conditions) {
      * Proxies the update operation to the target table"s updateAll method
      *
      * @param Json[string] fields A hash of field: new value.
-     * @param DORMdatabases.IExpression|\Closure|array|string|null conditions Conditions to be used, accepts anything Query::where()
+     * @param DORMdatabases.IExpression|\Closure|array|string|null conditions Conditions to be used, accepts anything Query.where()
      * can take.
      * @return int Count Returns the affected rows.
      * /
@@ -721,7 +721,7 @@ int updateAll(string[] fieldNames, conditions) {
 /**
      * Proxies the delete operation to the target table"s deleteAll method
      *
-     * @param DORMdatabases.IExpression|\Closure|array|string|null conditions Conditions to be used, accepts anything Query::where()
+     * @param DORMdatabases.IExpression|\Closure|array|string|null conditions Conditions to be used, accepts anything Query.where()
      * can take.
      * @return int Returns the number of affected rows.
      * /

@@ -295,7 +295,7 @@ class DInflector {
         return _cache["singularize"][pluralWord];
       }
     }
-    static::_cache["singularize"][pluralWord] = pluralWord;
+    static._cache["singularize"][pluralWord] = pluralWord;
 
     return pluralWord;
   }

@@ -20,7 +20,7 @@ should you wish to create them manually instead of using the conventions this li
 ```D
 use UIM\I18n\I18n;
 
-I18n::setLocale("en_US");
+I18n.setLocale("en_US");
 ```
 
 ### Setting path to folder containing po files.
@@ -28,7 +28,7 @@ I18n::setLocale("en_US");
 ```D
 
 
-Configure::write("App.paths.locales", ["/path/with/trailing/slash/"]);
+Configure.write("App.paths.locales", ["/path/with/trailing/slash/"]);
 ```
 
 Please refer to the [UIM Manual](https://book.UIM.org/5/en/core-libraries/internationalization-and-localization.html#language-files) for details
@@ -52,7 +52,7 @@ Hi Charles, your balance on the Jan 13, 2014, 11:12 AM is  1,354.37
 use UIM\I18n\I18n;
 use UIM\I18n\MessageCatalog;
 
-I18n::translator("animals", "fr_FR", auto () {
+I18n.translator("animals", "fr_FR", auto () {
     catalog = new DMessageCatalog(
         "default", // The formatting strategy (ICU)
         "default", // The fallback domain
@@ -67,25 +67,25 @@ I18n::translator("animals", "fr_FR", auto () {
     return catalog;
 });
 
-I18n::getLocale("fr_FR");
+I18n.getLocale("fr_FR");
 __d("animals", "Dog"); // Returns "Chien"
 ```
 
 ### Formatting Time
 
 ```D
-time = Time::now();
+time = Time.now();
 writeln(time; // shows '4/20/14, 10:10 PM' for the en-US locale
 ```
 
 ### Formatting Numbers
 
 ```D
-writeln(Number::format(100100100);
+writeln(Number.format(100100100);
 ```
 
 ```D
-writeln(Number::currency(123456.7890, "EUR");
+writeln(Number.currency(123456.7890, "EUR");
 // outputs €123,456.79
 ```
 

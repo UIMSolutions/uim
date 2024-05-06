@@ -19,7 +19,7 @@ mixin template TEventDispatcher() {
     protected IEventManager _eventManager = null;
 
     // Default class name for new event objects.
-    protected string _eventClass = Event::class;
+    protected string _eventClass = Event.class;
 
     /**
      * Returns the UIM\Event\EventManager manager instance for this object.

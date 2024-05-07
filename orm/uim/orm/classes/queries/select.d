@@ -474,8 +474,8 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * myquery.applyOptions(["doABarrelRoll": Json(true), "fields": ["id", "name"]);
-     * myquery.getOptions(); // Returns ["doABarrelRoll": Json(true)]
+     * myquery.applyOptions(["doABarrelRoll": true.toJson, "fields": ["id", "name"]);
+     * myquery.getOptions(); // Returns ["doABarrelRoll": true.toJson]
      * ```
      * /
     Json[string] getOptions() {
@@ -757,11 +757,11 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * ```
      * myquery.contain(["Tags": auto (myq) {
-     *    return myq.where(["Tags.is_popular": Json(true)]);
+     *    return myq.where(["Tags.is_popular": true.toJson]);
      * }]);
      *
      * myquery.contain(["Products.Manufactures": auto (myq) {
-     *    return myq.select(["name"]).where(["Manufactures.active": Json(true)]);
+     *    return myq.select(["name"]).where(["Manufactures.active": true.toJson]);
      * }]);
      * ```
      *
@@ -813,7 +813,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * // Use special join conditions for multiple containments in the same method call
      * myquery.contain([
      *    "Authors": [
-     *        "foreignKey": Json(false),
+     *        "foreignKey": false.toJson,
      *        "queryBuilder": auto (myq) {
      *            return myq.where(...); // Add full filtering conditions
      *        }
@@ -1013,7 +1013,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         result = this.getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_LEFT,
-                "fields": Json(false),
+                "fields": false.toJson,
             ])
             .getMatching();
        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -1057,7 +1057,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         result = this.getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_INNER,
-                "fields": Json(false),
+                "fields": false.toJson,
             ])
             .getMatching();
        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -1117,8 +1117,8 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         result = this.getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_LEFT,
-                "fields": Json(false),
-                "negateMatch": Json(true),
+                "fields": false.toJson,
+                "negateMatch": true.toJson,
             ])
             .getMatching();
        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);

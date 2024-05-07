@@ -322,11 +322,11 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * ```
      * query.contain(["Tags": function (q) {
-     *     return q.where(["Tags.is_popular": Json(true)]);
+     *     return q.where(["Tags.is_popular": true.toJson]);
      * }]);
      *
      * query.contain(["Products.Manufactures": function (q) {
-     *     return q.select(["name"]).where(["Manufactures.active": Json(true)]);
+     *     return q.select(["name"]).where(["Manufactures.active": true.toJson]);
      * }]);
      * ```
      *
@@ -378,7 +378,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * // Use special join conditions for multiple containments in the same method call
      * query.contain([
      *     "Authors": [
-     *         "foreignKey": Json(false),
+     *         "foreignKey": false.toJson,
      *         "queryBuilder": function (q) {
      *             return q.where(...); // Add full filtering conditions
      *         }
@@ -591,7 +591,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         result = this.getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query.JOIN_TYPE_LEFT,
-                "fields": Json(false),
+                "fields": false.toJson,
             ])
             .getMatching();
         _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -637,7 +637,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         result = this.getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query.JOIN_TYPE_INNER,
-                "fields": Json(false),
+                "fields": false.toJson,
             ])
             .getMatching();
         _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -698,8 +698,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         result = this.getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query.JOIN_TYPE_LEFT,
-                "fields": Json(false),
-                "negateMatch": Json(true),
+                "fields": false.toJson,
+                "negateMatch": true.toJson,
             ])
             .getMatching();
         _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);

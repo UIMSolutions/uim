@@ -38,7 +38,7 @@ class DExistsIn {
      *    Notice: allowNullableNulls cannot pass by database columns set to `NOT NULL`.
       * /
     this(string[] myfields, Table|Association|string myrepository, Json[string] optionData = null) {
-        options = options.update["allowNullableNulls": Json(false)];
+        options = options.update["allowNullableNulls": false.toJson];
        _options = options;
 
        _fields = (array)myfields;

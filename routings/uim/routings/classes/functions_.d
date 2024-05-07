@@ -14,8 +14,8 @@ import uim.routings;
 Json[string] urlArray(string aPath, Json[string] params = []) {
     url = Router.parseRoutePath(somePath);
     url += [
-        "plugin": Json(false),
-        "prefix": Json(false),
+        "plugin": false.toJson,
+        "prefix": false.toJson,
     ];
 
     return url + params;

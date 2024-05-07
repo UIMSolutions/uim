@@ -325,12 +325,12 @@ class DResultset : IResultset {
     protected void _calculateAssociationMap(Query query) {
         map = query.getEagerLoader().associationsMap(_defaultTable);
         _matchingMap = (new DCollection(map))
-            .match(["matching": Json(true)])
+            .match(["matching": true.toJson])
             .indexBy("alias")
             .toArray();
 
         _containMap = (new DCollection(array_reverse(map)))
-            .match(["matching": Json(false)])
+            .match(["matching": false.toJson])
             .indexBy("nestKey")
             .toArray();
     }
@@ -395,10 +395,10 @@ class DResultset : IResultset {
         defaultAlias = _defaultAlias;
         results = presentAliases = null;
         options = [
-            "useSetters": Json(false),
-            "markClean": Json(true),
-            "markNew": Json(false),
-            "guard": Json(false),
+            "useSetters": false.toJson,
+            "markClean": true.toJson,
+            "markNew": false.toJson,
+            "guard": false.toJson,
         ];
 
         foreach (_matchingMapColumns as alias: keys) {

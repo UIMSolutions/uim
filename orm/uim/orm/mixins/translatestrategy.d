@@ -106,7 +106,7 @@ mixin template TTranslateStrategy() {
      * Build a set of properties that should be included in the marshalling process.
 
      * Add in `_translations` marshalling handlers. You can disable marshalling
-     * of translations by setting `"translations": Json(false)` in the options
+     * of translations by setting `"translations": false.toJson` in the options
      * provided to `Table.newEntity()` or `Table.patchEntity()`.
      *
      * @param DORMMarshaller marshaller The marhshaller of the table the behavior is attached to.

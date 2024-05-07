@@ -1384,8 +1384,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         Json[string] optionData = null
     ) {
         options = new ArrayObject(options ~ [
-            "atomic": Json(true),
-            "defaults": Json(true),
+            "atomic": true.toJson,
+            "defaults": true.toJson,
         ]);
 
         myentity = _executeTransaction(
@@ -1627,13 +1627,13 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *  "associated": [
      *    "Employees": [
      *      "associated": ["Addresses"],
-     *      "checkRules": Json(false)
+     *      "checkRules": false.toJson
      *    ]
      *  ]
      * ]);
      *
      * // Save no associations
-     * myarticles.save(myentity, ["associated": Json(false)]);
+     * myarticles.save(myentity, ["associated": false.toJson]);
      * ```
      * Params:
      * \UIM\Datasource\IEntity myentity the entity to be saved
@@ -1644,12 +1644,12 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         Json[string] optionData = null
     ) {
         options = new ArrayObject(options ~ [
-            "atomic": Json(true),
-            "associated": Json(true),
-            "checkRules": Json(true),
-            "checkExisting": Json(true),
-            "_primary": Json(true),
-            "_cleanOnSuccess": Json(true),
+            "atomic": true.toJson,
+            "associated": true.toJson,
+            "checkRules": true.toJson,
+            "checkExisting": true.toJson,
+            "_primary": true.toJson,
+            "_cleanOnSuccess": true.toJson,
         ]);
 
         if (myentity.hasErrors((bool)options["associated"])) {
@@ -1735,7 +1735,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             this,
             myentity,
             options["associated"],
-            ["_primary": Json(false)] + options.getArrayCopy()
+            ["_primary": false.toJson] + options.getArrayCopy()
         );
 
         if (!mysaved && options["atomic"]) {
@@ -1770,7 +1770,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             this,
             myentity,
             options["associated"],
-            ["_primary": Json(false)] + options.getArrayCopy()
+            ["_primary": false.toJson] + options.getArrayCopy()
         );
 
         if (!mysuccess && options["atomic"]) {
@@ -1839,7 +1839,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         mysuccess = false;
         if (mystatement.rowCount() != 0) {
             mysuccess = myentity;
-            myentity.set(myfilteredKeys, ["guard": Json(false)]);
+            myentity.set(myfilteredKeys, ["guard": false.toJson]);
             myschema = this.getSchema();
             mydriver = this.getConnection().getDriver();
             foreach (aKey: myv; myprimary ) {
@@ -1962,9 +1962,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     ): range {
         options = new ArrayObject(
             options ~ [
-                "atomic": Json(true),
-                "checkRules": Json(true),
-                "_primary": Json(true),
+                "atomic": true.toJson,
+                "checkRules": true.toJson,
+                "_primary": true.toJson,
             ]
         );
         options["_cleanOnSuccess"] = false;
@@ -2060,9 +2060,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
          * /
     bool remove(IEntity myentity, Json[string] optionData = null) {
         options = new ArrayObject(options ~ [
-            "atomic": Json(true),
-            "checkRules": Json(true),
-            "_primary": Json(true),
+            "atomic": true.toJson,
+            "checkRules": true.toJson,
+            "_primary": true.toJson,
         ]);
 
         mysuccess = _executeTransaction(
@@ -2123,9 +2123,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * /
     protected IEntity _deleteMany(Json[string] myentities, Json[string] optionData = null) {
         options = new ArrayObject(options ~ [
-                "atomic": Json(true),
-                "checkRules": Json(true),
-                "_primary": Json(true),
+                "atomic": true.toJson,
+                "checkRules": true.toJson,
+                "_primary": true.toJson,
             ]);
 
         myfailed = _executeTransaction(function () use (myentities, options) {
@@ -2465,7 +2465,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * ```
      * myarticle = this.Articles.newEntity(
      *  this.request[),
-     *  ["accessibleFields": ["protected_field": Json(true)]]
+     *  ["accessibleFields": ["protected_field": true.toJson]]
      * );
      * ```
      *
@@ -2476,7 +2476,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * ```
      * myarticle = this.Articles.newEntity(
      *  this.request[),
-     *  ["validate": Json(false)]
+     *  ["validate": false.toJson]
      * );
      * ```
      *
@@ -2554,7 +2554,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * ```
      * myarticle = this.Articles.patchEntity(myarticle, this.request[), [
      *  "associated": [
-     *    "Tags": ["accessibleFields": ["*": Json(true)]]
+     *    "Tags": ["accessibleFields": ["*": true.toJson]]
      *  ]
      * ]);
      * ```
@@ -2565,7 +2565,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *
      * ```
      * myarticle = this.patchEntity(myarticle, this.request[),[
-     * "validate": Json(false)
+     * "validate": false.toJson
      * ]);
      * ```
      *
@@ -2664,7 +2664,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         myentity = new DORMEntity(
             mycontext["data"],
             [
-                "useSetters": Json(false),
+                "useSetters": false.toJson,
                 "markNew": mycontext["newRecord"],
                 "source": this.registryKey(),
             ]

@@ -32,7 +32,7 @@ class DCookie : ICookie {
     protected static @var Json[string] defaultAttributes = [
         "expires": Json(null),
         "path": Json("/"),
-        "domain": Json(""),
+        "domain": "".toJson,
         "secure": false.toJson,
         "httponly": false.toJson,
         "samesite": Json(null),

@@ -15,10 +15,10 @@ class DSqlserverDriver : DDriver {
 
         configuration.update([
             "host": Json("localhost\\SQLEXPRESS"),
-            "username": Json(""),
-            "password": Json(""),
+            "username": "".toJson,
+            "password": "".toJson,
             "database": Json("uim"),
-            "port": Json(""),
+            "port": "".toJson,
             // PDO.SQLSRV_ENCODING_UTF8
             "encoding": Json(65_001),
             "flags": Json.emptyArray,

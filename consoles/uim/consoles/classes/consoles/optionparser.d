@@ -97,7 +97,7 @@ class DConsoleOptionParser {
     void addArgument(string argName, Json[string] params = null) {
         Json[string] defaultOptions = [
             "name": Json(argName),
-            "help": Json(""),
+            "help": "".toJson,
             "index": LongData(count(_args)),
             "required": false.toJson,
             "choices": Json.emptyArray,
@@ -296,8 +296,8 @@ class DConsoleOptionParser {
      * /
     void addOption(string optionName, Json[string] behaviorOptions = null) {
             defaultValues = [
-                "short": Json(""),
-                "help": Json(""),
+                "short": "".toJson,
+                "help": "".toJson,
                 "default": null,
                 "boolean": false.toJson,
                 "multiple": false.toJson,

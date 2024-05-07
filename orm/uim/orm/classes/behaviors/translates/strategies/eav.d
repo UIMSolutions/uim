@@ -41,7 +41,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             "fields": Json.emptyArray,
             "translationTable": Json("I18n"),
             "defaultLocale": Json(null),
-            "referencename": Json(""),
+            "referencename": "".toJson,
             "allowEmptyTranslations": true.toJson,
             "onlyTranslated": false.toJson,
             "strategy": Json("subquery"),

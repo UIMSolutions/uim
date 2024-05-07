@@ -25,7 +25,7 @@ class DMysqlDriver : DDriver {
             "persistent": true.toJson,
             "host": Json("localhost"),
             "username": Json("root"),
-            "password": Json(""),
+            "password": "".toJson,
             "database": Json("uim"),
             "port": Json("3306"),
             "flags": Json.emptyArray,

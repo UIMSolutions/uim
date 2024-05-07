@@ -46,7 +46,7 @@ class DMemoryCacheEngine : DCacheEngine {
       "duration": Json(3600),
       "groups": Json.emptyArray,
       "host": Json(null),
-      "username": Json(""),
+      "username": "".toJson,
       "password": Json(null),
       "persistent": Json(null),
       "port": Json(null),

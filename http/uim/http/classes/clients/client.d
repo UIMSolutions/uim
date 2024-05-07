@@ -98,7 +98,7 @@ class DClient { // }: IClient {
       "host": Json(null),
       "port": Json(null),
       "scheme": Json("http"),
-      "basePath": Json(""),
+      "basePath": "".toJson,
       "timeout": Json(30),
       "ssl_verify_peer": true.toJson,
       "ssl_verify_peer_name": true.toJson,
@@ -500,7 +500,7 @@ class DClient { // }: IClient {
       "host": null,
       "port": Json(null,
       "scheme": Json("http"),
-      "basePath": Json(""),
+      "basePath": "".toJson,
       "protocolRelative": false.toJson,
     ];
     options = options.update(mydefaults);

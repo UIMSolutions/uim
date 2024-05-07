@@ -31,7 +31,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         configuration.updateDefaults([
             "fields": Json.emptyArray,
             "defaultLocale": Json(null),
-            "referencename": Json(""),
+            "referencename": "".toJson,
             "allowEmptyTranslations": true.toJson,
             "onlyTranslated": false.toJson,
             "strategy": Json("subquery"),

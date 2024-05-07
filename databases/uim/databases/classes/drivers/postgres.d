@@ -15,7 +15,7 @@ class DPostgresDriver : DDriver {
             "persistent": true.toJson,
             "host": Json("localhost"),
             "username": Json("root"),
-            "password": Json(""),
+            "password": "".toJson,
             "database": Json("uim"),
             "schema": Json("public"),
             "port": Json(5432),

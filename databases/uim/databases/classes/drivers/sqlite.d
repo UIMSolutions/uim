@@ -15,8 +15,8 @@ class DSqliteDriver : DDriver {
         // `mask` The mask used for created database
         configuration.merge([
             "persistent": false.toJson,
-            "username": Json(""),
-            "password": Json(""),
+            "username": "".toJson,
+            "password": "".toJson,
             "database": Json(":memory:"),
             "encoding": Json("utf8"), 
             "mask": Json(/*0*/644),

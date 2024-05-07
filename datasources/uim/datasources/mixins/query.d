@@ -458,8 +458,8 @@ mixin template TQuery() {
      * ### Example:
      *
      * ```
-     *  query.applyOptions(["doABarrelRoll": Json(true), "fields": ["id", "name"]);
-     *  query.getOptions(); // Returns ["doABarrelRoll": Json(true)]
+     *  query.applyOptions(["doABarrelRoll": true.toJson, "fields": ["id", "name"]);
+     *  query.getOptions(); // Returns ["doABarrelRoll": true.toJson]
      * ```
      * /
     Json[array] getOptions() {

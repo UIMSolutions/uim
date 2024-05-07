@@ -547,7 +547,7 @@ class DNumericPaginator : IPaginator {
         }
         unset(options["direction"]);
 
-        if (empty(options["order"])) {
+        if (options.isEmpty("order")) {
             options["order"] = null;
         }
         if (!(options["order"].isArray) {

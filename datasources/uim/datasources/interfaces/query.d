@@ -288,7 +288,7 @@ interface IQuery {
      * ```
      * aQuery.where([
      *     'author_id !=": 1,
-     *     'OR": ["published": Json(true), "posted <": new DateTime("now")],
+     *     'OR": ["published": true.toJson, "posted <": new DateTime("now")],
      *     'NOT": ["title": 'Hello"]
      * ], ["published": boolean, "posted": 'datetime"]
      * ```
@@ -301,7 +301,7 @@ interface IQuery {
      * may want to define 2 different options for the same key, in that case, you can
      * wrap each condition inside a new array:
      *
-     * `aQuery.where(["OR": [["published": Json(false)], ["published": Json(true)]])`
+     * `aQuery.where(["OR": [["published": false.toJson], ["published": true.toJson]])`
      *
      * Keep in mind that every time you call where() with the third param set to false
      * (default), it will join the passed conditions to the previous stored list using
@@ -312,7 +312,7 @@ interface IQuery {
      *
      * ```
      * exp = aQuery.newExpr().add(["id !=": 100, "author_id' != 1]).tieWith("OR");
-     * aQuery.where(["published": Json(true)], ["published": 'boolean"]).where(exp);
+     * aQuery.where(["published": true.toJson], ["published": 'boolean"]).where(exp);
      * ```
      *
      * The previous example produces:

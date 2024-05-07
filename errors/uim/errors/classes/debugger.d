@@ -289,7 +289,7 @@ class DDebugger {
         defaults = [
             "depth": 999,
             "format": "text",
-            "args": Json(false),
+            "args": false.toJson,
             "start": 0,
             "scope": null,
             "exclude": ["call_user_func_array", "trigger_error"],

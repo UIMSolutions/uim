@@ -21,14 +21,14 @@ abstract class DQuery : IQuery { // : IExpression {
 
         _parts = [
             "comment": Json(null),
-            "delete": Json(true),
+            "delete": true.toJson,
             "update": Json.emptyArray,
             "set": Json.emptyArray,
             "insert": Json.emptyArray,
             "values": Json.emptyArray,
             "with": Json.emptyArray,
             "select": Json.emptyArray,
-            "distinct": Json(false),
+            "distinct": false.toJson,
             "modifier": Json.emptyArray,
             "from": Json.emptyArray,
             "join": Json.emptyArray,
@@ -435,7 +435,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *    'table": 'articles",
      *    'conditions": [
      *        'a.posted >=": new DateTime("-3 days"),
-     *        'a.published": Json(true),
+     *        'a.published": true.toJson,
      *        'a.author_id = authors.id'
      *    ]
      * ]], ["a.posted": 'datetime", "a.published": 'boolean"])
@@ -519,7 +519,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      * aQuery.leftJoin(["a": 'articles"], [
      *     'a.posted >=": new DateTime("-3 days"),
-     *     'a.published": Json(true),
+     *     'a.published": true.toJson,
      *     'a.author_id = authors.id'
      * ], ["a.posted": 'datetime", "a.published": 'boolean"]);
      * ```
@@ -657,7 +657,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      * aQuery.where([
      *    'author_id !=": 1,
-     *    'OR": ["published": Json(true), "posted <": new DateTime("now")],
+     *    'OR": ["published": true.toJson, "posted <": new DateTime("now")],
      *    'NOT": ["title": 'Hello"]
      * ], ["published": boolean, "posted": 'datetime"]
      * ```
@@ -670,7 +670,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * may want to define 2 different options for the same key, in that case, you can
      * wrap each condition inside a new array:
      *
-     * `aQuery.where(["OR": [["published": Json(false)], ["published": Json(true)]])`
+     * `aQuery.where(["OR": [["published": false.toJson], ["published": true.toJson]])`
      *
      * Would result in:
      *
@@ -685,7 +685,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * exp = aQuery.newExpr().add(["id !=": 100, "author_id' != 1]).tieWith("OR");
-     * aQuery.where(["published": Json(true)], ["published": 'boolean"]).where(exp);
+     * aQuery.where(["published": true.toJson], ["published": 'boolean"]).where(exp);
      * ```
      *
      * The previous example produces:
@@ -808,7 +808,7 @@ abstract class DQuery : IQuery { // : IExpression {
         options["types"] = ArrayData;
 
         // `allowEmpty` - Allow empty array.
-        options["allowEmpty"] = Json(false);
+        options["allowEmpty"] = false.toJson;
 
         if (options["allowEmpty"].toBoolean && !someValues) {
             return _where("1=0");
@@ -830,7 +830,7 @@ abstract class DQuery : IQuery { // : IExpression {
     auto whereNotInList(string fieldName, Json[string] someValues, Json[string] options = null) {
         auto options = options.update([
             "types": Json.emptyArray,
-            "allowEmpty": Json(false)
+            "allowEmpty": false.toJson
         ];
 
         if (options["allowEmpty"] && !someValues) {
@@ -855,7 +855,7 @@ abstract class DQuery : IQuery { // : IExpression {
     auto whereNotInListOrNull(string fieldName, Json[string] someValues, Json[string] options = null) {
         auto options = options.update() [
             "types": Json.emptyArray,
-            "allowEmpty": Json(false),
+            "allowEmpty": false.toJson,
         ];
 
         if (options["allowEmpty"] && !someValues) {
@@ -898,7 +898,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery
-     *  .where(["OR": ["published": Json(false), "published isNull"]])
+     *  .where(["OR": ["published": false.toJson, "published isNull"]])
      *  .andWhere(["author_id": 1, "comments_count >": 10])
      * ```
      *

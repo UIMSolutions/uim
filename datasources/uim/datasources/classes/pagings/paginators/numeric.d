@@ -479,7 +479,7 @@ class DNumericPaginator : IPaginator {
      * @return Json[string] An array of pagination settings for a model,
      *   or the general settings.
      * /
-    array getDefaults(string aliasName, Json[string] settings) {
+    Json[string] getDefaults(string aliasName, Json[string] settings) {
         if (isset(settings[alias])) {
             settings = settings[alias];
         }
@@ -526,7 +526,7 @@ class DNumericPaginator : IPaginator {
      * @return Json[string] An array of options with sort + direction removed and
      *   replaced with order if possible.
      * /
-    array validateSort(IRepository object, Json[string] optionData) {
+    Json[string] validateSort(IRepository object, Json[string] optionData) {
         if (options.isSet("sort")) {
             auto direction = null;
             if (isset(options["direction"])) {

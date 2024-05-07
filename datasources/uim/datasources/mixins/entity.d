@@ -555,7 +555,7 @@ mixin template TEntity() {
   }
 
   // Returns the fields that will be serialized as Json
-  array JsonSerialize() {
+  Json[string] JsonSerialize() {
     return _extract(this.getVisible());
   }
 
@@ -624,7 +624,7 @@ mixin template TEntity() {
      * Params:
      * @param bool onlyDirty Return the requested field only if it is dirty
     * /
-  array extract(string[] fieldNamesToReturn, bool returnOnlyDirty = false) {
+  Json[string] extract(string[] fieldNamesToReturn, bool returnOnlyDirty = false) {
     STRINGAA result;
     fieldsToReturn
       .filter!(field => !returnOnlyDirty || this.isDirty(field))
@@ -642,7 +642,7 @@ mixin template TEntity() {
      * Params:
      * string[] fieldNames List of fields to be returned
     * /
-  array extractOriginal(arrayfields) {
+  Json[string] extractOriginal(arrayfields) {
     auto result;
     fields.each!((field) {
       if (this.hasOriginal(field)) {
@@ -662,7 +662,7 @@ mixin template TEntity() {
      * This method will only return fields that have been modified since
      * the entity was built. Unchanged fields will be omitted.
     * /
-  array extractOriginalChanged(string[] fieldNames) {
+  Json[string] extractOriginalChanged(string[] fieldNames) {
     auto result;
     fields
       .filter!(field => this.hasOriginal(field))
@@ -840,7 +840,7 @@ mixin template TEntity() {
      * Params:
      * string fieldName Field name to get the errors from
     * /
-                  array getError(string fieldName) {
+                  Json[string] getError(string fieldName) {
                     return _fieldErrors[field] ?  ? _nestedErrors(field);}
 
                     /**
@@ -985,7 +985,7 @@ mixin template TEntity() {
                                                               cast(IEntity) object) {
                                                               return object.getErrors();
                                                             }
-                                                            array = array_map(
+                                                            Json[string] = array_map(
                                                             function(val) {
                                                               if (
                                                                 cast(IEntity) val) {

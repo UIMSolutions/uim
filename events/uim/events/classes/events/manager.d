@@ -251,7 +251,7 @@ class DEventManager { // }: IEventManager {
         return listener(event, ...array_values(event.getData()));
     }
  
-    array listeners(string aeventKey) {
+    Json[string] listeners(string aeventKey) {
         localListeners = null;
         if (!_isGlobal) {
             localListeners = this.prioritisedListeners(eventKey);
@@ -281,7 +281,7 @@ class DEventManager { // }: IEventManager {
      * Params:
      * string aeventKey Event key.
      * /
-    array prioritisedListeners(string aeventKey) {
+    Json[string] prioritisedListeners(string aeventKey) {
         if (isEmpty(_listeners[eventKey])) {
             return null;
         }

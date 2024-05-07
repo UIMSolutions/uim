@@ -440,7 +440,6 @@ unittest {
   // TODO create tests
 }
 
-
 bool isEmpty(T)(T[] values) {
   return (values.isNull || values.length == 0);
 }

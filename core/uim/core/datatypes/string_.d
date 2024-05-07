@@ -439,19 +439,4 @@ string[] split(string[] texts, string splitText = " ") {
 unittest {
   // TODO create test
 }
-
 */
-
-bool isNull(string value) {
-	return (value is null);
-}
-unittest {
-  // TODO create test
-}
-
-bool isEmpty(string value) {
-	return (value.isNull || value.length == 0);
-}
-unittest {
-  // TODO create test
-}

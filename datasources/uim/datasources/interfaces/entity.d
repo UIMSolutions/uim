@@ -121,7 +121,7 @@ interface IEntity { // : ArrayAccess, JsonSerializable
      * Params:
      * string[] fieldNames List of fields to be returned
      * /
-    array extractOriginalChanged(string[] fieldNames);
+    Json[string] extractOriginalChanged(string[] fieldNames);
 
     /**
      * Sets one or multiple fields to the specified value
@@ -157,7 +157,7 @@ interface IEntity { // : ArrayAccess, JsonSerializable
     Json getOriginal(string fieldName, bool allowFallback = true);
 
     // Gets all original values of the entity.
-    array getOriginalValues();
+    Json[string] getOriginalValues();
 
     /**
      * Returns whether this entity contains a field named field.
@@ -191,7 +191,7 @@ interface IEntity { // : ArrayAccess, JsonSerializable
      * string[] fieldNames list of fields to be returned
      * @param bool  onlyDirty Return the requested field only if it is dirty
      * /
-  array extract(string[] fieldNames, bool onlyDirty = false);
+  Json[string] extract(string[] fieldNames, bool onlyDirty = false);
 
   /**
      * Sets the entire entity as clean, which means that it will appear as

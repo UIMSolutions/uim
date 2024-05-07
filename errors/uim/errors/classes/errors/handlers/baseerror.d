@@ -342,7 +342,7 @@ abstract class DERRErrorHandler {
      * Map an error code into an Error word, and log location.
      *
      * @param int code Error code to map
-     * @return array Array of error word, and log location.
+     * @return Json[string] Array of error word, and log location.
      * /
     static Json[string] mapErrorCode(int code) {
         levelMap = [

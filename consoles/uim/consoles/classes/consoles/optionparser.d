@@ -48,7 +48,7 @@ import uim.consoles;
  * declare arguments as optional, by setting the required param to false.
  *
  * ```
- *  aParser.addArgument("model", ["required": Json(false)]);
+ *  aParser.addArgument("model", ["required": false.toJson]);
  * ```
  *
  * ### Providing Help text
@@ -99,7 +99,7 @@ class DConsoleOptionParser {
             "name": Json(argName),
             "help": Json(""),
             "index": LongData(count(_args)),
-            "required": Json(false),
+            "required": false.toJson,
             "choices": Json.emptyArray,
         ];
 
@@ -178,18 +178,18 @@ class DConsoleOptionParser {
         this.addOption("help", [
             "short": "h",
             "help": "Display this help.",
-            "boolean": Json(true),
+            "boolean": true.toJson,
         ]);
 
         if (isVerboseAndQuiet) {
             this.addOption("verbose", [
                 "short": "v",
                 "help": "Enable verbose output.",
-                "boolean": Json(true),
+                "boolean": true.toJson,
             ]).addOption("quiet", [
                 "short": "q",
                 "help": "Enable quiet output.",
-                "boolean": Json(true),
+                "boolean": true.toJson,
             ]);
         }
     }
@@ -299,10 +299,10 @@ class DConsoleOptionParser {
                 "short": Json(""),
                 "help": Json(""),
                 "default": null,
-                "boolean": Json(false),
-                "multiple": Json(false),
+                "boolean": false.toJson,
+                "multiple": false.toJson,
                 "choices": Json.emptyArray,
-                "required": Json(false),
+                "required": false.toJson,
                 "prompt": null,
             ];
             behaviorOptions = behaviorOptions.update(defaultValues);

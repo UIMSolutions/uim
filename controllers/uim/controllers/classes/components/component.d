@@ -110,7 +110,7 @@ class DComponent { // TODO }: IEventListener {
         }
         if (isSet(this.components[componentName])) {
             configData = this.components[componentName] ~ [
-                "enabled": Json(false)
+                "enabled": false.toJson
             ];
 
             return _componentInstances[componentName] = _registry.load(

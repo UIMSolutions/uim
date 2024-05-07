@@ -240,7 +240,7 @@ class DConsoleOutput {
      * ### Creates or modifies an existing style.
      *
      * ```
-     * output.setStyle("annoy", ["text": "purple", "background": "yellow", "blink": Json(true)]);
+     * output.setStyle("annoy", ["text": "purple", "background": "yellow", "blink": true.toJson]);
      * ```
      *
      * ### Remove a style

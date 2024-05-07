@@ -22,7 +22,7 @@ class DMysqlDriver : DDriver {
 
         // Base configuration settings for MySQL driver
         configuration.merge([
-            "persistent": Json(true),
+            "persistent": true.toJson,
             "host": Json("localhost"),
             "username": Json("root"),
             "password": Json(""),

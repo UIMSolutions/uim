@@ -37,7 +37,7 @@ class DFormProtectionComponent : DComponent {
         configuration.updateDefaults([
             // `validate` - Whether to validate request body / data. Set to false to disable
             // for data coming from 3rd party services, etc.
-            "validate": Json(true),
+            "validate": true.toJson,
             "unlockedFields": Json.emptyArray,
             "unlockedActions": Json.emptyArray,
             "validationFailureCallback": Json(null),

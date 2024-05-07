@@ -827,7 +827,7 @@ unittest {
   json = Json.emptyArray;
   json ~= Json("hallo");
   json ~= Json(42);
-  json ~= Json(true);
+  json ~= true.toJson;
   json = json.update(["a": "world"]);
   assert(json["a"].get!string == "world");
 }

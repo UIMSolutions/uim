@@ -19,28 +19,22 @@ string fill(size_t length = 0, string txt = "0") {
 	}
 	return result;
 }
-
-version (test_uim_core) {
-	unittest {
-		assert(fill(10, "0") == "0000000000");
-		assert(fill(10, "TXT") == "TXTTXTTXTT");
-	}
+unittest {
+	assert(fill(10, "0") == "0000000000");
+	assert(fill(10, "TXT") == "TXTTXTTXTT");
 }
 
 string bind(string source, STRINGAA values, string limiter = "%") {
 	import std.string;
 
 	string result = source;
-	foreach (k, v; values) {
-		result = result.replace(limiter ~ k ~ limiter, v);
-	}
+	// TODO values.byKeyValue
+	// TODO .each!(kv => result = replace(result, limiter ~ kv.key ~ limiter, kv.value));
+
 	return result;
 }
-
-version (test_uim_core) {
-	unittest {
-		/// TODO
-	}
+unittest {
+	/// TODO
 }
 
 bool endsWith(string text, string[] endings) {
@@ -274,8 +268,7 @@ unittest {
 }
 
 string capitalizeWords(string aText) {
-	auto words = aText.split(" ");
-	return words.map!(w => w.capitalize).array.join(" ");
+	return capitalize(aText.split(" ")).join(" ");
 }
 
 version (test_uim_core) {
@@ -356,9 +349,9 @@ unittest {
 
 string toPath(string[] pathItems, string separator = "/") {
 	return pathItems
-		.map!(item => strip(item))
-		.map!(item => strip(item, separator))
-		.map!(item => strip(item))
+		.map!(item => std.string.strip(item))
+		.map!(item => std.string.strip(item, separator))
+		.map!(item => std.string.strip(item))
 		.filter!(item => !item.isEmpty)
 		.join(separator);
 }
@@ -369,50 +362,67 @@ unittest {
 	assert(toPath(["a ", "", "/b", "c/"]) == "a/b/c");
 }
 
-string[] toLower(string[] texts) {
+string lower(string text) {
+	return text.toLower;
+}
+
+string[] lower(string[] texts) {
 	return texts
-		.map!(text => text.toLower)
+		.map!(text => text.lower)
 		.array;
 }
 
-string[] toUpper(string[] texts) {
+// region upper
+string[] upper(string[] texts) {
 	return texts
-		.map!(text => text.toUpper)
+		.map!(text => text.upper)
 		.array;
 }
-
+unittest {
+	assert(["a", "b", "c"].upper.equal(["A", "B", "C"]));
+}
+string upper(string text) {
+	return text.toUpper;
+}
+unittest {
+	assert("a".upper == "A");
+}
+// #endregion upper
 string[] capitalize(string[] texts) {
 	return texts
-		.map!(text => text.capitalize)
+		.map!(text => std.string.capitalize(text))
 		.array;
 }
 
 string[] strip(string[] texts) {
 	return texts
-		.map!(text => text.strip)
+		.map!(text => std.string.strip(text))
 		.array;
 }
 
 string[] stripLeft(string[] texts) {
 	return texts
-		.map!(text => text.stripLeft)
+		.map!(text => std.string.stripLeft(text))
 		.array;
 }
 
 string[] stripRight(string[] texts) {
 	return texts
-		.map!(text => text.stripRight)
+		.map!(text => std.string.stripRight(text))
 		.array;
 }
 
 string[] replace(string[] texts, string originText, string newText) {
 	return texts
-		.map!(text => text.replace(originText, newText))
+		.map!(text => std.string.replace(text, originText, newText))
 		.array;
 }
 
-string[] split(string[] texts, string splitText) {
+// TODO
+/*
+string[] split(string[] texts, string splitText = " ") {
 	auto splitTexts = texts
 		.map!(text => text.split(splitText)).array;
 	return chain(splitTexts);
 }
+*/

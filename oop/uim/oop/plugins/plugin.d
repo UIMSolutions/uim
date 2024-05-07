@@ -129,19 +129,20 @@ mixin TConfigurable;
     }
  
     void enable(string aHook) {
-        this.checkHook(aHook);
-        this.{"{aHook}Enabled"} = true;
+        checkHook(aHook);
+        // TODO this.{"{aHook}Enabled"} = true;
     }
  
     void disable(string aHook) {
-        this.checkHook(aHook);
-        this.{"{aHook}Enabled"} = false;
+        checkHook(aHook);
+        // TODO this.{"{aHook}Enabled"} = false;
     }
  
     bool isEnabled(string aHook) {
-        this.checkHook(aHook);
+        checkHook(aHook);
 
-        return _{"{aHook}Enabled"} == true;
+        // TODO return _{"{aHook}Enabled"} == true;
+        return false;
     }
     
     /**

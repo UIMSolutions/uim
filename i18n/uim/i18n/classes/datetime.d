@@ -443,7 +443,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *  timezone abbreviation in the display value. Set `before` and `after`
      *  to customize the abbreviation wrapper.
      * /
-    auto array listTimezones(
+    auto Json[string] listTimezones(
         string|int filter = null,
         string acountry = null,
         Json auto options = []

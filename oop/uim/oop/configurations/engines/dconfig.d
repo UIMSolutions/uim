@@ -27,7 +27,7 @@ import uim.oop;
  * ```
  */
 class DConfig : IConfigEngine {
-    mixin TFileConfig();
+    mixin TFileConfig;
 
     // File extension.
     protected string _extension = ".d";

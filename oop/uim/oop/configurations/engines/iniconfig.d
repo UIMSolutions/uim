@@ -36,7 +36,7 @@ import uim.oop;
  * converted to their boolean equivalents.
  */
 class DIniConfig : IConfigEngine {
-    mixin TFileConfig();
+    mixin TFileConfig;
     /*
   	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }

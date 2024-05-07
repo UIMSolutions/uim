@@ -36,7 +36,7 @@ class MoFileParser {
      * Parses machine object (MO) format, independent of the machine`s endian it
      * was created on. Both 32bit and 64bit systems are supported.
      * /
-    array parse(string filetoParsed) {
+    Json[string] parse(string filetoParsed) {
         auto stream = fopen(filetoParsed, "rb");
         if (stream.isNull) {
             throw new UimException("Cannot open resource `%s`".format(filetoParsed));

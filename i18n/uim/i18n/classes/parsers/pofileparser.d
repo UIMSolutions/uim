@@ -60,7 +60,7 @@ class DPoFileParser {
      * Params:
      * string resourceFilepath The file name to parse
      * /
-    array parse(string resourceFilepath) {
+    Json[string] parse(string resourceFilepath) {
         if (!exists(resourceFilepath)){
             throw new UimException("Not found file `%s`".format(resourceFilepath));
         }

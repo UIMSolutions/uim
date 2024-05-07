@@ -519,7 +519,7 @@ class DCookie : ICookie {
         return _isExpanded;
     }
  
-    array getOptions() {
+    Json[string] getOptions() {
         options = [
             "expires": to!int(this.getExpiresTimestamp()),
             "path": this.path,
@@ -557,7 +557,7 @@ class DCookie : ICookie {
         if (first == "{" || first == "[") {
             return Json_decode(string, true) ?? string;
         }
-        array = null;
+        Json[string] = null;
         foreach (split(",", string) as pair) {
             string[] aKey = pair.split("|");
             if (!isSet(aKey[1])) {

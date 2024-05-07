@@ -234,9 +234,9 @@ class DClientResponse { // }: Message : IResponse {
     /**
      * Get the all cookie data.
      *
-     * @return array The cookie data
+     * @return Json[string] The cookie data
      * /
-    array getCookies() {
+    Json[string] getCookies() {
         return _getCookies();
     }
     
@@ -269,7 +269,7 @@ class DClientResponse { // }: Message : IResponse {
      * Params:
      * string aName The name of the cookie value.
      * /
-    array getCookieData(string valueName) {
+    Json[string] getCookieData(string valueName) {
         cookies = this.buildCookieCollection();
 
         if (!cookies.has(valueName)) {

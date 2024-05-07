@@ -212,7 +212,7 @@ class DSelectBoxWidget : DWidget {
      * /
     protected string[] _renderOptions(
         range options,
-        array mydisabled,
+        Json[string] mydisabled,
         Json myselected,
         array mytemplateVars,
         bool myescape

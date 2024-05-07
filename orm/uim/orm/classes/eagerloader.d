@@ -389,7 +389,7 @@ class DEagerLoader {
      * attached
      * @return array<DORMEagerLoadable>
      * /
-    array attachableAssociations(Table repository) {
+    Json[string] attachableAssociations(Table repository) {
         contain = this.normalized(repository);
         matching = _matching ? _matching.normalized(repository) : [];
         _fixStrategies();

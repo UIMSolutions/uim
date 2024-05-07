@@ -5,9 +5,9 @@ import uim.oop;
 @safe:
 
 bool isEmpty(IData[string] data, string key) {
-    if (data.isNull) { return true; }
-
-    return data.hasKey(key); 
+    return (data is null)
+        ? true
+        : data.hasKey(key); 
 }
 
 // #region toData

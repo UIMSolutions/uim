@@ -679,7 +679,7 @@ class DHtmlHelper : DHelper {
      * This is a helper method for tableCells(). Overload this method as you
      * need to change the behavior of the cell rendering.
      * Params:
-     * array myline Line data to render.
+     * Json[string] myline Line data to render.
      * @param bool myuseCount Renders the count into the row. Default is false.
      * /
     protected string[] _renderCells(Json[string] myline, bool myuseCount = false) {

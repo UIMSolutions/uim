@@ -31,7 +31,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
     protected int[] _positions;
 
     // Loop depth
-    protected int _loopDepth = - 1;
+    protected int _loopDepth = -1;
 
     /**
      * Constructor
@@ -56,7 +56,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      *  ]
      *  ```
      */
-     // TODO 
+    // TODO 
     /* void addFromConfig(Json Data = null) {
         auto debugData = Configuration.read("debug");
         auto cli = UIM_SAPI == "cli";
@@ -90,7 +90,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      * in their composer.json file to move plugin outside of vendor/
      */
     // TODO
-/*    protected void loadConfig() {
+    /*    protected void loadConfig() {
         if (Configure.check("plugins")) {
             return;
         }
@@ -142,16 +142,13 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
         return null; // TODO 
     }
 
-    /**
-     * Add a plugin to the collection
-     *
-     * Plugins will be keyed by their names.
-     */
+    // Add a plugin to the collection. Plugins will be keyed by their names.
     void add(IPlugin plugin) {
-        if (plugin.isNull) { return; }
+        if (plugin is null) {
+            return;
+        }
 
-        string pluginName = plugin.name;
-        _plugins[pluginName] = plugin;
+        _plugins[plugin.name] = plugin;
         _names = _plugins.keys;
     }
 
@@ -168,28 +165,27 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
         _positions = null;
         _loopDepth = -1;
     }
-    
-    // Check whether the named plugin exists in the collection.
-    bool has(string pluginName) {
-        return _plugins.isSet(pluginName);
-    }
-    
+
     /**
      * Get the a plugin by name.
      *
      * If a plugin isn`t already loaded it will be autoloaded on first access
      * and that plugins loaded this way may miss some hook methods.
      */
-    // TODO
-    /* IPlugin get(string pluginName) {
-        if (_has(pluginName)) { return _plugins[pluginName]; }
+    IPlugin get(string pluginName) {
+        if (_plugins.hasKey(pluginName)) {
+            return _plugins[pluginName];
+        }
 
+        // TODO 
+        /*
         IPlugin plugin = _create(pluginName);
         _add(plugin);
 
-        return plugin;
-    } */ 
-    
+        return plugin; */
+        return null;
+    }
+
     /**
      * Create a plugin instance from a name/classname and configuration.
      * Params:
@@ -255,7 +251,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
 
         return _plugins[pluginName];
     }
-    
+
     // Part of Iterator Interface
     void rewind() {
         _positions ~= 0;
@@ -271,14 +267,14 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
         }
         return result;
     }
-    
+
     /**
      * Filter the plugins to those with the named hook enabled.
      * Params:
      * string ahook The hook to filter plugins by
      */
-     // TODO
-/*    Generator<\UIM\Core\IPlugin> with (string myhook) {
+    // TODO
+    /*    Generator<\UIM\Core\IPlugin> with (string myhook) {
         if (!in_array(hook, IPlugin:
                  : VALID_HOOKS, true)) {
             throw new DInvalidArgumentException(

@@ -26,7 +26,7 @@ import uim.orm;
  *     "Users": [
  *         "posts_published": [
  *             "conditions": [
- *                 "published": Json(true)
+ *                 "published": true.toJson
  *             ]
  *         ]
  *     ]
@@ -52,7 +52,7 @@ import uim.orm;
  *     "Users": [
  *         "posts_published": function (IEvent event, IEntity anEntity, DORMTable aTable) {
  *             query = table.find("all").where([
- *                 "published": Json(true),
+ *                 "published": true.toJson,
  *                 "user_id": entity.get("user_id")
  *             ]);
  *             return query.count();
@@ -69,7 +69,7 @@ import uim.orm;
  * [
  *     "Users": [
  *         "posts_published": [
- *             "ignoreDirty": Json(true)
+ *             "ignoreDirty": true.toJson
  *         ]
  *     ]
  * ]
@@ -79,7 +79,7 @@ import uim.orm;
  * to your save operation:
  *
  * ```
- * this.Articles.save(article, ["ignoreCounterCache": Json(true)]);
+ * this.Articles.save(article, ["ignoreCounterCache": true.toJson]);
  * ```
  */
 class DCounterCacheBehavior : DBehavior {

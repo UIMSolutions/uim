@@ -42,11 +42,11 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             "translationTable": Json("I18n"),
             "defaultLocale": Json(null),
             "referencename": Json(""),
-            "allowEmptyTranslations": Json(true),
-            "onlyTranslated": Json(false),
+            "allowEmptyTranslations": true.toJson,
+            "onlyTranslated": false.toJson,
             "strategy": Json("subquery"),
             "tableLocator": Json(null),
-            "validator": Json(false),
+            "validator": false.toJson,
         ]);
 
         return true;
@@ -75,7 +75,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         this.table = table;
         this.translationTable = this.getTableLocator().get(
             configuration.get("translationTable"],
-            ["allowFallbackClass": Json(true)]
+            ["allowFallbackClass": true.toJson]
         );
 
         this.setupAssociations();
@@ -107,7 +107,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                     "className": table,
                     "alias": name,
                     "table": this.translationTable.getTable(),
-                    "allowFallbackClass": Json(true),
+                    "allowFallbackClass": true.toJson,
                 ]);
             } else {
                 fieldTable = tableLocator.get(name);
@@ -141,7 +141,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             "strategy": strategy,
             "conditions": conditions,
             "propertyName": "_i18n",
-            "dependent": Json(true),
+            "dependent": true.toJson,
         ]);
     }
 
@@ -219,7 +219,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * /
     void beforeSave(IEvent event, IEntity anEntity, ArrayObject options) {
         locale = entity.get("_locale") ?: this.getLocale();
-        newOptions = [this.translationTable.aliasName(): ["validate": Json(false)]];
+        newOptions = [this.translationTable.aliasName(): ["validate": false.toJson]];
         options["associated"] = newOptions + options["associated"];
 
         // Check early if empty translations are present in the entity.
@@ -294,13 +294,13 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         new = array_diff_key(values, modified);
         foreach (new as field: content) {
             new[field] = new DORMEntity(compact("locale", "field", "content", "model"), [
-                "useSetters": Json(false),
-                "markNew": Json(true),
+                "useSetters": false.toJson,
+                "markNew": true.toJson,
             ]);
         }
 
         entity.set("_i18n", array_merge(bundled, array_values(modified + new)));
-        entity.set("_locale", locale, ["setter": Json(false)]);
+        entity.set("_locale", locale, ["setter": false.toJson]);
         entity.setDirty("_locale", false);
 
         foreach (fields as field) {
@@ -397,14 +397,14 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             foreach (grouped.combine("field", "content", "locale") as locale: keys) {
                 entityClass = this.table.getEntityClass();
                 translation = new DORMEntityClass(keys + ["locale": locale], [
-                    "markNew": Json(false),
-                    "useSetters": Json(false),
-                    "markClean": Json(true),
+                    "markNew": false.toJson,
+                    "useSetters": false.toJson,
+                    "markClean": true.toJson,
                 ]);
                 result[locale] = translation;
             }
 
-            options = ["setter": Json(false), "guard": Json(false)];
+            options = ["setter": false.toJson, "guard": false.toJson];
             row.set("_translations", result, options);
             unset(row["_i18n"]);
             row.clean();
@@ -440,7 +440,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                 }
                 find[] = ["locale": lang, "field": field, "foreign_key IS": key];
                 contents[] = new DORMEntity(["content": translation.get(field)], [
-                    "useSetters": Json(false),
+                    "useSetters": false.toJson,
                 ]);
             }
         }
@@ -453,11 +453,11 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         foreach (find as i: translation) {
             if (!empty(results[i])) {
-                contents[i].set("id", results[i], ["setter": Json(false)]);
+                contents[i].set("id", results[i], ["setter": false.toJson]);
                 contents[i].setNew(false);
             } else {
                 translation["model"] = configuration.get("referenceName"];
-                contents[i].set(translation, ["setter": Json(false), "guard": Json(false)]);
+                contents[i].set(translation, ["setter": false.toJson, "guard": false.toJson]);
                 contents[i].setNew(true);
             }
         }

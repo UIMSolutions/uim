@@ -81,10 +81,10 @@ class DHasOneAssociation : DAssociation {
         }
 
         properties = array_combine(
-            (array)this.getForeignKeys(),
+            (array)foreignKeys(),
             entity.extract((array)this.getBindingKey())
         );
-        targetEntity.set(properties, ["guard": Json(false)]);
+        targetEntity.set(properties, ["guard": false.toJson]);
 
         if (!this.getTarget().save(targetEntity, options)) {
             targetEntity.unset(properties.keys);
@@ -102,7 +102,7 @@ class DHasOneAssociation : DAssociation {
             "alias": this.aliasName(),
             "sourceAlias": source().aliasName(),
             "targetAlias": this.getTarget().aliasName(),
-            "foreignKey": this.getForeignKeys(),
+            "foreignKey": foreignKeys(),
             "bindingKey": this.getBindingKey(),
             "strategy": this.getStrategy(),
             "associationType": this.type(),

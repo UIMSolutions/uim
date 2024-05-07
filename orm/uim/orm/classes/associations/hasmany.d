@@ -124,7 +124,7 @@ class DHasManyAssociation : DAssociation {
         }
 
         foreignKeyReference = array_combine(
-            (array)this.getForeignKeys(),
+            (array)foreignKeys(),
             entity.extract((array)this.getBindingKey())
         );
 
@@ -230,7 +230,7 @@ class DHasManyAssociation : DAssociation {
      * /
     bool link(IEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
         saveStrategy = this.getSaveStrategy();
-        this.setSaveStrategy(self.SAVE_APPEND);
+        setSaveStrategy(self.SAVE_APPEND);
         property = this.getProperty();
 
         currentEntities = array_unique(
@@ -248,7 +248,7 @@ class DHasManyAssociation : DAssociation {
 
         ok = (savedEntity instanceof IEntity);
 
-        this.setSaveStrategy(saveStrategy);
+        setSaveStrategy(saveStrategy);
 
         if (ok) {
             sourceEntity.set(property, savedEntity.get(property));
@@ -309,7 +309,7 @@ class DHasManyAssociation : DAssociation {
             return;
         }
 
-        foreignKey = (array)this.getForeignKeys();
+        foreignKey = (array)foreignKeys();
         myTarget = this.getTarget();
         myTargetPrimaryKey = array_merge((array)myTarget.primaryKeys(), foreignKey);
         property = this.getProperty();
@@ -389,14 +389,14 @@ class DHasManyAssociation : DAssociation {
         property = this.getProperty();
         sourceEntity.set(property, myTargetEntities);
         saveStrategy = this.getSaveStrategy();
-        this.setSaveStrategy(self.SAVE_REPLACE);
+        setSaveStrategy(self.SAVE_REPLACE);
         myResult = this.saveAssociated(sourceEntity, options);
         ok = (myResult instanceof IEntity);
 
         if (ok) {
             sourceEntity = myResult;
         }
-        this.setSaveStrategy(saveStrategy);
+        setSaveStrategy(saveStrategy);
 
         return ok;
     }
@@ -577,8 +577,8 @@ class DHasManyAssociation : DAssociation {
      * @param Json[string] options original list of options passed in constructor
      * /
     protected void _options(Json[string] options) {
-        if (!empty(options["saveStrategy"])) {
-            this.setSaveStrategy(options["saveStrategy"]);
+        if (!options.isEmpty("saveStrategy")) {
+            setSaveStrategy(options["saveStrategy"]);
         }
         if (isset(options["sort"])) {
             this.setSort(options["sort"]);
@@ -587,14 +587,14 @@ class DHasManyAssociation : DAssociation {
 
 
     Closure eagerLoader(Json[string] options) {
-        loader = new DSelectLoader([
-            "alias":this.aliasName(),
+        auto loader = new DSelectLoader([
+            "alias":aliasName(),
             "sourceAlias":source().aliasName(),
             "targetAlias":this.getTarget().aliasName(),
-            "foreignKey":this.getForeignKeys(),
+            "foreignKey":foreignKeys(),
             "bindingKey":this.getBindingKey(),
             "strategy":this.getStrategy(),
-            "associationType":this.type(),
+            "associationType":associationType(),
             "sort":this.getSort(),
             "finder":[this, "find"],
         ]);

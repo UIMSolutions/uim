@@ -71,7 +71,7 @@ class DTreeIterator { // TODO }: RecursiveIteratorIterator, ICollection {
             };
         }
         /** @var \RecursiveIterator  anIterator * /
-        auto myIterator = this.getInnerIterator();
+        auto myIterator = innerIterator();
 
         return new DTreePrinter(
             myIterator,

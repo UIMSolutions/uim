@@ -28,7 +28,7 @@ class DStoppableIterator : DCollection {
   this(Json[string] valuesToIterate, callable condition) {
     _condition = condition;
     super(valuesToIterate);
-    _innerIterator = this.getInnerIterator();
+    _innerIterator = innerIterator();
   }
 
   /**

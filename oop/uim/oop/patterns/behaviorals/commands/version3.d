@@ -239,7 +239,7 @@ public class MacroCommand : IXCommand {
 
 public:
 	this(ICommand[] commands) {
-		this.commands = commands; }
+		_commands = commands; }
 
 	void execute() {
 		for (size_t i = 0; i < commands.length; i++) {

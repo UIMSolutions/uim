@@ -39,7 +39,7 @@ class DFilterIterator : DCollection {
  
     Iterator unwrap() {
         /** @var \IteratorIterator myfilter * /
-        auto myfilter = this.getInnerIterator();
+        auto myfilter = innerIterator();
         auto myiterator = myfilter.getInnerIterator();
 
         if (cast(ICollection)myiterator) {

@@ -27,7 +27,7 @@ class DReplaceIterator : DCollection {
   this(Json[string] itemToFilter, callable callableaCallback) {
    _callback = aCallback;
   super(itemToFilter);
-   _innerIterator = this.getInnerIterator();
+   _innerIterator = innerIterator();
   }
 
   // Returns the value returned by the callback after passing the current value in the iteration

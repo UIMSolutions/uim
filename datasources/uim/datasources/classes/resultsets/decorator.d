@@ -21,7 +21,7 @@ class DResultsetDecorator { // TODO }: DCollection { // }: IResultset
      * get the count of the underlying data.
      * /
     size_t count() {
-        iterator = this.getInnerIterator();
+        iterator = innerIterator();
         if (iterator instanceof Countable) {
             return iterator.count();
         }

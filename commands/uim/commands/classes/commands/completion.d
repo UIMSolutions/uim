@@ -20,7 +20,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
 
     // Set the command collection used to get completion data on.
     void setCommandCollection(CommandCollection aCommandCollection) {
-        this.commands = commandCollection;
+        _commands = commandCollection;
     }
 
     // Gets the option parser instance and configures it.
@@ -77,7 +77,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
     // Get the list of defined commands.
     protected int getCommands(Json[string] arguments, IConsoleIo aConsoleIo) {
         auto options = null;
-        foreach (aKey, aValue; this.commands) {
+        foreach (aKey, aValue; _commands) {
             string[] someParts = aKey.split(" ");
             options ~= someParts[0];
         }
@@ -120,7 +120,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
         auto subcommand = commandArguments.getArgument("subcommand");
 
         auto options = null;
-        foreach (this.commands as aKey : aValue) {
+        foreach (_commands as aKey : aValue) {
             string[] someParts = aKey.split(" ");
             if (someParts[0] != commandName) {
                 continue;

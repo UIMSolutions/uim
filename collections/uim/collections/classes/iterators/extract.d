@@ -49,7 +49,7 @@ class DExtractIterator : DCollection {
   }
 
   Iterator unwrap() {
-    auto myIterator = this.getInnerIterator();
+    auto myIterator = innerIterator();
 
     if (cast(ICollection)myIterator) {
       myIterator = anIterator.unwrap();

@@ -24,7 +24,6 @@ class DCommandCollection { // : IteratorAggregate, Countable {
     }
 
     mixin(TProperty!("string", "name"));
-    /* 
     // Command list
     protected ICommand[string] _commands;
 
@@ -32,18 +31,10 @@ class DCommandCollection { // : IteratorAggregate, Countable {
         newCommands.byKeyValue
           .each!(nameCommand => this.add(nameCommand.key, nameCommand.value));
     }
-
-  	override bool initialize(Json[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
-
     // Add a command to the collection
     void addCommand(string commandName, ICommand newCommand) {
         _commands[commandName] = newCommand;
     }
-   
     // Add multiple commands at once.
     void addCommands(ICommand[string] newCommands) {
         newCommands.byKeyValue
@@ -55,6 +46,7 @@ class DCommandCollection { // : IteratorAggregate, Countable {
         _commands.remove(commandName);
     }
 
+    /* 
     // Check whether the command name exists in the collection.
     bool has(string commandName) {
         return _commands.isSet(commandName);
@@ -72,7 +64,7 @@ class DCommandCollection { // : IteratorAggregate, Countable {
     /* 
     // Implementation of IteratorAggregate.
     Traversable getIterator() {
-        return new DArrayIterator(this.commands);
+        return new DArrayIterator(_commands);
     }
     * / 
 
@@ -145,15 +137,15 @@ class DCommandCollection { // : IteratorAggregate, Countable {
     STRINGAA autoDiscover() {
         auto myScanner = new DCommandScanner();
 
-        core = this.resolveNames(myScanner.scanCore());
-        app = this.resolveNames(myScanner.scanApp());
+        auto core = resolveNames(myScanner.scanCore());
+        auto app = resolveNames(myScanner.scanApp());
 
         return app + core;
     }
-    * /
+    */
     
     // Get the list of available command names.
-    string[] comamndNames() {
+    string[] commandNames() {
         return _commands.keys;
-    } */
+    }
 }

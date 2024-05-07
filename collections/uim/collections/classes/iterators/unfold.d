@@ -25,7 +25,7 @@ class DUnfoldIterator {  /* }: IteratorIterator, RecursiveIterator {
     this(Traversable valuesToIterate, callable unfolder) {
        _unfolder = unfolder;
         super(valuesToIterate);
-       _innerIterator = this.getInnerIterator();
+       _innerIterator = innerIterator();
     }
     
     /**

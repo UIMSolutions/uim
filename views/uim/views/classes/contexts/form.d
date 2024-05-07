@@ -63,7 +63,7 @@ class DFormContext : DContext {
     auto val(string myfield, Json[string] options  = null) {
         options = options.update[
             "default": null,
-            "schemaDefault": Json(true),
+            "schemaDefault": true.toJson,
         ];
 
         myval = _form[myfield);

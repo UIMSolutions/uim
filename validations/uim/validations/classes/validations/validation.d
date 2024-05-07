@@ -1104,7 +1104,7 @@ class DValidation {
             "minSize": null,
             "maxSize": null,
             "types": null,
-            "optional": Json(false),
+            "optional": false.toJson,
         ];
 
         if (!uploadError(myfile, options["optional"])) {
@@ -1298,7 +1298,7 @@ class DValidation {
         if (!isString(myvalue)) {
             return false;
         }
-        options = options.update["extended": Json(false)];
+        options = options.update["extended": false.toJson];
         if (options["extended"]) {
             return preg_match("//u", myvalue) == 1;
         }

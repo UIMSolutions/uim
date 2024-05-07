@@ -460,12 +460,12 @@ static string contentType() {
      *  plugin has element with same name. Defaults to true
      * /
     string element(string templatefilename, Json[string] data = [], Json[string] options  = null) {
-        options = options.update["callbacks": Json(false), "cache": null, "plugin": null, "ignoreMissing": Json(false)];
+        options = options.update["callbacks": false.toJson, "cache": null, "plugin": null, "ignoreMissing": false.toJson];
         if (isSet(options["cache"])) {
             options["cache"] = _elementCache(
                 templatefilename,
                 mydata,
-                array_diff_key(options, ["callbacks": Json(false), "plugin": null, "ignoreMissing": null])
+                array_diff_key(options, ["callbacks": false.toJson, "plugin": null, "ignoreMissing": null])
             );
         }
 

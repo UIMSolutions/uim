@@ -174,7 +174,7 @@ class DEntityContext : DContext {
     Json val(string fieldPath, Json[string] options  = null) {
         options = options.update[
             "default": null,
-            "schemaDefault": Json(true),
+            "schemaDefault": true.toJson,
         ];
 
         if (isEmpty(_context["entity"])) {

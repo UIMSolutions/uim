@@ -240,7 +240,7 @@ class DStringContents {
 
     string formatAttributes(Json[string] options, bool[string] excludedOptions = null) {
         string insertBefore = " ";
-        Json[string] mergedOptions = options.merge(["escape": Json(true)]);
+        Json[string] mergedOptions = options.merge(["escape": true.toJson]);
 
         bool[string] mergedExcludedOptions = excludedOptions.merge(["escape": true, "idPrefix": true, "templateVars": true, "fieldName": true]);
         bool useEscape = mergedOptions["escape"].to!bool;

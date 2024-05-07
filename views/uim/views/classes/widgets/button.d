@@ -34,9 +34,9 @@ class DButtonWidget : DWidget {
             // `type` The button type defaults to "submit".
             "type": Json("submit"),
             // `escapeTitle` Set to false to disable escaping of button text.
-            "escapeTitle": Json(true),
+            "escapeTitle": true.toJson,
             // `escape` Set to false to disable escaping of attributes.
-            "escape": Json(true),
+            "escape": true.toJson,
             "templateVars": Json.emptyArray(),
         ]);
 

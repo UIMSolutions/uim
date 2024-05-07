@@ -44,7 +44,7 @@ class DLabelWidget : DWidget {
             "input": Json(""),
             "hidden": Json(""),
             // `escape` Set to false to disable HTML escaping.
-            "escape": Json(true),
+            "escape": true.toJson,
             "templateVars": Json.emptyArray(),
         ]);
 

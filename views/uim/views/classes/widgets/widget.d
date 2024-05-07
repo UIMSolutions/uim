@@ -36,7 +36,7 @@ class DWidget : IWidget {
       "name": Json(null),
       "val": Json(null),
       "type": Json("text"),
-      "escape": Json(true),
+      "escape": true.toJson,
       "templateVars": Json.emptyArray
     ]);
 

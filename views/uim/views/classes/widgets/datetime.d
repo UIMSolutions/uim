@@ -19,7 +19,7 @@ class DDateTimeWidget : DWidget {
                 "name": Json(""),
                 "val": Json(null),
                 "type": Json("datetime-local"),
-                "escape": Json(true),
+                "escape": true.toJson,
                 "timezone": Json(null),
                 "templateVars": Json.emptyArray,
             ]);

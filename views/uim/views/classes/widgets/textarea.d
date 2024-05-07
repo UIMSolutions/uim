@@ -21,7 +21,7 @@ class DTextareaWidget : DWidget {
     configuration.updateDefaults([
         "val": Json(""),
         "name": Json(""),
-        "escape": Json(true),
+        "escape": true.toJson,
         "rows": Json(5),
         "templateVars": Json.emptyArray,
     ]);

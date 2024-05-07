@@ -25,9 +25,9 @@ class DRadioWidget : DWidget {
             "options": Json.emptyArray,
             "disabled": Json(null),
             "val": Json(null),
-            "escape": Json(true),
-            "label": Json(true),
-            "empty": Json(false),
+            "escape": true.toJson,
+            "label": true.toJson,
+            "empty": false.toJson,
             "idPrefix": Json(null),
             "templateVars": Json.emptyArray
         ]);

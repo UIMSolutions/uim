@@ -22,7 +22,7 @@ class DFileWidget : DWidget {
             // `name` - Set the input name.
             "name": Json(""),
             // `escape` - Set to false to disable HTML escaping.
-            "escape": Json(true),
+            "escape": true.toJson,
             "templateVars": Json.emptyArray,
         ]);
 

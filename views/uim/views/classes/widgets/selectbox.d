@@ -20,8 +20,8 @@ class DSelectBoxWidget : DWidget {
 
     configuration.updateDefaults([
         "name": Json(""),
-        "empty": Json(false),
-        "escape": Json(true),
+        "empty": false.toJson,
+        "escape": true.toJson,
         "options": Json.emptyArray,
         "disabled": Json(null),
         "val": Json(null),

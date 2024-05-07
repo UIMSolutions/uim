@@ -22,7 +22,7 @@ class DCheckboxWidget : DWidget {
             "name": Json(""),
             "value": Json(1),
             "val": Json(null),
-            "disabled": Json(false),
+            "disabled": false.toJson,
             "templateVars": Json.emptyArray,
         ]);
 

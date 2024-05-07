@@ -37,7 +37,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * /
     // TODO protected Json[string] _connectionErrors = null;
 
-    array send(IRequest request, Json[string] options = null) {
+    Json[string] send(IRequest request, Json[string] options = null) {
        _stream = null;
        _context = null;
        _contextOptions = null;

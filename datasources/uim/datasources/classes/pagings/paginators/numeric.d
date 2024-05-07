@@ -656,7 +656,7 @@ class DNumericPaginator : IPaginator {
      * @param Json[string] options An array of options with a limit key to be checked.
      * @return Json[string] An array of options for pagination.
      * /
-    array checkLimit(Json[string] optionData) {
+    Json[string] checkLimit(Json[string] optionData) {
         options["limit"] = (int)options["limit"];
         if (options["limit"] < 1) {
             options["limit"] = 1;

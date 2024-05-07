@@ -113,7 +113,7 @@ interface IEntity { // : ArrayAccess, JsonSerializable
      * Params:
      * string[] fieldNames List of fields to be returned
      * /
-    array extractOriginal(string[] fieldNames);
+    Json[string] extractOriginal(string[] fieldNames);
 
     /**
      * Returns an array with only the original fields

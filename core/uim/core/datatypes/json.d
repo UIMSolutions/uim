@@ -563,14 +563,8 @@ Json toJson(string aKey, string aValue) {
 
   Json toJson(string[] values) {
     auto json = Json.emptyArray;
-    values.each!(value => json ~= value.toJson);
+    values.each!(value => json ~= value);
     return json;
-  }
-
-  Json toJson(string[] someValues) {
-    Json result = Json.emptyArray;
-    someValues.each!(value => result ~= value);
-    return result;
   }
   ///
   unittest {

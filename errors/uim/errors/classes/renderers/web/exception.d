@@ -128,9 +128,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         return controller;
     }
     
-    /**
-     * Clear output buffers so error pages display properly.
-     * /
+    // Clear output buffers so error pages display properly.
     protected void clearOutput() {
         if (in_array(UIM_SAPI, ["cli", "Ddbg"])) {
             return;
@@ -142,11 +140,11 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     
     // Renders the response for the exception.
     IResponse render() {
-        exception = _error;
-        code = this.getHttpCode(exception);
-        method = _method(exception);
-        template = _template(exception, method, code);
-        this.clearOutput();
+        auto exception = _error;
+        auto code = this.getHttpCode(exception);
+        auto method = _method(exception);
+        auto template = _template(exception, method, code);
+        clearOutput();
 
         if (method_exists(this, method)) {
             return _customMethod(method, exception);

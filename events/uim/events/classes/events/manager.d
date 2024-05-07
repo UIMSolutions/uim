@@ -293,7 +293,7 @@ class DEventManager { // }: IEventManager {
      * Params:
      * string aeventKeyPattern Pattern to match.
      * /
-    array matchingListeners(string aeventKeyPattern) {
+    Json[string] matchingListeners(string aeventKeyPattern) {
         matchPattern = "/" ~ preg_quote(eventKeyPattern, "/") ~ "/";
 
         return array_intersect_key(

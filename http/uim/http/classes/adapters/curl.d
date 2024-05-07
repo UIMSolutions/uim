@@ -14,7 +14,7 @@ import uim.http;
  */
 class DCurl { // }: IAdapter {
     /*
-    array send(IRequest request, Json[string] curlOptions = null) {
+    Json[string] send(IRequest request, Json[string] curlOptions = null) {
         if (!extension_loaded("curl")) {
             throw new DClientException("curl extension is not loaded.");
         }

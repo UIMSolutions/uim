@@ -615,7 +615,7 @@ class DPaginator : IPaginator {
      * @param \uim\Datasource\IRepository object Repository object.
      * @param Json[string] order DOrder array.
      * @param bool allowed Whether the field was allowed.
-     * @return array Final order array.
+     * @return Json[string] Final order array.
      * /
     protected auto _prefix(IRepository object, Json[string] order, bool allowed = false): array
     {

@@ -78,9 +78,9 @@ class DExceptionTrap {
         "exceptionRenderer": null,
         "logger": ErrorLogger.class,
         "stderr": null,
-        "log": Json(true),
+        "log": true.toJson,
         "skipLog": Json.emptyArray,
-        "trace": Json(false),
+        "trace": false.toJson,
         "extraFatalErrorMemory": 4,
     ]);
 

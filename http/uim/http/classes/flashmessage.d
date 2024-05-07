@@ -40,8 +40,8 @@ class DFlashMessage {
         "element": Json("default"),
         "plugin": null,
         "params": Json.emptyArray,
-        "clear": Json(false),
-        "duplicate": Json(true),
+        "clear": false.toJson,
+        "duplicate": true.toJson,
     ];
 
     protected ISession _session;

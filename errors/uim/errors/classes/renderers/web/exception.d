@@ -178,7 +178,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         if (isDebug) {
             trace = (array)Debugger.formatTrace(exception.getTrace(), [
                 "format": "array",
-                "args": Json(true),
+                "args": true.toJson,
             ]);
             origin = [
                 "file": exception.getFile() ?: "null",

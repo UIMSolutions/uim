@@ -36,8 +36,8 @@ abstract class DERRErrorHandler {
         configuration.data(initData);
 
         configuration.updateDefaults([
-            "log": Json(true),
-            "trace": Json(false),
+            "log": true.toJson,
+            "trace": false.toJson,
             "skipLog": Json.emptyArray,
             "errorLogger": Json("ErrorLogger.class")
         ]);

@@ -202,7 +202,7 @@ class DI18nExtractCommand : DCommand {
 
         if (isEmpty(_translations[domainName][messageId][context])) {
            _translations[domainName][messageId][context] = [
-                "msgid_plural": Json(false),
+                "msgid_plural": false.toJson,
             ];
         }
         if (isSet(contextData["msgid_plural"])) {
@@ -267,8 +267,8 @@ class DI18nExtractCommand : DCommand {
             "help": Json("Comma separated list of files to parse.")
         ]);
         aParser.addOption("exclude-plugins", [
-            "boolean": Json(true),
-            "default": Json(true),
+            "boolean": true.toJson,
+            "default": true.toJson,
             "help": Json("Ignores all files in plugins if this command is run inside from the same app directory."),
         ]);
         aParser.addOption("plugin", [
@@ -281,8 +281,8 @@ class DI18nExtractCommand : DCommand {
                 " Any path containing a path segment with the provided values will be skipped. E.g. test,vendors")
         ]);
         aParser.addOption("overwrite", [
-            "boolean": Json(true),
-            "default": Json(false),
+            "boolean": true.toJson,
+            "default": false.toJson,
             "help": Json("Always overwrite existing .pot files.")
         ]);
         aParser.addOption("extract-core", [
@@ -290,13 +290,13 @@ class DI18nExtractCommand : DCommand {
             "choices": ["yes", "no"],
         ]);
         aParser.addOption("no-location", [
-            "boolean": Json(true),
-            "default": Json(false),
+            "boolean": true.toJson,
+            "default": false.toJson,
             "help": Json("Do not write file locations for each extracted message.",
         ]);
         aParser.addOption("marker-error", [
-            "boolean": Json(true),
-            "default": Json(false),
+            "boolean": true.toJson,
+            "default": false.toJson,
             "help": Json("Do not display marker error.",
         ]);
 

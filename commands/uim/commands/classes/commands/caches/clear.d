@@ -33,7 +33,7 @@ class DCacheClearCommand : DCommand {
         "help": "The cache engine to clear." ~
         "For example, `uim cache clear _uim_model_` will clear the model cache." ~
         " Use `uim cache list` to list available engines.",
-        "required": Json(true),
+        "required": true.toJson,
       ]);
 
     return myParser;

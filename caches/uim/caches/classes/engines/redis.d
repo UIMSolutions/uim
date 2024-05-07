@@ -44,14 +44,14 @@ class DRedisCacheEngine : DCacheEngine {
             "database": Json(0),
             "duration": Json(3600),
             "groups": Json.emptyArray,
-            "password": Json(false),
-            "persistent": Json(true),
+            "password": false.toJson,
+            "persistent": true.toJson,
             "port": Json(6379),
             "prefix": Json("uim_"),
             "host": Json(null),
             "server": Json("127.0.0.1"),
             "timeout": Json(0),
-            "unix_socket": Json(false),
+            "unix_socket": false.toJson,
             "scanCount": Json(10)
         ]);
 

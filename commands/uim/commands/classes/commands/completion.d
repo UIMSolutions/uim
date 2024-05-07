@@ -39,16 +39,16 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
         );
         aParser.addArgument("mode", [
                 "help": "The type of thing to get completion on.",
-                "required": Json(true),
+                "required": true.toJson,
                 "choices": modes.keys,
             ]);
         aParser.addArgument("command", [
                 "help": "The command name to get information on.",
-                "required": Json(false),
+                "required": false.toJson,
             ]);
         aParser.addArgument("subcommand", [
                 "help": "The sub-command related to command to get information on.",
-                "required": Json(false),
+                "required": false.toJson,
             ]);
         aParser.setEpilog(
             [
@@ -95,7 +95,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
             return CODE_SUCCESS;
         }
         auto options = null;
-        this.commands.byKeyValue
+        _commands.byKeyValue
             .each!((kv) {
             string[] someParts = kv.key.split(" ");
                 if (someParts[0] != commandName) {

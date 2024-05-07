@@ -105,7 +105,7 @@ class DRoutesCommand : DCommand {
             .addOption("sort", [
                 "help": "sorts alphabetically by route name A-Z",
                 "short": "s",
-                "boolean": Json(true),
+                "boolean": true.toJson,
             ]);
 
         return aParser;
@@ -178,7 +178,7 @@ class DRoutesCommand : DCommand {
             .addOption("sort", [
                 "help": "sorts alphabetically by route name A-Z",
                 "short": "s",
-                "boolean": Json(true),
+                "boolean": true.toJson,
             ]);
 
         return aParser;

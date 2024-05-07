@@ -31,7 +31,7 @@ class DCacheClearGroupCommand : DCommand {
       addArgument("group", [
           "help": Json("The cache group to clear. For example, `uim cache clear_group mygroup` will clear "
             ~"all cache items belonging to group 'mygroup'."),
-          "required": Json(true),
+          "required": true.toJson,
         ]);
       addArgument("config", [
         "help": Json("Name of the configuration to use. Defaults to no value which clears all cache configurations."),

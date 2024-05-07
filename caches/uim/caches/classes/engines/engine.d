@@ -50,7 +50,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
             "duration": Json(3600),
             "groups": Json.emptyArray,
             "prefix": Json("uim_"),
-            "warnOnWriteFailures": Json(true),
+            "warnOnWriteFailures": true.toJson,
         ]); 
 
         return true;

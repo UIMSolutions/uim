@@ -22,8 +22,8 @@ class DTableHelper { // }: Helper {
   bool initialize(Json[string] initData = null) {
     configuration(MemoryConfiguration);
     configuration.updateDefaults([
-      "headers": Json(true),
-      "rowSeparator": Json(false),
+      "headers": true.toJson,
+      "rowSeparator": false.toJson,
       "headerStyle": Json("info")
     ]);
     configuration.data(initData);

@@ -6,26 +6,24 @@ import uim.consoles;
 
 // Print out command list
 class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
-    /* 
     // The command collection to get help on.
     protected ICommandCollection _commands;
-
-    void setCommandCollection(CommandCollection newCommands) {
+    void setCommandCollection(ICommandCollection newCommands) {
         _commands = newCommands;
     }
     
     // Main auto Prints out the list of commands.
     int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
-        auto myCommands = this.commands.getIterator();
-        if (cast(DArrayIterator)myCommands) {
-            myCommands.ksort();
+        auto commandIterator = _commands.getIterator();
+        if (cast(DArrayIterator)commandIterator) {
+            commandIterator.ksort();
         }
         if (commandArguments.getOption("xml")) {
-            this.asXml(aConsoleIo, myCommands);
+            this.asXml(aConsoleIo, commandIterator);
 
             return CODE_SUCCESS;
         }
-        this.asText(aConsoleIo, myCommands);
+        asText(aConsoleIo, commandIterator);
 
         return CODE_SUCCESS;
     }
@@ -33,7 +31,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     /**
      * Output text.
      * @param iterable<string, string|object> commands The command collection to output.
-     * /
+     */
     protected void asText(IConsoleIo aConsoleIo, STRINGAA commands) {
         string[][string] myInvert = null;
         foreach (name, className; commands) {

@@ -57,7 +57,7 @@ class DSchemacacheBuildCommand : DCommand {
             "default": "default",
         ]).addArgument("name", [
             "help": "A specific table you want to refresh cached data for.",
-            "required": Json(false),
+            "required": false.toJson,
         ]);
 
         return parserToUpdate;

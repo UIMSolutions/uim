@@ -25,7 +25,7 @@ class DFileCacheEngine : DCacheEngine {
             // `groups` List of groups or "tags" associated to every key stored in this config.
             "groups": Json.emptyArray,
             // `lock` Used by FileCache. Should files be locked before writing to them?
-            "lock": Json(true),
+            "lock": true.toJson,
             // `mask` The mask used for created files
             // TODO "mask": std.conv.octal!"664",
             // `dirMask` The mask used for created folders
@@ -35,7 +35,7 @@ class DFileCacheEngine : DCacheEngine {
             // `prefix` Prepended to all entries. 
             "prefix": Json("uim_"),
             // `serialize` Should cache objects be serialized first.
-            "serialize": Json(true),
+            "serialize": true.toJson,
         ]); 
 
         /* 

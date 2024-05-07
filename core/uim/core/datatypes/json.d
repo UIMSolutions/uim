@@ -497,71 +497,98 @@ version (test_uim_core) {
 }
 
 // #region toJson
-Json toJson(string[] someValues) {
-  Json result = Json.emptyArray;
-  someValues.each!(value => result ~= value);
-  return result;
-}
-///
-unittest {
-  assert(["a", "b", "c"].toJson.length == 3);
-  assert(["a", "b", "c"].toJson[0] == "a");
-}
+  Json toJson(bool value) {
+    return Json(value);
+  }
 
-Json toJson(STRINGAA someKeyValues) {
-  Json result = Json.emptyObject;
-  someKeyValues.byKeyValue.each!(kv => result[kv.key] = kv.value);
-  return result;
-}
+  Json toJson(int value) {
+    return Json(value);
+  }
 
-version (test_uim_core) {
+  Json toJson(long value) {
+    return Json(value);
+  }
+
+  Json toJson(float value) {
+    return Json(value);
+  }
+
+  Json toJson(double value) {
+    return Json(value);
+  }
+
+  Json toJson(string value) {
+    return Json(value);
+  }
+
+Json toJson(string aKey, string aValue) {
+    Json result = Json.emptyObject;
+    result[aKey] = aValue;
+    return result;
+  }
+
+  version (test_uim_core) {
+    unittest {
+      assert(toJson("a", "3")["a"] == "3");
+    }
+  }
+
+  Json toJson(string aKey, UUID aValue) {
+    Json result = Json.emptyObject;
+    result[aKey] = aValue.toString;
+    return result;
+  }
+
+  unittest {
+    auto id = randomUUID;
+    assert(UUID(toJson("id", id)["id"].get!string) == id);
+  }
+
+  /// Special case for managing entities
+  Json toJson(UUID id, size_t versionNumber = 0LU) {
+    Json result = "id".toJson(id);
+    if (versionNumber > 0) {
+      result["versionNumber"] = versionNumber;
+    }
+    return result;
+  }
+  ///
+    unittest {
+      auto id = randomUUID;
+      assert(toJson(id)["id"].get!string == id.toString);
+      assert("versionNumber" !in toJson(id));
+      assert(toJson(id, 1)["id"].get!string == id.toString);
+      assert(toJson(id, 1)["versionNumber"].get!size_t == 1);
+    }
+
+  Json toJson(string[] values) {
+    auto json = Json.emptyArray;
+    values.each!(value => json ~= value.toJson);
+    return json;
+  }
+
+  Json toJson(string[] someValues) {
+    Json result = Json.emptyArray;
+    someValues.each!(value => result ~= value);
+    return result;
+  }
+  ///
+  unittest {
+    assert(["a", "b", "c"].toJson.length == 3);
+    assert(["a", "b", "c"].toJson[0] == "a");
+  }
+
+  Json toJson(STRINGAA map, string[] excludeKeys = null) {
+    auto json = Json.emptyObject;
+    map.byKeyValue
+      .filter!(kv => !excludeKeys.has(kv.key))
+      .each!(kv => json[kv.key] = kv.value);
+    return json;
+  }
   unittest {
     assert(["a": "1", "b": "2", "c": "3"].toJson.length == 3);
     assert(["a": "1", "b": "2", "c": "3"].toJson["a"] == "1");
   }
-}
-
-Json toJson(string aKey, string aValue) {
-  Json result = Json.emptyObject;
-  result[aKey] = aValue;
-  return result;
-}
-
-version (test_uim_core) {
-  unittest {
-    assert(toJson("a", "3")["a"] == "3");
-  }
-}
-
-Json toJson(string aKey, UUID aValue) {
-  Json result = Json.emptyObject;
-  result[aKey] = aValue.toString;
-  return result;
-}
-
-unittest {
-  auto id = randomUUID;
-  assert(UUID(toJson("id", id)["id"].get!string) == id);
-}
-
-/// Special case for managing entities
-Json toJson(UUID id, size_t versionNumber = 0LU) {
-  Json result = "id".toJson(id);
-  if (versionNumber > 0) {
-    result["versionNumber"] = versionNumber;
-  }
-  return result;
-}
-///
-version (test_uim_core) {
-  unittest {
-    auto id = randomUUID;
-    assert(toJson(id)["id"].get!string == id.toString);
-    assert("versionNumber" !in toJson(id));
-    assert(toJson(id, 1)["id"].get!string == id.toString);
-    assert(toJson(id, 1)["versionNumber"].get!size_t == 1);
-  }
-}
 // #endregion toJson
 
 Json mergeJsonObject(Json baseJson, Json mergeJson) {
@@ -837,44 +864,6 @@ string[] toStringArray(Json value) {
   }
 
   return null;
-}
-
-Json toJson(bool value) {
-  return Json(value);
-}
-
-Json toJson(int value) {
-  return Json(value);
-}
-
-Json toJson(long value) {
-  return Json(value);
-}
-
-Json toJson(float value) {
-  return Json(value);
-}
-
-Json toJson(double value) {
-  return Json(value);
-}
-
-Json toJson(string value) {
-  return Json(value);
-}
-
-Json toJson(string[] values) {
-  auto json = Json.emptyArray;
-  values.each!(value => json ~= value.toJson);
-  return json;
-}
-
-Json toJson(STRINGAA map, string[] excludeKeys = null) {
-  auto json = Json.emptyObject;
-  map.byKeyValue
-    .filter!(kv => !excludeKeys.has(kv.key))
-    .each!(kv => json[kv.key] = kv.value);
-  return json;
 }
 
 Json[string] toJsonMap(STRINGAA map, string[] excludeKeys = null) {

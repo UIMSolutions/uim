@@ -72,7 +72,7 @@ class DPaginatedResultset { /* }: IteratorIterator : JsonSerializable, IPaginate
         return _params[name] ?? null;
     }
  
-    array pagingParams() {
+    Json[string] pagingParams() {
         return _params;
     } */
 }

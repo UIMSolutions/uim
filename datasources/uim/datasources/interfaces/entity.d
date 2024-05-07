@@ -167,6 +167,7 @@ interface IEntity { // : ArrayAccess, JsonSerializable
      * string[]|string fieldName The field to check.
      * /
    bool has(string[] fieldName);
+   bool has(string[] fieldNames);
 
    // Removes a field or list of fields from this entity
    void unset(string[] fieldName...);

@@ -27,7 +27,7 @@ class DTupleComparisonExpression : DComparisonExpression {
      * /
     this(
         IExpression | string[] fieldNames,
-        IExpression | array someValues,
+        IExpression | Json[string] someValues,
         Json[string] types = [],
         string aconjunction = "="
     ) {

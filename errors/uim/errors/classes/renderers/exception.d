@@ -172,7 +172,7 @@ class DExceptionRenderer : IExceptionRenderer {
         code = this.getHttpCode(myException);
         method = _method(myException);
         myTemplate = _template(myException, method, code);
-        this.clearOutput();
+        clearOutput();
 
         if (method_exists(this, method)) {
             return _customMethod(method, myException);

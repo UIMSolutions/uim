@@ -535,7 +535,7 @@ abstract class DQuery : IQuery { // : IExpression {
     auto leftJoin(
         string[] atable,
         IExpression|Closure|string[] aconditions = [],
-        array types = []
+        Json[string] types = []
     ) {
         this.join(_makeJoin(aTable, conditions, JOIN_TYPE_LEFT), types);
 
@@ -581,7 +581,7 @@ abstract class DQuery : IQuery { // : IExpression {
     auto innerJoin(
         string[] atable,
         IExpression|Closure|string[] aconditions = [],
-        array types = []
+        Json[string] types = []
     ) {
         this.join(_makeJoin(aTable, conditions, JOIN_TYPE_INNER), types);
 

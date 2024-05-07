@@ -134,7 +134,7 @@ interface IDriver : INamed {
      * @return array containing 2 entries. The first entity is the transformed query
      * and the second one the compiled SQL.
      * /
-    array compileQuery(Query myQuery, DValueBinder aValueBinder);
+    Json[string] compileQuery(Query myQuery, DValueBinder aValueBinder);
 
     // Returns an instance of a QueryCompiler.
     QueryCompiler newCompiler();

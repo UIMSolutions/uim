@@ -75,7 +75,7 @@ interface IStatement {
      * Params:
      * array|null params list of values to be bound to query
       * /
-    bool execute(?array params = null);
+    bool execute(?Json[string] params = null);
 
     /**
      * Fetches the next row from a result set

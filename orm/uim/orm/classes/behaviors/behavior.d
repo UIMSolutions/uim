@@ -244,7 +244,7 @@ class DBehavior : IEventListener {
      *
      * @return Json[string]
      * /
-    array implementedEvents() {
+    Json[string] implementedEvents() {
         eventMap = [
             "Model.beforeMarshal": "beforeMarshal",
             "Model.afterMarshal": "afterMarshal",

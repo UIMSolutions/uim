@@ -38,7 +38,7 @@ class DRedirectRoute : DRoute {
      * Params:
      * @param string mymethod The HTTP method being used.
      * /
-    array parse(string urlToParse, string mymethod= null) {
+    Json[string] parse(string urlToParse, string mymethod= null) {
         myparams = super.parse(urlToParse, mymethod);
         if (!myparams) {
             return null;

@@ -159,7 +159,7 @@ class DEagerLoader {
      *
      * @return array Containments.
      * /
-    array getContain() {
+    Json[string] getContain() {
         return _containments;
     }
 

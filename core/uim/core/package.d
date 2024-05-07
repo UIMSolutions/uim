@@ -27,6 +27,8 @@ alias STRINGAA = string[string];
 alias INTAA = int[int];
 alias DOUBLEAA = double[double];
 
+const DIRECTORY_SEPARATOR = "\\";
+
 /+  +/
 T toggle(T, S)(S value) if (isBoolean!S) {
   return !S;

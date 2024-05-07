@@ -402,7 +402,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                             }
                                                                         }
 
-                                                                        array buildMarshalMap(DMarshaller marshaller, Json[string] map, Json[string] optionData) {
+                                                                        Json[string] buildMarshalMap(DMarshaller marshaller, Json[string] map, Json[string] optionData) {
                                                                             this.translatedFields();
 
                                                                             return _buildMarshalMap(marshaller, map, options);

@@ -564,7 +564,7 @@ class DEagerLoader {
      * \ORM\Table mytable The table containing the association that
      * will be normalized.
      * /
-    array associationsMap(Table mytable) {
+    Json[string] associationsMap(Table mytable) {
         mymap = null;
 
         if (!this.getMatching() && !this.getContain() && empty(_joinsMap)) {
@@ -586,13 +586,13 @@ class DEagerLoader {
      * @param array<\ORM\> mylevel An array of EagerLoadable instances.
      * @param bool mymatching Whether it is an association loaded through `matching()`.
      * /
-    protected DEagerLoadable[] _buildAssociationsMap(Json[string] mymap, Json[string] mylevel, bool mymatching = false) {
+    protected DEagerLoadable[] _buildAssociationsMap(Json[string] initialData, Json[string] mylevel, bool mymatching = false) {
         foreach (mylevel as myassoc: mymeta) {
             mycanBeJoined = mymeta.canBeJoined();
             myinstance = mymeta.instance();
             myassociations = mymeta.associations();
             myforMatching = mymeta.forMatching();
-            mymap ~= [
+            auto updatedData = initialData.merge([
                 "alias": myassoc,
                 "instance": myinstance,
                 "canBeJoined": mycanBeJoined,
@@ -600,12 +600,12 @@ class DEagerLoader {
                 "nestKey": mycanBeJoined ? myassoc : mymeta.aliasPath(),
                 "matching": myforMatching ?? mymatching,
                 "targetProperty": mymeta.targetProperty(),
-            ];
+            ]);
             if (mycanBeJoined && myassociations) {
-                mymap = _buildAssociationsMap(mymap, myassociations, mymatching);
+                updatedData = _buildAssociationsMap(updatedData, myassociations, mymatching);
             }
         }
-        return mymap;
+        return updatedData;
     }
     
     /**

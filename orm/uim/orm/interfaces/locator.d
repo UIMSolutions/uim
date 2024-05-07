@@ -12,7 +12,7 @@ interface ILocator { // }: BaseILocator {
      * Params:
      * string aliasName Alias to get config for, null for complete config.
      * /
-    array getConfig(string aliasName = null);
+    Json[string] getConfig(string aliasName = null);
 
     /**
      * Stores a list of options to be used when instantiating an object

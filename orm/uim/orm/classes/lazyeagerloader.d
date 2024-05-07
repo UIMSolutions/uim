@@ -106,7 +106,7 @@ class DLazyEagerLoader {
     protected IEntity[] _injectResults(
         array myentities,
         SelectQuery myquery,
-        array myassociations,
+        Json[string] myassociations,
         Table mysource
     ) {
         myinjected = null;

@@ -49,7 +49,7 @@ class DPlugin : IPlugin {
     protected string _classNamePath = null;
 
     // The config path for this plugin.
-    protected string _configDataPath = null;
+    protected string _configPath = null;
 
     // The templates path for this plugin.
     protected string _templatePath = null;
@@ -150,7 +150,7 @@ class DPlugin : IPlugin {
      * Params:
      * string aHook The hook name to check
      * @throws \InvalidArgumentException on invalid hooks
-     * /
+     */
     protected void checkHook(string aHook) {
         if (!in_array(aHook, VALID_HOOKS, true)) {
             throw new DInvalidArgumentException(
@@ -187,5 +187,5 @@ class DPlugin : IPlugin {
     
     // Register container services for this plugin.
     void services(IContainer containerWithServices) {
-    } */
+    }
 }

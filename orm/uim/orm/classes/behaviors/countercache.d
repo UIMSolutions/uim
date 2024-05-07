@@ -185,7 +185,7 @@ class DCounterCacheBehavior : DBehavior {
         IEvent myevent,
         IEntity myentity,
         DAssociation myassoc,
-        array mysettings
+        Json[string] mysettings
     ) {
         /** @var string[] myforeignKeys * /
         myforeignKeys = (array)myassoc.getForeignKeys();

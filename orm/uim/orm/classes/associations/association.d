@@ -541,8 +541,8 @@ void attachTo(Query query, Json[string] optionData = null) {
     table = target.getTable();
 
     options = options.update[
-        "includeFields": Json(true),
-        "foreignKeys": this.getForeignKeys(),
+        "includeFields": true.toJson,
+        "foreignKeys": foreignKeys(),
         "conditions": Json.emptyArray,
         "joinType": this.getJoinType(),
         "fields": Json.emptyArray,

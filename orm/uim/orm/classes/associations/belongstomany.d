@@ -209,7 +209,7 @@ class DBelongsToManyAssociation : DAssociation {
 
             myConfiguration = null;
             if (!tableLocator.exists(tableAlias)) {
-                myConfiguration = ["table": tableName, "allowFallbackClass": Json(true)];
+                myConfiguration = ["table": tableName, "allowFallbackClass": true.toJson];
 
                 // Propagate the connection if we"ll get an auto-model
                 if (!App.className(tableAlias, "Model/Table", "Table")) {
@@ -278,7 +278,7 @@ class DBelongsToManyAssociation : DAssociation {
                 "sourceTable": target,
                 "targetTable": source,
                 "foreignKey": this.getTargetForeignKey(),
-                "targetForeignKey": this.getForeignKeys(),
+                "targetForeignKey": foreignKeys(),
                 "through": junction,
                 "conditions": this.getConditions(),
                 "strategy": _strategy,
@@ -312,7 +312,7 @@ class DBelongsToManyAssociation : DAssociation {
             source.hasMany(junctionAlias, [
                 "targetTable": junction,
                 "bindingKey": sourceBindingKey,
-                "foreignKey": this.getForeignKeys(),
+                "foreignKey": foreignKeys(),
                 "strategy": _strategy,
             ]);
         }
@@ -360,7 +360,7 @@ class DBelongsToManyAssociation : DAssociation {
         if (!junction.hasAssociation(sAlias)) {
             junction.belongsTo(sAlias, [
                 "bindingKey": this.getBindingKey(),
-                "foreignKey": this.getForeignKeys(),
+                "foreignKey": foreignKeys(),
                 "targetTable": source,
             ]);
         }
@@ -402,7 +402,7 @@ class DBelongsToManyAssociation : DAssociation {
         newOptions += [
             "conditions": cond,
             "includeFields": includeFields,
-            "foreignKey": Json(false),
+            "foreignKey": false.toJson,
         ];
         assoc.attachTo(query, newOptions);
         query.getEagerLoader().addToJoinsMap(junction.aliasName(), assoc, true);
@@ -475,7 +475,7 @@ class DBelongsToManyAssociation : DAssociation {
             "alias": this.aliasName(),
             "sourceAlias": source().aliasName(),
             "targetAlias": this.getTarget().aliasName(),
-            "foreignKey": this.getForeignKeys(),
+            "foreignKey": foreignKeys(),
             "bindingKey": this.getBindingKey(),
             "strategy": this.getStrategy(),
             "associationType": this.type(),
@@ -503,7 +503,7 @@ class DBelongsToManyAssociation : DAssociation {
         if (!this.getDependent()) {
             return true;
         }
-        foreignKey = (array)this.getForeignKeys();
+        foreignKey = (array)foreignKeys();
         bindingKey = (array)this.getBindingKey();
         conditions = null;
 
@@ -699,7 +699,7 @@ class DBelongsToManyAssociation : DAssociation {
         junction = this.junction();
         entityClass = junction.getEntityClass();
         belongsTo = junction.getAssociation(target.aliasName());
-        foreignKey = (array)this.getForeignKeys();
+        foreignKey = (array)foreignKeys();
         assocForeignKey = (array)belongsTo.getForeignKeys();
         targetBindingKey = (array)belongsTo.getBindingKey();
         bindingKey = (array)this.getBindingKey();
@@ -709,7 +709,7 @@ class DBelongsToManyAssociation : DAssociation {
         foreach (targetEntities as e) {
             joint = e.get(jointProperty);
             if (!joint || !(joint instanceof IEntity)) {
-                joint = new DORMEntityClass([], ["markNew": Json(true), "source": junctionRegistryAlias]);
+                joint = new DORMEntityClass([], ["markNew": true.toJson, "source": junctionRegistryAlias]);
             }
             sourceKeys = array_combine(foreignKey, sourceEntity.extract(bindingKey));
             targetKeys = array_combine(assocForeignKey, e.extract(targetBindingKey));
@@ -725,7 +725,7 @@ class DBelongsToManyAssociation : DAssociation {
             if (changedKeys) {
                 joint.setNew(true);
                 joint.unset(junction.primaryKeys())
-                    .set(array_merge(sourceKeys, targetKeys), ["guard": Json(false)]);
+                    .set(array_merge(sourceKeys, targetKeys), ["guard": false.toJson]);
             }
             saved = junction.save(joint, options);
 
@@ -825,7 +825,7 @@ class DBelongsToManyAssociation : DAssociation {
                 "cleanProperty": options,
             ];
         } else {
-            options = options.update["cleanProperty": Json(true)];
+            options = options.update["cleanProperty": true.toJson];
         }
 
         _checkPersistenceStatus(sourceEntity, targetEntities);
@@ -1080,7 +1080,7 @@ class DBelongsToManyAssociation : DAssociation {
                 junction = this.junction();
                 target = this.getTarget();
 
-                foreignKey = (array)this.getForeignKeys();
+                foreignKey = (array)foreignKeys();
                 assocForeignKey = (array)junction.getAssociation(target.aliasName()).getForeignKeys();
 
                 prefixedForeignKey = array_map([junction, "aliasField"], foreignKey);
@@ -1159,7 +1159,7 @@ class DBelongsToManyAssociation : DAssociation {
         junction = this.junction();
         target = this.getTarget();
         belongsTo = junction.getAssociation(target.aliasName());
-        foreignKey = (array)this.getForeignKeys();
+        foreignKey = (array)foreignKeys();
         assocForeignKey = (array)belongsTo.getForeignKeys();
 
         keys = array_merge(foreignKey, assocForeignKey);
@@ -1294,7 +1294,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         belongsTo = junction.getAssociation(target.aliasName());
         hasMany = source.getAssociation(junction.aliasName());
-        foreignKey = (array)this.getForeignKeys();
+        foreignKey = (array)foreignKeys();
         foreignKey = array_map(function (key) {
             return key ~ " IS";
         }, foreignKey);
@@ -1373,7 +1373,7 @@ class DBelongsToManyAssociation : DAssociation {
             this.setThrough(options["through"]);
         }
         if (!empty(options["saveStrategy"])) {
-            this.setSaveStrategy(options["saveStrategy"]);
+            setSaveStrategy(options["saveStrategy"]);
         }
         if (isset(options["sort"])) {
             this.setSort(options["sort"]);

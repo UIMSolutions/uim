@@ -113,14 +113,14 @@ class DMarshaller {
      *
      * ```
      * result = mymarshaller.one(mydata, [
-     *  "associated": ["Tags": ["onlyIds": Json(true)]]
+     *  "associated": ["Tags": ["onlyIds": true.toJson]]
      * ]);
      * ```
      *
      * ```
      * result = mymarshaller.one(mydata, [
      *  "associated": [
-     *    "Tags": ["accessibleFields": ["*": Json(true)]]
+     *    "Tags": ["accessibleFields": ["*": true.toJson]]
      *  ]
      * ]);
      * ```
@@ -167,11 +167,11 @@ class DMarshaller {
         if (isSet(options["fields"])) {
             foreach ((array)options["fields"] as myfield) {
                 if (array_key_exists(myfield, myproperties)) {
-                    myentity.set(myfield, myproperties[myfield], ["asOriginal": Json(true)]);
+                    myentity.set(myfield, myproperties[myfield], ["asOriginal": true.toJson]);
                 }
             }
         } else {
-            myentity.set(myproperties, ["asOriginal": Json(true)]);
+            myentity.set(myproperties, ["asOriginal": true.toJson]);
         }
         // Don"t flag clean association entities as
         // dirty so we don"t persist empty records.
@@ -208,7 +208,7 @@ class DMarshaller {
      * @param Json[string] options The options passed to this marshaller.
      * /
     // TODO protected Json[string] _prepareDataAndOptions(Json[string] data, Json[string] options) {
-        options = options.update["validate": Json(true)];
+        options = options.update["validate": true.toJson];
 
         mytableName = _table.aliasName();
         if (isSet(mydata[mytableName]) && isArray(mydata[mytableName])) {
@@ -428,7 +428,7 @@ class DMarshaller {
      *
      * ```
      * result = mymarshaller.merge(myentity, mydata, [
-     *  "associated": ["Tags": ["onlyIds": Json(true)]]
+     *  "associated": ["Tags": ["onlyIds": true.toJson]]
      * ]);
      * ```
      * Params:
@@ -715,7 +715,7 @@ class DMarshaller {
         if (isSet(myassociated["_joinData"])) {
             mynested = (array)myassociated["_joinData"];
         }
-        options["accessibleFields"] = ["_joinData": Json(true)];
+        options["accessibleFields"] = ["_joinData": true.toJson];
 
         myrecords = this.mergeMany(myoriginal, myvalue, options);
         foreach (myrecords as myrecord) {

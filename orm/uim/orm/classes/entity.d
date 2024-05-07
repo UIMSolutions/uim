@@ -33,10 +33,10 @@ class DORMEntity { // }: IEntity, IInvalidProperty {
      * /
     this(Json[string] myproperties = [], Json[string] optionData = null) {
         auto updatedOptions = options.merge([
-            "useSetters": Json(true),
-            "markClean": Json(false),
+            "useSetters": true.toJson,
+            "markClean": false.toJson,
             "markNew": null,
-            "guard": Json(false),
+            "guard": false.toJson,
             "source": null,
         ]);
 

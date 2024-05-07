@@ -493,10 +493,10 @@ abstract class DTestCase : DBaseTestCase {
      *
      * ```
      * [
-     *  ["p": Json(true)],
+     *  ["p": true.toJson],
      *  "textA",
      *  "/p",
-     *  ["p": Json(true)],
+     *  ["p": true.toJson],
      *  "textB",
      *  "/p"
      * ]

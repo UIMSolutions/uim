@@ -97,7 +97,7 @@ class DBelongsToAssociation : DAssociation {
      * /
     function saveAssociated(IEntity anEntity, Json[string] optionData = null) {
         auto targetEntity = entity.get(this.getProperty());
-        if (empty(targetEntity) || !(targetEntity instanceof IEntity)) {
+        if (targetEntity.isEmpty) || !(cast(IEntity)targetEntity)) {
             return entity;
         }
 
@@ -108,10 +108,10 @@ class DBelongsToAssociation : DAssociation {
         }
 
         auto properties = array_combine(
-            (array)this.getForeignKeyss(),
+            (array)foreignKeys(),
             targetEntity.extract((array)this.getBindingKey())
         );
-        entity.set(properties, ["guard": Json(false)]);
+        entity.set(properties, ["guard": false.toJson]);
 
         return entity;
     }
@@ -163,7 +163,7 @@ class DBelongsToAssociation : DAssociation {
             "alias": this.aliasName(),
             "sourceAlias": source().aliasName(),
             "targetAlias": this.getTarget().aliasName(),
-            "foreignKeys": this.getForeignKeyss(),
+            "foreignKeys": foreignKeys(),
             "bindingKey": this.getBindingKey(),
             "strategy": this.getStrategy(),
             "associationType": this.type(),

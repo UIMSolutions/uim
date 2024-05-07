@@ -42,43 +42,43 @@ class DTransactionStrategy : IFixtureStrategy {
     protected IFixture[] fixtures;
 
     this() {
-        this.helper = new DFixtureHelper();
+        _helper = new DFixtureHelper();
     }
  
     auto setupTest(string[] fixtureNames) {
         if (isEmpty(fixtureNames)) {
             return;
         }
-        this.fixtures = this.helper.loadFixtures(fixtureNames);
+        _fixtures = _helper.loadFixtures(fixtureNames);
 
-        this.helper.runPerConnection(void (aConnection) {
+        _helper.runPerConnection(void (aConnection) {
             if (cast(DConnection)aConnection) {
                 assert(
                     aConnection.inTransaction() == false,
-                    "Cannot start transaction strategy inside a transaction. " .
+                    "Cannot start transaction strategy inside a transaction. "~
                     "Ensure you have closed all open transactions."
                 );
                 aConnection.enableSavePoints();
                 if (!aConnection.isSavePointsEnabled()) {
                     throw new DatabaseException(
-                        "Could not enable save points for the `{aConnection.configName()}` connection. " .
-                            "Your database needs to support savepoints in order to use " .
+                        "Could not enable save points for the `{aConnection.configName()}` connection. "~
+                            "Your database needs to support savepoints in order to use "~
                             "TransactionStrategy."
                     );
                 }
                 aConnection.begin();
                 aConnection.createSavePoint("__fixtures__");
             }
-        }, this.fixtures);
+        }, _fixtures);
 
-        this.helper.insert(this.fixtures);
+        _helper.insert(_fixtures);
     }
  
     void teardownTest() {
-        this.helper.runPerConnection(void (Connection aConnection) {
+        _helper.runPerConnection(void (Connection aConnection) {
             if (aConnection.inTransaction()) {
                 aConnection.rollback(true);
             }
-        }, this.fixtures);
+        }, _fixtures);
     } */ 
 }

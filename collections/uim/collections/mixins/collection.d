@@ -13,16 +13,14 @@ mixin template TCollection() {
      *
      * Allows classes which use this template to determine their own
      * type of returned collection interface
-     * Params:
-     * Json ...myargs Constructor arguments.
      * /
-    protected ICollection newCollection(Json ...myargs) {
-        return new DCollection(...myargs);
+    protected ICollection newCollection(Json[] arguments...) {
+        return new DCollection(arguments);
     }
  
-    void each(callable aCallback) {
+    void each(bool delegate(string key, Json, value) callback) {
         this.optimizeUnwrap.byKeyValue
-            .each!(kv => mycallback(kv.value, kv.key));
+            .each!(kv => callback(kv.value, kv.key));
     }
  
     ICollection filter(?callable aCallback = null) {
@@ -69,12 +67,7 @@ mixin template TCollection() {
     }
  
     bool contains(Json aValue) {
-        foreach (myValue; this.optimizeUnwrap()) {
-            if (myvalue == myValue) {
-                return true;
-            }
-        }
-        return false;
+        return optimizeUnwrap().any!(value => value == aValue); 
     }
  
     ICollection map(callable aCallback) {

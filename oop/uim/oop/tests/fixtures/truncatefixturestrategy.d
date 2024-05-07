@@ -6,21 +6,19 @@ import uim.oop;
 
 // Fixture strategy that truncates all fixture ables at the end of test.
 class DTruncateFixtureStrategy : IFixtureStrategy {
-    /* 
-    protected DFixtureHelper helper;
-
-    protected IFixture[] fixtures = null;
+    protected DFixtureHelper _helper;
+    protected IFixture[] _fixtures;
 
     this() {
-        this.helper = new DFixtureHelper();
+        _helper = new DFixtureHelper();
     }
  
     void setupTest(string[] fixtureNames) {
-        this.fixtures = this.helper.loadFixtures(fixtureNames);
-        this.helper.insert(this.fixtures);
+        _fixtures = _helper.loadFixtures(fixtureNames);
+        _helper.insert(_fixtures);
     }
  
     void teardownTest() {
-        this.helper.truncate(this.fixtures);
-    } */ 
+        _helper.truncate(_fixtures);
+    }  
 }

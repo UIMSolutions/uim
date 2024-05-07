@@ -130,7 +130,7 @@ abstract class DCell { // }: IEventDispatcher {
                     "Class `%s` does not have a `%s` method."
                     .format(class, _action));
             }
-            mybuilder = this.viewBuilder();
+            mybuilder = viewBuilder();
 
             if (templateName !isNull) {
                 mybuilder.setTemplate(templateName);
@@ -223,7 +223,7 @@ abstract class DCell { // }: IEventDispatcher {
             "args": this.args,
             "request": this.request,
             "response": this.response,
-            "viewBuilder": this.viewBuilder(),
+            "viewBuilder": viewBuilder(),
         ];
     } */
 }

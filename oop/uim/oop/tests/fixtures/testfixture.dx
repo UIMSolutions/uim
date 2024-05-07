@@ -96,9 +96,9 @@ class DTestFixture : IFixture {
  
     bool insert(IConnection aConnection) {
         assert(cast(DConnection)aConnection);
-        if (!empty(this.records)) {
+        if (!this.records.isEmpty) {
             [fields,  someValues, types] = _getRecords();
-            aQuery = aConnection.insertQuery()
+            auto aQuery = aConnection.insertQuery()
                 .insert(fields, types)
                 .into(this.sourceName());
 

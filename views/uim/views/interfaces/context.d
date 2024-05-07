@@ -53,7 +53,7 @@ interface IContext {
     string type(string fieldPath);
 
     // Get an associative array of other attributes for a field name.
-    // TODO array attributes(string fieldPath);
+    // TODO Json[string] attributes(string fieldPath);
 
     // Check whether a field has an error attached to it
     bool hasError(string fieldPath);

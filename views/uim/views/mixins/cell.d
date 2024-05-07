@@ -83,10 +83,10 @@ mixin template TCell() {
             return myinstance;
         }
         if (method_exists(this, "viewBuilder")) {
-            mybuilder.setTheme(this.viewBuilder().getTheme());
+            mybuilder.setTheme(viewBuilder().getTheme());
 
-            if (this.viewBuilder().getClassName() !isNull) {
-                mybuilder.setClassName(this.viewBuilder().getClassName());
+            if (viewBuilder().getClassName() !isNull) {
+                mybuilder.setClassName(viewBuilder().getClassName());
             }
         }
         return myinstance;

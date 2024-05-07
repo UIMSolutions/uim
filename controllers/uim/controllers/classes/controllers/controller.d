@@ -438,7 +438,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * returns A response object containing the rendered view.
      * /
     Response render(string atemplate = null, string alayout = null) {
-         builder = this.viewBuilder();
+         builder = viewBuilder();
         if (! builder.getTemplatePath()) {
              builder.setTemplatePath(_templatePath());
         }
@@ -502,7 +502,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         }
         // Controller or component has already made a view class decision.
         // That decision should overwrite the framework behavior.
-        if (!this.viewBuilder().getClassName().isNull) {
+        if (!viewBuilder().getClassName().isNull) {
             return null;
         }
 

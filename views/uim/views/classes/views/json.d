@@ -13,7 +13,7 @@ import uim.views;
  *
  * ```
  * set(["posts": myposts]);
- * this.viewBuilder().setOption("serialize", true);
+ * viewBuilder().setOption("serialize", true);
  * ```
  *
  * When the view is rendered, the `myposts` view variable will be serialized
@@ -24,7 +24,7 @@ import uim.views;
  *
  * ```
  * set(compact("posts", "users", "stuff"));
- * this.viewBuilder().setOption("serialize", true);
+ * viewBuilder().setOption("serialize", true);
  * ```
  *
  * The above would generate a Json object that looks like:

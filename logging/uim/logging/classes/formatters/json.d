@@ -14,7 +14,7 @@ class DJsonLogFormatter : DLogFormatter {
     configuration.updateDefaults([
       "dateFormat": Json("DATE_ATOM"),
       "flags": Json("JSON_UNESCAPED_UNICODE | Json_UNESCAPED_SLASHES"),
-      "appendNewline": Json(true),
+      "appendNewline": true.toJson,
     ]);
 
     return true;

@@ -41,7 +41,7 @@ class DSysLogger : DLogger {
         "facility": LOG_USER,
         "formatter": [
             "className": DefaultFormatter.classname,
-            "includeDate": Json(false),
+            "includeDate": false.toJson,
         ],
     ];
 

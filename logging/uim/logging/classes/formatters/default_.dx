@@ -8,8 +8,8 @@ class DefaultFormatter : DAbstractFormatter {
     
         donfiguration.updateDefaults([
             "dateFormat": "Y-m-d H:i:s",
-            "includeTags": Json(false),
-            "includeDate": Json(true),
+            "includeTags": false.toJson,
+            "includeDate": true.toJson,
         ]);
 		
 		return true;

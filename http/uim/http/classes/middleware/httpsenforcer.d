@@ -24,10 +24,10 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
      *       - 'preload' - Whether to include 'preload' directive. Defauls to `false`.
      * /
     protected Json[string] configData = [
-        "redirect": Json(true),
+        "redirect": true.toJson,
         "statusCode": Json(301),
         "headers": Json.emptyArray,
-        "disableOnDebug": Json(true),
+        "disableOnDebug": true.toJson,
         "trustedProxies": null,
         "hsts": null,
     ];

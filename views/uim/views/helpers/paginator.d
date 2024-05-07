@@ -233,7 +233,7 @@ class DPaginatorHelper : DHelper {
         mydefaults = [
             "url": Json.emptyArray,
             "disabledTitle": mytitle,
-            "escape": Json(true),
+            "escape": true.toJson,
         ];
         options = options.updatemydefaults;
         options["step"] = -1;
@@ -267,7 +267,7 @@ class DPaginatorHelper : DHelper {
         mydefaults = [
             "url": Json.emptyArray,
             "disabledTitle": mytitle,
-            "escape": Json(true),
+            "escape": true.toJson,
         ];
         options = options.updatemydefaults;
         options["step"] = 1;
@@ -297,7 +297,7 @@ class DPaginatorHelper : DHelper {
      * @param Json[string] options Options for sorting link. See above for list of keys.
      * /
     string sort(string aKey, string[] mytitle = null, Json[string] options  = null) {
-        auto updatedOptions = options.update(["url": Json.emptyArray, "escape": Json(true)]);
+        auto updatedOptions = options.update(["url": Json.emptyArray, "escape": true.toJson]);
         auto myurl = updatedOptions["url"];
         updatedOptions.remove("url");
 
@@ -371,8 +371,8 @@ class DPaginatorHelper : DHelper {
         array myurlOptions = []
     ) {
         myurlOptions.merge([
-            "escape": Json(true),
-            "fullBase": Json(false),
+            "escape": true.toJson,
+            "fullBase": false.toJson,
         ]);
 
         return _Url.build(this.generateUrlParams(options, myurl), myurlOptions);
@@ -776,7 +776,7 @@ class DPaginatorHelper : DHelper {
     string first(string|int myfirst = "<< first", Json[string] options  = null) {
         options = options.update[
             "url": Json.emptyArray,
-            "escape": Json(true),
+            "escape": true.toJson,
         ];
 
         if (this.paginated().pageCount() <= 1) {
@@ -826,7 +826,7 @@ class DPaginatorHelper : DHelper {
      * /
     string last(string|int mylast = "last >>", Json[string] options  = null) {
         options = options.update[
-            "escape": Json(true),
+            "escape": true.toJson,
             "url": Json.emptyArray,
         ];
 
@@ -866,7 +866,7 @@ class DPaginatorHelper : DHelper {
      * Echos the links directly, will output nothing if there is neither a previous nor next page.
      *
      * ```
-     * this.Paginator.meta(["block": Json(true)]);
+     * this.Paginator.meta(["block": true.toJson]);
      * ```
      *
      * Will append the output of the meta auto to the named block - if true is passed the "meta"
@@ -884,11 +884,11 @@ class DPaginatorHelper : DHelper {
      * /
     string meta(Json[string] options  = null) {
         options = options.update[
-            "block": Json(false),
-            "prev": Json(true),
-            "next": Json(true),
-            "first": Json(false),
-            "last": Json(false),
+            "block": false.toJson,
+            "prev": true.toJson,
+            "next": true.toJson,
+            "first": false.toJson,
+            "last": false.toJson,
         ];
 
         mylinks = null;
@@ -899,7 +899,7 @@ class DPaginatorHelper : DHelper {
                 this.generateUrl(
                     ["page": this.paginated().currentPage() - 1],
                     [],
-                    ["escape": Json(false), "fullBase": Json(true)]
+                    ["escape": false.toJson, "fullBase": true.toJson]
                 )
             );
         }
@@ -909,14 +909,14 @@ class DPaginatorHelper : DHelper {
                 this.generateUrl(
                     ["page": this.paginated().currentPage() + 1],
                     [],
-                    ["escape": Json(false), "fullBase": Json(true)]
+                    ["escape": false.toJson, "fullBase": true.toJson]
                 )
             );
         }
         if (options["first"]) {
             mylinks ~= this.Html.meta(
                 "first",
-                this.generateUrl(["page": 1], [], ["escape": Json(false), "fullBase": Json(true)])
+                this.generateUrl(["page": 1], [], ["escape": false.toJson, "fullBase": true.toJson])
             );
         }
         if (options["last"]) {
@@ -925,7 +925,7 @@ class DPaginatorHelper : DHelper {
                 this.generateUrl(
                     ["page": this.paginated().pageCount()],
                     [],
-                    ["escape": Json(false), "fullBase": Json(true)]
+                    ["escape": false.toJson, "fullBase": true.toJson]
                 )
             );
         }

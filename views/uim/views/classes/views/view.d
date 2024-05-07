@@ -506,7 +506,8 @@ static string contentType() {
         if (options.isEmpty("key")) {
             throw new DInvalidArgumentException("Cannot cache content with an empty key");
         }
-        result = Cache.read(options["key"], options["config"]);
+        
+        auto result = Cache.read(options["key"], options["config"]);
         if (result) {
             return result;
         }

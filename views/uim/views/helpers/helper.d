@@ -83,7 +83,7 @@ class DHelper { // TODO }: IEventListener {
             return _helperInstances[propertyName];
         }
         if (isSet(this.helpers[propertyName])) {
-            helperSettings = ["enabled": Json(false)] + this.helpers[propertyName];
+            helperSettings = ["enabled": false.toJson] + this.helpers[propertyName];
 
             return _helperInstances[propertyName] = _View.loadHelper(propertyName, helperSettings);
         }

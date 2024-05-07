@@ -25,7 +25,7 @@ mixin template TViewVars() {
      * string|null namespacedClassname Optional namespaced class name of the View class to instantiate.
      * /
     View createView(string namespacedClassname = null) {
-        auto mybuilder = this.viewBuilder();
+        auto mybuilder = viewBuilder();
         if (namespacedClassname) {
             mybuilder.setClassName(namespacedClassname);
         }
@@ -44,13 +44,7 @@ mixin template TViewVars() {
         );
     }
     
-    /**
-     * Saves a variable or an associative array of variables for use inside a template.
-     * Params:
-     * string[] views A string or an array of data.
-     * @param Json aValue Value in case views is a string (which then works as the key).
-     *  Unused if views is an associative array, otherwise serves as the values to views"s keys.
-     * /
+    // Saves a variable or an associative array of variables for use inside a template.
     void set(string[] views, Json aValue = null) {
         if (views.isArray) {
             mydata = myvalue.isArray
@@ -59,6 +53,6 @@ mixin template TViewVars() {
         } else {
             mydata = [views: myvalue];
         }
-        this.viewBuilder().setData(mydata);
+        viewBuilder().setData(mydata);
     } */
 } 

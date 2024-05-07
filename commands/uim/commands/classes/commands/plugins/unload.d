@@ -43,7 +43,7 @@ class DPluginUnloadCommand : DCommand {
     
     //  Modify the plugins config file.
     protected string modifyConfigFile(string pluginName) {
-        auto configData = @include this.configFile;
+        auto configData = @include _configFile;
         if (!configData.isArray) {
             return "`CONFIG/plugins.d` not found or does not return an array";
         }
@@ -60,7 +60,7 @@ class DPluginUnloadCommand : DCommand {
         }
         contents = "" ~ "\n" ~ "return " ~ Json[string] ~ ";";
 
-        if (file_put_contents(this.configFile, contents)) {
+        if (file_put_contents(_configFile, contents)) {
             return null;
         }
         return "Failed to update `CONFIG/plugins.d`";

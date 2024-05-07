@@ -194,7 +194,7 @@ class DBreadcrumbsHelper : DHelper {
     }
     
     // Returns the crumb list.
-    array getCrumbs() {
+    Json[string] getCrumbs() {
         return _crumbs;
     }
     

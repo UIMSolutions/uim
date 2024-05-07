@@ -221,7 +221,7 @@ class DViewBuilder { // }: DJsonSerializable {
     /**
      * Gets the helpers to use.
      * /
-    array getHelpers() {
+    Json[string] getHelpers() {
         return _helpers;
     }
     

@@ -179,7 +179,7 @@ class DSelectBoxWidget : DWidget {
         ArrayAccess|array myoptgroup,
         array mydisabled,
         Json myselected,
-        array mytemplateVars,
+        Json[string] mytemplateVars,
         bool myescape
     ) {
         myopts = myoptgroup;

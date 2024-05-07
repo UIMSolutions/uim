@@ -64,7 +64,7 @@ class DPluginLoader {
     static string configPath(string pluginName) {
         auto plugin = pluginCollection().get(pluginName);
 
-        return plugin.getConfigPath();
+        return plugin.configPath();
     }
 
     // Returns the filesystem path for plugin`s folder containing template files.

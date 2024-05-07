@@ -1006,7 +1006,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     auto lengthBetween(
         string myfield,
-        array myrange,
+        Json[string] myrange,
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {

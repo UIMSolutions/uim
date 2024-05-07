@@ -159,7 +159,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * Will return the errors from the last call
      * to `validate()` or `execute()`.
      * /
-    array getErrors() {
+    Json[string] getErrors() {
         return _errors;
     }
 

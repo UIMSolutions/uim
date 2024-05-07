@@ -187,7 +187,7 @@ class DDateTimeWidget : DWidget {
         }
         return mydateTime.format(myformat);
     }
-    array secureFields(Json[string] data) {
+    Json[string] secureFields(Json[string] data) {
         if (!isSet(mydata["name"]) || mydata["name"] == "") {
             return null;
         }

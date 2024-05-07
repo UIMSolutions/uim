@@ -107,7 +107,7 @@ class DPlugin : IPlugin {
         return _path;
     }
  
-    string getConfigPath() {
+    string configPath() {
         return _configPath
             ? _configPath
             : getPath() ~ "config" ~ DIRECTORY_SEPARATOR;
@@ -161,7 +161,7 @@ class DPlugin : IPlugin {
     }
  
     void routes(RouteBuilder routes) {
-        somePath = this.getConfigPath() ~ "routes.d";
+        somePath = this.configPath() ~ "routes.d";
         if (isFile(somePath)) {
             result = require somePath;
             if (cast(DClosure)result) {
@@ -171,7 +171,7 @@ class DPlugin : IPlugin {
     }
  
     void bootstrap(IPluginApplication app) {
-        string bootstrapPath = this.getConfigPath() ~ "bootstrap.d";
+        string bootstrapPath = this.configPath() ~ "bootstrap.d";
         if (isFile(bootstrapPath)) {
             require bootstrapPath;
         }

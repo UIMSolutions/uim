@@ -268,7 +268,7 @@ static string contentType() {
         ?ServerRequest myrequest = null,
         ?Response myresponse = null,
         ?IEventManager myeventManager = null,
-        array myviewOptions = []
+        Json[string] myviewOptions = []
     ) {
         if (!myeventManager.isNull) {
             // Set the event manager before accessing the helper registry below

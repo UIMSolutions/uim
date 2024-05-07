@@ -254,7 +254,7 @@ class DArrayContext : DContext {
     }
 
     // Get the errors for a given field
-    array error(string pathToField) {
+    Json[string] error(string pathToField) {
         return _context.isEmpty("errors")
             ? null
             : (array)Hash.get(_context["errors"], pathToField);

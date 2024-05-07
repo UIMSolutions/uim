@@ -563,7 +563,7 @@ class DEntityContext : DContext {
      * Params:
      * string fieldPath A dot separated path to get additional data on.
      * /
-    array attributes(string fieldPath) {
+    Json[string] attributes(string fieldPath) {
         string[] pathParts = fieldPath.split(".");
         mytable = _getTable(pathParts);
         if (!mytable) {

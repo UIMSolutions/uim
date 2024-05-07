@@ -193,7 +193,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * Params:
      * Json[string] objects Array of child objects to normalize.
      * /
-  array < string, Json[string] > normalizeArray(Object[] objects) {
+  Json[string] < string, Json[string] > normalizeArray(Object[] objects) {
     normal = null;
     foreach (objectName, configData; objects) {
       if (isInt(objectName)) {

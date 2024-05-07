@@ -46,7 +46,7 @@ class DConfig : IConfigEngine {
      * string aKey The identifier to read from. If the key has a ~ it will be treated
      * as a plugin prefix.
      * /
-    array read(string aKey) {
+    Json[string] read(string aKey) {
         auto file = _getFileKey(aKey, true);
 
         result = include file;

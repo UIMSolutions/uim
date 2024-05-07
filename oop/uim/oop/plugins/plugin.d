@@ -10,7 +10,7 @@ import uim.oop;
  * include a plugin class in its src root folder.
  */
 class DPlugin : IPlugin {
-mixin TConfigurable;
+    mixin TConfigurable;
 
     this() {
         initialize;
@@ -88,9 +88,9 @@ mixin TConfigurable;
 
         this.initialize();
     }
-    
     */
-    string getPath() {
+
+    string path() {
         if (!_path.isNull) {
             return _path;
         }
@@ -102,7 +102,7 @@ mixin TConfigurable;
         if (somePath.endsWith("src")) {
             somePath = substr(somePath, 0, -3);
         }
-        this.path = stripRight(somePath, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
+        _path = stripRight(somePath, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
 
         return _path;
     }

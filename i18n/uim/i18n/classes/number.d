@@ -103,13 +103,12 @@ class DNumber {
      * - `after` - The string to place after decimal numbers, e.g. "]'
      * Params:
      * Json aValue A floating point number.
-     * @param Json[string] options An array with options.
      * /
     static string format(Json aValue, Json[string] options = null) {
-        formatter = formatter(options);
-        options = options.update["before": "", "after": ""];
+        auto formatter = formatter(options);
+        auto updatedOptions = options.update(["before": "", "after": ""]);
 
-        return options["before"] ~ formatter.format((float)aValue) ~ options["after"];
+        return updatedOptions["before"] ~ formatter.format((float)aValue) ~ updatedOptions["after"];
     }
     
     /**

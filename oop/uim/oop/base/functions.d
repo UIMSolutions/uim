@@ -58,7 +58,7 @@ if (!function_exists("UIM\Core\pluginSplit")) {
      * @param bool dotAppend Set to true if you want the plugin to have a '.' appended to it.
      * @param string plugin Optional default plugin to use if no plugin is found. Defaults to null.
      * /
-    array pluginSplit(string aName, bool dotAppend = false, string aplugin = null) {
+    Json[string] pluginSplit(string aName, bool dotAppend = false, string aplugin = null) {
         if (name.has(".")) {
             string[] someParts = split(".", name, 2);
             if (dotAppend) {

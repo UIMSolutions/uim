@@ -27,7 +27,7 @@ module uim.oop.base.functions_global;
      * @param bool dotAppend Set to true if you want the plugin to have a '.' appended to it.
      * @param string plugin Optional default plugin to use if no plugin is found. Defaults to null.
      * /
-    array pluginSplit(string nameToSplit, bool dotAppend = false, string aplugin = null) {
+    Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string aplugin = null) {
         return uimPluginSplit(nameToSplit, dotAppend, plugin);
     }
 

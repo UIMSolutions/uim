@@ -436,11 +436,30 @@ unittest {
     ]);
 }
 
+bool isNull(T)(T[] values) {
+  return (values is null);
+}
+unittest {
+  // TODO create tests
+}
 
 T[] ifNull(T)(T[] values, T[] defaultValues = null) {
-  return !values.isNull ? values : defaultValues;
+  return values.isNull ? defaultValues : values;
+}
+unittest {
+  // TODO create tests
+}
+
+bool isEmpty(T)(T[] values) {
+  return (values.isNull || values.length == 0);
+}
+unittest {
+  // TODO create test
 }
 
 T[] ifEmpty(T)(T[] values, T[] defaultValues = null) {
-  return !values.isEmpty ? values : defaultValues;
+  return values.isEmpty ? defaultValues : values;
+}
+unittest {
+  // TODO create test
 }

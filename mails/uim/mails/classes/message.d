@@ -238,7 +238,7 @@ class DMessage { //: JsonSerializable {
     }
 
     // Gets "from" address
-    array getFrom() {
+    Json[string] getFrom() {
         return _from;
     }
 
@@ -786,7 +786,7 @@ class DMessage { //: JsonSerializable {
     }
     
     // Gets the body types that are in this email message
-    array getBodyTypes() {
+    Json[string] getBodyTypes() {
         string format = _emailFormat;
 
         if (format == MESSAGE_BOTH) {
@@ -1460,7 +1460,7 @@ class DMessage { //: JsonSerializable {
      * @throws \Exception When a view var object can not be properly serialized.
      * /
     Json[string] JsonSerialize() {
-        array = null;
+        Json[string] = null;
         foreach (this.serializableProperties as  aProperty) {
             array[aProperty] = this.{ aProperty};
         }
@@ -1492,7 +1492,7 @@ class DMessage { //: JsonSerializable {
      *
      * /
     Json[string] __serialize() {
-        array = this.JsonSerialize();
+        Json[string] = this.JsonSerialize();
         array_walk_recursive(array, void (& anItem, aKey) {
             if (cast(DSimpleXMLElement)anItem ) {
                  anItem = Json_decode((string)Json_encode((array) anItem), true);

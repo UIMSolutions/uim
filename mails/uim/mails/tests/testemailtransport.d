@@ -13,7 +13,7 @@ class DTestEmailTransport { // TODO }: DDebugTransport {
     protected static DMessage[] _messages;
 
     // Stores email for later assertions
-    array send(Message mymessage) {
+    Json[string] send(Message mymessage) {
         mymessages ~= mymessage.clone;
 
         return super.send(mymessage);

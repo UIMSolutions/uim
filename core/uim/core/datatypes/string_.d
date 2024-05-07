@@ -393,11 +393,18 @@ string[] capitalize(string[] texts) {
 		.map!(text => std.string.capitalize(text))
 		.array;
 }
+unittest {
+	// TODO
+}
 
+// #region strip
 string[] strip(string[] texts) {
 	return texts
 		.map!(text => std.string.strip(text))
 		.array;
+}
+unittest {
+	// TODO
 }
 
 string[] stripLeft(string[] texts) {
@@ -405,12 +412,16 @@ string[] stripLeft(string[] texts) {
 		.map!(text => std.string.stripLeft(text))
 		.array;
 }
+unittest {
+	// TODO
+}
 
 string[] stripRight(string[] texts) {
 	return texts
 		.map!(text => std.string.stripRight(text))
 		.array;
 }
+// #endregion strip
 
 string[] replace(string[] texts, string originText, string newText) {
 	return texts

@@ -115,11 +115,11 @@ class DMapData : DData {
     boolDataIstrue.set(true);
     auto boolDataNottrue = BoolData;
     boolDataNottrue.set(false);
-    assert(boolDataTrue == Json(true));
+    assert(boolDataTrue == true.toJson);
     assert(boolDataTrue == "true");
     assert(boolDataTrue == true);
 
-    assert(boolDataTrue != Json(false));
+    assert(boolDataTrue != false.toJson);
     assert(boolDataTrue != "false");
     assert(boolDataTrue != false); */
   }

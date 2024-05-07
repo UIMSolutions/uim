@@ -156,7 +156,7 @@ class Hash {
         return match (mytoken) {
             "{n}": isNumeric(aKey),
             "{s}": isString(aKey),
-            "{*}": Json(true),
+            "{*}": true.toJson,
             default: isNumeric(mytoken) ? (aKey == mytoken): aKey == mytoken,
         };
     }
@@ -815,7 +815,7 @@ class Hash {
      * To do case insensitive sorting, pass the type as an array as follows:
      *
      * ```
-     * Hash.sort(mydata, "some.attribute", "asc", ["type": "regular", "ignoreCase": Json(true)]);
+     * Hash.sort(mydata, "some.attribute", "asc", ["type": "regular", "ignoreCase": true.toJson]);
      * ```
      *
      * When using the array form, `type` defaults to "regular". The `ignoreCase` option
@@ -870,7 +870,7 @@ class Hash {
 
         // mytype can be overloaded for case insensitive sort
         if (mytype.isArray) {
-            mytype += ["ignoreCase": Json(false), "type": "regular"];
+            mytype += ["ignoreCase": false.toJson, "type": "regular"];
             myignoreCase = mytype["ignoreCase"];
             mytype = mytype["type"];
         }

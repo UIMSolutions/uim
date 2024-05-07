@@ -18,7 +18,7 @@ class DConfigure {
 
     // Array of values currently stored in Configure.
     protected static IData[string] _values = [
-        "debug": Json(false),
+        "debug": false.toJson,
     ];
 
     /**

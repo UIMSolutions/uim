@@ -857,7 +857,7 @@ class DMessage { //: JsonSerializable {
      *     "file": "path/to/file",
      *     "mimetype": "image/png",
      *     "contentId": "abc123",
-     *     "contentDisposition": Json(false)
+     *     "contentDisposition": false.toJson
      *   ]
      * ]);
      * ```

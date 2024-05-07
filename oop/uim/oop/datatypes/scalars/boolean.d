@@ -41,7 +41,7 @@ class DBooleanData : DScalarData {
     data.set(myValue);
     assert(data.value == myValue);
 
-    data = Json(false);
+    data = false.toJson;
     data.value = myValue;
     assert(data.value == myValue); * /
   }
@@ -115,11 +115,11 @@ class DBooleanData : DScalarData {
     booleanDataIstrue.set(true);
     auto booleanDataNottrue = BooleanData;
     booleanDataNottrue.set(false);
-    assert(booleanDataTrue == Json(true));
+    assert(booleanDataTrue == true.toJson);
     assert(booleanDataTrue == "true");
     assert(booleanDataTrue == true);
 
-    assert(booleanDataTrue != Json(false));
+    assert(booleanDataTrue != false.toJson);
     assert(booleanDataTrue != "false");
     assert(booleanDataTrue != false);
   }
@@ -136,8 +136,8 @@ class DBooleanData : DScalarData {
   }
   ///
   unittest {
-    auto valueA = Json(true);
-    auto valueB = Json(false);
+    auto valueA = true.toJson;
+    auto valueB = false.toJson;
     assert(valueA > false);
     assert(valueB < true);
   }
@@ -150,13 +150,13 @@ class DBooleanData : DScalarData {
   }
   ///
   unittest {
-    /* auto dataA = new DJson(true);
-      auto dataB = new DJson(false);
+    /* auto dataA = new Dtrue.toJson;
+      auto dataB = new Dfalse.toJson;
       assert(dataA > dataB);
       assert(dataB < dataA);
 
-      dataA = Json(true);
-      dataB = Json(false);
+      dataA = true.toJson;
+      dataB = false.toJson;
       assert(dataA > dataB);
       assert(dataB < dataA);* /
   }
@@ -184,12 +184,12 @@ mixin(DataCalls!("Boolean"));
 /*
 version (test_uim_models) {
   unittest {
-    assert(Json(true) == true);
-    assert(Json(false) != true);
+    assert(true.toJson == true);
+    assert(false.toJson != true);
     /* assert(BooleanData.value(true) == true);
-    assert(BooleanData.set(Json(true)) == true);
+    assert(BooleanData.set(true.toJson) == true);
     assert(BooleanData.value(false) != true);
-    assert(BooleanData.set(Json(false)) != true); * /
+    assert(BooleanData.set(false.toJson) != true); * /
 
     auto BooleanData = BooleanData;
 

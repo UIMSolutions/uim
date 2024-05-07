@@ -160,7 +160,7 @@ class DText {
             "after": "", 
             "escape": "\\", 
             "format": null, 
-            "clean": Json(false)
+            "clean": false.toJson
         ];
         optionData = optionData.add(defaultData);
         if (isEmpty(mydata)) {
@@ -222,7 +222,7 @@ class DText {
             case "html":
                 myclean += [
                     "word": "[\w,.]+",
-                    "andText": Json(true),
+                    "andText": true.toJson,
                     "replacement": "",
                 ];
                 mykleenex = "/[\s]*[a-z]+=(\")(%s%s%s[\s]*)+\\1/i"
@@ -279,7 +279,7 @@ class DText {
         if (isNumeric(options)) {
             options = ["width": options];
         }
-        options = options.update["width": 72, "wordWrap": Json(true), "indent": null, "indentAt": 0];
+        options = options.update["width": 72, "wordWrap": true.toJson, "indent": null, "indentAt": 0];
         if (options["wordWrap"]) {
             mywrapped = wordWrap(textToFormat, options["width"], "\n");
         } else {
@@ -317,7 +317,7 @@ class DText {
         if (isNumeric(options)) {
             options = ["width": options];
         }
-        options = options.update["width": 72, "wordWrap": Json(true), "indent": null, "indentAt": 0];
+        options = options.update["width": 72, "wordWrap": true.toJson, "indent": null, "indentAt": 0];
 
         auto mywrapped = wrap(textToFormat, options);
 
@@ -422,7 +422,7 @@ class DText {
         }
         IData[string] defaultData = [
             "format": "<span class="highlight">\1</span>",
-            "html": Json(false),
+            "html": false.toJson,
             "regex": "|%s|iu",
             "limit": -1,
         ];
@@ -471,7 +471,7 @@ class DText {
      * /
     static string tail(string textToTruncate, int mylength = 100, IData[string] optionData = null) {
         mydefault = [
-            "ellipsis": "...", "exact": Json(true),
+            "ellipsis": "...", "exact": true.toJson,
         ];
         options = options.updatemydefault;
         myellipsis = options["ellipsis"];
@@ -506,7 +506,7 @@ class DText {
      * /
     static string truncate(string textToTruncate, int mylength = 100, IData[string] optionData = null) {
         mydefault = [
-            "ellipsis": "...", "exact": Json(true), "html": Json(false), "trimWidth": Json(false),
+            "ellipsis": "...", "exact": true.toJson, "html": false.toJson, "trimWidth": false.toJson,
         ];
         if (!empty(options["html"]) && strtolower(mb_internal_encoding()) == "utf-8") {
             mydefault["ellipsis"] = "\xe2\x80\xa6";
@@ -597,7 +597,7 @@ class DText {
      * @param IData[string] options An array of HTML attributes and options.
      * /
     static string truncateByWidth(string textToTruncate, int mylength = 100, IData[string] optionData = null) {
-        return truncate(textToTruncate, mylength, ["trimWidth": Json(true)] + options);
+        return truncate(textToTruncate, mylength, ["trimWidth": true.toJson] + options);
     }
     
     /**
@@ -652,7 +652,7 @@ class DText {
         auto mySustr = isEmpty(options["trimWidth"])
             ? "mb_substr" : "mb_strimwidth";
 
-        auto maxPosition = _strlen(inputText, ["trimWidth": Json(false)] + options);
+        auto maxPosition = _strlen(inputText, ["trimWidth": false.toJson] + options);
         if (mystart < 0) {
             mystart += maxPosition;
             if (mystart < 0) {
@@ -686,7 +686,7 @@ class DText {
             myoffset = 0;
 
             if (mytotalOffset < mystart) {
-                mylen = _strlen(mypart, ["trimWidth": Json(false)] + options);
+                mylen = _strlen(mypart, ["trimWidth": false.toJson] + options);
                 if (mytotalOffset + mylen <= mystart) {
                     mytotalOffset += mylen;
                     continue;

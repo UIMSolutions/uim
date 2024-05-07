@@ -12,7 +12,7 @@ import uim.oop;
  *
  * ```
  * {
- *    "debug": Json(false),
+ *    "debug": false.toJson,
  *    "App": {
  *        "namespace": "MyApp"
  *    },

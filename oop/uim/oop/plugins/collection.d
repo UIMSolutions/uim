@@ -50,9 +50,9 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      *  ```
      *  [
      *      "Company/TestPluginThree",
-     *      "TestPlugin": ["onlyDebug": Json(true), "onlyCli": Json(true)],
-     *      "Nope": ["optional": Json(true)],
-     *      "Named": ["routes": Json(false), "bootstrap": Json(false)],
+     *      "TestPlugin": ["onlyDebug": true.toJson, "onlyCli": true.toJson],
+     *      "Nope": ["optional": true.toJson],
+     *      "Named": ["routes": false.toJson, "bootstrap": false.toJson],
      *  ]
      *  ```
      */

@@ -37,7 +37,7 @@ class DSocket {
     /* 
     // Default configuration settings for the socket connection
     configuration.updateDefaults([
-        "persistent": Json(false),
+        "persistent": false.toJson,
         "host": "localhost",
         "protocol": "tcp",
         "port": 80,

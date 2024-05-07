@@ -16,7 +16,7 @@ import uim.oop;
  * ```
  * 
  * return [
- *    'debug": Json(false),
+ *    'debug": false.toJson,
  *    `security": [
  *        `salt": 'its-secret'
  *    ],

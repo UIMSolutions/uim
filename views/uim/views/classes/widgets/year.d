@@ -22,7 +22,7 @@ class DYearWidget : DWidget {
     }
     
     configuration.updateDefaults([
-        "name": Json(""),
+        "name": "".toJson,
         "val": Json(null),
         "min": Json(null),
         "max": Json(null),

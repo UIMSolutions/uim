@@ -39,10 +39,10 @@ class DLabelWidget : DWidget {
     override string render(Json[string] renderData, IContext formContext) {
         auto mergedData = renderData.merge([
             // `text` The text for the label.
-            "text": Json(""),
+            "text": "".toJson,
             // `input` The input that can be formatted into the label if the template allows it.
-            "input": Json(""),
-            "hidden": Json(""),
+            "input": "".toJson,
+            "hidden": "".toJson,
             // `escape` Set to false to disable HTML escaping.
             "escape": true.toJson,
             "templateVars": Json.emptyArray(),

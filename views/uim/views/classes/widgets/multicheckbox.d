@@ -20,7 +20,7 @@ class DMultiCheckboxWidget : DWidget {
         }
 
         configuration.updateDefaults([
-            "name": Json(""),
+            "name": "".toJson,
             "escape": true.toJson,
             "options": Json.emptyArray,
             "disabled": null,

@@ -500,7 +500,7 @@ static string contentType() {
      * /
     string cache(callable myblock, Json[string] options  = null) {
         Json[string] options = options.merge([
-            "key": Json(""), 
+            "key": "".toJson, 
             "config": Json(_elementCache)]);
         
         if (options.isEmpty("key")) {

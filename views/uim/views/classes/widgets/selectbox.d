@@ -19,7 +19,7 @@ class DSelectBoxWidget : DWidget {
         }
 
     configuration.updateDefaults([
-        "name": Json(""),
+        "name": "".toJson,
         "empty": false.toJson,
         "escape": true.toJson,
         "options": Json.emptyArray,
@@ -154,7 +154,7 @@ class DSelectBoxWidget : DWidget {
     // Generate the empty value based on the input.
     protected Json[string] _emptyValue(bool myvalue) {
         return myvalue 
-            ? ["": Json("")] 
+            ? ["": "".toJson] 
             : ["": Json(myvalue)];
     }
 

@@ -677,7 +677,7 @@ interface ICollection {
      * to return the same key for different elements, setting this value to false
      * can help getting all items if keys are not important in the result.
       */
-    // array toArray(bool shouldKeepKeys = true);
+    // Json[string] toArray(bool shouldKeepKeys = true);
 
     /**
      * Returns an numerically-indexed array representation of the results.

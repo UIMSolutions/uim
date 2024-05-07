@@ -479,7 +479,7 @@ mixin template TCollection() {
         return new DInsertIterator(this.unwrap(), mypath, myvalues);
     }
  
-    array toArray(bool mykeepKeys = true) {
+    Json[string] toArray(bool mykeepKeys = true) {
         myiterator = this.unwrap();
         if (cast(DArrayIterator)myiterator) {
             myitems = myiterator.getArrayCopy();
@@ -494,11 +494,11 @@ mixin template TCollection() {
         return iterator_to_array(this, mykeepKeys);
     }
  
-    array toList() {
+    Json[string] toList() {
         return _toArray(false);
     }
  
-    array JsonSerialize() {
+    Json[string] JsonSerialize() {
         return _toArray();
     }
  

@@ -97,7 +97,7 @@ interface IStatement {
      * string|int mode PDO.FETCH_* constant or fetch mode name.
      *  Valid names are 'assoc", "num' or 'obj'.
      * /
-    array fetchAll(string|int mode = PDO.FETCH_NUM);
+    Json[string] fetchAll(string|int mode = PDO.FETCH_NUM);
 
     /**
      * Fetches the next row from a result set using PDO.FETCH_NUM
@@ -146,6 +146,6 @@ interface IStatement {
     /**
      * Get the bound params.
      * /
-    array getBoundParams();
+    Json[string] getBoundParams();
     */
 }

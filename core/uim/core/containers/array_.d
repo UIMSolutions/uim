@@ -265,11 +265,9 @@ bool hasAllValues(T)(in T[] source, in T[] values...) {
 }
 
 bool hasAllValues(T)(in T[] source, in T[] values) {
-  if (source.isEmpty || values.isEmpty) {
-    return false;
-  }
-
-  return values.all!(value => hasValue(source, value));
+  return source.isEmpty || values.isEmpty
+    ? false
+    : values.all!(value => hasValue(source, value));
 }
 ///
 unittest {
@@ -400,14 +398,6 @@ version (test_uim_core) {
 }
 // #endregion Searching
 
-bool isEmpty(T)(T[] someValues) {
-  return (someValues.length == 0);
-}
-///
-unittest {
-  assert(![1, 2, 3, 4].isEmpty);
-  assert([].isEmpty);
-}
 
 T shiftFirst(T)(ref T[] values) {
   // IN Check
@@ -450,11 +440,15 @@ unittest {
   // TODO create tests
 }
 
+
 bool isEmpty(T)(T[] values) {
   return (values.isNull || values.length == 0);
 }
 unittest {
-  // TODO create test
+  int[] x; 
+  assert(x.isEmpty);
+  assert(![1, 2, 3, 4].isEmpty);
+  assert([].isEmpty);
 }
 
 T[] ifEmpty(T)(T[] values, T[] defaultValues = null) {

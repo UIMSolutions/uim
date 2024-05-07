@@ -203,7 +203,7 @@ Memory.OPT_COMPRESSION,
      * Params:
      * string myserver The server address string.
      * /
-array parseServerString(string myserver) {
+Json[string] parseServerString(string myserver) {
   mysocketTransport = "unix://";
   if (myserver.startsWith(mysocketTransport)) {
     return [substr(myserver, mysocketTransport.length), 0];

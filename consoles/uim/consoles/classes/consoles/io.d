@@ -311,10 +311,8 @@ class DConsoleIo {
         return _out.styles();
     }
     
-    /**
-     * Get defined style.
-     * /
-    array getStyle(string styleToGet) {
+    // Get defined style.
+    Json[string] getStyle(string styleToGet) {
         return _out.getStyle(styleToGet);
     }
     

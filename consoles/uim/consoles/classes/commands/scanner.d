@@ -46,7 +46,7 @@ class DCommandScanner {
     /**
      * Scan the application for shells & commands.
      * /
-    array scanApp() {
+    Json[string] scanApp() {
         appNamespace = Configuration.read("App.namespace");
 
         return _scanDir(
@@ -58,7 +58,7 @@ class DCommandScanner {
     }
     
     // Scan the named plugin for shells and commands
-    array scanPlugin(string pluginName) {
+    Json[string] scanPlugin(string pluginName) {
         if (!Plugin.isLoaded(pluginName)) {
             return null;
         }

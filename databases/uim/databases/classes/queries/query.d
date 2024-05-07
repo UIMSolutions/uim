@@ -752,7 +752,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * /
     auto where(
         IExpression|Closure|string[] conditions = null,
-        array types = [],
+        Json[string] types = [],
         bool overwrite = false
     ) {
         if (overwrite) {
@@ -1395,7 +1395,7 @@ abstract class DQuery : IQuery { // : IExpression {
         string queryPart,
         IExpression|Closure|string[] append,
         string aconjunction,
-        array types
+        Json[string] types
     ) {
         expression = _parts[part] ?: this.newExpr();
         if (isEmpty(append)) {

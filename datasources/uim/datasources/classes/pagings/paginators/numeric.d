@@ -399,7 +399,7 @@ class DNumericPaginator : IPaginator {
      *
      * @return array<string, array>
      * /
-    array getPagingParams() {
+    Json[string] getPagingParams() {
         return _pagingParams;
     }
 

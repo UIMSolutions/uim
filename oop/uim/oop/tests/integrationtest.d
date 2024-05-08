@@ -459,7 +459,7 @@ mixin template TIntegrationTest() {
             "QUERY_STRING": aQuery,
             "REQUEST_URI": url,
         ];
-        if (!empty(hostInfo["https"])) {
+        if (!hostInfo.isEmpty("https"))) {
             env["HTTPS"] = "on";
         }
         if (isSet(hostInfo["host"])) {

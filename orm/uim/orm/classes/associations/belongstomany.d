@@ -507,7 +507,7 @@ class DBelongsToManyAssociation : DAssociation {
         bindingKey = (array)this.getBindingKey();
         conditions = null;
 
-        if (!empty(bindingKey)) {
+        if (!bindingKey.isEmpty) {
             conditions = array_combine(foreignKey, entity.extract(bindingKey));
         }
 

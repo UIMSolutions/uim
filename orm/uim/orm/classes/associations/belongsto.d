@@ -133,7 +133,7 @@ class DBelongsToAssociation : DAssociation {
         bindingKey = (array)this.getBindingKey();
 
         if (count(foreignKeys) != count(bindingKey)) {
-            if (empty(bindingKey)) {
+            if (bindingKey.isEmpty) {
                 msg = "The '%s' table does not define a primary key. Please set one.";
                 throw new DRuntimeException(sprintf(msg, this.getTarget().getTable()));
             }

@@ -163,7 +163,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @return bool Success
      * /
     bool saveParents(DORMTable aTable, IEntity anEntity, Json[string] associations, Json[string] optionData = null) {
-      if (empty(associations)) {
+      if (associations.isEmpty) {
           return true;
       }
 
@@ -183,11 +183,9 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @return bool Success
      * /
     bool saveChildren(DORMTable aTable, IEntity anEntity, Json[string] associations, Json[string] optionData) {
-        if (empty(associations)) {
-            return true;
-        }
-
-        return _saveAssociations(table, entity, associations, options, true);
+        return associations.isEmpty
+            ? true
+            : _saveAssociations(table, entity, associations, options, true);
     }
 
     /**
@@ -252,7 +250,7 @@ class DAssociationCollection { // }: IteratorAggregate {
         if (!anEntity.isDirty(association.getProperty())) {
             return true;
         }
-        if (!empty(nested)) {
+        if (!nested.isEmpty) {
             options = nested + options;
         }
 

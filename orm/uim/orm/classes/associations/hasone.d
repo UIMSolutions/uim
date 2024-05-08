@@ -76,7 +76,7 @@ class DHasOneAssociation : DAssociation {
      * /
     function saveAssociated(IEntity anEntity, Json[string] optionData = null) {
         targetEntity = entity.get(this.getProperty());
-        if (empty(targetEntity) || !(targetEntity instanceof IEntity)) {
+        if (targetEntity.isEmpty || !(targetEntity instanceof IEntity)) {
             return entity;
         }
 

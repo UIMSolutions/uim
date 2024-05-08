@@ -772,7 +772,7 @@ protected void _appendFields(Query query, Query surrogate, Json[string] optionDa
     fields = array_merge(surrogate.clause("select"), options["fields"]);
 
     if (
-        (empty(fields) && options["includeFields"]) ||
+        (fields.isEmpty && options["includeFields"]) ||
         surrogate.isAutoFieldsEnabled()
         ) {
         fields = array_merge(fields, _targetTable.getSchema().columns());

@@ -530,7 +530,7 @@ mixin template TQuery() {
             result = formatter(result, this);
         }
 
-        if (!empty(_formatters) && !(result instanceof decorator)) {
+        if (!_formatters.isEmpty && !(result instanceof decorator)) {
             result = new decorator(result);
         }
 

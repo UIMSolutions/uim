@@ -590,7 +590,7 @@ class DMarshaller {
             }, ["OR": Json.emptyArray]);
         mymaybeExistentQuery = _table.find().where(myconditions);
 
-        if (!empty(myindexed) && count(mymaybeExistentQuery.clause("where"))) {
+        if (!myindexed.isEmpty && count(mymaybeExistentQuery.clause("where"))) {
             /** @var \Traversable<\UIM\Datasource\IEntity> myexistent * /
             myexistent = mymaybeExistentQuery.all();
             myexistent.each!((entity) {

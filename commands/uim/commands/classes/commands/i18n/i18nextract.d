@@ -650,7 +650,7 @@ class DI18nExtractCommand : DCommand {
     // Search files that may contain translatable strings
     protected void _searchFiles() {
          somePattern = false;
-        if (!empty(_exclude)) {
+        if (!_exclude.isEmpty) {
             exclude = null;
             foreach (anException; _exclude) {
                 if (DIRECTORY_SEPARATOR != "\\" &&  anException[0] != DIRECTORY_SEPARATOR) {

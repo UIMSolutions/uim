@@ -359,7 +359,7 @@ class DNumericPaginator : IPaginator {
         order = (array)data["options"]["order"];
         sortDefault = directionDefault = false;
 
-        if (!empty(defaults["order"]) && count(defaults["order"]) >= 1) {
+        if (!defaults.isEmpty("order")) && count(defaults["order"]) >= 1) {
             sortDefault = key(defaults["order"]);
             directionDefault = current(defaults["order"]);
         }
@@ -461,7 +461,7 @@ class DNumericPaginator : IPaginator {
     Json[string] mergeOptions(Json[string] params, Json[string] settings) {
         if (!settings.isEmpty("scope"))) {
             scope = settings["scope"];
-            params = !empty(params[scope]) ? (array)params[scope] : [];
+            params = !params.isEmpty(scope)) ? (array)params[scope] : [];
         }
 
         allowed = this.getAllowedParameters();

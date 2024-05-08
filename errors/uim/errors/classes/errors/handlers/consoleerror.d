@@ -61,16 +61,12 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
      * /
     protected void _displayException(Throwable exception) {
         errorName = "Exception:";
-        if (exception instanceof FatalErrorException) {
+        if (cast(DFatalErrorException)exception) {
             errorName = "Fatal Error:";
         }
 
-        message = sprintf(
-            "<error>%s</error> %s\nIn [%s, line %s]\n",
-            errorName,
-            exception.getMessage(),
-            exception.getFile(),
-            exception.getLine()
+        message = "<error>%s</error> %s\nIn [%s, line %s]\n"
+            .format(errorName, exception.getMessage(), exception.getFile(), exception.getLine())
         );
         _stderr.write(message);
     }

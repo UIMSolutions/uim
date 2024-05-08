@@ -379,8 +379,7 @@ class DExceptionTrap {
      * @param \Throwable exception Exception to log
      * /
     void logInternalError(Throwable exception) {
-        message = sprintf(
-            "[%s] %s (%s:%s)", // Keeping same message format
+        message = "[%s] %s (%s:%s)".format( // Keeping same message format
             get_class(exception),
             exception.getMessage(),
             exception.getFile(),

@@ -877,7 +877,7 @@ class DDebugger {
             }
         }
 
-        if (!empty(tpl.isEmpty("escapeContext")) {
+        if (!tpl.isEmpty("escapeContext")) {
             data["description"] = htmlAttribEscape(data['description']);
         }
 

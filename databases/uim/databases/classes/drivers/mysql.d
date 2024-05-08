@@ -81,7 +81,7 @@ class DMysqlDriver : DDriver {
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
         ];
 
-        if (!configuration.get("ssl_key"].isEmpty && !empty(configuration.get("ssl_cert"])) {
+        if (!configuration.get("ssl_key"].isEmpty && !configuration..isEmpty("ssl_cert"])) {
             configuration.get("flags"][PDO.MYSQL_ATTR_SSL_KEY] = configuration.get("ssl_key"];
             configuration.get("flags"][PDO.MYSQL_ATTR_SSL_CERT] = configuration.get("ssl_cert"];
         }

@@ -377,7 +377,7 @@ class DEagerLoader {
 
             newAttachable = this.attachableAssociations(repository);
             attachable = array_diff_key(newAttachable, processed);
-        } while (!empty(attachable));
+        } while (!attachable.isEmpty);
     }
 
     /**

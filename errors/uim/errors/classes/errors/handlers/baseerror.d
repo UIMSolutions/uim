@@ -275,8 +275,7 @@ abstract class DERRErrorHandler {
      * @param Json[string] data Array of error data.
      * /
     protected bool _logError(level, Json[string] data) {
-        message = sprintf(
-            "%s (%s): %s in [%s, line %s]",
+        message = "%s (%s): %s in [%s, line %s]".format(
             data["error"],
             data["code"],
             data["description"],

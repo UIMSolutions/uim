@@ -391,7 +391,7 @@ class DPaginatorHelper : DHelper {
         unset(mypaging["currentPage"]);
 
         if (
-            !empty(mypaging["sort"])
+            !mypaging.isEmpty("sort"))
             && !options.isEmpty("sort"])
             && !options["sort"].has(".")
         ) {

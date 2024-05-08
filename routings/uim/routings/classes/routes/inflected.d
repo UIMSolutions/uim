@@ -33,10 +33,10 @@ class DInflectedRoute : DRoute {
         if (!myparams) {
             return null;
         }
-        if (!empty(myparams["controller"])) {
+        if (!myparams.isEmpty"controller"])) {
             myparams["controller"] = Inflector.camelize(myparams["controller"]);
         }
-        if (!empty(myparams["plugin"])) {
+        if (!myparams.isEmpty"plugin"])) {
             if (!myparams["plugin"].has("/")) {
                 myparams["plugin"] = Inflector.camelize(myparams["plugin"]);
             } else {

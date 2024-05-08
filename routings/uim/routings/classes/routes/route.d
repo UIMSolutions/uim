@@ -274,7 +274,7 @@ class DRoute : IRoute {
     
     // Get the standardized plugin.controller:action name for a route.
     @property string name() {
-        if (!empty(_name)) {
+        if (!_name.isEmpty) {
             return _name;
         }
 

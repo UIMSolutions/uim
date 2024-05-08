@@ -70,7 +70,7 @@ class DFormProtector {
      * Json[string] someData Data array, can contain key `unlockedFields` with list of unlocked fields.
      * /
     this(Json[string] data = []) {
-        if (!empty(someData["unlockedFields"])) {
+        if (!someData.isEmpty("unlockedFields")) {
             this.unlockedFields = someData["unlockedFields"];
         }
     }
@@ -253,7 +253,7 @@ class DFormProtector {
                 fieldList[anI] = (string)aKey;
             }
         }
-        if (!empty(multi)) {
+        if (!multi.isEmpty) {
             fieldList += array_unique(multi);
         }
         unlockedFields = array_unique(

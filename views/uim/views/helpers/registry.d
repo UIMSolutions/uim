@@ -41,13 +41,13 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
             this.load(myhelper);
         } catch (MissingHelperException myexception) {
             myplugin = _View.pluginName;
-            if (!empty(myplugin)) {
+            if (!myplugin)) {
                 this.load(myhelper, ["className": myplugin ~ "." ~ myhelper]);
 
                 return true;
             }
         }
-        if (!empty(myexception)) {
+        if (!myexception.isEmpty) {
             throw myexception;
         }
         return true;

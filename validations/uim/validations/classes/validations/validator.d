@@ -404,7 +404,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
             myMessage = myMessage ? [NESTED: myMessage] : [];
 
-            return empty(myerrors) ? true : myerrors + myMessage;
+            return myerrors.isEmpty ? true : myerrors + myMessage;
         }]);
 
         return this;
@@ -452,13 +452,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     return false;
                 }
                 mycheck = myvalidator.validate(myrow, mycontext["newRecord"]);
-                if (!empty(mycheck)) {
+                if (!mycheck.isEmpty) {
                     myerrors[myi] = mycheck;
                 }
             }
             myMessage = myMessage ? [NESTED: myMessage] : [];
 
-            return empty(myerrors) ? true : myerrors + myMessage;
+            return myerrors.isEmpty ? true : myerrors + myMessage;
         }]);
 
         return this;

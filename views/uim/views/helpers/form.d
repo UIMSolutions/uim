@@ -1804,7 +1804,7 @@ class DFormHelper : DHelper {
         // Single selects with no options don"t submit, but multiselects do.
         if (
             myattributes["secure"] &&
-            empty(options) &&
+            options.isEmpty &&
             empty(myattributes["empty"]) &&
             empty(myattributes["multiple"])
         ) {

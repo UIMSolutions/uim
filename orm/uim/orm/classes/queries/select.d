@@ -886,7 +886,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             if (isEmpty(myprimary) || mytypeMap.type(mytarget.aliasField(myprimary[0])).isNull) {
                 this.addDefaultTypes(mytarget);
             }
-            if (!empty(mynested)) {
+            if (!mynested.isEmpty) {
                _addAssociationsToTypeMap(mytarget, mytypeMap, mynested);
             }
         }

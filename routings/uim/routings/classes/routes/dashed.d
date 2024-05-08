@@ -51,7 +51,7 @@ class DDashedRoute : DRoute {
         if (!empty(myparams["plugin"])) {
             myparams["plugin"] = _camelizePlugin(myparams["plugin"]);
         }
-        if (!empty(myparams["action"])) {
+        if (!myparams.isEmpty"action"])) {
             myparams["action"] = Inflector.variable(myparams["action"].replace(
                 "-",
                 "_"

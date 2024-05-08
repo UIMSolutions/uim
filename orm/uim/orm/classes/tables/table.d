@@ -150,7 +150,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (!empty(configData("connection"))) {
             this.setConnection(configData("connection"));
         }
-        if (!empty(configData("queryFactory"))) {
+        if (!configData.isEmpty("queryFactory"))) {
             this.queryFactory = configData("queryFactory");
         }
 

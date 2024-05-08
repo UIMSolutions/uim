@@ -327,7 +327,7 @@ class DMarshaller {
                 myrecords[index] = this.one(myrow, options);
             }
         }
-        if (!empty(myconditions)) {
+        if (!myconditions.isEmpty) {
             /** @var \Traversable<\UIM\Datasource\IEntity> results * /
             results = mytarget.find()
                 .andWhere(fn (QueryExpression myexp): myexp.or(myconditions))

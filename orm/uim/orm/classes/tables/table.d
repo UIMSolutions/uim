@@ -136,7 +136,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         *  validation set, or an associative array, where key is the name of the
         *  validation set and value the Validator instance. */
 
-        if (!empty(configData("registryAlias"))) {
+        if (!configData.isEmpty("registryAlias"))) {
             this.registryKey(configData("registryAlias"));
         }
 

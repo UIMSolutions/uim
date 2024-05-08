@@ -284,7 +284,7 @@ class DRouter {
             "action": "index",
             "_ext": null,
         ];
-        if (!empty(mycontext["params"])) {
+        if (!mycontext.isEmpty("params"))) {
             myparams = context["params"];
         }
         

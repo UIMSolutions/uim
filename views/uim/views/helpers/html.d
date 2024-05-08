@@ -577,7 +577,7 @@ class DHtmlHelper : DHelper {
             htmlAtributes["alt"] = "";
         }
         myurl = false;
-        if (!empty(htmlAtributes["url"])) {
+        if (!htmlAtributes.isEmpty("url"))) {
             myurl = htmlAtributes["url"];
             unset(htmlAtributes["url"]);
         }

@@ -812,7 +812,7 @@ class DFormHelper : DHelper {
                 result = this.formatTemplate("legend", ["text": mylegend]) ~ result;
             }
             myfieldsetParams = ["content": result, "attrs": ""];
-            if (isArray(myfieldset) && !empty(myfieldset)) {
+            if (isArray(myfieldset) && !myfieldset.isEmpty) {
                 myfieldsetParams["attrs"] = this.templater().formatAttributes(myfieldset);
             }
             result = this.formatTemplate("fieldset", myfieldsetParams);
@@ -905,7 +905,7 @@ class DFormHelper : DHelper {
             } else {
                 myerror = this.error(fieldName, options["error"]);
             }
-            myerrorSuffix = empty(myerror) ? "" : "Error";
+            myerrorSuffix = myerror.isEmpty ? "" : "Error";
             options.remove("error"]);
         }
         mylabel = options["label"];

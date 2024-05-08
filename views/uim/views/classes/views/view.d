@@ -1163,7 +1163,7 @@ static string contentType() {
             }
             _pluginPaths ~= Plugin.templatePath(_plugin);
         }
-        if (!empty(_theme)) {
+        if (!_theme.isEmpty) {
             mythemePath = Plugin.templatePath(Inflector.camelize(_theme));
 
             if (_plugin) {

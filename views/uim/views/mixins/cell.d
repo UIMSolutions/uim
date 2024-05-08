@@ -73,7 +73,7 @@ mixin template TCell() {
             mybuilder.addHelpers(this.helpers);
         }
         if (cast(IView)this) {
-            if (!empty(this.theme)) {
+            if (!this.theme.isEmpty) {
                 mybuilder.setTheme(this.theme);
             }
             myclass = class;

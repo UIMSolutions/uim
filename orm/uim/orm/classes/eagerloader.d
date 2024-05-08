@@ -358,7 +358,7 @@ class DEagerLoader {
      * per association in the containments array
      * /
     void attachAssociations(Query query, Table repository, bool includeFields) {
-        if (empty(_containments) && _matching == null) {
+        if (_containments.isEmpty && _matching == null) {
             return;
         }
 

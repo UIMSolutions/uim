@@ -534,7 +534,7 @@ class DRoute : IRoute {
         if (!isSet(myhostOptions["_base"]) && isSet(mycontext["_base"])) {
             myhostOptions["_base"] = mycontext["_base"];
         }
-        myquery = !empty(myurl["?"]) ? (array)myurl["?"] : [];
+        myquery = !myurl.isEmpty("?") ? (array)myurl["?"] : [];
         unset(myurl["_host"], myurl["_scheme"], myurl["_port"], myurl["_base"], myurl["?"]);
 
         // Move extension into the hostOptions so its not part of

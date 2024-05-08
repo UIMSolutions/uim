@@ -398,7 +398,7 @@ class DPaginatorHelper : DHelper {
             mypaging["sort"] = _removeAlias(mypaging["sort"]);
         }
         if (
-            !empty(mypaging["sortDefault"])
+            !mypaging.isEmpty("sortDefault"))
             && !options.isEmpty("sort"])
             && !options["sort"].has(".")
         ) {

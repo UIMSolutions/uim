@@ -38,9 +38,9 @@ class DTextErrorRenderer { // }: IErrorRenderer {
 
     mixin(TProperty!("string", "name"));
     
-  /*
-  void write(string outText) {
-    writeln(outText);
+  
+  void write(string outputText) {
+    writeln(outputText);
   }
 
   string render(DError anError, bool isDebug) {

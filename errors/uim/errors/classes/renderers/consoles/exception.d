@@ -97,9 +97,8 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
      * Params:
      * \Psr\Http\Message\IResponse|string aoutput The output to print.
      * /
-    void write(IResponse|string aoutput) {
-        if (isString(output)) {
-            this.output.write(output);
-        }
+    // TODO void write(IResponse aoutput) {
+    void write(string outputText) {
+        _output.write(outputText);
     } */
 }

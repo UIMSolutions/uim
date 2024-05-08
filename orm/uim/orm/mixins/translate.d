@@ -28,7 +28,7 @@ mixin template TTranslate() {
             created = true;
         }
 
-        if (created || empty(i18n[language]) || !(i18n[language] instanceof IEntity)) {
+        if (created || i18n.isEmpty(language) || !(i18n[language] instanceof IEntity)) {
             className = class;
 
             i18n[language] = new className();

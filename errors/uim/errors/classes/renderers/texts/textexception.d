@@ -39,8 +39,7 @@ class DTextExceptionRenderer {
      * @return \Psr\Http\messages.IResponse|string
      * /
     function render() {
-        return sprintf(
-            "%s : %s on line %s of %s\nTrace:\n%s",
+        return "%s : %s on line %s of %s\nTrace:\n%s".format(
             this.error.getCode(),
             this.error.getMessage(),
             this.error.getLine(),
@@ -49,12 +48,8 @@ class DTextExceptionRenderer {
         );
     }
 
-    /**
-     * Write output to stdout.
-     *
-     * @param string output The output to print.
-     * /
-    void write(output) {
-        writeln(output);
+    // Write output to stdout.
+    void write(string outputText) {
+        writeln(outputText);
     } */
 }

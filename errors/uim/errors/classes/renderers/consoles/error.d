@@ -10,10 +10,10 @@ import uim.errors;
  * Writes to STDERR via a UIM\Console\ConsoleOutput instance for console environments
  */
 class DConsoleErrorRenderer { // }: IErrorRenderer {
+    protected bool _trace = false;
     /*
-    protected IConsoleOutput output;
+    protected IConsoleOutput _output;
 
-    protected bool trace = false;
 
     /**
      * Constructor.
@@ -26,12 +26,12 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
      * Json[string] configData Error handling configuration.
      * /
     this(Json[string] configData = null) {
-        this.output = configData("stderr"] ?? new DConsoleOutput("D://stderr");
+       _output = configData("stderr"] ?? new DConsoleOutput("D://stderr");
         this.trace = (bool)(configData("trace"] ?? false);
     }
  
-    void write(string aout) {
-        this.output.write(result);
+    void write(string outputText) {
+       _output.write(outputText);
     }
     
     string render(UimError error, bool shouldDebug) {

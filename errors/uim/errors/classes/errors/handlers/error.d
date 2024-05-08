@@ -163,8 +163,7 @@ class DErrorHandler { // }: DERRErrorHandler
     protected void _logInternalError(Throwable exception) {
         // Disable trace for internal errors.
         _config["trace"] = false;
-        message = sprintf(
-            "[%s] %s (%s:%s)\n%s", // Keeping same message format
+        message = "[%s] %s (%s:%s)\n%s".format( // Keeping same message format
             get_class(exception),
             exception.getMessage(),
             exception.getFile(),
@@ -186,7 +185,7 @@ class DErrorHandler { // }: DERRErrorHandler
             return;
         }
 
-        emitter = new DResponseEmitter();
+        auto emitter = new DResponseEmitter();
         emitter.emit(response);
     } */
 }

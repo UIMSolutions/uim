@@ -80,8 +80,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
      * @param bool shouldDebug Whether the app is in debug mode.
      * /
     protected void _displayError(Json[string] error, bool shouldDebug) {
-        message = sprintf(
-            "%s\nIn [%s, line %s]",
+        string message = "%s\nIn [%s, line %s]".format(
             error["description"],
             error["file"],
             error["line"]

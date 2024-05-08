@@ -37,10 +37,8 @@ class DFactoryLocator {
             return;
         }
 
-        throw new DInvalidArgumentException(sprintf(
-            "`factory` must be an instance of uim\Datasource\Locator\ILocatoror a callable."
-            ~ " Got type `%s` instead.",
-            getTypeName(factory)
+        throw new DInvalidArgumentException("`factory` must be an instance of uim\Datasource\Locator\ILocator a callable. Got type `%s` instead."
+            .format(getTypeName(factory)
         ));
     }
 

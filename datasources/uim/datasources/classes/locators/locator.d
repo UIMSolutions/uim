@@ -17,59 +17,56 @@ abstract class DAbstractLocator : ILocator {
     protected Json[string] _options = null;
 
     /**
-     * @param string aliasName The alias name you want to get.
+     * @param string aliasNameName The aliasName name you want to get.
      * @param Json[string] options The options you want to build the table with.
      * /
-    IRepository get(string aliasName, Json[string] buildOptions = null) {
+    IRepository get(string aliasNameName, Json[string] buildOptions = null) {
         auto storeOptions = buildOptions.dup;
         storeOptions.remove("allowFallbackClass");
 
-        if (this.instances.isSet(alias)) {
-            if (!storeOptions.isEmpty && isset(configuration.update(alias]) && configuration.update(alias] != storeOptions) {
-                throw new DRuntimeException(sprintf(
-                    "You cannot configure '%s', it already exists in the registry.",
-                    alias
-                ));
+        if (_instances.isSet(aliasName)) {
+            if (!storeOptions.isEmpty && isset(configuration.update(aliasName]) && configuration.update(aliasName] != storeOptions) {
+                throw new DRuntimeException("You cannot configure '%s', it already exists in the registry.".format(aliasName));
             }
 
-            return _instances[alias];
+            return _instances[aliasName];
         }
 
-        configuration.update(alias, storeOptions);
+        configuration.update(aliasName, storeOptions);
 
-        return _instances[alias] = this.createInstance(alias, options);
+        return _instances[aliasName] = this.createInstance(aliasName, options);
     }
 
     /**
      * Create an instance of a given classname.
      *
-     * @param string aliasName Repository aliasName.
+     * @param string aliasNameName Repository aliasNameName.
      * @param Json[string] options The options you want to build the instance with.
      * @return uim.Datasource\
      * /
-    abstract protected IRepository createInstance(string aliasName, Json[string] optionData);
+    abstract protected IRepository createInstance(string aliasNameName, Json[string] optionData);
 
 
-    function set(string aliasName, IRepository repository) {
-        return _instances[aliasName] = repository;
+    function set(string aliasNameName, IRepository repository) {
+        return _instances[aliasNameName] = repository;
     }
 
 
-    bool exists(string aliasName) {
-        return this.instances.hasKey(aliasName);
+    bool exists(string aliasNameName) {
+        return _instances.hasKey(aliasNameName);
     }
 
 
-    void remove(string aliasName) {
+    void remove(string aliasNameName) {
         unset(
-            this.instances[aliasName],
-            configuration.update(aliasName]
+            _instances[aliasNameName],
+            configuration.update(aliasNameName]
         );
     }
 
 
     void clear() {
-        this.instances = null;
-        this.options = null;
+        _instances = null;
+        _options = null;
     } */
 }

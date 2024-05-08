@@ -489,7 +489,7 @@ mixin template TQuery() {
             return results.method(...arguments);
         }
         throw new BadMethodCallException(
-            sprintf("Unknown method '%s'", method)
+            "Unknown method '%s'".format(method)
         );
     }
 

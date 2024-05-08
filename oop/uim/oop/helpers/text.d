@@ -747,7 +747,7 @@ class DText {
      * @param string myellipsis Ending that will be appended
      * /
     static string excerpt(string searchText, string myphrase, int myradius = 100, string myellipsis = "...") {
-        if (isEmpty(searchText) || empty(myphrase)) {
+        if (isEmpty(searchText) || myphrase.isEmpty) {
             return truncate(searchText, myradius * 2, ["ellipsis": myellipsis]);
         }
         string myprepend = myellipsis;

@@ -66,10 +66,10 @@ mixin template TCell() {
         mybuilder = myinstance.viewBuilder();
         mybuilder.setTemplate(Inflector.underscore(myaction));
 
-        if (!empty(myplugin)) {
+        if (!myplugin.isEmpty) {
             mybuilder.setPlugin(myplugin);
         }
-        if (!empty(this.helpers)) {
+        if (!this.helpers.isEmpty) {
             mybuilder.addHelpers(this.helpers);
         }
         if (cast(IView)this) {

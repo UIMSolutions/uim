@@ -53,7 +53,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
     }
 
     auto loaded = isSet(_loaded[objName]);
-    if (loaded && !empty(configData)) {
+    if (loaded && !configData.isEmpty) {
       _checkDuplicate(objName, configData);
     }
     if (loaded) {

@@ -391,7 +391,7 @@ class Hash {
             someKeys = extract(mydata, mykeyPath);
             assert(isArray(someKeys));
         }
-        if (mykeyPath !isNull && empty(someKeys)) {
+        if (mykeyPath !isNull && someKeys.isEmpty) {
             return null;
         }
         myvals = null;

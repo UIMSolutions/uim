@@ -179,7 +179,7 @@ class DHtmlHelper : DHelper {
             result = to!string(Configuration.read("App.encoding")).toLower;
         }
         return _formatTemplate("charset", [
-            "charset": !empty(result) ? result : "utf-8",
+            "charset": !result.isEmpty ? result : "utf-8",
         ]);
     }
     

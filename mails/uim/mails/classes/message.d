@@ -1069,7 +1069,7 @@ class DMessage { //: JsonSerializable {
 
         message = null;
         foreach (this.attachments as filename: dirEntry) {
-            if (!empty(dirEntry["contentId"])) {
+            if (!dirEntry.isEmpty("contentId"))) {
                 continue;
             }
             someData = dirEntry.get("data", this.readFile(dirEntry["file"]));

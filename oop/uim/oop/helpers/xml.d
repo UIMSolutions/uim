@@ -359,7 +359,7 @@ class Xml {
                                 unset(dataValue["xmlns:"]);
                             }
                         }
-                        else if(!empty(dataValue) || dataValue == 0 || dataValue == "0") {
+                        else if(!dataValue.isEmpty || dataValue == 0 || dataValue == "0") {
                             mychildValue = (string) dataValue;
                         }
 

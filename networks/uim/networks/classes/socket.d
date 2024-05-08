@@ -89,7 +89,7 @@ class DSocket {
             [configuration.get("protocol"), configuration.get("host")] = split("://", configuration.get("host"]);
         }
         scheme = null;
-        if (!empty(configuration.get("protocol"])) {
+        if (!configuration.isEmpty("protocol")) {
             scheme = configuration.get("protocol"]~"://";
         }
         _setSslContext(configuration.get("host"));

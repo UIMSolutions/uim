@@ -211,7 +211,7 @@ class DConsoleOutput {
         if (!style["text"].isEmpty) && isSet(_foregroundColors[style["text"]])) {
             styleInfo ~= _foregroundColors[style["text"]];
         }
-        if (!empty(style["background"]) && isSet(_backgroundColors[style["background"]])) {
+        if (!style.isEmpty("background")) && isSet(_backgroundColors[style["background"]])) {
             styleInfo ~= _backgroundColors[style["background"]];
         }
         unset(style["text"], style["background"]);

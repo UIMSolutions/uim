@@ -132,7 +132,7 @@ class DFlashComponent : DComponent {
         auto options = ["element": anElement];
 
         if (!someArguments[1].isEmpty) {
-            if (!empty(someArguments[1]["plugin"])) {
+            if (!someArguments[1]["plugin"].isEmpty)) {
                 options = [
                     "element": someArguments[1]["plugin"] ~ "." ~ anElement
                 ];

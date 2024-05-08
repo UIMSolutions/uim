@@ -459,7 +459,7 @@ class DNumericPaginator : IPaginator {
      * @return Json[string] Array of merged options.
      * /
     Json[string] mergeOptions(Json[string] params, Json[string] settings) {
-        if (!empty(settings["scope"])) {
+        if (!settings.isEmpty("scope"))) {
             scope = settings["scope"];
             params = !empty(params[scope]) ? (array)params[scope] : [];
         }

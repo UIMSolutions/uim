@@ -78,10 +78,11 @@ class DRuleInvoker {
     bool __invoke(IEntity entity, Json[string] scope) {
         rule = _rule;
         pass = rule(entity, this.options + scope);
-        if (pass == true || empty(configuration.update("errorField"])) {
+        if (pass == true || configuration.isEmpty("errorField")) {
             return pass == true;
         }
-        message = configuration.update("message"] ?? "invalid";
+        
+        string message = configuration.getString("message", "invalid");
         if (isString(pass)) {
             message = pass;
         }

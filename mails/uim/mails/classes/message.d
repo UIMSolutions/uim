@@ -1338,7 +1338,7 @@ class DMessage { //: JsonSerializable {
                     }
                 }
             }
-            if (!empty(tmpLine)) {
+            if (!tmpLine.isEmpty) {
                 formatted ~= tmpLine;
             }
         }

@@ -192,7 +192,7 @@ class DDebugger {
      * /
     static function getInstance(string aClassName = null) {
         static instance = null;
-        if (!empty(aClassName)) {
+        if (!aClassName.isEmpty) {
             if (!instance || strtolower(aClassName) != strtolower(get_class(instance[0]))) {
                 instance[0] = new aClassName();
             }

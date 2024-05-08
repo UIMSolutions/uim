@@ -309,7 +309,7 @@ static string[] configured() {
             throw new UimException("There is no `%s` config engine.".format(configData));
         }
         someValues = _values;
-        if (!empty(someKeys)) {
+        if (!someKeys.isEmpty) {
             someValues = array_intersect_key(someValues, array_flip(someKeys));
         }
         return myEngine.dump(aKey, someValues);

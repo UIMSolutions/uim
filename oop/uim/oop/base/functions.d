@@ -144,7 +144,7 @@ if (!function_exists("UIM\Core\env")) {
     Json|bool|null enviroment(string aKey, Json|bool|null default = null) {
         if (aKey == "HTTPS") {
             if (isSet(_SERVER["HTTPS"])) {
-                return !empty(_SERVER["HTTPS"]) && _SERVER["HTTPS"] != "off";
+                return !_SERVER.get("HTTPS") != "off";
             }
             return string)enviroment("SCRIPT_URI").startsWith(("https://");
         }
@@ -158,11 +158,11 @@ if (!function_exists("UIM\Core\env")) {
         }
         if (aKey == "REMOTE_ADDR" && val == enviroment("SERVER_ADDR")) {
             addr = enviroment("HTTP_PC_REMOTE_ADDR");
-            if (addr !isNull) {
+            if (!addr.isNull) {
                 val = addr;
             }
         }
-        if (val !isNull) {
+        if (!val.isNull) {
             return val;
         }
         switch (aKey) {

@@ -356,7 +356,7 @@ class DPaginator : IPaginator {
         order = (array)myData["options"]["order"];
         sortDefault = directionDefault = false;
 
-        if (!empty(defaults["order"]) && count(defaults["order"]) == 1) {
+        if (!defaults.isEmpty("order")) && count(defaults["order"]) == 1) {
             sortDefault = key(defaults["order"]);
             directionDefault = current(defaults["order"]);
         }

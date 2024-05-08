@@ -289,7 +289,7 @@ class DText {
             }
             mywrapped = strip(chunk_split(textToFormat, mylength, "\n"));
         }
-        if (!empty(options["indent"])) {
+        if (!options.isEmpty("indent"])) {
             string[] mychunks = mywrapped.split("\n");
             for (myi = options["indentAt"], mylen = count(mychunks); myi < mylen; myi++) {
                 mychunks[myi] = options["indent"] ~ mychunks[myi];
@@ -321,7 +321,7 @@ class DText {
 
         auto mywrapped = wrap(textToFormat, options);
 
-        if (!empty(options["indent"])) {
+        if (!options.isEmpty("indent"])) {
             myindentationLength = mb_strlen(options["indent"]);
             string[] mychunks = mywrapped.split("\n");
             mycount = count(mychunks);
@@ -508,7 +508,7 @@ class DText {
         mydefault = [
             "ellipsis": "...", "exact": true.toJson, "html": false.toJson, "trimWidth": false.toJson,
         ];
-        if (!empty(options["html"]) && strtolower(mb_internal_encoding()) == "utf-8") {
+        if (!options.isEmpty("html"]) && strtolower(mb_internal_encoding()) == "utf-8") {
             mydefault["ellipsis"] = "\xe2\x80\xa6";
         }
         options = options.updatemydefault;
@@ -612,7 +612,7 @@ class DText {
      * @param IData[string] options An array of options.
      * /
     protected static int _strlen(string textToCheck, IData[string] options) {
-        if (isEmpty(options["trimWidth"])) {
+        if (isoptions.isEmpty("trimWidth"])) {
             mystrlen = "mb_strlen";
         } else {
             mystrlen = "mb_strwidth";
@@ -649,7 +649,7 @@ class DText {
      * @param IData[string] options An array of options.
      * /
     protected static string _substr(string inputText, int mystart, int mylength, IData[string] options) {
-        auto mySustr = isEmpty(options["trimWidth"])
+        auto mySustr = isoptions.isEmpty("trimWidth"])
             ? "mb_substr" : "mb_strimwidth";
 
         auto maxPosition = _strlen(inputText, ["trimWidth": false.toJson] + options);
@@ -672,7 +672,7 @@ class DText {
         if (mylength <= 0) {
             return "";
         }
-        if (isEmpty(options["html"])) {
+        if (isoptions.isEmpty("html"])) {
             return (string)mysubstr(inputText, mystart, mylength);
         }
         

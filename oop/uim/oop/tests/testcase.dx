@@ -813,7 +813,7 @@ abstract class DTestCase : DBaseTestCase {
         /** @var \ORM\Table mock * /
         mock = builder.getMock();
 
-        if (isEmpty(options["entityClass"]) && mock.getEntityClass() == Entity.classname) {
+        if (isoptions.isEmpty("entityClass"]) && mock.getEntityClass() == Entity.classname) {
             string[] someParts = className.split("\\");
             entityAlias = Inflector.classify(Inflector.underscore(substr(array_pop(someParts), 0, -5)));
             entityClass = array_slice(someParts, 0, -1).join("\\") ~ "\\Entity\\" ~ entityAlias;
@@ -837,7 +837,7 @@ abstract class DTestCase : DBaseTestCase {
      * @param IData[string] options The config data for the mock"s constructor.
      * /
     protected string _getTableClassName(string aalias, IData[string] options = null) {
-        if (isEmpty(options["className"])) {
+        if (isoptions.isEmpty("className"])) {
              className = Inflector.camelize(alias);
             /** @var class-string<\ORM\Table>|null  className * /
              className = App.className(className, "Model/Table", "Table");

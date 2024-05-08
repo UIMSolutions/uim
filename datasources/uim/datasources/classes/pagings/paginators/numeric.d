@@ -383,7 +383,7 @@ class DNumericPaginator : IPaginator {
      *   and in the second the options to be passed to it.
      * /
     // TODO protected Json[string] _extractFinder(Json[string] optionData) {
-        type = !empty(options["finder"]) ? options["finder"] : "all";
+        type = !options.isEmpty("finder"]) ? options["finder"] : "all";
         unset(options["finder"], options["maxLimit"]);
 
         if ((type.isArray) {

@@ -157,7 +157,7 @@ class Xml {
      * /
                     protected static SimpleXMLElement | DOMDocument load(string myinput, IData[string] options, Closure mycallable) {
                         myflags = 0;
-                        if (!empty(options["parseHuge"])) {
+                        if (!options.isEmpty("parseHuge"])) {
                             myflags |= LIBXML_PARSEHUGE;
                         }
                         myinternalErrors = libxml_use_internal_errors(true);

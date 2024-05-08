@@ -308,7 +308,7 @@ class DNumber {
         if (isSet(options["precision"])) {
             formatter.setAttribute(NumberFormatter.MAX_FRACTION_DIGITS, options["precision"]);
         }
-        if (!empty(options["pattern"])) {
+        if (!options.isEmpty("pattern"])) {
             formatter.setPattern(options["pattern"]);
         }
         if (!options["useIntlCode"].isEmpty) {

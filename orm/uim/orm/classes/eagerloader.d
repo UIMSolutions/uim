@@ -256,7 +256,7 @@ class DEagerLoader {
 
         contain = null;
         foreach (_containments as alias: options) {
-            if (!empty(options["instance"])) {
+            if (!options.isEmpty("instance"])) {
                 contain = _containments;
                 break;
             }

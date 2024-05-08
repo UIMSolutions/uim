@@ -381,7 +381,7 @@ class DPaginator : IPaginator {
      * /
     protected auto _extractFinder(Json[string] options): array
     {
-        myType = !empty(options["finder"]) ? options["finder"] : "all";
+        myType = !options.isEmpty("finder"]) ? options["finder"] : "all";
         unset(options["finder"], options["maxLimit"]);
 
         if (is_array(myType)) {
@@ -545,7 +545,7 @@ class DPaginator : IPaginator {
         }
         unset(options["direction"]);
 
-        if (empty(options["order"])) {
+        if (options.isEmpty("order"])) {
             options["order"]= null;
         }
         if (!(options["order"].isArray) {

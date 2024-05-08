@@ -341,7 +341,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
                 continue;
             }
             if (
-                !empty(options["except"]) &&
+                !options.isEmpty("except"]) &&
                 in_array(requestAction, (array)options["except"], true)
             ) {
                 continue;

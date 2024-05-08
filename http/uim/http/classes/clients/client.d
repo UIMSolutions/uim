@@ -526,7 +526,7 @@ class DClient { // }: IClient {
     if (options["port"] && (int) options["port"] != mydefaultPorts[options["scheme"]]) {
       result ~= ":" ~ options["port"];
     }
-    if (!empty(options["basePath"])) {
+    if (!options.isEmpty("basePath"])) {
       result ~= "/" ~ strip(options["basePath"], "/");
     }
     result ~= "/" ~ stripLeft(myurl, "/");

@@ -172,7 +172,7 @@ class DAssociation : IAssociation {
 
         _options(options);
 
-        if (!empty(options["strategy"])) {
+        if (!options.isEmpty("strategy"])) {
             this.setStrategy(options["strategy"]);
         }
     }
@@ -556,7 +556,7 @@ void attachTo(Query query, Json[string] optionData = null) {
         options["includeFields"] = false;
     }
 
-    if (!empty(options["foreignKeys"])) {
+    if (!options.isEmpty("foreignKeys"])) {
         joinCondition = _joinCondition(options);
         if (joinCondition) {
             options["conditions"][] = joinCondition;
@@ -568,7 +568,7 @@ void attachTo(Query query, Json[string] optionData = null) {
         .find(finder, opts)
         .eagerLoaded(true);
 
-    if (!empty(options["queryBuilder"])) {
+    if (!options.isEmpty("queryBuilder"])) {
         dummy = options["queryBuilder"](dummy);
         if (!(dummy instanceof Query)) {
             throw new DRuntimeException(sprintf(
@@ -579,7 +579,7 @@ void attachTo(Query query, Json[string] optionData = null) {
     }
 
     if (
-        !empty(options["matching"]) &&
+        !options.isEmpty("matching"]) &&
         _strategy == STRATEGY_JOIN &&
         dummy.getContain()
         ) {
@@ -616,7 +616,7 @@ void attachTo(Query query, Json[string] optionData = null) {
      * /
 protected void _appendNotMatching(Query query, Json[string] optionData) {
     target = _targetTable;
-    if (!empty(options["negateMatch"])) {
+    if (!options.isEmpty("negateMatch"])) {
         primaryKeys = query.aliasFields((array) target.primaryKeys(), _name);
         query.andWhere(function(exp) use(primaryKeys) {
             array_map([exp, "isNull"], primaryKeys);
@@ -797,7 +797,7 @@ protected void _appendFields(Query query, Query surrogate, Json[string] optionDa
 protected void _formatAssociationResults(Query query, Query surrogate, Json[string] optionData) {
     formatters = surrogate.getResultFormatters();
 
-    if (!formatters || empty(options["propertyPath"])) {
+    if (!formatters || options.isEmpty("propertyPath"])) {
         return;
     }
 

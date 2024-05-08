@@ -113,14 +113,14 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
     /**
      * Wrap the remaining middleware with error handling.
      *
-     * @param \Psr\Http\messages.IServerRequest myRequest The request.
-     * @param \Psr\Http\servers.IRequestHandler handler The request handler.
-     * @return \Psr\Http\messages.IResponse A response.
+     * @param IServerRequest myRequest The request.
+     * @param .IRequestHandler handler The request handler.
+     * @return IResponse A response.
      * /
     IResponse process(IServerRequest myRequest, IRequestHandler handler) {
         try {
             return handler.handle(myRequest);
-        } catch (RedirectException myException) {
+        } catch (DRedirectException myException) {
             return _handleRedirect(myException);
         } catch (Throwable myException) {
             return _handleException(myException, myRequest);
@@ -131,8 +131,8 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      * Handle an exception and generate an error response
      *
      * @param \Throwable myException The exception to handle.
-     * @param \Psr\Http\messages.IServerRequest myRequest The request.
-     * @return \Psr\Http\messages.IResponse A response
+     * @param IServerRequest myRequest The request.
+     * @return IResponse A response
      * /
     IResponse handleException(Throwable myException, IServerRequest myRequest) {
         myErrorHandler = this.getErrorHandler();
@@ -142,7 +142,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
             myErrorHandler.logException(myException, myRequest);
             response = renderer.render();
         } catch (Throwable internalException) {
-            myErrorHandler.logException(internalException, myRequest);
+            myErrorHandler.logException@(DInternalException, myRequest);
             response = this.handleInternalError();
         }
 
@@ -153,9 +153,9 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      * Convert a redirect exception into a response.
      *
      * @param uim.uim.http.exceptions.RedirectException myException The exception to handle
-     * @return \Psr\Http\messages.IResponse Response created from the redirect.
+     * @return IResponse Response created from the redirect.
      * /
-    IResponse handleRedirect(RedirectException myException) {
+    IResponse handleRedirect(DRedirectException myException) {
         return new DRedirectResponse(
             myException.getMessage(),
             myException.getCode(),
@@ -166,7 +166,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
     /**
      * Handle internal errors.
      *
-     * @return \Psr\Http\messages.IResponse A response
+     * @return IResponse A response
      * /
     protected IResponse handleInternalError() {
         response = new DResponse(["body":"An Internal Server Error Occurred"]);

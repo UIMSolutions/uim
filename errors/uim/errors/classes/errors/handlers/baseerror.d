@@ -298,7 +298,7 @@ abstract class DERRErrorHandler {
      * Log an error for the exception if applicable.
      *
      * @param \Throwable exception The exception to log a message for.
-     * @param \Psr\Http\messages.IServerRequest|null request The current request.
+     * @param IServerRequest|null request The current request.
      * /
     bool logException(Throwable exception, ?IServerRequest request = null) {
         if (_config.isEmpty("log"])) {

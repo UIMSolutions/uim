@@ -65,7 +65,7 @@ class DRoutingMiddleware : IRoutingMiddleware {
                 assert(cast(DServerRequest)myserverRequest);
                 Router.setRequest(myserverRequest);
             }
-        } catch (RedirectException  anException) {
+        } catch (DRedirectException  anException) {
             return new DRedirectResponse(
                  anException.getMessage(),
                  anException.getCode(),

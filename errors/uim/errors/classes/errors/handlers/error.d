@@ -126,7 +126,7 @@ class DErrorHandler { // }: DERRErrorHandler
      * Get a renderer instance.
      *
      * @param \Throwable exception The exception being rendered.
-     * @param \Psr\Http\messages.IServerRequest|null request The request.
+     * @param IServerRequest|null request The request.
      * @return uim.errors.IExceptionRenderer The exception renderer.
      * @throws \RuntimeException When the renderer class DCannot be found.
      * /
@@ -176,7 +176,7 @@ class DErrorHandler { // }: DERRErrorHandler
     /**
      * Method that can be easily stubbed in testing.
      *
-     * @param \Psr\Http\messages.IResponse|string response Either the message or response object.
+     * @param IResponse|string response Either the message or response object.
      * /
     protected void _sendResponse(response) {
         if (response.isString) {

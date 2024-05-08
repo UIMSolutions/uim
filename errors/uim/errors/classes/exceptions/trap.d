@@ -127,7 +127,7 @@ class DExceptionTrap {
      * Get an instance of the renderer.
      *
      * @param \Throwable exception Exception to render
-     * @param \Psr\Http\messages.IServerRequest|null request The request if possible.
+     * @param IServerRequest|null request The request if possible.
      * @return uim.errors.IExceptionRenderer
      * /
     function renderer(Throwable exception, request = null) {
@@ -342,7 +342,7 @@ class DExceptionTrap {
      * After logging is attempted the `Exception.beforeRender` event is triggered.
      *
      * @param \Throwable exception The exception to log
-     * @param \Psr\Http\messages.IServerRequest|null request The optional request
+     * @param IServerRequest|null request The optional request
      * /
     void logException(Throwable exception, ?IServerRequest request = null) {
         shouldLog = _config["log"];

@@ -36,7 +36,7 @@ class DTextExceptionRenderer {
     /**
      * Render an exception into a plain text message.
      *
-     * @return \Psr\Http\messages.IResponse|string
+     * @return IResponse|string
      * /
     function render() {
         return "%s : %s on line %s of %s\nTrace:\n%s".format(

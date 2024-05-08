@@ -2496,7 +2496,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
         mycaseInsensitive = options["caseInsensitive"] ?? false;
-        unset(options["caseInsensitive"]);
+        options.remove("caseInsensitive"]);
 
         return _add(myfield, "multipleOptions", myextra ~ [
             "rule": ["multiple", options, mycaseInsensitive],

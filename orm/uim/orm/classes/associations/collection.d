@@ -208,7 +208,7 @@ class DAssociationCollection { // }: IteratorAggregate {
         Json[string] optionData,
         bool owningSide
     ) {
-        unset(options["associated"]);
+        options.remove("associated"]);
         foreach (associations as alias: nested) {
             if (is_int(alias)) {
                 alias = nested;

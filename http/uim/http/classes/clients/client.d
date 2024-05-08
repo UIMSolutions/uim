@@ -407,7 +407,7 @@ class DClient { // }: IClient {
     auto myredirects = 0;
     if (isSet(options["redirect"])) {
       myredirects = (int) options["redirect"];
-      unset(options["redirect"]);
+      options.remove("redirect"]);
     }
     do {
       myresponse = _sendRequest(myrequest, options);

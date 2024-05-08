@@ -384,7 +384,7 @@ class DNumericPaginator : IPaginator {
      * /
     // TODO protected Json[string] _extractFinder(Json[string] optionData) {
         type = !options.isEmpty("finder"]) ? options["finder"] : "all";
-        unset(options["finder"], options["maxLimit"]);
+        options.remove("finder"], options["maxLimit"]);
 
         if ((type.isArray) {
             options = (array)current(type) + options;
@@ -545,7 +545,7 @@ class DNumericPaginator : IPaginator {
         } else {
             options["sort"] = null;
         }
-        unset(options["direction"]);
+        options.remove("direction"]);
 
         if (options.isEmpty("order")) {
             options["order"] = null;

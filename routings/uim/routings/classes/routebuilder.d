@@ -744,7 +744,7 @@ class DRouteBuilder {
             options = null;
         }
         mypath = options["path"] ?? "/" ~ Inflector.dasherize(routings);
-        unset(options["path"]);
+        options.remove("path"]);
         options = ["plugin": routings] + options;
         this.scope(mypath, options, mycallback);
 

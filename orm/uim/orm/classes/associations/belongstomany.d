@@ -638,7 +638,7 @@ class DBelongsToManyAssociation : DAssociation {
             if (!options.isEmpty("associated"][_junctionProperty]["associated"])) {
                 joinAssociations = options["associated"][_junctionProperty]["associated"];
             }
-            unset(options["associated"][_junctionProperty]);
+            options.remove("associated"][_junctionProperty]);
         }
 
         table = this.getTarget();

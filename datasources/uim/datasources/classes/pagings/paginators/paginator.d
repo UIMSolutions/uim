@@ -382,7 +382,7 @@ class DPaginator : IPaginator {
     protected auto _extractFinder(Json[string] options): array
     {
         myType = !options.isEmpty("finder"]) ? options["finder"] : "all";
-        unset(options["finder"], options["maxLimit"]);
+        options.remove("finder"], options["maxLimit"]);
 
         if (is_array(myType)) {
             options = (array)current(myType) + options;
@@ -543,7 +543,7 @@ class DPaginator : IPaginator {
         } else {
             options["sort"] = null;
         }
-        unset(options["direction"]);
+        options.remove("direction"]);
 
         if (options.isEmpty("order"])) {
             options["order"]= null;

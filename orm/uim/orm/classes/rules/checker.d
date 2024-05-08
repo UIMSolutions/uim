@@ -77,7 +77,7 @@ class DRulesChecker { // }: BaseRulesChecker {
         if (mymessage.isArray) {
             options = mymessage ~ ["message": null];
             mymessage = options["message"];
-            unset(options["message"]);
+            options.remove("message"]);
         }
         if (!mymessage) {
             if (_useI18n) {

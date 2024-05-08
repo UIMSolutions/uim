@@ -1,4 +1,4 @@
-module uim.oop.TestSuite;
+module oop.uim.oop.tests.middlewaredispatcher;
 
 import uim.oop;
 

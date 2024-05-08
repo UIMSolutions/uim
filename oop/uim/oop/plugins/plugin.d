@@ -160,10 +160,10 @@ class DPlugin : IPlugin {
         }
     }
  
-    void routes(RouteBuilder routes) {
+    void routes(DRouteBuilder routes) {
         somePath = this.configPath() ~ "routes.d";
         if (isFile(somePath)) {
-            result = require somePath;
+            result = /* require */ somePath;
             if (cast(DClosure)result) {
                 result(routes);
             }
@@ -177,11 +177,11 @@ class DPlugin : IPlugin {
         }
     }
  
-    CommandCollection console(CommandCollection commands) {
+    ICommandCollection console(ICommandCollection commands) {
         return commands.addMany(commands.discoverPlugin(_name));
     }
  
-    MiddlewareQueue middleware(MiddlewareQueue middlewareQueue) {
+    DMiddlewareQueue middleware(MiddlewareQueue middlewareQueue) {
         return middlewareQueue;
     }
     

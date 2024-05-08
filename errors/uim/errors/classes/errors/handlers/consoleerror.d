@@ -81,15 +81,12 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
      * /
     protected void _displayError(Json[string] error, bool shouldDebug) {
         string message = "%s\nIn [%s, line %s]".format(
-            error["description"],
-            error["file"],
-            error["line"]
+            error["description"], error["file"], error["line"]
         );
-        message = sprintf(
-            "<error>%s Error:</error> %s\n",
-            error["error"],
-            message
-        );
+
+        message = "<error>%s Error:</error> %s\n"
+            .format(error["error"], message);
+
         _stderr.write(message);
     }
 

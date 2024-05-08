@@ -1,4 +1,4 @@
-module uim.oop.tests.integrationtest;
+module uim.oop.tests.integration;
 
 import uim.oop;
 
@@ -14,7 +14,6 @@ import uim.oop;
  * that mock objects create.
  */
 mixin template TIntegrationTest() {
-    /* 
     mixin TCookieCrypt;
     mixin TContainerStub;
 

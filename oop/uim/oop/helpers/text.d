@@ -947,9 +947,12 @@ class DText {
         if (isEmpty(mytransliterator)) {
             mytransliterator = _defaultTransliterator ?: _defaultTransliteratorId;
         }
-        result = transliterator_transliterate(mytransliterator, mystring);
-        if (result == false) {
-            throw new UimException(sprintf("Unable to transliterate string: %s", mystring));
+        
+        auto result = transliterator_transliterate(mytransliterator, mystring);
+        if (!result) {
+            throw new UimException(
+                "Unable to transliterate string: %s".format(mystring)
+            );
         }
         return result;
     }

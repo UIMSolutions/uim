@@ -48,5 +48,6 @@ public {
   import uim.oop.properties;
   import uim.oop.registries;
   import uim.oop.simple;
+  import uim.oop.tests;
   import uim.oop.tools;
 }

@@ -189,7 +189,7 @@ mixin template TQuery() {
             [alias, field] = explode(".", field);
         }
 
-        key = sprintf("%s__%s", alias, field);
+        key = "%s__%s".format(alias, field);
 
         return [key: aliasedField];
     }

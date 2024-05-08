@@ -101,9 +101,9 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
         }
 
         if (!myErrorHandler instanceof ErrorHandler) {
-            throw new DInvalidArgumentException(sprintf(
-                "myErrorHandler argument must be a config array or ErrorHandler instance. Got `%s` instead.",
-                getTypeName(myErrorHandler)
+            throw new DInvalidArgumentException(
+                "myErrorHandler argument must be a config array or ErrorHandler instance. Got `%s` instead."
+                .format(getTypeName(myErrorHandler)
             ));
         }
 

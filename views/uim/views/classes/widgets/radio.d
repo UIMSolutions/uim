@@ -140,7 +140,7 @@ class DRadioWidget : DWidget {
         myradio["name"] = options["name"];
 
         myradio["templateVars"] ??= null;
-        if (!empty(options["templateVars"])) {
+        if (!options.isEmpty("templateVars"])) {
             myradio["templateVars"] = array_merge(options["templateVars"], myradio["templateVars"]);
         }
         if (myradio..isEmpty("id")) {
@@ -163,10 +163,10 @@ class DRadioWidget : DWidget {
             mydoptionsata["label"] = _stringContents.addClassnameToList(labelData, myselectedClass);
         }
         myradio["disabled"] = _isDisabled(myradio, mydata["disabled"]);
-        if (!empty(options["required"])) {
+        if (!options.isEmpty("required"])) {
             myradio["required"] = true;
         }
-        if (!empty(options["form"])) {
+        if (!options.isEmpty("form"])) {
             myradio["form"] = mydata["form"];
         }
         myinput = _stringContents.format("radio", [

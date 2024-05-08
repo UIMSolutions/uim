@@ -263,7 +263,7 @@ class DFormHelper : DHelper {
             }
             options["context"]["entity"] = formContext;
             formContext = _getContext(options["context"]);
-            unset(options["context"]);
+            options.remove("context"]);
         }
         myisCreate = formContext.isCreate();
 
@@ -278,19 +278,19 @@ class DFormHelper : DHelper {
 
         if (isSet(options["valueSources"])) {
             this.setValueSources(options["valueSources"]);
-            unset(options["valueSources"]);
+            options.remove("valueSources"]);
         }
         if (options["idPrefix"] !isNull) {
            _idPrefix = options["idPrefix"];
         }
         mytemplater = this.templater();
 
-        if (!empty(options["templates"])) {
+        if (!options.isEmpty("templates"])) {
             mytemplater.push();
             mymethod = isString(options["templates"]) ? "load" : "add";
             mytemplater.{mymethod}(options["templates"]);
         }
-        unset(options["templates"]);
+        options.remove("templates"]);
 
         if (options["url"] == false) {
             myurl = _View.getRequest().getRequestTarget();
@@ -300,7 +300,7 @@ class DFormHelper : DHelper {
             myaction = this.Url.build(myurl);
         }
        _lastAction(myurl);
-        unset(options["url"], options["idPrefix"]);
+        options.remove("url"], options["idPrefix"]);
 
         myhtmlAttributes = null;
         switch (options["type"].toLower) {
@@ -334,10 +334,10 @@ class DFormHelper : DHelper {
         }
         this.requestType = options["type"].toLower;
 
-        if (!empty(options["encoding"])) {
+        if (!options.isEmpty("encoding"])) {
             myhtmlAttributes["accept-charset"] = options["encoding"];
         }
-        unset(options["type"], options["encoding"]);
+        options.remove("type"], options["encoding"]);
 
         myhtmlAttributes += options;
 
@@ -686,7 +686,7 @@ class DFormHelper : DHelper {
         }
         if (isSet(options["for"])) {
             mylabelFor = options["for"];
-            unset(options["for"]);
+            options.remove("for"]);
         } else {
             mylabelFor = _domId(fieldName);
         }
@@ -871,7 +871,7 @@ class DFormHelper : DHelper {
             mytemplateMethod = isString(options["templates"]) ? "load" : "add";
             mytemplater.{mytemplateMethod}(options["templates"]);
         }
-        unset(options["templates"]);
+        options.remove("templates"]);
 
         // Hidden inputs don"t need aria.
         // Multiple checkboxes can"t have aria generated for them at this layer.
@@ -906,20 +906,20 @@ class DFormHelper : DHelper {
                 myerror = this.error(fieldName, options["error"]);
             }
             myerrorSuffix = empty(myerror) ? "" : "Error";
-            unset(options["error"]);
+            options.remove("error"]);
         }
         mylabel = options["label"];
-        unset(options["label"]);
+        options.remove("label"]);
 
         mylabelOptions = options["labelOptions"];
-        unset(options["labelOptions"]);
+        options.remove("labelOptions"]);
 
         mynestedInput = false;
         if (options["type"] == "checkbox") {
             mynestedInput = true;
         }
         mynestedInput = options["nestedInput"] ?? mynestedInput;
-        unset(options["nestedInput"]);
+        options.remove("nestedInput"]);
 
         if (
             mynestedInput == true
@@ -1009,7 +1009,7 @@ class DFormHelper : DHelper {
                 if (myopts.isNull) {
                     myopts = null;
                 }
-                unset(options["options"]);
+                options.remove("options"]);
 
                 return _{options["type"]}(fieldName, myopts, options ~ ["label": mylabel]);
             case "input":
@@ -1281,7 +1281,7 @@ class DFormHelper : DHelper {
 
         // Work around value=>val translations.
         myvalue = options["value"];
-        unset(options["value"]);
+        options.remove("value"]);
         options = _initInputField(fieldName, options);
         options["value"] = myvalue;
 
@@ -1301,11 +1301,11 @@ class DFormHelper : DHelper {
             myoutput = this.hidden(fieldName, myhiddenOptions);
         }
         if (options["hiddenField"] == "_split") {
-            unset(options["hiddenField"], options["type"]);
+            options.remove("hiddenField"], options["type"]);
 
             return ["hidden": myoutput, "input": this.widget("checkbox", options)];
         }
-        unset(options["hiddenField"], options["type"]);
+        options.remove("hiddenField"], options["type"]);
 
         return myoutput ~ this.widget("checkbox", options);
     }
@@ -1407,7 +1407,7 @@ class DFormHelper : DHelper {
      * /
     string textarea(string fieldNameName, Json[string] options  = null) {
         options = _initInputField(fieldName, options);
-        unset(options["type"]);
+        options.remove("type"]);
 
         return _widget("textarea", options);
     }
@@ -1422,7 +1422,7 @@ class DFormHelper : DHelper {
         options = options.update["required": false.toJson, "secure": true.toJson];
 
         mysecure = options["secure"];
-        unset(options["secure"]);
+        options.remove("secure"]);
 
         options = _initInputField(fieldName, array_merge(
             options,
@@ -1452,7 +1452,7 @@ class DFormHelper : DHelper {
         options = options.update["secure": true.toJson];
         options = _initInputField(fieldName, options);
 
-        unset(options["type"]);
+        options.remove("type"]);
 
         return _widget("file", options);
     }
@@ -1515,18 +1515,18 @@ class DFormHelper : DHelper {
         auto myformOptions = ["url": myurl];
         if (isSet(options["method"])) {
             myformOptions["type"] = options["method"];
-            unset(options["method"]);
+            options.remove("method"]);
         }
         if (isSet(options["form"]) && isArray(options["form"])) {
             myformOptions = options["form"] + myformOptions;
-            unset(options["form"]);
+            options.remove("form"]);
         }
         result = this.create(null, myformOptions);
         if (isSet(options["data"]) && isArray(options["data"])) {
             foreach (Hash.flatten(options["data"]) as aKey: myvalue) {
                 result ~= this.hidden(aKey, ["value": myvalue]);
             }
-            unset(options["data"]);
+            options.remove("data"]);
         }
         result ~= this.button(mytitle, options);
         result ~= this.end();
@@ -1565,12 +1565,12 @@ class DFormHelper : DHelper {
         options = options.update["block": null, "confirm": null];
 
         myrequestMethod = "POST";
-        if (!empty(options["method"])) {
+        if (!options.isEmpty("method"])) {
             myrequestMethod = options.getString("method").toUpper;
-            unset(options["method"]);
+            options.remove("method"]);
         }
         myconfirmMessage = options["confirm"];
-        unset(options["confirm"]);
+        options.remove("confirm"]);
 
         myformName = uniqid("post_", true).replace(".", "");
         myformOptions = [
@@ -1580,7 +1580,7 @@ class DFormHelper : DHelper {
         ];
         if (isSet(options["target"])) {
             myformOptions["target"] = options["target"];
-            unset(options["target"]);
+            options.remove("target"]);
         }
         mytemplater = this.templater();
 
@@ -1613,7 +1613,7 @@ class DFormHelper : DHelper {
                 myfields[kv.key] = kv.value;
                 result ~= this.hidden(kv.key, ["value": kv.value, "secure": SECURE_SKIP]);
             });
-            unset(options["data"]);
+            options.remove("data"]);
         }
         result ~= this.secure(myfields);
         result ~= this.formatTemplate("formEnd", []);
@@ -1628,7 +1628,7 @@ class DFormHelper : DHelper {
            _View.append(options["block"], result);
             result = "";
         }
-        unset(options["block"]);
+        options.remove("block"]);
 
         string myurl = "#";
         myonClick = "document." ~ myformName ~ ".submit();";
@@ -1681,13 +1681,13 @@ class DFormHelper : DHelper {
                 options["secure"]
             );
         }
-        unset(options["secure"]);
+        options.remove("secure"]);
 
         bool myisUrl = mycaption.has("://");
         bool myisImage = preg_match("/\.(jpg|jpe|jpeg|gif|png|ico)my/", mycaption);
 
         mytype = options["type"];
-        unset(options["type"]);
+        options.remove("type"]);
 
         if (myisUrl || myisImage) {
             mytype = "image";
@@ -1908,7 +1908,7 @@ class DFormHelper : DHelper {
             "empty": true.toJson,
         ];
         options = _initInputField(fieldName, options);
-        unset(options["type"]);
+        options.remove("type"]);
 
         return _widget("year", options);
     }
@@ -2043,7 +2043,7 @@ class DFormHelper : DHelper {
         }
         if (isSet(options["value"]) && !options.isSet("val")) {
             options["val"] = options["value"];
-            unset(options["value"]);
+            options.remove("value"]);
         }
         if (!options.isSet("val")) {
             myvalOptions = [
@@ -2055,7 +2055,7 @@ class DFormHelper : DHelper {
         if (!options.isSet("val") && isSet(options["default"])) {
             options["val"] = options["default"];
         }
-        unset(options["value"], options["default"]);
+        options.remove("value"], options["default"]);
 
         if (cast(BackedEnum)options["val"]) {
             options["val"] = options["val"].value;

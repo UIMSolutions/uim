@@ -110,7 +110,7 @@ class DSqlserverDriver : DDriver {
             configuration.get("settings"].byKeyValue
                 .each!(kv => this.pdo.exec("SET %s %s".format(kv.key, kv.value)));
         }
-        if (!empty(configuration.get("attributes"]) && isArray(configuration.get("attributes"])) {
+        if (!configuration..isEmpty("attributes") && isArray(configuration.get("attributes"])) {
             configuration.get("attributes"].byKeyValue
                 .each(kv => this.pdo.setAttribute(kv.key, kv.value));
         }

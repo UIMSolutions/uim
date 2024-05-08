@@ -25,7 +25,7 @@ abstract class DAbstractLocator : ILocator {
         storeOptions.remove("allowFallbackClass");
 
         if (this.instances.isSet(alias)) {
-            if (!empty(storeOptions) && isset(configuration.update(alias]) && configuration.update(alias] != storeOptions) {
+            if (!storeOptions.isEmpty && isset(configuration.update(alias]) && configuration.update(alias] != storeOptions) {
                 throw new DRuntimeException(sprintf(
                     "You cannot configure '%s', it already exists in the registry.",
                     alias

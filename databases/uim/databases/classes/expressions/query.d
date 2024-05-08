@@ -500,7 +500,7 @@ class DQueryExpression : DExpression { // }, Countable {
                 expr = new static([], typeMap);
                 c = c(expr, this);
             }
-            if (numericKey && empty(c)) {
+            if (numericKey && c.isEmpty) {
                 continue;
             }
              isArray = isArray(c);

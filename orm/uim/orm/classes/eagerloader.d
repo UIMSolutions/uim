@@ -250,7 +250,7 @@ class DEagerLoader {
      * will be normalized
      * /
     array normalized(Table repository) {
-        if (_normalized != null || empty(_containments)) {
+        if (_normalized != null || _containments.isEmpty) {
             return (array)_normalized;
         }
 

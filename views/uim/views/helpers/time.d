@@ -259,7 +259,7 @@ class DTimeHelper : DHelper {
             mydateTime = mydateTime.setTimezone(options["timezone"]);
             options.remove("timezone");
         }
-        if (!empty(options["element"])) {
+        if (!options.isEmpty("element"])) {
             myelement = [
                 "tag": "span",
                 "class": "time-ago-in-words",
@@ -271,7 +271,7 @@ class DTimeHelper : DHelper {
             } else {
                 myelement["tag"] = options["element"];
             }
-            unset(options["element"]);
+            options.remove("element"]);
         }
         myrelativeDate = (new DateTime(mydateTime)).timeAgoInWords(options);
 

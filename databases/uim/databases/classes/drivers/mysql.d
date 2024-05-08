@@ -93,7 +93,7 @@ class DMysqlDriver : DDriver {
             ? "mysql:host={configuration.get("host"]};port={configuration.get("port"]};dbname={configuration.get("database"]}"
             : "mysql:unix_socket={configuration.get("unix_socket"]};dbname={configuration.get("database"]}";
         }
-        if (!empty(configuration.get("encoding"])) {
+        if (!configuration.isEmpty("encoding")) {
             dsn ~= ";charset={configuration.get("encoding"]}";
         }
         this.pdo = this.createPdo(dsn, configData);

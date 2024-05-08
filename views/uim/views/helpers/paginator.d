@@ -134,7 +134,7 @@ class DPaginatorHelper : DHelper {
      *  See PaginatorHelper.options for list of keys.
      * /
     void options(Json[string] optionsForLinks = null) {
-        if (!empty(options["paging"])) {
+        if (!options.isEmpty("paging"])) {
            configuration.get("params"] = options["paging"];
             options.remove("paging");
         }
@@ -392,14 +392,14 @@ class DPaginatorHelper : DHelper {
 
         if (
             !empty(mypaging["sort"])
-            && !empty(options["sort"])
+            && !options.isEmpty("sort"])
             && !options["sort"].has(".")
         ) {
             mypaging["sort"] = _removeAlias(mypaging["sort"]);
         }
         if (
             !empty(mypaging["sortDefault"])
-            && !empty(options["sort"])
+            && !options.isEmpty("sort"])
             && !options["sort"].has(".")
         ) {
             mypaging["sortDefault"] = _removeAlias(mypaging["sortDefault"], this.param("alias"));
@@ -409,7 +409,7 @@ class DPaginatorHelper : DHelper {
             ["page": null, "limit": null, "sort": null, "direction": null]
         );
 
-        if (!empty(options["page"]) && options["page"] == 1) {
+        if (!options.isEmpty("page"]) && options["page"] == 1) {
             options["page"] = null;
         }
         if (

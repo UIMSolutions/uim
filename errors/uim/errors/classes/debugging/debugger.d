@@ -132,7 +132,7 @@ class DDebugger {
      * /
     this() {
         docRef = ini_get('docref_root');
-        if (empty(docRef) && function_exists('ini_set')) {
+        if (docRef.isEMpty && function_exists('ini_set')) {
             ini_set('docref_root', 'https://secure.D.net/');
         }
         if (!defined('E_RECOVERABLE_ERROR')) {
@@ -877,13 +877,13 @@ class DDebugger {
             }
         }
 
-        if (!empty(tpl['escapeContext'])) {
-            data['description'] = htmlAttribEscape(data['description']);
+        if (!empty(tpl.isEmpty("escapeContext")) {
+            data["description"] = htmlAttribEscape(data['description']);
         }
 
         infoData = compact('code', 'context', 'trace');
         foreach (infoData as key: value) {
-            if (empty(value) || !isset(tpl[key])) {
+            if (value.isEmpty || !isset(tpl[key])) {
                 continue;
             }
             if ((value.isArray) {

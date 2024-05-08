@@ -121,10 +121,10 @@ class DAsset {
         if (!array_key_exists("plugin", options) || options["plugin"] != false) {
             [plugin, somePath] = pluginSplit(somePath);
         }
-        if (!empty(options["pathPrefix"]) && somePath[0] != "/") {
+        if (!options.isEmpty("pathPrefix"]) && somePath[0] != "/") {
             somePathPrefix = options["pathPrefix"];
             placeHolderVal = "";
-            if (!empty(options["theme"])) {
+            if (!options.isEmpty("theme"])) {
                 placeHolderVal = inflectString(options["theme"]) ~ "/";
             } else if (isSet(plugin)) {
                 placeHolderVal = inflectString(plugin) ~ "/";
@@ -132,7 +132,7 @@ class DAsset {
             somePath = .replace("{plugin}", placeHolderVal, somePathPrefix) ~ somePath;
         }
         if (
-            !empty(options["ext"]) &&
+            !options.isEmpty("ext"]) &&
             !somePath.has("?") &&
             !somePath.endsWith(options["ext"])
         ) {
@@ -156,7 +156,7 @@ class DAsset {
 
         somePath = encodeUrl(webPath);
 
-        if (!empty(options["fullBase"])) {
+        if (!options.isEmpty("fullBase"])) {
             fullBaseUrl = isString(options["fullBase"])
                 ? options["fullBase"]
                 : Router.fullBaseUrl();

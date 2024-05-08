@@ -175,7 +175,7 @@ class DHasManyAssociation : DAssociation {
                 break;
             }
 
-            if (!empty(options["atomic"])) {
+            if (!options.isEmpty("atomic"])) {
                 entity = clone entity;
             }
 
@@ -188,7 +188,7 @@ class DHasManyAssociation : DAssociation {
                 continue;
             }
 
-            if (!empty(options["atomic"])) {
+            if (!options.isEmpty("atomic"])) {
                 original[k].setErrors(entity.getErrors());
                 if (entity instanceof IInvalidProperty) {
                     original[k].setInvalid(entity.invalidFields());
@@ -528,7 +528,7 @@ class DHasManyAssociation : DAssociation {
      * will return true, false otherwise
      * /
     bool canBeJoined(Json[string] options = null) {
-        return !empty(options["matching"]);
+        return !options.isEmpty("matching"]);
     }
 
     // Gets the name of the field representing the foreign key to the source table.

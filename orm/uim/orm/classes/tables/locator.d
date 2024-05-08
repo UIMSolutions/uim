@@ -129,7 +129,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         if (myclassName) {
             options["className"] = myclassName;
         } else if (myallowFallbackClass) {
-            if (isEmpty(options["className"])) {
+            if (isoptions.isEmpty("className"])) {
                 options["className"] = aliasName;
             }
             if (!options.isSet("table") && !options["className"].has("\\")) {
@@ -145,8 +145,8 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
             }
             throw new DMissingTableClassException([mymessage]);
         }
-        if (isEmpty(options["connection"])) {
-            if (!empty(options["connectionName"])) {
+        if (isoptions.isEmpty("connection"])) {
+            if (!options.isEmpty("connectionName"])) {
                 myconnectionName = options["connectionName"];
             } else {
                 /** @var \ORM\Table myclassName * /

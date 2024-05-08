@@ -284,7 +284,7 @@ class DRouteBuilder {
             options["map"][myKey] += ["method": "GET", "path": myKey, "action": ""];
         }
         myext = null;
-        if (!empty(options["_ext"])) {
+        if (!options.isEmpty("_ext"])) {
             myext = options["_ext"];
         }
         myconnectOptions = options["connectOptions"];
@@ -552,16 +552,16 @@ class DRouteBuilder {
      * /
     Route connect(Route|string myroute, string[] mydefaults = [], Json[string] optionData = null) {
         mydefaults = this.parseDefaults(mydefaults);
-        if (isEmpty(options["_ext"])) {
+        if (isoptions.isEmpty("_ext"])) {
             options["_ext"] = _extensions;
         }
-        if (isEmpty(options["routeClass"])) {
+        if (isoptions.isEmpty("routeClass"])) {
             options["routeClass"] = _routeClass;
         }
         if (isSet(options["_name"]) && _namePrefix) {
             options["_name"] = _namePrefix ~ options["_name"];
         }
-        if (isEmpty(options["_middleware"])) {
+        if (isoptions.isEmpty("_middleware"])) {
             options["_middleware"] = this.middleware;
         }
         myroute = _makeRoute(myroute, mydefaults, options);

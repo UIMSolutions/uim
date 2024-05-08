@@ -73,10 +73,10 @@ class DExistsIn {
             mybindingKey = (array)mytarget.primaryKeys();
             myrealTarget = mytarget;
         }
-        if (!empty(options["_sourceTable"]) && myrealTarget == options["_sourceTable"]) {
+        if (!options.isEmpty("_sourceTable"]) && myrealTarget == options["_sourceTable"]) {
             return true;
         }
-        if (!empty(options["repository"])) {
+        if (!options.isEmpty("repository"])) {
             mysource = options["repository"];
         }
         if (cast(DAssociation)mysource) {

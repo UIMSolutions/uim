@@ -139,7 +139,7 @@ class DBelongsToManyAssociation : DAssociation {
      * will return true, false otherwise
      * /
     bool canBeJoined(Json[string] optionData = null) {
-        return !empty(options["matching"]);
+        return !options.isEmpty("matching"]);
     }
 
     /**
@@ -383,7 +383,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param Json[string] options Any extra options or overrides to be taken in account
      * /
     void attachTo(Query query, Json[string] optionData = null) {
-        if (!empty(options["negateMatch"])) {
+        if (!options.isEmpty("negateMatch"])) {
             _appendNotMatching(query, options);
 
             return;
@@ -428,7 +428,7 @@ class DBelongsToManyAssociation : DAssociation {
             .select(array_values(conds))
             .where(options["conditions"]);
 
-        if (!empty(options["queryBuilder"])) {
+        if (!options.isEmpty("queryBuilder"])) {
             subquery = options["queryBuilder"](subquery);
         }
 
@@ -635,7 +635,7 @@ class DBelongsToManyAssociation : DAssociation {
     protected function _saveTarget(IEntity parentEntity, Json[string] entities, options) {
         joinAssociations = false;
         if (isset(options["associated"]) && (options["associated"].isArray) {
-            if (!empty(options["associated"][_junctionProperty]["associated"])) {
+            if (!options.isEmpty("associated"][_junctionProperty]["associated"])) {
                 joinAssociations = options["associated"][_junctionProperty]["associated"];
             }
             unset(options["associated"][_junctionProperty]);
@@ -650,7 +650,7 @@ class DBelongsToManyAssociation : DAssociation {
                 break;
             }
 
-            if (!empty(options["atomic"])) {
+            if (!options.isEmpty("atomic"])) {
                 entity = clone entity;
             }
 
@@ -663,7 +663,7 @@ class DBelongsToManyAssociation : DAssociation {
 
             // Saving the new linked entity failed, copy errors back into the
             // original entity if applicable and abort.
-            if (!empty(options["atomic"])) {
+            if (!options.isEmpty("atomic"])) {
                 original[k].setErrors(entity.getErrors());
             }
             if (saved == false) {
@@ -673,7 +673,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         options["associated"] = joinAssociations;
         success = _saveLinks(parentEntity, persisted, options);
-        if (!success && !empty(options["atomic"])) {
+        if (!success && !options.isEmpty("atomic"])) {
             parentEntity.set(this.getProperty(), original);
 
             return false;
@@ -729,7 +729,7 @@ class DBelongsToManyAssociation : DAssociation {
             }
             saved = junction.save(joint, options);
 
-            if (!saved && !empty(options["atomic"])) {
+            if (!saved && !options.isEmpty("atomic"])) {
                 return false;
             }
 
@@ -1218,7 +1218,7 @@ class DBelongsToManyAssociation : DAssociation {
         }
 
         foreach (deletes as entity) {
-            if (!junction.remove(entity, options) && !empty(options["atomic"])) {
+            if (!junction.remove(entity, options) && !options.isEmpty("atomic"])) {
                 return false;
             }
         }
@@ -1363,16 +1363,16 @@ class DBelongsToManyAssociation : DAssociation {
      * @param Json[string] options original list of options passed in constructor
      * /
     protected void _options(Json[string] optionData) {
-        if (!empty(options["targetForeignKey"])) {
+        if (!options.isEmpty("targetForeignKey"])) {
             this.setTargetForeignKey(options["targetForeignKey"]);
         }
-        if (!empty(options["joinTable"])) {
+        if (!options.isEmpty("joinTable"])) {
             _junctionTableName(options["joinTable"]);
         }
-        if (!empty(options["through"])) {
+        if (!options.isEmpty("through"])) {
             this.setThrough(options["through"]);
         }
-        if (!empty(options["saveStrategy"])) {
+        if (!options.isEmpty("saveStrategy"])) {
             setSaveStrategy(options["saveStrategy"]);
         }
         if (isset(options["sort"])) {

@@ -309,7 +309,7 @@ class DRouter {
             if (!myurl.isSet("_name")) {
                 // Copy the current action if the controller is the current one.
                 if (
-                    empty(myurl["action"]) &&
+                    myurl.isEmpty("action")) &&
                     (
                         empty(myurl["controller"]) ||
                         myparams["controller"] == myurl["controller"]

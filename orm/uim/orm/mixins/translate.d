@@ -23,7 +23,7 @@ mixin template TTranslate() {
         i18n = get("_translations");
         created = false;
 
-        if (empty(i18n)) {
+        if (i18n.isEmpty) {
             i18n = null;
             created = true;
         }

@@ -78,10 +78,10 @@ class DInflectedRoute : DRoute {
      * Json[string] myurl An array of URL keys.
      * /
     // TODO protected Json[string] _underscore(Json[string] myurl) {
-        if (!empty(myurl["controller"])) {
+        if (!myurl.isEmpty("controller"))) {
             myurl["controller"] = Inflector.underscore(myurl["controller"]);
         }
-        if (!empty(myurl["plugin"])) {
+        if (!myurl.isEmpty("plugin"))) {
             myurl["plugin"] = Inflector.underscore(myurl["plugin"]);
         }
         return myurl;

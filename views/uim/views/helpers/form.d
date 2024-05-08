@@ -348,7 +348,7 @@ class DFormHelper : DHelper {
             }
             myappend ~= _csrfField();
         }
-        if (!empty(myappend)) {
+        if (!myappend.isEmpty) {
             myappend = mytemplater.format("hiddenBlock", ["content": myappend]);
         }
         myactionAttr = mytemplater.formatAttributes(["action": myaction, "escape": false.toJson]);

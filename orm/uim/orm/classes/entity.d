@@ -46,7 +46,7 @@ class DORMEntity { // }: IEntity, IInvalidProperty {
         if (!options["markNew"].isNull) {
             this.setNew(options["markNew"]);
         }
-        if (!empty(myproperties)) {
+        if (!myproperties.isEmpty) {
             //Remember the original field names here.
             this.setOriginalField(myproperties.keys);
 

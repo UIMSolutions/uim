@@ -1153,7 +1153,7 @@ static string contentType() {
         }
         mytemplatePaths = App.path(NAME_TEMPLATE);
         _pluginPaths = mythemePaths = null;
-        if (!empty(_plugin)) {
+        if (!_plugin.isEmpty) {
             foreach (mytemplatePaths as mytemplatePath) {
                 _pluginPaths ~= mytemplatePath
                     ~ PLUGIN_TEMPLATE_FOLDER

@@ -45,10 +45,10 @@ class DDashedRoute : DRoute {
         if (!myparams) {
             return null;
         }
-        if (!empty(myparams["controller"])) {
+        if (!myparams.isEmpty("controller")) {
             myparams["controller"] = Inflector.camelize(myparams["controller"], "-");
         }
-        if (!empty(myparams["plugin"])) {
+        if (!myparams.isEmpty("plugin"))) {
             myparams["plugin"] = _camelizePlugin(myparams["plugin"]);
         }
         if (!myparams.isEmpty"action"])) {

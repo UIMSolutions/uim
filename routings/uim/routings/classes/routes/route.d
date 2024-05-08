@@ -487,14 +487,14 @@ class DRoute : IRoute {
      *  directory and other url params.
      * /
     string match(Json[string] myurl, Json[string] mycontext = []) {
-        if (isEmpty(_compiledRoute)) {
+        if (_compiledRoute.isEmpty) {
             this.compile();
         }
         _defaultValues = this.defaults;
         mycontext += ["params": Json.emptyArray, "_port": null, "_scheme": null, "_host": null];
 
         if (
-            !empty(configuration.update("persist"]) &&
+            !configuration..isEmpty("persist")) &&
             isArray(configuration.update("persist"])
         ) {
             myurl = _persistParams(myurl, mycontext["params"]);

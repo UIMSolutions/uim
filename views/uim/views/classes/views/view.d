@@ -605,7 +605,7 @@ static string contentType() {
     string renderLayout(string mycontent, string mylayout = null) {
         mylayoutFileName = _getLayoutFileName(mylayout);
 
-        if (!empty(mycontent)) {
+        if (!mycontent.isEmpty) {
             _Blocks.set("content", mycontent);
         }
         _dispatchEvent("View.beforeLayout", [mylayoutFileName]);

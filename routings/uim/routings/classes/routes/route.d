@@ -380,7 +380,7 @@ class DRoute : IRoute {
             myroute["pass"] ~= myroute["_trailing_"];
             myroute.remove("_trailing_");
         }
-        if (!empty(myext)) {
+        if (!myext.isEmpty) {
             myroute["_ext"] = myext;
         }
         // pass the name if set

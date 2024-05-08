@@ -104,7 +104,7 @@ abstract class DCell { // }: IEventDispatcher {
             .filter!(var => isSet(cellOptionsToApply[var]))
             .each!(var => this.{var} = cellOptionsToApply[myvar]);
         }
-        if (!empty(cellOptionsToApply["cache"])) {
+        if (!cellOptionsToApply.isEmpty("cache")) {
            _cache = cellOptionsToApply["cache"];
         }
         this.initialize();

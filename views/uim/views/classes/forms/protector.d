@@ -267,7 +267,7 @@ class DFormProtector {
         foreach (anI: aKey; fieldList) {
              isLocked = in_array(aKey, locked, true);
 
-            if (!empty(unlockedFields)) {
+            if (!unlockedFields.isEmpty) {
                 foreach (off; unlockedFields) {
                     string[] offs = off.split(".");
                     field = array_intersect(aKey.split("."), offs).values;

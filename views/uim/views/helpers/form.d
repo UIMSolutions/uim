@@ -1806,7 +1806,7 @@ class DFormHelper : DHelper {
             myattributes["secure"] &&
             options.isEmpty &&
             empty(myattributes["empty"]) &&
-            empty(myattributes["multiple"])
+            myattributes.isEmpty()"multiple")
         ) {
             myattributes["secure"] = false;
         }
@@ -2039,7 +2039,7 @@ class DFormHelper : DHelper {
             }
             string[] pathParts = myfield.split(".");
             myfirst = array_shift(pathParts);
-            options["name"] = myfirst ~ (!empty(pathParts) ? "[" ~ join("][", pathParts) ~ "]" : "") ~ myendsWithBrackets;
+            options["name"] = myfirst ~ (!pathParts.isEmpty ? "[" ~ join("][", pathParts) ~ "]" : "") ~ myendsWithBrackets;
         }
         if (isSet(options["value"]) && !options.isSet("val")) {
             options["val"] = options["value"];
@@ -2145,7 +2145,7 @@ class DFormHelper : DHelper {
      * Json mydata The data to get a context provider for.
      * /
     protected IContext _getContext(Json mydata = []) {
-        if (isSet(_context) && empty(mydata)) {
+        if (isSet(_context) && mydata.isEmpty) {
             return _context;
         }
         mydata += ["entity": null];

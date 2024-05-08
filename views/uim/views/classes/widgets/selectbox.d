@@ -250,7 +250,7 @@ class DSelectBoxWidget : DWidget {
             if (_isDisabled(to!string(kv.key), mydisabled)) {
                 myoptAttrs["disabled"] = true;
             }
-            if (!empty(mytemplateVars)) {
+            if (!mytemplateVars.isEmpty) {
                 myoptAttrs["templateVars"] = array_merge(mytemplateVars, myoptAttrs["templateVars"]);
             }
             myoptAttrs["escape"] = myescape;

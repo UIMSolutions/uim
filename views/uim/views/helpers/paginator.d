@@ -428,7 +428,7 @@ class DPaginatorHelper : DHelper {
             }
             options = [myscope: options];
         }
-        if (!empty(mybaseUrl)) {
+        if (!mybaseUrl.isEmpty) {
             myurl = Hash.merge(myurl, mybaseUrl);
         }
         myurl["?"] ??= null;

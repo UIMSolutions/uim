@@ -771,7 +771,7 @@ class DHtmlHelper : DHelper {
      * @param Json[string] htmlAtributes Additional HTML attributes of the DIV tag
      * /
     string div(string myclass = null, string mytext = null, Json[string] htmlAtributes = null) {
-        if (!empty(myclass)) {
+        if (!myclass.isEmpty) {
             htmlAtributes["class"] = myclass;
         }
         return _tag("div", mytext, htmlAtributes);

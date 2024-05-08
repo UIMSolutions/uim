@@ -139,7 +139,7 @@ class DMultiCheckboxWidget : DWidget {
             if (!mycheckbox.isSet("label")) {
                 mycheckbox["label"] = mydata["label"];
             }
-            if (!empty(mydata["templateVars"])) {
+            if (!mydata.isEmpty("templateVars")) {
                 mycheckbox["templateVars"] = array_merge(mydata["templateVars"], mycheckbox["templateVars"]);
             }
 

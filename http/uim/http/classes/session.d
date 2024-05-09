@@ -179,12 +179,12 @@ class DSession {
             configData("ini"]["session.name"] = configData("cookie"];
         }
         if (!configData("ini"].isSet("session.cookie_path")) {
-            cookiePath = empty(configData("cookiePath"]) ? "/" : configData("cookiePath"];
+            cookiePath = configData.isEmpty("cookiePath") ? "/" : configData("cookiePath"];
             configData("ini"]["session.cookie_path"] = cookiePath;
         }
         this.options(configData("ini"]);
 
-        if (!empty(configData("handler"])) {
+        if (!configData.isEmpty("handler")) {
             className = configData("handler"]["engine"];
             unset(configData("handler"]["engine"]);
             this.engine(className, configData("handler"]);

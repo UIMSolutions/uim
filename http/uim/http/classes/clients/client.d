@@ -177,7 +177,7 @@ class DClient { // }: IClient {
     }
     _adapter = myadapter;
 
-    if (!empty(configuration.get("cookieJar"])) {
+    if (!configuration.isEmpty("cookieJar")) {
       _cookies = configuration.get("cookieJar"];
       configuration.update("cookieJar", null);
     } else {

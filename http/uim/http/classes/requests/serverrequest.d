@@ -376,7 +376,7 @@ class DServerRequest { // }: IServerRequest {
         ref = this.getEnvironmentData("HTTP_REFERER");
 
         base = Configuration.read("App.fullBaseUrl") ~ this.webroot;
-        if (isEmpty(ref) || empty(base)) {
+        if (isEmpty(ref) || base.isEmpty) {
             return null;
         }
         if (local && ref.startWith(base)) {

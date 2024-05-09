@@ -141,7 +141,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         }
 
         // table: Name of the database table to represent
-        if (!empty(configData("table"))) {
+        if (!igData.isEmpty("table"))) {
             this.setTable(configData("table"));
         }
         if (!empty(configData("alias"))) {

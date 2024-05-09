@@ -986,7 +986,7 @@ class DMessage { //: JsonSerializable {
 
         contentIds = array_filter((array)Hash.extract(this.attachments, "{s}.contentId"));
         hasInlineAttachments = count(contentIds) > 0;
-        hasAttachments = !empty(this.attachments);
+        hasAttachments = !_attachments.isEmpty;
         hasMultipleTypes = this.emailFormat == MESSAGE_BOTH;
         multiPart = (hasAttachments || hasMultipleTypes);
 

@@ -257,7 +257,7 @@ class DCounterCacheBehavior : DBehavior {
      * /
     protected int _getCount(Json[string] configData, Json[string] myconditions) {
         myfinder = "all";
-        if (!empty(configData("finder"])) {
+        if (!igData.isEmpty("finder")) {
             myfinder = configData("finder"];
             unset(configData("finder"]);
         }

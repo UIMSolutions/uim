@@ -93,7 +93,7 @@ class DSocket {
             scheme = configuration.get("protocol"]~"://";
         }
         _setSslContext(configuration.get("host"));
-        context = !empty(configuration.get("context"))
+        context = !configuration..isEmpty("context"))
             ? stream_context_create(configuration.get("context"))
             : stream_context_create();
 
@@ -204,7 +204,7 @@ class DSocket {
         if (configuration.isEmpty("context/ssl/cafile")) {
             configuration.get("context/ssl/cafile"] = CaBundle.getBundledCaBundlePath();
         }
-        if (!empty(configuration.get("context/ssl/verify_host"])) {
+        if (!configuration.isEmpty("context/ssl/verify_host"])) {
             configuration.get("context/ssl/CN_match"] = hostName;
         }
         configuration.remove("context/ssl/verify_host"]);

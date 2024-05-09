@@ -433,7 +433,7 @@ class DPaginatorHelper : DHelper {
         }
         myurl["?"] ??= null;
 
-        if (!empty(configuration.get("options"]["routePlaceholders"])) {
+        if (!configuration.get("options"]["routePlaceholders"].isEmpty)) {
             myplaceholders = array_flip(configuration.get("options"]["routePlaceholders"]);
             myurl += array_intersect_key(options, myplaceholders);
             myurl["?"] += array_diff_key(options, myplaceholders);

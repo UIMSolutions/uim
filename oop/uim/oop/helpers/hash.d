@@ -499,7 +499,7 @@ class Hash {
                 mynext = mydata[aKey];
                 unset(mydata[aKey]);
 
-                if (!empty(myval)) {
+                if (!myval.isEmpty) {
                     mystack ~= [myval, mynext];
                 }
             } else if (!array_key_exists(aKey, mydata) || mydata[aKey] != myval) {

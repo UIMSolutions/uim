@@ -457,7 +457,7 @@ class DMarshaller {
 
         // @var string aKey
         foreach (aKey, myvalue; mydata) {
-            if (!empty(myerrors[aKey])) {
+            if (!myerrors<.isEmpty(aKey))) {
                 if (cast(IInvalidProperty)myentity) {
                     myentity.setInvalidField(aKey, myvalue);
                 }

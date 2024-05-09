@@ -457,7 +457,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             association = table.getAssociation(name);
             target = association.getTarget();
             primary = (array)target.primaryKeys();
-            if (empty(primary) || typeMap.type(target.aliasField(primary[0])) == null) {
+            if (primary.isEmpty || typeMap.type(target.aliasField(primary[0])) == null) {
                 this.addDefaultTypes(target);
             }
             if (!nested.isEmpty) {

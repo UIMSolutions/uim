@@ -95,7 +95,7 @@ class DRoute : IRoute {
     this(string mytemplate, Json[string] _defaultValues = [], Json[string] optionData = null) {
         this.template = mytemplate;
         this.defaults = _defaultValues;
-        this.options = options ~ ["_ext": Json.emptyArray, "_middleware": Json.emptyArray];
+        _options = options ~ ["_ext": Json.emptyArray, "_middleware": Json.emptyArray];
         this.setExtensions((array)configuration.update("_ext"]);
         this.setMiddleware((array)configuration.update("_middleware"]);
         unset(configuration.update("_middleware"]);
@@ -151,7 +151,7 @@ class DRoute : IRoute {
         if (mb_strlen(mypatternValues) < mypatternValues.length) {
             configuration.update("multibytePattern"] = true;
         }
-        this.options = mypatterns + this.options;
+        _options = mypatterns + _options;
     }
     
     // Set host requirement
@@ -340,7 +340,7 @@ class DRoute : IRoute {
         mycompiledRoute = this.compile();
         [myurl, myext] = _parseExtension(myurl);
 
-        myurldecode = this.options.get("_urldecode", true);
+        myurldecode = _options.get("_urldecode", true);
         if (myurldecode) {
             myurl = urldecode(myurl);
         }
@@ -446,7 +446,7 @@ class DRoute : IRoute {
     protected string[] _parseArgs(string myargs, Json[string] mycontext) {
         mypass = null;
         string[] myargs = myargs.split("/");
-        myurldecode = this.options.get("_urldecode", true);
+        myurldecode = _options.get("_urldecode", true);
 
         foreach (myargs as myparam) {
             if (isEmpty(myparam) && myparam != "0") {
@@ -585,12 +585,12 @@ class DRoute : IRoute {
             }
         }
         // if not a greedy route, no extra params are allowed.
-        if (!_greedy && !empty(mypass)) {
+        if (!_greedy && !mypass.isEmpty) {
             return null;
         }
         // check patterns for routed params
-        if (!empty(this.options)) {
-            foreach (this.options as aKey: mypattern) {
+        if (!_options.isEmpty) {
+            foreach (_options as aKey: mypattern) {
                 if (isSet(myurl[aKey]) && !preg_match("#^" ~ mypattern ~ "my#u", (string)myurl[aKey])) {
                     return null;
                 }
@@ -686,13 +686,13 @@ class DRoute : IRoute {
             myscheme = myparams["_scheme"] ?? "http";
             result = "{myscheme}://{myhost}{result}";
         }
-        if (!empty(myparams["_ext"]) || !empty(myquery)) {
+        if (!myparams.isEmpty("_ext")) || !myquery.isEmpty) {
             result = stripRight(result, "/");
         }
-        if (!empty(myparams["_ext"])) {
+        if (!myparams.isEmpty("_ext"))) {
             result ~= "." ~ myparams["_ext"];
         }
-        if (!empty(myquery)) {
+        if (!myquery.isEmpty) {
             result ~= stripRight("?" ~ http_build_query(myquery), "?");
         }
         return result;

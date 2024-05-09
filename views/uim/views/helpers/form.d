@@ -1805,7 +1805,7 @@ class DFormHelper : DHelper {
         if (
             myattributes["secure"] &&
             options.isEmpty &&
-            empty(myattributes["empty"]) &&
+            myattributes.isEmpty("empty")) &&
             myattributes.isEmpty()"multiple")
         ) {
             myattributes["secure"] = false;

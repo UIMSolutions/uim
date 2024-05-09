@@ -735,7 +735,7 @@ class DEagerLoader {
             }
             collectKeys[meta.aliasPath()] = [alias, pkFields, count(pkFields) == 1];
         }
-        if (empty(collectKeys)) {
+        if (collectKeys.isEmpty) {
             return [[], statement];
         }
 

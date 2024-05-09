@@ -789,7 +789,7 @@ class DHtmlHelper : DHelper {
      * @param Json[string] htmlAtributes Additional HTML attributes of the P tag
      * /
     string para(string myclass, string mytext, Json[string] htmlAtributes = null) {
-        if (!empty(htmlAtributes["escape"])) {
+        if (!htmlAtributes.isEmpty("escape"))) {
             mytext = htmlAttribEscape(mytext);
         }
         if (myclass) {
@@ -897,7 +897,7 @@ class DHtmlHelper : DHelper {
             htmlAtributes["text"] = mysourceTags ~ htmlAtributes["text"];
             unset(htmlAtributes["fullBase"]);
         } else {
-            if (isEmpty(mypath) && !empty(htmlAtributes["src"])) {
+            if (isEmpty(mypath) && !htmlAtributes.isEmpty("src"))) {
                 mypath = htmlAtributes["src"];
             }
             /** @psalm-suppress PossiblyNullArgument * /

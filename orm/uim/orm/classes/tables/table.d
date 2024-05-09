@@ -136,46 +136,46 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         *  validation set, or an associative array, where key is the name of the
         *  validation set and value the Validator instance. */
 
-        if (!configData.isEmpty("registryAlias"))) {
-            this.registryKey(configData("registryAlias"));
+        if (!configuration.isEmpty("registryAlias"))) {
+            this.registryKey(configuration.data("registryAlias"));
         }
 
         // table: Name of the database table to represent
         if (!igData.isEmpty("table"))) {
-            this.setTable(configData("table"));
+            this.setTable(configuration.data("table"));
         }
-        if (!configData.isEmpty("alias"))) {
-            aliasName(configData("alias"));
+        if (!configuration.isEmpty("alias"))) {
+            aliasName(configuration.data("alias"));
         }
-        if (!empty(configData("connection"))) {
-            this.setConnection(configData("connection"));
+        if (!empty(configuration.data("connection"))) {
+            this.setConnection(configuration.data("connection"));
         }
-        if (!configData.isEmpty("queryFactory"))) {
-            this.queryFactory = configData("queryFactory");
+        if (!configuration.isEmpty("queryFactory"))) {
+            this.queryFactory = configuration.data("queryFactory");
         }
 
         // schema: A \UIM\Database\Schema\TableISchema object or an array that can be passed to it.
-        if (!empty(configData("schema"))) {
-            this.setSchema(configData("schema"));
+        if (!empty(configuration.data("schema"))) {
+            this.setSchema(configuration.data("schema"));
         }
-        if (!configData.isEmpty("entityClass")) {
-            this.setEntityClass(configData("entityClass"));
+        if (!configuration.isEmpty("entityClass")) {
+            this.setEntityClass(configuration.data("entityClass"));
         }
         myeventManager = mybehaviors = myassociations = null;
-        if (!configData.isEmpty("eventManager")) {
-            myeventManager = configData("eventManager");
+        if (!configuration.isEmpty("eventManager")) {
+            myeventManager = configuration.data("eventManager");
         }
-        if (!configData.isEmpty("behaviors")) {
-            mybehaviors = configData("behaviors");
+        if (!configuration.isEmpty("behaviors")) {
+            mybehaviors = configuration.data("behaviors");
         }
-        if (!configData.isEmpty("associations")) {
-            myassociations = configData("associations");
+        if (!configuration.isEmpty("associations")) {
+            myassociations = configuration.data("associations");
         }
-        if (!configData.isEmpty("validator")) {
-            if (!isArray(configData("validator"))) {
-                this.setValidator(DEFAULT_VALIDATOR, configData("validator"));
+        if (!configuration.isEmpty("validator")) {
+            if (!isArray(configuration.data("validator"))) {
+                this.setValidator(DEFAULT_VALIDATOR, configuration.data("validator"));
             } else {
-                configData("validator").byKeyValue
+                configuration.data("validator").byKeyValue
                     .each!(nameValidator => this.setValidator(nameValidator.key, nameValidator
                             .value));
             }

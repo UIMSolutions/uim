@@ -311,7 +311,7 @@ class DRouter {
                 if (
                     myurl.isEmpty("action")) &&
                     (
-                        empty(myurl["controller"]) ||
+                        myurl.isEmpty("controller")) ||
                         myparams["controller"] == myurl["controller"]
                     )
                 ) {
@@ -425,7 +425,7 @@ class DRouter {
             mybase = (string)Configuration.read("App.fullBaseUrl");
 
             // If App.fullBaseUrl is empty but context is set from request through setRequest()
-            if (!mybase && !empty(_requestContext["_host"])) {
+            if (!mybase && !_requestContext.isEmpty("_host")) {
                 mybase = 
                     "%s://%s"
                     .format(_requestContext["_scheme"],

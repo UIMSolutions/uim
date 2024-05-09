@@ -1144,7 +1144,7 @@ static string contentType() {
      * /
     protected string[] _paths(string _plugin = null, bool mycached = true) {
         if (mycached == true) {
-            if (_plugin.isNull && !empty(_paths)) {
+            if (_plugin.isNull && !_paths.isEmpty) {
                 return _paths;
             }
             if (_plugin !isNull && isSet(_pathsForPlugin[_plugin])) {

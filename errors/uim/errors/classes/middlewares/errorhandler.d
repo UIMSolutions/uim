@@ -34,10 +34,6 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
-        return true;
-    }
-
-    mixin(TProperty!("string", "name"));
 
     /**
      * Default configuration values.
@@ -56,15 +52,18 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      * - `exceptionRenderer` The renderer instance or class name to use or a callable factory
      *   which returns a uim.errorss.IExceptionRenderer instance.
      *   Defaults to uim.errorss.ExceptionRenderer
-     *
-     * @var Json[string]
-     * /
+     */
     configuration.updateDefaults([
-        "skipLog":[],
-        "log":true,
-        "trace":false,
-        "exceptionRenderer":ExceptionRenderer.class,
+        "skipLog": Json.emptyArray,
+        "log": true.toJson,
+        "trace": false.toJson,
+        "exceptionRenderer": ExceptionRenderer.className,
     ]);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
 
     /**
      * Error handler instance.

@@ -419,7 +419,7 @@ mixin template TEntity() {
   /**
      * Checks that a field is empty
      *
-     * This is not working like the D `empty()` function. The method will
+     * This is not working like the D `)` function. The method will
      * return true for:
      *
      * - `""` (empty string)
@@ -430,7 +430,7 @@ mixin template TEntity() {
     * /
   bool isEmpty(string fieldToCheck) {
     auto aValue = get(fieldToCheck);
-    return (aValue.isNull || (isArray(aValue) && empty(aValue) || aValue == ""));
+    return (aValue.isNull || (isArray(aValue) && aValue.isEmpty || aValue == ""));
   }
 
   /**

@@ -89,7 +89,7 @@ class DCurl { // }: IAdapter {
         if (clientOptions.isEmpty("ssl_cafile")) {
             clientOptions["ssl_cafile"] = CaBundle.getBundledCaBundlePath();
         }
-        if (!empty(clientOptions["ssl_verify_host"])) {
+        if (!clientOptions.isEmpty("ssl_verify_host"))) {
             // Value of 1 or true is deprecated. Only 2 or 0 should be used now.
             clientOptions["ssl_verify_host"] = 2;
         }

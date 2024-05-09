@@ -140,7 +140,7 @@ class DSession {
         ];
 
         if (isSet(defaults[name])) {
-            if (name != "D" || empty(ini_get("session.cookie_samesite"))) {
+            if (name != "D" || ini_get("session.cookie_samesite").isEmpty) {
                 defaults["D"]["ini"]["session.cookie_samesite"] = "Lax";
             }
             return defaults[name];

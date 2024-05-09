@@ -451,13 +451,12 @@ class DPaginator : IPaginator {
      *
      * @param Json[string] myParams Request params.
      * @param Json[string] settings The settings to merge with the request data.
-     * @return Json[string] Array of merged options.
+     * @return  Array of merged options.
      * /
-    function mergeOptions(Json[string] myParams, Json[string] settings): array
-    {
-        if (!empty(settings["scope"])) {
+    Json[string] mergeOptions(Json[string] myParams, Json[string] settings) {
+        if (!settings.isEmpty("scope"))) {
             scope = settings["scope"];
-            myParams = !empty(myParams[scope]) ? (array)myParams[scope] : [];
+            myParams = !myParams.isEmpty(scope)) ? (array)myParams[scope] : [];
         }
 
         allowed = this.getAllowedParameters();

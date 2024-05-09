@@ -1465,7 +1465,7 @@ class DMessage { //: JsonSerializable {
             array[aProperty] = this.{ aProperty};
         }
          array_walk(array["attachments"], auto (& anItem, aKey) {
-            if (!empty(anItem["file"])) {
+            if (!anItem.isEmpty("file"))) {
                  anItem["data"] = this.readFile(anItem["file"]);
                 unset(anItem["file"]);
             }

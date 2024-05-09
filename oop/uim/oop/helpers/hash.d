@@ -395,7 +395,7 @@ class Hash {
             return null;
         }
         myvals = null;
-        if (!empty(myvaluePath) && isArray(myvaluePath)) {
+        if (!myvaluePath.isEmpty && isArray(myvaluePath)) {
             myformat = array_shift(myvaluePath);
             myvals = format(mydata, myvaluePath, myformat);
             assert(isArray(myvals));

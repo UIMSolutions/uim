@@ -283,7 +283,7 @@ abstract class DERRErrorHandler {
             data["line"]
         );
         context = null;
-        if (!empty(_config["trace"])) {
+        if (!_config.isEmpty("trace"))) {
             context["trace"] = Debugger.trace([
                 "start": 1,
                 "format": "log",

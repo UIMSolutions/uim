@@ -431,7 +431,7 @@ class DRouter {
                     .format(_requestContext["_scheme"],
                     _requestContext["_host"]
                 );
-                if (!empty(_requestContext["_port"])) {
+                if (!_requestContext.isEmpty("_port"))) {
                     mybase ~= ":" ~ _requestContext["_port"];
                 }
                 Configuration.update("App.fullBaseUrl", mybase);

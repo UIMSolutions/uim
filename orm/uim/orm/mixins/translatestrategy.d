@@ -97,7 +97,7 @@ mixin template TTranslateStrategy() {
 
         // If now, the whole _translations property is empty,
         // unset it completely and return
-        if (empty(entity.get("_translations"))) {
+        if (entity..isEmpty("_translations"))) {
             entity.unset("_translations");
         }
     }

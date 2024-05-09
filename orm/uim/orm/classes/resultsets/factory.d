@@ -132,7 +132,7 @@ class DResultsetFactory {
             aliasName = myassoc["nestKey"];
             
             bool mycanBeJoined = myassoc["canBeJoined"];
-            if (mycanBeJoined && empty(mydata["fields"][aliasName])) {
+            if (mycanBeJoined && mydata["fields"][aliasName].isEmpty)) {
                 continue;
             }
             myinstance = myassoc["instance"];

@@ -432,7 +432,7 @@ class DResultset : IResultset {
         foreach (_containMap as assoc) {
             alias = assoc["nestKey"];
 
-            if (assoc["canBeJoined"] && empty(_map[alias])) {
+            if (assoc["canBeJoined"] && _map.isEmpty(alias)) {
                 continue;
             }
 

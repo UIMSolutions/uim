@@ -411,7 +411,7 @@ class DTreeBehavior : DBehavior {
 
         [for, direct] = [options["for"], options["direct"]];
 
-        if (empty(for)) {
+        if (empty(for.isEmpty) {
             throw new DInvalidArgumentException("The "for" key is required for find("children")");
         }
 

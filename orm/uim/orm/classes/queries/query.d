@@ -460,7 +460,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             if (empty(primary) || typeMap.type(target.aliasField(primary[0])) == null) {
                 this.addDefaultTypes(target);
             }
-            if (!empty(nested)) {
+            if (!nested.isEmpty) {
                 _addAssociationsToTypeMap(target, typeMap, nested);
             }
         }

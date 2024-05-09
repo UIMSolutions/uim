@@ -522,7 +522,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                                 function(row) {
                                                                                     translations = (
                                                                                     array) row["_i18n"];
-                                                                                    if (empty(translations) && row.get(
+                                                                                    if (translations.isEmpty && row.get(
                                                                                         "_translations")) {
                                                                                         return row;
                                                                                     }

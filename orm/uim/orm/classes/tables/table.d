@@ -144,7 +144,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (!igData.isEmpty("table"))) {
             this.setTable(configData("table"));
         }
-        if (!empty(configData("alias"))) {
+        if (!configData.isEmpty("alias"))) {
             aliasName(configData("alias"));
         }
         if (!empty(configData("connection"))) {

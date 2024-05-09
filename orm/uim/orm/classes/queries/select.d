@@ -573,13 +573,9 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         return this;
     }
     
-    /**
-     * Decorates the results iterator with MapReduce routines and formatters
-     * Params:
-     * range result Original results
-     * /
+    // Decorates the results iterator with MapReduce routines and formatters
     protected IResultset _decorateResults(Json[string] result) {
-        mydecorator = _decoratorClass();
+        auto mydecorator = _decoratorClass();
 
         auto result;
         if (!_mapReduce.isEmpty) {
@@ -589,7 +585,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         if (!(cast(IResultset)result)) {
             result = new mydecorator(result);
         }
-        if (!empty(_formatters)) {
+        if (!_formatters.isEmpty) {
             _formatters.each!(formatter => result = formatter(result, this));
             if (!(cast(IResultset)result)) {
                 result = new mydecorator(result);

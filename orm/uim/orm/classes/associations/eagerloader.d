@@ -331,7 +331,7 @@ class DEagerLoader {
             }
             mynewAttachable = this.attachableAssociations(myrepository);
             myattachable = array_diff_key(mynewAttachable, myprocessed);
-        } while (!empty(myattachable));
+        } while (!myattachable.isEmpty);
     }
     
     /**

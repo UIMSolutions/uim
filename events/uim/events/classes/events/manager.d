@@ -141,7 +141,7 @@ class DEventManager { // }: IEventManager {
      * /
     protected void _detachSubscriber(IEventListener subscriber, string aeventKey = null) {
         events = subscriber.implementedEvents();
-        if (!eventKey.isEmpty && empty(events[eventKey])) {
+        if (!eventKey.isEmpty && events.isEmpty(eventKey))) {
             return;
         }
         if (!empty(eventKey)) {

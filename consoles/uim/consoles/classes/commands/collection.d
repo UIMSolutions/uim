@@ -46,12 +46,12 @@ class DCommandCollection { // : IteratorAggregate, Countable {
         _commands.remove(commandName);
     }
 
-    /* 
     // Check whether the command name exists in the collection.
     bool has(string commandName) {
-        return _commands.isSet(commandName);
+        return _commands.hasKey(commandName);
     }
 
+    /* 
     // Get the target for a command.
     ICommand get(string commandName) {
         if (!has(commandName)) {

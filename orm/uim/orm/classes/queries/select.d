@@ -582,7 +582,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         mydecorator = _decoratorClass();
 
         auto result;
-        if (!empty(_mapReduce)) {
+        if (!_mapReduce.isEmpty) {
             _mapReduce.each!(functions => result = new DMapReduce(result, functions["mapper"], functions["reducer"]));
             result = new mydecorator(result);
         }

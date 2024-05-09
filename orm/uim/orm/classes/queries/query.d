@@ -1086,7 +1086,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 
         repository = this.getRepository();
 
-        if (empty(_parts["from"])) {
+        if (_parts.isEmpty("from")) {
             this.from([repository.aliasName(): repository.getTable()]);
         }
         _addDefaultFields();

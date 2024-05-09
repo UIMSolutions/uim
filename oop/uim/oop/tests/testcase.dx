@@ -592,7 +592,7 @@ abstract class DTestCase : DBaseTestCase {
                         attr = val;
                         val = ".+?";
                         explanations ~= "Attribute `%s` present".format(attr);
-                    } else if (!empty(val) && preg_match("/^preg\:\/(.+)\//i", val, matches)) {
+                    } else if (!val.isEmpty && preg_match("/^preg\:\/(.+)\//i", val, matches)) {
                         val = str_replace(
                             [".*", ".+"],
                             [".*?", ".+?"],

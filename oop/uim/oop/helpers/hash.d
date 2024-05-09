@@ -413,7 +413,7 @@ class Hash {
         }
         if (mygroupPath !isNull) {
             mygroup = extract(mydata, mygroupPath);
-            if (!empty(mygroup)) {
+            if (!mygroup.isEmpty) {
                 myc = isArray(someKeys) ? count(someKeys): count(myvals);
                 result = null;
                 for (myi = 0; myi < myc; myi++) {

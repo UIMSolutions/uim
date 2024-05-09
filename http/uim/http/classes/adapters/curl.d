@@ -110,7 +110,7 @@ class DCurl { // }: IAdapter {
              result[CURLOPT_PROXY] = clientOptions["proxy"]["proxy"];
         }
         if (isSet(clientOptions["proxy"]["username"])) {
-            password = !empty(clientOptions["proxy"]["password"]) ? clientOptions["proxy"]["password"] : "";
+            password = !clientOptions["proxy"]["password"].isEmpty) ? clientOptions["proxy"]["password"] : "";
              result[CURLOPT_PROXYUSERPWD] = clientOptions["proxy"]["username"] ~ ":" ~ password;
         }
         if (isSet(clientOptions["curl"]) && isArray(clientOptions["curl"])) {

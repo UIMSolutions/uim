@@ -827,7 +827,7 @@ class DTreeBehavior : DBehavior {
             .orderDesc(rightField)
             .first();
 
-        if (edge == null || empty(edge[field])) {
+        if (edge == null || edge.isEmpty(field))) {
             return 0;
         }
 

@@ -181,7 +181,7 @@ class DPlugin : IPlugin {
         return commands.addMany(commands.discoverPlugin(_name));
     }
  
-    DMiddlewareQueue middleware(MiddlewareQueue middlewareQueue) {
+    DMiddlewareQueue middleware(DMiddlewareQueue middlewareQueue) {
         return middlewareQueue;
     }
     

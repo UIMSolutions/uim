@@ -637,7 +637,7 @@ class DEagerLoader {
     array associationsMap(DORMTable aTable) {
         map = null;
 
-        if (!this.getMatching() && !this.getContain() && empty(_joinsMap)) {
+        if (!getMatching() && !getContain() && empty(_joinsMap)) {
             return map;
         }
 

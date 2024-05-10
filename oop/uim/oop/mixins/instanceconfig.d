@@ -98,7 +98,7 @@ mixin template TInstanceConfig() {
      * string keyToGet The key to get.
      * /
     IData getConfigOrFail(string keyToGet) {
-        configData = this.getConfig(keyToGet);
+        configData = getConfig(keyToGet);
         if (configData.isNull) {
             throw new DInvalidArgumentException(
                 "Expected configuration `%s` not found.".format(keyToGet));

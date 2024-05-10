@@ -708,11 +708,11 @@ class DMessage { //: JsonSerializable {
         } else if (this.emailFormat == MESSAGE_BOTH) {
              aHeaders["Content-Type"] = "multipart/alternative; boundary="" ~ (string)this.boundary ~ """;
         } else if (this.emailFormat == MESSAGE_TEXT) {
-             aHeaders["Content-Type"] = "text/plain; charset=" ~ this.getContentTypeCharset();
+             aHeaders["Content-Type"] = "text/plain; charset=" ~ getContentTypeCharset();
         } else if (this.emailFormat == MESSAGE_HTML) {
-             aHeaders["Content-Type"] = "text/html; charset=" ~ this.getContentTypeCharset();
+             aHeaders["Content-Type"] = "text/html; charset=" ~ getContentTypeCharset();
         }
-         aHeaders["Content-Transfer-Encoding"] = this.getContentTransferEncoding();
+         aHeaders["Content-Transfer-Encoding"] = getContentTransferEncoding();
 
         return aHeaders;
     }
@@ -725,7 +725,7 @@ class DMessage { //: JsonSerializable {
      * @param \Closure|null aCallback Callback to run each header value through before stringifying.
      * /
     string getHeadersString(Json[string] anInclude = [], string aeol = "\r\n", ?Closure aCallback = null) {
-        auto lines = this.getHeaders(anInclude);
+        auto lines = getHeaders(anInclude);
 
         if (aCallback) {
             lines = array_map(aCallback, lines);
@@ -959,7 +959,7 @@ class DMessage { //: JsonSerializable {
     
     // Get generated body as string.
     string getBodyString(string eol = "\r\n") {
-        auto lines = this.getBody();
+        auto lines = getBody();
 
         return lines.join(eol, );
     }
@@ -1012,8 +1012,8 @@ class DMessage { //: JsonSerializable {
         ) {
             if (multiPart) {
                 message ~= "--" ~ textBoundary;
-                message ~= "Content-Type: text/plain; charset=" ~ this.getContentTypeCharset();
-                message ~= "Content-Transfer-Encoding: " ~ this.getContentTransferEncoding();
+                message ~= "Content-Type: text/plain; charset=" ~ getContentTypeCharset();
+                message ~= "Content-Transfer-Encoding: " ~ getContentTransferEncoding();
                 message ~= "";
             }
             content = this.textMessage.split("\n");
@@ -1027,8 +1027,8 @@ class DMessage { //: JsonSerializable {
         ) {
             if (multiPart) {
                 message ~= "--" ~ textBoundary;
-                message ~= "Content-Type: text/html; charset=" ~ this.getContentTypeCharset();
-                message ~= "Content-Transfer-Encoding: " ~ this.getContentTransferEncoding();
+                message ~= "Content-Type: text/html; charset=" ~ getContentTypeCharset();
+                message ~= "Content-Transfer-Encoding: " ~ getContentTransferEncoding();
                 message ~= "";
             }
             string[] content = this.htmlMessage.split("\n")
@@ -1077,7 +1077,7 @@ class DMessage { //: JsonSerializable {
                 !isSet(dirEntry["contentDisposition"]) ||
                 dirEntry["contentDisposition"]
             );
-            part = new DFormDataPart("", someData, "", this.getHeaderCharset());
+            part = new DFormDataPart("", someData, "", getHeaderCharset());
 
             if (hasDisposition) {
                 part.disposition("attachment");
@@ -1102,14 +1102,14 @@ class DMessage { //: JsonSerializable {
         auto boundary = boundary ? baoundry :  this.boundary;
 
         auto message = null;
-        foreach (this.getAttachments() as filename: dirEntry) {
+        foreach (getAttachments() as filename: dirEntry) {
             if (isEmpty(dirEntry["contentId"])) {
                 continue;
             }
             someData = dirEntry["data"] ?? this.readFile(dirEntry["file"]);
 
             message ~= "--" ~ boundary;
-            part = new DFormDataPart("", someData, "inline", this.getHeaderCharset());
+            part = new DFormDataPart("", someData, "inline", getHeaderCharset());
             part.type(dirEntry["mimetype"]);
             part.transferEncoding("base64");
             part.contentId(dirEntry["contentId"]);
@@ -1173,7 +1173,7 @@ class DMessage { //: JsonSerializable {
                 ));
             }
             text = text.replace(["\r\n", "\r"], "\n");
-            text = this.encodeString(text, this.getCharset());
+            text = this.encodeString(text, getCharset());
             text = this.wrap(text);
             text = text.join("\n").rstrip("\n");
 
@@ -1385,7 +1385,7 @@ class DMessage { //: JsonSerializable {
         }
         restore = mb_internal_encoding();
         mb_internal_encoding(this.appCharset);
-        auto result = mb_encode_mimeheader(textToEncode, this.getHeaderCharset(), "B");
+        auto result = mb_encode_mimeheader(textToEncode, getHeaderCharset(), "B");
         mb_internal_encoding(restore);
 
         return result;

@@ -123,7 +123,7 @@ class DPlugin : IPlugin {
         if (this.templatePath !isNull) {
             return _templatePath;
         }
-        somePath = this.getPath();
+        somePath = getPath();
 
         return _templatePath = somePath ~ "templates" ~ DIRECTORY_SEPARATOR;
     }

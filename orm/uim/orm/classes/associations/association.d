@@ -248,7 +248,7 @@ function getTarget() : Table {
             registryAlias = _name;
         }
 
-        tableLocator = this.getTableLocator();
+        tableLocator = getTableLocator();
 
         myConfiguration = null;
         exists = tableLocator.exists(registryAlias);
@@ -269,7 +269,7 @@ function getTarget() : Table {
                 throw new DRuntimeException(sprintf(
                         errorMessage,
                         _sourceTable == null ? "null" : get_class(_sourceTable),
-                        this.getName(),
+                        getName(),
                         this.type(),
                         get_class(_targetTable),
                         className
@@ -323,7 +323,7 @@ function getBindingKeys() {
     if (_bindingKeys == null) {
         _bindingKeys = this.isOwningSide(source()) ?
             source().primaryKeys() 
-            : this.getTarget().primaryKeys();
+            : getTarget().primaryKeys();
     }
 
     return _bindingKeys;
@@ -383,7 +383,7 @@ bool getDependent() {
      * @param Json[string] options custom options key that could alter the return value
      * /
 bool canBeJoined(Json[string] optionData = null) {
-    strategy = options.get() "strategy", this.getStrategy());
+    strategy = options.get() "strategy", getStrategy());
 
     return strategy == this.STRATEGY_JOIN;
 }
@@ -537,17 +537,17 @@ protected void _options(Json[string] optionData) {
      * @throws \RuntimeException Unable to build the query or associations.
      * /
 void attachTo(Query query, Json[string] optionData = null) {
-    target = this.getTarget();
+    target = getTarget();
     table = target.getTable();
 
     options = options.update[
         "includeFields": true.toJson,
         "foreignKeys": foreignKeys(),
         "conditions": Json.emptyArray,
-        "joinType": this.getJoinType(),
+        "joinType": getJoinType(),
         "fields": Json.emptyArray,
         "table": table,
-        "finder": this.getFinder(),
+        "finder": getFinder(),
     ];
 
     // This is set by joinWith to disable matching results
@@ -573,7 +573,7 @@ void attachTo(Query query, Json[string] optionData = null) {
         if (!(dummy instanceof Query)) {
             throw new DRuntimeException(sprintf(
                     "Query builder for association '%s' did not return a query",
-                    this.getName()
+                    getName()
             ));
         }
     }
@@ -584,7 +584,7 @@ void attachTo(Query query, Json[string] optionData = null) {
         dummy.getContain()
         ) {
         throw new DRuntimeException(
-            "`{this.getName()}` association cannot contain() associations when using JOIN strategy."
+            "`{getName()}` association cannot contain() associations when using JOIN strategy."
         );
     }
 
@@ -641,7 +641,7 @@ protected void _appendNotMatching(Query query, Json[string] optionData) {
 array transformRow(Json[string] row, string nestKey, bool joined, string targetProperty = null) {
     sourceAlias = source().aliasName();
     nestKey = nestKey ?  : _name;
-    targetProperty = targetProperty ?  : this.getProperty();
+    targetProperty = targetProperty ?  : getProperty();
     if (isset(row[sourceAlias])) {
         row[sourceAlias][targetProperty] = row[nestKey];
         unset(row[nestKey]);
@@ -663,7 +663,7 @@ array transformRow(Json[string] row, string nestKey, bool joined, string targetP
 array defaultRowValue(Json[string] row, bool joined) {
     sourceAlias = source().aliasName();
     if (isset(row[sourceAlias])) {
-        row[sourceAlias][this.getProperty()] = null;
+        row[sourceAlias][getProperty()] = null;
     }
 
     return row;
@@ -679,12 +679,12 @@ array defaultRowValue(Json[string] row, bool joined) {
      * @param Json[string] options The options to for the find
      * /
 IQuery find(type = null, Json[string] optionData = null) {
-    type = type ?  : this.getFinder();
+    type = type ?  : getFinder();
     [type, opts] = _extractFinder(type);
 
     return _getTarget()
         .find(type, options + opts)
-        .where(this.getConditions());
+        .where(getConditions());
 }
 
 /**
@@ -741,7 +741,7 @@ int deleteAll(conditions) {
      * @return bool true if a list of keys will be required
      * /
 bool requiresKeys(Json[string] optionData = null) {
-    strategy = options["strategy"] ?  ? this.getStrategy();
+    strategy = options["strategy"] ?  ? getStrategy();
 
     return strategy == STRATEGY_SELECT;
 }
@@ -894,11 +894,11 @@ protected Json[string] _joinCondition(Json[string] optionData) {
     auto tAlias = _name;
     auto sAlias = source().aliasName();
     auto foreignKeys = (array) options["foreignKeys"];
-    auto bindingKeys = (array) this.getBindingKeys();
+    auto bindingKeys = (array) getBindingKeys();
 
     if (count(foreignKeys) != count(bindingKeys)) {
         if (bindingKeys.isEmpty) {
-            table = this.getTarget().getTable();
+            table = getTarget().getTable();
             if (this.isOwningSide(source())) {
                 table = source().getTable();
             }
@@ -975,7 +975,7 @@ function __get(property) {
      * @return bool true if the property exists
      * /
 bool __isSet(property) {
-    return isset(this.getTarget(). {
+    return isset(getTarget(). {
         property
     });
 }

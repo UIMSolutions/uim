@@ -185,7 +185,7 @@ class DFixtureHelper {
         constrained = null;
         unconstrained = null;
         fixtures.each((fixture) {
-            references = this.getForeignReferences(aConnection, fixture);
+            references = getForeignReferences(aConnection, fixture);
             if (references) {
                 constrained[fixture.sourceName()] = ["references": references, "fixture": fixture];
             } else {

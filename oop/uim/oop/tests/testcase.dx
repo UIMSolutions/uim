@@ -154,7 +154,7 @@ abstract class DTestCase : DBaseTestCase {
             Configuration.clear();
             Configuration.update(_configure);
         }
-        this.getTableLocator().clear();
+        getTableLocator().clear();
        _configure = null;
        _tableLocator = null;
         if (class_exists(Mockery.classname)) {
@@ -166,9 +166,9 @@ abstract class DTestCase : DBaseTestCase {
      * Initialized and loads any use fixtures.
      * /
     protected void setupFixtures() {
-        myfixtureNames = this.getFixtures();
+        myfixtureNames = getFixtures();
 
-        this.fixtureStrategy = this.getFixtureStrategy();
+        this.fixtureStrategy = getFixtureStrategy();
         this.fixtureStrategy.setupTest(myfixtureNames);
     }
     
@@ -786,7 +786,7 @@ abstract class DTestCase : DBaseTestCase {
         auto aConnectionName = className.defaultConnectionName();
         auto aConnection = ConnectionManager.get(aConnectionName);
 
-        auto locator = this.getTableLocator();
+        auto locator = getTableLocator();
 
         [, baseClass] = pluginSplit(alias);
         options.update(["alias": baseClass, "connection": aConnection]);
@@ -799,7 +799,7 @@ abstract class DTestCase : DBaseTestCase {
         existingMethods = array_intersect(classNameMethods,  someMethods);
         nonExistingMethods = array_diff(someMethods, existingMethods);
 
-        builder = this.getMockBuilder(className)
+        builder = getMockBuilder(className)
             .setConstructorArgs([options]);
 
         if (existingMethods || !nonExistingMethods) {

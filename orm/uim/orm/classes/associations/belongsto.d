@@ -42,7 +42,7 @@ class DBelongsToAssociation : DAssociation {
     // Gets the name of the field representing the foreign key to the target table.
     string[] getForeignKeyss() {
       if (_foreignKeyss == null) {
-          _foreignKeyss = _modelKey(this.getTarget().aliasName());
+          _foreignKeyss = _modelKey(getTarget().aliasName());
       }
 
       return _foreignKeyss;
@@ -76,7 +76,7 @@ class DBelongsToAssociation : DAssociation {
      * @param DORMTable side The potential Table with ownership
      * /
     bool isOwningSide(Table side) {
-        return side == this.getTarget();
+        return side == getTarget();
     }
 
     // Get the relationship type.
@@ -96,12 +96,12 @@ class DBelongsToAssociation : DAssociation {
      * the saved entity
      * /
     function saveAssociated(IEntity anEntity, Json[string] optionData = null) {
-        auto targetEntity = entity.get(this.getProperty());
+        auto targetEntity = entity.get(getProperty());
         if (targetEntity.isEmpty) || !(cast(IEntity)targetEntity)) {
             return entity;
         }
 
-        auto table = this.getTarget();
+        auto table = getTarget();
         targetEntity = table.save(targetEntity, options);
         if (!targetEntity) {
             return false;
@@ -109,7 +109,7 @@ class DBelongsToAssociation : DAssociation {
 
         auto properties = array_combine(
             (array)foreignKeys(),
-            targetEntity.extract((array)this.getBindingKey())
+            targetEntity.extract((array)getBindingKey())
         );
         entity.set(properties, ["guard": false.toJson]);
 
@@ -130,12 +130,12 @@ class DBelongsToAssociation : DAssociation {
         tAlias = _name;
         sAlias = _sourceTable.aliasName();
         foreignKeys = (array)options["foreignKeys"];
-        bindingKey = (array)this.getBindingKey();
+        bindingKey = (array)getBindingKey();
 
         if (count(foreignKeys) != count(bindingKey)) {
             if (bindingKey.isEmpty) {
                 msg = "The '%s' table does not define a primary key. Please set one.";
-                throw new DRuntimeException(sprintf(msg, this.getTarget().getTable()));
+                throw new DRuntimeException(sprintf(msg, getTarget().getTable()));
             }
 
             msg = "Cannot match provided foreignKeys for '%s', got "(%s)" but expected foreign key for "(%s)"";
@@ -162,10 +162,10 @@ class DBelongsToAssociation : DAssociation {
         loader = new DSelectLoader([
             "alias": this.aliasName(),
             "sourceAlias": source().aliasName(),
-            "targetAlias": this.getTarget().aliasName(),
+            "targetAlias": getTarget().aliasName(),
             "foreignKeys": foreignKeys(),
-            "bindingKey": this.getBindingKey(),
-            "strategy": this.getStrategy(),
+            "bindingKey": getBindingKey(),
+            "strategy": getStrategy(),
             "associationType": this.type(),
             "finder": [this, "find"],
         ]);

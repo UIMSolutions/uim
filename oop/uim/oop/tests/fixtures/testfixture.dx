@@ -79,13 +79,13 @@ class DTestFixture : IFixture {
 
             // Remove the fetched table from the locator to avoid conflicts
             // with test cases that need to (re)configure the alias.
-            this.getTableLocator().remove(name);
+            getTableLocator().remove(name);
 
             tableSchema = ormTable.getSchema();
             assert(cast(Table)tableSchemaSchema);
            _schema = tableSchema;
 
-            this.getTableLocator().clear();
+            getTableLocator().clear();
         } catch (UimException  anException) {
             string message = 
                 "Cannot describe schema for table `%s` for fixture `%s`. The table does not exist."

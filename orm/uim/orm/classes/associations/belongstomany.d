@@ -125,7 +125,7 @@ class DBelongsToManyAssociation : DAssociation {
      * /
     string[] getTargetForeignKey() {
         if (_targetForeignKey == null) {
-            _targetForeignKey = _modelKey(this.getTarget().aliasName());
+            _targetForeignKey = _modelKey(getTarget().aliasName());
         }
 
         return _targetForeignKey;
@@ -180,7 +180,7 @@ class DBelongsToManyAssociation : DAssociation {
     array defaultRowValue(Json[string] row, bool joined) {
         sourceAlias = source().aliasName();
         if (isset(row[sourceAlias])) {
-            row[sourceAlias][this.getProperty()] = joined ? null : [];
+            row[sourceAlias][getProperty()] = joined ? null : [];
         }
 
         return row;
@@ -200,7 +200,7 @@ class DBelongsToManyAssociation : DAssociation {
             return _junctionTable;
         }
 
-        tableLocator = this.getTableLocator();
+        tableLocator = getTableLocator();
         if (table == null && _through) {
             table = _through;
         } elseif (table == null) {
@@ -224,11 +224,11 @@ class DBelongsToManyAssociation : DAssociation {
         }
 
         source = source();
-        target = this.getTarget();
+        target = getTarget();
         if (source.aliasName() == target.aliasName()) {
             throw new DInvalidArgumentException(sprintf(
                 "The `%s` association on `%s` cannot target the same table.",
-                this.getName(),
+                getName(),
                 source.aliasName()
             ));
         }
@@ -269,7 +269,7 @@ class DBelongsToManyAssociation : DAssociation {
             target.hasMany(junctionAlias, [
                 "targetTable": junction,
                 "bindingKey": targetBindingKey,
-                "foreignKey": this.getTargetForeignKey(),
+                "foreignKey": getTargetForeignKey(),
                 "strategy": _strategy,
             ]);
         }
@@ -277,10 +277,10 @@ class DBelongsToManyAssociation : DAssociation {
             target.belongsToMany(sAlias, [
                 "sourceTable": target,
                 "targetTable": source,
-                "foreignKey": this.getTargetForeignKey(),
+                "foreignKey": getTargetForeignKey(),
                 "targetForeignKey": foreignKeys(),
                 "through": junction,
-                "conditions": this.getConditions(),
+                "conditions": getConditions(),
                 "strategy": _strategy,
             ]);
         }
@@ -341,25 +341,25 @@ class DBelongsToManyAssociation : DAssociation {
 
         if (!junction.hasAssociation(tAlias)) {
             junction.belongsTo(tAlias, [
-                "foreignKey": this.getTargetForeignKey(),
+                "foreignKey": getTargetForeignKey(),
                 "targetTable": target,
             ]);
         } else {
             belongsTo = junction.getAssociation(tAlias);
             if (
-                this.getTargetForeignKey() != belongsTo.getForeignKeys() ||
+                getTargetForeignKey() != belongsTo.getForeignKeys() ||
                 target != belongsTo.getTarget()
             ) {
                 throw new DInvalidArgumentException(
                     "The existing `{tAlias}` association on `{junction.aliasName()}` " ~
-                    "is incompatible with the `{this.getName()}` association on `{source.aliasName()}`"
+                    "is incompatible with the `{getName()}` association on `{source.aliasName()}`"
                 );
             }
         }
 
         if (!junction.hasAssociation(sAlias)) {
             junction.belongsTo(sAlias, [
-                "bindingKey": this.getBindingKey(),
+                "bindingKey": getBindingKey(),
                 "foreignKey": foreignKeys(),
                 "targetTable": source,
             ]);
@@ -409,8 +409,8 @@ class DBelongsToManyAssociation : DAssociation {
 
         super.attachTo(query, options);
 
-        foreignKey = this.getTargetForeignKey();
-        thisJoin = query.clause("join")[this.getName()];
+        foreignKey = getTargetForeignKey();
+        thisJoin = query.clause("join")[getName()];
         thisJoin["conditions"].add(assoc._joinCondition(["foreignKey": foreignKey]));
     }
 
@@ -474,15 +474,15 @@ class DBelongsToManyAssociation : DAssociation {
         loader = new DSelectWithPivotLoader([
             "alias": this.aliasName(),
             "sourceAlias": source().aliasName(),
-            "targetAlias": this.getTarget().aliasName(),
+            "targetAlias": getTarget().aliasName(),
             "foreignKey": foreignKeys(),
-            "bindingKey": this.getBindingKey(),
-            "strategy": this.getStrategy(),
+            "bindingKey": getBindingKey(),
+            "strategy": getStrategy(),
             "associationType": this.type(),
-            "sort": this.getSort(),
+            "sort": getSort(),
             "junctionAssociationName": name,
             "junctionProperty": _junctionProperty,
-            "junctionAssoc": this.getTarget().getAssociation(name),
+            "junctionAssoc": getTarget().getAssociation(name),
             "junctionConditions": this.junctionConditions(),
             "finder": function () {
                 return _appendJunctionJoin(this.find(), []);
@@ -500,11 +500,11 @@ class DBelongsToManyAssociation : DAssociation {
      * @return bool Success.
      * /
     bool cascaderemove(IEntity anEntity, Json[string] optionData = null) {
-        if (!this.getDependent()) {
+        if (!getDependent()) {
             return true;
         }
         foreignKey = (array)foreignKeys();
-        bindingKey = (array)this.getBindingKey();
+        bindingKey = (array)getBindingKey();
         conditions = null;
 
         if (!bindingKey.isEmpty) {
@@ -596,8 +596,8 @@ class DBelongsToManyAssociation : DAssociation {
      * the saved entity
      * /
     function saveAssociated(IEntity anEntity, Json[string] optionData = null) {
-        targetEntity = entity.get(this.getProperty());
-        strategy = this.getSaveStrategy();
+        targetEntity = entity.get(getProperty());
+        strategy = getSaveStrategy();
 
         isEmpty = in_array(targetEntity, [null, [], "", false], true);
         if (isEmpty && entity.isNew()) {
@@ -641,7 +641,7 @@ class DBelongsToManyAssociation : DAssociation {
             options.remove("associated"][_junctionProperty]);
         }
 
-        table = this.getTarget();
+        table = getTarget();
         original = entities;
         persisted = null;
 
@@ -674,12 +674,12 @@ class DBelongsToManyAssociation : DAssociation {
         options["associated"] = joinAssociations;
         success = _saveLinks(parentEntity, persisted, options);
         if (!success && !options.isEmpty("atomic"])) {
-            parentEntity.set(this.getProperty(), original);
+            parentEntity.set(getProperty(), original);
 
             return false;
         }
 
-        parentEntity.set(this.getProperty(), entities);
+        parentEntity.set(getProperty(), entities);
 
         return parentEntity;
     }
@@ -695,14 +695,14 @@ class DBelongsToManyAssociation : DAssociation {
      * @return bool success
      * /
     protected bool _saveLinks(IEntity sourceEntity, Json[string] targetEntities, Json[string] optionData) {
-        target = this.getTarget();
+        target = getTarget();
         junction = this.junction();
         entityClass = junction.getEntityClass();
         belongsTo = junction.getAssociation(target.aliasName());
         foreignKey = (array)foreignKeys();
         assocForeignKey = (array)belongsTo.getForeignKeys();
         targetBindingKey = (array)belongsTo.getBindingKey();
-        bindingKey = (array)this.getBindingKey();
+        bindingKey = (array)getBindingKey();
         jointProperty = _junctionProperty;
         junctionRegistryAlias = junction.registryKey();
 
@@ -771,7 +771,7 @@ class DBelongsToManyAssociation : DAssociation {
      * /
     bool link(IEntity sourceEntity, Json[string] targetEntities, Json[string] optionData = null) {
         _checkPersistenceStatus(sourceEntity, targetEntities);
-        property = this.getProperty();
+        property = getProperty();
         links = sourceEntity.get(property) ?: [];
         links = array_merge(links, targetEntities);
         sourceEntity.set(property, links);
@@ -829,7 +829,7 @@ class DBelongsToManyAssociation : DAssociation {
         }
 
         _checkPersistenceStatus(sourceEntity, targetEntities);
-        property = this.getProperty();
+        property = getProperty();
 
         this.junction().getConnection().transactional(
             void () use (sourceEntity, targetEntities, options) {
@@ -908,7 +908,7 @@ class DBelongsToManyAssociation : DAssociation {
             return _targetConditions;
         }
 
-        auto conditions = this.getConditions();
+        auto conditions = getConditions();
         if (!(conditions.isArray) {
             return conditions;
         }
@@ -935,7 +935,7 @@ class DBelongsToManyAssociation : DAssociation {
             return _junctionConditions;
         }
         matching = null;
-        conditions = this.getConditions();
+        conditions = getConditions();
         if (!(conditions.isArray) {
             return matching;
         }
@@ -967,12 +967,12 @@ class DBelongsToManyAssociation : DAssociation {
      *   it will be interpreted as the `options` parameter
      * @param Json[string] options The options to for the find
     Query find(type = null, Json[string] optionData = null) {
-        type = type ?: this.getFinder();
+        type = type ?: getFinder();
         [type, opts] = _extractFinder(type);
-        query = this.getTarget()
+        query = getTarget()
             .find(type, options + opts)
             .where(this.targetConditions())
-            .addDefaultTypes(this.getTarget());
+            .addDefaultTypes(getTarget());
 
         if (this.junctionConditions()) {
             return _appendJunctionJoin(query);
@@ -992,9 +992,9 @@ class DBelongsToManyAssociation : DAssociation {
     {
         junctionTable = this.junction();
         if (conditions == null) {
-            belongsTo = junctionTable.getAssociation(this.getTarget().aliasName());
+            belongsTo = junctionTable.getAssociation(getTarget().aliasName());
             conditions = belongsTo._joinCondition([
-                "foreignKey": this.getTargetForeignKey(),
+                "foreignKey": getTargetForeignKey(),
             ]);
             conditions += this.junctionConditions();
         }
@@ -1067,7 +1067,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @return bool success
      * /
     bool replaceLinks(IEntity sourceEntity, Json[string] targetEntities, Json[string] optionData = null) {
-        bindingKey = (array)this.getBindingKey();
+        bindingKey = (array)getBindingKey();
         primaryValue = sourceEntity.extract(bindingKey);
 
         if (count(Hash.filter(primaryValue)) != count(bindingKey)) {
@@ -1078,7 +1078,7 @@ class DBelongsToManyAssociation : DAssociation {
         return _junction().getConnection().transactional(
             function () use (sourceEntity, targetEntities, primaryValue, options) {
                 junction = this.junction();
-                target = this.getTarget();
+                target = getTarget();
 
                 foreignKey = (array)foreignKeys();
                 assocForeignKey = (array)junction.getAssociation(target.aliasName()).getForeignKeys();
@@ -1119,7 +1119,7 @@ class DBelongsToManyAssociation : DAssociation {
                     return false;
                 }
 
-                property = this.getProperty();
+                property = getProperty();
 
                 if (count(inserts)) {
                     inserted = array_combine(
@@ -1157,7 +1157,7 @@ class DBelongsToManyAssociation : DAssociation {
         Json[string] optionData = null
     ) {
         junction = this.junction();
-        target = this.getTarget();
+        target = getTarget();
         belongsTo = junction.getAssociation(target.aliasName());
         foreignKey = (array)foreignKeys();
         assocForeignKey = (array)belongsTo.getForeignKeys();
@@ -1265,7 +1265,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @return array<DORMDatasource\IEntity>
      * /
     // TODO protected Json[string] _collectJointEntities(IEntity sourceEntity, Json[string] targetEntities) {
-        target = this.getTarget();
+        target = getTarget();
         source = source();
         junction = this.junction();
         jointProperty = _junctionProperty;
@@ -1326,7 +1326,7 @@ class DBelongsToManyAssociation : DAssociation {
      * /
     protected string _junctionAssociationName() {
         if (!_junctionAssociationName) {
-            _junctionAssociationName = this.getTarget()
+            _junctionAssociationName = getTarget()
                 .getAssociation(this.junction().aliasName())
                 .getName();
         }
@@ -1346,7 +1346,7 @@ class DBelongsToManyAssociation : DAssociation {
             if (_junctionTableName.isEmpty) {
                 tablesNames = array_map("uim\Utility\Inflector.underscore", [
                     source().getTable(),
-                    this.getTarget().getTable(),
+                    getTarget().getTable(),
                 ])().sort;
                 _junctionTableName = implode("_", tablesNames);
             }

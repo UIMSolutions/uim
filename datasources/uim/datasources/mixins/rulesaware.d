@@ -23,12 +23,12 @@ mixin template TRulesAware() {
      * Returns whether the passed entity complies with all the rules stored in
      * the rules checker.
      * Params:
-     * \UIM\Datasource\IEntity entity The entity to check for validity.
+     * \UIM\Datasource\IDatasourceEntity entity The entity to check for validity.
      * @param string aoperation The operation being run. Either 'create", "update' or 'delete'.
      * @param \ArrayObject<string, mixed>|array|null options The options To be passed to the rules.
      * /
    bool checkRules(
-        IEntity entity,
+        IDatasourceEntity entity,
         string aoperation = RulesChecker.CREATE,
         ArrayObject[] options = null
     ) {

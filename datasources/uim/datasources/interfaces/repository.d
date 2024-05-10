@@ -53,7 +53,7 @@ interface IRepository {
      * @throws \UIM\Datasource\Exception\RecordNotFoundException if the record with such id
      * could not be found
      * /
-    IEntity get(
+    IDatasourceEntity get(
         Json primaryKey,
         string[] afinder = "all",
         ICache|string|null cache = null,
@@ -105,10 +105,10 @@ interface IRepository {
      * returns the same entity after a successful save or false in case
      * of any error.
      * Params:
-     * \UIM\Datasource\IEntity entity the entity to be saved
+     * \UIM\Datasource\IDatasourceEntity entity the entity to be saved
      * @param Json[string] optionData The options to use when saving.
      * /
-    IEntity|false save(IEntity entity, Json[string] optionData = null);
+    IDatasourceEntity|false save(IDatasourceEntity entity, Json[string] optionData = null);
 
     /**
      * Delete a single entity.
@@ -116,10 +116,10 @@ interface IRepository {
      * Deletes an entity and possibly related associations from the database
      * based on the 'dependent' option used when defining the association.
      * Params:
-     * \UIM\Datasource\IEntity entity The entity to remove.
+     * \UIM\Datasource\IDatasourceEntity entity The entity to remove.
      * @param Json[string] optionData The options for the delete.
          * /
-    bool remove(IEntity entity, Json[string] optionData = null);
+    bool remove(IDatasourceEntity entity, Json[string] optionData = null);
 
     /**
      * This creates a new entity object.
@@ -128,7 +128,7 @@ interface IRepository {
      * This entity can be persisted without validation error as empty record.
      * Always patch in required fields before saving.
      * /
-    IEntity newEmptyEntity();
+    IDatasourceEntity newEmptyEntity();
 
     /**
      * Create a new entity + associated entities from an array.
@@ -147,7 +147,7 @@ interface IRepository {
      * Json[string] data The data to build an entity with.
      * @param Json[string] options A list of options for the object hydration.
      * /
-    IEntity newEntity(Json[string] data, Json[string] optionData = null);
+    IDatasourceEntity newEntity(Json[string] data, Json[string] optionData = null);
 
     /**
      * Create a list of entities + associated entities from an array.
@@ -161,7 +161,7 @@ interface IRepository {
      *
      * The hydrated entities can then be iterated and saved.
      * /
-    IEntity[] newEntities(Json[string] buildData, Json[string] optionDataForHydration = null);
+    IDatasourceEntity[] newEntities(Json[string] buildData, Json[string] optionDataForHydration = null);
 
     /**
      * Merges the passed `someData` into `entity` respecting the accessible
@@ -174,12 +174,12 @@ interface IRepository {
      * article = this.Articles.patchEntity(article, this.request[));
      * ```
      * Params:
-     * \UIM\Datasource\IEntity entity the entity that will get the
+     * \UIM\Datasource\IDatasourceEntity entity the entity that will get the
      * data merged in
      * @param Json[string] data key value list of fields to be merged into the entity
      * @param Json[string] options A list of options for the object hydration.
      * /
-    IEntity patchEntity(IEntityentity, Json[string] data, Json[string] optionData = null);
+    IDatasourceEntity patchEntity(IDatasourceEntityentity, Json[string] data, Json[string] optionData = null);
 
     /**
      * Merges each of the elements passed in `someData` into the entities
@@ -193,11 +193,11 @@ interface IRepository {
      * article = this.Articles.patchEntities(articles, this.request[));
      * ```
      * Params:
-     * iterable<\UIM\Datasource\IEntity> entities the entities that will get the
+     * iterable<\UIM\Datasource\IDatasourceEntity> entities the entities that will get the
      * data merged in
      * @param Json[string] data list of arrays to be merged into the entities
      * @param Json[string] options A list of options for the objects hydration.
      * /
-    IEntity[] patchEntities(iterableentities, Json[string] data, Json[string] optionData = null);
+    IDatasourceEntity[] patchEntities(iterableentities, Json[string] data, Json[string] optionData = null);
     */
 }

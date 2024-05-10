@@ -236,7 +236,7 @@ mixin template TEntity() {
      * present when the entity was instantiated.
      *
      * ```
-     * entity = new DEntity(["name": "andrew", "id": 1]);
+     * entity = new DDatasourceEntity(["name": "andrew", "id": 1]);
      *
      * entity.set("phone_number", "555-0134");
      * print_r(entity.getOriginalFields()) // prints ["name", "id"]
@@ -390,7 +390,7 @@ mixin template TEntity() {
      * ### Example:
      *
      * ```
-     * entity = new DEntity(["id": 1, "name": StringData]);
+     * entity = new DDatasourceEntity(["id": 1, "name": StringData]);
      * entity.has("id"); // true
      * entity.has("name"); // true
      * entity.has("last_name"); // false
@@ -541,11 +541,11 @@ mixin template TEntity() {
       if (isArray(aValue)) {
         result[field] = null;
         aValue.byKeyValue
-          .each!(keyEntity => result[field][keyEntity.key] = cast(IEntity) keyEntity.value
+          .each!(keyEntity => result[field][keyEntity.key] = cast(IDatasourceEntity) keyEntity.value
               ? entity.toArray() : entity);
       }
 
-      else if(cast(IEntity) aValue) {
+      else if(cast(IDatasourceEntity) aValue) {
         result[field] = aValue.toArray();
       } else {
         result[field] = aValue;
@@ -827,7 +827,7 @@ mixin template TEntity() {
         diff = array_diff_key(_fields, _fieldErrors); _hasBeenVisited = true; try {
           errors = _fieldErrors + (new DCollection(diff))
             .filter(function(aValue) {
-              return isArray(aValue) || cast(IEntity) aValue;})
+              return isArray(aValue) || cast(IDatasourceEntity) aValue;})
               .map(function(aValue) {
                 return _readError(aValue);})
                 .filter()
@@ -903,7 +903,7 @@ mixin template TEntity() {
     // Only one path element, check for nested entity with error.
     if (!fieldName.has(".")) {
       entity = get(fieldName);
-      if (cast(IEntity) entity || is_iterable(
+      if (cast(IDatasourceEntity) entity || is_iterable(
           entity)) {
         return _readError(entity);
       }
@@ -925,7 +925,7 @@ mixin template TEntity() {
       len = count(
         somePath);
       val = null;
-      if (cast(IEntity) entity) {
+      if (cast(IDatasourceEntity) entity) {
         val = entity.get(part);
       } else if (isArray(entity)) {
         val = entity[part] ?  ? false;
@@ -933,7 +933,7 @@ mixin template TEntity() {
       if (
         isArray(val) ||
         cast(Traversable) val ||
-        cast(IEntity) val
+        cast(IDatasourceEntity) val
         ) {
         entity = val;
       } else {
@@ -951,11 +951,11 @@ mixin template TEntity() {
   /**
      * Reads if there are errors for one or many objects.
      * Params:
-     * \UIM\Datasource\IEntity|array object The object to read errors from.
+     * \UIM\Datasource\IDatasourceEntity|array object The object to read errors from.
     * /
                                                   protected bool _readHasErrors(
-                                                  IEntity[] object) {
-                                                    if (cast(IEntity) object && object
+                                                  IDatasourceEntity[] object) {
+                                                    if (cast(IDatasourceEntity) object && object
                                                     .hasErrors()) {
                                                       return true;}
                                                       if (isArray(object)) {
@@ -972,23 +972,23 @@ mixin template TEntity() {
                                                         /**
      * Read the error(s) from one or many objects.
      * Params:
-     * \UIM\Datasource\IEntity|range object The object to read errors from.
+     * \UIM\Datasource\IDatasourceEntity|range object The object to read errors from.
      * @param string somePath The field name for errors.
     * /
                                                         // TODO protected Json[string] _readError(
-                                                        IEntity | range object, string aPath = null) {
+                                                        IDatasourceEntity | range object, string aPath = null) {
                                                           if (somePath!isNull && cast(
-                                                            IEntity) object) {
+                                                            IDatasourceEntity) object) {
                                                             return object.getError(
                                                             somePath);}
                                                             if (
-                                                              cast(IEntity) object) {
+                                                              cast(IDatasourceEntity) object) {
                                                               return object.getErrors();
                                                             }
                                                             Json[string] = array_map(
                                                             function(val) {
                                                               if (
-                                                                cast(IEntity) val) {
+                                                                cast(IDatasourceEntity) val) {
                                                                 return val.getErrors();
                                                               }
                                                             }, (array) object); return array_filter(

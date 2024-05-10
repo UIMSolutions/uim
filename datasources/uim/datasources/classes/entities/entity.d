@@ -52,7 +52,7 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
      * ### Example:
      *
      * ```
-     *  entity = new DEntity(["id": 1, "name": "Andrew"])
+     *  entity = new DDatasourceEntity(["id": 1, "name": "Andrew"])
      * ```
      *
      * @param Json[string] properties hash of properties to set in this entity

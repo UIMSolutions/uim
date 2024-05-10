@@ -422,7 +422,7 @@ mixin template TQuery() {
      * singleUser = query.select(["id", "username"]).first();
      * ```
      *
-     * @return uim.Datasource\IEntity|array|null The first result from the Resultset.
+     * @return uim.Datasource\IDatasourceEntity|array|null The first result from the Resultset.
      * /
     function first() {
         if (_isDirty) {
@@ -436,7 +436,7 @@ mixin template TQuery() {
      * Get the first result from the executing query or raise an exception.
      *
      * @throws uim.Datasource\exceptions.RecordNotFoundException When there is no first record.
-     * @return uim.Datasource\IEntity|array The first result from the Resultset.
+     * @return uim.Datasource\IDatasourceEntity|array The first result from the Resultset.
      * /
     function firstOrFail() {
         entity = this.first();

@@ -5,9 +5,9 @@ import uim.datasources;
 @safe:
 
 // A registry object for Entity instances.
-class DEntityRegistry : DObjectRegistry!DDatasourceEntity {
+class DDatasourceEntityRegistry : DObjectRegistry!DDatasourceEntity {
 }
-auto EntityRegistry() { return DEntityRegistry.instance; }
+auto EntityRegistry() { return DDatasourceEntityRegistry.instance; }
 
 
     

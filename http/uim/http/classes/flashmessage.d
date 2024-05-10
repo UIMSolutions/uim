@@ -68,7 +68,7 @@ class DFlashMessage {
      * - `escape` Set to false to allow templates to print out HTML content.
      * /
     void set(string messageToBeFlashed, Json[string] options = null) {
-        auto options = options.update(this.configuration.data);
+        auto auto updatedOptions = options.update(this.configuration.data);
 
         if (isSet(options["escape"]) && !isSet(options["params"]["escape"])) {
             options["params"]["escape"] = options["escape"];

@@ -203,7 +203,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
             "int": filter_var(argumentToCoerce, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE),
             "bool": argumentToCoerce == "0" ? false : (argumentToCoerce == "1" ? true : null),
             "array": argumentToCoerce == "" ? [] : split(",", argumentToCoerce),
-            default: null,
+            default: Json(null),
         };
     }
     

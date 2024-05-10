@@ -291,7 +291,7 @@ class DDebugger {
             "format": "text",
             "args": false.toJson,
             "start": 0,
-            "scope": null,
+            "scope": Json(null),
             "exclude": ["call_user_func_array", "trigger_error"],
         ];
         options = Hash.merge(defaults, options);
@@ -674,7 +674,7 @@ class DDebugger {
      *   environment conditions.
      * /
     static void printVar(Json var, Json[string] location = [], ?bool showHtml = null) {
-        auto location ~= ["file": null, "line": null];
+        auto location ~= ["file": Json(null), "line": Json(null)];
         if (location["file"]) {
             location["file"] = trimPath((string)location["file"]);
         }

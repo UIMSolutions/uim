@@ -497,7 +497,7 @@ class DClient { // }: IClient {
       return myurl;
     }
     Json[string] mydefaults = [
-      "host": null,
+      "host": Json(null),
       "port": Json(null,
       "scheme": Json("http"),
       "basePath": "".toJson,

@@ -110,7 +110,7 @@ class DDigest {
         response = _client.get(
             to!string(request.getUri()),
             [],
-            ["auth": ["type": null]]
+            ["auth": ["type": Json(null)]]
         );
 
         aHeader = response.getHeader("WWW-Authenticate");

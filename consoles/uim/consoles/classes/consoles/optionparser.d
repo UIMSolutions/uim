@@ -298,12 +298,12 @@ class DConsoleOptionParser {
             defaultValues = [
                 "short": "".toJson,
                 "help": "".toJson,
-                "default": null,
+                "default": Json(null),
                 "boolean": false.toJson,
                 "multiple": false.toJson,
                 "choices": Json.emptyArray,
                 "required": false.toJson,
-                "prompt": null,
+                "prompt": Json(null),
             ];
             behaviorOptions = behaviorOptions.update(defaultValues);
             

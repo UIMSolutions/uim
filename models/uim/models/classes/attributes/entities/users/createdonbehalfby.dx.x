@@ -9,7 +9,7 @@ import uim.models;
 @safe:
 
 /* class DCreatedOnBehalfByAttribute : DEntityAttribute {
-  mixin(AttributeThis!("CreatedOnBehalfByAttribute"));
+  mixin(AttributeThis!("CreatedOnBehalfBy"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -20,7 +20,7 @@ import uim.models;
       .registerPath("createdOnBehalfBy");
   }  
 }
-mixin(AttributeCalls!("CreatedOnBehalfByAttribute"));
+mixin(AttributeCalls!("CreatedOnBehalfBy"));
 
 version(test_uim_models) { unittest {
   

@@ -21,7 +21,7 @@ import uim.models;
 @safe:
 
 /* class DUserAttribute : DEntityAttribute {
-  mixin(AttributeThis!("UserAttribute"));
+  mixin(AttributeThis!("User"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -32,7 +32,7 @@ import uim.models;
       .registerPath("user");
   }  
 }
-mixin(AttributeCalls!("UserAttribute"));
+mixin(AttributeCalls!("User"));
 
 version(test_uim_models) { unittest {
   

@@ -16,7 +16,7 @@ import uim.models;
 
 @safe:
 class DMinutesAttribute : DIntegerAttribute {
-  mixin(AttributeThis!("MinutesAttribute"));
+  mixin(AttributeThis!("Minutes"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -27,7 +27,7 @@ class DMinutesAttribute : DIntegerAttribute {
     return true;
   }    
 }
-mixin(AttributeCalls!("MinutesAttribute"));
+mixin(AttributeCalls!("Minutes"));
 
 version(test_uim_models) { unittest {
     testAttribute(new DMinutesAttribute);

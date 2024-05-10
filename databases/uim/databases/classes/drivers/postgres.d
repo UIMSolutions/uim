@@ -57,11 +57,11 @@ class DPostgresDriver : DDriver {
 
     this.pdo = this.createPdo(dsn, configData);
     if (!(configuration.get("encoding"].isEmpty) {
-        this.setEncoding(configuration.get("encoding"]);
+        setEncoding(configuration.get("encoding"]);
     }
 
     if (!configuration.get("schema"].isEmpty) {
-        this.setSchema(configuration.get("schema"]);
+        setSchema(configuration.get("schema"]);
     }
     if (!configuration.get("timezone"].isEmpty) {
         configuration.get("init"] ~= "SET timezone = %s".format(getPdo()

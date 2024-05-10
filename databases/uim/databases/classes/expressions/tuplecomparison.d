@@ -32,9 +32,9 @@ class DTupleComparisonExpression : DComparisonExpression {
         string aconjunction = "="
     ) {
         this.types = types;
-        this.setFieldNames(fields);
+        setFieldNames(fields);
         _operator = conjunction;
-        this.setValue(someValues);
+        setValue(someValues);
     }
 
     /**

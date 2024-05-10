@@ -37,7 +37,7 @@ class DValuesExpression : DExpression {
      * /
     this(Json[string] someColumns, TypeMap typeMap) {
        _columns = someColumns;
-        this.setTypeMap(typeMap);
+        setTypeMap(typeMap);
     }
     
     /**
@@ -57,7 +57,7 @@ class DValuesExpression : DExpression {
             );
         }
         if (cast(Query)someValues) {
-            this.setQuery(someValues);
+            setQuery(someValues);
 
             return;
         }

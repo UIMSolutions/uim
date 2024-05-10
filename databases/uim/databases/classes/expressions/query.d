@@ -45,8 +45,8 @@ class DQueryExpression : DExpression { // }, Countable {
         TypeMap|array types = [],
         string aconjunction = "AND"
     ) {
-        this.setTypeMap(types);
-        this.setConjunction(conjunction.toUpper);
+        setTypeMap(types);
+        setConjunction(conjunction.toUpper);
         if (!conditions.isEmpty) {
             this.add(conditions, getTypeMap().getTypes());
         }

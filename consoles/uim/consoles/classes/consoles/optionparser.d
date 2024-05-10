@@ -173,7 +173,7 @@ class DConsoleOptionParser {
      * string acommand The command name this parser is for. The command name is used for generating help.
      * /
     this(string newCommand = "", bool isVerboseAndQuiet = true) {
-        this.setCommand(command);
+        setCommand(command);
 
         this.addOption("help", [
             "short": "h",
@@ -265,7 +265,7 @@ class DConsoleOptionParser {
             this.description(spec["description"]);
         }
         if (!spec["epilog"].isEmpty)) {
-            this.setEpilog(spec["epilog"]);
+            setEpilog(spec["epilog"]);
         }
     }
 

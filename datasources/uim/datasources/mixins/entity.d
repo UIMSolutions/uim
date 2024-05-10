@@ -268,7 +268,7 @@ mixin template TEntity() {
     options = options.update["setter": true.toJson, "guard": guard, "asOriginal": false.toJson];
 
     if (options["asOriginal"] == true) {
-      this.setOriginalField(field.keys);
+      setOriginalField(field.keys);
     }
     field.byKeyValue
       .each((kv) {
@@ -719,7 +719,7 @@ mixin template TEntity() {
     * /
     bool isDirty(string fieldName, bool dirtyMode = true) {
       if (!dirtyMode) {
-        this.setOriginalField(field);
+        setOriginalField(field);
 
         _isDirty.unset(field);
         _original.unset(field);
@@ -760,7 +760,7 @@ mixin template TEntity() {
       _fieldErrors = null;
       _invalidFields = null;
       _original = null;
-      this.setOriginalField(_fields.keys, false);
+      setOriginalField(_fields.keys, false);
     }
 
     /**

@@ -47,8 +47,8 @@ class DComparisonExpression : DExpression { // TODO}, IField {
         string operator = "="
     ) {
        _type = typeName;
-        this.setFieldNames(field);
-        this.setValue(aValue);
+        setFieldNames(field);
+        setValue(aValue);
        _operator = operator;
     }
     

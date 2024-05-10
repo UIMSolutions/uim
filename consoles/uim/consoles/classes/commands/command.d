@@ -123,7 +123,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
 
             return CODE_ERROR;
         }
-        this.setOutputLevel(someArguments, aConsoleIo);
+        setOutputLevel(someArguments, aConsoleIo);
 
         if (someArguments.getOption("help")) {
             this.displayHelp(aParser, someArguments, aConsoleIo);

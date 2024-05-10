@@ -177,11 +177,11 @@ class DController : IController { // IEventListener, IEventDispatcher {
             [, name] = namespaceSplit(class);
             _name = substr(name, 0, -10);
         }
-        this.setRequest(request);
+        setRequest(request);
         _response = new DResponse();
 
         if (!eventManager.isNull) {
-            this.setEventManager(eventManager);
+            setEventManager(eventManager);
         }
         if (_defaultTable.isNull) {
             _pluginName = this.request.getParam("plugin");

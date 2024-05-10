@@ -28,7 +28,7 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
      * /
     this(IController controller) {
        _Controller = controller;
-        this.setEventManager(controller.getEventManager());
+        setEventManager(controller.getEventManager());
     }
     
     // Get the controller associated with the collection.

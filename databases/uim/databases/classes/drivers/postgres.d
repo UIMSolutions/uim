@@ -168,7 +168,7 @@ protected void _transformFunctionExpression(FunctionExpression expressionToConve
             .setConjunction("-")
             .iterateParts(function(p) {
                 if (isString(p)) {
-                    p = ["value": [p: "literal"], "type": null];} else {
+                    p = ["value": [p: "literal"], "type": Json(null)];} else {
                         p["value"] = [p["value"]];}
                         return new DFunctionExpression("DATE", p["value"], [p["type"]]);
                     }

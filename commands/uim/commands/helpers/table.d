@@ -119,7 +119,7 @@ class DTableHelper { // }: Helper {
         if (commandArguments.isEmpty) {
           return;
         }
-        _io.setStyle("text-right", ["text": null]);
+        _io.setStyle("text-right", ["text": Json(null)]);
 
         configData = this.configuration.data;
         widths = _calculateWidths(commandArguments);

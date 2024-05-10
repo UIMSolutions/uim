@@ -834,7 +834,7 @@ abstract class DQuery : IQuery { // : IExpression {
         ];
 
         if (options["allowEmpty"] && !someValues) {
-            return _where([fieldName ~ " IS NOT": null]);
+            return _where([fieldName ~ " IS NOT": Json(null)]);
         }
 
         return _where([fieldName ~ " NOT IN":  someValues], options["types"]);
@@ -859,12 +859,12 @@ abstract class DQuery : IQuery { // : IExpression {
         ];
 
         if (options["allowEmpty"] && !someValues) {
-            return _where([fieldName ~ " IS NOT": null]);
+            return _where([fieldName ~ " IS NOT": Json(null)]);
         }
 
         return _where(
             [
-                "OR": [fieldName ~ " NOT IN":  someValues, fieldName ~ " IS": null],
+                "OR": [fieldName ~ " NOT IN":  someValues, fieldName ~ " IS": Json(null)],
             ],
             options["types"]
         );

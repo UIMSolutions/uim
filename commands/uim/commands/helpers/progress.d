@@ -69,7 +69,7 @@ class DProgressHelper { // } : Helper {
      * Json[string] commandArguments The arguments/options to use when outputing the progress bar.
      * /
   void output(Json[string] commandArguments) {
-    commandArguments ~= ["callback": null];
+    commandArguments ~= ["callback": Json(null)];
     if (isSet(commandArguments[0])) {
       commandArguments["callback"] = commandArguments[0];
     }

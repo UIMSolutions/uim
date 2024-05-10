@@ -245,7 +245,7 @@ class DNumericPaginator : IPaginator {
         options = this.validateSort(object, options);
         options = this.checkLimit(options);
 
-        auto updatedOptions = options.update["page": 1, "scope": null];
+        auto updatedOptions = options.update["page": 1, "scope": Json(null)];
         options["page"] = (int)options["page"] < 1 ? 1 : (int)options["page"];
         [finder, options] = _extractFinder(options);
 

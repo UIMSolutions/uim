@@ -196,7 +196,7 @@ class DSqliteDriver : DDriver {
                         if (aKey == 0) {
                             aValue = stripRight(sp.toLower, "s");
                             if (isSet(_dateParts[aValue])) {
-                                p = ["value": '%" ~ _dateParts[aValue], "type": null];
+                                p = ["value": '%" ~ _dateParts[aValue], "type": Json(null)];
                             }
                         }
                         return p;
@@ -208,7 +208,7 @@ class DSqliteDriver : DDriver {
                     .setConjunction(",")
                     .iterateParts(function (p, aKey) {
                         if (aKey == 1) {
-                            p = ["value": p, "type": null];
+                            p = ["value": p, "type": Json(null)];
                         }
                         return p;
                     });

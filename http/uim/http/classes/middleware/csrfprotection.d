@@ -39,7 +39,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
         "expiry": 0,
         "secure": false.toJson,
         "httponly": false.toJson,
-        "samesite": null,
+        "samesite": Json(null),
         "field": "_csrfToken",
     ];
 

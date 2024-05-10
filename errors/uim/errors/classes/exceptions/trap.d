@@ -75,9 +75,9 @@ class DExceptionTrap {
      * @var Json[string]
      * /
     configuration.updateDefaults([
-        "exceptionRenderer": null,
+        "exceptionRenderer": Json(null),
         "logger": ErrorLogger.class,
-        "stderr": null,
+        "stderr": Json(null),
         "log": true.toJson,
         "skipLog": Json.emptyArray,
         "trace": false.toJson,

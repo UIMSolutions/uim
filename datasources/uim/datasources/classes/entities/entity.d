@@ -62,9 +62,9 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
         auto updatedOptions = options.update[
             "useSetters": true.toJson,
             "markClean": false.toJson,
-            "markNew": null,
+            "markNew": Json(null),
             "guard": false.toJson,
-            "source": null,
+            "source": Json(null),
         ];
 
         if (!(options["source"].isEmpty) {

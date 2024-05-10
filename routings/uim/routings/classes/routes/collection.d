@@ -80,7 +80,7 @@ class DRouteCollection {
 
         myextensions = myroute.getExtensions();
         if (count(myextensions) > 0) {
-            this.setExtensions(myextensions);
+            setExtensions(myextensions);
         }
         if (mypath == myroute.template) {
             this.staticPaths[mypath] ~= myroute;

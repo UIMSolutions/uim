@@ -24,7 +24,7 @@ class DNegotiationRequiredView : DView {
     override bool initialize(Json[string] initData = null) {
         if (super.initialize(initData)) {        
             // TODO auto statusResponse = getResponse().withStatus(406);
-            // TODO this.setResponse(statusResponse);
+            // TODO setResponse(statusResponse);
             return true;
         }
         return false;

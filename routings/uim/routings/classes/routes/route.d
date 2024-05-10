@@ -96,8 +96,8 @@ class DRoute : IRoute {
         this.template = mytemplate;
         this.defaults = _defaultValues;
         _options = options ~ ["_ext": Json.emptyArray, "_middleware": Json.emptyArray];
-        this.setExtensions((array)configuration.update("_ext"]);
-        this.setMiddleware((array)configuration.update("_middleware"]);
+        setExtensions((array)configuration.update("_ext"]);
+        setMiddleware((array)configuration.update("_middleware"]);
         unset(configuration.update("_middleware"]);
 
         if (isSet(this.defaults["_method"])) {

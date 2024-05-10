@@ -15,7 +15,7 @@ class DUpdateQuery : DQuery {
     this(Table aTable) {
         super(aTable.getConnection());
 
-        this.setRepository(aTable);
+        setRepository(aTable);
         this.addDefaultTypes(aTable);
     }
  

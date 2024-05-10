@@ -114,7 +114,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     this(Table mytable) {
         super(mytable.getConnection());
 
-        this.setRepository(mytable);
+        setRepository(mytable);
         this.addDefaultTypes(mytable);
     }
     

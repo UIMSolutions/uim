@@ -40,7 +40,7 @@ mixin template TTranslate() {
         }
 
         // Assume the user will modify any of the internal translations, helps with saving
-        this.setDirty("_translations", true);
+        setDirty("_translations", true);
 
         return i18n[language];
     } */

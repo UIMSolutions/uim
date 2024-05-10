@@ -68,7 +68,7 @@ mixin template TValidatorAware() {
     Validator getValidator(string myname = null) {
         myname = myname ?: DEFAULT_VALIDATOR;
         if (!_validators.isSet(myname)) {
-            this.setValidator(myname, this.createValidator(myname));
+            setValidator(myname, this.createValidator(myname));
         }
         return _validators[myname];
     }
@@ -116,7 +116,7 @@ mixin template TValidatorAware() {
      *    .add("email", "valid-email", ["rule": "email"])
      *    .add("password", "valid", ["rule": "notBlank"])
      *    .allowEmpty("bio");
-     * this.setValidator("forSubscription", myvalidator);
+     * setValidator("forSubscription", myvalidator);
      * ```
      * Params:
      * string myname The name of a validator to be set.

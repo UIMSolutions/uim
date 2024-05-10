@@ -142,13 +142,13 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
 
         // table: Name of the database table to represent
         if (!igData.isEmpty("table"))) {
-            this.setTable(configuration.data("table"));
+            setTable(configuration.data("table"));
         }
         if (!configuration.isEmpty("alias"))) {
             aliasName(configuration.data("alias"));
         }
         if (!configuration.isEmpty("connection"))) {
-            this.setConnection(configuration.data("connection"));
+            setConnection(configuration.data("connection"));
         }
         if (!configuration.isEmpty("queryFactory"))) {
             this.queryFactory = configuration.data("queryFactory");
@@ -156,10 +156,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
 
         // schema: A \UIM\Database\Schema\TableISchema object or an array that can be passed to it.
         if (!configuration.isEmpty("schema"))) {
-            this.setSchema(configuration.data("schema"));
+            setSchema(configuration.data("schema"));
         }
         if (!configuration.isEmpty("entityClass")) {
-            this.setEntityClass(configuration.data("entityClass"));
+            setEntityClass(configuration.data("entityClass"));
         }
         myeventManager = mybehaviors = myassociations = null;
         if (!configuration.isEmpty("eventManager")) {
@@ -173,10 +173,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         }
         if (!configuration.isEmpty("validator")) {
             if (!isArray(configuration.data("validator"))) {
-                this.setValidator(DEFAULT_VALIDATOR, configuration.data("validator"));
+                setValidator(DEFAULT_VALIDATOR, configuration.data("validator"));
             } else {
                 configuration.data("validator").byKeyValue
-                    .each!(nameValidator => this.setValidator(nameValidator.key, nameValidator
+                    .each!(nameValidator => setValidator(nameValidator.key, nameValidator
                             .value));
             }
         }
@@ -272,7 +272,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * {
      *     this.belongsTo("Users");
      *     this.belongsToMany("Tagging.Tags");
-     *     this.setPrimaryKey("something_else");
+     *     setPrimaryKey("something_else");
      * }
      * ```
      * Params:

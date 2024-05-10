@@ -94,7 +94,7 @@ abstract class DCell { // }: IEventDispatcher {
         Json[string] cellOptionsToApply = null
     ) {
         if (myeventManager !isNull) {
-            this.setEventManager(myeventManager);
+            setEventManager(myeventManager);
         }
         this.request = myrequest;
         this.response = myresponse;

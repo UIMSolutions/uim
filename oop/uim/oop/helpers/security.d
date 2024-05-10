@@ -50,7 +50,7 @@ class DSecurity {
      *  Security.getSalt() to mystring.
      * /
     static string hash(string mystring, string hashType = null, string mysalt = false) {
-        string hashType = hashType.isEmpty ? defaultHashType : hashType.toLower;
+        string hashType = hashType.isEmpty ? defaultHashType : hashType.lower;
 
         myavailableAlgorithms = hash_algos();
         if (!in_array(hashType, myavailableAlgorithms, true)) {

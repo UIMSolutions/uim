@@ -67,7 +67,7 @@ class DBooleanData : DScalarData {
   }
 
   override void set(string newValue) {
-    set((newValue.toLower == "true") || (newValue.toLower == "on") || (newValue.toLower == "1"));
+    set((newValue.lower == "true") || (newValue.lower == "on") || (newValue.lower == "1"));
   }
 
   override void set(Json newValue) {

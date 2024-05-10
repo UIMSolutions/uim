@@ -33,7 +33,7 @@ class DOOPEntities {
 
   void sort(string sortBy, string sortDir = "") {
     if (sortBy) {
-      if (sortDir.toLower == "up") {
+      if (sortDir.lower == "up") {
         _items = _items
           .sort!((a, b) => a[sortBy]< b[sortBy]).array;
       }

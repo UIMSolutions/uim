@@ -403,7 +403,7 @@ class DServerRequest { // }: IServerRequest {
      * /
     bool __call(string aName, Json[string] params) {
         if (name.startWith("is")) {
-            type = substr(name, 2).toLower;
+            type = substr(name, 2).lower;
 
             array_unshift(params, type);
 
@@ -433,7 +433,7 @@ class DServerRequest { // }: IServerRequest {
             }
             return false;
         }
-        type = type.toLower;
+        type = type.lower;
         if (!_detectors.isSet(type)) {
             throw new DInvalidArgumentException("No detector set for type `%s`."
             .format(type));
@@ -653,7 +653,7 @@ class DServerRequest { // }: IServerRequest {
      * @param \Closure|array detector A Closure or options array for the detector definition.
      * /
     static void addDetector(string aName, Closure|array detector) {
-        name = name.toLower;
+        name = name.lower;
         if (cast(DClosure)detector) {
             _detectors[name] = detector;
 
@@ -696,7 +696,7 @@ class DServerRequest { // }: IServerRequest {
                 name = kv.key;
             }
             if (!name.isNull) {
-                name = name.toLower.replace("_", " ");
+                name = name.lower.replace("_", " ");
                 name = ucwords(name).replace(" ", "-");
                 result[name] = (array)kv.value;
             }

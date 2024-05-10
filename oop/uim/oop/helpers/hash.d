@@ -861,7 +861,7 @@ class Hash {
         myvalues = extract(result, "{n}.value");
 
         if (isString(mydir)) {
-            mydir = mydir.toLower;
+            mydir = mydir.lower;
         }
         if (!in_array(mydir, [SORT_ASC, SORT_DESC], true)) {
             mydir = mydir == "asc" ? SORT_ASC : SORT_DESC;
@@ -874,7 +874,7 @@ class Hash {
             myignoreCase = mytype["ignoreCase"];
             mytype = mytype["type"];
         }
-        mytype = mytype.toLower;
+        mytype = mytype.lower;
 
         if (mytype == "numeric") {
             mytype = SORT_NUMERIC;

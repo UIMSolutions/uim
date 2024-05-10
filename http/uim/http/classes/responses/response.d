@@ -471,7 +471,7 @@ class DResponse : IResponse {
      * @param string avalue Header value.
      */
     protected void _setHeader(string aheader, string avalue) {
-        normalized = aHeader.toLower;
+        normalized = aHeader.lower;
         this.headerNames[normalized] = aHeader;
         this.headers[aHeader] = [aValue];
     }
@@ -483,7 +483,7 @@ class DResponse : IResponse {
      * @param string aheader Header key.
      */
     protected void _clearHeader(string aheader) {
-        normalized = aHeader.toLower;
+        normalized = aHeader.lower;
         if (!isSet(this.headerNames[normalized])) {
             return;
         }
@@ -1172,7 +1172,7 @@ class DResponse : IResponse {
             "download": Json(null)
         ]);
 
-        auto fileExtension = file.getExtension().toLower;
+        auto fileExtension = file.getExtension().lower;
         mapped = getMimeType(fileExtension);
         if ((!fileExtension || !mapped) && options["download"].isNull) {
             options["download"] = true;

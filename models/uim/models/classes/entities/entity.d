@@ -245,7 +245,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       attribute(name, json);
     }
     else {
-      switch(type.toLower) {
+      switch(type.lower) {
         case "bool": _attributes[name] = OOPAttributeBool; break;
         case "long": _attributes[name] = OOPLongAttribute; break;
         case "double": _attributes[name] = OOPAttributeDouble; break;
@@ -260,7 +260,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     
   }
   void attribute(string name, Json json) {
-    switch(json["datatype"].get!string.toLower) {
+    switch(json["datatype"].get!string.lower) {
         case "bool": _attributes[name] = OOPAttributeBool.config(json); break;
         case "long": _attributes[name] = OOPLongAttribute.config(json); break;
         case "double": _attributes[name] = OOPAttributeDouble.config(json); break;

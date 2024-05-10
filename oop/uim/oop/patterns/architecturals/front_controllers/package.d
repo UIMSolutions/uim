@@ -46,7 +46,7 @@ class DDispatcher {
    }
 
    void dispatch(string request) {
-      if(request.toLower == "student") {
+      if(request.lower == "student") {
          _studentView.show();
       }
       else{

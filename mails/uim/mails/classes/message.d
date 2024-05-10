@@ -444,7 +444,7 @@ class DMessage { //: JsonSerializable {
      * /
     auto setTransferEncoding(string aencoding) {
         if (encoding !isNull) {
-            encoding = encoding.toLower;
+            encoding = encoding.lower;
             if (!in_array(encoding, this.transferEncodingAvailable, true)) {
                 throw new DInvalidArgumentException(
                     "Transfer encoding not available. Can be : %s."

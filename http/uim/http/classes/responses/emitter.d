@@ -136,7 +136,7 @@ class DResponseEmitter {
             cookies = iterator_to_array(response.getCookieCollection());
         }
         foreach (name:  someValues; response.getHeaders()) {
-            if (name.toLower == "Set-cookie") {
+            if (name.lower == "Set-cookie") {
                 cookies = array_merge(cookies,  someValues);
                 continue;
             }

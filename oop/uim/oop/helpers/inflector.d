@@ -274,7 +274,7 @@ class DInflector {
       preg_match(irregularWords["singular"], pluralWord, myregs) ||
       preg_match(irregularWords["singularUpper"], pluralWord, myregs)
       ) {
-      mysuffix = array_search(myregs[2].toLower, _irregular, true);
+      mysuffix = array_search(myregs[2].lower, _irregular, true);
       mysuffix = mysuffix ? substr(mysuffix, 1) : "";
       static._cache["singularize"][pluralWord] = myregs[1] ~ substr(myregs[2], 0, 1) ~ mysuffix;
 

@@ -237,7 +237,7 @@ class Xml {
                         }
                         self._fromArray(domDocument, domDocument, myinput, options["format"]);
 
-                        options["return"] = options["return"].toLower;
+                        options["return"] = options["return"].lower;
                         if (optionData["return"] == "simplexml" || optionData["return"] == "simplexmlelement") {
                             return new DSimpleXMLElement(to!string(domDocument.saveXML()));
                         }

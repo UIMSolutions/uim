@@ -16,7 +16,7 @@ import uim.models;
 
 @safe:
 class DMiddleNameAttribute : DStringAttribute {
-  mixin(AttributeThis!("MiddleNameAttribute"));
+  mixin(AttributeThis!("MiddleName"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -31,7 +31,7 @@ class DMiddleNameAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("MiddleNameAttribute"));
+mixin(AttributeCalls!("MiddleName"));
 
 version (test_uim_models) {
   unittest {

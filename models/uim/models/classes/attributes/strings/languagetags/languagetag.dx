@@ -11,7 +11,7 @@ import uim.models;
 
 // means.reference.language.tag
 class DLanguageTagAttribute : DStringAttribute {
-  mixin(AttributeThis!("LanguageTagAttribute"));
+  mixin(AttributeThis!("LanguageTag"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -26,7 +26,7 @@ class DLanguageTagAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("LanguageTagAttribute"));
+mixin(AttributeCalls!("LanguageTag"));
 
 version (test_uim_models) {
   unittest {

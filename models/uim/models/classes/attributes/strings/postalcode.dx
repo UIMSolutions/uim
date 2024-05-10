@@ -15,7 +15,7 @@ import uim.models;
 
 @safe:
 class DPostalCodeAttribute : DStringAttribute {
-  mixin(AttributeThis!("PostalCodeAttribute"));
+  mixin(AttributeThis!("PostalCode"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -27,7 +27,7 @@ class DPostalCodeAttribute : DStringAttribute {
       return true;
   }
 }
-mixin(AttributeCalls!("PostalCodeAttribute"));
+mixin(AttributeCalls!("PostalCode"));
 
 ///
 unittest {

@@ -16,7 +16,7 @@ import uim.models;
 
 @safe:
 class DFaxAttribute : DStringAttribute {
-  mixin(AttributeThis!("FaxAttribute"));
+  mixin(AttributeThis!("Fax"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -32,7 +32,7 @@ class DFaxAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("FaxAttribute"));
+mixin(AttributeCalls!("Fax"));
 
 version (test_uim_models) {
   unittest {

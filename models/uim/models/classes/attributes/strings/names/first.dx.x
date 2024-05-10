@@ -14,7 +14,7 @@ is.dataFormat.big
 is.dataFormat.array
 means.identity.person.firstName */
 class DFirstNameAttribute : DStringAttribute {
-  mixin(AttributeThis!("FirstNameAttribute"));
+  mixin(AttributeThis!("FirstName"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -30,7 +30,7 @@ class DFirstNameAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("FirstNameAttribute"));
+mixin(AttributeCalls!("FirstName"));
 
 version (test_uim_models) {
   unittest {

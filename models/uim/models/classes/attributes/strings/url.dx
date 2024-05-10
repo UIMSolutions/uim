@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DUrlAttribute : DStringAttribute {
-  mixin(AttributeThis!("UrlAttribute"));
+  mixin(AttributeThis!("Url"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -22,7 +22,7 @@ class DUrlAttribute : DStringAttribute {
 
   }
 }
-mixin(AttributeCalls!("UrlAttribute"));
+mixin(AttributeCalls!("Url"));
 
 ///
 unittest {

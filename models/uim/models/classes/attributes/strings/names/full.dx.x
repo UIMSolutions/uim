@@ -14,7 +14,7 @@ import uim.models;
 
 @safe:
 class DFullNameAttribute : DStringAttribute {
-  mixin(AttributeThis!("FullNameAttribute"));
+  mixin(AttributeThis!("FullName"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -29,7 +29,7 @@ class DFullNameAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("FullNameAttribute"));
+mixin(AttributeCalls!("FullName"));
 
 version (test_uim_models) {
   unittest {

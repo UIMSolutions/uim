@@ -11,7 +11,7 @@ import uim.models;
 
 @safe:
 class DUriAttribute : DStringAttribute {
-  mixin(AttributeThis!("UriAttribute"));
+  mixin(AttributeThis!("Uri"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -26,7 +26,7 @@ class DUriAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("UriAttribute"));
+mixin(AttributeCalls!("Uri"));
 
 ///
 unittest {

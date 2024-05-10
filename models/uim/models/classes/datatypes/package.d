@@ -1,16 +1,16 @@
-module uim.oop.datatypes;
+module uim.models.datatypes;
 
 public { // packages
-    import uim.oop.datatypes.arrays;
-    import uim.oop.datatypes.datetimes;
-    import uim.oop.datatypes.maps;
-    import uim.oop.datatypes.scalars;
+    import uim.models.datatypes.arrays;
+    import uim.models.datatypes.datetimes;
+    import uim.models.datatypes.maps;
+    import uim.models.datatypes.scalars;
 }
 
 public { // Modules
-    import uim.oop.datatypes.data;
-    import uim.oop.datatypes.helper;
-    import uim.oop.datatypes.interface_;
-    import uim.oop.datatypes.null_;
-    import uim.oop.datatypes.mixin_;
+    import uim.models.datatypes.data;
+    import uim.models.datatypes.helper;
+    import uim.models.datatypes.interface_;
+    import uim.models.datatypes.null_;
+    import uim.models.datatypes.mixin_;
 }

@@ -1,6 +1,6 @@
-module uim.oop.datatypes.interface_;
+module uim.models.datatypes.interface_;
 
-import uim.oop;
+import uim.models;
 
 @safe:
 interface IData {

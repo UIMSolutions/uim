@@ -1,6 +1,6 @@
-module uim.oop.datatypes.helper;
+module uim.models.datatypes.helper;
 
-import uim.oop;
+import uim.models;
 
 @safe:
 

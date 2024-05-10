@@ -7,10 +7,10 @@ module uim.models.classes.attributes.uuids;
 
 // main
 public { 
-	// import uim.models.classes.attributes.uuids.uuid;
+	import uim.models.classes.attributes.uuids.uuid;
 }
 
 // subs
 public { 
-	// import uim.models.classes.attributes.uuids.entities;
+	import uim.models.classes.attributes.uuids.entities;
 }

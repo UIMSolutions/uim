@@ -6,6 +6,6 @@
 module uim.models.classes.attributes.strings.languagetags;
 
 public { 
-	/* // import uim.models.classes.attributes.strings.languagetags.languagetag;
-	// import uim.models.classes.attributes.strings.languagetags.culturetag; */
+	import uim.models.classes.attributes.strings.languagetags.languagetag;
+	import uim.models.classes.attributes.strings.languagetags.culturetag; 
 }

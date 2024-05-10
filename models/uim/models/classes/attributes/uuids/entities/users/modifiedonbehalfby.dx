@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DModifiedOnBehalfByAttribute : DEntityIdAttribute {
-  mixin(AttributeThis!("ModifiedOnBehalfByAttribute"));
+  mixin(AttributeThis!("ModifiedOnBehalfBy"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -24,7 +24,7 @@ class DModifiedOnBehalfByAttribute : DEntityIdAttribute {
   }
 }
 
-mixin(AttributeCalls!("ModifiedOnBehalfByAttribute"));
+mixin(AttributeCalls!("ModifiedOnBehalfBy"));
 
 ///
 unittest {

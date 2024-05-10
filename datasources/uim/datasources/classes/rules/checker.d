@@ -183,12 +183,12 @@ class DRulesChecker {
      * of them pass. The rules to be applied are depended on the mode parameter which
      * can only be RulesChecker.CREATE, RulesChecker.UPDATE or RulesChecker.DELETE
      * Params:
-     * \UIM\Datasource\IEntity entity The entity to check for validity.
+     * \UIM\Datasource\IDatasourceEntity entity The entity to check for validity.
      * @param string amode Either 'create, "update' or 'delete'.
      * @param Json[string] optionData Extra options to pass to checker functions.
      * @throws \InvalidArgumentException if an invalid mode is passed.
      * /
-    bool check(IEntity entity, string amode, Json[string] optionData = null) {
+    bool check(IDatasourceEntity entity, string amode, Json[string] optionData = null) {
         if (mode == self.CREATE) {
             return _checkCreate(entity, options);
         }
@@ -205,10 +205,10 @@ class DRulesChecker {
      * Runs each of the rules by passing the provided entity and returns true if all
      * of them pass. The rules selected will be only those specified to be run on 'create'
      * Params:
-     * \UIM\Datasource\IEntity entity The entity to check for validity.
+     * \UIM\Datasource\IDatasourceEntity entity The entity to check for validity.
      * @param Json[string] optionData Extra options to pass to checker functions.
      * /
-   bool checkCreate(IEntity entity, Json[string] optionData = null) {
+   bool checkCreate(IDatasourceEntity entity, Json[string] optionData = null) {
         return _checkRules(entity, options, array_merge(_rules, _createRules));
     }
     
@@ -216,10 +216,10 @@ class DRulesChecker {
      * Runs each of the rules by passing the provided entity and returns true if all
      * of them pass. The rules selected will be only those specified to be run on 'update'
      * Params:
-     * \UIM\Datasource\IEntity entity The entity to check for validity.
+     * \UIM\Datasource\IDatasourceEntity entity The entity to check for validity.
      * @param Json[string] optionData Extra options to pass to checker functions.
      * /
-   bool checkUpdate(IEntity entity, Json[string] optionData = null) {
+   bool checkUpdate(IDatasourceEntity entity, Json[string] optionData = null) {
         return _checkRules(entity, options, chain(_rules, _updateRules));
     }
 
@@ -227,10 +227,10 @@ class DRulesChecker {
      * Runs each of the rules by passing the provided entity and returns true if all
      * of them pass. The rules selected will be only those specified to be run on 'delete'
      * Params:
-     * \UIM\Datasource\IEntity entity The entity to check for validity.
+     * \UIM\Datasource\IDatasourceEntity entity The entity to check for validity.
      * @param Json[string] optionData Extra options to pass to checker functions.
      * /
-    bool checkremove(IEntity entity, Json[string] optionData = null) {
+    bool checkremove(IDatasourceEntity entity, Json[string] optionData = null) {
         return _checkRules(entity, options, _deleteRules);
     }
     
@@ -238,11 +238,11 @@ class DRulesChecker {
      * Used by top level functions checkDelete, checkCreate and checkUpdate, this function
      * iterates an array containing the rules to be checked and checks them all.
      * Params:
-     * \UIM\Datasource\IEntity entity The entity to check for validity.
+     * \UIM\Datasource\IDatasourceEntity entity The entity to check for validity.
      * @param Json[string] optionData Extra options to pass to checker functions.
      * @param array<\UIM\Datasource\RuleInvoker> rules The list of rules that must be checked.
      * /
-    protected bool _checkRules(IEntity entity, Json[string] optionData = null, Json[string] rules = []) {
+    protected bool _checkRules(IDatasourceEntity entity, Json[string] optionData = null, Json[string] rules = []) {
         success = true;
         auto updatedOptions = options.update_options;
         rules

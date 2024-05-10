@@ -191,7 +191,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * /
     string sql(DValueBinder aBinder = null) {
         if (!aBinder) {
-            aBinder = this.getValueBinder();
+            aBinder = getValueBinder();
             aBinder.resetCount();
         }
         return _getConnection().getDriver().compileQuery(this, aBinder);
@@ -294,7 +294,7 @@ abstract class DQuery : IQuery { // : IExpression {
            _parts["with"] = null;
         }
         if (cast(DClosure)cte) {
-            aQuery = this.getConnection().selectQuery();
+            aQuery = getConnection().selectQuery();
             cte = cte(new DCommonTableExpression(), aQuery);
             if (!(cast(DCommonTableExpression)cte)) {
                 throw new UimException(
@@ -1234,7 +1234,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * \UIM\Database\IExpression|string[] rawExpression A string, Json[string] or anything you want wrapped in an expression object
      * /
     QueryExpression expr(IExpression|string[] rawExpression = null) {
-        expression = new DQueryExpression([], this.getTypeMap());
+        expression = new DQueryExpression([], getTypeMap());
 
         if (!rawExpressionisNull) {
             expression.add(rawExpression);
@@ -1351,7 +1351,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *  to database
      * /
     auto bind(string|int param, Json aValue, string|int type = null) {
-        this.getValueBinder().bind(param, aValue, type);
+        getValueBinder().bind(param, aValue, type);
 
         return this;
     }
@@ -1425,7 +1425,7 @@ abstract class DQuery : IQuery { // : IExpression {
        _isDirty = true;
 
         if (_statement && _valueBinder) {
-            this.getValueBinder().reset();
+            getValueBinder().reset();
         }
     }
     
@@ -1474,7 +1474,7 @@ abstract class DQuery : IQuery { // : IExpression {
                 E_ALL
             );
             mySql = this.sql();
-            params = this.getValueBinder().bindings();
+            params = getValueBinder().bindings();
         } catch (Throwable  anException) {
             mySql = "SQL could not be generated for this query as it is incomplete.";
             params = null;
@@ -1485,7 +1485,7 @@ abstract class DQuery : IQuery { // : IExpression {
                 "(help)": "This is a Query object, to get the results execute or iterate it.",
                 "sql": Json(mySql),
                 "params": Json(params),
-                "defaultTypes": Json(this.getDefaultTypes()),
+                "defaultTypes": Json(getDefaultTypes()),
                 "executed": Json((bool)_statement),
             ];
         }

@@ -63,7 +63,7 @@ class DTupleComparisonExpression : DComparisonExpression {
     }
 
     string sql(DValueBinder aBinder) {
-         originalFields = this.getFieldNames();
+         originalFields = getFieldNames();
         if (!isArray(originalFields)) {
              originalFields = [originalFields];
         }
@@ -82,7 +82,7 @@ class DTupleComparisonExpression : DComparisonExpression {
      * \UIM\Database\DValueBinder aBinder The value binder to convert expressions with.
      * /
     protected string _stringifyValues(DValueBinder aBinder) {
-        string[] someValues; someParts = this.getValue(); if (cast(IExpression) someParts) {
+        string[] someValues; someParts = getValue(); if (cast(IExpression) someParts) {
             return someParts.sql(aBinder);}
             foreach (someParts as anI : aValue) {
                 if (cast(IExpression) aValue) {
@@ -108,10 +108,10 @@ class DTupleComparisonExpression : DComparisonExpression {
                                 return placeholder;}
 
                                 void traverse(Closure aCallback) {
-                                    fields = (array) this.getFieldNames(); fields.each!(
+                                    fields = (array) getFieldNames(); fields.each!(
                                         field => _traverseValue(field, aCallback));
 
-                                        auto myValue = this.getValue(); if (
+                                        auto myValue = getValue(); if (
                                             cast(IExpression) myValue) {
                                             aCallback(myValue); aValue.traverse(aCallback);
 

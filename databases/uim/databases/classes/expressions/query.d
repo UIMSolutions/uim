@@ -48,7 +48,7 @@ class DQueryExpression : DExpression { // }, Countable {
         this.setTypeMap(types);
         this.setConjunction(conjunction.toUpper);
         if (!conditions.isEmpty) {
-            this.add(conditions, this.getTypeMap().getTypes());
+            this.add(conditions, getTypeMap().getTypes());
         }
     }
     
@@ -266,7 +266,7 @@ class DQueryExpression : DExpression { // }, Countable {
             ? new DCaseStatementExpression(aValue, type);
             : new DCaseStatementExpression();
         
-        return caseExpression.setTypeMap(this.getTypeMap());
+        return caseExpression.setTypeMap(getTypeMap());
     }
     
     /**
@@ -352,8 +352,8 @@ class DQueryExpression : DExpression { // }, Countable {
      * /
     static and(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = null) {
         return cast(DClosure)conditions
-            ? conditions(new static([], this.getTypeMap().setTypes(passedTypes)))
-            : new static(conditions, this.getTypeMap().setTypes(passedTypes));
+            ? conditions(new static([], getTypeMap().setTypes(passedTypes)))
+            : new static(conditions, getTypeMap().setTypes(passedTypes));
     }
     
     /**
@@ -366,9 +366,9 @@ class DQueryExpression : DExpression { // }, Countable {
      * /
     static or(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = []) {
         if (cast(DClosure)conditions) {
-            return conditions(new static([], this.getTypeMap().setTypes(passedTypes), "OR"));
+            return conditions(new static([], getTypeMap().setTypes(passedTypes), "OR"));
         }
-        return new static(conditions, this.getTypeMap().setTypes(passedTypes), "OR");
+        return new static(conditions, getTypeMap().setTypes(passedTypes), "OR");
     }
     
     /**
@@ -491,7 +491,7 @@ class DQueryExpression : DExpression { // }, Countable {
     protected void _addConditions(Json[string] conditions, STRINGAA fieldTypes) {
          operators = ["and", "or", "xor"];
 
-        typeMap = this.getTypeMap().setTypes(fieldTypes);
+        typeMap = getTypeMap().setTypes(fieldTypes);
 
         foreach (myKey: c; conditions) {
             numericKey = isNumeric(myKey);
@@ -570,7 +570,7 @@ class DQueryExpression : DExpression { // }, Countable {
         }
          operator = trim(operator).toUpper;
 
-        type = this.getTypeMap().type(expression);
+        type = getTypeMap().type(expression);
         typeMultiple = (isString(type) && type.has("[]"));
         if (in_array(operator, ["IN", "NOT IN"]) || typeMultiple) {
             type = type ?: "string";

@@ -123,7 +123,7 @@ class DValuesExpression : DExpression {
         placeholders = null;
 
         types = null;
-        typeMap = this.getTypeMap();
+        typeMap = getTypeMap();
          defaults.byKeyValue
             .each!(kv => types[kv.key] = typeMap.type(kv.key));
 
@@ -144,7 +144,7 @@ class DValuesExpression : DExpression {
             }
             placeholders ~= join(", ", rowPlaceholders);
         }
-        aQuery = this.getQuery();
+        aQuery = getQuery();
         if (aQuery) {
             return " " ~ aQuery.sql(aBinder);
         }
@@ -178,7 +178,7 @@ class DValuesExpression : DExpression {
     // Converts values that need to be casted to expressions
     protected void _processExpressions() {
         auto types = null;
-        auto typeMap = this.getTypeMap();
+        auto typeMap = getTypeMap();
 
         auto someColumns = _columnNames();
         someColumns

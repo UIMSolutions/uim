@@ -64,7 +64,7 @@ mixin template TModelAware() {
         if (isEmpty(modelClass)) {
             throw new DUnexpectedValueException("Default modelClass is empty");
         }
-        modelType ??= this.getModelType();
+        modelType ??= getModelType();
 
         auto options = null;
         if (indexOf(modelClass, "\\") == false) {

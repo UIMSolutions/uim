@@ -56,7 +56,7 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      * /
     void add(IExpression|string[] aconditions, Json[string] associatedTypes = [], bool prepend = false) {
         put = prepend ? "array_unshift' : 'array_push";
-        typeMap = this.getTypeMap().setTypes(associatedTypes);
+        typeMap = getTypeMap().setTypes(associatedTypes);
 
         conditions.byKeyValue
             .each!(kv => addCondtion(conditions, kv.key, kv.value));

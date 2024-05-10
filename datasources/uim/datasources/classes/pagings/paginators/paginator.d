@@ -176,12 +176,12 @@ class DPaginator : IPaginator {
         }
 
         myData = this.extractData(object, myParams, settings);
-        myQuery = this.getQuery(object, myQuery, myData);
+        myQuery = getQuery(object, myQuery, myData);
 
         cleanQuery = clone myQuery;
         myResults = myQuery.all();
         myData["numResults"] = count(myResults);
-        myData["count"] = this.getCount(cleanQuery, myData);
+        myData["count"] = getCount(cleanQuery, myData);
 
         pagingParams = this.buildParams(myData);
         aliasName = object.aliasName();
@@ -232,7 +232,7 @@ class DPaginator : IPaginator {
     protected auto extractData(IRepository anRepository, Json[string] myParams, Json[string] settings): array
     {
         aliasName = object.aliasName();
-        defaults = this.getDefaults(aliasName, settings);
+        defaults = getDefaults(aliasName, settings);
         options = this.mergeOptions(myParams, defaults);
         options = this.validateSort(anRepository, options);
         options = this.checkLimit(options);
@@ -459,7 +459,7 @@ class DPaginator : IPaginator {
             myParams = !myParams.isEmpty(scope)) ? (array)myParams[scope] : [];
         }
 
-        allowed = this.getAllowedParameters();
+        allowed = getAllowedParameters();
         myParams = array_intersect_key(myParams, array_flip(allowed));
 
         return array_merge(settings, myParams);
@@ -481,7 +481,7 @@ class DPaginator : IPaginator {
         }
 
         defaults = this.configuration.data;
-        defaults["whitelist"] = defaults["allowedParameters"] = this.getAllowedParameters();
+        defaults["whitelist"] = defaults["allowedParameters"] = getAllowedParameters();
 
         maxLimit = settings["maxLimit"] ?? defaults["maxLimit"];
         limit = settings["limit"] ?? defaults["limit"];
@@ -552,7 +552,7 @@ class DPaginator : IPaginator {
         }
 
         sortAllowed = false;
-        allowed = this.getSortableFields(options);
+        allowed = getSortableFields(options);
         if (allowed !== null) {
             options["sortableFields"] = options["sortWhitelist"] = allowed;
 

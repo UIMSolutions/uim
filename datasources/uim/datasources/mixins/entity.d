@@ -536,7 +536,7 @@ mixin template TEntity() {
     * /
   Json[string] toDataArray() {
     auto result;
-    foreach (this.getVisible() asfield) {
+    foreach (getVisible() asfield) {
       aValue = get(field);
       if (isArray(aValue)) {
         result[field] = null;
@@ -556,7 +556,7 @@ mixin template TEntity() {
 
   // Returns the fields that will be serialized as Json
   Json[string] JsonSerialize() {
-    return _extract(this.getVisible());
+    return _extract(getVisible());
   }
 
   bool offsetExists(Json anOffset) {
@@ -646,7 +646,7 @@ mixin template TEntity() {
     auto result;
     fields.each!((field) {
       if (this.hasOriginal(field)) {
-        result[field] = this.getOriginal(field);
+        result[field] = getOriginal(field);
       }
       else if(this.isOriginalField(field)) {
         result[field] = get(field);
@@ -667,7 +667,7 @@ mixin template TEntity() {
     fields
       .filter!(field => this.hasOriginal(field))
       .each!((field) {
-        auto originalField = this.getOriginal(field);
+        auto originalField = getOriginal(field);
         if (originalField != get(field)) {
           result[field] = originalField;
         }

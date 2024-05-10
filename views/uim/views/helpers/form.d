@@ -191,7 +191,7 @@ class DFormHelper : DHelper {
         if (!mylocator) {
             mylocator = new WidgetLocator(this.templater(), _View, mywidgets);
         }
-        this.setWidgetLocator(mylocator);
+        setWidgetLocator(mylocator);
        _idPrefix = configurationData.isSet("idPrefix");
     }
     
@@ -277,7 +277,7 @@ class DFormHelper : DHelper {
         ];
 
         if (isSet(options["valueSources"])) {
-            this.setValueSources(options["valueSources"]);
+            setValueSources(options["valueSources"]);
             options.remove("valueSources"]);
         }
         if (options["idPrefix"] !isNull) {
@@ -1151,7 +1151,7 @@ class DFormHelper : DHelper {
             "templateVars": Json.emptyArray,
         ];
 
-        options = this.setRequiredAndCustomValidity(fieldName, options);
+        options = setRequiredAndCustomValidity(fieldName, options);
 
         mytypesWithOptions = ["text", "number", "radio", "select"];
         mymagicOptions = (in_array(options["type"], ["radio", "select"], true) || myallowOverride);
@@ -1187,9 +1187,9 @@ class DFormHelper : DHelper {
 
             if (configurationData.isSet("autoSetCustomValidity")) {
                 options["data-validity-message"] = mymessage;
-                options["oninvalid"] = "this.setCustomValidity(""); "
-                    ~ "if (!this.value) this.setCustomValidity(this.dataset.validityMessage)";
-                options["oninput"] = "this.setCustomValidity("")";
+                options["oninvalid"] = "setCustomValidity(""); "
+                    ~ "if (!this.value) setCustomValidity(this.dataset.validityMessage)";
+                options["oninput"] = "setCustomValidity("")";
             }
         }
         return options;
@@ -2205,7 +2205,7 @@ class DFormHelper : DHelper {
      * This method will not reset any templates set in custom widgets.
      * /
     void resetTemplates() {
-        this.setTemplates(_defaultconfiguration.get("templates"]);
+        setTemplates(_defaultconfiguration.get("templates"]);
     }
     
     /**

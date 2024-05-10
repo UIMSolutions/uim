@@ -33,7 +33,7 @@ class DResultsetDecorator { // TODO }: DCollection { // }: IResultset
         parentInfo = super.__debugInfo();
         aLimit = Configuration.read("App.ResultsetDebugLimit", 10);
 
-        return chain(parentInfo, ["items": this.take(aLimit).toArray()]);
+        return chain(parentInfo, ["items": take(aLimit).toArray()]);
     }
     
     */

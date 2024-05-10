@@ -233,9 +233,9 @@ class DPaginator : IPaginator {
     {
         aliasName = object.aliasName();
         defaults = getDefaults(aliasName, settings);
-        options = this.mergeOptions(myParams, defaults);
-        options = this.validateSort(anRepository, options);
-        options = this.checkLimit(options);
+        options = mergeOptions(myParams, defaults);
+        options = validateSort(anRepository, options);
+        options = checkLimit(options);
 
         options = options.update["page":1, "scope":null];
         options["page"] = (int)options["page"] < 1 ? 1 : (int)options["page"];
@@ -263,10 +263,10 @@ class DPaginator : IPaginator {
             "requestedPage":myData["options"]["page"],
         ];
 
-        paging = this.addPageCountParams(paging, myData);
-        paging = this.addStartEndParams(paging, myData);
-        paging = this.addPrevNextParams(paging, myData);
-        paging = this.addSortingParams(paging, myData);
+        paging = addPageCountParams(paging, myData);
+        paging = addStartEndParams(paging, myData);
+        paging = addPrevNextParams(paging, myData);
+        paging = addSortingParams(paging, myData);
 
         paging += [
             "limit":myData["defaults"]["limit"] != limit ? limit : null,
@@ -406,11 +406,11 @@ class DPaginator : IPaginator {
      * Shim method for reading the deprecated whitelist or allowedParameters options
      * /
     protected string[] getAllowedParameters() {
-        allowed = this.configuration.get("allowedParameters");
+        allowed = configuration.get("allowedParameters");
         if (!allowed) {
             allowed= null;
         }
-        whitelist = this.configuration.get("whitelist");
+        whitelist = configuration.get("whitelist");
         if (whitelist) {
             deprecationWarning("The `whitelist` option is deprecated. Use the `allowedParameters` option instead.");
 
@@ -480,7 +480,7 @@ class DPaginator : IPaginator {
             settings = settings[aliasName];
         }
 
-        defaults = this.configuration.data;
+        defaults = configuration.data;
         defaults["whitelist"] = defaults["allowedParameters"] = getAllowedParameters();
 
         maxLimit = settings["maxLimit"] ?? defaults["maxLimit"];

@@ -665,7 +665,7 @@ mixin template TEntity() {
   Json[string] extractOriginalChanged(string[] fieldNames) {
     auto result;
     fields
-      .filter!(field => this.hasOriginal(field))
+      .filter!(field => hasOriginal(field))
       .each!((field) {
         auto originalField = getOriginal(field);
         if (originalField != get(field)) {
@@ -705,7 +705,7 @@ mixin template TEntity() {
     }
     fields
       .each!((field) {
-        field = (string)field; if (!this.isOriginalField(field)) {
+        field = (string)field; if (!isOriginalField(field)) {
           _originalFields ~= field;}
         });
       }
@@ -1100,7 +1100,7 @@ mixin template TEntity() {
                                                                           "[original]": _original,
                                                                           "[originalFields]": _originalFields,
                                                                           "[virtual]": _virtual,
-                                                                          "[hasErrors]": this.hasErrors(),
+                                                                          "[hasErrors]": hasErrors(),
                                                                           "[errors]": _fieldErrors,
                                                                           "[invalid]": _invalidFields,
                                                                           "[repository]": _registryAlias,

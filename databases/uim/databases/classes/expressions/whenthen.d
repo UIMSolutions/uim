@@ -169,10 +169,10 @@ class DWhenThenExpression : DExpression {
      * string aclause The name of the clause to obtain.
      * /
     IExpression|object|scalar|null clause(string aclause) {
-        if (!in_array(clause, this.validClauseNames, true)) {
+        if (!in_array(clause, _validClauseNames, true)) {
             throw new DInvalidArgumentException(               
                 "The `clause` argument must be one of `%s`, the given value `%s` is invalid."
-                .format(join("`, `", this.validClauseNames), clause)
+                .format(join("`, `", _validClauseNames), clause)
             );
         }
         return _{clause};
@@ -211,11 +211,11 @@ class DWhenThenExpression : DExpression {
     }
  
     void traverse(Closure aCallback) {
-        if (auto expression = cast(IExpression)this.when ) {
+        if (auto expression = cast(IExpression)_when ) {
             aCallback(expression);
             this.when.traverse(aCallback);
         }
-        if (auto expression = cast(IExpression)this.then ) {
+        if (auto expression = cast(IExpression)_then ) {
             aCallback(expression);
             this.then.traverse(aCallback);
         }
@@ -223,7 +223,7 @@ class DWhenThenExpression : DExpression {
 
     // Clones the inner expression objects.
     void clone() {
-        if (cast(IExpression)this.when ) {
+        if (cast(IExpression)_when ) {
             this.when = clone this.when;
         }
         if (cast(IExpression)this.then ) {

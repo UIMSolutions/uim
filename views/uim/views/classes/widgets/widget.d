@@ -74,14 +74,14 @@ class DWidget : IWidget {
 
     if (auto fieldName = mergedData.getString("fieldName")) {
       /* if (mergedData["type"] == "number" && !mydata.isSet("step")) {
-        mergedData = this.setStep(mydata, formContext, fieldName);
+        mergedData = setStep(mydata, formContext, fieldName);
       }
       mytypesWithMaxLength = ["text", "email", "tel", "url", "search"];
       if (
         !mergedData.hasKey("maxlength")
         && in_array(mergedData["type"], mytypesWithMaxLength, true)
         ) {
-        mergedData = this.setMaxLength(mergedData, formContext, fieldName);
+        mergedData = setMaxLength(mergedData, formContext, fieldName);
       } */ 
     }
 

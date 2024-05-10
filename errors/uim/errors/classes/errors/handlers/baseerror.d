@@ -99,7 +99,7 @@ abstract class DERRErrorHandler {
             }
             megabytes = _config.get("extraFatalErrorMemory", 4);
             if (megabytes > 0) {
-                this.increaseMemoryLimit(megabytes * 1024);
+                increaseMemoryLimit(megabytes * 1024);
             }
             error = error_get_last();
             if (!(error.isArray) {
@@ -113,7 +113,7 @@ abstract class DERRErrorHandler {
             if (!hasAllValues(error["type"], fatals, true)) {
                 return;
             }
-            this.handleFatalError(
+            handleFatalError(
                 error["type"],
                 error["message"],
                 error["file"],

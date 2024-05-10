@@ -41,7 +41,7 @@ class DPaginatedResultset { /* }: IteratorIterator : JsonSerializable, IPaginate
      * Provide data which should be serialized to Json.
      * /
     Json[string] JsonSerialize() {
-        return iterator_to_array(this.items());
+        return iterator_to_array(items());
     }
  
     int totalCount() {

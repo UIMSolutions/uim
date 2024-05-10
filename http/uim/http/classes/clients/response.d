@@ -97,7 +97,7 @@ class DClientResponse { // }: Message : IResponse {
      * /
     this(string[] unparsedHeaders = [], string abody= null) {
        _parseHeaders(unparsedHeaders);
-        if (this.getHeaderLine("Content-Encoding") == "gzip") {
+        if (getHeaderLine("Content-Encoding") == "gzip") {
             body = _decodeGzipBody(body);
         }
         stream = new DStream("D://memory", "wb+");
@@ -192,7 +192,7 @@ class DClientResponse { // }: Message : IResponse {
         ];
 
         return in_array(_statusCode, codes, true) &&
-            this.getHeaderLine("Location");
+            getHeaderLine("Location");
     }
     
     @property int statusCode() {
@@ -220,7 +220,7 @@ class DClientResponse { // }: Message : IResponse {
      * Get the encoding if it was set.
      * /
     string getEncoding() {
-        content = this.getHeaderLine("content-type");
+        content = getHeaderLine("content-type");
         if (!content) {
             return null;
         }
@@ -282,7 +282,7 @@ class DClientResponse { // }: Message : IResponse {
      * Lazily build the CookieCollection and cookie objects from the response header
      * /
     protected ICookieCollection buildCookieCollection() {
-        this.cookies ??= CookieCollection.createFromHeader(this.getHeader("Set-Cookie"));
+        this.cookies ??= CookieCollection.createFromHeader(getHeader("Set-Cookie"));
 
         return _cookies;
     }

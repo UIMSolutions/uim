@@ -39,7 +39,7 @@ abstract class DServiceProvider { // TODO  : DAbstractServiceProvider, IBootable
      * only need to use the UIM bootstrap() interface.
      * /
     void boot() {
-        this.bootstrap(this.getContainer());
+        this.bootstrap(getContainer());
     }
     
     /**
@@ -62,7 +62,7 @@ abstract class DServiceProvider { // TODO  : DAbstractServiceProvider, IBootable
      * that league/container has and the one we want to offer in UIM.
      * /
     void register() {
-        this.services(this.getContainer());
+        this.services(getContainer());
     }
     
     /**

@@ -303,7 +303,7 @@ class DServerRequest { // }: IServerRequest {
      * Get the content type used in this request.
      * /
     string contentType() {
-        return _getEnvironmentData("CONTENT_TYPE") ?: this.getEnvironmentData("HTTP_CONTENT_TYPE");
+        return _getEnvironmentData("CONTENT_TYPE") ?: getEnvironmentData("HTTP_CONTENT_TYPE");
     }
     
     /**
@@ -324,8 +324,8 @@ class DServerRequest { // }: IServerRequest {
      * Get the IP the client is using, or says they are using.
      * /
     string clientIp() {
-        if (this.trustProxy && this.getEnvironmentData("HTTP_X_FORWARDED_FOR")) {
-            addresses = array_map("trim", split(",", (string)this.getEnvironmentData("HTTP_X_FORWARDED_FOR")));
+        if (this.trustProxy && getEnvironmentData("HTTP_X_FORWARDED_FOR")) {
+            addresses = array_map("trim", split(",", (string)getEnvironmentData("HTTP_X_FORWARDED_FOR")));
             trusted = (count(this.trustedProxies) > 0);
             n = count(addresses);
 
@@ -338,12 +338,12 @@ class DServerRequest { // }: IServerRequest {
             }
             return addresses[n - 1];
         }
-        if (this.trustProxy && this.getEnvironmentData("HTTP_X_REAL_IP")) {
-             anIpaddr = this.getEnvironmentData("HTTP_X_REAL_IP");
-        } elseif (this.trustProxy && this.getEnvironmentData("HTTP_CLIENT_IP")) {
-             anIpaddr = this.getEnvironmentData("HTTP_CLIENT_IP");
+        if (this.trustProxy && getEnvironmentData("HTTP_X_REAL_IP")) {
+             anIpaddr = getEnvironmentData("HTTP_X_REAL_IP");
+        } elseif (this.trustProxy && getEnvironmentData("HTTP_CLIENT_IP")) {
+             anIpaddr = getEnvironmentData("HTTP_CLIENT_IP");
         } else {
-             anIpaddr = this.getEnvironmentData("REMOTE_ADDR");
+             anIpaddr = getEnvironmentData("REMOTE_ADDR");
         }
         return strip((string) anIpaddr);
     }
@@ -373,7 +373,7 @@ class DServerRequest { // }: IServerRequest {
      *  Local addresses do not contain hostnames.
      * /
     string referer(bool local = true) {
-        ref = this.getEnvironmentData("HTTP_REFERER");
+        ref = getEnvironmentData("HTTP_REFERER");
 
         base = Configuration.read("App.fullBaseUrl") ~ this.webroot;
         if (isEmpty(ref) || base.isEmpty) {
@@ -508,7 +508,7 @@ class DServerRequest { // }: IServerRequest {
      * /
     protected bool _headerDetector(Json[string] detectorOptions) {
         foreach (detectorOptions["header"] as  aHeader: aValue) {
-            auto aHeader = this.getEnvironmentData("http_" ~  aHeader);
+            auto aHeader = getEnvironmentData("http_" ~  aHeader);
             if (!aHeader.isNull) {
                 if (cast(DClosure)aValue) {
                     return aValue(aHeader);
@@ -548,12 +548,12 @@ class DServerRequest { // }: IServerRequest {
                 return _getEnvironmentData(detect["env"]) == detect["value"];
             }
             if (isSet(detect["pattern"])) {
-                return (bool)preg_match(detect["pattern"], (string)this.getEnvironmentData(detect["env"]));
+                return (bool)preg_match(detect["pattern"], (string)getEnvironmentData(detect["env"]));
             }
             if (isSet(detect["options"])) {
                  somePattern = "/" ~ join("|", detect["options"]) ~ "/i";
 
-                return (bool)preg_match(somePattern, (string)this.getEnvironmentData(detect["env"]));
+                return (bool)preg_match(somePattern, (string)getEnvironmentData(detect["env"]));
             }
         }
         return false;
@@ -729,7 +729,7 @@ class DServerRequest { // }: IServerRequest {
     
     // Get a single header as a string from the request.
     string getHeaderLine(string headerName) {
-        auto aValue = this.getHeader(headerName);
+        auto aValue = getHeader(headerName);
 
         return aValue.join(", ");
     }
@@ -797,7 +797,7 @@ class DServerRequest { // }: IServerRequest {
      * by UIM internally, and will effect the result of this method.
      * /
     string getMethod() {
-        return (string)this.getEnvironmentData("REQUEST_METHOD");
+        return (string)getEnvironmentData("REQUEST_METHOD");
     }
     
     /**
@@ -839,7 +839,7 @@ class DServerRequest { // }: IServerRequest {
      * Get the host that the request was handled on.
      * /
     string host() {
-        if (this.trustProxy && this.getEnvironmentData("HTTP_X_FORWARDED_HOST")) {
+        if (this.trustProxy && getEnvironmentData("HTTP_X_FORWARDED_HOST")) {
             return _getEnvironmentData("HTTP_X_FORWARDED_HOST");
         }
         return _getEnvironmentData("HTTP_HOST");
@@ -849,7 +849,7 @@ class DServerRequest { // }: IServerRequest {
      * Get the port the request was handled on.
      * /
     string port() {
-        if (this.trustProxy && this.getEnvironmentData("HTTP_X_FORWARDED_PORT")) {
+        if (this.trustProxy && getEnvironmentData("HTTP_X_FORWARDED_PORT")) {
             return _getEnvironmentData("HTTP_X_FORWARDED_PORT");
         }
         return _getEnvironmentData("SERVER_PORT");
@@ -861,8 +861,8 @@ class DServerRequest { // }: IServerRequest {
      * e.g. 'http", or 'https'
      * /
     string scheme() {
-        if (this.trustProxy && this.getEnvironmentData("HTTP_X_FORWARDED_PROTO")) {
-            return (string)this.getEnvironmentData("HTTP_X_FORWARDED_PROTO");
+        if (this.trustProxy && getEnvironmentData("HTTP_X_FORWARDED_PROTO")) {
+            return (string)getEnvironmentData("HTTP_X_FORWARDED_PROTO");
         }
         return _getEnvironmentData("HTTPS") ? "https' : 'http";
     }
@@ -1113,7 +1113,7 @@ class DServerRequest { // }: IServerRequest {
             return _protocol;
         }
         // Lazily populate this data as it is generally not used.
-        preg_match("/^HTTP\/([\d.]+)/", (string)this.getEnvironmentData("SERVER_PROTOCOL"), match);
+        preg_match("/^HTTP\/([\d.]+)/", (string)getEnvironmentData("SERVER_PROTOCOL"), match);
         protocol = "1.1";
         if (isSet(match[1])) {
             protocol = match[1];

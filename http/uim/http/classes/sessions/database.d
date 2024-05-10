@@ -28,7 +28,7 @@ class DatabaseSession { // }: SessionHandler {
         if (configData.hasKey("tableLocator")) {
             this.setTableLocator(configData("tableLocator"]);
         }
-        aTableLocator = this.getTableLocator();
+        aTableLocator = getTableLocator();
 
         if (configData.isEmpty("model")) {
             configData = aTableLocator.exists("Sessions") ? [] : ["table": "sessions", "allowFallbackClass": true.toJson];

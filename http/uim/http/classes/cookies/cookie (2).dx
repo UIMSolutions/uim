@@ -231,7 +231,7 @@ class DCookie : ICookie {
         aHeaderValue ~= "%s=%s".format(this.name, rawurlencode(aValue));
 
         if (this.expiresAt) {
-             aHeaderValue ~= "expires=%s".format(this.getFormattedExpires());
+             aHeaderValue ~= "expires=%s".format(getFormattedExpires());
         }
         if (!this.path.isEmpty) {
              aHeaderValue ~= "path=%s".format(this.path);
@@ -521,7 +521,7 @@ class DCookie : ICookie {
  
     Json[string] getOptions() {
         options = [
-            "expires": to!int(this.getExpiresTimestamp()),
+            "expires": to!int(getExpiresTimestamp()),
             "path": this.path,
             "domain": this.domain,
             "secure": this.secure,
@@ -536,8 +536,8 @@ class DCookie : ICookie {
     Json[string] toDataArray() {
         return [
             "name": this.name,
-            "value": this.getScalarValue(),
-        ] + this.getOptions();
+            "value": getScalarValue(),
+        ] + getOptions();
     }
     
     // Implode method to keep keys are multidimensional arrays

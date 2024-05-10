@@ -594,7 +594,7 @@ class DResponse : IResponse {
     
     // Returns the current content type.
     string[] getType() {
-        string headerLine = this.getHeaderLine("Content-Type");
+        string headerLine = getHeaderLine("Content-Type");
         
         return headerLine.has(";")
             ? headerLine.split(";")[0]
@@ -624,7 +624,7 @@ class DResponse : IResponse {
      * string acontentType The content-type or type alias.
      */
     protected string resolveType(string acontentType) {
-        mapped = this.getMimeType(contentType);
+        mapped = getMimeType(contentType);
         if (mapped) {
             return isArray(mapped) ? current(mapped): mapped;
         }
@@ -679,7 +679,7 @@ class DResponse : IResponse {
     static withCharset(string acharset) {
         new = clone this;
         new._charset = charset;
-        new._setContentType(this.getType());
+        new._setContentType(getType());
 
         return new;
     }
@@ -1019,7 +1019,7 @@ class DResponse : IResponse {
      * /
     bool isNotModified(ServerRequest serverRequest) {
         etags = preg_split("/\s*,\s*/", serverRequest.getHeaderLine("If-None-Match"), 0, PREG_SPLIT_NO_EMPTY) ?: [];
-        responseTag = this.getHeaderLine("Etag");
+        responseTag = getHeaderLine("Etag");
         etagMatches = null;
         if (responseTag) {
             etagMatches = in_array("*", etags, true) || in_array(responseTag, etags, true);
@@ -1027,7 +1027,7 @@ class DResponse : IResponse {
         modifiedSince = serverRequest.getHeaderLine("If-Modified-Since");
         timeMatches = null;
         if (modifiedSince && this.hasHeader("Last-Modified")) {
-            timeMatches = strtotime(this.getHeaderLine("Last-Modified")) == strtotime(modifiedSince);
+            timeMatches = strtotime(getHeaderLine("Last-Modified")) == strtotime(modifiedSince);
         }
         if (etagMatches.isNull && timeMatches.isNull) {
             return false;
@@ -1173,7 +1173,7 @@ class DResponse : IResponse {
         ]);
 
         auto fileExtension = file.getExtension().toLower;
-        mapped = this.getMimeType(fileExtension);
+        mapped = getMimeType(fileExtension);
         if ((!fileExtension || !mapped) && options["download"].isNull) {
             options["download"] = true;
         }
@@ -1297,13 +1297,13 @@ class DResponse : IResponse {
     Json[string] debugInfo() {
         return [
             "status": _status,
-            "contentType": this.getType(),
+            "contentType": getType(),
             "headers": this.headers,
             "file": _file,
             "fileRange": _fileRange,
             "cookies": _cookies,
             "cacheDirectives": _cacheDirectives,
-            "body": (string)this.getBody(),
+            "body": (string)getBody(),
         ];
     } */
 }

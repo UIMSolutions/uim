@@ -229,7 +229,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
       this.unload(objectName);
     }
     if (cast(IEventDispatcher) this && cast(IEventListener) object) {
-      this.getEventManager().on(object);
+      getEventManager().on(object);
     }
     _loaded[objName] = object;
   }
@@ -249,7 +249,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
     object = _loaded[name];
     if (cast(IEventDispatcher) this && cast(
         IEventListener) object) {
-      this.getEventManager().off(object);
+      getEventManager().off(object);
     }
     unset(_loaded[name]);
   }

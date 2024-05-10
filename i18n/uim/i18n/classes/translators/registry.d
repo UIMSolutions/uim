@@ -121,7 +121,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      * locale
      * /
     Translator get(string catalogName, string localName = null) {
-        locale ??= this.getLocale();
+        locale ??= getLocale();
 
         if (isSet(this.registry[catalogName][localName])) {
             return _registry[catalogName][localName];

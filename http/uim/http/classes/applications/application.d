@@ -217,7 +217,7 @@ class DApplication {
     IResponse handle(
         IServerRequest serverRequest
     ) {
-        container = this.getContainer();
+        container = getContainer();
         container.add(ServerRequest.classname, request);
         container.add(IContainer.classname, container);
 

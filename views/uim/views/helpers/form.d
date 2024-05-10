@@ -1407,7 +1407,7 @@ class DFormHelper : DHelper {
      * /
     string textarea(string fieldNameName, Json[string] options  = null) {
         options = _initInputField(fieldName, options);
-        options.remove("type"]);
+        options.remove("type");
 
         return _widget("textarea", options);
     }
@@ -1416,16 +1416,15 @@ class DFormHelper : DHelper {
      * Creates a hidden input field.
      * Params:
      * string fieldNameName Name of a field, in the form of "modelname.fieldname"
-     * @param Json[string] options Array of HTML attributes.
      * /
-    string hidden(string fieldNameName, Json[string] options  = null) {
-        options = options.update["required": false.toJson, "secure": true.toJson];
+    string hidden(string fieldNameName, Json[string] htmlAttributes  = null) {
+        htmlAttributes = htmlAttributes.update["required": false.toJson, "secure": true.toJson];
 
         mysecure = options["secure"];
-        options.remove("secure"]);
+        htmlAttributes.remove("secure"]);
 
-        options = _initInputField(fieldName, array_merge(
-            options,
+        htmlAttributes = _initInputField(fieldName, array_merge(
+            htmlAttributes,
             ["secure": SECURE_SKIP]
         ));
 
@@ -2043,7 +2042,7 @@ class DFormHelper : DHelper {
         }
         if (isSet(options["value"]) && !options.isSet("val")) {
             options["val"] = options["value"];
-            options.remove("value"]);
+            options.remove("value");
         }
         if (!options.isSet("val")) {
             myvalOptions = [

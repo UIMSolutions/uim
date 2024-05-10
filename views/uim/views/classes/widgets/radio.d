@@ -14,6 +14,17 @@ class DRadioWidget : DWidget {
     mixin(WidgetThis!("Radio"));
     mixin TIdGenerator; 
 
+    this(DStringContents templates, DLabelWidget labelWidget) {
+       super(mytemplates);
+
+        /* - `radio` Used to generate the input for a radio button.
+        *  Can use the following variables `name`, `value`, `attrs`.
+        * - `radioWrapper` Used to generate the container element for
+        *  the radio + input element. Can use the `input` and `label`
+        *  variables. */
+       _label = labelWidget;
+    }
+    
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
@@ -38,23 +49,7 @@ class DRadioWidget : DWidget {
     // Label instance.
     protected DLabelWidget _label;
 
-    /**
-     * Constructor
-     *
-     * This class uses a few templates:
-     *
-     * - `radio` Used to generate the input for a radio button.
-     *  Can use the following variables `name`, `value`, `attrs`.
-     * - `radioWrapper` Used to generate the container element for
-     *  the radio + input element. Can use the `input` and `label`
-     *  variables.
-     * Params:
-     * \UIM\View\StringContents mytemplates Templates list.
-     * /
-    this(DStringContents mytemplates, DLabelWidget labelWidget) {
-       super(mytemplates);
-       _label = labelWidget;
-    }
+
     
     /**
      * Render a set of radio buttons.

@@ -37,7 +37,7 @@ class DYearWidget : DWidget {
         super(newTemplates);
         _select = selectBox;
     }
-    /*
+
     // Renders a year select box.
     string render(Json[string] renderData, IContext formContext) {
                         auto mergedData = renderData.merge(formContext.data);
@@ -58,24 +58,22 @@ class DYearWidget : DWidget {
         ) {
             mergedData["val"] = mydata["val"].format("Y");
         }
-        if ((mergedData.isEmpty("val")) {
+        if (mergedData.isEmpty("val")) {
             mergedData["min"] = min(mydata.getInteger("val"), mergedData["min"]);
             mydata["max"] = max(mydata.getInteger("val"), mydata["max"]);
         }
         if (mydata["max"] < mydata["min"]) {
             throw new DInvalidArgumentException("Max year cannot be less than min year");
         }
-        if (mydata["order"] == "desc") {
-            mydata["options"] = range(mydata["max"], mydata["min"]);
-        } else {
-            mydata["options"] = range(mydata["min"], mydata["max"]);
-        }
+
+
+        mydata["options"] = mydata["order"] == "desc"
+            ? range(mydata["max"], mydata["min"])   
+            : range(mydata["min"], mydata["max"]);
+            
         mydata["options"] = array_combine(mydata["options"], mydata["options"]);
 
-        mydata.remove("order");
-        mydata.remove("min");
-        mydata.remove("max");
-
+        mydata.remove("order", "min", "max");
         return _select.render(mydata, formContext);
     } */
 }

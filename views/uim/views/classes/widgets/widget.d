@@ -56,9 +56,6 @@ class DWidget : IWidget {
      * - `escape` Set to false to disable escaping on all attributes.
      *
      * Any other keys provided in mydata will be converted into HTML attributes.
-     * Params:
-     * Json[string] buildData The data to build an input with.
-     * @param \UIM\View\Form\IContext formContext The current form context.
      */
   string render(Json[string] renderData, IContext formContext) {
     auto mergedData = renderData.merge(formContext.data);
@@ -85,13 +82,10 @@ class DWidget : IWidget {
       } */ 
     }
 
-    return _stringContents.format("input", [
-        "name": mergedData.getJson("name"),
-        "type": mergedData.getJson("type"),
-        "templateVars": mergedData.getJson("templateVars"),
-        // TODO "attrs": _stringContents.formatAttributes(mergedData, ["name", "type"]),
-      ]);
-    return null;
+    return _stringContents.format("input",
+        mergedData.data("name", "type", "templateVars")
+          .update(["attrs": _stringContents.formatAttributes(mergedData, ["name", "type"])])
+    );
   }
 
   // Merge default values with supplied data.

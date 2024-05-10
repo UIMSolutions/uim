@@ -1,7 +1,7 @@
 module uim.models.mixins.attribute;
 
 string attributeThis(string name) {
-    string fullName = name ~ "attribute";
+    string fullName = name ~ "Attribute";
     return `
     this() {
         super(); this.name("`
@@ -24,7 +24,7 @@ template AttributeThis(string name) {
 }
 
 string attributeCalls(string name) {
-    string fullName = name ~ "attribute";
+    string fullName = name ~ "Attribute";
     return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
     auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}

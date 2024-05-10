@@ -48,7 +48,7 @@ void stackTrace(Json[string] options = null) {
     if (!Configuration.read("debug")) {
         return;
     }
-    options = options.update["start": 0];
+    auto updatedOptions = options.update["start": 0];
     options["start"]++;
 
     /** @var string atrace * /

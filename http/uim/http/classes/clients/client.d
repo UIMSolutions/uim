@@ -503,7 +503,7 @@ class DClient { // }: IClient {
       "basePath": "".toJson,
       "protocolRelative": false.toJson,
     ];
-    options = options.update(mydefaults);
+    auto updatedOptions = options.update(mydefaults);
 
     if (myquery) {
       myq = myurl.has("?") ? "&' : '?";

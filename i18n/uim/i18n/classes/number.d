@@ -83,7 +83,7 @@ class DNumber {
      * @param Json[string] options Options
      * /
     static string toPercentage(Json aValue, int precision = 2, Json[string] options = null) {
-        options = options.update["multiply": false.toJson, "type": NumberFormatter.PERCENT];
+        auto updatedOptions = options.update["multiply": false.toJson, "type": NumberFormatter.PERCENT];
         if (!options["multiply"]) {
             aValue = (float)aValue / 100;
         }
@@ -144,7 +144,7 @@ class DNumber {
      * @param Json[string] options Options list.
      * /
     static string formatDelta(Json aValue, Json[string] options = null) {
-        options = options.update["places": 0];
+        auto updatedOptions = options.update["places": 0];
         aValue = number_format((float)aValue, options["places"], ".", "");
         sign = aValue > 0 ? "+" : "";
         options["before"] = isSet(options["before"]) ? options["before"] ~ sign : sign;

@@ -459,7 +459,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
             'before": ' - ",
             'after": null,
         ];
-        options = options.updatedefaults;
+        auto updatedOptions = options.updatedefaults;
          anGroup = options["group"];
 
         regex = null;

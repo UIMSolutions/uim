@@ -244,7 +244,7 @@ class DRulesChecker {
      * /
     protected bool _checkRules(IEntity entity, Json[string] optionData = null, Json[string] rules = []) {
         success = true;
-        options = options.update_options;
+        auto updatedOptions = options.update_options;
         rules
           .each!(rule => success = rule(entity, options) && success);
         return success;

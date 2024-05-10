@@ -143,8 +143,8 @@ class DConsoleOutput {
         if (
             (
                 DIRECTORY_SEPARATOR == "\\" &&
-                !uim_uname("v").toLower.has("windows 10") &&
-                !to!string(enviroment("SHELL")).toLower.has("bash.exe") &&
+                !uim_uname("v").lower.has("windows 10") &&
+                !to!string(enviroment("SHELL")).lower.has("bash.exe") &&
                 !(bool)enviroment("ANSICON") &&
                 enviroment("ConEmuANSI") != "ON"
             ) ||

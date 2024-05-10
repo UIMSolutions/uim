@@ -114,7 +114,7 @@ class DI18nExtractCommand : DCommand {
         }
         string _extractCore; 
         if (commandArguments.hasOption("extract-core")) {
-           _extractCore = !(to!string(commandArguments.getOption("extract-core")).toLower == "no");
+           _extractCore = !(to!string(commandArguments.getOption("extract-core")).lower == "no");
         } else {
             response = aConsoleIo.askChoice(
                 "Would you like to extract the messages from the UIM core?",

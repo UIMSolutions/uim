@@ -164,7 +164,7 @@ return true;
 protected void _setOptions() {
   _Memory.setOption(Memory.OPT_LIBKETAMA_COMPATIBLE, true);
 
-  string myserializer = configuration.getString("serialize").toLower;
+  string myserializer = configuration.getString("serialize").lower;
   if (!_serializers.isSet(myserializer)) {
     throw new DInvalidArgumentException(
       "`%s` is not a valid serializer engine for Memory.".format(myserializer)

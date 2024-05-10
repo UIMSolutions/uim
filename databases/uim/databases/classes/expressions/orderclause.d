@@ -23,7 +23,7 @@ class DOrderClauseExpression : DExpression { // TODO }, IField {
 
   this(string fieldName, string sortDirection) {
     _field = fieldName;
-    _direction = sortDirection.toLower == "asc" ? "ASC" : "DESC";
+    _direction = sortDirection.lower == "asc" ? "ASC" : "DESC";
   }
 
   string sql(DValueBinder aBinder) {

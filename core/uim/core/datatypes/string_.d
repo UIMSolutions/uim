@@ -363,7 +363,7 @@ unittest {
 }
 
 string lower(string text) {
-	return text.toLower;
+	return text.lower;
 }
 
 string[] lower(string[] texts) {

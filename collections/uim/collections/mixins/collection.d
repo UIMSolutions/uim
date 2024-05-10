@@ -516,7 +516,7 @@ mixin template TCollection() {
         string mynestingKey = "children"
     ) {
         if (isString(myorder)) {
-            myorder = myorder.toLower;
+            myorder = myorder.lower;
             auto mymodes = [
                 "desc": RecursiveIteratorIterator.SELF_FIRST,
                 "asc": RecursiveIteratorIterator.CHILD_FIRST,

@@ -194,7 +194,7 @@ class DSqliteDriver : DDriver {
                     .setConjunction(" ,")
                     .iterateParts(function (p, aKey) {
                         if (aKey == 0) {
-                            aValue = stripRight(sp.toLower, "s");
+                            aValue = stripRight(sp.lower, "s");
                             if (isSet(_dateParts[aValue])) {
                                 p = ["value": '%" ~ _dateParts[aValue], "type": Json(null)];
                             }

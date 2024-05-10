@@ -232,7 +232,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
             controller.has("\\") ||
             controller.has("/") ||
             controller.has(".") ||
-            firstChar == firstChar.toLower
+            firstChar == firstChar.lower
         ) {
             throw this.missingController(request);
         }

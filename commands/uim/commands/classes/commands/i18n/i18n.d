@@ -28,7 +28,7 @@ class DI18nCommand : DCommand {
 
         do {
             string choice = aConsoleIo.askChoice("What would you like to do?", ["E", "I", "H", "Q"])
-                .toLower;
+                .lower;
             code = null;
             switch (choice) {
             case "e" : code = executeCommand(I18nExtractCommand.classname, [], aConsoleIo);

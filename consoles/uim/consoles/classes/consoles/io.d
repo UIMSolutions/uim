@@ -472,7 +472,7 @@ class DConsoleIo {
         if (fileExists(somePath) && shouldOverwrite == false) {
             warning("File `{somePath}` exists");
             aKey = this.askChoice("Do you want to overwrite?", ["y", "n", "a", "q"], "n");
-            aKey = aKey.toLower;
+            aKey = aKey.lower;
 
             if (aKey == "q") {
                 this.error("Quitting.", 2);

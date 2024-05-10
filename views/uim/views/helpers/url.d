@@ -56,7 +56,7 @@ class UrlHelper : DHelper {
             "fullBase": false.toJson,
             "escape": true.toJson,
         ];
-        options = options.updatemydefaults;
+        auto updatedOptions = options.updatetions.updatetions.updatetions.updatetions.updatemydefaults;
 
         myurl = Router.url(myurl, options["fullBase"]);
         if (options["escape"]) {
@@ -100,7 +100,7 @@ class UrlHelper : DHelper {
      *       enable timestamping regardless of debug value.
      * /
     string image(string mypath, Json[string] options  = null) {
-        options = options.update["theme": _View.getTheme()];
+        auto updatedOptions = options.update["theme": _View.getTheme()];
 
         return htmlAttribEscape(_assetUrlClassName.imageUrl(mypath, options));
     }
@@ -123,7 +123,7 @@ class UrlHelper : DHelper {
      *       enable timestamping regardless of debug value.
      * /
     string css(string mypath, Json[string] options  = null) {
-        options = options.update["theme": _View.getTheme()];
+        auto updatedOptions = options.update["theme": _View.getTheme()];
 
         return htmlAttribEscape(_assetUrlClassName.cssUrl(mypath, options));
     }
@@ -146,7 +146,7 @@ class UrlHelper : DHelper {
      *       enable timestamping regardless of debug value.
      * /
     string script(string mypath, Json[string] options  = null) {
-        options = options.update["theme": _View.getTheme()];
+        auto updatedOptions = options.update["theme": _View.getTheme()];
 
         return htmlAttribEscape(_assetUrlClassName.scriptUrl(mypath, options));
     }
@@ -173,7 +173,7 @@ class UrlHelper : DHelper {
      * @param Json[string] options Options array.
      * /
     string assetUrl(string mypath, Json[string] options  = null) {
-        options = options.update["theme": _View.getTheme()];
+        auto updatedOptions = options.update["theme": _View.getTheme()];
 
         return htmlAttribEscape(_assetUrlClassName.url(mypath, options));
     }

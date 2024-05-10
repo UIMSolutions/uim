@@ -3,13 +3,13 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.oop.datatypes.scalars;
+module uim.models.datatypes.scalars;
 
 public { 
-	import uim.oop.datatypes.scalars.scalar;
-	import uim.oop.datatypes.scalars.boolean;
-	import uim.oop.datatypes.scalars.number;
-	import uim.oop.datatypes.scalars.integer;
-	import uim.oop.datatypes.scalars.mixin_;
-	import uim.oop.datatypes.scalars.string_; 
+	import uim.models.datatypes.scalars.scalar;
+	import uim.models.datatypes.scalars.boolean;
+	import uim.models.datatypes.scalars.number;
+	import uim.models.datatypes.scalars.integer;
+	import uim.models.datatypes.scalars.mixin_;
+	import uim.models.datatypes.scalars.string_; 
 }

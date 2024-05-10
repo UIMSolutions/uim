@@ -3,9 +3,9 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.oop.datatypes.maps.map;
+module uim.models.datatypes.maps.map;
 
-import uim.oop;
+import uim.models;
 
 @safe:
 class DMapData : DData {

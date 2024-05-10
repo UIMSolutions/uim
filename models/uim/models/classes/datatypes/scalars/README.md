@@ -1,1 +1,1 @@
-# Package 📦 uim.oop.datatypes.scalars
+# Package 📦 uim.models.datatypes.scalars

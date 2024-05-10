@@ -1,4 +1,4 @@
-module models.uim.models.classes.entities.registry;
+module uim.models.classes.entities.registry;
 
 import uim.models;
 

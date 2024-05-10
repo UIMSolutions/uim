@@ -1,6 +1,6 @@
-module uim.oop.datatypes.maps.helper;
+module uim.models.datatypes.maps.helper;
 
-import uim.oop;
+import uim.models;
 
 @safe:
 

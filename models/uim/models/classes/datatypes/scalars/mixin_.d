@@ -1,6 +1,6 @@
-module uim.oop.datatypes.scalars.mixin_;
+module uim.models.datatypes.scalars.mixin_;
 
-import uim.oop; 
+import uim.models; 
  
  string scalarOpCall(string[] datatypes) {
     return `

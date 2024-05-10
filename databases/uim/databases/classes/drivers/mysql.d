@@ -157,7 +157,7 @@ class DMysqlDriver : DDriver {
     // Returns connected server version.
     string currentVersion() {
         if (_version.isNull) {
-           _version = (string)this.getPdo().getAttribute(PDO.ATTR_SERVER_VERSION);
+           _version = (string)getPdo().getAttribute(PDO.ATTR_SERVER_VERSION);
 
             if (_version.has("MariaDB")) {
                 this.serverType = SERVER_TYPE_MARIADB;

@@ -15,12 +15,12 @@ import uim.controllers;
  * resource or collection of resources. For example adding or editing a new
  * object, or listing a set of objects.
  *
- * You can access request parameters, using `this.getRequest()`. The request object
+ * You can access request parameters, using `getRequest()`. The request object
  * contains all the POST, GET and FILES that were part of the request.
  *
  * After performing the required action, controllers are responsible for
  * creating a response. This usually takes the form of a generated `View`, or
- * possibly a redirection to another URL. In either case `this.getResponse()`
+ * possibly a redirection to another URL. In either case `getResponse()`
  * allows you to manipulate all aspects of the response.
  *
  * Controllers are created based on request parameters and
@@ -190,7 +190,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         }
         this.initialize();
 
-        this.getEventManager().on(this);
+        getEventManager().on(this);
     }
     
     
@@ -513,7 +513,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
                 typeMap[viewContentType] = className;
             }
         }
-         request = this.getRequest();
+         request = getRequest();
 
         // Prefer the _ext route parameter if it is defined.
         ext = request.getParam("_ext");

@@ -44,7 +44,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * /
     IController create(IServerRequest serverRequest) {
         assert(cast(DServerRequest) request);
-        auto className = this.getControllerClass(request);
+        auto className = getControllerClass(request);
         if (className.isNull) {
             throw this.missingController(request);
         }
@@ -93,7 +93,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
             return result;
         }
         action = controller.getAction();
-        someArguments = this.getActionArgs(
+        someArguments = getActionArgs(
             action,
             (array)controller.getRequest().getParam("pass").values
         );

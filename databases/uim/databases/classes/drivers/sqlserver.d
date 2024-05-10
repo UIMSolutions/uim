@@ -136,7 +136,7 @@ class DSqlserverDriver : DDriver {
     IStatement prepare(string queryToPrepare) {
         string sql = queryToPrepare;
 
-       statement = this.getPdo().prepare(
+       statement = getPdo().prepare(
             sql,
             [
                 PDO.ATTR_CURSOR: PDO.CURSOR_SCROLL,

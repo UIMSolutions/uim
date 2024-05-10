@@ -19,7 +19,7 @@ class DCheckHttpCacheComponent : DComponent {
   // Before Render hook
   /*
   void beforeRender(IEvent beforeRenderEvent) {
-    auto controller = this.getController();
+    auto controller = getController();
     auto controllerResponse = controller.getResponse();
     auto controllerRequest = controller.getRequest();
     if (!controllerResponse.isNotModified(controllerRequest)) {

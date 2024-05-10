@@ -54,7 +54,7 @@ class DFormProtectionComponent : DComponent {
      * Must be the same as in FormHelper
      * /
     protected string _getSessionId() {
-        auto mySession = this.getController().getRequest().getSession();
+        auto mySession = getController().getRequest().getSession();
         mySession.start();
 
         return mySession.id();
@@ -68,7 +68,7 @@ class DFormProtectionComponent : DComponent {
      * \UIM\Event\IEvent<\UIM\Controller\Controller> anEvent An Event instance
      * /
     DResponse startup(IEvent anEvent) {
-        auto myrequest = this.getController().getRequest();
+        auto myrequest = getController().getRequest();
         auto mydata = request.getParsedBody();
         auto myhasData = (someData ||  request. is(["put", "post", "delete", "patch"]));
 
@@ -98,7 +98,7 @@ class DFormProtectionComponent : DComponent {
             someData.remove("_Token");
              request = request.withParsedBody(someData);
         }
-        this.getController().setRequest(request);
+        getController().setRequest(request);
 
         return null;
     }

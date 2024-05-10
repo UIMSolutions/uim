@@ -41,7 +41,7 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
      * string|null windowName Window name
      * /
     void over(string windowName = null) {
-        auto  window = this.getWindow();
+        auto  window = getWindow();
         if (!windowName.isEmpty) {
             // Set name manually in case this was chained from FunctionsBuilder wrapper
              window.name(windowName);
@@ -49,7 +49,7 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
     }
  
     void partition(IExpression|Closure|string[] apartitions) {
-        this.getWindow().partition(partitions);
+        getWindow().partition(partitions);
     }
 
     auto order(IExpression|Closure|string[] fieldNames) {
@@ -57,19 +57,19 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
     }
  
     void orderBy(IExpression|Closure|string[] fieldNames) {
-        this.getWindow().orderBy(fields);
+        getWindow().orderBy(fields);
     }
  
     void range(IExpression|string|int start, IExpression|string|int end = 0) {
-        this.getWindow().range(start, end);
+        getWindow().range(start, end);
     }
  
     void rows(int start, int end = 0) {
-        this.getWindow().rows(start, end);
+        getWindow().rows(start, end);
     }
  
     void groups(int start, int end = 0) {
-        this.getWindow().groups(start, end);
+        getWindow().groups(start, end);
     }
  
     void frame(
@@ -79,19 +79,19 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
         IExpression|string|int endOffset,
         string aendDirection
     ) {
-        this.getWindow().frame(type, startOffset, startDirection, endOffset, endDirection);
+        getWindow().frame(type, startOffset, startDirection, endOffset, endDirection);
     }
  
     void excludeCurrent() {
-        this.getWindow().excludeCurrent();
+        getWindow().excludeCurrent();
     }
  
     void excludeGroup() {
-        this.getWindow().excludeGroup();
+        getWindow().excludeGroup();
     }
  
     void excludeTies() {
-        this.getWindow().excludeTies();
+        getWindow().excludeTies();
     }
 
     /**

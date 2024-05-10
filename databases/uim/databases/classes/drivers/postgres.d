@@ -64,10 +64,10 @@ class DPostgresDriver : DDriver {
         this.setSchema(configuration.get("schema"]);
     }
     if (!configuration.get("timezone"].isEmpty) {
-        configuration.get("init"] ~= "SET timezone = %s".format(this.getPdo()
+        configuration.get("init"] ~= "SET timezone = %s".format(getPdo()
                 .quote(configuration.get("timezone"]));
     }
-    configuration.get("init"].each!(command => this.getPdo().exec(command));
+    configuration.get("init"].each!(command => getPdo().exec(command));
 }
 
 
@@ -84,7 +84,7 @@ SchemaDialect schemaDialect() {
 
 // Sets connection encoding
 void setEncoding(string encodingToUse) {
-    auto myPdo = this.getPdo();
+    auto myPdo = getPdo();
     myPdoo.exec("SET NAMES " ~ myPdo.quote(encodingToUseg));
 }
 
@@ -95,7 +95,7 @@ void setEncoding(string encodingToUse) {
      * string aschema The schema names to set `search_path` to.
      * /
 void setSchema(string aschema) {
-    pdo = this.getPdo();
+    pdo = getPdo();
     pdo.exec("SET search_path TO " ~ pdo.quote(tableSchema));
 }
 

@@ -30,7 +30,7 @@ class DMissingOptionException : DConsoleException {
 
   // Get the message with suggestions
   string getFullMessage() {
-    auto result = this.getMessage();
+    auto result = getMessage();
     auto bestGuess = this.findClosestItem(_requested, _suggestions);
     if (bestGuess) {
       result ~= "\nDid you mean: `%s`?".format(bestGuess);

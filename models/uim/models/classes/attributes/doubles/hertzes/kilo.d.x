@@ -18,7 +18,7 @@ import uim.models;
 
 @safe:
 class DKiloHertzAttribute : DHertzAttribute {
-  mixin(AttributeThis!("KiloHertzAttribute"));
+  mixin(AttributeThis!("KiloHertz"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -33,7 +33,7 @@ class DKiloHertzAttribute : DHertzAttribute {
   }
 }
 
-mixin(AttributeCalls!("KiloHertzAttribute"));
+mixin(AttributeCalls!("KiloHertz"));
 
 version (test_uim_models) {
   unittest {

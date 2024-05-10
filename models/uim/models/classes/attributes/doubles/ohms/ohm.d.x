@@ -25,7 +25,7 @@ import uim.models;
 
 @safe:
 class DOhmAttribute : DDoubleAttribute {
-  mixin(AttributeThis!("OhmAttribute"));
+  mixin(AttributeThis!("Ohm"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -40,7 +40,7 @@ class DOhmAttribute : DDoubleAttribute {
   }
 }
 
-mixin(AttributeCalls!("OhmAttribute"));
+mixin(AttributeCalls!("Ohm"));
 
 version (test_uim_models) {
   unittest {

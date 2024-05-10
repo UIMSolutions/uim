@@ -22,7 +22,7 @@ import uim.models;
 
 @safe:
 class DMilliSecondAttribute : DSecondAttribute {
-  mixin(AttributeThis!("MilliSecondAttribute"));
+  mixin(AttributeThis!("MilliSecond"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -37,7 +37,7 @@ class DMilliSecondAttribute : DSecondAttribute {
   }
 }
 
-mixin(AttributeCalls!("MilliSecondAttribute"));
+mixin(AttributeCalls!("MilliSecond"));
 
 version (test_uim_models) {
   unittest {

@@ -18,7 +18,7 @@ import uim.models;
 
 @safe:
 class DKilometerAttribute : DMeterAttribute {
-  mixin(AttributeThis!("KilometerAttribute"));
+  mixin(AttributeThis!("Kilometer"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -33,7 +33,7 @@ class DKilometerAttribute : DMeterAttribute {
   }
 }
 
-mixin(AttributeCalls!("KilometerAttribute"));
+mixin(AttributeCalls!("Kilometer"));
 
 version (test_uim_models) {
   unittest {

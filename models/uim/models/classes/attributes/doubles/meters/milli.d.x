@@ -25,7 +25,7 @@ import uim.models;
 
 @safe:
 class DMillimeterAttribute : DMeterAttribute {
-  mixin(AttributeThis!("MillimeterAttribute"));
+  mixin(AttributeThis!("Millimeter"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -40,7 +40,7 @@ class DMillimeterAttribute : DMeterAttribute {
   }
 }
 
-mixin(AttributeCalls!("MillimeterAttribute"));
+mixin(AttributeCalls!("Millimeter"));
 
 version (test_uim_models) {
   unittest {

@@ -25,7 +25,7 @@ import uim.models;
 
 @safe:
 class DPascalAttribute : DDoubleAttribute {
-  mixin(AttributeThis!("PascalAttribute"));
+  mixin(AttributeThis!("Pascal"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -40,7 +40,7 @@ class DPascalAttribute : DDoubleAttribute {
   }
 }
 
-mixin(AttributeCalls!("PascalAttribute"));
+mixin(AttributeCalls!("Pascal"));
 
 version (test_uim_models) {
   unittest {

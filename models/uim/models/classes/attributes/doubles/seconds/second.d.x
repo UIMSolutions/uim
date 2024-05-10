@@ -21,7 +21,7 @@ import uim.models;
 
 @safe:
 class DSecondAttribute : DDoubleAttribute {
-  mixin(AttributeThis!("SecondAttribute"));
+  mixin(AttributeThis!("Second"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -33,7 +33,7 @@ class DSecondAttribute : DDoubleAttribute {
     return true;
   }
 }
-mixin(AttributeCalls!("SecondAttribute"));
+mixin(AttributeCalls!("Second"));
 
 version(test_uim_models) { unittest {
     // TODO

@@ -14,7 +14,7 @@ is.dataFormat.big
 is.dataFormat.array
 means.demographic.gender */
 class DGenderAttribute : DStringAttribute {
-  mixin(AttributeThis!("GenderAttribute"));
+  mixin(AttributeThis!("Gender"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -29,7 +29,7 @@ class DGenderAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("GenderAttribute"));
+mixin(AttributeCalls!("Gender"));
 
 ///
 unittest {

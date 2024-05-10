@@ -11,7 +11,7 @@ import uim.models;
 
 // means.measurement.color
 class DColorNameAttribute : DStringAttribute {
-  mixin(AttributeThis!("ColorNameAttribute"));
+  mixin(AttributeThis!("ColorName"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -26,7 +26,7 @@ class DColorNameAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("ColorNameAttribute"));
+mixin(AttributeCalls!("ColorName"));
 
 ///
 unittest {

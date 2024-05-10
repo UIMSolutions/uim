@@ -16,7 +16,7 @@ is.dataFormat.array
 means.entityName
 means.entityName */
 class DEntityNameAttribute : DStringAttribute {
-  mixin(AttributeThis!("EntityNameAttribute"));
+  mixin(AttributeThis!("EntityName"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -31,7 +31,7 @@ class DEntityNameAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("EntityNameAttribute"));
+mixin(AttributeCalls!("EntityName"));
 
 ///
 unittest {

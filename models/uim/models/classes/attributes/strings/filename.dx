@@ -11,7 +11,7 @@ import uim.models;
 
 // A string value representing the name of a file.
 class DFileNameAttribute : DStringAttribute {
-  mixin(AttributeThis!("FileNameAttribute"));
+  mixin(AttributeThis!("FileName"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -30,7 +30,7 @@ means.fileName */
   }
 }
 
-mixin(AttributeCalls!("FileNameAttribute"));
+mixin(AttributeCalls!("FileName"));
 
 ///
 unittest {

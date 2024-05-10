@@ -10,7 +10,7 @@ import uim.models;
 
 // means.identity.company.name
 class DCompanyNameAttribute : DStringAttribute {
-  mixin(AttributeThis!("CompanyNameAttribute"));
+  mixin(AttributeThis!("CompanyName"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -22,7 +22,7 @@ class DCompanyNameAttribute : DStringAttribute {
    return true;
   }
 }
-mixin(AttributeCalls!("CompanyNameAttribute"));
+mixin(AttributeCalls!("CompanyName"));
 
 ///
 unittest {

@@ -11,7 +11,7 @@ import uim.models;
 
 // means.identity.person.email
 class DEmailAttribute : DStringAttribute {
-  mixin(AttributeThis!("EmailAttribute"));
+  mixin(AttributeThis!("Email"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -26,7 +26,7 @@ class DEmailAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("EmailAttribute"));
+mixin(AttributeCalls!("Email"));
 
 ///
 unittest {

@@ -10,7 +10,7 @@ import uim.models;
 
 // means.location.city
 class DCityNameAttribute : DStringAttribute {
-  mixin(AttributeThis!("CityNameAttribute"));
+  mixin(AttributeThis!("CityName"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -22,7 +22,7 @@ class DCityNameAttribute : DStringAttribute {
    return true;
   }
 }
-mixin(AttributeCalls!("CityNameAttribute"));
+mixin(AttributeCalls!("CityName"));
 
 ///
 unittest {

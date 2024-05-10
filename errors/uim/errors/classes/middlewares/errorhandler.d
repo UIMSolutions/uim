@@ -134,7 +134,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      * @return IResponse A response
      * /
     IResponse handleException(Throwable myException, IServerRequest myRequest) {
-        myErrorHandler = this.getErrorHandler();
+        myErrorHandler = getErrorHandler();
         renderer = myErrorHandler.getRenderer(myException, myRequest);
 
         try {

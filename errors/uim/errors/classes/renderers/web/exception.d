@@ -141,7 +141,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     // Renders the response for the exception.
     IResponse render() {
         auto exception = _error;
-        auto code = this.getHttpCode(exception);
+        auto code = getHttpCode(exception);
         auto method = _method(exception);
         auto template = _template(exception, method, code);
         clearOutput();

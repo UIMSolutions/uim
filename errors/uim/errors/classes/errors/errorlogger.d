@@ -31,7 +31,7 @@ class DErrorLogger : IErrorLogger {
     void logError(UimError error, ?IServerRequest serverRequest = null, bool  anIncludeTrace = false) {
         auto errorMessage = error.getMessage();
         if (request) {
-            errorMessage ~= this.getRequestContext(request);
+            errorMessage ~= getRequestContext(request);
         }
         if (anIncludeTrace) {
             errorMessage ~= "\nTrace:\n" ~ error.getTraceAsString() ~ "\n";
@@ -51,10 +51,10 @@ class DErrorLogger : IErrorLogger {
         ?IServerRequest serverRequest = null,
         bool  anIncludeTrace = false
     ) {
-        exceptionMessage = this.getMessage(exception, false,  anIncludeTrace);
+        exceptionMessage = getMessage(exception, false,  anIncludeTrace);
 
         if (!request.isNull) {
-            exceptionMessage ~= this.getRequestContext(request);
+            exceptionMessage ~= getRequestContext(request);
         }
         Log.error(exceptionMessage);
     }
@@ -97,7 +97,7 @@ class DErrorLogger : IErrorLogger {
 
         auto previousException = exception.getPrevious();
         if (previousException) {
-            message ~= this.getMessage(previousException, true,  anIncludeTrace);
+            message ~= getMessage(previousException, true,  anIncludeTrace);
         }
         return message;
     }

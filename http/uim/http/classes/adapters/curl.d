@@ -53,7 +53,7 @@ class DCurl { // }: IAdapter {
 
          result = [
             CURLOPT_URL: (string)request.getUri(),
-            CURLOPT_HTTP_VERSION: this.getProtocolVersion(request),
+            CURLOPT_HTTP_VERSION: getProtocolVersion(request),
             CURLOPT_RETURNTRANSFER: true,
             CURLOPT_HEADER: true,
             CURLOPT_HTTPHEADER:  aHeaders,

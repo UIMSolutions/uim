@@ -111,7 +111,7 @@ class DErrorHandler { // }: DERRErrorHandler
      * /
     protected void _displayException(Throwable exception) {
         try {
-            renderer = this.getRenderer(
+            renderer = getRenderer(
                 exception,
                 Router.getRequest()
             );

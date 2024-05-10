@@ -177,7 +177,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * /
     IResponse render() {
         myException = this.error;
-        code = this.getHttpCode(myException);
+        code = getHttpCode(myException);
         method = _method(myException);
         myTemplate = _template(myException, method, code);
         clearOutput();

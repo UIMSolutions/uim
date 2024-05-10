@@ -56,7 +56,7 @@ mixin template TEventDispatcher() {
         subject ??= this;
 
         auto event = new _eventClass(eventName, subject, someData);
-        this.getEventManager().dispatch(event);
+        getEventManager().dispatch(event);
 
         return event;
     } */

@@ -134,7 +134,7 @@ class DExceptionTrap {
         request = request ?? Router.getRequest();
 
         /** @var class-string|callable aClassName * /
-        aClassName = this.getConfig("exceptionRenderer");
+        aClassName = getConfig("exceptionRenderer");
         deprecatedConfig = (aClassName == ExceptionRenderer.class && D_SAPI == "cli");
         if (deprecatedConfig) {
             deprecationWarning(
@@ -185,7 +185,7 @@ class DExceptionTrap {
     function logger(): IErrorLogger
     {
         /** @var class-string<uim.errors.IErrorLogger> aClassName * /
-        aClassName = this.getConfig("logger", _defaultConfig["logger"]);
+        aClassName = getConfig("logger", _defaultConfig["logger"]);
 
         return new aClassName(_config);
     }
@@ -347,7 +347,7 @@ class DExceptionTrap {
     void logException(Throwable exception, ?IServerRequest request = null) {
         shouldLog = _config["log"];
         if (shouldLog) {
-            foreach (this.getConfig("skipLog") as aClassName) {
+            foreach (getConfig("skipLog") as aClassName) {
                 if (exception instanceof aClassName) {
                     shouldLog = false;
                 }

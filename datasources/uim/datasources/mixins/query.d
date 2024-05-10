@@ -182,7 +182,7 @@ mixin template TQuery() {
      * /
     STRINGAA aliasField(string fieldName, string aliasName = null) {
         if (indexOf(field, ".") == false) {
-            alias = alias ?: this.getRepository().aliasName();
+            alias = alias ?: getRepository().aliasName();
             aliasedField = alias ~ "." ~ field;
         } else {
             aliasedField = field;
@@ -441,7 +441,7 @@ mixin template TQuery() {
     function firstOrFail() {
         entity = this.first();
         if (!entity) {
-            table = this.getRepository();
+            table = getRepository();
             throw new DRecordNotFoundException(sprintf(
                 "Record not found in table '%s'",
                 table.getTable()

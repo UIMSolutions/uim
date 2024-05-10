@@ -41,8 +41,8 @@ class DUnfoldIterator {  /* }: IteratorIterator, RecursiveIterator {
      * the current value with the callable function.
      * /
     DRecursiveIterator getChildren() {
-        auto current = this.current();
-        auto key = this.key();
+        auto current = current();
+        auto key = key();
         auto unfolder = _unfolder;
 
         return new DNoChildrenIterator(unfolder(current, key, _innerIterator));

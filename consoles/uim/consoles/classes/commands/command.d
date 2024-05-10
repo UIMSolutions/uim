@@ -110,7 +110,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
     int run(Json[string] argv, IConsoleIo aConsoleIo) {
         this.initialize();
 
-        aParser = this.getOptionParser();
+        aParser = getOptionParser();
         try {
             [options, arguments] = aParser.parse(argv, aConsoleIo);
             someArguments = new Json[string](

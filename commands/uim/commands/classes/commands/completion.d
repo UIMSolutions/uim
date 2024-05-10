@@ -15,7 +15,6 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
 	}
 
 
-    /* 
     protected ICommandCollection _commands;
 
     // Set the command collection used to get completion data on.
@@ -23,6 +22,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
         _commands = commandCollection;
     }
 
+    /* 
     // Gets the option parser instance and configures it.
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser aConsoleParser) {
         STRINGAA modes = [
@@ -67,9 +67,9 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
     // Main auto Prints out the list of commands.
     int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         return match(commandArguments.getArgument("mode")) {
-            "commands" : this.getCommands(commandArguments, aConsoleIo),
-            "subcommands" : this.getSubcommands(commandArguments, aConsoleIo),
-            "options" : this.getOptions(commandArguments, aConsoleIo),
+            "commands" : getCommands(commandArguments, aConsoleIo),
+            "subcommands" : getSubcommands(commandArguments, aConsoleIo),
+            "options" : getOptions(commandArguments, aConsoleIo),
             default : CODE_ERROR,
         };
     }

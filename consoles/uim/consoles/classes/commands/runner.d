@@ -126,7 +126,7 @@ class DCommandRunner { // }: IEventDispatcher {
 
             return ICommand.CODE_ERROR;
         }
-        auto command = this.getCommand(aConsoleIo, myCommands, name);
+        auto command = getCommand(aConsoleIo, myCommands, name);
         
         auto result = this.runCommand(command, argv,  aConsoleIo);
         if (result.isNull) {
@@ -252,7 +252,7 @@ class DCommandRunner { // }: IEventDispatcher {
     protected int runCommand(ICommand command, Json[string] argv, IConsoleIo aConsoleIo) {
         try {
             if (cast(IEventDispatcher)command) {
-                command.setEventManager(this.getEventManager());
+                command.setEventManager(getEventManager());
             }
             return command.run(argv,  aConsoleIo);
         } catch (StopException  anException) {

@@ -30,7 +30,7 @@ class DPluginUnloadCommand : DCommand {
   int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         auto plugin = to!string(commandArguments.getArgument("plugin"));
 
-        result = this.modifyConfigFile(plugin);
+        result = modifyConfigFile(plugin);
         if (result.isNull) {
              aConsoleIo.success("Plugin removed from `CONFIG/plugins.d`");
 

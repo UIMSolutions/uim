@@ -28,7 +28,7 @@ mixin template TCollection() {
             return (bool)myv;
         };
 
-        return new DFilterIterator(this.unwrap(), mycallback);
+        return new DFilterIterator(unwrap(), mycallback);
     }
  
     ICollection reject(?callable aCallback = null) {
@@ -36,7 +36,7 @@ mixin template TCollection() {
             return (bool)myv;
         };
 
-        return new DFilterIterator(this.unwrap(), fn (myvalue, aKey, myitems): 
+        return new DFilterIterator(unwrap(), fn (myvalue, aKey, myitems): 
         !mycallback(myvalue, aKey, myitems));
     }
  
@@ -45,11 +45,11 @@ mixin template TCollection() {
             return myv;
         };
 
-        return new DUniqueIterator(this.unwrap(), mycallback);
+        return new DUniqueIterator(unwrap(), mycallback);
     }
  
     bool every(callable aCallback) {
-        foreach (aKey: myvalue; this.optimizeUnwrap()) {
+        foreach (aKey: myvalue; optimizeUnwrap()) {
             if (!mycallback(myvalue, aKey)) {
                 return false;
             }
@@ -58,7 +58,7 @@ mixin template TCollection() {
     }
  
     bool any(callable aCallback) {
-        foreach (key; value; this.optimizeUnwrap()) {
+        foreach (key; value; optimizeUnwrap()) {
             if (mycallback(value, key) == true) {
                 return true;
             }
@@ -71,7 +71,7 @@ mixin template TCollection() {
     }
  
     ICollection map(callable aCallback) {
-        return new DReplaceIterator(this.unwrap(), mycallback);
+        return new DReplaceIterator(unwrap(), mycallback);
     }
  
     Json reduce(callable aCallback, Json myinitial = null) {
@@ -80,7 +80,7 @@ mixin template TCollection() {
             myisFirst = true;
         }
         result = myinitial;
-        foreach (myKey: myvalue; this.optimizeUnwrap()) {
+        foreach (myKey: myvalue; optimizeUnwrap()) {
             if (myisFirst) {
                 result = myvalue;
                 myisFirst = false;
@@ -92,7 +92,7 @@ mixin template TCollection() {
     }
  
     ICollection extract(string mypath) {
-        auto myextractor = new DExtractIterator(this.unwrap(), mypath);
+        auto myextractor = new DExtractIterator(unwrap(), mypath);
         if (isString(mypath) && mypath.has("{*}")) {
             myextractor = myextractor
                 .filter(function (mydata) {
@@ -104,11 +104,11 @@ mixin template TCollection() {
     }
  
     Json max(string mypath, int sortMode = SORT_NUMERIC) {
-        return (new DSortIterator(this.unwrap(), mypath, SORT_DESC, sortMode)).first();
+        return (new DSortIterator(unwrap(), mypath, SORT_DESC, sortMode)).first();
     }
  
     Json min(string mypath, int sortMode = SORT_NUMERIC) {
-        return (new DSortIterator(this.unwrap(), mypath, SORT_ASC, sortMode)).first();
+        return (new DSortIterator(unwrap(), mypath, SORT_ASC, sortMode)).first();
     }
  
     float|int avg(string mypath = null) {
@@ -149,7 +149,7 @@ mixin template TCollection() {
     }
  
     auto sortBy(string mypath, int myorder = SORT_DESC, int sortMode = SORT_NUMERIC) {
-        return new DSortIterator(this.unwrap(), mypath, myorder, sortMode);
+        return new DSortIterator(unwrap(), mypath, myorder, sortMode);
     }
  
     ICollection groupBy(string mypath) {
@@ -191,7 +191,7 @@ mixin template TCollection() {
         mymapper = fn (myvalue, aKey, MapReduce mymr): mymr.emitIntermediate(myvalue, mycallback(myvalue));
         myreducer = fn (myvalues, aKey, MapReduce mymr): mymr.emit(count(myvalues), aKey);
 
-        return _newCollection(new DMapReduce(this.unwrap(), mymapper, myreducer));
+        return _newCollection(new DMapReduce(unwrap(), mymapper, myreducer));
     }
  
     float|int sumOf(string mypath = null) {
@@ -344,7 +344,7 @@ mixin template TCollection() {
  
     ICollection append(Json[string] myitems) {
         mylist = new AppendIterator();
-        mylist.append(this.unwrap());
+        mylist.append(unwrap());
         mylist.append(this.newCollection(myitems).unwrap());
 
         return _newCollection(mylist);
@@ -425,7 +425,7 @@ mixin template TCollection() {
             mymapReduce.emit(result, aKey);
         };
 
-        return _newCollection(new DMapReduce(this.unwrap(), mymapper, myreducer));
+        return _newCollection(new DMapReduce(unwrap(), mymapper, myreducer));
     }
  
     ICollection nest(
@@ -464,16 +464,16 @@ mixin template TCollection() {
             myparents[aKey][mynestingKey] = mychildren;
         };
 
-        return _newCollection(new DMapReduce(this.unwrap(), mymapper, myreducer))
+        return _newCollection(new DMapReduce(unwrap(), mymapper, myreducer))
             .map(fn (myvalue): myisObject ? myvalue : myvalue.getArrayCopy());
     }
  
     auto insert(string mypath, Json myvalues) {
-        return new DInsertIterator(this.unwrap(), mypath, myvalues);
+        return new DInsertIterator(unwrap(), mypath, myvalues);
     }
  
     Json[string] toArray(bool mykeepKeys = true) {
-        myiterator = this.unwrap();
+        myiterator = unwrap();
         if (cast(DArrayIterator)myiterator) {
             myitems = myiterator.getArrayCopy();
 
@@ -501,14 +501,14 @@ mixin template TCollection() {
  
     ICollection lazy() {
         mygenerator = auto () {
-            this.unwrap().byKeyValue
+            unwrap().byKeyValue
                 .each!(kv => yield kv.key: kv.value);
 
         return _newCollection(mygenerator());
     }
  
     ICollection buffered() {
-        return new BufferedIterator(this.unwrap());
+        return new BufferedIterator(unwrap());
     }
  
     ICollection listNested(
@@ -542,7 +542,7 @@ mixin template TCollection() {
         if (!isCallable(mycondition)) {
             mycondition = _createMatcherFilter(mycondition);
         }
-        return new DStoppableIterator(this.unwrap(), mycondition);
+        return new DStoppableIterator(unwrap(), mycondition);
     }
  
     ICollection unfold(?callable aCallback = null) {
@@ -552,7 +552,7 @@ mixin template TCollection() {
 
         return _newCollection(
             new DRecursiveIteratorIterator(
-                new DUnfoldIterator(this.unwrap(), mycallback),
+                new DUnfoldIterator(unwrap(), mycallback),
                 RecursiveIteratorIterator.LEAVES_ONLY
             )
         );
@@ -565,7 +565,7 @@ mixin template TCollection() {
     }
  
     ICollection zip(Json[string] ...myitems) {
-        return new DZipIterator(chain([this.unwrap()], myitems));
+        return new DZipIterator(chain([unwrap()], myitems));
     }
  
     ICollection zipWith(Json[string] myitems, mycallback) {
@@ -576,7 +576,7 @@ mixin template TCollection() {
             myitems = [myitems];
         }
         /** @var callable aCallback * /
-        return new DZipIterator(chain([this.unwrap()], myitems), mycallback);
+        return new DZipIterator(chain([unwrap()], myitems), mycallback);
     }
  
     ICollection chunk(int mychunkSize) {
@@ -720,7 +720,7 @@ mixin template TCollection() {
      * traversable that can be used for getting the data out
      * /
     protected Iterator[] optimizeUnwrap() {
-        myiterator = this.unwrap();
+        myiterator = unwrap();
 
         if (myiterator.classname == ArrayIterator.classname) {
             myiterator = myiterator.getArrayCopy();

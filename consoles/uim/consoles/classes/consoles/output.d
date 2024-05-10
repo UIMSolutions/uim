@@ -203,7 +203,7 @@ class DConsoleOutput {
      * matchesToReplace - Array of matches to replace.
      * /
     protected string _replaceTags(STRINGAA matchesToReplace) {
-        style = this.getStyle(matchesToReplace["tag"]);
+        style = getStyle(matchesToReplace["tag"]);
         if (style.isEmpty) {
             return "<" ~ matchesToReplace["tag"] ~ ">" ~ matchesToReplace["text"] ~ "</" ~ matchesToReplace["tag"] ~ ">";
         }

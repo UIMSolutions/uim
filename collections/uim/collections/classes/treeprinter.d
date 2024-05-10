@@ -56,7 +56,7 @@ class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
   string current() {
     auto myExtractor = _value;
     auto myCurrent = _fetchCurrent();
-    auto prefixSpacer = str_repeat(_spacer, this.getDepth());
+    auto prefixSpacer = str_repeat(_spacer, getDepth());
 
     return prefixSpacer ~ myExtractor(myCurrent, super.key(), this);
   }

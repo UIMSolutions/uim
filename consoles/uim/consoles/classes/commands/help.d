@@ -58,7 +58,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
                 prefix = namespace;
             }
 
-            string shortestName = this.getShortestName(names);
+            string shortestName = getShortestName(names);
             if (shortestName.has(".")) {
                 string[] names = shortestName.split(".");
                 if (names > 1) { shortestName = names[1..$].join("."); }

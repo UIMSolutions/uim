@@ -33,8 +33,7 @@ class DCurrencyCodeAttribute : DStringStringAttribute {
 
 mixin(AttributeCalls!("CurrencyCode"));
 
-version (test_uim_models) {
-  unittest {
-    // TODO
-  }
+unittest {
+  assert(testAttribute(new DCurrencyCodeAttribute));
+  assert(testAttribute(CurrencyCodeAttribute));
 }

@@ -27,9 +27,7 @@ class DByteAttribute : DAttribute {
 
 mixin(AttributeCalls!("Byte"));
 
-version (test_uim_models) {
-  unittest {
-    testAttribute(new DByteAttribute);
-    testAttribute(ByteAttribute);
-  }
+unittest {
+  assert(testAttribute(new DByteAttribute));
+  assert(testAttribute(ByteAttribute));
 }

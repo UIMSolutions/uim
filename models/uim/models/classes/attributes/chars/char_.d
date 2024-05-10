@@ -28,6 +28,6 @@ class DCharAttribute : DAttribute {
 mixin(AttributeCalls!"Char");
 
 unittest {
-  testAttribute(new DCharAttribute);
-  testAttribute(CharAttribute);
+  assert(testAttribute(new DCharAttribute));
+  assert(testAttribute(CharAttribute));
 }

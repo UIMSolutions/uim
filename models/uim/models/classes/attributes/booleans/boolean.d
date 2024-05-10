@@ -40,6 +40,6 @@ is.dataFormat.boolean */
 mixin(AttributeCalls!"Boolean");
 
 unittest {
-  testAttribute(new DBooleanAttribute);
-  testAttribute(BooleanAttribute);
+  assert(testAttribute(new DBooleanAttribute));
+  assert(testAttribute(BooleanAttribute));
 }

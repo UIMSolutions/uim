@@ -1364,19 +1364,19 @@ class DBelongsToManyAssociation : DAssociation {
      * /
     protected void _options(Json[string] optionData) {
         if (!options.isEmpty("targetForeignKey"])) {
-            this.setTargetForeignKey(options["targetForeignKey"]);
+            setTargetForeignKey(options["targetForeignKey"]);
         }
         if (!options.isEmpty("joinTable"])) {
             _junctionTableName(options["joinTable"]);
         }
         if (!options.isEmpty("through"])) {
-            this.setThrough(options["through"]);
+            setThrough(options["through"]);
         }
         if (!options.isEmpty("saveStrategy"])) {
             setSaveStrategy(options["saveStrategy"]);
         }
         if (isset(options["sort"])) {
-            this.setSort(options["sort"]);
+            setSort(options["sort"]);
         }
     } */
 }

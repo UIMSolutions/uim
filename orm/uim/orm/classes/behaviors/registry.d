@@ -40,7 +40,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * /
     this(DORMTable aTable = null) {
         if (aTable != null) {
-            this.setTable(aTable);
+            setTable(aTable);
         }
     }
 
@@ -51,7 +51,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * /
     @property table(DORMTable aTable) {
         _table = aTable;
-        this.setEventManager(aTable.getEventManager());
+        setEventManager(aTable.getEventManager());
     }
 
     /**

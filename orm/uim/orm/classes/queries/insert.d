@@ -11,7 +11,7 @@ class DInsertQuery : DQuery {
     this(Table table) {
         super(table.getConnection());
 
-        this.setRepository(table);
+        setRepository(table);
         this.addDefaultTypes(table);
     }
  

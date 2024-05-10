@@ -77,7 +77,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             ["allowFallbackClass": true.toJson]
         );
 
-        this.setupAssociations();
+        setupAssociations();
     }
 
     /**
@@ -116,7 +116,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             return;
         }
 
-        this.setupHasOneAssociation(locale, options);
+        setupHasOneAssociation(locale, options);
 
         fieldsAdded = this.addFieldsToQuery(query, myConfiguration);
         orderByTranslatedField = this.iterateClause(query, "order", myConfiguration);

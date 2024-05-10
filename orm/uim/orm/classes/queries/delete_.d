@@ -11,7 +11,7 @@ class DeleteQuery : DQuery {
     this(Table mytable) {
         super(table.getConnection());
 
-        this.setRepository(table);
+        setRepository(table);
         this.addDefaultTypes(table);
     }
  

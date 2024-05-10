@@ -132,7 +132,7 @@ abstract class DTestCase : DBaseTestCase {
      * /
     protected void setUp() {
         super.setUp();
-        this.setupFixtures();
+        setupFixtures();
 
         if (!_configure) {
            _configure = Configuration.read();

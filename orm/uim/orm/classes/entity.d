@@ -41,14 +41,14 @@ class DORMEntity { // }: IEntity, IInvalidProperty {
         ]);
 
         if (!options.isEmpty("source")) {
-            this.setSource(options["source"]);
+            setSource(options["source"]);
         }
         if (!options["markNew"].isNull) {
-            this.setNew(options["markNew"]);
+            setNew(options["markNew"]);
         }
         if (!myproperties.isEmpty) {
             //Remember the original field names here.
-            this.setOriginalField(myproperties.keys);
+            setOriginalField(myproperties.keys);
 
             if (options["markClean"] && !options["useSetters"]) {
                _fields = myproperties;

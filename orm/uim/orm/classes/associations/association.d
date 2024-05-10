@@ -173,7 +173,7 @@ class DAssociation : IAssociation {
         _options(options);
 
         if (!options.isEmpty("strategy"])) {
-            this.setStrategy(options["strategy"]);
+            setStrategy(options["strategy"]);
         }
     }
 

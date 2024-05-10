@@ -581,7 +581,7 @@ class DHasManyAssociation : DAssociation {
             setSaveStrategy(options["saveStrategy"]);
         }
         if (isset(options["sort"])) {
-            this.setSort(options["sort"]);
+            setSort(options["sort"]);
         }
     }
 

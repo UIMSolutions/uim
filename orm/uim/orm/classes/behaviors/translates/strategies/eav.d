@@ -78,7 +78,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             ["allowFallbackClass": true.toJson]
         );
 
-        this.setupAssociations();
+        setupAssociations();
     }
 
     /**

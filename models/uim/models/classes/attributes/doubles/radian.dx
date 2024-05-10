@@ -20,7 +20,7 @@ import uim.models;
 
 @safe:
 class DRadianAttribute : DDoubleAttribute {
-  mixin(AttributeThis!("RadianAttribute"));
+  mixin(AttributeThis!("Radian"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -35,7 +35,7 @@ class DRadianAttribute : DDoubleAttribute {
   }
 }
 
-mixin(AttributeCalls!("RadianAttribute"));
+mixin(AttributeCalls!("Radian"));
 
 version (test_uim_models) {
   unittest {

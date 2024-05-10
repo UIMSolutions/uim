@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DPercentageAttribute : DDoubleAttribute {
-  mixin(AttributeThis!("PercentageAttribute"));
+  mixin(AttributeThis!("Percentage"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -24,7 +24,7 @@ class DPercentageAttribute : DDoubleAttribute {
   }
 }
 
-mixin(AttributeCalls!("PercentageAttribute"));
+mixin(AttributeCalls!("Percentage"));
 
 version (test_uim_models) {
   unittest {

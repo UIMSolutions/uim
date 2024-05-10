@@ -20,7 +20,7 @@ import uim.models;
 
 @safe:
 class DKelvinAttribute : DDoubleAttribute {
-  mixin(AttributeThis!("KelvinAttribute"));
+  mixin(AttributeThis!("Kelvin"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -35,7 +35,7 @@ class DKelvinAttribute : DDoubleAttribute {
   }
 }
 
-mixin(AttributeCalls!("KelvinAttribute"));
+mixin(AttributeCalls!("Kelvin"));
 
 version (test_uim_models) {
   unittest {

@@ -16,12 +16,12 @@ class DLinkConstraint {
      * The association that should be checked.
      *
      * @var \ORM\Association|string
-     * /
+     */
     protected IAssociation|string _association;
 
     /**
      * The link status that is required to be present in order for the check to succeed.
-     * /
+     */
     protected string _requiredLinkState;
 
     /**
@@ -30,7 +30,7 @@ class DLinkConstraint {
      * \ORM\Association|string myassociation The alias of the association that should be checked.
      * @param string myrequiredLinkStatus The link status that is required to be present in order for the check to
      * succeed.
-     * /
+     */
     this(Association|string myassociation, string myrequiredLinkStatus) {
         if (!in_array(myrequiredLinkStatus, [STATUS_LINKED, STATUS_NOT_LINKED], true)) {
             throw new DInvalidArgumentException(
@@ -46,10 +46,10 @@ class DLinkConstraint {
      *
      * Performs the actual link check.
      * Params:
-     * \UIM\Datasource\IEntity myentity The entity involved in the operation.
+     * \UIM\Datasource\IORMEntity myentity The entity involved in the operation.
      * @param Json[string] options Options passed from the rules checker.
-     * /
-    bool __invoke(IEntity myentity, Json[string] options) {
+     */
+    bool __invoke(IORMEntity myentity, Json[string] options) {
         mytable = options["repository"] ?? null;
         if (!(cast(Table)mytable)) {
             throw new DInvalidArgumentException(
@@ -82,7 +82,7 @@ class DLinkConstraint {
      * Params:
      * string[] myfields The fields that should be aliased.
      * @param \ORM\Table mysource The object to use for aliasing.
-     * /
+     */
     protected string[] _aliasFields(Json[string] myfields, Table mysource) {
         foreach (myfields as aKey: myvalue) {
             myfields[aKey] = mysource.aliasField(myvalue);
@@ -95,7 +95,7 @@ class DLinkConstraint {
      * Params:
      * Json[string] myfields The condition fields.
      * @param Json[string] myvalues The condition values.
-     * /
+     */
     // TODO protected Json[string] _buildConditions(Json[string] myfields, Json[string] myvalues) {
         if (count(myfields) != count(myvalues)) {
             throw new DInvalidArgumentException(
@@ -111,9 +111,9 @@ class DLinkConstraint {
      * Count links.
      * Params:
      * \ORM\Association myassociation The association for which to count links.
-     * @param \UIM\Datasource\IEntity myentity The entity involved in the operation.
-     * /
-    protected int _countLinks(Association myassociation, IEntity myentity) {
+     * @param \UIM\Datasource\IORMEntity myentity The entity involved in the operation.
+     */
+    protected int _countLinks(Association myassociation, IORMEntity myentity) {
         mysource = myassociation.source();
 
         myprimaryKey = (array)mysource.primaryKeys();

@@ -50,13 +50,13 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     /**
      * A callback used to calculate the total amount of
      * records this query will match when not using `limit`
-     * /
+     */
     protected DClosure _counter = null;
 
     /**
      * Instance of a class responsible for storing association containments and
      * for eager loading them when this query is executed
-     * /
+     */
     protected DEagerLoader _eagerLoader = null;
 
 
@@ -64,13 +64,13 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * The COUNT(*) for the query.
      *
      * When set, count query execution will be bypassed.
-     * /
+     */
     protected int _resultsCount = null;
 
     /**
      * Resultset factory
      * @var \ORM\ResultsetFactory<\UIM\Datasource\IORMEntity|array>
-     * /
+     */
     protected DResultsetFactory resultSetFactory;
 
     /**
@@ -78,39 +78,39 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * When set, SelectQuery execution will be bypassed.
      * @var iterable|null
-     * /
+     */
     protected Json[string] _results = null;
 
     /**
      * List of map-reduce routines that should be applied over the query
      * result
-     * /
+     */
     // TODO protected Json[string] _mapReduce = null;
 
     /**
      * List of formatter classes or callbacks that will post-process the
      * results when fetched
-     * /
+     */
     protected DClosure[] _formatters = null;
 
     /**
      * A query cacher instance if this query has caching enabled.
      *
      * @var \UIM\Datasource\QueryCacher|null
-     * /
+     */
     protected IQueryCacher _cache = null;
 
     /**
      * Holds any custom options passed using applyOptions that could not be processed
      * by any method in this class.
-     * /
+     */
     // TODO protected Json[string] _options = null;
 
     /**
      * Constructor
      * Params:
      * \ORM\Table mytable The table this query is starting on
-     * /
+     */
     this(Table mytable) {
         super(mytable.getConnection());
 
@@ -128,7 +128,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * This method is most useful when combined with results stored in a persistent cache.
      * Params:
      * range results The results this query should return.
-     * /
+     */
     void setResult(Json[string] results) {
        _results = results;
     }
@@ -138,7 +138,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * for implementing the IteratorAggregate interface and allows the query to be
      * iterated without having to call execute() manually, thus making it look like
      * a result set instead of the query itself.
-     * /
+     */
     IResultset getIterator() {
         return _all();
     }
@@ -156,20 +156,20 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Usage
      *
      * ```
-     * // Simple string key + config
+     *// Simple string key + config
      * myquery.cache("_key", "db_results");
      *
-     * // auto to generate key.
+     *// auto to generate key.
      * myquery.cache(function (myq) {
      *  aKey = serialize(myq.clause("select"));
      *  aKey ~= serialize(myq.clause("where"));
      *  return md5(aKey);
      * });
      *
-     * // Using a pre-built cache engine.
+     *// Using a pre-built cache engine.
      * myquery.cache("_key", myengine);
      *
-     * // Disable caching
+     *// Disable caching
      * myquery.cache(false);
      * ```
      * Params:
@@ -177,7 +177,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *  When using a function, this query instance will be supplied as an argument.
      * @param \Psr\SimpleCache\ICache|string configData Either the name of the cache config to use, or
      *  a cache engine instance.
-     * /
+     */
     void cache(Closure|string|false aKey, ICache|string configData = "default") {
         if (aKey == false) {
            _cache = null;
@@ -189,7 +189,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     
     /**
      * Returns the current configured query `_eagerLoaded` value
-     * /
+     */
     bool isEagerLoaded() {
         return _eagerLoaded;
     }
@@ -199,7 +199,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * passed, the current configured query `_eagerLoaded` value is returned.
      * Params:
      * bool myvalue Whether to eager load.
-     * /
+     */
     void eagerLoaded(bool myvalue) {
        _eagerLoaded = myvalue;
     }
@@ -214,7 +214,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Params:
      * string myfield The field to alias
      * @param string aliasName the alias used to prefix the field
-     * /
+     */
     STRINGAA aliasField(string myfield, string aliasName = null) {
         if (myfield.has(".")) {
             myaliasedField = myfield;
@@ -234,7 +234,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Params:
      * Json[string] myfields The fields to alias
      * @param string mydefaultAlias The default alias
-     * /
+     */
     STRINGAA aliasFields(Json[string] myfields, string mydefaultAlias = null) {
         myaliased = null;
         foreach (myfields as aliasName: myfield) {
@@ -255,7 +255,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * ResultsetDecorator is a traversable object that : the methods found
      * on UIM\Collection\Collection.
-     * /
+     */
     IResultset<mixed> all() {
         if (_results !isNull) {
             if (!(cast(IResultset)_results)) {
@@ -280,7 +280,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     
     /**
      * Returns an array representation of the results after executing the query.
-     * /
+     */
     Json[string] toDataArray() {
         return _all().toArray();
     }
@@ -297,7 +297,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * \Closure|null mymapper The mapper function
      * @param \Closure|null myreducer The reducing function
      * @param bool myoverwrite Set to true to overwrite existing map + reduce functions.
-     * /
+     */
     void mapReduce(?Closure mymapper = null, ?Closure myreducer = null, bool myoverwrite = false) {
         if (myoverwrite) {
            _mapReduce = null;
@@ -313,7 +313,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     
     /**
      * Returns the list of previously registered map reduce routines.
-     * /
+     */
     array getMapReducers() {
         return _mapReduce;
     }
@@ -386,7 +386,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * by inheriting the contain callback"s query argument:
      *
      * ```
-     * // Assuming a `Articles belongsTo Authors` association that uses the join strategy
+     *// Assuming a `Articles belongsTo Authors` association that uses the join strategy
      *
      * myarticlesQuery.contain("Authors", auto (myauthorsQuery) {
      *    return myauthorsQuery.formatResults(function (results, myquery) use (myauthorsQuery) {
@@ -407,7 +407,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Params:
      * \Closure|null myformatter The formatting function
      * @param int|bool mymode Whether to overwrite, append or prepend the formatter.
-     * /
+     */
     void formatResults(?Closure myformatter = null, int|bool mymode = self.APPEND) {
         if (mymode == self.OVERWRITE) {
            _formatters = null;
@@ -428,7 +428,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     
     /**
      * Returns the list of previously registered format routines.
-     * /
+     */
     Closure[] getResultFormatters() {
         return _formatters;
     }
@@ -442,7 +442,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ```
      * mysingleUser = myquery.select(["id", "username"]).first();
      * ```
-     * /
+     */
     Json first() {
         if (_isDirty) {
             this.limit(1);
@@ -454,7 +454,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Get the first result from the executing query or raise an exception.
      *
      * @throws \UIM\Datasource\Exception\RecordNotFoundException When there is no first record.
-     * /
+     */
     Json firstOrFail() {
         myentity = this.first();
         if (!myentity) {
@@ -477,7 +477,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * myquery.applyOptions(["doABarrelRoll": true.toJson, "fields": ["id", "name"]);
      * myquery.getOptions(); // Returns ["doABarrelRoll": true.toJson]
      * ```
-     * /
+     */
     Json[string] getOptions() {
         return _options;
     }
@@ -543,7 +543,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Params:
      * Json[string] options The options to be applied
      * @return this
-     * /
+     */
     auto applyOptions(Json[string] options) {
         myvalid = [
             "select": "select",
@@ -596,7 +596,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     
     /**
      * Returns the name of the class to be used for decorating results
-     * /
+     */
     protected string _decoratorClass() {
         return ResultsetDecorator.classname;
     }
@@ -639,7 +639,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\Closure|string[]|float|int myfields Fields
      * to be added to the list.
      * @param bool myoverwrite whether to reset fields with passed list or not
-     * /
+     */
     auto select(
         IExpression|Table|Association|Closure|string[]|float|int myfields = [],
         bool myoverwrite = false
@@ -665,7 +665,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Params:
      * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\Closure|string[]|float|int myfields Fields
      * to be added to the list.
-     * /
+     */
     auto selectAlso(
         IExpression|Table|Association|Closure|string[]|float|int myfields
     ) {
@@ -685,7 +685,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * \ORM\Table|\ORM\Association mytable The table to use to get an array of columns
      * @param string[] myexcludedFields The un-aliased column names you do not want selected from mytable
      * @param bool myoverwrite Whether to reset/remove previous selected fields
-     * /
+     */
     auto selectAllExcept(Table|Association mytable, Json[string] myexcludedFields, bool myoverwrite = false) {
         if (cast(DAssociation)mytable) {
             mytable = mytable.getTarget();
@@ -702,7 +702,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * and storing containments.
      * Params:
      * \ORM\EagerLoader myinstance The eager loader to use.
-     * /
+     */
     auto setEagerLoader(EagerLoader myinstance) {
        _eagerLoader = myinstance;
 
@@ -722,10 +722,10 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * // Bring articles" author information
+     *// Bring articles" author information
      * myquery.contain("Author");
      *
-     * // Also bring the category and tags associated to each article
+     *// Also bring the category and tags associated to each article
      * myquery.contain(["Category", "Tag"]);
      * ```
      *
@@ -736,13 +736,13 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * // Eager load the product info, and for each product load other 2 associations
+     *// Eager load the product info, and for each product load other 2 associations
      * myquery.contain(["Product": ["Manufacturer", "Distributor"]);
      *
-     * // Which is equivalent to calling
+     *// Which is equivalent to calling
      * myquery.contain(["Products.Manufactures", "Products.Distributors"]);
      *
-     * // For an author query, load his region, state and country
+     *// For an author query, load his region, state and country
      * myquery.contain("Regions.States.Countries");
      * ```
      *
@@ -775,7 +775,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * // Set options for the hasMany articles that will be eagerly loaded for an author
+     *// Set options for the hasMany articles that will be eagerly loaded for an author
      * myquery.contain([
      *    "Articles": [
      *        "fields": ["title", "author_id"]
@@ -786,7 +786,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Finders can be configured to use options.
      *
      * ```
-     * // Retrieve translations for the articles, but only those for the `en` and `es` locales
+     *// Retrieve translations for the articles, but only those for the `en` and `es` locales
      * myquery.contain([
      *    "Articles": [
      *        "finder": [
@@ -802,11 +802,11 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Failing to do so will trigger exceptions.
      *
      * ```
-     * // Use a query builder to add conditions to the containment
+     *// Use a query builder to add conditions to the containment
      * myquery.contain("Authors", auto (myq) {
      *    return myq.where(...); // add conditions
      * });
-     * // Use special join conditions for multiple containments in the same method call
+     *// Use special join conditions for multiple containments in the same method call
      * myquery.contain([
      *    "Authors": [
      *        "foreignKey": false.toJson,
@@ -828,7 +828,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *  if associations is an array, a bool on whether to override previous list
      *  with the one passed
      * defaults to merging previous list with the new one.
-     * /
+     */
     auto contain(string[] myassociations, IClosure|bool myoverride = false) {
         myloader = getEagerLoader();
         if (myoverride == true) {
@@ -870,7 +870,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * @param \UIM\Database\TypeMap mytypeMap The typemap to check for columns in.
      *  This typemap is indirectly mutated via {@link \ORM\Query\SelectQuery.addDefaultTypes()}
      * @param array<string, array> myassociations The nested tree of associations to walk.
-     * /
+     */
     protected void _addAssociationsToTypeMap(Table mytable, TypeMap mytypeMap, Json[string] myassociations) {
         foreach (myassociations as myname: mynested) {
             if (!mytable.hasAssociation(myname)) {
@@ -897,7 +897,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * // Bring only articles that were tagged with "uim"
+     *// Bring only articles that were tagged with "uim"
      * myquery.matching("Tags", auto (myq) {
      *    return myq.where(["name": "uim"]);
      * });
@@ -908,7 +908,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * // Bring only articles that were commented by "markstory"
+     *// Bring only articles that were commented by "markstory"
      * myquery.matching("Comments.Users", auto (myq) {
      *    return myq.where(["username": "markstory"]);
      * });
@@ -922,7 +922,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * // Bring unique articles that were commented by "markstory"
+     *// Bring unique articles that were commented by "markstory"
      * myquery.distinct(["Articles.id"])
      *    .matching("Comments.Users", auto (myq) {
      *        return myq.where(["username": "markstory"]);
@@ -936,7 +936,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * string myassoc The association to filter by
      * @param \Closure|null mybuilder a auto that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
-     * /
+     */
     void matching(string myassoc, IClosure mybuilder = null) {
         result = getEagerLoader().setMatching(myassoc, mybuilder).getMatching();
        _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
@@ -953,7 +953,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * // Get the count of articles per user
+     *// Get the count of articles per user
      * myusersQuery
      *    .select(["total_articles": myquery.func().count("Articles.id")])
      *    .leftJoinWith("Articles")
@@ -964,7 +964,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * You can also customize the conditions passed to the LEFT JOIN:
      *
      * ```
-     * // Get the count of articles per user with at least 5 votes
+     *// Get the count of articles per user with at least 5 votes
      * myusersQuery
      *    .select(["total_articles": myquery.func().count("Articles.id")])
      *    .leftJoinWith("Articles", auto (myq) {
@@ -988,7 +988,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * // Total comments in articles by "markstory"
+     *// Total comments in articles by "markstory"
      * myquery
      *    .select(["total_comments": myquery.func().count("Comments.id")])
      *    .leftJoinWith("Comments.Users", auto (myq) {
@@ -1004,7 +1004,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * string myassoc The association to join with
      * @param \Closure|null mybuilder a auto that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
-     * /
+     */
     void leftJoinWith(string myassoc, ?Closure mybuilder = null) {
         result = getEagerLoader()
             .setMatching(myassoc, mybuilder, [
@@ -1026,7 +1026,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * // Bring only articles that were tagged with "uim"
+     *// Bring only articles that were tagged with "uim"
      * myquery.innerJoinWith("Tags", auto (myq) {
      *    return myq.where(["name": "uim"]);
      * });
@@ -1048,7 +1048,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * string myassoc The association to join with
      * @param \Closure|null mybuilder a auto that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
-     * /
+     */
     void innerJoinWith(string myassoc, ?Closure mybuilder = null) {
         result = getEagerLoader()
             .setMatching(myassoc, mybuilder, [
@@ -1069,7 +1069,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * // Bring only articles that were not tagged with "uim"
+     *// Bring only articles that were not tagged with "uim"
      * myquery.notMatching("Tags", auto (myq) {
      *    return myq.where(["name": "uim"]);
      * });
@@ -1080,7 +1080,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * // Bring only articles that weren"t commented by "markstory"
+     *// Bring only articles that weren"t commented by "markstory"
      * myquery.notMatching("Comments.Users", auto (myq) {
      *    return myq.where(["username": "markstory"]);
      * });
@@ -1094,7 +1094,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * // Bring unique articles that were commented by "markstory"
+     *// Bring unique articles that were commented by "markstory"
      * myquery.distinct(["Articles.id"])
      *    .notMatching("Comments.Users", auto (myq) {
      *        return myq.where(["username": "markstory"]);
@@ -1108,7 +1108,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * string myassoc The association to filter by
      * @param \Closure|null mybuilder a auto that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
-     * /
+     */
     void notMatching(string myassoc, ?Closure mybuilder = null) {
         result = getEagerLoader()
             .setMatching(myassoc, mybuilder, [
@@ -1135,7 +1135,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * - containments
      *
      * This method creates query clones that are useful when working with subqueries.
-     * /
+     */
     static cleanCopy() {
         myclone = clone this;
         myclone.triggerBeforeFind();
@@ -1154,7 +1154,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     /**
      * Clears the internal result cache and the internal count value from the current
      * query object.
-     * /
+     */
     void clearResult() {
        _isDirty();
     }
@@ -1172,7 +1172,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Returns the COUNT(*) for the query. If the query has not been
      * modified, and the count has already been performed the cached
      * value is returned
-     * /
+     */
     size_t count() {
         return _resultsCount ??= _performCount();
     }
@@ -1180,7 +1180,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     /**
      * Performs and returns the COUNT(*) for the query.
      *
-     * /
+     */
     protected int _performCount() {
         myquery = this.cleanCopy();
         mycounter = _counter;
@@ -1248,7 +1248,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * instead
      * Params:
      * \Closure|null mycounter The counter value
-     * /
+     */
     auto counter(?Closure mycounter) {
        _counter = mycounter;
 
@@ -1261,7 +1261,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * If set to false array results will be returned for the query.
      * Params:
      * bool myenable Use a boolean to set the hydration mode.
-     * /
+     */
     auto enableHydration(bool myenable = true) {
        _isDirty();
        _hydrate = myenable;
@@ -1274,7 +1274,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * Disabling hydration will cause array results to be returned for the query
      * instead of entities.
-     * /
+     */
     auto disableHydration() {
        _isDirty();
        _hydrate = false;
@@ -1291,7 +1291,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Trigger the beforeFind event on the query"s repository object.
      *
      * Will not trigger more than once, and only for select queries.
-     * /
+     */
     void triggerBeforeFind() {
         if (!_beforeFindFired) {
            _beforeFindFired = true;
@@ -1315,7 +1315,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     
     /**
      * Executes this query and returns an range containing the results.
-     * /
+     */
     protected Json[string] _execute() {
         this.triggerBeforeFind();
         if (_results) {
@@ -1332,7 +1332,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     
     /**
      * Get resultset factory.
-     * /
+     */
     protected DResultsetFactory resultSetFactory() {
         return _resultSetFactory ??= new DResultsetFactory();
     }
@@ -1345,7 +1345,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * using `contain`
      *
      * It also sets the default types for the columns in the select clause
-     * /
+     */
     protected void _transformQuery() {
         if (!_isDirty) {
             return;
@@ -1363,7 +1363,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     /**
      * Inspects if there are any set fields for selecting, otherwise adds all
      * the fields for the default table.
-     * /
+     */
     protected void _addDefaultFields() {
         auto myselect = this.clause("select");
        _hasFields = true;
@@ -1383,7 +1383,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     
     /**
      * Sets the default types for converting the fields in the select clause
-     * /
+     */
     protected void _addDefaultSelectTypes() {
         mytypeMap = getTypeMap().getDefaults();
         myselect = this.clause("select");
@@ -1409,17 +1409,17 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
  Params:
      * string myfinder The finder method to use.
      * @param Json ...myargs Arguments that match up to finder-specific parameters
-     * /
+     */
     static find(string myfinder, Json ...myargs) {
         mytable = getRepository();
 
-        /** @psalm-suppress LessSpecificReturnStatement * /
+        /** @psalm-suppress LessSpecificReturnStatement */
         return mytable.callFinder(myfinder, this, ...myargs);
     }
     
     /**
      * Disable auto adding table"s alias to the fields of SELECT clause.
-     * /
+     */
     auto disableAutoAliasing() {
         this.aliasingEnabled = false;
 
@@ -1429,7 +1429,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     /**
      * Marks a query as dirty, removing any preprocessed information
      * from in memory caching such as previous results
-     * /
+     */
     protected void _isDirty() {
        _results = null;
        _resultsCount = null;
@@ -1454,7 +1454,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Executes the query and converts the result set into Json.
      *
      * Part of JsonSerializable interface.
-     * /
+     */
     IResultset<(\UIM\Datasource\IORMEntity|mixed)> JsonSerialize() {
         return _all();
     }
@@ -1466,7 +1466,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * auto-fields with this method.
      * Params:
      * bool myvalue Set true to enable, false to disable.
-     * /
+     */
     auto enableAutoFields(bool myvalue = true) {
        _autoFields = myvalue;
 
@@ -1475,7 +1475,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     
     /**
      * Disables automatically appending fields.
-     * /
+     */
     auto disableAutoFields() {
        _autoFields = false;
 
@@ -1487,7 +1487,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * By default calling select() will disable auto-fields. You can re-enable
      * auto-fields with enableAutoFields().
-     * /
+     */
     bool isAutoFieldsEnabled() {
         return _autoFields;
     } */

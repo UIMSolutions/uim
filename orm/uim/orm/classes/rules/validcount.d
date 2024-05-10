@@ -11,7 +11,7 @@ class DValidCount {
 
     /**
      * @param string myfield The field to check the count on.
-     * /
+     */
     this(string myfield) {
        _fieldName = myfield;
     }
@@ -19,10 +19,10 @@ class DValidCount {
     /**
      * Performs the count check
      * Params:
-     * \UIM\Datasource\IEntity myentity The entity from where to extract the fields.
+     * \UIM\Datasource\IORMEntity myentity The entity from where to extract the fields.
      * @param Json[string] options Options passed to the check.
-     * /
-    bool __invoke(IEntity myentity, Json[string] options) {
+     */
+    bool __invoke(IORMEntity myentity, Json[string] options) {
         myvalue = myentity.{_fieldName};
         if (!isArray(myvalue) && !cast(DCountable)myvalue) {
             return false;

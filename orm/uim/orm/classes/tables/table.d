@@ -83,17 +83,17 @@ import uim.orm;
  *
  * - `beforeFind(IEvent myevent, SelectQuery myquery, ArrayObject options, boolean myprimary)`
  * - `beforeMarshal(IEvent myevent, ArrayObject mydata, ArrayObject options)`
- * - `afterMarshal(IEvent myevent, IEntity myentity, ArrayObject options)`
+ * - `afterMarshal(IEvent myevent, IORMEntity myentity, ArrayObject options)`
  * - `buildValidator(IEvent myevent, Validator myvalidator, string myname)`
  * - `buildRules(RulesChecker myrules)`
- * - `beforeRules(IEvent myevent, IEntity myentity, ArrayObject options, string myoperation)`
- * - `afterRules(IEvent myevent, IEntity myentity, ArrayObject options, bool result, string myoperation)`
- * - `beforeSave(IEvent myevent, IEntity myentity, ArrayObject options)`
- * - `afterSave(IEvent myevent, IEntity myentity, ArrayObject options)`
- * - `afterSaveCommit(IEvent myevent, IEntity myentity, ArrayObject options)`
- * - `beforeremove(IEvent myevent, IEntity myentity, ArrayObject options)`
- * - `afterremove(IEvent myevent, IEntity myentity, ArrayObject options)`
- * - `afterDeleteCommit(IEvent myevent, IEntity myentity, ArrayObject options)`
+ * - `beforeRules(IEvent myevent, IORMEntity myentity, ArrayObject options, string myoperation)`
+ * - `afterRules(IEvent myevent, IORMEntity myentity, ArrayObject options, bool result, string myoperation)`
+ * - `beforeSave(IEvent myevent, IORMEntity myentity, ArrayObject options)`
+ * - `afterSave(IEvent myevent, IORMEntity myentity, ArrayObject options)`
+ * - `afterSaveCommit(IEvent myevent, IORMEntity myentity, ArrayObject options)`
+ * - `beforeremove(IEvent myevent, IORMEntity myentity, ArrayObject options)`
+ * - `afterremove(IEvent myevent, IORMEntity myentity, ArrayObject options)`
+ * - `afterDeleteCommit(IEvent myevent, IORMEntity myentity, ArrayObject options)`
  */
 class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     mixin TEventDispatcher;
@@ -184,7 +184,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         _behaviors = mybehaviors ?  : new BehaviorRegistry();
         _behaviors.setTable(this);
         _associations = myassociations ?  : new AssociationCollection();
-        /** @psalm-suppress TypeDoesNotContainType * /
+        /** @psalm-suppress TypeDoesNotContainType */
         this.queryFactory ??= new DQueryFactory();
 
         assert(_eventManager !isNull, "EventManager not available");
@@ -256,7 +256,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *
      * This method is used to get the fallback connection name if an
      * instance is created through the TableLocator without a connection.
-     * /
+     */
     static string defaultConnectionName() {
         return "default";
     }
@@ -277,7 +277,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * ```
      * Params:
      * Json[string] configData Configuration options passed to the constructor
-     * /
+     */
     bool initialize(Json[string] initData = null) {
         return super.initialize(initData);
     }
@@ -287,7 +287,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *
      * This can include the database schema name in the form "schema.table".
      * If the name must be quoted, enable automatic identifier quoting.
-     * /
+     */
     void setTable(string tableName) {
        _table = tableName;
     }
@@ -296,7 +296,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Returns the database table name.
      *
      * This can include the database schema name if set using `setTable()`.
-     * /
+     */
     string getTable() {
         if (_table.isNull) {
             mytable = namespaceSplit(class);
@@ -315,7 +315,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Sets the table alias.
      * Params:
      * string aliasName Table alias
-     * /
+     */
     void aliasName(string tableAlias) {
        _aliasName = tableAlias;
     }
@@ -341,7 +341,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * If field is already aliased it will result in no-op.
      * Params:
      * string myfield The field to alias.
-     * /
+     */
     string aliasField(string myfield) {
         if (myfield.has(".")) {
             return myfield;
@@ -353,7 +353,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Sets the table registry key used to create this table instance.
      * Params:
      * string myregistryAlias The key used to access this object.
-     * /
+     */
     void registryKey(string myregistryAlias) {
        _registryAlias = myregistryAlias;
     }
@@ -367,7 +367,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Sets the connection instance.
      * Params:
      * \UIM\Database\Connection myconnection The connection instance
-     * /
+     */
     auto setConnection(Connection myconnection) {
        _connection = myconnection;
 
@@ -376,7 +376,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     
     /**
      * Returns the connection instance.
-     * /
+     */
     Connection getConnection() {
         if (!_connection) {
             myconnection = ConnectionManager.get(defaultConnectionName());
@@ -396,7 +396,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                 this.checkAliasLengths();
             }
         }
-        /** @var \UIM\Database\Schema\TableISchema * /
+        /** @var \UIM\Database\Schema\TableISchema */
         return _schema;
     }
     
@@ -407,7 +407,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * out of it and used as the schema for this table.
      * Params:
      * \UIM\Database\Schema\TableISchema|array myschema Schema to be used for this table
-     * /
+     */
     auto setSchema(TableISchema|array myschema) {
         if (isArray(myschema)) {
             auto constraints = null;
@@ -432,7 +432,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     /**
      * Checks if all table name + column name combinations used for
      * queries fit into the max length allowed by database driver.
-     * /
+     */
     protected void checkAliasLengths() {
         if (_schema.isNull) {
             throw new DatabaseException(
@@ -469,7 +469,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * using the Schema\Table instance.
      * Params:
      * string myfield The field to check for.
-     * /
+     */
     bool hasField(string myfield) {
         return _getSchema().getColumn(myfield) !isNull;
     }
@@ -478,7 +478,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Sets the primary key field name.
      * Params:
      * string[]|string aKey Sets a new name to be used as primary key
-     * /
+     */
     auto setPrimaryKey(string[]|string aKey) {
        _primaryKey = aKey;
 
@@ -501,7 +501,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Sets the display field.
      * Params:
      * string[]|string myfield Name to be used as display field.
-     * /
+     */
     auto setDisplayField(string[]|string myfield) {
        _displayField = myfield;
 
@@ -510,7 +510,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     
     /**
      * Returns the display field.
-     * /
+     */
     string[] getDisplayField() {
         if (_displayField !isNull) {
             return _displayField;
@@ -537,7 +537,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     
     /**
      * Returns the class used to hydrate rows for this table.
-     * /
+     */
     string getEntityClass() {
         if (!_entityClass) {
             mydefault = Entity.classname;
@@ -552,7 +552,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             if (!class_exists(myname)) {
                 return _entityClass = mydefault;
             }
-            /** @var class-string<\UIM\Datasource\IEntity>|null myclass * /
+            /** @var class-string<\UIM\Datasource\IORMEntity>|null myclass */
             myclass = App.className(myname, "Model/Entity");
             if (!myclass) {
                 throw new DMissingEntityException([myname]);
@@ -567,9 +567,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string myname The name of the class to use
      * @throws \ORM\Exception\MissingEntityException when the entity class DCannot be found
-     * /
+     */
     auto setEntityClass(string myname) {
-        /** @var class-string<\UIM\Datasource\IEntity>|null myclass * /
+        /** @var class-string<\UIM\Datasource\IORMEntity>|null myclass */
         myclass = App.className(myname, "Model/Entity");
         if (myclass.isNull) {
             throw new DMissingEntityException([myname]);
@@ -601,7 +601,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] options The options for the behavior to use.
      * @return this
      * @throws \RuntimeException If a behavior is being reloaded.
-     * /
+     */
     auto addBehavior(string behaviorName, Json[string] optionData = null) {
        _behaviors.load(behaviorName, options);
 
@@ -621,7 +621,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * ```
      * Params:
      * Json[string] mybehaviors All the behaviors to load.
-     * /
+     */
     void addBehaviors(Json[string] mybehaviors) {
         foreach (mybehaviors as myname: options) {
             if (isInt(myname)) {
@@ -644,14 +644,14 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * ```
      * Params:
      * string myname The alias that the behavior was added with.
-     * /
+     */
     void removeBehavior(string myname) {
        _behaviors.unload(myname);
     }
     
     /**
      * Returns the behavior registry for this table.
-     * /
+     */
     BehaviorRegistry behaviors() {
         return _behaviors;
     }
@@ -660,7 +660,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Get a behavior from the registry.
      * Params:
      * string myname The behavior alias to get from the registry.
-     * /
+     */
     Behavior getBehavior(string myname) {
         if (!_behaviors.has(myname)) {
             throw new DInvalidArgumentException(
@@ -676,7 +676,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Check if a behavior with the given alias has been loaded.
      * Params:
      * string myname The behavior alias to check.
-     * /
+     */
     bool hasBehavior(string myname) {
         return _behaviors.has(myname);
     }
@@ -695,7 +695,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * If you are not sure, use hasAssociation() before calling this method.
      * Params:
      * string myname The alias used for the association.
-     * /
+     */
     DAssociation getAssociation(string myname) {
         myassociation = this.findAssociation(myname);
         if (!myassociation) {
@@ -720,7 +720,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * ```
      * Params:
      * string myname The alias used for the association.
-     * /
+     */
    bool hasAssociation(string myname) {
         return _findAssociation(myname) !isNull;
     }
@@ -735,7 +735,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * ```
      * Params:
      * string myname The alias used for the association.
-     * /
+     */
     protected IAssociation findAssociation(string myname) {
         if (!myname.has(".")) {
             return _associations.get(myname);
@@ -753,7 +753,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     
     /**
      * Get the associations collection for this table.
-     * /
+     */
     AssociationCollection associations() {
         return _associations;
     }
@@ -779,7 +779,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * keys are used the values will be treated as association aliases.
      * Params:
      * Json[string] myparams Set of associations to bind (indexed by association type)
-     * /
+     */
     void addAssociations(Json[string] myparams) {
         foreach (myparams as myassocType: mytables) {
             foreach (mytables as myassociated: options) {
@@ -820,11 +820,11 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * string myassociated the alias for the target table. This is used to
      * uniquely identify the association
      * @param Json[string] options list of options to configure the association definition
-     * /
+     */
     BelongsTo belongsTo(string myassociated, Json[string] optionData = null) {
         auto updatedOptions = options.update["sourceTable": this];
 
-        /** @var \ORM\Association\BelongsTo * /
+        /** @var \ORM\Association\BelongsTo */
         return _associations.load(BelongsTo.classname, myassociated, options);
     }
     
@@ -862,7 +862,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * string myassociated the alias for the target table. This is used to
      * uniquely identify the association
      * @param Json[string] options list of options to configure the association definition
-     * /
+     */
     HasOne hasOne(string myassociated, Json[string] optionData = null) {
         auto updatedOptions = options.update["sourceTable": this];
 
@@ -909,11 +909,11 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * string myassociated the alias for the target table. This is used to
      * uniquely identify the association
      * @param Json[string] options list of options to configure the association definition
-     * /
+     */
     HasMany hasMany(string myassociated, Json[string] optionData = null) {
         auto updatedOptions = options.update["sourceTable": this];
 
-        /** @var \ORM\Association\HasMany * /
+        /** @var \ORM\Association\HasMany */
         return _associations.load(HasMany.classname, myassociated, options);
     }
     
@@ -959,11 +959,11 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * string myassociated the alias for the target table. This is used to
      * uniquely identify the association
      * @param Json[string] options list of options to configure the association definition
-     * /
+     */
     BelongsToMany belongsToMany(string myassociated, Json[string] optionData = null) {
         auto updatedOptions = options.update["sourceTable": this];
 
-        /** @var \ORM\Association\BelongsToMany * /
+        /** @var \ORM\Association\BelongsToMany */
         return _associations.load(BelongsToMany.classname, myassociated, options);
     }
     
@@ -1047,7 +1047,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string mytype the type of query to perform
      * @param Json ...myargs Arguments that match up to finder-specific parameters
-     * /
+     */
     SelectQuery find(string mytype = "all", Json ...myargs) {
         return _callFinder(mytype, this.selectQuery(), ...myargs);
     }
@@ -1060,7 +1060,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * \ORM\Query\SelectQuery myquery The query to find with
      * @return \ORM\Query\SelectQuery The query builder
-     * /
+     */
     auto findAll(SelectQuery myquery): SelectQuery
     {
         return myquery;
@@ -1131,7 +1131,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * ```
      * Params:
      * \ORM\Query\SelectQuery myquery The query to find with
-     * /
+     */
     SelectQuery findList(
         SelectQuery myquery,
         Closure|string[]|string mykeyField = null,
@@ -1191,7 +1191,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param \Closure|string[]|string mykeyField The path to the key field.
      * @param \Closure|string[]|string myparentField The path to the parent field.
      * @param string mynestingKey The key to nest children under.
-     * /
+     */
     SelectQuery findThreaded(
         SelectQuery myquery,
         Closure|string[]|string mykeyField = null,
@@ -1217,7 +1217,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Json[string] options the original options passed to a finder
      * @param string[] someKeys the keys to check in options to build matchers from
      * the associated value
-     * /
+     */
     protected Json[string] _setFieldMatchers(Json[string] options, Json[string] someKeys) {
         someKeys.each!((field) {
             if (!options[field].isArray) {
@@ -1255,8 +1255,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param \Closure|string mycacheKey The cache key to use. If not provided
      *  one will be autogenerated if `mycache` is not null.
      * @param Json ...myargs Arguments that query options or finder specific parameters.
-     * /
-    IEntity get(
+     */
+    IORMEntity get(
         Json myprimaryKey,
         string[]|string myfinder = "all",
         ICache|string mycache = null,
@@ -1328,7 +1328,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * callable myworker The worker that will run inside the transaction.
      * @param bool myatomic Whether to execute the worker inside a database transaction.
-     * /
+     */
     protected Json _executeTransaction(callable myworker, bool myatomic = true) {
         if (myatomic) {
             return _getConnection().transactional(fn (): myworker());
@@ -1341,7 +1341,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * bool myatomic True if an atomic transaction was used.
      * @param bool myprimary True if a primary was used.
-     * /
+     */
     protected bool _transactionCommitted(bool myatomic, bool myprimary) {
         return !getConnection().inTransaction() && (myatomic || myprimary);
     }
@@ -1377,8 +1377,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *  created entities. This callback will be called *before* the entity
      *  is persisted.
      * @param Json[string] options The options to use when saving.
-     * /
-    IEntity findOrCreate(
+     */
+    IORMEntity findOrCreate(
         SelectQuery|callable|array mysearch,
         ?callable aCallback = null,
         Json[string] optionData = null
@@ -1408,11 +1408,11 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *  created entities. This callback will be called *before* the entity
      *  is persisted.
      * @param Json[string] options The options to use when saving.
-     * @return \UIM\Datasource\IEntity|array An entity.
+     * @return \UIM\Datasource\IORMEntity|array An entity.
      * @throws \ORM\Exception\PersistenceFailedException When the entity couldn"t be saved
      * @throws \InvalidArgumentException
-     * /
-    protected IEntity|array _processFindOrCreate(
+     */
+    protected IORMEntity|array _processFindOrCreate(
         SelectQuery|callable|array mysearch,
         ?callable aCallback = null,
         Json[string] optionData = null
@@ -1445,7 +1445,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Gets the query object for findOrCreate().
      * Params:
      * \ORM\Query\SelectQuery|callable|array mysearch The criteria to find existing records by.
-     * /
+     */
     protected ISelectQuery _getFindOrCreateQuery(SelectQuery|callable|array mysearch) {
         if (isCallable(mysearch)) {
             myquery = this.find();
@@ -1470,7 +1470,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     
     /**
      * Creates a new insert query
-     * /
+     */
     InsertQuery insertQuery() {
         return _queryFactory.insert(this);
     }
@@ -1479,7 +1479,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Creates a new update query
      *
      * @return \ORM\Query\UpdateQuery
-     * /
+     */
     auto updateQuery(): UpdateQuery
     {
         return _queryFactory.update(this);
@@ -1487,7 +1487,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     
     /**
      * Creates a new delete query
-     * /
+     */
     DeleteQuery deleteQuery() {
         return _queryFactory.remove(this);
     }
@@ -1496,7 +1496,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Creates a new Query instance with field auto aliasing disabled.
      *
      * This is useful for subqueries.
-     * /
+     */
     SelectQuery subquery() {
         return _queryFactory.select(this).disableAutoAliasing();
     }
@@ -1510,7 +1510,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * \UIM\Database\Expression\QueryExpression|\Closure|string[]|string myfields A hash of field: new value.
      * @param \UIM\Database\Expression\QueryExpression|\Closure|string[]|string myconditions Conditions to be used, accepts anything Query.where()
-     * /
+     */
     int updateAll(
         QueryExpression|Closure|string[]|string myfields,
         QueryExpression|Closure|string[]|string myconditions
@@ -1536,7 +1536,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * \UIM\Database\Expression\QueryExpression|\Closure|string[]|string myconditions Conditions to be used, accepts anything Query.where()
      * can take.
      * @return int Returns the number of affected rows.
-     * /
+     */
     int deleteAll(QueryExpression|Closure|string[]|string myconditions) {
         auto mystatement = this.deleteQuery()
             .where(myconditions)
@@ -1618,11 +1618,11 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * be saved and to pass additional option for saving them.
      *
      * ```
-     * // Only save the comments association
+     *// Only save the comments association
      * myarticles.save(myentity, ["associated": ["Comments"]]);
      *
-     * // Save the company, the employees and related addresses for each of them.
-     * // For employees do not check the entity rules
+     *// Save the company, the employees and related addresses for each of them.
+     *// For employees do not check the entity rules
      * mycompanies.save(myentity, [
      *  "associated": [
      *    "Employees": [
@@ -1632,15 +1632,15 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *  ]
      * ]);
      *
-     * // Save no associations
+     *// Save no associations
      * myarticles.save(myentity, ["associated": false.toJson]);
      * ```
      * Params:
-     * \UIM\Datasource\IEntity myentity the entity to be saved
+     * \UIM\Datasource\IORMEntity myentity the entity to be saved
      * @param Json[string] options The options to use when saving.
-     * /
-    IEntity|false save(
-        IEntity myentity,
+     */
+    IORMEntity|false save(
+        IORMEntity myentity,
         Json[string] optionData = null
     ) {
         options = new ArrayObject(options ~ [
@@ -1682,10 +1682,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Try to save an entity or throw a PersistenceFailedException if the application rules checks failed,
      * the entity contains errors or the save was aborted by a callback.
      * Params:
-     * \UIM\Datasource\IEntity myentity the entity to be saved
+     * \UIM\Datasource\IORMEntity myentity the entity to be saved
      * @param Json[string] options The options to use when saving.
-     * /
-    IEntity saveOrFail(IEntity myentity, Json[string] optionData = null) {
+     */
+    IORMEntity saveOrFail(IORMEntity myentity, Json[string] optionData = null) {
         mysaved = this.save(myentity, options);
         if (mysaved == false) {
             throw new DPersistenceFailedException(myentity, ["save"]);
@@ -1696,10 +1696,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     /**
      * Performs the actual saving of an entity based on the passed options.
      * Params:
-     * \UIM\Datasource\IEntity myentity the entity to be saved
+     * \UIM\Datasource\IORMEntity myentity the entity to be saved
      * @param \ArrayObject<string, mixed> options the options to use for the save operation
-     * /
-    protected IEntity|false _processSave(IEntity myentity, ArrayObject options) {
+     */
+    protected IORMEntity|false _processSave(IORMEntity myentity, ArrayObject options) {
         myprimaryColumns = (array)this.primaryKeys();
 
         if (options["checkExisting"] && myprimaryColumns && myentity.isNew() && myentity.has(myprimaryColumns)) {
@@ -1724,8 +1724,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             }
             if (result != false) {
                 assert(
-                    cast(IEntity)result,                    
-                    "The beforeSave callback must return `false` or `IEntity` instance. Got `%s` instead."
+                    cast(IORMEntity)result,                    
+                    "The beforeSave callback must return `false` or `IORMEntity` instance. Got `%s` instead."
                     .format(get_debug_type(result))
                 );
             }
@@ -1762,10 +1762,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Handles the saving of children associations and executing the afterSave logic
      * once the entity for this table has been saved successfully.
      * Params:
-     * \UIM\Datasource\IEntity myentity the entity to be saved
+     * \UIM\Datasource\IORMEntity myentity the entity to be saved
      * @param \ArrayObject<string, mixed> options the options to use for the save operation
-     * /
-    protected bool _onSaveSuccess(IEntity myentity, ArrayObject options) {
+     */
+    protected bool _onSaveSuccess(IORMEntity myentity, ArrayObject options) {
         mysuccess = _associations.saveChildren(
             this,
             myentity,
@@ -1792,10 +1792,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     /**
      * Auxiliary auto to handle the insert of an entity"s data in the table
      * Params:
-     * \UIM\Datasource\IEntity myentity the subject entity from were mydata was extracted
+     * \UIM\Datasource\IORMEntity myentity the subject entity from were mydata was extracted
      * @param Json[string] data The actual data that needs to be saved
-     * /
-    protected IEntity _insert(IEntity myentity, Json[string] data) {
+     */
+    protected IORMEntity _insert(IORMEntity myentity, Json[string] data) {
         auto primaryKey = (array)this.primaryKeys();
         if (isEmpty(primaryKey)) {
             mymsg = "Cannot insert row in `%s` table, it has no primary key."
@@ -1867,7 +1867,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string[] myprimary The primary key columns to get a new DID for.
      * @return string Either null or the primary key value or a list of primary key values.
-     * /
+     */
     protected string _newId(Json[string] myprimary) {
         if (!myprimary || count(myprimary) > 1) {
             return null;
@@ -1882,10 +1882,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     /**
      * Auxiliary auto to handle the update of an entity"s data in the table
      * Params:
-     * \UIM\Datasource\IEntity myentity the subject entity from were mydata was extracted
+     * \UIM\Datasource\IORMEntity myentity the subject entity from were mydata was extracted
      * @param Json[string] data The actual data that needs to be saved
-     * /
-    protected IEntity _update(IEntity myentity, Json[string] data) {
+     */
+    protected IORMEntity _update(IORMEntity myentity, Json[string] data) {
         myprimaryColumns = (array)this.primaryKeys();
         myprimaryKey = myentity.extract(myprimaryColumns);
 
@@ -1919,11 +1919,11 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * any one of the records fails to save due to failed validation or database
      * error.
      * Params:
-     * iterable<\UIM\Datasource\IEntity> myentities Entities to save.
+     * iterable<\UIM\Datasource\IORMEntity> myentities Entities to save.
      * @param Json[string] options Options used when calling Table.save() for each entity.
-     * @return iterable<\UIM\Datasource\IEntity>|false False on failure, entities list on success.
+     * @return iterable<\UIM\Datasource\IORMEntity>|false False on failure, entities list on success.
      * @throws \Exception
-     * /
+     */
     auto saveMany(
         range myentities,
         Json[string] optionData = null
@@ -1942,20 +1942,20 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * any one of the records fails to save due to failed validation or database
      * error.
      * Params:
-     * iterable<\UIM\Datasource\IEntity> myentities Entities to save.
+     * iterable<\UIM\Datasource\IORMEntity> myentities Entities to save.
      * @param Json[string] options Options used when calling Table.save() for each entity.
-     * /
-    iterable<\UIM\Datasource\IEntity> saveManyOrFail(Json[string] myentities, Json[string] optionData = null) {
+     */
+    iterable<\UIM\Datasource\IORMEntity> saveManyOrFail(Json[string] myentities, Json[string] optionData = null) {
         return _saveMany(myentities, options);
     }
     
     /**
-     * @param iterable<\UIM\Datasource\IEntity> myentities Entities to save.
+     * @param iterable<\UIM\Datasource\IORMEntity> myentities Entities to save.
      * @param Json[string] options Options used when calling Table.save() for each entity.
      * @throws \ORM\Exception\PersistenceFailedException If an entity couldn"t be saved.
      * @throws \Exception If an entity couldn"t be saved.
-     * @return iterable<\UIM\Datasource\IEntity> Entities list.
-     * /
+     * @return iterable<\UIM\Datasource\IORMEntity> Entities list.
+     */
     protected auto _saveMany(
         range myentities,
         Json[string] optionData = null
@@ -2004,16 +2004,16 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
 
             throw new DPersistenceFailedException(myfailed, ["saveMany"]);
         }
-        mycleanupOnSuccess = void (IEntity myentity) use (&mycleanupOnSuccess) {
+        mycleanupOnSuccess = void (IORMEntity myentity) use (&mycleanupOnSuccess) {
             myentity.clean();
             myentity.setNew(false);
 
             foreach (myentity.toArray().keys as myfield) {
                 myvalue = myentity.get(myfield);
 
-                if (cast(IEntity)myvalue) {
+                if (cast(IORMEntity)myvalue) {
                     mycleanupOnSuccess(myvalue);
-                } else if (isArray(myvalue) && cast(IEntity)current(myvalue)) {
+                } else if (isArray(myvalue) && cast(IORMEntity)current(myvalue)) {
                     myvalue.each!(associated => mycleanupOnSuccess(associated));
                 }
             }
@@ -2055,10 +2055,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * for the duration of the callbacks, this allows listeners to modify
      * the options used in the delete operation.
      * Params:
-     * \UIM\Datasource\IEntity myentity The entity to remove.
+     * \UIM\Datasource\IORMEntity myentity The entity to remove.
      * @param Json[string] options The options for the delete.
-         * /
-    bool remove(IEntity myentity, Json[string] optionData = null) {
+         */
+    bool remove(IORMEntity myentity, Json[string] optionData = null) {
         options = new ArrayObject(options ~ [
             "atomic": true.toJson,
             "checkRules": true.toJson,
@@ -2086,10 +2086,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * any one of the records fails to delete due to failed validation or database
      * error.
      * Params:
-     * iterable<\UIM\Datasource\IEntity> myentities Entities to delete.
+     * iterable<\UIM\Datasource\IORMEntity> myentities Entities to delete.
      * @param Json[string] options Options used when calling Table.save() for each entity.
-     * /
-    IEntity[] deleteMany(Json[string] myentities, Json[string] optionData = null) {
+     */
+    IORMEntity[] deleteMany(Json[string] myentities, Json[string] optionData = null) {
         myfailed = _deleteMany(myentities, options);
 
         if (myfailed !isNull) {
@@ -2105,10 +2105,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * any one of the records fails to delete due to failed validation or database
      * error.
      * Params:
-     * iterable<\UIM\Datasource\IEntity> myentities Entities to delete.
+     * iterable<\UIM\Datasource\IORMEntity> myentities Entities to delete.
      * @param Json[string] options Options used when calling Table.save() for each entity.
-     * /
-    iterable<\UIM\Datasource\IEntity> deleteManyOrFail(Json[string] myentities, Json[string] optionData = null) {
+     */
+    iterable<\UIM\Datasource\IORMEntity> deleteManyOrFail(Json[string] myentities, Json[string] optionData = null) {
         myfailed = _deleteMany(myentities, options);
 
         if (myfailed !isNull) {
@@ -2118,10 +2118,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     }
     
     /**
-     * @param iterable<\UIM\Datasource\IEntity> myentities Entities to delete.
+     * @param iterable<\UIM\Datasource\IORMEntity> myentities Entities to delete.
      * @param Json[string] options Options used.
-     * /
-    protected IEntity _deleteMany(Json[string] myentities, Json[string] optionData = null) {
+     */
+    protected IORMEntity _deleteMany(Json[string] myentities, Json[string] optionData = null) {
         options = new ArrayObject(options ~ [
                 "atomic": true.toJson,
                 "checkRules": true.toJson,
@@ -2151,10 +2151,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Try to delete an entity or throw a PersistenceFailedException if the entity is new,
      * has no primary key value, application rules checks failed or the delete was aborted by a callback.
      * Params:
-     * \UIM\Datasource\IEntity myentity The entity to remove.
+     * \UIM\Datasource\IORMEntity myentity The entity to remove.
      * @param Json[string] options The options for the delete.
-     * /
-    bool deleteOrFail(IEntity myentity, Json[string] optionData = null) {
+     */
+    bool deleteOrFail(IORMEntity myentity, Json[string] optionData = null) {
         mydeleted = this.remove(myentity, options);
         if (mydeleted == false) {
             throw new DPersistenceFailedException(myentity, ["delete"]);
@@ -2168,12 +2168,12 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Will delete the entity provided. Will remove rows from any
      * dependent associations, and clear out join tables for BelongsToMany associations.
      * Params:
-     * \UIM\Datasource\IEntity myentity The entity to delete.
+     * \UIM\Datasource\IORMEntity myentity The entity to delete.
      * @param \ArrayObject<string, mixed> options The options for the delete.
      * @throws \InvalidArgumentException if there are no primary key values of the
      * passed entity
-     * /
-    protected bool _processremove(IEntity myentity, ArrayObject options) {
+     */
+    protected bool _processremove(IORMEntity myentity, ArrayObject options) {
         if (myentity.isNew()) {
             return false;
         }
@@ -2219,7 +2219,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Returns true if the finder exists for the table
      * Params:
      * string mytype name of finder to check
-     * /
+     */
    bool hasFinder(string mytype) {
         myfinder = "find" ~ mytype;
 
@@ -2230,11 +2230,11 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Calls a finder method and applies it to the passed query.
      *
      * @internal
-     * @template TSubject of \UIM\Datasource\IEntity|array
+     * @template TSubject of \UIM\Datasource\IORMEntity|array
      * @param string mytype Name of the finder to be called.
      * @param \ORM\Query\SelectQuery<TSubject> myquery The query object to apply the finder options to.
      * @param Json ...myargs Arguments that match up to finder-specific parameters
-     * /
+     */
     SelectQuery<TSubject> callFinder(string mytype, SelectQuery myquery, Json ...myargs) {
         string myfinder = "find" ~ mytype;
         if (method_exists(this, myfinder)) {
@@ -2252,11 +2252,11 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     
     /**
      * @internal
-     * @template TSubject of \UIM\Datasource\IEntity|array
+     * @template TSubject of \UIM\Datasource\IORMEntity|array
      * @param \Closure mycallable Callable.
      * @param \ORM\Query\SelectQuery<TSubject> myquery The query object.
      * @param Json[string] myargs Arguments for the callable.
-     * /
+     */
     SelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, Json[string] myargs) {
         auto myreflected = new DReflectionFunction(mycallable);
         auto myparams = myreflected.getParameters();
@@ -2326,7 +2326,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string mymethod The method name that was fired.
      * @param Json[string] myargs List of arguments passed to the function.
-     * /
+     */
     protected ISelectQuery _dynamicFinder(string mymethod, Json[string] myargs) {
         mymethod = Inflector.underscore(mymethod);
         preg_match("/^find_([\w]+)_by_/", mymethod, mymatches);
@@ -2380,7 +2380,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * they were on the table object.
      * Params:
      * @param Json[string] myargs List of arguments passed to the function
-     * /
+     */
     Json __call(string methodToInvoke, Json[string] myargs) {
         if (_behaviors.hasMethod(methodToInvoke)) {
             return _behaviors.call(methodToInvoke, myargs);
@@ -2396,7 +2396,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     /**
      * Returns the association named after the passed value if exists, otherwise
      * throws an exception.
-     * /
+     */
     DAssociation __get(string associationName) {
         auto myassociation = _associations.get(associationName);
         if (!myassociation) {
@@ -2413,7 +2413,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * exists for this table.
      * Params:
      * string myproperty the association name
-     * /
+     */
    bool __isSet(string associationName) {
         return _associations.has(associationName);
     }
@@ -2423,12 +2423,12 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *
      * Override this method if you want a table object to use custom
      * marshalling logic.
-     * /
+     */
     DMarshaller marshaller() {
         return new DMarshaller(this);
     }
     
-    IEntity newEmptyEntity() {
+    IORMEntity newEmptyEntity() {
         myclass = getEntityClass();
 
         return new myclass([], ["source": this.registryKey()]);
@@ -2489,9 +2489,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * Json[string] data The data to build an entity with.
      * @param Json[string] options A list of options for the object hydration.
-     * @return \UIM\Datasource\IEntity
-     * /
-    auto newEntity(Json[string] data, Json[string] optionData = null): IEntity
+     * @return \UIM\Datasource\IORMEntity
+     */
+    auto newEntity(Json[string] data, Json[string] optionData = null): IORMEntity
     {
         options["associated"] ??= _associations.keys();
 
@@ -2527,8 +2527,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * Json[string] data The data to build an entity with.
      * @param Json[string] options A list of options for the objects hydration.
-     * /
-    IEntity[] newEntities(Json[string] data, Json[string] optionData = null) {
+     */
+    IORMEntity[] newEntities(Json[string] data, Json[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().many(mydata, options);
@@ -2577,12 +2577,12 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * property will not be marked as dirty. This is an optimization to prevent unnecessary field
      * updates when persisting entities.
      * Params:
-     * \UIM\Datasource\IEntity myentity the entity that will get the
+     * \UIM\Datasource\IORMEntity myentity the entity that will get the
      * data merged in
      * @param Json[string] data key value list of fields to be merged into the entity
      * @param Json[string] options A list of options for the object hydration.
-     * /
-    IEntity patchEntity(IEntity myentity, Json[string] data, Json[string] optionData = null) {
+     */
+    IORMEntity patchEntity(IORMEntity myentity, Json[string] data, Json[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().merge(myentity, mydata, options);
@@ -2612,12 +2612,12 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * You can use the `Model.beforeMarshal` event to modify request data
      * before it is converted into entities.
      * Params:
-     * iterable<\UIM\Datasource\IEntity> myentities the entities that will get the
+     * iterable<\UIM\Datasource\IORMEntity> myentities the entities that will get the
      * data merged in
      * @param Json[string] data list of arrays to be merged into the entities
      * @param Json[string] options A list of options for the objects hydration.
-     * /
-    IEntity[] patchEntities(Json[string] myentities, Json[string] data, Json[string] optionData = null) {
+     */
+    IORMEntity[] patchEntities(Json[string] myentities, Json[string] data, Json[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().mergeMany(myentities, mydata, options);
@@ -2656,7 +2656,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *  May also be the validation context, if there are no options.
      * @param array|null mycontext Either the validation context or null.
      * @return bool True if the value is unique, or false if a non-scalar, non-unique value was given.
-     * /
+     */
     bool validateUnique(Json aValue, Json[string] options, Json[string] mycontext = null) {
         if (mycontext.isNull) {
             mycontext = options;
@@ -2709,7 +2709,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * - Model.beforeRules: beforeRules
      * - Model.afterRules: afterRules
      *
-     * /
+     */
     IEvent[] implementedEvents() {
         myeventMap = [
             "Model.beforeMarshal": "beforeMarshal",
@@ -2739,7 +2739,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     /**
  Params:
      * \ORM\RulesChecker myrules The rules object to be modified.
-     * /
+     */
     RulesChecker buildRules(RulesChecker myrules) {
         return myrules;
     }
@@ -2769,10 +2769,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *
      * The properties for the associations to be loaded will be overwritten on each entity.
      * Params:
-     * \UIM\Datasource\IEntity|array<\UIM\Datasource\IEntity> myentities a single entity or list of entities
+     * \UIM\Datasource\IORMEntity|array<\UIM\Datasource\IORMEntity> myentities a single entity or list of entities
      * @param Json[string] mycontain A `contain()` compatible array.
-     * /
-    IEntity[] loadInto(IEntity|array myentities, Json[string] mycontain) {
+     */
+    IORMEntity[] loadInto(IORMEntity|array myentities, Json[string] mycontain) {
         return (new DLazyEagerLoader()).loadInto(myentities, mycontain, this);
     }
  
@@ -2782,7 +2782,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     
     /**
      * Returns an array that can be used to describe the internal state of this object.
-     * /
+     */
     Json[string] debugInfo() {
         myconn = getConnection();
 

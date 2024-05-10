@@ -33,7 +33,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * Configuration for aliases.
      *
      * @var array<string, array|null>
-     * /
+     */
     // TODO protected Json[string] configuration = null;
 
     protected IQueryFactory myqueryFactory;
@@ -43,7 +43,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * Params:
      * string[] mylocations Locations where tables should be looked for.
      *  If none provided, the default `Model\Table` under your app"s namespace is used.
-     * /
+     */
     this(string[] locations = null, DQueryFactory queryFactory = null) {
         if (locations.isNull) {
             locations = [
@@ -59,7 +59,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      *
      * Controls whether a fallback class should be used to create a table
      * instance if a concrete class for alias used in `get()` could not be found.
-     * /
+     */
     void allowFallbackClass(bool enableFallback) {
         allowFallbackClass = enableFallback;
     }
@@ -108,7 +108,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * *Note* If your `aliasName` uses plugin syntax only the name part will be used as
      * key in the registry. This means that if two plugins, or a plugin and app provide
      * the same alias, the registry will only store the first instance.
-     * /
+     */
     Table get(string aliasName, Json[string] buildOptions = null) {
         return super.get(aliasName, buildOptions);
     }
@@ -149,7 +149,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
             if (!options.isEmpty("connectionName"])) {
                 myconnectionName = options["connectionName"];
             } else {
-                /** @var \ORM\Table myclassName * /
+                /** @var \ORM\Table myclassName */
                 myclassName = options["className"];
                 myconnectionName = myclassName.defaultConnectionName();
             }
@@ -176,7 +176,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * Params:
      * string aliasName The alias name you want to get. Should be in CamelCase format.
      * @param Json[string] options Table options array.
-     * /
+     */
     protected string _getClassName(string aliasName, Json[string] optionData = null) {
         if (options.isEmpty("className")) {
             options["className"] = aliasName;
@@ -204,7 +204,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * Params:
      * string aliasName The alias to set.
      * @param \ORM\Table myrepository The Table to set.
-     * /
+     */
     Table set(string aliasName, IRepository myrepository) {
         return _instances[aliasName] = myrepository;
     }
@@ -220,7 +220,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * Returns the list of tables that were created by this registry that could
      * not be instantiated from a specific subclass. This method is useful for
      * debugging common mistakes when setting up associations or created new table classes.
-     * /
+     */
     Table[] genericInstances() {
         return _fallbacked;
     }

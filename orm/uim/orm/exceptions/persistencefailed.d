@@ -27,20 +27,20 @@ mixin(ExceptionCalls!("PersistenceFailed"));
 
 /*
     // The entity on which the persistence operation failed
-    protected IEntity _entity;
+    protected IORMEntity _entity;
 
     protected _messageTemplate = "Entity %s failure.";
 
     /**
      * Constructor.
      *
-     * @param DORMDatasource\IEntity anEntity The entity on which the persistence operation failed
+     * @param DORMDatasource\IORMEntity anEntity The entity on which the persistence operation failed
      * @param string[]|string myMessage Either the string of the error message, or an array of attributes
      *   that are made available in the view, and sprintf()"d into Exception._messageTemplate
      * @param int|null code The code of the error, is also the HTTP status code for the error.
      * @param \Throwable|null previous the previous exception.
-     * /
-    this(IEntity anEntity, myMessage, Nullable!int code = null, ?Throwable previous = null) {
+     */
+    this(IORMEntity anEntity, myMessage, Nullable!int code = null, ?Throwable previous = null) {
         _entity = entity;
         if ((myMessage.isArray) {
             myErrors = null;
@@ -56,6 +56,6 @@ mixin(ExceptionCalls!("PersistenceFailed"));
     }
 
     // Get the passed in entity
-    IEntity getEntity() {
+    IORMEntity getEntity() {
         return _entity;
     } */

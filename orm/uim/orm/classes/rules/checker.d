@@ -26,7 +26,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * string[] myfields The list of fields to check for uniqueness.
      * @param Json[string]|string mymessage The error message to show in case the rule does not pass. Can
      *  also be an array of options. When an array, the "message" key can be used to provide a message.
-     * /
+     */
     RuleInvoker isUnique(Json[string] myfields, string[] mymessage = null) {
         options = isArray(mymessage) ? mymessage : ["message": mymessage];
         mymessage = options["message"] ?? null;
@@ -67,7 +67,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * @param \ORM\Table|\ORM\Association|string mytable The table name where the fields existence will be checked.
      * @param Json[string]|string mymessage The error message to show in case the rule does not pass. Can
      *  also be an array of options. When an array, the "message" key can be used to provide a message.
-     * /
+     */
     RuleInvoker existsIn(
         string[] myfield,
         Table|Association|string mytable,
@@ -107,7 +107,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * @param string myfield The name of the association property. When supplied, this is the name used to set
      * possible errors. When absent, the name is inferred from `myassociation`.
      * @param string mymessage The error message to show in case the rule does not pass.
-     * /
+     */
     RuleInvoker isLinkedTo(
         Association|string myassociation,
         string myfield = null,
@@ -138,7 +138,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * @param string myfield The name of the association property. When supplied, this is the name used to set
      * possible errors. When absent, the name is inferred from `myassociation`.
      * @param string mymessage The error message to show in case the rule does not pass.
-     * /
+     */
     RuleInvoker isNotLinkedTo(
         Association|string myassociation,
         string myfield = null,
@@ -162,7 +162,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * @param string mymessage The error message to show in case the rule does not pass.
      * @param string mylinkStatus The ink status required for the check to pass.
      * @param string myruleName The alias/name of the rule.
-     * /
+     */
     protected DRuleInvoker _addLinkConstraintRule(
         Association|string myassociation,
         string myerrorField,
@@ -211,7 +211,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * @param int mycount The expected count.
      * @param string myoperator The operator for the count comparison.
      * @param string mymessage The error message to show in case the rule does not pass.
-     * /
+     */
     RuleInvoker validCount(
         string myfield,
         int mycount = 0,

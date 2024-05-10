@@ -3,7 +3,7 @@
 *	License: Subject to the terms of the MIT license, as written in the included LICENSE.txt file.
 *	Authors: UI Manufaktur Team
 ************************************************************************************************/
-module models.uim.models.classes.attributes.arrays.strings.string_;
+module uim.models.classes.attributes.arrays.strings.string_;
 
 import uim.models;
 

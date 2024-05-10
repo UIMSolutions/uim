@@ -32,8 +32,6 @@ class DStatusCodeAttribute : DIntegerStringAttribute {
 
 mixin(AttributeCalls!("StatusCode"));
 
-version (test_uim_models) {
   unittest {
     // TODO tests
   }
-}

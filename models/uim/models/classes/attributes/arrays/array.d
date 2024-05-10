@@ -27,9 +27,7 @@ class DArrayAttribute : DAttribute {
 
 mixin(AttributeCalls!"Array");
 
-version (test_uim_models) {
-  unittest {
-    testAttribute(new DArrayAttribute);
-    testAttribute(ArrayAttribute);
-  }
+unittest {
+  assert(testAttribute(new DArrayAttribute));
+  assert(testAttribute(ArrayAttribute));
 }

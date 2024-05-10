@@ -31,9 +31,7 @@ class DStringArrayAttribute : DAttribute {
 
 mixin(AttributeCalls!"StringArrayAttribute");
 
-version (test_uim_models) {
-  unittest {
-    testAttribute(new DStringArrayAttribute);
-    testAttribute(StringArrayAttribute);
-  }
+unittest {
+  assert(testAttribute(new DImageAttribute));
+  assert(testAttribute(ImageAttribute));
 }

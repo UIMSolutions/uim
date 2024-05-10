@@ -35,9 +35,7 @@ means.content.binary.image */
 
 mixin(AttributeCalls!("Image"));
 
-version (test_uim_models) {
-  unittest {
-    testAttribute(new DImageAttribute);
-    testAttribute(ImageAttribute);
-  }
+unittest {
+  assert(testAttribute(new DImageAttribute));
+  assert(testAttribute(ImageAttribute));
 }

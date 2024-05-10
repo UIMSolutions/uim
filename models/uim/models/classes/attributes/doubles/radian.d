@@ -3,7 +3,7 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module models.uim.models.classes.attributes.doubles.radian;
+module uim.models.classes.attributes.doubles.radian;
 
 /* Unit of measure for angle in radians
 

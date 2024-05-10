@@ -3,7 +3,7 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module models.uim.models.classes.attributes.lookups.preferredcontactmethod;
+module uim.models.classes.attributes.lookups.preferredcontactmethod;
 
 import uim.models;
 
@@ -28,7 +28,6 @@ class DPreferredContactMethodAttribute : DAttribute {
 }
 mixin(AttributeCalls!("PreferredContactMethod"));
 
-version(test_uim_models) { unittest {  
+unittest {  
     // TODO tests
   }
-}

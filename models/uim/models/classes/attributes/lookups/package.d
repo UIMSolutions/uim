@@ -13,6 +13,6 @@ public {
 
 public { 
 	import uim.models.classes.attributes.lookups.lookup;
-	import uim.models.classes.attributes.lookups.customertype;
+	// TODO import uim.models.classes.attributes.lookups.customertype;
 	import uim.models.classes.attributes.lookups.preferredcontactmethod;
 }

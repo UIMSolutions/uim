@@ -33,9 +33,7 @@ class DBinaryAttribute : DAttribute {
 
 mixin(AttributeCalls!("Binary"));
 
-version (test_uim_models) {
-  unittest {
-    testAttribute(new DBinaryAttribute);
-    testAttribute(BinaryAttribute);
-  }
+unittest {
+  assert(testAttribute(new DBinaryAttribute));
+  assert(testAttribute(BinaryAttribute));
 }

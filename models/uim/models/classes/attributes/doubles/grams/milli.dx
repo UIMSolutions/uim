@@ -21,7 +21,7 @@ import uim.models;
 
 @safe:
 class DKilogramAttribute : DGramAttribute {
-  mixin(AttributeThis!("KilogramAttribute"));
+  mixin(AttributeThis!("Kilogram"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -36,7 +36,7 @@ class DKilogramAttribute : DGramAttribute {
   }
 }
 
-mixin(AttributeCalls!("KilogramAttribute"));
+mixin(AttributeCalls!("Kilogram"));
 
 version (test_uim_models) {
   unittest {

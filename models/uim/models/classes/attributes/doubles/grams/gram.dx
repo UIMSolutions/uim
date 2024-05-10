@@ -20,7 +20,7 @@ import uim.models;
 
 @safe:
 class DGramAttribute : DDoubleAttribute {
-  mixin(AttributeThis!("GramAttribute"));
+  mixin(AttributeThis!("Gram"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -35,7 +35,7 @@ class DGramAttribute : DDoubleAttribute {
   }
 }
 
-mixin(AttributeCalls!("GramAttribute"));
+mixin(AttributeCalls!("Gram"));
 
 version (test_uim_models) {
   unittest {

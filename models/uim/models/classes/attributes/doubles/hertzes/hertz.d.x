@@ -23,7 +23,7 @@ import uim.models;
 
 @safe:
 class DHertzAttribute : DDoubleAttribute {
-  mixin(AttributeThis!("HertzAttribute"));
+  mixin(AttributeThis!("Hertz"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -44,7 +44,7 @@ has.measurement.fundamentalComponent.second */
   }
 }
 
-mixin(AttributeCalls!("HertzAttribute"));
+mixin(AttributeCalls!("Hertz"));
 
 version (test_uim_models) {
   unittest {

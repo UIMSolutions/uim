@@ -24,7 +24,7 @@ import uim.models;
 
 @safe:
 class DMicroFaradAttribute : DFaradAttribute {
-  mixin(AttributeThis!("MicroFaradAttribute"));
+  mixin(AttributeThis!("MicroFarad"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -39,7 +39,7 @@ class DMicroFaradAttribute : DFaradAttribute {
   }
 }
 
-mixin(AttributeCalls!("MicroFaradAttribute"));
+mixin(AttributeCalls!("MicroFarad"));
 
 version (test_uim_models) {
   unittest {

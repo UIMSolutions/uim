@@ -24,7 +24,7 @@ import uim.models;
 
 @safe:
 class DPicoFaradAttribute : DFaradAttribute {
-  mixin(AttributeThis!("PicoFaradAttribute"));
+  mixin(AttributeThis!("PicoFarad"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -39,7 +39,7 @@ class DPicoFaradAttribute : DFaradAttribute {
   }
 }
 
-mixin(AttributeCalls!("PicoFaradAttribute"));
+mixin(AttributeCalls!("PicoFarad"));
 
 version (test_uim_models) {
   unittest {

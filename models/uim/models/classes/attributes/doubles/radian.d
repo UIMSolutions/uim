@@ -3,32 +3,42 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.models.classes.attributes.lookups.preferredcontactmethod;
+module models.uim.models.classes.attributes.doubles.radian;
+
+/* Unit of measure for angle in radians
+
+Inheritance
+any <- float <- double <- radian
+Traits
+is.dataFormat.floatingPoint
+is.dataFormat.big
+means.measurement.dimension.angle
+means.measurement.units.si.radian
+has.measurement.fundamentalComponent */
 
 import uim.models;
 
 @safe:
-class DPreferredContactMethodAttribute : DAttribute {
-  mixin(AttributeThis!("PreferredContactMethod"));
+class DRadianAttribute : DDoubleAttribute {
+  mixin(AttributeThis!("Radian"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) { return false; }
-    // means.measurement.preferredcontactmethod
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
-    name("preferredcontactmethod");
-    dataFormats(["preferredcontactmethod"]);
-    registerPath("preferredcontactmethod");
+    name("radian");
+    registerPath("radian");
 
     return true;
   }
-
-/*   override Json createData() {
-    return PreferredContactMethoDData(this); } */
 }
-mixin(AttributeCalls!("PreferredContactMethod"));
 
-version(test_uim_models) { unittest {  
-    // TODO tests
+mixin(AttributeCalls!("Radian"));
+
+version (test_uim_models) {
+  unittest {
+    // TODO
   }
 }

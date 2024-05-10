@@ -12,5 +12,5 @@ public { // Main module
 public { // Sub modules
 	import uim.models.classes.attributes.doubles.pascals.giga;
 	import uim.models.classes.attributes.doubles.pascals.kilo;
-	import uim.models.classes.attributes.doubles.pascals.mega; */
+	import uim.models.classes.attributes.doubles.pascals.mega;
 }

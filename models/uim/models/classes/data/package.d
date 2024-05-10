@@ -24,5 +24,5 @@ public {
 // Modules
 public { 
 	import uim.models.classes.data.entity;
-	import uim.models.classes.data.json; */
+	import uim.models.classes.data.json; 
 }

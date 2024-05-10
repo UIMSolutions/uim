@@ -3,7 +3,7 @@ module uim.models.classes;
 public { // Modules
   import uim.models.classes.model;
   import uim.models.classes.container;
-  import uim.models.classes.registry; */
+  import uim.models.classes.registry; 
 }
 
 public { // Packages

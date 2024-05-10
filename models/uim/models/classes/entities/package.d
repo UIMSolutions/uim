@@ -7,8 +7,8 @@ module uim.models.classes.entities;
 
 public { 
 	import uim.models.classes.entities.entity;
-	// import uim.models.classes.entities.entities;
-	// import uim.models.classes.entities.entity_lang;
-	// import uim.models.classes.entities.registry; 
+	import uim.models.classes.entities.entities;
+	import uim.models.classes.entities.entity_lang;
+	import uim.models.classes.entities.registry; 
 }
 

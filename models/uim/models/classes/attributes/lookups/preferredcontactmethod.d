@@ -3,31 +3,32 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.models.classes.attributes.doubles.percentage;
+module models.uim.models.classes.attributes.lookups.preferredcontactmethod;
 
 import uim.models;
 
 @safe:
-class DPercentageAttribute : DDoubleAttribute {
-  mixin(AttributeThis!("Percentage"));
+class DPreferredContactMethodAttribute : DAttribute {
+  mixin(AttributeThis!("PreferredContactMethod"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
+    if (!super.initialize(initData)) { return false; }
+    // means.measurement.preferredcontactmethod
 
-    name("percentage");
-    registerPath("percentage");
+    name("preferredcontactmethod");
+    dataFormats(["preferredcontactmethod"]);
+    registerPath("preferredcontactmethod");
 
     return true;
   }
+
+/*   override Json createData() {
+    return PreferredContactMethoDData(this); } */
 }
+mixin(AttributeCalls!("PreferredContactMethod"));
 
-mixin(AttributeCalls!("Percentage"));
-
-version (test_uim_models) {
-  unittest {
+version(test_uim_models) { unittest {  
     // TODO tests
   }
 }

@@ -10,8 +10,8 @@ public { // Main module
 }
 
 public { // Additional modules
-	// import uim.models.classes.elements.configuration;
-	// import uim.models.classes.elements.registry;
-	// import uim.models.classes.elements.version_; */
-}
+	import uim.models.classes.elements.configuration;
+	import uim.models.classes.elements.registry;
+	import uim.models.classes.elements.version_; 
+} 
 

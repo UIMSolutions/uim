@@ -151,7 +151,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
             ? _loaders[catalogName](catalogName, localname)
             : _loaders[FALLBACK_LOADER](catalogName, localname);
 
-        catalog = this.setFallbackPackage(catalogName, catalog);
+        catalog = setFallbackPackage(catalogName, catalog);
         this.catalogs.set(catalogName, localname, catalog);
 
         return _createInstance(catalogName, localname);

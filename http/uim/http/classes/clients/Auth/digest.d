@@ -90,7 +90,7 @@ class DDigest {
         if (!isSet(credentials["realm"])) {
             return request;
         }
-        this.setAlgorithm(credentials);
+        setAlgorithm(credentials);
         aValue = _generateHeader(request, credentials);
 
         return request.withHeader("Authorization", aValue);

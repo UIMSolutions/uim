@@ -124,7 +124,7 @@ class DSocket {
         restore_error_handler();
 
         if (this.connection.isNull && (!errNum || !errStr)) {
-            this.setLastError(errNum, errStr);
+            setLastError(errNum, errStr);
             throw new DSocketException(errStr, errNum);
         }
         if (this.connection.isNull && _connectionErrors) {
@@ -337,7 +337,7 @@ class DSocket {
         buffer = fread(this.connection, length);
         anInfo = stream_get_meta_data(this.connection);
         if (anInfo["timed_out"]) {
-            this.setLastError(E_WARNING, "Connection timed out");
+            setLastError(E_WARNING, "Connection timed out");
 
             return null;
         }
@@ -438,7 +438,7 @@ class DSocket {
                 }
                 enableCryptoResult = stream_socket_enable_crypto(this.connection, enable, method);
             } catch (Exception anException) {
-                this.setLastError(null, anException.getMessage());
+                setLastError(null, anException.getMessage());
                 throw new DSocketException(anException.getMessage(), null, anException);
             }
             if (enableCryptoResult == true) {
@@ -447,7 +447,7 @@ class DSocket {
                 return;
             }
             errorMessage = "Unable to perform enableCrypto operation on the current socket";
-            this.setLastError(null, errorMessage);
+            setLastError(null, errorMessage);
             throw new DSocketException(errorMessage);
         }
     

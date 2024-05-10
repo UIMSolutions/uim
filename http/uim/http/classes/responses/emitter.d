@@ -160,7 +160,7 @@ class DResponseEmitter {
      */
     protected void emitCookies(Json[string] cookies) {
         foreach (cookie; cookies) {
-            this.setCookie(cookie);
+            setCookie(cookie);
         }
     }
     

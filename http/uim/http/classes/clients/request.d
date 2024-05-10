@@ -30,7 +30,7 @@ class DRequest { // }: Message, IRequest {
         Json[string]  aHeaders = [],
         string[] someData = null
     ) {
-        this.setMethod(method);
+        setMethod(method);
         this.uri = this.createUri(url);
          aHeaders += [
             "Connection": "close",
@@ -41,7 +41,7 @@ class DRequest { // }: Message, IRequest {
         if (someData.isNull) {
             this.stream = new DStream("D://memory", "rw");
         } else {
-            this.setContent(someData);
+            setContent(someData);
         }
     }
     

@@ -102,7 +102,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * object to be used for transforming and executing this query
      * /
     this(IConnection aConnection) {
-        this.setConnection(aConnection);
+        setConnection(aConnection);
     }
     
     // Sets the connection instance to be used for executing and transforming this query.

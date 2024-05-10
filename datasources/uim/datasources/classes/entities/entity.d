@@ -68,11 +68,11 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
         ];
 
         if (!(options["source"].isEmpty) {
-            this.setSource(options["source"]);
+            setSource(options["source"]);
         }
 
         if (options["markNew"] != null) {
-            this.setNew(options["markNew"]);
+            setNew(options["markNew"]);
         }
 
         if (!(properties.isEmpty && options["markClean"] && !options["useSetters"]) {

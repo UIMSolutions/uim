@@ -546,7 +546,7 @@ class DMessage { //: JsonSerializable {
         }
 
         auto current = this.{varName};
-        this.setEmail(varName, email, name);
+        setEmail(varName, email, name);
         if (count(this.{varName}) != 1) {
             this.{varName} = current;
             throw new DInvalidArgumentException(exceptionMessage);
@@ -841,19 +841,19 @@ class DMessage { //: JsonSerializable {
      * Attach a single file:
      *
      * ```
-     * this.setAttachments("path/to/file");
+     * setAttachments("path/to/file");
      * ```
      *
      * Attach a file with a different filename:
      *
      * ```
-     * this.setAttachments(["custom_name.txt": "path/to/file.txt"]);
+     * setAttachments(["custom_name.txt": "path/to/file.txt"]);
      * ```
      *
      * Attach a file and specify additional properties:
      *
      * ```
-     * this.setAttachments(["custom_name.png": [
+     * setAttachments(["custom_name.png": [
      *     "file": "path/to/file",
      *     "mimetype": "image/png",
      *     "contentId": "abc123",
@@ -865,7 +865,7 @@ class DMessage { //: JsonSerializable {
      * Attach a file from string and specify additional properties:
      *
      * ```
-     * this.setAttachments(["custom_name.png": [
+     * setAttachments(["custom_name.png": [
      *     "data": file_get_contents("path/to/file"),
      *     "mimetype": "image/png"
      *   ]
@@ -942,7 +942,7 @@ class DMessage { //: JsonSerializable {
      * /
     void addAttachments(Json[string] attachments) {
         current = this.attachments;
-        this.setAttachments(attachments);
+        setAttachments(attachments);
         this.attachments = array_merge(current, this.attachments);
     }
     
@@ -1153,7 +1153,7 @@ class DMessage { //: JsonSerializable {
             }
         });
         if (configuration.hasKey("headers")) {
-            this.setHeaders(configData("headers"));
+            setHeaders(configData("headers"));
         }
         return this;
     }
@@ -1192,7 +1192,7 @@ class DMessage { //: JsonSerializable {
      * string acontent Content string
      * /
     auto setBodyText(string acontent) {
-        this.setBody([MESSAGE_TEXT: content]);
+        setBody([MESSAGE_TEXT: content]);
 
         return this;
     }
@@ -1203,7 +1203,7 @@ class DMessage { //: JsonSerializable {
      * string acontent Content string
      * /
     auto setBodyHtml(string acontent) {
-        this.setBody([MESSAGE_HTML: content]);
+        setBody([MESSAGE_HTML: content]);
 
         return this;
     }

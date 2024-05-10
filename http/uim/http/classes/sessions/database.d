@@ -26,7 +26,7 @@ class DatabaseSession { // }: SessionHandler {
      * /
     this(Json[string] configData = null) {
         if (configData.hasKey("tableLocator")) {
-            this.setTableLocator(configData("tableLocator"]);
+            setTableLocator(configData("tableLocator"]);
         }
         aTableLocator = getTableLocator();
 

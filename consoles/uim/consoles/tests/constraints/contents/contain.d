@@ -15,12 +15,12 @@ class DContentsContain : DContentsBase {
      * Json other Expected
      * /
    bool matches(Json other) {
-        return mb_indexOf(this.contents, other) != false;
+        return mb_indexOf(_contents, other) != false;
     }
     
     // Assertion message
     string toString() {
         return "is in %s," ~ D_EOL ~ "actual result:" ~ D_EOL ~ "`%s`"
-        .format(this.output, this.contents);
+        .format(_output, _contents);
     } 
 } */ 

@@ -64,7 +64,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
 
     // Get the root command name.
     string rootName() {
-        string root = this.name.split(" ").join(); // TODO
+        string root = _name.split(" ").join(); // TODO
 
         return root;
     }
@@ -95,7 +95,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * You can override buildOptionParser() to define your options & arguments.
      * /
     DConsoleOptionParser buildOptionParser getOptionParser() {
-        [root, name] = split(" ", this.name, 2);
+        [root, name] = split(" ", _name, 2);
         aParser = new DConsoleOptionParser buildOptionParser(name);
         aParser.setRootName(root);
         aParser.description(getDescription());

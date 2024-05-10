@@ -87,7 +87,7 @@ class DDateTimeWidget : DWidget {
                 mydata["type"]
             ));
         }
-        mydata = this.setStep(mydata, formContext, mydata["fieldName"] ?? "");
+        mydata = setStep(mydata, formContext, mydata["fieldName"] ?? "");
 
         mydata["value"] = this.formatDateTime(mydata["val"] == true ? new DateTimeImmutable(): mydata["val"], mydata);
         mydata.remove("val");

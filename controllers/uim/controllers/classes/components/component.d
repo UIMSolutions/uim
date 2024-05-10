@@ -87,7 +87,7 @@ class DComponent { // TODO }: IEventListener {
         configuration.update(initData);
 
         if (this.components) {
-            this.components = registry.normalizeArray(this.components);
+            _components = registry.normalizeArray(_components);
         }
         this.initialize(initData);
     }
@@ -155,7 +155,7 @@ class DComponent { // TODO }: IEventListener {
         return [
             "components": this.components, 
             "implementedEvents": this.implementedEvents(),
-            "_config": this.configuration.data,
+            "_config": _configuration.data,
         ];
     } */
 }

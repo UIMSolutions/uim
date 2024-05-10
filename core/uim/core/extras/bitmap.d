@@ -36,9 +36,9 @@ final class DImage(T) {
 
     @property DImage dup() const pure nothrow @safe {
         auto result = new DImage();
-        result.image = this.image.dup;
-        result.nx_ = this.nx;
-        result.ny_ = this.ny;
+        result.image = _image.dup;
+        result.nx_ = _nx;
+        result.ny_ = _ny;
         return result;
     }
 

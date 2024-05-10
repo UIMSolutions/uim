@@ -29,7 +29,7 @@ class DCommandCollection { // : IteratorAggregate, Countable {
 
     this(ICommand[string] newCommands) {
         newCommands.byKeyValue
-          .each!(nameCommand => this.add(nameCommand.key, nameCommand.value));
+          .each!(nameCommand => add(nameCommand.key, nameCommand.value));
     }
     // Add a command to the collection
     void addCommand(string commandName, ICommand newCommand) {

@@ -77,7 +77,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * Persists a set of key: value pairs in the cache, with an optional TTL.
      * /
     bool cacheItems(Json[string] items, long timeToLive = 0) {
-        this.ensureValidType(myvalues, self.CHECK_KEY);
+        ensureValidType(myvalues, self.CHECK_KEY);
 
         if (timeToLive != 0) {
             myrestore = configurationData.isSet("duration");

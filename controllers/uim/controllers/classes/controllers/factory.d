@@ -161,7 +161,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
                             "controller": this.controller.name,
                             "action": this.controller.getRequest().getParam("action"),
                             "prefix": this.controller.getRequest().getParam("prefix"),
-                            "plugin": this.controller.getRequest().getParam("plugin"),
+                            "plugin": _controller.getRequest().getParam("plugin"),
                         ]);
                     }
                     argument = typedArgument;
@@ -181,10 +181,10 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
             throw new DInvalidParameterException([
                 "template": "missing_parameter",
                 "parameter": parameter.name,
-                "controller": this.controller.name,
-                "action": this.controller.getRequest().getParam("action"),
-                "prefix": this.controller.getRequest().getParam("prefix"),
-                "plugin": this.controller.getRequest().getParam("plugin"),
+                "controller": _controller.name,
+                "action": _controller.getRequest().getParam("action"),
+                "prefix": _controller.getRequest().getParam("prefix"),
+                "plugin": _controller.getRequest().getParam("plugin"),
             ]);
         }
         return array_merge(resolved, passedParams);

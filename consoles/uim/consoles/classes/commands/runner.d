@@ -107,7 +107,7 @@ class DCommandRunner { // }: IEventDispatcher {
         }
         myCommands = this.app.console(myCommands);
 
-        if (cast(IPluginApplication)this.app) {
+        if (cast(IPluginApplication)_app) {
             myCommands = this.app.pluginConsole(myCommands);
         }
         this.dispatchEvent("Console.buildCommands", ["commands": myCommands]);
@@ -146,14 +146,14 @@ class DCommandRunner { // }: IEventDispatcher {
      * /
     protected void bootstrap() {
         this.app.bootstrap();
-        if (cast(IPluginApplication)this.app) {
+        if (cast(IPluginApplication)_app) {
             this.app.pluginBootstrap();
         }
     }
     
     // Get the application`s event manager or the global one.
     IEventManager getEventManager() {
-        if (cast(IPluginApplication)this.app) {
+        if (cast(IPluginApplication)_app) {
             return _app.getEventManager();
         }
         return EventManager.instance();
@@ -162,7 +162,7 @@ class DCommandRunner { // }: IEventDispatcher {
     // Set the application`s event manager.
     void setEventManager(IEventManager newEventManager) {
         assert(
-            cast(IEventDispatcher)this.app,
+            cast(IEventDispatcher)_app,
             "Cannot set the event manager, the application does not support events."
         );
 

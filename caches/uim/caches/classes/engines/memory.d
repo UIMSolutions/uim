@@ -124,7 +124,7 @@ class DMemoryCacheEngine : DCacheEngine {
     return true;
   }
   auto myservers = configuration.get("servers"]
-    .map!(server => this.parseServerString(server))
+    .map!(server => parseServerString(server))
     .array;
 }
 if (!_Memory.addServers(myservers)) {

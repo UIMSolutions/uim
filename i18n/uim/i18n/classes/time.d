@@ -171,7 +171,7 @@ class DTime { // : ChronosTime, JsonSerializable {
         format = isInt(format) ? [IntlDateFormatter.NONE, format] : format;
         locale = locale ?: DateTime.getDefaultLocale();
 
-        return _formatObject(this.toNative(), format, locale);
+        return _formatObject(toNative(), format, locale);
     }
     
     /**

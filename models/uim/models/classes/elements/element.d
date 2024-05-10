@@ -340,7 +340,7 @@ class DElement : IElement {
 
   DElement copyTo(DElement targetOfCopy) {
     if (targetOfCopy) {
-      targetOfCopy.fromJson(this.toJson);
+      targetOfCopy.fromJson(toJson);
     }
     return targetOfCopy;
   }

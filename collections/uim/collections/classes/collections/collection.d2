@@ -30,7 +30,7 @@ class DCollection : IteratorIterator : ICollection, Serializable {
      * to reconstruct it
      */
     string serialize() {
-        return serialize(this.buffered());
+        return serialize(buffered());
     }
 
     // Returns an array for serializing this of this object.
@@ -49,7 +49,7 @@ class DCollection : IteratorIterator : ICollection, Serializable {
     }
 
     size_t count() {
-        auto traversable = this.optimizeUnwrap();
+        auto traversable = optimizeUnwrap();
 
         return traversable.isArray
             ? count(traversable)
@@ -57,7 +57,7 @@ class DCollection : IteratorIterator : ICollection, Serializable {
     }
 
     size_t countKeys() {
-        return count(this.toArray());
+        return count(toArray());
     }
 
     // Returns an array that can be used to describe the internal state of this object.

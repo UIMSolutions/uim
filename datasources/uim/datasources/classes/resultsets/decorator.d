@@ -26,7 +26,7 @@ class DResultsetDecorator { // TODO }: DCollection { // }: IResultset
             return iterator.count();
         }
 
-        return count(this.toArray());
+        return count(toArray());
     } 
     
     Json[string] debugInfo() {

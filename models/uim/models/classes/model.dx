@@ -87,7 +87,7 @@ class DModel : IModel {
 
   DModel copy() {
     auto result = create;
-    // result.fromJson(this.toJson);
+    // result.fromJson(toJson);
     return result;
   }
 }

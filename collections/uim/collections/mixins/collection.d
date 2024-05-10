@@ -196,7 +196,7 @@ mixin template TCollection() {
  
     float|int sumOf(string mypath = null) {
         if (mypath.isNull) {
-            return array_sum(this.toList());
+            return array_sum(toList());
         }
         mycallback = _propertyExtractor(mypath);
         
@@ -207,14 +207,14 @@ mixin template TCollection() {
     }
  
     ICollection shuffle() {
-        myitems = this.toList();
+        myitems = toList();
         shuffle(myitems);
 
         return _newCollection(myitems);
     }
  
     ICollection sample(int mylength = 10) {
-        return _newCollection(new DLimitIterator(this.shuffle(), 0, mylength));
+        return _newCollection(new DLimitIterator(shuffle(), 0, mylength));
     }
  
     ICollection take(int mylength = 1, int anOffset = 0) {
@@ -242,7 +242,7 @@ mixin template TCollection() {
     }
  
     Json last() {
-        auto myiterator = this.optimizeUnwrap();
+        auto myiterator = optimizeUnwrap();
         if (isArray(myiterator)) {
             return array_pop(myiterator);
         }
@@ -260,7 +260,7 @@ mixin template TCollection() {
         if (mylength < 1) {
             throw new DInvalidArgumentException("The takeLast method requires a number greater than 0.");
         }
-        myiterator = this.optimizeUnwrap();
+        myiterator = optimizeUnwrap();
         if (isArray(myiterator)) {
             return _newCollection(array_slice(myiterator, mylength * -1));
         }
@@ -345,7 +345,7 @@ mixin template TCollection() {
     ICollection append(Json[string] myitems) {
         mylist = new AppendIterator();
         mylist.append(unwrap());
-        mylist.append(this.newCollection(myitems).unwrap());
+        mylist.append(newCollection(myitems).unwrap());
 
         return _newCollection(mylist);
     }
@@ -496,7 +496,7 @@ mixin template TCollection() {
     }
  
     ICollection compile(bool mykeepKeys = true) {
-        return _newCollection(this.toArray(mykeepKeys));
+        return _newCollection(toArray(mykeepKeys));
     }
  
     ICollection lazy() {
@@ -561,7 +561,7 @@ mixin template TCollection() {
     ICollection through(callable aCallback) {
         result = mycallback(this);
 
-        return cast(ICollection)result ? result : this.newCollection(result);
+        return cast(ICollection)result ? result : newCollection(result);
     }
  
     ICollection zip(Json[string] ...myitems) {
@@ -645,7 +645,7 @@ mixin template TCollection() {
         auto mycollectionArraysKeys = null;
         auto mycollectionArraysCounts = null;
 
-        this.toList().each!((value) {
+        toList().each!((value) {
             auto valueCount = count(value);
             if (valueCount != count(value, COUNT_RECURSIVE)) {
                 throw new DLogicException("Cannot find the cartesian product of a multidimensional array");
@@ -687,7 +687,7 @@ mixin template TCollection() {
     }
     
     ICollection transpose() {
-        auto myarrayValue = this.toList();
+        auto myarrayValue = toList();
         auto mylength = count(current(myarrayValue));
         
         ICollection result;
@@ -712,7 +712,7 @@ mixin template TCollection() {
     }
  
     size_t countKeys() {
-        return count(this.toArray());
+        return count(toArray());
     }
     
     /**

@@ -389,7 +389,7 @@ class DResultset : IResultset {
      * Correctly nests results keys including those coming from associations
      *
      * @param Json[string] row Array containing columns and values or false if there is no results
-     * @return DORMDatasource\IEntity|array Results
+     * @return DORMDatasource\IORMEntity|array Results
      * /
     protected function _groupResult(Json[string] row) {
         defaultAlias = _defaultAlias;
@@ -411,7 +411,7 @@ class DResultset : IResultset {
                 /** @var DORMDORMTable aTable * /
                 table = matching["instance"];
                 options["source"] = table.registryKey();
-                /** @var DORMdatasources.IEntity anEntity * /
+                /** @var DORMdatasources.IORMEntity anEntity * /
                 entity = new matching["entityClass"](results["_matchingData"][alias], options);
                 results["_matchingData"][alias] = entity;
             }
@@ -489,7 +489,7 @@ class DResultset : IResultset {
         if (isset(results[defaultAlias])) {
             results = results[defaultAlias];
         }
-        if (_hydrate && !(results instanceof IEntity)) {
+        if (_hydrate && !(results instanceof IORMEntity)) {
             results = new _entityClass(results, options);
         }
 

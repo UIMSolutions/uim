@@ -50,7 +50,7 @@ import uim.orm;
  * ```
  * [
  *     "Users": [
- *         "posts_published": function (IEvent event, IEntity anEntity, DORMTable aTable) {
+ *         "posts_published": function (IEvent event, IORMEntity anEntity, DORMTable aTable) {
  *             query = table.find("all").where([
  *                 "published": true.toJson,
  *                 "user_id": entity.get("user_id")
@@ -97,10 +97,10 @@ class DCounterCacheBehavior : DBehavior {
      * Check if a field, which should be ignored, is dirty
      * Params:
      * \UIM\Event\IEvent<\ORM\Table> myevent The beforeSave event that was fired
-     * @param \UIM\Datasource\IEntity myentity The entity that is going to be saved
+     * @param \UIM\Datasource\IORMEntity myentity The entity that is going to be saved
      * @param \ArrayObject<string, mixed> options The options for the query
      * /
-    void beforeSave(IEvent myevent, IEntity myentity, ArrayObject options) {
+    void beforeSave(IEvent myevent, IORMEntity myentity, ArrayObject options) {
         if (isSet(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
         }
@@ -132,10 +132,10 @@ class DCounterCacheBehavior : DBehavior {
      * Makes sure to update counter cache when a new record is created or updated.
      * Params:
      * \UIM\Event\IEvent<\ORM\Table> myevent The afterSave event that was fired.
-     * @param \UIM\Datasource\IEntity myentity The entity that was saved.
+     * @param \UIM\Datasource\IORMEntity myentity The entity that was saved.
      * @param \ArrayObject<string, mixed> options The options for the query
      * /
-    void afterSave(IEvent myevent, IEntity myentity, ArrayObject options) {
+    void afterSave(IEvent myevent, IORMEntity myentity, ArrayObject options) {
         if (isSet(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
         }
@@ -149,10 +149,10 @@ class DCounterCacheBehavior : DBehavior {
      * Makes sure to update counter cache when a record is deleted.
      * Params:
      * \UIM\Event\IEvent<\ORM\Table> myevent The afterDelete event that was fired.
-     * @param \UIM\Datasource\IEntity myentity The entity that was deleted.
+     * @param \UIM\Datasource\IORMEntity myentity The entity that was deleted.
      * @param \ArrayObject<string, mixed> options The options for the query
      * /
-    void afterremove(IEvent myevent, IEntity myentity, ArrayObject options) {
+    void afterremove(IEvent myevent, IORMEntity myentity, ArrayObject options) {
         if (isSet(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
         }
@@ -163,9 +163,9 @@ class DCounterCacheBehavior : DBehavior {
      * Iterate all associations and update counter caches.
      * Params:
      * \UIM\Event\IEvent<\ORM\Table> myevent Event instance.
-     * @param \UIM\Datasource\IEntity myentity Entity.
+     * @param \UIM\Datasource\IORMEntity myentity Entity.
      * /
-    protected void _processAssociations(IEvent anEvent, IEntity anEntity) {
+    protected void _processAssociations(IEvent anEvent, IORMEntity anEntity) {
         configuration.byKeyValue
             .each!((assocSettings) {
                 auto newAssoc = _table.getAssociation(assocSettings.key);
@@ -177,13 +177,13 @@ class DCounterCacheBehavior : DBehavior {
      * Updates counter cache for a single association
      * Params:
      * \UIM\Event\IEvent<\ORM\Table> myevent Event instance.
-     * @param \UIM\Datasource\IEntity myentity Entity
+     * @param \UIM\Datasource\IORMEntity myentity Entity
      * @param \ORM\Association myassoc The association object
      * @param Json[string] mysettings The settings for counter cache for this association
      * /
     protected void _processAssociation(
         IEvent myevent,
-        IEntity myentity,
+        IORMEntity myentity,
         DAssociation myassoc,
         Json[string] mysettings
     ) {

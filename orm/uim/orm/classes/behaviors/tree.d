@@ -59,11 +59,11 @@ class DTreeBehavior : DBehavior {
      * included in the parameters to be saved.
      *
      * @param DORMevents.IEvent event The beforeSave event that was fired
-     * @param DORMDatasource\IEntity anEntity the entity that is going to be saved
+     * @param DORMDatasource\IORMEntity anEntity the entity that is going to be saved
      * @return void
      * @throws \RuntimeException if the parent to set for the node is invalid
      * /
-    function beforeSave(IEvent event, IEntity anEntity) {
+    function beforeSave(IEvent event, IORMEntity anEntity) {
         isNew = entity.isNew();
         myConfiguration = configuration;
         parent = entity.get(configuration.get("parent"]);
@@ -127,9 +127,9 @@ class DTreeBehavior : DBehavior {
      * Manages updating level of descendants of currently saved entity.
      *
      * @param DORMevents.IEvent event The afterSave event that was fired
-     * @param DORMDatasource\IEntity anEntity the entity that is going to be saved
+     * @param DORMDatasource\IORMEntity anEntity the entity that is going to be saved
      * /
-    void afterSave(IEvent event, IEntity anEntity) {
+    void afterSave(IEvent event, IORMEntity anEntity) {
         if (!configuration.get("level"] || entity.isNew()) {
             return;
         }
@@ -140,9 +140,9 @@ class DTreeBehavior : DBehavior {
     /**
      * Set level for descendants.
      *
-     * @param DORMDatasource\IEntity anEntity The entity whose descendants need to be updated.
+     * @param DORMDatasource\IORMEntity anEntity The entity whose descendants need to be updated.
      * /
-    protected void _setChildrenLevel(IEntity anEntity) {
+    protected void _setChildrenLevel(IORMEntity anEntity) {
         myConfiguration = configuration;
 
         if (entity.get(configuration.get("left"]) + 1 == entity.get(configuration.get("right"])) {
@@ -159,7 +159,7 @@ class DTreeBehavior : DBehavior {
             "order": configuration.get("left"],
         ]);
 
-        /** @var DORMdatasources.IEntity node * /
+        /** @var DORMdatasources.IORMEntity node * /
         foreach (children as node) {
             parentIdValue = node.get(configuration.get("parent"]);
             depth = depths[parentIdValue] + 1;
@@ -176,9 +176,9 @@ class DTreeBehavior : DBehavior {
      * Also deletes the nodes in the subtree of the entity to be delete
      *
      * @param DORMevents.IEvent event The beforeDelete event that was fired
-     * @param DORMDatasource\IEntity anEntity The entity that is going to be saved
+     * @param DORMDatasource\IORMEntity anEntity The entity that is going to be saved
      * /
-    void beforeremove(IEvent event, IEntity anEntity) {
+    void beforeremove(IEvent event, IORMEntity anEntity) {
         myConfiguration = configuration;
         _ensureFields(entity);
         left = entity.get(configuration.get("left"]);
@@ -213,12 +213,12 @@ class DTreeBehavior : DBehavior {
      * updated to a new parent. It also makes the hole in the tree so the node
      * move can be done without corrupting the structure.
      *
-     * @param DORMDatasource\IEntity anEntity The entity to re-parent
+     * @param DORMDatasource\IORMEntity anEntity The entity to re-parent
      * @param mixed parent the id of the parent to set
      * @return void
      * @throws \RuntimeException if the parent to set to the entity is not valid
      * /
-    protected void _setParent(IEntity anEntity, parent) {
+    protected void _setParent(IORMEntity anEntity, parent) {
         myConfiguration = configuration;
         parentNode = _getNode(parent);
         _ensureFields(entity);
@@ -274,9 +274,9 @@ class DTreeBehavior : DBehavior {
      * a new root in the tree. It also modifies the ordering in the rest of the tree
      * so the structure remains valid
      *
-     * @param DORMDatasource\IEntity anEntity The entity to set as a new root
+     * @param DORMDatasource\IORMEntity anEntity The entity to set as a new root
      * /
-    protected void _setAsRoot(IEntity anEntity) {
+    protected void _setAsRoot(IORMEntity anEntity) {
         myConfiguration = configuration;
         edge = _getMax();
         _ensureFields(entity);
@@ -362,12 +362,12 @@ class DTreeBehavior : DBehavior {
     /**
      * Get the number of children nodes.
      *
-     * @param DORMDatasource\IEntity node The entity to count children for
+     * @param DORMDatasource\IORMEntity node The entity to count children for
      * @param bool direct whether to count all nodes in the subtree or just
      * direct children
      * @return int Number of children nodes.
      * /
-    int childCount(IEntity node, bool direct = false) {
+    int childCount(IORMEntity node, bool direct = false) {
         myConfiguration = configuration;
         parent = _table.aliasField(configuration.get("parent"]);
 
@@ -502,11 +502,11 @@ class DTreeBehavior : DBehavior {
      * Note that the node will not be deleted just moved away from its current position
      * without moving its children with it.
      *
-     * @param DORMDatasource\IEntity node The node to remove from the tree
-     * @return DORMDatasource\IEntity|false the node after being removed from the tree or
+     * @param DORMDatasource\IORMEntity node The node to remove from the tree
+     * @return DORMDatasource\IORMEntity|false the node after being removed from the tree or
      * false on error
      * /
-    function removeFromTree(IEntity node) {
+    function removeFromTree(IORMEntity node) {
         return _table.getConnection().transactional(function () use (node) {
             _ensureFields(node);
 
@@ -517,11 +517,11 @@ class DTreeBehavior : DBehavior {
     /**
      * Helper function containing the actual code for removeFromTree
      *
-     * @param DORMDatasource\IEntity node The node to remove from the tree
-     * @return DORMDatasource\IEntity|false the node after being removed from the tree or
+     * @param DORMDatasource\IORMEntity node The node to remove from the tree
+     * @return DORMDatasource\IORMEntity|false the node after being removed from the tree or
      * false on error
      * /
-    protected function _removeFromTree(IEntity node) {
+    protected function _removeFromTree(IORMEntity node) {
         myConfiguration = configuration;
         left = node.get(configuration.get("left"]);
         right = node.get(configuration.get("right"]);
@@ -560,12 +560,12 @@ class DTreeBehavior : DBehavior {
      * If the node is the first child, or is a top level node with no previous node
      * this method will return the same node without any changes
      *
-     * @param DORMDatasource\IEntity node The node to move
+     * @param DORMDatasource\IORMEntity node The node to move
      * @param int|true number How many places to move the node, or true to move to first position
      * @throws DORMDatasource\exceptions.RecordNotFoundException When node was not found
-     * @return DORMDatasource\IEntity|false node The node after being moved or false if `number` is < 1
+     * @return DORMDatasource\IORMEntity|false node The node after being moved or false if `number` is < 1
      * /
-    function moveUp(IEntity node, number = 1) {
+    function moveUp(IORMEntity node, number = 1) {
         if (number < 1) {
             return false;
         }
@@ -580,12 +580,12 @@ class DTreeBehavior : DBehavior {
     /**
      * Helper function used with the actual code for moveUp
      *
-     * @param DORMDatasource\IEntity node The node to move
+     * @param DORMDatasource\IORMEntity node The node to move
      * @param int|true number How many places to move the node, or true to move to first position
-     * @return DORMDatasource\IEntity node The node after being moved
+     * @return DORMDatasource\IORMEntity node The node after being moved
      * @throws DORMDatasource\exceptions.RecordNotFoundException When node was not found
      * /
-    protected function _moveUp(IEntity node, number): IEntity
+    protected function _moveUp(IORMEntity node, number): IORMEntity
     {
         myConfiguration = configuration;
         [parent, left, right] = [configuration.get("parent"], configuration.get("left"], configuration.get("right"]];
@@ -593,7 +593,7 @@ class DTreeBehavior : DBehavior {
 
         targetNode = null;
         if (number != true) {
-            /** @var DORMdatasources.IEntity|null targetNode * /
+            /** @var DORMdatasources.IORMEntity|null targetNode * /
             targetNode = _scope(_table.find())
                 .select([left, right])
                 .where(["parent IS": nodeParent])
@@ -607,7 +607,7 @@ class DTreeBehavior : DBehavior {
                 .first();
         }
         if (!targetNode) {
-            /** @var DORMdatasources.IEntity|null targetNode * /
+            /** @var DORMdatasources.IORMEntity|null targetNode * /
             targetNode = _scope(_table.find())
                 .select([left, right])
                 .where(["parent IS": nodeParent])
@@ -651,12 +651,12 @@ class DTreeBehavior : DBehavior {
      * If the node is the last child, or is a top level node with no subsequent node
      * this method will return the same node without any changes
      *
-     * @param DORMDatasource\IEntity node The node to move
+     * @param DORMDatasource\IORMEntity node The node to move
      * @param int|true number How many places to move the node or true to move to last position
      * @throws DORMDatasource\exceptions.RecordNotFoundException When node was not found
-     * @return DORMDatasource\IEntity|false the entity after being moved or false if `number` is < 1
+     * @return DORMDatasource\IORMEntity|false the entity after being moved or false if `number` is < 1
      * /
-    function moveDown(IEntity node, number = 1) {
+    function moveDown(IORMEntity node, number = 1) {
         if (number < 1) {
             return false;
         }
@@ -671,12 +671,12 @@ class DTreeBehavior : DBehavior {
     /**
      * Helper function used with the actual code for moveDown
      *
-     * @param DORMDatasource\IEntity node The node to move
+     * @param DORMDatasource\IORMEntity node The node to move
      * @param int|true number How many places to move the node, or true to move to last position
-     * @return DORMDatasource\IEntity node The node after being moved
+     * @return DORMDatasource\IORMEntity node The node after being moved
      * @throws DORMDatasource\exceptions.RecordNotFoundException When node was not found
      * /
-    protected function _moveDown(IEntity node, number): IEntity
+    protected function _moveDown(IORMEntity node, number): IORMEntity
     {
         myConfiguration = configuration;
         [parent, left, right] = [configuration.get("parent"], configuration.get("left"], configuration.get("right"]];
@@ -684,7 +684,7 @@ class DTreeBehavior : DBehavior {
 
         targetNode = null;
         if (number != true) {
-            /** @var DORMdatasources.IEntity|null targetNode * /
+            /** @var DORMdatasources.IORMEntity|null targetNode * /
             targetNode = _scope(_table.find())
                 .select([left, right])
                 .where(["parent IS": nodeParent])
@@ -698,7 +698,7 @@ class DTreeBehavior : DBehavior {
                 .first();
         }
         if (!targetNode) {
-            /** @var DORMdatasources.IEntity|null targetNode * /
+            /** @var DORMdatasources.IORMEntity|null targetNode * /
             targetNode = _scope(_table.find())
                 .select([left, right])
                 .where(["parent IS": nodeParent])
@@ -740,11 +740,11 @@ class DTreeBehavior : DBehavior {
      * Returns a single node from the tree from its primary key
      *
      * @param mixed id Record id.
-     * @return DORMDatasource\IEntity
+     * @return DORMDatasource\IORMEntity
      * @throws DORMDatasource\exceptions.RecordNotFoundException When node was not found
      * @psalm-suppress InvalidReturnType
      * /
-    protected function _getNode(id): IEntity
+    protected function _getNode(id): IORMEntity
     {
         myConfiguration = configuration;
         [parent, left, right] = [configuration.get("parent"], configuration.get("left"], configuration.get("right"]];
@@ -896,9 +896,9 @@ class DTreeBehavior : DBehavior {
      * Ensures that the provided entity contains non-empty values for the left and
      * right fields
      *
-     * @param DORMDatasource\IEntity anEntity The entity to ensure fields for
+     * @param DORMDatasource\IORMEntity anEntity The entity to ensure fields for
      * /
-    protected void _ensureFields(IEntity anEntity) {
+    protected void _ensureFields(IORMEntity anEntity) {
         myConfiguration = configuration;
         fields = [configuration.get("left"], configuration.get("right"]];
         values = array_filter(entity.extract(fields));
@@ -929,13 +929,13 @@ class DTreeBehavior : DBehavior {
     /**
      * Returns the depth level of a node in the tree.
      *
-     * @param DORMDatasource\IEntity|string|int entity The entity or primary key get the level of.
+     * @param DORMDatasource\IORMEntity|string|int entity The entity or primary key get the level of.
      * @return int|false Integer of the level or false if the node does not exist.
      * /
     function getLevel(entity) {
         primaryKeys = _primaryKeys();
         id = entity;
-        if (entity instanceof IEntity) {
+        if (entity instanceof IORMEntity) {
             id = entity.get(primaryKeys);
         }
         myConfiguration = configuration;

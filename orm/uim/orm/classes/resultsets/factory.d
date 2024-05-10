@@ -11,7 +11,7 @@ import uim.orm;
  * It is responsible for correctly nesting result keys reported from the query
  * and hydrating entities.
  *
- * @template T of array|\UIM\Datasource\IEntity
+ * @template T of array|\UIM\Datasource\IORMEntity
  */
 class DResultsetFactory {
     /**
@@ -20,7 +20,7 @@ class DResultsetFactory {
      * \ORM\Query\SelectQuery<T> myquery Query from where results came.
      * @param Json[string] results Results array.
      * /
-    Resultset<array|\UIM\Datasource\IEntity> createResultset(SelectQuery myquery, Json[string] results) {
+    Resultset<array|\UIM\Datasource\IORMEntity> createResultset(SelectQuery myquery, Json[string] results) {
         mydata = this.collectData(myquery);
 
         foreach (results as myi: myrow) {
@@ -90,7 +90,7 @@ class DResultsetFactory {
      * Json[string] myrow Array containing columns and values.
      * @param Json[string] data Array containing table and query metadata
      * /
-    protected IEntity|array groupResult(Json[string] myrow, Json[string] metadata) {
+    protected IORMEntity|array groupResult(Json[string] myrow, Json[string] metadata) {
         results = mypresentAliases = null;
         metadata.addData([
             "useSetters": BoolData(false),
@@ -111,7 +111,7 @@ class DResultsetFactory {
 
                 options["source"] = mytable.registryKey();
                 myentity = new mymatching["entityClass"](results["_matchingData"][aliasName], options);
-                assert(cast(IEntity)myentity);
+                assert(cast(IORMEntity)myentity);
 
                 results["_matchingData"][aliasName] = myentity;
             }
@@ -180,7 +180,7 @@ class DResultsetFactory {
         if (isSet(results[mydata["primaryAlias"]])) {
             results = results[mydata["primaryAlias"]];
         }
-        if (mydata["hydrate"] && !(cast(IEntity)results)) {
+        if (mydata["hydrate"] && !(cast(IORMEntity)results)) {
             results = new mydata["entityClass"](results, options);
         }
         return results;

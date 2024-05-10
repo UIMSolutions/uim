@@ -53,10 +53,10 @@ class DTimestampBehavior : DBehavior {
      * There is only one event handler, it can be configured to be called for any event
      * Params:
      * \UIM\Event\IEvent<\ORM\Table> myevent Event instance.
-     * @param \UIM\Datasource\IEntity myentity Entity instance.
+     * @param \UIM\Datasource\IORMEntity myentity Entity instance.
      * @throws \UnexpectedValueException if a field"s when value is misdefined
      * /
-    void handleEvent(IEvent myevent, IEntity myentity) {
+    void handleEvent(IEvent myevent, IORMEntity myentity) {
         myeventName = myevent.name;
         myevents = configuration.get("events"];
 
@@ -124,10 +124,10 @@ class DTimestampBehavior : DBehavior {
      * "always" or "existing", update the timestamp value. This method will overwrite
      * any pre-existing value.
      * Params:
-     * \UIM\Datasource\IEntity myentity Entity instance.
+     * \UIM\Datasource\IORMEntity myentity Entity instance.
      * @param string myeventName Event name.
      * /
-    bool touch(IEntity myentity, string myeventName = "Model.beforeSave") {
+    bool touch(IORMEntity myentity, string myeventName = "Model.beforeSave") {
         myevents = configuration.get("events"];
         if (isEmpty(myevents[myeventName])) {
             return false;
@@ -148,11 +148,11 @@ class DTimestampBehavior : DBehavior {
     /**
      * Update a field, if it hasn"t been updated already
      * Params:
-     * \UIM\Datasource\IEntity myentity Entity instance.
+     * \UIM\Datasource\IORMEntity myentity Entity instance.
      * @param string myfield Field name
      * @param bool myrefreshTimestamp Whether to refresh timestamp.
      * /
-    protected void _updateField(IEntity myentity, string myfield, bool myrefreshTimestamp) {
+    protected void _updateField(IORMEntity myentity, string myfield, bool myrefreshTimestamp) {
         if (myentity.isDirty(myfield)) {
             return;
         }

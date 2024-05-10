@@ -306,10 +306,10 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * in the database too.
      *
      * @param DORMevents.IEvent event The beforeSave event that was fired.
-     * @param DORMDatasource\IEntity anEntity The entity that is going to be saved.
+     * @param DORMDatasource\IORMEntity anEntity The entity that is going to be saved.
      * @param \ArrayObject options the options passed to the save method.
      */
-                                                void beforeSave(IEvent event, IEntity anEntity, ArrayObject options) {
+                                                void beforeSave(IEvent event, IORMEntity anEntity, ArrayObject options) {
                                                     locale = entity.get("_locale") ? 
                                                     : getLocale(); newOptions = [
                                                         this.translationTable.aliasName(): [
@@ -367,7 +367,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                     if (id) {
                                                                         where["id"] = id;
 
-                                                                        /** @var DORMdatasources.IEntity|null translation * /
+                                                                        /** @var DORMdatasources.IORMEntity|null translation * /
                                                                         translation = this.translationTable.find()
                                                                         .select(array_merge([
                                                                             "id",
@@ -447,7 +447,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
                                                                             return results.map(
                                                                             function(row) use(allowEmpty, locale) {
-                                                                                /** @var DORMdatasources.IEntity|array|null row * /
+                                                                                /** @var DORMdatasources.IORMEntity|array|null row * /
                                                                                 if (row == null) {
                                                                                     return row;
                                                                                 }
@@ -538,7 +538,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                                     unset(
                                                                                     row["_i18n"]);
                                                                                     if (
-                                                                                        row instanceof IEntity) {
+                                                                                        row instanceof IORMEntity) {
                                                                                         row.clean();
                                                                                     }
 
@@ -551,7 +551,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * out of the data found in the `_translations` property in the passed
      * entity. The result will be put into its `_i18n` property.
      *
-     * @param DORMDatasource\IEntity anEntity Entity.
+     * @param DORMDatasource\IORMEntity anEntity Entity.
      * /
                                                                             protected void bundleTranslatedFields(
                                                                             entity) {

@@ -48,12 +48,12 @@ class DExistsIn {
     /**
      * Performs the existence check
      * Params:
-     * \UIM\Datasource\IEntity myentity The entity from where to extract the fields
+     * \UIM\Datasource\IORMEntity myentity The entity from where to extract the fields
      * @param Json[string] options Options passed to the check,
      * where the `repository` key is required.
      * @throws \UIM\Database\Exception\DatabaseException When the rule refers to an undefined association.
      * /
-   bool __invoke(IEntity myentity, Json[string] options) {
+   bool __invoke(IORMEntity myentity, Json[string] options) {
         if (isString(_repository)) {
             if (!options["repository"].hasAssociation(_repository)) {
                 throw new DatabaseException(
@@ -111,10 +111,10 @@ class DExistsIn {
     /**
      * Checks whether the given entity fields are nullable and null.
      * Params:
-     * \UIM\Datasource\IEntity myentity The entity to check.
+     * \UIM\Datasource\IORMEntity myentity The entity to check.
      * @param \ORM\Table mysource The table to use schema from.
      * /
-    protected bool _fieldsAreNull(IEntity entityToCheck, Table mysource) {
+    protected bool _fieldsAreNull(IORMEntity entityToCheck, Table mysource) {
         auto schema = mysource.getSchema();
         auto mynulls = _fields
             .filter!(field => schema.getColumn(field) && schema.isNullable(field) && entityToCheck.get(field).isNull)

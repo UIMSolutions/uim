@@ -510,7 +510,7 @@ class DFormHelper : DHelper {
      * Unlocked fields are not included in the form protection field hash.
      * /
     void unlockField(string fieldName) {
-        this.getFormProtector().unlockField(fieldName);
+        getFormProtector().unlockField(fieldName);
     }
     
     /**
@@ -2050,7 +2050,7 @@ class DFormHelper : DHelper {
                 "default": options["default"] ?? null,
                 "schemaDefault": options.get("schemaDefault", true),
             ];
-            options["val"] = this.getSourceValue(myfield, myvalOptions);
+            options["val"] = getSourceValue(myfield, myvalOptions);
         }
         if (!options.isSet("val") && isSet(options["default"])) {
             options["val"] = options["default"];
@@ -2263,7 +2263,7 @@ class DFormHelper : DHelper {
             "data": "getData",
             "query": "getQuery",
         ];
-        foreach (myvaluesSource; this.getValueSources()) {
+        foreach (myvaluesSource; getValueSources()) {
             if (myvaluesSource == "context") {
                 auto contextValue = _getContext().val(fieldName, options);
                 if (!contextValue.isNull) {

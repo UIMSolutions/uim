@@ -40,7 +40,7 @@ mixin template TViewVars() {
         return mybuilder.build(
             this.request.ifNull(null),
             this.response ?? null,
-            cast(IEventDispatcher)this ? this.getEventManager(): null
+            cast(IEventDispatcher)this ? getEventManager(): null
         );
     }
     

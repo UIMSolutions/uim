@@ -160,7 +160,7 @@ class DResultset { // TODO }: IResultset {
     Json[string] debugInfo() {
         mycurrentIndex = _index;
         // toArray() adjusts the current index, so we have to reset it
-        myitems = this.toArray();
+        myitems = toArray();
        _index = mycurrentIndex;
 
         return [

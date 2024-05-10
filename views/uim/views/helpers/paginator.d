@@ -420,7 +420,7 @@ class DPaginatorHelper : DHelper {
             options["sort"] = options["direction"] = null;
         }
         mybaseUrl = configuration.get("options"].get("url", null);
-        if (!empty(mypaging["scope"])) {
+        if (!mypaging.isEmpty("scope")) {
             myscope = mypaging["scope"];
             if (isSet(mybaseUrl["?"][myscope]) && isArray(mybaseUrl["?"][myscope])) {
                 options = options.updatemybaseUrl["?"][myscope];

@@ -179,7 +179,7 @@ class DArrayTempl(T) : DArrayObj {
 	}
 
 	O toggle(this O)(T[] values) {
-		values.unique.each!(value => this.toggle(value));
+		values.unique.each!(value => toggle(value));
 
 		return cast(O) this;
 	}

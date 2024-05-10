@@ -86,7 +86,7 @@ class DFormProtector {
      * /
     auto addField(string[] afield, bool lock = true, Json aValue = null) {
         if (isString(field)) {
-            field = this.getFieldNameArray(field);
+            field = getFieldNameArray(field);
         }
         if (isEmpty(field)) {
             return this;

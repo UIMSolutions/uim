@@ -61,7 +61,7 @@ mixin template TCell() {
      * @param Json[string] options The constructor options for the cell.
      * /
     protected DCell _createCell(string myclassName, string myaction, string myplugin, Json[string] options) {
-        Cell myinstance = new myclassName(this.request, this.response, this.getEventManager(), options);
+        Cell myinstance = new myclassName(this.request, this.response, getEventManager(), options);
 
         mybuilder = myinstance.viewBuilder();
         mybuilder.setTemplate(Inflector.underscore(myaction));

@@ -108,7 +108,7 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
         myinstance = new myclass(_View, configData);
 
         if (configuration.get("enabled"] ?? true) {
-            this.getEventManager().on(myinstance);
+            getEventManager().on(myinstance);
         }
         return myinstance;
     } */

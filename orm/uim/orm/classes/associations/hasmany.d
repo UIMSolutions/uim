@@ -96,13 +96,13 @@ class DHasManyAssociation : DAssociation {
      * saved on the target table for this association by passing supplied
      * `options`
      *
-     * @param DORMDatasource\IEntity anEntity an entity from the source table
+     * @param DORMDatasource\IORMEntity anEntity an entity from the source table
      * @param Json[string] options options to be passed to the save method in the target table
-     * @return DORMDatasource\IEntity|false false if entity could not be saved, otherwise it returns
+     * @return DORMDatasource\IORMEntity|false false if entity could not be saved, otherwise it returns
      * the saved entity
      * @throws \InvalidArgumentException when the association data cannot be traversed.
      * /
-    function saveAssociated(IEntity anEntity, Json[string] options = null) {
+    function saveAssociated(IORMEntity anEntity, Json[string] options = null) {
         myTargetEntities = entity.get(getProperty());
 
         isEmpty = in_array(myTargetEntities, [null, [], "", false], true);
@@ -153,7 +153,7 @@ class DHasManyAssociation : DAssociation {
      *
      * @param Json[string] foreignKeyReference The foreign key reference defining the link between the
      * target entity, and the parent entity.
-     * @param DORMDatasource\IEntity parentEntity The source entity containing the target
+     * @param DORMDatasource\IORMEntity parentEntity The source entity containing the target
      * entities to be saved.
      * @param Json[string] entities list of entities
      * to persist in target table and to link to the parent entity
@@ -162,7 +162,7 @@ class DHasManyAssociation : DAssociation {
      * /
     protected bool _saveTarget(
         array foreignKeyReference,
-        IEntity parentEntity,
+        IORMEntity parentEntity,
         array entities,
         Json[string] options
     ) {
@@ -171,7 +171,7 @@ class DHasManyAssociation : DAssociation {
         original = entities;
 
         foreach (entities as k: entity) {
-            if (!(entity instanceof IEntity)) {
+            if (!(entity instanceof IORMEntity)) {
                 break;
             }
 
@@ -221,14 +221,14 @@ class DHasManyAssociation : DAssociation {
      *
      * `myUser.get("articles")` will contain all articles in `allArticles` after linking
      *
-     * @param DORMDatasource\IEntity sourceEntity the row belonging to the `source` side
+     * @param DORMDatasource\IORMEntity sourceEntity the row belonging to the `source` side
      * of this association
      * @param Json[string] myTargetEntities list of entities belonging to the `target` side
      * of this association
      * @param Json[string] options list of options to be passed to the internal `save` call
      * @return bool true on success, false otherwise
      * /
-    bool link(IEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
+    bool link(IORMEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
         saveStrategy = getSaveStrategy();
         setSaveStrategy(self.SAVE_APPEND);
         property = getProperty();
@@ -246,7 +246,7 @@ class DHasManyAssociation : DAssociation {
             return _saveAssociated(sourceEntity, options);
         });
 
-        ok = (savedEntity instanceof IEntity);
+        ok = (savedEntity instanceof IORMEntity);
 
         setSaveStrategy(saveStrategy);
 
@@ -288,7 +288,7 @@ class DHasManyAssociation : DAssociation {
      *
      * `article.get("articles")` will contain only `[article4]` after deleting in the database
      *
-     * @param DORMDatasource\IEntity sourceEntity an entity persisted in the source table for
+     * @param DORMDatasource\IORMEntity sourceEntity an entity persisted in the source table for
      * this association
      * @param Json[string] myTargetEntities list of entities persisted in the target table for
      * this association
@@ -297,7 +297,7 @@ class DHasManyAssociation : DAssociation {
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      * any of them is lacking a primary key value
      * /
-    void unlink(IEntity sourceEntity, Json[string] myTargetEntities, options = null) {
+    void unlink(IORMEntity sourceEntity, Json[string] myTargetEntities, options = null) {
         if (is_bool(options)) {
             options = [
                 "cleanProperty":options,
@@ -317,7 +317,7 @@ class DHasManyAssociation : DAssociation {
         conditions = [
             "OR":(new DCollection(myTargetEntities))
                 .map(function (entity) use (myTargetPrimaryKey) {
-                    /** @var DORMdatasources.IEntity anEntity * /
+                    /** @var DORMdatasources.IORMEntity anEntity * /
                     return entity.extract(myTargetPrimaryKey);
                 })
                 .toList(),
@@ -376,7 +376,7 @@ class DHasManyAssociation : DAssociation {
      *
      * `author.get("articles")` will contain only `[article1, article3]` at the end
      *
-     * @param DORMDatasource\IEntity sourceEntity an entity persisted in the source table for
+     * @param DORMDatasource\IORMEntity sourceEntity an entity persisted in the source table for
      * this association
      * @param Json[string] myTargetEntities list of entities from the target table to be linked
      * @param Json[string] options list of options to be passed to the internal `save`/`delete` calls
@@ -385,13 +385,13 @@ class DHasManyAssociation : DAssociation {
      * any of them is lacking a primary key value
      * @return bool success
      * /
-    bool replace(IEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
+    bool replace(IORMEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
         property = getProperty();
         sourceEntity.set(property, myTargetEntities);
         saveStrategy = getSaveStrategy();
         setSaveStrategy(self.SAVE_REPLACE);
         myResult = this.saveAssociated(sourceEntity, options);
-        ok = (myResult instanceof IEntity);
+        ok = (myResult instanceof IORMEntity);
 
         if (ok) {
             sourceEntity = myResult;
@@ -407,7 +407,7 @@ class DHasManyAssociation : DAssociation {
      *
      * @param Json[string] foreignKeyReference The foreign key reference defining the link between the
      * target entity, and the parent entity.
-     * @param DORMDatasource\IEntity anEntity the entity which should have its associated entities unassigned
+     * @param DORMDatasource\IORMEntity anEntity the entity which should have its associated entities unassigned
      * @param DORMTable myTarget The associated table
      * @param range remainingEntities Entities that should not be deleted
      * @param Json[string] options list of options accepted by `Table.remove()`
@@ -415,7 +415,7 @@ class DHasManyAssociation : DAssociation {
      * /
     protected bool _unlinkAssociated(
         array foreignKeyReference,
-        IEntity anEntity,
+        IORMEntity anEntity,
         Table myTarget,
         range remainingEntities = null,
         Json[string] options = null
@@ -424,7 +424,7 @@ class DHasManyAssociation : DAssociation {
         exclusions = new DCollection(remainingEntities);
         exclusions = exclusions.map(
             function (ent) use (primaryKeys) {
-                /** @var DORMdatasources.IEntity ent * /
+                /** @var DORMdatasources.IORMEntity ent * /
                 return ent.extract(primaryKeys);
             }
         )
@@ -603,7 +603,7 @@ class DHasManyAssociation : DAssociation {
     }
 
 
-    bool cascaderemove(IEntity anEntity, Json[string] options = null) {
+    bool cascaderemove(IORMEntity anEntity, Json[string] options = null) {
         helper = new DependentDeleteHelper();
 
         return helper.cascaderemove(this, entity, options);

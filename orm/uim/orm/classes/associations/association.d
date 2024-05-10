@@ -1037,11 +1037,11 @@ abstract function eagerLoader(Json[string] optionData) : Closure;
      * Each implementing class should handle the cascaded delete as
      * required.
      *
-     * @param DORMDatasource\IEntity anEntity The entity that started the cascaded delete.
+     * @param DORMDatasource\IORMEntity anEntity The entity that started the cascaded delete.
      * @param Json[string] options The options for the original delete.
      * @return bool Success
      *  /
-abstract bool cascaderemove(IEntity anEntity, Json[string] optionData = null);
+abstract bool cascaderemove(IORMEntity anEntity, Json[string] optionData = null);
 
 /**
      * Returns whether the passed table is the owning side for this
@@ -1057,11 +1057,11 @@ abstract bool isOwningSide(Table side);
      * Extract the target"s association data our from the passed entity and proxies
      * the saving operation to the target table.
      *
-     * @param DORMDatasource\IEntity anEntity the data to be saved
+     * @param DORMDatasource\IORMEntity anEntity the data to be saved
      * @param Json[string] options The options for saving associated data.
-     * @return DORMDatasource\IEntity|false false if entity could not be saved, otherwise it returns
+     * @return DORMDatasource\IORMEntity|false false if entity could not be saved, otherwise it returns
      * the saved entity
      * /
-abstract function saveAssociated(IEntity anEntity, Json[string] optionData = null);
+abstract function saveAssociated(IORMEntity anEntity, Json[string] optionData = null);
     */ 
 }

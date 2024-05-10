@@ -18,14 +18,14 @@ class DLazyEagerLoader {
      *
      * The properties for the associations to be loaded will be overwritten on each entity.
      * Params:
-     * \UIM\Datasource\IEntity|array<\UIM\Datasource\IEntity> myentities a single entity or list of entities
+     * \UIM\Datasource\IORMEntity|array<\UIM\Datasource\IORMEntity> myentities a single entity or list of entities
      * @param Json[string] mycontain A `contain()` compatible array.
      * @param \ORM\Table mysource The table to use for fetching the top level entities
      * /
-    IEntity[] loadInto(IEntity|array myentities, Json[string] mycontain, Table mysource) {
+    IORMEntity[] loadInto(IORMEntity|array myentities, Json[string] mycontain, Table mysource) {
         auto resultSingle = false;
 
-        if (cast(IEntity)myentities) {
+        if (cast(IORMEntity)myentities) {
             myentities = [myentities];
             resultSingle = true;
         }
@@ -34,7 +34,7 @@ class DLazyEagerLoader {
 
         auto myentities = _injectResults(myentities, myquery, myassociations, mysource);
 
-        /** @var \UIM\Datasource\IEntity|array<\UIM\Datasource\IEntity> * /
+        /** @var \UIM\Datasource\IORMEntity|array<\UIM\Datasource\IORMEntity> * /
         return resultSingle ? array_shift(myentities): myentities;
     }
     
@@ -45,11 +45,11 @@ class DLazyEagerLoader {
      * @param Json[string] mycontain The associations to be loaded
      * @param \ORM\Table mysource The table to use for fetching the top level entities
      * /
-    protected ISelectQuery _getQuery(IEntity[] myentities, Json[string] mycontain, Table mysource)SelectQuery {
+    protected ISelectQuery _getQuery(IORMEntity[] myentities, Json[string] mycontain, Table mysource)SelectQuery {
         auto myprimaryKey = mysource.primaryKeys();
         auto mymethod = isString(myprimaryKey) ? "get" : "extract";
 
-        auto someKeys = Hash.map(myentities, "{*}", fn (IEntity myentity): myentity.{mymethod}(myprimaryKey));
+        auto someKeys = Hash.map(myentities, "{*}", fn (IORMEntity myentity): myentity.{mymethod}(myprimaryKey));
 
         auto myquery = mysource
             .find()
@@ -98,12 +98,12 @@ class DLazyEagerLoader {
      * Injects the results of the eager loader query into the original list of
      * entities.
      * Params:
-     * array<\UIM\Datasource\IEntity> myentities The original list of entities
+     * array<\UIM\Datasource\IORMEntity> myentities The original list of entities
      * @param \ORM\Query\SelectQuery myquery The query to load results
      * @param string[] myassociations The top level associations that were loaded
      * @param \ORM\Table mysource The table where the entities came from
      * /
-    protected IEntity[] _injectResults(
+    protected IORMEntity[] _injectResults(
         array myentities,
         SelectQuery myquery,
         Json[string] myassociations,
@@ -112,10 +112,10 @@ class DLazyEagerLoader {
         myinjected = null;
         myproperties = _getPropertyMap(mysource, myassociations);
         myprimaryKey = (array)mysource.primaryKeys();
-        /** @var array<\UIM\Datasource\IEntity> results * /
+        /** @var array<\UIM\Datasource\IORMEntity> results * /
         results = myquery
             .all()
-            .indexBy(fn (IEntity mye): join(";", mye.extract(myprimaryKey)))
+            .indexBy(fn (IORMEntity mye): join(";", mye.extract(myprimaryKey)))
             .toArray();
 
         myentities.byKeyValue

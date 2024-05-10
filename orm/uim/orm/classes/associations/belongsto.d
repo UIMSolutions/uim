@@ -53,11 +53,11 @@ class DBelongsToAssociation : DAssociation {
      *
      * BelongsTo associations are never cleared in a cascading delete scenario.
      *
-     * @param DORMDatasource\IEntity anEntity The entity that started the cascaded delete.
+     * @param DORMDatasource\IORMEntity anEntity The entity that started the cascaded delete.
      * @param Json[string] options The options for the original delete.
      * @return bool Success.
      * /
-    bool cascaderemove(IEntity anEntity, Json[string] optionData = null) {
+    bool cascaderemove(IORMEntity anEntity, Json[string] optionData = null) {
       return true;
     }
 
@@ -90,14 +90,14 @@ class DBelongsToAssociation : DAssociation {
      * saved on the target table for this association by passing supplied
      * `options`
      *
-     * @param DORMDatasource\IEntity anEntity an entity from the source table
+     * @param DORMDatasource\IORMEntity anEntity an entity from the source table
      * @param Json[string] options options to be passed to the save method in the target table
-     * @return DORMDatasource\IEntity|false false if entity could not be saved, otherwise it returns
+     * @return DORMDatasource\IORMEntity|false false if entity could not be saved, otherwise it returns
      * the saved entity
      * /
-    function saveAssociated(IEntity anEntity, Json[string] optionData = null) {
+    function saveAssociated(IORMEntity anEntity, Json[string] optionData = null) {
         auto targetEntity = entity.get(getProperty());
-        if (targetEntity.isEmpty) || !(cast(IEntity)targetEntity)) {
+        if (targetEntity.isEmpty) || !(cast(IORMEntity)targetEntity)) {
             return entity;
         }
 

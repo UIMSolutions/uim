@@ -495,11 +495,11 @@ class DBelongsToManyAssociation : DAssociation {
     /**
      * Clear out the data in the junction table for a given entity.
      *
-     * @param DORMDatasource\IEntity anEntity The entity that started the cascading delete.
+     * @param DORMDatasource\IORMEntity anEntity The entity that started the cascading delete.
      * @param Json[string] options The options for the original delete.
      * @return bool Success.
      * /
-    bool cascaderemove(IEntity anEntity, Json[string] optionData = null) {
+    bool cascaderemove(IORMEntity anEntity, Json[string] optionData = null) {
         if (!getDependent()) {
             return true;
         }
@@ -588,14 +588,14 @@ class DBelongsToManyAssociation : DAssociation {
      * of the entities intended to be saved by this method, they will be updated,
      * not deleted.
      *
-     * @param DORMDatasource\IEntity anEntity an entity from the source table
+     * @param DORMDatasource\IORMEntity anEntity an entity from the source table
      * @param Json[string] options options to be passed to the save method in the target table
      * @throws \InvalidArgumentException if the property representing the association
      * in the parent entity cannot be traversed
-     * @return DORMDatasource\IEntity|false false if entity could not be saved, otherwise it returns
+     * @return DORMDatasource\IORMEntity|false false if entity could not be saved, otherwise it returns
      * the saved entity
      * /
-    function saveAssociated(IEntity anEntity, Json[string] optionData = null) {
+    function saveAssociated(IORMEntity anEntity, Json[string] optionData = null) {
         targetEntity = entity.get(getProperty());
         strategy = getSaveStrategy();
 
@@ -622,17 +622,17 @@ class DBelongsToManyAssociation : DAssociation {
      * Persists each of the entities into the target table and creates links between
      * the parent entity and each one of the saved target entities.
      *
-     * @param DORMDatasource\IEntity parentEntity the source entity containing the target
+     * @param DORMDatasource\IORMEntity parentEntity the source entity containing the target
      * entities to be saved.
      * @param Json[string] entities list of entities to persist in target table and to
      * link to the parent entity
      * @param Json[string] options list of options accepted by `Table.save()`
      * @throws \InvalidArgumentException if the property representing the association
      * in the parent entity cannot be traversed
-     * @return DORMDatasource\IEntity|false The parent entity after all links have been
+     * @return DORMDatasource\IORMEntity|false The parent entity after all links have been
      * created if no errors happened, false otherwise
      * /
-    protected function _saveTarget(IEntity parentEntity, Json[string] entities, options) {
+    protected function _saveTarget(IORMEntity parentEntity, Json[string] entities, options) {
         joinAssociations = false;
         if (isset(options["associated"]) && (options["associated"].isArray) {
             if (!options.isEmpty("associated"][_junctionProperty]["associated"])) {
@@ -646,7 +646,7 @@ class DBelongsToManyAssociation : DAssociation {
         persisted = null;
 
         foreach (entities as k: entity) {
-            if (!(entity instanceof IEntity)) {
+            if (!(entity instanceof IORMEntity)) {
                 break;
             }
 
@@ -687,14 +687,14 @@ class DBelongsToManyAssociation : DAssociation {
     /**
      * Creates links between the source entity and each of the passed target entities
      *
-     * @param DORMDatasource\IEntity sourceEntity the entity from source table in this
+     * @param DORMDatasource\IORMEntity sourceEntity the entity from source table in this
      * association
-     * @param array<DORMDatasource\IEntity> targetEntities list of entities to link to link to the source entity using the
+     * @param array<DORMDatasource\IORMEntity> targetEntities list of entities to link to link to the source entity using the
      * junction table
      * @param Json[string] options list of options accepted by `Table.save()`
      * @return bool success
      * /
-    protected bool _saveLinks(IEntity sourceEntity, Json[string] targetEntities, Json[string] optionData) {
+    protected bool _saveLinks(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] optionData) {
         target = getTarget();
         junction = this.junction();
         entityClass = junction.getEntityClass();
@@ -708,7 +708,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         foreach (targetEntities as e) {
             joint = e.get(jointProperty);
-            if (!joint || !(joint instanceof IEntity)) {
+            if (!joint || !(joint instanceof IORMEntity)) {
                 joint = new DORMEntityClass([], ["markNew": true.toJson, "source": junctionRegistryAlias]);
             }
             sourceKeys = array_combine(foreignKey, sourceEntity.extract(bindingKey));
@@ -760,16 +760,16 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * `article.get("tags")` will contain all tags in `newTags` after liking
      *
-     * @param DORMDatasource\IEntity sourceEntity the row belonging to the `source` side
+     * @param DORMDatasource\IORMEntity sourceEntity the row belonging to the `source` side
      *   of this association
-     * @param array<DORMDatasource\IEntity> targetEntities list of entities belonging to the `target` side
+     * @param array<DORMDatasource\IORMEntity> targetEntities list of entities belonging to the `target` side
      *   of this association
      * @param Json[string] options list of options to be passed to the internal `save` call
      * @throws \InvalidArgumentException when any of the values in targetEntities is
      *   detected to not be already persisted
      * @return bool true on success, false otherwise
      * /
-    bool link(IEntity sourceEntity, Json[string] targetEntities, Json[string] optionData = null) {
+    bool link(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] optionData = null) {
         _checkPersistenceStatus(sourceEntity, targetEntities);
         property = getProperty();
         links = sourceEntity.get(property) ?: [];
@@ -809,9 +809,9 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * `article.get("tags")` will contain only `[tag4]` after deleting in the database
      *
-     * @param DORMDatasource\IEntity sourceEntity An entity persisted in the source table for
+     * @param DORMDatasource\IORMEntity sourceEntity An entity persisted in the source table for
      *   this association.
-     * @param array<DORMDatasource\IEntity> targetEntities List of entities persisted in the target table for
+     * @param array<DORMDatasource\IORMEntity> targetEntities List of entities persisted in the target table for
      *   this association.
      * @param string[]|bool options List of options to be passed to the internal `delete` call,
      *   or a `boolean` as `cleanProperty` key shortcut.
@@ -819,7 +819,7 @@ class DBelongsToManyAssociation : DAssociation {
      *   any of them is lacking a primary key value.
      * @return bool Success
      * /
-    bool unlink(IEntity sourceEntity, Json[string] targetEntities, options = null) {
+    bool unlink(IORMEntity sourceEntity, Json[string] targetEntities, options = null) {
         if (is_bool(options)) {
             options = [
                 "cleanProperty": options,
@@ -840,13 +840,13 @@ class DBelongsToManyAssociation : DAssociation {
             }
         );
 
-        /** @var array<DORMDatasource\IEntity> existing * /
+        /** @var array<DORMDatasource\IORMEntity> existing * /
         existing = sourceEntity.get(property) ?: [];
         if (!options["cleanProperty"] || existing.isEmpty) {
             return true;
         }
 
-        /** @var \SplObjectStorage<DORMDatasource\IEntity, null> storage * /
+        /** @var \SplObjectStorage<DORMDatasource\IORMEntity, null> storage * /
         storage = new DSplObjectStorage();
         foreach (targetEntities as e) {
             storage.attach(e);
@@ -1057,7 +1057,7 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * `article.get("tags")` will contain only `[tag1, tag3]` at the end
      *
-     * @param DORMDatasource\IEntity sourceEntity an entity persisted in the source table for
+     * @param DORMDatasource\IORMEntity sourceEntity an entity persisted in the source table for
      *   this association
      * @param Json[string] targetEntities list of entities from the target table to be linked
      * @param Json[string] options list of options to be passed to the internal `save`/`delete` calls
@@ -1066,7 +1066,7 @@ class DBelongsToManyAssociation : DAssociation {
      *   any of them is lacking a primary key value
      * @return bool success
      * /
-    bool replaceLinks(IEntity sourceEntity, Json[string] targetEntities, Json[string] optionData = null) {
+    bool replaceLinks(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] optionData = null) {
         bindingKey = (array)getBindingKey();
         primaryValue = sourceEntity.extract(bindingKey);
 
@@ -1144,7 +1144,7 @@ class DBelongsToManyAssociation : DAssociation {
      * `targetEntities` that were not deleted from calculating the difference.
      *
      * @param DORMQuery existing a query for getting existing links
-     * @param array<DORMDatasource\IEntity> jointEntities link entities that should be persisted
+     * @param array<DORMDatasource\IORMEntity> jointEntities link entities that should be persisted
      * @param Json[string] targetEntities entities in target table that are related to
      * the `jointEntities`
      * @param Json[string] options list of options accepted by `Table.remove()`
@@ -1205,7 +1205,7 @@ class DBelongsToManyAssociation : DAssociation {
         primary = (array)target.primaryKeys();
         jointProperty = _junctionProperty;
         foreach (targetEntities as k: entity) {
-            if (!(entity instanceof IEntity)) {
+            if (!(entity instanceof IORMEntity)) {
                 continue;
             }
             key = array_values(entity.extract(primary));
@@ -1229,14 +1229,14 @@ class DBelongsToManyAssociation : DAssociation {
     /**
      * Throws an exception should any of the passed entities is not persisted.
      *
-     * @param DORMDatasource\IEntity sourceEntity the row belonging to the `source` side
+     * @param DORMDatasource\IORMEntity sourceEntity the row belonging to the `source` side
      *   of this association
-     * @param array<DORMDatasource\IEntity> targetEntities list of entities belonging to the `target` side
+     * @param array<DORMDatasource\IORMEntity> targetEntities list of entities belonging to the `target` side
      *   of this association
      * @return bool
      * @throws \InvalidArgumentException
      * /
-    protected bool _checkPersistenceStatus(IEntity sourceEntity, Json[string] targetEntities) {
+    protected bool _checkPersistenceStatus(IORMEntity sourceEntity, Json[string] targetEntities) {
         if (sourceEntity.isNew()) {
             error = "Source entity needs to be persisted before links can be created or removed.";
             throw new DInvalidArgumentException(error);
@@ -1256,15 +1256,15 @@ class DBelongsToManyAssociation : DAssociation {
      * Returns the list of joint entities that exist between the source entity
      * and each of the passed target entities
      *
-     * @param DORMDatasource\IEntity sourceEntity The row belonging to the source side
+     * @param DORMDatasource\IORMEntity sourceEntity The row belonging to the source side
      *   of this association.
      * @param Json[string] targetEntities The rows belonging to the target side of this
      *   association.
      * @throws \InvalidArgumentException if any of the entities is lacking a primary
      *   key value
-     * @return array<DORMDatasource\IEntity>
+     * @return array<DORMDatasource\IORMEntity>
      * /
-    // TODO protected Json[string] _collectJointEntities(IEntity sourceEntity, Json[string] targetEntities) {
+    // TODO protected Json[string] _collectJointEntities(IORMEntity sourceEntity, Json[string] targetEntities) {
         target = getTarget();
         source = source();
         junction = this.junction();
@@ -1275,12 +1275,12 @@ class DBelongsToManyAssociation : DAssociation {
         missing = null;
 
         foreach (targetEntities as entity) {
-            if (!(entity instanceof IEntity)) {
+            if (!(entity instanceof IORMEntity)) {
                 continue;
             }
             joint = entity.get(jointProperty);
 
-            if (!joint || !(joint instanceof IEntity)) {
+            if (!joint || !(joint instanceof IORMEntity)) {
                 missing[] = entity.extract(primary);
                 continue;
             }

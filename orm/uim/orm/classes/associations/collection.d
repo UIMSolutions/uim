@@ -162,7 +162,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param Json[string] options The options for the save operation.
      * @return bool Success
      * /
-    bool saveParents(DORMTable aTable, IEntity anEntity, Json[string] associations, Json[string] optionData = null) {
+    bool saveParents(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] optionData = null) {
       if (associations.isEmpty) {
           return true;
       }
@@ -176,13 +176,13 @@ class DAssociationCollection { // }: IteratorAggregate {
      * Child associations include any association where the given table is not the owning side.
      *
      * @param DORMDORMTable aTable The table entity is for.
-     * @param DORMDatasource\IEntity anEntity The entity to save associated data for.
+     * @param DORMDatasource\IORMEntity anEntity The entity to save associated data for.
      * @param Json[string] associations The list of associations to save children from.
      *   associations not in this list will not be saved.
      * @param Json[string] options The options for the save operation.
      * @return bool Success
      * /
-    bool saveChildren(DORMTable aTable, IEntity anEntity, Json[string] associations, Json[string] optionData) {
+    bool saveChildren(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] optionData) {
         return associations.isEmpty
             ? true
             : _saveAssociations(table, entity, associations, options, true);
@@ -192,7 +192,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * Helper method for saving an association"s data.
      *
      * @param DORMDORMTable aTable The table the save is currently operating on
-     * @param DORMDatasource\IEntity anEntity The entity to save
+     * @param DORMDatasource\IORMEntity anEntity The entity to save
      * @param Json[string] associations Array of associations to save.
      * @param Json[string] options Original options
      * @param bool owningSide Compared with association classes" isOwningSide method.
@@ -201,7 +201,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * /
     protected bool _saveAssociations(
         DORMTable aTable,
-        IEntity anEntity,
+        IORMEntity anEntity,
         array associations,
         Json[string] optionData,
         bool owningSide
@@ -236,14 +236,14 @@ class DAssociationCollection { // }: IteratorAggregate {
      * Helper method for saving an association"s data.
      *
      * @param DORMDORMAssociation anAssociation The association object to save with.
-     * @param DORMDatasource\IEntity anEntity The entity to save
+     * @param DORMDatasource\IORMEntity anEntity The entity to save
      * @param Json[string] nested Options for deeper associations
      * @param Json[string] options Original options
      * @return bool Success
      * /
     protected bool _save(
         DORMAssociation anAssociation,
-        IEntity anEntity,
+        IORMEntity anEntity,
         array nested,
         Json[string] optionData
     ) {
@@ -261,10 +261,10 @@ class DAssociationCollection { // }: IteratorAggregate {
      * Cascade a delete across the various associations.
      * Cascade first across associations for which cascadeCallbacks is true.
      *
-     * @param DORMDatasource\IEntity anEntity The entity to delete associations for.
+     * @param DORMDatasource\IORMEntity anEntity The entity to delete associations for.
      * @param Json[string] options The options used in the delete operation.
      * /
-    bool cascaderemove(IEntity anEntity, Json[string] optionData) {
+    bool cascaderemove(IORMEntity anEntity, Json[string] optionData) {
         noCascade = null;
         foreach (_items as assoc) {
             if (!assoc.getCascadeCallbacks()) {

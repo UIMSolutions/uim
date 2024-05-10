@@ -6,10 +6,10 @@
 module uim.models.classes.attributes.integers.calenderparts;
 
 public { 
-	// import uim.models.classes.attributes.integers.calenderparts.day;
-	// import uim.models.classes.attributes.integers.calenderparts.integer;
-	// import uim.models.classes.attributes.integers.calenderparts.month;
-	// import uim.models.classes.attributes.integers.calenderparts.quarter;
-	// import uim.models.classes.attributes.integers.calenderparts.tenday;
-	// import uim.models.classes.attributes.integers.calenderparts.week;
+	import uim.models.classes.attributes.integers.calenderparts.day;
+	import uim.models.classes.attributes.integers.calenderparts.integer;
+	import uim.models.classes.attributes.integers.calenderparts.month;
+	import uim.models.classes.attributes.integers.calenderparts.quarter;
+	import uim.models.classes.attributes.integers.calenderparts.tenday;
+	import uim.models.classes.attributes.integers.calenderparts.week;
 }

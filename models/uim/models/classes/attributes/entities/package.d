@@ -6,5 +6,5 @@
 module uim.models.classes.attributes.entities;
 
 public { // Main
-	/* // import uim.models.classes.attributes.entities.entity; */
+	import uim.models.classes.attributes.entities.entity; 
 }

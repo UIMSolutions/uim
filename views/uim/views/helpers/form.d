@@ -34,41 +34,36 @@ class DFormHelper : DHelper {
     // The default sources.
     protected string[] _valueSources = ["data", "context"];
 
-    /**
-     * Grouped input types.
-     */
+    // Grouped input types.
     protected string[] _groupedInputTypes = ["radio", "multicheckbox"];
 
-    /** 
     override bool initialize(Json[string] initData = null) {
-        if (super.initialize(initData)) {
-            configuration.updateDefaults([
-                "idPrefix": Json(null),
-                "errorClass": Json("form-error"),
-                "typeMap": MapData([
-                    "string": "text",
-                    "text": "textarea",
-                    "uuid": "string",
-                    "datetime": "datetime",
-                    "datetimefractional": "datetime",
-                    "timestamp": "datetime",
-                    "timestampfractional": "datetime",
-                    "timestamptimezone": "datetime",
-                    "date": "date",
-                    "time": "time",
-                    "year": "year",
-                    "boolean": "checkbox",
-                    "float": "number",
-                    "integer": "number",
-                    "tinyinteger": "number",
-                    "smallinteger": "number",
-                    "decimal": "number",
-                    "binary": "file",
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
-                
+        auto typeMap = [
+            "string": "text",
+            "text": "textarea",
+            "uuid": "string",
+            "datetime": "datetime",
+            "datetimefractional": "datetime",
+            "timestamp": "datetime",
+            "timestampfractional": "datetime",
+            "timestamptimezone": "datetime",
+            "date": "date",
+            "time": "time",
+            "year": "year",
+            "boolean": "checkbox",
+            "float": "number",
+            "integer": "number",
+            "tinyinteger": "number",
+            "smallinteger": "number",
+            "decimal": "number",
+            "binary": "file"
+            ].toJson;
 
-            ]),
-            "templates" : MapData([
+        auto templates = [
                 // Used for button elements in button().
                 "button": `<button{{attrs}}>{{text}}</button>`, // Used for checkboxes in checkbox() and multiCheckbox().
                 "checkbox": `<input type="checkbox" name="{{name}}" value="{{value}} "{{attrs}}>`, // Input group wrapper for checkboxes created via control().
@@ -103,8 +98,15 @@ class DFormHelper : DHelper {
                 "confirmJs": `{{confirm}}`, // selected class
                 "selectedClass": `selected`, // required class
                 "requiredClass": `required`,
-            ]), // set HTML5 validation message to custom required/empty messages
+            ].toJson;
+
+        configuration.updateDefaults([
+            "idPrefix": Json(null),
+            "errorClass": Json("form-error"),
+            "typeMap": typeMap,
+            "templates" : MapData(), // set HTML5 validation message to custom required/empty messages
                 "autoSetCustomValidity" : true.toJson,]);
+
             return true;
         }
         /**
@@ -1470,16 +1472,16 @@ class DFormHelper : DHelper {
      * @param Json[string] options Array of options and HTML attributes.
      * /
     string button(string mytitle, Json[string] options  = null) {
-        options = options.update[
-            "type": "submit",
+        auto updatedOptions = options.update[
+            "type": "submit".toJson,
             "escapeTitle": true.toJson,
             "escape": true.toJson,
             "secure": false.toJson,
-            "confirm": null,
+            "confirm": Json(null),
         ];
-        options["text"] = mytitle;
+        updatedOptions["text"] = mytitle;
 
-        myconfirmMessage = options["confirm"];
+        auto myconfirmMessage = options["confirm"];
         options.remove("confirm");
         if (myconfirmMessage) {
             myconfirm = _confirm("return true;", "return false;");
@@ -1508,9 +1510,8 @@ class DFormHelper : DHelper {
      * - `confirm` - Confirm message to show. Form execution will only continue if confirmed then.
      * Params:
      * string mytitle The button"s caption. Not automatically HTML encoded
-     * @param string[] myurl URL as string or array
      * /
-    string postButton(string mytitle, string[] myurl, Json[string] options  = null) {
+    string postButton(string caption, string[] myurl, Json[string] options  = null) {
         auto myformOptions = ["url": myurl];
         if (isSet(options["method"])) {
             myformOptions["type"] = options["method"];
@@ -1527,8 +1528,8 @@ class DFormHelper : DHelper {
             }
             options.remove("data"]);
         }
-        result ~= this.button(mytitle, options);
-        result ~= this.end();
+        result ~= button(caption, options)
+         ~ end();
 
         return result;
     }
@@ -1668,11 +1669,11 @@ class DFormHelper : DHelper {
      * /
     string submit(string mycaption = null, Json[string] options  = null) {
         mycaption ??= __d("uim", "Submit");
-        options = options.update[
+        auto updatedOptions = options.update([
             "type": "submit",
             "secure": false.toJson,
             "templateVars": Json.emptyArray,
-        ];
+        ]);
 
         if (isSet(options["name"]) && this.formProtector) {
             this.formProtector.addField(

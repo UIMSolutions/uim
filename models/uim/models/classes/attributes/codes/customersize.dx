@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DCustomerSizeCodeAttribute : DIntegerStringAttribute {
-  mixin(AttributeThis!("CustomerSizeCodeAttribute"));
+  mixin(AttributeThis!("CustomerSizeCode"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -31,7 +31,7 @@ class DCustomerSizeCodeAttribute : DIntegerStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("CustomerSizeCodeAttribute"));
+mixin(AttributeCalls!("CustomerSizeCode"));
 
 version (test_uim_models) {
   unittest {

@@ -15,7 +15,7 @@ import uim.models;
 // means.measurement.currencyCode
 // Value is a ISO 4217 currency code
 class DCurrencyCodeAttribute : DStringStringAttribute {
-  mixin(AttributeThis!("CurrencyCodeAttribute"));
+  mixin(AttributeThis!("CurrencyCode"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -31,7 +31,7 @@ class DCurrencyCodeAttribute : DStringStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("CurrencyCodeAttribute"));
+mixin(AttributeCalls!("CurrencyCode"));
 
 version (test_uim_models) {
   unittest {

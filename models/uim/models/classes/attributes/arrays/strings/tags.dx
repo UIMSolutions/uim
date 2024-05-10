@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DTagsAttribute : DStringArrayAttribute {
-  mixin(AttributeThis!("TagsAttribute"));
+  mixin(AttributeThis!("Tags"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {

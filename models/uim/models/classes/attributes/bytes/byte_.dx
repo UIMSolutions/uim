@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DByteAttribute : DAttribute {
-  mixin(AttributeThis!("ByteAttribute"));
+  mixin(AttributeThis!("Byte"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -25,7 +25,7 @@ class DByteAttribute : DAttribute {
   }
 }
 
-mixin(AttributeCalls!("ByteAttribute"));
+mixin(AttributeCalls!("Byte"));
 
 version (test_uim_models) {
   unittest {

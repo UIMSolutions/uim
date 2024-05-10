@@ -15,7 +15,7 @@ import uim.models;
 
 @safe:
 class DImageAttribute : DBinaryAttribute {
-  mixin(AttributeThis!("ImageAttribute"));
+  mixin(AttributeThis!("Image"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -33,7 +33,7 @@ means.content.binary.image */
   }
 }
 
-mixin(AttributeCalls!("ImageAttribute"));
+mixin(AttributeCalls!("Image"));
 
 version (test_uim_models) {
   unittest {

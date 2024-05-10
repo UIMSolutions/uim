@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DBooleanAttribute : DAttribute {
-  mixin(AttributeThis!("BooleanAttribute"));
+  mixin(AttributeThis!("Boolean"));
 
   /* Inheritance
 any <- boolean

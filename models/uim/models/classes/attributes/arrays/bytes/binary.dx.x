@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DBinaryAttribute : DAttribute {
-  mixin(AttributeThis!("BinaryAttribute"));
+  mixin(AttributeThis!("Binary"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -31,7 +31,7 @@ class DBinaryAttribute : DAttribute {
   }
 }
 
-mixin(AttributeCalls!("BinaryAttribute"));
+mixin(AttributeCalls!("Binary"));
 
 version (test_uim_models) {
   unittest {

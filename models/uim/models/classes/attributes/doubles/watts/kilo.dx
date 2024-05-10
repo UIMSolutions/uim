@@ -23,7 +23,7 @@ import uim.models;
 
 @safe:
 class DKiloWattAttribute : DWattAttribute {
-  mixin(AttributeThis!("KiloWattAttribute"));
+  mixin(AttributeThis!("KiloWatt"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -38,7 +38,7 @@ class DKiloWattAttribute : DWattAttribute {
   }
 }
 
-mixin(AttributeCalls!("KiloWattAttribute"));
+mixin(AttributeCalls!("KiloWatt"));
 
 version (test_uim_models) {
   unittest {

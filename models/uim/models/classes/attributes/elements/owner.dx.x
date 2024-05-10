@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DOwnerElementAttribute : DAttribute {
-  mixin(AttributeThis!("OwnerElementAttribute"));
+  mixin(AttributeThis!("OwnerElement"));
 
   /* override Json createData() {
     return ElementData(this)

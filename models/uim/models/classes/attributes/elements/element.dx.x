@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DElementAttribute : DAttribute {
-  mixin(AttributeThis!("ElementAttribute"));
+  mixin(AttributeThis!("Element"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {

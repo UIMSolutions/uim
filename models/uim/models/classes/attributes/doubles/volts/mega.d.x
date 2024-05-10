@@ -19,7 +19,7 @@ import uim.models;
 
 @safe:
 class DMegaVoltAttribute : DVoltAttribute {
-  mixin(AttributeThis!("MegaVoltAttribute"));
+  mixin(AttributeThis!("MegaVolt"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -34,7 +34,7 @@ class DMegaVoltAttribute : DVoltAttribute {
   }
 }
 
-mixin(AttributeCalls!("MegaVoltAttribute"));
+mixin(AttributeCalls!("MegaVolt"));
 
 version (test_uim_models) {
   unittest {

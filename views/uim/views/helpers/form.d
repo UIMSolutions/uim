@@ -1406,7 +1406,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldNameName Name of a field, in the form "modelname.fieldname"
      * @param Json[string] options Array of HTML attributes, and special options above.
-     * /
+     */
     string textarea(string fieldNameName, Json[string] options  = null) {
         options = _initInputField(fieldName, options);
         options.remove("type");

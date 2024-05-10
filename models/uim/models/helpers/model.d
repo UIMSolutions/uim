@@ -1,4 +1,4 @@
-module uim.models.helpers.model;
+module models.uim.models.helpers.model;
 
 import uim.models;
 @safe:

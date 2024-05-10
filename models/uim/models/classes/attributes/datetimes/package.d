@@ -15,5 +15,5 @@ public {
 	import uim.models.classes.attributes.datetimes.birthdate;
 	import uim.models.classes.attributes.datetimes.datetime;
 	import uim.models.classes.attributes.datetimes.time;
-	import uim.models.classes.attributes.datetimes.timestamp; */
+	import uim.models.classes.attributes.datetimes.timestamp; 
 }

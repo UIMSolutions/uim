@@ -95,10 +95,10 @@ class DHtmlHelper : DHelper {
      * Json[string]|string mytype The title of the external resource, Or an array of attributes for a
      *  custom meta tag.
      * @param string[] mycontent The address of the external resource or string for content attribute
-     * @param Json[string] htmlAtributes Other attributes for the generated tag. If the type attribute is html,
+     * @param Json[string] htmlAttributes Other attributes for the generated tag. If the type attribute is html,
      *   rss, atom, or icon, the mime-type is returned.
      * /
-    string meta(string[] mytype, string[] mycontent = null, Json[string] htmlAtributes = null) {
+    string meta(string[] mytype, string[] mycontent = null, Json[string] htmlAttributes = null) {
         if (!mytype.isArray) {
             mytypes = [
                 "rss": ["type": "application/rss+xml", "rel": "alternate", "title": mytype, "link": mycontent],
@@ -120,49 +120,49 @@ class DHtmlHelper : DHelper {
             }
             if (isSet(mytypes[mytype])) {
                 mytype = mytypes[mytype];
-            } elseif (!htmlAtributes.isSet("type") && mycontent !isNull) {
+            } elseif (!htmlAttributes.isSet("type") && mycontent !isNull) {
                 mytype = isArray(mycontent) && isSet(mycontent["_ext"])
                     ? mytypes[mycontent["_ext"]]
                     : ["name": mytype, "content": mycontent];
 
-            } elseif (isSet(htmlAtributes["type"], mytypes[htmlAtributes["type"]])) {
-                mytype = mytypes[htmlAtributes["type"]];
-                unset(htmlAtributes["type"]);
+            } elseif (isSet(htmlAttributes["type"], mytypes[htmlAttributes["type"]])) {
+                mytype = mytypes[htmlAttributes["type"]];
+                unset(htmlAttributes["type"]);
             } else {
                 mytype = null;
             }
         }
-        htmlAtributes += mytype ~ ["block": null];
+        htmlAttributes += mytype ~ ["block": null];
         string result = "";
 
-        if (isSet(htmlAtributes["link"])) {
-            htmlAtributes["link"] = isArray(htmlAtributes["link"]) 
-                ? this.Url.build(htmlAtributes["link"])
-                this.Url.assetUrl(htmlAtributes["link"]);
+        if (isSet(htmlAttributes["link"])) {
+            htmlAttributes["link"] = isArray(htmlAttributes["link"]) 
+                ? this.Url.build(htmlAttributes["link"])
+                this.Url.assetUrl(htmlAttributes["link"]);
 
-            if (isSet(htmlAtributes["rel"]) && htmlAtributes["rel"] == "icon") {
+            if (isSet(htmlAttributes["rel"]) && htmlAttributes["rel"] == "icon") {
                 result = this.formatTemplate("metalink", [
-                    "url": htmlAtributes["link"],
-                    "attrs": this.templater().formatAttributes(htmlAtributes, ["block", "link"]),
+                    "url": htmlAttributes["link"],
+                    "attrs": this.templater().formatAttributes(htmlAttributes, ["block", "link"]),
                 ]);
-                htmlAtributes["rel"] = "shortcut icon";
+                htmlAttributes["rel"] = "shortcut icon";
             }
             result ~= this.formatTemplate("metalink", [
-                "url": htmlAtributes["link"],
-                "attrs": this.templater().formatAttributes(htmlAtributes, ["block", "link"]),
+                "url": htmlAttributes["link"],
+                "attrs": this.templater().formatAttributes(htmlAttributes, ["block", "link"]),
             ]);
         } else {
             result = this.formatTemplate("meta", [
-                "attrs": this.templater().formatAttributes(htmlAtributes, ["block", "type"]),
+                "attrs": this.templater().formatAttributes(htmlAttributes, ["block", "type"]),
             ]);
         }
-        if (htmlAtributes..isEmpty("block")) {
+        if (htmlAttributes..isEmpty("block")) {
             return result;
         }
-        if (htmlAtributes["block"] == true) {
-            htmlAtributes["block"] = __FUNCTION__;
+        if (htmlAttributes["block"] == true) {
+            htmlAttributes["block"] = __FUNCTION__;
         }
-       _View.append(htmlAtributes["block"], result);
+       _View.append(htmlAttributes["block"], result);
 
         return null;
     }
@@ -203,24 +203,24 @@ class DHtmlHelper : DHelper {
      *  Can be an array if myurl.isNull. If myurl.isNull, mytitle will be used as both the URL and title.
      * @param string[] myurl uim-relative URL or array of URL parameters, or
      *  external URL (starts with http://)
-     * @param Json[string] htmlAtributes Array of options and HTML attributes.
+     * @param Json[string] htmlAttributes Array of options and HTML attributes.
       * /
-    string link(string[] mytitle, string[] myurl = null, Json[string] htmlAtributes = null) {
+    string link(string[] mytitle, string[] myurl = null, Json[string] htmlAttributes = null) {
         myescapeTitle = true;
         if (myurl !isNull) {
-            myurl = this.Url.build(myurl, htmlAtributes);
-            htmlAtributes.remove("fullBase");
+            myurl = this.Url.build(myurl, htmlAttributes);
+            htmlAttributes.remove("fullBase");
         } else {
             myurl = this.Url.build(mytitle);
             mytitle = htmlspecialchars_decode(myurl, ENT_QUOTES);
             mytitle = htmlAttribEscape(urldecode(mytitle));
             myescapeTitle = false;
         }
-        if (isSet(htmlAtributes["escapeTitle"])) {
-            myescapeTitle = htmlAtributes["escapeTitle"];
-            unset(htmlAtributes["escapeTitle"]);
-        } elseif (isSet(htmlAtributes["escape"])) {
-            myescapeTitle = htmlAtributes["escape"];
+        if (isSet(htmlAttributes["escapeTitle"])) {
+            myescapeTitle = htmlAttributes["escapeTitle"];
+            unset(htmlAttributes["escapeTitle"]);
+        } elseif (isSet(htmlAttributes["escape"])) {
+            myescapeTitle = htmlAttributes["escape"];
         }
         if (myescapeTitle == true) {
             mytitle = htmlAttribEscape(mytitle);
@@ -230,21 +230,21 @@ class DHtmlHelper : DHelper {
         }
         mytemplater = this.templater();
         myconfirmMessage = null;
-        if (isSet(htmlAtributes["confirm"])) {
-            myconfirmMessage = htmlAtributes["confirm"];
-            htmlAtributes.remove("confirm");
+        if (isSet(htmlAttributes["confirm"])) {
+            myconfirmMessage = htmlAttributes["confirm"];
+            htmlAttributes.remove("confirm");
         }
         if (myconfirmMessage) {
             myconfirm = _confirm("return true;", "return false;");
-            htmlAtributes["data-confirm-message"] = myconfirmMessage;
-            htmlAtributes["onclick"] = mytemplater.format("confirmJs", [
+            htmlAttributes["data-confirm-message"] = myconfirmMessage;
+            htmlAttributes["onclick"] = mytemplater.format("confirmJs", [
                 "confirmMessage": htmlAttribEscape(myconfirmMessage),
                 "confirm": myconfirm,
             ]);
         }
         return mytemplater.format("link", [
             "url": myurl,
-            "attrs": mytemplater.formatAttributes(htmlAtributes),
+            "attrs": mytemplater.formatAttributes(htmlAttributes),
             "content": mytitle,
         ]);
     }
@@ -263,10 +263,10 @@ class DHtmlHelper : DHelper {
      * @param string mypath uim-relative route path.
      * @param array myparams An array specifying any additional parameters.
      *  Can be also any special parameters supported by `Router.url()`.
-     * @param Json[string] htmlAtributes Array of options and HTML attributes.
+     * @param Json[string] htmlAttributes Array of options and HTML attributes.
      * /
-    string linkFromPath(string mytitle, string mypath, Json[string] myparams = [], Json[string] htmlAtributes = null) {
-        return _link(mytitle, ["_path": mypath] + myparams, htmlAtributes);
+    string linkFromPath(string mytitle, string mypath, Json[string] myparams = [], Json[string] htmlAttributes = null) {
+        return _link(mytitle, ["_path": mypath] + myparams, htmlAttributes);
     }
     
     /**
@@ -316,10 +316,10 @@ class DHtmlHelper : DHelper {
      * string[]|string mypath The name of a CSS style sheet or an array containing names of
      *  CSS stylesheets. If `mypath` is prefixed with "/", the path will be relative to the webroot
      *  of your application. Otherwise, the path will be relative to your CSS path, usually webroot/css.
-     * @param Json[string] htmlAtributes Array of options and HTML arguments.
+     * @param Json[string] htmlAttributes Array of options and HTML arguments.
      * /
-    string css(string[] mypath, Json[string] htmlAtributes = null) {
-        htmlAtributes = htmlAtributes.update([
+    string css(string[] mypath, Json[string] htmlAttributes = null) {
+        htmlAttributes = htmlAttributes.update([
             "once": true.toJson,
             "block": null,
             "rel": Json("stylesheet"),
@@ -329,42 +329,42 @@ class DHtmlHelper : DHelper {
         if (mypath.isArray) {
             string result = "";
             foreach (mypath as myi) {
-                result ~= "\n\t" ~ to!string(this.css(myi, htmlAtributes));
+                result ~= "\n\t" ~ to!string(this.css(myi, htmlAttributes));
             }
-            if (isEmpty(htmlAtributes["block"])) {
+            if (isEmpty(htmlAttributes["block"])) {
                 return result ~ "\n";
             }
             return null;
         }
-        myurl = this.Url.css(mypath, htmlAtributes);
-        htmlAtributes = array_diff_key(htmlAtributes, ["fullBase": null, "pathPrefix": null]);
+        myurl = this.Url.css(mypath, htmlAttributes);
+        htmlAttributes = array_diff_key(htmlAttributes, ["fullBase": null, "pathPrefix": null]);
 
-        if (htmlAtributes["once"] && isSet(_includedAssets[__METHOD__][mypath])) {
+        if (htmlAttributes["once"] && isSet(_includedAssets[__METHOD__][mypath])) {
             return null;
         }
-        htmlAtributes.remove("once");
+        htmlAttributes.remove("once");
        _includedAssets[__METHOD__][mypath] = true;
 
         mytemplater = this.templater();
-        if (htmlAtributes["rel"] == "import") {
+        if (htmlAttributes["rel"] == "import") {
             result = mytemplater.format("style", [
-                "attrs": mytemplater.formatAttributes(htmlAtributes, ["rel", "block"]),
+                "attrs": mytemplater.formatAttributes(htmlAttributes, ["rel", "block"]),
                 "content": "@import url(" ~ myurl ~ ");",
             ]);
         } else {
             result = mytemplater.format("css", [
-                "rel": htmlAtributes["rel"],
+                "rel": htmlAttributes["rel"],
                 "url": myurl,
-                "attrs": mytemplater.formatAttributes(htmlAtributes, ["rel", "block"]),
+                "attrs": mytemplater.formatAttributes(htmlAttributes, ["rel", "block"]),
             ]);
         }
-        if (htmlAtributes.isEmpty("block")) {
+        if (htmlAttributes.isEmpty("block")) {
             return result;
         }
-        if (htmlAtributes["block"] == true) {
-            htmlAtributes["block"] = __FUNCTION__;
+        if (htmlAttributes["block"] == true) {
+            htmlAttributes["block"] = __FUNCTION__;
         }
-       _View.append(htmlAtributes["block"], result);
+       _View.append(htmlAttributes["block"], result);
 
         return null;
     }
@@ -409,44 +409,44 @@ class DHtmlHelper : DHelper {
      * be inserted as a `nonce` attribute on the script tag.
      * Params:
      * string[]|string myurl String or array of javascript files to include
-     * @param Json[string] htmlAtributes Array of options, and html attributes see above.
+     * @param Json[string] htmlAttributes Array of options, and html attributes see above.
      * /
-    string script(string[] myurl, Json[string] htmlAtributes = null) {
+    string script(string[] myurl, Json[string] htmlAttributes = null) {
         mydefaults = [
             "block": null,
             "once": true.toJson,
             "nonce": _View.getRequest().getAttribute("cspScriptNonce"),
         ];
-        htmlAtributes += mydefaults;
+        htmlAttributes += mydefaults;
 
         if (myurl.isArray) {
-            string result = myurl.map!(i => "\n\t" ~ (string)this.script(myi, htmlAtributes)).join;
-            if (htmlAtributes.isEmpty("block")) {
+            string result = myurl.map!(i => "\n\t" ~ (string)this.script(myi, htmlAttributes)).join;
+            if (htmlAttributes.isEmpty("block")) {
                 return result ~ "\n";
             }
             return null;
         }
-        myurl = this.Url.script(myurl, htmlAtributes);
-        htmlAtributes = array_diff_key(htmlAtributes, ["fullBase": null, "pathPrefix": null]);
+        myurl = this.Url.script(myurl, htmlAttributes);
+        htmlAttributes = array_diff_key(htmlAttributes, ["fullBase": null, "pathPrefix": null]);
 
-        if (htmlAtributes["once"] && isSet(_includedAssets[__METHOD__][myurl])) {
+        if (htmlAttributes["once"] && isSet(_includedAssets[__METHOD__][myurl])) {
             return null;
         }
        _includedAssets[__METHOD__][myurl] = true;
 
         result = this.formatTemplate("javascriptlink", [
             "url": myurl,
-            "attrs": this.templater().formatAttributes(htmlAtributes, ["block", "once"]),
+            "attrs": this.templater().formatAttributes(htmlAttributes, ["block", "once"]),
         ]);
 
-        if (htmlAtributes.isEmpty("block")) {
+        if (htmlAttributes.isEmpty("block")) {
             return result;
         }
 
-        if (htmlAtributes["block"] == true) {
-            htmlAtributes["block"] = __FUNCTION__;
+        if (htmlAttributes["block"] == true) {
+            htmlAttributes["block"] = __FUNCTION__;
         }
-       _View.append(htmlAtributes["block"], result);
+       _View.append(htmlAttributes["block"], result);
 
         return null;
     }
@@ -460,24 +460,24 @@ class DHtmlHelper : DHelper {
      *  custom block name.
      * Params:
      * string myscript The script to wrap
-     * @param Json[string] htmlAtributes The options to use. Options not listed above will be
+     * @param Json[string] htmlAttributes The options to use. Options not listed above will be
      *   treated as HTML attributes.
      * /
-    string scriptBlock(string myscript, Json[string] htmlAtributes = null) {
-        htmlAtributes += ["block": null, "nonce": _View.getRequest().getAttribute("cspScriptNonce")];
+    string scriptBlock(string myscript, Json[string] htmlAttributes = null) {
+        htmlAttributes += ["block": null, "nonce": _View.getRequest().getAttribute("cspScriptNonce")];
 
         auto result = this.formatTemplate("javascriptblock", [
-            "attrs": this.templater().formatAttributes(htmlAtributes, ["block"]),
+            "attrs": this.templater().formatAttributes(htmlAttributes, ["block"]),
             "content": myscript,
         ]);
 
-        if (isEmpty(htmlAtributes["block"])) {
+        if (isEmpty(htmlAttributes["block"])) {
             return result;
         }
-        if (htmlAtributes["block"] == true) {
-            htmlAtributes["block"] = "script";
+        if (htmlAttributes["block"] == true) {
+            htmlAttributes["block"] = "script";
         }
-       _View.append(htmlAtributes["block"], result);
+       _View.append(htmlAttributes["block"], result);
 
         return null;
     }
@@ -565,26 +565,26 @@ class DHtmlHelper : DHelper {
      * string[] mypath Path to the image file, relative to the webroot/img/ directory.
      * @param Json[string] options Array of HTML attributes. See above for special options.
      * /
-    string image(string[] mypath, Json[string] htmlAtributes = null) {
+    string image(string[] mypath, Json[string] htmlAttributes = null) {
         if (isString(mypath)) {
-            mypath = this.Url.image(mypath, htmlAtributes);
+            mypath = this.Url.image(mypath, htmlAttributes);
         } else {
-            mypath = this.Url.build(mypath, htmlAtributes);
+            mypath = this.Url.build(mypath, htmlAttributes);
         }
-        htmlAtributes = array_diff_key(htmlAtributes, ["fullBase": null, "pathPrefix": null]);
+        htmlAttributes = array_diff_key(htmlAttributes, ["fullBase": null, "pathPrefix": null]);
 
-        if (!htmlAtributes.isSet("alt")) {
-            htmlAtributes["alt"] = "";
+        if (!htmlAttributes.isSet("alt")) {
+            htmlAttributes["alt"] = "";
         }
         myurl = false;
-        if (!htmlAtributes.isEmpty("url"))) {
-            myurl = htmlAtributes["url"];
-            unset(htmlAtributes["url"]);
+        if (!htmlAttributes.isEmpty("url"))) {
+            myurl = htmlAttributes["url"];
+            unset(htmlAttributes["url"]);
         }
         mytemplater = this.templater();
         myimage = mytemplater.format("image", [
             "url": mypath,
-            "attrs": mytemplater.formatAttributes(htmlAtributes),
+            "attrs": mytemplater.formatAttributes(htmlAttributes),
         ]);
 
         if (myurl) {
@@ -666,8 +666,8 @@ class DHtmlHelper : DHelper {
             mycellsOut = _renderCells(line, myuseCount);
             myopts = mycount % 2 ? myoddTrOptions : myevenTrOptions;
 
-            Json[string] htmlAtributes = (array)myopts;
-            result ~= this.tableRow(mycellsOut.join(" "), htmlAtributes);
+            Json[string] htmlAttributes = (array)myopts;
+            result ~= this.tableRow(mycellsOut.join(" "), htmlAttributes);
         });
 
         return result.join("\n");
@@ -709,11 +709,11 @@ class DHtmlHelper : DHelper {
      * Renders a single table row (A TR with attributes).
      * Params:
      * string mycontent The content of the row.
-     * @param Json[string] htmlAtributes HTML attributes.
+     * @param Json[string] htmlAttributes HTML attributes.
      * /
-    string tableRow(string mycontent, Json[string] htmlAtributes = null) {
+    string tableRow(string mycontent, Json[string] htmlAttributes = null) {
         return _formatTemplate("tablerow", [
-            "attrs": this.templater().formatAttributes(htmlAtributes),
+            "attrs": this.templater().formatAttributes(htmlAttributes),
             "content": mycontent,
         ]);
     }
@@ -722,11 +722,11 @@ class DHtmlHelper : DHelper {
      * Renders a single table cell (A TD with attributes).
      * Params:
      * string mycontent The content of the cell.
-     * @param Json[string] htmlAtributes HTML attributes.
+     * @param Json[string] htmlAttributes HTML attributes.
      * /
-    string tableCell(string mycontent, Json[string] htmlAtributes = null) {
+    string tableCell(string mycontent, Json[string] htmlAttributes = null) {
         return _formatTemplate("tablecell", [
-            "attrs": this.templater().formatAttributes(htmlAtributes),
+            "attrs": this.templater().formatAttributes(htmlAttributes),
             "content": mycontent,
         ]);
     }
@@ -741,18 +741,18 @@ class DHtmlHelper : DHelper {
      * string views Tag name.
      * @param string|null mytext String content that will appear inside the HTML element.
      *  If null, only a start tag will be printed
-     * @param Json[string] htmlAtributes Additional HTML attributes of the HTML tag, see above.
+     * @param Json[string] htmlAttributes Additional HTML attributes of the HTML tag, see above.
      * /
-    string tag(string views, string mytext = null, Json[string] htmlAtributes = null) {
-        if (isSet(htmlAtributes["escape"]) && htmlAtributes["escape"]) {
+    string tag(string views, string mytext = null, Json[string] htmlAttributes = null) {
+        if (isSet(htmlAttributes["escape"]) && htmlAttributes["escape"]) {
             mytext = htmlAttribEscape(mytext);
-            unset(htmlAtributes["escape"]);
+            unset(htmlAttributes["escape"]);
         }
 
         auto tag = mytext.isNull ? "tagstart" : "tag";
 
         return _formatTemplate(mytag, [
-            "attrs": this.templater().formatAttributes(htmlAtributes),
+            "attrs": this.templater().formatAttributes(htmlAttributes),
             "tag": views,
             "content": mytext,
         ]);
@@ -768,13 +768,13 @@ class DHtmlHelper : DHelper {
      * string|null myclass DCSS class name of the div element.
      * @param string|null mytext String content that will appear inside the div element.
      *  If null, only a start tag will be printed
-     * @param Json[string] htmlAtributes Additional HTML attributes of the DIV tag
+     * @param Json[string] htmlAttributes Additional HTML attributes of the DIV tag
      * /
-    string div(string myclass = null, string mytext = null, Json[string] htmlAtributes = null) {
+    string div(string myclass = null, string mytext = null, Json[string] htmlAttributes = null) {
         if (!myclass.isEmpty) {
-            htmlAtributes["class"] = myclass;
+            htmlAttributes["class"] = myclass;
         }
-        return _tag("div", mytext, htmlAtributes);
+        return _tag("div", mytext, htmlAttributes);
     }
     
     /**
@@ -786,21 +786,21 @@ class DHtmlHelper : DHelper {
      * Params:
      * string|null myclass DCSS class name of the p element.
      * @param string|null mytext String content that will appear inside the p element.
-     * @param Json[string] htmlAtributes Additional HTML attributes of the P tag
+     * @param Json[string] htmlAttributes Additional HTML attributes of the P tag
      * /
-    string para(string myclass, string mytext, Json[string] htmlAtributes = null) {
-        if (!htmlAtributes.isEmpty("escape"))) {
+    string para(string myclass, string mytext, Json[string] htmlAttributes = null) {
+        if (!htmlAttributes.isEmpty("escape"))) {
             mytext = htmlAttribEscape(mytext);
         }
         if (myclass) {
-            htmlAtributes["class"] = myclass;
+            htmlAttributes["class"] = myclass;
         }
         mytag = "para";
         if (mytext.isNull) {
             mytag = "parastart";
         }
         return _formatTemplate(mytag, [
-            "attrs": this.templater().formatAttributes(htmlAtributes),
+            "attrs": this.templater().formatAttributes(htmlAttributes),
             "content": mytext,
         ]);
     }
@@ -860,19 +860,19 @@ class DHtmlHelper : DHelper {
      * - `pathPrefix` Path prefix to use for relative URLs, defaults to "files/"
      * - `fullBase` If provided the src attribute will get a full address including domain name
      * Params:
-     * string[] mypath Path to the video file, relative to the webroot/{htmlAtributes["pathPrefix"]} directory.
+     * string[] mypath Path to the video file, relative to the webroot/{htmlAttributes["pathPrefix"]} directory.
      * Or an array where each item itself can be a path string or an associate array containing keys `src` and `type`
-     * @param Json[string] htmlAtributes Array of HTML attributes, and special options above.
+     * @param Json[string] htmlAttributes Array of HTML attributes, and special options above.
      * /
-    string media(string[] mypath, Json[string] htmlAtributes = null) {
-        htmlAtributes += [
+    string media(string[] mypath, Json[string] htmlAttributes = null) {
+        htmlAttributes += [
             "tag": null,
             "pathPrefix": "files/",
             "text": "",
         ];
 
-        auto mytag = !htmlAtributes.isEmpty("tag") 
-            ? htmlAtributes["tag"]
+        auto mytag = !htmlAttributes.isEmpty("tag") 
+            ? htmlAttributes["tag"]
             : null;
 
         if (mypath.isArray) {
@@ -887,21 +887,21 @@ class DHtmlHelper : DHelper {
                     myext = pathinfo(mysource["src"], PATHINFO_EXTENSION);
                     mysource["type"] = _View.getResponse().getMimeType(myext);
                 }
-                mysource["src"] = this.Url.assetUrl(mysource["src"], htmlAtributes);
+                mysource["src"] = this.Url.assetUrl(mysource["src"], htmlAttributes);
                 mysourceTags ~= this.formatTemplate("tagselfclosing", [
                     "tag": "source",
                     "attrs": this.templater().formatAttributes(mysource),
                 ]);
             }
             unset(mysource);
-            htmlAtributes["text"] = mysourceTags ~ htmlAtributes["text"];
-            unset(htmlAtributes["fullBase"]);
+            htmlAttributes["text"] = mysourceTags ~ htmlAttributes["text"];
+            unset(htmlAttributes["fullBase"]);
         } else {
-            if (isEmpty(mypath) && !htmlAtributes.isEmpty("src"))) {
-                mypath = htmlAtributes["src"];
+            if (isEmpty(mypath) && !htmlAttributes.isEmpty("src"))) {
+                mypath = htmlAttributes["src"];
             }
             /** @psalm-suppress PossiblyNullArgument * /
-            htmlAtributes["src"] = this.Url.assetUrl(mypath, htmlAtributes);
+            htmlAttributes["src"] = this.Url.assetUrl(mypath, htmlAttributes);
         }
         if (mytag.isNull) {
             if (mypath.isArray) {
@@ -916,28 +916,28 @@ class DHtmlHelper : DHelper {
                 mytag = "audio";
             }
         }
-        if (isSet(htmlAtributes["poster"])) {
-            htmlAtributes["poster"] = this.Url.assetUrl(
-                htmlAtributes["poster"],
-                ["pathPrefix": Configuration.read("App.imageBaseUrl")] + htmlAtributes
+        if (isSet(htmlAttributes["poster"])) {
+            htmlAttributes["poster"] = this.Url.assetUrl(
+                htmlAttributes["poster"],
+                ["pathPrefix": Configuration.read("App.imageBaseUrl")] + htmlAttributes
             );
         }
-        mytext = htmlAtributes["text"];
+        mytext = htmlAttributes["text"];
 
-        htmlAtributes = array_diff_key(htmlAtributes, [
+        htmlAttributes = array_diff_key(htmlAttributes, [
             "tag": null,
             "fullBase": null,
             "pathPrefix": null,
             "text": null,
         ]);
 
-        return _tag(mytag, mytext, htmlAtributes);
+        return _tag(mytag, mytext, htmlAttributes);
     }
     
     /**
      * Build a nested list (UL/OL) out of an associative array.
      *
-     * Options for htmlAtributes:
+     * Options for htmlAttributes:
      *
      * - `tag` - Type of list tag to use (ol/ul)
      *
@@ -947,15 +947,15 @@ class DHtmlHelper : DHelper {
      * - `odd` - Class to use for odd rows.
      * Params:
      * array mylist Set of elements to list
-     * @param Json[string] htmlAtributes Options and additional HTML attributes of the list (ol/ul) tag.
+     * @param Json[string] htmlAttributes Options and additional HTML attributes of the list (ol/ul) tag.
      * @param Json[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
      * /
-    string|int|false nestedList(Json[string] mylist, Json[string] htmlAtributes = null, Json[string] myitemOptions = []) {
-        htmlAtributes += ["tag": "ul"];
-        myitems = _nestedListItem(mylist, htmlAtributes, myitemOptions);
+    string|int|false nestedList(Json[string] mylist, Json[string] htmlAttributes = null, Json[string] myitemOptions = []) {
+        htmlAttributes += ["tag": "ul"];
+        myitems = _nestedListItem(mylist, htmlAttributes, myitemOptions);
 
-        return _formatTemplate(htmlAtributes["tag"], [
-            "attrs": this.templater().formatAttributes(htmlAtributes, ["tag"]),
+        return _formatTemplate(htmlAttributes["tag"], [
+            "attrs": this.templater().formatAttributes(htmlAttributes, ["tag"]),
             "content": myitems,
         ]);
     }
@@ -964,16 +964,16 @@ class DHtmlHelper : DHelper {
      * Internal auto to build a nested list (UL/OL) out of an associative array.
      * Params:
      * array myitems Set of elements to list.
-     * @param Json[string] htmlAtributes Additional HTML attributes of the list (ol/ul) tag.
+     * @param Json[string] htmlAttributes Additional HTML attributes of the list (ol/ul) tag.
      * @param Json[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
      * /
-    protected string _nestedListItem(Json[string] myitems, Json[string] htmlAtributes, Json[string] myitemOptions) {
+    protected string _nestedListItem(Json[string] myitems, Json[string] htmlAttributes, Json[string] myitemOptions) {
         string result = "";
 
         auto myindex = 1;
         foreach (aKey: myitem; myitems) {
             if (isArray(myitem)) {
-                myitem = aKey ~ this.nestedList(myitem, htmlAtributes, myitemOptions);
+                myitem = aKey ~ this.nestedList(myitem, htmlAttributes, myitemOptions);
             }
             if (isSet(myitemOptions["even"]) && myindex % 2 == 0) {
                 myitemOptions["class"] = myitemOptions["even"];

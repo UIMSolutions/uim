@@ -17,7 +17,7 @@ class DInsertQuery : DQuery {
  
     string sql(DValueBinder mybinder = null) {
         if (isEmpty(_parts["into"])) {
-            myrepository = this.getRepository();
+            myrepository = getRepository();
             this.into(myrepository.getTable());
         }
         return super.sql(mybinder);

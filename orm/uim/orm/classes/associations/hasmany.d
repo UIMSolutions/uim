@@ -103,13 +103,13 @@ class DHasManyAssociation : DAssociation {
      * @throws \InvalidArgumentException when the association data cannot be traversed.
      * /
     function saveAssociated(IEntity anEntity, Json[string] options = null) {
-        myTargetEntities = entity.get(this.getProperty());
+        myTargetEntities = entity.get(getProperty());
 
         isEmpty = in_array(myTargetEntities, [null, [], "", false], true);
         if (isEmpty) {
             if (
                 entity.isNew() ||
-                this.getSaveStrategy() != self.SAVE_REPLACE
+                getSaveStrategy() != self.SAVE_REPLACE
             ) {
                 return entity;
             }
@@ -118,21 +118,21 @@ class DHasManyAssociation : DAssociation {
         }
 
         if (!is_iterable(myTargetEntities)) {
-            myName = this.getProperty();
+            myName = getProperty();
             myMessage = sprintf("Could not save %s, it cannot be traversed", myName);
             throw new DInvalidArgumentException(myMessage);
         }
 
         foreignKeyReference = array_combine(
             (array)foreignKeys(),
-            entity.extract((array)this.getBindingKey())
+            entity.extract((array)getBindingKey())
         );
 
         options["_sourceTable"] = source();
 
         if (
             _saveStrategy == self.SAVE_REPLACE &&
-            !_unlinkAssociated(foreignKeyReference, entity, this.getTarget(), myTargetEntities, options)
+            !_unlinkAssociated(foreignKeyReference, entity, getTarget(), myTargetEntities, options)
         ) {
             return false;
         }
@@ -167,7 +167,7 @@ class DHasManyAssociation : DAssociation {
         Json[string] options
     ) {
         foreignKey = foreignKeyReference.keys;
-        myTable = this.getTarget();
+        myTable = getTarget();
         original = entities;
 
         foreach (entities as k: entity) {
@@ -198,7 +198,7 @@ class DHasManyAssociation : DAssociation {
             }
         }
 
-        parentEntity.set(this.getProperty(), entities);
+        parentEntity.set(getProperty(), entities);
 
         return true;
     }
@@ -229,9 +229,9 @@ class DHasManyAssociation : DAssociation {
      * @return bool true on success, false otherwise
      * /
     bool link(IEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
-        saveStrategy = this.getSaveStrategy();
+        saveStrategy = getSaveStrategy();
         setSaveStrategy(self.SAVE_APPEND);
-        property = this.getProperty();
+        property = getProperty();
 
         currentEntities = array_unique(
             array_merge(
@@ -242,7 +242,7 @@ class DHasManyAssociation : DAssociation {
 
         sourceEntity.set(property, currentEntities);
 
-        savedEntity = this.getConnection().transactional(function () use (sourceEntity, options) {
+        savedEntity = getConnection().transactional(function () use (sourceEntity, options) {
             return _saveAssociated(sourceEntity, options);
         });
 
@@ -310,9 +310,9 @@ class DHasManyAssociation : DAssociation {
         }
 
         foreignKey = (array)foreignKeys();
-        myTarget = this.getTarget();
+        myTarget = getTarget();
         myTargetPrimaryKey = array_merge((array)myTarget.primaryKeys(), foreignKey);
-        property = this.getProperty();
+        property = getProperty();
 
         conditions = [
             "OR":(new DCollection(myTargetEntities))
@@ -386,9 +386,9 @@ class DHasManyAssociation : DAssociation {
      * @return bool success
      * /
     bool replace(IEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
-        property = this.getProperty();
+        property = getProperty();
         sourceEntity.set(property, myTargetEntities);
-        saveStrategy = this.getSaveStrategy();
+        saveStrategy = getSaveStrategy();
         setSaveStrategy(self.SAVE_REPLACE);
         myResult = this.saveAssociated(sourceEntity, options);
         ok = (myResult instanceof IEntity);
@@ -462,7 +462,7 @@ class DHasManyAssociation : DAssociation {
      * @return bool success
      * /
     protected bool _unlink(Json[string] foreignKey, Table myTarget, Json[string] conditions = null, Json[string] options = null) {
-        mustBeDependent = (!_foreignKeyAcceptsNull(myTarget, foreignKey) || this.getDependent());
+        mustBeDependent = (!_foreignKeyAcceptsNull(myTarget, foreignKey) || getDependent());
 
         if (mustBeDependent) {
             if (_cascadeCallbacks) {
@@ -565,7 +565,7 @@ class DHasManyAssociation : DAssociation {
     array defaultRowValue(Json[string] row, bool joined) {
         sourceAlias = source().aliasName();
         if (isset(row[sourceAlias])) {
-            row[sourceAlias][this.getProperty()] = joined ? null : [];
+            row[sourceAlias][getProperty()] = joined ? null : [];
         }
 
         return row;
@@ -590,12 +590,12 @@ class DHasManyAssociation : DAssociation {
         auto loader = new DSelectLoader([
             "alias":aliasName(),
             "sourceAlias":source().aliasName(),
-            "targetAlias":this.getTarget().aliasName(),
+            "targetAlias":getTarget().aliasName(),
             "foreignKey":foreignKeys(),
-            "bindingKey":this.getBindingKey(),
-            "strategy":this.getStrategy(),
+            "bindingKey":getBindingKey(),
+            "strategy":getStrategy(),
             "associationType":associationType(),
-            "sort":this.getSort(),
+            "sort":getSort(),
             "finder":[this, "find"],
         ]);
 

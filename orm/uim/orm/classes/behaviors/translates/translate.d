@@ -95,7 +95,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * Json[string] configData The config for this behavior.
      * /
     bool initialize(Json[string] initData = null) {
-        this.getStrategy();
+        getStrategy();
         return super.initialize(initData);
     }
 
@@ -216,7 +216,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * globally configured locale.
      * /
     void setLocale(string mylocale) {
-        this.getStrategy().setLocale(mylocale);
+        getStrategy().setLocale(mylocale);
     }
 
     /**
@@ -264,7 +264,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * @param string[] mylocales A list of locales or options with the `locales` key defined
      * /
     SelectQuery findTranslations(SelectQuery myquery, Json[string] mylocales = []) {
-        mytargetAlias = this.getStrategy().getTranslationTable().aliasName();
+        mytargetAlias = getStrategy().getTranslationTable().aliasName();
 
         return myquery
             .contain([mytargetAlias: auto(IQuery myquery) use(mylocales, mytargetAlias) {
@@ -274,7 +274,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
                         return myquery;}
 
                         ])
-                            .formatResults(this.getStrategy()
+                            .formatResults(getStrategy()
                                 .groupTranslations(...), myquery.PREPEND);
                     }
 

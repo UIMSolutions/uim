@@ -17,7 +17,7 @@ class DeleteQuery : DQuery {
  
     string sql(DValueBinder mybinder = null) {
         if (isEmpty(_parts["from"])) {
-            myrepository = this.getRepository();
+            myrepository = getRepository();
             this.from([myrepository.aliasName(): myrepository.getTable()]);
         }
         return super.sql(mybinder);

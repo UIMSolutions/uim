@@ -73,7 +73,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         configuration.update(myConfiguration);
         this.table = table;
-        this.translationTable = this.getTableLocator().get(
+        this.translationTable = getTableLocator().get(
             configuration.get("translationTable"],
             ["allowFallbackClass": true.toJson]
         );
@@ -97,7 +97,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         targetAlias = this.translationTable.aliasName();
         alias = this.table.aliasName();
-        tableLocator = this.getTableLocator();
+        tableLocator = getTableLocator();
 
         foreach (fields as field) {
             name = alias ~ "_" ~ field ~ "_translation";
@@ -155,9 +155,9 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * @param \ArrayObject options The options for the query
      * /
     void beforeFind(IEvent event, Query query, ArrayObject options) {
-        locale = Hash.get(options, "locale", this.getLocale());
+        locale = Hash.get(options, "locale", getLocale());
 
-        if (locale == this.getConfig("defaultLocale")) {
+        if (locale == getConfig("defaultLocale")) {
             return;
         }
 
@@ -218,7 +218,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * @param \ArrayObject options the options passed to the save method
      * /
     void beforeSave(IEvent event, IEntity anEntity, ArrayObject options) {
-        locale = entity.get("_locale") ?: this.getLocale();
+        locale = entity.get("_locale") ?: getLocale();
         newOptions = [this.translationTable.aliasName(): ["validate": false.toJson]];
         options["associated"] = newOptions + options["associated"];
 
@@ -235,7 +235,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         // No additional translation records need to be saved,
         // as the entity is in the default locale.
-        if (noBundled && locale == this.getConfig("defaultLocale")) {
+        if (noBundled && locale == getConfig("defaultLocale")) {
             return;
         }
 
@@ -319,7 +319,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * /
     string translationField(string field) {
         table = this.table;
-        if (this.getLocale() == this.getConfig("defaultLocale")) {
+        if (getLocale() == getConfig("defaultLocale")) {
             return table.aliasField(field);
         }
         associationName = table.aliasName() ~ "_" ~ field ~ "_translation";

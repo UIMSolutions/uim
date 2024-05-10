@@ -113,7 +113,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
         instance = new class(_table, myConfiguration);
         enable = configuration.get("enabled"] ?? true;
         if (enable) {
-            this.getEventManager().on(instance);
+            getEventManager().on(instance);
         }
         aMethodNames = _getMethods(instance, class, alias);
         _methodMap += aMethodNames["methods"];

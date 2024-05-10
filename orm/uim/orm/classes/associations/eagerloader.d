@@ -567,7 +567,7 @@ class DEagerLoader {
     Json[string] associationsMap(Table mytable) {
         mymap = null;
 
-        if (!this.getMatching() && !this.getContain() && _joinsMap.isEmpty) {
+        if (!getMatching() && !getContain() && _joinsMap.isEmpty) {
             return mymap;
         }
         assert(_matching !isNull, "EagerLoader not available");

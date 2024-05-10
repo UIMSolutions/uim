@@ -63,7 +63,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @psalm-param class-string<DORMAssociation> className
      * /
     DORMAssociation load(string anClassName, string associated, Json[string] optionData = null) {
-        someOptions["tableLocator"] = this.getTableLocator();
+        someOptions["tableLocator"] = getTableLocator();
         association = new className(associated, someOptions);
 
         return _add(association.getName(), association);

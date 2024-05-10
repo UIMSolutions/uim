@@ -75,18 +75,18 @@ class DHasOneAssociation : DAssociation {
      * the saved entity
      * /
     function saveAssociated(IEntity anEntity, Json[string] optionData = null) {
-        targetEntity = entity.get(this.getProperty());
+        targetEntity = entity.get(getProperty());
         if (targetEntity.isEmpty || !(targetEntity instanceof IEntity)) {
             return entity;
         }
 
         properties = array_combine(
             (array)foreignKeys(),
-            entity.extract((array)this.getBindingKey())
+            entity.extract((array)getBindingKey())
         );
         targetEntity.set(properties, ["guard": false.toJson]);
 
-        if (!this.getTarget().save(targetEntity, options)) {
+        if (!getTarget().save(targetEntity, options)) {
             targetEntity.unset(properties.keys);
 
             return false;
@@ -101,10 +101,10 @@ class DHasOneAssociation : DAssociation {
         loader = new DSelectLoader([
             "alias": this.aliasName(),
             "sourceAlias": source().aliasName(),
-            "targetAlias": this.getTarget().aliasName(),
+            "targetAlias": getTarget().aliasName(),
             "foreignKey": foreignKeys(),
-            "bindingKey": this.getBindingKey(),
-            "strategy": this.getStrategy(),
+            "bindingKey": getBindingKey(),
+            "strategy": getStrategy(),
             "associationType": this.type(),
             "finder": [this, "find"],
         ]);

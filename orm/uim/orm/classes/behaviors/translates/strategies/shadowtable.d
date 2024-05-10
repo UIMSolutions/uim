@@ -72,7 +72,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
         configuration.update(myConfiguration);
         this.table = table;
-        this.translationTable = this.getTableLocator().get(
+        this.translationTable = getTableLocator().get(
             configuration.get("translationTable"],
             ["allowFallbackClass": true.toJson]
         );
@@ -109,7 +109,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param \ArrayObject options The options for the query.
      * /
     void beforeFind(IEvent event, Query query, ArrayObject options) {
-        locale = Hash.get(options, "locale", this.getLocale());
+        locale = Hash.get(options, "locale", getLocale());
         myConfiguration = configuration;
 
         if (locale == configuration.get("defaultLocale"]) {
@@ -148,9 +148,9 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             [plugin] = pluginSplit(configuration.get("translationTable"]);
             hasOneTargetAlias = plugin ? (plugin ~ "." ~ configuration.get("hasOneAlias"])
                 : configuration.get("hasOneAlias"];
-            if (!this.getTableLocator().exists(hasOneTargetAlias)) {
+            if (!getTableLocator().exists(hasOneTargetAlias)) {
                 // Load table before hand with fallback class usage enabled
-                this.getTableLocator().get(
+                getTableLocator().get(
                     hasOneTargetAlias,
                     [
                         "className": configuration.get("translationTable"],
@@ -311,7 +311,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      */
                                                 void beforeSave(IEvent event, IEntity anEntity, ArrayObject options) {
                                                     locale = entity.get("_locale") ? 
-                                                    : this.getLocale(); newOptions = [
+                                                    : getLocale(); newOptions = [
                                                         this.translationTable.aliasName(): [
                                                             "validate": false.toJson
                                                         ]
@@ -331,7 +331,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
                                                     // No additional translation records need to be saved,
                                                     // as the entity is in the default locale.
-                                                    if (noBundled && locale == this.getConfig(
+                                                    if (noBundled && locale == getConfig(
                                                         "defaultLocale")) {
                                                         return;}
 
@@ -418,7 +418,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * /
                                                                         string translationField(
                                                                         string field) {
-                                                                            if (this.getLocale() == this.getConfig(
+                                                                            if (getLocale() == getConfig(
                                                                                 "defaultLocale")) {
                                                                                 return _table.aliasField(
                                                                                 field);
@@ -595,7 +595,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @return string[]
      * /
                                                                             protected string[] mainFields() {
-                                                                                fields = this.getConfig(
+                                                                                fields = getConfig(
                                                                                 "mainTableFields");
 
                                                                                 if (fields) {
@@ -615,7 +615,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      *
      * /
                                                                             protected string[] translatedFields() {
-                                                                                fields = this.getConfig(
+                                                                                fields = getConfig(
                                                                                 "fields");
 
                                                                                 if (fields) {

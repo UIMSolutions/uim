@@ -560,7 +560,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                                 array) entity.get(
                                                                                 "_translations");
 
-                                                                                if (empty(translations) && !entity
+                                                                                if (translations.isEmpty && !entity
                                                                                 .isDirty(
                                                                                 "_translations")) {
                                                                                     return;

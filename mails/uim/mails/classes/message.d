@@ -1472,7 +1472,7 @@ class DMessage { //: JsonSerializable {
         });
 
         return array_filter(array, auto (anI) {
-            return anI !isNull && !isArray(anI) && !isBool(anI) && anI.length || !empty(anI);
+            return anI !isNull && !isArray(anI) && !isBool(anI) && anI.length || !anI.isEmpty;
         });
     }
     

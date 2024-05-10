@@ -388,7 +388,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                 return row;
             }
             translations = (array)row.get("_i18n");
-            if (empty(translations) && row.get("_translations")) {
+            if (translations.isEmpty && row.get("_translations")) {
                 return row;
             }
             grouped = new DCollection(translations);

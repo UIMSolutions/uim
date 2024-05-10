@@ -566,7 +566,7 @@ class DEagerLoader {
     {
         table = query.getRepository();
         external = this.externalAssociations(table);
-        if (empty(external)) {
+        if (external.isEmpty) {
             return statement;
         }
 

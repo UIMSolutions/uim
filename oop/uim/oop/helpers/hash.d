@@ -399,7 +399,7 @@ class Hash {
             myformat = array_shift(myvaluePath);
             myvals = format(mydata, myvaluePath, myformat);
             assert(isArray(myvals));
-        } else if (!empty(myvaluePath)) {
+        } else if (!myvaluePath.isEmpty) {
             myvals = extract(mydata, myvaluePath);
             assert(isArray(myvals));
         }

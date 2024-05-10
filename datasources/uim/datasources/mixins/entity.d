@@ -593,7 +593,7 @@ mixin template TEntity() {
     if (isSet(_accessors[className][accessorType][aProperty])) {
       return _accessors[className][accessorType][aProperty];
     }
-    if (!empty(_accessors[className])) {
+    if (!_accessors.isEmpty(className))) {
       return _accessors[className][accessorType][aProperty] = "";
     }
     if (class == Entity.classname) {

@@ -144,7 +144,7 @@ class DEventManager { // }: IEventManager {
         if (!eventKey.isEmpty && events.isEmpty(eventKey))) {
             return;
         }
-        if (!empty(eventKey)) {
+        if (!eventKey.isEmpty) {
             events = [eventKey: events[eventKey]];
         }
         foreach (events as aKey: handlers) {

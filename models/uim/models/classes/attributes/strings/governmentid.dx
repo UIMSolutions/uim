@@ -14,7 +14,7 @@ is.dataFormat.big
 is.dataFormat.array
 means.identity.governmentID */
 class DGovernmentIdAttribute : DStringAttribute {
-  mixin(AttributeThis!("GovernmentIdAttribute"));
+  mixin(AttributeThis!("GovernmentId"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -29,7 +29,7 @@ class DGovernmentIdAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("GovernmentIdAttribute"));
+mixin(AttributeCalls!("GovernmentId"));
 
 ///
 unittest {

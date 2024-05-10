@@ -16,7 +16,7 @@ import uim.models;
 
 @safe:
 class DTimezoneAttribute : DStringAttribute {
-  mixin(AttributeThis!("TimezoneAttribute"));
+  mixin(AttributeThis!("Timezone"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -28,7 +28,7 @@ class DTimezoneAttribute : DStringAttribute {
       return true;
   }
 }
-mixin(AttributeCalls!("TimezoneAttribute"));
+mixin(AttributeCalls!("Timezone"));
 
 ///
 unittest {

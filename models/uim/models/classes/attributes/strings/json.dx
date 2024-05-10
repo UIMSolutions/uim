@@ -25,7 +25,7 @@ import uim.models;
 
 @safe:
 class DJsonAttribute : DStringAttribute {
-  mixin(AttributeThis!("JsonAttribute"));
+  mixin(AttributeThis!("Json"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -40,7 +40,7 @@ class DJsonAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("JsonAttribute"));
+mixin(AttributeCalls!("Json"));
 
 ///
 unittest {

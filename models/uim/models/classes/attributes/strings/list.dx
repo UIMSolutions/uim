@@ -12,7 +12,7 @@ import uim.models;
 // A CSV contained within one string value
 // means.content.text.CSV
 class DListAttribute : DStringAttribute {
-  mixin(AttributeThis!("ListAttribute"));
+  mixin(AttributeThis!("List"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -27,7 +27,7 @@ class DListAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("ListAttribute"));
+mixin(AttributeCalls!("List"));
 
 ///
 unittest {

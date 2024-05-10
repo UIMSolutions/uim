@@ -20,7 +20,7 @@ import uim.models;
 
 @safe:
 class DHtmlAttribute : DStringAttribute {
-  mixin(AttributeThis!("HtmlAttribute"));
+  mixin(AttributeThis!("Html"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -35,7 +35,7 @@ class DHtmlAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("HtmlAttribute"));
+mixin(AttributeCalls!("Html"));
 
 ///
 unittest {

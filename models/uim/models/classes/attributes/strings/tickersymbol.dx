@@ -16,7 +16,7 @@ import uim.models;
 
 @safe:
 class DTickerSymbolAttribute : DStringAttribute {
-  mixin(AttributeThis!("TickerSymbolAttribute"));
+  mixin(AttributeThis!("TickerSymbol"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -31,7 +31,7 @@ class DTickerSymbolAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("TickerSymbolAttribute"));
+mixin(AttributeCalls!("TickerSymbol"));
 
 ///
 unittest {

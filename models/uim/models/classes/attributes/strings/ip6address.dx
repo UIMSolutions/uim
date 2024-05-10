@@ -19,7 +19,7 @@ import uim.models;
 
 @safe:
 class DIP6AddressAttribute : DStringAttribute {
-  mixin(AttributeThis!("IP6AddressAttribute"));
+  mixin(AttributeThis!("IP6Address"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -32,7 +32,7 @@ class DIP6AddressAttribute : DStringAttribute {
 
   }
 }
-mixin(AttributeCalls!("IP6AddressAttribute"));
+mixin(AttributeCalls!("IP6Address"));
 
 ///
 unittest {

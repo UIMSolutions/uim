@@ -9,7 +9,7 @@ import uim.models;
 @safe:
 
 /* class DCampaignAttribute : DEntityAttribute {
-  mixin(AttributeThis!("CampaignAttribute"));
+  mixin(AttributeThis!("Campaign"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -20,7 +20,7 @@ import uim.models;
       .registerPath("campaign");
   }  
 }
-mixin(AttributeCalls!("CampaignAttribute"));
+mixin(AttributeCalls!("Campaign"));
 
 version(test_uim_models) { unittest {
     testAttribute(new DCampaignAttribute);

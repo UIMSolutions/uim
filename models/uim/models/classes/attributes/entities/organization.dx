@@ -9,7 +9,7 @@ import uim.models;
 @safe:
 
 /* class DOrganizationAttribute : DEntityAttribute {
-  mixin(AttributeThis!("OrganizationAttribute"));
+  mixin(AttributeThis!("Organization"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -20,7 +20,7 @@ import uim.models;
       .registerPath("organization");
   }  
 }
-mixin(AttributeCalls!("OrganizationAttribute"));
+mixin(AttributeCalls!("Organization"));
 
 version(test_uim_models) { unittest {
     testAttribute(new DOrganizationAttribute);

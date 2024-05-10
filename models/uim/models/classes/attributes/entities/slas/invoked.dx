@@ -9,7 +9,7 @@ import uim.models;
 @safe:
 
 /* class DSLAInvokedAttribute : DEntityAttribute {
-  mixin(AttributeThis!("SLAInvokedAttribute"));
+  mixin(AttributeThis!("SLAInvoked"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -20,7 +20,7 @@ import uim.models;
       .registerPath("slaInvoked");
   }  
 }
-mixin(AttributeCalls!("SLAInvokedAttribute"));
+mixin(AttributeCalls!("SLAInvoked"));
 
 version(test_uim_models) { unittest {
     testAttribute(new DSLAInvokedAttribute);

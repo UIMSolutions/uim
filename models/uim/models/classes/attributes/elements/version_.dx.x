@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DVersionElementAttribute : DAttribute {
-  mixin(AttributeThis!("VersionElementAttribute"));
+  mixin(AttributeThis!("VersionElement"));
 
  /*  override Json createData() {
     return ElementData(this)

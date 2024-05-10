@@ -9,7 +9,7 @@ import uim.models;
 @safe:
 
 /* class DFileAttribute : DEntityAttribute {
-  mixin(AttributeThis!("FileAttribute"));
+  mixin(AttributeThis!("File"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -20,7 +20,7 @@ import uim.models;
       .registerPath("file");
   }  
 }
-mixin(AttributeCalls!("FileAttribute"));
+mixin(AttributeCalls!("File"));
 
 version(test_uim_models) { unittest {
     testAttribute(new DFileAttribute);

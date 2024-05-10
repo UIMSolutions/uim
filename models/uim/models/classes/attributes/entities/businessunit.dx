@@ -11,7 +11,7 @@ import uim.models;
 // A unique identifier for entity instances
 
 /* class DBusinessUnitAttribute : DEntityAttribute {
-  mixin(AttributeThis!("BusinessUnitAttribute"));
+  mixin(AttributeThis!("BusinessUnit"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -22,7 +22,7 @@ import uim.models;
       .registerPath("businessunit");
   }  
 }
-mixin(AttributeCalls!("BusinessUnitAttribute"));
+mixin(AttributeCalls!("BusinessUnit"));
 
 version(test_uim_models) { unittest {
     testAttribute(new DBusinessUnitAttribute);

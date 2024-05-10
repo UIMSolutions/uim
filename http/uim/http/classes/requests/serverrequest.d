@@ -669,7 +669,7 @@ class DServerRequest { // }: IServerRequest {
     
     // Normalize a header name into the SERVER version.
     protected string normalizeHeaderName(string headerName) {
-        string result = headerName.toUpper.replace("-", "_");
+        string result = headerName.upper.replace("-", "_");
         return in_array(name, ["CONTENT_LENGTH", "CONTENT_TYPE"], true)
             ? result
             : "HTTP_" ~ result;
@@ -1150,7 +1150,7 @@ class DServerRequest { // }: IServerRequest {
      *  variable`s value that does not exist.
      * /
     string getEnvironmentData(string aKey, string adefault = null) {
-        aKey = aKey.toUpper;
+        aKey = aKey.upper;
         if (!array_key_exists(aKey, _environmentData)) {
            _environmentData[aKey] = enviroment(aKey);
         }

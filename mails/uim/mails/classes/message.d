@@ -1432,7 +1432,7 @@ class DMessage { //: JsonSerializable {
             return _transferEncoding;
         }
         
-        string charset = this.charset.toUpper;
+        string charset = this.charset.upper;
         if (in_array(charset, this.charset8bit, true)) {
             return "8bit";
         }
@@ -1446,10 +1446,10 @@ class DMessage { //: JsonSerializable {
      * for legacy japanese character sets.
      * /
     string getContentTypeCharset() {
-        string charset = this.charset.toUpper;
+        string charset = this.charset.upper;
         return array_key_exists(charset, this.contentTypeCharset))
-            ? this.contentTypeCharset[charset].toUpper
-            : this.charset.toUpper;
+            ? this.contentTypeCharset[charset].upper
+            : this.charset.upper;
     }
     
     /**

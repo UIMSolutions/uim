@@ -71,7 +71,7 @@ class DHexaObserver : DObserver{
   }
 
   override void update(Json info = Json(null)) {
-    writeln("Hex String: Integer.toHexString(subject.getState() ).toUpperCase()" ); 
+    writeln("Hex String: Integer.toHexString(subject.getState() ).upperCase()" ); 
   }
 }
 

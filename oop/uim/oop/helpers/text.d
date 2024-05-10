@@ -874,7 +874,7 @@ class DText {
             return (int)mysize;
         }
 
-        string mysize = mysize.toUpper;
+        string mysize = mysize.upper;
         myl = -2;
         myi = array_search(substr(mysize, -2), ["KB", "MB", "GB", "TB", "PB"], true);
         if (myi == false) {

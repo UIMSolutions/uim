@@ -1566,7 +1566,7 @@ class DFormHelper : DHelper {
 
         myrequestMethod = "POST";
         if (!options.isEmpty("method"])) {
-            myrequestMethod = options.getString("method").toUpper;
+            myrequestMethod = options.getString("method").upper;
             options.remove("method"]);
         }
         myconfirmMessage = options["confirm"];

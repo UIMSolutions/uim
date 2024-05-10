@@ -128,7 +128,7 @@ class DRoute : IRoute {
      * string[]|string mymethods Methods.
      * /
     protected string[] normalizeAndValidateMethods(string[] methods) {
-        auto results = methods.toUpper;
+        auto results = methods.upper;
 
         string[] mydiff = array_diff(results, VALID_METHODS);
         if (mydiff != []) {

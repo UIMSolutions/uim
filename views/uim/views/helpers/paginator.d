@@ -235,7 +235,7 @@ class DPaginatorHelper : DHelper {
             "disabledTitle": mytitle,
             "escape": true.toJson,
         ];
-        options = options.updatemydefaults;
+        auto updatedOptions = options.updatemydefaults;
         options["step"] = -1;
 
         mytemplates = [
@@ -269,7 +269,7 @@ class DPaginatorHelper : DHelper {
             "disabledTitle": mytitle,
             "escape": true.toJson,
         ];
-        options = options.updatemydefaults;
+        auto updatedOptions = options.updatemydefaults;
         options["step"] = 1;
 
         mytemplates = [
@@ -404,7 +404,7 @@ class DPaginatorHelper : DHelper {
         ) {
             mypaging["sortDefault"] = _removeAlias(mypaging["sortDefault"], this.param("alias"));
         }
-        options = options.updatearray_intersect_key(
+        auto updatedOptions = options.updatearray_intersect_key(
             mypaging,
             ["page": null, "limit": null, "sort": null, "direction": null]
         );
@@ -423,7 +423,7 @@ class DPaginatorHelper : DHelper {
         if (!mypaging.isEmpty("scope")) {
             myscope = mypaging["scope"];
             if (isSet(mybaseUrl["?"][myscope]) && isArray(mybaseUrl["?"][myscope])) {
-                options = options.updatemybaseUrl["?"][myscope];
+                auto updatedOptions = options.updatetions.updatemybaseUrl["?"][myscope];
                 unset(mybaseUrl["?"][myscope]);
             }
             options = [myscope: options];
@@ -774,7 +774,7 @@ class DPaginatorHelper : DHelper {
      * @param Json[string] options An array of options.
      * /
     string first(string|int myfirst = "<< first", Json[string] options  = null) {
-        options = options.update[
+        auto updatedOptions = options.updatetions.update[
             "url": Json.emptyArray,
             "escape": true.toJson,
         ];
@@ -825,7 +825,7 @@ class DPaginatorHelper : DHelper {
      * @param Json[string] options Array of options
      * /
     string last(string|int mylast = "last >>", Json[string] options  = null) {
-        options = options.update[
+        auto updatedOptions = options.updatetions.update[
             "escape": true.toJson,
             "url": Json.emptyArray,
         ];
@@ -883,7 +883,7 @@ class DPaginatorHelper : DHelper {
      * Json[string] options Array of options
      * /
     string meta(Json[string] options  = null) {
-        options = options.update[
+        auto updatedOptions = options.updatetions.update[
             "block": false.toJson,
             "prev": true.toJson,
             "next": true.toJson,

@@ -172,7 +172,7 @@ class DEntityContext : DContext {
      *    schema should be used if it"s not explicitly provided.
      * /
     Json val(string fieldPath, Json[string] options  = null) {
-        options = options.update[
+        auto updatedOptions = options.update[
             "default": null,
             "schemaDefault": true.toJson,
         ];

@@ -74,7 +74,7 @@ class DSelectLoader {
      * /
     function buildEagerLoader(Json[string] optionData): Closure
     {
-        options = options.update_defaultOptions();
+        auto updatedOptions = options.update_defaultOptions();
         fetchQuery = _buildQuery(options);
         resultMap = _buildResultMap(fetchQuery, options);
 

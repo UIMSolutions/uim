@@ -269,7 +269,7 @@ class DFormHelper : DHelper {
         }
         myisCreate = formContext.isCreate();
 
-        options = options.update[
+        auto updatedOptions = options.updatetions.updatetions.updatetions.updatetions.update[
             "type": myisCreate ? "post" : "put",
             "url": null,
             "encoding": Configuration.read("App.encoding").toLower,
@@ -568,7 +568,7 @@ class DFormHelper : DHelper {
         if (myfield.endsWith("._ids")) {
             myfield = substr(myfield, 0, -5);
         }
-        options = options.update["escape": true.toJson];
+        auto updatedOptions = options.update["escape": true.toJson];
 
         formContext = _getContext();
         if (!formContext.hasError(myfield)) {
@@ -852,7 +852,7 @@ class DFormHelper : DHelper {
      * @param Json[string] options Each type of input takes different options.
      * /
     string control(string fieldNameName, Json[string] options  = null) {
-        options = options.update[
+        auto updatedOptions = options.update[
             "type": null,
             "label": null,
             "error": null,
@@ -863,7 +863,7 @@ class DFormHelper : DHelper {
             "labelOptions": true.toJson,
         ];
         options = _parseOptions(fieldName, options);
-        options = options.update["id": _domId(fieldName)];
+        auto updatedOptions = options.update["id": _domId(fieldName)];
 
         mytemplater = this.templater();
         mynewTemplates = options["templates"];
@@ -879,7 +879,7 @@ class DFormHelper : DHelper {
         // Multiple checkboxes can"t have aria generated for them at this layer.
         if (options["type"] != "hidden" && (options["type"] != "select" && !options.isSet("multiple"))) {
             myisFieldError = this.isFieldError(fieldName);
-            options = options.update[
+            auto updatedOptions = options.update[
                 "aria-required": options["required"] ? "true" : null,
                 "aria-invalid": myisFieldError ? "true" : null,
             ];
@@ -889,12 +889,12 @@ class DFormHelper : DHelper {
                 mytemplater.get("error").has("{{id}}") &&
                 mytemplater.get("inputContainerError").has("{{error}}")
             ) {
-                options = options.update[
+                auto updatedOptions = options.update[
                    "aria-describedby": myisFieldError ? _domId(fieldName) ~ "-error" : null,
                 ];
             }
             if (isSet(options["placeholder"]) && options["label"] == false) {
-                options = options.update[
+                auto updatedOptions = options.update[
                     "aria-label": options["placeholder"],
                 ];
             }
@@ -1149,7 +1149,7 @@ class DFormHelper : DHelper {
      * overwrite the "type" key in options.
      * /
     protected Json[string] _magicOptions(string fieldNameName, Json[string] options, bool myallowOverride) {
-        options = options.update[
+        auto updatedOptions = options.update[
             "templateVars": Json.emptyArray,
         ];
 
@@ -1236,7 +1236,7 @@ class DFormHelper : DHelper {
      * @param Json[string]|string|null mylabel Label text or array with label attributes.
      * /
     protected string _inputLabel(string fieldName, string labelText = null, STRINGAA labelAttributes = null, Json[string] labelOptions = null) {
-        Json[string] options = options.update["id": null, "input": null, "nestedInput": false.toJson, "templateVars": Json.emptyArray];
+        Json[string] auto updatedOptions = options.update["id": null, "input": null, "nestedInput": false.toJson, "templateVars": Json.emptyArray];
         STRINGAA mylabelAttributes = ["templateVars": labelOptions["templateVars"]];
         if (isArray(mylabel)) {
             mylabelText = null;
@@ -1279,7 +1279,7 @@ class DFormHelper : DHelper {
      * @param Json[string] options Array of HTML attributes.
      * /
     string[] checkbox(string fieldNameName, Json[string] options  = null) {
-        options = options.update["hiddenField": true.toJson, "value": 1];
+        auto updatedOptions = options.update["hiddenField": true.toJson, "value": 1];
 
         // Work around value=>val translations.
         myvalue = options["value"];
@@ -1562,7 +1562,7 @@ class DFormHelper : DHelper {
      * @param Json[string] options Array of HTML attributes.
      * /
     string postLink(string mytitle, string[] myurl = null, Json[string] options  = null) {
-        options = options.update["block": null, "confirm": null];
+        auto updatedOptions = options.update["block": null, "confirm": null];
 
         myrequestMethod = "POST";
         if (!options.isEmpty("method"])) {
@@ -1904,7 +1904,7 @@ class DFormHelper : DHelper {
      * @param Json[string] options Options & attributes for the select elements.
      * /
     string year(string fieldNameName, Json[string] options  = null) {
-        auto options = options.update[
+        auto auto updatedOptions = options.update[
             "empty": true.toJson,
         ];
         options = _initInputField(fieldName, options);
@@ -1924,7 +1924,7 @@ class DFormHelper : DHelper {
      * @param Json[string] options Array of options or HTML attributes.
      * /
     string month(string fieldNameName, Json[string] options  = null) {
-        options = options.update[
+        auto updatedOptions = options.update[
             "value": null,
         ];
 
@@ -1946,7 +1946,7 @@ class DFormHelper : DHelper {
      * @param Json[string] options Array of options or HTML attributes.
      * /
     string dateTime(string fieldNameName, Json[string] options  = null) {
-        options = options.update[
+        auto updatedOptions = options.update[
             "value": null,
         ];
         options = _initInputField(fieldName, options);
@@ -1967,7 +1967,7 @@ class DFormHelper : DHelper {
      * @param Json[string] options Array of options or HTML attributes.
      * /
     string time(string fieldNameName, Json[string] options  = null) {
-        options = options.update[
+        auto updatedOptions = options.update[
             "value": null,
         ];
         options = _initInputField(fieldName, options);
@@ -1987,7 +1987,7 @@ class DFormHelper : DHelper {
      * @param Json[string] options Array of options or HTML attributes.
      * /
     string date(string fieldNameName, Json[string] options  = null) {
-        options = options.update[
+        auto updatedOptions = options.update[
             "value": null,
         ];
 
@@ -2021,7 +2021,7 @@ class DFormHelper : DHelper {
      * @param Json[string]|string[] options Array of options to append options into.
      * /
     protected Json[string] _initInputField(string myfield, Json[string] options  = null) {
-        options = options.update["fieldName": myfield];
+        auto updatedOptions = options.update["fieldName": myfield];
 
         if (!options.isSet("secure")) {
             options["secure"] = _View.getRequest().getAttribute("formTokenData").isNull ? false : true;

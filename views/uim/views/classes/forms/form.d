@@ -204,7 +204,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     bool execute(Json[string] data, Json[string] options = null) {
        _data = someData;
 
-        options = options.update["validate": true.toJson];
+        auto updatedOptions = options.update["validate": true.toJson];
 
         if (options["validate"] == false) {
             return _execute(someData);

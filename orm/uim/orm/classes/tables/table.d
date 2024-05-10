@@ -822,7 +822,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] options list of options to configure the association definition
      * /
     BelongsTo belongsTo(string myassociated, Json[string] optionData = null) {
-        options = options.update["sourceTable": this];
+        auto updatedOptions = options.update["sourceTable": this];
 
         /** @var \ORM\Association\BelongsTo * /
         return _associations.load(BelongsTo.classname, myassociated, options);
@@ -864,7 +864,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] options list of options to configure the association definition
      * /
     HasOne hasOne(string myassociated, Json[string] optionData = null) {
-        options = options.update["sourceTable": this];
+        auto updatedOptions = options.update["sourceTable": this];
 
         return _associations.load(HasOne.classname, myassociated, options);
     }
@@ -911,7 +911,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] options list of options to configure the association definition
      * /
     HasMany hasMany(string myassociated, Json[string] optionData = null) {
-        options = options.update["sourceTable": this];
+        auto updatedOptions = options.update["sourceTable": this];
 
         /** @var \ORM\Association\HasMany * /
         return _associations.load(HasMany.classname, myassociated, options);
@@ -961,7 +961,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] options list of options to configure the association definition
      * /
     BelongsToMany belongsToMany(string myassociated, Json[string] optionData = null) {
-        options = options.update["sourceTable": this];
+        auto updatedOptions = options.update["sourceTable": this];
 
         /** @var \ORM\Association\BelongsToMany * /
         return _associations.load(BelongsToMany.classname, myassociated, options);

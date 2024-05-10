@@ -29,7 +29,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * If no locator is provided, the global one will be used.
      *
      * @param DORMLocator\ILocator|null tableLocator Table locator instance.
-     * /
+     */
     this(?ILocator tableLocator = null) {
         if (tableLocator != null) {
             _tableLocator = tableLocator;
@@ -45,7 +45,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * anAliasName -  The association alias
      * @param DORMDORMAssociation anAssociation The association to add.
      * @return  The association object being added.
-     * /
+     */
      DORMAssociation add(string anAliasName, DORMAssociation anAssociation) {
         [, anAliasName] = pluginSplit(alias);
 
@@ -61,7 +61,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @return DORMAssociation
      * @throws \InvalidArgumentException
      * @psalm-param class-string<DORMAssociation> className
-     * /
+     */
     DORMAssociation load(string anClassName, string associated, Json[string] optionData = null) {
         someOptions["tableLocator"] = getTableLocator();
         association = new className(associated, someOptions);
@@ -74,7 +74,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * @param string anAliasName The association alias to get.
      * @return DORMAssociation|null Either the association or null.
-     * /
+     */
     DORMAssociation get(string anAliasName) {
         return _items[alias] ?? null;
     }
@@ -84,7 +84,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * aProperty - The property to find an association by.
      * returns the association or null.
-     * /
+     */
     DORMAssociation getByProperty(string aProperty) {
         foreach (myAssociation; _items ) {
             if (myAssociation.getProperty() == aProperty) {
@@ -100,7 +100,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * @param string anAliasName The association alias to get.
      * return true if the association exists.
-     * /
+     */
     bool has(string anAliasName) {
       return isset(_items[alias]);
     }
@@ -116,7 +116,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param string[]|string class DThe type of associations you want.
      *   For example "BelongsTo" or array like ["BelongsTo", "HasOne"]
      * returns an array of Association objects.
-     * /
+     */
     DORMAssociation[] getByType(string[] someClassNames...) {
       auto myClassNames = someClassNames.map!(className => className.toLower).array;
 
@@ -133,7 +133,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * Drop/remove an association.
      *
      * Once removed the association will no longer be reachable
-     * /
+     */
     void remove(string aliasName) {
         unset(_items[aliasName]);
     }
@@ -142,7 +142,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * Remove all registered associations.
      *
      * Once removed associations will no longer be reachable
-     * /
+     */
     void removeAll() {
       foreach (myAliasName, object; _items) {
         this.remove(myAliasName);
@@ -161,7 +161,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *   associations not in this list will not be saved.
      * @param Json[string] options The options for the save operation.
      * @return bool Success
-     * /
+     */
     bool saveParents(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] optionData = null) {
       if (associations.isEmpty) {
           return true;
@@ -181,7 +181,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *   associations not in this list will not be saved.
      * @param Json[string] options The options for the save operation.
      * @return bool Success
-     * /
+     */
     bool saveChildren(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] optionData) {
         return associations.isEmpty
             ? true
@@ -198,7 +198,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param bool owningSide Compared with association classes" isOwningSide method.
      * returns True if Success
      * @throws \InvalidArgumentException When an unknown alias is used.
-     * /
+     */
     protected bool _saveAssociations(
         DORMTable aTable,
         IORMEntity anEntity,
@@ -240,7 +240,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param Json[string] nested Options for deeper associations
      * @param Json[string] options Original options
      * @return bool Success
-     * /
+     */
     protected bool _save(
         DORMAssociation anAssociation,
         IORMEntity anEntity,
@@ -263,7 +263,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * @param DORMDatasource\IORMEntity anEntity The entity to delete associations for.
      * @param Json[string] options The options used in the delete operation.
-     * /
+     */
     bool cascaderemove(IORMEntity anEntity, Json[string] optionData) {
         noCascade = null;
         foreach (_items as assoc) {
@@ -293,7 +293,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * in this collection.
      *
      * @param Json keys the list of association names to normalize
-     * /
+     */
     Json[string] normalizeKeys(keys) {
         if (keys == true) {
             keys = this.keys();

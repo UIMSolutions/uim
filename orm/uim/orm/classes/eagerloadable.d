@@ -24,19 +24,19 @@ class DEagerLoadable {
     // The Association class instance to use for loading the records.
     /*
      * @var DORMAssociation|null
-     * /
+     */
     protected _instance;
 
     // A list of options to pass to the association object for loading
      * the records.
      *
      * @var Json[string]
-     * /
+     */
     protected configuration = null;
 
     // A dotted separated string representing the path of associations
      * that should be followed to fetch this level.
-     * /
+     */
     protected string _aliasPath;
 
     /**
@@ -51,18 +51,18 @@ class DEagerLoadable {
      *
      * The property path of `country` will be `author.company`
      *
-     * /
+     */
     protected string _propertyPath;
 
     // Whether this level can be fetched using a join.
-     * /
+     */
     protected bool _canBeJoined = false;
 
     // Whether this level was meant for a "matching" fetch
      * operation
      *
      * @var bool|null
-     * /
+     */
     protected _forMatching;
 
     /**
@@ -77,7 +77,7 @@ class DEagerLoadable {
      *
      * The target property of `country` will be just `country`
      *
-     * /
+     */
     protected string _targetProperty;
 
     /**
@@ -97,7 +97,7 @@ class DEagerLoadable {
      *
      * @param string aName The Association name.
      * @param Json[string] myConfiguration The list of properties to set.
-     * /
+     */
     this(string aName, Json[string] configData) {
         _name = name;
         allowed = [
@@ -116,7 +116,7 @@ class DEagerLoadable {
      *
      * @param string aName The association name.
      * @param DORMEagerLoadable association The association to load.
-     * /
+     */
     void addAssociation(string aName, EagerLoadable association) {
         _associations[name] = association;
     }
@@ -152,7 +152,7 @@ class DEagerLoadable {
      *
      * The property path of `country` will be `author.company`
      *
-     * /
+     */
     string propertyPath() {
         return _propertyPath;
     }
@@ -175,7 +175,7 @@ class DEagerLoadable {
      *
      * @param Json[string] myConfiguration The value to set.
      * @return this
-     * /
+     */
     auto configuration.update(Json myConfiguration) {
         configuration = myConfiguration;
 
@@ -192,7 +192,7 @@ class DEagerLoadable {
      * "matching" fetch operation.
      *
      * @return bool|null
-     * /
+     */
     bool forMatching() {
         return _forMatching;
     }
@@ -209,7 +209,7 @@ class DEagerLoadable {
      *
      * The target property of `country` will be just `country`
      *
-     * /
+     */
     string targetProperty() {
         return _targetProperty;
     }
@@ -219,7 +219,7 @@ class DEagerLoadable {
      * uim\orm.EagerLoader.contain()
      *
      * @return array<string, array>
-     * /
+     */
     array asContainArray() {
         associations = null;
         foreach (_associations as assoc) {

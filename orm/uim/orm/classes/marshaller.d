@@ -19,7 +19,7 @@ class DMarshaller {
      * Constructor.
      * Params:
      * \ORM\Table mytable The table this marshaller is for.
-     * /
+     */
     this(Table mytable) {
        _table = mytable;
     }
@@ -30,7 +30,7 @@ class DMarshaller {
      * Json[string] data The data being marshalled.
      * @param Json[string] options List of options containing the "associated" key.
      * @throws \InvalidArgumentException When associations do not exist.
-     * /
+     */
     // TODO protected Json[string] _buildPropertyMap(Json[string] data, Json[string] options) {
         auto mymap = null;
         auto tableSchema = _table.getSchema();
@@ -127,7 +127,7 @@ class DMarshaller {
      * Params:
      * Json[string] mydata The data to hydrate.
      * @param Json[string] options List of options
-     * /
+     */
     IORMEntity one(Json[string] data, Json[string] optionData = null) {
         [mydata, options] = _prepareDataAndOptions(mydata, options);
 
@@ -146,7 +146,7 @@ class DMarshaller {
         myproperties = null;
         /**
          * @var string aKey
-         * /
+         */
         foreach (mydata as aKey: myvalue) {
             if (!myerrors.isEmpty(aKey))) {
                 if (cast(IInvalidProperty)myentity) {
@@ -190,7 +190,7 @@ class DMarshaller {
      * Json[string] data The data to validate.
      * @param string myvalidator Validator name or `true` for default validator.
      * @param bool myisNew Whether it is a new DORMEntity or one to be updated.
-     * /
+     */
     // TODO protected Json[string] _validate(Json[string] data, string myvalidator, bool myisNew) {
         if (!myvalidator) {
             return null;
@@ -206,7 +206,7 @@ class DMarshaller {
      * Params:
      * Json[string] mydata The data to prepare.
      * @param Json[string] options The options passed to this marshaller.
-     * /
+     */
     // TODO protected Json[string] _prepareDataAndOptions(Json[string] data, Json[string] options) {
         auto updatedOptions = options.update["validate": true.toJson];
 
@@ -228,7 +228,7 @@ class DMarshaller {
      * \ORM\Association myassoc The association to marshall
      * @param Json aValue The data to hydrate. If not an array, this method will return null.
      * @param Json[string] options List of options.
-     * /
+     */
     protected IORMEntity[] _marshalAssociation(Association myassoc, Json aValue, Json[string] options) {
         if (!isArray(myvalue)) {
             return null;
@@ -276,7 +276,7 @@ class DMarshaller {
      * Params:
      * Json[string] data The data to hydrate.
      * @param Json[string] options List of options
-     * /
+     */
     IORMEntity[] many(Json[string] data, Json[string] optionData = null) {
         myoutput = null;
         foreach (mydata as myrecord) {
@@ -297,7 +297,7 @@ class DMarshaller {
      * \ORM\Association\BelongsToMany myassoc The association to marshal.
      * @param Json[string] data The data to convert into entities.
      * @param Json[string] options List of options.
-     * /
+     */
     protected IORMEntity[] _belongsToMany(BelongsToMany myassoc, Json[string] data, Json[string] optionData = null) {
         auto myassociated = options["associated"] ?? [];
         auto myforceNew = options.get("forceNew", false);
@@ -328,7 +328,7 @@ class DMarshaller {
             }
         }
         if (!myconditions.isEmpty) {
-            /** @var \Traversable<\UIM\Datasource\IORMEntity> results * /
+            /** @var \Traversable<\UIM\Datasource\IORMEntity> results */
             results = mytarget.find()
                 .andWhere(fn (QueryExpression myexp): myexp.or(myconditions))
                 .all();
@@ -375,7 +375,7 @@ class DMarshaller {
      * Params:
      * \ORM\Association myassoc The association class for the belongsToMany association.
      * @param Json[string] myids The list of ids to load.
-     * /
+     */
     protected IORMEntity[] _loadAssociatedByIds(Association myassoc, Json[string] myids) {
         if (isEmpty(myids)) {
             return null;
@@ -435,7 +435,7 @@ class DMarshaller {
      * \UIM\Datasource\IORMEntity myentity the entity that will get the data merged in
      * @param Json[string] data key value list of fields to be merged into the entity
      * @param Json[string] options List of options.
-     * /
+     */
     IORMEntity merge(IORMEntity myentity, Json[string] data, Json[string] optionData = null) {
         [mydata, options] = _prepareDataAndOptions(mydata, options);
 
@@ -547,7 +547,7 @@ class DMarshaller {
      *  data merged in
      * @param Json[string] data list of arrays to be merged into the entities
      * @param Json[string] options List of options.
-     * /
+     */
     IORMEntity[] mergeMany(Json[string] myentities, Json[string] data, Json[string] optionData = null) {
         myprimary = (array)_table.primaryKeys();
 
@@ -591,7 +591,7 @@ class DMarshaller {
         mymaybeExistentQuery = _table.find().where(myconditions);
 
         if (!myindexed.isEmpty && count(mymaybeExistentQuery.clause("where"))) {
-            /** @var \Traversable<\UIM\Datasource\IORMEntity> myexistent * /
+            /** @var \Traversable<\UIM\Datasource\IORMEntity> myexistent */
             myexistent = mymaybeExistentQuery.all();
             myexistent.each!((entity) {
                 string key = entity.extract(myprimary).join(";");
@@ -617,7 +617,7 @@ class DMarshaller {
      * @param \ORM\Association myassoc The association to merge
      * @param Json aValue The array of data to hydrate. If not an array, this method will return null.
      * @param Json[string] options List of options.
-     * /
+     */
     protected IORMEntity[] _mergeAssociation(
         IORMEntity|array|null myoriginal,
         Association myassoc,
@@ -635,14 +635,14 @@ class DMarshaller {
         auto mytypes = [Association.ONE_TO_ONE, Association.MANY_TO_ONE];
         auto mytype = myassoc.type();
         if (in_array(mytype, mytypes, true)) {
-            /** @var \UIM\Datasource\IORMEntity myoriginal * /
+            /** @var \UIM\Datasource\IORMEntity myoriginal */
             return mymarshaller.merge(myoriginal, myvalue, options);
         }
         if (mytype == Association.MANY_TO_MANY) {
             /**
              * @var array<\UIM\Datasource\IORMEntity> myoriginal
              * @var \ORM\Association\BelongsToMany myassoc
-             * /
+             */
             return mymarshaller._mergeBelongsToMany(myoriginal, myassoc, myvalue, options);
         }
         if (mytype == Association.ONE_TO_MANY) {
@@ -657,7 +657,7 @@ class DMarshaller {
         }
         /**
          * @var array<\UIM\Datasource\IORMEntity> myoriginal
-         * /
+         */
         return mymarshaller.mergeMany(myoriginal, myvalue, options);
     }
     
@@ -669,7 +669,7 @@ class DMarshaller {
      * @param \ORM\Association\BelongsToMany myassoc The association to marshall
      * @param Json[string] myvalue The data to hydrate
      * @param Json[string] options List of options.
-     * /
+     */
     protected IORMEntity[] _mergeBelongsToMany(IORMEntity[] myoriginal, BelongsToMany associationToMarshall, Json[string] myvalue, Json[string] options) {
         myassociated = options["associated"] ?? [];
 
@@ -695,7 +695,7 @@ class DMarshaller {
      * @param \ORM\Association\BelongsToMany myassoc The association to marshall
      * @param Json[string] myvalue The data to hydrate
      * @param Json[string] options List of options.
-     * /
+     */
     protected IORMEntity[] _mergeJoinData(Json[string] myoriginal, BelongsToMany myassoc, Json[string] myvalue, Json[string] options) {
         myassociated = options["associated"] ?? [];
         myextra = null;
@@ -748,7 +748,7 @@ class DMarshaller {
      * \UIM\Datasource\IORMEntity myentity The entity that was marshaled.
      * @param Json[string] data readOnly mydata to use.
      * @param Json[string] options List of options that are readOnly.
-     * /
+     */
     protected void dispatchAfterMarshal(IORMEntity myentity, Json[string] data, Json[string] optionData = null) {
         mydata = new ArrayObject(mydata);
         options = new ArrayObject(options);

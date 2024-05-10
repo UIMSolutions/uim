@@ -105,7 +105,7 @@ class DAssociation : IAssociation {
      * A list of conditions to be always included when fetching records from the target association
      *
      * @var \Closure|array
-     * /
+     */
     protected _conditions = null;
 
 
@@ -125,7 +125,7 @@ class DAssociation : IAssociation {
      * With array value, finder name and default options are allowed.
      *
      * @var array|string
-     * /
+     */
     protected _finder = "all";
 
     // Valid strategies for this association. Subclasses can narrow this down.
@@ -141,7 +141,7 @@ class DAssociation : IAssociation {
      *
      * anAliasName - The name given to the association
      * @param Json[string] options A list of properties to be set on this object
-     * /
+     */
     this(string anAliasName, Json[string] optionData = null) {
         defaults = [
             "cascadeCallbacks",
@@ -186,7 +186,7 @@ class DAssociation : IAssociation {
      * @return this
      * @throws \InvalidArgumentException In case the class name is set after the target table has been
      *  resolved, and it doesn"t match the target table"s class name.
-     * /
+     */
 void setClassName(string anClassName) {
     if (
         _targetTable != null &&
@@ -212,7 +212,7 @@ string getClassName() {
      * Sets the table instance for the source side of the association.
      *
      * @param DORMDORMTable aTable the instance to be assigned as source side
-     * /
+     */
     void setSource(DORMTable aTable) {
         _sourceTable = table;
     }
@@ -227,7 +227,7 @@ string getClassName() {
      *
      * @param DORMDORMTable aTable the instance to be assigned as target side
      * @return this
-     * /
+     */
 function setTarget(DORMTable aTable) {
     _targetTable = table;
 
@@ -238,7 +238,7 @@ function setTarget(DORMTable aTable) {
      * Gets the table instance for the target side of the association.
      *
      * @return DORMTable
-     * /
+     */
 function getTarget() : Table {
     if (_targetTable == null) {
         if (indexOf(_className, ".")) {
@@ -286,7 +286,7 @@ function getTarget() : Table {
      * the target association.
      *
      * @param \Closure|array conditions list of conditions to be used
-     * /
+     */
 void setConditions(conditions) {
     _conditions = conditions;
 }
@@ -295,7 +295,7 @@ void setConditions(conditions) {
      * Gets a list of conditions to be always included when fetching records from
      * the target association.
      * @return \Closure|array
-     * /
+     */
 function getConditions() {
     return _conditions;
 }
@@ -306,7 +306,7 @@ function getConditions() {
      *
      * @param string[]|string aKey the table field or fields to be used to link both tables together
      * @return this
-     * /
+     */
 function setBindingKeys(key) {
     _bindingKeys = key;
 
@@ -318,7 +318,7 @@ function setBindingKeys(key) {
      * When not manually specified the primary key of the owning side table is used.
      *
      * @return string[]|string
-     * /
+     */
 function getBindingKeys() {
     if (_bindingKeys == null) {
         _bindingKeys = this.isOwningSide(source()) ?
@@ -333,7 +333,7 @@ function getBindingKeys() {
      * Gets the name of the field representing the foreign key to the target table.
      *
      * @return string[]|string
-     * /
+     */
 function getForeignKeys() {
     return _foreignKeys;
 }
@@ -343,7 +343,7 @@ function getForeignKeys() {
      *
      * @param string[]|string aKey the key or keys to be used to link both tables together
      * @return this
-     * /
+     */
 function setForeignKeys(key) {
     _foreignKeys = key;
 
@@ -360,7 +360,7 @@ function setForeignKeys(key) {
      *
      * @param bool dependent Set the dependent mode. Use null to read the current state.
      * @return this
-     * /
+     */
 function setDependent(bool dependent) {
     _dependent = dependent;
 
@@ -372,7 +372,7 @@ function setDependent(bool dependent) {
      *
      * This is primarily used to indicate that records should be removed if the owning record in
      * the source table is deleted.
-     * /
+     */
 bool getDependent() {
     return _dependent;
 }
@@ -381,7 +381,7 @@ bool getDependent() {
      * Whether this association can be expressed directly in a query join
      *
      * @param Json[string] options custom options key that could alter the return value
-     * /
+     */
 bool canBeJoined(Json[string] optionData = null) {
     strategy = options.get() "strategy", getStrategy());
 
@@ -393,7 +393,7 @@ bool canBeJoined(Json[string] optionData = null) {
      *
      * @param string type the join type to be used (e.g. INNER)
      * @return this
-     * /
+     */
 function setJoinType(string type) {
     _joinType = type;
 
@@ -402,7 +402,7 @@ function setJoinType(string type) {
 
 /**
      * Gets the type of join to be used when adding the association to a query.
-     * /
+     */
 string getJoinType() {
     return _joinType;
 }
@@ -413,7 +413,7 @@ string getJoinType() {
      *
      * @param string aName The name of the association property. Use null to read the current value.
      * @return this
-     * /
+     */
 function setProperty(string aName) {
     _propertyName = name;
 
@@ -423,7 +423,7 @@ function setProperty(string aName) {
 /**
      * Gets the property name that should be filled with data from the target table
      * in the source table record.
-     * /
+     */
 string getProperty() {
     if (!_propertyName) {
         _propertyName = _propertyName();
@@ -442,7 +442,7 @@ string getProperty() {
 
 /**
      * Returns default property name based on association name.
-     * /
+     */
 protected string _propertyName() {
     [, name] = pluginSplit(_name);
 
@@ -457,7 +457,7 @@ protected string _propertyName() {
      * @param string aName The strategy type. Use null to read the current value.
      * @return this
      * @throws \InvalidArgumentException When an invalid strategy is provided.
-     * /
+     */
 function setStrategy(string aName) {
     if (!in_array(name, _validStrategies, true)) {
         throw new DInvalidArgumentException(sprintf(
@@ -475,7 +475,7 @@ function setStrategy(string aName) {
      * Gets the strategy name to be used to fetch associated records. Keep in mind
      * that some association types might not implement but a default strategy,
      * rendering any changes to this setting void.
-     * /
+     */
 string getStrategy() {
     return _strategy;
 }
@@ -484,7 +484,7 @@ string getStrategy() {
      * Gets the default finder to use for fetching rows from the target table.
      *
      * @return array|string
-     * /
+     */
 function getFinder() {
     return _finder;
 }
@@ -494,7 +494,7 @@ function getFinder() {
      *
      * @param array|string finder the finder name to use or array of finder name and option.
      * @return this
-     * /
+     */
 function setFinder(finder) {
     _finder = finder;
 
@@ -506,7 +506,7 @@ function setFinder(finder) {
      * get passed the original list of options used in the constructor
      *
      * @param Json[string] options List of options used for initialization
-     * /
+     */
 protected void _options(Json[string] optionData) {
 }
 
@@ -535,7 +535,7 @@ protected void _options(Json[string] optionData) {
      * @param Json[string] options Any extra options or overrides to be taken in account
      * @return void
      * @throws \RuntimeException Unable to build the query or associations.
-     * /
+     */
 void attachTo(Query query, Json[string] optionData = null) {
     target = getTarget();
     table = target.getTable();
@@ -613,7 +613,7 @@ void attachTo(Query query, Json[string] optionData = null) {
      *
      * @param DORMQuery query The query to modify
      * @param Json[string] options Options array containing the `negateMatch` key.
-     * /
+     */
 protected void _appendNotMatching(Query query, Json[string] optionData) {
     target = _targetTable;
     if (!options.isEmpty("negateMatch"])) {
@@ -637,7 +637,7 @@ protected void _appendNotMatching(Query query, Json[string] optionData) {
      *   with this association
      * @param string|null targetProperty The property name in the source results where the association
      * data shuld be nested in. Will use the default one if not provided.
-     * /
+     */
 array transformRow(Json[string] row, string nestKey, bool joined, string targetProperty = null) {
     sourceAlias = source().aliasName();
     nestKey = nestKey ?  : _name;
@@ -659,7 +659,7 @@ array transformRow(Json[string] row, string nestKey, bool joined, string targetP
      * @param bool joined Whether the row is a result of a direct join
      *   with this association
      * @return Json[string]
-     * /
+     */
 array defaultRowValue(Json[string] row, bool joined) {
     sourceAlias = source().aliasName();
     if (isset(row[sourceAlias])) {
@@ -677,7 +677,7 @@ array defaultRowValue(Json[string] row, bool joined) {
      * @param Json[string]|string|null type the type of query to perform, if an array is passed,
      *   it will be interpreted as the `options` parameter
      * @param Json[string] options The options to for the find
-     * /
+     */
 IQuery find(type = null, Json[string] optionData = null) {
     type = type ?  : getFinder();
     [type, opts] = _extractFinder(type);
@@ -693,7 +693,7 @@ IQuery find(type = null, Json[string] optionData = null) {
      *
      * @param DORMdatabases.IExpression|\Closure|array|string|null conditions The conditions to use
      * for checking if any record matches.
-     * /
+     */
 bool exists(conditions) {
     conditions = this.find()
         .where(conditions)
@@ -709,7 +709,7 @@ bool exists(conditions) {
      * @param DORMdatabases.IExpression|\Closure|array|string|null conditions Conditions to be used, accepts anything Query.where()
      * can take.
      * @return int Count Returns the affected rows.
-     * /
+     */
 int updateAll(string[] fieldNames, conditions) {
     expression = this.find()
         .where(conditions)
@@ -724,7 +724,7 @@ int updateAll(string[] fieldNames, conditions) {
      * @param DORMdatabases.IExpression|\Closure|array|string|null conditions Conditions to be used, accepts anything Query.where()
      * can take.
      * @return int Returns the number of affected rows.
-     * /
+     */
 int deleteAll(conditions) {
     expression = this.find()
         .where(conditions)
@@ -739,7 +739,7 @@ int deleteAll(conditions) {
      *
      * @param Json[string] options The options containing the strategy to be used.
      * @return bool true if a list of keys will be required
-     * /
+     */
 bool requiresKeys(Json[string] optionData = null) {
     strategy = options["strategy"] ?  ? getStrategy();
 
@@ -751,7 +751,7 @@ bool requiresKeys(Json[string] optionData = null) {
      * attaching to
      *
      * @param DORMQuery query the query this association is attaching itself to
-     * /
+     */
 protected void _dispatchBeforeFind(Query query) {
     query.triggerBeforeFind();
 }
@@ -763,7 +763,7 @@ protected void _dispatchBeforeFind(Query query) {
      * @param DORMQuery query the query that will get the fields appended to
      * @param DORMQuery surrogate the query having the fields to be copied from
      * @param Json[string] options options passed to the method `attachTo`
-     * /
+     */
 protected void _appendFields(Query query, Query surrogate, Json[string] optionData) {
     if (query.getEagerLoader().isAutoFieldsEnabled() == false) {
         return;
@@ -793,7 +793,7 @@ protected void _appendFields(Query query, Query surrogate, Json[string] optionDa
      * @param DORMQuery surrogate the query having formatters for the associated
      * target table.
      * @param Json[string] options options passed to the method `attachTo`
-     * /
+     */
 protected void _formatAssociationResults(Query query, Query surrogate, Json[string] optionData) {
     formatters = surrogate.getResultFormatters();
 
@@ -851,7 +851,7 @@ Query:
      * @param DORMQuery query the query that will get the associations attached to
      * @param DORMQuery surrogate the query having the containments to be attached
      * @param Json[string] options options passed to the method `attachTo`
-     * /
+     */
 protected void _bindNewAssociations(Query query, Query surrogate, Json[string] optionData) {
     loader = surrogate.getEagerLoader();
     contain = loader.getContain();
@@ -888,7 +888,7 @@ protected void _bindNewAssociations(Query query, Query surrogate, Json[string] o
      * @return array
      * @throws \RuntimeException if the number of columns in the foreignKeys do not
      * match the number of columns in the source table primaryKeys
-     * /
+     */
 protected Json[string] _joinCondition(Json[string] optionData) {
     auto conditions = null;
     auto tAlias = _name;
@@ -942,7 +942,7 @@ protected Json[string] _joinCondition(Json[string] optionData) {
      *
      * @param array|string finderData The finder name or an array having the name as key
      * and options as value.
-     * /
+     */
 // TODO protected Json[string] _extractFinder(finderData) {
     finderData = (array) finderData;
 
@@ -960,7 +960,7 @@ protected Json[string] _joinCondition(Json[string] optionData) {
      * @param string property the property name
      * @return DORMAssociation
      * @throws \RuntimeException if no association with such name exists
-     * /
+     */
 function __get(property) {
     return _getTarget(). {
         property
@@ -973,7 +973,7 @@ function __get(property) {
      *
      * @param string property the property name
      * @return bool true if the property exists
-     * /
+     */
 bool __isSet(property) {
     return isset(getTarget(). {
         property
@@ -987,7 +987,7 @@ bool __isSet(property) {
      * @param Json[string] argument List of arguments passed to the function
      * @return mixed
      * @throws \BadMethodCallException
-     * /
+     */
 function __call(method, argument) {
     return _getTarget().method(...argument);
 }
@@ -996,7 +996,7 @@ function __call(method, argument) {
      * Get the relationship type.
      *
      * @return string Constant of either ONE_TO_ONE, MANY_TO_ONE, ONE_TO_MANY or MANY_TO_MANY.
-     * /
+     */
 abstract string type();
 
 /**
@@ -1028,7 +1028,7 @@ abstract string type();
      *
      * @param Json[string] options The options for eager loading.
      * @return \Closure
-     * /
+     */
 abstract function eagerLoader(Json[string] optionData) : Closure;
 
 /**
@@ -1050,7 +1050,7 @@ abstract bool cascaderemove(IORMEntity anEntity, Json[string] optionData = null)
      *
      * @param DORMTable side The potential Table with ownership
      * @return bool
-     * /
+     */
 abstract bool isOwningSide(Table side);
 
 /**
@@ -1061,7 +1061,7 @@ abstract bool isOwningSide(Table side);
      * @param Json[string] options The options for saving associated data.
      * @return DORMDatasource\IORMEntity|false false if entity could not be saved, otherwise it returns
      * the saved entity
-     * /
+     */
 abstract function saveAssociated(IORMEntity anEntity, Json[string] optionData = null);
     */ 
 }

@@ -825,11 +825,11 @@ class DDebugger {
         data += defaults;
 
         outputFormat = _outputFormat;
-        if (isset(this.renderers[outputFormat])) {
+        if (isset(_renderers[outputFormat])) {
             /** @var array trace * /
             trace = trace(['start': data['start'], 'format': 'points']);
             error = new DError(data['code'], data['description'], data['file'], data['line'], trace);
-            renderer = new this.renderers[outputFormat]();
+            renderer = new _renderers[outputFormat]();
             writeln(renderer.render(error, Configure.read('debug'));
 
             return;

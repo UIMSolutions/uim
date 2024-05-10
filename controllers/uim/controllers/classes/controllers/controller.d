@@ -376,7 +376,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         result = this.dispatchEvent("Controller.initialize").getResult();
         if (cast(IResponse)result) { return result; }
 
-        result = this.dispatchEvent("Controller.startup").getResult();
+        result = dispatchEvent("Controller.startup").getResult();
         if (cast(IResponse)result) { return result; }
 
         return null;

@@ -55,7 +55,7 @@ class DFlashComponent : DComponent {
         if (cast(Throwable) aMessage) {
             this.flash().setExceptionMessage(message, options);
         } else {
-            this.flash().set(message, options);
+            flash().set(message, options);
         }
     }
 

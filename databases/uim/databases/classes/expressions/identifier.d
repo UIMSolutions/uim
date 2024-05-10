@@ -28,7 +28,7 @@ class DIdentifierExpression : DExpression {
     string sql(DValueBinder aBinder) {
         string sql = this.identifier;
         return _collation
-            ? sql ~ " COLLATE " ~ this.collation
+            ? sql ~ " COLLATE " ~ _collation
             : sql;
     }
 

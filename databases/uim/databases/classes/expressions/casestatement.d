@@ -443,7 +443,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
         
         string aValue = "";
         if (this.isSimpleVariant) {
-            aValue = this.compileNullableValue(aBinder, this.value, this.valueType) ~ " ";
+            aValue = this.compileNullableValue(aBinder, this.value, _valueType) ~ " ";
         }
         
         auto whenThenExpressions = _when

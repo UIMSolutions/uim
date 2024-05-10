@@ -150,7 +150,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
              myframeSql = "%s BETWEEN %s AND %s".format(this.frame["type"],  mystart,  myend);
 
             if (this.exclusion !isNull) {
-                 myframeSql ~= " EXCLUDE " ~ this.exclusion;
+                 myframeSql ~= " EXCLUDE " ~ _exclusion;
             }
              myclauses ~= myframeSql;
         }

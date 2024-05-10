@@ -175,14 +175,14 @@ class DConsoleOptionParser {
     this(string newCommand = "", bool isVerboseAndQuiet = true) {
         setCommand(command);
 
-        this.addOption("help", [
+        addOption("help", [
             "short": "h",
             "help": "Display this help.",
             "boolean": true.toJson,
         ]);
 
         if (isVerboseAndQuiet) {
-            this.addOption("verbose", [
+            addOption("verbose", [
                 "short": "v",
                 "help": "Enable verbose output.",
                 "boolean": true.toJson,

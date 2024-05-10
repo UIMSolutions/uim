@@ -375,7 +375,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         response = this.controller.getResponse()
             .withType("html")
             .withStringBody(view.render(myTemplate, "error"));
-        this.controller.setResponse(response);
+        _controller.setResponse(response);
 
         return response;
     }

@@ -46,7 +46,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         assert(cast(DServerRequest) request);
         auto className = getControllerClass(request);
         if (className.isNull) {
-            throw this.missingController(request);
+            throw missingController(request);
         }
         auto myreflection = new DReflectionClass(className);
         if (reflection.isAbstract()) {

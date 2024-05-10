@@ -28,8 +28,8 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
         "statusCode": Json(301),
         "headers": Json.emptyArray,
         "disableOnDebug": true.toJson,
-        "trustedProxies": null,
-        "hsts": null,
+        "trustedProxies": Json(null),
+        "hsts": Json(null),
     ];
 
     this(Json[string] configData = null) {

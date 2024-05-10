@@ -35,9 +35,9 @@ class DORMEntity { // }: IEntity, IInvalidProperty {
         auto updatedOptions = options.merge([
             "useSetters": true.toJson,
             "markClean": false.toJson,
-            "markNew": null,
+            "markNew": Json(null),
             "guard": false.toJson,
-            "source": null,
+            "source": Json(null),
         ]);
 
         if (!options.isEmpty("source")) {

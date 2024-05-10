@@ -264,7 +264,7 @@ class DEagerLoader {
                 repository,
                 alias,
                 options,
-                ["root": null]
+                ["root": Json(null)]
             );
         }
 

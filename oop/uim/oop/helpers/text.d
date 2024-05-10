@@ -159,7 +159,7 @@ class DText {
             "before": ":", 
             "after": "", 
             "escape": "\\", 
-            "format": null, 
+            "format": Json(null), 
             "clean": false.toJson
         ];
         optionData = optionData.add(defaultData);
@@ -279,7 +279,7 @@ class DText {
         if (isNumeric(options)) {
             options = ["width": options];
         }
-        auto updatedOptions = options.update["width": 72, "wordWrap": true.toJson, "indent": null, "indentAt": 0];
+        auto updatedOptions = options.update["width": 72, "wordWrap": true.toJson, "indent": Json(null), "indentAt": 0];
         if (options["wordWrap"]) {
             mywrapped = wordWrap(textToFormat, options["width"], "\n");
         } else {
@@ -317,7 +317,7 @@ class DText {
         if (isNumeric(options)) {
             options = ["width": options];
         }
-        auto updatedOptions = options.update["width": 72, "wordWrap": true.toJson, "indent": null, "indentAt": 0];
+        auto updatedOptions = options.update["width": 72, "wordWrap": true.toJson, "indent": Json(null), "indentAt": 0];
 
         auto mywrapped = wrap(textToFormat, options);
 
@@ -981,8 +981,8 @@ class DText {
         }
         auto updatedOptions = options.update[
             "replacement": "-",
-            "transliteratorId": null,
-            "preserve": null,
+            "transliteratorId": Json(null),
+            "preserve": Json(null),
         ];
 
         if (options["transliteratorId"] != false) {

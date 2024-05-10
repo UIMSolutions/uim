@@ -329,7 +329,7 @@ class Xml {
      * /
                     protected static void _createChild(Json[string] data) {
                         mydata += [
-                            "value": null,
+                            "value": Json(null),
                         ];
 
                         auto dataKey = mydata.get("key", null);

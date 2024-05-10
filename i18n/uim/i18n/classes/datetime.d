@@ -457,7 +457,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
             'group": true.toJson,
             'abbr": false.toJson,
             'before": ' - ",
-            'after": null,
+            'after": Json(null),
         ];
         auto updatedOptions = options.updatedefaults;
          anGroup = options["group"];

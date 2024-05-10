@@ -1038,7 +1038,7 @@ class Hash {
             "idPath": "{n}.aliasName.id",
             "parentPath": "{n}.aliasName.parent_id",
             "children": "children",
-            "root": null,
+            "root": Json(null),
         ];
 
         result = myidMap = null;

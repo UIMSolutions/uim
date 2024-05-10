@@ -10,9 +10,9 @@ import uim.logging;
 class DConsoleLog { /* }: BaseLog {
     /* configuration.updateDefaults([
         "stream": "D://stderr",
-        "levels": null,
+        "levels": Json(null),
         "scopes": Json.emptyArray,
-        "outputAs": null,
+        "outputAs": Json(null),
         "formatter": [
             "className": DefaultFormatter.classname,
             "includeTags": true.toJson,

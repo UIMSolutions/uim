@@ -540,7 +540,7 @@ void attachTo(Query query, Json[string] optionData = null) {
     target = getTarget();
     table = target.getTable();
 
-    options = options.update[
+    auto updatedOptions = options.update[
         "includeFields": true.toJson,
         "foreignKeys": foreignKeys(),
         "conditions": Json.emptyArray,

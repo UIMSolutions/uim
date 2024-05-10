@@ -825,7 +825,7 @@ class DBelongsToManyAssociation : DAssociation {
                 "cleanProperty": options,
             ];
         } else {
-            options = options.update["cleanProperty": true.toJson];
+            auto updatedOptions = options.update["cleanProperty": true.toJson];
         }
 
         _checkPersistenceStatus(sourceEntity, targetEntities);

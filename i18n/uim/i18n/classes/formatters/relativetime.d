@@ -362,7 +362,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
      * Json[string] options The options provided by the user.
      * /
     protected Json[string] _options(Json[string] options, string className) {
-        options = options.update[
+        auto updatedOptions = options.update[
             "from":  className.now(),
             "timezone": null,
             "format":  className.wordFormat,

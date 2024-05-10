@@ -216,7 +216,7 @@ class DOauth {
     
     // Builds a normalized URL
     protected string _normalizedUrl(IUri anUri) {
-        return anUri.getScheme() ~ "://" ~ anUri.getHost().toLower ~ anUri.getPath();
+        return anUri.getScheme() ~ "://" ~ anUri.getHost().lower ~ anUri.getPath();
     }
     
     /**

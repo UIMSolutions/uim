@@ -155,7 +155,7 @@ class DClientResponse { // }: Message : IResponse {
             aValue = strip(aValue);
             /** @Dstan-var non-empty-string aName * /
             string name = strip(name);
-            string normalized = name.toLower;
+            string normalized = name.lower;
             if (isSet(this.headers[name])) {
                 this.headers[name] ~= aValue;
             } else {

@@ -160,7 +160,7 @@ class DFormDataPart { // }: Stringable {
         transliterated = Text.transliterate(aValue.replace("\"", ""));
         result = "%s="%s"".format(name, transliterated);
         if (_charset && aValue != transliterated) {
-            result ~= "; %s*=%s""%s".format(name, _charset.toLower, rawurlencode(aValue));
+            result ~= "; %s*=%s""%s".format(name, _charset.lower, rawurlencode(aValue));
         }
         return result;
     } */

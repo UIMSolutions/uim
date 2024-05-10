@@ -141,7 +141,7 @@ class DTupleComparisonExpression : DComparisonExpression {
 
                                                     // Determines if each of the values in this expressions is a tuple in itself
                                                     bool isMulti() {
-                                                        return in_array(_operator.toLower, [
+                                                        return in_array(_operator.lower, [
                                                                 "in", "not in"
                                                             ]);} */
 }

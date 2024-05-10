@@ -506,7 +506,7 @@ class DQueryExpression : DExpression { // }, Countable {
              isArray = isArray(c);
              isOperator = isNot = false;
             if (!numericKey) {
-                normalizedKey = myKey.toLower;
+                normalizedKey = myKey.lower;
                  isOperator = in_array(normalizedKey,  operators);
                  isNot = normalizedKey == "not";
             }

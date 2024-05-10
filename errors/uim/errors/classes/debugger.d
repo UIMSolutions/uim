@@ -126,7 +126,7 @@ class DDebugger {
         /** @var array<int, static>  anInstance * /
         static  anInstance = null;
         if (className) {
-            if (!anInstance || strtolower(className) != get_class(anInstance[0]).toLower) {
+            if (!anInstance || strtolower(className) != get_class(anInstance[0]).lower) {
                  anInstance[0] = new className();
             }
         }

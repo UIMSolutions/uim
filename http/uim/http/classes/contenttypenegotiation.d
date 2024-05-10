@@ -87,7 +87,7 @@ class DContentTypeNegotiation {
                 if (lang.has("_")) {
                     lang = lang.replace("_", "-");
                 }
-                lang = lang.toLower;
+                lang = lang.lower;
             }
             accept = chain(accept, languages);
         }
@@ -106,6 +106,6 @@ class DContentTypeNegotiation {
     bool acceptLanguage(IRequest request, string alang) {
         accept = this.acceptedLanguages(request);
 
-        return in_array(lang.toLower, accept, true);
+        return in_array(lang.lower, accept, true);
     } */
 }

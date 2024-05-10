@@ -86,7 +86,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      * /
     void addParser(Json[string] types, Closure  aParser) {
         types
-            .map!(type => type.toLower)
+            .map!(type => type.lower)
             .each!(type => this.parsers[type] = aParser);
     }
     
@@ -108,7 +108,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
             return handler.handle(request);
         }
         [type] = request.getHeaderLine("Content-Type").split(";");
-        type = type.toLower;
+        type = type.lower;
         if (!this.parsers.isSet(type)) {
             return handler.handle(request);
         }

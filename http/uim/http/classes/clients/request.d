@@ -55,7 +55,7 @@ class DRequest { // }: Message, IRequest {
     }
 
     protected void addHeader(string key, string value) {
-        string normalized = key.toLower;
+        string normalized = key.lower;
         this.headers[key] = value;
         this.headerNames[normalized] = key;
     }

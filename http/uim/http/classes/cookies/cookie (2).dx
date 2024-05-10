@@ -189,7 +189,7 @@ class DCookie : ICookie {
                 aKey = part;
                 aValue = true;
             }
-            aKey = aKey.toLower;
+            aKey = aKey.lower;
             someData[aKey] = aValue;
         });
         if (someData.isSet("max-age")) {
@@ -437,7 +437,7 @@ class DCookie : ICookie {
         return match (true) {
             sameSite.isNull: sameSite,
             sameSite instanceof SameSiteEnum: sameSite,
-            default: SameSiteEnum.from(ucfirst(sameSite).toLower),
+            default: SameSiteEnum.from(ucfirst(sameSite).lower),
         };
     }
     

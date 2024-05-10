@@ -7,7 +7,7 @@ import uim.models;
 
 @safe:
 class DCandelaAttribute : DDoubleAttribute {
-  mixin(AttributeThis!("CandelaAttribute"));
+  mixin(AttributeThis!("Candela"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -28,7 +28,7 @@ has.measurement.fundamentalComponent.candela */
   }
 }
 
-mixin(AttributeCalls!("CandelaAttribute"));
+mixin(AttributeCalls!("Candela"));
 
 version (test_uim_models) {
   unittest {

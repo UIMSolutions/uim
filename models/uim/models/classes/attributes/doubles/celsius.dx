@@ -11,7 +11,7 @@ import uim.models;
 
 @safe:
 class DCelsiusAttribute : DDoubleAttribute {
-  mixin(AttributeThis!("CelsiusAttribute"));
+  mixin(AttributeThis!("Celsius"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -23,7 +23,7 @@ class DCelsiusAttribute : DDoubleAttribute {
     return true;
   }
 }
-mixin(AttributeCalls!("CelsiusAttribute"));
+mixin(AttributeCalls!("Celsius"));
 
 version(test_uim_models) { unittest {
     // TODO

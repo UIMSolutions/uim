@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DBaseCurrencyAttribute : DCurrencyAttribute {
-  mixin(AttributeThis!("BaseCurrencyAttribute"));
+  mixin(AttributeThis!("BaseCurrency"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {

@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DBirthDateAttribute : DDatetimeAttribute {
-  mixin(AttributeThis!("BirthDateAttribute"));
+  mixin(AttributeThis!("BirthDate"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {

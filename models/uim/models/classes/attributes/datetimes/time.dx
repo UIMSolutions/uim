@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DTimeAttribute : DAttribute {
-  mixin(AttributeThis!("TimeAttribute"));
+  mixin(AttributeThis!("Time"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {

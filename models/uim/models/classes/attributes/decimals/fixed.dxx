@@ -11,7 +11,7 @@ import uim.models;
 
 // The 64 bit fixed (4) scale numbers used by PBI
 class DFixedDecimalAttribute : DDecimalAttribute {
-  mixin(AttributeThis!("FixedDecimalAttribute"));
+  mixin(AttributeThis!("FixedDecimal"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {

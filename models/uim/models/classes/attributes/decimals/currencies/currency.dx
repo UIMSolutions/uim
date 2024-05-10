@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DCurrencyAttribute : DDecimalAttribute {
-  mixin(AttributeThis!("CurrencyAttribute"));
+  mixin(AttributeThis!("Currency"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {

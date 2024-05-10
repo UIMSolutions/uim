@@ -28,13 +28,13 @@ class DEagerLoader {
      * This is a normalized version of the user provided containments array.
      *
      * @var \ORM\EagerLoadable|array<\ORM\EagerLoadable>|null
-     * /
+     */
     protected DEagerLoadable|array|null _normalized = null;
 
     /**
      * List of options accepted by associations in contain()
      * index by key for faster access.
-     * /
+     */
     protected int<string> _containOptions = [
         "associations": 1,
         "foreignKey": 1,
@@ -87,7 +87,7 @@ class DEagerLoader {
      * When this method is called multiple times it will merge previous list with
      * the new one.
      * @param \Closure|null myqueryBuilder The query builder callback.
-     * /
+     */
     array contain(string[] myassociations, ?Closure myqueryBuilder = null) {
         if (myqueryBuilder) {
             if (!isString(myassociations)) {
@@ -115,7 +115,7 @@ class DEagerLoader {
      * specific table using when a query is provided. The list of associated tables
      * passed to this method must have been previously set as associations using the
      * Table API.
-     * /
+     */
     array getContain() {
         return _containments;
     }
@@ -125,7 +125,7 @@ class DEagerLoader {
      *
      * This will reset/clear out any contained associations that were not
      * added via matching().
-     * /
+     */
     void clearContain() {
        _containments = null;
        _normalized = null;
@@ -137,14 +137,14 @@ class DEagerLoader {
      * Sets whether contained associations will load fields automatically.
      * Params:
      * bool myenable The value to set.
-     * /
+     */
     void enableAutoFields(bool myenable = true) {
        _autoFields = myenable;
     }
     
     /**
      * Disable auto loading fields of contained associations.
-     * /
+     */
     auto disableAutoFields() {
        _autoFields = false;
 
@@ -153,7 +153,7 @@ class DEagerLoader {
     
     /**
      * Gets whether contained associations will load fields automatically.
-     * /
+     */
     bool isAutoFieldsEnabled() {
         return _autoFields;
     }
@@ -175,7 +175,7 @@ class DEagerLoader {
      * @param \Closure|null mybuilder the callback auto to be used for setting extra
      * options to the filtering query.
      * @param Json[string] options Extra options for the association matching.
-     * /
+     */
     void setMatching(string myassociationPath, ?Closure mybuilder = null, Json[string] optionData = null) {
        _matching ??= new static();
 
@@ -217,7 +217,7 @@ class DEagerLoader {
      * Params:
      * \ORM\Table myrepository The table containing the association that
      * will be normalized.
-     * /
+     */
     array normalized(Table myrepository) {
         if (_normalized !isNull || _containments.isEmpty) {
             return (array)_normalized;
@@ -246,7 +246,7 @@ class DEagerLoader {
      * Json[string] myassociations User provided containments array.
      * @param Json[string] myoriginal The original containments array to merge
      * with the new one.
-     * /
+     */
     // TODO protected Json[string] _reformatContain(Json[string] myassociations, Json[string] myoriginal) {
         result = myoriginal;
 
@@ -293,7 +293,7 @@ class DEagerLoader {
                 options["queryBuilder"] = fn (myquery): mysecond(myfirst(myquery));
             }
             if (!isArray(options)) {
-                /** @psalm-suppress InvalidArrayOffset * /
+                /** @psalm-suppress InvalidArrayOffset */
                 options = [options: []];
             }
             mypointer[mytable] = options + mypointer[mytable];
@@ -312,7 +312,7 @@ class DEagerLoader {
      * @param bool myincludeFields whether to append all fields from the associations
      * to the passed query. This can be overridden according to the settings defined
      * per association in the containments array.
-     * /
+     */
     void attachAssociations(SelectQuery myquery, Table myrepository, bool myincludeFields) {
         if (isEmpty(_containments) && _matching.isNull) {
             return;
@@ -341,7 +341,7 @@ class DEagerLoader {
      * Params:
      * \ORM\Table myrepository The table containing the associations to be
      * attached.
-     * /
+     */
     EagerLoadable[] attachableAssociations(Table myrepository) {
         mycontain = this.normalized(myrepository);
         mymatching = _matching ? _matching.normalized(myrepository): [];
@@ -357,7 +357,7 @@ class DEagerLoader {
      * Params:
      * \ORM\Table myrepository The table containing the associations
      * to be loaded.
-     * /
+     */
     EagerLoadable[] externalAssociations(Table myrepository) {
         if (_loadExternal) {
             return _loadExternal;
@@ -378,7 +378,7 @@ class DEagerLoader {
      * separated strings representing associations that lead to this `aliasName` in the
      * chain of associations to be loaded. The second value is the path to follow in
      * entities" properties to fetch a record of the corresponding association.
-     * /
+     */
     protected DEagerLoadable _normalizeContain(Table myparent, string aliasName, Json[string] options, Json[string] mypaths) {
         mydefaults = _containOptions;
         myinstance = myparent.getAssociation(aliasName);
@@ -429,7 +429,7 @@ class DEagerLoader {
      *
      * This auto operates on the array references that were generated by the
      * _normalizeContain() function.
-     * /
+     */
     protected void _fixStrategies() {
         foreach (_aliasList as myaliases) {
             myaliases
@@ -450,7 +450,7 @@ class DEagerLoader {
      * under the same direct associations chain.
      * Params:
      * \ORM\EagerLoadable myloadable The association config.
-     * /
+     */
     protected void _correctStrategy(EagerLoadable myloadable) {
         configData = myloadable.configuration.data;
         mycurrentStrategy = configData("strategy"] ??
@@ -470,7 +470,7 @@ class DEagerLoader {
      * Params:
      * array<\ORM\EagerLoadable> myassociations List of associations from which to obtain joins.
      * @param array<\ORM\EagerLoadable> mymatching List of associations that should be forcibly joined.
-     * /
+     */
     protected DEagerLoadable[] _resolveJoins(Json[string] myassociations, Json[string] mymatching = []) {
         auto result;
         foreach (mymatching as mytable: myloadable) {
@@ -499,7 +499,7 @@ class DEagerLoader {
      * \ORM\Query\SelectQuery myquery The query for which to eager load external.
      * associations.
      * @param Json[string] results Results array.
-     * /
+     */
     array loadExternal(SelectQuery myquery, Json[string] results) {
         if (isEmpty(results)) {
             return results;
@@ -563,7 +563,7 @@ class DEagerLoader {
      * Params:
      * \ORM\Table mytable The table containing the association that
      * will be normalized.
-     * /
+     */
     Json[string] associationsMap(Table mytable) {
         mymap = null;
 
@@ -585,7 +585,7 @@ class DEagerLoader {
      * Json[string] mymap An initial array for the map.
      * @param array<\ORM\> mylevel An array of EagerLoadable instances.
      * @param bool mymatching Whether it is an association loaded through `matching()`.
-     * /
+     */
     protected DEagerLoadable[] _buildAssociationsMap(Json[string] initialData, Json[string] mylevel, bool mymatching = false) {
         foreach (mylevel as myassoc: mymeta) {
             mycanBeJoined = mymeta.canBeJoined();
@@ -620,7 +620,7 @@ class DEagerLoader {
      * "matching" association.
      * @param string mytargetProperty The property name where the results of the join should be nested at.
      * If not passed, the default property for the association will be used.
-     * /
+     */
     void addToJoinsMap(
         string aliasName,
         DAssociation myassoc,
@@ -643,7 +643,7 @@ class DEagerLoader {
      * array<\ORM\EagerLoadable> myexternal The list of external associations to be loaded.
      * @param \ORM\Query\SelectQuery myquery The query from which the results where generated.
      * @param Json[string] results Results array.
-     * /
+     */
     // TODO protected Json[string] _collectKeys(Json[string] myexternal, SelectQuery myquery, Json[string] results) {
         mycollectKeys = null;
         foreach (myexternal as mymeta) {
@@ -674,7 +674,7 @@ class DEagerLoader {
      * Params:
      * Json[string] results Results array.
      * @param array<string, array> mycollectKeys The keys to collect.
-     * /
+     */
     // TODO protected Json[string] _groupKeys(Json[string] results, Json[string] mycollectKeys) {
         someKeys = null;
         foreach (result; results) {
@@ -708,7 +708,7 @@ class DEagerLoader {
     
     /**
      * Handles cloning eager loaders and eager loadables.
-     * /
+     */
     void clone() {
         if (_matching) {
            _matching = clone _matching;

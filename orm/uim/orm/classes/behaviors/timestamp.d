@@ -23,7 +23,7 @@ class DTimestampBehavior : DBehavior {
      * the code is executed, to set to an explicit date time value - set refreshTimetamp to false
      * and call setTimestamp() on the behavior class before use.
      *
-     * /
+     */
     protected Json[string] configuration.updateDefaults([
         "implementedFinders": Json.emptyArray,
         "implementedMethods": [
@@ -37,7 +37,7 @@ class DTimestampBehavior : DBehavior {
             ],
         ],
         "refreshTimestamp": true.toJson,
-    ]);* /
+    ]);*/
         if (configuration.hasKey("events")) {
             configuration.update("events", configData("events"), false);
         } */
@@ -55,7 +55,7 @@ class DTimestampBehavior : DBehavior {
      * \UIM\Event\IEvent<\ORM\Table> myevent Event instance.
      * @param \UIM\Datasource\IORMEntity myentity Entity instance.
      * @throws \UnexpectedValueException if a field"s when value is misdefined
-     * /
+     */
     void handleEvent(IEvent myevent, IORMEntity myentity) {
         myeventName = myevent.name;
         myevents = configuration.get("events"];
@@ -90,7 +90,7 @@ class DTimestampBehavior : DBehavior {
      * implementedEvents
      *
      * The implemented events of this behavior depend on configuration
-     * /
+     */
     IEvent[] implementedEvents() {
         return array_fill_keys(configuration.get("events"].keys, "handleEvent");
     }
@@ -104,7 +104,7 @@ class DTimestampBehavior : DBehavior {
      * Params:
      * \IDateTime|null myts Timestamp
      * @param bool myrefreshTimestamp If true timestamp is refreshed.
-     * /
+     */
     DateTime timestamp(?IDateTime myts = null, bool myrefreshTimestamp = false) {
         if (myts) {
             if (configuration.get("refreshTimestamp"]) {
@@ -126,7 +126,7 @@ class DTimestampBehavior : DBehavior {
      * Params:
      * \UIM\Datasource\IORMEntity myentity Entity instance.
      * @param string myeventName Event name.
-     * /
+     */
     bool touch(IORMEntity myentity, string myeventName = "Model.beforeSave") {
         myevents = configuration.get("events"];
         if (isEmpty(myevents[myeventName])) {
@@ -151,7 +151,7 @@ class DTimestampBehavior : DBehavior {
      * \UIM\Datasource\IORMEntity myentity Entity instance.
      * @param string myfield Field name
      * @param bool myrefreshTimestamp Whether to refresh timestamp.
-     * /
+     */
     protected void _updateField(IORMEntity myentity, string myfield, bool myrefreshTimestamp) {
         if (myentity.isDirty(myfield)) {
             return;

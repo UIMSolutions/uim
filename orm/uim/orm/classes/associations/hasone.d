@@ -21,7 +21,7 @@ class DHasOneAssociation : DAssociation {
      * Valid strategies for this type of association
      *
      * @var string[]
-     * /
+     */
     protected string[] _validStrategies = [
         STRATEGY_JOIN,
         STRATEGY_SELECT,
@@ -31,7 +31,7 @@ class DHasOneAssociation : DAssociation {
      * Gets the name of the field representing the foreign key to the target table.
      *
      * @return string[]|string
-     * /
+     */
     function getForeignKeys() {
         if (_foreignKey == null) {
             _foreignKey = _modelKey(source().aliasName());
@@ -53,7 +53,7 @@ class DHasOneAssociation : DAssociation {
      * or required information if the row in "source" did not exist.
      *
      * @param DORMTable side The potential Table with ownership
-     * /
+     */
     bool isOwningSide(Table side) {
         return side == source();
     }
@@ -73,7 +73,7 @@ class DHasOneAssociation : DAssociation {
      * @param Json[string] options options to be passed to the save method in the target table
      * @return DORMDatasource\IORMEntity|false false if entity could not be saved, otherwise it returns
      * the saved entity
-     * /
+     */
     function saveAssociated(IORMEntity anEntity, Json[string] optionData = null) {
         targetEntity = entity.get(getProperty());
         if (targetEntity.isEmpty || !(targetEntity instanceof IORMEntity)) {

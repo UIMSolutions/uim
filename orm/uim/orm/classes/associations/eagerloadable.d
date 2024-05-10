@@ -82,7 +82,7 @@ class DEagerLoadable {
      * Params:
      * string associationName The Association name.
      * configData - The list of properties to set.
-     * /
+     */
     this(string associationName, Json[string] configData = null) {
         _name = associationName;
         string[] allowed = [
@@ -100,21 +100,21 @@ class DEagerLoadable {
      * Params:
      * string associationName The association name.
      * @param \ORM\EagerLoadable myassociation The association to load.
-     * /
+     */
     void addAssociation(string associationName, EagerLoadable myassociation) {
        _associations[associationName] = myassociation;
     }
     
     /**
      * Returns the Association class instance to use for loading the records.
-     * /
+     */
     EagerLoadable[] associations() {
         return _associations;
     }
     
     /**
      * Gets the Association class instance to use for loading the records.
-     * /
+     */
     DAssociation instance() {
         if (_instance.isNull) {
             throw new DatabaseException("No instance set.");
@@ -125,7 +125,7 @@ class DEagerLoadable {
     /**
      * Gets a dot separated string representing the path of associations
      * that should be followed to fetch this level.
-     * /
+     */
     string aliasPath() {
         return _aliasPath;
     }
@@ -141,7 +141,7 @@ class DEagerLoadable {
      * ```
      *
      * The property path of `country` will be `author.company`
-     * /
+     */
     string propertyPath() {
         return _propertyPath;
     }
@@ -150,7 +150,7 @@ class DEagerLoadable {
      * Sets whether this level can be fetched using a join.
      * Params:
      * bool mypossible The value to set.
-     * /
+     */
     void setCanBeJoined(bool mypossible) {
        _canBeJoined = mypossible;
     }
@@ -165,7 +165,7 @@ class DEagerLoadable {
      * the records.
      *
      * configData - The value to set.
-     * /
+     */
     void configuration.update(Json[string] configData = null) {
        configuration = configData;
     }
@@ -174,7 +174,7 @@ class DEagerLoadable {
      * Gets the list of options to pass to the association object for loading
      * the records.
      *
-     * /
+     */
     Json[string] configuration.data {
         return configuration;
     }
@@ -182,7 +182,7 @@ class DEagerLoadable {
     /**
      * Gets whether this level was meant for a
      * "matching" fetch operation.
-     * /
+     */
     bool forMatching() {
         return _forMatching;
     }
@@ -198,7 +198,7 @@ class DEagerLoadable {
      * ```
      *
      * The target property of `country` will be just `country`
-     * /
+     */
     string targetProperty() {
         return _targetProperty;
     }
@@ -206,7 +206,7 @@ class DEagerLoadable {
     /**
      * Returns a representation of this object that can be passed to
      * UIM\ORM\EagerLoader.contain()
-     * /
+     */
     Json[string] asContainArray() {
         auto myassociations = _associations
             .map!(association => association.asContainArray()).array;
@@ -226,7 +226,7 @@ class DEagerLoadable {
     
     /**
      * Handles cloning eager loadables.
-     * /
+     */
     void clone() {
         foreach (_associations as myi: myassociation) {
            _associations[myi] = clone myassociation;

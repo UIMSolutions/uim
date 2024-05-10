@@ -37,7 +37,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * Constructor
      *
      * aTable - The table this registry is attached to.
-     * /
+     */
     this(DORMTable aTable = null) {
         if (aTable != null) {
             setTable(aTable);
@@ -48,7 +48,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * Attaches a table instance to this registry.
      *
      * @param DORMTable aTable The table this registry is attached to.
-     * /
+     */
     @property table(DORMTable aTable) {
         _table = aTable;
         setEventManager(aTable.getEventManager());
@@ -60,7 +60,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @param string aClassName  Partial classname to resolve.
      * @return string|null Either the correct classname or null.
      * @psalm-return class-string|null
-     * /
+     */
     static string className(string aClassName ) {
         return App.className(class, "Model/Behavior", "Behavior")
             ?: App.className(class, "ORM/Behavior", "Behavior");
@@ -74,7 +74,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @param string aClassName  Partial classname to resolve.
      * @return string|null Either the correct class name or null.
      * @psalm-return class-string|null
-     * /
+     */
     protected string _resolveClassName(string aClassName ) {
         return className(class);
     }
@@ -88,7 +88,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * aClassName - The classname that is missing.
      * @param string|null plugin The plugin the behavior is missing in.
      * @throws DORMexceptions.MissingBehaviorException
-     * /
+     */
     protected void _throwMissingClassError(string aClassName , string plugin) {
         throw new DMissingBehaviorException([
             "class": aClassName ~ "Behavior",
@@ -107,9 +107,9 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @param Json[string] myConfiguration An array of config to use for the behavior.
      * @return DORMBehavior The constructed behavior class.
      * @psalm-suppress MoreSpecificImplementedParamType
-     * /
+     */
     protected IBehavior _create(class, string anAlias, Json myConfiguration) {
-        /** @var DORMBehavior instance * /
+        /** @var DORMBehavior instance */
         instance = new class(_table, myConfiguration);
         enable = configuration.get("enabled"] ?? true;
         if (enable) {
@@ -134,7 +134,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @param string anAlias The alias of the object.
      * @return array A list of implemented finders and methods.
      * @throws \LogicException when duplicate methods are connected.
-     * /
+     */
     // TODO protected Json[string] _getMethods(Behavior instance, string aClassName , string anAlias) {
         finders = array_change_key_case(instance.implementedFinders());
         aMethodNames = array_change_key_case(instance.implementedMethods());
@@ -177,7 +177,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * with the chosen name.
      *
      * @param string aMethodName The method to check for.
-     * /
+     */
     bool hasMethod(string aMethodName) {
         method = strtolower(method);
 
@@ -191,7 +191,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * the chosen name.
      *
      * @param string aMethodName The method to check for.
-     * /
+     */
     bool hasFinder(string aMethodName) {
         aMethodName = aMethodName.toLower;
 
@@ -205,7 +205,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @param Json[string] args The arguments you want to invoke the method with.
      * @return mixed The return value depends on the underlying behavior method.
      * @throws \BadMethodCallException When the method is unknown.
-     * /
+     */
     function call(string aMethodName, Json[string] args = null) {
         aMethodName = strtolower(aMethodName);
         if (this.hasMethod(aMethodName) && this.has(_methodMap[aMethodName][0])) {
@@ -226,7 +226,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @param Json[string] args The arguments you want to invoke the method with.
      * @return DORMQuery The return value depends on the underlying behavior method.
      * @throws \BadMethodCallException When the method is unknown.
-     * /
+     */
     Query callFinder(string type, Json[string] args = null) {
         type = type.toLower;
 

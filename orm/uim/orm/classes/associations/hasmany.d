@@ -35,7 +35,7 @@ class DHasManyAssociation : DAssociation {
 
     /**
      * The type of join to be used when adding the association to a query
-     * /
+     */
     protected string _joinType = Query.JOIN_TYPE_INNER;
 
     // The strategy name to be used to fetch associated records.
@@ -58,7 +58,7 @@ class DHasManyAssociation : DAssociation {
      * or required information if the row in "source" did not exist.
      *
      * @param DORMTable side The potential Table with ownership
-     * /
+     */
     bool isOwningSide(Table side) {
         return side == source();
     }
@@ -69,7 +69,7 @@ class DHasManyAssociation : DAssociation {
      * @param string strategy the strategy name to be used
      * @throws \InvalidArgumentException if an invalid strategy name is passed
      * @return this
-     * /
+     */
     auto setSaveStrategy(string strategy) {
         if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
             msg = sprintf("Invalid save strategy '%s'", strategy);
@@ -85,7 +85,7 @@ class DHasManyAssociation : DAssociation {
      * Gets the strategy that should be used for saving.
      *
      * @return string the strategy to be used for saving
-     * /
+     */
     string getSaveStrategy() {
         return _saveStrategy;
     }
@@ -101,7 +101,7 @@ class DHasManyAssociation : DAssociation {
      * @return DORMDatasource\IORMEntity|false false if entity could not be saved, otherwise it returns
      * the saved entity
      * @throws \InvalidArgumentException when the association data cannot be traversed.
-     * /
+     */
     function saveAssociated(IORMEntity anEntity, Json[string] options = null) {
         myTargetEntities = entity.get(getProperty());
 
@@ -159,7 +159,7 @@ class DHasManyAssociation : DAssociation {
      * to persist in target table and to link to the parent entity
      * @param Json[string] options list of options accepted by `Table.save()`.
      * @return bool `true` on success, `false` otherwise.
-     * /
+     */
     protected bool _saveTarget(
         array foreignKeyReference,
         IORMEntity parentEntity,
@@ -227,7 +227,7 @@ class DHasManyAssociation : DAssociation {
      * of this association
      * @param Json[string] options list of options to be passed to the internal `save` call
      * @return bool true on success, false otherwise
-     * /
+     */
     bool link(IORMEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
         saveStrategy = getSaveStrategy();
         setSaveStrategy(self.SAVE_APPEND);
@@ -296,7 +296,7 @@ class DHasManyAssociation : DAssociation {
      *   If boolean it will be used a value for "cleanProperty" option.
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      * any of them is lacking a primary key value
-     * /
+     */
     void unlink(IORMEntity sourceEntity, Json[string] myTargetEntities, options = null) {
         if (is_bool(options)) {
             options = [
@@ -317,7 +317,7 @@ class DHasManyAssociation : DAssociation {
         conditions = [
             "OR":(new DCollection(myTargetEntities))
                 .map(function (entity) use (myTargetPrimaryKey) {
-                    /** @var DORMdatasources.IORMEntity anEntity * /
+                    /** @var DORMdatasources.IORMEntity anEntity */
                     return entity.extract(myTargetPrimaryKey);
                 })
                 .toList(),
@@ -384,7 +384,7 @@ class DHasManyAssociation : DAssociation {
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      * any of them is lacking a primary key value
      * @return bool success
-     * /
+     */
     bool replace(IORMEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
         property = getProperty();
         sourceEntity.set(property, myTargetEntities);
@@ -412,7 +412,7 @@ class DHasManyAssociation : DAssociation {
      * @param range remainingEntities Entities that should not be deleted
      * @param Json[string] options list of options accepted by `Table.remove()`
      * @return bool success
-     * /
+     */
     protected bool _unlinkAssociated(
         array foreignKeyReference,
         IORMEntity anEntity,
@@ -424,7 +424,7 @@ class DHasManyAssociation : DAssociation {
         exclusions = new DCollection(remainingEntities);
         exclusions = exclusions.map(
             function (ent) use (primaryKeys) {
-                /** @var DORMdatasources.IORMEntity ent * /
+                /** @var DORMdatasources.IORMEntity ent */
                 return ent.extract(primaryKeys);
             }
         )
@@ -460,7 +460,7 @@ class DHasManyAssociation : DAssociation {
      * @param Json[string] conditions The conditions that specifies what are the objects to be unlinked
      * @param Json[string] options list of options accepted by `Table.remove()`
      * @return bool success
-     * /
+     */
     protected bool _unlink(Json[string] foreignKey, Table myTarget, Json[string] conditions = null, Json[string] options = null) {
         mustBeDependent = (!_foreignKeyAcceptsNull(myTarget, foreignKey) || getDependent());
 
@@ -500,7 +500,7 @@ class DHasManyAssociation : DAssociation {
      *
      * @param DORMTable myTable the table containing the foreign key
      * @param Json[string] properties the list of fields that compose the foreign key
-     * /
+     */
     protected bool _foreignKeyAcceptsNull(Table myTable, Json[string] properties) {
         return !in_array(
             false,
@@ -515,7 +515,7 @@ class DHasManyAssociation : DAssociation {
 
     /**
      * Get the relationship type.
-     * /
+     */
     string type() {
         return self.ONE_TO_MANY;
     }
@@ -526,7 +526,7 @@ class DHasManyAssociation : DAssociation {
      * @param Json[string] options custom options key that could alter the return value
      * @return bool if the "matching" key in option is true then this function
      * will return true, false otherwise
-     * /
+     */
     bool canBeJoined(Json[string] options = null) {
         return !options.isEmpty("matching"]);
     }
@@ -545,7 +545,7 @@ class DHasManyAssociation : DAssociation {
      *
      * @param mixed sort A find() compatible order clause
      * @return this
-     * /
+     */
     auto setSort(sort) {
         _sort = sort;
 
@@ -556,7 +556,7 @@ class DHasManyAssociation : DAssociation {
      * Gets the sort order in which target records should be returned.
      *
      * @return mixed
-     * /
+     */
     auto getSort() {
         return _sort;
     }
@@ -575,7 +575,7 @@ class DHasManyAssociation : DAssociation {
      * Parse extra options passed in the constructor.
      *
      * @param Json[string] options original list of options passed in constructor
-     * /
+     */
     protected void _options(Json[string] options) {
         if (!options.isEmpty("saveStrategy")) {
             setSaveStrategy(options["saveStrategy"]);

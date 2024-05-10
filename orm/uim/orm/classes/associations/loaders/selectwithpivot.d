@@ -29,7 +29,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      * Custom conditions for the junction association
      *
      * @var DDBIExpression|\Closure|array|string|null
-     * /
+     */
     protected junctionConditions;
 
     /*
@@ -51,7 +51,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      * @param Json[string] options options accepted by eagerLoader()
      * @return DORMQuery
      * @throws \InvalidArgumentException When a key is required for associations but not selected.
-     * /
+     */
     protected function _buildQuery(Json[string] optionData): Query
     {
         name = this.junctionAssociationName;
@@ -115,7 +115,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      *
      * @param Json[string] options the options to use for getting the link field.
      * @return string[]|string
-     * /
+     */
     protected function _linkField(Json[string] optionData) {
         links = null;
         name = this.junctionAssociationName;
@@ -139,7 +139,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      * @param Json[string] options The options passed to the eager loader
      * @return Json[string]
      * @throws \RuntimeException when the association property is not part of the results set.
-     * /
+     */
     // TODO protected Json[string] _buildResultMap(Query fetchQuery, Json[string] optionData) {
         resultMap = null;
         key = (array)options["foreignKey"];

@@ -87,7 +87,7 @@ class DCounterCacheBehavior : DBehavior {
      * Store the fields which should be ignored
      *
      * @var array<string, array<string, bool>>
-     * /
+     */
     // Store the fields which should be ignored
     protected bool[string][string] _ignoreDirty = null;
 
@@ -99,14 +99,14 @@ class DCounterCacheBehavior : DBehavior {
      * \UIM\Event\IEvent<\ORM\Table> myevent The beforeSave event that was fired
      * @param \UIM\Datasource\IORMEntity myentity The entity that is going to be saved
      * @param \ArrayObject<string, mixed> options The options for the query
-     * /
+     */
     void beforeSave(IEvent myevent, IORMEntity myentity, ArrayObject options) {
         if (isSet(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
         }
         foreach (configuration as myassoc: mysettings) {
             myassoc = _table.getAssociation(myassoc);
-            /** @var string|int myfield * /
+            /** @var string|int myfield */
             foreach (mysettings as myfield: configData) {
                 if (isInt(myfield)) {
                     continue;
@@ -134,7 +134,7 @@ class DCounterCacheBehavior : DBehavior {
      * \UIM\Event\IEvent<\ORM\Table> myevent The afterSave event that was fired.
      * @param \UIM\Datasource\IORMEntity myentity The entity that was saved.
      * @param \ArrayObject<string, mixed> options The options for the query
-     * /
+     */
     void afterSave(IEvent myevent, IORMEntity myentity, ArrayObject options) {
         if (isSet(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
@@ -151,7 +151,7 @@ class DCounterCacheBehavior : DBehavior {
      * \UIM\Event\IEvent<\ORM\Table> myevent The afterDelete event that was fired.
      * @param \UIM\Datasource\IORMEntity myentity The entity that was deleted.
      * @param \ArrayObject<string, mixed> options The options for the query
-     * /
+     */
     void afterremove(IEvent myevent, IORMEntity myentity, ArrayObject options) {
         if (isSet(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
@@ -164,7 +164,7 @@ class DCounterCacheBehavior : DBehavior {
      * Params:
      * \UIM\Event\IEvent<\ORM\Table> myevent Event instance.
      * @param \UIM\Datasource\IORMEntity myentity Entity.
-     * /
+     */
     protected void _processAssociations(IEvent anEvent, IORMEntity anEntity) {
         configuration.byKeyValue
             .each!((assocSettings) {
@@ -180,14 +180,14 @@ class DCounterCacheBehavior : DBehavior {
      * @param \UIM\Datasource\IORMEntity myentity Entity
      * @param \ORM\Association myassoc The association object
      * @param Json[string] mysettings The settings for counter cache for this association
-     * /
+     */
     protected void _processAssociation(
         IEvent myevent,
         IORMEntity myentity,
         DAssociation myassoc,
         Json[string] mysettings
     ) {
-        /** @var string[] myforeignKeys * /
+        /** @var string[] myforeignKeys */
         myforeignKeys = (array)myassoc.getForeignKeys();
         mycountConditions = myentity.extract(myforeignKeys);
 
@@ -242,7 +242,7 @@ class DCounterCacheBehavior : DBehavior {
      * Checks if the count should be updated given a set of conditions.
      * Params:
      * Json[string] myconditions Conditions to update count.
-     * /
+     */
     protected bool _shouldUpdateCount(Json[string] myconditions) {
         return !empty(array_filter(myconditions, auto (myvalue) {
             return myvalue !isNull;
@@ -254,7 +254,7 @@ class DCounterCacheBehavior : DBehavior {
      * Params:
      * Json[string] configData The counter cache configuration for a single field
      * @param Json[string] myconditions Additional conditions given to the query
-     * /
+     */
     protected int _getCount(Json[string] configData, Json[string] myconditions) {
         myfinder = "all";
         if (!igData.isEmpty("finder")) {

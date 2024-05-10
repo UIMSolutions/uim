@@ -36,7 +36,7 @@ class DSelectLoader {
      * A callable that will return a query object used for loading the association results
      *
      * @var callable
-     * /
+     */
     protected finder;
 
     /**
@@ -52,7 +52,7 @@ class DSelectLoader {
      * to properties in this class.
      *
      * @param Json[string] options Properties to be copied to this class
-     * /
+     */
     this(Json[string] optionData) {
         this.alias = options["alias"];
         this.sourceAlias = options["sourceAlias"];
@@ -71,7 +71,7 @@ class DSelectLoader {
      *
      * @param Json[string] options Same options as `Association.eagerLoader()`
      * @return \Closure
-     * /
+     */
     function buildEagerLoader(Json[string] optionData): Closure
     {
         auto updatedOptions = options.update_defaultOptions();
@@ -100,7 +100,7 @@ class DSelectLoader {
      * @param Json[string] options options accepted by eagerLoader()
      * @return DORMQuery
      * @throws \InvalidArgumentException When a key is required for associations but not selected.
-     * /
+     */
     protected DORMQuery _buildQuery(Json[string] optionData) {
         key = _linkField(options);
         filter = options["keys"];
@@ -108,7 +108,7 @@ class DSelectLoader {
         finder = this.finder;
         options["fields"] = options["fields"] ?? [];
 
-        /** @var DORMQuery query * /
+        /** @var DORMQuery query */
         DORMQuery query = finder();
         if (isset(options["finder"])) {
             [finderName, opts] = _extractFinder(options["finder"]);
@@ -164,7 +164,7 @@ class DSelectLoader {
      *
      * @param array|string finderData The finder name or an array having the name as key
      * and options as value.
-     * /
+     */
     // TODO protected Json[string] _extractFinder(finderData) {
         finderData = (array)finderData;
 
@@ -184,7 +184,7 @@ class DSelectLoader {
      * @param string[] key The foreign key fields to check
      * @return void
      * @throws \InvalidArgumentException
-     * /
+     */
     protected void _assertFieldsPresent(Query fetchQuery, Json[string] key) {
         if (fetchQuery.isAutoFieldsEnabled()) {
             return;
@@ -230,7 +230,7 @@ class DSelectLoader {
      * @param string[]|string aKey the fields that should be used for filtering
      * @param DORMQuery subquery The Subquery to use for filtering
      * @return DORMQuery
-     * /
+     */
     protected function _addFilteringJoin(Query query, key, subquery): Query
     {
         filter = null;
@@ -266,7 +266,7 @@ class DSelectLoader {
      * @param string[]|string aKey The fields that should be used for filtering
      * @param mixed filter The value that should be used to match for key
      * @return DORMQuery
-     * /
+     */
     protected function _addFilteringCondition(Query query, key, filter): Query
     {
         if ((key.isArray) {
@@ -287,7 +287,7 @@ class DSelectLoader {
      * @param mixed filter the value that should be used to match for key
      * @param string operator The operator for comparing the tuples
      * @return DORMdatabases.Expression\TupleComparison
-     * /
+     */
     protected function _createTupleCondition(Query query, Json[string] keys, filter, operator): TupleComparison
     {
         types = null;
@@ -308,7 +308,7 @@ class DSelectLoader {
      * @param Json[string] options The options for getting the link field.
      * @return string[]|string
      * @throws \RuntimeException
-     * /
+     */
     protected function _linkField(Json[string] optionData) {
         links = null;
         name = this.alias;
@@ -341,7 +341,7 @@ class DSelectLoader {
      *
      * @param DORMQuery query the original query used to load source records
      * @return DORMQuery
-     * /
+     */
     protected function _buildSubquery(Query query): Query
     {
         filterQuery = clone query;
@@ -373,7 +373,7 @@ class DSelectLoader {
      *
      * @param DORMQuery query The query to get fields from.
      * @return array<string, array> The list of fields for the subquery.
-     * /
+     */
     // TODO protected Json[string] _subqueryFields(Query query) {
         keys = (array)this.bindingKey;
 
@@ -404,7 +404,7 @@ class DSelectLoader {
      * @param DORMQuery fetchQuery The query to get results from
      * @param Json[string] options The options passed to the eager loader
      * @return Json[string]
-     * /
+     */
     // TODO protected Json[string] _buildResultMap(Query fetchQuery, Json[string] optionData) {
         resultMap = null;
         singleResult = in_array(this.associationType, [Association.MANY_TO_ONE, Association.ONE_TO_ONE], true);
@@ -437,7 +437,7 @@ class DSelectLoader {
      * the corresponding target table results as value.
      * @param Json[string] options The options passed to the eagerLoader method
      * @return \Closure
-     * /
+     */
     protected function _resultInjector(Query fetchQuery, Json[string] resultMap, Json[string] optionData): Closure
     {
         keys = this.associationType == Association.MANY_TO_ONE ?
@@ -474,7 +474,7 @@ class DSelectLoader {
      * @param Json[string] resultMap A keyed arrays containing the target table
      * someSourceKeys - An array with aliased keys to match
      * @param string nestKey The key under which results should be nested
-     * /
+     */
     protected DClosure _multiKeysInjector(Json[string] resultMap, string[] someSourceKeys, string nestKey) {
         return function (row) use (resultMap, someSourceKeys, nestKey) {
             values = null;

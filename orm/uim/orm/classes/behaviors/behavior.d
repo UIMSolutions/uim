@@ -138,7 +138,7 @@ class DBehavior : IEventListener {
      * This prevents reflecting the same class multiple times in a single process.
      *
      * @var array<string, array>
-     * /
+     */
     protected static _reflectionCache = null;
 
     /**
@@ -148,7 +148,7 @@ class DBehavior : IEventListener {
      *
      * @param DORMDORMTable aTable The table this behavior is attached to.
      * @param Json[string] myConfiguration The config for this behavior.
-     * /
+     */
     this(DORMTable aTable, Json[string] configData) {
         myConfiguration = _resolveMethodAliases(
             "implementedFinders",
@@ -169,7 +169,7 @@ class DBehavior : IEventListener {
      * Get the table instance this behavior is bound to.
      *
      * @return  The bound table instance.
-     * /
+     */
     DORMTable table() {
         return _table;
     }
@@ -181,7 +181,7 @@ class DBehavior : IEventListener {
      * @param Json[string] defaults The default method mappings.
      * @param Json[string] myConfiguration The customized method mappings.
      * @return array A de-duped list of config data.
-     * /
+     */
     // TODO protected Json[string] _resolveMethodAliases(string aKey, Json[string] defaults, Json myConfiguration) {
         if (!isset(defaults[key], configuration.get(key])) {
             return configuration;
@@ -213,7 +213,7 @@ class DBehavior : IEventListener {
      *
      * @return void
      * @throws DORMCore\exceptions.UIMException if config are invalid
-     * /
+     */
     void verifyConfig() {
         keys = ["implementedFinders", "implementedMethods"];
         foreach (keys as key) {
@@ -243,7 +243,7 @@ class DBehavior : IEventListener {
      * Or if you want your behavior to listen to non-standard events.
      *
      * @return Json[string]
-     * /
+     */
     Json[string] implementedEvents() {
         eventMap = [
             "Model.beforeMarshal": "beforeMarshal",
@@ -302,7 +302,7 @@ class DBehavior : IEventListener {
      *
      * @return array
      * @throws \ReflectionException
-     * /
+     */
     array implementedFinders() {
         methods = this.configuration.get("implementedFinders");
         if (isset(methods)) {
@@ -333,7 +333,7 @@ class DBehavior : IEventListener {
      *
      * @return array
      * @throws \ReflectionException
-     * /
+     */
     array implementedMethods() {
         methods = this.configuration.get("implementedMethods");
         if (isset(methods)) {
@@ -352,7 +352,7 @@ class DBehavior : IEventListener {
      *
      * @return array
      * @throws \ReflectionException
-     * /
+     */
     // TODO protected Json[string] _reflectionCache() {
         class = class;
         if (isset(self._reflectionCache[class])) {
@@ -363,7 +363,7 @@ class DBehavior : IEventListener {
         eventMethods = null;
         foreach (events as binding) {
             if ((binding.isArray && isset(binding["callable"])) {
-                /** @var string callable * /
+                /** @var string callable */
                 callable = binding["callable"];
                 binding = callable;
             }

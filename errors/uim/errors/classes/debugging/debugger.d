@@ -71,7 +71,7 @@ class DDebugger {
             "code": '',
             "context": '',
             "links": [],
-            "escapeContext": true,
+            "escapeContext": true.toJson,
         ],
         'html': [
             'trace': '<pre class="uim-error trace"><b>Trace</b> <p>{:trace}</p></pre>',

@@ -15,25 +15,25 @@ public {
 }
 
 public { 
-	// import uim.models.classes.attributes.lookups;
-	// import uim.models.classes.attributes.codes;
+	import uim.models.classes.attributes.lookups;
+	import uim.models.classes.attributes.codes;
 }
 
 public { 
-	// import uim.models.classes.attributes.arrays;
-	// import uim.models.classes.attributes.booleans;
-	// import uim.models.classes.attributes.bytes;
-	// import uim.models.classes.attributes.chars;
-	// import uim.models.classes.attributes.dates;
-	// import uim.models.classes.attributes.datetimes;
-	// import uim.models.classes.attributes.decimals;
-	// import uim.models.classes.attributes.doubles;
-	// import uim.models.classes.attributes.elements;
-	// import uim.models.classes.attributes.entities;
-	// import uim.models.classes.attributes.integers;
-	// import uim.models.classes.attributes.strings;
-	// import uim.models.classes.attributes.ulongs;
-	// import uim.models.classes.attributes.uuids;
+	import uim.models.classes.attributes.arrays;
+	import uim.models.classes.attributes.booleans;
+	import uim.models.classes.attributes.bytes;
+	import uim.models.classes.attributes.chars;
+	import uim.models.classes.attributes.dates;
+	import uim.models.classes.attributes.datetimes;
+	import uim.models.classes.attributes.decimals;
+	import uim.models.classes.attributes.doubles;
+	import uim.models.classes.attributes.elements;
+	import uim.models.classes.attributes.entities;
+	import uim.models.classes.attributes.integers;
+	import uim.models.classes.attributes.strings;
+	import uim.models.classes.attributes.ulongs;
+	import uim.models.classes.attributes.uuids;
 }
 
 

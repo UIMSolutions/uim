@@ -30,11 +30,11 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
         "fields" : [],
         "defaultLocale" : null,
         "referenceName" : "",
-        "allowEmptyTranslations" : true,
-        "onlyTranslated" : false,
+        "allowEmptyTranslations": true.toJson,
+        "onlyTranslated": false.toJson,
         "strategy" : "subquery",
         "tableLocator" : null,
-        "validator" : false,]);
+        "validator": false.toJson,]);
 
         return super.initialize(initData);
     }

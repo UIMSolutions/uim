@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DStringBooleanAttribute : DLookupAttribute {
-  mixin(AttributeThis!("StringBooleanAttribute"));
+  mixin(AttributeThis!("StringBoolean"));
 
   mixin(TProperty!("bool[string]", "lookups"));
 
@@ -18,7 +18,7 @@ class DStringBooleanAttribute : DLookupAttribute {
   } */
 }
 
-mixin(AttributeCalls!("StringBooleanAttribute"));
+mixin(AttributeCalls!("StringBoolean"));
 
 version (test_uim_models) {
   unittest {

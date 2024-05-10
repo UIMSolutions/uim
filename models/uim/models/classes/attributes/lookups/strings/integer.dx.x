@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DStringIntegerAttribute : DLookupAttribute {
-  mixin(AttributeThis!("StringIntegerAttribute"));
+  mixin(AttributeThis!("StringInteger"));
 
   mixin(TProperty!("int[string]", "lookups"));
 
@@ -17,7 +17,7 @@ class DStringIntegerAttribute : DLookupAttribute {
     return LookupData!(string, int).isNullable(isNullable);
   } */
 }
-mixin(AttributeCalls!("StringIntegerAttribute"));
+mixin(AttributeCalls!("StringInteger"));
 
 version(test_uim_models) { unittest {  
     // TODO tests

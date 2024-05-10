@@ -11,7 +11,7 @@ import uim.models;
 
 @safe:
 class DAttributeNameAttribute : DStringAttribute {
-  mixin(AttributeThis!("AttributeNameAttribute"));
+  mixin(AttributeThis!("AttributeName"));
 
   /*
 attributeName
@@ -42,7 +42,7 @@ means.attributeName
   }
 }
 
-mixin(AttributeCalls!("AttributeNameAttribute"));
+mixin(AttributeCalls!("AttributeName"));
 
 ///
 unittest {

@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DIntegerIntegerAttribute : DLookupAttribute {
-  mixin(AttributeThis!("IntegerIntegerAttribute"));
+  mixin(AttributeThis!("IntegerInteger"));
 
   mixin(TProperty!("int[int]", "lookups"));  
   void addLookup(int key, string newValue) {
@@ -39,7 +39,7 @@ class DIntegerIntegerAttribute : DLookupAttribute {
   /* override Json createData() {
     return LookupData!(int, int)(this).isNullable(isNullable); }  */
 }
-mixin(AttributeCalls!("IntegerIntegerAttribute"));
+mixin(AttributeCalls!("IntegerInteger"));
 
 version(test_uim_models) { unittest {  
     // TODO tests

@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DBooleanBooleanAttribute : DLookupAttribute {
-  mixin(AttributeThis!("BooleanBooleanAttribute"));
+  mixin(AttributeThis!("BooleanBoolean"));
 
   mixin(TProperty!("bool[bool]", "lookups"));
 
@@ -17,7 +17,7 @@ class DBooleanBooleanAttribute : DLookupAttribute {
     return LookupData!(bool, bool)(this).isNullable(isNullable);
   } */
 }
-mixin(AttributeCalls!("BooleanBooleanAttribute"));
+mixin(AttributeCalls!("BooleanBoolean"));
 
 ///
 unittest {  

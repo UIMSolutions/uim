@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DIntegerBooleanAttribute : DLookupAttribute {
-  mixin(AttributeThis!("IntegerBooleanAttribute"));
+  mixin(AttributeThis!("IntegerBoolean"));
 
   mixin(TProperty!("bool[int]", "lookups"));
   void addLookup(int key, string newValue) {
@@ -48,7 +48,7 @@ class DIntegerBooleanAttribute : DLookupAttribute {
     return LookupData!(int, bool)(this).isNullable(isNullable); }  */
 }
 
-mixin(AttributeCalls!("IntegerBooleanAttribute"));
+mixin(AttributeCalls!("IntegerBoolean"));
 
 version (test_uim_models) {
   unittest {

@@ -401,7 +401,7 @@ class DTreeBehavior : DBehavior {
     function findChildren(Query query, Json[string] optionData): Query
     {
         myConfiguration = configuration;
-        options = options.update["for": null, "direct": false.toJson];
+        auto updatedOptions = options.update["for": null, "direct": false.toJson];
         [parent, left, right] = array_map(
             function (field) {
                 return _table.aliasField(field);
@@ -482,7 +482,7 @@ class DTreeBehavior : DBehavior {
     function formatTreeList(Query query, Json[string] optionData = null): Query
     {
         return query.formatResults(function (ICollection results) use (options) {
-            options = options.update[
+            auto updatedOptions = options.update[
                 "keyPath": _primaryKeys(),
                 "valuePath": _table.getDisplayField(),
                 "spacer": "_",

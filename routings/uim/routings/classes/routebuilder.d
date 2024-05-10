@@ -269,7 +269,7 @@ class DRouteBuilder {
             mycallback = options;
             options = null;
         }
-        options = options.update[
+        auto updatedOptions = options.update[
             "connectOptions": Json.emptyArray,
             "inflect": "dasherize",
             "id": ID ~ "|" ~ UUID,

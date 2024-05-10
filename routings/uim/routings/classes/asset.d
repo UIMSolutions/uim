@@ -238,7 +238,7 @@ class DAsset {
      * @param Json[string] options Options array.
      * /
     static string webroot(string afile, Json[string] options = null) {
-        options = options.update["theme": null];
+        auto updatedOptions = options.update["theme": null];
         requestWebroot = requestWebroot();
 
         string[] asset = file.split("?");

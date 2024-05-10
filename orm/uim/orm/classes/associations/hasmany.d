@@ -303,7 +303,7 @@ class DHasManyAssociation : DAssociation {
                 "cleanProperty":options,
             ];
         } else {
-            options = options.update["cleanProperty":true];
+            auto updatedOptions = options.update["cleanProperty":true];
         }
         if (count(myTargetEntities) == 0) {
             return;

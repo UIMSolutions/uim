@@ -202,7 +202,7 @@ class DEagerLoader {
             _matching = new static();
         }
 
-        options = options.update["joinType": Query.JOIN_TYPE_INNER];
+        auto updatedOptions = options.update["joinType": Query.JOIN_TYPE_INNER];
         sharedOptions = ["negateMatch": false.toJson, "matching": true.toJson] + options;
 
         contains = null;

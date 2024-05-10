@@ -787,7 +787,7 @@ class DValidation {
      * /
     static bool multiple(Json mycheck, Json[string] optionData = null, bool mycaseInsensitive = false) {
         mydefaults = ["in": null, "max": null, "min": null];
-        options = options.updatemydefaults;
+        auto updatedOptions = options.updatemydefaults;
 
         mycheck = array_filter((array)mycheck, auto (myvalue) {
             return myvalue || isNumeric(myvalue);
@@ -1100,7 +1100,7 @@ class DValidation {
         if (!(myfile instanceof IUploadedFile)) {
             return false;
         }
-        options = options.update[
+        auto updatedOptions = options.update[
             "minSize": null,
             "maxSize": null,
             "types": null,
@@ -1224,7 +1224,7 @@ class DValidation {
         if (!isScalar(myvalue)) {
             return false;
         }
-        options = options.update[
+        auto updatedOptions = options.update[
             "format": "both",
             "type": "latLong",
         ];
@@ -1298,7 +1298,7 @@ class DValidation {
         if (!isString(myvalue)) {
             return false;
         }
-        options = options.update["extended": false.toJson];
+        auto updatedOptions = options.update["extended": false.toJson];
         if (options["extended"]) {
             return preg_match("//u", myvalue) == 1;
         }

@@ -208,7 +208,7 @@ class DMarshaller {
      * @param Json[string] options The options passed to this marshaller.
      * /
     // TODO protected Json[string] _prepareDataAndOptions(Json[string] data, Json[string] options) {
-        options = options.update["validate": true.toJson];
+        auto updatedOptions = options.update["validate": true.toJson];
 
         mytableName = _table.aliasName();
         if (isSet(mydata[mytableName]) && isArray(mydata[mytableName])) {

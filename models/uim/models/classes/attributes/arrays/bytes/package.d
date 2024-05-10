@@ -6,6 +6,6 @@
 module uim.models.classes.attributes.arrays.bytes;
 
 public { 
-	/* // import uim.models.classes.attributes.arrays.bytes.binary;
-	// import uim.models.classes.attributes.arrays.bytes.image; */
+	import uim.models.classes.attributes.arrays.bytes.binary;
+	import uim.models.classes.attributes.arrays.bytes.image; */
 }

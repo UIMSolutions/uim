@@ -30,14 +30,16 @@ is.dataFormat.boolean */
   }
 
   // TODO
-  /* override */ Json createData() {
+  /* override */
+  Json createData() {
     Json result = Json.emptyObject; // TODO super.createData;
-    return result; }
+    return result;
+  }
 }
 
 mixin(AttributeCalls!"Boolean");
 
-  unittest {
-    testAttribute(new DBooleanAttribute);
-    testAttribute(BooleanAttribute);
+unittest {
+  testAttribute(new DBooleanAttribute);
+  testAttribute(BooleanAttribute);
 }

@@ -27,7 +27,7 @@ class DCharAttribute : DAttribute {
 
 mixin(AttributeCalls!"Char");
 
-  unittest {
-    testAttribute(new DCharAttribute);
-    testAttribute(CharAttribute);
+unittest {
+  testAttribute(new DCharAttribute);
+  testAttribute(CharAttribute);
 }

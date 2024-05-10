@@ -52,7 +52,7 @@ mixin template TValidatorAware() {
      *        .requirePresence("username");
      * }
      *
-     * myvalidator = this.getValidator("forSubscription");
+     * myvalidator = getValidator("forSubscription");
      * ```
      *
      * You can implement the method in `validationDefault` in your Table subclass

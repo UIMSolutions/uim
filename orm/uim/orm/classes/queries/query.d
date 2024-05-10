@@ -250,7 +250,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         foreach (map as f: type) {
             fields[f] = fields[alias ~ "." ~ f] = fields[alias ~ "__" ~ f] = type;
         }
-        this.getTypeMap().addDefaults(fields);
+        getTypeMap().addDefaults(fields);
 
         return this;
     }
@@ -400,7 +400,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @return this
      * /
     function contain(associations, override = false) {
-        loader = this.getEagerLoader();
+        loader = getEagerLoader();
         if (override == true) {
             this.clearContain();
         }
@@ -414,8 +414,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             loader.contain(associations, queryBuilder);
         }
         _addAssociationsToTypeMap(
-            this.getRepository(),
-            this.getTypeMap(),
+            getRepository(),
+            getTypeMap(),
             loader.getContain()
         );
 
@@ -434,7 +434,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @return this
      * /
     function clearContain() {
-        this.getEagerLoader().clearContain();
+        getEagerLoader().clearContain();
         _isDirty();
 
         return this;
@@ -517,8 +517,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @return this
      * /
     function matching(string assoc, ?callable builder = null) {
-        result = this.getEagerLoader().setMatching(assoc, builder).getMatching();
-        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
+        result = getEagerLoader().setMatching(assoc, builder).getMatching();
+        _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
         _isDirty();
 
         return this;
@@ -588,13 +588,13 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @return this
      * /
     function leftJoinWith(string assoc, ?callable builder = null) {
-        result = this.getEagerLoader()
+        result = getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query.JOIN_TYPE_LEFT,
                 "fields": false.toJson,
             ])
             .getMatching();
-        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
+        _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
         _isDirty();
 
         return this;
@@ -634,13 +634,13 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * that can be used to add custom conditions or selecting some fields
      * /
     void innerJoinWith(string assoc, ?callable builder = null) {
-        result = this.getEagerLoader()
+        result = getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query.JOIN_TYPE_INNER,
                 "fields": false.toJson,
             ])
             .getMatching();
-        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
+        _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
         _isDirty();
     }
 
@@ -695,14 +695,14 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @return this
      * /
     function notMatching(string assoc, ?callable builder = null) {
-        result = this.getEagerLoader()
+        result = getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query.JOIN_TYPE_LEFT,
                 "fields": false.toJson,
                 "negateMatch": true.toJson,
             ])
             .getMatching();
-        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
+        _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
         _isDirty();
 
         return this;
@@ -910,7 +910,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
                 .disableAutoFields()
                 .execute();
         } else {
-            statement = this.getConnection().newQuery()
+            statement = getConnection().newQuery()
                 .select(count)
                 .from(["count_source": query])
                 .execute();
@@ -1031,7 +1031,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         if (!_beforeFindFired && _type == "select") {
             _beforeFindFired = true;
 
-            repository = this.getRepository();
+            repository = getRepository();
             repository.dispatchEvent("Model.beforeFind", [
                 this,
                 new ArrayObject(_options),
@@ -1065,7 +1065,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             return new decorator(_results);
         }
 
-        statement = this.getEagerLoader().loadExternal(this, this.execute());
+        statement = getEagerLoader().loadExternal(this, this.execute());
 
         return new DResultset(this, statement);
     }
@@ -1084,13 +1084,13 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             return;
         }
 
-        repository = this.getRepository();
+        repository = getRepository();
 
         if (_parts.isEmpty("from")) {
             this.from([repository.aliasName(): repository.getTable()]);
         }
         _addDefaultFields();
-        this.getEagerLoader().attachAssociations(this, repository, !_hasFields);
+        getEagerLoader().attachAssociations(this, repository, !_hasFields);
         _addDefaultSelectTypes();
     }
 
@@ -1102,7 +1102,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         select = this.clause("select");
         _hasFields = true;
 
-        repository = this.getRepository();
+        repository = getRepository();
 
         if (!count(select) || _autoFields == true) {
             _hasFields = false;
@@ -1120,7 +1120,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * Sets the default types for converting the fields in the select clause
      * /
     protected void _addDefaultSelectTypes() {
-        typeMap = this.getTypeMap().getDefaults();
+        typeMap = getTypeMap().getDefaults();
         select = this.clause("select");
         types = null;
 
@@ -1137,7 +1137,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
                 types[alias] = typeMap[value];
             }
         }
-        this.getSelectTypeMap().addDefaults(types);
+        getSelectTypeMap().addDefaults(types);
     }
 
     /**
@@ -1149,7 +1149,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @psalm-suppress MoreSpecificReturnType
      * /
     function find(string finder, Json[string] optionData = null) {
-        table = this.getRepository();
+        table = getRepository();
 
         /** @psalm-suppress LessSpecificReturnStatement * /
         return table.callFinder(finder, this, options);
@@ -1176,7 +1176,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * /
     function update(table = null) {
         if (!table) {
-            repository = this.getRepository();
+            repository = getRepository();
             table = repository.getTable();
         }
 
@@ -1193,7 +1193,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @return this
      * /
     function remove(string table = null) {
-        repository = this.getRepository();
+        repository = getRepository();
         this.from([repository.aliasName(): repository.getTable()]);
 
         // We do not pass table to parent class here
@@ -1214,7 +1214,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @return this
      * /
     function insert(Json[string] columns, Json[string] types = null) {
-        repository = this.getRepository();
+        repository = getRepository();
         table = repository.getTable();
         this.into(table);
 
@@ -1254,7 +1254,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 
 
     array __debugInfo() {
-        eagerLoader = this.getEagerLoader();
+        eagerLoader = getEagerLoader();
 
         return super.__debugInfo() + [
             "hydrate": _hydrate,

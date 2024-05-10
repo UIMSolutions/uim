@@ -106,7 +106,7 @@ class DEntityContext : DContext {
             }
         }
         if (isString(mytable) && mytable != "") {
-            mytable = this.getTableLocator().get(mytable);
+            mytable = getTableLocator().get(mytable);
         }
         if (!(cast(Table)mytable)) {
             throw new UimException("Unable to find table class for current entity.");

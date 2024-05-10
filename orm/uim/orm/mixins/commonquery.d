@@ -25,7 +25,7 @@ mixin template TCommonQuery() {
             myfields[aliasName ~ "." ~ kv.key] = kv.value;
             myfields[aliasName ~ "__" ~ kv.key] = kv.value;
         });
-        this.getTypeMap().addDefaults(myfields);
+        getTypeMap().addDefaults(myfields);
     }
     
     // Instance of a repository/table object this query is bound to.

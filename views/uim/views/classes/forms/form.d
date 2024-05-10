@@ -120,7 +120,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
         if (eventManager !isNull) {
             this.setEventManager(eventManager);
         }
-        this.getEventManager().on(this);
+        getEventManager().on(this);
     }
 
     /**
@@ -147,7 +147,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * @param string validator Validator name.
      * /
     bool validate(Json[string] data, string avalidator = null) {
-       _errors = this.getValidator(validator ?: DEFAULT_VALIDATOR)
+       _errors = getValidator(validator ?: DEFAULT_VALIDATOR)
             .validate(someData);
 
         return count(_errors) == 0;
@@ -247,9 +247,9 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     // Get the printable version of a Form instance.
     Json[string] debugInfo() {
         special = [
-            '_schema": this.getSchema().__debugInfo(),
-            '_errors": this.getErrors(),
-            '_validator": this.getValidator().__debugInfo(),
+            '_schema": getSchema().__debugInfo(),
+            '_errors": getErrors(),
+            '_validator": getValidator().__debugInfo(),
         ];
 
         return special + get_object_vars(this);

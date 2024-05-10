@@ -147,7 +147,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (!configuration.isEmpty("alias"))) {
             aliasName(configuration.data("alias"));
         }
-        if (!empty(configuration.data("connection"))) {
+        if (!configuration.isEmpty("connection"))) {
             this.setConnection(configuration.data("connection"));
         }
         if (!configuration.isEmpty("queryFactory"))) {
@@ -155,7 +155,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         }
 
         // schema: A \UIM\Database\Schema\TableISchema object or an array that can be passed to it.
-        if (!empty(configuration.data("schema"))) {
+        if (!configuration.isEmpty("schema"))) {
             this.setSchema(configuration.data("schema"));
         }
         if (!configuration.isEmpty("entityClass")) {
@@ -389,9 +389,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     // Returns the schema table object describing this table"s properties.
     TableISchema getSchema() {
         if (_schema.isNull) {
-           _schema = this.getConnection()
+           _schema = getConnection()
                 .getSchemaCollection()
-                .describe(this.getTable());
+                .describe(getTable());
             if (Configuration.read("debug")) {
                 this.checkAliasLengths();
             }
@@ -416,7 +416,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                 constraints = myschema["_constraints"];
                 unset(myschema["_constraints"]);
             }
-            myschema = this.getConnection().getDriver().newTableSchema(this.getTable(), myschema);
+            myschema = getConnection().getDriver().newTableSchema(getTable(), myschema);
 
             foreach (constraints as myname: myvalue) {
                 myschema.addConstraint(myname, myvalue);
@@ -441,7 +441,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             ));
         }
         
-        auto maxLength = this.getConnection().getDriver().getMaxAliasLength();
+        auto maxLength = getConnection().getDriver().getMaxAliasLength();
         if (maxLength.isNull) {
             return;
         }
@@ -488,7 +488,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     // Returns the primary key field name.
     string[]|string primaryKeys() {
         if (_primaryKey.isNull) {
-            aKey = this.getSchema().primaryKeys();
+            aKey = getSchema().primaryKeys();
             if (count(aKey) == 1) {
                 aKey = aKey[0];
             }
@@ -515,7 +515,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (_displayField !isNull) {
             return _displayField;
         }
-        myschema = this.getSchema();
+        myschema = getSchema();
         foreach (["title", "name", "label"] as myfield) {
             if (myschema.hasColumn(myfield)) {
                 return _displayField = myfield;
@@ -687,7 +687,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * The name argument also supports dot syntax to access deeper associations.
      *
      * ```
-     * myusers = this.getAssociation("Articles.Comments.Users");
+     * myusers = getAssociation("Articles.Comments.Users");
      * ```
      *
      * Note that this method requires the association to be present or otherwise
@@ -731,7 +731,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * The name argument also supports dot syntax to access deeper associations.
      *
      * ```
-     * myusers = this.getAssociation("Articles.Comments.Users");
+     * myusers = getAssociation("Articles.Comments.Users");
      * ```
      * Params:
      * string myname The alias used for the association.
@@ -1140,7 +1140,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         string myvalueSeparator = ";"
     ) {
         mykeyField ??= this.primaryKeys();
-        myvalueField ??= this.getDisplayField();
+        myvalueField ??= getDisplayField();
 
         if (
             !myquery.clause("select") &&
@@ -1153,7 +1153,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                 (array)myvalueField,
                 (array)mygroupField
             );
-            mycolumns = this.getSchema().columns();
+            mycolumns = getSchema().columns();
             if (count(myfields) == count(array_intersect(myfields, mycolumns))) {
                 myquery.select(myfields);
             }
@@ -1266,7 +1266,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (myprimaryKey.isNull) {
             throw new DInvalidPrimaryKeyException(
                 "Record not found in table `%s` with primary key `[NULL]`."
-                .format(this.getTable()
+                .format(getTable()
             ));
         }
         aKey = (array)this.primaryKeys();
@@ -1285,7 +1285,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
 
             throw new DInvalidPrimaryKeyException(
                 "Record not found in table `%s` with primary key `[%s]`."
-                .format(this.getTable(), join(", ", myprimaryKey)
+                .format(getTable(), join(", ", myprimaryKey)
             ));
         }
         myconditions = array_combine(aKey, myprimaryKey);
@@ -1313,8 +1313,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             if (!mycacheKey) {
                 mycacheKey = "get-%s-%s-%s"
                     .format(
-                        this.getConnection().configName(),
-                        this.getTable(),
+                        getConnection().configName(),
+                        getTable(),
                         Json_encode(myprimaryKey, Json_THROW_ON_ERROR)
                     );
             }
@@ -1343,7 +1343,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param bool myprimary True if a primary was used.
      * /
     protected bool _transactionCommitted(bool myatomic, bool myprimary) {
-        return !this.getConnection().inTransaction() && (myatomic || myprimary);
+        return !getConnection().inTransaction() && (myatomic || myprimary);
     }
     
     /**
@@ -1741,7 +1741,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (!mysaved && options["atomic"]) {
             return false;
         }
-        mydata = myentity.extract(this.getSchema().columns(), true);
+        mydata = myentity.extract(getSchema().columns(), true);
         myisNew = myentity.isNew();
 
         mysuccess = myisNew
@@ -1778,7 +1778,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         }
         dispatchEvent("Model.afterSave", compact("entity", "options"));
 
-        if (options["atomic"] && !this.getConnection().inTransaction()) {
+        if (options["atomic"] && !getConnection().inTransaction()) {
             throw new DRolledbackTransactionException(["table": class]);
         }
         if (!options["atomic"] && !options["_primary"]) {
@@ -1799,7 +1799,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         auto primaryKey = (array)this.primaryKeys();
         if (isEmpty(primaryKey)) {
             mymsg = "Cannot insert row in `%s` table, it has no primary key."
-                .format(this.getTable());
+                .format(getTable());
             throw new DatabaseException(mymsg);
         }
         someKeys = array_fill(0, count(primaryKey), null);
@@ -1815,9 +1815,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         mydata += myfilteredKeys;
 
         if (count(primaryKey) > 1) {
-            myschema = this.getSchema();
+            myschema = getSchema();
             foreach (myKey: myv; myprimary) {
-                if (!mydata.isSet(myKey) && empty(myschema.getColumn(myKey)["autoIncrement"])) {
+                if (!mydata.isSet(myKey) && myschema.getColumn(myKey)["autoIncrement"].isEmpty) {
                     mymsg = "Cannot insert row, some of the primary key values are missing. ";
                     mymsg ~= 
                         "Got (%s), expecting (%s)"
@@ -1840,11 +1840,11 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (mystatement.rowCount() != 0) {
             mysuccess = myentity;
             myentity.set(myfilteredKeys, ["guard": false.toJson]);
-            myschema = this.getSchema();
-            mydriver = this.getConnection().getDriver();
+            myschema = getSchema();
+            mydriver = getConnection().getDriver();
             foreach (aKey: myv; myprimary ) {
                 if (!mydata.isSet(aKey)) {
-                    myid = mystatement.lastInsertId(this.getTable(), aKey);
+                    myid = mystatement.lastInsertId(getTable(), aKey);
                     mytype = myschema.getColumnType(aKey);
                     assert(mytype !isNull);
                     myentity.set(aKey, TypeFactory.build(mytype).ToD(myid, mydriver));
@@ -1872,7 +1872,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (!myprimary || count(myprimary) > 1) {
             return null;
         }
-        mytypeName = this.getSchema().getColumnType(myprimary[0]);
+        mytypeName = getSchema().getColumnType(myprimary[0]);
         assert(mytypeName !isNull);
         mytype = TypeFactory.build(mytypeName);
 
@@ -1895,7 +1895,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         }
         if (count(myprimaryColumns) == 0) {
             myentityClass = myentity.classname;
-            mytable = this.getTable();
+            mytable = getTable();
             mymessage = "Cannot update `myentityClass`. The `mytable` has no primary key.";
             throw new DInvalidArgumentException(mymessage);
         }
@@ -1981,7 +1981,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
 
         myfailed = null;
         try {
-            this.getConnection()
+            getConnection()
                 .transactional(function () use (myentities, options, &myisNew, &myfailed) {
                     // Cache array cast since options are the same for each entity
                     options = (array)options;
@@ -2429,7 +2429,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     }
     
     IEntity newEmptyEntity() {
-        myclass = this.getEntityClass();
+        myclass = getEntityClass();
 
         return new myclass([], ["source": this.registryKey()]);
     }
@@ -2784,13 +2784,13 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Returns an array that can be used to describe the internal state of this object.
      * /
     Json[string] debugInfo() {
-        myconn = this.getConnection();
+        myconn = getConnection();
 
         return [
             "registryAlias": this.registryKey(),
-            "table": this.getTable(),
+            "table": getTable(),
             "alias": aliasName(),
-            "entityClass": this.getEntityClass(),
+            "entityClass": getEntityClass(),
             "associations": _associations.keys(),
             "behaviors": _behaviors.loaded(),
             "defaultConnection": defaultConnectionName(),

@@ -143,7 +143,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             mycontext = compact("data", "newRecord", "field", "providers");
 
             if (!mykeyPresent && !_checkPresence(myfield, mycontext)) {
-                myerrors[myname]["_required"] = this.getRequiredMessage(myname);
+                myerrors[myname]["_required"] = getRequiredMessage(myname);
                 continue;
             }
             if (!mykeyPresent) {
@@ -158,7 +158,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             myisEmpty = this.isEmpty(mydata[myname], myflags);
 
             if (!mycanBeEmpty && myisEmpty) {
-                myerrors[myname]["_empty"] = this.getNotEmptyMessage(myname);
+                myerrors[myname]["_empty"] = getNotEmptyMessage(myname);
                 continue;
             }
             if (myisEmpty) {
@@ -399,7 +399,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             if (!isArray(myvalue)) {
                 return false;
             }
-            this.providers().each!(name => myvalidator.setProvider(name, this.getProvider(name)));
+            this.providers().each!(name => myvalidator.setProvider(name, getProvider(name)));
             myerrors = myvalidator.validate(myvalue, mycontext["newRecord"]);
 
             myMessage = myMessage ? [NESTED: myMessage] : [];
@@ -442,7 +442,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             if (!isArray(myvalue)) { return false; }
 
             this.providers().each!((name) {
-                auto myprovider = this.getProvider(name);
+                auto myprovider = getProvider(name);
                 myvalidator.setProvider(name, myprovider);
             });
 
@@ -2753,7 +2753,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     protected Json[string] _processRules(string myfield, ValidationSet myrules, Json[string] data, bool mynewRecord) {
         myerrors = null;
         // Loading default provider in case there is none
-        this.getProvider("default");
+        getProvider("default");
 
         if (!_useI18n) {
             myMessage = "The provided value is invalid";

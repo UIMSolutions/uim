@@ -376,7 +376,7 @@ class DRouteCollection {
         auto result = null;
         middlewareNames.each!((name) {
             if (this.hasMiddlewareGroup(routings)) {
-                result = array_merge(result, this.getMiddleware(_middlewareGroups[routings]));
+                result = array_merge(result, getMiddleware(_middlewareGroups[routings]));
                 continue;
             }
             if (!this.hasMiddleware(routings)) {

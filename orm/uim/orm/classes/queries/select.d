@@ -220,7 +220,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             myaliasedField = myfield;
             [aliasName, myfield] = myfield.split(".");
         } else {
-            aliasName = aliasName ?: this.getRepository().aliasName();
+            aliasName = aliasName ?: getRepository().aliasName();
             myaliasedField = aliasName ~ "." ~ myfield;
         }
         aKey = "%s__%s".format(aliasName, myfield);
@@ -458,7 +458,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     Json firstOrFail() {
         myentity = this.first();
         if (!myentity) {
-            mytable = this.getRepository();
+            mytable = getRepository();
             throw new DRecordNotFoundException(
                 "Record not found in table `%s`.",
                 .format(mytable.getTable()
@@ -830,7 +830,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * defaults to merging previous list with the new one.
      * /
     auto contain(string[] myassociations, IClosure|bool myoverride = false) {
-        myloader = this.getEagerLoader();
+        myloader = getEagerLoader();
         if (myoverride == true) {
             this.clearContain();
         }
@@ -842,8 +842,8 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             myloader.contain(myassociations, myqueryBuilder);
         }
        _addAssociationsToTypeMap(
-            this.getRepository(),
-            this.getTypeMap(),
+            getRepository(),
+            getTypeMap(),
             myloader.getContain()
         );
 
@@ -856,7 +856,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     
     // Clears the contained associations from the current query.
     auto clearContain() {
-        this.getEagerLoader().clearContain();
+        getEagerLoader().clearContain();
        _isDirty();
 
         return this;
@@ -938,8 +938,8 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * that can be used to add custom conditions or selecting some fields
      * /
     void matching(string myassoc, IClosure mybuilder = null) {
-        result = this.getEagerLoader().setMatching(myassoc, mybuilder).getMatching();
-       _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
+        result = getEagerLoader().setMatching(myassoc, mybuilder).getMatching();
+       _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
        _isDirty();
     }
     
@@ -1006,13 +1006,13 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * that can be used to add custom conditions or selecting some fields
      * /
     void leftJoinWith(string myassoc, ?Closure mybuilder = null) {
-        result = this.getEagerLoader()
+        result = getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_LEFT,
                 "fields": false.toJson,
             ])
             .getMatching();
-       _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
+       _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
        _isDirty();
     }
     
@@ -1050,13 +1050,13 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * that can be used to add custom conditions or selecting some fields
      * /
     void innerJoinWith(string myassoc, ?Closure mybuilder = null) {
-        result = this.getEagerLoader()
+        result = getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_INNER,
                 "fields": false.toJson,
             ])
             .getMatching();
-       _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
+       _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
        _isDirty();
     }
     
@@ -1110,14 +1110,14 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * that can be used to add custom conditions or selecting some fields
      * /
     void notMatching(string myassoc, ?Closure mybuilder = null) {
-        result = this.getEagerLoader()
+        result = getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_LEFT,
                 "fields": false.toJson,
                 "negateMatch": true.toJson,
             ])
             .getMatching();
-       _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
+       _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
        _isDirty();
     }
     
@@ -1219,7 +1219,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
                 .disableAutoFields()
                 .execute();
         } else {
-            mystatement = this.getConnection().selectQuery()
+            mystatement = getConnection().selectQuery()
                 .select(mycount)
                 .from(["count_source": myquery])
                 .execute();
@@ -1296,7 +1296,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         if (!_beforeFindFired) {
            _beforeFindFired = true;
 
-            myrepository = this.getRepository();
+            myrepository = getRepository();
             myrepository.dispatchEvent("Model.beforeFind", [
                 this,
                 new ArrayObject(_options),
@@ -1325,7 +1325,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         if (!results.isArray) {
             results = iterator_to_array(results);
         }
-        results = this.getEagerLoader().loadExternal(this, results);
+        results = getEagerLoader().loadExternal(this, results);
 
         return _resultSetFactory().createResultset(this, results);
     }
@@ -1351,12 +1351,12 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             return;
         }
 
-        auto myrepository = this.getRepository();
+        auto myrepository = getRepository();
         if (_parts.isEmpty("from")) {
             this.from([myrepository.aliasName(): myrepository.getTable()]);
         }
        _addDefaultFields();
-        this.getEagerLoader().attachAssociations(this, myrepository, !_hasFields);
+        getEagerLoader().attachAssociations(this, myrepository, !_hasFields);
        _addDefaultSelectTypes();
     }
     
@@ -1368,7 +1368,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         auto myselect = this.clause("select");
        _hasFields = true;
 
-        myrepository = this.getRepository();
+        myrepository = getRepository();
 
         if (!count(myselect) || _autoFields == true) {
            _hasFields = false;
@@ -1385,7 +1385,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Sets the default types for converting the fields in the select clause
      * /
     protected void _addDefaultSelectTypes() {
-        mytypeMap = this.getTypeMap().getDefaults();
+        mytypeMap = getTypeMap().getDefaults();
         myselect = this.clause("select");
         mytypes = null;
 
@@ -1402,7 +1402,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
                 mytypes[aliasName] = mytypeMap[myvalue];
             }
         }
-        this.getSelectTypeMap().addDefaults(mytypes);
+        getSelectTypeMap().addDefaults(mytypes);
     }
     
     /**
@@ -1411,7 +1411,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * @param Json ...myargs Arguments that match up to finder-specific parameters
      * /
     static find(string myfinder, Json ...myargs) {
-        mytable = this.getRepository();
+        mytable = getRepository();
 
         /** @psalm-suppress LessSpecificReturnStatement * /
         return mytable.callFinder(myfinder, this, ...myargs);
@@ -1437,7 +1437,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     }
  
     Json[string] debugInfo() {
-        myeagerLoader = this.getEagerLoader();
+        myeagerLoader = getEagerLoader();
 
         return super.__debugInfo() ~ [
             "hydrate": _hydrate,

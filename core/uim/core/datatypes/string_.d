@@ -382,7 +382,7 @@ unittest {
 	assert(["a", "b", "c"].upper.equal(["A", "B", "C"]));
 }
 string upper(string text) {
-	return text.toUpper;
+	return text.upper;
 }
 unittest {
 	assert("a".upper == "A");

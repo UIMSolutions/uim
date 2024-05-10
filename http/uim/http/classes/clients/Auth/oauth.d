@@ -28,7 +28,7 @@ class DOauth {
         if (credentials.isEmpty("method")) {
             credentials["method"] = "hmac-sha1";
         }
-        credentials["method"] = credentials.getString("method").toUpper;
+        credentials["method"] = credentials.getString("method").upper;
 
         switch (credentials["method"]) {
             case "HMAC-SHA1":

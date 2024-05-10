@@ -30,7 +30,7 @@ mixin template TTupleComparisonTranslator() {
      * /
     protected void _transformTupleComparison(TupleComparisonexpression, Query aQuery) {
         string[] fieldNames = expression.getFieldNames();
-        string operator = expression.getOperator().toUpper;
+        string operator = expression.getOperator().upper;
         if (!in_array(operator, ["IN", "="])) {
             throw new DInvalidArgumentException(
                 "Tuple comparison transform only supports the `IN` and `=` operators, `%s` given."

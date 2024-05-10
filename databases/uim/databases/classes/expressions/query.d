@@ -46,7 +46,7 @@ class DQueryExpression : DExpression { // }, Countable {
         string aconjunction = "AND"
     ) {
         setTypeMap(types);
-        setConjunction(conjunction.toUpper);
+        setConjunction(conjunction.upper);
         if (!conditions.isEmpty) {
             this.add(conditions, getTypeMap().getTypes());
         }
@@ -54,7 +54,7 @@ class DQueryExpression : DExpression { // }, Countable {
     
     // Changes the conjunction for the conditions at this level of the expression tree.
     void setConjunction(string valueForJoiningConditions) {
-       _conjunction = valueForJoiningConditions.toUpper;
+       _conjunction = valueForJoiningConditions.upper;
     }
 
     // Gets the currently configured conjunction for the conditions at this level of the expression tree.
@@ -568,7 +568,7 @@ class DQueryExpression : DExpression { // }, Countable {
             string[] someParts = split(" ", expression, 2);
             [expression,  operator] = someParts;
         }
-         operator = trim(operator).toUpper;
+         operator = operator.strip.upper;
 
         type = getTypeMap().type(expression);
         typeMultiple = (isString(type) && type.has("[]"));

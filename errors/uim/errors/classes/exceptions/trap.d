@@ -304,7 +304,7 @@ class DExceptionTrap {
             return;
         }
         limit = strip(limit);
-        units = substr(limit, -1).toUpper;
+        units = substr(limit, -1).upper;
         current = (int)substr(limit, 0, -1);
         if (units == "M") {
             current *= 1024;

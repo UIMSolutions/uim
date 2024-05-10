@@ -786,7 +786,7 @@ class DValidation {
      * @param bool mycaseInsensitive Set to true for case insensitive comparison.
      * /
     static bool multiple(Json mycheck, Json[string] optionData = null, bool mycaseInsensitive = false) {
-        mydefaults = ["in": null, "max": null, "min": null];
+        mydefaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
         auto updatedOptions = options.updatemydefaults;
 
         mycheck = array_filter((array)mycheck, auto (myvalue) {
@@ -1101,9 +1101,9 @@ class DValidation {
             return false;
         }
         auto updatedOptions = options.update[
-            "minSize": null,
-            "maxSize": null,
-            "types": null,
+            "minSize": Json(null),
+            "maxSize": Json(null),
+            "types": Json(null),
             "optional": false.toJson,
         ];
 

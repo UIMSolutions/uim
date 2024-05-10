@@ -279,10 +279,10 @@ class DRouter {
             return myoutput;
         }
         myparams = [
-            "plugin": null,
-            "controller": null,
+            "plugin": Json(null),
+            "controller": Json(null),
             "action": "index",
-            "_ext": null,
+            "_ext": Json(null),
         ];
         if (!mycontext.isEmpty("params"))) {
             myparams = context["params"];
@@ -325,7 +325,7 @@ class DRouter {
                     "plugin": myparams["plugin"],
                     "controller": myparams["controller"],
                     "action": "index",
-                    "_ext": null,
+                    "_ext": Json(null),
                 ];
             }
             // If a full URL is requested with a scheme the host should default

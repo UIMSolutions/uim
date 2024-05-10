@@ -41,9 +41,9 @@ class DTreeBehavior : DBehavior {
         "parent": "parent_id",
         "left": "lft",
         "right": "rght",
-        "scope": null,
-        "level": null,
-        "recoverOrder": null,
+        "scope": Json(null),
+        "level": Json(null),
+        "recoverOrder": Json(null),
         "cascadeCallbacks": false.toJson,
     ];
 
@@ -401,7 +401,7 @@ class DTreeBehavior : DBehavior {
     function findChildren(Query query, Json[string] optionData): Query
     {
         myConfiguration = configuration;
-        auto updatedOptions = options.update["for": null, "direct": false.toJson];
+        auto updatedOptions = options.update["for": Json(null), "direct": false.toJson];
         [parent, left, right] = array_map(
             function (field) {
                 return _table.aliasField(field);

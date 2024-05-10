@@ -232,7 +232,7 @@ class DEagerLoader {
                 myrepository,
                 aliasName,
                 options,
-                ["root": null]
+                ["root": Json(null)]
             );
         }
         return _normalized = mycontain;

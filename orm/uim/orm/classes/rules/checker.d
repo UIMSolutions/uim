@@ -75,7 +75,7 @@ class DRulesChecker { // }: BaseRulesChecker {
     ) {
         options = null;
         if (mymessage.isArray) {
-            options = mymessage ~ ["message": null];
+            options = mymessage ~ ["message": Json(null)];
             mymessage = options["message"];
             options.remove("message"]);
         }

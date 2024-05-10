@@ -276,8 +276,8 @@ class DRouteBuilder {
             "only": Json.emptyArray,
             "actions": Json.emptyArray,
             "map": Json.emptyArray,
-            "prefix": null,
-            "path": null,
+            "prefix": Json(null),
+            "path": Json(null),
         ];
 
         foreach (options["map"] as myKey: mymapped) {
@@ -614,7 +614,7 @@ class DRouteBuilder {
                         ));
                 }
             }
-            mydefaults += _params ~ ["plugin": null];
+            mydefaults += _params ~ ["plugin": Json(null)];
             if (!mydefaults.isSet("action") && !options.isSet("action")) {
                 mydefaults["action"] = "index";
             }

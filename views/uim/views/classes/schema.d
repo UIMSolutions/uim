@@ -36,10 +36,10 @@ class DSchema {
 
     // The default values for fields.
     protected STRINGAA _fieldDefaults = [
-        "type": null,
-        "length": null,
-        "precision": null,
-        "default": null,
+        "type": Json(null),
+        "length": Json(null),
+        "precision": Json(null),
+        "default": Json(null),
     ];
 
     // #region fields
@@ -119,22 +119,22 @@ auto Schema() {
 unittest {
     STRINGAA[string] fields;
     fields["a"] = [
-        "type": null,
-        "length": null,
-        "precision": null,
-        "default": null,
+        "type": Json(null),
+        "length": Json(null),
+        "precision": Json(null),
+        "default": Json(null),
     ];
 
     fields["b"] = [
-        "type": null,
-        "length": null,
-        "default": null,
+        "type": Json(null),
+        "length": Json(null),
+        "default": Json(null),
     ];
 
     fields["c"] = [
-        "type": null,
-        "length": null,
-        "default": null,
+        "type": Json(null),
+        "length": Json(null),
+        "default": Json(null),
     ];
 
     auto schema = Schema.addFields(fields);

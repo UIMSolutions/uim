@@ -491,7 +491,7 @@ class DRoute : IRoute {
             this.compile();
         }
         _defaultValues = this.defaults;
-        mycontext += ["params": Json.emptyArray, "_port": null, "_scheme": null, "_host": null];
+        mycontext += ["params": Json.emptyArray, "_port": Json(null), "_scheme": Json(null), "_host": Json(null)];
 
         if (
             !configuration..isEmpty("persist")) &&

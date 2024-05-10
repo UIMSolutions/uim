@@ -52,14 +52,14 @@ class DFileLog { // TODO /*}: BaseLog {
      *
      * /
     configuration.updateDefaults([
-        "path": null,
-        "file": null,
-        "types": null,
+        "path": Json(null),
+        "file": Json(null),
+        "types": Json(null),
         "levels": Json.emptyArray,
         "scopes": Json.emptyArray,
         "rotate": 10,
         "size": 10485760, // 10MB
-        "mask": null,
+        "mask": Json(null),
         "dirMask": 0770,
         "formatter": [
             "className": DefaultFormatter.classname,

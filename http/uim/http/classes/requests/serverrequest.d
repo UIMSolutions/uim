@@ -24,10 +24,10 @@ class DServerRequest { // }: IServerRequest {
         configuration.data(initData);
 
     _urlParams = [
-        "plugin": null,
-        "controller": null,
-        "action": null,
-        "_ext": null,
+        "plugin": Json(null),
+        "controller": Json(null),
+        "action": Json(null),
+        "_ext": Json(null),
         "pass": Json.emptyArray,
     ];
 
@@ -210,10 +210,10 @@ class DServerRequest { // }: IServerRequest {
             'cookies": Json.emptyArray,
             'environment": Json.emptyArray,
             'url": "",
-            'uri": null,
+            'uri": Json(null),
             'base": "",
             'webroot": "",
-            'input": null,
+            'input": Json(null),
         ];
 
        _setConfig(configData);

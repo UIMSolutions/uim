@@ -38,7 +38,7 @@ class DFlashMessage {
     configuration.updateDefaults([
         "key": Json("flash"),
         "element": Json("default"),
-        "plugin": null,
+        "plugin": Json(null),
         "params": Json.emptyArray,
         "clear": false.toJson,
         "duplicate": true.toJson,

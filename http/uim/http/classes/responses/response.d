@@ -1169,7 +1169,7 @@ class DResponse : IResponse {
         file = this.validateFile(somePath);
         auto auto updatedOptions = options.update([
             "name": StringData,
-            "download": null
+            "download": Json(null)
         ]);
 
         auto fileExtension = file.getExtension().toLower;

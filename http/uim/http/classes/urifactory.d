@@ -75,9 +75,9 @@ class UriFactory { // }: IUriFactory {
      * /
     protected static Json[string] getBase(IUri anUri, Json[string] serverData) {
         auto configData = (array)Configuration.read("App") ~ [
-            "base": null,
-            "webroot": null,
-            "baseUrl": null,
+            "base": Json(null),
+            "webroot": Json(null),
+            "baseUrl": Json(null),
         ];
         string base = configData("base"];
         auto baseUrl = configData("baseUrl"];

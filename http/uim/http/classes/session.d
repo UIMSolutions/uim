@@ -166,8 +166,8 @@ class DSession {
      * /
     this(Json[string] configData = null) {
         configData += [
-            "timeout": null,
-            "cookie": null,
+            "timeout": Json(null),
+            "cookie": Json(null),
             "ini": Json.emptyArray,
             "handler": Json.emptyArray,
         ];

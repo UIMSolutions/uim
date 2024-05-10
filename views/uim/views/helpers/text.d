@@ -49,7 +49,7 @@ class DTextHelper : DHelper {
      * /
     string autoLinkUrls(string mytext, Json[string] options  = null) {
         _placeholders = null;
-        options = options.update["escape": true.toJson];
+        auto updatedOptions = options.update["escape": true.toJson];
 
          Generic.Files.LineLength
         mypattern = "/(?:(?<!href="|src="|">)
@@ -157,7 +157,7 @@ class DTextHelper : DHelper {
      * @param Json[string] options Array of HTML options, and options listed above.
      * /
     string autoLinkEmails(string mytext, Json[string] options  = null) {
-        options = options.update["escape": true.toJson];
+        auto updatedOptions = options.update["escape": true.toJson];
        _placeholders = null;
 
         myatom = "[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]";

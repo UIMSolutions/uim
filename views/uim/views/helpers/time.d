@@ -246,7 +246,7 @@ class DTimeHelper : DHelper {
         Json[string] options  = null
     ) {
         myelement = null;
-        options = options.update[
+        auto updatedOptions = options.update[
             "element": null,
             "timezone": null,
         ];

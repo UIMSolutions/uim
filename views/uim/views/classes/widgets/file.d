@@ -34,29 +34,17 @@ class DFileWidget : DWidget {
      *
      * Data supports the following keys:
      *
-     *
      * All other keys will be converted into HTML attributes.
      * Unlike other input objects the `val` property will be specifically
      * ignored.
-     *
-     * buildData The data to build a file input with.
-     * @param \UIM\View\Form\IContext formContext The current form context.
-     * return HTML elements.
      */
     override string render(Json[string] renderData, IContext formContext) {
-        // TODO 
-        /* 
         auto mergedData = renderData.merge(formContext.data);
-
         mergedData.remove("val");
 
-        return _stringContents.format("file", [
-            "name": mergedData["name"],
-            "templateVars": mergedData["templateVars"],
-            "attrs": _stringContents.formatAttributes(
-                mergedData, ["name"]
-            ),
-        ]); */
+        return _stringContents.format("file", 
+            mergedData.data(["name", "templateVars"])
+                .update(["attrs": _stringContents.formatAttributes(mergedData, ["name"])]); 
         return null; 
     }
 }

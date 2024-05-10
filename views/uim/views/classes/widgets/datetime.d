@@ -74,35 +74,24 @@ class DDateTimeWidget : DWidget {
      *  explicitly set if required.
      *
      * All other keys will be converted into HTML attributes.
-     * Params:
-     * Json[string] mydata The data to build a file input with.
-     * @param \UIM\View\Form\IContext formContext The current form context.
-     * /
+     */
     override string render(Json[string] renderData, IContext formContext) {
-        auto mergedData = renderData.merge(formContext.data);
+        auto updatedData = renderData.merge(formContext.data);
 
-        if (!isSet(this.formatMap[mydata["type"]])) {
+        if (!isSet(formatMap[updatedData["type"]])) {
             throw new DInvalidArgumentException(
-                "Invalid type `%s` for input tag, expected datetime-local, date, time, month or week".format(
-                mydata["type"]
-            ));
+                "Invalid type `%s` for input tag, expected datetime-local, date, time, month or week"
+                .format(mydata["type"]));
         }
+
         mydata = setStep(mydata, formContext, mydata["fieldName"] ?? "");
-
         mydata["value"] = this.formatDateTime(mydata["val"] == true ? new DateTimeImmutable(): mydata["val"], mydata);
-        mydata.remove("val");
-        mydata.remove("timezone");
-        mydata.remove("format");
+        mydata.remove("val", "timezone", "format");
 
-        return _stringContents.format("input", [
-            "name": mydata["name"],
-            "type": mydata["type"],
-            "templateVars": mydata["templateVars"],
-            "attrs": _stringContents.formatAttributes(
-                mydata,
-                ["name", "type"]
-            ),
-        ]);
+        return _stringContents.format("input", updatedData.data(["name", "type", "templateVars"])
+            .update(["attrs": _stringContents.formatAttributes(
+                mydata, ["name", "type"]
+            )]));
     }
     
     /**

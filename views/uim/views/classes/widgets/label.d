@@ -22,12 +22,8 @@ class DLabelWidget : DWidget {
 
         return true;
     }
-    /* 
     /**
-     * Constructor.
-     *
      * This class uses the following template:
-     *
      * - `label` Used to generate the label for a radio button.
      *  Can use the following variables `attrs`, `text` and `input`.
      */
@@ -49,7 +45,7 @@ class DLabelWidget : DWidget {
         ]);
 
         return null; 
-        /* _stringContents.format(_labelTemplate, [
+        _stringContents.format(_labelTemplate, [
                 "text": mergedData["escape"] ? htmlAttribEscape(mergedData["text"]): mergedData["text"],
                 "input": mergedData["input"],
                 "hidden": mergedData["hidden"],

@@ -25,10 +25,9 @@ class DWidgetLocator {
 
     // View instance.
     protected IView _view;
-    /* 
+
     // Array of widgets + widget configuration.
     // TODO protected Json[string] _widgets = null;
-
 
     /**
      * Constructor

@@ -18,7 +18,7 @@ class DVersionElementAttribute : DAttribute {
       );
   } */
 }
-mixin(AttributeCalls!"VersionElementAttribute");
+mixin(AttributeCalls!"VersionElement");
 
 version(test_uim_models) { unittest {
   testAttribute(new DVersionElementAttribute);

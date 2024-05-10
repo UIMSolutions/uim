@@ -29,8 +29,9 @@ is.dataFormat.boolean */
     return true;
   }
 
-  override Json createData() {
-    Json result = super.createData;
+  // TODO
+  /* override */ Json createData() {
+    Json result = Json.emptyObject; // TODO super.createData;
     return result; }
 }
 

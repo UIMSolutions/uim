@@ -23,9 +23,9 @@ class DMultiCheckboxWidget : DWidget {
             "name": "".toJson,
             "escape": true.toJson,
             "options": Json.emptyArray,
-            "disabled": null,
-            "val": null,
-            "idPrefix": null,
+            "disabled": Json(null),
+            "val": Json(null),
+            "idPrefix": Json(null),
             "templateVars": Json.emptyArray,
             "label": true.toJson,
         ]);

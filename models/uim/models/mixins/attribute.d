@@ -19,8 +19,8 @@ string attributeThis(string name) {
     `;
 }
 
-template attributeThis(string name) {
-    const char[] attributeThis = attributeThis(name);
+template AttributeThis(string name) {
+    const char[] AttributeThis = attributeThis(name);
 }
 
 string attributeCalls(string name) {
@@ -31,6 +31,10 @@ string attributeCalls(string name) {
     auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
     auto `~ fullName ~ `(string name, Json[string] initData) { return new D` ~ fullName ~ `(name, initData); }
     `;
+}
+
+template AttributeCalls(string name) {
+    const char[] AttributeCalls = attributeCalls(name);
 }
 
 /* Old

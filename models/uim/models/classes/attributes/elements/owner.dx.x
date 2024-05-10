@@ -23,7 +23,7 @@ class DOwnerElementAttribute : DAttribute {
       );
   } */ 
 }
-mixin(AttributeCalls!"OwnerElementAttribute");
+mixin(AttributeCalls!"OwnerElement");
 
 version(test_uim_models) { unittest {
   testAttribute(new DOwnerElementAttribute);

@@ -41,7 +41,7 @@ class DCustomerFactory {
 
   static DAbstractCustomer getCustomer(string name) {
     for (int i = 0; i < names.length; i++) {
-      if (names[i].toLower == name.toLower) {
+      if (names[i].lower == name.lower) {
         return new DRealCustomer(name);
       }
     }

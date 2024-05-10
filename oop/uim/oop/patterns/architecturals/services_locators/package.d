@@ -46,7 +46,7 @@ class DService2 : Service {
 /// Create InitialContext for JNDI lookup
 class DInitialContext {
   Object lookup(string jndiName) {
-    switch(jndiName.toLower) {
+    switch(jndiName.lower) {
       case "service1":
         writeln("Looking up and creating a new DService1 object");
         return new DService1();
@@ -68,7 +68,7 @@ class DCache {
 
   Service service(string serviceName) {
     foreach (service; _services) {
-      if(service.name.toLower == serviceName.toLower) {
+      if(service.name.lower == serviceName.lower) {
         writeln("Returning cached  ", serviceName, " object");
         return service;
       }
@@ -80,7 +80,7 @@ class DCache {
     bool exists = false;
     
     foreach(service; _services) {
-      if(service.name.toLower == newService.name.toLower) {
+      if(service.name.lower == newService.name.lower) {
         exists = true;
       }
     }

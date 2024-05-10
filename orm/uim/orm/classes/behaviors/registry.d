@@ -193,7 +193,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @param string aMethodName The method to check for.
      */
     bool hasFinder(string aMethodName) {
-        aMethodName = aMethodName.toLower;
+        aMethodName = aMethodName.lower;
 
         return isset(_finderMap[aMethodName]);
     }
@@ -228,7 +228,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @throws \BadMethodCallException When the method is unknown.
      */
     Query callFinder(string type, Json[string] args = null) {
-        type = type.toLower;
+        type = type.lower;
 
         if (this.hasFinder(type) && this.has(_finderMap[type][0])) {
             [behavior, callMethod] = _finderMap[type];

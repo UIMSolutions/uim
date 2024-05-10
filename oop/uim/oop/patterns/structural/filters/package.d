@@ -38,19 +38,19 @@ interface ICriteria {
 
 class DCriteriaMale : ICriteria {
   override DPerson[] meetCriteria(DPerson[] persons) {
-    return persons.filter!(a => a.gender.toLower == "male").array;
+    return persons.filter!(a => a.gender.lower == "male").array;
   }
 }
 
 class DCriteriaFemale : ICriteria {
   override DPerson[] meetCriteria(DPerson[] persons) {
-    return persons.filter!(a => a.gender.toLower == "female").array;
+    return persons.filter!(a => a.gender.lower == "female").array;
   }
 }
 
 class DCriteriaSingle : ICriteria {
   override DPerson[] meetCriteria(DPerson[] persons) {
-    return persons.filter!(a => a.maritalStatus.toLower == "single").array;
+    return persons.filter!(a => a.maritalStatus.lower == "single").array;
   }
 }
 

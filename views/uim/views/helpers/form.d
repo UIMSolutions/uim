@@ -272,7 +272,7 @@ class DFormHelper : DHelper {
         auto updatedOptions = options.updatetions.updatetions.updatetions.updatetions.update[
             "type": myisCreate ? "post" : "put",
             "url": Json(null),
-            "encoding": Configuration.read("App.encoding").toLower,
+            "encoding": Configuration.read("App.encoding").lower,
             "templates": Json(null),
             "idPrefix": Json(null),
             "valueSources": Json(null),
@@ -305,7 +305,7 @@ class DFormHelper : DHelper {
         options.remove("url"], options["idPrefix"]);
 
         myhtmlAttributes = null;
-        switch (options["type"].toLower) {
+        switch (options["type"].lower) {
             case "get":
                 myhtmlAttributes["method"] = "get";
                 break;
@@ -329,12 +329,12 @@ class DFormHelper : DHelper {
                 myhtmlAttributes["method"] = "post";
         }
         if (isSet(options["method"])) {
-            myhtmlAttributes["method"] = options.getString("method").toLower;
+            myhtmlAttributes["method"] = options.getString("method").lower;
         }
         if (isSet(options["enctype"])) {
-            myhtmlAttributes["enctype"] = options.getString("enctype").toLower;
+            myhtmlAttributes["enctype"] = options.getString("enctype").lower;
         }
-        this.requestType = options["type"].toLower;
+        this.requestType = options["type"].lower;
 
         if (!options.isEmpty("encoding"])) {
             myhtmlAttributes["accept-charset"] = options["encoding"];
@@ -1003,7 +1003,7 @@ class DFormHelper : DHelper {
         mylabel = options["labelOptions"];
         options.remove("labelOptions");
 
-        switch (options.getString("type").toLower) {
+        switch (options.getString("type").lower) {
             case "select":
             case "radio":
             case "multicheckbox":

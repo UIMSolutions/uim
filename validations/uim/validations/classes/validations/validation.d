@@ -176,7 +176,7 @@ class DValidation {
 
         if (isArray(mytype)) {
             foreach (mytype as myvalue) {
-                myregex = mycards["all"][myvalue).toLower];
+                myregex = mycards["all"][myvalue).lower];
 
                 if (_check(creditcardNumber, myregex)) {
                     return luhn(creditcardNumber);
@@ -675,9 +675,9 @@ class DValidation {
         if (isEmpty(mycheck)) {
             return false;
         }
-        myextension = pathinfo(mycheck, PATHINFO_EXTENSION).toLower;
+        myextension = pathinfo(mycheck, PATHINFO_EXTENSION).lower;
         foreach (myextensions as myvalue) {
-            if (myextension == myvalue.toLower) {
+            if (myextension == myvalue.lower) {
                 return true;
             }
         }
@@ -694,7 +694,7 @@ class DValidation {
         if (!isString(mycheck)) {
             return false;
         }
-        mytype = mytype.toLower;
+        mytype = mytype.lower;
         auto myflags = 0;
         if (mytype == "ipv4") {
             myflags = FILTER_FLAG_IPV4;
@@ -1000,7 +1000,7 @@ class DValidation {
         foreach (mymimeTypes as aKey: myval) {
             mymimeTypes[aKey] = strtolower(myval);
         }
-        return in_array(mymime.toLower, mymimeTypes, true);
+        return in_array(mymime.lower, mymimeTypes, true);
     }
     
     /**
@@ -1406,7 +1406,7 @@ class DValidation {
                 myvalue["hour"] = 0;
             }
             if (isSet(myvalue["meridian"])) {
-                myvalue["hour"] = myvalue.getString("meridian").toLower == "am" 
+                myvalue["hour"] = myvalue.getString("meridian").lower == "am" 
                     ? myvalue["hour"] 
                     : myvalue["hour"] + 12;
             }

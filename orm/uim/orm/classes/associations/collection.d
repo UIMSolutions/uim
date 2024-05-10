@@ -118,12 +118,12 @@ class DAssociationCollection { // }: IteratorAggregate {
      * returns an array of Association objects.
      */
     DORMAssociation[] getByType(string[] someClassNames...) {
-      auto myClassNames = someClassNames.map!(className => className.toLower).array;
+      auto myClassNames = someClassNames.map!(className => className.lower).array;
 
       out = array_filter(_items, function (assoc) use (class) {
           [, name] = namespaceSplit(get_class(assoc));
 
-          return in_array(name.toLower, class, true);
+          return in_array(name.lower, class, true);
       });
 
       return array_values(out);

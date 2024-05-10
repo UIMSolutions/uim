@@ -301,7 +301,7 @@ class DRoute : IRoute {
             }
             routings ~= myvalue ~ myglue;
         }
-        return _name = routings.toLower;
+        return _name = routings.lower;
     }
     
     /**

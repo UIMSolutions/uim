@@ -43,7 +43,7 @@ mixin template TIdGenerator() {
      * string myval The ID attribute value.
      * /
     protected string _idSuffix(string myval) {
-        string myidSuffix = myval.replace(["/", "@", "<", ">", " ", """, "\""], "-").toLower;
+        string myidSuffix = myval.replace(["/", "@", "<", ">", " ", """, "\""], "-").lower;
         mycount = 1;
         mycheck = myidSuffix;
         while (in_array(mycheck, _idSuffixes, true)) {
@@ -60,7 +60,7 @@ mixin template TIdGenerator() {
      * string myvalue The value to convert into an ID.
      * /
     protected string _domId(string myvalue) {
-        string mydomId = Text.slug(myvalue, "-").toLower;
+        string mydomId = Text.slug(myvalue, "-").lower;
         if (_idPrefix) {
             mydomId = _idPrefix ~ "-" ~ mydomId;
         }

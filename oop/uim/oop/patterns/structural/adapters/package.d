@@ -47,16 +47,16 @@ import uim.oop;
 
     this(string audioType) {
    
-      if(audioType.toLower == "vlc") {
+      if(audioType.lower == "vlc") {
          advancedMusicPlayer = new VlcPlayer();			
          
-      } else if (audioType.toLower == "mp4") {
+      } else if (audioType.lower == "mp4") {
          advancedMusicPlayer = new Mp4Player();
       }	
    }
 
   override void play(string audioType, string fileName) {
-    switch(audioType.toLower) {
+    switch(audioType.lower) {
       case "vlc": 
         advancedMusicPlayer.playVlc(fileName);
         break;
@@ -74,12 +74,12 @@ import uim.oop;
 
    override void play(string audioType, string fileName) {		
       //inbuilt support to play mp3 music files
-      if(audioType.toLower == "mp3") {
+      if(audioType.lower == "mp3") {
          writeln("Playing mp3 file. Name: ", fileName);			
       } 
       
       //mediaAdapter is providing support to play other file formats
-      else if(audioType.toLower == "vlc" || audioType.toLower == "mp4") {
+      else if(audioType.lower == "vlc" || audioType.lower == "mp4") {
          mediaAdapter = new MediaAdapter(audioType);
          mediaAdapter.play(audioType, fileName);
       }

@@ -183,7 +183,7 @@ class DHtmlHelper : DHelper {
     string charset(string metatagCharset = null) {
         string result; 
         if (metatagCharset.isEmpty) {
-            result = to!string(Configuration.read("App.encoding")).toLower;
+            result = to!string(Configuration.read("App.encoding")).lower;
         }
         return _formatTemplate("charset", [
             "charset": !result.isEmpty ? result : "utf-8",

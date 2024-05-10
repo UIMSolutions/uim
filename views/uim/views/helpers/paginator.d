@@ -156,7 +156,7 @@ class DPaginatorHelper : DHelper {
     
     // Gets the current direction the recordset is sorted
     protected string sortDir() {
-        string mydir = (string)this.param("direction").toLower;
+        string mydir = (string)this.param("direction").lower;
         return mydir == "desc" ? "desc" : "asc";
     }
     
@@ -310,7 +310,7 @@ class DPaginatorHelper : DHelper {
             mytitle = __(Inflector.humanize((string)preg_replace("/_idmy/", "", mytitle)));
         }
         
-        stringmydefaultDir = isSet(options["direction"]) ? options.getString("direction").toLower : "asc";
+        stringmydefaultDir = isSet(options["direction"]) ? options.getString("direction").lower : "asc";
         options.remove("direction");
 
         mylocked = options.get("lock", false);
@@ -415,7 +415,7 @@ class DPaginatorHelper : DHelper {
         if (
             isSet(mypaging["sortDefault"], mypaging["directionDefault"], options["sort"], options["direction"])
             && options["sort"] == mypaging["sortDefault"]
-            && options["direction"].toLower == mypaging["directionDefault"].toLower
+            && options["direction"].lower == mypaging["directionDefault"].lower
         ) {
             options["sort"] = options["direction"] = null;
         }
@@ -523,7 +523,7 @@ class DPaginatorHelper : DHelper {
         aliasName = this.param("alias");
         if (aliasName) {
             mymap += [
-                "model": Inflector.humanize(Inflector.tableize(aliasName)).toLower,
+                "model": Inflector.humanize(Inflector.tableize(aliasName)).lower,
             ];
         }
         return _templater().format(mytemplate, mymap);

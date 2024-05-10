@@ -42,13 +42,13 @@ class DShapeFactory {
       if(shapeType == null) {
          return null;
       }		
-      if(shapeType.toLower == "CIRCLE".toLower) {
+      if(shapeType.lower == "CIRCLE".lower) {
          return new DCircle();
          
-      } else if(shapeType.toLower == "RECTANGLE".toLower) {
+      } else if(shapeType.lower == "RECTANGLE".lower) {
          return new DRectangle();
          
-      } else if(shapeType.toLower == "SQUARE".toLower) {
+      } else if(shapeType.lower == "SQUARE".lower) {
          return new DSquare();
       }
       

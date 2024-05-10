@@ -50,7 +50,7 @@ abstract class DAbstractFactory {
 class DShapeFactory : DAbstractFactory {	
    //use createShape method to get object of type shape 
    override IShape createShape(string shapeType) {
-      switch(shapeType.toLower) {
+      switch(shapeType.lower) {
          case "rectangle": return new DRectangle();
          case "square": return new DSquare();
          default: return null;
@@ -61,7 +61,7 @@ class DShapeFactory : DAbstractFactory {
 class DRoundedShapeFactory : DAbstractFactory {	
    //use createShape method to get object of type shape 
    override IShape createShape(string shapeType) {
-      switch(shapeType.toLower) {
+      switch(shapeType.lower) {
          case "rectangle": return new DRoundedRectangle();
          case "square": return new DRoundedSquare();
          default: return null;

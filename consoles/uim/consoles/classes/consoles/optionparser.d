@@ -259,7 +259,7 @@ class DConsoleOptionParser {
             this.addArguments(spec["arguments"]);
         }
         if (!spec["options"].isEmpty)) {
-            this.addOptions(spec["options"]);
+            addOptions(spec["options"]);
         }
         if (!spec["description"].isEmpty)) {
             this.description(spec["description"]);

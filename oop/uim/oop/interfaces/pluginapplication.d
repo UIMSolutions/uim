@@ -9,8 +9,6 @@ import uim.oop;
  *
  * Events can be bound to the application event manager during
  * the application`s bootstrap and plugin bootstrap.
- *
- * @extends \UIM\Event\IEventDispatcher<\UIM\Http\BaseApplication>
  */
 interface IPluginApplication /* : IEventDispatcher */ { // TODO
     /**

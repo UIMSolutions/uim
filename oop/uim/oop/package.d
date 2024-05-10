@@ -44,7 +44,7 @@ public {
   import uim.oop.lang;	
   import uim.oop.mixins;
   import uim.oop.patterns;
-  import uim.oop.plugins;
+  // TODO import uim.oop.plugins;
   import uim.oop.properties;
   import uim.oop.registries;
   import uim.oop.simple;

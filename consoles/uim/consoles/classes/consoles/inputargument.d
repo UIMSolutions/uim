@@ -123,7 +123,7 @@ class DConsoleInputArgument {
         auto option = parentElement.addChild("argument");
         option.addAttribute("name", _name);
         option.addAttribute("help", _help);
-        option.addAttribute("required", to!string(to!int(this.isRequired())));
+        option.addAttribute("required", to!string(to!int(isRequired())));
         
         auto choices = option.addChild("choices");
         choices.each!(valid => choices.addChild("choice", valid));

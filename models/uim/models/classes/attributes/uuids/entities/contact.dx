@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DContactIdAttribute : DEntityIdAttribute {
-  mixin(AttributeThis!("ContactIdAttribute"));
+  mixin(AttributeThis!("ContactId"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -25,7 +25,7 @@ class DContactIdAttribute : DEntityIdAttribute {
   }
 }
 
-mixin(AttributeCalls!("ContactIdAttribute"));
+mixin(AttributeCalls!("ContactId"));
 
 ///
 unittest {

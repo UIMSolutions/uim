@@ -11,7 +11,7 @@ import uim.models;
 // A unique identifier for entity instances
 
 class DEntityIdAttribute : DUUIDAttribute {
-  mixin(AttributeThis!("EntityIdAttribute"));
+  mixin(AttributeThis!("EntityId"));
 
 /*   is.dataFormat.character
 is.dataFormat.big
@@ -22,7 +22,7 @@ means.identity.entityId */
 
 
 }
-mixin(AttributeCalls!("EntityIdAttribute"));
+mixin(AttributeCalls!("EntityId"));
 
 ///
 unittest {

@@ -16,7 +16,7 @@ import uim.models;
 
 @safe:
 class DPhoneAttribute : DStringAttribute {
-  mixin(AttributeThis!("PhoneAttribute"));
+  mixin(AttributeThis!("Phone"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -28,7 +28,7 @@ class DPhoneAttribute : DStringAttribute {
       return true;
   }
 }
-mixin(AttributeCalls!("PhoneAttribute"));
+mixin(AttributeCalls!("Phone"));
 
 version(test_uim_models) { unittest {
     // TODO

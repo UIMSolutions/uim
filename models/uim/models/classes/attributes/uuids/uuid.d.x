@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DUUIDAttribute : DAttribute {
-  mixin(AttributeThis!("UUIDAttribute"));
+  mixin(AttributeThis!("UUID"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -25,7 +25,7 @@ registerPath("uuid");
   /* override Json createData() {
     return UUIDData(this); } */
 }
-mixin(AttributeCalls!("UUIDAttribute"));
+mixin(AttributeCalls!("UUID"));
 
 ///
 unittest {

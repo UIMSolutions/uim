@@ -11,7 +11,7 @@ import uim.models;
 // A unique identifier for entity instances
 
 class DCurrencyIdAttribute : DEntityIdAttribute {
-  mixin(AttributeThis!("CurrencyIdAttribute"));
+  mixin(AttributeThis!("CurrencyId"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -23,7 +23,7 @@ class DCurrencyIdAttribute : DEntityIdAttribute {
       return true;
   }  
 }
-mixin(AttributeCalls!("CurrencyIdAttribute"));
+mixin(AttributeCalls!("CurrencyId"));
 
 ///
 unittest {

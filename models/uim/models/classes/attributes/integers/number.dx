@@ -9,9 +9,9 @@ import uim.models;
 
 @safe:
 class DNumberAttribute : DIntegerAttribute {
-  mixin(AttributeThis!("NumberAttribute"));
+  mixin(AttributeThis!("Number"));
 }
-mixin(AttributeCalls!("NumberAttribute"));
+mixin(AttributeCalls!("Number"));
 
 version(test_uim_models) { unittest {
     testAttribute(new DNumberAttribute);

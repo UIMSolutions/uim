@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DLookupAttribute : DAttribute {
-  mixin(AttributeThis!("LookupAttribute"));
+  mixin(AttributeThis!("Lookup"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -27,7 +27,7 @@ class DLookupAttribute : DAttribute {
     return LookupData(this); 
   } */
 }
-mixin(AttributeCalls!("LookupAttribute"));
+mixin(AttributeCalls!("Lookup"));
 
 version(test_uim_models) { unittest {  
     // TODO tests

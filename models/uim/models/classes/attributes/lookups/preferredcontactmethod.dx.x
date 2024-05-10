@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DPreferredContactMethodAttribute : DAttribute {
-  mixin(AttributeThis!("PreferredContactMethodAttribute"));
+  mixin(AttributeThis!("PreferredContactMethod"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -26,7 +26,7 @@ class DPreferredContactMethodAttribute : DAttribute {
 /*   override Json createData() {
     return PreferredContactMethoDData(this); } */
 }
-mixin(AttributeCalls!("PreferredContactMethodAttribute"));
+mixin(AttributeCalls!("PreferredContactMethod"));
 
 version(test_uim_models) { unittest {  
     // TODO tests

@@ -15,7 +15,7 @@ import uim.models;
 
 @safe:
 class DTrimesterAttribute : DIntegerCalendarPart {
-  mixin(AttributeThis!("TrimesterAttribute"));
+  mixin(AttributeThis!("Trimester"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -30,7 +30,7 @@ class DTrimesterAttribute : DIntegerCalendarPart {
   }
 }
 
-mixin(AttributeCalls!("TrimesterAttribute"));
+mixin(AttributeCalls!("Trimester"));
 
 version (test_uim_models) {
   unittest {

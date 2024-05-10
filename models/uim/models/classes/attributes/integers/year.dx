@@ -19,7 +19,7 @@ import uim.models;
 
 @safe:
 class DYearAttribute : DIntegerAttribute {
-  mixin(AttributeThis!("YearAttribute"));
+  mixin(AttributeThis!("Year"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -34,7 +34,7 @@ class DYearAttribute : DIntegerAttribute {
   }
 }
 
-mixin(AttributeCalls!("YearAttribute"));
+mixin(AttributeCalls!("Year"));
 
 version (test_uim_models) {
   unittest {

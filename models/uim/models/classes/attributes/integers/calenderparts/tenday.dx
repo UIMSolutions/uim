@@ -15,7 +15,7 @@ import uim.models;
 
 @safe:
 class DTendayAttribute : DIntegerCalendarPart {
-  mixin(AttributeThis!("TendayAttribute"));
+  mixin(AttributeThis!("Tenday"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -28,7 +28,7 @@ class DTendayAttribute : DIntegerCalendarPart {
 
   }
 }
-mixin(AttributeCalls!("TendayAttribute"));
+mixin(AttributeCalls!("Tenday"));
 
 version(test_uim_models) { unittest {
     testAttribute(new DTendayAttribute);

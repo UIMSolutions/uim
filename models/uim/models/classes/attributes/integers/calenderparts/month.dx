@@ -18,7 +18,7 @@ import uim.models;
 /* means.calendar
 means.calendar.day */
 class DMonthpartAttribute : DIntegerCalendarPart {
-  mixin(AttributeThis!("MonthpartAttribute"));
+  mixin(AttributeThis!("Monthpart"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -34,7 +34,7 @@ class DMonthpartAttribute : DIntegerCalendarPart {
   }
 }
 
-mixin(AttributeCalls!("MonthpartAttribute"));
+mixin(AttributeCalls!("Monthpart"));
 
 version (test_uim_models) {
   unittest {

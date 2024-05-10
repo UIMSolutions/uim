@@ -15,7 +15,7 @@ import uim.models;
 
 @safe:
 class DWeekAttribute : DIntegerCalendarPart {
-  mixin(AttributeThis!("WeekAttribute"));
+  mixin(AttributeThis!("Week"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -30,7 +30,7 @@ class DWeekAttribute : DIntegerCalendarPart {
   }
 }
 
-mixin(AttributeCalls!("WeekAttribute"));
+mixin(AttributeCalls!("Week"));
 
 version (test_uim_models) {
   unittest {

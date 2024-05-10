@@ -15,7 +15,7 @@ import uim.models;
 
 @safe:
 class DQuarterAttribute : DIntegerCalendarPart {
-  mixin(AttributeThis!("QuarterAttribute"));
+  mixin(AttributeThis!("Quarter"));
 
   // Initialization hook method.
   // Initialization hook method.
@@ -31,7 +31,7 @@ class DQuarterAttribute : DIntegerCalendarPart {
   }
 }
 
-mixin(AttributeCalls!("QuarterAttribute"));
+mixin(AttributeCalls!("Quarter"));
 
 version (test_uim_models) {
   unittest {

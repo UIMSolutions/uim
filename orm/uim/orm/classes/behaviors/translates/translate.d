@@ -43,14 +43,14 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * Default strategy class name.
      *
      * @psalm-var class-string<\ORM\Behavior\Translate\ITranslateStrategy>
-     * /
+     */
     protected static string mydefaultStrategyClass = ShadowTableStrategy.classname;
 
     /**
      * Translation strategy instance.
      *
      * @var \ORM\Behavior\Translate\ITranslateStrategy|null
-     * /
+     */
     protected ITranslateStrategy mystrategy = null;
 
     /**
@@ -78,7 +78,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * Params:
      * \ORM\Table mytable The table this behavior is attached to.
      * @param Json[string] configData The config for this behavior.
-     * /
+     */
     this(Table mytable, Json[string] configData = null) {
         configData += [
             "defaultLocale": I18n.getDefaultLocale(),
@@ -93,7 +93,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * Initialize hook
      * Params:
      * Json[string] configData The config for this behavior.
-     * /
+     */
     bool initialize(Json[string] initData = null) {
         getStrategy();
         return super.initialize(initData);
@@ -103,21 +103,21 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * Set default strategy class name.
      * Params:
      * string myclass DClass name.
-     * /
+     */
     static void setDefaultStrategyClass(string myclass) {
         mydefaultStrategyClass = myclass;
     }
 
     /**
      * Get default strategy class name.
-     * /
+     */
     static string getDefaultStrategyClass() {
         return mydefaultStrategyClass;
     }
 
     /**
      * Get strategy class instance.
-     * /
+     */
     ITranslateStrategy getStrategy() {
         if (this.strategy!isNull) {
             return _strategy;
@@ -127,13 +127,13 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
 
     /**
      * Create strategy instance.
-     * /
+     */
     protected ITranslateStrategy createStrategy() {
         configData = array_diff_key(
             configuration,
             ["implementedFinders", "implementedMethods", "strategyClass"]
         );
-        /** @var class-string<\ORM\Behavior\Translate\ITranslateStrategy> myclassName * /
+        /** @var class-string<\ORM\Behavior\Translate\ITranslateStrategy> myclassName */
         myclassName = configurationData.isSet("strategyClass", mydefaultStrategyClass);
 
         return new myclassName(_table, configData);
@@ -143,14 +143,14 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * Set strategy class instance.
      * Params:
      * \ORM\Behavior\Translate\ITranslateStrategy mystrategy Strategy class instance.
-     * /
+     */
     void setStrategy(ITranslateStrategy mystrategy) {
         this.strategy = mystrategy;
     }
 
     /**
      * Gets the Model callbacks this behavior is interested in.
-     * /
+     */
     IEvent[] implementedEvents() {
         return [
             "Model.beforeFind": "beforeFind",
@@ -170,7 +170,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * \UIM\Event\IEvent myevent
      * @param \ArrayObject mydata
      * @param \ArrayObject options
-     * /
+     */
     void beforeMarshal(IEvent myevent, ArrayObject mydata, ArrayObject options) {
         if (isSet(options["translations"]) && !options["translations"]) {
             return;
@@ -194,7 +194,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * \ORM\Marshaller mymarshaller The marhshaller of the table the behavior is attached to.
      * @param Json[string] mymap The property map being built.
      * @param Json[string] options The options array used in the marshalling call.
-     * /
+     */
     array buildMarshalMap(DMarshaller mymarshaller, Json[string] mymap, Json[string] options) {
         return _getStrategy().buildMarshalMap(mymarshaller, mymap, options);
     }
@@ -214,7 +214,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * string mylocale The locale to use for fetching and saving records. Pass `null`
      * in order to unset the current locale, and to make the behavior fall back to using the
      * globally configured locale.
-     * /
+     */
     void setLocale(string mylocale) {
         getStrategy().setLocale(mylocale);
     }
@@ -224,7 +224,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      *
      * If no locale has been explicitly set via `setLocale()`, this method will return
      * the currently configured global locale.
-     * /
+     */
     string getLocale() {
         return _getStrategy().getLocale();
     }
@@ -237,7 +237,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * field name is returned for all other fields.
      * Params:
      * string myfield Field name to be aliased.
-     * /
+     */
     string translationField(string myfield) {
         return _getStrategy().translationField(myfield);
     }
@@ -262,7 +262,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * Params:
      * \ORM\Query\SelectQuery myquery The original query to modify
      * @param string[] mylocales A list of locales or options with the `locales` key defined
-     * /
+     */
     SelectQuery findTranslations(SelectQuery myquery, Json[string] mylocales = []) {
         mytargetAlias = getStrategy().getTranslationTable().aliasName();
 
@@ -283,7 +283,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * Params:
      * string mymethod Method name.
      * @param Json[string] myargs Method arguments.
-    * /
+    */
                     Json __call(string mymethod, Json[string] myargs) {
                         return _strategy. {
                             mymethod
@@ -300,7 +300,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * of the autotable instance.
      * Params:
      * \ORM\Table mytable The table class to get a reference name for.
-     * /
+     */
                     protected string referenceName(Table mytable) {
                         myname = namespaceSplit(mytable.classname);
                         myname = substr(to!string(end(myname)), 0,  - 5);

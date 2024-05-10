@@ -10,7 +10,7 @@ import uim.orm;
  * the query, casting each field to the correct type and executing the extra
  * queries required for eager loading external associations.
  *
- * @template T of \UIM\Datasource\IEntity|array
+ * @template T of \UIM\Datasource\IORMEntity|array
  * @implements \UIM\Datasource\IResultset<T>
  */
 class DResultset { // TODO }: IResultset {
@@ -48,14 +48,14 @@ class DResultset { // TODO }: IResultset {
     
         /* 
     // Last record fetched from the statement
-    protected IEntity[] _current;
+    protected IORMEntity[] _current;
 
 
     /**
      * Results that have been fetched or hydrated into the results.
      *
      * @var \SplFixedArray<T>
-     * /
+     */
     protected ISplFixedArray _results;
 
     this(Json[string] results) {
@@ -66,8 +66,8 @@ class DResultset { // TODO }: IResultset {
      * Returns the current record in the result iterator.
      *
      * Part of Iterator interface.
-     * /
-    IEntity|array|null current() {
+     */
+    IORMEntity|array|null current() {
         return _current;
     }
     
@@ -75,7 +75,7 @@ class DResultset { // TODO }: IResultset {
      * Returns the key of the current record in the iterator.
      *
      * Part of Iterator interface.
-     * /
+     */
     int key() {
         return _index;
     }
@@ -84,7 +84,7 @@ class DResultset { // TODO }: IResultset {
      * Advances the iterator pointer to the next record.
      *
      * Part of Iterator interface.
-     * /
+     */
     void next() {
        _index++;
     }
@@ -93,7 +93,7 @@ class DResultset { // TODO }: IResultset {
      * Rewinds a Resultset.
      *
      * Part of Iterator interface.
-     * /
+     */
     void rewind() {
        _index = 0;
     }
@@ -102,7 +102,7 @@ class DResultset { // TODO }: IResultset {
      * Whether there are more results to be fetched from the iterator.
      *
      * Part of Iterator interface.
-     * /
+     */
    bool valid() {
         if (_index < _count) {
            _current = _results[_index];
@@ -116,8 +116,8 @@ class DResultset { // TODO }: IResultset {
      * Get the first record from a result set.
      *
      * This method will also close the underlying statement cursor.
-     * /
-    IEntity[] first() {
+     */
+    IORMEntity[] first() {
         foreach (result; this) {
             return result;
         }
@@ -139,7 +139,7 @@ class DResultset { // TODO }: IResultset {
      * Gives the number of rows in the result set.
      *
      * Part of the Countable interface.
-     * /
+     */
     size_t count() {
         return _count;
     }
@@ -156,7 +156,7 @@ class DResultset { // TODO }: IResultset {
     /**
      * Returns an array that can be used to describe the internal state of this
      * object.
-     * /
+     */
     Json[string] debugInfo() {
         mycurrentIndex = _index;
         // toArray() adjusts the current index, so we have to reset it

@@ -62,7 +62,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * and form the `FROM` clause.
      *
      * @param \uim\Datasource\IRepository|\uim\ORM\Table myRepository The default table object to use
-     * /
+     */
     IQuery repository(IRepository myRepository) {
       _repository = myRepository;
 
@@ -81,23 +81,23 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     /**
      * Whether the user select any fields before being executed, this is used
      * to determined if any fields should be automatically be selected.
-     * /
+     */
     protected bool _hasFields;
 
     /**
      * Tracks whether the original query should include
      * fields from the top level table.
-     * /
+     */
     protected bool _autoFields;
 
     /**
      * Whether to hydrate results into entity objects
-     * /
+     */
     protected bool _hydrate = true;
 
     /**
      * Whether aliases are generated for fields.
-     * /
+     */
     protected bool _aliasingEnabled = true;
 
     /**
@@ -105,13 +105,13 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * records this query will match when not using `limit`
      *
      * @var callable|null
-     * /
+     */
     // protected _counter;
 
     /**
      * Instance of a class responsible for storing association containments and
      * for eager loading them when this query is executed
-     * /
+     */
     protected DORMEagerLoader _eagerLoader;
 
     // True if the beforeFind event has already been triggered for this query
@@ -121,7 +121,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * The COUNT(*) for the query.
      *
      * When set, count query execution will be bypassed.
-     * /
+     */
     protected int _resultsCount;
 
     /**
@@ -129,7 +129,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param DORMdatabases.Connection connection The connection object
      * @param DORMDORMTable aTable The table this query is starting on
-     * /
+     */
     this(IConnection aConnection, DORMTable aTable) {
         super(aConnection);
         this.repository(aTable);
@@ -178,7 +178,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * to be added to the list.
      * @param bool canOverwrite whether to reset fields with passed list or not
      * @return this
-     * /
+     */
      
     IQuery select(IExpression anExpression, bool canOverwrite = false) {
     }
@@ -214,7 +214,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param bool canOverwrite Whether to reset/remove previous selected fields
      * @return this
      * @throws \InvalidArgumentException If Association|Table is not passed in first argument
-     * /
+     */
     IQuery selectAllExcept(table, Json[string] excludedFields, bool canOverwrite = false) {
         if (table instanceof Association) {
             table = table.getTarget();
@@ -242,7 +242,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param DORMDORMTable aTable The table to pull types from
      * @return this
-     * /
+     */
     function addDefaultTypes(DORMTable aTable) {
         alias = table.aliasName();
         map = table.getSchema().typeMap();
@@ -257,7 +257,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 
     /**
      * Returns the current configured query `_eagerLoaded` value
-     * /
+     */
     bool isEagerLoaded() {
       return _eagerLoaded;
     }
@@ -267,7 +267,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param DORMEagerLoader instance The eager loader to use.
      * @return this
-     * /
+     */
     function setEagerLoader(EagerLoader instance) {
         _eagerLoader = instance;
 
@@ -291,10 +291,10 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ### Example:
      *
      * ```
-     * // Bring articles" author information
+     *// Bring articles" author information
      * query.contain("Author");
      *
-     * // Also bring the category and tags associated to each article
+     *// Also bring the category and tags associated to each article
      * query.contain(["Category", "Tag"]);
      * ```
      *
@@ -305,13 +305,13 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ### Example:
      *
      * ```
-     * // Eager load the product info, and for each product load other 2 associations
+     *// Eager load the product info, and for each product load other 2 associations
      * query.contain(["Product": ["Manufacturer", "Distributor"]);
      *
-     * // Which is equivalent to calling
+     *// Which is equivalent to calling
      * query.contain(["Products.Manufactures", "Products.Distributors"]);
      *
-     * // For an author query, load his region, state and country
+     *// For an author query, load his region, state and country
      * query.contain("Regions.States.Countries");
      * ```
      *
@@ -344,7 +344,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ### Example:
      *
      * ```
-     * // Set options for the hasMany articles that will be eagerly loaded for an author
+     *// Set options for the hasMany articles that will be eagerly loaded for an author
      * query.contain([
      *     "Articles": [
      *         "fields": ["title", "author_id"]
@@ -355,7 +355,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * Finders can be configured to use options.
      *
      * ```
-     * // Retrieve translations for the articles, but only those for the `en` and `es` locales
+     *// Retrieve translations for the articles, but only those for the `en` and `es` locales
      * query.contain([
      *     "Articles": [
      *         "finder": [
@@ -371,11 +371,11 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * Failing to do so will trigger exceptions.
      *
      * ```
-     * // Use a query builder to add conditions to the containment
+     *// Use a query builder to add conditions to the containment
      * query.contain("Authors", function (q) {
      *     return q.where(...); // add conditions
      * });
-     * // Use special join conditions for multiple containments in the same method call
+     *// Use special join conditions for multiple containments in the same method call
      * query.contain([
      *     "Authors": [
      *         "foreignKey": false.toJson,
@@ -398,7 +398,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *   with the one passed
      * defaults to merging previous list with the new one.
      * @return this
-     * /
+     */
     function contain(associations, override = false) {
         loader = getEagerLoader();
         if (override == true) {
@@ -423,7 +423,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     }
 
     /**
-     * /
+     */
     Json[string] getContain() {
         return _getEagerLoader().getContain();
     }
@@ -432,7 +432,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * Clears the contained associations from the current query.
      *
      * @return this
-     * /
+     */
     function clearContain() {
         getEagerLoader().clearContain();
         _isDirty();
@@ -448,7 +448,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param DORMdatabases.TypeMap typeMap The typemap to check for columns in.
      *   This typemap is indirectly mutated via {@link DORMQuery.addDefaultTypes()}
      * @param array<string, array> associations The nested tree of associations to walk.
-     * /
+     */
     protected void _addAssociationsToTypeMap(DORMTable aTable, TypeMap typeMap, Json[string] associations) {
         foreach (associations as name: nested) {
             if (!table.hasAssociation(name)) {
@@ -475,7 +475,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ### Example:
      *
      * ```
-     * // Bring only articles that were tagged with "uim"
+     *// Bring only articles that were tagged with "uim"
      * query.matching("Tags", function (q) {
      *     return q.where(["name": "uim"]);
      * });
@@ -486,7 +486,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ### Example:
      *
      * ```
-     * // Bring only articles that were commented by "markstory"
+     *// Bring only articles that were commented by "markstory"
      * query.matching("Comments.Users", function (q) {
      *     return q.where(["username": "markstory"]);
      * });
@@ -500,7 +500,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ### Example:
      *
      * ```
-     * // Bring unique articles that were commented by "markstory"
+     *// Bring unique articles that were commented by "markstory"
      * query.distinct(["Articles.id"])
      *     .matching("Comments.Users", function (q) {
      *         return q.where(["username": "markstory"]);
@@ -515,7 +515,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param callable|null builder a function that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      * @return this
-     * /
+     */
     function matching(string assoc, ?callable builder = null) {
         result = getEagerLoader().setMatching(assoc, builder).getMatching();
         _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
@@ -534,7 +534,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ### Example:
      *
      * ```
-     * // Get the count of articles per user
+     *// Get the count of articles per user
      * usersQuery
      *     .select(["total_articles": query.func().count("Articles.id")])
      *     .leftJoinWith("Articles")
@@ -545,7 +545,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * You can also customize the conditions passed to the LEFT JOIN:
      *
      * ```
-     * // Get the count of articles per user with at least 5 votes
+     *// Get the count of articles per user with at least 5 votes
      * usersQuery
      *     .select(["total_articles": query.func().count("Articles.id")])
      *     .leftJoinWith("Articles", function (q) {
@@ -569,7 +569,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ### Example:
      *
      * ```
-     * // Total comments in articles by "markstory"
+     *// Total comments in articles by "markstory"
      * query
      *     .select(["total_comments": query.func().count("Comments.id")])
      *     .leftJoinWith("Comments.Users", function (q) {
@@ -586,7 +586,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param callable|null builder a function that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      * @return this
-     * /
+     */
     function leftJoinWith(string assoc, ?callable builder = null) {
         result = getEagerLoader()
             .setMatching(assoc, builder, [
@@ -610,7 +610,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ### Example:
      *
      * ```
-     * // Bring only articles that were tagged with "uim"
+     *// Bring only articles that were tagged with "uim"
      * query.innerJoinWith("Tags", function (q) {
      *     return q.where(["name": "uim"]);
      * });
@@ -632,7 +632,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param string assoc The association to join with
      * @param callable|null builder a function that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
-     * /
+     */
     void innerJoinWith(string assoc, ?callable builder = null) {
         result = getEagerLoader()
             .setMatching(assoc, builder, [
@@ -653,7 +653,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ### Example:
      *
      * ```
-     * // Bring only articles that were not tagged with "uim"
+     *// Bring only articles that were not tagged with "uim"
      * query.notMatching("Tags", function (q) {
      *     return q.where(["name": "uim"]);
      * });
@@ -664,7 +664,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ### Example:
      *
      * ```
-     * // Bring only articles that weren"t commented by "markstory"
+     *// Bring only articles that weren"t commented by "markstory"
      * query.notMatching("Comments.Users", function (q) {
      *     return q.where(["username": "markstory"]);
      * });
@@ -678,7 +678,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ### Example:
      *
      * ```
-     * // Bring unique articles that were commented by "markstory"
+     *// Bring unique articles that were commented by "markstory"
      * query.distinct(["Articles.id"])
      *     .notMatching("Comments.Users", function (q) {
      *         return q.where(["username": "markstory"]);
@@ -693,7 +693,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param callable|null builder a function that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      * @return this
-     * /
+     */
     function notMatching(string assoc, ?callable builder = null) {
         result = getEagerLoader()
             .setMatching(assoc, builder, [
@@ -769,7 +769,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param Json[string] options The options to be applied
      * @return this
-     * /
+     */
     function applyOptions(Json[string] optionData) {
         valid = [
             "fields": "select",
@@ -812,7 +812,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * This method creates query clones that are useful when working with subqueries.
      *
      * @return static
-     * /
+     */
     function cleanCopy() {
         clone = clone this;
         clone.triggerBeforeFind();
@@ -833,7 +833,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * query object.
      *
      * @return this
-     * /
+     */
     function clearResult() {
         _isDirty();
 
@@ -844,7 +844,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * {@inheritDoc}
      *
      * Handles cloning eager loaders.
-     * /
+     */
     function clone() {
         super.clone();
         if (_eagerLoader != null) {
@@ -858,7 +858,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * Returns the COUNT(*) for the query. If the query has not been
      * modified, and the count has already been performed the cached
      * value is returned
-     * /
+     */
     size_t count() {
         if (_resultsCount == null) {
             _resultsCount = _performCount();
@@ -869,7 +869,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 
     /**
      * Performs and returns the COUNT(*) for the query.
-     * /
+     */
     protected int _performCount() {
         query = this.cleanCopy();
         counter = _counter;
@@ -943,7 +943,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param callable|null counter The counter value
      * @return this
-     * /
+     */
     function counter(?callable counter) {
         _counter = counter;
 
@@ -957,7 +957,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param bool enable Use a boolean to set the hydration mode.
      * @return this
-     * /
+     */
     function enableHydration(bool enable = true) {
         _isDirty();
         _hydrate = enable;
@@ -972,7 +972,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * instead of entities.
      *
      * @return this
-     * /
+     */
     function disableHydration() {
         _isDirty();
         _hydrate = false;
@@ -982,7 +982,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 
     /**
      * Returns the current hydration mode.
-     * /
+     */
     bool isHydrationEnabled() {
         return _hydrate;
     }
@@ -996,7 +996,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *   a cache config instance.
      * @return this
      * @throws \RuntimeException When you attempt to cache a non-select query.
-     * /
+     */
     function cache(key, myConfiguration = "default") {
         if (_type != "select" && _type != null) {
             throw new DRuntimeException("You cannot cache the results of non-select queries.");
@@ -1010,7 +1010,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @return DORMDatasource\IResultset
      * @throws \RuntimeException if this method is called on a non-select Query.
-     * /
+     */
     function all(): IResultset
     {
         if (_type != "select" && _type != null) {
@@ -1026,7 +1026,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * Trigger the beforeFind event on the query"s repository object.
      *
      * Will not trigger more than once, and only for select queries.
-     * /
+     */
     void triggerBeforeFind() {
         if (!_beforeFindFired && _type == "select") {
             _beforeFindFired = true;
@@ -1055,7 +1055,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * associations.
      *
      * @return DORMDatasource\IResultset
-     * /
+     */
     protected function _execute(): IResultset
     {
         this.triggerBeforeFind();
@@ -1078,7 +1078,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * using `contain`
      *
      * It also sets the default types for the columns in the select clause
-     * /
+     */
     protected void _transformQuery() {
         if (!_isDirty || _type != "select") {
             return;
@@ -1097,7 +1097,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     /**
      * Inspects if there are any set fields for selecting, otherwise adds all
      * the fields for the default table.
-     * /
+     */
     protected void _addDefaultFields() {
         select = this.clause("select");
         _hasFields = true;
@@ -1118,7 +1118,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 
     /**
      * Sets the default types for converting the fields in the select clause
-     * /
+     */
     protected void _addDefaultSelectTypes() {
         typeMap = getTypeMap().getDefaults();
         select = this.clause("select");
@@ -1147,18 +1147,18 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param Json[string] options The options for the finder.
      * @return static Returns a modified query.
      * @psalm-suppress MoreSpecificReturnType
-     * /
+     */
     function find(string finder, Json[string] optionData = null) {
         table = getRepository();
 
-        /** @psalm-suppress LessSpecificReturnStatement * /
+        /** @psalm-suppress LessSpecificReturnStatement */
         return table.callFinder(finder, this, options);
     }
 
     /**
      * Marks a query as dirty, removing any preprocessed information
      * from in memory caching such as previous results
-     * /
+     */
     protected void _isDirty() {
         _results = null;
         _resultsCount = null;
@@ -1173,7 +1173,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param DORMdatabases.IExpression|string|null table Unused parameter.
      * @return this
-     * /
+     */
     function update(table = null) {
         if (!table) {
             repository = getRepository();
@@ -1191,7 +1191,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param string|null table Unused parameter.
      * @return this
-     * /
+     */
     function remove(string table = null) {
         repository = getRepository();
         this.from([repository.aliasName(): repository.getTable()]);
@@ -1212,7 +1212,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param Json[string] columns The columns to insert into.
      * @param string[] types A map between columns & their datatypes.
      * @return this
-     * /
+     */
     function insert(Json[string] columns, Json[string] types = null) {
         repository = getRepository();
         table = repository.getTable();
@@ -1226,7 +1226,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param DORMDORMTable aTable The table this query is starting on
      * @return static
-     * /
+     */
     static function subquery(DORMTable aTable) {
         query = new static(table.getConnection(), table);
         query.aliasingEnabled = false;
@@ -1241,7 +1241,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param Json[string] arguments list of arguments for the method to call
      * @return mixed
      * @throws \BadMethodCallException if the method is called for a non-select query
-     * /
+     */
     function __call(string method, Json[string] arguments) {
         if (this.type() == "select") {
             return _call(method, arguments);
@@ -1274,7 +1274,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * Part of JsonSerializable interface.
      *
      * @return DORMDatasource\IResultset The data to convert to Json.
-     * /
+     */
     function JsonSerialize(): IResultset
     {
         return _all();
@@ -1288,7 +1288,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param bool value Set true to enable, false to disable.
      * @return this
-     * /
+     */
     function enableAutoFields(bool value = true) {
         _autoFields = value;
 
@@ -1299,7 +1299,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * Disables automatically appending fields.
      *
      * @return this
-     * /
+     */
     function disableAutoFields() {
         _autoFields = false;
 
@@ -1313,7 +1313,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * auto-fields with enableAutoFields().
      *
      * @return bool|null The current value. Returns null if neither enabled or disabled yet.
-     * /
+     */
     bool isAutoFieldsEnabled(): ?bool
     {
         return _autoFields;
@@ -1324,7 +1324,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param \Traversable result Original results
      * @return DORMDatasource\IResultset
-     * /
+     */
     protected function _decorateResults(Traversable result): IResultset
     {
         result = _applyDecorators(result);

@@ -11,7 +11,7 @@ class DUpdateQuery : DQuery {
      * Constructor
      * Params:
      * \ORM\Table mytable The table this query is starting on
-     * /
+     */
     this(Table aTable) {
         super(aTable.getConnection());
 

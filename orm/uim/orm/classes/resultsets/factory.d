@@ -19,7 +19,7 @@ class DResultsetFactory {
      * Params:
      * \ORM\Query\SelectQuery<T> myquery Query from where results came.
      * @param Json[string] results Results array.
-     * /
+     */
     Resultset<array|\UIM\Datasource\IORMEntity> createResultset(SelectQuery myquery, Json[string] results) {
         mydata = this.collectData(myquery);
 
@@ -34,7 +34,7 @@ class DResultsetFactory {
      * entity hydration.
      * Params:
      * \ORM\Query\SelectQuery myquery The query from where to derive the data.
-     * /
+     */
     // TODO protected Json[string] collectData(SelectQuery myquery) {
         myprimaryTable = myquery.getRepository();
         mydata = [
@@ -89,7 +89,7 @@ class DResultsetFactory {
      * Params:
      * Json[string] myrow Array containing columns and values.
      * @param Json[string] data Array containing table and query metadata
-     * /
+     */
     protected IORMEntity|array groupResult(Json[string] myrow, Json[string] metadata) {
         results = mypresentAliases = null;
         metadata.addData([

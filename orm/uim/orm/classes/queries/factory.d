@@ -26,7 +26,7 @@ class QueryFactory {
      * Create a new DeleteQuery instance.
      * Params:
      * \ORM\Table mytable The table this query is starting on.
-     * /
+     */
     DeleteQuery remove(Table mytable) {
         return new DeleteQuery(mytable);
     } */

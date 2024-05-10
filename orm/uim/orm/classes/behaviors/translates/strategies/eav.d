@@ -65,7 +65,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      *
      * @param DORMDORMTable aTable The table this strategy is attached to.
      * @param Json[string] myConfiguration The config for this strategy.
-     * /
+     */
     this(DORMTable aTable, Json[string] configData) {
         if (configuration.has("tableLocator"])) {
             _tableLocator = configuration.get("tableLocator"];
@@ -87,7 +87,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      *
      * Additionally it creates a `i18n` HasMany association that will be
      * used for fetching all translations for each record in the bound table.
-     * /
+     */
     protected void setupAssociations() {
         fields = configuration.get("fields"];
         table = configuration.get("translationTable"];
@@ -153,7 +153,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * @param DORMevents.IEvent event The beforeFind event that was fired.
      * @param DORMQuery query Query
      * @param \ArrayObject options The options for the query
-     * /
+     */
     void beforeFind(IEvent event, Query query, ArrayObject options) {
         locale = Hash.get(options, "locale", getLocale());
 
@@ -216,7 +216,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * @param DORMevents.IEvent event The beforeSave event that was fired
      * @param DORMDatasource\IORMEntity anEntity The entity that is going to be saved
      * @param \ArrayObject options the options passed to the save method
-     * /
+     */
     void beforeSave(IEvent event, IORMEntity anEntity, ArrayObject options) {
         locale = entity.get("_locale") ?: getLocale();
         newOptions = [this.translationTable.aliasName(): ["validate": false.toJson]];
@@ -316,7 +316,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * field name is returned for all other fields.
      *
      * @param string field Field name to be aliased.
-     * /
+     */
     string translationField(string field) {
         table = this.table;
         if (getLocale() == getConfig("defaultLocale")) {
@@ -338,10 +338,10 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * @param DORMDatasource\IResultset results Results to map.
      * @param string locale Locale string
      * @return DORMcollections.ICollection
-     * /
+     */
     protected function rowMapper(results, locale) {
         return results.map(function (row) use (locale) {
-            /** @var DORMdatasources.IORMEntity|array|null row * /
+            /** @var DORMdatasources.IORMEntity|array|null row */
             if (row == null) {
                 return row;
             }
@@ -366,7 +366,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
             row["_locale"] = locale;
             if (hydrated) {
-                /** @psalm-suppress PossiblyInvalidMethodCall * /
+                /** @psalm-suppress PossiblyInvalidMethodCall */
                 row.clean();
             }
 
@@ -380,7 +380,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      *
      * @param DORMDatasource\IResultset results Results to modify.
      * @return DORMcollections.ICollection
-     * /
+     */
     function groupTranslations(results): ICollection
     {
         return results.map(function (row) {
@@ -419,7 +419,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * entity. The result will be put into its `_i18n` property.
      *
      * @param DORMDatasource\IORMEntity anEntity Entity
-     * /
+     */
     protected void bundleTranslatedFields(entity) {
         translations = (array)entity.get("_translations");
 
@@ -471,7 +471,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * to the conditions array.
      *
      * @param Json[string] ruleSet An array of array of conditions to be used for finding each
-     * /
+     */
     // TODO protected Json[string] findExistingTranslations(ruleSet) {
         association = this.table.getAssociation(this.translationTable.aliasName());
 

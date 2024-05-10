@@ -54,7 +54,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      *
      * @param DORMDORMTable aTable Table instance.
      * @param Json[string] myConfiguration Configuration.
-     * /
+     */
     this(DORMTable aTable, Json[string] configData) {
         tableAlias = table.aliasName();
         [plugin] = pluginSplit(table.registryKey(), true);
@@ -85,7 +85,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      *
      * Don"t create a hasOne association here as the join conditions are modified
      * in before find - so create/modify it there.
-     * /
+     */
     protected void setupAssociations() {
         myConfiguration = configuration;
 
@@ -107,7 +107,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param DORMevents.IEvent event The beforeFind event that was fired.
      * @param DORMQuery query Query.
      * @param \ArrayObject options The options for the query.
-     * /
+     */
     void beforeFind(IEvent event, Query query, ArrayObject options) {
         locale = Hash.get(options, "locale", getLocale());
         myConfiguration = configuration;
@@ -141,7 +141,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      *
      * @param string locale Locale
      * @param \ArrayObject options Find options
-     * /
+     */
         protected void setupHasOneAssociation(string locale, ArrayObject options) {
             myConfiguration = configuration;
 
@@ -188,7 +188,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param DORMQuery query The query to check.
      * @param Json[string] myConfiguration The config to use for adding fields.
      * @return bool Whether a join to the translation table is required.
-     * /
+     */
         protected function addFieldsToQuery(query, Json myConfiguration) {
             if (query.isAutoFieldsEnabled()) {
                 return true;
@@ -228,7 +228,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param string aName The clause name.
      * @param Json[string] myConfiguration The config to use for adding fields.
      * @return bool Whether a join to the translation table is required.
-     * /
+     */
             protected bool iterateClause(query, name = "", myConfiguration = null) {
                 clause = query.clause(name);
                 if (!clause || !clause.count()) {
@@ -246,7 +246,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                     if (!field.isString || indexOf(field, ".")) {
                         return c;}
 
-                        /** @psalm-suppress ParadoxicalCondition * /
+                        /** @psalm-suppress ParadoxicalCondition */
                         if (in_array(field, fields, true)) {
                             joinRequired = true; field = "alias.field";}
                             elseif(in_array(field, mainTableFields, true)) {
@@ -294,7 +294,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                     joinRequired = true; expression.setField(
                                                     "alias.field"); return; }
 
-                                                    /** @psalm-suppress ParadoxicalCondition * /
+                                                    /** @psalm-suppress ParadoxicalCondition */
                                                     if (in_array(field, mainTableFields, true)) {
                                                         expression.setField("mainTableAlias.field");
                                                     }
@@ -367,7 +367,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                     if (id) {
                                                                         where["id"] = id;
 
-                                                                        /** @var DORMdatasources.IORMEntity|null translation * /
+                                                                        /** @var DORMdatasources.IORMEntity|null translation */
                                                                         translation = this.translationTable.find()
                                                                         .select(array_merge([
                                                                             "id",
@@ -415,7 +415,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * field name is returned for all other fields.
      *
      * @param string field Field name to be aliased.
-     * /
+     */
                                                                         string translationField(
                                                                         string field) {
                                                                             if (getLocale() == getConfig(
@@ -441,13 +441,13 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param DORMDatasource\IResultset results Results to map.
      * @param string locale Locale string
      * @return DORMcollections.ICollection
-     * /
+     */
                                                                         protected function rowMapper(results, locale) {
                                                                             allowEmpty = configuration.get("allowEmptyTranslations"];
 
                                                                             return results.map(
                                                                             function(row) use(allowEmpty, locale) {
-                                                                                /** @var DORMdatasources.IORMEntity|array|null row * /
+                                                                                /** @var DORMdatasources.IORMEntity|array|null row */
                                                                                 if (row == null) {
                                                                                     return row;
                                                                                 }
@@ -463,20 +463,20 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                                     row["translation"]);
 
                                                                                     if (hydrated) {
-                                                                                        /** @psalm-suppress PossiblyInvalidMethodCall * /
+                                                                                        /** @psalm-suppress PossiblyInvalidMethodCall */
                                                                                         row.clean();
                                                                                     }
 
                                                                                     return row;
                                                                                 }
 
-                                                                                /** @var DORMEntity|array translation * /
+                                                                                /** @var DORMEntity|array translation */
                                                                                 translation = row["translation"];
 
                                                                                 /**
              * @psalm-suppress PossiblyInvalidMethodCall
              * @psalm-suppress PossiblyInvalidArgument
-             * /
+             */
                                                                                 keys = hydrated ? translation
                                                                                 .getVisible() : translation
                                                                                 .keys;
@@ -501,7 +501,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                                 row["translation"]);
 
                                                                                 if (hydrated) {
-                                                                                    /** @psalm-suppress PossiblyInvalidMethodCall * /
+                                                                                    /** @psalm-suppress PossiblyInvalidMethodCall */
                                                                                     row.clean();
                                                                                 }
 
@@ -514,7 +514,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      *
      * @param DORMDatasource\IResultset results Results to modify.
      * @return DORMcollections.ICollection
-     * /
+     */
                                                                             function groupTranslations(
                                                                             results) : ICollection {
                                                                                 return results.map(
@@ -552,7 +552,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * entity. The result will be put into its `_i18n` property.
      *
      * @param DORMDatasource\IORMEntity anEntity Entity.
-     * /
+     */
                                                                             protected void bundleTranslatedFields(
                                                                             entity) {
                                                                                 translations = (
@@ -593,7 +593,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * Lazy define and return the main table fields.
      *
      * @return string[]
-     * /
+     */
                                                                             protected string[] mainFields() {
                                                                                 fields = getConfig(
                                                                                 "mainTableFields");
@@ -613,7 +613,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                             /**
      * Lazy define and return the translation table fields.
      *
-     * /
+     */
                                                                             protected string[] translatedFields() {
                                                                                 fields = getConfig(
                                                                                 "fields");

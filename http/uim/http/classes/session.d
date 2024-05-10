@@ -182,7 +182,7 @@ class DSession {
             cookiePath = configData.isEmpty("cookiePath") ? "/" : configData("cookiePath"];
             configData("ini"]["session.cookie_path"] = cookiePath;
         }
-        this.options(configData("ini"]);
+        options(configData("ini"]);
 
         if (!configData.isEmpty("handler")) {
             className = configData("handler"]["engine"];
@@ -295,7 +295,7 @@ class DSession {
         _started = true;
 
         if (_timedOut()) {
-            this.destroy();
+            destroy();
 
             return _start();
         }

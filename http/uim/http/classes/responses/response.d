@@ -386,7 +386,7 @@ class DResponse : IResponse {
             if (!cast(IStream)options["stream"]) {
                 throw new DInvalidArgumentException("Stream option must be an object that : IStream");
             }
-            this.stream = options["stream"];
+            _stream = options["stream"];
         } else {
            _createStream();
         }

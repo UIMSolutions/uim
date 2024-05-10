@@ -249,7 +249,7 @@ class DServerRequest { // }: IServerRequest {
        _environmentData = configData["environment"];
 
         this.uri = anUri;
-        this.base = configData["base"];
+        _base = configData["base"];
         this.webroot = configData["webroot"];
 
         if (isSet(configData["input"])) {

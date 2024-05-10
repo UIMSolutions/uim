@@ -22,8 +22,8 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * @param \UIM\Core\IContainer container Container instance.
      * /
     this(Json[string] middleware = [], ?IContainer container = null) {
-        this.container = container;
-        this.queue = middleware;
+        _container = container;
+        _queue = middleware;
     }
     
     /**

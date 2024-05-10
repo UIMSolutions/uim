@@ -11,7 +11,7 @@ final class DImage(T) {
     static if (is(typeof({ auto x = T.white; })))
         const static T white = T.white;
 
-    T[] _image;
+    T[] image;
     private size_t nx_, ny_;
 
     this(in int nxx=0, in int nyy=0, in bool inizialize=true)
@@ -36,9 +36,9 @@ final class DImage(T) {
 
     @property DImage dup() const pure nothrow @safe {
         auto result = new DImage();
-        result.image = _image.dup;
-        result.nx_ = _nx;
-        result.ny_ = _ny;
+        result.image = image.dup;
+        result.nx_ = nx;
+        result.ny_ = ny;
         return result;
     }
 
@@ -62,7 +62,7 @@ final class DImage(T) {
         //assert(x < nx_, format("opIndex, x=%d, nx=%d", x, nx));
         //assert(y < ny_, format("opIndex, y=%d, ny=%d", y, ny));
     } body {
-        return _image[x + y * nx_];
+        return image[x + y * nx_];
     }
 
     T opIndex(in size_t x, in size_t y) const pure nothrow @safe @nogc
@@ -71,7 +71,7 @@ final class DImage(T) {
         //assert(x < nx_, format("opIndex, x=%d, nx=%d", x, nx));
         //assert(y < ny_, format("opIndex, y=%d, ny=%d", y, ny));
     } body {
-        return _image[x + y * nx_];
+        return image[x + y * nx_];
     }
 
     T opIndexAssign(in T color, in size_t x, in size_t y)
@@ -81,7 +81,7 @@ final class DImage(T) {
         //assert(x < nx_, format("opIndex, x=%d, nx=%d", x, nx));
         //assert(y < ny_, format("opIndex, y=%d, ny=%d", y, ny));
     } body {
-        return _image[x + y * nx_] = color;
+        return image[x + y * nx_] = color;
     }
 
     void opIndexUnary(string op)(in size_t x, in size_t y)
@@ -89,11 +89,11 @@ final class DImage(T) {
     if (op == "++" || op == "--") in {
         assert(x < nx_ && y < ny_);
     } body {
-        mixin("_image[x + y * nx_] " ~ op ~ ";");
+        mixin("image[x + y * nx_] " ~ op ~ ";");
     }
 
     void clear(in T color=this.black) pure nothrow @safe @nogc {
-        _image[] = color;
+        image[] = color;
     }
 
     /// Convert a 2D array of chars to a binary Image.
@@ -118,7 +118,7 @@ final class DImage(T) {
         size_t i = 0;
         foreach (immutable y; 0 .. ny_) {
             foreach (immutable x; 0 .. nx_)
-                putchar(_image[i++] == black ? bl : wh);
+                putchar(image[i++] == black ? bl : wh);
             putchar('\n');
         }
     }

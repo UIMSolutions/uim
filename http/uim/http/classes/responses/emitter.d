@@ -94,7 +94,7 @@ class DResponseEmitter {
         size_t pos = 0;
         size_t length = last - first + 1;
         while (!body.eof() && pos < length) {
-            if (pos + this.maxBufferLength > length) {
+            if (pos + _maxBufferLength > length) {
                 writeln(body.read(length - pos);
                 break;
             }

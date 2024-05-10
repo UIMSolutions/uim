@@ -1448,10 +1448,10 @@ class DFormHelper : DHelper {
      * @return string A generated file input.
      * /
     string file(string fieldNameName, Json[string] options  = null) {
-        options = options.update["secure": true.toJson];
-        options = _initInputField(fieldName, options);
+        auto updatedOptions = options.merge("secure", true);
+        updatedOptions = _initInputField(fieldName, updatedOptions);
 
-        options.remove("type"]);
+        updatedOptions.remove("type");
 
         return _widget("file", options);
     }

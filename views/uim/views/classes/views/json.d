@@ -75,9 +75,9 @@ class DJsonView : DSerializedView {
      *
      * /
     configuration.updateDefaults([
-            "serialize": null,
-            "JsonOptions": null,
-            "Jsonp": null,
+            "serialize": Json(null),
+            "JsonOptions": Json(null),
+            "Jsonp": Json(null),
         ]; 
         
         /**

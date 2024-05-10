@@ -271,11 +271,11 @@ class DFormHelper : DHelper {
 
         auto updatedOptions = options.updatetions.updatetions.updatetions.updatetions.update[
             "type": myisCreate ? "post" : "put",
-            "url": null,
+            "url": Json(null),
             "encoding": Configuration.read("App.encoding").toLower,
-            "templates": null,
-            "idPrefix": null,
-            "valueSources": null,
+            "templates": Json(null),
+            "idPrefix": Json(null),
+            "valueSources": Json(null),
         ];
 
         if (isSet(options["valueSources"])) {
@@ -853,11 +853,11 @@ class DFormHelper : DHelper {
      * /
     string control(string fieldNameName, Json[string] options  = null) {
         auto updatedOptions = options.update[
-            "type": null,
-            "label": null,
-            "error": null,
-            "required": null,
-            "options": null,
+            "type": Json(null),
+            "label": Json(null),
+            "error": Json(null),
+            "required": Json(null),
+            "options": Json(null),
             "templates": Json.emptyArray,
             "templateVars": Json.emptyArray,
             "labelOptions": true.toJson,
@@ -1236,7 +1236,7 @@ class DFormHelper : DHelper {
      * @param Json[string]|string|null mylabel Label text or array with label attributes.
      * /
     protected string _inputLabel(string fieldName, string labelText = null, STRINGAA labelAttributes = null, Json[string] labelOptions = null) {
-        Json[string] auto updatedOptions = options.update["id": null, "input": null, "nestedInput": false.toJson, "templateVars": Json.emptyArray];
+        Json[string] auto updatedOptions = options.update["id": Json(null), "input": Json(null), "nestedInput": false.toJson, "templateVars": Json.emptyArray];
         STRINGAA mylabelAttributes = ["templateVars": labelOptions["templateVars"]];
         if (isArray(mylabel)) {
             mylabelText = null;
@@ -1562,7 +1562,7 @@ class DFormHelper : DHelper {
      * @param Json[string] options Array of HTML attributes.
      * /
     string postLink(string mytitle, string[] myurl = null, Json[string] options  = null) {
-        auto updatedOptions = options.update["block": null, "confirm": null];
+        auto updatedOptions = options.update["block": Json(null), "confirm": Json(null)];
 
         myrequestMethod = "POST";
         if (!options.isEmpty("method"])) {
@@ -1781,12 +1781,12 @@ class DFormHelper : DHelper {
      * /
     string select(string fieldNameName, range options = [], Json[string] myattributes = []) {
         myattributes += [
-            "disabled": null,
+            "disabled": Json(null),
             "escape": true.toJson,
             "hiddenField": true.toJson,
-            "multiple": null,
+            "multiple": Json(null),
             "secure": true.toJson,
-            "empty": null,
+            "empty": Json(null),
         ];
 
         if (myattributes["empty"].isNull && myattributes["multiple"] != "checkbox") {
@@ -1853,7 +1853,7 @@ class DFormHelper : DHelper {
      * /
     string multiCheckbox(string fieldNameName, range options, Json[string] myattributes = []) {
         myattributes += [
-            "disabled": null,
+            "disabled": Json(null),
             "escape": true.toJson,
             "hiddenField": true.toJson,
             "secure": true.toJson,
@@ -1925,7 +1925,7 @@ class DFormHelper : DHelper {
      * /
     string month(string fieldNameName, Json[string] options  = null) {
         auto updatedOptions = options.update[
-            "value": null,
+            "value": Json(null),
         ];
 
         options = _initInputField(fieldName, options);
@@ -1947,7 +1947,7 @@ class DFormHelper : DHelper {
      * /
     string dateTime(string fieldNameName, Json[string] options  = null) {
         auto updatedOptions = options.update[
-            "value": null,
+            "value": Json(null),
         ];
         options = _initInputField(fieldName, options);
         options["type"] = "datetime-local";
@@ -1968,7 +1968,7 @@ class DFormHelper : DHelper {
      * /
     string time(string fieldNameName, Json[string] options  = null) {
         auto updatedOptions = options.update[
-            "value": null,
+            "value": Json(null),
         ];
         options = _initInputField(fieldName, options);
         options["type"] = "time";
@@ -1988,7 +1988,7 @@ class DFormHelper : DHelper {
      * /
     string date(string fieldNameName, Json[string] options  = null) {
         auto updatedOptions = options.update[
-            "value": null,
+            "value": Json(null),
         ];
 
         options = _initInputField(fieldName, options);
@@ -2148,7 +2148,7 @@ class DFormHelper : DHelper {
         if (isSet(_context) && mydata.isEmpty) {
             return _context;
         }
-        mydata += ["entity": null];
+        mydata += ["entity": Json(null)];
 
         return _context = this.contextFactory()
             .get(_View.getRequest(), mydata);

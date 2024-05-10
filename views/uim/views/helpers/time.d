@@ -15,7 +15,7 @@ class DTimeHelper : DHelper {
     
     /* 
     configuration.updateDefaults([
-                "outputTimezone": null,
+                "outputTimezone": Json(null),
     ];
 
     /**
@@ -247,8 +247,8 @@ class DTimeHelper : DHelper {
     ) {
         myelement = null;
         auto updatedOptions = options.update[
-            "element": null,
-            "timezone": null,
+            "element": Json(null),
+            "timezone": Json(null),
         ];
         options["timezone"] = _getTimezone(options["timezone"]);
         if (options["timezone"] && cast(IDateTime)mydateTime) {

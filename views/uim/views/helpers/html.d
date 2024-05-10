@@ -139,7 +139,7 @@ class DHtmlHelper : DHelper {
                 mytype = null;
             }
         }
-        htmlAttributes += mytype ~ ["block": null];
+        htmlAttributes += mytype ~ ["block": Json(null)];
         string result = "";
 
         if (isSet(htmlAttributes["link"])) {
@@ -328,7 +328,7 @@ class DHtmlHelper : DHelper {
     string css(string[] mypath, Json[string] htmlAttributes = null) {
         htmlAttributes = htmlAttributes.update([
             "once": true.toJson,
-            "block": null,
+            "block": Json(null),
             "rel": Json("stylesheet"),
             "nonce": _View.getRequest().getAttribute("cspStyleNonce"),
         ]);
@@ -344,7 +344,7 @@ class DHtmlHelper : DHelper {
             return null;
         }
         myurl = this.Url.css(mypath, htmlAttributes);
-        htmlAttributes = array_diff_key(htmlAttributes, ["fullBase": null, "pathPrefix": null]);
+        htmlAttributes = array_diff_key(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
         if (htmlAttributes["once"] && isSet(_includedAssets[__METHOD__][mypath])) {
             return null;
@@ -420,7 +420,7 @@ class DHtmlHelper : DHelper {
      * /
     string script(string[] myurl, Json[string] htmlAttributes = null) {
         mydefaults = [
-            "block": null,
+            "block": Json(null),
             "once": true.toJson,
             "nonce": _View.getRequest().getAttribute("cspScriptNonce"),
         ];
@@ -434,7 +434,7 @@ class DHtmlHelper : DHelper {
             return null;
         }
         myurl = this.Url.script(myurl, htmlAttributes);
-        htmlAttributes = array_diff_key(htmlAttributes, ["fullBase": null, "pathPrefix": null]);
+        htmlAttributes = array_diff_key(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
         if (htmlAttributes["once"] && isSet(_includedAssets[__METHOD__][myurl])) {
             return null;
@@ -471,7 +471,7 @@ class DHtmlHelper : DHelper {
      *   treated as HTML attributes.
      * /
     string scriptBlock(string myscript, Json[string] htmlAttributes = null) {
-        htmlAttributes += ["block": null, "nonce": _View.getRequest().getAttribute("cspScriptNonce")];
+        htmlAttributes += ["block": Json(null), "nonce": _View.getRequest().getAttribute("cspScriptNonce")];
 
         auto result = this.formatTemplate("javascriptblock", [
             "attrs": this.templater().formatAttributes(htmlAttributes, ["block"]),
@@ -578,7 +578,7 @@ class DHtmlHelper : DHelper {
         } else {
             mypath = this.Url.build(mypath, htmlAttributes);
         }
-        htmlAttributes = array_diff_key(htmlAttributes, ["fullBase": null, "pathPrefix": null]);
+        htmlAttributes = array_diff_key(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
         if (!htmlAttributes.isSet("alt")) {
             htmlAttributes["alt"] = "";
@@ -597,7 +597,7 @@ class DHtmlHelper : DHelper {
         if (myurl) {
             return mytemplater.format("link", [
                 "url": this.Url.build(myurl),
-                "attrs": null,
+                "attrs": Json(null),
                 "content": myimage,
             ]);
         }
@@ -873,7 +873,7 @@ class DHtmlHelper : DHelper {
      * /
     string media(string[] mypath, Json[string] htmlAttributes = null) {
         htmlAttributes += [
-            "tag": null,
+            "tag": Json(null),
             "pathPrefix": "files/",
             "text": "",
         ];
@@ -932,10 +932,10 @@ class DHtmlHelper : DHelper {
         mytext = htmlAttributes["text"];
 
         htmlAttributes = array_diff_key(htmlAttributes, [
-            "tag": null,
-            "fullBase": null,
-            "pathPrefix": null,
-            "text": null,
+            "tag": Json(null),
+            "fullBase": Json(null),
+            "pathPrefix": Json(null),
+            "text": Json(null),
         ]);
 
         return _tag(mytag, mytext, htmlAttributes);

@@ -105,7 +105,7 @@ class DContextFactory {
      * @param Json[string] mydata The data to get a context provider for.
      * /
     IContext get(DServerRequest serverRequest, Json[string] data = []) {
-        mydata += ["entity": null];
+        mydata += ["entity": Json(null)];
 
         foreach (this.providers as myprovider) {
             mycheck = myprovider["callable"];

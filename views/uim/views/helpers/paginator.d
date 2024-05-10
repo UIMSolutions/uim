@@ -386,7 +386,7 @@ class DPaginatorHelper : DHelper {
      * /
     Json[string] generateUrlParams(Json[string] options  = null, Json[string] myurl = []) {
         mypaging = this.params();
-        mypaging += ["currentPage": null, "sort": null, "direction": null, "limit": null];
+        mypaging += ["currentPage": Json(null), "sort": Json(null), "direction": Json(null), "limit": Json(null)];
         mypaging["page"] = mypaging["currentPage"];
         unset(mypaging["currentPage"]);
 
@@ -406,7 +406,7 @@ class DPaginatorHelper : DHelper {
         }
         auto updatedOptions = options.updatearray_intersect_key(
             mypaging,
-            ["page": null, "limit": null, "sort": null, "direction": null]
+            ["page": Json(null), "limit": Json(null), "sort": Json(null), "direction": Json(null)]
         );
 
         if (!options.isEmpty("page"]) && options["page"] == 1) {
@@ -562,8 +562,8 @@ class DPaginatorHelper : DHelper {
      * /
     string numbers(Json[string] optionsForNumbers  = null) {
         Json[string] updatedOptions = optionsForNumbers.merge([
-            "before": null, "after": null,
-            "modulus": 8, "first": null, "last": null, "url": Json.emptyArray,
+            "before": Json(null), "after": Json(null),
+            "modulus": 8, "first": Json(null), "last": Json(null), "url": Json.emptyArray,
         ]);
 
         myparams = this.params() ~ ["currentPage": 1];

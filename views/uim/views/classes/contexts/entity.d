@@ -173,7 +173,7 @@ class DEntityContext : DContext {
      * /
     Json val(string fieldPath, Json[string] options  = null) {
         auto updatedOptions = options.update[
-            "default": null,
+            "default": Json(null),
             "schemaDefault": true.toJson,
         ];
 

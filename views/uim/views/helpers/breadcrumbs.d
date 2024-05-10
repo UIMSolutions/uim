@@ -62,7 +62,7 @@ class DBreadcrumbsHelper : DHelper {
      * /
     void add(string[] mytitle, string[] myurl = null, Json[string] options  = null) {
         if (mytitle.isArray) {
-            mytitle.each!(crumb => this.crumbs ~= crumb ~ ["title": "", "url": null, "options": Json.emptyArray]);
+            mytitle.each!(crumb => this.crumbs ~= crumb ~ ["title": "", "url": Json(null), "options": Json.emptyArray]);
             return;
         }
         this.crumbs ~= compact("title", "url", "options");
@@ -91,7 +91,7 @@ class DBreadcrumbsHelper : DHelper {
         if (mytitle.isArray) {
             string[] mycrumbs;
             foreach (title; titles) {
-                mycrumbs ~= title ~ ["title": "", "url": null, "options": Json.emptyArray];
+                mycrumbs ~= title ~ ["title": "", "url": Json(null), "options": Json.emptyArray];
             }
             array_splice(this.crumbs, 0, 0, mycrumbs);
         }

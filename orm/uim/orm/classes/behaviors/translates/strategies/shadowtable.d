@@ -270,7 +270,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param string aName The clause name.
      * @param Json[string] myConfiguration The config to use for adding fields.
      * @return bool Whether a join to the translation table is required.
-     * /
+     */
                             protected bool traverseClause(query, name = "", myConfiguration = null) {
                                 clause = query.clause(name);
                                 if (!clause || !clause.count()) {
@@ -308,7 +308,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param DORMevents.IEvent event The beforeSave event that was fired.
      * @param DORMDatasource\IEntity anEntity The entity that is going to be saved.
      * @param \ArrayObject options the options passed to the save method.
-     * /
+     */
                                                 void beforeSave(IEvent event, IEntity anEntity, ArrayObject options) {
                                                     locale = entity.get("_locale") ? 
                                                     : this.getLocale(); newOptions = [
@@ -337,8 +337,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
                                                         values = entity.extract(
                                                         this.translatedFields(), true);
-                                                        fields = values.keys; noFields = empty(
-                                                        fields); // If there are no fields and no bundled translations, or both fields
+                                                        fields = values.keys; noFields = empty(fields); // If there are no fields and no bundled translations, or both fields
                                                         // in the default locale and bundled translations we can
                                                         // skip the remaining logic as its not necessary.
                                                         if (noFields && noBundled || (fields && bundled)) {

@@ -105,7 +105,7 @@ class DBufferedIterator : DCollection { // }, Countable {
   // Returns the number or items in this collection
   size_t count() {
     if (!_started) {
-      this.rewind();
+      _rewind();
     }
     while (this.valid()) {
       this.next();

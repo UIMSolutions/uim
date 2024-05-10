@@ -568,7 +568,7 @@ class Hash {
         auto mypath = "";
 
         reset(mydata);
-        while (!empty(mydata)) {
+        while (!mydata.isEmpty) {
             aKey = key(mydata);
             myelement = mydata[aKey];
             unset(mydata[aKey]);
@@ -736,7 +736,7 @@ class Hash {
                     : 1;
             });
         }
-        return empty(mydepth) ? 0 : max(mydepth);
+        return mydepth.isEmpty ? 0 : max(mydepth);
     }
     
     /**

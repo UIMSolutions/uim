@@ -255,7 +255,7 @@ class DEventManager { // }: IEventManager {
         localListeners = null;
         if (!_isGlobal) {
             localListeners = this.prioritisedListeners(eventKey);
-            localListeners = empty(localListeners) ? [] : localListeners;
+            localListeners = localListeners.isEmpty ? [] : localListeners;
         }
         globalListeners = instance().prioritisedListeners(eventKey);
         globalListeners = empty(globalListeners) ? [] : globalListeners;

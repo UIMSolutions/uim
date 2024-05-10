@@ -11,7 +11,7 @@ string cacheEngineThis(string name) {
         super(initData); this.name("`~ fullName ~ `");
     }
     this(string name) {
-        super(); this.name(name);
+        this().name(name);
     }
     `;
 }

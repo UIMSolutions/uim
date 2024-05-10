@@ -423,7 +423,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
     protected void bundleTranslatedFields(entity) {
         translations = (array)entity.get("_translations");
 
-        if (empty(translations) && !entity.isDirty("_translations")) {
+        if (translations.isEmpty && !entity.isDirty("_translations")) {
             return;
         }
 
@@ -445,7 +445,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             }
         }
 
-        if (empty(find)) {
+        if (find.isEmpty) {
             return;
         }
 

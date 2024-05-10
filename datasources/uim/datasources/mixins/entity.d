@@ -1055,8 +1055,8 @@ mixin template TEntity() {
                                                                     bool isAccessible(string fieldName) {
                                                                       aValue = _accessible[field] ?  ? null;
 
-                                                                      return (aValue.isNull && !empty(
-                                                                      _accessible["*"])) || aValue;
+                                                                      return (aValue.isNull && !
+                                                                      _accessible["*"].isEmpty) || aValue;
                                                                     }
 
                                                                     /**

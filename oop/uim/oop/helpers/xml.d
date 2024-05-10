@@ -425,7 +425,7 @@ class Xml {
                         else if(!myasString.isEmpty) {
                             mydata["@"] = myasString;
                         }
-                        if (!empty(myns)) {
+                        if (!myns.isEmpty) {
                             myns ~= ":";
                         }
                         myname = myns ~ myxml.name;

@@ -17,8 +17,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     }
 
     this(string newName) {
-        this();
-        this.name(newName);
+        this().name(newName);
     }
 
     bool initialize(Json[string] initData = null) {

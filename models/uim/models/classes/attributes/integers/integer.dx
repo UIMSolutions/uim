@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DIntegerAttribute : DAttribute {
-  mixin(AttributeThis!"IntegerAttribute");
+  mixin(AttributeThis!"Integer");
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -23,7 +23,7 @@ class DIntegerAttribute : DAttribute {
 
   }    
 }
-mixin(AttributeCalls!"IntegerAttribute");
+mixin(AttributeCalls!"Integer");
 
 version(test_uim_models) { unittest {
     testAttribute(new DIntegerAttribute);

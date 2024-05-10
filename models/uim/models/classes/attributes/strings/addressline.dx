@@ -15,7 +15,7 @@ is.dataFormat.array
 means.location.address
  */
 class DAddressLineAttribute : DStringAttribute {
-  mixin(AttributeThis!"AddressLineAttribute");
+  mixin(AttributeThis!"AddressLine");
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -31,7 +31,7 @@ class DAddressLineAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!"AddressLineAttribute");
+mixin(AttributeCalls!"AddressLine");
 
 version (test_uim_models) {
   unittest {

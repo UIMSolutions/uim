@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DStringAttribute : DCharAttribute {
-  mixin(AttributeThis!"StringAttribute");
+  mixin(AttributeThis!"String");
 
   mixin(TProperty!("size_t", "maxLength"));
 
@@ -32,7 +32,7 @@ class DStringAttribute : DCharAttribute {
   } */
 }
 
-mixin(AttributeCalls!"StringAttribute");
+mixin(AttributeCalls!"String");
 
 ///
 unittest {

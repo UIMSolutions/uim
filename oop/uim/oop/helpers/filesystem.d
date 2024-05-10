@@ -12,7 +12,7 @@ import uim.oop;
  *
  * @internal
  */
-class DFilesystem {
+class HFilesystem {
     // Directory type constant
     const string TYPE_DIR = "dir";
 
@@ -29,7 +29,7 @@ class DFilesystem {
             FilesystemIterator.KEY_AS_PATHNAME
             | FilesystemIterator.CURRENT_AS_FILEINFO
             | FilesystemIterator.SKIP_DOTS;
-        auto mydirectory = new DFilesystemIterator(mypath, myflags);
+        auto mydirectory = new HFilesystemIterator(mypath, myflags);
 
         return myfilter.isNull
             ? mydirectory
@@ -179,7 +179,7 @@ class DFilesystem {
         }
 
         bool result = true;
-        new DFilesystemIterator(mysource).each!((fileInfo) {
+        new HFilesystemIterator(mysource).each!((fileInfo) {
             if (fileInfo.isDir()) {
                 result = result && this.copyDir(
                     fileInfo.getPathname(),

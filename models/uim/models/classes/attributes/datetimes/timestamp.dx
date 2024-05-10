@@ -25,7 +25,7 @@ class DTimestampAttribute : DLongAttribute {
   /* override Json createData() {
     return TimestampData(this); } */
 }
-mixin(AttributeCalls!"TimestampAttribute");
+mixin(AttributeCalls!"Timestamp");
 
 version(test_uim_models) { unittest {
     testAttribute(new DTimestampAttribute);

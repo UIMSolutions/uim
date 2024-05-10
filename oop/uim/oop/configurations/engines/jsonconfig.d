@@ -23,7 +23,7 @@ import uim.oop;
  * ```
  */
 class DJsonConfig : IConfigEngine {
-    // mixin TFileConfig();
+    mixin TFileConfig;
   	/*alias Alias = ;
     override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }

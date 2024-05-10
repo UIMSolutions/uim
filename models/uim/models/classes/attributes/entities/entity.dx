@@ -24,7 +24,7 @@ import uim.models;
   override Json createData() {
     return EntityData(this); }
 }
-mixin(AttributeCalls!"EntityAttribute");
+mixin(AttributeCalls!"Entity");
 
 version(test_uim_models) { unittest {
     testAttribute(new DEntityAttribute);

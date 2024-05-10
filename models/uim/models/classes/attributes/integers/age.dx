@@ -26,7 +26,7 @@ class DAgeAttribute : DIntegerAttribute {
   }
 }
 
-mixin(AttributeCalls!"AgeAttribute");
+mixin(AttributeCalls!"Age");
 
 version (test_uim_models) {
   unittest {

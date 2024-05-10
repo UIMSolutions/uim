@@ -19,7 +19,7 @@ interface IPluginApplication /* : IEventDispatcher */ { // TODO
      * all plugin hooks enabled.
      */
     void addPlugin(string pluginName, Json Data = null);
-    void addPlugin(IPlugin plugin, Json Data = null);
+    // TODO void addPlugin(IPlugin plugin, Json Data = null);
 
     // Run bootstrap logic for loaded plugins.
     void pluginBootstrap();

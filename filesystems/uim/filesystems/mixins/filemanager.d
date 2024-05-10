@@ -329,7 +329,7 @@ mixin template TFileManager() {
   }
 
   bool moveFile(string fromPath, string[] toPath) {
-    return this.moveFile(toPathItems(fromPath, pathSeparator), toPath); 
+    return moveFile(toPathItems(fromPath, pathSeparator), toPath); 
   }
 
   bool moveFile(string[] fromPath, string[] toPath) {

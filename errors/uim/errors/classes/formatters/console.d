@@ -151,9 +151,9 @@ class DConsoleFormatter : IErrorFormatter {
                 this.style("number", to!string(var.getId())) ~
                 this.style("punct", " {}");
         }
-         result = this.style("punct", "object(") ~
-            this.style("class", var.getValue()) ~
-            this.style("punct", ") id:") ~
+         result = style("punct", "object(") ~
+            style("class", var.getValue()) ~
+            style("punct", ") id:") ~
             this.style("number", (string)var.getId()) ~
             this.style("punct", " {");
 

@@ -186,7 +186,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
         }
         end = "</samp>' .
             endBreak .
-            this.style("punct", "}") .
+            style("punct", "}") .
             '</span>";
 
         if (count(props)) {

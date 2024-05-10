@@ -256,7 +256,7 @@ class DClientResponse { // }: Message : IResponse {
      * string aName The name of the cookie value.
      * /
     string[] getCookie(string aName) {
-        cookies = this.buildCookieCollection();
+        cookies = buildCookieCollection();
 
         if (!cookies.has(name)) {
             return null;
@@ -270,7 +270,7 @@ class DClientResponse { // }: Message : IResponse {
      * string aName The name of the cookie value.
      * /
     Json[string] getCookieData(string valueName) {
-        cookies = this.buildCookieCollection();
+        cookies = buildCookieCollection();
 
         if (!cookies.has(valueName)) {
             return null;

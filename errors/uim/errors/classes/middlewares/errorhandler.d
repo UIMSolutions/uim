@@ -142,7 +142,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
             response = renderer.render();
         } catch (Throwable internalException) {
             myErrorHandler.logException@(DInternalException, myRequest);
-            response = this.handleInternalError();
+            response = handleInternalError();
         }
 
         return response;

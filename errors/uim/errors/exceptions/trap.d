@@ -100,7 +100,7 @@ class DExceptionTrap {
     IExceptionRenderer renderer(Throwable renderException, IServerRequest serverRequest = null) {
         auto myRequest = serverRequest.isNull ? Router.getRequest() : serverRequest;
 
-        string className = _configData.isSet("exceptionRenderer") ? _configData("exceptionRenderer"] : this.chooseRenderer();
+        string className = _configData.isSet("exceptionRenderer") ? _configData("exceptionRenderer"] : chooseRenderer();
         if (isString(className)) {
             if (!isSubclass_of(className, IExceptionRenderer.className)) {
                 throw new DInvalidArgumentException(
@@ -135,7 +135,7 @@ class DExceptionTrap {
      * previous exception handler will be discarded.
      * /
     void register() {
-        set_exception_handler(this.handleException(...));
+        set_exception_handler(handleException(...));
         register_shutdown_function(this.handleShutdown(...));
         RegisteredTrap = this;
 

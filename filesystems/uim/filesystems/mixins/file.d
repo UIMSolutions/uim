@@ -18,7 +18,7 @@ this(IFilesystem aFilesystem) { this(); this.filesystem(aFilesystem); };
 this(string[] aPath) { this(); this.path(aPath); };
 this(string aName) { this(); this.name(aName); };
 
-this(IFilesystem aFilesystem, string[] aPath) { this(aFilesystem); this.path(aPath); };
+this(IFilesystem aFilesystem, string[] aPath) { this(aFilesystem); path(aPath); };
 this(IFilesystem aFilesystem, string aName) { this(aFilesystem); this.name(aName); };
 
 this(IFilesystem aFilesystem, string[] aPath, string aName) { this(aFilesystem, aPath); this.name(aName); };

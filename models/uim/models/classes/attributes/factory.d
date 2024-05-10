@@ -25,8 +25,7 @@ class DAttributeFactory {
         DAttribute result;
 
         switch (aName) {
-        case "bool": return BooleanAttribute;
-            break;
+        case "bool": return new DBooleanAttribute;
         case "byte":
             break;
         case "ubyte":

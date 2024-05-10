@@ -3,32 +3,32 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.models.classes.attributes.uuids.entities.slas.sla;
+module uim.models.classes.attributes.uuids.entities.users.team;
 
 import uim.models;
 
 @safe:
-class DSlaIdAttribute : DEntityIdAttribute {
-  mixin(AttributeThis!("SlaId"));
+class DTeamIdAttribute : DEntityIdAttribute {
+  mixin(AttributeThis!("TeamId"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
-    name("slaId");
-    registerPath("slaId");
+    name("teamId");
+      registerPath("teamId");
 
-   return true;
+      return true;
 
   }  
 }
-mixin(AttributeCalls!("SlaId"));
+mixin(AttributeCalls!("TeamId"));
 
 ///
 unittest {
-  auto attribute = new DSlaIdAttribute;
-  assert(attribute.name == "slaId");
-  assert(attribute.registerPath == "slaId");
+  auto attribute = new DTeamIdAttribute;
+  assert(attribute.name == "teamId");
+  assert(attribute.registerPath == "teamId");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DEntityIdAttribute)generalAttribute);

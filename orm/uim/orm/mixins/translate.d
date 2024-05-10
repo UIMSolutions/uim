@@ -13,8 +13,8 @@ mixin template TTranslate() {
      * it.
      *
      * @param string language Language to return entity for.
-     * @return DORMDatasource\IEntity|this
-     * /
+     * @return DORMDatasource\IORMEntity|this
+     */
     function translation(string language) {
         if (language == get("_locale")) {
             return this;
@@ -28,7 +28,7 @@ mixin template TTranslate() {
             created = true;
         }
 
-        if (created || i18n.isEmpty(language) || !(i18n[language] instanceof IEntity)) {
+        if (created || i18n.isEmpty(language) || !(i18n[language] instanceof IORMEntity)) {
             className = class;
 
             i18n[language] = new className();

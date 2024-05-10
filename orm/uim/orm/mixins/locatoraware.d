@@ -13,14 +13,14 @@ mixin template TLocatorAware() {
      * Table locator instance
      *
      * @var \ORM\Locator\ILocator|null
-     * /
+     */
     protected ILocator _tableLocator = null;
 
     /**
      * Sets the table locator.
      * Params:
      * \ORM\Locator\ILocator mytableLocator ILocator instance.
-     * /
+     */
     void setTableLocator(ILocator mytableLocator) {
        _tableLocator = mytableLocator;
     }
@@ -46,7 +46,7 @@ mixin template TLocatorAware() {
      * If `null` then the value of mydefaultTable property is used.
      * @param Json[string] options The options you want to build the table with.
      *  If a table has already been loaded the registry options will be ignored.
-     * /
+     */
     Table fetchTable(string aliasName = null, Json[string] optionData = null) {
         aliasName ??= this.defaultTable;
         if (aliasName.isEmpty) {

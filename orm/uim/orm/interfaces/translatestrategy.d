@@ -42,7 +42,7 @@ interface ITranslateStrategy : IPropertyMarshal {
      * field name is returned for all other fields.
      *
      * aAliasedField - Field name to be aliased.
-     * /
+     */
     string translationField(string aAliasedField);
 
     /**
@@ -50,7 +50,7 @@ interface ITranslateStrategy : IPropertyMarshal {
      * into each entity under the `_translations` key
      *
      * @param DORMDatasource\IResultset results Results to modify.
-     * /
+     */
     IORMCollection groupTranslations(results);
 
     /**
@@ -61,7 +61,7 @@ interface ITranslateStrategy : IPropertyMarshal {
      * @param DORMevents.IEvent event The beforeFind event that was fired.
      * @param DORMQuery query Query
      * @param \ArrayObject options The options for the query
-     * /
+     */
     void beforeFind(IEvent event, Query query, ArrayObject options);
 
     /**
@@ -69,16 +69,16 @@ interface ITranslateStrategy : IPropertyMarshal {
      * in the database too.
      *
      * @param DORMevents.IEvent event The beforeSave event that was fired
-     * @param DORMDatasource\IEntity anEntity The entity that is going to be saved
+     * @param DORMDatasource\IORMEntity anEntity The entity that is going to be saved
      * @param \ArrayObject options the options passed to the save method
-     * /
-    void beforeSave(IEvent event, IEntity anEntity, ArrayObject options);
+     */
+    void beforeSave(IEvent event, IORMEntity anEntity, ArrayObject options);
 
     /**
      * Unsets the temporary `_i18n` property after the entity has been saved
      *
      * @param DORMevents.IEvent event The beforeSave event that was fired
-     * @param DORMDatasource\IEntity anEntity The entity that is going to be saved
+     * @param DORMDatasource\IORMEntity anEntity The entity that is going to be saved
      */
-    // TODO void afterSave(IEvent event, IEntity anEntity);
+    // TODO void afterSave(IEvent event, IORMEntity anEntity);
 }

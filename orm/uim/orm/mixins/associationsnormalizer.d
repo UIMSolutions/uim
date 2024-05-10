@@ -14,7 +14,7 @@ mixin template TAssociationsNormalizer() {
      * is transformed into nested arrays so that they can be parsed by other routines
      * Params:
      * string[] myassociations The array of included associations.
-     * /
+     */
      protected Json[string] _normalizeAssociations(string[] myassociations) {
         Json[string] result;
         foreach (mytable, options; (array)myassociations) {

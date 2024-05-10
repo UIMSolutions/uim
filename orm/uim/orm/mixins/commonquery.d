@@ -15,7 +15,7 @@ mixin template TCommonQuery() {
      * This method returns the same query object for chaining.
      * Params:
      * \ORM\Table mytable The table to pull types from
-     * /
+     */
     void addDefaultTypes(Table mytable) {
         auto aliasName = mytable.aliasName();
         auto mymap = mytable.getSchema().typeMap();
@@ -36,7 +36,7 @@ mixin template TCommonQuery() {
      * and form the `FROM` clause.
      * Params:
      * \UIM\Datasource\IRepository myrepository The default table object to use
-     * /
+     */
     void setRepository(IRepository myrepository) {
         assert(
             cast(Table)myrepository,
@@ -49,7 +49,7 @@ mixin template TCommonQuery() {
     /**
      * Returns the default repository object that will be used by this query,
      * that is, the table that will appear in the from clause.
-     * /
+     */
     Table getRepository() {
         return _repository;
     } */

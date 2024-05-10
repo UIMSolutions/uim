@@ -35,7 +35,7 @@ class DBirthDateAttribute : DDatetimeAttribute {
     return DatetimeData(this); } */
 }
 
-mixin(AttributeCalls!"BirthDateAttribute");
+mixin(AttributeCalls!"BirthDate");
 
 version (test_uim_models) {
   unittest {

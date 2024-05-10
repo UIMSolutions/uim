@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DCharAttribute : DAttribute {
-  mixin(AttributeThis!"CharAttribute");
+  mixin(AttributeThis!"Char");
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -25,7 +25,7 @@ class DCharAttribute : DAttribute {
   }
 }
 
-mixin(AttributeCalls!"CharAttribute");
+mixin(AttributeCalls!"Char");
 
   unittest {
     testAttribute(new DCharAttribute);

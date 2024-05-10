@@ -21,7 +21,7 @@ class DElementAttribute : DAttribute {
   /* override Json createData() {
     return ElementData(this); } */
 }
-mixin(AttributeCalls!"ElementAttribute");
+mixin(AttributeCalls!"Element");
 
 version(test_uim_models) { unittest {
   testAttribute(new Attribute);

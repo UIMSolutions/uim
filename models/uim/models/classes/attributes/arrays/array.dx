@@ -25,7 +25,7 @@ class DArrayAttribute : DAttribute {
   }
 }
 
-mixin(AttributeCalls!"ArrayAttribute");
+mixin(AttributeCalls!"Array");
 
 version (test_uim_models) {
   unittest {

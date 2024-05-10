@@ -25,7 +25,7 @@ class DTagsAttribute : DStringArrayAttribute {
   /* override Json createData() {
     return TagArrayData(this); } */
 }
-mixin(AttributeCalls!"TagsAttribute");
+mixin(AttributeCalls!"Tags");
 
 version(test_uim_models) { unittest {
   testAttribute(new DTagsAttribute);

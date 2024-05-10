@@ -28,7 +28,7 @@ class DTimeAttribute : DAttribute {
   /* override Json createData() {
     return TimeData(this); } */
 }
-mixin(AttributeCalls!"TimeAttribute");
+mixin(AttributeCalls!"Time");
 
 version(test_uim_models) { unittest {
     testAttribute(new DTimeAttribute);

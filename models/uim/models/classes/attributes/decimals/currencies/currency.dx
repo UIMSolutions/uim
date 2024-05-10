@@ -21,7 +21,7 @@ class DCurrencyAttribute : DDecimalAttribute {
     return true;
   }
 }
-mixin(AttributeCalls!"CurrencyAttribute");
+mixin(AttributeCalls!"Currency");
 
 version(test_uim_models) { unittest {
     testAttribute(new DCurrencyAttribute);

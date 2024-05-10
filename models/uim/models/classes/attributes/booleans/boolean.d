@@ -34,7 +34,7 @@ is.dataFormat.boolean */
     return result; }
 }
 
-mixin(AttributeCalls!"BooleanAttribute");
+mixin(AttributeCalls!"Boolean");
 
   unittest {
     testAttribute(new DBooleanAttribute);

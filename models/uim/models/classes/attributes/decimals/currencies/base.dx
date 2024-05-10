@@ -34,7 +34,7 @@ means.measurement.currency
     return true;
   }
 
-  mixin(AttributeCalls!"BaseCurrencyAttribute");
+  mixin(AttributeCalls!"BaseCurrency");
 
   version (test_uim_models) {
     unittest {

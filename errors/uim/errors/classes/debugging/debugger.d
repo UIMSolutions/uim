@@ -878,7 +878,7 @@ class DDebugger {
         }
 
         if (!tpl.isEmpty("escapeContext")) {
-            data["description"] = htmlAttribEscape(data["description"]);
+            data["description"] = htmlAttributeEscape(data["description"]);
         }
 
         infoData = compact('code', 'context', 'trace');
@@ -971,7 +971,7 @@ class DDebugger {
      * @return string Formatted message.
      */
     static string formatHtmlMessage(string message) {
-        Json message = htmlAttribEscape(message);
+        Json message = htmlAttributeEscape(message);
         message = preg_replace('/`([^`]+)`/', '<code>1</code>', message);
 
         return nl2br(message);

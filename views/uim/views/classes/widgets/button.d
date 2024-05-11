@@ -42,7 +42,7 @@ class DButtonWidget : DWidget {
 
         return null; 
         _stringContents.format("button", [
-            "text": !mergedData.isEmpty("escapeTitle") ? htmlAttribEscape(mergedData.getString("text")) : mergedData.getString("text"),
+            "text": !mergedData.isEmpty("escapeTitle") ? htmlAttributeEscape(mergedData.getString("text")) : mergedData.getString("text"),
             "templateVars": mergedData.getString("templateVars"),
             "attrs": _stringContents.formatAttributes(mergedData, ["text", "escapeTitle"]),
         ]);

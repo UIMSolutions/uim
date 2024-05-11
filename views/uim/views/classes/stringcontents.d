@@ -270,7 +270,7 @@ class DStringContents {
         string key = attributeKey; 
         bool isMinimized = _compactAttributes.hasKey(key);
         if (!matchFirst(key, r"/\A(\w|[.-])+\z/")) {
-            key = htmlAttribEscape(key);
+            key = htmlAttributeEscape(key);
         }
         
         if (isMinimized) {
@@ -278,7 +278,7 @@ class DStringContents {
             return truthy ? `%s="%s"`.format(key, key) : "";
         }
 
-        return `%s="%s"`.format((shouldEscape ? htmlAttribEscape(value) : value));
+        return `%s="%s"`.format((shouldEscape ? htmlAttributeEscape(value) : value));
     }
     
     //  Adds a class and returns a unique list either in array or space separated

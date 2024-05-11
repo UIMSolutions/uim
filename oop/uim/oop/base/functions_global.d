@@ -11,7 +11,7 @@ module uim.oop.base.functions_global;
      * @param string charset Character set to use when escaping.
      *  Defaults to config value in `mb_internal_encoding()` or 'UTF-8'.
      */
-    Json htmlAttribEscape(Json text, bool double = true, string acharset = null) {
+    Json htmlAttributeEscape(Json text, bool double = true, string acharset = null) {
         return uimH(text, double, charset);
     }
 

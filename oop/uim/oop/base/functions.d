@@ -22,14 +22,14 @@ if (!function_exists("UIM\Core\h")) {
      * @param string charset Character set to use when escaping.
      *  Defaults to config value in `mb_internal_encoding()` or 'UTF-8'.
      */
-    Json htmlAttribEscape(Json text, bool isDouble = true, string charsetToUse = null) {
+    Json htmlAttributeEscape(Json text, bool isDouble = true, string charsetToUse = null) {
         Json result = text;
         if (text.isString) {
             // optimize for strings
         } else if (text.isArray) {
             result = Json.emptyObject;
             text.byKeyValue
-                .each!(kv => result[kv.key] = htmlAttribEscape(kv.value, isDouble, charset));
+                .each!(kv => result[kv.key] = htmlAttributeEscape(kv.value, isDouble, charset));
             return result;
         } else if (text.isObject) {
             result = text ? text.get!string : "(object)" ~ text.classname;

@@ -202,6 +202,6 @@ class DHtmlErrorFormatter : IErrorFormatter {
      */
     protected string style(string styleToUse, string atext) {
         return "<span class="uim-debug-%s">%s</span>"
-            .format(styleToUse, htmlAttribEscape(text));
+            .format(styleToUse, htmlAttributeEscape(text));
     } */
 }

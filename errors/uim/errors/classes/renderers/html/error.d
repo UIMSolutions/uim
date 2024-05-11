@@ -23,13 +23,13 @@ class DHtmlErrorRenderer : IErrorRenderer {
         file = error.getFile();
 
         // Some of the error data is not HTML safe so we escape everything.
-        Json description = htmlAttribEscape(error.getMessage());
-        Json somePath = htmlAttribEscape(file);
-        Json trace = htmlAttribEscape(error.getTraceAsString());
+        Json description = htmlAttributeEscape(error.getMessage());
+        Json somePath = htmlAttributeEscape(file);
+        Json trace = htmlAttributeEscape(error.getTraceAsString());
         auto line = error.getLine();
 
         string errorMessage = "<b>%s</b> (%s)"
-            .format(h(ucfirst(error.getLabel())), htmlAttribEscape(error.getCode())
+            .format(h(ucfirst(error.getLabel())), htmlAttributeEscape(error.getCode())
         );
         toggle = this.renderToggle(errorMessage,  anId, "trace");
         codeToggle = this.renderToggle("Code",  anId, "code");

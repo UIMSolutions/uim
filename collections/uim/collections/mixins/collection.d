@@ -389,7 +389,7 @@ mixin template TCollection() {
                 mymapKey = myrowKey(myvalue, aKey);
                 if (mymapKey.isNull) {
                     throw new DInvalidArgumentException(
-                        "Cannot index by path that does not exist or contains a null value. ' .
+                        "Cannot index by path that does not exist or contains a null value. " ~
                         "Use a callback to return a default value for that path."
                     );
                 }

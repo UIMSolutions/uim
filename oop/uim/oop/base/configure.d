@@ -194,21 +194,16 @@ class DConfigure {
      * Configure.config("ini", new DIniConfig());
      * ```
      * Params:
-     * string aName The name of the engine being configured. This alias is used later to
-     *  read values from a specific engine.
-     * @param \UIM\Core\Configure\IConfigEngine engineToAppend The engine to append.
      */
-    static void config(string aName, IConfigEngine engineToAppend) {
-        _engines[name] = engineToAppend;
+    static void config(string engineName, IConfigEngine engineToAppend) {
+        _engines[engineName] = engineToAppend;
     }
 
     /**
      * Returns true if the Engine objects is configured.
-     * Params:
-     * string aName Engine name.
      */
-    static bool isConfigured(string aName) {
-        return isSet(_engines[name]);
+    static bool isConfigured(string engineName) {
+        return isSet(_engines[engineName]);
     }
 
     // Gets the names of the configured Engine objects.
@@ -340,16 +335,15 @@ class DConfigure {
      * ```
      */
     static string currentVersion() {
-        auto uimVersion = read("uim.version");
-        if (!uimVersion.isNull) {
+        if (auto uimVersion = read("uim.version")) {
             return uimVersion;
         }
 
-        auto somePath = dirname(__DIR__, 2) ~ DIRECTORY_SEPARATOR ~ "config/config.d";
+        string somePath = dirname(__DIR__, 2) ~ DIRECTORY_SEPARATOR ~ "config/config.d";
 
         if (isFile(somePath)) {
-            configData = require somePath;
-            write(configData);
+            // TODO configData = require somePath;
+            // TODO write(configData);
 
             return read("uim.version");
         }
@@ -365,13 +359,15 @@ class DConfigure {
      * @param string acacheConfig The cache configuration to save into. Defaults to "default"
      * @param array|null someData Either an array of data to store, or leave empty to store all values.
      */
-    static bool store(string aName, string acacheConfig = "default",  ? array data = null) {
-        someData ?  ?  = _values;
+    static bool store(string aName, string acacheConfig = "default",  Json[string] data = null) {
+        // TODO 
+        /* someData ?  ?  = _values;
 
         if (!class_exists(Cache.classname)) {
             throw new UimException("You must install UIM/cache to use Configure.store()");
         }
-        return Cache.write(name, someData, cacheConfig);
+        return Cache.write(name, someData, cacheConfig); */
+        return false;
     }
 
     /**
@@ -381,7 +377,7 @@ class DConfigure {
      * string aName Name of the stored config file to load.
      * @param string acacheConfig Name of the Cache configuration to read from.
      */
-    static bool restore(string aName, string acacheConfig = "default") {
+    static bool restore(string configFileName, string acacheConfig = "default") {
         if (!class_exists(Cache.classname)) {
             throw new UimException("You must install UIM/cache to use Configure.restore()");
         }

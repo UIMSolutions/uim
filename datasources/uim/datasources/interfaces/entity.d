@@ -28,12 +28,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
    // Gets the hidden fields.
    string[] getHidden();
 
-   /**
-     * Sets the virtual fields on this entity.
-     * Params:
-     * string[] fieldNames An array of fields to treat as virtual.
-     * @param bool  merge Merge the new fields with the existing. By default false.
-     */
+   // Sets the virtual fields on this entity.
    void setVirtual(string[] fieldNames, bool canMergeExisting = false);
 
    // Gets the virtual fields on this entity.

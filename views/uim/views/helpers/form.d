@@ -593,7 +593,7 @@ class DFormHelper : DHelper {
             myerror = mytext;
         }
         if (options["escape"]) {
-            myerror = htmlAttribEscape(myerror);
+            Json myerror = htmlAttribEscape(myerror);
             options.remove("escape");
         }
         if (isArray(myerror)) {

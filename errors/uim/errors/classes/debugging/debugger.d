@@ -869,7 +869,7 @@ class DDebugger {
 
         data['trace'] = trace;
         data['id'] = 'uimErr' . uniqid();
-        tpl = _stringContents[outputFormat] + _stringContents['base'];
+        tpl = _stringContents[outputFormat] + _stringContents["base"];
 
         if (isset(tpl['links'])) {
             foreach (tpl['links'] as key: val) {
@@ -878,7 +878,7 @@ class DDebugger {
         }
 
         if (!tpl.isEmpty("escapeContext")) {
-            data["description"] = htmlAttribEscape(data['description']);
+            data["description"] = htmlAttribEscape(data["description"]);
         }
 
         infoData = compact('code', 'context', 'trace');
@@ -971,7 +971,7 @@ class DDebugger {
      * @return string Formatted message.
      */
     static string formatHtmlMessage(string message) {
-        message = htmlAttribEscape(message);
+        Json message = htmlAttribEscape(message);
         message = preg_replace('/`([^`]+)`/', '<code>1</code>', message);
 
         return nl2br(message);

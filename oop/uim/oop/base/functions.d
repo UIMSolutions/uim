@@ -22,25 +22,27 @@ if (!function_exists("UIM\Core\h")) {
      * @param string charset Character set to use when escaping.
      *  Defaults to config value in `mb_internal_encoding()` or 'UTF-8'.
      */
-    IData htmlAttribEscape(IData text, bool isDouble = true, string acharset = null) {
-        if (isString(text)) {
-            //optimize for strings
-        } else if (isArray(text)) {
-            texts = null;
-            foreach (myKey: t; text).byKeyValu {
-                texts[myKey] = htmlAttribEscape(t, isDouble, charset);
-            }
-            return texts;
-        } else if (isObject(text)) {e
-            text = cast(DStringable)text ? to!string(text) : "(object)" ~ text.classname;
+    Json htmlAttribEscape(Json text, bool isDouble = true, string charsetToUse = null) {
+        Json result = text;
+        if (text.isString) {
+            // optimize for strings
+        } else if (text.isArray) {
+            result = Json.emptyObject;
+            text.byKeyValue
+                .each!(kv => result[kv.key] = htmlAttribEscape(kv.value, isDouble, charset));
+            return result;
+        } else if (text.isObject) {
+            result = text ? text.get!string : "(object)" ~ text.classname;
         } else if (text.isNull || isScalar(text)) {
-            return text;
+            return result;
         }
-        static defaultCharset = false;
-        if (defaultCharset == false) {
-            defaultCharset = mb_internal_encoding() ?: "UTF-8";
+
+        string defaultCharset;
+        if (charsetToUse.isEmpty) {
+            string encoding = mb_internal_encoding();
+            defaultCharset = encoding ? encoding : "UTF-8";
         }
-        return htmlspecialchars(text, ENT_QUOTES | ENT_SUBSTITUTE, charset ?: defaultCharset, isDouble);
+        return htmlspecialchars(result, ENT_QUOTES | ENT_SUBSTITUTE, charsetToUse ? charsetToUse : defaultCharset, isDouble);
     }
 }
 
@@ -54,36 +56,35 @@ if (!function_exists("UIM\Core\pluginSplit")) {
      * list(plugin, name) = pluginSplit(name);
      * ```
      * Params:
-     * string aName The name you want to plugin split.
      * @param bool dotAppend Set to true if you want the plugin to have a '.' appended to it.
      * @param string plugin Optional default plugin to use if no plugin is found. Defaults to null.
      */
-    Json[string] pluginSplit(string aName, bool dotAppend = false, string aplugin = null) {
-        if (name.has(".")) {
+    Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string aplugin = null) {
+        // TODO
+        /* if (name.has(".")) {
             string[] someParts = split(".", name, 2);
             if (dotAppend) {
                 someParts[0] ~= ".";
             }
-            /** @psalm-var array{string, string}*/
+            / ** @psalm-var array{string, string}* /
             return someParts;
         }
-        return [plugin, name];
+        return [plugin, name]; */
+        return null;
     }
 }
 
-if (!function_exists("UIM\Core\namespaceSplit")) {
-    /**
-     * Split the namespace from the classname.
-     *
-     * Commonly used like `list(namespace,  className) = namespaceSplit(className);`.
-     */
-    string[] namespaceSplit(string className) {
-        pos = indexOf(className, "\\");
-        if (pos == false) {
-            return ["",  className];
-        }
-        return [substr(className, 0, pos), substr(className, pos + 1)];
+/**
+    * Split the namespace from the classname.
+    *
+    * Commonly used like `list(namespace,  className) = namespaceSplit(className);`.
+    */
+string[] namespaceSplit(string className) {
+    pos = indexOf(className, "\\");
+    if (pos == false) {
+        return ["",  className];
     }
+    return [substr(className, 0, pos), substr(className, pos + 1)];
 }
 
 if (!function_exists("UIM\Core\pr")) {

@@ -15,7 +15,6 @@ class DHtmlErrorRenderer : IErrorRenderer {
         writeln(outputText);
     }
  
-    /* 
     string render(UimError error, bool shouldDebug) {
         if (!debug) {
             return "";
@@ -24,12 +23,12 @@ class DHtmlErrorRenderer : IErrorRenderer {
         file = error.getFile();
 
         // Some of the error data is not HTML safe so we escape everything.
-        description = htmlAttribEscape(error.getMessage());
-        somePath = htmlAttribEscape(file);
-        trace = htmlAttribEscape(error.getTraceAsString());
-        line = error.getLine();
+        Json description = htmlAttribEscape(error.getMessage());
+        Json somePath = htmlAttribEscape(file);
+        Json trace = htmlAttribEscape(error.getTraceAsString());
+        auto line = error.getLine();
 
-        errorMessage = "<b>%s</b> (%s)"
+        string errorMessage = "<b>%s</b> (%s)"
             .format(h(ucfirst(error.getLabel())), htmlAttribEscape(error.getCode())
         );
         toggle = this.renderToggle(errorMessage,  anId, "trace");

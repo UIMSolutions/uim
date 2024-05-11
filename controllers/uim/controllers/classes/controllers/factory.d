@@ -65,7 +65,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * \UIM\Controller\Controller controller The controller to invoke.
      */
     IResponse invoke(IController controller) {
-        this.controller = controller;
+        _controller = controller;
 
          middlewares = controller.getMiddleware();
 
@@ -85,7 +85,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      */
     IResponse handle(IServerRequest serverRequest) {
         assert(cast(DServerRequest) request);
-        controller = this.controller;
+        controller = _controller;
         controller.setRequest(request);
 
         result = controller.startupProcess();
@@ -111,7 +111,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * Params:
      * \Closure action Controller action.
      */
-    // TODO protected Json[string] getActionArgs(Closure action, Json[string] passedParams) {
+    protected Json[string] getActionArgs(Closure action, Json[string] passedParams) {
          resolved = null;
         function = new DReflectionFunction(action);
         foreach (parameter; function.getParameters()) {
@@ -140,10 +140,10 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
                     "template": "missing_dependency",
                     "parameter": parameter.name,
                     "type": typeName,
-                    "controller": this.controller.name,
-                    "action": this.controller.getRequest().getParam("action"),
-                    "prefix": this.controller.getRequest().getParam("prefix"),
-                    "plugin": this.controller.getRequest().getParam("plugin"),
+                    "controller": _controller.name,
+                    "action": _controller.getRequest().getParam("action"),
+                    "prefix": _controller.getRequest().getParam("prefix"),
+                    "plugin": _controller.getRequest().getParam("plugin"),
                 ]);
             }
             // Use any passed params as positional arguments
@@ -154,14 +154,14 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
 
                     if (typedArgument.isNull) {
                         throw new DInvalidParameterException([
-                            "template": 'failed_coercion",
-                            "passed": argument,
-                            "type": type.name,
-                            "parameter": parameter.name,
-                            "controller": this.controller.name,
-                            "action": this.controller.getRequest().getParam("action"),
-                            "prefix": this.controller.getRequest().getParam("prefix"),
-                            "plugin": _controller.getRequest().getParam("plugin"),
+                            "template": "failed_coercion".toJson,
+                            "passed": argument.toJson,
+                            "type": type.name.toJson,
+                            "parameter": parameter.name.toJson,
+                            "controller": _controller.name.toJson,
+                            "action": _controller.getRequest().getParam("action").toJson,
+                            "prefix": _controller.getRequest().getParam("prefix").toJson,
+                            "plugin": _controller.getRequest().getParam("plugin").toJson,
                         ]);
                     }
                     argument = typedArgument;

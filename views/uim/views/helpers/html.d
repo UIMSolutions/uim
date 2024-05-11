@@ -525,7 +525,7 @@ class DHtmlHelper : DHelper {
      * ```
      * writeln(this.Html.style(["margin": "10px", "padding": "10px"], true);
      *
-     *// creates
+     * creates
      * "margin:10px;padding:10px;"
      * ```
      * Params:
@@ -752,7 +752,7 @@ class DHtmlHelper : DHelper {
      */
     string tag(string views, string mytext = null, Json[string] htmlAttributes = null) {
         if (isSet(htmlAttributes["escape"]) && htmlAttributes["escape"]) {
-            mytext = htmlAttribEscape(mytext);
+            Json mytext = htmlAttribEscape(mytext);
             unset(htmlAttributes["escape"]);
         }
 

@@ -70,7 +70,7 @@ interface ISqlGenerator {
      * @param DDBAConnection connection The connection to generate SQL for.
      * @return Json[string] List of SQL statements to create the table and the
      *    required indexes.
-     * /
+     */
     Json[string] createSql(Connection connection);
 
     /**
@@ -81,7 +81,7 @@ interface ISqlGenerator {
      *
      * @param DDBAConnection connection The connection to generate SQL for.
      * @return Json[string] SQL to drop a table.
-     * /
+     */
     Json[string] dropSql(Connection connection);
 
     /**
@@ -89,7 +89,7 @@ interface ISqlGenerator {
      *
      * @param DDBAConnection connection The connection to generate SQL for.
      * @return Json[string] SQL to truncate a table.
-     * /
+     */
     Json[string] truncateSql(Connection connection);
 
     /**
@@ -97,7 +97,7 @@ interface ISqlGenerator {
      *
      * @param DDBAConnection connection The connection to generate SQL for.
      * @return Json[string] SQL to add the constraints.
-     * /
+     */
     Json[string] addConstraintSql(Connection connection);
 
     /**
@@ -105,7 +105,7 @@ interface ISqlGenerator {
      *
      * @param DDBAConnection connection The connection to generate SQL for.
      * @return Json[string] SQL to drop a table.
-     * /
+     */
     Json[string] dropConstraintSql(Connection connection);
     
 } */

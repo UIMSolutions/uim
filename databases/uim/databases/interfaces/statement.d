@@ -7,12 +7,12 @@ import uim.databases;
 interface IStatement {
     /**
      * Maps to PDO.FETCH_NUM.
-     * /
+     */
     const string FETCH_TYPE_NUM = "num";
 
     /**
      * Maps to PDO.FETCH_ASSOC.
-     * /
+     */
     const string FETCH_TYPE_ASSOC = "assoc";
 
     // Maps to PDO.FETCH_OBJ.
@@ -36,35 +36,35 @@ interface IStatement {
      * string|int column name or param position to be bound
      * @param Json aValue The value to bind to variable in query
      * @param string|int type name of configured Type class
-     * /
+     */
     void bindValue(string|int column, Json aValue, string|int type = "string");
 
     /**
      * Closes the cursor, enabling the statement to be executed again.
      *
      * This behaves the same as `PDOStatement.closeCursor()`.
-     * /
+     */
     void closeCursor();
 
     /**
      * Returns the number of columns in the result set.
      *
      * This behaves the same as `PDOStatement.columnCount()`.
-     * /
+     */
     int columnCount();
 
     /**
      * Fetch the SQLSTATE associated with the last operation on the statement handle.
      *
      * This behaves the same as `PDOStatement.errorCode()`.
-     * /
+     */
     string errorCode();
 
     /**
      * Fetch extended error information associated with the last operation on the statement handle.
      *
      * This behaves the same as `PDOStatement.errorInfo()`.
-     * /
+     */
     Json[string] errorInfo();
 
     /**
@@ -74,7 +74,7 @@ interface IStatement {
      * as it would normally happen when calling `bindValue`.
      * Params:
      * array|null params list of values to be bound to query
-      * /
+      */
     bool execute(?Json[string] params = null);
 
     /**
@@ -85,7 +85,7 @@ interface IStatement {
      * Params:
      * string|int mode PDO.FETCH_* constant or fetch mode name.
      *  Valid names are 'assoc", "num' or 'obj'.
-     * /
+     */
     Json fetch(string|int mode = PDO.FETCH_NUM);
 
     /**
@@ -96,7 +96,7 @@ interface IStatement {
      * Params:
      * string|int mode PDO.FETCH_* constant or fetch mode name.
      *  Valid names are 'assoc", "num' or 'obj'.
-     * /
+     */
     Json[string] fetchAll(string|int mode = PDO.FETCH_NUM);
 
     /**
@@ -105,7 +105,7 @@ interface IStatement {
      *
      * This behaves the same as `PDOStatement.fetch()` except only
      * a specific column from the row is returned.
-    * /
+    */
     Json fetchColumn(size_t columnIndex);
 
     /**
@@ -114,14 +114,14 @@ interface IStatement {
      *
      * This behaves the same as `PDOStatement.fetch()` except an
      * empty array is returned instead of false.
-     * /
+     */
     Json[string] fetchAssoc();
 
     /**
      * Returns the number of rows affected by the last SQL statement.
      *
      * This behaves the same as `PDOStatement.rowCount()`.
-     * /
+     */
     int rowCount();
 
     /**
@@ -129,7 +129,7 @@ interface IStatement {
      * Params:
      * Json[string] params list of values to be bound
      * @param Json[string] types list of types to be used, keys should match those in params
-     * /
+     */
     void bind(Json[string] params, Json[string] types);
 
     /**
@@ -137,7 +137,7 @@ interface IStatement {
      * Params:
      * string|null aTable table name or sequence to get last insert value from
      * @param string|null column the name of the column representing the primary key
-     * /
+     */
     string|int lastInsertId(string atable = null, string acolumn = null);
 
     // Returns prepared query string.
@@ -145,7 +145,7 @@ interface IStatement {
 
     /**
      * Get the bound params.
-     * /
+     */
     Json[string] getBoundParams();
     */
 }

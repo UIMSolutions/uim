@@ -18,7 +18,7 @@ class DFactoryLocator {
      *
      * @param string type The name of the repository type the factory bool is for.
      * @param uim.Datasource\Locator\ILocator|callable factory The factory function used to create instances.
-     * /
+     */
     static void add(string type, factory) {
         if (factory instanceof ILocator) {
             _modelFactories[type] = factory;
@@ -45,7 +45,7 @@ class DFactoryLocator {
     /**
      * Drop a model factory.
      * aRepositoryTypeName - The name of the repository type to drop the factory for.
-     * /
+     */
     static void drop(string aRepositoryTypeName) {
         _modelFactories.remove(aRepositoryTypeName));
     }
@@ -56,7 +56,7 @@ class DFactoryLocator {
      * @param string type The repository type to get the factory for.
      * @throws \InvalidArgumentException If the specified repository type has no factory.
      * @return uim.Datasource\Locator\ILocator|callable The factory for the repository type.
-     * /
+     */
     static function get(string type) {
         if ("Table"  !in _modelFactories)) {
             _modelFactories["Table"] = new DTableLocator();

@@ -27,7 +27,7 @@ mixin template TTupleComparisonTranslator() {
      * Params:
      * \UIM\Database\Expression\TupleComparison expression The expression to transform
      * @param \UIM\Database\Query aQuery The query to update.
-     * /
+     */
     protected void _transformTupleComparison(TupleComparisonexpression, Query aQuery) {
         string[] fieldNames = expression.getFieldNames();
         string operator = expression.getOperator().upper;
@@ -53,7 +53,7 @@ mixin template TTupleComparisonTranslator() {
         }
         auto myType = expression.getType();
         if (myType) {
-            /** @var STRINGAA typeMap * /
+            /** @var STRINGAA typeMap */
             typeMap = array_combine(fields, myType) ?  : [];
         } else {
             typeMap = null;

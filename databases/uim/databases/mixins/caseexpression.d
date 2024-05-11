@@ -14,11 +14,11 @@ mixin template TCaseExpression() {
      * Infers the abstract type for the given value.
      * Params:
      * Json aValue The value for which to infer the type.
-     * /
+     */
     protected string inferType(Json aValue) {
         auto type = null;
 
-        /** @psalm-suppress RedundantCondition * /
+        /** @psalm-suppress RedundantCondition */
         if (isString(aValue)) {
             type = "String";
         } elseif (isInt(aValue)) {
@@ -53,7 +53,7 @@ mixin template TCaseExpression() {
      * \UIM\Database\DValueBinder aBinder The value binder to use.
      * @param \UIM\Database\IExpression|object|scalar|null aValue The value to compile.
      * @param string|null type The value type.
-     * /
+     */
     protected string compileNullableValue(DValueBinder aBinder, Json aValue, string atype = null) {
         if (
             type !isNull &&

@@ -57,7 +57,7 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
      *
      * @param Json[string] properties hash of properties to set in this entity
      * @param Json[string] options list of options to use when creating this entity
-     * /
+     */
     /* this(Json[string] properties = null, Json[string] optionData = null) {
         auto updatedOptions = options.update[
             "useSetters": true.toJson,

@@ -66,10 +66,10 @@ class DConnectionManager {
      * Json[string]|string aKey The name of the connection config, or an array of multiple configs.
      * @param \UIM\Datasource\IConnection|\Closure|Json[string]|null configData An array of name: config data for adapter.
      * @throws \UIM\Core\Exception\UimException When trying to modify an existing config.
-     * /
+     */
     static void configuration.update(string[] aKey, IConnection | Closure | array | null configData = null) {
         if (isArray(configData)) {
-            configData("name", aKey);
+            configuration.data("name", aKey);
         }
         configuration.update(aKey, configData);
     }
@@ -95,7 +95,7 @@ class DConnectionManager {
      * unless they have been otherwise specified.
      *
      * Note that query-string arguments are also parsed and set as values in the returned configuration.
-     * /
+     */
     static Json[string] parseDsn(string dsnToConvert) {
         auto data = _parseDsn(dsnToConvert);
 
@@ -128,13 +128,13 @@ class DConnectionManager {
      * ### Usage
      *
      * ```
-     * // Make "things" resolve to "test_things" connection
+     *// Make "things" resolve to "test_things" connection
      * ConnectionManager.alias("test_things", "things");
      * ```
      *
      * @param string source The existing connection to alias.
      * @param string aliasName The alias name that resolves to `source`.
-     * /
+     */
     static void alias(stringsource, stringalias) {
         _aliasMap[alias] = source;
     }
@@ -146,7 +146,7 @@ class DConnectionManager {
      * connection may fail if there is no other connection with that name.
      *
      * @param string aliasName The connection alias to drop
-     * /
+     */
     static void dropAlias(stringalias) {
         unset(_aliasMap[alias]);
     }
@@ -164,7 +164,7 @@ class DConnectionManager {
      * @return uim.Datasource\IConnection A connection object.
      * @throws uim.Datasource\exceptions.MissingDatasourceConfigException When config
      * data is missing.
-     * /
+     */
     static function get(string aName, booluseAliases = true) {
         if (useAliases && isset(_aliasMap[name])) {
             name = _aliasMap[name];
@@ -172,7 +172,7 @@ class DConnectionManager {
         if (configuration.isEmpty(name])) {
             throw new DMissingDatasourceConfigException(["name": name]);
         }
-        /** @psalm-suppress RedundantPropertyInitializationCheck  * /
+        /** @psalm-suppress RedundantPropertyInitializationCheck  */
         if (!isset(_registry)) {
             _registry = new DConnectionRegistry();
         }
@@ -207,16 +207,16 @@ class DConnectionManager {
      * Note that query-string arguments are also parsed and set as values in the returned configuration.
      * Params:
      * string adsn The DSN string to convert to a configuration array
-     * /
+     */
 static Json[string] parseDsn(string adsn) {
     configData = _parseDsn(dsn);
 
-    if (configuration.hasKey("path") && configData("database").isEmpty) {
-        configData("database", substr(configData("path"), 1);}
-        if (configData("driver").isEmpty) {
-            configData("driver", configData("className")); configData("className", Connection
+    if (configuration.hasKey("path") && configuration.data("database").isEmpty) {
+        configuration.data("database", substr(configuration.data("path"), 1);}
+        if (configuration.data("driver").isEmpty) {
+            configuration.data("driver", configuration.data("className")); configuration.data("className", Connection
                     .classname);}
-            unset(configData("path"]); return configData;}
+            unset(configuration.data("path"]); return configData;}
 
             /**
      * Set one or more connection aliases.
@@ -234,12 +234,12 @@ static Json[string] parseDsn(string adsn) {
      * ### Usage
      *
      * ```
-     * // Make 'things' resolve to 'test_things' connection
+     *// Make 'things' resolve to 'test_things' connection
      * ConnectionManager.alias("test_things", "things");
      * ```
      * Params:
      * @param string aalias The alias name that resolves to `source`.
-     * /
+     */
     static void alias(string connectionAlias, string sourceAlias) {
         _connectionAliases[connectionAlias] = sourceAlias;
     }
@@ -249,7 +249,7 @@ static Json[string] parseDsn(string adsn) {
      *
      * Removes an alias from ConnectionManager. Fetching the aliased
      * connection may fail if there is no other connection with that name.
-     * /
+     */
     static void dropAlias(string connectionAlias) {
         unset(_connectionAliases[connectionAlias]);
     }
@@ -268,7 +268,7 @@ static Json[string] parseDsn(string adsn) {
      * as second parameter.
      * Params:
      * @param bool useAliases Whether connection aliases are used
-     * /
+     */
     static IConnection get(string connectionName, bool useAliases = true) {
         if (useAliases && isSet(_connectionAliases[connectionName])) {
             connectionName = _connectionAliases[connectionName];

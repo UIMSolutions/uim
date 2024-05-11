@@ -56,7 +56,7 @@ class DAssetMiddleware : IRoutingMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request to check.
      * @param \SplFileInfo file The file object to compare.
-     * /
+     */
     protected bool isNotModified(IServerRequest serverRequest, SplFileInfo file) {
         auto modifiedSince = serverRequest.getHeaderLine("If-Modified-Since");
         if (!modifiedSince) {
@@ -92,7 +92,7 @@ class DAssetMiddleware : IRoutingMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request object to use.
      * @param \SplFileInfo file The file wrapper for the file.
-     * /
+     */
     protected DResponse deliverAsset(IServerRequest serverRequest, SplFileInfo file) {
         auto resource = fopen(file.getPathname(), "rb");
         if (resource == false) {

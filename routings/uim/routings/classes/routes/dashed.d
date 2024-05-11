@@ -39,7 +39,7 @@ class DDashedRoute : DRoute {
      * camelBacked form.
      * Params:
      * string urlToParse The URL to parse
-     * /
+     */
     Json[string] parse(string urlToParse, string httpMethod= null) {
         myparams = super.parse(urlToParse, httpMethod);
         if (!myparams) {
@@ -68,7 +68,7 @@ class DDashedRoute : DRoute {
      * @param Json[string] mycontext An array of the current request context.
      *  Contains information such as the current host, scheme, port, and base
      *  directory.
-     * /
+     */
     string match(Json[string] myurl, Json[string] mycontext = []) {
         auto myurl = _dasherize(myurl);
         if (_inflectedDefaults.isNull) {
@@ -90,7 +90,7 @@ class DDashedRoute : DRoute {
      * Helper method for dasherizing keys in a URL array.
      * Params:
      * Json[string] myurl An array of URL keys.
-     * /
+     */
     // TODO protected Json[string] _dasherize(Json[string] urlKeys) {
         ["controller", "plugin", "action"]
             .filter!(element => !urlKeys[myelement].isEmpty)

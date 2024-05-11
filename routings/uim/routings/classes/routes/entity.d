@@ -26,7 +26,7 @@ class DEntityRoute : DRoute {
      * @param Json[string] mycontext An array of the current request context.
      *  Contains information such as the current host, scheme, port, and base
      *  directory.
-     * /
+     */
     string match(Json[string] myurl, Json[string] mycontext = []) {
         if (_compiledRoute.isEmpty) {
             this.compile();
@@ -49,7 +49,7 @@ class DEntityRoute : DRoute {
      *
      * @throws \RuntimeException
      * @param Json myentity Enti ty value from the URL options
-     * /
+     */
     protected void _checkEntity(Json myentity) {
         if (!cast(DArrayAccess)myentity && !isArray(myentity)) {
             throw new UimException(

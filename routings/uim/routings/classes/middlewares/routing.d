@@ -19,14 +19,14 @@ class DRoutingMiddleware : IRoutingMiddleware {
      * Constructor
      * Params:
      * \UIM\Routing\IRoutingApplication app The application instance that routes are defined on.
-     * /
+     */
     this(IRoutingApplication app) {
         this.app = app;
     }
     
     /**
      * Trigger the application"s and plugin"s routes() hook.
-     * /
+     */
     protected void loadRoutes() {
         builder = Router.createRouteBuilder("/");
         this.app.routes(builder);
@@ -43,7 +43,7 @@ class DRoutingMiddleware : IRoutingMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request.
      * @param \Psr\Http\Server\IRequestHandler handler The request handler.
-     * /
+     */
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         this.loadRoutes();
         try {

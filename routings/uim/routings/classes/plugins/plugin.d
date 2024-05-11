@@ -74,7 +74,7 @@ class DPlugin : IPlugin {
      * Constructor
      * Params:
      * Json[string] options Options
-     * /
+     */
     this(s[string] options = null) {
         foreach (aKey; VALID_HOOKS) {
             if (isSet(options[aKey])) {

@@ -30,7 +30,7 @@ interface IPlugin : INamed {
      * plugin dependencies, or attach events.
      * Params:
      * \UIM\Core\IPluginApplication app The host application
-     * /
+     */
     void bootstrap(IPluginApplication app);
 
     // Add console commands for the plugin.
@@ -44,7 +44,7 @@ interface IPlugin : INamed {
      *
      * The default implementation of this method will include the `config/routes.d` in the plugin if it exists. You
      * can override this method to replace that behavior.
-     * /
+     */
     // TODO void routes(RouteBuilder routes);
 
     // Register plugin services to the application`s container

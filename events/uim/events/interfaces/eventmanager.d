@@ -41,7 +41,7 @@ interface IEventManager {
      * @return this
      * @throws \InvalidArgumentException When event key is missing or callable is not an
      *  instance of UIM\Event\IEventListener.
-     * /
+     */
     auto on(
         IEventListener|string aeventKey,
         callable|Json[string] options = null,
@@ -78,7 +78,7 @@ interface IEventManager {
      * @param \UIM\Event\IEventListener|callable|string aeventKey The event unique identifier name
      *   with which the callback has been associated, or the listener you want to remove.
      * @param \UIM\Event\IEventListener|callable|null aCallable The callback you want to detach.
-     * /
+     */
     auto off(
         IEventListener|callable|string aeventKey,
         IEventListener|callable|null aCallable = null
@@ -91,7 +91,7 @@ interface IEventManager {
      * @param \UIM\Event\IEvent<TSubject>|string aevent The event key name or instance of IEvent.
      * @return \UIM\Event\IEvent<TSubject>
      * @triggers event
-     * /
+     */
     IEvent dispatch(IEvent|string aevent);
 
     // Returns a list of all listeners for an eventKey in the order they should be called

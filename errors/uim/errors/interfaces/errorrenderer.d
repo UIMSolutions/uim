@@ -16,14 +16,14 @@ interface IErrorRenderer {
      * Params:
      * \UIM\Error\UimError error The error to be rendered.
      * @param bool shouldDebug Whether or not the application is in debug mode.
-     * /
+     */
     string render(UimError error, bool shouldDebug);
 
     /**
      * Write output to the renderer`s output stream
      * Params:
      * string aout The content to output.
-     * /
+     */
     void write(string aout);
     */
 }

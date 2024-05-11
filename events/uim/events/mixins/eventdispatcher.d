@@ -15,7 +15,7 @@ mixin template TEventDispatcher() {
      * to dispatch inner events.
      *
      * @var \UIM\Event\IEventManager|null
-     * /
+     */
     protected IEventManager _eventManager = null;
 
     // Default class name for new event objects.
@@ -26,7 +26,7 @@ mixin template TEventDispatcher() {
      *
      * You can use this instance to register any new listeners or callbacks to the
      * object events, or create your own events and trigger them at will.
-     * /
+     */
     IEventManager getEventManager() {
         return _eventManager ? _eventManager : new DEventManager();
     }
@@ -36,7 +36,7 @@ mixin template TEventDispatcher() {
      *
      * You can use this instance to register any new listeners or callbacks to the
      * object events, or create your own events and trigger them at will.
-     * /
+     */
     void setEventManager(IEventManager newEventManager) {
        _eventManager = newEventManager;
     }
@@ -51,7 +51,7 @@ mixin template TEventDispatcher() {
      * @param TSubject|null subject The object that this event applies to
      * (this by default).
      * @return \UIM\Event\IEvent<TSubject>
-     * /
+     */
     IEvent dispatchEvent(string eventName, Json[string] data = [], ?object subject = null) {
         subject ??= this;
 

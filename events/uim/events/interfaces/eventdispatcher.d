@@ -26,7 +26,7 @@ interface IEventDispatcher {
      * @param TSubject|null subject The object that this event applies to
      * (this by default).
      * @return \UIM\Event\IEvent<TSubject>
-     * /
+     */
     IEvent dispatchEvent(string eventName, Json[string] data = [], ?object subject = null);
 
     /**
@@ -36,7 +36,7 @@ interface IEventDispatcher {
      * object events, or create your own events and trigger them at will.
      * Params:
      * \UIM\Event\IEventManager eventManager the eventManager to set
-     * /
+     */
     auto setEventManager(IEventManager eventManager);
 
     // Returns the UIM\Event\EventManager manager instance for this object.

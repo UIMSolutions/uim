@@ -54,7 +54,7 @@ class DEvent : IEvent {
      * @param Json[string] data any value you wish to be transported
      *  with this event to it can be read by listeners.
      * @psalm-param TSubject|null subject
-     * /
+     */
     this(string eventName, IEventObject subject = null, Json data = null) {
         _name = eventName;
         _subject = subject;

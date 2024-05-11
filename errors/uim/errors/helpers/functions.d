@@ -12,7 +12,7 @@ import uim.errors;
  * @param Json var Variable to show debug information for.
  * @param bool|null showHtml If set to true, the method prints the debug data in a browser-friendly way.
  * @param bool showFrom If set to true, the method prints from where the auto was called.
- * /
+ */
 Json debug(Json var, bool showHtml = null, bool showFrom = true):  
 {
     if (!Configuration.read("debug")) {
@@ -43,7 +43,7 @@ Json debug(Json var, bool showHtml = null, bool showFrom = true):
  * - `start` - The stack frame to start generating a trace from. Defaults to 1
  *
  * @param Json[string] options Format for outputting stack trace
- * /
+ */
 void stackTrace(Json[string] options = null) {
     if (!Configuration.read("debug")) {
         return;
@@ -51,7 +51,7 @@ void stackTrace(Json[string] options = null) {
     auto updatedOptions = options.update["start": 0];
     options["start"]++;
 
-    /** @var string atrace * /
+    /** @var string atrace */
     trace = Debugger.trace(options);
     writeln(trace);
 }
@@ -63,13 +63,13 @@ void stackTrace(Json[string] options = null) {
  *
  * @param Json var Variable to show debug information for.
  * @param bool|null showHtml If set to true, the method prints the debug data in a browser-friendly way.
- * /
+ */
 void dd(Json var, ?bool showHtml = null) {
     if (!Configuration.read("debug")) {
         return;
     }
     trace = Debugger.trace(["start": 0, "depth": 2, "format": 'array"]);
-    /** @psalm-suppress PossiblyInvalidArrayOffset * /
+    /** @psalm-suppress PossiblyInvalidArrayOffset */
     location = [
         'line": trace[0]["line"],
         'file": trace[0]["file"],

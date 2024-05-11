@@ -34,7 +34,7 @@ class DConditionDecorator : DDecorator {
      * @template TSubject of object
      * @param \UIM\Event\IEvent<TSubject> event Event object
      * @return bool
-     * /
+     */
     protected bool _evaluateCondition(string conditionType, IEvent event) {
         if (!_options.isSet(conditionType)) {
             return conditionType != "unless";

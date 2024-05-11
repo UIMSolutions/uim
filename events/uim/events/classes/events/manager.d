@@ -39,7 +39,7 @@ class DEventManager { // }: IEventManager {
      * Params:
      * \UIM\Event\EventManager|null manager Event manager instance.
      * @return \UIM\Event\EventManager The global event manager
-     * /
+     */
     static auto instance(?EventManager manager = null): EventManager {
         if (cast(DEventManager)manager) {
             _generalManager = manager;
@@ -68,7 +68,7 @@ class DEventManager { // }: IEventManager {
             );
         }
         if (!aCallable) {
-            /** @var callable options * /
+            /** @var callable options */
            _listeners[eventKey][defaultPriority] ~= [
                 "callable": options(...),
             ];
@@ -84,7 +84,7 @@ class DEventManager { // }: IEventManager {
     /**
      * Auxiliary auto to attach all implemented callbacks of a UIM\Event\IEventListener class instance
      * as individual methods on this manager
-     * /
+     */
     protected void _attachSubscriber(IEventListener subscriber) {
         foreach (eventKey: handlers; subscriber.implementedEvents()) {
             foreach (this.normalizeHandlers(subscriber, handlers) as handler) {
@@ -138,7 +138,7 @@ class DEventManager { // }: IEventManager {
      * Params:
      * \UIM\Event\IEventListener subscriber the subscriber to be detached
      * @param string|null eventKey optional event key name to unsubscribe the listener from
-     * /
+     */
     protected void _detachSubscriber(IEventListener subscriber, string aeventKey = null) {
         events = subscriber.implementedEvents();
         if (!eventKey.isEmpty && events.isEmpty(eventKey))) {
@@ -164,7 +164,7 @@ class DEventManager { // }: IEventManager {
      * Params:
      * \UIM\Event\IEventListener subscriber Event subscriber
      * @param \Closure|array|string ahandlers Event handlers
-     * /
+     */
     // TODO protected Json[string] normalizeHandlers(IEventListener subscriber, Closure|array|string ahandlers) {
         // Check if an array of handlers not single handler config array
         if (isArray(handlers) && !isSet(handlers["callable"])) {
@@ -186,7 +186,7 @@ class DEventManager { // }: IEventManager {
      * Params:
      * \UIM\Event\IEventListener subscriber Event subscriber
      * @param \Closure|array|string ahandler Event handler
-     * /
+     */
 <<<<<<< HEAD
     // TODO protected Json[string] normalizeHandler(IEventListener subscriber, Closure|array|string ahandler) {
         callable = handler;
@@ -246,7 +246,7 @@ class DEventManager { // }: IEventManager {
      * @param callable listener The listener to trigger.
      * @param \UIM\Event\IEvent<TSubject> event Event instance.
      * @return Json The result of the listener function.
-     * /
+     */
     protected Json _callListener(callable listener, IEvent event) {
         return listener(event, ...array_values(event.getData()));
     }
@@ -280,7 +280,7 @@ class DEventManager { // }: IEventManager {
      * Returns the listeners for the specified event key indexed by priority
      * Params:
      * string aeventKey Event key.
-     * /
+     */
     Json[string] prioritisedListeners(string aeventKey) {
         if (isEmpty(_listeners[eventKey])) {
             return null;
@@ -292,7 +292,7 @@ class DEventManager { // }: IEventManager {
      * Returns the listeners matching a specified pattern
      * Params:
      * string aeventKeyPattern Pattern to match.
-     * /
+     */
     Json[string] matchingListeners(string aeventKeyPattern) {
         matchPattern = "/" ~ preg_quote(eventKeyPattern, "/") ~ "/";
 
@@ -308,7 +308,7 @@ class DEventManager { // }: IEventManager {
      * Returns the event list.
      *
      * @return \UIM\Event\EventList|null
-     * /
+     */
     EventList getEventList(): 
     {
         return _eventList;
@@ -319,7 +319,7 @@ class DEventManager { // }: IEventManager {
      *
      * @template TSubject of object
      * @param \UIM\Event\IEvent<TSubject> event An event to add to the list.
-     * /
+     */
     auto addEventToList(IEvent event) {
        _eventList?.add(event);
 
@@ -330,7 +330,7 @@ class DEventManager { // }: IEventManager {
      * Enables / disables event tracking at runtime.
      * Params:
      * bool enabled True or false to enable / disable it.
-     * /
+     */
     auto canAddEvents(bool enabled) {
        _canAddEvents = enabled;
 
@@ -339,7 +339,7 @@ class DEventManager { // }: IEventManager {
     
     /**
      * Returns whether this manager is set up to track events
-     * /
+     */
     bool isTrackingEvents() {
         return _canAddEvents && _eventList;
     }
@@ -348,7 +348,7 @@ class DEventManager { // }: IEventManager {
      * Enables the listing of dispatched events.
      * Params:
      * \UIM\Event\EventList eventList The event list object to use.
-     * /
+     */
     auto setEventList(EventList eventList) {
        _eventList = eventList;
        _canAddEvents = true;

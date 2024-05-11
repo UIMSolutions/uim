@@ -129,7 +129,7 @@ class DPluralRules {
      * Params:
      * string alocale The locale to get the rule calculated for.
      * @param int ruleNumber The number to apply the rules to.
-     * /
+     */
     static int calculate(string localName, int ruleNumber) {
         localName = Locale.canonicalize(localName);
 

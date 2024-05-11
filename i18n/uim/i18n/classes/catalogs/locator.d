@@ -40,12 +40,12 @@ class DCatalogLocator {
       throw new DI18nException(
         "Catalog `%s` is not registered."
           .format(catalogName));
-    } * /
+    } */
     if (!hasCatalog(catalogName, catalogLocale)) {
       throw new DI18nException(
         "Catalog `%s` with locale `%s` is not registered."
           .format(catalogName, catalogLocale));
-    } * /
+    } */
 
     return _registry[catalogName][catalogLocale]; 
     */

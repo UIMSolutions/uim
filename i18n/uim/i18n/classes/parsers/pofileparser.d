@@ -59,7 +59,7 @@ class DPoFileParser {
      * Items with an empty id are ignored.
      * Params:
      * string resourceFilepath The file name to parse
-     * /
+     */
     Json[string] parse(string resourceFilepath) {
         if (!exists(resourceFilepath)){
             throw new UimException("Not found file `%s`".format(resourceFilepath));
@@ -117,7 +117,7 @@ class DPoFileParser {
             /* addMessage(messages, anItem);
             anItem["ids"]["singular"] = substr(line, 7,  - 1);
             stage = ["ids", "singular"];
-            return; * / 
+            return; */ 
         }
 
         if (line.startsWith("msgstr \" ")) {
@@ -163,7 +163,7 @@ class DPoFileParser {
      * Params:
      * Json[string] messages The messages array being collected from the file
      * @param Json[string]  anItem The current item being inspected
-     * /
+     */
     protected void addMessage(Json[string] messages, Json anItem) {
         auto ids = anItem["ids"];
         if (ids["singular"].isEmpty && ids["plural"].isEmpty) {

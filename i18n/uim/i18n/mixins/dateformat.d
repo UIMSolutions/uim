@@ -19,7 +19,7 @@ mixin template TDateFormat() {
      * \IDateTime date Date.
      * @param array<int>|string aformat Format.
      * @param string locale The locale name in which the date should be displayed.
-     * /
+     */
     protected string _formatObject(
         IDateTime date,
         string[] aformat,
@@ -94,7 +94,7 @@ mixin template TDateFormat() {
      * string atime The time string to parse.
      * @param array<int>|string aformat Any format accepted by IntlDateFormatter.
      * @param \DateTimeZone|string tz The timezone for the instance
-     * /
+     */
     protected static auto _parseDateTime(
         string atime,
         string[] aformat,

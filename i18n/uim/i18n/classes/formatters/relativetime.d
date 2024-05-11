@@ -16,10 +16,10 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
      * \UIM\Chronos\DChronosDate|\IDateTime first The datetime to start with.
      * @param \UIM\Chronos\DChronosDate|\IDateTime|null second The datetime to compare against.
      * @param bool absolute Removes time difference modifiers ago, after, etc.
-     * /
+     */
     string diffForHumans(
-        /* DChronosDate| * /IDateTime first,
-        /* DChronosDateeee| * /IDateTime|null second = null,
+        /* DChronosDate| */IDateTime first,
+        /* DChronosDateeee| */IDateTime|null second = null,
         bool absolute = false
     ) {
         auto isNow = second.isNull;
@@ -83,7 +83,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
      * Params:
      * \UIM\I18n\DateTime|\UIM\I18n\Date time The time instance to format.
      * @param Json[string] options Array of options.
-     * /
+     */
     string timeAgoInWords(DateTime|Date time, Json[string] options = null) {
         options = _options(options, DateTime.classname);
         if (options["timezone"]) {
@@ -172,7 +172,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
      * @param string|int pastTime The timestamp from the past.
      * @param bool backwards Whether the difference was backwards.
      * @param Json[string] options An array of options.
-     * /
+     */
     // TODO protected Json[string] _diffData(string|int futureTime, string|int pastTime, bool backwards, Json[string] options = null) {
         futureTime = (int)futureTime;
         pastTime = (int)pastTime;
@@ -288,7 +288,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
      * Params:
      * \UIM\I18n\DateTime|\UIM\I18n\Date date The date to format.
      * @param Json[string] options Array of options.
-     * /
+     */
     string dateAgoInWords(DateTime|Date date, Json[string] options = null) {
         options = _options(options, Date.classname);
         if (cast(DateTime)date && options["timezone"]) {
@@ -360,7 +360,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
      * Build the options for relative date formatting.
      * Params:
      * Json[string] options The options provided by the user.
-     * /
+     */
     protected Json[string] _options(Json[string] options, string className) {
         auto updatedOptions = options.update[
             "from":  className.now(),

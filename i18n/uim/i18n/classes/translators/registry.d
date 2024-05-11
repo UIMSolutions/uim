@@ -44,7 +44,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      * callables that are invoked as a default for building translation
      * catalogs where none can be found for the combination of translator
      * name and locale.
-     * /
+     */
     protected callable[] _loaders = null;
 
     /**
@@ -53,7 +53,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      * \UIM\I18n\CatalogLocator catalogs The catalog locator.
      * @param \UIM\I18n\FormatterLocator formatters The formatter locator.
      * @param string localName The default locale code to use.
-     * /
+     */
     this(
         DCatalogLocator catalogs,
         DFormatterLocator formatters,
@@ -81,14 +81,14 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      * Sets the default locale code.
      * Params:
      * string localName The new locale code.
-     * /
+     */
     void setLocale(string localName) {
         this.locale = locale;
     }
     
     /**
      * Returns the default locale code.
-     * /
+     */
     string getLocale() {
         return _locale;
     }
@@ -108,7 +108,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      * requests.
      * Params:
      * \Psr\SimpleCache\ICache&\UIM\Cache\ICacheEngine cacher The cacher instance.
-     * /
+     */
     void cacher(ICache&ICacheEngine cacher) {
        _cacher = cacher;
     }
@@ -119,7 +119,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      * string catalogName The translator catalog to retrieve.
      * @param string locale The locale to use; if empty, uses the default
      * locale
-     * /
+     */
     Translator get(string catalogName, string localName = null) {
         locale ??= getLocale();
 
@@ -188,7 +188,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      * translator instances.
      *
      * If called with no arguments, it will return the currently configured value.
-     * /
+     */
     string defaultFormatter(string formatterName = null) {
         if (formatterName.isNull) {
             return _defaultFormatter;

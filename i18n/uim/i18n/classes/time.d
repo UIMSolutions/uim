@@ -34,7 +34,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      * Params:
      * string|int format Format.
-     * /
+     */
     static auto setToStringFormat(string format) {
         _toStringFormat = format;
     }
@@ -54,7 +54,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      *
      * @var string|int
-     * /
+     */
     protected static string|int _toStringFormat = IntlDateFormatter.SHORT;
 
     /**
@@ -63,7 +63,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * The format should be either the formatting constants from IntlDateFormatter as
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
-     * /
+     */
     protected static DClosure|string|int _JsonEncodeFormat = "HH':'mm':'ss";
 
     /**
@@ -74,7 +74,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      *
      * @var string|int
-     * /
+     */
     static string|int niceFormat = IntlDateFormatter.MEDIUM;
     
     /**
@@ -88,7 +88,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * can receive this object and return a formatted string.
      *
      * @param \Closure|string|int format Format.
-     * /
+     */
     static void setJsonEncodeFormat(Closure|string|int format) {
         _JsonEncodeFormat = format;
     }
@@ -111,7 +111,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * Params:
      * string atime The time string to parse.
      * @param string|int format Any format accepted by IntlDateFormatter.
-     * /
+     */
     static static parseTime(string atime, string|int format = null) {
         format ??= [IntlDateFormatter.NONE, IntlDateFormatter.SHORT];
         if (isInt(format)) {
@@ -159,7 +159,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * Params:
      * string|int format Format string.
      * @param string locale The locale name in which the time should be displayed (e.g. pt-BR)
-     * /
+     */
     string|int i18nFormat(
         string|int format = null,
         string alocale = null
@@ -178,7 +178,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * Returns a nicely formatted date string for this object.
      *
      * The format to be used is stored in the static property `Time.niceFormat`.
-     * /
+     */
     string nice(string localeName = null) {
         return to!string(this.i18nFormat(niceFormat, localeName));
     }

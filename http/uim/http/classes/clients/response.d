@@ -46,9 +46,9 @@ import uim.http;
  * as SimpleXML nodes:
  *
  * ```
- * // Get as XML
+ *// Get as XML
  * content = response.getXml()
- * // Get as Json
+ *// Get as Json
  * content = response.getJson()
  * ```
  *
@@ -75,7 +75,7 @@ class DClientResponse { // }: Message : IResponse {
      * Cookie Collection instance
      *
      * @var \UIM\Http\Cookie\CookieCollection|null
-     * /
+     */
     protected ICookieCollection cookies = null;
 
 
@@ -83,7 +83,7 @@ class DClientResponse { // }: Message : IResponse {
      * Cached decoded XML data.
      *
      * @var \SimpleXMLElement|null
-     * /
+     */
     protected ISimpleXMLElement _xml = null;
 
     // Cached decoded Json data.
@@ -94,7 +94,7 @@ class DClientResponse { // }: Message : IResponse {
      *
      * string[] unparsedHeaders Unparsed headers.
      * @param string abody The response body.
-     * /
+     */
     this(string[] unparsedHeaders = [], string abody= null) {
        _parseHeaders(unparsedHeaders);
         if (getHeaderLine("Content-Encoding") == "gzip") {
@@ -113,7 +113,7 @@ class DClientResponse { // }: Message : IResponse {
      * the body will be decompressed.
      * Params:
      * string abody Gzip encoded body.
-     * /
+     */
     protected string _decodeGzipBody(string encodedBody) {
         if (!function_exists("gzinflate")) {
             throw new UimException("Cannot decompress gzip response body without gzinflate()");
@@ -138,7 +138,7 @@ class DClientResponse { // }: Message : IResponse {
      * - Parses and normalizes header names + values.
      *
      * string[] headersToParse Headers to parse.
-     * /
+     */
     protected void _parseHeaders(string[] headersToParse) {
         foreach (headersToParse as aValue) {
             if (aValue.startWith("HTTP/")) {
@@ -153,7 +153,7 @@ class DClientResponse { // }: Message : IResponse {
             }
             [name, aValue] = split(":", aValue, 2);
             aValue = strip(aValue);
-            /** @Dstan-var non-empty-string aName * /
+            /** @Dstan-var non-empty-string aName */
             string name = strip(name);
             string normalized = name.lower;
             if (isSet(this.headers[name])) {
@@ -167,21 +167,21 @@ class DClientResponse { // }: Message : IResponse {
     
     /**
      * Check if the response status code was in the 2xx/3xx range
-     * /
+     */
     bool isOk() {
         return _statusCode >= 200 && _statusCode <= 399;
     }
     
     /**
      * Check if the response status code was in the 2xx range
-     * /
+     */
     bool isSuccess() {
         return _statusCode >= 200 && _statusCode <= 299;
     }
     
     /**
      * Check if the response had a redirect status code.
-     * /
+     */
     bool isRedirect() {
         codes = [
             STATUS_MOVED_PERMANENTLY,
@@ -203,7 +203,7 @@ class DClientResponse { // }: Message : IResponse {
  Params:
      * int code The status code to set.
      * @param string areasonPhrase The status reason phrase.
-     * /
+     */
     static withStatus(int code, string areasonPhrase= null) {
         new = clone this;
         new.code = code;
@@ -218,7 +218,7 @@ class DClientResponse { // }: Message : IResponse {
     
     /**
      * Get the encoding if it was set.
-     * /
+     */
     string getEncoding() {
         content = getHeaderLine("content-type");
         if (!content) {
@@ -235,7 +235,7 @@ class DClientResponse { // }: Message : IResponse {
      * Get the all cookie data.
      *
      * @return Json[string] The cookie data
-     * /
+     */
     Json[string] getCookies() {
         return _getCookies();
     }
@@ -245,7 +245,7 @@ class DClientResponse { // }: Message : IResponse {
      *
      * This method exposes the response`s CookieCollection
      * instance allowing you to interact with cookie objects directly.
-     * /
+     */
     CookieCollection getCookieCollection() {
         return _buildCookieCollection();
     }
@@ -254,7 +254,7 @@ class DClientResponse { // }: Message : IResponse {
      * Get the value of a single cookie.
      * Params:
      * string aName The name of the cookie value.
-     * /
+     */
     string[] getCookie(string aName) {
         cookies = buildCookieCollection();
 
@@ -268,7 +268,7 @@ class DClientResponse { // }: Message : IResponse {
      * Get the full data for a single cookie.
      * Params:
      * string aName The name of the cookie value.
-     * /
+     */
     Json[string] getCookieData(string valueName) {
         cookies = buildCookieCollection();
 
@@ -280,7 +280,7 @@ class DClientResponse { // }: Message : IResponse {
     
     /**
      * Lazily build the CookieCollection and cookie objects from the response header
-     * /
+     */
     protected ICookieCollection buildCookieCollection() {
         this.cookies ??= CookieCollection.createFromHeader(getHeader("Set-Cookie"));
 

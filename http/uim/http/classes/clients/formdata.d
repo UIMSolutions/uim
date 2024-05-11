@@ -39,7 +39,7 @@ class DFormData { // }: Countable {
      * Method for creating new instances of Part
      * Params:
      * string aName The name of the part.
-     * /
+     */
     FormDataPart newPart(string aName, string valueToAdd) {
         return new DFormDataPart(name, valueToAdd);
     }
@@ -56,7 +56,7 @@ class DFormData { // }: Countable {
      * \UIM\Http\Client\FormDataPart|string aName The name of the part to add,
      *  or the part data object.
      * @param Json aValue The value for the part.
-     * /
+     */
     void add(FormDataPart|string aName, Json aValue = null) {
         if (isString(name)) {
             if (isArray(aValue)) {
@@ -78,7 +78,7 @@ class DFormData { // }: Countable {
      * Iterates the parameter and adds all the key/values.
      * Params:
      * Json[string] data Array of data to add.
-     * /
+     */
     void addMany(Json[string] data) {
         someData.byKeyValue
             .each!(nameValue => this.add(nameValue.key, nameValue.value));
@@ -91,7 +91,7 @@ class DFormData { // }: Countable {
      * string aName The name to use.
      * @param \Psr\Http\Message\IUploadedFile|resource|string avalue Either a string filename, or a filehandle,
      * or a IUploadedFile instance.
-     * /
+     */
     FormDataPart addFile(string aName, Json aValue) {
        _hasFile = true;
 
@@ -131,7 +131,7 @@ class DFormData { // }: Countable {
      * Params:
      * string aName The name to use.
      * @param Json aValue The value to add.
-     * /
+     */
     void addRecursive(string nameToUse, Json valueToAdd) {
         valueToAdd.byKeyValue.each!((kv) {
             string key = name ~ "[" ~ kv.key ~ "]";
@@ -147,7 +147,7 @@ class DFormData { // }: Countable {
     /**
      * Check whether the current payload
      * has any files.
-     * /
+     */
     bool hasFile() {
         return _hasFile;
     }
@@ -158,7 +158,7 @@ class DFormData { // }: Countable {
      *
      * A payload will become multipart when you add files
      * or use add() with a Part instance.
-     * /
+     */
     bool isMultipart() {
         return _hasFile() || _hasComplexPart;
     }
@@ -168,7 +168,7 @@ class DFormData { // }: Countable {
      *
      * If this object contains files, `multipart/form-data` will be used,
      * otherwise `application/x-www-form-urlencoded` will be used.
-     * /
+     */
     string contentType() {
         if (!this.isMultipart()) {
             return "application/x-www-form-urlencoded";
@@ -179,7 +179,7 @@ class DFormData { // }: Countable {
     /**
      * Converts the FormData and its parts into a string suitable
      * for use in an HTTP request.
-     * /
+     */
     override string toString() {
         if (this.isMultipart()) {
             auto boundary = this.boundary();

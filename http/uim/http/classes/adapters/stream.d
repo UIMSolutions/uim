@@ -20,7 +20,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * DContext resource used by the stream API.
      *
      * @var resource|null
-     * /
+     */
     protected _context;
 
 
@@ -29,12 +29,12 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * The stream resource.
      *
      * @var resource|null
-     * /
+     */
     protected _stream;
 
     /**
      * Connection error list.
-     * /
+     */
     // TODO protected Json[string] _connectionErrors = null;
 
     Json[string] send(IRequest request, Json[string] options = null) {
@@ -57,7 +57,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Params:
      * Json[string] aHeaders The list of headers from the request(s)
      * @param string acontent The response content.
-     * /
+     */
     Response[] createResponses(Json[string] aHeaders, string acontent) {
          anIndexes = responses = null;
         foreach (aHeaders as  anI:  aHeader) {
@@ -67,9 +67,9 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         }
         last = count(anIndexes) - 1;
         foreach (anIndexes as  anI: start) {
-            /** @psalm-suppress InvalidOperand * /
+            /** @psalm-suppress InvalidOperand */
             end = isSet(anIndexes[anI + 1]) ?  anIndexes[anI + 1] - start : null;
-            /** @psalm-suppress PossiblyInvalidArgument * /
+            /** @psalm-suppress PossiblyInvalidArgument */
              aHeaderSlice = array_slice(aHeaders, start, end);
             body = anI == last ? content : "";
             responses ~= _buildResponse(aHeaderSlice, body);
@@ -82,7 +82,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Params:
      * \Psr\Http\Message\IRequest request The request to build context from.
      * @param Json[string] options Additional request options.
-     * /
+     */
     protected void _buildContext(IRequest request, Json[string] options = null) {
        _buildContent(request, options);
        _buildHeaders(request, options);
@@ -106,7 +106,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Params:
      * \Psr\Http\Message\IRequest request The request being sent.
      * @param Json[string] options Array of options to use.
-     * /
+     */
     protected void _buildHeaders(IRequest request, Json[string] options = null) {
          aHeaders = null;
         foreach (request.getHeaders() as name:  someValues) {
@@ -123,7 +123,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Params:
      * \Psr\Http\Message\IRequest request The request being sent.
      * @param Json[string] options Array of options to use.
-     * /
+     */
     protected void _buildContent(IRequest request, Json[string] options = null) {
         body = request.getBody();
         body.rewind();
@@ -153,7 +153,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Params:
      * \Psr\Http\Message\IRequest request The request being sent.
      * @param Json[string] optionsToUse Array of optionsToUse to use.
-     * /
+     */
     protected void _buildSslContext(IRequest request, Json[string] optionsToUse = null) {
         sslOptions = [
             "ssl_verify_peer",
@@ -185,11 +185,11 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Open the stream and send the request.
      * Params:
      * \Psr\Http\Message\IRequest request The request object.
-     * /
+     */
     // TODO protected Json[string] _send(IRequest request) {
         deadline = false;
         if (isSet(_contextOptions["timeout"]) && _contextOptions["timeout"] > 0) {
-            /** @var int deadline * /
+            /** @var int deadline */
             deadline = time() + _contextOptions["timeout"];
         }
         url = request.getUri();
@@ -212,7 +212,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             }
         }
         meta = stream_get_meta_data(_stream);
-        /** @psalm-suppress InvalidPropertyAssignmentValue * /
+        /** @psalm-suppress InvalidPropertyAssignmentValue */
         fclose(_stream);
 
         if (timedOut) {
@@ -230,7 +230,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Params:
      * Json[string] aHeaders Unparsed headers.
      * @param string abody The response body.
-     * /
+     */
     protected DResponse _buildResponse(Json[string] aHeaders, string abody) {
         return new DResponse(aHeaders, body);
     }
@@ -240,7 +240,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Params:
      * string aurl The url to connect to.
      * @param \Psr\Http\Message\IRequest request The request object.
-     * /
+     */
     protected void _open(string urlToConnect, IRequest request) {
         if (!(bool)ini_get("allow_url_fopen")) {
             throw new DClientException("The D directive `allow_url_fopen` must be enabled.");

@@ -33,7 +33,7 @@ class DCorsBuilder {
      * Params:
      * \Psr\Http\Message\IResponse response The response object to add headers onto.
      * @param string aorigin The request`s Origin header.
-     * /
+     */
     this(IResponse aResponse, string anOrigin, bool isRequestOverSsl = false) {
        _origin = anOrigin;
        _isSsl = isRequestOverSsl;
@@ -45,7 +45,7 @@ class DCorsBuilder {
      *
      * If the builder has no Origin, or if there are no allowed domains,
      * or if the allowed domains do not match the Origin header no headers will be applied.
-     * /
+     */
     IResponse build() {
         auto response = _response;
         if (_origin.isEmpty) {
@@ -65,7 +65,7 @@ class DCorsBuilder {
      * You can use `*.example.com` wildcards to accept subdomains, or `*` to allow all domains
      * Params:
      * string[]|string adomains The allowed domains
-     * /
+     */
     void allowOrigin(string[] adomains) {
         auto allowedDomains = _normalizeDomains((array)domains);
         foreach (domain; allowedDomains) {
@@ -82,7 +82,7 @@ class DCorsBuilder {
      * Normalize the origin to regular expressions and put in an array format
      *
      * someDomains = Domain names to normalize.
-     * /
+     */
     // TODO protected Json[string] _normalizeDomains(string[] someDomains) {
         auto result;
         foreach (domain; someDomains) {
@@ -109,7 +109,7 @@ protected string normalizeDomain(string aDomain) {
     /**
      * Set the list of allowed HTTP Methods.
      * allowedMethods - The allowed HTTP methods
-     * /
+     */
     void allowMethods(string[] allowedMethods) {
        _headers["Access-Control-Allow-Methods"] = allowedMethods.join(", ");
     }
@@ -123,7 +123,7 @@ protected string normalizeDomain(string aDomain) {
      * Allowed headers that can be sent in CORS requests.
      *
      * headersToAccept - The list of headers to accept in CORS requests.
-     * /
+     */
     void allowHeaders(string[] headersToAccept) {
        _headers["Access-Control-Allow-Headers"] = headersToAccept.join(", ");
     }
@@ -139,7 +139,7 @@ protected string normalizeDomain(string aDomain) {
      * Define the max-age preflight OPTIONS requests are valid for.
      * Params:
      * string|int age The max-age for OPTIONS requests in seconds
-     * /
+     */
     auto maxAge(string|int age) {
        _headers["Access-Control-Max-Age"] = age;
 

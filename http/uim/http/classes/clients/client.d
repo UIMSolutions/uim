@@ -118,7 +118,7 @@ class DClient { // }: IClient {
      *
      * Cookies are indexed by the cookie`s domain or
      * request host name.
-     * /
+     */
   protected ICookieCollection _cookies;
 
   // Mock adapter for stubbing requests in tests.
@@ -158,7 +158,7 @@ class DClient { // }: IClient {
      *  to use. Short class names are resolved to the `Http\Client\Auth` namespace.
      * Params:
      * Json[string] configData Config options for scoped clients.
-     * /
+     */
   this(Json[string] configData = null) {
     configuration.update(configData);
 
@@ -192,7 +192,7 @@ class DClient { // }: IClient {
      * Other parts of the url string are ignored.
      * Params:
      * string myurl A string URL e.g. https://example.com
-     * /
+     */
   static auto createFromUrl(string myurl) {
     myparts = parse_url(myurl);
 
@@ -208,13 +208,13 @@ class DClient { // }: IClient {
         "path": ""
       ]);
 
-    if (isEmpty(configData("scheme"]) || configData("host"].isEmpty) {
+    if (isEmpty(configuration.data("scheme"]) || configuration.data("host"].isEmpty) {
       throw new DInvalidArgumentException(
         "The URL was parsed but did not contain a scheme or host");
     }
-    if (isSet(configData("path"])) {
-      configData("basePath"] = configData("path"];
-      unset(configData("path"]);
+    if (isSet(configuration.data("path"])) {
+      configuration.data("basePath"] = configuration.data("path"];
+      unset(configuration.data("path"]);
     }
     return new static(configData);
   }
@@ -230,7 +230,7 @@ class DClient { // }: IClient {
      * \UIM\Http\Cookie\ICookie  mycookie Cookie object.
      * @return this
      * @throws \InvalidArgumentException
-     * /
+     */
   void addCookie(ICookie mycookie) {
     if (!mycookie.getDomain() || !mycookie.getPath()) {
       throw new DInvalidArgumentException("Cookie must have a domain and a path set.");
@@ -249,7 +249,7 @@ class DClient { // }: IClient {
      * string myurl The url or path you want to request.
      * @param string[] mydata The query data you want to send.
      * @param Json[string] options Additional options for the request.
-     * /
+     */
   Response get(string myurl, string[] mydata = [], Json[string] options = null) {
     options = _mergeOptions(options);
     mybody = null;
@@ -273,7 +273,7 @@ class DClient { // }: IClient {
      * string myurl The url or path you want to request.
      * @param Json mydata The post data you want to send.
      * @param Json[string] options Additional options for the request.
-     * /
+     */
   Response post(string myurl, Json mydata = [], Json[string] options = null) {
     options = _mergeOptions(options);
     myurl = this.buildUrl(myurl, [], options);
@@ -287,7 +287,7 @@ class DClient { // }: IClient {
      * @param string myurl The url or path you want to request.
      * @param Json requestData The request data you want to send.
      * options = Additional options for the request.
-     * /
+     */
   Response put(string myurl, Json requestData = [], Json[string] options = null) {
     options = _mergeOptions(options);
     myurl = this.buildUrl(myurl, [], options);
@@ -301,7 +301,7 @@ class DClient { // }: IClient {
      * string myurl The url or path you want to request.
      * @param Json requestData The request data you want to send.
      * @param Json[string] options Additional options for the request.
-     * /
+     */
   Response patch(string myurl, Json requestData = [], Json[string] options = null) {
     options = _mergeOptions(options);
     myurl = this.buildUrl(myurl, [], options);
@@ -315,7 +315,7 @@ class DClient { // }: IClient {
      * @param string myurl The url or path you want to request.
      * @param Json sendData The request data you want to send.
      * options = Additional options for the request.
-     * /
+     */
   Response options(string myurl, Json sendData = [], Json[string] options = null) {
     options = _mergeOptions(options);
     myurl = this.buildUrl(myurl, [], options);
@@ -329,7 +329,7 @@ class DClient { // }: IClient {
      * string myurl The url or path you want to request.
      * @param Json sendData The request data you want to send.
      * @param Json[string] options Additional options for the request.
-     * /
+     */
   Response trace(string myurl, Json sendData = [], Json[string] options = null) {
     options = _mergeOptions(options);
     myurl = this.buildUrl(myurl, [], options);
@@ -343,7 +343,7 @@ class DClient { // }: IClient {
      * string myurl The url or path you want to request.
      * @param Json sendData The request data you want to send.
      * @param Json[string] options Additional options for the request.
-     * /
+     */
   Response delete(string myurl, Json sendData = [], Json[string] optionsForRequest = null) {
     auto optionsForRequest = _mergeOptions(optionsForRequest);
     auto myurl = this.buildUrl(myurl, [], optionsForRequest);
@@ -357,7 +357,7 @@ class DClient { // }: IClient {
      * string myurl The url or path you want to request.
      * @param Json[string] data The query string data you want to send.
      * @param Json[string] options Additional options for the request.
-     * /
+     */
   Response head(string myurl, Json[string] data = [], Json[string] optionsForRequest = null) {
     auto optionsForRequest = _mergeOptions(optionsForRequest);
     auto myurl = this.buildUrl(myurl, mydata, optionsForRequest);
@@ -372,7 +372,7 @@ class DClient { // }: IClient {
      * @param string myurl URL to request.
      * @param Json mydata The request body.
      * @param Json[string] options The options to use. Contains auth, proxy, etc.
-     * /
+     */
   protected DClientResponse _doRequest(string mymethod, string myurl, Json mydata, Json[string] options = null) {
     myrequest = _createRequest(
       mymethod,
@@ -402,7 +402,7 @@ class DClient { // }: IClient {
      * Params:
      * \Psr\Http\Message\IRequest  myrequest The request to send.
      * @param Json[string] options Additional options to use.
-     * /
+     */
   Response send(IRequest myrequest, Json[string] options = null) {
     auto myredirects = 0;
     if (isSet(options["redirect"])) {
@@ -434,7 +434,7 @@ class DClient { // }: IClient {
 
   /**
      * Clear all mocked responses
-     * /
+     */
   static void clearMockResponses() {
     _mockAdapter = null;
   }
@@ -457,7 +457,7 @@ class DClient { // }: IClient {
      * @param string myurl The URL being matched. See above for examples.
      * @param \UIM\Http\Client\Response  myresponse The response that matches the request.
      * @param Json[string] options See above.
-     * /
+     */
   static void addMockResponse(string mymethod, string myurl, Response myresponse, Json[string] options = null) {
     if (!_mockAdapter) {
       _mockAdapter = new DMockAdapter();
@@ -471,7 +471,7 @@ class DClient { // }: IClient {
      * Params:
      * \Psr\Http\Message\IRequest  myrequest The request to send.
      * @param Json[string] options Additional options to use.
-     * /
+     */
   protected DClientResponse _sendRequest(IRequest myrequest, Json[string] options = null) {
     if (_mockAdapter) {
       myresponses = _mockAdapter.send(myrequest, options);
@@ -481,7 +481,7 @@ class DClient { // }: IClient {
     }
     myresponses.each!(response => _cookies = _cookies.addFromResponse(response, myrequest));
 
-    /** @var \UIM\Http\Client\Response * /
+    /** @var \UIM\Http\Client\Response */
     return array_pop(myresponses);
   }
 
@@ -491,7 +491,7 @@ class DClient { // }: IClient {
      * string myurl Either a full URL or just the path.
      * @param string[] myquery The query data for the URL.
      * @param Json[string] options The config options stored with Client.config()
-     * /
+     */
   string buildUrl(string myurl, string[] myquery = [], Json[string] options = null) {
     if (options.isEmpty && myquery.isEmpty) {
       return myurl;
@@ -541,9 +541,9 @@ class DClient { // }: IClient {
      * @param string myurl The url including query string.
      * @param Json mydata The request body.
      * @param Json[string] options The options to use. Contains auth, proxy, etc.
-     * /
+     */
   protected DRequest _createRequest(string mymethod, string myurl, Json mydata, Json[string] options = null) {
-    /** @var array<non-empty-string, non-empty-string>  myheaders * /
+    /** @var array<non-empty-string, non-empty-string>  myheaders */
     myheaders = (array)(options["headers"] ?  ? []);
     if (isSet(options["type"])) {
       myheaders = chain(myheaders, _typeHeaders(options["type"]));
@@ -555,7 +555,7 @@ class DClient { // }: IClient {
     myrequest = new DRequest(myurl, mymethod, myheaders, mydata);
     myrequest = myrequest.withProtocolVersion(_configData.isSet("protocolVersion"));
     mycookies = options["cookies"] ?  ? [];
-    /** @var \UIM\Http\Client\Request  myrequest * /
+    /** @var \UIM\Http\Client\Request  myrequest */
     myrequest = _cookies.addToRequest(myrequest, mycookies);
     if (isSet(options["auth"])) {
       myrequest = _addAuthentication(myrequest, options);
@@ -575,7 +575,7 @@ class DClient { // }: IClient {
      * returns Headers to set on the request.
      * @throws \UIM\Core\Exception\UimException When an unknown type alias is used.
      * @psalm-return array<non-empty-string, non-empty-string>
-     * /
+     */
   protected STRINGAA _typeHeaders(string mytype) {
     if (mytype.has("/")) {
       return [
@@ -606,10 +606,10 @@ class DClient { // }: IClient {
      * Params:
      * \UIM\Http\Client\Request  myrequest The request to modify.
      * @param Json[string] options Array of options containing the 'auth' key.
-     * /
+     */
   protected DRequest _addAuthentication(Request myrequest, Json[string] options = null) :  {
     myauth = options["auth"];
-    /** @var \UIM\Http\Client\Auth\Basic  myadapter * /
+    /** @var \UIM\Http\Client\Auth\Basic  myadapter */
     myadapter = _createAuth(myauth, options);
 
     return myadapter.authentication(myrequest, options["auth"]);
@@ -623,7 +623,7 @@ class DClient { // }: IClient {
      * Params:
      * \UIM\Http\Client\Request  requestToModify The request to modify.
      * @param Json[string] options Array of options containing the 'proxy' key.
-     * /
+     */
   protected DRequest _addProxy(Request requestToModify, Json[string] options = null) {
     myauth = options["proxy"];
     Http\Client\Auth\Basic myadapter = _createAuth(myauth, options);
@@ -638,7 +638,7 @@ class DClient { // }: IClient {
      * authentication strategy handler.
      * Params:
      * Json[string] myauth The authentication options to use.
-     * /
+     */
   protected object _createAuth(Json[string] myauth, Json[string] requestOptions = null) :  {
     if (isEmpty(myauth["type"])) {
       myauth["type"] = "basic";

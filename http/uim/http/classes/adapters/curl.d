@@ -126,7 +126,7 @@ class DCurl { // }: IAdapter {
      * Convert HTTP version number into curl value.
      * Params:
      * \Psr\Http\Message\IRequest request The request to get a protocol version for.
-     * /
+     */
     protected int getProtocolVersion(IRequest request) {
         return match (request.getProtocolVersion()) {
             "1.0": CURL_HTTP_VERSION_1_0,
@@ -146,7 +146,7 @@ class DCurl { // }: IAdapter {
      * Params:
      * \CurlHandle handle Curl handle
      * @param string aresponseData string The response data from curl_exec
-     * /
+     */
     protected DREsponse[] createResponse(CurlHandle handle, string aresponseData) {
          aHeaderSize = curl_getinfo(handle, CURLINFO_HEADER_SIZE);
          aHeaders = strip(substr(responseData, 0,  aHeaderSize));
@@ -160,7 +160,7 @@ class DCurl { // }: IAdapter {
      * Execute the curl handle.
      * Params:
      * \CurlHandle ch Curl Resource handle
-     * /
+     */
     protected string exec(CurlHandle ch) {
         return curl_exec(ch);
     } */

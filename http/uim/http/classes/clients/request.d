@@ -23,7 +23,7 @@ class DRequest { // }: Message, IRequest {
      * @param string amethod The HTTP method to use.
      * @param Json[string]  aHeaders The HTTP headers to set.
      * @param string[] someData The request body to use.
-     * /
+     */
     this(
         IUri|string aurl = "",
         string amethod = self.METHOD_GET,
@@ -48,7 +48,7 @@ class DRequest { // }: Message, IRequest {
     /**
      * Add an array of headers to the request.
      * @param STRINGAA  aHeaders The headers to add.
-     * /
+     */
     protected void addHeaders(STRINGAA headersToAdd) {
         headersToAdd.byKeyValue
             .each!(kv => addHeader(kv.key, kv.value));
@@ -67,7 +67,7 @@ class DRequest { // }: Message, IRequest {
      * and the content-type will be set.
      * Params:
      * string[] requestBody The body for the request.
-     * /
+     */
     protected void setContent(string[] requestBody) {
         if (isArray(content)) {
             formData = new DFormData();

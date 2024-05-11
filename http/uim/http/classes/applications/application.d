@@ -30,7 +30,7 @@ class DApplication {
     IRoutingApplication {
     /**
      * @use \UIM\Event\EventDispatcherTrait<TSubject>
-     * /
+     */
     mixin TEventDispatcher();
 
     // Contains the path of the config directory
@@ -43,14 +43,14 @@ class DApplication {
      * Controller factory
      *
      * @var \UIM\Http\IControllerFactory|null
-     * /
+     */
     protected IControllerFactory controllerFactory = null;
 
     /**
      * Container
      *
      * @var \UIM\Core\IContainer|null
-     * /
+     */
     protected IContainer container = null;
 
     /**
@@ -59,7 +59,7 @@ class DApplication {
      * string configDataDir The directory the bootstrap configuration is held in.
      * @param \UIM\Event\IEventManager|null eventManager Application event manager instance.
      * @param \UIM\Http\IControllerFactory|null controllerFactory Controller factory.
-     * /
+     */
     this(
         string configDataDir,
         ?IEventManager eventManager = null,
@@ -96,7 +96,7 @@ class DApplication {
      * Params:
      * \UIM\Core\IPlugin|string aName The plugin name or plugin object.
      * @param Json[string] configData The configuration data for the plugin if using a string for name
-     * /
+     */
     void addOptionalPlugin(IPlugin|string aName, Json[string] configData = null) {
         try {
             this.addPlugin(name, configData);
@@ -129,7 +129,7 @@ class DApplication {
      * By default, this will load `config/routes.d` for ease of use and backwards compatibility.
      * Params:
      * \UIM\Routing\RouteBuilder routes A route builder to add routes into.
-     * /
+     */
     void routes(RouteBuilder routes) {
         // Only load routes if the router is empty
         if (!Router.routes()) {
@@ -155,7 +155,7 @@ class DApplication {
      * loaded using conventions based names.
      * Params:
      * \UIM\Console\CommandCollection commands The CommandCollection to add commands into.
-     * /
+     */
     CommandCollection console(CommandCollection commands) {
         return commands.addMany(commands.autoDiscover());
     }
@@ -173,7 +173,7 @@ class DApplication {
      *
      * The first time the container is fetched it will be constructed
      * and stored for future calls.
-     * /
+     */
     IContainer getContainer() {
         return _container ??= this.buildContainer();
     }
@@ -183,7 +183,7 @@ class DApplication {
      *
      * Override this method if you need to use a custom container or
      * want to change how the container is built.
-     * /
+     */
     protected IContainer buildContainer() {
         container = new DContainer();
         this.services(container);
@@ -201,7 +201,7 @@ class DApplication {
      * Register application container services.
      * Params:
      * \UIM\Core\IContainer container The Container to update.
-     * /
+     */
     void services(IContainer container) {
     }
     
@@ -213,7 +213,7 @@ class DApplication {
      * - Invoke the controller.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request
-     * /
+     */
     IResponse handle(
         IServerRequest serverRequest
     ) {

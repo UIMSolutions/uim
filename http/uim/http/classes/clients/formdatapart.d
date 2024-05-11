@@ -22,12 +22,12 @@ class DFormDataPart { // }: Stringable {
 
     /**
      * The encoding used in this part.
-     * /
+     */
     protected string atransferEncoding = null;
 
     /**
      * The contentId for the part
-     * /
+     */
     protected string acontentId = null;
 
     /**
@@ -37,7 +37,7 @@ class DFormDataPart { // }: Stringable {
      * @param string avalue The value of the data.
      * @param string adisposition The type of disposition to use, defaults to form-data.
      * @param string charset The charset of the data.
-     * /
+     */
     this(
         protected string aName,
         protected string avalue,
@@ -53,7 +53,7 @@ class DFormDataPart { // }: Stringable {
      * header from being added.
      * Params:
      * string disposition Use null to get/string to set.
-     * /
+     */
     string disposition(string adisposition = null) {
         if (disposition.isNull) {
             return _disposition;
@@ -65,7 +65,7 @@ class DFormDataPart { // }: Stringable {
      * Get/set the contentId for a part.
      * Params:
      * string  anId The content id.
-     * /
+     */
     string contentId(string aid = null) {
         if (anId.isNull) {
             return _contentId;
@@ -79,7 +79,7 @@ class DFormDataPart { // }: Stringable {
      * Get/set the content type.
      * Params:
      * string type Use null to get/string to set.
-     * /
+     */
     string type(string atype) {
         if (type.isNull) {
             return _type;
@@ -93,7 +93,7 @@ class DFormDataPart { // }: Stringable {
      * Useful when content bodies are in encodings like base64.
      * Params:
      * string type The type of encoding the value has.
-     * /
+     */
     string transferEncoding(string atype) {
         if (type.isNull) {
             return _transferEncoding;
@@ -103,14 +103,14 @@ class DFormDataPart { // }: Stringable {
     
     /**
      * Get the part name.
-     * /
+     */
     string name() {
         return _name;
     }
     
     /**
      * Get the value.
-     * /
+     */
     string value() {
         return _value;
     }
@@ -119,7 +119,7 @@ class DFormDataPart { // }: Stringable {
      * Convert the part into a string.
      *
      * Creates a string suitable for use in HTTP requests.
-     * /
+     */
     override string toString() {
         string result;
         if (this.disposition) {
@@ -155,7 +155,7 @@ class DFormDataPart { // }: Stringable {
      * Params:
      * string aName The name of the header parameter
      * @param string avalue The value of the header parameter
-     * /
+     */
     protected string _headerParameterToString(string aName, string avalue) {
         transliterated = Text.transliterate(aValue.replace("\"", ""));
         result = "%s="%s"".format(name, transliterated);

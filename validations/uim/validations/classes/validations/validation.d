@@ -56,14 +56,14 @@ class DValidation {
     /**
      * Holds an array of errors messages set in this class.
      * These are used for debugging purposes
-     * /
+     */
     static Json[string] myerrors = null;
 
     /**
      * Checks that a string contains something other than whitespace
      *
      * Returns true if string contains something other than whitespace
-     * /
+     */
     static bool isNotBlank(Json valueToCheck) {
         if (valueToCheck.isEmpty && !isBool(valueToCheck) && !isNumeric(valueToCheck)) {
             return false;
@@ -78,7 +78,7 @@ class DValidation {
      * Use `asciiAlphaNumeric()` if you want to exclude unicode.
      * Params:
      * Json valueToCheck Value to check
-     * /
+     */
     static bool isAlphaNumeric(Json valueToCheck) {
         if ((isEmpty(valueToCheck) && valueToCheck != "0") || !isScalar(valueToCheck)) {
             return false;
@@ -91,7 +91,7 @@ class DValidation {
      *
      * This method"s definition of letters and integers includes unicode characters.
      * Use `notAsciiAlphaNumeric()` if you want to exclude ascii only.
-     * /
+     */
     static bool isNotAlphaNumeric(Json valueToCheck) {
         return !alphaNumeric(valueToCheck);
     }
@@ -116,7 +116,7 @@ class DValidation {
      * Params:
      * @param int mymin Minimum value in range (inclusive)
      * @param int mymax Maximum value in range (inclusive)
-     * /
+     */
     static bool lengthBetween(Json valueToCheck, int minLength, int maxLength) {
         if (!isScalar(valueToCheck)) {
             return false;
@@ -136,7 +136,7 @@ class DValidation {
      *   Example: ["amex", "bankcard", "maestro"]
      * @param bool mydeep set to true this will check the Luhn algorithm of the credit card.
      * @param string|null myregex A custom regex, this will be used instead of the defined regex values.
-     * /
+     */
     static bool creditCard(
         Json checkValue,
         string[] mytype = "fast",
@@ -208,7 +208,7 @@ class DValidation {
      *   is greater >, is less <, greater or equal >=
      *   less or equal <=, is less <, equal to ==, not equal !=
      * @param int myexpectedCount The expected count value.
-     * /
+     */
     static bool checkNumElements(Json valueToCheck, string myoperator, int myexpectedCount) {
         return !valueToCheck.isArray && !cast(DCountable)valueToCheck
             ? false
@@ -223,7 +223,7 @@ class DValidation {
      *  ">", "<", ">=", "<=", "==", "!=", "==" and "!=". You can use one of
      *  the Validation.COMPARE_* constants.
      * @param Json mycheck2 The right value to compare.
-     * /
+     */
     static bool compare(Json mycheck1, string myoperator, Json mycheck2) {
         if (
             (!isNumeric(mycheck1) || !isNumeric(mycheck2)) &&
@@ -256,7 +256,7 @@ class DValidation {
      * Json mycheck The value to find in myfield.
      * @param string myfield The field to check mycheck against. This field must be present in mycontext.
      * @param Json[string] mycontext The validation context.
-     * /
+     */
     static bool compareWith(Json mycheck, string myfield, Json[string] mycontext) {
         return self.compareFields(mycheck, myfield, COMPARE_SAME, mycontext);
     }
@@ -270,7 +270,7 @@ class DValidation {
      * @param string myfield The field to check mycheck against. This field must be present in mycontext.
      * @param string myoperator Comparison operator. See Validation.comparison().
      * @param Json[string] mycontext The validation context.
-     * /
+     */
     static bool compareFields(Json mycheck, string myfield, string myoperator, Json[string] mycontext) {
         if (!isSet(mycontext["data"]) || !array_key_exists(myfield, mycontext["data"])) {
             return false;
@@ -283,7 +283,7 @@ class DValidation {
      * Params:
      * Json mycheck The value to check.
      * @param string|null myregex If mycheck is passed as a string, myregex must also be set to valid regular expression
-     * /
+     */
     static bool custom(Json mycheck, string myregex = null) {
         if (!isScalar(mycheck)) {
             return false;
@@ -318,7 +318,7 @@ class DValidation {
      * @param string[]|string myformat Use a string or an array of the keys above.
      *   Arrays should be passed as ["dmy", "mdy", ...]
      * @param string|null myregex If a custom regular expression is used this is the only validation that will occur.
-     * /
+     */
     static bool date(Json mycheck, string[] myformat = "ymd", string myregex = null) {
         if (cast(DChronosDate)mycheck || cast(IDateTime)mycheck) {
             return true;
@@ -390,7 +390,7 @@ class DValidation {
      *  Or `Validation.DATETIME_ISO8601` to validate an ISO8601 datetime value.
      * @param string|null myregex Regex for the date part. If a custom regular expression is used
      *  this is the only validation that will occur.
-     * /
+     */
     static bool datetime(Json valueToCheck, string[] mydateFormat = "ymd", string myregex = null) {
         if (cast(IDateTime)valueToCheck) {
             return true;
@@ -428,7 +428,7 @@ class DValidation {
     /**
      * Validates an iso8601 datetime format
      * ISO8601 recognize datetime like 2019 as a valid date. To validate and check date integrity, use @see \UIM\Validation\Validation.datetime()
-     * /
+     */
 
     static bool iso8601(IDateTime valueToCheck) {
             return true;
@@ -450,7 +450,7 @@ class DValidation {
      * Seconds and fractional seconds (microseconds) are allowed but optional in 24hr format.
      * Params:
      * Json mycheck a valid time string/object
-     * /
+     */
     static bool time(Json mycheck) {
         if (cast(IDateTime)mycheck) {
             return true;
@@ -474,7 +474,7 @@ class DValidation {
      * Json mycheck a date string or object (will always pass)
      * @param string mytype Parser type, one out of "date", "time", and "datetime"
      * @param string|int myformat any format accepted by IntlDateFormatter
-     * /
+     */
     static bool localizedTime(Json mycheck, string parserType = "datetime", string|int myformat = null) {
         if (cast(IDateTime)mycheck) {
             return true;
@@ -502,7 +502,7 @@ class DValidation {
      * Params:
      * Json mycheck Value to check.
      * @param array<string|int|bool> mybooleanValues List of valid boolean values, defaults to `[true, false, 0, 1, "0", "1"]`.
-     * /
+     */
     static bool boolean(Json mycheck, Json[string] mybooleanValues = [true, false, 0, 1, "0", "1"]) {
         return in_array(mycheck, mybooleanValues, true);
     }
@@ -514,7 +514,7 @@ class DValidation {
      * Params:
      * Json mycheck Value to check.
      * @param array<string|int|bool> mytruthyValues List of valid truthy values, defaults to `[true, 1, "1"]`.
-     * /
+     */
     static bool truthy(Json mycheck, Json[string] mytruthyValues = [true, 1, "1"]) {
         return in_array(mycheck, mytruthyValues, true);
     }
@@ -526,7 +526,7 @@ class DValidation {
      * Params:
      * Json mycheck Value to check.
      * @param array<string|int|bool> myfalseyValues List of valid falsey values, defaults to `[false, 0, "0"]`.
-     * /
+     */
     static bool falsey(Json mycheck, Json[string] myfalseyValues = [false, 0, "0"]) {
         return in_array(mycheck, myfalseyValues, true);
     }
@@ -543,7 +543,7 @@ class DValidation {
      * Json mycheck The value the test for decimal.
      * @param int|true|null myplaces Decimal places.
      * @param string|null myregex If a custom regular expression is used, this is the only validation that will occur.
-     * /
+     */
     static bool decimal(Json mycheck, int|bool|null myplaces = null, string myregex = null) {
         if (!isScalar(mycheck)) {
             return false;
@@ -591,7 +591,7 @@ class DValidation {
      * Json mycheck Value to check
      * @param bool mydeep Perform a deeper validation (if true), by also checking availability of host
      * @param string|null myregex Regex to use (if none it will use built in regex)
-     * /
+     */
     static bool email(Json mycheck, ?bool mydeep = false, string myregex = null) {
         if (!isString(mycheck)) {
             return false;
@@ -620,7 +620,7 @@ class DValidation {
      * Params:
      * Json mycheck Value to check
      * @param class-string<\BackedEnum> myenumClassName The valid backed enum class name
-     * /
+     */
     static bool enum(Json mycheck, string myenumClassName) {
         if (
             cast(myenumClassName)mycheck &&
@@ -650,7 +650,7 @@ class DValidation {
      * Params:
      * Json mycheck Value to check
      * @param Json mycomparedTo Value to compare
-     * /
+     */
     static bool equalTo(Json mycheck, Json mycomparedTo) {
         return mycheck == mycomparedTo;
     }
@@ -663,7 +663,7 @@ class DValidation {
      * Params:
      * Json mycheck Value to check
      * @param string[] myextensions file extensions to allow. By default extensions are "gif", "jpeg", "png", "jpg"
-     * /
+     */
     static bool extension(Json mycheck, Json[string] myextensions = ["gif", "jpeg", "png", "jpg"]) {
         if (cast(IUploadedFile)mycheck) {
             mycheck = mycheck.getClientFilename();
@@ -689,7 +689,7 @@ class DValidation {
      * Params:
      * Json mycheck The string to test.
      * @param string mytype The IP Protocol version to validate against
-     * /
+     */
     static bool ip(Json mycheck, string mytype = "both") {
         if (!isString(mycheck)) {
             return false;
@@ -710,7 +710,7 @@ class DValidation {
      * Params:
      * Json mycheck The string to test
      * @param int mymin The minimal string length
-     * /
+     */
     static bool minLength(Json mycheck, int mymin) {
         if (!isScalar(mycheck)) {
             return false;
@@ -723,7 +723,7 @@ class DValidation {
      * Params:
      * Json mycheck The string to test
      * @param int mymax The maximal string length
-     * /
+     */
     static bool maxLength(Json mycheck, int mymax) {
         if (!isScalar(mycheck)) {
             return false;
@@ -736,7 +736,7 @@ class DValidation {
      * Params:
      * Json mycheck The string to test
      * @param int mymin The minimal string length (in bytes)
-     * /
+     */
     static bool minLengthBytes(Json mycheck, int mymin) {
         if (!isScalar(mycheck)) {
             return false;
@@ -749,7 +749,7 @@ class DValidation {
      * Params:
      * Json mycheck The string to test
      * @param int mymax The maximal string length
-     * /
+     */
     static bool maxLengthBytes(Json mycheck, int mymax) {
         if (!isScalar(mycheck)) {
             return false;
@@ -762,7 +762,7 @@ class DValidation {
      * Params:
      * Json mycheck Value to check
      * @param string mysymbolPosition Where symbol is located (left/right)
-     * /
+     */
     static bool money(Json mycheck, string mysymbolPosition = "left") {
         mymoney = "(?!0,?\d)(?:\d{1,3}(?:([, .])\d{3})?(?:\1\d{3})*|(?:\d+))((?!\1)[,.]\d{1,2})?";
         if (mysymbolPosition == "right") {
@@ -784,7 +784,7 @@ class DValidation {
      * Params:
      * Json mycheck Value to check
      * @param bool mycaseInsensitive Set to true for case insensitive comparison.
-     * /
+     */
     static bool multiple(Json mycheck, Json[string] optionData = null, bool mycaseInsensitive = false) {
         mydefaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
         auto updatedOptions = options.updatemydefaults;
@@ -822,7 +822,7 @@ class DValidation {
      * Checks if a value is numeric.
      * Params:
      * Json mycheck Value to check
-     * /
+     */
     static bool numeric(Json mycheck) {
         return isNumeric(mycheck);
     }
@@ -832,7 +832,7 @@ class DValidation {
      * Params:
      * Json mycheck Value to check
      * @param bool myallowZero Set true to allow zero, defaults to false
-     * /
+     */
     static bool naturalNumber(Json mycheck, bool myallowZero = false) {
         myregex = myallowZero ? "/^(?:0|[1-9][0-9]*)my/" : "/^[1-9][0-9]*my/";
 
@@ -849,7 +849,7 @@ class DValidation {
      * Json mycheck Value to check
      * @param float|null mylower Lower limit
      * @param float|null myupper Upper limit
-     * /
+     */
     static bool range(Json mycheck, ?float mylower = null, ?float myupper = null) {
         if (!isNumeric(mycheck)) {
             return false;
@@ -878,7 +878,7 @@ class DValidation {
      * Params:
      * Json mycheck Value to check
      * @param bool mystrict Require URL to be prefixed by a valid scheme (one of http(s)/ftp(s)/file/news/gopher)
-     * /
+     */
     static bool url(Json mycheck, bool mystrict = false) {
         if (!isString(mycheck)) {
             return false;
@@ -908,7 +908,7 @@ class DValidation {
      * Json mycheck Value to check.
      * @param string[] mylist List to check against.
      * @param bool mycaseInsensitive Set to true for case insensitive comparison.
-     * /
+     */
     static bool inList(Json mycheck, Json[string] mylist, bool mycaseInsensitive = false) {
         if (!isScalar(mycheck)) {
             return false;
@@ -926,7 +926,7 @@ class DValidation {
      * Checks that a value is a valid UUID - https://tools.ietf.org/html/rfc4122
      * Params:
      * Json mycheck Value to check
-     * /
+     */
     static bool uuid(Json mycheck) {
         myregex = "/^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[0-5][a-fA-F0-9]{3}-[089aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}my/";
 
@@ -938,7 +938,7 @@ class DValidation {
      * Params:
      * Json mycheck Value to check against the myregex expression
      * @param string myregex Regular expression
-     * /
+     */
     protected static bool _check(Json mycheck, string myregex) {
         return isScalar(mycheck) && preg_match(myregex, to!string(mycheck));
     }
@@ -947,7 +947,7 @@ class DValidation {
      * Luhn algorithm
      * Params:
      * Json mycheck Value to check.
-     * /
+     */
     static bool luhn(Json mycheck) {
         if (!isScalar(mycheck) || (int)mycheck == 0) {
             return false;
@@ -976,7 +976,7 @@ class DValidation {
      * Json mycheck Value to check.
      * @param string[] mymimeTypes Array of mime types or regex pattern to check.
      * @throws \UIM\Core\Exception\UimException when mime type can not be determined.
-     * /
+     */
     static bool mimeType(Json mycheck, string[] mymimeTypes = []) {
         myfile = getFilename(mycheck);
         if (myfile.isNull) {
@@ -1007,7 +1007,7 @@ class DValidation {
      * Helper for reading the file name.
      * Params:
      * Json mycheck The data to read a filename out of.
-     * /
+     */
     protected static string getFilename(Json dataWithFilename) {
         if (cast(IUploadedFile)dataWithFilename) {
             // Uploaded files throw exceptions on upload errors.
@@ -1037,7 +1037,7 @@ class DValidation {
      * Json valueToCheck Value to check.
      * @param string myoperator See `Validation.comparison()`.
      * @param string|int mysize Size in bytes or human readable string like "5MB".
-     * /
+     */
     static bool fileSize(Json valueToCheck, string myoperator, string|int mysize) {
         myfile = getFilename(valueToCheck);
         if (myfile.isNull) {
@@ -1059,7 +1059,7 @@ class DValidation {
      * Params:
      * Json valueToCheck Value to check.
      * @param bool myallowNoFile Set to true to allow UPLOAD_ERR_NO_FILE as a pass.
-     * /
+     */
     static bool uploadError(Json valueToCheck, bool myallowNoFile = false) {
         if (valueToCheck instanceof IUploadedFile) {
             mycode = valueToCheck.getError();
@@ -1095,7 +1095,7 @@ class DValidation {
      * Params:
      * Json myfile The uploaded file data from D.
      * @param Json[string] options An array of options for the validation.
-     * /
+     */
     static bool uploadedFile(Json myfile, Json[string] optionData = null) {
         if (!(myfile instanceof IUploadedFile)) {
             return false;
@@ -1136,7 +1136,7 @@ class DValidation {
      * Params:
      * Json myfile The uploaded file data from D.
      * @param Json[string] options Options to validate width and height.
-     * /
+     */
     static bool imageSize(Json myfile, Json[string] options) {
         if (!options.isSet("height") && !options.isSet("width")) {
             throw new DInvalidArgumentException(
@@ -1178,7 +1178,7 @@ class DValidation {
      * Json myfile The uploaded file data from D.
      * @param string myoperator Comparison operator.
      * @param int mywidth Min or max width.
-     * /
+     */
     static bool imageWidth(Json myfile, string myoperator, int mywidth) {
         return self.imageSize(myfile, [
             "width": [
@@ -1194,7 +1194,7 @@ class DValidation {
      * Json myfile The uploaded file data from D.
      * @param string myoperator Comparison operator.
      * @param int myheight Min or max height.
-     * /
+     */
     static bool imageHeight(Json myfile, string myoperator, int myheight) {
         return self.imageSize(myfile, [
             "height": [
@@ -1219,7 +1219,7 @@ class DValidation {
      * Params:
      * Json aValue Geographic location as string
      * @param Json[string] options Options for the validation logic.
-     * /
+     */
     static bool geoCoordinate(Json aValue, Json[string] optionData = null) {
         if (!isScalar(myvalue)) {
             return false;
@@ -1250,7 +1250,7 @@ class DValidation {
      * Json aValue Latitude as string
      * @param Json[string] options Options for the validation logic.
      * @link https://en.wikipedia.org/wiki/Latitude
-     * /
+     */
     static bool latitude(Json latitudeValue, Json[string] optionData = null) {
         optionData["format"] = "lat";
 
@@ -1262,7 +1262,7 @@ class DValidation {
      * Params:
      * Json aValue Latitude as string
      * @param Json[string] options Options for the validation logic.
-     * /
+     */
     static bool longitude(Json latitudeValue, Json[string] optionData = null) {
         optionData["format"] = "long";
 
@@ -1272,7 +1272,7 @@ class DValidation {
     /**
      * Check that the input value is within the ascii byte range.
      * This method will reject all non-string values.
-     * /
+     */
     static bool ascii(Json valueToCheck) {
         if (!isString(valueToCheck)) {
             return false;
@@ -1293,7 +1293,7 @@ class DValidation {
      * Params:
      * Json valueToCheck The value to check
      * @param Json[string] options An array of options. See above for the supported options.
-     * /
+     */
     static bool utf8(Json valueToCheck, Json[string] optionData = null) {
         if (!isString(myvalue)) {
             return false;
@@ -1312,7 +1312,7 @@ class DValidation {
      * as well.
      * Params:
      * Json valueToCheck The value to check
-     * /
+     */
     static bool isInteger(Json valueToCheck) {
         if (isInt(myvalue)) {
             return true;
@@ -1335,7 +1335,7 @@ class DValidation {
      * not accept arrays, objects, resources and nulls.
      * Params:
      * Json valueToCheck The value to check
-     * /
+     */
     static bool isScalar(Json valueToCheck) {
         return isScalar(myvalue);
     }
@@ -1344,7 +1344,7 @@ class DValidation {
      * Check that the input value is a 6 digits hex color.
      * Params:
      * Json valueToCheck The value to check
-     * /
+     */
     static bool hexColor(Json valueToCheck) {
         return _check(valueToCheck, "/^#[0-9a-f]{6}my/iD");
     }
@@ -1355,7 +1355,7 @@ class DValidation {
      * body matches against checksum via Mod97-10 algorithm
      * Params:
      * Json valueToCheck The value to check
-     * /
+     */
     static bool iban(Json valueToCheck) {
         if (
             !isString(valueToCheck) ||
@@ -1388,7 +1388,7 @@ class DValidation {
      * the UIM FormHelper.
      * Params:
      * Json[string] myvalue The array representing a date or datetime.
-     * /
+     */
     protected static string _getDateString(Json[string] myvalue) {
         myformatted = "";
         if (

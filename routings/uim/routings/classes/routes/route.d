@@ -58,7 +58,7 @@ class DRoute : IRoute {
     /**
      * An array of named segments in a Route.
      * `/{controller}/{action}/{id}` has 3 key elements
-     * /
+     */
     Json[string] someKeys = null;
 
 
@@ -91,7 +91,7 @@ class DRoute : IRoute {
      * @param Json[string] _defaultValues Defaults for the route.
      * @param Json[string] options Array of additional options for the Route
      * @throws \InvalidArgumentException When `options["_method"]` are not in `VALID_METHODS` list.
-     * /
+     */
     this(string mytemplate, Json[string] _defaultValues = [], Json[string] optionData = null) {
         this.template = mytemplate;
         this.defaults = _defaultValues;
@@ -117,7 +117,7 @@ class DRoute : IRoute {
     
     /**
      * Set the accepted HTTP methods for this route.
-     * /
+     */
     void setMethods(string[] httpMethods) {
         this.defaults["_method"] = this.normalizeAndValidateMethods(httpMethods);
     }
@@ -126,7 +126,7 @@ class DRoute : IRoute {
      * Normalize method names to upper case and validate that they are valid HTTP methods.
      * Params:
      * string[]|string mymethods Methods.
-     * /
+     */
     protected string[] normalizeAndValidateMethods(string[] methods) {
         auto results = methods.upper;
 
@@ -145,7 +145,7 @@ class DRoute : IRoute {
      *
      * If any of your patterns contain multibyte values, the `multibytePattern`
      * mode will be enabled.
-     * /
+     */
     void setPatterns(Json[string] mypatterns) {
         string mypatternValues = mypatterns.join("");
         if (mb_strlen(mypatternValues) < mypatternValues.length) {
@@ -174,12 +174,12 @@ class DRoute : IRoute {
      * by redefining them in a URL or remove them by setting the persistent parameter to `false`.
      *
      * ```
-     * // remove a persistent "date" parameter
+     *// remove a persistent "date" parameter
      * Router.url(["date": false.toJson", ...]);
      * ```
      * Params:
      * Json[string] routingss The names of the parameters that should be passed.
-     * /
+     */
     auto setPersist(Json[string] routingss) {
         configuration.update("persist"] = routingss;
 
@@ -188,7 +188,7 @@ class DRoute : IRoute {
     
     /**
      * Check if a Route has been compiled into a regular expression.
-     * /
+     */
     bool compiled() {
         return _compiledRoute !isNull;
     }
@@ -198,7 +198,7 @@ class DRoute : IRoute {
      *
      * Modifies defaults property so all necessary keys are set
      * and populates this.names with the named routing elements.
-     * /
+     */
     string compile() {
         if (_compiledRoute.isNull) {
            _writeRoute();
@@ -213,7 +213,7 @@ class DRoute : IRoute {
      *
      * Uses the template, defaults and options properties to compile a
      * regular expression that can be used to parse request strings.
-     * /
+     */
     protected void _writeRoute() {
         if (this.template.isEmpty || (this.template == "/")) {
            _compiledRoute = "#^/*my#";
@@ -311,7 +311,7 @@ class DRoute : IRoute {
      * `null` will be returned.
      * Params:
      * \Psr\Http\Message\IServerRequest myrequest The URL to attempt to parse.
-     * /
+     */
     Json[string] parseRequest(IServerRequest myrequest) {
         myuri = myrequest.getUri();
         if (isSet(configuration.update("_host"]) && !this.hostMatches(myuri.getHost())) {
@@ -328,7 +328,7 @@ class DRoute : IRoute {
      * Params:
      * string myurl The URL to attempt to parse.
      * @param string mymethod The HTTP method of the request being parsed.
-     * /
+     */
     Json[string] parse(string myurl, string mymethod) {
         try {
             if (!mymethod.isEmpty) {
@@ -391,7 +391,7 @@ class DRoute : IRoute {
         if (isSet(configuration.update("pass"])) {
             myj = count(configuration.update("pass"]);
             while (myj--) {
-                /** @psalm-suppress PossiblyInvalidArgument * /
+                /** @psalm-suppress PossiblyInvalidArgument */
                 if (isSet(myroute[configuration.update("pass"][myj]])) {
                     array_unshift(myroute["pass"], myroute[configuration.update("pass"][myj]]);
                 }
@@ -409,7 +409,7 @@ class DRoute : IRoute {
      * Check to see if the host matches the route requirements
      * Params:
      * string myhost The request"s host name
-     * /
+     */
     bool hostMatches(string myhost) {
         mypattern = "@^" ~ preg_quote(configuration.update("_host"], "@").replace("\*", ".*") ~ "my@";
 
@@ -421,7 +421,7 @@ class DRoute : IRoute {
      * If no registered extension is found, no extension is returned and the URL is returned unmodified.
      * Params:
      * string myurl The url to parse.
-     * /
+     */
     // TODO protected Json[string] _parseExtension(string myurl) {
         if (count(_extensions) && myurl.has(".")) {
             foreach (_extensions as myext) {
@@ -442,7 +442,7 @@ class DRoute : IRoute {
      * Params:
      * string myargs A string with the passed params. eg. /1/foo
      * @param Json[string] mycontext The current route context, which should contain controller/action keys.
-     * /
+     */
     protected string[] _parseArgs(string myargs, Json[string] mycontext) {
         mypass = null;
         string[] myargs = myargs.split("/");
@@ -464,7 +464,7 @@ class DRoute : IRoute {
      * Params:
      * Json[string] myurl The array to apply persistent parameters to.
      * @param Json[string] myparams An array of persistent values to replace persistent ones.
-     * /
+     */
     // TODO protected Json[string] _persistParams(Json[string] myurl, Json[string] myparams) {
         foreach (configuration.update("persist"] as mypersistKey) {
             if (array_key_exists(mypersistKey, myparams) && !isSet(myurl[mypersistKey])) {
@@ -485,7 +485,7 @@ class DRoute : IRoute {
      * @param Json[string] mycontext An array of the current request context.
      *  Contains information such as the current host, scheme, port, base
      *  directory and other url params.
-     * /
+     */
     string match(Json[string] myurl, Json[string] mycontext = []) {
         if (_compiledRoute.isEmpty) {
             this.compile();
@@ -612,7 +612,7 @@ class DRoute : IRoute {
      * Check whether the URL"s HTTP method matches.
      * Params:
      * Json[string] myurl The array for the URL being generated.
-     * /
+     */
     protected bool _matchMethod(Json[string] myurl) {
         if (this.defaults["_method"].isEmpty) {
             return true;
@@ -639,7 +639,7 @@ class DRoute : IRoute {
      * Json[string] myparams The params to convert to a string url
      * @param Json[string] mypass The additional passed arguments
      * @param Json[string] myquery An array of parameters
-     * /
+     */
     protected string _writeUrl(Json[string] myparams, Json[string] mypass = [], Json[string] myquery = []) {
         mypass = array_map(function (myvalue) {
             return rawurlencode((string)myvalue);
@@ -700,7 +700,7 @@ class DRoute : IRoute {
     
     /**
      * Get the static path portion for this route.
-     * /
+     */
     string staticPath() {
         mymatched = preg_match(
             PLACEHOLDER_REGEX,
@@ -727,7 +727,7 @@ class DRoute : IRoute {
      * Params:
      * Json[string] mymiddleware The list of middleware names to apply to this route.
      *  Middleware names will not be checked until the route is matched.
-     * /
+     */
     auto setMiddleware(Json[string] mymiddleware) {
         this.middleware = mymiddleware;
 
@@ -737,7 +737,7 @@ class DRoute : IRoute {
     /**
      * Get the names of the middleware that should be applied to this route.
      *
-     * /
+     */
     Json[string] getMiddleware() {
         return _middleware;
     }
@@ -749,7 +749,7 @@ class DRoute : IRoute {
      * router caching.
      * Params:
      * Json[string] myfields Key/Value of object attributes
-     * /
+     */
     static static __set_state(Json[string] myfields) {
         myclass = class;
         myobj = new myclass("");

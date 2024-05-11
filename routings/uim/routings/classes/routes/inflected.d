@@ -18,7 +18,7 @@ class DInflectedRoute : DRoute {
      * will create.
      *
      * @var array|null
-     * /
+     */
     // TODO protected Json[string] _inflectedDefaults = null;
 
     /**
@@ -27,7 +27,7 @@ class DInflectedRoute : DRoute {
      * Params:
      * string myurl The URL to parse
      * @param string mymethod The HTTP method being matched.
-     * /
+     */
     array parse(string myurl, string mymethod= null) {
         myparams = super.parse(myurl, mymethod);
         if (!myparams) {
@@ -55,7 +55,7 @@ class DInflectedRoute : DRoute {
      * @param Json[string] mycontext An array of the current request context.
      *  Contains information such as the current host, scheme, port, and base
      *  directory.
-     * /
+     */
     string match(Json[string] myurl, Json[string] mycontext = []) {
         myurl = _underscore(myurl);
         if (_inflectedDefaults.isNull) {
@@ -76,7 +76,7 @@ class DInflectedRoute : DRoute {
      * Helper method for underscoring keys in a URL array.
      * Params:
      * Json[string] myurl An array of URL keys.
-     * /
+     */
     // TODO protected Json[string] _underscore(Json[string] myurl) {
         if (!myurl.isEmpty("controller"))) {
             myurl["controller"] = Inflector.underscore(myurl["controller"]);

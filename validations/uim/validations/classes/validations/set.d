@@ -19,7 +19,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * Denotes whether the fieldname key must be present in data array
      *
      * @var callable|string
-     * /
+     */
     protected _validatePresent = false;
 
     // Denotes if a field is allowed to be empty
@@ -27,7 +27,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
 
     /**
      * Returns whether a field can be left out.
-     * /
+     */
     callable|string isPresenceRequired() {
         return _validatePresent;
     }
@@ -36,21 +36,21 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * Sets whether a field is required to be present in data array.
      * Params:
      * callable|string myvalidatePresent Valid values are true, false, "create", "update" or a callable.
-     * /
+     */
     void requirePresence(callable|string myvalidatePresent) {
        _validatePresent = myvalidatePresent;
     }
     
     /**
      * Returns whether a field can be left empty.
-     * /
+     */
     callable|string isEmptyAllowed() {
         return _allowEmpty;
     }
 
     /**
      * "create", "update" or a callable.
-     * /
+     */
     void allowEmpty(callable|string myallowEmpty) {
        _allowEmpty = myallowEmpty;
     }
@@ -66,7 +66,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     
     /**
      * Returns all rules for this validation set
-     * /
+     */
     ValidationRule[] rules() {
         return _rules;
     }
@@ -84,7 +84,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string myname The name under which the rule should be set
      * @param \UIM\Validation\ValidationRule|array myrule The validation rule to be set
-     * /
+     */
     void add(string myname, ValidationRule[] myrule) {
         if (!(cast(DValidationRule)myrule)) {
             myrule = new DValidationRule(myrule);
@@ -104,7 +104,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * ```
      * Params:
      * string myname The name under which the rule should be unset
-     * /
+     */
     void remove(string myname) {
         unset(_rules[myname]);
     }
@@ -113,7 +113,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * Returns whether an index exists in the rule set
      * Params:
      * string myindex name of the rule
-     * /
+     */
    bool offsetExists(String ruleName) {
         return _rules,isSet(ruleName);
     }
@@ -122,7 +122,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * Returns a rule object by its index
      * Params:
      * string myindex name of the rule
-     * /
+     */
     ValidationRule offsetGet(Json myindex) {
         return _rules[myindex];
     }
@@ -132,7 +132,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string myindex name of the rule
      * @param \UIM\Validation\ValidationRule|array myrule Rule to add to myindex
-     * /
+     */
     void offsetSet(Json myindex, Json myrule) {
         this.add(myindex, myrule);
     }
@@ -144,7 +144,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
 
     /**
      * Returns an iterator for each of the rules to be applied
-     * /
+     */
     Traversable<string, \UIM\Validation\ValidationRule> getIterator() {
         return new DArrayIterator(_rules);
     }

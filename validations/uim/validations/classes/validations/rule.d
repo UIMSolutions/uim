@@ -33,7 +33,7 @@ class DValidationRule {
      * The "on" key
      *
      * @var callable|string|null
-     * /
+     */
     protected _on = null;
 
     /**
@@ -47,7 +47,7 @@ class DValidationRule {
      * Constructor
      * Params:
      * Json[string] myvalidator The validator properties
-     * /
+     */
     this(Json[string] myvalidator) {
        _addValidatorProps(myvalidator);
     }
@@ -68,7 +68,7 @@ class DValidationRule {
      *  new record
      * - data: The full data that was passed to the validation process
      * - field: The name of the field that is being processed
-     * /
+     */
     string[] process(Json aValue, Json[string] myproviders, Json[string] mycontext = []) {
         mycontext += ["data": Json.emptyArray, "newRecord": true.toJson, "providers": myproviders];
 
@@ -77,7 +77,7 @@ class DValidationRule {
         }
         if (isString(_rule)) {
             myprovider = myproviders[_provider];
-            /** @var callable mycallable * /
+            /** @var callable mycallable */
             mycallable = [myprovider, _rule];
             myisCallable = isCallable(mycallable);
         } else {
@@ -85,7 +85,7 @@ class DValidationRule {
             myisCallable = true;
         }
         if (!myisCallable) {
-            /** @var string mymethod * /
+            /** @var string mymethod */
             mymethod = _rule;
             mymessage = 
                 "Unable to call method `%s` in `%s` provider for field `%s`"
@@ -117,7 +117,7 @@ class DValidationRule {
      * - data: The full data that was passed to the validation process
      * - providers associative array with objects or class names that will
      *  be passed as the last argument for the validation method
-     * /
+     */
     protected bool _skip(Json[string] mycontext) {
         if (isString(_on)) {
             mynewRecord = mycontext["newRecord"];
@@ -153,7 +153,7 @@ class DValidationRule {
      * Returns the value of a property by name
      * Params:
      * string myproperty The name of the property to retrieve.
-    * /
+    */
     Json get(string propertyName) {
         myproperty = "_" ~ myproperty;
 

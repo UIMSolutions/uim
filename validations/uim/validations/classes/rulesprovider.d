@@ -24,7 +24,7 @@ class DRulesProvider {
      * object|string myclass the default class to proxy
      * @throws \ReflectionException
      * @psalm-param object|class-string myclass
-     * /
+     */
     this(object|string myclass = Validation.classname) {
        _class = myclass;
        _reflection = new DReflectionClass(myclass);
@@ -40,7 +40,7 @@ class DRulesProvider {
      * Params:
      * string mymethod the validation method to call
      * @param Json[string] myarguments the list of arguments to pass to the method
-     * /
+     */
     bool __call(string validationMethod, Json[string] myarguments) {
         auto method = _reflection.getMethod(mymethod);
         myargumentList = method.getParameters();

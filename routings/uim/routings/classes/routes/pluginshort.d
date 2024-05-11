@@ -18,7 +18,7 @@ class DPluginShortRoute : DInflectedRoute {
      * Params:
      * string myurl The URL to parse
      * @param string mymethod The HTTP method
-     * /
+     */
     array parse(string myurl, string mymethod= null) {
         myparams = super.parse(myurl, mymethod);
         if (!myparams) {
@@ -37,7 +37,7 @@ class DPluginShortRoute : DInflectedRoute {
      * @param Json[string] mycontext An array of the current request context.
      *  Contains information such as the current host, scheme, port, and base
      *  directory.
-     * /
+     */
     string match(Json[string] myurl, Json[string] mycontext = []) {
         if (isSet(myurl["controller"], myurl["plugin"]) && myurl["plugin"] != myurl["controller"]) {
             return null;

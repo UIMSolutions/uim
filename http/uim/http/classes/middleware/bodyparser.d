@@ -17,7 +17,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      * Set the HTTP methods to parse request bodies on.
      * Params:
      * string[] someMethods The methods to parse data on.
-     * /
+     */
     void setMethods(string[] methodsToParseData) {
         this.methods = methodsToParseData;
     }
@@ -43,7 +43,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      * - `methods` The HTTP methods to parse on. Defaults to PUT, POST, PATCH DELETE.
      * Params:
      * Json[string] options The options to use. See above.
-     * /
+     */
     this(Json[string] options = null) {
         auto updatedOptions = options.update["Json": true.toJson, "xml": false.toJson, "methods": Json(null)];
         if (options["Json"]) {
@@ -83,7 +83,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      * string[] types An array of content-type header values to match. eg. application/Json
      * @param \Closure  aParser The parser function. Must return an array of data to be inserted
      *  into the request.
-     * /
+     */
     void addParser(Json[string] types, Closure  aParser) {
         types
             .map!(type => type.lower)
@@ -102,7 +102,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request.
      * @param \Psr\Http\Server\IRequestHandler handler The request handler.
-     * /
+     */
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         if (!in_array(request.getMethod(), this.methods, true)) {
             return handler.handle(request);
@@ -140,7 +140,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
         try {
             xml = Xml.build(bodyToDecode, ["return": "domdocument", "readFile": false.toJson]);
             // We might not get child nodes if there are nested inline entities.
-            /** @var \DOMNodeList domNodeList * /
+            /** @var \DOMNodeList domNodeList */
             domNodeList = xml.childNodes;
             if ((int)domNodeList.length > 0) {
                 return Xml.toArray(xml);

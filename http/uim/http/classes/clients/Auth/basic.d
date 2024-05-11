@@ -4,7 +4,7 @@ import uim.http;
 
 @safe:
 
-/* /**
+/*/**
  * Basic authentication adapter for UIM\Http\Client
  *
  * Generally not directly constructed, but instead used by {@link \UIM\Http\Client}
@@ -25,7 +25,7 @@ class DBasic {
      * Params:
      * \UIM\Http\Client\Request request Request instance.
      * @param Json[string] credentials Credentials.
-     * /
+     */
     Request proxyAuthentication(Request request, Json[string] credentials) {
         if (isSet(credentials["username"], credentials["password"])) {
             aValue = _generateHeader(credentials["username"], credentials["password"]);
@@ -39,7 +39,7 @@ class DBasic {
      * Params:
      * string auser Username.
      * @param string apass Password.
-     * /
+     */
     protected string _generateHeader(string auser, string apass) {
         return "Basic " ~ base64_encode(user ~ ":" ~ pass);
     } */

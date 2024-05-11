@@ -22,7 +22,7 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
      *       - 'maxAge' - `max-age` directive value in seconds.
      *       - 'includeSubDomains' - Whether to include `includeSubDomains` directive. Defaults to `false`.
      *       - 'preload' - Whether to include 'preload' directive. Defauls to `false`.
-     * /
+     */
     protected Json[string] configData = [
         "redirect": true.toJson,
         "statusCode": Json(301),
@@ -44,7 +44,7 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request.
      * @param \Psr\Http\Server\IRequestHandler handler The request handler.
-     * /
+     */
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         if (cast8ServerRequest)request  && isArray(configuration.get("trustedProxies"])) {
             request.setTrustedProxies(configuration.get("trustedProxies"]);
@@ -81,17 +81,17 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
      * Adds Strict-Transport-Security header to response.
      * Params:
      * \Psr\Http\Message\IResponse response Response
-     * /
+     */
     protected IResponse addHsts(IResponse response) {
         configData = configuration.get("hsts"];
         if (!isArray(configData)) {
             throw new DUnexpectedValueException("The `hsts` config must be an array.");
         }
-        aValue = "max-age=" ~ configData("maxAge"];
-        if (configData("includeSubDomains"] ?? false) {
+        aValue = "max-age=" ~ configuration.data("maxAge"];
+        if (configuration.data("includeSubDomains"] ?? false) {
             aValue ~= "; includeSubDomains";
         }
-        if (configData("preload"] ? configData("preload"] : false) {
+        if (configuration.data("preload"] ? configuration.data("preload"] : false) {
             aValue ~= "; preload";
         }
         return response.withHeader("strict-transport-security", aValue);

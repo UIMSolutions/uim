@@ -40,7 +40,7 @@ class DCspMiddleware { // }: IHttpMiddleware {
      * CSP Builder
      *
      * @var \ParagonIE\CSPBuilder\CSPBuilder csp CSP Builder or config array
-     * /
+     */
     protected ICSPBuilder csp;
 
     // Configuration options.
@@ -54,7 +54,7 @@ class DCspMiddleware { // }: IHttpMiddleware {
      * Params:
      * \ParagonIE\CSPBuilder\CSPBuilder|array csp CSP object or config array
      * @param Json[string] configData Configuration options.
-     * /
+     */
     this(ICSPBuilder|Json[string] csp, Json[string] configData = null) {
         if (!class_exists(CSPBuilder.classname)) {
             throw new UimException("You must install paragonie/csp-builder to use CspMiddleware");
@@ -72,7 +72,7 @@ class DCspMiddleware { // }: IHttpMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request.
      * @param \Psr\Http\Server\IRequestHandler handler The request handler.
-     * /
+     */
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         if (_configData.isSet("scriptNonce")) {
             request = request.withAttribute("cspScriptNonce", this.csp.nonce("script-src"));
@@ -82,7 +82,7 @@ class DCspMiddleware { // }: IHttpMiddleware {
         }
         response = handler.handle(request);
 
-        /** @var \Psr\Http\Message\IResponse * /
+        /** @var \Psr\Http\Message\IResponse */
         return _csp.injectCSPHeader(response);
     } */
 }

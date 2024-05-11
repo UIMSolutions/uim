@@ -36,7 +36,7 @@ class DEncryptedCookieMiddleware { // : IHttpMiddleware {
      * string[] cookieNames The list of cookie names that should have their values encrypted.
      * @param string aKey The encryption key to use.
      * @param string acipherType The cipher type to use. Defaults to 'aes'.
-     * /
+     */
     this(Json[string] cookieNames, string aKey, string acipherType = "aes") {
         this.cookieNames = cookieNames;
         this.key = aKey;
@@ -48,7 +48,7 @@ class DEncryptedCookieMiddleware { // : IHttpMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request.
      * @param \Psr\Http\Server\IRequestHandler handler The request handler.
-     * /
+     */
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         if (serverRequest.getCookieParams()) {
             serverRequest = this.decodeCookies(serverRequest);
@@ -67,7 +67,7 @@ class DEncryptedCookieMiddleware { // : IHttpMiddleware {
      * Fetch the cookie encryption key.
      *
      * Part of the CookieCryptTrait implementation.
-     * /
+     */
     protected string _getCookieEncryptionKey() {
         return _key;
     }
@@ -76,7 +76,7 @@ class DEncryptedCookieMiddleware { // : IHttpMiddleware {
      * Decode cookies from the request.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request to decode cookies from.
-     * /
+     */
     protected IServerRequest decodeCookies(IServerRequest serverRequest) {
         cookies = serverRequest.getCookieParams();
         this.cookieNames
@@ -90,7 +90,7 @@ class DEncryptedCookieMiddleware { // : IHttpMiddleware {
      * Encode cookies from a response`s CookieCollection.
      * Params:
      * \UIM\Http\Response response The response to encode cookies in.
-     * /
+     */
     protected DResponse encodeCookies(Response response) {
         response.getCookieCollection()
             .filter!(cookie => in_array(cookie.name, this.cookieNames, true))

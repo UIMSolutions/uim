@@ -26,7 +26,7 @@ class DDigest {
 
     /**
      * Algorithms <. Hash type
-     * /
+     */
     const HASH_ALGORITHMS = [
         self.ALGO_MD5: "md5",
         self.ALGO_SHA_256: "sha256",
@@ -53,7 +53,7 @@ class DDigest {
      * Params:
      * \UIM\Http\Client client Http client object.
      * @param array|null options Options list.
-     * /
+     */
     this(IClient httpClient, Json[string] options = null) {
        _client = httpClient;
     }
@@ -62,7 +62,7 @@ class DDigest {
      * Set algorithm based on credentials
      * Params:
      * Json[string] credentials authentication params
-     * /
+     */
     protected void setAlgorithm(Json[string] credentials) {
         algorithm = credentials.get("algorithm", self.ALGO_MD5);
         if (!isSet(self.HASH_ALGORITHMS[algorithm])) {
@@ -79,7 +79,7 @@ class DDigest {
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param Json[string] credentials Authentication credentials.
-     * /
+     */
     Request authentication(Request request, Json[string] credentials) {
         if (!isSet(credentials["username"], credentials["password"])) {
             return request;
@@ -105,7 +105,7 @@ class DDigest {
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param Json[string] credentials Authentication credentials.
-     * /
+     */
     // TODO protected Json[string] _getServerInfo(Request request, Json[string] credentials) {
         response = _client.get(
             to!string(request.getUri()),
@@ -127,7 +127,7 @@ class DDigest {
     }
     
     /**
-     * /
+     */
     protected string generateCnonce() {
         return uniqid();
     }
@@ -137,7 +137,7 @@ class DDigest {
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param Json[string] credentials Authentication credentials.
-     * /
+     */
     protected string _generateHeader(Request request, Json[string] credentials) {
         somePath = request.getRequestTarget();
 

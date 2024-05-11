@@ -20,7 +20,7 @@ class DOauth {
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param Json[string] credentials Authentication credentials.
-     * /
+     */
     Request authentication(Request request, Json[string] credentials) {
         if (!credentials.hasKey("consumerKey")) {
             return request;
@@ -73,7 +73,7 @@ class DOauth {
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param Json[string] credentials Authentication credentials.
-     * /
+     */
     protected string _plaintext(Request request, Json[string] credentials) {
         auto someValues = [
             "oauth_version": "1.0",
@@ -101,7 +101,7 @@ class DOauth {
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param Json[string] credentials Authentication credentials.
-     * /
+     */
     protected string _hmacSha1(Request request, Json[string] credentials) {
         auto nonce = credentials["nonce"] ?? uniqid();
         auto timestamp = credentials["timestamp"] ?? time();
@@ -135,7 +135,7 @@ class DOauth {
     
     /**
      * Use RSA-SHA1 signing.
-     * This method is suitable for plain HTTP or HTTPS. * /
+     * This method is suitable for plain HTTP or HTTPS. */
     protected string _rsaSha1(Request request, Json[string] credentials) {
         if (!function_exists("openssl_pkey_get_private")) {
             throw new UimException("RSA-SHA1 signature method requires the OpenSSL extension.");
@@ -178,7 +178,7 @@ class DOauth {
             rewind(resource);
             credentials["privateKeyPassphrase"] = passphrase;
         }
-        /** @var \OpenSSLAsymmetricKey|\OpenSSLCertificate|string[] aprivateKey * /
+        /** @var \OpenSSLAsymmetricKey|\OpenSSLCertificate|string[] aprivateKey */
         privateKey = openssl_pkey_get_private(credentials["privateKey"], credentials["privateKeyPassphrase"]);
         this.checkSslError();
 
@@ -202,7 +202,7 @@ class DOauth {
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param Json[string] oauthValues Oauth values.
-     * /
+     */
     string baseString(Request request, Json[string] oauthValues) {
         auto someParts = [
             request.getMethod(),
@@ -229,7 +229,7 @@ class DOauth {
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param Json[string] oauthValues Oauth values.
-     * /
+     */
     protected string _normalizedParams(Request request, Json[string] oauthValues) {
         aQuery = parse_url((string)request.getUri(), UIM_URL_QUERY);
         parse_str((string)aQuery, aQueryArgs);
@@ -255,7 +255,7 @@ class DOauth {
      * Params:
      * Json[string] someArguments The arguments to normalize.
      * @param string aPath The current path being converted.
-     * /
+     */
     // TODO protected Json[string] _normalizeData(Json[string] someArguments, string aPath= null) {
         someData = null;
         foreach (someArguments as aKey: aValue) {

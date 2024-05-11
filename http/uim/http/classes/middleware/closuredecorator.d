@@ -24,7 +24,7 @@ class DClosureDecoratorMiddleware { // }: IHttpMiddleware {
      * Constructor
      * Params:
      * \Closure callable A closure.
-     * /
+     */
     this(IClosure aCallable) {
         _callable = aCallable;
     }
@@ -34,7 +34,7 @@ class DClosureDecoratorMiddleware { // }: IHttpMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest Request instance.
      * @param \Psr\Http\Server\IRequestHandler handler Request handler instance.
-     * /
+     */
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         return (_callable)(
             request,

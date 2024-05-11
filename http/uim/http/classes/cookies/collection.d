@@ -17,14 +17,14 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * Cookie objects
      *
      * @var array<string, \UIM\Http\Cookie\ICookie>
-     * /
+     */
     // TODO protected Json[string] cookies;
 
     /**
      * Constructor
      * Params:
      * array<\UIM\Http\Cookie\ICookie> cookies Array of cookie objects
-     * /
+     */
     this(Json[string] cookies = []) {
         this.checkCookies(cookies);
         cookies.each!(cookie => this.cookies[cookie.id] = cookie);
@@ -34,7 +34,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * Create a Cookie Collection from an array of Set-Cookie Headers
      * Params:
      * @param Json[string] defaults The defaults attributes.
-     * /
+     */
     static auto createFromHeader(string[] headerValues, Json[string] defaultAttributes = null) {
         cookies = null;
         headerValues.each!((value) {
@@ -51,7 +51,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * Create a new DCollection from the cookies in a ServerRequest
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request to extract cookie data from
-     * /
+     */
     static static createFromServerRequest(IServerRequest serverRequest) {
         someData = request.getCookieParams();
         cookies = null;
@@ -74,7 +74,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * domains. This can impact how get(), has() and remove() behave.
      * Params:
      * \UIM\Http\Cookie\ICookie cookie Cookie instance to add.
-     * /
+     */
     static add(ICookie cookie) {
         new = clone this;
         new.cookies[cookie.getId()] = cookie;
@@ -86,7 +86,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * Get the first cookie by name.
      * Params:
      * string aName The name of the cookie.
-     * /
+     */
     ICookie get(string aName) {
         cookie = __get(name);
 
@@ -110,7 +110,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * Get the first cookie by name if cookie with provided name exists
      * Params:
      * string aName The name of the cookie.
-     * /
+     */
     ICookie __get(string aName) {
         aKey = mb_strtolower(name);
         foreach (cookie; this.cookies) {
@@ -130,7 +130,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * Create a new DCollection with all cookies matching name removed.
      *
      * If the cookie is not in the collection, this method will do nothing.
-     * /
+     */
     static remove(string cookieName) {
         auto result = clone this;
         aKey = mb_strtolower(cookieName);
@@ -169,7 +169,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * This allows CookieCollections to be used as a 'cookie jar' in an HTTP client
      * situation. Cookies that match the request`s domain + path that are not expired
      * when this method is called will be applied to the request.
-     * /
+     */
     IRequest addToRequest(IRequest request, Json[string] extraCookies = []) {
         auto anUri = request.getUri();
         cookies = this.findMatchingCookies(
@@ -204,7 +204,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * string ascheme The http scheme to match
      * @param string ahost The host to match.
      * @param string aPath The path to match
-     * /
+     */
     protected Json[string] findMatchingCookies(string ascheme, string ahost, string aPath) {
          auto result;
         now = new DateTimeImmutable("now", new DateTimeZone("UTC"));
@@ -236,7 +236,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * Params:
      * \Psr\Http\Message\IResponse response Response to extract cookies from.
      * @param \Psr\Http\Message\IRequest request Request to get cookie context from.
-     * /
+     */
     static addFromResponse(IResponse response, IRequest request) {
         anUri = request.getUri();
         host = anUri.getHost();
@@ -260,7 +260,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * Params:
      * string ahost The host to check for expired cookies on.
      * @param string aPath The path to check for expired cookies on.
-     * /
+     */
     protected void removeExpiredCookies(string ahost, string aPath) {
         time = new DateTimeImmutable("now", new DateTimeZone("UTC"));
         hostPattern = "/" ~ preg_quote(host, "/") ~ "/";

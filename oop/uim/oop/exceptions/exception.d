@@ -75,7 +75,7 @@ class UimException : IException {
      * Array of attributes that are passed in from the constructor, and
      * made available in the view when a development error is displayed.
      */
-/* // TODO protected Json[string] _attributes = null;
+/*// TODO protected Json[string] _attributes = null;
  */
 // --- protected string _messageTemplate = "";
 

@@ -35,9 +35,9 @@ interface IList {
   // Returns true if this list contains no elements. */
   bool isEmpty();
 
-  /* // Returns an iterator over the elements in this list in proper sequence.
+  /*// Returns an iterator over the elements in this list in proper sequence.
   Iterator<E>	iterator();
- * /
+ */
   // Returns the index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element.
   int	lastIndexOf(T checkItem);
 
@@ -45,10 +45,10 @@ interface IList {
   ListIterator<E>	listIterator();
 
   // Returns a list iterator over the elements in this list (in proper sequence), starting at the specified position in the list.
-  ListIterator<E>	listIterator(int index) * /
+  ListIterator<E>	listIterator(int index) */
 
 /*   // eplaces each element of this list with the result of applying the operator to that element.
-  default void	replaceAll(UnaryOperator<E> operator); * /
+  default void	replaceAll(UnaryOperator<E> operator); */
 
   // Retains only the elements in this list that are contained in the specified collection (optional operation).
   bool retainAll(Collection!T retainItems);

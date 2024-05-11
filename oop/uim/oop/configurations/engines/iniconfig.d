@@ -58,7 +58,7 @@ class DIniConfig : IConfigEngine {
      * string someKey Key to load ini config files from. Defaults to CONFIG.
      * @param string section Only get one section, leave null to parse and fetch
      *    all sections in the ini file.
-     * /
+     */
     this(string aKey = null, string asection = null) {
        _key = someKey ? someKey : CONFIG;
        _section = section;
@@ -69,7 +69,7 @@ class DIniConfig : IConfigEngine {
      * Params:
      * string aKey The identifier to read from. If the key has a ~ it will be treated
      * as a plugin prefix. The chosen file must be on the engine`s key.
-     * /
+     */
     array read(string aKey) {
         file = _getFileKey(aKey, true);
 
@@ -97,7 +97,7 @@ class DIniConfig : IConfigEngine {
      * parses nested values out of keys.
      * Params:
      * Json[string] someValues Values to be exploded.
-     * /
+     */
     // TODO protected Json[string] _parseNestedValues(Json[string] someValues) {
         someValues.byKeyValue
             .each!((kv) {
@@ -123,7 +123,7 @@ class DIniConfig : IConfigEngine {
      * string aKey The identifier to write to. If the key has a ~ it will be treated
      * as a plugin prefix.
      * @param Json[string] data The data to convert to ini file.
-     * /
+     */
     bool dump(string key, Json[string] data) {
         auto result;
         someData.byKeyValue
@@ -151,7 +151,7 @@ class DIniConfig : IConfigEngine {
      * Converts a value into the ini equivalent
      * Params:
      * Json aValue Value to export.
-     * /
+     */
     protected string _value(Json valueToExport) {
         return match (aValue) {
             null: "null",

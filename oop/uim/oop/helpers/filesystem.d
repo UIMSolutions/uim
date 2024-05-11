@@ -23,7 +23,7 @@ class HFilesystem {
      * @param \Closure|string myfilter If string will be used as regex for filtering using
      *  `RegexIterator`, if callable will be as callback for `CallbackFilterIterator`.
      * @param int myflags Flags for FilesystemIterator.__construct();
-     * /
+     */
     Iterator find(string mypath, Closure|string myfilter = null, size_t flags = 0) {
         size_t myflags = flags != 0 ? flags : 
             FilesystemIterator.KEY_AS_PATHNAME
@@ -44,7 +44,7 @@ class HFilesystem {
      *  `RegexIterator`, if callable will be as callback for `CallbackFilterIterator`.
      *  Hidden directories (starting with dot e.g. .git) are always skipped.
      * @param int myflags Flags for FilesystemIterator.__construct();
-     * /
+     */
     Iterator findRecursive(string mypath, Closure|string myfilter = null, int myflags = null) {
         myflags ??= FilesystemIterator.KEY_AS_PATHNAME
             | FilesystemIterator.CURRENT_AS_FILEINFO
@@ -73,7 +73,7 @@ class HFilesystem {
      * Params:
      * \Iterator myiterator Iterator
      * @param \Closure|string myfilter Regex string or callback.
-     * /
+     */
     protected Iterator filterIterator(Iterator myiterator, Closure|string myfilter) {
         if (isString(myfilter)) {
             return new DRegexIterator(myiterator, myfilter);
@@ -86,7 +86,7 @@ class HFilesystem {
      * Params:
      * string myfilename File path.
      * @param string mycontent Content to dump.
-     * /
+     */
     void dumpFile(string myfilename, string mycontent) {
         mydir = dirname(myfilename);
         if (!isDir(mydir)) {
@@ -111,7 +111,7 @@ class HFilesystem {
      * Params:
      * string mydir Directory path.
      * @param int mymode Octal mode passed to mkdir(). Defaults to 0755.
-     * /
+     */
     void mkdir(string mydir, int mymode = 0755) {
         if (isDir(mydir)) {
             return;
@@ -130,7 +130,7 @@ class HFilesystem {
      * Params:
      * string mypath Directory path.
      * @throws \UIM\Core\Exception\UimException If path is not a directory.
-     * /
+     */
     bool deleteDir(string mypath) {
         if (!fileExists(mypath)) {
             return true;
@@ -138,7 +138,7 @@ class HFilesystem {
         if (!isDir(mypath)) {
             throw new UimException("`%s` is not a directory".format(mypath));
         }
-        /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Replace type for psalm * /
+        /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Replace type for psalm */
         auto myIterator = new DRecursiveIteratorIterator(
             new DRecursiveDirectoryIterator(mypath, FilesystemIterator.SKIP_DOTS),
             RecursiveIteratorIterator.CHILD_FIRST
@@ -170,7 +170,7 @@ class HFilesystem {
      * Copies directory with all it"s contents.
      * Params:
      * string mysource Source path.
-     * /
+     */
    bool copyDir(string mysource, string destinationPath) {
         auto destPath = (new DSplFileInfo(destinationPath)).getPathname();
 

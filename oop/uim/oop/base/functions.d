@@ -4,13 +4,6 @@ import uim.oop;
 
 @safe:
 
-/*
-if (!defined("DS")) {
-    // Defines DS as short form of DIRECTORY_SEPARATOR.
-    define("DS", DIRECTORY_SEPARATOR);
-}
-
-if (!function_exists("UIM\Core\h")) {
     /**
      * Convenience method for htmlspecialchars.
      * Params:
@@ -43,10 +36,8 @@ if (!function_exists("UIM\Core\h")) {
             defaultCharset = encoding ? encoding : "UTF-8";
         }
         return htmlspecialchars(result, ENT_QUOTES | ENT_SUBSTITUTE, charsetToUse ? charsetToUse : defaultCharset, isDouble);
-    }
 }
 
-if (!function_exists("UIM\Core\pluginSplit")) {
     /**
      * Splits a dot syntax plugin name into its plugin and class name.
      * If name does not have a dot, then index 0 will be null.
@@ -72,11 +63,9 @@ if (!function_exists("UIM\Core\pluginSplit")) {
         return [plugin, name]; */
         return null;
     }
-}
 
 /**
     * Split the namespace from the classname.
-    *
     * Commonly used like `list(namespace,  className) = namespaceSplit(className);`.
     */
 string[] namespaceSplit(string className) {
@@ -87,7 +76,6 @@ string[] namespaceSplit(string className) {
     return [substr(className, 0, pos), substr(className, pos + 1)];
 }
 
-if (!function_exists("UIM\Core\pr")) {
     /**
      * print_r() convenience function.
      *
@@ -107,9 +95,7 @@ if (!function_exists("UIM\Core\pr")) {
 
         return var;
     }
-}
 
-if (!function_exists("UIM\Core\pj")) {
     /**
      * IData pretty print convenience function.
      *
@@ -130,9 +116,7 @@ if (!function_exists("UIM\Core\pj")) {
 
         return var;
     }
-}
 
-if (!function_exists("UIM\Core\env")) {
     /**
      * Gets an environment variable from available sources, and provides emulation
      * for unsupported or inconsistent environment variables (i.e. DOCUMENT_ROOT on
@@ -182,9 +166,7 @@ if (!function_exists("UIM\Core\env")) {
         }
         return default;
     }
-}
 
-if (!function_exists("UIM\Core\triggerWarning")) {
     /**
      * Triggers an E_USER_WARNING.
      */
@@ -203,9 +185,7 @@ if (!function_exists("UIM\Core\triggerWarning")) {
         }
         trigger_error(outMessage, E_USER_WARNING);
     }
-}
 
-if (!function_exists("UIM\Core\deprecationWarning")) {
     /**
      * Helper method for outputting deprecation warnings
      * Params:
@@ -261,4 +241,3 @@ if (!function_exists("UIM\Core\deprecationWarning")) {
         }
         trigger_error(message, E_USER_DEPRECATED);
     }
-} */

@@ -45,6 +45,7 @@ class DCheckboxWidget : DWidget {
     override string render(Json[string] renderData, IContext formContext) {
         auto mergedData = renderData.merge(formContext.data);
 
+        // TODO 
         /* 
         if (_isChecked(renderData)) {
             mergedData["checked"] = true;

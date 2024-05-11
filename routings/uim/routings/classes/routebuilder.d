@@ -392,7 +392,7 @@ class DRouteBuilder {
      *  should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
      */
-    Route delete(string mytemplate, string[] mytarget, string routings = null) {
+    Route remove(string mytemplate, string[] mytarget, string routings = null) {
         return _methodRoute("DELETE", mytemplate, mytarget, routings);
     }
     

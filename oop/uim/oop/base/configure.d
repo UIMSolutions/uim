@@ -138,7 +138,7 @@ class DConfigure {
      * Params:
      * string avar the var to be deleted
      */
-    static void delete(string avar) {
+    static void remove(string avar) {
         _values = Hash.remove(_values, var);
     }
 
@@ -178,7 +178,7 @@ class DConfigure {
             return aValue;
         }
         aValue = Hash.get(_values, var);
-        delete(var);
+        remove(var);
 
         return aValue;
     }

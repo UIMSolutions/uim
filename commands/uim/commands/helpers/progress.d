@@ -108,7 +108,7 @@ class DProgressHelper { // } : Helper {
   /**
      * Increment the progress bar.
      * Params:
-     * float|int num The amount of progress to advance by.
+     * float num The amount of progress to advance by.
      */
   void increment(float | int num = 1) {
     _progress = min(max(0, _progress + num), _total);

@@ -111,7 +111,7 @@ mixin template TCollection() {
         return (new DSortIterator(unwrap(), mypath, SORT_ASC, sortMode)).first();
     }
  
-    float|int avg(string mypath = null) {
+    float avg(string mypath = null) {
         auto result = this;
         if (!mypath.isNull) {
             result = result.extract(mypath);
@@ -129,7 +129,7 @@ mixin template TCollection() {
         return result[1] / result[0];
     }
  
-    aufloat|intto median(string mypath = null) {
+    aufloatto median(string mypath = null) {
         quto myitems = this;
         if (!mypath.isNull) {
             myitems = myitems.extract(mypath);
@@ -194,7 +194,7 @@ mixin template TCollection() {
         return _newCollection(new DMapReduce(unwrap(), mymapper, myreducer));
     }
  
-    float|int sumOf(string mypath = null) {
+    float sumOf(string mypath = null) {
         if (mypath.isNull) {
             return array_sum(toList());
         }

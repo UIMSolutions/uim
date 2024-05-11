@@ -440,7 +440,7 @@ class DSession {
     }
 
     // Removes a variable from session.
-    void delete(string sessionName) {
+    void remove(string sessionName) {
         if (this.check(sessionName)) {
             /** @psalm-suppress InvalidScalarArgument */
             _overwrite(_SESSION, Hash.remove(_SESSION, sessionName));

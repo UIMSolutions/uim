@@ -74,7 +74,7 @@ class DCacheSession { // }: !SessionHandler {
      * string aid ID that uniquely identifies session in cache.
      */
     bool destroy(string aid) {
-        Cache.delete(anId, _options["config"]);
+        Cache.remove(anId, _options["config"]);
 
         return true;
     }

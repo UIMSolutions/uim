@@ -65,7 +65,7 @@ class DArrayCacheEngine : DCacheEngine {
       _cachedData.remove(key);
 
       return mydefault;
-    } * / 
+    } */ 
     return data["val"];
   }
 
@@ -90,7 +90,7 @@ class DArrayCacheEngine : DCacheEngine {
     _cachedData[key]["val"] -= decValue;
 
     return _cachedData[key]["val"];
-  } * / 
+  } */ 
 
 
 

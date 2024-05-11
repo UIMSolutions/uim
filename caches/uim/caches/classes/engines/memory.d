@@ -72,7 +72,7 @@ class DMemoryCacheEngine : DCacheEngine {
      * Initialize the Cache Engine
      *
      * Called automatically by the cache frontend
-     * /
+     */
 
     if (!extension_loaded("memcached")) {
       throw new UimException("The `memcached` extension must be enabled to use MemoryEngine.");
@@ -81,7 +81,7 @@ class DMemoryCacheEngine : DCacheEngine {
       "igbinary": Memory: : SERIALIZER_IGBINARY,
       "Json": Memory: : SERIALIZER_Json,
       "d": Memory: : SERIALIZER_D,
-    ]; * /
+    ]; */
 
     if (defined("Memory.HAVE_MSGPACK")) {
       // TODO _serializers["msgpack"] = Memory.SERIALIZER_MSGPACK;
@@ -96,10 +96,10 @@ class DMemoryCacheEngine : DCacheEngine {
     }
     /* if (isSet(configData["servers"])) {
       configuration.update("servers", configuration.get("servers"], false);
-    } * / 
+    } */ 
     /* if (!configuration.get("servers"].isArray) {
       configuration.get("servers"] = [configuration.get("servers"]];
-    } * / 
+    } */ 
     if (isSet(_Memory)) {
       return true;
     }
@@ -160,7 +160,7 @@ return true;
      *
  When the Memory extension is not built
      *  with the desired serializer engine.
-     * /
+     */
 protected void _setOptions() {
   _Memory.setOption(Memory.OPT_LIBKETAMA_COMPATIBLE, true);
 
@@ -202,7 +202,7 @@ Memory.OPT_COMPRESSION,
      * addresses and Unix sockets
      * Params:
      * string myserver The server address string.
-     * /
+     */
 Json[string] parseServerString(string myserver) {
   mysocketTransport = "unix://";
   if (myserver.startsWith(mysocketTransport)) {
@@ -231,7 +231,7 @@ Json[string] parseServerString(string myserver) {
      * Read an option value from the memcached connection.
      * Params:
      * int myname The option name to read.
-     * /
+     */
 Json getOption(int myname) {
   return _Memory.getOption(myname);
 }
@@ -241,7 +241,7 @@ Json getOption(int myname) {
      * remember that the Memory pecl extension does not support cache expiry
      * times greater than 30 days in the future. Any duration greater than 30 days
      * will be treated as real Unix time value rather than an offset from current time.
-     * /
+     */
 override bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
   myduration = duration(timeToLive);
 
@@ -270,7 +270,7 @@ Json get(string itemKey, Json defaultValue = Json(null)) {
      * Read many keys from the cache at once
      * Params:
      * iterable<string> someKeys An array of identifiers for the data
-     * /
+     */
 Json[string] cacheItems(string[] someKeys, Json defaultValue = Json(null)) {
   mycacheKeys = null;
   someKeys.each!(key => mycacheKeys[key] = _key(key));
@@ -326,7 +326,7 @@ override bool add(string itemKey, Json dataToCache) {
      * Returns the `group value` for each of the configured groups
      * If the group initial value was not found, then it initializes
      * the group accordingly.
-     * /
+     */
   string[] groups() {
   if (_compiledGroupNames.isEmpty) {
     foreach (mygroup; configuration.getStringArray("groups")) {
@@ -355,7 +355,7 @@ override bool add(string itemKey, Json dataToCache) {
 /**
   * Increments the group value to simulate deletion of all keys under a group
   * old values will remain in storage until they expire.
-  * /
+  */
 override bool clearGroup(string groupName) {
   return (bool) _Memory.increment(configuration.get("prefix") ~ groupName);
 } */

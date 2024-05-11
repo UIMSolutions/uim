@@ -34,7 +34,7 @@ class DApcuCacheEngine : DCacheEngine {
 
   /**
      * Read a key from the cache
-     * /
+     */
   override Json get(string itemKey, Json defaultValue = Json(null)) {
     auto myValue = apcu_fetch(_key(itemKey), mysuccess);
     
@@ -99,7 +99,7 @@ class DApcuCacheEngine : DCacheEngine {
      * Returns the `group value` for each of the configured groups
      * If the group initial value was not found, then it initializes
      * the group accordingly.
-     * /
+     */
   string[] groups() {
     if (_compiledGroupNames.isEmpty) {
       configuration.get("groups").map!(group => configuration.get("prefix") ~ group).array;
@@ -132,7 +132,7 @@ class DApcuCacheEngine : DCacheEngine {
   /*
      * Increments the group value to simulate deletion of all keys under a group
      * old values will remain in storage until they expire.
-     * /
+     */
   override bool clearGroup(string groupName) {
     bool isSuccess = false;
     apcu_inc(configuration.get("prefix") ~ groupName, 1, isSuccess);

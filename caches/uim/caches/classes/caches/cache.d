@@ -119,7 +119,7 @@ class DCache : ICache {
     /**
      * Finds and builds the instance of the required engine class.
      * @throws \RuntimeException If loading of the engine failed.
-     * /
+     */
     protected static void _buildEngine(string configName) {
         auto myRegistry = getRegistry();
 
@@ -171,7 +171,7 @@ class DCache : ICache {
                 _groups[groupName] = array_unique(_groups[groupName]);
                 _groups[groupName].sort;
             });
-        } * /
+        } */
     }
     
     // Get a SimpleCacheEngine object for the named cache pool.
@@ -205,7 +205,7 @@ class DCache : ICache {
      * ```
      * Cache.write("cached_data", mydata, "long_term");
      * ```
-     * /
+     */
     static bool write(string dataId, Json dataToCache, string configName = "default") {
         if (isResource(dataToCache)) {
             return false;
@@ -282,7 +282,7 @@ class DCache : ICache {
      * ```
      * Cache.readMany(["_data_1", "_data_2], "long_term");
      * ```
-     * /
+     */
     static Range readMany(string[] keysToFetch, string configName = "default") {
         return pool(configName).cacheItems(keysToFetch);
     }
@@ -340,7 +340,7 @@ class DCache : ICache {
      * ```
      * Cache.deleteMany(["_data_1", "_data_2], "long_term");
      * ```
-     * /
+     */
     static bool deleteMany(string[] someKeys, string configName = "default") {
         return pool(configName).removeItems(someKeys);
     }
@@ -349,7 +349,7 @@ class DCache : ICache {
      * Delete all keys from the cache.
      * Params:
      * returns True if the cache was successfully cleared, false otherwise
-     * /
+     */
     static bool clear(string configName = "default") {
         return pool(configName).clear();
     }
@@ -448,7 +448,7 @@ class DCache : ICache {
      * ```
      * Cache.add("cached_data", mydata, "long_term");
      * ```
-     * /
+     */
     static bool add(string dataId, Json dataToCache, string configName = "default") {
         if (isResource(dataToCache)) {
             return false;

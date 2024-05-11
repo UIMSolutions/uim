@@ -75,7 +75,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
 
     /**
      * Persists a set of key: value pairs in the cache, with an optional TTL.
-     * /
+     */
     bool cacheItems(Json[string] items, long timeToLive = 0) {
         ensureValidType(myvalues, self.CHECK_KEY);
 
@@ -158,7 +158,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      *
      * Defaults to a non-atomic implementation. Subclasses should
      * prefer atomic implementations.
-     * /
+     */
     bool add(string itemKey, Json dataToCache) {
         auto cachedValue = get(itemKey);
         return cachedValue.isNull
@@ -201,7 +201,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     /**
      * Cache Engines may trigger warnings if they encounter failures during operation,
      * if option warnOnWriteFailures is set to true.
-     * /
+     */
     protected void warning(string warningMessage) {
         if (configurationData.isSet("warnOnWriteFailures") != true) {
             return;

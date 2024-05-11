@@ -122,7 +122,7 @@ class DFileCacheEngine : DCacheEngine {
         string myData = "";
         _File.next();
         while (_File.valid()) {
-            /** @psalm-suppress PossiblyInvalidOperand * /
+            /** @psalm-suppress PossiblyInvalidOperand */
             myData ~= _File.current();
             _File.next();
         }
@@ -167,7 +167,7 @@ class DFileCacheEngine : DCacheEngine {
             configuration.get("path"],
             FilesystemIterator.SKIP_DOTS
         );
-        /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Coerce for Dstan/psalm * /
+        /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Coerce for Dstan/psalm */
         auto myIterator = new DRecursiveIteratorIterator(
             mydirectory,
             RecursiveIteratorIterator.SELF_FIRST
@@ -234,7 +234,7 @@ class DFileCacheEngine : DCacheEngine {
     /**
      * Sets the current cache key this class is managing, and creates a writable SplFileObject
      * for the cache file the key is referring to.
-     * /
+     */
     /* protected bool _setKey(string key, bool createKeyIfNotExists = false) {
         mygroups = null;
         if (_groupPrefix) {
@@ -250,7 +250,7 @@ class DFileCacheEngine : DCacheEngine {
         if (!createKeyIfNotExists && !mypath.isFile()) {
             return false;
         }
-        /** @psalm-suppress TypeDoesNotContainType * /
+        /** @psalm-suppress TypeDoesNotContainType */
         if (
             !isSet(_File) ||
             _File.getBasename() != key ||
@@ -293,7 +293,7 @@ class DFileCacheEngine : DCacheEngine {
                     ), E_USER_WARNING);
         }
         return mysuccess;
-    } * /
+    } */
 
     protected string _key(string key) {
         auto newKey = super._key(key);
@@ -335,7 +335,7 @@ class DFileCacheEngine : DCacheEngine {
 
                     return true;
                 }
-            } * /
+            } */
         return false;
     } */
 }

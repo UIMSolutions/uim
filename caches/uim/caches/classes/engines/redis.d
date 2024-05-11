@@ -153,7 +153,7 @@ class DRedisCacheEngine : DCacheEngine {
      * Delete a key from the cache asynchronously
      *
      * Just unlink a key from the cache. The actual removal will happen later asynchronously.
-     * /
+     */
     override bool deleteAsync(string dataIdentifier) {
         auto key = _key(dataId);
         return _redis.unlink(key) > 0;
@@ -186,7 +186,7 @@ class DRedisCacheEngine : DCacheEngine {
      * Delete all keys from the cache by a blocking operation
      *
      * Faster than clear() using unlink method.
-     * /
+     */
     override bool clearBlocking() {
        _redis.setOption(Redis.OPT_SCAN, (string)Redis.SCAN_RETRY);
 
@@ -211,7 +211,7 @@ class DRedisCacheEngine : DCacheEngine {
     /**
      * Write data for key into cache if it doesn`t exist already.
      * If it already exists, it fails and returns false.
-     * /
+     */
     override bool add(string dataId, Json dataToCache) {
         auto aDuration = configuration.get("duration");
         auto aKey = _key(dataId);
@@ -224,7 +224,7 @@ class DRedisCacheEngine : DCacheEngine {
      * Returns the `group value` for each of the configured groups
      * If the group initial value was not found, then it initializes
      * the group accordingly.
-     * /
+     */
     string[] groups() {
         string[] result;
         configuration.get("groups").each!((group) {
@@ -242,7 +242,7 @@ class DRedisCacheEngine : DCacheEngine {
     /**
      * Increments the group value to simulate deletion of all keys under a group
      * old values will remain in storage until they expire.
-         * /
+         */
     override bool clearGroup(string groupName) {
         return (bool)_redis.incr(configuration.get("prefix") ~  groupName);
     }
@@ -252,7 +252,7 @@ class DRedisCacheEngine : DCacheEngine {
      *
      * This is needed instead of using Redis' in built serialization feature
      * as it creates problems incrementing/decrementing intially set integer value.
-     * /
+     */
     protected string serialize(Json valueToSerialize) {
         return isInt(valueToSerialize) 
             ? to!string(valueToSerialize)

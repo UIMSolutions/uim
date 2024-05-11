@@ -171,7 +171,7 @@ class DConsoleOptionParser {
      * Construct an OptionParser so you can define its behavior
      * Params:
      * string acommand The command name this parser is for. The command name is used for generating help.
-     * /
+     */
     this(string newCommand = "", bool isVerboseAndQuiet = true) {
         setCommand(command);
 
@@ -217,7 +217,7 @@ class DConsoleOptionParser {
      * Params:
      * Json[string] spec The spec to build the OptionParser with.
      * @param bool defaultOptions Whether you want the verbose and quiet options set.
-     * /
+     */
     static auto buildFromArray(Json[string] spec, bool isVerboseAndQuiet = true) {
         auto aParser = new static(spec["command"], isVerboseAndQuiet);
         if (!spec["arguments"].isEmpty) {
@@ -250,7 +250,7 @@ class DConsoleOptionParser {
      * Get or set the command name for shell/task.
      * Params:
      * \UIM\Console\DConsoleOptionParser buildOptionParser|array spec DConsoleOptionParser buildOptionParser or spec to merge with.
-     * /
+     */
     void merge(DConsoleOptionParser buildOptionParser|array spec) {
         if (cast(DConsoleOptionParser buildOptionParser)spec) {
             spec = spec.toArray();
@@ -293,7 +293,7 @@ class DConsoleOptionParser {
      * \UIM\Console\ConsoleInputOption|string aName The long name you want to the value to be parsed out
      *  as when options are parsed. Will also accept an instance of ConsoleInputOption.
      *  options An array of parameters that define the behavior of the option
-     * /
+     */
     void addOption(string optionName, Json[string] behaviorOptions = null) {
             defaultValues = [
                 "short": "".toJson,
@@ -354,7 +354,7 @@ class DConsoleOptionParser {
      * \UIM\Console\ConsoleInputArgument|string aName The name of the argument.
      *  Will also accept an instance of ConsoleInputArgument.
      * @param Json[string] params Parameters for the argument, see above.
-     * /
+     */
     void addArgument(ConsoleInputArgument|string aName, Json[string] params = []) {
     }
     
@@ -366,7 +366,7 @@ class DConsoleOptionParser {
      * The keys are used as the argument names, and the values as params for the argument.
      * Params:
      * array<string, Json[string]|\UIM\Console\ConsoleInputArgument> someArguments Array of arguments to add.
-     * /
+     */
     void addArguments(Json[string] someArguments) {
         foreach (name: params; someArguments) {
             if (cast(DConsoleInputArgument)params) {
@@ -380,7 +380,7 @@ class DConsoleOptionParser {
     /**
      * Add multiple options at once. Takes an array of option definitions.
      * The keys are used as option names, and the values as params for the option.
-     * /
+     */
     void addOptions(Json[string] optionsToAdd = null) {
         foreach (name: params; optionsToAdd) {
             if (cast(DConsoleInputOption)params) {
@@ -412,7 +412,7 @@ class DConsoleOptionParser {
      * Params:
      * Json[string] argv Array of args (argv) to parse.
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo A ConsoleIo instance or null. If null prompt options will error.
-     * /
+     */
     Json[string] parse(Json[string] argv, IConsoleIo aConsoleIo = null) {
         params = someArguments = null;
        _tokens = argv;
@@ -492,7 +492,7 @@ class DConsoleOptionParser {
      * Params:
      * string aformat Define the output format, can be text or XML
      * @param int width The width to format user content to. Defaults to 72
-     * /
+     */
     string help(string aformat = "text", int width = 72) {
         formatter = new DHelpFormatter(this);
         formatter.aliasName(_rootName);
@@ -514,7 +514,7 @@ class DConsoleOptionParser {
      * Params:
      * string optionToParse The option to parse.
      * @param  params The params to append the parsed value into
-     * /
+     */
     // TODO protected Json[string] _parseLongOption(string optionToParse, Json[string] params) {
         name = substr(optionToParse, 2);
         if (name.has("=")) {
@@ -532,7 +532,7 @@ class DConsoleOptionParser {
      * @param  params The params to append the parsed value into
      * params with option added in.
      * @throws \UIM\Console\Exception\ConsoleException When unknown short options are encountered.
-     * /
+     */
     // TODO protected Json[string] _parseShortOption(string optionToParse, Json[string] params) {
         string aKey = substr(optionToParse, 1);
         if (aKey.length > 1) {
@@ -562,7 +562,7 @@ class DConsoleOptionParser {
      * params The params to append the parsed value into
      * returns Params with option added in.
      * @throws \UIM\Console\Exception\ConsoleException
-     * /
+     */
     protected Json[string] _parseOption(string nameToParse, Json[string] params) {
         if (!_options.isSet(nameToParse)) {
             throw new DMissingOptionException(
@@ -605,7 +605,7 @@ class DConsoleOptionParser {
     /**
      * Parse an argument, and ensure that the argument doesn`t exceed the number of arguments
      * and that the argument is a valid choice.
-     * /
+     */
     protected string[] _parseArg(string argumentToAppend, Json[string] someArguments) {
         if (_args.isEmpty) {
             someArguments ~= argumentToAppend;

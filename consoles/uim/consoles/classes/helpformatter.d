@@ -105,7 +105,7 @@ class DHelpFormatter {
      * Generate the usage for a shell based on its arguments and options.
      * Usage strings favor short options over the long ones. and optional args will
      * be indicated with []
-     * /
+     */
     protected string _generateUsage() {
         string[] usage = [_alias ~ " " ~ _parser.getCommand()];
         auto options = _parser.options()
@@ -132,7 +132,7 @@ class DHelpFormatter {
      * Iterate over a collection and find the longest named thing.
      * Params:
      * array<\UIM\Console\ConsoleInputOption|\UIM\Console\> collection The collection to find a max length of.
-     * /
+     */
     protected int _getMaxLength(ConsoleInputArgument[] collection) {
         int result = 0;
         collection
@@ -144,7 +144,7 @@ class DHelpFormatter {
      * Get the help as an XML string.
      * Params:
      * bool string Return the SimpleXml object or a string. Defaults to true.
-     * /
+     */
     SimpleXMLElement|string xml(bool string = true) {
         auto myParser = _parser;
         xml = new DSimpleXMLElement("<shell></shell>");

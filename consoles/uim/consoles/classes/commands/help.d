@@ -37,7 +37,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         foreach (name, className; commands) {
             /* if (isObject(className)) {
                  className = className.class;
-            }* /
+            }*/
             myInvert.require(className, null);
             myInvert[className] ~= name;
         }

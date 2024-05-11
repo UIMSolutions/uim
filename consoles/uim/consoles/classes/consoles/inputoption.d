@@ -79,7 +79,7 @@ class DConsoleInputOption {
      * @param bool multiple Whether this option can accept multiple value definition.
      * @param string prompt The prompt string.
      * @throws \UIM\Console\Exception\ConsoleException
-     * /
+     */
     this(
         string aName,
         string newShortAlias = "",
@@ -124,7 +124,7 @@ class DConsoleInputOption {
      * Generate the help for this this option.
      * Params:
      * int width The width to make the name of the option.
-     * /
+     */
     string help(int width = 0) {
         string default;
         if (_default && _default != true) {
@@ -179,7 +179,7 @@ class DConsoleInputOption {
      * Check that a value is a valid choice for this option.
      * Params:
      * string aValue The choice to validate.
-     * /
+     */
     bool validChoice(string aValue) {
         if (_choices.isEmpty) {
             return true;

@@ -81,10 +81,10 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * Returns the command name based on class name.
      * For e.g. for a command with class name `UpdateTableCommand` the default
      * name returned would be `'update_table'`.
-     * /
+     */
     static string defaultName() {
         size_t pos = strrpos(class, "\\");
-        /** @psalm-suppress PossiblyFalseOperand * /
+        /** @psalm-suppress PossiblyFalseOperand */
         string name = substr(class, pos + 1,  - 7);
         return Inflector.underscore(name);
     }
@@ -93,7 +93,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * Get the option parser.
      *
      * You can override buildOptionParser() to define your options & arguments.
-     * /
+     */
     DConsoleOptionParser buildOptionParser getOptionParser() {
         [root, name] = split(" ", _name, 2);
         aParser = new DConsoleOptionParser buildOptionParser(name);
@@ -134,7 +134,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
             aConsoleIo.setInteractive(false);
         }
         this.dispatchEvent("Command.beforeExecute", ["args": someArguments]);
-        /** @var int result  * /
+        /** @var int result  */
         result = this.execute(someArguments, aConsoleIo);
         this.dispatchEvent("Command.afterExecute", [
                 "args": someArguments,
@@ -149,7 +149,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * Params:
      * \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The option parser.
      * @param \UIM\Console\Json[string] someArguments The command arguments.
-     * /
+     */
     protected void displayHelp(DConsoleOptionParser buildOptionParser aParser, Json[string] someArguments, IConsoleIo aConsoleIo) {
         string format = "text";
         if (someArguments.getArgumentAt(0) == "xml") {
@@ -164,7 +164,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * Params:
      * \UIM\Console\Json[string] someArguments The command arguments.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
-     * /
+     */
     protected void setOutputLevel(Json[string] someArguments, IConsoleIo aConsoleIo) {
         aConsoleIo.setLoggers(ConsoleIo.NORMAL);
         if (someArguments.hasKey("quiet")) {
@@ -182,14 +182,14 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * Params:
      * \UIM\Console\Json[string] someArguments The command arguments.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
-     * /
+     */
     abstract int | void execute(Json[string] someArguments, IConsoleIo aConsoleIo);
 
     /**
      * Halt the current process with a StopException.
      * Params:
      * int code The exit code to use.
-     * /
+     */
     never abort(int code = self.CODE_ERROR) {
         throw new DStopException("Command aborted", code);
     }
@@ -204,7 +204,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * \UIM\Console\ICommand|string acommand The command class name or command instance.
      * @param Json[string] someArguments The arguments to invoke the command with.
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo The ConsoleIo instance to use for the executed command.
-     * /
+     */
     int executeCommand(string acommand, Json[string] someArguments = [],  ? IConsoleIo aConsoleIo = null) {
         assert(
             isSubclass_of(command, ICommand.classname),

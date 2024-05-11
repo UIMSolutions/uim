@@ -75,7 +75,7 @@ class DConsoleIo {
      * @param \UIM\Console\ConsoleOutput|null err A ConsoleOutput object for stderr.
      * @param \UIM\Console\ConsoleInput|null  anIn A ConsoleInput object for stdin.
      * @param \UIM\Console\HelperRegistry|null helpers A HelperRegistry instance
-     * /
+     */
     this(
         ?ConsoleOutput  result = null,
         ?ConsoleOutput err = null,
@@ -97,7 +97,7 @@ class DConsoleIo {
      * Get/set the current output level.
      * Params:
      * int level The current output level.
-     * /
+     */
     int level(int level = 0) {
         if (level != 0) {
            _level = level;
@@ -116,7 +116,7 @@ class DConsoleIo {
     
     /**
      * Output at all levels.
-     * /
+     */
     int quiet(string[] outputMessages...) {
         return quiet(outputMessages.dup);
     }
@@ -139,7 +139,7 @@ class DConsoleIo {
      * string[]|string amessage A string or an array of strings to output
      * @param int newLinesToAppend Number of newLinesToAppend to append
      * @param int level The message`s output level, see above.
-     * /
+     */
     int out(string[] amessage = "", int newLinesToAppend = 1, int level = self.NORMAL) {
         if (level > _level) {
             return null;
@@ -183,7 +183,7 @@ class DConsoleIo {
      * Convenience method for writeErrorMessages() that wraps message between <error> tag
      * Params:
      * string[]|string amessage A string or an array of strings to output
-     * /
+     */
     int error(string[] messagesToOutput, int newLinesToAppend = 1) {
         string messageType = "error";
         auto message = wrapMessageWithType(messageType, messagesToOutput);
@@ -196,7 +196,7 @@ class DConsoleIo {
      * Params:
      * string[]|string amessage A string or an array of strings to output
      * @param int newLinesToAppend Number of newLinesToAppend to append
-     * /
+     */
     int success(string[] messagesToOutput, int newLinesToAppend = 1, int outputLevel = self.NORMAL) {
         string messageType = "success";
         message = wrapMessageWithType(messageType, message);
@@ -215,7 +215,7 @@ class DConsoleIo {
      * Wraps a message with a given message type, e.g. <warning>
      * Params:
      * string amessageType The message type, e.g. "warning".
-     * /
+     */
     protected string[] wrapMessageWithType(string amessageType, string[] messagesToWrap) {
         return messages
             .map!(message => wrapMessageWithType(messageType, message))
@@ -236,7 +236,7 @@ class DConsoleIo {
      * Params:
      * string[]|string amessage The message to output.
      * @param int newLinesToAppend Number of newLinesToAppend to append.
-     * /
+     */
     void overwrite(string[] amessage, int newLinesToAppend = 1, int bytesToOverwrite = 0) {
         bytesToOverwrite = bytesToOverwrite ?: _lastWritten;
 
@@ -266,7 +266,7 @@ class DConsoleIo {
      * Params:
      * string[]|string amessage A string or an array of strings to output
      * @param int newLinesToAppend Number of newLinesToAppend to append
-     * /
+     */
     int writeErrorMessages(string[] messages...) {
         return writeErrorMessages(messages.dup);
     }
@@ -278,7 +278,7 @@ class DConsoleIo {
      * Returns a single or multiple linefeeds sequences.
      * Params:
      * linefeedMultiplier = Number of times the linefeed sequence should be repeated
-     * /
+     */
     string nl(int linefeedMultiplier = 1) {
         return str_repeat(ConsoleOutput.LF, linefeedMultiplier);
     }
@@ -299,14 +299,14 @@ class DConsoleIo {
      * Change the output mode of the stdout stream
      * Params:
      * outputMode = The output mode.
-     * /
+     */
     void setOutputAs(int outputMode) {
        _out.setOutputAs(outputMode);
     }
     
     /**
      * Gets defined styles.
-     * /
+     */
     Json[string] styles() {
         return _out.styles();
     }
@@ -320,7 +320,7 @@ class DConsoleIo {
      * Adds a new output style.
      * Params:
      * @param Json[string] definition The array definition of the style to change or create.
-     * /
+     */
     void setStyle(string styleToSet, Json[string] definition) {
        _out.setStyle(styleToSet, definition);
     }
@@ -361,7 +361,7 @@ class DConsoleIo {
      * string aprompt Prompt text.
      * @param string options String of options. Pass null to omit.
      * @param string default Default input value. Pass null to omit.
-     * /
+     */
     protected string _getInput(string promptText, string options, string defaultValue) {
         if (!this.interactive) {
             return to!string(defaultValue);
@@ -399,7 +399,7 @@ class DConsoleIo {
      *  one of the verbosity constants (self.VERBOSE, self.QUIET, self.NORMAL)
      *  to control logging levels. VERBOSE enables debug logs, NORMAL does not include debug logs,
      *  QUIET disables notice, info and debug logs.
-     * /
+     */
     void setLoggers(int|bool enable) {
         Log.drop("stdout");
         Log.drop("stderr");
@@ -441,7 +441,7 @@ class DConsoleIo {
      * nameToRender The name of the helper to render
      * initData - Configuration data for the helper.
      * returns = Created helper instance.
-     * /
+     */
     Helper helper(string nameToRender, Json[string] initData = null) {
         auto renderName = ucfirst(nameToRender);
 
@@ -464,7 +464,7 @@ class DConsoleIo {
      *  If true, no question will be asked about whether to overwrite existing files.
      * @throws \UIM\Console\Exception\StopException When `q` is given as an answer
      *  to whether a file should be overwritten.
-     * /
+     */
     bool createFile(string aPath, string acontents, bool shouldOverwrite = false) {
         writeln();
         shouldOverwrite = shouldOverwrite || this.forceOverwrite;

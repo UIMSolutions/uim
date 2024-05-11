@@ -33,7 +33,7 @@ class DCommandScanner {
      * Scan UIM internals for shells & commands.
      *
      * returs A list of command metadata.
-     * /
+     */
     Json[string] scanCore() {
         return _scanDir(
             dirname(__DIR__) ~ DIRECTORY_SEPARATOR ~ "Command" ~ DIRECTORY_SEPARATOR,
@@ -45,7 +45,7 @@ class DCommandScanner {
     
     /**
      * Scan the application for shells & commands.
-     * /
+     */
     Json[string] scanApp() {
         appNamespace = Configuration.read("App.namespace");
 
@@ -72,7 +72,7 @@ class DCommandScanner {
     /**
      * Scan a directory for .d files and return the class names that
      * should be within them.
-     * /
+     */
     protected Json[string] scanDir(string directoryPath, string shellNamespace, string commandPrefix, string[] commandsToHide) {
         if (!isDir(directoryPath)) {
             return null;
@@ -82,7 +82,7 @@ class DCommandScanner {
 
          classNamePattern = "/Command\.d$/";
         fs = new DFilesystem();
-        /** @var array<\SplFileInfo> files * /
+        /** @var array<\SplFileInfo> files */
         files = fs.find(somePath,  classNamePattern);
 
         commands = null;

@@ -66,7 +66,7 @@ class DCommandCollection { // : IteratorAggregate, Countable {
     Traversable getIterator() {
         return new DArrayIterator(_commands);
     }
-    * / 
+    */ 
 
     // Get the number of commands in the collection.
     size_t count() {
@@ -80,7 +80,7 @@ class DCommandCollection { // : IteratorAggregate, Countable {
      * existing commands in the collection. If a command is already
      * defined in the collection and discovered in a plugin, only
      * the long name (`plugin.command`) will be returned.
-     * /
+     */
      // TODO
 /*    STRINGAA discoverPlugin(string pluginName) {
         auto commandScanner = new DCommandScanner();

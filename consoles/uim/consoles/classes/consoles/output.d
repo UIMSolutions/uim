@@ -132,7 +132,7 @@ class DConsoleOutput {
      * pretty consoles on Windows, and is supported.
      * Params:
      * resource|string astream The identifier of the stream to write output to.
-     * /
+     */
     this(string streamIdentifier = "uim://stdout") {
         auto fileStream = fopen(streamIdentifier, "wb");
         if (!isResource(fileStream)) {
@@ -165,7 +165,7 @@ class DConsoleOutput {
      * are passed, outputs just a newline.
      * Params:
      * string[]|string amessage A string or an array of strings to output
-     * /
+     */
     int write(string[] amessage, int numberOfLines = 1) {
         if (isArray(message)) {
             message = join(LF, message);
@@ -179,7 +179,7 @@ class DConsoleOutput {
             return stylingText;
         }
         if (_outputAs != PLAIN) {
-            /** @var \Closure replaceTags * /
+            /** @var \Closure replaceTags */
             replaceTags = _replaceTags(...);
 
             output = preg_replace_callback(
@@ -201,7 +201,7 @@ class DConsoleOutput {
      * Replace tags with color codes.
      *
      * matchesToReplace - Array of matches to replace.
-     * /
+     */
     protected string _replaceTags(STRINGAA matchesToReplace) {
         style = getStyle(matchesToReplace["tag"]);
         if (style.isEmpty) {
@@ -229,7 +229,7 @@ class DConsoleOutput {
     
     /**
      * Gets the current styles offered
-     * /
+     */
     Json[string] getStyle(string styleName) {
         return _styles.get(styleName, null);
     }
@@ -250,7 +250,7 @@ class DConsoleOutput {
      * ```
      * Params:
      * @param Json[string] definition The array definition of the style to change or create..
-     * /
+     */
     void setStyle(string styleToSet, Json[string] definition) {
         if (!definition) {
             _styles.remove(styleToSet);
@@ -275,7 +275,7 @@ class DConsoleOutput {
      * Params:
      * int type The output type to use. Should be one of the class DConstants.
      * @throws \InvalidArgumentException in case of a not supported output type.
-     * /
+     */
     void setOutputAs(int type) {
         if (!in_array(type, [self.RAW, self.PLAIN, self.COLOR], true)) {
             throw new DInvalidArgumentException("Invalid output type `%s`.".format(type));
@@ -285,7 +285,7 @@ class DConsoleOutput {
     
     // Clean up and close handles
     auto __destruct() {
-        /** @psalm-suppress RedundantCondition * /
+        /** @psalm-suppress RedundantCondition */
         if (isResource(_output)) {
             fclose(_output);
         }

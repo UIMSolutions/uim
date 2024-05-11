@@ -48,9 +48,9 @@ class DConsoleInputArgument {
      * Json[string]|string aName The long name of the option, or an array with all the properties.
      * @param string ahelp The help text for this option
      * @param string[] choices Valid choices for this option.
-     * /
+     */
     this(string propertyName, string ahelp = "", bool isArgumentRequired = false, string[] optionChoices = []) {
-            /** @var string aName * /
+            /** @var string aName */
            _name = name;
            _help = help;
            _required = isArgumentRequired;
@@ -74,7 +74,7 @@ class DConsoleInputArgument {
      * Generate the help for this argument.
      * Params:
      * int width The width to make the name of the option.
-     * /
+     */
     string help(int width = 0) {
         auto helpName = _name;
         if (helpName.length < width) {

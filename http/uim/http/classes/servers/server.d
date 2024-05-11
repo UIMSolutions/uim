@@ -46,7 +46,7 @@ class DServer { // }: IEventDispatcher {
      * Params:
      * \UIM\Core\IHttpApplication app The application to use.
      * @param \UIM\Http\Runner|null runner Application runner.
-     * /
+     */
     this(IHttpApplication httpApp, Runner appRunner = null) {
         _app = httpApp;
         _runner = appRunner ?? new DRunner();
@@ -65,7 +65,7 @@ class DServer { // }: IEventDispatcher {
      * Params:
      * \Psr\Http\Message\IServerRequest|null request The request to use or null.
      * @param \UIM\Http\MiddlewareQueue|null middlewareQueue MiddlewareQueue or null.
-     * /
+     */
     IResponse run(
         ?IServerRequest serverRequest = null,
         ?MiddlewareQueue middlewareQueue = null
@@ -100,7 +100,7 @@ class DServer { // }: IEventDispatcher {
      *
      * Calls the application`s `bootstrap()` hook. After the application the
      * plugins are bootstrapped.
-     * /
+     */
     protected void bootstrap() {
         this.app.bootstrap();
         if (this.app instanceof IPluginApplication) {
@@ -114,7 +114,7 @@ class DServer { // }: IEventDispatcher {
      * \Psr\Http\Message\IResponse response The response to emit
      * @param \UIM\Http\ResponseEmitter|null emitter The emitter to use.
      *  When null, a SAPI Stream Emitter will be used.
-     * /
+     */
     void emit(IResponse response, ?ResponseEmitter emitter = null) {
         if (!emitter) {
             emitter = new DResponseEmitter();
@@ -124,7 +124,7 @@ class DServer { // }: IEventDispatcher {
     
     /**
      * Get the current application.
-     * /
+     */
     IHttpApplication getApp() {
         return _app;
     }
@@ -143,7 +143,7 @@ class DServer { // }: IEventDispatcher {
      * If the application does not support events, an exception will be raised.
      * Params:
      * \UIM\Event\IEventManager eventManager The event manager to set.
-     * /
+     */
     void setEventManager(IEventManager eventManager) {
         if (this.app instanceof IEventDispatcher) {
             this.app.setEventManager(eventManager);

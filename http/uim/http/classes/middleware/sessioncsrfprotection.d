@@ -27,7 +27,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * - `key` The session key to use. Defaults to `csrfToken`
      * - `field` The form field to check. Changing this will also require configuring
      *   FormHelper.
-     * /
+     */
     protected Json _config = [
         "key": Json("csrfToken"),
         "field": Json("_csrfToken"),
@@ -39,7 +39,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * CSRF protection token check will be skipped if the callback returns `true`.
      *
      * @var callable|null
-     * /
+     */
     protected skipCheckCallback;
 
     const int TOKEN_VALUE_LENGTH = 32;
@@ -53,7 +53,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request.
      * @param \Psr\Http\Server\IRequestHandler handler The request handler.
-     * /
+     */
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         method = request.getMethod();
         hasData = in_array(method, ["PUT", "POST", "DELETE", "PATCH"], true)
@@ -96,7 +96,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * `true` if you want to skip token check for the current request.
      * Params:
      * callable aCallback A callable.
-     * /
+     */
     void skipCheckCallback(callable aCallback) {
         this.skipCheckCallback = aCallback;
     }
@@ -109,7 +109,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * to be unsalted.
      *
      * tokenToSalt - The token to salt.
-     * /
+     */
     string saltToken(string tokenToSalt) {
         string decodedToken = base64_decode(tokenToSalt);
         auto tokenLength = decodedToken.length;
@@ -130,7 +130,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * unsalted value that is supported for backwards compatibility.
      * Params:
      * string atoken The token that could be salty.
-     * /
+     */
     protected string unsaltToken(string atoken) {
         string decodedToken = base64_decode(token, true);
         if (decodedToken == false || decodedToken.length != TOKEN_VALUE_LENGTH * 2) {
@@ -154,7 +154,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * form tampering protection.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request object.
-     * /
+     */
     protected IServerRequest unsetTokenField(IServerRequest serverRequest) {
         body = request.getParsedBody();
         if (isArray(body)) {
@@ -169,7 +169,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      *
      * This token is a simple unique random value as the compare
      * value is stored in the session where it cannot be tampered with.
-     * /
+     */
     string createToken() {
         return base64_encode(Security.randomBytes(TOKEN_VALUE_LENGTH));
     }
@@ -179,7 +179,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request to validate against.
      * @param \UIM\Http\Session session The session instance.
-     * /
+     */
     protected void validateToken(IServerRequest serverRequest, Session session) {
         auto token = session.read(configuration.get("key"]);
         if (!token || !isString(token)) {
@@ -212,7 +212,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * Params:
      * \UIM\Http\ServerRequest serverRequest The request to update
      * @param string aKey The session key/attribute to set.
-     * /
+     */
     static ServerRequest replaceToken(ServerRequest serverRequest, string aKey = "csrfToken") {
         middleware = new DSessionCsrfProtectionMiddleware(["key": aKey]);
 

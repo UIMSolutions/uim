@@ -811,10 +811,10 @@ class DResponse : IResponse {
      * ### Examples:
      *
      * ```
-     * // Will Expire the response cache now
+     *// Will Expire the response cache now
      * response.withExpires("now")
      *
-     * // Will set the expiration in next 24 hours
+     *// Will set the expiration in next 24 hours
      * response.withExpires(new DateTime("+1 day"))
      * ```
      * Params:
@@ -832,10 +832,10 @@ class DResponse : IResponse {
      * ### Examples:
      *
      * ```
-     * // Will Expire the response cache now
+     *// Will Expire the response cache now
      * response.withModified("now")
      *
-     * // Will set the expiration in next 24 hours
+     *// Will set the expiration in next 24 hours
      * response.withModified(new DateTime("+1 day"))
      * ```
      * Params:
@@ -958,7 +958,7 @@ class DResponse : IResponse {
      * Params:
      * string afilename The name of the file as the browser will download the response
      * @return static
-     * /
+     */
     static withDownload(string afilename) {
         return _withHeader("Content-Disposition", "attachment; filename="" ~ filename ~ """);
     }
@@ -993,7 +993,7 @@ class DResponse : IResponse {
      * Params:
      * string aurl The LinkHeader url.
      * @param Json[string] options The LinkHeader params.
-     * /
+     */
     static withAddedLink(string aurl, Json[string] options = null) {
         string[] params;
         foreach (options as aKey: option) {
@@ -1016,7 +1016,7 @@ class DResponse : IResponse {
      * before calling this method. Otherwise, a comparison will not be possible.
      * Params:
      * \UIM\Http\ServerRequest serverRequest Request object
-     * /
+     */
     bool isNotModified(ServerRequest serverRequest) {
         etags = preg_split("/\s*,\s*/", serverRequest.getHeaderLine("If-None-Match"), 0, PREG_SPLIT_NO_EMPTY) ?: [];
         responseTag = getHeaderLine("Etag");
@@ -1052,13 +1052,13 @@ class DResponse : IResponse {
      * ### Example
      *
      * ```
-     * // add a cookie object
+     *// add a cookie object
      * response = response.withCookie(new DCookie("remember_me", 1));
      * ```
      * Params:
      * \UIM\Http\Cookie\ICookie cookie cookie object
      * @return static
-     * /
+     */
     auto withCookie(ICookie cookie): static
     {
         new = clone this;
@@ -1073,13 +1073,13 @@ class DResponse : IResponse {
      * ### Example
      *
      * ```
-     * // add a cookie object
+     *// add a cookie object
      * response = response.withExpiredCookie(new DCookie("remember_me"));
      * ```
      * Params:
      * \UIM\Http\Cookie\ICookie cookie cookie object
      * @return static
-     * /
+     */
     auto withExpiredCookie(ICookie cookie): static
     {
         cookie = cookie.withExpired();
@@ -1097,7 +1097,7 @@ class DResponse : IResponse {
      * not read the `Set-Cookie` header if set.
      * Params:
      * string aName The cookie name you want to read.
-     * /
+     */
     Json[string] getCookie(string aName) {
         if (!_cookies.has(name)) {
             return null;
@@ -1109,7 +1109,7 @@ class DResponse : IResponse {
      * Get all cookies in the response.
      *
      * Returns an associative array of cookie name: cookie data.
-     * /
+     */
     Json[string] <string, array> getCookies() {
          auto result;
         foreach (_cookies as cookie) {
@@ -1120,7 +1120,7 @@ class DResponse : IResponse {
     
     /**
      * Get the CookieCollection from the response
-     * /
+     */
     DCookieCollection getCookieCollection() {
         return _cookies;
     }
@@ -1129,7 +1129,7 @@ class DResponse : IResponse {
      * Get a new instance with provided cookie collection.
      * Params:
      * \UIM\Http\Cookie\CookieCollection cookieCollection Cookie collection to set.
-     * /
+     */
     static withCookieCollection(CookieCollection cookieCollection) {
         new = clone this;
         new._cookies = cookieCollection;
@@ -1141,7 +1141,7 @@ class DResponse : IResponse {
      * Get a CorsBuilder instance for defining CORS headers.
      * Params:
      * \UIM\Http\ServerRequest serverRequest Request object
-     * /
+     */
     DCorsBuilder cors(ServerRequest serverRequest) {
         origin = serverRequest.getHeaderLine("Origin");
         https = serverRequest.is("https");
@@ -1164,7 +1164,7 @@ class DResponse : IResponse {
      *  be downloaded rather than displayed inline.
      * Params:
      * string aPath Absolute path to file.
-     * /
+     */
     static withFile(string aPath, Json[string] options = null) {
         file = this.validateFile(somePath);
         auto auto updatedOptions = options.update([
@@ -1214,7 +1214,7 @@ class DResponse : IResponse {
      * Convenience method to set a string into the response body
      * Params:
      * string|null string The string to be sent
-     * /
+     */
     static withStringBody(string astring) {
         new = clone this;
         new._createStream();
@@ -1227,7 +1227,7 @@ class DResponse : IResponse {
      * Validate a file path is a valid response body.
      * Params:
      * @throws \UIM\Http\Exception\NotFoundException
-     * /
+     */
     protected ISplFileInfo validateFile(string filePath) {
         if (filePath.has("../") || somefilePathPath.has("..\\")) {
             throw new DNotFoundException(__d("uim", "The requested file contains `..` and will not be read."));
@@ -1257,7 +1257,7 @@ class DResponse : IResponse {
      * Params:
      * \SplFileInfo file The file to set a range on.
      * @param string ahttpRange The range to use.
-     * /
+     */
     protected void _fileRange(SplFileInfo file, string ahttpRange) {
         size_t fileSize = file.getSize();
         lastByte = fileSize - 1;
@@ -1288,7 +1288,7 @@ class DResponse : IResponse {
         /**
          * @var int start
          * @var int end
-         * /
+         */
        _fileRange = [start, end];
     }
     

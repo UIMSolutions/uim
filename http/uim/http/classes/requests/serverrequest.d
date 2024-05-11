@@ -111,7 +111,7 @@ class DServerRequest { // }: IServerRequest {
      * Instance cache for results of is(something) calls
      *
      * @var array<string, bool>
-     * /
+     */
     // TODO protected Json[string] _detectorCache = null;
     /**
      * Array of POST data. Will contain form data as well as uploaded files.
@@ -119,7 +119,7 @@ class DServerRequest { // }: IServerRequest {
      * data.
      *
      * @var object|array|null
-     * /
+     */
     protected object|array|null someData = null;
 
 
@@ -128,55 +128,55 @@ class DServerRequest { // }: IServerRequest {
      * Request body stream. Contains D://input unless `input` constructor option is used.
      *
      * @var \Psr\Http\Message\IStream
-     * /
+     */
     protected IStream stream;
 
     /**
      * Uri instance
      *
      * @var \Psr\Http\Message\IUri
-     * /
+     */
     protected IUri anUri;
 
     /**
      * Instance of a Session object relative to this request
      *
      * @var \UIM\Http\Session
-     * /
+     */
     protected ISession session;
 
     /**
      * Instance of a FlashMessage object relative to this request
      *
      * @var \UIM\Http\FlashMessage
-     * /
+     */
     protected DFlashMessage flash;
 
     /**
      * Store the additional attributes attached to the request.
-     * /
+     */
     protected Json[string] attributes = null;
 
     /**
      * A list of properties that emulated by the PSR7 attribute methods.
-     * /
+     */
     protected string[] emulatedAttributes = ["session", "flash", "webroot", "base", "params", "here"];
 
     /**
      * Array of Psr\Http\Message\IUploadedFile objects.
      *
      * @var array
-     * /
+     */
     // TODO protected Json[string] uploadedFiles = null;
 
     /**
      * The HTTP protocol version used.
-     * /
+     */
     protected string aprotocol = null;
 
     /**
      * The request target if overridden
-     * /
+     */
     protected string arequestTarget = null;
 
     /**
@@ -200,7 +200,7 @@ class DServerRequest { // }: IServerRequest {
      * - `session` An instance of a Session object
      * Params:
      * Json[string] configData An array of request data to create a request with.
-     * /
+     */
     this(Json[string] configData = null) {
         configData += [
             'params": this.params,
@@ -223,7 +223,7 @@ class DServerRequest { // }: IServerRequest {
      * Process the config/settings data into properties.
      * Params:
      * Json[string] configData The config data to use.
-     * /
+     */
     protected void _setConfig(Json[string] configData = null) {
         if (isEmpty(configData["session"])) {
             configData["session"] = new DSession([
@@ -283,7 +283,7 @@ class DServerRequest { // }: IServerRequest {
      * `query` option is also updated based on URL`s querystring.
      * Params:
      * Json[string] configData Config array.
-     * /
+     */
     protected Json[string] processUrlOption(Json[string] configData = null) {
         if (configData["url"][0] != "/") {
             configData["url"] = "/" ~ configData["url"];
@@ -301,28 +301,28 @@ class DServerRequest { // }: IServerRequest {
     
     /**
      * Get the content type used in this request.
-     * /
+     */
     string contentType() {
         return _getEnvironmentData("CONTENT_TYPE") ?: getEnvironmentData("HTTP_CONTENT_TYPE");
     }
     
     /**
      * Returns the instance of the Session object for this request
-     * /
+     */
     Session getSession() {
         return _session;
     }
     
     /**
      * Returns the instance of the FlashMessage object for this request
-     * /
+     */
     FlashMessage getFlash() {
         return _flash;
     }
     
     /**
      * Get the IP the client is using, or says they are using.
-     * /
+     */
     string clientIp() {
         if (this.trustProxy && getEnvironmentData("HTTP_X_FORWARDED_FOR")) {
             addresses = array_map("trim", split(",", (string)getEnvironmentData("HTTP_X_FORWARDED_FOR")));
@@ -352,7 +352,7 @@ class DServerRequest { // }: IServerRequest {
      * register trusted proxies
      * Params:
      * string[] proxies ips list of trusted proxies
-     * /
+     */
     void setTrustedProxies(Json[string] proxies) {
         this.trustedProxies = proxies;
         this.trustProxy = true;
@@ -361,7 +361,7 @@ class DServerRequest { // }: IServerRequest {
     
     /**
      * Get trusted proxies
-     * /
+     */
     string[] getTrustedProxies() {
         return _trustedProxies;
     }
@@ -371,7 +371,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * bool local Attempt to return a local address.
      *  Local addresses do not contain hostnames.
-     * /
+     */
     string referer(bool local = true) {
         ref = getEnvironmentData("HTTP_REFERER");
 
@@ -400,7 +400,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string aName The method called
      * @param Json[string] params Array of parameters for the method call
-     * /
+     */
     bool __call(string aName, Json[string] params) {
         if (name.startWith("is")) {
             type = substr(name, 2).lower;
@@ -423,7 +423,7 @@ class DServerRequest { // }: IServerRequest {
      * string[]|string atype The type of request you want to check. If an array
      *  this method will return true if the request matches any type.
      * @param Json ...someArguments List of arguments
-     * /
+     */
     bool is(string[] atype, Json ...someArguments) {
         if (isArray(type)) {
             foreach (type as _type) {
@@ -454,7 +454,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string atype The type of request you want to check.
      * @param Json[string] someArguments Array of custom detector arguments.
-     * /
+     */
     protected bool _is(string atype, Json[string] someArguments) {
         auto detect = _detectors[type];
         if (cast(DClosure)detect) {
@@ -481,7 +481,7 @@ class DServerRequest { // }: IServerRequest {
      * Detects if a specific accept header is present.
      * Params:
      * Json[string] detect Detector options array.
-     * /
+     */
     protected bool _acceptHeaderDetector(Json[string] detect) {
         content = new DContentTypeNegotiation();
         options = detect["accept"];
@@ -505,7 +505,7 @@ class DServerRequest { // }: IServerRequest {
     
     /**
      * Detects if a specific header is present.
-     * /
+     */
     protected bool _headerDetector(Json[string] detectorOptions) {
         foreach (detectorOptions["header"] as  aHeader: aValue) {
             auto aHeader = getEnvironmentData("http_" ~  aHeader);
@@ -523,7 +523,7 @@ class DServerRequest { // }: IServerRequest {
      * Detects if a specific request parameter is present.
      * Params:
      * Json[string] detect Detector options array.
-     * /
+     */
     protected bool _paramDetector(Json[string] detect) {
         aKey = detect["param"];
         if (isSet(detect["value"])) {
@@ -541,7 +541,7 @@ class DServerRequest { // }: IServerRequest {
      * Detects if a specific environment variable is present.
      * Params:
      * Json[string] detect Detector options array.
-     * /
+     */
     protected bool _environmentDetector(Json[string] detect) {
         if (isSet(detect["env"])) {
             if (isSet(detect["value"])) {
@@ -567,7 +567,7 @@ class DServerRequest { // }: IServerRequest {
      * built-in types.
      * Params:
      * string[] types The types to check.
-     * /
+     */
     bool isAll(Json[string] types) {
         foreach (types as type) {
             if (!this.is(type)) {
@@ -651,7 +651,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string aName The name of the detector.
      * @param \Closure|array detector A Closure or options array for the detector definition.
-     * /
+     */
     static void addDetector(string aName, Closure|array detector) {
         name = name.lower;
         if (cast(DClosure)detector) {
@@ -660,7 +660,7 @@ class DServerRequest { // }: IServerRequest {
             return;
         }
         if (isSet(_detectors[name], detector["options"])) {
-            /** @var array data * /
+            /** @var array data */
             someData = _detectors[name];
             detector = Hash.merge(someData, detector);
         }
@@ -683,7 +683,7 @@ class DServerRequest { // }: IServerRequest {
      *
      * While header names are not case-sensitive, getHeaders() will normalize
      * the headers.
-     * /
+     */
     STRINGAA getHeaders() {
         STRINGAA result = null;
         _environmentData.byKeyValue
@@ -708,7 +708,7 @@ class DServerRequest { // }: IServerRequest {
      * Check if a header is set in the request.
      * Params:
      * string aName The header you want to get (case-insensitive)
-     * /
+     */
     bool hasHeader(string headerName) {
         auto normalizedName = this.normalizeHeaderName(headerName);
         return _environmentData.isSet(normalizedName);
@@ -719,7 +719,7 @@ class DServerRequest { // }: IServerRequest {
      *
      * Return the header value as an array. If the header
      * is not present an empty array will be returned.
-     * /
+     */
     string[] getHeader(string headerName) {
         name = this.normalizeHeaderName(headerName);
         return _environmentData.isSet(headerName)
@@ -754,7 +754,7 @@ class DServerRequest { // }: IServerRequest {
      * @return static
      * @link https://www.d-fig.org/psr/psr-7/ This method is part of the PSR-7 server request interface.
      * @DcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
-     * /
+     */
     auto withAddedHeader(string aName, aValue): static
     {
         new = clone this;
@@ -775,7 +775,7 @@ class DServerRequest { // }: IServerRequest {
      * string aName The header name to remove.
      * @return static
      * @link https://www.d-fig.org/psr/psr-7/ This method is part of the PSR-7 server request interface.
-     * /
+     */
     auto withoutHeader(string aName): static
     {
         new = clone this;
@@ -795,7 +795,7 @@ class DServerRequest { // }: IServerRequest {
      *
      * Any of these 3 approaches can be used to set the HTTP method used
      * by UIM internally, and will effect the result of this method.
-     * /
+     */
     string getMethod() {
         return (string)getEnvironmentData("REQUEST_METHOD");
     }
@@ -806,7 +806,7 @@ class DServerRequest { // }: IServerRequest {
      * string amethod The HTTP method to use.
      * @return static A new instance with the updated method.
      * @link https://www.d-fig.org/psr/psr-7/ This method is part of the PSR-7 server request interface.
-     * /
+     */
     static withMethod(string amethod) {
         new = clone this;
 
@@ -827,7 +827,7 @@ class DServerRequest { // }: IServerRequest {
      * Update the query string data and get a new instance.
      * Params:
      * Json[string] aQuery The query string data to use
-     * /
+     */
     static withQueryParams(string queryString) {
         auto newQuery = clone this;
         newQuery.query = queryString;
@@ -837,7 +837,7 @@ class DServerRequest { // }: IServerRequest {
     
     /**
      * Get the host that the request was handled on.
-     * /
+     */
     string host() {
         if (this.trustProxy && getEnvironmentData("HTTP_X_FORWARDED_HOST")) {
             return _getEnvironmentData("HTTP_X_FORWARDED_HOST");
@@ -847,7 +847,7 @@ class DServerRequest { // }: IServerRequest {
     
     /**
      * Get the port the request was handled on.
-     * /
+     */
     string port() {
         if (this.trustProxy && getEnvironmentData("HTTP_X_FORWARDED_PORT")) {
             return _getEnvironmentData("HTTP_X_FORWARDED_PORT");
@@ -859,7 +859,7 @@ class DServerRequest { // }: IServerRequest {
      * Get the current url scheme used for the request.
      *
      * e.g. 'http", or 'https'
-     * /
+     */
     string scheme() {
         if (this.trustProxy && getEnvironmentData("HTTP_X_FORWARDED_PROTO")) {
             return (string)getEnvironmentData("HTTP_X_FORWARDED_PROTO");
@@ -872,7 +872,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * int tldLength Number of segments your tld contains. For example: `example.com` contains 1 tld.
      *  While `example.co.uk` contains 2.
-     * /
+     */
     string domain(int tldLength = 1) {
         auto host = this.host();
         if (isEmpty(host)) {
@@ -890,7 +890,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * int tldLength Number of segments your tld contains. For example: `example.com` contains 1 tld.
      *  While `example.co.uk` contains 2.
-     * /
+     */
     string[] subdomains(int tldLength = 1) {
         auto host = host();
         if (host.isEmpty() {
@@ -921,7 +921,7 @@ class DServerRequest { // }: IServerRequest {
      * by the client.
      * Params:
      * string|null type The content type to check for. Leave null to get all types a client accepts.
-     * /
+     */
     string[] accepts(string atype = null) {
         auto content = new DContentTypeNegotiation();
         if (type) {
@@ -948,7 +948,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string|null language The language to test.
      * @return Json If a language is provided, a boolean. Otherwise, the array of accepted languages.
-     * /
+     */
     Json acceptLanguage(string languageToTest = null) {
         content = new DContentTypeNegotiation();
         return languageToTest.isEmpty
@@ -970,7 +970,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string|null name The name or dotted path to the query param or null to read all.
      * @param Json defaultValue The default value if the named parameter is not set, and name is not null.
-     * /
+     */
     Json getQuery(string nameOrPath = null, Json defaultValue = Json(null)) {
         return nameOrPath.isNull
             ? _queryArguments
@@ -984,13 +984,13 @@ class DServerRequest { // }: IServerRequest {
      * ### Reading values.
      *
      * ```
-     * // get all data
+     *// get all data
      * request.getData();
      *
-     * // Read a specific field.
+     *// Read a specific field.
      * request.getData("Post.title");
      *
-     * // With a default value.
+     *// With a default value.
      * request.getData("Post.not there", "default value");
      * ```
      *
@@ -1007,7 +1007,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string|null name Dot separated name of the value to read. Or null to read all data.
      * @param Json defaultValue The default data.
-     * /
+     */
     Json getData(string aName = null, Json defaultValue = Json(null)) {
         if (name.isNull) {
             return _data;
@@ -1022,7 +1022,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string aKey The key or dotted path you want to read.
      * @param string[] default The default value if the cookie is not set.
-     * /
+     */
     string[] getCookie(string keyOrPath, string[] defaultValue = null) {
         return Hash.get(this.cookies, keyOrPath, defaultValue);
     }
@@ -1039,7 +1039,7 @@ class DServerRequest { // }: IServerRequest {
      * the more complex CookieCollection is needed. In general you should prefer
      * `getCookie()` and `getCookieParams()` over this method. Using a CookieCollection
      * is ideal if your cookies contain complex Json encoded data.
-     * /
+     */
     DCookieCollection getCookieCollection() {
         return CookieCollection.createFromServerRequest(this);
     }
@@ -1049,7 +1049,7 @@ class DServerRequest { // }: IServerRequest {
      * the provided CookieCollection.
      * Params:
      * \UIM\Http\Cookie\CookieCollection cookies The cookie collection
-     * /
+     */
     static withCookieCollection(CookieCollection cookies) {
         new = clone this;
          someValues = null;
@@ -1071,7 +1071,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * Json[string] cookies The new cookie data to use.
      * @return static
-     * /
+     */
     auto withCookieParams(Json[string] cookies): static
     {
         new = clone this;
@@ -1087,7 +1087,7 @@ class DServerRequest { // }: IServerRequest {
      * or multipart/form-data, and the request method is POST, this will be the
      * post data. For other content types, it may be the deserialized request
      * body.
-     * /
+     */
     object|array|null getParsedBody() {
         return _data;
     }
@@ -1097,7 +1097,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * object|array|null someData The deserialized body data. This will
      *    typically be in an array or object.
-     * /
+     */
     static withParsedBody(someData) {
         new = clone this;
         new.data = someData;
@@ -1107,7 +1107,7 @@ class DServerRequest { // }: IServerRequest {
     
     /**
      * Retrieves the HTTP protocol version as a string.
-     * /
+     */
     string getProtocolVersion() {
         if (this.protocol) {
             return _protocol;
@@ -1130,7 +1130,7 @@ class DServerRequest { // }: IServerRequest {
      * "1.1", "1.0").
      * Params:
      * string aversion HTTP protocol version
-     * /
+     */
     static withProtocolVersion(string aversion) {
         if (!preg_match("/^(1\.[01]|2)/", version)) {
             throw new DInvalidArgumentException("Unsupported protocol version `%s` provided.".format(version));
@@ -1148,7 +1148,7 @@ class DServerRequest { // }: IServerRequest {
      * string aKey The key you want to read from.
      * @param string|null default Default value when trying to retrieve an environment
      *  variable`s value that does not exist.
-     * /
+     */
     string getEnvironmentData(string aKey, string adefault = null) {
         aKey = aKey.upper;
         if (!array_key_exists(aKey, _environmentData)) {
@@ -1166,7 +1166,7 @@ class DServerRequest { // }: IServerRequest {
      * string aKey The key you want to write to.
      * @param string avalue Value to set
      * @return static
-     * /
+     */
     auto withenviroment(string aKey, string avalue): static
     {
         new = clone this;
@@ -1192,7 +1192,7 @@ class DServerRequest { // }: IServerRequest {
      * string[]|string amethods Allowed HTTP request methods.
      * @return true
      * @throws \UIM\Http\Exception\MethodNotAllowedException
-     * /
+     */
     bool allowMethod(string[] amethods) {
          someMethods = (array) someMethods;
         foreach (someMethods as method) {
@@ -1217,7 +1217,7 @@ class DServerRequest { // }: IServerRequest {
      * string aName The dot separated path to insert aValue at.
      * @param Json aValue The value to insert into the request data.
      * @return static
-     * /
+     */
     auto withData(string aName, Json aValue): static
     {
         copy = clone this;
@@ -1235,7 +1235,7 @@ class DServerRequest { // }: IServerRequest {
      * a *new* request object and does not mutate the request in-place.
      * Params:
      * string aName The dot separated path to remove.
-     * /
+     */
     static withoutData(string aName) {
         copy = clone this;
 
@@ -1254,7 +1254,7 @@ class DServerRequest { // }: IServerRequest {
      * string aName The dot separated path to insert aValue at.
      * @param Json aValue The value to insert into the the request parameters.
      * @return static
-     * /
+     */
     auto withParam(string aName, Json aValue): static
     {
         copy = clone this;
@@ -1268,7 +1268,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string aName The name or dotted path to parameter.
      * @param Json defaultValue The default value if `name` is not set. Default `null`.
-    * /
+    */
     Json getParam(string aName, Json defaultValue = Json(null)) {
         return Hash.get(this.params, name, default);
     }
@@ -1278,7 +1278,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string aName The attribute name.
      * @param Json aValue The value of the attribute.
-     * /
+     */
     static withAttribute(string aName, Json aValue) {
         new = clone this;
         if (in_array(name, this.emulatedAttributes, true)) {
@@ -1295,7 +1295,7 @@ class DServerRequest { // }: IServerRequest {
      * string aName The attribute name.
      * @return static
      * @throws \InvalidArgumentException
-     * /
+     */
     auto withoutAttribute(string aName): static
     {
         new = clone this;
@@ -1314,7 +1314,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string aName The attribute name.
      * @param Json defaultValue The default value if the attribute has not been set.
-     * /
+     */
     Json getAttribute(string aName, Json defaultValue = Json(null)) {
         if (in_array(name, this.emulatedAttributes, true)) {
             if (name == "here") {
@@ -1332,7 +1332,7 @@ class DServerRequest { // }: IServerRequest {
      * Get all the attributes in the request.
      *
      * This will include the params, webroot, base, and here attributes that UIM provides.
-     * /
+     */
     Json[string] getAttributes() {
         emulated = [
             "params": this.params,
@@ -1348,7 +1348,7 @@ class DServerRequest { // }: IServerRequest {
      * Get the uploaded file from a dotted path.
      * Params:
      * string aPath The dot separated path to the file you want.
-     * /
+     */
     IUploadedFile getUploadedFile(string aPath) {
         file = Hash.get(this.uploadedFiles, somePath);
         if (!cast(UploadedFile)file) {
@@ -1359,7 +1359,7 @@ class DServerRequest { // }: IServerRequest {
     
     /**
      * Get the array of uploaded files from the request.
-     * /
+     */
     Json[string] getUploadedFiles() {
         return _uploadedFiles;
     }
@@ -1368,7 +1368,7 @@ class DServerRequest { // }: IServerRequest {
      * Update the request replacing the files, and creating a new instance.
      * Params:
      * Json[string] uploadedFiles An array of uploaded file objects.
-     * /
+     */
     static withUploadedFiles(Json[string] uploadedFiles) {
         this.validateUploadedFiles(uploadedFiles, "");
         new = clone this;
@@ -1382,7 +1382,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * Json[string] uploadedFiles The new files array to validate.
      * @param string aPath The path thus far.
-     * /
+     */
     protected auto validateUploadedFiles(Json[string] uploadedFiles, string aPath) {
         foreach (uploadedFiles as aKey: file) {
             if (isArray(file)) {
@@ -1397,7 +1397,7 @@ class DServerRequest { // }: IServerRequest {
     
     /**
      * Gets the body of the message.
-     * /
+     */
     IStream getBody() {
         return _stream;
     }
@@ -1407,7 +1407,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * \Psr\Http\Message\IStream body The new request body
      * @return static
-     * /
+     */
     static withBody(IStream body) {
         new = clone this;
         new.stream = body;
@@ -1417,7 +1417,7 @@ class DServerRequest { // }: IServerRequest {
     
     /**
      * Retrieves the URI instance.
-     * /
+     */
     IUri getUri() {
         return _uri;
     }
@@ -1430,7 +1430,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * \Psr\Http\Message\IUri anUri The new request uri
      * @param bool preserveHost Whether the host should be retained.
-     * /
+     */
     static withUri(IUri anUri, bool preserveHost = false) {
         new = clone this;
         new.uri = anUri;
@@ -1461,7 +1461,7 @@ class DServerRequest { // }: IServerRequest {
      * @link https://tools.ietf.org/html/rfc7230#section-2.7 (for the various
      *  request-target forms allowed in request messages)
      * @param string arequestTarget The request target.
-     * /
+     */
     static withRequestTarget(string arequestTarget) {
         new = clone this;
         new.requestTarget = requestTarget;
@@ -1476,7 +1476,7 @@ class DServerRequest { // }: IServerRequest {
      * or as set with `withRequestTarget()`. By default this will return the
      * application relative path without base directory, and the query string
      * defined in the SERVER environment.
-     * /
+     */
     string getRequestTarget() {
         if (this.requestTarget !isNull) {
             return _requestTarget;

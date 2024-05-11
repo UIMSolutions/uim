@@ -20,7 +20,7 @@ class DCacheSession { // }: !SessionHandler {
      * It requires the key 'config' which is the name of the Cache config to use for
      * storing the session
      * @throws \InvalidArgumentException if the 'config' key is not provided
-     * /
+     */
     this(Json[string] initData = null) {
         if (configData.isEmpty("config")) {
             throw new DInvalidArgumentException("The cache configuration name to use is required");
@@ -33,7 +33,7 @@ class DCacheSession { // }: !SessionHandler {
      * Params:
      * string aPath The path where to store/retrieve the session.
      * @param string aName The session name.
-         * /
+         */
     bool open(string aPath, string aName) {
         return true;
     }
@@ -41,7 +41,7 @@ class DCacheSession { // }: !SessionHandler {
     /**
      * Method called on close of a database session.
      *
-         * /
+         */
     bool close() {
         return true;
     }
@@ -50,7 +50,7 @@ class DCacheSession { // }: !SessionHandler {
      * Method used to read from a cache session.
      * Params:
      * string aid ID that uniquely identifies session in cache.
-     * /
+     */
     string read(string aid) {
         return Cache.read(anId, _options["config"]) ?? "";
     }
@@ -60,7 +60,7 @@ class DCacheSession { // }: !SessionHandler {
      * Params:
      * string aid ID that uniquely identifies session in cache.
      * @param string adata The data to be saved.
-     * /
+     */
     bool write(string aid, string adata) {
         if (!anId) {
             return false;
@@ -72,7 +72,7 @@ class DCacheSession { // }: !SessionHandler {
      * Method called on the destruction of a cache session.
      * Params:
      * string aid ID that uniquely identifies session in cache.
-     * /
+     */
     bool destroy(string aid) {
         Cache.delete(anId, _options["config"]);
 
@@ -83,7 +83,7 @@ class DCacheSession { // }: !SessionHandler {
      * No-op method. Always returns 0 since cache engine don`t have garbage collection.
      * Params:
      * int maxlifetime Sessions that have not updated for the last maxlifetime seconds will be removed.
-     * /
+     */
     int gc(int maxlifetime) {
         return 0;
     } */

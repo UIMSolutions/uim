@@ -119,7 +119,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * Sets path for layout files.
      * Params:
      * string|null mypath Path for layout files.
-     * /
+     */
     auto setLayoutPath(string mypath) {
        _layoutPath = mypath;
 
@@ -128,7 +128,7 @@ class DViewBuilder { // }: DJsonSerializable {
     
     /**
      * Gets path for layout files.
-     * /
+     */
     string getLayoutPath() {
         return _layoutPath;
     }
@@ -144,7 +144,7 @@ class DViewBuilder { // }: DJsonSerializable {
 
     /**
      * The helpers to use
-     * /
+     */
     // TODO protected Json[string] _helpers = null;
 
 
@@ -153,7 +153,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * Params:
      * string views A string or an array of data.
      * @param Json aValue Value.
-     * /
+     */
     void setData(string views, Json aValue = null) {
        _viewData[views] = myvalue;
     }
@@ -175,7 +175,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * Params:
      * string myhelper Helper to use.
      * @param Json[string] options Options.
-     * /
+     */
     void addHelper(string myhelper, Json[string] options  = null) {
         [myplugin, views] = pluginSplit(myhelper);
         if (myplugin) {
@@ -188,7 +188,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * Adds helpers to use, overwriting any existing one with that name.
      * Params:
      * Json[string] myhelpers Helpers to use.
-     * /
+     */
     void addHelpers(Json[string] myhelpers) {
         myhelpers.byKeyValue
             .each((helperConfigData) {
@@ -204,7 +204,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * Sets the helpers to use, resetting the helpers config.
      * Params:
      * Json[string] myhelpers Helpers to use.
-     * /
+     */
     auto setHelpers(Json[string] myhelpers) {
        _helpers = null;
 
@@ -220,7 +220,7 @@ class DViewBuilder { // }: DJsonSerializable {
     
     /**
      * Gets the helpers to use.
-     * /
+     */
     Json[string] getHelpers() {
         return _helpers;
     }
@@ -230,7 +230,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * Params:
      * string|null mytheme Theme name.
      *  Use null to remove the current theme.
-     * /
+     */
     void setTheme(string mytheme) {
        _theme = mytheme;
     }
@@ -245,7 +245,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * filename in `templates/<SubFolder>/` without the .d extension.
      * Params:
      * string|null views View file name to set, or null to remove the template name.
-     * /
+     */
     void setTemplate(string viewFilename) {
        _template = viewFilename;
     }
@@ -253,7 +253,7 @@ class DViewBuilder { // }: DJsonSerializable {
     /**
      * Gets the name of the view file to render. The name specified is the
      * filename in `templates/<SubFolder>/` without the .d extension.
-     * /
+     */
     string getTemplate() {
         return _template;
     }
@@ -273,7 +273,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * Set view option.
      * Params:
      * @param Json aValue Value to set.
-     * /
+     */
     auto setOption(string optionName, Json aValue) {
        _options[optionName] = myvalue;
 
@@ -287,7 +287,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * Params:
      * Json[string] options An array of options.
      * @param bool mymerge Whether to merge existing data with the new data.
-     * /
+     */
     auto setOptions(Json[string] options, bool mymerge = true) {
         if (mymerge) {
             auto updatedOptions = options.update_options;
@@ -299,7 +299,7 @@ class DViewBuilder { // }: DJsonSerializable {
     
     /**
      * Gets additional options for the view.
-     * /
+     */
     Json[string] getOptions() {
         return _options;
     }
@@ -314,7 +314,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * View class provided by UIM.
      * Params:
      * string|null views The class name for the view.
-     * /
+     */
     auto setClassName(string views) {
        _className = views;
 
@@ -323,7 +323,7 @@ class DViewBuilder { // }: DJsonSerializable {
     
     /**
      * Gets the view classname.
-     * /
+     */
     string getClassName() {
         return _className;
     }
@@ -338,7 +338,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * @param \UIM\Http\Response|null myresponse The response to use.
      * @param \UIM\Event\IEventManager|null myevents The event manager to use.
      * @throws \UIM\View\Exception\MissingViewException
-     * /
+     */
     View build(
         ?ServerRequest myrequest = null,
         ?Response myresponse = null,
@@ -380,7 +380,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * - SimpleXMLElements stored as associative array
      * - Exceptions stored as strings
      * - Resources, \Closure and \PDO are not supported.
-     * /
+     */
     array JsonSerialize() {
         auto myproperties = [
             "_templatePath", "_template", "_plugin", "_theme", "_layout", "_autoLayout",
@@ -401,7 +401,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * Params:
      * Json myitem Reference to the view var value.
      * @param string aKey View var key.
-     * /
+     */
     protected void _checkViewVars(Json &myitem, string aKey) {
         if (cast8Exception)myitem) {
             myitem = to!string(myitem);
@@ -424,7 +424,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * Configures a view builder instance from serialized config.
      * Params:
      * Json[string] configData View builder configuration array.
-     * /
+     */
     auto createFromArray(Json[string] configData = null) {
         foreach (configData as myproperty: myvalue) {
             this.{myproperty} = myvalue;
@@ -434,7 +434,7 @@ class DViewBuilder { // }: DJsonSerializable {
     
     /**
      * Magic method used for serializing the view builder object.
-     * /
+     */
     Json[string] __serialize() {
         return _JsonSerialize();
     }
@@ -444,7 +444,7 @@ class DViewBuilder { // }: DJsonSerializable {
      *
      * Params:
      * mydata Data array.
-     * /
+     */
     void __unserialize(Json[string] data) {
         this.createFromArray(mydata);
     } */

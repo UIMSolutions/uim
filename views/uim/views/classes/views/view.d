@@ -162,7 +162,7 @@ class DView : IView { //  }: IEventDispatcher {
      * An instance of a \UIM\Http\ServerRequest object that contains information about the current request.
      * This object contains all the information about a request and several methods for reading
      * additional information about the request.
-     * /
+     */
     protected IServerRequest myrequest;
 
     // Reference to the Response object
@@ -229,7 +229,7 @@ static string contentType() {
     /**
      * Currently rendering an element. Used for finding parent fragments
      * for elements.
-     * /
+     */
     protected string _currentType = "";
 
     // Content stack, used for nested templates that all use View.extend();
@@ -263,7 +263,7 @@ static string contentType() {
      * @param \UIM\Event\IEventManager|null myeventManager Event manager instance.
      * @param Json[string] myviewOptions View options. See {@link View._passedVars} for list of
      *  options which get set as class properties.
-     * /
+     */
     this(
         ?ServerRequest myrequest = null,
         ?Response myresponse = null,
@@ -305,7 +305,7 @@ static string contentType() {
      * is constructed.
      *
      * Helpers can be added using {@link addHelper()} method.
-     * /
+     */
     bool initialize(Json[string] myConfiguration = null) {
        
     }
@@ -325,7 +325,7 @@ static string contentType() {
      * - _plugin - To the value returned by myrequest.getParam("plugin")
      * Params:
      * \UIM\Http\ServerRequest myrequest Request instance.
-     * /
+     */
     void setRequest(DServerRequest myrequest) {
         _request = myrequest;
         _plugin = myrequest.getParam("plugin");
@@ -362,7 +362,7 @@ static string contentType() {
      * automatically applied to rendered views.
      * Params:
      * bool myenable Boolean to turn on/off.
-     * /
+     */
     auto enableAutoLayout(bool myenable = true) {
         _autoLayout = myenable;
 
@@ -372,7 +372,7 @@ static string contentType() {
     /**
      * Turns off UIM"s conventional mode of applying layout files.
      * Layouts will not be automatically applied to rendered views.
-     * /
+     */
     auto disableAutoLayout() {
         _autoLayout = false;
 
@@ -388,7 +388,7 @@ static string contentType() {
      * Set the view theme to use.
      * Params:
      * string|null mytheme Theme name.
-     * /
+     */
     auto setTheme(string mytheme) {
         _theme = mytheme;
 
@@ -398,7 +398,7 @@ static string contentType() {
     /**
      * Get the name of the template file to render. The name specified is the
      * filename in `templates/<SubFolder>/` without the .d extension.
-     * /
+     */
     string getTemplate() {
         return _template;
     }
@@ -408,7 +408,7 @@ static string contentType() {
      * filename in `templates/<SubFolder>/` without the .d extension.
      * Params:
      * string views Template file name to set.
-     * /
+     */
     void setTemplate(string views) {
         _template = views;
     }
@@ -417,7 +417,7 @@ static string contentType() {
      * Get the name of the layout file to render the template inside of.
      * The name specified is the filename of the layout in `templates/layout/`
      * without the .d extension.
-     * /
+     */
     string getLayout() {
         return _layout;
     }
@@ -428,7 +428,7 @@ static string contentType() {
      * without the .d extension.
      * Params:
      * string views Layout file name to set.
-     * /
+     */
     auto setLayout(string fileName) {
         _layout = fileName;
 
@@ -458,7 +458,7 @@ static string contentType() {
      * - `ignoreMissing` - Used to allow missing elements. Set to true to not throw exceptions.
      * - `plugin` - setting to false will force to use the application"s element from plugin templates, when the
      *  plugin has element with same name. Defaults to true
-     * /
+     */
     string element(string templatefilename, Json[string] data = [], Json[string] options  = null) {
         auto updatedOptions = options.update["callbacks": false.toJson, "cache": Json(null), "plugin": Json(null), "ignoreMissing": false.toJson];
         if (isSet(options["cache"])) {
@@ -497,7 +497,7 @@ static string contentType() {
      * is empty, the myblock will be run and the output stored.
      * Params:
      * callable myblock The block of code that you want to cache the output of.
-     * /
+     */
     string cache(callable myblock, Json[string] options  = null) {
         Json[string] options = options.merge([
             "key": "".toJson, 
@@ -535,7 +535,7 @@ static string contentType() {
      * string templatefilename Name of template file in the `templates/element/` folder,
      *  or `_plugin.template` to check the template element from _plugin. If the element
      *  is not found in the plugin, the normal view path cascade will be searched.
-     * /
+     */
     bool elementExists(string templatefilename) {
         return (bool)_getElementFileName(templatefilename);
     }
@@ -559,7 +559,7 @@ static string contentType() {
      * Params:
      * string|null mytemplate Name of template file to use
      * @param string|false|null mylayout Layout to use. False to disable.
-     * /
+     */
     string render(string mytemplate = null, string|false|null mylayout = null) {
         mydefaultLayout = "";
         mydefaultAutoLayout = null;
@@ -601,7 +601,7 @@ static string contentType() {
      * Params:
      * string mycontent Content to render in a template, wrapped by the surrounding layout.
      * @param string|null mylayout Layout name
-     * /
+     */
     string renderLayout(string mycontent, string mylayout = null) {
         mylayoutFileName = _getLayoutFileName(mylayout);
 
@@ -639,11 +639,11 @@ static string contentType() {
      * string[] views A string or an array of data.
      * @param Json aValue Value in case views is a string (which then works as the key).
      *  Unused if views is an associative array, otherwise serves as the values to views"s keys.
-     * /
+     */
     void set(string[] views, Json aValue = null) {
         if (views.isArray) {
             if (myvalue.isArray) {
-                /** @var array|false mydata Coerce Dstan to accept failure case * /
+                /** @var array|false mydata Coerce Dstan to accept failure case */
                 mydata = array_combine(views, myvalue);
                 if (mydata == false) {
                     throw new UimException(
@@ -668,13 +668,13 @@ static string contentType() {
      * append or prepend content in a capture mode.
      *
      * ```
-     * // Append content to an existing block.
+     *// Append content to an existing block.
      * _start("content");
      * writeln(_fetch("content");
      * writeln("Some new content";
      * _end();
      *
-     * // Prepend content to an existing block
+     *// Prepend content to an existing block
      * _start("content");
      * writeln("Some new content";
      * writeln(_fetch("content");
@@ -682,7 +682,7 @@ static string contentType() {
      * ```
      * Params:
      * string views The name of the block to capture for.
-     * /
+     */
     void start(string blockName) {
         _blocks.start(blockName);
     }
@@ -695,7 +695,7 @@ static string contentType() {
      * string views Name of the block
      * @param Json aValue The content for the block. Value will be type cast
      *  to string.
-     * /
+     */
     void append(string blockName, Json aValue = null) {
         _blocks.concat(blockName, myvalue);
     }
@@ -708,7 +708,7 @@ static string contentType() {
      * string views Name of the block
      * @param Json aValue The content for the block. Value will be type cast
      *  to string.
-     * /
+     */
     void prepend(string blockName, Json aValue) {
         _blocks.concat(blockName, myvalue, ViewBlock.PREPEND);
     }
@@ -719,7 +719,7 @@ static string contentType() {
      * Params:
      * @param Json aValue The content for the block. Value will be type cast
      *  to string.
-     * /
+     */
     void assign(string blockName, Json aValue) {
         _Blocks.set(blockName, myvalue);
     }
@@ -729,7 +729,7 @@ static string contentType() {
      * existing content.
      * Params:
      * string views Name of the block
-     * /
+     */
     void reset(string views) {
         _assign(views, "");
     }
@@ -737,7 +737,7 @@ static string contentType() {
     /**
      * Fetch the content for a block. If a block is
      * empty or undefined "" will be returned.
-     * /
+     */
     string fetch(string blockName, string defaultText = null) {
         return _blocks.get(blockName, defaultText);
     }
@@ -760,7 +760,7 @@ static string contentType() {
      * @return this
      * @throws \LogicException when you extend a template with itself or make extend loops.
      * @throws \LogicException when you extend an element which doesn"t exist
-     * /
+     */
     auto extend(string views) {
         mytype = views[0] == "/" ? TYPE_TEMPLATE : _currentType;
         switch (mytype) {
@@ -800,7 +800,7 @@ static string contentType() {
 
     /**
      * Interact with the HelperRegistry to load all the helpers.
-     * /
+     */
     auto loadHelpers() {
         foreach (_helpers as views: configData) {
             _loadHelper(views, configData);
@@ -815,7 +815,7 @@ static string contentType() {
      * string mytemplateFile Filename of the template
      * @param Json[string] data Data to include in rendered view. If empty the current
      *  View.myviewVars will be used.
-     * /
+     */
     protected string _render(string mytemplateFile, Json[string] data = []) {
         if (mydata.isEmpty) {
             mydata = _viewVars;
@@ -854,7 +854,7 @@ static string contentType() {
      * Params:
      * string mytemplateFile Filename of the template.
      * @param array mydataForView Data to include in rendered view.
-     * /
+     */
     protected string _evaluate(string mytemplateFile, Json[string] mydataForView) {
         extract(mydataForView);
 
@@ -875,7 +875,7 @@ static string contentType() {
 
     /**
      * Get the helper registry in use by this View class.
-     * /
+     */
     HelperRegistry helpers() {
         return _helpers ??= new DHelperRegistry(this);
     }
@@ -885,7 +885,7 @@ static string contentType() {
      * Params:
      * string myhelper Helper.
      * @param Json[string] configData Config.
-     * /
+     */
     protected void addHelper(string myhelper, Json[string] configData = null) {
         [_plugin, views] = pluginSplit(myhelper);
         if (_plugin) {
@@ -897,7 +897,7 @@ static string contentType() {
     /**
      * Loads a helper. Delegates to the `HelperRegistry.load()` to load the helper.
      * You should use `addHelper()` instead of this method from the `initialize()` hook of `AppView` or other custom View classes.
-     * /
+     */
     Helper loadHelper(string helperName, Json[string] settingsForHelper = null) {
         return _helpers().load(helperName, settingsForHelper);
     }
@@ -906,7 +906,7 @@ static string contentType() {
      * Set sub-directory for this template files.
      * Params:
      * string mysubDir Sub-directory name.
-     * /
+     */
     void setSubDir(string mysubDir) {
         thirs.subDir = mysubDir;
     }
@@ -925,7 +925,7 @@ static string contentType() {
      * Set The cache configuration View will use to store cached elements
      * Params:
      * string myelementCache Cache config name.
-     * /
+     */
     void setElementCache(string cacheConfigName) {
         _elementCache = cacheConfigName;
     }
@@ -938,7 +938,7 @@ static string contentType() {
      * overriding _inflectTemplateFileName.
      * Params:
      * string|null views Controller action to find template filename for
-     * /
+     */
     protected string _getTemplateFileName(string views = null) {
         auto mytemplatePath  = "";
         auto mysubDir = "";
@@ -995,7 +995,7 @@ static string contentType() {
      * Params:
      * string filepath The path to the template file.
      * @param string mypath Base path that filepath should be inside of.
-     * /
+     */
     protected string _checkFilePath(string filepath, string mypath) {
         if (!filepath.has("..")) {
             return filepath;
@@ -1016,7 +1016,7 @@ static string contentType() {
      * Params:
      * string views The name you want to plugin split.
      * @param bool myfallback If true uses the plugin set in the current Request when parsed plugin is not loaded
-     * /
+     */
     array pluginSplit(string views, bool myfallback = true) {
         _plugin = null;
         [myfirst, mysecond] = pluginSplit(views);
@@ -1034,7 +1034,7 @@ static string contentType() {
      * Returns layout filename for this template as a string.
      * Params:
      * string|null views The name of the layout to find.
-     * /
+     */
     protected string _getLayoutFileName(string views = null) {
         if (views.isNull) {
             if (_layout.isEmpty) {
@@ -1061,7 +1061,7 @@ static string contentType() {
      * Get an iterator for layout paths.
      * Params:
      * string|null _plugin The plugin to fetch paths for.
-     * /
+     */
     protected DGenerator getLayoutPaths(string _plugin) {
         mysubDir = "";
         if (_layoutPath) {
@@ -1081,7 +1081,7 @@ static string contentType() {
      * Params:
      * string elementname The name of the element to find.
      * @param bool _pluginCheck - if false will ignore the request"s plugin if parsed plugin is not loaded
-     * /
+     */
     protected string|int|false _getElementFileName(string elementname, bool shouldCheckPlugin = true)|false
     {
         [_plugin, elementname] = _pluginSplit(elementname, shouldCheckPlugin);
@@ -1099,7 +1099,7 @@ static string contentType() {
      * Get an iterator for element paths.
      * Params:
      * string|null _plugin The plugin to fetch paths for.
-     * /
+     */
     protected DGenerator getElementPaths(string _plugin) {
         myelementPaths = _getSubPaths(TYPE_ELEMENT);
         foreach (_paths(_plugin) as mypath) {
@@ -1118,7 +1118,7 @@ static string contentType() {
      * and layouts.
      * Params:
      * string mybasePath Base path on which to get the prefixed one.
-     * /
+     */
     protected string[] _getSubPaths(string mybasePath) {
         mypaths = [mybasePath];
         if (_request.getParam("prefix")) {
@@ -1141,7 +1141,7 @@ static string contentType() {
      * Params:
      * string|null _plugin Optional plugin name to scan for view files.
      * @param bool mycached Set to false to force a refresh of view paths. Default true.
-     * /
+     */
     protected string[] _paths(string _plugin = null, bool mycached = true) {
         if (mycached == true) {
             if (_plugin.isNull && !_paths.isEmpty) {
@@ -1194,10 +1194,10 @@ static string contentType() {
      * string elementname Element name
      * @param Json[string] data Data
      * @param Json[string] options Element options
-     * /
+     */
     // TODO protected Json[string] _elementCache(string elementname, Json[string] data, Json[string] options) {
         if (isSet(options["cache"]["key"], options["cache"]["config"])) {
-            /** @psalm-var array{key:string, config:string} mycache * /
+            /** @psalm-var array{key:string, config:string} mycache */
             mycache = options["cache"];
             mycache["key"] = "element_" ~ mycache["key"];
 
@@ -1236,7 +1236,7 @@ static string contentType() {
      * Params:
      * string filepath Element file path
      * @param Json[string] data Data to render
-     * /
+     */
     protected string _renderElement(string filepath, Json[string] data, Json[string] elementOptions = null) {
         auto mycurrent = _current;
         auto myrestore = _currentType;

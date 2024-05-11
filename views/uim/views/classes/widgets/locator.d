@@ -35,7 +35,7 @@ class DWidgetLocator {
      * \UIM\View\StringContents mytemplates Templates instance to use.
      * @param \UIM\View\View myview The view instance to set as a widget.
      * @param array mywidgets See add() method for more information.
-     * /
+     */
     this(DStringContents newTemplate, DView newView, Json[string] mywidgets = []) {
        _stringContents = newTemplate;
        _view = newView;
@@ -74,7 +74,7 @@ class DWidgetLocator {
      * with plugin notation, or fully namespaced class names.
      * Params:
      * array mywidgets Array of widgets to use.
-     * /
+     */
     void add(Json[string] mywidgets) {
         auto myfiles = null;
 
@@ -104,7 +104,7 @@ class DWidgetLocator {
      * if the widget has been defined. If the widget is undefined an instance of
      * the `_default` widget will be returned. An exception will be thrown if
      * the `_default` widget is undefined.
-     * /
+     */
     IWidget get(string widgetName) {
         if (!_widgets.isSet(widgetName)) {
             if (_widgets.isEmpty("_default")) {

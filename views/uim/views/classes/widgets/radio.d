@@ -69,7 +69,7 @@ class DRadioWidget : DWidget {
      * Params:
      * Json[string] mydata The data to build radio buttons with.
      * @param \UIM\View\Form\IContext formContext The current form context.
-     * /
+     */
     string render(Json[string] data, IContext formContext) {
                auto mergedData = renderData.merge(formContext.data);
 
@@ -100,7 +100,7 @@ class DRadioWidget : DWidget {
      * Params:
      * Json[string] myradio Radio info.
      * @param string[]|true|null mydisabled The disabled values.
-     * /
+     */
     protected bool _isDisabled(Json[string] myradio, string[]|bool isDisabled) {
         if (!isDisabled) {
             return false;
@@ -120,7 +120,7 @@ class DRadioWidget : DWidget {
      * @param Json[string]|string|int mytext The label text, or complex radio type.
      * @param Json[string] mydata Additional options for input generation.
      * @param \UIM\View\Form\IContext formContext The form context
-     * /
+     */
     protected string _renderInput(
         string|int myval,
         string[]|int mytext,
@@ -206,7 +206,7 @@ class DRadioWidget : DWidget {
      * @param string myinput The input widget.
      * @param \UIM\View\Form\IContext formContext The form context.
      * @param bool shouldEscape Whether to HTML escape the label.
-     * /
+     */
     protected string _renderLabel(
         array myradio,
         string[]|bool|null mylabel,

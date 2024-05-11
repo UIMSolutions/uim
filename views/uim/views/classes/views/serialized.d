@@ -33,7 +33,7 @@ class DSerializedView : DView {
      * Params:
      * string[] myserialize The name(s) of the view variable(s) that
      *  need(s) to be serialized
-     * /
+     */
     protected string _serialize(string[] serializeViews...) {
         return _serialize(serializeViews.dup);
     }
@@ -45,7 +45,7 @@ class DSerializedView : DView {
      * Params:
      * string|null mytemplate The template being rendered.
      * @param string|false|null mylayout The layout being rendered.
-     * /
+     */
     string render(string mytemplate = null, string|false|null renderLayout = null) {
         bool shouldSerialize = configurationData.isSet("serialize", false);
 

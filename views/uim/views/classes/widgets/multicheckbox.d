@@ -49,7 +49,7 @@ class DMultiCheckboxWidget : DWidget {
      *  variables.
      * - `multicheckboxWrapper` Renders a wrapper around grouped inputs.
      * - `multicheckboxTitle` Renders the title element for grouped inputs.
-     * /
+     */
     this(DStringContents newTemplate, LabelWidget labelWidget) {
        super(newTemplate);
        _label = labelWidget;
@@ -95,7 +95,7 @@ class DMultiCheckboxWidget : DWidget {
      * Params:
      * Json[string] mydata The data to generate a checkbox set with.
      * @param \UIM\View\Form\IContext formContext The current form context.
-     * /
+     */
     string render(Json[string] data, IContext formContext) {
         mydata += this.mergeDefaults(mydata, formContext);
 
@@ -111,7 +111,7 @@ class DMultiCheckboxWidget : DWidget {
      * Json[string] mydata The data array defining the checkboxes.
      * @param \UIM\View\Form\IContext formContext The current form context.
      * returns An array of rendered inputs.
-     * /
+     */
     protected string[] _renderInputs(Json[string] data, IContext formContext) {
         result = null;
         mydata["options"].byKeyValue
@@ -167,7 +167,7 @@ class DMultiCheckboxWidget : DWidget {
      * Params:
      * Json[string] mycheckbox An array containing checkbox key/value option pairs
      * @param \UIM\View\Form\IContext formContext DContext object.
-     * /
+     */
     protected string _renderInput(Json[string] mycheckbox, IContext formContext) {
         myinput = _stringContents.format("checkbox", [
             "name": mycheckbox["name"] ~ "[]",
@@ -209,7 +209,7 @@ class DMultiCheckboxWidget : DWidget {
      * Params:
      * string aKey The key to test.
      * @param string[]|string|int|false|null myselected The selected values.
-     * /
+     */
     protected bool _isSelected(string aKey, string[]|int|false|null myselected) {
         if (myselected.isNull) {
             return false;
@@ -227,7 +227,7 @@ class DMultiCheckboxWidget : DWidget {
      * Params:
      * string aKey The key to test.
      * @param Json mydisabled The disabled values.
-     * /
+     */
     protected bool _isDisabled(string aKey, Json mydisabled) {
         if (mydisabled.isNull || mydisabled == false) {
             return false;

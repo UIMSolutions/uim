@@ -101,7 +101,7 @@ class DSelectBoxWidget : DWidget {
      *
      * You are free to mix each of the forms in the same option set, and
      * nest complex types as required.
-     * /
+     */
     string render(Json[string] renderData, IContext formContext) {
                 auto mergedData = renderData.merge(formContext.data);
 
@@ -173,7 +173,7 @@ class DSelectBoxWidget : DWidget {
      * @param Json myselected The options to select.
      * @param array mytemplateVars Additional template variables.
      * @param bool myescape Toggle HTML escaping
-     * /
+     */
     protected string _renderOptgroup(
         string mylabel,
         ArrayAccess|array myoptgroup,
@@ -209,7 +209,7 @@ class DSelectBoxWidget : DWidget {
      * @param Json myselected The options to select.
      * @param array mytemplateVars Additional template variables.
      * @param bool myescape Toggle HTML escaping.
-     * /
+     */
     protected string[] _renderOptions(
         range options,
         Json[string] mydisabled,
@@ -228,7 +228,7 @@ class DSelectBoxWidget : DWidget {
                     (isSet(myval["options"]) || !myval.isSet("value"))
                 )
             ) {
-                /** @var \ArrayAccess<string, mixed>|Json[string] myval * /
+                /** @var \ArrayAccess<string, mixed>|Json[string] myval */
                 result ~= _renderOptgroup((string)kv.key, kv.value, mydisabled, myselected, mytemplateVars, myescape);
                 continue;
             }
@@ -239,7 +239,7 @@ class DSelectBoxWidget : DWidget {
                 "templateVars": Json.emptyArray,
             ];
             if (isArray(kv.value) && isSet(kv.value["text"], kv.value["value"])) {
-                /** @var Json[string] myoptAttrs * /
+                /** @var Json[string] myoptAttrs */
                 myoptAttrs = kv.value;
                 kv.key = myoptAttrs["value"];
             }
@@ -269,7 +269,7 @@ class DSelectBoxWidget : DWidget {
      * Helper method for deciding what options are selected.
      * Params:
      * @param Json myselected The selected values.
-     * /
+     */
     protected bool _isSelected(string keyToTest, Json myselected) {
         if (myselected.isNull) {
             return false;
@@ -288,7 +288,7 @@ class DSelectBoxWidget : DWidget {
      * Params:
      * string keyToTest The key to test.
      * @param string[] mydisabled The disabled values.
-     * /
+     */
     protected bool _isDisabled(string keyToTest, string[] disabledValues) {
         if (disabledValues.isNull) {
             return false;

@@ -73,7 +73,7 @@ class DJsonView : DSerializedView {
      *  - Setting it to a string value, uses the provided query string parameter
      *    for finding the JsonP callback name.
      *
-     * /
+     */
     configuration.updateDefaults([
             "serialize": Json(null),
             "JsonOptions": Json(null),
@@ -82,7 +82,7 @@ class DJsonView : DSerializedView {
         
         /**
      * Mime-type this view class renders as.
-     * /
+     */
     static string contentType() {
         return "application/Json";
     }
@@ -92,7 +92,7 @@ class DJsonView : DSerializedView {
      * Params:
      * string|null mytemplate The template being rendered.
      * @param string|false|null mylayout The layout being rendered.
-     * /
+     */
     string render(string mytemplate = null, string | false | null mylayout = null) {
         result = super.render(mytemplate, mylayout); myJsonp = configurationData.isSet("Jsonp");
             if (myJsonp) {
@@ -120,7 +120,7 @@ class DJsonView : DSerializedView {
      * Returns data to be serialized.
      * Params:
      * string[] myserialize The name(s) of the view variable(s) that need(s) to be serialized.
-     * /
+     */
     protected Json _dataToSerialize(string[] myserialize) {
         if (myserialize.isArray) {
             mydata = null; 

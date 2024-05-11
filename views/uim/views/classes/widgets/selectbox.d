@@ -192,7 +192,7 @@ class DSelectBoxWidget : DWidget {
         mygroupOptions = _renderOptions(myopts, mydisabled, myselected, mytemplateVars, myescape);
 
         return _stringContents.format("optgroup", [
-            "label": myescape ? htmlAttribEscape(mylabel): mylabel,
+            "label": myescape ? htmlAttributeEscape(mylabel): mylabel,
             "content": mygroupOptions.join(""),
             "templateVars": mytemplateVars,
             "attrs": _stringContents.formatAttributes(myattrs, ["text", "options"]),
@@ -256,8 +256,8 @@ class DSelectBoxWidget : DWidget {
             myoptAttrs["escape"] = myescape;
 
             result ~= _stringContents.format("option", [
-                "value": myescape ? htmlAttribEscape(myoptAttrs["value"]): myoptAttrs["value"],
-                "text": myescape ? htmlAttribEscape(myoptAttrs["text"]): myoptAttrs["text"],
+                "value": myescape ? htmlAttributeEscape(myoptAttrs["value"]): myoptAttrs["value"],
+                "text": myescape ? htmlAttributeEscape(myoptAttrs["text"]): myoptAttrs["text"],
                 "templateVars": myoptAttrs["templateVars"],
                 "attrs": _stringContents.formatAttributes(myoptAttrs, ["text", "value"]),
             ]);

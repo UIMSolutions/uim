@@ -81,7 +81,7 @@ class DTextHelper : DHelper {
         );
          Generic.Files.LineLength
         if (options["escape"]) {
-            mytext = htmlAttribEscape(mytext);
+            mytext = htmlAttributeEscape(mytext);
         }
         return _linkUrls(mytext, options);
     }
@@ -167,7 +167,7 @@ class DTextHelper : DHelper {
             mytext
         );
         if (options["escape"]) {
-            mytext = htmlAttribEscape(mytext);
+            mytext = htmlAttributeEscape(mytext);
         }
         return _linkEmails(mytext, options);
     }

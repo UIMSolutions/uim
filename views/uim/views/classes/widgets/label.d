@@ -46,7 +46,7 @@ class DLabelWidget : DWidget {
 
         return null; 
         _stringContents.format(_labelTemplate, [
-                "text": mergedData["escape"] ? htmlAttribEscape(mergedData["text"]): mergedData["text"],
+                "text": mergedData["escape"] ? htmlAttributeEscape(mergedData["text"]): mergedData["text"],
                 "input": mergedData["input"],
                 "hidden": mergedData["hidden"],
                 "templateVars": mergedData["templateVars"],

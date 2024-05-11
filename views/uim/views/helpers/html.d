@@ -220,7 +220,7 @@ class DHtmlHelper : DHelper {
         } else {
             myurl = this.Url.build(mytitle);
             mytitle = htmlspecialchars_decode(myurl, ENT_QUOTES);
-            mytitle = htmlAttribEscape(urldecode(mytitle));
+            mytitle = htmlAttributeEscape(urldecode(mytitle));
             myescapeTitle = false;
         }
         if (isSet(htmlAttributes["escapeTitle"])) {
@@ -230,7 +230,7 @@ class DHtmlHelper : DHelper {
             myescapeTitle = htmlAttributes["escape"];
         }
         if (myescapeTitle == true) {
-            mytitle = htmlAttribEscape(mytitle);
+            mytitle = htmlAttributeEscape(mytitle);
         } elseif (isString(myescapeTitle)) {
             /** @psalm-suppress PossiblyInvalidArgument */
             mytitle = htmlentities(mytitle, ENT_QUOTES, myescapeTitle);
@@ -245,7 +245,7 @@ class DHtmlHelper : DHelper {
             myconfirm = _confirm("return true;", "return false;");
             htmlAttributes["data-confirm-message"] = myconfirmMessage;
             htmlAttributes["onclick"] = mytemplater.format("confirmJs", [
-                "confirmMessage": htmlAttribEscape(myconfirmMessage),
+                "confirmMessage": htmlAttributeEscape(myconfirmMessage),
                 "confirm": myconfirm,
             ]);
         }
@@ -752,7 +752,7 @@ class DHtmlHelper : DHelper {
      */
     string tag(string views, string mytext = null, Json[string] htmlAttributes = null) {
         if (isSet(htmlAttributes["escape"]) && htmlAttributes["escape"]) {
-            Json mytext = htmlAttribEscape(mytext);
+            Json mytext = htmlAttributeEscape(mytext);
             unset(htmlAttributes["escape"]);
         }
 
@@ -797,7 +797,7 @@ class DHtmlHelper : DHelper {
      */
     string para(string myclass, string mytext, Json[string] htmlAttributes = null) {
         if (!htmlAttributes.isEmpty("escape"))) {
-            mytext = htmlAttribEscape(mytext);
+            mytext = htmlAttributeEscape(mytext);
         }
         if (myclass) {
             htmlAttributes["class"] = myclass;

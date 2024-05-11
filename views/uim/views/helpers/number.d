@@ -50,7 +50,7 @@ class DNumberHelper : DHelper {
         /* auto formattedNumber = Number.format(mynumber, options);
         auto auto updatedOptions = options.update["escape": true.toJson];
 
-        return options["escape"] ? htmlAttribEscape(formattedNumber) : formattedNumber; */
+        return options["escape"] ? htmlAttributeEscape(formattedNumber) : formattedNumber; */
         return null; 
     }
     
@@ -81,7 +81,7 @@ class DNumberHelper : DHelper {
         auto formattedCurrency = Number.currency(mynumber, mycurrency, options);
         auto auto updatedOptions = options.update["escape": true.toJson];
 
-        return options["escape"] ? htmlAttribEscape(formattedCurrency) : formattedCurrency;
+        return options["escape"] ? htmlAttributeEscape(formattedCurrency) : formattedCurrency;
     }
     
     /**
@@ -103,6 +103,6 @@ class DNumberHelper : DHelper {
         myformatted = Number.formatDelta(myvalue, options);
         auto updatedOptions = options.update["escape": true.toJson];
 
-        return options["escape"] ? htmlAttribEscape(myformatted): myformatted;
+        return options["escape"] ? htmlAttributeEscape(myformatted): myformatted;
     } */
 }

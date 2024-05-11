@@ -171,7 +171,7 @@ class DMultiCheckboxWidget : DWidget {
     protected string _renderInput(Json[string] mycheckbox, IContext formContext) {
         myinput = _stringContents.format("checkbox", [
             "name": mycheckbox["name"] ~ "[]",
-            "value": mycheckbox["escape"] ? htmlAttribEscape(mycheckbox["value"]): mycheckbox["value"],
+            "value": mycheckbox["escape"] ? htmlAttributeEscape(mycheckbox["value"]): mycheckbox["value"],
             "templateVars": mycheckbox["templateVars"],
             "attrs": _stringContents.formatAttributes(
                 mycheckbox,

@@ -593,7 +593,7 @@ class DFormHelper : DHelper {
             myerror = mytext;
         }
         if (options["escape"]) {
-            Json myerror = htmlAttribEscape(myerror);
+            Json myerror = htmlAttributeEscape(myerror);
             options.remove("escape");
         }
         if (isArray(myerror)) {
@@ -1182,7 +1182,7 @@ class DFormHelper : DHelper {
             options["required"] = mycontext.isRequired(fieldName);
         }
         mymessage = mycontext.getRequiredMessage(fieldName);
-        mymessage = htmlAttribEscape(mymessage);
+        mymessage = htmlAttributeEscape(mymessage);
 
         if (options["required"] && mymessage) {
             options["templateVars"]["customValidityMessage"] = mymessage;
@@ -1487,7 +1487,7 @@ class DFormHelper : DHelper {
             myconfirm = _confirm("return true;", "return false;");
             options["data-confirm-message"] = myconfirmMessage;
             options["onclick"] = this.templater().format("confirmJs", [
-                "confirmMessage": htmlAttribEscape(myconfirmMessage),
+                "confirmMessage": htmlAttributeEscape(myconfirmMessage),
                 "confirm": myconfirm,
             ]);
         }
@@ -1636,7 +1636,7 @@ class DFormHelper : DHelper {
             myonClick = _confirm(myonClick, "");
             myonClick = myonClick ~ "event.returnValue = false; return false;";
             myonClick = this.templater().format("confirmJs", [
-                "confirmMessage": htmlAttribEscape(myconfirmMessage),
+                "confirmMessage": htmlAttributeEscape(myconfirmMessage),
                 "formName": myformName,
                 "confirm": myonClick,
             ]);

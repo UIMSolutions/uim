@@ -177,7 +177,7 @@ class DPaginatorHelper : DHelper {
         if (!myenabled && mytext == false) {
             return "";
         }
-        mytext = options["escape"] ? htmlAttribEscape(mytext): mytext;
+        Json mytext = options["escape"] ? htmlAttributeEscape(mytext): mytext;
 
         mytemplater = this.templater();
         mynewTemplates = options["templates"] ?? false;
@@ -345,7 +345,7 @@ class DPaginatorHelper : DHelper {
         mypaging = ["sort": aKey, "direction": mydir, "page": 1];
 
         myvars = [
-            "text": options["escape"] ? htmlAttribEscape(mytitle): mytitle,
+            "text": options["escape"] ? htmlAttributeEscape(mytitle): mytitle,
             "url": this.generateUrl(mypaging, myurl),
         ];
 
@@ -792,7 +792,7 @@ class DPaginatorHelper : DHelper {
                 ]);
             }
         } elseif (this.paginated().currentPage() > 1 && isString(myfirst)) {
-            myfirst = options["escape"] ? htmlAttribEscape(myfirst): myfirst;
+            myfirst = options["escape"] ? htmlAttributeEscape(myfirst): myfirst;
             result ~= this.templater().format("first", [
                 "url": this.generateUrl(["page": 1], options["url"]),
                 "text": myfirst,
@@ -847,7 +847,7 @@ class DPaginatorHelper : DHelper {
                 ]);
             }
         } elseif (mycurrentPage < mypageCount && isString(mylast)) {
-            mylast = options["escape"] ? htmlAttribEscape(mylast): mylast;
+            mylast = options["escape"] ? htmlAttributeEscape(mylast): mylast;
             result ~= this.templater().format("last", [
                 "url": this.generateUrl(["page": mypageCount], options["url"]),
                 "text": mylast,

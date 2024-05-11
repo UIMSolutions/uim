@@ -56,7 +56,7 @@ class DTextareaWidget : DWidget {
         }
         return _stringContents.format("textarea", [
             "name": mydata["name"],
-            "value": mydata["escape"] ? htmlAttribEscape(mydata["val"]): mydata["val"],
+            "value": mydata["escape"] ? htmlAttributeEscape(mydata["val"]): mydata["val"],
             "templateVars": mydata["templateVars"],
             "attrs": _stringContents.formatAttributes(
                 mydata,

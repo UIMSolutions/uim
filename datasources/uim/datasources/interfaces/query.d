@@ -21,10 +21,10 @@ interface IQuery {
      * If `true` is passed in the second argument, any previous selections will
      * be overwritten with the list passed in the first argument.
      * Params:
-     * \Closure|string[]|float|int fields Fields.
+     * \Closure|string[]|float fields Fields.
      * @param bool overwrite whether to reset fields with passed list or not
      */
-    auto select(Closure|string[]|float|int fields, bool overwrite = false);
+    auto select(Closure|string[]|float fields, bool overwrite = false);
 
     /**
      * Returns a key: value array representing a single aliased field

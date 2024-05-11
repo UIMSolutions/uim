@@ -47,7 +47,7 @@ class DCookie : ICookie {
      *
      * @link https://D.net/manual/en/function.setcookie.d
      * @param string cookieName Cookie name
-     * @param string[]|float|int|bool aValue Value of the cookie
+     * @param string[]|float|bool aValue Value of the cookie
      * @param \IDateTime|null expiresAt Expiration time and date
      * @param string somePath Path
      * @param string domain Domain
@@ -57,7 +57,7 @@ class DCookie : ICookie {
      */
     this(
         string cookieName,
-        string[]|float|int|bool aValue = "",
+        string[]|float|bool aValue = "",
         ?IDateTime expiresAt = null,
         string aPath = null,
         string adomain = null,
@@ -119,10 +119,10 @@ class DCookie : ICookie {
      * Factory method to create Cookie instances.
      * Params:
      * string cookieName Cookie name
-     * @param string[]|float|int|bool aValue Value of the cookie
+     * @param string[]|float|bool aValue Value of the cookie
      * @param Json[string] options Cookies options.
      */
-    static static create(string cookieName, string[]|float|int|bool aValue, Json[string] options = null) {
+    static static create(string cookieName, string[]|float|bool aValue, Json[string] options = null) {
         auto auto updatedOptions = options.updateoptions.update(defaultAttributes);
         options["expires"] = dateTimeInstance(options["expires"]);
 
@@ -294,7 +294,7 @@ class DCookie : ICookie {
         return _value;
     }
  
-    auto withValue(string[]|float|int|bool aValue): static
+    auto withValue(string[]|float|bool aValue): static
     {
         new = clone this;
         new._setValue(aValue);
@@ -305,9 +305,9 @@ class DCookie : ICookie {
     /**
      * Setter for the value attribute.
      * Params:
-     * string[]|float|int|bool aValue The value to store.
+     * string[]|float|bool aValue The value to store.
      */
-    protected void _setValue(string[]|float|int|bool aValue) {
+    protected void _setValue(string[]|float|bool aValue) {
         this.isExpanded = isArray(aValue);
         this.value = isArray(aValue) ? aValue : (string)aValue;
     }

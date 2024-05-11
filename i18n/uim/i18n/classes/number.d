@@ -332,10 +332,10 @@ class DNumber {
      *
      * For all other options see formatter().
      * Params:
-     * float|int aValue An integer
+     * float aValue An integer
      * @param Json[string] options An array with options.
      */
-    static string ordinal(float|int aValue, Json[string] options = null) {
+    static string ordinal(float aValue, Json[string] options = null) {
         return to!string(formatter(["type": NumberFormatter.ORDINAL] + options)).format(aValue);
     } */
 }

@@ -196,7 +196,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * string aargument Argument to coerce
      * @param \ReflectionNamedType type Parameter type
      */
-    protected string[]|float|int|bool|null coerceStringToType(string argumentToCoerce, ReflectionNamedType type) {
+    protected string[]|float|bool|null coerceStringToType(string argumentToCoerce, ReflectionNamedType type) {
         return match (type.name) {
             "string": argumentToCoerce,
             "float": isNumeric(argumentToCoerce) ? (float)argumentToCoerce : null,

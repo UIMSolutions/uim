@@ -32,9 +32,9 @@ interface ICookie {
     /**
      * Create a cookie with an updated value.
      * Params:
-     * string[]|float|int|bool aValue Value of the cookie to set
+     * string[]|float|bool aValue Value of the cookie to set
      */
-    static withValue(string[]|float|int|bool aValue);
+    static withValue(string[]|float|bool aValue);
 
 
     /**

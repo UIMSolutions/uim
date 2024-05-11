@@ -636,12 +636,12 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * all the fields in the schema of the table or the association will be added to
      * the select clause.
      * Params:
-     * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\Closure|string[]|float|int myfields Fields
+     * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\Closure|string[]|float myfields Fields
      * to be added to the list.
      * @param bool myoverwrite whether to reset fields with passed list or not
      */
     auto select(
-        IExpression|Table|Association|Closure|string[]|float|int myfields = [],
+        IExpression|Table|Association|Closure|string[]|float myfields = [],
         bool myoverwrite = false
     ) {
         if (cast(DAssociation)myfields) {
@@ -663,11 +663,11 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * Use this instead of calling `select()` then `enableAutoFields()` to re-enable auto-fields.
      * Params:
-     * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\Closure|string[]|float|int myfields Fields
+     * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\Closure|string[]|float myfields Fields
      * to be added to the list.
      */
     auto selectAlso(
-        IExpression|Table|Association|Closure|string[]|float|int myfields
+        IExpression|Table|Association|Closure|string[]|float myfields
     ) {
         this.select(myfields);
        _autoFields = true;

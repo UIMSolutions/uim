@@ -102,7 +102,7 @@ class UrlHelper : DHelper {
     string image(string mypath, Json[string] options  = null) {
         auto updatedOptions = options.update["theme": _View.getTheme()];
 
-        return htmlAttribEscape(_assetUrlClassName.imageUrl(mypath, options));
+        return htmlAttributeEscape(_assetUrlClassName.imageUrl(mypath, options));
     }
     
     /**
@@ -125,7 +125,7 @@ class UrlHelper : DHelper {
     string css(string mypath, Json[string] options  = null) {
         auto updatedOptions = options.update["theme": _View.getTheme()];
 
-        return htmlAttribEscape(_assetUrlClassName.cssUrl(mypath, options));
+        return htmlAttributeEscape(_assetUrlClassName.cssUrl(mypath, options));
     }
     
     /**
@@ -148,7 +148,7 @@ class UrlHelper : DHelper {
     string script(string mypath, Json[string] options  = null) {
         auto updatedOptions = options.update["theme": _View.getTheme()];
 
-        return htmlAttribEscape(_assetUrlClassName.scriptUrl(mypath, options));
+        return htmlAttributeEscape(_assetUrlClassName.scriptUrl(mypath, options));
     }
     
     /**
@@ -175,7 +175,7 @@ class UrlHelper : DHelper {
     string assetUrl(string mypath, Json[string] options  = null) {
         auto updatedOptions = options.update["theme": _View.getTheme()];
 
-        return htmlAttribEscape(_assetUrlClassName.url(mypath, options));
+        return htmlAttributeEscape(_assetUrlClassName.url(mypath, options));
     }
     
     /**
@@ -187,7 +187,7 @@ class UrlHelper : DHelper {
      * @param string mytimestamp If set will overrule the value of `Asset.timestamp` in Configure.
      */
     string assetTimestamp(string mypath, string|null mytimestamp = null) {
-        return htmlAttribEscape(_assetUrlClassName.assetTimestamp(mypath, mytimestamp));
+        return htmlAttributeEscape(_assetUrlClassName.assetTimestamp(mypath, mytimestamp));
     }
     
     /**
@@ -198,7 +198,7 @@ class UrlHelper : DHelper {
     string webroot(string myfile) {
         options = ["theme": _View.getTheme()];
 
-        return htmlAttribEscape(_assetUrlClassName.webroot(myfile, options));
+        return htmlAttributeEscape(_assetUrlClassName.webroot(myfile, options));
     }
     
     /**

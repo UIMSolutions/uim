@@ -9,7 +9,7 @@ import uim.views;
  *
  * Methods to make numbers more readable.
  *
- * @method string ordinal(float|int myvalue, Json[string] options  = null) See Number.ordinal()
+ * @method string ordinal(float myvalue, Json[string] options  = null) See Number.ordinal()
  * @method string precision(Json mynumber, int myprecision = 3, Json[string] options  = null) See Number.precision()
  * @method string toPercentage(Json myvalue, int myprecision = 3, Json[string] options  = null) See Number.toPercentage()
  * @method string toReadableSize(Json mysize) See Number.toReadableSize()

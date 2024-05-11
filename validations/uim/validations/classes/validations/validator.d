@@ -1095,7 +1095,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a greater than comparison rule to a field.
      * Params:
      * string myfield The field you want to apply the rule to.
-     * @param float|int myvalue The value user data must be greater than.
+     * @param float myvalue The value user data must be greater than.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
@@ -1103,7 +1103,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     auto greaterThan(
         string myfield,
-        float|int myvalue,
+        float myvalue,
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
@@ -1125,7 +1125,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a greater than or equal to comparison rule to a field.
      * Params:
      * string myfield The field you want to apply the rule to.
-     * @param float|int myvalue The value user data must be greater than or equal to.
+     * @param float myvalue The value user data must be greater than or equal to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
@@ -1133,7 +1133,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     auto greaterThanOrEqual(
         string myfield,
-        float|int myvalue,
+        float myvalue,
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
@@ -1155,7 +1155,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a less than comparison rule to a field.
      * Params:
      * string myfield The field you want to apply the rule to.
-     * @param float|int myvalue The value user data must be less than.
+     * @param float myvalue The value user data must be less than.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
@@ -1163,7 +1163,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     auto lessThan(
         string myfield,
-        float|int myvalue,
+        float myvalue,
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
@@ -1186,14 +1186,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a less than or equal comparison rule to a field.
      * Params:
      * string myfield The field you want to apply the rule to.
-     * @param float|int myvalue The value user data must be less than or equal to.
+     * @param float myvalue The value user data must be less than or equal to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      */
     auto lessThanOrEqual(
         string myfield,
-        float|int myvalue,
+        float myvalue,
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {

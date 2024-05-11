@@ -21,7 +21,7 @@ mixin template TExtract() {
      * string aPath A dot separated path of column to follow
      * so that the final one can be returned or a callable that will take care
      * of doing that.
-     * /
+     */
     protected IClosure _propertyExtractor(string columnPath) {
         if (!isString(somePath)) {
             return somePath(...);
@@ -47,7 +47,7 @@ mixin template TExtract() {
      * Params:
      * \ArrayAccess<string|int, mixed>|array data Data.
      * string[] someParts Path to extract from.
-     * /
+     */
     protected Json _extract(ArrayAccess|array data, string[] someParts) {
         auto aValue = null;
         bool isCollectionTransform = false;
@@ -83,7 +83,7 @@ mixin template TExtract() {
      * Params:
      * \ArrayAccess<string|int, mixed>|array data Data.
      * @param string[] someParts Path to extract from.
-     * /
+     */
     protected Json _simpleExtract(ArrayAccess|array data, Json[string] someParts) {
         auto value = null;
         someParts
@@ -103,7 +103,7 @@ mixin template TExtract() {
      * Json[string] conditions A key-value list of conditions to match where the
      * key is the property path to get from the current item and the value is the
      * value to be compared the item with.
-     * /
+     */
     protected IClosure _createMatcherFilter(Json[string] conditions) {
          someMatchers = null;
         foreach (aProperty, aValue; conditions) {

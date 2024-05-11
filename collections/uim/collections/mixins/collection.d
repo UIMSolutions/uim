@@ -13,7 +13,7 @@ mixin template TCollection() {
      *
      * Allows classes which use this template to determine their own
      * type of returned collection interface
-     * /
+     */
     protected ICollection newCollection(Json[] arguments...) {
         return new DCollection(arguments);
     }
@@ -323,7 +323,7 @@ mixin template TCollection() {
              * - result = myhead + mytail = [6, 7, 8, 9]
              *
              * The logic above applies to collections of any size.
-              * /
+              */
 
             foreach (myiterator as myKey: myitem) {
                 result[mybucket] = [myKey, myitem];
@@ -575,7 +575,7 @@ mixin template TCollection() {
         } else {
             myitems = [myitems];
         }
-        /** @var callable aCallback * /
+        /** @var callable aCallback */
         return new DZipIterator(chain([unwrap()], myitems), mycallback);
     }
  
@@ -664,7 +664,7 @@ mixin template TCollection() {
 
         while (!(mychangeIndex == 0 && mycurrentIndexes[0] == mycollectionArraysCounts[0])) {
             mycurrentCombination = array_map(function (myvalue, someKeys, myindex) {
-                /** @psalm-suppress InvalidArrayOffset * /
+                /** @psalm-suppress InvalidArrayOffset */
                 return myvalue[someKeys[myindex]];
             }, mycollectionArrays, mycollectionArraysKeys, mycurrentIndexes);
 
@@ -673,7 +673,7 @@ mixin template TCollection() {
             }
             mycurrentIndexes[mylastIndex]++;
 
-            /** @psalm-suppress InvalidArrayOffset * /
+            /** @psalm-suppress InvalidArrayOffset */
             for (
                 mychangeIndex = mylastIndex;
                 mycurrentIndexes[mychangeIndex] == mycollectionArraysCounts[mychangeIndex] && mychangeIndex > 0;
@@ -718,7 +718,7 @@ mixin template TCollection() {
     /**
      * Unwraps this iterator and returns the simplest
      * traversable that can be used for getting the data out
-     * /
+     */
     protected Iterator[] optimizeUnwrap() {
         myiterator = unwrap();
 

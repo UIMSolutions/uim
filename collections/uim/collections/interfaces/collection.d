@@ -51,7 +51,7 @@ interface ICollection {
      * @param callable|null callback the method that will receive each of the elements and
      *   returns true whether they should be in the resulting collection.
      *   If left null, a callback that filters out falsey values will be used.
-     * /
+     */
     ICollection filter(bool delegate(Json item));
 
     /**
@@ -177,7 +177,7 @@ interface ICollection {
      * ];
      * extracted = (new DCollection(items)).extract("comment.user.name");
      *
-     * // Result will look like this when converted to array
+     *// Result will look like this when converted to array
      * ["Mark", "Renan"]
      * ```
      *
@@ -190,7 +190,7 @@ interface ICollection {
      * ];
      * extracted = (new DCollection(items)).extract("comment.votes.{*}.value");
      *
-     * // Result will contain
+     *// Result will contain
      * [1, 2, 3, 4]
      * ```
      *
@@ -207,14 +207,14 @@ interface ICollection {
      * ### Examples:
      *
      * ```
-     * // For a collection of employees
+     *// For a collection of employees
      *  max = collection.max("age");
      *  max = collection.max("user.salary");
      *  max = collection.max(// function (e) {
      *  return e.get("user").get("salary");
      * });
      *
-     * // Display employee name
+     *// Display employee name
      * writeln(max.name;
      * ```
      */
@@ -227,14 +227,14 @@ interface ICollection {
      * ### Examples:
      *
      * ```
-     * // For a collection of employees
+     *// For a collection of employees
      *  min = collection.min("age");
      *  min = collection.min("user.salary");
      *  min = collection.min(// function (e) {
      *  return e.get("user").get("salary");
      * });
      *
-     * // Display employee name
+     *// Display employee name
      * writeln(min.name;
      * ```
      */
@@ -254,10 +254,10 @@ interface ICollection {
      *
      * total = (new DCollection(items)).avg("invoice.total");
      *
-     * // Total: 150
+     *// Total: 150
      *
      * total = (new DCollection([1, 2, 3])).avg();
-     * // Total: 2
+     *// Total: 2
      * ```
      *
      * The average of an empty set or 0 rows is `null`. Collections with `null`
@@ -282,10 +282,10 @@ interface ICollection {
      *
      * total = (new DCollection(items)).median("invoice.total");
      *
-     * // Total: 333
+     *// Total: 333
      *
      * total = (new DCollection([1, 2, 3, 4])).median();
-     * // Total: 2.5
+     *// Total: 2.5
      * ```
      *
      * The median of an empty set or 0 rows is `null`. Collections with `null`
@@ -315,19 +315,19 @@ interface ICollection {
      *  return user.age;
      * });
      *
-     * // alternatively
+     *// alternatively
      * items = collection.sortBy("age");
      *
-     * // or use a property path
+     *// or use a property path
      * items = collection.sortBy("department.name");
      *
-     * // output all user name order by their age in descending order
+     *// output all user name order by their age in descending order
      * foreach (items as user) {
      *  writeln(user.name;
      * }
      * ```
      * @param callable|string path The column name to use for sorting or callback that returns the value.
-     * /
+     */
     ICollection sortBy(path, int sortOrder = SORT_DESC, int sortType = SORT_NUMERIC);
 
     /**
@@ -350,12 +350,12 @@ interface ICollection {
      *
      *  group = (new DCollection(items)).groupBy("parent_id");
      *
-     * // Or
+     *// Or
      *  group = (new DCollection(items)).groupBy(// function (e) {
      *  return e["parent_id"];
      * });
      *
-     * // Result will look like this when converted to array
+     *// Result will look like this when converted to array
      * [
      *  10: [
      *      ["id": 1, "name": "foo", "parent_id": 10],
@@ -369,7 +369,7 @@ interface ICollection {
      *
      * @param callable|string path The column name to use for grouping or callback that returns the value.
      * or a // function returning the grouping key out of the provided element
-      * /
+      */
     ICollection groupBy(string path);
 
     /**
@@ -392,19 +392,19 @@ interface ICollection {
      *
      * indexed = (new DCollection(items)).indexBy("id");
      *
-     * // Or
+     *// Or
      * indexed = (new DCollection(items)).indexBy(// function (e) {
      *  return e["id"];
      * });
      *
-     * // Result will look like this when converted to array
+     *// Result will look like this when converted to array
      * [
      *  1: ["id": 1, "name": "foo"],
      *  3: ["id": 3, "name": "baz"],
      *  2: ["id": 2, "name": "bar"],
      * ];
      * ```
-     * /
+     */
     ICollection indexBy(string columnName);
 
     /**
@@ -427,12 +427,12 @@ interface ICollection {
      *
      *  group = (new DCollection(items)).countBy("parent_id");
      *
-     * // Or
+     *// Or
      *  group = (new DCollection(items)).countBy(// function (e) {
      *  return e["parent_id"];
      * });
      *
-     * // Result will look like this when converted to array
+     *// Result will look like this when converted to array
      * [
      *  10: 2,
      *  11: 1
@@ -441,7 +441,7 @@ interface ICollection {
      *
      * @param callable|string path The column name to use for indexing or callback that returns the value.
      * or a // function returning the indexing key out of the provided element
-     * /
+     */
     ICollection countBy(path);
 
     /**
@@ -458,22 +458,22 @@ interface ICollection {
      *
      * total = (new DCollection(items)).sumOf("invoice.total");
      *
-     * // Total: 300
+     *// Total: 300
      *
      * total = (new DCollection([1, 2, 3])).sumOf();
-     * // Total: 6
+     *// Total: 6
      * ```
      *
      * @param callable|string|null path The property name to sum or a function
      * If no value is passed, an identity // function will be used.
      * that will return the value of the property to sum.
-     * /
+     */
     float sumOf(path = null);
 
     /**
      * Returns a new DCollection with the elements placed in a random order,
      * this // function does not preserve the original keys in the collection.
-     * /
+     */
     ICollection shuffle();
 
     /**
@@ -482,14 +482,14 @@ interface ICollection {
      *
      * @param int  length the maximum number of elements to randomly
      * take from this collection
-     * /
+     */
     ICollection sample(int  length = 10);
 
     /**
      * Returns a new DCollection with maximum size elements in the internal
      * order this collection was created. If a second parameter is passed, it
      * will determine from what position to start taking elements.
-     * /
+     */
     ICollection take(int numberOfElements = 1, int positionalOffset = 0);
 
     /**
@@ -502,16 +502,16 @@ interface ICollection {
      *
      *  last = (new DCollection(items)).takeLast(3);
      *
-     * // Result will look like this when converted to array
+     *// Result will look like this when converted to array
      * [3, 4, 5];
      * ```
-     * /
+     */
     ICollection takeLast(int numberOfElements);
 
     /**
      * Returns a new DCollection that will skip the specified amount of elements
      * at the beginning of the iteration.
-     * /
+     */
     ICollection skip(int elementsToSkip);
 
     /**
@@ -528,12 +528,12 @@ interface ICollection {
      *
      * extracted = (new DCollection(items)).match(["user.name": "Renan"]);
      *
-     * // Result will look like this when converted to array
+     *// Result will look like this when converted to array
      * [
      *  ["comment": ["body": "very cool", "user": ["name": "Renan"]]
      * ]
      * ```
-     * /
+     */
     ICollection match(Json[string] conditions);
 
     /**
@@ -543,7 +543,7 @@ interface ICollection {
      * @param Json[string] conditions a key-value list of conditions where the key is
      * a property path as accepted by `Collection.extract`, and the value the
      * condition against with each element will be matched
-     * /
+     */
     Json firstMatch(Json[string] conditions);
 
     // Returns the first result in this collection
@@ -555,7 +555,7 @@ interface ICollection {
     /**
      * Returns a new DCollection as the result of concatenating the list of elements
      * in this collection with the passed list of elements
-     * /
+     */
     ICollection append(Json[] items);
 
     /**
@@ -563,20 +563,20 @@ interface ICollection {
      *
      * @param mixed item The item to append.
      * @param mixed  key The key to append the item with. If null a key will be generated.
-     * /
+     */
     ICollection appendItem(item,  key = null);
 
     /**
      * Prepend a set of items to a collection creating a new DCollection
      *
      * @param mixed items The items to prepend.
-     * /
+     */
     ICollection prepend(items);
 
     /**
      * Prepend a single item creating a new DCollection.
      * @param mixed  key The key to prepend the item with. If null a key will be generated.
-     * /
+     */
     ICollection prependItem(json itemToPrepend,  key = null);
 
     /**
@@ -595,7 +595,7 @@ interface ICollection {
      *
      * combined = (new DCollection(items)).combine("id", "name");
      *
-     * // Result will look like this when converted to array
+     *// Result will look like this when converted to array
      * [
      *  1: "foo",
      *  2: "bar",
@@ -604,7 +604,7 @@ interface ICollection {
      *
      * combined = (new DCollection(items)).combine("id", "name", "parent");
      *
-     * // Result will look like this when converted to array
+     *// Result will look like this when converted to array
      * [
      *  "a": [1: "foo", 3: "baz"],
      *  "b": [2: "bar"]
@@ -617,7 +617,7 @@ interface ICollection {
      * or a // function returning the value out of the provided element
      * @param callable|string|null  groupPath the column name path to use as the parent
      * grouping key or a // function returning the key out of the provided element
-     * /
+     */
     ICollection combine(keyPath, valuePath,  groupPath = null);
 
     /**
@@ -629,7 +629,7 @@ interface ICollection {
      * @param callable|string parentPath the column name path to use for determining
      * whether an element is child of another
      * @param string nestingKey The key name under which children are nested
-     * /
+     */
     ICollection nest(idPath, parentPath, string nestingKey = "children");
 
     /**
@@ -655,7 +655,7 @@ interface ICollection {
      * ages = [25, 28];
      * inserted = (new DCollection(items)).insert("comment.user.age", ages);
      *
-     * // Result will look like this when converted to array
+     *// Result will look like this when converted to array
      * [
      *  ["comment": ["body": "cool", "user": ["name": "Mark", "age": 25]],
      *  ["comment": ["body": "awesome", "user": ["name": "Renan", "age": 28]]
@@ -666,7 +666,7 @@ interface ICollection {
      * inside the hierarchy of each value so that the value can be inserted
      * @param mixed values The values to be inserted at the specified path,
      * values are matched with the elements in this collection by its positional index.
-     * /
+     */
     ICollection insert(string path, values);
 
     /**
@@ -682,7 +682,7 @@ interface ICollection {
     /**
      * Returns an numerically-indexed array representation of the results.
      * This is equivalent to calling `toArray(false)`
-     * /
+     */
     Json[string] toList();
 
     /**
@@ -692,7 +692,7 @@ interface ICollection {
      * Part of JsonSerializable interface.
      *
      * @return Json[string] The data to convert to Json
-     * /
+     */
     Json[string] JsonSerialize();
 
     /**
@@ -725,7 +725,7 @@ interface ICollection {
      * collection as the array keys. Keep in mind that it is valid for iterators
      * to return the same key for different elements, setting this value to false
      * can help getting all items if keys are not important in the result.
-     * /
+     */
     // ICollection compile(bool shouldKeepKeys = true);
 
     /**
@@ -742,7 +742,7 @@ interface ICollection {
      * only be performed once.
      *
      * This can also be used to make any non-rewindable iterator rewindable.
-     * /
+     */
     ICollection buffered();
 
     /**
@@ -780,7 +780,7 @@ interface ICollection {
      * ```
      * @param callable|string nestingKey The key name under which children are nested
      * or a callable // function that will return the children list
-     * /
+     */
     ICollection listNested(string order = "desc", nestingKey = "children");
 
     /**
@@ -814,7 +814,7 @@ interface ICollection {
      * If an array, it will be interpreted as a key-value list of conditions where
      * the key is a property path as accepted by `Collection.extract`,
      * and the value the condition against with each element will be matched.
-     * /
+     */
     ICollection stopWhen(condition):;
 
     /**
@@ -911,7 +911,7 @@ interface ICollection {
      * ```
      * items [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
      * chunked = (new DCollection(items)).chunk(3).toList();
-     * // Returns [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11]]
+     *// Returns [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11]]
      * ```
      */
     ICollection chunk(int chunkMaxsize);
@@ -924,7 +924,7 @@ interface ICollection {
      * ```
      * items ["a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "f": 6];
      * chunked = (new DCollection(items)).chunkWithKeys(3).toList();
-     * // Returns [["a": 1, "b": 2, "c": 3], ["d": 4, "e": 5, "f": 6]]
+     *// Returns [["a": 1, "b": 2, "c": 3], ["d": 4, "e": 5, "f": 6]]
      * ```
      */
     ICollection chunkWithKeys(int chunkMaxsize, bool shouldKeepKeys = true);
@@ -942,7 +942,7 @@ interface ICollection {
      * ```
      * (new DCollection([])).isEmpty(); // true
      * ```
-     * /
+     */
     bool isEmpty();
 
     /**
@@ -969,13 +969,13 @@ interface ICollection {
      *
      * transpose = (new DCollection(items)).transpose().toList();
      *
-     * // Returns
-     * // [
-     * //     ["Products", "Product A", "Product B", "Product C"],
-     * //     ["2012", "200", "300", "400"],
-     * //     ["2013", "100", "200", "300"],
-     * //     ["2014", "50", "100", "200"],
-     * // ]
+     *// Returns
+     *// [
+     *//     ["Products", "Product A", "Product B", "Product C"],
+     *//     ["2012", "200", "300", "400"],
+     *//     ["2013", "100", "200", "300"],
+     *//     ["2014", "50", "100", "200"],
+     *// ]
      * ```
      */
     ICollection transpose();
@@ -1012,7 +1012,7 @@ interface ICollection {
      *
      * If you need the count of elements after taking the keys in consideration
      * (the count of unique keys), you can call `countKeys()`
-     * /
+     */
     size_t count();
 
     /**

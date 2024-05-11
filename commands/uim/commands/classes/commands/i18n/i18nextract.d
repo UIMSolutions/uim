@@ -60,7 +60,7 @@ class DI18nExtractCommand : DCommand {
 /* 
     // Method to interact with the user and get path selections.
     protected void _getPaths(IConsoleIo aConsoleIo) {
-        /** @psalm-suppress UndefinedConstant * /
+        /** @psalm-suppress UndefinedConstant */
         defaultPaths = chain(
             [APP],
             App.path("templates"),
@@ -196,7 +196,7 @@ class DI18nExtractCommand : DCommand {
      * Takes care of duplicate translations
      * Params:
      * @param Json[string] details DContext and plural form if any, file and line references
-     * /
+     */
     protected void _addTranslation(string domainName, string messageId, Json[string] details = []) {
         context = contextData.get("msgctxt", "");
 
@@ -242,7 +242,7 @@ class DI18nExtractCommand : DCommand {
      * Gets the option parser instance and configures it.
      * Params:
      * \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The parser to configure
-     * /
+     */
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser  aParser) {
          aParser.description(
             "Extract i18n POT files from application source files. " ~
@@ -308,7 +308,7 @@ class DI18nExtractCommand : DCommand {
      * Params:
      * \UIM\Console\Json[string] commandArguments The io instance
      * @param \UIM\Console\IConsoleIo aConsoleIo The io instance
-     * /
+     */
     protected void _extractTokens(Json[string] commandArguments, IConsoleIo aConsoleIo) {
         progress = aConsoleIo.helper("progress");
         assert(cast(ProgressHelper)progress);
@@ -475,7 +475,7 @@ class DI18nExtractCommand : DCommand {
      * Write the files that need to be stored
      * Params:
      * \UIM\Console\Json[string] commandArguments The command commandArguments.
-     * /
+     */
     protected void _writeFiles(Json[string] commandArguments, IConsoleIo aConsoleIo) {
          aConsoleIo.writeln();
         bool overwriteAll = false;
@@ -547,7 +547,7 @@ class DI18nExtractCommand : DCommand {
      * Check whether the old and new output are the same, thus unchanged
      *
      * Compares the sha1 hashes of the old and new file without header.
-     * /
+     */
     protected bool checkUnchanged(string oldFile, int lengthOfFileheader, string newFileContent) {
         if (!fileExists(oldFile)) {
             return false;
@@ -617,7 +617,7 @@ class DI18nExtractCommand : DCommand {
      * \UIM\Console\IConsoleIo aConsoleIo The io instance.
      * @param string afile File where invalid marker resides
      * @param int count Count
-     * /
+     */
     protected void _markerError(IConsoleIo aConsoleIo, string nameOfFile, int lineNumber, string foundMarker, int count) {
         if (!_fileName.has(uim_CORE_INCLUDE_PATH)) {
            _countMarkerError++;
@@ -683,9 +683,9 @@ class DI18nExtractCommand : DCommand {
     /**
      * Returns whether this execution is meant to extract string only from directories in folder represented by the
      * APP constant, i.e. this task is extracting strings from same application.
-     * /
+     */
     protected bool _isExtractingApp() {
-        /** @psalm-suppress UndefinedConstant * /
+        /** @psalm-suppress UndefinedConstant */
         return _paths == [APP];
     }
     

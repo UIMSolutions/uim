@@ -37,7 +37,7 @@ class DServerCommand : DCommand {
      * Allows for checking and configuring prior to command or main execution
      * Params:
      * \UIM\Console\Json[string] arguments The command arguments.
-     * /
+     */
     protected void startup(Json[string] arguments, IConsoleIo aConsoleIo) {
         _host = commandArguments.getString("host", _host); 
 
@@ -96,7 +96,7 @@ class DServerCommand : DCommand {
     
     /**
      * Hook method for defining this command`s option parser.
-     * /
+     */
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
         with (parserToUpdate) {
             description([

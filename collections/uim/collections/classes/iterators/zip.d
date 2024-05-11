@@ -41,7 +41,7 @@ class DZipIterator : ICollection {
     /**
      * Creates the iterator to merge together the values by for all the passed
      * iterators by their corresponding index.
-     * /
+     */
     this(Json[string] listToZip, ?callable aCallable = null) {
         _multipleIterator = new DMultipleIterator(
             MultipleIterator.MIT_NEED_ALL | MultipleIterator.MIT_KEYS_NUMERIC
@@ -59,7 +59,7 @@ class DZipIterator : ICollection {
     /**
      * Returns the value resulting out of zipping all the elements for all the
      * iterators with the same positional index.
-     * /
+     */
     Json current() {
         current = _multipleIterator.current();
         if (_callback) {
@@ -89,7 +89,7 @@ class DZipIterator : ICollection {
      * Magic method used to rebuild the iterator instance.
      * Params:
      * Json[string] data Data array.
-     * /
+     */
     void __unserialize(Json[string] data) {
         _multipleIterator = new DMultipleIterator(
             MultipleIterator.MIT_NEED_ALL | MultipleIterator.MIT_KEYS_NUMERIC

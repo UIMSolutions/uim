@@ -16,7 +16,7 @@ class DUniqueIterator : DCollection {
      *
      * The callback is passed the value as the first argument and the key as the
      * second argument.
-     * /
+     */
     this(Json[string] itemToFilter, callable aCallback) {
         if (!cast(Iterator)itemToFilter) {
             itemToFilter = new DCollection(itemToFilter);

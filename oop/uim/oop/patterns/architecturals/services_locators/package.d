@@ -5,12 +5,12 @@ with a strong abstraction layer. This pattern uses a central registry known as t
 necessary to perform a certain task.[1] Proponents of the pattern say the approach simplifies component-based applications where all dependencies 
 are cleanly listed at the beginning of the whole application design, consequently making traditional dependency injection a more complex way of 
 connecting objects. Critics of the pattern argue that it is an anti-pattern which obscures dependencies and makes software harder to test.
-** /
+**/
 /***********************************************************************************
 *	Copyright: © 2015-2024 Ozan Nurettin Süel (sicherheitsschmiede)                   *
 *	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
 *	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
-*********************************************************************************** /
+***********************************************************************************/
 module uim.oop.patterns.architecturals.services_locators;
 
 import uim.oop;

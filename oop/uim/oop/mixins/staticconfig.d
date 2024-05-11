@@ -16,7 +16,7 @@ mixin template TStaticConfig() {
      * Configuration sets.
      *
      * @var array<string|int, IData[string]>
-     * /
+     */
     protected static Json[string] _config = null;
 
     /**
@@ -54,7 +54,7 @@ mixin template TStaticConfig() {
      * @param IData[string] configData Configuration value. Generally an array of name: configuration data for adapter.
      * @throws \BadMethodCallException When trying to modify an existing config.
      * @throws \LogicException When trying to store an invalid structured config array.
-     * /
+     */
     void setConfiguration(string[] aKey, IData[string] configData = null) {
         if (!isString(aKey)) {
             throw new DLogicException("If config is not null, key must be a string.");
@@ -66,13 +66,13 @@ mixin template TStaticConfig() {
             configData = ["className": configData];
         }
         if (isArray(configData) && isSet(configData["url"])) {
-            parsed = parseDsn(configData("url"]);
-            unset(configData("url"]);
+            parsed = parseDsn(configuration.data("url"]);
+            unset(configuration.data("url"]);
             configData = parsed + configData;
         }
         if (configData.isSet("engine") && configData[]"className"].isEmpty) {
-            configData("className"] = configData("engine"];
-            unset(configData("engine"]);
+            configuration.data("className"] = configuration.data("engine"];
+            unset(configuration.data("engine"]);
         }
         configuration.data(aKey] = configData;
     }
@@ -81,7 +81,7 @@ mixin template TStaticConfig() {
      * Reads existing configuration.
      * Params:
      * string aKey The name of the configuration.
-     * /
+     */
     static IData getConfig(string aKey) {
         return _config.get(aKey, null);
     }
@@ -92,7 +92,7 @@ mixin template TStaticConfig() {
      * The config value for this key must exist, it can never be null.
      * Params:
      * string aKey The name of the configuration.
-     * /
+     */
     static IData getConfigOrFail(string aKey) {
         if (!isSet(configuration.data(aKey])) {
             throw new DInvalidArgumentException("Expected configuration `%s` not found.".format(aKey));
@@ -114,7 +114,7 @@ mixin template TStaticConfig() {
         if (!isSet(configuration.data(configData])) {
             return false;
         }
-        /** @Dstan-ignore-next-line * /
+        /** @Dstan-ignore-next-line */
         if (isSet(_registry)) {
             _registry.unload(configData);
         }
@@ -125,7 +125,7 @@ mixin template TStaticConfig() {
     
     /**
      * Returns an array containing the named configurations
-     * /
+     */
     static string[] configured() {
         configDataurations = _config.keys;
 
@@ -163,7 +163,7 @@ mixin template TStaticConfig() {
      * Note that querystring arguments are also parsed and set as values in the returned configuration.
      * Params:
      * string adsn The DSN string to convert to a configuration array
-     * /
+     */
     static IData[string] parseDsn(string adsn) {
         if (dsn.isEmpty) {
             return null;
@@ -209,7 +209,7 @@ REGEXP;
         exists = null;d
         /**
          * @var string|int myKey
-         * /
+         */
         foreach (myKey: v; parsed) {
             if (isInt(myKey)) {
                 parsed.removeKey(myKey);
@@ -242,7 +242,7 @@ REGEXP;
         if (isEmpty(parsed["className"])) {
              classNameMap = getDsnClassMap();
 
-            /** @var string ascheme * /
+            /** @var string ascheme */
             scheme = parsed["scheme"];
             parsed["className"] = scheme;
             if (isSet(classNameMap[scheme])) {
@@ -257,7 +257,7 @@ REGEXP;
      * Params:
      * STRINGAA map Additions/edits to the class map to apply.
      * @psalm-param array<string, class-string> map
-     * /
+     */
     static void setDsnClassMap(Json[string] map) {
         _dsnClassMap = map + _dsnClassMap;
     }

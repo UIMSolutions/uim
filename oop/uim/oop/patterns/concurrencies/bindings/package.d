@@ -13,7 +13,7 @@ module uim.oop.patterns.concurrencies.bindings;
 import uim.oop;
 @safe:
 
-/* /// Code sketch for one-way binding may look like as follows:
+/*/// Code sketch for one-way binding may look like as follows:
 bindMultipleOneWay(src_obj, src_prop, dst_objs[], dst_props[]) {
   for (i, j) in (dst_objs, dst_props) {
     bind_properties_one_way(src_obj, src_prop, i, j);

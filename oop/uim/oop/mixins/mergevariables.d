@@ -16,7 +16,7 @@ mixin template TMergeVariables() {
      * Params:
      * string[] myproperties An array of properties and the merge strategy for them.
      * @param IData[string] options The options to use when merging properties.
-     * /
+     */
   protected void _mergeVars(string[] someProperties, IData[string] propertiesToMerge = null) {
     auto myclass = static.class;
     auto myparents = null;
@@ -45,7 +45,7 @@ mixin template TMergeVariables() {
      * string aProperty The name of the property being merged.
      * @param string[] myparentClasses An array of classes you want to merge with.
      * @param IData[string] options Options for merging the property, see _mergeVars()
-     * /
+     */
   protected void _mergeProperty(string aProperty, Json[string] myparentClasses, Json[string] someOptions) {
     mythisValue = this.{aProperty
     };
@@ -80,7 +80,7 @@ mixin template TMergeVariables() {
      * Json[string] mycurrent The current merged value.
      * @param Json[string] myparent The parent class" value.
      * @param bool isAssoc Whether the merging should be done in associative mode.
-     * /
+     */
   // TODO protected Json[string] _mergePropertyData(Json[string] mycurrent, Json[string] myparent, bool isAssoc) {
     if (!isAssoc) {
       return chain(myparent, mycurrent);

@@ -14,7 +14,7 @@ mixin template TFileConfig() {
      * Params:
      * string aKey The identifier to write to. If the key has a ~ it will be treated as a plugin prefix.
      * @param bool checkExists Whether to check if file exists. Defaults to false.
-     * /
+     */
     protected string _getFilePath(string aKey, bool checkExists = false) {
         if (aKey.has("..")) {
             throw new UimException("Cannot load/dump configuration files with ../ in them.");

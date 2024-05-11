@@ -48,7 +48,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
      * Attempt to symlink plugin assets to app`s webroot. If symlinking fails it
      * fallbacks to copying the assets. For vendor namespaced plugin, parent folder
      * for vendor name are created if required.
-     * /
+     */
     int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         this.io = aConsoleIo;
         this.args = commandArguments;

@@ -79,7 +79,7 @@ class DTableHelper { // }: Helper {
      * Params:
      * Json[string] row The row to output.
      * @param ] optionsToPass Options to be passed.
-     * /
+     */
       protected void _render(arrayrow, int[] columnWidths, Json[string] optionsToPass = []) {
         if (count(row) == 0) {
           return;
@@ -114,7 +114,7 @@ class DTableHelper { // }: Helper {
      * in the array. The keys will not be used to align data.
      * Params:
      * Json[string] commandArguments The data to render out.
-     * /
+     */
       void output(Json[string] commandArguments) {
         if (commandArguments.isEmpty) {
           return;
@@ -143,7 +143,7 @@ class DTableHelper { // }: Helper {
      * Params:
      * string textForSurround The text to be surrounded
      * @param string astyle The style to be applied
-     * /
+     */
       protected string _addStyle(string textForSurround, string astyle) {
         return "<" ~ style ~ ">" ~ textForSurround ~ "</" ~ style ~ ">";
       } */

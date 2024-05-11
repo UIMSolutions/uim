@@ -48,7 +48,7 @@ class DPluginAssetsCopyCommand : DCommand {
     /**
      * Copying plugin assets to app`s webroot. For vendor namespaced plugin,
      * parent folder for vendor name are created if required.
-     * /
+     */
     int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         this.io = aConsoleIo;
         this.args = commandArguments;

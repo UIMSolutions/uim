@@ -18,7 +18,7 @@ mixin template TPluginAssets() {
      * Get list of plugins to process. Plugins without a webroot directory are skipped.
      * Params:
      *  If null all plugins will be processed.
-     * /
+     */
     protected Json[string] _list(string pluginName = null) {
         auto pluginsList = pluginName.isNull
             ? Plugin.loaded()
@@ -103,7 +103,7 @@ mixin template TPluginAssets() {
      * Remove folder/symlink.
      *
      * configData - Plugin config.
-     * /
+     */
     protected bool _remove(Json[string] configData = null) {
         if (configData("namespaced"] && !isDir(configData("destDir"])) {
             this.io.verbose(

@@ -67,7 +67,7 @@ class DProgressHelper { // } : Helper {
      * - `callback` The callback that will be called in a loop to advance the progress bar.
      * Params:
      * Json[string] commandArguments The arguments/options to use when outputing the progress bar.
-     * /
+     */
   void output(Json[string] commandArguments) {
     commandArguments ~= ["callback": Json(null)];
     if (isSet(commandArguments[0])) {
@@ -97,7 +97,7 @@ class DProgressHelper { // } : Helper {
      * Params:
      * Json[string] commandArguments The initialization data.
 
-     * /
+     */
   bool initialize(Json[string] commandArguments = []) {
     commandArguments += ["total": self: : DEFAULT_TOTAL, "width": self: : DEFAULT_WIDTH];
     _progress = 0;
@@ -109,7 +109,7 @@ class DProgressHelper { // } : Helper {
      * Increment the progress bar.
      * Params:
      * float|int num The amount of progress to advance by.
-     * /
+     */
   void increment(float | int num = 1) {
     _progress = min(max(0, _progress + num), _total);
   }

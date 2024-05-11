@@ -112,7 +112,7 @@ class DRoutesCommand : DCommand {
     } */
 }
 
-/* // Display all routes in an application
+/*// Display all routes in an application
   int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
             if (commandArguments.getOption("verbose")) {
                 ksort(route.defaults);

@@ -39,7 +39,7 @@ class DRuleInvoker {
      * callable rule The rule to be invoked.
      * @param string name The name of the rule. Used in error messages.
      * @param Json[string] optionData The options for the rule. See above.
-     * /
+     */
     this(callable rule, string ruleName, Json[string] ruleOptions = null) {
         _rule = rule;
         _ruleName = ruleName;
@@ -52,7 +52,7 @@ class DRuleInvoker {
      * Old options will be merged with the new ones.
      * Params:
      * Json[string] optionData The options to set.
-     * /
+     */
     void updateOptions(Json[string] additionalOptions = null) {
         _options = _options.update(additionalOptions);
     }
@@ -60,7 +60,7 @@ class DRuleInvoker {
     /**
      * Set the rule name.
      * Only truthy names will be set.
-     * /
+     */
     void name(string ruleName) {
         if (!ruleName.isEmpty) {
             _ruleName = ruleName;
@@ -74,7 +74,7 @@ class DRuleInvoker {
      *  should apply to.
      * @param Json[string] scope The rule`s scope/options.
      * returns Whether the rule passed.
-     * /
+     */
     bool __invoke(IDatasourceEntity entity, Json[string] scope) {
         rule = _rule;
         pass = rule(entity, this.options + scope);
@@ -96,7 +96,7 @@ class DRuleInvoker {
              anInvalidValue = entity.{errorField};
             entity.setInvalidField(errorField,  anInvalidValue);
         }
-        /** @Dstan-ignore-next-line * /
+        /** @Dstan-ignore-next-line */
         return pass == true;
     } */
 }

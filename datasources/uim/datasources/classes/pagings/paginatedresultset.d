@@ -19,7 +19,7 @@ class DPaginatedResultset { /* }: IteratorIterator : JsonSerializable, IPaginate
      * Params:
      * \Traversable<T> results Resultset instance.
      * @param Json[string] params Paging params.
-     * /
+     */
     this(Traversable results, Json[string] params) {
         super(results);
 
@@ -32,14 +32,14 @@ class DPaginatedResultset { /* }: IteratorIterator : JsonSerializable, IPaginate
     
     /**
      * Get paginated items.
-     * /
+     */
     Traversable items() {
         return _getInnerIterator();
     }
     
     /**
      * Provide data which should be serialized to Json.
-     * /
+     */
     Json[string] JsonSerialize() {
         return iterator_to_array(items());
     }

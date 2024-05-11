@@ -31,7 +31,7 @@ interface JsonsourceConnection { // : ILoggerAware
 /*
 
   // Get the configuration data used to create the connection
-  Json[string] configData();
+  Json[string] configuration.data();
 
   // Gets the current logger object 
   // ILogger getLogger();

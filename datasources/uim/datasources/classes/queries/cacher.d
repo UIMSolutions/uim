@@ -22,7 +22,7 @@ class DQueryCacher {
      * \Closure|string aKey The key or auto to generate a key.
      * @param \Psr\SimpleCache\ICache|string configData The cache config name or cache engine instance.
      * @throws \RuntimeException
-     * /
+     */
     this(IClosure|string aKey, ICache|string configData) {
        _key = aKey;
        configuration = configData;
@@ -32,7 +32,7 @@ class DQueryCacher {
      * Load the cached results from the cache or run the query.
      * Params:
      * object aQuery The query the cache read is for.
-     * /
+     */
     Json fetch(object aQuery) {
         aKey = _resolveKey(aQuery);
         storage = _resolveCacher();
@@ -48,7 +48,7 @@ class DQueryCacher {
      * Params:
      * object aQuery The query the cache read is for.
      * @param \Traversable results The result set to store.
-     * /
+     */
     bool store(object aQuery, Traversable results) {
         aKey = _resolveKey(aQuery);
         storage = _resolveCacher();
@@ -60,7 +60,7 @@ class DQueryCacher {
      * Get/generate the cache key.
      * Params:
      * object aQuery The query to generate a key for.
-     * /
+     */
     protected string _resolveKey(object aQuery) {
         if (isString(_key)) {
             return _key;

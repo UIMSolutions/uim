@@ -83,7 +83,7 @@ class DRulesChecker {
      * Constructor. Takes the options to be passed to all rules.
      * Params:
      * Json[string] optionData The options to pass to every rule
-     * /
+     */
     this(Json[string] optionData = null) {
        _options = options;
        _useI18n = function_exists("\UIM\I18n\__d");
@@ -106,7 +106,7 @@ class DRulesChecker {
      * @param string[] name The alias for a rule, or an array of options.
      * @param Json[string] optionData List of extra options to pass to the rule callable as
      * second argument.
-     * /
+     */
     void add(callable rule, string[] name = null, Json[string] options = null) {
        _rules ~= _addError(rule, name, options);
     }
@@ -127,7 +127,7 @@ class DRulesChecker {
      * @param string[] name The alias for a rule or an array of options.
      * @param Json[string] optionData List of extra options to pass to the rule callable as
      * second argument.
-     * /
+     */
     void addCreate(callable rule, string[] name = null, Json[string] optionData = null) {
        _createRules ~= _addError(rule, name, options);
     }
@@ -148,7 +148,7 @@ class DRulesChecker {
      * @param string[] name The alias for a rule, or an array of options.
      * @param Json[string] optionData List of extra options to pass to the rule callable as
      * second argument.
-     * /
+     */
     auto addUpdate(callable rule, string[] name = null, Json[string] optionData = null) {
        _updateRules ~= _addError(rule, name, options);
 
@@ -171,7 +171,7 @@ class DRulesChecker {
      * @param string[] name The alias for a rule, or an array of options.
      * @param Json[string] optionData List of extra options to pass to the rule callable as
      * second argument.
-     * /
+     */
     auto addremove(callable rule, string[] name = null, Json[string] optionData = null) {
        _deleteRules ~= _addError(rule, name, options);
 
@@ -187,7 +187,7 @@ class DRulesChecker {
      * @param string amode Either 'create, "update' or 'delete'.
      * @param Json[string] optionData Extra options to pass to checker functions.
      * @throws \InvalidArgumentException if an invalid mode is passed.
-     * /
+     */
     bool check(IDatasourceEntity entity, string amode, Json[string] optionData = null) {
         if (mode == self.CREATE) {
             return _checkCreate(entity, options);
@@ -207,7 +207,7 @@ class DRulesChecker {
      * Params:
      * \UIM\Datasource\IDatasourceEntity entity The entity to check for validity.
      * @param Json[string] optionData Extra options to pass to checker functions.
-     * /
+     */
    bool checkCreate(IDatasourceEntity entity, Json[string] optionData = null) {
         return _checkRules(entity, options, array_merge(_rules, _createRules));
     }
@@ -218,7 +218,7 @@ class DRulesChecker {
      * Params:
      * \UIM\Datasource\IDatasourceEntity entity The entity to check for validity.
      * @param Json[string] optionData Extra options to pass to checker functions.
-     * /
+     */
    bool checkUpdate(IDatasourceEntity entity, Json[string] optionData = null) {
         return _checkRules(entity, options, chain(_rules, _updateRules));
     }
@@ -229,7 +229,7 @@ class DRulesChecker {
      * Params:
      * \UIM\Datasource\IDatasourceEntity entity The entity to check for validity.
      * @param Json[string] optionData Extra options to pass to checker functions.
-     * /
+     */
     bool checkremove(IDatasourceEntity entity, Json[string] optionData = null) {
         return _checkRules(entity, options, _deleteRules);
     }
@@ -241,7 +241,7 @@ class DRulesChecker {
      * \UIM\Datasource\IDatasourceEntity entity The entity to check for validity.
      * @param Json[string] optionData Extra options to pass to checker functions.
      * @param array<\UIM\Datasource\RuleInvoker> rules The list of rules that must be checked.
-     * /
+     */
     protected bool _checkRules(IDatasourceEntity entity, Json[string] optionData = null, Json[string] rules = []) {
         success = true;
         auto updatedOptions = options.update_options;
@@ -257,7 +257,7 @@ class DRulesChecker {
      * \UIM\Datasource\RuleInvoker|callable rule The rule to decorate
      * @param string[] name The alias for a rule or an array of options
      * @param Json[string] optionData The options containing the error message and field.
-     * /
+     */
     protected DRuleInvoker _addError(callable rule, string[] name = null, Json[string] optionData = null) {
         if (isArray(name)) {
             options = name;

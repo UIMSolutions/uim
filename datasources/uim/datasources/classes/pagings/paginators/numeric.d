@@ -47,7 +47,7 @@ class DNumericPaginator : IPaginator {
      *   over pagination, be careful with what you permit.
      *
      * @var Json[string]
-     * /
+     */
     protected configuration.updateDefaults([
         "page": 1,
         "limit": 20,
@@ -59,7 +59,7 @@ class DNumericPaginator : IPaginator {
      * Paging params after pagination operation is done.
      *
      * @var array<string, array>
-     * /
+     */
     protected _pagingParams = null;
 
     /**
@@ -158,7 +158,7 @@ class DNumericPaginator : IPaginator {
      * for pagination data. An example URL paginating both results would be:
      *
      * ```
-     * /dashboard?articles[page]=1&tags[page]=2
+     */dashboard?articles[page]=1&tags[page]=2
      * ```
      *
      * @param uim.Datasource\IRepository|uim.Datasource\IQuery object The repository or query
@@ -167,7 +167,7 @@ class DNumericPaginator : IPaginator {
      * @param Json[string] settings The settings/configuration used for pagination.
      * @return uim.Datasource\IResultset Query results
      * @throws uim.Datasource\Paging\exceptions.PageOutOfBoundsException
-     * /
+     */
     function paginate(object object, Json[string] params = null, Json[string] settings = null): IResultset
     {
         query = null;
@@ -207,7 +207,7 @@ class DNumericPaginator : IPaginator {
      * @param uim.Datasource\IQuery|null query Query Instance.
      * @param Json[string] data Pagination data.
      * @return uim.Datasource\IQuery
-     * /
+     */
     protected function getQuery(IRepository object, ?IQuery query, Json[string] data): IQuery
     {
         if (query == null) {
@@ -225,7 +225,7 @@ class DNumericPaginator : IPaginator {
      * @param uim.Datasource\IQuery query Query instance.
      * @param Json[string] data Pagination data.
      * @return int|null
-     * /
+     */
     protected Nullable!int getCount(IQuery query, Json[string] data) {
         return query.count();
     }
@@ -237,7 +237,7 @@ class DNumericPaginator : IPaginator {
      * @param Json[string] params Request params
      * @param Json[string] settings The settings/configuration used for pagination.
      * @return array Array with keys "defaults", "options" and "finder"
-     * /
+     */
     // TODO protected Json[string] extractData(IRepository object, Json[string] params, Json[string] settings) {
         alias = object.aliasName();
         defaults = getDefaults(alias, settings);
@@ -258,7 +258,7 @@ class DNumericPaginator : IPaginator {
      * @param Json[string] data Paginator data containing keys "options",
      *   "count", "defaults", "finder", "numResults".
      * @return Json[string] Paging params.
-     * /
+     */
     // TODO protected Json[string] buildParams(Json[string] data) {
         limit = data["options"]["limit"];
 
@@ -290,7 +290,7 @@ class DNumericPaginator : IPaginator {
      * @param Json[string] params Paging params.
      * @param Json[string] data Paginator data.
      * @return Json[string] Updated params.
-     * /
+     */
     // TODO protected Json[string] addPageCountParams(Json[string] params, Json[string] data) {
         page = params["page"];
         pageCount = 0;
@@ -314,7 +314,7 @@ class DNumericPaginator : IPaginator {
      * @param Json[string] params Paging params.
      * @param Json[string] data Paginator data.
      * @return Json[string] Updated params.
-     * /
+     */
     // TODO protected Json[string] addStartEndParams(Json[string] params, Json[string] data) {
         start = end = 0;
 
@@ -335,7 +335,7 @@ class DNumericPaginator : IPaginator {
      * @param Json[string] params Paginator params.
      * @param Json[string] data Paging data.
      * @return Json[string] Updated params.
-     * /
+     */
     // TODO protected Json[string] addPrevNextParams(Json[string] params, Json[string] data) {
         params["prevPage"] = params["page"] > 1;
         if (params["count"] == null) {
@@ -353,7 +353,7 @@ class DNumericPaginator : IPaginator {
      * @param Json[string] params Paginator params.
      * @param Json[string] data Paging data.
      * @return Json[string] Updated params.
-     * /
+     */
     // TODO protected Json[string] addSortingParams(Json[string] params, Json[string] data) {
         defaults = data["defaults"];
         order = (array)data["options"]["order"];
@@ -381,7 +381,7 @@ class DNumericPaginator : IPaginator {
      * @param Json[string] options the pagination options.
      * @return array An array containing in the first position the finder name
      *   and in the second the options to be passed to it.
-     * /
+     */
     // TODO protected Json[string] _extractFinder(Json[string] optionData) {
         type = !options.isEmpty("finder"]) ? options["finder"] : "all";
         options.remove("finder"], options["maxLimit"]);
@@ -398,7 +398,7 @@ class DNumericPaginator : IPaginator {
      * Get paging params after pagination operation.
      *
      * @return array<string, array>
-     * /
+     */
     Json[string] getPagingParams() {
         return _pagingParams;
     }
@@ -406,7 +406,7 @@ class DNumericPaginator : IPaginator {
     /**
      * Shim method for reading the deprecated whitelist or allowedParameters options
      *
-     * /
+     */
     protected string[] getAllowedParameters() {
         allowed = this.configuration.get("allowedParameters");
         if (!allowed) {
@@ -427,7 +427,7 @@ class DNumericPaginator : IPaginator {
      *
      * @param Json[string] myConfiguration The configuration data to coalesce and emit warnings on.
      * @return string[]|null
-     * /
+     */
     protected string[] getSortableFields(Json myConfiguration): ?array
     {
         allowed = configuration.get("sortableFields"] ?? null;
@@ -457,7 +457,7 @@ class DNumericPaginator : IPaginator {
      * @param Json[string] params Request params.
      * @param Json[string] settings The settings to merge with the request data.
      * @return Json[string] Array of merged options.
-     * /
+     */
     Json[string] mergeOptions(Json[string] params, Json[string] settings) {
         if (!settings.isEmpty("scope"))) {
             scope = settings["scope"];
@@ -478,7 +478,7 @@ class DNumericPaginator : IPaginator {
      * @param Json[string] settings The settings which is used for combining.
      * @return Json[string] An array of pagination settings for a model,
      *   or the general settings.
-     * /
+     */
     Json[string] getDefaults(string aliasName, Json[string] settings) {
         if (isset(settings[alias])) {
             settings = settings[alias];
@@ -525,7 +525,7 @@ class DNumericPaginator : IPaginator {
      * @param Json[string] options The pagination options being used for this request.
      * @return Json[string] An array of options with sort + direction removed and
      *   replaced with order if possible.
-     * /
+     */
     Json[string] validateSort(IRepository object, Json[string] optionData) {
         if (options.isSet("sort")) {
             auto direction = null;
@@ -588,7 +588,7 @@ class DNumericPaginator : IPaginator {
      * @param Json[string] fields Current fields
      * @param string model Current model alias
      * @return Json[string] fields Unaliased fields where applicable
-     * /
+     */
     // TODO protected Json[string] _removeAliases(string[] fieldNames, string model) {
         result = null;
         foreach (fields as field: sort) {
@@ -617,7 +617,7 @@ class DNumericPaginator : IPaginator {
      * @param Json[string] order DOrder array.
      * @param bool allowed Whether the field was allowed.
      * @return array Final order array.
-     * /
+     */
     // TODO protected Json[string] _prefix(IRepository object, Json[string] order, bool allowed = false) {
         tableAlias = object.aliasName();
         tableOrder = null;
@@ -655,7 +655,7 @@ class DNumericPaginator : IPaginator {
      *
      * @param Json[string] options An array of options with a limit key to be checked.
      * @return Json[string] An array of options for pagination.
-     * /
+     */
     Json[string] checkLimit(Json[string] optionData) {
         options["limit"] = (int)options["limit"];
         if (options["limit"] < 1) {

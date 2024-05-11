@@ -13,13 +13,13 @@ interface IPaginator {
      * Json target Anything that needs to be paginated.
      * @param Json[string] params Request params.
      * @param Json[string] settings The settings/configuration used for pagination.
-     * /
+     */
 IResultset paginate(object  object, Json[string] myParams = null, 
     Json[string] settings = null);
 
     /**
      * Get paging params after pagination operation.
      * @return array
-     * /
+     */
     Json[string] getPagingParams(); */
 }

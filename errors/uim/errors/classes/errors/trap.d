@@ -60,7 +60,7 @@ class DErrorTrap {
         if (configData !isNull) {
             return configData;
         }
-        /** @var class-string<\UIM\Error\IErrorRenderer> * /
+        /** @var class-string<\UIM\Error\IErrorRenderer> */
     return UIM_SAPI == "cli" ? ConsoleErrorRenderer.classname : HtmlErrorRenderer.classname;
 }
 
@@ -72,7 +72,7 @@ class DErrorTrap {
      *
      * This method will also set the global error level
      * via error_reporting().
-     * /
+     */
     void register() {
         auto level = configuration.getInteger("errorLevel", -1);
         error_reporting(level);
@@ -92,7 +92,7 @@ class DErrorTrap {
      * @param string adescription Error description
      * @param string file File on which error occurred
      * @param int line Line that triggered the error
-     * /
+     */
     bool handleError(
         int errorCode,
         string adescription,
@@ -142,7 +142,7 @@ class DErrorTrap {
      * Logging helper method.
      * Params:
      * \UIM\Error\UimError error The error object to log.
-     * /
+     */
     protected void logError(UimError error) {
         if (!configuration.get("log")) {
             return;
@@ -152,7 +152,7 @@ class DErrorTrap {
     
     /**
      * Get an instance of the renderer.
-     * /
+     */
     IErrorRenderer renderer() {
         string className = _configData.get("errorRenderer", this.chooseErrorRenderer());
 

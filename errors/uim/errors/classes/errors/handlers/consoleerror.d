@@ -20,7 +20,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
      * Constructor
      *
      * @param Json[string] aConfig Config options for the error handler.
-     * /
+     */
     this(Json aConfig = null) {
         super();
 
@@ -42,7 +42,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
      * @param \Throwable exception Exception instance.
      * @return void
      * @throws \Exception When renderer class not found
-     * /
+     */
     void handleException(Throwable exception) {
         _displayException(exception);
         this.logException(exception);
@@ -58,7 +58,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
      * Prints an exception to stderr.
      *
      * @param \Throwable exception The exception to handle
-     * /
+     */
     protected void _displayException(Throwable exception) {
         errorName = "Exception:";
         if (cast(DFatalErrorException)exception) {
@@ -78,7 +78,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
      *
      * @param Json[string] error An array of error data.
      * @param bool shouldDebug Whether the app is in debug mode.
-     * /
+     */
     protected void _displayError(Json[string] error, bool shouldDebug) {
         string message = "%s\nIn [%s, line %s]".format(
             error["description"], error["file"], error["line"]
@@ -94,7 +94,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
      * Stop the execution and set the exit code for the process.
      *
      * @param int code The exit code.
-     * /
+     */
     protected void _stop(int code) {
         exit(code);
     } */

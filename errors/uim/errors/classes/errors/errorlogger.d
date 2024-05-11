@@ -65,7 +65,7 @@ class DErrorLogger : IErrorLogger {
      * \Throwable exception The exception to log a message for.
      * @param bool  isPrevious False for original exception, true for previous
      * @param bool  anIncludeTrace Whether or not to include a stack trace.
-     * /
+     */
     protected string getMessage(Throwable exception, bool  isPrevious = false, bool  anIncludeTrace = false) {
         string message = "%s[%s] %s in %s on line %s"
             .format(
@@ -106,7 +106,7 @@ class DErrorLogger : IErrorLogger {
      * Get the request context for an error/exception trace.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request to read from.
-     * /
+     */
     string getRequestContext(IServerRequest serverRequest) {
         string message = "\nRequest URL: " ~ request.getRequestTarget();
 

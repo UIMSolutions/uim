@@ -20,7 +20,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
     
     /**
      * Check if the current environment is not a CLI context
-     * /
+     */
     static bool environmentMatches() {
         if (UIM_SAPI == "cli" || UIM_SAPI == "Ddbg") {
             return false;
@@ -48,7 +48,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * Generate the CSS and Javascript for dumps
      *
      * Only output once per process as we don`t need it more than once.
-     * /
+     */
     protected string dumpHeader() {
         ob_start();
         include __DIR__~ DIRECTORY_SEPARATOR ~ "dumpHeader.html";
@@ -60,7 +60,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * Convert a tree of IErrorNode objects into HTML
      * Params:
      * \UIM\Error\Debug\IErrorNode node The node tree to dump.
-     * /
+     */
     string dump(IErrorNode nodeToDump) {
         html = this.export(node, 0);
         head = "";
@@ -76,7 +76,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * Params:
      * \UIM\Error\Debug\IErrorNode var The node tree to dump.
      * @param int  anIndent The current indentation level.
-     * /
+     */
     protected string export(IErrorNode var, int  anIndent) {
         if (cast(DScalarNode)var) {
             return match (var.getType()) {
@@ -105,7 +105,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * Params:
      * \UIM\Error\Debug\ArrayNode var The array to export.
      * @param int  anIndent The current indentation level.
-     * /
+     */
     protected string exportArray(ArrayNode tvar, int  anIndent) {
         open = "<span class="uim-debug-array">' .
             this.style("punct", "[") .
@@ -135,7 +135,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * Params:
      * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\ReferenceNode var Object to convert.
      * @param int  anIndent The current indentation level.
-     * /
+     */
     protected string exportObject(ClassNode|ReferenceNode var, int  anIndent) {
         objectId = "uim-db-object-{this.id}-{var.getId()}";
         result = "<span class="uim-debug-object" id="%s">".format(objectId);
@@ -199,7 +199,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * Style text with HTML class names
      * Params:
      * @param string atext The text to style.
-     * /
+     */
     protected string style(string styleToUse, string atext) {
         return "<span class="uim-debug-%s">%s</span>"
             .format(styleToUse, htmlAttribEscape(text));

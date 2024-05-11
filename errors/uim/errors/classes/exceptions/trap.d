@@ -73,7 +73,7 @@ class DExceptionTrap {
      * - `stderr` Used in console environments so that renderers have access to the current console output stream.
      *
      * @var Json[string]
-     * /
+     */
     configuration.updateDefaults([
         "exceptionRenderer": Json(null),
         "logger": ErrorLogger.class,
@@ -96,7 +96,7 @@ class DExceptionTrap {
      * Callbacks are invoked in the order they are attached.
      *
      * @var array<\Closure>
-     * /
+     */
     protected callbacks = null;
 
     /**
@@ -106,19 +106,19 @@ class DExceptionTrap {
      * exception handler is registered.
      *
      * @var uim.errors.ExceptionTrap|null
-     * /
+     */
     protected static registeredTrap = null;
 
     /**
      * Track if this trap was removed from the global handler.
-     * /
+     */
     protected bool disabled = false;
 
     /**
      * Constructor
      *
      * @param Json[string] options An options array. See _defaultConfig.
-     * /
+     */
     this(Json[string] optionData = null) {
         configuration.update(options);
     }
@@ -129,11 +129,11 @@ class DExceptionTrap {
      * @param \Throwable exception Exception to render
      * @param IServerRequest|null request The request if possible.
      * @return uim.errors.IExceptionRenderer
-     * /
+     */
     function renderer(Throwable exception, request = null) {
         request = request ?? Router.getRequest();
 
-        /** @var class-string|callable aClassName * /
+        /** @var class-string|callable aClassName */
         aClassName = getConfig("exceptionRenderer");
         deprecatedConfig = (aClassName == ExceptionRenderer.class && D_SAPI == "cli");
         if (deprecatedConfig) {
@@ -152,7 +152,7 @@ class DExceptionTrap {
         }
 
         if ((aClassName.isString) {
-            /** @psalm-suppress ArgumentTypeCoercion * /
+            /** @psalm-suppress ArgumentTypeCoercion */
             if (!(method_exists(aClassName, "render") && method_exists(aClassName, "write"))) {
                 throw new DInvalidArgumentException(
                     "Cannot use {aClassName} as an `exceptionRenderer`~ " ~
@@ -160,7 +160,7 @@ class DExceptionTrap {
                 );
             }
 
-            /** @var class-string<uim.errors.IExceptionRenderer> aClassName * /
+            /** @var class-string<uim.errors.IExceptionRenderer> aClassName */
             return new aClassName(exception, request, _config);
         }
 
@@ -171,9 +171,9 @@ class DExceptionTrap {
      * Choose an exception renderer based on config or the SAPI
      *
      * @return class-string<uim.errors.IExceptionRenderer>
-     * /
+     */
     protected string chooseRenderer() {
-        /** @var class-string<uim.errors.IExceptionRenderer> * /
+        /** @var class-string<uim.errors.IExceptionRenderer> */
         return D_SAPI == "cli" ? ConsoleExceptionRenderer.class : ExceptionRenderer.class;
     }
 
@@ -181,10 +181,10 @@ class DExceptionTrap {
      * Get an instance of the logger.
      *
      * @return uim.errors.IErrorLogger
-     * /
+     */
     function logger(): IErrorLogger
     {
-        /** @var class-string<uim.errors.IErrorLogger> aClassName * /
+        /** @var class-string<uim.errors.IErrorLogger> aClassName */
         aClassName = getConfig("logger", _defaultConfig["logger"]);
 
         return new aClassName(_config);
@@ -195,7 +195,7 @@ class DExceptionTrap {
      *
      * This will replace the existing exception handler, and the
      * previous exception handler will be discarded.
-     * /
+     */
     void register() {
         set_exception_handler([this, "handleException"]);
         register_shutdown_function([this, "handleShutdown"]);
@@ -207,7 +207,7 @@ class DExceptionTrap {
      *
      * If this instance is not currently the registered singleton
      * nothing happens.
-     * /
+     */
     void unregister() {
         if (registeredTrap == this) {
             this.disabled = true;
@@ -223,7 +223,7 @@ class DExceptionTrap {
      * could be a stale value.
      *
      * @return uim.errors.ExceptionTrap|null The global instance or null.
-     * /
+     */
     static function instance(): ?self
     {
         return registeredTrap;
@@ -238,7 +238,7 @@ class DExceptionTrap {
      * @param \Throwable exception Exception instance.
      * @return void
      * @throws \Exception When renderer class not found
-     * /
+     */
     void handleException(Throwable exception) {
         if (this.disabled) {
             return;
@@ -263,7 +263,7 @@ class DExceptionTrap {
      * Shutdown handler
      *
      * Convert fatal errors into exceptions that we can render.
-     * /
+     */
     void handleShutdown() {
         if (this.disabled) {
             return;
@@ -297,7 +297,7 @@ class DExceptionTrap {
      * in kilobytes
      *
      * @param int additionalKb Number in kilobytes
-     * /
+     */
     void increaseMemoryLimit(int additionalKb) {
         auto limit = ini_get("memory_limit");
         if (limit == false || limit == "" || limit == "-1") {
@@ -327,7 +327,7 @@ class DExceptionTrap {
      * @param string description Error description
      * @param string file File on which error occurred
      * @param int line Line that triggered the error
-     * /
+     */
     void handleFatalError(int code, string description, string file, int line) {
         this.handleException(new DFatalErrorException("Fatal Error: " ~ description, 500, file, line));
     }
@@ -343,7 +343,7 @@ class DExceptionTrap {
      *
      * @param \Throwable exception The exception to log
      * @param IServerRequest|null request The optional request
-     * /
+     */
     void logException(Throwable exception, ?IServerRequest request = null) {
         shouldLog = _config["log"];
         if (shouldLog) {
@@ -377,7 +377,7 @@ class DExceptionTrap {
      * and hopefully render an error page.
      *
      * @param \Throwable exception Exception to log
-     * /
+     */
     void logInternalError(Throwable exception) {
         message = "[%s] %s (%s:%s)".format( // Keeping same message format
             get_class(exception),

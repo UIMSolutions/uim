@@ -32,7 +32,7 @@ class DConsoleFormatter : IErrorFormatter {
 
     /**
      * Check if the current environment supports ANSI output.
-     * /
+     */
     static bool environmentMatches() {
         if (UIM_SAPI != "cli") {
             return false;
@@ -74,7 +74,7 @@ class DConsoleFormatter : IErrorFormatter {
      * Convert a tree of IErrorNode objects into a plain text string.
      * Params:
      * \UIM\Error\Debug\IErrorNode node The node tree to dump.
-     * /
+     */
     string dump(IErrorNode nodeToDump) {
         size_t myIndent = 0;
 
@@ -86,7 +86,7 @@ class DConsoleFormatter : IErrorFormatter {
      * Params:
      * \UIM\Error\Debug\IErrorNode var The node tree to dump.
      * @param int  anIndent The current indentation level.
-     * /
+     */
     protected string export(IErrorNode var, int  anIndent) {
         if (cast(DScalarNode)var) {
             return match (var.getType()) {
@@ -115,7 +115,7 @@ class DConsoleFormatter : IErrorFormatter {
      * Params:
      * \UIM\Error\Debug\ArrayNode var The array to export.
      * @param int  anIndent The current indentation level.
-     * /
+     */
     protected string exportArray(ArrayNode arrayToExport, int  anIndent) {
          result = this.style("punct", "[");
         break = "\n" ~ str_repeat("  ",  anIndent);
@@ -140,7 +140,7 @@ class DConsoleFormatter : IErrorFormatter {
      * Params:
      * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\ReferenceNode var Object to convert.
      * @param int  anIndent Current indentation level.
-     * /
+     */
     protected string exportObject(ClassNode|ReferenceNode var, int  anIndent) {
         props = null;
 
@@ -181,7 +181,7 @@ class DConsoleFormatter : IErrorFormatter {
     /**
      * Style text with ANSI escape codes.
      * @param string atext The text to style.
-     * /
+     */
     protected string style(string styleToUse, string atext) {
         auto code = this.styles[styleToUse];
 

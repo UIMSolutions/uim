@@ -185,7 +185,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       "versionDisplay", "versionMode", "versionOn", "versionBy",
       "versionDescription"
     ] /* ~
-       /* attributes.keys~ * /
+       /* attributes.keys~ */
       values.keys */;
   }
 

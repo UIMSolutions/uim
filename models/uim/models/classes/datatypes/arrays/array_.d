@@ -139,7 +139,7 @@ class DArrayData : DData {
   }
   ///
   unittest {
-    /* assert(!hasKey("abc")); * /
+    /* assert(!hasKey("abc")); */
   }
 
   void opOpAssign(string op : "~")(IData value) {

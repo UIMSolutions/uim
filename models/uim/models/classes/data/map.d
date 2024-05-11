@@ -30,7 +30,7 @@ import uim.models;
 
 /*   void opIndexAssign(Json newValue, string key) {
     _items[key] = JsonValue(newValue);
-  } * /
+  } */
 
   void opIndexAssign(DData newValue, string key) {
     _items[key] = newValue;

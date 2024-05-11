@@ -58,7 +58,7 @@ class DSocket {
 
     /**
      * Contains all the encryption methods available
-     * /
+     */
     protected int[string] _encryptMethods = [
         "sslv23_client": STREAM_CRYPTO_METHOD_SSLv23_CLIENT,
         "tls_client": STREAM_CRYPTO_METHOD_TLS_CLIENT,
@@ -75,12 +75,12 @@ class DSocket {
     /**
      * Used to capture connection warnings which can happen when there are
      * SSL errors for example.
-     * /
+     */
     protected string[] _connectionErrors = null;
 
     /**
      * Connect the socket to the given host and port.
-     * /
+     */
     bool connect() {
         if (this.connection) {
             this.disconnect();
@@ -104,7 +104,7 @@ class DSocket {
         /**
          * @psalm-suppress InvalidArgument
          * @Dstan-ignore-next-line
-         * /
+         */
         set_error_handler(_connectionErrorHandler(...));
         remoteSocketTarget = scheme ~ configuration.get("host"];
         port = to!int(configuration.get("port"]);
@@ -144,7 +144,7 @@ class DSocket {
 
     /**
      * Check the connection status after calling `connect()`.
-     * /
+     */
     bool isConnected() {
         return _connected;
     }
@@ -158,7 +158,7 @@ class DSocket {
      * @param int timeout timeout
      * @param int connectAs flags
      * @param resource context context
-     * /
+     */
     protected resource | null _getStreamSocketClient(
         string aremoteSocketTarget,
         int & errNum,
@@ -225,7 +225,7 @@ class DSocket {
      * Params:
      * int code Code number.
      * @param string amessage Message.
-     * /
+     */
         protected void _connectionErrorHandler(intcode, string amessage) {
             _connectionErrors ~= message;
         }
@@ -238,7 +238,7 @@ class DSocket {
 
         >>>  >>>  > 74 a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf /**
      * Get the connection context.
-     * /
+     */
         Json[string] context() {
             if (!this.connection) {
                 return null;
@@ -256,7 +256,7 @@ class DSocket {
 
     /**
      * Get the IP address of the current connection.
-     * /
+     */
     string address() {
         if (Validation.ip(configuration.get("host"])) {
             return configuration.get("host"];
@@ -266,7 +266,7 @@ class DSocket {
 
     /**
      * Get all IP addresses associated with the current connection.
-     * /
+     */
     Json[string] addresses() {
         if (Validation.ip(configuration.get("host"])) {
             return [configuration.get("host"]];
@@ -276,7 +276,7 @@ class DSocket {
 
     /**
      * Get the last error as a string.
-     * /
+     */
     string lastError() {
         if (isEmpty(this.lastError)) {
             return null;
@@ -289,7 +289,7 @@ class DSocket {
      * Params:
      * int errNum Error code
      * @param string aerrStr Error string
-     * /
+     */
     void setLastError(interrNum, string aerrStr) {
         this.lastError = ["num": errNum, "str": errStr];
     }
@@ -298,7 +298,7 @@ class DSocket {
      * Write data to the socket.
      * Params:
      * string adata The data to write to the socket.
-     * /
+     */
     int write(string adata) {
         if (!this.connected && !this.connect()) {
             return 0;
@@ -322,7 +322,7 @@ class DSocket {
      * established.
      * Params:
      * size_t aLength Optional buffer length to read; defaults to 1024
-     * /
+     */
     string read(size_t aLength = 1024) {
         if (length < 0) {
             throw new DInvalidArgumentException("Length must be greater than `0`");
@@ -348,7 +348,7 @@ class DSocket {
     <<  <<  <<  < HEAD /**
      * Disconnect the socket from the current connection.
      *
-         * /
+         */
     == == == =
 
          // Disconnect the socket from the current connection
@@ -358,7 +358,7 @@ class DSocket {
 
                 return true;
             }
-            /** @psalm-suppress InvalidPropertyAssignmentValue * /
+            /** @psalm-suppress InvalidPropertyAssignmentValue */
             this.connected = !fclose(this.connection);
 
             if (!this.connected) {
@@ -375,7 +375,7 @@ class DSocket {
 
         >>>  >>>  > 74 a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf /**
      * Destructor, used to disconnect from current connection.
-     * /
+     */
         auto __destruct() {
             this.disconnect();
         }
@@ -390,7 +390,7 @@ class DSocket {
      * Resets the state of this Socket instance to it"s initial state (before Object.__construct got executed)
      * Params:
      * array|null state Array with key and values to reset
-     * /
+     */
         void reset(arraystate = null) {
             if (state.isEmpty) {
                 static anInitialState = null;
@@ -419,7 +419,7 @@ class DSocket {
      * string atype can be one of "ssl2", "ssl3", "ssl23" or "tls"
      * @param string aclientOrServer can be one of "client", "server". Default is "client"
      * @param bool enable enable or disable encryption. Default is true (enable)
-     * /
+     */
         void enableCrypto(string atype, string aclientOrServer = "client", boolenable = true) {
             if (!array_key_exists(type ~ "_" ~ clientOrServer, _encryptMethods)) {
                 throw new DInvalidArgumentException("Invalid encryption scheme chosen");
@@ -453,7 +453,7 @@ class DSocket {
     
     <<  <<  <<  < HEAD /**
      * Check the encryption status after calling `enableCrypto()`.
-     * /
+     */
     == == == =
 
          // Check the encryption status after calling `enableCrypto()`.

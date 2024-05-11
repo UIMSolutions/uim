@@ -189,7 +189,7 @@ class DIntegerData : DScalarData {
     data = IntegerData(2);
     data.sub(2);
     data.sub(2);
-    assert(data == -2); * /
+    assert(data == -2); */
   }
 
   void sub(DIntegerData opValue) {
@@ -200,7 +200,7 @@ class DIntegerData : DScalarData {
     /* auto data1 = IntegerData(2);
     auto data2 = IntegerData(2);
     data1.sub(data2);
-    assert(data1 == 0); * /
+    assert(data1 == 0); */
   }
 
   void mul(long opValue) {
@@ -210,7 +210,7 @@ class DIntegerData : DScalarData {
   unittest {
     /* auto data = IntegerData(2);
     data.mul(2);
-    assert(data == 4); * /
+    assert(data == 4); */
   }
 
   void mul(DIntegerData opValue) {
@@ -221,7 +221,7 @@ class DIntegerData : DScalarData {
     /* auto data1 = IntegerData(2);
     auto data2 = IntegerData(2);
     data1.mul(data2);
-    assert(data1 == 4); * /
+    assert(data1 == 4); */
   }
 
   void div(long opValue) {
@@ -231,7 +231,7 @@ class DIntegerData : DScalarData {
   unittest {
     /* auto data = IntegerData(2);
     data.div(2);
-    assert(data == 1); * /
+    assert(data == 1); */
   }
 
   void div(DIntegerData opValue) {
@@ -242,7 +242,7 @@ class DIntegerData : DScalarData {
     /* auto data1 = IntegerData(2);
     auto data2 = IntegerData(2);
     data1.div(data2);
-    assert(data1 == 1); * /
+    assert(data1 == 1); */
   }
 
   DIntegerData opBinary(string op)(long opValue) {
@@ -266,7 +266,7 @@ class DIntegerData : DScalarData {
     /* assert((IntegerData(2) + 2) == 4);
     assert((IntegerData(2) - 2) == 0);
     assert((IntegerData(2) * 2) == 4);
-    assert((IntegerData(2) / 2) == 1); * /
+    assert((IntegerData(2) / 2) == 1); */
   }
 
   DIntegerData opBinary(string op)(DIntegerData opValue) {
@@ -291,14 +291,14 @@ class DIntegerData : DScalarData {
     /* assert((IntegerData(2) + IntegerData(2)) == 4);
     assert((IntegerData(2) - IntegerData(2)) == 0);
     assert((IntegerData(2) * IntegerData(2)) == 4);
-    assert((IntegerData(2) / IntegerData(2)) == 1); * /
+    assert((IntegerData(2) / IntegerData(2)) == 1); */
   }
 
   unittest {
     /* assert((IntegerData(2) + IntegerData(2)) == 4);
     assert((IntegerData(2) - IntegerData(2)) == 0);
     assert((IntegerData(2) * IntegerData(2)) == 4);
-    assert((IntegerData(2) / IntegerData(2)) == 1); * /
+    assert((IntegerData(2) / IntegerData(2)) == 1); */
   }
 
   override int toInteger() {

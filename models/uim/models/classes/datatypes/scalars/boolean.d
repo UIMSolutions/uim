@@ -43,7 +43,7 @@ class DBooleanData : DScalarData {
 
     data = false.toJson;
     data.value = myValue;
-    assert(data.value == myValue); * /
+    assert(data.value == myValue); */
   }
 
   // #region set
@@ -158,7 +158,7 @@ class DBooleanData : DScalarData {
       dataA = true.toJson;
       dataB = false.toJson;
       assert(dataA > dataB);
-      assert(dataB < dataA);* /
+      assert(dataB < dataA);*/
   }
   // #endregion opCmp
 
@@ -189,7 +189,7 @@ version (test_uim_models) {
     /* assert(BooleanData.value(true) == true);
     assert(BooleanData.set(true.toJson) == true);
     assert(BooleanData.value(false) != true);
-    assert(BooleanData.set(false.toJson) != true); * /
+    assert(BooleanData.set(false.toJson) != true); */
 
     auto BooleanData = BooleanData;
 
@@ -218,7 +218,7 @@ version (test_uim_models) {
     BooleanData.value(false);
     assert(!BooleanData.fromString(BooleanData.toString).value());
     assert(!BooleanData.fromJson(BooleanData.toJson).value());
-  } * /
+  } */
 }
 
 /* booleanean

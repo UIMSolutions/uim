@@ -24,7 +24,7 @@ class DMapData : DData {
       _items[key].set(value ? "true" : "false");
     } else {
       _items[key] = new DBoolData(value);
-    } * /
+    } */
   }
 
   void opIndexAssign(int value, string key) {
@@ -33,7 +33,7 @@ class DMapData : DData {
       _items[key].set(to!string(value));
     } else {
       _items[key] = new DIntegerData(value);
-    } * /
+    } */
   }
 
   void opIndexAssign(double value, string key) {
@@ -43,7 +43,7 @@ class DMapData : DData {
       _items[key].set(to!string(value));
     } else {
       _items[key] = new DDoubleData(value);
-    }* /
+    }*/
   }
 
   void opIndexAssign(string value, string key) {
@@ -53,7 +53,7 @@ class DMapData : DData {
       _items[key].set(value);
     } else {
       _items[key] = new DStringData(value);
-    } * /
+    } */
   }
 
   void opIndexAssign(UUID value, string key) {
@@ -63,7 +63,7 @@ class DMapData : DData {
       _items[key].set(value.toString);
     } else {
       _items[key] = new DUUIDData(value);
-    } * /
+    } */
   }
 
   void opIndexAssign(IData[] values, string key) {
@@ -73,7 +73,7 @@ class DMapData : DData {
       _items[key] = new DArrayData(values);
     } else {
       _items[key] = new DArrayData(values);
-    } * /
+    } */
   }*/
 
   // #region equal

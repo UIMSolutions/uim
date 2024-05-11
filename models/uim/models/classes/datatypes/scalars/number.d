@@ -60,7 +60,7 @@ class DNumberData : DScalarData {
   }
 
   override void set(Json newValue) {
-    if (newValue.isInteger /* || newValue.isDouble * / ) {
+    if (newValue.isInteger /* || newValue.isDouble */ ) {
       set(newValue.get!double);
     }
 
@@ -110,7 +110,7 @@ class DNumberData : DScalarData {
 
     data = new DNumberData;
     data.value = myValue;
-    assert(data.value == myValue); * /
+    assert(data.value == myValue); */
   }
 
   // #region equal

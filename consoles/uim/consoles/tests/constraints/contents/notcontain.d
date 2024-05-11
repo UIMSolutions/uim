@@ -7,13 +7,13 @@ import uim.consoles;
 /* * ContentsNotContain
  *
  * @internal
- * /
+ */
 class DContentsNotContain : DContentsBase {
     /**
      * Checks if contents contain expected
      * Params:
      * Json other Expected
-      * /
+      */
     bool matches(Json other) {
         return mb_indexOf(this.contents, other) == false;
     }
@@ -21,5 +21,5 @@ class DContentsNotContain : DContentsBase {
     // Assertion message
     string toString() {
         return "is not in %s".format(this.output);
-    } * /
+    } */
 } */

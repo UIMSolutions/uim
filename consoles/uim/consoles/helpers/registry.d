@@ -41,7 +41,7 @@ class DHelperRegistry { // }: ObjectRegistry {
     /**
      * Resolve a helper classname.
      * Part of the template method for {@link \UIM\Core\ObjectRegistry.load()}.
-     * /
+     */
     protected string _resolveClassName(string className) {
         return App.className(className, "Command/Helper", "Helper");
     }
@@ -51,7 +51,7 @@ class DHelperRegistry { // }: ObjectRegistry {
      *
      * Part of the template method for UIM\Core\ObjectRegistry.load()
      * and UIM\Core\ObjectRegistry.unload()
-     * /
+     */
     protected void _throwMissingClassError(string className, string pluginName) {
         throw new DMissingHelperException([
             "class": className,
@@ -66,7 +66,7 @@ class DHelperRegistry { // }: ObjectRegistry {
      * Params:
      * \UIM\Console\Helper|class-string<\UIM\Console\Helper> className The classname to create.
      * configData - An array of settings to use for the helper.
-     * /
+     */
     protected DHelper _create(object obj, string helperAlias, Json[string] configData) {
         return obj;
     }

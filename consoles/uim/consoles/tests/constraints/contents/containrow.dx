@@ -13,7 +13,7 @@ class DContentsContainRow : DContentsRegExp {
      * Checks if contents contain expected
      * Params:
      * Json other Row
-     * /
+     */
     bool matches(Json other) {
         string[] row = array_map(function (cell) {
             return preg_quote(cell, "/");

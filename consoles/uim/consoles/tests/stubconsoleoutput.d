@@ -27,7 +27,7 @@ class DStubConsoleOutput : DConsoleOutput {
      * Params:
      * string[]|string amessage A string or an array of strings to output
      * @param int newlines Number of newlines to append
-     * /
+     */
     int write(string[] amessage, int newlines = 1) {
         (array) message.each!(line => _out ~= line);
 

@@ -20,7 +20,7 @@ class DExitCode : DConstraint {
      * Checks if event is in fired array
      * Params:
      * Json other Constraint check
-     * /
+     */
    bool matches(Json other) {
         return other == this.exitCode;
     }
@@ -34,7 +34,7 @@ class DExitCode : DConstraint {
      * Returns the description of the failure.
      * Params:
      * Json other Expected
-     * /
+     */
     string failureDescription(Json other) {
         return "`" ~ other ~ "` " ~ toString();
     } */

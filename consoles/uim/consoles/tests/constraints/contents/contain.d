@@ -7,13 +7,13 @@ import uim.consoles;
 /* * ContentsContain
  *
  * @internal
- * /
+ */
 class DContentsContain : DContentsBase {
     /**
      * Checks if contents contain expected
      * Params:
      * Json other Expected
-     * /
+     */
    bool matches(Json other) {
         return mb_indexOf(_contents, other) != false;
     }

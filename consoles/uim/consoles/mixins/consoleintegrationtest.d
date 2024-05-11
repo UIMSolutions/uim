@@ -19,7 +19,7 @@ mixin template TConsoleIntegrationTest() {
 
     /**
      * Console output stub
-      * /
+      */
     protected IStubConsoleOutput _out = null;
 
     // Console error output stub
@@ -35,7 +35,7 @@ mixin template TConsoleIntegrationTest() {
      * @param Json[string] anInput Input values to pass to an interactive shell
      * @throws \UIM\Console\TestSuite\MissingConsoleInputException
      * @throws \InvalidArgumentException
-     * /
+     */
     void exec(string acommand, Json[string]  anInput = []) {
         runner = this.makeRunner();
 
@@ -69,7 +69,7 @@ mixin template TConsoleIntegrationTest() {
      *
      * @after
      * @psalm-suppress PossiblyNullPropertyAssignmentValue
-     * /
+     */
     auto cleanupConsoleTrait() {
        _exitCode = null;
        _out = null;
@@ -82,7 +82,7 @@ mixin template TConsoleIntegrationTest() {
      * Params:
      * int expected Expected exit code
      * @param string amessage Failure message
-     * /
+     */
     void assertExitCode(int expected, string amessage= null) {
         this.assertThat(expected, new DExitCode(_exitCode), message);
     }
@@ -101,7 +101,7 @@ mixin template TConsoleIntegrationTest() {
      * Asserts that `stdout` is empty
      * Params:
      * string amessage The message to output when the assertion fails.
-     * /
+     */
     void assertOutputEmpty(string amessage = null) {
         this.assertThat(null, new DContentsEmpty(_out.messages(), "output"), message);
     }
@@ -125,7 +125,7 @@ mixin template TConsoleIntegrationTest() {
      * Check that a row of cells exists in the output.
      * Params:
      * Json[string] row Row of cells to ensure exist in the output.
-     * /
+     */
     protected void assertOutputContainsRows(Json[string] row, string failureMessage = null) {
         this.assertThat(row, new DContentsContainRow(_out.messages(), "output"), message);
     }
@@ -144,7 +144,7 @@ mixin template TConsoleIntegrationTest() {
      * Asserts that `stderr` is empty
      * Params:
      * string amessage The message to output when the assertion fails.
-     * /
+     */
     void assertErrorEmpty(string amessage = null)l) {
         this.assertThat(null, new DContentsEmpty(_err.messages(), "error output"), message);
     }
@@ -161,7 +161,7 @@ mixin template TConsoleIntegrationTest() {
      * Creates an argv array from a command string
      * Params:
      * string acommand Command string
-     * /
+     */
     protected string[] commandStringToArgs(string acommand) {
         size_t charCount = command.length;
         string[] argv = null;

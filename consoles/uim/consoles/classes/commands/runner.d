@@ -48,7 +48,7 @@ class DCommandRunner { // }: IEventDispatcher {
      *
      * consoleApp - The application to run CLI commands for.
      * @param \UIM\Console\ICommandFactory|null factory Command factory instance.
-     * /
+     */
     this(
         IConsoleApplication consoleApp,
         string rootCommandName = "uim",
@@ -76,7 +76,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * ```
      * runner.setAliases(["--version": 'version"]);
      * ```
-     * /
+     */
     void setAliases(string[] aliasesToReplace) {
         _aliases = aliasesToReplace;
     }
@@ -93,7 +93,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * Params:
      * Json[string] argv The arguments from the CLI environment.
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo The ConsoleIo instance. Used primarily for testing.
-     * /
+     */
     int run(Json[string] argv, IConsoleIo aConsoleIo = null) {
         assert(!argv.isEmpty, "Cannot run any commands. No arguments received.");
 
@@ -143,7 +143,7 @@ class DCommandRunner { // }: IEventDispatcher {
      *
      * Calls the application`s `bootstrap()` hook. After the application the
      * plugins are bootstrapped.
-     * /
+     */
     protected void bootstrap() {
         this.app.bootstrap();
         if (cast(IPluginApplication)_app) {
@@ -175,7 +175,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * \UIM\Console\IConsoleIo aConsoleIo The IO wrapper for the created shell class.
      * @param \UIM\Console\CommandCollection commands The command collection to find the shell in.
      * @param string aName The command name to find
-     * /
+     */
     protected ICommand getCommand(IConsoleIo aConsoleIo, CommandCollection commands, string commandName) {
         auto anInstance = commands.get(commandName);
         if (isString(anInstance)) {
@@ -197,7 +197,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * Params:
      * \UIM\Console\CommandCollection commands The command collection to check.
      * @param Json[string] argv The CLI arguments.
-     * /
+     */
     // TODO protected Json[string] longestCommandName(CommandCollection commands, Json[string] argv) {
         for (anI = 3;  anI > 1;  anI--) {
             someParts = array_slice(argv, 0,  anI);
@@ -222,7 +222,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * \UIM\Console\CommandCollection commands The command collection to check.
      * @param \UIM\Console\IConsoleIo aConsoleIo ConsoleIo object for errors.
      * @param string name The name from the CLI args.
-     * /
+     */
     protected string resolveName(CommandCollection commands, IConsoleIo aConsoleIo, string aName) {
         if (!name) {
              aConsoleIo.writeErrorMessages("<error>No command provided. Choose one of the available commands.</error>", 2);
@@ -248,7 +248,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * Params:
      * \UIM\Console\ICommand command The command to run.
      * @param Json[string] argv The CLI arguments to invoke.
-     * /
+     */
     protected int runCommand(ICommand command, Json[string] argv, IConsoleIo aConsoleIo) {
         try {
             if (cast(IEventDispatcher)command) {
@@ -275,7 +275,7 @@ class DCommandRunner { // }: IEventDispatcher {
     /**
      * Ensure that the application`s routes are loaded.
      * Console commands and shells often need to generate URLs.
-     * /
+     */
     protected void loadRoutes() {
         if (!(cast(IRoutingApplication)this.app)) {
             return;

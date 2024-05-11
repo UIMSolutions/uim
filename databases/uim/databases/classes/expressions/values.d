@@ -34,7 +34,7 @@ class DValuesExpression : DExpression {
      * Params:
      * Json[string] someColumns The list of columns that are going to be part of the values.
      * @param \UIM\Database\TypeMap typeMap A dictionary of column ~ type names
-     * /
+     */
     this(Json[string] someColumns, TypeMap typeMap) {
        _columns = someColumns;
         setTypeMap(typeMap);
@@ -46,7 +46,7 @@ class DValuesExpression : DExpression {
      * \UIM\Database\Query|Json[string] someValues Array of data to append into the insert, or
      *  a query for doing INSERT INTO .. SELECT style commands
      * @throws \UIM\Database\Exception\DatabaseException When mixing Json[string] + Query data types.
-     * /
+     */
     void add(Query|Json[string] someValues) {
         if (
             (count(_values) && cast(Query)someValues) ||
@@ -69,7 +69,7 @@ class DValuesExpression : DExpression {
      * Sets the columns to be inserted.
      * Params:
      * Json[string] someColumns Array with columns to be inserted.
-     * /
+     */
     void setColumns(Json[string] someColumns) {
        _columns = someColumns;
        _castedExpressions = false;
@@ -85,7 +85,7 @@ class DValuesExpression : DExpression {
      *
      * Because column names could be identifier quoted, we
      * need to strip the identifiers off of the columns.
-     * /
+     */
     // TODO protected Json[string] _columnNames() {
         auto someColumns = _columns
             .map!(col => isString(col) ? strip(col, "`[]'") : col);
@@ -193,7 +193,7 @@ class DValuesExpression : DExpression {
         foreach (_values as row:  someValues) {
             types.byKeyValue
                 .each!(col: type)
-                /** @var \UIM\Database\Type\IExpressionType type * /
+                /** @var \UIM\Database\Type\IExpressionType type */
                _values[row][col] = type.toExpression(someValues[col]);
             }
         }

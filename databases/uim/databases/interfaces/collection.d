@@ -22,7 +22,7 @@ interface ICollection {
      * Get the list of tables available in the current connection.
      *
      * @return string[] The list of tables in the connected database/schema.
-     * /
+     */
     string[] listTables(): ;
 
     /**
@@ -38,7 +38,7 @@ interface ICollection {
      *
      * @param string name The name of the table to describe.
      * @param Json[string] options The options to use, see above.
-     * /
+     */
     ITableSchema describe(string name, Json[string] options = null);
     */
 }

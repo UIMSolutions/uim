@@ -24,7 +24,7 @@ class DTupleComparisonExpression : DComparisonExpression {
      * @param array<string|null> types the types names to use for casting each of the values, only
      * one type per position in the value array in needed
      * @param string aconjunction the operator used for comparing field and value
-     * /
+     */
     this(
         IExpression | string[] fieldNames,
         IExpression | Json[string] someValues,
@@ -39,7 +39,7 @@ class DTupleComparisonExpression : DComparisonExpression {
 
     /**
      * Returns the type to be used for casting the value to a database representation
-     * /
+     */
     string[] getType() {
         return _types;
     }
@@ -80,7 +80,7 @@ class DTupleComparisonExpression : DComparisonExpression {
      * for the SQL version of this expression
      * Params:
      * \UIM\Database\DValueBinder aBinder The value binder to convert expressions with.
-     * /
+     */
     protected string _stringifyValues(DValueBinder aBinder) {
         string[] someValues; someParts = getValue(); if (cast(IExpression) someParts) {
             return someParts.sql(aBinder);}
@@ -131,7 +131,7 @@ class DTupleComparisonExpression : DComparisonExpression {
      * Params:
      * Json aValue The value to traverse
      * @param \Closure aCallback The callback to use when traversing
-     * /
+     */
                                                 protected void _traverseValue(
                                                     Json aValue, IClosure aCallback) {
                                                     if (cast(IExpression) aValue) {

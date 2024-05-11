@@ -29,7 +29,7 @@ class DUnaryExpression : DExpression {
      * string expressionOperator The operator to used for the expression
      * @param Json aValue the value to use as the operand for the expression
      * @param int position either UnaryExpression.PREFIX or UnaryExpression.POSTFIX
-     * /
+     */
     this(string expressionOperator, Json aValue, intposition = self.PREFIX) {
         _operator = expressionOperator;
         _value = aValue;

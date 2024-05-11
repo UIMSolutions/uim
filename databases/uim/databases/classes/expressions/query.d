@@ -23,7 +23,7 @@ class DQueryExpression : DExpression { // }, Countable {
     /**
      * A list of strings or other expression objects that represent the "branches" of
      * the expression tree. For example one key of the array might look like "sum > :value"
-     * /
+     */
     // TODO protected Json[string] _conditions = null;
 
     /**
@@ -39,7 +39,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * passed in conditions.
      * @param string aconjunction the glue that will join all the string conditions at this
      * level of the expression tree. For example "AND", "OR", "XOR"...
-     * /
+     */
     this(
         IExpression|string[] aconditions = [],
         TypeMap|array types = [],
@@ -79,7 +79,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * as conditions.
      * @param array<int|string, string> types Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
-     * /
+     */
     void add(IExpression|string[] aconditions, Json[string] types = []) {
         if (isString(conditions) || cast(IExpression)conditions ) {
            _conditions ~= conditions;
@@ -96,7 +96,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * @param Json aValue The value to be bound to field for comparison
      * If it is suffixed with "[]" and the value is an array then multiple placeholders
      * will be created, one per each value in the array.
-     * /
+     */
     auto eq(IExpression|string fieldName, Json aValue, string typeName = null) {
         typeName = typeName.ifEmpty(_calculateType(field));
 
@@ -111,7 +111,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * @param string|null type the type name for aValue as configured using the Type map.
      * If it is suffixed with "[]" and the value is an array then multiple placeholders
      * will be created, one per each value in the array.
-     * /
+     */
     auto notEq(IExpression|string fieldName, Json valueToBound, string atype = null) {
         auto type ??= _calculateType(field);
 
@@ -123,7 +123,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param string|null type the type name for aValue as configured using the Type map.
-     * /
+     */
     auto gt(IExpression|string fieldName, Json valueToBound, string atype = null) {
         auto type ??= _calculateType(field);
 
@@ -136,7 +136,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param Json aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     * /
+     */
     auto lt(IExpression|string fieldName, Json aValue, string atype = null) {
         type ??= _calculateType(field);
 
@@ -149,7 +149,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param Json aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     * /
+     */
     auto gte(IExpression|string fieldName, Json aValue, string atype = null) {
         type ??= _calculateType(field);
 
@@ -162,7 +162,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param Json aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     * /
+     */
     auto lte(IExpression|string fieldName, Json aValue, string atype = null) {
         type ??= _calculateType(field);
 
@@ -174,7 +174,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * \UIM\Database\IExpression|string fieldName database field to be
      * tested for null
-     * /
+     */
     auto isNull(IExpression|string fieldName) {
         if (!(cast(IExpression)field )) {
             field = new DIdentifierExpression(field);
@@ -186,7 +186,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Adds a new condition to the expression object in the form "field IS NOT NULL".
      * Params:
      * \UIM\Database\IExpression|string fieldName database field to be tested for not null
-     * /
+     */
     auto isNotNull(IExpression|string fieldName) {
         if (!(cast(IExpression)field)) {
             field = new DIdentifierExpression(field);
@@ -200,7 +200,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param Json aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     * /
+     */
     auto like(IExpression|string fieldName, Json aValue, string atype = null) {
         type ??= _calculateType(field);
 
@@ -213,7 +213,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param Json aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     * /
+     */
     auto notLike(IExpression|string fieldName, Json aValue, string atype = null) {
         type ??= _calculateType(field);
 
@@ -227,7 +227,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param \UIM\Database\IExpression|string[] avalues the value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     * /
+     */
     auto in(
         IExpression|string fieldName,
         IExpression|string[] avalues,
@@ -260,7 +260,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * \UIM\Database\IExpression|object|scalar|null aValue The case value.
      * @param string|null type The case value type. If no type is provided, the type will be tried to be inferred
      * from the value.
-     * /
+     */
     CaseStatementExpression case(Json aValue = null, string atype = null) {
         auto caseExpression = (func_num_args() > 0) 
             ? new DCaseStatementExpression(aValue, type);
@@ -276,7 +276,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param \UIM\Database\IExpression|string[] avalues the value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     * /
+     */
     auto notIn(
         IExpression|string fieldName,
         IExpression|string[] avalues,
@@ -297,7 +297,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param \UIM\Database\IExpression|string[] avalues the value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     * /
+     */
     auto notInOrNull(
         IExpression|string fieldName,
         IExpression|string[] avalues,
@@ -315,7 +315,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Adds a new condition to the expression object in the form "EXISTS (...)".
      * Params:
      * \UIM\Database\IExpression expression the inner query
-     * /
+     */
     auto exists(IExpression expression) {
         return _add(new DUnaryExpression("EXISTS", expression, UnaryExpression.PREFIX));
     }
@@ -324,7 +324,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Adds a new condition to the expression object in the form "NOT EXISTS (...)".
      * Params:
      * \UIM\Database\IExpression expression the inner query
-     * /
+     */
     auto notExists(IExpression expression) {
         return _add(new DUnaryExpression("NOT EXISTS", expression, UnaryExpression.PREFIX));
     }
@@ -335,7 +335,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * \UIM\Database\IExpression|string fieldName The field name to compare for values inbetween the range.
      * @param string|null type the type name for aValue as configured using the Type map.
-     * /
+     */
     auto between(IExpression|string fieldName, Json fromValue, Json toValue, string atype = null) {
         type ??= _calculateType(field);
 
@@ -349,7 +349,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * \UIM\Database\IExpression|\Closure|string[] aconditions to be joined with AND
      * passedTypes Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
-     * /
+     */
     static and(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = null) {
         return cast(DClosure)conditions
             ? conditions(new static([], getTypeMap().setTypes(passedTypes)))
@@ -363,7 +363,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * \UIM\Database\IExpression|\Closure|string[] aconditions to be joined with OR
      * passedTypes Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
-     * /
+     */
     static or(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = []) {
         if (cast(DClosure)conditions) {
             return conditions(new static([], getTypeMap().setTypes(passedTypes), "OR"));
@@ -380,7 +380,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * \UIM\Database\IExpression|\Closure|string[] aconditions to be added and negated
      * passedTypes Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
-     * /
+     */
     auto not(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = []) {
         return _add(["NOT": conditions], passedTypes);
     }
@@ -389,7 +389,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Returns the number of internal conditions that are stored in this expression.
      * Useful to determine if this expression object is void or it will generate
      * a non-empty string when compiled
-     * /
+     */
     size_t count() {
         return count(_conditions);
     }
@@ -399,7 +399,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * string aleftField Left join condition field name.
      * @param string arightField Right join condition field name.
-     * /
+     */
     auto equalFields(string aleftField, string arightField) {
          wrapIdentifier = auto (field) {
             if (cast(IExpression)field ) {
@@ -453,7 +453,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * modified part is stored.
      * Params:
      * \Closure aCallback The callback to run for each part
-     * /
+     */
     void iterateParts(Closure aCallback) {
         someParts = null;
         foreach (myKey: c; _conditions) {
@@ -469,7 +469,7 @@ class DQueryExpression : DExpression { // }, Countable {
     /**
      * Returns true if this expression contains any other nested
      * IExpression objects
-     * /
+     */
     bool hasNestedExpression() {
         foreach (condition; _conditions) {
             if (cast(IExpression)condition ) {
@@ -487,7 +487,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * Json[string] conditions list of conditions to be stored in this object
      * fieldTypes list of types associated on fields referenced in conditions
-     * /
+     */
     protected void _addConditions(Json[string] conditions, STRINGAA fieldTypes) {
          operators = ["and", "or", "xor"];
 
@@ -545,7 +545,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * string acondition The value from which the actual field and operator will
      * be extracted.
      * @param Json aValue The value to be bound to a placeholder for the field
-     * /
+     */
     protected IExpression|string _parseCondition(string acondition, Json aValue) {
         auto expression = strip(condition);
          operator = "=";
@@ -617,7 +617,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Returns the type name for the passed field if it was stored in the typeMap
      * Params:
      * \UIM\Database\IExpression|string fieldName The field name to get a type for.
-     * /
+     */
     protected string _calculateType(IExpression|string fieldName) {
         field = cast(IdentifierExpression)field ? field.getIdentifier() : field;
         if (!isString(field)) {

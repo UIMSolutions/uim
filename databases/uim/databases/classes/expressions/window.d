@@ -28,7 +28,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
      *
      * These window expressions only specify a named window and do not
      * specify their own partitions, frame or order.
-     * /
+     */
     bool isNamedOnly() {
         return _name.getIdentifier() && (!this.partitions && !this.frame && !_order);
     }
@@ -188,7 +188,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
      * \UIM\Database\DValueBinder  mybinder Value binder
      * @param \UIM\Database\IExpression|string|int  myoffset Frame offset
      * @param string mydirection Frame offset direction
-     * /
+     */
     protected string buildOffsetSql(
         DValueBinder  mybinder,
         IExpression|string|int  myoffset,
@@ -209,7 +209,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
     
     /**
      * Clone this object and its subtree of expressions.
-     * /
+     */
     void clone() {
         this.name = clone this.name;
         foreach (this.partitions as  myi:  mypartition) {

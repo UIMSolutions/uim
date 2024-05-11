@@ -17,7 +17,7 @@ class DWhenThenExpression : DExpression {
     /**
      * The names of the clauses that are valid for use with the
      * `clause()` method.
-     * /
+     */
     protected string[]  validClauseNames = [
         "when",
         "then",
@@ -30,7 +30,7 @@ class DWhenThenExpression : DExpression {
      * Then `WHEN` value.
      *
      * @var \UIM\Database\IExpression|object|scalar|null
-     * /
+     */
     protected Json  when = null;
 
     // The `WHEN` value type.
@@ -40,13 +40,13 @@ class DWhenThenExpression : DExpression {
      * The `THEN` value.
      *
      * @var \UIM\Database\IExpression|object|scalar|null
-     * /
+     */
     protected Json then = null;
 
     /**
      * Whether the `THEN` value has been defined, eg whether `then()`
      * has been invoked.
-     * /
+     */
     protected bool $hasThenBeenDefined = false;
 
     // The `THEN` result type.
@@ -57,7 +57,7 @@ class DWhenThenExpression : DExpression {
      * Params:
      * \UIM\Database\TypeMap|null typeMap The type map to use when using an array of conditions for the `WHEN`
      * value.
-     * /
+     */
     this(TypeMap typeMap = null) {
        _typeMap = typeMap ?? new DTypeMap();
     }
@@ -79,7 +79,7 @@ class DWhenThenExpression : DExpression {
      * an array, nor null.
      * @throws \InvalidArgumentException In case the ` when` argument is a non-array value, and the `type` argument is
      * neither a string, nor null.
-     * /
+     */
     void when(object|string[]|float|int|bool  when, string[] type = null) {
         if (isArray(when)) {
             if (isEmpty(when)) {
@@ -130,7 +130,7 @@ class DWhenThenExpression : DExpression {
      * \UIM\Database\IExpression|object|scalar|null result The result value.
      * @param string|null type The result type. If no type is provided, the type will be inferred from the given
      * result value.
-     * /
+     */
     void then(Json result, string atype = null) {
         if (
             result !isNull &&
@@ -167,7 +167,7 @@ class DWhenThenExpression : DExpression {
      * * `then`: The `THEN` result value.
      * Params:
      * string aclause The name of the clause to obtain.
-     * /
+     */
     IExpression|object|scalar|null clause(string aclause) {
         if (!in_array(clause, _validClauseNames, true)) {
             throw new DInvalidArgumentException(               

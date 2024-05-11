@@ -14,7 +14,7 @@ class DOrderByExpression : DQueryExpression {
      * \UIM\Database\IExpression|string[] aconditions The sort columns
      * @param \UIM\Database\TypeMap|STRINGAA types The types for each column.
      * @param string aconjunction The glue used to join conditions together.
-     * /
+     */
     this(
         IExpression|string[] aconditions = [],
         TypeMap|array types = [],
@@ -41,7 +41,7 @@ class DOrderByExpression : DQueryExpression {
      * Params:
      * Json[string] conditions list of order by expressions
      * @param Json[string] types list of types associated on fields referenced in conditions
-     * /
+     */
     protected void _addConditions(Json[string] conditions, Json[string] associatedTypes) {
         conditions.byKeyValue.each!((kv) {
             if (

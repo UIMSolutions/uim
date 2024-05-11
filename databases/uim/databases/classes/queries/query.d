@@ -81,7 +81,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Indicates whether internal state of this query was changed, this is used to
      * discard internal cached objects such as the transformed query or the reference
      * to the executed statement.
-     * /
+     */
     protected bool _isDirty = false;
 
     protected IStatement _statement;
@@ -89,7 +89,7 @@ abstract class DQuery : IQuery { // : IExpression {
     /**
      * The object responsible for generating query placeholders and temporarily store values
      * associated to each of those.
-     * /
+     */
     protected IValueBinder _valueBinder;
 
     // Instance of functions builder object used for generating arbitrary SQL functions.
@@ -100,7 +100,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \UIM\Database\Connection aConnection The connection
      * object to be used for transforming and executing this query
-     * /
+     */
     this(IConnection aConnection) {
         setConnection(aConnection);
     }
@@ -138,7 +138,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * This method can be overridden in query subclasses to decorate behavior
      * around query execution.
-     * /
+     */
     IStatement execute() {
        _statement = null;
        _statement = _connection.run(this);
@@ -165,7 +165,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * The above example will change the published column to true for all false records, and return the number of
      * records that were updated.
-     * /
+     */
     int rowCountAndClose() {
         statement = this.execute();
         try {
@@ -188,7 +188,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * prepared statements.
      * Params:
      * \UIM\Database\DValueBinder|null aBinder Value binder that generates parameter placeholders
-     * /
+     */
     string sql(DValueBinder aBinder = null) {
         if (!aBinder) {
             aBinder = getValueBinder();
@@ -216,7 +216,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      * Params:
      * \Closure aCallback Callback to be executed for each part
-     * /
+     */
     void traverse(Closure aCallback) {
         _parts.each!(namePart => aCallback(namePart.value, namePart.key));
     }
@@ -243,7 +243,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \Closure  visitor Callback executed for each part
      * @param string[] someParts The list of query parts to traverse
-     * /
+     */
     void traverseParts(Closure  visitor, Json[string] someParts) {
         someParts.each!(name =>  visitor(_parts[name], name));
     }
@@ -288,7 +288,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \UIM\Database\Expression\CommonTableExpression|\Closure cte The CTE to add.
      * @param bool overwrite Whether to reset the list of CTEs.
-     * /
+     */
     void with(CommonTableExpression|Closure cte, bool overwrite = false) {
         if (overwrite) {
            _parts["with"] = null;
@@ -315,17 +315,17 @@ abstract class DQuery : IQuery { // : IExpression {
      * ### Example:
      *
      * ```
-     * // Ignore cache query in MySQL
+     *// Ignore cache query in MySQL
      * aQuery.select(["name", "city"]).from("products").modifier("SQL_NO_CACHE");
-     * // It will produce the SQL: SELECT SQL_NO_CACHE name, city FROM products
+     *// It will produce the SQL: SELECT SQL_NO_CACHE name, city FROM products
      *
-     * // Or with multiple modifiers
+     *// Or with multiple modifiers
      * aQuery.select(["name", "city"]).from("products").modifier(["HIGH_PRIORITY", "SQL_NO_CACHE"]);
-     * // It will produce the SQL: SELECT HIGH_PRIORITY SQL_NO_CACHE name, city FROM products
+     *// It will produce the SQL: SELECT HIGH_PRIORITY SQL_NO_CACHE name, city FROM products
      * ```
      * Params:
      * \UIM\Database\IExpression|string[] amodifiers modifiers to be applied to the query
-     * /
+     */
     void modifier(IExpression|string[] amodifiers, bool overwrite = false) {
        _isDirty();
         if (overwrite) {
@@ -362,7 +362,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * the examples above for the valid call types.
      * @param bool overwrite whether to reset tables with passed list or not
-     * /
+     */
     void from(string[] tableNames, bool overwrite = false) {
         if (tableNames.isEmpty) { return; }
 
@@ -398,7 +398,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *        'conditions": 'a.id = b.author_id'
      *    ]
      * ]);
-     * // Produces LEFT JOIN authors a ON a.id = b.author_id
+     *// Produces LEFT JOIN authors a ON a.id = b.author_id
      * ```
      *
      * You can even specify multiple joins in an array, including the full description:
@@ -416,8 +416,8 @@ abstract class DQuery : IQuery { // : IExpression {
      *        "conditions": "p.id = b.publisher_id AND p.name = "uim Software Foundation"'
      *    ]
      * ]);
-     * // LEFT JOIN authors a ON a.id = b.author_id
-     * // INNER JOIN publishers p ON p.id = b.publisher_id AND p.name = "uim Software Foundation"
+     *// LEFT JOIN authors a ON a.id = b.author_id
+     *// INNER JOIN publishers p ON p.id = b.publisher_id AND p.name = "uim Software Foundation"
      * ```
      *
      * ### Using conditions and types
@@ -457,7 +457,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Json[string]|string atables list of tables to be joined in the query
      * @param STRINGAA types Associative array of type names used to bind values to query
      * @param bool overwrite whether to reset joins with passed list or not
-    * /
+    */
     auto join(string[] atables, Json[string] types = [], bool overwrite = false) {
         if (isString(aTables) || isSet(aTables["table"])) {
             aTables = [aTables];
@@ -488,7 +488,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Remove a join if it has been defined.
      *
      * Useful when you are redefining joins or want to re-order the join clauses.
-     * /
+     */
     auto removeJoin(string joinName) {
         _parts["join"].remove(joinName);
        _isDirty();
@@ -505,10 +505,10 @@ abstract class DQuery : IQuery { // : IExpression {
      * be aliased:
      *
      * ```
-     * // LEFT JOIN authors ON authors.id = posts.author_id
+     *// LEFT JOIN authors ON authors.id = posts.author_id
      * aQuery.leftJoin("authors", "authors.id = posts.author_id");
      *
-     * // LEFT JOIN authors a ON a.id = posts.author_id
+     *// LEFT JOIN authors a ON a.id = posts.author_id
      * aQuery.leftJoin(["a": 'authors"], "a.id = posts.author_id");
      * ```
      *
@@ -531,7 +531,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * to use for joining.
      * @param Json[string] types a list of types associated to the conditions used for converting
      * values to the corresponding database representation.
-       * /
+       */
     auto leftJoin(
         string[] atable,
         IExpression|Closure|string[] aconditions = [],
@@ -555,7 +555,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * to use for joining.
      * @param Json[string] types a list of types associated to the conditions used for converting
      * values to the corresponding database representation.
-     * /
+     */
     void rightJoin(
         string[] atable,
         IExpression|Closure|string[] aconditions = [],
@@ -577,7 +577,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * to use for joining.
      * @param STRINGAA types a list of types associated to the conditions used for converting
      * values to the corresponding database representation.
-     * /
+     */
     auto innerJoin(
         string[] atable,
         IExpression|Closure|string[] aconditions = [],
@@ -595,7 +595,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * @param \UIM\Database\IExpression|\Closure|string[] aconditions The conditions
      * to use for joining.
      * @param string atype the join type to use
-     * /
+     */
     // TODO protected Json[string] _makeJoin(
         string[] atable,
         IExpression|Closure|string[] aconditions,
@@ -610,7 +610,7 @@ abstract class DQuery : IQuery { // : IExpression {
         /**
          * @var string aalias
          * @psalm-suppress InvalidArrayOffset
-         * /
+         */
         return [
             alias: [
                 'table": aTable,
@@ -749,7 +749,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * \UIM\Database\IExpression|\Closure|string[] conditions The conditions to filter on.
      * @param STRINGAA types Associative array of type names used to bind values to query
      * @param bool overwrite whether to reset conditions with passed list or not
-     * /
+     */
     auto where(
         IExpression|Closure|string[] conditions = null,
         Json[string] types = [],
@@ -768,7 +768,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \UIM\Database\IExpression|string[] fieldNames A single field or expressions or a list of them
      * that should be not null.
-     * /
+     */
     auto whereNotNull(IExpression|string[] fieldNames) {
         if (!isArray(fields)) {
             fields = [fields];
@@ -784,7 +784,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \UIM\Database\IExpression|string[] fieldNames A single field or expressions or a list of them
      *  that should be null.
-     * /
+     */
     auto whereNull(IExpression|string[] fieldNames) {
         if (!isArray(fields)) {
             fields = [fields];
@@ -802,7 +802,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * This method does allow empty inputs in contrast to where() if you set
      * 'allowEmpty' to true.
      * Be careful about using it without proper sanity checks.
-     * /
+     */
     auto whereInList(string fieldName, Json[string] someValues, Json[string] options = null) {
         // `types` - Associative array of type names used to bind values to query
         options["types"] = ArrayData;
@@ -826,7 +826,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Be careful about using it without proper sanity checks.
      * Params:
      * @param Json[string]  someValues Array of values
-     * /
+     */
     auto whereNotInList(string fieldName, Json[string] someValues, Json[string] options = null) {
         auto auto updatedOptions = options.update([
             "types": Json.emptyArray,
@@ -851,7 +851,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * @param Json[string]  someValues Array of values
      * @param Json[string] options Options
-     * /
+     */
     auto whereNotInListOrNull(string fieldName, Json[string] someValues, Json[string] options = null) {
         auto auto updatedOptions = options.update() [
             "types": Json.emptyArray,
@@ -922,7 +922,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \UIM\Database\IExpression|\Closure|string[] aconditions The conditions to add with AND.
      * @param STRINGAA types Associative array of type names used to bind values to query
-     * /
+     */
     auto andWhere(IExpression|Closure|string[] aconditions, Json[string] types = []) {
        _conjugate("where", conditions, "AND", types);
 
@@ -988,7 +988,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \UIM\Database\IExpression|\Closure|string[] fieldNames fields to be added to the list
      * @param bool overwrite whether to reset order with field list or not
-     * /
+     */
     auto orderBy(IExpression|Closure|string[] fieldNames, bool overwrite = false) {
         if (overwrite) {
            _parts["order"] = null;
@@ -1015,7 +1015,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \UIM\Database\IExpression|\Closure|string fieldName The field to order on.
      * @param bool overwrite Whether to reset the order clauses.
-     * /
+     */
     auto orderByAsc(IExpression|Closure|string fieldName, bool overwrite = false) {
         if (overwrite) {
            _parts["order"] = null;
@@ -1045,7 +1045,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \UIM\Database\IExpression|\Closure|string fieldName The field to order on.
      * @param bool overwrite Whether to reset the order clauses.
-      * /
+      */
     auto orderByDesc(IExpression|Closure|string fieldName, bool overwrite = false) {
         if (overwrite) {
            _parts["order"] = null;
@@ -1078,7 +1078,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * the current limit clause will be used.
 
      * @throws \InvalidArgumentException If page number < 1.
-     * /
+     */
     auto page(int num, int aLimit = null) {
         throw new UimException("Not implemented");
     }
@@ -1097,7 +1097,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      * Params:
      * \UIM\Database\IExpression|int aLimit number of records to be returned
-     * /
+     */
     auto limit(IExpression|int aLimit) {
        _isDirty();
        _parts["limit"] = aLimit;
@@ -1121,7 +1121,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      * Params:
      * \UIM\Database\IExpression|int  anOffset number of records to be skipped
-     * /
+     */
     auto offset(IExpression|int  anOffset) {
        _isDirty();
        _parts["offset"] = anOffset;
@@ -1143,7 +1143,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      * Params:
      * string aidentifier The identifier for an expression
-     * /
+     */
     IExpression identifier(string aidentifier) {
         return new DIdentifierExpression(anIdentifier);
     }
@@ -1163,7 +1163,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Epliog content is raw SQL and not suitable for use with user supplied data.
      * Params:
      * \UIM\Database\IExpression|string|null expression The expression to be appended
-     * /
+     */
     auto epilog(IExpression|string|null expression = null) {
        _isDirty();
        _parts["epilog"] = expression;
@@ -1182,7 +1182,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Comment content is raw SQL and not suitable for use with user supplied data.
      * Params:
      * string|null expression The comment to be added
-     * /
+     */
     auto comment(string aexpression = null) {
        _isDirty();
        _parts["comment"] = expression;
@@ -1192,7 +1192,7 @@ abstract class DQuery : IQuery { // : IExpression {
     
     /**
      * Returns the type of this query (select, insert, update, delete)
-     * /
+     */
     string type() {
         return _type;
     }
@@ -1212,7 +1212,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      * Params:
      * \UIM\Database\IExpression|string[] rawExpression A string, Json[string] or anything you want wrapped in an expression object
-     * /
+     */
     QueryExpression newExpr(IExpression|string[] rawExpression = null) {
         return _expr(rawExpression);
     }
@@ -1232,7 +1232,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      * Params:
      * \UIM\Database\IExpression|string[] rawExpression A string, Json[string] or anything you want wrapped in an expression object
-     * /
+     */
     QueryExpression expr(IExpression|string[] rawExpression = null) {
         expression = new DQueryExpression([], getTypeMap());
 
@@ -1252,7 +1252,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * aQuery.func().count("*");
      * aQuery.func().dateDiff(["2012-01-05", "2012-01-02"])
      * ```
-     * /
+     */
     FunctionsBuilder func() {
         return _functionsBuilder ??= new DFunctionsBuilder();
     }
@@ -1284,7 +1284,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * - limit: integer or QueryExpression, null when not set
      * - offset: integer or QueryExpression, null when not set
      * - union: array
-     * /
+     */
     Json clause(string clauseName) {
         if (!array_key_exists(clauseName, _parts)) {
             clauses = _parts.keys;
@@ -1308,7 +1308,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \Closure aCallback the auto to be executed for each IExpression
      *  found inside this query.
-     * /
+     */
     void traverseExpressions(Closure aCallback) {
         _parts
             .each!(part => _expressionsVisitor(part, aCallback));
@@ -1321,7 +1321,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *  array of expressions.
      * @param \Closure aCallback The callback to be executed for each IExpression
      *  found inside this query.
-     * /
+     */
     protected void _expressionsVisitor(Json[] queryExpressions, IClosure aCallback) {
         queryExpressions
             .each!(exp => expressionsVisitor(exp, aCallback));
@@ -1349,7 +1349,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * @param Json aValue The value to be bound
      * @param string|int type the mapped type name, used for casting when sending
      *  to database
-     * /
+     */
     auto bind(string|int param, Json aValue, string|int type = null) {
         getValueBinder().bind(param, aValue, type);
 
@@ -1362,7 +1362,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * A DValueBinder is responsible for generating query placeholders and temporarily
      * associate values to those placeholders so that they can be passed correctly
      * to the statement object.
-     * /
+     */
     DValueBinder getValueBinder() {
         return _valueBinder.ifNull(new DValueBinder());
     }
@@ -1375,7 +1375,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * to the statement object.
      * Params:
      * \UIM\Database\DValueBinder|null aBinder The binder or null to disable binding.
-     * /
+     */
     auto setValueBinder(DValueBinder aBinder) {
        _valueBinder = aBinder;
 
@@ -1390,7 +1390,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *  to append.
      * @param string aconjunction type of conjunction to be used to operate part
      * @param STRINGAA types Associative array of type names used to bind values to query
-     * /
+     */
     protected void _conjugate(
         string queryPart,
         IExpression|Closure|string[] append,
@@ -1420,7 +1420,7 @@ abstract class DQuery : IQuery { // : IExpression {
     /**
      * Marks a query as dirty, removing any preprocessed information
      * from in memory caching.
-     * /
+     */
     protected void _isDirty() {
        _isDirty = true;
 

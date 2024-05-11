@@ -9,7 +9,7 @@ class DUnitStartedSubscriber : DUnitStarted {
      * Initializes before any tests are run.
      * Params:
      * \Unit\Event\TestSuite\Started event The event
-     * /
+     */
     void notify(DStarted event) {
         helper = new DConnectionHelper();
         helper.addTestAliases();

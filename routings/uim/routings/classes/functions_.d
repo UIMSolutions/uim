@@ -10,7 +10,7 @@ import uim.routings;
  * @param string aPath Route path.
  * @param Json[string] params An array specifying any additional parameters.
  *  Can be also any special parameters supported by `Router.url()`.
- * /
+ */
 Json[string] urlArray(string aPath, Json[string] params = []) {
     url = Router.parseRoutePath(somePath);
     url += [
@@ -29,7 +29,7 @@ Json[string] urlArray(string aPath, Json[string] params = []) {
  *  string or it can be an IUri instance.
  * @param bool full If true, the full base URL will be prepended to the result.
  *  Default is false.
- * /
+ */
 string url(IUri|string[] url = null, bool full = false) {
     return Router.url(url, full);
 }

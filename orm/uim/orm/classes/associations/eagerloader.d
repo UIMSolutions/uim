@@ -405,13 +405,13 @@ class DEagerLoader {
             "propertyPath": strip(mypaths["propertyPath"], "."),
             "targetProperty": myinstance.getProperty(),
         ];
-        configData("canBeJoined"] = myinstance.canBeJoined(configData("config"]);
+        configuration.data("canBeJoined"] = myinstance.canBeJoined(configuration.data("config"]);
         myeagerLoadable = new DEagerLoadable(aliasName, configData);
 
-        if (configData("canBeJoined"]) {
+        if (configuration.data("canBeJoined"]) {
            _aliasList[mypaths["root"]][aliasName] ~= myeagerLoadable;
         } else {
-            mypaths["root"] = configData("aliasPath"];
+            mypaths["root"] = configuration.data("aliasPath"];
         }
         myextra.byKeyValue
             .each!((tAssoc) {
@@ -453,13 +453,13 @@ class DEagerLoader {
      */
     protected void _correctStrategy(EagerLoadable myloadable) {
         configData = myloadable.configuration.data;
-        mycurrentStrategy = configData("strategy"] ??
+        mycurrentStrategy = configuration.data("strategy"] ??
             "join";
 
         if (!myloadable.canBeJoined() || mycurrentStrategy != "join") {
             return;
         }
-        configData("strategy"] = Association.STRATEGY_SELECT;
+        configuration.data("strategy"] = Association.STRATEGY_SELECT;
         myloadable.configuration.update(configData);
         myloadable.setCanBeJoined(false);
     }

@@ -34,7 +34,7 @@ class DAsset {
      *       Set to false to skip timestamp generation.
      *       Set to true to apply timestamps when debug is true. Set to "force" to always
      *       enable timestamping regardless of debug value.
-     * /
+     */
     static string imageUrl(string aPath, Json[string] options = null) {
         auto somePathPrefix = Configuration.read("App.imageBaseUrl");
 
@@ -57,7 +57,7 @@ class DAsset {
      *       Set to false to skip timestamp generation.
      *       Set to true to apply timestamps when debug is true. Set to "force" to always
      *       enable timestamping regardless of debug value.
-     * /
+     */
     static string cssUrl(string aPath, Json[string] options = null) {
         somePathPrefix = Configuration.read("App.cssBaseUrl");
         ext = ".css";
@@ -81,7 +81,7 @@ class DAsset {
      *       Set to false to skip timestamp generation.
      *       Set to true to apply timestamps when debug is true. Set to "force" to always
      *       enable timestamping regardless of debug value.
-     * /
+     */
     static string scriptUrl(string aPath, Json[string] options = null) {
         somePathPrefix = Configuration.read("App.jsBaseUrl");
         auto assetExtension = ".js";
@@ -110,7 +110,7 @@ class DAsset {
      * Params:
      * string aPath Path string or URL array
      * @param Json[string] options Options array.
-     * /
+     */
     static string url(string aPath, Json[string] options = null) {
         if (preg_match("/^data:[a-z]+\/[a-z]+;/", somePath)) {
             return somePath;
@@ -169,7 +169,7 @@ class DAsset {
      * Encodes URL parts using rawurlencode().
      * Params:
      * string aurl The URL to encode.
-     * /
+     */
     protected static string encodeUrl(string urlToEncode) {
         auto somePath = parse_url(urlToEncode, UIM_URL_PATH);
         if (somePath == false || somePath.isNull) {
@@ -189,7 +189,7 @@ class DAsset {
      * Params:
      * string aPath The file path to timestamp, the path must be inside `App.wwwRoot` in Configure.
      * @param string timestamp If set will overrule the value of `Asset.timestamp` in Configure.
-     * /
+     */
     static string assetTimestamp(string aPath, string|null timestamp = null) {
         if (somePath.has("?")) {
             return somePath;
@@ -236,7 +236,7 @@ class DAsset {
      * Params:
      * string afile The file to create a webroot path to.
      * @param Json[string] options Options array.
-     * /
+     */
     static string webroot(string afile, Json[string] options = null) {
         auto updatedOptions = options.update["theme": Json(null)];
         requestWebroot = requestWebroot();
@@ -273,14 +273,14 @@ class DAsset {
      * Inflect the theme/plugin name to type set using `Asset.setInflectionType()`.
      * Params:
      * string astring String inflected.
-     * /
+     */
     protected static string inflectString(string astring) {
         return Inflector.{anInflectionType}(string);
     }
     
     /**
      * Get webroot from request.
-     * /
+     */
     protected static string requestWebroot() {
         request = Router.getRequest();
         if (request.isNull) {
@@ -295,7 +295,7 @@ class DAsset {
      * It checks if the plugin is loaded, else filename will stay unchanged for filenames containing dot.
      * Params:
      * string aName The name you want to plugin split.
-     * /
+     */
     protected static Json[string] pluginSplit(string aName) {
         plugin = null;
         [first, second] = pluginSplit(name);

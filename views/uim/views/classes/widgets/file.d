@@ -39,12 +39,12 @@ class DFileWidget : DWidget {
      * ignored.
      */
     override string render(Json[string] renderData, IContext formContext) {
-        auto mergedData = renderData.merge(formContext.data);
-        mergedData.remove("val");
+        auto updatedData = renderData.merge(formContext.data);
+        updatedData.remove("val");
 
         return _stringContents.format("file", 
-            mergedData.data(["name", "templateVars"])
-                .update(["attrs": _stringContents.formatAttributes(mergedData, ["name"])]); 
+            updatedData.data(["name", "templateVars"])
+                .update(["attrs": _stringContents.formatAttributes(updatedData, ["name"])]); 
         return null; 
     }
 }

@@ -40,26 +40,26 @@ class DYearWidget : DWidget {
 
     // Renders a year select box.
     string render(Json[string] renderData, IContext formContext) {
-                        auto mergedData = renderData.merge(formContext.data);
+                        auto updatedData = renderData.merge(formContext.data);
 
 
-        if (mergedData.hasKey("min")) {
-            mergedData["min"] = date("Y", strtotime("-5 years"));
+        if (updatedData.hasKey("min")) {
+            updatedData["min"] = date("Y", strtotime("-5 years"));
         }
-        if (mergedData.hasKey("max")) {
-            mergedData["max"] = date("Y", strtotime("+5 years"));
+        if (updatedData.hasKey("max")) {
+            updatedData["max"] = date("Y", strtotime("+5 years"));
         }
-        mergedData["min"] = mergedData.getInteger("min");
-        mergedData["max"] = mergedData.getInteger("max");
+        updatedData["min"] = updatedData.getInteger("min");
+        updatedData["max"] = updatedData.getInteger("max");
 
         if (
             cast(DChronosDate)mydata["val"]  ||
-            cast(IDateTime)mergedData["val"]
+            cast(IDateTime)updatedData["val"]
         ) {
-            mergedData["val"] = mydata["val"].format("Y");
+            updatedData["val"] = mydata["val"].format("Y");
         }
-        if (mergedData.isEmpty("val")) {
-            mergedData["min"] = min(mydata.getInteger("val"), mergedData["min"]);
+        if (updatedData.isEmpty("val")) {
+            updatedData["min"] = min(mydata.getInteger("val"), updatedData["min"]);
             mydata["max"] = max(mydata.getInteger("val"), mydata["max"]);
         }
         if (mydata["max"] < mydata["min"]) {

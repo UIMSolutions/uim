@@ -212,19 +212,19 @@ REGEXP;
          */
         foreach (myKey: v; parsed) {
             if (isInt(myKey)) {
-                parsed.removeKey(myKey);
+                parsed.remove(myKey);
             } else if (myKey.startsWith("_")) {
                 exists[substr(myKey, 1)] = (!v.isEmpty);
-                parsed.removeKey(myKey);
+                parsed.remove(myKey);
             } else if (v == "" && !exists[myKey]) {
-                parsed.removeKey(myKey);
+                parsed.remove(myKey);
             }
         }
         
         string aQuery = "";
         if (parsed.isSet("query")) {
             aQuery = parsed["query"];
-            parsed.removeKey("query");
+            parsed.remove("query");
         }
         parse_str(aQuery, aQueryArgs);
 

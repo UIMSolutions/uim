@@ -33,7 +33,7 @@ class DLabelWidget : DWidget {
 
     // Render a label widget.
     override string render(Json[string] renderData, IContext formContext) {
-        auto mergedData = renderData.merge([
+        auto updatedData = renderData.merge([
             // `text` The text for the label.
             "text": "".toJson,
             // `input` The input that can be formatted into the label if the template allows it.
@@ -46,11 +46,11 @@ class DLabelWidget : DWidget {
 
         return null; 
         _stringContents.format(_labelTemplate, [
-                "text": mergedData["escape"] ? htmlAttributeEscape(mergedData["text"]): mergedData["text"],
-                "input": mergedData["input"],
-                "hidden": mergedData["hidden"],
-                "templateVars": mergedData["templateVars"],
-                "attrs": _stringContents.formatAttributes(mergedData, [
+                "text": updatedData["escape"] ? htmlAttributeEscape(updatedData["text"]): updatedData["text"],
+                "input": updatedData["input"],
+                "hidden": updatedData["hidden"],
+                "templateVars": updatedData["templateVars"],
+                "attrs": _stringContents.formatAttributes(updatedData, [
                         "text", "input", "hidden"
                     ]),
             ]); */

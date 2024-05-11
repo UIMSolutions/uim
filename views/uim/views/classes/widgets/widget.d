@@ -58,45 +58,45 @@ class DWidget : IWidget {
      * Any other keys provided in mydata will be converted into HTML attributes.
      */
   string render(Json[string] renderData, IContext formContext) {
-    auto mergedData = renderData.merge(formContext.data);
-    if (mergedData.hasKey("val")) {
-      mergedData["value"] = mergedData["val"];
-      mergedData.remove("val");
+    auto updatedData = renderData.merge(formContext.data);
+    if (updatedData.hasKey("val")) {
+      updatedData["value"] = updatedData["val"];
+      updatedData.remove("val");
     }
 
-    if (mergedData.isEmpty("value")) {
+    if (updatedData.isEmpty("value")) {
       // explicitly convert to 0 to avoid empty string which is marshaled as null
-      mergedData["value"] = Json("0");
+      updatedData["value"] = Json("0");
     }
 
-    if (auto fieldName = mergedData.getString("fieldName")) {
-      /* if (mergedData["type"] == "number" && !mydata.isSet("step")) {
-        mergedData = setStep(mydata, formContext, fieldName);
+    if (auto fieldName = updatedData.getString("fieldName")) {
+      /* if (updatedData["type"] == "number" && !mydata.isSet("step")) {
+        updatedData = setStep(mydata, formContext, fieldName);
       }
       mytypesWithMaxLength = ["text", "email", "tel", "url", "search"];
       if (
-        !mergedData.hasKey("maxlength")
-        && in_array(mergedData["type"], mytypesWithMaxLength, true)
+        !updatedData.hasKey("maxlength")
+        && in_array(updatedData["type"], mytypesWithMaxLength, true)
         ) {
-        mergedData = setMaxLength(mergedData, formContext, fieldName);
+        updatedData = setMaxLength(updatedData, formContext, fieldName);
       } */ 
     }
 
     return _stringContents.format("input",
-        mergedData.data("name", "type", "templateVars")
-          .update(["attrs": _stringContents.formatAttributes(mergedData, ["name", "type"])])
+        updatedData.data("name", "type", "templateVars")
+          .update(["attrs": _stringContents.formatAttributes(updatedData, ["name", "type"])])
     );
   }
 
   // Merge default values with supplied data.
   protected Json[string] mergeDefaults(Json[string] dataToMerge, IContext formContext) {
-    Json[string] mergedData = configuration.defaultData.merge(dataToMerge);
+    Json[string] updatedData = configuration.defaultData.merge(dataToMerge);
 
-    if (mergedData.hasKey("fieldName") && !mergedData.hasKey("required")) {
-      mergedData = setRequired(mergedData, formContext, mergedData.getString("fieldName"));
+    if (updatedData.hasKey("fieldName") && !updatedData.hasKey("required")) {
+      updatedData = setRequired(updatedData, formContext, updatedData.getString("fieldName"));
     }
 
-    return mergedData;
+    return updatedData;
   }
 
   // Set value for "required" attribute if applicable.

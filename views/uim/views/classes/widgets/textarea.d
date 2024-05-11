@@ -45,7 +45,7 @@ class DTextareaWidget : DWidget {
      * @param \UIM\View\Form\IContext formContext The current form context.
      */
     string render(Json[string] renderData, IContext formContext) {
-                        auto mergedData = renderData.merge(formContext.data);
+                        auto updatedData = renderData.merge(formContext.data);
 
 
         if (

@@ -103,19 +103,19 @@ class DSelectBoxWidget : DWidget {
      * nest complex types as required.
      */
     string render(Json[string] renderData, IContext formContext) {
-                auto mergedData = renderData.merge(formContext.data);
+                auto updatedData = renderData.merge(formContext.data);
 
 
         options = _renderContent(renderData);
         auto nameData = renderData["name"];
         renderData.removeKeys("name", "options", "empty", "val", "escape");
         if (renderData.hasKey("disabled") && renderData["disabled"].isArray) {
-            renderData.removeKey("disabled");
+            renderData.remove("disabled");
         }
         auto mytemplate = "select";
         if (!renderData["multiple"].isEmpty) {
             mytemplate = "selectMultiple";
-            renderData.removeKey("multiple");
+            renderData.remove("multiple");
         }
         myattrs = _stringContents.formatAttributes(renderData);
 

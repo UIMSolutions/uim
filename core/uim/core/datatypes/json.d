@@ -318,7 +318,7 @@ Json removeKeys(Json json, string[] delKeys...) {
 
 Json removeKeys(Json aJson, string[] delKeys) {
   auto result = aJson;
-  delKeys.each!(k => result.removeKey(k));
+  delKeys.each!(k => result.remove(k));
   return result;
 }
 
@@ -331,7 +331,7 @@ version (test_uim_core) {
 }
 
 /// Remove key from Json Object
-Json removeKey(Json json, string aKey) {
+Json remove(Json json, string aKey) {
   if (!json.isObject) {
     return json;
   }
@@ -349,12 +349,12 @@ version (test_uim_core) {
   unittest {
     auto json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}]}`);
     assert(json.hasKey("a"));
-    assert(!json.removeKey("a").hasKey("a"));
+    assert(!json.remove("a").hasKey("a"));
 
     json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}]}`);
     assert(!json.hasKey("x"));
-    assert(!json.removeKey("x").hasKey("x"));
-    assert(json.removeKey("x").hasKey("a"));
+    assert(!json.remove("x").hasKey("x"));
+    assert(json.remove("x").hasKey("a"));
   }
 }
 

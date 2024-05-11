@@ -62,13 +62,13 @@ mixin template TPluginAssets() {
 
             if (
                 configuration.hasKey("namespaced") &&
-                !isDir(configData("destDir")) &&
-                !_createDirectory(configData("destDir"))
+                !isDir(configuration.data("destDir")) &&
+                !_createDirectory(configuration.data("destDir"))
             ) {
                 continue;
             }
             
-            string dest = configData("destDir") ~ configData("link");
+            string dest = configuration.data("destDir") ~ configuration.data("link");
             if (fileExists(dest)) {
                 if (overwriteExisting && !_remove(configData)) {
                     continue;
@@ -83,7 +83,7 @@ mixin template TPluginAssets() {
             }
             if (!copyMode) {
                 result = _createSymlink(
-                    configData("srcPath"],
+                    configuration.data("srcPath"],
                     dest
                 );
                 if (result) {
@@ -91,7 +91,7 @@ mixin template TPluginAssets() {
                 }
             }
            _copyDirectory(
-                configData("srcPath"],
+                configuration.data("srcPath"],
                 dest
             );
         }
@@ -105,15 +105,15 @@ mixin template TPluginAssets() {
      * configData - Plugin config.
      */
     protected bool _remove(Json[string] configData = null) {
-        if (configData("namespaced"] && !isDir(configData("destDir"])) {
+        if (configuration.data("namespaced"] && !isDir(configuration.data("destDir"])) {
             this.io.verbose(
-                configData("destDir"] ~ configData("link"] ~ " does not exist",
+                configuration.data("destDir"] ~ configuration.data("link"] ~ " does not exist",
                 1
             );
 
             return false;
         }
-        dest = configData("destDir"] ~ configData("link"];
+        dest = configuration.data("destDir"] ~ configuration.data("link"];
 
         if (!fileExists(dest)) {
             this.io.verbose(

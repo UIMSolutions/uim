@@ -70,24 +70,24 @@ class DSqlserverDriver : DDriver {
      * information see: https://github.com/Microsoft/msDsql/issues/65).
      *
      * @throws \InvalidArgumentException if an unsupported setting is in the driver config
-     * /
+     */
     void connect() {
         if (isSet(this.pdo)) {
             return;
         }
 
-        if (configuration.hasKey("persistent") && configData("persistent")) {
+        if (configuration.hasKey("persistent") && configuration.data("persistent")) {
             throw new DInvalidArgumentException(
                 "Config setting 'persistent' cannot be set to true, "
                 ~ "as the Sqlserver PDO driver does not support PDO.ATTR_PERSISTENT"
             );
         }
-        configData("flags").data([
+        configuration.data("flags").data([
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
         ]);
 
-        if (!configData("encoding").isEmpty) {
-            configData("flags"][PDO.SQLSRV_ATTR_ENCODING] = configData("encoding"];
+        if (!configuration.data("encoding").isEmpty) {
+            configuration.data("flags"][PDO.SQLSRV_ATTR_ENCODING] = configuration.data("encoding"];
         }
         string port = configuration.getString("port");
         }
@@ -210,7 +210,7 @@ class DSqlserverDriver : DDriver {
      * be used.
      * Params:
      * \UIM\Database\Query\SelectQuery<mixed>  original The query to wrap in a subquery.
-     * /
+     */
     protected ISelectQuery _pagingSubquery(SelectQuery  original, int numberOfRows, int rowsOffset) {
         auto field = "_uim_paging_._uim_page_rownum_";
 
@@ -327,7 +327,7 @@ class DSqlserverDriver : DDriver {
      * SQL dialect.
      * Params:
      * \UIM\Database\Expression\FunctionExpression expression The auto expression to convert to TSQL.
-     * /
+     */
     protected void _transformFunctionExpression(FunctionExpression expression) {
         switch (expression.name) {
             case "CONCAT":

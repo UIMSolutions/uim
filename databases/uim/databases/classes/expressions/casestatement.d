@@ -27,12 +27,12 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * The case value.
      *
      * @var \UIM\Database\IExpression|object|scalar|null
-     * /
+     */
     protected Json aValue = null;
 
     /**
      * The case value type.
-     * /
+     */
     protected string avalueType = null;
 
     // The `WHEN ... THEN ...` expressions.
@@ -42,24 +42,24 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * Buffer that holds values and types for use with `then()`.
      *
      * @var array|null
-     * /
+     */
     // TODO protected Json[string] whenBuffer = null;
 
     /**
      * The else part result value.
      *
      * @var \UIM\Database\IExpression|object|scalar|null
-     * /
+     */
     protected Json else = null;
 
     /**
      * The else part result type.
-     * /
+     */
     protected string aelseType = null;
 
     /**
      * The return type.
-     * /
+     */
     protected string resultType = null;
 
     /**
@@ -81,7 +81,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * \UIM\Database\IExpression|object|scalar|null aValue The case value.
      * @param string|null valueType The case value type. If no type is provided, the type will be tried to be inferred
      * from the value.
-     * /
+     */
     this(Json aValue = null, string valueType = null) {
         if (func_num_args() > 0) {
             if (
@@ -248,7 +248,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * @throws \LogicException In case this a closing `then()` call is required before calling this method.
      * @throws \LogicException In case the callable doesn`t return an instance of
      * `\UIM\Database\Expression\WhenThenExpression`.
-     * /
+     */
     void when(Json  when, string[] valueType = null) {
         if (!_whenBuffer.isNull) {
             throw new DLogicException("Cannot call `when()` between `when()` and `then()`.");
@@ -324,7 +324,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
 
      * @throws \LogicException In case `when()` wasn`t previously called with a value other than a closure or an
      * instance of `\UIM\Database\Expression\WhenThenExpression`.
-     * /
+     */
     void then(Json result, string resultType = null) {
         if (_whenBuffer.isNull) {
             throw new DLogicException("Cannot call `then()` before `when()`.");
@@ -348,7 +348,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * @throws \LogicException In case a closing `then()` call is required before calling this method.
      * @throws \InvalidArgumentException In case the `result` argument is neither a scalar value, nor an object, an
      * instance of `\UIM\Database\IExpression`, or `null`.
-     * /
+     */
     void else(Json result, string atype = null) {
         if (!_whenBuffer.isNull) {
             throw new DLogicException("Cannot call `else()` between `when()` and `then()`.");
@@ -378,7 +378,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * method will try to obtain the type from the result types of the
      * `then()` and `else() `calls. All types must be identical in order
      * for this to work, otherwise the type will default to `string`.
-     * /
+     */
     string getReturnType() {
         if (!this.returnType.isNull) {
             return _returnType;
@@ -407,7 +407,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * If no type is being explicitly set via this method, then the
      * `getReturnType()` method will try to infer the type from the
      * result types of the `then()` and `else() `calls.
-     * /
+     */
     void setReturnType(string typeName) {
         this.returnType = typeName;
     }
@@ -422,7 +422,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * * `value`: The case value for a `CASE case_value WHEN ...` expression.
      * * `when`: An array of `WHEN ... THEN ...` expressions.
      * * `else`: The `ELSE` result value.
-     * /
+     */
     IExpression|object|array<\UIM\Database\Expression\WhenThenExpression>|scalar|null clause(string clauseName) {
         if (!in_array(clauseName, this.validClauseNames, true)) {
             throw new DInvalidArgumentException(

@@ -38,7 +38,7 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      * @param STRINGAA|array<string|null> types Associative array of types to be associated with the
      * passed arguments
      * @param string resultType The return type of this expression
-     * /
+     */
     this(string newName, Json[string] arguments = [], Json[string] associatedTypes = [], string resultType = "string") {
        this.name(newName);
        _returnType = resultType;
@@ -53,7 +53,7 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      * @param STRINGAA associatedTypes Associative array of associatedTypes to be associated with the
      * passed arguments
      * @param bool prepend Whether to prepend or append to the list of arguments
-     * /
+     */
     void add(IExpression|string[] aconditions, Json[string] associatedTypes = [], bool prepend = false) {
         put = prepend ? "array_unshift' : 'array_push";
         typeMap = getTypeMap().setTypes(associatedTypes);
@@ -103,7 +103,7 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
     /**
      * The name of the bool is in itself an expression to generate, thus
      * always adding 1 to the amount of expressions stored in this object.
-     * /
+     */
     size_t count() {
         return 1 + count(_conditions);
     } */

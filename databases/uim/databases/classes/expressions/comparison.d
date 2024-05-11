@@ -31,7 +31,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
     /**
      * A cached list of IExpression objects that were
      * found in the value for this expression.
-     * /
+     */
     protected IExpression[] _valueExpressions;
 
     /**
@@ -39,7 +39,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      * Params:
      * \UIM\Database\IExpression|string fieldName the field name to compare to a value
      * @param Json aValue The value to be used in comparison
-     * /
+     */
     this(
         IExpression|string fieldName,
         Json aValue,
@@ -56,7 +56,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      * Sets the value
      * Params:
      * Json aValue The value to compare
-     * /
+     */
     void setValue(Json aValue) {
         aValue = _castToExpression(aValue, _type);
 
@@ -130,7 +130,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      * with the placeholder aBinder
      * Params:
      * \UIM\Database\DValueBinder aBinder The value binder to use.
-     * /
+     */
     protected Json[string] _stringExpression(DValueBinder valueBinder) {
         auto template = "%s ";
 
@@ -173,7 +173,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      * aBinder and separated by `,`
      * Params:
      * range aValue the value to flatten
-     * /
+     */
     protected string _flattenValue(Json[string] valueToFlatten, DValueBinder aBinder, string valueType = null) {
         STRINGAA someParts;
         if (isArray(aValue)) {
@@ -196,7 +196,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      * position.
      * Params:
      * \UIM\Database\IExpression|range  someValues The rows to insert
-     * /
+     */
     // TODO protected Json[string] _collectExpressions(IExpression|range  someValues) {
         if (cast(IExpression)someValues ) {
             return [someValues, []];

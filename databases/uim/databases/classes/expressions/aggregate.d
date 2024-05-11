@@ -25,7 +25,7 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
      * Params:
      * \UIM\Database\IExpression|\Closure|string[] aconditions The conditions to filter on.
      * typeNames Associative array of type names used to bind values to query
-     * /
+     */
     void filter(IExpression|Closure|string[] aconditions, STRINGAA typeNames = []) {
         _filter ??= new DQueryExpression();
 
@@ -39,7 +39,7 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
      * Adds an empty `OVER()` window expression or a named window epression.
      * Params:
      * string|null windowName Window name
-     * /
+     */
     void over(string windowName = null) {
         auto  window = getWindow();
         if (!windowName.isEmpty) {
@@ -96,7 +96,7 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
 
     /**
      * Returns or creates WindowExpression for function.
-     * /
+     */
     protected DWindowExpression getWindow() {
         return _window ??= new WindowExpression();
     }

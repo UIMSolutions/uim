@@ -83,7 +83,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * name returned would be `'update_table'`.
      */
     static string defaultName() {
-        size_t pos = strrpos(class, "\\");
+        size_t pos = indexOf(class, "\\");
         /** @psalm-suppress PossiblyFalseOperand */
         string name = substr(class, pos + 1,  - 7);
         return Inflector.underscore(name);

@@ -59,7 +59,7 @@ class DCommonTableExpression : IExpression {
      *
      * This is the named you used to reference the expression
      * in select, insert, etc queries.
-     * /
+     */
     void name(string cteName) {
         _name = new DIdentifierExpression(cteName);
     }
@@ -68,7 +68,7 @@ class DCommonTableExpression : IExpression {
      * Sets the query for this CTE.
      * Params:
      * \UIM\Database\IExpression|\Closure aQuery CTE query
-     * /
+     */
     void query(IExpression|Closure aQuery) {
     }
     void query(IExpression|Closure aQuery) {
@@ -87,16 +87,16 @@ class DCommonTableExpression : IExpression {
      * Adds one or more fields (arguments) to the CTE.
      * Params:
      * \UIM\Database\Expression\IdentifierExpression|array<\UIM\Database\Expression\IdentifierExpression>|string[]|string fieldNames Field names
-     * /
+     */
     void field(IdentifierExpression|string[] fieldNames) {
         auto fields = (array)fields;
-        /** @var array<string|\UIM\Database\Expression\IdentifierExpression> fields * /
+        /** @var array<string|\UIM\Database\Expression\IdentifierExpression> fields */
         fields.each!((field) {
             if (!(cast(IdentifierExpression)field)) {
                 field = new DIdentifierExpression(field);
             }
         });
-        /** @var array<\UIM\Database\Expression\IdentifierExpression>  mergedFields * /
+        /** @var array<\UIM\Database\Expression\IdentifierExpression>  mergedFields */
         this.fields = chain(this.fields, fields);
     }
 

@@ -34,7 +34,7 @@ class DMapReduce { // }: IteratorAggregate {
     /**
      * A callable that will be executed for each intermediate record emitted during
      * the Map phase
-     * /
+     */
     protected callable _reducer;
 
     /**
@@ -64,7 +64,7 @@ class DMapReduce { // }: IteratorAggregate {
      * ```
      * Params:
      * range someData The original data to be processed.
-     * /
+     */
     this(Json[string] dataToProcess, callable mapper, ?callable reducer = null) {
        _data = dataToProcess;
        _mapper = mapper;
@@ -74,7 +74,7 @@ class DMapReduce { // }: IteratorAggregate {
     /**
      * Returns an iterator with the end result of running the Map and Reduce
      * phases on the original data
-     * /
+     */
     Traversable getIterator() {
         if (!_executed) {
            _execute();
@@ -93,7 +93,7 @@ class DMapReduce { // }: IteratorAggregate {
     /**
      * Appends a new record to the final list of results and optionally assign a key
      * for this record.
-     * /
+     */
     void emit(Json val, string valueKey = null) {
        _result[valueKey ? valueKey : _counter] = val;
        _counter++;
@@ -106,7 +106,7 @@ class DMapReduce { // }: IteratorAggregate {
      *
      * @throws \LogicException if emitIntermediate was called but no reducer function
      * was provided
-     * /
+     */
     protected void _execute() {
         auto myMapper = _mapper;
         _data.byKeyValue.each!(kv => myMapper(kv.value, kv.key, this));

@@ -31,7 +31,7 @@ class DInsertIterator : DCollection {
      * to insert the value into the target collection.
      * @param  range sourceValues The source collection from which the values will
      * be inserted at the specified path.
-     * /
+     */
   this(Json[string] targetValues, string propertyPath, Json[string] sourceValues) {
     super(targetValues);
 
@@ -57,7 +57,7 @@ class DInsertIterator : DCollection {
   /**
      * Returns the current element in the target collection after inserting
      * the value from the source collection into the specified path.
-    * /
+    */
   Json current() {
     auto myRow = super.current();
 

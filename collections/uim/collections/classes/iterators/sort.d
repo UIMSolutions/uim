@@ -16,7 +16,7 @@ import uim.collections;
  * return user.age;
  * });
  *
- * // output all user name order by their age in descending order
+ *// output all user name order by their age in descending order
  * sorted.each!(user => writeln(user.name));
  * ```
  *
@@ -31,7 +31,7 @@ class DSortIterator : DCollection {
      * the value returned in the callback will be used as the value for sorting such
      * element. Please note that the callback auto could be called more than once
      * per element.
-     * /
+     */
   this(
     Json[string] someItems,
     string mycallback,

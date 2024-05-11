@@ -15,7 +15,7 @@ class DFilterIterator : DCollection {
     }
     /**
      * The callback used to filter the elements in this collection
-          * /
+          */
     protected callable _callback;
 
     /**
@@ -27,7 +27,7 @@ class DFilterIterator : DCollection {
      * as arguments, in that order.
      * Params:
      * range itemsToFilter The items to be filtered.
-     * /
+     */
     this(Json[string] itemsToFilter, callable aCallback) {
         if (!cast(Iterator)itemsToFilter) {
             itemsToFilter = new DCollection(itemsToFilter);
@@ -38,7 +38,7 @@ class DFilterIterator : DCollection {
     }
  
     Iterator unwrap() {
-        /** @var \IteratorIterator myfilter * /
+        /** @var \IteratorIterator myfilter */
         auto myfilter = innerIterator();
         auto myiterator = myfilter.getInnerIterator();
 

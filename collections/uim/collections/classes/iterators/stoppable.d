@@ -12,7 +12,7 @@ import uim.collections;
 class DStoppableIterator : DCollection {
   /**
      * The condition to evaluate for each item of the collection
-          * /
+          */
   protected callable _condition;
 
   // A reference to the internal iterator this object is wrapping.
@@ -24,7 +24,7 @@ class DStoppableIterator : DCollection {
      * Each time the condition callback is executed it will receive the value of the element
      * in the current iteration, the key of the element and the passed  someItems iterator
      * as arguments, in that order.
-     * /
+     */
   this(Json[string] valuesToIterate, callable condition) {
     _condition = condition;
     super(valuesToIterate);
@@ -34,7 +34,7 @@ class DStoppableIterator : DCollection {
   /**
      * Evaluates the condition and returns its result, this controls
      * whether more results will be yielded.
-     * /
+     */
   bool valid() {
     if (!super.valid()) {
       return false;

@@ -30,7 +30,7 @@ class DNestIterator : DCollection {// }, RecursiveIterator {
     /**
      * Returns true if there is an array or a traversable object stored under the
      * configured nestKey for the current item
-     * /
+     */
     bool hasChildren() {
         auto myProperty = _propertyExtractor(_nestedKey);
         auto myChildren = myProperty(this.current());

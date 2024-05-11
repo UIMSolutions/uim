@@ -19,7 +19,7 @@ class DNoChildrenIterator : DCollection { // }, RecursiveIterator {
 
   /**
      * Returns a self instance without any elements.
-     * /
+     */
   RecursiveIterator getChildren() {
     return new static([]);
   } */

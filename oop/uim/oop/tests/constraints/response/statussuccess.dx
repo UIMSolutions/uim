@@ -11,7 +11,7 @@ import uim.oop;
 class DStatusSuccess : DStatusCodeBase {
     /**
      * @var array<int, int>|int
-     * /
+     */
     // TODO protected array|int code = [200, 308];
 
     // Assertion message

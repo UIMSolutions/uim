@@ -31,7 +31,7 @@ class DTextHelper : DHelper {
      * Params:
      * string mymethod Method to invoke
      * @param Json[string] myparams Array of params for the method.
-     * /
+     */
     Json __call(string methodName, Json[string] myparams) {
         return Text.{methodName}(...myparams);
     }
@@ -46,7 +46,7 @@ class DTextHelper : DHelper {
      * Params:
      * string mytext Text
      * @param Json[string] options Array of HTML options, and options listed above.
-     * /
+     */
     string autoLinkUrls(string mytext, Json[string] options  = null) {
         _placeholders = null;
         auto updatedOptions = options.update["escape": true.toJson];
@@ -91,7 +91,7 @@ class DTextHelper : DHelper {
      * escaping content in URL"s.
      * Params:
      * Json[string] mymatches An array of regexp matches.
-     * /
+     */
     protected string _insertPlaceHolder(Json[string] mymatches) {
         mymatch = mymatches[0];
         myenvelope = ["", ""];
@@ -116,7 +116,7 @@ class DTextHelper : DHelper {
      * Params:
      * string mytext The text to operate on.
      * @param Json[string] myhtmlOptions The options for the generated links.
-     * /
+     */
     protected string _linkUrls(string mytext, Json[string] myhtmlOptions) {
         myreplace = null;
         foreach (_placeholders as myhash: mycontent) {
@@ -135,7 +135,7 @@ class DTextHelper : DHelper {
      * Params:
      * string mytext The text to operate on
      * @param Json[string] options An array of options to use for the HTML.
-     * /
+     */
     protected string _linkEmails(string mytext, Json[string] options) {
         myreplace = null;
         foreach (_placeholders as myhash: mycontent) {
@@ -155,7 +155,7 @@ class DTextHelper : DHelper {
      * Params:
      * string mytext Text
      * @param Json[string] options Array of HTML options, and options listed above.
-     * /
+     */
     string autoLinkEmails(string mytext, Json[string] options  = null) {
         auto updatedOptions = options.update["escape": true.toJson];
        _placeholders = null;
@@ -181,7 +181,7 @@ class DTextHelper : DHelper {
      * Params:
      * string mytext Text
      * @param Json[string] options Array of HTML options, and options listed above.
-     * /
+     */
     string autoLink(string mytext, Json[string] options  = null) {
         mytext = this.autoLinkUrls(mytext, options);
 
@@ -194,7 +194,7 @@ class DTextHelper : DHelper {
      * <p> added for double line return
      * Params:
      * string|null mytext Text
-     * /
+     */
     string autoParagraph(string mytext) {
         mytext ??= "";
         if (trim(mytext) != "") {

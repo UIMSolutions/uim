@@ -21,7 +21,7 @@ class UrlHelper : DHelper {
      * Check proper configuration
      * Params:
      * Json[string] configData The configuration settings provided to this helper.
-     * /
+     */
   	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
@@ -29,7 +29,7 @@ class UrlHelper : DHelper {
 	}
         myengineClassConfig = configurationData.isSet("assetUrlClassName");
 
-        /** @var class-string<\UIM\Routing\Asset>|null myengineClass * /
+        /** @var class-string<\UIM\Routing\Asset>|null myengineClass */
         myengineClass = App.className(myengineClassConfig, "Routing");
         if (myengineClass.isNull) {
             throw new UimException("Class for `%s` could not be found.".format(myengineClassConfig));
@@ -50,7 +50,7 @@ class UrlHelper : DHelper {
      *   an array of URL parameters. Using an array for URLs will allow you to leverage
      *   the reverse routing features of UIM.
      * @param Json[string] options Array of options.
-     * /
+     */
     string build(string[] myurl = null, Json[string] options  = null) {
         mydefaults = [
             "fullBase": false.toJson,
@@ -78,7 +78,7 @@ class UrlHelper : DHelper {
      * @param Json[string] myparams An array specifying any additional parameters.
      *  Can be also any special parameters supported by `Router.url()`.
      * @param Json[string] options Array of options.
-     * /
+     */
     string buildFromPath(string mypath, Json[string] myparams = [], Json[string] options  = null) {
         return _build(["_path": mypath] + myparams, options);
     }
@@ -98,7 +98,7 @@ class UrlHelper : DHelper {
      *       Set to false to skip timestamp generation.
      *       Set to true to apply timestamps when debug is true. Set to "force" to always
      *       enable timestamping regardless of debug value.
-     * /
+     */
     string image(string mypath, Json[string] options  = null) {
         auto updatedOptions = options.update["theme": _View.getTheme()];
 
@@ -121,7 +121,7 @@ class UrlHelper : DHelper {
      *       Set to false to skip timestamp generation.
      *       Set to true to apply timestamps when debug is true. Set to "force" to always
      *       enable timestamping regardless of debug value.
-     * /
+     */
     string css(string mypath, Json[string] options  = null) {
         auto updatedOptions = options.update["theme": _View.getTheme()];
 
@@ -144,7 +144,7 @@ class UrlHelper : DHelper {
      *       Set to false to skip timestamp generation.
      *       Set to true to apply timestamps when debug is true. Set to "force" to always
      *       enable timestamping regardless of debug value.
-     * /
+     */
     string script(string mypath, Json[string] options  = null) {
         auto updatedOptions = options.update["theme": _View.getTheme()];
 
@@ -171,7 +171,7 @@ class UrlHelper : DHelper {
      * Params:
      * string mypath Path string or URL array
      * @param Json[string] options Options array.
-     * /
+     */
     string assetUrl(string mypath, Json[string] options  = null) {
         auto updatedOptions = options.update["theme": _View.getTheme()];
 
@@ -185,7 +185,7 @@ class UrlHelper : DHelper {
      * Params:
      * string mypath The file path to timestamp, the path must be inside `App.wwwRoot` in Configure.
      * @param string mytimestamp If set will overrule the value of `Asset.timestamp` in Configure.
-     * /
+     */
     string assetTimestamp(string mypath, string|null mytimestamp = null) {
         return htmlAttribEscape(_assetUrlClassName.assetTimestamp(mypath, mytimestamp));
     }
@@ -194,7 +194,7 @@ class UrlHelper : DHelper {
      * Checks if a file exists when theme is used, if no file is found default location is returned
      * Params:
      * string myfile The file to create a webroot path to.
-     * /
+     */
     string webroot(string myfile) {
         options = ["theme": _View.getTheme()];
 

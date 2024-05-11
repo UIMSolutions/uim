@@ -17,13 +17,13 @@ class DBreadcrumbsHelper : DHelper {
 
     /**
      * Other helpers used by BreadcrumbsHelper.
-     * /
+     */
     // TODO protected Json[string] myhelpers = ["Url"];
 
     /**
      * Default config for the helper.
      *
-     * /
+     */
     configuration.updateDefaults([
         "templates": [
             "wrapper": "<ul{{attrs}}>{{content}}</ul>",
@@ -37,7 +37,7 @@ class DBreadcrumbsHelper : DHelper {
      * The crumb list.
      *
      * @var array
-     * /
+     */
     // TODO protected Json[string] mycrumbs = null;
 
     /**
@@ -59,7 +59,7 @@ class DBreadcrumbsHelper : DHelper {
      * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to
      *  the link)
      * - *templateVars*: Specific template vars in case you override the templates provided.
-     * /
+     */
     void add(string[] mytitle, string[] myurl = null, Json[string] options  = null) {
         if (mytitle.isArray) {
             mytitle.each!(crumb => this.crumbs ~= crumb ~ ["title": "", "url": Json(null), "options": Json.emptyArray]);
@@ -86,7 +86,7 @@ class DBreadcrumbsHelper : DHelper {
      *
      * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to the link)
      * - *templateVars*: Specific template vars in case you override the templates provided.
-     * /
+     */
     void prepend(string[] titles, string[] myurl = null, Json[string] options  = null) {
         if (mytitle.isArray) {
             string[] mycrumbs;
@@ -119,7 +119,7 @@ class DBreadcrumbsHelper : DHelper {
      * - *templateVars*: Specific template vars in case you override the templates provided.
 
      * @throws \LogicException In case the index is out of bound
-     * /
+     */
     void insertAt(int myindex, string mytitle, string[] myurl = null, Json[string] options  = null) {
         if (!isSet(this.crumbs[myindex]) && myindex != count(this.crumbs)) {
             throw new DLogicException(
@@ -146,7 +146,7 @@ class DBreadcrumbsHelper : DHelper {
      * - *templateVars*: Specific template vars in case you override the templates provided.
      * @return this
      * @throws \LogicException In case the matching crumb can not be found
-     * /
+     */
     auto insertBefore(
         string mymatchingTitle,
         string mytitle,
@@ -178,7 +178,7 @@ class DBreadcrumbsHelper : DHelper {
      *  the link)
      * - *templateVars*: Specific template vars in case you override the templates provided.
      * @return this
-     * /
+     */
     auto insertAfter(
         string mymatchingTitle,
         string mytitle,
@@ -219,7 +219,7 @@ class DBreadcrumbsHelper : DHelper {
      *
      * All other properties will be converted as HTML attributes and will replace the *attrs* key in the template.
      * If you use the default for this option (empty), it will not render a separator.
-     * /
+     */
     string render(Json[string] myattributes = [], Json[string] myseparator = []) {
         if (!this.crumbs) {
             return "";
@@ -281,7 +281,7 @@ class DBreadcrumbsHelper : DHelper {
      * If found, the index of the matching crumb will be returned.
      * Params:
      * string mytitle Title to find.
-     * /
+     */
     protected int findCrumb(string mytitle) {
         foreach (this.crumbs as aKey: mycrumb) {
             if (mycrumb["title"] == mytitle) {

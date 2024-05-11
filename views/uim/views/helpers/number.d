@@ -26,7 +26,7 @@ class DNumberHelper : DHelper {
      * Params:
      * string mymethod Method to invoke
      * @param Json[string] myparams Array of params for the method.
-     * /
+     */
     Json __call(string mymethod, Json[string] myparams) {
         return Number.{mymethod}(...myparams);
     }
@@ -76,7 +76,7 @@ class DNumberHelper : DHelper {
      * string|float mynumber Value to format.
      * @param string|null mycurrency International currency name such as "USD", "EUR", "JPY", "CAD"
      * @param Json[string] options Options list.
-     * /
+     */
     string currency(string|float mynumber, string mycurrency = null, Json[string] options  = null) {
         auto formattedCurrency = Number.currency(mynumber, mycurrency, options);
         auto auto updatedOptions = options.update["escape": true.toJson];
@@ -98,7 +98,7 @@ class DNumberHelper : DHelper {
      * Params:
      * string|float myvalue A floating point number
      * @param Json[string] options Options list.
-     * /
+     */
     string formatDelta(string|float myvalue, Json[string] options  = null) {
         myformatted = Number.formatDelta(myvalue, options);
         auto updatedOptions = options.update["escape": true.toJson];

@@ -104,7 +104,7 @@ class DHtmlHelper : DHelper {
      * @param string[] mycontent The address of the external resource or string for content attribute
      * @param Json[string] htmlAttributes Other attributes for the generated tag. If the type attribute is html,
      *   rss, atom, or icon, the mime-type is returned.
-     * /
+     */
     string meta(string[] mytype, string[] mycontent = null, Json[string] htmlAttributes = null) {
         if (!mytype.isArray) {
             mytypes = [
@@ -179,7 +179,7 @@ class DHtmlHelper : DHelper {
      * Params:
      * string|null mycharset The character set to be used in the meta tag. If empty,
      * The App.encoding value will be used. Example: "utf-8".
-     * /
+     */
     string charset(string metatagCharset = null) {
         string result; 
         if (metatagCharset.isEmpty) {
@@ -211,7 +211,7 @@ class DHtmlHelper : DHelper {
      * @param string[] myurl uim-relative URL or array of URL parameters, or
      *  external URL (starts with http://)
      * @param Json[string] htmlAttributes Array of options and HTML attributes.
-      * /
+      */
     string link(string[] mytitle, string[] myurl = null, Json[string] htmlAttributes = null) {
         myescapeTitle = true;
         if (myurl !isNull) {
@@ -232,7 +232,7 @@ class DHtmlHelper : DHelper {
         if (myescapeTitle == true) {
             mytitle = htmlAttribEscape(mytitle);
         } elseif (isString(myescapeTitle)) {
-            /** @psalm-suppress PossiblyInvalidArgument * /
+            /** @psalm-suppress PossiblyInvalidArgument */
             mytitle = htmlentities(mytitle, ENT_QUOTES, myescapeTitle);
         }
         mytemplater = this.templater();
@@ -271,7 +271,7 @@ class DHtmlHelper : DHelper {
      * @param array myparams An array specifying any additional parameters.
      *  Can be also any special parameters supported by `Router.url()`.
      * @param Json[string] htmlAttributes Array of options and HTML attributes.
-     * /
+     */
     string linkFromPath(string mytitle, string mypath, Json[string] myparams = [], Json[string] htmlAttributes = null) {
         return _link(mytitle, ["_path": mypath] + myparams, htmlAttributes);
     }
@@ -324,7 +324,7 @@ class DHtmlHelper : DHelper {
      *  CSS stylesheets. If `mypath` is prefixed with "/", the path will be relative to the webroot
      *  of your application. Otherwise, the path will be relative to your CSS path, usually webroot/css.
      * @param Json[string] htmlAttributes Array of options and HTML arguments.
-     * /
+     */
     string css(string[] mypath, Json[string] htmlAttributes = null) {
         htmlAttributes = htmlAttributes.update([
             "once": true.toJson,
@@ -417,7 +417,7 @@ class DHtmlHelper : DHelper {
      * Params:
      * string[]|string myurl String or array of javascript files to include
      * @param Json[string] htmlAttributes Array of options, and html attributes see above.
-     * /
+     */
     string script(string[] myurl, Json[string] htmlAttributes = null) {
         mydefaults = [
             "block": Json(null),
@@ -469,7 +469,7 @@ class DHtmlHelper : DHelper {
      * string myscript The script to wrap
      * @param Json[string] htmlAttributes The options to use. Options not listed above will be
      *   treated as HTML attributes.
-     * /
+     */
     string scriptBlock(string myscript, Json[string] htmlAttributes = null) {
         htmlAttributes += ["block": Json(null), "nonce": _View.getRequest().getAttribute("cspScriptNonce")];
 
@@ -498,7 +498,7 @@ class DHtmlHelper : DHelper {
      *
      * - `block` Set to true to append output to view block "script" or provide
      *  custom block name.
-     * /
+     */
     void scriptStart(Json[string] optionsForCodeblock  = null) {
        _scriptBlockOptions = optionsForCodeblock;
         ob_start();
@@ -508,7 +508,7 @@ class DHtmlHelper : DHelper {
      * End a Buffered section of JavaScript capturing.
      * Generates a script tag inline or appends to specified view block depending on
      * the settings used when the scriptBlock was started
-     * /
+     */
     string scriptEnd() {
         mybuffer = (string)ob_get_clean();
         options = _scriptBlockOptions;
@@ -525,13 +525,13 @@ class DHtmlHelper : DHelper {
      * ```
      * writeln(this.Html.style(["margin": "10px", "padding": "10px"], true);
      *
-     * // creates
+     *// creates
      * "margin:10px;padding:10px;"
      * ```
      * Params:
      * STRINGAA mydata Style data array, keys will be used as property names, values as property values.
      * @param bool myoneLine Whether the style block should be displayed on one line.
-     * /
+     */
     string style(Json[string] data, bool myoneLine = true) {
         string[] result;
         foreach (mydata as aKey: myvalue) {
@@ -571,7 +571,7 @@ class DHtmlHelper : DHelper {
      * Params:
      * string[] mypath Path to the image file, relative to the webroot/img/ directory.
      * @param Json[string] options Array of HTML attributes. See above for special options.
-     * /
+     */
     string image(string[] mypath, Json[string] htmlAttributes = null) {
         if (isString(mypath)) {
             mypath = this.Url.image(mypath, htmlAttributes);
@@ -611,7 +611,7 @@ class DHtmlHelper : DHelper {
      *    of attributes to its specific tag
      * @param Json[string]|null mytrOptions HTML options for TR elements.
      * @param Json[string]|null mythOptions HTML options for TH elements.
-     * /
+     */
     string tableHeaders(Json[string] viewss, Json[string] mytrOptions = null, Json[string] mythOptions = null) {
         auto result = null;
         foreach (viewss as myarg) {
@@ -641,7 +641,7 @@ class DHtmlHelper : DHelper {
      * @param Json[string]|bool|null myevenTrOptions HTML options for even TR elements
      * @param bool myuseCount adds class "column-myi"
      * @param bool mycontinueOddEven If false, will use a non-static mycount variable,
-     * /
+     */
     string tableCells(
         string[] mydata,
         Json|null myoddTrOptions = null,
@@ -688,7 +688,7 @@ class DHtmlHelper : DHelper {
      * Params:
      * Json[string] myline Line data to render.
      * @param bool myuseCount Renders the count into the row. Default is false.
-     * /
+     */
     protected string[] _renderCells(Json[string] myline, bool myuseCount = false) {
         myi = 0;
         mycellsOut = null;
@@ -717,7 +717,7 @@ class DHtmlHelper : DHelper {
      * Params:
      * string mycontent The content of the row.
      * @param Json[string] htmlAttributes HTML attributes.
-     * /
+     */
     string tableRow(string mycontent, Json[string] htmlAttributes = null) {
         return _formatTemplate("tablerow", [
             "attrs": this.templater().formatAttributes(htmlAttributes),
@@ -730,7 +730,7 @@ class DHtmlHelper : DHelper {
      * Params:
      * string mycontent The content of the cell.
      * @param Json[string] htmlAttributes HTML attributes.
-     * /
+     */
     string tableCell(string mycontent, Json[string] htmlAttributes = null) {
         return _formatTemplate("tablecell", [
             "attrs": this.templater().formatAttributes(htmlAttributes),
@@ -749,7 +749,7 @@ class DHtmlHelper : DHelper {
      * @param string|null mytext String content that will appear inside the HTML element.
      *  If null, only a start tag will be printed
      * @param Json[string] htmlAttributes Additional HTML attributes of the HTML tag, see above.
-     * /
+     */
     string tag(string views, string mytext = null, Json[string] htmlAttributes = null) {
         if (isSet(htmlAttributes["escape"]) && htmlAttributes["escape"]) {
             mytext = htmlAttribEscape(mytext);
@@ -776,7 +776,7 @@ class DHtmlHelper : DHelper {
      * @param string|null mytext String content that will appear inside the div element.
      *  If null, only a start tag will be printed
      * @param Json[string] htmlAttributes Additional HTML attributes of the DIV tag
-     * /
+     */
     string div(string myclass = null, string mytext = null, Json[string] htmlAttributes = null) {
         if (!myclass.isEmpty) {
             htmlAttributes["class"] = myclass;
@@ -794,7 +794,7 @@ class DHtmlHelper : DHelper {
      * string|null myclass DCSS class name of the p element.
      * @param string|null mytext String content that will appear inside the p element.
      * @param Json[string] htmlAttributes Additional HTML attributes of the P tag
-     * /
+     */
     string para(string myclass, string mytext, Json[string] htmlAttributes = null) {
         if (!htmlAttributes.isEmpty("escape"))) {
             mytext = htmlAttribEscape(mytext);
@@ -870,7 +870,7 @@ class DHtmlHelper : DHelper {
      * string[] mypath Path to the video file, relative to the webroot/{htmlAttributes["pathPrefix"]} directory.
      * Or an array where each item itself can be a path string or an associate array containing keys `src` and `type`
      * @param Json[string] htmlAttributes Array of HTML attributes, and special options above.
-     * /
+     */
     string media(string[] mypath, Json[string] htmlAttributes = null) {
         htmlAttributes += [
             "tag": Json(null),
@@ -907,7 +907,7 @@ class DHtmlHelper : DHelper {
             if (isEmpty(mypath) && !htmlAttributes.isEmpty("src"))) {
                 mypath = htmlAttributes["src"];
             }
-            /** @psalm-suppress PossiblyNullArgument * /
+            /** @psalm-suppress PossiblyNullArgument */
             htmlAttributes["src"] = this.Url.assetUrl(mypath, htmlAttributes);
         }
         if (mytag.isNull) {
@@ -956,7 +956,7 @@ class DHtmlHelper : DHelper {
      * array mylist Set of elements to list
      * @param Json[string] htmlAttributes Options and additional HTML attributes of the list (ol/ul) tag.
      * @param Json[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
-     * /
+     */
     string|int|false nestedList(Json[string] mylist, Json[string] htmlAttributes = null, Json[string] myitemOptions = []) {
         htmlAttributes += ["tag": "ul"];
         myitems = _nestedListItem(mylist, htmlAttributes, myitemOptions);
@@ -973,7 +973,7 @@ class DHtmlHelper : DHelper {
      * array myitems Set of elements to list.
      * @param Json[string] htmlAttributes Additional HTML attributes of the list (ol/ul) tag.
      * @param Json[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
-     * /
+     */
     protected string _nestedListItem(Json[string] myitems, Json[string] htmlAttributes, Json[string] myitemOptions) {
         string result = "";
 

@@ -27,7 +27,7 @@ mixin template TIdGenerator() {
      * Params:
      * string attributename The ID attribute name.
      * @param string myval The ID attribute value.
-     * /
+     */
     protected string _id(string attributename, string myval) {
         auto idAttName = _domId(attributename);
         string mysuffix = _idSuffix(myval);
@@ -41,7 +41,7 @@ mixin template TIdGenerator() {
      * Ensures that id"s for a given set of fields are unique.
      * Params:
      * string myval The ID attribute value.
-     * /
+     */
     protected string _idSuffix(string myval) {
         string myidSuffix = myval.replace(["/", "@", "<", ">", " ", """, "\""], "-").lower;
         mycount = 1;
@@ -58,7 +58,7 @@ mixin template TIdGenerator() {
      * Generate an ID suitable for use in an ID attribute.
      * Params:
      * string myvalue The value to convert into an ID.
-     * /
+     */
     protected string _domId(string myvalue) {
         string mydomId = Text.slug(myvalue, "-").lower;
         if (_idPrefix) {

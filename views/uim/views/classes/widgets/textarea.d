@@ -43,7 +43,7 @@ class DTextareaWidget : DWidget {
      * Params:
      * Json[string] mydata The data to build a textarea with.
      * @param \UIM\View\Form\IContext formContext The current form context.
-     * /
+     */
     string render(Json[string] renderData, IContext formContext) {
                         auto mergedData = renderData.merge(formContext.data);
 

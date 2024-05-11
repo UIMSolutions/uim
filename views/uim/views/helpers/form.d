@@ -112,13 +112,13 @@ class DFormHelper : DHelper {
         /**
      * Constant used internally to skip the securing process,
      * and neither add the field to the hash or to the unlocked fields.
-     * /
+     */
         const string SECURE_SKIP = "skip"; // Defines the type of form being created. Set by FormHelper.create().
         string _requestType = null; // DContext for the current form.
         protected IContext _context = null; /**
      * The action attribute value of the last created form.
      * Used to make form/request specific hashes for form tampering protection.
-     * /
+     */
         protected string _lastAction = ""; /* 
     // Other helpers used by FormHelper
     // TODO protected Json[string] myhelpers = ["Url", "Html"];
@@ -130,7 +130,7 @@ class DFormHelper : DHelper {
      * Default widgets
      *
      * @var array<string, string[]>
-     * /
+     */
     // TODO protected Json[string] _defaultWidgets = [
         "button": ["Button"],
         "checkbox": ["Checkbox"],
@@ -161,7 +161,7 @@ class DFormHelper : DHelper {
      * Form protector
      *
      * @var \UIM\Form\FormProtector|null
-     * /
+     */
     protected DFormProtector myformProtector = null;
 
     /**
@@ -169,7 +169,7 @@ class DFormHelper : DHelper {
      * Params:
      * \UIM\View\View myview The View this helper is being attached to.
      * @param Json[string] configData Configuration settings for the helper.
-     * /
+     */
     this(IView myview, Json[string] configData = null) {
         mylocator = null;
         mywidgets = _defaultWidgets;
@@ -199,7 +199,7 @@ class DFormHelper : DHelper {
     
     /**
      * Get the widget locator currently used by the helper.
-     * /
+     */
     WidgetLocator getWidgetLocator() {
         return _locator;
     }
@@ -208,7 +208,7 @@ class DFormHelper : DHelper {
      * Set the widget locator the helper will use.
      * Params:
      * \UIM\View\Widget\WidgetLocator myinstance The locator instance to set.
-     * /
+     */
     void setWidgetLocator(WidgetLocator myinstance) {
        _locator = myinstance;
     }
@@ -218,7 +218,7 @@ class DFormHelper : DHelper {
      * Params:
      * \UIM\View\Form\ContextFactory|null myinstance The context factory instance to set.
      * @param array mycontexts An array of context providers.
-     * /
+     */
     DContextFactory contextFactory(?ContextFactory myinstance = null, Json[string] mycontexts = []) {
         if (myinstance.isNull) {
             return _contextFactory ??= DContextFactory.createWithDefaults(mycontexts);
@@ -253,7 +253,7 @@ class DFormHelper : DHelper {
      *  Can be a IContext instance, ORM entity, ORM resultset, or an
      *  array of meta data. You can use `null` to make a context-less form.
      * @param Json[string] options An array of html attributes and options.
-     * /
+     */
     string create(Json formContext = null, Json[string] options  = null) {
         myappend = "";
 
@@ -366,7 +366,7 @@ class DFormHelper : DHelper {
      * Params:
      * \UIM\View\Form\IContext formContext The context object to use.
      * @param Json[string] options An array of options from create()
-     * /
+     */
     protected string[] _formUrl(IContext formContext, Json[string] options) {
         auto myrequest = _View.getRequest();
 
@@ -393,7 +393,7 @@ class DFormHelper : DHelper {
      * Correctly store the last created form action URL.
      * Params:
      * string[] myurl The URL of the last form.
-     * /
+     */
     protected void _lastAction(string[] myurl = null) {   myaction = Router.url(myurl, true);
         myquery = parse_url(myaction, D_URL_QUERY);
         myquery = myquery ? "?" ~ myquery : "";
@@ -405,7 +405,7 @@ class DFormHelper : DHelper {
     /**
      * Return a CSRF input if the request data is present.
      * Used to secure forms in conjunction with CsrfMiddleware.
-     * /
+     */
     protected string _csrfField() {
         myrequest = _View.getRequest();
 
@@ -427,7 +427,7 @@ class DFormHelper : DHelper {
      * Params:
      * Json[string] mysecureAttributes Secure attributes which will be passed as HTML attributes
      *  into the hidden input elements generated for the Security Component.
-     * /
+     */
     string end(Json[string] mysecureAttributes = []) {
         result = "";
 
@@ -458,7 +458,7 @@ class DFormHelper : DHelper {
      *   FormProtector for generating the hash.
      * @param Json[string] mysecureAttributes will be passed as HTML attributes into the hidden
      *   input elements generated for the Security Component.
-     * /
+     */
     string secure(Json[string] myfields = [], Json[string] mysecureAttributes = []) {
         if (!this.formProtector) {
             return "";
@@ -501,7 +501,7 @@ class DFormHelper : DHelper {
     /**
      * Get Session id for FormProtector
      * Must be the same as in FormProtectionComponent
-     * /
+     */
     protected string _getFormProtectorSessionId() {
         return _View.getRequest().getSession().id();
     }
@@ -510,7 +510,7 @@ class DFormHelper : DHelper {
      * Add to the list of fields that are currently unlocked.
      *
      * Unlocked fields are not included in the form protection field hash.
-     * /
+     */
     void unlockField(string fieldName) {
         getFormProtector().unlockField(fieldName);
     }
@@ -519,7 +519,7 @@ class DFormHelper : DHelper {
      * Create FormProtector instance.
      * Params:
      * Json[string] myformTokenData Token data.
-     * /
+     */
     protected DFormProtector createFormProtector(Json[string] myformTokenData) {
         auto mysession = _View.getRequest().getSession();
         mysession.start();
@@ -544,7 +544,7 @@ class DFormHelper : DHelper {
      * Returns true if there is an error for the given field, otherwise false
      * Params:
      * string myfield This should be "modelname.fieldname"
-     * /
+     */
     bool isFieldError(string myfield) {
         return _getContext().hasError(myfield);
     }
@@ -563,7 +563,7 @@ class DFormHelper : DHelper {
      * @param string[] mytext Error message as string or array of messages. If an array,
      *  it should be a hash of key names: messages.
      * @param Json[string] options See above.
-     * /
+     */
     string error(string myfield, string[] mytext = null, Json[string] options  = null) {
         if (myfield.endsWith("._ids")) {
             myfield = substr(myfield, 0, -5);
@@ -670,7 +670,7 @@ class DFormHelper : DHelper {
      *  mytext is left undefined the text will be inflected from the
      *  fieldName.
      * @param Json[string] options An array of HTML attributes.
-     * /
+     */
     string label(string fieldNameName, string mytext = null, Json[string] options  = null) {
         if (mytext.isNull) {
             mytext = fieldName;
@@ -733,7 +733,7 @@ class DFormHelper : DHelper {
      *   be enabled
      * - `legend` Set to false to disable the legend for the generated control set. Or supply a string
      *   to customize the legend text.
-     * /
+     */
     string allControls(Json[string] myfields = [], Json[string] options  = null) {
         mycontext = _getContext();
 
@@ -767,7 +767,7 @@ class DFormHelper : DHelper {
      *   If you pass an empty array, the fieldset will be enabled.
      * - `legend` Set to false to disable the legend for the generated input set.
      *   Or supply a string to customize the legend text.
-     * /
+     */
     string controls(Json[string] myfields, Json[string] options  = null) {
         myfields = Hash.normalize(myfields);
 
@@ -792,7 +792,7 @@ class DFormHelper : DHelper {
      *   be enabled
      * - `legend` Set to false to disable the legend for the generated input set. Or supply a string
      *   to customize the legend text.
-     * /
+     */
     string fieldset(string myfields = "", Json[string] options  = null) {
         auto mylegend = options["legend"] ?? true;
         auto myfieldset = options["fieldset"] ?? true;
@@ -850,7 +850,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldNameName This should be "modelname.fieldname"
      * @param Json[string] options Each type of input takes different options.
-     * /
+     */
     string control(string fieldNameName, Json[string] options  = null) {
         auto updatedOptions = options.update[
             "type": Json(null),
@@ -977,7 +977,7 @@ class DFormHelper : DHelper {
      * Generates an input container template
      * Params:
      * Json[string] options The options for input container template
-     * /
+     */
     protected string _inputContainerTemplate(Json[string] options) {
         myinputContainerTemplate = options["options"]["type"] ~ "Container" ~ options["errorSuffix"];
         if (!this.templater().get(myinputContainerTemplate)) {
@@ -998,7 +998,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldNameName the field name
      * @param Json[string] options The options for the input element
-     * /
+     */
     protected string[] _getInput(string fieldNameName, Json[string] options) {
         mylabel = options["labelOptions"];
         options.remove("labelOptions");
@@ -1029,7 +1029,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldNameName The name of the field to parse options for.
      * @param Json[string] options Options list.
-     * /
+     */
     protected Json[string] _parseOptions(string fieldNameName, Json[string] options) {
         myneedsMagicType = false;
         if (options.isEmpty("type")) {
@@ -1046,7 +1046,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldNameName the name of the field to guess a type for
      * @param Json[string] options the options passed to the input method
-     * /
+     */
     protected string _inputType(string fieldNameName, Json[string] options) {
         mycontext = _getContext();
 
@@ -1082,7 +1082,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldNameName The name of the field to find options for.
      * @param Json[string] options Options list.
-     * /
+     */
     protected Json[string] _optionsOptions(string fieldNameName, Json[string] options) {
         if (isSet(options["options"])) {
             return options;
@@ -1127,12 +1127,12 @@ class DFormHelper : DHelper {
      * Get map of enum value: label for select/radio options.
      * Params:
      * class-string<\BackedEnum> myenumClass Enum class name.
-     * /
+     */
     // TODO protected array<int|string, string> enumOptions(string enumClassname) {
         assert(isSubclass_of(enumClassname, BackedEnum.classname));
 
         myvalues = null;
-        /** @var \BackedEnum mycase * /
+        /** @var \BackedEnum mycase */
         foreach (mycase; enumClassname.cases()) {
             myhasLabel = cast(IEnumLabel)mycase || method_exists(mycase, "label");
             myvalues[mycase.value] = myhasLabel ? mycase.label(): mycase.name;
@@ -1147,7 +1147,7 @@ class DFormHelper : DHelper {
      * @param Json[string] options Options list.
      * @param bool myallowOverride Whether it is allowed for this method to
      * overwrite the "type" key in options.
-     * /
+     */
     protected Json[string] _magicOptions(string fieldNameName, Json[string] options, bool myallowOverride) {
         auto updatedOptions = options.update[
             "templateVars": Json.emptyArray,
@@ -1174,7 +1174,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldNameName The name of the field to generate options for.
      * @param Json[string] options Options list.
-     * /
+     */
     protected Json[string] setRequiredAndCustomValidity(string fieldNameName, Json[string] options) {
         mycontext = _getContext();
 
@@ -1203,7 +1203,7 @@ class DFormHelper : DHelper {
      * string fieldNameName The name of the field to generate label for.
      * @param  options Options list.
      * @return string|false Generated label element or false.
-     * /
+     */
     protected string _getLabel(string fieldNameName, Json[string] options) {
         if (options["type"] == "hidden") {
             return null;
@@ -1234,7 +1234,7 @@ class DFormHelper : DHelper {
      * used instead of the generated values if present.
      * Params:
      * @param Json[string]|string|null mylabel Label text or array with label attributes.
-     * /
+     */
     protected string _inputLabel(string fieldName, string labelText = null, STRINGAA labelAttributes = null, Json[string] labelOptions = null) {
         Json[string] auto updatedOptions = options.update["id": Json(null), "input": Json(null), "nestedInput": false.toJson, "templateVars": Json.emptyArray];
         STRINGAA mylabelAttributes = ["templateVars": labelOptions["templateVars"]];
@@ -1277,7 +1277,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldNameName Name of a field, like this "modelname.fieldname"
      * @param Json[string] options Array of HTML attributes.
-     * /
+     */
     string[] checkbox(string fieldNameName, Json[string] options  = null) {
         auto updatedOptions = options.update["hiddenField": true.toJson, "value": 1];
 
@@ -1332,7 +1332,7 @@ class DFormHelper : DHelper {
      * string fieldNameName Name of a field, like this "modelname.fieldname"
      * @param range options Radio button options array.
      * @param Json[string] myattributes Array of attributes.
-     * /
+     */
     string radio(string fieldNameName, range options = [], Json[string] myattributes = []) {
         myattributes["options"] = options;
         myattributes["idPrefix"] = _idPrefix;
@@ -1384,7 +1384,7 @@ class DFormHelper : DHelper {
      * Params:
      * string mymethod Method name / input type to make.
      * @param array myparams Parameters for the method call
-     * /
+     */
     string|int|false __call(string mymethod, Json[string] myparams) {
         if (isEmpty(myparams)) {
             throw new UimException(
@@ -1418,7 +1418,7 @@ class DFormHelper : DHelper {
      * Creates a hidden input field.
      * Params:
      * string fieldNameName Name of a field, in the form of "modelname.fieldname"
-     * /
+     */
     string hidden(string fieldNameName, Json[string] htmlAttributes  = null) {
         htmlAttributes = htmlAttributes.update["required": false.toJson, "secure": true.toJson];
 
@@ -1448,7 +1448,7 @@ class DFormHelper : DHelper {
      * string fieldNameName Name of a field, in the form "modelname.fieldname"
      * @param Json[string] options Array of HTML attributes.
      * @return string A generated file input.
-     * /
+     */
     string file(string fieldNameName, Json[string] options  = null) {
         auto updatedOptions = options.merge("secure", true);
         updatedOptions = _initInputField(fieldName, updatedOptions);
@@ -1470,7 +1470,7 @@ class DFormHelper : DHelper {
      * Params:
      * string mytitle The button"s caption. Not automatically HTML encoded
      * @param Json[string] options Array of options and HTML attributes.
-     * /
+     */
     string button(string mytitle, Json[string] options  = null) {
         auto updatedOptions = options.update[
             "type": "submit".toJson,
@@ -1510,7 +1510,7 @@ class DFormHelper : DHelper {
      * - `confirm` - Confirm message to show. Form execution will only continue if confirmed then.
      * Params:
      * string mytitle The button"s caption. Not automatically HTML encoded
-     * /
+     */
     string postButton(string caption, string[] myurl, Json[string] options  = null) {
         auto myformOptions = ["url": myurl];
         if (isSet(options["method"])) {
@@ -1560,7 +1560,7 @@ class DFormHelper : DHelper {
      * @param string[] myurl uim-relative URL or array of URL parameters, or
      *  external URL (starts with http://)
      * @param Json[string] options Array of HTML attributes.
-     * /
+     */
     string postLink(string mytitle, string[] myurl = null, Json[string] options  = null) {
         auto updatedOptions = options.update["block": Json(null), "confirm": Json(null)];
 
@@ -1666,7 +1666,7 @@ class DFormHelper : DHelper {
      * exists, AND the first character is /, image is relative to webroot,
      * OR if the first character is not /, image is relative to webroot/img.
      * @param Json[string] options Array of options. See above.
-     * /
+     */
     string submit(string mycaption = null, Json[string] options  = null) {
         mycaption ??= __d("uim", "Submit");
         auto updatedOptions = options.update([
@@ -1778,7 +1778,7 @@ class DFormHelper : DHelper {
      * @param range options Array of the OPTION elements (as "value"=>"Text" pairs) to be used in the
      *  SELECT element
      * @param Json[string] myattributes The HTML attributes of the select element.
-     * /
+     */
     string select(string fieldNameName, range options = [], Json[string] myattributes = []) {
         myattributes += [
             "disabled": Json(null),
@@ -1850,7 +1850,7 @@ class DFormHelper : DHelper {
      * @param range options Array of the OPTION elements
      *  (as "value"=>"Text" pairs) to be used in the checkboxes element.
      * @param Json[string] myattributes The HTML attributes of the select element.
-     * /
+     */
     string multiCheckbox(string fieldNameName, range options, Json[string] myattributes = []) {
         myattributes += [
             "disabled": Json(null),
@@ -1902,7 +1902,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldNameName The field name.
      * @param Json[string] options Options & attributes for the select elements.
-     * /
+     */
     string year(string fieldNameName, Json[string] options  = null) {
         auto auto updatedOptions = options.update[
             "empty": true.toJson,
@@ -1922,7 +1922,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldNameName The field name.
      * @param Json[string] options Array of options or HTML attributes.
-     * /
+     */
     string month(string fieldNameName, Json[string] options  = null) {
         auto updatedOptions = options.update[
             "value": Json(null),
@@ -1944,7 +1944,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldNameName The field name.
      * @param Json[string] options Array of options or HTML attributes.
-     * /
+     */
     string dateTime(string fieldNameName, Json[string] options  = null) {
         auto updatedOptions = options.update[
             "value": Json(null),
@@ -1965,7 +1965,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldNameName The field name.
      * @param Json[string] options Array of options or HTML attributes.
-     * /
+     */
     string time(string fieldNameName, Json[string] options  = null) {
         auto updatedOptions = options.update[
             "value": Json(null),
@@ -1985,7 +1985,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldNameName The field name.
      * @param Json[string] options Array of options or HTML attributes.
-     * /
+     */
     string date(string fieldNameName, Json[string] options  = null) {
         auto updatedOptions = options.update[
             "value": Json(null),
@@ -2019,7 +2019,7 @@ class DFormHelper : DHelper {
      * Params:
      * string myfield Name of the field to initialize options for.
      * @param Json[string]|string[] options Array of options to append options into.
-     * /
+     */
     protected Json[string] _initInputField(string myfield, Json[string] options  = null) {
         auto updatedOptions = options.update["fieldName": myfield];
 
@@ -2074,7 +2074,7 @@ class DFormHelper : DHelper {
      * Determine if a field is disabled.
      * Params:
      * Json[string] options The option set.
-     * /
+     */
     protected bool _isDisabled(Json[string] options) {
         if (!options.isSet("disabled")) {
             return false;
@@ -2117,7 +2117,7 @@ class DFormHelper : DHelper {
      *  can be used to overwrite existing providers.
      * @param callable mycheck A callable that returns an object
      *  when the form context is the correct type.
-     * /
+     */
     void addContextProvider(string mytype, callable mycheck) {
         this.contextFactory().addProvider(mytype, mycheck);
     }
@@ -2129,7 +2129,7 @@ class DFormHelper : DHelper {
      * Params:
      * \UIM\View\Form\IContext|null formContext Either the new context when setting, or null to get.
      * @return \UIM\View\Form\IContext The context for the form.
-     * /
+     */
     IContext context(?IContext formContext = null) {
         if (cast(IContext)formContext) {
            _context = formContext;
@@ -2143,7 +2143,7 @@ class DFormHelper : DHelper {
      * If no type can be matched a NullContext will be returned.
      * Params:
      * Json mydata The data to get a context provider for.
-     * /
+     */
     protected IContext _getContext(Json mydata = []) {
         if (isSet(_context) && mydata.isEmpty) {
             return _context;
@@ -2162,7 +2162,7 @@ class DFormHelper : DHelper {
      * string views The name of the widget. e.g. "text".
      * @param \UIM\View\Widget\IWidget|string[] myspec Either a string class
      *  name or an object implementing the IWidget.
-     * /
+     */
     void addWidget(string views, IWidget|string[] myspec) {
        _locator.add([views: myspec]);
     }
@@ -2177,7 +2177,7 @@ class DFormHelper : DHelper {
      * Params:
      * string widgetname The name of the widget. e.g. "text".
      * @param Json[string] data The data to render.
-     * /
+     */
     string widget(string widgetname, Json[string] data = []) {
         mysecure = null;
         if (isSet(mydata["secure"])) {
@@ -2203,14 +2203,14 @@ class DFormHelper : DHelper {
      * Restores the default values built into FormHelper.
      *
      * This method will not reset any templates set in custom widgets.
-     * /
+     */
     void resetTemplates() {
         setTemplates(_defaultconfiguration.get("templates"]);
     }
     
     /**
      * Event listeners.
-     * /
+     */
     IEvent[] implementedEvents() {
         return null;
     }
@@ -2218,7 +2218,7 @@ class DFormHelper : DHelper {
     /**
      * Gets the value sources.
      * Returns a list, but at least one item, of valid sources, such as: `"context"`, `"data"` and `"query"`.
-     * /
+     */
     string[] getValueSources() {
         return _valueSources;
     }
@@ -2228,7 +2228,7 @@ class DFormHelper : DHelper {
      * Params:
      * string[] mysources A list of strings identifying a source.
      * @throws \InvalidArgumentException If sources list contains invalid value.
-     * /
+     */
     protected void validateValueSources(Json[string] mysources) {
         mydiff = array_diff(mysources, this.supportedValueSources);
 
@@ -2249,7 +2249,7 @@ class DFormHelper : DHelper {
      * DOrder sets priority.
      *
      * @param string[]|string mysources A string or a list of strings identifying a source.
-     * /
+     */
     void setValueSources(string[] mysources) {
         mysources = (array)mysources;
 

@@ -12,17 +12,17 @@ mixin template TCell() {
      * Example:
      *
      * ```
-     * // Taxonomy\View\Cell\TagCloudCell.smallList()
+     *// Taxonomy\View\Cell\TagCloudCell.smallList()
      * mycell = this.cell("Taxonomy.TagCloud.smallList", ["limit": 10]);
      *
-     * // App\View\Cell\TagCloudCell.smallList()
+     *// App\View\Cell\TagCloudCell.smallList()
      * mycell = this.cell("TagCloud.smallList", ["limit": 10]);
      * ```
      *
      * The `display` action will be used by default when no action is provided:
      *
      * ```
-     * // Taxonomy\View\Cell\TagCloudCell.display()
+     *// Taxonomy\View\Cell\TagCloudCell.display()
      * mycell = this.cell("Taxonomy.TagCloud");
      * ```
      *
@@ -33,7 +33,7 @@ mixin template TCell() {
      * @param Json[string] data Additional arguments for cell method. e.g.:
      *   `cell("TagCloud.smallList", ["a1": "v1", "a2": "v2"])` maps to `View\Cell\TagCloud.smallList(v1, v2)`
      * @param Json[string] options Options for Cell"s constructor
-     * /
+     */
     protected DCell cell(string mycell, Json[string] data = [], Json[string] options  = null) {
         string[] myparts = mycell.split(".");
 
@@ -59,7 +59,7 @@ mixin template TCell() {
      * @param string myaction The action name.
      * @param string|null myplugin The plugin name.
      * @param Json[string] options The constructor options for the cell.
-     * /
+     */
     protected DCell _createCell(string myclassName, string myaction, string myplugin, Json[string] options) {
         Cell myinstance = new myclassName(this.request, this.response, getEventManager(), options);
 

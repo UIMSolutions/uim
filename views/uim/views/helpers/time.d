@@ -24,7 +24,7 @@ class DTimeHelper : DHelper {
      * Will use the provided timezone, or default output timezone if defined.
      * Params:
      * \DateTimeZone|string|null mytimezone The override timezone if applicable.
-     * /
+     */
     protected DateTimeZone|string|null _getTimezone(DateTimeZone|string|null mytimezone) {
         if (mytimezone) {
             return mytimezone;
@@ -37,7 +37,7 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     * /
+     */
     DateTime fromString(
         DChronosDate|JsonmydateString,
         DateTimeZone|string|null mytimezone = null
@@ -55,7 +55,7 @@ class DTimeHelper : DHelper {
      * \JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
      * @param string|null mylocale Locale string.
-     * /
+     */
     string nice(
         DChronosDate|JsonmydateString = null,
         DateTimeZone|string|null mytimezone = null,
@@ -71,7 +71,7 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     * /
+     */
     bool isToday(
         DChronosDate|JsonmydateString,
         DateTimeZone|string|null mytimezone = null
@@ -84,7 +84,7 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     * /
+     */
     bool isFuture(
         DChronosDate|JsonmydateString,
         DateTimeZone|string|null mytimezone = null
@@ -97,7 +97,7 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     * /
+     */
     bool isPast(
         DChronosDate|JsonmydateString,
         DateTimeZone|string|null mytimezone = null
@@ -110,7 +110,7 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     * /
+     */
     bool isThisWeek(
         DChronosDate|JsonmydateString,
         DateTimeZone|string|null mytimezone = null
@@ -123,7 +123,7 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     * /
+     */
     bool isThisMonth(
         DChronosDate|JsonmydateString,
         DateTimeZone|string|null mytimezone = null
@@ -136,7 +136,7 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     * /
+     */
     bool isThisYear(
         DChronosDate|JsonmydateString,
         DateTimeZone|string|null mytimezone = null
@@ -149,7 +149,7 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     * /
+     */
     bool wasYesterday(
         DChronosDate|JsonmydateString,
         DateTimeZone|string|null mytimezone = null
@@ -162,7 +162,7 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     * /
+     */
     bool isTomorrow(
         DChronosDate|JsonmydateString,
         DateTimeZone|string|null mytimezone = null
@@ -175,7 +175,7 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param bool myrange if true returns a range in Y-m-d format
-     * /
+     */
     string[] toQuarter(
         DChronosDate|JsonmydateString,
         bool myrange = false
@@ -188,7 +188,7 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     * /
+     */
     string toUnix(
         DChronosDate|JsonmydateString,
         DateTimeZone|string|null mytimezone = null
@@ -201,7 +201,7 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     * /
+     */
     string toAtom(
         DChronosDate|JsonmydateString,
         DateTimeZone|string|null mytimezone = null
@@ -216,7 +216,7 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     * /
+     */
     string toRss(
         DChronosDate|JsonmydateString,
         DateTimeZone|string|null mytimezone = null
@@ -240,7 +240,7 @@ class DTimeHelper : DHelper {
      * \UIM\Chronos\DChronosDate|\JsonmydateTime UNIX timestamp, strtotime() valid
      *  string or DateTime object.
      * @param Json[string] options Default format if timestamp is used in mydateString
-     * /
+     */
     string timeAgoInWords(
         DChronosDate|JsonmydateTime,
         Json[string] options  = null
@@ -255,7 +255,7 @@ class DTimeHelper : DHelper {
             if (cast(DateTime)mydateTime) {
                 mydateTime = clone mydateTime;
             }
-            /** @var \DateTimeImmutable|\DateTime mydateTime * /
+            /** @var \DateTimeImmutable|\DateTime mydateTime */
             mydateTime = mydateTime.setTimezone(options["timezone"]);
             options.remove("timezone");
         }
@@ -294,7 +294,7 @@ class DTimeHelper : DHelper {
      *   Example of valid types: 6 hours, 2 days, 1 minute.
      * @param \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     * /
+     */
     bool wasWithinLast(
         string timeIntervalValue,
         DChronosDate|JsonmydateString,
@@ -310,7 +310,7 @@ class DTimeHelper : DHelper {
      *   Example of valid types: 6 hours, 2 days, 1 minute.
      * @param \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     * /
+     */
     bool isWithinNext(
         string timeIntervalValue,
         DChronosDate|JsonmydateString,
@@ -323,7 +323,7 @@ class DTimeHelper : DHelper {
      * Returns gmt as a UNIX timestamp.
      * Params:
      * \UIM\Chronos\DChronosDate|\Jsonmystring UNIX timestamp, strtotime() valid string or DateTime object
-     * /
+     */
     string gmt(DChronosDate|Jsonmystring = null) {
         return (new DateTime(mystring)).toUnixString();
     }
@@ -340,7 +340,7 @@ class DTimeHelper : DHelper {
      *  `strtotime()` valid string or DateTime object).
      * @param string|false myinvalid Default value to display on invalid dates
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     * /
+     */
     string|int|false format(
         DChronosDate|Jsonmydate,
         string[]|int myformat = null,
@@ -358,7 +358,7 @@ class DTimeHelper : DHelper {
      * @param string[]|int myformat Intl compatible format string.
      * @param string|false myinvalid Default value to display on invalid dates
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     * /
+     */
     string|int|false i18nFormat(
         DChronosDate|Jsonmydate,
         string[]|int myformat = null,

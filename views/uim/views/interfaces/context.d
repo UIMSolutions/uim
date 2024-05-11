@@ -33,14 +33,14 @@ interface IContext {
      *    context record.
      *  - `schemaDefault`: Boolean indicating whether default value from
      *    context"s schema should be used if it"s not explicitly provided.
-    * /
+    */
     Json val(string fieldPath, Json[string] options  = null) ;
 
     /**
      * Check if a given field is "required".
      *
      * In this context class, this is simply defined by the "required" array.
-     * /
+     */
     bool isRequired(string fieldPath);
 
     // Gets the default "required" error message for a field

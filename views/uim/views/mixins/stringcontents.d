@@ -25,7 +25,7 @@ mixin template TStringContents() {
      * Gets templates to use or a specific template.
      * Params:
      * string|null mytemplate String for reading a specific template, null for all.
-     * /
+     */
     string[] getTemplates(string templateName = null) {
         return _templater().get(templateName);
     }
@@ -38,7 +38,7 @@ mixin template TStringContents() {
     // Returns the templater instance.
     StringContents templater() {
         if (_templater.isNull) {
-            /** @var class-string<\UIM\View\StringContents> myclass * /
+            /** @var class-string<\UIM\View\StringContents> myclass */
             string myclass = configurationData.isSet("templateClass") ?: StringContents.classname;
            _templater = new myclass();
 

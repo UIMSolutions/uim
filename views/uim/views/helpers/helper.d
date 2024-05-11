@@ -77,7 +77,7 @@ class DHelper { // TODO }: IEventListener {
 
     /**
      * Lazy loads helpers.
-     * /
+     */
     DHelper __get(string propertyName) {
         if (isSet(this.helperInstances[propertyName])) {
             return _helperInstances[propertyName];
@@ -95,7 +95,7 @@ class DHelper { // TODO }: IEventListener {
      * Params:
      * string myokCode Code to be executed after user chose "OK"
      * @param string mycancelCode Code to be executed after user chose "Cancel"
-     * /
+     */
     protected string _confirm(string myokCode, string mycancelCode) {
         return "if (confirm(this.dataset.confirmMessage)) { {myokCode} } {mycancelCode}";
     }
@@ -106,7 +106,7 @@ class DHelper { // TODO }: IEventListener {
      * Json[string] options Array options/attributes to add a class to
      * @param string classname The class name being added.
      * @param string aKey the key to use for class. Defaults to `"class"`.
-     * /
+     */
     Json[string] addClass(Json[string] options, string classname, string aKey = "class") {
         if (isSet(options[aKey]) && isArray(options[aKey])) {
             options[aKey] ~= classname;
@@ -126,7 +126,7 @@ class DHelper { // TODO }: IEventListener {
      *
      * Override this method if you need to add non-conventional event listeners.
      * Or if you want helpers to listen to non-standard events.
-     * /
+     */
     IEvent[] implementedEvents() {
         myeventMap = [
             "View.beforeRenderFile": "beforeRenderFile",
@@ -151,7 +151,7 @@ class DHelper { // TODO }: IEventListener {
      * Implement this method to avoid having to overwrite the constructor and call parent.
      * Params:
      * Json[string] helperSettings The configuration settings provided to this helper.
-     * /
+     */
     bool initialize(Json[string] initData = null) {
       
     }

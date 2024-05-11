@@ -20,7 +20,7 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      * Constructor
      * Params:
      * \UIM\View\View myview View object.
-     * /
+     */
     this(IView myview) {
        _view = myview;
         setEventManager(myview.getEventManager());
@@ -32,7 +32,7 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      * if any
      * Params:
      * string myhelper The helper name to be loaded
-     * /
+     */
     bool __isSet(string myhelper) {
         if (isSet(_loaded[myhelper])) {
             return true;
@@ -57,7 +57,7 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      * Provide read access to the loaded objects
     DHelper __get(string propertyName) {
         // This calls __isSet() and loading the named helper if it isn"t already loaded.
-        /** @psalm-suppress NoValue * /
+        /** @psalm-suppress NoValue */
         if (isSet(this.{propertyName})) {
             return _loaded[propertyName];
         }
@@ -70,7 +70,7 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      * Part of the template method for UIM\Core\ObjectRegistry.load()
      * Params:
      * string myclass DPartial classname to resolve.
-     * /
+     */
     protected string _resolveClassName(string myclass) {
         return App.className(myclass, "View/Helper", "Helper");
     }
@@ -83,7 +83,7 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      * Params:
      * string myclass DThe classname that is missing.
      * @param string|null myplugin The plugin the helper is missing in.
-     * /
+     */
     protected void _throwMissingClassError(string myclass, string myplugin) {
         throw new DMissingHelperException([
             "class": myclass ~ "Helper",
@@ -100,7 +100,7 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      * \UIM\View\Helper|class-string<\UIM\View\Helper> myclass DThe class to create.
      * @param string aliasName The alias of the loaded helper.
      * @param Json[string] configData An array of settings to use for the helper.
-     * /
+     */
     protected DHelper _create(object|string myclass, string aliasName, Json[string] configData) {
         if (isObject(myclass)) {
             return myclass;

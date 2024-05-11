@@ -82,7 +82,7 @@ class DLogger : ILogger {
      * Params:
      * \string amessage Formatted message.
      * @param Json[string] context DContext for placeholder values.
-     * /
+     */
     protected string interpolate(string formattedMessage, Json[string] context = []) {
         if (!formattedMessage.has("{", "}")) {
             return formattedMessage;
@@ -91,7 +91,7 @@ class DLogger : ILogger {
             "/(?<!" ~ preg_quote("\\", "/") ~ ")\{([a-z0-9-_]+)\}/i",
             formattedMessage,
             matches
-        ); * /
+        ); */
         if (isEmpty(matches)) {
             return formattedMessage;
         }
@@ -142,7 +142,7 @@ class DLogger : ILogger {
             }
             replacements["{" ~ aKey ~ "}"] = "[unhandled value of type %s]".format(get_debug_type(aValue));
         }
-        /** @psalm-suppress InvalidArgument * /
+        /** @psalm-suppress InvalidArgument */
         return formattedMessage.replace(replacements.keys, replacements);
     } */
 }

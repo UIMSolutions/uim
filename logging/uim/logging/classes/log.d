@@ -91,7 +91,7 @@ import uim.logging;
 class DLog {
     /**
      * Internal flag for tracking whether configuration has been changed.
-     * /
+     */
     protected static bool _isDirtyConfig = false;
 
     protected static LogEngineRegistry _registry;
@@ -103,7 +103,7 @@ class DLog {
     
     /**
      * An array mapping url schemes to fully qualified Log engine class names
-     * /
+     */
     protected static STRINGAA _dsnClassMap = [
         "console": Engine\ConsoleLog.classname,
         "file": Engine\FileLog.classname,
@@ -113,7 +113,7 @@ class DLog {
 
     /**
      * Handled log levels
-     * /
+     */
     protected static string[] _levels = [
         "emergency",
         "alert",
@@ -130,7 +130,7 @@ class DLog {
      * https://tools.ietf.org/html/rfc5424
      *
      * @var array<string, int>
-     * /
+     */
     protected static Json[string] _levelMap = [
         "emergency": LOG_EMERG,
         "alert": LOG_ALERT,
@@ -145,7 +145,7 @@ class DLog {
     /**
      * Creates registry if doesn"t exist and creates all defined logging
      * adapters if config isn"t loaded.
-     * /
+     */
     protected static LogEngineRegistry getRegistry() {
         _registry ??= new DLogEngineRegistry();
 
@@ -171,7 +171,7 @@ class DLog {
      *
      * Resets the configured logging adapters, as well as any custom logging levels.
      * This will also clear the configuration data.
-     * /
+     */
     static void reset() {
         if (isSet(_registry)) {
             _registry.reset();
@@ -185,7 +185,7 @@ class DLog {
      *
      * Call this method to obtain current
      * level configuration.
-     * /
+     */
     static string[] levels() {
         return _levels;
     }
@@ -227,7 +227,7 @@ class DLog {
      * Params:
      * Json[string]|string aKey The name of the logger config, or an array of multiple configs.
      * @param \Psr\Log\ILogger|\Closure|Json[string]|null configData An array of name: config data for adapter.
-     * /
+     */
     static void configuration.update(string[] aKey, ILogger|Closure|array|null configData = null) {
         configurationuration.update(aKey, configData);
         _isDirtyConfig = true;
@@ -237,7 +237,7 @@ class DLog {
      * Get a logging engine.
      * Params:
      * string aName Key name of a configured adapter to get.
-     * /
+     */
     static ILogger engine(string aName) {
         registry = getRegistry();
         if (!registry.{name}) {
@@ -297,13 +297,13 @@ class DLog {
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
-     * /
+     */
     static bool write(string|int level, string amessage, string[] acontext = []) {
         if (isInt(level) && in_array(level, _levelMap, true)) {
             level = array_search(level, _levelMap, true);
         }
         if (!in_array(level, _levels, true)) {
-            /** @psalm-suppress PossiblyFalseArgument * /
+            /** @psalm-suppress PossiblyFalseArgument */
             throw new DInvalidArgumentException(
                 "Invalid log level `%s`".format(level));
         }
@@ -316,7 +316,7 @@ class DLog {
 
         registry = getRegistry();
         registry.loaded().each!((streamName) {
-            /** @var \Psr\Log\ILogger logger * /
+            /** @var \Psr\Log\ILogger logger */
             auto logger = registry.{streamName};
             auto levels = scopes = null;
 
@@ -345,7 +345,7 @@ class DLog {
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
-     * /
+     */
     static bool emergency(string amessage, string[] acontext = []) {
         return write(__FUNCTION__, message, context);
     }
@@ -359,7 +359,7 @@ class DLog {
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
-     * /
+     */
     static bool alert(string amessage, string[] acontext = []) {
         return write(__FUNCTION__, message, context);
     }
@@ -373,7 +373,7 @@ class DLog {
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
-     * /
+     */
     static bool critical(string amessage, string[] acontext = []) {
         return write(__FUNCTION__, message, context);
     }
@@ -387,7 +387,7 @@ class DLog {
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
-     * /
+     */
     static bool error(string amessage, string[] acontext = []) {
         return write(__FUNCTION__, message, context);
     }
@@ -401,7 +401,7 @@ class DLog {
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
-     * /
+     */
     static bool warning(string amessage, string[] acontext = []) {
         return write(__FUNCTION__, message, context);
     }
@@ -415,7 +415,7 @@ class DLog {
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
-     * /
+     */
     static bool notice(string amessage, string[] acontext = []) {
         return write(__FUNCTION__, message, context);
     }
@@ -429,7 +429,7 @@ class DLog {
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
-     * /
+     */
     static bool shouldDebug(string amessage, string[] acontext = []) {
         return write(__FUNCTION__, message, context);
     }
@@ -443,7 +443,7 @@ class DLog {
      * log engines to be used. If a string or a numerically indexed array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
-     * /
+     */
     static bool info(string amessage, string[] acontext = []) {
         return write(__FUNCTION__, message, context);
     } */

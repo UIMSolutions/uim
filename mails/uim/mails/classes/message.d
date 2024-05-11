@@ -122,7 +122,7 @@ class DMessage { //: JsonSerializable {
 
     /**
      * 8Bit character sets
-     * /
+     */
     protected string[] charset8bit = ["UTF-8", "SHIFT_JIS"];
 
     // Define Content-Type charset name
@@ -159,7 +159,7 @@ class DMessage { //: JsonSerializable {
      * - Remote mailserver down
      * - Remote user has exceeded his quota
      * - Unknown user
-     * /
+     */
     // TODO protected Json[string] resultPath = null;
 
     /**
@@ -167,7 +167,7 @@ class DMessage { //: JsonSerializable {
      *
      * List of email"s that should receive a copy of the email.
      * The Recipient WILL be able to see this list
-      * /
+      */
     // TODO protected Json[string] cc = null;
 
     /**
@@ -175,14 +175,14 @@ class DMessage { //: JsonSerializable {
      *
      * List of email"s that should receive a copy of the email.
      * The Recipient WILL NOT be able to see this list
-     * /
+     */
     // TODO protected Json[string] bcc = null;
 
 
     /**
      * Associative array of a user defined headers
      * Keys will be prefixed "X-" as per RFC2822 Section 4.7.5
-     * /
+     */
     // TODO protected Json[string] aHeaders = null;
 
     // Text message
@@ -202,7 +202,7 @@ class DMessage { //: JsonSerializable {
      * Only absolute paths
      *
      * @var array<string, array>
-     * /
+     */
     // TODO protected Json[string] attachments;
 
 
@@ -210,12 +210,12 @@ class DMessage { //: JsonSerializable {
      * Contains the optional priority of the email.
      *
      * @var int
-     * /
+     */
     protected int priority = null;
 
     /**
      * Properties that could be serialized
-     * /
+     */
     protected string[] serializableProperties = [
         "to", "from", "sender", "replyTo", "cc", "bcc", "subject",
         "returnPath", "readReceipt", "emailFormat", "emailPattern", "domain",
@@ -232,7 +232,7 @@ class DMessage { //: JsonSerializable {
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
      * @return this
-     * /
+     */
     auto setFrom(string[] aemail, string aName = null) {
         return _setEmailSingle("from", email, aName, "From requires only 1 email address.");
     }
@@ -251,14 +251,14 @@ class DMessage { //: JsonSerializable {
      * @return this
      * @throws \InvalidArgumentException
      * @link https://tools.ietf.org/html/rfc2822.html#section-3.6.2
-     * /
+     */
     auto setSender(string[] aemail, string aName = null) {
         return _setEmailSingle("sender", email, name, "Sender requires only 1 email address.");
     }
     
     /**
      * Gets the "sender" address. See RFC link below for full explanation.
-     * /
+     */
     Json[string] getSender() {
         return _sender;
     }
@@ -271,7 +271,7 @@ class DMessage { //: JsonSerializable {
      * @param string name Name
      * @return this
      * @throws \InvalidArgumentException
-    * /
+    */
     auto setReplyTo(string[] aemail, string aName = null) {
         return _setEmail("replyTo", email, name);
     }
@@ -279,21 +279,21 @@ class DMessage { //: JsonSerializable {
     /**
      * Gets "Reply-To" address.
      *
-      * /
+      */
     Json[string] getReplyTo() {
         return _replyTo;
     }
     
     /**
      * Add "Reply-To" address.
-     * /
+     */
     auto addReplyTo(string[] email, string name = null) {
         return _addEmail("replyTo", email, name);
     }
     
     /**
      * Sets Read Receipt (Disposition-Notification-To header).
-     * /
+     */
     void setReadReceipt(string[] email, string name = null) {
         return _setEmailSingle(
             "readReceipt",
@@ -305,7 +305,7 @@ class DMessage { //: JsonSerializable {
     
     /**
      * Gets Read Receipt (Disposition-Notification-To header).
-     * /
+     */
     Json[string] getReadReceipt() {
         return _readReceipt;
     }
@@ -318,14 +318,14 @@ class DMessage { //: JsonSerializable {
      * @param string name Name
      * @return this
      * @throws \InvalidArgumentException
-     * /
+     */
     auto setReturnPath(string[] aemail, string aName = null) {
         return _setEmailSingle("returnPath", email, name, "Return-Path requires only 1 email address.");
     }
     
     /**
      * Gets return path.
-     * /
+     */
     Json[string] getReturnPath() {
         return _returnPath;
     }
@@ -336,14 +336,14 @@ class DMessage { //: JsonSerializable {
      * string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     * /
+     */
     auto setTo(string[] aemail, string aName = null) {
         return _setEmail("to", email, name);
     }
     
     /**
      * Gets "to" address
-     * /
+     */
     Json[string] getTo() {
         return _to;
     }
@@ -354,7 +354,7 @@ class DMessage { //: JsonSerializable {
      * string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     * /
+     */
     auto addTo(string[] aemail, string aName = null) {
         return _addEmail("to", email, name);
     }
@@ -365,7 +365,7 @@ class DMessage { //: JsonSerializable {
      * string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     * /
+     */
     auto setCc(string[] aemail, string aName = null) {
         return _setEmail("cc", email, name);
     }
@@ -373,7 +373,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Gets "cc" address.
      *
-     * /
+     */
     Json[string] getCc() {
         return _cc;
     }
@@ -384,7 +384,7 @@ class DMessage { //: JsonSerializable {
      * string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     * /
+     */
     auto addCc(string[] aemail, string aName = null) {
         return _addEmail("cc", email, name);
     }
@@ -395,7 +395,7 @@ class DMessage { //: JsonSerializable {
      * string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     * /
+     */
     auto setBcc(string[] aemail, string aName = null) {
         return _setEmail("bcc", email, name);
     }
@@ -403,7 +403,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Gets "bcc" address.
      *
-     * /
+     */
     Json[string] getBcc() {
         return _bcc;
     }
@@ -414,7 +414,7 @@ class DMessage { //: JsonSerializable {
      * string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     * /
+     */
     auto addBcc(string[] aemail, string aName = null) {
         return _addEmail("bcc", email, name);
     }
@@ -425,7 +425,7 @@ class DMessage { //: JsonSerializable {
      * HeaderCharset setter.
      * Params:
      * string charset Character set.
-     * /
+     */
     void setHeaderCharset(string charset) {
         this.headerCharset = charset;
     }
@@ -441,7 +441,7 @@ class DMessage { //: JsonSerializable {
      * string encoding Encoding set.
      * @return this
      * @throws \InvalidArgumentException
-     * /
+     */
     auto setTransferEncoding(string aencoding) {
         if (encoding !isNull) {
             encoding = encoding.lower;
@@ -459,7 +459,7 @@ class DMessage { //: JsonSerializable {
     
     /**
      * TransferEncoding getter.
-     * /
+     */
     string getTransferEncoding() {
         return _transferEncoding;
     }
@@ -469,7 +469,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * string regex The pattern to use for email address validation,
      *  null to unset the pattern and make use of filter_var() instead.
-     * /
+     */
     auto setEmailPattern(string aregex) {
         this.emailPattern = regex;
 
@@ -478,7 +478,7 @@ class DMessage { //: JsonSerializable {
     
     /**
      * EmailPattern setter/getter
-     * /
+     */
     string getEmailPattern() {
         return _emailPattern;
     }
@@ -490,7 +490,7 @@ class DMessage { //: JsonSerializable {
      * @param string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     * /
+     */
     protected void setEmail(string avarName, string[] aemail, string aName) {
         if (!isArray(email)) {
             this.validateEmail(email, varName);
@@ -514,7 +514,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * string aemail Email address to validate
      * @param string acontext Which property was set
-     * /
+     */
     protected void validateEmail(string emailAddress, string acontext) {
         if (this.emailPattern.isNull) {
             if (filter_var(emailAddress, FILTER_VALIDATE_EMAIL)) {
@@ -538,7 +538,7 @@ class DMessage { //: JsonSerializable {
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
      * @param string athrowMessage Exception message
-     * /
+     */
     protected void setEmailSingle(string avarName, string[] aemail, string aName, string exceptionMessage) {
         if (email == []) {
             this.{varName} = email;
@@ -560,7 +560,7 @@ class DMessage { //: JsonSerializable {
      * @param string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     * /
+     */
     protected void addEmail(string avarName, STRINGAA emailValue, string aName) {
         if (!isArray(emailValue)) {
             this.validateEmail(emailValue, varName);
@@ -585,7 +585,7 @@ class DMessage { //: JsonSerializable {
      * Sets subject.
      * Params:
      * string asubject Subject string.
-     * /
+     */
     auto setSubject(string asubject) {
         this.subject = this.encodeForHeader(subject);
 
@@ -594,14 +594,14 @@ class DMessage { //: JsonSerializable {
     
     /**
      * Gets subject.
-     * /
+     */
     string subject() {
         return _subject;
     }
     
     /**
      * Get original subject without encoding
-     * /
+     */
     string getOriginalSubject() {
         return _decodeForHeader(this.subject);
     }
@@ -610,7 +610,7 @@ class DMessage { //: JsonSerializable {
      * Sets headers for the message
      * Params:
      * Json[string] aHeaders Associative array containing headers to be set.
-     * /
+     */
     auto setHeaders(Json[string] aHeaders) {
         this.headers = aHeaders;
 
@@ -621,7 +621,7 @@ class DMessage { //: JsonSerializable {
      * Add header for the message
      * Params:
      * Json[string] aHeaders Headers to set.
-     * /
+     */
     auto addHeaders(Json[string] aHeaders) {
         this.headers = Hash.merge(this.headers,  aHeaders);
 
@@ -643,7 +643,7 @@ class DMessage { //: JsonSerializable {
      * - `subject`
      * Params:
      * string[] anInclude List of headers.
-     * /
+     */
     string[] getHeaders(Json[string] anInclude = []) {
         this.createBoundary();
 
@@ -723,7 +723,7 @@ class DMessage { //: JsonSerializable {
      * string[] anInclude List of headers.
      * @param string aeol End of line string for concatenating headers.
      * @param \Closure|null aCallback Callback to run each header value through before stringifying.
-     * /
+     */
     string getHeadersString(Json[string] anInclude = [], string aeol = "\r\n", ?Closure aCallback = null) {
         auto lines = getHeaders(anInclude);
 
@@ -751,7 +751,7 @@ class DMessage { //: JsonSerializable {
      * in address header fields.
      * Params:
      * Json[string] address Addresses to format.
-     * /
+     */
     // TODO protected Json[string] formatAddress(Json[string] address) {
         auto result;
         foreach (address as email: alias) {
@@ -772,7 +772,7 @@ class DMessage { //: JsonSerializable {
      * Sets email format.
      * Params:
      * string aformat Formatting string.
-     * /
+     */
     void setEmailFormat(string aformat) {
         if (!in_array(aformat, this.emailFormatAvailable, true)) {
             throw new DInvalidArgumentException("Format not available.");
@@ -800,7 +800,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * string message True to generate a new DMessage-ID, False to ignore (not send in email),
      *  String to set as Message-ID.
-     * /
+     */
     void setMessageId(string message) {
         if (!preg_match("/^\<.+@.+\>/", message)) {
             throw new DInvalidArgumentException(
@@ -821,7 +821,7 @@ class DMessage { //: JsonSerializable {
      * Domain as top level (the part after @).
      * Params:
      * string adomain Manually set the domain for CLI mailing.
-     * /
+     */
     auto setDomain(string adomain) {
         this.domain = domain;
 
@@ -877,7 +877,7 @@ class DMessage { //: JsonSerializable {
      *
      * The `contentDisposition` key allows you to disable the `Content-Disposition` header, this can improve
      * attachment compatibility with outlook email clients.
-     * /
+     */
     void setAttachments(DirEntry[string] fileAttachments) {
         auto attach = null;
         foreach (attName; dirEntry; fileAttachments) {
@@ -939,7 +939,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * Json[string] attachments Array of filenames.
      * @throws \InvalidArgumentException
-     * /
+     */
     void addAttachments(Json[string] attachments) {
         current = this.attachments;
         setAttachments(attachments);
@@ -949,7 +949,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Get generated message body as array.
      *
-     * /
+     */
     Json[string] getBody() {
         if (isEmpty(this.message)) {
             this.message = this.generateMessage();
@@ -966,7 +966,7 @@ class DMessage { //: JsonSerializable {
     
     /**
      * Create unique boundary identifier
-     * /
+     */
     protected void createBoundary() {
         if (
             this.boundary.isNull &&
@@ -1063,7 +1063,7 @@ class DMessage { //: JsonSerializable {
      * Attach non-embedded files by adding file contents inside boundaries.
      * Params:
      * string boundary Boundary to use. If null, will default to this.boundary
-     * /
+     */
     protected string[] attachFiles(string aboundary = null) {
         boundary ??= this.boundary;
 
@@ -1097,7 +1097,7 @@ class DMessage { //: JsonSerializable {
      * Attach inline/embedded files to the message.
      * Params:
      * string boundary Boundary to use. If null, will default to this.boundary
-     * /
+     */
     protected string[] attachInlineFiles(string aboundary = null) {
         auto boundary = boundary ? baoundry :  this.boundary;
 
@@ -1124,7 +1124,7 @@ class DMessage { //: JsonSerializable {
      * Sets priority.
      * Params:
      * int priority 1 (highest) to 5 (lowest)
-     * /
+     */
     auto setPriority(int priority) {
         this.priority = priority;
 
@@ -1140,7 +1140,7 @@ class DMessage { //: JsonSerializable {
      * Sets the configuration for this instance.
      *
      * configData - Config array.
-     * /
+     */
     auto setConfig(Json[string] configData = null) {
         string[] simpleMethods = [
             "from", "sender", "to", "replyTo", "readReceipt", "returnPath",
@@ -1153,7 +1153,7 @@ class DMessage { //: JsonSerializable {
             }
         });
         if (configuration.hasKey("headers")) {
-            setHeaders(configData("headers"));
+            setHeaders(configuration.data("headers"));
         }
         return this;
     }
@@ -1163,7 +1163,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * STRINGAA content Content array with keys "text" and/or "html" with
      *  content string of respective type.
-     * /
+     */
     auto setBody(Json[string] content) {
         foreach (content as type: text) {
             if (!in_array(type, this.emailFormatAvailable, true)) {
@@ -1190,7 +1190,7 @@ class DMessage { //: JsonSerializable {
      * Set text body for message.
      * Params:
      * string acontent Content string
-     * /
+     */
     auto setBodyText(string acontent) {
         setBody([MESSAGE_TEXT: content]);
 
@@ -1201,7 +1201,7 @@ class DMessage { //: JsonSerializable {
      * Set HTML body for message.
      * Params:
      * string acontent Content string
-     * /
+     */
     auto setBodyHtml(string acontent) {
         setBody([MESSAGE_HTML: content]);
 
@@ -1210,14 +1210,14 @@ class DMessage { //: JsonSerializable {
     
     /**
      * Get text body of message.
-     * /
+     */
     string getBodyText() {
         return _textMessage;
     }
     
     /**
      * Get HTML body of message.
-     * /
+     */
     string getBodyHtml() {
         return _htmlMessage;
     }
@@ -1228,7 +1228,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * string atext The text to be converted
      * @param string acharset the target encoding
-     * /
+     */
     protected string encodeString(string atext, string acharset) {
         if (this.appCharset == charset) {
             return text;
@@ -1244,7 +1244,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * string message Message to wrap
      * @param int wrapLength The line length
-     * /
+     */
     protected string[] wrap(string amessage = null, int wrapLength = self.LINE_LENGTH_MUST) {
         if (message.isNull || message.isEmpty) {
             return [""];
@@ -1327,7 +1327,7 @@ class DMessage { //: JsonSerializable {
                              anI++;
                         }
                     } else {
-                        lastSpace = strrpos(tmpLine, " ");
+                        lastSpace = indexOf(tmpLine, " ");
                         if (lastSpace == false) {
                             continue;
                         }
@@ -1378,7 +1378,7 @@ class DMessage { //: JsonSerializable {
      * Encode the specified string using the current charset
      * Params:
      * string atext String to encode
-     * /
+     */
     protected string encodeForHeader(string textToEncode) {
         if (this.appCharset.isNull) {
             return textToEncode;
@@ -1395,7 +1395,7 @@ class DMessage { //: JsonSerializable {
      * Decode the specified string
      * Params:
      * string atext String to decode
-     * /
+     */
     protected string decodeForHeader(string textToEncode) {
         if (this.appCharset.isNull) {
             return textToEncode;
@@ -1413,7 +1413,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * \Psr\Http\Message\IUploadedFile|string afile The absolute path to the file to read
      *  or IUploadedFile instance.
-     * /
+     */
     protected string readFile(IUploadedFile|string afile) {
         if (isString(file)) {
             content = (string)file_get_contents(file);
@@ -1426,7 +1426,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Return the Content-Transfer Encoding value based
      * on the set transferEncoding or set charset.
-     * /
+     */
     string getContentTransferEncoding() {
         if (this.transferEncoding) {
             return _transferEncoding;
@@ -1444,7 +1444,7 @@ class DMessage { //: JsonSerializable {
      *
      * Checks fallback/compatibility types which include workarounds
      * for legacy japanese character sets.
-     * /
+     */
     string getContentTypeCharset() {
         string charset = this.charset.upper;
         return array_key_exists(charset, this.contentTypeCharset))
@@ -1458,7 +1458,7 @@ class DMessage { //: JsonSerializable {
      *
      * @return Json[string] Serializable array of configuration properties.
      * @throws \Exception When a view var object can not be properly serialized.
-     * /
+     */
     Json[string] JsonSerialize() {
         Json[string] = null;
         foreach (this.serializableProperties as  aProperty) {
@@ -1480,7 +1480,7 @@ class DMessage { //: JsonSerializable {
      * Configures an email instance object from serialized config.
      *
      * configData - Email configuration array.
-     * /
+     */
     void createFromArray(Json[string] configData = null) {
         foreach (configData as  aProperty: aValue) {
             this.{ aProperty} = aValue;
@@ -1490,7 +1490,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Magic method used for serializing the Message object.
      *
-     * /
+     */
     Json[string] __serialize() {
         Json[string] = this.JsonSerialize();
         array_walk_recursive(array, void (& anItem, aKey) {
@@ -1506,7 +1506,7 @@ class DMessage { //: JsonSerializable {
      * Magic method used to rebuild the Message object.
      * Params:
      * Json[string] data Data array.
-     * /
+     */
     void __unserialize(Json[string] data) {
         this.createFromArray(someData);
     } */

@@ -50,7 +50,7 @@ class DFileLog { // TODO /*}: BaseLog {
      *  is made.
      * - `dirMask` The mask used for created folders.
      *
-     * /
+     */
     configuration.updateDefaults([
         "path": Json(null),
         "file": Json(null),
@@ -95,7 +95,7 @@ class DFileLog { // TODO /*}: BaseLog {
      * Json logLevel The severity level of the message being written.
      * @param \string messageToLog The message you want to log.
      * @param Json[string] messageContext Additional information about the logged message
-     * /
+     */
     void log(logLevel, string messageToLog, Json[string] messageContext = []) {
         string message = this.interpolate(messageToLog, messageContext);
         message = this.formatter.format(logLevel, message, messageContext);
@@ -134,7 +134,7 @@ class DFileLog { // TODO /*}: BaseLog {
      * Also if `rotate` count is reached oldest file is removed.
      * Params:
      * string logFilename Log file name
-     * /
+     */
     protected bool _rotateFile(string logFilename) {
         string logFilepath = _path ~ logFilename;
         clearstatcache(true, logFilepath);

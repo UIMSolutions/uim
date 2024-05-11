@@ -76,7 +76,7 @@ class DMessagesFileLoader {
      * in the system.
      * @param string fileExtension The file extension to use. This will also be mapped
      * to a messages parser class.
-     * /
+     */
     this(string domainName, string alocale, string fileExtension = "po") {
         this();
        _name = domainName;
@@ -121,7 +121,7 @@ class DMessagesFileLoader {
     /**
      * Returns the folders where the file should be looked for according to the locale
      * and catalog name.
-     * /
+     */
     string[] translationsFolders() {
         locale = Locale.parseLocale(_locale) ~ ["region": Json(null)];
 

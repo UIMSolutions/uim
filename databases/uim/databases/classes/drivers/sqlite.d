@@ -158,7 +158,7 @@ class DSqliteDriver : DDriver {
      * SQL dialect.
      * Params:
      * \UIM\Database\Expression\FunctionExpression expression The auto expression to convert to TSQL.
-     * /
+     */
     protected void _transformFunctionExpression(FunctionExpression expression) {
         switch (expression.name) {
             case "CONCAT":

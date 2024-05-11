@@ -25,7 +25,7 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
      * Constructor.
      * Params:
      * \UIM\Controller\Controller controller Controller instance.
-     * /
+     */
     this(IController controller) {
        _Controller = controller;
         setEventManager(controller.getEventManager());
@@ -40,9 +40,9 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
      * Resolve a component classname.
      *
      * Part of the template method for {@link \UIM\Core\ObjectRegistry.load()}.
-     * /
+     */
     protected string _resolveClassName(string className) {
-        /** @var class-string<\UIM\Controller\Component>|null * /
+        /** @var class-string<\UIM\Controller\Component>|null */
         return App.className(className, "Controller/Component", "Component");
     }
     
@@ -53,7 +53,7 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
      * and {@link \UIM\Core\ObjectRegistry.unload()}
      * Params:
      * @throws \UIM\Controller\Exception\MissingComponentException
-     * /
+     */
     protected void _throwMissingClassError(string className, string pluginName) {
         throw new DMissingComponentException([
             "class":  className ~ "Component",
@@ -70,7 +70,7 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
      * \UIM\Controller\Component|class-string<\UIM\Controller\Component>  className The classname to create.
      * @param string aalias The alias of the component.
      * configData - An array of config to use for the component.
-     * /
+     */
     protected IComponent _create(object|string className, string aalias, Json[string] configData = null) {
         if (isObject(className)) {
             return className;

@@ -88,12 +88,12 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * An instance of a \UIM\Http\ServerRequest object that contains information about the current request.
      * This object contains all the information about a request and several methods for reading
      * additional information about the request.
-     * /
+     */
     protected IServerRequest serverRequest;
 
     /**
      * An instance of a Response object that contains information about the impending response
-     * /
+     */
     protected DResponse response;
 
     /**
@@ -109,7 +109,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      *  parameters. Modifying this list will allow users to have more influence
      *  over pagination, be careful with what you permit.
      * - `className` - The paginator class to use. Defaults to `UIM\Datasource\Paging\NumericPaginator.classname`.
-     * /
+     */
     protected Json[string] paginate;
 
     // Set to true to automatically render the view after action logic.
@@ -119,7 +119,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Instance of ComponentRegistry used to create Components
      *
      * @var \UIM\Controller\ComponentRegistry|null
-     * /
+     */
     protected DComponentRegistry _components = null;
 
 
@@ -136,7 +136,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * - this.request - To the  request parameter
      * Params:
      * \UIM\Http\ServerRequest serverRequest Request instance.
-     * /
+     */
     void setRequest(DServerRequest serverRequest) {
         _request = serverRequest;
         _pluginName = serverRequest.getParam("plugin");
@@ -159,7 +159,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      *  but expect that features that use the request parameters will not work.
      * @param string|null name Override the name useful in testing when using mocks.
      * @param \UIM\Event\IEventManager|null eventManager The event manager. Defaults to a new instance.
-     * /
+     */
     this(
         ServerRequest serverRequest,
         string aName = null,
@@ -212,7 +212,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Will result in a `this.Authentication` being a reference to that component.
      * Params:
      * configData - The config for the component.
-     * /
+     */
     Component loadComponent(string componentName, Json[string] configData = null) {
         return _components().load(componentName, configData);
     }
@@ -230,11 +230,11 @@ class DController : IController { // IEventListener, IEventDispatcher {
             }
         }
         if (this.components().has(propertyName)) {
-            /** @var \UIM\Controller\Component   * /
+            /** @var \UIM\Controller\Component   */
             return _components().get(propertyName);
         }
 
-        /** @var array<int, Json[string]> trace * /
+        /** @var array<int, Json[string]> trace */
         trace = debug_backtrace();
         someParts = class.split("\\");
         trigger_error(
@@ -288,7 +288,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Params:
      * \Closure action The action closure.
      * @param Json[string] someArguments The arguments to be passed when invoking action.
-     * /
+     */
     void invokeAction(Closure action, Json[string] someArguments) {
         auto result = action(...someArguments);
         if (!result.isNull) {
@@ -313,7 +313,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * @param Json[string] options Valid options:
      * - `only`: (string[]) Only run the middleware for specified actions.
      * - `except`: (string[]) Run the middleware for all actions except the specified ones.
-     * /
+     */
     void middleware(IMiddleware amiddleware, Json[string] options = null) {
         // TODO
     }
@@ -354,7 +354,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
     /**
      * Returns a list of all events that will fire in the controller during its lifecycle.
      * You can override this auto to add your own listener callbacks
-     * /
+     */
     IEvent[] implementedEvents() {
         return [
             "Controller.initialize": "beforeFilter",
@@ -371,7 +371,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * - Initializes components, which fires their `initialize` callback
      * - Calls the controller `beforeFilter`.
      * - triggers Component `startup` methods.
-     * /
+     */
     IResponse startupProcess() {
         result = this.dispatchEvent("Controller.initialize").getResult();
         if (cast(IResponse)result) { return result; }
@@ -388,7 +388,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      *
      * - triggers the component `shutdown` callback.
      * - calls the Controller`s `afterFilter` method.
-     * /
+     */
     IResponse shutdownProcess() {
         result = this.dispatchEvent("Controller.shutdown").getResult();
         if (cast(IResponse)result) {
@@ -402,7 +402,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Params:
      * \Psr\Http\Message\IUri|string[] aurl A string, array-based URL or IUri instance.
      * @param int status HTTP status code. Defaults to `302`.
-     * /
+     */
     Response redirect(IUri|string[] aurl, int httpStatusCode = 302) {
         this.autoRender = false;
 
@@ -436,7 +436,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * string|null template Template to use for rendering
      * @param string|null  layout Layout to use
      * returns A response object containing the rendered view.
-     * /
+     */
     Response render(string atemplate = null, string alayout = null) {
          builder = viewBuilder();
         if (! builder.getTemplatePath()) {
@@ -474,7 +474,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      *
      * Each view class must implement the `getContentType()` hook method
      * to participate in negotiation.
-     * /
+     */
     string[] viewClasses() {
         return _viewClasses;
     }
@@ -486,7 +486,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * to participate in negotiation.
      * Params:
      * Json[string] viewClasses View classes list.
-     * /
+     */
     void addViewClasses(Json[string] viewClasses) {
         this.viewClasses = array_merge(this.viewClasses,  viewClasses);
     }
@@ -494,7 +494,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
     /**
      * Use the view classes defined on this controller to view
      * selection based on content-type negotiation.
-     * /
+     */
     protected string chooseViewClass() {
         auto possibleViewClasses = this.viewClasses();
         if (possibleViewClasses.isEmpty) {
@@ -555,7 +555,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * @param bool  local If false, do not restrict referring URLs to local server.
      *  Careful with trusting external sources.
      * returns Referring URL
-     * /
+     */
     string referer(string[] defaultValue = "/", bool  local = true) {
          referer = this.request.referer(local);
         if (!referer.isNull) {
@@ -583,7 +583,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Params:
      * \UIM\Datasource\IRepository|\UIM\Datasource\IQuery|string|null  object Table to paginate
      * (e.g: Table instance, "TableName' or a Query object)
-     * /
+     */
     IPaginated paginate(
         IRepository|IQuery|string|null  object = null,
         Json[string] settingsForPagination = null
@@ -620,7 +620,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Override this method to change which controller methods can be reached.
      * The default implementation disallows access to all methods defined on UIM\Controller\Controller,
      * and allows all methods on all subclasses of this class.
-     * /
+     */
     bool isAction(string actionName) {
          baseClass = new DReflectionClass(self.classname);
         if (baseClass.hasMethod(actionName)) {
@@ -639,7 +639,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * or perform logic that needs to happen before each controller action.
      * Params:
      * \UIM\Event\IEvent<\UIM\Controller\Controller> event An Event instance
-     * /
+     */
     Response|null|void beforeFilter(IEvent event) {
     }
     
@@ -648,7 +648,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * to perform logic or set view variables that are required on every request.
      * Params:
      * \UIM\Event\IEvent<\UIM\Controller\Controller> event An Event instance
-     * /
+     */
     Response beforeRender(IEvent event) {
     }
     
@@ -664,14 +664,14 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * \UIM\Event\IEvent<\UIM\Controller\Controller> event An Event instance
      * @param \Psr\Http\Message\IUri|string[] aurl A string or array-based URL pointing to another location within the app,
      *    or an absolute URL
-     * /
+     */
     Response beforeRedirect(IEvent event, IUri|string[] aurl, Response response) {
         return null; 
     }
     
     /**
      * Called after the controller action is run and rendered.
-     * /
+     */
     Response afterFilter(IEvent event) {
         return null; 
     } */

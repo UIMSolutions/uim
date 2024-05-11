@@ -41,7 +41,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * Create a controller for a given request.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request to build a controller for.
-     * /
+     */
     IController create(IServerRequest serverRequest) {
         assert(cast(DServerRequest) request);
         auto className = getControllerClass(request);
@@ -63,7 +63,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * Invoke a controller`s action and wrapping methods.
      * Params:
      * \UIM\Controller\Controller controller The controller to invoke.
-     * /
+     */
     IResponse invoke(IController controller) {
         this.controller = controller;
 
@@ -82,7 +82,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * Invoke the action.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest Request instance.
-     * /
+     */
     IResponse handle(IServerRequest serverRequest) {
         assert(cast(DServerRequest) request);
         controller = this.controller;
@@ -110,7 +110,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * Get the arguments for the controller action invocation.
      * Params:
      * \Closure action Controller action.
-     * /
+     */
     // TODO protected Json[string] getActionArgs(Closure action, Json[string] passedParams) {
          resolved = null;
         function = new DReflectionFunction(action);
@@ -195,7 +195,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * Params:
      * string aargument Argument to coerce
      * @param \ReflectionNamedType type Parameter type
-     * /
+     */
     protected string[]|float|int|bool|null coerceStringToType(string argumentToCoerce, ReflectionNamedType type) {
         return match (type.name) {
             "string": argumentToCoerce,
@@ -211,7 +211,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * Determine the controller class name based on current request and controller param
      * Params:
      * \UIM\Http\ServerRequest serverRequest The request to build a controller for.
-     * /
+     */
     string getControllerClass(DServerRequest serverRequest) {
         pluginPath = "";
         namespace = "Controller";
@@ -236,7 +236,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         ) {
             throw this.missingController(request);
         }
-        /** @var class-string<\UIM\Controller\Controller>|null * /
+        /** @var class-string<\UIM\Controller\Controller>|null */
         return App.className(pluginPath ~ controller, namespace, "Controller");
     }
     
@@ -244,7 +244,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * Throws an exception when a controller is missing.
      * Params:
      * \UIM\Http\ServerRequest serverRequest The request.
-     * /
+     */
     protected DMissingControllerException missingController(ServerRequest serverRequest) {
         return new DMissingControllerException([
             "controller":  request.getParam("controller"),

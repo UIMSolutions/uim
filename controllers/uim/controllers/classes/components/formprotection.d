@@ -52,7 +52,7 @@ class DFormProtectionComponent : DComponent {
     /**
      * Get Session id for FormProtector
      * Must be the same as in FormHelper
-     * /
+     */
     protected string _getSessionId() {
         auto mySession = getController().getRequest().getSession();
         mySession.start();
@@ -66,7 +66,7 @@ class DFormProtectionComponent : DComponent {
      * Token check happens here.
      * Params:
      * \UIM\Event\IEvent<\UIM\Controller\Controller> anEvent An Event instance
-     * /
+     */
     DResponse startup(IEvent anEvent) {
         auto myrequest = getController().getRequest();
         auto mydata = request.getParsedBody();
@@ -117,7 +117,7 @@ class DFormProtectionComponent : DComponent {
      * callback by executing the method passing the argument as exception.
      * Params:
      * \UIM\Form\FormProtector formProtector Form Protector instance.
-     * /
+     */
     protected DResponse validationFailure(FormProtectorformProtector) {
         auto myException = Configuration.read("debug")
             ? new BadRequestException(
@@ -135,7 +135,7 @@ class DFormProtectionComponent : DComponent {
      * Params:
      * \Closure aCallback Callback
      * @param \UIM\Http\Exception\BadRequestException anException = Exception instance.
-     * /
+     */
     protected DResponse executeCallback(Closure aCallback, BadRequestException anException) {
         return aCallback(exception);
     } */

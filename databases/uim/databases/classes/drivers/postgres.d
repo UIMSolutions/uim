@@ -93,7 +93,7 @@ void setEncoding(string encodingToUse) {
      * postgres will fallback to looking the relation into defined default schema
      * Params:
      * string aschema The schema names to set `search_path` to.
-     * /
+     */
 void setSchema(string aschema) {
     pdo = getPdo();
     pdo.exec("SET search_path TO " ~ pdo.quote(tableSchema));
@@ -155,7 +155,7 @@ protected void _transformIdentifierExpression(IdentifierExpression expressionToT
      * Params:
      * \UIM\Database\Expression\FunctionExpression expression The auto expression to convert
      *  to postgres SQL.
-     * /
+     */
 protected void _transformFunctionExpression(FunctionExpression expressionToConvert) {
     switch (expressionToConvert.name) {
     case "CONCAT":

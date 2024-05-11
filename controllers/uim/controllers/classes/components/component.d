@@ -80,7 +80,7 @@ class DComponent { // TODO }: IEventListener {
      * \UIM\Controller\ComponentRegistry  registry A component registry
      * this component can use to lazy load its components.
      * configData = Array of configuration settings.
-     * /
+     */
     this(DComponentRegistry registry, Json[string] initData = null) {
         _registry = registry;
 
@@ -103,7 +103,7 @@ class DComponent { // TODO }: IEventListener {
      * 
      * Params:
      * componentName = Name of component to get.
-     * /
+     */
     IComponent __get(string componentName) {
         if (isSet(this.componentInstances[componentName])) {
             return _componentInstances[componentName];
@@ -130,7 +130,7 @@ class DComponent { // TODO }: IEventListener {
      *
      * Override this method if you need to add non-conventional event listeners.
      * Or if you want components to listen to non-standard events.
-     * /
+     */
     IEvent[] implementedEvents() {
         auto eventMap = [
             "Controller.initialize": "beforeFilter",

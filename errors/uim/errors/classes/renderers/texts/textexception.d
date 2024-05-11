@@ -21,14 +21,14 @@ import uim.errors;
 class DTextExceptionRenderer {
     /**
      * @var \Throwable
-     * /
+     */
     private error;
 
     /**
      * Constructor.
      *
      * @param \Throwable error The error to render.
-     * /
+     */
     this(Throwable error) {
         this.error = error;
     }
@@ -37,7 +37,7 @@ class DTextExceptionRenderer {
      * Render an exception into a plain text message.
      *
      * @return IResponse|string
-     * /
+     */
     function render() {
         return "%s : %s on line %s of %s\nTrace:\n%s".format(
             this.error.getCode(),

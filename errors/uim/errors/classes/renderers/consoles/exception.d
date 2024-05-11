@@ -15,12 +15,12 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
 
     /**
      * @var \UIM\Console\ConsoleOutput
-     * /
+     */
     private ConsoleOutput output;
 
     /**
      * @var bool
-     * /
+     */
     private bool trace;
 
     /**
@@ -29,11 +29,11 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
      * \Throwable error The error to render.
      * @param \Psr\Http\Message\IServerRequest|null request Not used.
      * @param Json[string] configData Error handling configuration.
-     * /
+     */
     this(Throwable error, ?IServerRequest serverRequest, Json[string] configData) {
         this.error = error;
-        this.output = configData("stderr"] ?? new DConsoleOutput("D://stderr");
-        this.trace = configData("trace"] ?? true;
+        this.output = configuration.data("stderr"] ?? new DConsoleOutput("D://stderr");
+        this.trace = configuration.data("trace"] ?? true;
     }
     
     // Render an exception into a plain text message.
@@ -58,7 +58,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
      * Params:
      * \Throwable exception The exception to render.
      * @param ?\Throwable parent The Exception index in the chain
-     * /
+     */
     // TODO protected Json[string] renderException(Throwable exception, Throwable parent) {
         auto result = [
                 "<error>%s[%s] %s</error> in %s on line %s"
@@ -96,7 +96,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
      * Write output to the output stream
      * Params:
      * \Psr\Http\Message\IResponse|string aoutput The output to print.
-     * /
+     */
     // TODO void write(IResponse aoutput) {
     void write(string outputText) {
         _output.write(outputText);

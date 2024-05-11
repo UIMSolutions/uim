@@ -36,7 +36,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * The exception being handled.
      *
      * @var \Throwable
-     * /
+     */
     protected myError;
 
     // Controller instance.
@@ -49,7 +49,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * the error.
      *
      * var DHTP.ServerRequest|null
-     * /
+     */
     protected myRequest;
 
     /**
@@ -60,7 +60,7 @@ class DExceptionRenderer : IExceptionRenderer {
      *
      * @var array<string, int>
      * @psalm-var array<class-string<\Throwable>, int>
-     * /
+     */
     protected myExceptionHttpCodes = [
         // Controller exceptions
         InvalidParameterException.class: 404,
@@ -80,7 +80,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * @param \Throwable myException Exception.
      * @param uim.uim.http.ServerRequest|null myRequest The request if this is set it will be used
      *   instead of creating a new one.
-     * /
+     */
     this(Throwable myException, ?ServerRequest myRequest = null) {
         this.error = myException;
         this.request = myRequest;
@@ -95,7 +95,7 @@ class DExceptionRenderer : IExceptionRenderer {
      *
      * @return uim.controllers.Controller
      * @triggers Controller.startup controller
-     * /
+     */
     protected IController _getController() {
         myRequest = this.request;
         routerRequest = Router.getRequest();
@@ -152,7 +152,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * Clear output buffers so error pages display properly.
      *
      * @return void
-     * /
+     */
     protected void clearOutput() {
         if (hasAllValues(D_SAPI, ["cli", "Ddbg"])) {
             return;
@@ -166,7 +166,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * Renders the response for the exception.
      *
      * @return The response to be sent.
-     * /
+     */
     IResponse render() {
         myException = this.error;
         code = getHttpCode(myException);
@@ -183,7 +183,7 @@ class DExceptionRenderer : IExceptionRenderer {
         response = this.controller.getResponse();
 
         if (myException instanceof UIMException) {
-            /** @psalm-suppress DeprecatedMethod * /
+            /** @psalm-suppress DeprecatedMethod */
             foreach ((array)myException.responseHeader() as myKey: myValue) {
                 response = response.withHeader(myKey, myValue);
             }
@@ -237,7 +237,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * @param string method The method name to invoke.
      * @param \Throwable myException The exception to render.
      * @return uim.uim.http.Response The response to send.
-     * /
+     */
     protected DResponse _customMethod(string method, Throwable myException) {
         myResult = this.{method}(myException);
         _shutdown();
@@ -268,7 +268,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * @param \Throwable myException Exception.
      * @param int errorCode Error errorCode.
      * @return string Error message
-     * /
+     */
     protected string _message(Throwable myException, int errorCode) {
         auto myMessage = myException.getMessage();
 
@@ -291,7 +291,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * @param string method Method name.
      * @param int errorCode Error errorCode.
      * @return string Template name
-     * /
+     */
     protected string _template(Throwable myException, string method, int errorCode) {
         if (myException instanceof HttpException || !Configure.read("debug")) {
             return _template = errorCode < 500 ? "error400" : "error500";
@@ -309,7 +309,7 @@ class DExceptionRenderer : IExceptionRenderer {
      *
      * @param \Throwable myException Exception.
      * @return int A valid HTTP status code.
-     * /
+     */
     protected int getHttpCode(Throwable myException) {
         if (myException instanceof HttpException) {
             return myException.getCode();
@@ -323,7 +323,7 @@ class DExceptionRenderer : IExceptionRenderer {
      *
      * @param string myTemplate The template to render.
      * @return uim.uim.http.Response A response object that can be sent.
-     * /
+     */
     protected DResponse _outputMessage(string myTemplate) {
         try {
             this.controller.render(myTemplate);
@@ -357,7 +357,7 @@ class DExceptionRenderer : IExceptionRenderer {
      *
      * @param string myTemplate The template to render.
      * @return uim.uim.http.Response A response object that can be sent.
-     * /
+     */
     protected DResponse _outputMessageSafe(string myTemplate) {
         myBuilder = this.controller.viewBuilder();
         myBuilder
@@ -380,7 +380,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * Triggers the afterFilter and afterDispatch events.
      *
      * @return uim.uim.http.Response The response to serve.
-     * /
+     */
     protected DResponse _shutdown() {
         this.controller.dispatchEvent("Controller.shutdown");
 
@@ -392,7 +392,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * object.
      *
      * @return Json[string]
-     * /
+     */
     Json[string] __debugInfo() {
         return [
             "error":this.error,

@@ -35,7 +35,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * The exception being handled.
      *
      * @var \Throwable
-     * /
+     */
     protected Throwable error;
 
     /**
@@ -43,7 +43,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * the error.
      *
      * @var \UIM\Http\ServerRequest|null
-     * /
+     */
     protected IServerRequest serverRequest;
 
     /**
@@ -54,7 +54,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      *
      * @var array<string, int>
      * @psalm-var array<class-string<\Throwable>, int>
-     * /
+     */
     // TODO protected Json[string] exceptionHttpCodes = [
         // Controller exceptions
         InvalidParameterException.classname: 404,
@@ -74,7 +74,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * \Throwable exception Exception.
      * @param \UIM\Http\ServerRequest|null request The request if this is set it will be used
      *  instead of creating a new one.
-     * /
+     */
     this(Throwable exception, ?ServerRequest serverRequest = null) {
         _error = exception;
         this.request = request;
@@ -86,7 +86,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Override this method in subclasses to customize the controller used.
      * This method returns the built in `ErrorController` normally, or if an error is repeated
      * a bare controller will be used.
-     * /
+     */
     protected IController _getController() {
         request = this.request;
         routerRequest = Router.getRequest();
@@ -206,7 +206,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Emit the response content
      * Params:
      * \Psr\Http\Message\IResponse|string aoutput The response to output.
-     * /
+     */
     void write(IResponse|string aoutput) {
         if (isString(output)) {
             writeln(output;
@@ -222,7 +222,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Params:
      * string amethod The method name to invoke.
      * @param \Throwable exception The exception to render.
-     * /
+     */
     protected DResponse _customMethod(string amethod, Throwable exception) {
         result = this.{method}(exception);
        _shutdown();
@@ -247,7 +247,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     
     /**
      * Get error message.
-     * /
+     */
     protected string _message(Throwable exception, int errorCode) {
         string result = exception.getMessage();
 
@@ -269,7 +269,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * \Throwable exception Exception instance.
      * @param string amethod Method name.
      * @param int code Error code.
-     * /
+     */
     protected string _template(Throwable exception, string amethod, int code) {
         if (cast(HttpException)exception || !Configuration.read("debug")) {
             return _template = code < 500 ? "error400' : 'error500";
@@ -284,7 +284,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Gets the appropriate http status code for exception.
      * Params:
      * \Throwable exception Exception.
-     * /
+     */
     protected int getHttpCode(Throwable exception) {
         if (cast(HttpException)exception) {
             return exception.getCode();
@@ -327,7 +327,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * and doesn`t call component methods.
      * Params:
      * string atemplate The template to render.
-     * /
+     */
     protected DResponse _outputMessageSafe(string atemplate) {
         builder = this.controller.viewBuilder();
         builder
@@ -348,7 +348,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Run the shutdown events.
      *
      * Triggers the afterFilter and afterDispatch events.
-     * /
+     */
     protected DResponse _shutdown() {
         this.controller.dispatchEvent("Controller.shutdown");
 
@@ -358,7 +358,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     /**
      * Returns an array that can be used to describe the internal state of this
      * object.
-     * /
+     */
     Json[string] debugInfo() {
         return [
             "error": _error,

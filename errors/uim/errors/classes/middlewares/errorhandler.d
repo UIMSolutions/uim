@@ -69,7 +69,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      * Error handler instance.
      *
      * var DERRErrorHandler|null
-     * /
+     */
     protected myErrorHandler;
 
     /**
@@ -78,7 +78,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      * @param uim.errorss.ErrorHandler|array myErrorHandler The error handler instance
      *  or config array.
      * @throws \InvalidArgumentException
-     * /
+     */
     this(myErrorHandler = null) {
         if (func_num_args() > 1) {
             deprecationWarning(
@@ -115,7 +115,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      * @param IServerRequest myRequest The request.
      * @param .IRequestHandler handler The request handler.
      * @return IResponse A response.
-     * /
+     */
     IResponse process(IServerRequest myRequest, IRequestHandler handler) {
         try {
             return handler.handle(myRequest);
@@ -132,7 +132,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      * @param \Throwable myException The exception to handle.
      * @param IServerRequest myRequest The request.
      * @return IResponse A response
-     * /
+     */
     IResponse handleException(Throwable myException, IServerRequest myRequest) {
         myErrorHandler = getErrorHandler();
         renderer = myErrorHandler.getRenderer(myException, myRequest);
@@ -153,7 +153,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      *
      * @param uim.uim.http.exceptions.RedirectException myException The exception to handle
      * @return IResponse Response created from the redirect.
-     * /
+     */
     IResponse handleRedirect(DRedirectException myException) {
         return new DRedirectResponse(
             myException.getMessage(),
@@ -166,7 +166,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      * Handle internal errors.
      *
      * @return IResponse A response
-     * /
+     */
     protected IResponse handleInternalError() {
         response = new DResponse(["body":"An Internal Server Error Occurred"]);
 
@@ -177,11 +177,11 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      * Get a error handler instance
      *
      * @return uim.errorss.ErrorHandler The error handler.
-     * /
+     */
     protected auto getErrorHandler(): ErrorHandler
     {
         if (this.errorHandler.isNull) {
-            /** @var class-string<uim.errorss.ErrorHandler> myClassName * /
+            /** @var class-string<uim.errorss.ErrorHandler> myClassName */
             myClassName = App.className("ErrorHandler", "Error");
             this.errorHandler = new myClassName(this.configuration.data);
         }

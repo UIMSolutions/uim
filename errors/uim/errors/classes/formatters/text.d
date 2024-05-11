@@ -33,7 +33,7 @@ TEXT;
      * Convert a tree of IErrorNode objects into a plain text string.
      * Params:
      * \UIM\Error\Debug\IErrorNode node The node tree to dump.
-     * /
+     */
     string dump(IErrorNode nodeToDump) {
         indentSize = 0;
 
@@ -45,7 +45,7 @@ TEXT;
      * Params:
      * \UIM\Error\Debug\IErrorNode nodeToDump The node tree to dump.
      * @param int indentSize The current indentation level.
-     * /
+     */
     protected string export(IErrorNode nodeToDump, int indentSize) {
         if (cast(DScalarNode)nodeToDump) {
             return match (nodeToDump.getType()) {
@@ -72,7 +72,7 @@ TEXT;
      * Params:
      * \UIM\Error\Debug\ArrayNode nodeToExport The array to export.
      * @param int indentSize The current indentation level.
-     * /
+     */
     protected string exportArray(ArrayNode nodeToExport, int indentSize) {
         auto result = "[";
         auto mybreak = "\n" ~ str_repeat("  ", indentSize);
@@ -94,7 +94,7 @@ TEXT;
      * Params:
      * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\ReferenceNode nodeToConvert Object to convert.
      * @param int indentSize Current indentation level.
-     * /
+     */
     protected string exportObject(ClassNode|ReferenceNode nodeToConvert, int indentSize) {
         return "object({nodeToConvert.getValue()}) id:{nodeToConvert.getId()} {}";
     }

@@ -54,7 +54,7 @@ class DExceptionTrap {
      *
      * Callbacks are invoked for each error that is handled.
      * Callbacks are invoked in the order they are attached.
-     * /
+     */
     protected IClosure[] aCallbacks;
 
     /**
@@ -62,7 +62,7 @@ class DExceptionTrap {
      *
      * This is best effort as we can`t know if/when another
      * exception handler is registered.
-     * /
+     */
     protected static DExceptionTrap RegisteredTrap;
 
     // Track if this trap was removed from the global handler.
@@ -100,7 +100,7 @@ class DExceptionTrap {
     IExceptionRenderer renderer(Throwable renderException, IServerRequest serverRequest = null) {
         auto myRequest = serverRequest.isNull ? Router.getRequest() : serverRequest;
 
-        string className = _configData.isSet("exceptionRenderer") ? _configData("exceptionRenderer"] : chooseRenderer();
+        string className = _configData.isSet("exceptionRenderer") ? _configuration.data("exceptionRenderer"] : chooseRenderer();
         if (isString(className)) {
             if (!isSubclass_of(className, IExceptionRenderer.className)) {
                 throw new DInvalidArgumentException(
@@ -108,7 +108,7 @@ class DExceptionTrap {
                     'It must be an instance of `UIM\Error\IExceptionRenderer`.'
                 );
             }
-            /** @var class-string<\UIM\Error\IExceptionRenderer>  className * /
+            /** @var class-string<\UIM\Error\IExceptionRenderer>  className */
             return new className(renderException, myRequest, _configData);
         }
         return className(renderException, myRequest);
@@ -116,13 +116,13 @@ class DExceptionTrap {
     
     // Choose an exception renderer based on config or the SAPI
     protected string chooseRenderer() {
-        /** @var class-string<\UIM\Error\IExceptionRenderer> * /
+        /** @var class-string<\UIM\Error\IExceptionRenderer> */
         return UIM_SAPI == "cli" ? ConsoleExceptionRenderer.classname : WebExceptionRenderer.classname;
     }
     
     // Get an instance of the logger.
     IErrorLogger logger() {
-        /** @var class-string<\UIM\Error\IErrorLogger>  className * /
+        /** @var class-string<\UIM\Error\IErrorLogger>  className */
          className = _configData.isSet("logger", _defaultConfigData["logger"]);
 
         return new className(_config);
@@ -133,7 +133,7 @@ class DExceptionTrap {
      *
      * This will replace the existing exception handler, and the
      * previous exception handler will be discarded.
-     * /
+     */
     void register() {
         set_exception_handler(handleException(...));
         register_shutdown_function(this.handleShutdown(...));
@@ -146,7 +146,7 @@ class DExceptionTrap {
      * Remove this instance from the singleton
      *
      * If this instance is not currently the registered singleton nothing happens.
-     * /
+     */
     void unregister() {
         if (RegisteredTrap == this) {
             this.disabled = true;
@@ -160,7 +160,7 @@ class DExceptionTrap {
      * Keep in mind that the global state contained here
      * is mutable and the object returned by this method
      * could be a stale value.
-     * /
+     */
     static DExceptionTrap instance(): self
     {
         return RegisteredTrap;
@@ -174,7 +174,7 @@ class DExceptionTrap {
      * Params:
      * \Throwable anException Exception instance.
      * @throws \Exception When renderer class not found
-     * /
+     */
     void handleException(Throwable anException) {
         if (this.disabled) {
             return;
@@ -202,7 +202,7 @@ class DExceptionTrap {
     /**
      * Shutdown handler
      * Convert fatal errors into exceptions that we can render.
-     * /
+     */
     void handleShutdown() {
         if (this.disabled) {
             return;
@@ -236,7 +236,7 @@ class DExceptionTrap {
      * in kilobytes
      * Params:
      * int additionalKb Number in kilobytes
-     * /
+     */
     void increaseMemoryLimit(int additionalKb) {
         aLimit = ini_get("memory_limit");
         if (aLimit == false || aLimit == "" || aLimit == "-1") {
@@ -265,7 +265,7 @@ class DExceptionTrap {
      * @param string errorDescription Error description
      * @param string afile File on which error occurred
      * @param int line Line that triggered the error
-     * /
+     */
     void handleFatalError(int code, string errorDescription, string afile, int line) {
         this.handleException(new DFatalErrorException("Fatal Error: " ~ errorDescription, 500, file, line));
     }
@@ -281,7 +281,7 @@ class DExceptionTrap {
      * Params:
      * \Throwable exception The exception to log
      * @param \Psr\Http\Message\IServerRequest|null serverRequest The optional request
-     * /
+     */
     void logException(Throwable anException, ?IServerRequest serverRequest = null) {
         shouldLog = configuration.get("log"];
         if (shouldLog) {
@@ -305,7 +305,7 @@ class DExceptionTrap {
      * and hopefully render an error page.
      * Params:
      * \Throwable logException Exception to log
-     * /
+     */
     void logInternalError(Throwable logException) {
         message = 
             "[%s] %s (%s:%s)" // Keeping same message format

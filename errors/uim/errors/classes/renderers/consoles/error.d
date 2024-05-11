@@ -24,10 +24,10 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
      * - `trace` - Whether or not stacktraces should be output.
      * Params:
      * Json[string] configData Error handling configuration.
-     * /
+     */
     this(Json[string] configData = null) {
-       _output = configData("stderr"] ?? new DConsoleOutput("D://stderr");
-        this.trace = (bool)(configData("trace"] ?? false);
+       _output = configuration.data("stderr"] ?? new DConsoleOutput("D://stderr");
+        this.trace = (bool)(configuration.data("trace"] ?? false);
     }
  
     void write(string outputText) {

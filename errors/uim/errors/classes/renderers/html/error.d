@@ -58,7 +58,7 @@ HTML;
      * Params:
      * @param string aid The error id scope.
      * @param string asuffix The element selector.
-     * /
+     */
     private string renderToggle(string textToInsert, string aid, string asuffix) {
         string selector = anId ~ "-" ~ suffix;
         

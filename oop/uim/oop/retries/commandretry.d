@@ -26,7 +26,7 @@ class DCommandRetry {
      * Params:
      * \UIM\Core\Retry\IRetryStrategy strategy The strategy to follow should the action fail
      * @param int maxRetries The maximum number of retry attempts allowed
-     * /
+     */
     this(IRetryStrategy strategy, int maxRetries = 1) {
         this.strategy = strategy;
         this.maxRetries = maxRetries;
@@ -36,7 +36,7 @@ class DCommandRetry {
      * The number of retries to perform in case of failure
      * Params:
      * \Closure action Callback to run for each attempt
-     * /
+     */
     IData run(Closure action) {
         this.numRetries = 0;
         while (true) {

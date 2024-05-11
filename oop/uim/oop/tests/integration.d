@@ -24,87 +24,87 @@ mixin template TIntegrationTest() {
      * The response for the most recent request.
      *
      * @var \Psr\Http\Message\IResponse|null
-     * /
+     */
     protected IResponse _response = null;
 
     /**
      * The exception being thrown if the case.
-     * /
+     */
     protected Throwable _exception = null;
 
     /**
      * Session data to use in the next request.
-     * /
+     */
     // TODO protected Json[string] _session = null;
 
     /**
      * Cookie data to use in the next request.
-     * /
+     */
     // TODO protected Json[string] _cookie = null;
 
     /**
      * The controller used in the last request.
-     * /
+     */
     protected IController _controller = null;
 
     /**
      * The last rendered view
-     * /
+     */
     protected string _viewName = null;
 
     /**
      * The last rendered layout
-     * /
+     */
     protected string _layoutName = null;
 
     /**
      * The session instance from the last request
-     * /
+     */
     protected ISession _requestSession = null;
 
     /**
      * Boolean flag for whether the request should have
      * a SecurityComponent token added.
-     * /
+     */
     protected bool _securityToken = false;
 
     /**
      * Boolean flag for whether the request should have
      * a CSRF token added.
-     * /
+     */
     protected bool _csrfToken = false;
 
     /**
      * Boolean flag for whether the request should re-store
      * flash messages
-     * /
+     */
     protected bool _retainFlashMessages = false;
 
     /**
      * Stored flash messages before render
-     * /
+     */
     // TODO protected Json[string] _flashMessages = null;
 
     /**
      * @var string
-     * /
+     */
     protected string _cookieEncryptionKey = null;
 
     /**
      * List of fields that are excluded from field validation.
-     * /
+     */
     protected string[] _unlockedFields = null;
 
     /**
      * The name that will be used when retrieving the csrf token.
-     * /
+     */
     protected string _csrfKeyName = "csrfToken";
 
     /**
      * Clears the state used for requests.
      *
      * @after
-     * /
+     */
     auto cleanup() {
        _request = null;
        _session = null;
@@ -125,7 +125,7 @@ mixin template TIntegrationTest() {
      * Calling this method will enable a SecurityComponent
      * compatible token to be added to request data. This
      * lets you easily test actions protected by SecurityComponent.
-     * /
+     */
     void enableSecurityToken() {
        _securityToken = true;
     }
@@ -134,7 +134,7 @@ mixin template TIntegrationTest() {
      * Set list of fields that are excluded from field validation.
      * Params:
      * string[] unlockedFields List of fields that are excluded from field validation.
-     * /
+     */
     void setUnlockedFields(Json[string] unlockedFields = []) {
        _unlockedFields = unlockedFields;
     }
@@ -146,7 +146,7 @@ mixin template TIntegrationTest() {
      * is enabled. The default parameter names will be used.
      * Params:
      * string acookieName The name of the csrf token cookie.
-     * /
+     */
     void enableCsrfToken(string acookieName = "csrfToken") {
        _csrfToken = true;
        _csrfKeyName = cookieName;
@@ -155,7 +155,7 @@ mixin template TIntegrationTest() {
     /**
      * Calling this method will re-store flash messages into the test session
      * after being removed by the FlashHelper
-     * /
+     */
     void enableRetainFlashMessages() {
        _retainFlashMessages = true;
     }
@@ -170,14 +170,14 @@ mixin template TIntegrationTest() {
      * state.
      * Params:
      * Json[string] data The request data to use.
-     * /
+     */
     void configRequest(Json[string] data) {
        _request = array_merge_recursive(someData, _request);
     }
     
     /**
      * Sets HTTP headers for the *next* request to be identified as IData request.
-     * /
+     */
     void requestAsIData() {
         this.configRequest([
             "headers": [
@@ -198,7 +198,7 @@ mixin template TIntegrationTest() {
      * the current state.
      * Params:
      * Json[string] data The session data to use.
-     * /
+     */
     void session(Json[string] data) {
        _session = someData + _session;
     }
@@ -215,14 +215,14 @@ mixin template TIntegrationTest() {
      * Params:
      * string aName The cookie name to use.
      * @param string avalue The value of the cookie.
-     * /
+     */
     void cookie(string aName, string avalue) {
        _cookie[name] = aValue;
     }
     
     /**
      * Returns the encryption key to be used.
-     * /
+     */
     protected string _getCookieEncryptionKey() {
         return _cookieEncryptionKey ?? Security.getSalt();
     }
@@ -238,7 +238,7 @@ mixin template TIntegrationTest() {
      * @param string|false encrypt Encryption mode to use.
      * @param string aKey Encryption key used. Defaults
      *  to Security.salt.
-     * /
+     */
     void cookieEncrypted(
         string aName,
         string[] avalue,
@@ -257,7 +257,7 @@ mixin template TIntegrationTest() {
      * response.
      * Params:
      * string[] aurl The URL to request.
-     * /
+     */
     void get(string[] aurl) {
        _sendRequest(url, "GET");
     }
@@ -271,7 +271,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string[] aurl The URL to request.
      * @param string[] adata The data for the request.
-     * /
+     */
     void post(string[] aurl, string[] adata = []) {
        _sendRequest(url, "POST", someData);
     }
@@ -284,7 +284,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string[] aurl The URL to request.
      * @param string[] adata The data for the request.
-     * /
+     */
     void patch(string[] aurl, string[] adata = []) {
        _sendRequest(url, "PATCH", someData);
     }
@@ -297,7 +297,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string[] aurl The URL to request.
      * @param string[] adata The data for the request.
-     * /
+     */
     void put(string[] aurl, string[] adata = []) {
        _sendRequest(url, "PUT", someData);
     }
@@ -309,7 +309,7 @@ mixin template TIntegrationTest() {
      * a property. You can use various assert methods to check the response.
      * Params:
      * string[] aurl The URL to request.
-     * /
+     */
     void delete(string[] aurl) {
        _sendRequest(url, "DELETE");
     }
@@ -321,7 +321,7 @@ mixin template TIntegrationTest() {
      * a property. You can use various assert methods to check the response.
      * Params:
      * string[] aurl The URL to request.
-     * /
+     */
     void head(string[] aurl) {
        _sendRequest(url, "HEAD");
     }
@@ -333,7 +333,7 @@ mixin template TIntegrationTest() {
      * a property. You can use various assert methods to check the response.
      * Params:
      * string[] aurl The URL to request.
-     * /
+     */
     void options(string[] aurl) {
        _sendRequest(url, "OPTIONS");
     }
@@ -347,7 +347,7 @@ mixin template TIntegrationTest() {
      * @param string amethod The HTTP method
      * @param string[] adata The request data.
      * @throws \Unit\Exception|\Throwable
-     * /
+     */
     protected void _sendRequest(string[] aurl, string amethod, string[] adata = []) {
         dispatcher = _makeDispatcher();
         url = dispatcher.resolveUrl(url);
@@ -371,7 +371,7 @@ mixin template TIntegrationTest() {
     
     /**
      * Get the correct dispatcher instance.
-     * /
+     */
     protected DMiddlewareDispatcher _makeDispatcher() {
         EventManager.instance().on("Controller.initialize", this.controllerSpy(...));
         app = this.createApp();
@@ -385,7 +385,7 @@ mixin template TIntegrationTest() {
      * Params:
      * \UIM\Event\IEvent event A dispatcher event.
      * @param \UIM\Controller\Controller|null controller Controller instance.
-     * /
+     */
     void controllerSpy(IEvent event, ?Controller controller = null) {
         if (!controller) {
             controller = event.getSubject();
@@ -422,7 +422,7 @@ mixin template TIntegrationTest() {
      * If that class does not exist, the built-in renderer will be used.
      * Params:
      * \Throwable exceptionToHandle Exception to handle.
-     * /
+     */
     protected void _handleError(Throwable exceptionToHandle) {
          className = Configuration.read("Error.exceptionRenderer");
         if (className.isEmpty || !class_exists(className)) {
@@ -439,7 +439,7 @@ mixin template TIntegrationTest() {
      * string aurl The URL
      * @param string amethod The HTTP method
      * @param string[] adata The request data.
-     * /
+     */
     // TODO protected Json[string] _buildRequest(string aurl, string amethod, string[] adata = []) {
         sessionConfig = (array)Configuration.read("Session") ~ [
             "defaults": "D",
@@ -505,7 +505,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string aurl The URL the form is being submitted on.
      * @param Json[string] data The request body data.
-     * /
+     */
     // TODO protected Json[string] _addTokens(string aurl, Json[string] data) {
         if (_securityToken == true) {
             fields = array_diff_key(someData, array_flip(_unlockedFields));
@@ -548,7 +548,7 @@ mixin template TIntegrationTest() {
      * the real world
      * Params:
      * Json[string] data POST data
-     * /
+     */
     // TODO protected Json[string] _castToString(Json[string] data) {
         someData.byKeyValue
             .each!((kv) {
@@ -573,7 +573,7 @@ mixin template TIntegrationTest() {
      * Creates a valid request url and parameter array more like Request._url()
      * Params:
      * string aurl The URL
-     * /
+     */
     // TODO protected Json[string] _url(string aurl) {
         anUri = new Uri(url);
         somePath = anUri.getPath();
@@ -591,7 +591,7 @@ mixin template TIntegrationTest() {
     
     /**
      * Get the response body as string
-     * /
+     */
     protected string _getBodyAsString() {
         if (!_response) {
             this.fail("No response set, cannot assert content.");
@@ -605,7 +605,7 @@ mixin template TIntegrationTest() {
      * If the view variable does not exist, null will be returned.
      * Params:
      * string aName The view variable to get.
-     * /
+     */
     IData viewVariable(string aName) {
         return _controller?.viewBuilder().getVar(name);
     }
@@ -637,7 +637,7 @@ mixin template TIntegrationTest() {
      * Params:
      * int code Status code to assert.
      * @param string amessage Custom message for failure.
-     * /
+     */
     void assertResponseCode(int statusCode, string failureMessage = null) {
         this.assertThat(statusCode, new DStatusCode(_response), failureMessage);
     }
@@ -649,7 +649,7 @@ mixin template TIntegrationTest() {
      *  can either be a string URL or an array compatible with Router.url(). Use null to
      *  simply check for the existence of this header.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertRedirect(string[] url = null, string failureMessage= null)) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
@@ -674,7 +674,7 @@ mixin template TIntegrationTest() {
      *  can either be a string URL or an array compatible with Router.url(). Use null to
      *  simply check for the existence of this header.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertRedirectEquals(string[] url = null, string failureMessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
@@ -693,7 +693,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string aurl The URL you expected the client to go to.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertRedirectContains(string aurl, string message = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
@@ -709,7 +709,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string aurl The URL you expected the client to go to.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertRedirectNotContains(string aurl, string amessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
@@ -731,7 +731,7 @@ mixin template TIntegrationTest() {
      * string aheader The header to check
      * @param string acontent The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertHeader(string aheader, string acontent, string amessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
@@ -747,7 +747,7 @@ mixin template TIntegrationTest() {
      * string aheader The header to check
      * @param string acontent The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertHeaderContains(string aheader, string acontent, string amessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
@@ -763,7 +763,7 @@ mixin template TIntegrationTest() {
      * string aheader The header to check
      * @param string acontent The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertHeaderNotContains(string aheader, string acontent, string amessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
@@ -778,7 +778,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string atype The content-type to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertContentType(string atype, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(type, new DContentType(_response), verboseMessage);
@@ -789,7 +789,7 @@ mixin template TIntegrationTest() {
      * Params:
      * IData content The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertResponseEquals(IData content, string amessage= null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(content, new BodyEquals(_response), verboseMessage);
@@ -800,7 +800,7 @@ mixin template TIntegrationTest() {
      * Params:
      * IData content The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertResponseNotEquals(IData content, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(content, new BodyNotEquals(_response), verboseMessage);
@@ -812,7 +812,7 @@ mixin template TIntegrationTest() {
      * string acontent The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
      * @param bool  anIgnoreCase A flag to check whether we should ignore case or not.
-     * /
+     */
     void assertResponseContains(string acontent, string amessage = "", bool  anIgnoreCase = false) {
         if (!_response) {
             this.fail("No response set, cannot assert content.");
@@ -827,7 +827,7 @@ mixin template TIntegrationTest() {
      * string acontent The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
      * @param bool  anIgnoreCase A flag to check whether we should ignore case or not.
-     * /
+     */
     void assertResponseNotContains(string acontent, string amessage = "", bool  anIgnoreCase = false) {
         if (!_response) {
             this.fail("No response set, cannot assert content.");
@@ -841,7 +841,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string apattern The pattern to compare against.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertResponseRegExp(string apattern, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(somePattern, new BodyRegExp(_response), verboseMessage);
@@ -852,7 +852,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string apattern The pattern to compare against.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertResponseNotRegExp(string apattern, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(somePattern, new BodyNotRegExp(_response), verboseMessage);
@@ -862,7 +862,7 @@ mixin template TIntegrationTest() {
      * Assert response content is not empty.
      * Params:
      * string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertResponseNotEmpty(string failureMessage = "") {
         this.assertThat(null, new BodyNotEmpty(_response), failureMessage);
     }
@@ -871,7 +871,7 @@ mixin template TIntegrationTest() {
      * Assert response content is empty.
      * Params:
      * string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertResponseEmpty(string amessage = null) {
         this.assertThat(null, new BodyEmpty(_response), message);
     }
@@ -881,7 +881,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string acontent The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertTemplate(string acontent, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(content, new DTemplateFileEquals(_viewName), verboseMessage);
@@ -892,7 +892,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string acontent The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertLayout(string acontent, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(content, new DLayoutFileEquals(_layoutName), verboseMessage);
@@ -904,7 +904,7 @@ mixin template TIntegrationTest() {
      * IData expected The expected contents.
      * @param string aPath The session data path. Uses Hash.get() compatible notation
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertSession(IData expected, string aPath, string message = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(expected, new DSessionEquals(somePath), verboseMessage);
@@ -915,7 +915,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string aPath The session data path. Uses Hash.get() compatible notation.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertSessionHasKey(string aPath, string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(somePath, new DSessionHasKey(somePath), verboseMessage);
@@ -926,7 +926,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string aPath The session data path. Uses Hash.get() compatible notation.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertSessionNotHasKey(string aPath, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(somePath, this.logicalNot(new DSessionHasKey(somePath)), verboseMessage);
@@ -938,7 +938,7 @@ mixin template TIntegrationTest() {
      * string aexpected Expected message
      * @param string aKey Flash key
      * @param string amessage Assertion failure message
-     * /
+     */
     void assertFlashMessage(string aexpected, string aKey = "flash", string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(expected, new DFlashParamEquals(_requestSession, aKey, "message"), verboseMessage);
@@ -951,7 +951,7 @@ mixin template TIntegrationTest() {
      * @param string aexpected Expected message
      * @param string aKey Flash key
      * @param string amessage Assertion failure message
-     * /
+     */
     void assertFlashMessageAt(int at, string aexpected, string aKey = "flash", string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(
@@ -967,7 +967,7 @@ mixin template TIntegrationTest() {
      * string aexpected Expected element name
      * @param string aKey Flash key
      * @param string amessage Assertion failure message
-     * /
+     */
     void assertFlashElement(string aexpected, string aKey = "flash", string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(
@@ -984,7 +984,7 @@ mixin template TIntegrationTest() {
      * @param string aexpected Expected element name
      * @param string aKey Flash key
      * @param string amessage Assertion failure message
-     * /
+     */
     void assertFlashElementAt(int at, string aexpected, string aKey = "flash", string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(
@@ -1000,7 +1000,7 @@ mixin template TIntegrationTest() {
      * IData expected The expected contents.
      * @param string aName The cookie name.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertCookie(IData expected, string aName, string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(name, new DCookieSet(_response), verboseMessage);
@@ -1015,7 +1015,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string aName The cookie name.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertCookieIsSet(string aName, string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(name, new DCookieSet(_response), verboseMessage);
@@ -1026,7 +1026,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string acookie The cookie name to check
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertCookieNotSet(string acookie, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(cookie, new DCookieNotSet(_response), verboseMessage);
@@ -1038,7 +1038,7 @@ mixin template TIntegrationTest() {
      * By using this function, exceptions are no longer caught by the ErrorHandlerMiddleware
      * and are instead re-thrown by the TestExceptionRenderer. This can be helpful
      * when trying to diagnose/debug unexpected failures in test cases.
-     * /
+     */
     void disableErrorHandlerMiddleware() {
         Configuration.update("Error.exceptionRenderer", TestExceptionRenderer.classname);
     }
@@ -1056,7 +1056,7 @@ mixin template TIntegrationTest() {
      * @param string aKey Encryption key used. Defaults
      *  to Security.salt.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertCookieEncrypted(
         IData expected,
         string aName,
@@ -1079,7 +1079,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string aexpected The absolute file path that should be sent in the response.
      * @param string amessage The failure message that will be appended to the generated message.
-     * /
+     */
     void assertFileResponse(string aexpected, string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(null, new DFileSent(_response), verboseMessage);
@@ -1095,7 +1095,7 @@ mixin template TIntegrationTest() {
      * Inspect controller to extract possible causes of the failed assertion
      * Params:
      * string amessage Original message to use as a base
-     * /
+     */
     protected string extractVerboseMessage(string message) {
         if (cast(DException)_exception) {
             message ~= this.extractExceptionMessage(_exception);
@@ -1135,7 +1135,7 @@ mixin template TIntegrationTest() {
     }
     
     protected TestSession getSession() {
-        /** @psalm-suppress InvalidScalarArgument * /
+        /** @psalm-suppress InvalidScalarArgument */
         return new DTestSession(_SESSION);
     } */
 }

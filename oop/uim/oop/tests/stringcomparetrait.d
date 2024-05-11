@@ -15,21 +15,21 @@ mixin template TStringCompare() {
      * The base path for output comparisons
      *
      * Must be initialized before use
-     * /
+     */
     protected string _compareBasePath;
 
     /**
      * Update comparisons to match test changes
      *
      * Initialized with the env variable UPDATE_TEST_COMPARISON_FILES
-     * /
+     */
     protected bool _updateComparisons;
 
     /**
      * Compare the result to the contents of the file
      * Params:
      * string aPath partial path to test comparison file
-     * /
+     */
     void assertSameAsFile(string aPath, string testResult) {
         if (!fileExists(somePath)) {
             somePath = _compareBasePath ~ somePath;

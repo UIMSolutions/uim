@@ -32,7 +32,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      *
      * @var string|int
-     * /
+     */
     protected static string _toStringFormat = IntlDateFormatter.SHORT;
 
     /**
@@ -42,7 +42,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      *
      * @var \Closure|string|int
-     * /
+     */
     protected static string _JsonEncodeFormat = "yyyy-MM-dd";
 
     /**
@@ -50,7 +50,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      * and the difference is more than `UIM\I18n\Date.wordEnd`
      *
      * @var string|int
-     * /
+     */
     static string wordFormat = IntlDateFormatter.SHORT;
 
     /**
@@ -59,13 +59,13 @@ class Date { // }: DChronosDate, JsonSerializable {
      * The format should be either the formatting constants from IntlDateFormatter as
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
-     * /
+     */
     static string niceFormat = IntlDateFormatter.MEDIUM;
 
     /**
      * The format to use when formatting a time using `Date.timeAgoInWords()`
      * and the difference is less than `Date.wordEnd`
-     * /
+     */
     static string[] wordAccuracy = [
         "year": "day",
         "month": "day",
@@ -85,7 +85,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      * The format should be either the formatting constants from IntlDateFormatter as
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
-     * /
+     */
     static void setToStringFormat(int format) {
         setToStringFormat(to!string(format));
     }
@@ -103,7 +103,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      *
      * Alternatively, the format can provide a callback. In this case, the callback
      * can receive this object and return a formatted string.
-     * /
+     */
     static void setJsonEncodeFormat(Closure format) {
         _JsonEncodeFormat = format;
     }
@@ -132,7 +132,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      * Params:
      * string adate The date string to parse.
      * @param string|int format Any format accepted by IntlDateFormatter.
-     * /
+     */
     static auto parseDate(string adate, int format) {
         return parseDate(adate, to!string(format));
     }
@@ -192,7 +192,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      * Params:
      * string|int format Format string.
      * @param string locale The locale name in which the date should be displayed (e.g. pt-BR)
-     * /
+     */
     string i18nFormat(int format, string localeName = null) {
         return i18nFormat(to!string(format), localeName);
     }
@@ -212,7 +212,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      * The format to be used is stored in the static property `Date.niceFormat`.
      * Params:
      * string localname The localname name in which the date should be displayed (e.g. pt-BR)
-     * /
+     */
     string nice(string localeName = null) {
         return to!string(this.i18nFormat(niceFormat, localeName));
     }
@@ -249,7 +249,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      * NOTE: If the difference is one week or more, the lowest level of accuracy is day.
      * Params:
      * Json[string] options Array of options.
-     * /
+     */
     string timeAgoInWords(Json[string] options = null) {
         return diffFormatter().dateAgoInWords(this, options);
     }

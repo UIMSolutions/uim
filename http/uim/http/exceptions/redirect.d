@@ -22,7 +22,7 @@ class DRedirectException : DHttpException {
      * Constructor
      * Params:
      * headerToSend - The headers that should be sent in the unauthorized challenge response.
-     * /
+     */
     this(string redirectUrl, int statusCode = 302, Json[string] headerToSend = []) {
         super(redirectUrl, statusCode);
 

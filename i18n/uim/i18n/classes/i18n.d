@@ -32,7 +32,7 @@ class DI18n {
      * Returns the translators collection instance. It can be used
      * for getting specific translators based of their name and locale
      * or to configure some aspect of future translations that are not yet constructed.
-     * /
+     */
     static DTranslatorRegistry translators() {
         if (!_collection.isNull) {
             return _collection;
@@ -88,7 +88,7 @@ class DI18n {
      * @param callable loader A callback auto or callable class responsible for
      *  constructing a translations catalog instance.
      * @param string locale The locale for the translator.
-     * /
+     */
     static void setTranslator(string domainName, callable loader, string translatorLocale = null) {
         translatorlocale = translatorlocale ?: getLocale();
 
@@ -105,7 +105,7 @@ class DI18n {
      * Params:
      * string domainName The domain of the translation messages.
      * @param string translatorlocale The translatorlocale for the translator.
-     * /
+     */
     static Translator getTranslator(string domainName = "default", string alocale = null) {
         translators = translators();
 
@@ -165,7 +165,7 @@ class DI18n {
      * string aName The name of the translator to create a loader for
      * @param callable loader A callable object that should return a MessageCatalog
      * instance to be used for assembling a new translator.
-     * /
+     */
     static void config(string translatorName, callable loader) {
         translators().registerLoader(translatorView, loader);
     }
@@ -187,7 +187,7 @@ class DI18n {
     /**
      * Will return the currently configure locale as stored in the
      * `intl.default_locale` D setting.
-     * /
+     */
     static string getLocale() {
         getDefaultLocale();
         current = Locale.getDefault();
@@ -204,14 +204,14 @@ class DI18n {
      * This returns the default locale before any modifications, i.e.
      * the value as stored in the `intl.default_locale` D setting before
      * any manipulation by this class.
-    * /
+    */
     static string getDefaultLocale() {
         return _defaultLocale ??= Locale.getDefault() ?: DEFAULT_LOCALE;
     }
     
     /**
      * Returns the currently configured default formatter.
-     * /
+     */
     static string getDefaultFormatter() {
         return translators().defaultFormatter();
     }
@@ -222,7 +222,7 @@ class DI18n {
      * are available.
      * Params:
      * string aName The name of the formatter to use.
-     * /
+     */
     static void setDefaultFormatter(string formatterName) {
         translators().defaultFormatter(formatterName);
     }
@@ -231,7 +231,7 @@ class DI18n {
      * Set if the domain fallback is used.
      * Params:
      * bool enable flag to enable or disable fallback
-     * /
+     */
     static void useFallback(bool enable = true) {
         translators().useFallback(enable);
     }
@@ -239,7 +239,7 @@ class DI18n {
     /**
      * Destroys all translator instances and creates a new empty translations
      * collection.
-     * /
+     */
     static void clear() {
         _collection = null;
     } */ 

@@ -14,7 +14,7 @@ import uim.http;
 class DNetworkException { // }: RuntimeException : INetworkException {
     /**
      * @var \Psr\Http\Message\IRequest
-     * /
+     */
     protected IRequest request;
 
     /**
@@ -23,7 +23,7 @@ class DNetworkException { // }: RuntimeException : INetworkException {
      * string amessage Exeception message.
      * @param \Psr\Http\Message\IRequest request Request instance.
      * @param \Throwable|null previous Previous Exception
-     * /
+     */
     this(string amessage, IRequest request, Throwable previousException = null) {
         this.request = request;
         super(message, 0, previous);
@@ -33,7 +33,7 @@ class DNetworkException { // }: RuntimeException : INetworkException {
      * Returns the request.
      *
      * The request object MAY be a different object from the one passed to IClient.sendRequest()
-     * /
+     */
     IRequest getRequest() {
         return _request;
     } */

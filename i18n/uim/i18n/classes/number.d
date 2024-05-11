@@ -47,7 +47,7 @@ class DNumber {
      * - `locale`: The locale name to use for formatting the number, e.g. fr_FR
      * Params:
      * Json aValue A floating point number.
-     * /
+     */
     static string precision(Json aValue, int numberPrecision = 3, Json[string] formattingOptions = null) {
         auto formatter = formatter(["precision": precision, "places": precision] + options);
         return to!string(formatter.format((float)aValue);
@@ -81,7 +81,7 @@ class DNumber {
      * Json aValue A floating point number
      * @param int precision The precision of the returned number
      * @param Json[string] options Options
-     * /
+     */
     static string toPercentage(Json aValue, int precision = 2, Json[string] options = null) {
         auto updatedOptions = options.update["multiply": false.toJson, "type": NumberFormatter.PERCENT];
         if (!options["multiply"]) {
@@ -103,7 +103,7 @@ class DNumber {
      * - `after` - The string to place after decimal numbers, e.g. "]'
      * Params:
      * Json aValue A floating point number.
-     * /
+     */
     static string format(Json aValue, Json[string] options = null) {
         auto formatter = formatter(options);
         auto updatedOptions = options.update(["before": "", "after": ""]);
@@ -122,7 +122,7 @@ class DNumber {
      * Params:
      * string avalue A numeric string.
      * @param Json[string] options An array with options.
-     * /
+     */
     static float parseFloat(string avalue, Json[string] options = null) {
         formatter = formatter(options);
 
@@ -142,7 +142,7 @@ class DNumber {
      * Params:
      * Json aValue A floating point number
      * @param Json[string] options Options list.
-     * /
+     */
     static string formatDelta(Json aValue, Json[string] options = null) {
         auto updatedOptions = options.update["places": 0];
         aValue = number_format((float)aValue, options["places"], ".", "");
@@ -173,7 +173,7 @@ class DNumber {
      * Json aValue Value to format.
      * @param string currency International currency name such as 'USD", "EUR", "JPY", "CAD'
      * @param Json[string] options Options list.
-     * /
+     */
     static string currency(Json aValue, string acurrency = null, Json[string] options = null) {
         aValue = (float)aValue;
         currency = currency ?: getDefaultCurrency();
@@ -198,7 +198,7 @@ class DNumber {
     
     /**
      * Getter for default currency
-     * /
+     */
     static string getDefaultCurrency() {
         if (_defaultCurrency.isNull) {
             locale = ini_get("intl.default_locale") ?: DEFAULT_LOCALE;
@@ -214,14 +214,14 @@ class DNumber {
      * string currency Default currency string to be used by {@link currency()}
      * if currency argument is not provided. If null is passed, it will clear the
      * currently stored value
-     * /
+     */
     static void setDefaultCurrency(string acurrency = null) {
         _defaultCurrency = currency;
     }
     
     /**
      * Getter for default currency format
-     * /
+     */
     static string|int|falseuto getDefaultCurrencyFormat() {
         return _defaultCurrencyFormat ??= FORMAT_CURRENCY;
     }
@@ -232,7 +232,7 @@ class DNumber {
      * string currencyFormat Default currency format to be used by currency()
      * if currencyFormat argument is not provided. If null is passed, it will clear the
      * currently stored value
-     * /
+     */
     static void setDefaultCurrencyFormat(string currencyFormat = null) {
         _defaultCurrencyFormat = currencyFormat;
     }
@@ -255,7 +255,7 @@ class DNumber {
      *  currency code.
      * Params:
      * Json[string] options An array with options.
-     * /
+     */
     static NumberFormatter formatter(Json[string] options = null) {
         string locale = options.get("locale", ini_get("intl.default_locale"));
 
@@ -274,7 +274,7 @@ class DNumber {
         if (!_formatters[locale].isSet(type)) {
             _formatters[locale][type] = new DNumberFormatter(locale, type);
         }
-        /** @var \NumberFormatter formatter * /
+        /** @var \NumberFormatter formatter */
         formatter = _formatters[locale][type];
         formatter = clone formatter;
 
@@ -287,7 +287,7 @@ class DNumber {
      * string alocale The locale name to use for formatting the number, e.g. fr_FR
      * @param int type The formatter type to construct. Defaults to NumberFormatter.DECIMAL.
      * @param Json[string] options See Number.formatter() for possible options.
-     * /
+     */
     static void config(string alocale, int type = NumberFormatter.DECIMAL, Json[string] options = null) {
         _formatters[locale][type] = _setAttributes(
             new DNumberFormatter(locale, type),
@@ -300,7 +300,7 @@ class DNumber {
      * Params:
      * \NumberFormatter formatter Number formatter instance.
      * @param Json[string] options See Number.formatter() for possible options.
-     * /
+     */
     protected static NumberFormatter _setAttributes(NumberFormatter formatter, Json[string] options = null) {
         if (isSet(options["places"])) {
             formatter.setAttribute(NumberFormatter.MIN_FRACTION_DIGITS, options["places"]);
@@ -334,7 +334,7 @@ class DNumber {
      * Params:
      * float|int aValue An integer
      * @param Json[string] options An array with options.
-     * /
+     */
     static string ordinal(float|int aValue, Json[string] options = null) {
         return to!string(formatter(["type": NumberFormatter.ORDINAL] + options)).format(aValue);
     } */

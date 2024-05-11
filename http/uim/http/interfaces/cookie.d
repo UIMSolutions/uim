@@ -33,7 +33,7 @@ interface ICookie {
      * Create a cookie with an updated value.
      * Params:
      * string[]|float|int|bool aValue Value of the cookie to set
-     * /
+     */
     static withValue(string[]|float|int|bool aValue);
 
 
@@ -42,7 +42,7 @@ interface ICookie {
      * Params:
      * string aPath Sets the path
      * @return static
-     * /
+     */
     auto withPath(string aPath): static;
 
 

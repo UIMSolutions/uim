@@ -18,7 +18,7 @@ class UriFactory { // }: IUriFactory {
      * Params:
      * array|null serverData Array of server data to build the Uri from.
      *  _SERVER will be used if serverData parameter.isNull.
-     * /
+     */
     static Json[string] marshalUriAndBaseFromSapi(Json[string] serverData = null) {
         serverData ??= _SERVER;
         azto  aHeaders = marshalHeadersFromSapi(serverData);
@@ -44,7 +44,7 @@ class UriFactory { // }: IUriFactory {
      * Params:
      * string abase The base path to remove.
      * @param \Psr\Http\Message\IUri anUri The uri to update.
-     * /
+     */
     protected static IUri updatePath(string basePath, IUri anUri) {
         auto uriPath = anUri.getPath();
         if (!basePath.isEmpty && uriPath.startWith(basePath)) {
@@ -72,16 +72,16 @@ class UriFactory { // }: IUriFactory {
      * Params:
      * \Psr\Http\Message\IUri anUri The Uri instance.
      * @param Json[string] serverData The SERVER data to use.
-     * /
+     */
     protected static Json[string] getBase(IUri anUri, Json[string] serverData) {
         auto configData = (array)Configuration.read("App") ~ [
             "base": Json(null),
             "webroot": Json(null),
             "baseUrl": Json(null),
         ];
-        string base = configData("base"];
-        auto baseUrl = configData("baseUrl"];
-        auto webroot = to!string(configData("webroot"]);
+        string base = configuration.data("base"];
+        auto baseUrl = configuration.data("baseUrl"];
+        auto webroot = to!string(configuration.data("webroot"]);
 
         if (!base.isNull) {
             return ["base": base, "webroot": base ~ "/"];

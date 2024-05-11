@@ -44,7 +44,7 @@ class DRunner : IRequestHandler {
      * @param \Psr\Http\Message\IServerRequest serverRequest The Server Request
      * @param \Psr\Http\Server\IRequestHandler|null fallbackHandler Fallback request handler.
      * returns A response object
-     * /
+     */
     IResponse run(
         MiddlewareQueue queue,
         IServerRequest serverRequest,
@@ -67,7 +67,7 @@ class DRunner : IRequestHandler {
      * Handle incoming server request and return a response.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The server request
-     * /
+     */
     IResponse handle(IServerRequest serverRequest) {
         if (this.queue.valid()) {
             middleware = this.queue.current();

@@ -35,7 +35,7 @@ class DSession {
      * Info about where the headers were sent.
      *
      * @var array{filename: string, line: int}|null
-     * /
+     */
     // TODO protected Json[string] aHeaderSentInfo = null;
 
     /**
@@ -62,7 +62,7 @@ class DSession {
      * - timeout: The time in minutes the session should stay active
      * Params:
      * Json[string] sessionConfig Session config.
-     * /
+     */
     static static create(arraysessionConfig = []) {
         if (isSet(sessionConfig["defaults"])) {
             defaults = _defaultConfigData(sessionConfig["defaults"]);
@@ -99,7 +99,7 @@ class DSession {
      * Params:
      * string aName Config name.
      * @return array|false
-     * /
+     */
     protected static Json[string] | false _defaultConfigData(string aName) {
         tmp = defined("TMP") ? TMP : sys_get_temp_dir() ~ DIRECTORY_SEPARATOR;
         Json[string] defaults = [
@@ -163,7 +163,7 @@ class DSession {
      *  instantiated session handler object.
      * Params:
      * Json[string] configData The Configuration to apply to this session object
-     * /
+     */
     this(Json[string] configData = null) {
         configData += [
             "timeout": Json(null),
@@ -172,22 +172,22 @@ class DSession {
             "handler": Json.emptyArray,
         ];
 
-        if (configData("timeout"]) {
-            configData("ini"]["session.gc_maxlifetime"] = 60 * configData("timeout"];
+        if (configuration.data("timeout"]) {
+            configuration.data("ini"]["session.gc_maxlifetime"] = 60 * configuration.data("timeout"];
         }
-        if (configData("cookie"]) {
-            configData("ini"]["session.name"] = configData("cookie"];
+        if (configuration.data("cookie"]) {
+            configuration.data("ini"]["session.name"] = configuration.data("cookie"];
         }
-        if (!configData("ini"].isSet("session.cookie_path")) {
-            cookiePath = configData.isEmpty("cookiePath") ? "/" : configData("cookiePath"];
-            configData("ini"]["session.cookie_path"] = cookiePath;
+        if (!configuration.data("ini"].isSet("session.cookie_path")) {
+            cookiePath = configData.isEmpty("cookiePath") ? "/" : configuration.data("cookiePath"];
+            configuration.data("ini"]["session.cookie_path"] = cookiePath;
         }
-        options(configData("ini"]);
+        options(configuration.data("ini"]);
 
         if (!configData.isEmpty("handler")) {
-            className = configData("handler"]["engine"];
-            unset(configData("handler"]["engine"]);
-            this.engine(className, configData("handler"]);
+            className = configuration.data("handler"]["engine"];
+            unset(configuration.data("handler"]["engine"]);
+            this.engine(className, configuration.data("handler"]);
         }
         _lifetime = (int) ini_get("session.gc_maxlifetime");
         _isCLI = (UIM_SAPI == "cli" || UIM_SAPI == "Ddbg");
@@ -208,7 +208,7 @@ class DSession {
      * Params:
      * \!SessionHandler|string  className The session handler to use
      * @param Json[string] options the options to pass to the SessionHandler constructor
-     * /
+     */
     SessionHandler engine(
         !SessionHandler | string | null className = null,
         Json[string] options = null
@@ -219,7 +219,7 @@ class DSession {
         if (cast(!SessionHandler) className) {
             return _setEngine(className);
         }
-        /** @var class-string<\!SessionHandler>|null  className * /
+        /** @var class-string<\!SessionHandler>|null  className */
         className = App.className(className, "Http/Session");
         if (className.isNull) {
             throw new DInvalidArgumentException(
@@ -234,7 +234,7 @@ class DSession {
      * Set the engine property and update the session handler in D.
      * Params:
      * \!SessionHandler handler The handler to set
-     * /
+     */
     protected ISessionHandler setEngine(!SessionHandlerhandler) : ! {
         if (!headers_sent() && session_status() != UIM_SESSION_ACTIVE) {
             session_set_save_handler(handler, false);
@@ -253,7 +253,7 @@ class DSession {
      * ```
      * Params:
      * Json[string] options Ini options to set.
-     * /
+     */
     void options(Json[string] options = null) {
         if (session_status() == UIM_SESSION_ACTIVE || headers_sent()) {
             return;
@@ -269,7 +269,7 @@ class DSession {
 
     /**
      * Starts the Session.
-     * /
+     */
     bool start() {
         if (_started) {
             return true;
@@ -304,7 +304,7 @@ class DSession {
 
     /**
      * Write data and close the session
-     * /
+     */
     bool close() {
         if (!_started) {
             return true;
@@ -324,7 +324,7 @@ class DSession {
 
     /**
      * Determine if Session has already been started.
-     * /
+     */
     bool started() {
         return _started || session_status() == UIM_SESSION_ACTIVE;
     }
@@ -333,7 +333,7 @@ class DSession {
      * Returns true if given variable name is set in session.
      * Params:
      * string name Variable name to check for
-     * /
+     */
     bool check(string variableName = null) {
         if (_hasSession() && !this.started()) {
             this.start();
@@ -352,7 +352,7 @@ class DSession {
      * Params:
      * string name The name of the session variable (or a path as sent to Hash.extract)
      * @param Json defaultValue The return value when the path does not exist
-     * /
+     */
     Json read(string aName = null, Json defaultValue = Json(null)) {
         if (_hasSession() && !this.started()) {
             this.start();
@@ -368,7 +368,7 @@ class DSession {
 
     /**
      * Returns given session variable, or throws Exception if not found.
-     * /
+     */
     Json readOrFail(string sessionName) {
         if (!this.check(sessionName)) {
             throw new UimException("Expected session key `%s` not found.".format(sessionName));
@@ -384,7 +384,7 @@ class DSession {
         
         Json result = this.read(key);
         if (!result.isNull) {
-            /** @psalm-suppress InvalidScalarArgument * /
+            /** @psalm-suppress InvalidScalarArgument */
             _overwrite(_SESSION, Hash.remove(_SESSION, key));
         }
         return result;
@@ -395,7 +395,7 @@ class DSession {
      * Params:
      * string[] aName Name of variable
      * @param Json aValue Value to write
-     * /
+     */
     void write(string[] aName, Json aValue = null) {
         started = this.started() || this.start();
         if (!started) {
@@ -431,7 +431,7 @@ class DSession {
      * characters in the range a-z A-Z 0-9 , (comma) and - (minus).
      * Params:
      * string  anId ID to replace the current session ID.
-     * /
+     */
     string id(string aid = null) {
         if (anId!isNull && !headers_sent()) {
             session_id(anId);
@@ -442,7 +442,7 @@ class DSession {
     // Removes a variable from session.
     void delete(string sessionName) {
         if (this.check(sessionName)) {
-            /** @psalm-suppress InvalidScalarArgument * /
+            /** @psalm-suppress InvalidScalarArgument */
             _overwrite(_SESSION, Hash.remove(_SESSION, sessionName));
         }
     }
@@ -452,7 +452,7 @@ class DSession {
      * Params:
      * Json[string] old Set of old variables: values
      * @param Json[string] new DNew set of variable: value
-     * /
+     */
     protected void _overwrite(Json[string] & old, arraynew) {
         ) {
             foreach (old as aKey : var) {
@@ -479,7 +479,7 @@ class DSession {
         /**
      * Clears the session.
      * Optionally it also clears the session id and renews the session.
-     * /
+     */
         void clear(bool shouldRenewed = false) {
             _SESSION = null;
             if (shouldRenewed) {
@@ -489,7 +489,7 @@ class DSession {
 
         /**
      * Returns whether a session exists
-     * /
+     */
         protected bool _hasSession() {
             return !ini_get("session.use_cookies")
                 || isSet(_COOKIE[session_name()])
@@ -522,7 +522,7 @@ class DSession {
         /**
      * Returns true if the session is no longer valid because the last time it was
      * accessed was after the configured timeout.
-     * /
+     */
         protected bool _timedOut() {
             time = this.read("Config.time");
             result = false;

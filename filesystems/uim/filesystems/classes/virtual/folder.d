@@ -58,7 +58,7 @@ class DVirtualFolder : DFolder {
 	alias folders = DFolder.folders;
 	protected IFolder[string] _folders;
 
-/* 	/* override * / IFolder[] folders(bool includingHiddenFolders = false) {
+/* 	/* override */ IFolder[] folders(bool includingHiddenFolders = false) {
 		if (includingHiddenFolders) {
 			return _folders.values.dup;
 		}

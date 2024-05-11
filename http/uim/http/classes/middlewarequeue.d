@@ -20,7 +20,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Params:
      * Json[string] middleware The list of middleware to append.
      * @param \UIM\Core\IContainer container Container instance.
-     * /
+     */
     this(Json[string] middleware = [], ?IContainer container = null) {
         _container = container;
         _queue = middleware;
@@ -31,7 +31,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Params:
      * \Psr\Http\Server\IHttpMiddleware|\Closure|string amiddleware The middleware to resolve.
      * @throws \InvalidArgumentException If Middleware not found.
-     * /
+     */
     protected IHttpMiddleware resolve(IHttpMiddleware|Closure|string amiddleware) {
         if (isString(middleware)) {
             if (this.container && this.container.has(middleware)) {
@@ -57,7 +57,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Append a middleware to the end of the queue.
      * Params:
      * \Psr\Http\Server\IHttpMiddleware|\Closure|string[] amiddleware The middleware(s) to append.
-     * /
+     */
     void add(IHttpMiddleware|Closure|string[] amiddleware) {
         if (middleware.isArray) {
             this.queue = chain(this.queue, middleware);
@@ -71,7 +71,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Alias for MiddlewareQueue.add().
      * Params:
      * \Psr\Http\Server\IHttpMiddleware|\Closure|string[] amiddleware The middleware(s) to append.
-     * /
+     */
     MiddlewareQueue push(IHttpMiddleware|Closure|string[] amiddleware) {
         return _add(middleware);
     }
@@ -80,7 +80,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Prepend a middleware to the start of the queue.
      * Params:
      * \Psr\Http\Server\IHttpMiddleware|\Closure|string[] amiddleware The middleware(s) to prepend.
-     * /
+     */
     auto prepend(IHttpMiddleware|Closure|string[] amiddleware) {
         if (middleware.isArray) {
             this.queue = chain(middleware, this.queue);
@@ -100,7 +100,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Params:
      * int  anIndex The index to insert at.
      * @param \Psr\Http\Server\IHttpMiddleware|\Closure|string amiddleware The middleware to insert.
-     * /
+     */
     auto insertAt(int  anIndex, IHttpMiddleware|Closure|string amiddleware) {
         array_splice(this.queue,  anIndex, 0, [middleware]);
 
@@ -116,7 +116,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * @param \Psr\Http\Server\IHttpMiddleware|\Closure|string amiddleware The middleware to insert.
      * @return this
      * @throws \LogicException If middleware to insert before is not found.
-     * /
+     */
     auto insertBefore(string className, IHttpMiddleware|Closure|string amiddleware) {
         bool isFound = false;
          anI = 0;
@@ -147,12 +147,12 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Params:
      * string className The classname to insert the middleware before.
      * @param \Psr\Http\Server\IHttpMiddleware|\Closure|string amiddleware The middleware to insert.
-     * /
+     */
     auto insertAfter(string className, IHttpMiddleware|Closure|string amiddleware) {
         found = false;
          anI = 0;
         foreach (anI: object; this.queue) {
-            /** @psalm-suppress ArgumentTypeCoercion * /
+            /** @psalm-suppress ArgumentTypeCoercion */
             if (
                 (
                     isString(object)
@@ -174,7 +174,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Get the number of connected middleware layers.
      *
      * Implement the Countable interface.
-     * /
+     */
     size_t count() {
         return count(this.queue);
     }
@@ -183,7 +183,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Seeks to a given position in the queue.
      * Params:
      * int position The position to seek to.
-     * /
+     */
     void seek(int position) {
         if (!isSet(this.queue[position])) {
             throw new DOutOfBoundsException("Invalid seek position (%s)."
@@ -194,7 +194,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     
     /**
      * Rewinds back to the first element of the queue.
-     * /
+     */
     void rewind() {
         this.position = 0;
     }

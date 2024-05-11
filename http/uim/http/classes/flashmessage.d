@@ -66,7 +66,7 @@ class DFlashMessage {
      * - `params` An array of variables to be made available to the element.
      * - `clear` A bool stating if the current stack should be cleared to start a new one.
      * - `escape` Set to false to allow templates to print out HTML content.
-     * /
+     */
     void set(string messageToBeFlashed, Json[string] options = null) {
         auto auto updatedOptions = options.update(this.configuration.data);
 
@@ -114,7 +114,7 @@ class DFlashMessage {
      * Params:
      * \Throwable exception Exception instance.
      * @param Json[string] options An array of options.
-     * /
+     */
     void setExceptionMessage(Throwable exception, Json[string] options = null) {
         options["element"] ??= "error";
         options["params"]["code"] ??= exception.getCode();
@@ -131,7 +131,7 @@ class DFlashMessage {
     /**
      * Set a success message.
      * The `'element'` option will be set to  ``success'`.
-     * /
+     */
     void success(string successMessage, Json[string] options = null) {
         options["element"] = "Success";
         set(successMessage, options);
@@ -140,7 +140,7 @@ class DFlashMessage {
     /**
      * Set an success message.
      * The `'element'` option will be set to  `'error'`.
-     * /
+     */
     void error(string errorMessage, Json[string] options = null) {
         options["element"] = "error";
         set(errorMessage, options);
@@ -149,7 +149,7 @@ class DFlashMessage {
     /**
      * Set a warning message.
      * The `'element'` option will be set to  `'warning'`.
-     * /
+     */
     void warning(string warningMessage, Json[string] options = null) {
         options["element"] = "warning";
         set(warningMessage, options);
@@ -158,7 +158,7 @@ class DFlashMessage {
     /**
      * Set an info message.
      * The `'element'` option will be set to  `'info'`.
-     * /
+     */
     void info(string infoMessage, Json[string] options = null) {
         options["element"] = "info";
         set(infoMessage, options);

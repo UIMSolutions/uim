@@ -16,7 +16,7 @@ class DContentTypeNegotiation {
      * discarded as they are not frequently used.
      * Params:
      * \Psr\Http\Message\IRequest request The request to get an accept from.
-     * /
+     */
     Json[string] <string, string[]> parseAccept(IRequest request) {
          aHeader = request.getHeaderLine("Accept");
 
@@ -30,7 +30,7 @@ class DContentTypeNegotiation {
      * as they are not frequently used.
      * Params:
      * \Psr\Http\Message\IRequest request The request to get an accept from.
-     * /
+     */
     Json[string] <string, string[]> parseAcceptLanguage(IRequest request) {
          aHeader = request.getHeaderLine("Accept-Language");
 
@@ -52,7 +52,7 @@ class DContentTypeNegotiation {
      * You can expect null when the request has no Accept header.
      * Params:
      * \Psr\Http\Message\IRequest request The request to use.
-     * /
+     */
     string preferredType(IRequest request, string[] supportedContenttypeChoices = []) {
         auto parsed = this.parseAccept(request);
         if (parsed.isEmpty) {
@@ -78,7 +78,7 @@ class DContentTypeNegotiation {
      * `_` replaced with `-`.
      * Params:
      * \Psr\Http\Message\IRequest request The request to read headers from.
-     * /
+     */
     string[] acceptedLanguages(IRequest request) {
         auto raw = this.parseAcceptLanguage(request);
         auto accept = null;
@@ -102,7 +102,7 @@ class DContentTypeNegotiation {
      * Params:
      * \Psr\Http\Message\IRequest request The request to read headers from.
      * @param string alang The language code to check.
-     * /
+     */
     bool acceptLanguage(IRequest request, string alang) {
         accept = this.acceptedLanguages(request);
 

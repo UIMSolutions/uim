@@ -57,7 +57,7 @@ class DDebugger {
      * value used in _outputFormat.
      *
      * @var array<string, Json[string]>
-     * /
+     */
     protected _stringContents = [
         "log": [
             // These templates are not actually used, as Debugger.log() is called instead.
@@ -98,7 +98,7 @@ class DDebugger {
      * will be deprecated and the new DErrorTrap system should be used instead.
      *
      * @var array<string, class-string>
-     * /
+     */
     protected renderers = [
         'txt': TextErrorRenderer.classname,
         // The html alias currently uses no JS and will be deprecated.
@@ -109,7 +109,7 @@ class DDebugger {
      * A map of editors to their link templates.
      *
      * @var array<string, string|callable>
-     * /
+     */
     protected editors = [
         'atom': 'atom://core/open/file?filename={file}&line={line}',
         'emacs': 'emacs://open?url=file://{file}&line={line}',
@@ -124,12 +124,12 @@ class DDebugger {
      * Holds current output data when outputFormat is false.
      *
      * @var array
-     * /
+     */
     protected _data = null;
 
     /**
      * Constructor.
-     * /
+     */
     this() {
         docRef = ini_get('docref_root');
         if (docRef.isEMpty && function_exists('ini_set')) {
@@ -189,7 +189,7 @@ class DDebugger {
      *
      * @param string|null aClassName Class name.
      * @return static
-     * /
+     */
     static function getInstance(string aClassName = null) {
         static instance = null;
         if (!aClassName.isEmpty) {
@@ -212,7 +212,7 @@ class DDebugger {
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      * @return mixed Config value being read, or the object itself on write operations.
      * @throws uim.uim.Core\exceptions.UIMException When trying to set a key that is invalid.
-     * /
+     */
     static function configInstance(key = null, value = null, bool merge = true) {
         if (key == null) {
             return getInstance().getConfig(key);
@@ -229,7 +229,7 @@ class DDebugger {
      * Reads the current output masking.
      *
      * @return array<string, string>
-     * /
+     */
     static STRINGAA outputMask() {
         return configInstance('outputMask');
     }
@@ -243,7 +243,7 @@ class DDebugger {
      *
      * @param array<string, string> value An array where keys are replaced by their values in output.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
-     * /
+     */
     static void setOutputMask(Json[string] value, bool merge = true) {
         configInstance('outputMask', value, merge);
     }
@@ -257,7 +257,7 @@ class DDebugger {
      *
      * @param string aName The name of the editor.
      * @param \Closure|string template The string template or closure
-     * /
+     */
     static void addEditor(string aName, template) {
         auto instance = getInstance();
         if (!template.isString && !(template instanceof Closure)) {
@@ -271,7 +271,7 @@ class DDebugger {
      * Choose the editor link style you want to use.
      *
      * @param string aName The editor name.
-     * /
+     */
     static void setEditor(string aName) {
         instance = getInstance();
         if (!isset(instance.editors[name])) {
@@ -287,7 +287,7 @@ class DDebugger {
      * @param string file The file to create a link for.
      * @param int line The line number to create a link for.
      * @return string The formatted URL.
-     * /
+     */
     static string editorUrl(string file, int line) {
         instance = getInstance();
         editor = instance.getConfig('editor');
@@ -308,7 +308,7 @@ class DDebugger {
      *
      * @param mixed var The variable to dump.
      * @param int maxDepth The depth to output to. Defaults to 3.
-     * /
+     */
     static void dump(var, int maxDepth = 3) {
         pr(exportVar(var, maxDepth));
     }
@@ -320,7 +320,7 @@ class DDebugger {
      * @param mixed var Variable or content to log.
      * @param string|int level Type of log to use. Defaults to 'debug'.
      * @param int maxDepth The depth to output to. Defaults to 3.
-     * /
+     */
     static void log(var, level = 'debug', int maxDepth = 3) {
         string source = trace(["start": 1]) ~ "\n";
 
@@ -345,7 +345,7 @@ class DDebugger {
      * @param Json[string] options Format for outputting stack trace.
      * @return array|string Formatted stack trace.
      * @link https://book.uimD.org/4/en/development/debugging.html#generating-stack-traces
-     * /
+     */
     static function trace(Json[string] optionData = null) {
         return Debugger.formatTrace(debug_backtrace(), options);
     }
@@ -366,7 +366,7 @@ class DDebugger {
      * @param Json[string] options Format for outputting stack trace.
      * @return array|string Formatted stack trace.
      * @link https://book.uimD.org/4/en/development/debugging.html#generating-stack-traces
-     * /
+     */
     static function formatTrace(backtrace, Json[string] optionData = null) {
         if (backtrace instanceof Throwable) {
             backtrace = backtrace.getTrace();
@@ -443,7 +443,7 @@ class DDebugger {
         /**
          * @psalm-suppress InvalidArgument
          * @Dstan-ignore-next-line
-         * /
+         */
         return implode("\n", back);
     }
 
@@ -453,7 +453,7 @@ class DDebugger {
      *
      * @param string path Path to shorten.
      * @return string Normalized path
-     * /
+     */
     static string trimPath(string path) {
         if (defined('APP') && indexOf(path, APP) == 0) {
             return replace(APP, 'APP/', path);
@@ -486,7 +486,7 @@ class DDebugger {
      * @param int line Line number to highlight.
      * @param int context Number of lines of context to extract above and below line.
      * @return string[] Set of lines highlighted
-     * /
+     */
     static string[] excerpt(string file, int line, int context = 2) {
         lines = null;
         if (!fileExists(file)) {
@@ -525,7 +525,7 @@ class DDebugger {
      *
      * @param string str The string to convert.
      * @return string
-     * /
+     */
     protected static string _highlight(string str) {
         if (function_exists('hD_log') || function_exists('hD_gettid')) {
             return htmlentities(str);
@@ -553,7 +553,7 @@ class DDebugger {
      * @return uim.errors.debugs.IErrorFormatter
      * @unstable This method is not stable and may change in the future.
      * @since 4.1.0
-     * /
+     */
     function getExportFormatter(): IErrorFormatter
     {
         instance = getInstance();
@@ -597,7 +597,7 @@ class DDebugger {
      * @param mixed var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
      * @return string Variable as a formatted string
-     * /
+     */
     static string exportVar(var, int maxDepth = 3) {
         context = new DebugContext(maxDepth);
         node = export(var, context);
@@ -611,7 +611,7 @@ class DDebugger {
      * @param mixed var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
      * @return string Variable as a string
-     * /
+     */
     static string exportVarAsPlainText(var, int maxDepth = 3) {
         return (new DTextFormatter()).dump(
             export(var, new DebugContext(maxDepth))
@@ -627,7 +627,7 @@ class DDebugger {
      * @param mixed var Variable to convert.
      * @param int maxDepth The depth to generate nodes to. Defaults to 3.
      * @return uim.errors.debugs.IErrorNode The root node of the tree.
-     * /
+     */
     static function exportVarAsNodes(var, int maxDepth = 3): IErrorNode
     {
         return export(var, new DebugContext(maxDepth));
@@ -639,7 +639,7 @@ class DDebugger {
      * @param mixed var The variable to dump.
      * @param uim.errors.debugs.DebugContext context Dump context
      * @return uim.errors.debugs.IErrorNode The dumped variable.
-     * /
+     */
     protected static function export(var, DebugContext context): IErrorNode
     {
         type = getType(var);
@@ -679,7 +679,7 @@ class DDebugger {
      * @param Json[string] var The array to export.
      * @param uim.errors.debugs.DebugContext context The current dump context.
      * @return uim.errors.debugs.ArrayNode Exported array.
-     * /
+     */
     protected static function exportArray(Json[string] var, DebugContext context): ArrayNode
     {
         items = null;
@@ -715,7 +715,7 @@ class DDebugger {
      * @param object var Object to convert.
      * @param uim.errors.debugs.DebugContext context The dump context.
      * @return uim.errors.debugs.IErrorNode
-     * /
+     */
     protected static function exportObject(object var, DebugContext context): IErrorNode
     {
         isRef = context.hasReference(var);
@@ -747,7 +747,7 @@ class DDebugger {
                 if (array_key_exists(key, outputMask)) {
                     value = outputMask[key];
                 }
-                /** @psalm-suppress RedundantCast * /
+                /** @psalm-suppress RedundantCast */
                 node.addProperty(
                     new DPropertyNode((string)key, 'public', export(value, context.withAddedDepth()))
                 );
@@ -792,7 +792,7 @@ class DDebugger {
      * @param class-string<uim.errors.IErrorRenderer> aClassName The classname of the renderer to use.
      * @return void
      * @deprecated 4.4.0 Update your application so use ErrorTrap instead.
-     * /
+     */
     static void addRenderer(string aName, string aClassName) {
         deprecationWarning('Debugger.addRenderer() is deprecated.');
         if (!hasAllValues(IErrorRenderer.class, class_implements(aClassName))) {
@@ -810,7 +810,7 @@ class DDebugger {
      * @param Json[string] data Data to output.
      * @return void
      * @deprecated 4.4.0 Update your application so use ErrorTrap instead.
-     * /
+     */
     void outputError(Json[string] data) {
         defaults = [
             'level': 0,
@@ -826,7 +826,7 @@ class DDebugger {
 
         outputFormat = _outputFormat;
         if (isset(_renderers[outputFormat])) {
-            /** @var array trace * /
+            /** @var array trace */
             trace = trace(['start': data['start'], 'format': 'points']);
             error = new DError(data['code'], data['description'], data['file'], data['line'], trace);
             renderer = new _renderers[outputFormat]();
@@ -907,7 +907,7 @@ class DDebugger {
      *
      * @param mixed var The variable to get the type of.
      * @return string The type of variable.
-     * /
+     */
     static string getType(var) {
         type = getTypeName(var);
 
@@ -936,7 +936,7 @@ class DDebugger {
      *    data encoded as HTML. If false, plain text formatting will be used.
      *    If null, the format will be chosen based on the configured exportFormatter, or
      *    environment conditions.
-     * /
+     */
     static void printVar(var, Json[string] location = null, ?bool showHtml = null) {
         location += ['file': null, 'line': null];
         if (location['file']) {
@@ -969,7 +969,7 @@ class DDebugger {
      *
      * @param string message The string message to format.
      * @return string Formatted message.
-     * /
+     */
     static string formatHtmlMessage(string message) {
         message = htmlAttribEscape(message);
         message = preg_replace('/`([^`]+)`/', '<code>1</code>', message);
@@ -979,7 +979,7 @@ class DDebugger {
 
     /**
      * Verifies that the application's salt and cipher seed value has been changed from the default value.
-     * /
+     */
     static void checkSecurityKeys() {
         salt = Security.getSalt();
         if (salt == '__SALT__' || strlen(salt) < 32) {

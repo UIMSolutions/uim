@@ -23,7 +23,7 @@ interface IQuery {
      * Params:
      * \Closure|string[]|float|int fields Fields.
      * @param bool overwrite whether to reset fields with passed list or not
-     * /
+     */
     auto select(Closure|string[]|float|int fields, bool overwrite = false);
 
     /**
@@ -45,7 +45,7 @@ interface IQuery {
      * Params:
      * Json[string] fields The fields to alias
      * @param string|null  defaultAlias The default alias
-     * /
+     */
     STRINGAA aliasFields(string[] fieldNames, string adefaultAlias = null);
 
     /**
@@ -56,7 +56,7 @@ interface IQuery {
      *
      * ResultsetDecorator is a traversable object that : the methods found
      * on UIM\Collection\Collection.
-     * /
+     */
     IResultset<T> all();
 
     /**
@@ -96,7 +96,7 @@ interface IQuery {
      * ```
      * Params:
      * Json[string] options list of query clauses to apply new parts to.
-     * /
+     */
     auto applyOptions(Json[string] optionData = null);
 
     /**
@@ -113,7 +113,7 @@ interface IQuery {
      * Params:
      * string afinder The finder method to use.
      * @param Json ...someArguments Arguments that match up to finder-specific parameters
-     * /
+     */
     static find(string afinder, Json ...someArguments);
 
     /**
@@ -125,7 +125,7 @@ interface IQuery {
      * ```
      * singleUser = aQuery.select(["id", "username"]).first();
      * ```
-     * /
+     */
     Json first()  ;
 
     /**
@@ -147,7 +147,7 @@ interface IQuery {
      * ```
      * Params:
      * int aLimit number of records to be returned
-     * /
+     */
     auto limit(int aLimit);
 
     /**
@@ -166,7 +166,7 @@ interface IQuery {
      * ```
      * Params:
      * int  anOffset number of records to be skipped
-     * /
+     */
     auto offset(int anOffset);
 
     /**
@@ -216,7 +216,7 @@ interface IQuery {
      * Params:
      * \Closure|string[] fieldNames fields to be added to the list
      * @param bool overwrite whether to reset order with field list or not
-     * /
+     */
     auto orderBy(Closure|string[] fieldNames, bool overwrite = false);
 
     /**
@@ -231,7 +231,7 @@ interface IQuery {
      * int num The page number you want.
      * @param int aLimit The number of rows you want in the page. If null
      * the current limit clause will be used.
-     * /
+     */
     void page(int num, int aLimit = null);
 
     // Returns an array representation of the results after executing the query.

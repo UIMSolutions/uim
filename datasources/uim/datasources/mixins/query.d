@@ -30,19 +30,19 @@ mixin template TQuery() {
      *
      * When set, query execution will be bypassed.
      * @var iterable|null
-     * /
+     */
     protected _results;
 
     /**
      * List of formatter classes or callbacks that will post-process the
      * results when fetched
-     * /
+     */
     protected callable[] _formatters = null;
 
     /**
      * A query cacher instance if this query has caching enabled.
      * @var uim.datasources.QueryCacher|null
-     * /
+     */
     protected _cache;
 
 
@@ -52,7 +52,7 @@ mixin template TQuery() {
      *
      * @param uim.Datasource\IRepository|uim.orm.Table repository The default table object to use
      * @return this
-     * /
+     */
     function repository(IRepository repository) {
         _repository = repository;
 
@@ -64,7 +64,7 @@ mixin template TQuery() {
      * that is, the table that will appear in the from clause.
      *
      * @return uim.Datasource\IRepository
-     * /
+     */
     function getRepository(): IRepository
     {
         return _repository;
@@ -81,7 +81,7 @@ mixin template TQuery() {
      *
      * @param range results The results this query should return.
      * @return this
-     * /
+     */
     function setResult(Json[string] results) {
         _results = results;
 
@@ -96,7 +96,7 @@ mixin template TQuery() {
      *
      * @return uim.Datasource\IResultset
      * @psalm-suppress ImplementedReturnTypeMismatch
-     * /
+     */
     #[\ReturnTypeWillChange]
     function getIterator() {
         return _all();
@@ -115,20 +115,20 @@ mixin template TQuery() {
      * ### Usage
      *
      * ```
-     * // Simple string key + config
+     *// Simple string key + config
      * query.cache("_key", "db_results");
      *
-     * // Function to generate key.
+     *// Function to generate key.
      * query.cache(function (q) {
      *   key = serialize(q.clause("select"));
      *   key ~= serialize(q.clause("where"));
      *   return md5(key);
      * });
      *
-     * // Using a pre-built cache engine.
+     *// Using a pre-built cache engine.
      * query.cache("_key", engine);
      *
-     * // Disable caching
+     *// Disable caching
      * query.cache(false);
      * ```
      *
@@ -137,7 +137,7 @@ mixin template TQuery() {
      * @param \Psr\SimpleCache\ICache|string myConfiguration Either the name of the cache config to use, or
      *   a cache engine instance.
      * @return this
-     * /
+     */
     function cache(key, myConfiguration = "default") {
         if (key == false) {
             _cache = null;
@@ -151,7 +151,7 @@ mixin template TQuery() {
 
     /**
      * Returns the current configured query `_eagerLoaded` value
-     * /
+     */
     bool isEagerLoaded() {
         return _eagerLoaded;
     }
@@ -162,7 +162,7 @@ mixin template TQuery() {
      *
      * @param bool value Whether to eager load.
      * @return this
-     * /
+     */
     function eagerLoaded(bool value) {
         _eagerLoaded = value;
 
@@ -179,7 +179,7 @@ mixin template TQuery() {
      *
      * @param string field The field to alias
      * @param string|null alias the alias used to prefix the field
-     * /
+     */
     STRINGAA aliasField(string fieldName, string aliasName = null) {
         if (indexOf(field, ".") == false) {
             alias = alias ?: getRepository().aliasName();
@@ -200,7 +200,7 @@ mixin template TQuery() {
      *
      * @param Json[string] fields The fields to alias
      * @param string|null defaultAlias The default alias
-     * /
+     */
     STRINGAA aliasFields(string[] fieldNames, string defaultAlias = null) {
         aliased = null;
         foreach (fields as alias: field) {
@@ -224,7 +224,7 @@ mixin template TQuery() {
      * on uim\collections.Collection.
      *
      * @return uim.Datasource\IResultset
-     * /
+     */
     function all(): IResultset
     {
         if (_results != null) {
@@ -248,7 +248,7 @@ mixin template TQuery() {
 
     /**
      * Returns an array representation of the results after executing the query.
-     * /
+     */
     Json[string] toDataArray() {
         return _all().toArray();
     }
@@ -266,7 +266,7 @@ mixin template TQuery() {
      * @param callable|null mapper The mapper callable.
      * @param callable|null reducer The reducing function.
      * @param bool canOverwrite Set to true to overwrite existing map + reduce functions.
-     * /
+     */
     function mapReduce(?callable mapper = null, ?callable reducer = null, bool canOverwrite = false) {
         if (canOverwrite) {
             _mapReduce = null;
@@ -283,7 +283,7 @@ mixin template TQuery() {
 
     /**
      * Returns the list of previously registered map reduce routines.
-     * /
+     */
     Json[string] getMapReducers() {
         return _mapReduce;
     }
@@ -356,7 +356,7 @@ mixin template TQuery() {
      * by inheriting the contain callback"s query argument:
      *
      * ```
-     * // Assuming a `Articles belongsTo Authors` association that uses the join strategy
+     *// Assuming a `Articles belongsTo Authors` association that uses the join strategy
      *
      * articlesQuery.contain("Authors", function (authorsQuery) {
      *     return authorsQuery.formatResults(function (results, query) use (authorsQuery) {
@@ -379,7 +379,7 @@ mixin template TQuery() {
      * @param int|bool mode Whether to overwrite, append or prepend the formatter.
      * @return this
      * @throws \InvalidArgumentException
-     * /
+     */
     function formatResults(?callable formatter = null, mode = self.APPEND) {
         if (mode == self.OVERWRITE) {
             _formatters = null;
@@ -407,7 +407,7 @@ mixin template TQuery() {
      * Returns the list of previously registered format routines.
      *
      * @return array<callable>
-     * /
+     */
     function getResultFormatters() {
         return _formatters;
     }
@@ -423,7 +423,7 @@ mixin template TQuery() {
      * ```
      *
      * @return uim.Datasource\IDatasourceEntity|array|null The first result from the Resultset.
-     * /
+     */
     function first() {
         if (_isDirty) {
             this.limit(1);
@@ -437,7 +437,7 @@ mixin template TQuery() {
      *
      * @throws uim.Datasource\exceptions.RecordNotFoundException When there is no first record.
      * @return uim.Datasource\IDatasourceEntity|array The first result from the Resultset.
-     * /
+     */
     function firstOrFail() {
         entity = this.first();
         if (!entity) {
@@ -461,7 +461,7 @@ mixin template TQuery() {
      *  query.applyOptions(["doABarrelRoll": true.toJson, "fields": ["id", "name"]);
      *  query.getOptions(); // Returns ["doABarrelRoll": true.toJson]
      * ```
-     * /
+     */
     Json[array] getOptions() {
         return _options;
     }
@@ -473,7 +473,7 @@ mixin template TQuery() {
      * @param Json[string] arguments list of arguments for the method to call
      * @return mixed
      * @throws \BadMethodCallException if no such method exists in result set
-     * /
+     */
     function __call(string method, Json[string] arguments) {
         resultSetClass = _decoratorClass();
         if (hasAllValues(method, get_class_methods(resultSetClass), true)) {
@@ -499,14 +499,14 @@ mixin template TQuery() {
      *
      * @param Json[string] options the options to be applied
      * @return this
-     * /
+     */
     abstract function applyOptions(Json[string] optionData);
 
     /**
      * Executes this query and returns a traversable object containing the results
      *
      * @return uim.Datasource\IResultset
-     * /
+     */
     abstract protected function _execute(): IResultset;
 
     /**
@@ -514,7 +514,7 @@ mixin template TQuery() {
      *
      * @param \Traversable result Original results
      * @return uim.Datasource\IResultset
-     * /
+     */
     protected function _decorateResults(Traversable result): IResultset
     {
         decorator = _decoratorClass();
@@ -542,7 +542,7 @@ mixin template TQuery() {
      *
      * @return string
      * @psalm-return class-string<uim.Datasource\IResultset>
-     * /
+     */
     protected string _decoratorClass() {
         return ResultsetDecorator.class;
     } */

@@ -118,7 +118,7 @@ mixin template TEntity() {
      * Params:
      * Json[string] fields The values to set.
      * @param bool overwrite Whether to overwrite pre-existing values for field.
-    * /
+    */
                       void setFieldsInvalid(arrayfields, booloverwrite = false) {
                         foreach (fields asfield : aValue) {
                           if (overwrite == true) {
@@ -140,7 +140,7 @@ mixin template TEntity() {
      * Params:
      * string fieldName The value to set.
      * @param Json aValue The invalid value to be set for field.
-    * /
+    */
                                                                   auto setInvalidField(string fieldName, Json aValue) {
                                                                     _invalidFields[field] = aValue;
 
@@ -149,21 +149,21 @@ mixin template TEntity() {
      * Holds a cached list of getters/setters per class
      *
      * @var array<string, array<string, STRINGAA>>
-    * /
+    */
   protected static Json[string] _accessors = null;
 
   /**
      * Whether the presence of a field is checked when accessing a property.
      *
      * If enabled an exception will be thrown when trying to access a non-existent property.
-    * /
+    */
   protected boolrequireFieldPresence = false;
 
   /**
      * Magic getter to access fields that have been set in this entity
      * Params:
      * string fieldName Name of the field to access
-   * /
+   */
   Json & __get(string fieldName) {
     return get(field);
   }
@@ -172,7 +172,7 @@ mixin template TEntity() {
      * Magic setter to add or edit a field in this entity
      * Params:
      * @param Json aValue The value to set to the field
-    * /
+    */
   void __set(string fieldName, Json aValue) {
     set(fieldName, aValue);
   }
@@ -228,7 +228,7 @@ mixin template TEntity() {
      * You do not need to use the guard option when assigning fields individually:
      *
      * ```
-     * // No need to use the guard option.
+     *// No need to use the guard option.
      * entity.set("name", "Andrew");
      * ```
      *
@@ -253,7 +253,7 @@ mixin template TEntity() {
      * keys are `setter`, `guard` and `asOriginal`
 
      * @throws \InvalidArgumentException
-    * /
+    */
   void set(string[] afield, Json aValue = null, Json[string] optionData = null) {
     if (isString(field) && !field.isEmpty) {
       guard = false;
@@ -334,7 +334,7 @@ mixin template TEntity() {
      * Enable/disable field presence check when accessing a property.
      *
      * If enabled an exception will be thrown when trying to access a non-existent property.
-    * /
+    */
   void requireFieldPresence(bool enable = true) {
     this.requireFieldPresence = enable;
   }
@@ -348,7 +348,7 @@ mixin template TEntity() {
      * Returns the value of an original field by name
      * Params:
      * @param bool allowFallback whether to allow falling back to the current field value if no original exists
-    * /
+    */
   Json getOriginal(string fieldName, bool allowFallback = true) {
     if (fieldName.isEmpty) {
       throw new DInvalidArgumentException("Cannot get an empty field");
@@ -406,7 +406,7 @@ mixin template TEntity() {
      * present for the method to return `true`.
      * Params:
      * string[]|string fieldName The field or fields to check.
-    * /
+    */
   bool has(string[] afield) {
     foreach ((array)field asprop) {
       if (!array_key_exists(prop, _fields) && !_accessor(prop, "get")) {
@@ -427,7 +427,7 @@ mixin template TEntity() {
      * - `[]`
      *
      * and false in all other cases.
-    * /
+    */
   bool isEmpty(string fieldToCheck) {
     auto aValue = get(fieldToCheck);
     return (aValue.isNull || (isArray(aValue) && aValue.isEmpty || aValue == ""));
@@ -445,7 +445,7 @@ mixin template TEntity() {
      * - Float, even 0.0
      *
      * and false in all other cases.
-    * /
+    */
   bool hasValue(string fieldToCheck) {
     return !this.isEmpty(fieldToCheck);
   }
@@ -461,7 +461,7 @@ mixin template TEntity() {
      * ```
      * Params:
      * string[]|string fieldName The field to unset.
-    * /
+    */
   auto unset(string[] afield) {
     field = (array)field;
     foreach (field asp) {
@@ -475,7 +475,7 @@ mixin template TEntity() {
      * Params:
      * string[] fieldNames An array of fields to hide from array exports.
      * @param bool merge Merge the new fields with the existing. By default false.
-    * /
+    */
   void setHidden(string[]fields, bool merge = false) {
     if (merge == false) {
       _hidden = fields;
@@ -496,7 +496,7 @@ mixin template TEntity() {
      * Params:
      * string[] fieldNames An array of fields to treat as virtual.
      * @param bool merge Merge the new fields with the existing. By default false.
-    * /
+    */
   void setVirtual(arrayfields, bool merge = false) {
     if (merge == false) {
       _virtual = fields;
@@ -509,7 +509,7 @@ mixin template TEntity() {
 
   /**
      * Gets the virtual fields on this entity.
-    * /
+    */
   string[] getVirtual() {
     return _virtual;
   }
@@ -519,7 +519,7 @@ mixin template TEntity() {
      *
      * The list of visible fields is all standard fields
      * plus virtual fields minus hidden fields.
-    * /
+    */
   string[] getVisible() {
     fields = _fields.keys;
     fields = chain(fields, _virtual);
@@ -533,7 +533,7 @@ mixin template TEntity() {
      *
      * This method will recursively transform entities assigned to fields
      * into arrays as well.
-    * /
+    */
   Json[string] toDataArray() {
     auto result;
     foreach (getVisible() asfield) {
@@ -570,7 +570,7 @@ mixin template TEntity() {
   /**
      * entity[anOffset] = aValue;
      * @param Json aValue The value to set.
-    * /
+    */
   void offsetSet(Json offsetToSet, Json aValue) {
     set(offsetToSet, aValue);
   }
@@ -586,7 +586,7 @@ mixin template TEntity() {
      * Params:
      * string aproperty the field name to derive getter name from
      * @param string atype the accessor type ("get' or `set")
-    * /
+    */
   protected static string _accessor(string aproperty, string accessorType) {
     className = class;
 
@@ -623,7 +623,7 @@ mixin template TEntity() {
      * stored in this entity, indexed by field name
      * Params:
      * @param bool onlyDirty Return the requested field only if it is dirty
-    * /
+    */
   Json[string] extract(string[] fieldNamesToReturn, bool returnOnlyDirty = false) {
     STRINGAA result;
     fieldsToReturn
@@ -641,7 +641,7 @@ mixin template TEntity() {
      * return of this method.
      * Params:
      * string[] fieldNames List of fields to be returned
-    * /
+    */
   Json[string] extractOriginal(arrayfields) {
     auto result;
     fields.each!((field) {
@@ -661,7 +661,7 @@ mixin template TEntity() {
      *
      * This method will only return fields that have been modified since
      * the entity was built. Unchanged fields will be omitted.
-    * /
+    */
   Json[string] extractOriginalChanged(string[] fieldNames) {
     auto result;
     fields
@@ -683,7 +683,7 @@ mixin template TEntity() {
   /**
      * Returns an array of original fields.
      * Original fields are those that the entity was initialized with.
-    * /
+    */
   string[] getOriginalFields() {
     return _originalFields;
   }
@@ -694,7 +694,7 @@ mixin template TEntity() {
      * Params:
      * string[]|string fieldName the name of a field or a list of fields to set as original
      * @param bool merge
-    * /
+    */
   protected void setOriginalField(string | arrayfield, bool merge = true) {
   }
   protected void setOriginalField(string[] fieldNames, bool merge = true) {
@@ -716,7 +716,7 @@ mixin template TEntity() {
      * string fieldName the field to set or check status for
      * @param bool  isDirty true means the field was changed, false means
      * it was not changed. Defaults to true.
-    * /
+    */
     bool isDirty(string fieldName, bool dirtyMode = true) {
       if (!dirtyMode) {
         setOriginalField(field);
@@ -737,7 +737,7 @@ mixin template TEntity() {
      * Checks if the entity is dirty or if a single field of it is dirty.
      * Params:
      * string field The field to check the status for. Null for the whole entity.
-    * /
+    */
     bool isDirty(string fieldName = null) {
       if (field.isNull) {
         return !_isDirty.isEmpty;
@@ -754,7 +754,7 @@ mixin template TEntity() {
      * Sets the entire entity as clean, which means that it will appear as
      * no fields being modified or added at all. This is an useful call
      * for an initial object hydration
-    * /
+    */
     void clean() {
       _isDirty = false;
       _fieldErrors = null;
@@ -770,7 +770,7 @@ mixin template TEntity() {
      * `false` that it already is.
      * Params:
      * bool new DIndicate whether this entity has been persisted.
-    * /
+    */
     auto setNew(boolnew) {
       if (new) {
         foreach (_fields as myKey : p) {
@@ -784,7 +784,7 @@ mixin template TEntity() {
 
     /**
      * Returns whether this entity has already been persisted.
-    * /
+    */
     bool isNew() {
       return _new;
     }
@@ -793,7 +793,7 @@ mixin template TEntity() {
      * Returns whether this entity has errors.
      * Params:
      * bool  anIncludeNested true will check nested entities for hasErrors()
-    * /
+    */
     bool hasErrors(bool anIncludeNested = true) {
       if (_hasBeenVisited) {
         // While recursing through entities, each entity should only be visited once. See https://github.com/UIM/UIM/issues/17318
@@ -839,7 +839,7 @@ mixin template TEntity() {
      * Returns validation errors of a field
      * Params:
      * string fieldName Field name to get the errors from
-    * /
+    */
                   Json[string] getError(string fieldName) {
                     return _fieldErrors[field] ?  ? _nestedErrors(field);}
 
@@ -849,13 +849,13 @@ mixin template TEntity() {
      * ## Example
      *
      * ```
-     * // Sets the error messages for multiple fields at once
+     *// Sets the error messages for multiple fields at once
      * entity.setErrors(["salary": ["message"], "name": ["another message"]]);
      * ```
      * Params:
      * Json[string] errors The array of errors to set.
      * @param bool overwrite Whether to overwrite pre-existing errors for fields
-    * /
+    */
                     auto setErrors(arrayerrors, booloverwrite = false) {
                       if (overwrite) {
                         foreach (errors asf : error) {
@@ -879,14 +879,14 @@ mixin template TEntity() {
      * ### Example
      *
      * ```
-     * // Sets the error messages for a single field
+     *// Sets the error messages for a single field
      * entity.setErrors("salary", ["must be numeric", "must be a positive number"]);
      * ```
      * Params:
      * string fieldName The field to get errors for, or the array of errors to set.
      * @param string[] aerrors The errors to be set for field
      * @param bool overwrite Whether to overwrite pre-existing errors for field
-    * /
+    */
                               auto setErrors(string fieldName, string[] aerrors, booloverwrite = false) {
                                 if (isString(errors)) {
                                   errors = [errors];}
@@ -897,7 +897,7 @@ mixin template TEntity() {
      * Auxiliary method for getting errors in nested entities
      * Params:
      * string fieldName the field in this entity to check for errors
-    * /
+    */
   // TODO protected Json[string] _nestedErrors(
     string fieldName) {
     // Only one path element, check for nested entity with error.
@@ -952,7 +952,7 @@ mixin template TEntity() {
      * Reads if there are errors for one or many objects.
      * Params:
      * \UIM\Datasource\IDatasourceEntity|array object The object to read errors from.
-    * /
+    */
                                                   protected bool _readHasErrors(
                                                   IDatasourceEntity[] object) {
                                                     if (cast(IDatasourceEntity) object && object
@@ -974,7 +974,7 @@ mixin template TEntity() {
      * Params:
      * \UIM\Datasource\IDatasourceEntity|range object The object to read errors from.
      * @param string somePath The field name for errors.
-    * /
+    */
                                                         // TODO protected Json[string] _readError(
                                                         IDatasourceEntity | range object, string aPath = null) {
                                                           if (somePath!isNull && cast(
@@ -1018,7 +1018,7 @@ mixin template TEntity() {
      * string[]|string fieldName Single or list of fields to change its accessibility
      * @param bool set True marks the field as accessible, false will
      * mark it as protected.
-    * /
+    */
                                                                     auto setAccess(string[] afield, boolset) {
                                                                       if (field == "*") {
                                                                         _accessible = array_map(fn(p) : set, _accessible);
@@ -1036,7 +1036,7 @@ mixin template TEntity() {
                                                                     /**
      * Returns the raw accessible configuration for this entity.
      * The `*` wildcard refers to all fields.
-    * /
+    */
                                                                     bool[] getAccessible() {
                                                                       return _accessible;
                                                                     }
@@ -1051,7 +1051,7 @@ mixin template TEntity() {
      * ```
      * Params:
      * string fieldName Field name to check
-    * /
+    */
                                                                     bool isAccessible(string fieldName) {
                                                                       aValue = _accessible[field] ?  ? null;
 
@@ -1061,7 +1061,7 @@ mixin template TEntity() {
 
                                                                     /**
      * Returns the alias of the repository from which this entity came from.
-    * /
+    */
                                                                     string source() {
                                                                       return _registryAlias;
                                                                     }
@@ -1070,7 +1070,7 @@ mixin template TEntity() {
      * Sets the source alias
      * Params:
      * string aalias the alias of the repository
-    * /
+    */
                                                                     auto setSource(string aalias) {
                                                                       _registryAlias = alias;
 
@@ -1079,7 +1079,7 @@ mixin template TEntity() {
 
                                                                     /**
      * Returns a string representation of this object in a human readable format.
-    * /
+    */
                                                                     override string toString() {
                                                                       return to!string(Json_encode(this, Json_PRETTY_PRINT));
                                                                     }
@@ -1087,7 +1087,7 @@ mixin template TEntity() {
                                                                     /**
      * Returns an array that can be used to describe the internal state of this
      * object.
-    * /
+    */
                                                                     Json[string] debugInfo() {
                                                                       fields = _fields;
                                                                       foreach (_virtual asfield) {

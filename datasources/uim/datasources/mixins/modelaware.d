@@ -22,7 +22,7 @@ mixin template TModelAware() {
      *
      * Use empty string to not use auto-loading on this object. Null auto-detects based on
      * controller name.
-     * /
+     */
     protected string amodelClass = null;
 
     // A list of overridden model factory functions.
@@ -37,7 +37,7 @@ mixin template TModelAware() {
      * If the property is already set it will not be overwritten
      * Params:
      * string aName Class name.
-     * /
+     */
     protected void _setModelClass(string aName) {
         if (this.modelClass.isNull) {
             this.modelClass = aName;
@@ -58,7 +58,7 @@ mixin template TModelAware() {
      * string modelClass Name of model class to load. Defaults to this.modelClass.
      * The name can be an alias like `'Post'` or FQCN like `App\Model\Table\PostsTable.classname`.
      * @param string modelType The type of repository to load. Defaults to the getModelType() value.
-     * /
+     */
     IRepository fetchModel(string amodelClass = null, string amodelType = null) {
         modelClass ??= this.modelClass;
         if (isEmpty(modelClass)) {
@@ -71,10 +71,10 @@ mixin template TModelAware() {
             [, alias] = pluginSplit(modelClass, true);
         } else {
             options["className"] = modelClass;
-            /** @psalm-suppress PossiblyFalseOperand * /
+            /** @psalm-suppress PossiblyFalseOperand */
             alias = substr(
                 modelClass,
-                strrpos(modelClass, "\\") + 1,
+                indexOf(modelClass, "\\") + 1,
                 -modelType.length
             );
             modelClass = alias;
@@ -96,7 +96,7 @@ mixin template TModelAware() {
      * Params:
      * string atype The name of the repository type the factory bool is for.
      * @param \UIM\Datasource\Locator\ILocator|callable factory The factory auto used to create instances.
-     * /
+     */
     void modelFactory(string atype, ILocator|callable factory) {
        _modelFactories[type] = factory;
     }

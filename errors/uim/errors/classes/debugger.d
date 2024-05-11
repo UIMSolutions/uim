@@ -62,7 +62,7 @@ class DDebugger {
      * The file and line.
      * Params:
      * @param \Closure|string atemplate The string template or closure
-     * /
+     */
     static void addEditor(string editorName, IClosure|string atemplate) {
         auto anInstance = getInstance();
          anInstance.editors[editorName] = template;
@@ -86,7 +86,7 @@ class DDebugger {
      * Params:
      * string afile The file to create a link for.
      * @param int line The line number to create a link for.
-     * /
+     */
     static string editorUrl(string afile, int line) {
         auto anInstance = getInstance();
         editor = anInstance.configuration.get("editor");
@@ -121,9 +121,9 @@ class DDebugger {
      * Returns a reference to the Debugger singleton object instance.
      * Params:
      * class-string<\UIM\Error\Debugger>|null  className Class name.
-     * /
+     */
     static static getInstance(string className = null) {
-        /** @var array<int, static>  anInstance * /
+        /** @var array<int, static>  anInstance */
         static  anInstance = null;
         if (className) {
             if (!anInstance || strtolower(className) != get_class(anInstance[0]).lower) {
@@ -143,7 +143,7 @@ class DDebugger {
      * @param mixed|null aValue The value to set.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      * @throws \UIM\Core\Exception\UimException When trying to set a key that is invalid.
-     * /
+     */
     static Json[string] configSettings = nullInstance(string[] aKey = null, Json aValue = null, bool merge = true) {
         if (aKey.isNull) {
             return getInstance().configuration.get(aKey);
@@ -168,7 +168,7 @@ class DDebugger {
      * Params:
      * STRINGAA aValue An array where keys are replaced by their values in output.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
-     * /
+     */
     static void setOutputMask(Json[string] aValue, bool merge = true) {
         configInstance("outputMask", aValue, merge);
     }
@@ -180,7 +180,7 @@ class DDebugger {
      * Params:
      * Json var The variable to dump.
      * @param int maxDepth The depth to output to. Defaults to 3.
-     * /
+     */
     static void dump(Json var, int maxDepth = 3) {
         pr(exportVar(var, maxDepth));
     }
@@ -192,9 +192,9 @@ class DDebugger {
      * Json var Variable or content to log.
      * @param string|int level Type of log to use. Defaults to 'debug'.
      * @param int maxDepth The depth to output to. Defaults to 3.
-     * /
+     */
     static void log(Json var, string|int level = "debug", int maxDepth = 3) {
-        /** @var string asource * /
+        /** @var string asource */
         source = trace(["start": 1]);
         source ~= "\n";
 
@@ -209,7 +209,7 @@ class DDebugger {
      * Params:
      * \Throwable exception The exception to get frames from.
      * @param ?\Throwable parent The parent exception to compare frames with.
-     * /
+     */
     static Json[string] getUniqueFrames(Throwable exception, Throwable parent) {
         if (parent.isNull) {
             return exception.getTrace();
@@ -258,7 +258,7 @@ class DDebugger {
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      * Params:
      * Json[string] options Format for outputting stack trace.
-     * /
+     */
     static string[] trace(Json[string] options = null) {
         // Remove the frame for Debugger.trace()
         backtrace = debug_backtrace();
@@ -281,7 +281,7 @@ class DDebugger {
      * Params:
      * \Throwable|array backtrace Trace as array or an exception object.
      * @param Json[string] options Format for outputting stack trace.
-     * /
+     */
     static string[] formatTrace(Throwable|array backtrace, Json[string] options = null) {
         if (cast(Throwable)backtrace) {
             backtrace = backtrace.getTrace();
@@ -346,7 +346,7 @@ class DDebugger {
     /**
      * Shortens file paths by replacing the application base path with 'APP", and the UIM core
      * path with 'CORE'.
-     * /
+     */
     static string trimPath(string pathToShorten) {
         if (defined("APP") && pathToShorten.startWith(APP)) {
             return pathToShorten.replace(APP, "APP/");
@@ -376,7 +376,7 @@ class DDebugger {
      * string afile Absolute path to a D file.
      * @param int line Line number to highlight.
      * @param int context Number of lines of context to extract above and below line.
-     * /
+     */
     static string[] excerpt(string afile, int line, int context = 2) {
         lines = null;
         if (!fileExists(file)) {
@@ -410,7 +410,7 @@ class DDebugger {
      * implement the auto as it is the case of the HipHop interpreter
      * Params:
      * string astr The string to convert.
-     * /
+     */
     protected static string _highlight(string astr) {
         if (function_exists("hD_log") || function_exists("hD_gettid")) {
             return htmlentities(str);
@@ -431,7 +431,7 @@ class DDebugger {
     
     /**
      * Get the configured export formatter or infer one based on the environment.
-     * /
+     */
     IErrorFormatter getExportFormatter() {
          anInstance = getInstance();
          className = anInstance.configuration.get("exportFormatter");
@@ -473,7 +473,7 @@ class DDebugger {
      * Params:
      * Json var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
-     * /
+     */
     static string exportVar(Json var, int maxDepth = 3) {
         auto context = new DebugContext(maxDepth);
         auto node = export(var, context);
@@ -486,7 +486,7 @@ class DDebugger {
      * Params:
      * Json var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
-     * /
+     */
     static string exportVarAsPlainText(Json var, int maxDepth = 3) {
         return (new DTextFormatter()).dump(
             export(var, new DebugContext(maxDepth))
@@ -501,7 +501,7 @@ class DDebugger {
      * Params:
      * Json var Variable to convert.
      * @param int maxDepth The depth to generate nodes to. Defaults to 3.
-     * /
+     */
     static IErrorNode exportVarAsNodes(Json var, int maxDepth = 3) {
         return export(var, new DebugContext(maxDepth));
     }
@@ -511,7 +511,7 @@ class DDebugger {
      * Params:
      * Json var The variable to dump.
      * @param \UIM\Error\Debug\DebugContext context Dump context
-     * /
+     */
     protected static IErrorNode export(Json var, DebugContext context) {
         string type = getType(var);
 
@@ -544,7 +544,7 @@ class DDebugger {
      * Json[string] var The array to export.
      * @param \UIM\Error\Debug\DebugContext context The current dump context.
      * @return \UIM\Error\Debug\ArrayNode Exported array.
-     * /
+     */
     protected static ArrayNode exportArray(Json[string] var, DebugContext context) {
         someItems = null;
 
@@ -577,7 +577,7 @@ class DDebugger {
      * Params:
      * object var Object to convert.
      * @param \UIM\Error\Debug\DebugContext context The dump context.
-     * /
+     */
     protected static IErrorNode exportObject(object var, DebugContext context) {
          isRef = context.hasReference(var);
         refNum = context.getReferenceId(var);
@@ -648,7 +648,7 @@ class DDebugger {
      * for objects.
      * Params:
      * Json var The variable to get the type of.
-     * /
+     */
     static string getType(Json variableToCheck) {
         string variableType = get_debug_type(variableToCheck);
 
@@ -672,7 +672,7 @@ class DDebugger {
      *   data encoded as HTML. If false, plain text formatting will be used.
      *   If null, the format will be chosen based on the configured exportFormatter, or
      *   environment conditions.
-     * /
+     */
     static void printVar(Json var, Json[string] location = [], ?bool showHtml = null) {
         auto location ~= ["file": Json(null), "line": Json(null)];
         if (location["file"]) {
@@ -703,7 +703,7 @@ class DDebugger {
      * - Convert newlines into `<br>`
      * Params:
      * string messageToFormat The string message to format.
-     * /
+     */
     static string formatHtmlMessage(string messageToFormat) {
         string message = htmlAttribEscape(messageToFormat);
         message = (string)preg_replace("/`([^`]+)`/", "<code>0</code>", message);

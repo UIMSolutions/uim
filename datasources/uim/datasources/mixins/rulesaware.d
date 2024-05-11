@@ -26,7 +26,7 @@ mixin template TRulesAware() {
      * \UIM\Datasource\IDatasourceEntity entity The entity to check for validity.
      * @param string aoperation The operation being run. Either 'create", "update' or 'delete'.
      * @param \ArrayObject<string, mixed>|array|null options The options To be passed to the rules.
-     * /
+     */
    bool checkRules(
         IDatasourceEntity entity,
         string aoperation = RulesChecker.CREATE,
@@ -67,17 +67,17 @@ mixin template TRulesAware() {
      * A RulesChecker object is used to test an entity for validity
      * on rules that may involve complex logic or data that
      * needs to be fetched from relevant datasources.
-     * /
+     */
     RulesChecker rulesChecker() {
         if (!_rulesChecker.isNull) {
             return _rulesChecker;
         }
-        /** @var class-string<\UIM\Datasource\RulesChecker>  className * /
+        /** @var class-string<\UIM\Datasource\RulesChecker>  className */
         auto className = defined("RULES_CLASS") ? RULES_CLASS : RulesChecker.classname;
         /**
          * @psalm-suppress ArgumentTypeCoercion
          * @Dstan-ignore-next-line
-         * /
+         */
         _rulesChecker = this.buildRules(new className(["repository": this]));
         this.dispatchEvent("Model.buildRules", ["rules": _rulesChecker]);
 
@@ -89,7 +89,7 @@ mixin template TRulesAware() {
      *
      * Subclasses should override this method in order to initialize the rules to be applied to
      * entities saved by this instance.
-     * /
+     */
     RulesChecker buildRules(RulesChecker rules) {
         return rules;
     } */

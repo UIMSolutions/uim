@@ -22,7 +22,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      *
      * fieldNames - An array of fields to hide from array exports.
      * shouldMerge - Merge the new fields with the existing. By default false.
-     * /
+     */
    void setHidden(string[] fieldNames, bool shouldMerge = false);
 
    // Gets the hidden fields.
@@ -33,7 +33,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      * Params:
      * string[] fieldNames An array of fields to treat as virtual.
      * @param bool  merge Merge the new fields with the existing. By default false.
-     * /
+     */
    void setVirtual(string[] fieldNames, bool canMergeExisting = false);
 
    // Gets the virtual fields on this entity.
@@ -42,13 +42,13 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
    /**
      * Returns whether a field is an original one.
      * Original fields are those that an entity was instantiated with.
-     * /
+     */
    bool isOriginalField(string fieldName);
 
    /**
      * Returns an array of original fields.
      * Original fields are those that an entity was initialized with.
-     * /
+     */
    string[] getOriginalFieldNames();
 
    // Sets the dirty status of a single field.
@@ -81,7 +81,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      * string fieldName The field to get errors for, or the array of errors to set.
      * @param string[] aerrors The errors to be set for field
      * @param bool overwrite Whether to overwrite pre-existing errors for field
-     * /
+     */
     IDatasourceEntity setErrors(string fieldName, string[] aerrors, bool overwrite = false);
 
     /**
@@ -90,7 +90,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      * string[]|string fieldName single or list of fields to change its accessibility
      * @param bool set true marks the field as accessible, false will
      * mark it as protected.
-     * /
+     */
    void setAccess(string[] fieldName, bool set);
 
    // Accessible configuration for this entity.
@@ -112,7 +112,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      * stored in this entity, indexed by field name.
      * Params:
      * string[] fieldNames List of fields to be returned
-     * /
+     */
     Json[string] extractOriginal(string[] fieldNames);
 
     /**
@@ -120,7 +120,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      * stored in this entity, indexed by field name.
      * Params:
      * string[] fieldNames List of fields to be returned
-     * /
+     */
     Json[string] extractOriginalChanged(string[] fieldNames);
 
     /**
@@ -132,7 +132,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      * first argument is also an array, in which case will be treated as options
      * @param Json[string] options Options to be used for setting the field. Allowed option
      * keys are `setter` and `guard`
-     * /
+     */
     void set(string[] fieldName, Json aValue = null, Json[string] optionData = null);
 
     // Returns the value of a field by name
@@ -142,7 +142,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      * Enable/disable field presence check when accessing a property.
      *
      * If enabled an exception will be thrown when trying to access a non-existent property.
-     * /
+     */
    void requireFieldPresence(bool enableField = true);
 
    // Returns whether a field has an original value
@@ -153,7 +153,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      * Params:
      * string fieldName The name of the field.
      * @param bool allowFallback whether to allow falling back to the current field value if no original exists
-    * /
+    */
     Json getOriginal(string fieldName, bool allowFallback = true);
 
     // Gets all original values of the entity.
@@ -165,7 +165,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      * The method will return `true` even when the field is set to `null`.
      * Params:
      * string[]|string fieldName The field to check.
-     * /
+     */
    bool has(string[] fieldName);
    bool has(string[] fieldNames);
 
@@ -190,14 +190,14 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      * Params:
      * string[] fieldNames list of fields to be returned
      * @param bool  onlyDirty Return the requested field only if it is dirty
-     * /
+     */
   Json[string] extract(string[] fieldNames, bool onlyDirty = false);
 
   /**
      * Sets the entire entity as clean, which means that it will appear as
      * no fields being modified or added at all. This is an useful call
      * for an initial object hydration
-     * /
+     */
    void clean();
 
    /**

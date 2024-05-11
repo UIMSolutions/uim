@@ -52,7 +52,7 @@ class DebugContext {
      * Constructor
      *
      * @param int maxDepth The desired depth of dump output.
-     * /
+     */
     this(int aMaxDepth) {
         _maxDepth = aMaxDepth;
         _refs = new DSplObjectStorage();
@@ -62,7 +62,7 @@ class DebugContext {
      * Return a clone with increased depth.
      *
      * @return static
-     * /
+     */
     function withAddedDepth() {
         new = clone this;
         new.depth += 1;
@@ -79,7 +79,7 @@ class DebugContext {
      *
      * @param object object The object to get a reference for.
      * @return int
-     * /
+     */
     int getReferenceId(object object) {
       if (this.refs.contains(object)) {
           return _refs[object];
@@ -94,7 +94,7 @@ class DebugContext {
      * Check whether an object has been seen before.
      *
      * @param object object The object to get a reference for.
-     * /
+     */
     bool hasReference(object object) {
         return _refs.contains(object);
     } */

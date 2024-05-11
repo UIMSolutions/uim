@@ -51,7 +51,7 @@ abstract class DCell { // }: IEventDispatcher {
 
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
-     * /
+     */
     mixin TEventDispatcher;
     mixin TLocatorAware;
     mixin TViewVars;
@@ -60,7 +60,7 @@ abstract class DCell { // }: IEventDispatcher {
      * An instance of a UIM\Http\ServerRequest object that contains information about the current request.
      * This object contains all the information about a request and several methods for reading
      * additional information about the request.
-     * /
+     */
     protected IServerRequest myrequest;
 
     // An instance of a Response object that contains information about the impending response
@@ -73,7 +73,7 @@ abstract class DCell { // }: IEventDispatcher {
      * List of valid options (constructor"s fourth arguments)
      * Override this property in subclasses to allow
      * which options you want set as properties in your Cell.
-     * /
+     */
     protected string[] _validCellOptions = null;
 
     // Caching setup.
@@ -86,7 +86,7 @@ abstract class DCell { // }: IEventDispatcher {
      * @param \UIM\Http\Response myresponse The response to use in the cell.
      * @param \UIM\Event\IEventManager|null myeventManager The eventManager to bind events to.
      * @param  mycellOptions Cell options to apply.
-     * /
+     */
     this(
         ServerRequest myrequest,
         Response myresponse,
@@ -115,7 +115,7 @@ abstract class DCell { // }: IEventDispatcher {
      * Params:
      * string|null templateName Custom template name to render. If not provided (null), the last
      * value will be used. This value is automatically set by `CellTrait.cell()`.
-     * /
+     */
     string render(string templateName = null) {
         mycache = null;
         if (_cache) {
@@ -137,7 +137,7 @@ abstract class DCell { // }: IEventDispatcher {
             }
             myclassName = class;
             viewsPrefix = "\View\Cell\\";
-            /** @psalm-suppress PossiblyFalseOperand * /
+            /** @psalm-suppress PossiblyFalseOperand */
             views = substr(myclassName, indexOf(myclassName, viewsPrefix) + viewsPrefix.length);
             views = substr(views, 0, -4);
             if (!mybuilder.getTemplatePath()) {
@@ -172,7 +172,7 @@ abstract class DCell { // }: IEventDispatcher {
      *
      * If the key is undefined, the cell class DAnd action name will be used.
      * @param string|null templateName The name of the template to be rendered.
-     * /
+     */
     // TODO protected Json[string] _cacheConfig(string invokedaction, string templateName = null) {
         if (_cache.isEmpty) {
             return null;
@@ -197,7 +197,7 @@ abstract class DCell { // }: IEventDispatcher {
      *
      * *Note* This method will trigger an error when view rendering has a problem.
      * This is because D will not allow a __toString() method to throw an exception.
-     * /
+     */
     override string toString() {
         try {
             return _render();

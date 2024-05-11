@@ -36,7 +36,7 @@ class DFormProtector {
      * Json formData Form data.
      * @param string aurl URL form was POSTed to.
      * @param string asessionId Session id for hash generation.
-     * /
+     */
     bool validate(Json formData, string aurl, string asessionId) {
         this.debugMessage = null;
 
@@ -68,7 +68,7 @@ class DFormProtector {
      * Construct.
      * Params:
      * Json[string] someData Data array, can contain key `unlockedFields` with list of unlocked fields.
-     * /
+     */
     this(Json[string] data = []) {
         if (!someData.isEmpty("unlockedFields")) {
             this.unlockedFields = someData["unlockedFields"];
@@ -83,7 +83,7 @@ class DFormProtector {
      * @param bool lock Whether this field should be part of the validation
      *  or excluded as part of the unlockedFields. Default `true`.
      * @param Json aValue Field value, if value should not be tampered with.
-     * /
+     */
     auto addField(string[] afield, bool lock = true, Json aValue = null) {
         if (isString(field)) {
             field = getFieldNameArray(field);
@@ -122,7 +122,7 @@ class DFormProtector {
      * Parses the field name to create a dot separated name value for use in
      * field hash. If fieldname is of form Model[field] or Model.field an array of
      * fieldname parts like ["Model", "field"] is returned.
-     * /
+     */
     protected string[] getFieldNameArray(string attributeName) {
         if (isEmpty(attributeName) && attributeName != "0") {
             return null;
@@ -143,7 +143,7 @@ class DFormProtector {
      * Add to the list of fields that are currently unlocked.
      *
      * Unlocked fields are not included in the field hash.
-     * /
+     */
     auto unlockField(string fieldName) { // fieldName - dot separated name
         if (!in_array(name, this.unlockedFields, true)) {
             this.unlockedFields ~= fieldName;
@@ -163,7 +163,7 @@ class DFormProtector {
      * Extract token from data.
      * Params:
      * Json formData Data to validate.
-     * /
+     */
     protected string extractToken(Json formData) {
         if (!isArray(formData)) {
             this.debugMessage = "Request data is not an array.";
@@ -211,7 +211,7 @@ class DFormProtector {
     
     /**
      * Return hash parts for the token generation
-     * /
+     */
     // TODO protected Json[string] extractHashParts(Json[string] formData) {
         auti fields = this.extractFields(formData);
         unlockedFields = this.sortedUnlockedFields(formData);
@@ -226,7 +226,7 @@ class DFormProtector {
      * Return the fields list for the hash calculation
      * Params:
      * Json[string] formData Data array
-     * /
+     */
     // TODO protected Json[string] extractFields(Json[string] formData) {
         string locked = "";
         auto token = urldecode(formData["_Token"]["fields"]);
@@ -263,7 +263,7 @@ class DFormProtector {
             )
         );
 
-        /** @var string aKey * /
+        /** @var string aKey */
         foreach (anI: aKey; fieldList) {
              isLocked = in_array(aKey, locked, true);
 
@@ -295,7 +295,7 @@ class DFormProtector {
      * Get the sorted unlocked string
      * Params:
      * Json[string] formData Data array
-     * /
+     */
     protected string[] sortedUnlockedFields(Json[string] formData) {
         string unlocked = urldecode(formData["_Token"]["unlocked"]);
         if (unlocked.isEmpty) {
@@ -310,7 +310,7 @@ class DFormProtector {
      * Params:
      * string aurl Form URL.
      * @param string asessionId Session Id.
-     * /
+     */
     STRINGAA buildTokenData(string aurl = "", string asessionId= null) {
         auto fields = this.fields;
         auto unlockedFields = this.unlockedFields;
@@ -352,7 +352,7 @@ class DFormProtector {
      * @param string[] unlockedFields Unlocked fields.
      * @param string aurl Form URL.
      * @param string asessionId Session Id.
-     * /
+     */
     protected string generateHash(string[] fieldNames, Json[string] unlockedFields, string aurl, string asessionId) {
         hashParts = [
             url,
@@ -369,7 +369,7 @@ class DFormProtector {
      * Params:
      * Json[string] formData Data.
      * @param Json[string] hashParts Elements used to generate the Token hash
-     * /
+     */
     protected string debugTokenNotMatching(Json[string] formData, Json[string] hashParts) {
         messages = null;
         if (!isSet(formData["_Token"]["debug"])) {
@@ -418,7 +418,7 @@ class DFormProtector {
      * @param string astringKeyMessage Message string if tampered found in
      * data fields indexed by string (protected).
      * @param string amissingMessage Message string if missing field
-     * /
+     */
     protected string[] debugCheckFields(
         array someDataFields,
         array expectedFields = [],
@@ -443,7 +443,7 @@ class DFormProtector {
      * @param string aintKeyMessage Message string if unexpected found in data fields indexed by int (not protected)
      * @param string astringKeyMessage Message string if tampered found in
      *  data fields indexed by string (protected)
-     * /
+     */
     protected string[] matchExistingFields(
         array someDataFields,
         array &expectedFields,
@@ -475,7 +475,7 @@ class DFormProtector {
      * Params:
      * Json[string] expectedFields Expected fields
      * @param string amissingMessage Message template
-     * /
+     */
     protected string debugExpectedFields(Json[string] expectedFields = [], string amissingMessage= null) {
         if (count(expectedFields) == 0) {
             return null;

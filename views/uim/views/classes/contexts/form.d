@@ -48,7 +48,7 @@ class DFormContext : DContext {
      *
      * - `entity` The Form class instance this context is operating on. **(required)**
      * - `validator` Optional name of the validation method to call on the Form object.
-     * /
+     */
     this(Json[string] contextData) {
         assert(
             isSet(mycontext["entity"]) && cast(DForm)mycontext["entity"],

@@ -74,7 +74,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
         * This method will call `_buildSchema()` when the schema
         * is first built. This hook method lets you configure the
         * schema or load a pre-defined one.
-        * /
+        */
     DSchema schema() {
         return !_schema.isNull
             ? _schema : _buildSchema(new _schemaClass());
@@ -115,7 +115,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * Params:
      * \UIM\Event\EventManager|null eventManager The event manager.
      * Defaults to a new instance.
-     * /
+     */
     this(EventManager eventManager = null) {
         if (eventManager !isNull) {
             setEventManager(eventManager);
@@ -129,7 +129,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * The conventional method map is:
      *
      * - Form.buildValidator: buildValidator
-     * /
+     */
     IEvent[] implementedEvents() {
         if (method_exists(this, "buildValidator")) {
             return [
@@ -145,7 +145,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * Params:
      * Json[string] data The data to check.
      * @param string validator Validator name.
-     * /
+     */
     bool validate(Json[string] data, string avalidator = null) {
        _errors = getValidator(validator ?: DEFAULT_VALIDATOR)
             .validate(someData);
@@ -158,7 +158,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      *
      * Will return the errors from the last call
      * to `validate()` or `execute()`.
-     * /
+     */
     Json[string] getErrors() {
         return _errors;
     }
@@ -180,7 +180,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * ```
      * Params:
      * Json[string] errors Errors list.
-     * /
+     */
     void setErrors(Json[string] errors) {
        _errors = errors;
     }
@@ -200,7 +200,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * Params:
      * Json[string] data Form data.
      * @param Json[string] options List of options.
-     * /
+     */
     bool execute(Json[string] data, Json[string] options = null) {
        _data = someData;
 
@@ -218,7 +218,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * Hook method to be implemented in subclasses.
      *
      * Used by `execute()` to execute the form`s action.
-     * /
+     */
     protected bool _execute(Json[string] formData) {
         return true;
     }
@@ -238,7 +238,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * string[] aName The key to write, can be a dot notation value.
      * Alternatively can be an array containing key(s) and value(s).
      * @param Json aValue Value to set for var
-     * /
+     */
     void set(string aName, Json aValue = null) {
         set([aName: aValue]);
     }

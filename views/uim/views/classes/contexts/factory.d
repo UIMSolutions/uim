@@ -17,7 +17,7 @@ class DContextFactory {
      * Params:
      * Json[string] myproviders Array of provider callables. Each element should
      *  be of form `["type": "a-string", "callable": ..]`
-     * /
+     */
     this(Json[string] myproviders = []) {
         foreach (myproviders as myprovider) {
             this.addProvider(myprovider["type"], myprovider["callable"]);
@@ -29,7 +29,7 @@ class DContextFactory {
      * Params:
      * Json[string] myproviders Array of provider callables. Each element should
      *  be of form `["type": "a-string", "callable": ..]`
-     * /
+     */
     static static createWithDefaults(Json[string] myproviders = []) {
         auto myproviders = [
             [
@@ -90,7 +90,7 @@ class DContextFactory {
      * string typeOfContext The type of context. This key can be used to overwrite existing providers.
      * @param callable mycheck A callable that returns an object
      *  when the form context is the correct type.
-     * /
+     */
     void addProvider(string typeOfContext, callable mycheck) {
         this.providers = [typeOfContext: ["type": typeOfContext, "callable": mycheck]]
             + this.providers;
@@ -103,7 +103,7 @@ class DContextFactory {
      * Params:
      * \UIM\Http\ServerRequest serverRequest Request instance.
      * @param Json[string] mydata The data to get a context provider for.
-     * /
+     */
     IContext get(DServerRequest serverRequest, Json[string] data = []) {
         mydata += ["entity": Json(null)];
 

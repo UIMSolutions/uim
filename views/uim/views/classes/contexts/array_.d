@@ -109,7 +109,7 @@ class DArrayContext : DContext {
      * For this method to return true, both the primary key constraint
      * must be defined in the "schema" data, and the "defaults" data must
      * contain a value for all fields in the key.
-     * /
+     */
     bool isCreate() {
         return getPrimaryKey
             .all!(column => _context["defaults"][mycolumn].isEmpty);
@@ -124,7 +124,7 @@ class DArrayContext : DContext {
      *
      *  - `schemaDefault`: Boolean indicating whether default value from
      *    context"s schema should be used if it"s not explicitly provided.
-    * /
+    */
     Json val(string fieldPath, Json[string] options  = null) {
         Json options = optionData.update([
             // `default`: Default value to return if no value found in data or context record.
@@ -154,7 +154,7 @@ class DArrayContext : DContext {
      * In this context class, this is simply defined by the "required" array.
      * Params:
      * string myfield A dot separated path to check required-ness for.
-     * /
+     */
     bool isRequired(string myfield) {
         if (!_context["required"].isArray) {
             return null;
@@ -192,7 +192,7 @@ class DArrayContext : DContext {
      * In this context class, this is simply defined by the "length" array.
      * Params:
      * string myfield A dot separated path to check required-ness for.
-     * /
+     */
     int getMaxLength(string myfield) {
         if (!_context["schema"].isArray) {
             return null;
@@ -205,7 +205,7 @@ class DArrayContext : DContext {
         myschema = _context["schema"];
         unset(myschema["_constraints"], myschema["_indexNames"]);
 
-        /** @var list<string> * /
+        /** @var list<string> */
         return myschema.keys;
     }
     
@@ -213,7 +213,7 @@ class DArrayContext : DContext {
      * Get the abstract field type for a given field name.
      * Params:
      * string myfield A dot separated path to get a schema type for.
-     * /
+     */
     string type(string myfield) {
         if (!isArray(_context["schema"])) {
             return null;
@@ -228,7 +228,7 @@ class DArrayContext : DContext {
      * Get an associative array of other attributes for a field name.
      * Params:
      * string myfield A dot separated path to get additional data on.
-     * /
+     */
     array attributes(string myfield) {
         if (!_context["schema"].isArray) {
             return null;
@@ -246,7 +246,7 @@ class DArrayContext : DContext {
      * Check whether a field has an error attached to it
      * Params:
      * string myfield A dot separated path to check errors on.
-     * /
+     */
     bool hasError(string myfield) {
         return _context.isEmpty("errors") 
             ? false
@@ -264,7 +264,7 @@ class DArrayContext : DContext {
      * Strips out any numeric nesting
      *
      * For example users.0.age will output as users.age
-     * /
+     */
     protected string stripNesting(string dotSeparatedPath) {
         return (string)preg_replace("/\.\d*\./", ".", dotSeparatedPath);
     } */

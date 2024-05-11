@@ -14,14 +14,14 @@ interface IValidatorAware {
      * class DConstant.
      * Params:
      * string|null myname The name of the validation set to return.
-     * /
+     */
     Validator getValidator(string myname = null);
 
     /**
      * This method stores a custom validator under the given name.
      * Params:
      * @param \UIM\Validation\Validator myvalidator Validator object to be set.
-     * /
+     */
     auto setValidator(string validatorName, Validator myvalidator);
 
     // Checks whether a validator has been set.

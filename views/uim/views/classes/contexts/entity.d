@@ -59,7 +59,7 @@ class DEntityContext : DContext {
      * Constructor.
      * Params:
      * Json[string] mycontext DContext info.
-     * /
+     */
     this(Json[string] contextData) {
         _context = _context.merge([
             "entity": Json(null),
@@ -81,17 +81,17 @@ class DEntityContext : DContext {
      * If no table option is provided, the table name will be derived based on
      * naming conventions. This inference will work with a number of common objects
      * like arrays, Collection objects and Resultsets.
-     * /
+     */
     protected void _prepare() {
         auto mytable = _context["table"];
 
-        /** @var \UIM\Datasource\IEntity|iterable<\UIM\Datasource\IEntity|array> myentity * /
+        /** @var \UIM\Datasource\IEntity|iterable<\UIM\Datasource\IEntity|array> myentity */
         myentity = _context["entity"];
        _isCollection = is_iterable(myentity);
 
         if (mytable.isEmpty) {
             if (_isCollection) {
-                /** @var iterable<\UIM\Datasource\IEntity|array> myentity * /
+                /** @var iterable<\UIM\Datasource\IEntity|array> myentity */
                 foreach (myentity as mye) {
                     myentity = mye;
                     break;
@@ -119,7 +119,7 @@ class DEntityContext : DContext {
      * Get the primary key data for the context.
      *
      * Gets the primary key columns from the root entity"s schema.
-     * /
+     */
     string[] primaryKeys() {
         return (array)_tables[_rootName].primaryKeys();
     }
@@ -143,7 +143,7 @@ class DEntityContext : DContext {
      *
      * If the context is for a collection or array the first object in the
      * collection will be used.
-     * /
+     */
     bool isCreate() {
         myentity = _context["entity"];
         if (is_iterable(myentity)) {
@@ -170,7 +170,7 @@ class DEntityContext : DContext {
      *    entity.
      *  - `schemaDefault`: Boolean indicating whether default value from table
      *    schema should be used if it"s not explicitly provided.
-     * /
+     */
     Json val(string fieldPath, Json[string] options  = null) {
         auto updatedOptions = options.update[
             "default": Json(null),
@@ -221,7 +221,7 @@ class DEntityContext : DContext {
      * Get default value from table schema for given entity field.
      * Params:
      * string[] pathParts Each one of the parts in a path for a field name
-     * /
+     */
     protected Json _schemaDefault(Json[string] pathParts) {
         mytable = _getTable(pathParts);
         if (mytable.isNull) {
@@ -241,7 +241,7 @@ class DEntityContext : DContext {
      * Params:
      * Json myvalues The list from which to extract primary keys from
      * @param string[] mypath Each one of the parts in a path for a field name
-     * /
+     */
     // TODO protected Json[string] _extractMultiple(Json myvalues, Json[string] mypath) {
         if (!is_iterable(myvalues)) {
             return null;
@@ -262,7 +262,7 @@ class DEntityContext : DContext {
      * Params:
      * array|null mypath Each one of the parts in a path for a field name
      * or null to get the entity passed in constructor context.
-     * /
+     */
     IEntity|iterable|null entity(Json[string] mypath = null) {
         if (mypath.isNull) {
             return _context["entity"];
@@ -314,7 +314,7 @@ class DEntityContext : DContext {
      * Params:
      * array|null mypath Each one of the parts in a path for a field name
      * or null to get the entity passed in constructor context.
-     * /
+     */
     // TODO protected Json[string] leafEntity(Json[string] mypath = null) {
         if (mypath.isNull) {
             return _context["entity"];
@@ -367,7 +367,7 @@ class DEntityContext : DContext {
      * Params:
      * Json mytarget The entity/array/collection to fetch myfield from.
      * @param string myfield The next field to fetch.
-     * /
+     */
     protected Json _getProp(Json mytarget, string myfield) {
         if (isArray(mytarget) && isSet(mytarget[myfield])) {
             return mytarget[myfield];
@@ -390,7 +390,7 @@ class DEntityContext : DContext {
      * Check if a field should be marked as required.
      * Params:
      * string myfield The dot separated path to the field you want to check.
-     * /
+     */
     bool isRequired(string myfield) {
         string[] pathParts = myfield.split(".");
         auto myentity = this.entity(pathParts);
@@ -429,7 +429,7 @@ class DEntityContext : DContext {
      * Get field length from validation
      * Params:
      * string fieldPath The dot separated path to the field you want to check.
-     * /
+     */
     int getMaxLength(string fieldPath) {
         string[] pathParts = fieldPath.split(".");
         auto myvalidator = _getValidator(pathParts);
@@ -452,7 +452,7 @@ class DEntityContext : DContext {
      * Get the field names from the top level entity.
      *
      * If the context is for an array of entities, the 0th index will be used.
-     * /
+     */
     string[] fieldNames() {
         mytable = _getTable("0");
         if (!mytable) {
@@ -466,7 +466,7 @@ class DEntityContext : DContext {
      * conventions.
      * Params:
      * Json[string] pathParts Each one of the parts in a path for a field name
-     * /
+     */
     protected IValidator _getValidator(Json[string] pathParts) {
         mykeyParts = array_filter(array_slice(pathParts, 0, -1), auto (mypart) {
             return !isNumeric(mypart);
@@ -506,7 +506,7 @@ class DEntityContext : DContext {
      * \UIM\Datasource\IEntity|string[]|string pathParts Each one of the parts in a path for a field name
      * @param bool myfallback Whether to fallback to the last found table
      * when a nonexistent field/property is being encountered.
-     * /
+     */
     protected ITable _getTable(IEntity|string[] pathParts, bool myfallback = true) {
         if (!isArray(pathParts) || count(pathParts) == 1) {
             return _tables[_rootName];
@@ -550,7 +550,7 @@ class DEntityContext : DContext {
      * Get the abstract field type for a given field name.
      * Params:
      * string fieldPath A dot separated path to get a schema type for.
-     * /
+     */
     string type(string fieldPath) {
         string[] pathParts = fieldPath.split(".");
         auto mytable = _getTable(pathParts);
@@ -562,7 +562,7 @@ class DEntityContext : DContext {
      * Get an associative array of other attributes for a field name.
      * Params:
      * string fieldPath A dot separated path to get additional data on.
-     * /
+     */
     Json[string] attributes(string fieldPath) {
         string[] pathParts = fieldPath.split(".");
         mytable = _getTable(pathParts);
@@ -579,7 +579,7 @@ class DEntityContext : DContext {
      * Check whether a field has an error attached to it
      * Params:
      * string fieldPath A dot separated path to check errors on.
-     * /
+     */
     bool hasError(string fieldPath) {
         return _error(fieldPath) != null;
     }
@@ -588,14 +588,14 @@ class DEntityContext : DContext {
      * Get the errors for a given field
      * Params:
      * string fieldPath A dot separated path to check errors on.
-     * /
+     */
     DError[] errors(string fieldPath) {
         string[] pathParts = fieldPath.split(".");
         try {
             /**
              * @var \UIM\Datasource\IEntity|null myentity
              * @var string[] myremainingParts
-             * /
+             */
             [myentity, myremainingParts] = this.leafEntity(pathParts);
         } catch (UimException) {
             return null;

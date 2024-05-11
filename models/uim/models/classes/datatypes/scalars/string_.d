@@ -68,7 +68,7 @@ class DStringData : DScalarData {
       isNull(newValue.isNull);
       set(newValue.value());
     }
-  } * /
+  } */
 
   override IData clone() {
     return StringData; // TODO (attribute, toJson);
@@ -83,7 +83,7 @@ class DStringData : DScalarData {
     assert(data <= "test");
     assert(data > "aaaa");
     assert(data >= "aaaa");
-    assert(data >= "test"); * /
+    assert(data >= "test"); */
   }
 
   string opCall() {
@@ -109,7 +109,7 @@ class DStringData : DScalarData {
     /* auto a = Json("aValue");
     auto b = Json("bValue");
     a(b);
-    assert(a == "bValue"); * /
+    assert(a == "bValue"); */
   }
 
   // #region equal

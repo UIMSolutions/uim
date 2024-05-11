@@ -45,7 +45,7 @@ class DConfig : IConfigEngine {
      * Params:
      * string aKey The identifier to read from. If the key has a ~ it will be treated
      * as a plugin prefix.
-     * /
+     */
     Json[string] read(string aKey) {
         auto file = _getFileKey(aKey, true);
 
@@ -62,7 +62,7 @@ class DConfig : IConfigEngine {
      * Params:
      * string aKey The identifier to write to. If the key has a ~ it will be treated
      * as a plugin prefix.
-         * /
+         */
     bool dump(string aKey, Json[] dataToDump) {
         string contents = "" ~ "\n" ~ "return " ~ var_export(dataToDump, true) ~ ";";
 

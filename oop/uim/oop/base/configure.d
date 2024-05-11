@@ -10,11 +10,11 @@ import uim.oop;
  * Provides features for reading and writing to the runtime configuration, as well
  * as methods for loading additional configuration files or storing runtime configuration
  * for future use.
- * /
+ */
 class DConfigure {
-  	bool initialize(IData[string] initData = null) {
-		return true;
-	}
+    bool initialize(IData[string] initData = null) {
+        return true;
+    }
 
     // Array of values currently stored in Configure.
     protected static IData[string] _values = [
@@ -24,11 +24,11 @@ class DConfigure {
     /**
      * Configured engine classes, used to load config files from resources
      * @var array<\UIM\Core\Configure\IConfigEngine>
-     * /
+     */
     protected static IConfigEngine[] _engines;
 
     // Flag to track whether ini_set exists.
-    protected static bool _hasIniSet = null;
+    protected static bool _hasIniSet = false;
 
     /**
      * Used to store a dynamic variable in Configure.
@@ -51,31 +51,32 @@ class DConfigure {
      * IData[string]|string configData The key to write, can be a dot notation value.
      * Alternatively can be an array containing key(s) and value(s).
      * @param Json aValue Value to set for the given key.
-     * /
+     */
     static void write(string key, Json aValue = null) {
         auto configData = [key: aValue];
-        write(configData, aValue); 
+        write(configData, aValue);
     }
+
     static void write(string[] configData, Json aValue = null) {
         configData.byKeyValue
             .each!(nameValue => _values = Hash.insert(_values, nameValue.key, nameValue.value));
 
         if (configData.isSet("debug")) {
-            _hasIniSet ?  ?  = function_exists("ini_set");
+            // TODO _hasIniSet ?  ?  = function_exists("ini_set");
 
             if (_hasIniSet) {
-                ini_set("display_errors", configData("debug"] ? "1" : "0");
+                ini_set("display_errors", configuration.data("debug") ? "1" : "0");
             }
-            if (configuration.hasKey("debug") && UIM_SAPI != "cli' && ini_get(" zend.assertions") == " - 1 ") {
+            if (configuration.hasKey("debug") && UIM_SAPI != "cli" && ini_get(" zend.assertions") == " - 1 ") {
                 trigger_error(
-                    'You should set `zend.assertions` to `1` in your D.ini for your development environment.",
-                E_USER_WARNING
+                    "You should set `zend.assertions` to `1` in your D.ini for your development environment.",
+                    E_USER_WARNING
                 );
+            }
         }
     }
-}
 
-/**
+    /**
      * Used to read information stored in Configure. It`s not
      * possible to store `null` values in Configure.
      *
@@ -87,23 +88,23 @@ class DConfigure {
      * Params:
      * string var Variable to obtain. Use '.' to access array elements.
      * @param Json defaultValue The return value when the configure does not exist
-     * /
-static Json read(string avar = null, IData defaultData = null) {
-    if (var.isNull) {
-        return _values;
+     */
+    static Json read(string avar = null, IData defaultData = null) {
+        if (var.isNull) {
+            return _values;
+        }
+        return Hash.get(_values, var, defaultData);
     }
-    return Hash.get(_values, var, defaultData);
-}
 
-// Returns true if given variable is set in Configure.
-static bool check(string variableName) {
-    if (variableName.isEmpty) {
-        return false;
+    // Returns true if given variable is set in Configure.
+    static bool check(string variableName) {
+        if (variableName.isEmpty) {
+            return false;
+        }
+        return read(variableName) !isNull;
     }
-    return read(variableName) !isNull;
-}
 
-/**
+    /**
      * Used to get information stored in Configure. It`s not
      * possible to store `null` values in Configure.
      *
@@ -118,15 +119,15 @@ static bool check(string variableName) {
      * ```
      * Params:
      * string avar Variable to obtain. Use '.' to access array elements.
-     * /
-static Json readOrFail(string avar) {
-    if (!check(var)) {
-        throw new UimException("Expected configuration key `%s` not found.".format(var));
+     */
+    static Json readOrFail(string avar) {
+        if (!check(var)) {
+            throw new UimException("Expected configuration key `%s` not found.".format(var));
+        }
+        return read(var);
     }
-    return read(var);
-}
 
-/**
+    /**
      * Used to delete a variable from Configure.
      *
      * Usage:
@@ -136,12 +137,12 @@ static Json readOrFail(string avar) {
      * ```
      * Params:
      * string avar the var to be deleted
-     * /
-static void delete(string avar) {
-    _values = Hash.remove(_values, var);
-}
+     */
+    static void delete(string avar) {
+        _values = Hash.remove(_values, var);
+    }
 
-/**
+    /**
      * Used to consume information stored in Configure. It`s not
      * possible to store `null` values in Configure.
      *
@@ -150,39 +151,39 @@ static void delete(string avar) {
      * In case it does not an exception will be thrown.
      * Params:
      * string avar Variable to consume. Use '.' to access array elements.
-     * /
-static Json consumeOrFail(string avar) {
-    if (!check(var)) {
-        throw new UimException("Expected configuration key `%s` not found.".format(var));
+     */
+    static Json consumeOrFail(string avar) {
+        if (!check(var)) {
+            throw new UimException("Expected configuration key `%s` not found.".format(var));
+        }
+        return consume(var);
     }
-    return consume(var);
-}
 
-/**
+    /**
      * Used to read and delete a variable from Configure.
      *
      * This is primarily used during bootstrapping to move configuration data
      * out of configure into the various other classes in UIM.
      * Params:
      * string avar The key to read and remove.
-     * /
-static Json consume(string avar) {
-    if (!var.has(".")) {
-        if (!isSet(_values[var])) {
-            return null;
+     */
+    static Json consume(string avar) {
+        if (!var.has(".")) {
+            if (!isSet(_values[var])) {
+                return null;
+            }
+            aValue = _values[var];
+            _values.remove(var);
+
+            return aValue;
         }
-        aValue = _values[var];
-        _values.remove(var);
+        aValue = Hash.get(_values, var);
+        delete(var);
 
         return aValue;
     }
-    aValue = Hash.get(_values, var);
-    delete(var);
 
-    return aValue;
-}
-
-/**
+    /**
      * Add a new engine to Configure. Engines allow you to read configuration
      * files in various formats/storage locations. UIM comes with two built-in engines
      * PhpConfig and IniConfig. You can also implement your own engine classes in your application.
@@ -196,26 +197,25 @@ static Json consume(string avar) {
      * string aName The name of the engine being configured. This alias is used later to
      *  read values from a specific engine.
      * @param \UIM\Core\Configure\IConfigEngine engineToAppend The engine to append.
-     * /
-static void config(string aName, IConfigEngine engineToAppend) {
-    _engines[name] = engineToAppend;
-}
+     */
+    static void config(string aName, IConfigEngine engineToAppend) {
+        _engines[name] = engineToAppend;
+    }
 
-/**
+    /**
      * Returns true if the Engine objects is configured.
      * Params:
      * string aName Engine name.
-     * /
-static bool isConfigured(string aName) {
-    return isSet(_engines[name]);
-}
+     */
+    static bool isConfigured(string aName) {
+        return isSet(_engines[name]);
+    }
 
-// Gets the names of the configured Engine objects.
-static string[] configured() {
-    engines = _engines.keys;
+    // Gets the names of the configured Engine objects.
+    static string[] configured() {
+        engines = _engines.keys;
 
-    return array_map(function(aKey) {
-        return to!string(aKey);}, engines);
+        return array_map(function(aKey) { return to!string(aKey); }, engines);
     }
 
     /**
@@ -223,7 +223,7 @@ static string[] configured() {
      * and make any future attempts to use it cause an Exception.
      * Params:
      * string aName Name of the engine to drop.
-     * /
+     */
     static bool drop(string aName) {
         if (!_engines.isSet(name)) {
             return false;
@@ -256,7 +256,7 @@ static string[] configured() {
      * string aKey name of configuration resource to load.
      * @param string configData Name of the configured engine to use to read the resource identified by aKey.
      * @param bool merge if config files should be merged instead of simply overridden
-     * /
+     */
     static bool load(string aKey, string configData = "default", boolmerge = true) {
         engine = _getEngine(configData);
         if (!engine) {
@@ -301,7 +301,7 @@ static string[] configured() {
      * @param string configData The name of the configured adapter to dump data with.
      * @param string[] someKeys The name of the top-level keys you want to dump.
      *  This allows you save only some data stored in Configure.
-     * /
+     */
     static bool dump(string aKey, string configData = "default", Json[string] someKeys = [
         ]) {
         auto myEngine = _getEngine(configData);
@@ -320,7 +320,7 @@ static string[] configured() {
      * Will create new DPhpConfig for default if not configured yet.
      * Params:
      * string configData The name of the configured adapter
-     * /
+     */
     protected static IConfigEngine _getEngine(string configData) {
         if (!isSet(_engines[configData])) {
             if (configData != "default") {
@@ -338,13 +338,13 @@ static string[] configured() {
      * ```
      * Configure.currentVersion();
      * ```
-     * /
+     */
     static string currentVersion() {
         auto uimVersion = read("uim.version");
         if (!uimVersion.isNull) {
             return uimVersion;
         }
-        
+
         auto somePath = dirname(__DIR__, 2) ~ DIRECTORY_SEPARATOR ~ "config/config.d";
 
         if (isFile(somePath)) {
@@ -364,7 +364,7 @@ static string[] configured() {
      * string aName The storage name for the saved configuration.
      * @param string acacheConfig The cache configuration to save into. Defaults to "default"
      * @param array|null someData Either an array of data to store, or leave empty to store all values.
-     * /
+     */
     static bool store(string aName, string acacheConfig = "default",  ? array data = null) {
         someData ?  ?  = _values;
 
@@ -380,12 +380,12 @@ static string[] configured() {
      * Params:
      * string aName Name of the stored config file to load.
      * @param string acacheConfig Name of the Cache configuration to read from.
-     * /
+     */
     static bool restore(string aName, string acacheConfig = "default") {
         if (!class_exists(Cache.classname)) {
             throw new UimException("You must install UIM/cache to use Configure.restore()");
         }
-        
+
         auto someValues = Cache.read(name, cacheConfig);
         if (someValues) {
             write(someValues);
@@ -398,6 +398,9 @@ static string[] configured() {
     // Clear all values stored in Configure.
     static void clear() {
         _values = null;
-    } * /
-} 
-*/
+    }
+
+     *  /
+}
+
+*  / 

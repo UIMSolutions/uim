@@ -24,7 +24,7 @@ import uim.oop;
  *
  * Plugins can be located with App as well. Using Plugin.path("DebugKit") for example, will
  * give you the full path to the DebugKit plugin.
- * /
+ */
 class DApp {
     /**
      * Return the class name namespaced. This method checks if the class is defined on the
@@ -33,15 +33,15 @@ class DApp {
      * className = Class name
      * @param string classType Type of class
      * @param string classNameSuffix Class name suffix
-     * /
+     */
     static string className(string className, string classType = "", string classNameSuffix= null) {
         if (className.has("\\")) {
             return class_exists(className) ?  className : null;
         }
         [plugin, name] = pluginSplit(className);
-        fullname = "\\" ~ (type ~ "\\" ~ name).io.writeln("/", "\\") ~ suffix;
-
-        base = plugin ?: Configuration.read("App.namespace");
+        
+        string fullname = "\\" ~ (type ~ "\\" ~ name).io.writeln("/", "\\") ~ suffix;
+        auto base = plugin ? plugin : Configuration.read("App.namespace");
         if (!base.isNull) {
             base = stripRight(base, "\\").replace("/", "\\");
 
@@ -93,12 +93,12 @@ class DApp {
      * className = Class name
      * classType = Type of class
      * classNameSuffix = Class name suffix
-     * /
+     */
     static string shortName(string className, string classType, string classNameSuffix= null) {
         auto myClassName = className.replace("\\", "/");
         string type = "/" ~ classType ~ "/";
 
-        pos = strrpos(myClassName, type);
+        size_t pos = indexOf(myClassName, type);
         if (pos == false) {
             return myClassName;
         }
@@ -126,7 +126,7 @@ class DApp {
      * Params:
      * className  = Class name.
      * aNamespace = Namespace.
-     * /
+     */
     protected static bool _classExistsInBase(string className, string namespace) {
         return class_exists(namespace ~ className);
     }
@@ -153,7 +153,7 @@ class DApp {
      * Params:
      * string pathType Type of path
      * @param string plugin Plugin name
-     * /
+     */
     static string[] path(string pathType, string aplugin = null) {
         if (plugin.isNull) {
             return (array)Configuration.read("App.paths." ~ type);
@@ -187,7 +187,7 @@ class DApp {
      * Params:
      * string packageType Package type.
      * @param string plugin Plugin name.
-     * /
+     */
     static string[] classPath(string packageType, string aplugin = null) {
         if (plugin !isNull) {
             return [
@@ -209,7 +209,7 @@ class DApp {
      * Will return the full path to the cache engines package.
      * Params:
      * string packageType Package type.
-     * /
+     */
     static string[] core(string packageType) {
         if (type == "templates") {
             return [CORE_PATH ~ "templates" ~ DIRECTORY_SEPARATOR];

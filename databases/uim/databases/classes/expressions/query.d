@@ -80,7 +80,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * @param array<int|string, string> types Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
      */
-    void add(IExpression|string[] aconditions, Json[string] types = []) {
+    void add(IExpression|string[] aconditions, Json[string] types = null) {
         if (isString(conditions) || cast(IExpression)conditions ) {
            _conditions ~= conditions;
 

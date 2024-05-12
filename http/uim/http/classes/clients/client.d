@@ -344,7 +344,7 @@ class DClient { // }: IClient {
      * @param Json sendData The request data you want to send.
      * @param Json[string] options Additional options for the request.
      */
-  Response remove(string myurl, Json sendData = [], Json[string] optionsForRequest = null) {
+  Response remove(string myurl, Json sendData = null, Json[string] optionsForRequest = null) {
     auto optionsForRequest = _mergeOptions(optionsForRequest);
     auto myurl = this.buildUrl(myurl, [], optionsForRequest);
 

@@ -13,28 +13,20 @@ import uim.http;
  * @template-implements \IteratorAggregate<string, \UIM\Http\Cookie\ICookie>
  */
 class DCookieCollection { // }: IteratorAggregate, Countable {
-    /**
-     * Cookie objects
-     *
-     * @var array<string, \UIM\Http\Cookie\ICookie>
-     */
-    // TODO protected Json[string] cookies;
+    // Cookie objects
+    protected Json[string] cookies;
 
     /**
      * Constructor
      * Params:
      * array<\UIM\Http\Cookie\ICookie> cookies Array of cookie objects
      */
-    this(Json[string] cookies = []) {
+    this(Json[string] cookies = null) {
         this.checkCookies(cookies);
         cookies.each!(cookie => this.cookies[cookie.id] = cookie);
     }
     
-    /**
-     * Create a Cookie Collection from an array of Set-Cookie Headers
-     * Params:
-     * @param Json[string] defaults The defaults attributes.
-     */
+    // Create a Cookie Collection from an array of Set-Cookie Headers
     static auto createFromHeader(string[] headerValues, Json[string] defaultAttributes = null) {
         cookies = null;
         headerValues.each!((value) {

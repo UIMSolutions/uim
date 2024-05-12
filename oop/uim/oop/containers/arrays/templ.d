@@ -172,7 +172,7 @@ class DArrayTempl(T) : DArrayObj {
 
 	O toggle(this O)(T value) {
 		if (has(value))
-			this.remove(value);
+			remove(value);
 		else
 			add(value);
 		return cast(O) this;

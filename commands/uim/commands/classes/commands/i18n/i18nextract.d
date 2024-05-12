@@ -197,7 +197,7 @@ class DI18nExtractCommand : DCommand {
      * Params:
      * @param Json[string] details DContext and plural form if any, file and line references
      */
-    protected void _addTranslation(string domainName, string messageId, Json[string] details = []) {
+    protected void _addTranslation(string domainName, string messageId, Json[string] details = null) {
         context = contextData.get("msgctxt", "");
 
         if (isEmpty(_translations[domainName][messageId][context])) {

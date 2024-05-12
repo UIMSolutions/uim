@@ -49,7 +49,7 @@ class DConsoleInputArgument {
      * @param string ahelp The help text for this option
      * @param string[] choices Valid choices for this option.
      */
-    this(string propertyName, string ahelp = "", bool isArgumentRequired = false, string[] optionChoices = []) {
+    this(string propertyName, string ahelp = "", bool isArgumentRequired = false, string[] optionChoices = null) {
             /** @var string aName */
            _name = name;
            _help = help;

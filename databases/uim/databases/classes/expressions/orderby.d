@@ -16,8 +16,8 @@ class DOrderByExpression : DQueryExpression {
      * @param string aconjunction The glue used to join conditions together.
      */
     this(
-        IExpression|string[] aconditions = [],
-        TypeMap|array types = [],
+        IExpression|string[] aconditions = null,
+        TypeMap|array types = null,
         string aConjunction = ""
     ) {
         super(conditions, types, aConjunction);

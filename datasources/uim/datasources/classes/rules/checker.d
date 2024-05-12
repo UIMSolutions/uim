@@ -242,7 +242,7 @@ class DRulesChecker {
      * @param Json[string] optionData Extra options to pass to checker functions.
      * @param array<\UIM\Datasource\RuleInvoker> rules The list of rules that must be checked.
      */
-    protected bool _checkRules(IDatasourceEntity entity, Json[string] optionData = null, Json[string] rules = []) {
+    protected bool _checkRules(IDatasourceEntity entity, Json[string] optionData = null, Json[string] rules = null) {
         success = true;
         auto updatedOptions = options.update_options;
         rules

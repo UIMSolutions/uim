@@ -162,7 +162,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * situation. Cookies that match the request`s domain + path that are not expired
      * when this method is called will be applied to the request.
      */
-    IRequest addToRequest(IRequest request, Json[string] extraCookies = []) {
+    IRequest addToRequest(IRequest request, Json[string] extraCookies = null) {
         auto anUri = request.getUri();
         cookies = this.findMatchingCookies(
             anUri.getScheme(),

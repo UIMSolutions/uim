@@ -63,7 +63,7 @@ class DSession {
      * Params:
      * Json[string] sessionConfig Session config.
      */
-    static static create(arraysessionConfig = []) {
+    static static create(Json[string] sessionConfig = null) {
         if (isSet(sessionConfig["defaults"])) {
             defaults = _defaultConfigData(sessionConfig["defaults"]);
             if (defaults) {

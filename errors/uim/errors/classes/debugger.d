@@ -673,7 +673,7 @@ class DDebugger {
      *   If null, the format will be chosen based on the configured exportFormatter, or
      *   environment conditions.
      */
-    static void printVar(Json var, Json[string] location = [], ?bool showHtml = null) {
+    static void printVar(Json var, Json[string] location = null, ?bool showHtml = null) {
         auto location ~= ["file": Json(null), "line": Json(null)];
         if (location["file"]) {
             location["file"] = trimPath((string)location["file"]);

@@ -71,7 +71,7 @@ template XStringAA(string name) {
 	O "~name~"(this O)(string key, string value) { _"~name~"[key] = value; return cast(O)this; }
 	O "~name~"(this O)(STRINGAA addValues) { foreach(kv; addValues.byKeyValue) _"~name~"[kv.key] = kv.value; return cast(O)this; }
 	
-	O remove"~Name~"(this O)(string[] values...) { this.remove(values); return cast(O)this; }	
+	O remove"~Name~"(this O)(string[] values...) { remove(values); return cast(O)this; }	
 	O remove"~Name~"(this O)(string[] values) { foreach(value; values) _name = _"~name~".remove(value); return cast(O)this; }	
 	
 	O clear"~Name~"(this O)() { _"~name~" = null; return cast(O)this; }	

@@ -40,7 +40,7 @@ class DWidgetLocator {
        _stringContents = newTemplate;
        _view = newView;
 
-        this.add(mywidgets);
+        add(mywidgets);
     }
     
     /**
@@ -54,7 +54,7 @@ class DWidgetLocator {
         /* 
         myloader = new DPhpConfig();
         mywidgets = myloader.read(fileToLoad);
-        this.add(mywidgets); */
+        add(mywidgets); */
     }
     
     /**

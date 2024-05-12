@@ -2155,7 +2155,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] options The options for the delete.
      */
     bool deleteOrFail(IORMEntity myentity, Json[string] optionData = null) {
-        mydeleted = this.remove(myentity, options);
+        mydeleted = remove(myentity, options);
         if (mydeleted == false) {
             throw new DPersistenceFailedException(myentity, ["delete"]);
         }

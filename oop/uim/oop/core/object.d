@@ -115,11 +115,11 @@ version(test_uim_oop) { unittest {
 				static if ((memberName != "this") && (memberName != "__ctor") && (memberName != "init")&& (memberName != "factory") && (memberName != "Monitor")) { 
 					enum name = "O."~memberName;
 					foreach (attr; __traits(getAttributes, mixin(name))) {
-						if (typeid(attr) == typeid(OOP_PROPERTY)) { this.add(new DPropertyObj(attr.name, attr.datatype, attr.defaultValue, attr.readOnly)); }
-						if (typeid(attr) == typeid(OOP_METHOD)) { this.add(new DMethod(attr.name)); }
-						if (typeid(attr) == typeid(OOP_EVENT)) { this.add(new DEvent(attr.name)); }
-						if (typeid(attr) == typeid(OOP_AGGREGATION)) { this.add(new Aggregation(attr.name)); }
-						if (typeid(attr) == typeid(OOP_ASSOCIATION)) { this.add(new Association(attr.name)); }
+						if (typeid(attr) == typeid(OOP_PROPERTY)) { add(new DPropertyObj(attr.name, attr.datatype, attr.defaultValue, attr.readOnly)); }
+						if (typeid(attr) == typeid(OOP_METHOD)) { add(new DMethod(attr.name)); }
+						if (typeid(attr) == typeid(OOP_EVENT)) { add(new DEvent(attr.name)); }
+						if (typeid(attr) == typeid(OOP_AGGREGATION)) { add(new Aggregation(attr.name)); }
+						if (typeid(attr) == typeid(OOP_ASSOCIATION)) { add(new Association(attr.name)); }
 					}
 				}
 			}

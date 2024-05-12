@@ -90,7 +90,7 @@ class DArrayContext : DContext {
         }
 
         foreach (myData, _context["schema"]["_constraints"]) {
-            if (isSet(mydata["type"]) && mydata["type"] == "primary") {
+            if (data.getString("type") == "primary") {
                 return (array)(mydata["columns"] ?? []);
             }
         }

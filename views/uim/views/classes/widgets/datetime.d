@@ -14,7 +14,9 @@ class DDateTimeWidget : DWidget {
     mixin(WidgetThis!("DateTime"));
 
     override bool initialize(Json[string] initData = null) {
-        if (super.initialize(initData)) {
+        if (!super.initialize(initData)) {
+            return false; 
+            }
             configuration.updateDefaults([
                 "name": "".toJson,
                 "val": Json(null),
@@ -45,8 +47,6 @@ class DDateTimeWidget : DWidget {
             ];
 
             return true;
-        }
-        return false;
     }
 
     // Formats for various input types.
@@ -78,40 +78,41 @@ class DDateTimeWidget : DWidget {
     override string render(Json[string] renderData, IContext formContext) {
         auto updatedData = renderData.merge(formContext.data);
 
-        if (!isSet(formatMap[updatedData["type"]])) {
+        string typeName = updatedData.getString("type");
+        if (formatMap.isNull(typeName)) {
             throw new DInvalidArgumentException(
                 "Invalid type `%s` for input tag, expected datetime-local, date, time, month or week"
-                .format(mydata["type"]));
+                .format(typeName));
         }
 
-        mydata = setStep(mydata, formContext, mydata["fieldName"] ?? "");
-        mydata["value"] = this.formatDateTime(mydata["val"] == true ? new DateTimeImmutable(): mydata["val"], mydata);
-        mydata.remove("val", "timezone", "format");
+        updatedData = setStep(updatedData, formContext, updatedData.getString("fieldName"));
+        updatedData["value"] = this.formatDateTime(updatedData["val"] == true ? new DateTimeImmutable(): updatedData["val"], updatedData);
+        updatedData.remove("val", "timezone", "format");
 
         return _stringContents.format("input", updatedData.data(["name", "type", "templateVars"])
             .update(["attrs": _stringContents.formatAttributes(
-                mydata, ["name", "type"]
+                updatedData, ["name", "type"]
             )]));
     }
     
     /**
      * Set value for "step" attribute if applicable.
      * Params:
-     * Json[string] mydata Data array
+     * Json[string] data Data array
      * @param \UIM\View\Form\IContext formContext DContext instance.
      * @param string fieldNameName Field name.
      */
     protected Json[string] setStep(Json[string] data, IContext formContext, string fieldNameName) {
-        if (array_key_exists("step", mydata)) {
-            return mydata;
+        if (array_key_exists("step", data)) {
+            return data;
         }
 
-        mydata["step"] = isSet(mydata["format"])
+        data["step"] = isSet(data["format"])
             ? null
-            : this.defaultStep[mydata["type"]];
+            : this.defaultStep[data["type"]];
 
-        if (mydata.isEmpty("fieldName")) {
-            return mydata;
+        if (data.isEmpty("fieldName")) {
+            return data;
         }
         mydbType = formContext.type(myfieldName);
         myfractionalTypes = [
@@ -121,9 +122,9 @@ class DDateTimeWidget : DWidget {
         ];
 
         if (in_array(mydbType, myfractionalTypes, true)) {
-            mydata["step"] = "0.001";
+            data["step"] = "0.001";
         }
-        return mydata;
+        return data;
     }
     
     /**
@@ -177,10 +178,10 @@ class DDateTimeWidget : DWidget {
         return mydateTime.format(myformat);
     }
     Json[string] secureFields(Json[string] data) {
-        if (!isSet(mydata["name"]) || mydata["name"] == "") {
+        if (!isSet(data["name"]) || data["name"] == "") {
             return null;
         }
-        return [mydata["name"]];
+        return [data["name"]];
     } */
 }
 mixin(WidgetCalls!("DateTime"));

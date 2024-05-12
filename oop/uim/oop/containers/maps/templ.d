@@ -46,7 +46,7 @@ class MapTempl(K, V): Map {
     } return true; }
 	bool hasValue(V value) { foreach(k, v; _items) if (v == value) { return true; } return false; }
 
-	O add(this O)(V[K] values) { foreach(k, v; values) this.add(k, v); return cast(O)this; }
+	O add(this O)(V[K] values) { foreach(k, v; values) add(k, v); return cast(O)this; }
 	O add(this O)(K key, V value) { this[key] = value; return cast(O)this; }
 
 //	auto opCast(T:STRINGAA)() {

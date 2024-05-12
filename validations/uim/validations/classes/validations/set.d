@@ -134,7 +134,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \UIM\Validation\ValidationRule|array myrule Rule to add to myindex
      */
     void offsetSet(Json myindex, Json myrule) {
-        this.add(myindex, myrule);
+        add(myindex, myrule);
     }
 
     // Unsets a validation rule

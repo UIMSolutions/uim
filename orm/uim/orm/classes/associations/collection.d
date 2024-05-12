@@ -145,7 +145,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      */
     void removeAll() {
       foreach (myAliasName, object; _items) {
-        this.remove(myAliasName);
+        remove(myAliasName);
       }
     }
 

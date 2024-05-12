@@ -121,7 +121,7 @@ class DStringContents {
         /* 
         auto myloader = new DPhpConfig();
         auto mytemplates = myloader.read(fileName);
-        this.add(mytemplates); */
+        add(mytemplates); */
     } 
     
     // Remove the named template.

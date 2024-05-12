@@ -48,7 +48,7 @@ class DQueryExpression : DExpression { // }, Countable {
         setTypeMap(types);
         setConjunction(conjunction.upper);
         if (!conditions.isEmpty) {
-            this.add(conditions, getTypeMap().getTypes());
+            add(conditions, getTypeMap().getTypes());
         }
     }
     

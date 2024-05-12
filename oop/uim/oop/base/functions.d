@@ -110,9 +110,10 @@ string[] namespaceSplit(string className) {
         if (!Configuration.read("debug")) {
             return var;
         }
-        template = UIM_SAPI != "cli' && UIM_SAPI != "Ddbg' ? "<pre class="pj">%s</pre>' : "\n%s\n\n";
+        
+        auto templateString = UIM_SAPI != "cli' && UIM_SAPI != "Ddbg' ? "<pre class="pj">%s</pre>' : "\n%s\n\n";
         flags = Json_PRETTY_PRINT | Json_UNESCAPED_UNICODE | Json_UNESCAPED_SLASHES;
-        printf(template, strip(to!string(Json_encode(var, flags))));
+        printf(templateString, strip(to!string(Json_encode(var, flags))));
 
         return var;
     }

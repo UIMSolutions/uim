@@ -39,7 +39,7 @@ class DList(T) : DContainer!T, IList  {
       if (index < _items.length) {
         _items = _items[0..index] ~addItem~_items[index..$];
       } else {
-        this.add(addItem);
+        add(addItem);
       }
       return true;
     }

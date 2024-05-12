@@ -74,14 +74,11 @@ class DFormData { // }: Countable {
     
     /**
      * Add multiple parts at once.
-     *
      * Iterates the parameter and adds all the key/values.
-     * Params:
-     * Json[string] data Array of data to add.
      */
     void addMany(Json[string] data) {
-        someData.byKeyValue
-            .each!(nameValue => this.add(nameValue.key, nameValue.value));
+        data.byKeyValue
+            .each!(nameValue => add(nameValue.key, nameValue.value));
     }
     
     /**
@@ -92,8 +89,8 @@ class DFormData { // }: Countable {
      * @param \Psr\Http\Message\IUploadedFile|resource|string avalue Either a string filename, or a filehandle,
      * or a IUploadedFile instance.
      */
-    FormDataPart addFile(string aName, Json aValue) {
-       _hasFile = true;
+    DFormDataPart addFile(string aName, Json aValue) {
+       bool _hasFile = true;
 
         filename = false;
         contentType = "application/octet-stream";
@@ -121,7 +118,7 @@ class DFormData { // }: Countable {
         if (filename) {
             part.filename(filename);
         }
-        this.add(part);
+        add(part);
 
         return part;
     }
@@ -135,7 +132,7 @@ class DFormData { // }: Countable {
     void addRecursive(string nameToUse, Json valueToAdd) {
         valueToAdd.byKeyValue.each!((kv) {
             string key = name ~ "[" ~ kv.key ~ "]";
-            this.add(key, kv.value);
+            add(key, kv.value);
         });
     }
     

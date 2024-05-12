@@ -1502,12 +1502,8 @@ class DMessage { //: JsonSerializable {
         return array;
     }
     
-    /**
-     * Magic method used to rebuild the Message object.
-     * Params:
-     * Json[string] data Data array.
-     */
+    // Magic method used to rebuild the Message object.
     void __unserialize(Json[string] data) {
         this.createFromArray(someData);
-    } */
+    }
 }

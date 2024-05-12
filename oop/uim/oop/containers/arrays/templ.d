@@ -174,7 +174,7 @@ class DArrayTempl(T) : DArrayObj {
 		if (has(value))
 			this.remove(value);
 		else
-			this.add(value);
+			add(value);
 		return cast(O) this;
 	}
 

@@ -121,16 +121,12 @@ class DBufferedIterator : DCollection { // }, Countable {
     return iterator_to_array(_buffer);
   }
 
-  /**
-     * Magic method used to rebuild the iterator instance.
-     * Params:
-     * Json[string] data Data array.
-     */
+  // Magic method used to rebuild the iterator instance.
   void __unserialize(Json[string] data) {
     __construct([]);
 
     someData.each!(value => _buffer.push(value));
     _started = true;
     _finished = true;
-  } */
+  }
 }

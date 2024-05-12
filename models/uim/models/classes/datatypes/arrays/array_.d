@@ -31,7 +31,7 @@ class DArrayData : DData {
   }
 
   DArrayData add(IData[] values...) {
-    this.add(values.dup);
+    add(values.dup);
     return this;
   }
 

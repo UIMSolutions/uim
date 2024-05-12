@@ -18,12 +18,12 @@ class DArrayErrorNode : IErrorNode {
     */
   this(DArrayItemErrorNode[] nodes = null) {
     _items = null;
-    this.add(nodes);
+    add(nodes);
   }
 
   // Add nodes
   void add(DArrayItemErrorNode[] nodes...) {
-    this.add(nodes);
+    add(nodes);
   }
 
   void add(DArrayItemErrorNode[] nodes) {

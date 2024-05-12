@@ -15,13 +15,13 @@ class DArrayString : DArrayTempl!string {
 	this(bool sortedMode, bool uniqueMode, string[] values) { super(sortedMode, uniqueMode, values); }
 
 	O opCall(this O)(string[] newItems...) { 
-		newItems.each!(item => this.add(item)); 		
+		newItems.each!(item => add(item)); 		
 
 		return cast(O)this;
 	}
 
 	O opCall(this O)(string[] newItems) { 
-		newItems.each!(item => this.add(item)); 		
+		newItems.each!(item => add(item)); 		
 
 		return cast(O)this;
 	}

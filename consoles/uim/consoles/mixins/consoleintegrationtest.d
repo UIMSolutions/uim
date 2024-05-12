@@ -36,7 +36,7 @@ mixin template TConsoleIntegrationTest() {
      * @throws \UIM\Console\TestSuite\MissingConsoleInputException
      * @throws \InvalidArgumentException
      */
-    void exec(string acommand, Json[string]  anInput = []) {
+    void exec(string acommand, Json[string]  anInput = null) {
         runner = this.makeRunner();
 
        _out ??= new DStubConsoleOutput();

@@ -98,7 +98,7 @@ class DProgressHelper { // } : Helper {
      * Json[string] commandArguments The initialization data.
 
      */
-  bool initialize(Json[string] commandArguments = []) {
+  bool initialize(Json[string] commandArguments = null) {
     commandArguments += ["total": self: : DEFAULT_TOTAL, "width": self: : DEFAULT_WIDTH];
     _progress = 0;
     _width = commandArguments["width"];

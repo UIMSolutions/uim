@@ -146,7 +146,7 @@ interface IDriver : INamed {
      * @param Json[string] columns The list of columns for the schema.
      * @return uim.databases.Schema\TableSchema
      */
-    TableSchema newTableSchema(string myTable, Json[string] columns = []);
+    TableSchema newTableSchema(string myTable, Json[string] columns = null);
     
     // Disconnects from database server. 
     */

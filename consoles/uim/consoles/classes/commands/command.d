@@ -212,10 +212,10 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         );
 
         auto newCommand = new command();
-        return executeCommand(ICommand acommand, Json[string] someArguments = [],  ? IConsoleIo aConsoleIo = null) {
+        return executeCommand(ICommand acommand, Json[string] someArguments = null,  ? IConsoleIo aConsoleIo = null) {
         }
 
-        int executeCommand(ICommand acommand, Json[string] someArguments = [],  ? IConsoleIo aConsoleIo = null) {
+        int executeCommand(ICommand acommand, Json[string] someArguments = null,  ? IConsoleIo aConsoleIo = null) {
             auto myConsoleIo = aConsoleIo ?  : new DConsoleIo();
 
             try {

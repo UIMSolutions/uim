@@ -355,10 +355,10 @@ class DConsoleOptionParser {
      *  Will also accept an instance of ConsoleInputArgument.
      * @param Json[string] params Parameters for the argument, see above.
      */
-    void addArgument(ConsoleInputArgument|string aName, Json[string] params = []) {
+    void addArgument(ConsoleInputArgument|string aName, Json[string] params = null) {
     }
     
-    void addArgument(ConsoleInputArgument|string aName, Json[string] params = []) {
+    void addArgument(ConsoleInputArgument|string aName, Json[string] params = null) {
 
     
     /**

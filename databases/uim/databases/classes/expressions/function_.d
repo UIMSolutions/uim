@@ -39,7 +39,7 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      * passed arguments
      * @param string resultType The return type of this expression
      */
-    this(string newName, Json[string] arguments = [], Json[string] associatedTypes = [], string resultType = "string") {
+    this(string newName, Json[string] arguments = null, Json[string] associatedTypes = null, string resultType = "string") {
        this.name(newName);
        _returnType = resultType;
         super(arguments, associatedTypes, ",");
@@ -54,7 +54,7 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      * passed arguments
      * @param bool prepend Whether to prepend or append to the list of arguments
      */
-    void add(IExpression|string[] aconditions, Json[string] associatedTypes = [], bool prepend = false) {
+    void add(IExpression|string[] aconditions, Json[string] associatedTypes = null, bool prepend = false) {
         put = prepend ? "array_unshift' : 'array_push";
         typeMap = getTypeMap().setTypes(associatedTypes);
 

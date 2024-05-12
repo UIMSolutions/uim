@@ -534,8 +534,8 @@ abstract class DQuery : IQuery { // : IExpression {
        */
     auto leftJoin(
         string[] atable,
-        IExpression|Closure|string[] aconditions = [],
-        Json[string] types = []
+        IExpression|Closure|string[] aconditions = null,
+        Json[string] types = null
     ) {
         this.join(_makeJoin(aTable, conditions, JOIN_TYPE_LEFT), types);
 
@@ -558,8 +558,8 @@ abstract class DQuery : IQuery { // : IExpression {
      */
     void rightJoin(
         string[] atable,
-        IExpression|Closure|string[] aconditions = [],
-        Json[string] types = []
+        IExpression|Closure|string[] aconditions = null,
+        Json[string] types = null
     ) {
         this.join(_makeJoin(aTable, conditions, JOIN_TYPE_RIGHT), types);
     }
@@ -580,8 +580,8 @@ abstract class DQuery : IQuery { // : IExpression {
      */
     auto innerJoin(
         string[] atable,
-        IExpression|Closure|string[] aconditions = [],
-        Json[string] types = []
+        IExpression|Closure|string[] aconditions = null,
+        Json[string] types = null
     ) {
         this.join(_makeJoin(aTable, conditions, JOIN_TYPE_INNER), types);
 
@@ -752,7 +752,7 @@ abstract class DQuery : IQuery { // : IExpression {
      */
     auto where(
         IExpression|Closure|string[] conditions = null,
-        Json[string] types = [],
+        Json[string] types = null,
         bool overwrite = false
     ) {
         if (overwrite) {
@@ -923,7 +923,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * \UIM\Database\IExpression|\Closure|string[] aconditions The conditions to add with AND.
      * @param STRINGAA types Associative array of type names used to bind values to query
      */
-    auto andWhere(IExpression|Closure|string[] aconditions, Json[string] types = []) {
+    auto andWhere(IExpression|Closure|string[] aconditions, Json[string] types = null) {
        _conjugate("where", conditions, "AND", types);
 
         return this;

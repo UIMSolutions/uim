@@ -22,11 +22,11 @@ class DIsUnique {
      *
      * - `allowMultipleNulls` Allows any field to have multiple null values. Defaults to true.
      * Params:
-     * string[] myfields The list of fields to check uniqueness for
+     * string[] fieldNames The list of fields to check uniqueness for
      * @param Json[string] options The options for unique checks.
      */
-    this(Json[string] myfields, Json[string] optionData = null) {
-       _fields = myfields;
+    this(Json[string] fieldNames, Json[string] optionData = null) {
+       _fields = fieldNames;
        _options = options + _options;
     }
     
@@ -35,13 +35,13 @@ class DIsUnique {
         if (!entity.extract(_fields, true)) {
             return true;
         }
-        myfields = entity.extract(_fields);
-        if (_options["allowMultipleNulls"] && array_filter(myfields, "is_null")) {
+        fieldNames = entity.extract(_fields);
+        if (_options["allowMultipleNulls"] && array_filter(fieldNames, "is_null")) {
             return true;
         }
         auto aliasName = options["repository"].aliasName();
         
-        auto myconditions = _alias(aliasName, myfields);
+        auto myconditions = _alias(aliasName, fieldNames);
         if (entity.isNew() == false) {
             auto someKeys = (array)options["repository"].primaryKeys();
             someKeys = _alias(aliasName, entity.extract(someKeys));

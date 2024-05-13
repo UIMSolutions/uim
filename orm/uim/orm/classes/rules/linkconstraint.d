@@ -80,31 +80,31 @@ class DLinkConstraint {
     /**
      * Alias fields.
      * Params:
-     * string[] myfields The fields that should be aliased.
+     * string[] fieldNames The fields that should be aliased.
      * @param \ORM\Table mysource The object to use for aliasing.
      */
-    protected string[] _aliasFields(Json[string] myfields, Table mysource) {
-        foreach (myfields as aKey: myvalue) {
-            myfields[aKey] = mysource.aliasField(myvalue);
+    protected string[] _aliasFields(Json[string] fieldNames, Table mysource) {
+        foreach (fieldNames as aKey: myvalue) {
+            fieldNames[aKey] = mysource.aliasField(myvalue);
         }
-        return myfields;
+        return fieldNames;
     }
     
     /**
      * Build conditions.
      * Params:
-     * Json[string] myfields The condition fields.
+     * Json[string] fieldNames The condition fields.
      * @param Json[string] myvalues The condition values.
      */
-    // TODO protected Json[string] _buildConditions(Json[string] myfields, Json[string] myvalues) {
-        if (count(myfields) != count(myvalues)) {
+    // TODO protected Json[string] _buildConditions(Json[string] fieldNames, Json[string] myvalues) {
+        if (count(fieldNames) != count(myvalues)) {
             throw new DInvalidArgumentException(
                 "The number of fields is expected to match the number of values, got %d field(s) and %d value(s)."
-                .format(count(myfields),
+                .format(count(fieldNames),
                 count(myvalues)
             ));
         }
-        return array_combine(myfields, myvalues);
+        return array_combine(fieldNames, myvalues);
     }
     
     /**

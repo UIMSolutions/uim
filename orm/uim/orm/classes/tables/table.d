@@ -340,13 +340,13 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *
      * If field is already aliased it will result in no-op.
      * Params:
-     * string myfield The field to alias.
+     * string fieldName The field to alias.
      */
-    string aliasField(string myfield) {
-        if (myfield.has(".")) {
-            return myfield;
+    string aliasField(string fieldName) {
+        if (fieldName.has(".")) {
+            return fieldName;
         }
-        return _aliasNameName() ~ "." ~ myfield;
+        return _aliasNameName() ~ "." ~ fieldName;
     }
     
     /**
@@ -468,10 +468,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Delegates to the schema object and checks for column presence
      * using the Schema\Table instance.
      * Params:
-     * string myfield The field to check for.
+     * string fieldName The field to check for.
      */
-    bool hasField(string myfield) {
-        return _getSchema().getColumn(myfield) !isNull;
+    bool hasField(string fieldName) {
+        return _getSchema().getColumn(fieldName) !isNull;
     }
     
     /**
@@ -500,10 +500,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     /**
      * Sets the display field.
      * Params:
-     * string[]|string myfield Name to be used as display field.
+     * string[]|string fieldName Name to be used as display field.
      */
-    auto setDisplayField(string[]|string myfield) {
-       _displayField = myfield;
+    auto setDisplayField(string[]|string fieldName) {
+       _displayField = fieldName;
 
         return this;
     }
@@ -516,9 +516,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             return _displayField;
         }
         myschema = getSchema();
-        foreach (["title", "name", "label"] as myfield) {
-            if (myschema.hasColumn(myfield)) {
-                return _displayField = myfield;
+        foreach (["title", "name", "label"] as fieldName) {
+            if (myschema.hasColumn(fieldName)) {
+                return _displayField = fieldName;
             }
         }
         myschema.columns().each!((mycolumn) {
@@ -1148,14 +1148,14 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             !isObject(myvalueField) &&
             !isObject(mygroupField)
         ) {
-            myfields = chain(
+            fieldNames = chain(
                 (array)mykeyField,
                 (array)myvalueField,
                 (array)mygroupField
             );
             mycolumns = getSchema().columns();
-            if (count(myfields) == count(array_intersect(myfields, mycolumns))) {
-                myquery.select(myfields);
+            if (count(fieldNames) == count(array_intersect(fieldNames, mycolumns))) {
+                myquery.select(fieldNames);
             }
         }
         options = _setFieldMatchers(
@@ -1228,10 +1228,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                 continue;
             }
             
-            auto myfields = options[field];
+            auto fieldNames = options[field];
             auto myglue = in_array(field, ["keyField", "parentField"], true) ? ";" : options["valueSeparator"];
-            options[field] = auto (myrow) use (myfields, myglue) {
-                auto mymatches = myfields.each!(fld => myrow[fld]).array;
+            options[field] = auto (myrow) use (fieldNames, myglue) {
+                auto mymatches = fieldNames.each!(fld => myrow[fld]).array;
                 return join(myglue, mymatches);
             };
         }
@@ -1504,19 +1504,19 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     /**
      * Update all matching records.
      *
-     * Sets the myfields to the provided values based on myconditions.
+     * Sets the fieldNames to the provided values based on myconditions.
      * This method will *not* trigger beforeSave/afterSave events. If you need those
      * first load a collection of records and update them.
      * Params:
-     * \UIM\Database\Expression\QueryExpression|\Closure|string[]|string myfields A hash of field: new value.
+     * \UIM\Database\Expression\QueryExpression|\Closure|string[]|string fieldNames A hash of field: new value.
      * @param \UIM\Database\Expression\QueryExpression|\Closure|string[]|string myconditions Conditions to be used, accepts anything Query.where()
      */
     int updateAll(
-        QueryExpression|Closure|string[]|string myfields,
+        QueryExpression|Closure|string[]|string fieldNames,
         QueryExpression|Closure|string[]|string myconditions
     ) {
         mystatement = this.updateQuery()
-            .set(myfields)
+            .set(fieldNames)
             .where(myconditions)
             .execute();
 
@@ -2008,8 +2008,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             myentity.clean();
             myentity.setNew(false);
 
-            foreach (myentity.toArray().keys as myfield) {
-                myvalue = myentity.get(myfield);
+            foreach (myentity.toArray().keys as fieldName) {
+                myvalue = myentity.get(fieldName);
 
                 if (cast(IORMEntity)myvalue) {
                     mycleanupOnSuccess(myvalue);
@@ -2332,25 +2332,25 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         preg_match("/^find_([\w]+)_by_/", mymethod, mymatches);
         if (isEmpty(mymatches)) {
             // find_by_is 8 characters.
-            myfields = substr(mymethod, 8);
+            fieldNames = substr(mymethod, 8);
             myfindType = "all";
         } else {
-            myfields = substr(mymethod, mymatches[0].length);
+            fieldNames = substr(mymethod, mymatches[0].length);
             myfindType = Inflector.variable(mymatches[1]);
         }
-        myhasOr = myfields.has("_or_");
-        myhasAnd = myfields.has("_and_");
+        myhasOr = fieldNames.has("_or_");
+        myhasAnd = fieldNames.has("_and_");
 
-        mymakeConditions = auto (myfields, myargs) {
+        mymakeConditions = auto (fieldNames, myargs) {
             myconditions = null;
-            if (count(myargs) < count(myfields)) {
+            if (count(myargs) < count(fieldNames)) {
                 throw new BadMethodCallException(sprintf(
                     "Not enough arguments for magic finder. Got %s required %s",
                     count(myargs),
-                    count(myfields)
+                    count(fieldNames)
                 ));
             }
-            myfields.each!(field => myconditions[this.aliasField(field)] = array_shift(myargs));
+            fieldNames.each!(field => myconditions[this.aliasField(field)] = array_shift(myargs));
             return myconditions;
         };
 
@@ -2360,15 +2360,15 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             );
         }
         if (myhasOr == false && myhasAnd == false) {
-            myconditions = mymakeConditions([myfields], myargs);
+            myconditions = mymakeConditions([fieldNames], myargs);
         } else if (myhasOr != false) {
-            string[] myfields = myfields.split("_or_");
+            string[] fieldNames = fieldNames.split("_or_");
             myconditions = [
-                "OR": mymakeConditions(myfields, myargs),
+                "OR": mymakeConditions(fieldNames, myargs),
             ];
         } else {
-            string[] myfields = myfields.split("_and_");
-            myconditions = mymakeConditions(myfields, myargs);
+            string[] fieldNames = fieldNames.split("_and_");
+            myconditions = mymakeConditions(fieldNames, myargs);
         }
         return _find(myfindType, conditions: myconditions);
     }
@@ -2669,19 +2669,19 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                 "source": this.registryKey(),
             ]
         );
-        myfields = array_merge(
+        fieldNames = array_merge(
             [mycontext["field"]],
             isSet(options["scope"]) ? (array)options["scope"] : []
         );
-        myvalues = myentity.extract(myfields);
-        foreach (myvalues as myfield) {
-            if (myfield !isNull && !isScalar(myfield)) {
+        myvalues = myentity.extract(fieldNames);
+        foreach (myvalues as fieldName) {
+            if (fieldName !isNull && !isScalar(fieldName)) {
                 return false;
             }
         }
         myclass = IS_UNIQUE_CLASS;
 
-        IsUnique myrule = new myclass(myfields, options);
+        IsUnique myrule = new myclass(fieldNames, options);
         return myrule(myentity, ["repository": this]);
     }
     

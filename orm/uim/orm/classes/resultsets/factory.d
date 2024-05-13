@@ -57,27 +57,27 @@ class DResultsetFactory {
             .indexBy("nestKey")
             .toArray();
 
-        myfields = null;
+        fieldNames = null;
         myquery.clause("select").each!((keyField) {
             string key = strip(keyField.key, "[]");
 
             if (indexOf(key, "__") <= 0) {
-                myfields.value[mydata["primaryAlias"]][key] = key;
+                fieldNames.value[mydata["primaryAlias"]][key] = key;
                 continue;
             }
             
             string[] parts = split("__", key, 2);
-            myfields[parts[0]][key] = parts[1];
+            fieldNames[parts[0]][key] = parts[1];
         });
 
         foreach (mydata["matchingAssoc"] as aliasName: myassoc) {
-            if (!myfields.isSet(aliasName)) {
+            if (!fieldNames.isSet(aliasName)) {
                 continue;
             }
-            mydata["matchingColumns"][aliasName] = myfields[aliasName];
-            unset(myfields[aliasName]);
+            mydata["matchingColumns"][aliasName] = fieldNames[aliasName];
+            unset(fieldNames[aliasName]);
         }
-        mydata["fields"] = myfields;
+        mydata["fields"] = fieldNames;
 
         return mydata;
     }

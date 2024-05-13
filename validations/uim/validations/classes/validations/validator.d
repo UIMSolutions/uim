@@ -135,21 +135,21 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     array<array> validate(Json[string] data, bool mynewRecord = true) {
         myerrors = null;
 
-        foreach (_fields as myname: myfield) {
+        foreach (_fields as myname: fieldName) {
             myname = to!string(myname);
             mykeyPresent = array_key_exists(myname, mydata);
 
             myproviders = _providers;
             mycontext = compact("data", "newRecord", "field", "providers");
 
-            if (!mykeyPresent && !_checkPresence(myfield, mycontext)) {
+            if (!mykeyPresent && !_checkPresence(fieldName, mycontext)) {
                 myerrors[myname]["_required"] = getRequiredMessage(myname);
                 continue;
             }
             if (!mykeyPresent) {
                 continue;
             }
-            mycanBeEmpty = _canBeEmpty(myfield, mycontext);
+            mycanBeEmpty = _canBeEmpty(fieldName, mycontext);
 
             myflags = EMPTY_NULL;
             if (isSet(_allowEmptyFlags[myname])) {
@@ -164,7 +164,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             if (myisEmpty) {
                 continue;
             }
-            result = _processRules(myname, myfield, mydata, mynewRecord);
+            result = _processRules(myname, fieldName, mydata, mynewRecord);
             if (result) {
                 myerrors[myname] = result;
             }
@@ -263,19 +263,19 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Returns whether a rule set is defined for a field or not
      * Params:
-     * string myfield name of the field to check
+     * string fieldName name of the field to check
      */
-    bool offsetExists(Json myfield) {
-        return isSet(_fields[myfield]);
+    bool offsetExists(Json fieldName) {
+        return isSet(_fields[fieldName]);
     }
     
     /**
      * Returns the rule set for a field
      * Params:
-     * string|int myfield name of the field to check
+     * string|int fieldName name of the field to check
      */
-    ValidationSet offsetGet(Json myfield) {
-        return _field((string)myfield);
+    ValidationSet offsetGet(Json fieldName) {
+        return _field((string)fieldName);
     }
     
     /**
@@ -513,13 +513,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         if (!isArray(fieldName)) {
             fieldName = _convertValidatorToArray((string)fieldName, mydefaults);
         }
-        foreach (fieldName as myfieldName: mysetting) {
-            mysettings = _convertValidatorToArray((string)myfieldName, mydefaults, mysetting);
-            string myfieldName = current(mysettings.keys);
+        foreach (fieldName as fieldNameName: mysetting) {
+            mysettings = _convertValidatorToArray((string)fieldNameName, mydefaults, mysetting);
+            string fieldNameName = current(mysettings.keys);
 
-            this.field((string)myfieldName).requirePresence(mysettings[myfieldName]["mode"]);
-            if (mysettings[myfieldName]["message"]) {
-               _presenceMessages[myfieldName] = mysettings[myfieldName]["message"];
+            this.field((string)fieldNameName).requirePresence(mysettings[fieldNameName]["mode"]);
+            if (mysettings[fieldNameName]["message"]) {
+               _presenceMessages[fieldNameName] = mysettings[fieldNameName]["message"];
             }
         }
     }
@@ -800,7 +800,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * This method is equivalent to calling allowEmptyFor() with EMPTY_STRING +
      * EMPTY_DATE + EMPTY_TIME flags.
      * Params:
-     * string myfield The name of the field.
+     * string fieldName The name of the field.
      * @param string|null myMessage The message to show if the field is not
      * @param \Closure|string mywhen Indicates when the field is allowed to be empty
      *  Valid values are true, false, "create", "update". If a Closure is passed then
@@ -809,8 +809,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     
      * @see \UIM\Validation\Validator.allowEmptyFor() for examples.
      */
-    auto allowEmptyDateTime(string myfield, string myMessage = null, IClosure|string mywhen = true) {
-        return _allowEmptyFor(myfield, self.EMPTY_STRING | self.EMPTY_DATE | self.EMPTY_TIME, mywhen, myMessage);
+    auto allowEmptyDateTime(string fieldName, string myMessage = null, IClosure|string mywhen = true) {
+        return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_DATE | self.EMPTY_TIME, mywhen, myMessage);
     }
     
     /**
@@ -818,7 +818,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * Opposite to allowEmptyDateTime
      * Params:
-     * string myfield The name of the field.
+     * string fieldName The name of the field.
      * @param string|null myMessage The message to show if the field is empty.
      * @param \Closure|string mywhen Indicates when the field is not allowed
      *  to be empty. Valid values are false (never), "create", "update". If a
@@ -828,10 +828,10 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @since 3.8.0
      * @see \UIM\Validation\Validator.allowEmptyDateTime()
      */
-    auto notEmptyDateTime(string myfield, string myMessage = null, IClosure|string mywhen = false) {
+    auto notEmptyDateTime(string fieldName, string myMessage = null, IClosure|string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
-        return _allowEmptyFor(myfield, self.EMPTY_STRING | self.EMPTY_DATE | self.EMPTY_TIME, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_DATE | self.EMPTY_TIME, mywhen, myMessage);
     }
     
     /**
@@ -847,12 +847,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string[]|int mysettings = []
     ) {
         if (!mysettings.isArray) {
-            myfieldName = (string)mysettings;
+            fieldNameName = (string)mysettings;
             mysettings = null;
         }
         mysettings += mydefaults;
 
-        return [myfieldName: mysettings];
+        return [fieldNameName: mysettings];
     }
     
     /**
@@ -876,13 +876,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a notBlank rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.notBlank()
      */
-    auto notBlank(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto notBlank(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         string message; 
         if (myMessage.isNull) {
             message = !_useI18n
@@ -891,7 +891,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "notBlank", myextra ~ [
+        return _add(fieldName, "notBlank", myextra ~ [
             "rule": "notBlank",
         ]);
     }
@@ -899,13 +899,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add an alphanumeric rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.alphaNumeric()
      */
-    auto alphaNumeric(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto alphaNumeric(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be alphanumeric";
@@ -915,7 +915,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "alphaNumeric", myextra ~ [
+        return _add(fieldName, "alphaNumeric", myextra ~ [
             "rule": "alphaNumeric",
         ]);
     }
@@ -923,13 +923,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a non-alphanumeric rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.notAlphaNumeric()
      */
-    auto notAlphaNumeric(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto notAlphaNumeric(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must not be alphanumeric";
@@ -939,7 +939,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "notAlphaNumeric", myextra ~ [
+        return _add(fieldName, "notAlphaNumeric", myextra ~ [
             "rule": "notAlphaNumeric",
         ]);
     }
@@ -947,13 +947,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add an ascii-alphanumeric rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.asciiAlphaNumeric()
      */
-    auto asciiAlphaNumeric(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto asciiAlphaNumeric(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be ASCII-alphanumeric";
@@ -963,7 +963,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "asciiAlphaNumeric", myextra ~ [
+        return _add(fieldName, "asciiAlphaNumeric", myextra ~ [
             "rule": "asciiAlphaNumeric",
         ]);
     }
@@ -971,13 +971,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a non-ascii alphanumeric rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.notAlphaNumeric()
      */
-    auto notAsciiAlphaNumeric(string myfield, string errorMessage = null, IClosure|string|null mywhen = null) {
+    auto notAsciiAlphaNumeric(string fieldName, string errorMessage = null, IClosure|string|null mywhen = null) {
         auto myMessage = errorMessage;
         if (myMessage.isNull) {
             myMessage = !_useI18n
@@ -986,7 +986,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         auto myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "notAsciiAlphaNumeric", myextra ~ [
+        return _add(fieldName, "notAsciiAlphaNumeric", myextra ~ [
             "rule": "notAsciiAlphaNumeric",
         ]);
     }
@@ -994,7 +994,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add an rule that ensures a string length is within a range.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param Json[string] myrange The inclusive minimum and maximum length you want permitted.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1004,7 +1004,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @throws \InvalidArgumentException
      */
     auto lengthBetween(
-        string myfield,
+        string fieldName,
         Json[string] myrange,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1033,7 +1033,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "lengthBetween", myextra ~ [
+        return _add(fieldName, "lengthBetween", myextra ~ [
             "rule": ["lengthBetween", mylowerBound, myupperBound],
         ]);
     }
@@ -1041,7 +1041,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a credit card rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string[] mytype The type of cards you want to allow. Defaults to "all".
      *  You can also supply an array of accepted card types. e.g `["mastercard", "visa", "amex"]`
      * @param string|null myMessage The error message when the rule fails.
@@ -1050,7 +1050,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.creditCard()
      */
     auto creditCard(
-        string myfield,
+        string fieldName,
         string[] mytype = "all",
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1085,7 +1085,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "creditCard", myextra ~ [
+        return _add(fieldName, "creditCard", myextra ~ [
             "rule": ["creditCard", mytype, true],
         ]);
     }
@@ -1093,7 +1093,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a greater than comparison rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param float myvalue The value user data must be greater than.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1101,7 +1101,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.comparison()
      */
     auto greaterThan(
-        string myfield,
+        string fieldName,
         float myvalue,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1115,7 +1115,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "greaterThan", myextra ~ [
+        return _add(fieldName, "greaterThan", myextra ~ [
             "rule": ["comparison", Validation.COMPARE_GREATER, myvalue],
         ]);
     }
@@ -1123,7 +1123,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a greater than or equal to comparison rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param float myvalue The value user data must be greater than or equal to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1131,7 +1131,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.comparison()
      */
     auto greaterThanOrEqual(
-        string myfield,
+        string fieldName,
         float myvalue,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1145,7 +1145,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "greaterThanOrEqual", myextra ~ [
+        return _add(fieldName, "greaterThanOrEqual", myextra ~ [
             "rule": ["comparison", Validation.COMPARE_GREATER_OR_EQUAL, myvalue],
         ]);
     }
@@ -1153,7 +1153,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a less than comparison rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param float myvalue The value user data must be less than.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1161,7 +1161,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.comparison()
      */
     auto lessThan(
-        string myfield,
+        string fieldName,
         float myvalue,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1176,7 +1176,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "lessThan", myextra ~ [
+        return _add(fieldName, "lessThan", myextra ~ [
             "rule": ["comparison", Validation.COMPARE_LESS, myvalue],
         ]);
     }
@@ -1184,14 +1184,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a less than or equal comparison rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param float myvalue The value user data must be less than or equal to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      */
     auto lessThanOrEqual(
-        string myfield,
+        string fieldName,
         float myvalue,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1205,7 +1205,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "lessThanOrEqual", myextra ~ [
+        return _add(fieldName, "lessThanOrEqual", myextra ~ [
             "rule": ["comparison", Validation.COMPARE_LESS_OR_EQUAL, myvalue],
         ]);
     }
@@ -1213,7 +1213,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a equal to comparison rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param Json aValue The value user data must be equal to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1221,7 +1221,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.comparison()
      */
     auto equals(
-        string myfield,
+        string fieldName,
         Json aValue,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1233,7 +1233,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "equals", myextra ~ [
+        return _add(fieldName, "equals", myextra ~ [
             "rule": ["comparison", Validation.COMPARE_EQUAL, myvalue],
         ]);
     }
@@ -1241,7 +1241,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a not equal to comparison rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param Json aValue The value user data must be not be equal to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1249,7 +1249,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.comparison()
      */
     auto notEquals(
-        string myfield,
+        string fieldName,
         Json aValue,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1263,7 +1263,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "notEquals", myextra ~ [
+        return _add(fieldName, "notEquals", myextra ~ [
             "rule": ["comparison", Validation.COMPARE_NOT_EQUAL, myvalue],
         ]);
     }
@@ -1273,7 +1273,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * If both fields have the exact same value the rule will pass.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string mysecondField The field you want to compare against.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1281,7 +1281,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.compareFields()
      */
     auto sameAs(
-        string myfield,
+        string fieldName,
         string mysecondField,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1295,7 +1295,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "sameAs", myextra ~ [
+        return _add(fieldName, "sameAs", myextra ~ [
             "rule": ["compareFields", mysecondField, Validation.COMPARE_SAME],
         ]);
     }
@@ -1303,7 +1303,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a rule to compare that two fields have different values.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string mysecondField The field you want to compare against.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1313,7 +1313,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @since 3.6.0
      */
     auto notSameAs(
-        string myfield,
+        string fieldName,
         string mysecondField,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1327,7 +1327,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "notSameAs", myextra ~ [
+        return _add(fieldName, "notSameAs", myextra ~ [
             "rule": ["compareFields", mysecondField, Validation.COMPARE_NOT_SAME],
         ]);
     }
@@ -1335,7 +1335,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a rule to compare one field is equal to another.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string mysecondField The field you want to compare against.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1344,7 +1344,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @return this
      */
     auto equalToField(
-        string myfield,
+        string fieldName,
         string mysecondField,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1362,7 +1362,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "equalToField", myextra ~ [
+        return _add(fieldName, "equalToField", myextra ~ [
             "rule": ["compareFields", mysecondField, Validation.COMPARE_EQUAL],
         ]);
     }
@@ -1370,7 +1370,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a rule to compare one field is not equal to another.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string mysecondField The field you want to compare against.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1379,7 +1379,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @return this
      */
     auto notEqualToField(
-        string myfield,
+        string fieldName,
         string mysecondField,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1397,7 +1397,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "notEqualToField", myextra ~ [
+        return _add(fieldName, "notEqualToField", myextra ~ [
             "rule": ["compareFields", mysecondField, Validation.COMPARE_NOT_EQUAL],
         ]);
     }
@@ -1405,7 +1405,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a rule to compare one field is greater than another.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string mysecondField The field you want to compare against.
      * @param string|null errorMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1415,7 +1415,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @since 3.6.0
      */
     auto greaterThanField(
-        string myfield,
+        string fieldName,
         string mysecondField,
         string errorMessage = null,
         Closure|string|null mywhen = null
@@ -1432,7 +1432,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "greaterThanField", myextra ~ [
+        return _add(fieldName, "greaterThanField", myextra ~ [
             "rule": ["compareFields", mysecondField, Validation.COMPARE_GREATER],
         ]);
     }
@@ -1440,7 +1440,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a rule to compare one field is greater than or equal to another.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string mysecondField The field you want to compare against.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1450,7 +1450,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @since 3.6.0
      */
     auto greaterThanOrEqualToField(
-        string myfield,
+        string fieldName,
         string mysecondField,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1471,7 +1471,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "greaterThanOrEqualToField", myextra ~ [
+        return _add(fieldName, "greaterThanOrEqualToField", myextra ~ [
             "rule": ["compareFields", mysecondField, Validation.COMPARE_GREATER_OR_EQUAL],
         ]);
     }
@@ -1479,7 +1479,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a rule to compare one field is less than another.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string mysecondField The field you want to compare against.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1488,7 +1488,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @return this
      */
     auto lessThanField(
-        string myfield,
+        string fieldName,
         string mysecondField,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1506,7 +1506,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "lessThanField", myextra ~ [
+        return _add(fieldName, "lessThanField", myextra ~ [
             "rule": ["compareFields", mysecondField, Validation.COMPARE_LESS],
         ]);
     }
@@ -1514,7 +1514,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a rule to compare one field is less than or equal to another.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string mysecondField The field you want to compare against.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1524,7 +1524,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @since 3.6.0
      */
     auto lessThanOrEqualToField(
-        string myfield,
+        string fieldName,
         string mysecondField,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1545,7 +1545,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "lessThanOrEqualToField", myextra ~ [
+        return _add(fieldName, "lessThanOrEqualToField", myextra ~ [
             "rule": ["compareFields", mysecondField, Validation.COMPARE_LESS_OR_EQUAL],
         ]);
     }
@@ -1553,7 +1553,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a date format validation rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string[] myformats A list of accepted date formats.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1561,7 +1561,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.date()
      */
     auto date(
-        string myfield,
+        string fieldName,
         array myformats = ["ymd"],
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1584,7 +1584,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "date", myextra ~ [
+        return _add(fieldName, "date", myextra ~ [
             "rule": ["date", myformats],
         ]);
     }
@@ -1592,7 +1592,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a date time format validation rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string[] myformats A list of accepted date formats.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1600,7 +1600,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.datetime()
      */
     auto dateTime(
-        string myfield,
+        string fieldName,
         array myformats = ["ymd"],
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1620,7 +1620,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "dateTime", myextra ~ [
+        return _add(fieldName, "dateTime", myextra ~ [
             "rule": ["datetime", myformats],
         ]);
     }
@@ -1628,13 +1628,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a time format validation rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.time()
      */
-    auto time(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto time(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a time";
@@ -1644,7 +1644,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "time", myextra ~ [
+        return _add(fieldName, "time", myextra ~ [
             "rule": "time",
         ]);
     }
@@ -1652,7 +1652,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a localized time, date or datetime format validation rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string mytype Parser type, one out of "date", "time", and "datetime"
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1660,7 +1660,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.localizedTime()
      */
     auto localizedTime(
-        string myfield,
+        string fieldName,
         string mytype = "datetime",
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1674,7 +1674,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "localizedTime", myextra ~ [
+        return _add(fieldName, "localizedTime", myextra ~ [
             "rule": ["localizedTime", mytype],
         ]);
     }
@@ -1682,13 +1682,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a boolean validation rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.boolean()
      */
-    auto boolean(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto boolean(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a boolean";
@@ -1698,7 +1698,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "boolean", myextra ~ [
+        return _add(fieldName, "boolean", myextra ~ [
             "rule": "boolean",
         ]);
     }
@@ -1706,7 +1706,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a decimal validation rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param int myplaces The number of decimal places to require.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1714,7 +1714,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.decimal()
      */
     auto decimal(
-        string myfield,
+        string fieldName,
         int myplaces = null,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1740,7 +1740,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "decimal", myextra ~ [
+        return _add(fieldName, "decimal", myextra ~ [
             "rule": ["decimal", myplaces],
         ]);
     }
@@ -1748,7 +1748,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add an email validation rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param bool mycheckMX Whether to check the MX records.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1756,7 +1756,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.email()
      */
     auto email(
-        string myfield,
+        string fieldName,
         bool mycheckMX = false,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1768,7 +1768,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "email", myextra ~ [
+        return _add(fieldName, "email", myextra ~ [
             "rule": ["email", mycheckMX],
         ]);
     }
@@ -1776,7 +1776,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a backed enum validation rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param class-string<\BackedEnum> myenumClassName The valid backed enum class name.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -1786,7 +1786,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @since 5.0.3
      */
     auto enum(
-        string myfield,
+        string fieldName,
         string myenumClassName,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -1807,7 +1807,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "enum", myextra ~ [
+        return _add(fieldName, "enum", myextra ~ [
             "rule": ["enum", myenumClassName],
         ]);
     }
@@ -1817,12 +1817,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * This rule will accept both IPv4 and IPv6 addresses.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      */
-    auto ip(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto ip(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an IP address";
@@ -1832,7 +1832,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "ip", myextra ~ [
+        return _add(fieldName, "ip", myextra ~ [
             "rule": "ip",
         ]);
     }
@@ -1840,13 +1840,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add an IPv4 validation rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.ip()
      */
-    auto ipv4(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto ipv4(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an IPv4 address";
@@ -1856,7 +1856,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "ipv4", myextra ~ [
+        return _add(fieldName, "ipv4", myextra ~ [
             "rule": ["ip", "ipv4"],
         ]);
     }
@@ -1864,13 +1864,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add an IPv6 validation rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.ip()
      */
-    auto ipv6(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto ipv6(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an IPv6 address";
@@ -1880,7 +1880,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "ipv6", myextra ~ [
+        return _add(fieldName, "ipv6", myextra ~ [
             "rule": ["ip", "ipv6"],
         ]);
     }
@@ -1888,14 +1888,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a string length validation rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param int mymin The minimum length required.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.minLength()
      */
-    auto minLength(string myfield, int mymin, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto minLength(string fieldName, int mymin, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must be at least `%s` characters long", mymin);
@@ -1905,7 +1905,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "minLength", myextra ~ [
+        return _add(fieldName, "minLength", myextra ~ [
             "rule": ["minLength", mymin],
         ]);
     }
@@ -1913,14 +1913,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a string length validation rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param int mymin The minimum length required.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.minLengthBytes()
      */
-    auto minLengthBytes(string myfield, int mymin, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto minLengthBytes(string fieldName, int mymin, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must be at least `%s` bytes long", mymin);
@@ -1930,7 +1930,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "minLengthBytes", myextra ~ [
+        return _add(fieldName, "minLengthBytes", myextra ~ [
             "rule": ["minLengthBytes", mymin],
         ]);
     }
@@ -1938,14 +1938,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a string length validation rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param int mymax The maximum length allowed.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.maxLength()
      */
-    auto maxLength(string myfield, int mymax, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto maxLength(string fieldName, int mymax, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must be at most `%s` characters long", mymax);
@@ -1955,7 +1955,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "maxLength", myextra ~ [
+        return _add(fieldName, "maxLength", myextra ~ [
             "rule": ["maxLength", mymax],
         ]);
     }
@@ -1963,14 +1963,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a string length validation rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param int mymax The maximum length allowed.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.maxLengthBytes()
      */
-    auto maxLengthBytes(string myfield, int mymax, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto maxLengthBytes(string fieldName, int mymax, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must be at most `%s` bytes long", mymax);
@@ -1980,7 +1980,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "maxLengthBytes", myextra ~ [
+        return _add(fieldName, "maxLengthBytes", myextra ~ [
             "rule": ["maxLengthBytes", mymax],
         ]);
     }
@@ -1988,13 +1988,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a numeric value validation rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.numeric()
      */
-    auto numeric(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto numeric(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             myMessage = !_useI18n
                 ? "The provided value must be numeric"
@@ -2003,7 +2003,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "numeric", myextra ~ [
+        return _add(fieldName, "numeric", myextra ~ [
             "rule": "numeric",
         ]);
     }
@@ -2011,13 +2011,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a natural number validation rule to a field.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.naturalNumber()
      */
-    auto naturalNumber(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto naturalNumber(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a natural number";
@@ -2027,7 +2027,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "naturalNumber", myextra ~ [
+        return _add(fieldName, "naturalNumber", myextra ~ [
             "rule": ["naturalNumber", false],
         ]);
     }
@@ -2035,13 +2035,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule to ensure a field is a non negative integer.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.naturalNumber()
      */
-    auto nonNegativeInteger(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto nonNegativeInteger(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a non-negative integer";
@@ -2051,7 +2051,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "nonNegativeInteger", myextra ~ [
+        return _add(fieldName, "nonNegativeInteger", myextra ~ [
             "rule": ["naturalNumber", true],
         ]);
     }
@@ -2059,7 +2059,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule to ensure a field is within a numeric range
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param Json[string] myrange The inclusive upper and lower bounds of the valid range.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -2068,7 +2068,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @return this
      * @throws \InvalidArgumentException
      */
-    auto range(string myfield, Json[string] myrange, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto range(string fieldName, Json[string] myrange, string myMessage = null, IClosure|string|null mywhen = null) {
         if (count(myrange) != 2) {
             throw new DInvalidArgumentException("The myrange argument requires 2 numbers");
         }
@@ -2088,7 +2088,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "range", myextra ~ [
+        return _add(fieldName, "range", myextra ~ [
             "rule": ["range", mylowerBound, myupperBound],
         ]);
     }
@@ -2098,13 +2098,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * This validator does not require a protocol.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.url()
      */
-    auto url(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto url(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a URL";
@@ -2114,7 +2114,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "url", myextra ~ [
+        return _add(fieldName, "url", myextra ~ [
             "rule": ["url", false],
         ]);
     }
@@ -2124,13 +2124,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * This validator requires the URL to have a protocol.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.url()
      */
-    auto urlWithProtocol(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto urlWithProtocol(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a URL with protocol";
@@ -2140,7 +2140,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "urlWithProtocol", myextra ~ [
+        return _add(fieldName, "urlWithProtocol", myextra ~ [
             "rule": ["url", true],
         ]);
     }
@@ -2148,14 +2148,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule to ensure the field value is within an allowed list.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param Json[string] mylist The list of valid options.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.inList()
      */
-    auto inList(string myfield, Json[string] mylist, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto inList(string fieldName, Json[string] mylist, string myMessage = null, IClosure|string|null mywhen = null) {
         mylistEnumeration = join(", ", mylist);
 
         if (myMessage.isNull) {
@@ -2171,7 +2171,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "inList", myextra ~ [
+        return _add(fieldName, "inList", myextra ~ [
             "rule": ["inList", mylist],
         ]);
     }
@@ -2179,13 +2179,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule to ensure the field is a UUID
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.uuid()
      */
-    auto uuid(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto uuid(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a UUID";
@@ -2195,7 +2195,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "uuid", myextra ~ [
+        return _add(fieldName, "uuid", myextra ~ [
             "rule": "uuid",
         ]);
     }
@@ -2203,7 +2203,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule to ensure the field is an uploaded file
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param Json[string] options An array of options.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -2211,7 +2211,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.uploadedFile() For options
      */
     auto uploadedFile(
-        string myfield,
+        string fieldName,
         Json[string] options,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -2225,7 +2225,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "uploadedFile", myextra ~ [
+        return _add(fieldName, "uploadedFile", myextra ~ [
             "rule": ["uploadedFile", options],
         ]);
     }
@@ -2235,13 +2235,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * e.g. `<lat>, <lng>`
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.geoCoordinate()
      */
-    auto latLong(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto latLong(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a latitude/longitude coordinate";
@@ -2251,7 +2251,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "latLong", myextra ~ [
+        return _add(fieldName, "latLong", myextra ~ [
             "rule": "geoCoordinate",
         ]);
     }
@@ -2259,13 +2259,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule to ensure the field is a latitude.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.latitude()
      */
-    auto latitude(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto latitude(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a latitude";
@@ -2275,7 +2275,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "latitude", myextra ~ [
+        return _add(fieldName, "latitude", myextra ~ [
             "rule": "latitude",
         ]);
     }
@@ -2283,13 +2283,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule to ensure the field is a longitude.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.longitude()
      */
-    auto longitude(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto longitude(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             myMessage = !_useI18n
                 ? "The provided value must be a longitude"
@@ -2298,7 +2298,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "longitude", myextra ~ [
+        return _add(fieldName, "longitude", myextra ~ [
             "rule": "longitude",
         ]);
     }
@@ -2306,13 +2306,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule to ensure a field contains only ascii bytes
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.ascii()
      */
-    auto ascii(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto ascii(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be ASCII bytes only";
@@ -2322,7 +2322,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "ascii", myextra ~ [
+        return _add(fieldName, "ascii", myextra ~ [
             "rule": "ascii",
         ]);
     }
@@ -2330,13 +2330,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule to ensure a field contains only BMP utf8 bytes
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.utf8()
      */
-    auto utf8(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto utf8(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be UTF-8 bytes only";
@@ -2346,7 +2346,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "utf8", myextra ~ [
+        return _add(fieldName, "utf8", myextra ~ [
             "rule": ["utf8", ["extended": false.toJson]],
         ]);
     }
@@ -2356,13 +2356,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * This rule will accept 3 and 4 byte UTF8 sequences, which are necessary for emoji.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.utf8()
      */
-    auto utf8Extended(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto utf8Extended(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be 3 and 4 byte UTF-8 sequences only";
@@ -2372,7 +2372,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "utf8Extended", myextra ~ [
+        return _add(fieldName, "utf8Extended", myextra ~ [
             "rule": ["utf8", ["extended": true.toJson]],
         ]);
     }
@@ -2380,13 +2380,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule to ensure a field is an integer value.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.isInteger()
      */
-    auto integer(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto integer(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an integer";
@@ -2396,7 +2396,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "integer", myextra ~ [
+        return _add(fieldName, "integer", myextra ~ [
             "rule": "isInteger",
         ]);
     }
@@ -2404,13 +2404,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule to ensure that a field contains an array.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.isArray()
      */
-    auto array(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto array(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an array";
@@ -2420,7 +2420,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "array", myextra ~ [
+        return _add(fieldName, "array", myextra ~ [
             "rule": "isArray",
         ]);
     }
@@ -2428,12 +2428,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule to ensure that a field contains a scalar.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      */
-    auto scalar(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto scalar(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             myMessage = "The provided value must be scalar";
             if (_useI18n) {
@@ -2442,7 +2442,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "scalar", myextra ~ [
+        return _add(fieldName, "scalar", myextra ~ [
                 "rule": "isScalar",
             ]);
     }
@@ -2450,13 +2450,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule to ensure a field is a 6 digits hex color value.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.hexColor()
      */
-    auto hexColor(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto hexColor(string fieldName, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             myMessage = "The provided value must be a hex color";
             if (_useI18n) {
@@ -2465,7 +2465,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "hexColor", myextra ~ [
+        return _add(fieldName, "hexColor", myextra ~ [
             "rule": "hexColor",
         ]);
     }
@@ -2473,7 +2473,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule for a multiple select. Comparison is case sensitive by default.
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param Json[string] options The options for the validator. Includes the options defined in
      *  \UIM\Validation\Validation.multiple() and the `caseInsensitive` parameter.
      * @param string|null myMessage The error message when the rule fails.
@@ -2482,7 +2482,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.multiple()
      */
     auto multipleOptions(
-        string myfield,
+        string fieldName,
         Json[string] optionData = null,
         string myMessage = null,
         Closure|string|null mywhen = null
@@ -2497,7 +2497,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         mycaseInsensitive = options["caseInsensitive"] ?? false;
         options.remove("caseInsensitive"]);
 
-        return _add(myfield, "multipleOptions", myextra ~ [
+        return _add(fieldName, "multipleOptions", myextra ~ [
             "rule": ["multiple", options, mycaseInsensitive],
         ]);
     }
@@ -2506,14 +2506,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a validation rule to ensure that a field is an array containing at least
      * the specified amount of elements
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param int mycount The number of elements the array should at least have
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.numElements()
      */
-    auto hasAtLeast(string myfield, int mycount, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto hasAtLeast(string fieldName, int mycount, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             mymewssage = !_useI18n
                 ? sprintf("The provided value must have at least `%s` elements", mycount)
@@ -2522,7 +2522,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "hasAtLeast", myextra ~ [
+        return _add(fieldName, "hasAtLeast", myextra ~ [
             "rule": auto (myvalue) use (mycount) {
                 if (isArray(myvalue) && isSet(myvalue["_ids"])) {
                     myvalue = myvalue["_ids"];
@@ -2536,14 +2536,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a validation rule to ensure that a field is an array containing at most
      * the specified amount of elements
      * Params:
-     * string myfield The field you want to apply the rule to.
+     * string fieldName The field you want to apply the rule to.
      * @param int mycount The number maximum amount of elements the field should have
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.numElements()
      */
-    auto hasAtMost(string myfield, int mycount, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto hasAtMost(string fieldName, int mycount, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             myMessage = !_useI18n 
                 ? "The provided value must have at most `%s` elements".format(mycount)
@@ -2551,7 +2551,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return _add(myfield, "hasAtMost", myextra ~ [
+        return _add(fieldName, "hasAtMost", myextra ~ [
             "rule": auto (myvalue) use (mycount) {
                 if (isArray(myvalue) && isSet(myvalue["_ids"])) {
                     myvalue = myvalue["_ids"];
@@ -2565,7 +2565,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Returns whether a field can be left empty for a new or already existing
      * record.
      * Params:
-     * string myfield Field name.
+     * string fieldName Field name.
      * @param bool mynewRecord whether the data to be validated is new or to be updated.
      */
     bool isEmptyAllowed(string fieldName, bool mynewRecord) {
@@ -2659,11 +2659,11 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Returns false if any validation for the passed rule set should be stopped
      * due to the field missing in the data array
      * Params:
-     * \UIM\Validation\ValidationSet myfield The set of rules for a field.
+     * \UIM\Validation\ValidationSet fieldName The set of rules for a field.
      * @param Json[string] mycontext A key value list of data containing the validation context.
      */
-    protected bool _checkPresence(ValidationSet myfield, Json[string] mycontext) {
-        myrequired = myfield.isPresenceRequired();
+    protected bool _checkPresence(ValidationSet fieldName, Json[string] mycontext) {
+        myrequired = fieldName.isPresenceRequired();
 
         if (cast(Closure)myrequired) {
             return !myrequired(mycontext);
@@ -2679,11 +2679,11 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Returns whether the field can be left blank according to `allowEmpty`
      * Params:
-     * \UIM\Validation\ValidationSet myfield the set of rules for a field
+     * \UIM\Validation\ValidationSet fieldName the set of rules for a field
      * @param Json[string] mycontext a key value list of data containing the validation context.
      */
-    protected bool _canBeEmpty(ValidationSet myfield, Json[string] mycontext) {
-        myallowed = myfield.isEmptyAllowed();
+    protected bool _canBeEmpty(ValidationSet fieldName, Json[string] mycontext) {
+        myallowed = fieldName.isEmptyAllowed();
 
         if (cast(Closure)myallowed) {
             return myallowed(mycontext);
@@ -2715,8 +2715,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         if (isArray(mydata)) {
             myallFieldsAreEmpty = true;
-            foreach (mydata as myfield) {
-                if (myfield !isNull && myfield != "") {
+            foreach (mydata as fieldName) {
+                if (fieldName !isNull && fieldName != "") {
                     myallFieldsAreEmpty = false;
                     break;
                 }
@@ -2744,12 +2744,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Iterates over each rule in the validation set and collects the errors resulting
      * from executing them
      * Params:
-     * string myfield The name of the field that is being processed
+     * string fieldName The name of the field that is being processed
      * @param \UIM\Validation\ValidationSet myrules the list of rules for a field
      * @param Json[string] data the full data passed to the validator
      * @param bool mynewRecord whether is it a new record or an existing one
      */
-    protected Json[string] _processRules(string myfield, ValidationSet myrules, Json[string] data, bool mynewRecord) {
+    protected Json[string] _processRules(string fieldName, ValidationSet myrules, Json[string] data, bool mynewRecord) {
         myerrors = null;
         // Loading default provider in case there is none
         getProvider("default");
@@ -2760,7 +2760,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             myMessage = __d("uim", "The provided value is invalid");
         }
         foreach (myname: myrule; myrules) {
-            result = myrule.process(mydata[myfield], _providers, compact("newRecord", "data", "field"));
+            result = myrule.process(mydata[fieldName], _providers, compact("newRecord", "data", "field"));
             if (result == true) {
                 continue;
             }
@@ -2783,12 +2783,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Get the printable version of this object.
      */
     Json[string] debugInfo() {
-        myfields = null;
-        foreach (_fields as myname: myfieldSet) {
-            myfields[myname] = [
-                "isPresenceRequired": myfieldSet.isPresenceRequired(),
-                "isEmptyAllowed": myfieldSet.isEmptyAllowed(),
-                "rules": myfieldSet.rules().keys,
+        fieldNames = null;
+        foreach (_fields as myname: fieldNameSet) {
+            fieldNames[myname] = [
+                "isPresenceRequired": fieldNameSet.isPresenceRequired(),
+                "isEmptyAllowed": fieldNameSet.isEmptyAllowed(),
+                "rules": fieldNameSet.rules().keys,
             ];
         }
         return [
@@ -2798,7 +2798,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             "_useI18n": _useI18n,
             "_stopOnFailure": _stopOnFailure,
             "_providers": _providers.keys,
-            "_fields": myfields,
+            "_fields": fieldNames,
         ];
     } */
 }

@@ -748,13 +748,13 @@ class DRoute : IRoute {
      * This method helps for applications that want to implement
      * router caching.
      * Params:
-     * Json[string] myfields Key/Value of object attributes
+     * Json[string] fieldNames Key/Value of object attributes
      */
-    static static __set_state(Json[string] myfields) {
+    static static __set_state(Json[string] fieldNames) {
         myclass = class;
         myobj = new myclass("");
-        foreach (myfields as myfield: myvalue) {
-            myobj.myfield = myvalue;
+        foreach (fieldNames as fieldName: myvalue) {
+            myobj.fieldName = myvalue;
         }
         return myobj;
     } */

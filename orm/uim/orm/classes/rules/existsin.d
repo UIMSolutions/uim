@@ -30,18 +30,18 @@ class DExistsIn {
      * Available option for options is "allowNullableNulls" flag.
      * Set to true to accept composite foreign keys where one or more nullable columns are null.
      * Params:
-     * string[]|string myfields The field or fields to check existence as primary key.
+     * string[]|string fieldNames The field or fields to check existence as primary key.
      * @param \ORM\Table|\ORM\Association|string myrepository The repository where the
      * field will be looked for, or the association name for the repository.
      * @param Json[string] options The options that modify the rule"s behavior.
      *    Options "allowNullableNulls" will make the rule pass if given foreign keys are set to `null`.
      *    Notice: allowNullableNulls cannot pass by database columns set to `NOT NULL`.
       */
-    this(string[] myfields, Table|Association|string myrepository, Json[string] optionData = null) {
+    this(string[] fieldNames, Table|Association|string myrepository, Json[string] optionData = null) {
         auto updatedOptions = options.update["allowNullableNulls": false.toJson];
        _options = options;
 
-       _fields = (array)myfields;
+       _fields = (array)fieldNames;
        _repository = myrepository;
     }
     
@@ -64,7 +64,7 @@ class DExistsIn {
             myrepository = options["repository"].getAssociation(_repository);
            _repository = myrepository;
         }
-        myfields = _fields;
+        fieldNames = _fields;
         mysource = mytarget = _repository;
         if (cast(DAssociation)mytarget) {
             mybindingKey = (array)mytarget.getBindingKey();
@@ -90,9 +90,9 @@ class DExistsIn {
         }
         if (_options["allowNullableNulls"]) {
             myschema = mysource.getSchema();
-            foreach (myfields as myi: myfield) {
-                if (myschema.getColumn(myfield) && myschema.isNullable(myfield) && myentity.get(myfield).isNull) {
-                    unset(mybindingKey[myi], myfields[myi]);
+            foreach (fieldNames as myi: fieldName) {
+                if (myschema.getColumn(fieldName) && myschema.isNullable(fieldName) && myentity.get(fieldName).isNull) {
+                    unset(mybindingKey[myi], fieldNames[myi]);
                 }
             }
         }
@@ -102,7 +102,7 @@ class DExistsIn {
         );
         myconditions = array_combine(
             myprimary,
-            myentity.extract(myfields)
+            myentity.extract(fieldNames)
         );
 
         return mytarget.exists(myconditions);

@@ -10,10 +10,10 @@ class DValidCount {
     protected string _fieldName;
 
     /**
-     * @param string myfield The field to check the count on.
+     * @param string fieldName The field to check the count on.
      */
-    this(string myfield) {
-       _fieldName = myfield;
+    this(string fieldName) {
+       _fieldName = fieldName;
     }
     
     /**

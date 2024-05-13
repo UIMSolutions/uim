@@ -23,11 +23,11 @@ class DRulesChecker { // }: BaseRulesChecker {
      *
      * - `allowMultipleNulls` Allows any field to have multiple null values. Defaults to false.
      * Params:
-     * string[] myfields The list of fields to check for uniqueness.
+     * string[] fieldNames The list of fields to check for uniqueness.
      * @param Json[string]|string mymessage The error message to show in case the rule does not pass. Can
      *  also be an array of options. When an array, the "message" key can be used to provide a message.
      */
-    RuleInvoker isUnique(Json[string] myfields, string[] mymessage = null) {
+    RuleInvoker isUnique(Json[string] fieldNames, string[] mymessage = null) {
         options = isArray(mymessage) ? mymessage : ["message": mymessage];
         mymessage = options["message"] ?? null;
         options.remove("message");
@@ -39,9 +39,9 @@ class DRulesChecker { // }: BaseRulesChecker {
                 mymessage = "This value is already in use";
             }
         }
-        myerrorField = current(myfields);
+        myerrorField = current(fieldNames);
 
-        return _addError(new DIsUnique(myfields, options), "_isUnique", compact("errorField", "message"));
+        return _addError(new DIsUnique(fieldNames, options), "_isUnique", compact("errorField", "message"));
     }
     
     /**

@@ -19,13 +19,13 @@ mixin template TCommonQuery() {
     void addDefaultTypes(Table mytable) {
         auto aliasName = mytable.aliasName();
         auto mymap = mytable.getSchema().typeMap();
-        auto myfields = null;
+        auto fieldNames = null;
         mymap.byKeyValue.each!((kv) {
-            myfields[kv.key] = kv.value; 
-            myfields[aliasName ~ "." ~ kv.key] = kv.value;
-            myfields[aliasName ~ "__" ~ kv.key] = kv.value;
+            fieldNames[kv.key] = kv.value; 
+            fieldNames[aliasName ~ "." ~ kv.key] = kv.value;
+            fieldNames[aliasName ~ "__" ~ kv.key] = kv.value;
         });
-        getTypeMap().addDefaults(myfields);
+        getTypeMap().addDefaults(fieldNames);
     }
     
     // Instance of a repository/table object this query is bound to.

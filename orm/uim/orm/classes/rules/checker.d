@@ -62,14 +62,14 @@ class DRulesChecker { // }: BaseRulesChecker {
      * "message" sets a custom error message.
      * Set "allowNullableNulls" to true to accept composite foreign keys where one or more nullable columns are null.
      * Params:
-     * string[]|string myfield The field or list of fields to check for existence by
+     * string[]|string fieldName The field or list of fields to check for existence by
      * primary key lookup in the other table.
      * @param \ORM\Table|\ORM\Association|string mytable The table name where the fields existence will be checked.
      * @param Json[string]|string mymessage The error message to show in case the rule does not pass. Can
      *  also be an array of options. When an array, the "message" key can be used to provide a message.
      */
     RuleInvoker existsIn(
-        string[] myfield,
+        string[] fieldName,
         Table|Association|string mytable,
         string[] mymessage = null
     ) {
@@ -86,9 +86,9 @@ class DRulesChecker { // }: BaseRulesChecker {
                 mymessage = "This value does not exist";
             }
         }
-        myerrorField = isString(myfield) ? myfield : current(myfield);
+        myerrorField = isString(fieldName) ? fieldName : current(fieldName);
 
-        return _addError(new DExistsIn(myfield, mytable, options), "_existsIn", compact("errorField", "message"));
+        return _addError(new DExistsIn(fieldName, mytable, options), "_existsIn", compact("errorField", "message"));
     }
     
     /**
@@ -104,18 +104,18 @@ class DRulesChecker { // }: BaseRulesChecker {
      * can only be edited as long as they are associated to an existing article.
      * Params:
      * \ORM\Association|string myassociation The association to check for links.
-     * @param string myfield The name of the association property. When supplied, this is the name used to set
+     * @param string fieldName The name of the association property. When supplied, this is the name used to set
      * possible errors. When absent, the name is inferred from `myassociation`.
      * @param string mymessage The error message to show in case the rule does not pass.
      */
     RuleInvoker isLinkedTo(
         Association|string myassociation,
-        string myfield = null,
+        string fieldName = null,
         string mymessage = null
     ) {
         return _addLinkConstraintRule(
             myassociation,
-            myfield,
+            fieldName,
             mymessage,
             LinkConstraint.STATUS_LINKED,
             "_isLinkedTo"
@@ -135,18 +135,18 @@ class DRulesChecker { // }: BaseRulesChecker {
      * can only be deleted when no associated comments exist.
      * Params:
      * \ORM\Association|string myassociation The association to check for links.
-     * @param string myfield The name of the association property. When supplied, this is the name used to set
+     * @param string fieldName The name of the association property. When supplied, this is the name used to set
      * possible errors. When absent, the name is inferred from `myassociation`.
      * @param string mymessage The error message to show in case the rule does not pass.
      */
     RuleInvoker isNotLinkedTo(
         Association|string myassociation,
-        string myfield = null,
+        string fieldName = null,
         string mymessage = null
     ) {
         return _addLinkConstraintRule(
             myassociation,
-            myfield,
+            fieldName,
             mymessage,
             LinkConstraint.STATUS_NOT_LINKED,
             "_isNotLinkedTo"
@@ -207,13 +207,13 @@ class DRulesChecker { // }: BaseRulesChecker {
     /**
      * Validates the count of associated records.
      * Params:
-     * string myfield The field to check the count on.
+     * string fieldName The field to check the count on.
      * @param int mycount The expected count.
      * @param string myoperator The operator for the count comparison.
      * @param string mymessage The error message to show in case the rule does not pass.
      */
     RuleInvoker validCount(
-        string myfield,
+        string fieldName,
         int mycount = 0,
         string myoperator = ">",
         string mymessage = null
@@ -225,10 +225,10 @@ class DRulesChecker { // }: BaseRulesChecker {
                 mymessage = "The count does not match %s%d".format(myoperator, mycount);
             }
         }
-        myerrorField = myfield;
+        myerrorField = fieldName;
 
         return _addError(
-            new DValidCount(myfield),
+            new DValidCount(fieldName),
             "_validCount",
             compact("count", "operator", "errorField", "message")
         );

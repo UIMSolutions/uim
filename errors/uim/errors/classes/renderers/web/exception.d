@@ -252,7 +252,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         string result = exception.getMessage();
 
         if (
-            !Configuration.read("debug") &&
+            !configuration.hasKey("debug") &&
             !(cast(HttpException)exception)
         ) {
             result = code < 500
@@ -271,7 +271,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * @param int code Error code.
      */
     protected string _template(Throwable exception, string amethod, int code) {
-        if (cast(HttpException)exception || !Configuration.read("debug")) {
+        if (cast(HttpException)exception || !configuration.hasKey("debug")) {
             return _template = code < 500 ? "error400' : 'error500";
         }
         if (cast(PDOException)exception) {

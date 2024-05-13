@@ -84,7 +84,7 @@ if (!function_exists("env")) {
      * string aKey Environment variable name.
      * @param string|null default Specify a default value in case the environment variable is not defined.
      */
-    Json|bool|null enviroment(string aKey, Json|bool|null default = null) {
+    Json enviroment(string aKey, Json default = null) {
         return uimEnvironmentData(aKey, default);
     }
 }

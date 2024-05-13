@@ -463,12 +463,12 @@ class DFormHelper : DHelper {
         if (!this.formProtector) {
             return "";
         }
-        foreach (myfields as myfield: myvalue) {
-            if (isInt(myfield)) {
-                myfield = myvalue;
+        foreach (myfields as fieldName: myvalue) {
+            if (isInt(fieldName)) {
+                fieldName = myvalue;
                 myvalue = null;
             }
-            this.formProtector.addField(myfield, true, myvalue);
+            this.formProtector.addField(fieldName, true, myvalue);
         }
         mydebugSecurity = (bool)Configuration.read("debug");
         if (isSet(mysecureAttributes["debugSecurity"])) {
@@ -543,10 +543,10 @@ class DFormHelper : DHelper {
     /**
      * Returns true if there is an error for the given field, otherwise false
      * Params:
-     * string myfield This should be "modelname.fieldname"
+     * string fieldName This should be "modelname.fieldname"
      */
-    bool isFieldError(string myfield) {
-        return _getContext().hasError(myfield);
+    bool isFieldError(string fieldName) {
+        return _getContext().hasError(fieldName);
     }
     
     /**
@@ -559,22 +559,21 @@ class DFormHelper : DHelper {
      *
      * - `escape` boolean - Whether to html escape the contents of the error.
      * Params:
-     * string myfield A field name, like "modelname.fieldname"
+     * string fieldName A field name, like "modelname.fieldname"
      * @param string[] mytext Error message as string or array of messages. If an array,
      *  it should be a hash of key names: messages.
-     * @param Json[string] options See above.
      */
-    string error(string myfield, string[] mytext = null, Json[string] options  = null) {
-        if (myfield.endsWith("._ids")) {
-            myfield = substr(myfield, 0, -5);
+    string error(string fieldName, string[] mytext = null, Json[string] options  = null) {
+        if (fieldName.endsWith("._ids")) {
+            fieldName = substr(fieldName, 0, -5);
         }
         auto updatedOptions = options.update["escape": true.toJson];
 
         formContext = _getContext();
-        if (!formContext.hasError(myfield)) {
+        if (!formContext.hasError(fieldName)) {
             return "";
         }
-        myerror = formContext.error(myfield);
+        myerror = formContext.error(fieldName);
 
         if (mytext.isArray) {
             mytmp = null;
@@ -611,7 +610,7 @@ class DFormHelper : DHelper {
         }
         return _formatTemplate("error", [
             "content": myerror,
-            "id": _domId(myfield) ~ "-error",
+            "id": _domId(fieldName) ~ "-error",
         ]);
     }
     
@@ -671,7 +670,7 @@ class DFormHelper : DHelper {
      *  fieldName.
      * @param Json[string] options An array of HTML attributes.
      */
-    string label(string fieldNameName, string mytext = null, Json[string] options  = null) {
+    string label(string fieldName, string mytext = null, Json[string] options  = null) {
         if (mytext.isNull) {
             mytext = fieldName;
             if (mytext.endsWith("._ids")) {
@@ -2017,11 +2016,11 @@ class DFormHelper : DHelper {
      * The output of this bool is a more complete set of input attributes that
      * can be passed to a form widget to generate the actual input.
      * Params:
-     * string myfield Name of the field to initialize options for.
+     * string fieldName Name of the field to initialize options for.
      * @param Json[string]|string[] options Array of options to append options into.
      */
-    protected Json[string] _initInputField(string myfield, Json[string] options  = null) {
-        auto updatedOptions = options.update["fieldName": myfield];
+    protected Json[string] _initInputField(string fieldName, Json[string] options  = null) {
+        auto updatedOptions = options.update["fieldName": fieldName];
 
         if (!options.isSet("secure")) {
             options["secure"] = _View.getRequest().getAttribute("formTokenData").isNull ? false : true;
@@ -2029,15 +2028,15 @@ class DFormHelper : DHelper {
         mycontext = _getContext();
 
         if (isSet(options["id"]) && options["id"] == true) {
-            options["id"] = _domId(myfield);
+            options["id"] = _domId(fieldName);
         }
         if (!options["name"])) {
             myendsWithBrackets = "";
-            if (myfield.endsWith("[]")) {
-                myfield = substr(myfield, 0, -2);
+            if (fieldName.endsWith("[]")) {
+                fieldName = substr(fieldName, 0, -2);
                 myendsWithBrackets = "[]";
             }
-            string[] pathParts = myfield.split(".");
+            string[] pathParts = fieldName.split(".");
             myfirst = array_shift(pathParts);
             options["name"] = myfirst ~ (!pathParts.isEmpty ? "[" ~ join("][", pathParts) ~ "]" : "") ~ myendsWithBrackets;
         }
@@ -2050,7 +2049,7 @@ class DFormHelper : DHelper {
                 "default": options["default"] ?? null,
                 "schemaDefault": options.get("schemaDefault", true),
             ];
-            options["val"] = getSourceValue(myfield, myvalOptions);
+            options["val"] = getSourceValue(fieldName, myvalOptions);
         }
         if (!options.isSet("val") && isSet(options["default"])) {
             options["val"] = options["default"];
@@ -2060,7 +2059,7 @@ class DFormHelper : DHelper {
         if (cast(BackedEnum)options["val"]) {
             options["val"] = options["val"].value;
         }
-        if (mycontext.hasError(myfield)) {
+        if (mycontext.hasError(fieldName)) {
             options = this.addClass(options, configuration.get("errorClass"]);
         }
         myisDisabled = _isDisabled(options);
@@ -2192,8 +2191,8 @@ class DFormHelper : DHelper {
             mysecure !isNull &&
             mysecure != self.SECURE_SKIP
         ) {
-            foreach (mywidget.secureFields(mydata) as myfield) {
-                this.formProtector.addField(myfield, mysecure);
+            foreach (mywidget.secureFields(mydata) as fieldName) {
+                this.formProtector.addField(fieldName, mysecure);
             }
         }
         return result;

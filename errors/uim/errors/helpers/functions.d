@@ -15,7 +15,7 @@ import uim.errors;
  */
 Json debug(Json var, bool showHtml = null, bool showFrom = true):  
 {
-    if (!Configuration.read("debug")) {
+    if (!configuration.hasKey("debug")) {
         return var;
     }
     location = null;
@@ -45,7 +45,7 @@ Json debug(Json var, bool showHtml = null, bool showFrom = true):
  * @param Json[string] options Format for outputting stack trace
  */
 void stackTrace(Json[string] options = null) {
-    if (!Configuration.read("debug")) {
+    if (!configuration.hasKey("debug")) {
         return;
     }
     auto updatedOptions = options.update["start": 0];
@@ -65,7 +65,7 @@ void stackTrace(Json[string] options = null) {
  * @param bool|null showHtml If set to true, the method prints the debug data in a browser-friendly way.
  */
 void dd(Json var, ?bool showHtml = null) {
-    if (!Configuration.read("debug")) {
+    if (!configuration.hasKey("debug")) {
         return;
     }
     trace = Debugger.trace(["start": 0, "depth": 2, "format": 'array"]);

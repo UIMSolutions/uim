@@ -197,7 +197,7 @@ class DFormProtector {
 
             return null;
         }
-        if (!Configuration.read("debug") && isSet(formData["_Token"]["debug"])) {
+        if (!configuration.hasKey("debug") && isSet(formData["_Token"]["debug"])) {
             this.debugMessage = "Unexpected `_Token.debug` found in request data";
 
             return null;

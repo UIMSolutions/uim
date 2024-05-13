@@ -253,12 +253,12 @@ class DValidation {
      *
      * If both fields have exactly the same value this method will return true.
      * Params:
-     * Json mycheck The value to find in myfield.
-     * @param string myfield The field to check mycheck against. This field must be present in mycontext.
+     * Json mycheck The value to find in fieldName.
+     * @param string fieldName The field to check mycheck against. This field must be present in mycontext.
      * @param Json[string] mycontext The validation context.
      */
-    static bool compareWith(Json mycheck, string myfield, Json[string] mycontext) {
-        return self.compareFields(mycheck, myfield, COMPARE_SAME, mycontext);
+    static bool compareWith(Json mycheck, string fieldName, Json[string] mycontext) {
+        return self.compareFields(mycheck, fieldName, COMPARE_SAME, mycontext);
     }
     
     /**
@@ -266,16 +266,16 @@ class DValidation {
      *
      * Return true if the comparison matches the expected result.
      * Params:
-     * Json mycheck The value to find in myfield.
-     * @param string myfield The field to check mycheck against. This field must be present in mycontext.
+     * Json mycheck The value to find in fieldName.
+     * @param string fieldName The field to check mycheck against. This field must be present in mycontext.
      * @param string myoperator Comparison operator. See Validation.comparison().
      * @param Json[string] mycontext The validation context.
      */
-    static bool compareFields(Json mycheck, string myfield, string myoperator, Json[string] mycontext) {
-        if (!isSet(mycontext["data"]) || !array_key_exists(myfield, mycontext["data"])) {
+    static bool compareFields(Json mycheck, string fieldName, string myoperator, Json[string] mycontext) {
+        if (!isSet(mycontext["data"]) || !array_key_exists(fieldName, mycontext["data"])) {
             return false;
         }
-        return comparison(mycheck, myoperator, mycontext["data"][myfield]);
+        return comparison(mycheck, myoperator, mycontext["data"][fieldName]);
     }
     
     /**

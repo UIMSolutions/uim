@@ -545,13 +545,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * ### Example:
      *
      * ```
-     *// Email can be empty
+     * // Email can be empty
      * myvalidator.allowEmptyFor("email", Validator.EMPTY_STRING);
      *
-     *// Email can be empty on create
+     * // Email can be empty on create
      * myvalidator.allowEmptyFor("email", Validator.EMPTY_STRING, Validator.WHEN_CREATE);
      *
-     *// Email can be empty on update
+     * // Email can be empty on update
      * myvalidator.allowEmptyFor("email", Validator.EMPTY_STRING, Validator.WHEN_UPDATE);
      * ```
      *
@@ -590,7 +590,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      * @param string|null myMessage The message to show if the field is not
-    
      */
     void allowEmptyFor(
         string fieldName,

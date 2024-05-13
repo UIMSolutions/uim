@@ -18,30 +18,28 @@ class DHtmlErrorFormatter : IErrorFormatter {
         // TODO _id = uniqid("", true);
     }
     
-    /**
-     * Check if the current environment is not a CLI context
-     */
+    // Check if the current environment is not a CLI context
     static bool environmentMatches() {
-        if (UIM_SAPI == "cli" || UIM_SAPI == "Ddbg") {
-            return false;
-        }
-        return true;
+        return UIM_SAPI == "cli" || UIM_SAPI == "Ddbg"  
+            ? false
+            : true;
     }
  
-    auto formatWrapper(string acontents, Json[string] location) {
+    string formatWrapper(string acontents, Json[string] location) {
         string alineInfo = "";
         if (isSet(location["file"], location["file"])) {
             lineInfo = "<span><strong>%s</strong> (line <strong>%s</strong>)</span>"
                 .format(location["file"], location["line"]);
         }
-        someParts = [
+        
+        string[] someParts = [
             "<div class="uim-debug-output uim-debug" style="direction:ltr">",
             lineInfo,
             contents,
             "</div>",
         ];
 
-        return join("\n", someParts);
+        return someParts.join("\n";
     }
     
     /**

@@ -86,14 +86,17 @@ string[] namespaceSplit(string className) {
      * Params:
      * IData var Variable to print out.
      */
-    IData pr(IData var) {
-        if (!Configuration.read("debug")) {
-            return var;
+    IData pr(Json printOut) {
+        if (!configuration.hasKey("debug")) {
+            return printOut;
         }
-        template = UIM_SAPI != "cli' && UIM_SAPI != "Ddbg' ? "<pre class="pr">%s</pre>' : "\n%s\n\n";
-        printf(template, strip(print_r(var, true)));
 
-        return var;
+        auto printOutTemplate = UIM_SAPI != "cli" && UIM_SAPI != "Ddbg" 
+        ? "<pre class=\"pr\">%s</pre>" 
+        : "\n%s\n\n";
+        // TODO printf(printOutTemplate, print_r(printOut, true).strip);
+
+        return printOut;
     }
 
     /**
@@ -107,13 +110,13 @@ string[] namespaceSplit(string className) {
      * IData var Variable to print out.
      */
     IData pj(IData var) {
-        if (!Configuration.read("debug")) {
+        if (!configuration.hasKey("debug")) {
             return var;
         }
         
-        auto templateString = UIM_SAPI != "cli' && UIM_SAPI != "Ddbg' ? "<pre class="pj">%s</pre>' : "\n%s\n\n";
-        flags = Json_PRETTY_PRINT | Json_UNESCAPED_UNICODE | Json_UNESCAPED_SLASHES;
-        printf(templateString, strip(to!string(Json_encode(var, flags))));
+        auto templateString = UIM_SAPI != "cli" && UIM_SAPI != "Ddbg" ? "<pre class=\"pj\">%s</pre>" : "\n%s\n\n";
+        auto flags = Json_PRETTY_PRINT | Json_UNESCAPED_UNICODE | Json_UNESCAPED_SLASHES;
+        // TODO printf(templateString, strip(to!string(Json_encode(var, flags))));
 
         return var;
     }
@@ -127,7 +130,7 @@ string[] namespaceSplit(string className) {
      * string aKey Environment variable name.
      * @param string|null default Specify a default value in case the environment variable is not defined.
      */
-    Json|bool|null enviroment(string aKey, Json|bool|null default = null) {
+    Json enviroment(string aKey, Json default = null) {
         if (aKey == "HTTPS") {
             if (isSet(_SERVER["HTTPS"])) {
                 return !_SERVER.get("HTTPS") != "off";
@@ -137,7 +140,8 @@ string[] namespaceSplit(string className) {
         if (aKey == "SCRIPT_NAME" && enviroment("CGI_MODE") && isSet(_ENV["SCRIPT_URL"])) {
             aKey = "SCRIPT_URL";
         }
-        val = _SERVER[aKey] ?? _ENV[aKey] ?? null;
+        
+        auto val = _SERVER[aKey] ?? _ENV[aKey] ?? null;
         assert(val.isNull || isScalar(val));
         if (val.isNull && getEnvironmentData(aKey) != false) {
             val = (string)getEnvironmentData(aKey);
@@ -151,6 +155,7 @@ string[] namespaceSplit(string className) {
         if (!val.isNull) {
             return val;
         }
+
         switch (aKey) {
             case "DOCUMENT_ROOT":
                 name = (string)enviroment("SCRIPT_NAME");
@@ -168,9 +173,7 @@ string[] namespaceSplit(string className) {
         return default;
     }
 
-    /**
-     * Triggers an E_USER_WARNING.
-     */
+    // TODO Triggers an E_USER_WARNING.
     void triggerWarning(string warningMessage) {
         auto trace = debug_backtrace();
         string outMessage = warningMessage;
@@ -199,10 +202,11 @@ string[] namespaceSplit(string className) {
         if (!(error_reporting() & E_USER_DEPRECATED)) {
             return;
         }
-        trace = debug_backtrace();
+        
+        auto trace = debug_backtrace();
         if (isSet(trace[stackFrame])) {
             frame = trace[stackFrame];
-            frame += ["file": '[internal]", "line": "??"];
+            frame += ["file": "x[internal]", "line": "??"];
 
             // Assuming we're installed in vendor/UIM/UIM/src/Core/functions.d
             root = dirname(__DIR__, 5);
@@ -233,12 +237,13 @@ string[] namespaceSplit(string className) {
         static errors = null;
         checksum = md5(message);
         
-        bool isDuplicate = (bool)Configuration.read("Error.allowDuplicateDeprecations", false);
+        // TODO 
+        /* bool isDuplicate = (bool)Configuration.read("Error.allowDuplicateDeprecations", false);
         if (isSet(errors[checksum]) && !isDuplicate) {
             return;
         }
         if (!isDuplicate) {
             errors[checksum] = true;
         }
-        trigger_error(message, E_USER_DEPRECATED);
+        trigger_error(message, E_USER_DEPRECATED); */
     }

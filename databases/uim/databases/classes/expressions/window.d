@@ -56,20 +56,20 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
         this.partitions = array_merge(this.partitions,  mypartitions);
     }
  
-    auto order(IExpression|Closure|string[] myfields) {
-        return _orderBy(myfields);
+    auto order(IExpression|Closure|string[] fieldNames) {
+        return _orderBy(fieldNames);
     }
  
-    void orderBy(IExpression|Closure|string[] myfields) {
-        if (!myfields) {
+    void orderBy(IExpression|Closure|string[] fieldNames) {
+        if (!fieldNames) {
             return;
         }
         _order ??= new DOrderByExpression();
 
-        if (cast(DClosure)myfields) {
-             myfields = myfields(new QueryExpression([], [], ""));
+        if (cast(DClosure)fieldNames) {
+             fieldNames = fieldNames(new QueryExpression([], [], ""));
         }
-        _order.add(myfields);
+        _order.add(fieldNames);
     }
  
     auto range(IExpression|string|int  mystart, IExpression|string|int  myend = 0) {

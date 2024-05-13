@@ -50,7 +50,7 @@ import uim.oop;
      * @param bool dotAppend Set to true if you want the plugin to have a '.' appended to it.
      * @param string plugin Optional default plugin to use if no plugin is found. Defaults to null.
      */
-    Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string aplugin = null) {
+    Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string pluginName = null) {
         // TODO
         /* if (name.has(".")) {
             string[] someParts = split(".", name, 2);
@@ -130,7 +130,7 @@ string[] namespaceSplit(string className) {
      * string aKey Environment variable name.
      * @param string|null default Specify a default value in case the environment variable is not defined.
      */
-    Json enviroment(string aKey, Json default = null) {
+    Json enviroment(string aKey, Json defaultValue= null) {
         if (aKey == "HTTPS") {
             if (isSet(_SERVER["HTTPS"])) {
                 return !_SERVER.get("HTTPS") != "off";
@@ -169,8 +169,9 @@ string[] namespaceSplit(string className) {
                 return ((string)enviroment("SCRIPT_FILENAME")).replace((string)enviroment("DOCUMENT_ROOT"), "");
             case "CGI_MODE":
                 return UIM_SAPI == "cgi";
+            default: 
+                return defaultValue;
         }
-        return default;
     }
 
     // TODO Triggers an E_USER_WARNING.

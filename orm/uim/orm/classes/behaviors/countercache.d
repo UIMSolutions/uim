@@ -106,9 +106,9 @@ class DCounterCacheBehavior : DBehavior {
         }
         foreach (configuration as myassoc: mysettings) {
             myassoc = _table.getAssociation(myassoc);
-            /** @var string|int myfield */
-            foreach (mysettings as myfield: configData) {
-                if (isInt(myfield)) {
+            /** @var string|int fieldName */
+            foreach (mysettings as fieldName: configData) {
+                if (isInt(fieldName)) {
                     continue;
                 }
                 myregistryAlias = myassoc.getTarget().registryKey();
@@ -118,9 +118,9 @@ class DCounterCacheBehavior : DBehavior {
                     !isCallable(configData) &&
                     configuration.hasKey("ignoreDirty") &&
                     configuration.data("ignoreDirty"] == true &&
-                    myentity.myentityAlias.isDirty(myfield)
+                    myentity.myentityAlias.isDirty(fieldName)
                 ) {
-                   _ignoreDirty[myregistryAlias][myfield] = true;
+                   _ignoreDirty[myregistryAlias][fieldName] = true;
                 }
             }
         }
@@ -191,10 +191,10 @@ class DCounterCacheBehavior : DBehavior {
         myforeignKeys = (array)myassoc.getForeignKeys();
         mycountConditions = myentity.extract(myforeignKeys);
 
-        foreach (mycountConditions as myfield: myvalue) {
+        foreach (mycountConditions as fieldName: myvalue) {
             if (myvalue.isNull) {
-                mycountConditions[myfield ~ " IS"] = myvalue;
-                unset(mycountConditions[myfield]);
+                mycountConditions[fieldName ~ " IS"] = myvalue;
+                unset(mycountConditions[fieldName]);
             }
         }
         myprimaryKeys = (array)myassoc.getBindingKey();
@@ -207,13 +207,13 @@ class DCounterCacheBehavior : DBehavior {
 
         mysettings.byKeyValue
             .each((fieldData) {
-                if (isInt(myfield)) {
-                    myfield = fieldData.value;
+                if (isInt(fieldName)) {
+                    fieldName = fieldData.value;
                     fieldData.value = null;
                 }
                 if (
-                    isSet(_ignoreDirty[myassoc.getTarget().registryKey()][myfield]) &&
-                _ignoreDirty[myassoc.getTarget().registryKey()][myfield] == true
+                    isSet(_ignoreDirty[myassoc.getTarget().registryKey()][fieldName]) &&
+                _ignoreDirty[myassoc.getTarget().registryKey()][fieldName] == true
                 ) {
                     continue;
                 }
@@ -223,7 +223,7 @@ class DCounterCacheBehavior : DBehavior {
                         : _getCount(fieldData.value, mycountConditions);
 
                     if (mycount != false) {
-                        myassoc.getTarget().updateAll([myfield: mycount], myupdateConditions);
+                        myassoc.getTarget().updateAll([fieldName: mycount], myupdateConditions);
                     }
                 }
                 if (isSet(myupdateOriginalConditions) && _shouldUpdateCount(myupdateOriginalConditions)) {
@@ -232,7 +232,7 @@ class DCounterCacheBehavior : DBehavior {
                         : _getCount(fieldData.value, mycountOriginalConditions);
 
                     if (mycount != false) {
-                        myassoc.getTarget().updateAll([myfield: mycount], myupdateOriginalConditions);
+                        myassoc.getTarget().updateAll([fieldName: mycount], myupdateOriginalConditions);
                     }
                 }
         }

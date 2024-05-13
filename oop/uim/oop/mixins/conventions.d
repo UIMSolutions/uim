@@ -85,9 +85,9 @@ mixin template TConventions() {
     /**
      * Find the correct path for a plugin. Scans pluginPaths for the plugin you want.
      * Params:
-     * string apluginName Name of the plugin you want ie. DebugKit
+     * string pluginNameName Name of the plugin you want ie. DebugKit
      */
-    protected string _pluginPath(string apluginName) {
+    protected string _pluginPath(string pluginNameName) {
         if (Plugin.isLoaded(pluginName)) {
             return Plugin.path(pluginName);
         }
@@ -97,7 +97,7 @@ mixin template TConventions() {
     /**
      * Return plugin`s namespace
      * Params:
-     * string apluginName Plugin name
+     * string pluginNameName Plugin name
      */
     protected string _pluginNamespace(string pluginName) {
         return pluginName.replace("/", "\\", pluginName);

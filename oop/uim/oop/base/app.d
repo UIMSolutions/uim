@@ -154,7 +154,7 @@ class DApp {
      * string pathType Type of path
      * @param string plugin Plugin name
      */
-    static string[] path(string pathType, string aplugin = null) {
+    static string[] path(string pathType, string pluginName = null) {
         if (plugin.isNull) {
             return (array)Configuration.read("App.paths." ~ type);
         }
@@ -188,7 +188,7 @@ class DApp {
      * string packageType Package type.
      * @param string plugin Plugin name.
      */
-    static string[] classPath(string packageType, string aplugin = null) {
+    static string[] classPath(string packageType, string pluginName = null) {
         if (plugin !isNull) {
             return [
                 Plugin.classPath(plugin) ~ type ~ DIRECTORY_SEPARATOR,

@@ -8,11 +8,9 @@ module uim.oop.base.functions_global;
      *   implement a `__toString` method. Otherwise, the class name will be used.
      *   Other scalar types will be returned unchanged.
      * @param bool double Encode existing html entities.
-     * @param string charset Character set to use when escaping.
-     *  Defaults to config value in `mb_internal_encoding()` or 'UTF-8'.
      */
-    Json htmlAttributeEscape(Json text, bool double = true, string acharset = null) {
-        return uimH(text, double, charset);
+    Json htmlAttributeEscape(Json text, bool isDouble = true, string escapingCharset = null) {
+        return uimH(text, isDouble, escapingCharset);
     }
 
     /**
@@ -27,7 +25,7 @@ module uim.oop.base.functions_global;
      * @param bool dotAppend Set to true if you want the plugin to have a '.' appended to it.
      * @param string plugin Optional default plugin to use if no plugin is found. Defaults to null.
      */
-    Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string aplugin = null) {
+    Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string pluginName = null) {
         return uimPluginSplit(nameToSplit, dotAppend, plugin);
     }
 

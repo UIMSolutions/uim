@@ -179,8 +179,8 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
         if (!mydata["_translations"].isSet(mydefaultLocale)) {
             return;
         }
-        foreach (mydata["_translations"][mydefaultLocale] as myfield : myvalue) {
-            mydata[myfield] = myvalue;
+        foreach (mydata["_translations"][mydefaultLocale] as fieldName : myvalue) {
+            mydata[fieldName] = myvalue;
         }
         unset(mydata["_translations"][mydefaultLocale]);
     }
@@ -236,10 +236,10 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * field with an alias of a corresponding association is returned. Table-aliased
      * field name is returned for all other fields.
      * Params:
-     * string myfield Field name to be aliased.
+     * string fieldName Field name to be aliased.
      */
-    string translationField(string myfield) {
-        return _getStrategy().translationField(myfield);
+    string translationField(string fieldName) {
+        return _getStrategy().translationField(fieldName);
     }
 
     /**

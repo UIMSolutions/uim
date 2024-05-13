@@ -165,9 +165,9 @@ class DMarshaller {
             }
         }
         if (isSet(options["fields"])) {
-            foreach ((array)options["fields"] as myfield) {
-                if (array_key_exists(myfield, myproperties)) {
-                    myentity.set(myfield, myproperties[myfield], ["asOriginal": true.toJson]);
+            foreach ((array)options["fields"] as fieldName) {
+                if (array_key_exists(fieldName, myproperties)) {
+                    myentity.set(fieldName, myproperties[fieldName], ["asOriginal": true.toJson]);
                 }
             }
         } else {
@@ -504,14 +504,14 @@ class DMarshaller {
 
             return myentity;
         }
-        foreach ((array)options["fields"] as myfield) {
-            assert(isString(myfield));
-            if (!array_key_exists(myfield, myproperties)) {
+        foreach ((array)options["fields"] as fieldName) {
+            assert(isString(fieldName));
+            if (!array_key_exists(fieldName, myproperties)) {
                 continue;
             }
-            myentity.set(myfield, myproperties[myfield]);
-            if (cast(IORMEntity)myproperties[myfield]) {
-                myentity.setDirty(myfield, myproperties[myfield].isDirty());
+            myentity.set(fieldName, myproperties[fieldName]);
+            if (cast(IORMEntity)myproperties[fieldName]) {
+                myentity.setDirty(fieldName, myproperties[fieldName].isDirty());
             }
         }
         this.dispatchAfterMarshal(myentity, mydata, options);
@@ -583,8 +583,8 @@ class DMarshaller {
             })
             .filter(fn (someKeys): count(Hash.filter(someKeys)) == count(myprimary))
             .reduce(function (myconditions, someKeys) use (myprimary) {
-                myfields = array_map([_table, "aliasField"], myprimary);
-                myconditions["OR"] ~= array_combine(myfields, someKeys);
+                fieldNames = array_map([_table, "aliasField"], myprimary);
+                myconditions["OR"] ~= array_combine(fieldNames, someKeys);
 
                 return myconditions;
             }, ["OR": Json.emptyArray]);

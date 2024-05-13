@@ -212,18 +212,18 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * If the field is already aliased, then it will not be changed.
      * If no aliasName is passed, the default table for this query will be used.
      * Params:
-     * string myfield The field to alias
+     * string fieldName The field to alias
      * @param string aliasName the alias used to prefix the field
      */
-    STRINGAA aliasField(string myfield, string aliasName = null) {
-        if (myfield.has(".")) {
-            myaliasedField = myfield;
-            [aliasName, myfield] = myfield.split(".");
+    STRINGAA aliasField(string fieldName, string aliasName = null) {
+        if (fieldName.has(".")) {
+            myaliasedField = fieldName;
+            [aliasName, fieldName] = fieldName.split(".");
         } else {
             aliasName = aliasName ?: getRepository().aliasName();
-            myaliasedField = aliasName ~ "." ~ myfield;
+            myaliasedField = aliasName ~ "." ~ fieldName;
         }
-        aKey = "%s__%s".format(aliasName, myfield);
+        aKey = "%s__%s".format(aliasName, fieldName);
 
         return [aKey: myaliasedField];
     }
@@ -232,17 +232,17 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Runs `aliasField()` for each field in the provided list and returns
      * the result under a single array.
      * Params:
-     * Json[string] myfields The fields to alias
+     * Json[string] fieldNames The fields to alias
      * @param string mydefaultAlias The default alias
      */
-    STRINGAA aliasFields(Json[string] myfields, string mydefaultAlias = null) {
+    STRINGAA aliasFields(Json[string] fieldNames, string mydefaultAlias = null) {
         myaliased = null;
-        foreach (myfields as aliasName: myfield) {
-            if (isNumeric(aliasName) && isString(myfield)) {
-                myaliased += this.aliasField(myfield, mydefaultAlias);
+        foreach (fieldNames as aliasName: fieldName) {
+            if (isNumeric(aliasName) && isString(fieldName)) {
+                myaliased += this.aliasField(fieldName, mydefaultAlias);
                 continue;
             }
-            myaliased[aliasName] = myfield;
+            myaliased[aliasName] = fieldName;
         }
         return myaliased;
     }
@@ -636,25 +636,25 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * all the fields in the schema of the table or the association will be added to
      * the select clause.
      * Params:
-     * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\Closure|string[]|float myfields Fields
+     * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\Closure|string[]|float fieldNames Fields
      * to be added to the list.
      * @param bool myoverwrite whether to reset fields with passed list or not
      */
     auto select(
-        IExpression|Table|Association|Closure|string[]|float myfields = [],
+        IExpression|Table|Association|Closure|string[]|float fieldNames = [],
         bool myoverwrite = false
     ) {
-        if (cast(DAssociation)myfields) {
-            myfields = myfields.getTarget();
+        if (cast(DAssociation)fieldNames) {
+            fieldNames = fieldNames.getTarget();
         }
-        if (cast(Table)myfields) {
+        if (cast(Table)fieldNames) {
             if (this.aliasingEnabled) {
-                myfields = this.aliasFields(myfields.getSchema().columns(), myfields.aliasName());
+                fieldNames = this.aliasFields(fieldNames.getSchema().columns(), fieldNames.aliasName());
             } else {
-                myfields = myfields.getSchema().columns();
+                fieldNames = fieldNames.getSchema().columns();
             }
         }
-        return super.select(myfields, myoverwrite);
+        return super.select(fieldNames, myoverwrite);
     }
     
     /**
@@ -663,13 +663,13 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * Use this instead of calling `select()` then `enableAutoFields()` to re-enable auto-fields.
      * Params:
-     * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\Closure|string[]|float myfields Fields
+     * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\Closure|string[]|float fieldNames Fields
      * to be added to the list.
      */
     auto selectAlso(
-        IExpression|Table|Association|Closure|string[]|float myfields
+        IExpression|Table|Association|Closure|string[]|float fieldNames
     ) {
-        this.select(myfields);
+        this.select(fieldNames);
        _autoFields = true;
 
         return this;
@@ -690,11 +690,11 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         if (cast(DAssociation)mytable) {
             mytable = mytable.getTarget();
         }
-        myfields = array_diff(mytable.getSchema().columns(), myexcludedFields);
+        fieldNames = array_diff(mytable.getSchema().columns(), myexcludedFields);
         if (this.aliasingEnabled) {
-            myfields = this.aliasFields(myfields);
+            fieldNames = this.aliasFields(fieldNames);
         }
-        return _select(myfields, myoverwrite);
+        return _select(fieldNames, myoverwrite);
     }
     
     /**
@@ -1198,8 +1198,8 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
 
         if (!mycomplex) {
             // Expression fields could have bound parameters.
-            foreach (myquery.clause("select") as myfield) {
-                if (cast(IExpression)myfield ) {
+            foreach (myquery.clause("select") as fieldName) {
+                if (cast(IExpression)fieldName ) {
                     mycomplex = true;
                     break;
                 }

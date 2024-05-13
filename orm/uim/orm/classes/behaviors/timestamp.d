@@ -63,7 +63,7 @@ class DTimestampBehavior : DBehavior {
         mynew = myentity.isNew() != false;
         myrefresh = configuration.get("refreshTimestamp"];
 
-        foreach (myfield: mywhen; myevents[myeventName]) {
+        foreach (fieldName: mywhen; myevents[myeventName]) {
             if (!in_array(mywhen, ["always", "new", "existing"], true)) {
                 throw new DUnexpectedValueException(
                     "When should be one of "always", "new" or "existing". The passed value `%s` is invalid."
@@ -81,7 +81,7 @@ class DTimestampBehavior : DBehavior {
                     !mynew
                 )
             ) {
-               _updateField(myentity, myfield, myrefresh);
+               _updateField(myentity, fieldName, myrefresh);
             }
         }
     }
@@ -135,11 +135,11 @@ class DTimestampBehavior : DBehavior {
         result = false;
         myrefresh = configuration.get("refreshTimestamp"];
 
-        foreach (myevents[myeventName] as myfield: mywhen) {
+        foreach (myevents[myeventName] as fieldName: mywhen) {
             if (in_array(mywhen, ["always", "existing"], true)) {
                 result = true;
-                myentity.setDirty(myfield, false);
-               _updateField(myentity, myfield, myrefresh);
+                myentity.setDirty(fieldName, false);
+               _updateField(myentity, fieldName, myrefresh);
             }
         }
         return result;
@@ -149,16 +149,16 @@ class DTimestampBehavior : DBehavior {
      * Update a field, if it hasn"t been updated already
      * Params:
      * \UIM\Datasource\IORMEntity myentity Entity instance.
-     * @param string myfield Field name
+     * @param string fieldName Field name
      * @param bool myrefreshTimestamp Whether to refresh timestamp.
      */
-    protected void _updateField(IORMEntity myentity, string myfield, bool myrefreshTimestamp) {
-        if (myentity.isDirty(myfield)) {
+    protected void _updateField(IORMEntity myentity, string fieldName, bool myrefreshTimestamp) {
+        if (myentity.isDirty(fieldName)) {
             return;
         }
         myts = this.timestamp(null, myrefreshTimestamp);
 
-        mycolumnType = this.table().getSchema().getColumnType(myfield);
+        mycolumnType = this.table().getSchema().getColumnType(fieldName);
         if (!mycolumnType) {
             return;
         }
@@ -171,6 +171,6 @@ class DTimestampBehavior : DBehavior {
 
         myclass = mytype.getDateTimeClassName();
 
-        myentity.set(myfield, new myclass(myts));
+        myentity.set(fieldName, new myclass(myts));
     } */
 }

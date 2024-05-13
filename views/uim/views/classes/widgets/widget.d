@@ -129,11 +129,11 @@ class DWidget : IWidget {
      * @param string fieldNameName Field name.
      */
   protected Json[string] setStep(Json[string] data, IContext formContext, string fieldNameName) {
-    mydbType = formContext.type(myfieldName);
-    myfieldDef = formContext.attributes(myfieldName);
+    mydbType = formContext.type(fieldNameName);
+    fieldNameDef = formContext.attributes(fieldNameName);
 
-    if (mydbType == "decimal" && isSet(myfieldDef["precision"])) {
-      mydecimalPlaces = myfieldDef["precision"];
+    if (mydbType == "decimal" && isSet(fieldNameDef["precision"])) {
+      mydecimalPlaces = fieldNameDef["precision"];
       mydata["step"] = "%." ~ mydecimalPlaces ~ "F".format(pow(10, -1 * mydecimalPlaces));
     }
     elseif(mydbType == "float") {

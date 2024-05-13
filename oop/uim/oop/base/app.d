@@ -148,24 +148,26 @@ class DApp {
      * ```
      *
      * Will return the value of `App.paths.plugins` config.
-     *
      * For plugins it can be used to get paths for types `templates` or `locales`.
-     * Params:
-     * string pathType Type of path
-     * @param string plugin Plugin name
      */
     static string[] path(string pathType, string pluginName = null) {
-        if (plugin.isNull) {
-            return (array)Configuration.read("App.paths." ~ type);
+        // TODO
+
+        /* 
+        if (pluginName.isNull) {
+            return (array)Configuration.read("App.paths." ~ pathType);
         }
+        
         return match (type) {
-            'templates": [Plugin.templatePath(plugin)],
-            'locales": [Plugin.path(plugin) ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales" ~ DIRECTORY_SEPARATOR],
+            "templates": [Plugin.templatePath(plugin)],
+            "locales": [Plugin.path(plugin) ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales" ~ DIRECTORY_SEPARATOR],
             default: throw new UimException(
                 "Invalid type `%s`. Only path types `templates` and `locales` are supported for plugins."
                 .format(type
             ))
         };
+        */
+        return null; 
     }
     
     /**

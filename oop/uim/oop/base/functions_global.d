@@ -26,7 +26,7 @@ module uim.oop.base.functions_global;
      * @param string plugin Optional default plugin to use if no plugin is found. Defaults to null.
      */
     Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string pluginName = null) {
-        return uimPluginSplit(nameToSplit, dotAppend, plugin);
+        return uimPluginSplit(nameToSplit, dotAppend, pluginName);
     }
 
 if (!function_exists("namespaceSplit")) {

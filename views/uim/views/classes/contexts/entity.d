@@ -227,12 +227,12 @@ class DEntityContext : DContext {
         if (mytable.isNull) {
             return null;
         }
-        myfield = end(pathParts);
+        fieldName = end(pathParts);
         mydefaults = mytable.getSchema().defaultValues();
-        if (myfield == false || !array_key_exists(myfield, mydefaults)) {
+        if (fieldName == false || !array_key_exists(fieldName, mydefaults)) {
             return null;
         }
-        return mydefaults[myfield];
+        return mydefaults[fieldName];
     }
     
     /**
@@ -365,19 +365,19 @@ class DEntityContext : DContext {
     /**
      * Read property values or traverse arrays/iterators.
      * Params:
-     * Json mytarget The entity/array/collection to fetch myfield from.
-     * @param string myfield The next field to fetch.
+     * Json mytarget The entity/array/collection to fetch fieldName from.
+     * @param string fieldName The next field to fetch.
      */
-    protected Json _getProp(Json mytarget, string myfield) {
-        if (isArray(mytarget) && isSet(mytarget[myfield])) {
-            return mytarget[myfield];
+    protected Json _getProp(Json mytarget, string fieldName) {
+        if (isArray(mytarget) && isSet(mytarget[fieldName])) {
+            return mytarget[fieldName];
         }
         if (cast(IEntity)mytarget) {
-            return mytarget.get(myfield);
+            return mytarget.get(fieldName);
         }
         if (cast(Traversable)mytarget) {
             foreach (mytarget as myi: myval) {
-                if (to!string(myi) == myfield) {
+                if (to!string(myi) == fieldName) {
                     return myval;
                 }
             }
@@ -389,10 +389,10 @@ class DEntityContext : DContext {
     /**
      * Check if a field should be marked as required.
      * Params:
-     * string myfield The dot separated path to the field you want to check.
+     * string fieldName The dot separated path to the field you want to check.
      */
-    bool isRequired(string myfield) {
-        string[] pathParts = myfield.split(".");
+    bool isRequired(string fieldName) {
+        string[] pathParts = fieldName.split(".");
         auto myentity = this.entity(pathParts);
 
         auto myisNew = true;
@@ -400,29 +400,29 @@ class DEntityContext : DContext {
             myisNew = myentity.isNew();
         }
         auto myvalidator = _getValidator(pathParts);
-        auto myfieldName = array_pop(pathParts);
-        if (!myvalidator.hasField(myfieldName)) {
+        auto fieldNameName = array_pop(pathParts);
+        if (!myvalidator.hasField(fieldNameName)) {
             return null;
         }
-        if (this.type(myfield) != "boolean") {
-            return !myvalidator.isEmptyAllowed(myfieldName, myisNew);
+        if (this.type(fieldName) != "boolean") {
+            return !myvalidator.isEmptyAllowed(fieldNameName, myisNew);
         }
         return false;
     }
  
-    string getRequiredMessage(string myfield) {
-        string[] pathParts = myfield.split(".");
+    string getRequiredMessage(string fieldName) {
+        string[] pathParts = fieldName.split(".");
 
         myvalidator = _getValidator(pathParts);
-        myfieldName = array_pop(pathParts);
-        if (!myvalidator.hasField(myfieldName)) {
+        fieldNameName = array_pop(pathParts);
+        if (!myvalidator.hasField(fieldNameName)) {
             return null;
         }
-        myruleset = myvalidator.field(myfieldName);
+        myruleset = myvalidator.field(fieldNameName);
         if (myruleset.isEmptyAllowed()) {
             return null;
         }
-        return myvalidator.getNotEmptyMessage(myfieldName);
+        return myvalidator.getNotEmptyMessage(fieldNameName);
     }
     
     /**
@@ -433,10 +433,10 @@ class DEntityContext : DContext {
     int getMaxLength(string fieldPath) {
         string[] pathParts = fieldPath.split(".");
         auto myvalidator = _getValidator(pathParts);
-        auto myfieldName = array_pop(pathParts);
+        auto fieldNameName = array_pop(pathParts);
 
-        if (myvalidator.hasField(myfieldName)) {
-            foreach (myrule; myvalidator.field(myfieldName).rules()) {
+        if (myvalidator.hasField(fieldNameName)) {
+            foreach (myrule; myvalidator.field(fieldNameName).rules()) {
                 if (myrule.get("rule") == "maxLength") {
                     return myrule.get("pass")[0];
                 }

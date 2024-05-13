@@ -60,20 +60,20 @@ class DFormContext : DContext {
     }
  
     /*
-    auto val(string myfield, Json[string] options  = null) {
+    auto val(string fieldName, Json[string] options  = null) {
         auto updatedOptions = options.update[
             "default": Json(null),
             "schemaDefault": true.toJson,
         ];
 
-        myval = _form[myfield);
+        myval = _form[fieldName);
         if (myval !isNull) {
             return myval;
         }
         if (!options["default"].isNull || !options["schemaDefault"]) {
             return options["default"];
         }
-        return _schemaDefault(myfield);
+        return _schemaDefault(fieldName);
     }
 
     // Get default value from form schema for given field.
@@ -85,45 +85,45 @@ class DFormContext : DContext {
         return fieldSchema["default"];
     } */
  
-    bool isRequired(string myfield) {
+    bool isRequired(string fieldName) {
         /* auto formValidator = _form.getValidator(_validatorName);
-        if (!formValidator.hasField(myfield)) {
+        if (!formValidator.hasField(fieldName)) {
             return false;
         } 
-        if (this.type(myfield) != "boolean") {
-            return !formValidator.isEmptyAllowed(myfield, this.isCreate());
+        if (this.type(fieldName) != "boolean") {
+            return !formValidator.isEmptyAllowed(fieldName, this.isCreate());
         } */ 
         return false;
     }
  
     /* 
-    string getRequiredMessage(string myfield) {
-        string[] myparts = myfield.split(".");
+    string getRequiredMessage(string fieldName) {
+        string[] myparts = fieldName.split(".");
 
         auto myvalidator = _form.getValidator(_validatorName);
-        auto myfieldName = array_pop(myparts);
-        if (!myvalidator.hasField(myfieldName)) {
+        auto fieldNameName = array_pop(myparts);
+        if (!myvalidator.hasField(fieldNameName)) {
             return null;
         }
 
-        auto myruleset = myvalidator.field(myfieldName);
+        auto myruleset = myvalidator.field(fieldNameName);
         if (!myruleset.isEmptyAllowed()) {
-            return myvalidator.getNotEmptyMessage(myfieldName);
+            return myvalidator.getNotEmptyMessage(fieldNameName);
         }
         return null;
     }
  
-    int getMaxLength(string myfield) {
+    int getMaxLength(string fieldName) {
         auto myvalidator = _form.getValidator(_validatorName);
-        if (!myvalidator.hasField(myfield)) {
+        if (!myvalidator.hasField(fieldName)) {
             return null;
         }
-        foreach (myvalidator.field(myfield).rules() as myrule) {
+        foreach (myvalidator.field(fieldName).rules() as myrule) {
             if (myrule.get("rule") == "maxLength") {
                 return myrule.get("pass")[0];
             }
         }
-        myattributes = this.attributes(myfield);
+        myattributes = this.attributes(fieldName);
         if (myattributes.isEmpty("length")) {
             return null;
         }
@@ -134,26 +134,26 @@ class DFormContext : DContext {
         return _form.getSchema().fields();
     }
  
-    string type(string myfield) {
-        return _form.getSchema().fieldType(myfield);
+    string type(string fieldName) {
+        return _form.getSchema().fieldType(fieldName);
     }
  
-    array attributes(string myfield) {
+    array attributes(string fieldName) {
         return array_intersect_key(
-            (array)_form.getSchema().field(myfield),
+            (array)_form.getSchema().field(fieldName),
             array_flip(VALID_ATTRIBUTES)
         );
     }
  
-    bool hasError(string myfield) {
-        myerrors = this.error(myfield);
+    bool hasError(string fieldName) {
+        myerrors = this.error(fieldName);
 
         return count(myerrors) > 0;
     } */
 
-    DError[] error(string myfield) {
+    DError[] error(string fieldName) {
         return null;
-        // TODO return (array)Hash.get(_form.getErrors(), myfield, []);
+        // TODO return (array)Hash.get(_form.getErrors(), fieldName, []);
     }
 }
 mixin(ContextCalls!("Form"));

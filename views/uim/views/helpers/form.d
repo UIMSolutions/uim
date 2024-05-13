@@ -454,16 +454,16 @@ class DFormHelper : DHelper {
      * the hidden input tags generated for the Security Component. This is
      * especially useful to set HTML5 attributes like "form".
      * Params:
-     * array myfields If set specifies the list of fields to be added to
+     * array fieldNames If set specifies the list of fields to be added to
      *   FormProtector for generating the hash.
      * @param Json[string] mysecureAttributes will be passed as HTML attributes into the hidden
      *   input elements generated for the Security Component.
      */
-    string secure(Json[string] myfields = [], Json[string] mysecureAttributes = []) {
+    string secure(Json[string] fieldNames = [], Json[string] mysecureAttributes = []) {
         if (!this.formProtector) {
             return "";
         }
-        foreach (myfields as fieldName: myvalue) {
+        foreach (fieldNames as fieldName: myvalue) {
             if (isInt(fieldName)) {
                 fieldName = myvalue;
                 myvalue = null;
@@ -677,8 +677,8 @@ class DFormHelper : DHelper {
                 mytext = substr(mytext, 0, -5);
             }
             if (mytext.has(".")) {
-                string[] myfieldElements = mytext.split(".");
-                mytext = array_pop(myfieldElements);
+                string[] fieldNameElements = mytext.split(".");
+                mytext = array_pop(fieldNameElements);
             }
             if (mytext.endsWith("_id")) {
                 mytext = substr(mytext, 0, -3);
@@ -705,10 +705,10 @@ class DFormHelper : DHelper {
     }
     
     /**
-     * Generate a set of controls for `myfields`. If myfields is empty the fields
+     * Generate a set of controls for `fieldNames`. If fieldNames is empty the fields
      * of current model will be used.
      *
-     * You can customize individual controls through `myfields`.
+     * You can customize individual controls through `fieldNames`.
      * ```
      * this.Form.allControls([
      *  "name": ["label": "custom label"]
@@ -723,7 +723,7 @@ class DFormHelper : DHelper {
      *
      * In the above example, no field would be generated for the title field.
      * Params:
-     * array myfields An array of customizations for the fields that will be
+     * array fieldNames An array of customizations for the fields that will be
      *  generated. This array allows you to set custom types, labels, or other options.
      * @param Json[string] options Options array. Valid keys are:
      *
@@ -733,23 +733,23 @@ class DFormHelper : DHelper {
      * - `legend` Set to false to disable the legend for the generated control set. Or supply a string
      *   to customize the legend text.
      */
-    string allControls(Json[string] myfields = [], Json[string] options  = null) {
+    string allControls(Json[string] fieldNames = [], Json[string] options  = null) {
         mycontext = _getContext();
 
         mymodelFields = mycontext.fieldNames();
 
-        myfields = array_merge(
+        fieldNames = array_merge(
             Hash.normalize(mymodelFields),
-            Hash.normalize(myfields)
+            Hash.normalize(fieldNames)
         );
 
-        return _controls(myfields, options);
+        return _controls(fieldNames, options);
     }
     
     /**
-     * Generate a set of controls for `myfields` wrapped in a fieldset element.
+     * Generate a set of controls for `fieldNames` wrapped in a fieldset element.
      *
-     * You can customize individual controls through `myfields`.
+     * You can customize individual controls through `fieldNames`.
      * ```
      * this.Form.controls([
      *  "name": ["label": "custom label"],
@@ -757,7 +757,7 @@ class DFormHelper : DHelper {
      * ]);
      * ```
      * Params:
-     * array myfields An array of the fields to generate. This array allows
+     * array fieldNames An array of the fields to generate. This array allows
      *  you to set custom types, labels, or other options.
      * @param Json[string] options Options array. Valid keys are:
      *
@@ -767,11 +767,11 @@ class DFormHelper : DHelper {
      * - `legend` Set to false to disable the legend for the generated input set.
      *   Or supply a string to customize the legend text.
      */
-    string controls(Json[string] myfields, Json[string] options  = null) {
-        myfields = Hash.normalize(myfields);
+    string controls(Json[string] fieldNames, Json[string] options  = null) {
+        fieldNames = Hash.normalize(fieldNames);
 
         result = "";
-        foreach (myfields as views: myopts) {
+        foreach (fieldNames as views: myopts) {
             if (myopts == false) {
                 continue;
             }
@@ -783,7 +783,7 @@ class DFormHelper : DHelper {
     /**
      * Wrap a set of inputs in a fieldset
      * Params:
-     * string myfields the form inputs to wrap in a fieldset
+     * string fieldNames the form inputs to wrap in a fieldset
      * @param Json[string] options Options array. Valid keys are:
      *
      * - `fieldset` Set to false to disable the fieldset. You can also pass an array of params to be
@@ -792,11 +792,11 @@ class DFormHelper : DHelper {
      * - `legend` Set to false to disable the legend for the generated input set. Or supply a string
      *   to customize the legend text.
      */
-    string fieldset(string myfields = "", Json[string] options  = null) {
+    string fieldset(string fieldNames = "", Json[string] options  = null) {
         auto mylegend = options["legend"] ?? true;
-        auto myfieldset = options["fieldset"] ?? true;
+        auto fieldNameset = options["fieldset"] ?? true;
         auto mycontext = _getContext();
-        auto result = myfields;
+        auto result = fieldNames;
 
         if (mylegend == true) {
             myisCreate = mycontext.isCreate();
@@ -808,15 +808,15 @@ class DFormHelper : DHelper {
                 ? __d("uim", "Edit {0}", mymodelName)
                 : __d("uim", "New {0}", mymodelName);
         }
-        if (myfieldset != false) {
+        if (fieldNameset != false) {
             if (mylegend) {
                 result = this.formatTemplate("legend", ["text": mylegend]) ~ result;
             }
-            myfieldsetParams = ["content": result, "attrs": ""];
-            if (isArray(myfieldset) && !myfieldset.isEmpty) {
-                myfieldsetParams["attrs"] = this.templater().formatAttributes(myfieldset);
+            fieldNamesetParams = ["content": result, "attrs": ""];
+            if (isArray(fieldNameset) && !fieldNameset.isEmpty) {
+                fieldNamesetParams["attrs"] = this.templater().formatAttributes(fieldNameset);
             }
-            result = this.formatTemplate("fieldset", myfieldsetParams);
+            result = this.formatTemplate("fieldset", fieldNamesetParams);
         }
         return result;
     }
@@ -1606,15 +1606,15 @@ class DFormHelper : DHelper {
             this.formProtector = this.createFormProtector(myformTokenData);
         }
         
-        auto myfields = null;
+        auto fieldNames = null;
         if (isSet(options["data"]) && isArray(options["data"])) {
             Hash.flatten(options["data"]).each!((kv) {
-                myfields[kv.key] = kv.value;
+                fieldNames[kv.key] = kv.value;
                 result ~= this.hidden(kv.key, ["value": kv.value, "secure": SECURE_SKIP]);
             });
             options.remove("data"]);
         }
-        result ~= this.secure(myfields);
+        result ~= this.secure(fieldNames);
         result ~= this.formatTemplate("formEnd", []);
 
        _lastAction = myrestoreAction;

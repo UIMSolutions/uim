@@ -46,15 +46,15 @@ class DNullContext : DContext {
         return null;
     }
  
-    /* Json[string] attributes(string myfield) {
+    /* Json[string] attributes(string fieldName) {
         return null;
     } */
  
-    bool hasError(string myfield) {
+    bool hasError(string fieldName) {
         return false;
     }
  
-   /* Json[string] error(string myfield) {
+   /* Json[string] error(string fieldName) {
         return null;
     } */
 }

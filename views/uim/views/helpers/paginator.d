@@ -318,15 +318,15 @@ class DPaginatorHelper : DHelper {
 
         mysortKey = to!string(this.param("sort"));
         aliasName = this.param("alias");
-        [mytable, myfield] = (aKey ~ ".").split(".");
-        if (!myfield) {
-            myfield = mytable;
+        [mytable, fieldName] = (aKey ~ ".").split(".");
+        if (!fieldName) {
+            fieldName = mytable;
             mytable = aliasName;
         }
         myisSorted = (
-            mysortKey == mytable ~ "." ~ myfield ||
+            mysortKey == mytable ~ "." ~ fieldName ||
             mysortKey == aliasName ~ "." ~ aKey ||
-            mytable ~ "." ~ myfield == aliasName ~ "." ~ mysortKey
+            mytable ~ "." ~ fieldName == aliasName ~ "." ~ mysortKey
         );
 
         mytemplate = "sort";
@@ -448,20 +448,20 @@ class DPaginatorHelper : DHelper {
     /**
      * Remove alias if needed.
      * Params:
-     * string myfield Current field
+     * string fieldName Current field
      */
-    protected string _removeAlias(string myfield, string aliasName = null) {
+    protected string _removeAlias(string fieldName, string aliasName = null) {
         mycurrentModel = aliasName ?: this.param("alias");
 
-        if (!myfield.has(".")) {
-            return myfield;
+        if (!fieldName.has(".")) {
+            return fieldName;
         }
-        [aliasName, mycurrentField] = myfield.split(".");
+        [aliasName, mycurrentField] = fieldName.split(".");
 
         if (aliasName == mycurrentModel) {
             return mycurrentField;
         }
-        return myfield;
+        return fieldName;
     }
     
     /**

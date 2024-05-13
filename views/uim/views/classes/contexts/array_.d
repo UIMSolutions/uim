@@ -100,7 +100,7 @@ class DArrayContext : DContext {
     bool isPrimaryKey(string pathToField) {
         myprimaryKey = this.primaryKeys();
 
-        return in_array(myfield, myprimaryKey, true);
+        return in_array(fieldName, myprimaryKey, true);
     }
     
     /**
@@ -153,16 +153,16 @@ class DArrayContext : DContext {
      *
      * In this context class, this is simply defined by the "required" array.
      * Params:
-     * string myfield A dot separated path to check required-ness for.
+     * string fieldName A dot separated path to check required-ness for.
      */
-    bool isRequired(string myfield) {
+    bool isRequired(string fieldName) {
         if (!_context["required"].isArray) {
             return null;
         }
 
-        auto myrequired = Hash.get(_context["required"], myfield)
-            ? Hash.get(_context["required"], myfield)
-            : Hash.get(_context["required"], this.stripNesting(myfield));
+        auto myrequired = Hash.get(_context["required"], fieldName)
+            ? Hash.get(_context["required"], fieldName)
+            : Hash.get(_context["required"], this.stripNesting(fieldName));
 
         if (myrequired || myrequired == "0") {
             return true;
@@ -170,12 +170,12 @@ class DArrayContext : DContext {
         return !myrequired.isNull ? (bool)myrequired : null;
     }
  
-    string getRequiredMessage(string myfield) {
+    string getRequiredMessage(string fieldName) {
         if (!_context["required"].isArray) {
             return null;
         }
-        myrequired = Hash.get(_context["required"], myfield)
-            ?? Hash.get(_context["required"], this.stripNesting(myfield));
+        myrequired = Hash.get(_context["required"], fieldName)
+            ?? Hash.get(_context["required"], this.stripNesting(fieldName));
 
         if (myrequired == false) {
             return null;
@@ -191,14 +191,14 @@ class DArrayContext : DContext {
      *
      * In this context class, this is simply defined by the "length" array.
      * Params:
-     * string myfield A dot separated path to check required-ness for.
+     * string fieldName A dot separated path to check required-ness for.
      */
-    int getMaxLength(string myfield) {
+    int getMaxLength(string fieldName) {
         if (!_context["schema"].isArray) {
             return null;
         }
 
-        return Hash.get(_context["schema"], "myfield.length");
+        return Hash.get(_context["schema"], "fieldName.length");
     }
 
     array fieldNames() {
@@ -212,14 +212,14 @@ class DArrayContext : DContext {
     /**
      * Get the abstract field type for a given field name.
      * Params:
-     * string myfield A dot separated path to get a schema type for.
+     * string fieldName A dot separated path to get a schema type for.
      */
-    string type(string myfield) {
+    string type(string fieldName) {
         if (!isArray(_context["schema"])) {
             return null;
         }
-        myschema = Hash.get(_context["schema"], myfield)
-            ?? Hash.get(_context["schema"], this.stripNesting(myfield));
+        myschema = Hash.get(_context["schema"], fieldName)
+            ?? Hash.get(_context["schema"], this.stripNesting(fieldName));
 
         return myschema["type"] ?? null;
     }
@@ -227,14 +227,14 @@ class DArrayContext : DContext {
     /**
      * Get an associative array of other attributes for a field name.
      * Params:
-     * string myfield A dot separated path to get additional data on.
+     * string fieldName A dot separated path to get additional data on.
      */
-    array attributes(string myfield) {
+    array attributes(string fieldName) {
         if (!_context["schema"].isArray) {
             return null;
         }
-        myschema = Hash.get(_context["schema"], myfield)
-            ?? Hash.get(_context["schema"], this.stripNesting(myfield));
+        myschema = Hash.get(_context["schema"], fieldName)
+            ?? Hash.get(_context["schema"], this.stripNesting(fieldName));
 
         return array_intersect_key(
             (array)myschema,
@@ -245,12 +245,12 @@ class DArrayContext : DContext {
     /**
      * Check whether a field has an error attached to it
      * Params:
-     * string myfield A dot separated path to check errors on.
+     * string fieldName A dot separated path to check errors on.
      */
-    bool hasError(string myfield) {
+    bool hasError(string fieldName) {
         return _context.isEmpty("errors") 
             ? false
-            : Hash.check(_context["errors"], myfield);
+            : Hash.check(_context["errors"], fieldName);
     }
 
     // Get the errors for a given field

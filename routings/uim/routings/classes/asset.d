@@ -36,7 +36,7 @@ class DAsset {
      *       enable timestamping regardless of debug value.
      */
     static string imageUrl(string aPath, Json[string] options = null) {
-        auto somePathPrefix = Configuration.read("App.imageBaseUrl");
+        auto somePathPrefix = configuration.get("App.imageBaseUrl");
 
         return url(somePath, options + compact("pathPrefix"));
     }
@@ -59,7 +59,7 @@ class DAsset {
      *       enable timestamping regardless of debug value.
      */
     static string cssUrl(string aPath, Json[string] options = null) {
-        somePathPrefix = Configuration.read("App.cssBaseUrl");
+        somePathPrefix = configuration.get("App.cssBaseUrl");
         ext = ".css";
 
         return url(somePath, options + compact("pathPrefix", "ext"));
@@ -83,7 +83,7 @@ class DAsset {
      *       enable timestamping regardless of debug value.
      */
     static string scriptUrl(string aPath, Json[string] options = null) {
-        somePathPrefix = Configuration.read("App.jsBaseUrl");
+        somePathPrefix = configuration.get("App.jsBaseUrl");
         auto assetExtension = ".js";
 
         return url(somePath, options + compact("pathPrefix", assetExtension));
@@ -194,15 +194,15 @@ class DAsset {
         if (somePath.has("?")) {
             return somePath;
         }
-        timestamp ??= Configuration.read("Asset.timestamp");
-        timestampEnabled = timestamp == "force" || (timestamp == true && Configuration.read("debug"));
+        timestamp ??= configuration.get("Asset.timestamp");
+        timestampEnabled = timestamp == "force" || (timestamp == true && configuration.get("debug"));
         if (timestampEnabled) {
             filepath = (string)preg_replace(
                 "/^" ~ preg_quote(requestWebroot(), "/") ~ "/",
                 "",
                 urldecode(somePath)
             );
-            webrootPath = Configuration.read("App.wwwRoot") ~ filepath.replace("/", DIRECTORY_SEPARATOR);
+            webrootPath = configuration.get("App.wwwRoot") ~ filepath.replace("/", DIRECTORY_SEPARATOR);
             if (isFile(webrootPath)) {
                 return somePath ~ "?" ~ filemtime(webrootPath);
             }
@@ -254,7 +254,7 @@ class DAsset {
             if (DIRECTORY_SEPARATOR == "\\") {
                 file = file.replace("/", "\\");
             }
-            if (isFile(Configuration.read("App.wwwRoot") ~ theme ~ file)) {
+            if (isFile(configuration.get("App.wwwRoot") ~ theme ~ file)) {
                 webPath = requestWebroot ~ theme ~ asset[0];
             } else {
                 themePath = Plugin.path(themeName);

@@ -424,7 +424,7 @@ mixin template TIntegrationTest() {
      * \Throwable exceptionToHandle Exception to handle.
      */
     protected void _handleError(Throwable exceptionToHandle) {
-         className = configuration.read("Error.exceptionRenderer");
+         className = configuration.get("Error.exceptionRenderer");
         if (className.isEmpty || !class_exists(className)) {
              className = WebExceptionRenderer.classname;
         }
@@ -441,7 +441,7 @@ mixin template TIntegrationTest() {
      * @param string[] adata The request data.
      */
     // TODO protected Json[string] _buildRequest(string aurl, string amethod, string[] adata = []) {
-        sessionConfig = (array)configuration.read("Session") ~ [
+        sessionConfig = (array)configuration.get("Session") ~ [
             "defaults": "D",
         ];
         session = Session.create(sessionConfig);

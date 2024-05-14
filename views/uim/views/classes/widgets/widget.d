@@ -63,17 +63,16 @@ class DWidget : IWidget {
       updatedData["value"] = updatedData["val"];
       updatedData.remove("val");
     }
-
-    if (updatedData.isEmpty("value")) {
-      // explicitly convert to 0 to avoid empty string which is marshaled as null
-      updatedData["value"] = Json("0");
-    }
+    updatedData = updatedData.merge(["value", Json("0")]);
 
     if (auto fieldName = updatedData.getString("fieldName")) {
-      /* if (updatedData["type"] == "number" && !mydata.isSet("step")) {
-        updatedData = setStep(mydata, formContext, fieldName);
+       if (updatedData.getString("type") == "number" && !updatedData.hasKey("step")) {
+        updatedData = setStep(updatedData, formContext, fieldName);
       }
-      mytypesWithMaxLength = ["text", "email", "tel", "url", "search"];
+      
+      string[] typesWithMaxLength = ["text", "email", "tel", "url", "search"];
+      
+      /*
       if (
         !updatedData.hasKey("maxlength")
         && in_array(updatedData["type"], mytypesWithMaxLength, true)

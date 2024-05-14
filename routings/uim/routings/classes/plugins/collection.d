@@ -58,7 +58,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      */
     // TODO 
     /* void addFromConfig(Json Data = null) {
-        auto debugData = Configuration.read("debug");
+        auto debugData = configuration.get("debug");
         auto cli = UIM_SAPI == "cli";
 
         foreach (name, options; Hash.normalize(Data)) {
@@ -124,7 +124,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
         // TODO _loadConfig();
 
         // TODO
-        /* auto somePath = Configuration.read("plugins." ~ pluginName);
+        /* auto somePath = configuration.get("plugins." ~ pluginName);
         if (somePath) {
             return somePath;
         } 

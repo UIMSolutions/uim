@@ -55,7 +55,7 @@ class DFormProtector {
         if (hash_equals(generatedToken, extractedToken)) {
             return true;
         }
-        if (Configuration.read("debug")) {
+        if (configuration.get("debug")) {
             debugMessage = this.debugTokenNotMatching(formData, hashParts + compact("url", "sessionId"));
             if (debugMessage) {
                 this.debugMessage = debugMessage;
@@ -192,7 +192,7 @@ class DFormProtector {
 
             return null;
         }
-        if (Configuration.read("debug") && !isSet(formData["_Token"]["debug"])) {
+        if (configuration.get("debug") && !isSet(formData["_Token"]["debug"])) {
             this.debugMessage = message.format("_Token.debug");
 
             return null;

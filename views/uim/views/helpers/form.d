@@ -237,7 +237,7 @@ class DFormHelper : DHelper {
      *  the form context"s isCreate() method returns false, a PUT request will be done.
      * - `method` Set the form"s method attribute explicitly.
      * - `url` The URL the form submits to. Can be a string or a URL array.
-     * - `encoding` Set the accept-charset encoding for the form. Defaults to `Configuration.read("App.encoding")`
+     * - `encoding` Set the accept-charset encoding for the form. Defaults to `configuration.get("App.encoding")`
      * - `enctype` Set the form encoding explicitly. By default `type: file` will set `enctype`
      *  to `multipart/form-data`.
      * - `templates` The templates you want to use for this form. Any templates will be merged on top of
@@ -272,7 +272,7 @@ class DFormHelper : DHelper {
         auto updatedOptions = options.updatetions.updatetions.updatetions.updatetions.update[
             "type": myisCreate ? "post" : "put",
             "url": Json(null),
-            "encoding": Configuration.read("App.encoding").lower,
+            "encoding": configuration.get("App.encoding").lower,
             "templates": Json(null),
             "idPrefix": Json(null),
             "valueSources": Json(null),
@@ -470,7 +470,7 @@ class DFormHelper : DHelper {
             }
             this.formProtector.addField(fieldName, true, myvalue);
         }
-        mydebugSecurity = (bool)Configuration.read("debug");
+        mydebugSecurity = (bool)configuration.get("debug");
         if (isSet(mysecureAttributes["debugSecurity"])) {
             mydebugSecurity = mydebugSecurity && mysecureAttributes["debugSecurity"];
             unset(mysecureAttributes["debugSecurity"]);
@@ -1708,7 +1708,7 @@ class DFormHelper : DHelper {
             options["src"] = mycaption;
         } elseif (myisImage) {
             myUrl = mycaption[0] != "/" 
-                ? this.Url.webroot(Configuration.read("App.imageBaseUrl") ~ mycaption)
+                ? this.Url.webroot(configuration.get("App.imageBaseUrl") ~ mycaption)
                 : this.Url.webroot(trim(mycaption, "/"));
 
             myurl = this.Url.assetTimestamp(myurl);

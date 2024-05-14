@@ -134,7 +134,7 @@ class DInflector {
   ];
 
   // Method cache array.
-  protected static IData[string] _cache;
+  protected static Json[string] _cache;
 
   // The initial state of Inflector so reset() works.
   protected static Json[string] _initialState = null;

@@ -12,7 +12,7 @@ import uim.oop;
  * for future use.
  */
 class DFileConfigEngine {
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         return true;
     }
 
@@ -48,7 +48,7 @@ class DFileConfigEngine {
      * ]);
      * ```
      * Params:
-     * IData[string]|string configData The key to write, can be a dot notation value.
+     * Json[string]|string configData The key to write, can be a dot notation value.
      * Alternatively can be an array containing key(s) and value(s).
      * @param Json aValue Value to set for the given key.
      * /
@@ -89,7 +89,7 @@ class DFileConfigEngine {
      * string var Variable to obtain. Use '.' to access array elements.
      * @param Json defaultValue The return value when the configure does not exist
      * /
-    static Json read(string avar = null, IData defaultData = null) {
+    static Json read(string avar = null, Json defaultData = null) {
         if (var.isNull) {
             return _values;
         }

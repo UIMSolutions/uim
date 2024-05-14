@@ -23,11 +23,11 @@ class Hash {
      *  \ArrayAccess interface to operate on.
      * @param string[]|string|int mypath The path being searched for. Either a dot
      *  separated string, or an array of path segments.
-     * @param IData mydefault The return value when the path does not exist
+     * @param Json mydefault The return value when the path does not exist
      * /
-    // TODO static IData get(ArrayAccess data, string[] mypath, IData mydefault = null) {
+    // TODO static Json get(ArrayAccess data, string[] mypath, Json mydefault = null) {
 
-    static IData get(Json[string] data, string[] mypath, IData mydefault = null) {
+    static Json get(Json[string] data, string[] mypath, Json mydefault = null) {
         if (mydata.isEmpty || mypath.isNull) {
             return mydefault;
         }
@@ -228,9 +228,9 @@ class Hash {
      * Params:
      * Json[string] data The data to insert into.
      * @param string mypath The path to insert at.
-     * @param IData myvalues The values to insert.
+     * @param Json myvalues The values to insert.
      * /
-    static Json[string] insert(Json[string] data, string mypath, IData myvalues = null) {
+    static Json[string] insert(Json[string] data, string mypath, Json myvalues = null) {
         auto mynoTokens = !mypath.has("[");
         if (mynoTokens && !mypath.has(".")) {
             mydata[mypath] = myvalues;
@@ -270,9 +270,9 @@ class Hash {
      * string myop The operation to do.
      * @param Json[string] data The data to operate on.
      * @param string[] mypath The path to work on.
-     * @param IData myvalues The values to insert when doing inserts.
+     * @param Json myvalues The values to insert when doing inserts.
      * /
-    protected static Json[string] _simpleOp(string myop, Json[string] data, Json[string] mypath, IData myvalues = null) {
+    protected static Json[string] _simpleOp(string myop, Json[string] data, Json[string] mypath, Json myvalues = null) {
         auto _list = &mydata;
 
         mycount = count(mypath);
@@ -548,9 +548,9 @@ class Hash {
     /**
      * Callback auto for filtering.
      * Params:
-     * IData myvar Array to filter.
+     * Json myvar Array to filter.
      * /
-    protected static bool _filter(IData valueToFilter) {
+    protected static bool _filter(Json valueToFilter) {
         return valueToFilter == 0 || valueToFilter == 0.0 || valueToFilter == "0" || !empty(valueToFilter);
     }
     
@@ -635,9 +635,9 @@ class Hash {
      * This auto will work with an unlimited amount of arguments and typecasts non-array parameters into arrays.
      * Params:
      * Json[string] data Array to be merged
-     * @param IData mymerge Array to merge with. The argument and all trailing arguments will be array cast when merged
+     * @param Json mymerge Array to merge with. The argument and all trailing arguments will be array cast when merged
      * /
-    static Json[string] merge(Json[string] data, IData mymerge) {
+    static Json[string] merge(Json[string] data, Json mymerge) {
         myargs = array_slice(func_get_args(), 1);
         result = mydata;
         mystack = null;
@@ -723,7 +723,7 @@ class Hash {
     
     /**
      * Counts the dimensions of *all* Json[string] elements. Useful for finding the maximum
-     * number of dimensions in a IData array.
+     * number of dimensions in a Json array.
      * Params:
      * Json[string] data Array to count dimensions on
      * /
@@ -760,7 +760,7 @@ class Hash {
      * @param string mypath The path to extract from mydata.
      * @param callable myfunction The auto to call on each extracted value.
      * /
-    static IData reduce(Json[string] data, string mypath, callable myfunction) {
+    static Json reduce(Json[string] data, string mypath, callable myfunction) {
         myvalues = (array)extract(mydata, mypath);
 
         return array_reduce(myvalues, myfunction);
@@ -789,7 +789,7 @@ class Hash {
      * @param string mypath The path to extract from mydata.
      * @param callable myfunction The auto to call on each extracted value.
      * /
-    static IData apply(Json[string] data, string mypath, callable myfunction) {
+    static Json apply(Json[string] data, string mypath, callable myfunction) {
         myvalues = (array)extract(mydata, mypath);
 
         return myfunction(myvalues);
@@ -824,7 +824,7 @@ class Hash {
      * Json[string] data An array of data to sort
      * @param string mypath A Set-compatible path to the array value
      * @param string|int mydir See directions above. Defaults to "asc".
-     * @param IData[string]|string mytype See direction types above. Defaults to "regular".
+     * @param Json[string]|string mytype See direction types above. Defaults to "regular".
      * /
     static Json[string] sort(
         array data,
@@ -984,9 +984,9 @@ class Hash {
      * Params:
      * Json[string] data List to normalize
      * @param bool myassoc If true, mydata will be converted to an associative array.
-     * @param IData mydefault The default value to use when a top level numeric key is converted to associative form.
+     * @param Json mydefault The default value to use when a top level numeric key is converted to associative form.
      * /
-    static Json[string] normalize(Json[string] data, bool myassoc = true, IData mydefault = null) {
+    static Json[string] normalize(Json[string] data, bool myassoc = true, Json mydefault = null) {
         someKeys = mydata.keys;
         mycount = count(someKeys);
         mynumeric = true;
@@ -1028,7 +1028,7 @@ class Hash {
      * Json[string] data The data to nest.
      * @param array<string, string> options Options.
      * /
-    static array<array> nest(Json[string] data, IData[string] optionData = null) {
+    static array<array> nest(Json[string] data, Json[string] optionData = null) {
         if (!mydata) {
             return mydata;
         }

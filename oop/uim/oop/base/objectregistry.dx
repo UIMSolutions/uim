@@ -43,7 +43,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * string aName The name/class of the object to load.
      * configData - Additional settings to use when loading the object.
      */
-  Object load(string objectName, IData[string] configData = null) {
+  Object load(string objectName, Json[string] configData = null) {
     string myObjectName;
     if (configuration.hasKey("className")) {
       objName = objectName;
@@ -90,7 +90,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * configData - The config data for the new instance.
      * @throws \UIM\Core\Exception\UimException When a duplicate is found.
      */
-  protected void _checkDuplicate(string aliasName, IData[string] configData) {
+  protected void _checkDuplicate(string aliasName, Json[string] configData) {
     auto existing = _loaded[aliasName];
     if (existing.isNull) {
       throw new UimException("Alias '%s' not found".format(aliasName));
@@ -146,8 +146,8 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * object|string className The class to build.
      * configData - The Configuration settings for construction
      */
-  abstract protected object _create(object objInstance, string aliasName, IData[string] configData);
-  abstract protected object _create(string className, string aliasName, IData[string] configData);
+  abstract protected object _create(object objInstance, string aliasName, Json[string] configData);
+  abstract protected object _create(string className, string aliasName, Json[string] configData);
 
   // Get the list of loaded object names.
   string[] loaded() {

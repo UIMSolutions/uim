@@ -15,9 +15,9 @@ class DServiceConfig {
      * Read a configuration key
      * Params:
      * string aPath The path to read.
-     * @param IData defaultValue The default value to use if somePath does not exist.
+     * @param Json defaultValue The default value to use if somePath does not exist.
      * /
-    IData get(string aPath, IData defaultData = null) {
+    Json get(string aPath, Json defaultData = null) {
         return configuration.get(somePath, defaultData);
     }
     

@@ -11,7 +11,7 @@ import uim.oop;
 class UimExceptionList {
   this() {}
 
-  bool initialize(/* IData[string] configSettings = null */) {
+  bool initialize(/* Json[string] configSettings = null */) {
     return true;
   }  
 }

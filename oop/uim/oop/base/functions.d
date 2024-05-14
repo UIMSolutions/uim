@@ -7,7 +7,7 @@ import uim.oop;
     /**
      * Convenience method for htmlspecialchars.
      * Params:
-     * IData text Text to wrap through htmlspecialchars. Also works with arrays, and objects.
+     * Json text Text to wrap through htmlspecialchars. Also works with arrays, and objects.
      *   Arrays will be mapped and have all their elements escaped. Objects will be string cast if they
      *   implement a `__toString` method. Otherwise, the class name will be used.
      *   Other scalar types will be returned unchanged.
@@ -84,9 +84,9 @@ string[] namespaceSplit(string className) {
      *
      * This auto returns the same variable that was passed.
      * Params:
-     * IData var Variable to print out.
+     * Json var Variable to print out.
      * /
-    IData pr(Json printOut) {
+    Json pr(Json printOut) {
         if (!configuration.hasKey("debug")) {
             return printOut;
         }
@@ -100,16 +100,16 @@ string[] namespaceSplit(string className) {
     }
 
     /**
-     * IData pretty print convenience function.
+     * Json pretty print convenience function.
      *
      * In terminals this will act similar to using Json_encode() with Json_PRETTY_PRINT directly, when not run on CLI
      * will also wrap `<pre>` tags around the output of given variable. Similar to pr().
      *
      * This auto returns the same variable that was passed.
      * Params:
-     * IData var Variable to print out.
+     * Json var Variable to print out.
      * /
-    IData pj(IData var) {
+    Json pj(Json var) {
         if (!configuration.hasKey("debug")) {
             return var;
         }

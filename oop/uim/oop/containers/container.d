@@ -13,7 +13,7 @@ abstract class DContainer(T) {
     initialize;
   }
 
-  bool initialize(IData[string] initData = null) {
+  bool initialize(Json[string] initData = null) {
     return true;
   }
 

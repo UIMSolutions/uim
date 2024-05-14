@@ -174,7 +174,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         ];
         serialize = ["message", "url", "code"];
 
-         isDebug = configuration.read("debug");
+         isDebug = configuration.get("debug");
         if (isDebug) {
             trace = (array)Debugger.formatTrace(exception.getTrace(), [
                 "format": "array",

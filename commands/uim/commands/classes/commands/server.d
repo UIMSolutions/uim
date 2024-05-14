@@ -63,7 +63,7 @@ class DServerCommand : DCommand {
          aConsoleIo.writeln();
          aConsoleIo.writeln("<info>Welcome to UIM %s Console</info>".format("v" ~ Configure.currentVersion()));
          aConsoleIo.hr();
-         aConsoleIo.writeln("App : %s".format(configuration.read("App.dir")));
+         aConsoleIo.writeln("App : %s".format(configuration.get("App.dir")));
          aConsoleIo.writeln("Path: %s".format(APP));
          aConsoleIo.writeln("DocumentRoot: %s".format(_documentRoot));
          aConsoleIo.writeln("Ini Path: %s".format(_iniPath));

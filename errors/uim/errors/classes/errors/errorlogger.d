@@ -76,7 +76,7 @@ class DErrorLogger : IErrorLogger {
                 exception.getLine()
             );
 
-        debug = Configuration.read("debug");
+        debug = configuration.read("debug");
 
         if (debug && cast(UimException)exception) {
             attributes = exception.getAttributes();

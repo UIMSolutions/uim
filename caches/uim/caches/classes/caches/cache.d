@@ -171,7 +171,7 @@ class DCache : ICache {
                 _groups[groupName] = array_unique(_groups[groupName]);
                 _groups[groupName].sort;
             });
-        } */
+        }
     }
     
     // Get a SimpleCacheEngine object for the named cache pool.

@@ -31,7 +31,7 @@ class DResultsetDecorator { // TODO }: DCollection { // }: IResultset
     
     Json[string] debugInfo() {
         parentInfo = super.__debugInfo();
-        aLimit = Configuration.read("App.ResultsetDebugLimit", 10);
+        aLimit = configuration.read("App.ResultsetDebugLimit", 10);
 
         return chain(parentInfo, ["items": take(aLimit).toArray()]);
     }

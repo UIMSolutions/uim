@@ -108,7 +108,7 @@ class DErrorTrap {
         auto trace = (array)Debugger.trace(["start": 1, "format": "points"]);
         auto error = new UimError(errorCode, description, file, line, trace);
 
-        auto anIgnoredPaths = (array)Configuration.read("Error.ignoredDeprecationPaths");
+        auto anIgnoredPaths = (array)configuration.read("Error.ignoredDeprecationPaths");
         if (errorCode == E_USER_DEPRECATED &&  anIgnoredPaths) {
             auto relativePath = substr((string)file, ROOT.length + 1).replace(DIRECTORY_SEPARATOR, "/");
             foreach (somePattern; anIgnoredPaths) {
@@ -118,7 +118,7 @@ class DErrorTrap {
                 }
             }
         }
-        debug = Configuration.read("debug");
+        debug = configuration.read("debug");
         renderer = this.renderer();
 
         try {

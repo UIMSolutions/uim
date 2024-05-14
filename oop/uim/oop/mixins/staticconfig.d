@@ -15,7 +15,7 @@ mixin template TStaticConfig() {
     /**
      * Configuration sets.
      *
-     * @var array<string|int, IData[string]>
+     * @var array<string|int, Json[string]>
      */
     protected static Json[string] _config = null;
 
@@ -50,12 +50,12 @@ mixin template TStaticConfig() {
      * Cache.setConfig(arrayOfConfig);
      * ```
      * Params:
-     * IData[string]|string aKey The name of the configuration, or an array of multiple configs.
-     * @param IData[string] configData Configuration value. Generally an array of name: configuration data for adapter.
+     * Json[string]|string aKey The name of the configuration, or an array of multiple configs.
+     * @param Json[string] configData Configuration value. Generally an array of name: configuration data for adapter.
      * @throws \BadMethodCallException When trying to modify an existing config.
      * @throws \LogicException When trying to store an invalid structured config array.
      */
-    void setConfiguration(string[] aKey, IData[string] configData = null) {
+    void setConfiguration(string[] aKey, Json[string] configData = null) {
         if (!isString(aKey)) {
             throw new DLogicException("If config is not null, key must be a string.");
         }
@@ -82,7 +82,7 @@ mixin template TStaticConfig() {
      * Params:
      * string aKey The name of the configuration.
      */
-    static IData getConfig(string aKey) {
+    static Json getConfig(string aKey) {
         return _config.get(aKey, null);
     }
     
@@ -93,7 +93,7 @@ mixin template TStaticConfig() {
      * Params:
      * string aKey The name of the configuration.
      */
-    static IData getConfigOrFail(string aKey) {
+    static Json getConfigOrFail(string aKey) {
         if (!isSet(configuration.data(aKey])) {
             throw new DInvalidArgumentException("Expected configuration `%s` not found.".format(aKey));
         }
@@ -164,7 +164,7 @@ mixin template TStaticConfig() {
      * Params:
      * string adsn The DSN string to convert to a configuration array
      */
-    static IData[string] parseDsn(string adsn) {
+    static Json[string] parseDsn(string adsn) {
         if (dsn.isEmpty) {
             return null;
         }
@@ -238,7 +238,7 @@ REGEXP;
             }
         }
 
-        IData[string] parsed = aQueryArgs + parsed;
+        Json[string] parsed = aQueryArgs + parsed;
         if (isEmpty(parsed["className"])) {
              classNameMap = getDsnClassMap();
 

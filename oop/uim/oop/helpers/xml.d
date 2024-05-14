@@ -76,10 +76,10 @@ class Xml {
      * If using array as input, you can pass `options` from Xml.fromArray.
      * Params:
      * object|string[] myinput XML string, a path to a file, a URL or an array
-     * @param IData[string] options The options to use
+     * @param Json[string] options The options to use
      * /
-    static SimpleXMLElement | DOMDocument build(object | string[] myinput, IData[string] optionData = null) {
-        IData[string] defaultOptions = [
+    static SimpleXMLElement | DOMDocument build(object | string[] myinput, Json[string] optionData = null) {
+        Json[string] defaultOptions = [
             "return": Json("simplexml"),
             "loadEntities": BoolData(false),
             "readFile": BoolData(false),
@@ -109,9 +109,9 @@ class Xml {
      * Parse the input data and create either a SimpleXmlElement object or a DOMDocument.
      * Params:
      * string myinput The input to load.
-     * @param IData[string] options The options to use. See Xml.build()
+     * @param Json[string] options The options to use. See Xml.build()
      * /
-    protected static SimpleXMLElement | DOMDocument _loadXml(string myinput, IData[string] options) {
+    protected static SimpleXMLElement | DOMDocument _loadXml(string myinput, Json[string] options) {
         return load(
             myinput,
             options,
@@ -128,10 +128,10 @@ class Xml {
      * Parse the input html string and create either a SimpleXmlElement object or a DOMDocument.
      * Params:
      * string myinput The input html string to load.
-     * @param IData[string] options The options to use. See Xml.build()
+     * @param Json[string] options The options to use. See Xml.build()
      * /
-            static SimpleXMLElement | DOMDocument loadHtml(string myinput, IData[string] optionData = null) {
-                IData[string] defaultData = [
+            static SimpleXMLElement | DOMDocument loadHtml(string myinput, Json[string] optionData = null) {
+                Json[string] defaultData = [
                     "return": "simplexml",
                     "loadEntities": false.toJson,
                 ];
@@ -152,10 +152,10 @@ class Xml {
      * Parse the input data and create either a SimpleXmlElement object or a DOMDocument.
      * Params:
      * string myinput The input to load.
-     * @param IData[string] options The options to use. See Xml.build()
+     * @param Json[string] options The options to use. See Xml.build()
      * @param \Closure mycallable Closure that should return SimpleXMLElement or DOMDocument instance.
      * /
-                    protected static SimpleXMLElement | DOMDocument load(string myinput, IData[string] options, Closure mycallable) {
+                    protected static SimpleXMLElement | DOMDocument load(string myinput, Json[string] options, Closure mycallable) {
                         myflags = 0;
                         if (!options.isEmpty("parseHuge"])) {
                             myflags |= LIBXML_PARSEHUGE;
@@ -209,9 +209,9 @@ class Xml {
      * `<root><tag id="1" value="defect">description</tag></root>`
      * Params:
      * object|array myinput Array with data or a collection instance.
-     * @param IData[string] options The options to use.
+     * @param Json[string] options The options to use.
      * /
-                    static SimpleXMLElement | DOMDocument fromArray(object | array myinput, IData[string] optionData = null) {
+                    static SimpleXMLElement | DOMDocument fromArray(object | array myinput, Json[string] optionData = null) {
                         if (isObject(myinput) && method_exists(myinput, "toArray") && isCallable([myinput, "toArray"])) {
                             myinput = myinput.toArray();
                         }
@@ -222,7 +222,7 @@ class Xml {
                         if (isInt(aKey)) {
                             throw new XmlException("The key of input must be alphanumeric");
                         }
-                        IData[string] defaultData = [
+                        Json[string] defaultData = [
                             "format": Json("tags"),
                             "version": Json("1.0"),
                             "encoding": mb_internal_encoding(),
@@ -249,13 +249,13 @@ class Xml {
      * Params:
      * \DOMDocument domDocument Handler to DOMDocument
      * @param \DOMDocument|\DOMElement mynode Handler to DOMElement (child)
-     * @param IData mydata Array of data to append to the mynode.
+     * @param Json mydata Array of data to append to the mynode.
      * @param string myformat Either "attributes" or "tags". This determines where nested keys go.
      * /
                     protected static void _fromArray(
                     DOMDocument domDocument,
                     DOMDocument | DOMElement mynode,
-                    IData mydata,
+                    Json mydata,
                     string myformat
                     ) {
                         if (mydata.isEmpty || !isArray(mydata)) {
@@ -324,8 +324,8 @@ class Xml {
                     /**
      * Helper to _fromArray(). It will create children of arrays
      * Params:
-     * IData[string] mydata Array with information to create children
-     * @psalm-param {dom: \DOMDocument, node: \DOMDocument|\DOMElement, key: string, format: string, ?value: IData } mydata
+     * Json[string] mydata Array with information to create children
+     * @psalm-param {dom: \DOMDocument, node: \DOMDocument|\DOMElement, key: string, format: string, ?value: Json } mydata
      * /
                     protected static void _createChild(Json[string] data) {
                         mydata += [
@@ -397,7 +397,7 @@ class Xml {
      * Recursive method to toArray
      * Params:
      * \SimpleXMLElement myxml SimpleXMLElement object
-     * @param IData[string] myparentData Parent array with data
+     * @param Json[string] myparentData Parent array with data
      * @param string myns Namespace of current child
      * /
                     protected static void _toArray(SimpleXMLElement myxml, Json[string] & myparentData, string myns, string[] namespacesInXML) {

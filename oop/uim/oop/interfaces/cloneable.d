@@ -17,5 +17,5 @@ interface ICloneable {
 interface ICloneable(T) {
   T create();
   T clone(this O)();
-  T clone(this O)(IData[string] data);
+  T clone(this O)(Json[string] data);
 } */

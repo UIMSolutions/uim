@@ -113,7 +113,7 @@ mixin template TCookieCrypt() {
      * Explode method to return array from string set in CookieComponent._join()
      * Maintains reading backwards compatibility with 1.x CookieComponent._join().
      * Params:
-     * string mystring A string containing IData encoded data, or a bare string.
+     * string mystring A string containing Json encoded data, or a bare string.
      * /
     protected string[] _split(string mystring) {
         string myfirst = substr(mystring, 0, 1);

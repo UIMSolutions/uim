@@ -224,10 +224,10 @@ class DSecurity {
     /**
      * A timing attack resistant comparison that prefers native D implementations.
      * Params:
-     * IData myoriginal The original value.
-     * @param IData mycompare The comparison value.
+     * Json myoriginal The original value.
+     * @param Json mycompare The comparison value.
      * /
-    static bool constantEquals(IData myoriginal, IData mycompare) {
+    static bool constantEquals(Json myoriginal, Json mycompare) {
         return isString(myoriginal) && isString(mycompare) && hash_equals(myoriginal, mycompare);
     }
     

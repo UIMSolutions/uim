@@ -119,7 +119,7 @@ class DObjectRegistry(T : Object) {
 
     // Create the entry object with the correct settings.
 	/* 
-    T create(string path, IData[string] initData = null) {
+    T create(string path, Json[string] initData = null) {
         return hasPath(path) 
 			? entries(path).clone(initData)
 			: null;

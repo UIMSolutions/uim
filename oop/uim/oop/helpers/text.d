@@ -146,10 +146,10 @@ class DText {
      * string mystr A string containing variable placeholders
      * @param Json[string] data A key: val array where each key stands for a placeholder variable name
      *    to be replaced with val
-     * @param IData[string] options An array of options, see description above
+     * @param Json[string] options An array of options, see description above
      * /
-    static string insert(string mystr, Json[string] data, IData[string] optionData = null) {
-        IData[string] defaultData = [
+    static string insert(string mystr, Json[string] data, Json[string] optionData = null) {
+        Json[string] defaultData = [
             "before": ":", 
             "after": "", 
             "escape": "\\", 
@@ -180,7 +180,7 @@ class DText {
             aKey = myformat.format(preg_quote(aKey, "/"));
             mystr = (string)preg_replace(aKey, myhashVal, mystr));
         }
-        /** @var IData[string] mydataReplacements * /
+        /** @var Json[string] mydataReplacements * /
         mydataReplacements = array_combine(myhashKeys, array_values(mydata));
         foreach (mytmpHash, mytmpValue; mydataReplacements) {
             mytmpValue = mytmpValue.isArray ? "" : mytmpValue.toString;
@@ -199,9 +199,9 @@ class DText {
      * by Text.insert().
      * Params:
      * string mystr String to clean.
-     * @param IData[string] options Options list.
+     * @param Json[string] options Options list.
      * /
-    static string cleanInsert(string mystr, IData[string] options) {
+    static string cleanInsert(string mystr, Json[string] options) {
         myclean = options["clean"];
         if (!myclean) {
             return mystr;
@@ -267,7 +267,7 @@ class DText {
      * - `indentAt` 0 based index to start indenting at. Defaults to 0.
      * Params:
      * string textToFormat The text to format.
-     * @param IData[string]|int options Array of options to use, or an integer to wrap the text to.
+     * @param Json[string]|int options Array of options to use, or an integer to wrap the text to.
      * /
     static string wrap(string textToFormat, array|int options = []) {
         if (isNumeric(options)) {
@@ -305,7 +305,7 @@ class DText {
      * - `indentAt` 0 based index to start indenting at. Defaults to 0.
      * Params:
      * string textToFormat The text to format.
-     * @param IData[string]|int options Array of options to use, or an integer to wrap the text to.
+     * @param Json[string]|int options Array of options to use, or an integer to wrap the text to.
      * /
     static string wrapBlock(string textToFormat, array|int options = []) {
         if (isNumeric(options)) {
@@ -408,13 +408,13 @@ class DText {
      * Params:
      * string searchText Text to search the phrase in.
      * @param string[]|string myphrase The phrase or phrases that will be searched.
-     * @param IData[string] options An array of HTML attributes and options.
+     * @param Json[string] options An array of HTML attributes and options.
      * /
-    static string highlight(string searchText, string[] myphrase, IData[string] optionData = null) {
+    static string highlight(string searchText, string[] myphrase, Json[string] optionData = null) {
         if (isEmpty(myphrase)) {
             return searchText;
         }
-        IData[string] defaultData = [
+        Json[string] defaultData = [
             "format": "<span class="highlight">\1</span>",
             "html": false.toJson,
             "regex": "|%s|iu",
@@ -461,9 +461,9 @@ class DText {
      * Params:
      * string textToTruncate String to truncate.
      * @param int mylength Length of returned string, including ellipsis.
-     * @param IData[string] options An array of options.
+     * @param Json[string] options An array of options.
      * /
-    static string tail(string textToTruncate, int mylength = 100, IData[string] optionData = null) {
+    static string tail(string textToTruncate, int mylength = 100, Json[string] optionData = null) {
         mydefault = [
             "ellipsis": "...", "exact": true.toJson,
         ];
@@ -496,9 +496,9 @@ class DText {
      * Params:
      * string textToTruncate String to truncate.
      * @param int mylength Length of returned string, including ellipsis.
-     * @param IData[string] options An array of HTML attributes and options.
+     * @param Json[string] options An array of HTML attributes and options.
      * /
-    static string truncate(string textToTruncate, int mylength = 100, IData[string] optionData = null) {
+    static string truncate(string textToTruncate, int mylength = 100, Json[string] optionData = null) {
         mydefault = [
             "ellipsis": "...", "exact": true.toJson, "html": false.toJson, "trimWidth": false.toJson,
         ];
@@ -588,9 +588,9 @@ class DText {
      * Params:
      * string textToTruncate String to truncate.
      * @param int mylength Length of returned string, including ellipsis.
-     * @param IData[string] options An array of HTML attributes and options.
+     * @param Json[string] options An array of HTML attributes and options.
      * /
-    static string truncateByWidth(string textToTruncate, int mylength = 100, IData[string] optionData = null) {
+    static string truncateByWidth(string textToTruncate, int mylength = 100, Json[string] optionData = null) {
         return truncate(textToTruncate, mylength, ["trimWidth": true.toJson] + options);
     }
     
@@ -603,9 +603,9 @@ class DText {
      * - `trimWidth` If true, the width will return.
      * Params:
      * string textToCheck The string being checked for length
-     * @param IData[string] options An array of options.
+     * @param Json[string] options An array of options.
      * /
-    protected static int _strlen(string textToCheck, IData[string] options) {
+    protected static int _strlen(string textToCheck, Json[string] options) {
         if (isoptions.isEmpty("trimWidth"])) {
             mystrlen = "mb_strlen";
         } else {
@@ -640,9 +640,9 @@ class DText {
      * string inputText The input string.
      * @param int mystart The position to begin extracting.
      * @param int mylength The desired length.
-     * @param IData[string] options An array of options.
+     * @param Json[string] options An array of options.
      * /
-    protected static string _substr(string inputText, int mystart, int mylength, IData[string] options) {
+    protected static string _substr(string inputText, int mystart, int mylength, Json[string] options) {
         auto mySustr = isoptions.isEmpty("trimWidth"])
             ? "mb_substr" : "mb_strimwidth";
 
@@ -861,9 +861,9 @@ class DText {
      * Converts filesize from human readable string to bytes
      * Params:
      * string mysize Size in human readable string like "5MB", "5M", "500B", "50kb" etc.
-     * @param IData mydefault Value to be returned when invalid size was used, for example "Unknown type"
+     * @param Json mydefault Value to be returned when invalid size was used, for example "Unknown type"
      * /
-    static IData parseFileSize(string mysize, IData mydefault = false) {
+    static Json parseFileSize(string mysize, Json mydefault = false) {
         if (ctype_digit(mysize)) {
             return (int)mysize;
         }
@@ -966,7 +966,7 @@ class DText {
      *  For e.g. this option can be set to "." to generate clean file names.
      * Params:
      * string mystring the string you want to slug
-     * @param IData[string]|string options If string it will be use as replacement character
+     * @param Json[string]|string options If string it will be use as replacement character
      *  or an array of options.
      * /
     static string slug(string mystring, string[] options = []) {

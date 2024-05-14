@@ -11,7 +11,7 @@ import uim.oop;
  */
 mixin template TInstanceConfig() {
     // Runtime config
-    protected IData[string] _config = null;
+    protected Json[string] _config = null;
 
     // Whether the config property has already been configured with defaults
     protected bool _configInitialized = false;
@@ -39,11 +39,11 @@ mixin template TInstanceConfig() {
      * configuration.update(["one": 'value", "another": 'value"]);
      * ```
      * Params:
-     * IData[string]|string keyToSet The key to set, or a complete array of configs.
+     * Json[string]|string keyToSet The key to set, or a complete array of configs.
      * @param mixed|null aValue The value to set.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      */
-    void setConfig(string[] keyToSet, IData aValue = null, bool shouldMerge = true) {
+    void setConfig(string[] keyToSet, Json aValue = null, bool shouldMerge = true) {
         if (!_configInitialized) {
            _config = _defaultConfigData;
            _configInitialized = true;
@@ -80,9 +80,9 @@ mixin template TInstanceConfig() {
      * _configData.isSet("some-key", "default-value");
      * ```
      * Params:
-     * @param IData defaultValue The return value when the key does not exist.
+     * @param Json defaultValue The return value when the key does not exist.
      * /
-    IData getConfig(string keyToGet = null, IData defaultData = null) {
+    Json getConfig(string keyToGet = null, Json defaultData = null) {
         if (!_configInitialized) {
            _config = _defaultConfigData;
            _configInitialized = true;
@@ -97,7 +97,7 @@ mixin template TInstanceConfig() {
      * Params:
      * string keyToGet The key to get.
      * /
-    IData getConfigOrFail(string keyToGet) {
+    Json getConfigOrFail(string keyToGet) {
         configData = getConfig(keyToGet);
         if (configData.isNull) {
             throw new DInvalidArgumentException(
@@ -128,10 +128,10 @@ mixin template TInstanceConfig() {
      * this.configShallow(["one": 'value", "another": 'value"]);
      * ```
      * Params:
-     * IData[string]|string keyToSet The key to set, or a complete array of configs.
+     * Json[string]|string keyToSet The key to set, or a complete array of configs.
      * @param mixed|null aValue The value to set.
      * /
-    void configShallow(string[] keyToSet, IData aValue = null) {
+    void configShallow(string[] keyToSet, Json aValue = null) {
         if (!_configInitialized) {
            _config = _defaultConfigData;
            _configInitialized = true;
@@ -140,7 +140,7 @@ mixin template TInstanceConfig() {
     }
     
     // Reads a config key.
-    protected IData _configRead(string keyToRead) {
+    protected Json _configRead(string keyToRead) {
         if (keyToRead.isNull) {
             return _config;
         }
@@ -162,13 +162,13 @@ mixin template TInstanceConfig() {
     /**
      * Writes a config key.
      * Params:
-     * IData[string]|string keyToWrite Key to write to.
-     * @param IData aValue Value to write.
+     * Json[string]|string keyToWrite Key to write to.
+     * @param Json aValue Value to write.
      * @param string merge True to merge recursively, "shallow' for simple merge,
      *  false to overwrite, defaults to false.
      * @throws \UIM\Core\Exception\UimException if attempting to clobber existing config
      * /
-    protected void _configWrite(string[] keyToWrite, IData aValue, string merge = false) {
+    protected void _configWrite(string[] keyToWrite, Json aValue, string merge = false) {
         if (isString(keyToWrite) && aValue.isNull) {
            _configDelete(keyToWrite);
 

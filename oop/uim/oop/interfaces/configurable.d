@@ -18,8 +18,8 @@ interface IConfigurable {
     /* 
     void setConfigurationData(Json newData); 
 
-    void setConfigurationData(string key, IData newData); 
+    void setConfigurationData(string key, Json newData); 
     */
 
-    // TODO IData getConfigurationData(string key); 
+    // TODO Json getConfigurationData(string key); 
 }

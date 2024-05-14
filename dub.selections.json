@@ -20,7 +20,7 @@
 		"vibe-container": "1.3.1",
 		"vibe-core": "2.8.4",
 		"vibe-d": "0.10.0",
-		"vibe-http": "1.0.0",
+		"vibe-http": "1.1.0",
 		"vibe-inet": "1.0.0",
 		"vibe-serialization": "1.0.3",
 		"vibe-stream": "1.1.0"

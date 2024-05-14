@@ -134,7 +134,7 @@ class DResultset : IResultset {
         _autoFields = query.isAutoFieldsEnabled();
 
         if (_useBuffering) {
-            count = this.count();
+            count = count();
             _results = new DSplFixedArray(count);
         }
     }

@@ -100,7 +100,7 @@ class DFileConfigEngineure {
     static bool check(string variableName) {
         return variableName.isEmpty
             ? false
-            :!read(variableName).isNull;
+            : !read(variableName).isNull;
     }
 
     /**
@@ -137,8 +137,8 @@ class DFileConfigEngineure {
      * Params:
      * string avar the var to be deleted
      */
-    static void remove(string avar) {
-        _values = Hash.remove(_values, var);
+    static void remove(string variableName) {
+        _values.remove(variableName);
     }
 
     /**
@@ -398,4 +398,4 @@ class DFileConfigEngineure {
      *  /
 }
 
-*  / 
+*/ 

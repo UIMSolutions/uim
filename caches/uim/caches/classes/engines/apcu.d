@@ -138,6 +138,6 @@ class DApcuCacheEngine : DCacheEngine {
     apcu_inc(configuration.get("prefix") ~ groupName, 1, isSuccess);
 
     return isSuccess;
-  } */ 
+  }
 }
 mixin(CacheEngineCalls!("Apcu"));

@@ -40,7 +40,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      */
     this(IPlugin[] plugins = null) {
         plugins.each!(plugin => add(plugin));
-        // TODO _loadConfig();
+        // TODO _loaDFileConfigEngine();
     }
 
     /**
@@ -90,7 +90,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      * in their composer.json file to move plugin outside of vendor/
      */
     // TODO
-    /*    protected void loadConfig() {
+    /*    protected void loaDFileConfigEngine() {
         if (Configure.check("plugins")) {
             return;
         }
@@ -121,7 +121,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
         // Ensure plugin config is loaded each time. This is necessary primarily
         // for testing because the Configuration.clear() call in TestCase.tearDown()
         // wipes out all configuration including plugin paths config.
-        // TODO _loadConfig();
+        // TODO _loaDFileConfigEngine();
 
         // TODO
         /* auto somePath = configuration.get("plugins." ~ pluginName);

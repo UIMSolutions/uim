@@ -130,9 +130,10 @@ abstract class DConfiguration : IConfiguration {
         }
 
         // Key and default Value
-        Json[string] get(Json[string] keys, bool compressMode = true){
+        /* Json[string] get(Json[string] keys, bool compressMode = true){
+
             return keys.dup; 
-        }
+        } */
 
         int getInt(string key) {
             if (!hasKey(key)) {

@@ -49,7 +49,7 @@ abstract class DContainer(T) {
   // Returns true if this container contains no elements.*/
   abstract bool isEmpty();
   
-  /*// Returns an iterator over the elements in this container.
+  /* // Returns an iterator over the elements in this container.
   Iterator<E>	iterator();
   
   // Returns a possibly parallel Stream with this container as its source.
@@ -67,17 +67,17 @@ abstract class DContainer(T) {
   bool removeIf(Predicate<? super E> filter); */
   
   // Retains only the elements in this container that are contained in the specified container.
-  bool retainAll(Container!T retainItems);
+  bool retainAll(DContainer!T retainItems);
   
   // Returns the number of elements in this container.*/
   abstract size_t size(); 
   
-  /*// Creates a Spliterator over the elements in this container.
+  /* // Creates a Spliterator over the elements in this container.
   Spliterator<E>	spliterator();
   
   // Returns a sequential Stream with this container as its source.
   default Stream<E>	stream(); */
   
   // Returns an array containing all of the elements in this container.
-  abstract T[]	toArray(); 
+  abstract T[] toArray(); 
 }

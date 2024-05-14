@@ -10,7 +10,9 @@ string configurationThis(string name) {
     this(string name) {
         super(); this.name(name);
     }
-    `;
+    this(Json[string] values) {
+        super(); this.data(values);
+    }    `;
 }
 
 template ConfigurationThis(string name) {
@@ -22,6 +24,7 @@ string configurationCalls(string name) {
     return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
     auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
+    auto `~ fullName ~ `(Json[string] values) { return new D` ~ fullName ~ `(values); }
     `;
 }
 

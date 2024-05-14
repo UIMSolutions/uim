@@ -202,7 +202,6 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    alias get = DConfiguration.get; 
     override Json get(string key, Json defaultValue = Json(null)) {
         return _data.hasKey(key) 
             ? _data[key]
@@ -210,8 +209,8 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        IConfiguration config = MemoryConfiguration;
-        // TODO
+        IConfiguration config = MemoryConfiguration(["a": Json(1)]);
+        assert(config.get("a").to!int == 1);
     }
 
     override void set(string key, Json data) {
@@ -219,12 +218,18 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        IConfiguration config = MemoryConfiguration;
-        // TODO
+        IConfiguration config = MemoryConfiguration(["a": Json(1)]);
+        config.set("a", Json(2));
+        assert(config.get("a").to!int == 2);
     }
 
     override void update(string key, Json data) {
         set(key, data);
+    }
+    unittest {
+        IConfiguration config = MemoryConfiguration(["a": Json(1)]);
+        config.update("a", Json(2));
+        assert(config.get("a").to!int == 2);
     }
 
     override void update(string key, Json[string] data) {
@@ -249,8 +254,11 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        IConfiguration config = MemoryConfiguration;
-        // TODO
+        IConfiguration config = MemoryConfiguration(["a": Json(1)]);
+        config.merge("a", Json(2));
+        assert(config.get("a").to!int == 1);
+        config.merge("b", Json(2));
+        assert(config.get("b").to!int == 2);
     }
 
     override IConfiguration remove(string key) {

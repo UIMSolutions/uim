@@ -21,7 +21,7 @@ interface IList {
   bool addAll(int index, Collection!T addItems);
   bool addAll(int index, T[] addItems);
   bool addAll(int index, T[] addItems...);
-  */
+   /
 
   // Removes all of the elements from this list (optional operation).
   bool clear();
@@ -35,7 +35,7 @@ interface IList {
   // Returns true if this list contains no elements. */
   bool isEmpty();
 
-  /*// Returns an iterator over the elements in this list in proper sequence.
+  /* // Returns an iterator over the elements in this list in proper sequence.
   Iterator<E>	iterator();
  */
   // Returns the index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element.

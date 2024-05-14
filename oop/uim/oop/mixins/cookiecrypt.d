@@ -24,7 +24,7 @@ mixin template TCookieCrypt() {
      *  disabled encryption.
      * @param string aKey Used as the security salt if specified.
      * returns Encoded values
-     */
+     * /
     protected string _encrypt(string[] myvalue, string|false myencrypt, string aKey = null) {
         if (myvalue.isArray) {
             myvalue = _join(myvalue);
@@ -56,7 +56,7 @@ mixin template TCookieCrypt() {
      * string[]|string myvalues Values to decrypt
      * @param string|false mymode Encryption mode
      * @param string aKey Used as the security salt if specified.
-     */
+     * /
     protected string[] _decrypt(string[] myvalues, string|false mymode, string aKey = null) {
         if (isString(myvalues)) {
             return _decode(myvalues, mymode, aKey);
@@ -73,7 +73,7 @@ mixin template TCookieCrypt() {
      * string myvalue The value to decode & decrypt.
      * @param string|false myencrypt The encryption cipher to use.
      * @param string aKey Used as the security salt if specified.
-     */
+     * /
     protected string[] _decode(string myvalue, string|false myencrypt, string aKey) {
         if (!myencrypt) {
             return _split(myvalue);
@@ -104,7 +104,7 @@ mixin template TCookieCrypt() {
      * Implode method to keep keys are multidimensional arrays
      * Params:
      * Json[string] myarray Map of key and values
-     */
+     * /
     protected string _join(Json[string] myarray) {
         return Json_encode(myarray, Json_THROW_ON_ERROR);
     }
@@ -114,7 +114,7 @@ mixin template TCookieCrypt() {
      * Maintains reading backwards compatibility with 1.x CookieComponent._join().
      * Params:
      * string mystring A string containing IData encoded data, or a bare string.
-     */
+     * /
     protected string[] _split(string mystring) {
         string myfirst = substr(mystring, 0, 1);
         if (myfirst == "{" || myfirst == "[") {

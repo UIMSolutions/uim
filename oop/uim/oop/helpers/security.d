@@ -32,10 +32,10 @@ class DSecurity {
      * routines.
      * Params:
      * string mysalt The salt to use for encryption routines.
-     */
+     * /
     static void setSalt(string mysalt) {
         _salt = mysalt;
-    } */
+    } * /
     // The crypto implementation to use.
     protected static Object _instance = null;
 
@@ -48,7 +48,7 @@ class DSecurity {
      *  If no value is passed the type specified by `Security.defaultHashType` is used.
      * @param string mysalt If true, automatically prepends the value returned by
      *  Security.getSalt() to mystring.
-     */
+     * /
     static string hash(string mystring, string hashType = null, string mysalt = false) {
         string hashType = hashType.isEmpty ? defaultHashType : hashType.lower;
 
@@ -73,7 +73,7 @@ class DSecurity {
      * using Security.hash().
      * Params:
      * string myhash Method to use (sha1/sha256/md5 etc.)
-     */
+     * /
     static void setHash(string myhash) {
         defaultHashType = myhash;
     }
@@ -85,7 +85,7 @@ class DSecurity {
      * if it cannot find a secure source of random data.
      * Params:
      * int mylength The number of bytes you want.
-     */
+     * /
     static string randomBytes(int mylength) {
         if (mylength < 1) {
             throw new DInvalidArgumentException("Length must be `int<1, max>`");
@@ -97,7 +97,7 @@ class DSecurity {
      * Creates a secure random string.
      * Params:
      * int mylength String length. Default 64.
-     */
+     * /
     static string randomString(int mylength = 64) {
         return substr(
             bin2hex(Security.randomBytes(to!int(ceil(mylength / 2)))),
@@ -110,7 +110,7 @@ class DSecurity {
      * Like randomBytes() above, but not cryptographically secure.
      * Params:
      * int mylength The number of bytes you want.
-     */
+     * /
     static string insecureRandomBytes(int mylength) {
         mylength *= 2;
 
@@ -131,13 +131,13 @@ class DSecurity {
      * You can use this method to forcibly decide between openssl/custom implementations.
      * Params:
      * \UIM\Utility\Crypto\OpenSsl|null myinstance The crypto instance to use.
-     */
+     * /
     static OpenSsl engine(?object myinstance = null) {
         if (myinstance) {
             return _instance = myinstance;
         }
         if (isSet(_instance)) {
-            /** @var \UIM\Utility\Crypto\OpenSsl */
+            /** @var \UIM\Utility\Crypto\OpenSsl * /
             return _instance;
         }
         if (extension_loaded("openssl")) {
@@ -160,7 +160,7 @@ class DSecurity {
      * @param string aKey The 256 bit/32 byte key to use as a cipher key.
      * @param string hmacSalt The salt to use for the HMAC process.
      *  Leave null to use value of Security.getSalt().
-     */
+     * /
     static string encrypt(string myplain, string aKey, string hmacSalt = null) {
         self._checkKey(aKey, "encrypt()");
 
@@ -180,7 +180,7 @@ class DSecurity {
      * Params:
      * string aKey Key to check.
      * @param string mymethod The method the key is being checked for.
-     */
+     * /
     protected static void _checkKey(string aKey, string mymethod) {
         if (mb_strlen(aKey, "8bit") < 32) {
             throw new DInvalidArgumentException(
@@ -196,7 +196,7 @@ class DSecurity {
      * @param string aKey The 256 bit/32 byte key to use as a cipher key.
      * @param string hmacSalt The salt to use for the HMAC process.
      *  Leave null to use value of Security.getSalt().
-     */
+     * /
     static string decrypt(string mycipher, string aKey, string hmacSalt = null) {
         self._checkKey(aKey, "decrypt()");
         if (mycipher.isEmpty) {
@@ -226,7 +226,7 @@ class DSecurity {
      * Params:
      * IData myoriginal The original value.
      * @param IData mycompare The comparison value.
-     */
+     * /
     static bool constantEquals(IData myoriginal, IData mycompare) {
         return isString(myoriginal) && isString(mycompare) && hash_equals(myoriginal, mycompare);
     }

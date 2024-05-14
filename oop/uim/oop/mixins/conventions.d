@@ -21,7 +21,7 @@ mixin template TConventions() {
      * Creates the proper underscored model key for associations
      *
      * If the input contains a dot, assume that the right side is the real table name.
-     */
+     * /
     protected string _modelKey(string modelClassname) {
         [, name] = pluginSplit(modelClassname);
 
@@ -32,7 +32,7 @@ mixin template TConventions() {
      * Creates the proper model name from a foreign key
      * Params:
      * string aKey Foreign key
-     */
+     * /
     protected string _modelNameFromKey(string aKey) {
         aKey = aKey..replace("_id", "");
 
@@ -43,7 +43,7 @@ mixin template TConventions() {
      * Creates the singular name for use in views.
      * Params:
      * string aName Name to use
-     */
+     * /
     protected string _singularName(string aName) {
         return Inflecto.variable(Inflector.singularize(name));
     }
@@ -52,7 +52,7 @@ mixin template TConventions() {
      * Creates the plural variable name for views
      * Params:
      * string aName Name to use
-     */
+     * /
     protected string _variableName(string aName) {
         return Inflector.variable(name);
     }
@@ -61,7 +61,7 @@ mixin template TConventions() {
      * Creates the singular human name used in views
      * Params:
      * string aName Controller name
-     */
+     * /
     protected string _singularHumanName(string aName) {
         return Inflector.humanize(Inflector.underscore(Inflector.singularize(name)));
     }
@@ -70,14 +70,14 @@ mixin template TConventions() {
      * Creates a camelized version of name
      * Params:
      * string aName name
-     */
+     * /
     protected string _camelize(string aName) {
         return Inflector.camelize(name);
     }
     
     /**
      * Creates the plural human name used in views
-     */
+     * /
     protected string _pluralHumanName(string controllerName) {
         return Inflector.humanize(Inflector.underscore(controllerName));
     }
@@ -86,7 +86,7 @@ mixin template TConventions() {
      * Find the correct path for a plugin. Scans pluginPaths for the plugin you want.
      * Params:
      * string pluginNameName Name of the plugin you want ie. DebugKit
-     */
+     * /
     protected string _pluginPath(string pluginNameName) {
         if (Plugin.isLoaded(pluginName)) {
             return Plugin.path(pluginName);
@@ -94,12 +94,9 @@ mixin template TConventions() {
         return current(App.path("plugins")) ~ pluginName ~ DIRECTORY_SEPARATOR;
     }
     
-    /**
-     * Return plugin`s namespace
-     * Params:
-     * string pluginNameName Plugin name
-     */
+    // Return plugin`s namespace
     protected string _pluginNamespace(string pluginName) {
         return pluginName.replace("/", "\\", pluginName);
-    } */
+    } 
+    */
 }

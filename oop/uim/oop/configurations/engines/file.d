@@ -1,4 +1,4 @@
-module oop.uim.oop.configurations.engines.file;
+module uim.oop.configurations.engines.file;
 
 import uim.oop;
 

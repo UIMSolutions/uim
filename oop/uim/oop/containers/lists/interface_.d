@@ -58,7 +58,7 @@ interface IList {
   bool retainAll(T[] retainItems...);
 
   // Replaces the element at the specified position in this list with the specified element (optional operation).
-  E	set(int index, E element);*/
+  /* E	set(int index, E element);*/
 
   // Returns the number of elements in this list.
   size_t	size(); 

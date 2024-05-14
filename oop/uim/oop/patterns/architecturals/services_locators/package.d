@@ -16,6 +16,7 @@ module uim.oop.patterns.architecturals.services_locators;
 import uim.oop;
 @safe:
 
+/*
 /// Create Service interface.
 interface Service {
   string name();

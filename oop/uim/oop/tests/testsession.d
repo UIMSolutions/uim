@@ -12,12 +12,12 @@ import uim.oop;
 class DTestSession {
     /**
      * @var array|null
-     */
+     * /
     // TODO protected Json[string] mysession = null;
 
     /**
      * @param array|null mysession Session data.
-     */
+     * /
     this(Json[string] mysession) {
         this.session = mysession;
     }
@@ -26,7 +26,7 @@ class DTestSession {
      * Returns true if given variable name is set in session.
      * Params:
      * string myname Variable name to check for
-     */
+     * /
     bool check(string myname = null) {
         if (this.session.isNull) {
             return false;
@@ -41,7 +41,7 @@ class DTestSession {
      * Returns given session variable, or all of them, if no parameters given.
      * Params:
      * string myname The name of the session variable (or a path as sent to Hash.extract)
-     */
+     * /
     Json read(string myname = null) {
         if (this.session.isNull) {
             return null;

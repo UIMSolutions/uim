@@ -32,7 +32,7 @@ class DMiddlewareDispatcher {
      * Convert a URL array into a string URL via routing.
      * Params:
      * Json[string] urlToResolve The url to resolve
-     */ 
+     * / 
     protected string resolveRoute(string[] urlToResolve) {
         // Simulate application bootstrap and route loading.
         // We need both to ensure plugins are loaded.

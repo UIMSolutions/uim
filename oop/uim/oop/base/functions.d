@@ -219,7 +219,7 @@ string[] namespaceSplit(string className) {
                 root = ROOT;
             }
             relative = str_replace(DIRECTORY_SEPARATOR, "/", substr(frame["file"], root.length + 1));
-            patterns = configuration.read("Error.ignoredDeprecationPaths");
+            patterns = configuration.get("Error.ignoredDeprecationPaths");
             foreach (somePattern; patterns) {
                 somePattern = somePattern.replace(DIRECTORY_SEPARATOR, "/");
                 if (fnmatch(somePattern, relative)) {
@@ -244,7 +244,7 @@ string[] namespaceSplit(string className) {
         checksum = md5(outputMessage);
         
         // TODO 
-        /* bool isDuplicate = (bool)configuration.read("Error.allowDuplicateDeprecations", false);
+        /* bool isDuplicate = (bool)configuration.get("Error.allowDuplicateDeprecations", false);
         if (isSet(errors[checksum]) && !isDuplicate) {
             return;
         }

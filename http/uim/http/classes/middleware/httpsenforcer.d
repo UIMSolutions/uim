@@ -52,7 +52,7 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
         if (
             request.getUri().getScheme() == "https"
             || (configuration.get("disableOnDebug"]
-                && configuration.read("debug"))
+                && configuration.get("debug"))
         ) {
             response = handler.handle(request);
             if (configuration.get("hsts"]) {

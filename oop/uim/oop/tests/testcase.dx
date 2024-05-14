@@ -96,7 +96,7 @@ abstract class DTestCase : DBaseTestCase {
      * \Closure mycallable callable auto that will receive asserts
      */
     void deprecated(Closure mycallable) {
-        auto myduplicate = Configuration.read("Error.allowDuplicateDeprecations");
+        auto myduplicate = configuration.read("Error.allowDuplicateDeprecations");
         Configuration.update("Error.allowDuplicateDeprecations", true);
         /** @var bool mydeprecation Expand type for psalm */
         auto mydeprecation = false;
@@ -118,7 +118,7 @@ abstract class DTestCase : DBaseTestCase {
             mycallable();
         } finally {
             restore_error_handler();
-            if (myduplicate != Configuration.read("Error.allowDuplicateDeprecations")) {
+            if (myduplicate != configuration.read("Error.allowDuplicateDeprecations")) {
                 Configuration.update("Error.allowDuplicateDeprecations", myduplicate);
             }
         }
@@ -135,7 +135,7 @@ abstract class DTestCase : DBaseTestCase {
         setupFixtures();
 
         if (!_configure) {
-           _configure = Configuration.read();
+           _configure = configuration.read();
         }
         if (class_exists(Router.class, false)) {
             Router.reload();
@@ -202,7 +202,7 @@ abstract class DTestCase : DBaseTestCase {
     void loadRoutes(Json[string] myappArgs = null) {
         myappArgs ??= [stripRight(CONFIG, DIRECTORY_SEPARATOR)];
         /** @var class-string myclassName */
-        myclassName = Configuration.read("App.namespace") ~ "\\Application";
+        myclassName = configuration.read("App.namespace") ~ "\\Application";
         try {
             myreflect = new DReflectionClass(myclassName);
             myapp = myreflect.newInstanceArgs(myappArgs);
@@ -855,7 +855,7 @@ abstract class DTestCase : DBaseTestCase {
      * string aappNamespace The app namespace, defaults to "TestApp".
      */
     static string setAppNamespace(string aappNamespace = "TestApp") {
-        previous = Configuration.read("App.namespace");
+        previous = configuration.read("App.namespace");
         Configuration.update("App.namespace", appNamespace);
 
         return previous;

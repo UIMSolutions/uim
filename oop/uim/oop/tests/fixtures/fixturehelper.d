@@ -25,7 +25,7 @@ class DFixtureHelper {
                         baseNamespace = "uim";
                         break;
                     case "app":
-                        baseNamespace = Configuration.read("App.namespace");
+                        baseNamespace = configuration.read("App.namespace");
                         break;
                     case "plugin":
                         [plugin, name] = somePathName.split(".");

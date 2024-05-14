@@ -44,7 +44,7 @@ mixin template TContainerStub() {
     protected IHttpApplication|IConsoleApplication createApp() {
         appClass = _appClass
             ? _appClass
-            : Configuration.read("App.namespace") ~ "\Application";
+            : configuration.read("App.namespace") ~ "\Application";
 
         if (!class_exists(appClass)) {
             throw new DLogicException("Cannot load `%s` for use in integration testing.".format(appClass));

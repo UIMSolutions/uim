@@ -30,6 +30,7 @@ interface IConfiguration : INamed {
         bool hasAllKeys(string[] keys);
 
         bool has(string key); // Short of hasKey
+        bool hasKey(string[] path); // for a path as key
         bool hasKey(string key);
     // #endregion keys
 

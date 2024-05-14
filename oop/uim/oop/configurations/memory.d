@@ -121,6 +121,17 @@ class DMemoryConfiguration : DConfiguration {
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
+    
+    override bool hasKey(string[] path) {
+        if (path.length > 1) {
+            return hasKey(path[0])
+            ? hasKey(path[1..$])
+            : false;
+        }
+        return path.length == 1
+            ? hasKey(path[0])
+            : false;
+    }; 
 
     override bool hasKey(string key) {
         return key in _data ? true : false;

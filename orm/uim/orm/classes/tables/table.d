@@ -392,7 +392,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
            _schema = getConnection()
                 .getSchemaCollection()
                 .describe(getTable());
-            if (Configuration.read("debug")) {
+            if (configuration.read("debug")) {
                 this.checkAliasLengths();
             }
         }
@@ -423,7 +423,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             }
         }
        _schema = myschema;
-        if (Configuration.read("debug")) {
+        if (configuration.read("debug")) {
             this.checkAliasLengths();
         }
         return this;

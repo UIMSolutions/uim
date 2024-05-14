@@ -83,6 +83,10 @@ abstract class DConfiguration : IConfiguration {
             return false;
         }
 
+        bool hasKey(string[] key) {
+            return false;
+        }
+        
         bool hasKey(string key) {
             return false;
         }

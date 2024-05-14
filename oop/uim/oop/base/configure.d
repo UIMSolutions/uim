@@ -11,20 +11,20 @@ import uim.oop;
  * as methods for loading additional configuration files or storing runtime configuration
  * for future use.
  */
-class DFileConfigEngineure {
+class DFileConfigEngine {
     bool initialize(IData[string] initData = null) {
         return true;
     }
 
     // Array of values currently stored in Configure.
-    protected static IData[string] _values = [
+    protected static Json[string] _values = [
         "debug": false.toJson,
     ];
 
     /**
      * Configured engine classes, used to load config files from resources
      * @var array<\UIM\Core\Configure\IConfigEngine>
-     */
+     * /
     protected static IConfigEngine[] _engines;
 
     // Flag to track whether ini_set exists.
@@ -51,7 +51,7 @@ class DFileConfigEngineure {
      * IData[string]|string configData The key to write, can be a dot notation value.
      * Alternatively can be an array containing key(s) and value(s).
      * @param Json aValue Value to set for the given key.
-     */
+     * /
     static void write(string key, Json aValue = null) {
         auto configData = [key: aValue];
         write(configData, aValue);
@@ -88,7 +88,7 @@ class DFileConfigEngineure {
      * Params:
      * string var Variable to obtain. Use '.' to access array elements.
      * @param Json defaultValue The return value when the configure does not exist
-     */
+     * /
     static Json read(string avar = null, IData defaultData = null) {
         if (var.isNull) {
             return _values;
@@ -118,7 +118,7 @@ class DFileConfigEngineure {
      * ```
      * Params:
      * string avar Variable to obtain. Use '.' to access array elements.
-     */
+     * /
     static Json readOrFail(string avar) {
         if (!check(var)) {
             throw new UimException("Expected configuration key `%s` not found.".format(var));
@@ -136,7 +136,7 @@ class DFileConfigEngineure {
      * ```
      * Params:
      * string avar the var to be deleted
-     */
+     * /
     static void remove(string variableName) {
         _values.remove(variableName);
     }
@@ -150,7 +150,7 @@ class DFileConfigEngineure {
      * In case it does not an exception will be thrown.
      * Params:
      * string avar Variable to consume. Use '.' to access array elements.
-     */
+     * /
     static Json consumeOrFail(string avar) {
         if (!check(var)) {
             throw new UimException("Expected configuration key `%s` not found.".format(var));
@@ -165,7 +165,7 @@ class DFileConfigEngineure {
      * out of configure into the various other classes in UIM.
      * Params:
      * string avar The key to read and remove.
-     */
+     * /
     static Json consume(string avar) {
         if (!var.has(".")) {
             if (!isSet(_values[var])) {
@@ -193,14 +193,14 @@ class DFileConfigEngineure {
      * Configure.config("ini", new DIniConfig());
      * ```
      * Params:
-     */
+     * /
     static void config(string engineName, IConfigEngine engineToAppend) {
         _engines[engineName] = engineToAppend;
     }
 
     /**
      * Returns true if the Engine objects is configured.
-     */
+     * /
     static bool isConfigured(string engineName) {
         return isSet(_engines[engineName]);
     }
@@ -217,7 +217,7 @@ class DFileConfigEngineure {
      * and make any future attempts to use it cause an Exception.
      * Params:
      * string aName Name of the engine to drop.
-     */
+     * /
     static bool drop(string aName) {
         if (!_engines.isSet(name)) {
             return false;
@@ -250,7 +250,7 @@ class DFileConfigEngineure {
      * string aKey name of configuration resource to load.
      * @param string configData Name of the configured engine to use to read the resource identified by aKey.
      * @param bool merge if config files should be merged instead of simply overridden
-     */
+     * /
     static bool load(string aKey, string configData = "default", boolmerge = true) {
         engine = _getEngine(configData);
         if (!engine) {
@@ -295,7 +295,7 @@ class DFileConfigEngineure {
      * @param string configData The name of the configured adapter to dump data with.
      * @param string[] someKeys The name of the top-level keys you want to dump.
      *  This allows you save only some data stored in Configure.
-     */
+     * /
     static bool dump(string aKey, string configData = "default", Json[string] someKeys = [
         ]) {
         auto myEngine = _getEngine(configData);
@@ -314,7 +314,7 @@ class DFileConfigEngineure {
      * Will create new DPhpConfig for default if not configured yet.
      * Params:
      * string configData The name of the configured adapter
-     */
+     * /
     protected static IConfigEngine _getEngine(string configData) {
         if (!isSet(_engines[configData])) {
             if (configData != "default") {
@@ -332,7 +332,7 @@ class DFileConfigEngineure {
      * ```
      * Configure.currentVersion();
      * ```
-     */
+     * /
     static string currentVersion() {
         if (auto uimVersion = read("uim.version")) {
             return uimVersion;
@@ -357,7 +357,7 @@ class DFileConfigEngineure {
      * string aName The storage name for the saved configuration.
      * @param string acacheConfig The cache configuration to save into. Defaults to "default"
      * @param array|null someData Either an array of data to store, or leave empty to store all values.
-     */
+     * /
     static bool store(string aName, string acacheConfig = "default",  Json[string] data = null) {
         // TODO 
         /* someData ?  ?  = _values;
@@ -365,7 +365,7 @@ class DFileConfigEngineure {
         if (!class_exists(Cache.classname)) {
             throw new UimException("You must install UIM/cache to use Configure.store()");
         }
-        return Cache.write(name, someData, cacheConfig); */
+        return Cache.write(name, someData, cacheConfig); * /
         return false;
     }
 
@@ -375,7 +375,7 @@ class DFileConfigEngineure {
      * Params:
      * string aName Name of the stored config file to load.
      * @param string acacheConfig Name of the Cache configuration to read from.
-     */
+     * /
     static bool restore(string configFileName, string acacheConfig = "default") {
         if (!class_exists(Cache.classname)) {
             throw new UimException("You must install UIM/cache to use Configure.restore()");
@@ -393,9 +393,5 @@ class DFileConfigEngineure {
     // Clear all values stored in Configure.
     static void clear() {
         _values = null;
-    }
-
-     *  /
+    } */
 }
-
-*/ 

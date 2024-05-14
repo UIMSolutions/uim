@@ -29,7 +29,6 @@ module uim.oop.base.functions_global;
         return uimPluginSplit(nameToSplit, dotAppend, pluginName);
     }
 
-if (!function_exists("namespaceSplit")) {
     /**
      * Split the namespace from the classname.
      *
@@ -38,9 +37,7 @@ if (!function_exists("namespaceSplit")) {
     string[] namespaceSplit(string className) {
         return uimNamespaceSplit(className);
     }
-}
 
-if (!function_exists("pr")) {
     /**
      * print_r() convenience function.
      *
@@ -54,9 +51,7 @@ if (!function_exists("pr")) {
     Json pr(Json var) {
         return uimPr(var);
     }
-}
 
-if (!function_exists("pj")) {
     /**
      * JSON pretty print convenience function.
      *
@@ -70,45 +65,24 @@ if (!function_exists("pj")) {
     Json pj(Json var) {
         return uimPj(var);
     }
-}
 
-if (!function_exists("env")) {
     /**
      * Gets an environment variable from available sources, and provides emulation
      * for unsupported or inconsistent environment variables (i.e. DOCUMENT_ROOT on
      * IIS, or SCRIPT_NAME in CGI mode). Also exposes some additional custom
      * environment information.
-     * Params:
-     * string aKey Environment variable name.
-     * @param string|null default Specify a default value in case the environment variable is not defined.
      */
-    Json enviroment(string aKey, Json default = null) {
-        return uimEnvironmentData(aKey, default);
+    Json enviroment(string variableName, string defaultValue = null) {
+        return uimEnvironmentData(variableName, defaultValue);
     }
-}
 
-if (!function_exists("triggerWarning")) {
-    /**
-     * Triggers an E_USER_WARNING.
-     * Params:
-     * string amessage The warning message.
-     */
-    void triggerWarning(string amessage) {
-        uimTriggerWarning(message);
+    // Triggers an E_USER_WARNING.
+    void triggerWarning(string warningMessage) {
+        uimTriggerWarning(warningMessage);
     }
-}
 
-if (!function_exists("deprecationWarning")) {
-    /**
-     * Helper method for outputting deprecation warnings
-     * Params:
-     * string aversion The version that added this deprecation warning.
-     * @param string amessage The message to output as a deprecation warning.
-     * @param int stackFrame The stack frame to include in the error. Defaults to 1
-     *  as that should point to application/plugin code.
-     */
-    void deprecationWarning(string aversion, string amessage, int stackFrame = 1) {
-        uimDeprecationWarning(version, message, stackFrame + 1);
-    }
-}
-*/
+    // Helper method for outputting deprecation warnings
+    void deprecationWarning(string versionText, string outputMessage, int stackFrame = 1) {
+        uimDeprecationWarning(versionText, outputMessage, stackFrame + 1);
+    } 
+    

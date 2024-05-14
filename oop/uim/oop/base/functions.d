@@ -14,7 +14,7 @@ import uim.oop;
      * @param bool double Encode existing html entities.
      * @param string charset Character set to use when escaping.
      *  Defaults to config value in `mb_internal_encoding()` or 'UTF-8'.
-     */
+     * /
     Json htmlAttributeEscape(Json text, bool isDouble = true, string charsetToUse = null) {
         Json result = text;
         if (text.isString) {
@@ -49,7 +49,7 @@ import uim.oop;
      * Params:
      * @param bool dotAppend Set to true if you want the plugin to have a '.' appended to it.
      * @param string plugin Optional default plugin to use if no plugin is found. Defaults to null.
-     */
+     * /
     Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string pluginName = null) {
         // TODO
         /* if (name.has(".")) {
@@ -60,14 +60,14 @@ import uim.oop;
             / ** @psalm-var array{string, string}* /
             return someParts;
         }
-        return [plugin, name]; */
+        return [plugin, name]; * /
         return null;
     }
 
 /**
     * Split the namespace from the classname.
     * Commonly used like `list(namespace,  className) = namespaceSplit(className);`.
-    */
+    * /
 string[] namespaceSplit(string className) {
     pos = indexOf(className, "\\");
     if (pos == false) {
@@ -85,7 +85,7 @@ string[] namespaceSplit(string className) {
      * This auto returns the same variable that was passed.
      * Params:
      * IData var Variable to print out.
-     */
+     * /
     IData pr(Json printOut) {
         if (!configuration.hasKey("debug")) {
             return printOut;
@@ -108,7 +108,7 @@ string[] namespaceSplit(string className) {
      * This auto returns the same variable that was passed.
      * Params:
      * IData var Variable to print out.
-     */
+     * /
     IData pj(IData var) {
         if (!configuration.hasKey("debug")) {
             return var;
@@ -129,7 +129,7 @@ string[] namespaceSplit(string className) {
      * Params:
      * string variableName Environment variable name.
      * @param string|null default Specify a default value in case the environment variable is not defined.
-     */
+     * /
     Json enviroment(string variableName, Json defaultValue = Json(null)) {
         if (variableName == "HTTPS") {
             if (isSet(_SERVER["HTTPS"])) {
@@ -202,7 +202,7 @@ string[] namespaceSplit(string className) {
      * @param string amessage The message to output as a deprecation warning.
      * @param int stackFrame The stack frame to include in the error. Defaults to 1
      *  as that should point to application/plugin code.
-     */
+     * /
     void deprecationWarning(string versionInfo, string outputMessage, int stackFrame = 1) {
         if (!(error_reporting() & E_USER_DEPRECATED)) {
             return;
@@ -251,5 +251,5 @@ string[] namespaceSplit(string className) {
         if (!isDuplicate) {
             errors[checksum] = true;
         }
-        trigger_error(message, E_USER_DEPRECATED); */
-    }
+        trigger_error(message, E_USER_DEPRECATED); * /
+    } */

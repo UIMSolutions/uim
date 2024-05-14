@@ -16,7 +16,7 @@ class DServiceConfig {
      * Params:
      * string aPath The path to read.
      * @param IData defaultValue The default value to use if somePath does not exist.
-     */
+     * /
     IData get(string aPath, IData defaultData = null) {
         return configuration.get(somePath, defaultData);
     }

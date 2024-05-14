@@ -22,7 +22,7 @@ import uim.oop;
  * }
  * ```
  */
-class DJsonConfig : DFileConfigEngineEngine {
+class DJsonConfig : DConfigEngine {
     mixin TFileConfig;
   	/*alias Alias = ;
     override bool initialize(Json[string] initData = null) {
@@ -38,7 +38,7 @@ class DJsonConfig : DFileConfigEngineEngine {
      * Constructor for Json[string] configSettings = null file reading.
      * Params:
      * string someKey The key to read config files from. Defaults to CONFIG.
-     */
+     * /
     this(string keyToConfig = null) {
        _key = !keyToConfig.isEmpty ? keyToConfig : CONFIG;
     }
@@ -51,7 +51,7 @@ class DJsonConfig : DFileConfigEngineEngine {
      * Params:
      * string aKey The identifier to read from. If the key has a ~ it will be treated
      *  as a plugin prefix.
-     */
+     * /
     array read(string aKey) {
         auto file = _getFileKey(aKey, true);
 
@@ -82,7 +82,7 @@ class DJsonConfig : DFileConfigEngineEngine {
      * string aKey The identifier to write to. If the key has a ~ it will
      * be treated as a plugin prefix.
      * @param Json[string] data Data to dump.
-         */
+         * /
     bool dump(string dataId, Json[string] data) {
         auto filename = _getFileKey(dataId);
 

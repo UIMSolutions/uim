@@ -8,7 +8,7 @@ module uim.oop.configurations.configuration;
 import uim.oop;
 @safe:
 
-abstract class DConfiguration : IConfiguration {
+abstract class DFileConfigEngineuration : IConfiguration {
     this() {}
     this(string name) { this(); this.name(name); }
 
@@ -86,7 +86,7 @@ abstract class DConfiguration : IConfiguration {
         bool hasKey(string[] key) {
             return false;
         }
-        
+
         bool hasKey(string key) {
             return false;
         }

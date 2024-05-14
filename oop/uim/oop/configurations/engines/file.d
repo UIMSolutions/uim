@@ -1,4 +1,4 @@
-module uim.oop.configurations.engines.dconfig;
+module oop.uim.oop.configurations.engines.file;
 
 import uim.oop;
 
@@ -26,7 +26,7 @@ import uim.oop;
  * ];
  * ```
  */
-class DConfig : IConfigEngine {
+class DFileConfigEngine : IConfigEngine {
     mixin TFileConfig;
 
     // File extension.

@@ -4,7 +4,7 @@ import uim.oop;
 
 @safe:
 
-class DMemoryConfiguration : DConfiguration {
+class DMemoryConfiguration : DFileConfigEngineuration {
     mixin(ConfigurationThis!("Memory"));
 
     override bool initialize(Json[string] initData = null) {
@@ -102,7 +102,7 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    alias hasAnyKeys = DConfiguration.hasAnyKeys;
+    alias hasAnyKeys = DFileConfigEngineuration.hasAnyKeys;
     override bool hasAnyKeys(string[] keys) {
         return keys.any!(key => hasKey(key));
     }
@@ -112,7 +112,7 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    alias hasAllKeys = DConfiguration.hasAllKeys;
+    alias hasAllKeys = DFileConfigEngineuration.hasAllKeys;
     override bool hasAllKeys(string[] keys) {
         return keys.all!(key => hasKey(key));
     }
@@ -142,7 +142,7 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    alias hasAnyValues = DConfiguration.hasAnyValues;
+    alias hasAnyValues = DFileConfigEngineuration.hasAnyValues;
     override bool hasAnyValues(string[] values) {
         return values.any!(value => hasValue(value));
     }
@@ -152,7 +152,7 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    alias hasAllValues = DConfiguration.hasAllValues;
+    alias hasAllValues = DFileConfigEngineuration.hasAllValues;
     override bool hasAllValues(string[] values) {
         return values.all!(value => hasValue(value));
     }

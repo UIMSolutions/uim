@@ -135,15 +135,15 @@ class DExceptionTrap {
 
         /** @var class-string|callable aClassName */
         aClassName = getConfig("exceptionRenderer");
-        deprecatedConfig = (aClassName == ExceptionRenderer.class && D_SAPI == "cli");
-        if (deprecatedConfig) {
+        deprecateDFileConfigEngine = (aClassName == ExceptionRenderer.class && D_SAPI == "cli");
+        if (deprecateDFileConfigEngine) {
             deprecationWarning(
                 "Your application is using a deprecated `Error.exceptionRenderer`~ " ~
                 "You can either remove the `Error.exceptionRenderer` config key to have UIM choose " ~
                 "one of the default exception renderers, or define a class that is not `uim\errors.ExceptionRenderer`."
             );
         }
-        if (!aClassName || deprecatedConfig) {
+        if (!aClassName || deprecateDFileConfigEngine) {
             // Default to detecting the exception renderer if we"re
             // in a CLI context and the Web renderer is currently selected.
             // This indicates old configuration or user error, in both scenarios

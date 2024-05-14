@@ -4,7 +4,7 @@ import uim.oop;
 
 @safe:
 
-class DJsonConfiguration : DFileConfigEngineuration {
+class DJsonConfiguration : DConfiguration {
     mixin(ConfigurationThis!("Json"));
 
     override bool initialize(Json[string] initData = null) {

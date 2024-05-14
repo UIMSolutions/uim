@@ -186,5 +186,5 @@ mixin template TPluginAssets() {
         this.io.writeErrorMessages("Error copying assets to directory " ~ destinationDir);
 
         return false;
-    } */
+    }
 }

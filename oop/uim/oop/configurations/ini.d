@@ -4,7 +4,7 @@ import uim.oop;
 
 @safe:
 
-class DIniConfiguration : DFileConfigEngineuration {
+class DIniConfiguration : DConfiguration {
     mixin(ConfigurationThis!("Ini"));
 
     override bool initialize(Json[string] initData = null) {

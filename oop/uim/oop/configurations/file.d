@@ -4,7 +4,7 @@ import uim.oop;
 
 @safe:
 
-class DFileConfiguration : DFileConfigEngineuration {
+class DFileConfiguration : DConfiguration {
     mixin(ConfigurationThis!("File"));
 
     override bool initialize(Json[string] initData = null) {

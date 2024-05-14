@@ -116,7 +116,7 @@ class DBufferedIterator : DCollection { // }, Countable {
   // Magic method used for serializing the iterator instance.
   Json[string] __serialize() {
     if (!_finished) {
-      this.count();
+      count();
     }
     return iterator_to_array(_buffer);
   }

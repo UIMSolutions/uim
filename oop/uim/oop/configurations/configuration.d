@@ -8,7 +8,7 @@ module uim.oop.configurations.configuration;
 import uim.oop;
 @safe:
 
-abstract class DFileConfigEngineuration : IConfiguration {
+abstract class DConfiguration : IConfiguration {
     this() {}
     this(string name) { this(); this.name(name); }
 

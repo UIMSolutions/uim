@@ -8,7 +8,6 @@ import uim.collections;
  * An iterator that can be used as an argument for other iterators that require
  * a RecursiveIterator but do not want children. This iterator will
  * always behave as having no nested items.
- *
  * @template-implements \RecursiveIterator<mixed, mixed>
  */
 class DNoChildrenIterator : DCollection { // }, RecursiveIterator {
@@ -17,10 +16,8 @@ class DNoChildrenIterator : DCollection { // }, RecursiveIterator {
     return false;
   }
 
-  /**
-     * Returns a self instance without any elements.
-     */
-  RecursiveIterator getChildren() {
-    return new static([]);
-  } */
+  // Returns a self instance without any elements.
+  DRecursiveIterator getChildren() {
+    return new DRecursiveIterator;
+  }
 }

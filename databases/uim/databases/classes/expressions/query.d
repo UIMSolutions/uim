@@ -411,7 +411,7 @@ class DQueryExpression : DExpression { // }, Countable {
         return _eq(wrapIdentifier(leftField),  wrapIdentifier(rightField));
     }
     string sql(DValueBinder aBinder) {
-         len = this.count();
+        size_t length = count();
         if (len == 0) {
             return "";
         }
@@ -466,17 +466,9 @@ class DQueryExpression : DExpression { // }, Countable {
        _conditions = someParts;
     }
     
-    /**
-     * Returns true if this expression contains any other nested
-     * IExpression objects
-     */
+    // Returns true if this expression contains any other nested IExpression objects
     bool hasNestedExpression() {
-        foreach (condition; _conditions) {
-            if (cast(IExpression)condition ) {
-                return true;
-            }
-        }
-        return false;
+        _conditions.any!(condition => cast(IExpression)condition);
     }
     
     /**

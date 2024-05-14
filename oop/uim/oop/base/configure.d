@@ -11,7 +11,7 @@ import uim.oop;
  * as methods for loading additional configuration files or storing runtime configuration
  * for future use.
  */
-class DConfigure {
+class DFileConfigEngineure {
     bool initialize(IData[string] initData = null) {
         return true;
     }
@@ -98,10 +98,9 @@ class DConfigure {
 
     // Returns true if given variable is set in Configure.
     static bool check(string variableName) {
-        if (variableName.isEmpty) {
-            return false;
-        }
-        return read(variableName) !isNull;
+        return variableName.isEmpty
+            ? false
+            :!read(variableName).isNull;
     }
 
     /**

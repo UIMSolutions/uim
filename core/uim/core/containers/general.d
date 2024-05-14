@@ -19,6 +19,10 @@ bool isSet(V)(Nullable!V value) {
 bool isSet(V)(V[] values) {
   return !values.empty;
 }
+///
+unittest {
+  
+}
 
 bool isSet(V)(V[] values, size_t[] index...) {
   return isSet(values, index);

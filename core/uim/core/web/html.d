@@ -15,17 +15,17 @@ string createHtmlStartTag(string tag, bool close = false) {
 	return "<" ~ tag ~ ">";
 }
 
-string createHtmlStartTag(string tag, STRINGAA attributes, bool close = false) {
+string createHtmlStartTag(string tag, STRINGAA attributes, bool isCompact = false) {
 	if (attributes) {
 		string attValue = attributes.byKeyValue
 			.map!(kv => `%s="%s"`.format(kv.key, kv.value()))
 			.join(" ");
 
-		if (close)
-			return "<%s %s/>".format(tag, attValue);
-		return "<%s %s>".format(tag, attValue);
+		return isCompact
+			? "<%s %s/>".format(tag, attValue)
+			: "<%s %s>".format(tag, attValue);
 	}
-	return createHtmlStartTag(tag, close);
+	return createHtmlStartTag(tag, isCompact);
 }
 // #endregion createHtmlStartTag 
 
@@ -36,6 +36,10 @@ string createHtmlEndTag(string tag) {
 // #endregion createHtmlEndTag 
 
 string createHtmlDoubleTag(string tag, string[] content...) {
+	return createHtmlDoubleTag(tag, content.dup);
+}
+
+string createHtmlDoubleTag(string tag, string[] content) {
 	if (content) {
 		return createHtmlStartTag(tag) ~ content.join("") ~ createHtmlEndTag(tag);
 	}

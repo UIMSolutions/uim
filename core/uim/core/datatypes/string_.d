@@ -42,11 +42,11 @@ bool endsWith(string text, string[] endings) {
 		return false;
 	}
 	
-	return endings.length == 0
-		? false
-		: endings.any!(ending => !ending.isEmpty && text[$-ending.length..$] == ending);
+	return endings.length > 0
+		? endings.any!(ending => ending.length > 0 && text[$-ending.length..$] == ending)
+		: false;
 }
-
+///
 unittest {
 	assert("ABC".endsWith(["C"]));
 	assert(!"".endsWith(["C"]));
@@ -156,9 +156,9 @@ bool startsWith(string text, string[] startings) {
 		return false;
 	}
 
-	return startings.length == 0
-		? false
-		: startings.any!(starting => !starting.isEmpty && text.indexOf(starting) == 0);
+	return startings.length > 0
+		? startings.any!(starting => starting.length > 0 && text.indexOf(starting) == 0)
+		: false;
 }
 
 unittest {
@@ -232,14 +232,13 @@ version (test_uim_core) {
 // -- A negative number - Start at a specified position from the end of the string
 // -- 0 - Start at the first character in string
 string subString(string aText, long startPos) {
-	if (startPos == 0)
+	if (startPos == 0) {
 		return aText;
-
-	if (startPos > 0) {
-		return startPos >= aText.length ? null : aText[startPos .. $];
-	} else { // startPos < 0
-		return -startPos >= aText.length ? null : aText[0 .. $ + startPos];
 	}
+
+	return startPos > 0
+		? (startPos >= aText.length ? aText : aText[startPos .. $])
+		: (-startPos >= aText.length ? aText : aText[0 .. $ + startPos]);
 }
 
 unittest {
@@ -254,11 +253,9 @@ unittest {
 // If the length parameter is 0, NULL, or FALSE - it return an empty string
 string subString(string aText, size_t startPos, long aLength) {
 	auto myText = subString(aText, startPos);
-	if (aLength > 0) {
-		return myText.length >= aLength ? myText[0 .. aLength] : null;
-	} else { // aLength < 0
-		return myText.length >= -aLength ? myText[$ + aLength .. $] : null;
-	}
+	return aLength > 0
+		? (myText.length >= aLength ? myText[0 .. aLength] : myText)
+		: (myText.length >= -aLength ? myText[$ + aLength .. $] : myText);
 }
 
 unittest {
@@ -309,17 +306,14 @@ unittest {
 }
 
 string firstElement(string text, string separator = "/") {
-	if (text.isEmpty) {
+	if (text.length == 0) {
 		return text;
 	}
 
 	auto firstIndex = text.countUntil(separator);
-
-	if (firstIndex < 0) {
-		return text;
-	}
-
-	return text[0 .. firstIndex];
+	return firstIndex < 0
+		? text
+		: text[0 .. firstIndex];
 }
 
 unittest {
@@ -328,12 +322,11 @@ unittest {
 }
 
 string lastElement(string text, string separator = "/") {
-	if (text.isEmpty) {
-		return text;
+	if (text.length == 0) {
+		return null;
 	}
 
 	auto lastIndex = text.retro.countUntil(separator);
-
 	if (lastIndex < 0) {
 		return text;
 	}
@@ -344,7 +337,6 @@ string lastElement(string text, string separator = "/") {
 unittest {
 	assert("a/b/c".lastElement == "c");
 	assert("a.b.c".lastElement(".") == "c");
-
 }
 
 string toPath(string[] pathItems, string separator = "/") {
@@ -352,7 +344,7 @@ string toPath(string[] pathItems, string separator = "/") {
 		.map!(item => std.string.strip(item))
 		.map!(item => std.string.strip(item, separator))
 		.map!(item => std.string.strip(item))
-		.filter!(item => !item.isEmpty)
+		.filter!(item => item.length > 0)
 		.join(separator);
 }
 

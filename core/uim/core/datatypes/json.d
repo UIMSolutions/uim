@@ -321,13 +321,11 @@ Json removeKeys(Json aJson, string[] delKeys) {
   delKeys.each!(k => result.remove(k));
   return result;
 }
-
-version (test_uim_core) {
-  unittest {
-    auto json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}]}`);
-    assert(json.hasValue(Json("b")));
-    assert(json.hasValue(Json("h"), true));
-  }
+///
+unittest {
+  auto json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}]}`);
+  assert(json.hasValue(Json("b")));
+  assert(json.hasValue(Json("h"), true));
 }
 
 /// Remove key from Json Object
@@ -379,24 +377,22 @@ Json readJson(Json target, Json source, bool overwrite = true) {
 
 /// Load existing json files in directories
 Json[] loadJsonsFromDirectories(string[] dirNames) {
-  Json[] results;
-  foreach (dir; dirNames.filter!(a => a.exists))
-    if (dir.exists)
-      results ~= loadJsonsFromDirectory(dir);
-  return results;
+  return dirNames
+    .filter!(dir => dir.exists) // string[]
+    .map!(dir => loadJsonsFromDirectory(dir)) // Json[][]
+    .array // Json[][]
+    .join;
 }
-
-version (test_uim_core) {
-  unittest {
-    /// TODO Add Tests
-  }
+unittest {
+  /// TODO Add Tests
 }
 
 /// Load existing json file in directories
 Json[] loadJsonsFromDirectory(string dirName) {
   // debug writeln("In loadJsonsFromDirectory("~dirName~")");
   // debug writeln("Found ", fileNames(dirName).length, " files");
-  return loadJsons(fileNames(dirName, true));
+  // TODO return loadJsons(fileNames(dirName, true));
+  return null; 
 }
 
 version (test_uim_core) {
@@ -464,20 +460,21 @@ unittest {
 
 T maxValue(T)(Json[] jsons, string key) {
   T result;
-  foreach (j; jsons) { // find first value
-    if (key !in j)
+  foreach (json; jsons) { // find first value
+    if (!json.hasKey(key)) {
       continue;
+    }
 
-    T value = j[key].get!T;
-    result = value;
+    result = json[key].get!T;
     break;
   } // found value
 
   foreach (j; jsons) { // compare values
-    if (key !in j)
+    if (!json.hasKey(key)) {
       continue;
+    }
 
-    T value = j[key].get!T;
+    T value = json[key].get!T;
     if (value > result)
       result = value;
   }
@@ -573,9 +570,9 @@ Json toJson(string aKey, string aValue) {
   }
 
   Json toJson(STRINGAA map, string[] excludeKeys = null) {
-    auto json = Json.emptyObject;
+    Json json = Json.emptyObject;
     map.byKeyValue
-      .filter!(kv => !excludeKeys.has(kv.key))
+      .filter!(kv => !excludeKeys.any!(key => key == kv.key))
       .each!(kv => json[kv.key] = kv.value);
     return json;
   }
@@ -675,16 +672,17 @@ Json jsonWithMinVersion(Json[] jsons) {
     return Json(null);
   }
 
-  auto result = jsons[0];
+  Json minJson = jsons[0];
 
   if (jsons.length > 1) {
     jsons[1 .. $]
-      .filter!(json => json.isObject && json.isSet("versionNumber"))
-      .each!(json => result = json["versionNumber"].get!size_t < result["versionNumber"].get!size_t ? json
-          : result);
+      .filter!(json => json.isObject && "versionNumber" in json) // Object with versionNumber
+      .each!(json => minJson = json["versionNumber"].get!size_t < minJson["versionNumber"].get!size_t 
+        ? json
+        : minJson);
   }
 
-  return result;
+  return minJson;
 }
 ///
 unittest {
@@ -716,7 +714,7 @@ Json jsonWithMaxVersion(Json[] jsons) {
 
   if (jsons.length > 1) {
     jsons[1 .. $]
-      .filter!(json => json.isObject && json.isSet("versionNumber"))
+      .filter!(json => json.isObject && "versionNumber" in json)
       .each!(json => result = json["versionNumber"].get!size_t > result["versionNumber"].get!size_t ? json
           : result);
   }
@@ -727,6 +725,7 @@ Json jsonWithMaxVersion(Json[] jsons) {
 unittest {
   auto json1 = parseJsonString(`{"versionNumber":1}`);
   auto json2 = parseJsonString(`{"versionNumber":2}`);
+
   auto json3 = parseJsonString(`{"versionNumber":3}`);
 
   assert(jsonWithMaxVersion(json1, json2)["versionNumber"].get!size_t == 2);
@@ -751,7 +750,7 @@ size_t maxVersionNumber(Json[] jsons) {
   size_t result = 0;
 
   jsons
-    .filter!(json => json.isObject && json.isSet("versionNumber"))
+    .filter!(json => json.isObject && "versionNumber" in json)
     .each!(json => result = json["versionNumber"].get!size_t > result ? json["versionNumber"].get!size_t
         : result);
 
@@ -835,7 +834,7 @@ unittest {
 Json toJsonObject(Json[string] map, string[] excludeKeys = null) {
   auto json = Json.emptyObject;
   map.byKeyValue
-    .filter!(kv => !excludeKeys.has(kv.key))
+    .filter!(kv => !excludeKeys.any!(key => key == kv.key))
     .each!(kv => json[kv.key] = kv.value);
   return json;
 }
@@ -843,7 +842,7 @@ Json toJsonObject(Json[string] map, string[] excludeKeys = null) {
 Json toJsonObject(string[string] map, string[] excludeKeys = null) {
   auto json = Json.emptyObject;
   map.byKeyValue
-    .filter!(kv => !excludeKeys.has(kv.key))
+    .filter!(kv => !excludeKeys.any!(key => key == kv.key))
     .each!(kv => json[kv.key] = Json(kv.value));
   return json;
 }
@@ -863,7 +862,7 @@ string[] toStringArray(Json value) {
 Json[string] toJsonMap(STRINGAA map, string[] excludeKeys = null) {
   Json[string] json;
   map.byKeyValue
-    .filter!(kv => !excludeKeys.has(kv.key))
+    .filter!(kv => !excludeKeys.any!(key => key == kv.key))
     .each!(kv => json[kv.key] = Json(kv.value));
   return json;
 }

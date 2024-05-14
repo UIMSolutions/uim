@@ -4,21 +4,25 @@ import uim.core;
 
 @safe:
 
-Json[string] merge(Json[string] baseData, Json secondData) {
-  Json[string] results;
+Json[string] merge(Json[string] originValues, Json mergeValues) {
+  Json[string] mergedValues = originValues.dup;
+  if (!mergeValues.isObject) {
+    return mergedValues;
+  }
 
-  secondData.byKeyValue
-    .each!(kv => results = results.merge(kv.key, kv.value));
+  mergeValues.byKeyValue
+    .filter!(kv => kv.key !in originValues)
+    .each!(kv => mergedValues[kv.key] = kv.value);
 
-  return results;
+  return mergedValues;
 }
 
 Json[string] merge(Json[string] baseData, string key, Json value) {
-  auto results = baseData.dup;
-
-  if (!results.hasKey(key)) results[key] = value;
-
-  return results;
+  Json[string] mergedValues = baseData.dup;
+  if (key !in baseData) {
+    mergedValues[key] = value;
+  }
+  return mergedValues;
 }
 
 Json[string] copy(Json[string] origin) {
@@ -30,19 +34,25 @@ Json[string] copy(Json[string] origin) {
 }
 
 string getString(Json[string] values, string  key) {
-  if (!values.hasKey(key)) {
-    return null;
-  }
-
-  return values[key].to!string;
+  return key in values 
+    ? values[key].to!string
+    : null;
+}
+unittest {
+  Json[string] values;
+  values["a"] = Json("A");
+  values["b"] = "B".toJson;
+  assert(values.getString("a") == "A");
+  assert(values.getString("b") != "A");
+  assert(values.getString("b") == "B");
 }
 
 bool isEmpty(Json[string] values, string  key) {
-  return (!values.hasKey(key) || values[key].isNull);
+  return (key !in values || values[key].isNull);
 }
 
 Json getJson(Json[string] values, string key, Json defaultValue = Json(null)) {
-  return values.hasKey(key) 
+  return key in values 
     ? values[key]
     : defaultValue;
 }

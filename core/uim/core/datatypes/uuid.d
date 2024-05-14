@@ -135,9 +135,7 @@ UUID toUUID(string id) {
 
   return UUID(id.strip);
 }
-
-version (test_uim_core) {
-  unittest {
-    /// TODO
-  }
+///
+unittest {
+  /// TODO
 }

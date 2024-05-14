@@ -55,16 +55,15 @@ unittest {
 }
 // #endregion count
 
-auto firstPosition(T)(in T[] baseArray, in T value) {
+size_t firstPosition(T)(in T[] baseArray, in T value) {
   foreach (index, item; baseArray)
     if (item == value)
       return index;
   return -1;
 }
-
-version (test_uim_core) {
-  unittest {
-  }
+///
+unittest {
+  assert(["1", "3", "5"].firstPosition("3") == 1);
 }
 
 /// Creates a associative array with all positions of a value in an array
@@ -85,10 +84,8 @@ size_t[][T] positions(T)(in T[] baseArray, in T[] validValues = null) {
   size_t[][T] results;
   auto checkValues = (validValues ? baseArray.filters(validValues) : baseArray);
   foreach (pos, v; checkValues) {
-    if (v in results)
-      results[v] ~= pos;
-    else
-      results[v] = [pos];
+    results[v] = v in results
+      ? results[v] ~ pos : [pos];
   }
   return results;
 }
@@ -266,8 +263,7 @@ bool hasAllValues(T)(in T[] source, in T[] values...) {
 
 bool hasAllValues(T)(in T[] source, in T[] values) {
   return source.isEmpty || values.isEmpty
-    ? false
-    : values.all!(value => hasValue(source, value));
+    ? false : values.all!(value => hasValue(source, value));
 }
 ///
 unittest {
@@ -389,6 +385,7 @@ version (test_uim_core) {
         [1]) == [
         1: [0UL]
       ]);
+
     assert([
         1, 2, 3, 4, 1
       ].indexes([1]) == [
@@ -397,7 +394,6 @@ version (test_uim_core) {
   }
 }
 // #endregion Searching
-
 
 T shiftFirst(T)(ref T[] values) {
   // IN Check
@@ -429,13 +425,19 @@ unittest {
 bool isNull(T)(T[] values) {
   return (values is null);
 }
+
 unittest {
-  // TODO create tests
+  string[] values;
+  assert(values.isNull);
+
+  values ~= "x";
+  assert(!values.isNull);
 }
 
 T[] ifNull(T)(T[] values, T[] defaultValues = null) {
   return values.isNull ? defaultValues : values;
 }
+
 unittest {
   // TODO create tests
 }
@@ -443,16 +445,19 @@ unittest {
 bool isEmpty(T)(T[] values) {
   return (values.isNull || values.length == 0);
 }
+
 unittest {
-  int[] x; 
+  int[] x;
   assert(x.isEmpty);
   assert(![1, 2, 3, 4].isEmpty);
   assert([].isEmpty);
 }
 
 T[] ifEmpty(T)(T[] values, T[] defaultValues = null) {
-  return values.isEmpty ? defaultValues : values;
+  return values.isEmpty
+    ? defaultValues : values;
 }
+
 unittest {
   // TODO create test
 }

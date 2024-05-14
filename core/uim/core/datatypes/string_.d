@@ -9,33 +9,40 @@ import uim.core;
 
 @safe:
 
+
 /// create a string with defined length and content
-string fill(size_t length = 0, string txt = "0") {
-	string result;
-	if (txt) {
-		while (result.length < length)
-			result ~= txt;
-		result.length = length; // cut result to length
+string fill(size_t width, string fillText = "0") {
+	if (width == 0 || fillText.length == 0) {
+		return null;
 	}
-	return result;
+
+	string filledText;
+	while (filledText.length < width) {
+		filledText ~= fillText;
+	}
+	filledText.length = width; // cut result to length
+	return filledText;
 }
 unittest {
+	assert(fill(10, "0").length == 10);
 	assert(fill(10, "0") == "0000000000");
 	assert(fill(10, "TXT") == "TXTTXTTXTT");
 }
 
-string bind(string source, STRINGAA values, string limiter = "%") {
+string bind(string source, STRINGAA replaceMap, string placeHolder = "{{%s}}") {
 	import std.string;
 
-	string result = source;
-	// TODO values.byKeyValue
-	// TODO .each!(kv => result = replace(result, limiter ~ kv.key ~ limiter, kv.value));
+	string updatedText = source;
+	replaceMap.byKeyValue
+		.each!(kv => updatedText = std.string.replace(updatedText, placeHolder.format(kv.key), kv.value));
 
-	return result;
+	return updatedText;
 }
 unittest {
-	/// TODO
+	assert("{{abc}}".bind(["abc": "xyz"]) == "xyz");
+	assert("0{{abc}}0".bind(["abc": "xyz"]) == "0xyz0");
 }
+
 
 bool endsWith(string text, string[] endings) {
 	if (text.length == 0) {
@@ -54,48 +61,43 @@ unittest {
 } 
 
 // #region has
+	bool hasAllValues(string[] bases, string[] values...) {
+		return hasAllValues(bases, values.dup);
+	}
+	unittest {
+		assert(["One Two Three"].hasAllValues("One"));
+		assert(!["One Two Three", "Eight Seven Six"].hasAllValues("Five", "Four", "Six"));
+		assert(!["One Two Three"].hasAllValues("Five", "Four"));
+	}
 
-bool hasAllValues(string[] bases, string[] values...) {
-	return hasAllValues(bases, values.dup);
-}
-///
-unittest {
-	assert(["One Two Three"].hasAllValues("One"));
-	assert(["One Two Three", "Eight Seven Six"].hasAllValues("Five", "Four", "Six"));
-	assert(!["One Two Three"].hasAllValues("Five", "Four"));
-}
+	bool hasAllValues(string[] bases, string[] values) {
+		return bases.all!(base => base.hasAllValues(values));
+	}
+	unittest {
+		assert(["One Two Three"].hasAllValues(["One"]));
+		assert(!["One Two Three", "Eight Seven Six"].hasAllValues(["Five", "Four", "Six"]));
+		assert(!["One Two Three"].hasAllValues(["Five", "Four"]));
+	}
 
-bool hasAllValues(string[] bases, string[] values) {
-	return bases.any!(base => base.hasAllValues(values));
-}
-///
-unittest {
-	assert(["One Two Three"].hasAllValues(["One"]));
-	assert(["One Two Three", "Eight Seven Six"].hasAllValues(["Five", "Four", "Six"]));
-	assert(!["One Two Three"].hasAllValues(["Five", "Four"]));
-}
+	bool hasAllValues(string base, string[] values...) {
+		return hasAllValues(base, values.dup);
+	}
 
-bool hasAllValues(string base, string[] values...) {
-	return hasAllValues(base, values.dup);
-}
+	bool hasAllValues(string base, string[] values) {
+		return values.all!(value => base.hasValue(value));
+	}
+	unittest {
+		assert("One Two Three".hasAllValues("One"));
+		assert(!"One Two Three".hasAllValues("Five", "Four", "Three"));
+		assert(!"One Two Three".hasAllValues("Five", "Four"));
+	}
 
-bool hasAllValues(string base, string[] values) {
-	foreach (value; values)
-		if ((base.hasValue(value))) {
-			return true;
+	bool hasValue(string base, string checkValue) {
+		if (base.length == 0 || checkValue.length == 0 || checkValue.length > base.length) {
+			return false;
 		}
-	return false;
-}
-
-unittest {
-	assert("One Two Three".hasAllValues("One"));
-	assert("One Two Three".hasAllValues("Five", "Four", "Three"));
-	assert(!"One Two Three".hasAllValues("Five", "Four"));
-}
-
-bool hasValue(string base, string aValue) {
-	return ((base.indexOf(aValue) >= 0) && (base.indexOf(aValue) < base.length));
-}
+		return (base.indexOf(checkValue) >= 0);
+	}
 // #endregion has
 
 // #region remove
@@ -111,22 +113,20 @@ pure string[] removeValues(string[] values, string[] removingValues) {
 	return results;
 }
 
-version (test_uim_core) {
-	unittest {
-		assert(removeValues(["a", "b", "c"], "b") == ["a", "c"]);
-		assert(removeValues(["a", "b", "c", "b"], "b") == ["a", "c"]);
+unittest {
+	assert(removeValues(["a", "b", "c"], "b") == ["a", "c"]);
+	assert(removeValues(["a", "b", "c", "b"], "b") == ["a", "c"]);
 
-		assert(removeValues(["a", "b", "c"], "a", "b") == ["c"]);
-		assert(removeValues(["a", "b", "c", "b"], "a", "b") == ["c"]);
-	}
+	assert(removeValues(["a", "b", "c"], "a", "b") == ["c"]);
+	assert(removeValues(["a", "b", "c", "b"], "a", "b") == ["c"]);
 }
-
-pure string[] removeValue(string[] values, string removeValue) {
-	string[] results = values
-		.filter!(value => value != removeValue)
-		.array;
-
-	return results;
+pure string[] removeValue(string[] values, string valueToRemove) {
+	auto updatedValues = values.dup;
+	return valueToRemove.length == 0
+		? updatedValues
+		: updatedValues
+			.filter!(value => value != valueToRemove)
+			.array;
 }
 
 unittest {
@@ -179,27 +179,27 @@ string quotes(string text, string left, string right) {
 	return left ~ text ~ right;
 }
 
+// TODO
 /* 
 string[] toStrings(T...)(T someValues...){
-	string[] results;
-	results = someValues.map!(value => "%s".format(value)).array;
-	return results;
+	return someValues.map!(value => "%s".format(value)).array;
 }
 unittest {
 	debug writeln(toStrings(1, 2));
 	debug writeln(toStrings(1, "a"));
-}
-*/
+} */
 
-string indent(in string txt, int indent = 2) {
-	string result = txt;
-	for (auto i = 0; i < indent; i++)
-		result = " " ~ result;
-	return result;
-}
+string indent(in string text, size_t indent = 2) {
+	if (indent == 0) {
+		return text;
+	}
 
+	return fill(indent, " ") ~ text;
+}
 unittest {
+	assert(indent("Hallo").length == 7);
 	assert(indent("Hallo") == "  Hallo");
+	assert(indent("Hallo", 3).length == 8);
 	assert(indent("Hallo", 3) == "   Hallo");
 }
 
@@ -264,8 +264,9 @@ unittest {
 	assert("0123456789".subString(-4, -2) == "45");
 }
 
-string capitalizeWords(string aText) {
-	return capitalize(aText.split(" ")).join(" ");
+// TODO
+string capitalizeWords(string aText, string separator = " ") {
+	return capitalize(std.string.split(aText, separator)).join(separator);
 }
 
 version (test_uim_core) {
@@ -279,8 +280,7 @@ size_t[string] countWords(string aText, bool caseSensitive = true) {
 	size_t[string] results;
 
 	// TODO missing caseSensitive = false
-	aText
-		.split(" ")
+	std.string.split(aText, " ")
 		.each!(word => results[word] = word in results ? results[word] + 1 : 1);
 
 	return results;
@@ -353,33 +353,33 @@ unittest {
 	assert(toPath(["a ", "/b", "c/"]) == "a/b/c");
 	assert(toPath(["a ", "", "/b", "c/"]) == "a/b/c");
 }
-
 string lower(string text) {
-	return text.lower;
+	return text.toLower;
 }
 
 string[] lower(string[] texts) {
 	return texts
-		.map!(text => text.lower)
+		.map!(text => text.toLower)
 		.array;
 }
 
 // region upper
 string[] upper(string[] texts) {
 	return texts
-		.map!(text => text.upper)
+		.map!(text => text.toUpper)
 		.array;
 }
 unittest {
 	assert(["a", "b", "c"].upper.equal(["A", "B", "C"]));
 }
 string upper(string text) {
-	return text.upper;
+	return text.toUpper;
 }
 unittest {
 	assert("a".upper == "A");
 }
 // #endregion upper
+
 string[] capitalize(string[] texts) {
 	return texts
 		.map!(text => std.string.capitalize(text))
@@ -415,20 +415,21 @@ string[] stripRight(string[] texts) {
 }
 // #endregion strip
 
+// #region replace
 string[] replace(string[] texts, string originText, string newText) {
 	return texts
 		.map!(text => std.string.replace(text, originText, newText))
 		.array;
 }
+// #endregion replace
+
 
 // TODO
-/*
 string[] split(string[] texts, string splitText = " ") {
 	auto splitTexts = texts
-		.map!(text => text.split(splitText)).array;
-	return chain(splitTexts);
+		.map!(text => std.string.split(text, splitText)).array;
+	return join(splitTexts);
 }
 unittest {
   // TODO create test
 }
-*/

@@ -4,6 +4,7 @@ import uim.core;
 
 @safe:
 
+/*
 Json[string] merge(Json[string] originValues, Json mergeValues) {
   Json[string] mergedValues = originValues.dup;
   if (!mergeValues.isObject) {
@@ -56,3 +57,4 @@ Json getJson(Json[string] values, string key, Json defaultValue = Json(null)) {
     ? values[key]
     : defaultValue;
 }
+*/

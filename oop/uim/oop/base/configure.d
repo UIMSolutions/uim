@@ -82,8 +82,8 @@ class DConfigure {
      *
      * Usage:
      * ```
-     * Configuration.read("Name"); will return all values for Name
-     * Configuration.read("Name.key"); will return only the value of Configure.Name[key]
+     * configuration.read("Name"); will return all values for Name
+     * configuration.read("Name.key"); will return only the value of Configure.Name[key]
      * ```
      * Params:
      * string var Variable to obtain. Use '.' to access array elements.
@@ -108,7 +108,7 @@ class DConfigure {
      * Used to get information stored in Configure. It`s not
      * possible to store `null` values in Configure.
      *
-     * Acts as a wrapper around Configuration.read() and Configure.check().
+     * Acts as a wrapper around configuration.read() and Configure.check().
      * The configure key/value pair fetched via this method is expected to exist.
      * In case it does not an exception will be thrown.
      *

@@ -56,7 +56,7 @@ class UriFactory { // }: IUriFactory {
         if (uriPath.isEmpty || uriPath.isAny("/", "//", "/index.d")) {
             uriPath = "/";
         }
-        endsWithIndex = "/" ~ (Configuration.read("App.webroot") ?: "webroot") ~ "/index.d";
+        endsWithIndex = "/" ~ (configuration.read("App.webroot") ?: "webroot") ~ "/index.d";
         endsWithLength = endsWithIndex.length;
         if (
             uriPath.length >= endsWithLength &&
@@ -74,7 +74,7 @@ class UriFactory { // }: IUriFactory {
      * @param Json[string] serverData The SERVER data to use.
      */
     protected static Json[string] getBase(IUri anUri, Json[string] serverData) {
-        auto configData = (array)Configuration.read("App") ~ [
+        auto configData = (array)configuration.read("App") ~ [
             "base": Json(null),
             "webroot": Json(null),
             "baseUrl": Json(null),

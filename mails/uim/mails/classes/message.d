@@ -41,7 +41,7 @@ class DMessage { //: JsonSerializable {
 
         // TODO
         /*
-        this.appCharset = Configuration.read("App.encoding");
+        this.appCharset = configuration.read("App.encoding");
         if (this.appCharset !isNull) {
             this.charset = this.appCharset;
         }

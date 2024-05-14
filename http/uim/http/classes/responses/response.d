@@ -397,7 +397,7 @@ class DResponse : IResponse {
            _setStatus(options["status"]);
         }
         if (!isSet(options"charset"])) {
-            options["charset"] = Configuration.read("App.encoding");
+            options["charset"] = configuration.read("App.encoding");
         }
        _charset = options["charset"];
         type = "text/html";
@@ -1235,7 +1235,7 @@ class DResponse : IResponse {
 
         auto file = new DSplFileInfo(filePath);
         if (!file.isFile() || !file.isReadable()) {
-            if (Configuration.read("debug")) {
+            if (configuration.read("debug")) {
                 throw new DNotFoundException("The requested file %s was not found or not readable".format(filePath));
             }
             throw new DNotFoundException(__d("uim", "The requested file was not found"));

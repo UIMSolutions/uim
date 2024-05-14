@@ -127,26 +127,31 @@ string[] namespaceSplit(string className) {
      * IIS, or SCRIPT_NAME in CGI mode). Also exposes some additional custom
      * environment information.
      * Params:
-     * string aKey Environment variable name.
+     * string variableName Environment variable name.
      * @param string|null default Specify a default value in case the environment variable is not defined.
      */
-    Json enviroment(string aKey, Json defaultValue= null) {
-        if (aKey == "HTTPS") {
+    Json enviroment(string variableName, Json defaultValue = Json(null)) {
+        if (variableName == "HTTPS") {
             if (isSet(_SERVER["HTTPS"])) {
                 return !_SERVER.get("HTTPS") != "off";
             }
             return string)enviroment("SCRIPT_URI").startsWith(("https://");
         }
-        if (aKey == "SCRIPT_NAME" && enviroment("CGI_MODE") && isSet(_ENV["SCRIPT_URL"])) {
-            aKey = "SCRIPT_URL";
+        if (variableName == "SCRIPT_NAME" && enviroment("CGI_MODE") && isSet(_ENV["SCRIPT_URL"])) {
+            variableName = "SCRIPT_URL";
         }
         
-        auto val = _SERVER[aKey] ?? _ENV[aKey] ?? null;
+        string val = _SERVER.hasKey(variableName) 
+            ? _SERVER.getString(variableName)
+            : _ENV.hasKey(variableName) 
+                ? _ENV.getString(variableName)
+                : null;
+
         assert(val.isNull || isScalar(val));
-        if (val.isNull && getEnvironmentData(aKey) != false) {
-            val = (string)getEnvironmentData(aKey);
+        if (val.isNull && getEnvironmentData(variableName) != false) {
+            val = getEnvironmentData.getString(variableName);
         }
-        if (aKey == "REMOTE_ADDR" && val == enviroment("SERVER_ADDR")) {
+        if (variableName == "REMOTE_ADDR" && val == enviroment("SERVER_ADDR")) {
             addr = enviroment("HTTP_PC_REMOTE_ADDR");
             if (!addr.isNull) {
                 val = addr;
@@ -156,17 +161,17 @@ string[] namespaceSplit(string className) {
             return val;
         }
 
-        switch (aKey) {
+        switch (variableName) {
             case "DOCUMENT_ROOT":
-                name = (string)enviroment("SCRIPT_NAME");
-                filename = (string)enviroment("SCRIPT_FILENAME");
-                 anOffset = 0;
+                name = enviroment.getString("SCRIPT_NAME");
+                filename = enviroment.getString("SCRIPT_FILENAME");
+                anOffset = 0;
                 if (!name.endsWith(".d")) {
-                     anOffset = 4;
+                    anOffset = 4;
                 }
-                return substr(filename, 0, -(name.length +  anOffset));
+                return substr(filename, 0, -(name.length + anOffset));
             case "UIM_SELF":
-                return ((string)enviroment("SCRIPT_FILENAME")).replace((string)enviroment("DOCUMENT_ROOT"), "");
+                return enviroment.getString("SCRIPT_FILENAME").replace(enviroment.getString("DOCUMENT_ROOT"), "");
             case "CGI_MODE":
                 return UIM_SAPI == "cgi";
             default: 
@@ -194,12 +199,11 @@ string[] namespaceSplit(string className) {
     /**
      * Helper method for outputting deprecation warnings
      * Params:
-     * string aversion The version that added this deprecation warning.
      * @param string amessage The message to output as a deprecation warning.
      * @param int stackFrame The stack frame to include in the error. Defaults to 1
      *  as that should point to application/plugin code.
      */
-    void deprecationWarning(string aversion, string amessage, int stackFrame = 1) {
+    void deprecationWarning(string versionInfo, string outputMessage, int stackFrame = 1) {
         if (!(error_reporting() & E_USER_DEPRECATED)) {
             return;
         }
@@ -215,31 +219,32 @@ string[] namespaceSplit(string className) {
                 root = ROOT;
             }
             relative = str_replace(DIRECTORY_SEPARATOR, "/", substr(frame["file"], root.length + 1));
-            patterns = (array)Configuration.read("Error.ignoredDeprecationPaths");
+            patterns = configuration.read("Error.ignoredDeprecationPaths");
             foreach (somePattern; patterns) {
                 somePattern = somePattern.replace(DIRECTORY_SEPARATOR, "/");
                 if (fnmatch(somePattern, relative)) {
                     return;
                 }
             }
-            message = 
+            
+            outputMessage = 
                 "Since %s: %s\n%s, line: %s\n" ~
                 "You can disable all deprecation warnings by setting `Error.errorLevel` to " ~
                 "`E_ALL & ~E_USER_DEPRECATED`. Adding `%s` to `Error.ignoredDeprecationPaths` " ~
                 "in your `config/app.d` config will mute deprecations from that file only."
                 .format(
-                    version,
-                    message,
+                    versionInfo,
+                    outputMessage,
                     frame["file"],
                     frame["line"],
                     relative
                 );
         }
         static errors = null;
-        checksum = md5(message);
+        checksum = md5(outputMessage);
         
         // TODO 
-        /* bool isDuplicate = (bool)Configuration.read("Error.allowDuplicateDeprecations", false);
+        /* bool isDuplicate = (bool)configuration.read("Error.allowDuplicateDeprecations", false);
         if (isSet(errors[checksum]) && !isDuplicate) {
             return;
         }

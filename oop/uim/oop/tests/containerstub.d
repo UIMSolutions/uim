@@ -15,12 +15,12 @@ import uim.oop;
 mixin template TContainerStub() {
     /**
      * The customized application class name.
-     */
+     * /
     protected string _appClass = null;
 
     /**
      * The customized application constructor arguments.
-     */
+     * /
     // TODO protected Json[string] _appArgs = null;
 
     // The collection of container services.
@@ -31,7 +31,7 @@ mixin template TContainerStub() {
      * Params:
      * @param array|null constructorArgs The constructor arguments for your application class.
      * @psalm-param class-string<\UIM\Core\IHttpApplication>|class-string<\UIM\Core\IConsoleApplication>  className
-     */
+     * /
     void configApplication(string className, Json[string] constructorArgs) {
        _appClass = className;
        _appArgs = constructorArgs;
@@ -40,7 +40,7 @@ mixin template TContainerStub() {
     /**
      * Create an application instance.
      * Uses the configuration set in `configApplication()`.
-     */
+     * /
     protected IHttpApplication|IConsoleApplication createApp() {
         appClass = _appClass
             ? _appClass
@@ -66,7 +66,7 @@ mixin template TContainerStub() {
      * auto will be used to create mocked services.
      * Params:
      * @param \Closure factory The factory auto for mocked services.
-     */
+     * /
     void mockService(string className, Closure factory) {
         this.containerServices[className] = factory;
     }
@@ -82,7 +82,7 @@ mixin template TContainerStub() {
      * If any mocked services are defined, the application`s container
      * will be replaced with one containing mocks. The original
      * container will be set as a delegate to the mock container.
-     */
+     * /
     void modifyContainer(IEvent anEvent, IContainer containerToWrap) {
         if (isEmpty(this.containerServices)) {
             return;
@@ -106,7 +106,7 @@ mixin template TContainerStub() {
      * up application class DConfiguration.
      *
      * @after
-     */
+     * /
     void cleanupContainer() {
        _appArgs = null;
        _appClass = null;

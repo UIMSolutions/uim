@@ -31,7 +31,7 @@ abstract class ObjectPool(T) {
 
   abstract void expire(T o);
 
-  /* synchronized */ T checkOut() {
+  /* synchronized * / T checkOut() {
     long now = toTimestamp(now());
     T t;
     if (!unlocked.empty) {
@@ -62,7 +62,7 @@ abstract class ObjectPool(T) {
     return (t);
   }
 
-  /* synchronized */ void checkIn(T t) {
+  /* synchronized * / void checkIn(T t) {
     locked.remove(t);
     unlocked[t] = toTimestamp(now());
   }

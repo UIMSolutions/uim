@@ -3,6 +3,7 @@ module uim.oop.patterns.structural.abstract_documents;
 import uim.oop;
 @safe:
 
+/*
 class DProperty {
   override string toString() { return ""; }} 
 auto Property() { return new DProperty; }
@@ -59,7 +60,7 @@ interface Document {
    * @param key         element key
    * @param constructor constructor of child class
    * @return child documents
-   */
+   * /
   Document[] children(string key);
 }
 
@@ -99,7 +100,7 @@ abstract class DAbstractDocument : Document {
   /**
    * Program entry point.
    * @param args command line args
-   */
+   * /
 
 /// DAbstractDocument test class
 class DAbstractDocumentTest {
@@ -158,7 +159,7 @@ class DAppTest {
    *
    * Solution: Inserted assertion to check whether the execution of the main method in {@link App}
    * throws an exception.
-   */
+   * /
 
   @Test
   void shouldExecuteAppWithoutException() {
@@ -240,7 +241,7 @@ class DomainTest {
   }
 
 }
-*/
+* /
 
 version(test_uim_oop) { unittest {
     writeln("Abstract Document Demo"); 
@@ -277,5 +278,5 @@ version(test_uim_oop) { unittest {
 }
   }
 }
-*/
-// }
+* /
+// } */

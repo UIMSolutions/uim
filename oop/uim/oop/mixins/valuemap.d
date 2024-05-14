@@ -61,5 +61,5 @@ template ValueMapWrapper() {
     DValue[string] results;
     valueKeys.each!(ḱey => results[key] = this.values[key]);
     return results;
-  } */
+  }
 }*/

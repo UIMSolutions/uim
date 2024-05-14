@@ -1,6 +1,10 @@
 module uim.oop.base.functions_global;
 
-    /**
+import uim.oop;
+
+@safe:
+
+/**
      * Convenience method for htmlspecialchars.
      * Params:
      * Json text Text to wrap through htmlspecialchars. Also works with arrays, and objects.
@@ -8,12 +12,12 @@ module uim.oop.base.functions_global;
      *   implement a `__toString` method. Otherwise, the class name will be used.
      *   Other scalar types will be returned unchanged.
      * @param bool double Encode existing html entities.
-     */
-    Json htmlAttributeEscape(Json text, bool isDouble = true, string escapingCharset = null) {
-        return uimH(text, isDouble, escapingCharset);
-    }
+     * /
+Json htmlAttributeEscape(Json text, bool isDouble = true, string escapingCharset = null) {
+    return uimH(text, isDouble, escapingCharset);
+}
 
-    /**
+/**
      * Splits a dot syntax plugin name into its plugin and class name.
      * If name does not have a dot, then index 0 will be null.
      *
@@ -24,21 +28,21 @@ module uim.oop.base.functions_global;
      * Params:
      * @param bool dotAppend Set to true if you want the plugin to have a '.' appended to it.
      * @param string plugin Optional default plugin to use if no plugin is found. Defaults to null.
-     */
-    Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string pluginName = null) {
-        return uimPluginSplit(nameToSplit, dotAppend, pluginName);
-    }
+     * /
+Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string pluginName = null) {
+    return uimPluginSplit(nameToSplit, dotAppend, pluginName);
+}
 
-    /**
+/**
      * Split the namespace from the classname.
      *
      * Commonly used like `list(namespace,  className) = namespaceSplit(className);`.
-     */
-    string[] namespaceSplit(string className) {
-        return uimNamespaceSplit(className);
-    }
+     * /
+string[] namespaceSplit(string className) {
+    return uimNamespaceSplit(className);
+}
 
-    /**
+/**
      * print_r() convenience function.
      *
      * In terminals this will act similar to using print_r() directly, when not run on CLI
@@ -47,12 +51,12 @@ module uim.oop.base.functions_global;
      * This auto returns the same variable that was passed.
      * Params:
      * Json var Variable to print out.
-     */
-    Json pr(Json var) {
-        return uimPr(var);
-    }
+     * /
+Json pr(Json var) {
+    return uimPr(var);
+}
 
-    /**
+/**
      * JSON pretty print convenience function.
      *
      * In terminals this will act similar to using json_encode() with JSON_PRETTY_PRINT directly, when not run on CLI
@@ -61,28 +65,28 @@ module uim.oop.base.functions_global;
      * This auto returns the same variable that was passed.
      * Params:
      * Json var Variable to print out.
-     */
-    Json pj(Json var) {
-        return uimPj(var);
-    }
+     * /
+Json pj(Json var) {
+    return uimPj(var);
+}
 
-    /**
+/**
      * Gets an environment variable from available sources, and provides emulation
      * for unsupported or inconsistent environment variables (i.e. DOCUMENT_ROOT on
      * IIS, or SCRIPT_NAME in CGI mode). Also exposes some additional custom
      * environment information.
-     */
-    Json enviroment(string variableName, string defaultValue = null) {
-        return uimEnvironmentData(variableName, defaultValue);
-    }
+     * /
+Json enviroment(string variableName, string defaultValue = null) {
+    return uimEnvironmentData(variableName, defaultValue);
+}
 
-    // Triggers an E_USER_WARNING.
-    void triggerWarning(string warningMessage) {
-        uimTriggerWarning(warningMessage);
-    }
+// Triggers an E_USER_WARNING.
+void triggerWarning(string warningMessage) {
+    uimTriggerWarning(warningMessage);
+}
 
-    // Helper method for outputting deprecation warnings
-    void deprecationWarning(string versionText, string outputMessage, int stackFrame = 1) {
-        uimDeprecationWarning(versionText, outputMessage, stackFrame + 1);
-    } 
-    
+// Helper method for outputting deprecation warnings
+void deprecationWarning(string versionText, string outputMessage, int stackFrame = 1) {
+    uimDeprecationWarning(versionText, outputMessage, stackFrame + 1);
+}
+*/

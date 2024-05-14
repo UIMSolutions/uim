@@ -33,7 +33,7 @@ class DApp {
      * className = Class name
      * @param string classType Type of class
      * @param string classNameSuffix Class name suffix
-     */
+     * /
     static string className(string className, string classType = "", string classNameSuffix= null) {
         if (className.has("\\")) {
             return class_exists(className) ?  className : null;
@@ -93,7 +93,7 @@ class DApp {
      * className = Class name
      * classType = Type of class
      * classNameSuffix = Class name suffix
-     */
+     * /
     static string shortName(string className, string classType, string classNameSuffix= null) {
         auto myClassName = className.replace("\\", "/");
         string type = "/" ~ classType ~ "/";
@@ -126,7 +126,7 @@ class DApp {
      * Params:
      * className  = Class name.
      * aNamespace = Namespace.
-     */
+     * /
     protected static bool _classExistsInBase(string className, string namespace) {
         return class_exists(namespace ~ className);
     }
@@ -149,7 +149,7 @@ class DApp {
      *
      * Will return the value of `App.paths.plugins` config.
      * For plugins it can be used to get paths for types `templates` or `locales`.
-     */
+     * /
     static string[] path(string pathType, string pluginName = null) {
         // TODO
 
@@ -166,7 +166,7 @@ class DApp {
                 .format(type
             ))
         };
-        */
+        * /
         return null; 
     }
     
@@ -189,7 +189,7 @@ class DApp {
      * Params:
      * string packageType Package type.
      * @param string plugin Plugin name.
-     */
+     * /
     static string[] classPath(string packageType, string pluginName = null) {
         if (plugin !isNull) {
             return [
@@ -211,11 +211,10 @@ class DApp {
      * Will return the full path to the cache engines package.
      * Params:
      * string packageType Package type.
-     */
+     * /
     static string[] core(string packageType) {
-        if (type == "templates") {
-            return [CORE_PATH ~ "templates" ~ DIRECTORY_SEPARATOR];
-        }
-        return [uim ~ type.replace("/", DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR];
-    } 
+        return type == "templates"
+            ? [CORE_PATH ~ "templates" ~ DIRECTORY_SEPARATOR]
+            : [uim ~ type.replace("/", DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR];
+    } */
 } 

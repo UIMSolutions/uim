@@ -121,12 +121,17 @@ abstract class DConfiguration : IConfiguration {
             return get(key);
         }
 
-        Json get(string key) {
-            return Json(null);
+        Json get(string key, Json defaultValue = Json(null)) {
+            return defaultValue;
         }
 
         Json[string] get(string[] keys, bool compressMode = true){
             return null; 
+        }
+
+        // Key and default Value
+        Json[string] get(Json[string] keys, bool compressMode = true){
+            return keys.dup; 
         }
 
         int getInt(string key) {

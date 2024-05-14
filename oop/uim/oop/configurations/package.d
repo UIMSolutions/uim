@@ -1,5 +1,8 @@
 module uim.oop.configurations;
 
+public { // Packages
+    import uim.oop.configurations.engines;
+}
 public { // Modules
     import uim.oop.configurations.config;
     import uim.oop.configurations.configurable;

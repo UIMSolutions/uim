@@ -202,10 +202,11 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override Json get(string key) {
+    alias get = DConfiguration.get; 
+    override Json get(string key, Json defaultValue = Json(null)) {
         return _data.hasKey(key) 
             ? _data[key]
-            : _defaultData.getJson(key);
+            : defaultValue;
     }
     /// 
     unittest {

@@ -7,6 +7,7 @@ import uim.oop;
 // Text handling methods.
 class DText {
     // Default transliterator.
+    /*
     protected static Transliterator _defaultTransliterator = null;
 
     // Default transliterator id string.

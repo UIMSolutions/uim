@@ -43,7 +43,7 @@ interface Document {
    * @param key   element key
    * @param value element value
    * @return Void
-   */
+   * /
   void put(string key, DProperty value);
 
   /**
@@ -51,7 +51,7 @@ interface Document {
    *
    * @param key element key
    * @return value or null
-   */
+   * /
   DProperty get(string key);
 
   /**

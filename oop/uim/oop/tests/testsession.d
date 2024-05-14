@@ -42,7 +42,7 @@ class DTestSession {
      * Params:
      * string myname The name of the session variable (or a path as sent to Hash.extract)
      */
-    IData read(string myname = null) {
+    Json read(string myname = null) {
         if (this.session.isNull) {
             return null;
         }

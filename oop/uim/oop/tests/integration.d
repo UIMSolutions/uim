@@ -176,13 +176,13 @@ mixin template TIntegrationTest() {
     }
     
     /**
-     * Sets HTTP headers for the *next* request to be identified as IData request.
+     * Sets HTTP headers for the *next* request to be identified as Json request.
      */
-    void requestAsIData() {
+    void requestAsJson() {
         this.configRequest([
             "headers": [
-                "Accept": "application/IData",
-                "Content-Type": "application/IData",
+                "Accept": "application/Json",
+                "Content-Type": "application/Json",
             ],
         ]);
     }
@@ -606,7 +606,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string aName The view variable to get.
      */
-    IData viewVariable(string aName) {
+    Json viewVariable(string aName) {
         return _controller?.viewBuilder().getVar(name);
     }
     
@@ -787,10 +787,10 @@ mixin template TIntegrationTest() {
     /**
      * Asserts content in the response body equals.
      * Params:
-     * IData content The content to check for.
+     * Json content The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
      */
-    void assertResponseEquals(IData content, string amessage= null) {
+    void assertResponseEquals(Json content, string amessage= null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(content, new BodyEquals(_response), verboseMessage);
     }
@@ -798,10 +798,10 @@ mixin template TIntegrationTest() {
     /**
      * Asserts content in the response body not equals.
      * Params:
-     * IData content The content to check for.
+     * Json content The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
      */
-    void assertResponseNotEquals(IData content, string amessage = null) {
+    void assertResponseNotEquals(Json content, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(content, new BodyNotEquals(_response), verboseMessage);
     }
@@ -901,11 +901,11 @@ mixin template TIntegrationTest() {
     /**
      * Asserts session contents
      * Params:
-     * IData expected The expected contents.
+     * Json expected The expected contents.
      * @param string aPath The session data path. Uses Hash.get() compatible notation
      * @param string amessage The failure message that will be appended to the generated message.
      */
-    void assertSession(IData expected, string aPath, string message = "") {
+    void assertSession(Json expected, string aPath, string message = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(expected, new DSessionEquals(somePath), verboseMessage);
     }
@@ -997,11 +997,11 @@ mixin template TIntegrationTest() {
     /**
      * Asserts cookie values
      * Params:
-     * IData expected The expected contents.
+     * Json expected The expected contents.
      * @param string aName The cookie name.
      * @param string amessage The failure message that will be appended to the generated message.
      */
-    void assertCookie(IData expected, string aName, string amessage = "") {
+    void assertCookie(Json expected, string aName, string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(name, new DCookieSet(_response), verboseMessage);
         this.assertThat(expected, new DCookieEquals(_response, name), verboseMessage);
@@ -1050,7 +1050,7 @@ mixin template TIntegrationTest() {
      * The difference from assertCookie() is this decrypts the cookie
      * value like the CookieComponent for this assertion.
      * Params:
-     * IData expected The expected contents.
+     * Json expected The expected contents.
      * @param string aName The cookie name.
      * @param string aencrypt Encryption mode to use.
      * @param string aKey Encryption key used. Defaults
@@ -1058,7 +1058,7 @@ mixin template TIntegrationTest() {
      * @param string amessage The failure message that will be appended to the generated message.
      */
     void assertCookieEncrypted(
-        IData expected,
+        Json expected,
         string aName,
         string aencrypt = "aes",
         string aKey = null,

@@ -18,16 +18,16 @@ class DEventFiredWith : DConstraint {
     protected string _dataKey;
 
     // Event data value
-    protected IData _dataValue;
+    protected Json _dataValue;
 
     /**
      * Constructor
      * Params:
      * \UIM\Event\EventManager eventManager Event manager to check
      * @param string dataKey Data key
-     * @param IData someDataValue Data value
+     * @param Json someDataValue Data value
      */
-    this(EventManager eventManager, string dataKey, IData someDataValue) {
+    this(EventManager eventManager, string dataKey, Json someDataValue) {
        _eventManager = eventManager;
        _dataKey = dataKey;
        _dataValue = someDataValue;
@@ -42,10 +42,10 @@ class DEventFiredWith : DConstraint {
     /**
      * Checks if event is in fired array
      * Params:
-     * IData other Constraint check
+     * Json other Constraint check
      * @throws \Unit\Framework\AssertionFailedError
      */
-    bool matches(IData expectedOther) {
+    bool matches(Json expectedOther) {
         firedEvents = null;
         list = _eventManager.getEventList();
         if (list !isNull) {

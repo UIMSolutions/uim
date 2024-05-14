@@ -42,9 +42,9 @@ class DFlashParamEquals : DConstraint {
     /**
      * Compare to flash message(s)
      * Params:
-     * IData other Value to compare with
+     * Json other Value to compare with
      */
-   bool matches(IData expectedOther) {
+   bool matches(Json expectedOther) {
         // Server.run calls Session.close at the end of the request.
         // Which means, that we cannot use Session object here to access the session data.
         // Call to Session.read will start new session (and will erase the data).

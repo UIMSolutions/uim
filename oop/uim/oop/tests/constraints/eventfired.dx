@@ -33,9 +33,9 @@ class DEventFired : DConstraint {
     /**
      * Checks if event is in fired array
      * Params:
-     * IData other Constraint check
+     * Json other Constraint check
      */
-   bool matches(IData expectedOther) {
+   bool matches(Json expectedOther) {
         list = _eventManager.getEventList();
 
         return list.isNull ? false : list.hasEvent(other);

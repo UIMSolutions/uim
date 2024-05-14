@@ -220,7 +220,7 @@ abstract class DTestCase : DBaseTestCase {
      * Useful to test how plugins being loaded/not loaded interact with other
      * elements in UIM or applications.
      * Params:
-     * IData[string] plugins List of Plugins to load.
+     * Json[string] plugins List of Plugins to load.
      */
     BaseApplication loadPlugins(Json[string] plugins = []) {
         /**
@@ -293,12 +293,12 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * string aName Event name
      * @param string adataKey Data key
-     * @param IData someDataValue Data value
+     * @param Json someDataValue Data value
      * @param \UIM\Event\EventManager|null eventManager Event manager to check, defaults to global event manager
      * @param string amessage Assertion failure message
      */
     void assertEventFiredWith(
-        string aName, string adataKey, IData someDataValue,
+        string aName, string adataKey, Json someDataValue,
         ?EventManager eventManager = null,
         string amessage = null
     ) {
@@ -624,7 +624,7 @@ abstract class DTestCase : DBaseTestCase {
         foreach (anI: assertion; regex) {
             matches = false;
             if (isSet(assertion["attrs"])) {
-                // IData[string] assertion
+                // Json[string] assertion
                 mlText = _assertAttributes(assertion, mlText, fullDebug, regex);
                 if (fullDebug == true && mlText == false) {
                     debug(mlText, true);
@@ -670,7 +670,7 @@ abstract class DTestCase : DBaseTestCase {
     /**
      * Check the attributes as part of an assertTags() check.
      * Params:
-     * IData[string] assertions Assertions to run.
+     * Json[string] assertions Assertions to run.
      * @param string mlTextToCheck The HTML string to check.
      * @param bool fullDebug Whether more verbose output should be used.
      * @param string[] aregex Full regexp from `assertHtml`
@@ -778,10 +778,10 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * string aalias The model to get a mock for.
      * @param string[] someMethods The list of methods to mock
-     * @param IData[string] options The config data for the mock"s constructor.
+     * @param Json[string] options The config data for the mock"s constructor.
      * @throws \ORM\Exception\MissingTableClassException
      */
-    Table|MockObject getMockForModel(string aalias, Json[string] someMethods = [], IData[string] options = null) {
+    Table|MockObject getMockForModel(string aalias, Json[string] someMethods = [], Json[string] options = null) {
         auto className = _getTableClassName(alias, options);
         auto aConnectionName = className.defaultConnectionName();
         auto aConnection = ConnectionManager.get(aConnectionName);
@@ -834,9 +834,9 @@ abstract class DTestCase : DBaseTestCase {
      * Gets the class name for the table.
      * Params:
      * string aalias The model to get a mock for.
-     * @param IData[string] options The config data for the mock"s constructor.
+     * @param Json[string] options The config data for the mock"s constructor.
      */
-    protected string _getTableClassName(string aalias, IData[string] options = null) {
+    protected string _getTableClassName(string aalias, Json[string] options = null) {
         if (isoptions.isEmpty("className"])) {
              className = Inflector.camelize(alias);
             /** @var class-string<\ORM\Table>|null  className */

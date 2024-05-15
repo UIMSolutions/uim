@@ -40,7 +40,6 @@ public {
   import uim.oop.helpers;
   import uim.oop.interfaces;
   import uim.oop.keypairs;	
-  import uim.oop.lang;	
   import uim.oop.mixins;
   import uim.oop.observers;
   import uim.oop.patterns;

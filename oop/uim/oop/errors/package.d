@@ -6,7 +6,7 @@
 module uim.oop.errors;
 
 public {
-  // import uim.oop.errors.error;
+  import uim.oop.errors.error;
   // import uim.oop.errors.handler;
   // import uim.oop.errors.registry;
 }

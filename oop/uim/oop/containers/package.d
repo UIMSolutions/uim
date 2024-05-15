@@ -5,6 +5,13 @@
 ***********************************************************************************/
 module uim.oop.containers;
 
+static this() {
+    import std.stdio;
+    version (test_uim_oop) {
+        writeln(__MODULE__);
+    }
+}
+
 public { // Packages
   import uim.oop.containers.arrays;
   import uim.oop.containers.lists;

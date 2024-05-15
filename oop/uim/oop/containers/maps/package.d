@@ -5,9 +5,6 @@
 ***********************************************************************************/
 module uim.oop.containers.maps;
 
-import uim.oop;
-@safe:
-
 public {
   import uim.oop.containers.maps.map;
 }

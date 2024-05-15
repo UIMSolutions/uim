@@ -5,6 +5,13 @@
 ***********************************************************************************/
 module uim.oop.collections;
 
+static this() {
+    import std.stdio;
+    version (test_uim_oop) {
+        debug writeln(__MODULE__);
+    }
+}
+
 public {
   // import uim.oop.collections.arraylist;
   // import uim.oop.collections.collection;

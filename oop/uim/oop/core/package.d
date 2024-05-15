@@ -5,6 +5,13 @@
 ***********************************************************************************/
 module uim.oop.core;
 
+static this() {
+    import std.stdio;
+    version (test_uim_oop) {
+        writeln(__MODULE__);
+    }
+}
+
 public {
   // import uim.oop.core.aggregation;
   // import uim.oop.core.association;

@@ -1,7 +1,6 @@
 module uim.oop.configurations.memory;
 
 import uim.oop;
-
 @safe:
 
 class DMemoryConfiguration : DConfiguration {
@@ -36,7 +35,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_opp) {
+        version (test_uim_oop) {
             writeln(__MODULE__, " in ", __LINE__);
         }
         IConfiguration config = MemoryConfiguration;
@@ -49,7 +48,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_opp) {
+        version (test_uim_oop) {
             writeln(__MODULE__, " in ", __LINE__);
         }
         IConfiguration config = MemoryConfiguration;
@@ -61,7 +60,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_opp) {
+        version (test_uim_oop) {
             writeln(__MODULE__, " in ", __LINE__);
         }
         IConfiguration config = MemoryConfiguration;
@@ -74,7 +73,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_opp) {
+        version (test_uim_oop) {
             writeln(__MODULE__, " in ", __LINE__);
         }
         IConfiguration config = MemoryConfiguration;
@@ -88,7 +87,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_opp) {
+        version (test_uim_oop) {
             writeln(__MODULE__, " in ", __LINE__);
         }
         IConfiguration config = MemoryConfiguration;
@@ -104,7 +103,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_opp) {
+        version (test_uim_oop) {
             writeln(__MODULE__, " in ", __LINE__);
         }
         IConfiguration config = MemoryConfiguration;
@@ -116,7 +115,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_opp) {
+        version (test_uim_oop) {
             writeln(__MODULE__, " in ", __LINE__);
         }
         IConfiguration config = MemoryConfiguration;
@@ -129,7 +128,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_opp) {
+        version (test_uim_oop) {
             writeln(__MODULE__, " in ", __LINE__);
         }
         IConfiguration config = MemoryConfiguration;
@@ -142,7 +141,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_opp) {
+        version (test_uim_oop) {
             writeln(__MODULE__, " in ", __LINE__);
         }
         IConfiguration config = MemoryConfiguration;
@@ -163,7 +162,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_opp) {
+        version (test_uim_oop) {
             writeln(__MODULE__, " in ", __LINE__);
         }
         IConfiguration config = MemoryConfiguration;
@@ -176,7 +175,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_opp) {
+        version (test_uim_oop) {
             writeln(__MODULE__, " in ", __LINE__);
         }
         IConfiguration config = MemoryConfiguration;
@@ -189,7 +188,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_opp) {
+        version (test_uim_oop) {
             writeln(__MODULE__, " in ", __LINE__);
         }
         IConfiguration config = MemoryConfiguration;
@@ -203,7 +202,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-            version(test_uim_opp) {
+            version(test_uim_oop) {
                 writeln(__MODULE__, " in ", __LINE__);
             }
         IConfiguration config = MemoryConfiguration;
@@ -235,7 +234,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-            version(test_uim_opp) {
+            version(test_uim_oop) {
                 writeln(__MODULE__, " in ", __LINE__);
             }
         IConfiguration config = MemoryConfiguration;

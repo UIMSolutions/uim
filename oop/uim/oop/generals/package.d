@@ -9,5 +9,5 @@ import uim.oop;
 @safe:
 
 public {
-  import uim.oop.generals.registry;
+  // import uim.oop.generals.registry;
 }

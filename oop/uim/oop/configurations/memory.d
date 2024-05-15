@@ -1,6 +1,7 @@
 module uim.oop.configurations.memory;
 
 import uim.oop;
+
 @safe:
 
 class DMemoryConfiguration : DConfiguration {
@@ -35,22 +36,18 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_oop) {
-            writeln(__MODULE__, " in ", __LINE__);
-        }
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
 
-    override void updateDefaults(Json[string] dataArray) {
-        dataArray.byKeyValue
+    override void updateDefaults(Json[string] updateData) {
+        updateData.byKeyValue
             .each!(kv => updateDefault(kv.key, kv.value));
     }
     /// 
     unittest {
-        version (test_uim_oop) {
-            writeln(__MODULE__, " in ", __LINE__);
-        }
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -60,9 +57,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_oop) {
-            writeln(__MODULE__, " in ", __LINE__);
-        }
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -73,9 +68,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_oop) {
-            writeln(__MODULE__, " in ", __LINE__);
-        }
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -87,9 +80,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_oop) {
-            writeln(__MODULE__, " in ", __LINE__);
-        }
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -103,9 +94,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_oop) {
-            writeln(__MODULE__, " in ", __LINE__);
-        }
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -115,11 +104,11 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_oop) {
-            writeln(__MODULE__, " in ", __LINE__);
-        }
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration;
-        // TODO
+        config.data(["a": Json(1)]);
+        assert(config.hasKey("a"));
+        assert(config.get("a").to!int == 1);
     }
 
     alias hasAnyKeys = DConfiguration.hasAnyKeys;
@@ -128,9 +117,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_oop) {
-            writeln(__MODULE__, " in ", __LINE__);
-        }
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -141,9 +128,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_oop) {
-            writeln(__MODULE__, " in ", __LINE__);
-        }
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -162,9 +147,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_oop) {
-            writeln(__MODULE__, " in ", __LINE__);
-        }
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -175,9 +158,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_oop) {
-            writeln(__MODULE__, " in ", __LINE__);
-        }
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -188,9 +169,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-        version (test_uim_oop) {
-            writeln(__MODULE__, " in ", __LINE__);
-        }
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -202,9 +181,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-            version(test_uim_oop) {
-                writeln(__MODULE__, " in ", __LINE__);
-            }
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -234,19 +211,19 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
-            version(test_uim_oop) {
-                writeln(__MODULE__, " in ", __LINE__);
-            }
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
 
     override Json get(string key, Json defaultValue = Json(null)) {
         return _data.hasKey(key)
-            ? _data[key] : defaultValue;
+            ? _data[key] 
+            : defaultValue;
     }
     /// 
     unittest {
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration(["a": Json(1)]);
         assert(config.get("a").to!int == 1);
     }
@@ -256,6 +233,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration(["a": Json(1)]);
         config.set("a", Json(2));
         assert(config.get("a").to!int == 2);
@@ -266,6 +244,7 @@ class DMemoryConfiguration : DConfiguration {
     }
 
     unittest {
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration(["a": Json(1)]);
         config.update("a", Json(2));
         assert(config.get("a").to!int == 2);
@@ -274,14 +253,19 @@ class DMemoryConfiguration : DConfiguration {
     override void update(string key, Json[string] data) {
         set(key, data.toJsonObject);
     }
-    /// 
     unittest {
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
 
     override void merge(string key, Json[string] data) {
         set(key, data.toJsonObject);
+    }
+    unittest {
+        writeln(__MODULE__, " in ", __LINE__);
+        IConfiguration config = MemoryConfiguration;
+        // TODO
     }
 
     override void merge(string key, Json data) {
@@ -293,6 +277,7 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
+        writeln(__MODULE__, " in ", __LINE__);
         IConfiguration config = MemoryConfiguration(["a": Json(1)]);
         config.merge("a", Json(2));
         assert(config.get("a").to!int == 1);

@@ -46,7 +46,7 @@ interface IConfiguration : INamed {
 
     // #region get
         Json opIndex(string key);
-        Json get(string key);
+        Json get(string key, Json defaultValue = Json(null));
         Json[string] get(string[] keys, bool compressMode = true);
 
         int getInt(string key);

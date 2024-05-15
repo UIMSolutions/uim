@@ -8,5 +8,5 @@ module uim.oop.containers.maps.enum_;
 import uim.oop;
 @safe:
 
-class DEnumMap : Map {
+class DEnumMap : DMap {
 }

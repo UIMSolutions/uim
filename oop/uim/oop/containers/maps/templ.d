@@ -8,7 +8,7 @@ module uim.oop.containers.maps.templ;
 import uim.oop;
 
 @safe:
-class MapTempl(K, V): Map {
+class DMapTempl(K, V): DMap {
 	V[K] _items;
 
 	this() { super(); }
@@ -147,8 +147,8 @@ class MapTempl(K, V): Map {
 		return result;
 	}
 }
-auto OOPMap(K, V)() { return DOOPMap!(K, V)(); }
-auto OOPMap(K, V)(V[K] values) { return DOOPMap!(K, V)(values); }
+auto Map(K, V)() { return DMap!(K, V)(); }
+auto Map(K, V)(V[K] values) { return DMap!(K, V)(values); }
 
 version(test_uim_oop) { unittest {
 	import std.stdio;

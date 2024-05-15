@@ -87,3 +87,10 @@ subPackage "sites"
 subPackage "validations"
 subPackage "views"
 subPackage "web"
+
+configuration "test_uim_core" {
+	subConfiguration ":core" "test_uim_core"
+}
+configuration "test_uim_oop" {
+	subConfiguration ":oop" "test_uim_oop"
+}

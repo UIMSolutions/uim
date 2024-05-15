@@ -8,5 +8,5 @@ module uim.oop.containers.maps.concurrenthash;
 import uim.oop;
 @safe:
 
-class DConcurrentHashMap : Map {
+class DConcurrentHashMap : DMap {
 }

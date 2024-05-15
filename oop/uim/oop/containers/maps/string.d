@@ -8,7 +8,7 @@ module uim.oop.containers.maps.string;
 import uim.oop;
 
 @safe:
-class DMapString : MapTempl!(string, string) {
+class DMapString : DMapTempl!(string, string) {
 	this() {
 		super();
 	}
@@ -18,15 +18,13 @@ class DMapString : MapTempl!(string, string) {
 		_items = values;
 	}
 
-	@property override STRINGAA items() {
-		return _items;
-	}
-
-	@property STRINGAA items(string[] ignoreKeys) {
+	@property STRINGAA items(string[] ignoreKeys = null) {
 		STRINGAA result = _items.dup;
-		foreach (k; ignoreKeys)
-			result.remove(k);
+		ignoreKeys.byKeyValue.each!(kv => result.remove(kv.key));
 		return result;
+	}
+	unittest {
+		// assert()
 	}
 
 	@property O items(this O)(STRINGAA newItems) {

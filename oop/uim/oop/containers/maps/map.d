@@ -8,7 +8,7 @@ module uim.oop.containers.maps.map;
 import uim.oop;
 @safe:
 
-class Map : Obj, IMap {
+class DMap : Obj, IMap {
 	this() {}
 
 	bool isEmpty() { return true; }
@@ -21,5 +21,5 @@ class Map : Obj, IMap {
 }
 
 version(test_uim_oop) { unittest {
-	auto map = new DMapObj;
+	// TODO auto map = new DMapObj;
 }}

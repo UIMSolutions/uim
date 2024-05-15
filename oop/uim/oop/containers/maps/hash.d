@@ -8,5 +8,5 @@ module uim.oop.containers.maps.hash;
 import uim.oop;
 @safe:
 
-class HashMap : Map {
+class HashMap : DMap {
 }

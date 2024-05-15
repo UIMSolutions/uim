@@ -8,5 +8,5 @@ module uim.oop.containers.maps.concurrentskiplist;
 import uim.oop;
 @safe:
 
-class DConcurrentSkipListMap : Map {
+class DConcurrentSkipListMap : DMap {
 }

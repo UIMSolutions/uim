@@ -8,5 +8,5 @@ module uim.oop.containers.maps.identityhash;
 import uim.oop;
 @safe:
 
-class DIdentityHashMap : Map {
+class DIdentityHashMap : DMap {
 }

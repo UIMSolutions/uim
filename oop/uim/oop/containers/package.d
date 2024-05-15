@@ -5,12 +5,15 @@
 ***********************************************************************************/
 module uim.oop.containers;
 
-public {
-  import uim.oop.containers.container;
-  import uim.oop.containers.named;
-
+public { // Packages
   import uim.oop.containers.arrays;
   import uim.oop.containers.lists;
   import uim.oop.containers.maps;
   import uim.oop.containers.lookups;
+}
+
+public { // Modules
+  import uim.oop.containers.container;
+  import uim.oop.containers.named;
+
 }

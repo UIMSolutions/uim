@@ -5,15 +5,13 @@
 ***********************************************************************************/
 module uim.oop.core;
 
-import uim.oop;
-
 public {
-  import uim.oop.core.aggregation;
-  import uim.oop.core.association;
-  import uim.oop.core.event;
-  import uim.oop.core.element;
-  import uim.oop.core.method;
-  import uim.oop.core.object;
+  // import uim.oop.core.aggregation;
+  // import uim.oop.core.association;
+  // import uim.oop.core.event;
+  // import uim.oop.core.element;
+  // import uim.oop.core.method;
+  // import uim.oop.core.object;
 }
 
 enum OP { x }

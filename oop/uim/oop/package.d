@@ -19,11 +19,11 @@ public import vibe.d;
 public import uim.core;
 
 // uim-oop packages/modules
-public import uim.oop.annotations;
-public import uim.oop.mixins;
+// public import uim.oop.annotations;
+// public import uim.oop.mixins;
 
 // module
-public import uim.oop.obj;
+// public import uim.oop.obj;
 
 // packages
 // public import uim.oop.collections;	
@@ -36,12 +36,13 @@ public {
   import uim.oop.enumerations;
   import uim.oop.errors;
   import uim.oop.exceptions;
+  import uim.oop.factories;
   import uim.oop.helpers;
   import uim.oop.interfaces;
-  import uim.oop.generals;	
   import uim.oop.keypairs;	
   import uim.oop.lang;	
   import uim.oop.mixins;
+  import uim.oop.observers;
   import uim.oop.patterns;
   // TODO import uim.oop.plugins;
   import uim.oop.properties;

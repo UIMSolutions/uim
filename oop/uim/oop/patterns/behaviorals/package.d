@@ -6,7 +6,7 @@ public {
   import uim.oop.patterns.behaviorals.interpreters;
   import uim.oop.patterns.behaviorals.iterators;
   import uim.oop.patterns.behaviorals.mediators; */
-  import uim.oop.patterns.behaviorals.memento;
+  // import uim.oop.patterns.behaviorals.memento;
 /*   import uim.oop.patterns.behaviorals.nulls;
   import uim.oop.patterns.behaviorals.observers;
   import uim.oop.patterns.behaviorals.states;

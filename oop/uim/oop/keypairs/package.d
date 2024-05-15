@@ -6,6 +6,6 @@
 module uim.oop.keypairs;
 
 public {
-  import uim.oop.keypairs.keypair;
-  import uim.oop.keypairs.keypairs;
+  // import uim.oop.keypairs.keypair;
+  // import uim.oop.keypairs.keypairs;
 }

@@ -90,6 +90,9 @@ class DObjectRegistry(T : Object) {
 	}
 
 	unittest {
+            version(test_uim_opp) {
+                writeln(__MODULE__, " in ", __LINE__);
+            }
 		// TODO 
 	}
 
@@ -101,6 +104,9 @@ class DObjectRegistry(T : Object) {
 		_registeredObjects[registration] = registeredObject;
 	}
 	unittest {
+            version(test_uim_opp) {
+                writeln(__MODULE__, " in ", __LINE__);
+            }
 		class DTest{}
 		auto registry = DObjectRegistry!DTest;
 		// TODO
@@ -110,6 +116,9 @@ class DObjectRegistry(T : Object) {
 		register(registration, registeredObject);
 	}
 	unittest {
+            version(test_uim_opp) {
+                writeln(__MODULE__, " in ", __LINE__);
+            }
 		class DTest{}
 		auto registry = DObjectRegistry!DTest;
 		// TODO
@@ -120,6 +129,9 @@ class DObjectRegistry(T : Object) {
 		registrations.each!(reg => remove(reg));
 	}
 	unittest {
+            version(test_uim_opp) {
+                writeln(__MODULE__, " in ", __LINE__);
+            }
 		class DTest{}
 		auto registry = DObjectRegistry!DTest;
 		// TODO
@@ -129,6 +141,9 @@ class DObjectRegistry(T : Object) {
 		_registeredObjects.remove(registration);
 	}
 	unittest {
+            version(test_uim_opp) {
+                writeln(__MODULE__, " in ", __LINE__);
+            }
 		class DTest{}
 		auto registry = DObjectRegistry!DTest;
 		// TODO

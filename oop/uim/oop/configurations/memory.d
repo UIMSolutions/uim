@@ -16,69 +16,84 @@ class DMemoryConfiguration : DConfiguration {
     }
 
     // #region defaultData
-        protected Json[string] _defaultData;
-        override Json[string] defaultData() {
-            return _defaultData.dup;
-        }
+    protected Json[string] _defaultData;
+    override Json[string] defaultData() {
+        return _defaultData.dup;
+    }
 
-        override void defaultData(Json[string] newData) {
-            _defaultData = newData.dup;
-        }
+    override void defaultData(Json[string] newData) {
+        _defaultData = newData.dup;
+    }
 
-        /** 
+    /** 
         * override bool hasDefault(string key)
         * Params:
         *   key = name or key to data object. Could be nested
         * Returns: true if has data or false if not
         */
-        override bool hasDefault(string key) {
-            return (key in _defaultData) ? true : false;
+    override bool hasDefault(string key) {
+        return (key in _defaultData) ? true : false;
+    }
+    /// 
+    unittest {
+        version (test_uim_opp) {
+            writeln(__MODULE__, " in ", __LINE__);
         }
-        /// 
-        unittest {
-            IConfiguration config = MemoryConfiguration;
-            // TODO
-        }
+        IConfiguration config = MemoryConfiguration;
+        // TODO
+    }
 
-        override void updateDefaults(Json[string] dataArray) {
-            dataArray.byKeyValue
-                .each!(kv => updateDefault(kv.key, kv.value));
+    override void updateDefaults(Json[string] dataArray) {
+        dataArray.byKeyValue
+            .each!(kv => updateDefault(kv.key, kv.value));
+    }
+    /// 
+    unittest {
+        version (test_uim_opp) {
+            writeln(__MODULE__, " in ", __LINE__);
         }
-        /// 
-        unittest {
-            IConfiguration config = MemoryConfiguration;
-            // TODO
-        }
+        IConfiguration config = MemoryConfiguration;
+        // TODO
+    }
 
-        override void updateDefault(string key, Json data) {
+    override void updateDefault(string key, Json data) {
+        _defaultData[key] = data;
+    }
+    /// 
+    unittest {
+        version (test_uim_opp) {
+            writeln(__MODULE__, " in ", __LINE__);
+        }
+        IConfiguration config = MemoryConfiguration;
+        // TODO
+    }
+
+    override void mergeDefaults(Json[string] dataArray) {
+        dataArray.byKeyValue
+            .each!(kv => mergeDefault(kv.key, kv.value));
+    }
+    /// 
+    unittest {
+        version (test_uim_opp) {
+            writeln(__MODULE__, " in ", __LINE__);
+        }
+        IConfiguration config = MemoryConfiguration;
+        // TODO
+    }
+
+    override void mergeDefault(string key, Json data) {
+        if (!hasDefault(key)) {
             _defaultData[key] = data;
         }
-        /// 
-        unittest {
-            IConfiguration config = MemoryConfiguration;
-            // TODO
+    }
+    /// 
+    unittest {
+        version (test_uim_opp) {
+            writeln(__MODULE__, " in ", __LINE__);
         }
-
-        override void mergeDefaults(Json[string] dataArray) {
-            dataArray.byKeyValue
-                .each!(kv => mergeDefault(kv.key, kv.value));
-        }
-        /// 
-        unittest {
-            IConfiguration config = MemoryConfiguration;
-            // TODO
-        }
-
-        override void mergeDefault(string key, Json data) {
-            if (!hasDefault(key)) {
-                _defaultData[key] = data;
-            }
-        }
-        /// 
-        unittest {
-            IConfiguration config = MemoryConfiguration;
-            // TODO
-        }
+        IConfiguration config = MemoryConfiguration;
+        // TODO
+    }
     // #endregion defaultData
 
     // #region Data
@@ -89,6 +104,9 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
+        version (test_uim_opp) {
+            writeln(__MODULE__, " in ", __LINE__);
+        }
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -98,6 +116,9 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
+        version (test_uim_opp) {
+            writeln(__MODULE__, " in ", __LINE__);
+        }
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -108,6 +129,9 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
+        version (test_uim_opp) {
+            writeln(__MODULE__, " in ", __LINE__);
+        }
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -118,26 +142,30 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
+        version (test_uim_opp) {
+            writeln(__MODULE__, " in ", __LINE__);
+        }
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
-    
+
     override bool hasKey(string[] path) {
         if (path.length > 1) {
             return hasKey(path[0])
-            ? hasKey(path[1..$])
-            : false;
+                ? hasKey(path[1 .. $]) : false;
         }
         return path.length == 1
-            ? hasKey(path[0])
-            : false;
-    }; 
+            ? hasKey(path[0]) : false;
+    };
 
     override bool hasKey(string key) {
         return key in _data ? true : false;
     }
     /// 
     unittest {
+        version (test_uim_opp) {
+            writeln(__MODULE__, " in ", __LINE__);
+        }
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -148,6 +176,9 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
+        version (test_uim_opp) {
+            writeln(__MODULE__, " in ", __LINE__);
+        }
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -158,6 +189,9 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
+        version (test_uim_opp) {
+            writeln(__MODULE__, " in ", __LINE__);
+        }
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -169,6 +203,9 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
+            version(test_uim_opp) {
+                writeln(__MODULE__, " in ", __LINE__);
+            }
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
@@ -198,14 +235,16 @@ class DMemoryConfiguration : DConfiguration {
     }
     /// 
     unittest {
+            version(test_uim_opp) {
+                writeln(__MODULE__, " in ", __LINE__);
+            }
         IConfiguration config = MemoryConfiguration;
         // TODO
     }
 
     override Json get(string key, Json defaultValue = Json(null)) {
-        return _data.hasKey(key) 
-            ? _data[key]
-            : defaultValue;
+        return _data.hasKey(key)
+            ? _data[key] : defaultValue;
     }
     /// 
     unittest {
@@ -226,6 +265,7 @@ class DMemoryConfiguration : DConfiguration {
     override void update(string key, Json data) {
         set(key, data);
     }
+
     unittest {
         IConfiguration config = MemoryConfiguration(["a": Json(1)]);
         config.update("a", Json(2));

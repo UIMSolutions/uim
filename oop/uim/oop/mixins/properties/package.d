@@ -5,8 +5,6 @@
 ***********************************************************************************/
 module uim.oop.mixins.properties;
 
-import uim.oop;
-
 public {
   import uim.oop.mixins.properties.expandable;
   import uim.oop.mixins.properties.functional;

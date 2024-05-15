@@ -5,8 +5,7 @@
 **********************************************************************************************************/
 module uim.oop.patterns.others;
 
-/* public {
-  import uim.oop.patterns.others.composite_entities;
-  import uim.oop.patterns.others.intercepting_filters;
+public {
+  // import uim.oop.patterns.others.composite_entities;
+  // import uim.oop.patterns.others.intercepting_filters;
 }
- */

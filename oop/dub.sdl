@@ -19,6 +19,6 @@ importPaths "."
 
 targetName "uim-oop"
 
-# configuration "test_uim_oop" {
-# 	versions "test_uim_oop"
-# }
+configuration "test_uim_oop" {
+	versions "test_uim_oop"
+}

@@ -15,7 +15,7 @@ template OOPEVENT(string name, string defaultValue = "", bool readOnly = false) 
 	`~(!readOnly ? `@property O `~name~`(this O)(string newValue) { _`~name~` = newValue; return cast(O)this; }` : "");
 }
 
-/* class DEvent : DOOPElement {
+class DOOPEvent : DOOPElement {
 	mixin(ThisElement!()); 
 	this(string aName, string aDataType, string aDefaultValue, bool isReadOnly = false) { 
 		super(aName); 
@@ -25,8 +25,8 @@ template OOPEVENT(string name, string defaultValue = "", bool readOnly = false) 
 	mixin(PropertyDefinition!("string", "_defaultValue", "defaultValue"));
 	mixin(PropertyDefinition!("bool", "_readOnly", "readOnly"));
 }
-mixin(ShortCutElement!("Event", "DEvent")); 
+mixin(ShortCutElement!("OOPEvent", "DOOPEvent")); 
 
 version(test_uim_oop) { unittest {
 		/// TODO
-	}} */
+	}} 

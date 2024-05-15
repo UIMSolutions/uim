@@ -18,11 +18,17 @@ class DMapString : DMapTempl!(string, string) {
 		_items = values;
 	}
 
-	@property STRINGAA items(string[] ignoreKeys = null) {
+	@property override STRINGAA items() {
+		return _items.dup;
+	}
+	
+	// TODO
+	/*
+	STRINGAA items(string[] ignoreKeys = null) {
 		STRINGAA result = _items.dup;
 		ignoreKeys.each!(key => result.remove(key));
 		return result;
-	}
+	} */
 
 	unittest {
 		auto testMap = MapString;

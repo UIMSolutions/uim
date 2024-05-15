@@ -69,7 +69,7 @@ class DAndCriteria : ICriteria {
   }
 }
 
-class OrCriteria : ICriteria {
+class DOrCriteria : ICriteria {
   private ICriteria _criteria;
   private ICriteria _otherCriteria;
 
@@ -122,7 +122,7 @@ version (test_uim_oop) {
     ICriteria male = new DCriteriaMale();
     ICriteria female = new DCriteriaFemale();
     ICriteria single = new DCriteriaSingle();
-    ICriteria singleMale = new AndCriteria(single, male);
+    ICriteria singleMale = new DAndCriteria(single, male);
     ICriteria singleOrFemale = new DOrCriteria(single, female);
 
     writeln("Males: ");

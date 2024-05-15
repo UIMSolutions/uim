@@ -14,7 +14,7 @@ class DMapTempl(K, V): DMap {
 	this() { super(); }
 	this(V[K] values) { this(); this.items(values); }
 
-	@property V[K] items() { return _items; }
+	@property V[K] items() { return _items.dup; }
 	@property O items(this O)(V[K] newItems) { _items = newItems.dup; return cast(O)this; }
 
 	override bool isEmpty() { return (length == 0); }

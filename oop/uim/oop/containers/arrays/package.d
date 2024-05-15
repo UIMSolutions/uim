@@ -9,7 +9,7 @@ import uim.oop;
 @safe:
 
 public {
-	import uim.oop.containers.arrays.obj;
-	import uim.oop.containers.arrays.templ;
-	import uim.oop.containers.arrays.string;
+	// import uim.oop.containers.arrays.obj;
+	// import uim.oop.containers.arrays.templ;
+	// import uim.oop.containers.arrays.string;
 }

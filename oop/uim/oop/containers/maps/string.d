@@ -20,12 +20,13 @@ class DMapString : DMapTempl!(string, string) {
 
 	@property STRINGAA items(string[] ignoreKeys = null) {
 		STRINGAA result = _items.dup;
-		ignoreKeys.byKeyValue.each!(kv => result.remove(kv.key));
+		ignoreKeys.each!(key => result.remove(key));
 		return result;
 	}
+
 	unittest {
 		auto testMap = MapString;
-		/// assert()
+		// TODO 
 	}
 
 	@property O items(this O)(STRINGAA newItems) {
@@ -33,10 +34,19 @@ class DMapString : DMapTempl!(string, string) {
 		return cast(O) this;
 	}
 
+	unittest {
+		auto testMap = MapString;
+		// TODO 
+	}
+
 	O add(this O)(STRINGAA values) {
-		foreach (k, v; values)
-			_items[k] = v;
+		values.byKeyValue.each!(kv => _items[kv.key] = kv.value);
 		return cast(O) this;
+	}
+
+	unittest {
+		auto testMap = MapString;
+		// TODO 
 	}
 
 	O add(this O)(STRINGAA[] values) {
@@ -44,21 +54,41 @@ class DMapString : DMapTempl!(string, string) {
 		return cast(O) this;
 	}
 
+	unittest {
+		auto testMap = MapString;
+		// TODO 
+	}
+
 	O opCall(this O)(STRINGAA values) {
 		add(values);
 		return cast(O) this;
 	}
 
+	unittest {
+		auto testMap = MapString;
+		// TODO 
+	}
+
 	void opIndexAssign(V, K)(V value, K key) {
 		_items[key] = to!V(value);
 	} // INFO: a function template is not virtual so cannot be marked `override`
+	unittest {
+		auto testMap = MapString;
+		// TODO 
+	}
+
 	override void opIndexAssign(string value, string key) {
 		_items[key] = value;
 	}
 
+	unittest {
+		auto testMap = MapString;
+		// TODO 
+	}
+
 	override string toHTML() {
 		if (isEmpty) {
-			return "";
+			return null;
 		}
 
 		string result;
@@ -67,10 +97,16 @@ class DMapString : DMapTempl!(string, string) {
 			auto val = "%s".format(v);
 			if (val != "false") {
 				result ~= val == "true"
-					? ` %s`.format(key) : ` %s="%s"`.format(key, v);
+					? ` %s`.format(key) 
+					: ` %s="%s"`.format(key, v);
 			}
 		});
 		return result;
+	}
+
+	unittest {
+		auto testMap = MapString;
+		// TODO 
 	}
 
 	/* 
@@ -91,6 +127,11 @@ class DMapString : DMapTempl!(string, string) {
 		return keys(true)
 			.map!(key => key ~ ":" ~ this[key])
 			.join(";");
+	}
+
+	unittest {
+		auto testMap = MapString;
+		// TODO 
 	}
 }
 

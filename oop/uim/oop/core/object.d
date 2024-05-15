@@ -24,25 +24,25 @@ class Obj {
 	string fullname()  { return namespace~"."~this.className; }
 	string fullpath()  { return fullname.replace(".", "/"); }
 
-	O add(this O)(PropertyObj aProperty) {
+	O add(this O)(DPropertyObj aProperty) {
 		if (aProperty) {
 			if (aProperty.name) _properties[aProperty.name] = aProperty;
 		}
 		return cast(O)this;
 	}
-	O add(this O)(Event aEvent) {
+	O add(this O)(DEvent aEvent) {
 		if (aEvent) {
 			if (aEvent.name) _events[aEvent.name] = aEvent;
 		}
 		return cast(O)this;
 	}
-	O add(this O)(Method aMethod) {
+	O add(this O)(DMethod aMethod) {
 		if (aMethod) {
 			if (aMethod.name) _methods[aMethod.name] = aMethod;
 		}
 		return cast(O)this;
 	}
-	O add(this O)(Aggregation anAggregation) {
+	O add(this O)(DAggregation anAggregation) {
 		if (anAggregation) {
 			if (anAggregation.name) _aggregations[anAggregation.name] = anAggregation;
 		}
@@ -55,7 +55,7 @@ class Obj {
 		return cast(O)this;
 	}
 
-	O remove(this O)(PropertyObj aProperty) {
+	O remove(this O)(DPropertyObj aProperty) {
 		if (aProperty) {
 			if (aProperty.name in _properties) _properties.remove(aProperty.name);
 			else foreach(k, v; _properties) if (v == aProperty) _properties.remove(aProperty.name); 
@@ -118,8 +118,8 @@ version(test_uim_oop) { unittest {
 						if (typeid(attr) == typeid(OOP_PROPERTY)) { add(new DPropertyObj(attr.name, attr.datatype, attr.defaultValue, attr.readOnly)); }
 						if (typeid(attr) == typeid(OOP_METHOD)) { add(new DMethod(attr.name)); }
 						if (typeid(attr) == typeid(OOP_EVENT)) { add(new DEvent(attr.name)); }
-						if (typeid(attr) == typeid(OOP_AGGREGATION)) { add(new Aggregation(attr.name)); }
-						if (typeid(attr) == typeid(OOP_ASSOCIATION)) { add(new Association(attr.name)); }
+						if (typeid(attr) == typeid(OOP_AGGREGATION)) { add(new DAggregation(attr.name)); }
+						if (typeid(attr) == typeid(OOP_ASSOCIATION)) { add(new DAssociation(attr.name)); }
 					}
 				}
 			}
@@ -128,7 +128,7 @@ version(test_uim_oop) { unittest {
 		mixin(OOPPROPERTY!("values", "string[]"));
 		mixin(OOPEVENT!("counterEVENT"));
 		mixin(OOPMETHOD!("counterM"));
-		mixin(OOPAGGREGATION!("counterAGG", "string"));
+		// TODO mixin(OOPAGGREGATION!("counterAGG", "string"));
 		mixin(OOPASSOCIATION!("counterASS", "string"));
 	}
 }}

@@ -8,12 +8,12 @@ module uim.oop.patterns.behaviorals.strategies.version2;
 import uim.oop;
 @safe:
 
-interface Strategy {
+interface IStrategy {
 public:
     void execute();
 }
 
-class DFirstStrategy : Strategy {
+class DFirstStrategy : IStrategy {
 protected:
     string strategyName = "First strategy";
 public:
@@ -21,7 +21,7 @@ public:
         writeln(strategyName, " executes"); }
 }
 
-class DSecondStrategy : Strategy {
+class DSecondStrategy : IStrategy {
 protected:
     string strategyName = "Second strategy";
 public:
@@ -30,8 +30,8 @@ public:
 }
 
 version(test_uim_oop) { unittest {
-    FirstStrategy first = new DFirstStrategy();
-    SecondStrategy second = new DSecondStrategy();
+    DFirstStrategy first = new DFirstStrategy();
+    DSecondStrategy second = new DSecondStrategy();
 
     first.execute();
     second.execute();

@@ -6,65 +6,69 @@
 module uim.oop.patterns.structural.facade;
 
 import uim.oop;
+
 @safe:
 
 /// Create an interface.
- interface Shape {
+interface IShape {
    void draw();
 }
 
 /// Create concrete classes implementing the same interface.
- class DRectangle : Shape {
+class DRectangle : IShape {
 
-   override  void draw() {
+   override void draw() {
       writeln("Rectangle::draw()");
    }
 }
 
- class DSquare : Shape {
+class DSquare : IShape {
 
-   override  void draw() {
+   override void draw() {
       writeln("Square::draw()");
    }
 }
 
- class DCircle : Shape {
+class DCircle : IShape {
 
-   override  void draw() {
+   override void draw() {
       writeln("Circle::draw()");
    }
 }
 
 /// Create a facade class.
- class DShapeMaker {
-   private Shape circle;
-   private Shape rectangle;
-   private Shape square;
+class DShapeMaker {
+   private IShape circle;
+   private IShape rectangle;
+   private IShape square;
 
-    this() {
+   this() {
       circle = new DCircle();
       rectangle = new DRectangle();
       square = new DSquare();
    }
 
-    void drawCircle() {
+   void drawCircle() {
       circle.draw();
    }
-    void drawRectangle() {
+
+   void drawRectangle() {
       rectangle.draw();
    }
-    void drawSquare() {
+
+   void drawSquare() {
       square.draw();
    }
 }
 /// Use the facade to draw various types of shapes.
-version(test_uim_oop) { unittest {
-    writeln("FacadePatternDemo");
-    
-    ShapeMaker shapeMaker = new DShapeMaker();
+version (test_uim_oop) {
+   unittest {
+      writeln("FacadePatternDemo");
+
+      DShapeMaker shapeMaker = new DShapeMaker();
 
       shapeMaker.drawCircle();
       shapeMaker.drawRectangle();
-      shapeMaker.drawSquare();		
+      shapeMaker.drawSquare();
    }
 }

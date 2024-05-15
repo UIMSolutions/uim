@@ -49,10 +49,10 @@ class DMediaAdapter : IMediaPlayer {
    this(string audioType) {
 
       if (audioType.lower == "vlc") {
-         advancedMusicPlayer = new VlcPlayer();
+         advancedMusicPlayer = new DVlcPlayer();
 
       } else if (audioType.lower == "mp4") {
-         advancedMusicPlayer = new Mp4Player();
+         advancedMusicPlayer = new DMp4Player();
       }
    }
 

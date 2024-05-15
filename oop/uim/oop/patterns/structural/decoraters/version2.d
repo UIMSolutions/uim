@@ -57,11 +57,11 @@ void print(ICoffee coffee) {
 
 version(test_uim_oop) { unittest {
     ICoffee coffee = new DSimpleCoffee;
-    print(ICoffee);
+    print(coffee);
 
     coffee = new DWithMilk(coffee);
-    print(ICoffee);
+    print(coffee);
 
     coffee = new DWithSprinkles(coffee);
-    print(ICoffee);
+    print(coffee);
   }}

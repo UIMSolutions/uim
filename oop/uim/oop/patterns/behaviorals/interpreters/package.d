@@ -8,11 +8,11 @@ module uim.oop.patterns.behavioral.interpreters;
 import uim.oop;
 @safe:
 
-interface Expression {
+interface IExpression {
    bool interpret(string context);
 }
 
-class DContainsExpression : Expression {
+class DContainsExpression : IExpression {
    private string _data;
 
    this(string newData) {
@@ -24,12 +24,12 @@ class DContainsExpression : Expression {
   }
 }
 
-class OrExpression : Expression {
+class DOrExpression : IExpression {
 	 
-   private Expression _expr1 = null;
-   private Expression _expr2 = null;
+   private IExpression _expr1 = null;
+   private IExpression _expr2 = null;
 
-   this(Expression expr1, Expression expr2) { 
+   this(IExpression expr1, IExpression expr2) { 
       _expr1 = expr1;
       _expr2 = expr2;
    }
@@ -39,11 +39,11 @@ class OrExpression : Expression {
    }
 }
 
-class DAndExpression : Expression {
-   private Expression _expr1 = null;
-   private Expression _expr2 = null;
+class DAndExpression : IExpression {
+   private IExpression _expr1 = null;
+   private IExpression _expr2 = null;
 
-   this(Expression expr1, Expression expr2) { 
+   this(IExpression expr1, IExpression expr2) { 
       _expr1 = expr1;
       _expr2 = expr2;
    }
@@ -57,21 +57,21 @@ version(test_uim_oop) { unittest {
       writeln("\nInterpreterPatternDemo");
 
    //Rule: Robert and John are male
-   static DExpression maleExpression() {
-      Expression robert = new DContainsExpression("Robert");
-      Expression john = new DContainsExpression("John");
+   static IExpression maleExpression() {
+      IExpression robert = new DContainsExpression("Robert");
+      IExpression john = new DContainsExpression("John");
       return new DOrExpression(robert, john);		
    }
 
    //Rule: Julie is a married women
-   static DExpression marriedWomanExpression() {
-      Expression julie = new DContainsExpression("Julie");
-      Expression married = new DContainsExpression("Married");
-      return new AndExpression(julie, married);		
+   static IExpression marriedWomanExpression() {
+      IExpression julie = new DContainsExpression("Julie");
+      IExpression married = new DContainsExpression("Married");
+      return new DAndExpression(julie, married);		
    }
 
-  Expression isMale = maleExpression();
-  Expression isMarriedWoman = marriedWomanExpression();
+  IExpression isMale = maleExpression();
+  IExpression isMarriedWoman = marriedWomanExpression();
 
   writeln("John is male? ", isMale.interpret("John"));
   writeln("Julie is a married women? ", isMarriedWoman.interpret("Married Julie"));

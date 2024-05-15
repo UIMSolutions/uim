@@ -81,7 +81,7 @@ auto ArrayObj(bool sortedMode, bool uniqueMode) {
 
 version (test_uim_oop) {
 	unittest {
-		assert(ArrayObj.empty);
+		assert(ArrayObj.isEmpty);
 		assert(ArrayObj(true, true).isSorted);
 		assert(!ArrayObj(false, true).isSorted);
 		assert(ArrayObj(true, true).isUniqued);

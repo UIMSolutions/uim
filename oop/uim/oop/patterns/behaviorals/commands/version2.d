@@ -9,7 +9,7 @@ import uim.oop;
 
 @safe:
 
-class MoveFileCommand {
+class DMoveFileCommand {
 private:
   string source;
   string destination;
@@ -35,7 +35,7 @@ public:
 
 version (test_uim_oop) {
   unittest {
-    MoveFileCommand[] commandStack;
+    DMoveFileCommand[] commandStack;
     auto firstCommand = new DMoveFileCommand("foo.txt", "bar.txt");
     auto secondCommand = new DMoveFileCommand("bar.txt", "baz.txt");
     commandStack ~= firstCommand;

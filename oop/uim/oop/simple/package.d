@@ -6,6 +6,6 @@
 module uim.oop.simple;
 
 public {
-	import uim.oop.simple.obj;
-	import uim.oop.simple.templ;
+	// import uim.oop.simple.obj;
+	// import uim.oop.simple.templ;
 }

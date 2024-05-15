@@ -3,6 +3,6 @@
 import uim.oop;
 
 public {
-    import uim.oop.properties.obj;
-    import uim.oop.properties.templ;
+    // import uim.oop.properties.obj;
+    // import uim.oop.properties.templ;
 }

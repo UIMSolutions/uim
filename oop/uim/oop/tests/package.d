@@ -7,6 +7,7 @@ public { // Packages
 }
 
 public { // Modules
+    import uim.oop.tests.configuration;
     import uim.oop.tests.connectionhelper;
     import uim.oop.tests.containerstub;
     import uim.oop.tests.integration;

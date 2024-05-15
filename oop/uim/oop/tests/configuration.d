@@ -1,4 +1,4 @@
-module uim.oop.configurations.tests;
+module uim.oop.tests.configuration;
 
 import uim.oop;
 

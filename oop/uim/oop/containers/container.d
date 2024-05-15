@@ -8,7 +8,7 @@ module uim.oop.containers.container;
 import uim.oop;
 @safe:
 
-abstract class DContainer(T) {
+abstract class DContainer(T : Object) {
   this() {
     initialize;
   }
@@ -17,67 +17,83 @@ abstract class DContainer(T) {
     return true;
   }
 
-  // Ensures that this container contains the specified element.
-  abstract bool add(T addItem); 
+  protected T[] _items;
+
+  // Returns the number of elements in this container.*/
+  size_t length() {
+    return _items.length;
+  } 
   
-  // Adds all of the elements in the specified container to this container.
-  abstract bool addAll(DContainer!T addItems);
-  
+  T[] items() {
+    return _items.dup;
+  } 
+  // #region add
   // Adds all of array addItems to this container.
-  abstract bool addAll(T[] addItems);
+  void add(T[] newItems) {
+    newItems.each!(item => add(item));
+  }
+
+  // Ensures that this container contains the specified element.
+  void add(T newItem) {
+    _items ~= newItem.dup;
+  }
 
   // Adds all of the elements in the specified container to this container.
-  abstract bool addAll(T[] addItems...);
-
-  // Removes all of the elements from this container */
-  abstract bool clear(); 
+  void add(DContainer!T itemContainer) {
+    if (itemContainer is null) {
+      return;
+    }
+    add(itemContainer.items);
+  }
+  // #endregion add
   
   // Returns true if this container contains the specified element.
-  abstract bool contains(T checkItem);
+  bool contains(T checkItem) {
+    return _items.any!(item => item == checkItem);
+  }
   
   // Returns true if this container contains all of the elements in the specified container.
-  abstract bool containsAll(DContainer!T checkItems);
-  abstract bool containsAll(T[] checkItems...);
-  abstract bool containsAll(T[] checkItems);
+  bool containsAll(DContainer!T checkItems) {
+    return checkItems.all!(item => contains(item));
+  }
 
-  // Compares the specified object with this container for equality.
-  // abstract bool equals(T checkItem);
+  bool containsAll(T[] checkItems...) {
+    return containsAll(checkItems.dup);
+  }
+
+  bool containsAll(T[] checkItems) {
+    return checkItems.all!(item => contains(item));
+  }
   
-  // Returns the hash code value for this container.
-  // int	hashCode();
-  
+    // Returns true if this container contains all of the elements in the specified container.
+  bool containsAny(DContainer!T checkItems) {
+    return checkItems.any!(item => contains(item));
+  }
+
+  bool containsAny(T[] checkItems...) {
+    return containsAny(checkItems.dup);
+  }
+
+  bool containsAny(T[] checkItems) {
+    return checkItems.any!(item => contains(item));
+  }
+
   // Returns true if this container contains no elements.*/
-  abstract bool isEmpty();
-  
-  /* // Returns an iterator over the elements in this container.
-  Iterator<E>	iterator();
-  
-  // Returns a possibly parallel Stream with this container as its source.
-  Stream<E>	parallelStream(); */
-  
-  // Removes a single instance of the specified element from this container, if it is present.
-  abstract bool remove(T removeItem);
-  
-  // Removes all of this container's elements that are also contained in the specified container.
-  abstract bool removeAll(DContainer!T removeItems);
-  abstract bool removeAll(T[] removeItems...);
-  abstract bool removeAll(T[] removeItems);
+  bool isEmpty() {
+    return _items.length = 0;
+  } 
 
-  /*  // Removes all of the elements of this container that satisfy the given predicate.
-  bool removeIf(Predicate<? super E> filter); */
-  
-  // Retains only the elements in this container that are contained in the specified container.
-  bool retainAll(DContainer!T retainItems);
-  
-  // Returns the number of elements in this container.*/
-  abstract size_t size(); 
-  
-  /* // Creates a Spliterator over the elements in this container.
-  Spliterator<E>	spliterator();
-  
-  // Returns a sequential Stream with this container as its source.
-  default Stream<E>	stream(); */
-  
-  // Returns an array containing all of the elements in this container.
-  abstract T[] toArray(); 
+  void remove(T[] removeItems) {
+    removeItems.each!(item => remove(item));
+  }
+
+  // Removes a single instance of the specified element from this container, if it is present.
+  void remove(T removeItem) {
+    _items.remove(removeItem);
+  }
+
+  // Removes all of the elements from this container */
+  bool clear() {
+    _items = null;
+  }
 }

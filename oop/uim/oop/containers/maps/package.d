@@ -10,5 +10,4 @@ import uim.oop;
 
 public {
   import uim.oop.containers.maps.map;
-  import uim.oop.containers.maps.string;
 }

@@ -1,4 +1,4 @@
-module uim.oop.configurations.mixin_;
+module uim.oop.mixins.configuration;
 
 string configurationThis(string name) {
     string fullName = name ~ "Configuration";

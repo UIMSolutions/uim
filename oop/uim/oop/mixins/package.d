@@ -13,6 +13,7 @@ public {
 
 public {
 	import uim.oop.mixins.cloneable;
+	import uim.oop.mixins.configuration;
 	import uim.oop.mixins.conventions;
 	import uim.oop.mixins.cookiecrypt;
 	import uim.oop.mixins.element;

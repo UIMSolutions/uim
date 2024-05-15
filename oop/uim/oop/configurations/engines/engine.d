@@ -26,3 +26,7 @@ class DConfigEngine : IConfigEngine {
 
     mixin(TProperty!("string", "name"));
 }
+unittest {
+  auto engine = new DConfigEngine;
+  writeln(engine.name);
+}

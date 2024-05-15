@@ -6,6 +6,6 @@
 module uim.oop.complex;
 
 public {
-  import uim.oop.complex.obj;
-  import uim.oop.complex.templ;
+  // import uim.oop.complex.obj;
+  // import uim.oop.complex.templ;
 }

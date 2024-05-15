@@ -6,7 +6,7 @@
 module uim.oop.collections;
 
 public {
-  import uim.oop.collections.arraylist;
-  import uim.oop.collections.collection;
-  import uim.oop.collections.list;
+  // import uim.oop.collections.arraylist;
+  // import uim.oop.collections.collection;
+  // import uim.oop.collections.list;
 }

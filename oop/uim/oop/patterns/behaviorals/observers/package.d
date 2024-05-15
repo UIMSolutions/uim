@@ -51,7 +51,7 @@ class DBinaryObserver : DObserver{
   }
 }
 
-class OctalObserver : DObserver{
+class DOctalObserver : DObserver{
 
   this(DSubject subject) {
     _subject = subject;
@@ -83,7 +83,7 @@ version(test_uim_oop) { unittest {
 
     new DHexaObserver(subject);
     new DOctalObserver(subject);
-    new BinaryObserver(subject);
+    new DBinaryObserver(subject);
 
     debug writeln("First state change: 15");	
     subject.state(15);

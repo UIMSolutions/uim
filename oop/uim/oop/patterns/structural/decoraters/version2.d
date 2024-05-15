@@ -59,9 +59,9 @@ version(test_uim_oop) { unittest {
     ICoffee coffee = new DSimpleCoffee;
     print(ICoffee);
 
-    coffee = new WithMilk(coffee);
+    coffee = new DWithMilk(coffee);
     print(ICoffee);
 
-    coffee = new WithSprinkles(coffee);
+    coffee = new DWithSprinkles(coffee);
     print(ICoffee);
   }}

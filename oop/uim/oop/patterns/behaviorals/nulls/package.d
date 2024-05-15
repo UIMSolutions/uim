@@ -40,12 +40,9 @@ class DCustomerFactory {
   static const string[] names = ["Rob", "Joe", "Julie"];
 
   static DAbstractCustomer getCustomer(string name) {
-    for (int i = 0; i < names.length; i++) {
-      if (names[i].lower == name.lower) {
-        return new DRealCustomer(name);
-      }
-    }
-    return new DNullCustomer();
+    return names.any!(n => n.lower == name.lower)
+      ? new DRealCustomer(name)
+      : new DNullCustomer();
   }
 }
 
@@ -53,10 +50,10 @@ class DCustomerFactory {
 version(test_uim_oop) { unittest {
     writeln("NullPatternDemo");
 
-    DAbstractCustomer customer1 = CustomerFactory.getCustomer("Rob");
-    DAbstractCustomer customer2 = CustomerFactory.getCustomer("Bob");
-    DAbstractCustomer customer3 = CustomerFactory.getCustomer("Julie");
-    DAbstractCustomer customer4 = CustomerFactory.getCustomer("Laura");
+    DAbstractCustomer customer1 = DCustomerFactory.getCustomer("Rob");
+    DAbstractCustomer customer2 = DCustomerFactory.getCustomer("Bob");
+    DAbstractCustomer customer3 = DCustomerFactory.getCustomer("Julie");
+    DAbstractCustomer customer4 = DCustomerFactory.getCustomer("Laura");
 
     writeln("Customers");
     writeln(customer1.name);

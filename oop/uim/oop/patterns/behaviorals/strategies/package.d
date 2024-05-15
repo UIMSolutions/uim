@@ -14,19 +14,19 @@ interface IStrategy {
 }
 
 /// Create concrete classes implementing the same interface.
-class OperationAdd : IStrategy{
+class DOperationAdd : IStrategy{
   override int doOperation(int num1, int num2) {
     return num1 + num2;
   }
 }
 
-class OperationSubstract : IStrategy{
+class DOperationSubstract : IStrategy{
   override int doOperation(int num1, int num2) {
     return num1 - num2;
   }
 }
 
-class OperationMultiply : IStrategy{
+class DOperationMultiply : IStrategy{
   override int doOperation(int num1, int num2) {
     return num1 * num2;
   }

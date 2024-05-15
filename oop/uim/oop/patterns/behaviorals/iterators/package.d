@@ -40,7 +40,7 @@ class DNameRepository : IContainer {
 version(test_uim_oop) { unittest {
   writeln("IteratorPatternDemo"); 
   
-  NameRepository namesRepository = new DNameRepository();
+  auto namesRepository = new DNameRepository();
 
   for(Iterator iter = namesRepository.iterator(); iter.hasNext();) {
     string name = to!string(iter.next());

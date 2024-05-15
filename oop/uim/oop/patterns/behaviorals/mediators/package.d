@@ -32,8 +32,8 @@ class DUser {
 version(test_uim_oop) { unittest {
     writeln("MediatorPatternDemo"); 
 
-    DUser robert = new User("Robert");
-    DUser john = new User("John");
+    DUser robert = new DUser("Robert");
+    DUser john = new DUser("John");
 
     robert.sendMessage("Hi! John!");
     john.sendMessage("Hello! Robert!");

@@ -24,7 +24,8 @@ class DMapString : DMapTempl!(string, string) {
 		return result;
 	}
 	unittest {
-		// assert()
+		auto testMap = MapString;
+		/// assert()
 	}
 
 	@property O items(this O)(STRINGAA newItems) {

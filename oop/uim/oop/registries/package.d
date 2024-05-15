@@ -9,7 +9,7 @@ import uim.oop;
 @safe:
 
 public {
-  // import uim.oop.registries.registry;
+  import uim.oop.registries.registry;
 }
 
 

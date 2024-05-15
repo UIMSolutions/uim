@@ -8,15 +8,26 @@ module uim.oop.containers.maps.map;
 import uim.oop;
 @safe:
 
-class DMap : Obj, IMap {
+class DMap(T : Object) : IMap {
 	this() {}
 
-	bool isEmpty() { return true; }
-	size_t length() { return 0; }
-	O clear(this O)() { return cast(O)this; }
+	protected T[string] _values;
+
+	bool isEmpty() { return length == 0; }
+	size_t length() { return _values.length; }
+
+	void remove(string[] keys) {
+		keys.each!(key => _values.remove(key));
+	}
+	void remove(string key) {
+		_values.remove(key);
+	}
+	void clear(this O)() { 
+		_values = null; 
+	}
 
 	override string toString() {
-		return super.toString;
+		return "%s".format(_values.byKeyValue.map!(value => value.toString).array);
 	}
 }
 

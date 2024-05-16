@@ -72,7 +72,7 @@ abstract class DConfiguration : IConfiguration {
         }
 
         bool hasAnyKeys(string[] keys) {
-            return false;
+            return keys.any!(key => hasKey(key));
         }
 
         bool hasAllKeys(string[] keys...) {
@@ -80,16 +80,10 @@ abstract class DConfiguration : IConfiguration {
         }
 
         bool hasAllKeys(string[] keys) {
-            return false;
+            return keys.all!(key => hasKey(key));
         }
 
-        bool hasKey(string[] key) {
-            return false;
-        }
-
-        bool hasKey(string key) {
-            return false;
-        }
+        abstract bool hasKey(string key);
 
         abstract string[] allKeys();
     // #endregion keys
@@ -100,7 +94,7 @@ abstract class DConfiguration : IConfiguration {
         }
 
         bool hasAnyValues(string[] values) {
-            return false;
+            return values.any!(value => hasValue(value));
         }
 
         bool hasAllValues(string[] values...) {
@@ -108,12 +102,12 @@ abstract class DConfiguration : IConfiguration {
         }
 
         bool hasAllValues(string[] values) {
-            return false;
+            return values.all!(value => hasValue(value));
         }
 
-        bool hasValue(string value) {
-            return false;
-        }
+        abstract bool hasValue(string value);
+
+        abstract string[] values();
     // #endregion Values
 
     // #region get
@@ -121,42 +115,40 @@ abstract class DConfiguration : IConfiguration {
             return get(key);
         }
 
+        Json[string] get(string[] keys, bool compressMode = false) {
+            Json[string] results;
+
+            keys
+                .map!(key => key.strip)
+                .filter!(key => key.length > 0)
+                .filter!(key => !compressMode || !isNull(key))
+                .each!(key => results[key] = get(key));
+
+            return results; 
+        }
+
         Json get(string key, Json defaultValue = Json(null)) {
             return defaultValue;
         }
-
-        Json[string] get(string[] keys, bool compressMode = true){
-            return null; 
-        }
-
-        // Key and default Value
-        /* Json[string] get(Json[string] keys, bool compressMode = true){
-
-            return keys.dup; 
-        } */
 
         int getInt(string key) {
             if (!hasKey(key)) {
                 return 0;
             } 
 
-            return get(key).to!int;
+            return get(key).get!int;
         }
 
         long getLong(string key) {
-            if (!hasKey(key)) {
-                return 0;
-            } 
-
-            return get(key).to!long;
+            return hasKey(key)
+                ? get(key).get!long
+                : 0;
         }
 
         float getFloat(string key) {
-            if (!hasKey(key)) {
-                return 0;
-            } 
-
-            return get(key).to!float;
+            return hasKey(key)
+                ? get(key).get!float
+                : 0.0;
         }
 
         double getDouble(string key) {
@@ -164,15 +156,15 @@ abstract class DConfiguration : IConfiguration {
                 return 0;
             } 
 
-            return get(key).to!double;
+            return get(key).get!double;
         }
 
         string getString(string key) {
-            if (!hasKey(key)) {
-                return null;
-            } 
-
-            return get(key).to!string;
+            writeln("key = ", key);
+            writeln("hasKey = ", hasKey(key));
+            return hasKey(key)
+                ? get(key).get!string
+                : null;
         }
 
         string[] getStringArray(string key) {

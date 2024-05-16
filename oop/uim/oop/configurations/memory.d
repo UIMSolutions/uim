@@ -25,12 +25,7 @@ class DMemoryConfiguration : DConfiguration {
         _defaultData = newData.dup;
     }
 
-    /** 
-        * override bool hasDefault(string key)
-        * Params:
-        *   key = name or key to data object. Could be nested
-        * Returns: true if has data or false if not
-        */
+    // override bool hasDefault(string key)
     override bool hasDefault(string key) {
         return (key in _defaultData) ? true : false;
     }
@@ -217,9 +212,23 @@ class DMemoryConfiguration : DConfiguration {
     }
 
     override Json get(string key, Json defaultValue = Json(null)) {
-        return _data.hasKey(key)
-            ? _data[key] 
-            : defaultValue;
+        debug writeln("key = ", key);
+        if (key.strip.length == 0) {
+            return Json(null);
+        }
+        Json result = _data.hasKey(key) 
+            ? _data[key]
+            : Json(null);
+        debug writeln("result = ", result);
+
+        if (result == Json(null)) {
+            result = defaultValue != Json(null)
+            ? defaultValue
+            : _defaultData.get(key, Json(null));
+        }
+        debug writeln("result = ", result);
+
+        return result; 
     }
     /// 
     unittest {

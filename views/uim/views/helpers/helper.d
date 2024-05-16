@@ -40,6 +40,15 @@ class DHelper { // TODO }: IEventListener {
         this().name(name);
     }
 
+    this(IView newView, Json[string] helperSettings = null) {
+        this(helperSettings);
+        _view = newView;
+
+        if (helpers.isEmpty && !_view.isNull) {
+            helpers = newView.helpers().normalizeArray(helpers);
+        }
+    }
+
     // Hook method
     bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
@@ -58,26 +67,13 @@ class DHelper { // TODO }: IEventListener {
 
     // The View instance this helper is attached to
     protected IView _view;
+    
     // Get the view instance this helper is bound to.
     IView getView() {
         return _view;
     }
-    
-    /* 
-    this(IView myview, Json[string] helperSettings = null) {
-       _View = myview;
-        configuration.update(helperSettings);
 
-        if (this.helpers) {
-            this.helpers = myview.helpers().normalizeArray(this.helpers);
-        }
-        this.initialize(helperSettings);
-    }*/
-
-
-    /**
-     * Lazy loads helpers.
-     */
+    // Lazy loads helpers.
     DHelper __get(string propertyName) {
         if (isSet(this.helperInstances[propertyName])) {
             return _helperInstances[propertyName];
@@ -89,7 +85,7 @@ class DHelper { // TODO }: IEventListener {
         }
         return null;
     }
-    
+
     /**
      * Returns a string to be used as onclick handler for confirm dialogs.
      * Params:
@@ -99,7 +95,7 @@ class DHelper { // TODO }: IEventListener {
     protected string _confirm(string myokCode, string mycancelCode) {
         return "if (confirm(this.dataset.confirmMessage)) { {myokCode} } {mycancelCode}";
     }
-    
+
     /**
      * Adds the given class to the element options
      * Params:
@@ -110,14 +106,16 @@ class DHelper { // TODO }: IEventListener {
     Json[string] addClass(Json[string] options, string classname, string aKey = "class") {
         if (isSet(options[aKey]) && isArray(options[aKey])) {
             options[aKey] ~= classname;
-        } elseif (isSet(options[aKey]) && strip(options[aKey])) {
+        }
+        elseif(isSet(options[aKey]) && strip(options[aKey])) {
             options[aKey] ~= " " ~ classname;
         } else {
             options[aKey] = classname;
         }
+
         return options;
     }
-    
+
     /**
      * Get the View callbacks this helper is interested in.
      *
@@ -144,7 +142,7 @@ class DHelper { // TODO }: IEventListener {
 
         return myevents;
     }
-    
+
     /**
      * Constructor hook method.
      *
@@ -153,9 +151,9 @@ class DHelper { // TODO }: IEventListener {
      * Json[string] helperSettings The configuration settings provided to this helper.
      */
     bool initialize(Json[string] initData = null) {
-      
+
     }
-    
+
     // Returns an array that can be used to describe the internal state of this object.
     Json __debugInfo() {
         return [
@@ -163,5 +161,7 @@ class DHelper { // TODO }: IEventListener {
             "implementedEvents": this.implementedEvents(),
             "configuration": this.configuration.data,
         ];
-    } */
+    }
+
+     *  /
 }

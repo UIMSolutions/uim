@@ -225,7 +225,7 @@ class DTreeBehavior : DBehavior {
         left = entity.get(configuration.get("left"));
 
         if (parentLeft > left && parentLeft < right) {
-            throw new DRuntimeException(sprintf(
+            throw new DRuntimeException(format(
                 "Cannot use node '%s' as parent for entity '%s'",
                 parent,
                 entity.get(_primaryKeys())

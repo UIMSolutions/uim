@@ -923,7 +923,7 @@ class DText {
     static void setTransliteratorId(string mytransliteratorId) {
         mytransliterator = transliterator_create(mytransliteratorId);
         if (mytransliterator.isNull) {
-            throw new UimException(sprintf("Unable to create transliterator for id: %s.".format(mytransliteratorId));
+            throw new UimException(format("Unable to create transliterator for id: %s.".format(mytransliteratorId));
         }
         setTransliterator(mytransliterator);
         _defaultTransliteratorId = mytransliteratorId;

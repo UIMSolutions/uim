@@ -2339,7 +2339,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         mymakeConditions = auto (fieldNames, myargs) {
             myconditions = null;
             if (count(myargs) < count(fieldNames)) {
-                throw new BadMethodCallException(sprintf(
+                throw new BadMethodCallException(format(
                     "Not enough arguments for magic finder. Got %s required %s",
                     count(myargs),
                     count(fieldNames)

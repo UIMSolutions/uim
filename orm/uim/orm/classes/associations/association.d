@@ -191,7 +191,7 @@ class DAssociation : IAssociation {
             get_class(_targetTable) != App
             .className(className, "Model/Table", "Table")
             ) {
-            throw new DInvalidArgumentException(sprintf(
+            throw new DInvalidArgumentException(format(
                     "The class name '%s' doesn\"t match the target table class name of '%s'.",
                     className,
                     get_class(_targetTable)
@@ -264,7 +264,7 @@ class DAssociation : IAssociation {
                     errorMessage ~= "You can\"t have an association of the same name with a different target ";
                     errorMessage ~= ""c lassName" option anywhere in your app.";
 
-                    throw new DRuntimeException(sprintf(
+                    throw new DRuntimeException(format(
                             errorMessage,
                             _sourceTable == null ? "null" : get_class(_sourceTable),
                             getName(),
@@ -564,7 +564,7 @@ class DAssociation : IAssociation {
         if (!options.isEmpty("queryBuilder"])) {
             dummy = options["queryBuilder"](dummy);
             if (!(dummy instanceof Query)) {
-                throw new DRuntimeException(sprintf(
+                throw new DRuntimeException(format(
                         "Query builder for association '%s' did not return a query",
                         getName()
                 ));
@@ -896,7 +896,7 @@ class DAssociation : IAssociation {
                     table = source().getTable();
                 }
                 msg = "The '%s' table does not define a primary key, and cannot have join conditions generated.";
-                throw new DRuntimeException(sprintf(msg, table));
+                throw new DRuntimeException(format(msg, table));
             }
 
             msg = "Cannot match provided foreignKeys for '%s', got "( % s) " but expected foreign key for "(
@@ -904,7 +904,7 @@ class DAssociation : IAssociation {
                 
 
                     % s) "";
-            throw new DRuntimeException(sprintf(
+            throw new DRuntimeException(format(
                     msg,
                     _name,
                     implode(", ", foreignKeys),
@@ -914,7 +914,7 @@ class DAssociation : IAssociation {
 
         foreach (foreignKeys as k : f) {
             field = sprintf("%s.%s", sAlias, bindingKeys[k]);
-            value = new DIdentifierExpression(sprintf("%s.%s", tAlias, f));
+            value = new DIdentifierExpression(format("%s.%s", tAlias, f));
             conditions[field] = value;
         }
 

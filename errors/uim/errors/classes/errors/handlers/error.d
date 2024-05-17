@@ -134,7 +134,7 @@ class DErrorHandler { // }: DERRErrorHandler
             /** @var class-string<uim.errors.IExceptionRenderer>|null aClassName */
             aClassName = App.className(renderer, "Error");
             if (!aClassName) {
-                throw new DRuntimeException(sprintf(
+                throw new DRuntimeException(format(
                     "The '%s' renderer class DCould not be found.",
                     renderer
                 ));

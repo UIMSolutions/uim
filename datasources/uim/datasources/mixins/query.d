@@ -417,7 +417,7 @@ mixin template TQuery() {
         entity = this.first();
         if (!entity) {
             table = getRepository();
-            throw new DRecordNotFoundException(sprintf(
+            throw new DRecordNotFoundException(format(
                 "Record not found in table '%s'",
                 table.getTable()
             ));
@@ -452,7 +452,7 @@ mixin template TQuery() {
     function __call(string method, Json[string] arguments) {
         resultSetClass = _decoratorClass();
         if (hasAllValues(method, get_class_methods(resultSetClass), true)) {
-            deprecationWarning(sprintf(
+            deprecationWarning(format(
                 "Calling `%s` methods, such as `%s()`, on queries is deprecated~ " ~
                 "You must call `all()` first (for example, `all().%s()`).",
                 IResultset.class,

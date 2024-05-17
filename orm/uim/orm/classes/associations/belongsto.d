@@ -119,7 +119,7 @@ class DBelongsToAssociation : DAssociation {
      * @throws \RuntimeException if the number of columns in the foreignKeys do not
      * match the number of columns in the target table primaryKeys
      */
-    // TODO protected Json[string] _joinCondition(Json[string] optionData) {
+    protected Json[string] _joinCondition(Json[string] optionData) {
         conditions = null;
         tAlias = _name;
         sAlias = _sourceTable.aliasName();
@@ -129,11 +129,11 @@ class DBelongsToAssociation : DAssociation {
         if (count(foreignKeys) != count(bindingKey)) {
             if (bindingKey.isEmpty) {
                 msg = "The '%s' table does not define a primary key. Please set one.";
-                throw new DRuntimeException(sprintf(msg, getTarget().getTable()));
+                throw new DRuntimeException(msg.format(getTarget().getTable()));
             }
 
-            msg = "Cannot match provided foreignKeys for '%s', got "(%s)" but expected foreign key for "(%s)"";
-            throw new DRuntimeException(sprintf(
+            msg = "Cannot match provided foreignKeys for '%s', got '(%s)' but expected foreign key for '(%s)'";
+            throw new DRuntimeException(format(
                 msg,
                 _name,
                 implode(", ", foreignKeys),
@@ -143,7 +143,7 @@ class DBelongsToAssociation : DAssociation {
 
         foreach (foreignKeys as k: f) {
             field = sprintf("%s.%s", tAlias, bindingKey[k]);
-            value = new DIdentifierExpression(sprintf("%s.%s", sAlias, f));
+            value = new DIdentifierExpression(format("%s.%s", sAlias, f));
             conditions[field] = value;
         }
 

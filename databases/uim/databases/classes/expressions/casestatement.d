@@ -149,12 +149,12 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * aQueryExpression
      *    .case()
      *    .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
-     *        return  whenThen
+     *        return whenThen
      *            .when(["Table.column": true.toJson])
      *            .then("Yes");
      *    })
      *    .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
-     *        return  whenThen
+     *        return whenThen
      *            .when(["Table.column": false.toJson])
      *            .then("No");
      *    })
@@ -175,12 +175,12 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * aQueryExpression
      *    .case()
      *    .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
-     *        return  whenThen
+     *        return whenThen
      *            .when(["unmapped_column": true.toJson], ["unmapped_column": 'bool"])
      *            .then("Yes");
      *    })
      *    .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
-     *        return  whenThen
+     *        return whenThen
      *            .when(["unmapped_column": false.toJson], ["unmapped_column": 'bool"])
      *            .then("No");
      *    })

@@ -53,7 +53,7 @@ class DFlashComponent : DComponent {
      */
     void set(Throwable | string amessage, Json[string] options = null) {
         if (cast(Throwable) aMessage) {
-            this.flash().setExceptionMessage(message, options);
+            flash().setExceptionMessage(message, options);
         } else {
             flash().set(message, options);
         }
@@ -67,16 +67,15 @@ class DFlashComponent : DComponent {
     /**
      * Proxy method to FlashMessage instance.
      * Params:
-     * Json[string]|string aKey The key to set, or a complete array of configs.
      * @param bool  merge Whether to recursively merge or overwrite existing config, defaults to true.
 
      * @throws \UIM\Core\Exception\UimException When trying to set a key that is invalid.
      */
-    void setConfig(string[] aKey, Json valueToSet = null, bool merge = true) {
+    void setConfig(string[] keys, Json valueToSet = null, bool merge = true) {
     }
 
     void setConfig(string[] aKey, Json valueToSet = null, bool merge = true) {
-        this.flash().setConfig(aKey, valueToSet, merge);
+        flash().setConfig(aKey, valueToSet, merge);
     }
 
     /**
@@ -99,11 +98,11 @@ class DFlashComponent : DComponent {
      * Json[string]|string aKey The key to set, or a complete array of configs.
      */
     void configShallow(string aKey, Json valueToSet = null) {
-        this.flash().configShallow(aKey, valueToSet);
+        flash().configShallow(aKey, valueToSet);
     }
 
     void configShallow(string[] keys, Json valueToSet = null) {
-        this.flash().configShallow(keys, valueToSet);
+        flash().configShallow(keys, valueToSet);
     }
 
     /**

@@ -11,8 +11,6 @@ import uim.consoles;
  * that your command/task/helper uses:
  *
  * ```
- * 
- *
  * output = new DStubConsoleOutput();
  * aConsoleIo = new DConsoleIo(output);
  * ```
@@ -21,20 +19,14 @@ class DStubConsoleOutput : DConsoleOutput {
     // Buffered messages.
     protected string[] _out = null;
 
-    /* 
-    /**
-     * Write output to the buffer.
-     * Params:
-     * string[]|string amessage A string or an array of strings to output
-     * @param int newlines Number of newlines to append
-     */
-    int write(string[] amessage, int newlines = 1) {
-        (array) message.each!(line => _out ~= line);
+    // Write output to the buffer.
+    int write(string[] outputMessage, int newlinesToAppend = 1) {
+        (array) outputMessage.each!(line => _out ~= line);
 
-        int newlines--;
-        while (newlines > 0) {
-           _out ~= "";
-            newlines--;
+        int newlinesToAppend--;
+        while (newlinesToAppend > 0) {
+            _out ~= "";
+            newlinesToAppend--;
         }
         return 0;
     }
@@ -43,9 +35,9 @@ class DStubConsoleOutput : DConsoleOutput {
     string[] messages() {
         return _out;
     }
-    
+
     // Get the output as a string
     string output() {
         return _out.join("\n");
-    } */
+    }
 }

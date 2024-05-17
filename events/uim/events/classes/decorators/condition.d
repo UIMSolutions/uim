@@ -25,7 +25,7 @@ class DConditionDecorator : DDecorator {
         auto canIf = _evaluateCondition("if", eventToCheck);
         auto canUnless = _evaluateCondition("unless", eventToCheck);
 
-        return  canIf && !canUnless;
+        return canIf && !canUnless;
     }
     
     /**

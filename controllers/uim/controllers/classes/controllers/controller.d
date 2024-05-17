@@ -348,7 +348,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
             }
              matching ~= middleware["middleware"];
         }
-        return  matching;
+        return matching;
     }
     
     /**
@@ -552,18 +552,18 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Returns the referring URL for this request.
      * Params:
      * string[] default Default URL to use if HTTP_REFERER cannot be read from headers
-     * @param bool  local If false, do not restrict referring URLs to local server.
+     * @param bool isLocal If false, do not restrict referring URLs to local server.
      *  Careful with trusting external sources.
      * returns Referring URL
      */
-    string referer(string[] defaultValue = "/", bool  local = true) {
-         referer = this.request.referer(local);
+    string referer(string[] defaultValue = "/", bool isLocal = true) {
+         referer = this.request.referer(isLocal);
         if (!referer.isNull) {
-            return  referer;
+            return referer;
         }
-        url = Router.url(default, ! local);
+        url = Router.url(default, !isLocal);
          base = this.request.getAttribute("base");
-        if (local &&  base && url.startsWith(base)) {
+        if (isLocal &&  base && url.startsWith(base)) {
             url = substr(url,  base.length);
             if (url[0] != "/") {
                 url = "/" ~ url;
@@ -631,7 +631,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         } catch (ReflectionException) {
             return false;
         }
-        return  method.isPublic() &&  method.name == actionName;
+        return method.isPublic() &&  method.name == actionName;
     }
     
     /**

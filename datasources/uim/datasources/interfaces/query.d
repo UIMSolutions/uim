@@ -334,7 +334,7 @@ interface IQuery {
      * .where(function (exp, aQuery) {
      *      or = exp.or(["id": 1]);
      *     and = exp.and(["id >": 2, "id <": 10]);
-     * return  or.add(and);
+     * return or.add(and);
      * });
      * ```
      *

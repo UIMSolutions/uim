@@ -73,7 +73,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
              middlewareQueue = new DMiddlewareQueue(middlewares, this.container);
              runner = new DRunner();
 
-            return  runner.run(middlewareQueue, controller.getRequest(), this);
+            return runner.run(middlewareQueue, controller.getRequest(), this);
         }
         return _handle(controller.getRequest());
     }

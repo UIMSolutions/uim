@@ -234,7 +234,7 @@ class DSqlserverDriver : DDriver {
                          order.add([aKey:  direction]);
                     }
                     // Leave original order clause unchanged.
-                    return  orderBy;
+                    return orderBy;
                 });
         } else {
              order = new DOrderByExpression("(SELECT NULL)");
@@ -267,7 +267,7 @@ class DSqlserverDriver : DDriver {
             return row;
         });
 
-        return  outer;
+        return outer;
     }
  
     protected ISelectQuery _transformDistinct(SelectQuery aQuery) {
@@ -312,7 +312,7 @@ class DSqlserverDriver : DDriver {
             return row;
         });
 
-        return  outer;
+        return outer;
     }
  
     // TODO protected Json[string] _expressionTranslators() {

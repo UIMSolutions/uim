@@ -148,7 +148,6 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * Output help content
      * Params:
      * \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The option parser.
-     * @param \UIM\Console\Json[string] someArguments The command arguments.
      */
     protected void displayHelp(DConsoleOptionParser buildOptionParser aParser, Json[string] someArguments, IConsoleIo aConsoleIo) {
         string format = "text";
@@ -159,12 +158,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         aConsoleIo.writeln(aParser.help(format));
     }
 
-    /**
-     * Set the output level based on the Json[string].
-     * Params:
-     * \UIM\Console\Json[string] someArguments The command arguments.
-     * @param \UIM\Console\IConsoleIo aConsoleIo The console io
-     */
+    // Set the output level based on the Json[string].
     protected void setOutputLevel(Json[string] someArguments, IConsoleIo aConsoleIo) {
         aConsoleIo.setLoggers(ConsoleIo.NORMAL);
         if (someArguments.hasKey("quiet")) {
@@ -181,9 +175,8 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * Implement this method with your command`s logic.
      * Params:
      * \UIM\Console\Json[string] someArguments The command arguments.
-     * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      */
-    abstract int | void execute(Json[string] someArguments, IConsoleIo aConsoleIo);
+    abstract int execute(Json[string] someArguments, IConsoleIo aConsoleIo);
 
     /**
      * Halt the current process with a StopException.

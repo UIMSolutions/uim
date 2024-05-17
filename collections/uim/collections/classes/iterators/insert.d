@@ -27,8 +27,6 @@ class DInsertIterator : DCollection {
      * Constructs a new DCollection that will dynamically add properties to it out of
      * the values found in  sourceValues.
      * Params:
-     * @param string propertyPath A dot separated list of properties that need to be traversed
-     * to insert the value into the target collection.
      * @param  range sourceValues The source collection from which the values will
      * be inserted at the specified path.
      */

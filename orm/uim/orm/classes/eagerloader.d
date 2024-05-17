@@ -725,7 +725,7 @@ class DEagerLoader {
 
             source = instance.source();
             keys = instance.type() == Association.MANY_TO_ONE ?
-                (array)instance.getForeignKeys() :
+                (array)instance.foreignKeys() :
                 (array)instance.getBindingKey();
 
             alias = source.aliasName();

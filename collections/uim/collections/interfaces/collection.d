@@ -117,11 +117,8 @@ interface ICollection {
     /**
      * Returns true if value is present in this collection. Comparisons are made
      * both by value and type.
-     *
-     * @param mixed value The value to check for
-     * @return bool true if value is present in this collection
      */
-    // bool contains(value);
+    // bool contains(Json value);
 
     /**
      * Returns another collection after modifying each of the values in this one using

@@ -334,7 +334,7 @@ function getBindingKeys() {
      *
      * @return string[]|string
      */
-function getForeignKeys() {
+function foreignKeys() {
     return _foreignKeys;
 }
 

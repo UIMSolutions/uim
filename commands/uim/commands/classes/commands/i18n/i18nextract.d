@@ -194,10 +194,8 @@ class DI18nExtractCommand : DCommand {
      * Add a translation to the internal translations property
      *
      * Takes care of duplicate translations
-     * Params:
-     * @param Json[string] details DContext and plural form if any, file and line references
      */
-    protected void _addTranslation(string domainName, string messageId, Json[string] details = null) {
+    protected void _addTranslation(string domainName, string messageId, Json[string] contextData = null) {
         context = contextData.get("msgctxt", "");
 
         if (isEmpty(_translations[domainName][messageId][context])) {
@@ -303,12 +301,7 @@ class DI18nExtractCommand : DCommand {
         return aParser;
     }
     
-    /**
-     * Extract tokens out of all files to be processed
-     * Params:
-     * \UIM\Console\Json[string] commandArguments The io instance
-     * @param \UIM\Console\IConsoleIo aConsoleIo The io instance
-     */
+    // Extract tokens out of all files to be processed
     protected void _extractTokens(Json[string] commandArguments, IConsoleIo aConsoleIo) {
         progress = aConsoleIo.helper("progress");
         assert(cast(ProgressHelper)progress);

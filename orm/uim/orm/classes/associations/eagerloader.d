@@ -653,7 +653,7 @@ class DEagerLoader {
             }
             mysource = myinstance.source();
             someKeys = myinstance.type() == Association.MANY_TO_ONE ?
-                (array)myinstance.getForeignKeys():
+                (array)myinstance.foreignKeys():
                 (array)myinstance.getBindingKey();
 
             aliasName = mysource.aliasName();

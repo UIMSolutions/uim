@@ -215,22 +215,22 @@ class DConsoleOptionParser {
      * ];
      * ```
      * Params:
-     * Json[string] spec The spec to build the OptionParser with.
+     * Json[string] sepcData The sepcData to build the OptionParser with.
      * @param bool defaultOptions Whether you want the verbose and quiet options set.
      */
-    static auto buildFromArray(Json[string] spec, bool isVerboseAndQuiet = true) {
-        auto aParser = new static(spec["command"], isVerboseAndQuiet);
-        if (!spec["arguments"].isEmpty) {
-             aParser.addArguments(spec["arguments"]);
+    static auto buildFromArray(Json[string] sepcData, bool isVerboseAndQuiet = true) {
+        auto aParser = new static(sepcData["command"], isVerboseAndQuiet);
+        if (!sepcData["arguments"].isEmpty) {
+             aParser.addArguments(sepcData["arguments"]);
         }
-        if (!spec["options"].isEmpty) {
-             aParser.addOptions(spec["options"]);
+        if (!sepcData["options"].isEmpty) {
+             aParser.addOptions(sepcData["options"]);
         }
-        if (!spec["description"].isEmpty) {
-             aParser.description(spec["description"]);
+        if (!sepcData["description"].isEmpty) {
+             aParser.description(sepcData["description"]);
         }
-        if (!spec["epilog"].isEmpty) {
-             aParser.setEpilog(spec["epilog"]);
+        if (!sepcData["epilog"].isEmpty) {
+             aParser.setEpilog(sepcData["epilog"]);
         }
         return aParser;
     }
@@ -251,10 +251,11 @@ class DConsoleOptionParser {
      * Params:
      * \UIM\Console\DConsoleOptionParser buildOptionParser|array spec DConsoleOptionParser buildOptionParser or spec to merge with.
      */
-    void merge(DConsoleOptionParser buildOptionParser|array spec) {
-        if (cast(DConsoleOptionParser buildOptionParser)spec) {
-            spec = spec.toArray();
-        }
+    void merge(DConsoleOptionParser buildOptionParser) {
+        merge(spec.toArray());
+    }
+
+    void merge(Json[string] spec) {
         if (!spec["arguments"].isEmpty) {
             this.addArguments(spec["arguments"]);
         }
@@ -269,8 +270,6 @@ class DConsoleOptionParser {
         }
     }
 
-
-        
     /**
      * Add an option to the option parser. Options allow you to define optional or required
      * parameters for your console application. Options are defined by the parameters they use.
@@ -355,11 +354,11 @@ class DConsoleOptionParser {
      *  Will also accept an instance of ConsoleInputArgument.
      * @param Json[string] params Parameters for the argument, see above.
      */
-    void addArgument(ConsoleInputArgument|string aName, Json[string] params = null) {
+    void addArgument(ConsoleInputArgument aName, Json[string] params = null) {
     }
-    
-    void addArgument(ConsoleInputArgument|string aName, Json[string] params = null) {
 
+    void addArgument(string aName, Json[string] params = null) {
+    }
     
     /**
      * Add multiple arguments at once. Take an array of argument definitions.
@@ -450,11 +449,11 @@ class DConsoleOptionParser {
         _options.each!((option) {
             name = option.name();
              isBoolean = option.isBoolean();
-            default = option.defaultValue();
+            defaultValue = option.defaultValue();
 
             useDefault = !isSet(params[name]);
-            if (default !isNull && useDefault && !isBoolean) {
-                params[name] = default;
+            if (defaultValue !isNull && useDefault && !isBoolean) {
+                params[name] = defaultValue;
             }
             if (isBoolean && useDefault) {
                 params[name] = false;
@@ -463,8 +462,8 @@ class DConsoleOptionParser {
             if (!isSet(params[name]) && prompt) {
                 if (!aConsoleIo) {
                     throw new DConsoleException(
-                        "Cannot use interactive option prompts without a ConsoleIo instance. ' .
-                        "Please provide a ` aConsoleIo` parameter to `parse()`.'
+                        "Cannot use interactive option prompts without a ConsoleIo instance. " ~
+                        "Please provide a ` aConsoleIo` parameter to `parse()`."
                     );
                 }
                 choices = option.choices();
@@ -494,7 +493,7 @@ class DConsoleOptionParser {
      * @param int width The width to format user content to. Defaults to 72
      */
     string help(string aformat = "text", int width = 72) {
-        formatter = new DHelpFormatter(this);
+        auto formatter = new DHelpFormatter(this);
         formatter.aliasName(_rootName);
 
         if (format == "text") {
@@ -513,10 +512,10 @@ class DConsoleOptionParser {
      * options with an `=` in them.
      * Params:
      * string optionToParse The option to parse.
-     * @param  params The params to append the parsed value into
+     * @param params The params to append the parsed value into
      */
-    // TODO protected Json[string] _parseLongOption(string optionToParse, Json[string] params) {
-        name = substr(optionToParse, 2);
+    protected Json[string] _parseLongOption(string optionToParse, Json[string] params) {
+        string name = substr(optionToParse, 2);
         if (name.has("=")) {
             [name, aValue] = split("=", name, 2);
             array_unshift(_tokens, aValue);
@@ -529,7 +528,7 @@ class DConsoleOptionParser {
      * If the option is a combination of multiple shortcuts like -otf
      * they will be shifted onto the token stack and parsed individually.
      * Params:
-     * @param  params The params to append the parsed value into
+     * @param params The params to append the parsed value into
      * params with option added in.
      * @throws \UIM\Console\Exception\ConsoleException When unknown short options are encountered.
      */

@@ -85,7 +85,7 @@ abstract class DCell { // }: IEventDispatcher {
      * \UIM\Http\ServerRequest myrequest The request to use in the cell.
      * @param \UIM\Http\Response myresponse The response to use in the cell.
      * @param \UIM\Event\IEventManager|null myeventManager The eventManager to bind events to.
-     * @param  mycellOptions Cell options to apply.
+     * @param mycellOptions Cell options to apply.
      */
     this(
         ServerRequest myrequest,

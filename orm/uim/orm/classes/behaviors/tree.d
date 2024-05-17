@@ -47,8 +47,8 @@ class DTreeBehavior : DBehavior {
         "cascadeCallbacks": false.toJson,
     ];
 
-        configuration.get("leftField"] = new DIdentifierExpression(configuration.get("left"]);
-        configuration.get("rightField"] = new DIdentifierExpression(configuration.get("right"]);
+        configuration.get("leftField") = new DIdentifierExpression(configuration.get("left"));
+        configuration.get("rightField") = new DIdentifierExpression(configuration.get("right"));
 
         return true;
     }
@@ -60,26 +60,25 @@ class DTreeBehavior : DBehavior {
      *
      * @param DORMevents.IEvent event The beforeSave event that was fired
      * @param DORMDatasource\IORMEntity anEntity the entity that is going to be saved
-     * @return void
      * @throws \RuntimeException if the parent to set for the node is invalid
      */
-    function beforeSave(IEvent event, IORMEntity anEntity) {
+    void beforeSave(IEvent event, IORMEntity anEntity) {
         isNew = entity.isNew();
         myConfiguration = configuration;
-        parent = entity.get(configuration.get("parent"]);
+        parent = entity.get(configuration.get("parent"));
         primaryKeys = _primaryKeys();
-        dirty = entity.isDirty(configuration.get("parent"]);
-        level = configuration.get("level"];
+        dirty = entity.isDirty(configuration.get("parent"));
+        level = configuration.get("level");
 
         if (parent && entity.get(primaryKeys) == parent) {
-            throw new DRuntimeException("Cannot set a node"s parent as itself");
+            throw new DRuntimeException("Cannot set a node's parent as itself");
         }
 
         if (isNew && parent) {
             parentNode = _getNode(parent);
-            edge = parentNode.get(configuration.get("right"]);
-            entity.set(configuration.get("left"], edge);
-            entity.set(configuration.get("right"], edge + 1);
+            edge = parentNode.get(configuration.get("right"));
+            entity.set(configuration.get("left"), edge);
+            entity.set(configuration.get("right"), edge + 1);
             _sync(2, "+", ">= {edge}");
 
             if (level) {
@@ -91,8 +90,8 @@ class DTreeBehavior : DBehavior {
 
         if (isNew && !parent) {
             edge = _getMax();
-            entity.set(configuration.get("left"], edge + 1);
-            entity.set(configuration.get("right"], edge + 2);
+            entity.set(configuration.get("left"), edge + 1);
+            entity.set(configuration.get("right"), edge + 2);
 
             if (level) {
                 entity.set(level, 0);
@@ -130,7 +129,7 @@ class DTreeBehavior : DBehavior {
      * @param DORMDatasource\IORMEntity anEntity the entity that is going to be saved
      */
     void afterSave(IEvent event, IORMEntity anEntity) {
-        if (!configuration.get("level"] || entity.isNew()) {
+        if (!configuration.get("level") || entity.isNew()) {
             return;
         }
 
@@ -145,28 +144,28 @@ class DTreeBehavior : DBehavior {
     protected void _setChildrenLevel(IORMEntity anEntity) {
         myConfiguration = configuration;
 
-        if (entity.get(configuration.get("left"]) + 1 == entity.get(configuration.get("right"])) {
+        if (entity.get(configuration.get("left")) + 1 == entity.get(configuration.get("right"))) {
             return;
         }
 
         primaryKeys = _primaryKeys();
         primaryKeysValue = entity.get(primaryKeys);
-        depths = [primaryKeysValue: entity.get(configuration.get("level"])];
+        depths = [primaryKeysValue: entity.get(configuration.get("level"))];
 
         children = _table.find("children", [
             "for": primaryKeysValue,
-            "fields": [_primaryKeys(), configuration.get("parent"], configuration.get("level"]],
-            "order": configuration.get("left"],
+            "fields": [_primaryKeys(), configuration.get("parent"), configuration.get("level")],
+            "order": configuration.get("left"),
         ]);
 
         /** @var DORMdatasources.IORMEntity node */
         foreach (children as node) {
-            parentIdValue = node.get(configuration.get("parent"]);
+            parentIdValue = node.get(configuration.get("parent"));
             depth = depths[parentIdValue] + 1;
             depths[node.get(primaryKeys)] = depth;
 
             _table.updateAll(
-                [configuration.get("level"]: depth],
+                [configuration.get("level"): depth],
                 [primaryKeys: node.get(primaryKeys)]
             );
         }
@@ -181,8 +180,8 @@ class DTreeBehavior : DBehavior {
     void beforeremove(IEvent event, IORMEntity anEntity) {
         myConfiguration = configuration;
         _ensureFields(entity);
-        left = entity.get(configuration.get("left"]);
-        right = entity.get(configuration.get("right"]);
+        left = entity.get(configuration.get("left"));
+        right = entity.get(configuration.get("right"));
         diff = right - left + 1;
 
         if (diff > 2) {
@@ -190,8 +189,8 @@ class DTreeBehavior : DBehavior {
                 .where(function (exp) use (myConfiguration, left, right) {
                     /** @var DDBExpression\QueryExpression exp */
                     return exp
-                        .gte(configuration.get("leftField"], left + 1)
-                        .lte(configuration.get("leftField"], right - 1);
+                        .gte(configuration.get("leftField"), left + 1)
+                        .lte(configuration.get("leftField"), right - 1);
                 });
             if (this.configuration.get("cascadeCallbacks")) {
                 entities = query.toArray();
@@ -222,10 +221,10 @@ class DTreeBehavior : DBehavior {
         myConfiguration = configuration;
         parentNode = _getNode(parent);
         _ensureFields(entity);
-        parentLeft = parentNode.get(configuration.get("left"]);
-        parentRight = parentNode.get(configuration.get("right"]);
-        right = entity.get(configuration.get("right"]);
-        left = entity.get(configuration.get("left"]);
+        parentLeft = parentNode.get(configuration.get("left"));
+        parentRight = parentNode.get(configuration.get("right"));
+        right = entity.get(configuration.get("right"));
+        left = entity.get(configuration.get("left"));
 
         if (parentLeft > left && parentLeft < right) {
             throw new DRuntimeException(sprintf(
@@ -265,8 +264,8 @@ class DTreeBehavior : DBehavior {
         }
 
         // Allocating new position
-        entity.set(configuration.get("left"], targetLeft);
-        entity.set(configuration.get("right"], targetRight);
+        entity.set(configuration.get("left"), targetLeft);
+        entity.set(configuration.get("right"), targetRight);
     }
 
     /**
@@ -280,8 +279,8 @@ class DTreeBehavior : DBehavior {
         myConfiguration = configuration;
         edge = _getMax();
         _ensureFields(entity);
-        right = entity.get(configuration.get("right"]);
-        left = entity.get(configuration.get("left"]);
+        right = entity.get(configuration.get("right"));
+        left = entity.get(configuration.get("left"));
         diff = right - left;
 
         if (right - left > 1) {
@@ -297,8 +296,8 @@ class DTreeBehavior : DBehavior {
             _unmarkInternalTree();
         }
 
-        entity.set(configuration.get("left"], edge - diff);
-        entity.set(configuration.get("right"], edge);
+        entity.set(configuration.get("left"), edge - diff);
+        entity.set(configuration.get("right"), edge);
     }
 
     /**
@@ -316,12 +315,12 @@ class DTreeBehavior : DBehavior {
                 rightInverse = clone leftInverse;
 
                 return exp
-                    .eq(configuration.get("leftField"], leftInverse.add(configuration.get("leftField"]))
-                    .eq(configuration.get("rightField"], rightInverse.add(configuration.get("rightField"]));
+                    .eq(configuration.get("leftField"), leftInverse.add(configuration.get("leftField")))
+                    .eq(configuration.get("rightField"), rightInverse.add(configuration.get("rightField")));
             },
             function (exp) use (myConfiguration) {
                 /** @var DDBExpression\QueryExpression exp */
-                return exp.lt(configuration.get("leftField"], 0);
+                return exp.lt(configuration.get("leftField"), 0);
             }
         );
     }
@@ -337,8 +336,8 @@ class DTreeBehavior : DBehavior {
      * @throws \InvalidArgumentException If the "for" key is missing in options
      */
     DORMQuery findPath(Query query, Json[string] optionData) {
-        if (options.isEmpty("for"])) {
-            throw new DInvalidArgumentException("The "for" key is required for find("path")");
+        if (options.isEmpty("for"))) {
+            throw new DInvalidArgumentException("The 'for' key is required for find('path')");
         }
 
         myConfiguration = configuration;
@@ -346,15 +345,15 @@ class DTreeBehavior : DBehavior {
             function (field) {
                 return _table.aliasField(field);
             },
-            [configuration.get("left"], configuration.get("right"]]
+            [configuration.get("left"), configuration.get("right")]
         );
 
         node = _table.get(options["for"], ["fields": [left, right]]);
 
         return _scope(query)
             .where([
-                "left <=": node.get(configuration.get("left"]),
-                "right >=": node.get(configuration.get("right"]),
+                "left <=": node.get(configuration.get("left")),
+                "right >=": node.get(configuration.get("right")),
             ])
             .order([left: "ASC"]);
     }
@@ -369,7 +368,7 @@ class DTreeBehavior : DBehavior {
      */
     int childCount(IORMEntity node, bool direct = false) {
         myConfiguration = configuration;
-        parent = _table.aliasField(configuration.get("parent"]);
+        parent = _table.aliasField(configuration.get("parent"));
 
         if (direct) {
             return _scope(_table.find())
@@ -379,7 +378,7 @@ class DTreeBehavior : DBehavior {
 
         _ensureFields(node);
 
-        return (node.get(configuration.get("right"]) - node.get(configuration.get("left"]) - 1) / 2;
+        return (node.get(configuration.get("right")) - node.get(configuration.get("left")) - 1) / 2;
     }
 
     /**
@@ -398,21 +397,20 @@ class DTreeBehavior : DBehavior {
      * @return DORMQuery
      * @throws \InvalidArgumentException When the "for" key is not passed in options
      */
-    function findChildren(Query query, Json[string] optionData): Query
-    {
+    Query findChildren(Query query, Json[string] optionData) {
         myConfiguration = configuration;
         auto updatedOptions = options.update["for": Json(null), "direct": false.toJson];
         [parent, left, right] = array_map(
             function (field) {
                 return _table.aliasField(field);
             },
-            [configuration.get("parent"], configuration.get("left"], configuration.get("right"]]
+            [configuration.get("parent"), configuration.get("left"), configuration.get("right")]
         );
 
         [for, direct] = [options["for"], options["direct"]];
 
         if (for.isEmpty) {
-            throw new DInvalidArgumentException("The "for" key is required for find("children")");
+            throw new DInvalidArgumentException("The 'for' key is required for find('children')");
         }
 
         if (query.clause("order") == null) {
@@ -427,8 +425,8 @@ class DTreeBehavior : DBehavior {
 
         return _scope(query)
             .where([
-                "{right} <": node.get(configuration.get("right"]),
-                "{left} >": node.get(configuration.get("left"]),
+                "{right} <": node.get(configuration.get("right")),
+                "{left} >": node.get(configuration.get("left")),
             ]);
     }
 
@@ -523,8 +521,8 @@ class DTreeBehavior : DBehavior {
      */
     protected function _removeFromTree(IORMEntity node) {
         myConfiguration = configuration;
-        left = node.get(configuration.get("left"]);
-        right = node.get(configuration.get("right"]);
+        left = node.get(configuration.get("left"));
+        right = node.get(configuration.get("right"));
         parent = node.get(configuration.get("parent"]);
 
         node.set(configuration.get("parent"], null);
@@ -541,9 +539,9 @@ class DTreeBehavior : DBehavior {
         _sync(1, "-", "BETWEEN " ~ (left + 1) ~ " AND " ~ (right - 1));
         _sync(2, "-", "> {right}");
         edge = _getMax();
-        node.set(configuration.get("left"], edge + 1);
-        node.set(configuration.get("right"], edge + 2);
-        fields = [configuration.get("parent"], configuration.get("left"], configuration.get("right"]];
+        node.set(configuration.get("left"), edge + 1);
+        node.set(configuration.get("right"), edge + 2);
+        fields = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
 
         _table.updateAll(node.extract(fields), [primary: node.get(primary)]);
 
@@ -588,7 +586,7 @@ class DTreeBehavior : DBehavior {
     protected function _moveUp(IORMEntity node, number): IORMEntity
     {
         myConfiguration = configuration;
-        [parent, left, right] = [configuration.get("parent"], configuration.get("left"], configuration.get("right"]];
+        [parent, left, right] = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
         [nodeParent, nodeLeft, nodeRight] = array_values(node.extract([parent, left, right]));
 
         targetNode = null;
@@ -599,9 +597,9 @@ class DTreeBehavior : DBehavior {
                 .where(["parent IS": nodeParent])
                 .where(function (exp) use (myConfiguration, nodeLeft) {
                     /** @var DDBExpression\QueryExpression exp */
-                    return exp.lt(configuration.get("rightField"], nodeLeft);
+                    return exp.lt(configuration.get("rightField"), nodeLeft);
                 })
-                .orderDesc(configuration.get("leftField"])
+                .orderDesc(configuration.get("leftField"))
                 .offset(number - 1)
                 .limit(1)
                 .first();
@@ -613,9 +611,9 @@ class DTreeBehavior : DBehavior {
                 .where(["parent IS": nodeParent])
                 .where(function (exp) use (myConfiguration, nodeLeft) {
                     /** @var DDBExpression\QueryExpression exp */
-                    return exp.lt(configuration.get("rightField"], nodeLeft);
+                    return exp.lt(configuration.get("rightField"), nodeLeft);
                 })
-                .orderAsc(configuration.get("leftField"])
+                .orderAsc(configuration.get("leftField"))
                 .limit(1)
                 .first();
 
@@ -679,7 +677,7 @@ class DTreeBehavior : DBehavior {
     protected function _moveDown(IORMEntity node, number): IORMEntity
     {
         myConfiguration = configuration;
-        [parent, left, right] = [configuration.get("parent"], configuration.get("left"], configuration.get("right"]];
+        [parent, left, right] = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
         [nodeParent, nodeLeft, nodeRight] = array_values(node.extract([parent, left, right]));
 
         targetNode = null;
@@ -690,9 +688,9 @@ class DTreeBehavior : DBehavior {
                 .where(["parent IS": nodeParent])
                 .where(function (exp) use (myConfiguration, nodeRight) {
                     /** @var DDBExpression\QueryExpression exp */
-                    return exp.gt(configuration.get("leftField"], nodeRight);
+                    return exp.gt(configuration.get("leftField"), nodeRight);
                 })
-                .orderAsc(configuration.get("leftField"])
+                .orderAsc(configuration.get("leftField"))
                 .offset(number - 1)
                 .limit(1)
                 .first();
@@ -704,9 +702,9 @@ class DTreeBehavior : DBehavior {
                 .where(["parent IS": nodeParent])
                 .where(function (exp) use (myConfiguration, nodeRight) {
                     /** @var DDBExpression\QueryExpression exp */
-                    return exp.gt(configuration.get("leftField"], nodeRight);
+                    return exp.gt(configuration.get("leftField"), nodeRight);
                 })
-                .orderDesc(configuration.get("leftField"])
+                .orderDesc(configuration.get("leftField"))
                 .limit(1)
                 .first();
 
@@ -747,7 +745,7 @@ class DTreeBehavior : DBehavior {
     protected function _getNode(id): IORMEntity
     {
         myConfiguration = configuration;
-        [parent, left, right] = [configuration.get("parent"], configuration.get("left"], configuration.get("right"]];
+        [parent, left, right] = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
         primaryKeys = _primaryKeys();
         fields = [parent, left, right];
         if (configuration.get("level"]) {
@@ -787,7 +785,7 @@ class DTreeBehavior : DBehavior {
      */
     protected int _recoverTree(int lftRght = 1, parentId = null, level = 0) {
         myConfiguration = configuration;
-        [parent, left, right] = [configuration.get("parent"], configuration.get("left"], configuration.get("right"]];
+        [parent, left, right] = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
         primaryKeys = _primaryKeys();
         order = configuration.get("recoverOrder"] ?: primaryKeys;
 
@@ -820,8 +818,8 @@ class DTreeBehavior : DBehavior {
      * Returns the maximum index value in the table.
      */
     protected int _getMax() {
-        field = configuration.get("right"];
-        rightField = configuration.get("rightField"];
+        field = configuration.get("right");
+        rightField = configuration.get("rightField");
         edge = _scope(_table.find())
             .select([field])
             .orderDesc(rightField)
@@ -848,7 +846,7 @@ class DTreeBehavior : DBehavior {
     protected void _sync(int shift, string dir, string conditions, bool mark = false) {
         myConfiguration = configuration;
 
-        foreach ([configuration.get("leftField"], configuration.get("rightField"]] as field) {
+        foreach ([configuration.get("leftField"), configuration.get("rightField")] as field) {
             query = _scope(_table.query());
             exp = query.newExpr();
 
@@ -900,7 +898,7 @@ class DTreeBehavior : DBehavior {
      */
     protected void _ensureFields(IORMEntity anEntity) {
         myConfiguration = configuration;
-        fields = [configuration.get("left"], configuration.get("right"]];
+        fields = [configuration.get("left"), configuration.get("right")];
         values = array_filter(entity.extract(fields));
         if (count(values) == count(fields)) {
             return;
@@ -940,7 +938,7 @@ class DTreeBehavior : DBehavior {
         }
         myConfiguration = configuration;
         entity = _table.find("all")
-            .select([configuration.get("left"], configuration.get("right"]])
+            .select([configuration.get("left"), configuration.get("right")])
             .where([primaryKeys: id])
             .first();
 
@@ -949,8 +947,8 @@ class DTreeBehavior : DBehavior {
         }
 
         query = _table.find("all").where([
-            configuration.get("left"] ~ " <": entity[configuration.get("left"]],
-            configuration.get("right"] ~ " >": entity[configuration.get("right"]],
+            configuration.get("left") ~ " <": entity[configuration.get("left")],
+            configuration.get("right") ~ " >": entity[configuration.get("right")],
         ]);
 
         return _scope(query).count();

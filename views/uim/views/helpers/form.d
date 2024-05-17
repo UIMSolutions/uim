@@ -1200,7 +1200,7 @@ class DFormHelper : DHelper {
      * Generate label for input
      * Params:
      * string fieldNameName The name of the field to generate label for.
-     * @param  options Options list.
+     * @param options Options list.
      * @return string|false Generated label element or false.
      */
     protected string _getLabel(string fieldNameName, Json[string] options) {

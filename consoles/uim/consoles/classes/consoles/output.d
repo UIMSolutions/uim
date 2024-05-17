@@ -248,16 +248,13 @@ class DConsoleOutput {
      * ```
      * this.output.setStyle("annoy", []);
      * ```
-     * Params:
-     * @param Json[string] definition The array definition of the style to change or create..
      */
-    void setStyle(string styleToSet, Json[string] definition) {
-        if (!definition) {
+    void setStyle(string styleToSet, Json[string] styleDefinition) {
+        if (!styleDefinition) {
             _styles.remove(styleToSet);
-
             return;
         }
-        _styles[styleToSet] = definition;
+        _styles[styleToSet] = styleDefinition;
     }
     
     // Gets all the style definitions.
@@ -270,17 +267,12 @@ class DConsoleOutput {
         return _outputAs;
     }
     
-    /**
-     * Set the output type on how formatting tags are treated.
-     * Params:
-     * int type The output type to use. Should be one of the class DConstants.
-     * @throws \InvalidArgumentException in case of a not supported output type.
-     */
-    void setOutputAs(int type) {
-        if (!in_array(type, [self.RAW, self.PLAIN, self.COLOR], true)) {
-            throw new DInvalidArgumentException("Invalid output type `%s`.".format(type));
+    // Set the output type on how formatting tags are treated.
+    void setOutputAs(int outputType) {
+        if (!in_array(outputType, [self.RAW, self.PLAIN, self.COLOR], true)) {
+            throw new DInvalidArgumentException("Invalid output type `%s`.".format(outputType));
         }
-       _outputAs = type;
+       _outputAs = outputType;
     }
     
     // Clean up and close handles
@@ -289,5 +281,5 @@ class DConsoleOutput {
         if (isResource(_output)) {
             fclose(_output);
         }
-    } */
+    } 
 }

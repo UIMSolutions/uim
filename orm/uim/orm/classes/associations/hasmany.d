@@ -532,7 +532,7 @@ class DHasManyAssociation : DAssociation {
     }
 
     // Gets the name of the field representing the foreign key to the source table.
-    string[] getForeignKeys() {
+    string[] foreignKeys() {
         if (_foreignKey.isNull) {
             _foreignKey = _modelKey(source().getTable());
         }
@@ -546,7 +546,7 @@ class DHasManyAssociation : DAssociation {
      * @param mixed sort A find() compatible order clause
      * @return this
      */
-    auto setSort(sort) {
+    auto sortOrder(sort) {
         _sort = sort;
 
         return this;
@@ -581,7 +581,7 @@ class DHasManyAssociation : DAssociation {
             setSaveStrategy(options["saveStrategy"]);
         }
         if (isset(options["sort"])) {
-            setSort(options["sort"]);
+            sortOrder(options["sort"]);
         }
     }
 

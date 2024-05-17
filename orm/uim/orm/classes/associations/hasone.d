@@ -32,7 +32,7 @@ class DHasOneAssociation : DAssociation {
      *
      * @return string[]|string
      */
-    function getForeignKeys() {
+    function foreignKeys() {
         if (_foreignKey == null) {
             _foreignKey = _modelKey(source().aliasName());
         }

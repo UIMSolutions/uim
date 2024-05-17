@@ -162,7 +162,7 @@ class DCookie : ICookie {
     /**
      * Create Cookie instance from "set-cookie" header string.
      * Params:
-     * @param  defaultAttributes Default attributes.
+     * @param defaultAttributes Default attributes.
      */
     static static createFromHeaderString(string cookieHeader, Json[string] defaultAttributes = []) {
         string[] someParts;

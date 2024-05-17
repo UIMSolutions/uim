@@ -22,12 +22,11 @@ class DInsertIterator : DCollection {
   // The collection from which to extract the values to be inserted
   protected ICollection _values;
 
-
   /**
      * Constructs a new DCollection that will dynamically add properties to it out of
      * the values found in  sourceValues.
      * Params:
-     * @param  range sourceValues The source collection from which the values will
+     * @param range sourceValues The source collection from which the values will
      * be inserted at the specified path.
      */
   this(Json[string] targetValues, string propertyPath, Json[string] sourceValues) {
@@ -75,9 +74,9 @@ class DInsertIterator : DCollection {
   }
 
   // Resets the collection pointer.
-  void rewind()) {
+  void rewind() {
     super.rewind();
    _values.rewind();
    _validValues = _values.valid();
-  } */
+  } 
 }

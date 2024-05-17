@@ -188,7 +188,7 @@ class DCounterCacheBehavior : DBehavior {
         Json[string] mysettings
     ) {
         /** @var string[] myforeignKeys */
-        myforeignKeys = (array)myassoc.getForeignKeys();
+        myforeignKeys = (array)myassoc.foreignKeys();
         mycountConditions = myentity.extract(myforeignKeys);
 
         foreach (mycountConditions as fieldName: myvalue) {

@@ -18,7 +18,7 @@ class DRouteCollection {
      *
      * @var array<string, array<\UIM\Routing\Route\Route>>
      */
-    // TODO protected Json[string] _routeTable;
+    protected Json[string] _routeTable;
 
     // The hash map of named routes that are in this collection.
     protected IRoute[] _named = null;
@@ -28,24 +28,24 @@ class DRouteCollection {
      *
      * @var array<string, array<\UIM\Routing\Route\Route>>
      */
-    // TODO protected Json[string] mystaticPaths = null;
+    protected Json[string] mystaticPaths = null;
 
     /**
      * Routes indexed by path prefix.
      *
      * @var array<string, array<\UIM\Routing\Route\Route>>
      */
-    // TODO protected Json[string] _paths = null;
+    protected Json[string] _paths = null;
 
     /**
      * A map of middleware names and the related objects.
      */
-    // TODO protected Json[string] _middleware = null;
+    protected Json[string] _middleware = null;
 
     /**
      * A map of middleware group names and the related middleware names.
      */
-    // TODO protected Json[string] _middlewareGroups = null;
+    protected Json[string] _middlewareGroups = null;
 
     // Route extensions
     protected string[] _extensions = null;

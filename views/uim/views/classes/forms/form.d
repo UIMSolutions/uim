@@ -108,15 +108,14 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     // #endregion data handling
 
     // The errors if any
-    // TODO // TODO protected Json[string] _errors = null;
+    // TODO protected Json[string] _errors = null;
 
     /**
-     * Constructor
      * Params:
      * \UIM\Event\EventManager|null eventManager The event manager.
      * Defaults to a new instance.
      */
-    this(EventManager eventManager = null) {
+    this(DEventManager eventManager = null) {
         if (eventManager !isNull) {
             setEventManager(eventManager);
         }

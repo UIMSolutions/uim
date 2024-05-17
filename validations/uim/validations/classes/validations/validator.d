@@ -93,7 +93,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @var array<string, object|string>
      * @psalm-var array<string, object|class-string>
      */
-    // TODO protected Json[string] _providers = null;
+    protected Json[string] _providers = null;
 
     /**
      * An associative array of objects or classes used as a default provider list

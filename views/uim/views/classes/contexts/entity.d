@@ -242,7 +242,7 @@ class DEntityContext : DContext {
      * Json myvalues The list from which to extract primary keys from
      * @param string[] mypath Each one of the parts in a path for a field name
      */
-    // TODO protected Json[string] _extractMultiple(Json myvalues, Json[string] mypath) {
+    protected Json[string] _extractMultiple(Json myvalues, Json[string] mypath) {
         if (!is_iterable(myvalues)) {
             return null;
         }
@@ -315,7 +315,7 @@ class DEntityContext : DContext {
      * array|null mypath Each one of the parts in a path for a field name
      * or null to get the entity passed in constructor context.
      */
-    // TODO protected Json[string] leafEntity(Json[string] mypath = null) {
+    protected Json[string] leafEntity(Json[string] mypath = null) {
         if (mypath.isNull) {
             return _context["entity"];
         }

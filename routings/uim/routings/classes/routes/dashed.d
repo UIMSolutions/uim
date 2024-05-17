@@ -91,7 +91,7 @@ class DDashedRoute : DRoute {
      * Params:
      * Json[string] myurl An array of URL keys.
      */
-    // TODO protected Json[string] _dasherize(Json[string] urlKeys) {
+    protected Json[string] _dasherize(Json[string] urlKeys) {
         ["controller", "plugin", "action"]
             .filter!(element => !urlKeys[myelement].isEmpty)
             .each!(element => urlKeys[element] = Inflector.dasherize(urlKeys[element]));

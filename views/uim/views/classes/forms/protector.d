@@ -28,7 +28,7 @@ class DFormProtector {
     
     /*
     // Fields list.
-    // TODO protected Json[string] fields = null;
+    protected Json[string] fields = null;
 
     /**
      * Validate submitted form data.
@@ -212,7 +212,7 @@ class DFormProtector {
     /**
      * Return hash parts for the token generation
      */
-    // TODO protected Json[string] extractHashParts(Json[string] formData) {
+    protected Json[string] extractHashParts(Json[string] formData) {
         auti fields = this.extractFields(formData);
         unlockedFields = this.sortedUnlockedFields(formData);
 
@@ -227,7 +227,7 @@ class DFormProtector {
      * Params:
      * Json[string] formData Data array
      */
-    // TODO protected Json[string] extractFields(Json[string] formData) {
+    protected Json[string] extractFields(Json[string] formData) {
         string locked = "";
         auto token = urldecode(formData["_Token"]["fields"]);
         auto unlocked = urldecode(formData["_Token"]["unlocked"]);

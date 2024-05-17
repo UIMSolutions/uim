@@ -41,7 +41,7 @@ class DValidationRule {
      *
      * @var array
       /
-    // TODO protected Json[string] _pass = null;
+    protected Json[string] _pass = null;
 
     /**
      * Constructor

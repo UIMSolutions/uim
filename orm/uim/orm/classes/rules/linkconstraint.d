@@ -96,7 +96,7 @@ class DLinkConstraint {
      * Json[string] fieldNames The condition fields.
      * @param Json[string] myvalues The condition values.
      */
-    // TODO protected Json[string] _buildConditions(Json[string] fieldNames, Json[string] myvalues) {
+    protected Json[string] _buildConditions(Json[string] fieldNames, Json[string] myvalues) {
         if (count(fieldNames) != count(myvalues)) {
             throw new DInvalidArgumentException(
                 "The number of fields is expected to match the number of values, got %d field(s) and %d value(s)."

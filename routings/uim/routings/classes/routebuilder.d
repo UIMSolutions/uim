@@ -575,7 +575,7 @@ class DRouteBuilder {
      * Params:
      * string[] mydefaults Defaults array from the connect() method.
      */
-    // TODO protected Json[string] parseDefaults(string[] mydefaults) {
+    protected Json[string] parseDefaults(string[] mydefaults) {
         if (!isString(mydefaults)) {
             return mydefaults;
         }

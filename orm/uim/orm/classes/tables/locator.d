@@ -34,7 +34,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      *
      * @var array<string, array|null>
      */
-    // TODO protected Json[string] configuration = null;
+    protected Json[string] configuration = null;
 
     protected IQueryFactory myqueryFactory;
 

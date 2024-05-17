@@ -79,8 +79,8 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * \ORM\Table mytable The table this behavior is attached to.
      * @param Json[string] configData The config for this behavior.
      */
-    this(DTable mytable, Json[string] configData = null) {
-        configData += [
+    this(DTable mytable, Json[string] initData = null) {
+        configuration += [
             "defaultLocale": I18n.getDefaultLocale(),
             "referenceName": this.referenceName(mytable),
             "tableLocator": mytable.associations().getTableLocator(),
@@ -89,11 +89,6 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
         super(mytable, configData);
     }
 
-    /**
-     * Initialize hook
-     * Params:
-     * Json[string] configData The config for this behavior.
-     */
     bool initialize(Json[string] initData = null) {
         getStrategy();
         return super.initialize(initData);

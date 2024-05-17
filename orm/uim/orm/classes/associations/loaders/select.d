@@ -161,7 +161,7 @@ class DSelectLoader {
      * @param array|string finderData The finder name or an array having the name as key
      * and options as value.
      */
-    // TODO protected Json[string] _extractFinder(finderData) {
+    protected Json[string] _extractFinder(finderData) {
         finderData = (array)finderData;
 
         if (key(finderData).isNumeric) {
@@ -368,7 +368,7 @@ class DSelectLoader {
      * @param DORMQuery query The query to get fields from.
      * @return array<string, array> The list of fields for the subquery.
      */
-    // TODO protected Json[string] _subqueryFields(Query query) {
+    protected Json[string] _subqueryFields(Query query) {
         keys = (array)this.bindingKey;
 
         if (this.associationType == Association.MANY_TO_ONE) {
@@ -399,7 +399,7 @@ class DSelectLoader {
      * @param Json[string] options The options passed to the eager loader
      * @return Json[string]
      */
-    // TODO protected Json[string] _buildResultMap(Query fetchQuery, Json[string] optionData) {
+    protected Json[string] _buildResultMap(Query fetchQuery, Json[string] optionData) {
         resultMap = null;
         singleResult = in_array(this.associationType, [Association.MANY_TO_ONE, Association.ONE_TO_ONE], true);
         keys = in_array(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) ?

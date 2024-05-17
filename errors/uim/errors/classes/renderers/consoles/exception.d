@@ -59,7 +59,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
      * \Throwable exception The exception to render.
      * @param ?\Throwable parent The Exception index in the chain
      */
-    // TODO protected Json[string] renderException(Throwable exception, Throwable parent) {
+    protected Json[string] renderException(Throwable exception, Throwable parent) {
         auto result = [
                 "<error>%s[%s] %s</error> in %s on line %s"
                 .format(

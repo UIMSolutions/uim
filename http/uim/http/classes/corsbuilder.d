@@ -83,7 +83,7 @@ class DCorsBuilder {
      *
      * someDomains = Domain names to normalize.
      */
-    // TODO protected Json[string] _normalizeDomains(string[] someDomains) {
+    protected Json[string] _normalizeDomains(string[] someDomains) {
         auto result;
         foreach (domain; someDomains) {
             if (domain == "*") {

@@ -103,7 +103,7 @@ class DDebugger {
     }
     /*
     //Holds current output data when outputFormat is false.
-    // TODO protected Json[string] _data = null;
+    protected Json[string] _data = null;
 
     this() {
         docRef = ini_get("docref_root");

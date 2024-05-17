@@ -35,7 +35,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
     /**
      * Connection error list.
      */
-    // TODO protected Json[string] _connectionErrors = null;
+    protected Json[string] _connectionErrors = null;
 
     Json[string] send(IRequest request, Json[string] options = null) {
        _stream = null;
@@ -186,7 +186,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Params:
      * \Psr\Http\Message\IRequest request The request object.
      */
-    // TODO protected Json[string] _send(IRequest request) {
+    protected Json[string] _send(IRequest request) {
         deadline = false;
         if (isSet(_contextOptions["timeout"]) && _contextOptions["timeout"] > 0) {
             /** @var int deadline */

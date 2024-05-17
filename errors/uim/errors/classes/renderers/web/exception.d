@@ -55,7 +55,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * @var array<string, int>
      * @psalm-var array<class-string<\Throwable>, int>
      */
-    // TODO protected Json[string] exceptionHttpCodes = [
+    protected Json[string] exceptionHttpCodes = [
         // Controller exceptions
         InvalidParameterException.classname: 404,
         MissingActionException.classname: 404,

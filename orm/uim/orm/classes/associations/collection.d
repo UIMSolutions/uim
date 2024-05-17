@@ -180,7 +180,6 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param Json[string] associations The list of associations to save children from.
      *   associations not in this list will not be saved.
      * @param Json[string] options The options for the save operation.
-     * @return bool Success
      */
     bool saveChildren(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] optionData) {
         return associations.isEmpty

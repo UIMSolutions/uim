@@ -39,10 +39,7 @@ auto PartsProperty(DProperty[] properties) { return new DPartsProperty(propertie
 interface Document {
   /**
    * Puts the value related to the key.
-   *
-   * @param key   element key
    * @param value element value
-   * @return Void
    * /
   void put(string key, DProperty value);
 

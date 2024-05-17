@@ -1530,7 +1530,6 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * \UIM\Database\Expression\QueryExpression|\Closure|string[]|string myconditions Conditions to be used, accepts anything Query.where()
      * can take.
-     * @return int Returns the number of affected rows.
      */
     int deleteAll(QueryExpression|Closure|string[]|string myconditions) {
         auto mystatement = this.deleteQuery()

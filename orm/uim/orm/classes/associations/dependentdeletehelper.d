@@ -53,5 +53,5 @@ class DDependentDeleteHelper {
         anAssociation.deleteAll(conditions);
 
         return true;
-    } */
+    } 
 }

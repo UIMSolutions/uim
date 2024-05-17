@@ -274,8 +274,6 @@ class DBelongsToManyAssociation : DAssociation {
      * @param DORMTable junction The junction table.
      * @param DORMTable source The source table.
      * @param DORMTable target The target table.
-     * @return void
-     * @throws \InvalidArgumentException If the expected associations are incompatible with existing associations.
      */
     protected void _generateJunctionAssociations(Table junctionTable, Table source, Table target) {
         tAlias = target.aliasName();

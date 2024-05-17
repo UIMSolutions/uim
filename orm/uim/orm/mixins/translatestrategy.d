@@ -27,13 +27,8 @@ mixin template TTranslateStrategy() {
      */
     protected translationTable;
 
-    /**
-     * Return translation table instance.
-     *
-     * @return DORMTable
-     */
-    function getTranslationTable(): Table
-    {
+    // Return translation table instance.
+    DORMTable getTranslationTable() {
         return _translationTable;
     }
 
@@ -50,12 +45,9 @@ mixin template TTranslateStrategy() {
      * @param string|null locale The locale to use for fetching and saving
      *   records. Pass `null` in order to unset the current locale, and to make
      *   the behavior fall back to using the globally configured locale.
-     * @return this
      */
-    function setLocale(string locale) {
+    void setLocale(string locale) {
         this.locale = locale;
-
-        return this;
     }
 
     /**

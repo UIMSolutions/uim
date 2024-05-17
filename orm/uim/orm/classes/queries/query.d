@@ -756,11 +756,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ```
      * options = query.getOptions();
      * ```
-     *
-     * @param Json[string] options The options to be applied
-     * @return this
      */
-    function applyOptions(Json[string] optionData) {
+    void applyOptions(Json[string] optionData) {
         valid = [
             "fields": "select",
             "conditions": "where",
@@ -782,8 +779,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
                 _options[option] = values;
             }
         }
-
-        return this;
     }
 
     /**

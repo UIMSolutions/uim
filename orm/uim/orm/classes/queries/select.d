@@ -108,7 +108,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Params:
      * \ORM\Table mytable The table this query is starting on
      */
-    this(Table mytable) {
+    this(DTTable mytable) {
         super(mytable.getConnection());
 
         setRepository(mytable);

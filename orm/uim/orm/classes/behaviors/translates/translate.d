@@ -79,7 +79,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * \ORM\Table mytable The table this behavior is attached to.
      * @param Json[string] configData The config for this behavior.
      */
-    this(Table mytable, Json[string] configData = null) {
+    this(DTable mytable, Json[string] configData = null) {
         configData += [
             "defaultLocale": I18n.getDefaultLocale(),
             "referenceName": this.referenceName(mytable),

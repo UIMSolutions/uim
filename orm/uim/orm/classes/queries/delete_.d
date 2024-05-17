@@ -8,7 +8,7 @@ class DeleteQuery : DQuery {
     /*
     mixin TCommonQuery();
 
-    this(Table mytable) {
+    this(DTable mytable) {
         super(table.getConnection());
 
         setRepository(table);

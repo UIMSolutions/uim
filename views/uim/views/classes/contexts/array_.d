@@ -229,7 +229,7 @@ class DArrayContext : DContext {
      * Params:
      * string fieldName A dot separated path to get additional data on.
      */
-    array attributes(string fieldName) {
+    Json[string]attributes(string fieldName) {
         if (!_context["schema"].isArray) {
             return null;
         }

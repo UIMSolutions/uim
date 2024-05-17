@@ -12,7 +12,7 @@ class DUpdateQuery : DQuery {
      * Params:
      * \ORM\Table mytable The table this query is starting on
      */
-    this(Table aTable) {
+    this(DTTable aTable) {
         super(aTable.getConnection());
 
         setRepository(aTable);

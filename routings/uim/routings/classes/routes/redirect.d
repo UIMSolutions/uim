@@ -15,7 +15,7 @@ class DRedirectRoute : DRoute {
     mixin(RouteThis!("Redirect"));
     /* 
     // The location to redirect to.
-    array myredirect;
+    Json[string]myredirect;
 
     /**
      * Constructor

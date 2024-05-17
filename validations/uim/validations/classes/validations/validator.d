@@ -781,12 +781,10 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *  to be empty. Valid values are false (never), "create", "update". If a
      *  Closure is passed then the field will be required to be not empty when
      *  the callback returns true.
-     * @return this
-     * @since 3.8.0
      * @see \UIM\Validation\Validator.allowEmptyTime()
      */
     auto notEmptyTime(string fieldName, string myMessage = null, IClosure|string mywhen = false) {
-        mywhen = this.invertWhenClause(mywhen);
+        auto mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_TIME, mywhen, myMessage);
     }
@@ -1562,7 +1560,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     auto date(
         string fieldName,
-        array myformats = ["ymd"],
+        Json[string]myformats = ["ymd"],
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
@@ -1601,7 +1599,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     auto dateTime(
         string fieldName,
-        array myformats = ["ymd"],
+        Json[string]myformats = ["ymd"],
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {

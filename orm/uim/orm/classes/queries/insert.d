@@ -8,7 +8,7 @@ class DInsertQuery : DQuery {
     /*
     mixin TCommonQuery();
 
-    this(Table table) {
+    this(DTTable table) {
         super(table.getConnection());
 
         setRepository(table);

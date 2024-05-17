@@ -138,7 +138,7 @@ class DFormContext : DContext {
         return _form.getSchema().fieldType(fieldName);
     }
  
-    array attributes(string fieldName) {
+    Json[string]attributes(string fieldName) {
         return array_intersect_key(
             (array)_form.getSchema().field(fieldName),
             array_flip(VALID_ATTRIBUTES)

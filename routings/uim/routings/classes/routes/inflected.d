@@ -28,7 +28,7 @@ class DInflectedRoute : DRoute {
      * string myurl The URL to parse
      * @param string mymethod The HTTP method being matched.
      */
-    array parse(string myurl, string mymethod= null) {
+    Json[string]parse(string myurl, string mymethod= null) {
         myparams = super.parse(myurl, mymethod);
         if (!myparams) {
             return null;

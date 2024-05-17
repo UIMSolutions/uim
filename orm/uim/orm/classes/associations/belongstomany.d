@@ -403,7 +403,7 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param Json[string] options list of options passed to attachTo method
      */
-    // TODO protected Json[string] _joinCondition(Json[string] optionData) {
+    protected Json[string] _joinCondition(Json[string] optionData) {
         return [];
     }
 
@@ -866,7 +866,7 @@ class DBelongsToManyAssociation : DAssociation {
      * the junction table.
      *
      */
-    // TODO protected Json[string] junctionConditions() {
+    protected Json[string] junctionConditions() {
         if (_junctionConditions != null) {
             return _junctionConditions;
         }
@@ -1199,7 +1199,7 @@ class DBelongsToManyAssociation : DAssociation {
      *   key value
      * @return array<DORMDatasource\IORMEntity>
      */
-    // TODO protected Json[string] _collectJointEntities(IORMEntity sourceEntity, Json[string] targetEntities) {
+    protected Json[string] _collectJointEntities(IORMEntity sourceEntity, Json[string] targetEntities) {
         target = getTarget();
         source = source();
         junction = this.junction();

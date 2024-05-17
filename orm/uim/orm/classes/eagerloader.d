@@ -273,7 +273,7 @@ class DEagerLoader {
      * @param Json[string] original The original containments array to merge
      * with the new one
      */
-    // TODO protected Json[string] _reformatContain(Json[string] associations, Json[string] original) {
+    protected Json[string] _reformatContain(Json[string] associations, Json[string] original) {
         result = original;
 
         foreach (associations as table: options) {
@@ -520,7 +520,7 @@ class DEagerLoader {
      * @param array<DORMEagerLoadable> matching list of associations that should be forcibly joined.
      * @return array<DORMEagerLoadable>
      */
-    // TODO protected Json[string] _resolveJoins(Json[string] associations, Json[string] matching = null) {
+    protected Json[string] _resolveJoins(Json[string] associations, Json[string] matching = null) {
         result = null;
         foreach (matching as table: loadable) {
             result[table] = loadable;
@@ -649,7 +649,7 @@ class DEagerLoader {
      * @param array<DORMEagerLoadable> level An array of EagerLoadable instances.
      * @param bool matching Whether it is an association loaded through `matching()`.
      */
-    // TODO protected Json[string] _buildAssociationsMap(Json[string] map, Json[string] level, bool matching = false) {
+    protected Json[string] _buildAssociationsMap(Json[string] map, Json[string] level, bool matching = false) {
         foreach (level as assoc: meta) {
             canBeJoined = meta.canBeJoined();
             instance = meta.instance();
@@ -708,7 +708,7 @@ class DEagerLoader {
      * @param DORMQuery query The query from which the results where generated
      * @param DORMdatabases.StatementInterface statement The statement to work on
      */
-    // TODO protected Json[string] _collectKeys(Json[string] external, Query query, statement) {
+    protected Json[string] _collectKeys(Json[string] external, Query query, statement) {
         collectKeys = null;
         foreach (external as meta) {
             instance = meta.instance();
@@ -746,7 +746,7 @@ class DEagerLoader {
      * @param DORMdatabases.Statement\BufferedStatement statement The statement to read from.
      * @param array<string, array> collectKeys The keys to collect
      */
-    // TODO protected Json[string] _groupKeys(BufferedStatement statement, Json[string] collectKeys) {
+    protected Json[string] _groupKeys(BufferedStatement statement, Json[string] collectKeys) {
         keys = null;
         foreach ((statement.fetchAll("assoc") ?: []) as result) {
             foreach (collectKeys as nestKey: parts) {

@@ -938,7 +938,7 @@ class DAssociation : IAssociation {
      * @param array|string finderData The finder name or an array having the name as key
      * and options as value.
      */
-    // TODO protected Json[string] _extractFinder(finderData) {
+    protected Json[string] _extractFinder(finderData) {
     finderData = (array) finderData;
 
     if (key(finderData).isNumeric) {

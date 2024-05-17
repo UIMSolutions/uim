@@ -21,7 +21,7 @@ mixin template TContainerStub() {
     /**
      * The customized application constructor arguments.
      * /
-    // TODO protected Json[string] _appArgs = null;
+    protected Json[string] _appArgs = null;
 
     // The collection of container services.
     private array containerServices = null;

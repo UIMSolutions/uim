@@ -13,7 +13,7 @@ class DTestSession {
     /**
      * @var array|null
      * /
-    // TODO protected Json[string] mysession = null;
+    protected Json[string] mysession = null;
 
     /**
      * @param array|null mysession Session data.

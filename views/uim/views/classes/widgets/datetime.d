@@ -100,9 +100,9 @@ class DDateTimeWidget : DWidget {
      * Params:
      * Json[string] data Data array
      * @param \UIM\View\Form\IContext formContext DContext instance.
-     * @param string fieldNameName Field name.
+     * @param string fieldName Field name.
      */
-    protected Json[string] setStep(Json[string] data, IContext formContext, string fieldNameName) {
+    protected Json[string] setStep(Json[string] data, IContext formContext, string fieldName) {
         if (array_key_exists("step", data)) {
             return data;
         }
@@ -114,7 +114,7 @@ class DDateTimeWidget : DWidget {
         if (data.isEmpty("fieldName")) {
             return data;
         }
-        mydbType = formContext.type(fieldNameName);
+        mydbType = formContext.type(fieldName);
         myfractionalTypes = [
             TableDSchema.TYPE_DATETIME_FRACTIONAL,
             TableDSchema.TYPE_TIMESTAMP_FRACTIONAL,

@@ -214,8 +214,6 @@ class DTreeBehavior : DBehavior {
      *
      * @param DORMDatasource\IORMEntity anEntity The entity to re-parent
      * @param mixed parent the id of the parent to set
-     * @return void
-     * @throws \RuntimeException if the parent to set to the entity is not valid
      */
     protected void _setParent(IORMEntity anEntity, parent) {
         myConfiguration = configuration;

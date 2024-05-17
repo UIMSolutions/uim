@@ -102,10 +102,7 @@ class DErrorHandler { // }: DERRErrorHandler
         Debugger.getInstance().outputError(error);
     }
 
-    /**
-     * Displays an exception response body.
-     * @param \Throwable exception The exception to display.
-     */
+    // Displays an exception response body.
     protected void _displayException(Throwable exception) {
         try {
             renderer = getRenderer(
@@ -127,10 +124,10 @@ class DErrorHandler { // }: DERRErrorHandler
      * @return uim.errors.IExceptionRenderer The exception renderer.
      * @throws \RuntimeException When the renderer class DCannot be found.
      */
-    function getRenderer(
+    IExceptionRenderer getRenderer(
         Throwable exception,
         ?IServerRequest request = null
-    ): IExceptionRenderer {
+    )  {
         renderer = _config["exceptionRenderer"];
 
         if (renderer.isString) {

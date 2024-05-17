@@ -668,13 +668,13 @@ static string contentType() {
      * append or prepend content in a capture mode.
      *
      * ```
-     *// Append content to an existing block.
+     * Append content to an existing block.
      * _start("content");
      * writeln(_fetch("content");
      * writeln("Some new content";
      * _end();
      *
-     *// Prepend content to an existing block
+     *  Prepend content to an existing block
      * _start("content");
      * writeln("Some new content";
      * writeln(_fetch("content");
@@ -702,15 +702,10 @@ static string contentType() {
     
     /**
      * Prepend to an existing or new block.
-     *
      * Prepending to a new block will create the block.
-     * Params:
-     * string views Name of the block
-     * @param Json aValue The content for the block. Value will be type cast
-     *  to string.
      */
-    void prepend(string blockName, Json aValue) {
-        _blocks.concat(blockName, myvalue, ViewBlock.PREPEND);
+    void prepend(string blockName, Json blockContent) {
+        _blocks.concat(blockName, blockContent, ViewBlock.PREPEND);
     }
 
     /**

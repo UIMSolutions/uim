@@ -599,13 +599,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string myname The name of the behavior. Can be a short class reference.
      * @param Json[string] options The options for the behavior to use.
-     * @return this
      * @throws \RuntimeException If a behavior is being reloaded.
      */
-    auto addBehavior(string behaviorName, Json[string] optionData = null) {
+    void addBehavior(string behaviorName, Json[string] optionData = null) {
        _behaviors.load(behaviorName, options);
-
-        return this;
     }
     
     /**
@@ -619,11 +616,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *     "Tree": ["level": "level"],
      * ]);
      * ```
-     * Params:
-     * Json[string] mybehaviors All the behaviors to load.
      */
-    void addBehaviors(Json[string] mybehaviors) {
-        foreach (mybehaviors as myname: options) {
+    void addBehaviors(Json[string] behaviorsToLoad) {
+        foreach (behaviorsToLoad as myname: options) {
             if (isInt(myname)) {
                 myname = options;
                 options = null;

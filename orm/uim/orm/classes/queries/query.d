@@ -216,7 +216,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @throws \InvalidArgumentException If Association|Table is not passed in first argument
      */
     IQuery selectAllExcept(table, Json[string] excludedFields, bool canOverwrite = false) {
-        if (table instanceof Association) {
+        if (cast(Association)table) {
             table = table.getTarget();
         }
 
@@ -241,9 +241,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * This method returns the same query object for chaining.
      *
      * @param DORMDORMTable aTable The table to pull types from
-     * @return this
      */
-    function addDefaultTypes(DORMTable aTable) {
+    void addDefaultTypes(DORMTable aTable) {
         alias = table.aliasName();
         map = table.getSchema().typeMap();
         fields = null;
@@ -251,8 +250,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             fields[f] = fields[alias ~ "." ~ f] = fields[alias ~ "__" ~ f] = type;
         }
         getTypeMap().addDefaults(fields);
-
-        return this;
     }
 
     /**

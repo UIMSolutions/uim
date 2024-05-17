@@ -168,7 +168,7 @@ class DBehavior : IEventListener {
     /**
      * Get the table instance this behavior is bound to.
      *
-     * @return  The bound table instance.
+     * @return The bound table instance.
      */
     DORMTable table() {
         return _table;
@@ -211,11 +211,10 @@ class DBehavior : IEventListener {
      *
      * Checks that implemented keys contain values pointing at callable.
      *
-     * @return void
      * @throws DORMCore\exceptions.UIMException if config are invalid
      */
     void verifyConfig() {
-        keys = ["implementedFinders", "implementedMethods"];
+        string[] keys = ["implementedFinders", "implementedMethods"];
         foreach (keys as key) {
             if (!configuration.has(key)) {
                 continue;

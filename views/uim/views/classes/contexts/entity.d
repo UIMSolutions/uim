@@ -400,12 +400,12 @@ class DEntityContext : DContext {
             myisNew = myentity.isNew();
         }
         auto myvalidator = _getValidator(pathParts);
-        auto fieldNameName = array_pop(pathParts);
-        if (!myvalidator.hasField(fieldNameName)) {
+        auto fieldName = array_pop(pathParts);
+        if (!myvalidator.hasField(fieldName)) {
             return null;
         }
         if (this.type(fieldName) != "boolean") {
-            return !myvalidator.isEmptyAllowed(fieldNameName, myisNew);
+            return !myvalidator.isEmptyAllowed(fieldName, myisNew);
         }
         return false;
     }
@@ -414,15 +414,15 @@ class DEntityContext : DContext {
         string[] pathParts = fieldName.split(".");
 
         myvalidator = _getValidator(pathParts);
-        fieldNameName = array_pop(pathParts);
-        if (!myvalidator.hasField(fieldNameName)) {
+        fieldName = array_pop(pathParts);
+        if (!myvalidator.hasField(fieldName)) {
             return null;
         }
-        myruleset = myvalidator.field(fieldNameName);
+        myruleset = myvalidator.field(fieldName);
         if (myruleset.isEmptyAllowed()) {
             return null;
         }
-        return myvalidator.getNotEmptyMessage(fieldNameName);
+        return myvalidator.getNotEmptyMessage(fieldName);
     }
     
     /**
@@ -433,10 +433,10 @@ class DEntityContext : DContext {
     int getMaxLength(string fieldPath) {
         string[] pathParts = fieldPath.split(".");
         auto myvalidator = _getValidator(pathParts);
-        auto fieldNameName = array_pop(pathParts);
+        auto fieldName = array_pop(pathParts);
 
-        if (myvalidator.hasField(fieldNameName)) {
-            foreach (myrule; myvalidator.field(fieldNameName).rules()) {
+        if (myvalidator.hasField(fieldName)) {
+            foreach (myrule; myvalidator.field(fieldName).rules()) {
                 if (myrule.get("rule") == "maxLength") {
                     return myrule.get("pass")[0];
                 }

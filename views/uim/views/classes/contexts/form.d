@@ -101,14 +101,14 @@ class DFormContext : DContext {
         string[] myparts = fieldName.split(".");
 
         auto myvalidator = _form.getValidator(_validatorName);
-        auto fieldNameName = array_pop(myparts);
-        if (!myvalidator.hasField(fieldNameName)) {
+        auto fieldName = array_pop(myparts);
+        if (!myvalidator.hasField(fieldName)) {
             return null;
         }
 
-        auto myruleset = myvalidator.field(fieldNameName);
+        auto myruleset = myvalidator.field(fieldName);
         if (!myruleset.isEmptyAllowed()) {
-            return myvalidator.getNotEmptyMessage(fieldNameName);
+            return myvalidator.getNotEmptyMessage(fieldName);
         }
         return null;
     }

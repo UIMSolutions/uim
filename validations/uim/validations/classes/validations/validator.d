@@ -513,13 +513,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         if (!isArray(fieldName)) {
             fieldName = _convertValidatorToArray((string)fieldName, mydefaults);
         }
-        foreach (fieldName as fieldNameName: mysetting) {
-            mysettings = _convertValidatorToArray((string)fieldNameName, mydefaults, mysetting);
-            string fieldNameName = current(mysettings.keys);
+        foreach (fieldName as fieldName: mysetting) {
+            mysettings = _convertValidatorToArray((string)fieldName, mydefaults, mysetting);
+            string fieldName = current(mysettings.keys);
 
-            this.field((string)fieldNameName).requirePresence(mysettings[fieldNameName]["mode"]);
-            if (mysettings[fieldNameName]["message"]) {
-               _presenceMessages[fieldNameName] = mysettings[fieldNameName]["message"];
+            this.field((string)fieldName).requirePresence(mysettings[fieldName]["mode"]);
+            if (mysettings[fieldName]["message"]) {
+               _presenceMessages[fieldName] = mysettings[fieldName]["message"];
             }
         }
     }
@@ -837,22 +837,22 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Converts validator to fieldName: mysettings array
      * Params:
-     * string fieldNameName name of field
+     * string fieldName name of field
      * @param Json[string] mydefaults default settings
      * @param array<string|int, mixed>|string|int mysettings settings from data
      */
     // TODO protected array<string, array<string|int, mixed>> _convertValidatorToArray(
-        string fieldNameName,
+        string fieldName,
         array mydefaults = [],
         string[]|int mysettings = []
     ) {
         if (!mysettings.isArray) {
-            fieldNameName = (string)mysettings;
+            fieldName = (string)mysettings;
             mysettings = null;
         }
         mysettings += mydefaults;
 
-        return [fieldNameName: mysettings];
+        return [fieldName: mysettings];
     }
     
     /**

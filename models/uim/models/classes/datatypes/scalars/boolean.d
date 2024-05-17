@@ -44,113 +44,111 @@ class DBooleanData : DScalarData {
     data = false.toJson;
     data.value = myValue;
     assert(data.value == myValue); */
+}
+
+// #region set
+mixin(ScalarOpCall!(["bool"]));
+void set(bool newValue) {
+  _value = newValue;
+}
+
+override void set(IData newValue) {
+  if (newValue.isNull) {
+    _value = false;
+    return;
+  }
+  auto boolValue = cast(DBooleanData) newValue;
+  if (boolValue.isNull) {
+    _value = false;
+  }
+  return;
+
+  set(boolValue.value);
+}
+
+override void set(string newValue) {
+  set((newValue.lower == "true") || (newValue.lower == "on") || (newValue.lower == "1"));
+}
+
+override void set(Json newValue) {
+  if (newValue.isEmpty) {
+    set(false);
+    isNull(isNullable ? true : false);
+  } else {
+    set(newValue.get!bool);
+    isNull(false);
+  }
+}
+// #endregion set 
+
+// #region equal
+mixin(ScalarOpEquals!(["bool"]));
+override bool isEqual(IData checkData) {
+  if (checkData.isNull || key != checkData.key) {
+    return false;
   }
 
-  // #region set
-  mixin(ScalarOpCall!(["bool"]));
-  void set(bool newValue) {
-    _value = newValue;
+  auto data = cast(DBooleanData) checkData;
+  return data !is null ? data.value : false;
+}
+
+override bool isEqual(Json checkValue) {
+  if (checkValue.isNull || !checkValue.isBoolean) {
+    return false;
   }
 
-  override void set(IData newValue) {
-    if (newValue.isNull) {
-      _value = false;
-      return;
-    }
-    auto boolValue = cast(DBooleanData) newValue;
-    if (boolValue.isNull) {
-      _value = false;
-    }
-      return;
+  return isEqual(checkValue.get!bool);
+}
 
-    set(boolValue.value);
-  }
+override bool isEqual(string checkValue) {
+  return isEqual(to!bool(checkValue));
+}
 
-  override void set(string newValue) {
-    set((newValue.lower == "true") || (newValue.lower == "on") || (newValue.lower == "1"));
-  }
+bool isEqual(bool checkValue) {
+  return (_value == checkValue);
+}
+///
+unittest {
+  auto booleanDataTrue = BooleanData;
+  booleanDataTrue.set(true);
+  auto booleanDataIstrue = BooleanData;
+  booleanDataIstrue.set(true);
+  auto booleanDataNottrue = BooleanData;
+  booleanDataNottrue.set(false);
+  assert(booleanDataTrue == true.toJson);
+  assert(booleanDataTrue == "true");
+  assert(booleanDataTrue == true);
 
-  override void set(Json newValue) {
-    if (newValue.isEmpty) {
-      set(false);
-      isNull(isNullable ? true : false);
-    } else {
-      set(newValue.get!bool);
-      isNull(false);
-    }
-  }
-  // #endregion set 
+  assert(booleanDataTrue != false.toJson);
+  assert(booleanDataTrue != "false");
+  assert(booleanDataTrue != false);
+}
+// #endregion equal
 
-  // #region equal
-  mixin(ScalarOpEquals!(["bool"]));
-  override bool isEqual(IData checkData) {
-    if (checkData.isNull || key != checkData.key) {
-      return false;
-    }
-
-    auto data = cast(DBooleanData) checkData;
-    return data !is null ? data.value : false;
-  }
-
-  override bool isEqual(Json checkValue) {
-    if (checkValue.isNull || !checkValue.isBoolean) {
-      return false;
-    }
-
-    return isEqual(checkValue.get!bool);
-  }
-
-  override bool isEqual(string checkValue) {
-    return isEqual(to!bool(checkValue));
-  }
-
-  bool isEqual(bool checkValue) {
-    return (_value == checkValue);
-  }
-  ///
-  unittest {
-    auto booleanDataTrue = BooleanData;
-    booleanDataTrue.set(true);
-    auto booleanDataIstrue = BooleanData;
-    booleanDataIstrue.set(true);
-    auto booleanDataNottrue = BooleanData;
-    booleanDataNottrue.set(false);
-    assert(booleanDataTrue == true.toJson);
-    assert(booleanDataTrue == "true");
-    assert(booleanDataTrue == true);
-
-    assert(booleanDataTrue != false.toJson);
-    assert(booleanDataTrue != "false");
-    assert(booleanDataTrue != false);
-  }
-  // #endregion equal
-
-  // #region opCmp
-  alias opCmp = Object.opCmp;
-  int opCmp(bool valueToCompare) {
-    if (value < valueToCompare)
-      return -1;
-    if (value > valueToCompare)
-      return 1;
-    return 0;
-  }
-  ///
-  unittest {
-    auto valueA = true.toJson;
-    auto valueB = false.toJson;
-    assert(valueA > false);
-    assert(valueB < true);
-  }
-
-  int opCmp(DBooleanData aValue) {
-    if (aValue) {
-      return opCmp(aValue.value());
-    }
+// #region opCmp
+alias opCmp = Object.opCmp;
+int opCmp(bool valueToCompare) {
+  if (value < valueToCompare)
     return -1;
-  }
-  ///
-  unittest {
-    /* auto dataA = new Dtrue.toJson;
+
+  return value > valueToCompare
+    ? 1 : 0;
+}
+///
+unittest {
+  auto valueA = true.toJson;
+  auto valueB = false.toJson;
+  assert(valueA > false);
+  assert(valueB < true);
+}
+
+int opCmp(DBooleanData aValue) {
+  return aValue
+    ? opCmp(aValue.value()) : -1;
+}
+///
+unittest {
+  /* auto dataA = new Dtrue.toJson;
       auto dataB = new Dfalse.toJson;
       assert(dataA > dataB);
       assert(dataB < dataA);
@@ -159,21 +157,20 @@ class DBooleanData : DScalarData {
       dataB = false.toJson;
       assert(dataA > dataB);
       assert(dataB < dataA);*/
-  }
-  // #endregion opCmp
+}
+// #endregion opCmp
 
-  // #region clone
-  override IData clone() {
-    return BooleanData; // TODO (attribute, toJson);
-  }
-  // #endregion clone
+// #region clone
+override IData clone() {
+  return BooleanData; // TODO (attribute, toJson);
+}
+// #endregion clone
 
-  override bool toBoolean() {
-    return _value;
-  }
+override bool toBoolean() {
+  return _value;
+}
 
-  mixin TDataConvert;
-  */
+mixin TDataConvert;
 }
 
 mixin(DataCalls!("Boolean"));
@@ -181,44 +178,41 @@ mixin(DataCalls!("Boolean"));
   return new DBooleanData(newValue);
 } */
 
-/*
-version (test_uim_models) {
-  unittest {
-    assert(true.toJson == true);
-    assert(false.toJson != true);
-    /* assert(BooleanData.value(true) == true);
+unittest {
+  assert(true.toJson == true);
+  assert(false.toJson != true);
+  /* assert(BooleanData.value(true) == true);
     assert(BooleanData.set(true.toJson) == true);
     assert(BooleanData.value(false) != true);
     assert(BooleanData.set(false.toJson) != true); */
 
-    auto BooleanData = BooleanData;
+  auto BooleanData = BooleanData;
 
-    BooleanData.set("true");
-    assert(BooleanData.value());
+  BooleanData.set("true");
+  assert(BooleanData.value());
 
-    BooleanData.set("false");
-    assert(!BooleanData.value());
+  BooleanData.set("false");
+  assert(!BooleanData.value());
 
-    BooleanData.set("on");
-    assert(BooleanData.value());
+  BooleanData.set("on");
+  assert(BooleanData.value());
 
-    BooleanData.set("off");
-    assert(!BooleanData.value());
+  BooleanData.set("off");
+  assert(!BooleanData.value());
 
-    BooleanData.set("1");
-    assert(BooleanData.value());
+  BooleanData.set("1");
+  assert(BooleanData.value());
 
-    BooleanData.set("0");
-    assert(!BooleanData.value());
+  BooleanData.set("0");
+  assert(!BooleanData.value());
 
-    BooleanData.value(true);
-    assert(BooleanData.fromString(BooleanData.toString).value());
-    assert(BooleanData.fromJson(BooleanData.toJson).value());
+  BooleanData.value(true);
+  assert(BooleanData.fromString(BooleanData.toString).value());
+  assert(BooleanData.fromJson(BooleanData.toJson).value());
 
-    BooleanData.value(false);
-    assert(!BooleanData.fromString(BooleanData.toString).value());
-    assert(!BooleanData.fromJson(BooleanData.toJson).value());
-  } */
+  BooleanData.value(false);
+  assert(!BooleanData.fromString(BooleanData.toString).value());
+  assert(!BooleanData.fromJson(BooleanData.toJson).value());
 }
 
 /* booleanean

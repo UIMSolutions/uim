@@ -186,7 +186,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       "versionDescription"
     ] /* ~
        /* attributes.keys~ */
-      values.keys */;
+      values.keys;
   }
 
   alias opEquals = Object.opEquals;

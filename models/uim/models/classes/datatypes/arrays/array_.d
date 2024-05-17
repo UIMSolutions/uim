@@ -164,7 +164,7 @@ class DArrayData : DData {
 
   override string[] toStringArray() {
     return _items.map!(item => item.toString).array;
-  } */
+  } 
 }
 
 /*

@@ -33,7 +33,6 @@ interface ICollection {
      *   Defaults to false.
      *
      * @param string name The name of the table to describe.
-     * @param Json[string] options The options to use, see above.
      */
     ITableSchema describe(string name, Json[string] options = null);
 }

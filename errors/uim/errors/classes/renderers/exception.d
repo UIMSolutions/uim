@@ -260,9 +260,7 @@ class DExceptionRenderer : IExceptionRenderer {
 
     /**
      * Get error message.
-     *
      * @param \Throwable myException Exception.
-     * @param int errorCode Error errorCode.
      * @return string Error message
      */
     protected string _message(Throwable myException, int errorCode) {
@@ -285,7 +283,6 @@ class DExceptionRenderer : IExceptionRenderer {
      *
      * @param \Throwable myException Exception instance.
      * @param string method Method name.
-     * @param int errorCode Error errorCode.
      * @return string Template name
      */
     protected string _template(Throwable myException, string method, int errorCode) {

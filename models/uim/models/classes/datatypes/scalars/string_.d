@@ -161,7 +161,7 @@ class DStringData : DScalarData {
   }
 
   // alias toJson = DData.toJson;
-  mixin TDataConvert; */
+  mixin TDataConvert; 
 }
 
 mixin(DataCalls!("String"));

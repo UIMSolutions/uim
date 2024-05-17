@@ -426,10 +426,9 @@ class DMessage { //: JsonSerializable {
      * TransferEncoding setter.
      * Params:
      * string encoding Encoding set.
-     * @return this
      * @throws \InvalidArgumentException
      */
-    auto setTransferEncoding(string aencoding) {
+    void setTransferEncoding(string aencoding) {
         if (encoding !isNull) {
             encoding = encoding.lower;
             if (!in_array(encoding, this.transferEncodingAvailable, true)) {
@@ -440,8 +439,6 @@ class DMessage { //: JsonSerializable {
             }
         }
         this.transferEncoding = encoding;
-
-        return this;
     }
     
     /**

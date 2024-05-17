@@ -167,23 +167,14 @@ class DExceptionTrap {
         return aClassName(exception, request);
     }
 
-    /**
-     * Choose an exception renderer based on config or the SAPI
-     *
-     * @return class-string<uim.errors.IExceptionRenderer>
-     */
+    // Choose an exception renderer based on config or the SAPI
     protected string chooseRenderer() {
         /** @var class-string<uim.errors.IExceptionRenderer> */
         return D_SAPI == "cli" ? ConsoleExceptionRenderer.class : ExceptionRenderer.class;
     }
 
-    /**
-     * Get an instance of the logger.
-     *
-     * @return uim.errors.IErrorLogger
-     */
-    function logger(): IErrorLogger
-    {
+    // Get an instance of the logger.
+    IErrorLogger logger() {
         /** @var class-string<uim.errors.IErrorLogger> aClassName */
         aClassName = getConfig("logger", _defaultConfig["logger"]);
 

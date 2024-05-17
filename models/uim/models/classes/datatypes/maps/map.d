@@ -82,8 +82,6 @@ class DMapData : DData {
   override bool isEqual(IData[string] checkData) {
     return checkData.byKeyValue
       .all!(kv => hasKey(key) && data(kv.key).isEqual(kv.value));
-    return false;
-
   }
 
   override bool isEqual(IData checkData) {

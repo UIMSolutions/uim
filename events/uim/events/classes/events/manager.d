@@ -245,7 +245,6 @@ class DEventManager { // }: IEventManager {
      * @template TSubject of object
      * @param callable listener The listener to trigger.
      * @param \UIM\Event\IEvent<TSubject> event Event instance.
-     * @return Json The result of the listener function.
      */
     protected Json _callListener(callable listener, IEvent event) {
         return listener(event, ...array_values(event.getData()));

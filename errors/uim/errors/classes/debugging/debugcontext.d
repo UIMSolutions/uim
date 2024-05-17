@@ -78,7 +78,6 @@ class DebugContext {
      * it will be added and the id will be returned.
      *
      * @param object object The object to get a reference for.
-     * @return int
      */
     int getReferenceId(object object) {
       if (this.refs.contains(object)) {

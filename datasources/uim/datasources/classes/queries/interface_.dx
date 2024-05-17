@@ -217,9 +217,8 @@ interface IQuery {
      *
      * @param uim.databases.IExpression|\Closure|array|string fields fields to be added to the list
      * @param bool canOverwrite whether to reset order with field list or not
-     * @return this
      */
-    function order(fields, canOverwrite = false);
+    void order(fields, canOverwrite = false);
 
     /**
      * Set the page of results you want.

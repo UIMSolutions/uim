@@ -16,22 +16,14 @@ class DPropertyNode : IErrorNode {
 
   private IErrorNode _propertyValue;
 
-  /**
-    * Constructor
-    *
-    * theName - The property name
-    * theVisibility - The visibility of the property.
-    * theValue - The property value node.
-    */
-  this(string theName, string theVisibility, IErrorNode theValue) {
-    _name = theName;
-    _visibility = theVisibility;
-    _propertyValue = theValue;
+  this(string propertyName, string propertyVisibility, IErrorNode propertyErrorNode) {
+    _name = propertyName;
+    _visibility = propertyVisibility;
+    _propertyValue = propertyErrorNode;
   }
 
   /**
     * Get the value
-    *
     * @return uim.errors.debugs.IErrorNode
     */
   string value() {

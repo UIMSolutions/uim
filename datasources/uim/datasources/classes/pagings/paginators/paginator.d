@@ -612,9 +612,8 @@ class DPaginator : IPaginator {
      * @param bool allowed Whether the field was allowed.
      * @return Json[string] Final order array.
      */
-    protected auto _prefix(IRepository object, Json[string] order, bool allowed = false): array
-    {
-        myTableAlias = object.aliasName();
+    protected Json[string] _prefix(IRepository object, Json[string] order, bool allowed = false) {
+        sring myTableAlias = object.aliasName();
         myTableOrder= null;
         foreach (order as myKey: myValue) {
             if (myKey.isNumeric) {

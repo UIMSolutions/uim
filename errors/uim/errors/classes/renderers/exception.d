@@ -148,11 +148,7 @@ class DExceptionRenderer : IExceptionRenderer {
         return controller;
     }
 
-    /**
-     * Clear output buffers so error pages display properly.
-     *
-     * @return void
-     */
+    // Clear output buffers so error pages display properly.
     protected void clearOutput() {
         if (hasAllValues(D_SAPI, ["cli", "Ddbg"])) {
             return;

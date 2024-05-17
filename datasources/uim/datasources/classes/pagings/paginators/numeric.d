@@ -221,9 +221,8 @@ class DNumericPaginator : IPaginator {
      *
      * @param uim.Datasource\IQuery query Query instance.
      * @param Json[string] data Pagination data.
-     * @return int|null
      */
-    protected Nullable!int getCount(IQuery query, Json[string] data) {
+    protected int getCount(IQuery query, Json[string] data) {
         return query.count();
     }
 

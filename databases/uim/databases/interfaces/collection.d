@@ -18,12 +18,8 @@ import uim.databases;
  * This will exclude any views in the schema.
  */
 interface ICollection {
-    /**
-     * Get the list of tables available in the current connection.
-     *
-     * @return string[] The list of tables in the connected database/schema.
-     */
-    string[] listTables(): ;
+    // Get the list of tables available in the current connection.
+    string[] listTables();
 
     /**
      * Get the column metadata for a table.
@@ -40,5 +36,4 @@ interface ICollection {
      * @param Json[string] options The options to use, see above.
      */
     ITableSchema describe(string name, Json[string] options = null);
-    */
 }

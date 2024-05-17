@@ -33,7 +33,7 @@ mixin template TDateFormat() {
             dateFormat = timeFormat = IntlDateFormatter.FULL;
              somePattern = format;
         }
-        locale = locale ? locale : I18n.getLocale();
+        locale = locale ? locale : I18n.locale();
 
         calendar = preg_match(
                 "/@calendar=(japanese|buddhist|chinese|persian|indian|islamic|hebrew|coptic|ethiopic)/",
@@ -108,7 +108,7 @@ mixin template TDateFormat() {
             dateFormat = timeFormat = IntlDateFormatter.FULL;
              somePattern = format;
         }
-        locale = DateTime.getDefaultLocale() ?? I18n.getLocale();
+        locale = DateTime.getDefaultLocale() ?? I18n.locale();
         formatter = datefmt_create(
             locale,
             dateFormat,

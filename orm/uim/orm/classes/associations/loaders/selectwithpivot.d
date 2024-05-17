@@ -137,10 +137,8 @@ class DSelectWithPivotLoader : DSelectLoader {
      *
      * @param DORMQuery fetchQuery The query to get results from
      * @param Json[string] options The options passed to the eager loader
-     * @return Json[string]
-     * @throws \RuntimeException when the association property is not part of the results set.
      */
-    // TODO protected Json[string] _buildResultMap(Query fetchQuery, Json[string] optionData) {
+    protected Json[string] _buildResultMap(Query fetchQuery, Json[string] optionData) {
         resultMap = null;
         key = (array)options["foreignKey"];
 

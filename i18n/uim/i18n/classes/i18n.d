@@ -43,7 +43,7 @@ class DI18n {
                 "default": IcuFormatter.classname,
                 "sprintf": PrintFormatter.classname,
             ]),
-            getLocale()
+            locale()
         );
 
         if (class_exists(Cache.classname)) {
@@ -90,7 +90,7 @@ class DI18n {
      * @param string locale The locale for the translator.
      */
     static void setTranslator(string domainName, callable loader, string translatorLocale = null) {
-        translatorlocale = translatorlocale ?: getLocale();
+        translatorlocale = translatorlocale ?: locale();
 
         translators = translators();
         loader = translators.setLoaderFallback(domainname, loader);
@@ -101,7 +101,7 @@ class DI18n {
     /**
      * Returns an instance of a translator that was configured for the name and locale.
      *
-     * If no locale is passed then it takes the value returned by the `getLocale()` method.
+     * If no locale is passed then it takes the value returned by the `locale()` method.
      * Params:
      * string domainName The domain of the translation messages.
      * @param string translatorlocale The translatorlocale for the translator.
@@ -110,7 +110,7 @@ class DI18n {
         translators = translators();
 
         if (translatorlocale) {
-            currentLocale = translators.getLocale();
+            currentLocale = translators.locale();
             translators.setLocale(translatorlocale);
         }
         translator = translators.get(domainname);
@@ -188,7 +188,7 @@ class DI18n {
      * Will return the currently configure locale as stored in the
      * `intl.default_locale` D setting.
      */
-    static string getLocale() {
+    static string locale() {
         getDefaultLocale();
         current = Locale.getDefault();
         if (current.isEmpty) {

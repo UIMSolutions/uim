@@ -239,7 +239,6 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param DORMDatasource\IORMEntity anEntity The entity to save
      * @param Json[string] nested Options for deeper associations
      * @param Json[string] options Original options
-     * @return bool Success
      */
     protected bool _save(
         DORMAssociation anAssociation,

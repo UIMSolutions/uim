@@ -225,8 +225,8 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * If no locale has been explicitly set via `setLocale()`, this method will return
      * the currently configured global locale.
      */
-    string getLocale() {
-        return _getStrategy().getLocale();
+    string locale() {
+        return _getStrategy().locale();
     }
 
     /**

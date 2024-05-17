@@ -89,7 +89,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     /**
      * Returns the default locale code.
      */
-    string getLocale() {
+    string locale() {
         return _locale;
     }
     
@@ -121,7 +121,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      * locale
      */
     Translator get(string catalogName, string localName = null) {
-        locale ??= getLocale();
+        locale ??= locale();
 
         if (isSet(this.registry[catalogName][localName])) {
             return _registry[catalogName][localName];

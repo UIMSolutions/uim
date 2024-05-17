@@ -544,23 +544,15 @@ class DHasManyAssociation : DAssociation {
      * Sets the sort order in which target records should be returned.
      *
      * @param mixed sort A find() compatible order clause
-     * @return this
      */
-    auto sortOrder(sort) {
+    void sortOrder(sort) {
         _sort = sort;
-
-        return this;
     }
 
-    /**
-     * Gets the sort order in which target records should be returned.
-     *
-     * @return mixed
-     */
-    auto getSort() {
+    // Gets the sort order in which target records should be returned.
+    Json sortOrder() {
         return _sort;
     }
-
 
     array defaultRowValue(Json[string] row, bool joined) {
         sourceAlias = source().aliasName();
@@ -585,7 +577,6 @@ class DHasManyAssociation : DAssociation {
         }
     }
 
-
     Closure eagerLoader(Json[string] options) {
         auto loader = new DSelectLoader([
             "alias":aliasName(),
@@ -607,6 +598,6 @@ class DHasManyAssociation : DAssociation {
         helper = new DependentDeleteHelper();
 
         return helper.cascaderemove(this, entity, options);
-    } */
+    } 
 }
 mixin(AssociationCalls!("HasMany"));

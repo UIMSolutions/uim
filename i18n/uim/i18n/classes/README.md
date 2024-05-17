@@ -67,7 +67,7 @@ I18n.translator("animals", "fr_FR", auto () {
     return catalog;
 });
 
-I18n.getLocale("fr_FR");
+I18n.locale("fr_FR");
 __d("animals", "Dog"); // Returns "Chien"
 ```
 

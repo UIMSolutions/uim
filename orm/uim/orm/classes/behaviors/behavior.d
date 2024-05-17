@@ -348,11 +348,8 @@ class DBehavior : IEventListener {
      * Uses the implementedEvents() method to exclude callback methods.
      * Methods starting with `_` will be ignored, as will methods
      * declared on uim\orm.Behavior
-     *
-     * @return array
-     * @throws \ReflectionException
      */
-    // TODO protected Json[string] _reflectionCache() {
+    protected Json[string] _reflectionCache() {
         class = class;
         if (isset(self._reflectionCache[class])) {
             return self._reflectionCache[class];

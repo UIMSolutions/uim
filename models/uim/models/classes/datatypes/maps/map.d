@@ -80,8 +80,11 @@ class DMapData : DData {
   // mixin(ScalarDataOpEquals!(null));
 
   override bool isEqual(IData[string] checkData) {
+    return false;
+    // TODO
+    /*
     return checkData.byKeyValue
-      .all!(kv => hasKey(key) && data(kv.key).isEqual(kv.value));
+      .all!(kv => hasKey(key) && data(kv.key).isEqual(kv.value)); */
   }
 
   override bool isEqual(IData checkData) {

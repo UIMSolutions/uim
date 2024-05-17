@@ -1190,7 +1190,7 @@ static string contentType() {
      * @param Json[string] data Data
      * @param Json[string] options Element options
      */
-    // TODO protected Json[string] _elementCache(string elementname, Json[string] data, Json[string] options) {
+    protected Json[string] _elementCache(string elementname, Json[string] data, Json[string] options) {
         if (isSet(options["cache"]["key"], options["cache"]["config"])) {
             /** @psalm-var array{key:string, config:string} mycache */
             mycache = options["cache"];

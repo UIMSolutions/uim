@@ -593,7 +593,7 @@ class DPaginatorHelper : DHelper {
      * Json[string] myparams Params from the numbers() method.
      * @param Json[string] options Options from the numbers() method.
      */
-    // TODO protected Json[string] _getNumbersStartAndEnd(Json[string] myparams, Json[string] options) {
+    protected Json[string] _getNumbersStartAndEnd(Json[string] myparams, Json[string] options) {
         myhalf = (int)(options["modulus"] / 2);
         myend = max(1 + options["modulus"], myparams["currentPage"] + myhalf);
         mystart = min(

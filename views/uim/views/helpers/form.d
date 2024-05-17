@@ -121,7 +121,7 @@ class DFormHelper : DHelper {
      */
         protected string _lastAction = ""; /* 
     // Other helpers used by FormHelper
-    // TODO protected Json[string] myhelpers = ["Url", "Html"];
+    protected Json[string] myhelpers = ["Url", "Html"];
 
     // Default config for the helper.
     
@@ -131,7 +131,7 @@ class DFormHelper : DHelper {
      *
      * @var array<string, string[]>
      */
-    // TODO protected Json[string] _defaultWidgets = [
+    protected Json[string] _defaultWidgets = [
         "button": ["Button"],
         "checkbox": ["Checkbox"],
         "file": ["File"],

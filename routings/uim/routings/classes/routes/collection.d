@@ -13,22 +13,14 @@ import uim.routings;
  * @internal
  */
 class DRouteCollection {
-    /**
-     * The routes connected to this collection.
-     *
-     * @var array<string, array<\UIM\Routing\Route\Route>>
-     */
-    protected Json[string] _routeTable;
+    // The routes connected to this collection.
+    protected DRoute[][string] _routeTable;
 
     // The hash map of named routes that are in this collection.
     protected IRoute[] _named = null;
 
-    /**
-     * Routes indexed by static path.
-     *
-     * @var array<string, array<\UIM\Routing\Route\Route>>
-     */
-    protected Json[string] mystaticPaths = null;
+    // Routes indexed by static path.
+    protected DRoute[][string] mystaticPaths = null;
 
     /**
      * Routes indexed by path prefix.

@@ -26,9 +26,9 @@ abstract class DConfiguration : IConfiguration {
     mixin(TProperty!("string", "name"));
 
     // #region defaultData
-    abstract Json[string] defaultData(); 
+    abstract Json[string] defaultData();
 
-    abstract IConfiguration defaultData(Json[string] newData); 
+    abstract IConfiguration defaultData(Json[string] newData);
 
     bool hasAnyDefaults(string[] keys) {
         return keys
@@ -43,6 +43,7 @@ abstract class DConfiguration : IConfiguration {
     }
 
     abstract bool hasDefault(string key);
+    abstract Json getDefault(string key);
 
     override IConfiguration updateDefaults(Json[string] newData) {
         newData.byKeyValue
@@ -61,11 +62,15 @@ abstract class DConfiguration : IConfiguration {
     abstract IConfiguration mergeDefault(string key, Json newValue);
     // #endregion defaultData
 
-    // #region value
-    abstract Json[string] value(); 
+    // #region data
+    abstract Json[string] data();
 
-    abstract IConfiguration value(Json[string] newData); 
-    // #endregion value
+    abstract IConfiguration data(Json[string] newData);
+
+    void opAssign(Json[string] newData) {
+        data(newData);
+    }
+    // #endregion data
 
     // #region keys
     bool hasAnyKeys(string[] keys...) {
@@ -76,17 +81,17 @@ abstract class DConfiguration : IConfiguration {
         return keys.any!(key => hasKey(key));
     }
 
-    bool hasAllKeys(string[] keys...) {
-        return hasAllKeys(keys.dup);
+    bool hasKeys(string[] keys...) {
+        return hasKeys(keys.dup);
     }
 
-    bool hasAllKeys(string[] keys) {
+    bool hasKeys(string[] keys) {
         return keys.all!(key => hasKey(key));
     }
 
     abstract bool hasKey(string key);
 
-    abstract string[] allKeys();
+    abstract string[] keys();
     // #endregion keys
 
     // #region Values
@@ -108,7 +113,7 @@ abstract class DConfiguration : IConfiguration {
 
     abstract bool hasValue(Json value);
 
-    abstract Json[] values();
+    abstract Json[] values(string[] includedKeys = null);
     // #endregion Values
 
     // #region get
@@ -120,8 +125,6 @@ abstract class DConfiguration : IConfiguration {
         Json[string] results;
 
         keys
-            .map!(key => key.strip)
-            .filter!(key => key.length > 0)
             .filter!(key => !compressMode || !isNull(key))
             .each!(key => results[key] = get(key));
 
@@ -133,46 +136,39 @@ abstract class DConfiguration : IConfiguration {
     }
 
     int getInt(string key) {
-        if (!hasKey(key)) {
-            return 0;
-        }
-
-        return get(key).get!int;
+        Json result = get(key);
+        return result != Json(null)
+            ? result.get!int : 0;
     }
 
     long getLong(string key) {
-        return hasKey(key)
-            ? get(key).get!long : 0;
+        Json result = get(key);
+        return result != Json(null)
+            ? result.get!long : 0;
     }
 
     float getFloat(string key) {
-        return hasKey(key)
-            ? get(key).get!float : 0.0;
+        Json result = get(key);
+        return result != Json(null)
+            ? result.get!float : 0.0;
     }
 
     double getDouble(string key) {
-        if (!hasKey(key)) {
-            return 0;
-        }
-
-        return get(key).get!double;
+        Json result = get(key);
+        return result != Json(null)
+            ? result.get!double : 0.0;
     }
 
     string getString(string key) {
-        writeln("key = ", key);
-        writeln("hasKey = ", hasKey(key));
-        return hasKey(key)
-            ? get(key).get!string : null;
+        Json result = get(key);
+        return result != Json(null)
+            ? result.get!string : null;
     }
 
     string[] getStringArray(string key) {
-        if (!hasKey(key)) {
-            return null;
-        }
-
         Json json = get(key);
-        return json.isArray
-            ? json.toStringArray : [json.to!string];
+        return !json.isNull && json.isArray
+            ? json.toStringArray : [getString(key)];
     }
 
     Json getJson(string key) {
@@ -201,30 +197,26 @@ abstract class DConfiguration : IConfiguration {
     void opIndexAssign(Json value, string key) {
         set(key, value);
     }
-
-    void opAssign(Json[string] value) {
-        set(value);
-    }
     // #endregion set
 
-    IConfiguration update(Json[string] newData, string[] includedKeys = null) {
-        if (keys.isNull) {
-            includedKeys.each!(key => update(key, newData[key]));
-        } else {
-            includedKeys.filter!(key => key in newData)
-                .each!(key => update(key, newData[key]));
+    // #region update
+        IConfiguration update(Json[string] newData, string[] includedKeys = null) {
+            if (keys.isNull) {
+                includedKeys.each!(key => update(key, newData[key]));
+            } else {
+                includedKeys.filter!(key => key in newData)
+                    .each!(key => update(key, newData[key]));
+            }
+            return this;
         }
-        return this;
-    }
 
-    IConfiguration update(string key, Json[string] newData) {
-        return update(key, newData.toJsonObject);
-    }
-    abstract IConfiguration update(string key, Json newValue);
+        abstract IConfiguration update(string key, Json newValue);
+    // #region update
 
+    // #region merge
     IConfiguration merge(Json[string] newData, string[] includedKeys = null) {
         if (includedKeys.isNull) {
-            newData.keys.each!(key => merge(key, newValue[key]));
+            newData.keys.each!(key => merge(key, newData[key]));
         } else {
             includedKeys
                 .filter!(key => key in newData)
@@ -233,14 +225,12 @@ abstract class DConfiguration : IConfiguration {
         return this;
     }
 
-    IConfiguration merge(string key, Json[string] newData) {
-        return merge(key, newData.toJsonObject);
-    }    
-
     abstract IConfiguration merge(string key, Json newValue);
+    // #endregion merge
 
+    // #region remove - clear
     IConfiguration clear() {
-        remove(allKeys);
+        remove(keys);
         return this;
     }
 
@@ -250,4 +240,5 @@ abstract class DConfiguration : IConfiguration {
     }
 
     abstract IConfiguration remove(string key);
+    // #region remove - clear
 }

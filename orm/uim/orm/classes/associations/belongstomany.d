@@ -49,26 +49,14 @@ class DBelongsToManyAssociation : DAssociation {
     // Saving strategy to be used by this association
     protected string _saveStrategy = SAVE_REPLACE;
 
-    /**
-     * The name of the field representing the foreign key to the target table
-     *
-     * @var |string|null
-     */
-    protected string[] _targetForeignKey;
+    // The name of the field representing the foreign key to the target table
+    protected string[] _targetForeignKeys;
 
-    /**
-     * The table instance for the junction relation.
-     *
-     * @var DORMTable|string
-     */
-    protected _through;
+    // The table instance for the junction relation.
+    protected DORMTable _through;
 
-    /**
-     * Valid strategies for this type of association
-     *
-     * @var string[]
-     */
-    protected _validStrategies = [
+    // Valid strategies for this type of association
+    protected  string[]_validStrategies = [
         self.STRATEGY_SELECT,
         self.STRATEGY_SUBQUERY,
     ];
@@ -81,34 +69,22 @@ class DBelongsToManyAssociation : DAssociation {
      */
     protected bool _dependent = true;
 
-    /**
-     * Filtered conditions that reference the target table.
-     *
-     * @var array|null
-     */
-    protected _targetConditions;
+    // Filtered conditions that reference the target table.
+    protected Json[string] _targetConditions;
 
-    /**
-     * Filtered conditions that reference the junction table.
-     *
-     * @var array|null
-     */
-    protected _junctionConditions;
+    // Filtered conditions that reference the junction table.
+    protected Json[string] _junctionConditions;
 
-    /**
-     * DOrder in which target records should be returned
-     *
-     * @var mixed
-     */
-    protected _sort;
+    // Order in which target records should be returned
+    protected Json[string] _sort;
 
     /**
      * Sets the name of the field representing the foreign key to the target table.
      *
      * @param string[]|string aKey the key to be used to link both tables together
      */
-    void setTargetForeignKey(key) {
-        _targetForeignKey = key;
+    void settargetForeignKeys(key) {
+        _targetForeignKeys = key;
     }
 
     /**
@@ -116,12 +92,12 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @return string[]|string
      */
-    string[] getTargetForeignKey() {
-        if (_targetForeignKey == null) {
-            _targetForeignKey = _modelKey(getTarget().aliasName());
+    string[] gettargetForeignKeys() {
+        if (_targetForeignKeys == null) {
+            _targetForeignKeys = _modelKey(getTarget().aliasName());
         }
 
-        return _targetForeignKey;
+        return _targetForeignKeys;
     }
 
     /**
@@ -262,7 +238,7 @@ class DBelongsToManyAssociation : DAssociation {
             target.hasMany(junctionAlias, [
                 "targetTable": junction,
                 "bindingKey": targetBindingKey,
-                "foreignKey": getTargetForeignKey(),
+                "foreignKey": gettargetForeignKeys(),
                 "strategy": _strategy,
             ]);
         }
@@ -270,7 +246,7 @@ class DBelongsToManyAssociation : DAssociation {
             target.belongsToMany(sAlias, [
                 "sourceTable": target,
                 "targetTable": source,
-                "foreignKey": getTargetForeignKey(),
+                "foreignKey": gettargetForeignKeys(),
                 "targetForeignKey": foreignKeys(),
                 "through": junction,
                 "conditions": getConditions(),
@@ -334,13 +310,13 @@ class DBelongsToManyAssociation : DAssociation {
 
         if (!junction.hasAssociation(tAlias)) {
             junction.belongsTo(tAlias, [
-                "foreignKey": getTargetForeignKey(),
+                "foreignKey": gettargetForeignKeys(),
                 "targetTable": target,
             ]);
         } else {
             belongsTo = junction.getAssociation(tAlias);
             if (
-                getTargetForeignKey() != belongsTo.getForeignKeys() ||
+                gettargetForeignKeys() != belongsTo.getForeignKeys() ||
                 target != belongsTo.getTarget()
             ) {
                 throw new DInvalidArgumentException(
@@ -402,7 +378,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         super.attachTo(query, options);
 
-        foreignKey = getTargetForeignKey();
+        foreignKey = gettargetForeignKeys();
         thisJoin = query.clause("join")[getName()];
         thisJoin["conditions"].add(assoc._joinCondition(["foreignKey": foreignKey]));
     }
@@ -987,7 +963,7 @@ class DBelongsToManyAssociation : DAssociation {
         if (conditions == null) {
             belongsTo = junctionTable.getAssociation(getTarget().aliasName());
             conditions = belongsTo._joinCondition([
-                "foreignKey": getTargetForeignKey(),
+                "foreignKey": gettargetForeignKeys(),
             ]);
             conditions += this.junctionConditions();
         }
@@ -1357,7 +1333,7 @@ class DBelongsToManyAssociation : DAssociation {
      */
     protected void _options(Json[string] optionData) {
         if (!options.isEmpty("targetForeignKey"])) {
-            setTargetForeignKey(options["targetForeignKey"]);
+            settargetForeignKeys(options["targetForeignKey"]);
         }
         if (!options.isEmpty("joinTable"])) {
             _junctionTableName(options["joinTable"]);

@@ -5,6 +5,7 @@ import uim.oop;
 @safe:
 
 bool testConfiguration(IConfiguration aConfig) {
+    // in case of - writeln(__MODULE__, " in ", __LINE__);
     aConfig.data([
         "a": Json("A"),
         "b": Json("B"),
@@ -19,22 +20,21 @@ bool testConfiguration(IConfiguration aConfig) {
         "a": Json("A"),
         "c": Json("C")
     ]);
-    writeln(aConfig.defaultData);
-    writeln(aConfig.defaultData["c"]);
-    writeln("aConfig.defaultData.getString(c) - ", aConfig.defaultData.getString("c"));
-    assert(aConfig.defaultData.getString("c") == "C", aConfig.className~": "~`aConfig.defaultData.getString("c") == "C"`);
 
-    assert(aConfig.data["a"].to!string == "A", aConfig.className);
-    assert(aConfig.data.getString("a") == "A", aConfig.className);
-    assert(aConfig.getString("b") == "B", aConfig.className);
-    assert(aConfig.getString("c") == "C", aConfig.className);
-    assert(aConfig.getString("c") != "X", aConfig.className);
+    assert(aConfig.defaultData.getString("c") == "C", aConfig.name~": "~`aConfig.defaultData.getString("c") == "C"`);
 
-    assert(aConfig.defaultData["a"].to!string == "A", aConfig.className);
-    assert(aConfig.defaultData.getString("c") == "C", aConfig.className);
+    assert(aConfig.data["a"].to!string == "A", aConfig.name);
+    assert(aConfig.data.getString("a") == "A", aConfig.name);
+    assert(aConfig.getString("b") == "B", aConfig.name);
+    
+    assert(aConfig.getString("c") == "C", aConfig.name);
+    assert(aConfig.getString("c") != "X", aConfig.name);
 
-    assert(aConfig.hasAnyDefaults(["a", "x"]), aConfig.className);
-    assert(!aConfig.hasAnyDefaults(["x", "y"]), aConfig.className);
+    assert(aConfig.defaultData["a"].to!string == "A", aConfig.name);
+    assert(aConfig.defaultData.getString("c") == "C", aConfig.name);
+
+    assert(aConfig.hasAnyDefaults(["a", "x"]), aConfig.name);
+    assert(!aConfig.hasAnyDefaults(["x", "y"]), aConfig.name);
 
     assert(aConfig.hasAllDefaults(["a", "c"]));
     assert(!aConfig.hasAllDefaults(["a", "x"]));

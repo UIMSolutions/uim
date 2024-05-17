@@ -23,15 +23,20 @@ class DMemoryConfiguration : DConfiguration {
 
     override IConfiguration defaultData(Json[string] newValue) {
         _defaultData = newValue.dup;
+        return this;
     }
 
     // override bool hasDefault(string key)
     override bool hasDefault(string key) {
         return (key in _defaultData) ? true : false;
     }
-
-    override IConfiguration updateDefaults(Json[string] updateData) {
-        updateData.byKeyValue
+    
+    override Json getDefault(string key) {
+        return (key in _defaultData) ? _defaultData[key] : Json(null);
+    }
+    
+    override IConfiguration updateDefaults(Json[string] newDefaults) {
+        newDefaults.byKeyValue
             .each!(kv => updateDefault(kv.key, kv.value));
         return this;
     }
@@ -41,8 +46,8 @@ class DMemoryConfiguration : DConfiguration {
         return this;
     }
 
-    override IConfiguration mergeDefaults(Json[string] valueMap) {
-        valueMap.byKeyValue
+    override IConfiguration mergeDefaults(Json[string] newData) {
+        newData.byKeyValue
             .each!(kv => mergeDefault(kv.key, kv.value));
         return this;
     }
@@ -63,7 +68,8 @@ class DMemoryConfiguration : DConfiguration {
     }
 
     override IConfiguration data(Json[string] newData) {
-        _data = newValue.dup;
+        _data = newData.dup;
+        return this;
     }
     // #endregion data
 
@@ -79,28 +85,36 @@ class DMemoryConfiguration : DConfiguration {
     }
 
     override bool hasKey(string key) {
-        return key in _values ? true : false;
+        return (key in _data) || hasDefault(key) ? true : false;
     }
     // #endregion key
 
+    // #region value
     alias hasAnyValues = DConfiguration.hasAnyValues;
-    override bool hasAnyValues(string[] values) {
+    override bool hasAnyValues(Json[] values) {
         return values.any!(value => hasValue(value));
     }
 
     alias hasAllValues = DConfiguration.hasAllValues;
-    override bool hasAllValues(string[] values) {
+    override bool hasAllValues(Json[] values) {
         return values.all!(value => hasValue(value));
     }
-    // #region value
 
     override bool hasValue(Json value) {
-        return _values.byKeyValue
+        return _data.byKeyValue
             .any!(kv => kv.value == value);
     }
 
-    override string[] allKeys() {
-        return _values.keys;
+    override Json[] values(string[] includedKeys = null) {
+        return includedKeys.length == 0
+            ? _data.values : includedKeys
+            .filter!(key => hasKey(key))
+            .map!(key => get(key)).array;
+    }
+    // #endregion value
+
+    override string[] keys() {
+        return _data.keys;
     }
 
     override Json[string] get(string[] selectKeys, bool compressMode = true) {
@@ -110,77 +124,41 @@ class DMemoryConfiguration : DConfiguration {
             Json result = get(key);
             if (result is Json(null) && !compressMode) {
                 results[key] = result;
-            } 
+            }
         });
 
         return results;
     }
 
-    override Json get(string key, Json defaultData = Json(null)) {
-        debug writeln("key = ", key);
-        if (key.strip.length == 0) {
+    override Json get(string key, Json defaultValue = Json(null)) {
+        if (key.length == 0) {
             return Json(null);
         }
-        Json result = _values.hasKey(key) 
-            ? _values[key]
-            : Json(null);
-        debug writeln("result = ", result);
 
-        if (result == Json(null)) {
-            result = defaultData != Json(null)
-            ? defaultData
-            : _defaultData.get(key, Json(null));
+        if (key in _data) {
+            return _data[key];
         }
-        debug writeln("result = ", result);
 
-        return result; 
+        return defaultValue.isNull
+            ? getDefault(key) : defaultValue;
     }
 
     override IConfiguration set(string key, Json value) {
-        _values[key] = value;
+        _data[key] = value;
+        return this;
     }
 
     override IConfiguration update(string key, Json value) {
-        set(key, value);
-    }
-
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration(["a": Json(1)]);
-        config.update("a", Json(2));
-        assert(config.get("a").to!int == 2);
-    }
-
-    override IConfiguration update(string key, Json[string] value) {
-        set(key, value.toJsonObject);
-        return this;
-    }
-
-    override IConfiguration merge(string key, Json[string] value) {
-        set(key, value.toJsonObject);
-        return this;
+        return set(key, value);
     }
 
     override IConfiguration merge(string key, Json value) {
-        if (hasKey(key)) {
-            return;
-        }
-
-        set(key, value);
-        return this;
-    }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration(["a": Json(1)]);
-        config.merge("a", Json(2));
-        assert(config.get("a").to!int == 1);
-        config.merge("b", Json(2));
-        assert(config.get("b").to!int == 2);
+        return hasKey(key)
+            ? this : set(key, value);
     }
 
     override IConfiguration remove(string key) {
-        _values.remove(key);
+        _data.remove(key);
         return this;
     }
 }

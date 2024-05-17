@@ -4,14 +4,19 @@ import uim.oop;
 
 @safe:
 interface IConfiguration : INamed {
-    mixin(IProperty!("Json[string]", "data"));
+    // #region default data
+        Json[string] data(); 
+        IConfiguration data(Json[string] newData);
+    // #endregion default data
 
     // #region default data
-        mixin(IProperty!("Json[string]", "defaultData"));
+        Json[string] defaultData(); 
+        IConfiguration defaultData(Json[string] newData);
 
         bool hasAnyDefaults(string[] keys);
         bool hasAllDefaults(string[] keys);
         bool hasDefault(string key);
+        Json getDefault(string key);
 
         IConfiguration updateDefaults(Json[string] newData);
         IConfiguration updateDefault(string key, Json newData);
@@ -21,8 +26,6 @@ interface IConfiguration : INamed {
     // #endregion default data
 
     // #region keys
-        string[] keys();
-
         bool hasAnyKeys(string[] keys...);
         bool hasAnyKeys(string[] keys);
 
@@ -31,6 +34,8 @@ interface IConfiguration : INamed {
 
         bool has(string key); // Short of hasKey
         bool hasKey(string key);
+
+        string[] keys();
     // #endregion keys
 
     // #region values
@@ -41,12 +46,10 @@ interface IConfiguration : INamed {
         bool hasAllValues(string[] values);
 
         bool hasValue(string value);
+        Json[] values(string[] includedKeys = null); 
     // #endregion values
 
     // #region get
-        string[] keys(); 
-        Json[] values(string[] includedKeys = null); 
-
         Json opIndex(string key);
         Json get(string key, Json defaultValue = Json(null));
         Json[string] get(string[] keys, bool compressMode = false);
@@ -66,18 +69,14 @@ interface IConfiguration : INamed {
 
         IConfiguration set(STRINGAA values, string[] keys = null);
         IConfiguration set(Json[string] newData, string[] keys = null);
-        IConfiguration set(string key, Json newData);
+        IConfiguration set(string key, Json newValue);
     // #endregion set
 
-    IConfiguration update(Json newData, string[] validKeys = null);
     IConfiguration update(Json[string] newData, string[] validKeys = null);
-    IConfiguration update(string key, Json[string] newData);
-    IConfiguration update(string key, Json newData);
+    IConfiguration update(string key, Json newValue);
 
-    IConfiguration merge(Json newData, string[] validKeys = null);
     IConfiguration merge(Json[string] newData, string[] validKeys = null);
-    IConfiguration merge(string key, Json[string] newData);
-    IConfiguration merge(string key, Json newData);
+    IConfiguration merge(string key, Json newValue);
 
     IConfiguration remove(string[] keys);
     IConfiguration remove(string keys);

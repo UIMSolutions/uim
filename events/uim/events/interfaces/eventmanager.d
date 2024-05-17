@@ -93,6 +93,4 @@ interface IEventManager {
 
     // Returns a list of all listeners for an eventKey in the order they should be called
     Json[string] listeners(string eventKey);
-
-    */
 }

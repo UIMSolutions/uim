@@ -354,10 +354,8 @@ mixin template TQuery() {
      *
      * @param callable|null formatter The formatting callable.
      * @param int|bool mode Whether to overwrite, append or prepend the formatter.
-     * @return this
-     * @throws \InvalidArgumentException
      */
-    function formatResults(?callable formatter = null, mode = self.APPEND) {
+    void formatResults(?callable formatter = null, mode = self.APPEND) {
         if (mode == self.OVERWRITE) {
             _formatters = null;
         }
@@ -366,18 +364,16 @@ mixin template TQuery() {
                 throw new DInvalidArgumentException("formatter can be null only when mode is overwrite.");
             }
 
-            return this;
+            return;
         }
 
         if (mode == self.PREPEND) {
             array_unshift(_formatters, formatter);
 
-            return this;
+            return 
         }
 
         _formatters[] = formatter;
-
-        return this;
     }
 
     /**
@@ -511,13 +507,8 @@ mixin template TQuery() {
         return result;
     }
 
-    /**
-     * Returns the name of the class to be used for decorating results
-     *
-     * @return string
-     * @psalm-return class-string<uim.Datasource\IResultset>
-     */
+    // Returns the name of the class to be used for decorating results
     protected string _decoratorClass() {
-        return ResultsetDecorator.class;
-    } */
+        return ResultsetDecorator.className;
+    } 
 }

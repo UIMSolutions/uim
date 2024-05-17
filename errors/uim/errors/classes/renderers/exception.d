@@ -297,11 +297,9 @@ class DExceptionRenderer : IExceptionRenderer {
             return _template = errorCode < 500 ? "error400" : "error500";
         }
 
-        if (myException instanceof PDOException) {
-            return _template = "pdo_error";
-        }
-
-        return _template = method;
+        return cast(PDOException)myException
+            ? "pdo_error"
+            : method;
     }
 
     /**

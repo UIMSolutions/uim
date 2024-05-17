@@ -114,7 +114,6 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      *
      * @param IServerRequest myRequest The request.
      * @param .IRequestHandler handler The request handler.
-     * @return IResponse A response.
      */
     IResponse process(IServerRequest myRequest, IRequestHandler handler) {
         try {

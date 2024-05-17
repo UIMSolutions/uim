@@ -518,11 +518,8 @@ class DPaginator : IPaginator {
      *
      * @param \uim\Datasource\IRepository object Repository object.
      * @param Json[string] options The pagination options being used for this request.
-     * @return Json[string] An array of options with sort + direction removed and
-     *   replaced with order if possible.
      */
-    function validateSort(IRepository object, Json[string] options): array
-    {
+    Json[string] validateSort(IRepository object, Json[string] options) {
         if (isset(options["sort"])) {
             direction = null;
             if (isset(options["direction"])) {

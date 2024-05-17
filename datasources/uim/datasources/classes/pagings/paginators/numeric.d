@@ -254,7 +254,6 @@ class DNumericPaginator : IPaginator {
      *
      * @param Json[string] data Paginator data containing keys "options",
      *   "count", "defaults", "finder", "numResults".
-     * @return Json[string] Paging params.
      */
     protected Json[string] buildParams(Json[string] data) {
         limit = data["options"]["limit"];

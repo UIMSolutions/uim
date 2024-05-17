@@ -31,7 +31,6 @@ class DEventList { // }: ArrayAccess, Countable {
      *
      * @link https://secure.D.net/manual/en/arrayaccess.offsetexists.D
      * @param Json  anOffset An offset to check for.
-     * @return bool True on success or false on failure.
      */
     bool offsetExists(Json anOffset) {
         return isSet(_events[anOffset]);

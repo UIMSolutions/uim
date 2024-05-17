@@ -8,7 +8,7 @@ module uim.models.classes.data.map;
 import uim.models;
 @safe:
 
-/* class DMapData {
+class DMapData {
   this() { initialize; }
 
   bool initialize(Json[string] initData = null) {}

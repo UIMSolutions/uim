@@ -10,7 +10,8 @@ import uim.models;
 @safe:
 class DNumberData : DScalarData {
   mixin(DataThis!("Number"));
-
+  mixin TDataConvert;
+  
   this(double newValue) {
     this();
     set(newValue);
@@ -177,8 +178,7 @@ class DNumberData : DScalarData {
     return _value;
   }
 
-  mixin TDataConvert;
-  */
+
 }
 
 mixin(DataCalls!("Number"));

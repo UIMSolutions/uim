@@ -9,7 +9,6 @@ import uim.models;
 
 @safe:
 class DArrayData : DData {
-  /* 
   mixin(DataThis!("Array"));
 
   this(IData[] values) {

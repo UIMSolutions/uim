@@ -472,12 +472,8 @@ mixin template TQuery() {
      */
     abstract void applyOptions(Json[string] optionData);
 
-    /**
-     * Executes this query and returns a traversable object containing the results
-     *
-     * @return uim.Datasource\IResultset
-     */
-    abstract protected function _execute(): IResultset;
+    // Executes this query and returns a traversable object containing the results
+    abstract protected IResultset _execute();
 
     /**
      * Decorates the results iterator with MapReduce routines and formatters

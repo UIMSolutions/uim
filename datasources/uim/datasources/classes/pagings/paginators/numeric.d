@@ -343,7 +343,6 @@ class DNumericPaginator : IPaginator {
      *
      * @param Json[string] params Paginator params.
      * @param Json[string] data Paging data.
-     * @return Json[string] Updated params.
      */
 protected Json[string] addSortingParams(Json[string] params, Json[string] data) {
 defaults = data["defaults"];

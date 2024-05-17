@@ -184,9 +184,9 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       "isDeleted", "deletedOn", "deletedBy", "versionNumber",
       "versionDisplay", "versionMode", "versionOn", "versionBy",
       "versionDescription"
-    ] /* ~
+    ];  /* ~
        /* attributes.keys~ */
-      values.keys;
+      // TODO  values.keys;
   }
 
   alias opEquals = Object.opEquals;

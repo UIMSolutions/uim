@@ -610,7 +610,6 @@ class DPaginator : IPaginator {
      * @param \uim\Datasource\IRepository object Repository object.
      * @param Json[string] order DOrder array.
      * @param bool allowed Whether the field was allowed.
-     * @return Json[string] Final order array.
      */
     protected Json[string] _prefix(IRepository object, Json[string] order, bool allowed = false) {
         sring myTableAlias = object.aliasName();

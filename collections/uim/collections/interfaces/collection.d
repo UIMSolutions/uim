@@ -683,8 +683,6 @@ interface ICollection {
      * as `toArray()` which contains only unique keys.
      *
      * Part of JsonSerializable interface.
-     *
-     * @return Json[string] The data to convert to Json
      */
     Json[string] JsonSerialize();
 
@@ -774,7 +772,7 @@ interface ICollection {
      * @param callable|string nestingKey The key name under which children are nested
      * or a callable // function that will return the children list
      */
-    ICollection listNested(string order = "desc", nestingKey = "children");
+    ICollection listNested(string order = "desc", string nestingKey = "children");
 
     /**
      * Creates a new DCollection that when iterated will stop yielding results if

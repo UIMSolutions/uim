@@ -11,7 +11,6 @@ import uim.models;
 // Datatype integer in Javascript 
 class DIntegerData : DScalarData {
   mixin(DataThis!("Integer"));
-  /*
   this(long newValue) {
     this();
     set(newValue);
@@ -313,7 +312,7 @@ class DIntegerData : DScalarData {
     return to!long(_value);
   }
 
-  mixin TDataConvert; */
+  mixin TDataConvert; 
 }
 
 mixin(DataCalls!("Integer"));

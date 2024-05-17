@@ -38,11 +38,8 @@ interface IEventManager {
      * added to the same priority queue will be treated in the order of insertion.
      * Params:
      * callable|null callable The callable auto you want invoked.
-     * @return this
-     * @throws \InvalidArgumentException When event key is missing or callable is not an
-     *  instance of UIM\Event\IEventListener.
      */
-    auto on(
+    void on(
         IEventListener|string aeventKey,
         callable|Json[string] options = null,
         ?callable callable = null

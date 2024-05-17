@@ -156,11 +156,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         return controller;
     }
 
-    /**
-     * Clear output buffers so error pages display properly.
-     *
-     * @return void
-     */
+    // Clear output buffers so error pages display properly.
     protected void clearOutput() {
         if (hasAllValues(D_SAPI, ["cli", "Ddbg"])) {
             return;
@@ -170,11 +166,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         }
     }
 
-    /**
-     * Renders the response for the exception.
-     *
-     * @return The response to be sent.
-     */
+    // Renders the response for the exception.
     IResponse render() {
         myException = this.error;
         code = getHttpCode(myException);

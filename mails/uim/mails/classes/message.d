@@ -256,9 +256,7 @@ class DMessage { //: JsonSerializable {
         return _setEmailSingle("sender", email, name, "Sender requires only 1 email address.");
     }
     
-    /**
-     * Gets the "sender" address. See RFC link below for full explanation.
-     */
+    // Gets the "sender" address. See RFC link below for full explanation.
     Json[string] getSender() {
         return _sender;
     }
@@ -267,33 +265,23 @@ class DMessage { //: JsonSerializable {
      * Sets "Reply-To" address.
      * Params:
      * string[] aemail String with email,
-     *  Array with email as key, name as value or email as value (without name)
-     * @param string name Name
-     * @return this
-     * @throws \InvalidArgumentException
+     * Array with email as key, name as value or email as value (without name)
     */
-    auto setReplyTo(string[] aemail, string aName = null) {
+    void setReplyTo(string[] aemail, string name = null) {
         return _setEmail("replyTo", email, name);
     }
     
-    /**
-     * Gets "Reply-To" address.
-     *
-      */
+    // Gets "Reply-To" address.
     Json[string] getReplyTo() {
         return _replyTo;
     }
     
-    /**
-     * Add "Reply-To" address.
-     */
+    // Add "Reply-To" address.
     auto addReplyTo(string[] email, string name = null) {
         return _addEmail("replyTo", email, name);
     }
     
-    /**
-     * Sets Read Receipt (Disposition-Notification-To header).
-     */
+    // Sets Read Receipt (Disposition-Notification-To header).
     void setReadReceipt(string[] email, string name = null) {
         return _setEmailSingle(
             "readReceipt",

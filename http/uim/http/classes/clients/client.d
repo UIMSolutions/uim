@@ -228,8 +228,6 @@ class DClient { // }: IClient {
      * Adds a cookie to the Client collection.
      * Params:
      * \UIM\Http\Cookie\ICookie  mycookie Cookie object.
-     * @return this
-     * @throws \InvalidArgumentException
      */
   void addCookie(ICookie mycookie) {
     if (!mycookie.getDomain() || !mycookie.getPath()) {

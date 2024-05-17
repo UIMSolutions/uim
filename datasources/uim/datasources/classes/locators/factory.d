@@ -69,5 +69,5 @@ class DFactoryLocator {
         }
 
         return _modelFactories[type];
-    } */
+    } 
 }

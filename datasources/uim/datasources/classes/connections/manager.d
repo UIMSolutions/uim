@@ -128,7 +128,7 @@ class DConnectionManager {
      * ### Usage
      *
      * ```
-     *// Make "things" resolve to "test_things" connection
+     * Make "things" resolve to "test_things" connection
      * ConnectionManager.alias("test_things", "things");
      * ```
      *
@@ -144,11 +144,9 @@ class DConnectionManager {
      *
      * Removes an alias from ConnectionManager. Fetching the aliased
      * connection may fail if there is no other connection with that name.
-     *
-     * @param string aliasName The connection alias to drop
      */
-    static void dropAlias(stringalias) {
-        unset(_aliasMap[alias]);
+    static void dropAlias(aliasToDrop) {
+        unset(_aliasMap[aliasToDrop]);
     }
 
     /**

@@ -158,20 +158,17 @@ class DNumericPaginator : IPaginator {
      * for pagination data. An example URL paginating both results would be:
      *
      * ```
-     */dashboard?articles[page]=1&tags[page]=2
+     * dashboard?articles[page]=1&tags[page]=2
      * ```
      *
      * @param uim.Datasource\IRepository|uim.Datasource\IQuery object The repository or query
      *   to paginate.
      * @param Json[string] params Request params
      * @param Json[string] settings The settings/configuration used for pagination.
-     * @return uim.Datasource\IResultset Query results
-     * @throws uim.Datasource\Paging\exceptions.PageOutOfBoundsException
      */
-    function paginate(object object, Json[string] params = null, Json[string] settings = null): IResultset
-    {
+    IResultset paginate(object object, Json[string] RequestParams = null, Json[string] settings = null) {
         query = null;
-        if (object instanceof IQuery) {
+        if (cast(IQuery)object) {
             query = object;
             object = query.getRepository();
             if (object == null) {
@@ -179,7 +176,7 @@ class DNumericPaginator : IPaginator {
             }
         }
 
-        data = this.extractData(object, params, settings);
+        data = this.extractData(object, RequestParams, settings);
         query = getQuery(object, query, data);
 
         cleanQuery = clone query;
@@ -259,7 +256,7 @@ class DNumericPaginator : IPaginator {
      *   "count", "defaults", "finder", "numResults".
      * @return Json[string] Paging params.
      */
-    // TODO protected Json[string] buildParams(Json[string] data) {
+    protected Json[string] buildParams(Json[string] data) {
         limit = data["options"]["limit"];
 
         paging = [
@@ -287,23 +284,22 @@ class DNumericPaginator : IPaginator {
     /**
      * Add "page" and "pageCount" params.
      *
-     * @param Json[string] params Paging params.
      * @param Json[string] data Paginator data.
      * @return Json[string] Updated params.
      */
-    // TODO protected Json[string] addPageCountParams(Json[string] params, Json[string] data) {
-        page = params["page"];
+    protected Json[string] addPageCountParams(Json[string] pagingParams, Json[string] paginatorData) {
+        page = pagingParams["page"];
         pageCount = 0;
 
-        if (params["count"] != null) {
-            pageCount = max((int)ceil(params["count"] / params["perPage"]), 1);
+        if (pagingParams["count"] != null) {
+            pageCount = max((int)ceil(pagingParams["count"] / pagingParams["perPage"]), 1);
             page = min(page, pageCount);
-        } elseif (params["current"] == 0 && params["requestedPage"] > 1) {
+        } elseif (pagingParams["current"] == 0 && pagingParams["requestedPage"] > 1) {
             page = 1;
         }
 
-        params["page"] = page;
-        params["pageCount"] = pageCount;
+        pagingParams["page"] = page;
+        pagingParams["pageCount"] = pageCount;
 
         return params;
     }
@@ -311,22 +307,21 @@ class DNumericPaginator : IPaginator {
     /**
      * Add "start" and "end" params.
      *
-     * @param Json[string] params Paging params.
      * @param Json[string] data Paginator data.
      * @return Json[string] Updated params.
      */
-    // TODO protected Json[string] addStartEndParams(Json[string] params, Json[string] data) {
+    protected Json[string] addStartEndParams(Json[string] pagingParams, Json[string] data) {
         start = end = 0;
 
-        if (params["current"] > 0) {
-            start = ((params["page"] - 1) * params["perPage"]) + 1;
-            end = start + params["current"] - 1;
+        if (pagingParams["current"] > 0) {
+            start = ((pagingParams["page"] - 1) * pagingParams["perPage"]) + 1;
+            end = start + pagingParams["current"] - 1;
         }
 
-        params["start"] = start;
-        params["end"] = end;
+        pagingParams["start"] = start;
+        pagingParams["end"] = end;
 
-        return params;
+        return pagingParams;
     }
 
     /**

@@ -159,7 +159,8 @@ class DAssociation : IAssociation {
                 this. {
                     "_" ~ property
                 }
-                 = options[property];
+                
+                = options[property];
             }
         }
 
@@ -458,8 +459,9 @@ class DAssociation : IAssociation {
     void setStrategy(string aName) {
         if (!in_array(name, _validStrategies, true)) {
             throw new DInvalidArgumentException(
-                    "Invalid strategy '%s' was provided. Valid options are (%s)."
+                "Invalid strategy '%s' was provided. Valid options are (%s)."
                     .format(name, implode(", ", _validStrategies));
+            
             );
         }
         _strategy = name;
@@ -1018,11 +1020,8 @@ abstract string type();
      * - contain: List of related tables to eager load associated to the target table
      * - strategy: The name of strategy to use for finding target table records
      * - nestKey: The array key under which results will be found when transforming the row
-     *
-     * @param Json[string] options The options for eager loading.
-     * @return \Closure
      */
-abstract function eagerLoader(Json[string] optionData) : Closure;
+abstract Closure eagerLoader(Json[string] optionData);
 
 /**
      * Handles cascading a delete from an associated model.
@@ -1042,7 +1041,6 @@ abstract bool cascaderemove(IORMEntity anEntity, Json[string] optionData = null)
      * or required information if the row in "source" did not exist.
      *
      * @param DORMTable side The potential Table with ownership
-     * @return bool
      */
 abstract bool isOwningSide(Table side);
 
@@ -1052,10 +1050,6 @@ abstract bool isOwningSide(Table side);
      *
      * @param DORMDatasource\IORMEntity anEntity the data to be saved
      * @param Json[string] options The options for saving associated data.
-     * @return DORMDatasource\IORMEntity|false false if entity could not be saved, otherwise it returns
-     * the saved entity
      */
-abstract function saveAssociated(IORMEntity anEntity, Json[string] optionData = null);
-
-*  /
+abstract IORMEntity saveAssociated(IORMEntity anEntity, Json[string] optionData = null);
 }

@@ -146,7 +146,7 @@ class DSqliteDriver : DDriver {
         return new DSqliteCompiler();
     }
  
-    // TODO protected Json[string] _expressionTranslators() {
+    protected Json[string] _expressionTranslators() {
         return [
             FunctionExpression.classname: "_transformFunctionExpression",
             TupleComparison.classname: "_transformTupleComparison",

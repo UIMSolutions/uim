@@ -24,7 +24,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * A list of strings or other expression objects that represent the "branches" of
      * the expression tree. For example one key of the array might look like "sum > :value"
      */
-    // TODO protected Json[string] _conditions = null;
+    protected Json[string] _conditions = null;
 
     /**
      * Constructor. A new expression object can be created without any params and

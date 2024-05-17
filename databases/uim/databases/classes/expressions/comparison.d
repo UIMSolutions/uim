@@ -197,12 +197,12 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      * Params:
      * \UIM\Database\IExpression|range  someValues The rows to insert
      */
-    // TODO protected Json[string] _collectExpressions(IExpression|range  someValues) {
+    protected Json[string] _collectExpressions(IExpression|range  someValues) {
         if (cast(IExpression)someValues ) {
             return [someValues, []];
         }
     }
-    // TODO protected Json[string] _collectExpressions(Json[string]  someValues) {
+    protected Json[string] _collectExpressions(Json[string]  someValues) {
         someExpressions = auto result;
          isArray = isArray(someValues);
 

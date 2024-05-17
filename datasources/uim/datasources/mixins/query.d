@@ -27,11 +27,9 @@ mixin template TQuery() {
 
     /**
      * A Resultset.
-     *
      * When set, query execution will be bypassed.
-     * @var iterable|null
      */
-    protected _results;
+    protected iterable _results;
 
     /**
      * List of formatter classes or callbacks that will post-process the
@@ -41,32 +39,24 @@ mixin template TQuery() {
 
     /**
      * A query cacher instance if this query has caching enabled.
-     * @var uim.datasources.QueryCacher|null
      */
-    protected _cache;
-
+    protected QueryCacher _cache;
 
     /**
      * Set the default Table object that will be used by this query
      * and form the `FROM` clause.
      *
      * @param uim.Datasource\IRepository|uim.orm.Table repository The default table object to use
-     * @return this
      */
-    function repository(IRepository repository) {
+    void repository(IRepository repository) {
         _repository = repository;
-
-        return this;
     }
 
     /**
      * Returns the default table object that will be used by this query,
      * that is, the table that will appear in the from clause.
-     *
-     * @return uim.Datasource\IRepository
      */
-    function getRepository(): IRepository
-    {
+    IRepository getRepository() {
         return _repository;
     }
 
@@ -78,14 +68,9 @@ mixin template TQuery() {
      * method will be returned.
      *
      * This method is most useful when combined with results stored in a persistent cache.
-     *
-     * @param range results The results this query should return.
-     * @return this
      */
-    function setResult(Json[string] results) {
-        _results = results;
-
-        return this;
+    void setResult(Json[string] returnResults) {
+        _results = returnResults;
     }
 
     /**
@@ -93,12 +78,8 @@ mixin template TQuery() {
      * for implementing the IteratorAggregate interface and allows the query to be
      * iterated without having to call execute() manually, thus making it look like
      * a result set instead of the query itself.
-     *
-     * @return uim.Datasource\IResultset
-     * @psalm-suppress ImplementedReturnTypeMismatch
      */
-    #[\ReturnTypeWillChange]
-    function getIterator() {
+    IResultset getIterator() {
         return _all();
     }
 
@@ -114,8 +95,7 @@ mixin template TQuery() {
      *
      * ### Usage
      *
-     * ```
-     *// Simple string key + config
+     * Simple string key + config
      * query.cache("_key", "db_results");
      *
      *// Function to generate key.
@@ -130,7 +110,6 @@ mixin template TQuery() {
      *
      *// Disable caching
      * query.cache(false);
-     * ```
      *
      * @param \Closure|string|false key Either the cache key or a function to generate the cache key.
      *   When using a function, this query instance will be supplied as an argument.
@@ -355,7 +334,6 @@ mixin template TQuery() {
      * Retaining access to the association target query instance of joined associations,
      * by inheriting the contain callback"s query argument:
      *
-     * ```
      *// Assuming a `Articles belongsTo Authors` association that uses the join strategy
      *
      * articlesQuery.contain("Authors", function (authorsQuery) {
@@ -373,7 +351,6 @@ mixin template TQuery() {
      *         return results;
      *     });
      * });
-     * ```
      *
      * @param callable|null formatter The formatting callable.
      * @param int|bool mode Whether to overwrite, append or prepend the formatter.
@@ -418,9 +395,7 @@ mixin template TQuery() {
      *
      * ### Example:
      *
-     * ```
      * singleUser = query.select(["id", "username"]).first();
-     * ```
      *
      * @return uim.Datasource\IDatasourceEntity|array|null The first result from the Resultset.
      */
@@ -498,9 +473,8 @@ mixin template TQuery() {
      * This is handy for passing all query clauses at once.
      *
      * @param Json[string] options the options to be applied
-     * @return this
      */
-    abstract function applyOptions(Json[string] optionData);
+    abstract void applyOptions(Json[string] optionData);
 
     /**
      * Executes this query and returns a traversable object containing the results

@@ -89,11 +89,7 @@ interface ICollection {
      *  return value > 21;
      * });
      * ```
-     *
      * Empty collections always return true.
-     *
-     * @return bool true if for all elements in this collection the provided
-     *   callback returns true, false otherwise.
      */
     // bool every(callable callback);
 
@@ -946,17 +942,15 @@ interface ICollection {
      * Returns the closest nested iterator that can be safely traversed without
      * losing any possible transformations. This is used mainly to remove empty
      * IteratorIterator wrappers that can only slowdown the iteration process.
-     *
-     * @return \Traversable
      */
-    // function unwrap(): Traversable;
+    Traversable unwrap();
 
     /**
      * Transpose rows and columns into columns and rows
      *
      * ### Example:
      *
-     * ```
+     * 
      * items = [
      *       ["Products", "2012", "2013", "2014"],
      *       ["Product A", "200", "100", "50"],
@@ -1049,5 +1043,5 @@ interface ICollection {
      * @param callable|null filter A filtering callback that must return true for a result to be part
      *   of the final results.
      */
-    // TODO ICollection cartesianProduct(?callable  operation = null, ?callable filter = null);
+    ICollection cartesianProduct(callable  operation = null, callable filter = null);
 }

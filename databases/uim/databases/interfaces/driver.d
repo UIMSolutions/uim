@@ -6,7 +6,7 @@ import uim.databases;
 
 interface IDriver : INamed {
     // Establishes a connection to the database server.
-    void connect();
+    IDriver connect();
 
     // String used to start a database identifier quoting to make it safe
     mixin(IProperty!("string", "startQuote"));
@@ -48,14 +48,8 @@ interface IDriver : INamed {
     // Get the SQL for enabling foreign keys.
     string enableForeignKeySQL();
 
-/**
-     * Returns a value in a safe representation to be used in a query string
-     *
-     * @param mixed myValue The value to quote.
-     * @param int myType Must be one of the \PDO.PARAM_* constants
-     */
-    string quote(myValue, myType);
-
+    // Returns a value in a safe representation to be used in a query string
+    string quote(Json valueToQuote, int myType);
 
     /**
      * Returns a callable function that will be used to transform a passed Query object.
@@ -64,7 +58,6 @@ interface IDriver : INamed {
      *
      * @param string myType The type of query to be transformed
      * (select, insert, update, delete).
-     * @return \Closure
      */
     Closure queryTranslator(string myType);
 
@@ -89,38 +82,23 @@ interface IDriver : INamed {
      */
     string quoteIdentifier(string myIdentifier);
 
-    /**
-     * Escapes values for use in schema definitions.
-     *
-     * @param mixed myValue The value to escape.
-     * @return string String for use in schema definitions.
-     */
-    string schemaValue(myValue);
+    // Escapes values for use in schema definitions.
+    string schemaValue(Json myValue);
 
     // Returns the schema name that"s being used.
     string schema();
 
-    /**
-     * Returns last id generated for a table or sequence in database.
-     *
-     * @param string|null myTable table name or sequence to get last insert value from.
-     * @param string|null column the name of the column representing the primary key.
-     */
-    // string lastInsertId(string myTable = null, string column = null);
+    // Returns last id generated for a table or sequence in database.
+    string lastInsertId(string tableName = null, string columName = null);
 
     // Checks whether the driver is connected.
     bool isConnected();
 
-    /**
-     * Sets whether this driver should automatically quote identifiers
-     * in queries.
-     *
-     * @param bool myEnable Whether to enable auto quoting
-     */
-    O enableAutoQuoting(this O)(bool myEnable = true);
+    // Sets whether this driver should automatically quote identifiers in queries.
+    IDriver enableAutoQuoting(bool enableAutoQuoting = true);
 
     // Disable auto quoting of identifiers in queries.
-    O disableAutoQuoting(this O)();
+    IDriver disableAutoQuoting();
 
     // Returns whether this driver should automatically quote identifiers in queries.
     bool isAutoQuotingEnabled();
@@ -131,8 +109,6 @@ interface IDriver : INamed {
      *
      * @param uim.databases\Query myQuery The query to compile.
      * @param uim.databases\DValueBinder aValueBinder The value binder to use.
-     * @return array containing 2 entries. The first entity is the transformed query
-     * and the second one the compiled SQL.
      */
     Json[string] compileQuery(Query myQuery, DValueBinder aValueBinder);
 
@@ -144,11 +120,9 @@ interface IDriver : INamed {
      *
      * @param string myTable The table name.
      * @param Json[string] columns The list of columns for the schema.
-     * @return uim.databases.Schema\TableSchema
      */
     TableSchema newTableSchema(string myTable, Json[string] columns = null);
     
     // Disconnects from database server. 
-    */
-    void disconnect();
+    IDriver disconnect();
 }

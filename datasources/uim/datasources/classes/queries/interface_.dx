@@ -150,9 +150,8 @@ interface IQuery {
      * ```
      *
      * @param uim.databases.IExpression|int|null limit number of records to be returned
-     * @return this
      */
-    function limit(limit);
+    void limit(limit);
 
     /**
      * Sets the number of records that should be skipped from the original result set

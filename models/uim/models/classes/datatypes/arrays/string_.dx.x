@@ -51,7 +51,7 @@ class DStringArrayData : DArrayData {
         set(newValue.get!(Json[]).map!(a => a.get!string).array);
         break; 
       //case Json.Type.object: 
-        /* return  this.fromJson(newValue); */
+        /* return this.fromJson(newValue); */
         // break; 
       default: break;
     }

@@ -90,7 +90,7 @@ string dataSetter(string name, string datatype, string dataClass, string path) {
 
 string dataProperty(string datatype, string name, string path = null, string dataClass = "DStringData") {
   auto newPath = (path ? path : name);
-  return  // Getter
+  return // Getter
   dataGetter(name, datatype, dataClass, newPath) ~
      // Setter
     dataSetter(name, datatype, dataClass, newPath) ~

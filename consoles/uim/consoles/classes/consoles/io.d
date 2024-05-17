@@ -377,7 +377,7 @@ class DConsoleIo {
 
         string result = result.isNull 
             ? "" 
-            : strip(result);
+            : result.strip;
         
         return result.isEmpty
             ? defaultValue
@@ -400,7 +400,7 @@ class DConsoleIo {
      *  to control logging levels. VERBOSE enables debug logs, NORMAL does not include debug logs,
      *  QUIET disables notice, info and debug logs.
      */
-    void setLoggers(int|bool enable) {
+    void setLoggers(bool enable) {
         Log.drop("stdout");
         Log.drop("stderr");
         if (enable == false) {

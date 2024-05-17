@@ -55,9 +55,8 @@ class DFactoryLocator {
      *
      * @param string type The repository type to get the factory for.
      * @throws \InvalidArgumentException If the specified repository type has no factory.
-     * @return uim.Datasource\Locator\ILocator|callable The factory for the repository type.
      */
-    static function get(string type) {
+    static ILocator get(string type) {
         if ("Table"  !in _modelFactories)) {
             _modelFactories["Table"] = new DTableLocator();
         }

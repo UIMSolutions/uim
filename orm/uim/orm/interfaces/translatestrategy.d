@@ -22,9 +22,8 @@ interface ITranslateStrategy : IPropertyMarshal {
      * @param string|null locale The locale to use for fetching and saving
      *   records. Pass `null` in order to unset the current locale, and to make
      *   the behavior fall back to using the globally configured locale.
-     * @return this
      */
-    // TODO ITranslateStrategy setLocale(string locale);
+    ITranslateStrategy setLocale(string locale);
 
     /**
      * Returns the current locale.
@@ -32,7 +31,7 @@ interface ITranslateStrategy : IPropertyMarshal {
      * If no locale has been explicitly set via `setLocale()`, this method will
      * return the currently configured global locale.
      */
-    // TODO string getLocale();
+    string locale();
 
     /**
      * Returns a fully aliased field name for translated fields.

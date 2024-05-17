@@ -369,10 +369,8 @@ class DResultset : IResultset {
     /**
      * Helper function to fetch the next result from the statement or
      * seeded results.
-     *
-     * @return mixed
      */
-    protected function _fetchResult() {
+    protected Json _fetchResult() {
         if (_statement == null) {
             return false;
         }

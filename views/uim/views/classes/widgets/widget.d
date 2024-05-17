@@ -125,11 +125,11 @@ class DWidget : IWidget {
      * Params:
      * Json[string] mydata Data array
      * @param \UIM\View\Form\IContext formContext DContext instance.
-     * @param string fieldNameName Field name.
+     * @param string fieldName Field name.
      */
-  protected Json[string] setStep(Json[string] data, IContext formContext, string fieldNameName) {
-    mydbType = formContext.type(fieldNameName);
-    fieldNameDef = formContext.attributes(fieldNameName);
+  protected Json[string] setStep(Json[string] data, IContext formContext, string fieldName) {
+    mydbType = formContext.type(fieldName);
+    fieldNameDef = formContext.attributes(fieldName);
 
     if (mydbType == "decimal" && isSet(fieldNameDef["precision"])) {
       mydecimalPlaces = fieldNameDef["precision"];

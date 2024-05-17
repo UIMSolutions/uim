@@ -109,7 +109,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param \ArrayObject options The options for the query.
      */
     void beforeFind(IEvent event, Query query, ArrayObject options) {
-        locale = Hash.get(options, "locale", getLocale());
+        locale = Hash.get(options, "locale", locale());
         myConfiguration = configuration;
 
         if (locale == configuration.get("defaultLocale"]) {
@@ -311,7 +311,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      */
                                                 void beforeSave(IEvent event, IORMEntity anEntity, ArrayObject options) {
                                                     locale = entity.get("_locale") ? 
-                                                    : getLocale(); newOptions = [
+                                                    : locale(); newOptions = [
                                                         this.translationTable.aliasName(): [
                                                             "validate": false.toJson
                                                         ]
@@ -418,7 +418,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      */
                                                                         string translationField(
                                                                         string field) {
-                                                                            if (getLocale() == getConfig(
+                                                                            if (locale() == getConfig(
                                                                                 "defaultLocale")) {
                                                                                 return _table.aliasField(
                                                                                 field);

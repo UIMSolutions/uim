@@ -64,8 +64,8 @@ mixin template TTranslateStrategy() {
      * If no locale has been explicitly set via `setLocale()`, this method will return
      * the currently configured global locale.
      */
-    string getLocale() {
-        return _locale ?: I18n.getLocale();
+    string locale() {
+        return _locale ?: I18n.locale();
     }
 
     /**

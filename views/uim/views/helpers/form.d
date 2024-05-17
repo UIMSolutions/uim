@@ -9,11 +9,11 @@ import uim.views;
  *
  * Automatic generation of HTML FORMs from given data.
  *
- * @method string text(string fieldNameName, Json[string] options  = null) Creates input of type text.
- * @method string number(string fieldNameName, Json[string] options  = null) Creates input of type number.
- * @method string email(string fieldNameName, Json[string] options  = null) Creates input of type email.
- * @method string password(string fieldNameName, Json[string] options  = null) Creates input of type password.
- * @method string search(string fieldNameName, Json[string] options  = null) Creates input of type search.
+ * @method string text(string fieldName, Json[string] options  = null) Creates input of type text.
+ * @method string number(string fieldName, Json[string] options  = null) Creates input of type number.
+ * @method string email(string fieldName, Json[string] options  = null) Creates input of type email.
+ * @method string password(string fieldName, Json[string] options  = null) Creates input of type password.
+ * @method string search(string fieldName, Json[string] options  = null) Creates input of type search.
  * @property \UIM\View\Helper\HtmlHelper myHtml
  * @property \UIM\View\Helper\UrlHelper myUrl
  */
@@ -664,7 +664,7 @@ class DFormHelper : DHelper {
      *
      * If you want to nest inputs in the labels, you will need to modify the default templates.
      * Params:
-     * string fieldNameName This should be "modelname.fieldname"
+     * string fieldName This should be "modelname.fieldname"
      * @param string|null mytext Text that will appear in the label field. If
      *  mytext is left undefined the text will be inflected from the
      *  fieldName.
@@ -847,10 +847,10 @@ class DFormHelper : DHelper {
      *  of attributes for the label tag. `selected` will be added to any classes e.g. `class: "myclass"` where
      *  widget is checked
      * Params:
-     * string fieldNameName This should be "modelname.fieldname"
+     * string fieldName This should be "modelname.fieldname"
      * @param Json[string] options Each type of input takes different options.
      */
-    string control(string fieldNameName, Json[string] options  = null) {
+    string control(string fieldName, Json[string] options  = null) {
         auto updatedOptions = options.update[
             "type": Json(null),
             "label": Json(null),
@@ -995,10 +995,10 @@ class DFormHelper : DHelper {
     /**
      * Generates an input element
      * Params:
-     * string fieldNameName the field name
+     * string fieldName the field name
      * @param Json[string] options The options for the input element
      */
-    protected string[] _getInput(string fieldNameName, Json[string] options) {
+    protected string[] _getInput(string fieldName, Json[string] options) {
         mylabel = options["labelOptions"];
         options.remove("labelOptions");
 
@@ -1026,10 +1026,10 @@ class DFormHelper : DHelper {
     /**
      * Generates input options array
      * Params:
-     * string fieldNameName The name of the field to parse options for.
+     * string fieldName The name of the field to parse options for.
      * @param Json[string] options Options list.
      */
-    protected Json[string] _parseOptions(string fieldNameName, Json[string] options) {
+    protected Json[string] _parseOptions(string fieldName, Json[string] options) {
         myneedsMagicType = false;
         if (options.isEmpty("type")) {
             myneedsMagicType = true;
@@ -1043,10 +1043,10 @@ class DFormHelper : DHelper {
      * based on the internal type it is associated too, its name and the
      * variables that can be found in the view template
      * Params:
-     * string fieldNameName the name of the field to guess a type for
+     * string fieldName the name of the field to guess a type for
      * @param Json[string] options the options passed to the input method
      */
-    protected string _inputType(string fieldNameName, Json[string] options) {
+    protected string _inputType(string fieldName, Json[string] options) {
         mycontext = _getContext();
 
         if (mycontext.isPrimaryKey(fieldName)) {
@@ -1079,10 +1079,10 @@ class DFormHelper : DHelper {
      * Selects the variable containing the options for a select field if present,
      * and sets the value to the "options" key in the options array.
      * Params:
-     * string fieldNameName The name of the field to find options for.
+     * string fieldName The name of the field to find options for.
      * @param Json[string] options Options list.
      */
-    protected Json[string] _optionsOptions(string fieldNameName, Json[string] options) {
+    protected Json[string] _optionsOptions(string fieldName, Json[string] options) {
         if (isSet(options["options"])) {
             return options;
         }
@@ -1142,12 +1142,12 @@ class DFormHelper : DHelper {
     /**
      * Magically set option type and corresponding options
      * Params:
-     * string fieldNameName The name of the field to generate options for.
+     * string fieldName The name of the field to generate options for.
      * @param Json[string] options Options list.
      * @param bool myallowOverride Whether it is allowed for this method to
      * overwrite the "type" key in options.
      */
-    protected Json[string] _magicOptions(string fieldNameName, Json[string] options, bool myallowOverride) {
+    protected Json[string] _magicOptions(string fieldName, Json[string] options, bool myallowOverride) {
         auto updatedOptions = options.update[
             "templateVars": Json.emptyArray,
         ];
@@ -1171,10 +1171,10 @@ class DFormHelper : DHelper {
     /**
      * Set required attribute and custom validity JS.
      * Params:
-     * string fieldNameName The name of the field to generate options for.
+     * string fieldName The name of the field to generate options for.
      * @param Json[string] options Options list.
      */
-    protected Json[string] setRequiredAndCustomValidity(string fieldNameName, Json[string] options) {
+    protected Json[string] setRequiredAndCustomValidity(string fieldName, Json[string] options) {
         mycontext = _getContext();
 
         if (!options["required"]) && options["type"] != "hidden") {
@@ -1199,11 +1199,11 @@ class DFormHelper : DHelper {
     /**
      * Generate label for input
      * Params:
-     * string fieldNameName The name of the field to generate label for.
+     * string fieldName The name of the field to generate label for.
      * @param options Options list.
      * @return string|false Generated label element or false.
      */
-    protected string _getLabel(string fieldNameName, Json[string] options) {
+    protected string _getLabel(string fieldName, Json[string] options) {
         if (options["type"] == "hidden") {
             return null;
         }
@@ -1274,10 +1274,10 @@ class DFormHelper : DHelper {
      *   as checked, without having to check the POST data. A matching POST data value, will overwrite
      *   the default value.
      * Params:
-     * string fieldNameName Name of a field, like this "modelname.fieldname"
+     * string fieldName Name of a field, like this "modelname.fieldname"
      * @param Json[string] options Array of HTML attributes.
      */
-    string[] checkbox(string fieldNameName, Json[string] options  = null) {
+    string[] checkbox(string fieldName, Json[string] options  = null) {
         auto updatedOptions = options.update["hiddenField": true.toJson, "value": 1];
 
         // Work around value=>val translations.
@@ -1328,11 +1328,11 @@ class DFormHelper : DHelper {
      * - `empty` - Set to `true` to create an input with the value "" as the first option. When `true`
      *  the radio label will be "empty". Set this option to a string to control the label value.
      * Params:
-     * string fieldNameName Name of a field, like this "modelname.fieldname"
+     * string fieldName Name of a field, like this "modelname.fieldname"
      * @param range options Radio button options array.
      * @param Json[string] myattributes Array of attributes.
      */
-    string radio(string fieldNameName, range options = [], Json[string] myattributes = []) {
+    string radio(string fieldName, range options = [], Json[string] myattributes = []) {
         myattributes["options"] = options;
         myattributes["idPrefix"] = _idPrefix;
 
@@ -1403,10 +1403,10 @@ class DFormHelper : DHelper {
      *
      * - `escape` - Whether the contents of the textarea should be escaped. Defaults to true.
      * Params:
-     * string fieldNameName Name of a field, in the form "modelname.fieldname"
+     * string fieldName Name of a field, in the form "modelname.fieldname"
      * @param Json[string] options Array of HTML attributes, and special options above.
      */
-    string textarea(string fieldNameName, Json[string] options  = null) {
+    string textarea(string fieldName, Json[string] options  = null) {
         options = _initInputField(fieldName, options);
         options.remove("type");
 
@@ -1416,9 +1416,9 @@ class DFormHelper : DHelper {
     /**
      * Creates a hidden input field.
      * Params:
-     * string fieldNameName Name of a field, in the form of "modelname.fieldname"
+     * string fieldName Name of a field, in the form of "modelname.fieldname"
      */
-    string hidden(string fieldNameName, Json[string] htmlAttributes  = null) {
+    string hidden(string fieldName, Json[string] htmlAttributes  = null) {
         htmlAttributes = htmlAttributes.update["required": false.toJson, "secure": true.toJson];
 
         mysecure = options["secure"];
@@ -1444,11 +1444,11 @@ class DFormHelper : DHelper {
     /**
      * Creates file input widget.
      * Params:
-     * string fieldNameName Name of a field, in the form "modelname.fieldname"
+     * string fieldName Name of a field, in the form "modelname.fieldname"
      * @param Json[string] options Array of HTML attributes.
      * @return string A generated file input.
      */
-    string file(string fieldNameName, Json[string] options  = null) {
+    string file(string fieldName, Json[string] options  = null) {
         auto updatedOptions = options.merge("secure", true);
         updatedOptions = _initInputField(fieldName, updatedOptions);
 
@@ -1773,12 +1773,12 @@ class DFormHelper : DHelper {
      * ];
      * ```
      * Params:
-     * string fieldNameName Name attribute of the SELECT
+     * string fieldName Name attribute of the SELECT
      * @param range options Array of the OPTION elements (as "value"=>"Text" pairs) to be used in the
      *  SELECT element
      * @param Json[string] myattributes The HTML attributes of the select element.
      */
-    string select(string fieldNameName, range options = [], Json[string] myattributes = []) {
+    string select(string fieldName, range options = [], Json[string] myattributes = []) {
         myattributes += [
             "disabled": Json(null),
             "escape": true.toJson,
@@ -1845,12 +1845,12 @@ class DFormHelper : DHelper {
      *
      * Can be used in place of a select box with the multiple attribute.
      * Params:
-     * string fieldNameName Name attribute of the SELECT
+     * string fieldName Name attribute of the SELECT
      * @param range options Array of the OPTION elements
      *  (as "value"=>"Text" pairs) to be used in the checkboxes element.
      * @param Json[string] myattributes The HTML attributes of the select element.
      */
-    string multiCheckbox(string fieldNameName, range options, Json[string] myattributes = []) {
+    string multiCheckbox(string fieldName, range options, Json[string] myattributes = []) {
         myattributes += [
             "disabled": Json(null),
             "escape": true.toJson,
@@ -1899,10 +1899,10 @@ class DFormHelper : DHelper {
      * - `max` The max year to appear in the select element.
      * - `min` The min year to appear in the select element.
      * Params:
-     * string fieldNameName The field name.
+     * string fieldName The field name.
      * @param Json[string] options Options & attributes for the select elements.
      */
-    string year(string fieldNameName, Json[string] options  = null) {
+    string year(string fieldName, Json[string] options  = null) {
         auto auto updatedOptions = options.update[
             "empty": true.toJson,
         ];
@@ -1919,10 +1919,10 @@ class DFormHelper : DHelper {
      *
      * See dateTime() options.
      * Params:
-     * string fieldNameName The field name.
+     * string fieldName The field name.
      * @param Json[string] options Array of options or HTML attributes.
      */
-    string month(string fieldNameName, Json[string] options  = null) {
+    string month(string fieldName, Json[string] options  = null) {
         auto updatedOptions = options.update[
             "value": Json(null),
         ];
@@ -1941,10 +1941,10 @@ class DFormHelper : DHelper {
      * - `value` | `default` The default value to be used by the input.
      *  If set to `true` current datetime will be used.
      * Params:
-     * string fieldNameName The field name.
+     * string fieldName The field name.
      * @param Json[string] options Array of options or HTML attributes.
      */
-    string dateTime(string fieldNameName, Json[string] options  = null) {
+    string dateTime(string fieldName, Json[string] options  = null) {
         auto updatedOptions = options.update[
             "value": Json(null),
         ];
@@ -1962,10 +1962,10 @@ class DFormHelper : DHelper {
      *
      * See dateTime() options.
      * Params:
-     * string fieldNameName The field name.
+     * string fieldName The field name.
      * @param Json[string] options Array of options or HTML attributes.
      */
-    string time(string fieldNameName, Json[string] options  = null) {
+    string time(string fieldName, Json[string] options  = null) {
         auto updatedOptions = options.update[
             "value": Json(null),
         ];
@@ -1982,10 +1982,10 @@ class DFormHelper : DHelper {
      *
      * See dateTime() options.
      * Params:
-     * string fieldNameName The field name.
+     * string fieldName The field name.
      * @param Json[string] options Array of options or HTML attributes.
      */
-    string date(string fieldNameName, Json[string] options  = null) {
+    string date(string fieldName, Json[string] options  = null) {
         auto updatedOptions = options.update[
             "value": Json(null),
         ];

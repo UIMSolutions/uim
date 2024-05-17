@@ -37,6 +37,7 @@ class DI18n {
         if (!_collection.isNull) {
             return _collection;
         }
+        
         _collection = new DTranslatorRegistry(
             new DCatalogLocator(),
             new DFormatterLocator([

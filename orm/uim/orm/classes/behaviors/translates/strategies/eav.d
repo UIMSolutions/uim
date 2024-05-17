@@ -155,7 +155,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * @param \ArrayObject options The options for the query
      */
     void beforeFind(IEvent event, Query query, ArrayObject options) {
-        locale = Hash.get(options, "locale", getLocale());
+        locale = Hash.get(options, "locale", locale());
 
         if (locale == getConfig("defaultLocale")) {
             return;
@@ -218,7 +218,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * @param \ArrayObject options the options passed to the save method
      */
     void beforeSave(IEvent event, IORMEntity anEntity, ArrayObject options) {
-        locale = entity.get("_locale") ?: getLocale();
+        locale = entity.get("_locale") ?: locale();
         newOptions = [this.translationTable.aliasName(): ["validate": false.toJson]];
         options["associated"] = newOptions + options["associated"];
 
@@ -319,7 +319,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      */
     string translationField(string field) {
         table = this.table;
-        if (getLocale() == getConfig("defaultLocale")) {
+        if (locale() == getConfig("defaultLocale")) {
             return table.aliasField(field);
         }
         associationName = table.aliasName() ~ "_" ~ field ~ "_translation";

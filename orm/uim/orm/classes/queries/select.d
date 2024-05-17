@@ -81,11 +81,8 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      */
     protected Json[string] _results = null;
 
-    /**
-     * List of map-reduce routines that should be applied over the query
-     * result
-     */
-    // TODO protected Json[string] _mapReduce = null;
+    // List of map-reduce routines that should be applied over the query result
+    protected Json[string] _mapReduce = null;
 
     /**
      * List of formatter classes or callbacks that will post-process the
@@ -104,7 +101,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Holds any custom options passed using applyOptions that could not be processed
      * by any method in this class.
      */
-    // TODO protected Json[string] _options = null;
+    protected Json[string] _options = null;
 
     /**
      * Constructor
@@ -156,20 +153,20 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Usage
      *
      * ```
-     *// Simple string key + config
+     *  Simple string key + config
      * myquery.cache("_key", "db_results");
      *
-     *// auto to generate key.
+     *  auto to generate key.
      * myquery.cache(function (myq) {
      *  aKey = serialize(myq.clause("select"));
      *  aKey ~= serialize(myq.clause("where"));
      *  return md5(aKey);
      * });
      *
-     *// Using a pre-built cache engine.
+     * Using a pre-built cache engine.
      * myquery.cache("_key", myengine);
      *
-     *// Disable caching
+     * Disable caching
      * myquery.cache(false);
      * ```
      * Params:

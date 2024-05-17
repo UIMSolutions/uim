@@ -90,14 +90,10 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      */
     protected bool _autoFields;
 
-    /**
-     * Whether to hydrate results into entity objects
-     */
+    // Whether to hydrate results into entity objects
     protected bool _hydrate = true;
 
-    /**
-     * Whether aliases are generated for fields.
-     */
+    // Whether aliases are generated for fields.
     protected bool _aliasingEnabled = true;
 
     /**
@@ -939,12 +935,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * instead
      *
      * @param callable|null counter The counter value
-     * @return this
      */
-    function counter(?callable counter) {
+    void counter(?callable counter) {
         _counter = counter;
-
-        return this;
     }
 
     /**

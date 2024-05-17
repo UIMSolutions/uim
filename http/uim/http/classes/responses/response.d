@@ -339,7 +339,7 @@ class DResponse : IResponse {
      *
      * @var array<int>
      */
-    // TODO protected Json[string] _fileRange = null;
+    protected Json[string] _fileRange = null;
 
     // The charset the response body is encoded with
     protected string _charset = "UTF-8";

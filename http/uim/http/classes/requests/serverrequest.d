@@ -112,7 +112,7 @@ class DServerRequest { // }: IServerRequest {
      *
      * @var array<string, bool>
      */
-    // TODO protected Json[string] _detectorCache = null;
+    protected Json[string] _detectorCache = null;
     /**
      * Array of POST data. Will contain form data as well as uploaded files.
      * In PUT/PATCH/DELETE requests this property will contain the form-urlencoded
@@ -167,7 +167,7 @@ class DServerRequest { // }: IServerRequest {
      *
      * @var array
      */
-    // TODO protected Json[string] uploadedFiles = null;
+    protected Json[string] uploadedFiles = null;
 
     /**
      * The HTTP protocol version used.

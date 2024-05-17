@@ -106,7 +106,7 @@ class DDigest {
      * \UIM\Http\Client\Request request The request object.
      * @param Json[string] credentials Authentication credentials.
      */
-    // TODO protected Json[string] _getServerInfo(Request request, Json[string] credentials) {
+    protected Json[string] _getServerInfo(Request request, Json[string] credentials) {
         response = _client.get(
             to!string(request.getUri()),
             [],

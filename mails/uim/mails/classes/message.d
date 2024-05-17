@@ -140,19 +140,19 @@ class DMessage { //: JsonSerializable {
 
     /* 
     // Recipient of the email
-    // TODO protected Json[string] to = null;
+    protected Json[string] to = null;
 
     // The mail which the email is sent fro
-    // TODO protected Json[string] from = null;
+    protected Json[string] from = null;
 
     // The sender email
-    // TODO protected Json[string] sender = null;
+    protected Json[string] sender = null;
 
     // List of email(s) that the recipient will reply to
-    // TODO protected Json[string] replyTo = null;
+    protected Json[string] replyTo = null;
 
     // The read receipt emai
-    // TODO protected Json[string] readReceipt = null;
+    protected Json[string] readReceipt = null;
 
     /**
      * The mail that will be used in case of any errors like
@@ -160,7 +160,7 @@ class DMessage { //: JsonSerializable {
      * - Remote user has exceeded his quota
      * - Unknown user
      */
-    // TODO protected Json[string] resultPath = null;
+    protected Json[string] resultPath = null;
 
     /**
      * Carbon Copy
@@ -168,7 +168,7 @@ class DMessage { //: JsonSerializable {
      * List of email"s that should receive a copy of the email.
      * The Recipient WILL be able to see this list
       */
-    // TODO protected Json[string] cc = null;
+    protected Json[string] cc = null;
 
     /**
      * Blind Carbon Copy
@@ -176,14 +176,14 @@ class DMessage { //: JsonSerializable {
      * List of email"s that should receive a copy of the email.
      * The Recipient WILL NOT be able to see this list
      */
-    // TODO protected Json[string] bcc = null;
+    protected Json[string] bcc = null;
 
 
     /**
      * Associative array of a user defined headers
      * Keys will be prefixed "X-" as per RFC2822 Section 4.7.5
      */
-    // TODO protected Json[string] aHeaders = null;
+    protected Json[string] aHeaders = null;
 
     // Text message
     protected string atextMessage = "";
@@ -192,7 +192,7 @@ class DMessage { //: JsonSerializable {
     protected string ahtmlMessage = "";
 
     // Final message to send
-    // TODO protected Json[string] message = null;
+    protected Json[string] message = null;
 
  
 
@@ -203,7 +203,7 @@ class DMessage { //: JsonSerializable {
      *
      * @var array<string, array>
      */
-    // TODO protected Json[string] attachments;
+    protected Json[string] attachments;
 
 
     /**
@@ -736,7 +736,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * Json[string] address Addresses to format.
      */
-    // TODO protected Json[string] formatAddress(Json[string] address) {
+    protected Json[string] formatAddress(Json[string] address) {
         auto result;
         foreach (address as email: alias) {
             if (email == alias) {

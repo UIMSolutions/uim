@@ -256,7 +256,7 @@ class DOauth {
      * Json[string] someArguments The arguments to normalize.
      * @param string aPath The current path being converted.
      */
-    // TODO protected Json[string] _normalizeData(Json[string] someArguments, string aPath= null) {
+    protected Json[string] _normalizeData(Json[string] someArguments, string aPath= null) {
         someData = null;
         foreach (someArguments as aKey: aValue) {
             if (somePath) {

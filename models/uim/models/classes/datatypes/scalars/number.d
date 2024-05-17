@@ -9,7 +9,6 @@ import uim.models;
 
 @safe:
 class DNumberData : DScalarData {
-  /*
   mixin(DataThis!("Number"));
 
   this(double newValue) {

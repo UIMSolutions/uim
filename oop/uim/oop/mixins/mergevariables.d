@@ -81,7 +81,7 @@ mixin template TMergeVariables() {
      * @param Json[string] myparent The parent class" value.
      * @param bool isAssoc Whether the merging should be done in associative mode.
      * /
-  // TODO protected Json[string] _mergePropertyData(Json[string] mycurrent, Json[string] myparent, bool isAssoc) {
+  protected Json[string] _mergePropertyData(Json[string] mycurrent, Json[string] myparent, bool isAssoc) {
     if (!isAssoc) {
       return chain(myparent, mycurrent);
     }

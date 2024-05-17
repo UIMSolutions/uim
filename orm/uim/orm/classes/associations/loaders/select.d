@@ -96,10 +96,6 @@ class DSelectLoader {
      * Auxiliary function to construct a new Query object to return all the records
      * in the target table that are associated to those specified in options from
      * the source table
-     *
-     * @param Json[string] options options accepted by eagerLoader()
-     * @return DORMQuery
-     * @throws \InvalidArgumentException When a key is required for associations but not selected.
      */
     protected DORMQuery _buildQuery(Json[string] optionData) {
         key = _linkField(options);

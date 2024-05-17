@@ -818,17 +818,13 @@ class DBelongsToManyAssociation : DAssociation {
      * Sets the current join table, either the name of the Table instance or the instance itself.
      *
      * @param DORMTable|string through Name of the Table instance or the instance itself
-     * @return this
      */
-    function setThrough(through) {
+    void setThrough(through) {
         _through = through;
-
-        return this;
     }
 
     /**
      * Gets the current join table, either the name of the Table instance or the instance itself.
-     *
      * @return DORMTable|string
      */
     function getThrough() {

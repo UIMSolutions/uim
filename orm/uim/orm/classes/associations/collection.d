@@ -44,7 +44,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * anAliasName -  The association alias
      * @param DORMDORMAssociation anAssociation The association to add.
-     * @return  The association object being added.
+     * @return The association object being added.
      */
      DORMAssociation add(string anAliasName, DORMAssociation anAssociation) {
         [, anAliasName] = pluginSplit(alias);

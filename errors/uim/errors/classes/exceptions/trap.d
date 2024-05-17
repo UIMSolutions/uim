@@ -236,8 +236,6 @@ class DExceptionTrap {
      * environment appropriate way.
      *
      * @param \Throwable exception Exception instance.
-     * @return void
-     * @throws \Exception When renderer class not found
      */
     void handleException(Throwable exception) {
         if (this.disabled) {

@@ -17,27 +17,20 @@ import uim.orm;
  */
 class DHasOneAssociation : DAssociation {
     mixin(AssociationThis!("HasOne"));
-    /**
-     * Valid strategies for this type of association
-     *
-     * @var string[]
-     */
+    
+    // Valid strategies for this type of association
     protected string[] _validStrategies = [
         STRATEGY_JOIN,
         STRATEGY_SELECT,
     ];
 
-    /**
-     * Gets the name of the field representing the foreign key to the target table.
-     *
-     * @return string[]|string
-     */
-    function foreignKeys() {
-        if (_foreignKey == null) {
-            _foreignKey = _modelKey(source().aliasName());
+    // Gets the name of the field representing the foreign key to the target table.
+    string[] foreignKeys() {
+        if (_foreignKeys == null) {
+            _foreignKeys = _modelKey(source().aliasName());
         }
 
-        return _foreignKey;
+        return _foreignKeys;
     }
 
     // Returns default property name based on association name.

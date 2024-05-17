@@ -33,7 +33,6 @@ class DConditionDecorator : DDecorator {
      *
      * @template TSubject of object
      * @param \UIM\Event\IEvent<TSubject> event Event object
-     * @return bool
      */
     protected bool _evaluateCondition(string conditionType, IEvent event) {
         if (!_options.isSet(conditionType)) {
@@ -43,5 +42,5 @@ class DConditionDecorator : DDecorator {
             throw new DInvalidArgumentException(self.class ~ " the `" ~ conditionType ~ "` condition is not a callable!");
         }
         return (bool)_options[conditionType](event);
-    } */
+    } 
 }

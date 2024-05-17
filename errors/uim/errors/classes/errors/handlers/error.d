@@ -104,10 +104,7 @@ class DErrorHandler { // }: DERRErrorHandler
 
     /**
      * Displays an exception response body.
-     *
      * @param \Throwable exception The exception to display.
-     * @return void
-     * @throws \Exception When the chosen exception renderer is invalid.
      */
     protected void _displayException(Throwable exception) {
         try {

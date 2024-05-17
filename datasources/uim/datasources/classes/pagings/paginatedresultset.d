@@ -12,7 +12,7 @@ import uim.datasources;
  */
 class DPaginatedResultset { /* }: IteratorIterator : JsonSerializable, IPaginated {
     // Paging params.
-    // TODO protected Json[string] params = null;
+    protected Json[string] params = null;
 
     /**
      * Constructor

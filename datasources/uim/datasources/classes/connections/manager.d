@@ -159,11 +159,8 @@ class DConnectionManager {
      *
      * @param string aName The connection name.
      * @param bool useAliases Set to false to not use aliased connections.
-     * @return uim.Datasource\IConnection A connection object.
-     * @throws uim.Datasource\exceptions.MissingDatasourceConfigException When config
-     * data is missing.
      */
-    static function get(string aName, booluseAliases = true) {
+    static IConnection get(string aName, booluseAliases = true) {
         if (useAliases && isset(_aliasMap[name])) {
             name = _aliasMap[name];
         }

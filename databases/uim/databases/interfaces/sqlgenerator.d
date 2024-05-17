@@ -15,12 +15,9 @@ interface ISqlGenerator {
      *
      * Uses the connection to access the schema dialect
      * to generate platform specific SQL.
-     *
      * @param DDBAConnection connection The connection to generate SQL for.
-     * @return Json[string] List of SQL statements to create the table and the
-     *    required indexes.
      */
-    //TODO Json[string] createSql(Connection connection);
+    Json[string] createSql(Connection connection);
 
     /**
      * Generate the SQL to drop a table.
@@ -29,30 +26,17 @@ interface ISqlGenerator {
      * specific SQL.
      *
      * @param DDBAConnection connection The connection to generate SQL for.
-     * @return Json[string] SQL to drop a table.
      */
-    //TODO Json[string] dropSql(Connection connection);
+    Json[string] dropSql(DDBAConnection connection);
 
-    /**
-     * Generate the SQL statements to truncate a table
-     *
-     * @param DDBAConnection connection The connection to generate SQL for.
-     * @return Json[string] SQL to truncate a table.
-     */
-    //TODO Json[string] truncateSql(Connection connection);
+    // Generate the SQL statements to truncate a table
+    Json[string] truncateSql(DDBAConnection connection);
 
-    /**
-     * Generate the SQL statements to add the constraints to the table
-     * @param DDBAConnection connection The connection to generate SQL for.
-     */
-    Json[string] addConstraintSql(Connection connection);
+    // Generate the SQL statements to add the constraints to the table
+    Json[string] addConstraintSql(DDBAConnection connection);
 
-    /**
-     * Generate the SQL statements to drop the constraints to the table
-     *
-     * @param DDBAConnection connection The connection to generate SQL for.
-     */
-    Json[string] dropConstraintSql(Connection connection);
+    // Generate the SQL statements to drop the constraints to the table
+    Json[string] dropConstraintSql(DDBAConnection connection);
 }
 /* use uim.databases.Connection;
 

@@ -20,7 +20,7 @@ class DMarshaller {
      * Params:
      * \ORM\Table mytable The table this marshaller is for.
      */
-    this(Table mytable) {
+    this(DTable mytable) {
        _table = mytable;
     }
     

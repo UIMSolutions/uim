@@ -22,7 +22,7 @@ class DUnfoldIterator {  /* }: IteratorIterator, RecursiveIterator {
      * Creates the iterator that will generate child iterators from each of the
      * elements it was constructed with.
      */
-    this(Traversable valuesToIterate, callable unfolder) {
+    this(DTraversable valuesToIterate, callable unfolder) {
        _unfolder = unfolder;
         super(valuesToIterate);
        _innerIterator = innerIterator();

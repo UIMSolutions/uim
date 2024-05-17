@@ -56,3 +56,16 @@ Json getJson(Json[string] values, string key, Json defaultValue = Json(null)) {
     ? values[key]
     : defaultValue;
 }
+
+Json[string] filterKeys(Json[string] values, string[] keys) {
+  if (keys.length == 0) {
+    return values.dup;
+  }
+
+  Json[string] filteredData;
+  keys
+    .filter!(key => key in values)
+    .each!(key => filteredData[key] = values[key]);
+
+  return filteredData;
+}

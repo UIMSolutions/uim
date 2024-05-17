@@ -85,7 +85,7 @@ class DView : IView { //  }: IEventDispatcher {
     // ViewBlock instance.
     protected DViewBlock[string] _blocks;
     // Get the names of all the existing blocks.
-    string[] blocks() {
+    string[] blockNames() {
         return _blocks.keys;
     }
 

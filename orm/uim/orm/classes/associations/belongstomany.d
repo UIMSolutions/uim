@@ -37,31 +37,24 @@ class DBelongsToManyAssociation : DAssociation {
      */
     protected string _junctionProperty = "_joinData";
 
-    /*
     // The type of join to be used when adding the association to a query
-    protected string _joinType = Query.JOIN_TYPE_INNER;
+    protected string _joinType = DQuery.JOIN_TYPE_INNER;
 
     // The strategy name to be used to fetch associated records.
-    protected string _strategy = self.STRATEGY_SELECT;
+    protected string _strategy = STRATEGY_SELECT;
 
-    /**
-     * Junction table instance
-     *
-     * @var DORMTable
-     */
-    protected _junctionTable;
+    // Junction table instance
+    protected DORMTable _junctionTable;
 
-    /**
-     * Saving strategy to be used by this association
-     */
-    protected string _saveStrategy = self.SAVE_REPLACE;
+    // Saving strategy to be used by this association
+    protected string _saveStrategy = SAVE_REPLACE;
 
     /**
      * The name of the field representing the foreign key to the target table
      *
-     * @var string[]|string|null
+     * @var |string|null
      */
-    protected _targetForeignKey;
+    protected string[] _targetForeignKey;
 
     /**
      * The table instance for the junction relation.

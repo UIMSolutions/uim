@@ -18,12 +18,7 @@ import uim.orm;
 class DBelongsToAssociation : DAssociation {
     mixin(AssociationThis!("BelongsTo"));
 
-    /**
-     * Sets the name of the field representing the foreign key to the target table.
-     * Params:
-     * string[]|string|false aKey the key or keys to be used to link both tables together, if set to `false`
-     * no join conditions will be generated automatically.
-     */
+    // Sets the name of the field representing the foreign key to the target table.
     void foreignKeys(string[] keys...) {
         foreignKeys(keys.dup);
     }
@@ -32,21 +27,20 @@ class DBelongsToAssociation : DAssociation {
         _foreignKeys = keys;
     }
 
-    /*
+    // Gets the name of the field representing the foreign key to the target table.
+    string[] foreignKeyss() {
+      if (_foreignKeyss == null) {
+        //TODO _foreignKeyss = _modelKey(getTarget().aliasName());
+      }
+
+      return _foreignKeyss;
+    }
+    
     // Valid strategies for this type of association
     protected string[] _validStrategies = [
         STRATEGY_JOIN,
         STRATEGY_SELECT,
     ];
-
-    // Gets the name of the field representing the foreign key to the target table.
-    string[] getForeignKeyss() {
-      if (_foreignKeyss == null) {
-          _foreignKeyss = _modelKey(getTarget().aliasName());
-      }
-
-      return _foreignKeyss;
-    }
 
     /**
      * Handle cascading deletes.

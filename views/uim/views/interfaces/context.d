@@ -14,7 +14,6 @@ interface IContext {
     // Get maximum length of a field from model validation.
     size_t maxLength(string fieldName);
 
-    /* 
     // Get the fields used in the context as a primary key.
     string[] primaryKeys();
 

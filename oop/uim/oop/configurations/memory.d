@@ -7,8 +7,8 @@ import uim.oop;
 class DMemoryConfiguration : DConfiguration {
     mixin(ConfigurationThis!("Memory"));
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
+    override bool initialize(Json[string] initvalue = null) {
+        if (!super.initialize(initvalue)) {
             return false;
         }
 
@@ -21,173 +21,86 @@ class DMemoryConfiguration : DConfiguration {
         return _defaultData.dup;
     }
 
-    override void defaultData(Json[string] newData) {
-        _defaultData = newData.dup;
+    override IConfiguration defaultData(Json[string] newValue) {
+        _defaultData = newValue.dup;
     }
 
     // override bool hasDefault(string key)
     override bool hasDefault(string key) {
         return (key in _defaultData) ? true : false;
     }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration;
-        // TODO
-    }
 
-    override void updateDefaults(Json[string] updateData) {
+    override IConfiguration updateDefaults(Json[string] updateData) {
         updateData.byKeyValue
             .each!(kv => updateDefault(kv.key, kv.value));
-    }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration;
-        // TODO
+        return this;
     }
 
-    override void updateDefault(string key, Json data) {
-        _defaultData[key] = data;
-    }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration;
-        // TODO
+    override IConfiguration updateDefault(string key, Json value) {
+        _defaultData[key] = value;
+        return this;
     }
 
-    override void mergeDefaults(Json[string] dataArray) {
-        dataArray.byKeyValue
+    override IConfiguration mergeDefaults(Json[string] valueMap) {
+        valueMap.byKeyValue
             .each!(kv => mergeDefault(kv.key, kv.value));
-    }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration;
-        // TODO
+        return this;
     }
 
-    override void mergeDefault(string key, Json data) {
+    override IConfiguration mergeDefault(string key, Json value) {
         if (!hasDefault(key)) {
-            _defaultData[key] = data;
+            _defaultData[key] = value;
         }
-    }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration;
-        // TODO
+        return this;
     }
     // #endregion defaultData
 
-    // #region Data
+    // #region data
     protected Json[string] _data;
 
     override Json[string] data() {
         return _data.dup;
     }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration;
-        // TODO
-    }
 
-    override void data(Json[string] newData) {
-        _data = newData.dup;
+    override IConfiguration data(Json[string] newData) {
+        _data = newValue.dup;
     }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration;
-        config.data(["a": Json(1)]);
-        assert(config.hasKey("a"));
-        assert(config.get("a").to!int == 1);
-    }
+    // #endregion data
 
+    // #region key
     alias hasAnyKeys = DConfiguration.hasAnyKeys;
     override bool hasAnyKeys(string[] keys) {
         return keys.any!(key => hasKey(key));
-    }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration;
-        // TODO
     }
 
     alias hasAllKeys = DConfiguration.hasAllKeys;
     override bool hasAllKeys(string[] keys) {
         return keys.all!(key => hasKey(key));
     }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration;
-        // TODO
-    }
-
-    override bool hasKey(string[] path) {
-        if (path.length > 1) {
-            return hasKey(path[0])
-                ? hasKey(path[1 .. $]) : false;
-        }
-        return path.length == 1
-            ? hasKey(path[0]) : false;
-    };
 
     override bool hasKey(string key) {
-        return key in _data ? true : false;
+        return key in _values ? true : false;
     }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration;
-        // TODO
-    }
+    // #endregion key
 
     alias hasAnyValues = DConfiguration.hasAnyValues;
     override bool hasAnyValues(string[] values) {
         return values.any!(value => hasValue(value));
-    }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration;
-        // TODO
     }
 
     alias hasAllValues = DConfiguration.hasAllValues;
     override bool hasAllValues(string[] values) {
         return values.all!(value => hasValue(value));
     }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration;
-        // TODO
-    }
-    // #region Data
+    // #region value
 
-    override bool hasValue(string value) {
-        return _data.byKeyValue
-            .any!(kv => kv.value.to!string == value);
-    }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration;
-        // TODO
+    override bool hasValue(Json value) {
+        return _values.byKeyValue
+            .any!(kv => kv.value == value);
     }
 
     override string[] allKeys() {
-        return _data.keys;
-    }
-    /// 
-    unittest {
-        IConfiguration config = MemoryConfiguration;
-        // TODO
+        return _values.keys;
     }
 
     override Json[string] get(string[] selectKeys, bool compressMode = true) {
@@ -197,59 +110,38 @@ class DMemoryConfiguration : DConfiguration {
             Json result = get(key);
             if (result is Json(null) && !compressMode) {
                 results[key] = result;
-            } else { // compressmode => no nulls
-                results[key] = result;
-            }
+            } 
         });
 
         return results;
     }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration;
-        // TODO
-    }
 
-    override Json get(string key, Json defaultValue = Json(null)) {
+    override Json get(string key, Json defaultData = Json(null)) {
         debug writeln("key = ", key);
         if (key.strip.length == 0) {
             return Json(null);
         }
-        Json result = _data.hasKey(key) 
-            ? _data[key]
+        Json result = _values.hasKey(key) 
+            ? _values[key]
             : Json(null);
         debug writeln("result = ", result);
 
         if (result == Json(null)) {
-            result = defaultValue != Json(null)
-            ? defaultValue
+            result = defaultData != Json(null)
+            ? defaultData
             : _defaultData.get(key, Json(null));
         }
         debug writeln("result = ", result);
 
         return result; 
     }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration(["a": Json(1)]);
-        assert(config.get("a").to!int == 1);
+
+    override IConfiguration set(string key, Json value) {
+        _values[key] = value;
     }
 
-    override void set(string key, Json data) {
-        _data[key] = data;
-    }
-    /// 
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration(["a": Json(1)]);
-        config.set("a", Json(2));
-        assert(config.get("a").to!int == 2);
-    }
-
-    override void update(string key, Json data) {
-        set(key, data);
+    override IConfiguration update(string key, Json value) {
+        set(key, value);
     }
 
     unittest {
@@ -259,30 +151,23 @@ class DMemoryConfiguration : DConfiguration {
         assert(config.get("a").to!int == 2);
     }
 
-    override void update(string key, Json[string] data) {
-        set(key, data.toJsonObject);
-    }
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration;
-        // TODO
+    override IConfiguration update(string key, Json[string] value) {
+        set(key, value.toJsonObject);
+        return this;
     }
 
-    override void merge(string key, Json[string] data) {
-        set(key, data.toJsonObject);
-    }
-    unittest {
-        writeln(__MODULE__, " in ", __LINE__);
-        IConfiguration config = MemoryConfiguration;
-        // TODO
+    override IConfiguration merge(string key, Json[string] value) {
+        set(key, value.toJsonObject);
+        return this;
     }
 
-    override void merge(string key, Json data) {
+    override IConfiguration merge(string key, Json value) {
         if (hasKey(key)) {
             return;
         }
 
-        set(key, data);
+        set(key, value);
+        return this;
     }
     /// 
     unittest {
@@ -295,13 +180,8 @@ class DMemoryConfiguration : DConfiguration {
     }
 
     override IConfiguration remove(string key) {
-        _data.remove(key);
+        _values.remove(key);
         return this;
-    }
-    /// 
-    unittest {
-        IConfiguration config = MemoryConfiguration;
-        // TODO
     }
 }
 

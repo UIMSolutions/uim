@@ -13,11 +13,11 @@ interface IConfiguration : INamed {
         bool hasAllDefaults(string[] keys);
         bool hasDefault(string key);
 
-        void updateDefaults(Json[string] newData);
-        void updateDefault(string key, Json newData);
+        IConfiguration updateDefaults(Json[string] newData);
+        IConfiguration updateDefault(string key, Json newData);
 
-        void mergeDefaults(Json[string] newData);
-        void mergeDefault(string key, Json newData);
+        IConfiguration mergeDefaults(Json[string] newData);
+        IConfiguration mergeDefault(string key, Json newData);
     // #endregion default data
 
     // #region keys
@@ -30,7 +30,6 @@ interface IConfiguration : INamed {
         bool hasAllKeys(string[] keys);
 
         bool has(string key); // Short of hasKey
-        bool hasKey(string[] path); // for a path as key
         bool hasKey(string key);
     // #endregion keys
 
@@ -45,6 +44,9 @@ interface IConfiguration : INamed {
     // #endregion values
 
     // #region get
+        string[] keys(); 
+        Json[] values(string[] includedKeys = null); 
+
         Json opIndex(string key);
         Json get(string key, Json defaultValue = Json(null));
         Json[string] get(string[] keys, bool compressMode = false);
@@ -61,18 +63,21 @@ interface IConfiguration : INamed {
     // #region set
         void opIndexAssign(Json data, string key);
         void opAssign(Json[string] data);
-        void set(STRINGAA values, string[] keys = null);
-        void set(Json[string] newData, string[] keys = null);
-        void set(string key, Json newData);
+
+        IConfiguration set(STRINGAA values, string[] keys = null);
+        IConfiguration set(Json[string] newData, string[] keys = null);
+        IConfiguration set(string key, Json newData);
     // #endregion set
 
-    void update(Json[string] newData, string[] validKeys = null);
-    void update(string key, Json newData);
-    void update(string key, Json[string] newData);
+    IConfiguration update(Json newData, string[] validKeys = null);
+    IConfiguration update(Json[string] newData, string[] validKeys = null);
+    IConfiguration update(string key, Json[string] newData);
+    IConfiguration update(string key, Json newData);
 
-    void merge(Json[string] newData, string[] validKeys = null);
-    void merge(string key, Json newData);
-    void merge(string key, Json[string] newData);
+    IConfiguration merge(Json newData, string[] validKeys = null);
+    IConfiguration merge(Json[string] newData, string[] validKeys = null);
+    IConfiguration merge(string key, Json[string] newData);
+    IConfiguration merge(string key, Json newData);
 
     IConfiguration remove(string[] keys);
     IConfiguration remove(string keys);

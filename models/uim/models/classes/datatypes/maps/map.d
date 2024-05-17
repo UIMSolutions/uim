@@ -74,7 +74,7 @@ class DMapData : DData {
     } else {
       _items[key] = new DArrayData(values);
     } */
-  }*/
+  }
 
   // #region equal
   // mixin(ScalarDataOpEquals!(null));

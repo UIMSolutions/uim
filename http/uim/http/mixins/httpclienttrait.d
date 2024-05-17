@@ -23,7 +23,7 @@ mixin template THttpClient() {
      * @param string abody The body for the response.
      *  \UIM\Http\Client\Response
      */
-    Response newClientResponse(int code = 200, Json[string] aHeaders = [], string abody= null) {
+    Response newClientResponse(int code = 200, Json[string] aHeaders = null, string abody= null) {
          aHeaders = chain(["HTTP/1.1 {code}"],  aHeaders);
 
         return new DResponse(aHeaders, body);

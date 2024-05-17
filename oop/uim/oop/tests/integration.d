@@ -342,11 +342,11 @@ mixin template TIntegrationTest() {
      * Receives and stores the response for future inspection.
      * Params:
      * string[] aurl The URL
-     * @param string amethod The HTTP method
+     * @param string httpMethod The HTTP method
      * @param string[] adata The request data.
      * @throws \Unit\Exception|\Throwable
      * /
-    protected void _sendRequest(string[] aurl, string amethod, string[] adata = []) {
+    protected void _sendRequest(string[] aurl, string httpMethod, string[] adata = []) {
         dispatcher = _makeDispatcher();
         url = dispatcher.resolveUrl(url);
 
@@ -435,10 +435,10 @@ mixin template TIntegrationTest() {
      * Creates a request object with the configured options and parameters.
      * Params:
      * string aurl The URL
-     * @param string amethod The HTTP method
+     * @param string httpMethod The HTTP method
      * @param string[] adata The request data.
      * /
-    protected Json[string] _buildRequest(string aurl, string amethod, string[] adata = []) {
+    protected Json[string] _buildRequest(string aurl, string httpMethod, string[] adata = []) {
         sessionConfig = (array)configuration.get("Session") ~ [
             "defaults": "D",
         ];

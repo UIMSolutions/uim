@@ -446,7 +446,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
     auto Json[string] listTimezones(
         string|int filter = null,
         string acountry = null,
-        Json auto options = []
+        Json auto options = null
     ) {
         if (isBool(options)) {
             options = [

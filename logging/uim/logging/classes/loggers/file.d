@@ -96,7 +96,7 @@ class DFileLog { // TODO /*}: BaseLog {
      * @param \string messageToLog The message you want to log.
      * @param Json[string] messageContext Additional information about the logged message
      */
-    void log(logLevel, string messageToLog, Json[string] messageContext = []) {
+    void log(logLevel, string messageToLog, Json[string] messageContext = null) {
         string message = this.interpolate(messageToLog, messageContext);
         message = this.formatter.format(logLevel, message, messageContext);
 

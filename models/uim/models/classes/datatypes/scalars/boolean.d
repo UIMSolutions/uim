@@ -170,7 +170,6 @@ class DBooleanData : DScalarData {
   override bool toBoolean() {
     return _value;
   }
-
 }
 
 mixin(DataCalls!("Boolean"));

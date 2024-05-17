@@ -95,7 +95,7 @@ class DClientResponse { // }: Message : IResponse {
      * string[] unparsedHeaders Unparsed headers.
      * @param string abody The response body.
      */
-    this(string[] unparsedHeaders = [], string abody= null) {
+    this(string[] unparsedHeaders = null, string abody= null) {
        _parseHeaders(unparsedHeaders);
         if (getHeaderLine("Content-Encoding") == "gzip") {
             body = _decodeGzipBody(body);

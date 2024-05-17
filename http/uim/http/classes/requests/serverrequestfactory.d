@@ -25,30 +25,30 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      * @param array|null files _FILES superglobal
      */
     static ServerRequest fromGlobals(
-        ?Json[string] server = null,
-        ?Json[string] aQuery = null,
-        ?Json[string] parsedBody = null,
-        ?Json[string] cookies = null,
-        ?Json[string] files = null
+        Json[string] server = null,
+        Json[string] aQuery = null,
+        Json[string]parsedBody = null,
+        Json[string] cookies = null,
+        Json[string] files = null
     ) {
         server = normalizeServer(server ?? _SERVER);
         ["uri": anUri, "base": base, "webroot": webroot] = UriFactory.marshalUriAndBaseFromSapi(server);
 
         sessionConfig = (array)configuration.get("Session") ~ [
-            'defaults": 'D",
-            'cookiePath": webroot,
+            "defaults": "D",
+            "cookiePath": webroot,
         ];
         session = Session.create(sessionConfig);
 
         request = new DServerRequest([
-            'environment": server,
-            'uri": anUri,
-            'cookies": cookies ?? _COOKIE,
-            'query": aQuery ?? _GET,
-            'webroot": webroot,
-            'base": base,
-            `session": session,
-            'input": server["uimD_INPUT"] ?? null,
+            "environment": server,
+            "uri": anUri,
+            "cookies": cookies ?? _COOKIE,
+            "query": aQuery ?? _GET,
+            "webroot": webroot,
+            "base": base,
+            "session": session,
+            "input": server["uimD_INPUT"] ?? null,
         ]);
 
         request = marshalBodyAndRequestMethod(parsedBody ?? _POST, request);
@@ -136,7 +136,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      * @param Json[string] serverParams Array of SAPI parameters with which to seed
      *    the generated request instance.
      */
-    IServerRequest createServerRequest(string httpMethod, anUri, Json[string] serverParams = []) {
+    IServerRequest createServerRequest(string httpMethod, anUri, Json[string] serverParams = null) {
         serverParams["REQUEST_METHOD"] = method;
         options = ["environment": serverParams];
 
@@ -146,5 +146,5 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         options["uri"] = anUri;
 
         return new DServerRequest(options);
-    } */
+    } 
 }

@@ -248,7 +248,7 @@ class DClient { // }: IClient {
      * @param string[] mydata The query data you want to send.
      * @param Json[string] options Additional options for the request.
      */
-  Response get(string myurl, string[] mydata = [], Json[string] options = null) {
+  Response get(string myurl, string[] mydata = null, Json[string] options = null) {
     options = _mergeOptions(options);
     mybody = null;
     if (isArray(mydata) && isSet(mydata["_content"])) {
@@ -272,7 +272,7 @@ class DClient { // }: IClient {
      * @param Json mydata The post data you want to send.
      * @param Json[string] options Additional options for the request.
      */
-  Response post(string myurl, Json mydata = [], Json[string] options = null) {
+  Response post(string myurl, Json mydata = null, Json[string] options = null) {
     options = _mergeOptions(options);
     myurl = this.buildUrl(myurl, [], options);
 
@@ -286,7 +286,7 @@ class DClient { // }: IClient {
      * @param Json requestData The request data you want to send.
      * options = Additional options for the request.
      */
-  Response put(string myurl, Json requestData = [], Json[string] options = null) {
+  Response put(string myurl, Json requestData = nullll, Json[string] options = null) {
     options = _mergeOptions(options);
     myurl = this.buildUrl(myurl, [], options);
 
@@ -300,7 +300,7 @@ class DClient { // }: IClient {
      * @param Json requestData The request data you want to send.
      * @param Json[string] options Additional options for the request.
      */
-  Response patch(string myurl, Json requestData = [], Json[string] options = null) {
+  Response patch(string myurl, Json requestData = null, Json[string] options = null) {
     options = _mergeOptions(options);
     myurl = this.buildUrl(myurl, [], options);
 
@@ -314,7 +314,7 @@ class DClient { // }: IClient {
      * @param Json sendData The request data you want to send.
      * options = Additional options for the request.
      */
-  Response options(string myurl, Json sendData = [], Json[string] options = null) {
+  Response options(string myurl, Json sendData = null, Json[string] options = null) {
     options = _mergeOptions(options);
     myurl = this.buildUrl(myurl, [], options);
 
@@ -328,7 +328,7 @@ class DClient { // }: IClient {
      * @param Json sendData The request data you want to send.
      * @param Json[string] options Additional options for the request.
      */
-  Response trace(string myurl, Json sendData = [], Json[string] options = null) {
+  Response trace(string myurl, Json sendData = null, Json[string] options = null) {
     options = _mergeOptions(options);
     myurl = this.buildUrl(myurl, [], options);
 
@@ -490,7 +490,7 @@ class DClient { // }: IClient {
      * @param string[] myquery The query data for the URL.
      * @param Json[string] options The config options stored with Client.config()
      */
-  string buildUrl(string myurl, string[] myquery = [], Json[string] options = null) {
+  string buildUrl(string myurl, string[] myquery = null, Json[string] options = null) {
     if (options.isEmpty && myquery.isEmpty) {
       return myurl;
     }

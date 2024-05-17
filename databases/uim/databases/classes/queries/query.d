@@ -369,7 +369,7 @@ abstract class DQuery : IQuery { // : IExpression {
         _parts["from"] = overwrite
             ? aTables
             : array_merge(_parts["from"], aTables);
-            
+
        _isDirty();
     }
     
@@ -457,7 +457,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * @param STRINGAA types Associative array of type names used to bind values to query
      * @param bool overwrite whether to reset joins with passed list or not
     */
-    auto join(string[] atables, Json[string] types = [], bool overwrite = false) {
+    auto join(string[] atables, Json[string] types = null, bool overwrite = false) {
         if (isString(aTables) || isSet(aTables["table"])) {
             aTables = [aTables];
         }

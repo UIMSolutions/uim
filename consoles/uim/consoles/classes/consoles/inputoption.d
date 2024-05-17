@@ -86,7 +86,7 @@ class DConsoleInputOption {
         string ahelp = "",
         bool isBooleanOption = false,
         string|null default = null,
-        string[] validChoices = [],
+        string[] validChoices = null,
         bool acceptsMultiple = false,
         bool isRequiredOption = false,
         string promptText = null

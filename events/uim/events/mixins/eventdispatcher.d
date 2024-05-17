@@ -52,7 +52,7 @@ mixin template TEventDispatcher() {
      * (this by default).
      * @return \UIM\Event\IEvent<TSubject>
      */
-    IEvent dispatchEvent(string eventName, Json[string] data = [], ?object subject = null) {
+    IEvent dispatchEvent(string eventName, Json[string] data = null, ?object subject = null) {
         subject ??= this;
 
         auto event = new _eventClass(eventName, subject, someData);

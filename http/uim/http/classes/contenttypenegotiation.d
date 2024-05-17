@@ -53,7 +53,7 @@ class DContentTypeNegotiation {
      * Params:
      * \Psr\Http\Message\IRequest request The request to use.
      */
-    string preferredType(IRequest request, string[] supportedContenttypeChoices = []) {
+    string preferredType(IRequest request, string[] supportedContenttypeChoices = null) {
         auto parsed = this.parseAccept(request);
         if (parsed.isEmpty) {
             return null;

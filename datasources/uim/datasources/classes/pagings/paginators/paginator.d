@@ -226,10 +226,8 @@ class DPaginator : IPaginator {
      * @param \uim\Datasource\IRepository object The repository object.
      * @param Json[string] myParams Request params
      * @param Json[string] settings The settings/configuration used for pagination.
-     * @return Json[string] Array with keys "defaults", "options" and "finder"
      */
-    protected auto extractData(IRepository anRepository, Json[string] myParams, Json[string] settings): array
-    {
+    protected Json[string] extractData(IRepository anRepository, Json[string] myParams, Json[string] settings) {
         aliasName = object.aliasName();
         defaults = getDefaults(aliasName, settings);
         options = mergeOptions(myParams, defaults);

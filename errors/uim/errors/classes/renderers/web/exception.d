@@ -29,7 +29,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     protected string atemplate = "";
 
     // The method corresponding to the Exception this object is for.
-    protected string amethod = "";
+    protected string methodName = "";
 
     /**
      * The exception being handled.
@@ -220,10 +220,10 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     /**
      * Render a custom error method/template.
      * Params:
-     * string amethod The method name to invoke.
+     * string methodName The method name to invoke.
      * @param \Throwable exception The exception to render.
      */
-    protected DResponse _customMethod(string amethod, Throwable exception) {
+    protected DResponse _customMethod(string methodName, Throwable exception) {
         result = this.{method}(exception);
        _shutdown();
         if (isString(result)) {
@@ -267,10 +267,10 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Get template for rendering exception info.
      * Params:
      * \Throwable exception Exception instance.
-     * @param string amethod Method name.
+     * @param string methodName Method name.
      * @param int code Error code.
      */
-    protected string _template(Throwable exception, string amethod, int code) {
+    protected string _template(Throwable exception, string methodName, int code) {
         if (cast(HttpException)exception || !configuration.hasKey("debug")) {
             return _template = code < 500 ? "error400' : 'error500";
         }

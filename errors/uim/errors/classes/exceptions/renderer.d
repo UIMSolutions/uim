@@ -288,7 +288,6 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * @param \Throwable myException Exception instance.
      * @param string method Method name.
      * @param int errorCode Error errorCode.
-     * @return string Template name
      */
     protected string _template(Throwable myException, string method, int errorCode) {
         if (myException instanceof HttpException || !Configure.read("debug")) {

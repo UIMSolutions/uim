@@ -166,9 +166,8 @@ interface IQuery {
      * ```
      *
      * @param uim.databases.IExpression|int|null offset number of records to be skipped
-     * @return this
      */
-    function offset(offset);
+    void offset(offset);
 
     /**
      * Adds a single or multiple fields to be used in the ORDER clause for this query.

@@ -803,11 +803,11 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Update the request method and get a new instance.
      * Params:
-     * string amethod The HTTP method to use.
+     * string httpMethod The HTTP method to use.
      * @return static A new instance with the updated method.
      * @link https://www.d-fig.org/psr/psr-7/ This method is part of the PSR-7 server request interface.
      */
-    static withMethod(string amethod) {
+    static withMethod(string httpMethod) {
         new = clone this;
 
         if (!preg_match("/^[!#%&\'*+.^_`\|~0-9a-z-]+/i", method)) {
@@ -1189,7 +1189,7 @@ class DServerRequest { // }: IServerRequest {
      * If the request would be GET, response header "Allow: POST, DELETE" will be set
      * and a 405 error will be returned.
      * Params:
-     * string[]|string amethods Allowed HTTP request methods.
+     * string[]|string httpMethods Allowed HTTP request methods.
      * @return true
      * @throws \UIM\Http\Exception\MethodNotAllowedException
      */

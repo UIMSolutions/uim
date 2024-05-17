@@ -10,7 +10,7 @@ import uim.datasources;
 @safe:
 
 // This interface defines the methods you can depend on in a connection
-interface JsonsourceConnection { // : ILoggerAware
+interface JsonSourceConnection { // : ILoggerAware
   // Gets the driver instance.
   // object getDriver(string role = self.ROLE_WRITE);
 
@@ -59,8 +59,7 @@ interface JsonsourceConnection { // : ILoggerAware
      * @throws \Exception Will re-throw any exception raised in callback after
      *   rolling back the transaction.
      */
-  // TODO
-  // function transactional(callable callback);
+  Json[string] transactional(callable callback);
 
   /**
      * Run an operation with constraints disabled.
@@ -80,6 +79,5 @@ interface JsonsourceConnection { // : ILoggerAware
      * @throws \Exception Will re-throw any exception raised in callback after
      *   rolling back the transaction.
      */
-  // TODO
-  // auto disableConstraints(callable callback);
+  Json[string] disableConstraints(callable callback);
 }

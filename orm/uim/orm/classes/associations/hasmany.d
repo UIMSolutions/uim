@@ -383,7 +383,6 @@ class DHasManyAssociation : DAssociation {
      * when persisting/updating new links, or deleting existing ones
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      * any of them is lacking a primary key value
-     * @return bool success
      */
     bool replace(IORMEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
         property = getProperty();

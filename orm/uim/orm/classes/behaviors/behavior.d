@@ -329,14 +329,11 @@ class DBehavior : IEventListener {
      * It is recommended, though not required, to define implementedFinders in the config property
      * of child classes such that it is not necessary to use reflections to derive the available
      * method list. See core behaviors for examples
-     *
-     * @return array
-     * @throws \ReflectionException
      */
-    array implementedMethods() {
-        methods = this.configuration.get("implementedMethods");
-        if (isset(methods)) {
-            return methods;
+    Json[string] implementedMethods() {
+        auto methods = configuration.get("implementedMethods");
+        if (!methods.isNull) {
+            return methods.toJsonMap;
         }
 
         return _reflectionCache()["methods"];

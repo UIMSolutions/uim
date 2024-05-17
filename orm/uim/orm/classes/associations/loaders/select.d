@@ -336,10 +336,8 @@ class DSelectLoader {
      * to load records in the source table.
      *
      * @param DORMQuery query the original query used to load source records
-     * @return DORMQuery
      */
-    protected function _buildSubquery(Query query): Query
-    {
+    protected DORMQuery _buildSubquery(Query query) {
         filterQuery = clone query;
         filterQuery.disableAutoFields();
         filterQuery.mapReduce(null, null, true);

@@ -98,17 +98,17 @@ mixin template TQuery() {
      * Simple string key + config
      * query.cache("_key", "db_results");
      *
-     *// Function to generate key.
+     * / Function to generate key.
      * query.cache(function (q) {
      *   key = serialize(q.clause("select"));
      *   key ~= serialize(q.clause("where"));
      *   return md5(key);
      * });
      *
-     *// Using a pre-built cache engine.
+     * / Using a pre-built cache engine.
      * query.cache("_key", engine);
      *
-     *// Disable caching
+     * / Disable caching
      * query.cache(false);
      *
      * @param \Closure|string|false key Either the cache key or a function to generate the cache key.
@@ -334,7 +334,7 @@ mixin template TQuery() {
      * Retaining access to the association target query instance of joined associations,
      * by inheriting the contain callback"s query argument:
      *
-     *// Assuming a `Articles belongsTo Authors` association that uses the join strategy
+     * / Assuming a `Articles belongsTo Authors` association that uses the join strategy
      *
      * articlesQuery.contain("Authors", function (authorsQuery) {
      *     return authorsQuery.formatResults(function (results, query) use (authorsQuery) {

@@ -3,7 +3,7 @@ module uim.apps.interfaces.appmanager;
 import uim.apps;
 @safe:
 
-interface IAppManager /*// TODO: IViewManager, IControllerManager {
+interface IAppManager /* / TODO: IViewManager, IControllerManager {
   IEntityBase entityBase();
    
   IAppContainer appContainer();

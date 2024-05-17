@@ -228,7 +228,7 @@ mixin template TEntity() {
      * You do not need to use the guard option when assigning fields individually:
      *
      * ```
-     *// No need to use the guard option.
+     * / No need to use the guard option.
      * entity.set("name", "Andrew");
      * ```
      *
@@ -849,7 +849,7 @@ mixin template TEntity() {
      * ## Example
      *
      * ```
-     *// Sets the error messages for multiple fields at once
+     * / Sets the error messages for multiple fields at once
      * entity.setErrors(["salary": ["message"], "name": ["another message"]]);
      * ```
      * Params:
@@ -879,7 +879,7 @@ mixin template TEntity() {
      * ### Example
      *
      * ```
-     *// Sets the error messages for a single field
+     * / Sets the error messages for a single field
      * entity.setErrors("salary", ["must be numeric", "must be a positive number"]);
      * ```
      * Params:

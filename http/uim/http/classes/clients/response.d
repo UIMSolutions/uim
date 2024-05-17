@@ -46,9 +46,9 @@ import uim.http;
  * as SimpleXML nodes:
  *
  * ```
- *// Get as XML
+ * / Get as XML
  * content = response.getXml()
- *// Get as Json
+ * / Get as Json
  * content = response.getJson()
  * ```
  *

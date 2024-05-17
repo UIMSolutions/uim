@@ -1,5 +1,5 @@
 name "models"
-description "D-Lib for mvc models"
+description "Libary for mvc models"
 homepage "https://www.sicherheitsschmiede.de/"
 license "Apache-2.0"
 copyright "Copyright © 2015-2024, Ozan Nurettin Süel"

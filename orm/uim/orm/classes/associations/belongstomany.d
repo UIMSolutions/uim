@@ -1002,7 +1002,6 @@ class DBelongsToManyAssociation : DAssociation {
      *   when persisting/updating new links, or deleting existing ones
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      *   any of them is lacking a primary key value
-     * @return bool success
      */
     bool replaceLinks(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] optionData = null) {
         bindingKey = (array)getBindingKey();

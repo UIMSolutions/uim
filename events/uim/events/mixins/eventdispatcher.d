@@ -59,5 +59,5 @@ mixin template TEventDispatcher() {
         getEventManager().dispatch(event);
 
         return event;
-    } */
+    } 
 }

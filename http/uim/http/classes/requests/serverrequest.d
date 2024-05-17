@@ -1214,16 +1214,15 @@ class DServerRequest { // }: IServerRequest {
      *
      * Use `withParsedBody()` if you need to replace the all request data.
      * Params:
-     * string aName The dot separated path to insert aValue at.
      * @param Json aValue The value to insert into the request data.
      * @return static
      */
-    auto withData(string aName, Json aValue): static
+    auto withData(string pathToInsert, Json aValue): static
     {
         copy = clone this;
 
         if (isArray(copy.data)) {
-            copy.data = Hash.insert(copy.data, name, aValue);
+            copy.data = Hash.insert(copy.data, pathToInsert, aValue);
         }
         return copy;
     }
@@ -1251,40 +1250,32 @@ class DServerRequest { // }: IServerRequest {
      * Returns an updated request object. This method returns
      * a *new* request object and does not mutate the request in-place.
      * Params:
-     * string aName The dot separated path to insert aValue at.
      * @param Json aValue The value to insert into the the request parameters.
      * @return static
      */
-    auto withParam(string aName, Json aValue): static
-    {
+    static auto withParam(string insertPath, Json aValue) {
         copy = clone this;
-        copy.params = Hash.insert(copy.params, name, aValue);
+        copy.params = Hash.insert(copy.params, insertPath, aValue);
 
         return copy;
     }
     
-    /**
-     * Safely access the values in this.params.
-     * Params:
-     * string aName The name or dotted path to parameter.
-     * @param Json defaultValue The default value if `name` is not set. Default `null`.
-    */
-    Json getParam(string aName, Json defaultValue = Json(null)) {
+    // Safely access the values in this.params.
+    Json getParam(string path, Json defaultValue = Json(null)) {
         return Hash.get(this.params, name, default);
     }
     
     /**
      * Return an instance with the specified request attribute.
      * Params:
-     * string aName The attribute name.
      * @param Json aValue The value of the attribute.
      */
-    static withAttribute(string aName, Json aValue) {
+    static withAttribute(string attributeName, Json aValue) {
         new = clone this;
-        if (in_array(name, this.emulatedAttributes, true)) {
-            new.{name} = aValue;
+        if (in_array(attributeName, this.emulatedAttributes, true)) {
+            new.{attributeName} = aValue;
         } else {
-            new.attributes[name] = aValue;
+            new.attributes[attributeName] = aValue;
         }
         return new;
     }

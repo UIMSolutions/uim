@@ -19,32 +19,23 @@ import uim.errors;
  *  the concrete interface because the return types are not compatible.
  */
 class DTextExceptionRenderer {
-    /**
-     * @var \Throwable
-     */
-    private error;
+    private Throwable _error;
 
-    /**
-     * Constructor.
-     *
-     * @param \Throwable error The error to render.
-     */
-    this(Throwable error) {
-        this.error = error;
+    this(Throwable errorToRender) {
+        _error = error;
     }
 
     /**
      * Render an exception into a plain text message.
-     *
      * @return IResponse|string
      */
     function render() {
         return "%s : %s on line %s of %s\nTrace:\n%s".format(
-            this.error.getCode(),
-            this.error.getMessage(),
-            this.error.getLine(),
-            this.error.getFile(),
-            this.error.getTraceAsString(),
+            _error.getCode(),
+            _error.getMessage(),
+            _error.getLine(),
+            _error.getFile(),
+            _error.getTraceAsString(),
         );
     }
 

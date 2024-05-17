@@ -119,7 +119,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      */
     auto insertBefore(string className, IHttpMiddleware|Closure|string amiddleware) {
         bool isFound = false;
-         anI = 0;
+        anI = 0;
         foreach (anI: object; this.queue) {
             if (
                 (

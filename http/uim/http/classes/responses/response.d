@@ -811,10 +811,10 @@ class DResponse : IResponse {
      * ### Examples:
      *
      * ```
-     *// Will Expire the response cache now
+     * Will Expire the response cache now
      * response.withExpires("now")
      *
-     *// Will set the expiration in next 24 hours
+     * Will set the expiration in next 24 hours
      * response.withExpires(new DateTime("+1 day"))
      * ```
      * Params:
@@ -832,10 +832,10 @@ class DResponse : IResponse {
      * ### Examples:
      *
      * ```
-     *// Will Expire the response cache now
+     * Will Expire the response cache now
      * response.withModified("now")
      *
-     *// Will set the expiration in next 24 hours
+     * Will set the expiration in next 24 hours
      * response.withModified(new DateTime("+1 day"))
      * ```
      * Params:
@@ -1052,7 +1052,7 @@ class DResponse : IResponse {
      * ### Example
      *
      * ```
-     *// add a cookie object
+     * add a cookie object
      * response = response.withCookie(new DCookie("remember_me", 1));
      * ```
      * Params:
@@ -1073,15 +1073,13 @@ class DResponse : IResponse {
      * ### Example
      *
      * ```
-     *// add a cookie object
+     * add a cookie object
      * response = response.withExpiredCookie(new DCookie("remember_me"));
      * ```
      * Params:
      * \UIM\Http\Cookie\ICookie cookie cookie object
-     * @return static
      */
-    auto withExpiredCookie(ICookie cookie): static
-    {
+    static auto withExpiredCookie(ICookie cookie) {
         cookie = cookie.withExpired();
 
         new = clone this;

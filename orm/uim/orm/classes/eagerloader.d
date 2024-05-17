@@ -127,7 +127,7 @@ class DEagerLoader {
      * @return array Containments.
      * @throws \InvalidArgumentException When using queryBuilder with an array of associations
      */
-    array contain(associations, ?callable queryBuilder = null) {
+    Json[string]contain(associations, ?callable queryBuilder = null) {
         if (queryBuilder) {
             if (!(associations.isString) {
                 throw new DInvalidArgumentException(
@@ -195,9 +195,8 @@ class DEagerLoader {
      * @param callable|null builder the callback function to be used for setting extra
      * options to the filtering query
      * @param Json[string] options Extra options for the association matching.
-     * @return this
      */
-    function setMatching(string associationPath, ?callable builder = null, Json[string] optionData = null) {
+    void setMatching(string associationPath, ?callable builder = null, Json[string] optionData = null) {
         if (_matching == null) {
             _matching = new static();
         }
@@ -217,16 +216,10 @@ class DEagerLoader {
         // Add all options to target association contain which is the last in nested chain
         nested = ["matching": true.toJson, "queryBuilder": builder] + options;
         _matching.contain(contains);
-
-        return this;
     }
 
-    /**
-     * Returns the current tree of associations to be matched.
-     *
-     * @return array The resulting containments array
-     */
-    array getMatching() {
+    // Returns the current tree of associations to be matched.
+    Json[string] getMatching() {
         if (_matching == null) {
             _matching = new static();
         }

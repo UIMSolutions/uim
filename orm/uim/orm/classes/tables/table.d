@@ -2649,13 +2649,12 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] options The options array, optionally containing the "scope" key.
      *  May also be the validation context, if there are no options.
      * @param array|null mycontext Either the validation context or null.
-     * @return bool True if the value is unique, or false if a non-scalar, non-unique value was given.
      */
     bool validateUnique(Json aValue, Json[string] options, Json[string] mycontext = null) {
         if (mycontext.isNull) {
             mycontext = options;
         }
-        myentity = new DORMEntity(
+        auto myentity = new DORMEntity(
             mycontext["data"],
             [
                 "useSetters": false.toJson,

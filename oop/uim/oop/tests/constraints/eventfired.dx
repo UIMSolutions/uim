@@ -20,7 +20,7 @@ class DEventFired : DConstraint {
      * Params:
      * \UIM\Event\EventManager eventManager Event manager to check
      */
-    this(EventManager eventManager) {
+    this(DEventManager eventManager) {
        _eventManager = eventManager;
 
         if (_eventManager.getEventList().isNull) {

@@ -311,7 +311,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     /**
      * Returns the list of previously registered map reduce routines.
      */
-    array getMapReducers() {
+    Json[string]getMapReducers() {
         return _mapReduce;
     }
     

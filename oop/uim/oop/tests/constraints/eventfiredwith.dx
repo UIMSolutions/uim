@@ -27,7 +27,7 @@ class DEventFiredWith : DConstraint {
      * @param string dataKey Data key
      * @param Json someDataValue Data value
      */
-    this(EventManager eventManager, string dataKey, Json someDataValue) {
+    this(DEventManager eventManager, string dataKey, Json someDataValue) {
        _eventManager = eventManager;
        _dataKey = dataKey;
        _dataValue = someDataValue;

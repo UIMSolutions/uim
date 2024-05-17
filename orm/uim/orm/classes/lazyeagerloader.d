@@ -104,7 +104,7 @@ class DLazyEagerLoader {
      * @param \ORM\Table mysource The table where the entities came from
      */
     protected IORMEntity[] _injectResults(
-        array myentities,
+        Json[string]myentities,
         SelectQuery myquery,
         Json[string] myassociations,
         Table mysource

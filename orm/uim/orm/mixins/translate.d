@@ -43,5 +43,5 @@ mixin template TTranslate() {
         setDirty("_translations", true);
 
         return i18n[language];
-    } */
+    } 
 }

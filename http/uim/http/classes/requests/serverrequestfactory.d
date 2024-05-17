@@ -129,14 +129,14 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      * of the given values is performed, and, in particular, no attempt is made to
      * determine the HTTP method or URI, which must be provided explicitly.
      * Params:
-     * string amethod The HTTP method associated with the request.
+     * string httpMethod The HTTP method associated with the request.
      * @param \Psr\Http\Message\IUri|string auri The URI associated with the request. If
      *    the value is a string, the factory MUST create a IUri
      *    instance based on it.
      * @param Json[string] serverParams Array of SAPI parameters with which to seed
      *    the generated request instance.
      */
-    IServerRequest createServerRequest(string amethod, anUri, Json[string] serverParams = []) {
+    IServerRequest createServerRequest(string httpMethod, anUri, Json[string] serverParams = []) {
         serverParams["REQUEST_METHOD"] = method;
         options = ["environment": serverParams];
 

@@ -366,11 +366,10 @@ abstract class DQuery : IQuery { // : IExpression {
     void from(string[] tableNames, bool overwrite = false) {
         if (tableNames.isEmpty) { return; }
 
-        if (overwrite) {
-           _parts["from"] = aTables;
-        } else {
-           _parts["from"] = array_merge(_parts["from"], aTables);
-        }
+        _parts["from"] = overwrite
+            ? aTables
+            : array_merge(_parts["from"], aTables);
+            
        _isDirty();
     }
     

@@ -263,11 +263,11 @@ class DRulesChecker {
             options = name;
             name = null;
         }
-        if (!cast(RuleInvoker)rule)) {
-            rule = new DRuleInvoker(rule, name, options);
-        } else {
-            rule.setOptions(options).name(name);
-        }
+
+        return !cast(RuleInvoker)rule
+            ? new DRuleInvoker(rule, name, options)
+            : rule.setOptions(options).name(name);
+
         return rule;
-    } */
+    }
 }

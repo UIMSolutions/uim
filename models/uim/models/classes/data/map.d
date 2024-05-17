@@ -106,4 +106,4 @@ unittest {
   map["key3"] = 100;
   debug writeln(map.keys);
   debug writeln(map.values.map!(v => v.toString).array);
-} */
+} 

@@ -49,8 +49,6 @@ interface ISqlGenerator {
      * to generate platform specific SQL.
      *
      * @param DDBAConnection connection The connection to generate SQL for.
-     * @return Json[string] List of SQL statements to create the table and the
-     *    required indexes.
      */
     Json[string] createSql(Connection connection);
 
@@ -61,7 +59,6 @@ interface ISqlGenerator {
      * specific SQL.
      *
      * @param DDBAConnection connection The connection to generate SQL for.
-     * @return Json[string] SQL to drop a table.
      */
     Json[string] dropSql(Connection connection);
 

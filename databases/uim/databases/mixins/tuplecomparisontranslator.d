@@ -52,9 +52,9 @@ mixin template TTupleComparisonTranslator() {
             return;
         }
         auto myType = expression.getType();
-        if (myType) {
+        typeMap = if (myType) {
             /** @var STRINGAA typeMap */
-            typeMap = array_combine(fields, myType) ?  : [];
+             = array_combine(fields, myType) ?  : [];
         } else {
             typeMap = null;
         }

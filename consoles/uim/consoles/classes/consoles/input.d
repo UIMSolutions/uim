@@ -25,7 +25,6 @@ class DConsoleInput {
 
     mixin(TProperty!("string", "name"));
 
-    /*
     // Input value.
     protected resource _input;
 

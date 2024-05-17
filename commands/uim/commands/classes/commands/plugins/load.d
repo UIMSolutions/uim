@@ -76,7 +76,7 @@ class DPluginLoadCommand : DCommand {
         configData = Hash.normalize(configData);
     }
 
-    configuration.get(pluginName] = options;
+    configuration.set(pluginName, options);
     auto Json[string] = class_exists(VarExporter.class)
         ? VarExporter.export(configData, VarExporter.TRAILING_COMMA_IN_ARRAY) 
         : var_export(configData, true);

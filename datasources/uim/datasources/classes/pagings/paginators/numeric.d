@@ -324,15 +324,12 @@ class DNumericPaginator : IPaginator {
      *
      * @param Json[string] params Paginator params.
      * @param Json[string] data Paging data.
-     * @return Json[string] Updated params.
      */
     protected Json[string] addPrevNextParams(Json[string] params, Json[string] data) {
     params["prevPage"] = params["page"] > 1;
-    if (params["count"] == null) {
-        params["nextPage"] = true;
-    } else {
-        params["nextPage"] = params["count"] > params["page"] * params["perPage"];
-    }
+    params["nextPage"] = params["count"] == null
+        ? true
+        : params["count"] > params["page"] * params["perPage"];
 
     return params;
 }

@@ -136,7 +136,7 @@ class DDateTimeWidget : DWidget {
      */
     protected string formatDateTime(
         DChronosDate|ChronosTime|Jsonmyvalue,
-        Json[string] options
+        Json[string] optionsForConversion
     ) {
         if (myvalue == "" || myvalue.isNull) {
             return "";
@@ -154,23 +154,23 @@ class DDateTimeWidget : DWidget {
         } catch (Exception) {
             mydateTime = new DateTime();
         }
-        if (isSet(options["timezone"])) {
-            mytimezone = options["timezone"];
+        if (isSet(optionsForConversion["timezone"])) {
+            mytimezone = optionsForConversion["timezone"];
             if (!cast(DateTimeZone)mytimezone) {
                 mytimezone = new DateTimeZone(mytimezone);
             }
             mydateTime = mydateTime.setTimezone(mytimezone);
         }
         
-        if (isSet(options["format"])) {
-            myformat = options["format"];
+        if (isSet(optionsForConversion["format"])) {
+            myformat = optionsForConversion["format"];
         } else {
-            myformat = this.formatMap[options["type"]];
+            myformat = this.formatMap[optionsForConversion["type"]];
 
             if (
-                options["type"] == "datetime-local"
-                && isNumeric(options["step"])
-                && options["step"] < 1
+                optionsForConversion["type"] == "datetime-local"
+                && isNumeric(optionsForConversion["step"])
+                && optionsForConversion["step"] < 1
             ) {
                 myformat = "Y-m-d\TH:i:s.v";
             }
@@ -182,6 +182,6 @@ class DDateTimeWidget : DWidget {
             return null;
         }
         return [data["name"]];
-    } */
+    } 
 }
 mixin(WidgetCalls!("DateTime"));

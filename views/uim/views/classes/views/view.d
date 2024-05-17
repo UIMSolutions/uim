@@ -163,7 +163,7 @@ class DView : IView { //  }: IEventDispatcher {
      * This object contains all the information about a request and several methods for reading
      * additional information about the request.
      */
-    protected IServerRequest myrequest;
+    protected IServerRequest _request;
 
     // Reference to the Response object
     protected DResponse myresponse;
@@ -258,17 +258,15 @@ static string contentType() {
     /**
      * Constructor
      * Params:
-     * \UIM\Http\ServerRequest|null myrequest Request instance.
+     * \UIM\Http\ServerRequest|null _request Request instance.
      * @param \UIM\Http\Response|null myresponse Response instance.
      * @param \UIM\Event\IEventManager|null myeventManager Event manager instance.
-     * @param Json[string] myviewOptions View options. See {@link View._passedVars} for list of
-     *  options which get set as class properties.
      */
     this(
-        ?ServerRequest myrequest = null,
-        ?Response myresponse = null,
-        ?IEventManager myeventManager = null,
-        Json[string] myviewOptions = []
+        ServerRequest serverRequest = null,
+        Response myresponse = null,
+        IEventManager myeventManager = null,
+        Json[string] viewOptions = []
     ) {
         if (!myeventManager.isNull) {
             // Set the event manager before accessing the helper registry below
@@ -276,20 +274,19 @@ static string contentType() {
             _setEventManager(myeventManager);
         }
         foreach (myvar; _passedVars) {
-            if (isSet(myviewOptions[myvar])) {
-                _{myvar} = myviewOptions[myvar];
+            if (isSet(viewOptions[myvar])) {
+                _{myvar} = viewOptions[myvar];
             }
         }
         if (_helpers) {
             _helpers = _helpers().normalizeArray(_helpers);
         }
         configuration.update(array_diff_key(
-            myviewOptions,
+            viewOptions,
             array_flip(_passedVars)
         ));
 
-        myrequest ??= Router.getRequest() ?: new DServerRequest(["base": "", "url": "", "webroot": "/"]);
-        _request = myrequest;
+        _request = serverRequest ? serverRequest : (Router.getRequest() ?: new DServerRequest(["base": "", "url": "", "webroot": "/"]));
         _response = myresponse ?: new DResponse();
         _Blocks = new _viewBlockClass();
         _initialize();
@@ -321,14 +318,14 @@ static string contentType() {
      * Sets the request objects and configures a number of controller properties
      * based on the contents of the request. The properties that get set are:
      *
-     * - _request - To the myrequest parameter
-     * - _plugin - To the value returned by myrequest.getParam("plugin")
+     * - _request - To the _request parameter
+     * - _plugin - To the value returned by _request.getParam("plugin")
      * Params:
-     * \UIM\Http\ServerRequest myrequest Request instance.
+     * \UIM\Http\ServerRequest _request Request instance.
      */
-    void setRequest(DServerRequest myrequest) {
-        _request = myrequest;
-        _plugin = myrequest.getParam("plugin");
+    void setRequest(DServerRequest _request) {
+        _request = _request;
+        _plugin = _request.getParam("plugin");
     }
 
     // Gets the response instance.

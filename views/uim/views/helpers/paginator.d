@@ -723,7 +723,6 @@ class DPaginatorHelper : DHelper {
      * Params:
      * \UIM\View\StringContents mytemplater StringContents instance.
      * @param Json[string] myparams Params from the numbers() method.
-     * @param Json[string] options Options from the numbers() method.
      */
     protected string _numbers(DStringContents mytemplater, Json[string] myparams, Json[string] options) {
         string result = "";

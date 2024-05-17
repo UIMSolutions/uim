@@ -639,14 +639,13 @@ class DHtmlHelper : DHelper {
      * string[] mydata Array of table data
      * @param Json[string]|bool|null myoddTrOptions HTML options for odd TR elements if true useCount is used
      * @param Json[string]|bool|null myevenTrOptions HTML options for even TR elements
-     * @param bool myuseCount adds class "column-myi"
      * @param bool mycontinueOddEven If false, will use a non-static mycount variable,
      */
     string tableCells(
         string[] mydata,
         Json|null myoddTrOptions = null,
         Json|null myevenTrOptions = null,
-        bool myuseCount = false,
+        bool useCount = false,
         bool mycontinueOddEven = true
     ) {
         if (!isArray(mydata)) {

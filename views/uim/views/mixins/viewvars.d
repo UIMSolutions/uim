@@ -54,5 +54,5 @@ mixin template TViewVars() {
             mydata = [views: myvalue];
         }
         viewBuilder().setData(mydata);
-    } */
+    }
 } 

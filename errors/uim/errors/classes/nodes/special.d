@@ -11,7 +11,7 @@ class DSpecialNode : IErrorNode {
   private string _value;
 
   /**
-    * Constructor
+    
     * Params:
     * string avalue The message/value to include in dump results.
     */

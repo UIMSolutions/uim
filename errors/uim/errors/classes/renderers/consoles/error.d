@@ -16,7 +16,7 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
 
 
     /**
-     * Constructor.
+     .
      *
      * ### Options
      *

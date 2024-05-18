@@ -29,7 +29,7 @@ class DCorsBuilder {
     protected Json[string] _headers = null;
 
     /**
-     * Constructor.
+     .
      * Params:
      * \Psr\Http\Message\IResponse response The response object to add headers onto.
      * @param string aorigin The request`s Origin header.

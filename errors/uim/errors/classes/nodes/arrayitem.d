@@ -14,7 +14,7 @@ class DArrayItemErrorNode : IErrorNode {
   private IErrorNode _value;
 
   /**
-    * Constructor
+    
     *
     * aKey - The node for the item key
     * aValue - The node for the array value

@@ -17,7 +17,7 @@ class DFatalErrorException : UimException {
         return true;
     }
     /**
-     * Constructor
+     
      *
      * @param string message Message string.
      * @param int|null code Code.

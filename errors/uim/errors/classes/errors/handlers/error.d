@@ -75,7 +75,7 @@ import uim.errors;
  */
 class DErrorHandler { // }: DERRErrorHandler
     /**
-     * Constructor
+     
      *
      * @param Json[string] aConfig The options for error handling.
      */

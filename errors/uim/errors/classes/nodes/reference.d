@@ -17,7 +17,7 @@ import uim.errors;
  */
 class DReferenceNode : IErrorNode {
   /**
-    * Constructor
+    
     *
     * aClassName - The class name
     * anId - The id of the referenced class.

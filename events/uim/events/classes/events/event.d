@@ -40,7 +40,7 @@ class DEvent : IEvent {
     }
 
     /**
-     * Constructor
+     
      *
      * ### Examples of usage:
      *

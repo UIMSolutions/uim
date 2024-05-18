@@ -24,7 +24,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
     private bool trace;
 
     /**
-     * Constructor.
+     .
      * Params:
      * \Throwable error The error to render.
      * @param \Psr\Http\Message\IServerRequest|null request Not used.

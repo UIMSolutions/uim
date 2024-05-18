@@ -200,7 +200,7 @@ class DPaginator : IPaginator {
     // \uim\Datasource\IRepository object Repository instance.
     // \uim\Datasource\IQuery|null myQuery Query Instance.
     //  Json[string] myData Pagination data.
-    protected IDSQuery getQuery(IRepository object, ?IQuery myQuery, Json[string] myData) {
+    protected IDSQuery getQuery(IRepository object, IQuery myQuery, Json[string] myData) {
         if (myQuery == null) {
             myQuery = object.find(myData["finder"], myData["options"]);
         } else {
@@ -246,10 +246,8 @@ class DPaginator : IPaginator {
      *
      * @param Json[string] myData Paginator data containing keys "options",
      *   "count", "defaults", "finder", "numResults".
-     * @return Json[string] Paging params.
      */
-    protected auto buildParams(Json[string] myData): array
-    {
+    protected Json[string] buildParams(Json[string] myData) {
         limit = myData["options"]["limit"];
 
         paging = [

@@ -333,7 +333,7 @@ class DExceptionTrap {
      * @param \Throwable exception The exception to log
      * @param IServerRequest|null request The optional request
      */
-    void logException(Throwable exception, ?IServerRequest request = null) {
+    void logException(Throwable exception, IServerRequest request = null) {
         shouldLog = _config["log"];
         if (shouldLog) {
             foreach (getConfig("skipLog") as aClassName) {

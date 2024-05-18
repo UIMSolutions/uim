@@ -126,7 +126,7 @@ class DErrorHandler { // }: DERRErrorHandler
      */
     IExceptionRenderer getRenderer(
         Throwable exception,
-        ?IServerRequest request = null
+        IServerRequest request = null
     )  {
         renderer = _config["exceptionRenderer"];
 

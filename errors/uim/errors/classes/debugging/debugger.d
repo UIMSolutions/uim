@@ -524,18 +524,17 @@ class DDebugger {
      * implement the function as it is the case of the HipHop interpreter
      *
      * @param string str The string to convert.
-     * @return string
      */
-    protected static string _highlight(string str) {
+    protected static string _highlight(string stringToConvert) {
         if (function_exists('hD_log') || function_exists('hD_gettid')) {
-            return htmlentities(str);
+            return htmlentities(stringToConvert);
         }
         added = false;
         if (indexOf(str, '<?D') == false) {
             added = true;
-            str = "<?D \n" ~ str;
+            stringToConvert = "<?D \n" ~ stringToConvert;
         }
-        highlight = highlight_string(str, true);
+        highlight = highlight_string(stringToConvert, true);
         if (added) {
             highlight = replace(
                 ['&lt;?D&nbsp;<br/>', '&lt;?D&nbsp;<br />'],
@@ -554,8 +553,7 @@ class DDebugger {
      * @unstable This method is not stable and may change in the future.
      * @since 4.1.0
      */
-    function getExportFormatter(): IErrorFormatter
-    {
+    IErrorFormatter getExportFormatter() {
         instance = getInstance();
         aClassName = instance.getConfig('exportFormatter');
         if (!aClassName) {

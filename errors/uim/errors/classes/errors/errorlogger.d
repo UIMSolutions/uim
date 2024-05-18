@@ -28,7 +28,7 @@ class DErrorLogger : IErrorLogger {
     }
 
     /*
-    void logError(UimError error, ?IServerRequest serverRequest = null, bool  anIncludeTrace = false) {
+    void logError(UimError error, IServerRequest serverRequest = null, bool  anIncludeTrace = false) {
         auto errorMessage = error.getMessage();
         if (request) {
             errorMessage ~= getRequestContext(request);
@@ -48,7 +48,7 @@ class DErrorLogger : IErrorLogger {
  
     void logException(
         Throwable exception,
-        ?IServerRequest serverRequest = null,
+        IServerRequest serverRequest = null,
         bool  anIncludeTrace = false
     ) {
         exceptionMessage = getMessage(exception, false,  anIncludeTrace);

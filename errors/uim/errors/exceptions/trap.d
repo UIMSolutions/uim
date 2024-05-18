@@ -282,7 +282,7 @@ class DExceptionTrap {
      * \Throwable exception The exception to log
      * @param \Psr\Http\Message\IServerRequest|null serverRequest The optional request
      */
-    void logException(Throwable anException, ?IServerRequest serverRequest = null) {
+    void logException(Throwable anException, IServerRequest serverRequest = null) {
         shouldLog = configuration.get("log"];
         if (shouldLog) {
             foreach (_configData.isSet("skipLog") as  className) {

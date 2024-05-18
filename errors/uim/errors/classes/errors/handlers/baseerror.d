@@ -64,7 +64,6 @@ abstract class DERRErrorHandler {
      *
      * @param Json[string] error An array of error data.
      * @param bool shouldDebug Whether the app is in debug mode.
-     * @return void
      */
     abstract protected void _displayError(Json[string] error, bool shouldDebug);
 
@@ -75,7 +74,6 @@ abstract class DERRErrorHandler {
      * desired for the runtime they operate in.
      *
      * @param \Throwable exception The uncaught exception.
-     * @return void
      */
     abstract protected void _displayException(Throwable exception);
 
@@ -298,7 +296,7 @@ abstract class DERRErrorHandler {
      * @param \Throwable exception The exception to log a message for.
      * @param IServerRequest|null request The current request.
      */
-    bool logException(Throwable exception, ?IServerRequest request = null) {
+    bool logException(Throwable exception, IServerRequest request = null) {
         if (_config.isEmpty("log"])) {
             return false;
         }

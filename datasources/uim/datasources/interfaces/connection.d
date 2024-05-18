@@ -53,13 +53,8 @@ interface JsonSourceConnection { // : ILoggerAware
      *   connection.newQuery().remove("users").execute();
      * });
      * ```
-     *
-     * @param callable callback The callback to execute within a transaction.
-     * @return mixed The return value of the callback.
-     * @throws \Exception Will re-throw any exception raised in callback after
-     *   rolling back the transaction.
      */
-  Json[string] transactional(callable callback);
+  Json[string] transactional(callable executeWithinTransaction);
 
   /**
      * Run an operation with constraints disabled.
@@ -75,9 +70,6 @@ interface JsonSourceConnection { // : ILoggerAware
      * ```
      *
      * @param callable callback The callback to execute within a transaction.
-     * @return mixed The return value of the callback.
-     * @throws \Exception Will re-throw any exception raised in callback after
-     *   rolling back the transaction.
      */
   Json[string] disableConstraints(callable callback);
 }

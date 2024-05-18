@@ -163,7 +163,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
     this(
         ServerRequest serverRequest,
         string aName = null,
-        ?IEventManager eventManager = null,
+        IEventManager eventManager = null,
     ) {
         if (aName) {
             name(aName);

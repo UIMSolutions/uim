@@ -202,9 +202,8 @@ class DNumericPaginator : IPaginator {
      * @param uim.Datasource\IRepository object Repository instance.
      * @param uim.Datasource\IQuery|null query Query Instance.
      * @param Json[string] data Pagination data.
-     * @return uim.Datasource\IQuery
      */
-    protected function getQuery(IRepository object,  ? IQuery query, Json[string] data) : IQuery {
+    protected IQuery getQuery(IRepository object,  IQuery query, Json[string] data) {
         if (query == null) {
             query = object.find(data["finder"], data["options"]);
         } else {

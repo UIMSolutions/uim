@@ -272,7 +272,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * {
      *     this.belongsTo("Users");
      *     this.belongsToMany("Tagging.Tags");
-     *     setPrimaryKey("something_else");
+     *     primaryKeys("something_else");
      * }
      * ```
      * Params:
@@ -364,7 +364,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     }
     
     // Sets the connection instance.
-    auto setConnection(Connection myconnection) {
+    void setConnection(Connection myconnection) {
        _connection = myconnection;
     }
     
@@ -402,7 +402,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * \UIM\Database\Schema\TableISchema|array myschema Schema to be used for this table
      */
-    auto setSchema(TableISchema|array myschema) {
+    void setSchema(TableISchema|array myschema) {
         if (isArray(myschema)) {
             auto constraints = null;
 
@@ -420,7 +420,6 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (configuration.get("debug")) {
             this.checkAliasLengths();
         }
-        return this;
     }
     
     /**
@@ -473,10 +472,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string[]|string aKey Sets a new name to be used as primary key
      */
-    auto setPrimaryKey(string[]|string aKey) {
+    void primaryKeys(string[]|string aKey) {
        _primaryKey = aKey;
-
-        return this;
     }
     
     // Returns the primary key field name.

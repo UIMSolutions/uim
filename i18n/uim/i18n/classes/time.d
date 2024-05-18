@@ -35,7 +35,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * Params:
      * string|int format Format.
      */
-    static auto setToStringFormat(string format) {
+    static void setToStringFormat(string format) {
         _toStringFormat = format;
     }
     

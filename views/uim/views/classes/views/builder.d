@@ -120,10 +120,8 @@ class DViewBuilder { // }: DJsonSerializable {
      * Params:
      * string|null mypath Path for layout files.
      */
-    auto setLayoutPath(string mypath) {
+    void setLayoutPath(string mypath) {
        _layoutPath = mypath;
-
-        return this;
     }
     
     /**

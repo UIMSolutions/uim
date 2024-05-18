@@ -45,7 +45,7 @@ class DTransactionStrategy : IFixtureStrategy {
         _helper = new DFixtureHelper();
     }
  
-    auto setupTest(string[] fixtureNames) {
+    void setupTest(string[] fixtureNames) {
         if (isEmpty(fixtureNames)) {
             return;
         }

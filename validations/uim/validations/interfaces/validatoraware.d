@@ -22,7 +22,7 @@ interface IValidatorAware {
      * Params:
      * @param \UIM\Validation\Validator myvalidator Validator object to be set.
      */
-    auto setValidator(string validatorName, Validator myvalidator);
+    void setValidator(string validatorName, Validator myvalidator);
 
     // Checks whether a validator has been set.
    bool hasValidator(string validatorName);

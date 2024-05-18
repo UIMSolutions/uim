@@ -387,10 +387,7 @@ class DMessage { //: JsonSerializable {
         return _setEmail("bcc", email, name);
     }
     
-    /**
-     * Gets "bcc" address.
-     *
-     */
+    // Gets "bcc" address.
     Json[string] getBcc() {
         return _bcc;
     }

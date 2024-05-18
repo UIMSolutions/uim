@@ -37,7 +37,7 @@ interface IEventDispatcher {
      * Params:
      * \UIM\Event\IEventManager eventManager the eventManager to set
      */
-    auto setEventManager(IEventManager eventManager);
+    void setEventManager(IEventManager eventManager);
 
     // Returns the UIM\Event\EventManager manager instance for this object.
     IEventManager getEventManager();

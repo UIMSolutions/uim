@@ -772,15 +772,13 @@ mixin template TEntity() {
      * Params:
      * bool new DIndicate whether this entity has been persisted.
     */
-  auto setNew(boolnew) {
+  void setNew(boolnew) {
     if (new) {
       foreach (_fields as myKey : p) {
         _isDirty[myKey] = true;
       }
     }
     _new = new;
-
-    return this;
   }
 
   /**

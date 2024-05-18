@@ -160,10 +160,8 @@ class DRoute : IRoute {
     }
     
     // Set the names of parameters that will be converted into passed parameters
-    auto setPass(string[] parameterNames) {
+    void setPass(string[] parameterNames) {
         configuration.update("pass"] = parameterNames;
-
-        return this;
     }
     
     /**
@@ -180,10 +178,8 @@ class DRoute : IRoute {
      * Params:
      * Json[string] routingss The names of the parameters that should be passed.
      */
-    auto setPersist(Json[string] routingss) {
+    void setPersist(Json[string] routingss) {
         configuration.update("persist"] = routingss;
-
-        return this;
     }
     
     /**

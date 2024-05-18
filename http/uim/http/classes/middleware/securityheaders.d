@@ -106,7 +106,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      * @param string apolicy Policy value. Available Value: 'no-referrer", "no-referrer-when-downgrade", "origin",
      *    'origin-when-cross-origin", "same-origin", "strict-origin", "strict-origin-when-cross-origin", "unsafe-url'
      */
-    auto setReferrerPolicy(string apolicy = self.SAME_ORIGIN) {
+    void setReferrerPolicy(string apolicy = self.SAME_ORIGIN) {
         auto available = [
             self.NO_REFERRER,
             self.NO_REFERRER_WHEN_DOWNGRADE,
@@ -120,8 +120,6 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
 
         this.checkValues(policy, available);
         this.headers["referrer-policy"] = policy;
-
-        return this;
     }
     
     /**

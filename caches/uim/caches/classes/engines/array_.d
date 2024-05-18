@@ -121,13 +121,13 @@ class DArrayCacheEngine : DCacheEngine {
      * string aGroup The group to clear.
      * return true if success
      */
-  /* bool clearGroup(string aGroup) {
-    string aKey = configuration.get("prefix").toString ~ aGroup;
-    if (_cachedData.isSet(aKey)) {
+  bool clearGroup(string groupName) {
+    string aKey = configuration.get("prefix").toString ~ groupName;
+    // TODO 
+/*     if (_cachedData.isSet(aKey)) {
       _cachedData[aKey]["val"] += 1;
     }
-    return true;
-  } */
-}
-
+ */    
+  return true;
+  } 
 mixin(CacheEngineCalls!("Array"));

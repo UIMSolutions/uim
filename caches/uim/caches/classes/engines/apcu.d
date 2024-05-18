@@ -32,9 +32,7 @@ class DApcuCacheEngine : DCacheEngine {
     return apcu_store(aKey, dataToCache, myDuration);
   } */
 
-  /**
-     * Read a key from the cache
-     */
+  // Read a key from the cache
   override Json get(string itemKey, Json defaultValue = Json(null)) {
     auto myValue = apcu_fetch(_key(itemKey), mysuccess);
     

@@ -791,7 +791,7 @@ interface ICollection {
      *  lines = (new DCollection(fileLines)).stopWhen(// function (value,  key) {
      *  return (new DateTime(value)).format("Y") < 2012;
      * })
-     * .toArray();
+     * .toJString();
      * ```
      *
      * Get elements until the first unapproved message is found:
@@ -833,7 +833,7 @@ interface ICollection {
      * ```
      * items [1, 2, 3];
      * allItems = (new DCollection(items)).unfold(// function (page) {
-     *  return service.fetchPage(page).toArray();
+     *  return service.fetchPage(page).toJString();
      * });
      * ```
      *
@@ -1023,7 +1023,7 @@ interface ICollection {
      *
      * ```
      * collection = new DCollection([["A", "B", "C"], [1, 2, 3]]);
-     * result = collection.cartesianProduct().toArray();
+     * result = collection.cartesianProduct().toJString();
      * expected = [
      *     ["A", 1],
      *     ["A", 2],

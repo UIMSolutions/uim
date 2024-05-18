@@ -359,17 +359,18 @@ class DCache : ICache {
      *
      * Status code. For each configuration, it reports the status of the operation
      */
-    /* static bool[string] clearAll() {
-        auto[string] mystatus;
+    static bool[string] clearAll() {
+        bool[string] mystatus;
 
-        self.configured().each!(configName => mystatus[configName] = self.clear(configName));
+        // TODO self.configured().each!(configName => mystatus[configName] = self.clear(configName));
 
         return mystatus;
-    } */
+    }
 
-    /* Delete all keys from the cache belonging to the same group.
+    // Delete all keys from the cache belonging to the same group.
     static bool clearGroup(string groupName, string configName = "default") {
-        return pool(configName).clearGroup(groupName);
+        // TODO return pool(configName).clearGroup(groupName);
+        return false; 
     }
     
     /**
@@ -413,7 +414,7 @@ class DCache : ICache {
      *
      * ```
      * results = Cache.remember("all_articles", auto () {
-     *     return _find("all").toArray();
+     *     return _find("all").toJString();
      * });
      * ```
      * Params:

@@ -36,9 +36,6 @@ class DMemoryCacheEngine : DCacheEngine {
      * - `serialize` The serializer engine used to serialize data. Available engines are 'D",
      *   'igbinary' and 'Json'. Beside 'D", the memcached extension must be compiled with the
      *   appropriate serializer support.
-     * - `servers` String or array of memcached servers. If an array MemcacheEngine will use
-     *   them as a pool.
-     * - `options` - Additional options for the memcached client. Should be an array of option: value.
      *   Use the \Memory.OPT_* constants as keys.
      */
     configuration.updateDefaults([
@@ -52,7 +49,9 @@ class DMemoryCacheEngine : DCacheEngine {
       "port": Json(null),
       "prefix": Json("uim_"),
       "serialize": Json("d"),
+      // `servers` String or array of memcached servers. If an array MemcacheEngine will use them as a pool.
       // TODO "servers": StringArrayData(["127.0.0.1"]),
+      // `options` - Additional options for the memcached client. Should be an array of option: value.
       "options": Json.emptyArray,
     ]);
 

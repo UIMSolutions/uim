@@ -252,7 +252,7 @@ class DConsoleOptionParser {
      * \UIM\Console\DConsoleOptionParser buildOptionParser|array spec DConsoleOptionParser buildOptionParser or spec to merge with.
      */
     void merge(DConsoleOptionParser buildOptionParser) {
-        merge(spec.toArray());
+        merge(spec.toJString());
     }
 
     void merge(Json[string] spec) {

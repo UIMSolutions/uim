@@ -33,7 +33,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
 
 
     /**
-     * Constructor
+     
      *
      * ### Options
      *

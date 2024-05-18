@@ -50,7 +50,7 @@ class DCspMiddleware { // }: IHttpMiddleware {
     ];
 
     /**
-     * Constructor
+     
      * Params:
      * \ParagonIE\CSPBuilder\CSPBuilder|array csp CSP object or config array
      * @param Json[string] configData Configuration options.

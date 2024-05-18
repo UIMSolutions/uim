@@ -31,7 +31,7 @@ class DFormDataPart { // }: Stringable {
     protected string acontentId = null;
 
     /**
-     * Constructor
+     
      * Params:
      * string aName The name of the data.
      * @param string avalue The value of the data.

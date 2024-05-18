@@ -14,7 +14,7 @@ class DRequest { // }: Message, IRequest {
     // TODO mixin TRequest;
 
     /**
-     * Constructor
+     
      *
      * Provides backwards compatible defaults for some properties.
      *

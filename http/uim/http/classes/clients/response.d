@@ -79,20 +79,14 @@ class DClientResponse { // }: Message : IResponse {
     protected ICookieCollection cookies = null;
 
 
-    /**
-     * Cached decoded XML data.
-     *
-     * @var \SimpleXMLElement|null
-     */
+    // Cached decoded XML data.
     protected ISimpleXMLElement _xml = null;
 
     // Cached decoded Json data.
     protected Json _data = null;
 
     /**
-     * Constructor
      *
-     * string[] unparsedHeaders Unparsed headers.
      * @param string abody The response body.
      */
     this(string[] unparsedHeaders = null, string abody= null) {

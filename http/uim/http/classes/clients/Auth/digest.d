@@ -49,7 +49,7 @@ class DDigest {
     protected bool  isSessAlgorithm = false;
 
     /**
-     * Constructor
+     
      * Params:
      * \UIM\Http\Client client Http client object.
      * @param array|null options Options list.

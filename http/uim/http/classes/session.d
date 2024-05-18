@@ -149,7 +149,7 @@ class DSession {
     }
 
     /**
-     * Constructor.
+     .
      *
      * ### Configuration:
      *

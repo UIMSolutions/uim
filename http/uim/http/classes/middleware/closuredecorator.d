@@ -21,7 +21,7 @@ class DClosureDecoratorMiddleware { // }: IHttpMiddleware {
     protected IClosure aCallable;
 
     /**
-     * Constructor
+     
      * Params:
      * \Closure callable A closure.
      */

@@ -54,7 +54,7 @@ class DApplication {
     protected IContainer container = null;
 
     /**
-     * Constructor
+     
      * Params:
      * string configDataDir The directory the bootstrap configuration is held in.
      * @param \UIM\Event\IEventManager|null eventManager Application event manager instance.

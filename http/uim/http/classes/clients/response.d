@@ -225,11 +225,7 @@ class DClientResponse { // }: Message : IResponse {
         return matches[1];
     }
     
-    /**
-     * Get the all cookie data.
-     *
-     * @return Json[string] The cookie data
-     */
+    // Get the all cookie data.
     Json[string] getCookies() {
         return _getCookies();
     }

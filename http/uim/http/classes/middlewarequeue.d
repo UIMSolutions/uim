@@ -114,8 +114,6 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * and inserts the supplied middleware before it.
      * Params:
      * @param \Psr\Http\Server\IHttpMiddleware|\Closure|string amiddleware The middleware to insert.
-     * @return this
-     * @throws \LogicException If middleware to insert before is not found.
      */
     auto insertBefore(string className, IHttpMiddleware|Closure|string amiddleware) {
         bool isFound = false;

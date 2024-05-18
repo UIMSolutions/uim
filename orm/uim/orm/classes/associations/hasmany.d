@@ -32,7 +32,6 @@ class DHasManyAssociation : DAssociation {
      */
     // TODO protected IExpression|Closure|string[] _sort = null;
 
-
     /**
      * The type of join to be used when adding the association to a query
      */
@@ -46,8 +45,6 @@ class DHasManyAssociation : DAssociation {
         self.STRATEGY_SELECT,
         self.STRATEGY_SUBQUERY,
     ];
-
-
 
     // Saving strategy to be used by this association
     protected string _saveStrategy = self.SAVE_APPEND;
@@ -110,7 +107,7 @@ class DHasManyAssociation : DAssociation {
             if (
                 entity.isNew() ||
                 getSaveStrategy() != self.SAVE_REPLACE
-            ) {
+                ) {
                 return entity;
             }
 
@@ -124,8 +121,8 @@ class DHasManyAssociation : DAssociation {
         }
 
         foreignKeyReference = array_combine(
-            (array)foreignKeys(),
-            entity.extract((array)getBindingKey())
+            (array) foreignKeys(),
+            entity.extract((array) getBindingKey())
         );
 
         options["_sourceTable"] = source();
@@ -133,11 +130,11 @@ class DHasManyAssociation : DAssociation {
         if (
             _saveStrategy == self.SAVE_REPLACE &&
             !_unlinkAssociated(foreignKeyReference, entity, getTarget(), myTargetEntities, options)
-        ) {
+            ) {
             return false;
         }
 
-        if (!(myTargetEntities.isArray) {
+        if (!myTargetEntities.isArray) {
             myTargetEntities = iterator_to_array(myTargetEntities);
         }
         if (!_saveTarget(foreignKeyReference, entity, myTargetEntities, options)) {
@@ -169,8 +166,7 @@ class DHasManyAssociation : DAssociation {
         foreignKey = foreignKeyReference.keys;
         myTable = getTarget();
         original = entities;
-
-        foreach (entities as k: entity) {
+        foreach (entities as k : entity) {
             if (!(entity instanceof IORMEntity)) {
                 break;
             }
@@ -180,7 +176,9 @@ class DHasManyAssociation : DAssociation {
             }
 
             if (foreignKeyReference != entity.extract(foreignKey)) {
-                entity.set(foreignKeyReference, ["guard":false]);
+                entity.set(foreignKeyReference, [
+                        "guard": false
+                    ]);
             }
 
             if (myTable.save(entity, options)) {
@@ -191,7 +189,8 @@ class DHasManyAssociation : DAssociation {
             if (!options.isEmpty("atomic"])) {
                 original[k].setErrors(entity.getErrors());
                 if (entity instanceof IInvalidProperty) {
-                    original[k].setInvalid(entity.invalidFields());
+                    original[k].setInvalid(
+                        entity.invalidFields());
                 }
 
                 return false;
@@ -235,30 +234,30 @@ class DHasManyAssociation : DAssociation {
 
         currentEntities = array_unique(
             array_merge(
-                (array)sourceEntity.get(property),
+                (array) sourceEntity.get(property),
                 myTargetEntities
-            )
+        )
         );
-
         sourceEntity.set(property, currentEntities);
 
-        savedEntity = getConnection().transactional(function () use (sourceEntity, options) {
-            return _saveAssociated(sourceEntity, options);
-        });
+        savedEntity = getConnection().transactional(
+            function() use(sourceEntity, options) {
+            return _saveAssociated(sourceEntity, options);});
+            ok = (
+                savedEntity instanceof IORMEntity);
 
-        ok = (savedEntity instanceof IORMEntity);
+            setSaveStrategy(saveStrategy);
 
-        setSaveStrategy(saveStrategy);
+            if (ok) {
+                sourceEntity.set(property, savedEntity.get(
+                    property));
+                sourceEntity.setDirty(property, false);
+            }
 
-        if (ok) {
-            sourceEntity.set(property, savedEntity.get(property));
-            sourceEntity.setDirty(property, false);
+            return ok;
         }
 
-        return ok;
-    }
-
-    /**
+        /**
      * Removes all links between the passed source entity and each of the provided
      * target entities. This method assumes that all passed objects are already persisted
      * in the database and that each of them contain a primary key value.
@@ -297,52 +296,57 @@ class DHasManyAssociation : DAssociation {
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      * any of them is lacking a primary key value
      */
-    void unlink(IORMEntity sourceEntity, Json[string] myTargetEntities, options = null) {
-        if (is_bool(options)) {
-            options = [
-                "cleanProperty":options,
-            ];
-        } else {
-            auto updatedOptions = options.update["cleanProperty":true];
-        }
-        if (count(myTargetEntities) == 0) {
-            return;
-        }
+        void unlink(IORMEntity sourceEntity, Json[string] myTargetEntities, options = null) {
+            if (is_bool(options)) {
+                options = [
+                    "cleanProperty": options,
+                ];
+            } else {
+                auto updatedOptions = options
+                    .update["cleanProperty": true];
+            }
+            if (count(myTargetEntities) == 0) {
+                return;
+            }
 
-        foreignKey = (array)foreignKeys();
-        myTarget = getTarget();
-        myTargetPrimaryKey = array_merge((array)myTarget.primaryKeys(), foreignKey);
-        property = getProperty();
+            foreignKey = (array) foreignKeys();
+            myTarget = getTarget();
+            myTargetPrimaryKey = array_merge(
+                (array) myTarget.primaryKeys(), foreignKey);
+            property = getProperty();
 
-        conditions = [
-            "OR":(new DCollection(myTargetEntities))
-                .map(function (entity) use (myTargetPrimaryKey) {
+            conditions = [
+                "OR": (new DCollection(
+                        myTargetEntities))
+                .map(
+                    function(entity) use(
+                        myTargetPrimaryKey) {
                     /** @var DORMdatasources.IORMEntity anEntity */
-                    return entity.extract(myTargetPrimaryKey);
-                })
-                .toList(),
-        ];
+                    return entity.extract(
+                        myTargetPrimaryKey);})
+                        .toList(),];
+                    _unlink(foreignKey, myTarget, conditions, options);
 
-        _unlink(foreignKey, myTarget, conditions, options);
+                    myResult = sourceEntity.get(
+                        property);
+                    if (options["cleanProperty"] && myResult !is null) {
+                        sourceEntity.set(
+                            property,
+                            (new DCollection(
+                            sourceEntity.get(property)))
+                            .reject(
+                            function(assoc) use(
+                            myTargetEntities) {
+                                return in_array(assoc, myTargetEntities);}
+                                )
+                                .toList()
+                                );
+                            }
 
-        myResult = sourceEntity.get(property);
-        if (options["cleanProperty"] && myResult  !is null) {
-            sourceEntity.set(
-                property,
-                (new DCollection(sourceEntity.get(property)))
-                .reject(
-                    function (assoc) use (myTargetEntities) {
-                        return in_array(assoc, myTargetEntities);
+                        sourceEntity.setDirty(property, false);
                     }
-                )
-                .toList()
-            );
-        }
 
-        sourceEntity.setDirty(property, false);
-    }
-
-    /**
+                    /**
      * Replaces existing association links between the source entity and the target
      * with the ones passed. This method does a smart cleanup, links that are already
      * persisted and present in `myTargetEntities` will not be deleted, new links will
@@ -384,23 +388,27 @@ class DHasManyAssociation : DAssociation {
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      * any of them is lacking a primary key value
      */
-    bool replace(IORMEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
-        property = getProperty();
-        sourceEntity.set(property, myTargetEntities);
-        saveStrategy = getSaveStrategy();
-        setSaveStrategy(self.SAVE_REPLACE);
-        myResult = this.saveAssociated(sourceEntity, options);
-        ok = (myResult instanceof IORMEntity);
+                    bool replace(IORMEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
+                        property = getProperty();
+                        sourceEntity.set(property, myTargetEntities);
+                        saveStrategy = getSaveStrategy();
+                        setSaveStrategy(
+                            self.SAVE_REPLACE);
+                        myResult = this.saveAssociated(
+                            sourceEntity, options);
+                        ok = (
+                            myResult instanceof IORMEntity);
 
-        if (ok) {
-            sourceEntity = myResult;
-        }
-        setSaveStrategy(saveStrategy);
+                        if (ok) {
+                            sourceEntity = myResult;
+                        }
+                        setSaveStrategy(
+                            saveStrategy);
 
-        return ok;
-    }
+                        return ok;
+                    }
 
-    /**
+                    /**
      * Deletes/sets null the related objects according to the dependency between source and targets
      * and foreign key nullability. Skips deleting records present in remainingEntities
      *
@@ -412,43 +420,44 @@ class DHasManyAssociation : DAssociation {
      * @param Json[string] options list of options accepted by `Table.remove()`
      * @return bool success
      */
-    protected bool _unlinkAssociated(
-        array foreignKeyReference,
-        IORMEntity anEntity,
-        Table myTarget,
-        range remainingEntities = null,
-        Json[string] options = null
-    ) {
-        primaryKeys = (array)myTarget.primaryKeys();
-        exclusions = new DCollection(remainingEntities);
-        exclusions = exclusions.map(
-            function (ent) use (primaryKeys) {
-                /** @var DORMdatasources.IORMEntity ent */
-                return ent.extract(primaryKeys);
-            }
-        )
-        .filter(
-            function (v) {
-                return !in_array(null, v, true);
-            }
-        )
-        .toList();
+                    protected bool _unlinkAssociated(
+                        array foreignKeyReference,
+                        IORMEntity anEntity,
+                        Table myTarget,
+                        range remainingEntities = null,
+                        Json[string] options = null
+                    ) {
+                        primaryKeys = (array) myTarget.primaryKeys();
+                        exclusions = new DCollection(
+                            remainingEntities);
+                        exclusions = exclusions.map(
+                            function(ent) use(
+                            primaryKeys) {
+                            /** @var DORMdatasources.IORMEntity ent */
+                            return ent.extract(
+                            primaryKeys);}
+                            )
+                            .filter(
+                            function(v) { return !in_array(null, v, true); }
+                            )
+                            .toList();
 
-        conditions = foreignKeyReference;
+                            conditions = foreignKeyReference;
 
-        if (count(exclusions) > 0) {
-            conditions = [
-                "NOT":[
-                    "OR":exclusions,
-                ],
-                foreignKeyReference,
-            ];
-        }
+                            if (
+                                count(exclusions) > 0) {
+                                conditions = [
+                                    "NOT": [
+                                        "OR": exclusions,
+                                    ],
+                                    foreignKeyReference,
+                                ];
+                            }
 
-        return _unlink(foreignKeyReference.keys, myTarget, conditions, options);
-    }
+                            return _unlink(foreignKeyReference.keys, myTarget, conditions, options);
+                        }
 
-    /**
+                        /**
      * Deletes/sets null the related objects matching conditions.
      *
      * The action which is taken depends on the dependency between source and
@@ -458,145 +467,176 @@ class DHasManyAssociation : DAssociation {
      * @param DORMTable myTarget The associated table
      * @param Json[string] conditions The conditions that specifies what are the objects to be unlinked
      * @param Json[string] options list of options accepted by `Table.remove()`
-     * @return bool success
      */
-    protected bool _unlink(Json[string] foreignKey, Table myTarget, Json[string] conditions = null, Json[string] options = null) {
-        mustBeDependent = (!_foreignKeyAcceptsNull(myTarget, foreignKey) || getDependent());
+                        protected bool _unlink(Json[string] foreignKey, Table myTarget, Json[string] conditions = null, Json[string] options = null) {
+                            mustBeDependent = (!_foreignKeyAcceptsNull(
+                                myTarget, foreignKey) || getDependent());
 
-        if (mustBeDependent) {
-            if (_cascadeCallbacks) {
-                conditions = new DQueryExpression(conditions);
-                conditions.traverse(void (entry) use (myTarget) {
-                    if (entry instanceof FieldInterface) {
-                        myField = entry.getField();
-                        if ((myField.isString) {
-                            entry.setField(myTarget.aliasField(myField));
-                        }
-                    }
-                });
-                myQuery = this.find().where(conditions);
-                ok = true;
-                foreach (myQuery as assoc) {
-                    ok = ok && myTarget.remove(assoc, options);
-                }
+                            if (mustBeDependent) {
+                                if (
+                                    _cascadeCallbacks) {
+                                    conditions = new DQueryExpression(
+                                        conditions);
+                                    conditions.traverse(
+                                        void(
+                                        entry) use(
+                                        myTarget) {
+                                        if (entry instanceof FieldInterface) {
+                                            myField = entry
+                                            .getField(); if (
+                                                myField
+                                            .isString) {
+                                                entry.setField(
+                                                myTarget
+                                                .aliasField(
+                                                myField));}
+                                            }
+                                        });
+                                        myQuery = this.find()
+                                        .where(
+                                        conditions);
+                                        ok = true;
+                                        foreach (
+                                            myQuery as assoc) {
+                                            ok = ok && myTarget.remove(
+                                            assoc, options);
+                                        }
 
-                return ok;
-            }
+                                        return ok;
+                                    }
 
-            this.deleteAll(conditions);
+                                    this.deleteAll(
+                                        conditions);
 
-            return true;
-        }
+                                    return true;
+                                }
 
-        updateFields = array_fill_keys(foreignKey, null);
-        this.updateAll(updateFields, conditions);
+                                updateFields = array_fill_keys(foreignKey, null);
+                                this.updateAll(updateFields, conditions);
 
-        return true;
-    }
+                                return true;
+                            }
 
-    /**
+                            /**
      * Checks the nullable flag of the foreign key
      *
      * @param DORMTable myTable the table containing the foreign key
      * @param Json[string] properties the list of fields that compose the foreign key
      */
-    protected bool _foreignKeyAcceptsNull(Table myTable, Json[string] properties) {
-        return !in_array(
-            false,
-            array_map(
-                function (prop) use (myTable) {
-                    return myTable.getSchema().isNullable(prop);
-                },
-                properties
-            )
-        );
-    }
+                            protected bool _foreignKeyAcceptsNull(Table myTable, Json[string] properties) {
+                                return !in_array(
+                                    false,
+                                    array_map(
+                                    function(prop) use(
+                                    myTable) {
+                                        return myTable.getSchema()
+                                        .isNullable(prop);},
+                                        properties
+                                        )
+                                        );
+                                    }
 
-    /**
+                                /**
      * Get the relationship type.
      */
-    string type() {
-        return self.ONE_TO_MANY;
-    }
+                                string type() {
+                                    return self.ONE_TO_MANY;
+                                }
 
-    /**
+                                /**
      * Whether this association can be expressed directly in a query join
      *
      * @param Json[string] options custom options key that could alter the return value
      * @return bool if the "matching" key in option is true then this function
      * will return true, false otherwise
      */
-    bool canBeJoined(Json[string] options = null) {
-        return !options.isEmpty("matching"]);
-    }
+                                bool canBeJoined(
+                                    Json[string] options = null) {
+                                    return !options.isEmpty(
+                                        "matching"]);
+                                }
 
-    // Gets the name of the field representing the foreign key to the source table.
-    string[] foreignKeys() {
-        if (_foreignKey.isNull) {
-            _foreignKey = _modelKey(source().getTable());
-        }
+                                // Gets the name of the field representing the foreign key to the source table.
+                                string[] foreignKeys() {
+                                    if (_foreignKey.isNull) {
+                                        _foreignKey = _modelKey(source()
+                                            .getTable());
+                                    }
 
-        return _foreignKey;
-    }
+                                    return _foreignKey;
+                                }
 
-    /**
+                                /**
      * Sets the sort order in which target records should be returned.
      *
      * @param mixed sort A find() compatible order clause
      */
-    void sortOrder(sort) {
-        _sort = sort;
-    }
+                                void sortOrder(sort) {
+                                    _sort = sort;
+                                }
 
-    // Gets the sort order in which target records should be returned.
-    Json sortOrder() {
-        return _sort;
-    }
+                                // Gets the sort order in which target records should be returned.
+                                Json sortOrder() {
+                                    return _sort;
+                                }
 
-    array defaultRowValue(Json[string] row, bool joined) {
-        sourceAlias = source().aliasName();
-        if (isset(row[sourceAlias])) {
-            row[sourceAlias][getProperty()] = joined ? null : [];
-        }
+                                array defaultRowValue(Json[string] row, bool joined) {
+                                    sourceAlias = source().aliasName();
+                                    if (isset(
+                                        row[sourceAlias])) {
+                                        row[sourceAlias][getProperty()] = joined ? null : [
+                                        ];
+                                    }
 
-        return row;
-    }
+                                    return row;
+                                }
 
-    /**
+                                /**
      * Parse extra options passed in the constructor.
      *
      * @param Json[string] options original list of options passed in constructor
      */
-    protected void _options(Json[string] options) {
-        if (!options.isEmpty("saveStrategy")) {
-            setSaveStrategy(options["saveStrategy"]);
-        }
-        if (isset(options["sort"])) {
-            sortOrder(options["sort"]);
-        }
-    }
+                                protected void _options(
+                                    Json[string] options) {
+                                    if (!options.isEmpty(
+                                        "saveStrategy")) {
+                                        setSaveStrategy(
+                                            options["saveStrategy"]);
+                                    }
+                                    if (isset(
+                                        options["sort"])) {
+                                        sortOrder(
+                                            options["sort"]);
+                                    }
+                                }
 
-    Closure eagerLoader(Json[string] options) {
-        auto loader = new DSelectLoader([
-            "alias":aliasName(),
-            "sourceAlias":source().aliasName(),
-            "targetAlias":getTarget().aliasName(),
-            "foreignKey":foreignKeys(),
-            "bindingKey":getBindingKey(),
-            "strategy":getStrategy(),
-            "associationType":associationType(),
-            "sort":getSort(),
-            "finder":[this, "find"],
-        ]);
+                                Closure eagerLoader(
+                                    Json[string] options) {
+                                    auto loader = new DSelectLoader(
+                                        [
+                                        "alias": aliasName(),
+                                        "sourceAlias": source().aliasName(),
+                                        "targetAlias": getTarget()
+                                        .aliasName(),
+                                        "foreignKey": foreignKeys(),
+                                        "bindingKey": getBindingKey(),
+                                        "strategy": getStrategy(),
+                                        "associationType": associationType(),
+                                        "sort": getSort(),
+                                        "finder": [
+                                            this,
+                                            "find"
+                                        ],
+                                    ]);
+                                    return loader.buildEagerLoader(
+                                        options);
+                                }
 
-        return loader.buildEagerLoader(options);
-    }
+                                bool cascaderemove(IORMEntity anEntity, Json[string] options = null) {
+                                    helper = new DependentDeleteHelper();
 
-
-    bool cascaderemove(IORMEntity anEntity, Json[string] options = null) {
-        helper = new DependentDeleteHelper();
-
-        return helper.cascaderemove(this, entity, options);
-    } 
-}
-mixin(AssociationCalls!("HasMany"));
+                                    return helper.cascaderemove(this, entity, options);
+                                }
+                            }
+                            mixin(AssociationCalls!(
+                                "HasMany"));

@@ -881,7 +881,6 @@ class DResponse : IResponse {
      * Params:
      * string[]|string acacheVariances A single Vary string or an array
      *  containing the list for variances.
-     * @return static
      */
     static withVary(string[] acacheVariances) {
         return _withHeader("Vary", (array)cacheVariances);

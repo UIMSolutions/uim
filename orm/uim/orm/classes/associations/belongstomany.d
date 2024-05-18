@@ -632,7 +632,6 @@ class DBelongsToManyAssociation : DAssociation {
      * @param array<DORMDatasource\IORMEntity> targetEntities list of entities to link to link to the source entity using the
      * junction table
      * @param Json[string] options list of options accepted by `Table.save()`
-     * @return bool success
      */
     protected bool _saveLinks(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] optionData) {
         target = getTarget();

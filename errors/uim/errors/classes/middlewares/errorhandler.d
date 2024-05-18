@@ -151,7 +151,6 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      * Convert a redirect exception into a response.
      *
      * @param uim.uim.http.exceptions.RedirectException myException The exception to handle
-     * @return IResponse Response created from the redirect.
      */
     IResponse handleRedirect(DRedirectException myException) {
         return new DRedirectResponse(

@@ -1251,7 +1251,6 @@ class DServerRequest { // }: IServerRequest {
      * a *new* request object and does not mutate the request in-place.
      * Params:
      * @param Json aValue The value to insert into the the request parameters.
-     * @return static
      */
     static auto withParam(string insertPath, Json aValue) {
         copy = clone this;

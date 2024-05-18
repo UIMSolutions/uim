@@ -159,7 +159,9 @@ class DAssociation : IAssociation {
                 this. {
                     "_" ~ property
                 }
+
                 
+
                 = options[property];
             }
         }
@@ -295,7 +297,7 @@ class DAssociation : IAssociation {
      * the target association.
      * @return \Closure|array
      */
-    function getConditions() {
+    auto getConditions() {
         return _conditions;
     }
 
@@ -304,12 +306,9 @@ class DAssociation : IAssociation {
      * When not manually specified the primary key of the owning side table is used.
      *
      * @param string[]|string aKey the table field or fields to be used to link both tables together
-     * @return this
      */
-    function setBindingKeys(key) {
+    void setBindingKeys(key) {
         _bindingKeys = key;
-
-        return this;
     }
 
     /**
@@ -461,7 +460,9 @@ class DAssociation : IAssociation {
             throw new DInvalidArgumentException(
                 "Invalid strategy '%s' was provided. Valid options are (%s)."
                     .format(name, implode(", ", _validStrategies));
+
             
+
             );
         }
         _strategy = name;
@@ -939,16 +940,16 @@ class DAssociation : IAssociation {
      * and options as value.
      */
     protected Json[string] _extractFinder(finderData) {
-    finderData = (array) finderData;
+        finderData = (array) finderData;
 
-    if (key(finderData).isNumeric) {
-        return [current(finderData), []];
+        if (key(finderData).isNumeric) {
+            return [current(finderData), []];
+        }
+
+        return [key(finderData), current(finderData)];
     }
 
-    return [key(finderData), current(finderData)];
-}
-
-/**
+    /**
      * Proxies property retrieval to the target table. This is handy for getting this
      * association"s associations
      *
@@ -956,26 +957,25 @@ class DAssociation : IAssociation {
      * @return DORMAssociation
      * @throws \RuntimeException if no association with such name exists
      */
-function __get(property) {
-    return _getTarget(). {
-        property
-    };
-}
+    function __get(property) {
+        return _getTarget(). {
+            property
+        };
+    }
 
-/**
+    /**
      * Proxies the isset call to the target table. This is handy to check if the
      * target table has another association with the passed name
      *
      * @param string property the property name
-     * @return bool true if the property exists
      */
-bool __isSet(property) {
-    return isset(getTarget(). {
-        property
-    });
-}
+    bool __isSet(property) {
+        return isset(getTarget(). {
+            property
+        });
+    }
 
-/**
+    /**
      * Proxies method calls to the target table.
      *
      * @param string method name of the method to be invoked
@@ -983,18 +983,18 @@ bool __isSet(property) {
      * @return mixed
      * @throws \BadMethodCallException
      */
-function __call(method, argument) {
-    return _getTarget().method(...argument);
-}
+    function __call(method, argument) {
+        return _getTarget().method(...argument);
+    }
 
-/**
+    /**
      * Get the relationship type.
      *
      * @return string Constant of either ONE_TO_ONE, MANY_TO_ONE, ONE_TO_MANY or MANY_TO_MANY.
      */
-abstract string type();
+    abstract string type();
 
-/**
+    /**
      * Eager loads a list of records in the target table that are related to another
      * set of records in the source table. Source records can be specified in two ways:
      * first one is by passing a Query object setup to find on the source table and
@@ -1021,9 +1021,9 @@ abstract string type();
      * - strategy: The name of strategy to use for finding target table records
      * - nestKey: The array key under which results will be found when transforming the row
      */
-abstract Closure eagerLoader(Json[string] optionData);
+    abstract Closure eagerLoader(Json[string] optionData);
 
-/**
+    /**
      * Handles cascading a delete from an associated model.
      *
      * Each implementing class should handle the cascaded delete as
@@ -1042,14 +1042,14 @@ abstract bool cascaderemove(IORMEntity anEntity, Json[string] optionData = null)
      *
      * @param DORMTable side The potential Table with ownership
      */
-abstract bool isOwningSide(Table side);
+    abstract bool isOwningSide(Table side);
 
-/**
+    /**
      * Extract the target"s association data our from the passed entity and proxies
      * the saving operation to the target table.
      *
      * @param DORMDatasource\IORMEntity anEntity the data to be saved
      * @param Json[string] options The options for saving associated data.
      */
-abstract IORMEntity saveAssociated(IORMEntity anEntity, Json[string] optionData = null);
+    abstract IORMEntity saveAssociated(IORMEntity anEntity, Json[string] optionData = null);
 }

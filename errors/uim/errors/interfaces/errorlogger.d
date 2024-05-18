@@ -24,7 +24,7 @@ interface IErrorLogger {
      */
     void logException(
         Throwable exception,
-        ?IServerRequest serverRequest = null,
+        IServerRequest serverRequest = null,
         bool  anIncludeTrace = false
     );
 
@@ -39,5 +39,5 @@ interface IErrorLogger {
         UimError error,
         ?IServerRequest serverRequest = null,
         bool  anIncludeTrace = false
-    ); */
+    ); 
 }

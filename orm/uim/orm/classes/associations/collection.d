@@ -30,7 +30,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * @param DORMLocator\ILocator|null tableLocator Table locator instance.
      */
-    this(?ILocator tableLocator = null) {
+    this(ILocator tableLocator = null) {
         if (tableLocator != null) {
             _tableLocator = tableLocator;
         }

@@ -90,7 +90,7 @@ abstract class DCell { // }: IEventDispatcher {
     this(
         ServerRequest myrequest,
         Response myresponse,
-        ?IEventManager myeventManager = null,
+        IEventManager myeventManager = null,
         Json[string] cellOptionsToApply = null
     ) {
         if (myeventManager !isNull) {

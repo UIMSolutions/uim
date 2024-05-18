@@ -342,7 +342,7 @@ class DViewBuilder { // }: DJsonSerializable {
     View build(
         ?ServerRequest myrequest = null,
         ?Response myresponse = null,
-        ?IEventManager myevents = null
+        IEventManager myevents = null
     ) {
         myclassName = _className ?? App.className("App", "View", "View") ?? View.classname;
         if (myclassName == "View") {

@@ -48,7 +48,7 @@ class DRunner : IRequestHandler {
     IResponse run(
         MiddlewareQueue queue,
         IServerRequest serverRequest,
-        ?IRequestHandler fallbackHandler = null
+        IRequestHandler fallbackHandler = null
     ) {
         this.queue = queue;
         this.queue.rewind();

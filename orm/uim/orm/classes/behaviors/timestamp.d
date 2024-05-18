@@ -105,7 +105,7 @@ class DTimestampBehavior : DBehavior {
      * \IDateTime|null myts Timestamp
      * @param bool myrefreshTimestamp If true timestamp is refreshed.
      */
-    DateTime timestamp(?IDateTime myts = null, bool myrefreshTimestamp = false) {
+    DateTime timestamp(IDateTime myts = null, bool myrefreshTimestamp = false) {
         if (myts) {
             if (configuration.get("refreshTimestamp"]) {
                configuration.get("refreshTimestamp"] = false;

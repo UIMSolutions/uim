@@ -67,7 +67,7 @@ class DServer { // }: IEventDispatcher {
      * @param \UIM\Http\MiddlewareQueue|null middlewareQueue MiddlewareQueue or null.
      */
     IResponse run(
-        ?IServerRequest serverRequest = null,
+        IServerRequest serverRequest = null,
         ?MiddlewareQueue middlewareQueue = null
     ) {
         this.bootstrap();

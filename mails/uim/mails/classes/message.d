@@ -592,10 +592,9 @@ class DMessage { //: JsonSerializable {
      * Params:
      * Json[string] aHeaders Associative array containing headers to be set.
      */
-    auto setHeaders(Json[string] aHeaders) {
+    void setHeaders(Json[string] aHeaders) {
         this.headers = aHeaders;
 
-        return this;
     }
     
     /**

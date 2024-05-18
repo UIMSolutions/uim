@@ -25,11 +25,8 @@ class DTextExceptionRenderer {
         _error = error;
     }
 
-    /**
-     * Render an exception into a plain text message.
-     * @return IResponse|string
-     */
-    function render() {
+    // Render an exception into a plain text message.
+    string render() {
         return "%s : %s on line %s of %s\nTrace:\n%s".format(
             _error.getCode(),
             _error.getMessage(),

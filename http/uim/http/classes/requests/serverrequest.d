@@ -755,8 +755,7 @@ class DServerRequest { // }: IServerRequest {
      * @link https://www.d-fig.org/psr/psr-7/ This method is part of the PSR-7 server request interface.
      * @DcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    auto withAddedHeader(string aName, aValue): static
-    {
+    static auto withAddedHeader(string aName, aValue) {
         new = clone this;
         name = this.normalizeHeaderName(name);
         existing = null;

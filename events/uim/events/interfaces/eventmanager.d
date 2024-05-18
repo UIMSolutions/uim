@@ -86,8 +86,6 @@ interface IEventManager {
      *
      * @template TSubject of object
      * @param \UIM\Event\IEvent<TSubject>|string aevent The event key name or instance of IEvent.
-     * @return \UIM\Event\IEvent<TSubject>
-     * @triggers event
      */
     IEvent dispatch(IEvent|string aevent);
 

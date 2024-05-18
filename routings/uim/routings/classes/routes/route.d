@@ -724,10 +724,8 @@ class DRoute : IRoute {
      * Json[string] mymiddleware The list of middleware names to apply to this route.
      *  Middleware names will not be checked until the route is matched.
      */
-    auto setMiddleware(Json[string] mymiddleware) {
+    void setMiddleware(Json[string] mymiddleware) {
         this.middleware = mymiddleware;
-
-        return this;
     }
     
     /**

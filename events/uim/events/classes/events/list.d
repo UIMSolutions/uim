@@ -41,7 +41,6 @@ class DEventList { // }: ArrayAccess, Countable {
      *
      * @link https://secure.D.net/manual/en/arrayaccess.offsetget.D
      * @param Json  anOffset The offset to retrieve.
-     * @return \UIM\Event\IEvent<object>|null
      */
     IEvent offsetGet(Json anOffset) {
         if (!this.offsetExists(anOffset)) {

@@ -158,10 +158,8 @@ class DEagerLoadable {
     }
 
     // Sets whether this level can be fetched using a join.
-    auto setCanBeJoined(bool joinable) {
+    void setCanBeJoined(bool joinable) {
       _canBeJoined = joinable;
-
-      return this;
     }
 
     // Gets whether this level can be fetched using a join.

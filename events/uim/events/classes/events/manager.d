@@ -303,13 +303,8 @@ class DEventManager { // }: IEventManager {
         );
     }
     
-    /**
-     * Returns the event list.
-     *
-     * @return \UIM\Event\EventList|null
-     */
-    EventList getEventList(): 
-    {
+    // Returns the event list.
+    EventList getEventList() {
         return _eventList;
     }
     

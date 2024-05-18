@@ -559,15 +559,13 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * string myname The name of the class to use
      * @throws \ORM\Exception\MissingEntityException when the entity class DCannot be found
      */
-    auto setEntityClass(string myname) {
+    void setEntityClass(string myname) {
         /** @var class-string<\UIM\Datasource\IORMEntity>|null myclass */
         myclass = App.className(myname, "Model/Entity");
         if (myclass.isNull) {
             throw new DMissingEntityException([myname]);
         }
        _entityClass = myclass;
-
-        return this;
     }
     
     /**

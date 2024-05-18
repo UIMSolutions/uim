@@ -1100,7 +1100,7 @@ class DResponse : IResponse {
         if (!_cookies.has(name)) {
             return null;
         }
-        return _cookies.get(name).toArray();
+        return _cookies.get(name).toJString();
     }
     
     /**
@@ -1111,7 +1111,7 @@ class DResponse : IResponse {
     Json[string] <string, array> getCookies() {
          auto result;
         foreach (_cookies as cookie) {
-             result[cookie.name] = cookie.toArray();
+             result[cookie.name] = cookie.toJString();
         }
         return result;
     }

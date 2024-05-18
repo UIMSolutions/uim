@@ -193,7 +193,7 @@ class DTreeBehavior : DBehavior {
                         .lte(configuration.get("leftField"), right - 1);
                 });
             if (this.configuration.get("cascadeCallbacks")) {
-                entities = query.toArray();
+                entities = query.toJString();
                 foreach (entities as entityToDelete) {
                     _table.remove(entityToDelete, ["atomic": false.toJson]);
                 }

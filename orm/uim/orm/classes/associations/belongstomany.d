@@ -694,7 +694,7 @@ class DBelongsToManyAssociation : DAssociation {
      * ### Example:
      *
      * ```
-     * newTags = tags.find("relevant").toArray();
+     * newTags = tags.find("relevant").toJString();
      * articles.getAssociation("tags").link(article, newTags);
      * ```
      *
@@ -1251,7 +1251,7 @@ class DBelongsToManyAssociation : DAssociation {
             query.union(q);
         }
 
-        return array_merge(result, query.toArray());
+        return array_merge(result, query.toJString());
     }
 
     /**

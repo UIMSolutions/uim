@@ -269,7 +269,7 @@ class DClientResponse { // }: Message : IResponse {
         if (!cookies.has(valueName)) {
             return null;
         }
-        return cookies.get(valueName).toArray();
+        return cookies.get(valueName).toJString();
     }
     
     /**
@@ -284,7 +284,7 @@ class DClientResponse { // }: Message : IResponse {
     // Property accessor for `this.cookies`
     protected Json[string] _getCookies() {
         auto result;
-        this.buildCookieCollection.each!(cookie => result[cookie.name] = cookie.toArray());
+        this.buildCookieCollection.each!(cookie => result[cookie.name] = cookie.toJString());
         return result;
     }
     

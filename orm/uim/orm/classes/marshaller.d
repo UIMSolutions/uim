@@ -399,7 +399,7 @@ class DMarshaller {
         } else {
             myfilter = [myprimaryKey[0] ~ " IN": myids];
         }
-        return mytarget.find().where(myfilter).toArray();
+        return mytarget.find().where(myfilter).toJString();
     }
     
     /**
@@ -560,7 +560,7 @@ class DMarshaller {
             .map(function (myelement, aKey) {
                 return aKey == "" ? myelement : myelement[0];
             })
-            .toArray();
+            .toJString();
 
         mynew = myindexed[""] ?? [];
         unset(myindexed[""]);

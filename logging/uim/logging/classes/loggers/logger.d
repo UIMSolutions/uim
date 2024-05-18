@@ -124,7 +124,7 @@ class DLogger : ILogger {
             }
             if (isObject(aValue)) {
                 if (method_exists(aValue, "toArray")) {
-                    replacements["{" ~ aKey ~ "}"] = Json_encode(aValue.toArray(), JsonFlags);
+                    replacements["{" ~ aKey ~ "}"] = Json_encode(aValue.toJString(), JsonFlags);
                     continue;
                 }
                 if (cast(DSerializable)aValue) {

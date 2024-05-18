@@ -116,7 +116,7 @@ class DLazyEagerLoader {
         results = myquery
             .all()
             .indexBy(fn (IORMEntity mye): join(";", mye.extract(myprimaryKey)))
-            .toArray();
+            .toJString();
 
         myentities.byKeyValue
             .each!((kv) {

@@ -542,11 +542,11 @@ mixin template TEntity() {
         result[field] = null;
         aValue.byKeyValue
           .each!(keyEntity => result[field][keyEntity.key] = cast(IDatasourceEntity) keyEntity.value
-              ? entity.toArray() : entity);
+              ? entity.toJString() : entity);
       }
 
       else if(cast(IDatasourceEntity) aValue) {
-        result[field] = aValue.toArray();
+        result[field] = aValue.toJString();
       } else {
         result[field] = aValue;
       }
@@ -831,7 +831,7 @@ mixin template TEntity() {
               .map(function(aValue) {
                 return _readError(aValue);})
                 .filter()
-                .toArray();} finally {
+                .toJString();} finally {
                   _hasBeenVisited = false;}
                   return errors;}
 

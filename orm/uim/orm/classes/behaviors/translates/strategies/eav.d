@@ -489,6 +489,6 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             query.unionAll(q);
         }
 
-        return query.all().combine("num", "id").toArray();
+        return query.all().combine("num", "id").toJString();
     } */
 }

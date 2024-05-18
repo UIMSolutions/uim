@@ -215,7 +215,7 @@ class DHasManyAssociation : DAssociation {
      *
      * ```
      * myUser = myUsers.get(1);
-     * allArticles = articles.find("all").toArray();
+     * allArticles = articles.find("all").toJString();
      * myUsers.Articles.link(myUser, allArticles);
      * ```
      *

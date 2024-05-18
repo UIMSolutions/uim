@@ -597,7 +597,7 @@ class DPaginator : IPaginator {
         myTableOrder= null;
         foreach (order as myKey: myValue) {
             if (myKey.isNumeric) {
-                myTableOrder[] = myValue;
+                myTableOrder ~= myValue;
                 continue;
             }
             myField = myKey;

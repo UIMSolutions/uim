@@ -93,7 +93,7 @@ final class DImage(T) {
     }
 
     void clear(in T color=this.black) pure nothrow @safe @nogc {
-        image[] = color;
+        image ~= color;
     }
 
     /// Convert a 2D array of chars to a binary Image.

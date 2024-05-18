@@ -263,7 +263,7 @@ class DAssociationCollection { // }: IteratorAggregate {
         noCascade = null;
         foreach (_items as assoc) {
             if (!assoc.getCascadeCallbacks()) {
-                noCascade[] = assoc;
+                noCascade ~= assoc;
                 continue;
             }
             success = assoc.cascaderemove(anEntity, options);

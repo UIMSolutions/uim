@@ -203,7 +203,7 @@ class DNumericPaginator : IPaginator {
      * @param uim.Datasource\IQuery|null query Query Instance.
      * @param Json[string] data Pagination data.
      */
-    protected IQuery getQuery(IRepository object,  IQuery query, Json[string] data) {
+    protected IQuery getQuery(IRepository object, IQuery query, Json[string] data) {
         if (query == null) {
             query = object.find(data["finder"], data["options"]);
         } else {
@@ -439,10 +439,9 @@ class DNumericPaginator : IPaginator {
      * @return Json[string] Array of merged options.
      */
     Json[string] mergeOptions(Json[string] params, Json[string] settings) {
-        if (!settings.isEmpty("scope") ) {
+        if (!settings.isEmpty("scope")) {
             scope = settings["scope"];
-            params = !params.isEmpty(
-                scope)) ? (array) params[scope] : [];
+            params = !params.isEmpty(scope) ? (array) params[scope] : [];
         }
 
         allowed = getAllowedParameters();
@@ -533,55 +532,71 @@ class DNumericPaginator : IPaginator {
         } else {
             options["sort"] = null;
         }
-        options.remove("direction"]);
+        options.remove("direction");
 
         if (options.isEmpty("order")) {
             options["order"] = null;
         }
-        if (!(options["order"].isArray) {
-                return options; }
+        if (!options["order"].isArray) {
+            return options;
+        }
 
-                sortAllowed = false; allowed = getSortableFields(options); if (allowed != null) {
-                    options["sortableFields"] = options["sortWhitelist"] = allowed;
+        sortAllowed = false;
+        allowed = getSortableFields(options);
+        if (allowed != null) {
+            options["sortableFields"] = options["sortWhitelist"] = allowed;
 
-                        field = key(options["order"]); sortAllowed = hasAllValues(field, allowed, true);
-                        if (!sortAllowed) {
-                            options["order"] = null; options["sort"] = null; return options;
-                        }
-                }
+            field = key(options["order"]);
+            sortAllowed = hasAllValues(field, allowed, true);
+            if (!sortAllowed) {
+                options["order"] = null;
+                options["sort"] = null;
+                return options;
+            }
+        }
 
-                if (
-                    options["sort"] == null
-                && count(options["order"]) >= 1
-                && !key(options["order"].isNumeric)
-                    ) {
-                    options["sort"] = key(
-                        options["order"]); }
+        if (
+            options["sort"] == null
+            && count(options["order"]) >= 1
+            && !key(options["order"].isNumeric)
+            ) {
+            options["sort"] = key(
+                options["order"]);
+        }
 
-                    options["order"] = _prefix(object, options["order"], sortAllowed);
+        options["order"] = _prefix(object, options["order"], sortAllowed);
 
-                        return options; }
+        return options;
+    }
 
-                        /**
+    /**
      * Remove alias if needed.
      *
      * @param Json[string] fields Current fields
      * @param string model Current model alias
      * @return Json[string] fields Unaliased fields where applicable
      */
-                        protected Json[string] _removeAliases(string[] fieldNames, string model) {
-                            result = null; foreach (fields as field : sort) {
-                                if (indexOf(field, ".") == false) {
-                                    result[field] = sort; continue; }
+    protected Json[string] _removeAliases(string[] fieldNames, string model) {
+        result = null;
+        foreach (fields as field : sort) {
+            if (indexOf(field, ".") == false) {
+                result[field] = sort;
+                continue;
+            }
 
-                                    [alias, currentField] = explode(".", field); if (alias == model) {
-                                        result[currentField] = sort; continue; }
+            [alias, currentField] = explode(".", field);
+            if (alias == model) {
+                result[currentField] = sort;
+                continue;
+            }
 
-                                        result[field] = sort; }
+            result[field] = sort;
+        }
 
-                                        return result; }
+        return result;
+    }
 
-                                        /**
+    /**
      * Prefixes the field with the table alias if possible.
      *
      * @param uim.Datasource\IRepository object Repository object.
@@ -589,53 +604,61 @@ class DNumericPaginator : IPaginator {
      * @param bool allowed Whether the field was allowed.
      * @return array Final order array.
      */
-                                        protected Json[string] _prefix(IRepository object, Json[string] order, bool allowed = false) {
-                                            tableAlias = object.aliasName(); tableOrder = null;
-                                                foreach (order as key : value) {
-                                                    if (key.isNumeric) {
-                                                        tableOrder[] = value; continue;
-                                                    }
-                                                    field = key; alias = tableAlias;
+    protected Json[string] _prefix(IRepository object, Json[string] order, bool allowed = false) {
+        tableAlias = object.aliasName();
+        tableOrder = null;
+        foreach (order as key : value) {
+            if (key.isNumeric) {
+                tableOrder[] = value;
+                continue;
+            }
+            field = key;
+            alias = tableAlias;
 
-                                                        if (indexOf(key, ".") != false) {
-                                                            [alias, field] = explode(".", key);
-                                                        }
-                                                    correctAlias = (
-                                                        tableAlias == alias); if (correctAlias && allowed) {
-                                                        // Disambiguate fields in schema. As id is quite common.
-                                                        if (object.hasField(
-                                                            field)) {
-                                                            field = alias ~ "." ~ field;
-                                                        }
-                                                        tableOrder[field] = value;
-                                                    }
-                                                    elseif(correctAlias && object.hasField(
-                                                        field)) {
-                                                        tableOrder[tableAlias ~ "." ~ field] = value;
-                                                    }
-                                                    elseif(!correctAlias && allowed) {
-                                                        tableOrder[alias ~ "." ~ field] = value;
-                                                    }
-                                                }
+            if (indexOf(key, ".") != false) {
+                [alias, field] = explode(".", key);
+            }
+            correctAlias = (
+                tableAlias == alias);
+            if (
+                correctAlias && allowed) {
+                // Disambiguate fields in schema. As id is quite common.
+                if (object.hasField(
+                        field)) {
+                    field = alias ~ "." ~ field;
+                }
+                tableOrder[field] = value;
+            }
+            elseif(correctAlias && object.hasField(
+                    field)) {
+                tableOrder[tableAlias ~ "." ~ field] = value;
+            }
+            elseif(!correctAlias && allowed) {
+                tableOrder[alias ~ "." ~ field] = value;
+            }
+        }
 
-                                            return tableOrder; }
+        return tableOrder;
+    }
 
-                                            /**
+    /**
      * Check the limit parameter and ensure it"s within the maxLimit bounds.
      *
      * @param Json[string] options An array of options with a limit key to be checked.
      * @return Json[string] An array of options for pagination.
      */
-                                            Json[string] checkLimit(
-                                                Json[string] optionData) {
-                                                options["limit"] = (int) options["limit"];
-                                                    if (options["limit"] < 1) {
-                                                        options["limit"] = 1; }
-                                                        options["limit"] = max(min(options["limit"], options["maxLimit"]), 1);
+    Json[string] checkLimit(
+        Json[string] optionData) {
+        options["limit"] = (int) options["limit"];
+        if (options["limit"] < 1) {
+            options["limit"] = 1;
+        }
+        options["limit"] = max(min(options["limit"], options["maxLimit"]), 1);
 
-                                                            return options; }
+        return options;
+    }
 
-                                                            
+    
 
-                                                            *  /
-                                                    }
+    *  /
+}

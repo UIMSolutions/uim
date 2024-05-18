@@ -439,7 +439,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                     continue;
                 }
                 find ~= ["locale": lang, "field": field, "foreign_key IS": key];
-                contents[] = new DORMEntity(["content": translation.get(field)], [
+                contents ~= new DORMEntity(["content": translation.get(field)], [
                     "useSetters": false.toJson,
                 ]);
             }

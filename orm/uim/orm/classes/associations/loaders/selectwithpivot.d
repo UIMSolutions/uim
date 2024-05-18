@@ -152,7 +152,7 @@ class DSelectWithPivotLoader : DSelectLoader {
 
             values = null;
             foreach (key as k) {
-                values[] = result[this.junctionProperty][k];
+                values ~= result[this.junctionProperty][k];
             }
             resultMap[implode(";", values)][] = result;
         }

@@ -454,7 +454,7 @@ class DEagerLoader {
         eagerLoadable = new DEagerLoadable(alias, myConfiguration);
 
         if (configuration.get("canBeJoined"]) {
-            _aliasList[paths["root"]][alias][] = eagerLoadable;
+            _aliasList[paths["root"]][alias] ~= eagerLoadable;
         } else {
             paths["root"] = configuration.get("aliasPath"];
         }
@@ -770,7 +770,7 @@ class DEagerLoader {
                 // Handle composite keys.
                 collected = null;
                 foreach (parts[1] as key) {
-                    collected[] = result[key];
+                    collected ~= result[key];
                 }
                 keys[nestKey][parts[0]][implode(";", collected)] = collected;
             }

@@ -365,7 +365,7 @@ mixin template TQuery() {
             return 
         }
 
-        _formatters[] = formatter;
+        _formatters ~= formatter;
     }
 
     /**

@@ -746,7 +746,7 @@ class DTreeBehavior : DBehavior {
         primaryKeys = _primaryKeys();
         fields = [parent, left, right];
         if (configuration.get("level"]) {
-            fields[] = configuration.get("level"];
+            fields ~= configuration.get("level"];
         }
 
         node = _scope(_table.find())

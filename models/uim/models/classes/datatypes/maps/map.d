@@ -17,7 +17,6 @@ class DMapData : DData {
     _items[key] = value;
   }
 
-  /*
   void opIndexAssign(bool value, string key) {
     // TODO
     /* if (containsKey(key)) {

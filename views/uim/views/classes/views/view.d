@@ -386,10 +386,8 @@ static string contentType() {
      * Params:
      * string|null mytheme Theme name.
      */
-    auto setTheme(string mytheme) {
+    void setTheme(string mytheme) {
         _theme = mytheme;
-
-        return this;
     }
 
     /**

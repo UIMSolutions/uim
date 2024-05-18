@@ -205,7 +205,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * Params:
      * Json[string] myhelpers Helpers to use.
      */
-    auto setHelpers(Json[string] myhelpers) {
+    void setHelpers(Json[string] myhelpers) {
        _helpers = null;
 
         foreach (myhelpers as myhelper: configData) {
@@ -215,7 +215,6 @@ class DViewBuilder { // }: DJsonSerializable {
             }
             this.addHelper(myhelper, configData);
         }
-        return this;
     }
     
     /**

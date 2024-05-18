@@ -348,11 +348,9 @@ class DEventManager { // }: IEventManager {
      * Params:
      * \UIM\Event\EventList eventList The event list object to use.
      */
-    auto setEventList(EventList eventList) {
+    void setEventList(EventList eventList) {
        _eventList = eventList;
        _canAddEvents = true;
-
-        return this;
     }
     
     // Disables the listing of dispatched events.

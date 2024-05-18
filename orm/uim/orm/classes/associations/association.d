@@ -223,21 +223,13 @@ class DAssociation : IAssociation {
         return _sourceTable;
     }
 
-    /**
-     * Sets the table instance for the target side of the association.
-     *
-     * @param DORMDORMTable aTable the instance to be assigned as target side
-     */
+    // Sets the table instance for the target side of the association.
     void setTarget(DORMTable aTable) {
         _targetTable = table;
     }
 
-    /**
-     * Gets the table instance for the target side of the association.
-     *
-     * @return DORMTable
-     */
-    function getTarget() : Table {
+    // Gets the table instance for the target side of the association.
+    DORMTable getTarget() {
         if (_targetTable == null) {
             if (indexOf(_className, ".")) {
                 [plugin] = pluginSplit(_className, true);
@@ -324,25 +316,14 @@ class DAssociation : IAssociation {
         return _bindingKeys;
     }
 
-    /**
-     * Gets the name of the field representing the foreign key to the target table.
-     *
-     * @return string[]|string
-     */
-    function foreignKeys() {
+    // Gets the name of the field representing the foreign key to the target table.
+    string[] foreignKeys() {
         return _foreignKeys;
     }
 
-    /**
-     * Sets the name of the field representing the foreign key to the target table.
-     *
-     * @param string[]|string aKey the key or keys to be used to link both tables together
-     * @return this
-     */
-    function setForeignKeys(key) {
-        _foreignKeys = key;
-
-        return this;
+    // Sets the name of the field representing the foreign key to the target table.
+    void setForeignKeys(string[] keys) {
+        _foreignKeys = keys;
     }
 
     /**

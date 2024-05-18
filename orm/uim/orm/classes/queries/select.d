@@ -696,10 +696,8 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Params:
      * \ORM\EagerLoader myinstance The eager loader to use.
      */
-    auto setEagerLoader(EagerLoader myinstance) {
+    void setEagerLoader(EagerLoader myinstance) {
        _eagerLoader = myinstance;
-
-        return this;
     }
     
     // Returns the currently configured instance.

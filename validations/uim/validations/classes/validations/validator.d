@@ -207,10 +207,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param object|string myobject Provider object or class name.
      * @psalm-param object|class-string myobject
      */
-    auto setProvider(string myname, object|string myobject) {
+    void setProvider(string myname, object|string myobject) {
        _providers[myname] = myobject;
-
-        return this;
     }
     
     /**

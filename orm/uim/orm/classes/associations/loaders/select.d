@@ -395,7 +395,6 @@ class DSelectLoader {
      *
      * @param DORMQuery fetchQuery The query to get results from
      * @param Json[string] options The options passed to the eager loader
-     * @return Json[string]
      */
     protected Json[string] _buildResultMap(Query fetchQuery, Json[string] optionData) {
         resultMap = null;

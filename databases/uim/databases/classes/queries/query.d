@@ -1375,10 +1375,8 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \UIM\Database\DValueBinder|null aBinder The binder or null to disable binding.
      */
-    auto setValueBinder(DValueBinder aBinder) {
+    void setValueBinder(DValueBinder aBinder) {
        _valueBinder = aBinder;
-
-        return this;
     }
     
     /**

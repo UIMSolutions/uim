@@ -363,15 +363,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         return _registryAlias ??= aliasName();
     }
     
-    /**
-     * Sets the connection instance.
-     * Params:
-     * \UIM\Database\Connection myconnection The connection instance
-     */
+    // Sets the connection instance.
     auto setConnection(Connection myconnection) {
        _connection = myconnection;
-
-        return this;
     }
     
     /**

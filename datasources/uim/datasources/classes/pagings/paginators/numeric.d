@@ -326,99 +326,112 @@ class DNumericPaginator : IPaginator {
      * @param Json[string] data Paging data.
      */
     protected Json[string] addPrevNextParams(Json[string] params, Json[string] data) {
-    params["prevPage"] = params["page"] > 1;
-    params["nextPage"] = params["count"] == null
-        ? true
-        : params["count"] > params["page"] * params["perPage"];
+        params["prevPage"] = params["page"] > 1;
+        params["nextPage"] = params["count"] == null
+            ? true : params["count"] > params["page"] * params["perPage"];
 
-    return params;
-}
+        return params;
+    }
 
-/**
+    /**
      * Add sorting / ordering params.
      *
      * @param Json[string] params Paginator params.
      * @param Json[string] data Paging data.
      */
-protected Json[string] addSortingParams(Json[string] params, Json[string] data) {
-defaults = data["defaults"];
-order = (array) data["options"]["order"];
-sortDefault = directionDefault = false;
+    protected Json[string] addSortingParams(Json[string] params, Json[string] data) {
+        defaults = data["defaults"];
+        order = (array) data["options"]["order"];
+        sortDefault = directionDefault = false;
 
-if (!defaults.isEmpty("order"))
-     && count(defaults["order"]) >= 1) {
-    sortDefault = key(defaults["order"]);
-    directionDefault = current(defaults["order"]);
-}
+        if (!defaults.isEmpty("order"))
 
-params += [
-    "sort": data["options"]["sort"],
-    "direction": isset(data["options"]["sort"]) && count(order) ? current(order): null,
-    "sortDefault": sortDefault,
-    "directionDefault": directionDefault,
-    "completeSort": order,
-];
+            
 
-return params;
-}
+                && count(defaults["order"]) >= 1) {
+            sortDefault = key(defaults["order"]);
+            directionDefault = current(defaults["order"]);
+        }
 
-/**
+        params += [
+            "sort": data["options"]["sort"],
+            "direction": isset(data["options"]["sort"]) && count(order) ? current(order): null,
+            "sortDefault": sortDefault,
+            "directionDefault": directionDefault,
+            "completeSort": order,
+        ];
+
+        return params;
+    }
+
+    /**
      * Extracts the finder name and options out of the provided pagination options.
      *
      * @param Json[string] options the pagination options.
      * @return array An array containing in the first position the finder name
      *   and in the second the options to be passed to it.
      */
-protected Json[string] _extractFinder(Json[string] optionData) {
-type = !options.isEmpty("finder"]) ? options["finder"] : "all";
-options.remove("finder"], options["maxLimit"]);
+    protected Json[string] _extractFinder(Json[string] optionData) {
+        type = !options.isEmpty("finder"]) ? options["finder"] : "all";
+        options.remove("finder"], options["maxLimit"]);
 
-if ((type.isArray) {
-        options = (array) current(type) + options; type = key(type); }
+        if (type.isArray) {
+            options = (array) current(type)+options;
+            type = key(type);
+        }
 
-        return [type, options]; }
+        return [type, options];
+    }
 
-        /**
+    /**
      * Get paging params after pagination operation.
      *
      * @return array<string, array>
      */
-        Json[string] getPagingParams() {
-            return _pagingParams; }
+    Json[string] getPagingParams() {
+        return _pagingParams;
+    }
 
-            /**
+    /**
      * Shim method for reading the deprecated whitelist or allowedParameters options
      *
      */
-            protected string[] getAllowedParameters() {
-                allowed = this.configuration.get("allowedParameters"); if (!allowed) {
-                    allowed = null; }
-                    whitelist = this.configuration.get("whitelist"); if (whitelist) {
-                        deprecationWarning(
-                            "The `whitelist` option is deprecated. Use the `allowedParameters` option instead.");
+    protected string[] getAllowedParameters() {
+        allowed = this.configuration.get("allowedParameters");
+        if (!allowed) {
+            allowed = null;
+        }
+        whitelist = this.configuration.get("whitelist");
+        if (whitelist) {
+            deprecationWarning(
+                "The `whitelist` option is deprecated. Use the `allowedParameters` option instead.");
 
-                            return array_merge(allowed, whitelist); }
+            return array_merge(allowed, whitelist);
+        }
 
-                            return allowed; }
+        return allowed;
+    }
 
-                            /**
+    /**
      * Shim method for reading the deprecated sortWhitelist or sortableFields options.
      *
      * @param Json[string] myConfiguration The configuration data to coalesce and emit warnings on.
-     * @return string[]|null
      */
-                            protected string[] getSortableFields(Json myConfiguration) :  ? array {
-                                allowed = configuration.get("sortableFields"] ?  ? null;
-                                    if (allowed != null) {
-                                        return allowed; }
-                                        deprecated = configuration.get("sortWhitelist"] ?  ? null;
-                                        if (deprecated != null) {
-                                            deprecationWarning("The `sortWhitelist` option is deprecated. Use `sortableFields` instead.");
-                                        }
+    protected string[] getSortableFields(Json myConfiguration) {
+        allowed = configuration.get("sortableFields") ?  ? null;
+        if (allowed != null) {
+            return allowed;
+        }
+        deprecated = configuration.get("sortWhitelist") ?  ? null;
+        if (deprecated != null) {
+            deprecationWarning(
+                "The `sortWhitelist` option is deprecated. Use `sortableFields` instead.");
+        }
 
-                                        return deprecated; }
+        return deprecated;
+    }
 
-                                        /**
+    /**
      * Merges the various options that Paginator uses.
      * Pulls settings together from the following places:
      *
@@ -434,18 +447,20 @@ if ((type.isArray) {
      * @param Json[string] settings The settings to merge with the request data.
      * @return Json[string] Array of merged options.
      */
-                                        Json[string] mergeOptions(Json[string] params, Json[string] settings) {
-                                            if (!settings.isEmpty("scope"))
-                                                ) {
-                                                scope = settings["scope"]; params = !params.isEmpty(
-                                                scope)) ? (array) params[scope] : [];
-                                            }
+    Json[string] mergeOptions(Json[string] params, Json[string] settings) {
+        if (!settings.isEmpty("scope") ) {
+            scope = settings["scope"];
+            params = !params.isEmpty(
+                scope)) ? (array) params[scope] : [];
+        }
 
-                                            allowed = getAllowedParameters(); params = array_intersect_key(params, array_flip(
-                                            allowed)); return array_merge(settings, params);
-                                        }
+        allowed = getAllowedParameters();
+        params = array_intersect_key(params, array_flip(
+                allowed));
+        return array_merge(settings, params);
+    }
 
-                                        /**
+    /**
      * Get the settings for a model. If there are no settings for a specific
      * repository, the general settings will be used.
      *
@@ -454,24 +469,27 @@ if ((type.isArray) {
      * @return Json[string] An array of pagination settings for a model,
      *   or the general settings.
      */
-                                        Json[string] getDefaults(string aliasName, Json[string] settings) {
-                                            if (isset(settings[alias])) {
-                                                settings = settings[alias]; }
+    Json[string] getDefaults(string aliasName, Json[string] settings) {
+        if (isset(settings[alias])) {
+            settings = settings[alias];
+        }
 
-                                                defaults = this.configuration.data;
-                                                defaults["whitelist"] = defaults["allowedParameters"] = getAllowedParameters();
+        defaults = this.configuration.data;
+        defaults["whitelist"] = defaults["allowedParameters"] = getAllowedParameters();
 
-                                                maxLimit = settings["maxLimit"] ?  ? defaults["maxLimit"];
-                                                limit = settings["limit"] ?  ? defaults["limit"];
+        maxLimit = settings["maxLimit"] ?  ? defaults["maxLimit"];
+        limit = settings["limit"] ?  ? defaults["limit"];
 
-                                                if (limit > maxLimit) {
-                                                    limit = maxLimit; }
+        if (limit > maxLimit) {
+            limit = maxLimit;
+        }
 
-                                                    settings["maxLimit"] = maxLimit;
-                                                    settings["limit"] = limit; return settings + defaults;
-                                                }
+        settings["maxLimit"] = maxLimit;
+        settings["limit"] = limit;
+        return settings + defaults;
+    }
 
-                                                /**
+    /**
      * Validate that the desired sorting can be performed on the object.
      *
      * Only fields or virtualFields can be sorted on. The direction param will
@@ -497,93 +515,82 @@ if ((type.isArray) {
      * @return Json[string] An array of options with sort + direction removed and
      *   replaced with order if possible.
      */
-                                                Json[string] validateSort(IRepository object, Json[string] optionData) {
-                                                    if (options.isSet("sort")) {
-                                                        auto direction = null; if (isset(
-                                                            options["direction"])) {
-                                                            direction = strtolower(
-                                                            options["direction"]);
-                                                        }
-                                                        if (!hasAllValues(direction, [
-                                                                "asc", "desc"
-                                                            ], true)) {
-                                                            direction = "asc"; }
+    Json[string] validateSort(IRepository object, Json[string] optionData) {
+        if (options.isSet("sort")) {
+            auto direction = null;
+            if (isset(
+                    options["direction"])) {
+                direction = strtolower(
+                    options["direction"]);
+            }
+            if (!hasAllValues(direction, [
+                        "asc", "desc"
+                    ], true)) {
+                direction = "asc";
+            }
 
-                                                            order = isset(options["order"]) && is_array(
-                                                            options["order"]) ? options["order"] : [
-                                                            ]; if (order && options["sort"] && indexOf(options["sort"], ".") == false) {
-                                                                order = _removeAliases(order, object.aliasName());
-                                                            }
+            order = isset(options["order"]) && is_array(
+                options["order"]) ? options["order"] : [
+            ];
+            if (order && options["sort"] && indexOf(options["sort"], ".") == false) {
+                order = _removeAliases(order, object.aliasName());
+            }
 
-                                                            options["order"] = [
-                                                                options["sort"]: direction
-                                                            ] + order; } else {
-                                                                options["sort"] = null;
-                                                            }
-                                                            options.remove("direction"]);
+            options["order"] = [
+                options["sort"]: direction
+            ] + order;
+        } else {
+            options["sort"] = null;
+        }
+        options.remove("direction"]);
 
-                                                            if (options.isEmpty("order")) {
-                                                                options["order"] = null;
-                                                            }
-                                                            if (!(options["order"].isArray) {
-                                                                    return options;
-                                                                }
+        if (options.isEmpty("order")) {
+            options["order"] = null;
+        }
+        if (!(options["order"].isArray) {
+                return options; }
 
-                                                                sortAllowed = false;
-                                                            allowed = getSortableFields(options);
-                                                            if (allowed != null) {
-                                                                options["sortableFields"] = options["sortWhitelist"] = allowed;
+                sortAllowed = false; allowed = getSortableFields(options); if (allowed != null) {
+                    options["sortableFields"] = options["sortWhitelist"] = allowed;
 
-                                                                field = key(options["order"]);
-                                                                sortAllowed = hasAllValues(field, allowed, true);
-                                                                if (!sortAllowed) {
-                                                                    options["order"] = null;
-                                                                    options["sort"] = null;
+                        field = key(options["order"]); sortAllowed = hasAllValues(field, allowed, true);
+                        if (!sortAllowed) {
+                            options["order"] = null; options["sort"] = null; return options;
+                        }
+                }
 
-                                                                    return options;
-                                                                }
-                                                            }
+                if (
+                    options["sort"] == null
+                && count(options["order"]) >= 1
+                && !key(options["order"].isNumeric)
+                    ) {
+                    options["sort"] = key(
+                        options["order"]); }
 
-                                                                if (
-                                                                    options["sort"] == null
-                                                                && count(options["order"]) >= 1
-                                                                && !key(options["order"].isNumeric)
-                                                                    ) {
-                                                                    options["sort"] = key(
-                                                                    options["order"]);
-                                                                }
+                    options["order"] = _prefix(object, options["order"], sortAllowed);
 
-                                                                options["order"] = _prefix(object, options["order"], sortAllowed);
+                        return options; }
 
-                                                            return options; }
-
-                                                            /**
+                        /**
      * Remove alias if needed.
      *
      * @param Json[string] fields Current fields
      * @param string model Current model alias
      * @return Json[string] fields Unaliased fields where applicable
      */
-                                                            protected Json[string] _removeAliases(string[] fieldNames, string model) {
-                                                            result = null; foreach (fields as field
-                                                            : sort) {
-                                                                if (indexOf(field, ".") == false) {
-                                                                    result[field] = sort;
-                                                                    continue; }
+                        protected Json[string] _removeAliases(string[] fieldNames, string model) {
+                            result = null; foreach (fields as field : sort) {
+                                if (indexOf(field, ".") == false) {
+                                    result[field] = sort; continue; }
 
-                                                                    [alias, currentField] = explode(".", field);
+                                    [alias, currentField] = explode(".", field); if (alias == model) {
+                                        result[currentField] = sort; continue; }
 
-                                                                    if (alias == model) {
-                                                                        result[currentField] = sort;
-                                                                        continue;
-                                                                    }
+                                        result[field] = sort; }
 
-                                                                    result[field] = sort;
-                                                                }
+                                        return result; }
 
-                                                                return result; }
-
-                                                                /**
+                                        /**
      * Prefixes the field with the table alias if possible.
      *
      * @param uim.Datasource\IRepository object Repository object.
@@ -591,57 +598,53 @@ if ((type.isArray) {
      * @param bool allowed Whether the field was allowed.
      * @return array Final order array.
      */
-                                                                protected Json[string] _prefix(IRepository object, Json[string] order, bool allowed = false) {
-                                                                tableAlias = object.aliasName();
-                                                                tableOrder = null;
-                                                                foreach (order as key : value) {
-                                                                    if (key.isNumeric) {
-                                                                        tableOrder[] = value;
-                                                                        continue;
-                                                                    }
-                                                                    field = key; alias = tableAlias;
+                                        protected Json[string] _prefix(IRepository object, Json[string] order, bool allowed = false) {
+                                            tableAlias = object.aliasName(); tableOrder = null;
+                                                foreach (order as key : value) {
+                                                    if (key.isNumeric) {
+                                                        tableOrder[] = value; continue;
+                                                    }
+                                                    field = key; alias = tableAlias;
 
-                                                                    if (indexOf(key, ".") != false) {
-                                                                        [alias, field] = explode(".", key);
-                                                                    }
-                                                                    correctAlias = (
-                                                                    tableAlias == alias);
+                                                        if (indexOf(key, ".") != false) {
+                                                            [alias, field] = explode(".", key);
+                                                        }
+                                                    correctAlias = (
+                                                        tableAlias == alias); if (correctAlias && allowed) {
+                                                        // Disambiguate fields in schema. As id is quite common.
+                                                        if (object.hasField(
+                                                            field)) {
+                                                            field = alias ~ "." ~ field;
+                                                        }
+                                                        tableOrder[field] = value;
+                                                    }
+                                                    elseif(correctAlias && object.hasField(
+                                                        field)) {
+                                                        tableOrder[tableAlias ~ "." ~ field] = value;
+                                                    }
+                                                    elseif(!correctAlias && allowed) {
+                                                        tableOrder[alias ~ "." ~ field] = value;
+                                                    }
+                                                }
 
-                                                                    if (correctAlias && allowed) {
-                                                                        // Disambiguate fields in schema. As id is quite common.
-                                                                        if (object.hasField(field)) {
-                                                                            field = alias ~ "." ~ field;
-                                                                        }
-                                                                        tableOrder[field] = value;
-                                                                    }
-                                                                    elseif(correctAlias && object.hasField(
-                                                                    field)) {
-                                                                        tableOrder[tableAlias ~ "." ~ field] = value;
-                                                                    }
-                                                                    elseif(!correctAlias && allowed) {
-                                                                        tableOrder[alias ~ "." ~ field] = value;
-                                                                    }
-                                                                }
+                                            return tableOrder; }
 
-                                                                return tableOrder;
-                                                            }
-
-                                                                /**
+                                            /**
      * Check the limit parameter and ensure it"s within the maxLimit bounds.
      *
      * @param Json[string] options An array of options with a limit key to be checked.
      * @return Json[string] An array of options for pagination.
      */
-                                                                Json[string] checkLimit(
-                                                                Json[string] optionData) {
-                                                                    options["limit"] = (int) options["limit"];
-                                                                    if (options["limit"] < 1) {
-                                                                        options["limit"] = 1;
-                                                                    }
-                                                                    options["limit"] = max(min(options["limit"], options["maxLimit"]), 1);
+                                            Json[string] checkLimit(
+                                                Json[string] optionData) {
+                                                options["limit"] = (int) options["limit"];
+                                                    if (options["limit"] < 1) {
+                                                        options["limit"] = 1; }
+                                                        options["limit"] = max(min(options["limit"], options["maxLimit"]), 1);
 
-                                                                    return options;
-                                                                }
+                                                            return options; }
 
-                                                                 *  /
-                                                                }
+                                                            
+
+                                                            *  /
+                                                    }

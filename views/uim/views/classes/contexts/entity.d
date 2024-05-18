@@ -249,7 +249,7 @@ class DEntityContext : DContext {
         mytable = _getTable(mypath, false);
         myprimary = mytable ? (array)mytable.primaryKeys(): ["id"];
 
-        return (new DCollection(myvalues)).extract(myprimary[0]).toArray();
+        return (new DCollection(myvalues)).extract(myprimary[0]).toJString();
     }
     
     /**

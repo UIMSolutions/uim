@@ -126,7 +126,7 @@ class DResultset { // TODO }: IResultset {
     
     // Serializes a resultset.
     Json[string] __serialize() {
-        return _results.toArray();
+        return _results.toJString();
     }
     
     // Unserializes a resultset.

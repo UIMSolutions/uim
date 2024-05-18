@@ -17,7 +17,7 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
     protected IView _view;
 
     /**
-     * Constructor
+     
      * Params:
      * \UIM\View\View myview View object.
      */

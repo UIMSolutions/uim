@@ -69,8 +69,6 @@ interface IDriver : INamed {
      *
      * If all the tables that use this Driver specify their
      * own schemas, then this may return null.
-     *
-     * @return uim.databases.Schema\SchemaDialect
      */
     SchemaDialect schemaDialect();
 

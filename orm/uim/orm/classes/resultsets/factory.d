@@ -50,12 +50,12 @@ class DResultsetFactory {
         mydata["matchingAssoc"] = (new DCollection(myassocMap))
             .match(["matching": true.toJson])
             .indexBy("alias")
-            .toArray();
+            .toJString();
 
         mydata["containAssoc"] = (new DCollection(array_reverse(myassocMap)))
             .match(["matching": false.toJson])
             .indexBy("nestKey")
-            .toArray();
+            .toJString();
 
         fieldNames = null;
         myquery.clause("select").each!((keyField) {

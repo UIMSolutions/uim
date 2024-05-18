@@ -535,23 +535,23 @@ mixin template TEntity() {
      * into arrays as well.
     */
   Json[string] toDataArray() {
-    auto result;
+    Json[string] dataMap;
     foreach (getVisible() asfield) {
       aValue = get(field);
       if (isArray(aValue)) {
-        result[field] = null;
+        dataMap[field] = null;
         aValue.byKeyValue
-          .each!(keyEntity => result[field][keyEntity.key] = cast(IDatasourceEntity) keyEntity.value
+          .each!(keyEntity => dataMap[field][keyEntity.key] = cast(IDatasourceEntity) keyEntity.value
               ? entity.toJString() : entity);
       }
 
       else if(cast(IDatasourceEntity) aValue) {
-        result[field] = aValue.toJString();
+        dataMap[field] = aValue.toJString();
       } else {
-        result[field] = aValue;
+        dataMap[field] = aValue;
       }
     }
-    return result;
+    return dataMap;
   }
 
   // Returns the fields that will be serialized as Json
@@ -569,10 +569,9 @@ mixin template TEntity() {
 
   /**
      * entity[anOffset] = aValue;
-     * @param Json aValue The value to set.
     */
-  void offsetSet(Json offsetToSet, Json aValue) {
-    set(offsetToSet, aValue);
+  void offsetSet(Json offsetToSet, Json valueToSet) {
+    set(offsetToSet, valueToSet);
   }
 
   // unset(result[anOffset]);

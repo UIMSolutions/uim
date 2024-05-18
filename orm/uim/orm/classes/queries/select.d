@@ -279,7 +279,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Returns an array representation of the results after executing the query.
      */
     Json[string] toDataArray() {
-        return _all().toArray();
+        return _all().toJString();
     }
     
     /**

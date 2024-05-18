@@ -73,7 +73,6 @@ interface ISqlGenerator {
      * Generate the SQL statements to add the constraints to the table
      *
      * @param DDBAConnection connection The connection to generate SQL for.
-     * @return Json[string] SQL to add the constraints.
      */
     Json[string] addConstraintSql(Connection connection);
 
@@ -81,8 +80,7 @@ interface ISqlGenerator {
      * Generate the SQL statements to drop the constraints to the table
      *
      * @param DDBAConnection connection The connection to generate SQL for.
-     * @return Json[string] SQL to drop a table.
      */
     Json[string] dropConstraintSql(Connection connection);
     
-} */
+} 

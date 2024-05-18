@@ -1546,7 +1546,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             .where(myconditions)
             .limit(1)
             .disableHydration()
-            .toArray()
+            .toJString()
         );
     }
     
@@ -2002,7 +2002,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             myentity.clean();
             myentity.setNew(false);
 
-            foreach (myentity.toArray().keys as fieldName) {
+            foreach (myentity.toJString().keys as fieldName) {
                 myvalue = myentity.get(fieldName);
 
                 if (cast(IORMEntity)myvalue) {

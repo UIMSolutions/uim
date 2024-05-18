@@ -12,7 +12,7 @@ class UnavailableForLegalReasonsException : DHttpException {
     protected int _defaultCode = 451;
 
     /**
-     * Constructor
+     
      * Params:
      * string|null aMessage If no message is given 'Unavailable For Legal Reasons' will be the message
      */

@@ -142,7 +142,7 @@ class DBehavior : IEventListener {
     protected static _reflectionCache = null;
 
     /**
-     * Constructor
+     
      *
      * Merges config with the default and store in the config property
      *

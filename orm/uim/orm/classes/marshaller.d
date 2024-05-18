@@ -16,7 +16,7 @@ class DMarshaller {
     protected ITable _table;
 
     /**
-     * Constructor.
+     .
      * Params:
      * \ORM\Table mytable The table this marshaller is for.
      */

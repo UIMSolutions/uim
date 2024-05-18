@@ -54,7 +54,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
     protected ITranslateStrategy mystrategy = null;
 
     /**
-     * Constructor
+     
      *
      * ### Options
      *

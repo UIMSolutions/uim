@@ -37,7 +37,7 @@ class DTranslator : ITranslator {
     mixin(TProperty!("ICatalog", "catalog"));
 
     /**
-     * Constructor
+     
      * Params:
      * string localename The locale being used.
      * @param \UIM\I18n\MessageCatalog catalog The catalog containing keys and translations.

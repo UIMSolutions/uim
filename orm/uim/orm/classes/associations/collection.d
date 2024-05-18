@@ -23,7 +23,7 @@ class DAssociationCollection { // }: IteratorAggregate {
     protected DORMAssociation[] _items;
 
     /**
-     * Constructor.
+     .
      *
      * Sets the default table locator for associations.
      * If no locator is provided, the global one will be used.

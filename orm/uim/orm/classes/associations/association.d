@@ -133,7 +133,7 @@ class DAssociation : IAssociation {
     ];
 
     /**
-     * Constructor. Subclasses can override _options function to get the original
+     . Subclasses can override _options function to get the original
      * list of passed options if expecting any other special key
      *
      * anAliasName - The name given to the association

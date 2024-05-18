@@ -34,7 +34,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
     protected []string _finderMap = null;
 
     /**
-     * Constructor
+     
      *
      * aTable - The table this registry is attached to.
      */

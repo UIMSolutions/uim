@@ -81,7 +81,7 @@ class DEagerLoadable {
     protected string _targetProperty;
 
     /**
-     * Constructor. The myConfiguration parameter accepts the following array
+     . The myConfiguration parameter accepts the following array
      * keys:
      *
      * - associations

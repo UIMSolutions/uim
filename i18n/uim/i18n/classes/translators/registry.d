@@ -48,7 +48,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     protected callable[] _loaders = null;
 
     /**
-     * Constructor.
+     .
      * Params:
      * \UIM\I18n\CatalogLocator catalogs The catalog locator.
      * @param \UIM\I18n\FormatterLocator formatters The formatter locator.

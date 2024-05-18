@@ -25,7 +25,7 @@ class DLinkConstraint {
     protected string _requiredLinkState;
 
     /**
-     * Constructor.
+     .
      * Params:
      * \ORM\Association|string myassociation The alias of the association that should be checked.
      * @param string myrequiredLinkStatus The link status that is required to be present in order for the check to

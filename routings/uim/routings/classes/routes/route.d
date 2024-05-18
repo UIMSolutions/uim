@@ -72,7 +72,7 @@ class DRoute : IRoute {
     protected const string PLACEHOLDER_REGEX = "#\{([a-z][a-z0-9-_]*)\}#i";
 
     /**
-     * Constructor for a Route
+      for a Route
      *
      * ### Options
      *

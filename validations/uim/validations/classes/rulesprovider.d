@@ -19,7 +19,7 @@ class DRulesProvider {
     protected DReflectionClass _reflection;
 
     /**
-     * Constructor, sets the default class to use for calling methods
+     , sets the default class to use for calling methods
      * Params:
      * object|string myclass the default class to proxy
      * @throws \ReflectionException

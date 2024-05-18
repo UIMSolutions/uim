@@ -34,7 +34,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
     protected int _loopDepth = -1;
 
     /**
-     * Constructor
+     
      * Params:
      * plugins = The map of plugins to add to the collection.
      */

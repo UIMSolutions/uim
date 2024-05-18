@@ -18,7 +18,7 @@ class DRedirectRoute : DRoute {
     Json[string]myredirect;
 
     /**
-     * Constructor
+     
      * Params:
      * string mytemplate Template string with parameter placeholders
      * @param Json[string] mydefaults Defaults for the route. Either a redirect=>value array or a UIM array URL.

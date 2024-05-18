@@ -16,7 +16,7 @@ class DRoutingMiddleware : IRoutingMiddleware {
     protected IRoutingApplication app;
 
     /**
-     * Constructor
+     
      * Params:
      * \UIM\Routing\IRoutingApplication app The application instance that routes are defined on.
      */

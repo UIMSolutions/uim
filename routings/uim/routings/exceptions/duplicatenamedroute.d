@@ -20,7 +20,7 @@ class DDuplicateNamedRouteException : UimException {
     }
 
     /**
-     * Constructor.
+     .
      * Params:
      * Json[string]|string amessage Either the string of the error message, or an array of attributes
      *  that are made available in the view, and sprintf()"d into Exception._messageTemplate

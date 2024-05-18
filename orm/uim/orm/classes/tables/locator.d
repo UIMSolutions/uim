@@ -39,7 +39,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     protected IQueryFactory myqueryFactory;
 
     /**
-     * Constructor.
+     .
      * Params:
      * string[] mylocations Locations where tables should be looked for.
      *  If none provided, the default `Model\Table` under your app"s namespace is used.

@@ -70,7 +70,7 @@ class DRouteBuilder {
     protected string[] mymiddleware = null;
 
     /**
-     * Constructor
+     
      *
      * ### Options
      *

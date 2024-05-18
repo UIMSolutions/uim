@@ -71,7 +71,7 @@ class DPlugin : IPlugin {
         return _name;
     }
     /**
-     * Constructor
+     
      * Params:
      * Json[string] options Options
      */

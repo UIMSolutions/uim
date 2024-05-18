@@ -346,10 +346,8 @@ static string contentType() {
     }
 
     // Set path for templates files.
-    auto setTemplatePath(string mypath) {
+    void setTemplatePath(string mypath) {
         _templatePath = mypath;
-
-        return this;
     }
 
     

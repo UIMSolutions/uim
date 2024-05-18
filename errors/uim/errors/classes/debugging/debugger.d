@@ -605,7 +605,6 @@ class DDebugger {
      *
      * @param mixed var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
-     * @return string Variable as a string
      */
     static string exportVarAsPlainText(var, int maxDepth = 3) {
         return (new DTextFormatter()).dump(

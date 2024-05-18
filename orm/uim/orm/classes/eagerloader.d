@@ -655,7 +655,7 @@ class DEagerLoader {
             instance = meta.instance();
             associations = meta.associations();
             forMatching = meta.forMatching();
-            map[] = [
+            map ~= [
                 "alias": assoc,
                 "instance": instance,
                 "canBeJoined": canBeJoined,
@@ -724,7 +724,7 @@ class DEagerLoader {
             alias = source.aliasName();
             pkFields = null;
             foreach (keys as key) {
-                pkFields[] = key(query.aliasField(key, alias));
+                pkFields ~= key(query.aliasField(key, alias));
             }
             collectKeys[meta.aliasPath()] = [alias, pkFields, count(pkFields) == 1];
         }

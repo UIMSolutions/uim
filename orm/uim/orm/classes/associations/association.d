@@ -533,7 +533,7 @@ class DAssociation : IAssociation {
         if (!options.isEmpty("foreignKeys"])) {
             joinCondition = _joinCondition(options);
             if (joinCondition) {
-                options["conditions"][] = joinCondition;
+                options["conditions"] ~= joinCondition;
             }
         }
 
@@ -788,7 +788,7 @@ class DAssociation : IAssociation {
                     }
                     result = result[propertyPathItem];
                 }
-                extracted[] = result;
+                extracted ~= result;
             }
             extracted = new DCollection(extracted);
             foreach (formatters as callable) {

@@ -468,7 +468,7 @@ class DBelongsToManyAssociation : DAssociation {
         if ((assocConditions.isArray) {
             conditions = array_merge(conditions, assocConditions);
         } else {
-            conditions[] = assocConditions;
+            conditions ~= assocConditions;
         }
 
         table.deleteAll(conditions);
@@ -597,7 +597,7 @@ class DBelongsToManyAssociation : DAssociation {
             saved = table.save(entity, options);
             if (saved) {
                 entities[k] = entity;
-                persisted[] = entity;
+                persisted ~= entity;
                 continue;
             }
 
@@ -1132,7 +1132,7 @@ class DBelongsToManyAssociation : DAssociation {
             }
 
             if (!found) {
-                deletes[] = existingLink;
+                deletes ~= existingLink;
             }
         }
 
@@ -1215,11 +1215,11 @@ class DBelongsToManyAssociation : DAssociation {
             joint = entity.get(jointProperty);
 
             if (!joint || !(joint instanceof IORMEntity)) {
-                missing[] = entity.extract(primary);
+                missing ~= entity.extract(primary);
                 continue;
             }
 
-            result[] = joint;
+            result ~= joint;
         }
 
         if (missing.isEmpty) {
@@ -1240,7 +1240,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         unions = null;
         foreach (missing as key) {
-            unions[] = hasMany.find()
+            unions ~= hasMany.find()
                 .where(array_combine(foreignKey, sourceKey))
                 .where(array_combine(assocForeignKey, key));
         }

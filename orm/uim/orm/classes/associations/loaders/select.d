@@ -232,7 +232,7 @@ class DSelectLoader {
 
         foreach (subquery.clause("select") as aliasedField: field) {
             if (is_int(aliasedField)) {
-                filter[] = new DIdentifierExpression(field);
+                filter ~= new DIdentifierExpression(field);
             } else {
                 filter[aliasedField] = field;
             }
@@ -316,7 +316,7 @@ class DSelectLoader {
             this.bindingKey;
 
         foreach ((array)keys as key) {
-            links[] = sprintf("%s.%s", name, key);
+            links ~= sprintf("%s.%s", name, key);
         }
 
         if (count(links) == 1) {
@@ -405,12 +405,12 @@ class DSelectLoader {
         foreach (fetchQuery.all() as result) {
             values = null;
             foreach (key as k) {
-                values[] = result[k];
+                values ~= result[k];
             }
             if (singleResult) {
                 resultMap[implode(";", values)] = result;
             } else {
-                resultMap[implode(";", values)][] = result;
+                resultMap[implode(";", values)] ~= result;
             }
         }
 
@@ -436,7 +436,7 @@ class DSelectLoader {
         someSourceKeys = null;
         foreach ((array)keys as key) {
             f = fetchQuery.aliasField(key, this.sourceAlias);
-            someSourceKeys[] = key(f);
+            someSourceKeys ~= key(f);
         }
 
         nestKey = options["nestKey"];
@@ -468,7 +468,7 @@ class DSelectLoader {
         return function (row) use (resultMap, someSourceKeys, nestKey) {
             values = null;
             foreach (someSourceKeys as key) {
-                values[] = row[key];
+                values ~= row[key];
             }
 
             key = implode(";", values);

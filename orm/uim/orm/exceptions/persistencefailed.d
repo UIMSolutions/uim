@@ -45,10 +45,10 @@ mixin(ExceptionCalls!("PersistenceFailed"));
         if ((myMessage.isArray) {
             myErrors = null;
             foreach (Hash.flatten(entity.getErrors()) as myField: myError) {
-                myErrors[] = myField ~ ": "" ~ myError ~ """;
+                myErrors ~= myField ~ ": "" ~ myError ~ """;
             }
             if (myErrors) {
-                myMessage[] = implode(", ", myErrors);
+                myMessage ~= implode(", ", myErrors);
                 _messageTemplate = "Entity %s failure. Found the following errors (%s).";
             }
         }

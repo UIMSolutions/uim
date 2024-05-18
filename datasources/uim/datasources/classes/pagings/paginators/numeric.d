@@ -609,7 +609,7 @@ class DNumericPaginator : IPaginator {
         tableOrder = null;
         foreach (order as key : value) {
             if (key.isNumeric) {
-                tableOrder[] = value;
+                tableOrder ~= value;
                 continue;
             }
             field = key;

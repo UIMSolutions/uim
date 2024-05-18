@@ -335,10 +335,8 @@ class DPaginator : IPaginator {
      *
      * @param Json[string] myParams Paginator params.
      * @param Json[string] myData Paging data.
-     * @return Json[string] Updated params.
      */
-    protected auto addSortingParams(Json[string] myParams, Json[string] myData): array
-    {
+    protected Json[string] addSortingParams(Json[string] myParams, Json[string] myData) 
         defaults = myData["defaults"];
         order = (array)myData["options"]["order"];
         sortDefault = directionDefault = false;

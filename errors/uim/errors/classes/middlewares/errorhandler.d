@@ -130,7 +130,6 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      *
      * @param \Throwable myException The exception to handle.
      * @param IServerRequest myRequest The request.
-     * @return IResponse A response
      */
     IResponse handleException(Throwable myException, IServerRequest myRequest) {
         myErrorHandler = getErrorHandler();

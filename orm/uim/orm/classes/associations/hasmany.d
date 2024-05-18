@@ -113,7 +113,7 @@ class DHasManyAssociation : DAssociation {
 
         if (!is_iterable(myTargetEntities)) {
             myName = getProperty();
-            myMessage = sprintf("Could not save %s, it cannot be traversed", myName);
+            myMessage = "Could not save %s, it cannot be traversed".format(myName);
             throw new DInvalidArgumentException(myMessage);
         }
 
@@ -168,7 +168,7 @@ class DHasManyAssociation : DAssociation {
                 break;
             }
 
-            if (!options.isEmpty("atomic"])) {
+            if (!options.isEmpty("atomic")) {
                 entity = clone entity;
             }
 
@@ -183,7 +183,7 @@ class DHasManyAssociation : DAssociation {
                 continue;
             }
 
-            if (!options.isEmpty("atomic"])) {
+            if (!options.isEmpty("atomic")) {
                 original[k].setErrors(entity.getErrors());
                 if (entity instanceof IInvalidProperty) {
                     original[k].setInvalid(

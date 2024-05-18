@@ -41,9 +41,8 @@ interface ICookie {
      * Create a new cookie with an updated path
      * Params:
      * string aPath Sets the path
-     * @return static
      */
-    auto withPath(string aPath): static;
+    static auto withPath(string aPath);
 
 
     /**

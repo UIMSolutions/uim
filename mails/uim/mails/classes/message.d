@@ -300,8 +300,6 @@ class DMessage { //: JsonSerializable {
      * string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     * @return this
-     * @throws \InvalidArgumentException
      */
     auto setReturnPath(string[] aemail, string aName = null) {
         return _setEmailSingle("returnPath", email, name, "Return-Path requires only 1 email address.");

@@ -1167,8 +1167,6 @@ class DBelongsToManyAssociation : DAssociation {
      *   of this association
      * @param array<DORMDatasource\IORMEntity> targetEntities list of entities belonging to the `target` side
      *   of this association
-     * @return bool
-     * @throws \InvalidArgumentException
      */
     protected bool _checkPersistenceStatus(IORMEntity sourceEntity, Json[string] targetEntities) {
         if (sourceEntity.isNew()) {

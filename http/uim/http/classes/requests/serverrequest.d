@@ -1164,10 +1164,8 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string aKey The key you want to write to.
      * @param string avalue Value to set
-     * @return static
      */
-    auto withenviroment(string aKey, string avalue): static
-    {
+    static auto withenviroment(string aKey, string avalue) {
         new = clone this;
         new._environmentData[aKey] = aValue;
         new.clearDetectorCache();

@@ -70,12 +70,7 @@ class DEventList { // }: ArrayAccess, Countable {
         unset(_events[anOffset]);
     }
 
-    /**
-     * Count elements of an object
-     *
-     * @link https://secure.D.net/manual/en/countable.count.D
-     * @return int The custom count as an integer.
-     */
+    // Count elements of an object
     size_t count() {
         return count(_events);
     }

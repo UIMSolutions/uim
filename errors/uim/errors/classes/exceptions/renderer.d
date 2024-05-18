@@ -297,12 +297,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         return _template = method;
     }
 
-    /**
-     * Gets the appropriate http status code for exception.
-     *
-     * @param \Throwable myException Exception.
-     * @return int A valid HTTP status code.
-     */
+    // Gets the appropriate http status code for exception.
     protected int getHttpCode(Throwable myException) {
         if (myException instanceof HttpException) {
             return myException.getCode();

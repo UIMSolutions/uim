@@ -50,7 +50,6 @@ mixin template TEventDispatcher() {
      * it can be read by listeners.
      * @param TSubject|null subject The object that this event applies to
      * (this by default).
-     * @return \UIM\Event\IEvent<TSubject>
      */
     IEvent dispatchEvent(string eventName, Json[string] data = null, ?object subject = null) {
         subject ??= this;

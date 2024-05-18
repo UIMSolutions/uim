@@ -302,7 +302,6 @@ class DNumericPaginator : IPaginator {
      * Add "start" and "end" params.
      *
      * @param Json[string] data Paginator data.
-     * @return Json[string] Updated params.
      */
     protected Json[string] addStartEndParams(Json[string] pagingParams, Json[string] data) {
         start = end = 0;

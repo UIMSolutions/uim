@@ -227,12 +227,9 @@ class DAssociation : IAssociation {
      * Sets the table instance for the target side of the association.
      *
      * @param DORMDORMTable aTable the instance to be assigned as target side
-     * @return this
      */
-    function setTarget(DORMTable aTable) {
+    void setTarget(DORMTable aTable) {
         _targetTable = table;
-
-        return this;
     }
 
     /**

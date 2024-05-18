@@ -329,13 +329,8 @@ abstract class DERRErrorHandler {
         return _logger;
     }
 
-    /**
-     * Map an error code into an Error word, and log location.
-     *
-     * @param int code Error code to map
-     * @return Json[string] Array of error word, and log location.
-     */
-    static Json[string] mapErrorCode(int code) {
+    // Map an error code into an Error word, and log location.
+    static Json[string] mapErrorCode(int errorCodeToMap) {
         levelMap = [
             E_PARSE: "error",
             E_ERROR: "error",

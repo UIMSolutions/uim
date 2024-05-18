@@ -98,9 +98,8 @@ class DSession {
      * Get one of the prebaked default session configurations.
      * Params:
      * string aName Config name.
-     * @return array|false
      */
-    protected static Json[string] | false _defaultConfigData(string aName) {
+    protected static Json[string]  _defaultConfigData(string aName) {
         tmp = defined("TMP") ? TMP : sys_get_temp_dir() ~ DIRECTORY_SEPARATOR;
         Json[string] defaults = [
             "D": [
@@ -145,7 +144,7 @@ class DSession {
             }
             return defaults[name];
         }
-        return false;
+        return null;
     }
 
     /**

@@ -956,7 +956,6 @@ class DResponse : IResponse {
      * Create a new instance with the Content-Disposition header set.
      * Params:
      * string afilename The name of the file as the browser will download the response
-     * @return static
      */
     static withDownload(string afilename) {
         return _withHeader("Content-Disposition", "attachment; filename="" ~ filename ~ """);

@@ -188,7 +188,6 @@ class DDebugger {
      * Returns a reference to the Debugger singleton object instance.
      *
      * @param string|null aClassName Class name.
-     * @return static
      */
     static function getInstance(string aClassName = null) {
         static instance = null;

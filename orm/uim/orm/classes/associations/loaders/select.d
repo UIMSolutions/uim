@@ -178,8 +178,6 @@ class DSelectLoader {
      *
      * @param DORMQuery fetchQuery The association fetching query
      * @param string[] key The foreign key fields to check
-     * @return void
-     * @throws \InvalidArgumentException
      */
     protected void _assertFieldsPresent(Query fetchQuery, Json[string] key) {
         if (fetchQuery.isAutoFieldsEnabled()) {

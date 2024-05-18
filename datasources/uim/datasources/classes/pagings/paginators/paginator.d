@@ -277,10 +277,8 @@ class DPaginator : IPaginator {
      *
      * @param Json[string] myParams Paging params.
      * @param Json[string] myData Paginator data.
-     * @return Json[string] Updated params.
      */
-    protected auto addPageCountParams(Json[string] myParams, Json[string] myData): array
-    {
+    protected Json[string] addPageCountParams(Json[string] myParams, Json[string] myData) {
         page = myParams["page"];
         pageCount = 0;
 
@@ -302,10 +300,8 @@ class DPaginator : IPaginator {
      *
      * @param Json[string] myParams Paging params.
      * @param Json[string] myData Paginator data.
-     * @return Json[string] Updated params.
      */
-    protected auto addStartEndParams(Json[string] myParams, Json[string] myData): array
-    {
+    protected Json[string] addStartEndParams(Json[string] myParams, Json[string] myData) {
         start = end = 0;
 
         if (myParams["current"] > 0) {

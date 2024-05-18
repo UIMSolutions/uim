@@ -109,66 +109,76 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         locale = Hash.get(options, "locale", locale());
         myConfiguration = configuration;
         if (
-            locale == configuration.get("defaultLocale"]) {
-                return; }
+            locale == configuration.get("defaultLocale")) {
+            return;
+        }
 
-                setupHasOneAssociation(locale, options); fieldsAdded = this.addFieldsToQuery(
-                    query, myConfiguration); orderByTranslatedField = this.iterateClause(query, "order", myConfiguration);
-                    filteredByTranslatedField =
-                    this.traverseClause(query, "where", myConfiguration) ||
-                    configuration.get("onlyTranslated") ||
-                        (options["filterByCurrentLocale"] ?  ? null); if (!fieldsAdded && !orderByTranslatedField && !filteredByTranslatedField) {
-                            return; }
+        setupHasOneAssociation(locale, options);
+        fieldsAdded = this.addFieldsToQuery(
+            query, myConfiguration);
+        orderByTranslatedField = this.iterateClause(query, "order", myConfiguration);
+        filteredByTranslatedField =
+            this.traverseClause(query, "where", myConfiguration) ||
+            configuration.get("onlyTranslated") ||
+            (options["filterByCurrentLocale"] ?  ? null);
+        if (!fieldsAdded && !orderByTranslatedField && !filteredByTranslatedField) {
+            return;
+        }
 
-                            query.contain([configuration.get("hasOneAlias")]); query.formatResults(
-                                function(
-                                results) use(locale) {
-                                    return _rowMapper(results, locale); }, query:
-                                     : PREPEND); }
+        query.contain([configuration.get("hasOneAlias")]);
+        query.formatResults(
+            function(
+                results) use(locale) {
+            return _rowMapper(results, locale);}, query:
+             : PREPEND);
+        }
 
-                                    /**
+        /**
      * Create a hasOne association for record with required locale.
      *
      * @param string locale Locale
      * @param \ArrayObject options Find options
      */
-                                    protected void setupHasOneAssociation(
-                                    string locale, ArrayObject options) {
-                                        myConfiguration = configuration; [plugin] = pluginSplit(
-                                        configuration.get(
-                                        "translationTable"]); hasOneTargetAlias = plugin ? (
-                                        plugin ~ "." ~ configuration.get(
-                                        "hasOneAlias"]) : configuration.get(
-                                        "hasOneAlias"]; if (!getTableLocator()
-                                        .exists(hasOneTargetAlias)) {
-                                            // Load table before hand with fallback class usage enabled
-                                            getTableLocator().get(
-                                            hasOneTargetAlias,
-                                            [
-                                                "className": configuration.get("translationTable"],
-                                                "allowFallbackClass" : true.toJson,]
-                                                ); }
+        protected void setupHasOneAssociation(
+            string locale, ArrayObject options) {
+            myConfiguration = configuration;
+            [plugin] = pluginSplit(
+                configuration.get(
+                    "translationTable"));
+            hasOneTargetAlias = plugin ? (
+                plugin ~ "." ~ configuration.get(
+                    "hasOneAlias")) : configuration.get(
+                "hasOneAlias");
+            if (!getTableLocator()
+                .exists(hasOneTargetAlias)) {
+                // Load table before hand with fallback class usage enabled
+                getTableLocator().get(
+                    hasOneTargetAlias,
+                    [
+                        "className": configuration.get("translationTable"),
+                        "allowFallbackClass": true.toJson,
+                    ]
+                );
+            }
 
-                                                if (isset(
-                                                    options["filterByCurrentLocale"])) {
-                                                    joinType = options["filterByCurrentLocale"] ? "INNER"
-                                                    : "LEFT"; } else {
-                                                        joinType = configuration.get(
-                                                        "onlyTranslated"] ? "INNER" : "LEFT";
-                                                    }
+            if (isset(
+                    options["filterByCurrentLocale"])) {
+                joinType = options["filterByCurrentLocale"] ? "INNER" : "LEFT";
+            } else {
+                joinType = configuration.getString("onlyTranslated") ? "INNER" : "LEFT";
+            }
 
-                                                    this.table.hasOne(configuration.get("hasOneAlias"], [
-                                                        "foreignKey": ["id"],
-                                                        "joinType": joinType,
-                                                        "propertyName": "translation",
-                                                        "className": configuration.get(
-                                                        "translationTable"],
-                                                        "conditions" : [
-                                                            configuration.get(
-                                                            "hasOneAlias"] ~ ".locale" : locale,],]);
-                                                            }
+            this.table.hasOne(configuration.get("hasOneAlias"), [
+                    "foreignKey": ["id"],
+                    "joinType": joinType,
+                    "propertyName": "translation",
+                    "className": configuration.get(
+                        "translationTable"],
+                        "conditions" : [
+                            configuration.get(
+                            "hasOneAlias"] ~ ".locale" : locale,],]);}
 
-                                                            /**
+                            /**
      * Add translation fields to query.
      *
      * If the query is using autofields (directly or implicitly) add the
@@ -181,41 +191,34 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param Json[string] myConfiguration The config to use for adding fields.
      * @return bool Whether a join to the translation table is required.
      */
-                                                            protected function addFieldsToQuery(query, Json myConfiguration) {
-                                                                if (query.isAutoFieldsEnabled()) {
-                                                                    return true; }
+                            protected function addFieldsToQuery(query, Json myConfiguration) {
+                                if (query.isAutoFieldsEnabled()) {
+                                    return true;}
 
-                                                                    select = array_filter(query.clause(
-                                                                    "select"), function(
-                                                                    field) {
-                                                                        return field
-                                                                        .isString;
-                                                                    }); if (!select) {
-                                                                        return true;
-                                                                    }
+                                    select = array_filter(query.clause(
+                                    "select"), function(
+                                    field) {
+                                        return field
+                                        .isString;}); if (!select) {
+                                            return true;}
 
-                                                                    alias = configuration.get(
-                                                                    "mainTableAlias"];
-                                                                    joinRequired = false;
-                                                                    foreach (this.translatedFields() as field) {
-                                                                        if (array_intersect(select, [field, "alias.field"])) {
-                                                                            joinRequired = true;
-                                                                            query.select(query.aliasField(
-                                                                            field, configuration.get(
-                                                                            "hasOneAlias"]));
-                                                                        }
-                                                                    }
+                                            alias = configuration.get(
+                                            "mainTableAlias"]; joinRequired = false;
+                                            foreach (this.translatedFields() as field) {
+                                                if (array_intersect(select, [field, "alias.field"])) {
+                                                    joinRequired = true; query.select(query.aliasField(
+                                                    field, configuration.get(
+                                                    "hasOneAlias"]));}
+                                                }
 
-                                                                    if (joinRequired) {
-                                                                        query.select(query.aliasField(
-                                                                        "locale", configuration.get(
-                                                                        "hasOneAlias"]));
-                                                                    }
+                                                if (joinRequired) {
+                                                    query.select(query.aliasField(
+                                                    "locale", configuration.get(
+                                                    "hasOneAlias"]));}
 
-                                                                    return joinRequired;
-                                                                }
+                                                    return joinRequired;}
 
-                                                                /**
+                                                    /**
      * Iterate over a clause to alias fields.
      *
      * The objective here is to transparently prevent ambiguous field errors by
@@ -227,38 +230,31 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param Json[string] myConfiguration The config to use for adding fields.
      * @return bool Whether a join to the translation table is required.
      */
-                                                                protected bool iterateClause(query, name = "", myConfiguration = null) {
-                                                                    clause = query.clause(
-                                                                    name); if (!clause || !clause.count()) {
-                                                                        return false;
+                                                    protected bool iterateClause(query, name = "", myConfiguration = null) {
+                                                        clause = query.clause(
+                                                        name); if (!clause || !clause.count()) {
+                                                            return false;}
+
+                                                            alias = configuration.get(
+                                                            "hasOneAlias"]; fields = this.translatedFields();
+                                                            mainTableAlias = configuration.get(
+                                                            "mainTableAlias"]; mainTableFields = this.mainFields();
+                                                            joinRequired = false; clause.iterateParts(
+                                                            function(c,  & field) use(fields, alias, mainTableAlias, mainTableFields,  & joinRequired) {
+                                                                if (!field.isString || indexOf(
+                                                                    field, ".")) {
+                                                                    return c;}
+
+                                                                    /** @psalm-suppress ParadoxicalCondition */
+                                                                    if (in_array(field, fields, true)) {
+                                                                        joinRequired = true;
+                                                                        field = "alias.field";
+                                                                    }
+                                                                    elseif(in_array(field, mainTableFields, true)) {
+                                                                        field = "mainTableAlias.field";
                                                                     }
 
-                                                                    alias = configuration.get(
-                                                                    "hasOneAlias"];
-                                                                    fields = this.translatedFields();
-                                                                    mainTableAlias = configuration.get(
-                                                                    "mainTableAlias"];
-                                                                    mainTableFields = this.mainFields();
-                                                                    joinRequired = false;
-
-                                                                    clause.iterateParts(
-                                                                    function(c,  & field) use(fields, alias, mainTableAlias, mainTableFields,  & joinRequired) {
-                                                                        if (!field.isString || indexOf(
-                                                                            field, ".")) {
-                                                                            return c;
-                                                                        }
-
-                                                                        /** @psalm-suppress ParadoxicalCondition */
-                                                                        if (in_array(field, fields, true)) {
-                                                                            joinRequired = true;
-                                                                            field = "alias.field";
-                                                                        }
-                                                                        elseif(in_array(field, mainTableFields, true)) {
-                                                                            field = "mainTableAlias.field";
-                                                                        }
-
-                                                                        return c;
-                                                                    }
+                                                                    return c;}
 
                                                                     ); return joinRequired;
                                                                 }
@@ -431,7 +427,8 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                                 );
                                                                             }
 
-                                                                            entity.set("_i18n", array_merge(bundled, [
+                                                                            entity.set("_i18n", array_merge(
+                                                                            bundled, [
                                                                                 translation
                                                                             ])); entity.set("_locale", locale, [
                                                                                 "setter": BooleanData(

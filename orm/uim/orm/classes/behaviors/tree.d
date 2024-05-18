@@ -650,11 +650,10 @@ class DTreeBehavior : DBehavior {
      * @param DORMDatasource\IORMEntity node The node to move
      * @param int|true number How many places to move the node or true to move to last position
      * @throws DORMDatasource\exceptions.RecordNotFoundException When node was not found
-     * @return DORMDatasource\IORMEntity|false the entity after being moved or false if `number` is < 1
      */
-    function moveDown(IORMEntity node, number = 1) {
+    IORMEntity moveDown(IORMEntity node, number = 1) {
         if (number < 1) {
-            return false;
+            return null;
         }
 
         return _table.getConnection().transactional(function () use (node, number) {

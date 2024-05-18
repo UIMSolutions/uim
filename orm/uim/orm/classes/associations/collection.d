@@ -41,10 +41,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * If the alias added contains a `.` the part preceding the `.` will be dropped.
      * This makes using plugins simpler as the Plugin.Class syntax is frequently used.
-     *
-     * anAliasName -  The association alias
      * @param DORMDORMAssociation anAssociation The association to add.
-     * @return The association object being added.
      */
      DORMAssociation add(string anAliasName, DORMAssociation anAssociation) {
         [, anAliasName] = pluginSplit(alias);

@@ -203,10 +203,9 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      *
      * @param string aMethodName The method to invoke.
      * @param Json[string] args The arguments you want to invoke the method with.
-     * @return mixed The return value depends on the underlying behavior method.
      * @throws \BadMethodCallException When the method is unknown.
      */
-    function call(string aMethodName, Json[string] args = null) {
+    Json call(string aMethodName, Json[string] args = null) {
         aMethodName = strtolower(aMethodName);
         if (this.hasMethod(aMethodName) && this.has(_methodMap[aMethodName][0])) {
             [behavior, callMethod] = _methodMap[aMethodName];

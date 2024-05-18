@@ -976,10 +976,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *   When using a function, this query instance will be supplied as an argument.
      * @param DORMCache\CacheEngine|string myConfiguration Either the name of the cache config to use, or
      *   a cache config instance.
-     * @return this
-     * @throws \RuntimeException When you attempt to cache a non-select query.
      */
-    function cache(key, myConfiguration = "default") {
+    auto cache(key, myConfiguration = "default") {
         if (_type != "select" && _type != null) {
             throw new DRuntimeException("You cannot cache the results of non-select queries.");
         }

@@ -537,11 +537,8 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ```
      * options = myquery.getOptions();
      * ```
-     * Params:
-     * Json[string] options The options to be applied
-     * @return this
      */
-    auto applyOptions(Json[string] options) {
+    void applyOptions(Json[string] optionsToApply) {
         myvalid = [
             "select": "select",
             "fields": "select",
@@ -559,15 +556,14 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             "page": "page",
         ];
 
-        ksort(options);
-        foreach (options as myoption: myvalues) {
+        ksort(optionsToApply);
+        foreach (optionsToApply as myoption: myvalues) {
             if (isSet(myvalid[myoption], myvalues)) {
                 this.{myvalid[myoption]}(myvalues);
             } else {
                _options[myoption] = myvalues;
             }
         }
-        return this;
     }
     
     // Decorates the results iterator with MapReduce routines and formatters

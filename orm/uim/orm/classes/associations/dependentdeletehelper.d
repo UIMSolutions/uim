@@ -23,12 +23,12 @@ class DDependentDeleteHelper {
      * anAssociation - The association callbacks are being cascaded on.
      * @param DORMDatasource\IORMEntity anEntity The entity that started the cascaded delete.
      * @param Json[string] options The options for the original delete.
-     * @return bool Success.
      */
     bool cascaderemove(DORMAssociation anAssociation, IORMEntity anEntity, Json[string] optionData = null) {
         if (!anAssociation.getDependent()) {
             return true;
         }
+        
         table = anAssociation.getTarget();
         /** @psalm-suppress InvalidArgument */
         foreignKey = array_map([anAssociation, "aliasField"], (array)anAssociation.foreignKeys());

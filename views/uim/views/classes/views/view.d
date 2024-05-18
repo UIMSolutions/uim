@@ -749,11 +749,10 @@ static string contentType() {
      * parent template and populate blocks in the parent template.
      * Params:
      * string views The template or element to "extend" the current one with.
-     * @return this
      * @throws \LogicException when you extend a template with itself or make extend loops.
      * @throws \LogicException when you extend an element which doesn"t exist
      */
-    auto extend(string views) {
+    void extend(string views) {
         mytype = views[0] == "/" ? TYPE_TEMPLATE : _currentType;
         switch (mytype) {
             case TYPE_ELEMENT:
@@ -780,8 +779,6 @@ static string contentType() {
             throw new DLogicException("You cannot have templates extend in a loop.");
         }
        _parents[_current] = myparent;
-
-        return this;
     }
 
 

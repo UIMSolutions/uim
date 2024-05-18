@@ -17,7 +17,7 @@ class DTreeIterator { // TODO }: RecursiveIteratorIterator, ICollection {
     protected int _mode;
 
     /**
-     * Constructor
+     
      * Params:
      * \RecursiveIterator<mixed, mixed>  someItems The iterator to flatten.
      */

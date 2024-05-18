@@ -44,7 +44,7 @@ class DCommandRunner { // }: IEventDispatcher {
     protected string[] _aliases;
 
     /**
-     * Constructor
+     
      *
      * consoleApp - The application to run CLI commands for.
      * @param \UIM\Console\ICommandFactory|null factory Command factory instance.

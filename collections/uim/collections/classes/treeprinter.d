@@ -28,7 +28,7 @@ class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
   protected callable _value;
 
   /**
-     * Constructor
+     
      * Params:
      * \RecursiveIterator<mixed, mixed>  someItems The iterator to flatten.
      */

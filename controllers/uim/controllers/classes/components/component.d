@@ -75,7 +75,7 @@ class DComponent { // TODO }: IEventListener {
     protected IComponent[string] componentInstances = null;
 
     /**
-     * Constructor
+     
      * Params:
      * \UIM\Controller\ComponentRegistry  registry A component registry
      * this component can use to lazy load its components.

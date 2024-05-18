@@ -150,7 +150,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
 
 
     /**
-     * Constructor.
+     .
      *
      * Sets a number of properties based on conventions if they are empty. To override the
      * conventions UIM uses you can define properties in your class declaration.

@@ -38,7 +38,7 @@ class DMapReduce { // }: IteratorAggregate {
     protected callable _reducer;
 
     /**
-     * Constructor
+     
      *
      * ### Example:
      *

@@ -69,7 +69,7 @@ class DConsoleIo {
 
 
     /**
-     * Constructor
+     
      * Params:
      * \UIM\Console\ConsoleOutput|null  result A ConsoleOutput object for stdout.
      * @param \UIM\Console\ConsoleOutput|null err A ConsoleOutput object for stderr.

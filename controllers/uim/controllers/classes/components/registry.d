@@ -22,7 +22,7 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
     protected IController _controller;
 
     /**
-     * Constructor.
+     .
      * Params:
      * \UIM\Controller\Controller controller Controller instance.
      */

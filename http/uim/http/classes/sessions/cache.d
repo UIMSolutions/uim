@@ -14,7 +14,7 @@ class DCacheSession { // }: !SessionHandler {
     protected Json[string] _options = null;
 
     /**
-     * Constructor.
+     .
      * Params:
      * Json[string] configData The configuration to use for this engine
      * It requires the key 'config' which is the name of the Cache config to use for

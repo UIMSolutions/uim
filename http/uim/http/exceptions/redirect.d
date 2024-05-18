@@ -19,7 +19,7 @@ import uim.http;
  */
 class DRedirectException : DHttpException {
     /**
-     * Constructor
+     
      * Params:
      * headerToSend - The headers that should be sent in the unauthorized challenge response.
      */

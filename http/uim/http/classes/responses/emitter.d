@@ -10,7 +10,7 @@ class DResponseEmitter {
     protected int maxBufferLength;
 
     /**
-     * Constructor
+     
      * Params:
      * int maxBufferLength Maximum output buffering size for each iteration.
      */

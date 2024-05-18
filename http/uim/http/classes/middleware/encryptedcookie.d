@@ -31,7 +31,7 @@ class DEncryptedCookieMiddleware { // : IHttpMiddleware {
     protected string acipherType;
 
     /**
-     * Constructor
+     
      * Params:
      * string[] cookieNames The list of cookie names that should have their values encrypted.
      * @param string aKey The encryption key to use.

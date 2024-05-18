@@ -12,7 +12,7 @@ class DUnauthorizedException : DHttpException {
     protected int _defaultCode = 401;
 
     /**
-     * Constructor
+     
      * Params:
      * string|null aMessage If no message is given 'Unauthorized' will be the message
      */

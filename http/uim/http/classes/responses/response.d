@@ -369,7 +369,7 @@ class DResponse : IResponse {
     protected _streamTarget = "D://memory";
 
     /**
-     * Constructor
+     
      * Params:
      * Json[string] options list of parameters to setup the response. Possible values are:
      *

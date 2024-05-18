@@ -42,7 +42,7 @@ class DServer { // }: IEventDispatcher {
     protected DRunner _runner;
 
     /**
-     * Constructor
+     
      * Params:
      * \UIM\Core\IHttpApplication app The application to use.
      * @param \UIM\Http\Runner|null runner Application runner.

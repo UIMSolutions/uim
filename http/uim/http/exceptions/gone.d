@@ -12,7 +12,7 @@ class DGoneException : DHttpException {
     protected int _defaultCode = 410;
 
     /**
-     * Constructor
+     
      * Params:
      * string|null aMessage If no message is given 'Gone' will be the message
      * @param int statusCode Status code, defaults to 410

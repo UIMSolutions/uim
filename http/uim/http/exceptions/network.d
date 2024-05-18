@@ -18,7 +18,7 @@ class DNetworkException { // }: RuntimeException : INetworkException {
     protected IRequest request;
 
     /**
-     * Constructor.
+     .
      * Params:
      * string amessage Exeception message.
      * @param \Psr\Http\Message\IRequest request Request instance.

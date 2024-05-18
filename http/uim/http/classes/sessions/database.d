@@ -18,7 +18,7 @@ class DatabaseSession { // }: SessionHandler {
     protected int _timeout;
 
     /**
-     * Constructor. Looks at Session configuration information and
+     . Looks at Session configuration information and
      * sets up the session model.
      * Params:
      * Json[string] configData The configuration for this engine. It requires the 'model'

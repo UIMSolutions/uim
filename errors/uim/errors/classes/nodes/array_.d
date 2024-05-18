@@ -13,7 +13,7 @@ class DArrayErrorNode : IErrorNode {
   private IErrorNode[] _items;
 
   /**
-    * Constructor
+    
     * someItems - The items for the array
     */
   this(DArrayItemErrorNode[] nodes = null) {

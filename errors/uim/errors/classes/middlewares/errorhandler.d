@@ -73,7 +73,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
     protected myErrorHandler;
 
     /**
-     * Constructor
+     
      *
      * @param uim.errorss.ErrorHandler|array myErrorHandler The error handler instance
      *  or config array.

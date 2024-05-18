@@ -17,7 +17,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
     // TODO protected DCONConsoleOutput _stderr;
 
     /**
-     * Constructor
+     
      *
      * @param Json[string] aConfig Config options for the error handler.
      */

@@ -17,7 +17,7 @@ class DQueryCacher {
     protected ICache|string configuration;
 
     /**
-     * Constructor.
+     .
      * Params:
      * \Closure|string aKey The key or auto to generate a key.
      * @param \Psr\SimpleCache\ICache|string configData The cache config name or cache engine instance.

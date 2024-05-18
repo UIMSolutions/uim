@@ -115,7 +115,7 @@ class DExceptionTrap {
     protected bool disabled = false;
 
     /**
-     * Constructor
+     
      *
      * @param Json[string] options An options array. See _defaultConfig.
      */

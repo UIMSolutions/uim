@@ -49,7 +49,7 @@ class DebugContext {
     private SplObjectStorage _refs;
 
     /**
-     * Constructor
+     
      *
      * @param int maxDepth The desired depth of dump output.
      */

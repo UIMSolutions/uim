@@ -128,7 +128,7 @@ class DDebugger {
     protected _data = null;
 
     /**
-     * Constructor.
+     .
      */
     this() {
         docRef = ini_get('docref_root');

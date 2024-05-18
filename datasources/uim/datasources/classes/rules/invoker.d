@@ -25,7 +25,7 @@ class DRuleInvoker {
     protected callable  _rule;
 
     /**
-     * Constructor
+     
      *
      * ### Options
      *

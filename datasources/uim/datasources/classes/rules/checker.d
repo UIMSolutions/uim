@@ -80,7 +80,7 @@ class DRulesChecker {
     protected bool _useI18n = false;
 
     /**
-     * Constructor. Takes the options to be passed to all rules.
+     . Takes the options to be passed to all rules.
      * Params:
      * Json[string] optionData The options to pass to every rule
      */

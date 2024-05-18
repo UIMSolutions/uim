@@ -543,7 +543,6 @@ class DDebugger {
      * Params:
      * Json[string] var The array to export.
      * @param \UIM\Error\Debug\DebugContext context The current dump context.
-     * @return \UIM\Error\Debug\ArrayNode Exported array.
      */
     protected static ArrayNode exportArray(Json[string] var, DebugContext context) {
         someItems = null;

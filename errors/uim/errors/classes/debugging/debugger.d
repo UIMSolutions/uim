@@ -451,7 +451,6 @@ class DDebugger {
      * path with 'CORE'.
      *
      * @param string path Path to shorten.
-     * @return string Normalized path
      */
     static string trimPath(string path) {
         if (defined('APP') && indexOf(path, APP) == 0) {

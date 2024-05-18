@@ -115,17 +115,14 @@ mixin template TQuery() {
      *   When using a function, this query instance will be supplied as an argument.
      * @param \Psr\SimpleCache\ICache|string myConfiguration Either the name of the cache config to use, or
      *   a cache engine instance.
-     * @return this
      */
-    function cache(key, myConfiguration = "default") {
+    void cache(key, myConfiguration = "default") {
         if (key == false) {
             _cache = null;
 
             return this;
         }
         _cache = new DQueryCacher(key, myConfiguration);
-
-        return this;
     }
 
     // Returns the current configured query `_eagerLoaded` value

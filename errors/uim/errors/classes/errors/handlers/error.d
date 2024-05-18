@@ -121,8 +121,6 @@ class DErrorHandler { // }: DERRErrorHandler
      *
      * @param \Throwable exception The exception being rendered.
      * @param IServerRequest|null request The request.
-     * @return uim.errors.IExceptionRenderer The exception renderer.
-     * @throws \RuntimeException When the renderer class DCannot be found.
      */
     IExceptionRenderer getRenderer(
         Throwable exception,

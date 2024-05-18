@@ -49,8 +49,6 @@ class DebugContext {
     private SplObjectStorage _refs;
 
     /**
-     
-     *
      * @param int maxDepth The desired depth of dump output.
      */
     this(int aMaxDepth) {
@@ -58,12 +56,8 @@ class DebugContext {
         _refs = new DSplObjectStorage();
     }
 
-    /**
-     * Return a clone with increased depth.
-     *
-     * @return static
-     */
-    function withAddedDepth() {
+    // Return a clone with increased depth.
+    ststic auto withAddedDepth() {
         new = clone this;
         new.depth += 1;
 

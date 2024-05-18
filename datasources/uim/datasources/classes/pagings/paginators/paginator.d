@@ -320,16 +320,12 @@ class DPaginator : IPaginator {
      *
      * @param Json[string] myParams Paginator params.
      * @param Json[string] myData Paging data.
-     * @return Json[string] Updated params.
      */
-    protected auto addPrevNextParams(Json[string] myParams, Json[string] myData): array
-    {
+    protected Json[string] addPrevNextParams(Json[string] myParams, Json[string] myData) {
         myParams["prevPage"] = myParams["page"] > 1;
-        if (myParams["count"] == null) {
-            myParams["nextPage"] = true;
-        } else {
-            myParams["nextPage"] = myParams["count"] > myParams["page"] * myParams["perPage"];
-        }
+        myParams["nextPage"] = myParams["count"] == null
+            ? true
+            myParams["count"] > myParams["page"] * myParams["perPage"];
 
         return myParams;
     }

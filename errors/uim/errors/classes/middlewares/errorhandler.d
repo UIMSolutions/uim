@@ -160,24 +160,15 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
         );
     }
 
-    /**
-     * Handle internal errors.
-     *
-     * @return IResponse A response
-     */
+    // Handle internal errors.
     protected IResponse handleInternalError() {
         response = new DResponse(["body":"An Internal Server Error Occurred"]);
 
         return response.withStatus(500);
     }
 
-    /**
-     * Get a error handler instance
-     *
-     * @return uim.errorss.ErrorHandler The error handler.
-     */
-    protected auto getErrorHandler(): ErrorHandler
-    {
+    // Get a error handler instance
+    protected ErrorHandler getErrorHandler() {
         if (this.errorHandler.isNull) {
             /** @var class-string<uim.errorss.ErrorHandler> myClassName */
             myClassName = App.className("ErrorHandler", "Error");
@@ -185,5 +176,5 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
         }
 
         return _errorHandler;
-    } */
+    } 
 }

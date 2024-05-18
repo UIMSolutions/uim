@@ -158,11 +158,7 @@ class DExceptionRenderer : IExceptionRenderer {
         }
     }
 
-    /**
-     * Renders the response for the exception.
-     *
-     * @return The response to be sent.
-     */
+    // Renders the response for the exception.
     IResponse render() {
         myException = this.error;
         code = getHttpCode(myException);

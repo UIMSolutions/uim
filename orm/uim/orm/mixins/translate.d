@@ -13,9 +13,8 @@ mixin template TTranslate() {
      * it.
      *
      * @param string language Language to return entity for.
-     * @return DORMDatasource\IORMEntity|this
      */
-    function translation(string language) {
+    IORMEntity translation(string language) {
         if (language == get("_locale")) {
             return this;
         }

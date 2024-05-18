@@ -390,9 +390,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *   if associations is an array, a bool on whether to override previous list
      *   with the one passed
      * defaults to merging previous list with the new one.
-     * @return this
      */
-    function contain(associations, override = false) {
+    void contain(associations, override = false) {
         loader = getEagerLoader();
         if (override == true) {
             this.clearContain();
@@ -411,8 +410,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             getTypeMap(),
             loader.getContain()
         );
-
-        return this;
     }
 
     /**
@@ -1267,12 +1264,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * auto-fields with this method.
      *
      * @param bool value Set true to enable, false to disable.
-     * @return this
      */
-    function enableAutoFields(bool value = true) {
+    void enableAutoFields(bool value = true) {
         _autoFields = value;
-
-        return this;
     }
 
     /**

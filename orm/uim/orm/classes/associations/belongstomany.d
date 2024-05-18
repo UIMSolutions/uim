@@ -136,10 +136,8 @@ class DBelongsToManyAssociation : DAssociation {
      * are passed, the current configured table instance is returned
      *
      * @param DORMTable|string|null table Name or instance for the join table
-     * @return DORMTable
-     * @throws \InvalidArgumentException If the expected associations are incompatible with existing associations.
      */
-    Table junction(DORMTable table = null) {
+    DORMTable junction(DORMTable table = null) {
         if (table == null && _junctionTable != null) {
             return _junctionTable;
         }

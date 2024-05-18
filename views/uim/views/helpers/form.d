@@ -1446,7 +1446,6 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldName Name of a field, in the form "modelname.fieldname"
      * @param Json[string] options Array of HTML attributes.
-     * @return string A generated file input.
      */
     string file(string fieldName, Json[string] options  = null) {
         auto updatedOptions = options.merge("secure", true);

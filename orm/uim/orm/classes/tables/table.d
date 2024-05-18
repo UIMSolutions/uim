@@ -1849,7 +1849,6 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * You can overwrite _newId() in your table class.
      * Params:
      * string[] myprimary The primary key columns to get a new DID for.
-     * @return string Either null or the primary key value or a list of primary key values.
      */
     protected string _newId(Json[string] myprimary) {
         if (!myprimary || count(myprimary) > 1) {

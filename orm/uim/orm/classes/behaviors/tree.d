@@ -392,10 +392,8 @@ class DTreeBehavior : DBehavior {
      *
      * @param DORMQuery query Query.
      * @param Json[string] options Array of options as described above
-     * @return DORMQuery
-     * @throws \InvalidArgumentException When the "for" key is not passed in options
      */
-    Query findChildren(Query query, Json[string] optionData) {
+    DORMQuery findChildren(Query query, Json[string] optionData) {
         myConfiguration = configuration;
         auto updatedOptions = options.update["for": Json(null), "direct": false.toJson];
         [parent, left, right] = array_map(

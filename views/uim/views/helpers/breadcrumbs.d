@@ -144,8 +144,6 @@ class DBreadcrumbsHelper : DHelper {
      * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to
      *  the link)
      * - *templateVars*: Specific template vars in case you override the templates provided.
-     * @return this
-     * @throws \LogicException In case the matching crumb can not be found
      */
     auto insertBefore(
         string mymatchingTitle,

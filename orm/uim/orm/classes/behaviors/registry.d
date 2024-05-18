@@ -72,8 +72,6 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * Part of the template method for uim\Core\ObjectRegistry.load()
      *
      * @param string aClassName  Partial classname to resolve.
-     * @return string|null Either the correct class name or null.
-     * @psalm-return class-string|null
      */
     protected string _resolveClassName(string aClassName ) {
         return className(class);

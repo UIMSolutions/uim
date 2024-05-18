@@ -32,7 +32,7 @@ mixin(ExceptionCalls!("PersistenceFailed"));
     protected _messageTemplate = "Entity %s failure.";
 
     /**
-     * Constructor.
+     .
      *
      * @param DORMDatasource\IORMEntity anEntity The entity on which the persistence operation failed
      * @param string[]|string myMessage Either the string of the error message, or an array of attributes

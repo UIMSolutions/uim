@@ -121,7 +121,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     protected int _resultsCount;
 
     /**
-     * Constructor
+     
      *
      * @param DORMdatabases.Connection connection The connection object
      * @param DORMDORMTable aTable The table this query is starting on

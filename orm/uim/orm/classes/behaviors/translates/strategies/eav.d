@@ -61,7 +61,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
   
 
     /**
-     * Constructor
+     
      *
      * @param DORMDORMTable aTable The table this strategy is attached to.
      * @param Json[string] myConfiguration The config for this strategy.

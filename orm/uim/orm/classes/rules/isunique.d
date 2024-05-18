@@ -16,7 +16,7 @@ class DIsUnique {
     ];
 
     /**
-     * Constructor.
+     .
      *
      * ### Options
      *

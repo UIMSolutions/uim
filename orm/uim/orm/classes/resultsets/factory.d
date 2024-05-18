@@ -15,7 +15,7 @@ import uim.orm;
  */
 class DResultsetFactory {
     /**
-     * Constructor
+     
      * Params:
      * \ORM\Query\SelectQuery<T> myquery Query from where results came.
      * @param Json[string] results Results array.

@@ -25,7 +25,7 @@ class DExistsIn {
     protected Json[string] _options = null;
 
     /**
-     * Constructor.
+     .
      *
      * Available option for options is "allowNullableNulls" flag.
      * Set to true to accept composite foreign keys where one or more nullable columns are null.

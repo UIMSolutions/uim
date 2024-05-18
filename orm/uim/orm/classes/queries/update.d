@@ -8,7 +8,7 @@ class DUpdateQuery : DQuery {
     // mixin TCommonQuery();
 
     /**
-     * Constructor
+     
      * Params:
      * \ORM\Table mytable The table this query is starting on
      */

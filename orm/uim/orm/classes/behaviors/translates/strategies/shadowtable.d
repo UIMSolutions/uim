@@ -50,7 +50,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
     }
 
     /**
-     * Constructor
+     
      *
      * @param DORMDORMTable aTable Table instance.
      * @param Json[string] myConfiguration Configuration.

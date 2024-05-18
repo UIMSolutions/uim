@@ -104,7 +104,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     protected Json[string] _options = null;
 
     /**
-     * Constructor
+     
      * Params:
      * \ORM\Table mytable The table this query is starting on
      */

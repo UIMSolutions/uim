@@ -66,7 +66,7 @@ class DEagerLoadable {
     protected string _targetProperty = null;
 
     /**
-     * Constructor. The configData parameter accepts the following array
+     . The configData parameter accepts the following array
      * keys:
      *
      * - associations

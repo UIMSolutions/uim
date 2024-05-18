@@ -144,7 +144,7 @@ class DHelper { // TODO }: IEventListener {
     }
 
     /**
-     * Constructor hook method.
+      hook method.
      *
      * Implement this method to avoid having to overwrite the constructor and call parent.
      * Params:

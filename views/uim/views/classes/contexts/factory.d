@@ -13,7 +13,7 @@ class DContextFactory {
     // TODO protected array<string, array> myproviders = null;
 
     /**
-     * Constructor.
+     .
      * Params:
      * Json[string] myproviders Array of provider callables. Each element should
      *  be of form `["type": "a-string", "callable": ..]`

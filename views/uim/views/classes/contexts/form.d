@@ -40,7 +40,7 @@ class DFormContext : DContext {
     }
 
     /**
-     * Constructor.
+     .
      * Params:
      * Json[string] mycontext DContext info.
      *

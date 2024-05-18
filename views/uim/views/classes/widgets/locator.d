@@ -30,7 +30,7 @@ class DWidgetLocator {
     protected Json[string] _widgets = null;
 
     /**
-     * Constructor
+     
      * Params:
      * \UIM\View\StringContents mytemplates Templates instance to use.
      * @param \UIM\View\View myview The view instance to set as a widget.

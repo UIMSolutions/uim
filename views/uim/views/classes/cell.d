@@ -80,7 +80,7 @@ abstract class DCell { // }: IEventDispatcher {
     // TODO protected Json _cache = false;
 
     /**
-     * Constructor.
+     .
      * Params:
      * \UIM\Http\ServerRequest myrequest The request to use in the cell.
      * @param \UIM\Http\Response myresponse The response to use in the cell.

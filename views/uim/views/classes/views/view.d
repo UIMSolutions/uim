@@ -256,7 +256,7 @@ static string contentType() {
 
 
     /**
-     * Constructor
+     
      * Params:
      * \UIM\Http\ServerRequest|null _request Request instance.
      * @param \UIM\Http\Response|null myresponse Response instance.

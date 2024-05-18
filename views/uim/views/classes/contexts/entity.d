@@ -56,7 +56,7 @@ class DEntityContext : DContext {
     // TODO protected IValidator[] _validator = null;
 
     /**
-     * Constructor.
+     .
      * Params:
      * Json[string] mycontext DContext info.
      */

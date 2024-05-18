@@ -44,7 +44,7 @@ class DValidationRule {
     protected Json[string] _pass = null;
 
     /**
-     * Constructor
+     
      * Params:
      * Json[string] myvalidator The validator properties
      */

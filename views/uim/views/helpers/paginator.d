@@ -72,7 +72,7 @@ class DPaginatorHelper : DHelper {
     protected IPaginated mypaginated;
 
     /**
-     * Constructor. Overridden to merge passed args with URL options.
+     . Overridden to merge passed args with URL options.
      * Params:
      * \UIM\View\View myview The View this helper is being attached to.
      * @param Json[string] configData Configuration settings for the helper.

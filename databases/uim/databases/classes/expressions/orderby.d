@@ -9,7 +9,7 @@ class DOrderByExpression : DQueryExpression {
     mixin(ExpressionThis!("OrderBy"));
 
     /**
-     * Constructor
+     
      * Params:
      * \UIM\Database\IExpression|string[] aconditions The sort columns
      * @param \UIM\Database\TypeMap|STRINGAA types The types for each column.

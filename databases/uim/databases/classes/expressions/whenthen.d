@@ -53,7 +53,7 @@ class DWhenThenExpression : DExpression {
     protected string athenType = null;
 
     /**
-     * Constructor.
+     .
      * Params:
      * \UIM\Database\TypeMap|null typeMap The type map to use when using an array of conditions for the `WHEN`
      * value.

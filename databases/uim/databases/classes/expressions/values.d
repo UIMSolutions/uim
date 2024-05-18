@@ -30,7 +30,7 @@ class DValuesExpression : DExpression {
     protected bool _castedExpressions = false;
 
     /**
-     * Constructor
+     
      * Params:
      * Json[string] someColumns The list of columns that are going to be part of the values.
      * @param \UIM\Database\TypeMap typeMap A dictionary of column ~ type names

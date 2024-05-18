@@ -35,7 +35,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
     protected IExpression[] _valueExpressions;
 
     /**
-     * Constructor
+     
      * Params:
      * \UIM\Database\IExpression|string fieldName the field name to compare to a value
      * @param Json aValue The value to be used in comparison

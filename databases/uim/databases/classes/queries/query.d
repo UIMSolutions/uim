@@ -96,7 +96,7 @@ abstract class DQuery : IQuery { // : IExpression {
     protected DFunctionsBuilder _functionsBuilder;
 
     /**
-     * Constructor.
+     .
      * Params:
      * \UIM\Database\Connection aConnection The connection
      * object to be used for transforming and executing this query

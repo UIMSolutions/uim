@@ -13,7 +13,7 @@ class DOrderClauseExpression : DExpression { // TODO }, IField {
   protected string _direction;
 
   /**
-     * Constructor
+     
      * Params:
      * \UIM\Database\IExpression|string fieldName The field to order on.
      */

@@ -24,7 +24,7 @@ class DUnaryExpression : DExpression {
     protected int _position;
 
     /**
-     * Constructor
+     
      * Params:
      * string expressionOperator The operator to used for the expression
      * @param Json aValue the value to use as the operand for the expression

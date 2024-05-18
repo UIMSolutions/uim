@@ -16,7 +16,7 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
     mixin TypedResultTemplate;
 
     /**
-     * Constructor. Takes a name for the auto to be invoked and a list of params
+     . Takes a name for the auto to be invoked and a list of params
      * to be passed into the function. Optionally you can pass a list of types to
      * be used for each bound param.
      *

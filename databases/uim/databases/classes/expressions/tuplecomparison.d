@@ -17,7 +17,7 @@ class DTupleComparisonExpression : DComparisonExpression {
     protected string[] types;
 
     /**
-     * Constructor
+     
      * Params:
      * \UIM\Database\IExpression|string[] fieldNames the fields to use to form a tuple
      * @param \UIM\Database\IExpression|array  someValues the values to use to form a tuple

@@ -382,19 +382,12 @@ class DNumericPaginator : IPaginator {
         return [type, options];
     }
 
-    /**
-     * Get paging params after pagination operation.
-     *
-     * @return array<string, array>
-     */
+    // Get paging params after pagination operation.
     Json[string] getPagingParams() {
         return _pagingParams;
     }
 
-    /**
-     * Shim method for reading the deprecated whitelist or allowedParameters options
-     *
-     */
+    // Shim method for reading the deprecated whitelist or allowedParameters options
     protected string[] getAllowedParameters() {
         allowed = this.configuration.get("allowedParameters");
         if (!allowed) {

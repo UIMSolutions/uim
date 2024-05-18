@@ -62,7 +62,7 @@ class DApplication {
      */
     this(
         string configDataDir,
-        ?IEventManager eventManager = null,
+        IEventManager eventManager = null,
         IControllerFactory controllerFactory = null
     ) {
         this.configDir = stripRight(configDataDir, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;

@@ -309,12 +309,8 @@ abstract class DERRErrorHandler {
         return _getLogger().log(exception, request ?? Router.getRequest());
     }
 
-    /**
-     * Get exception logger.
-     *
-     * @return uim.errors.IErrorLogger
-     */
-    function getLogger() {
+    // Get exception logger.
+    IErrorLogger getLogger() {
         if (this.logger == null) {
             /** @var uim.errors.IErrorLogger logger */
             logger = new _config["errorLogger"](_config);

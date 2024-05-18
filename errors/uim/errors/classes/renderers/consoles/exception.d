@@ -30,7 +30,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
      * @param \Psr\Http\Message\IServerRequest|null request Not used.
      * @param Json[string] configData Error handling configuration.
      */
-    this(DThrowable error, ?IServerRequest serverRequest, Json[string] configData) {
+    this(DThrowable error, IServerRequest serverRequest, Json[string] configData) {
         this.error = error;
         this.output = configuration.data("stderr"] ?? new DConsoleOutput("D://stderr");
         this.trace = configuration.data("trace"] ?? true;

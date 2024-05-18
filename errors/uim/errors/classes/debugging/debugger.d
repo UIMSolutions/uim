@@ -594,7 +594,6 @@ class DDebugger {
      *
      * @param mixed var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
-     * @return string Variable as a formatted string
      */
     static string exportVar(var, int maxDepth = 3) {
         context = new DebugContext(maxDepth);

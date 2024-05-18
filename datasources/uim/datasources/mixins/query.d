@@ -128,9 +128,7 @@ mixin template TQuery() {
         return this;
     }
 
-    /**
-     * Returns the current configured query `_eagerLoaded` value
-     */
+    // Returns the current configured query `_eagerLoaded` value
     bool isEagerLoaded() {
         return _eagerLoaded;
     }
@@ -140,12 +138,9 @@ mixin template TQuery() {
      * passed, the current configured query `_eagerLoaded` value is returned.
      *
      * @param bool value Whether to eager load.
-     * @return this
      */
-    function eagerLoaded(bool value) {
+    void eagerLoaded(bool value) {
         _eagerLoaded = value;
-
-        return this;
     }
 
     /**

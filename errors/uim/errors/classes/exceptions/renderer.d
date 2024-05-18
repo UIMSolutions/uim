@@ -265,7 +265,6 @@ class DExceptionRenderer { // }: IExceptionRenderer
      *
      * @param \Throwable myException Exception.
      * @param int code Error code.
-     * @return string Error message
      */
     protected string _message(Throwable myException, int errorCode) {
         myMessage = myException.getMessage();

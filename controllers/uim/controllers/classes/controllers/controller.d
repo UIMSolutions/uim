@@ -258,12 +258,12 @@ class DController : IController { // IEventListener, IEventDispatcher {
 
     // Enable automatic action rendering.
     void enableAutoRender() {
-        this.autoRender = true;
+        _autoRender = true;
     }
 
     // Disable automatic action rendering.
     void disableAutoRender() {
-        this.autoRender = false;
+        _autoRender = false;
     }
     
 
@@ -404,7 +404,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * @param int status HTTP status code. Defaults to `302`.
      */
     Response redirect(IUri|string[] aurl, int httpStatusCode = 302) {
-        this.autoRender = false;
+        _autoRender = false;
 
         if (httpStatusCode < 300 || httpStatusCode > 399) {
             throw new DInvalidArgumentException(
@@ -442,7 +442,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         if (! builder.getTemplatePath()) {
              builder.setTemplatePath(_templatePath());
         }
-        this.autoRender = false;
+        _autoRender = false;
 
         if (template) {
              builder.setTemplate(template);

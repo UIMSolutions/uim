@@ -37,7 +37,7 @@ interface IErrorLogger {
      */
     void logError(
         UimError error,
-        ?IServerRequest serverRequest = null,
+        IServerRequest serverRequest = null,
         bool  anIncludeTrace = false
     ); 
 }

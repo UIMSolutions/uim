@@ -1189,8 +1189,6 @@ class DServerRequest { // }: IServerRequest {
      * and a 405 error will be returned.
      * Params:
      * string[]|string httpMethods Allowed HTTP request methods.
-     * @return true
-     * @throws \UIM\Http\Exception\MethodNotAllowedException
      */
     bool allowMethod(string[] amethods) {
          someMethods = (array) someMethods;

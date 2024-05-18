@@ -288,7 +288,7 @@ class DSelectLoader {
         defaults = query.getDefaultTypes();
         foreach (keys as k) {
             if (isset(defaults[k])) {
-                types[] = defaults[k];
+                types ~= defaults[k];
             }
         }
 
@@ -300,10 +300,8 @@ class DSelectLoader {
      * which the filter should be applied
      *
      * @param Json[string] options The options for getting the link field.
-     * @return string[]|string
-     * @throws \RuntimeException
      */
-    protected function _linkField(Json[string] optionData) {
+    protected string[] _linkField(Json[string] optionData) {
         links = null;
         name = this.alias;
 

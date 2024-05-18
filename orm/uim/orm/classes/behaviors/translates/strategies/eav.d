@@ -438,7 +438,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                 if (!translation.isDirty(field)) {
                     continue;
                 }
-                find[] = ["locale": lang, "field": field, "foreign_key IS": key];
+                find ~= ["locale": lang, "field": field, "foreign_key IS": key];
                 contents[] = new DORMEntity(["content": translation.get(field)], [
                     "useSetters": false.toJson,
                 ]);

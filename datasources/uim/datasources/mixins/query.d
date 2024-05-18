@@ -249,7 +249,7 @@ mixin template TQuery() {
 
             return;
         }
-        _mapReduce[] = compact("mapper", "reducer");
+        _mapReduce ~= compact("mapper", "reducer");
     }
 
     /**

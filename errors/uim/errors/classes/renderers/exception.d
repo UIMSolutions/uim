@@ -92,9 +92,6 @@ class DExceptionRenderer : IExceptionRenderer {
      * Override this method in subclasses to customize the controller used.
      * This method returns the built in `ErrorController` normally, or if an error is repeated
      * a bare controller will be used.
-     *
-     * @return uim.controllers.Controller
-     * @triggers Controller.startup controller
      */
     protected IController _getController() {
         myRequest = this.request;
@@ -257,7 +254,6 @@ class DExceptionRenderer : IExceptionRenderer {
     /**
      * Get error message.
      * @param \Throwable myException Exception.
-     * @return string Error message
      */
     protected string _message(Throwable myException, int errorCode) {
         auto myMessage = myException.getMessage();

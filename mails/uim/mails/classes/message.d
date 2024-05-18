@@ -247,9 +247,6 @@ class DMessage { //: JsonSerializable {
      * string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     * @return this
-     * @throws \InvalidArgumentException
-     * @link https://tools.ietf.org/html/rfc2822.html#section-3.6.2
      */
     auto setSender(string[] aemail, string aName = null) {
         return _setEmailSingle("sender", email, name, "Sender requires only 1 email address.");

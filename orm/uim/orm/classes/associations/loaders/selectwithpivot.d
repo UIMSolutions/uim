@@ -121,7 +121,7 @@ class DSelectWithPivotLoader : DSelectLoader {
         name = this.junctionAssociationName;
 
         foreach ((array)options["foreignKey"] as key) {
-            links[] = sprintf("%s.%s", name, key);
+            links ~= sprintf("%s.%s", name, key);
         }
 
         if (count(links) == 1) {

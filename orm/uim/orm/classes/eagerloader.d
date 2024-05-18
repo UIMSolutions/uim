@@ -539,7 +539,7 @@ class DEagerLoader {
             }
 
             loadable.setCanBeJoined(false);
-            _loadExternal[] = loadable;
+            _loadExternal ~= loadable;
         }
 
         return result;

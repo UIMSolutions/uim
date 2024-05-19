@@ -36,6 +36,7 @@ mixin template TConfigurable() {
         }
     }
 
+    // TODO
     /* Json getConfigurationData(string key) {
         return _configuration ? _configuration.get(key) : null;
     }
@@ -44,5 +45,5 @@ mixin template TConfigurable() {
         if (configuration) {
             configuration.set(key, newData);
         }
-    }
+    } */
 }

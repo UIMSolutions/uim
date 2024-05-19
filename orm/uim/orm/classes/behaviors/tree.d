@@ -330,8 +330,6 @@ class DTreeBehavior : DBehavior {
      *
      * @param DORMQuery query The constructed query to modify
      * @param Json[string] options the list of options for the query
-     * @return 
-     * @throws \InvalidArgumentException If the "for" key is missing in options
      */
     DORMQuery findPath(Query query, Json[string] optionData) {
         if (options.isEmpty("for"))) {

@@ -272,10 +272,8 @@ class DSelectLoader {
      * @param string[] keys the fields that should be used for filtering
      * @param mixed filter the value that should be used to match for key
      * @param string operator The operator for comparing the tuples
-     * @return DORMdatabases.Expression\TupleComparison
      */
-    protected function _createTupleCondition(Query query, Json[string] keys, filter, operator): TupleComparison
-    {
+    protected TupleComparison _createTupleCondition(Query query, Json[string] keys, filter, operator) {
         types = null;
         defaults = query.getDefaultTypes();
         foreach (keys as k) {

@@ -546,11 +546,8 @@ class DEagerLoader {
      * @param DORMQuery query The query for which to eager load external
      * associations
      * @param DORMdatabases.StatementInterface statement The statement created after executing the query
-     * @return DORMdatabases.StatementInterface statement modified statement with extra loaders
-     * @throws \RuntimeException
      */
-    function loadExternal(Query query, StatementInterface statement): StatementInterface
-    {
+    StatementInterface loadExternal(Query query, StatementInterface statement) {
         table = query.getRepository();
         external = this.externalAssociations(table);
         if (external.isEmpty) {

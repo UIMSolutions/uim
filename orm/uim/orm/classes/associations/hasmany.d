@@ -68,7 +68,7 @@ class DHasManyAssociation : DAssociation {
      */
     void setSaveStrategy(string strategy) {
         if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
-            msg =  "Invalid save strategy '%s'".format(strategy);
+            msg = "Invalid save strategy '%s'".format(strategy);
             throw new DInvalidArgumentException(msg);
         }
 
@@ -536,13 +536,11 @@ class DHasManyAssociation : DAssociation {
      * Whether this association can be expressed directly in a query join
      *
      * @param Json[string] options custom options key that could alter the return value
-     * @return bool if the "matching" key in option is true then this function
-     * will return true, false otherwise
      */
                                 bool canBeJoined(
                                     Json[string] options = null) {
                                     return !options.isEmpty(
-                                        "matching"]);
+                                        "matching");
                                 }
 
                                 // Gets the name of the field representing the foreign key to the source table.
@@ -627,5 +625,6 @@ class DHasManyAssociation : DAssociation {
                                     return helper.cascaderemove(this, entity, options);
                                 }
                             }
+
                             mixin(AssociationCalls!(
                                 "HasMany"));

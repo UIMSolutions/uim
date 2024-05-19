@@ -1043,10 +1043,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * method in subclasses to modify how `find("all")` works.
      * Params:
      * \ORM\Query\SelectQuery myquery The query to find with
-     * @return \ORM\Query\SelectQuery The query builder
      */
-    auto findAll(SelectQuery myquery): SelectQuery
-    {
+    SelectQuery findAll(SelectQuery myquery) {
         return myquery;
     }
     

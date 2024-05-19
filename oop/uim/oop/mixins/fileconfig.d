@@ -9,6 +9,7 @@ mixin template TFileConfig() {
     // The path this engine finds files on.
     protected string _path = "";
 
+    // TODO 
     /**
      * Get file path
      * Params:
@@ -35,5 +36,5 @@ mixin template TFileConfig() {
             return realFilePath;
         }
         throw new UimException("Could not load configuration file: `%s`.".format(filePath));
-    }
+    } */
 }

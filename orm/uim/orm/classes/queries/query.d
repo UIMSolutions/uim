@@ -255,12 +255,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * and storing containments.
      *
      * @param DORMEagerLoader instance The eager loader to use.
-     * @return this
      */
-    function setEagerLoader(EagerLoader instance) {
+    void setEagerLoader(EagerLoader instance) {
         _eagerLoader = instance;
-
-        return this;
     }
 
     // Returns the currently configured instance.

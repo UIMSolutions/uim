@@ -914,10 +914,8 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param DORMQuery query The query to append.
      * @param array|null conditions The query conditions to use.
-     * @return DORMQuery The modified query.
      */
-    protected function _appendJunctionJoin(Query query, array conditions = null): Query
-    {
+    protected DORMQuery _appendJunctionJoin(Query query, array conditions = null) {
         junctionTable = this.junction();
         if (conditions == null) {
             belongsTo = junctionTable.getAssociation(getTarget().aliasName());

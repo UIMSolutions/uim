@@ -16,6 +16,7 @@ mixin template TCookieCrypt() {
     // Returns the encryption key to be used.
     abstract protected string _getCookieEncryptionKey();
 
+    // TODO
     /**
      * Encrypts myvalue using mytype method in Security class
      * Params:
@@ -129,5 +130,5 @@ mixin template TCookieCrypt() {
             myarray[aKey[0]] = aKey[1];
         }
         return myarray;
-    }
+    } */
 }

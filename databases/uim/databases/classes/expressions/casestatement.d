@@ -312,21 +312,14 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      *   .then("No")
      *   // ...
      * ```
-     * Params:
-     * \UIM\Database\IExpression|object|scalar|null result The result value.
-     * @param string resultType The result resultType. If no resultType is provided, the resultType will be tried to be inferred from the
-     * value.
-
-     * @throws \LogicException In case `when()` wasn`t previously called with a value other than a closure or an
-     * instance of `\UIM\Database\Expression\WhenThenExpression`.
      */
-    void then(Json result, string resultType = null) {
+    void then(Json resultValue, string resultType = null) {
         if (_whenBuffer.isNull) {
             throw new DLogicException("Cannot call `then()` before `when()`.");
         }
          whenThen = (new WhenThenExpression(getTypeMap()))
             .when(_whenBuffer["when"], _whenBuffer["type"])
-            .then(result, resultType);
+            .then(resultValue, resultType);
 
         _whenBuffer = null;
 

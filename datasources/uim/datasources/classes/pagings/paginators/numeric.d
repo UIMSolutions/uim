@@ -196,18 +196,12 @@ class DNumericPaginator : IPaginator {
         return results;
     }
 
-    /**
-     * Get query for fetching paginated results.
-     *
-     * @param uim.Datasource\IRepository object Repository instance.
-     * @param uim.Datasource\IQuery|null query Query Instance.
-     * @param Json[string] data Pagination data.
-     */
-    protected IQuery getQuery(IRepository object, IQuery query, Json[string] data) {
+    // Get query for fetching paginated results.
+    protected IQuery getQuery(IRepository object, IQuery query, Json[string] paginationData) {
         if (query == null) {
-            query = object.find(data["finder"], data["options"]);
+            query = object.find(paginationData["finder"], paginationData["options"]);
         } else {
-            query.applyOptions(data["options"]);
+            query.applyOptions(paginationData["options"]);
         }
 
         return query;

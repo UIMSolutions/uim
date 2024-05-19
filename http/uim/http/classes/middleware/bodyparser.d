@@ -79,15 +79,11 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      * return str_getcsv(body);
      * });
      * ```
-     * Params:
-     * string[] types An array of content-type header values to match. eg. application/Json
-     * @param \Closure  aParser The parser function. Must return an array of data to be inserted
-     * into the request.
      */
-    void addParser(Json[string] types, Closure  aParser) {
+    void addParser(Json[string] contentTypeHeaders, Closure parserFunction) {
         types
-            .map!(type => type.lower)
-            .each!(type => this.parsers[type] = aParser);
+            .map!(contentTypeHeaders => contentTypeHeaders.lower)
+            .each!(contentTypeHeaders => this.parsers[contentTypeHeaders] = parserFunction);
     }
     
     // Get the current parsers

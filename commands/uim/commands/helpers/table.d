@@ -70,43 +70,40 @@ class DTableHelper { // }: Helper {
       .join;
 
     outputResult ~= "+";
-    _io.out (outputResult);
+    _io.
+    out (outputResult);
+  }
+
+  // Output a row.
+  protected void _render(Json[string] rowOutput, int[] columnWidths, Json[string] optionsToPass = null) {
+    if (count(row) == 0) {
+      return;
+    }
+
+    string outputResult = "";
+    foreach (index : value; row.values) {
+      string column = to!string(value);
+      pad = columnWidths[index] - _cellWidth(column);
+      if (!optionsToPass.isEmpty("style")) {
+        column = _addStyle(column, optionsToPass["style"]);
+      }
+      if (column != "" && preg_match("#(.*)<text-right>.+</text-right>(.*)#", column, matches)) {
+        if (matches[1] != "" || !matches[2].isEmpty) {
+          throw new DUnexpectedValueException(
+            "You cannot include text before or after the text-right tag.");
+        }
+        column = column.replace(["<text-right>", "</text-right>"], "");
+        outputResult ~= "| " ~ str_repeat(" ", pad) ~ column ~ " ";
+      } else {
+        outputResult ~= "| " ~ column ~ str_repeat(" ", pad) ~ " ";
+      }
+    }
+    outputResult ~= "|";
+    _io.
+    out (outputResult);
   }
 
   /**
-     * Output a row.
-     * Params:
-     * Json[string] row The row to output.
-     * @param ] optionsToPass Options to be passed.
-     */
-      protected void _render(arrayrow, int[] columnWidths, Json[string] optionsToPass = null) {
-        if (count(row) == 0) {
-          return;
-        }
-
-        string outputResult = "";
-        foreach (index : value; row.values) {
-          string column = to!string(value);
-          pad = columnWidths[index] - _cellWidth(column);
-          if (!optionsToPass.isEmpty("style")) {
-            column = _addStyle(column, optionsToPass["style"]);
-          }
-          if (column != "" && preg_match("#(.*)<text-right>.+</text-right>(.*)#", column, matches)) {
-            if (matches[1] != "" || ! matches[2].isEmpty) {
-              throw new DUnexpectedValueException(
-                "You cannot include text before or after the text-right tag.");
-            }
-            column = column.replace(["<text-right>", "</text-right>"], "");
-            outputResult ~= "| " ~ str_repeat(" ", pad) ~ column ~ " ";
-          } else {
-            outputResult ~= "| " ~ column ~ str_repeat(" ", pad) ~ " ";
-          }
-        }
-        outputResult ~= "|";
-        _io.out (outputResult);
-      }
-
-      /**
      * Output a table.
      *
      * Data will be output based on the order of the values
@@ -114,35 +111,35 @@ class DTableHelper { // }: Helper {
      * Params:
      * Json[string] commandArguments The data to render out.
      */
-      void output(Json[string] commandArguments) {
-        if (commandArguments.isEmpty) {
-          return;
-        }
-        _io.setStyle("text-right", ["text": Json(null)]);
+  void output(Json[string] commandArguments) {
+    if (commandArguments.isEmpty) {
+      return;
+    }
+    _io.setStyle("text-right", ["text": Json(null)]);
 
-        configData = this.configuration.data;
-        widths = _calculateWidths(commandArguments);
+    configData = this.configuration.data;
+    widths = _calculateWidths(commandArguments);
 
-        _rowSeparator(widths);
-        if (configuration.data("headers"] == true) {
-            _render(array_shift(commandArguments), widths, ["style": configuration.data("headerStyle"]]);
-              _rowSeparator(widths); }
-              if (commandArguments.isEmpty) {
-                return; }
-                commandArguments.each!((line) {
-                  _render(line, widths); if (configuration.data("rowSeparator"] == true) {
+    _rowSeparator(widths);
+    if (configuration.data("headers"] == true) {
+        _render(array_shift(commandArguments), widths, ["style": configuration.data("headerStyle"]]);
+            _rowSeparator(widths); }
+            if (commandArguments.isEmpty) {
+              return; }
+              commandArguments.each!((line) {
+                _render(line, widths); if (configuration.data("rowSeparator"] == true) {
+                    _rowSeparator(widths); }
+                  }
+                  if (configuration.data("rowSeparator"] != true) {
                       _rowSeparator(widths); }
                     }
-                    if (configuration.data("rowSeparator"] != true) {
-                        _rowSeparator(widths); }
-                      }
 
-                      /**
+                    /**
      * Add style tags
      * Params:
      * string textForSurround The text to be surrounded
      */
-      protected string _addStyle(string textForSurround, string styleToAppy) {
-        return "<" ~ style ~ ">" ~ textForSurround ~ "</" ~ style ~ ">";
-      } 
-}
+                    protected string _addStyle(string textForSurround, string styleToAppy) {
+                      return "<" ~ style ~ ">" ~ textForSurround ~ "</" ~ style ~ ">";
+                    }
+                    }

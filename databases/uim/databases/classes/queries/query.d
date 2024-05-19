@@ -241,10 +241,8 @@ abstract class DQuery : IQuery { // : IExpression {
      * }, ["select", "from"]);
      * ```
      * Params:
-     * \Closure  visitor Callback executed for each part
-     * @param string[] someParts The list of query parts to traverse
      */
-    void traverseParts(Closure  visitor, Json[string] someParts) {
+    void traverseParts(Closure visitor, Json[string] queryParts) {
         someParts.each!(name =>  visitor(_parts[name], name));
     }
     

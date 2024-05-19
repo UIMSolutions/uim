@@ -143,11 +143,8 @@ interface ICollection {
      * by the callback function.
      * If zero is omitted the first value of the collection will be used in its place
      * and reduction will start from the second item.
-     *
-     * @param callable callback The callback // function to be called
-     * @param mixed initial The state of reduction
      */
-    // TODO Json reduce(callable callback, initial = null);
+    Json reduce(callable callback, initial = null);
 
     /**
      * Returns a new DCollection containing the column or property value found in each
@@ -170,7 +167,7 @@ interface ICollection {
      * ];
      * extracted = (new DCollection(items)).extract("comment.user.name");
      *
-     */ Result will look like this when converted to array
+     * Result will look like this when converted to array
      * ["Mark", "Renan"]
      * ```
      *
@@ -183,7 +180,7 @@ interface ICollection {
      * ];
      * extracted = (new DCollection(items)).extract("comment.votes.{*}.value");
      *
-     */ Result will contain
+     * Result will contain
      * [1, 2, 3, 4]
      * ```
      *
@@ -191,7 +188,7 @@ interface ICollection {
      * so that the final one can be returned or a callable that will take care
      * of doing that.
      */
-    // ICollection extract(path);
+    ICollection extract(path);
 
     /**
      * Returns the top element in this collection after being sorted by a property.

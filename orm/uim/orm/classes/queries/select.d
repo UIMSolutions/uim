@@ -296,7 +296,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * @param \Closure|null myreducer The reducing function
      * @param bool myoverwrite Set to true to overwrite existing map + reduce functions.
      */
-    void mapReduce(?Closure mymapper = null, Closure myreducer = null, bool myoverwrite = false) {
+    void mapReduce(Closure mymapper = null, Closure myreducer = null, bool myoverwrite = false) {
         if (myoverwrite) {
            _mapReduce = null;
         }
@@ -406,7 +406,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * \Closure|null myformatter The formatting function
      * @param int|bool mymode Whether to overwrite, append or prepend the formatter.
      */
-    void formatResults(?Closure myformatter = null, int|bool mymode = self.APPEND) {
+    void formatResults(Closure myformatter = null, int|bool mymode = self.APPEND) {
         if (mymode == self.OVERWRITE) {
            _formatters = null;
         }
@@ -997,7 +997,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * @param \Closure|null mybuilder a auto that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      */
-    void leftJoinWith(string myassoc, ?Closure mybuilder = null) {
+    void leftJoinWith(string myassoc, Closure mybuilder = null) {
         result = getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_LEFT,
@@ -1041,7 +1041,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * @param \Closure|null mybuilder a auto that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      */
-    void innerJoinWith(string myassoc, ?Closure mybuilder = null) {
+    void innerJoinWith(string myassoc, Closure mybuilder = null) {
         result = getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_INNER,
@@ -1101,7 +1101,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * @param \Closure|null mybuilder a auto that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      */
-    void notMatching(string myassoc, ?Closure mybuilder = null) {
+    void notMatching(string myassoc, Closure mybuilder = null) {
         result = getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_LEFT,
@@ -1241,7 +1241,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Params:
      * \Closure|null mycounter The counter value
      */
-    auto counter(?Closure mycounter) {
+    auto counter(Closure mycounter) {
        _counter = mycounter;
 
         return this;

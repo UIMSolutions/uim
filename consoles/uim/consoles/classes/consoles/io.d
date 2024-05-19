@@ -77,9 +77,9 @@ class DConsoleIo {
      * @param \UIM\Console\HelperRegistry|null helpers A HelperRegistry instance
      */
     this(
-        ?ConsoleOutput  result = null,
-        ?ConsoleOutput err = null,
-        ?ConsoleInput  anIn = null,
+        ConsoleOutput  result = null,
+        ConsoleOutput err = null,
+        ConsoleInput  anIn = null,
         ?HelperRegistry helpers = null
     ) {
        _out = result ? result : new DConsoleOutput("uim://stdout");

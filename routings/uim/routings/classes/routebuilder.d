@@ -738,7 +738,7 @@ class DRouteBuilder {
      * @param \Closure|null mycallback The callback to invoke that builds the plugin routes
      * Only required when options is defined.
      */
-    auto plugin(string routings, Closure|Json[string] optionData = null, ?Closure mycallback = null) {
+    auto plugin(string routings, Closure|Json[string] optionData = null, Closure mycallback = null) {
         if (!isArray(options)) {
             mycallback = options;
             options = null;
@@ -768,7 +768,7 @@ class DRouteBuilder {
      * @param \Closure|null mycallback The callback to invoke that builds the plugin routes.
      * Only required when myparams is defined.
      */
-    void scope(string mypath, Closure|array myparams, ?Closure mycallback = null) {
+    void scope(string mypath, Closure|array myparams, Closure mycallback = null) {
         if (cast(DClosure)myparams) {
             mycallback = myparams;
             myparams = null;

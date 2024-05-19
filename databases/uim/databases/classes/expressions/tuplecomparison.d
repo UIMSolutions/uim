@@ -14,13 +14,6 @@ class DTupleComparisonExpression : DComparisonExpression {
     // The type to be used for casting the value to a database representation
     protected string[] types;
 
-    /**
-     
-     * Params:
-     * \UIM\Database\IExpression|string[] fieldNames the fields to use to form a tuple
-     * @param array<string> types the types names to use for casting each of the values, only
-     * one type per position in the value array in needed
-     */
     this(
         IExpression | string[] fieldNames,
         IExpression | Json[string] someValues,
@@ -33,9 +26,7 @@ class DTupleComparisonExpression : DComparisonExpression {
         setValue(someValues);
     }
 
-    /**
-     * Returns the type to be used for casting the value to a database representation
-     */
+    // Returns the type to be used for casting the value to a database representation
     string[] getType() {
         return _types;
     }
@@ -58,87 +49,92 @@ class DTupleComparisonExpression : DComparisonExpression {
         _value = valueToCompare;
     }
 
-    string sql(DValueBinder aBinder) {
-         originalFields = getFieldNames();
+    string sql(DValueBinder valueBinder) {
+        originalFields = getFieldNames();
         if (!isArray(originalFields)) {
-             originalFields = [originalFields];
+            originalFields = [originalFields];
         }
         string[] fieldNames;
-         originalFields.each!(field => fields ~= cast(IExpression) field
-                ? field.sql(aBinder) : field;}
+        originalFields.each!(field => fields ~= cast(IExpression) field
+                ? field.sql(valueBinder) : field;}
 
         return "(%s) %s (%s)"
-            .format(fields.join(", "), _operator, _stringifyValues(aBinder)); 
-    }
+            .format(fields.join(", "), _operator, _stringifyValues(valueBinder));}
 
-    /**
+        /**
      * Returns a string with the values as placeholders in a string to be used
      * for the SQL version of this expression
-     * Params:
-     * \UIM\Database\DValueBinder aBinder The value binder to convert expressions with.
      */
-    protected string _stringifyValues(DValueBinder aBinder) {
-        string[] someValues; someParts = getValue(); if (cast(IExpression) someParts) {
-            return someParts.sql(aBinder);}
-            foreach (someParts as anI : aValue) {
-                if (cast(IExpression) aValue) {
-                    someValues ~= aValue.sql(aBinder); continue;}
-                    type = this.typesNames; isMultiOperation = this.isMulti(); if (isEmpty(type)) {
-                        type = null;}
-                        if (isMultiOperation) {
-                            string[] bound = null; aValue.byKeyValue
-                                .each!((kv) {
-                                    auto valType = type && isSet(type[myKey]) ? type[myKey] : type;
-                                    assert(valType.isNull || isScalar(valType));
-                                     bound ~= _bindValue(val, aBinder,  valType);
-                                }); someValues ~= "(%s)".format(bound.join(","));
-                            continue;}
-                             valType = type && isSet(type[anI]) ? type[anI] : type;
-                                assert(valType.isNull || isScalar(valType)); someValues ~= _bindValue(aValue, aBinder,  valType);
-                        }
-                        return someValues.join(", ");}
+        protected string _stringifyValues(DValueBinder valueBinder) {
+            string[] someValues; someParts = getValue(); if (cast(IExpression) someParts) {
+                return someParts.sql(valueBinder);}
+                foreach (someParts as anI : aValue) {
+                    if (cast(IExpression) aValue) {
+                        someValues ~= aValue.sql(valueBinder); continue;}
+                        type = this.typesNames; isMultiOperation = this.isMulti();
+                            if (isEmpty(type)) {
+                                type = null;}
+                                if (isMultiOperation) {
+                                    string[] bound = null; aValue.byKeyValue
+                                        .each!((kv) {
+                                            auto valType = type && isSet(type[myKey]) ? type[myKey]
+                                                : type;
+                                            assert(valType.isNull || isScalar(valType));
+                                            bound ~= _bindValue(val, valueBinder, valType);
+                                        }); someValues ~= "(%s)".format(bound.join(","));
+                                    continue;}
+                                    valType = type && isSet(type[anI]) ? type[anI] : type;
+                                        assert(valType.isNull || isScalar(valType));
+                                        someValues ~= _bindValue(aValue, valueBinder, valType);
+                                }
+                                return someValues.join(", ");}
 
-                        protected string _bindValue(Json aValue, DValueBinder aBinder, string atype = null) {
-                            placeholder = aBinder.placeholder("tuple"); aBinder.bind(placeholder, aValue, type);
+                                protected string _bindValue(Json aValue, DValueBinder valueBinder, string atype = null) {
+                                    placeholder = valueBinder.placeholder("tuple");
+                                        valueBinder.bind(placeholder, aValue, type);
 
-                                return placeholder;}
+                                        return placeholder;}
 
-                                void traverse(Closure aCallback) {
-                                    fields = (array) getFieldNames(); fields.each!(
-                                        field => _traverseValue(field, aCallback));
+                                        void traverse(Closure aCallback) {
+                                            fields = (array) getFieldNames(); fields.each!(
+                                                field => _traverseValue(field, aCallback));
 
-                                        auto myValue = getValue(); if (
-                                            cast(IExpression) myValue) {
-                                            aCallback(myValue); aValue.traverse(aCallback);
+                                                auto myValue = getValue(); if (
+                                                    cast(IExpression) myValue) {
+                                                    aCallback(myValue); aValue.traverse(aCallback);
 
-                                                return;}
+                                                        return;}
 
-                                                myValue.each!((subValue) {
-                                                    if (this.isMulti()) {
-                                                        subValue.each(v => _traverseValue(v, aCallback));
-                                                    } else {
-                                                        _traverseValue(subValue, aCallback);
-                                                    }
-                                                });}
+                                                        myValue.each!((subValue) {
+                                                            if (this.isMulti()) {
+                                                                subValue.each(v => _traverseValue(v, aCallback));
+                                                            } else {
+                                                                _traverseValue(subValue, aCallback);
+                                                            }
+                                                        });}
 
-                                                /**
+                                                        /**
      * Conditionally executes the callback for the passed value if
      * it is an IExpression
      * Params:
      * Json aValue The value to traverse
      * @param \Closure aCallback The callback to use when traversing
      */
-                                                protected void _traverseValue(
-                                                    Json aValue, IClosure aCallback) {
-                                                    if (cast(IExpression) aValue) {
-                                                        aCallback(aValue); aValue.traverse(
-                                                            aCallback);}
-                                                    }
+                                                        protected void _traverseValue(
+                                                            Json aValue, IClosure aCallback) {
+                                                            if (cast(IExpression) aValue) {
+                                                                aCallback(aValue);
+                                                                    aValue.traverse(
+                                                                        aCallback);
+                                                            }
+                                                        }
 
                                                     // Determines if each of the values in this expressions is a tuple in itself
                                                     bool isMulti() {
                                                         return in_array(_operator.lower, [
                                                                 "in", "not in"
-                                                            ]);} */
-}
-mixin(ExpressionCalls!("TupleComparison"));
+                                                            ]);}
+
+                                                         *  /
+                                                    }
+                                                    mixin(ExpressionCalls!("TupleComparison"));

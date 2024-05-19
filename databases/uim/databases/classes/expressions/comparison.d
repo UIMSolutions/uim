@@ -42,13 +42,13 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      */
     this(
         IExpression|string fieldName,
-        Json aValue,
+        Json valueToCompare,
         string typeName = null,
         string operator = "="
     ) {
        _type = typeName;
         setFieldNames(field);
-        setValue(aValue);
+        setValue(valueToCompare);
        _operator = operator;
     }
     
@@ -57,15 +57,15 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      * Params:
      * Json aValue The value to compare
      */
-    void setValue(Json aValue) {
-        aValue = _castToExpression(aValue, _type);
+    void setValue(Json valueToCompare) {
+        valueToCompare = _castToExpression(valueToCompare, _type);
 
          isMultiple = _type && _type.has("[]");
         if (isMultiple) {
-            [aValue, _valueExpressions] = _collectExpressions(aValue);
+            [valueToCompare, _valueExpressions] = _collectExpressions(valueToCompare);
         }
        _isMultiple = isMultiple;
-       _value = aValue;
+       _value = valueToCompare;
     }
     
     // Returns the value used for comparison

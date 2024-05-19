@@ -1268,8 +1268,6 @@ class DServerRequest { // }: IServerRequest {
      * Return an instance without the specified request attribute.
      * Params:
      * string aName The attribute name.
-     * @return static
-     * @throws \InvalidArgumentException
      */
     static auto withoutAttribute(string aName) {
         new = clone this;

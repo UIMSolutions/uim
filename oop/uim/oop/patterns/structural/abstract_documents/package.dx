@@ -56,7 +56,6 @@ interface Document {
    *
    * @param key         element key
    * @param constructor constructor of child class
-   * @return child documents
    * /
   Document[] children(string key);
 }

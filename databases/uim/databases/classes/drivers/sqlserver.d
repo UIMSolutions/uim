@@ -220,7 +220,7 @@ class DSqlserverDriver : DDriver {
             // is with their alias.  So substitute the select SQL in place of
             // any column aliases for those entries in the order clause.
             auto select = original.clause("select");
-            auto  order = new DOrderByExpression();
+            auto order = new DOrderByExpression();
              original
                 .clause("order")
                 .iterateParts(function (direction,  orderBy) use (select,  order) {
@@ -247,7 +247,7 @@ class DSqlserverDriver : DDriver {
             .offset(null)
             .orderBy([], true);
 
-        auto  outer = aQuery.getConnection().selectQuery();
+        auto outer = aQuery.getConnection().selectQuery();
          outer.select("*")
             .from(["_uim_paging_": aQuery]);
 

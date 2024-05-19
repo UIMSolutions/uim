@@ -53,10 +53,8 @@ interface IQuery {
      *
      * ResultsetDecorator is a traversable object that : the methods found
      * on uim\collections.Collection.
-     *
-     * @return uim.Datasource\IResultset
      */
-    function all(): IResultset;
+    IResultset all();
 
     /**
      * Populates or adds parts to current query clauses using an array.

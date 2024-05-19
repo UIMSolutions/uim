@@ -41,7 +41,7 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
      * string windowName Window name
      */
     void over(string windowName = null) {
-        auto  window = getWindow();
+        auto window = getWindow();
         if (!windowName.isEmpty) {
             // Set name manually in case this was chained from FunctionsBuilder wrapper
              window.name(windowName);

@@ -1052,7 +1052,6 @@ class DResponse : IResponse {
      * ```
      * Params:
      * \UIM\Http\Cookie\ICookie cookie cookie object
-     * @return static
      */
     static auto withCookie(ICookie cookie) {
         auto newResponse = clone this;

@@ -365,11 +365,8 @@ mixin template TQuery() {
         _formatters ~= formatter;
     }
 
-    /**
-     * Returns the list of previously registered format routines.
-     * @return array<callable>
-     */
-    function getResultFormatters() {
+    // Returns the list of previously registered format routines.
+    callable[] getResultFormatters() {
         return _formatters;
     }
 

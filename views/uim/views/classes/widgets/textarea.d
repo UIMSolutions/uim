@@ -63,6 +63,6 @@ class DTextareaWidget : DWidget {
                 ["name", "val"]
             ),
         ]);
-    } */
+    }
 }
 mixin(WidgetCalls!("Textarea"));

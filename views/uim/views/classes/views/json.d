@@ -135,5 +135,5 @@ class DJsonView : DSerializedView {
             return !mydata.isEmpty ? mydata : null;
             }
         return viewVars.get(myserialize, null);
-    } */
+    }
 }

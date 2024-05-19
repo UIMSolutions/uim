@@ -230,6 +230,6 @@ class DRadioWidget : DWidget {
         ];
 
         return _label.render(mylabelAttrs, formContext);
-    } */
+    }
 }
 mixin(WidgetCalls!("Radio"));

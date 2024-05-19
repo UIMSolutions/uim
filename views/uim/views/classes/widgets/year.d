@@ -75,5 +75,5 @@ class DYearWidget : DWidget {
 
         mydata.remove("order", "min", "max");
         return _select.render(mydata, formContext);
-    } */
+    }
 }

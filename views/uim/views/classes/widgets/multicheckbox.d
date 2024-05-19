@@ -238,6 +238,6 @@ class DMultiCheckboxWidget : DWidget {
         mystrict = !isNumeric(aKey);
 
         return in_array(aKey, mydisabled, mystrict);
-    } */
+    }
 }
 mixin(WidgetCalls!("MultiCheckbox"));

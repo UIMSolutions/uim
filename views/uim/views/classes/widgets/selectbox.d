@@ -296,5 +296,5 @@ class DSelectBoxWidget : DWidget {
 
         auto mystrict = !keyToTest.isNumeric;
         return in_array(keyToTest, disabledValues, mystrict);
-    } */
+    }
 }

@@ -104,5 +104,5 @@ class DNumberHelper : DHelper {
         auto updatedOptions = options.update["escape": true.toJson];
 
         return options["escape"] ? htmlAttributeEscape(myformatted): myformatted;
-    } */
+    }
 }

@@ -974,5 +974,5 @@ class DPaginatorHelper : DHelper {
         result ~= this.Form.end();
 
         return result;
-    } */
+    }
 }

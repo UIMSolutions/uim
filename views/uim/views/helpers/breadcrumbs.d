@@ -287,5 +287,5 @@ class DBreadcrumbsHelper : DHelper {
             }
         }
         return null;
-    } */
+    }
 }

@@ -958,10 +958,8 @@ class DAssociation : IAssociation {
      *
      * @param string method name of the method to be invoked
      * @param Json[string] argument List of arguments passed to the function
-     * @return mixed
-     * @throws \BadMethodCallException
      */
-    function __call(method, argument) {
+    Json __call(method, argument) {
         return _getTarget().method(...argument);
     }
 

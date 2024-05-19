@@ -185,8 +185,6 @@ class DEagerLoadable {
     /**
      * Gets whether this level was meant for a
      * "matching" fetch operation.
-     *
-     * @return bool|null
      */
     bool forMatching() {
         return _forMatching;
@@ -212,10 +210,8 @@ class DEagerLoadable {
     /**
      * Returns a representation of this object that can be passed to
      * uim\orm.EagerLoader.contain()
-     *
-     * @return array<string, array>
      */
-    array asContainArray() {
+    Json[string] asContainArray() {
         associations = null;
         foreach (_associations as assoc) {
             associations += assoc.asContainArray();

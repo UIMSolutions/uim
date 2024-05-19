@@ -1264,7 +1264,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (count(aKey) != count(myprimaryKey)) {
             myprimaryKey = myprimaryKey ?: [null];
             myprimaryKey = array_map(function (aKey) {
-                return var_export(aKey, true);
+                return var_export_(aKey, true);
             }, myprimaryKey);
 
             throw new DInvalidPrimaryKeyException(

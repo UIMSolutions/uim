@@ -441,10 +441,8 @@ class DTreeBehavior : DBehavior {
      *
      * @param DORMQuery query Query.
      * @param Json[string] options Array of options as described above.
-     * @return DORMQuery
      */
-    function findTreeList(Query query, Json[string] optionData): Query
-    {
+    DORMQuery findTreeList(Query query, Json[string] optionData) {
         left = _table.aliasField(this.configuration.get("left"));
 
         results = _scope(query)

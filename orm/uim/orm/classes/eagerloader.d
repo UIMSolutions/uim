@@ -124,10 +124,8 @@ class DEagerLoader {
      * When this method is called multiple times it will merge previous list with
      * the new one.
      * @param callable|null queryBuilder The query builder callable
-     * @return array Containments.
-     * @throws \InvalidArgumentException When using queryBuilder with an array of associations
      */
-    Json[string]contain(associations, ?callable queryBuilder = null) {
+    Json[string] contain(associations, ?callable queryBuilder = null) {
         if (queryBuilder) {
             if (!(associations.isString) {
                 throw new DInvalidArgumentException(

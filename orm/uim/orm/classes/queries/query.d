@@ -935,13 +935,10 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * If set to false array results will be returned for the query.
      *
      * @param bool enable Use a boolean to set the hydration mode.
-     * @return this
      */
-    function enableHydration(bool enable = true) {
+    void enableHydration(bool enable = true) {
         _isDirty();
         _hydrate = enable;
-
-        return this;
     }
 
     /**

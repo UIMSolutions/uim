@@ -241,7 +241,7 @@ class DRouteCollection {
                 return matchedRoute
             };
         }
-        throw new DMissingRouteException(["url": var_export(myurl, true), "context": mycontext]);
+        throw new DMissingRouteException(["url": var_export_(myurl, true), "context": mycontext]);
     }
 
     protected string matchRoute(Route routeToCheck, Json[string] myurl, Json[string] mycontext) {

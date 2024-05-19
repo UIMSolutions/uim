@@ -753,5 +753,5 @@ class DMarshaller {
         mydata = new ArrayObject(mydata);
         options = new ArrayObject(options);
        _table.dispatchEvent("Model.afterMarshal", compact("entity", "data", "options"));
-    } */
+    }
 }

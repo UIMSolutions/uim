@@ -15,5 +15,5 @@ class DUnitExtension : DExtension {
         facade.registerSubscriber(
             new DUnitStartedSubscriber()
         );
-    } */
+    }
 }

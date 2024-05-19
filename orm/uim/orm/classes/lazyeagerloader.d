@@ -135,5 +135,5 @@ class DLazyEagerLoader {
         });
 
         return myinjected;
-    } */
+    }
 }

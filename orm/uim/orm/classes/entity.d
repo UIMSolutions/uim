@@ -63,5 +63,5 @@ class DORMEntity { // }: IORMEntity, IInvalidProperty {
         if (options["markClean"]) {
             this.clean();
         }
-    } */
+    }
 }

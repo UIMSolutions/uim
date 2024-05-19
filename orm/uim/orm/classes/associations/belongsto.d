@@ -162,7 +162,7 @@ class DBelongsToAssociation : DAssociation {
         ]);
 
         return loader.buildEagerLoader(options);
-    } */
+    }
 }
 mixin(AssociationCalls!("BelongsTo"));
 

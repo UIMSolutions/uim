@@ -160,5 +160,5 @@ class DSchemaLoader {
                 tableSchema.createSql(aConnection).each!(sql => aConnection.execute(sql));
             }
         });
-    } */
+    }
 }

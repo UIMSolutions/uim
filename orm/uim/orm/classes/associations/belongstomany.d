@@ -1304,6 +1304,6 @@ class DBelongsToManyAssociation : DAssociation {
         if (isset(options["sort"])) {
             sortOrder(options["sort"]);
         }
-    } */
+    }
 }
 mixin(AssociationCalls!("BelongsToMany"));

@@ -301,5 +301,5 @@ class DAssociationCollection { // }: IteratorAggregate {
     // Allow looping through the associations
     DORMAssociation[string] getIterator() {
       return new DArrayIterator(_items);
-    } */
+    }
 } 

@@ -227,10 +227,8 @@ interface IQuery {
      * @param int num The page number you want.
      * @param int|null limit The number of rows you want in the page. If null
      *  the current limit clause will be used.
-     * @return this
-     * @throws \InvalidArgumentException If page number < 1.
      */
-    function page(int num, Nullable!int limit = null);
+    void page(int num, Nullable!int limit = null);
 
     // Returns an array representation of the results after executing the query.
     Json[string] toDataArray();

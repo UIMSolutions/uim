@@ -331,7 +331,7 @@ class DAssociation : IAssociation {
      *
      * @param bool dependent Set the dependent mode. Use null to read the current state.
      */
-    voidsetDependent(bool dependent) {
+     void setDependent(bool dependent) {
         _dependent = dependent;
     }
 
@@ -361,7 +361,7 @@ class DAssociation : IAssociation {
      *
      * @param string type the join type to be used (e.g. INNER)
      */
-    voidsetJoinType(string type) {
+     void setJoinType(string type) {
         _joinType = type;
     }
 
@@ -441,12 +441,8 @@ class DAssociation : IAssociation {
         return _strategy;
     }
 
-    /**
-     * Gets the default finder to use for fetching rows from the target table.
-     *
-     * @return array|string
-     */
-    function getFinder() {
+    // Gets the default finder to use for fetching rows from the target table.
+    Json[string] getFinder() {
         return _finder;
     }
 
@@ -455,7 +451,7 @@ class DAssociation : IAssociation {
      *
      * @param array|string finder the finder name to use or array of finder name and option.
      */
-    voidsetFinder(finder) {
+    void setFinder(finder) {
         _finder = finder;
     }
 
@@ -867,7 +863,7 @@ class DAssociation : IAssociation {
                     msg,
                     _name,
                     implode(", ", foreignKeys),
-                    implode(", ", bindingKeys)
+                    bindingKeys.join(", ")
             ));
         }
 

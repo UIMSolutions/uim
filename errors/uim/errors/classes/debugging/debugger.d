@@ -399,11 +399,8 @@ class DDebugger {
                     signature = next['class'] . '.' . next['function'];
                     reference = signature . '(';
                     if (options['args'] && isset(next['args'])) {
-                        args = null;
-                        foreach (next["args"] as arg) {
-                            args ~= Debugger.exportVar(arg);
-                        }
-                        reference ~= implode(', ', args);
+                        auto args = next["args"].map!(arg => Debugger.exportVar(arg)).array;
+                        reference ~= args.join(', ');
                     }
                     reference ~= ')';
                 }

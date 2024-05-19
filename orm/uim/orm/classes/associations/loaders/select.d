@@ -397,7 +397,7 @@ class DSelectLoader {
                 values ~= result[k];
             }
             if (singleResult) {
-                resultMap[implode(";", values)] = result;
+                resultMap[values.join(";")] = result;
             } else {
                 resultMap[implode(";", values)] ~= result;
             }

@@ -131,7 +131,7 @@ class DBelongsToAssociation : DAssociation {
                 msg,
                 _name,
                 implode(", ", foreignKeys),
-                implode(", ", bindingKey)
+                bindingKey.join(", ")
             ));
         }
 

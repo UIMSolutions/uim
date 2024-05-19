@@ -653,11 +653,8 @@ class DTreeBehavior : DBehavior {
      *
      * @param DORMDatasource\IORMEntity node The node to move
      * @param int|true number How many places to move the node, or true to move to last position
-     * @return DORMDatasource\IORMEntity node The node after being moved
-     * @throws DORMDatasource\exceptions.RecordNotFoundException When node was not found
      */
-    protected function _moveDown(IORMEntity node, number): IORMEntity
-    {
+    protected IORMEntity _moveDown(IORMEntity node, number) {
         myConfiguration = configuration;
         [parent, left, right] = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
         [nodeParent, nodeLeft, nodeRight] = array_values(node.extract([parent, left, right]));

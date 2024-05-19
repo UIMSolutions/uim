@@ -489,7 +489,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param string strategy the strategy name to be used
      * @throws \InvalidArgumentException if an invalid strategy name is passed
      */
-    voidsetSaveStrategy(string strategy) {
+     void setSaveStrategy(string strategy) {
         if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
             msg =  "Invalid save strategy '%s'".format(strategy);
             throw new DInvalidArgumentException(msg);
@@ -1269,7 +1269,7 @@ class DBelongsToManyAssociation : DAssociation {
                     source().getTable(),
                     getTarget().getTable(),
                 ])().sort;
-                _junctionTableName = implode("_", tablesNames);
+                _junctionTableName = tablesNames.join("_");
             }
 
             return _junctionTableName;

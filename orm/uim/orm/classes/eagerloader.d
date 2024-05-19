@@ -762,7 +762,7 @@ class DEagerLoader {
                 foreach (parts[1] as key) {
                     collected ~= result[key];
                 }
-                keys[nestKey][parts[0]][implode(";", collected)] = collected;
+                keys[nestKey][parts[0]][collected.join(";")] = collected;
             }
         }
         statement.rewind();

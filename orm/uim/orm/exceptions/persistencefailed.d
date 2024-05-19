@@ -42,7 +42,7 @@ mixin(ExceptionCalls!("PersistenceFailed"));
      */
     this(IORMEntity anEntity, myMessage, Nullable!int code = null, Throwable previous = null) {
         _entity = entity;
-        if ((myMessage.isArray) {
+        if (myMessage.isArray) {
             myErrors = null;
             foreach (Hash.flatten(entity.getErrors()) as myField: myError) {
                 myErrors ~= myField ~ ": "" ~ myError ~ """;

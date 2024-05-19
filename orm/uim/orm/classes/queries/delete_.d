@@ -4,8 +4,7 @@ import uim.orm;
 
 @safe:
 
-class DeleteQuery : DQuery {
-    /*
+class DDeleteQuery : DQuery {
     mixin TCommonQuery();
 
     this(DTable mytable) {

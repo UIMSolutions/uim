@@ -68,7 +68,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * @param Json[string]|string mymessage The error message to show in case the rule does not pass. Can
      *  also be an array of options. When an array, the "message" key can be used to provide a message.
      */
-    RuleInvoker existsIn(
+    DRuleInvoker existsIn(
         string[] fieldName,
         Table|Association|string mytable,
         string[] mymessage = null
@@ -77,7 +77,7 @@ class DRulesChecker { // }: BaseRulesChecker {
         if (mymessage.isArray) {
             options = mymessage ~ ["message": Json(null)];
             mymessage = options["message"];
-            options.remove("message"]);
+            options.remove("message"));
         }
         if (!mymessage) {
             if (_useI18n) {

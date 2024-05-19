@@ -19,9 +19,7 @@ class DLinkConstraint {
      */
     protected IAssociation|string _association;
 
-    /**
-     * The link status that is required to be present in order for the check to succeed.
-     */
+    // The link status that is required to be present in order for the check to succeed.
     protected string _requiredLinkState;
 
     /**

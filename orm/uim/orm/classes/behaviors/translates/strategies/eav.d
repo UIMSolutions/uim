@@ -338,15 +338,15 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * @param DORMDatasource\IResultset results Results to map.
      * @param string locale Locale string
      */
-    protected DORMcollections rowMapper(results, locale) {
+    protected DORMcollections rowMapper(results, stringlocale) {
         return results.map(function (row) use (locale) {
             /** @var DORMdatasources.IORMEntity|array|null row */
             if (row == null) {
                 return row;
             }
-            hydrated = !(row.isArray;
+            hydrated = !row.isArray;
 
-            foreach (configuration.get("fields"] as field) {
+            foreach (configuration.get("fields") as field) {
                 name = field ~ "_translation";
                 translation = row[name] ?? null;
 

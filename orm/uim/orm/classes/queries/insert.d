@@ -5,8 +5,7 @@ import uim.orm;
 @safe:
 
 class DInsertQuery : DQuery {
-    /*
-    mixin TCommonQuery();
+    mixin TCommonQuery;
 
     this(DTTable table) {
         super(table.getConnection());

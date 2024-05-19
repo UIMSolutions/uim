@@ -212,19 +212,16 @@ class DEagerLoadable {
      * uim\orm.EagerLoader.contain()
      */
     Json[string] asContainArray() {
-        associations = null;
-        foreach (_associations as assoc) {
-            associations += assoc.asContainArray();
-        }
-        myConfiguration = configuration;
+        auto associations = _associations.map!(association => assoc.asContainArray()).join;
+        auto configData = configuration.data;
         if (_forMatching != null) {
-            myConfiguration = ["matching": _forMatching] + myConfiguration;
+            configData = ["matching": _forMatching] + myConfiguration;
         }
 
         return [
             _name: [
                 "associations": DAssociations,
-                "config": myConfiguration,
+                "config": configData,
             ],
         ];
     }

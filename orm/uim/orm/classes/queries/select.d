@@ -14,6 +14,8 @@ import uim.orm;
  * @extends \UIM\Database\Query\SelectQuery<TSubject>
  */
 class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
+    mixin TCommonQuery;
+    
     // Indicates that the operation should append to the list
     const int APPEND = 0;
 
@@ -45,7 +47,6 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     protected bool _beforeFindFired = false;
     
    /* 
-    mixin TCommonQuery();
 
     /**
      * A callback used to calculate the total amount of

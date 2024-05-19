@@ -345,7 +345,7 @@ class DBehavior : IEventListener {
         auto events = this.implementedEvents();
         bool[string] eventMethods = null;
         foreach (events as binding) {
-            if ((binding.isArray && isset(binding["callable"])) {
+            if (binding.isArray && isset(binding["callable"])) {
                 /** @var string callable */
                 callable = binding["callable"];
                 binding = callable;

@@ -70,11 +70,9 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * Resolve a behavior classname.
      *
      * Part of the template method for uim\Core\ObjectRegistry.load()
-     *
-     * @param string aClassName  Partial classname to resolve.
      */
-    protected string _resolveClassName(string aClassName ) {
-        return className(class);
+    protected string _resolveClassName(string partialClassname ) {
+        return className(partialClassname);
     }
 
     /**

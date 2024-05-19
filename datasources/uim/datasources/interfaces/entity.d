@@ -75,7 +75,6 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      * Params:
      * string fieldName The field to get errors for, or the array of errors to set.
      * @param string[] aerrors The errors to be set for field
-     * @param bool overwrite Whether to overwrite pre-existing errors for field
      */
     IDatasourceEntity setErrors(string fieldName, string[] aerrors, bool overwrite = false);
 
@@ -83,8 +82,6 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      * Stores whether a field value can be changed or set in this entity.
      * Params:
      * string[]|string fieldName single or list of fields to change its accessibility
-     * @param bool set true marks the field as accessible, false will
-     * mark it as protected.
      */
    void setAccess(string[] fieldName, bool set);
 

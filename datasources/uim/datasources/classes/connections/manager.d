@@ -155,7 +155,6 @@ class DConnectionManager {
      * as second parameter.
      *
      * @param string aName The connection name.
-     * @param bool useAliases Set to false to not use aliased connections.
      */
     static IConnection get(string aName, bool useAliases = true) {
         if (useAliases && isset(_aliasMap[name])) {
@@ -259,7 +258,6 @@ static Json[string] parseDsn(string adsn) {
      * defined. If you want the original unaliased connections pass `false`
      * as second parameter.
      * Params:
-     * @param bool useAliases Whether connection aliases are used
      */
     static IConnection get(string connectionName, bool useAliases = true) {
         if (useAliases && isSet(_connectionAliases[connectionName])) {

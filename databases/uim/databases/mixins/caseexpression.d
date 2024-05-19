@@ -47,19 +47,13 @@ mixin template TCaseExpression() {
         return type;
     }
     
-    /**
-     * Compiles a nullable value to SQL.
-     * Params:
-     * \UIM\Database\DValueBinder aBinder The value binder to use.
-     * @param \UIM\Database\IExpression|object|scalar|null aValue The value to compile.
-     * @param string type The value type.
-     */
-    protected string compileNullableValue(DValueBinder aBinder, Json aValue, string atype = null) {
+    // Compiles a nullable value to SQL.
+    protected string compileNullableValue(DValueBinder valueBinder, Json aValue, string valueType = null) {
         if (
-            type !isNull &&
+            !valueType.isNull &&
             !(cast(IExpression)aValue )
         ) {
-            aValue = _castToExpression(aValue, type);
+            aValue = _castToExpression(aValue, valueType);
         }
         if (aValue.isNull) {
             aValue = "NULL";
@@ -69,9 +63,9 @@ mixin template TCaseExpression() {
             aValue = aValue.sql(aBinder);
         } else {
             placeholder = aBinder.placeholder("c");
-            aBinder.bind(placeholder, aValue, type);
+            aBinder.bind(placeholder, aValue, valueType);
             aValue = placeholder;
         }
         return aValue;
-    } */
+    } 
 }

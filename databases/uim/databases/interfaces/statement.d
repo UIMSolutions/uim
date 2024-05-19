@@ -120,27 +120,15 @@ interface IStatement {
      */
     int rowCount();
 
-    /**
-     * Binds a set of values to statement object with corresponding type.
-     * Params:
-     * Json[string] params list of values to be bound
-     */
-    void bind(Json[string] params, Json[string] listOfTypes);
+    // Binds a set of values to statement object with corresponding type.
+    void bind(Json[string] valuesToBound, Json[string] listOfTypes);
 
-    /**
-     * Returns the latest primary inserted using this statement.
-     * Params:
-     * string aTable table name or sequence to get last insert value from
-     * @param string column the name of the column representing the primary key
-     */
-    string|int lastInsertId(string atable = null, string acolumn = null);
+    // Returns the latest primary inserted using this statement.
+    string|int lastInsertId(string tableName = null, string columnName = null);
 
     // Returns prepared query string.
     string queryString();
 
-    /**
-     * Get the bound params.
-     */
+    // Get the bound params.
     Json[string] getBoundParams();
-    */
 }

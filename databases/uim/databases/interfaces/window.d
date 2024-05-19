@@ -90,14 +90,13 @@ interface IWindow {
      * @param \UIM\Database\IExpression|string|int startOffset Frame start offset
      * @param string astartDirection Frame start direction
      * @param \UIM\Database\IExpression|string|int endOffset Frame end offset
-     * @param string aendDirection Frame end direction
      */
     void frame(
         string frameType,
         IExpression|string|int startOffset,
         string astartDirection,
         IExpression|string|int endOffset,
-        string aendDirection
+        string frameEndDirection
     );
 
     // Adds current row frame exclusion.

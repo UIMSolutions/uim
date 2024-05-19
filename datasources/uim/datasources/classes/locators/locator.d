@@ -16,10 +16,6 @@ abstract class DAbstractLocator : ILocator {
     // Contains a list of options that were passed to get() method.
     protected Json[string] _options = null;
 
-    /**
-     * @param string aliasNameName The aliasName name you want to get.
-     * @param Json[string] options The options you want to build the table with.
-     */
     IRepository get(string aliasNameName, Json[string] buildOptions = null) {
         auto storeOptions = buildOptions.dup;
         storeOptions.remove("allowFallbackClass");

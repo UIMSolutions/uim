@@ -21,20 +21,20 @@ import uim.controllers;
  * cycle. The available callbacks are:
  *
  * - `beforeFilter(IEvent event)`
- *  Called before Controller.beforeFilter() method by default.
+ * Called before Controller.beforeFilter() method by default.
  * - `startup(IEvent event)`
- *  Called after Controller.beforeFilter() method, and before the
- *  controller action is called.
+ * Called after Controller.beforeFilter() method, and before the
+ * controller action is called.
  * - `beforeRender(IEvent event)`
- *  Called before Controller.beforeRender(), and before the view class is loaded.
+ * Called before Controller.beforeRender(), and before the view class is loaded.
  * - `afterFilter(IEvent event)`
- *  Called after the action is complete and the view has been rendered but
- *  before Controller.afterFilter().
+ * Called after the action is complete and the view has been rendered but
+ * before Controller.afterFilter().
  * - `beforeRedirect(IEvent event url, Response response)`
- *  Called before a redirect is done. Allows you to change the URL that will
- *  be redirected to by returning a Response instance with new URL set using
- *  Response.location(). Redirection can be prevented by stopping the event
- *  propagation.
+ * Called before a redirect is done. Allows you to change the URL that will
+ * be redirected to by returning a Response instance with new URL set using
+ * Response.location(). Redirection can be prevented by stopping the event
+ * propagation.
  *
  * While the controller is not an explicit argument for the callback methods it
  * is the subject of each event and can be fetched using IEvent.getSubject().

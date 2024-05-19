@@ -47,8 +47,8 @@ class DFlashComponent : DComponent {
      * - `escape` Set to false to allow templates to print out HTML content
      * Params:
      * \Throwable|string amessage Message to be flashed. If an instance
-     *  of \Throwable the throwable message will be used and code will be set
-     *  in params.
+     * of \Throwable the throwable message will be used and code will be set
+     * in params.
      */
     void set(Throwable | string amessage, Json[string] options = null) {
         if (cast(Throwable) aMessage) {

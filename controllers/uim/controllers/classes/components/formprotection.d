@@ -26,13 +26,13 @@ class DFormProtectionComponent : DComponent {
         * Default config
         *
         * - `unlockedFields` - Form fields to exclude from validation. Fields can
-        *  be unlocked either in the Component, or with FormHelper.unlockField().
-        *  Fields that have been unlocked are not required to be part of the POST
-        *  and hidden unlocked fields do not have their values checked.
+        * be unlocked either in the Component, or with FormHelper.unlockField().
+        * Fields that have been unlocked are not required to be part of the POST
+        * and hidden unlocked fields do not have their values checked.
         * - `unlockedActions` - Actions to exclude from POST validation checks.
         * - `validationFailureCallback` - Callback to call in case of validation
-        *  failure. Must be a valid Closure. Unset by default in which case
-        *  exception is thrown on validation failure.
+        * failure. Must be a valid Closure. Unset by default in which case
+        * exception is thrown on validation failure.
         */
         configuration.updateDefaults([
             // `validate` - Whether to validate request body / data. Set to false to disable

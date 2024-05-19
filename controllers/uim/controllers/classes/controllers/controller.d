@@ -35,14 +35,14 @@ import uim.controllers;
  * callbacks are:
  *
  * - `beforeFilter(IEvent event)`
- *  Called before each action. This is a good place to do general logic that
- *  applies to all actions.
+ * Called before each action. This is a good place to do general logic that
+ * applies to all actions.
  * - `beforeRender(IEvent event)`
- *  Called before the view is rendered.
+ * Called before the view is rendered.
  * - `beforeRedirect(IEvent event, url, Response response)`
- *   Called before a redirect is done.
+ *  Called before a redirect is done.
  * - `afterFilter(IEvent event)`
- *  Called after each action is complete and after the view is rendered.
+ * Called after each action is complete and after the view is rendered.
  *
  * @property \UIM\Controller\Component\FlashComponent flash
  * @property \UIM\Controller\Component\FormProtectionComponent formProtection
@@ -106,8 +106,8 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * - `limit` - The initial number of items per page. Defaults to 20.
      * - `page` - The starting page, defaults to 1.
      * - `allowedParameters` - A list of parameters users are allowed to set using request
-     *  parameters. Modifying this list will allow users to have more influence
-     *  over pagination, be careful with what you permit.
+     * parameters. Modifying this list will allow users to have more influence
+     * over pagination, be careful with what you permit.
      * - `className` - The paginator class to use. Defaults to `UIM\Datasource\Paging\NumericPaginator.classname`.
      */
     protected Json[string] paginate;
@@ -156,7 +156,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * conventions UIM uses you can define properties in your class declaration.
      * Params:
      * \UIM\Http\ServerRequest serverRequest Request object for this controller.
-     *  but expect that features that use the request parameters will not work.
+     * but expect that features that use the request parameters will not work.
      * @param string name Override the name useful in testing when using mocks.
      * @param \UIM\Event\IEventManager|null eventManager The event manager. Defaults to a new instance.
      */
@@ -549,7 +549,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Params:
      * string[] default Default URL to use if HTTP_REFERER cannot be read from headers
      * @param bool isLocal If false, do not restrict referring URLs to local server.
-     *  Careful with trusting external sources.
+     * Careful with trusting external sources.
      * returns Referring URL
      */
     string referer(string[] defaultValue = "/", bool isLocal = true) {
@@ -659,7 +659,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Params:
      * \UIM\Event\IEvent<\UIM\Controller\Controller> event An Event instance
      * @param \Psr\Http\Message\IUri|string[] aurl A string or array-based URL pointing to another location within the app,
-     *    or an absolute URL
+     *   or an absolute URL
      */
     Response beforeRedirect(IEvent event, IUri|string[] aurl, Response response) {
         return null; 

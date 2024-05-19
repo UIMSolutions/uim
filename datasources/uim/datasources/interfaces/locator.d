@@ -15,7 +15,7 @@ interface ILocator {
      *
      * @param Json[string] options The options you want to build the table with.
      * @throws \RuntimeException When trying to get alias for which instance
-     *   has already been created with different options.
+     *  has already been created with different options.
      */
     IRepository get(string aliasName, Json[string] optionData = null);
 

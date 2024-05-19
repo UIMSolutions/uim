@@ -89,9 +89,9 @@ mixin template TQuery() {
      * If a query has caching enabled, it will do the following when executed:
      *
      * - Check the cache for key. If there are results no SQL will be executed.
-     *   Instead the cached results will be returned.
+     *  Instead the cached results will be returned.
      * - When the cached data is stale/missing the result set will be cached as the query
-     *   is executed.
+     *  is executed.
      *
      * ### Usage
      *
@@ -100,9 +100,9 @@ mixin template TQuery() {
      *
      */ Function to generate key.
      * query.cache(function (q) {
-     *   key = serialize(q.clause("select"));
-     *   key ~= serialize(q.clause("where"));
-     *   return md5(key);
+     *  key = serialize(q.clause("select"));
+     *  key ~= serialize(q.clause("where"));
+     *  return md5(key);
      * });
      *
      */ Using a pre-built cache engine.
@@ -112,9 +112,9 @@ mixin template TQuery() {
      * query.cache(false);
      *
      * @param \Closure|string|false key Either the cache key or a function to generate the cache key.
-     *   When using a function, this query instance will be supplied as an argument.
+     *  When using a function, this query instance will be supplied as an argument.
      * @param \Psr\SimpleCache\ICache|string myConfiguration Either the name of the cache config to use, or
-     *   a cache engine instance.
+     *  a cache engine instance.
      */
     void cache(key, myConfiguration = "default") {
         if (key == false) {
@@ -282,7 +282,7 @@ mixin template TQuery() {
      *
      * ```
      * query.select(["id", "name"]).formatResults(function (results) {
-     *     return results.indexBy("id");
+     *    return results.indexBy("id");
      * });
      * ```
      *
@@ -290,11 +290,11 @@ mixin template TQuery() {
      *
      * ```
      * query.select(["name", "birth_date"]).formatResults(function (results) {
-     *     return results.map(function (row) {
-     *         row["age"] = row["birth_date"].diff(new DateTime).y;
+     *    return results.map(function (row) {
+     *        row["age"] = row["birth_date"].diff(new DateTime).y;
      *
-     *         return row;
-     *     });
+     *        return row;
+     *    });
      * });
      * ```
      *
@@ -302,19 +302,19 @@ mixin template TQuery() {
      *
      * ```
      * query.formatResults(function (results, query) {
-     *     return results.map(function (row) use (query) {
-     *         data = [
-     *             "bar": "baz",
-     *         ];
+     *    return results.map(function (row) use (query) {
+     *        data = [
+     *            "bar": "baz",
+     *        ];
      *
-     *         if (query.isHydrationEnabled()) {
-     *             row["foo"] = new DFoo(data)
-     *         } else {
-     *             row["foo"] = data;
-     *         }
+     *        if (query.isHydrationEnabled()) {
+     *            row["foo"] = new DFoo(data)
+     *        } else {
+     *            row["foo"] = data;
+     *        }
      *
-     *         return row;
-     *     });
+     *        return row;
+     *    });
      * });
      * ```
      *
@@ -324,19 +324,19 @@ mixin template TQuery() {
      */ Assuming a `Articles belongsTo Authors` association that uses the join strategy
      *
      * articlesQuery.contain("Authors", function (authorsQuery) {
-     *     return authorsQuery.formatResults(function (results, query) use (authorsQuery) {
-     *         // Here `authorsQuery` will always be the instance
-     *         // where the callback was attached to.
+     *    return authorsQuery.formatResults(function (results, query) use (authorsQuery) {
+     *        // Here `authorsQuery` will always be the instance
+     *        // where the callback was attached to.
      *
-     *         // The instance passed to the callback in the second
-     *         // argument (`query`), will be the one where the
-     *         // callback is actually being applied to, in this
-     *         // example that would be `articlesQuery`.
+     *        // The instance passed to the callback in the second
+     *        // argument (`query`), will be the one where the
+     *        // callback is actually being applied to, in this
+     *        // example that would be `articlesQuery`.
      *
-     *         // ...
+     *        // ...
      *
-     *         return results;
-     *     });
+     *        return results;
+     *    });
      * });
      *
      * @param callable|null formatter The formatting callable.
@@ -405,8 +405,8 @@ mixin template TQuery() {
      * ### Example:
      *
      * ```
-     *  query.applyOptions(["doABarrelRoll": true.toJson, "fields": ["id", "name"]);
-     *  query.getOptions(); // Returns ["doABarrelRoll": true.toJson]
+     * query.applyOptions(["doABarrelRoll": true.toJson, "fields": ["id", "name"]);
+     * query.getOptions(); // Returns ["doABarrelRoll": true.toJson]
      * ```
      */
     Json[array] getOptions() {

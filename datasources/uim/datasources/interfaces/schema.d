@@ -22,16 +22,16 @@ interface ISchema {
      * Columns can have several attributes:
      *
      * - `type` The type of the column. This should be
-     *  one of UIM`s abstract types.
+     * one of UIM`s abstract types.
      * - `length` The length of the column.
      * - `precision` The number of decimal places to store
-     *  for float and decimal types.
+     * for float and decimal types.
      * - `default` The default value of the column.
      * - `null` Whether the column can hold nulls.
      * - `fixed` Whether the column is a fixed length column.
-     *  This is only present/valid with string columns.
+     * This is only present/valid with string columns.
      * - `unsigned` Whether the column is an unsigned column.
-     *  This is only present/valid for integer, decimal, float columns.
+     * This is only present/valid for integer, decimal, float columns.
      *
      * In addition to the above keys, the following keys are
      * implemented in some database dialects, but not all:

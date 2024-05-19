@@ -8,7 +8,7 @@ import uim.datasources;
  * The basis for every query object
  *
  * @method this andWhere(conditions, Json[string] types = null) Connects any previously defined set of conditions to the
- *  provided list using the AND operator. {@see \UIM\Database\Query.andWhere()}
+ * provided list using the AND operator. {@see \UIM\Database\Query.andWhere()}
  * @method \UIM\Datasource\IDatasourceEntity|array firstOrFail() Get the first result from the executing query or raise an exception.
  */
 interface IQuery {
@@ -78,11 +78,11 @@ interface IQuery {
      *
      * ```
      * aQuery.applyOptions([
-     *  'fields": ["id", "name"],
-     *  'conditions": [
-     *    'created >=": '2013-01-01'
-     *  ],
-     *  'limit": 10
+     * 'fields": ["id", "name"],
+     * 'conditions": [
+     *   'created >=": '2013-01-01'
+     * ],
+     * 'limit": 10
      * ]);
      * ```
      *
@@ -194,8 +194,8 @@ interface IQuery {
      *
      * ```
      * aQuery
-     *    .orderBy(["title": aQuery.newExpr("DESC NULLS FIRST")])
-     *    .orderBy("author_id");
+     *   .orderBy(["title": aQuery.newExpr("DESC NULLS FIRST")])
+     *   .orderBy("author_id");
      * ```
      *
      * Will generate:
@@ -270,9 +270,9 @@ interface IQuery {
      *
      * ```
      * aQuery.where([
-     *     'posted >=": new DateTime("3 days ago"),
-     *     'title LIKE": 'Hello W%",
-     *     'author_id": 1,
+     *    'posted >=": new DateTime("3 days ago"),
+     *    'title LIKE": 'Hello W%",
+     *    'author_id": 1,
      * ], ["posted": 'datetime"]);
      * ```
      *
@@ -287,9 +287,9 @@ interface IQuery {
      *
      * ```
      * aQuery.where([
-     *     'author_id !=": 1,
-     *     'OR": ["published": true.toJson, "posted <": new DateTime("now")],
-     *     'NOT": ["title": 'Hello"]
+     *    'author_id !=": 1,
+     *    'OR": ["published": true.toJson, "posted <": new DateTime("now")],
+     *    'NOT": ["title": 'Hello"]
      * ], ["published": boolean, "posted": 'datetime"]
      * ```
      *
@@ -332,8 +332,8 @@ interface IQuery {
      * aQuery
      * .where(["title !=": 'Hello World"])
      * .where(function (exp, aQuery) {
-     *      or = exp.or(["id": 1]);
-     *     and = exp.and(["id >": 2, "id <": 10]);
+     *     or = exp.or(["id": 1]);
+     *    and = exp.and(["id >": 2, "id <": 10]);
      * return or.add(and);
      * });
      * ```

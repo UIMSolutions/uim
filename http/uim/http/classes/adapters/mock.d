@@ -97,5 +97,5 @@ class DMockAdapter { //}: IAdapter {
             return sentRequestUri.startWith(mockUri);
         }
         return false;
-    } */
+    }
 }

@@ -270,5 +270,5 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
     // Get the context options
     Json[string] contextOptions() {
         return array_merge(_contextOptions, _sslContextOptions);
-    } */
+    }
 }

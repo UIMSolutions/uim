@@ -24,5 +24,5 @@ class DMiddlewareApplication { // }: IHttpApplication {
     // Generate a 404 response as no middleware handled the request.
     IResponse handle(IServerRequest serverRequest) {
         return new DResponse(["body": 'Not found", "status": 404]);
-    } */
+    }
 }

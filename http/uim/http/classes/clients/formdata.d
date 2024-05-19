@@ -187,5 +187,5 @@ class DFormData { // }: Countable {
         someData = null;
         _parts.each!(part => someData[part.name()] = part.value());
         return http_build_query(someData);
-    } */
+    }
 }

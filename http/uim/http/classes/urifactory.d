@@ -126,5 +126,5 @@ class UriFactory { // }: IUriFactory {
             webrootDir ~= webroot ~ "/";
         }
         return ["base": base ~ file, "webroot": webrootDir];
-    } */
+    }
 }

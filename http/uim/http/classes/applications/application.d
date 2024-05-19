@@ -230,5 +230,5 @@ class DApplication {
         controller = this.controllerFactory.create(request);
 
         return _controllerFactory.invoke(controller);
-    } */
+    }
 }

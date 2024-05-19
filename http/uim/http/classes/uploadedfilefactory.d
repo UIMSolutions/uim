@@ -35,5 +35,5 @@ class DUploadedFileFactory { //}: IUploadedFileFactory {
             size = stream.getSize() ?? 0;
         }
         return new UploadedFile(stream, size, error, clientFilename, clientMediaType);
-    } */
+    }
 }

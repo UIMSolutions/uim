@@ -533,5 +533,5 @@ class DSession {
             this.write("Config.time", time());
 
             return result;
-        } */
+        }
 }

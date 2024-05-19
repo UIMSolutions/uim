@@ -385,5 +385,5 @@ class DEventManager { // }: IEventManager {
         unset(properties["_eventList"]);
 
         return properties;
-    } */
+    }
 }

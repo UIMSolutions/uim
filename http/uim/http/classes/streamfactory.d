@@ -51,5 +51,5 @@ class DStreamFactory { // }: IStreamFactory {
      */
     IStream createStreamFromResource(resource) {
         return new DStream(resource);
-    } */
+    }
 }

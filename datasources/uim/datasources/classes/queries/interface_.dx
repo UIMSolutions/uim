@@ -41,7 +41,7 @@ interface IQuery {
      * the result under a single array.
      *
      * @param Json[string] fields The fields to alias
-     * @param string|null defaultAlias The default alias
+     * @param string defaultAlias The default alias
      */
     STRINGAA aliasFields(string[] fieldNames, string defaultAlias = null);
 
@@ -360,7 +360,7 @@ interface IQuery {
      * If you use string conditions make sure that your values are correctly quoted.
      * The safest thing you can do is to never use string conditions.
      *
-     * @param \Closure|array|string|null conditions The conditions to filter on.
+     * @param \Closure|array|string conditions The conditions to filter on.
      * @param array<string, string> types Associative array of type names used to bind values to query
      * @param bool canOverwrite whether to reset conditions with passed list or not
      * @return this

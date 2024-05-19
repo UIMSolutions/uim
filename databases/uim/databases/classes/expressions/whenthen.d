@@ -71,7 +71,7 @@ class DWhenThenExpression : DExpression {
      * plan to use user data, either pass a single type for the `type` argument (which forces the ` when` value to be
      * a non-array, and then always binds the data), use a conditions array where the user data is only passed on the
      * value side of the array entries, or custom bindings!
-     * @param STRINGAA|string|null type The when value type. Either an associative array when using array style
+     * @param STRINGAA|string type The when value type. Either an associative array when using array style
      * conditions, or else a string. If no type is provided, the type will be tried to be inferred from the value.
 
      * @throws \InvalidArgumentException In case the ` when` argument is an empty array.
@@ -128,7 +128,7 @@ class DWhenThenExpression : DExpression {
      * Sets the `THEN` result value.
      * Params:
      * \UIM\Database\IExpression|object|scalar|null result The result value.
-     * @param string|null type The result type. If no type is provided, the type will be inferred from the given
+     * @param string type The result type. If no type is provided, the type will be inferred from the given
      * result value.
      */
     void then(Json result, string atype = null) {

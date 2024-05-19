@@ -149,7 +149,7 @@ mixin template TQuery() {
      * If no alias is passed, the default table for this query will be used.
      *
      * @param string field The field to alias
-     * @param string|null alias the alias used to prefix the field
+     * @param string alias the alias used to prefix the field
      */
     STRINGAA aliasField(string fieldName, string aliasName = null) {
         if (indexOf(field, ".") == false) {
@@ -170,7 +170,7 @@ mixin template TQuery() {
      * the result under a single array.
      *
      * @param Json[string] fields The fields to alias
-     * @param string|null defaultAlias The default alias
+     * @param string defaultAlias The default alias
      */
     STRINGAA aliasFields(string[] fieldNames, string defaultAlias = null) {
         aliased = null;

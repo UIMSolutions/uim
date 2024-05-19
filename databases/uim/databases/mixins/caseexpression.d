@@ -52,7 +52,7 @@ mixin template TCaseExpression() {
      * Params:
      * \UIM\Database\DValueBinder aBinder The value binder to use.
      * @param \UIM\Database\IExpression|object|scalar|null aValue The value to compile.
-     * @param string|null type The value type.
+     * @param string type The value type.
      */
     protected string compileNullableValue(DValueBinder aBinder, Json aValue, string atype = null) {
         if (

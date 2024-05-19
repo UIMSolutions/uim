@@ -79,7 +79,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * case expression variant!
      * Params:
      * \UIM\Database\IExpression|object|scalar|null aValue The case value.
-     * @param string|null valueType The case value type. If no type is provided, the type will be tried to be inferred
+     * @param string valueType The case value type. If no type is provided, the type will be tried to be inferred
      * from the value.
      */
     this(Json aValue = null, string valueType = null) {
@@ -242,7 +242,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * you plan to use user data, either pass a single type for the `type` argument (which forces the ` when` value to
      * be a non-array, and then always binds the data), use a conditions array where the user data is only passed on
      * the value side of the array entries, or custom bindings!
-     * @param STRINGAA|string|null type The when value type. Either an associative array when using array style
+     * @param STRINGAA|string type The when value type. Either an associative array when using array style
      * conditions, or else a string. If no valueType is provided, the valueType will be tried to be inferred from the value.
 
      * @throws \LogicException In case this a closing `then()` call is required before calling this method.
@@ -319,7 +319,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * ```
      * Params:
      * \UIM\Database\IExpression|object|scalar|null result The result value.
-     * @param string|null resultType The result resultType. If no resultType is provided, the resultType will be tried to be inferred from the
+     * @param string resultType The result resultType. If no resultType is provided, the resultType will be tried to be inferred from the
      * value.
 
      * @throws \LogicException In case `when()` wasn`t previously called with a value other than a closure or an
@@ -342,7 +342,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * Sets the `ELSE` result value.
      * Params:
      * \UIM\Database\IExpression|object|scalar|null result The result value.
-     * @param string|null type The result type. If no type is provided, the type will be tried to be inferred from the
+     * @param string type The result type. If no type is provided, the type will be tried to be inferred from the
      * value.
 
      * @throws \LogicException In case a closing `then()` call is required before calling this method.

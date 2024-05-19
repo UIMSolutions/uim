@@ -135,8 +135,8 @@ interface IStatement {
     /**
      * Returns the latest primary inserted using this statement.
      * Params:
-     * string|null aTable table name or sequence to get last insert value from
-     * @param string|null column the name of the column representing the primary key
+     * string aTable table name or sequence to get last insert value from
+     * @param string column the name of the column representing the primary key
      */
     string|int lastInsertId(string atable = null, string acolumn = null);
 

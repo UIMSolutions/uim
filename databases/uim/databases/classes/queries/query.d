@@ -1160,9 +1160,9 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * Epliog content is raw SQL and not suitable for use with user supplied data.
      * Params:
-     * \UIM\Database\IExpression|string|null expression The expression to be appended
+     * \UIM\Database\IExpression|string expression The expression to be appended
      */
-    auto epilog(IExpression|string|null expression = null) {
+    auto epilog(IExpression|string expression = null) {
        _isDirty();
        _parts["epilog"] = expression;
 
@@ -1179,7 +1179,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * Comment content is raw SQL and not suitable for use with user supplied data.
      * Params:
-     * string|null expression The comment to be added
+     * string expression The comment to be added
      */
     auto comment(string aexpression = null) {
        _isDirty();

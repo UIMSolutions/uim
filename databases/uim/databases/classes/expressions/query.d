@@ -108,7 +108,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param Json aValue The value to be bound to field for comparison
-     * @param string|null type the type name for aValue as configured using the Type map.
+     * @param string type the type name for aValue as configured using the Type map.
      * If it is suffixed with "[]" and the value is an array then multiple placeholders
      * will be created, one per each value in the array.
      */
@@ -122,7 +122,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Adds a new condition to the expression object in the form "field > value".
      * Params:
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
-     * @param string|null type the type name for aValue as configured using the Type map.
+     * @param string type the type name for aValue as configured using the Type map.
      */
     auto gt(IExpression|string fieldName, Json valueToBound, string atype = null) {
         auto type ??= _calculateType(field);
@@ -135,7 +135,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param Json aValue The value to be bound to field for comparison
-     * @param string|null type the type name for aValue as configured using the Type map.
+     * @param string type the type name for aValue as configured using the Type map.
      */
     auto lt(IExpression|string fieldName, Json aValue, string atype = null) {
         type ??= _calculateType(field);
@@ -148,7 +148,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param Json aValue The value to be bound to field for comparison
-     * @param string|null type the type name for aValue as configured using the Type map.
+     * @param string type the type name for aValue as configured using the Type map.
      */
     auto gte(IExpression|string fieldName, Json aValue, string atype = null) {
         type ??= _calculateType(field);
@@ -161,7 +161,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param Json aValue The value to be bound to field for comparison
-     * @param string|null type the type name for aValue as configured using the Type map.
+     * @param string type the type name for aValue as configured using the Type map.
      */
     auto lte(IExpression|string fieldName, Json aValue, string atype = null) {
         type ??= _calculateType(field);
@@ -199,7 +199,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param Json aValue The value to be bound to field for comparison
-     * @param string|null type the type name for aValue as configured using the Type map.
+     * @param string type the type name for aValue as configured using the Type map.
      */
     auto like(IExpression|string fieldName, Json aValue, string atype = null) {
         type ??= _calculateType(field);
@@ -212,7 +212,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param Json aValue The value to be bound to field for comparison
-     * @param string|null type the type name for aValue as configured using the Type map.
+     * @param string type the type name for aValue as configured using the Type map.
      */
     auto notLike(IExpression|string fieldName, Json aValue, string atype = null) {
         type ??= _calculateType(field);
@@ -226,7 +226,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param \UIM\Database\IExpression|string[] avalues the value to be bound to field for comparison
-     * @param string|null type the type name for aValue as configured using the Type map.
+     * @param string type the type name for aValue as configured using the Type map.
      */
     auto in(
         IExpression|string fieldName,
@@ -258,7 +258,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * case expression variant!
      * Params:
      * \UIM\Database\IExpression|object|scalar|null aValue The case value.
-     * @param string|null type The case value type. If no type is provided, the type will be tried to be inferred
+     * @param string type The case value type. If no type is provided, the type will be tried to be inferred
      * from the value.
      */
     CaseStatementExpression case(Json aValue = null, string atype = null) {
@@ -275,7 +275,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param \UIM\Database\IExpression|string[] avalues the value to be bound to field for comparison
-     * @param string|null type the type name for aValue as configured using the Type map.
+     * @param string type the type name for aValue as configured using the Type map.
      */
     auto notIn(
         IExpression|string fieldName,
@@ -296,7 +296,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param \UIM\Database\IExpression|string[] avalues the value to be bound to field for comparison
-     * @param string|null type the type name for aValue as configured using the Type map.
+     * @param string type the type name for aValue as configured using the Type map.
      */
     auto notInOrNull(
         IExpression|string fieldName,
@@ -334,7 +334,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * "field BETWEEN from AND to".
      * Params:
      * \UIM\Database\IExpression|string fieldName The field name to compare for values inbetween the range.
-     * @param string|null type the type name for aValue as configured using the Type map.
+     * @param string type the type name for aValue as configured using the Type map.
      */
     auto between(IExpression|string fieldName, Json fromValue, Json toValue, string atype = null) {
         type ??= _calculateType(field);

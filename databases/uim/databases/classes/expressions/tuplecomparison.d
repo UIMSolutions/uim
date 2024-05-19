@@ -21,7 +21,7 @@ class DTupleComparisonExpression : DComparisonExpression {
      * Params:
      * \UIM\Database\IExpression|string[] fieldNames the fields to use to form a tuple
      * @param \UIM\Database\IExpression|array  someValues the values to use to form a tuple
-     * @param array<string|null> types the types names to use for casting each of the values, only
+     * @param array<string> types the types names to use for casting each of the values, only
      * one type per position in the value array in needed
      * @param string aconjunction the operator used for comparing field and value
      */

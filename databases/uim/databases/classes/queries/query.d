@@ -315,13 +315,13 @@ abstract class DQuery : IQuery { // : IExpression {
      * ### Example:
      *
      * ```
-     * / Ignore cache query in MySQL
+     */ Ignore cache query in MySQL
      * aQuery.select(["name", "city"]).from("products").modifier("SQL_NO_CACHE");
-     * / It will produce the SQL: SELECT SQL_NO_CACHE name, city FROM products
+     */ It will produce the SQL: SELECT SQL_NO_CACHE name, city FROM products
      *
-     * / Or with multiple modifiers
+     */ Or with multiple modifiers
      * aQuery.select(["name", "city"]).from("products").modifier(["HIGH_PRIORITY", "SQL_NO_CACHE"]);
-     * / It will produce the SQL: SELECT HIGH_PRIORITY SQL_NO_CACHE name, city FROM products
+     */ It will produce the SQL: SELECT HIGH_PRIORITY SQL_NO_CACHE name, city FROM products
      * ```
      * Params:
      * \UIM\Database\IExpression|string[] amodifiers modifiers to be applied to the query
@@ -397,7 +397,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *        'conditions": 'a.id = b.author_id'
      *    ]
      * ]);
-     * / Produces LEFT JOIN authors a ON a.id = b.author_id
+     */ Produces LEFT JOIN authors a ON a.id = b.author_id
      * ```
      *
      * You can even specify multiple joins in an array, including the full description:
@@ -415,8 +415,8 @@ abstract class DQuery : IQuery { // : IExpression {
      *        "conditions": "p.id = b.publisher_id AND p.name = "uim Software Foundation"'
      *    ]
      * ]);
-     * / LEFT JOIN authors a ON a.id = b.author_id
-     * / INNER JOIN publishers p ON p.id = b.publisher_id AND p.name = "uim Software Foundation"
+     */ LEFT JOIN authors a ON a.id = b.author_id
+     */ INNER JOIN publishers p ON p.id = b.publisher_id AND p.name = "uim Software Foundation"
      * ```
      *
      * ### Using conditions and types
@@ -503,10 +503,10 @@ abstract class DQuery : IQuery { // : IExpression {
      * be aliased:
      *
      * ```
-     * / LEFT JOIN authors ON authors.id = posts.author_id
+     */ LEFT JOIN authors ON authors.id = posts.author_id
      * aQuery.leftJoin("authors", "authors.id = posts.author_id");
      *
-     * / LEFT JOIN authors a ON a.id = posts.author_id
+     */ LEFT JOIN authors a ON a.id = posts.author_id
      * aQuery.leftJoin(["a": 'authors"], "a.id = posts.author_id");
      * ```
      *

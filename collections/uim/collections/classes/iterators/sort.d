@@ -16,7 +16,7 @@ import uim.collections;
  * return user.age;
  * });
  *
- * / output all user name order by their age in descending order
+ */ output all user name order by their age in descending order
  * sorted.each!(user => writeln(user.name));
  * ```
  *

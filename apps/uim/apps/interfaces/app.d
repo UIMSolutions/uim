@@ -3,7 +3,7 @@ module uim.apps.interfaces.app;
 import uim.apps;
 @safe:
 
-interface IApp /* / TODO
+interface IApp /*/ TODO
 : IApplication, IMVCObject, IRequestHandler, IControllerManager, ISessionManager, IViewManager, IRouteManager {
   IEntityBase entityBase();
 */

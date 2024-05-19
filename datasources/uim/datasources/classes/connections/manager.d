@@ -226,7 +226,7 @@ static Json[string] parseDsn(string adsn) {
      * ### Usage
      *
      * ```
-     * / Make 'things' resolve to 'test_things' connection
+     */ Make 'things' resolve to 'test_things' connection
      * ConnectionManager.alias("test_things", "things");
      * ```
      * Params:

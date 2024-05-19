@@ -26,7 +26,7 @@ interface IEventDispatcher {
      * @param TSubject|null subject The object that this event applies to
      * (this by default).
      */
-    IEvent dispatchEvent(string eventName, Json[string] data = null, ?object subject = null);
+    IEvent dispatchEvent(string eventName, Json[string] data = null, object subject = null);
 
     /**
      * Sets the UIM\Event\EventManager manager instance for this object.

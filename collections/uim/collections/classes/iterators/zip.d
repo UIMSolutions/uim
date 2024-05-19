@@ -42,7 +42,7 @@ class DZipIterator : ICollection {
      * Creates the iterator to merge together the values by for all the passed
      * iterators by their corresponding index.
      */
-    this(Json[string] listToZip, ?callable aCallable = null) {
+    this(Json[string] listToZip, callable aCallable = null) {
         _multipleIterator = new DMultipleIterator(
             MultipleIterator.MIT_NEED_ALL | MultipleIterator.MIT_KEYS_NUMERIC
         );

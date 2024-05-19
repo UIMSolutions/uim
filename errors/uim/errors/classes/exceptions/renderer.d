@@ -88,7 +88,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * @param uim.uim.http.ServerRequest|null myRequest The request if this is set it will be used
      *   instead of creating a new one.
      */
-    this(DThrowable myException, ?ServerRequest myRequest = null) {
+    this(DThrowable myException, ServerRequest myRequest = null) {
         this.error = myException;
         this.request = myRequest;
         this.controller = _getController();

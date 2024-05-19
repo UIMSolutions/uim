@@ -64,7 +64,7 @@ void stackTrace(Json[string] options = null) {
  * @param Json var Variable to show debug information for.
  * @param bool|null showHtml If set to true, the method prints the debug data in a browser-friendly way.
  */
-void dd(Json var, ?bool showHtml = null) {
+void dd(Json var, bool showHtml = null) {
     if (!configuration.hasKey("debug")) {
         return;
     }

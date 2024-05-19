@@ -237,7 +237,7 @@ mixin template TQuery() {
      * @param callable|null reducer The reducing function.
      * @param bool canOverwrite Set to true to overwrite existing map + reduce functions.
      */
-    function mapReduce(?callable mapper = null, ?callable reducer = null, bool canOverwrite = false) {
+    function mapReduce(?callable mapper = null, callable reducer = null, bool canOverwrite = false) {
         if (canOverwrite) {
             _mapReduce = null;
         }

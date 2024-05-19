@@ -65,7 +65,7 @@ class DMapReduce { // }: IteratorAggregate {
      * Params:
      * range someData The original data to be processed.
      */
-    this(Json[string] dataToProcess, callable mapper, ?callable reducer = null) {
+    this(Json[string] dataToProcess, callable mapper, callable reducer = null) {
        _data = dataToProcess;
        _mapper = mapper;
        _reducer = reducer;

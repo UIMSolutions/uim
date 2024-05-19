@@ -134,5 +134,5 @@ mixin template TDateFormat() {
         dateTime = dateTime.setTimezone(tz);
 
         return new static(dateTime);
-    } */
+    }
 }

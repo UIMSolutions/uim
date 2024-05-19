@@ -70,5 +70,5 @@ class DFileConfigEngine : DConfigEngine {
 
         string filename = _getFileKey(aKey);
         return file_put_contents(filename, contents) > 0;
-    } */
+    }
 }

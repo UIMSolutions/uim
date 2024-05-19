@@ -198,5 +198,5 @@ class HFilesystem {
     // Check whether the given path is a stream path.
     bool isStream(string streamPath) {
         return streamPath.has("://");
-    } */
+    }
 }

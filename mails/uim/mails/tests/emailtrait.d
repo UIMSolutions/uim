@@ -191,5 +191,5 @@ mixin template TEmail() {
      */
     void assertMailSubjectContainsAt(int at, string acontents, string amessage = null) {
         this.assertThat(contents, new DMailSubjectContains(at), message);
-    } */
+    }
 }

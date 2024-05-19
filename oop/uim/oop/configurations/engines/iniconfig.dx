@@ -158,5 +158,5 @@ class DIniConfig : DConfigEngine {
             false: "false",
             default: to!string(valueToExport)
         };
-    } */
+    }
 }

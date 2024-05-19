@@ -87,5 +87,5 @@ class DJsonConfig : DConfigEngine {
         auto filename = _getFileKey(dataId);
 
         return file_put_contents(filename, Json_encode(someData, Json_PRETTY_PRINT)) > 0;
-    } */
+    }
 }

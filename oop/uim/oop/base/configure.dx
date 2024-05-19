@@ -393,5 +393,5 @@ class DFileConfigEngine {
     // Clear all values stored in Configure.
     static void clear() {
         _values = null;
-    } */
+    }
 }

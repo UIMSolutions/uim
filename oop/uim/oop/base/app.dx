@@ -216,5 +216,5 @@ class DApp {
         return type == "templates"
             ? [CORE_PATH ~ "templates" ~ DIRECTORY_SEPARATOR]
             : [uim ~ type.replace("/", DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR];
-    } */
+    }
 } 

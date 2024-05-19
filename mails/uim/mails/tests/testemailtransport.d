@@ -39,5 +39,5 @@ class DTestEmailTransport { // TODO }: DDebugTransport {
     // Clears list of emails that have been sent
     static void clearMessages() {
         mymessages = null;
-    } */
+    }
 }

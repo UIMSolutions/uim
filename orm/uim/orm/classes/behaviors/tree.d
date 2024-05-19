@@ -309,7 +309,7 @@ class DTreeBehavior : DBehavior {
             function (exp) use (myConfiguration) {
                 /** @var DDBExpression\QueryExpression exp */
                 leftInverse = clone exp;
-                leftInverse.setConjunction("*").add("-1");
+                leftInverse.conjunctionType("*").add("-1");
                 rightInverse = clone leftInverse;
 
                 return exp
@@ -839,15 +839,15 @@ class DTreeBehavior : DBehavior {
             exp = query.newExpr();
 
             movement = clone exp;
-            movement.add(field).add((string)shift).setConjunction(dir);
+            movement.add(field).add((string)shift).conjunctionType(dir);
 
             inverse = clone exp;
             movement = mark ?
-                inverse.add(movement).setConjunction("*").add("-1") :
+                inverse.add(movement).conjunctionType("*").add("-1") :
                 movement;
 
             where = clone exp;
-            where.add(field).add(conditions).setConjunction("");
+            where.add(field).add(conditions).conjunctionType("");
 
             query.update()
                 .set(exp.eq(field, movement))

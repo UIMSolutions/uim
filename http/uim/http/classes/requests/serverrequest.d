@@ -797,8 +797,6 @@ class DServerRequest { // }: IServerRequest {
      * Update the request method and get a new instance.
      * Params:
      * string httpMethod The HTTP method to use.
-     * @return static A new instance with the updated method.
-     * @link https://www.d-fig.org/psr/psr-7/ This method is part of the PSR-7 server request interface.
      */
     static withMethod(string httpMethod) {
         new = clone this;

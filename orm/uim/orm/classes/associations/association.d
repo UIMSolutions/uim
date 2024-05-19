@@ -700,7 +700,6 @@ class DAssociation : IAssociation {
      * binding keys in order to use them as a filter in the finder query.
      *
      * @param Json[string] options The options containing the strategy to be used.
-     * @return bool true if a list of keys will be required
      */
     bool requiresKeys(Json[string] optionData = null) {
         strategy = options["strategy"] ?  ? getStrategy();

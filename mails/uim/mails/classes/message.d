@@ -1431,7 +1431,6 @@ class DMessage { //: JsonSerializable {
      * Serializes the email object to a value that can be natively serialized and re-used
      * to clone this email instance.
      *
-     * @return Json[string] Serializable array of configuration properties.
      * @throws \Exception When a view var object can not be properly serialized.
      */
     Json[string] JsonSerialize() {

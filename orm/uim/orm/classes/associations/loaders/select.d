@@ -358,7 +358,6 @@ class DSelectLoader {
      * that need to be present to ensure the correct association data is loaded.
      *
      * @param DORMQuery query The query to get fields from.
-     * @return array<string, array> The list of fields for the subquery.
      */
     protected Json[string] _subqueryFields(Query query) {
         keys = (array)this.bindingKey;

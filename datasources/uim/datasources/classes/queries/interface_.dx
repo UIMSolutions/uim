@@ -123,10 +123,8 @@ interface IQuery {
      * ```
      * singleUser = query.select(["id", "username"]).first();
      * ```
-     *
-     * @return uim.Datasource\IDatasourceEntity|array|null the first result from the Resultset
      */
-    function first();
+    IDatasourceEntity first();
 
     /**
      * Returns the total amount of results for the query.

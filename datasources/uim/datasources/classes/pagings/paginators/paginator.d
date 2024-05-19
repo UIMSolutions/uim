@@ -162,8 +162,6 @@ class DPaginator : IPaginator {
      *   to paginate.
      * @param Json[string] myParams Request params
      * @param Json[string] settings The settings/configuration used for pagination.
-     * @return \uim\Datasource\IResultset Query results
-     * @throws \uim\Datasource\Exception\PageOutOfBoundsException
      */
     IDSResultset paginate(object object, Json[string] myParams= null, Json[string] settings= null) {
         myQuery = null;

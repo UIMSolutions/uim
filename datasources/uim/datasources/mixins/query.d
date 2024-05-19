@@ -193,8 +193,6 @@ mixin template TQuery() {
      *
      * ResultsetDecorator is a traversable object that : the methods found
      * on uim\collections.Collection.
-     *
-     * @return uim.Datasource\IResultset
      */
     IResultset all() {
         if (_results != null) {
@@ -369,7 +367,6 @@ mixin template TQuery() {
 
     /**
      * Returns the list of previously registered format routines.
-     *
      * @return array<callable>
      */
     function getResultFormatters() {

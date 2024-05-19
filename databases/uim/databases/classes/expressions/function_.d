@@ -35,7 +35,7 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      * Params:
      * @param Json[string] arguments list of arguments to be passed to the function
      * If associative the key would be used as argument when value is 'literal'
-     * @param STRINGAA|array<string|null> types Associative array of types to be associated with the
+     * @param STRINGAA|array<string> types Associative array of types to be associated with the
      * passed arguments
      * @param string resultType The return type of this expression
      */

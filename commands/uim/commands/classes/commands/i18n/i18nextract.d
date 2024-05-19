@@ -609,9 +609,8 @@ class DI18nExtractCommand : DCommand {
      * Params:
      * \UIM\Console\IConsoleIo aConsoleIo The io instance.
      * @param string afile File where invalid marker resides
-     * @param int count Count
      */
-    protected void _markerError(IConsoleIo aConsoleIo, string nameOfFile, int lineNumber, string foundMarker, int count) {
+    protected void _markerError(IConsoleIo aConsoleIo, string nameOfFile, int lineNumber, string foundMarker, size_t count) {
         if (!_fileName.has(uim_CORE_INCLUDE_PATH)) {
            _countMarkerError++;
         }

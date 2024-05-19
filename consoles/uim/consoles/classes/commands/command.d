@@ -105,8 +105,6 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         return aParser;
     }
 
-
-
     int run(Json[string] argv, IConsoleIo aConsoleIo) {
         this.initialize();
 
@@ -198,21 +196,21 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * @param Json[string] someArguments The arguments to invoke the command with.
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo The ConsoleIo instance to use for the executed command.
      */
-    int executeCommand(string acommand, Json[string] someArguments = null, IConsoleIo aConsoleIo = null) {
+    int executeCommand(string acommand, Json[string] commandArguments = null, IConsoleIo aConsoleIo = null) {
         assert(
             isSubclass_of(command, ICommand.classname),
             "Command `%s` is not a subclass of `%s`.".format(command, ICommand.classname)
         );
 
         auto newCommand = new command();
-        return executeCommand(ICommand acommand, Json[string] someArguments = null,  ? IConsoleIo aConsoleIo = null) {
+        return executeCommand(ICommand acommand, Json[string] commandArguments = null,  ? IConsoleIo aConsoleIo = null) {
         }
 
-        int executeCommand(ICommand acommand, Json[string] someArguments = null,  ? IConsoleIo aConsoleIo = null) {
+        int executeCommand(ICommand acommand, Json[string] commandArguments = null,  ? IConsoleIo aConsoleIo = null) {
             auto myConsoleIo = aConsoleIo ?  : new DConsoleIo();
 
             try {
-                return acommand.run(someArguments, myConsoleIo);
+                return acommand.run(commandArguments, myConsoleIo);
             }
  catch (StopException anException) {
                 return anException.getCode();

@@ -38,7 +38,7 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
     /**
      * Adds an empty `OVER()` window expression or a named window epression.
      * Params:
-     * string|null windowName Window name
+     * string windowName Window name
      */
     void over(string windowName = null) {
         auto  window = getWindow();

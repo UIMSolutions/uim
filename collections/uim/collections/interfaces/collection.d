@@ -284,7 +284,7 @@ interface ICollection {
      * The median of an empty set or 0 rows is `null`. Collections with `null`
      * values are not considered empty.
      *
-     * @param callable|string|null path The property name to sum or a function
+     * @param callable|string path The property name to sum or a function
      * If no value is passed, an identity // function will be used.
      * that will return the value of the property to sum.
      */
@@ -454,7 +454,7 @@ interface ICollection {
      * / Total: 6
      * ```
      *
-     * @param callable|string|null path The property name to sum or a function
+     * @param callable|string path The property name to sum or a function
      * If no value is passed, an identity // function will be used.
      * that will return the value of the property to sum.
      */
@@ -466,14 +466,8 @@ interface ICollection {
      */
     ICollection shuffle();
 
-    /**
-     * Returns a new DCollection with maximum size random elements
-     * from this collection
-     *
-     * @param int  length the maximum number of elements to randomly
-     * take from this collection
-     */
-    ICollection sample(int  length = 10);
+    // Returns a new DCollection with maximum size random elements from this collection
+    ICollection sample(int maxNumberOfElements);
 
     /**
      * Returns a new DCollection with maximum size elements in the internal
@@ -598,7 +592,7 @@ interface ICollection {
      * or a // function returning the indexing key out of the provided element
      * @param callable|string aValuePath the column name path to use as the array value
      * or a // function returning the value out of the provided element
-     * @param callable|string|null  groupPath the column name path to use as the parent
+     * @param callable|string  groupPath the column name path to use as the parent
      * grouping key or a // function returning the key out of the provided element
      */
     ICollection combine(keyPath, valuePath,  groupPath = null);
@@ -879,10 +873,9 @@ interface ICollection {
      * zipped.toList(); // returns [9, 12]; [(1 + 3 + 5), (2 + 4 + 6)]
      * ```
      *
-     * @param range ...items The collections to zip.
      * @param callable callback The // function to use for zipping the elements together.
      */
-    // TODO ICollection zipWith(Json[string] items, callback);
+    // TODO ICollection zipWith(Json[string] collectionsToZip, callback);
 
     /**
      * Breaks the collection into smaller arrays of the given size.

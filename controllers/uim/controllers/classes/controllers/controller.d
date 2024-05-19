@@ -157,7 +157,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Params:
      * \UIM\Http\ServerRequest serverRequest Request object for this controller.
      *  but expect that features that use the request parameters will not work.
-     * @param string|null name Override the name useful in testing when using mocks.
+     * @param string name Override the name useful in testing when using mocks.
      * @param \UIM\Event\IEventManager|null eventManager The event manager. Defaults to a new instance.
      */
     this(
@@ -433,8 +433,8 @@ class DController : IController { // IEventListener, IEventDispatcher {
     /**
      * Instantiates the correct view class, hands it its data, and uses it to render the view output.
      * Params:
-     * string|null template Template to use for rendering
-     * @param string|null  layout Layout to use
+     * string template Template to use for rendering
+     * @param string  layout Layout to use
      * returns A response object containing the rendered view.
      */
     Response render(string atemplate = null, string alayout = null) {
@@ -581,11 +581,11 @@ class DController : IController { // IEventListener, IEventDispatcher {
      *
      * This method will also make the PaginatorHelper available in the view.
      * Params:
-     * \UIM\Datasource\IRepository|\UIM\Datasource\IQuery|string|null  object Table to paginate
+     * \UIM\Datasource\IRepository|\UIM\Datasource\IQuery|string  object Table to paginate
      * (e.g: Table instance, "TableName' or a Query object)
      */
     IPaginated paginate(
-        IRepository|IQuery|string|null  object = null,
+        IRepository|IQuery|string  object = null,
         Json[string] settingsForPagination = null
     ) {
         if (!isObject(object)) {

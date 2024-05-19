@@ -385,7 +385,7 @@ class DCache : ICache {
      * configDatas will equal to `["posts": ["daily", "weekly"]]`
      * Calling this method will load all the configured engines.
      * Params:
-     * string|null groupName Group name or null to retrieve all group mappings
+     * string groupName Group name or null to retrieve all group mappings
      */
     /* static Json[string] groupConfigs(string groupName = null) {
         configured()

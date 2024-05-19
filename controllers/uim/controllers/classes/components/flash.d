@@ -80,7 +80,7 @@ class DFlashComponent : DComponent {
     /**
      * Proxy method to FlashMessage instance.
      * Params:
-     * string|null aKey The key to get or null for the whole config.
+     * string aKey The key to get or null for the whole config.
      */
     Json getConfig(string aKey = null, Json defaultValue = Json(null)) {
         return _flash().configuration.get(aKey, default);

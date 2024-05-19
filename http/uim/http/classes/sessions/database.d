@@ -127,5 +127,5 @@ class DatabaseSession { // }: SessionHandler {
      */
     int gc(int maxlifetime) {
         return _table.deleteAll(["expires <": time()]);
-    } */
+    }
 }

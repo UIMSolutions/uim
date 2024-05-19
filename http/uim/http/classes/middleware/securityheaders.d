@@ -204,5 +204,5 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
         this.headers.byKeyValue
             .each!(headerValue => response = response.withHeader(headerValue.key, headerValue.value));
         return response;
-    } */
+    }
 }

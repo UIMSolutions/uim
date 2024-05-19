@@ -95,5 +95,5 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
             aValue ~= "; preload";
         }
         return response.withHeader("strict-transport-security", aValue);
-    } */
+    }
 }

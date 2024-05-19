@@ -114,5 +114,5 @@ class DEncryptedCookieMiddleware { // : IHttpMiddleware {
             aHeader ~= cookieWithValue.toHeaderValue();
         });
         return response.withHeader("Set-Cookie",  aHeader);
-    } */
+    }
 }

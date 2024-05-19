@@ -1298,5 +1298,5 @@ class DResponse : IResponse {
             "cacheDirectives": _cacheDirectives,
             "body": (string)getBody(),
         ];
-    } */
+    }
 }

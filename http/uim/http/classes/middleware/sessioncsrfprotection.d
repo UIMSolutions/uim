@@ -220,5 +220,5 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
         request.getSession().write(aKey, token);
 
         return request.withAttribute(aKey, middleware.saltToken(token));
-    } */
+    }
 }

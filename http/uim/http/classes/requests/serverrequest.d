@@ -1478,5 +1478,5 @@ class DServerRequest { // }: IServerRequest {
         [somePath] = this.requestTarget.split("?");
 
         return somePath;
-    } */
+    }
 }

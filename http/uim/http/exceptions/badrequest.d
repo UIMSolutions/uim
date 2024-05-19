@@ -15,5 +15,5 @@ class DBadRequestException : DHttpException {
             exceptionMessage = "Bad Request";
         }
         super(exceptionMessage, statusCode, previousException);
-    } */
+    }
 }

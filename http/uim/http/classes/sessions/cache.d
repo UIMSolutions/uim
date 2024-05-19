@@ -86,5 +86,5 @@ class DCacheSession { // }: !SessionHandler {
      */
     int gc(int maxlifetime) {
         return 0;
-    } */
+    }
 }

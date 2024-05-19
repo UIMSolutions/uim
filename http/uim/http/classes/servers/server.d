@@ -151,5 +151,5 @@ class DServer { // }: IEventDispatcher {
             return;
         }
         throw new DInvalidArgumentException("Cannot set the event manager, the application does not support events.");
-    } */
+    }
 }

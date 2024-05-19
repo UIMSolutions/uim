@@ -165,11 +165,7 @@ class DBehavior : IEventListener {
         this.initialize(myConfiguration);
     }
 
-    /**
-     * Get the table instance this behavior is bound to.
-     *
-     * @return The bound table instance.
-     */
+    // Get the table instance this behavior is bound to.
     DORMTable table() {
         return _table;
     }
@@ -183,7 +179,7 @@ class DBehavior : IEventListener {
      * @return Json[string]A de-duped list of config data.
      */
     protected Json[string] _resolveMethodAliases(string aKey, Json[string] defaults, Json myConfiguration) {
-        if (!isset(defaults[key], configuration.get(key])) {
+        if (!isset(defaults[key], configuration.get(key))) {
             return configuration;
         }
         if (configuration.has(key) && configuration.get(key] == []) {

@@ -257,10 +257,8 @@ class DSelectLoader {
      * @param DORMQuery query Target table"s query
      * @param string[]|string aKey The fields that should be used for filtering
      * @param mixed filter The value that should be used to match for key
-     * @return DORMQuery
      */
-    protected function _addFilteringCondition(Query query, key, filter): Query
-    {
+    protected DORMQuery _addFilteringCondition(Query query, key, filter) {
         if ((key.isArray) {
             conditions = _createTupleCondition(query, key, filter, "IN");
         } else {

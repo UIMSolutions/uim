@@ -160,7 +160,7 @@ class DExceptionRenderer : IExceptionRenderer {
         myException = this.error;
         code = getHttpCode(myException);
         method = _method(myException);
-        myTemplate = _template(myException, method, code);
+        myTemplate = templateName(myException, method, code);
         clearOutput();
 
         if (method_exists(this, method)) {
@@ -277,7 +277,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * @param string method Method name.
      * @return string Template name
      */
-    protected string _template(Throwable myException, string method, int errorCode) {
+    protected string templateName(Throwable myException, string method, int errorCode) {
         if (myException instanceof HttpException || !Configure.read("debug")) {
             return _template = errorCode < 500 ? "error400" : "error500";
         }
@@ -291,7 +291,6 @@ class DExceptionRenderer : IExceptionRenderer {
      * Gets the appropriate http status code for exception.
      *
      * @param \Throwable myException Exception.
-     * @return int A valid HTTP status code.
      */
     protected int getHttpCode(Throwable myException) {
         if (myException instanceof HttpException) {

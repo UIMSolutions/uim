@@ -754,7 +754,6 @@ class DBelongsToManyAssociation : DAssociation {
      *   or a `boolean` as `cleanProperty` key shortcut.
      * @throws \InvalidArgumentException If non persisted entities are passed or if
      *   any of them is lacking a primary key value.
-     * @return bool Success
      */
     bool unlink(IORMEntity sourceEntity, Json[string] targetEntities, options = null) {
         if (is_bool(options)) {

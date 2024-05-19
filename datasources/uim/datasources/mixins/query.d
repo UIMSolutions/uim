@@ -196,8 +196,7 @@ mixin template TQuery() {
      *
      * @return uim.Datasource\IResultset
      */
-    function all(): IResultset
-    {
+    IResultset all() {
         if (_results != null) {
             return _results;
         }
@@ -464,8 +463,7 @@ mixin template TQuery() {
      * @param \Traversable result Original results
      * @return uim.Datasource\IResultset
      */
-    protected function _decorateResults(Traversable result): IResultset
-    {
+    protected IResultset _decorateResults(Traversable result) {
         decorator = _decoratorClass();
         foreach (_mapReduce as functions) {
             result = new DMapReduce(result, functions["mapper"], functions["reducer"]);

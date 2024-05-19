@@ -388,12 +388,9 @@ class DAssociation : IAssociation {
      * in the source table record.
      *
      * @param string aName The name of the association property. Use null to read the current value.
-     * @return this
      */
-    function setProperty(string aName) {
+    void setProperty(string aName) {
         _propertyName = name;
-
-        return this;
     }
 
     /**

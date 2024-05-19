@@ -143,7 +143,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         auto exception = _error;
         auto code = getHttpCode(exception);
         auto method = _method(exception);
-        auto template = _template(exception, method, code);
+        auto template = templateName(exception, method, code);
         clearOutput();
 
         if (method_exists(this, method)) {
@@ -270,7 +270,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * @param string methodName Method name.
      * @param int code Error code.
      */
-    protected string _template(Throwable exception, string methodName, int code) {
+    protected string templateName(Throwable exception, string methodName, int code) {
         if (cast(HttpException)exception || !configuration.hasKey("debug")) {
             return _template = code < 500 ? "error400' : 'error500";
         }

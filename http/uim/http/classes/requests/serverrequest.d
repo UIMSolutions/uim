@@ -1275,8 +1275,7 @@ class DServerRequest { // }: IServerRequest {
      * @return static
      * @throws \InvalidArgumentException
      */
-    auto withoutAttribute(string aName): static
-    {
+    static auto withoutAttribute(string aName) {
         new = clone this;
         if (in_array(name, this.emulatedAttributes, true)) {
             throw new DInvalidArgumentException(

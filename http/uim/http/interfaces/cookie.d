@@ -45,12 +45,8 @@ interface ICookie {
     static auto withPath(string aPath);
 
 
-    /**
-     * Create a cookie with an updated domain
-     * Params:
-     * string adomain Domain to set
-     */
-    static auto withDomain(string adomain);
+    // Create a cookie with an updated domain
+    static auto withDomain(string domainName);
 
     /**
      * Get the current expiry time

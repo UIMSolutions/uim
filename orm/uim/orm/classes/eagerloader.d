@@ -378,9 +378,8 @@ class DEagerLoader {
      *
      * @param DORMTable repository The table containing the associations to be
      * attached
-     * @return array<DORMEagerLoadable>
      */
-    Json[string] attachableAssociations(Table repository) {
+    DORMEagerLoadable[] attachableAssociations(Table repository) {
         contain = this.normalized(repository);
         matching = _matching ? _matching.normalized(repository) : [];
         _fixStrategies();

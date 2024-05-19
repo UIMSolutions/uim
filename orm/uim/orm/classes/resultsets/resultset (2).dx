@@ -492,13 +492,8 @@ class DResultset : IResultset {
         return results;
     }
 
-    /**
-     * Returns an array that can be used to describe the internal state of this
-     * object.
-     *
-     * @return Json[string]
-     */
-    array __debugInfo() {
+    // Returns an array that can be used to describe the internal state of this object.
+    Json[string] __debugInfo() {
         currentIndex = _index;
         // toArray() adjusts the current index, so we have to reset it
         items = toArray();

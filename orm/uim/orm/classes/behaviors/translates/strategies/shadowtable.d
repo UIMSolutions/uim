@@ -483,9 +483,8 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      *
      * @param DORMDatasource\IResultset results Results to map.
      * @param string locale Locale string
-     * @return DORMcollections.ICollection
      */
-                                                                            protected function rowMapper(
+                                                                            protected ICollection rowMapper(
                                                                             results, locale) {
                                                                                 allowEmpty = configuration
                                                                                 .get(

@@ -1201,7 +1201,6 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldName The name of the field to generate label for.
      * @param options Options list.
-     * @return string|false Generated label element or false.
      */
     protected string _getLabel(string fieldName, Json[string] options) {
         if (options["type"] == "hidden") {

@@ -767,7 +767,6 @@ class DTreeBehavior : DBehavior {
      * @param int lftRght The starting lft/rght value
      * @param mixed parentId the parent id of the level to be recovered
      * @param int level Node level
-     * @return int The next lftRght value
      */
     protected int _recoverTree(int lftRght = 1, parentId = null, level = 0) {
         myConfiguration = configuration;

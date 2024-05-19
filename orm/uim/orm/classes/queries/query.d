@@ -208,8 +208,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param DORMTable|DORMAssociation table The table to use to get an array of columns
      * @param string[] excludedFields The un-aliased column names you do not want selected from table
      * @param bool canOverwrite Whether to reset/remove previous selected fields
-     * @return this
-     * @throws \InvalidArgumentException If Association|Table is not passed in first argument
      */
     IQuery selectAllExcept(table, Json[string] excludedFields, bool canOverwrite = false) {
         if (cast(Association)table) {
@@ -1144,9 +1142,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * Can be combined with set() and where() methods to create update queries.
      *
      * @param DORMdatabases.IExpression|string table Unused parameter.
-     * @return this
      */
-    function update(table = null) {
+    auto update(table = null) {
         if (!table) {
             repository = getRepository();
             table = repository.getTable();
@@ -1261,15 +1258,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         _autoFields = value;
     }
 
-    /**
-     * Disables automatically appending fields.
-     *
-     * @return this
-     */
-    function disableAutoFields() {
+    // Disables automatically appending fields.
+    void disableAutoFields() {
         _autoFields = false;
-
-        return this;
     }
 
     /**

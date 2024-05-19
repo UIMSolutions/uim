@@ -66,13 +66,8 @@ class DAssociationCollection { // }: IteratorAggregate {
         return _add(association.getName(), association);
     }
 
-    /**
-     * Fetch an attached association by name.
-     *
-     * @param string anAliasName The association alias to get.
-     * @return DORMAssociation|null Either the association or null.
-     */
-    DORMAssociation get(string anAliasName) {
+    // Fetch an attached association by name.
+    DORMAssociation get(string associationAlias) {
         return _items[alias] ?? null;
     }
 

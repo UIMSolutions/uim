@@ -1449,20 +1449,13 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         return _queryFactory.select(this);
     }
     
-    /**
-     * Creates a new insert query
-     */
+    // Creates a new insert query
     InsertQuery insertQuery() {
         return _queryFactory.insert(this);
     }
     
-    /**
-     * Creates a new update query
-     *
-     * @return \ORM\Query\UpdateQuery
-     */
-    auto updateQuery(): UpdateQuery
-    {
+    // Creates a new update query
+    UpdateQuery updateQuery() {
         return _queryFactory.update(this);
     }
     

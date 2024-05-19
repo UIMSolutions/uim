@@ -287,10 +287,10 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      * Params:
      * \UIM\Database\Expression\CommonTableExpression|\Closure cte The CTE to add.
-     * @param bool overwrite Whether to reset the list of CTEs.
+     * @param bool shouldOverwrite Whether to reset the list of CTEs.
      */
-    void with(CommonTableExpression|Closure cte, bool overwrite = false) {
-        if (overwrite) {
+    void with(CommonTableExpression|Closure cte, bool shouldOverwrite = false) {
+        if (shouldOverwrite) {
            _parts["with"] = null;
         }
         if (cast(DClosure)cte) {
@@ -326,9 +326,9 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \UIM\Database\IExpression|string[] amodifiers modifiers to be applied to the query
      */
-    void modifier(IExpression|string[] amodifiers, bool overwrite = false) {
+    void modifier(IExpression|string[] amodifiers, bool shouldOverwrite = false) {
        _isDirty();
-        if (overwrite) {
+        if (shouldOverwrite) {
            _parts["modifier"] = null;
         }
         if (!isArray(someModifiers)) {
@@ -361,12 +361,12 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      * Params:
      * the examples above for the valid call types.
-     * @param bool overwrite whether to reset tables with passed list or not
+     * @param bool shouldOverwrite whether to reset tables with passed list or not
      */
-    void from(string[] tableNames, bool overwrite = false) {
+    void from(string[] tableNames, bool shouldOverwrite = false) {
         if (tableNames.isEmpty) { return; }
 
-        _parts["from"] = overwrite
+        _parts["from"] = shouldOverwrite
             ? aTables
             : array_merge(_parts["from"], aTables);
 
@@ -454,9 +454,9 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      * Params:
      * Json[string]|string atables list of tables to be joined in the query
-     * @param bool overwrite whether to reset joins with passed list or not
+     * @param bool shouldOverwrite whether to reset joins with passed list or not
     */
-    auto join(string[] atables, Json[string] typeMap = null, bool overwrite = false) {
+    auto join(string[] atables, Json[string] typeMap = null, bool shouldOverwrite = false) {
         if (isString(aTables) || isSet(aTables["table"])) {
             aTables = [aTables];
         }
@@ -476,7 +476,7 @@ abstract class DQuery : IQuery { // : IExpression {
             alias = isString(alias) ? alias : null;
              joins[alias ?:  anI++] = t ~ ["type": JOIN_TYPE_INNER, "alias": alias];
         }
-        _parts["join"] = overwrite ?  joins : array_merge(_parts["join"],  joins);
+        _parts["join"] = shouldOverwrite ?  joins : array_merge(_parts["join"],  joins);
        _isDirty();
 
         return this;
@@ -746,14 +746,14 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \UIM\Database\IExpression|\Closure|string[] conditions The conditions to filter on.
      * @param STRINGAA types Associative array of type names used to bind values to query
-     * @param bool overwrite whether to reset conditions with passed list or not
+     * @param bool shouldOverwrite whether to reset conditions with passed list or not
      */
     auto where(
         IExpression|Closure|string[] conditions = null,
         Json[string] types = null,
-        bool overwrite = false
+        bool shouldOverwrite = false
     ) {
-        if (overwrite) {
+        if (shouldOverwrite) {
            _parts["where"] = this.newExpr();
         }
        _conjugate("where", conditions, "AND", types);
@@ -985,10 +985,10 @@ abstract class DQuery : IQuery { // : IExpression {
      * should use `orderByAsc()` or `orderByDesc()`.
      * Params:
      * \UIM\Database\IExpression|\Closure|string[] fieldNames fields to be added to the list
-     * @param bool overwrite whether to reset order with field list or not
+     * @param bool shouldOverwrite whether to reset order with field list or not
      */
-    auto orderBy(IExpression|Closure|string[] fieldNames, bool overwrite = false) {
-        if (overwrite) {
+    auto orderBy(IExpression|Closure|string[] fieldNames, bool shouldOverwrite = false) {
+        if (shouldOverwrite) {
            _parts["order"] = null;
         }
         if (!fields) {
@@ -1012,10 +1012,10 @@ abstract class DQuery : IQuery { // : IExpression {
      * not sanitized by the query builder.
      * Params:
      * \UIM\Database\IExpression|\Closure|string fieldName The field to order on.
-     * @param bool overwrite Whether to reset the order clauses.
+     * @param bool shouldOverwrite Whether to reset the order clauses.
      */
-    auto orderByAsc(IExpression|Closure|string fieldName, bool overwrite = false) {
-        if (overwrite) {
+    auto orderByAsc(IExpression|Closure|string fieldName, bool shouldOverwrite = false) {
+        if (shouldOverwrite) {
            _parts["order"] = null;
         }
         if (!field) {
@@ -1042,10 +1042,10 @@ abstract class DQuery : IQuery { // : IExpression {
      * not sanitized by the query builder.
      * Params:
      * \UIM\Database\IExpression|\Closure|string fieldName The field to order on.
-     * @param bool overwrite Whether to reset the order clauses.
+     * @param bool shouldOverwrite Whether to reset the order clauses.
       */
-    auto orderByDesc(IExpression|Closure|string fieldName, bool overwrite = false) {
-        if (overwrite) {
+    auto orderByDesc(IExpression|Closure|string fieldName, bool shouldOverwrite = false) {
+        if (shouldOverwrite) {
            _parts["order"] = null;
         }
         if (!field) {

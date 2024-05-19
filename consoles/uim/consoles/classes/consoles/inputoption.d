@@ -76,7 +76,6 @@ class DConsoleInputOption {
      * @param string helpText The help text for this option
      * @param bool isBooleanOption Whether this option is a boolean option. Boolean options don`t consume extra tokens
      * @param string default The default value for this option.
-     * @param bool multiple Whether this option can accept multiple value definition.
      * @param string prompt The prompt string.
      * @throws \UIM\Console\Exception\ConsoleException
      */

@@ -52,8 +52,8 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      * passed arguments
      * @param bool prepend Whether to prepend or append to the list of arguments
      */
-    void add(IExpression|string[] aconditions, Json[string] associatedTypes = null, bool prepend = false) {
-        put = prepend ? "array_unshift' : 'array_push";
+    void add(IExpression|string[] aconditions, Json[string] associatedTypes = null, bool prependOrAppend = false) {
+        string put = prependOrAppend ? "array_unshift" : "array_push";
         typeMap = getTypeMap().setTypes(associatedTypes);
 
         conditions.byKeyValue

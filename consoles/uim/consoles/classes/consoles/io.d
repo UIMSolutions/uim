@@ -230,10 +230,9 @@ class DConsoleIo {
      * **Warning** You cannot overwrite text that contains newLinesToAppend.
      * Params:
      * string[]|string amessage The message to output.
-     * @param int newLinesToAppend Number of newLinesToAppend to append.
      */
     void overwrite(string[] amessage, int newLinesToAppend = 1, int bytesToOverwrite = 0) {
-        bytesToOverwrite = bytesToOverwrite ?: _lastWritten;
+        auo bytesToOverwrite = bytesToOverwrite ?: _lastWritten;
 
         // Output backspaces.
         writeln(str_repeat("\x08", bytesToOverwrite), 0);

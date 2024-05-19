@@ -246,14 +246,13 @@ class DCommandRunner { // }: IEventDispatcher {
      * Execute a Command class.
      * Params:
      * \UIM\Console\ICommand command The command to run.
-     * @param Json[string] argv The CLI arguments to invoke.
      */
-    protected int runCommand(ICommand command, Json[string] argv, IConsoleIo aConsoleIo) {
+    protected int runCommand(ICommand command, Json[string] argumentsToInvoke, IConsoleIo aConsoleIo) {
         try {
             if (cast(IEventDispatcher)command) {
                 command.setEventManager(getEventManager());
             }
-            return command.run(argv,  aConsoleIo);
+            return command.run(argumentsToInvoke,  aConsoleIo);
         } catch (StopException  anException) {
             return anException.getCode();
         }
@@ -285,5 +284,5 @@ class DCommandRunner { // }: IEventDispatcher {
         if (cast(IPluginApplication)this.app) {
             this.app.pluginRoutes(builder);
         }
-    } */
+    } 
 }

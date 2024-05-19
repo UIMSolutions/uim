@@ -70,8 +70,7 @@ class DTableHelper { // }: Helper {
       .join;
 
     outputResult ~= "+";
-    _io.
-    out (outputResult);
+    _io.out (outputResult);
   }
 
   /**
@@ -142,9 +141,8 @@ class DTableHelper { // }: Helper {
      * Add style tags
      * Params:
      * string textForSurround The text to be surrounded
-     * @param string astyle The style to be applied
      */
-      protected string _addStyle(string textForSurround, string astyle) {
+      protected string _addStyle(string textForSurround, string styleToAppy) {
         return "<" ~ style ~ ">" ~ textForSurround ~ "</" ~ style ~ ">";
-      } */
+      } 
 }

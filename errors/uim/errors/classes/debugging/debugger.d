@@ -787,15 +787,11 @@ class DDebugger {
      * @param mixed var Variable to show debug information for.
      * @param Json[string] location If contains keys "file" and "line" their values will
      *    be used to show location info.
-     * @param bool|null showHtml If set to true, the method prints the debug
-     *    data encoded as HTML. If false, plain text formatting will be used.
-     *    If null, the format will be chosen based on the configured exportFormatter, or
-     *    environment conditions.
      */
-    static void printVar(var, Json[string] location = null, bool showHtml = null) {
-        location += ['file': null, 'line': null];
-        if (location['file']) {
-            location['file'] = trimPath((string)location['file']);
+    static void printVar(var, Json[string] location = null, bool showHtml = false) {
+        auto location += ['file': null, 'line': null];
+        if (location["file"]) {
+            location["file"] = trimPath((string)location['file']);
         }
 
         debugger = getInstance();

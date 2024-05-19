@@ -289,8 +289,8 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * \Closure action The action closure.
      * @param Json[string] someArguments The arguments to be passed when invoking action.
      */
-    void invokeAction(Closure action, Json[string] someArguments) {
-        auto result = action(...someArguments);
+    void invokeAction(Closure action, Json[string] argeumentsForAction) {
+        auto result = action(...argeumentsForAction);
         if (!result.isNull) {
             assert(
                 cast(Response)result,

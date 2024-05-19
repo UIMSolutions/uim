@@ -42,16 +42,16 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      *
      * - `log` Enable logging of exceptions.
      * - `skipLog` List of exceptions to skip logging. Exceptions that
-     *   extend one of the listed exceptions will also not be logged. Example:
+     *  extend one of the listed exceptions will also not be logged. Example:
      *
-     *   ```
-     *   "skipLog":["uim\errors.NotFoundException", "uim\errors.UnauthorizedException"]
-     *   ```
+     *  ```
+     *  "skipLog":["uim\errors.NotFoundException", "uim\errors.UnauthorizedException"]
+     *  ```
      *
      * - `trace` Should error logs include stack traces?
      * - `exceptionRenderer` The renderer instance or class name to use or a callable factory
-     *   which returns a uim.errorss.IExceptionRenderer instance.
-     *   Defaults to uim.errorss.ExceptionRenderer
+     *  which returns a uim.errorss.IExceptionRenderer instance.
+     *  Defaults to uim.errorss.ExceptionRenderer
      */
     configuration.updateDefaults([
         "skipLog": Json.emptyArray,
@@ -76,7 +76,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      
      *
      * @param uim.errorss.ErrorHandler|array myErrorHandler The error handler instance
-     *  or config array.
+     * or config array.
      * @throws \InvalidArgumentException
      */
     this(myErrorHandler = null) {

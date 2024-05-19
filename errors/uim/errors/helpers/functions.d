@@ -39,7 +39,7 @@ Json debug(Json var, bool showHtml = null, bool showFrom = true):
  *
  * - `depth` - The number of stack frames to return. Defaults to 999
  * - `args` - Should arguments for functions be shown? If true, the arguments for each method call
- *  will be displayed.
+ * will be displayed.
  * - `start` - The stack frame to start generating a trace from. Defaults to 1
  *
  * @param Json[string] options Format for outputting stack trace

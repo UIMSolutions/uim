@@ -252,9 +252,9 @@ class DDebugger {
      *
      * - `depth` - The number of stack frames to return. Defaults to 999
      * - `format` - The format you want the return. Defaults to the currently selected format. If
-     *   format is 'array' or 'points' the return will be an array.
+     *  format is 'array' or 'points' the return will be an array.
      * - `args` - Should arguments for functions be shown? If true, the arguments for each method call
-     *  will be displayed.
+     * will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      * Params:
      * Json[string] options Format for outputting stack trace.
@@ -274,9 +274,9 @@ class DDebugger {
      *
      * - `depth` - The number of stack frames to return. Defaults to 999
      * - `format` - The format you want the return. Defaults to 'text'. If
-     *   format is 'array' or 'points' the return will be an array.
+     *  format is 'array' or 'points' the return will be an array.
      * - `args` - Should arguments for functions be shown? If true, the arguments for each method call
-     *  will be displayed.
+     * will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      * Params:
      * \Throwable|array backtrace Trace as array or an exception object.
@@ -666,11 +666,11 @@ class DDebugger {
      * Params:
      * Json var Variable to show debug information for.
      * @param Json[string] location If contains keys "file" and "line" their values will
-     *   be used to show location info.
+     *  be used to show location info.
      * @param bool|null showHtml If set to true, the method prints the debug
-     *   data encoded as HTML. If false, plain text formatting will be used.
-     *   If null, the format will be chosen based on the configured exportFormatter, or
-     *   environment conditions.
+     *  data encoded as HTML. If false, plain text formatting will be used.
+     *  If null, the format will be chosen based on the configured exportFormatter, or
+     *  environment conditions.
      */
     static void printVar(Json var, Json[string] location = null, bool showHtml = null) {
         auto location ~= ["file": Json(null), "line": Json(null)];

@@ -79,7 +79,7 @@ class DExceptionRenderer : IExceptionRenderer {
      *
      * @param \Throwable myException Exception.
      * @param uim.uim.http.ServerRequest|null myRequest The request if this is set it will be used
-     *   instead of creating a new one.
+     *  instead of creating a new one.
      */
     this(DThrowable myException, ServerRequest myRequest = null) {
         this.error = myException;

@@ -26,22 +26,22 @@ class DExceptionTrap {
      * Configuration options. Generally these will be defined in your config/app.d
      *
      * - `exceptionRenderer` - string - The class responsible for rendering uncaught exceptions.
-     *  The chosen class will be used for for both CLI and web environments. If  you want different
-     *  classes used in CLI and web environments you'll need to write that conditional logic as well.
-     *  The conventional location for custom renderers is in `src/Error`. Your exception renderer needs to
-     *  implement the `render()` method and return either a string or Http\Response.
+     * The chosen class will be used for for both CLI and web environments. If  you want different
+     * classes used in CLI and web environments you'll need to write that conditional logic as well.
+     * The conventional location for custom renderers is in `src/Error`. Your exception renderer needs to
+     * implement the `render()` method and return either a string or Http\Response.
      * - `log` Set to false to disable logging.
      * - `logger` - string - The class name of the error logger to use.
      * - `trace` - boolean - Whether or not backtraces should be included in
-     *  logged exceptions.
+     * logged exceptions.
      * - `skipLog` - array - List of exceptions to skip for logging. Exceptions that
-     *  extend one of the listed exceptions will also not be logged. E.g.:
-     *  ```
-     *  `skipLog": ["UIM\Http\Exception\NotFoundException", "UIM\Http\Exception\UnauthorizedException"]
-     *  ```
-     *  This option is forwarded to the configured `logger`
+     * extend one of the listed exceptions will also not be logged. E.g.:
+     * ```
+     * `skipLog": ["UIM\Http\Exception\NotFoundException", "UIM\Http\Exception\UnauthorizedException"]
+     * ```
+     * This option is forwarded to the configured `logger`
      * - `extraFatalErrorMemory` - int - The number of megabytes to increase the memory limit by when a fatal error is
-     *  encountered. This allows breathing room to complete logging or error handling.
+     * encountered. This allows breathing room to complete logging or error handling.
      * - `stderr` Used in console environments so that renderers have access to the current console output stream.
      *
      */

@@ -16,7 +16,7 @@ import uim.errors;
  * Useful in CI or plain text environments.
  *
  * @todo 5.0 Implement uim.errors.IExceptionRenderer. This implementation can"t implement
- *  the concrete interface because the return types are not compatible.
+ * the concrete interface because the return types are not compatible.
  */
 class DTextExceptionRenderer {
     private Throwable _error;

@@ -73,7 +73,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Params:
      * \Throwable exception Exception.
      * @param \UIM\Http\ServerRequest|null request The request if this is set it will be used
-     *  instead of creating a new one.
+     * instead of creating a new one.
      */
     this(DThrowable exception, ServerRequest serverRequest = null) {
         _error = exception;

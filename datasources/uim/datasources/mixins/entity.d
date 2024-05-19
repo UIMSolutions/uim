@@ -1123,5 +1123,5 @@ mixin template TEntity() {
         }
       }
       
-      *  /
+      */
     }

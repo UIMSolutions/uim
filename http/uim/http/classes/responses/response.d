@@ -1055,12 +1055,11 @@ class DResponse : IResponse {
      * \UIM\Http\Cookie\ICookie cookie cookie object
      * @return static
      */
-    auto withCookie(ICookie cookie): static
-    {
-        new = clone this;
-        new._cookies = new._cookies.add(cookie);
+    static auto withCookie(ICookie cookie) {
+        auto newResponse = clone this;
+        newResponse._cookies = new._cookies.add(cookie);
 
-        return new;
+        return newResponse;
     }
     
     /**

@@ -85,7 +85,7 @@ class DMapReduce { // }: IteratorAggregate {
     /**
      * Appends a new record to the bucket labelled with aKey, usually as a result
      * of mapping a single record from the original data.
-     *  /
+     */
     void emitIntermediate(Json storeData, Json aBucketName)) {
        _intermediate[aBucketName] ~= storeData;
     }

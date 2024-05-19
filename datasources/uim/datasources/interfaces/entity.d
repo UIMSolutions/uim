@@ -176,7 +176,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      *
      * *Note* hidden fields are not visible, and will not be output
      * by toArray().
-     *  /
+     */
   Json[string] toDataArray();
 
   /**

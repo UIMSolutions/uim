@@ -96,7 +96,7 @@ class DExceptionTrap {
      * Params:
      * \Throwable renderException Exception to render
      * @param \Psr\Http\Message\IServerRequest|null serverRequest The request if possible.
-     *  /
+     */
     IExceptionRenderer renderer(Throwable renderException, IServerRequest serverRequest = null) {
         auto myRequest = serverRequest.isNull ? Router.getRequest() : serverRequest;
 

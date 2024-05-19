@@ -654,5 +654,5 @@ class DNumericPaginator : IPaginator {
 
     
 
-    *  /
+    */
 }

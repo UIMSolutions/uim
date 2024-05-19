@@ -212,11 +212,8 @@ class DExceptionTrap {
      * Keep in mind that the global state contained here
      * is mutable and the object returned by this method
      * could be a stale value.
-     *
-     * @return uim.errors.ExceptionTrap|null The global instance or null.
      */
-    static function instance(): ?self
-    {
+    static ExceptionTrap instance() {
         return registeredTrap;
     }
 

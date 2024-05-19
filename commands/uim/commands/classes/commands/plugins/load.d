@@ -81,7 +81,7 @@ class DPluginLoadCommand : DCommand {
         ? VarExporter.export_(configData, VarExporter.TRAILING_COMMA_IN_ARRAY) 
         : var_export_(configData, true);
 
-    contents = "" ~ "\n\n" ~ "return " ~ Json[string] ~ ";" ~ "\n";
+    contents = "\n\n" ~ "return " ~ Json[string] ~ ";" ~ "\n";
 
     return file_put_contents(this.configFile, contents)
         ? CODE_SUCCESS

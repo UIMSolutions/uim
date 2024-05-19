@@ -60,7 +60,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * \UIM\Error\Debug\IErrorNode node The node tree to dump.
      */
     string dump(IErrorNode nodeToDump) {
-        html = this.export(node, 0);
+        html = this.export_(node, 0);
         head = "";
         if (!outputHeader) {
             outputHeader = true;
@@ -75,7 +75,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * \UIM\Error\Debug\IErrorNode var The node tree to dump.
      * @param int  anIndent The current indentation level.
      */
-    protected string export(IErrorNode var, int  anIndent) {
+    protected string export_(IErrorNode var, int  anIndent) {
         if (cast(DScalarNode)var) {
             return match (var.getType()) {
                 "bool": this.style("const", var.getValue() ? "true" : "false"),
@@ -116,7 +116,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
         var.getChildren().each!((item) {
             val = anItem.getValue();
             vars ~= break ~ "<span class=\"uim-debug-array-item\">" ~
-                this.export(item.getKey(),  anIndent) ~ arrow ~ this.export(val,  anIndent) ~
+                this.export_(item.getKey(),  anIndent) ~ arrow ~ this.export_(val,  anIndent) ~
                 this.style("punct", ",") ~ "</span>";
         });
 
@@ -171,14 +171,14 @@ class DHtmlErrorFormatter : IErrorFormatter {
                     ' ' .
                     this.style("property", name) .
                     arrow .
-                    this.export(aProperty.getValue(),  anIndent) .
+                    this.export_(aProperty.getValue(),  anIndent) .
                 '</span>";
             } else {
                 props ~= break .
                     '<span class="uim-debug-prop">' .
                     this.style("property", name) .
                     arrow .
-                    this.export(aProperty.getValue(),  anIndent) .
+                    this.export_(aProperty.getValue(),  anIndent) .
                     '</span>";
             }
         }

@@ -310,7 +310,6 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * Generate the response using the controller object.
      *
      * @param string myTemplate The template to render.
-     * @return uim.uim.http.Response A response object that can be sent.
      */
     protected DResponse _outputMessage(string myTemplate) {
         try {

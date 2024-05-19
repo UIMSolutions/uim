@@ -78,7 +78,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
                 result ~= "";
                 result ~= "<info>Exception Attributes</info>";
                 result ~= "";
-                result ~= var_export(exception.getAttributes(), true);
+                result ~= var_export_(exception.getAttributes(), true);
             }
         }
         if (this.trace) {

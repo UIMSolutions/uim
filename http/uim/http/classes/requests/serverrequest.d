@@ -772,11 +772,8 @@ class DServerRequest { // }: IServerRequest {
      * Get a modified request without a provided header.
      * Params:
      * string aName The header name to remove.
-     * @return static
-     * @link https://www.d-fig.org/psr/psr-7/ This method is part of the PSR-7 server request interface.
      */
-    auto withoutHeader(string aName): static
-    {
+    static auto withoutHeader(string aName) {
         new = clone this;
         name = this.normalizeHeaderName(name);
         unset(new._environmentData[name]);

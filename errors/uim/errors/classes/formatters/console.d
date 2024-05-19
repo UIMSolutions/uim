@@ -78,7 +78,7 @@ class DConsoleFormatter : IErrorFormatter {
     string dump(IErrorNode nodeToDump) {
         size_t myIndent = 0;
 
-        return _export(node, myIndent);
+        return _export_(node, myIndent);
     }
     
     /**
@@ -87,7 +87,7 @@ class DConsoleFormatter : IErrorFormatter {
      * \UIM\Error\Debug\IErrorNode var The node tree to dump.
      * @param int  anIndent The current indentation level.
      */
-    protected string export(IErrorNode var, int  anIndent) {
+    protected string export_(IErrorNode var, int  anIndent) {
         if (cast(DScalarNode)var) {
             return match (var.getType()) {
                 "bool": this.style("const", var.getValue() ? "true" : "false"),
@@ -125,7 +125,7 @@ class DConsoleFormatter : IErrorFormatter {
         auto arrow = this.style("punct", ": ");
         arrayToExport.getChildren().each!((item) {
             auto val = item.getValue();
-            vars ~= break ~ this.export(item.getKey(),  anIndent) ~ arrow ~ this.export(val,  anIndent);
+            vars ~= break ~ this.export_(item.getKey(),  anIndent) ~ arrow ~ this.export_(val,  anIndent);
         });
 
         auto close = this.style("punct", "]");
@@ -168,9 +168,9 @@ class DConsoleFormatter : IErrorFormatter {
             props ~= visibility && visibility != "public" 
                 ? this.style("visibility", visibility) ~ " " ~
                 this.style("property", name) ~ arrow ~
-                this.export(aProperty.getValue(),  anIndent)
+                this.export_(aProperty.getValue(),  anIndent)
                 : this.style("property", name) ~  arrow ~
-                this.export(aProperty.getValue(),  anIndent);
+                this.export_(aProperty.getValue(),  anIndent);
         }
         if (count(props)) {
             return result ~ break ~ join(break, props) ~ end;

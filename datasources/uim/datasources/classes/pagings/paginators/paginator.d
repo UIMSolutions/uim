@@ -446,11 +446,8 @@ class DPaginator : IPaginator {
      *
      * @param string aliasName Model name to get settings for.
      * @param Json[string] settings The settings which is used for combining.
-     * @return Json[string] An array of pagination settings for a model,
-     *   or the general settings.
      */
-    auto getDefaults(string aliasName, Json[string] settings): array
-    {
+    Json[string] getDefaults(string aliasName, Json[string] settings) {
         if (isset(settings[aliasName])) {
             settings = settings[aliasName];
         }

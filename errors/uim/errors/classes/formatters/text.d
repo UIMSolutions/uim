@@ -37,7 +37,7 @@ TEXT;
     string dump(IErrorNode nodeToDump) {
         indentSize = 0;
 
-        return _export(node, indentSize);
+        return _export_(node, indentSize);
     }
     
     /**
@@ -46,7 +46,7 @@ TEXT;
      * \UIM\Error\Debug\IErrorNode nodeToDump The node tree to dump.
      * @param int indentSize The current indentation level.
      */
-    protected string export(IErrorNode nodeToDump, int indentSize) {
+    protected string export_(IErrorNode nodeToDump, int indentSize) {
         if (cast(DScalarNode)nodeToDump) {
             return match (nodeToDump.getType()) {
                 "bool": nodeToDump.getValue() ? "true" : "false",
@@ -81,7 +81,7 @@ TEXT;
 
         foreach (anItem; nodeToExport.getChildren()) {
             auto val = anItem.getValue();
-            aNodes ~= break ~ this.export(anItem.getKey(), indentSize) ~ ": " ~ this.export(val, indentSize);
+            aNodes ~= break ~ this.export_(anItem.getKey(), indentSize) ~ ": " ~ this.export_(val, indentSize);
         }
         if (count(aNodes)) {
             return result ~ join(",", aNodes) ~ end ~ "]";
@@ -119,7 +119,7 @@ TEXT;
         auto propName = property.name;
 
         return propVisibility && propVisibility != "public" 
-            ? "[{propVisibility}] {propName}: " ~ this.export(property.getValue(), indentSize);
-            : "{propName}: " ~ this.export(property.getValue(), indentSize);
+            ? "[{propVisibility}] {propName}: " ~ this.export_(property.getValue(), indentSize);
+            : "{propName}: " ~ this.export_(property.getValue(), indentSize);
     } */
 }

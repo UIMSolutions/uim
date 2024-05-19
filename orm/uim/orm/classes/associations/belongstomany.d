@@ -489,17 +489,14 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param string strategy the strategy name to be used
      * @throws \InvalidArgumentException if an invalid strategy name is passed
-     * @return this
      */
-    function setSaveStrategy(string strategy) {
+    voidsetSaveStrategy(string strategy) {
         if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
             msg = sprintf("Invalid save strategy '%s'", strategy);
             throw new DInvalidArgumentException(msg);
         }
 
         _saveStrategy = strategy;
-
-        return this;
     }
 
     /**

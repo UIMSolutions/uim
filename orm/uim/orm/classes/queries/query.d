@@ -248,9 +248,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         getTypeMap().addDefaults(fields);
     }
 
-    /**
-     * Returns the current configured query `_eagerLoaded` value
-     */
+    // Returns the current configured query `_eagerLoaded` value
     bool isEagerLoaded() {
       return _eagerLoaded;
     }

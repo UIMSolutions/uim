@@ -730,12 +730,8 @@ class DTreeBehavior : DBehavior {
      * Returns a single node from the tree from its primary key
      *
      * @param mixed id Record id.
-     * @return DORMDatasource\IORMEntity
-     * @throws DORMDatasource\exceptions.RecordNotFoundException When node was not found
-     * @psalm-suppress InvalidReturnType
      */
-    protected function _getNode(id): IORMEntity
-    {
+    protected IORMEntity _getNode(id) {
         myConfiguration = configuration;
         [parent, left, right] = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
         primaryKeys = _primaryKeys();

@@ -337,9 +337,8 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      *
      * @param DORMDatasource\IResultset results Results to map.
      * @param string locale Locale string
-     * @return DORMcollections.ICollection
      */
-    protected function rowMapper(results, locale) {
+    protected DORMcollections rowMapper(results, locale) {
         return results.map(function (row) use (locale) {
             /** @var DORMdatasources.IORMEntity|array|null row */
             if (row == null) {

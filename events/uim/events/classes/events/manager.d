@@ -40,7 +40,7 @@ class DEventManager { // }: IEventManager {
      * \UIM\Event\EventManager|null manager Event manager instance.
      * @return \UIM\Event\EventManager The global event manager
      */
-    static EventManager instance(?EventManager manager = null) {
+    static EventManager instance(EventManager manager = null) {
         if (cast(DEventManager)manager) {
             _generalManager = manager;
         }

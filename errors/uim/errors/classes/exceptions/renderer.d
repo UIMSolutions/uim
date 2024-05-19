@@ -374,10 +374,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         return _controller.getResponse();
     }
 
-    /**
-     * Returns an array that can be used to describe the internal state of this
-     * object.
-     */
+    // Returns an array that can be used to describe the internal state of this object.
     Json[string] __debugInfo() {
         return [
             "error":this.error,
@@ -386,5 +383,5 @@ class DExceptionRenderer { // }: IExceptionRenderer
             "template":this.template,
             "method":this.method,
         ];
-    } */
+    } 
 }

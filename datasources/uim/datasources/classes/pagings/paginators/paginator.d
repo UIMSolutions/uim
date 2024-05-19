@@ -619,10 +619,8 @@ class DPaginator : IPaginator {
      * Check the limit parameter and ensure it"s within the maxLimit bounds.
      *
      * @param Json[string] options An array of options with a limit key to be checked.
-     * @return Json[string] An array of options for pagination.
      */
-    function checkLimit(Json[string] options): array
-    {
+    Json[string] checkLimit(Json[string] options) {
         options["limit"] = (int)options["limit"];
         if (options["limit"] < 1) {
             options["limit"] = 1;
@@ -630,5 +628,5 @@ class DPaginator : IPaginator {
         options["limit"] = max(min(options["limit"], options["maxLimit"]), 1);
 
         return options;
-    } */
+    } 
 }

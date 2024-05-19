@@ -335,12 +335,9 @@ class DAssociation : IAssociation {
      * If no parameters are passed the current setting is returned.
      *
      * @param bool dependent Set the dependent mode. Use null to read the current state.
-     * @return this
      */
-    function setDependent(bool dependent) {
+    voidsetDependent(bool dependent) {
         _dependent = dependent;
-
-        return this;
     }
 
     /**
@@ -368,12 +365,9 @@ class DAssociation : IAssociation {
      * Sets the type of join to be used when adding the association to a query.
      *
      * @param string type the join type to be used (e.g. INNER)
-     * @return this
      */
-    function setJoinType(string type) {
+    voidsetJoinType(string type) {
         _joinType = type;
-
-        return this;
     }
 
     /**
@@ -465,12 +459,9 @@ class DAssociation : IAssociation {
      * Sets the default finder to use for fetching rows from the target table.
      *
      * @param array|string finder the finder name to use or array of finder name and option.
-     * @return this
      */
-    function setFinder(finder) {
+    voidsetFinder(finder) {
         _finder = finder;
-
-        return this;
     }
 
     /**

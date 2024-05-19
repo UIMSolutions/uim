@@ -176,13 +176,12 @@ class DBehavior : IEventListener {
      * @param string aKey The key to filter.
      * @param Json[string] defaults The default method mappings.
      * @param Json[string] myConfiguration The customized method mappings.
-     * @return Json[string]A de-duped list of config data.
      */
     protected Json[string] _resolveMethodAliases(string aKey, Json[string] defaults, Json myConfiguration) {
         if (!isset(defaults[key], configuration.get(key))) {
             return configuration;
         }
-        if (configuration.has(key) && configuration.get(key] == []) {
+        if (configuration.has(key) && configuration.get(key) == []) {
             configuration.update(key, [], false);
             configuration.remove(key);
 
@@ -190,7 +189,7 @@ class DBehavior : IEventListener {
         }
 
         indexed = array_flip(defaults[key]);
-        indexedCustom = array_flip(configuration.get(key]);
+        indexedCustom = array_flip(configuration.get(key));
         foreach (indexed as method: alias) {
             if (!isset(indexedCustom[method])) {
                 indexedCustom[method] = alias;
@@ -292,11 +291,8 @@ class DBehavior : IEventListener {
      * It is recommended, though not required, to define implementedFinders in the config property
      * of child classes such that it is not necessary to use reflections to derive the available
      * method list. See core behaviors for examples
-     *
-     * @return array
-     * @throws \ReflectionException
      */
-    array implementedFinders() {
+    Json[string] implementedFinders() {
         methods = this.configuration.get("implementedFinders");
         if (isset(methods)) {
             return methods;
@@ -346,8 +342,8 @@ class DBehavior : IEventListener {
             return self._reflectionCache[class];
         }
 
-        events = this.implementedEvents();
-        eventMethods = null;
+        auto events = this.implementedEvents();
+        bool[string] eventMethods = null;
         foreach (events as binding) {
             if ((binding.isArray && isset(binding["callable"])) {
                 /** @var string callable */

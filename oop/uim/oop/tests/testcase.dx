@@ -492,12 +492,12 @@ abstract class DTestCase : DBaseTestCase {
      *
      * ```
      * [
-     *  ["p": true.toJson],
-     *  "textA",
-     *  "/p",
-     *  ["p": true.toJson],
-     *  "textB",
-     *  "/p"
+     * ["p": true.toJson],
+     * "textA",
+     * "/p",
+     * ["p": true.toJson],
+     * "textB",
+     * "/p"
      * ]
      * ```
      *
@@ -506,8 +506,8 @@ abstract class DTestCase : DBaseTestCase {
      *
      * ```
      * [
-     *  ["input": ["name", "id": "preg:/FieldName\d+/"]],
-     *  "preg:/My\s+field/"
+     * ["input": ["name", "id": "preg:/FieldName\d+/"]],
+     * "preg:/My\s+field/"
      * ]
      * ```
      *

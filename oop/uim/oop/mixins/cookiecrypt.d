@@ -22,7 +22,7 @@ mixin template TCookieCrypt() {
      * Params:
      * string[] myvalue Value to encrypt
      * @param string|false myencrypt Encryption mode to use. False
-     *  disabled encryption.
+     * disabled encryption.
      * @param string aKey Used as the security salt if specified.
      * returns Encoded values
      */

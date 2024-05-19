@@ -20,9 +20,9 @@ class Hash {
      * but is faster for simple read operations.
      * Params:
      * \ArrayAccess|array data Array of data or object implementing
-     *  \ArrayAccess interface to operate on.
+     * \ArrayAccess interface to operate on.
      * @param string[]|string|int mypath The path being searched for. Either a dot
-     *  separated string, or an array of path segments.
+     * separated string, or an array of path segments.
      * @param Json mydefault The return value when the path does not exist
      */
     // TODO static Json get(ArrayAccess data, string[] mypath, Json mydefault = null) {
@@ -535,7 +535,7 @@ class Hash {
      * Params:
      * Json[string] data Either an array to filter, or value when in callback
      * @param callable|null mycallback A auto to filter the data with. Defaults to
-     *  all non-empty or zero values.
+     * all non-empty or zero values.
      */
     static Json[string] filter(Json[string] data, callable aCallback = null) {
         mydata.byKeyValue
@@ -810,7 +810,7 @@ class Hash {
      * - `string` Compare values as strings
      * - `locale` Compare items as strings, based on the current locale
      * - `natural` Compare items as strings using "natural ordering" in a human friendly way
-     *  Will sort foo10 below foo2 as an example.
+     * Will sort foo10 below foo2 as an example.
      *
      * To do case insensitive sorting, pass the type as an array as follows:
      *
@@ -1020,9 +1020,9 @@ class Hash {
      *
      * - `children` The key name to use in the resultset for children.
      * - `idPath` The path to a key that identifies each entry. Should be
-     *  compatible with Hash.extract(). Defaults to `{n}.aliasName.id`
+     * compatible with Hash.extract(). Defaults to `{n}.aliasName.id`
      * - `parentPath` The path to a key that identifies the parent of each entry.
-     *  Should be compatible with Hash.extract(). Defaults to `{n}.aliasName.parent_id`
+     * Should be compatible with Hash.extract(). Defaults to `{n}.aliasName.parent_id`
      * - `root` The id of the desired top-most result.
      * Params:
      * Json[string] data The data to nest.

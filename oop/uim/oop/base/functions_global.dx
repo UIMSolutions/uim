@@ -8,9 +8,9 @@ import uim.oop;
      * Convenience method for htmlspecialchars.
      * Params:
      * Json text Text to wrap through htmlspecialchars. Also works with arrays, and objects.
-     *   Arrays will be mapped and have all their elements escaped. Objects will be string cast if they
-     *   implement a `__toString` method. Otherwise, the class name will be used.
-     *   Other scalar types will be returned unchanged.
+     *  Arrays will be mapped and have all their elements escaped. Objects will be string cast if they
+     *  implement a `__toString` method. Otherwise, the class name will be used.
+     *  Other scalar types will be returned unchanged.
      * @param bool double Encode existing html entities.
      */
 Json htmlAttributeEscape(Json text, bool isDouble = true, string escapingCharset = null) {

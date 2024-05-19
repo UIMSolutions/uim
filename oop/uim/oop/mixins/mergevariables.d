@@ -12,7 +12,7 @@ mixin template TMergeVariables() {
      * ### Options:
      *
      * - `associative` - A list of properties that should be treated as associative arrays.
-     *  Properties in this list will be passed through Hash.normalize() before merging.
+     * Properties in this list will be passed through Hash.normalize() before merging.
      * Params:
      * string[] myproperties An array of properties and the merge strategy for them.
      * @param Json[string] options The options to use when merging properties.

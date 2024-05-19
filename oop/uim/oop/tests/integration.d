@@ -235,7 +235,7 @@ mixin template TIntegrationTest() {
      * @param string[] avalue The value of the cookie.
      * @param string|false encrypt Encryption mode to use.
      * @param string aKey Encryption key used. Defaults
-     *  to Security.salt.
+     * to Security.salt.
      */
     void cookieEncrypted(
         string aName,
@@ -644,8 +644,8 @@ mixin template TIntegrationTest() {
      * Asserts that the Location header is correct. Comparison is made against a full URL.
      * Params:
      * string[] url The URL you expected the client to go to. This
-     *  can either be a string URL or an array compatible with Router.url(). Use null to
-     *  simply check for the existence of this header.
+     * can either be a string URL or an array compatible with Router.url(). Use null to
+     * simply check for the existence of this header.
      * @param string amessage The failure message that will be appended to the generated message.
      */
     void assertRedirect(string[] url = null, string failureMessage= null)) {
@@ -669,8 +669,8 @@ mixin template TIntegrationTest() {
      * Asserts that the Location header is correct. Comparison is made against exactly the URL provided.
      * Params:
      * string[] url The URL you expected the client to go to. This
-     *  can either be a string URL or an array compatible with Router.url(). Use null to
-     *  simply check for the existence of this header.
+     * can either be a string URL or an array compatible with Router.url(). Use null to
+     * simply check for the existence of this header.
      * @param string amessage The failure message that will be appended to the generated message.
      */
     void assertRedirectEquals(string[] url = null, string failureMessage = null) {
@@ -1052,7 +1052,7 @@ mixin template TIntegrationTest() {
      * @param string aName The cookie name.
      * @param string aencrypt Encryption mode to use.
      * @param string aKey Encryption key used. Defaults
-     *  to Security.salt.
+     * to Security.salt.
      * @param string amessage The failure message that will be appended to the generated message.
      */
     void assertCookieEncrypted(

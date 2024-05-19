@@ -165,7 +165,7 @@ mixin template TInstanceConfig() {
      * Json[string]|string keyToWrite Key to write to.
      * @param Json aValue Value to write.
      * @param string merge True to merge recursively, "shallow' for simple merge,
-     *  false to overwrite, defaults to false.
+     * false to overwrite, defaults to false.
      * @throws \UIM\Core\Exception\UimException if attempting to clobber existing config
      */
     protected void _configWrite(string[] keyToWrite, Json aValue, string merge = false) {

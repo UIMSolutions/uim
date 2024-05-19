@@ -8,12 +8,12 @@ import uim.oop;
      * Convenience method for htmlspecialchars.
      * Params:
      * Json text Text to wrap through htmlspecialchars. Also works with arrays, and objects.
-     *   Arrays will be mapped and have all their elements escaped. Objects will be string cast if they
-     *   implement a `__toString` method. Otherwise, the class name will be used.
-     *   Other scalar types will be returned unchanged.
+     *  Arrays will be mapped and have all their elements escaped. Objects will be string cast if they
+     *  implement a `__toString` method. Otherwise, the class name will be used.
+     *  Other scalar types will be returned unchanged.
      * @param bool double Encode existing html entities.
      * @param string charset Character set to use when escaping.
-     *  Defaults to config value in `mb_internal_encoding()` or 'UTF-8'.
+     * Defaults to config value in `mb_internal_encoding()` or 'UTF-8'.
      */
     Json htmlAttributeEscape(Json text, bool isDouble = true, string charsetToUse = null) {
         Json result = text;
@@ -201,7 +201,7 @@ string[] namespaceSplit(string className) {
      * Params:
      * @param string amessage The message to output as a deprecation warning.
      * @param int stackFrame The stack frame to include in the error. Defaults to 1
-     *  as that should point to application/plugin code.
+     * as that should point to application/plugin code.
      */
     void deprecationWarning(string versionInfo, string outputMessage, int stackFrame = 1) {
         if (!(error_reporting() & E_USER_DEPRECATED)) {

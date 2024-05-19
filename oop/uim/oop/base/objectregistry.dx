@@ -32,9 +32,9 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      *
      * ```
      * protected components = [
-     *  'Email": [
-     *    'className": 'App\Controller\Component\AliasedEmailComponent'
-     *  ];
+     * 'Email": [
+     *   'className": 'App\Controller\Component\AliasedEmailComponent'
+     * ];
      * ];
      * ```
      *

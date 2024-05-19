@@ -78,35 +78,35 @@ class DSchemaLoader {
      *
      * ```
      * return [
-     *  "articles": [
-     *     "columns": [
-     *         "id": [
-     *             "type": "integer",
-     *         ],
-     *         "author_id": [
-     *             "type": "integer",
-     *             "null": true.toJson,
-     *         ],
-     *         "title": [
-     *             "type": "string",
-     *             "null": true.toJson,
-     *         ],
-     *         "body": "text",
-     *         "published": [
-     *             "type": "string",
-     *             "length": 1,
-     *             "default": "N",
-     *         ],
-     *     ],
-     *     "constraints": [
-     *         "primary": [
-     *             "type": "primary",
-     *             "columns": [
-     *                 "id",
-     *             ],
-     *         ],
-     *     ],
-     *  ],
+     * "articles": [
+     *    "columns": [
+     *        "id": [
+     *            "type": "integer",
+     *        ],
+     *        "author_id": [
+     *            "type": "integer",
+     *            "null": true.toJson,
+     *        ],
+     *        "title": [
+     *            "type": "string",
+     *            "null": true.toJson,
+     *        ],
+     *        "body": "text",
+     *        "published": [
+     *            "type": "string",
+     *            "length": 1,
+     *            "default": "N",
+     *        ],
+     *    ],
+     *    "constraints": [
+     *        "primary": [
+     *            "type": "primary",
+     *            "columns": [
+     *                "id",
+     *            ],
+     *        ],
+     *    ],
+     * ],
      * ];
      * ```
      *

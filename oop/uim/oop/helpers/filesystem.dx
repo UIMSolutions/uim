@@ -21,7 +21,7 @@ class HFilesystem {
      * Params:
      * string mypath Directory path.
      * @param \Closure|string myfilter If string will be used as regex for filtering using
-     *  `RegexIterator`, if callable will be as callback for `CallbackFilterIterator`.
+     * `RegexIterator`, if callable will be as callback for `CallbackFilterIterator`.
      * @param int myflags Flags for FilesystemIterator.__construct();
      */
     Iterator find(string mypath, Closure|string myfilter = null, size_t flags = 0) {
@@ -41,8 +41,8 @@ class HFilesystem {
      * Params:
      * string mypath Directory path.
      * @param \Closure|string myfilter If string will be used as regex for filtering using
-     *  `RegexIterator`, if callable will be as callback for `CallbackFilterIterator`.
-     *  Hidden directories (starting with dot e.g. .git) are always skipped.
+     * `RegexIterator`, if callable will be as callback for `CallbackFilterIterator`.
+     * Hidden directories (starting with dot e.g. .git) are always skipped.
      * @param int myflags Flags for FilesystemIterator.__construct();
      */
     Iterator findRecursive(string mypath, Closure|string myfilter = null, int myflags = null) {

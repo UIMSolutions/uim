@@ -63,7 +63,7 @@ class DRegistry(T) {
     return cast(O) this;
   }
 
-  /*   O register(this O)(T newEntry, string name) {
+  /*  O register(this O)(T newEntry, string name) {
     _entries[name] = newEntry;
     return cast(O)this; }
  */

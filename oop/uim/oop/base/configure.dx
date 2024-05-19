@@ -38,13 +38,13 @@ class DFileConfigEngine {
      * Configuration.update("One.key1", "value of the Configure.One[key1]");
      * Configuration.update(["One.key1": 'value of the Configure.One[key1]"]);
      * Configuration.update("One", [
-     *    'key1": 'value of the Configure.One[key1]",
-     *    'key2": 'value of the Configure.One[key2]'
+     *   'key1": 'value of the Configure.One[key1]",
+     *   'key2": 'value of the Configure.One[key2]'
      * ]);
      *
      * Configuration.update([
-     *    'One.key1": 'value of the Configure.One[key1]",
-     *    'One.key2": 'value of the Configure.One[key2]'
+     *   'One.key1": 'value of the Configure.One[key1]",
+     *   'One.key2": 'value of the Configure.One[key2]'
      * ]);
      * ```
      * Params:
@@ -291,10 +291,10 @@ class DFileConfigEngine {
      * ```
      * Params:
      * string aKey The identifier to create in the config adapter.
-     *  This could be a filename or a cache key depending on the adapter being used.
+     * This could be a filename or a cache key depending on the adapter being used.
      * @param string configData The name of the configured adapter to dump data with.
      * @param string[] someKeys The name of the top-level keys you want to dump.
-     *  This allows you save only some data stored in Configure.
+     * This allows you save only some data stored in Configure.
      */
     static bool dump(string aKey, string configData = "default", Json[string] someKeys = [
         ]) {

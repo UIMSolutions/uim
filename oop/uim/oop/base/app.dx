@@ -62,9 +62,9 @@ class DApp {
      *
      * ```
      * App.shortName(
-     *    `someVendor\SomePlugin\Controller\Component\TestComponent",
-     *    'Controller/Component",
-     *    'Component'
+     *   `someVendor\SomePlugin\Controller\Component\TestComponent",
+     *   'Controller/Component",
+     *   'Component'
      * )
      * ```
      *
@@ -72,9 +72,9 @@ class DApp {
      *
      * ```
      * App.shortName(
-     *    `someVendor\SomePlugin\Controller\Component\Subfolder\TestComponent",
-     *    'Controller/Component",
-     *    'Component'
+     *   `someVendor\SomePlugin\Controller\Component\Subfolder\TestComponent",
+     *   'Controller/Component",
+     *   'Component'
      * )
      * ```
      *
@@ -82,9 +82,9 @@ class DApp {
      *
      * ```
      * App.shortName(
-     *    'UIM\Controller\Component\FlashComponent",
-     *    'Controller/Component",
-     *    'Component'
+     *   'UIM\Controller\Component\FlashComponent",
+     *   'Controller/Component",
+     *   'Component'
      * )
      * ```
      *

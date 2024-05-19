@@ -46,14 +46,14 @@ class DQueryExpression : DExpression { // }, Countable {
         string conjunctionType = "AND" // or "OR", "XOR"
     ) {
         setTypeMap(types);
-        setConjunction(conjunctionType.upper);
+        conjunctionType(conjunctionType.upper);
         if (!conditions.isEmpty) {
             add(conditions, getTypeMap().getTypes());
         }
     }
     
     // Changes the conjunction for the conditions at this level of the expression tree.
-    void setConjunction(string valueForJoiningConditions) {
+    void conjunctionType(string valueForJoiningConditions) {
        _conjunction = valueForJoiningConditions.upper;
     }
 

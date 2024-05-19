@@ -296,8 +296,8 @@ abstract class DERRErrorHandler {
      * @param \Throwable exception The exception to log a message for.
      * @param IServerRequest|null request The current request.
      */
-    bool logException(Throwable exception, IServerRequest request = null) {
-        if (_config.isEmpty("log"])) {
+    bool logException(Throwable exception, IServerRequest currentRequest = null) {
+        if (_config.isEmpty("log")) {
             return false;
         }
         foreach (_config["skipLog"] as aClassName) {

@@ -8,7 +8,6 @@ import uim.databases;
 class DCaseStatementExpression : DExpression { // }, ITypedResult {
     mixin(ExpressionThis!("CaseStatement"));
 
-    /* 
     mixin TCaseExpression;
     mixin TExpressionTypeCaster;
     mixin TTypeMap;

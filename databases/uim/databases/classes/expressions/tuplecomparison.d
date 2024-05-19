@@ -11,9 +11,7 @@ import uim.databases;
 class DTupleComparisonExpression : DComparisonExpression {
     mixin(ExpressionThis!("TupleComparison"));
 
-    /**
-     * The type to be used for casting the value to a database representation
-     */
+    // The type to be used for casting the value to a database representation
     protected string[] types;
 
     /**

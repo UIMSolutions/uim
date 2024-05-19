@@ -378,7 +378,7 @@ class DBelongsToManyAssociation : DAssociation {
                 foreach (conds.keys as field) {
                     identifiers ~= new DIdentifierExpression(field);
                 }
-                identifiers = subquery.newExpr().add(identifiers).setConjunction(",");
+                identifiers = subquery.newExpr().add(identifiers).conjunctionType(",");
                 nullExp = clone exp;
 
                 return exp

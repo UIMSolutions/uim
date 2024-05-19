@@ -285,10 +285,10 @@ class DSqlserverDriver : DDriver {
             .select(function (q) use (distinct,  order) {
                  over = q.newExpr("ROW_NUMBER() OVER")
                     .add("(PARTITION BY")
-                    .add(q.newExpr().add(distinct).setConjunction(","))
+                    .add(q.newExpr().add(distinct).conjunctionType(","))
                     .add(order)
                     .add(")")
-                    .setConjunction(" ");
+                    .conjunctionType(" ");
 
                 return [
                     "_uim_distinct_pivot_":  over,
@@ -332,7 +332,7 @@ class DSqlserverDriver : DDriver {
         switch (expression.name) {
             case "CONCAT":
                 // CONCAT bool is expressed as exp1 + exp2
-                expression.name("").setConjunction(" +");
+                expression.name("").conjunctionType(" +");
                 break;
             case "DATEDIFF":
                 $hasDay = false;
@@ -360,7 +360,7 @@ class DSqlserverDriver : DDriver {
                 expression.name("GETUTCDATE");
                 break;
             case "EXTRACT":
-                expression.name("DATEPART").setConjunction(" ,");
+                expression.name("DATEPART").conjunctionType(" ,");
                 break;
             case "DATE_ADD":
                 params = null;
@@ -380,7 +380,7 @@ class DSqlserverDriver : DDriver {
 
                 expression
                     .name("DATEADD")
-                    .setConjunction(",")
+                    .conjunctionType(",")
                     .iterateParts(visitor)
                     .iterateParts(manipulator)
                     .add([params[2]: "literal"]);
@@ -388,7 +388,7 @@ class DSqlserverDriver : DDriver {
             case "DAYOFWEEK":
                 expression
                     .name("DATEPART")
-                    .setConjunction(" ")
+                    .conjunctionType(" ")
                     .add(["weekday, ": "literal"], [], true);
                 break;
             case "SUBSTR":

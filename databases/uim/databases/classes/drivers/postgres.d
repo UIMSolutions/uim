@@ -160,12 +160,12 @@ protected void _transformFunctionExpression(FunctionExpression expressionToConve
     switch (expressionToConvert.name) {
     case "CONCAT":
         // CONCAT bool is expressed as exp1 || exp2
-        expressionToConvert.name("").setConjunction(" ||");
+        expressionToConvert.name("").conjunctionType(" ||");
         break;
     case "DATEDIFF":
         expressionToConvert
             .name("")
-            .setConjunction("-")
+            .conjunctionType("-")
             .iterateParts(function(p) {
                 if (isString(p)) {
                     p = ["value": [p: "literal"], "type": Json(null)];} else {
@@ -175,11 +175,11 @@ protected void _transformFunctionExpression(FunctionExpression expressionToConve
 );
                     break;
     case "CURRENT_DATE" : time = new DFunctionExpression("LOCALTIMESTAMP", [" 0 ": "literal"]);
-                    expressionToConvert.name("CAST").setConjunction(" AS ")
+                    expressionToConvert.name("CAST").conjunctionType(" AS ")
                         .add([time, "date": "literal"]);
                     break;
     case "CURRENT_TIME" : time = new DFunctionExpression("LOCALTIMESTAMP", [" 0 ": "literal"]);
-                    expressionToConvert.name("CAST").setConjunction(" AS ")
+                    expressionToConvert.name("CAST").conjunctionType(" AS ")
                         .add([time, "time": "literal"]);
                     break;
     case "NOW" : expressionToConvert.name("LOCALTIMESTAMP").add([" 0 ": "literal"]);
@@ -188,7 +188,7 @@ protected void _transformFunctionExpression(FunctionExpression expressionToConve
                     break;
     case "DATE_ADD" : expressionToConvert
                         .name("")
-                        .setConjunction(" + INTERVAL")
+                        .conjunctionType(" + INTERVAL")
                         .iterateParts(function(p, aKey) {
                             if (aKey == 1) {
                                 p = "'%s'".format(p);}
@@ -196,7 +196,7 @@ protected void _transformFunctionExpression(FunctionExpression expressionToConve
                                 break;
     case "DAYOFWEEK" : expressionToConvert
                                 .name("EXTRACT")
-                                .setConjunction(" ")
+                                .conjunctionType(" ")
                                 .add(["DOW FROM": "literal"], [], true)
                                 .add([") + (1": "literal"]); // Postgres starts on index 0 but Sunday should be 1
                                 break;

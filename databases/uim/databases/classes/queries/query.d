@@ -1406,7 +1406,7 @@ abstract class DQuery : IQuery { // : IExpression {
             expression.add(append, types);
         } else {
             expression = this.newExpr()
-                .setConjunction(conjunction)
+                .conjunctionType(conjunction)
                 .add([expression, append], types);
         }
        _parts[queryPart] = expression;

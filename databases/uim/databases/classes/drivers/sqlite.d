@@ -163,12 +163,12 @@ class DSqliteDriver : DDriver {
         switch (expression.name) {
             case "CONCAT":
                 // CONCAT bool is expressed as exp1 || exp2
-                expression.name("").setConjunction(" ||");
+                expression.name("").conjunctionType(" ||");
                 break;
             case "DATEDIFF":
                 with(expression) {
                     name("ROUND");
-                    setConjunction("-");
+                    conjunctionType("-");
                     iterateParts(function (p) {
                         return new DFunctionExpression("JULIANDAY", [p["value"]], [p["type"]]);
                     });
@@ -191,7 +191,7 @@ class DSqliteDriver : DDriver {
             case "EXTRACT":
                 expression
                     .name("STRFTIME")
-                    .setConjunction(" ,")
+                    .conjunctionType(" ,")
                     .iterateParts(function (p, aKey) {
                         if (aKey == 0) {
                             aValue = stripRight(sp.lower, "s");
@@ -205,7 +205,7 @@ class DSqliteDriver : DDriver {
             case "DATE_ADD":
                 expression
                     .name("DATE")
-                    .setConjunction(",")
+                    .conjunctionType(",")
                     .iterateParts(function (p, aKey) {
                         if (aKey == 1) {
                             p = ["value": p, "type": Json(null)];
@@ -216,7 +216,7 @@ class DSqliteDriver : DDriver {
             case "DAYOFWEEK":
                 expression
                     .name("STRFTIME")
-                    .setConjunction(" ")
+                    .conjunctionType(" ")
                     .add(["'%w", ": "literal"], [], true)
                     .add([") + (1": "literal"]); // Sqlite starts on index 0 but Sunday should be 1
                 break;

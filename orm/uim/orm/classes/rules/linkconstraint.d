@@ -137,5 +137,5 @@ class DLinkConstraint {
             .matching(myassociation.name)
             .where(myconditions)
             .count();
-    } */
+    }
 }

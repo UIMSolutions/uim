@@ -121,5 +121,5 @@ class DExistsIn {
             .length;
 
         return mynulls == count(_fields);
-    } */
+    }
 }

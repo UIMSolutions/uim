@@ -28,5 +28,5 @@ class DValidCount {
             return false;
         }
         return Validation.comparison(count(myvalue), options["operator"], options["count"]);
-    } */
+    }
 }

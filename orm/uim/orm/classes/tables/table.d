@@ -2777,5 +2777,5 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             "defaultConnection": defaultConnectionName(),
             "connectionName": myconn.configName(),
         ];
-    } */
+    }
 }

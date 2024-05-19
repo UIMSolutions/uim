@@ -47,5 +47,5 @@ mixin template TAssociationsNormalizer() {
             mypointer["associated"][mytable] = options + mypointer["associated"][mytable];
         }
         return result["associated"] ?? result;
-    } */
+    }
 }

@@ -52,5 +52,5 @@ mixin template TCommonQuery() {
      */
     Table getRepository() {
         return _repository;
-    } */
+    }
 }

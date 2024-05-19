@@ -232,5 +232,5 @@ class DRulesChecker { // }: BaseRulesChecker {
             "_validCount",
             compact("count", "operator", "errorField", "message")
         );
-    } */
+    }
 }

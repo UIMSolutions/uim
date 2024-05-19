@@ -46,7 +46,7 @@ class DTableRegistry : DObjectRegistry!DTable {
     // Sets singleton instance of ILocator implementation.
     static void setTableLocator(ILocator locatorToUse) {
         DFactoryLocator.add("Table", locatorToUse);
-    } */
+    }
 }
 auto TableRegistry() {
     return DTableRegistry.instance;

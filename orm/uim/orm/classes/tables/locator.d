@@ -235,7 +235,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     void addLocation(string tableLocation) {
         string mylocation = tableLocation.replace("\\", "/");
         this.locations ~= strip(mylocation, "/");
-    } */
+    }
 }
 unittest {
     assert(new DTableLocator());

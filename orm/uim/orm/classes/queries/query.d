@@ -12,7 +12,7 @@ import uim.orm;
  *
  * @property DORMTable _repository Instance of a table object this query is bound to.
  * @method DORMTable getRepository() Returns the default table object that will be used by this query,
- *   that is, the table that will appear in the from clause.
+ *  that is, the table that will appear in the from clause.
  * @method DORMcollections.ICollection each(callable c) Passes each of the query results to the callable
  * @method DORMcollections.ICollection sortBy(callable|string path, int order = \SORT_DESC, int sort = \SORT_NUMERIC) Sorts the query with the callback
  * @method DORMcollections.ICollection filter(callable c = null) Keeps the results using passing the callable test
@@ -35,16 +35,16 @@ import uim.orm;
  * @method mixed last() Return the last row of the query result
  * @method DORMcollections.ICollection append(array|\Traversable items) Appends more rows to the result of the query.
  * @method DORMcollections.ICollection combine(k, v, g = null) Returns the values of the column v index by column k,
- *   and grouped by g.
+ *  and grouped by g.
  * @method DORMcollections.ICollection nest(k, p, n = "children") Creates a tree structure by nesting the values of column p into that
- *   with the same value for k using n as the nesting key.
+ *  with the same value for k using n as the nesting key.
  * @method Json[string] toDataArray() Returns a key-value array with the results of this query.
  * @method array toList() Returns a numerically indexed array with the results of this query.
  * @method DORMcollections.ICollection stopWhen(callable c) Returns each row until the callable returns true.
  * @method DORMcollections.ICollection zip(array|\Traversable c) Returns the first result of both the query and c in an array,
- *   then the second results and so on.
+ *  then the second results and so on.
  * @method DORMcollections.ICollection zipWith(collections, callable callable) Returns each of the results out of calling c
- *   with the first rows of the query and each of the items, then the second rows and so on.
+ *  with the first rows of the query and each of the items, then the second rows and so on.
  * @method DORMcollections.ICollection chunk(int size) Groups the results in arrays of size rows each.
  * @method bool isEmpty() Returns true if this query found no results.
  */
@@ -158,7 +158,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * query.select("id", true); // Resets the list: SELECT id
      * query.select(["total": countQuery]); // SELECT id, (SELECT ...) AS total
      * query.select(function (query) {
-     *     return ["article_id", "total": query.count("*")];
+     *    return ["article_id", "total": query.count("*")];
      * })
      * ```
      *
@@ -308,11 +308,11 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * ```
      * query.contain(["Tags": function (q) {
-     *     return q.where(["Tags.is_popular": true.toJson]);
+     *    return q.where(["Tags.is_popular": true.toJson]);
      * }]);
      *
      * query.contain(["Products.Manufactures": function (q) {
-     *     return q.select(["name"]).where(["Manufactures.active": true.toJson]);
+     *    return q.select(["name"]).where(["Manufactures.active": true.toJson]);
      * }]);
      * ```
      *
@@ -320,11 +320,11 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * options that can be set per association are:
      *
      * - `foreignKey`: Used to set a different field to match both tables, if set to false
-     *   no join conditions will be generated automatically. `false` can only be used on
-     *   joinable associations and cannot be used with hasMany or belongsToMany associations.
+     *  no join conditions will be generated automatically. `false` can only be used on
+     *  joinable associations and cannot be used with hasMany or belongsToMany associations.
      * - `fields`: An array with the fields that should be fetched from the association.
      * - `finder`: The finder to use when loading associated records. Either the name of the
-     *   finder as a string, or an array to define options to pass to the finder.
+     *  finder as a string, or an array to define options to pass to the finder.
      * - `queryBuilder`: Equivalent to passing a callable instead of an options array.
      *
      * ### Example:
@@ -332,9 +332,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ```
      */ Set options for the hasMany articles that will be eagerly loaded for an author
      * query.contain([
-     *     "Articles": [
-     *         "fields": ["title", "author_id"]
-     *     ]
+     *    "Articles": [
+     *        "fields": ["title", "author_id"]
+     *    ]
      * ]);
      * ```
      *
@@ -343,13 +343,13 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ```
      */ Retrieve translations for the articles, but only those for the `en` and `es` locales
      * query.contain([
-     *     "Articles": [
-     *         "finder": [
-     *             "translations": [
-     *                 "locales": ["en", "es"]
-     *             ]
-     *         ]
-     *     ]
+     *    "Articles": [
+     *        "finder": [
+     *            "translations": [
+     *                "locales": ["en", "es"]
+     *            ]
+     *        ]
+     *    ]
      * ]);
      * ```
      *
@@ -359,19 +359,19 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ```
      */ Use a query builder to add conditions to the containment
      * query.contain("Authors", function (q) {
-     *     return q.where(...); // add conditions
+     *    return q.where(...); // add conditions
      * });
      */ Use special join conditions for multiple containments in the same method call
      * query.contain([
-     *     "Authors": [
-     *         "foreignKey": false.toJson,
-     *         "queryBuilder": function (q) {
-     *             return q.where(...); // Add full filtering conditions
-     *         }
-     *     ],
-     *     "Tags": function (q) {
-     *         return q.where(...); // add conditions
-     *     }
+     *    "Authors": [
+     *        "foreignKey": false.toJson,
+     *        "queryBuilder": function (q) {
+     *            return q.where(...); // Add full filtering conditions
+     *        }
+     *    ],
+     *    "Tags": function (q) {
+     *        return q.where(...); // add conditions
+     *    }
      * ]);
      * ```
      *
@@ -380,8 +380,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param array|string associations List of table aliases to be queried.
      * @param callable|bool override The query builder for the association, or
-     *   if associations is an array, a bool on whether to override previous list
-     *   with the one passed
+     *  if associations is an array, a bool on whether to override previous list
+     *  with the one passed
      * defaults to merging previous list with the new one.
      */
     void contain(associations, override = false) {
@@ -429,7 +429,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param DORMDORMTable aTable The table instance to pluck associations from.
      * @param DORMdatabases.TypeMap typeMap The typemap to check for columns in.
-     *   This typemap is indirectly mutated via {@link DORMQuery.addDefaultTypes()}
+     *  This typemap is indirectly mutated via {@link DORMQuery.addDefaultTypes()}
      * @param array<string, array> associations The nested tree of associations to walk.
      */
     protected void _addAssociationsToTypeMap(DORMTable aTable, TypeMap typeMap, Json[string] associations) {
@@ -460,7 +460,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ```
      */ Bring only articles that were tagged with "uim"
      * query.matching("Tags", function (q) {
-     *     return q.where(["name": "uim"]);
+     *    return q.where(["name": "uim"]);
      * });
      * ```
      *
@@ -471,7 +471,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ```
      */ Bring only articles that were commented by "markstory"
      * query.matching("Comments.Users", function (q) {
-     *     return q.where(["username": "markstory"]);
+     *    return q.where(["username": "markstory"]);
      * });
      * ```
      *
@@ -485,9 +485,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ```
      */ Bring unique articles that were commented by "markstory"
      * query.distinct(["Articles.id"])
-     *     .matching("Comments.Users", function (q) {
-     *         return q.where(["username": "markstory"]);
-     *     });
+     *    .matching("Comments.Users", function (q) {
+     *        return q.where(["username": "markstory"]);
+     *    });
      * ```
      *
      * Please note that the query passed to the closure will only accept calling
@@ -516,10 +516,10 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ```
      */ Get the count of articles per user
      * usersQuery
-     *     .select(["total_articles": query.func().count("Articles.id")])
-     *     .leftJoinWith("Articles")
-     *     .group(["Users.id"])
-     *     .enableAutoFields();
+     *    .select(["total_articles": query.func().count("Articles.id")])
+     *    .leftJoinWith("Articles")
+     *    .group(["Users.id"])
+     *    .enableAutoFields();
      * ```
      *
      * You can also customize the conditions passed to the LEFT JOIN:
@@ -527,12 +527,12 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ```
      */ Get the count of articles per user with at least 5 votes
      * usersQuery
-     *     .select(["total_articles": query.func().count("Articles.id")])
-     *     .leftJoinWith("Articles", function (q) {
-     *         return q.where(["Articles.votes >=": 5]);
-     *     })
-     *     .group(["Users.id"])
-     *     .enableAutoFields();
+     *    .select(["total_articles": query.func().count("Articles.id")])
+     *    .leftJoinWith("Articles", function (q) {
+     *        return q.where(["Articles.votes >=": 5]);
+     *    })
+     *    .group(["Users.id"])
+     *    .enableAutoFields();
      * ```
      *
      * This will create the following SQL:
@@ -551,11 +551,11 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ```
      */ Total comments in articles by "markstory"
      * query
-     *     .select(["total_comments": query.func().count("Comments.id")])
-     *     .leftJoinWith("Comments.Users", function (q) {
-     *         return q.where(["username": "markstory"]);
-     *     })
-     *    .group(["Users.id"]);
+     *    .select(["total_comments": query.func().count("Comments.id")])
+     *    .leftJoinWith("Comments.Users", function (q) {
+     *        return q.where(["username": "markstory"]);
+     *    })
+     *   .group(["Users.id"]);
      * ```
      *
      * Please note that the query passed to the closure will only accept calling
@@ -589,7 +589,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ```
      */ Bring only articles that were tagged with "uim"
      * query.innerJoinWith("Tags", function (q) {
-     *     return q.where(["name": "uim"]);
+     *    return q.where(["name": "uim"]);
      * });
      * ```
      *
@@ -600,7 +600,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * FROM articles Articles
      * INNER JOIN tags Tags ON Tags.name = "uim"
      * INNER JOIN articles_tags ArticlesTags ON ArticlesTags.tag_id = Tags.id
-     *   AND ArticlesTags.articles_id = Articles.id
+     *  AND ArticlesTags.articles_id = Articles.id
      * ```
      *
      * This function works the same as `matching()` with the difference that it
@@ -632,7 +632,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ```
      */ Bring only articles that were not tagged with "uim"
      * query.notMatching("Tags", function (q) {
-     *     return q.where(["name": "uim"]);
+     *    return q.where(["name": "uim"]);
      * });
      * ```
      *
@@ -643,7 +643,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ```
      */ Bring only articles that weren"t commented by "markstory"
      * query.notMatching("Comments.Users", function (q) {
-     *     return q.where(["username": "markstory"]);
+     *    return q.where(["username": "markstory"]);
      * });
      * ```
      *
@@ -657,9 +657,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ```
      */ Bring unique articles that were commented by "markstory"
      * query.distinct(["Articles.id"])
-     *     .notMatching("Comments.Users", function (q) {
-     *         return q.where(["username": "markstory"]);
-     *     });
+     *    .notMatching("Comments.Users", function (q) {
+     *        return q.where(["username": "markstory"]);
+     *    });
      * ```
      *
      * Please note that the query passed to the closure will only accept calling
@@ -707,11 +707,11 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * ```
      * query.applyOptions([
-     *   "fields": ["id", "name"],
-     *   "conditions": [
-     *     "created >=": "2013-01-01"
-     *   ],
-     *   "limit": 10,
+     *  "fields": ["id", "name"],
+     *  "conditions": [
+     *    "created >=": "2013-01-01"
+     *  ],
+     *  "limit": 10,
      * ]);
      * ```
      *
@@ -719,17 +719,17 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * ```
      * query
-     *   .select(["id", "name"])
-     *   .where(["created >=": "2013-01-01"])
-     *   .limit(10)
+     *  .select(["id", "name"])
+     *  .where(["created >=": "2013-01-01"])
+     *  .limit(10)
      * ```
      *
      * Custom options can be read via `getOptions()`:
      *
      * ```
      * query.applyOptions([
-     *   "fields": ["id", "name"],
-     *   "custom": "value",
+     *  "fields": ["id", "name"],
+     *  "custom": "value",
      * ]);
      * ```
      *
@@ -914,8 +914,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * Toggle hydrating entities.
      *
      * If set to false array results will be returned for the query.
-     *
-     * @param bool enable Use a boolean to set the hydration mode.
      */
     void enableHydration(bool enable = true) {
         _isDirty();
@@ -944,9 +942,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * {@inheritDoc}
      *
      * @param \Closure|string|false key Either the cache key or a function to generate the cache key.
-     *   When using a function, this query instance will be supplied as an argument.
+     *  When using a function, this query instance will be supplied as an argument.
      * @param DORMCache\CacheEngine|string myConfiguration Either the name of the cache config to use, or
-     *   a cache config instance.
+     *  a cache config instance.
      */
     auto cache(key, myConfiguration = "default") {
         if (_type != "select" && _type != null) {

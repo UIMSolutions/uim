@@ -44,35 +44,35 @@ import uim.orm;
  * operations. All events use the UIM event package:
  *
  * - `Model.beforeFind` Fired before each find operation. By stopping the event and
- *  supplying a return value you can bypass the find operation entirely. Any
- *  changes done to the myquery instance will be retained for the rest of the find. The
- *  `myprimary` parameter indicates whether this is the root query, or an
- *  associated query.
+ * supplying a return value you can bypass the find operation entirely. Any
+ * changes done to the myquery instance will be retained for the rest of the find. The
+ * `myprimary` parameter indicates whether this is the root query, or an
+ * associated query.
  *
  * - `Model.buildValidator` Allows listeners to modify validation rules
- *  for the provided named validator.
+ * for the provided named validator.
  *
  * - `Model.buildRules` Allows listeners to modify the rules checker by adding more rules.
  *
  * - `Model.beforeRules` Fired before an entity is validated using the rules checker.
- *  By stopping this event, you can return the final value of the rules checking operation.
+ * By stopping this event, you can return the final value of the rules checking operation.
  *
  * - `Model.afterRules` Fired after the rules have been checked on the entity. By
- *  stopping this event, you can return the final value of the rules checking operation.
+ * stopping this event, you can return the final value of the rules checking operation.
  *
  * - `Model.beforeSave` Fired before each entity is saved. Stopping this event will
- *  abort the save operation. When the event is stopped the result of the event will be returned.
+ * abort the save operation. When the event is stopped the result of the event will be returned.
  *
  * - `Model.afterSave` Fired after an entity is saved.
  *
  * - `Model.afterSaveCommit` Fired after the transaction in which the save operation is
- *  wrapped has been committed. It’s also triggered for non atomic saves where database
- *  operations are implicitly committed. The event is triggered only for the primary
- *  table on which save() is directly called. The event is not triggered if a
- *  transaction is started before calling save.
+ * wrapped has been committed. It’s also triggered for non atomic saves where database
+ * operations are implicitly committed. The event is triggered only for the primary
+ * table on which save() is directly called. The event is not triggered if a
+ * transaction is started before calling save.
  *
  * - `Model.beforeDelete` Fired before an entity is deleted. By stopping this
- *  event you will abort the delete operation.
+ * event you will abort the delete operation.
  *
  * - `Model.afterDelete` Fired after an entity has been deleted.
  *
@@ -128,13 +128,13 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         * - alias: Alias to be assigned to this table (default to table name)
         * - connection: The connection instance to use
         * - entityClass: The fully namespaced class name of the entity class that will
-        *  represent rows in this table.
+        * represent rows in this table.
         * - eventManager: An instance of an event manager to use for internal events
         * - behaviors: A BehaviorRegistry. Generally not used outside of tests.
         * - associations: An AssociationCollection instance.
         * - validator: A Validator instance which is assigned as the "default"
-        *  validation set, or an associative array, where key is the name of the
-        *  validation set and value the Validator instance. */
+        * validation set, or an associative array, where key is the name of the
+        * validation set and value the Validator instance. */
 
         if (!configuration.isEmpty("registryAlias"))) {
             this.registryKey(configuration.data("registryAlias"));
@@ -270,9 +270,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * ```
      * auto initialize(Json[string] initData = null)
      * {
-     *     this.belongsTo("Users");
-     *     this.belongsToMany("Tagging.Tags");
-     *     primaryKeys("something_else");
+     *    this.belongsTo("Users");
+     *    this.belongsToMany("Tagging.Tags");
+     *    primaryKeys("something_else");
      * }
      * ```
      * Params:
@@ -601,8 +601,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *
      * ```
      * this.addBehaviors([
-     *     "Timestamp",
-     *     "Tree": ["level": "level"],
+     *    "Timestamp",
+     *    "Tree": ["level": "level"],
      * ]);
      * ```
      */
@@ -750,11 +750,11 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *
      * ```
      * this.Posts.addAssociations([
-     *  "belongsTo": [
-     *    "Users": ["className": "App\Model\Table\UsersTable"]
-     *  ],
-     *  "hasMany": ["Comments"],
-     *  "belongsToMany": ["Tags"]
+     * "belongsTo": [
+     *   "Users": ["className": "App\Model\Table\UsersTable"]
+     * ],
+     * "hasMany": ["Comments"],
+     * "belongsToMany": ["Tags"]
      * ]);
      * ```
      *
@@ -791,13 +791,13 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * - className: The class name of the target table object
      * - targetTable: An instance of a table object to be used as the target table
      * - foreignKey: The name of the field to use as foreign key, if false none
-     *  will be used
+     * will be used
      * - conditions: array with a list of conditions to filter the join with
      * - joinType: The type of join to be used (e.g. INNER)
      * - strategy: The loading strategy to use. "join" and "select" are supported.
      * - finder: The finder method to use when loading records from this association.
-     *  Defaults to "all". When the strategy is "join", only the fields, containments,
-     *  and where conditions will be used from the finder.
+     * Defaults to "all". When the strategy is "join", only the fields, containments,
+     * and where conditions will be used from the finder.
      *
      * This method will return the association object that was built.
      * Params:
@@ -825,21 +825,21 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * - className: The class name of the target table object
      * - targetTable: An instance of a table object to be used as the target table
      * - foreignKey: The name of the field to use as foreign key, if false none
-     *  will be used
+     * will be used
      * - dependent: Set to true if you want UIM to cascade deletes to the
-     *  associated table when an entity is removed on this table. The delete operation
-     *  on the associated table will not cascade further. To get recursive cascades enable
-     *  `cascadeCallbacks` as well. Set to false if you don"t want UIM to remove
-     *  associated data, or when you are using database constraints.
+     * associated table when an entity is removed on this table. The delete operation
+     * on the associated table will not cascade further. To get recursive cascades enable
+     * `cascadeCallbacks` as well. Set to false if you don"t want UIM to remove
+     * associated data, or when you are using database constraints.
      * - cascadeCallbacks: Set to true if you want UIM to fire callbacks on
-     *  cascaded deletes. If false the ORM will use deleteAll() to remove data.
-     *  When true records will be loaded and then deleted.
+     * cascaded deletes. If false the ORM will use deleteAll() to remove data.
+     * When true records will be loaded and then deleted.
      * - conditions: array with a list of conditions to filter the join with
      * - joinType: The type of join to be used (e.g. LEFT)
      * - strategy: The loading strategy to use. "join" and "select" are supported.
      * - finder: The finder method to use when loading records from this association.
-     *  Defaults to "all". When the strategy is "join", only the fields, containments,
-     *  and where conditions will be used from the finder.
+     * Defaults to "all". When the strategy is "join", only the fields, containments,
+     * and where conditions will be used from the finder.
      *
      * This method will return the association object that was built.
      * Params:
@@ -866,27 +866,27 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * - className: The class name of the target table object
      * - targetTable: An instance of a table object to be used as the target table
      * - foreignKey: The name of the field to use as foreign key, if false none
-     *  will be used
+     * will be used
      * - dependent: Set to true if you want UIM to cascade deletes to the
-     *  associated table when an entity is removed on this table. The delete operation
-     *  on the associated table will not cascade further. To get recursive cascades enable
-     *  `cascadeCallbacks` as well. Set to false if you don"t want UIM to remove
-     *  associated data, or when you are using database constraints.
+     * associated table when an entity is removed on this table. The delete operation
+     * on the associated table will not cascade further. To get recursive cascades enable
+     * `cascadeCallbacks` as well. Set to false if you don"t want UIM to remove
+     * associated data, or when you are using database constraints.
      * - cascadeCallbacks: Set to true if you want UIM to fire callbacks on
-     *  cascaded deletes. If false the ORM will use deleteAll() to remove data.
-     *  When true records will be loaded and then deleted.
+     * cascaded deletes. If false the ORM will use deleteAll() to remove data.
+     * When true records will be loaded and then deleted.
      * - conditions: array with a list of conditions to filter the join with
      * - sort: The order in which results for this association should be returned
      * - saveStrategy: Either "append" or "replace". When "append" the current records
-     *  are appended to any records in the database. When "replace" associated records
-     *  not in the current set will be removed. If the foreign key is a null able column
-     *  or if `dependent` is true records will be orphaned.
+     * are appended to any records in the database. When "replace" associated records
+     * not in the current set will be removed. If the foreign key is a null able column
+     * or if `dependent` is true records will be orphaned.
      * - strategy: The strategy to be used for selecting results Either "select"
-     *  or "subquery". If subquery is selected the query used to return results
-     *  in the source table will be used as conditions for getting rows in the
-     *  target table.
+     * or "subquery". If subquery is selected the query used to return results
+     * in the source table will be used as conditions for getting rows in the
+     * target table.
      * - finder: The finder method to use when loading records from this association.
-     *  Defaults to "all".
+     * Defaults to "all".
      *
      * This method will return the association object that was built.
      * Params:
@@ -917,26 +917,26 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * - targetForeignKey: The name of the field to use as the target foreign key.
      * - joinTable: The name of the table representing the link between the two
      * - through: If you choose to use an already instantiated link table, set this
-     *  key to a configured Table instance containing associations to both the source
-     *  and target tables in this association.
+     * key to a configured Table instance containing associations to both the source
+     * and target tables in this association.
      * - dependent: Set to false, if you do not want junction table records removed
-     *  when an owning record is removed.
+     * when an owning record is removed.
      * - cascadeCallbacks: Set to true if you want UIM to fire callbacks on
-     *  cascaded deletes. If false the ORM will use deleteAll() to remove data.
-     *  When true join/junction table records will be loaded and then deleted.
+     * cascaded deletes. If false the ORM will use deleteAll() to remove data.
+     * When true join/junction table records will be loaded and then deleted.
      * - conditions: array with a list of conditions to filter the join with.
      * - sort: The order in which results for this association should be returned.
      * - strategy: The strategy to be used for selecting results Either "select"
-     *  or "subquery". If subquery is selected the query used to return results
-     *  in the source table will be used as conditions for getting rows in the
-     *  target table.
+     * or "subquery". If subquery is selected the query used to return results
+     * in the source table will be used as conditions for getting rows in the
+     * target table.
      * - saveStrategy: Either "append" or "replace". Indicates the mode to be used
-     *  for saving associated entities. The former will only create new links
-     *  between both side of the relation and the latter will do a wipe and
-     *  replace to create the links between the passed entities when saving.
+     * for saving associated entities. The former will only create new links
+     * between both side of the relation and the latter will do a wipe and
+     * replace to create the links between the passed entities when saving.
      * - strategy: The loading strategy to use. "select" and "subquery" are supported.
      * - finder: The finder method to use when loading records from this association.
-     *  Defaults to "all".
+     * Defaults to "all".
      *
      * This method will return the association object that was built.
      * Params:
@@ -978,9 +978,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *
      * ```
      * myquery = myarticles.find("all",
-     *  conditions: ["published": 1],
-     *  limit: 10,
-     *  contain: ["Users", "Comments"]
+     * conditions: ["published": 1],
+     * limit: 10,
+     * contain: ["Users", "Comments"]
      * );
      * ```
      *
@@ -988,9 +988,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *
      * ```
      * myquery = myarticles.find()
-     *  .where(["published": 1])
-     *  .limit(10)
-     *  .contain(["Users", "Comments"]);
+     * .where(["published": 1])
+     * .limit(10)
+     * .contain(["Users", "Comments"]);
      * ```
      *
      * ### Calling finders
@@ -1014,7 +1014,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * ```
      * auto findByCategory(SelectQuery myquery, int mycategory): SelectQuery
      * {
-     *    return myquery;
+     *   return myquery;
      * }
      * ```
      *
@@ -1103,11 +1103,11 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * ```
      * [
      * "group_1": [
-     *     1: "value for id 1",
-     *     2: "value for id 2",
+     *    1: "value for id 1",
+     *    2: "value for id 2",
      * ]
      * "group_2": [
-     *     4: "value for id 4"
+     *    4: "value for id 4"
      * ]
      * ]
      * ```
@@ -1233,9 +1233,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Json myprimaryKey primary key value to find
      * @param string[]|string myfinder The finder to use. Passing an options array is deprecated.
      * @param \Psr\SimpleCache\ICache|string mycache The cache config to use.
-     *  Defaults to `null`, i.e. no caching.
+     * Defaults to `null`, i.e. no caching.
      * @param \Closure|string mycacheKey The cache key to use. If not provided
-     *  one will be autogenerated if `mycache` is not null.
+     * one will be autogenerated if `mycache` is not null.
      * @param Json ...myargs Arguments that query options or finder specific parameters.
      */
     IORMEntity get(
@@ -1349,15 +1349,15 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * The options array is passed to the save method with exception to the following keys:
      *
      * - atomic: Whether to execute the methods for find, save and callbacks inside a database
-     *  transaction (default: true)
+     * transaction (default: true)
      * - defaults: Whether to use the search criteria as default values for the new DORMEntity (default: true)
      * Params:
      * \ORM\Query\SelectQuery|callable|array mysearch The criteria to find existing
-     *  records by. Note that when you pass a query object you"ll have to use
-     *  the 2nd arg of the method to modify the entity data before saving.
+     * records by. Note that when you pass a query object you"ll have to use
+     * the 2nd arg of the method to modify the entity data before saving.
      * @param callable|null mycallback A callback that will be invoked for newly
-     *  created entities. This callback will be called *before* the entity
-     *  is persisted.
+     * created entities. This callback will be called *before* the entity
+     * is persisted.
      * @param Json[string] options The options to use when saving.
      */
     IORMEntity findOrCreate(
@@ -1385,10 +1385,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Performs the actual find and/or create of an entity based on the passed options.
      * Params:
      * \ORM\Query\SelectQuery|callable|array mysearch The criteria to find an existing record by, or a callable tha will
-     *  customize the find query.
+     * customize the find query.
      * @param callable|null mycallback A callback that will be invoked for newly
-     *  created entities. This callback will be called *before* the entity
-     *  is persisted.
+     * created entities. This callback will be called *before* the entity
+     * is persisted.
      * @param Json[string] options The options to use when saving.
      */
     protected IORMEntity _processFindOrCreate(
@@ -1534,47 +1534,47 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * The options array accepts the following keys:
      *
      * - atomic: Whether to execute the save and callbacks inside a database
-     *  transaction (default: true)
+     * transaction (default: true)
      * - checkRules: Whether to check the rules on entity before saving, if the checking
-     *  fails, it will abort the save operation. (default:true)
+     * fails, it will abort the save operation. (default:true)
      * - associated: If `true` it will save 1st level associated entities as they are found
-     *  in the passed `myentity` whenever the property defined for the association
-     *  is marked as dirty. If an array, it will be interpreted as the list of associations
-     *  to be saved. It is possible to provide different options for saving on associated
-     *  table objects using this key by making the custom options the array value.
-     *  If `false` no associated records will be saved. (default: `true`)
+     * in the passed `myentity` whenever the property defined for the association
+     * is marked as dirty. If an array, it will be interpreted as the list of associations
+     * to be saved. It is possible to provide different options for saving on associated
+     * table objects using this key by making the custom options the array value.
+     * If `false` no associated records will be saved. (default: `true`)
      * - checkExisting: Whether to check if the entity already exists, assuming that the
-     *  entity is marked as not new, and the primary key has been set.
+     * entity is marked as not new, and the primary key has been set.
      *
      * ### Events
      *
      * When saving, this method will trigger four events:
      *
      * - Model.beforeRules: Will be triggered right before any rule checking is done
-     *  for the passed entity if the `checkRules` key in options is not set to false.
-     *  Listeners will receive as arguments the entity, options array and the operation type.
-     *  If the event is stopped the rules check result will be set to the result of the event itself.
+     * for the passed entity if the `checkRules` key in options is not set to false.
+     * Listeners will receive as arguments the entity, options array and the operation type.
+     * If the event is stopped the rules check result will be set to the result of the event itself.
      * - Model.afterRules: Will be triggered right after the `checkRules()` method is
-     *  called for the entity. Listeners will receive as arguments the entity,
-     *  options array, the result of checking the rules and the operation type.
-     *  If the event is stopped the checking result will be set to the result of
-     *  the event itself.
+     * called for the entity. Listeners will receive as arguments the entity,
+     * options array, the result of checking the rules and the operation type.
+     * If the event is stopped the checking result will be set to the result of
+     * the event itself.
      * - Model.beforeSave: Will be triggered just before the list of fields to be
-     *  persisted is calculated. It receives both the entity and the options as
-     *  arguments. The options array is passed as an ArrayObject, so any changes in
-     *  it will be reflected in every listener and remembered at the end of the event
-     *  so it can be used for the rest of the save operation. Returning false in any
-     *  of the listeners will abort the saving process. If the event is stopped
-     *  using the event API, the event object"s `result` property will be returned.
-     *  This can be useful when having your own saving strategy implemented inside a
-     *  listener.
+     * persisted is calculated. It receives both the entity and the options as
+     * arguments. The options array is passed as an ArrayObject, so any changes in
+     * it will be reflected in every listener and remembered at the end of the event
+     * so it can be used for the rest of the save operation. Returning false in any
+     * of the listeners will abort the saving process. If the event is stopped
+     * using the event API, the event object"s `result` property will be returned.
+     * This can be useful when having your own saving strategy implemented inside a
+     * listener.
      * - Model.afterSave: Will be triggered after a successful insert or save,
-     *  listeners will receive the entity and the options array as arguments. The type
-     *  of operation performed (insert or update) can be determined by checking the
-     *  entity"s method `isNew`, true meaning an insert and false an update.
+     * listeners will receive the entity and the options array as arguments. The type
+     * of operation performed (insert or update) can be determined by checking the
+     * entity"s method `isNew`, true meaning an insert and false an update.
      * - Model.afterSaveCommit: Will be triggered after the transaction is committed
-     *  for atomic save, listeners will receive the entity and the options array
-     *  as arguments.
+     * for atomic save, listeners will receive the entity and the options array
+     * as arguments.
      *
      * This method will determine whether the passed entity needs to be
      * inserted or updated in the database. It does that by checking the `isNew`
@@ -1595,12 +1595,12 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      */ Save the company, the employees and related addresses for each of them.
      */ For employees do not check the entity rules
      * mycompanies.save(myentity, [
-     *  "associated": [
-     *    "Employees": [
-     *      "associated": ["Addresses"],
-     *      "checkRules": false.toJson
-     *    ]
-     *  ]
+     * "associated": [
+     *   "Employees": [
+     *     "associated": ["Addresses"],
+     *     "checkRules": false.toJson
+     *   ]
+     * ]
      * ]);
      *
      */ Save no associations
@@ -2012,11 +2012,11 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * ### Events
      *
      * - `Model.beforeDelete` Fired before the delete occurs. If stopped the delete
-     *  will be aborted. Receives the event, entity, and options.
+     * will be aborted. Receives the event, entity, and options.
      * - `Model.afterDelete` Fired after the delete has been successful. Receives
-     *  the event, entity, and options.
+     * the event, entity, and options.
      * - `Model.afterDeleteCommit` Fired after the transaction is committed for
-     *  an atomic delete. Receives the event, entity, and options.
+     * an atomic delete. Receives the event, entity, and options.
      *
      * The options argument will be converted into an \ArrayObject instance
      * for the duration of the callbacks, this allows listeners to modify
@@ -2409,8 +2409,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *
      * ```
      * myarticle = this.Articles.newEntity(
-     *  this.request[),
-     *  ["associated": ["Tags", "Comments.Users"]]
+     * this.request[),
+     * ["associated": ["Tags", "Comments.Users"]]
      * );
      * ```
      *
@@ -2431,8 +2431,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *
      * ```
      * myarticle = this.Articles.newEntity(
-     *  this.request[),
-     *  ["accessibleFields": ["protected_field": true.toJson]]
+     * this.request[),
+     * ["accessibleFields": ["protected_field": true.toJson]]
      * );
      * ```
      *
@@ -2442,8 +2442,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *
      * ```
      * myarticle = this.Articles.newEntity(
-     *  this.request[),
-     *  ["validate": false.toJson]
+     * this.request[),
+     * ["validate": false.toJson]
      * );
      * ```
      *
@@ -2471,8 +2471,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *
      * ```
      * myarticles = this.Articles.newEntities(
-     *  this.request[),
-     *  ["associated": ["Tags", "Comments.Users"]]
+     * this.request[),
+     * ["associated": ["Tags", "Comments.Users"]]
      * );
      * ```
      *
@@ -2518,9 +2518,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *
      * ```
      * myarticle = this.Articles.patchEntity(myarticle, this.request[), [
-     *  "associated": [
-     *    "Tags": ["accessibleFields": ["*": true.toJson]]
-     *  ]
+     * "associated": [
+     *   "Tags": ["accessibleFields": ["*": true.toJson]]
+     * ]
      * ]);
      * ```
      *
@@ -2606,8 +2606,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * ```
      * myvalidator.add("email", [
      * "unique": [
-     *     "rule": ["validateUnique", ["scope": "site_id"]],
-     *     "provider": "table"
+     *    "rule": ["validateUnique", ["scope": "site_id"]],
+     *    "provider": "table"
      * ]
      * ]);
      * ```
@@ -2618,7 +2618,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * Json aValue The value of column to be checked for uniqueness.
      * @param Json[string] options The options array, optionally containing the "scope" key.
-     *  May also be the validation context, if there are no options.
+     * May also be the validation context, if there are no options.
      * @param array|null mycontext Either the validation context or null.
      */
     bool validateUnique(Json aValue, Json[string] options, Json[string] mycontext = null) {

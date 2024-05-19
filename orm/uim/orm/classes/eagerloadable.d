@@ -46,7 +46,7 @@ class DEagerLoadable {
      * For example, in the following nested property:
      *
      * ```
-     *  article.author.company.country
+     * article.author.company.country
      * ```
      *
      * The property path of `country` will be `author.company`
@@ -72,7 +72,7 @@ class DEagerLoadable {
      * For example, in the following nested property:
      *
      * ```
-     *  article.author.company.country
+     * article.author.company.country
      * ```
      *
      * The target property of `country` will be just `country`
@@ -147,7 +147,7 @@ class DEagerLoadable {
      * For example, in the following nested property:
      *
      * ```
-     *  article.author.company.country
+     * article.author.company.country
      * ```
      *
      * The property path of `country` will be `author.company`
@@ -197,7 +197,7 @@ class DEagerLoadable {
      * For example, in the following nested property:
      *
      * ```
-     *  article.author.company.country
+     * article.author.company.country
      * ```
      *
      * The target property of `country` will be just `country`

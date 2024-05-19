@@ -97,14 +97,14 @@ class DMarshaller {
      * ### Options:
      *
      * - validate: Set to false to disable validation. Can also be a string of the validator ruleset to be applied.
-     *  Defaults to true/default.
+     * Defaults to true/default.
      * - associated: DAssociations listed here will be marshalled as well. Defaults to null.
      * - fields: An allowed list of fields to be assigned to the entity. If not present,
-     *  the accessible fields list in the entity will be used. Defaults to null.
+     * the accessible fields list in the entity will be used. Defaults to null.
      * - accessibleFields: A list of fields to allow or deny in entity accessible fields. Defaults to null
      * - forceNew: When enabled, belongsToMany associations will have "new" entities created
-     *  when primary key values are set, and a record does not already exist. Normally primary key
-     *  on missing entities would be ignored. Defaults to false.
+     * when primary key values are set, and a record does not already exist. Normally primary key
+     * on missing entities would be ignored. Defaults to false.
      *
      * The above options can be used in each nested `associated` array. In addition to the above
      * options you can also use the `onlyIds` option for HasMany and BelongsToMany associations.
@@ -112,15 +112,15 @@ class DMarshaller {
      *
      * ```
      * result = mymarshaller.one(mydata, [
-     *  "associated": ["Tags": ["onlyIds": true.toJson]]
+     * "associated": ["Tags": ["onlyIds": true.toJson]]
      * ]);
      * ```
      *
      * ```
      * result = mymarshaller.one(mydata, [
-     *  "associated": [
-     *    "Tags": ["accessibleFields": ["*": true.toJson]]
-     *  ]
+     * "associated": [
+     *   "Tags": ["accessibleFields": ["*": true.toJson]]
+     * ]
      * ]);
      * ```
      * Params:
@@ -264,14 +264,14 @@ class DMarshaller {
      * ### Options:
      *
      * - validate: Set to false to disable validation. Can also be a string of the validator ruleset to be applied.
-     *  Defaults to true/default.
+     * Defaults to true/default.
      * - associated: DAssociations listed here will be marshalled as well. Defaults to null.
      * - fields: An allowed list of fields to be assigned to the entity. If not present,
-     *  the accessible fields list in the entity will be used. Defaults to null.
+     * the accessible fields list in the entity will be used. Defaults to null.
      * - accessibleFields: A list of fields to allow or deny in entity accessible fields. Defaults to null
      * - forceNew: When enabled, belongsToMany associations will have "new" entities created
-     *  when primary key values are set, and a record does not already exist. Normally primary key
-     *  on missing entities would be ignored. Defaults to false.
+     * when primary key values are set, and a record does not already exist. Normally primary key
+     * on missing entities would be ignored. Defaults to false.
      * Params:
      * Json[string] data The data to hydrate.
      * @param Json[string] options List of options
@@ -416,9 +416,9 @@ class DMarshaller {
      *
      * - associated: DAssociations listed here will be marshalled as well.
      * - validate: Whether to validate data before hydrating the entities. Can
-     *  also be set to a string to use a specific validator. Defaults to true/default.
+     * also be set to a string to use a specific validator. Defaults to true/default.
      * - fields: An allowed list of fields to be assigned to the entity. If not present
-     *  the accessible fields list in the entity will be used.
+     * the accessible fields list in the entity will be used.
      * - accessibleFields: A list of fields to allow or deny in entity accessible fields.
      *
      * The above options can be used in each nested `associated` array. In addition to the above
@@ -427,7 +427,7 @@ class DMarshaller {
      *
      * ```
      * result = mymarshaller.merge(myentity, mydata, [
-     *  "associated": ["Tags": ["onlyIds": true.toJson]]
+     * "associated": ["Tags": ["onlyIds": true.toJson]]
      * ]);
      * ```
      * Params:
@@ -536,14 +536,14 @@ class DMarshaller {
      * ### Options:
      *
      * - validate: Whether to validate data before hydrating the entities. Can
-     *  also be set to a string to use a specific validator. Defaults to true/default.
+     * also be set to a string to use a specific validator. Defaults to true/default.
      * - associated: DAssociations listed here will be marshalled as well.
      * - fields: An allowed list of fields to be assigned to the entity. If not present,
-     *  the accessible fields list in the entity will be used.
+     * the accessible fields list in the entity will be used.
      * - accessibleFields: A list of fields to allow or deny in entity accessible fields.
      * Params:
      * iterable<\UIM\Datasource\IORMEntity> myentities the entities that will get the
-     *  data merged in
+     * data merged in
      * @param Json[string] data list of arrays to be merged into the entities
      * @param Json[string] options List of options.
      */

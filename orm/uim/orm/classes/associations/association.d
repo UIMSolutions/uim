@@ -472,18 +472,18 @@ class DAssociation : IAssociation {
      *
      * - includeFields: Whether to include target model fields in the result or not
      * - foreignKeys: The name of the field to use as foreign key, if false none
-     *   will be used
+     *  will be used
      * - conditions: array with a list of conditions to filter the join with, this
-     *   will be merged with any conditions originally configured for this association
+     *  will be merged with any conditions originally configured for this association
      * - fields: a list of fields in the target table to include in the result
      * - aliasPath: A dot separated string representing the path of association names
-     *   followed from the passed query main table to this association.
+     *  followed from the passed query main table to this association.
      * - propertyPath: A dot separated string representing the path of association
-     *   properties to be followed from the passed query main entity to this
-     *   association
+     *  properties to be followed from the passed query main entity to this
+     *  association
      * - joinType: The SQL join type to use in the query.
      * - negateMatch: Will append a condition to the passed query for excluding matches.
-     *   with this association.
+     *  with this association.
      *
      * @param DORMQuery query the query to be altered to include the target table data
      * @param Json[string] options Any extra options or overrides to be taken in account
@@ -585,9 +585,9 @@ class DAssociation : IAssociation {
      *
      * @param Json[string] row The row to transform
      * @param string nestKey The array key under which the results for this association
-     *   should be found
+     *  should be found
      * @param bool joined Whether the row is a result of a direct join
-     *   with this association
+     *  with this association
      * @param string targetProperty The property name in the source results where the association
      * data shuld be nested in. Will use the default one if not provided.
      */
@@ -610,7 +610,7 @@ class DAssociation : IAssociation {
      *
      * @param Json[string] row The row to set a default on.
      * @param bool joined Whether the row is a result of a direct join
-     *   with this association
+     *  with this association
      */
     Json[string] defaultRowValue(Json[string] row, bool joined) {
         sourceAlias = source().aliasName();
@@ -627,7 +627,7 @@ class DAssociation : IAssociation {
      * configuration
      *
      * @param Json[string]|string type the type of query to perform, if an array is passed,
-     *   it will be interpreted as the `options` parameter
+     *  it will be interpreted as the `options` parameter
      * @param Json[string] options The options to for the find
      */
     IQuery find(type = null, Json[string] optionData = null) {

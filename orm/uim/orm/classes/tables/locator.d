@@ -42,7 +42,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      .
      * Params:
      * string[] mylocations Locations where tables should be looked for.
-     *  If none provided, the default `Model\Table` under your app"s namespace is used.
+     * If none provided, the default `Model\Table` under your app"s namespace is used.
      */
     this(string[] locations = null, DQueryFactory queryFactory = null) {
         if (locations.isNull) {
@@ -93,17 +93,17 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * ### Options
      *
      * - `className` Define the specific class name to use. If undefined, UIM will generate the
-     *  class name based on the alias. For example "Users" would result in
-     *  `App\Model\Table\UsersTable` being used. If this class does not exist,
-     *  then the default `UIM\ORM\Table` class will be used. By setting the `className`
-     *  option you can define the specific class to use. The className option supports
-     *  plugin short class references {@link \UIM\Core\App.shortName()}.
+     * class name based on the alias. For example "Users" would result in
+     * `App\Model\Table\UsersTable` being used. If this class does not exist,
+     * then the default `UIM\ORM\Table` class will be used. By setting the `className`
+     * option you can define the specific class to use. The className option supports
+     * plugin short class references {@link \UIM\Core\App.shortName()}.
      * - `table` Define the table name to use. If undefined, this option will default to the underscored
-     *  version of the alias name.
+     * version of the alias name.
      * - `connection` Inject the specific connection object to use. If this option and `connectionName` are undefined,
-     *  The table class" `defaultConnectionName()` method will be invoked to fetch the connection name.
+     * The table class" `defaultConnectionName()` method will be invoked to fetch the connection name.
      * - `connectionName` Define the connection name to use. The named connection will be fetched from
-     *  {@link \UIM\Datasource\ConnectionManager}.
+     * {@link \UIM\Datasource\ConnectionManager}.
      *
      * *Note* If your `aliasName` uses plugin syntax only the name part will be used as
      * key in the registry. This means that if two plugins, or a plugin and app provide

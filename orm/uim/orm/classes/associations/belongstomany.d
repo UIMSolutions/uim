@@ -312,7 +312,7 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * - includeFields: Whether to include target model fields in the result or not
      * - foreignKey: The name of the field to use as foreign key, if false none
-     *   will be used
+     *  will be used
      * - conditions: array with a list of conditions to filter the join with
      * - fields: a list of fields in the target table to include in the result
      * - type: The type of join to be used (e.g. INNER)
@@ -688,12 +688,12 @@ class DBelongsToManyAssociation : DAssociation {
      * `article.get("tags")` will contain all tags in `newTags` after liking
      *
      * @param DORMDatasource\IORMEntity sourceEntity the row belonging to the `source` side
-     *   of this association
+     *  of this association
      * @param array<DORMDatasource\IORMEntity> targetEntities list of entities belonging to the `target` side
-     *   of this association
+     *  of this association
      * @param Json[string] options list of options to be passed to the internal `save` call
      * @throws \InvalidArgumentException when any of the values in targetEntities is
-     *   detected to not be already persisted
+     *  detected to not be already persisted
      * @return bool true on success, false otherwise
      */
     bool link(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] optionData = null) {
@@ -737,13 +737,13 @@ class DBelongsToManyAssociation : DAssociation {
      * `article.get("tags")` will contain only `[tag4]` after deleting in the database
      *
      * @param DORMDatasource\IORMEntity sourceEntity An entity persisted in the source table for
-     *   this association.
+     *  this association.
      * @param array<DORMDatasource\IORMEntity> targetEntities List of entities persisted in the target table for
-     *   this association.
+     *  this association.
      * @param string[]|bool options List of options to be passed to the internal `delete` call,
-     *   or a `boolean` as `cleanProperty` key shortcut.
+     *  or a `boolean` as `cleanProperty` key shortcut.
      * @throws \InvalidArgumentException If non persisted entities are passed or if
-     *   any of them is lacking a primary key value.
+     *  any of them is lacking a primary key value.
      */
     bool unlink(IORMEntity sourceEntity, Json[string] targetEntities, options = null) {
         if (is_bool(options)) {
@@ -822,8 +822,8 @@ class DBelongsToManyAssociation : DAssociation {
      * also be returned in this list.
      *
      * @return array|\Closure|null Generally an array. If the conditions
-     *   are not an array, the association conditions will be
-     *   returned unmodified.
+     *  are not an array, the association conditions will be
+     *  returned unmodified.
      */
     protected function targetConditions() {
         if (_targetConditions != null) {
@@ -886,7 +886,7 @@ class DBelongsToManyAssociation : DAssociation {
      * included in the query"s contained associations.
      *
      * @param Json[string]|string type the type of query to perform, if an array is passed,
-     *   it will be interpreted as the `options` parameter
+     *  it will be interpreted as the `options` parameter
      * @param Json[string] options The options to for the find
     Query find(type = null, Json[string] optionData = null) {
         type = type ?: getFinder();
@@ -978,12 +978,12 @@ class DBelongsToManyAssociation : DAssociation {
      * `article.get("tags")` will contain only `[tag1, tag3]` at the end
      *
      * @param DORMDatasource\IORMEntity sourceEntity an entity persisted in the source table for
-     *   this association
+     *  this association
      * @param Json[string] targetEntities list of entities from the target table to be linked
      * @param Json[string] options list of options to be passed to the internal `save`/`delete` calls
-     *   when persisting/updating new links, or deleting existing ones
+     *  when persisting/updating new links, or deleting existing ones
      * @throws \InvalidArgumentException if non persisted entities are passed or if
-     *   any of them is lacking a primary key value
+     *  any of them is lacking a primary key value
      */
     bool replaceLinks(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] optionData = null) {
         bindingKey = (array)getBindingKey();
@@ -1149,9 +1149,9 @@ class DBelongsToManyAssociation : DAssociation {
      * Throws an exception should any of the passed entities is not persisted.
      *
      * @param DORMDatasource\IORMEntity sourceEntity the row belonging to the `source` side
-     *   of this association
+     *  of this association
      * @param array<DORMDatasource\IORMEntity> targetEntities list of entities belonging to the `target` side
-     *   of this association
+     *  of this association
      */
     protected bool _checkPersistenceStatus(IORMEntity sourceEntity, Json[string] targetEntities) {
         if (sourceEntity.isNew()) {
@@ -1174,11 +1174,11 @@ class DBelongsToManyAssociation : DAssociation {
      * and each of the passed target entities
      *
      * @param DORMDatasource\IORMEntity sourceEntity The row belonging to the source side
-     *   of this association.
+     *  of this association.
      * @param Json[string] targetEntities The rows belonging to the target side of this
-     *   association.
+     *  association.
      * @throws \InvalidArgumentException if any of the entities is lacking a primary
-     *   key value
+     *  key value
      * @return array<DORMDatasource\IORMEntity>
      */
     protected Json[string] _collectJointEntities(IORMEntity sourceEntity, Json[string] targetEntities) {

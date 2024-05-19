@@ -14,33 +14,33 @@ import uim.orm;
  * Regular counter cache
  * ```
  * [
- *     "Users": [
- *         "post_count"
- *     ]
+ *    "Users": [
+ *        "post_count"
+ *    ]
  * ]
  * ```
  *
  * Counter cache with scope
  * ```
  * [
- *     "Users": [
- *         "posts_published": [
- *             "conditions": [
- *                 "published": true.toJson
- *             ]
- *         ]
- *     ]
+ *    "Users": [
+ *        "posts_published": [
+ *            "conditions": [
+ *                "published": true.toJson
+ *            ]
+ *        ]
+ *    ]
  * ]
  * ```
  *
  * Counter cache using custom find
  * ```
  * [
- *     "Users": [
- *         "posts_published": [
- *             "finder": "published" // Will be using findPublished()
- *         ]
- *     ]
+ *    "Users": [
+ *        "posts_published": [
+ *            "finder": "published" // Will be using findPublished()
+ *        ]
+ *    ]
  * ]
  * ```
  *
@@ -49,15 +49,15 @@ import uim.orm;
  *
  * ```
  * [
- *     "Users": [
- *         "posts_published": function (IEvent event, IORMEntity anEntity, DORMTable aTable) {
- *             query = table.find("all").where([
- *                 "published": true.toJson,
- *                 "user_id": entity.get("user_id")
- *             ]);
- *             return query.count();
- *          }
- *     ]
+ *    "Users": [
+ *        "posts_published": function (IEvent event, IORMEntity anEntity, DORMTable aTable) {
+ *            query = table.find("all").where([
+ *                "published": true.toJson,
+ *                "user_id": entity.get("user_id")
+ *            ]);
+ *            return query.count();
+ *         }
+ *    ]
  * ]
  * ```
  *
@@ -67,11 +67,11 @@ import uim.orm;
  * Ignore updating the field if it is dirty
  * ```
  * [
- *     "Users": [
- *         "posts_published": [
- *             "ignoreDirty": true.toJson
- *         ]
- *     ]
+ *    "Users": [
+ *        "posts_published": [
+ *            "ignoreDirty": true.toJson
+ *        ]
+ *    ]
  * ]
  * ```
  *

@@ -147,21 +147,21 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * If a query has caching enabled, it will do the following when executed:
      *
      * - Check the cache for aKey. If there are results no SQL will be executed.
-     *  Instead the cached results will be returned.
+     * Instead the cached results will be returned.
      * - When the cached data is stale/missing the result set will be cached as the query
-     *  is executed.
+     * is executed.
      *
      * ### Usage
      *
      * ```
-     *  Simple string key + config
+     * Simple string key + config
      * myquery.cache("_key", "db_results");
      *
-     *  auto to generate key.
+     * auto to generate key.
      * myquery.cache(function (myq) {
-     *  aKey = serialize(myq.clause("select"));
-     *  aKey ~= serialize(myq.clause("where"));
-     *  return md5(aKey);
+     * aKey = serialize(myq.clause("select"));
+     * aKey ~= serialize(myq.clause("where"));
+     * return md5(aKey);
      * });
      *
      * Using a pre-built cache engine.
@@ -172,9 +172,9 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ```
      * Params:
      * \Closure|string|false aKey Either the cache key or a auto to generate the cache key.
-     *  When using a function, this query instance will be supplied as an argument.
+     * When using a function, this query instance will be supplied as an argument.
      * @param \Psr\SimpleCache\ICache|string configData Either the name of the cache config to use, or
-     *  a cache engine instance.
+     * a cache engine instance.
      */
     void cache(Closure|string|false aKey, ICache|string configData = "default") {
         if (aKey == false) {
@@ -344,7 +344,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * ```
      * myquery.select(["id", "name"]).formatResults(function (results) {
-     *    return results.indexBy("id");
+     *   return results.indexBy("id");
      * });
      * ```
      *
@@ -352,11 +352,11 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * ```
      * myquery.select(["name", "birth_date"]).formatResults(function (results) {
-     *    return results.map(function (myrow) {
-     *        myrow["age"] = myrow["birth_date"].diff(new DateTime).y;
+     *   return results.map(function (myrow) {
+     *       myrow["age"] = myrow["birth_date"].diff(new DateTime).y;
      *
-     *        return myrow;
-     *    });
+     *       return myrow;
+     *   });
      * });
      * ```
      *
@@ -364,19 +364,19 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * ```
      * myquery.formatResults(function (results, myquery) {
-     *    return results.map(function (myrow) use (myquery) {
-     *        mydata = [
-     *            "bar": "baz",
-     *        ];
+     *   return results.map(function (myrow) use (myquery) {
+     *       mydata = [
+     *           "bar": "baz",
+     *       ];
      *
-     *        if (myquery.isHydrationEnabled()) {
-     *            myrow["foo"] = new DFoo(mydata)
-     *        } else {
-     *            myrow["foo"] = mydata;
-     *        }
+     *       if (myquery.isHydrationEnabled()) {
+     *           myrow["foo"] = new DFoo(mydata)
+     *       } else {
+     *           myrow["foo"] = mydata;
+     *       }
      *
-     *        return myrow;
-     *    });
+     *       return myrow;
+     *   });
      * });
      * ```
      *
@@ -387,19 +387,19 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      */ Assuming a `Articles belongsTo Authors` association that uses the join strategy
      *
      * myarticlesQuery.contain("Authors", auto (myauthorsQuery) {
-     *    return myauthorsQuery.formatResults(function (results, myquery) use (myauthorsQuery) {
-     *        // Here `myauthorsQuery` will always be the instance
-     *        // where the callback was attached to.
+     *   return myauthorsQuery.formatResults(function (results, myquery) use (myauthorsQuery) {
+     *       // Here `myauthorsQuery` will always be the instance
+     *       // where the callback was attached to.
      *
-     *        // The instance passed to the callback in the second
-     *        // argument (`myquery`), will be the one where the
-     *        // callback is actually being applied to, in this
-     *        // example that would be `myarticlesQuery`.
+     *       // The instance passed to the callback in the second
+     *       // argument (`myquery`), will be the one where the
+     *       // callback is actually being applied to, in this
+     *       // example that would be `myarticlesQuery`.
      *
-     *        // ...
+     *       // ...
      *
-     *        return results;
-     *    });
+     *       return results;
+     *   });
      * });
      * ```
      * Params:
@@ -505,11 +505,11 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * ```
      * myquery.applyOptions([
-     *  "fields": ["id", "name"],
-     *  "conditions": [
-     *    "created >=": "2013-01-01"
-     *  ],
-     *  "limit": 10,
+     * "fields": ["id", "name"],
+     * "conditions": [
+     *   "created >=": "2013-01-01"
+     * ],
+     * "limit": 10,
      * ]);
      * ```
      *
@@ -517,17 +517,17 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * ```
      * myquery
-     *  .select(["id", "name"])
-     *  .where(["created >=": "2013-01-01"])
-     *  .limit(10)
+     * .select(["id", "name"])
+     * .where(["created >=": "2013-01-01"])
+     * .limit(10)
      * ```
      *
      * Custom options can be read via `getOptions()`:
      *
      * ```
      * myquery.applyOptions([
-     *  "fields": ["id", "name"],
-     *  "custom": "value",
+     * "fields": ["id", "name"],
+     * "custom": "value",
      * ]);
      * ```
      *
@@ -618,7 +618,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * myquery.select("id", true); // Resets the list: SELECT id
      * myquery.select(["total": mycountQuery]); // SELECT id, (SELECT ...) AS total
      * myquery.select(function (myquery) {
-     *    return ["article_id", "total": myquery.count("*")];
+     *   return ["article_id", "total": myquery.count("*")];
      * })
      * ```
      *
@@ -745,11 +745,11 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * ```
      * myquery.contain(["Tags": auto (myq) {
-     *    return myq.where(["Tags.is_popular": true.toJson]);
+     *   return myq.where(["Tags.is_popular": true.toJson]);
      * }]);
      *
      * myquery.contain(["Products.Manufactures": auto (myq) {
-     *    return myq.select(["name"]).where(["Manufactures.active": true.toJson]);
+     *   return myq.select(["name"]).where(["Manufactures.active": true.toJson]);
      * }]);
      * ```
      *
@@ -757,11 +757,11 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * options that can be set per association are:
      *
      * - `foreignKey`: Used to set a different field to match both tables, if set to false
-     *  no join conditions will be generated automatically. `false` can only be used on
-     *  joinable associations and cannot be used with hasMany or belongsToMany associations.
+     * no join conditions will be generated automatically. `false` can only be used on
+     * joinable associations and cannot be used with hasMany or belongsToMany associations.
      * - `fields`: An array with the fields that should be fetched from the association.
      * - `finder`: The finder to use when loading associated records. Either the name of the
-     *  finder as a string, or an array to define options to pass to the finder.
+     * finder as a string, or an array to define options to pass to the finder.
      * - `queryBuilder`: Equivalent to passing a callback instead of an options array.
      *
      * ### Example:
@@ -769,9 +769,9 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ```
      */ Set options for the hasMany articles that will be eagerly loaded for an author
      * myquery.contain([
-     *    "Articles": [
-     *        "fields": ["title", "author_id"]
-     *    ]
+     *   "Articles": [
+     *       "fields": ["title", "author_id"]
+     *   ]
      * ]);
      * ```
      *
@@ -780,13 +780,13 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ```
      */ Retrieve translations for the articles, but only those for the `en` and `es` locales
      * myquery.contain([
-     *    "Articles": [
-     *        "finder": [
-     *            "translations": [
-     *                "locales": ["en", "es"]
-     *            ]
-     *        ]
-     *    ]
+     *   "Articles": [
+     *       "finder": [
+     *           "translations": [
+     *               "locales": ["en", "es"]
+     *           ]
+     *       ]
+     *   ]
      * ]);
      * ```
      *
@@ -796,19 +796,19 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ```
      */ Use a query builder to add conditions to the containment
      * myquery.contain("Authors", auto (myq) {
-     *    return myq.where(...); // add conditions
+     *   return myq.where(...); // add conditions
      * });
      */ Use special join conditions for multiple containments in the same method call
      * myquery.contain([
-     *    "Authors": [
-     *        "foreignKey": false.toJson,
-     *        "queryBuilder": auto (myq) {
-     *            return myq.where(...); // Add full filtering conditions
-     *        }
-     *    ],
-     *    "Tags": auto (myq) {
-     *        return myq.where(...); // add conditions
-     *    }
+     *   "Authors": [
+     *       "foreignKey": false.toJson,
+     *       "queryBuilder": auto (myq) {
+     *           return myq.where(...); // Add full filtering conditions
+     *       }
+     *   ],
+     *   "Tags": auto (myq) {
+     *       return myq.where(...); // add conditions
+     *   }
      * ]);
      * ```
      *
@@ -817,8 +817,8 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Params:
      * string[] myassociations List of table aliases to be queried.
      * @param \Closure|bool myoverride The query builder for the association, or
-     *  if associations is an array, a bool on whether to override previous list
-     *  with the one passed
+     * if associations is an array, a bool on whether to override previous list
+     * with the one passed
      * defaults to merging previous list with the new one.
      */
     auto contain(string[] myassociations, IClosure|bool myoverride = false) {
@@ -860,7 +860,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Params:
      * \ORM\Table mytable The table instance to pluck associations from.
      * @param \UIM\Database\TypeMap mytypeMap The typemap to check for columns in.
-     *  This typemap is indirectly mutated via {@link \ORM\Query\SelectQuery.addDefaultTypes()}
+     * This typemap is indirectly mutated via {@link \ORM\Query\SelectQuery.addDefaultTypes()}
      * @param array<string, array> myassociations The nested tree of associations to walk.
      */
     protected void _addAssociationsToTypeMap(Table mytable, TypeMap mytypeMap, Json[string] myassociations) {
@@ -891,7 +891,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ```
      */ Bring only articles that were tagged with "uim"
      * myquery.matching("Tags", auto (myq) {
-     *    return myq.where(["name": "uim"]);
+     *   return myq.where(["name": "uim"]);
      * });
      * ```
      *
@@ -902,7 +902,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ```
      */ Bring only articles that were commented by "markstory"
      * myquery.matching("Comments.Users", auto (myq) {
-     *    return myq.where(["username": "markstory"]);
+     *   return myq.where(["username": "markstory"]);
      * });
      * ```
      *
@@ -916,9 +916,9 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ```
      */ Bring unique articles that were commented by "markstory"
      * myquery.distinct(["Articles.id"])
-     *    .matching("Comments.Users", auto (myq) {
-     *        return myq.where(["username": "markstory"]);
-     *    });
+     *   .matching("Comments.Users", auto (myq) {
+     *       return myq.where(["username": "markstory"]);
+     *   });
      * ```
      *
      * Please note that the query passed to the closure will only accept calling
@@ -947,10 +947,10 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ```
      */ Get the count of articles per user
      * myusersQuery
-     *    .select(["total_articles": myquery.func().count("Articles.id")])
-     *    .leftJoinWith("Articles")
-     *    .groupBy(["Users.id"])
-     *    .enableAutoFields();
+     *   .select(["total_articles": myquery.func().count("Articles.id")])
+     *   .leftJoinWith("Articles")
+     *   .groupBy(["Users.id"])
+     *   .enableAutoFields();
      * ```
      *
      * You can also customize the conditions passed to the LEFT JOIN:
@@ -958,12 +958,12 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ```
      */ Get the count of articles per user with at least 5 votes
      * myusersQuery
-     *    .select(["total_articles": myquery.func().count("Articles.id")])
-     *    .leftJoinWith("Articles", auto (myq) {
-     *        return myq.where(["Articles.votes >=": 5]);
-     *    })
-     *    .groupBy(["Users.id"])
-     *    .enableAutoFields();
+     *   .select(["total_articles": myquery.func().count("Articles.id")])
+     *   .leftJoinWith("Articles", auto (myq) {
+     *       return myq.where(["Articles.votes >=": 5]);
+     *   })
+     *   .groupBy(["Users.id"])
+     *   .enableAutoFields();
      * ```
      *
      * This will create the following SQL:
@@ -982,11 +982,11 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ```
      */ Total comments in articles by "markstory"
      * myquery
-     *    .select(["total_comments": myquery.func().count("Comments.id")])
-     *    .leftJoinWith("Comments.Users", auto (myq) {
-     *        return myq.where(["username": "markstory"]);
-     *    })
-     *   .groupBy(["Users.id"]);
+     *   .select(["total_comments": myquery.func().count("Comments.id")])
+     *   .leftJoinWith("Comments.Users", auto (myq) {
+     *       return myq.where(["username": "markstory"]);
+     *   })
+     *  .groupBy(["Users.id"]);
      * ```
      *
      * Please note that the query passed to the closure will only accept calling
@@ -1020,7 +1020,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ```
      */ Bring only articles that were tagged with "uim"
      * myquery.innerJoinWith("Tags", auto (myq) {
-     *    return myq.where(["name": "uim"]);
+     *   return myq.where(["name": "uim"]);
      * });
      * ```
      *
@@ -1031,7 +1031,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * FROM articles Articles
      * INNER JOIN tags Tags ON Tags.name = "uim"
      * INNER JOIN articles_tags ArticlesTags ON ArticlesTags.tag_id = Tags.id
-     *  AND ArticlesTags.articles_id = Articles.id
+     * AND ArticlesTags.articles_id = Articles.id
      * ```
      *
      * This auto works the same as `matching()` with the difference that it
@@ -1063,7 +1063,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ```
      */ Bring only articles that were not tagged with "uim"
      * myquery.notMatching("Tags", auto (myq) {
-     *    return myq.where(["name": "uim"]);
+     *   return myq.where(["name": "uim"]);
      * });
      * ```
      *
@@ -1074,7 +1074,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ```
      */ Bring only articles that weren"t commented by "markstory"
      * myquery.notMatching("Comments.Users", auto (myq) {
-     *    return myq.where(["username": "markstory"]);
+     *   return myq.where(["username": "markstory"]);
      * });
      * ```
      *
@@ -1088,9 +1088,9 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ```
      */ Bring unique articles that were commented by "markstory"
      * myquery.distinct(["Articles.id"])
-     *    .notMatching("Comments.Users", auto (myq) {
-     *        return myq.where(["username": "markstory"]);
-     *    });
+     *   .notMatching("Comments.Users", auto (myq) {
+     *       return myq.where(["username": "markstory"]);
+     *   });
      * ```
      *
      * Please note that the query passed to the closure will only accept calling

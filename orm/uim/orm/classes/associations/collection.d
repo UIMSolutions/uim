@@ -103,7 +103,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * Get an array of associations matching a specific type.
      *
      * @param string[]|string class DThe type of associations you want.
-     *   For example "BelongsTo" or array like ["BelongsTo", "HasOne"]
+     *  For example "BelongsTo" or array like ["BelongsTo", "HasOne"]
      * returns an array of Association objects.
      */
     DORMAssociation[] getByType(string[] someClassNames...) {
@@ -147,7 +147,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * aTable - The table entity is for.
      * anEntity - The entity to save associated data for.
      * @param Json[string] associations The list of associations to save parents from.
-     *   associations not in this list will not be saved.
+     *  associations not in this list will not be saved.
      * @param Json[string] options The options for the save operation.
      */
     bool saveParents(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] optionData = null) {
@@ -164,7 +164,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param DORMDORMTable aTable The table entity is for.
      * @param DORMDatasource\IORMEntity anEntity The entity to save associated data for.
      * @param Json[string] associations The list of associations to save children from.
-     *   associations not in this list will not be saved.
+     *  associations not in this list will not be saved.
      * @param Json[string] options The options for the save operation.
      */
     bool saveChildren(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] optionData) {

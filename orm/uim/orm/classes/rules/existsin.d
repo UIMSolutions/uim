@@ -34,8 +34,8 @@ class DExistsIn {
      * @param \ORM\Table|\ORM\Association|string myrepository The repository where the
      * field will be looked for, or the association name for the repository.
      * @param Json[string] options The options that modify the rule"s behavior.
-     *    Options "allowNullableNulls" will make the rule pass if given foreign keys are set to `null`.
-     *    Notice: allowNullableNulls cannot pass by database columns set to `NOT NULL`.
+     *   Options "allowNullableNulls" will make the rule pass if given foreign keys are set to `null`.
+     *   Notice: allowNullableNulls cannot pass by database columns set to `NOT NULL`.
       */
     this(string[] fieldNames, Table|Association|string myrepository, Json[string] optionData = null) {
         auto updatedOptions = options.update["allowNullableNulls": false.toJson];

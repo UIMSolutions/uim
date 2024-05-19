@@ -25,7 +25,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * Params:
      * string[] fieldNames The list of fields to check for uniqueness.
      * @param Json[string]|string mymessage The error message to show in case the rule does not pass. Can
-     *  also be an array of options. When an array, the "message" key can be used to provide a message.
+     * also be an array of options. When an array, the "message" key can be used to provide a message.
      */
     RuleInvoker isUnique(Json[string] fieldNames, string[] mymessage = null) {
         options = isArray(mymessage) ? mymessage : ["message": mymessage];
@@ -66,7 +66,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * primary key lookup in the other table.
      * @param \ORM\Table|\ORM\Association|string mytable The table name where the fields existence will be checked.
      * @param Json[string]|string mymessage The error message to show in case the rule does not pass. Can
-     *  also be an array of options. When an array, the "message" key can be used to provide a message.
+     * also be an array of options. When an array, the "message" key can be used to provide a message.
      */
     DRuleInvoker existsIn(
         string[] fieldName,
@@ -158,7 +158,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * Params:
      * \ORM\Association|string myassociation The association to check for links.
      * @param string myerrorField The name of the property to use for setting possible errors. When absent,
-     *  the name is inferred from `myassociation`.
+     * the name is inferred from `myassociation`.
      * @param string mymessage The error message to show in case the rule does not pass.
      * @param string mylinkStatus The ink status required for the check to pass.
      * @param string myruleName The alias/name of the rule.

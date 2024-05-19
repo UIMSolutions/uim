@@ -75,7 +75,7 @@ class DEagerLoader {
      * Accepted options per passed association:
      *
      * - `foreignKey`: Used to set a different field to match both tables, if set to false
-     *  no join conditions will be generated automatically
+     * no join conditions will be generated automatically
      * - `fields`: An array with the fields that should be fetched from the association
      * - `queryBuilder`: Equivalent to passing a callback instead of an options array
      * - `matching`: Whether to inform the association class that it should filter the

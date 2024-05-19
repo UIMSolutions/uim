@@ -112,11 +112,11 @@ class DEagerLoader {
      * Accepted options per passed association:
      *
      * - foreignKey: Used to set a different field to match both tables, if set to false
-     *   no join conditions will be generated automatically
+     *  no join conditions will be generated automatically
      * - fields: An array with the fields that should be fetched from the association
      * - queryBuilder: Equivalent to passing a callable instead of an options array
      * - matching: Whether to inform the association class that it should filter the
-     *  main query by the results fetched by that class.
+     * main query by the results fetched by that class.
      * - joinType: For joinable associations, the SQL join type to use.
      * - strategy: The loading strategy to use (join, select, subquery)
      *
@@ -181,11 +181,11 @@ class DEagerLoader {
      * parameter, this will translate in setting all those associations with the
      * `matching` option.
      *
-     *  ### Options
+     * ### Options
      *
-     *  - `joinType`: INNER, OUTER, ...
-     *  - `fields`: Fields to contain
-     *  - `negateMatch`: Whether to add conditions negate match on target association
+     * - `joinType`: INNER, OUTER, ...
+     * - `fields`: Fields to contain
+     * - `negateMatch`: Whether to add conditions negate match on target association
      *
      * @param string associationPath Dot separated association path, "Name1.Name2.Name3"
      * @param callable|null builder the callback function to be used for setting extra

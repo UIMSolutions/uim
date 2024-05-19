@@ -383,7 +383,7 @@ class DTreeBehavior : DBehavior {
      *
      * - for: The id of the record to read.
      * - direct: Boolean, whether to return only the direct (true), or all (false) children,
-     *   defaults to false (all children).
+     *  defaults to false (all children).
      *
      * If the direct option is set to true, only the direct children are returned (based upon the parent_id field)
      *
@@ -431,9 +431,9 @@ class DTreeBehavior : DBehavior {
      * ### Options
      *
      * - keyPath: A dot separated path to fetch the field to use for the array key, or a closure to
-     *   return the key out of the provided row.
+     *  return the key out of the provided row.
      * - valuePath: A dot separated path to fetch the field to use for the array value, or a closure to
-     *   return the value out of the provided row.
+     *  return the value out of the provided row.
      * - spacer: A string to be used as prefix for denoting the depth in the tree for each item
      *
      * @param DORMQuery query Query.
@@ -459,9 +459,9 @@ class DTreeBehavior : DBehavior {
      * ### Options
      *
      * - keyPath: A dot separated path to the field that will be the result array key, or a closure to
-     *   return the key from the provided row.
+     *  return the key from the provided row.
      * - valuePath: A dot separated path to the field that is the array"s value, or a closure to
-     *   return the value from the provided row.
+     *  return the value from the provided row.
      * - spacer: A string to be used as prefix for denoting the depth in the tree for each item.
      *
      * @param DORMQuery query The query object to format.

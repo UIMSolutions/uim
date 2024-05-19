@@ -41,7 +41,7 @@ mixin template TLocatorAware() {
      * string aliasName The alias name you want to get. Should be in CamelCase format.
      * If `null` then the value of mydefaultTable property is used.
      * @param Json[string] options The options you want to build the table with.
-     *  If a table has already been loaded the registry options will be ignored.
+     * If a table has already been loaded the registry options will be ignored.
      */
     Table fetchTable(string aliasName = null, Json[string] optionData = null) {
         aliasName ??= this.defaultTable;

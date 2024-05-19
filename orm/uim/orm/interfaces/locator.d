@@ -19,7 +19,7 @@ interface ILocator { // }: BaseILocator {
      * with a matching alias.
      * Params:
      * Json[string]|string aliasName Name of the alias or array to completely
-     *  overwrite current config.
+     * overwrite current config.
      * @param Json[string]|null options list of options for the alias
      */
     ILocator configuration.update(string[] aliasNames...);

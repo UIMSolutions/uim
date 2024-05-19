@@ -690,5 +690,5 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
                                                                             
 
-                                                                            *  /
+                                                                            * /
                                                                         }

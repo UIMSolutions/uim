@@ -157,5 +157,5 @@ class DFileLog { // TODO /*}: BaseLog {
             }
         }
         return result;
-    } */
+    }
 }

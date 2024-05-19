@@ -110,5 +110,5 @@ class DSysLogger : DLogger {
     // Closes the logger connection
     auto __destruct() {
         closelog();
-    } */
+    }
 }

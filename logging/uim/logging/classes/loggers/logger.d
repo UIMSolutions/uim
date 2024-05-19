@@ -144,5 +144,5 @@ class DLogger : ILogger {
         }
         /** @psalm-suppress InvalidArgument */
         return formattedMessage.replace(replacements.keys, replacements);
-    } */
+    }
 }

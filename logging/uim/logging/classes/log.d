@@ -446,5 +446,5 @@ class DLog {
      */
     static bool info(string amessage, string[] acontext = []) {
         return write(__FUNCTION__, message, context);
-    } */
+    }
 }

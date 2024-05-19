@@ -38,5 +38,5 @@ class DArrayLog { /* }: BaseLog {
     // Reset internal storage.
     void clear() {
         this.content = null;
-    } */
+    }
 }

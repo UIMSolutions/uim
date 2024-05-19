@@ -62,5 +62,5 @@ class DConsoleLog { /* }: BaseLog {
     void log(logLevel, string messageToLog, Json context = null) {
         string resultMessage = this.interpolate(messageToLog, context);
        _output.write(this.formatter.format(logLevel, resultMessage, context));
-    } */
+    }
 }

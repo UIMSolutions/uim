@@ -14,5 +14,5 @@ mixin template TLog() {
         Json[string] logData = null
     ) {
         return Log.write(errorLevel, logMessage, logData);
-    } */
+    }
 }

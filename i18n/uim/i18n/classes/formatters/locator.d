@@ -48,5 +48,5 @@ class DFormatterLocator {
         }
 
         return _registry[formatterName];
-    } */
+    }
 }

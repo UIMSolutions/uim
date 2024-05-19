@@ -15,9 +15,12 @@ public {
 
 // Packages
 public { 
-	// TODO import uim.models.classes.data.datetimes;
+	import uim.models.classes.data.arrays;
+	import uim.models.classes.data.datetimes;
 	import uim.models.classes.data.elements;
 	import uim.models.classes.data.lookups;
+	import uim.models.classes.data.maps;
+	import uim.models.classes.data.scalars;
 	import uim.models.classes.data.uuids;
 }
 
@@ -25,12 +28,6 @@ public {
 public { 
 	import uim.models.classes.data.entity;
 	import uim.models.classes.data.json; 
-}
-public { // packages
-    import uim.models.datatypes.arrays;
-    import uim.models.datatypes.datetimes;
-    import uim.models.datatypes.maps;
-    import uim.models.datatypes.scalars;
 }
 
 public { // Modules

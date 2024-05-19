@@ -24,7 +24,7 @@ class OpenSsl {
      * string myplain The value to encrypt.
      * @param string aKey The 256 bit/32 byte key to use as a cipherKey.
      * @throws \InvalidArgumentException On invalid data or key.
-     * /
+     */
     static string encrypt(string myplain, string cipherKey) {
         auto decryptMethod = METHOD_AES_256_CBC;
         auto ivLength = openssl_cipher_iv_length(decryptMethod);

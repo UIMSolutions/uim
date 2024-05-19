@@ -77,7 +77,7 @@ class Xml {
      * Params:
      * object|string[] myinput XML string, a path to a file, a URL or an array
      * @param Json[string] options The options to use
-     * /
+     */
     static SimpleXMLElement | DOMDocument build(object | string[] myinput, Json[string] optionData = null) {
         Json[string] defaultOptions = [
             "return": Json("simplexml"),
@@ -110,7 +110,7 @@ class Xml {
      * Params:
      * string myinput The input to load.
      * @param Json[string] options The options to use. See Xml.build()
-     * /
+     */
     protected static SimpleXMLElement | DOMDocument _loadXml(string myinput, Json[string] options) {
         return load(
             myinput,
@@ -129,7 +129,7 @@ class Xml {
      * Params:
      * string myinput The input html string to load.
      * @param Json[string] options The options to use. See Xml.build()
-     * /
+     */
             static SimpleXMLElement | DOMDocument loadHtml(string myinput, Json[string] optionData = null) {
                 Json[string] defaultData = [
                     "return": "simplexml",
@@ -154,7 +154,7 @@ class Xml {
      * string myinput The input to load.
      * @param Json[string] options The options to use. See Xml.build()
      * @param \Closure mycallable Closure that should return SimpleXMLElement or DOMDocument instance.
-     * /
+     */
                     protected static SimpleXMLElement | DOMDocument load(string myinput, Json[string] options, Closure mycallable) {
                         myflags = 0;
                         if (!options.isEmpty("parseHuge"])) {
@@ -210,7 +210,7 @@ class Xml {
      * Params:
      * object|array myinput Array with data or a collection instance.
      * @param Json[string] options The options to use.
-     * /
+     */
                     static SimpleXMLElement | DOMDocument fromArray(object | array myinput, Json[string] optionData = null) {
                         if (isObject(myinput) && method_exists(myinput, "toArray") && isCallable([myinput, "toArray"])) {
                             myinput = myinput.toArray();
@@ -251,7 +251,7 @@ class Xml {
      * @param \DOMDocument|\DOMElement mynode Handler to DOMElement (child)
      * @param Json mydata Array of data to append to the mynode.
      * @param string myformat Either "attributes" or "tags". This determines where nested keys go.
-     * /
+     */
                     protected static void _fromArray(
                     DOMDocument domDocument,
                     DOMDocument | DOMElement mynode,
@@ -326,7 +326,7 @@ class Xml {
      * Params:
      * Json[string] mydata Array with information to create children
      * @psalm-param {dom: \DOMDocument, node: \DOMDocument|\DOMElement, key: string, format: string, value: Json } mydata
-     * /
+     */
                     protected static void _createChild(Json[string] data) {
                         mydata += [
                             "value": Json(null),
@@ -378,7 +378,7 @@ class Xml {
      * Returns this XML structure as an array.
      * Params:
      * \SimpleXMLElement|\DOMNode myobj SimpleXMLElement, DOMNode instance
-     * /
+     */
                     static Json[string] toArray(SimpleXMLElement | DOMNode myobj) {
                         if (cast(DOMNode) myobj) {
                             myobj = simplexml_import_dom(myobj);
@@ -399,7 +399,7 @@ class Xml {
      * \SimpleXMLElement myxml SimpleXMLElement object
      * @param Json[string] myparentData Parent array with data
      * @param string myns Namespace of current child
-     * /
+     */
                     protected static void _toArray(SimpleXMLElement myxml, Json[string] & myparentData, string myns, string[] namespacesInXML) {
                         auto mydata = null;
 

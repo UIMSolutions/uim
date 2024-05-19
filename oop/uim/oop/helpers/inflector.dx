@@ -156,7 +156,7 @@ class DInflector {
   /**
      * Clears Inflectors inflected value caches. And resets the inflection
      * rules to the initial values.
-     * /
+     */
   static void reset() {
     if (_initialState.isEmpty) {
       static._initialState = get_class_vars(self.class);
@@ -186,7 +186,7 @@ class DInflector {
      * @param Json[string] myrules Array of rules to be added.
      * @param bool myreset If true, will unset default inflections for all
      *       new rules that are being defined in myrules.
-     * /
+     */
   static void rules(string mytype, Json[string] myrules, bool myreset = false) {
     auto myvar = "_" ~ mytype;
 
@@ -254,7 +254,7 @@ class DInflector {
      * Return myword in singular form.
      * Params:
      * string myword Word in plural
-     * /
+     */
   static string singularize(string pluralWord) {
     if (isSet(_cache["singularize"][pluralWord])) {
       return _cache["singularize"][pluralWord];
@@ -305,7 +305,7 @@ class DInflector {
      * Params:
      * string mystring String to camelize
      * @param string mydelimiter the delimiter in the input string
-     * /
+     */
   static string camelize(string mystring, string mydelimiter = "_") :  {
     string mycacheKey = __FUNCTION__ ~ mydelimiter;
 
@@ -324,7 +324,7 @@ class DInflector {
      * Also replaces dashes with underscores
      * Params:
      * string mystring CamelCasedString to be "underscorized"
-     * /
+     */
   static string underscore(string inputString) :  {
     return delimit(inputString.replace("-", "_"), "_");
   }
@@ -335,7 +335,7 @@ class DInflector {
      * Also replaces underscores with dashes
      * Params:
      * string mystring The string to dasherize.
-     * /
+     */
   static string dasherize(string stringToDasherize) {
     return delimit(stringToDasherize.replace("_", "-"), "-");
   }
@@ -346,7 +346,7 @@ class DInflector {
      * Params:
      * string mystring String to be humanized
      * @param string mydelimiter the character to replace with a space
-     * /
+     */
   static string humanize(string mystring, string mydelimiter = "_") {
     mycacheKey = __FUNCTION__ ~ mydelimiter;
 
@@ -366,7 +366,7 @@ class DInflector {
      * Params:
      * string mystring String to delimit
      * @param string mydelimiter the character to use as a delimiter
-     * /
+     */
   static string delimit(string mystring, string mydelimiter = "_") :  {
     mycacheKey = __FUNCTION__ ~ mydelimiter;
 
@@ -383,7 +383,7 @@ class DInflector {
      * Returns corresponding table name for given model myclassName. ("people" for the model class "Person").
      * Params:
      * string myclassName Name of class to get database table name for
-     * /
+     */
   static string tableize(string myclassName) :  {
     result = _cache(__FUNCTION__, myclassName);
 
@@ -398,7 +398,7 @@ class DInflector {
      * Returns uim model class name ("Person" for the database table "people".) for given database table.
      * Params:
      * string mytableName Name of database table to get class name for
-     * /
+     */
   static string classify(string mytableName) :  {
     result = _cache(__FUNCTION__, mytableName);
 
@@ -412,7 +412,7 @@ class DInflector {
   /**
      * Returns camelBacked version of an underscored string.
      * returns string in variable form
-     * /
+     */
   static string variable(string stringToConvert) {
     string result = _cache(__FUNCTION__, stringToConvert);
 

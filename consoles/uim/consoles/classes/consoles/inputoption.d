@@ -69,21 +69,13 @@ class DConsoleInputOption {
         return _acceptsMultiple;
     }
 
-    /**
-     * Make a new DInput Option
-     * Params:
-     * string aName The long name of the option, or an array with all the properties.
-     * @param string helpText The help text for this option
-     * @param string default The default value for this option.
-     * @param string prompt The prompt string.
-     * @throws \UIM\Console\Exception\ConsoleException
-     */
+    // Make a new DInput Option
     this(
-        string aName,
+        string optionName,
         string newShortAlias = "",
         string helpText = "",
         bool isBooleanOption = false,
-        string default = null,
+        string defaultValue = null,
         string[] validChoices = null,
         bool acceptsMultiple = false,
         bool isRequiredOption = false,
@@ -94,7 +86,7 @@ class DConsoleInputOption {
        _help = helpText;
        _isBooleanOption = isBooleanOption;
        _choices = validChoices;
-       this.acceptsMultiple(acceptsMultiple);
+       acceptsMultiple(acceptsMultiple);
         _isRequired = isRequiredOption;
         _prompt = promptText;
 

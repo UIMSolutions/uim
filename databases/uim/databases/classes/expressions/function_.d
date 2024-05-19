@@ -32,10 +32,6 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      * `f = new DFunctionExpression("CONCAT", ["name": 'literal", " rules"]);`
      *
      * Will produce `CONCAT(name, " rules")`
-     * Params:
-     * @param STRINGAA|array<string> types Associative array of types to be associated with the
-     * passed arguments
-     * @param string resultType The return type of this expression
      */
     this(string newName, Json[string] functionArguments = null, Json[string] associatedTypes = null, string resultType = "string") {
        this.name(newName);
@@ -43,41 +39,34 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
         super(functionArguments, associatedTypes, ",");
     }
 
-    /**
-     * Adds one or more arguments for the auto call.
-     * Params:
-     * \UIM\Database\IExpression|string[] aconditions list of arguments to be passed to the function
-     * If associative the key would be used as argument when value is 'literal'
-     * @param STRINGAA associatedTypes Associative array of associatedTypes to be associated with the
-     * passed arguments
-     */
-    void add(IExpression|string[] aconditions, Json[string] associatedTypes = null, bool prependOrAppend = false) {
+    // Adds one or more arguments for the auto call.
+    void add(IExpression|string[] conditionArguments, Json[string] associatedTypes = null, bool prependOrAppend = false) {
         string put = prependOrAppend ? "array_unshift" : "array_push";
         typeMap = getTypeMap().setTypes(associatedTypes);
 
         conditions.byKeyValue
-            .each!(kv => addCondtion(conditions, kv.key, kv.value));
+            .each!(kv => addCondition(conditionArguments, kv.key, kv.value));
     }
 
     protected addCondition(string key, string condition) {
-            if (condition == "literal") {
-                put(_conditions, key);
-                return;
-            }
-            if (condition == "identifier") {
-                put(_conditions, new DIdentifierExpression(key));
-                return;
-            }
-            
-            quto type = typeMap.type(myKey);
-            if (!type.isNull && !cast(IExpression)p ) {
-                condition = _castToExpression(p, type);
-            }
-            if (cast(IExpression)condition) {
-                put(_conditions, condition);
-                return;
-            }
-            put(_conditions, ["value": condition, "type": type]);
+        if (condition == "literal") {
+            put(_conditions, key);
+            return;
+        }
+        if (condition == "identifier") {
+            put(_conditions, new DIdentifierExpression(key));
+            return;
+        }
+        
+        quto type = typeMap.type(myKey);
+        if (!type.isNull && !cast(IExpression)p ) {
+            condition = _castToExpression(p, type);
+        }
+        if (cast(IExpression)condition) {
+            put(_conditions, condition);
+            return;
+        }
+        put(_conditions, ["value": condition, "type": type]);
     }
  
     string sql(DValueBinder aBinder) {

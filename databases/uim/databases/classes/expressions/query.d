@@ -32,13 +32,6 @@ class DQueryExpression : DExpression { // }, Countable {
      * containing either a tree-like array structure to be parsed and/or other
      * expression objects. Optionally, you can set the conjunction keyword to be used
      * for joining each part of this level of the expression tree.
-     * Params:
-     * \UIM\Database\IExpression|string[] aconditions Tree like array structure
-     * containing all the conditions to be added or nested inside this expression object.
-     * @param \UIM\Database\TypeMap|array types Associative array of types to be associated with the values
-     * passed in conditions.
-     * @param string aconjunction the glue that will join all the string conditions at this
-     * level of the expression tree. For example "AND", "OR", "XOR"...
      */
     this(
         IExpression|string[] aconditions = null,

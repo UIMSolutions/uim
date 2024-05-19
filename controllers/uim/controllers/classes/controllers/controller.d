@@ -548,7 +548,6 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Returns the referring URL for this request.
      * Params:
      * string[] default Default URL to use if HTTP_REFERER cannot be read from headers
-     * @param bool isLocal If false, do not restrict referring URLs to local server.
      * Careful with trusting external sources.
      * returns Referring URL
      */

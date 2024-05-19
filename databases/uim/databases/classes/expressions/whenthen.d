@@ -123,29 +123,22 @@ class DWhenThenExpression : DExpression {
         this.whenType = type;
     }
     
-    /**
-     * Sets the `THEN` result value.
-     * Params:
-     * \UIM\Database\IExpression|object|scalar|null result The result value.
-     * @param string type The result type. If no type is provided, the type will be inferred from the given
-     * result value.
-     */
-    void then(Json result, string atype = null) {
+    // Sets the `THEN` result value.
+    void then(Json resultValue, string resultValue = null) {
         if (
-            result !isNull &&
-            !isScalar(result) &&
-            !(isObject(result) && !(cast(DClosure)result))
+            resultValue !isNull &&
+            !isScalar(resultValue) &&
+            !(isObject(resultValue) && !(cast(DClosure)resultValue))
         ) {
             throw new DInvalidArgumentException(
                 "The `result` argument must be either `null`, a scalar value, an object, " ~
                 "or an instance of `\%s`, `%s` given."
-                .format(IExpression.classname,
-                get_debug_type(result)
+                .format(IExpression.classname, get_debug_type(resultValue)
             ));
         }
         this.then = result;
 
-        this.thenType = type ?? this.inferType(result);
+        this.thenType = resultValue ? resultValue : this.inferType(resultValue);
 
         this.hasThenBeenDefined = true;
     }

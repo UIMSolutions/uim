@@ -604,12 +604,7 @@ class DI18nExtractCommand : DCommand {
         return addcslashes(string, "\0..\37\\\"");
     }
     
-    /**
-     * Indicate an invalid marker on a processed file
-     * Params:
-     * \UIM\Console\IConsoleIo aConsoleIo The io instance.
-     * @param string afile File where invalid marker resides
-     */
+    // Indicate an invalid marker on a processed file
     protected void _markerError(IConsoleIo aConsoleIo, string nameOfFile, int lineNumber, string foundMarker, size_t count) {
         if (!_fileName.has(uim_CORE_INCLUDE_PATH)) {
            _countMarkerError++;

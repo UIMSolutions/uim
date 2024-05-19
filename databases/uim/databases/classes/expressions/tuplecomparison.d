@@ -21,17 +21,16 @@ class DTupleComparisonExpression : DComparisonExpression {
      * @param \UIM\Database\IExpression|array  someValues the values to use to form a tuple
      * @param array<string> types the types names to use for casting each of the values, only
      * one type per position in the value array in needed
-     * @param string aconjunction the operator used for comparing field and value
      */
     this(
         IExpression | string[] fieldNames,
         IExpression | Json[string] someValues,
         Json[string] types = null,
-        string aconjunction = "="
+        string compareOperator = "="
     ) {
         this.types = types;
         setFieldNames(fields);
-        _operator = conjunction;
+        _operator = compareOperator;
         setValue(someValues);
     }
 

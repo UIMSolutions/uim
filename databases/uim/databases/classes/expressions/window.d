@@ -32,192 +32,188 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
     bool isNamedOnly() {
         return _name.getIdentifier() && (!this.partitions && !this.frame && !_order);
     }
-    
+
     // Sets the window name.
     void name(string windowName) {
         this.name = new DIdentifierExpression(windowName);
     }
- 
-    void partition(IExpression|Closure|string[] mypartitions) {
+
+    void partition(IExpression | Closure | string[] mypartitions) {
         if (!mypartitions) {
             return;
         }
-        if (cast(DClosure)mypartitions) {
-             mypartitions = mypartitions(new QueryExpression([], [], ""));
+
+        if (cast(DClosure) mypartitions) {
+            mypartitions = mypartitions(new QueryExpression([], [], ""));
         }
         if (!isArray(mypartitions)) {
-             mypartitions = [mypartitions];
+            mypartitions = [mypartitions];
         }
         foreach (mypartitions as & mypartition) {
             if (isString(mypartition)) {
-                 mypartition = new DIdentifierExpression(mypartition);
+                mypartition = new DIdentifierExpression(mypartition);
             }
         }
-        this.partitions = array_merge(this.partitions,  mypartitions);
+        this.partitions = array_merge(this.partitions, mypartitions);
     }
- 
-    auto order(IExpression|Closure|string[] fieldNames) {
+
+    auto order(IExpression | Closure | string[] fieldNames) {
         return _orderBy(fieldNames);
     }
- 
-    void orderBy(IExpression|Closure|string[] fieldNames) {
+
+    void orderBy(IExpression | Closure | string[] fieldNames) {
         if (!fieldNames) {
             return;
         }
-        _order ??= new DOrderByExpression();
+        _order ?  ?  = new DOrderByExpression();
 
-        if (cast(DClosure)fieldNames) {
-             fieldNames = fieldNames(new QueryExpression([], [], ""));
+        if (cast(DClosure) fieldNames) {
+            fieldNames = fieldNames(new QueryExpression([], [], ""));
         }
         _order.add(fieldNames);
     }
- 
-    auto range(IExpression|string|int  mystart, IExpression|string|int  myend = 0) {
-        return _frame(self.RANGE,  mystart, self.PRECEDING,  myend, self.FOLLOWING);
+
+    auto range(IExpression | string | int mystart, IExpression | string | int myend = 0) {
+        return _frame(self.RANGE, mystart, self.PRECEDING, myend, self.FOLLOWING);
     }
- 
+
     auto rows(int mystart, int myend = 0) {
-        return _frame(self.ROWS,  mystart, self.PRECEDING,  myend, self.FOLLOWING);
+        return _frame(self.ROWS, mystart, self.PRECEDING, myend, self.FOLLOWING);
     }
- 
+
     auto groups(int mystart, int myend = 0) {
-        return _frame(self.GROUPS,  mystart, self.PRECEDING,  myend, self.FOLLOWING);
+        return _frame(self.GROUPS, mystart, self.PRECEDING, myend, self.FOLLOWING);
     }
- 
+
     auto frame(
         string mytype,
-        IExpression|string|int  mystartOffset,
+        IExpression | string | int mystartOffset,
         string mystartDirection,
-        IExpression|string|int  myendOffset,
+        IExpression | string | int myendOffset,
         string myendDirection
     ) {
         this.frame = [
-            "type":  mytype,
+            "type": mytype,
             "start": [
-                "offset":  mystartOffset,
-                "direction":  mystartDirection,
+                "offset": mystartOffset,
+                "direction": mystartDirection,
             ],
             "end": [
-                "offset":  myendOffset,
-                "direction":  myendDirection,
+                "offset": myendOffset,
+                "direction": myendDirection,
             ],
         ];
 
         return this;
     }
- 
+
     void excludeCurrent() {
         this.exclusion = "CURRENT ROW";
     }
- 
+
     auto excludeGroup() {
         this.exclusion = "GROUP";
 
         return this;
     }
- 
+
     auto excludeTies() {
         this.exclusion = "TIES";
 
         return this;
     }
- 
-    string sql(DValueBinder  mybinder) {
+
+    string sql(DValueBinder mybinder) {
         auto myclauses = null;
         if (this.name.getIdentifier()) {
-             myclauses ~= this.name.sql(mybinder);
+            myclauses ~= this.name.sql(mybinder);
         }
         if (this.partitions) {
             auto myexpressions = null;
             this.partitions.each!(partition => myexpressions ~= partition.sql(mybinder));
-             myclauses ~= "PARTITION BY " ~ join(", ",  myexpressions);
+            myclauses ~= "PARTITION BY " ~ join(", ", myexpressions);
         }
         if (_order) {
-             myclauses ~= _order.sql(mybinder);
+            myclauses ~= _order.sql(mybinder);
         }
         if (this.frame) {
-             mystart = this.buildOffsetSql(
-                 mybinder,
+            mystart = this.buildOffsetSql(
+                mybinder,
                 this.frame["start"]["offset"],
                 this.frame["start"]["direction"]
             );
-             myend = this.buildOffsetSql(
-                 mybinder,
+            myend = this.buildOffsetSql(
+                mybinder,
                 this.frame["end"]["offset"],
                 this.frame["end"]["direction"]
             );
 
-             myframeSql = "%s BETWEEN %s AND %s".format(this.frame["type"],  mystart,  myend);
+            myframeSql = "%s BETWEEN %s AND %s".format(this.frame["type"], mystart, myend);
 
-            if (this.exclusion !isNull) {
-                 myframeSql ~= " EXCLUDE " ~ _exclusion;
+            if (this.exclusion!isNull) {
+                myframeSql ~= " EXCLUDE " ~ _exclusion;
             }
-             myclauses ~= myframeSql;
+            myclauses ~= myframeSql;
         }
-        return join(" ",  myclauses);
+        return join(" ", myclauses);
     }
- 
-    auto traverse(Closure  mycallback) {
-         mycallback(this.name);
-        foreach (this.partitions as  mypartition) {
-             mycallback(mypartition);
-             mypartition.traverse(mycallback);
+
+    auto traverse(Closure mycallback) {
+        mycallback(this.name);
+        foreach (this.partitions as mypartition) {
+            mycallback(mypartition);
+            mypartition.traverse(mycallback);
         }
         if (_order) {
-             mycallback(_order);
+            mycallback(_order);
             _order.traverse(mycallback);
         }
-        if (this.frame !isNull) {
-             myoffset = this.frame["start"]["offset"];
-            if (cast(IExpression)myoffset ) {
-                 mycallback(myoffset);
-                 myoffset.traverse(mycallback);
+        if (this.frame!isNull) {
+            myoffset = this.frame["start"]["offset"];
+            if (cast(IExpression) myoffset) {
+                mycallback(myoffset);
+                myoffset.traverse(mycallback);
             }
-             myoffset = this.frame["end"].get("offset", null);
-            if (cast(IExpression)myoffset ) {
-                 mycallback(myoffset);
-                 myoffset.traverse(mycallback);
+            myoffset = this.frame["end"].get("offset", null);
+            if (cast(IExpression) myoffset) {
+                mycallback(myoffset);
+                myoffset.traverse(mycallback);
             }
         }
         return this;
     }
-    
-    /**
-     * Builds frame offset sql.
-     * Params:
-     * \UIM\Database\DValueBinder  mybinder Value binder
-     * @param \UIM\Database\IExpression|string|int  myoffset Frame offset
-     * @param string mydirection Frame offset direction
-     */
+
+    // Builds frame offset sql.
     protected string buildOffsetSql(
-        DValueBinder  mybinder,
-        IExpression|string|int  myoffset,
-        string mydirection
+        DValueBinder valueBinder,
+        IExpression | string | int frameOffset,
+        string frameOffsetDirection
     ) {
         if (myoffset == 0) {
             return "CURRENT ROW";
         }
-        if (cast(IExpression)myoffset ) {
-             myoffset = myoffset.sql(mybinder);
+        if (cast(IExpression) frameOffset) {
+            frameOffset = myoffset.sql(mybinder);
         }
-        return 
-            "%s %s".format(
-             myoffset ?? "UNBOUNDED",
-             mydirection
+        return "%s %s".format(
+            frameOffset ?  frameOffset : "UNBOUNDED",
+            frameOffsetDirection
         );
     }
-    
+
     /**
      * Clone this object and its subtree of expressions.
      */
     void clone() {
         this.name = clone this.name;
-        foreach (this.partitions as  myi:  mypartition) {
-            this.partitions[myi] = clone  mypartition;
+        foreach (this.partitions as myi : mypartition) {
+            this.partitions[myi] = clone mypartition;
         }
-        if (_order !isNull) {
+        if (_order!isNull) {
             _order = clone _order;
         }
-    } */
+    }
+
+     *  /
 }
 mixin(ExpressionCalls!("Window"));

@@ -114,12 +114,11 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
          aConsoleIo.out("");
     }
     
-    // @param string[] names Names
     protected string getShortestName(string[] names) {
         if (names.isEmpty) { return null; }
         if (names.length == 1) { return names[0]; }
 
-        names = names.sort("a.length < b.length");
+        auto names = names.sort("a.length < b.length");
         return names[0];
     }
     

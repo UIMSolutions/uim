@@ -111,5 +111,5 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
             getEventManager().on(myinstance);
         }
         return myinstance;
-    } */
+    }
 }

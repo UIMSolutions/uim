@@ -359,11 +359,8 @@ interface ICollection {
      *  ]
      * ];
      * ```
-     *
-     * @param callable|string path The column name to use for grouping or callback that returns the value.
-     * or a // function returning the grouping key out of the provided element
       */
-    ICollection groupBy(string path);
+    ICollection groupBy(string columnName);
 
     /**
      * Given a list and a callback // function that returns a key for each element

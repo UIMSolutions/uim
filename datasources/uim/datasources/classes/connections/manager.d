@@ -131,12 +131,9 @@ class DConnectionManager {
      * Make "things" resolve to "test_things" connection
      * ConnectionManager.alias("test_things", "things");
      * ```
-     *
-     * @param string source The existing connection to alias.
-     * @param string aliasName The alias name that resolves to `source`.
      */
-    static void alias(stringsource, stringalias) {
-        _aliasMap[alias] = source;
+    static void alias(string sourceConnection, string aliasName) {
+        _aliasMap[aliasName] = sourceConnection;
     }
 
     /**

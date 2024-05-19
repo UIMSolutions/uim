@@ -49,7 +49,6 @@ class DFlashComponent : DComponent {
      * \Throwable|string amessage Message to be flashed. If an instance
      *  of \Throwable the throwable message will be used and code will be set
      *  in params.
-     * @param Json[string] options An array of options
      */
     void set(Throwable | string amessage, Json[string] options = null) {
         if (cast(Throwable) aMessage) {

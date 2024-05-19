@@ -454,15 +454,15 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      * Params:
      * Json[string]|string atables list of tables to be joined in the query
-     * @param STRINGAA types Associative array of type names used to bind values to query
      * @param bool overwrite whether to reset joins with passed list or not
     */
-    auto join(string[] atables, Json[string] types = null, bool overwrite = false) {
+    auto join(string[] atables, Json[string] typeMap = null, bool overwrite = false) {
         if (isString(aTables) || isSet(aTables["table"])) {
             aTables = [aTables];
         }
-         joins = null;
-         anI = count(_parts["join"]);
+        
+        auto joins = null;
+        anto anI = count(_parts["join"]);
         foreach (alias, t; aTables) {
             if (!isArray(t)) {
                 t = ["table": t, "conditions": this.newExpr()];
@@ -471,13 +471,12 @@ abstract class DQuery : IQuery { // : IExpression {
                 t["conditions"] = t["conditions"](this.newExpr(), this);
             }
             if (!cast(IExpression)t["conditions"]) {
-                t["conditions"] = this.newExpr().add(t["conditions"], types);
+                t["conditions"] = this.newExpr().add(t["conditions"], typeMap);
             }
             alias = isString(alias) ? alias : null;
              joins[alias ?:  anI++] = t ~ ["type": JOIN_TYPE_INNER, "alias": alias];
         }
         _parts["join"] = overwrite ?  joins : array_merge(_parts["join"],  joins);
-
        _isDirty();
 
         return this;

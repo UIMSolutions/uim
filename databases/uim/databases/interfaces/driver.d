@@ -104,11 +104,8 @@ interface IDriver : INamed {
     /**
      * Transforms the passed query to this Driver"s dialect and returns an instance
      * of the transformed query and the full compiled SQL string.
-     *
-     * @param uim.databases\Query myQuery The query to compile.
-     * @param uim.databases\DValueBinder aValueBinder The value binder to use.
      */
-    Json[string] compileQuery(Query myQuery, DValueBinder aValueBinder);
+    Json[string] compileQuery(Query queryToCompile, DValueBinder valueBinderToUse);
 
     // Returns an instance of a QueryCompiler.
     QueryCompiler newCompiler();

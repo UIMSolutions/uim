@@ -53,5 +53,5 @@ mixin template TStringContents() {
             }
         }
         return _templater;
-    } */
+    }
 }

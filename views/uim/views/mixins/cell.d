@@ -90,5 +90,5 @@ mixin template TCell() {
             }
         }
         return myinstance;
-    } */
+    }
 } 

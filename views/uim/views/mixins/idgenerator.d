@@ -65,5 +65,5 @@ mixin template TIdGenerator() {
             mydomId = _idPrefix ~ "-" ~ mydomId;
         }
         return mydomId;
-    } */
+    }
 } 

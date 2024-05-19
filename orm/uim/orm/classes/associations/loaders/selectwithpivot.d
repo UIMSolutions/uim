@@ -28,7 +28,7 @@ class DSelectWithPivotLoader : DSelectLoader {
     /**
      * Custom conditions for the junction association
      *
-     * @var DDBIExpression|\Closure|array|string|null
+     * @var DDBIExpression|\Closure|array|string
      */
     protected junctionConditions;
 

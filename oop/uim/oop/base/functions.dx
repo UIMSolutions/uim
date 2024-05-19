@@ -128,7 +128,7 @@ string[] namespaceSplit(string className) {
      * environment information.
      * Params:
      * string variableName Environment variable name.
-     * @param string|null default Specify a default value in case the environment variable is not defined.
+     * @param string default Specify a default value in case the environment variable is not defined.
      * /
     Json enviroment(string variableName, Json defaultValue = Json(null)) {
         if (variableName == "HTTPS") {

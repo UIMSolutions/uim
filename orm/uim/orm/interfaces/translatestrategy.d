@@ -19,7 +19,7 @@ interface ITranslateStrategy : IPropertyMarshal {
      * will win over the locale set via this method (and over the globally
      * configured one for that matter)!
      *
-     * @param string|null locale The locale to use for fetching and saving
+     * @param string locale The locale to use for fetching and saving
      *   records. Pass `null` in order to unset the current locale, and to make
      *   the behavior fall back to using the globally configured locale.
      */

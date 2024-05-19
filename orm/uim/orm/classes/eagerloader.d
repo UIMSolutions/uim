@@ -680,7 +680,7 @@ class DEagerLoader {
      * will be normalized
      * @param bool asMatching Whether this join results should be treated as a
      * "matching" association.
-     * @param string|null targetProperty The property name where the results of the join should be nested at.
+     * @param string targetProperty The property name where the results of the join should be nested at.
      * If not passed, the default property for the association will be used.
      */
     void addToJoinsMap(

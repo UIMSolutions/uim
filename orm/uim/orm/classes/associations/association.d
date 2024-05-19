@@ -597,7 +597,7 @@ class DAssociation : IAssociation {
      *   should be found
      * @param bool joined Whether the row is a result of a direct join
      *   with this association
-     * @param string|null targetProperty The property name in the source results where the association
+     * @param string targetProperty The property name in the source results where the association
      * data shuld be nested in. Will use the default one if not provided.
      */
     array transformRow(Json[string] row, string nestKey, bool joined, string targetProperty = null) {
@@ -636,7 +636,7 @@ class DAssociation : IAssociation {
      * and modifies the query accordingly based of this association
      * configuration
      *
-     * @param Json[string]|string|null type the type of query to perform, if an array is passed,
+     * @param Json[string]|string type the type of query to perform, if an array is passed,
      *   it will be interpreted as the `options` parameter
      * @param Json[string] options The options to for the find
      */
@@ -653,7 +653,7 @@ class DAssociation : IAssociation {
      * Proxies the operation to the target table"s exists method after
      * appending the default conditions for this association
      *
-     * @param DORMdatabases.IExpression|\Closure|array|string|null conditions The conditions to use
+     * @param DORMdatabases.IExpression|\Closure|array|string conditions The conditions to use
      * for checking if any record matches.
      */
     bool exists(conditions) {
@@ -668,7 +668,7 @@ class DAssociation : IAssociation {
      * Proxies the update operation to the target table"s updateAll method
      *
      * @param Json[string] fields A hash of field: new value.
-     * @param DORMdatabases.IExpression|\Closure|array|string|null conditions Conditions to be used, accepts anything Query.where()
+     * @param DORMdatabases.IExpression|\Closure|array|string conditions Conditions to be used, accepts anything Query.where()
      * can take.
      * @return int Count Returns the affected rows.
      */
@@ -683,7 +683,7 @@ class DAssociation : IAssociation {
     /**
      * Proxies the delete operation to the target table"s deleteAll method
      *
-     * @param DORMdatabases.IExpression|\Closure|array|string|null conditions Conditions to be used, accepts anything Query.where()
+     * @param DORMdatabases.IExpression|\Closure|array|string conditions Conditions to be used, accepts anything Query.where()
      * can take.
      * @return int Returns the number of affected rows.
      */

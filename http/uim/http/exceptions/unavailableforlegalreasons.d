@@ -14,7 +14,7 @@ class UnavailableForLegalReasonsException : DHttpException {
     /**
      
      * Params:
-     * string|null aMessage If no message is given 'Unavailable For Legal Reasons' will be the message
+     * string aMessage If no message is given 'Unavailable For Legal Reasons' will be the message
      */
     this(string amessage = null, int statusCode = 451, Throwable previousException = null) {
         if (aMessage.isEmpty) {

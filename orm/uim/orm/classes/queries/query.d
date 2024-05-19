@@ -1143,7 +1143,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * This changes the query type to be "update".
      * Can be combined with set() and where() methods to create update queries.
      *
-     * @param DORMdatabases.IExpression|string|null table Unused parameter.
+     * @param DORMdatabases.IExpression|string table Unused parameter.
      * @return this
      */
     function update(table = null) {
@@ -1161,7 +1161,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * This changes the query type to be "delete".
      * Can be combined with the where() method to create delete queries.
      *
-     * @param string|null table Unused parameter.
+     * @param string table Unused parameter.
      * @return this
      */
     function remove(string table = null) {

@@ -135,7 +135,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Sets the table instance for the junction relation. If no arguments
      * are passed, the current configured table instance is returned
      *
-     * @param DORMTable|string|null table Name or instance for the join table
+     * @param DORMTable|string table Name or instance for the join table
      */
     DORMTable junction(DORMTable table = null) {
         if (table == null && _junctionTable != null) {
@@ -892,7 +892,7 @@ class DBelongsToManyAssociation : DAssociation {
      * If your association includes conditions or a finder, the junction table will be
      * included in the query"s contained associations.
      *
-     * @param Json[string]|string|null type the type of query to perform, if an array is passed,
+     * @param Json[string]|string type the type of query to perform, if an array is passed,
      *   it will be interpreted as the `options` parameter
      * @param Json[string] options The options to for the find
     Query find(type = null, Json[string] optionData = null) {
@@ -1265,7 +1265,7 @@ class DBelongsToManyAssociation : DAssociation {
      * If no arguments are passed the current configured name is returned. A default
      * name based of the associated tables will be generated if none found.
      *
-     * @param string|null name The name of the junction table.
+     * @param string name The name of the junction table.
      */
     protected string _junctionTableName(string tableName = null) {
         if (tableName.isNull) {

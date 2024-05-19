@@ -58,8 +58,8 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * Resolve a behavior classname.
      *
      * @param string aClassName  Partial classname to resolve.
-     * @return string|null Either the correct classname or null.
-     * @psalm-return class-string|null
+     * @return string Either the correct classname or null.
+     * @psalm-return class-string
      */
     static string className(string aClassName ) {
         return App.className(class, "Model/Behavior", "Behavior")
@@ -82,7 +82,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * and uim\Core\ObjectRegistry.remove()
      *
      * aClassName - The classname that is missing.
-     * @param string|null plugin The plugin the behavior is missing in.
+     * @param string plugin The plugin the behavior is missing in.
      * @throws DORMexceptions.MissingBehaviorException
      */
     protected void _throwMissingClassError(string aClassName , string plugin) {

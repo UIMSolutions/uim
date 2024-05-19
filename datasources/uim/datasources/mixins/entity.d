@@ -621,8 +621,6 @@ mixin template TEntity() {
   /**
      * Returns an array with the requested fields
      * stored in this entity, indexed by field name
-     * Params:
-     * @param bool onlyDirty Return the requested field only if it is dirty
     */
   Json[string] extract(string[] fieldNamesToReturn, bool returnOnlyDirty = false) {
     STRINGAA result;

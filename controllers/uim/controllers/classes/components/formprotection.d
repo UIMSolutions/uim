@@ -130,13 +130,8 @@ class DFormProtectionComponent : DComponent {
         throw myException;
     }
 
-    /**
-     * Execute callback.
-     * Params:
-     * \Closure aCallback Callback
-     * @param \UIM\Http\Exception\BadRequestException anException = Exception instance.
-     */
+    // Execute callback.
     protected DResponse executeCallback(Closure aCallback, BadRequestException anException) {
         return aCallback(exception);
-    } */
+    } 
 }

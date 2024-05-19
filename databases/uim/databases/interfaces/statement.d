@@ -32,12 +32,8 @@ interface IStatement {
      * statement.bindValue("active", true, "boolean");
      * statement.bindValue(5, new \DateTime(), "date");
      * ```
-     * Params:
-     * string|int column name or param position to be bound
-     * @param Json aValue The value to bind to variable in query
-     * @param string|int type name of configured Type class
      */
-    void bindValue(string|int column, Json aValue, string|int type = "string");
+    void bindValue(string|int column, Json valueToBind, string typeName = "string");
 
     /**
      * Closes the cursor, enabling the statement to be executed again.

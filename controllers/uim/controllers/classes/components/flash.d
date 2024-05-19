@@ -63,14 +63,8 @@ class DFlashComponent : DComponent {
         return _getController().getRequest().getFlash();
     }
 
-    /**
-     * Proxy method to FlashMessage instance.
-     * Params:
-     * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
-
-     * @throws \UIM\Core\Exception\UimException When trying to set a key that is invalid.
-     */
-    void setConfig(string[] keys, Json valueToSet = null, bool merge = true) {
+    // Proxy method to FlashMessage instance.
+    void setConfig(string[] keys, Json valueToSet = null, bool mergeExisting = true) {
     }
 
     void setConfig(string[] aKey, Json valueToSet = null, bool merge = true) {

@@ -110,13 +110,8 @@ interface IDriver : INamed {
     // Returns an instance of a QueryCompiler.
     QueryCompiler newCompiler();
 
-    /**
-     * Constructs new DTableSchema.
-     *
-     * @param string myTable The table name.
-     * @param Json[string] columns The list of columns for the schema.
-     */
-    TableSchema newTableSchema(string myTable, Json[string] columns = null);
+    // Constructs new DTableSchema.
+    TableSchema newTableSchema(string tableName, Json[string] shemaColumns = null);
     
     // Disconnects from database server. 
     IDriver disconnect();

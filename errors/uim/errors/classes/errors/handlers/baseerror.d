@@ -49,11 +49,7 @@ abstract class DERRErrorHandler {
 
     protected bool _handled = false;
 
-    /**
-     * Exception logger instance.
-     *
-     * @var uim.errors.|null
-     */
+    // Exception logger instance.
     protected IErrorLogger logger;
 
     /**
@@ -61,11 +57,8 @@ abstract class DERRErrorHandler {
      *
      * Subclasses should implement this method to display the error as
      * desired for the runtime they operate in.
-     *
-     * @param Json[string] error An array of error data.
-     * @param bool shouldDebug Whether the app is in debug mode.
      */
-    abstract protected void _displayError(Json[string] error, bool shouldDebug);
+    abstract protected void _displayError(Json[string] errorData, bool shouldDebug);
 
     /**
      * Display an exception in an environment specific way.

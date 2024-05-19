@@ -75,14 +75,9 @@ mixin template TConsoleIntegrationTest() {
         _in = null;
     }
 
-    /**
-     * Asserts shell exited with the expected code
-     * Params:
-     * int expected Expected exit code
-     * @param string amessage Failure message
-     */
-    void assertExitCode(int expected, string amessage = null) {
-        this.assertThat(expected, new DExitCode(_exitCode), message);
+    // Asserts shell exited with the expected code
+    void assertExitCode(int expectedeExitCode, string failureMessage = null) {
+        this.assertThat(expectedeExitCode, new DExitCode(_exitCode), failureMessage);
     }
 
     // Asserts shell exited with the Command.CODE_SUCCESS

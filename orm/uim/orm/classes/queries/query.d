@@ -1248,7 +1248,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @return bool|null The current value. Returns null if neither enabled or disabled yet.
      */
-    bool isAutoFieldsEnabled(): ?bool
+    bool isAutoFieldsEnabled(): bool
     {
         return _autoFields;
     }

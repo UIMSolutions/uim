@@ -61,8 +61,8 @@ class DCookie : ICookie {
         ?IDateTime expiresAt = null,
         string aPath = null,
         string adomain = null,
-        ?bool isSecure = null,
-        ?bool isHttpOnly = null,
+        bool isSecure = null,
+        bool isHttpOnly = null,
         SameSiteEnum|string sameSite = null
     ) {
         this.validateName(name);

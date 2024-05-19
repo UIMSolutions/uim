@@ -173,10 +173,10 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param DORMdatabases.IExpression|DORMTable|DORMAssociation|callable|array|string fields Fields
      * to be added to the list.
      * @param bool canOverwrite whether to reset fields with passed list or not
-     * @return this
      */
      
     IQuery select(IExpression anExpression, bool canOverwrite = false) {
+        return this;
     }
 
     IQuery select(DORMTable anTable, bool canOverwrite = false) {
@@ -1244,11 +1244,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * Executes the query and converts the result set into Json.
      *
      * Part of JsonSerializable interface.
-     *
-     * @return DORMDatasource\IResultset The data to convert to Json.
      */
-    function JsonSerialize(): IResultset
-    {
+    IResultset JsonSerialize() {
         return _all();
     }
 

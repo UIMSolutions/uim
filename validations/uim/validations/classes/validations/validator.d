@@ -1477,7 +1477,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.compareFields()
-     * @return this
      */
     auto lessThanField(
         string fieldName,

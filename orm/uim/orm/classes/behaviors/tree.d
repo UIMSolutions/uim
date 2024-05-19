@@ -509,10 +509,8 @@ class DTreeBehavior : DBehavior {
      * Helper function containing the actual code for removeFromTree
      *
      * @param DORMDatasource\IORMEntity node The node to remove from the tree
-     * @return DORMDatasource\IORMEntity|false the node after being removed from the tree or
-     * false on error
      */
-    protected function _removeFromTree(IORMEntity node) {
+    protected IORMEntity _removeFromTree(IORMEntity node) {
         myConfiguration = configuration;
         left = node.get(configuration.get("left"));
         right = node.get(configuration.get("right"));

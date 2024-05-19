@@ -152,7 +152,6 @@ class DHasManyAssociation : DAssociation {
      * @param Json[string] entities list of entities
      * to persist in target table and to link to the parent entity
      * @param Json[string] options list of options accepted by `Table.save()`.
-     * @return bool `true` on success, `false` otherwise.
      */
     protected bool _saveTarget(
         array foreignKeyReference,

@@ -244,8 +244,6 @@ class DResultset : IResultset {
      * Serializes a resultset.
      *
      * Part of Serializable interface.
-     *
-     * @return string Serialized object
      */
     string serialize() {
         return serialize(__serialize());

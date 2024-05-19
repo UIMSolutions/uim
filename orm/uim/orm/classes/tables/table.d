@@ -1392,11 +1392,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *  created entities. This callback will be called *before* the entity
      *  is persisted.
      * @param Json[string] options The options to use when saving.
-     * @return \UIM\Datasource\IORMEntity|array An entity.
-     * @throws \ORM\Exception\PersistenceFailedException When the entity couldn"t be saved
-     * @throws \InvalidArgumentException
      */
-    protected IORMEntity|array _processFindOrCreate(
+    protected IORMEntity _processFindOrCreate(
         SelectQuery|callable|array mysearch,
         ?callable aCallback = null,
         Json[string] optionData = null

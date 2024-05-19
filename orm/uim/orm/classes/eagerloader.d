@@ -395,9 +395,8 @@ class DEagerLoader {
      *
      * @param DORMTable repository The table containing the associations
      * to be loaded
-     * @return array<DORMEagerLoadable>
      */
-    array externalAssociations(Table repository) {
+    DORMEagerLoadable[] externalAssociations(Table repository) {
         if (_loadExternal) {
             return _loadExternal;
         }

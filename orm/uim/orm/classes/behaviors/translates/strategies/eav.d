@@ -378,10 +378,8 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * records into each entity under the `_translations` key.
      *
      * @param DORMDatasource\IResultset results Results to modify.
-     * @return DORMcollections.ICollection
      */
-    function groupTranslations(results): ICollection
-    {
+    ICollection groupTranslations(results) {
         return results.map(function (row) {
             if (!row instanceof IORMEntity) {
                 return row;

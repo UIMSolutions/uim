@@ -85,6 +85,6 @@ class DInflectedRoute : DRoute {
             myurl["plugin"] = Inflector.underscore(myurl["plugin"]);
         }
         return myurl;
-    } */
+    }
 }
 mixin(RouteCalls!("Inflected"));

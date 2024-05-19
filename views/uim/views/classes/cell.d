@@ -225,5 +225,5 @@ abstract class DCell { // }: IEventDispatcher {
             "response": this.response,
             "viewBuilder": viewBuilder(),
         ];
-    } */
+    }
 }

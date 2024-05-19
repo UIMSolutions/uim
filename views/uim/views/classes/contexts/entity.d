@@ -611,6 +611,6 @@ class DEntityContext : DContext {
             return myentity.getError(array_pop(pathParts));
         }
         return null;
-    } */
+    }
 }
 mixin(ContextCalls!("Entity"));

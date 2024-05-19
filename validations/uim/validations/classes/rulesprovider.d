@@ -52,5 +52,5 @@ class DRulesProvider {
         myobject = isString(_class) ? null : _class;
 
         return method.invokeArgs(myobject, myarguments);
-    } */
+    }
 }

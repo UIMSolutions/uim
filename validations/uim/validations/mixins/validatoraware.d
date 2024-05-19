@@ -158,5 +158,5 @@ mixin template TValidatorAware() {
      */
     Validator validationDefault(Validator myvalidator) {
         return myvalidator;
-    } */
+    }
 } 

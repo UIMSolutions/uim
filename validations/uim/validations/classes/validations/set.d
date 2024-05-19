@@ -152,5 +152,5 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     // Returns the number of rules in this set
     size_t count() {
         return count(_rules);
-    } */
+    }
 }

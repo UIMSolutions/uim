@@ -267,6 +267,6 @@ class DArrayContext : DContext {
      */
     protected string stripNesting(string dotSeparatedPath) {
         return (string)preg_replace("/\.\d*\./", ".", dotSeparatedPath);
-    } */
+    }
 }
 mixin(ContextCalls!("Array"));

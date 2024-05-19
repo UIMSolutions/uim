@@ -47,12 +47,12 @@ class DMapReduce { // }: IteratorAggregate {
      * ```
      * someData = new \ArrayObject([1, 2, 3, 4, 5, 3]);
      * mapper = auto (aValue, aKey, mr) {
-     *     type = (aValue % 2 == 0) ? "even' : 'odd";
-     *     mr.emitIntermediate(aValue, type);
+     *    type = (aValue % 2 == 0) ? "even' : 'odd";
+     *    mr.emitIntermediate(aValue, type);
      * };
      *
      * reducer = auto (numbers, type, mr) {
-     *     mr.emit(array_unique(numbers), type);
+     *    mr.emit(array_unique(numbers), type);
      * };
      * results = new DMapReduce(someData, mapper, reducer);
      * ```

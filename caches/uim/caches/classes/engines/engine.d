@@ -30,11 +30,11 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         *
         * - `duration` Specify how long items in this cache configuration last.
         * - `groups` List of groups or "tags" associated to every key stored in this config.
-        *   handy for deleting a complete group from cache.
+        *  handy for deleting a complete group from cache.
         * - `prefix` Prefix appended to all entries. Good for when you need to share a keyspace
-        *   with either another cache config or another application.
+        *  with either another cache config or another application.
         * - `warnOnWriteFailures` Some engines, such as ApcuEngine, may raise warnings on
-        *   write failures.
+        *  write failures.
         */
         
         if (configuration.hasKey("groups")) {

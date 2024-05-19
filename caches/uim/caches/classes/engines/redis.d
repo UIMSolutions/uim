@@ -18,12 +18,12 @@ class DRedisCacheEngine : DCacheEngine {
         * - `database` database number to use for connection.
         * - `duration` Specify how long items in this cache configuration last.
         * - `groups` List of groups or 'tags' associated to every key stored in this config.
-        *   handy for deleting a complete group from cache.
+        *  handy for deleting a complete group from cache.
         * - `password` Redis server password.
         * - `persistent` Connect to the Redis server with a persistent connection
         * - `port` port number to the Redis server.
         * - `prefix` Prefix appended to all entries. Good for when you need to share a keyspace
-        *   with either another cache config or another application.
+        *  with either another cache config or another application.
         * - `scanCount` Number of keys to ask for each scan (default: 10)
         * - `server` URL or IP to the Redis server host.
         * - `timeout` timeout in seconds (float).

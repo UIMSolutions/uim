@@ -11,7 +11,7 @@ import uim.collections;
  * ### Example:
  *
  * ```
- *  someItems = [user1, user2, user3];
+ * someItems = [user1, user2, user3];
  * sorted = new DSortIterator(someItems, auto (user) {
  * return user.age;
  * });

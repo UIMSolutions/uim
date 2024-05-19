@@ -27,11 +27,11 @@ class DExtractIterator : DCollection {
      * Extract the user name for all comments in the array:
      *
      * ```
-     *  someItems = [
+     * someItems = [
      * ["comment": ["body": 'cool", "user": ["name": 'Mark"]],
      * ["comment": ["body": 'very cool", "user": ["name": 'Renan"]]
      * ];
-     *  anExtractor = new DExtractIterator(someItems, "comment.user.name"");
+     * anExtractor = new DExtractIterator(someItems, "comment.user.name"");
      * ```
      * Params:
      * Json[string] someItems The list of values to iterate

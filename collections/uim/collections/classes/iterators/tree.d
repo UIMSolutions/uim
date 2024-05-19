@@ -54,10 +54,10 @@ class DTreeIterator { // TODO }: RecursiveIteratorIterator, ICollection {
      *
      * ```
      * printer = (new DCollection(treeStructure))
-     *     .listNested()
-     *     .printer(function (anItem, aKey, myIterator) {
-     *         return anItem.name;
-     *     });
+     *    .listNested()
+     *    .printer(function (anItem, aKey, myIterator) {
+     *        return anItem.name;
+     *    });
      * ```
     DTreePrinter printer(
         string propertyPath,

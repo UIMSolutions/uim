@@ -10,8 +10,8 @@ import uim.collections;
  * ### Example
  *
  * ```
- *  anIterator = new DZipIterator([[1, 2], [3, 4]]);
- *  anIterator.toList(); // Returns [[1, 3], [2, 4]]
+ * anIterator = new DZipIterator([[1, 2], [3, 4]]);
+ * anIterator.toList(); // Returns [[1, 3], [2, 4]]
  * ```
  *
  * You can also chose a custom auto to zip the elements together, such
@@ -20,10 +20,10 @@ import uim.collections;
  * ### Example
  *
  * ```
- *  anIterator = new DZipIterator([[1, 2], [3, 4]], auto (a, b) {
- *   return a + b;
+ * anIterator = new DZipIterator([[1, 2], [3, 4]], auto (a, b) {
+ *  return a + b;
  * });
- *  anIterator.toList(); // Returns [4, 6]
+ * anIterator.toList(); // Returns [4, 6]
  * ```
  */
 class DZipIterator : ICollection {

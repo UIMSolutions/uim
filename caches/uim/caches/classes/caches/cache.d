@@ -17,8 +17,8 @@ import uim.caches;
  *
  * ```
  * Cache.config("shared", [
- *   'className": UIM\Cache\Engine\ApcuEngine.classname,
- *   'prefix": '_app_'
+ *  'className": UIM\Cache\Engine\ApcuEngine.classname,
+ *  'prefix": '_app_'
  * ]);
  * ```
  *
@@ -32,12 +32,12 @@ import uim.caches;
  *
  * - `ApcuEngine` - Uses the APCu object cache, one of the fastest caching engines.
  * - `ArrayEngine` - Uses only memory to store all data, not actually a persistent engine.
- *   Can be useful in test or CLI environment.
+ *  Can be useful in test or CLI environment.
  * - `FileEngine` - Uses simple files to store content. Poor performance, but good for
- *   storing large objects, or things that are not IO sensitive. Well suited to development
- *   as it is an easy cache to inspect and manually flush.
+ *  storing large objects, or things that are not IO sensitive. Well suited to development
+ *  as it is an easy cache to inspect and manually flush.
  * - `MemcacheEngine` - Uses the PECL.Memcache extension and Memory for storage.
- *   Fast reads/writes, and benefits from memcache being distributed.
+ *  Fast reads/writes, and benefits from memcache being distributed.
  * - `RedisEngine` - Uses redis and D-redis extension to store cache data.
  * - `XcacheEngine` - Uses the Xcache extension, an alternative to APCu.
  */
@@ -414,12 +414,12 @@ class DCache : ICache {
      *
      * ```
      * results = Cache.remember("all_articles", auto () {
-     *     return _find("all").toJString();
+     *    return _find("all").toJString();
      * });
      * ```
      * Params:
      * string aKey The cache key to read/store data at.
-     *  the cache key is empty.
+     * the cache key is empty.
      */
     /* static Json remember(string aKey, IClosure callbackWhenEmpty, string configName = "default") {
         auto myexisting = self.read(aKey, configName);

@@ -26,17 +26,17 @@ class DMemoryCacheEngine : DCacheEngine {
      * - `compress` Whether to compress data
      * - `duration` Specify how long items in this cache configuration last.
      * - `groups` List of groups or 'tags' associated to every key stored in this config.
-     *   handy for deleting a complete group from cache.
+     *  handy for deleting a complete group from cache.
      * - `username` Login to access the Memcache server
      * - `password` Password to access the Memcache server
      * - `persistent` The name of the persistent connection. All configurations using
-     *   the same persistent value will share a single underlying connection.
+     *  the same persistent value will share a single underlying connection.
      * - `prefix` Prepended to all entries. Good for when you need to share a keyspace
-     *   with either another cache config or another application.
+     *  with either another cache config or another application.
      * - `serialize` The serializer engine used to serialize data. Available engines are 'D",
-     *   'igbinary' and 'Json'. Beside 'D", the memcached extension must be compiled with the
-     *   appropriate serializer support.
-     *   Use the \Memory.OPT_* constants as keys.
+     *  'igbinary' and 'Json'. Beside 'D", the memcached extension must be compiled with the
+     *  appropriate serializer support.
+     *  Use the \Memory.OPT_* constants as keys.
      */
     configuration.updateDefaults([
       "compress": false.toJson,
@@ -158,7 +158,7 @@ return true;
      * Settings the memcached instance
      *
  When the Memory extension is not built
-     *  with the desired serializer engine.
+     * with the desired serializer engine.
      */
 protected void _setOptions() {
   _Memory.setOption(Memory.OPT_LIBKETAMA_COMPATIBLE, true);

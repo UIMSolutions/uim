@@ -124,7 +124,7 @@ class DArrayCacheEngine : DCacheEngine {
   bool clearGroup(string groupName) {
     string aKey = configuration.get("prefix").toString ~ groupName;
     // TODO 
-/*     if (_cachedData.isSet(aKey)) {
+/*    if (_cachedData.isSet(aKey)) {
       _cachedData[aKey]["val"] += 1;
     }
  */    

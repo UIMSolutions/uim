@@ -29,5 +29,5 @@ class DCallbackStream { // }: BaseCallbackStream {
             return "";
         }
         return result;
-    } */
+    }
 } 

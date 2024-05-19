@@ -162,5 +162,5 @@ class DFlashMessage {
     void info(string infoMessage, Json[string] options = null) {
         options["element"] = "info";
         set(infoMessage, options);
-    } */
+    }
 }

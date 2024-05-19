@@ -83,5 +83,5 @@ class DRunner : IRequestHandler {
                 ~ "and no fallback request handler was set for Runner",
             `status": 500,
         ]);
-    } */
+    }
 }

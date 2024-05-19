@@ -379,5 +379,5 @@ class DExceptionRenderer : IExceptionRenderer {
             "template":this.template,
             "method":this.method,
         ];
-    } */
+    }
 }

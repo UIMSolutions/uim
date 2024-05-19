@@ -371,5 +371,5 @@ class DExceptionTrap {
             exception.getLine(),
         );
         trigger_error(message, E_USER_ERROR);
-    } */
+    }
 }

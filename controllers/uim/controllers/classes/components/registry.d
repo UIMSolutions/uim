@@ -68,17 +68,17 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
      * Enabled components will be registered with the event manager.
      * Params:
      * \UIM\Controller\Component|class-string<\UIM\Controller\Component>  className The classname to create.
-     * @param string aalias The alias of the component.
      * configData - An array of config to use for the component.
      */
-    protected IComponent _create(object|string className, string aalias, Json[string] configData = null) {
+    protected IComponent _create(string className, string componentAlias, Json[string] configData = null) {
         if (isObject(className)) {
             return className;
         }
-         anInstance = new  className(this, configData);
+        
+        auto anInstance = new  className(this, configData);
         if (configData["enabled"] ?? true) {
             getEventManager().on(anInstance);
         }
         return anInstance;
-    } */
+    }
 }

@@ -39,5 +39,5 @@ class DTextExceptionRenderer {
     // Write output to stdout.
     void write(string outputText) {
         writeln(outputText);
-    } */
+    }
 }

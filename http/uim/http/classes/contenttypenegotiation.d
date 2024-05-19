@@ -107,5 +107,5 @@ class DContentTypeNegotiation {
         accept = this.acceptedLanguages(request);
 
         return in_array(lang.lower, accept, true);
-    } */
+    }
 }

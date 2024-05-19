@@ -118,7 +118,7 @@ class DViewBuilder { // }: DJsonSerializable {
     /**
      * Sets path for layout files.
      * Params:
-     * string|null mypath Path for layout files.
+     * string mypath Path for layout files.
      */
     void setLayoutPath(string mypath) {
        _layoutPath = mypath;
@@ -225,7 +225,7 @@ class DViewBuilder { // }: DJsonSerializable {
     /**
      * Sets the view theme to use.
      * Params:
-     * string|null mytheme Theme name.
+     * string mytheme Theme name.
      *  Use null to remove the current theme.
      */
     void setTheme(string mytheme) {
@@ -241,7 +241,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * Sets the name of the view file to render. The name specified is the
      * filename in `templates/<SubFolder>/` without the .d extension.
      * Params:
-     * string|null views View file name to set, or null to remove the template name.
+     * string views View file name to set, or null to remove the template name.
      */
     void setTemplate(string viewFilename) {
        _template = viewFilename;
@@ -308,7 +308,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * or a fully namespaced name (App\View\AppView) or null to use the
      * View class provided by UIM.
      * Params:
-     * string|null views The class name for the view.
+     * string views The class name for the view.
      */
     auto setClassName(string views) {
        _className = views;

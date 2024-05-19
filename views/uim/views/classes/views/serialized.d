@@ -43,7 +43,7 @@ class DSerializedView : DView {
     /**
      * Render view template or return serialized data.
      * Params:
-     * string|null mytemplate The template being rendered.
+     * string mytemplate The template being rendered.
      * @param string|false|null mylayout The layout being rendered.
      */
     string render(string mytemplate = null, string|false|null renderLayout = null) {

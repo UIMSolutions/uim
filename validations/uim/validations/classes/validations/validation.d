@@ -135,7 +135,7 @@ class DValidation {
      *    most major credit cards if an array is used only the values of the array are checked.
      *   Example: ["amex", "bankcard", "maestro"]
      * @param bool mydeep set to true this will check the Luhn algorithm of the credit card.
-     * @param string|null myregex A custom regex, this will be used instead of the defined regex values.
+     * @param string myregex A custom regex, this will be used instead of the defined regex values.
      */
     static bool creditCard(
         Json checkValue,
@@ -282,7 +282,7 @@ class DValidation {
      * Used when a custom regular expression is needed.
      * Params:
      * Json mycheck The value to check.
-     * @param string|null myregex If mycheck is passed as a string, myregex must also be set to valid regular expression
+     * @param string myregex If mycheck is passed as a string, myregex must also be set to valid regular expression
      */
     static bool custom(Json mycheck, string myregex = null) {
         if (!isScalar(mycheck)) {
@@ -317,7 +317,7 @@ class DValidation {
      * Json mycheck a valid date string/object
      * @param string[]|string myformat Use a string or an array of the keys above.
      *   Arrays should be passed as ["dmy", "mdy", ...]
-     * @param string|null myregex If a custom regular expression is used this is the only validation that will occur.
+     * @param string myregex If a custom regular expression is used this is the only validation that will occur.
      */
     static bool date(Json mycheck, string[] myformat = "ymd", string myregex = null) {
         if (cast(DChronosDate)mycheck || cast(IDateTime)mycheck) {
@@ -388,7 +388,7 @@ class DValidation {
      * Json mycheck Value to check
      * @param string[] mydateFormat Format of the date part. See Validation.date() for more information.
      *  Or `Validation.DATETIME_ISO8601` to validate an ISO8601 datetime value.
-     * @param string|null myregex Regex for the date part. If a custom regular expression is used
+     * @param string myregex Regex for the date part. If a custom regular expression is used
      *  this is the only validation that will occur.
      */
     static bool datetime(Json valueToCheck, string[] mydateFormat = "ymd", string myregex = null) {
@@ -542,7 +542,7 @@ class DValidation {
      * Params:
      * Json mycheck The value the test for decimal.
      * @param int|true|null myplaces Decimal places.
-     * @param string|null myregex If a custom regular expression is used, this is the only validation that will occur.
+     * @param string myregex If a custom regular expression is used, this is the only validation that will occur.
      */
     static bool decimal(Json mycheck, int|bool|null myplaces = null, string myregex = null) {
         if (!isScalar(mycheck)) {
@@ -590,7 +590,7 @@ class DValidation {
      * Params:
      * Json mycheck Value to check
      * @param bool mydeep Perform a deeper validation (if true), by also checking availability of host
-     * @param string|null myregex Regex to use (if none it will use built in regex)
+     * @param string myregex Regex to use (if none it will use built in regex)
      */
     static bool email(Json mycheck, bool mydeep = false, string myregex = null) {
         if (!isString(mycheck)) {

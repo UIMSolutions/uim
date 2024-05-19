@@ -113,7 +113,7 @@ abstract class DCell { // }: IEventDispatcher {
     /**
      * Render the cell.
      * Params:
-     * string|null templateName Custom template name to render. If not provided (null), the last
+     * string templateName Custom template name to render. If not provided (null), the last
      * value will be used. This value is automatically set by `CellTrait.cell()`.
      */
     string render(string templateName = null) {
@@ -171,7 +171,7 @@ abstract class DCell { // }: IEventDispatcher {
      * Generate the cache key to use for this cell.
      *
      * If the key is undefined, the cell class DAnd action name will be used.
-     * @param string|null templateName The name of the template to be rendered.
+     * @param string templateName The name of the template to be rendered.
      */
     protected Json[string] _cacheConfig(string invokedaction, string templateName = null) {
         if (_cache.isEmpty) {

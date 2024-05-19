@@ -90,7 +90,7 @@ class DJsonView : DSerializedView {
     /**
      * Render a Json view.
      * Params:
-     * string|null mytemplate The template being rendered.
+     * string mytemplate The template being rendered.
      * @param string|false|null mylayout The layout being rendered.
      */
     string render(string mytemplate = null, string | false | null mylayout = null) {

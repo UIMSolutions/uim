@@ -190,7 +190,7 @@ class DAsset {
      * string aPath The file path to timestamp, the path must be inside `App.wwwRoot` in Configure.
      * @param string timestamp If set will overrule the value of `Asset.timestamp` in Configure.
      */
-    static string assetTimestamp(string aPath, string|null timestamp = null) {
+    static string assetTimestamp(string aPath, string timestamp = null) {
         if (somePath.has("?")) {
             return somePath;
         }

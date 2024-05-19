@@ -192,12 +192,7 @@ interface IRepository {
      * ```
      * article = this.Articles.patchEntities(articles, this.request[));
      * ```
-     * Params:
-     * iterable<\UIM\Datasource\IDatasourceEntity> entities the entities that will get the
-     * data merged in
-     * @param Json[string] data list of arrays to be merged into the entities
-     * @param Json[string] options A list of options for the objects hydration.
      */
-    IDatasourceEntity[] patchEntities(iterableentities, Json[string] data, Json[string] optionData = null);
+    IDatasourceEntity[] patchEntities(IDatasourceEntity[] entities, Json[string] dataToMerge, Json[string] optionsForHydration = null);
     */
 }

@@ -57,9 +57,8 @@ mixin template TModelAware() {
      * Params:
      * string modelClass Name of model class to load. Defaults to this.modelClass.
      * The name can be an alias like `'Post'` or FQCN like `App\Model\Table\PostsTable.classname`.
-     * @param string modelType The type of repository to load. Defaults to the getModelType() value.
      */
-    IRepository fetchModel(string amodelClass = null, string amodelType = null) {
+    IRepository fetchModel(string amodelClass = null, string modelType = null) {
         modelClass ??= this.modelClass;
         if (isEmpty(modelClass)) {
             throw new DUnexpectedValueException("Default modelClass is empty");

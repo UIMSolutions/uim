@@ -220,13 +220,8 @@ class DExceptionRenderer : IExceptionRenderer {
         return _outputMessage(myTemplate);
     }
 
-    /**
-     * Render a custom error method/template.
-     *
-     * @param string method The method name to invoke.
-     * @param \Throwable myException The exception to render.
-     */
-    protected DResponse _customMethod(string method, Throwable myException) {
+    // Render a custom error method/template.
+    protected DResponse _customMethod(string methodToInvoke, Throwable myExceptionToRender) {
         myResult = this.{method}(myException);
         _shutdown();
         if (!myResult.isString) {

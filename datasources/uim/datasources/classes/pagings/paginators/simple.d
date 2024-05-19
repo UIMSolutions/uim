@@ -12,13 +12,8 @@ import uim.datasources;
  * when pagination goes past the available result set.
  */
 class DSimplePaginator : DNumericPaginator {
-    /**
-     * Simple pagination does not perform any count query, so this method returns `null`.
-     *
-     * @param uim.Datasource\IQuery query Query instance.
-     * @param Json[string] data Pagination data.
-     */
-    protected size_t count(IQuery query, Json[string] data) {
+    // Simple pagination does not perform any count query, so this method returns `null`.
+    protected size_t count(IQuery query, Json[string] paginationData) {
         return 0;
     } 
     

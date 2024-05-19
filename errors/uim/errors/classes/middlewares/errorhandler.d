@@ -72,14 +72,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      */
     protected myErrorHandler;
 
-    /**
-     
-     *
-     * @param uim.errorss.ErrorHandler|array myErrorHandler The error handler instance
-     * or config array.
-     * @throws \InvalidArgumentException
-     */
-    this(myErrorHandler = null) {
+    this(ErrorHandler myErrorHandler = null) {
         if (func_num_args() > 1) {
             deprecationWarning(
                 "The signature of ErrorHandlerMiddleware.this() has changed~ "
@@ -93,7 +86,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
             ini_set("zend.exception_ignore_args", "0");
         }
 
-        if ((myErrorHandler.isArray) {
+        if (myErrorHandler.isArray) {
             configuration.update(myErrorHandler);
 
             return;

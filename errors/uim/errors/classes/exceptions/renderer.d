@@ -340,10 +340,8 @@ class DExceptionRenderer { // }: IExceptionRenderer
     /**
      * A safer way to render error messages, replaces all helpers, with basics
      * and doesn"t call component methods.
-     *
-     * @param string myTemplate The template to render.
      */
-    protected DResponse _outputMessageSafe(string myTemplate) {
+    protected DResponse _outputMessageSafe(string templateToRender) {
         myBuilder = this.controller.viewBuilder();
         myBuilder
             .setHelpers([], false)

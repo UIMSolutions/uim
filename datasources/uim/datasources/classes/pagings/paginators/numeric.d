@@ -420,11 +420,8 @@ class DNumericPaginator : IPaginator {
      * The result of this method is the aggregate of all the option sets
      * combined together. You can change config value `allowedParameters` to modify
      * which options/values can be set using request parameters.
-     *
-     * @param Json[string] params Request params.
-     * @param Json[string] settings The settings to merge with the request data.
      */
-    Json[string] mergeOptions(Json[string] params, Json[string] settings) {
+    Json[string] mergeOptions(Json[string] requestData, Json[string] settingsToMerge) {
         if (!settings.isEmpty("scope")) {
             scope = settings["scope"];
             params = !params.isEmpty(scope) ? (array) params[scope] : [];

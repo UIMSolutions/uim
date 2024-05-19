@@ -437,18 +437,16 @@ class DDebugger {
     /**
      * Shortens file paths by replacing the application base path with 'APP', and the UIM core
      * path with 'CORE'.
-     *
-     * @param string path Path to shorten.
      */
-    static string trimPath(string path) {
-        if (defined('APP') && indexOf(path, APP) == 0) {
-            return replace(APP, 'APP/', path);
+    static string trimPath(string pathToShorten) {
+        if (defined("APP") && indexOf(path, APP) == 0) {
+            return replace(APP, "APP/", path);
         }
-        if (defined('uim_CORE_INCLUDE_PATH') && indexOf(path, uim_CORE_INCLUDE_PATH) == 0) {
-            return replace(uim_CORE_INCLUDE_PATH, 'CORE', path);
+        if (defined('UIM_CORE_INCLUDE_PATH') && indexOf(path, UIM_CORE_INCLUDE_PATH) == 0) {
+            return replace(uim_CORE_INCLUDE_PATH, "CORE", path);
         }
-        if (defined('ROOT') && indexOf(path, ROOT) == 0) {
-            return replace(ROOT, 'ROOT', path);
+        if (defined("ROOT") && indexOf(path, ROOT) == 0) {
+            return replace(ROOT, "ROOT", path);
         }
 
         return path;

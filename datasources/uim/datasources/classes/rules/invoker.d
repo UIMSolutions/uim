@@ -67,15 +67,8 @@ class DRuleInvoker {
         }
     }
     
-    /**
-     * Invoke the rule.
-     * Params:
-     * \UIM\Datasource\IDatasourceEntity entity The entity the rule
-     * should apply to.
-     * @param Json[string] scope The rule`s scope/options.
-     * returns Whether the rule passed.
-     */
-    bool __invoke(IDatasourceEntity entity, Json[string] scope) {
+    // Invoke the rule.
+    bool __invoke(IDatasourceEntity entity, Json[string] ruleOptions) {
         rule = _rule;
         pass = rule(entity, this.options + scope);
         if (pass == true || configuration.isEmpty("errorField")) {

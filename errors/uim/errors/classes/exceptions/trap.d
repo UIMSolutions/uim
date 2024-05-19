@@ -123,13 +123,8 @@ class DExceptionTrap {
         configuration.update(options);
     }
 
-    /**
-     * Get an instance of the renderer.
-     *
-     * @param \Throwable exception Exception to render
-     * @param IServerRequest|null request The request if possible.
-     */
-    IExceptionRenderer renderer(Throwable exception, request = null) {
+    // Get an instance of the renderer.
+    IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest request = null) {
         request = request ?? Router.getRequest();
 
         /** @var class-string|callable aClassName */

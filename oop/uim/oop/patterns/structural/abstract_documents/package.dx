@@ -47,7 +47,6 @@ interface Document {
    * Gets the value for the key.
    *
    * @param key element key
-   * @return value or null
    * /
   DProperty get(string key);
 

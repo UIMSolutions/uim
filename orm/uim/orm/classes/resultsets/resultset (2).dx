@@ -385,9 +385,8 @@ class DResultset : IResultset {
      * Correctly nests results keys including those coming from associations
      *
      * @param Json[string] row Array containing columns and values or false if there is no results
-     * @return DORMDatasource\IORMEntity|array Results
      */
-    protected function _groupResult(Json[string] row) {
+    protected IORMEntity _groupResult(Json[string] row) {
         defaultAlias = _defaultAlias;
         results = presentAliases = null;
         options = [

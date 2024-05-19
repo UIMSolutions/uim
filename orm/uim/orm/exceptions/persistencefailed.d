@@ -47,7 +47,7 @@ mixin(ExceptionCalls!("PersistenceFailed"));
                 myErrors ~= myField ~ ": "" ~ myError ~ """;
             }
             if (myErrors) {
-                myMessage ~= implode(", ", myErrors);
+                myMessage ~= myErrors.join(", ");
                 _messageTemplate = "Entity %s failure. Found the following errors (%s).";
             }
         }

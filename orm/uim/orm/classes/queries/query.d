@@ -1161,9 +1161,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param Json[string] columns The columns to insert into.
      * @param string[] types A map between columns & their datatypes.
-     * @return this
      */
-    function insert(Json[string] columns, Json[string] types = null) {
+    auto insert(Json[string] columns, Json[string] types = null) {
         repository = getRepository();
         table = repository.getTable();
         this.into(table);

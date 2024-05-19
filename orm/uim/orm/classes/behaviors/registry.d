@@ -211,10 +211,8 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      *
      * @param string type The finder type to invoke.
      * @param Json[string] args The arguments you want to invoke the method with.
-     * @return DORMQuery The return value depends on the underlying behavior method.
-     * @throws \BadMethodCallException When the method is unknown.
      */
-    Query callFinder(string type, Json[string] args = null) {
+    DORMQuery callFinder(string type, Json[string] args = null) {
         type = type.lower;
 
         if (this.hasFinder(type) && this.has(_finderMap[type][0])) {

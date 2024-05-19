@@ -2456,10 +2456,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * Json[string] data The data to build an entity with.
      * @param Json[string] options A list of options for the object hydration.
-     * @return \UIM\Datasource\IORMEntity
      */
-    auto newEntity(Json[string] data, Json[string] optionData = null): IORMEntity
-    {
+    IORMEntity newEntity(Json[string] data, Json[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().one(mydata, options);

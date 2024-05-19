@@ -335,7 +335,6 @@ class DExceptionRenderer : IExceptionRenderer {
      * and doesn"t call component methods.
      *
      * @param string myTemplate The template to render.
-     * @return uim.uim.http.Response A response object that can be sent.
      */
     protected DResponse _outputMessageSafe(string myTemplate) {
         myBuilder = this.controller.viewBuilder();

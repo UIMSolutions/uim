@@ -414,8 +414,6 @@ class DEagerLoader {
      * separated strings representing associations that lead to this `alias` in the
      * chain of associations to be loaded. The second value is the path to follow in
      * entities" properties to fetch a record of the corresponding association.
-     * @return DORMEagerLoadable Object with normalized associations
-     * @throws \InvalidArgumentException When containments refer to associations that do not exist.
      */
     protected DEagerLoadable _normalizeContain(Table parent, string anAliasName, Json[string] optionData, Json[string] paths) {
         defaults = _containOptions;

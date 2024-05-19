@@ -390,9 +390,9 @@ class DConsoleIo {
      * providing a console logger you replace the framework default behavior.
      * Params:
      * int|bool enable Use a boolean to enable/toggle all logging. Use
-     *  one of the verbosity constants (self.VERBOSE, self.QUIET, self.NORMAL)
-     *  to control logging levels. VERBOSE enables debug logs, NORMAL does not include debug logs,
-     *  QUIET disables notice, info and debug logs.
+     * one of the verbosity constants (self.VERBOSE, self.QUIET, self.NORMAL)
+     * to control logging levels. VERBOSE enables debug logs, NORMAL does not include debug logs,
+     * QUIET disables notice, info and debug logs.
      */
     void setLoggers(bool enable) {
         Log.drop("stdout");
@@ -455,9 +455,9 @@ class DConsoleIo {
      * string aPath The path to create the file at.
      * @param string acontents The contents to put into the file.
      * @param bool shouldOverwrite Whether the file should be overwritten.
-     *  If true, no question will be asked about whether to overwrite existing files.
+     * If true, no question will be asked about whether to overwrite existing files.
      * @throws \UIM\Console\Exception\StopException When `q` is given as an answer
-     *  to whether a file should be overwritten.
+     * to whether a file should be overwritten.
      */
     bool createFile(string aPath, string acontents, bool shouldOverwrite = false) {
         writeln();

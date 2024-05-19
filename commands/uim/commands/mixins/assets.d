@@ -17,7 +17,7 @@ mixin template TPluginAssets() {
     /**
      * Get list of plugins to process. Plugins without a webroot directory are skipped.
      * Params:
-     *  If null all plugins will be processed.
+     * If null all plugins will be processed.
      */
     protected Json[string] _list(string pluginName = null) {
         auto pluginsList = pluginName.isNull

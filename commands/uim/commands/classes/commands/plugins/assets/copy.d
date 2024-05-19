@@ -27,7 +27,7 @@ class DPluginAssetsCopyCommand : DCommand {
     }
 
     // Get the option parser.
-    /*  TODO override */  DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate){
+    /* TODO override */  DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate){
         // TODO parserToUpdate.description("Copy plugin assets to app`s webroot.");
 
         /* 

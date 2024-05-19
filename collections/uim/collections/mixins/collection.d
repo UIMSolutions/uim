@@ -299,19 +299,19 @@ mixin template TCollection() {
              * give us a clue on what`s going on, Let`s add a marker for it now:
              *
              * 0) 1 2 3 4
-             *   ^ -- The 0) above now becomes the myoffset variable
+             *  ^ -- The 0) above now becomes the myoffset variable
              * 1) 5 2 3 4
-             *     ^ -- myoffset = 1
+             *    ^ -- myoffset = 1
              * 2) 5 6 3 4
-             *       ^ -- myoffset = 2
+             *      ^ -- myoffset = 2
              * 3) 5 6 7 4
-             *         ^ -- myoffset = 3
+             *        ^ -- myoffset = 3
              * 4) 5 6 7 8
-             *   ^  -- We use module logic for myoffset too
-             *         and as you can see each time myoffset is 0, then the buffer
-             *         is sorted exactly as we need.
+             *  ^  -- We use module logic for myoffset too
+             *        and as you can see each time myoffset is 0, then the buffer
+             *        is sorted exactly as we need.
              * 5) 9 6 7 8
-             *     ^ -- myoffset = 1
+             *    ^ -- myoffset = 1
              *
              * The myoffset variable is a marker for splitting the buffer in two,
              * elements to the right for the marker are the head of the final result,

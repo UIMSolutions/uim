@@ -13,8 +13,8 @@ import uim.commands;
  *
  * ```
  * this.helper("Progress").output(["callback": auto (progress) {
- *    // Do work
- *    progress.increment();
+ *   // Do work
+ *   progress.increment();
  * });
  * ```
  */
@@ -62,7 +62,7 @@ class DProgressHelper { // } : Helper {
      * Takes a number of options to customize the behavior:
      *
      * - `total` The total number of items in the progress bar. Defaults
-     *  to 100.
+     * to 100.
      * - `width` The width of the progress bar. Defaults to 80.
      * - `callback` The callback that will be called in a loop to advance the progress bar.
      * Params:
@@ -92,7 +92,7 @@ class DProgressHelper { // } : Helper {
      * Initialize the progress bar for use.
      *
      * - `total` The total number of items in the progress bar. Defaults
-     *  to 100.
+     * to 100.
      * - `width` The width of the progress bar. Defaults to 80.
      * Params:
      * Json[string] commandArguments The initialization data.

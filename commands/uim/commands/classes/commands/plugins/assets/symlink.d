@@ -35,7 +35,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
             "required": false.toJson,
         ]); */
         
-        /*  TODO parserToUpdate.addOption("overwrite", [
+        /* TODO parserToUpdate.addOption("overwrite", [
             "help": "Overwrite existing symlink / folder / files.",
             "default": false.toJson,
             "boolean": true.toJson,

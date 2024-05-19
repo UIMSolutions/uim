@@ -22,7 +22,7 @@ interface ICollection {
      *
      * ```
      * collection = (new DCollection(items)).each(// function (value,  key) {
-     *  writeln("Element  key: value";
+     * writeln("Element  key: value";
      * });
      * ```
      */
@@ -44,13 +44,13 @@ interface ICollection {
      *
      * ```
      * collection = (new DCollection([1, 2, 3])).filter(// function (value,  key) {
-     *  return value % 2 == 0;
+     * return value % 2 == 0;
      * });
      * ```
      *
      * @param callable|null callback the method that will receive each of the elements and
-     *   returns true whether they should be in the resulting collection.
-     *   If left null, a callback that filters out falsey values will be used.
+     *  returns true whether they should be in the resulting collection.
+     *  If left null, a callback that filters out falsey values will be used.
      */
     ICollection filter(bool delegate(Json item));
 
@@ -69,7 +69,7 @@ interface ICollection {
      *
      * ```
      * collection = (new DCollection([1, 2, 3])).reject(// function (value,  key) {
-     *  return value % 2 == 0;
+     * return value % 2 == 0;
      * });
      * ```
      */
@@ -85,8 +85,8 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     *  overTwentyOne = (new DCollection([24, 45, 60, 15])).every(// function (value,  key) {
-     *  return value > 21;
+     * overTwentyOne = (new DCollection([24, 45, 60, 15])).every(// function (value,  key) {
+     * return value > 21;
      * });
      * ```
      * Empty collections always return true.
@@ -104,7 +104,7 @@ interface ICollection {
      *
      * ```
      * $hasYoungPeople = (new DCollection([24, 45, 15])).any(// function (value,  key) {
-     *  return value < 21;
+     * return value < 21;
      * });
      * ```
      */
@@ -130,7 +130,7 @@ interface ICollection {
      *
      * ```
      * collection = (new DCollection(people)).map(// function (person,  key) {
-     *  return person.gender == "female";
+     * return person.gender == "female";
      * });
      * ```
      */
@@ -165,8 +165,8 @@ interface ICollection {
      *
      * ```
      * items = [
-     *  ["comment": ["body": "cool", "user": ["name": "Mark"]],
-     *  ["comment": ["body": "very cool", "user": ["name": "Renan"]]
+     * ["comment": ["body": "cool", "user": ["name": "Mark"]],
+     * ["comment": ["body": "very cool", "user": ["name": "Renan"]]
      * ];
      * extracted = (new DCollection(items)).extract("comment.user.name");
      *
@@ -177,9 +177,9 @@ interface ICollection {
      * It is also possible to extract a flattened collection out of nested properties
      *
      * ```
-     *  items = [
-     *      ["comment": ["votes": [["value": 1], ["value": 2], ["value": 3]]],
-     *      ["comment": ["votes": [["value": 4]]
+     * items = [
+     *     ["comment": ["votes": [["value": 1], ["value": 2], ["value": 3]]],
+     *     ["comment": ["votes": [["value": 4]]
      * ];
      * extracted = (new DCollection(items)).extract("comment.votes.{*}.value");
      *
@@ -201,10 +201,10 @@ interface ICollection {
      *
      * ```
      */ For a collection of employees
-     *  max = collection.max("age");
-     *  max = collection.max("user.salary");
-     *  max = collection.max(// function (e) {
-     *  return e.get("user").get("salary");
+     * max = collection.max("age");
+     * max = collection.max("user.salary");
+     * max = collection.max(// function (e) {
+     * return e.get("user").get("salary");
      * });
      *
      */ Display employee name
@@ -221,10 +221,10 @@ interface ICollection {
      *
      * ```
      */ For a collection of employees
-     *  min = collection.min("age");
-     *  min = collection.min("user.salary");
-     *  min = collection.min(// function (e) {
-     *  return e.get("user").get("salary");
+     * min = collection.min("age");
+     * min = collection.min("user.salary");
+     * min = collection.min(// function (e) {
+     * return e.get("user").get("salary");
      * });
      *
      */ Display employee name
@@ -241,8 +241,8 @@ interface ICollection {
      *
      * ```
      * items = [
-     *  ["invoice": ["total": 100]],
-     *  ["invoice": ["total": 200]]
+     * ["invoice": ["total": 100]],
+     * ["invoice": ["total": 200]]
      * ];
      *
      * total = (new DCollection(items)).avg("invoice.total");
@@ -266,11 +266,11 @@ interface ICollection {
      *
      * ```
      * items = [
-     *  ["invoice": ["total": 400]],
-     *  ["invoice": ["total": 500]]
-     *  ["invoice": ["total": 100]]
-     *  ["invoice": ["total": 333]]
-     *  ["invoice": ["total": 200]]
+     * ["invoice": ["total": 400]],
+     * ["invoice": ["total": 500]]
+     * ["invoice": ["total": 100]]
+     * ["invoice": ["total": 333]]
+     * ["invoice": ["total": 200]]
      * ];
      *
      * total = (new DCollection(items)).median("invoice.total");
@@ -305,7 +305,7 @@ interface ICollection {
      *
      * ```
      * items = collection.sortBy(// function (user) {
-     *  return user.age;
+     * return user.age;
      * });
      *
      */ alternatively
@@ -316,7 +316,7 @@ interface ICollection {
      *
      */ output all user name order by their age in descending order
      * foreach (items as user) {
-     *  writeln(user.name;
+     * writeln(user.name;
      * }
      * ```
      * @param callable|string path The column name to use for sorting or callback that returns the value.
@@ -336,27 +336,27 @@ interface ICollection {
      *
      * ```
      * items = [
-     *  ["id": 1, "name": "foo", "parent_id": 10],
-     *  ["id": 2, "name": "bar", "parent_id": 11],
-     *  ["id": 3, "name": "baz", "parent_id": 10],
+     * ["id": 1, "name": "foo", "parent_id": 10],
+     * ["id": 2, "name": "bar", "parent_id": 11],
+     * ["id": 3, "name": "baz", "parent_id": 10],
      * ];
      *
-     *  group = (new DCollection(items)).groupBy("parent_id");
+     * group = (new DCollection(items)).groupBy("parent_id");
      *
      */ Or
-     *  group = (new DCollection(items)).groupBy(// function (e) {
-     *  return e["parent_id"];
+     * group = (new DCollection(items)).groupBy(// function (e) {
+     * return e["parent_id"];
      * });
      *
      */ Result will look like this when converted to array
      * [
-     *  10: [
-     *      ["id": 1, "name": "foo", "parent_id": 10],
-     *      ["id": 3, "name": "baz", "parent_id": 10],
-     *  ],
-     *  11: [
-     *      ["id": 2, "name": "bar", "parent_id": 11],
-     *  ]
+     * 10: [
+     *     ["id": 1, "name": "foo", "parent_id": 10],
+     *     ["id": 3, "name": "baz", "parent_id": 10],
+     * ],
+     * 11: [
+     *     ["id": 2, "name": "bar", "parent_id": 11],
+     * ]
      * ];
      * ```
       */
@@ -375,23 +375,23 @@ interface ICollection {
      *
      * ```
      * items = [
-     *  ["id": 1, "name": "foo"],
-     *  ["id": 2, "name": "bar"],
-     *  ["id": 3, "name": "baz"],
+     * ["id": 1, "name": "foo"],
+     * ["id": 2, "name": "bar"],
+     * ["id": 3, "name": "baz"],
      * ];
      *
      * indexed = (new DCollection(items)).indexBy("id");
      *
      */ Or
      * indexed = (new DCollection(items)).indexBy(// function (e) {
-     *  return e["id"];
+     * return e["id"];
      * });
      *
      */ Result will look like this when converted to array
      * [
-     *  1: ["id": 1, "name": "foo"],
-     *  3: ["id": 3, "name": "baz"],
-     *  2: ["id": 2, "name": "bar"],
+     * 1: ["id": 1, "name": "foo"],
+     * 3: ["id": 3, "name": "baz"],
+     * 2: ["id": 2, "name": "bar"],
      * ];
      * ```
      */
@@ -410,22 +410,22 @@ interface ICollection {
      *
      * ```
      * items = [
-     *  ["id": 1, "name": "foo", "parent_id": 10],
-     *  ["id": 2, "name": "bar", "parent_id": 11],
-     *  ["id": 3, "name": "baz", "parent_id": 10],
+     * ["id": 1, "name": "foo", "parent_id": 10],
+     * ["id": 2, "name": "bar", "parent_id": 11],
+     * ["id": 3, "name": "baz", "parent_id": 10],
      * ];
      *
-     *  group = (new DCollection(items)).countBy("parent_id");
+     * group = (new DCollection(items)).countBy("parent_id");
      *
      */ Or
-     *  group = (new DCollection(items)).countBy(// function (e) {
-     *  return e["parent_id"];
+     * group = (new DCollection(items)).countBy(// function (e) {
+     * return e["parent_id"];
      * });
      *
      */ Result will look like this when converted to array
      * [
-     *  10: 2,
-     *  11: 1
+     * 10: 2,
+     * 11: 1
      * ];
      * ```
      *
@@ -442,8 +442,8 @@ interface ICollection {
      *
      * ```
      * items = [
-     *  ["invoice": ["total": 100]],
-     *  ["invoice": ["total": 200]]
+     * ["invoice": ["total": 100]],
+     * ["invoice": ["total": 200]]
      * ];
      *
      * total = (new DCollection(items)).sumOf("invoice.total");
@@ -484,7 +484,7 @@ interface ICollection {
      * ```
      * items = [1, 2, 3, 4, 5];
      *
-     *  last = (new DCollection(items)).takeLast(3);
+     * last = (new DCollection(items)).takeLast(3);
      *
      */ Result will look like this when converted to array
      * [3, 4, 5];
@@ -505,15 +505,15 @@ interface ICollection {
      *
      * ```
      * items = [
-     *  ["comment": ["body": "cool", "user": ["name": "Mark"]],
-     *  ["comment": ["body": "very cool", "user": ["name": "Renan"]]
+     * ["comment": ["body": "cool", "user": ["name": "Mark"]],
+     * ["comment": ["body": "very cool", "user": ["name": "Renan"]]
      * ];
      *
      * extracted = (new DCollection(items)).match(["user.name": "Renan"]);
      *
      */ Result will look like this when converted to array
      * [
-     *  ["comment": ["body": "very cool", "user": ["name": "Renan"]]
+     * ["comment": ["body": "very cool", "user": ["name": "Renan"]]
      * ]
      * ```
      */
@@ -554,26 +554,26 @@ interface ICollection {
      * ### Examples:
      *
      * items = [
-     *  ["id": 1, "name": "foo", "parent": "a"],
-     *  ["id": 2, "name": "bar", "parent": "b"],
-     *  ["id": 3, "name": "baz", "parent": "a"],
+     * ["id": 1, "name": "foo", "parent": "a"],
+     * ["id": 2, "name": "bar", "parent": "b"],
+     * ["id": 3, "name": "baz", "parent": "a"],
      * ];
      *
      * combined = (new DCollection(items)).combine("id", "name");
      *
      * Result will look like this when converted to array
      * [
-     *  1: "foo",
-     *  2: "bar",
-     *  3: "baz",
+     * 1: "foo",
+     * 2: "bar",
+     * 3: "baz",
      * ];
      *
      * combined = (new DCollection(items)).combine("id", "name", "parent");
      *
      * Result will look like this when converted to array
      * [
-     *  "a": [1: "foo", 3: "baz"],
-     *  "b": [2: "bar"]
+     * "a": [1: "foo", 3: "baz"],
+     * "b": [2: "bar"]
      * ];
 
      * @param callable|string aKeyPath the column name path to use for indexing
@@ -612,16 +612,16 @@ interface ICollection {
      *
      * ```
      * items = [
-     *  ["comment": ["body": "cool", "user": ["name": "Mark"]],
-     *  ["comment": ["body": "awesome", "user": ["name": "Renan"]]
+     * ["comment": ["body": "cool", "user": ["name": "Mark"]],
+     * ["comment": ["body": "awesome", "user": ["name": "Renan"]]
      * ];
      * ages = [25, 28];
      * inserted = (new DCollection(items)).insert("comment.user.age", ages);
      *
      */ Result will look like this when converted to array
      * [
-     *  ["comment": ["body": "cool", "user": ["name": "Mark", "age": 25]],
-     *  ["comment": ["body": "awesome", "user": ["name": "Renan", "age": 28]]
+     * ["comment": ["body": "cool", "user": ["name": "Mark", "age": 25]],
+     * ["comment": ["body": "awesome", "user": ["name": "Renan", "age": 28]]
      * ];
      * ```
      *
@@ -734,8 +734,8 @@ interface ICollection {
      *
      * ```
      * collection = new DCollection([
-     *  ["id": 1, "children": [["id": 2, "children": [["id": 3]]]]],
-     *  ["id": 4, "children": [["id": 5]]]
+     * ["id": 1, "children": [["id": 2, "children": [["id": 3]]]]],
+     * ["id": 4, "children": [["id": 5]]]
      * ]);
      * flattenedIds = collection.listNested().extract("id"); // Yields [1, 2, 3, 4, 5]
      * ```
@@ -758,8 +758,8 @@ interface ICollection {
      * Get an array of lines in a CSV file until the timestamp column is less than a date
      *
      * ```
-     *  lines = (new DCollection(fileLines)).stopWhen(// function (value,  key) {
-     *  return (new DateTime(value)).format("Y") < 2012;
+     * lines = (new DCollection(fileLines)).stopWhen(// function (value,  key) {
+     * return (new DateTime(value)).format("Y") < 2012;
      * })
      * .toJString();
      * ```
@@ -803,7 +803,7 @@ interface ICollection {
      * ```
      * items [1, 2, 3];
      * allItems = (new DCollection(items)).unfold(// function (page) {
-     *  return service.fetchPage(page).toJString();
+     * return service.fetchPage(page).toJString();
      * });
      * ```
      *
@@ -820,8 +820,8 @@ interface ICollection {
      *
      * ```
      * items = [1, 2, 3];
-     *  decorated = (new DCollection(items)).through(// function (collection) {
-     *      return new DMyCustomCollection(collection);
+     * decorated = (new DCollection(items)).through(// function (collection) {
+     *     return new DMyCustomCollection(collection);
      * });
      * ```
      *
@@ -854,7 +854,7 @@ interface ICollection {
      * ```
      * collection = new DCollection([1, 2]);
      * zipped = collection.zipWith([3, 4], [5, 6], // function (...args) {
-     *   return array_sum(args);
+     *  return array_sum(args);
      * });
      * zipped.toList(); // returns [9, 12]; [(1 + 3 + 5), (2 + 4 + 6)]
      * ```
@@ -919,10 +919,10 @@ interface ICollection {
      *
      * 
      * items = [
-     *       ["Products", "2012", "2013", "2014"],
-     *       ["Product A", "200", "100", "50"],
-     *       ["Product B", "300", "200", "100"],
-     *       ["Product C", "400", "300", "200"],
+     *      ["Products", "2012", "2013", "2014"],
+     *      ["Product A", "200", "100", "50"],
+     *      ["Product B", "300", "200", "100"],
+     *      ["Product C", "400", "300", "200"],
      * ]
      *
      * transpose = (new DCollection(items)).transpose().toList();
@@ -994,21 +994,21 @@ interface ICollection {
      * collection = new DCollection([["A", "B", "C"], [1, 2, 3]]);
      * result = collection.cartesianProduct().toJString();
      * expected = [
-     *     ["A", 1],
-     *     ["A", 2],
-     *     ["A", 3],
-     *     ["B", 1],
-     *     ["B", 2],
-     *     ["B", 3],
-     *     ["C", 1],
-     *     ["C", 2],
-     *     ["C", 3],
+     *    ["A", 1],
+     *    ["A", 2],
+     *    ["A", 3],
+     *    ["B", 1],
+     *    ["B", 2],
+     *    ["B", 3],
+     *    ["C", 1],
+     *    ["C", 2],
+     *    ["C", 3],
      * ];
      * ```
      *
      * @param callable|null  operation A callable that allows you to customize the product result.
      * @param callable|null filter A filtering callback that must return true for a result to be part
-     *   of the final results.
+     *  of the final results.
      */
     ICollection cartesianProduct(callable  operation = null, callable filter = null);
 }

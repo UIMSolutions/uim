@@ -204,5 +204,5 @@ mixin template TConsoleIntegrationTest() {
         return argv;
     }
 
-     *  /
+     * /
 }

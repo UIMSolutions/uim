@@ -48,7 +48,7 @@ import uim.consoles;
  * declare arguments as optional, by setting the required param to false.
  *
  * ```
- *  aParser.addArgument("model", ["required": false.toJson]);
+ * aParser.addArgument("model", ["required": false.toJson]);
  * ```
  *
  * ### Providing Help text
@@ -204,14 +204,14 @@ class DConsoleOptionParser {
      *
      * ```
      * spec = [
-     *     "description": "text",
-     *     "epilog": "text",
-     *     "arguments": [
-     *         // list of arguments compatible with addArguments.
-     *     ],
-     *     "options": [
-     *         // list of options compatible with addOptions
-     *     ]
+     *    "description": "text",
+     *    "epilog": "text",
+     *    "arguments": [
+     *        // list of arguments compatible with addArguments.
+     *    ],
+     *    "options": [
+     *        // list of options compatible with addOptions
+     *    ]
      * ];
      * ```
      * Params:
@@ -278,19 +278,19 @@ class DConsoleOptionParser {
      * - `short` - The single letter variant for this option, leave undefined for none.
      * - `help` - Help text for this option. Used when generating help for the option.
      * - `default` - The default value for this option. Defaults are added into the parsed params when the
-     *   attached option is not provided or has no value. Using default and boolean together will not work.
-     *   are added into the parsed parameters when the option is undefined. Defaults to null.
+     *  attached option is not provided or has no value. Using default and boolean together will not work.
+     *  are added into the parsed parameters when the option is undefined. Defaults to null.
      * - `boolean` - The option uses no value, it`s just a boolean switch. Defaults to false.
-     *   If an option is defined as boolean, it will always be added to the parsed params. If no present
-     *   it will be false, if present it will be true.
+     *  If an option is defined as boolean, it will always be added to the parsed params. If no present
+     *  it will be false, if present it will be true.
      * - `multiple` - The option can be provided multiple times. The parsed option
-     *  will be an array of values when this option is enabled.
+     * will be an array of values when this option is enabled.
      * - `choices` A list of valid choices for this option. If left empty all values are valid..
-     *  An exception will be raised when parse() encounters an invalid value.
+     * An exception will be raised when parse() encounters an invalid value.
      * Params:
      * \UIM\Console\ConsoleInputOption|string aName The long name you want to the value to be parsed out
-     *  as when options are parsed. Will also accept an instance of ConsoleInputOption.
-     *  options An array of parameters that define the behavior of the option
+     * as when options are parsed. Will also accept an instance of ConsoleInputOption.
+     * options An array of parameters that define the behavior of the option
      */
     void addOption(string optionName, Json[string] behaviorOptions = null) {
             defaultValues = [
@@ -344,13 +344,13 @@ class DConsoleOptionParser {
      * - `help` The help text to display for this argument.
      * - `required` Whether this parameter is required.
      * - `index` The index for the arg, if left undefined the argument will be put
-     *  onto the end of the arguments. If you define the same index twice the first
-     *  option will be overwritten.
+     * onto the end of the arguments. If you define the same index twice the first
+     * option will be overwritten.
      * - `choices` A list of valid choices for this argument. If left empty all values are valid..
-     *  An exception will be raised when parse() encounters an invalid value.
+     * An exception will be raised when parse() encounters an invalid value.
      * Params:
      * \UIM\Console\ConsoleInputArgument|string aName The name of the argument.
-     *  Will also accept an instance of ConsoleInputArgument.
+     * Will also accept an instance of ConsoleInputArgument.
      */
     void addArgument(ConsoleInputArgument aName, Json[string] argumentParameters = null) {
         // TODO

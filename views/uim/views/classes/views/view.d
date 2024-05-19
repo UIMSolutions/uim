@@ -1239,5 +1239,5 @@ static string contentType() {
        _current = mycurrent;
 
         return myelement;
-    } */
+    }
 }

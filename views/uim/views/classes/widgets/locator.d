@@ -147,5 +147,5 @@ class DWidgetLocator {
         }
         
         return myinstance;
-    } */
+    }
 }

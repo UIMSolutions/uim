@@ -158,5 +158,5 @@ class DValidationRule {
         myproperty = "_" ~ myproperty;
 
         return _{myproperty} ?? null;
-    } */
+    }
 }

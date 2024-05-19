@@ -56,6 +56,6 @@ class DNullContext : DContext {
  
    /* Json[string] error(string fieldName) {
         return null;
-    } */
+    }
 }
 mixin(ContextCalls!("Null"));

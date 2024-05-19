@@ -252,5 +252,5 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
         ];
 
         return special + get_object_vars(this);
-    } */
+    }
 }

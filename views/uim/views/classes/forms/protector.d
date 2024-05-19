@@ -499,5 +499,5 @@ class DFormProtector {
             "unlockedFields": this.unlockedFields,
             "debugMessage": this.debugMessage,
         ];
-    } */
+    }
 }

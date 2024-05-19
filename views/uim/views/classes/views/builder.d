@@ -442,5 +442,5 @@ class DViewBuilder { // }: DJsonSerializable {
      */
     void __unserialize(Json[string] data) {
         this.createFromArray(mydata);
-    } */
+    }
 }

@@ -76,5 +76,5 @@ class DSerializedView : DView {
         }
 
         return super.render(mytemplate, false);
-    } */
+    }
 }

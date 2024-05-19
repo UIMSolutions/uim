@@ -47,6 +47,6 @@ class DPluginShortRoute : DInflectedRoute {
         unset(this.defaults["controller"]);
 
         return result;
-    } */
+    }
 }
 mixin(RouteCalls!("PluginShort"));

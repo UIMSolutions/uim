@@ -37,5 +37,5 @@ class DNegotiationRequiredView : DView {
      */
     string render(string templateName = null, string | false | nullmylayout = null) {
         return "";
-    } */
+    }
 }

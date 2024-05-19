@@ -28,7 +28,7 @@ import uim.errors;
  *
  * - Modify config/error.D and setup custom exception handling.
  * - Use the `exceptionRenderer` option to inject an Exception renderer. This will
- *   let you keep the existing handling logic but override the rendering logic.
+ *  let you keep the existing handling logic but override the rendering logic.
  *
  * #### Create your own Exception handler
  *

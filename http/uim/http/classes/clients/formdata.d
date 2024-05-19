@@ -54,7 +54,7 @@ class DFormData { // }: Countable {
      * Files will be read from their current position and saved in memory.
      * Params:
      * \UIM\Http\Client\FormDataPart|string aName The name of the part to add,
-     *  or the part data object.
+     * or the part data object.
      * @param Json aValue The value for the part.
      */
     void add(FormDataPart|string aName, Json aValue = null) {

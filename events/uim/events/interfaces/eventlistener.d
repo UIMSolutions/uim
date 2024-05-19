@@ -18,11 +18,11 @@ interface IEventListener {
      * ```
      * auto implementedEvents()
      * {
-     *     return [
-     *         'Order.complete": `sendEmail",
-     *         'Article.afterBuy": 'decrementInventory",
-     *         'User.onRegister": ["callable": 'logRegistration", "priority": 20, "passParams": true.toJson]
-     *     ];
+     *    return [
+     *        'Order.complete": `sendEmail",
+     *        'Article.afterBuy": 'decrementInventory",
+     *        'User.onRegister": ["callable": 'logRegistration", "priority": 20, "passParams": true.toJson]
+     *    ];
      * }
      * ```
      */

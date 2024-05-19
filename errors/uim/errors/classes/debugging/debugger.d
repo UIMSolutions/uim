@@ -329,9 +329,9 @@ class DDebugger {
      *
      * - `depth` - The number of stack frames to return. Defaults to 999
      * - `format` - The format you want the return. Defaults to the currently selected format. If
-     *    format is 'array' or 'points' the return will be an array.
+     *   format is 'array' or 'points' the return will be an array.
      * - `args` - Should arguments for functions be shown? If true, the arguments for each method call
-     *   will be displayed.
+     *  will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      *
      * @param Json[string] options Format for outputting stack trace.
@@ -347,9 +347,9 @@ class DDebugger {
      *
      * - `depth` - The number of stack frames to return. Defaults to 999
      * - `format` - The format you want the return. Defaults to the currently selected format. If
-     *    format is 'array' or 'points' the return will be an array.
+     *   format is 'array' or 'points' the return will be an array.
      * - `args` - Should arguments for functions be shown? If true, the arguments for each method call
-     *   will be displayed.
+     *  will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      *
      * @param \Throwable|array backtrace Trace as array or an exception object.
@@ -566,13 +566,13 @@ class DDebugger {
      * *Note:* The following keys will have their contents
      * replaced with `*****`:
      *
-     *  - password
-     *  - login
-     *  - host
-     *  - database
-     *  - port
-     *  - prefix
-     *  - schema
+     * - password
+     * - login
+     * - host
+     * - database
+     * - port
+     * - prefix
+     * - schema
      *
      * This is done to protect database credentials, which could be accidentally
      * shown in an error message if UIM is deployed in development mode.
@@ -786,7 +786,7 @@ class DDebugger {
      *
      * @param mixed var Variable to show debug information for.
      * @param Json[string] location If contains keys "file" and "line" their values will
-     *    be used to show location info.
+     *   be used to show location info.
      */
     static void printVar(var, Json[string] location = null, bool showHtml = false) {
         auto location += ['file': null, 'line': null];

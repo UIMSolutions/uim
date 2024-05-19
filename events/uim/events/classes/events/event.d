@@ -50,9 +50,9 @@ class DEvent : IEvent {
      * ```
      * Params:
      * @param object|null subject the object that this event applies to
-     *  (usually the object that is generating the event).
+     * (usually the object that is generating the event).
      * @param Json[string] data any value you wish to be transported
-     *  with this event to it can be read by listeners.
+     * with this event to it can be read by listeners.
      * @psalm-param TSubject|null subject
      */
     this(string eventName, IEventObject subject = null, Json data = null) {

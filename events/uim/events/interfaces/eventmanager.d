@@ -73,7 +73,7 @@ interface IEventManager {
      * ```
      *
      * @param \UIM\Event\IEventListener|callable|string aeventKey The event unique identifier name
-     *   with which the callback has been associated, or the listener you want to remove.
+     *  with which the callback has been associated, or the listener you want to remove.
      * @param \UIM\Event\IEventListener|callable|null aCallable The callback you want to detach.
      */
     auto off(

@@ -140,22 +140,22 @@ class DClient { // }: IClient {
      * - basePath - A path to append to the domain to use. (/api/v1/)
      * - timeout - The timeout in seconds. Defaults to 30
      * - ssl_verify_peer - Whether SSL certificates should be validated.
-     *  Defaults to true.
+     * Defaults to true.
      * - ssl_verify_peer_name - Whether peer names should be validated.
-     *  Defaults to true.
+     * Defaults to true.
      * - ssl_verify_depth - The maximum certificate chain depth to traverse.
-     *  Defaults to 5.
+     * Defaults to 5.
      * - ssl_verify_host - Verify that the certificate and hostname match.
-     *  Defaults to true.
+     * Defaults to true.
      * - redirect - Number of redirects to follow. Defaults to false.
      * - adapter - The adapter class name or instance. Defaults to
-     *  \UIM\Http\Client\Adapter\Curl if `curl` extension is loaded else
-     *  \UIM\Http\Client\Adapter\Stream.
+     * \UIM\Http\Client\Adapter\Curl if `curl` extension is loaded else
+     * \UIM\Http\Client\Adapter\Stream.
      * - protocolVersion - The HTTP protocol version to use. Defaults to 1.1
      * - auth - The authentication credentials to use. If a `username` and `password`
-     *  key are provided without a `type` key Basic authentication will be assumed.
-     *  You can use the `type` key to define the authentication adapter classname
-     *  to use. Short class names are resolved to the `Http\Client\Auth` namespace.
+     * key are provided without a `type` key Basic authentication will be assumed.
+     * You can use the `type` key to define the authentication adapter classname
+     * to use. Short class names are resolved to the `Http\Client\Auth` namespace.
      * Params:
      * Json[string] configData Config options for scoped clients.
      */

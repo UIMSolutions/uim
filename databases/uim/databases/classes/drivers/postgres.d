@@ -154,7 +154,7 @@ protected void _transformIdentifierExpression(IdentifierExpression expressionToT
      * SQL dialect.
      * Params:
      * \UIM\Database\Expression\FunctionExpression expression The auto expression to convert
-     *  to postgres SQL.
+     * to postgres SQL.
      */
 protected void _transformFunctionExpression(FunctionExpression expressionToConvert) {
     switch (expressionToConvert.name) {

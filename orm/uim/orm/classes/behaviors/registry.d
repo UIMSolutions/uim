@@ -237,7 +237,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
         throw new BadMethodCallException(
             "Cannot call finder '%s' it does not belong to any attached behavior.".format(type)
         );
-    } */
+    }
 }
   auto BehaviorRegistry() { // Singleton
     return DBehaviorRegistry.instance;

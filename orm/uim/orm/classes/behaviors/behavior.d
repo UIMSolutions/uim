@@ -385,5 +385,5 @@ class DBehavior : IEventListener {
         }
 
         return self._reflectionCache[class] = return;
-    } */
+    }
 }

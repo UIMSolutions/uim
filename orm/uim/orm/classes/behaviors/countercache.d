@@ -265,5 +265,5 @@ class DCounterCacheBehavior : DBehavior {
         myquery = _table.find(myfinder, ...configData);
 
         return myquery.count();
-    } */
+    }
 }

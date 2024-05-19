@@ -110,6 +110,6 @@ class DHasOneAssociation : DAssociation {
         helper = new DependentDeleteHelper();
 
         return helper.cascaderemove(this, entity, options);
-    } */
+    }
 }
 mixin(AssociationCalls!("HasOne"));

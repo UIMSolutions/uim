@@ -713,5 +713,5 @@ class DEagerLoader {
         if (_matching) {
            _matching = clone _matching;
         }
-    } */
+    }
 }

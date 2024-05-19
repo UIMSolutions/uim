@@ -940,5 +940,5 @@ class DTreeBehavior : DBehavior {
         ]);
 
         return _scope(query).count();
-    } */
+    }
 }

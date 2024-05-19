@@ -474,5 +474,5 @@ class DSelectLoader {
 
             return row;
         };
-    } */
+    }
 }

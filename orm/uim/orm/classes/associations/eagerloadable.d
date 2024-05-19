@@ -231,5 +231,5 @@ class DEagerLoadable {
         foreach (_associations as myi: myassociation) {
            _associations[myi] = clone myassociation;
         }
-    } */
+    }
 }

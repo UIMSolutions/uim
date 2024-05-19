@@ -158,5 +158,5 @@ class DSelectWithPivotLoader : DSelectLoader {
         }
 
         return resultMap;
-    } */
+    }
 }

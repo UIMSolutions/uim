@@ -191,12 +191,7 @@ class DConsoleIo {
         return _writeErrorMessages(message, newLinesToAppend);
     }
     
-    /**
-     * Convenience method for out() that wraps message between <success> tag
-     * Params:
-     * string[]|string amessage A string or an array of strings to output
-     * @param int newLinesToAppend Number of newLinesToAppend to append
-     */
+    // Convenience method for out() that wraps message between <success> tag
     int success(string[] messagesToOutput, int newLinesToAppend = 1, int outputLevel = self.NORMAL) {
         string messageType = "success";
         message = wrapMessageWithType(messageType, message);

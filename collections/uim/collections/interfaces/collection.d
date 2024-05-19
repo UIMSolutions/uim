@@ -529,15 +529,8 @@ interface ICollection {
      */
     ICollection match(Json[string] conditions);
 
-    /**
-     * Returns the first result matching all the key-value pairs listed in
-     * conditions.
-     *
-     * @param Json[string] conditions a key-value list of conditions where the key is
-     * a property path as accepted by `Collection.extract`, and the value the
-     * condition against with each element will be matched
-     */
-    Json firstMatch(Json[string] conditions);
+    // Returns the first result matching all the key-value pairs listed in conditions.
+    Json firstMatch(Json[string] conditionsWithPath);
 
     // Returns the first result in this collection
     Json first();

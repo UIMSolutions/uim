@@ -29,7 +29,6 @@ class DBetweenExpression : DExpression { // TODO}, IField {
      
      * Params:
      * \UIM\Database\IExpression|string fieldName The field name to compare for values inbetween the range.
-     * @param string|null typeName The data typeName name to bind the values with.
      */
     this(IExpression|string fieldName, Json fromValue, Json toValue, string typeName = null) {
         if (!typeName.isNull) {
@@ -88,6 +87,6 @@ class DBetweenExpression : DExpression { // TODO}, IField {
         ["_field", "_from", "_to"]
             .filter!(part => cast(IExpression)this.{part})
             .each!(part => this.{part} = clone this.{part});
-    } */
+    }
 }
 mixin(ExpressionCalls!("Between"));

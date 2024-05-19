@@ -858,5 +858,5 @@ class DDebugger {
                 E_USER_NOTICE
             );
         }
-    } */
+    }
 }

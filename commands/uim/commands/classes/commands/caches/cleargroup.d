@@ -19,11 +19,7 @@ class DCacheClearGroupCommand : DCommand {
     return "cache clear_group";
   }
 
-  /**
-     * Hook method for defining this command`s option parser.
-     *
-     * @param \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The parser to be defined
-     */
+  // Hook method for defining this command`s option parser.
   DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToDefine) {
     auto definedParser = super.buildOptionParser(parserToDefine);
     with(definedParser) {

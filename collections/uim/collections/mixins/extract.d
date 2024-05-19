@@ -82,16 +82,12 @@ mixin template TExtract() {
      * by iterating over the column names contained in somePath
      * Params:
      * \ArrayAccess<string|int, mixed>|array data Data.
-     * @param string[] someParts Path to extract from.
      */
-    protected Json _simpleExtract(ArrayAccess|array data, Json[string] someParts) {
+    protected Json _simpleExtract(Json[string] extractData, Json[string] extractPath) {
         auto value = null;
-        someParts
-            .filter!(column => someData.isSet(column))
-            .each!((column) {
-                value = someData[myColumn];
-                someData = value;
-            });
+        extractPath
+            .filter!(column => extractData.hasKey(column))
+            .each!(column => extractData = extractData[myColumn]);
 
         return value;
     }
@@ -120,5 +116,5 @@ mixin template TExtract() {
             }
             return true;
         };
-    } */
+    }
 }

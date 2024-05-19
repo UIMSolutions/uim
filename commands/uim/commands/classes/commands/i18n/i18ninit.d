@@ -77,5 +77,5 @@ class DI18nInitCommand : DCommand {
            ]);
 
         return aParser;
-    } */
+    }
 }

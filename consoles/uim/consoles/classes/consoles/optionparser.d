@@ -410,11 +410,10 @@ class DConsoleOptionParser {
      * Parse the argv array into a set of params and args.
      * Params:
      * Json[string] argv Array of args (argv) to parse.
-     * @param \UIM\Console\ConsoleIo|null  aConsoleIo A ConsoleIo instance or null. If null prompt options will error.
      */
-    Json[string] parse(Json[string] argv, IConsoleIo aConsoleIo = null) {
+    Json[string] parse(Json[string] argToParse, IConsoleIo aConsoleIo = null) {
         params = someArguments = null;
-       _tokens = argv;
+       _tokens = argToParse;
 
         afterDoubleDash = false;
         while ((token = array_shift(_tokens)) !isNull) {
@@ -439,7 +438,7 @@ class DConsoleOptionParser {
         if (isSet(params["help"])) {
             return [params, someArguments];
         }
-        foreach (anI: arg; _args) {
+        foreach (anI: arg; argToParse) {
             if (arg.isRequired() && !isSet(someArguments[anI])) {
                 throw new DConsoleException(
                     "Missing required argument. The `%s` argument is required.".format(arg.name())
@@ -628,5 +627,5 @@ class DConsoleOptionParser {
     // Find the next token in the argv set.
     protected string _nextToken() {
         return _tokens[0] ?? "";
-    } */
+    }
 }

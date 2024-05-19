@@ -41,10 +41,10 @@ class DMessagesFileLoader {
      * the following rules:
      *
      * - The locale is a folder under the `resources/locales/` directory, a fallback will be
-     *  used if the folder is not found.
+     * used if the folder is not found.
      * - The name corresponds to the file name to load
      * - If there is a loaded plugin with the underscored version of name, the
-     *  translation file will be loaded from such plugin.
+     * translation file will be loaded from such plugin.
      *
      * ### Examples:
      *

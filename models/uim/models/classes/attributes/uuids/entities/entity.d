@@ -13,7 +13,7 @@ import uim.models;
 class DEntityIdAttribute : DUUIDAttribute {
   mixin(AttributeThis!("EntityId"));
 
-/*   is.dataFormat.character
+/*  is.dataFormat.character
 is.dataFormat.big
 is.dataFormat.array
 is.dataFormat.guid

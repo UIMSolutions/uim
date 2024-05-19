@@ -23,7 +23,7 @@ class DPreferredContactMethodAttribute : DAttribute {
     return true;
   }
 
-/*   override Json createData() {
+/*  override Json createData() {
     return PreferredContactMethoDData(this); } */
 }
 mixin(AttributeCalls!("PreferredContactMethod"));

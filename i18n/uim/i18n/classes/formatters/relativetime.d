@@ -170,10 +170,9 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
      * Params:
      * string|int futureTime The timestamp from the future.
      * @param string|int pastTime The timestamp from the past.
-     * @param bool backwards Whether the difference was backwards.
      * @param Json[string] options An array of options.
      */
-    protected Json[string] _diffData(string|int futureTime, string|int pastTime, bool backwards, Json[string] options = null) {
+    protected Json[string] _diffData(string|int futureTime, string|int pastTime, bool isBackwards, Json[string] options = null) {
         futureTime = (int)futureTime;
         pastTime = (int)pastTime;
         diff = futureTime - pastTime;

@@ -399,13 +399,13 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * - `from`: another Time object representing the "now" time
      * - `format`: a fall back format if the relative time is longer than the duration specified by end
      * - `accuracy`: Specifies how accurate the date should be described (array)
-     *    - year:   The format if years > 0   (default "day")
-     *    - month:  The format if months > 0  (default "day")
-     *    - week:   The format if weeks > 0   (default "day")
-     *    - day:    The format if weeks > 0   (default "hour")
-     *    - hour:   The format if hours > 0   (default "minute")
-     *    - minute: The format if minutes > 0 (default "minute")
-     *    - second: The format if seconds > 0 (default "second")
+     *   - year:   The format if years > 0   (default "day")
+     *   - month:  The format if months > 0  (default "day")
+     *   - week:   The format if weeks > 0   (default "day")
+     *   - day:    The format if weeks > 0   (default "hour")
+     *   - hour:   The format if hours > 0   (default "minute")
+     *   - minute: The format if minutes > 0 (default "minute")
+     *   - second: The format if seconds > 0 (default "second")
      * - `end`: The end of relative time telling
      * - `relativeString`: The printf compatible string when outputting relative time
      * - `absoluteString`: The printf compatible string when outputting absolute time
@@ -434,14 +434,14 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * Get list of timezone identifiers
      * Params:
      * string|int filter A regex to filter identifier
-     *  Or one of DateTimeZone class DConstants
+     * Or one of DateTimeZone class DConstants
      * @param string country A two-letter ISO 3166-1 compatible country code.
-     *  This option is only used when filter is set to DateTimeZone.PER_COUNTRY
+     * This option is only used when filter is set to DateTimeZone.PER_COUNTRY
      * @param Json[string]|bool options If true (default value) groups the identifiers list by primary region.
-     *  Otherwise, an array containing `group`, `abbr`, `before`, and `after`
-     *  keys. Setting `group` and `abbr` to true will group results and append
-     *  timezone abbreviation in the display value. Set `before` and `after`
-     *  to customize the abbreviation wrapper.
+     * Otherwise, an array containing `group`, `abbr`, `before`, and `after`
+     * keys. Setting `group` and `abbr` to true will group results and append
+     * timezone abbreviation in the display value. Set `before` and `after`
+     * to customize the abbreviation wrapper.
      */
     auto Json[string] listTimezones(
         string|int filter = null,

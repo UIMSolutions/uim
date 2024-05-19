@@ -96,7 +96,7 @@ class DAttribute { // TODO:  /* DEntity,  */ IAttribute {
 
   mixin(TProperty!("UUID", "attribute")); // Super attribute.
 
-  /*  void attribute(UUID myId, size_t myMajor = 0, size_t myMinor = 0) { 
+  /* void attribute(UUID myId, size_t myMajor = 0, size_t myMinor = 0) { 
     _attribute = Attribute.id(myId).versionMajor(myMajor).versionMinor(myMinor);
      }
 
@@ -109,7 +109,7 @@ class DAttribute { // TODO:  /* DEntity,  */ IAttribute {
      } */
 
   // Create a new attribute based on this attribute - using attribute name 
-  /*   auto createAttribute() {
+  /*  auto createAttribute() {
     return createAttribute(_name); } */
 
   Json createValue() {
@@ -260,7 +260,7 @@ class DAttribute { // TODO:  /* DEntity,  */ IAttribute {
   }
 }
 
-  /*   alias opIndexAssign = DElement.opIndexAssign;
+  /*  alias opIndexAssign = DElement.opIndexAssign;
   alias opIndexAssign = DEntity.opIndexAssign; */
   auto Attribute() {
     return new DAttribute;

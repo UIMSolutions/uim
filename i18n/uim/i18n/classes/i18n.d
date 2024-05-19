@@ -63,11 +63,11 @@ class DI18n {
      *
      * ```
      * I18n.setTranslator("default", auto () {
-     *     catalog = new \UIM\I18n\MessageCatalog();
-     *     catalog.setMessages([
-     *         'uim": 'Gâteau'
-     *     ]);
-     *     return catalog;
+     *    catalog = new \UIM\I18n\MessageCatalog();
+     *    catalog.setMessages([
+     *        'uim": 'Gâteau'
+     *    ]);
+     *    return catalog;
      * }, "fr_FR");
      *
      * translator = I18n.getTranslator("default", "fr_FR");
@@ -87,7 +87,7 @@ class DI18n {
      * ```
      * Params:
      * @param callable loader A callback auto or callable class responsible for
-     *  constructing a translations catalog instance.
+     * constructing a translations catalog instance.
      * @param string locale The locale for the translator.
      */
     static void setTranslator(string domainName, callable loader, string translatorLocale = null) {
@@ -144,9 +144,9 @@ class DI18n {
      * ```
      * use UIM\I18n\MessagesFileLoader;
      * I18n.config("_domain", auto (name, locale) {
-     *     // Load resources/locales/locale/filename.po
-     *     fileLoader = new DMessagesFileLoader("filename", locale, "po");
-     *     return fileLoader();
+     *    // Load resources/locales/locale/filename.po
+     *    fileLoader = new DMessagesFileLoader("filename", locale, "po");
+     *    return fileLoader();
      * });
      * ```
      *
@@ -155,11 +155,11 @@ class DI18n {
      * ```
      * use UIM\I18n\MessageCatalog;
      * I18n.config("_domain", auto (name, locale) {
-     *     catalog = new DMessageCatalog("default");
-     *     messages = (...); // Fetch messages for locale from external service.
-     *     catalog.setMessages(message);
-     *     catalog.("default");
-     *     return catalog;
+     *    catalog = new DMessageCatalog("default");
+     *    messages = (...); // Fetch messages for locale from external service.
+     *    catalog.setMessages(message);
+     *    catalog.("default");
+     *    return catalog;
      * });
      * ```
      * Params:

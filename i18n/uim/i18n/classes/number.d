@@ -118,7 +118,7 @@ class DNumber {
      *
      * - `locale` - The locale name to use for parsing the number, e.g. fr_FR
      * - `type` - The formatter type to construct, set it to `currency` if you need to parse
-     *   numbers representing money.
+     *  numbers representing money.
      * Params:
      * string avalue A numeric string.
      * @param Json[string] options An array with options.
@@ -160,7 +160,7 @@ class DNumber {
      * - `locale` - The locale name to use for formatting the number, e.g. fr_FR
      * - `fractionSymbol` - The currency symbol to use for fractional numbers.
      * - `fractionPosition` - The position the fraction symbol should be placed
-     *   valid options are 'before' & 'after'.
+     *  valid options are 'before' & 'after'.
      * - `before` - Text to display before the rendered number
      * - `after` - Text to display after the rendered number
      * - `zero` - The text to use for zero values, can be a string or a number. e.g. 0, "Free!'
@@ -168,7 +168,7 @@ class DNumber {
      * - `precision` - Maximum Number of decimal places to use, e.g. 2
      * - `pattern` - An ICU number pattern to use for formatting the number. e.g #,##0.00
      * - `useIntlCode` - Whether to replace the currency symbol with the international
-     *  currency code.
+     * currency code.
      * Params:
      * Json aValue Value to format.
      * @param string currency International currency name such as 'USD", "EUR", "JPY", "CAD'
@@ -247,12 +247,12 @@ class DNumber {
      *
      * - `locale` - The locale name to use for formatting the number, e.g. fr_FR
      * - `type` - The formatter type to construct, set it to `currency` if you need to format
-     *   numbers representing money or a NumberFormatter constant.
+     *  numbers representing money or a NumberFormatter constant.
      * - `places` - Number of decimal places to use. e.g. 2
      * - `precision` - Maximum Number of decimal places to use, e.g. 2
      * - `pattern` - An ICU number pattern to use for formatting the number. e.g #,##0.00
      * - `useIntlCode` - Whether to replace the currency symbol with the international
-     *  currency code.
+     * currency code.
      * Params:
      * Json[string] options An array with options.
      */
@@ -328,7 +328,7 @@ class DNumber {
      * ### Options
      *
      * - `type` - The formatter type to construct, set it to `currency` if you need to format
-     *   numbers representing money or a NumberFormatter constant.
+     *  numbers representing money or a NumberFormatter constant.
      *
      * For all other options see formatter().
      * Params:

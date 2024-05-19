@@ -10,8 +10,8 @@ import uim.http;
  *
  * ```
  * IResponse (
- *    IServerRequest serverRequest,
- *    IRequestHandler handler
+ *   IServerRequest serverRequest,
+ *   IRequestHandler handler
  * ): 
  * ```
  *

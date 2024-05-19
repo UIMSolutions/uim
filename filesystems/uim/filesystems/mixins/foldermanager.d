@@ -532,7 +532,7 @@ mixin template TFolderManager() {
     
   // #endregion Folder
 
-/*   IFolder folder(string[] aPath);
+/*  IFolder folder(string[] aPath);
 
   // Returns a Folders collection consisting of all Folder objects contained in the specified folder, including those with hidden and system folder attributes set.
   IFolder[] folders(string relativPath = null);

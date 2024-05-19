@@ -26,7 +26,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      *
      * - `key` The session key to use. Defaults to `csrfToken`
      * - `field` The form field to check. Changing this will also require configuring
-     *   FormHelper.
+     *  FormHelper.
      */
     protected Json _config = [
         "key": Json("csrfToken"),

@@ -196,7 +196,7 @@ class DServerRequest { // }: IServerRequest {
      * - `base` The base URL for the request.
      * - `webroot` The webroot directory for the request.
      * - `input` The data that would come from D://input this is useful for simulating
-     *  requests with put, patch or delete data.
+     * requests with put, patch or delete data.
      * - `session` An instance of a Session object
      * Params:
      * Json[string] configData An array of request data to create a request with.
@@ -370,7 +370,7 @@ class DServerRequest { // }: IServerRequest {
      * Returns the referer that referred this request.
      * Params:
      * bool local Attempt to return a local address.
-     *  Local addresses do not contain hostnames.
+     * Local addresses do not contain hostnames.
      */
     string referer(bool local = true) {
         ref = getEnvironmentData("HTTP_REFERER");
@@ -421,7 +421,7 @@ class DServerRequest { // }: IServerRequest {
      * as `is(type)` or `isType()`.
      * Params:
      * string[]|string atype The type of request you want to check. If an array
-     *  this method will return true if the request matches any type.
+     * this method will return true if the request matches any type.
      * @param Json ...someArguments List of arguments
      */
     bool is(string[] atype, Json ...someArguments) {
@@ -862,7 +862,7 @@ class DServerRequest { // }: IServerRequest {
      * Get the domain name and include tldLength segments of the tld.
      * Params:
      * int tldLength Number of segments your tld contains. For example: `example.com` contains 1 tld.
-     *  While `example.co.uk` contains 2.
+     * While `example.co.uk` contains 2.
      */
     string domain(int tldLength = 1) {
         auto host = this.host();
@@ -880,7 +880,7 @@ class DServerRequest { // }: IServerRequest {
      * Get the subdomains for a host.
      * Params:
      * int tldLength Number of segments your tld contains. For example: `example.com` contains 1 tld.
-     *  While `example.co.uk` contains 2.
+     * While `example.co.uk` contains 2.
      */
     string[] subdomains(int tldLength = 1) {
         auto host = host();
@@ -1085,7 +1085,7 @@ class DServerRequest { // }: IServerRequest {
      * Update the parsed body and get a new instance.
      * Params:
      * object|array|null someData The deserialized body data. This will
-     *    typically be in an array or object.
+     *   typically be in an array or object.
      */
     static withParsedBody(someData) {
         new = clone this;
@@ -1136,7 +1136,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string aKey The key you want to read from.
      * @param string default Default value when trying to retrieve an environment
-     *  variable`s value that does not exist.
+     * variable`s value that does not exist.
      */
     string getEnvironmentData(string aKey, string adefault = null) {
         aKey = aKey.upper;
@@ -1426,7 +1426,7 @@ class DServerRequest { // }: IServerRequest {
      * target`s form to an absolute-form, authority-form or asterisk-form
      *
      * @link https://tools.ietf.org/html/rfc7230#section-2.7 (for the various
-     *  request-target forms allowed in request messages)
+     * request-target forms allowed in request messages)
      * @param string arequestTarget The request target.
      */
     static withRequestTarget(string arequestTarget) {

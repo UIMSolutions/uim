@@ -39,7 +39,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      *
      * - `Json` Set to false to disable Json body parsing.
      * - `xml` Set to true to enable XML parsing. Defaults to false, as XML
-     *  handling requires more care than Json does.
+     * handling requires more care than Json does.
      * - `methods` The HTTP methods to parse on. Defaults to PUT, POST, PATCH DELETE.
      * Params:
      * Json[string] options The options to use. See above.
@@ -75,14 +75,14 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      * An naive CSV request body parser could be built like so:
      *
      * ```
-     *  aParser.addParser(["text/csv"], auto (body) {
-     *  return str_getcsv(body);
+     * aParser.addParser(["text/csv"], auto (body) {
+     * return str_getcsv(body);
      * });
      * ```
      * Params:
      * string[] types An array of content-type header values to match. eg. application/Json
      * @param \Closure  aParser The parser function. Must return an array of data to be inserted
-     *  into the request.
+     * into the request.
      */
     void addParser(Json[string] types, Closure  aParser) {
         types

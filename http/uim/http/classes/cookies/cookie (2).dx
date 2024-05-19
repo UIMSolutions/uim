@@ -99,7 +99,7 @@ class DCookie : ICookie {
      * - `httponly`: Boolean. Defaults to `false`.
      * - `secure`: Boolean. Defaults to `false`.
      * - `samesite`: Can be one of `ICookie.SAMESITE_LAX`, `ICookie.SAMESITE_STRICT`,
-     *   `ICookie.SAMESITE_NONE` or `null`. Defaults to `null`.
+     *  `ICookie.SAMESITE_NONE` or `null`. Defaults to `null`.
      * Params:
      * Json[string] options Default options.
      */

@@ -104,7 +104,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      *
      * @link https://w3c.github.io/webappsec-referrer-policy
      * @param string apolicy Policy value. Available Value: 'no-referrer", "no-referrer-when-downgrade", "origin",
-     *    'origin-when-cross-origin", "same-origin", "strict-origin", "strict-origin-when-cross-origin", "unsafe-url'
+     *   'origin-when-cross-origin", "same-origin", "strict-origin", "strict-origin-when-cross-origin", "unsafe-url'
      */
     void setReferrerPolicy(string apolicy = self.SAME_ORIGIN) {
         auto available = [
@@ -162,7 +162,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      *
      * @link https://web.archive.org/web/20170607190356/https://www.adobe.com/devnet/adobe-media-server/articles/cross-domain-xml-for-streaming.html
      * @param string apolicy Policy value. Available Values: 'all", "none", "master-only", "by-content-type",
-     *    'by-ftp-filename'
+     *   'by-ftp-filename'
      */
     void setCrossDomainPolicy(string policyValue = self.ALL) {
         this.checkValues(policyValue, [

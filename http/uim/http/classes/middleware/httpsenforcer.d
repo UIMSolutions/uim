@@ -17,11 +17,11 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
      * - `disableOnDebug` - Whether HTTPS check should be disabled when debug is on. Default `true`.
      * - `trustedProxies` - Array of trusted proxies that will be passed to the request. Defaults to `null`.
      * - 'hsts' - Strict-Transport-Security header for HTTPS response configuration. Defaults to `null`.
-     *   If enabled, an array of config options:
+     *  If enabled, an array of config options:
      *
-     *       - 'maxAge' - `max-age` directive value in seconds.
-     *       - 'includeSubDomains' - Whether to include `includeSubDomains` directive. Defaults to `false`.
-     *       - 'preload' - Whether to include 'preload' directive. Defauls to `false`.
+     *      - 'maxAge' - `max-age` directive value in seconds.
+     *      - 'includeSubDomains' - Whether to include `includeSubDomains` directive. Defaults to `false`.
+     *      - 'preload' - Whether to include 'preload' directive. Defauls to `false`.
      */
     protected Json[string] configData = [
         "redirect": true.toJson,

@@ -788,10 +788,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * - containments
      *
      * This method creates query clones that are useful when working with subqueries.
-     *
-     * @return static
      */
-    function cleanCopy() {
+    static auto cleanCopy() {
         clone = clone this;
         clone.triggerBeforeFind();
         clone.disableAutoFields();

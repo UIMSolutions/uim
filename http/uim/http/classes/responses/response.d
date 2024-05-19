@@ -527,10 +527,9 @@ class DResponse : IResponse {
      * @param string areasonPhrase The reason phrase to use with the
      *    provided status code; if none is provided, implementations MAY
      *    use the defaults as suggested in the HTTP specification.
-     * @return static
      * @throws \InvalidArgumentException For invalid status code arguments.
      */
-    static withStatus(int code, string areasonPhrase = "") {
+    static auto withStatus(int code, string areasonPhrase = "") {
         new = clone this;
         new._setStatus(code, reasonPhrase);
 

@@ -835,7 +835,6 @@ class DDebugger {
      * - Convert newlines into `<br />`
      *
      * @param string message The string message to format.
-     * @return string Formatted message.
      */
     static string formatHtmlMessage(string message) {
         Json message = htmlAttributeEscape(message);

@@ -48,10 +48,8 @@ interface ICookie {
     // Create a cookie with an updated domain
     static auto withDomain(string domainName);
 
-    /**
-     * Get the current expiry time
-     */
-    // TODO IDateTime getExpiry();
+    // Get the current expiry time
+    IDateTime getExpiry();
 
     // Get the timestamp from the expiration time
     int getExpiresTimestamp() ;
@@ -63,14 +61,11 @@ interface ICookie {
      * Create a cookie with an updated expiration date
      * Params:
      * \IDateTime dateTime Date time object
-     * @return static
      */
-    // TODO static withExpiry(IDateTime dateTime);
+    static auto withExpiry(IDateTime dateTime);
 
-    /**
-     * Create a new cookie that will virtually never expire.
-     */
-    // TODO static withNeverExpire();
+    // Create a new cookie that will virtually never expire.
+    static auto withNeverExpire();
 
     /**
      * Create a new cookie that will expire/delete the cookie from the browser.
@@ -110,7 +105,7 @@ interface ICookie {
      * Params:
      * \UIM\Http\Cookie\SameSiteEnum|string sameSite Value for to set for Samesite option.
      */
-    // TODO static withSameSite(SameSiteEnum|string sameSite);
+    static auto withSameSite(SameSiteEnum|string sameSite);
 
     // Get cookie options
     Json[string] getOptions();

@@ -296,7 +296,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         }
         
         auto now = options["from"].format("U");
-        auto  anInSeconds = date.format("U");
+        auto anInSeconds = date.format("U");
         auto backwards = (anInSeconds > now);
 
         auto futureTime = now;

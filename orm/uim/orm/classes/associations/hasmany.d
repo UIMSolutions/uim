@@ -410,8 +410,6 @@ class DHasManyAssociation : DAssociation {
      * @param range remainingEntities Entities that should not be deleted
      * @param Json[string] options list of options accepted by `Table.remove()`
      */
-     * @return bool success
-     */
                     protected bool _unlinkAssociated(
                         array foreignKeyReference,
                         IORMEntity anEntity,

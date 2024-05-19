@@ -1061,9 +1061,8 @@ class DServerRequest { // }: IServerRequest {
      * Replace the cookies and get a new request instance.
      * Params:
      * Json[string] cookies The new cookie data to use.
-     * @return static
      */
-    auto withCookieParams(Json[string] cookies): static
+    static auto withCookieParams(Json[string] cookies): static
     {
         new = clone this;
         new.cookies = cookies;
@@ -1202,9 +1201,8 @@ class DServerRequest { // }: IServerRequest {
      * Use `withParsedBody()` if you need to replace the all request data.
      * Params:
      * @param Json aValue The value to insert into the request data.
-     * @return static
      */
-    auto withData(string pathToInsert, Json aValue): static
+    static auto withData(string pathToInsert, Json aValue): static
     {
         copy = clone this;
 

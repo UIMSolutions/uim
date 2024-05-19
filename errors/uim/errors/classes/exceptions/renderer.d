@@ -233,7 +233,6 @@ class DExceptionRenderer { // }: IExceptionRenderer
      *
      * @param string method The method name to invoke.
      * @param \Throwable myException The exception to render.
-     * @return uim.uim.http.Response The response to send.
      */
     protected DResponse _customMethod(string method, Throwable myException) {
         auto myResult = this.{method}(myException);

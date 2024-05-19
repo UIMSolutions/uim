@@ -856,10 +856,8 @@ class DTreeBehavior : DBehavior {
      * in the tree configuration.
      *
      * @param DORMQuery query the Query to modify
-     * @return DORMQuery
      */
-    protected function _scope(Query query): Query
-    {
+    protected DORMQuery _scope(Query query) {
         scope = this.configuration.get("scope");
 
         if ((scope.isArray) {

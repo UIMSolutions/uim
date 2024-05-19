@@ -18,7 +18,7 @@ abstract class DServiceProvider { // TODO  : DAbstractServiceProvider, IBootable
 
     /**
      * Get the container.
-     * /
+     */
     IDefinitionContainer getContainer() {
         container = super.getContainer();
 
@@ -37,7 +37,7 @@ abstract class DServiceProvider { // TODO  : DAbstractServiceProvider, IBootable
      *
      * This method wraps the league/container auto so users
      * only need to use the UIM bootstrap() interface.
-     * /
+     */
     void boot() {
         this.bootstrap(getContainer());
     }
@@ -51,7 +51,7 @@ abstract class DServiceProvider { // TODO  : DAbstractServiceProvider, IBootable
      * container.
      * Params:
      * \UIM\Core\IContainer container The container to add services to.
-     * /
+     */
     void bootstrap(IContainer container) {
     }
     
@@ -60,7 +60,7 @@ abstract class DServiceProvider { // TODO  : DAbstractServiceProvider, IBootable
      *
      * This method primarily exists as a shim between the interface
      * that league/container has and the one we want to offer in UIM.
-     * /
+     */
     void register() {
         this.services(getContainer());
     }
@@ -73,7 +73,7 @@ abstract class DServiceProvider { // TODO  : DAbstractServiceProvider, IBootable
      * alias added to this array or it will be ignored.
      * Params:
      * string aid Identifier.
-     * /
+     */
    bool provides(string aid) {
         return in_array(anId, this.provides, true);
     }
@@ -85,7 +85,7 @@ abstract class DServiceProvider { // TODO  : DAbstractServiceProvider, IBootable
      * property so that services can be located.
      * Params:
      * \UIM\Core\IContainer container The container to add services to.
-     * /
+     */
     abstract void services(IContainer container);
     */
 }

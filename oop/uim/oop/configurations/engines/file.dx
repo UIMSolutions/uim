@@ -45,7 +45,7 @@ class DFileConfigEngine : DConfigEngine {
      * Params:
      * string aKey The identifier to read from. If the key has a ~ it will be treated
      * as a plugin prefix.
-     * /
+     */
      // TODO
      /* 
     Json[string] read(string aKey) {
@@ -64,7 +64,7 @@ class DFileConfigEngine : DConfigEngine {
      * Params:
      * string aKey The identifier to write to. If the key has a ~ it will be treated
      * as a plugin prefix.
-         * /
+         */
     bool dump(string aKey, Json[] dataToDump) {
         string contents = "" ~ "\n" ~ "return " ~ var_export(dataToDump, true) ~ ";";
 

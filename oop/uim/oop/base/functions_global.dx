@@ -12,7 +12,7 @@ import uim.oop;
      *   implement a `__toString` method. Otherwise, the class name will be used.
      *   Other scalar types will be returned unchanged.
      * @param bool double Encode existing html entities.
-     * /
+     */
 Json htmlAttributeEscape(Json text, bool isDouble = true, string escapingCharset = null) {
     return uimH(text, isDouble, escapingCharset);
 }
@@ -28,7 +28,7 @@ Json htmlAttributeEscape(Json text, bool isDouble = true, string escapingCharset
      * Params:
      * @param bool dotAppend Set to true if you want the plugin to have a '.' appended to it.
      * @param string plugin Optional default plugin to use if no plugin is found. Defaults to null.
-     * /
+     */
 Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string pluginName = null) {
     return uimPluginSplit(nameToSplit, dotAppend, pluginName);
 }
@@ -37,7 +37,7 @@ Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string plug
      * Split the namespace from the classname.
      *
      * Commonly used like `list(namespace,  className) = namespaceSplit(className);`.
-     * /
+     */
 string[] namespaceSplit(string className) {
     return uimNamespaceSplit(className);
 }
@@ -51,7 +51,7 @@ string[] namespaceSplit(string className) {
      * This auto returns the same variable that was passed.
      * Params:
      * Json var Variable to print out.
-     * /
+     */
 Json pr(Json var) {
     return uimPr(var);
 }
@@ -65,7 +65,7 @@ Json pr(Json var) {
      * This auto returns the same variable that was passed.
      * Params:
      * Json var Variable to print out.
-     * /
+     */
 Json pj(Json var) {
     return uimPj(var);
 }
@@ -75,7 +75,7 @@ Json pj(Json var) {
      * for unsupported or inconsistent environment variables (i.e. DOCUMENT_ROOT on
      * IIS, or SCRIPT_NAME in CGI mode). Also exposes some additional custom
      * environment information.
-     * /
+     */
 Json enviroment(string variableName, string defaultValue = null) {
     return uimEnvironmentData(variableName, defaultValue);
 }

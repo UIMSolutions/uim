@@ -43,10 +43,10 @@ class DMultiCheckboxWidget : DWidget {
      * This class uses the following templates:
      *
      * - `checkbox` Renders checkbox input controls. Accepts
-     *  the `name`, `value` and `attrs` variables.
+     * the `name`, `value` and `attrs` variables.
      * - `checkboxWrapper` Renders the containing div/element for
-     *  a checkbox and its label. Accepts the `input`, and `label`
-     *  variables.
+     * a checkbox and its label. Accepts the `input`, and `label`
+     * variables.
      * - `multicheckboxWrapper` Renders a wrapper around grouped inputs.
      * - `multicheckboxTitle` Renders the title element for grouped inputs.
      */
@@ -61,10 +61,10 @@ class DMultiCheckboxWidget : DWidget {
      * Data supports the following options.
      *
      * - `name` The name attribute of the inputs to create.
-     *  `[]` will be appended to the name.
+     * `[]` will be appended to the name.
      * - `options` An array of options to create checkboxes out of.
      * - `val` Either a string/integer or array of values that should be
-     *  checked. Can also be a complex options set.
+     * checked. Can also be a complex options set.
      * - `disabled` Either a boolean or an array of checkboxes to disable.
      * - `escape` Set to false to disable HTML escaping.
      * - `options` An associative array of value=>labels to generate options for.
@@ -86,7 +86,7 @@ class DMultiCheckboxWidget : DWidget {
      *
      * ```
      * "options": [
-     *  ["value": "elk", "text": "Elk", "data-foo": "bar"],
+     * ["value": "elk", "text": "Elk", "data-foo": "bar"],
      * ]
      * ```
      *

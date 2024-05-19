@@ -66,12 +66,12 @@ class DDateTimeWidget : DWidget {
      * - `type` A valid HTML date/time input type. Defaults to "datetime-local".
      * - `timezone` The timezone the input value should be converted to.
      * - `step` The "step" attribute. Defaults to `1` for "time" and "datetime-local" type inputs.
-     *  You can set it to `null` or `false` to prevent explicit step attribute being added in HTML.
+     * You can set it to `null` or `false` to prevent explicit step attribute being added in HTML.
      * - `format` A `date()` auto compatible datetime format string.
-     *  By default, the widget will use a suitable format based on the input type and
-     *  database type for the context. If an explicit format is provided, then no
-     *  default value will be set for the `step` attribute, and it needs to be
-     *  explicitly set if required.
+     * By default, the widget will use a suitable format based on the input type and
+     * database type for the context. If an explicit format is provided, then no
+     * default value will be set for the `step` attribute, and it needs to be
+     * explicitly set if required.
      *
      * All other keys will be converted into HTML attributes.
      */

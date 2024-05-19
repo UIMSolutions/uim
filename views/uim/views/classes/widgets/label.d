@@ -25,7 +25,7 @@ class DLabelWidget : DWidget {
     /**
      * This class uses the following template:
      * - `label` Used to generate the label for a radio button.
-     *  Can use the following variables `attrs`, `text` and `input`.
+     * Can use the following variables `attrs`, `text` and `input`.
      */
     this(DStringContents newTemplates) {
         super(newTemplates);

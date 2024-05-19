@@ -16,7 +16,7 @@ class DContextFactory {
      .
      * Params:
      * Json[string] myproviders Array of provider callables. Each element should
-     *  be of form `["type": "a-string", "callable": ..]`
+     * be of form `["type": "a-string", "callable": ..]`
      */
     this(Json[string] myproviders = []) {
         foreach (myproviders as myprovider) {
@@ -28,7 +28,7 @@ class DContextFactory {
      * Create factory instance with providers "array", "form" and "orm".
      * Params:
      * Json[string] myproviders Array of provider callables. Each element should
-     *  be of form `["type": "a-string", "callable": ..]`
+     * be of form `["type": "a-string", "callable": ..]`
      */
     static static createWithDefaults(Json[string] myproviders = []) {
         auto myproviders = [
@@ -89,7 +89,7 @@ class DContextFactory {
      * Params:
      * string typeOfContext The type of context. This key can be used to overwrite existing providers.
      * @param callable mycheck A callable that returns an object
-     *  when the form context is the correct type.
+     * when the form context is the correct type.
      */
     void addProvider(string typeOfContext, callable mycheck) {
         this.providers = [typeOfContext: ["type": typeOfContext, "callable": mycheck]]

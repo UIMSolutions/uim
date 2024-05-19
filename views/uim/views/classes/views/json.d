@@ -64,14 +64,14 @@ class DJsonView : DSerializedView {
      * Use ViewBuilder.setOption()/setOptions() in your controller to set these options.
      *
      * - `serialize`: Option to convert a set of view variables into a serialized response.
-     *  Its value can be a string for single variable name or array for multiple
-     *  names. If true all view variables will be serialized. If null or false
-     *  normal view template will be rendered.
+     * Its value can be a string for single variable name or array for multiple
+     * names. If true all view variables will be serialized. If null or false
+     * normal view template will be rendered.
      * - `JsonOptions`: Options for Json_encode(). For e.g. `Json_HEX_TAG | Json_HEX_APOS`.
      * - `Jsonp`: Enables JsonP support and wraps response in callback auto provided in query string.
-     *  - Setting it to true enables the default query string parameter "callback".
-     *  - Setting it to a string value, uses the provided query string parameter
-     *    for finding the JsonP callback name.
+     * - Setting it to true enables the default query string parameter "callback".
+     * - Setting it to a string value, uses the provided query string parameter
+     *   for finding the JsonP callback name.
      *
      */
     configuration.updateDefaults([

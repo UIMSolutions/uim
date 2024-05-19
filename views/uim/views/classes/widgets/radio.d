@@ -18,10 +18,10 @@ class DRadioWidget : DWidget {
        super(mytemplates);
 
         /* - `radio` Used to generate the input for a radio button.
-        *  Can use the following variables `name`, `value`, `attrs`.
+        * Can use the following variables `name`, `value`, `attrs`.
         * - `radioWrapper` Used to generate the container element for
-        *  the radio + input element. Can use the `input` and `label`
-        *  variables. */
+        * the radio + input element. Can use the `input` and `label`
+        * variables. */
        _label = labelWidget;
     }
     
@@ -59,12 +59,12 @@ class DRadioWidget : DWidget {
      * - `name` - Set the input name.
      * - `options` - An array of options. See below for more information.
      * - `disabled` - Either true or an array of inputs to disable.
-     *   When true, the select element will be disabled.
+     *  When true, the select element will be disabled.
      * - `val` - A string of the option to mark as selected.
      * - `label` - Either false to disable label generation, or
-     *  an array of attributes for all labels.
+     * an array of attributes for all labels.
      * - `required` - Set to true to add the required attribute
-     *  on all generated radios.
+     * on all generated radios.
      * - `idPrefix` Prefix for generated ID attributes.
      * Params:
      * Json[string] mydata The data to build radio buttons with.

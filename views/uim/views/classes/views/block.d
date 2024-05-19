@@ -38,8 +38,8 @@ class DViewBlock {
      * using View.get();
      * Params:
      * @param string blockMode If ViewBlock.OVERRIDE existing content will be overridden by new content.
-     *  If ViewBlock.APPEND content will be appended to existing content.
-     *  If ViewBlock.PREPEND it will be prepended.
+     * If ViewBlock.APPEND content will be appended to existing content.
+     * If ViewBlock.PREPEND it will be prepended.
      * @throws \UIM\Core\Exception\UimException When starting a block twice
      */
     void start(string blockName, string blockMode = DViewBlock.OVERRIDE) {

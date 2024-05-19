@@ -172,7 +172,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      *
      * ```
      * errors = [
-     *     "field_name": ["rule_name": 'message"]
+     *    "field_name": ["rule_name": 'message"]
      * ];
      *
      * form.setErrors(errors);
@@ -195,7 +195,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * ### Options:
      *
      * - validate: Set to `false` to disable validation. Can also be a string of the validator ruleset to be applied.
-     *  Defaults to `true`/`"default"`.
+     * Defaults to `true`/`"default"`.
      * Params:
      * Json[string] data Form data.
      * @param Json[string] options List of options.

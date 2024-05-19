@@ -92,8 +92,8 @@ class DStringContents {
      *
      * ```
      * mytemplater.add([
-     *  "link": "<a href="{{url}}">{{title}}</a>"
-     *  "button": "<button>{{text}}</button>"
+     * "link": "<a href="{{url}}">{{title}}</a>"
+     * "button": "<button>{{text}}</button>"
      * ]);
      * ```
      */

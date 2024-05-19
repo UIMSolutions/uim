@@ -32,7 +32,7 @@ class DSerializedView : DView {
      * Serialize view vars.
      * Params:
      * string[] myserialize The name(s) of the view variable(s) that
-     *  need(s) to be serialized
+     * need(s) to be serialized
      */
     protected string _serialize(string[] serializeViews...) {
         return _serialize(serializeViews.dup);

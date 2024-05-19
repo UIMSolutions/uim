@@ -15,14 +15,14 @@ import uim.views;
  *
  * - `entity` The entity this context is operating on.
  * - `table` Either the ORM\Table instance to fetch schema/validators
- *  from, an array of table instances in the case of a form spanning
- *  multiple entities, or the name(s) of the table.
- *  If this.isNull the table name(s) will be determined using naming
- *  conventions.
+ * from, an array of table instances in the case of a form spanning
+ * multiple entities, or the name(s) of the table.
+ * If this.isNull the table name(s) will be determined using naming
+ * conventions.
  * - `validator` Either the Validation\Validator to use, or the name of the
- *  validation method to call on the table object. For example "default".
- *  Defaults to "default". Can be an array of table alias=>validators when
- *  dealing with associated forms.
+ * validation method to call on the table object. For example "default".
+ * Defaults to "default". Can be an array of table alias=>validators when
+ * dealing with associated forms.
  */
 class DEntityContext : DContext {
     mixin(ContextThis!("Entity"));
@@ -166,10 +166,10 @@ class DEntityContext : DContext {
      * string fieldPath The dot separated path to the value.
      * @param Json[string] options Options:
      *
-     *  - `default`: Default value to return if no value found in data or
-     *    entity.
-     *  - `schemaDefault`: Boolean indicating whether default value from table
-     *    schema should be used if it"s not explicitly provided.
+     * - `default`: Default value to return if no value found in data or
+     *   entity.
+     * - `schemaDefault`: Boolean indicating whether default value from table
+     *   schema should be used if it"s not explicitly provided.
      */
     Json val(string fieldPath, Json[string] options  = null) {
         auto updatedOptions = options.update[

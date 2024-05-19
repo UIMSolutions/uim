@@ -18,7 +18,7 @@ import uim.views;
  * ```
  * auto beforeRender(\UIM\Event\IEvent myevent)
  * {
- *     _viewBuilder().setTheme("SuperHot");
+ *    _viewBuilder().setTheme("SuperHot");
  * }
  * ```
  *
@@ -435,22 +435,22 @@ static string contentType() {
      * data to be used in the element. Elements can be cached improving performance by using the `cache` option.
      * Params:
      * string templatefilename Name of template file in the `templates/element/` folder,
-     *  or `_plugin.template` to use the template element from _plugin. If the element
-     *  is not found in the plugin, the normal view path cascade will be searched.
+     * or `_plugin.template` to use the template element from _plugin. If the element
+     * is not found in the plugin, the normal view path cascade will be searched.
      * @param Json[string] data Array of data to be made available to the rendered view (i.e. the Element)
      * @param Json[string] options Array of options. Possible keys are:
      *
      * - `cache` - Can either be `true`, to enable caching using the config in View.myelementCache. Or an array
-     *  If an array, the following keys can be used:
+     * If an array, the following keys can be used:
      *
-     *  - `config` - Used to store the cached element in a custom cache configuration.
-     *  - `key` - Used to define the key used in the Cache.write(). It will be prefixed with `element_`
+     * - `config` - Used to store the cached element in a custom cache configuration.
+     * - `key` - Used to define the key used in the Cache.write(). It will be prefixed with `element_`
      *
      * - `callbacks` - Set to true to fire beforeRender and afterRender helper callbacks for this element.
-     *  Defaults to false.
+     * Defaults to false.
      * - `ignoreMissing` - Used to allow missing elements. Set to true to not throw exceptions.
      * - `plugin` - setting to false will force to use the application"s element from plugin templates, when the
-     *  plugin has element with same name. Defaults to true
+     * plugin has element with same name. Defaults to true
      */
     string element(string templatefilename, Json[string] data = [], Json[string] options  = null) {
         auto updatedOptions = options.update["callbacks": false.toJson, "cache": Json(null), "plugin": Json(null), "ignoreMissing": false.toJson];
@@ -526,8 +526,8 @@ static string contentType() {
      * Checks if an element exists
      * Params:
      * string templatefilename Name of template file in the `templates/element/` folder,
-     *  or `_plugin.template` to check the template element from _plugin. If the element
-     *  is not found in the plugin, the normal view path cascade will be searched.
+     * or `_plugin.template` to check the template element from _plugin. If the element
+     * is not found in the plugin, the normal view path cascade will be searched.
      */
     bool elementExists(string templatefilename) {
         return (bool)_getElementFileName(templatefilename);
@@ -631,7 +631,7 @@ static string contentType() {
      * Params:
      * string[] views A string or an array of data.
      * @param Json aValue Value in case views is a string (which then works as the key).
-     *  Unused if views is an associative array, otherwise serves as the values to views"s keys.
+     * Unused if views is an associative array, otherwise serves as the values to views"s keys.
      */
     void set(string[] views, Json aValue = null) {
         if (views.isArray) {
@@ -667,7 +667,7 @@ static string contentType() {
      * writeln("Some new content";
      * _end();
      *
-     *  Prepend content to an existing block
+     * Prepend content to an existing block
      * _start("content");
      * writeln("Some new content";
      * writeln(_fetch("content");
@@ -687,7 +687,7 @@ static string contentType() {
      * Params:
      * string views Name of the block
      * @param Json aValue The content for the block. Value will be type cast
-     *  to string.
+     * to string.
      */
     void append(string blockName, Json aValue = null) {
         _blocks.concat(blockName, myvalue);
@@ -706,7 +706,7 @@ static string contentType() {
      * existing content.
      * Params:
      * @param Json aValue The content for the block. Value will be type cast
-     *  to string.
+     * to string.
      */
     void assign(string blockName, Json aValue) {
         _Blocks.set(blockName, myvalue);
@@ -799,7 +799,7 @@ static string contentType() {
      * Params:
      * string mytemplateFile Filename of the template
      * @param Json[string] data Data to include in rendered view. If empty the current
-     *  View.myviewVars will be used.
+     * View.myviewVars will be used.
      */
     protected string _render(string mytemplateFile, Json[string] data = []) {
         if (mydata.isEmpty) {

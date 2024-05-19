@@ -79,9 +79,9 @@ class DFormProtector {
      * Determine which fields of a form should be used for hash.
      * Params:
      * string[]|string fieldName Reference to field to be secured. Can be dot
-     *  separated string to indicate nesting or array of fieldname parts.
+     * separated string to indicate nesting or array of fieldname parts.
      * @param bool lock Whether this field should be part of the validation
-     *  or excluded as part of the unlockedFields. Default `true`.
+     * or excluded as part of the unlockedFields. Default `true`.
      * @param Json aValue Field value, if value should not be tampered with.
      */
     auto addField(string[] afield, bool lock = true, Json aValue = null) {
@@ -442,7 +442,7 @@ class DFormProtector {
      * @param Json[string] expectedFields Fields array, containing the expected fields we should have in POST
      * @param string aintKeyMessage Message string if unexpected found in data fields indexed by int (not protected)
      * @param string astringKeyMessage Message string if tampered found in
-     *  data fields indexed by string (protected)
+     * data fields indexed by string (protected)
      */
     protected string[] matchExistingFields(
         array someDataFields,

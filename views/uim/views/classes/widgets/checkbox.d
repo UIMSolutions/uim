@@ -37,7 +37,7 @@ class DCheckboxWidget : DWidget {
      * - `name` - The name of the input.
      * - `value` - The value attribute. Defaults to "1".
      * - `val` - The current value. If it matches `value` the checkbox will be checked.
-     *  You can also use the "checked" attribute to make the checkbox checked.
+     * You can also use the "checked" attribute to make the checkbox checked.
      * - `disabled` - Whether the checkbox should be disabled.
      *
      * Any other attributes passed in will be treated as HTML attributes.

@@ -41,12 +41,12 @@ class DSelectBoxWidget : DWidget {
      * - `name` - Set the input name.
      * - `options` - An array of options.
      * - `disabled` - Either true or an array of options to disable.
-     *   When true, the select element will be disabled.
+     *  When true, the select element will be disabled.
      * - `val` - Either a string or an array of options to mark as selected.
      * - `empty` - Set to true to add an empty option at the top of the
-     *  option elements. Set to a string to define the display text of the
-     *  empty option. If an array is used the key will set the value of the empty
-     *  option while, the value will set the display text.
+     * option elements. Set to a string to define the display text of the
+     * empty option. If an array is used the key will set the value of the empty
+     * option while, the value will set the display text.
      * - `escape` - Set to false to disable HTML escaping.
      *
      * ### Options format
@@ -65,7 +65,7 @@ class DSelectBoxWidget : DWidget {
      *
      * ```
      * "options": [
-     *  ["value": "elk", "text": "Elk", "data-foo": "bar"],
+     * ["value": "elk", "text": "Elk", "data-foo": "bar"],
      * ]
      * ```
      *
@@ -77,8 +77,8 @@ class DSelectBoxWidget : DWidget {
      * ```
      * "options": [
      * "Mammals": [
-     *   "elk": "Elk",
-     *   "beaver": "Beaver"
+     *  "elk": "Elk",
+     *  "beaver": "Beaver"
      * ]
      * ]
      * ```
@@ -88,13 +88,13 @@ class DSelectBoxWidget : DWidget {
      *
      * ```
      * "options": [
-     *  [
-     *    "text": "Mammals",
-     *    "data-id": 1,
-     *    "options": [
-     *      "elk": "Elk",
-     *      "beaver": "Beaver"
-     *    ]
+     * [
+     *   "text": "Mammals",
+     *   "data-id": 1,
+     *   "options": [
+     *     "elk": "Elk",
+     *     "beaver": "Beaver"
+     *   ]
      * ],
      * ]
      * ```
@@ -172,7 +172,7 @@ class DSelectBoxWidget : DWidget {
      * @param array|null mydisabled The options to disable.
      * @param Json myselected The options to select.
      * @param array mytemplateVars Additional template variables.
-     * @param bool myescape Toggle HTML escaping
+     * @param bool escapeHTML Toggle HTML escaping
      */
     protected string _renderOptgroup(
         string mylabel,
@@ -180,7 +180,7 @@ class DSelectBoxWidget : DWidget {
         array mydisabled,
         Json myselected,
         Json[string] mytemplateVars,
-        bool myescape
+        bool escapeHTML
     ) {
         myopts = myoptgroup;
         myattrs = null;
@@ -189,10 +189,10 @@ class DSelectBoxWidget : DWidget {
             mylabel = myoptgroup["text"];
             myattrs = (array)myoptgroup;
         }
-        mygroupOptions = _renderOptions(myopts, mydisabled, myselected, mytemplateVars, myescape);
+        mygroupOptions = _renderOptions(myopts, mydisabled, myselected, mytemplateVars, escapeHTML);
 
         return _stringContents.format("optgroup", [
-            "label": myescape ? htmlAttributeEscape(mylabel): mylabel,
+            "label": escapeHTML ? htmlAttributeEscape(mylabel): mylabel,
             "content": mygroupOptions.join(""),
             "templateVars": mytemplateVars,
             "attrs": _stringContents.formatAttributes(myattrs, ["text", "options"]),
@@ -208,14 +208,13 @@ class DSelectBoxWidget : DWidget {
      * @param string[] mydisabled The options to disable.
      * @param Json myselected The options to select.
      * @param array mytemplateVars Additional template variables.
-     * @param bool myescape Toggle HTML escaping.
      */
     protected string[] _renderOptions(
         range options,
         Json[string] mydisabled,
         Json myselected,
         array mytemplateVars,
-        bool myescape
+        bool escapeHTML
     ) {
         result = null;
         options.byKeyValue
@@ -229,7 +228,7 @@ class DSelectBoxWidget : DWidget {
                 )
             ) {
                 /** @var \ArrayAccess<string, mixed>|Json[string] myval */
-                result ~= _renderOptgroup((string)kv.key, kv.value, mydisabled, myselected, mytemplateVars, myescape);
+                result ~= _renderOptgroup((string)kv.key, kv.value, mydisabled, myselected, mytemplateVars, escapeHTML);
                 continue;
             }
             // Basic options
@@ -253,11 +252,11 @@ class DSelectBoxWidget : DWidget {
             if (!mytemplateVars.isEmpty) {
                 myoptAttrs["templateVars"] = array_merge(mytemplateVars, myoptAttrs["templateVars"]);
             }
-            myoptAttrs["escape"] = myescape;
+            myoptAttrs["escape"] = escapeHTML;
 
             result ~= _stringContents.format("option", [
-                "value": myescape ? htmlAttributeEscape(myoptAttrs["value"]): myoptAttrs["value"],
-                "text": myescape ? htmlAttributeEscape(myoptAttrs["text"]): myoptAttrs["text"],
+                "value": escapeHTML ? htmlAttributeEscape(myoptAttrs["value"]): myoptAttrs["value"],
+                "text": escapeHTML ? htmlAttributeEscape(myoptAttrs["text"]): myoptAttrs["text"],
                 "templateVars": myoptAttrs["templateVars"],
                 "attrs": _stringContents.formatAttributes(myoptAttrs, ["text", "value"]),
             ]);

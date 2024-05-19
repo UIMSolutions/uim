@@ -81,7 +81,7 @@ mixin template TInstanceConfig() {
      * ```
      * Params:
      * @param Json defaultValue The return value when the key does not exist.
-     * /
+     */
     Json getConfig(string keyToGet = null, Json defaultData = null) {
         if (!_configInitialized) {
            _config = _defaultConfigData;
@@ -96,7 +96,7 @@ mixin template TInstanceConfig() {
      * The config value for this key must exist, it can never be null.
      * Params:
      * string keyToGet The key to get.
-     * /
+     */
     Json getConfigOrFail(string keyToGet) {
         configData = getConfig(keyToGet);
         if (configData.isNull) {
@@ -130,7 +130,7 @@ mixin template TInstanceConfig() {
      * Params:
      * Json[string]|string keyToSet The key to set, or a complete array of configs.
      * @param mixed|null aValue The value to set.
-     * /
+     */
     void configShallow(string[] keyToSet, Json aValue = null) {
         if (!_configInitialized) {
            _config = _defaultConfigData;
@@ -167,7 +167,7 @@ mixin template TInstanceConfig() {
      * @param string merge True to merge recursively, "shallow' for simple merge,
      *  false to overwrite, defaults to false.
      * @throws \UIM\Core\Exception\UimException if attempting to clobber existing config
-     * /
+     */
     protected void _configWrite(string[] keyToWrite, Json aValue, string merge = false) {
         if (isString(keyToWrite) && aValue.isNull) {
            _configDelete(keyToWrite);
@@ -211,7 +211,7 @@ mixin template TInstanceConfig() {
      * Params:
      * string keyToDelete Key to delete.
      * @throws \UIM\Core\Exception\UimException if attempting to clobber existing config
-     * /
+     */
     protected void _configDelete(string keyToDelete) {
         if (!keyToDelete.has(".")) {
             configuration.remove(keyToDelete);

@@ -384,7 +384,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * by inheriting the contain callback"s query argument:
      *
      * ```
-     * / Assuming a `Articles belongsTo Authors` association that uses the join strategy
+     */ Assuming a `Articles belongsTo Authors` association that uses the join strategy
      *
      * myarticlesQuery.contain("Authors", auto (myauthorsQuery) {
      *    return myauthorsQuery.formatResults(function (results, myquery) use (myauthorsQuery) {
@@ -714,10 +714,10 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * / Bring articles" author information
+     */ Bring articles" author information
      * myquery.contain("Author");
      *
-     * / Also bring the category and tags associated to each article
+     */ Also bring the category and tags associated to each article
      * myquery.contain(["Category", "Tag"]);
      * ```
      *
@@ -728,13 +728,13 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * / Eager load the product info, and for each product load other 2 associations
+     */ Eager load the product info, and for each product load other 2 associations
      * myquery.contain(["Product": ["Manufacturer", "Distributor"]);
      *
-     * / Which is equivalent to calling
+     */ Which is equivalent to calling
      * myquery.contain(["Products.Manufactures", "Products.Distributors"]);
      *
-     * / For an author query, load his region, state and country
+     */ For an author query, load his region, state and country
      * myquery.contain("Regions.States.Countries");
      * ```
      *
@@ -767,7 +767,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * / Set options for the hasMany articles that will be eagerly loaded for an author
+     */ Set options for the hasMany articles that will be eagerly loaded for an author
      * myquery.contain([
      *    "Articles": [
      *        "fields": ["title", "author_id"]
@@ -778,7 +778,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Finders can be configured to use options.
      *
      * ```
-     * / Retrieve translations for the articles, but only those for the `en` and `es` locales
+     */ Retrieve translations for the articles, but only those for the `en` and `es` locales
      * myquery.contain([
      *    "Articles": [
      *        "finder": [
@@ -794,11 +794,11 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Failing to do so will trigger exceptions.
      *
      * ```
-     * / Use a query builder to add conditions to the containment
+     */ Use a query builder to add conditions to the containment
      * myquery.contain("Authors", auto (myq) {
      *    return myq.where(...); // add conditions
      * });
-     * / Use special join conditions for multiple containments in the same method call
+     */ Use special join conditions for multiple containments in the same method call
      * myquery.contain([
      *    "Authors": [
      *        "foreignKey": false.toJson,
@@ -889,7 +889,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * / Bring only articles that were tagged with "uim"
+     */ Bring only articles that were tagged with "uim"
      * myquery.matching("Tags", auto (myq) {
      *    return myq.where(["name": "uim"]);
      * });
@@ -900,7 +900,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * / Bring only articles that were commented by "markstory"
+     */ Bring only articles that were commented by "markstory"
      * myquery.matching("Comments.Users", auto (myq) {
      *    return myq.where(["username": "markstory"]);
      * });
@@ -914,7 +914,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * / Bring unique articles that were commented by "markstory"
+     */ Bring unique articles that were commented by "markstory"
      * myquery.distinct(["Articles.id"])
      *    .matching("Comments.Users", auto (myq) {
      *        return myq.where(["username": "markstory"]);
@@ -945,7 +945,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * / Get the count of articles per user
+     */ Get the count of articles per user
      * myusersQuery
      *    .select(["total_articles": myquery.func().count("Articles.id")])
      *    .leftJoinWith("Articles")
@@ -956,7 +956,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * You can also customize the conditions passed to the LEFT JOIN:
      *
      * ```
-     * / Get the count of articles per user with at least 5 votes
+     */ Get the count of articles per user with at least 5 votes
      * myusersQuery
      *    .select(["total_articles": myquery.func().count("Articles.id")])
      *    .leftJoinWith("Articles", auto (myq) {
@@ -980,7 +980,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * / Total comments in articles by "markstory"
+     */ Total comments in articles by "markstory"
      * myquery
      *    .select(["total_comments": myquery.func().count("Comments.id")])
      *    .leftJoinWith("Comments.Users", auto (myq) {
@@ -1018,7 +1018,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * / Bring only articles that were tagged with "uim"
+     */ Bring only articles that were tagged with "uim"
      * myquery.innerJoinWith("Tags", auto (myq) {
      *    return myq.where(["name": "uim"]);
      * });
@@ -1061,7 +1061,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * / Bring only articles that were not tagged with "uim"
+     */ Bring only articles that were not tagged with "uim"
      * myquery.notMatching("Tags", auto (myq) {
      *    return myq.where(["name": "uim"]);
      * });
@@ -1072,7 +1072,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * / Bring only articles that weren"t commented by "markstory"
+     */ Bring only articles that weren"t commented by "markstory"
      * myquery.notMatching("Comments.Users", auto (myq) {
      *    return myq.where(["username": "markstory"]);
      * });
@@ -1086,7 +1086,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * / Bring unique articles that were commented by "markstory"
+     */ Bring unique articles that were commented by "markstory"
      * myquery.distinct(["Articles.id"])
      *    .notMatching("Comments.Users", auto (myq) {
      *        return myq.where(["username": "markstory"]);

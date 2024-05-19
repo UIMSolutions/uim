@@ -180,7 +180,6 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param DORMDatasource\IORMEntity anEntity The entity to save
      * @param Json[string] associations Array of associations to save.
      * @param Json[string] options Original options
-     * @param bool owningSide Compared with association classes" isOwningSide method.
      * returns True if Success
      * @throws \InvalidArgumentException When an unknown alias is used.
      */
@@ -189,7 +188,7 @@ class DAssociationCollection { // }: IteratorAggregate {
         IORMEntity anEntity,
         array associations,
         Json[string] optionData,
-        bool owningSide
+        bool isOwningSide
     ) {
         options.remove("associated"]);
         foreach (associations as alias: nested) {
@@ -205,7 +204,7 @@ class DAssociationCollection { // }: IteratorAggregate {
                 );
                 throw new DInvalidArgumentException(msg);
             }
-            if (relation.isOwningSide(table) != owningSide) {
+            if (relation.isOwningSide(table) != isOwningSide) {
                 continue;
             }
             if (!_save(relation, entity, nested, options)) {

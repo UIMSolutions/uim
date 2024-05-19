@@ -1402,7 +1402,7 @@ abstract class DQuery : IQuery { // : IExpression {
         if (cast(DClosure)append) {
             append = append(this.newExpr(), this);
         }
-        if (expression.getConjunction() == conjunction) {
+        if (expression.conjunctionType() == conjunction) {
             expression.add(append, types);
         } else {
             expression = this.newExpr()

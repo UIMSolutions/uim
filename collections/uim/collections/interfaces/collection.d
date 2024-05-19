@@ -535,13 +535,8 @@ interface ICollection {
      */
     ICollection append(Json[] items);
 
-    /**
-     * Append a single item creating a new DCollection.
-     *
-     * @param mixed item The item to append.
-     * @param mixed  key The key to append the item with. If null a key will be generated.
-     */
-    ICollection appendItem(item,  key = null);
+    // Append a single item creating a new DCollection.
+    ICollection appendItem(Json itemToAppend, Json keyToAppend = null);
 
     /**
      * Prepend a set of items to a collection creating a new DCollection

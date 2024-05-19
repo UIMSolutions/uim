@@ -43,10 +43,10 @@ class DQueryExpression : DExpression { // }, Countable {
     this(
         IExpression|string[] aconditions = null,
         TypeMap|array types = null,
-        string aconjunction = "AND"
+        string conjunctionType = "AND" // or "OR", "XOR"
     ) {
         setTypeMap(types);
-        setConjunction(conjunction.upper);
+        setConjunction(conjunctionType.upper);
         if (!conditions.isEmpty) {
             add(conditions, getTypeMap().getTypes());
         }
@@ -58,7 +58,7 @@ class DQueryExpression : DExpression { // }, Countable {
     }
 
     // Gets the currently configured conjunction for the conditions at this level of the expression tree.
-    string getConjunction() {
+    string conjunctionType() {
         return _conjunction;
     }
     

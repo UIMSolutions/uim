@@ -22,7 +22,7 @@ mixin template TViewVars() {
     /**
      * Constructs the view class instance based on the current configuration.
      * Params:
-     * string|null namespacedClassname Optional namespaced class name of the View class to instantiate.
+     * string namespacedClassname Optional namespaced class name of the View class to instantiate.
      */
     View createView(string namespacedClassname = null) {
         auto mybuilder = viewBuilder();

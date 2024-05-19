@@ -216,7 +216,6 @@ class DConsoleOptionParser {
      * ```
      * Params:
      * Json[string] sepcData The sepcData to build the OptionParser with.
-     * @param bool defaultOptions Whether you want the verbose and quiet options set.
      */
     static auto buildFromArray(Json[string] sepcData, bool isVerboseAndQuiet = true) {
         auto aParser = new static(sepcData["command"], isVerboseAndQuiet);

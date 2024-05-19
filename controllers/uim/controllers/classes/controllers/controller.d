@@ -306,15 +306,11 @@ class DController : IController { // IEventListener, IEventDispatcher {
         }
     }
     
-    /**
-     * Register middleware for the controller.
-     * Params:
-     * \Psr\Http\Server\IMiddleware|\Closure|string amiddleware Middleware.
-     * @param Json[string] options Valid options:
-     * - `only`: (string[]) Only run the middleware for specified actions.
-     * - `except`: (string[]) Run the middleware for all actions except the specified ones.
-     */
-    void middleware(IMiddleware amiddleware, Json[string] options = null) {
+    // Register middleware for the controller.
+    void middleware(IMiddleware middlewareToRegister, Json[string] options = null) {
+        // Valid options:
+        // * - `only`: (string[]) Only run the middleware for specified actions.
+        // * - `except`: (string[]) Run the middleware for all actions except the specified ones.
         // TODO
     }
     void middleware(Closure amiddleware, Json[string] options = null) {

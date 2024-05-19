@@ -73,11 +73,10 @@ class DBetweenExpression : DExpression { // TODO}, IField {
      * Registers a value in the placeholder generator and returns the generated placeholder
      * Params:
      * Json aValue The value to bind
-     * @param \UIM\Database\DValueBinder aValueBinder The value binder to use
      */
-    protected string _bindValue(Json aValue, DValueBinder aValueBinder, string valueType) {
-        placeholder = aValueBinder.placeholder("c");
-        aValueBinder.bind(placeholder, aValue, valueType);
+    protected string _bindValue(Json aValue, DValueBinder valueBinderToUser, string valueType) {
+        auto placeholder = valueBinderToUser.placeholder("c");
+        valueBinderToUser.bind(placeholder, aValue, valueType);
 
         return placeholder;
     }

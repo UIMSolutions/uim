@@ -24,7 +24,7 @@ mixin template TStringContents() {
     /**
      * Gets templates to use or a specific template.
      * Params:
-     * string|null mytemplate String for reading a specific template, null for all.
+     * string mytemplate String for reading a specific template, null for all.
      */
     string[] getTemplates(string templateName = null) {
         return _templater().get(templateName);

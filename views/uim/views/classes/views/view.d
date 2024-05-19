@@ -384,8 +384,8 @@ static string contentType() {
      * Params:
      * string mytheme Theme name.
      */
-    void setTheme(string mytheme) {
-        _theme = mytheme;
+    void setTheme(string themeName) {
+        _theme = themeName;
     }
 
     /**

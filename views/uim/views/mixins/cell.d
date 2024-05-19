@@ -57,7 +57,7 @@ mixin template TCell() {
      * Params:
      * string myclassName The cell classname.
      * @param string myaction The action name.
-     * @param string|null myplugin The plugin name.
+     * @param string myplugin The plugin name.
      * @param Json[string] options The constructor options for the cell.
      */
     protected DCell _createCell(string myclassName, string myaction, string myplugin, Json[string] options) {

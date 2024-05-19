@@ -136,12 +136,9 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
         foreach (finder, myMethodName; finders) {
             if (isset(_finderMap[finder]) && this.has(_finderMap[finder][0])) {
                 duplicate = _finderMap[finder];
-                error = sprintf(
-                    "%s contains duplicate finder '%s' which is already provided by '%s'",
-                    class,
-                    finder,
-                    duplicate[0]
-                );
+                error =  
+                    "%s contains duplicate finder '%s' which is already provided by '%s'"
+                    .format(class, finder, duplicate[0]);
                 throw new DLogicException(error);
             }
             finders[finder] = [alias, methodName];

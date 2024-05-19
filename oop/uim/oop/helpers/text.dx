@@ -442,7 +442,7 @@ class DText {
             myphrase = "(?![^<]+>)myphrase(?![^<]+>)";
         }
         return (string)preg_replace(
-            sprintf(options["regex"], myphrase),
+             options["regex"].format(myphrase),
             options["format"],
             searchText,
             options["limit"]

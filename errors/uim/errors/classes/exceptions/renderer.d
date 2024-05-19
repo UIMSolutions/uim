@@ -363,8 +363,6 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * Run the shutdown events.
      *
      * Triggers the afterFilter and afterDispatch events.
-     *
-     * @return uim.uim.http.Response The response to serve.
      */
     protected DResponse _shutdown() {
         this.controller.dispatchEvent("Controller.shutdown");

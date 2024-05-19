@@ -207,10 +207,8 @@ class DSelectLoader {
 
         if (missingFields) {
             throw new DInvalidArgumentException(
-                sprintf(
-                    "You are required to select the '%s' field(s)",
-                    implode(", ", key)
-                )
+                    "You are required to select the '%s' field(s)"
+                    .format(", ", key)
             );
         }
     }
@@ -312,7 +310,7 @@ class DSelectLoader {
             this.bindingKey;
 
         foreach ((array)keys as key) {
-            links ~= sprintf("%s.%s", name, key);
+            links ~=  "%s.%s".format(name, key);
         }
 
         if (count(links) == 1) {

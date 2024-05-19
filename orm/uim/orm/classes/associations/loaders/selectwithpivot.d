@@ -49,11 +49,8 @@ class DSelectWithPivotLoader : DSelectLoader {
      * This is used for eager loading records on the target table based on conditions.
      *
      * @param Json[string] options options accepted by eagerLoader()
-     * @return DORMQuery
-     * @throws \InvalidArgumentException When a key is required for associations but not selected.
      */
-    protected function _buildQuery(Json[string] optionData): Query
-    {
+    protected DORMQuery _buildQuery(Json[string] optionData) {
         name = this.junctionAssociationName;
         assoc = this.junctionAssoc;
         queryBuilder = false;
@@ -114,14 +111,13 @@ class DSelectWithPivotLoader : DSelectLoader {
      * which the filter should be applied
      *
      * @param Json[string] options the options to use for getting the link field.
-     * @return string[]|string
      */
-    protected function _linkField(Json[string] optionData) {
-        links = null;
+    protected string[] _linkField(Json[string] optionData) {
+        string[] links = null;
         name = this.junctionAssociationName;
 
         foreach ((array)options["foreignKey"] as key) {
-            links ~= sprintf("%s.%s", name, key);
+            links ~=  "%s.%s".format(name, key);
         }
 
         if (count(links) == 1) {

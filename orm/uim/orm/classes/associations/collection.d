@@ -199,10 +199,9 @@ class DAssociationCollection { // }: IteratorAggregate {
             }
             relation = get(alias);
             if (!relation) {
-                msg = sprintf(
-                    "Cannot save %s, it is not associated to %s",
-                    alias,
-                    table.aliasName()
+                msg =  
+                    "Cannot save %s, it is not associated to %s"
+                    .format(alias, table.aliasName())
                 );
                 throw new DInvalidArgumentException(msg);
             }

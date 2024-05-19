@@ -293,17 +293,15 @@ class DAssociation : IAssociation {
      *
      * @param string[]|string aKey the table field or fields to be used to link both tables together
      */
-    void setBindingKeys(key) {
+    void bindingKeys(key) {
         _bindingKeys = key;
     }
 
     /**
      * Gets the name of the field representing the binding field with the target table.
      * When not manually specified the primary key of the owning side table is used.
-     *
-     * @return string[]|string
      */
-    function getBindingKeys() {
+    string[] bindingKeys() {
         if (_bindingKeys == null) {
             _bindingKeys = this.isOwningSide(source()) ?
                 source()
@@ -617,9 +615,8 @@ class DAssociation : IAssociation {
      * @param Json[string] row The row to set a default on.
      * @param bool joined Whether the row is a result of a direct join
      *   with this association
-     * @return Json[string]
      */
-    array defaultRowValue(Json[string] row, bool joined) {
+    Json[string] defaultRowValue(Json[string] row, bool joined) {
         sourceAlias = source().aliasName();
         if (isset(row[sourceAlias])) {
             row[sourceAlias][getProperty()] = null;
@@ -852,7 +849,7 @@ class DAssociation : IAssociation {
         auto tAlias = _name;
         auto sAlias = source().aliasName();
         auto foreignKeys = (array) options["foreignKeys"];
-        auto bindingKeys = (array) getBindingKeys();
+        auto bindingKeys = (array) bindingKeys();
 
         if (count(foreignKeys) != count(bindingKeys)) {
             if (bindingKeys.isEmpty) {
@@ -878,7 +875,7 @@ class DAssociation : IAssociation {
         }
 
         foreach (foreignKeys as k : f) {
-            field = sprintf("%s.%s", sAlias, bindingKeys[k]);
+            field =  "%s.%s".format(sAlias, bindingKeys[k]);
             value = new DIdentifierExpression(format("%s.%s", tAlias, f));
             conditions[field] = value;
         }

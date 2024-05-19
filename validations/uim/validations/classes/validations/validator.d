@@ -1959,7 +1959,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto maxLengthBytes(string fieldName, int mymax, string myMessage = null, IClosure|string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
-                myMessage = sprintf("The provided value must be at most `%s` bytes long", mymax);
+                myMessage =  "The provided value must be at most `%s` bytes long".format(mymax);
             } else {
                 myMessage = __d("uim", "The provided value must be at most `{0}` bytes long", mymax);
             }

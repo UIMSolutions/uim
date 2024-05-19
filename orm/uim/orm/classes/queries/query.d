@@ -1206,7 +1206,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         }
 
         throw new BadMethodCallException(
-            sprintf("Cannot call method '%s' on a '%s' query", method, this.type())
+             "Cannot call method '%s' on a '%s' query".format(method, this.type())
         );
     }
 

@@ -548,9 +548,8 @@ class DTreeBehavior : DBehavior {
      * @param DORMDatasource\IORMEntity node The node to move
      * @param int|true number How many places to move the node, or true to move to first position
      * @throws DORMDatasource\exceptions.RecordNotFoundException When node was not found
-     * @return DORMDatasource\IORMEntity|false node The node after being moved or false if `number` is < 1
      */
-    function moveUp(IORMEntity node, number = 1) {
+    IORMEntity moveUp(IORMEntity node, number = 1) {
         if (number < 1) {
             return false;
         }

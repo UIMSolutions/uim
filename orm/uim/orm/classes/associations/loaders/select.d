@@ -414,10 +414,8 @@ class DSelectLoader {
      * @param Json[string] resultMap an array with the foreignKey as keys and
      * the corresponding target table results as value.
      * @param Json[string] options The options passed to the eagerLoader method
-     * @return \Closure
      */
-    protected function _resultInjector(Query fetchQuery, Json[string] resultMap, Json[string] optionData): Closure
-    {
+    protected Closure _resultInjector(Query fetchQuery, Json[string] resultMap, Json[string] optionData) {
         keys = this.associationType == Association.MANY_TO_ONE ?
             this.foreignKey :
             this.bindingKey;

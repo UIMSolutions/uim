@@ -840,9 +840,6 @@ class DAssociation : IAssociation {
      * clause for getting the results on the target table.
      *
      * @param Json[string] options list of options passed to attachTo method
-     * @return array
-     * @throws \RuntimeException if the number of columns in the foreignKeys do not
-     * match the number of columns in the source table primaryKeys
      */
     protected Json[string] _joinCondition(Json[string] optionData) {
         auto conditions = null;
@@ -986,7 +983,6 @@ class DAssociation : IAssociation {
      *
      * @param DORMDatasource\IORMEntity anEntity The entity that started the cascaded delete.
      * @param Json[string] options The options for the original delete.
-     * @return bool Success
      */
 abstract bool cascaderemove(IORMEntity anEntity, Json[string] optionData = null);
 

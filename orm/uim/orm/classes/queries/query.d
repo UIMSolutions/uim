@@ -672,9 +672,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param string assoc The association to filter by
      * @param callable|null builder a function that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
-     * @return this
      */
-    function notMatching(string assoc, callable builder = null) {
+    void notMatching(string assoc, callable builder = null) {
         result = getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query.JOIN_TYPE_LEFT,
@@ -684,8 +683,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             .getMatching();
         _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
         _isDirty();
-
-        return this;
     }
 
     /**

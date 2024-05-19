@@ -126,8 +126,6 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @param DORMBehavior instance The behavior to get methods from.
      * @param string aClassName  The classname that is missing.
      * @param string anAlias The alias of the object.
-     * @return array A list of implemented finders and methods.
-     * @throws \LogicException when duplicate methods are connected.
      */
     protected Json[string] _getMethods(Behavior instance, string aClassName , string anAlias) {
         finders = array_change_key_case(instance.implementedFinders());

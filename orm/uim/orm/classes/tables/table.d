@@ -1891,13 +1891,11 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * iterable<\UIM\Datasource\IORMEntity> myentities Entities to save.
      * @param Json[string] options Options used when calling Table.save() for each entity.
-     * @return iterable<\UIM\Datasource\IORMEntity>|false False on failure, entities list on success.
-     * @throws \Exception
      */
-    auto saveMany(
+    IORMEntity[] saveMany(
         range myentities,
         Json[string] optionData = null
-    ): iterable|false {
+    ) {
         try {
             return _saveMany(myentities, options);
         } catch (PersistenceFailedException myexception) {

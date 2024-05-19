@@ -272,7 +272,7 @@ class DDebugger {
     static void setEditor(string aName) {
         instance = getInstance();
         if (!isset(instance.editors[name])) {
-            known = implode(', ', instance.editors.keys);
+            known = instance.editors.keys.join(", ");
             throw new DRuntimeException("Unknown editor `{name}`. Known editors are {known}");
         }
         instance.configuration.update("editor", name);

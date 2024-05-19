@@ -512,9 +512,8 @@ class DEagerLoader {
      *
      * @param array<DORMEagerLoadable> associations list of associations from which to obtain joins.
      * @param array<DORMEagerLoadable> matching list of associations that should be forcibly joined.
-     * @return array<DORMEagerLoadable>
      */
-    protected Json[string] _resolveJoins(Json[string] associations, Json[string] matching = null) {
+    protected DORMEagerLoadable[] _resolveJoins(Json[string] associations, Json[string] matching = null) {
         result = null;
         foreach (matching as table: loadable) {
             result[table] = loadable;

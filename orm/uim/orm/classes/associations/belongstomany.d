@@ -563,10 +563,8 @@ class DBelongsToManyAssociation : DAssociation {
      * @param Json[string] options list of options accepted by `Table.save()`
      * @throws \InvalidArgumentException if the property representing the association
      * in the parent entity cannot be traversed
-     * @return DORMDatasource\IORMEntity|false The parent entity after all links have been
-     * created if no errors happened, false otherwise
      */
-    protected function _saveTarget(IORMEntity parentEntity, Json[string] entities, options) {
+    protected IORMEntity _saveTarget(IORMEntity parentEntity, Json[string] entities, options) {
         joinAssociations = false;
         if (isset(options["associated"]) && (options["associated"].isArray) {
             if (!options.isEmpty("associated"][_junctionProperty]["associated"])) {

@@ -133,8 +133,6 @@ mixin template TQuery() {
     /**
      * Sets the query instance to be an eager loaded query. If no argument is
      * passed, the current configured query `_eagerLoaded` value is returned.
-     *
-     * @param bool value Whether to eager load.
      */
     void eagerLoaded(bool value) {
         _eagerLoaded = value;

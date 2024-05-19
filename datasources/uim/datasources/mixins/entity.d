@@ -715,7 +715,7 @@ mixin template TEntity() {
      * Sets the dirty status of a single field.
      * Params:
      * string fieldName the field to set or check status for
-     * @param bool  isDirty true means the field was changed, false means
+     * @param bool isDirty true means the field was changed, false means
      * it was not changed. Defaults to true.
     */
   bool isDirty(string fieldName, bool dirtyMode = true) {
@@ -791,7 +791,7 @@ mixin template TEntity() {
   /**
      * Returns whether this entity has errors.
      * Params:
-     * bool  anIncludeNested true will check nested entities for hasErrors()
+     * bool anIncludeNested true will check nested entities for hasErrors()
     */
   bool hasErrors(bool anIncludeNested = true) {
     if (_hasBeenVisited) {

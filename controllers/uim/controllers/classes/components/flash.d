@@ -66,7 +66,7 @@ class DFlashComponent : DComponent {
     /**
      * Proxy method to FlashMessage instance.
      * Params:
-     * @param bool  merge Whether to recursively merge or overwrite existing config, defaults to true.
+     * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
 
      * @throws \UIM\Core\Exception\UimException When trying to set a key that is invalid.
      */

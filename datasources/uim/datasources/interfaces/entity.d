@@ -184,7 +184,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      * stored in this entity, indexed by field name
      * Params:
      * string[] fieldNames list of fields to be returned
-     * @param bool  onlyDirty Return the requested field only if it is dirty
+     * @param bool onlyDirty Return the requested field only if it is dirty
      */
   Json[string] extract(string[] fieldNames, bool onlyDirty = false);
 

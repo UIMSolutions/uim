@@ -20,12 +20,12 @@ interface IErrorLogger {
      * Params:
      * \Throwable exception The exception to log a message for.
      * @param \Psr\Http\Message\IServerRequest|null request The current request if available.
-     * @param bool  anIncludeTrace Should the log message include a stacktrace.
+     * @param bool anIncludeTrace Should the log message include a stacktrace.
      */
     void logException(
         Throwable exception,
         IServerRequest serverRequest = null,
-        bool  anIncludeTrace = false
+        bool anIncludeTrace = false
     );
 
     /**
@@ -33,11 +33,11 @@ interface IErrorLogger {
      * Params:
      * \UIM\Error\UimError error The error to log.
      * @param \Psr\Http\Message\IServerRequest|null request The request if in an HTTP context.
-     * @param bool  anIncludeTrace Should the log message include a stacktrace.
+     * @param bool anIncludeTrace Should the log message include a stacktrace.
      */
     void logError(
         UimError error,
         IServerRequest serverRequest = null,
-        bool  anIncludeTrace = false
+        bool anIncludeTrace = false
     ); 
 }

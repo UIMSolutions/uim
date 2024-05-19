@@ -488,7 +488,6 @@ interface ICollection {
      *
      */ Result will look like this when converted to array
      * [3, 4, 5];
-     * ```
      */
     ICollection takeLast(int numberOfElements);
 
@@ -554,7 +553,6 @@ interface ICollection {
      *
      * ### Examples:
      *
-     * ```
      * items = [
      *  ["id": 1, "name": "foo", "parent": "a"],
      *  ["id": 2, "name": "bar", "parent": "b"],
@@ -563,7 +561,7 @@ interface ICollection {
      *
      * combined = (new DCollection(items)).combine("id", "name");
      *
-     */ Result will look like this when converted to array
+     * Result will look like this when converted to array
      * [
      *  1: "foo",
      *  2: "bar",
@@ -572,13 +570,12 @@ interface ICollection {
      *
      * combined = (new DCollection(items)).combine("id", "name", "parent");
      *
-     */ Result will look like this when converted to array
+     * Result will look like this when converted to array
      * [
      *  "a": [1: "foo", 3: "baz"],
      *  "b": [2: "bar"]
      * ];
-     * ```
-     *
+
      * @param callable|string aKeyPath the column name path to use for indexing
      * or a // function returning the indexing key out of the provided element
      * @param callable|string aValuePath the column name path to use as the array value

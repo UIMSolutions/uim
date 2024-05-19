@@ -64,7 +64,7 @@ class DWhenThenExpression : DExpression {
     /**
      * Sets the `WHEN` value.
      * Params:
-     * object|string[]|float|bool  when The `WHEN` value. When using an array of
+     * object|string[]|float|bool when The `WHEN` value. When using an array of
      * conditions, it must be compatible with `\UIM\Database\Query.where()`. Note that this argument is _not_
      * completely safe for use with user data, as a user supplied array would allow for raw SQL to slip in!If you
      * plan to use user data, either pass a single type for the `type` argument (which forces the ` when` value to be
@@ -79,7 +79,7 @@ class DWhenThenExpression : DExpression {
      * @throws \InvalidArgumentException In case the ` when` argument is a non-array value, and the `type` argument is
      * neither a string, nor null.
      */
-    void when(object|string[]|float|bool  when, string[] type = null) {
+    void when(object|string[]|float|bool when, string[] type = null) {
         if (isArray(when)) {
             if (isEmpty(when)) {
                 throw new DInvalidArgumentException("The ` when` argument must be a non-empty array");

@@ -579,7 +579,7 @@ class DPaginator : IPaginator {
      * @param Json[string] order DOrder array.
      * @param bool allowed Whether the field was allowed.
      */
-    protected Json[string] _prefix(IRepository object, Json[string] order, bool allowed = false) {
+    protected Json[string] _prefix(IRepository object, Json[string] order, bool isAllowed = false) {
         sring myTableAlias = object.aliasName();
         myTableOrder= null;
         foreach (order as myKey: myValue) {
@@ -595,16 +595,16 @@ class DPaginator : IPaginator {
             }
             correctAlias = (myTableAlias == aliasName);
 
-            if (correctAlias && allowed) {
+            if (correctAlias && isAllowed) {
                 // Disambiguate fields in schema. As id is quite common.
                 if (object.hasField(myField)) {
-                    myField = aliasName . "." . myField;
+                    myField = aliasName ~ "." ~ myField;
                 }
                 myTableOrder[myField] = myValue;
             } elseif (correctAlias && object.hasField(myField)) {
-                myTableOrder[myTableAlias . "." . myField] = myValue;
-            } elseif (!correctAlias && allowed) {
-                myTableOrder[aliasName . "." . myField] = myValue;
+                myTableOrder[myTableAlias ~ "." ~ myField] = myValue;
+            } elseif (!correctAlias && isAllowed) {
+                myTableOrder[aliasName ~ "." ~ myField] = myValue;
             }
         }
 

@@ -20,7 +20,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
     ];
 
     // Whether this is a simple case expression.
-    protected bool  isSimpleVariant = false;
+    protected bool isSimpleVariant = false;
 
     /**
      * The case value.

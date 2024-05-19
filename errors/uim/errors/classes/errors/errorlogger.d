@@ -28,7 +28,7 @@ class DErrorLogger : IErrorLogger {
     }
 
     /*
-    void logError(UimError error, IServerRequest serverRequest = null, bool  anIncludeTrace = false) {
+    void logError(UimError error, IServerRequest serverRequest = null, bool anIncludeTrace = false) {
         auto errorMessage = error.getMessage();
         if (request) {
             errorMessage ~= getRequestContext(request);
@@ -49,7 +49,7 @@ class DErrorLogger : IErrorLogger {
     void logException(
         Throwable exception,
         IServerRequest serverRequest = null,
-        bool  anIncludeTrace = false
+        bool anIncludeTrace = false
     ) {
         exceptionMessage = getMessage(exception, false,  anIncludeTrace);
 
@@ -63,10 +63,10 @@ class DErrorLogger : IErrorLogger {
      * Generate the message for the exception
      * Params:
      * \Throwable exception The exception to log a message for.
-     * @param bool  isPrevious False for original exception, true for previous
-     * @param bool  anIncludeTrace Whether or not to include a stack trace.
+     * @param bool isPrevious False for original exception, true for previous
+     * @param bool anIncludeTrace Whether or not to include a stack trace.
      */
-    protected string getMessage(Throwable exception, bool  isPrevious = false, bool  anIncludeTrace = false) {
+    protected string getMessage(Throwable exception, bool isPrevious = false, bool anIncludeTrace = false) {
         string message = "%s[%s] %s in %s on line %s"
             .format(
                 isPrevious ? "\nCaused by: " : "",

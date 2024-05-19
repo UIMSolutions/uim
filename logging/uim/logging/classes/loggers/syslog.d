@@ -26,9 +26,9 @@ class DSysLogger : DLogger {
      *
      * ```
      * Log.config("error", ]
-     *     "engine": "Syslog",
-     *     "levels": ["emergency", "alert", "critical", "error"],
-     *     "prefix": "Web Server 01"
+     *    "engine": "Syslog",
+     *    "levels": ["emergency", "alert", "critical", "error"],
+     *    "prefix": "Web Server 01"
      * ]);
      * ```
      *

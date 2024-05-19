@@ -28,7 +28,7 @@ class DMapData {
     _items[key] = BooleanData(newValue);
   }
 
-/*   void opIndexAssign(Json newValue, string key) {
+/*  void opIndexAssign(Json newValue, string key) {
     _items[key] = JsonValue(newValue);
   } */
 

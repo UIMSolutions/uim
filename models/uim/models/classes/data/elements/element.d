@@ -83,7 +83,7 @@ class DElementData : DData {
     return (get.toString == otherValue);
   }
 
-  /*   int opCmp(DElement otherValue) {
+  /*  int opCmp(DElement otherValue) {
     /// TODO
     return 1;
   }  */

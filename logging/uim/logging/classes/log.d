@@ -36,9 +36,9 @@ import uim.logging;
  *
  * ```
  * Log.configuration.update("default", [
- *    "className": "File",
- *    "path": LOGS,
- *    "levels": ["error", "critical", "alert", "emergency"]
+ *   "className": "File",
+ *   "path": LOGS,
+ *   "levels": ["error", "critical", "alert", "emergency"]
  * ]);
  * ```
  *
@@ -54,8 +54,8 @@ import uim.logging;
  *
  * ```
  * Log.configuration.update("payments", [
- *    "className": "File",
- *    "scopes": ["payment", "order"]
+ *   "className": "File",
+ *   "scopes": ["payment", "order"]
  * ]);
  * ```
  *
@@ -290,7 +290,7 @@ class DLog {
      * by inspecting the return of write(). If false the message was not handled.
      * Params:
      * string|int level The severity level of the message being written.
-     *   The value must be an integer or string matching a known level.
+     *  The value must be an integer or string matching a known level.
      * @param \string amessage Message content to log
      * @param string[] acontext Additional data to be used for logging the message.
      * The special `scope` key can be passed to be used for further filtering of the

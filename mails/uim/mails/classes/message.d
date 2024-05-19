@@ -229,7 +229,7 @@ class DMessage { //: JsonSerializable {
      * Sets "from" address.
      * Params:
      * string[] aemail String with email,
-     *  Array with email as key, name as value or email as value (without name)
+     * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
     auto setFrom(string[] email, string aName = null) {
@@ -245,7 +245,7 @@ class DMessage { //: JsonSerializable {
      * Sets the "sender" address. See RFC link below for full explanation.
      * Params:
      * string[] aemail String with email,
-     *  Array with email as key, name as value or email as value (without name)
+     * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
     auto setSender(string[] aemail, string aName = null) {
@@ -298,7 +298,7 @@ class DMessage { //: JsonSerializable {
      * Sets return path.
      * Params:
      * string[] aemail String with email,
-     *  Array with email as key, name as value or email as value (without name)
+     * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
     auto setReturnPath(string[] aemail, string aName = null) {
@@ -316,7 +316,7 @@ class DMessage { //: JsonSerializable {
      * Sets "to" address.
      * Params:
      * string[] aemail String with email,
-     *  Array with email as key, name as value or email as value (without name)
+     * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
     auto setTo(string[] aemail, string aName = null) {
@@ -334,7 +334,7 @@ class DMessage { //: JsonSerializable {
      * Add "To" address.
      * Params:
      * string[] aemail String with email,
-     *  Array with email as key, name as value or email as value (without name)
+     * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
     auto addTo(string[] aemail, string aName = null) {
@@ -345,7 +345,7 @@ class DMessage { //: JsonSerializable {
      * Sets "cc" address.
      * Params:
      * string[] aemail String with email,
-     *  Array with email as key, name as value or email as value (without name)
+     * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
     auto setCc(string[] aemail, string aName = null) {
@@ -364,7 +364,7 @@ class DMessage { //: JsonSerializable {
      * Add "cc" address.
      * Params:
      * string[] aemail String with email,
-     *  Array with email as key, name as value or email as value (without name)
+     * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
     auto addCc(string[] aemail, string aName = null) {
@@ -375,7 +375,7 @@ class DMessage { //: JsonSerializable {
      * Sets "bcc" address.
      * Params:
      * string[] aemail String with email,
-     *  Array with email as key, name as value or email as value (without name)
+     * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
     auto setBcc(string[] aemail, string aName = null) {
@@ -391,7 +391,7 @@ class DMessage { //: JsonSerializable {
      * Add "bcc" address.
      * Params:
      * string[] aemail String with email,
-     *  Array with email as key, name as value or email as value (without name)
+     * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
     auto addBcc(string[] aemail, string aName = null) {
@@ -444,7 +444,7 @@ class DMessage { //: JsonSerializable {
      * EmailPattern setter/getter
      * Params:
      * string regex The pattern to use for email address validation,
-     *  null to unset the pattern and make use of filter_var() instead.
+     * null to unset the pattern and make use of filter_var() instead.
      */
     auto setEmailPattern(string aregex) {
         this.emailPattern = regex;
@@ -464,7 +464,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * string avarName Property name
      * @param string[] aemail String with email,
-     *  Array with email as key, name as value or email as value (without name)
+     * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
     protected void setEmail(string avarName, string[] aemail, string aName) {
@@ -511,7 +511,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * string avarName Property name
      * @param string[] aemail String with email,
-     *  Array with email as key, name as value or email as value (without name)
+     * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      * @param string athrowMessage Exception message
      */
@@ -534,7 +534,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * string avarName Property name
      * @param string[] aemail String with email,
-     *  Array with email as key, name as value or email as value (without name)
+     * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
     protected void addEmail(string avarName, STRINGAA emailValue, string aName) {
@@ -774,7 +774,7 @@ class DMessage { //: JsonSerializable {
      * Sets message ID.
      * Params:
      * string message True to generate a new DMessage-ID, False to ignore (not send in email),
-     *  String to set as Message-ID.
+     * String to set as Message-ID.
      */
     void setMessageId(string message) {
         if (!preg_match("/^\<.+@.+\>/", message)) {
@@ -829,11 +829,11 @@ class DMessage { //: JsonSerializable {
      *
      * ```
      * setAttachments(["custom_name.png": [
-     *     "file": "path/to/file",
-     *     "mimetype": "image/png",
-     *     "contentId": "abc123",
-     *     "contentDisposition": false.toJson
-     *   ]
+     *    "file": "path/to/file",
+     *    "mimetype": "image/png",
+     *    "contentId": "abc123",
+     *    "contentDisposition": false.toJson
+     *  ]
      * ]);
      * ```
      *
@@ -841,9 +841,9 @@ class DMessage { //: JsonSerializable {
      *
      * ```
      * setAttachments(["custom_name.png": [
-     *     "data": file_get_contents("path/to/file"),
-     *     "mimetype": "image/png"
-     *   ]
+     *    "data": file_get_contents("path/to/file"),
+     *    "mimetype": "image/png"
+     *  ]
      * ]);
      * ```
      *
@@ -1137,7 +1137,7 @@ class DMessage { //: JsonSerializable {
      * Set message body.
      * Params:
      * STRINGAA content Content array with keys "text" and/or "html" with
-     *  content string of respective type.
+     * content string of respective type.
      */
     auto setBody(Json[string] content) {
         foreach (content as type: text) {
@@ -1387,7 +1387,7 @@ class DMessage { //: JsonSerializable {
      * Read the file contents and return a base64 version of the file contents.
      * Params:
      * \Psr\Http\Message\IUploadedFile|string afile The absolute path to the file to read
-     *  or IUploadedFile instance.
+     * or IUploadedFile instance.
      */
     protected string readFile(IUploadedFile|string afile) {
         if (isString(file)) {

@@ -63,7 +63,7 @@ class DEntityData : DData {
       assert(entity.get.id == entity.id);*/
   }
 
-/*   void set(IEntity newValue) {
+/*  void set(IEntity newValue) {
     if (newValue.isNull) {
       isNull(isNullable ? true : false);
       _value = null;
@@ -73,7 +73,7 @@ class DEntityData : DData {
     }
   } */
 
-  /*   bool opEquals(IEntity otherValue) {
+  /*  bool opEquals(IEntity otherValue) {
     return (get.id == otherValue.id);
   }
 

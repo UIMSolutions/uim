@@ -70,7 +70,7 @@ alias toJson = DData.toJson;
 mixin(DataCalls!("TimeData", "TimeOfDay"));  
 
 unittest {   
-  /*  
+  /* 
     assert(TimeData.set("100").toTime == 100);
     assert(TimeData.set(Json(100)).toTime == 100);
     assert(TimeData.set("200").toTime != 100);

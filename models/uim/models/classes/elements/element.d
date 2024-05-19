@@ -97,7 +97,7 @@ class DElement : IElement {
 
   mixin(TProperty!("STRINGAA", "parameters"));
 
-  /*   // Display of entity 
+  /*  // Display of entity 
   mixin(TProperty!("string", "display"));
 
   //	Description about the entity and more
@@ -188,7 +188,7 @@ class DElement : IElement {
       return;
     }
 
-    /*     if (!isStatic) { // can add new values
+    /*    if (!isStatic) { // can add new values
       switch(newValue.type) {
         case Json.Type.string: 
           this.value(newValue.get!string); 

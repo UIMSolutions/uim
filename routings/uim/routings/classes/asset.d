@@ -27,13 +27,13 @@ class DAsset {
      * Params:
      * string aPath Path string.
      * @param Json[string] options Options array. Possible keys:
-     *  `fullBase` Return full URL with domain name
-     *  `pathPrefix` Path prefix for relative URLs
-     *  `plugin` False value will prevent parsing path as a plugin
-     *  `timestamp` Overrides the value of `Asset.timestamp` in Configure.
-     *       Set to false to skip timestamp generation.
-     *       Set to true to apply timestamps when debug is true. Set to "force" to always
-     *       enable timestamping regardless of debug value.
+     * `fullBase` Return full URL with domain name
+     * `pathPrefix` Path prefix for relative URLs
+     * `plugin` False value will prevent parsing path as a plugin
+     * `timestamp` Overrides the value of `Asset.timestamp` in Configure.
+     *      Set to false to skip timestamp generation.
+     *      Set to true to apply timestamps when debug is true. Set to "force" to always
+     *      enable timestamping regardless of debug value.
      */
     static string imageUrl(string aPath, Json[string] options = null) {
         auto somePathPrefix = configuration.get("App.imageBaseUrl");
@@ -49,14 +49,14 @@ class DAsset {
      * Params:
      * string aPath Path string.
      * @param Json[string] options Options array. Possible keys:
-     *  `fullBase` Return full URL with domain name
-     *  `pathPrefix` Path prefix for relative URLs
-     *  `ext` Asset extension to append
-     *  `plugin` False value will prevent parsing path as a plugin
-     *  `timestamp` Overrides the value of `Asset.timestamp` in Configure.
-     *       Set to false to skip timestamp generation.
-     *       Set to true to apply timestamps when debug is true. Set to "force" to always
-     *       enable timestamping regardless of debug value.
+     * `fullBase` Return full URL with domain name
+     * `pathPrefix` Path prefix for relative URLs
+     * `ext` Asset extension to append
+     * `plugin` False value will prevent parsing path as a plugin
+     * `timestamp` Overrides the value of `Asset.timestamp` in Configure.
+     *      Set to false to skip timestamp generation.
+     *      Set to true to apply timestamps when debug is true. Set to "force" to always
+     *      enable timestamping regardless of debug value.
      */
     static string cssUrl(string aPath, Json[string] options = null) {
         somePathPrefix = configuration.get("App.cssBaseUrl");
@@ -73,14 +73,14 @@ class DAsset {
      * Params:
      * string aPath Path string.
      * @param Json[string] options Options array. Possible keys:
-     *  `fullBase` Return full URL with domain name
-     *  `pathPrefix` Path prefix for relative URLs
-     *  `ext` Asset extension to append
-     *  `plugin` False value will prevent parsing path as a plugin
-     *  `timestamp` Overrides the value of `Asset.timestamp` in Configure.
-     *       Set to false to skip timestamp generation.
-     *       Set to true to apply timestamps when debug is true. Set to "force" to always
-     *       enable timestamping regardless of debug value.
+     * `fullBase` Return full URL with domain name
+     * `pathPrefix` Path prefix for relative URLs
+     * `ext` Asset extension to append
+     * `plugin` False value will prevent parsing path as a plugin
+     * `timestamp` Overrides the value of `Asset.timestamp` in Configure.
+     *      Set to false to skip timestamp generation.
+     *      Set to true to apply timestamps when debug is true. Set to "force" to always
+     *      enable timestamping regardless of debug value.
      */
     static string scriptUrl(string aPath, Json[string] options = null) {
         somePathPrefix = configuration.get("App.jsBaseUrl");
@@ -98,15 +98,15 @@ class DAsset {
      * ### Options:
      *
      * - `fullBase` Boolean true or a string (e.g. https://example) to
-     *   return full URL with protocol and domain name.
+     *  return full URL with protocol and domain name.
      * - `pathPrefix` Path prefix for relative URLs
      * - `ext` Asset extension to append
      * - `plugin` False value will prevent parsing path as a plugin
      * - `theme` Optional theme name
      * - `timestamp` Overrides the value of `Asset.timestamp` in Configure.
-     *   Set to false to skip timestamp generation.
-     *   Set to true to apply timestamps when debug is true. Set to "force" to always
-     *   enable timestamping regardless of debug value.
+     *  Set to false to skip timestamp generation.
+     *  Set to true to apply timestamps when debug is true. Set to "force" to always
+     *  enable timestamping regardless of debug value.
      * Params:
      * string aPath Path string or URL array
      * @param Json[string] options Options array.

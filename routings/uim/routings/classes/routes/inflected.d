@@ -53,8 +53,8 @@ class DInflectedRoute : DRoute {
      * Params:
      * Json[string] myurl Array of parameters to convert to a string.
      * @param Json[string] mycontext An array of the current request context.
-     *  Contains information such as the current host, scheme, port, and base
-     *  directory.
+     * Contains information such as the current host, scheme, port, and base
+     * directory.
      */
     string match(Json[string] myurl, Json[string] mycontext = []) {
         myurl = _underscore(myurl);

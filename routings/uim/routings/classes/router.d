@@ -196,7 +196,7 @@ class DRouter {
      * ```
      * Router.addUrlFilter(function (myparams, myrequest) {
      * if (myrequest.getParam("lang") && !myparams.isSet("lang")) {
-     *   myparams["lang"] = myrequest.getParam("lang");
+     *  myparams["lang"] = myrequest.getParam("lang");
      * }
      * return myparams;
      * });
@@ -238,33 +238,33 @@ class DRouter {
      * ### Usage
      *
      * - `Router.url("/posts/edit/1");` Returns the string with the base dir prepended.
-     *  This usage does not use reverser routing.
+     * This usage does not use reverser routing.
      * - `Router.url(["controller": "Posts", "action": "edit"]);` Returns a URL
-     *  generated through reverse routing.
+     * generated through reverse routing.
      * - `Router.url(["_name": "custom-name", ...]);` Returns a URL generated
-     *  through reverse routing. This form allows you to leverage named routes.
+     * through reverse routing. This form allows you to leverage named routes.
      *
      * There are a few "special" parameters that can change the final URL string that is generated
      *
      * - `_base` - Set to false to remove the base path from the generated URL. If your application
-     *  is not in the root directory, this can be used to generate URLs that are "uim relative".
-     *  uim relative URLs are required when using requestAction.
+     * is not in the root directory, this can be used to generate URLs that are "uim relative".
+     * uim relative URLs are required when using requestAction.
      * - `_scheme` - Set to create links on different schemes like `webcal` or `ftp`. Defaults
-     *  to the current scheme.
+     * to the current scheme.
      * - `_host` - Set the host to use for the link. Defaults to the current host.
      * - `_port` - Set the port if you need to create links on non-standard ports.
      * - `_full` - If true output of `Router.fullBaseUrl()` will be prepended to generated URLs.
      * - `#` - Allows you to set URL hash fragments.
      * - `_https` - Set to true to convert the generated URL to https, or false to force http.
      * - `_name` - Name of route. If you have setup named routes you can use this key
-     *  to specify it.
+     * to specify it.
      * Params:
      * \Psr\Http\Message\IUri|string[] myurl An array specifying any of the following:
-     *  "controller", "action", "plugin" additionally, you can provide routed
-     *  elements or query string parameters. If string it can be name any valid url
-     *  string or it can be an IUri instance.
+     * "controller", "action", "plugin" additionally, you can provide routed
+     * elements or query string parameters. If string it can be name any valid url
+     * string or it can be an IUri instance.
      * @param bool myfull If true, the full base URL will be prepended to the result.
-     *  Default is false.
+     * Default is false.
      */
     static string url(IUri|string[] myurl = null, bool myfull = false) {
         auto context = _requestContext;
@@ -368,9 +368,9 @@ class DRouter {
      * Params:
      * string mypath Route path specifying controller and action, optionally with plugin and prefix.
      * @param Json[string] myparams An array specifying any additional parameters.
-     *  Can be also any special parameters supported by `Router.url()`.
+     * Can be also any special parameters supported by `Router.url()`.
      * @param bool myfull If true, the full base URL will be prepended to the result.
-     *  Default is false.
+     * Default is false.
      */
     static string pathUrl(string mypath, Json[string] myparams = [], bool myfull = false) {
         return url(["_path": mypath] + myparams, myfull);
@@ -384,11 +384,11 @@ class DRouter {
      * ### Usage
      *
      * @param string[] myurl An array specifying any of the following:
-     *  "controller", "action", "plugin" additionally, you can provide routed
-     *  elements or query string parameters. If string it can be name any valid url
-     *  string.
+     * "controller", "action", "plugin" additionally, you can provide routed
+     * elements or query string parameters. If string it can be name any valid url
+     * string.
      * @param bool myfull If true, the full base URL will be prepended to the result.
-     *  Default is false.
+     * Default is false.
      */
     static bool routeExists(string[] myurl = null, bool myfull = false) {
         try {
@@ -458,7 +458,7 @@ class DRouter {
      * handled in order to reverse a params array into a string URL.
      * Params:
      * \UIM\Http\ServerRequest|array myparams The params array or
-     *    {@link \UIM\Http\ServerRequest} object that needs to be reversed.
+     *   {@link \UIM\Http\ServerRequest} object that needs to be reversed.
      */
     static Json[string] reverseToArray(ServerRequest|array myparams) {
         myroute = null;
@@ -505,9 +505,9 @@ class DRouter {
      * handled in order to reverse a params array into a string URL.
      * Params:
      * \UIM\Http\ServerRequest|array myparams The params array or
-     *    {@link \UIM\Http\ServerRequest} object that needs to be reversed.
+     *   {@link \UIM\Http\ServerRequest} object that needs to be reversed.
      * @param bool myfull Set to true to include the full URL including the
-     *    protocol when reversing the URL.
+     *   protocol when reversing the URL.
      */
     static string reverse(ServerRequest|array myparams, bool myfull = false) {
         myparams = reverseToArray(myparams);
@@ -568,7 +568,7 @@ class DRouter {
      * Params:
      * string[]|string myextensions List of extensions to be added.
      * @param bool mymerge Whether to merge with or override existing extensions.
-     *  Defaults to `true`.
+     * Defaults to `true`.
      */
     static string[] extensions(string[] myextensions = null, bool mymerge = true) {
         mycollection = _collection;

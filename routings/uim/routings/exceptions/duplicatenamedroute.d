@@ -23,7 +23,7 @@ class DDuplicateNamedRouteException : UimException {
      .
      * Params:
      * Json[string]|string amessage Either the string of the error message, or an array of attributes
-     *  that are made available in the view, and sprintf()"d into Exception._messageTemplate
+     * that are made available in the view, and sprintf()"d into Exception._messageTemplate
      * @param int code The code of the error, is also the HTTP status code for the error. Defaults to 404.
      * @param \Throwable|null previous the previous exception.
      */

@@ -196,7 +196,7 @@ class DRouteBuilder {
      *
      * ```
      * Router.plugin("Comments", auto (myroutes) {
-     *  myroutes.resources("Comments");
+     * myroutes.resources("Comments");
      * });
      * ```
      *
@@ -208,7 +208,7 @@ class DRouteBuilder {
      *
      * ```
      * Router.prefix("Admin", auto (myroutes) {
-     *  myroutes.resources("Articles");
+     * myroutes.resources("Articles");
      * });
      * ```
      *
@@ -219,7 +219,7 @@ class DRouteBuilder {
      *
      * ```
      * myroutes.resources("Articles", auto (myroutes) {
-     *  myroutes.resources("Comments");
+     * myroutes.resources("Comments");
      * });
      * ```
      *
@@ -228,7 +228,7 @@ class DRouteBuilder {
      *
      * ```
      * myroutes.resources("Articles", [
-     *  "map": ["deleteAll": ["action": "deleteAll", "method": "DELETE"]]
+     * "map": ["deleteAll": ["action": "deleteAll", "method": "DELETE"]]
      * ]);
      * ```
      *
@@ -247,22 +247,22 @@ class DRouteBuilder {
      * ### Options:
      *
      * - "id" - The regular expression fragment to use when matching IDs. By default, matches
-     *   integer values and UUIDs.
+     *  integer values and UUIDs.
      * - "inflect" - Choose the inflection method used on the resource name. Defaults to "dasherize".
      * - "only" - Only connect the specific list of actions.
      * - "actions" - Override the method names used for connecting actions.
      * - "map" - Additional resource routes that should be connected. If you define "only" and "map",
-     *  make sure that your mapped methods are also in the "only" list.
+     * make sure that your mapped methods are also in the "only" list.
      * - "prefix" - Define a routing prefix for the resource controller. If the current scope
-     *  defines a prefix, this prefix will be appended to it.
+     * defines a prefix, this prefix will be appended to it.
      * - "connectOptions" - Custom options for connecting the routes.
      * - "path" - Change the path so it doesn"t match the resource name. E.g ArticlesController
-     *  is available at `/posts`
+     * is available at `/posts`
      * Params:
      * string routings A controller name to connect resource routes for.
      * @param \Closure|Json[string] options Options to use when generating REST routes, or a callback.
      * @param \Closure|null mycallback An optional callback to be executed in a nested scope. Nested
-     *  scopes inherit the existing path and "id" parameter.
+     * scopes inherit the existing path and "id" parameter.
      */
     auto resources(string routings, Closure|Json[string] optionData = null, Closure mycallback = null) {
         if (!options.isArray) {
@@ -341,7 +341,7 @@ class DRouteBuilder {
      * Params:
      * string mytemplate The URL template to use.
      * @param string[] mytarget An array describing the target route parameters. These parameters
-     *  should indicate the plugin, prefix, controller, and action that this route points to.
+     * should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
      */
     Route get(string mytemplate, string[] mytarget, string routings = null) {
@@ -353,7 +353,7 @@ class DRouteBuilder {
      * Params:
      * string mytemplate The URL template to use.
      * @param string[] mytarget An array describing the target route parameters. These parameters
-     *  should indicate the plugin, prefix, controller, and action that this route points to.
+     * should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
      */
     Route post(string mytemplate, string[] mytarget, string routings = null) {
@@ -365,7 +365,7 @@ class DRouteBuilder {
      * Params:
      * string mytemplate The URL template to use.
      * @param string[] mytarget An array describing the target route parameters. These parameters
-     *  should indicate the plugin, prefix, controller, and action that this route points to.
+     * should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
      */
     Route put(string mytemplate, string[] mytarget, string routings = null) {
@@ -377,7 +377,7 @@ class DRouteBuilder {
      * Params:
      * string mytemplate The URL template to use.
      * @param string[] mytarget An array describing the target route parameters. These parameters
-     *  should indicate the plugin, prefix, controller, and action that this route points to.
+     * should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
      */
     Route patch(string mytemplate, string[] mytarget, string routings = null) {
@@ -389,7 +389,7 @@ class DRouteBuilder {
      * Params:
      * string mytemplate The URL template to use.
      * @param string[] mytarget An array describing the target route parameters. These parameters
-     *  should indicate the plugin, prefix, controller, and action that this route points to.
+     * should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
      */
     Route remove(string mytemplate, string[] mytarget, string routings = null) {
@@ -401,7 +401,7 @@ class DRouteBuilder {
      * Params:
      * string mytemplate The URL template to use.
      * @param string[] mytarget An array describing the target route parameters. These parameters
-     *  should indicate the plugin, prefix, controller, and action that this route points to.
+     * should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
      */
     Route head(string mytemplate, string[] mytarget, string routings = null) {
@@ -413,7 +413,7 @@ class DRouteBuilder {
      * Params:
      * string mytemplate The URL template to use.
      * @param string[] mytarget An array describing the target route parameters. These parameters
-     *  should indicate the plugin, prefix, controller, and action that this route points to.
+     * should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
      */
     Route options(string mytemplate, string[] mytarget, string routings = null) {
@@ -426,7 +426,7 @@ class DRouteBuilder {
      * string mymethod The HTTP method name to match.
      * @param string mytemplate The URL template to use.
      * @param string[] mytarget An array describing the target route parameters. These parameters
-     *  should indicate the plugin, prefix, controller, and action that this route points to.
+     * should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
      */
     protected DRoute _methodRoute(string mymethod, string mytemplate, string[] mytarget, string routings) {
@@ -498,9 +498,9 @@ class DRouteBuilder {
      *
      * ```
      * myroutes.connect(
-     *  "/{lang}/{controller}/{action}/{id}",
-     *  [],
-     *  ["id": "[0-9]+", "lang": "[a-z]{3}"]
+     * "/{lang}/{controller}/{action}/{id}",
+     * [],
+     * ["id": "[0-9]+", "lang": "[a-z]{3}"]
      * );
      * ```
      *
@@ -512,26 +512,26 @@ class DRouteBuilder {
      * in the options array.
      *
      * - `routeClass` is used to extend and change how individual routes parse requests
-     *  and handle reverse routing, via a custom routing class.
-     *  Ex. `"routeClass": "SlugRoute"`
+     * and handle reverse routing, via a custom routing class.
+     * Ex. `"routeClass": "SlugRoute"`
      * - `pass` is used to define which of the routed parameters should be shifted
-     *  into the pass array. Adding a parameter to pass will remove it from the
-     *  regular route array. Ex. `"pass": ["slug"]`.
+     * into the pass array. Adding a parameter to pass will remove it from the
+     * regular route array. Ex. `"pass": ["slug"]`.
      * -  `persist` is used to define which route parameters should be automatically
-     *  included when generating new URLs. You can override persistent parameters
-     *  by redefining them in a URL or remove them by setting the parameter to `false`.
-     *  Ex. `"persist": ["lang"]`
+     * included when generating new URLs. You can override persistent parameters
+     * by redefining them in a URL or remove them by setting the parameter to `false`.
+     * Ex. `"persist": ["lang"]`
      * - `multibytePattern` Set to true to enable multibyte pattern support in route
-     *  parameter patterns.
+     * parameter patterns.
      * - `_name` is used to define a specific name for routes. This can be used to optimize
-     *  reverse routing lookups. If undefined a name will be generated for each
-     *  connected route.
+     * reverse routing lookups. If undefined a name will be generated for each
+     * connected route.
      * - `_ext` is an array of filename extensions that will be parsed out of the url if present.
-     *  See {@link \UIM\Routing\RouteCollection.setExtensions()}.
+     * See {@link \UIM\Routing\RouteCollection.setExtensions()}.
      * - `_method` Only match requests with specific HTTP verbs.
      * - `_host` - Define the host name pattern if you want this route to only match
-     *  specific host names. You can use `.*` and to create wildcard subdomains/hosts
-     *  e.g. `*.example.com` matches all subdomains on `example.com`.
+     * specific host names. You can use `.*` and to create wildcard subdomains/hosts
+     * e.g. `*.example.com` matches all subdomains on `example.com`.
      * - "_port` - Define the port if you want this route to only match specific port number.
      *
      * Example of using the `_method` condition:
@@ -544,11 +544,11 @@ class DRouteBuilder {
      * Params:
      * \UIM\Routing\Route\Route|string myroute A string describing the template of the route
      * @param string[] mydefaults An array describing the default route parameters.
-     *  These parameters will be used by default and can supply routing parameters that are not dynamic. See above.
+     * These parameters will be used by default and can supply routing parameters that are not dynamic. See above.
      * @param Json[string] options An array matching the named elements in the route to regular expressions which that
-     *  element should match. Also contains additional parameters such as which routed parameters should be
-     *  shifted into the passed arguments, supplying patterns for routing parameters and supplying the name of a
-     *  custom routing class.
+     * element should match. Also contains additional parameters such as which routed parameters should be
+     * shifted into the passed arguments, supplying patterns for routing parameters and supplying the name of a
+     * custom routing class.
      */
     Route connect(Route|string myroute, string[] mydefaults = [], Json[string] optionData = null) {
         mydefaults = this.parseDefaults(mydefaults);
@@ -649,13 +649,13 @@ class DRouteBuilder {
      *
      * - `status` Sets the HTTP status (default 301)
      * - `persist` Passes the params to the redirected route, if it can. This is useful with greedy routes,
-     *  routes that end in `*` are greedy. As you can remap URLs and not lose any passed args.
+     * routes that end in `*` are greedy. As you can remap URLs and not lose any passed args.
      * Params:
      * string myroute A string describing the template of the route
      * @param string[] myurl A URL to redirect to. Can be a string or a uim array-based URL
      * @param Json[string] options An array matching the named elements in the route to regular expressions which that
-     *  element should match. Also contains additional parameters such as which routed parameters should be
-     *  shifted into the passed arguments. As well as supplying patterns for routing parameters.
+     * element should match. Also contains additional parameters such as which routed parameters should be
+     * shifted into the passed arguments. As well as supplying patterns for routing parameters.
      */
     Route redirect(string myroute, string[] myurl, Json[string] optionData = null) {
         options["routeClass"] ??= RedirectRoute.classname;
@@ -684,15 +684,15 @@ class DRouteBuilder {
      *
      * ```
      * myroute.prefix("Api", function(myroute) {
-     *    myroute.prefix("V10", ["path": "/v1.0"], function(myroute) {
-     *        // Translates to `Controller\Api\V10\` namespace
-     *    });
+     *   myroute.prefix("V10", ["path": "/v1.0"], function(myroute) {
+     *       // Translates to `Controller\Api\V10\` namespace
+     *   });
      * });
      * ```
      * Params:
      * string routings The prefix name to use.
      * @param \Closure|array myparams An array of routing defaults to add to each connected route.
-     *  If you have no parameters, this argument can be a Closure.
+     * If you have no parameters, this argument can be a Closure.
      * @param \Closure|null mycallback The callback to invoke that builds the prefixed routes.
      */
     void prefix(string routings, Closure|array myparams = null, Closure mycallback = null) {
@@ -731,12 +731,12 @@ class DRouteBuilder {
      *
      * - `path` The path prefix to use. Defaults to `Inflector.dasherize(routings)`.
      * - `_namePrefix` Set a prefix used for named routes. The prefix is prepended to the
-     *  name of any route created in a scope callback.
+     * name of any route created in a scope callback.
      * Params:
      * string routings The plugin name to build routes for
      * @param \Closure|Json[string] options Either the options to use, or a callback to build routes.
      * @param \Closure|null mycallback The callback to invoke that builds the plugin routes
-     *  Only required when options is defined.
+     * Only required when options is defined.
      */
     auto plugin(string routings, Closure|Json[string] optionData = null, ?Closure mycallback = null) {
         if (!isArray(options)) {
@@ -761,12 +761,12 @@ class DRouteBuilder {
      * ### Special Keys in myparams
      *
      * - `_namePrefix` Set a prefix used for named routes. The prefix is prepended to the
-     *  name of any route created in a scope callback.
+     * name of any route created in a scope callback.
      * Params:
      * string mypath The path to create a scope for.
      * @param \Closure|array myparams Either the parameters to add to routes, or a callback.
      * @param \Closure|null mycallback The callback to invoke that builds the plugin routes.
-     *  Only required when myparams is defined.
+     * Only required when myparams is defined.
      */
     void scope(string mypath, Closure|array myparams, ?Closure mycallback = null) {
         if (cast(DClosure)myparams) {
@@ -801,7 +801,7 @@ class DRouteBuilder {
      * This is a shortcut method for connecting fallback routes in a given scope.
      * Params:
      * string myrouteClass the route class to use, uses the default routeClass
-     *  if not specified
+     * if not specified
      */
     void fallbacks(string myrouteClass = null) {
         myrouteClass = myrouteClass ?: _routeClass;

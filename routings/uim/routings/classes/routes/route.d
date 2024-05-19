@@ -80,10 +80,10 @@ class DRoute : IRoute {
      * - `_middleware` - Define the middleware names for this route.
      * - `pass` - Copies the listed parameters into params["pass"].
      * - `_method` - Defines the HTTP method(s) the route applies to. It can be
-     *  a string or array of valid HTTP method name.
+     * a string or array of valid HTTP method name.
      * - `_host` - Define the host name pattern if you want this route to only match
-     *  specific host names. You can use `.*` and to create wildcard subdomains/hosts
-     *  e.g. `*.example.com` matches all subdomains on `example.com`.
+     * specific host names. You can use `.*` and to create wildcard subdomains/hosts
+     * e.g. `*.example.com` matches all subdomains on `example.com`.
      * - "_port` - Define the port if you want this route to only match specific port number.
      * - "_urldecode" - Set to `false` to disable URL decoding before route parsing.
      * Params:
@@ -479,8 +479,8 @@ class DRoute : IRoute {
      * Params:
      * Json[string] myurl An array of parameters to check matching with.
      * @param Json[string] mycontext An array of the current request context.
-     *  Contains information such as the current host, scheme, port, base
-     *  directory and other url params.
+     * Contains information such as the current host, scheme, port, base
+     * directory and other url params.
      */
     string match(Json[string] myurl, Json[string] mycontext = []) {
         if (_compiledRoute.isEmpty) {
@@ -722,7 +722,7 @@ class DRoute : IRoute {
      * Set the names of the middleware that should be applied to this route.
      * Params:
      * Json[string] mymiddleware The list of middleware names to apply to this route.
-     *  Middleware names will not be checked until the route is matched.
+     * Middleware names will not be checked until the route is matched.
      */
     void setMiddleware(Json[string] mymiddleware) {
         this.middleware = mymiddleware;

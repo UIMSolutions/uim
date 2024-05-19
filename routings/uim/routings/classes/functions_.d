@@ -9,7 +9,7 @@ import uim.routings;
  *
  * @param string aPath Route path.
  * @param Json[string] params An array specifying any additional parameters.
- *  Can be also any special parameters supported by `Router.url()`.
+ * Can be also any special parameters supported by `Router.url()`.
  */
 Json[string] urlArray(string aPath, Json[string] params = []) {
     url = Router.parseRoutePath(somePath);
@@ -24,11 +24,11 @@ Json[string] urlArray(string aPath, Json[string] params = []) {
  * Convenience wrapper for Router.url().
  *
  * @param \Psr\Http\Message\IUri|string[] url An array specifying any of the following:
- *  "controller", "action", "plugin" additionally, you can provide routed
- *  elements or query string parameters. If string it can be name any valid url
- *  string or it can be an IUri instance.
+ * "controller", "action", "plugin" additionally, you can provide routed
+ * elements or query string parameters. If string it can be name any valid url
+ * string or it can be an IUri instance.
  * @param bool full If true, the full base URL will be prepended to the result.
- *  Default is false.
+ * Default is false.
  */
 string url(IUri|string[] url = null, bool full = false) {
     return Router.url(url, full);

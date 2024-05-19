@@ -47,7 +47,7 @@ class DRouteCollection {
      * Params:
      * \UIM\Routing\Route\Route myroute The route object to add.
      * @param Json[string] options Additional options for the route. Primarily for the
-     *  `_name` option, which enables named routes.
+     * `_name` option, which enables named routes.
      */
     void add(Route myroute, Json[string] optionData = null) {
         // Explicit names
@@ -212,7 +212,7 @@ class DRouteCollection {
      * Params:
      * Json[string] myurl The URL to match.
      * @param Json[string] mycontext The request context to use. Contains _base, _port,
-     *  _host, _scheme and params keys.
+     * _host, _scheme and params keys.
      */
     string match(Json[string] myurl, Json[string] mycontext) {
         // Named routes support optimization.
@@ -285,7 +285,7 @@ class DRouteCollection {
      * Params:
      * string[] myextensions The list of extensions to set.
      * @param bool mymerge Whether to merge with or override existing extensions.
-     *  Defaults to `true`.
+     * Defaults to `true`.
      */
     void setExtensions(Json[string] myextensions, bool mymerge = true) {
         if (mymerge) {

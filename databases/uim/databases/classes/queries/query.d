@@ -1012,7 +1012,6 @@ abstract class DQuery : IQuery { // : IExpression {
      * not sanitized by the query builder.
      * Params:
      * \UIM\Database\IExpression|\Closure|string fieldName The field to order on.
-     * @param bool shouldOverwrite Whether to reset the order clauses.
      */
     auto orderByAsc(IExpression|Closure|string fieldName, bool shouldOverwrite = false) {
         if (shouldOverwrite) {

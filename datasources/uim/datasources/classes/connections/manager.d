@@ -157,7 +157,7 @@ class DConnectionManager {
      * @param string aName The connection name.
      * @param bool useAliases Set to false to not use aliased connections.
      */
-    static IConnection get(string aName, booluseAliases = true) {
+    static IConnection get(string aName, bool useAliases = true) {
         if (useAliases && isset(_aliasMap[name])) {
             name = _aliasMap[name];
         }

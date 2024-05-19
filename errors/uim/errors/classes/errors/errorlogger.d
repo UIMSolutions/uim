@@ -62,7 +62,6 @@ class DErrorLogger : IErrorLogger {
      * Generate the message for the exception
      * Params:
      * \Throwable exception The exception to log a message for.
-     * @param bool isPrevious False for original exception, true for previous
      * @param bool anIncludeTrace Whether or not to include a stack trace.
      */
     protected string getMessage(Throwable exception, bool isPrevious = false, bool anIncludeTrace = false) {

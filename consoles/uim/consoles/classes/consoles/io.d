@@ -454,7 +454,6 @@ class DConsoleIo {
      * Params:
      * string aPath The path to create the file at.
      * @param string acontents The contents to put into the file.
-     * @param bool shouldOverwrite Whether the file should be overwritten.
      * If true, no question will be asked about whether to overwrite existing files.
      * @throws \UIM\Console\Exception\StopException When `q` is given as an answer
      * to whether a file should be overwritten.

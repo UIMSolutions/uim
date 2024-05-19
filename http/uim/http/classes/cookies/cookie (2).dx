@@ -21,7 +21,7 @@ class DCookie : ICookie {
 
     protected string adomain = "";
 
-    protected bool secure = false;
+    protected bool isSecure = false;
 
     protected bool isHttpOnly = false;
 
@@ -33,7 +33,7 @@ class DCookie : ICookie {
         "expires": Json(null),
         "path": Json("/"),
         "domain": "".toJson,
-        "secure": false.toJson,
+        "isSecure": false.toJson,
         "httponly": false.toJson,
         "samesite": Json(null),
     ];
@@ -51,7 +51,7 @@ class DCookie : ICookie {
      * @param \IDateTime|null expiresAt Expiration time and date
      * @param string somePath Path
      * @param string domain Domain
-     * @param bool|null secure Is secure
+     * @param bool|null isSecure 
      * @param bool|null isHttpOnly HTTP Only
      * @param \UIM\Http\Cookie\SameSiteEnum|string sameSite Samesite
      */
@@ -61,7 +61,7 @@ class DCookie : ICookie {
         ?IDateTime expiresAt = null,
         string aPath = null,
         string adomain = null,
-        ?bool secure = null,
+        ?bool isSecure = null,
         ?bool isHttpOnly = null,
         SameSiteEnum|string sameSite = null
     ) {
@@ -73,7 +73,7 @@ class DCookie : ICookie {
         this.domain = domain ?? defaultAttributes["domain"];
         this.httpOnly = isHttpOnly ?? defaultAttributes["httponly"];
         this.path = somePath ?? defaultAttributes["path"];
-        this.secure = secure ?? defaultAttributes["secure"];
+        this.isSecure = isSecure ?? defaultAttributes["isSecure"];
         _sameSite = resolveSameSiteEnum(sameSite ?? defaultAttributes["samesite"]);
 
         if (expiresAt) {
@@ -97,7 +97,7 @@ class DCookie : ICookie {
      * - `path`: A path string. Defauts to `'/'`.
      * - `domain`: Domain name string. Defaults to `""`.
      * - `httponly`: Boolean. Defaults to `false`.
-     * - `secure`: Boolean. Defaults to `false`.
+     * - `isSecure`: Boolean. Defaults to `false`.
      * - `samesite`: Can be one of `ICookie.SAMESITE_LAX`, `ICookie.SAMESITE_STRICT`,
      *  `ICookie.SAMESITE_NONE` or `null`. Defaults to `null`.
      * Params:
@@ -132,7 +132,7 @@ class DCookie : ICookie {
             options["expires"],
             options["path"],
             options["domain"],
-            options["secure"],
+            options["isSecure"],
             options["httponly"],
             options["samesite"]
         );
@@ -242,7 +242,7 @@ class DCookie : ICookie {
         if (_sameSite) {
              aHeaderValue ~= "samesite=%s".format(_sameSite.value);
         }
-        if (this.secure) {
+        if (this.isSecure) {
              aHeaderValue ~= "Secure";
         }
         if (_httpOnly) {
@@ -340,10 +340,10 @@ class DCookie : ICookie {
         return _secure;
     }
  
-    auto withSecure(bool secure): static
+    auto withSecure(bool isSecure): static
     {
         new = clone this;
-        new.secure = secure;
+        new.isSecure = isSecure;
 
         return new;
     }
@@ -524,7 +524,7 @@ class DCookie : ICookie {
             "expires": to!int(getExpiresTimestamp()),
             "path": this.path,
             "domain": this.domain,
-            "secure": this.secure,
+            "isSecure": this.isSecure,
             "httponly": this.httpOnly,
         ];
 

@@ -50,7 +50,6 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      * If associative the key would be used as argument when value is 'literal'
      * @param STRINGAA associatedTypes Associative array of associatedTypes to be associated with the
      * passed arguments
-     * @param bool prepend Whether to prepend or append to the list of arguments
      */
     void add(IExpression|string[] aconditions, Json[string] associatedTypes = null, bool prependOrAppend = false) {
         string put = prependOrAppend ? "array_unshift" : "array_push";

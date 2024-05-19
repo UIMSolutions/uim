@@ -848,20 +848,19 @@ mixin template TEntity() {
         return _fieldErrors[field] ?  ? _nestedErrors(field);
       }
 
-      /**
+    /**
      * Sets error messages to the entity
      *
      * ## Example
      *
-     * ```
-     */ Sets the error messages for multiple fields at once
+
+     * Sets the error messages for multiple fields at once
      * entity.setErrors(["salary": ["message"], "name": ["another message"]]);
-     * ```
+
      * Params:
      * Json[string] errors The array of errors to set.
-     * @param bool overwrite Whether to overwrite pre-existing errors for fields
     */
-      auto setErrors(arrayerrors, booloverwrite = false) {
+      auto setErrors(arrayerrors, bool shouldOverwrite = false) {
         if (overwrite) {
           foreach (errors asf : error) {
             _fieldErrors[f] = (array) error;

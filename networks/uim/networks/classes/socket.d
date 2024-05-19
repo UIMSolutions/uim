@@ -418,9 +418,8 @@ class DSocket {
      * Params:
      * string atype can be one of "ssl2", "ssl3", "ssl23" or "tls"
      * @param string aclientOrServer can be one of "client", "server". Default is "client"
-     * @param bool enable enable or disable encryption. Default is true (enable)
      */
-        void enableCrypto(string atype, string aclientOrServer = "client", boolenable = true) {
+        void enableCrypto(string atype, string aclientOrServer = "client", bool enable = true) {
             if (!array_key_exists(type ~ "_" ~ clientOrServer, _encryptMethods)) {
                 throw new DInvalidArgumentException("Invalid encryption scheme chosen");
             }

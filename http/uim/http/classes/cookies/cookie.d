@@ -110,9 +110,9 @@ class DCookie : ICookie {
     /**
      * Create a cookie with an updated SameSite option.
      * Params:
-     * \UIM\Http\Cookie\SameSiteEnum|string|null sameSite Value for to set for Samesite option.
+     * \UIM\Http\Cookie\SameSiteEnum|string sameSite Value for to set for Samesite option.
      */
-    // TODO static withSameSite(SameSiteEnum|string|null sameSite);
+    // TODO static withSameSite(SameSiteEnum|string sameSite);
 
     // Get cookie options
     Json[string] getOptions() {

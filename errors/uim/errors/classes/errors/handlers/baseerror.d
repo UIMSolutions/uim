@@ -132,7 +132,7 @@ abstract class DERRErrorHandler {
      *
      * @param int code Code of error
      * @param string description Error description
-     * @param string|null file File on which error occurred
+     * @param string file File on which error occurred
      * @param int|null line Line that triggered the error
      * @param Json[string]|null context DContext
      */

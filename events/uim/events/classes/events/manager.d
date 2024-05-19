@@ -137,7 +137,7 @@ class DEventManager { // }: IEventManager {
      * Auxiliary auto to help detach all listeners provided by an object implementing IEventListener
      * Params:
      * \UIM\Event\IEventListener subscriber the subscriber to be detached
-     * @param string|null eventKey optional event key name to unsubscribe the listener from
+     * @param string eventKey optional event key name to unsubscribe the listener from
      */
     protected void _detachSubscriber(IEventListener subscriber, string aeventKey = null) {
         events = subscriber.implementedEvents();

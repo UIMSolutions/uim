@@ -21,7 +21,7 @@ class DFatalErrorException : UimException {
      *
      * @param string message Message string.
      * @param int|null code Code.
-     * @param string|null file File name.
+     * @param string file File name.
      * @param int|null line Line number.
      * @param \Throwable|null previous The previous exception.
      */

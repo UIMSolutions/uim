@@ -35,7 +35,7 @@ interface IQuery {
      * If no alias is passed, the default table for this query will be used.
      * Params:
      * string fieldName The field to alias
-     * @param string|null alias the alias used to prefix the field
+     * @param string alias the alias used to prefix the field
      */
     STRINGAA aliasField(string fieldName, string aliasName = null);
 
@@ -44,7 +44,7 @@ interface IQuery {
      * the result under a single array.
      * Params:
      * Json[string] fields The fields to alias
-     * @param string|null  defaultAlias The default alias
+     * @param string  defaultAlias The default alias
      */
     STRINGAA aliasFields(string[] fieldNames, string adefaultAlias = null);
 

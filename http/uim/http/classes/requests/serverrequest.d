@@ -913,7 +913,7 @@ class DServerRequest { // }: IServerRequest {
      * This method will order the returned content types by the preference values indicated
      * by the client.
      * Params:
-     * string|null type The content type to check for. Leave null to get all types a client accepts.
+     * string type The content type to check for. Leave null to get all types a client accepts.
      */
     string[] accepts(string atype = null) {
         auto content = new DContentTypeNegotiation();
@@ -939,7 +939,7 @@ class DServerRequest { // }: IServerRequest {
      *
      * ```request.acceptLanguage("es-es");```
      * Params:
-     * string|null language The language to test.
+     * string language The language to test.
      * @return Json If a language is provided, a boolean. Otherwise, the array of accepted languages.
      */
     Json acceptLanguage(string languageToTest = null) {
@@ -961,7 +961,7 @@ class DServerRequest { // }: IServerRequest {
      * aValue = Hash.get(request.queryArguments(), "Post.id");
      * ```
      * Params:
-     * string|null name The name or dotted path to the query param or null to read all.
+     * string name The name or dotted path to the query param or null to read all.
      * @param Json defaultValue The default value if the named parameter is not set, and name is not null.
      */
     Json getQuery(string nameOrPath = null, Json defaultValue = Json(null)) {
@@ -998,7 +998,7 @@ class DServerRequest { // }: IServerRequest {
      * aValue = Hash.get(request.getParsedBody(), "Post.id");
      * ```
      * Params:
-     * string|null name Dot separated name of the value to read. Or null to read all data.
+     * string name Dot separated name of the value to read. Or null to read all data.
      * @param Json defaultValue The default data.
      */
     Json getData(string aName = null, Json defaultValue = Json(null)) {
@@ -1139,7 +1139,7 @@ class DServerRequest { // }: IServerRequest {
      * Fallback to using enviroment() if the key is not set in the environment property.
      * Params:
      * string aKey The key you want to read from.
-     * @param string|null default Default value when trying to retrieve an environment
+     * @param string default Default value when trying to retrieve an environment
      *  variable`s value that does not exist.
      */
     string getEnvironmentData(string aKey, string adefault = null) {

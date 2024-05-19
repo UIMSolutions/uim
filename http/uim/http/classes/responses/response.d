@@ -1206,7 +1206,7 @@ class DResponse : IResponse {
     /**
      * Convenience method to set a string into the response body
      * Params:
-     * string|null string The string to be sent
+     * string string The string to be sent
      */
     static withStringBody(string astring) {
         new = clone this;

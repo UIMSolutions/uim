@@ -14,7 +14,7 @@ class DUnauthorizedException : DHttpException {
     /**
      
      * Params:
-     * string|null aMessage If no message is given 'Unauthorized' will be the message
+     * string aMessage If no message is given 'Unauthorized' will be the message
      */
     this(string aMessage = null, int statusCode = null, Throwable previousException = null) {
         if (aMessage.isEmpty) {

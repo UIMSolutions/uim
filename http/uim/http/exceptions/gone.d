@@ -14,7 +14,7 @@ class DGoneException : DHttpException {
     /**
      
      * Params:
-     * string|null aMessage If no message is given 'Gone' will be the message
+     * string aMessage If no message is given 'Gone' will be the message
      * @param int statusCode Status code, defaults to 410
      * @param \Throwable|null previousException The previous exception.
      */

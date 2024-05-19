@@ -596,13 +596,11 @@ interface ICollection {
      * Returns a new DCollection where the values are nested in a tree-like structure
      * based on an id property path and a parent id property path.
      *
-     * @param callable|string idPath the column name path to use for determining
-     * whether an element is parent of another
      * @param callable|string parentPath the column name path to use for determining
      * whether an element is child of another
      * @param string nestingKey The key name under which children are nested
      */
-    ICollection nest(idPath, parentPath, string nestingKey = "children");
+    ICollection nest(string idPath, parentPath, string nestingKey = "children");
 
     /**
      * Returns a new DCollection containing each of the elements found in `values` as

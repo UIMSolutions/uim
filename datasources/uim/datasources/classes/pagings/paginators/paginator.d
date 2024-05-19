@@ -242,13 +242,13 @@ class DPaginator : IPaginator {
     /**
      * Build pagination params.
      *
-     * @param Json[string] myData Paginator data containing keys "options",
-     *   "count", "defaults", "finder", "numResults".
      */
-    protected Json[string] buildParams(Json[string] myData) {
+    protected Json[string] buildParams(Json[string] paginatorData) {
         limit = myData["options"]["limit"];
 
-        paging = [
+        // containing keys "options",
+        // "count", "defaults", "finder", "numResults".
+        Json[string] paging = [
             "count":myData["count"],
             "current":myData["numResults"],
             "perPage":limit,
@@ -256,15 +256,15 @@ class DPaginator : IPaginator {
             "requestedPage":myData["options"]["page"],
         ];
 
-        paging = addPageCountParams(paging, myData);
-        paging = addStartEndParams(paging, myData);
-        paging = addPrevNextParams(paging, myData);
-        paging = addSortingParams(paging, myData);
+        paging = addPageCountParams(paging, paginatorData);
+        paging = addStartEndParams(paging, paginatorData);
+        paging = addPrevNextParams(paging, paginatorData);
+        paging = addSortingParams(paging, paginatorData);
 
         paging += [
-            "limit":myData["defaults"]["limit"] != limit ? limit : null,
-            "scope":myData["options"]["scope"],
-            "finder":myData["finder"],
+            "limit":paginatorData["defaults"]["limit"] != limit ? limit : null,
+            "scope":paginatorData["options"]["scope"],
+            "finder":paginatorData["finder"],
         ];
 
         return paging;

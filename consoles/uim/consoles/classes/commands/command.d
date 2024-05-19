@@ -193,7 +193,6 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * need to pass the command as an object with all of its dependencies.
      * Params:
      * \UIM\Console\ICommand|string acommand The command class name or command instance.
-     * @param Json[string] someArguments The arguments to invoke the command with.
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo The ConsoleIo instance to use for the executed command.
      */
     int executeCommand(string acommand, Json[string] commandArguments = null, IConsoleIo aConsoleIo = null) {

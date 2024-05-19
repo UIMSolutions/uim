@@ -36,34 +36,33 @@ mixin template TConsoleIntegrationTest() {
      * @throws \UIM\Console\TestSuite\MissingConsoleInputException
      * @throws \InvalidArgumentException
      */
-    void exec(string acommand, Json[string]  anInput = null) {
+    void exec(string acommand, Json[string] anInput = null) {
         runner = this.makeRunner();
 
-       _out ??= new DStubConsoleOutput();
-       _err ??= new DStubConsoleOutput();
+        _out ?  ?  = new DStubConsoleOutput();
+        _err ?  ?  = new DStubConsoleOutput();
         if (_in.isNull) {
-           _in = new DStubConsoleInput(anInput);
+            _in = new DStubConsoleInput(anInput);
         } else if (anInput) {
             throw new DInvalidArgumentException(
-                "You can use ` anInput` only if ` _in` property.isNull and will be reset.'
-            );
+                "You can use ` anInput` only if ` _in` property.isNull and will be reset.");
         }
         someArguments = _commandstringToArgs("uim command");
-         aConsoleIo = new DConsoleIo(_out, _err, _in);
+        aConsoleIo = new DConsoleIo(_out, _err, _in);
 
         try {
-           _exitCode = runner.run(someArguments,  aConsoleIo);
-        } catch (MissingConsoleInputException  anException) {
+            _exitCode = runner.run(someArguments, aConsoleIo);
+        } catch (MissingConsoleInputException anException) {
             messages = _out.messages();
             if (count(messages)) {
-                 anException.setQuestion(messages[count(messages) - 1]);
+                anException.setQuestion(messages[count(messages) - 1]);
             }
-            throw  anException;
+            throw anException;
         } catch (DStopException exception) {
-           _exitCode = exception.getCode();
+            _exitCode = exception.getCode();
         }
     }
-    
+
     /**
      * Cleans state to get ready for the next test
      *
@@ -71,32 +70,32 @@ mixin template TConsoleIntegrationTest() {
      * @psalm-suppress PossiblyNullPropertyAssignmentValue
      */
     auto cleanupConsoleTrait() {
-       _exitCode = null;
-       _out = null;
-       _err = null;
-       _in = null;
+        _exitCode = null;
+        _out = null;
+        _err = null;
+        _in = null;
     }
-    
+
     /**
      * Asserts shell exited with the expected code
      * Params:
      * int expected Expected exit code
      * @param string amessage Failure message
      */
-    void assertExitCode(int expected, string amessage= null) {
+    void assertExitCode(int expected, string amessage = null) {
         this.assertThat(expected, new DExitCode(_exitCode), message);
     }
-    
+
     // Asserts shell exited with the Command.CODE_SUCCESS
     void assertExitSuccess(string failureMessage = null) {
         this.assertThat(Command.CODE_SUCCESS, new DExitCode(_exitCode), failureMessage);
     }
-    
+
     // Asserts shell exited with Command.CODE_ERROR
     void assertExitError(string failureMessage = null) {
         this.assertThat(Command.CODE_ERROR, new DExitCode(_exitCode), failureMessage);
     }
-    
+
     /**
      * Asserts that `stdout` is empty
      * Params:
@@ -105,22 +104,22 @@ mixin template TConsoleIntegrationTest() {
     void assertOutputEmpty(string amessage = null) {
         this.assertThat(null, new DContentsEmpty(_out.messages(), "output"), message);
     }
-    
+
     // Asserts `stdout` contains expected output
     void assertOutputContains(string expectedOutput, string failureMessage = null) {
         this.assertThat(expectedOutput, new DContentsContain(_out.messages(), "output"), failureMessage);
     }
-    
+
     // Asserts `stdout` does not contain expected output
     void assertOutputNotContains(string expectedOutput, string failureMessage = null) {
         this.assertThat(expected, new DContentsNotContain(_out.messages(), "output"), failureMessage);
     }
-    
+
     // Asserts `stdout` contains expected regexp
     void assertOutputRegExp(string expectedPattern, string failureMessage = null) {
         this.assertThat(expectedPattern, new DContentsRegExp(_out.messages(), "output"), failureMessage);
     }
-    
+
     /**
      * Check that a row of cells exists in the output.
      * Params:
@@ -129,34 +128,34 @@ mixin template TConsoleIntegrationTest() {
     protected void assertOutputContainsRows(Json[string] row, string failureMessage = null) {
         this.assertThat(row, new DContentsContainRow(_out.messages(), "output"), message);
     }
-    
+
     // Asserts `stderr` contains expected output
     void assertErrorContains(string expectedOutput, string failureMessage = null) {
         this.assertThat(expected, new DContentsContain(_err.messages(), "error output"), failureMessage);
     }
-    
+
     // Asserts `stderr` contains expected regexp
     void assertErrorRegExp(string expectedPattern, string failureMessage = null) {
         this.assertThat(expectedPattern, new DContentsRegExp(_err.messages(), "error output"), failureMessage);
     }
-    
+
     /**
      * Asserts that `stderr` is empty
      * Params:
      * string amessage The message to output when the assertion fails.
      */
-    void assertErrorEmpty(string amessage = null)l) {
+    void assertErrorEmpty(string amessage = null) l) {
         this.assertThat(null, new DContentsEmpty(_err.messages(), "error output"), message);
     }
-    
+
     // Builds the appropriate command dispatcher
     protected ICommandRunner makeRunner() {
         auto myAapp = this.createApp();
-        assert(cast(IConsoleApplication)myAapp);
+        assert(cast(IConsoleApplication) myAapp);
 
         return new DCommandRunner(myApp);
     }
-    
+
     /**
      * Creates an argv array from a command string
      * Params:
@@ -166,10 +165,10 @@ mixin template TConsoleIntegrationTest() {
         size_t charCount = command.length;
         string[] argv = null;
         string argument;
-         anInDQuote = false;
-         anInSQuote = false;
-        for (anI = 0;  anI < charCount;  anI++) {
-            string char = substr(command,  anI, 1);
+        anInDQuote = false;
+        anInSQuote = false;
+        for (anI = 0; anI < charCount; anI++) {
+            string char = substr(command, anI, 1);
 
             // end of argument
             if (char == " " && !anInDQuote && !anInSQuote) {
@@ -181,22 +180,22 @@ mixin template TConsoleIntegrationTest() {
             }
             // exiting single quote
             if (anInSQuote && char == "'") {
-                 anInSQuote = false;
+                anInSQuote = false;
                 continue;
             }
             // exiting double quote
             if (anInDQuote && char.isEmpty) {
-                 anInDQuote = false;
+                anInDQuote = false;
                 continue;
             }
             // entering double quote
             if (char == `""` && !anInSQuote) {
-                 anInDQuote = true;
+                anInDQuote = true;
                 continue;
             }
             // entering single quote
             if (char == "'" && !anInDQuote) {
-                 anInSQuote = true;
+                anInSQuote = true;
                 continue;
             }
             argument ~= char;
@@ -204,6 +203,7 @@ mixin template TConsoleIntegrationTest() {
         argv ~= argument;
 
         return argv;
-    } */
-}
+    }
 
+     *  /
+}

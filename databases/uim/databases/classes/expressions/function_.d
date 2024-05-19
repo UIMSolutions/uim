@@ -33,16 +33,14 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      *
      * Will produce `CONCAT(name, " rules")`
      * Params:
-     * @param Json[string] arguments list of arguments to be passed to the function
-     * If associative the key would be used as argument when value is 'literal'
      * @param STRINGAA|array<string> types Associative array of types to be associated with the
      * passed arguments
      * @param string resultType The return type of this expression
      */
-    this(string newName, Json[string] arguments = null, Json[string] associatedTypes = null, string resultType = "string") {
+    this(string newName, Json[string] functionArguments = null, Json[string] associatedTypes = null, string resultType = "string") {
        this.name(newName);
        _returnType = resultType;
-        super(arguments, associatedTypes, ",");
+        super(functionArguments, associatedTypes, ",");
     }
 
     /**

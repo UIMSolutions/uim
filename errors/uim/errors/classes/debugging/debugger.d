@@ -184,11 +184,7 @@ class DDebugger {
         _stringContents['html']['context'] ~= '<p>{:context}</p></pre>';
     }
 
-    /**
-     * Returns a reference to the Debugger singleton object instance.
-     *
-     * @param string aClassName Class name.
-     */
+    // Returns a reference to the Debugger singleton object instance.
     static function getInstance(string aClassName = null) {
         static instance = null;
         if (!aClassName.isEmpty) {

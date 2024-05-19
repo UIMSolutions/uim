@@ -54,7 +54,6 @@ class DSimplePaginator : DNumericPaginator {
      * fetched exceeds the limit/per page.
      * Params:
      * \UIM\Datasource\IResultset  someItems
-     * @param Json[string] pagingParams
      */
     protected IPaginated buildPaginated(IResultset  someItems, Json[string] pagingParams) {
         if (count(someItems) > this.pagingParams["perPage"]) {

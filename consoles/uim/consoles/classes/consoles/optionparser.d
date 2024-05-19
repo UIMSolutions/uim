@@ -351,12 +351,13 @@ class DConsoleOptionParser {
      * Params:
      * \UIM\Console\ConsoleInputArgument|string aName The name of the argument.
      *  Will also accept an instance of ConsoleInputArgument.
-     * @param Json[string] params Parameters for the argument, see above.
      */
-    void addArgument(ConsoleInputArgument aName, Json[string] params = null) {
+    void addArgument(ConsoleInputArgument aName, Json[string] argumentParameters = null) {
+        // TODO
     }
 
     void addArgument(string aName, Json[string] params = null) {
+        // TODO
     }
     
     /**
@@ -488,14 +489,13 @@ class DConsoleOptionParser {
      * in the parser.
      * Params:
      * string aformat Define the output format, can be text or XML
-     * @param int width The width to format user content to. Defaults to 72
      */
-    string help(string aformat = "text", int width = 72) {
+    string help(string aformat = "text", int formatWidth = 72) {
         auto formatter = new DHelpFormatter(this);
         formatter.aliasName(_rootName);
 
         if (format == "text") {
-            return formatter.text(width);
+            return formatter.text(formatWidth);
         }
         if (format == "xml") {
             return to!string(formatter.xml());

@@ -543,13 +543,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * ### Example:
      *
      * ```
-     * // Email can be empty
+     *// Email can be empty
      * myvalidator.allowEmptyFor("email", Validator.EMPTY_STRING);
      *
-     * // Email can be empty on create
+     *// Email can be empty on create
      * myvalidator.allowEmptyFor("email", Validator.EMPTY_STRING, Validator.WHEN_CREATE);
      *
-     * // Email can be empty on update
+     *// Email can be empty on update
      * myvalidator.allowEmptyFor("email", Validator.EMPTY_STRING, Validator.WHEN_UPDATE);
      * ```
      *

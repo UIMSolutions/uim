@@ -403,13 +403,13 @@ abstract class DTestCase : DBaseTestCase {
      * string aneedle The string to search for.
      * @param string ahaystack The string to search through.
      * @param string amessage The message to display on failure.
-     * @param bool  anIgnoreCase Whether the search should be case-sensitive.
+     * @param bool anIgnoreCase Whether the search should be case-sensitive.
      */
     void assertTextContains(
         string aneedle,
         string ahaystack,
         string amessage = "",
-        bool  anIgnoreCase = false
+        bool anIgnoreCase = false
     ) {
         needle = needle.replace(["\r\n", "\r"], "\n");
         haystack = str_replace(["\r\n", "\r"], "\n", haystack);
@@ -428,13 +428,13 @@ abstract class DTestCase : DBaseTestCase {
      * string aneedle The string to search for.
      * @param string ahaystack The string to search through.
      * @param string amessage The message to display on failure.
-     * @param bool  anIgnoreCase Whether the search should be case-sensitive.
+     * @param bool anIgnoreCase Whether the search should be case-sensitive.
      */
     void assertTextNotContains(
         string aneedle,
         string ahaystack,
         string amessage = "",
-        bool  anIgnoreCase = false
+        bool anIgnoreCase = false
     ) {
         needle = needle.replace(["\r\n", "\r"], "\n");
         haystack = str_replace(["\r\n", "\r"], "\n", haystack);

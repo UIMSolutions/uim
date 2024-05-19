@@ -716,7 +716,7 @@ class DResponse : IResponse {
     /**
      * Create a new instace with the public/private Cache-Control directive set.
      * Params:
-     * bool  anIf set to true, the Cache-Control header will be set as public
+     * bool anIf set to true, the Cache-Control header will be set as public
      *  if set to false, the response will be set to private.
      * @param int time time in seconds after which the response should no longer be considered fresh.
      */

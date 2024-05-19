@@ -172,7 +172,7 @@ class DRoute : IRoute {
      * by redefining them in a URL or remove them by setting the persistent parameter to `false`.
      *
      * ```
-     * / remove a persistent "date" parameter
+     */ remove a persistent "date" parameter
      * Router.url(["date": false.toJson", ...]);
      * ```
      * Params:

@@ -12,17 +12,17 @@ mixin template TCell() {
      * Example:
      *
      * ```
-     * / Taxonomy\View\Cell\TagCloudCell.smallList()
+     */ Taxonomy\View\Cell\TagCloudCell.smallList()
      * mycell = this.cell("Taxonomy.TagCloud.smallList", ["limit": 10]);
      *
-     * / App\View\Cell\TagCloudCell.smallList()
+     */ App\View\Cell\TagCloudCell.smallList()
      * mycell = this.cell("TagCloud.smallList", ["limit": 10]);
      * ```
      *
      * The `display` action will be used by default when no action is provided:
      *
      * ```
-     * / Taxonomy\View\Cell\TagCloudCell.display()
+     */ Taxonomy\View\Cell\TagCloudCell.display()
      * mycell = this.cell("Taxonomy.TagCloud");
      * ```
      *

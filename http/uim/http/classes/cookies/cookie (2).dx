@@ -12,7 +12,7 @@ class DCookie : ICookie {
     protected string[] avalue = "";
 
     // Whether a Json value has been expanded into an array.
-    protected bool  isExpanded = false;
+    protected bool isExpanded = false;
 
     // Expiration time
     protected IDateTime expiresAt = null;

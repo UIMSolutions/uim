@@ -27,7 +27,6 @@ class DErrorLogger : IErrorLogger {
         return true;
     }
 
-    /*
     void logError(UimError error, IServerRequest serverRequest = null, bool anIncludeTrace = false) {
         auto errorMessage = error.getMessage();
         if (request) {

@@ -1589,11 +1589,11 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * be saved and to pass additional option for saving them.
      *
      * ```
-     * / Only save the comments association
+     */ Only save the comments association
      * myarticles.save(myentity, ["associated": ["Comments"]]);
      *
-     * / Save the company, the employees and related addresses for each of them.
-     * / For employees do not check the entity rules
+     */ Save the company, the employees and related addresses for each of them.
+     */ For employees do not check the entity rules
      * mycompanies.save(myentity, [
      *  "associated": [
      *    "Employees": [
@@ -1603,7 +1603,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      *  ]
      * ]);
      *
-     * / Save no associations
+     */ Save no associations
      * myarticles.save(myentity, ["associated": false.toJson]);
      * ```
      * Params:

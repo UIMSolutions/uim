@@ -809,9 +809,9 @@ mixin template TIntegrationTest() {
      * Params:
      * string acontent The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     * @param bool  anIgnoreCase A flag to check whether we should ignore case or not.
+     * @param bool anIgnoreCase A flag to check whether we should ignore case or not.
      */
-    void assertResponseContains(string acontent, string amessage = "", bool  anIgnoreCase = false) {
+    void assertResponseContains(string acontent, string amessage = "", bool anIgnoreCase = false) {
         if (!_response) {
             this.fail("No response set, cannot assert content.");
         }
@@ -824,9 +824,9 @@ mixin template TIntegrationTest() {
      * Params:
      * string acontent The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     * @param bool  anIgnoreCase A flag to check whether we should ignore case or not.
+     * @param bool anIgnoreCase A flag to check whether we should ignore case or not.
      */
-    void assertResponseNotContains(string acontent, string amessage = "", bool  anIgnoreCase = false) {
+    void assertResponseNotContains(string acontent, string amessage = "", bool anIgnoreCase = false) {
         if (!_response) {
             this.fail("No response set, cannot assert content.");
         }

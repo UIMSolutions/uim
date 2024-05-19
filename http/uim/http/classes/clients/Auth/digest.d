@@ -46,7 +46,7 @@ class DDigest {
     protected string ahashType;
 
     // Is Sess algorithm
-    protected bool  isSessAlgorithm = false;
+    protected bool isSessAlgorithm = false;
 
     /**
      

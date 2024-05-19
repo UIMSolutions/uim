@@ -809,13 +809,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     /**
      * Clears the internal result cache and the internal count value from the current
      * query object.
-     *
-     * @return this
      */
-    function clearResult() {
+    void clearResult() {
         _isDirty();
-
-        return this;
     }
 
     /**

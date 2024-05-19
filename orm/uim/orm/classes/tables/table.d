@@ -1926,9 +1926,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] options Options used when calling Table.save() for each entity.
      * @throws \ORM\Exception\PersistenceFailedException If an entity couldn"t be saved.
      * @throws \Exception If an entity couldn"t be saved.
-     * @return iterable<\UIM\Datasource\IORMEntity> Entities list.
      */
-    protected auto _saveMany(
+    protected IORMEntity[] _saveMany(
         range myentities,
         Json[string] optionData = null
     ): range {

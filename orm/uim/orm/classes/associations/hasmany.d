@@ -217,7 +217,6 @@ class DHasManyAssociation : DAssociation {
      * @param Json[string] myTargetEntities list of entities belonging to the `target` side
      * of this association
      * @param Json[string] options list of options to be passed to the internal `save` call
-     * @return bool true on success, false otherwise
      */
     bool link(IORMEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
         saveStrategy = getSaveStrategy();

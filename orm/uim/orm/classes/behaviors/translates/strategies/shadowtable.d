@@ -268,7 +268,6 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param DORMQuery query the query to check.
      * @param string aName The clause name.
      * @param Json[string] myConfiguration The config to use for adding fields.
-     * @return bool Whether a join to the translation table is required.
      */
                                                                 protected bool traverseClause(query, name = "", myConfiguration = null) {
                                                                     clause = query.clause(

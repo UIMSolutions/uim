@@ -1771,9 +1771,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param string myMessage The error message when the rule fails.
      * @param \Closure|string mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
-     * @return this
-     * @see \UIM\Validation\Validation.enum()
-     * @since 5.0.3
      */
     auto enum(
         string fieldName,

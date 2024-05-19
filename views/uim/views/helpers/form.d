@@ -2125,7 +2125,6 @@ class DFormHelper : DHelper {
      * If there is no active form null will be returned.
      * Params:
      * \UIM\View\Form\IContext|null formContext Either the new context when setting, or null to get.
-     * @return \UIM\View\Form\IContext The context for the form.
      */
     IContext context(IContext formContext = null) {
         if (cast(IContext)formContext) {

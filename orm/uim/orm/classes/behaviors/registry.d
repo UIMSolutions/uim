@@ -58,8 +58,6 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * Resolve a behavior classname.
      *
      * @param string aClassName  Partial classname to resolve.
-     * @return string Either the correct classname or null.
-     * @psalm-return class-string
      */
     static string className(string aClassName ) {
         return App.className(class, "Model/Behavior", "Behavior")

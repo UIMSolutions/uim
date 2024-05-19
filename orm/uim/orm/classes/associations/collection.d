@@ -55,9 +55,6 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param string anClassName The name of association class.
      * @param string associated The alias for the target table.
      * @param Json[string] options List of options to configure the association definition.
-     * @return DORMAssociation
-     * @throws \InvalidArgumentException
-     * @psalm-param class-string<DORMAssociation> className
      */
     DORMAssociation load(string anClassName, string associated, Json[string] optionData = null) {
         someOptions["tableLocator"] = getTableLocator();

@@ -154,8 +154,6 @@ class DEagerLoader {
      * specific table using when a query is provided. The list of associated tables
      * passed to this method must have been previously set as associations using the
      * Table API.
-     *
-     * @return array Containments.
      */
     Json[string] getContain() {
         return _containments;

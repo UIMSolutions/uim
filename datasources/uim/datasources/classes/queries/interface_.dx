@@ -359,8 +359,7 @@ interface IQuery {
      * @param \Closure|array|string conditions The conditions to filter on.
      * @param array<string, string> types Associative array of type names used to bind values to query
      * @param bool canOverwrite whether to reset conditions with passed list or not
-     * @return this
      */
-    function where(conditions = null, Json[string] types = null, bool canOverwrite = false);
+    void where(conditions = null, Json[string] types = null, bool canOverwrite = false);
 }
 

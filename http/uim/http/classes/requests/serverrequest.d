@@ -938,7 +938,6 @@ class DServerRequest { // }: IServerRequest {
      * ```request.acceptLanguage("es-es");```
      * Params:
      * string language The language to test.
-     * @return Json If a language is provided, a boolean. Otherwise, the array of accepted languages.
      */
     Json acceptLanguage(string languageToTest = null) {
         content = new DContentTypeNegotiation();

@@ -636,7 +636,6 @@ class DNumericPaginator : IPaginator {
      * Check the limit parameter and ensure it"s within the maxLimit bounds.
      *
      * @param Json[string] options An array of options with a limit key to be checked.
-     * @return Json[string] An array of options for pagination.
      */
     Json[string] checkLimit(
         Json[string] optionData) {

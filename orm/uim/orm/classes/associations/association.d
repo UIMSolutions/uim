@@ -916,10 +916,8 @@ class DAssociation : IAssociation {
      * association"s associations
      *
      * @param string property the property name
-     * @return DORMAssociation
-     * @throws \RuntimeException if no association with such name exists
      */
-    function __get(property) {
+    DORMAssociation __get(property) {
         return _getTarget(). {
             property
         };

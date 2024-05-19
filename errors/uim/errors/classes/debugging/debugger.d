@@ -339,10 +339,8 @@ class DDebugger {
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      *
      * @param Json[string] options Format for outputting stack trace.
-     * @return array|string Formatted stack trace.
-     * @link https://book.uimD.org/4/en/development/debugging.html#generating-stack-traces
      */
-    static function trace(Json[string] optionData = null) {
+    static auto trace(Json[string] optionData = null) {
         return Debugger.formatTrace(debug_backtrace(), options);
     }
 

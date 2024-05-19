@@ -936,14 +936,10 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * Disabling hydration will cause array results to be returned for the query
      * instead of entities.
-     *
-     * @return this
      */
-    function disableHydration() {
+    void disableHydration() {
         _isDirty();
         _hydrate = false;
-
-        return this;
     }
 
     /**
@@ -1188,9 +1184,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * Returns a new Query that has automatic field aliasing disabled.
      *
      * @param DORMDORMTable aTable The table this query is starting on
-     * @return static
      */
-    static function subquery(DORMTable aTable) {
+    static auto subquery(DORMTable aTable) {
         query = new static(table.getConnection(), table);
         query.aliasingEnabled = false;
 

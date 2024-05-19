@@ -494,10 +494,8 @@ class DTreeBehavior : DBehavior {
      * without moving its children with it.
      *
      * @param DORMDatasource\IORMEntity node The node to remove from the tree
-     * @return DORMDatasource\IORMEntity|false the node after being removed from the tree or
-     * false on error
      */
-    function removeFromTree(IORMEntity node) {
+    IORMEntity removeFromTree(IORMEntity node) {
         return _table.getConnection().transactional(function () use (node) {
             _ensureFields(node);
 

@@ -16,13 +16,13 @@ import uim.oop;
  * ```
  * 
  * return [
- *    'debug": false.toJson,
- *    `security": [
- *        `salt": 'its-secret'
- *    ],
- *    'App": [
- *        'namespace": 'App'
- *    ]
+ *   'debug": false.toJson,
+ *   `security": [
+ *       `salt": 'its-secret'
+ *   ],
+ *   'App": [
+ *       'namespace": 'App'
+ *   ]
  * ];
  * ```
  */

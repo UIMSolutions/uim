@@ -118,7 +118,7 @@ auto dirEntryInfos(string aPath) {
 	debug writeln(__MODULE__ ~ " - dirEntryInfos(path: %s)".format(aPath));
 
 	FileInfo[] results;
-	/*   bool dirEntryInfo(FileInfo info) { 
+	/*  bool dirEntryInfo(FileInfo info) { 
 		debug writeln(__MODULE__~" - Info %s".format(info));
 		results ~= info; return true; 
 	}
@@ -135,7 +135,7 @@ auto dirNames(string aPath, bool aFullName = false) {
 	debug writeln(__MODULE__ ~ " - dirNames(string %s, bool fullName = false)".format(aPath));
 
 	string[] results;
-	/*   string[] results = dirEntryInfos(aPath).filter!(a => a.isDirectory).map!(a => a.name).array;
+	/*  string[] results = dirEntryInfos(aPath).filter!(a => a.isDirectory).map!(a => a.name).array;
   if (aFullName) results = results.map!(a => aPath~"/"~a).array;
  */
 

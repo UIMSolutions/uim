@@ -129,7 +129,7 @@ class DError {
     ]);
 
     // TODO
-    /*     _logMap = [
+    /*    _logMap = [
       "error": LOG_ERR,
       "warning": LOG_WARNING,
       "notice": LOG_NOTICE,
@@ -140,7 +140,7 @@ class DError {
     return true;
   }
 
-  /*   // Get the mapped LOG_ constant.
+  /*  // Get the mapped LOG_ constant.
   int logLevel() {
       auto myLabel = this.label();
 

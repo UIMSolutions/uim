@@ -11,7 +11,7 @@ string dataThis(string name, string datatype = null) { // Name for future releas
     this(Json newValue) { this(); set(newValue); } `;
   // ~ datatype !is null ? ` this(` ~ datatype ~ ` newzValue) { this(); set(newzValue); }`: null;
 
-  /*      this(DAttribute theAttribute, `
+  /*     this(DAttribute theAttribute, `
         ~ datatype ~ ` newValue) { this(theAttribute).set(newValue); }` : "");
 
     /*

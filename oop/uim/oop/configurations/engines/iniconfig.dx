@@ -57,7 +57,7 @@ class DIniConfig : DConfigEngine {
      * Params:
      * string someKey Key to load ini config files from. Defaults to CONFIG.
      * @param string section Only get one section, leave null to parse and fetch
-     *    all sections in the ini file.
+     *   all sections in the ini file.
      */
     this(string aKey = null, string asection = null) {
        _key = someKey ? someKey : CONFIG;

@@ -76,7 +76,6 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
      * Template method of DERRErrorHandler.
      *
      * @param Json[string] error An array of error data.
-     * @param bool shouldDebug Whether the app is in debug mode.
      */
     protected void _displayError(Json[string] error, bool shouldDebug) {
         string message = "%s\nIn [%s, line %s]".format(

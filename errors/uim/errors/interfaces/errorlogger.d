@@ -33,11 +33,10 @@ interface IErrorLogger {
      * Params:
      * \UIM\Error\UimError error The error to log.
      * @param \Psr\Http\Message\IServerRequest|null request The request if in an HTTP context.
-     * @param bool anIncludeTrace Should the log message include a stacktrace.
      */
     void logError(
         UimError error,
         IServerRequest serverRequest = null,
-        bool anIncludeTrace = false
+        bool shouldLogIncludeTrace = false
     ); 
 }

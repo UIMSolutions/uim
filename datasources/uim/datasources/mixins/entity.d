@@ -478,14 +478,14 @@ mixin template TEntity() {
      * string[] fieldNames An array of fields to hide from array exports.
      * @param bool merge Merge the new fields with the existing. By default false.
     */
-  void setHidden(string[] fields, bool merge = false) {
-    if (merge == false) {
-      _hidden = fields;
+  void setHidden(string[] fields, bool mergeFields = false) {
+    if (mergeFields == false) {
+      _hidden = mergeFields;
 
       return;
     }
-    fields = chain(_hidden, fields);
-    _hidden = array_unique(fields);
+    mergeFields = chain(_hidden, mergeFields);
+    _hidden = array_unique(mergeFields);
   }
 
   // Gets the hidden fields.
@@ -692,12 +692,11 @@ mixin template TEntity() {
      * Normally there is no need to call this method manually.
      * Params:
      * string[]|string fieldName the name of a field or a list of fields to set as original
-     * @param bool merge
     */
-  protected void setOriginalField(string | arrayfield, bool merge = true) {
+  protected void setOriginalField(string | arrayfield, bool shouldMerge = true) {
   }
-  protected void setOriginalField(string[] fieldNames, bool merge = true) {
-    if (!merge) {
+  protected void setOriginalField(string[] fieldNames, bool shouldMerge = true) {
+    if (!shouldMerge) {
       _originalFields = fields;
 
       return;

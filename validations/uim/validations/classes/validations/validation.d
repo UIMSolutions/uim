@@ -783,9 +783,9 @@ class DValidation {
      * - min: minimum number of non-zero choices that can be made
      * Params:
      * Json mycheck Value to check
-     * @param bool mycaseInsensitive Set to true for case insensitive comparison.
+     * @param bool caseInsensitive Set to true for case insensitive comparison.
      */
-    static bool multiple(Json mycheck, Json[string] optionData = null, bool mycaseInsensitive = false) {
+    static bool multiple(Json mycheck, Json[string] optionData = null, bool caseInsensitive = false) {
         mydefaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
         auto updatedOptions = options.updatemydefaults;
 
@@ -802,12 +802,12 @@ class DValidation {
             return false;
         }
         if (options["in"] && isArray(options["in"])) {
-            if (mycaseInsensitive) {
+            if (caseInsensitive) {
                 options["in"] = array_map("mb_strtolower", options["in"]);
             }
             foreach (mycheck as myval) {
                 mystrict = !isNumeric(myval);
-                if (mycaseInsensitive) {
+                if (caseInsensitive) {
                     myval = mb_strtolower((string)myval);
                 }
                 if (!in_array(to!string(myval), options["in"], mystrict)) {
@@ -907,13 +907,13 @@ class DValidation {
      * Params:
      * Json mycheck Value to check.
      * @param string[] mylist List to check against.
-     * @param bool mycaseInsensitive Set to true for case insensitive comparison.
+     * @param bool caseInsensitive Set to true for case insensitive comparison.
      */
-    static bool inList(Json mycheck, Json[string] mylist, bool mycaseInsensitive = false) {
+    static bool inList(Json mycheck, Json[string] mylist, bool caseInsensitive = false) {
         if (!isScalar(mycheck)) {
             return false;
         }
-        if (mycaseInsensitive) {
+        if (caseInsensitive) {
             mylist = array_map("mb_strtolower", mylist);
             mycheck = mb_strtolower((string)mycheck);
         } else {

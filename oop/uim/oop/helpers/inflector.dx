@@ -184,13 +184,11 @@ class DInflector {
      * string mytype The type of inflection, either "plural", "singular",
      *   or "uninflected".
      * @param Json[string] myrules Array of rules to be added.
-     * @param bool myreset If true, will unset default inflections for all
-     *       new rules that are being defined in myrules.
      */
-  static void rules(string mytype, Json[string] myrules, bool myreset = false) {
+  static void rules(string mytype, Json[string] myrules, bool shouldReset = false) {
     auto myvar = "_" ~ mytype;
 
-    if (myreset) {
+    if (shouldReset) {
       static.my {myvar} = myrules;
     }
     else if(mytype == "uninflected") {

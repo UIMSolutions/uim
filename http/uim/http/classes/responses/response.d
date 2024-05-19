@@ -901,11 +901,9 @@ class DResponse : IResponse {
      * use the cached data.
      * Params:
      * string ahash The unique hash that identifies this response
-     * @param bool weak Whether the response is semantically the same as
-     *  other with the same hash or not. Defaults to false
      */
-    static withEtag(string ahash, bool weak = false) {
-        hash = "%s"%s"".format(weak ? "W/" : "", hash);
+    static withEtag(string ahash, bool isWeak = false) {
+        hash = "%s"%s"".format(isWeak ? "W/" : "", hash);
 
         return _withHeader("Etag", hash);
     }

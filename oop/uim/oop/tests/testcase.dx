@@ -467,7 +467,6 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * string apattern The expected sql pattern
      * @param string aactual The sql to compare
-     * @param bool optional Whether quote characters (marked with <>) are optional
      */
     void assertRegExpSql(string apattern, string aactual, bool isQuoteOptional = false) {
         isQuoteOptional = isQuoteOptional ? "?" : "";

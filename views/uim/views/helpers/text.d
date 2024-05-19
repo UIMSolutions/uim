@@ -193,7 +193,7 @@ class DTextHelper : DHelper {
      * <br> added for single line return
      * <p> added for double line return
      * Params:
-     * string|null mytext Text
+     * string mytext Text
      */
     string autoParagraph(string mytext) {
         mytext ??= "";

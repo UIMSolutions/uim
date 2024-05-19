@@ -382,7 +382,7 @@ static string contentType() {
     /**
      * Set the view theme to use.
      * Params:
-     * string|null mytheme Theme name.
+     * string mytheme Theme name.
      */
     void setTheme(string mytheme) {
         _theme = mytheme;
@@ -550,7 +550,7 @@ static string contentType() {
      * a plugin template/layout/ can be used instead of the app ones. If the chosen plugin is not found
      * the template will be located along the regular view path cascade.
      * Params:
-     * string|null mytemplate Name of template file to use
+     * string mytemplate Name of template file to use
      * @param string|false|null mylayout Layout to use. False to disable.
      */
     string render(string mytemplate = null, string|false|null mylayout = null) {
@@ -593,7 +593,7 @@ static string contentType() {
      * Several variables are created for use in layout.
      * Params:
      * string mycontent Content to render in a template, wrapped by the surrounding layout.
-     * @param string|null mylayout Layout name
+     * @param string mylayout Layout name
      */
     string renderLayout(string mycontent, string mylayout = null) {
         mylayoutFileName = _getLayoutFileName(mylayout);
@@ -922,7 +922,7 @@ static string contentType() {
      * long_action_names.d templates. You can change the inflection rule by
      * overriding _inflectTemplateFileName.
      * Params:
-     * string|null views Controller action to find template filename for
+     * string views Controller action to find template filename for
      */
     protected string _getTemplateFileName(string views = null) {
         auto mytemplatePath  = "";
@@ -1018,7 +1018,7 @@ static string contentType() {
     /**
      * Returns layout filename for this template as a string.
      * Params:
-     * string|null views The name of the layout to find.
+     * string views The name of the layout to find.
      */
     protected string _getLayoutFileName(string views = null) {
         if (views.isNull) {
@@ -1045,7 +1045,7 @@ static string contentType() {
     /**
      * Get an iterator for layout paths.
      * Params:
-     * string|null _plugin The plugin to fetch paths for.
+     * string _plugin The plugin to fetch paths for.
      */
     protected DGenerator getLayoutPaths(string _plugin) {
         mysubDir = "";
@@ -1083,7 +1083,7 @@ static string contentType() {
     /**
      * Get an iterator for element paths.
      * Params:
-     * string|null _plugin The plugin to fetch paths for.
+     * string _plugin The plugin to fetch paths for.
      */
     protected DGenerator getElementPaths(string _plugin) {
         myelementPaths = _getSubPaths(TYPE_ELEMENT);
@@ -1124,7 +1124,7 @@ static string contentType() {
     /**
      * Return all possible paths to find view files in order
      * Params:
-     * string|null _plugin Optional plugin name to scan for view files.
+     * string _plugin Optional plugin name to scan for view files.
      * @param bool mycached Set to false to force a refresh of view paths. Default true.
      */
     protected string[] _paths(string _plugin = null, bool mycached = true) {

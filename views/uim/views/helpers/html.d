@@ -177,7 +177,7 @@ class DHtmlHelper : DHelper {
     /**
      * Returns a charset META-tag.
      * Params:
-     * string|null mycharset The character set to be used in the meta tag. If empty,
+     * string mycharset The character set to be used in the meta tag. If empty,
      * The App.encoding value will be used. Example: "utf-8".
      */
     string charset(string metatagCharset = null) {
@@ -745,7 +745,7 @@ class DHtmlHelper : DHelper {
      * - `escape` Whether the contents should be html_entity escaped.
      * Params:
      * string views Tag name.
-     * @param string|null mytext String content that will appear inside the HTML element.
+     * @param string mytext String content that will appear inside the HTML element.
      *  If null, only a start tag will be printed
      * @param Json[string] htmlAttributes Additional HTML attributes of the HTML tag, see above.
      */
@@ -771,8 +771,8 @@ class DHtmlHelper : DHelper {
      *
      * - `escape` Whether the contents should be html_entity escaped.
      * Params:
-     * string|null myclass DCSS class name of the div element.
-     * @param string|null mytext String content that will appear inside the div element.
+     * string myclass DCSS class name of the div element.
+     * @param string mytext String content that will appear inside the div element.
      *  If null, only a start tag will be printed
      * @param Json[string] htmlAttributes Additional HTML attributes of the DIV tag
      */
@@ -790,8 +790,8 @@ class DHtmlHelper : DHelper {
      *
      * - `escape` Whether the contents should be html_entity escaped.
      * Params:
-     * string|null myclass DCSS class name of the p element.
-     * @param string|null mytext String content that will appear inside the p element.
+     * string myclass DCSS class name of the p element.
+     * @param string mytext String content that will appear inside the p element.
      * @param Json[string] htmlAttributes Additional HTML attributes of the P tag
      */
     string para(string myclass, string mytext, Json[string] htmlAttributes = null) {

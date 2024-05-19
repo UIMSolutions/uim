@@ -665,7 +665,7 @@ class DFormHelper : DHelper {
      * If you want to nest inputs in the labels, you will need to modify the default templates.
      * Params:
      * string fieldName This should be "modelname.fieldname"
-     * @param string|null mytext Text that will appear in the label field. If
+     * @param string mytext Text that will appear in the label field. If
      *  mytext is left undefined the text will be inflected from the
      *  fieldName.
      * @param Json[string] options An array of HTML attributes.
@@ -1232,7 +1232,7 @@ class DFormHelper : DHelper {
      * options can contain a hash of id overrides. These overrides will be
      * used instead of the generated values if present.
      * Params:
-     * @param Json[string]|string|null mylabel Label text or array with label attributes.
+     * @param Json[string]|string mylabel Label text or array with label attributes.
      */
     protected string _inputLabel(string fieldName, string labelText = null, STRINGAA labelAttributes = null, Json[string] labelOptions = null) {
         Json[string] auto updatedOptions = options.update["id": Json(null), "input": Json(null), "nestedInput": false.toJson, "templateVars": Json.emptyArray];
@@ -1659,7 +1659,7 @@ class DFormHelper : DHelper {
      * - `templateVars` - Additional template variables for the input element and its container.
      * - Other attributes will be assigned to the input element.
      * Params:
-     * string|null mycaption The label appearing on the button OR if string contains :// or the
+     * string mycaption The label appearing on the button OR if string contains :// or the
      * extension .jpg, .jpe, .jpeg, .gif, .png use an image if the extension
      * exists, AND the first character is /, image is relative to webroot,
      * OR if the first character is not /, image is relative to webroot/img.

@@ -132,8 +132,8 @@ class DValidation {
      * Params:
      * Json creditcardNumber credit card number to validate
      * @param string[]|string mytype "all" may be passed as a string, defaults to fast which checks format of
-     *    most major credit cards if an array is used only the values of the array are checked.
-     *   Example: ["amex", "bankcard", "maestro"]
+     *   most major credit cards if an array is used only the values of the array are checked.
+     *  Example: ["amex", "bankcard", "maestro"]
      * @param bool mydeep set to true this will check the Luhn algorithm of the credit card.
      * @param string myregex A custom regex, this will be used instead of the defined regex values.
      */
@@ -205,8 +205,8 @@ class DValidation {
      * Params:
      * Json valueToCheck The value to check the count on.
      * @param string myoperator Can be either a word or operand
-     *   is greater >, is less <, greater or equal >=
-     *   less or equal <=, is less <, equal to ==, not equal !=
+     *  is greater >, is less <, greater or equal >=
+     *  less or equal <=, is less <, equal to ==, not equal !=
      * @param int myexpectedCount The expected count value.
      */
     static bool checkNumElements(Json valueToCheck, string myoperator, int myexpectedCount) {
@@ -220,8 +220,8 @@ class DValidation {
      * Params:
      * Json mycheck1 The left value to compare.
      * @param string myoperator Can be one of following operator strings:
-     *  ">", "<", ">=", "<=", "==", "!=", "==" and "!=". You can use one of
-     *  the Validation.COMPARE_* constants.
+     * ">", "<", ">=", "<=", "==", "!=", "==" and "!=". You can use one of
+     * the Validation.COMPARE_* constants.
      * @param Json mycheck2 The right value to compare.
      */
     static bool compare(Json mycheck1, string myoperator, Json mycheck2) {
@@ -316,7 +316,7 @@ class DValidation {
      * Params:
      * Json mycheck a valid date string/object
      * @param string[]|string myformat Use a string or an array of the keys above.
-     *   Arrays should be passed as ["dmy", "mdy", ...]
+     *  Arrays should be passed as ["dmy", "mdy", ...]
      * @param string myregex If a custom regular expression is used this is the only validation that will occur.
      */
     static bool date(Json mycheck, string[] myformat = "ymd", string myregex = null) {
@@ -387,9 +387,9 @@ class DValidation {
      * Params:
      * Json mycheck Value to check
      * @param string[] mydateFormat Format of the date part. See Validation.date() for more information.
-     *  Or `Validation.DATETIME_ISO8601` to validate an ISO8601 datetime value.
+     * Or `Validation.DATETIME_ISO8601` to validate an ISO8601 datetime value.
      * @param string myregex Regex for the date part. If a custom regular expression is used
-     *  this is the only validation that will occur.
+     * this is the only validation that will occur.
      */
     static bool datetime(Json valueToCheck, string[] mydateFormat = "ymd", string myregex = null) {
         if (cast(IDateTime)valueToCheck) {
@@ -870,8 +870,8 @@ class DValidation {
      *
      * - a valid, optional, scheme
      * - a valid IP address OR
-     *  a valid domain name as defined by section 2.3.1 of https://www.ietf.org/rfc/rfc1035.txt
-     *  with an optional port number
+     * a valid domain name as defined by section 2.3.1 of https://www.ietf.org/rfc/rfc1035.txt
+     * with an optional port number
      * - an optional valid path
      * - an optional query string (get parameters)
      * - an optional fragment (anchor tag) as defined in RFC 3986
@@ -1086,12 +1086,12 @@ class DValidation {
      * ### Options
      *
      * - `types` - An array of valid mime types. If empty all types
-     *  will be accepted. The `type` will not be looked at, instead
-     *  the file type will be checked with ext/finfo.
+     * will be accepted. The `type` will not be looked at, instead
+     * the file type will be checked with ext/finfo.
      * - `minSize` - The minimum file size in bytes. Defaults to not checking.
      * - `maxSize` - The maximum file size in bytes. Defaults to not checking.
      * - `optional` - Whether this file is optional. Defaults to false.
-     *  If true a missing file will pass the validator regardless of other constraints.
+     * If true a missing file will pass the validator regardless of other constraints.
      * Params:
      * Json myfile The uploaded file data from D.
      * @param Json[string] options An array of options for the validation.
@@ -1215,7 +1215,7 @@ class DValidation {
      *
      * - `type` - A string of the coordinate format, right now only `latLong`.
      * - `format` - By default `both`, can be `long` and `lat` as well to validate
-     *  only a part of the coordinate.
+     * only a part of the coordinate.
      * Params:
      * Json aValue Geographic location as string
      * @param Json[string] options Options for the validation logic.
@@ -1288,8 +1288,8 @@ class DValidation {
      * # Options
      *
      * - `extended` - Disallow bytes higher within the basic multilingual plane.
-     *  MySQL"s older utf8 encoding type does not allow characters above
-     *  the basic multilingual plane. Defaults to false.
+     * MySQL"s older utf8 encoding type does not allow characters above
+     * the basic multilingual plane. Defaults to false.
      * Params:
      * Json valueToCheck The value to check
      * @param Json[string] options An array of options. See above for the supported options.

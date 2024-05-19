@@ -77,9 +77,9 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * ### Example:
      *
      * ```
-     *     myset
-     *         .add("notBlank", ["rule": "notBlank"])
-     *         .add("inRange", ["rule": ["between", 4, 10])
+     *    myset
+     *        .add("notBlank", ["rule": "notBlank"])
+     *        .add("inRange", ["rule": ["between", 4, 10])
      * ```
      * Params:
      * string myname The name under which the rule should be set
@@ -98,9 +98,9 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * ### Example:
      *
      * ```
-     *     myset
-     *         .remove("notBlank")
-     *         .remove("inRange")
+     *    myset
+     *        .remove("notBlank")
+     *        .remove("inRange")
      * ```
      * Params:
      * string myname The name under which the rule should be unset

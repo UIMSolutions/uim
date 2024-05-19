@@ -16,9 +16,9 @@ import uim.validations;
  *
  * - `DEFAULT_VALIDATOR` - The default validator name.
  * - `VALIDATOR_PROVIDER_NAME ` - The provider name the including class is assigned
- *  in validators.
+ * in validators.
  * - `BUILD_VALIDATOR_EVENT` - The name of the event to be triggred when validators
- *  are built.
+ * are built.
  *
  * If the including class DAlso : events the `Model.buildValidator` event
  * will be triggered when validators are created.
@@ -46,10 +46,10 @@ mixin template TValidatorAware() {
      * ```
      * auto validationForSubscription(myvalidator)
      * {
-     *    return myvalidator
-     *        .add("email", "valid-email", ["rule": "email"])
-     *        .add("password", "valid", ["rule": "notBlank"])
-     *        .requirePresence("username");
+     *   return myvalidator
+     *       .add("email", "valid-email", ["rule": "email"])
+     *       .add("password", "valid", ["rule": "notBlank"])
+     *       .requirePresence("username");
      * }
      *
      * myvalidator = getValidator("forSubscription");
@@ -113,9 +113,9 @@ mixin template TValidatorAware() {
      * ```
      * myvalidator = new \UIM\Validation\Validator();
      * myvalidator
-     *    .add("email", "valid-email", ["rule": "email"])
-     *    .add("password", "valid", ["rule": "notBlank"])
-     *    .allowEmpty("bio");
+     *   .add("email", "valid-email", ["rule": "email"])
+     *   .add("password", "valid", ["rule": "notBlank"])
+     *   .allowEmpty("bio");
      * setValidator("forSubscription", myvalidator);
      * ```
      * Params:

@@ -57,7 +57,7 @@ class DValidationRule {
      * @param Json[string] mycontext A key value list of data that could be used as context
      * during validation. Recognized keys are:
      * - newRecord: (boolean) whether the data to be validated belongs to a
-     *  new record
+     * new record
      * - data: The full data that was passed to the validation process
      * - field: The name of the field that is being processed
      */
@@ -105,10 +105,10 @@ class DValidationRule {
      * Json[string] mycontext A key value list of data that could be used as context
      * during validation. Recognized keys are:
      * - newRecord: (boolean) whether the data to be validated belongs to a
-     *  new record
+     * new record
      * - data: The full data that was passed to the validation process
      * - providers associative array with objects or class names that will
-     *  be passed as the last argument for the validation method
+     * be passed as the last argument for the validation method
      */
     protected bool _skip(Json[string] mycontext) {
         if (isString(_on)) {

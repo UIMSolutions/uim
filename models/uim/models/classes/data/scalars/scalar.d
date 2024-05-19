@@ -3,38 +3,33 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.models.datatypes.null_;
+module uim.models.datatypes.scalars.scalar;
 
 import uim.models;
 
 @safe:
-class DNullData : DData {
-  mixin(DataThis!("Null"));
 
-  /*
+class DScalarData : DData {
+  mixin(DataThis!("Scalar"));
+/*
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
 
-    isNull(true);
+    isScalar(true);
 
     return true;
   }
 
-  override IData clone() {
-    return NullData;
+  override size_t length() {
+    return 1;
   }
 
-  alias toJson = DData.toJson;
-  override Json toJson() {
-    return Json(null);
-  }
-
-  override string toString() {
-    return null;
+  override bool isEqual(IData[string] checkData) {
+    return false;
   } */
 }
 
-mixin(DataCalls!("Null"));
+mixin(DataCalls!("Scalar"));

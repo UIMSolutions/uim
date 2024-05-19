@@ -515,6 +515,6 @@ class DateTime /* : Chronos, JsonSerializable */ {
  
     override string toString() {
         return (string)this.i18nFormat();
-    } */
+    }
 }
 

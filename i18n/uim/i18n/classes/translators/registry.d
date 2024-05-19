@@ -228,7 +228,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
             }
             return catalog;
         };
-    } */
+    }
 }
 
 auto TranslatorRegistry() { // Singleton

@@ -21,5 +21,5 @@ class DUnauthorizedException : DHttpException {
             aMessage = "Unauthorized";
         }
         super(aMessage, statusCode, previousException);
-    } */
+    }
 }

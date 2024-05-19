@@ -81,6 +81,6 @@ mixin template THttpClient() {
      */
     void mockClientDelete(string UrlToMock, Response response, Json[string] options = null) {
         Client.addMockResponse("DELETE", UrlToMock, response, options);
-    } */
+    }
 }
 

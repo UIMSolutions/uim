@@ -264,5 +264,5 @@ class Date { // }: DChronosDate, JsonSerializable {
  
     override string toString() {
         return to!string(this.i18nFormat());
-    } */
+    }
 }

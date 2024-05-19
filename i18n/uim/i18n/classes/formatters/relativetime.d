@@ -381,5 +381,5 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
             options["accuracy"] += className.wordAccuracy;
         }
         return options;
-    } */
+    }
 }

@@ -158,5 +158,5 @@ class DMessagesFileLoader {
         });
 
         return file;
-    } */
+    }
 }

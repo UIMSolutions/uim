@@ -337,5 +337,5 @@ class DNumber {
      */
     static string ordinal(float aValue, Json[string] options = null) {
         return to!string(formatter(["type": NumberFormatter.ORDINAL] + options)).format(aValue);
-    } */
+    }
 }

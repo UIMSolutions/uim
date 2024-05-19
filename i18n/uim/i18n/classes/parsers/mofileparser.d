@@ -132,5 +132,5 @@ class MoFileParser {
         result = current(result);
 
         return to!int(substr((string) result,  - 8));
-    } */
+    }
 }

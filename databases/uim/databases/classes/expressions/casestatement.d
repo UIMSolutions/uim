@@ -124,12 +124,12 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      *
      * ```
      * aQueryExpression
-     *    .case(aQuery.identifier("Table.column"))
-     *    .when(true)
-     *    .then("Yes")
-     *    .when(false)
-     *    .then("No")
-     *    .else("Maybe");
+     *   .case(aQuery.identifier("Table.column"))
+     *   .when(true)
+     *   .then("Yes")
+     *   .when(false)
+     *   .then("No")
+     *   .else("Maybe");
      * ```
      *
      * ### Self-contained expressions
@@ -146,18 +146,18 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      *
      * ```
      * aQueryExpression
-     *    .case()
-     *    .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
-     *        return whenThen
-     *            .when(["Table.column": true.toJson])
-     *            .then("Yes");
-     *    })
-     *    .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
-     *        return whenThen
-     *            .when(["Table.column": false.toJson])
-     *            .then("No");
-     *    })
-     *    .else("Maybe");
+     *   .case()
+     *   .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
+     *       return whenThen
+     *           .when(["Table.column": true.toJson])
+     *           .then("Yes");
+     *   })
+     *   .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
+     *       return whenThen
+     *           .when(["Table.column": false.toJson])
+     *           .then("No");
+     *   })
+     *   .else("Maybe");
      * ```
      *
      * ### Type handling
@@ -172,18 +172,18 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      *
      * ```
      * aQueryExpression
-     *    .case()
-     *    .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
-     *        return whenThen
-     *            .when(["unmapped_column": true.toJson], ["unmapped_column": 'bool"])
-     *            .then("Yes");
-     *    })
-     *    .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
-     *        return whenThen
-     *            .when(["unmapped_column": false.toJson], ["unmapped_column": 'bool"])
-     *            .then("No");
-     *    })
-     *    .else("Maybe");
+     *   .case()
+     *   .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
+     *       return whenThen
+     *           .when(["unmapped_column": true.toJson], ["unmapped_column": 'bool"])
+     *           .then("Yes");
+     *   })
+     *   .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
+     *       return whenThen
+     *           .when(["unmapped_column": false.toJson], ["unmapped_column": 'bool"])
+     *           .then("No");
+     *   })
+     *   .else("Maybe");
      * ```
      *
      * ### User data safety
@@ -196,7 +196,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      *
      * ```
      * case
-     *     .when(userData)
+     *    .when(userData)
      * ```
      *
      * A safe variant for the above would be to define a single type for
@@ -204,7 +204,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      *
      * ```
      * case
-     *     .when(userData, "integer")
+     *    .when(userData, "integer")
      * ```
      *
      * This way an exception would be triggered when an array is passed for
@@ -217,22 +217,22 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      *
      * ```
      * case
-     *     .when([
-     *         'Table.column": userData,
-     *     ])
+     *    .when([
+     *        'Table.column": userData,
+     *    ])
      * ```
      *
      * Lastly, data can also be bound manually:
      *
      * ```
      * aQuery
-     *     .select([
-     *         'val": aQuery.newExpr()
-     *             .case()
-     *             .when(aQuery.newExpr(":userData"))
-     *             .then(123)
-     *     ])
-     *     .bind(":userData", userData, "integer")
+     *    .select([
+     *        'val": aQuery.newExpr()
+     *            .case()
+     *            .when(aQuery.newExpr(":userData"))
+     *            .then(123)
+     *    ])
+     *    .bind(":userData", userData, "integer")
      * ```
      * Params:
      * \UIM\Database\IExpression|\Closure|object|array|scalar  when The `WHEN` value. When using an
@@ -280,41 +280,41 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      *
      * ```
      * case
-     *    .when(["Table.column": true.toJson])
-     *    .then("Yes")
-     *    .when(["Table.column": false.toJson])
-     *    .then("No")
-     *    .else("Maybe");
+     *   .when(["Table.column": true.toJson])
+     *   .then("Yes")
+     *   .when(["Table.column": false.toJson])
+     *   .then("No")
+     *   .else("Maybe");
      * ```
      *
      * The following would all fail with an exception:
      *
      * ```
      * case
-     *    .when(["Table.column": true.toJson])
-     *    .when(["Table.column": false.toJson])
-     *    // ...
+     *   .when(["Table.column": true.toJson])
+     *   .when(["Table.column": false.toJson])
+     *   // ...
      * ```
      *
      * ```
      * case
-     *    .when(["Table.column": true.toJson])
-     *    .else("Maybe")
-     *    // ...
+     *   .when(["Table.column": true.toJson])
+     *   .else("Maybe")
+     *   // ...
      * ```
      *
      * ```
      * case
-     *    .then("Yes")
-     *    // ...
+     *   .then("Yes")
+     *   // ...
      * ```
      *
      * ```
      * case
-     *    .when(["Table.column": true.toJson])
-     *    .then("Yes")
-     *    .then("No")
-     *    // ...
+     *   .when(["Table.column": true.toJson])
+     *   .then("Yes")
+     *   .then("No")
+     *   // ...
      * ```
      * Params:
      * \UIM\Database\IExpression|object|scalar|null result The result value.

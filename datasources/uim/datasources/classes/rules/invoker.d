@@ -71,7 +71,7 @@ class DRuleInvoker {
      * Invoke the rule.
      * Params:
      * \UIM\Datasource\IDatasourceEntity entity The entity the rule
-     *  should apply to.
+     * should apply to.
      * @param Json[string] scope The rule`s scope/options.
      * returns Whether the rule passed.
      */

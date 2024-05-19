@@ -84,7 +84,7 @@ interface IStatement {
      * This behaves the same as `PDOStatement.fetch()`.
      * Params:
      * string|int mode PDO.FETCH_* constant or fetch mode name.
-     *  Valid names are 'assoc", "num' or 'obj'.
+     * Valid names are 'assoc", "num' or 'obj'.
      */
     Json fetch(string|int mode = PDO.FETCH_NUM);
 
@@ -95,7 +95,7 @@ interface IStatement {
      * This behaves the same as `PDOStatement.fetchAll()`.
      * Params:
      * string|int mode PDO.FETCH_* constant or fetch mode name.
-     *  Valid names are 'assoc", "num' or 'obj'.
+     * Valid names are 'assoc", "num' or 'obj'.
      */
     Json[string] fetchAll(string|int mode = PDO.FETCH_NUM);
 

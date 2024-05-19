@@ -42,8 +42,8 @@ class DNumericPaginator : IPaginator {
      * - `limit` - The initial number of items per page. Defaults to 20.
      * - `page` - The starting page, defaults to 1.
      * - `allowedParameters` - A list of parameters users are allowed to set using request
-     *   parameters. Modifying this list will allow users to have more influence
-     *   over pagination, be careful with what you permit.
+     *  parameters. Modifying this list will allow users to have more influence
+     *  over pagination, be careful with what you permit.
      *
      * @var Json[string]
      */
@@ -75,25 +75,25 @@ class DNumericPaginator : IPaginator {
      * be used.
      *
      * ```
-     *  settings = [
-     *    "limit": 20,
-     *    "maxLimit": 100
-     *  ];
-     *  results = paginator.paginate(table, settings);
+     * settings = [
+     *   "limit": 20,
+     *   "maxLimit": 100
+     * ];
+     * results = paginator.paginate(table, settings);
      * ```
      *
      * The above settings will be used to paginate any repository. You can configure
      * repository specific settings by keying the settings with the repository alias.
      *
      * ```
-     *  settings = [
-     *    "Articles": [
-     *      "limit": 20,
-     *      "maxLimit": 100
-     *    ],
-     *    "Comments": [... ]
-     *  ];
-     *  results = paginator.paginate(table, settings);
+     * settings = [
+     *   "Articles": [
+     *     "limit": 20,
+     *     "maxLimit": 100
+     *   ],
+     *   "Comments": [... ]
+     * ];
+     * results = paginator.paginate(table, settings);
      * ```
      *
      * This would allow you to have different pagination settings for
@@ -109,10 +109,10 @@ class DNumericPaginator : IPaginator {
      *
      * ```
      * settings = [
-     *   "Articles": [
-     *     "finder": "custom",
-     *     "sortableFields": ["title", "author_id", "comment_count"],
-     *   ]
+     *  "Articles": [
+     *    "finder": "custom",
+     *    "sortableFields": ["title", "author_id", "comment_count"],
+     *  ]
      * ];
      * ```
      *
@@ -124,12 +124,12 @@ class DNumericPaginator : IPaginator {
      * `finder` option.
      *
      * ```
-     *  settings = [
-     *    "Articles": [
-     *      "finder": "popular"
-     *    ]
-     *  ];
-     *  results = paginator.paginate(table, settings);
+     * settings = [
+     *   "Articles": [
+     *     "finder": "popular"
+     *   ]
+     * ];
+     * results = paginator.paginate(table, settings);
      * ```
      *
      * Would paginate using the `find("popular")` method.
@@ -138,7 +138,7 @@ class DNumericPaginator : IPaginator {
      *
      * ```
      * query = this.Articles.find("popular").matching("Tags", function (q) {
-     *   return q.where(["name": "UIM"])
+     *  return q.where(["name": "UIM"])
      * });
      * results = paginator.paginate(query);
      * ```
@@ -161,7 +161,7 @@ class DNumericPaginator : IPaginator {
      * ```
      *
      * @param uim.Datasource\IRepository|uim.Datasource\IQuery object The repository or query
-     *   to paginate.
+     *  to paginate.
      * @param Json[string] params Request params
      * @param Json[string] settings The settings/configuration used for pagination.
      */
@@ -248,7 +248,7 @@ class DNumericPaginator : IPaginator {
      * Build pagination params.
      *
      * @param Json[string] data Paginator data containing keys "options",
-     *   "count", "defaults", "finder", "numResults".
+     *  "count", "defaults", "finder", "numResults".
      */
     protected Json[string] buildParams(Json[string] data) {
         limit = data["options"]["limit"];

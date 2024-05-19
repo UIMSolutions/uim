@@ -30,7 +30,7 @@ interface ICollection {
      * ### Options
      *
      * - `forceRefresh` - Set to true to force rebuilding the cached metadata.
-     *   Defaults to false.
+     *  Defaults to false.
      *
      * @param string name The name of the table to describe.
      */

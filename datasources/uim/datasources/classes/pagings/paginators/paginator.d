@@ -39,8 +39,8 @@ class DPaginator : IPaginator {
         * - `limit` - The initial number of items per page. Defaults to 20.
         * - `page` - The starting page, defaults to 1.
         * - `allowedParameters` - A list of parameters users are allowed to set using request
-        *   parameters. Modifying this list will allow users to have more influence
-        *   over pagination, be careful with what you permit.
+        *  parameters. Modifying this list will allow users to have more influence
+        *  over pagination, be careful with what you permit.
         *
         * @var Json[string]
         */
@@ -73,25 +73,25 @@ class DPaginator : IPaginator {
      * be used.
      *
      * ```
-     *  settings = [
-     *    "limit":20,
-     *    "maxLimit":100
-     *  ];
-     *  myResults = paginator.paginate(myTable, settings);
+     * settings = [
+     *   "limit":20,
+     *   "maxLimit":100
+     * ];
+     * myResults = paginator.paginate(myTable, settings);
      * ```
      *
      * The above settings will be used to paginate any repository. You can configure
      * repository specific settings by keying the settings with the repository alias.
      *
      * ```
-     *  settings = [
-     *    "Articles":[
-     *      "limit":20,
-     *      "maxLimit":100
-     *    ],
-     *    "Comments":[... ]
-     *  ];
-     *  myResults = paginator.paginate(myTable, settings);
+     * settings = [
+     *   "Articles":[
+     *     "limit":20,
+     *     "maxLimit":100
+     *   ],
+     *   "Comments":[... ]
+     * ];
+     * myResults = paginator.paginate(myTable, settings);
      * ```
      *
      * This would allow you to have different pagination settings for
@@ -107,10 +107,10 @@ class DPaginator : IPaginator {
      *
      * ```
      * settings = [
-     *   "Articles":[
-     *     "finder":"custom",
-     *     "sortableFields":["title", "author_id", "comment_count"],
-     *   ]
+     *  "Articles":[
+     *    "finder":"custom",
+     *    "sortableFields":["title", "author_id", "comment_count"],
+     *  ]
      * ];
      * ```
      *
@@ -122,12 +122,12 @@ class DPaginator : IPaginator {
      * `finder` option.
      *
      * ```
-     *  settings = [
-     *    "Articles":[
-     *      "finder":"popular"
-     *    ]
-     *  ];
-     *  myResults = paginator.paginate(myTable, settings);
+     * settings = [
+     *   "Articles":[
+     *     "finder":"popular"
+     *   ]
+     * ];
+     * myResults = paginator.paginate(myTable, settings);
      * ```
      *
      * Would paginate using the `find("popular")` method.
@@ -136,7 +136,7 @@ class DPaginator : IPaginator {
      *
      * ```
      * myQuery = this.Articles.find("popular").matching("Tags", function (q) {
-     *   return q.where(["name":"uimD"])
+     *  return q.where(["name":"uimD"])
      * });
      * myResults = paginator.paginate(myQuery);
      * ```
@@ -159,7 +159,7 @@ class DPaginator : IPaginator {
      * ```
      *
      * @param \uim\Datasource\IRepository|\uim\Datasource\IQuery object The repository or query
-     *   to paginate.
+     *  to paginate.
      * @param Json[string] myParams Request params
      * @param Json[string] settings The settings/configuration used for pagination.
      */

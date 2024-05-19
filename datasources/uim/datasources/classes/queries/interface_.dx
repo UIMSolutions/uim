@@ -9,7 +9,7 @@ module uim.datasources.queries.interface_;
  * The basis for every query object
  *
  * @method this andWhere(conditions, Json[string] types = null) Connects any previously defined set of conditions to the
- *   provided list using the AND operator. {@see uim.databases.Query.andWhere()}
+ *  provided list using the AND operator. {@see uim.databases.Query.andWhere()}
  * @method uim.Datasource\IDatasourceEntity|array firstOrFail() Get the first result from the executing query or raise an exception.
  */
 interface IQuery {
@@ -75,21 +75,21 @@ interface IQuery {
      *
      * ```
      * query.applyOptions([
-     *   "fields": ["id", "name"],
-     *   "conditions": [
-     *     "created >=": "2013-01-01"
-     *   ],
-     *   "limit": 10
+     *  "fields": ["id", "name"],
+     *  "conditions": [
+     *    "created >=": "2013-01-01"
+     *  ],
+     *  "limit": 10
      * ]);
      * ```
      *
      * Is equivalent to:
      *
      * ```
-     *  query
-     *  .select(["id", "name"])
-     *  .where(["created >=": "2013-01-01"])
-     *  .limit(10)
+     * query
+     * .select(["id", "name"])
+     * .where(["created >=": "2013-01-01"])
+     * .limit(10)
      * ```
      */
     void applyOptions(Json[string] listOfQueryClauses);
@@ -157,8 +157,8 @@ interface IQuery {
      * ### Examples
      *
      * ```
-     *  query.offset(10) // generates OFFSET 10
-     *  query.offset(query.newExpr().add(["1 + 1"])); // OFFSET (1 + 1)
+     * query.offset(10) // generates OFFSET 10
+     * query.offset(query.newExpr().add(["1 + 1"])); // OFFSET (1 + 1)
      * ```
      *
      * @param uim.databases.IExpression|int|null offset number of records to be skipped
@@ -190,8 +190,8 @@ interface IQuery {
      *
      * ```
      * query
-     *     .order(["title": query.newExpr("DESC NULLS FIRST")])
-     *     .order("author_id");
+     *    .order(["title": query.newExpr("DESC NULLS FIRST")])
+     *    .order("author_id");
      * ```
      *
      * Will generate:
@@ -226,7 +226,7 @@ interface IQuery {
      *
      * @param int num The page number you want.
      * @param int|null limit The number of rows you want in the page. If null
-     *  the current limit clause will be used.
+     * the current limit clause will be used.
      */
     void page(int num, Nullable!int limit = null);
 
@@ -265,11 +265,11 @@ interface IQuery {
      * ### Conditions using operators:
      *
      * ```
-     *  query.where([
-     *      "posted >=": new DateTime("3 days ago"),
-     *      "title LIKE": "Hello W%",
-     *      "author_id": 1,
-     *  ], ["posted": "datetime"]);
+     * query.where([
+     *     "posted >=": new DateTime("3 days ago"),
+     *     "title LIKE": "Hello W%",
+     *     "author_id": 1,
+     * ], ["posted": "datetime"]);
      * ```
      *
      * The previous example produces:
@@ -282,11 +282,11 @@ interface IQuery {
      * ### Nesting conditions with conjunctions:
      *
      * ```
-     *  query.where([
-     *      "author_id !=": 1,
-     *      "OR": ["published": true.toJson, "posted <": new DateTime("now")],
-     *      "NOT": ["title": "Hello"]
-     *  ], ["published": boolean, "posted": "datetime"]
+     * query.where([
+     *     "author_id !=": 1,
+     *     "OR": ["published": true.toJson, "posted <": new DateTime("now")],
+     *     "NOT": ["title": "Hello"]
+     * ], ["published": boolean, "posted": "datetime"]
      * ```
      *
      * The previous example produces:
@@ -307,8 +307,8 @@ interface IQuery {
      * ### Using expressions objects:
      *
      * ```
-     *  exp = query.newExpr().add(["id !=": 100, "author_id" != 1]).tieWith("OR");
-     *  query.where(["published": true.toJson], ["published": "boolean"]).where(exp);
+     * exp = query.newExpr().add(["id !=": 100, "author_id" != 1]).tieWith("OR");
+     * query.where(["published": true.toJson], ["published": "boolean"]).where(exp);
      * ```
      *
      * The previous example produces:
@@ -325,13 +325,13 @@ interface IQuery {
      * added the list of conditions for the query using the AND operator.
      *
      * ```
-     *  query
-     *  .where(["title !=": "Hello World"])
-     *  .where(function (exp, query) {
-     *      or = exp.or(["id": 1]);
-     *      and = exp.and(["id >": 2, "id <": 10]);
-     *  return or.add(and);
-     *  });
+     * query
+     * .where(["title !=": "Hello World"])
+     * .where(function (exp, query) {
+     *     or = exp.or(["id": 1]);
+     *     and = exp.and(["id >": 2, "id <": 10]);
+     * return or.add(and);
+     * });
      * ```
      *
      * * The previous example produces:
@@ -341,7 +341,7 @@ interface IQuery {
      * ### Conditions as strings:
      *
      * ```
-     *  query.where(["articles.author_id = authors.id", "modified IS NULL"]);
+     * query.where(["articles.author_id = authors.id", "modified IS NULL"]);
      * ```
      *
      * The previous example produces:

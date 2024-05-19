@@ -98,7 +98,7 @@ class DRulesChecker {
      * The options array accept the following special keys:
      *
      * - `errorField`: The name of the entity field that will be marked as invalid
-     *   if the rule does not pass.
+     *  if the rule does not pass.
      * - `message`: The error message to set to `errorField` if the rule does not pass.
      * Params:
      * callable rule A callable auto or object that will return whether
@@ -119,7 +119,7 @@ class DRulesChecker {
      * The options array accept the following special keys:
      *
      * - `errorField`: The name of the entity field that will be marked as invalid
-     *   if the rule does not pass.
+     *  if the rule does not pass.
      * - `message`: The error message to set to `errorField` if the rule does not pass.
      * Params:
      * callable rule A callable auto or object that will return whether
@@ -140,7 +140,7 @@ class DRulesChecker {
      * The options array accept the following special keys:
      *
      * - `errorField`: The name of the entity field that will be marked as invalid
-     *   if the rule does not pass.
+     *  if the rule does not pass.
      * - `message`: The error message to set to `errorField` if the rule does not pass.
      * Params:
      * callable rule A callable auto or object that will return whether
@@ -163,7 +163,7 @@ class DRulesChecker {
      * The options array accept the following special keys:
      *
      * - `errorField`: The name of the entity field that will be marked as invalid
-     *   if the rule does not pass.
+     *  if the rule does not pass.
      * - `message`: The error message to set to `errorField` if the rule does not pass.
      * Params:
      * callable rule A callable auto or object that will return whether

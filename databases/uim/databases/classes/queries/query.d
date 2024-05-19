@@ -158,9 +158,9 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * rowCount = aQuery.update("articles")
-     *                .set(["published'=>true])
-     *                .where(["published'=>false])
-     *                .rowCountAndClose();
+     *               .set(["published'=>true])
+     *               .where(["published'=>false])
+     *               .rowCountAndClose();
      * ```
      *
      * The above example will change the published column to true for all false records, and return the number of
@@ -209,9 +209,9 @@ abstract class DQuery : IQuery { // : IExpression {
      * ### Example
      * ```
      * aQuery.select(["title"]).from("articles").traverse(function (aValue, clause) {
-     *    if (clause == "Select") {
-     *        var_dump(aValue);
-     *    }
+     *   if (clause == "Select") {
+     *       var_dump(aValue);
+     *   }
      * });
      * ```
      * Params:
@@ -235,9 +235,9 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery.select(["title"]).from("articles").traverse(function (aValue, clause) {
-     *    if (clause == "Select") {
-     *        var_dump(aValue);
-     *    }
+     *   if (clause == "Select") {
+     *       var_dump(aValue);
+     *   }
      * }, ["select", "from"]);
      * ```
      * Params:
@@ -258,10 +258,10 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * cte = new \UIM\Database\Expression\CommonTableExpression(
-     *    'cte",
-     *    aConnection
-     *        .selectQuery("*")
-     *        .from("articles")
+     *   'cte",
+     *   aConnection
+     *       .selectQuery("*")
+     *       .from("articles")
      * );
      *
      * aQuery.with(cte);
@@ -273,16 +273,16 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery.with(function (
-     *    \UIM\Database\Expression\CommonTableExpression cte,
-     *    \UIM\Database\Query aQuery
+     *   \UIM\Database\Expression\CommonTableExpression cte,
+     *   \UIM\Database\Query aQuery
      * ) {
-     *    cteQuery = aQuery
-     *        .select("*")
-     *        .from("articles");
+     *   cteQuery = aQuery
+     *       .select("*")
+     *       .from("articles");
      *
-     *    return cte
-     *        .name("cte")
-     *        .query(cteQuery);
+     *   return cte
+     *       .name("cte")
+     *       .query(cteQuery);
      * });
      * ```
      * Params:
@@ -391,11 +391,11 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery.join([
-     *    'a": [
-     *        'table": 'authors",
-     *        'type": 'LEFT",
-     *        'conditions": 'a.id = b.author_id'
-     *    ]
+     *   'a": [
+     *       'table": 'authors",
+     *       'type": 'LEFT",
+     *       'conditions": 'a.id = b.author_id'
+     *   ]
      * ]);
      */ Produces LEFT JOIN authors a ON a.id = b.author_id
      * ```
@@ -404,16 +404,16 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery.join([
-     *    "a": [
-     *        "table": 'authors",
-     *        "type": 'LEFT",
-     *        "conditions": "a.id = b.author_id'
-     *    ],
-     *    "p": [
-     *        "table": "publishers",
-     *        "type": "INNER",
-     *        "conditions": "p.id = b.publisher_id AND p.name = "uim Software Foundation"'
-     *    ]
+     *   "a": [
+     *       "table": 'authors",
+     *       "type": 'LEFT",
+     *       "conditions": "a.id = b.author_id'
+     *   ],
+     *   "p": [
+     *       "table": "publishers",
+     *       "type": "INNER",
+     *       "conditions": "p.id = b.publisher_id AND p.name = "uim Software Foundation"'
+     *   ]
      * ]);
      */ LEFT JOIN authors a ON a.id = b.author_id
      */ INNER JOIN publishers p ON p.id = b.publisher_id AND p.name = "uim Software Foundation"
@@ -431,12 +431,12 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery.join(["a": [
-     *    'table": 'articles",
-     *    'conditions": [
-     *        'a.posted >=": new DateTime("-3 days"),
-     *        'a.published": true.toJson,
-     *        'a.author_id = authors.id'
-     *    ]
+     *   'table": 'articles",
+     *   'conditions": [
+     *       'a.posted >=": new DateTime("-3 days"),
+     *       'a.published": true.toJson,
+     *       'a.author_id = authors.id'
+     *   ]
      * ]], ["a.posted": 'datetime", "a.published": 'boolean"])
      * ```
      *
@@ -516,9 +516,9 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery.leftJoin(["a": 'articles"], [
-     *     'a.posted >=": new DateTime("-3 days"),
-     *     'a.published": true.toJson,
-     *     'a.author_id = authors.id'
+     *    'a.posted >=": new DateTime("-3 days"),
+     *    'a.published": true.toJson,
+     *    'a.author_id = authors.id'
      * ], ["a.posted": 'datetime", "a.published": 'boolean"]);
      * ```
      *
@@ -637,9 +637,9 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery.where([
-     *    'posted >=": new DateTime("3 days ago"),
-     *    'title LIKE": 'Hello W%",
-     *    'author_id": 1,
+     *   'posted >=": new DateTime("3 days ago"),
+     *   'title LIKE": 'Hello W%",
+     *   'author_id": 1,
      * ], ["posted": 'datetime"]);
      * ```
      *
@@ -654,9 +654,9 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery.where([
-     *    'author_id !=": 1,
-     *    'OR": ["published": true.toJson, "posted <": new DateTime("now")],
-     *    'NOT": ["title": 'Hello"]
+     *   'author_id !=": 1,
+     *   'OR": ["published": true.toJson, "posted <": new DateTime("now")],
+     *   'NOT": ["title": 'Hello"]
      * ], ["published": boolean, "posted": 'datetime"]
      * ```
      *
@@ -701,12 +701,12 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery
-     *  .where(["title !=": 'Hello World"])
-     *  .where(function (exp, aQuery) {
-     *     or = exp.or(["id": 1]);
-     *    and = exp.and(["id >": 2, "id <": 10]);
-     *   return or.add(and);
-     *  });
+     * .where(["title !=": 'Hello World"])
+     * .where(function (exp, aQuery) {
+     *    or = exp.or(["id": 1]);
+     *   and = exp.and(["id >": 2, "id <": 10]);
+     *  return or.add(and);
+     * });
      * ```
      *
      * * The previous example produces:
@@ -737,8 +737,8 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery.where([
-     *    'posted >=": new DateTime("3 days ago"),
-     *    'category_id IS": category,
+     *   'posted >=": new DateTime("3 days ago"),
+     *   'category_id IS": category,
      * ]);
      * ```
      *
@@ -781,7 +781,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Convenience method that adds a isNull condition to the query
      * Params:
      * \UIM\Database\IExpression|string[] fieldNames A single field or expressions or a list of them
-     *  that should be null.
+     * that should be null.
      */
     auto whereNull(IExpression|string[] fieldNames) {
         if (!isArray(fields)) {
@@ -896,8 +896,8 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery
-     *  .where(["OR": ["published": false.toJson, "published isNull"]])
-     *  .andWhere(["author_id": 1, "comments_count >": 10])
+     * .where(["OR": ["published": false.toJson, "published isNull"]])
+     * .andWhere(["author_id": 1, "comments_count >": 10])
      * ```
      *
      * Produces:
@@ -906,12 +906,12 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery
-     *  .where(["title": 'Foo"])
-     *  .andWhere(function (exp, aQuery) {
-     *    return exp
-     *      .or(["author_id": 1])
-     *      .add(["author_id": 2]);
-     *  });
+     * .where(["title": 'Foo"])
+     * .andWhere(function (exp, aQuery) {
+     *   return exp
+     *     .or(["author_id": 1])
+     *     .add(["author_id": 2]);
+     * });
      * ```
      *
      * Generates the following conditions:
@@ -952,8 +952,8 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery
-     *    .orderBy(["title": aQuery.newExpr("DESC NULLS FIRST")])
-     *    .orderBy("author_id");
+     *   .orderBy(["title": aQuery.newExpr("DESC NULLS FIRST")])
+     *   .orderBy("author_id");
      * ```
      *
      * Will generate:
@@ -969,7 +969,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery.orderBy(function (exp, aQuery) {
-     *    return [exp.add(["id % 2 = 0"]), "title": 'ASC"];
+     *   return [exp.add(["id % 2 = 0"]), "title": 'ASC"];
      * });
      * ```
      *
@@ -1304,7 +1304,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Callback will receive as first parameter the currently visited expression.
      * Params:
      * \Closure aCallback the auto to be executed for each IExpression
-     *  found inside this query.
+     * found inside this query.
      */
     void traverseExpressions(Closure aCallback) {
         _parts
@@ -1315,9 +1315,9 @@ abstract class DQuery : IQuery { // : IExpression {
      * Query parts traversal method used by traverseExpressions()
      * Params:
      * Json expression Query expression or
-     *  array of expressions.
+     * array of expressions.
      * @param \Closure aCallback The callback to be executed for each IExpression
-     *  found inside this query.
+     * found inside this query.
      */
     protected void _expressionsVisitor(Json[] queryExpressions, IClosure aCallback) {
         queryExpressions
@@ -1342,10 +1342,10 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      * Params:
      * string|int param placeholder to be replaced with quoted version
-     *  of aValue
+     * of aValue
      * @param Json aValue The value to be bound
      * @param string|int type the mapped type name, used for casting when sending
-     *  to database
+     * to database
      */
     auto bind(string|int param, Json aValue, string|int type = null) {
         getValueBinder().bind(param, aValue, type);
@@ -1382,7 +1382,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * string apart Name of the query part to append the new part to
      * @param \UIM\Database\IExpression|\Closure|string[] append Expression or builder auto to append.
-     *  to append.
+     * to append.
      * @param string aconjunction type of conjunction to be used to operate part
      * @param STRINGAA types Associative array of type names used to bind values to query
      */

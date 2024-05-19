@@ -23,5 +23,5 @@ class DGoneException : DHttpException {
             aMessage = "Gone";
         }
         super(aMessage, statusCode, previousException);
-    } */
+    }
 }

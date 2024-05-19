@@ -17,5 +17,5 @@ class DForbiddenException : DHttpException {
             exceptionMessage = "Forbidden";
         }
         super(exceptionMessage, statusCode, previousException);
-    } */
+    }
 }

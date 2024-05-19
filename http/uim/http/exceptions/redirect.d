@@ -28,5 +28,5 @@ class DRedirectException : DHttpException {
 
         headerToSend.byKeyValue
             .each!(kv => this.header(kv.key, kv.value));
-    } */
+    }
 }

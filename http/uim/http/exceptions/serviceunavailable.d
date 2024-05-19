@@ -14,5 +14,5 @@ class DServiceUnavailableException : DHttpException {
             exceptionMessage = "Service Unavailable";
         }
         super(exceptionMessage, statusCode, previousException);
-    } */
+    }
 }

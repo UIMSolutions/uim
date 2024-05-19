@@ -15,5 +15,5 @@ class DNotAcceptableException : DHttpException {
             exceptionMessage = "Not Acceptable";
         }
         super(exceptionMessage, statusCode, previousException);
-    } */
+    }
 }

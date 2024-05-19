@@ -14,5 +14,5 @@ class DInternalErrorException : DHttpException {
             exceptionMessage = "Internal Server Error";
         }
         super(exceptionMessage, statusCode, previousException);
-    } */
+    }
 }

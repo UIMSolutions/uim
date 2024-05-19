@@ -15,5 +15,5 @@ class DNotFoundException : DHttpException {
             aMessage = "Not Found";
         }
         super(aMessage, statusCode, previousException);
-    } */
+    }
 }

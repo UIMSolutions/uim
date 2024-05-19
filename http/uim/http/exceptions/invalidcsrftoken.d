@@ -17,5 +17,5 @@ class DInvalidCsrfTokenException : DHttpException {
             exceptionMessage = "Invalid CSRF Token";
         }
         super(exceptionMessage, statusCode, previousException);
-    } */
+    }
 }

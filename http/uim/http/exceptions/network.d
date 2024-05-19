@@ -36,5 +36,5 @@ class DNetworkException { // }: RuntimeException : INetworkException {
      */
     IRequest getRequest() {
         return _request;
-    } */
+    }
 }

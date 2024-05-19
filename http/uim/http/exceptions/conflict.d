@@ -15,5 +15,5 @@ class DConflictException : DHttpException {
             exceptionMessage = "Conflict";
         }
         super(exceptionMessage, statusCode, previousException);
-    } */
+    }
 }

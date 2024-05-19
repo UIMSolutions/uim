@@ -595,7 +595,7 @@ class DDebugger {
      */
     static string exportVar(var, int maxDepth = 3) {
         context = new DebugContext(maxDepth);
-        node = export(var, context);
+        node = export_(var, context);
 
         return getInstance().getExportFormatter().dump(node);
     }
@@ -608,7 +608,7 @@ class DDebugger {
      */
     static string exportVarAsPlainText(var, int maxDepth = 3) {
         return (new DTextFormatter()).dump(
-            export(var, new DebugContext(maxDepth))
+            export_(var, new DebugContext(maxDepth))
         );
     }
 
@@ -624,7 +624,7 @@ class DDebugger {
      */
     static function exportVarAsNodes(var, int maxDepth = 3): IErrorNode
     {
-        return export(var, new DebugContext(maxDepth));
+        return export_(var, new DebugContext(maxDepth));
     }
 
     /**
@@ -632,25 +632,23 @@ class DDebugger {
      *
      * @param mixed var The variable to dump.
      * @param uim.errors.debugs.DebugContext context Dump context
-     * @return uim.errors.debugs.IErrorNode The dumped variable.
      */
-    protected static function export(var, DebugContext context): IErrorNode
-    {
+    protected static IErrorNode export_(var, DebugContext context) {
         type = getType(var);
         switch (type) {
-            case 'float':
-            case 'string':
-            case 'resource':
-            case 'resource (closed)':
-            case 'null':
+            case "float":
+            case "string":
+            case "resource":
+            case "resource (closed)":
+            case "null":
                 return new DScalarNode(type, var);
-            case 'boolean':
+            case "boolean":
                 return new DScalarNode('bool', var);
-            case 'integer':
+            case "integer":
                 return new DScalarNode('int', var);
-            case 'array':
+            case "array":
                 return exportArray(var, context.withAddedDepth());
-            case 'unknown':
+            case "unknown":
                 return new DSpecialNode('(unknown)');
             default:
                 return exportObject(var, context.withAddedDepth());
@@ -686,12 +684,12 @@ class DDebugger {
                     node = new DScalarNode('string', outputMask[key]);
                 } elseif (val != var) {
                     // Dump all the items without increasing depth.
-                    node = export(val, context);
+                    node = export_(val, context);
                 } else {
                     // Likely recursion, so we increase depth.
-                    node = export(val, context.withAddedDepth());
+                    node = export_(val, context.withAddedDepth());
                 }
-                items ~= new DArrayItemErrorNode(export(key, context), node);
+                items ~= new DArrayItemErrorNode(export_(key, context), node);
             }
         } else {
             items ~= new DArrayItemErrorNode(
@@ -726,7 +724,7 @@ class DDebugger {
             if (method_exists(var, '__debugInfo')) {
                 try {
                     foreach ((array)var.__debugInfo() as key: val) {
-                        node.addProperty(new DPropertyNode("'{key}'", null, export(val, context)));
+                        node.addProperty(new DPropertyNode("'{key}'", null, export_(val, context)));
                     }
 
                     return node;
@@ -743,7 +741,7 @@ class DDebugger {
                 }
                 /** @psalm-suppress RedundantCast */
                 node.addProperty(
-                    new DPropertyNode((string)key, 'public', export(value, context.withAddedDepth()))
+                    new DPropertyNode((string)key, 'public', export_(value, context.withAddedDepth()))
                 );
             }
 
@@ -760,7 +758,7 @@ class DDebugger {
 
                     value = method_exists(reflectionProperty, 'isInitialized') && !reflectionProperty.isInitialized(var) 
                         ? new DSpecialNode('[uninitialized]')
-                        : export(reflectionProperty.getValue(var), context.withAddedDepth());
+                        : export_(reflectionProperty.getValue(var), context.withAddedDepth());
 
                     node.addProperty(
                         new DPropertyNode(

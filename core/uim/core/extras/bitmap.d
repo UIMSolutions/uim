@@ -93,7 +93,7 @@ final class DImage(T) {
     }
 
     void clear(in T color=this.black) pure nothrow @safe @nogc {
-        image ~= color;
+        // TODO image ~= color;
     }
 
     /// Convert a 2D array of chars to a binary Image.
@@ -156,7 +156,8 @@ Image!RGB loadPPM6(ref DImage!RGB img, in string fileName) {
 } */
 
 
-void savePPM6(in DImage!RGB img, in string fileName)
+// TODO 
+/* void savePPM6(in DImage!RGB img, in string fileName)
 in {
     assert(img !is null);
     assert(img.nx > 0 && img.nx > 0);
@@ -169,7 +170,7 @@ in {
             immutable p = img.image[i++];
             f.write(cast(char)p.r, cast(char)p.g, cast(char)p.b);
         }
-}
+}*/
 
 version (bitmap_main) {
     void main() {

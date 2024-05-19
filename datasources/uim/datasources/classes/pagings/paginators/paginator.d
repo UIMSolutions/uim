@@ -361,11 +361,8 @@ class DPaginator : IPaginator {
      * Extracts the finder name and options out of the provided pagination options.
      *
      * @param Json[string] options the pagination options.
-     * @return Json[string] An array containing in the first position the finder name
-     *   and in the second the options to be passed to it.
      */
-    protected auto _extractFinder(Json[string] options): array
-    {
+    protected Json[string] _extractFinder(Json[string] options) {
         myType = !options.isEmpty("finder"]) ? options["finder"] : "all";
         options.remove("finder"], options["maxLimit"]);
 

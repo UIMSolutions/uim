@@ -476,7 +476,7 @@ class DDebugger {
      */
     static string exportVar(Json var, int maxDepth = 3) {
         auto context = new DebugContext(maxDepth);
-        auto node = export(var, context);
+        auto node = export_(var, context);
 
         return getInstance().getExportFormatter().dump(node);
     }
@@ -489,7 +489,7 @@ class DDebugger {
      */
     static string exportVarAsPlainText(Json var, int maxDepth = 3) {
         return (new DTextFormatter()).dump(
-            export(var, new DebugContext(maxDepth))
+            export_(var, new DebugContext(maxDepth))
         );
     }
     
@@ -503,7 +503,7 @@ class DDebugger {
      * @param int maxDepth The depth to generate nodes to. Defaults to 3.
      */
     static IErrorNode exportVarAsNodes(Json var, int maxDepth = 3) {
-        return export(var, new DebugContext(maxDepth));
+        return export_(var, new DebugContext(maxDepth));
     }
     
     /**
@@ -512,7 +512,7 @@ class DDebugger {
      * Json var The variable to dump.
      * @param \UIM\Error\Debug\DebugContext context Dump context
      */
-    protected static IErrorNode export(Json var, DebugContext context) {
+    protected static IErrorNode export_(Json var, DebugContext context) {
         string type = getType(var);
 
         if (type.startWith("resource ")) {
@@ -555,12 +555,12 @@ class DDebugger {
                     node = new DScalarNode("string", outputMask[aKey]);
                 } else if (val != var) {
                     // Dump all the items without increasing depth.
-                    node = export(val, context);
+                    node = export_(val, context);
                 } else {
                     // Likely recursion, so we increase depth.
-                    node = export(val, context.withAddedDepth());
+                    node = export_(val, context.withAddedDepth());
                 }
-                 someItems ~= new ArrayItemNode(export(aKey, context), node);
+                 someItems ~= new ArrayItemNode(export_(aKey, context), node);
             }
         } else {
              someItems ~= new ArrayItemNode(
@@ -592,7 +592,7 @@ class DDebugger {
             if (method_exists(var, "__debugInfo")) {
                 try {
                     foreach ((array)var.__debugInfo() as aKey: val) {
-                        node.addProperty(new DPropertyNode("'{aKey}'", null, export(val, context)));
+                        node.addProperty(new DPropertyNode("'{aKey}'", null, export_(val, context)));
                     }
                     return node;
                 } catch (Exception  anException) {
@@ -607,7 +607,7 @@ class DDebugger {
                         kv.value = outputMask[kv.key];
                     }
                     node.addProperty(
-                        new DPropertyNode((string)kv.key, "public", export(kv.value, context.withAddedDepth()))
+                        new DPropertyNode((string)kv.key, "public", export_(kv.value, context.withAddedDepth()))
                     );
             });
             ref = new DReflectionObject(var);
@@ -627,7 +627,7 @@ class DDebugger {
                     ) {
                         aValue = new DSpecialNode("[uninitialized]");
                     } else {
-                        aValue = export(reflectionProperty.getValue(var), context.withAddedDepth());
+                        aValue = export_(reflectionProperty.getValue(var), context.withAddedDepth());
                     }
                     node.addProperty(
                         new DPropertyNode(

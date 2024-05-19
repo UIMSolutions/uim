@@ -81,7 +81,7 @@ class DErrorLogger : IErrorLogger {
         if (debug && cast(UimException)exception) {
             attributes = exception.getAttributes();
             if (attributes) {
-                message ~= "\nException Attributes: " ~ var_export(exception.getAttributes(), true);
+                message ~= "\nException Attributes: " ~ var_export_(exception.getAttributes(), true);
             }
         }
         if (anIncludeTrace) {

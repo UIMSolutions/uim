@@ -54,9 +54,9 @@ class DPluginUnloadCommand : DCommand {
         configData.remove(pluginName);
 
         if (class_exists(VarExporter.classname)) {
-            Json[string] = VarExporter.export(configData);
+            Json[string] = VarExporter.export_(configData);
         } else {
-            Json[string] = var_export(configData, true);
+            Json[string] = var_export_(configData, true);
         }
         contents = "" ~ "\n" ~ "return " ~ Json[string] ~ ";";
 

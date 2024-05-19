@@ -366,8 +366,6 @@ class DNumericPaginator : IPaginator {
      * Extracts the finder name and options out of the provided pagination options.
      *
      * @param Json[string] options the pagination options.
-     * @return array An array containing in the first position the finder name
-     *   and in the second the options to be passed to it.
      */
     protected Json[string] _extractFinder(Json[string] optionData) {
         type = !options.isEmpty("finder"]) ? options["finder"] : "all";
@@ -502,8 +500,6 @@ class DNumericPaginator : IPaginator {
      *
      * @param uim.Datasource\IRepository object Repository object.
      * @param Json[string] options The pagination options being used for this request.
-     * @return Json[string] An array of options with sort + direction removed and
-     *   replaced with order if possible.
      */
     Json[string] validateSort(IRepository object, Json[string] optionData) {
         if (options.isSet("sort")) {

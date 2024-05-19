@@ -384,10 +384,8 @@ mixin template TQuery() {
      * ### Example:
      *
      * singleUser = query.select(["id", "username"]).first();
-     *
-     * @return uim.Datasource\IDatasourceEntity|array|null The first result from the Resultset.
      */
-    function first() {
+    IDatasourceEntity first() {
         if (_isDirty) {
             this.limit(1);
         }

@@ -51,7 +51,7 @@ mixin template TEventDispatcher() {
      * @param TSubject|null subject The object that this event applies to
      * (this by default).
      */
-    IEvent dispatchEvent(string eventName, Json[string] data = null, ?object subject = null) {
+    IEvent dispatchEvent(string eventName, Json[string] data = null, object subject = null) {
         subject ??= this;
 
         auto event = new _eventClass(eventName, subject, someData);

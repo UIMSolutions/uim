@@ -125,7 +125,7 @@ class DEagerLoader {
      * the new one.
      * @param callable|null queryBuilder The query builder callable
      */
-    Json[string] contain(associations, ?callable queryBuilder = null) {
+    Json[string] contain(associations, callable queryBuilder = null) {
         if (queryBuilder) {
             if (!(associations.isString) {
                 throw new DInvalidArgumentException(

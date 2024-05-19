@@ -504,7 +504,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * that can be used to add custom conditions or selecting some fields
      * @return this
      */
-    function matching(string assoc, ?callable builder = null) {
+    function matching(string assoc, callable builder = null) {
         result = getEagerLoader().setMatching(assoc, builder).getMatching();
         _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
         _isDirty();

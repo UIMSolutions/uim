@@ -95,7 +95,7 @@ class UimException : IException {
      * @param int|null code The error code
      * @param \Throwable|null previous the previous exception.
      */
-/* this(myMessage = "", Nullable!int code = null, ?Throwable previous = null) {
+/* this(myMessage = "", Nullable!int code = null, Throwable previous = null) {
       if ((myMessage.isArray) {
         _attributes = myMessage;
         myMessage = vsprintf(_messageTemplate, myMessage);

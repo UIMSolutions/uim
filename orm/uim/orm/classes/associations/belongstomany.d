@@ -917,7 +917,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param array|null conditions The query conditions to use.
      * @return DORMQuery The modified query.
      */
-    protected function _appendJunctionJoin(Query query, ?array conditions = null): Query
+    protected function _appendJunctionJoin(Query query, array conditions = null): Query
     {
         junctionTable = this.junction();
         if (conditions == null) {

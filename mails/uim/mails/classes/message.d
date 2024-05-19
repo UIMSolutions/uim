@@ -699,7 +699,7 @@ class DMessage { //: JsonSerializable {
      * @param string aeol End of line string for concatenating headers.
      * @param \Closure|null aCallback Callback to run each header value through before stringifying.
      */
-    string getHeadersString(Json[string] anInclude = [], string aeol = "\r\n", ?Closure aCallback = null) {
+    string getHeadersString(Json[string] anInclude = [], string aeol = "\r\n", Closure aCallback = null) {
         auto lines = getHeaders(anInclude);
 
         if (aCallback) {

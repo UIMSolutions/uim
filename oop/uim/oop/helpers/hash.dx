@@ -537,7 +537,7 @@ class Hash {
      * @param callable|null mycallback A auto to filter the data with. Defaults to
      *  all non-empty or zero values.
      * /
-    static Json[string] filter(Json[string] data, ?callable aCallback = null) {
+    static Json[string] filter(Json[string] data, callable aCallback = null) {
         mydata.byKeyValue
             .filter!(kv => isArray(kv.value))
             .each!(kv => mydata[kv.key] = filter(kv.value, mycallback));

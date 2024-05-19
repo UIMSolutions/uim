@@ -88,7 +88,7 @@ class DEagerLoader {
      * the new one.
      * @param \Closure|null myqueryBuilder The query builder callback.
      */
-    array contain(string[] myassociations, ?Closure myqueryBuilder = null) {
+    array contain(string[] myassociations, Closure myqueryBuilder = null) {
         if (myqueryBuilder) {
             if (!isString(myassociations)) {
                 throw new DInvalidArgumentException(
@@ -176,7 +176,7 @@ class DEagerLoader {
      * options to the filtering query.
      * @param Json[string] options Extra options for the association matching.
      */
-    void setMatching(string myassociationPath, ?Closure mybuilder = null, Json[string] optionData = null) {
+    void setMatching(string myassociationPath, Closure mybuilder = null, Json[string] optionData = null) {
        _matching ??= new static();
 
         auto updatedOptions = options.update["joinType": SelectQuery.JOIN_TYPE_INNER];

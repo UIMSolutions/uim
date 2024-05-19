@@ -115,7 +115,7 @@ class DServer { // }: IEventDispatcher {
      * @param \UIM\Http\ResponseEmitter|null emitter The emitter to use.
      *  When null, a SAPI Stream Emitter will be used.
      */
-    void emit(IResponse response, ?ResponseEmitter emitter = null) {
+    void emit(IResponse response, ResponseEmitter emitter = null) {
         if (!emitter) {
             emitter = new DResponseEmitter();
         }

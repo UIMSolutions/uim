@@ -619,10 +619,8 @@ class DDebugger {
      *
      * @param mixed var Variable to convert.
      * @param int maxDepth The depth to generate nodes to. Defaults to 3.
-     * @return uim.errors.debugs.IErrorNode The root node of the tree.
      */
-    static function exportVarAsNodes(var, int maxDepth = 3): IErrorNode
-    {
+    static IErrorNode exportVarAsNodes(var, int maxDepth = 3) {
         return export_(var, new DebugContext(maxDepth));
     }
 

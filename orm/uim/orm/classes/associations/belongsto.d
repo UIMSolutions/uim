@@ -112,11 +112,8 @@ class DBelongsToAssociation : DAssociation {
      * clause for getting the results on the target table.
      *
      * @param Json[string] options list of options passed to attachTo method
-     * @return array<DORMdatabases.Expression\IdentifierExpression>
-     * @throws \RuntimeException if the number of columns in the foreignKeys do not
-     * match the number of columns in the target table primaryKeys
      */
-    protected Json[string] _joinCondition(Json[string] optionData) {
+    protected Expression[] _joinCondition(Json[string] optionData) {
         conditions = null;
         tAlias = _name;
         sAlias = _sourceTable.aliasName();

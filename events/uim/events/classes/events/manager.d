@@ -38,7 +38,6 @@ class DEventManager { // }: IEventManager {
      * If called with the first parameter, it will be set as the globally available instance
      * Params:
      * \UIM\Event\EventManager|null manager Event manager instance.
-     * @return \UIM\Event\EventManager The global event manager
      */
     static EventManager instance(EventManager manager = null) {
         if (cast(DEventManager)manager) {

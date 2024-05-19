@@ -76,10 +76,8 @@ interface ICookie {
      * Create a new cookie that will expire/delete the cookie from the browser.
      *
      * This is done by setting the expiration time to 1 year ago
-     *
-     * @return static
-     */
-    // TODO auto withExpired(): static;
+     */ 
+     static auto withExpired();
 
     /**
      * Check if a cookie is expired when compared to time

@@ -75,11 +75,7 @@ class DHasManyAssociation : DAssociation {
         _saveStrategy = strategy;
     }
 
-    /**
-     * Gets the strategy that should be used for saving.
-     *
-     * @return string the strategy to be used for saving
-     */
+    // Gets the strategy that should be used for saving.
     string getSaveStrategy() {
         return _saveStrategy;
     }

@@ -1371,9 +1371,7 @@ class DServerRequest { // }: IServerRequest {
         }
     }
     
-    /**
-     * Gets the body of the message.
-     */
+    // Gets the body of the message.
     IStream getBody() {
         return _stream;
     }
@@ -1382,9 +1380,8 @@ class DServerRequest { // }: IServerRequest {
      * Return an instance with the specified message body.
      * Params:
      * \Psr\Http\Message\IStream body The new request body
-     * @return static
      */
-    static withBody(IStream body) {
+    static auto withBody(IStream body) {
         new = clone this;
         new.stream = body;
 

@@ -550,10 +550,8 @@ class DPaginator : IPaginator {
      *
      * @param Json[string] fieldNames Current fields
      * @param string myModel Current model alias
-     * @return Json[string] fieldNames Unaliased fields where applicable
      */
-    protected auto _removeAliases(Json[string] fieldNames, string myModel): array
-    {
+    protected Json[string] _removeAliases(Json[string] fieldNames, string myModel) {
         myResult= null;
         foreach (fieldNames as myField: sort) {
             if (indexOf(myField, ".") == false) {

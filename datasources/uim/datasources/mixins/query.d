@@ -458,7 +458,6 @@ mixin template TQuery() {
      * Decorates the results iterator with MapReduce routines and formatters
      *
      * @param \Traversable result Original results
-     * @return uim.Datasource\IResultset
      */
     protected IResultset _decorateResults(Traversable result) {
         decorator = _decoratorClass();

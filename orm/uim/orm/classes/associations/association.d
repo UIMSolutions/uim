@@ -184,9 +184,6 @@ class DAssociation : IAssociation {
      * Sets the class name of the target table object.
      *
      * @param string anClassName Class name to set.
-     * @return this
-     * @throws \InvalidArgumentException In case the class name is set after the target table has been
-     *  resolved, and it doesn"t match the target table"s class name.
      */
     void setClassName(string anClassName) {
         if (

@@ -43,12 +43,12 @@ class UrlHelper : DHelper {
      * ### Options:
      *
      * - `escape`: If false, the URL will be returned unescaped, do only use if it is manually
-     *   escaped afterwards before being displayed.
+     *  escaped afterwards before being displayed.
      * - `fullBase`: If true, the full base URL will be prepended to the result
      * Params:
      * string[] myurl Either a relative string URL like `/products/view/23` or
-     *   an array of URL parameters. Using an array for URLs will allow you to leverage
-     *   the reverse routing features of UIM.
+     *  an array of URL parameters. Using an array for URLs will allow you to leverage
+     *  the reverse routing features of UIM.
      * @param Json[string] options Array of options.
      */
     string build(string[] myurl = null, Json[string] options  = null) {
@@ -71,12 +71,12 @@ class UrlHelper : DHelper {
      * ### Options:
      *
      * - `escape`: If false, the URL will be returned unescaped, do only use if it is manually
-     *   escaped afterwards before being displayed.
+     *  escaped afterwards before being displayed.
      * - `fullBase`: If true, the full base URL will be prepended to the result
      * Params:
      * string mypath uim-relative route path.
      * @param Json[string] myparams An array specifying any additional parameters.
-     *  Can be also any special parameters supported by `Router.url()`.
+     * Can be also any special parameters supported by `Router.url()`.
      * @param Json[string] options Array of options.
      */
     string buildFromPath(string mypath, Json[string] myparams = [], Json[string] options  = null) {
@@ -91,13 +91,13 @@ class UrlHelper : DHelper {
      * Params:
      * string mypath Path string.
      * @param Json[string] options Options array. Possible keys:
-     *  `fullBase` Return full URL with domain name
-     *  `pathPrefix` Path prefix for relative URLs
-     *  `plugin` False value will prevent parsing path as a plugin
-     *  `timestamp` Overrides the value of `Asset.timestamp` in Configure.
-     *       Set to false to skip timestamp generation.
-     *       Set to true to apply timestamps when debug is true. Set to "force" to always
-     *       enable timestamping regardless of debug value.
+     * `fullBase` Return full URL with domain name
+     * `pathPrefix` Path prefix for relative URLs
+     * `plugin` False value will prevent parsing path as a plugin
+     * `timestamp` Overrides the value of `Asset.timestamp` in Configure.
+     *      Set to false to skip timestamp generation.
+     *      Set to true to apply timestamps when debug is true. Set to "force" to always
+     *      enable timestamping regardless of debug value.
      */
     string image(string mypath, Json[string] options  = null) {
         auto updatedOptions = options.update["theme": _View.getTheme()];
@@ -113,14 +113,14 @@ class UrlHelper : DHelper {
      * Params:
      * string mypath Path string.
      * @param Json[string] options Options array. Possible keys:
-     *  `fullBase` Return full URL with domain name
-     *  `pathPrefix` Path prefix for relative URLs
-     *  `ext` Asset extension to append
-     *  `plugin` False value will prevent parsing path as a plugin
-     *  `timestamp` Overrides the value of `Asset.timestamp` in Configure.
-     *       Set to false to skip timestamp generation.
-     *       Set to true to apply timestamps when debug is true. Set to "force" to always
-     *       enable timestamping regardless of debug value.
+     * `fullBase` Return full URL with domain name
+     * `pathPrefix` Path prefix for relative URLs
+     * `ext` Asset extension to append
+     * `plugin` False value will prevent parsing path as a plugin
+     * `timestamp` Overrides the value of `Asset.timestamp` in Configure.
+     *      Set to false to skip timestamp generation.
+     *      Set to true to apply timestamps when debug is true. Set to "force" to always
+     *      enable timestamping regardless of debug value.
      */
     string css(string mypath, Json[string] options  = null) {
         auto updatedOptions = options.update["theme": _View.getTheme()];
@@ -136,14 +136,14 @@ class UrlHelper : DHelper {
      * Params:
      * string mypath Path string.
      * @param Json[string] options Options array. Possible keys:
-     *  `fullBase` Return full URL with domain name
-     *  `pathPrefix` Path prefix for relative URLs
-     *  `ext` Asset extension to append
-     *  `plugin` False value will prevent parsing path as a plugin
-     *  `timestamp` Overrides the value of `Asset.timestamp` in Configure.
-     *       Set to false to skip timestamp generation.
-     *       Set to true to apply timestamps when debug is true. Set to "force" to always
-     *       enable timestamping regardless of debug value.
+     * `fullBase` Return full URL with domain name
+     * `pathPrefix` Path prefix for relative URLs
+     * `ext` Asset extension to append
+     * `plugin` False value will prevent parsing path as a plugin
+     * `timestamp` Overrides the value of `Asset.timestamp` in Configure.
+     *      Set to false to skip timestamp generation.
+     *      Set to true to apply timestamps when debug is true. Set to "force" to always
+     *      enable timestamping regardless of debug value.
      */
     string script(string mypath, Json[string] options  = null) {
         auto updatedOptions = options.update["theme": _View.getTheme()];
@@ -160,14 +160,14 @@ class UrlHelper : DHelper {
      * ### Options:
      *
      * - `fullBase` Boolean true or a string (e.g. https://example) to
-     *   return full URL with protocol and domain name.
+     *  return full URL with protocol and domain name.
      * - `pathPrefix` Path prefix for relative URLs
      * - `ext` Asset extension to append
      * - `plugin` False value will prevent parsing path as a plugin
      * - `timestamp` Overrides the value of `Asset.timestamp` in Configure.
-     *   Set to false to skip timestamp generation.
-     *   Set to true to apply timestamps when debug is true. Set to "force" to always
-     *   enable timestamping regardless of debug value.
+     *  Set to false to skip timestamp generation.
+     *  Set to true to apply timestamps when debug is true. Set to "force" to always
+     *  enable timestamping regardless of debug value.
      * Params:
      * string mypath Path string or URL array
      * @param Json[string] options Options array.

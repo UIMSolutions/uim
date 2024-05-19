@@ -28,10 +28,10 @@ interface IContext {
      *
      * Classes implementing this method can optionally have a second argument
      * `options`. Valid key for `options` array are:
-     *  - `default`: Default value to return if no value found in data or
-     *    context record.
-     *  - `schemaDefault`: Boolean indicating whether default value from
-     *    context"s schema should be used if it"s not explicitly provided.
+     * - `default`: Default value to return if no value found in data or
+     *   context record.
+     * - `schemaDefault`: Boolean indicating whether default value from
+     *   context"s schema should be used if it"s not explicitly provided.
     */
     Json val(string fieldPath, Json[string] options  = null) ;
 

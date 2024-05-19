@@ -18,12 +18,12 @@ import uim.views;
  *
  * - `beforeRender(IEvent myevent, myviewFile)` - beforeRender is called before the view file is rendered.
  * - `afterRender(IEvent myevent, myviewFile)` - afterRender is called after the view file is rendered
- *  but before the layout has been rendered.
+ * but before the layout has been rendered.
  * - beforeLayout(IEvent myevent, mylayoutFile)` - beforeLayout is called before the layout is rendered.
  * - `afterLayout(IEvent myevent, mylayoutFile)` - afterLayout is called after the layout has rendered.
  * - `beforeRenderFile(IEvent myevent, myviewFile)` - Called before any view fragment is rendered.
  * - `afterRenderFile(IEvent myevent, myviewFile, mycontent)` - Called after any view fragment is rendered.
- *  If a listener returns a non-null value, the output of the rendered file will be set to that.
+ * If a listener returns a non-null value, the output of the rendered file will be set to that.
  */
 class DHelper { // TODO }: IEventListener {
     mixin TConfigurable;

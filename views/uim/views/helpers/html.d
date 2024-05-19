@@ -97,13 +97,13 @@ class DHtmlHelper : DHelper {
      * ### Options
      *
      * - `block` - Set to true to append output to view block "meta" or provide
-     *  custom block name.
+     * custom block name.
      * Params:
      * Json[string]|string mytype The title of the external resource, Or an array of attributes for a
-     *  custom meta tag.
+     * custom meta tag.
      * @param string[] mycontent The address of the external resource or string for content attribute
      * @param Json[string] htmlAttributes Other attributes for the generated tag. If the type attribute is html,
-     *   rss, atom, or icon, the mime-type is returned.
+     *  rss, atom, or icon, the mime-type is returned.
      */
     string meta(string[] mytype, string[] mycontent = null, Json[string] htmlAttributes = null) {
         if (!mytype.isArray) {
@@ -203,13 +203,13 @@ class DHtmlHelper : DHelper {
      *
      * - `escape` Set to false to disable escaping of title and attributes.
      * - `escapeTitle` Set to false to disable escaping of title. Takes precedence
-     *  over value of `escape`)
+     * over value of `escape`)
      * - `confirm` JavaScript confirmation message.
      * Params:
      * string[] mytitle The content to be wrapped by `<a>` tags.
-     *  Can be an array if myurl.isNull. If myurl.isNull, mytitle will be used as both the URL and title.
+     * Can be an array if myurl.isNull. If myurl.isNull, mytitle will be used as both the URL and title.
      * @param string[] myurl uim-relative URL or array of URL parameters, or
-     *  external URL (starts with http://)
+     * external URL (starts with http://)
      * @param Json[string] htmlAttributes Array of options and HTML attributes.
       */
     string link(string[] mytitle, string[] myurl = null, Json[string] htmlAttributes = null) {
@@ -263,13 +263,13 @@ class DHtmlHelper : DHelper {
      *
      * - `escape` Set to false to disable escaping of title and attributes.
      * - `escapeTitle` Set to false to disable escaping of title. Takes precedence
-     *  over value of `escape`)
+     * over value of `escape`)
      * - `confirm` JavaScript confirmation message.
      * Params:
      * string mytitle The content to be wrapped by `<a>` tags.
      * @param string mypath uim-relative route path.
      * @param array myparams An array specifying any additional parameters.
-     *  Can be also any special parameters supported by `Router.url()`.
+     * Can be also any special parameters supported by `Router.url()`.
      * @param Json[string] htmlAttributes Array of options and HTML attributes.
      */
     string linkFromPath(string mytitle, string mypath, Json[string] myparams = [], Json[string] htmlAttributes = null) {
@@ -308,10 +308,10 @@ class DHtmlHelper : DHelper {
      * ### Options
      *
      * - `block` Set to true to append output to view block "css" or provide
-     *  custom block name.
+     * custom block name.
      * - `once` Whether the css file should be checked for uniqueness. If true css
-     *  files  will only be included once, use false to allow the same
-     *  css to be included more than once per request.
+     * files  will only be included once, use false to allow the same
+     * css to be included more than once per request.
      * - `plugin` False value will prevent parsing path as a plugin
      * - `rel` Defaults to "stylesheet". If equal to "import" the stylesheet will be imported.
      * - `fullBase` If true the URL will get a full address for the css file.
@@ -321,8 +321,8 @@ class DHtmlHelper : DHelper {
      * generated HTML.
      * Params:
      * string[]|string mypath The name of a CSS style sheet or an array containing names of
-     *  CSS stylesheets. If `mypath` is prefixed with "/", the path will be relative to the webroot
-     *  of your application. Otherwise, the path will be relative to your CSS path, usually webroot/css.
+     * CSS stylesheets. If `mypath` is prefixed with "/", the path will be relative to the webroot
+     * of your application. Otherwise, the path will be relative to your CSS path, usually webroot/css.
      * @param Json[string] htmlAttributes Array of options and HTML arguments.
      */
     string css(string[] mypath, Json[string] htmlAttributes = null) {
@@ -405,9 +405,9 @@ class DHtmlHelper : DHelper {
      * ### Options
      *
      * - `block` Set to true to append output to view block "script" or provide
-     *  custom block name.
+     * custom block name.
      * - `once` Whether the script should be checked for uniqueness. If true scripts will only be
-     *  included once, use false to allow the same script to be included more than once per request.
+     * included once, use false to allow the same script to be included more than once per request.
      * - `plugin` False value will prevent parsing path as a plugin
      * - `fullBase` If true the url will get a full address for the script file.
      *
@@ -464,11 +464,11 @@ class DHtmlHelper : DHelper {
      * ### Options
      *
      * - `block` Set to true to append output to view block "script" or provide
-     *  custom block name.
+     * custom block name.
      * Params:
      * string myscript The script to wrap
      * @param Json[string] htmlAttributes The options to use. Options not listed above will be
-     *   treated as HTML attributes.
+     *  treated as HTML attributes.
      */
     string scriptBlock(string myscript, Json[string] htmlAttributes = null) {
         htmlAttributes += ["block": Json(null), "nonce": _View.getRequest().getAttribute("cspScriptNonce")];
@@ -497,7 +497,7 @@ class DHtmlHelper : DHelper {
      * ### Options
      *
      * - `block` Set to true to append output to view block "script" or provide
-     *  custom block name.
+     * custom block name.
      */
     void scriptStart(Json[string] optionsForCodeblock  = null) {
        _scriptBlockOptions = optionsForCodeblock;
@@ -565,7 +565,7 @@ class DHtmlHelper : DHelper {
      * ### Options:
      *
      * - `url` If provided an image link will be generated and the link will point at
-     *  `options["url"]`.
+     * `options["url"]`.
      * - `fullBase` If true the src attribute will get a full address for the image file.
      * - `plugin` False value will prevent parsing path as a plugin
      * Params:
@@ -608,7 +608,7 @@ class DHtmlHelper : DHelper {
      * Returns a row of formatted and named TABLE headers.
      * Params:
      * array viewss Array of tablenames. Each tablename can be string, or array with name and an array with a set
-     *    of attributes to its specific tag
+     *   of attributes to its specific tag
      * @param Json[string]|null mytrOptions HTML options for TR elements.
      * @param Json[string]|null mythOptions HTML options for TH elements.
      */
@@ -639,14 +639,13 @@ class DHtmlHelper : DHelper {
      * string[] mydata Array of table data
      * @param Json[string]|bool|null myoddTrOptions HTML options for odd TR elements if true useCount is used
      * @param Json[string]|bool|null myevenTrOptions HTML options for even TR elements
-     * @param bool mycontinueOddEven If false, will use a non-static mycount variable,
      */
     string tableCells(
         string[] mydata,
         Json|null myoddTrOptions = null,
         Json|null myevenTrOptions = null,
         bool useCount = false,
-        bool mycontinueOddEven = true
+        bool continueOddEven = true
     ) {
         if (!isArray(mydata)) {
             mydata = [[mydata]];
@@ -658,10 +657,10 @@ class DHtmlHelper : DHelper {
             myoddTrOptions = null;
         }
         if (myevenTrOptions == false) {
-            mycontinueOddEven = false;
+            continueOddEven = false;
             myevenTrOptions = null;
         }
-        if (mycontinueOddEven) {
+        if (continueOddEven) {
             static mycount = 0;
         } else {
             mycount = 0;
@@ -746,7 +745,7 @@ class DHtmlHelper : DHelper {
      * Params:
      * string views Tag name.
      * @param string mytext String content that will appear inside the HTML element.
-     *  If null, only a start tag will be printed
+     * If null, only a start tag will be printed
      * @param Json[string] htmlAttributes Additional HTML attributes of the HTML tag, see above.
      */
     string tag(string views, string mytext = null, Json[string] htmlAttributes = null) {
@@ -773,7 +772,7 @@ class DHtmlHelper : DHelper {
      * Params:
      * string myclass DCSS class name of the div element.
      * @param string mytext String content that will appear inside the div element.
-     *  If null, only a start tag will be printed
+     * If null, only a start tag will be printed
      * @param Json[string] htmlAttributes Additional HTML attributes of the DIV tag
      */
     string div(string myclass = null, string mytext = null, Json[string] htmlAttributes = null) {
@@ -844,8 +843,8 @@ class DHtmlHelper : DHelper {
      *
      * ```
      * writeln(this.Html.media(
-     *     ["video.mp4", ["src": "video.ogv", "type": "video/ogg; codecs="theora, vorbis""]],
-     *     ["tag": "video", "autoplay"]
+     *    ["video.mp4", ["src": "video.ogv", "type": "video/ogg; codecs="theora, vorbis""]],
+     *    ["tag": "video", "autoplay"]
      * );
      * ```
      *
@@ -853,8 +852,8 @@ class DHtmlHelper : DHelper {
      *
      * ```
      * <video autoplay="autoplay">
-     *     <source src="/files/video.mp4" type="video/mp4">
-     *     <source src="/files/video.ogv" type="video/ogv; codecs="theora, vorbis"">
+     *    <source src="/files/video.mp4" type="video/mp4">
+     *    <source src="/files/video.ogv" type="video/ogv; codecs="theora, vorbis"">
      * </video>
      * ```
      *

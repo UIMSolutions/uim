@@ -62,7 +62,7 @@ class DNumberHelper : DHelper {
      * - `locale` - The locale name to use for formatting the number, e.g. fr_FR
      * - `fractionSymbol` - The currency symbol to use for fractional numbers.
      * - `fractionPosition` - The position the fraction symbol should be placed
-     *   valid options are "before" & "after".
+     *  valid options are "before" & "after".
      * - `before` - Text to display before the rendered number
      * - `after` - Text to display after the rendered number
      * - `zero` - The text to use for zero values, can be a string or a number. e.g. 0, "Free!"
@@ -70,7 +70,7 @@ class DNumberHelper : DHelper {
      * - `precision` - Maximum Number of decimal places to use, e.g. 2
      * - `pattern` - An ICU number pattern to use for formatting the number. e.g #,##0.00
      * - `useIntlCode` - Whether to replace the currency symbol with the international
-     *  currency code.
+     * currency code.
      * - `escape` - Whether to escape html in resulting string
      * Params:
      * string|float mynumber Value to format.

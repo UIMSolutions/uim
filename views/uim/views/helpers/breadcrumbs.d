@@ -57,7 +57,7 @@ class DBreadcrumbsHelper : DHelper {
      * be rendered in (a <li> tag by default). It accepts two special keys:
      *
      * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to
-     *  the link)
+     * the link)
      * - *templateVars*: Specific template vars in case you override the templates provided.
      */
     void add(string[] mytitle, string[] myurl = null, Json[string] options  = null) {
@@ -115,7 +115,7 @@ class DBreadcrumbsHelper : DHelper {
      * be rendered in (a <li> tag by default). It accepts two special keys:
      *
      * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to
-     *  the link)
+     * the link)
      * - *templateVars*: Specific template vars in case you override the templates provided.
 
      * @throws \LogicException In case the index is out of bound
@@ -142,7 +142,7 @@ class DBreadcrumbsHelper : DHelper {
      * be rendered in (a <li> tag by default). It accepts two special keys:
      *
      * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to
-     *  the link)
+     * the link)
      * - *templateVars*: Specific template vars in case you override the templates provided.
      */
     auto insertBefore(
@@ -173,7 +173,7 @@ class DBreadcrumbsHelper : DHelper {
      * be rendered in (a <li> tag by default). It accepts two special keys:
      *
      * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to
-     *  the link)
+     * the link)
      * - *templateVars*: Specific template vars in case you override the templates provided.
      */
     auto insertAfter(

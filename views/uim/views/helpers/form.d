@@ -234,24 +234,24 @@ class DFormHelper : DHelper {
      * ### Options:
      *
      * - `type` Form method defaults to autodetecting based on the form context. If
-     *  the form context"s isCreate() method returns false, a PUT request will be done.
+     * the form context"s isCreate() method returns false, a PUT request will be done.
      * - `method` Set the form"s method attribute explicitly.
      * - `url` The URL the form submits to. Can be a string or a URL array.
      * - `encoding` Set the accept-charset encoding for the form. Defaults to `configuration.get("App.encoding")`
      * - `enctype` Set the form encoding explicitly. By default `type: file` will set `enctype`
-     *  to `multipart/form-data`.
+     * to `multipart/form-data`.
      * - `templates` The templates you want to use for this form. Any templates will be merged on top of
-     *  the already loaded templates. This option can either be a filename in /config that contains
-     *  the templates you want to load, or an array of templates to use.
+     * the already loaded templates. This option can either be a filename in /config that contains
+     * the templates you want to load, or an array of templates to use.
      * - `context` Additional options for the context class. For example the EntityContext accepts a "table"
-     *  option that allows you to set the specific Table class the form should be based on.
+     * option that allows you to set the specific Table class the form should be based on.
      * - `idPrefix` Prefix for generated ID attributes.
      * - `valueSources` The sources that values should be read from. See FormHelper.setValueSources()
      * - `templateVars` Provide template variables for the formStart template.
      * Params:
      * Json formContext The context for which the form is being defined.
-     *  Can be a IContext instance, ORM entity, ORM resultset, or an
-     *  array of meta data. You can use `null` to make a context-less form.
+     * Can be a IContext instance, ORM entity, ORM resultset, or an
+     * array of meta data. You can use `null` to make a context-less form.
      * @param Json[string] options An array of html attributes and options.
      */
     string create(Json formContext = null, Json[string] options  = null) {
@@ -426,7 +426,7 @@ class DFormHelper : DHelper {
      * Resets some parts of the state, shared among multiple FormHelper.create() calls, to defaults.
      * Params:
      * Json[string] mysecureAttributes Secure attributes which will be passed as HTML attributes
-     *  into the hidden input elements generated for the Security Component.
+     * into the hidden input elements generated for the Security Component.
      */
     string end(Json[string] mysecureAttributes = []) {
         result = "";
@@ -455,9 +455,9 @@ class DFormHelper : DHelper {
      * especially useful to set HTML5 attributes like "form".
      * Params:
      * array fieldNames If set specifies the list of fields to be added to
-     *   FormProtector for generating the hash.
+     *  FormProtector for generating the hash.
      * @param Json[string] mysecureAttributes will be passed as HTML attributes into the hidden
-     *   input elements generated for the Security Component.
+     *  input elements generated for the Security Component.
      */
     string secure(Json[string] fieldNames = [], Json[string] mysecureAttributes = []) {
         if (!this.formProtector) {
@@ -561,7 +561,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldName A field name, like "modelname.fieldname"
      * @param string[] mytext Error message as string or array of messages. If an array,
-     *  it should be a hash of key names: messages.
+     * it should be a hash of key names: messages.
      */
     string error(string fieldName, string[] mytext = null, Json[string] options  = null) {
         if (fieldName.endsWith("._ids")) {
@@ -622,10 +622,10 @@ class DFormHelper : DHelper {
      * ### Options
      *
      * - `for` - Set the for attribute, if its not defined the for attribute
-     *  will be generated from the fieldName parameter using
-     *  FormHelper._domId().
+     * will be generated from the fieldName parameter using
+     * FormHelper._domId().
      * - `escape` - Set to `false` to turn off escaping of label text.
-     *  Defaults to `true`.
+     * Defaults to `true`.
      *
      * Examples:
      *
@@ -647,7 +647,7 @@ class DFormHelper : DHelper {
      *
      * ```
      * writeln(this.Form.label("published", "Publish", [
-     *  "for": "post-publish"
+     * "for": "post-publish"
      * ]);
      * <label for="post-publish">Publish</label>
      * ```
@@ -656,8 +656,8 @@ class DFormHelper : DHelper {
      *
      * ```
      * writeln(this.Form.label("published", "Publish", [
-     *  "for": "published",
-     *  "input": this.text("published"),
+     * "for": "published",
+     * "input": this.text("published"),
      * ]);
      * <label for="post-publish">Publish <input type="text" name="published"></label>
      * ```
@@ -666,8 +666,8 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldName This should be "modelname.fieldname"
      * @param string mytext Text that will appear in the label field. If
-     *  mytext is left undefined the text will be inflected from the
-     *  fieldName.
+     * mytext is left undefined the text will be inflected from the
+     * fieldName.
      * @param Json[string] options An array of HTML attributes.
      */
     string label(string fieldName, string mytext = null, Json[string] options  = null) {
@@ -711,7 +711,7 @@ class DFormHelper : DHelper {
      * You can customize individual controls through `fieldNames`.
      * ```
      * this.Form.allControls([
-     *  "name": ["label": "custom label"]
+     * "name": ["label": "custom label"]
      * ]);
      * ```
      *
@@ -724,14 +724,14 @@ class DFormHelper : DHelper {
      * In the above example, no field would be generated for the title field.
      * Params:
      * array fieldNames An array of customizations for the fields that will be
-     *  generated. This array allows you to set custom types, labels, or other options.
+     * generated. This array allows you to set custom types, labels, or other options.
      * @param Json[string] options Options array. Valid keys are:
      *
      * - `fieldset` Set to false to disable the fieldset. You can also pass an array of params to be
-     *   applied as HTML attributes to the fieldset tag. If you pass an empty array, the fieldset will
-     *   be enabled
+     *  applied as HTML attributes to the fieldset tag. If you pass an empty array, the fieldset will
+     *  be enabled
      * - `legend` Set to false to disable the legend for the generated control set. Or supply a string
-     *   to customize the legend text.
+     *  to customize the legend text.
      */
     string allControls(Json[string] fieldNames = [], Json[string] options  = null) {
         mycontext = _getContext();
@@ -752,20 +752,20 @@ class DFormHelper : DHelper {
      * You can customize individual controls through `fieldNames`.
      * ```
      * this.Form.controls([
-     *  "name": ["label": "custom label"],
-     *  "email"
+     * "name": ["label": "custom label"],
+     * "email"
      * ]);
      * ```
      * Params:
      * array fieldNames An array of the fields to generate. This array allows
-     *  you to set custom types, labels, or other options.
+     * you to set custom types, labels, or other options.
      * @param Json[string] options Options array. Valid keys are:
      *
      * - `fieldset` Set to false to disable the fieldset. You can also pass an
-     *   array of params to be applied as HTML attributes to the fieldset tag.
-     *   If you pass an empty array, the fieldset will be enabled.
+     *  array of params to be applied as HTML attributes to the fieldset tag.
+     *  If you pass an empty array, the fieldset will be enabled.
      * - `legend` Set to false to disable the legend for the generated input set.
-     *   Or supply a string to customize the legend text.
+     *  Or supply a string to customize the legend text.
      */
     string controls(Json[string] fieldNames, Json[string] options  = null) {
         fieldNames = Hash.normalize(fieldNames);
@@ -787,10 +787,10 @@ class DFormHelper : DHelper {
      * @param Json[string] options Options array. Valid keys are:
      *
      * - `fieldset` Set to false to disable the fieldset. You can also pass an array of params to be
-     *   applied as HTML attributes to the fieldset tag. If you pass an empty array, the fieldset will
-     *   be enabled
+     *  applied as HTML attributes to the fieldset tag. If you pass an empty array, the fieldset will
+     *  be enabled
      * - `legend` Set to false to disable the legend for the generated input set. Or supply a string
-     *   to customize the legend text.
+     *  to customize the legend text.
      */
     string fieldset(string fieldNames = "", Json[string] options  = null) {
         auto mylegend = options["legend"] ?? true;
@@ -835,17 +835,17 @@ class DFormHelper : DHelper {
      * - `label` - Either a string label, or an array of options for the label. See FormHelper.label().
      * - `options` - For widgets that take options e.g. radio, select.
      * - `error` - Control the error message that is produced. Set to `false` to disable any kind of error reporting
-     *  (field error and error messages).
+     * (field error and error messages).
      * - `empty` - String or boolean to enable empty select box options.
      * - `nestedInput` - Used with checkbox and radio inputs. Set to false to render inputs outside of label
-     *  elements. Can be set to true on any input to force the input inside the label. If you
-     *  enable this option for radio buttons you will also need to modify the default `radioWrapper` template.
+     * elements. Can be set to true on any input to force the input inside the label. If you
+     * enable this option for radio buttons you will also need to modify the default `radioWrapper` template.
      * - `templates` - The templates you want to use for this input. Any templates will be merged on top of
-     *  the already loaded templates. This option can either be a filename in /config that contains
-     *  the templates you want to load, or an array of templates to use.
+     * the already loaded templates. This option can either be a filename in /config that contains
+     * the templates you want to load, or an array of templates to use.
      * - `labelOptions` - Either `false` to disable label around nestedWidgets e.g. radio, multicheckbox or an array
-     *  of attributes for the label tag. `selected` will be added to any classes e.g. `class: "myclass"` where
-     *  widget is checked
+     * of attributes for the label tag. `selected` will be added to any classes e.g. `class: "myclass"` where
+     * widget is checked
      * Params:
      * string fieldName This should be "modelname.fieldname"
      * @param Json[string] options Each type of input takes different options.
@@ -1144,10 +1144,8 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldName The name of the field to generate options for.
      * @param Json[string] options Options list.
-     * @param bool myallowOverride Whether it is allowed for this method to
-     * overwrite the "type" key in options.
      */
-    protected Json[string] _magicOptions(string fieldName, Json[string] options, bool myallowOverride) {
+    protected Json[string] _magicOptions(string fieldName, Json[string] options, bool allowOverride) {
         auto updatedOptions = options.update[
             "templateVars": Json.emptyArray,
         ];
@@ -1155,11 +1153,11 @@ class DFormHelper : DHelper {
         options = setRequiredAndCustomValidity(fieldName, options);
 
         mytypesWithOptions = ["text", "number", "radio", "select"];
-        mymagicOptions = (in_array(options["type"], ["radio", "select"], true) || myallowOverride);
+        mymagicOptions = (in_array(options["type"], ["radio", "select"], true) || allowOverride);
         if (mymagicOptions && in_array(options["type"], mytypesWithOptions, true)) {
             options = _optionsOptions(fieldName, options);
         }
-        if (myallowOverride && fieldName.endsWith("._ids")) {
+        if (allowOverride && fieldName.endsWith("._ids")) {
             options["type"] = "select";
             if (!isSet(options["multiple"]) || (options["multiple"] && options["multiple"] != "checkbox")) {
                 options["multiple"] = true;
@@ -1267,11 +1265,11 @@ class DFormHelper : DHelper {
      * - `value` - the value of the checkbox
      * - `checked` - boolean indicate that this checkbox is checked.
      * - `hiddenField` - boolean|string. Set to false to disable a hidden input from
-     *   being generated. Passing a string will define the hidden input value.
+     *  being generated. Passing a string will define the hidden input value.
      * - `disabled` - create a disabled input.
      * - `default` - Set the default value for the checkbox. This allows you to start checkboxes
-     *   as checked, without having to check the POST data. A matching POST data value, will overwrite
-     *   the default value.
+     *  as checked, without having to check the POST data. A matching POST data value, will overwrite
+     *  the default value.
      * Params:
      * string fieldName Name of a field, like this "modelname.fieldname"
      * @param Json[string] options Array of HTML attributes.
@@ -1317,15 +1315,15 @@ class DFormHelper : DHelper {
      *
      * - `value` - Indicates the value when this radio button is checked.
      * - `label` - Either `false` to disable label around the widget or an array of attributes for
-     *   the label tag. `selected` will be added to any classes e.g. `"class": "myclass"` where widget
-     *   is checked
+     *  the label tag. `selected` will be added to any classes e.g. `"class": "myclass"` where widget
+     *  is checked
      * - `hiddenField` - boolean|string. Set to false to not include a hidden input with a value of "".
-     *   Can also be a string to set the value of the hidden input. This is useful for creating
-     *   radio sets that are non-continuous.
+     *  Can also be a string to set the value of the hidden input. This is useful for creating
+     *  radio sets that are non-continuous.
      * - `disabled` - Set to `true` or `disabled` to disable all the radio buttons. Use an array of
-     *  values to disable specific radio buttons.
+     * values to disable specific radio buttons.
      * - `empty` - Set to `true` to create an input with the value "" as the first option. When `true`
-     *  the radio label will be "empty". Set this option to a string to control the label value.
+     * the radio label will be "empty". Set this option to a string to control the label value.
      * Params:
      * string fieldName Name of a field, like this "modelname.fieldname"
      * @param range options Radio button options array.
@@ -1501,7 +1499,7 @@ class DFormHelper : DHelper {
      *
      * - `data` - Array with key/value to pass in input hidden
      * - `method` - Request method to use. Set to "delete" or others to simulate
-     *  HTTP/1.1 DELETE (or others) request. Defaults to "post".
+     * HTTP/1.1 DELETE (or others) request. Defaults to "post".
      * - `form` - Array with any option that FormHelper.create() can take
      * - Other options is the same of button method.
      * - `confirm` - Confirm message to show. Form execution will only continue if confirmed then.
@@ -1546,16 +1544,16 @@ class DFormHelper : DHelper {
      *
      * - `data` - Array with key/value to pass in input hidden
      * - `method` - Request method to use. Set to "delete" to simulate
-     *  HTTP/1.1 DELETE request. Defaults to "post".
+     * HTTP/1.1 DELETE request. Defaults to "post".
      * - `confirm` - Confirm message to show. Form execution will only continue if confirmed then.
      * - `block` - Set to true to append form to view block "postLink" or provide
-     *  custom block name.
+     * custom block name.
      * - Other options are the same of HtmlHelper.link() method.
      * - The option `onclick` will be replaced.
      * Params:
      * string mytitle The content to be wrapped by <a> tags.
      * @param string[] myurl uim-relative URL or array of URL parameters, or
-     *  external URL (starts with http://)
+     * external URL (starts with http://)
      * @param Json[string] options Array of HTML attributes.
      */
     string postLink(string mytitle, string[] myurl = null, Json[string] options  = null) {
@@ -1732,13 +1730,13 @@ class DFormHelper : DHelper {
      * ### Attributes:
      *
      * - `multiple` - show a multiple select box. If set to "checkbox" multiple checkboxes will be
-     *  created instead.
+     * created instead.
      * - `empty` - If true, the empty select option is shown. If a string,
-     *  that string is displayed as the empty element.
+     * that string is displayed as the empty element.
      * - `escape` - If true contents of options will be HTML entity encoded. Defaults to true.
      * - `val` The selected value of the input.
      * - `disabled` - Control the disabled attribute. When creating a select box, set to true to disable the
-     *  select box. Set to an array to disable specific option elements.
+     * select box. Set to an array to disable specific option elements.
      *
      * ### Using options
      *
@@ -1753,10 +1751,10 @@ class DFormHelper : DHelper {
      * ```
      * options = [
      * 1: "bill",
-     *    "fred": [
-     *        2: "fred",
-     *        3: "fred jr."
-     *    ]
+     *   "fred": [
+     *       2: "fred",
+     *       3: "fred jr."
+     *   ]
      * ];
      * this.Form.select("Model.field", options);
      * ```
@@ -1766,14 +1764,14 @@ class DFormHelper : DHelper {
      *
      * ```
      * options = [
-     *    ["text": "United states", "value": "USA"],
-     *    ["text": "USA", "value": "USA"],
+     *   ["text": "United states", "value": "USA"],
+     *   ["text": "USA", "value": "USA"],
      * ];
      * ```
      * Params:
      * string fieldName Name attribute of the SELECT
      * @param range options Array of the OPTION elements (as "value"=>"Text" pairs) to be used in the
-     *  SELECT element
+     * SELECT element
      * @param Json[string] myattributes The HTML attributes of the select element.
      */
     string select(string fieldName, range options = [], Json[string] myattributes = []) {
@@ -1834,18 +1832,18 @@ class DFormHelper : DHelper {
      * - `val` The selected value of the input.
      * - `class` - When using multiple = checkbox the class name to apply to the divs. Defaults to "checkbox".
      * - `disabled` - Control the disabled attribute. When creating checkboxes, `true` will disable all checkboxes.
-     *  You can also set disabled to a list of values you want to disable when creating checkboxes.
+     * You can also set disabled to a list of values you want to disable when creating checkboxes.
      * - `hiddenField` - Set to false to remove the hidden field that ensures a value
-     *  is always submitted.
+     * is always submitted.
      * - `label` - Either `false` to disable label around the widget or an array of attributes for
-     *  the label tag. `selected` will be added to any classes e.g. `"class": "myclass"` where
-     *  widget is checked
+     * the label tag. `selected` will be added to any classes e.g. `"class": "myclass"` where
+     * widget is checked
      *
      * Can be used in place of a select box with the multiple attribute.
      * Params:
      * string fieldName Name attribute of the SELECT
      * @param range options Array of the OPTION elements
-     *  (as "value"=>"Text" pairs) to be used in the checkboxes element.
+     * (as "value"=>"Text" pairs) to be used in the checkboxes element.
      * @param Json[string] myattributes The HTML attributes of the select element.
      */
     string multiCheckbox(string fieldName, range options, Json[string] myattributes = []) {
@@ -1890,9 +1888,9 @@ class DFormHelper : DHelper {
      * ### Attributes:
      *
      * - `empty` - If true, the empty select option is shown. If a string,
-     *  that string is displayed as the empty element.
+     * that string is displayed as the empty element.
      * - `order` - DOrdering of year values in select options.
-     *  Possible values "asc", "desc". Default "desc"
+     * Possible values "asc", "desc". Default "desc"
      * - `value` The selected value of the input.
      * - `max` The max year to appear in the select element.
      * - `min` The min year to appear in the select element.
@@ -1937,7 +1935,7 @@ class DFormHelper : DHelper {
      * ### Options:
      *
      * - `value` | `default` The default value to be used by the input.
-     *  If set to `true` current datetime will be used.
+     * If set to `true` current datetime will be used.
      * Params:
      * string fieldName The field name.
      * @param Json[string] options Array of options or HTML attributes.
@@ -2001,11 +1999,11 @@ class DFormHelper : DHelper {
      * ### Options
      *
      * - `secure` - boolean whether the field should be added to the security fields.
-     *  Disabling the field using the `disabled` option, will also omit the field from being
-     *  part of the hashed key.
+     * Disabling the field using the `disabled` option, will also omit the field from being
+     * part of the hashed key.
      * - `default` - Json - The value to use if there is no value in the form"s context.
      * - `disabled` - Json - Either a boolean indicating disabled state, or the string in
-     *  a numerically indexed value.
+     * a numerically indexed value.
      * - `id` - Json - If `true` it will be auto generated based on field name.
      *
      * This method will convert a numerically indexed "disabled" into an associative
@@ -2111,9 +2109,9 @@ class DFormHelper : DHelper {
      * read metadata from doctrine.
      * Params:
      * string mytype The type of context. This key
-     *  can be used to overwrite existing providers.
+     * can be used to overwrite existing providers.
      * @param callable mycheck A callable that returns an object
-     *  when the form context is the correct type.
+     * when the form context is the correct type.
      */
     void addContextProvider(string mytype, callable mycheck) {
         this.contextFactory().addProvider(mytype, mycheck);
@@ -2157,7 +2155,7 @@ class DFormHelper : DHelper {
      * Params:
      * string views The name of the widget. e.g. "text".
      * @param \UIM\View\Widget\IWidget|string[] myspec Either a string class
-     *  name or an object implementing the IWidget.
+     * name or an object implementing the IWidget.
      */
     void addWidget(string views, IWidget|string[] myspec) {
        _locator.add([views: myspec]);

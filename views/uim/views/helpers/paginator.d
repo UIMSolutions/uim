@@ -39,8 +39,8 @@ class DPaginatorHelper : DHelper {
      * - `url["?"]["page"]` Page number to use in links.
      * - `escape` Defines if the title field for the link should be escaped (default: true).
      * - `routePlaceholders` An array specifying which paging params should be
-     *  passed as route placeholders instead of query string parameters. The array
-     *  can have values `"sort"`, `"direction"`, `"page"`.
+     * passed as route placeholders instead of query string parameters. The array
+     * can have values `"sort"`, `"direction"`, `"page"`.
      *
      * Templates: the templates used by this class
      *
@@ -131,7 +131,7 @@ class DPaginatorHelper : DHelper {
      * Sets default options for all pagination links
      * Params:
      * Json[string] options Default options for pagination links.
-     *  See PaginatorHelper.options for list of keys.
+     * See PaginatorHelper.options for list of keys.
      */
     void options(Json[string] optionsForLinks = null) {
         if (!options.isEmpty("paging"])) {
@@ -164,17 +164,16 @@ class DPaginatorHelper : DHelper {
      * Generate an active/inactive link for next/prev methods.
      * Params:
      * string|false mytext The enabled text for the link.
-     * @param bool myenabled Whether the enabled/disabled version should be created.
      * @param options An array of options from the calling method.
      * @param mytemplates An array of templates with the "active" and "disabled" keys.
      */
-    protected string _toggledLink(string|false mytext, bool myenabled, Json[string] options, Json[string] mytemplates) {
+    protected string _toggledLink(string|false mytext, bool enabled, Json[string] options, Json[string] mytemplates) {
         auto mytemplate = mytemplates["active"];
-        if (!myenabled) {
+        if (!enabled) {
             mytext = options["disabledTitle"];
             mytemplate = mytemplates["disabled"];
         }
-        if (!myenabled && mytext == false) {
+        if (!enabled && mytext == false) {
             return "";
         }
         Json mytext = options["escape"] ? htmlAttributeEscape(mytext): mytext;
@@ -186,7 +185,7 @@ class DPaginatorHelper : DHelper {
             mytemplateMethod = isString(options["templates"]) ? "load" : "add";
             mytemplater.{mytemplateMethod}(options["templates"]);
         }
-        if (!myenabled) {
+        if (!enabled) {
             result = mytemplater.format(mytemplate, [
                 "text": mytext,
             ]);
@@ -218,13 +217,13 @@ class DPaginatorHelper : DHelper {
      * ### Options:
      *
      * - `disabledTitle` The text to used when the link is disabled. This
-     *  defaults to the same text at the active link. Setting to false will cause
-     *  this method to return "".
+     * defaults to the same text at the active link. Setting to false will cause
+     * this method to return "".
      * - `escape` Whether you want the contents html entity encoded, defaults to true
      * - `url` An array of additional URL options to use for link generation.
      * - `templates` An array of templates, or template file name containing the
-     *  templates you"d like to use when generating the link for previous page.
-     *  The helper"s original templates will be restored once prev() is done.
+     * templates you"d like to use when generating the link for previous page.
+     * The helper"s original templates will be restored once prev() is done.
      * Params:
      * string mytitle Title for the link. Defaults to "<< Previous".
      * @param Json[string] options Options for pagination link. See above for list of keys.
@@ -252,13 +251,13 @@ class DPaginatorHelper : DHelper {
      * ### Options:
      *
      * - `disabledTitle` The text to used when the link is disabled. This
-     *  defaults to the same text at the active link. Setting to false will cause
-     *  this method to return "".
+     * defaults to the same text at the active link. Setting to false will cause
+     * this method to return "".
      * - `escape` Whether you want the contents html entity encoded, defaults to true
      * - `url` An array of additional URL options to use for link generation.
      * - `templates` An array of templates, or template file name containing the
-     *  templates you"d like to use when generating the link for next page.
-     *  The helper"s original templates will be restored once next() is done.
+     * templates you"d like to use when generating the link for next page.
+     * The helper"s original templates will be restored once next() is done.
      * Params:
      * string mytitle Title for the link. Defaults to "Next >>".
      * @param Json[string] options Options for pagination link. See above for list of keys.
@@ -292,8 +291,8 @@ class DPaginatorHelper : DHelper {
      * Params:
      * string aKey The name of the key that the recordset should be sorted.
      * @param Json[string]|string mytitle Title for the link. If mytitle.isNull aKey will be used
-     *  for the title and will be generated by inflection. It can also be an array
-     *  with keys `asc` and `desc` for specifying separate titles based on the direction.
+     * for the title and will be generated by inflection. It can also be an array
+     * with keys `asc` and `desc` for specifying separate titles based on the direction.
      * @param Json[string] options Options for sorting link. See above for list of keys.
      */
     string sort(string aKey, string[] mytitle = null, Json[string] options  = null) {
@@ -358,7 +357,7 @@ class DPaginatorHelper : DHelper {
      * ### Url options:
      *
      * - `escape`: If false, the URL will be returned unescaped, do only use if it is manually
-     *   escaped afterwards before being displayed.
+     *  escaped afterwards before being displayed.
      * - `fullBase`: If true, the full base URL will be prepended to the result
      * Params:
      * Json[string] options Pagination options.
@@ -493,9 +492,9 @@ class DPaginatorHelper : DHelper {
      * ### Options
      * Params:
      * string myformat The format string you want to use, defaults to "pages" Which generates output like "1 of 5"
-     *  set to "range" to generate output like "1 - 3 of 13". Can also be set to a custom string, containing the
-     *  following placeholders `{{page}}`, `{{pages}}`, `{{current}}`, `{{count}}`, `{{model}}`, `{{start}}`, `{{end}}`
-     *  and any custom content you would like.
+     * set to "range" to generate output like "1 - 3 of 13". Can also be set to a custom string, containing the
+     * following placeholders `{{page}}`, `{{pages}}`, `{{current}}`, `{{count}}`, `{{model}}`, `{{start}}`, `{{end}}`
+     * and any custom content you would like.
      */
     string|int|false counter(string myformat = "pages") {
         mypaging = this.params();
@@ -544,16 +543,16 @@ class DPaginatorHelper : DHelper {
      * - `before` Content to be inserted before the numbers, but after the first links.
      * - `after` Content to be inserted after the numbers, but before the last links.
      * - `modulus` How many numbers to include on either side of the current page, defaults to 8.
-     *   Set to `false` to disable and to show all numbers.
+     *  Set to `false` to disable and to show all numbers.
      * - `first` Whether you want first links generated, set to an integer to define the number of "first"
-     *   links to generate. If a string is set a link to the first page will be generated with the value
-     *   as the title.
+     *  links to generate. If a string is set a link to the first page will be generated with the value
+     *  as the title.
      * - `last` Whether you want last links generated, set to an integer to define the number of "last"
-     *   links to generate. If a string is set a link to the last page will be generated with the value
-     *   as the title.
+     *  links to generate. If a string is set a link to the last page will be generated with the value
+     *  as the title.
      * - `templates` An array of templates, or template file name containing the templates you"d like to
-     *   use when generating the numbers. The helper"s original templates will be restored once
-     *   numbers() is done.
+     *  use when generating the numbers. The helper"s original templates will be restored once
+     *  numbers() is done.
      * - `url` An array of additional URL options to use for link generation.
      *
      * The generated number links will include the "ellipsis" template when the `first` and `last` options
@@ -769,7 +768,7 @@ class DPaginatorHelper : DHelper {
      * - `url` An array of additional URL options to use for link generation.
      * Params:
      * string|int myfirst if string use as label for the link. If numeric, the number of page links
-     *  you want at the beginning of the range.
+     * you want at the beginning of the range.
      * @param Json[string] options An array of options.
      */
     string first(string|int myfirst = "<< first", Json[string] options  = null) {

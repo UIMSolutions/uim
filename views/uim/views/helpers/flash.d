@@ -40,7 +40,7 @@ class DFlashHelper : DHelper {
      *
      * ```
      * writeln(this.Flash.render("flash", [
-     *  "element": "MyPlugin._custom_element",
+     * "element": "MyPlugin._custom_element",
      * ]);
      * ```
      *
@@ -49,7 +49,7 @@ class DFlashHelper : DHelper {
      * Params:
      * string aKey The [Flash.]key you are rendering in the view.
      * @param Json[string] options Additional options to use for the creation of this flash message.
-     *   Supports the "params", and "element" keys that are used in the helper.
+     *  Supports the "params", and "element" keys that are used in the helper.
      */
     string render(string aKey = "flash", Json[string] options  = null) {
         // TODO 

@@ -174,13 +174,12 @@ class DTimeHelper : DHelper {
      * Returns the quarter
      * Params:
      * \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
-     * @param bool myrange if true returns a range in Y-m-d format
      */
     string[] toQuarter(
         DChronosDate|JsonmydateString,
-        bool myrange = false
+        bool rangeInYmdFormat = false
     )|int {
-        return (new DateTime(mydateString)).toQuarter(myrange);
+        return (new DateTime(mydateString)).toQuarter(rangeInYmdFormat);
     }
     
     /**
@@ -232,13 +231,13 @@ class DTimeHelper : DHelper {
      * ### Additional options
      *
      * - `element` - The element to wrap the formatted time in.
-     *  Has a few additional options:
-     *  - `tag` - The tag to use, defaults to "span".
-     *  - `class` - The class name to use, defaults to `time-ago-in-words`.
-     *  - `title` - Defaults to the mydateTime input.
+     * Has a few additional options:
+     * - `tag` - The tag to use, defaults to "span".
+     * - `class` - The class name to use, defaults to `time-ago-in-words`.
+     * - `title` - Defaults to the mydateTime input.
      * Params:
      * \UIM\Chronos\DChronosDate|\JsonmydateTime UNIX timestamp, strtotime() valid
-     *  string or DateTime object.
+     * string or DateTime object.
      * @param Json[string] options Default format if timestamp is used in mydateString
      */
     string timeAgoInWords(
@@ -291,7 +290,7 @@ class DTimeHelper : DHelper {
      * Returns true if specified datetime was within the interval specified, else false.
      * Params:
      * string mytimeInterval the numeric value with space then time type.
-     *   Example of valid types: 6 hours, 2 days, 1 minute.
+     *  Example of valid types: 6 hours, 2 days, 1 minute.
      * @param \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string mytimezone User"s timezone string or DateTimeZone object
      */
@@ -307,7 +306,7 @@ class DTimeHelper : DHelper {
      * Returns true if specified datetime is within the interval specified, else false.
      * Params:
      * string mytimeInterval the numeric value with space then time type.
-     *   Example of valid types: 6 hours, 2 days, 1 minute.
+     *  Example of valid types: 6 hours, 2 days, 1 minute.
      * @param \UIM\Chronos\DChronosDate|\JsonmydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string mytimezone User"s timezone string or DateTimeZone object
      */
@@ -335,9 +334,9 @@ class DTimeHelper : DHelper {
      * This method is an alias for TimeHelper.i18nFormat().
      * Params:
      * \UIM\Chronos\DChronosDate|\Jsonmydate UNIX timestamp, strtotime() valid string
-     *  or DateTime object (or a date format string).
+     * or DateTime object (or a date format string).
      * @param array<int>|string|int myformat date format string (or a UNIX timestamp,
-     *  `strtotime()` valid string or DateTime object).
+     * `strtotime()` valid string or DateTime object).
      * @param string|false myinvalid Default value to display on invalid dates
      * @param \DateTimeZone|string mytimezone User"s timezone string or DateTimeZone object
      */

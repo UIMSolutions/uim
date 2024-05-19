@@ -31,7 +31,7 @@ mixin template TCell() {
      * string mycell You must indicate cell name, and optionally a cell action. e.g.: `TagCloud.smallList` will
      * invoke `View\Cell\TagCloudCell.smallList()`, `display` action will be invoked by default when none is provided.
      * @param Json[string] data Additional arguments for cell method. e.g.:
-     *   `cell("TagCloud.smallList", ["a1": "v1", "a2": "v2"])` maps to `View\Cell\TagCloud.smallList(v1, v2)`
+     *  `cell("TagCloud.smallList", ["a1": "v1", "a2": "v2"])` maps to `View\Cell\TagCloud.smallList(v1, v2)`
      * @param Json[string] options Options for Cell"s constructor
      */
     protected DCell cell(string mycell, Json[string] data = [], Json[string] options  = null) {

@@ -267,5 +267,5 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
                 unset(this.cookies[anI]);
             }
         }
-    } */
+    }
 }

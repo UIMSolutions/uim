@@ -194,5 +194,5 @@ class DDigest {
             result ~= ", opaque="" ~ credentials["opaque"] ~ """;
         }
         return result;
-    } */
+    }
 }

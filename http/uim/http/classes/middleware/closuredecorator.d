@@ -44,5 +44,5 @@ class DClosureDecoratorMiddleware { // }: IHttpMiddleware {
     
     Closure getCallable() {
         return _callable;
-    } */
+    }
 }

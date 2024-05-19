@@ -163,5 +163,5 @@ class DFormDataPart { // }: Stringable {
             result ~= "; %s*=%s""%s".format(name, _charset.lower, rawurlencode(aValue));
         }
         return result;
-    } */
+    }
 }

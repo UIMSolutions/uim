@@ -42,5 +42,5 @@ class DBasic {
      */
     protected string _generateHeader(string auser, string apass) {
         return "Basic " ~ base64_encode(user ~ ":" ~ pass);
-    } */
+    }
 }

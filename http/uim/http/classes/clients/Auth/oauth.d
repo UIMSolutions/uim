@@ -304,5 +304,5 @@ class DOauth {
         if (error.length > 0) {
             throw new UimException("openssl error: " ~ error);
         }
-    } */
+    }
 }

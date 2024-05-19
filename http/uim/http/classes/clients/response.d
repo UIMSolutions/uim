@@ -334,5 +334,5 @@ class DClientResponse { // }: Message : IResponse {
         this.stream.rewind();
 
         return _stream.getContents();
-    } */
+    }
 }

@@ -84,5 +84,5 @@ class DCspMiddleware { // }: IHttpMiddleware {
 
         /** @var \Psr\Http\Message\IResponse */
         return _csp.injectCSPHeader(response);
-    } */
+    }
 }

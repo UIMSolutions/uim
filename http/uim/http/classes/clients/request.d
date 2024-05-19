@@ -81,5 +81,5 @@ class DRequest { // }: Message, IRequest {
         stream = new DStream("D://memory", "rw");
         stream.write(myFormData);
         this.stream = stream;
-    } */
+    }
 }

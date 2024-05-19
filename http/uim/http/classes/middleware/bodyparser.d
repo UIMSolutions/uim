@@ -149,5 +149,5 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
         } catch (XmlException) {
             return null;
         }
-    } */
+    }
 }

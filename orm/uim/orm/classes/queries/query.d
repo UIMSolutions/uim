@@ -1304,5 +1304,5 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         }
 
         return result;
-    } */
+    }
 }

@@ -25,5 +25,5 @@ class DUpdateQuery : DQuery {
             this.update(myrepository.getTable());
         }
         return super.sql(mybinder);
-    } */
+    }
 }

@@ -509,5 +509,5 @@ class DResultset : IResultset {
         return [
             "items": items,
         ];
-    } */
+    }
 }

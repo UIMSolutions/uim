@@ -1481,5 +1481,5 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      */
     bool isAutoFieldsEnabled() {
         return _autoFields;
-    } */
+    }
 }

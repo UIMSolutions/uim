@@ -29,5 +29,5 @@ class QueryFactory {
      */
     DeleteQuery remove(Table mytable) {
         return new DeleteQuery(mytable);
-    } */
+    }
 }

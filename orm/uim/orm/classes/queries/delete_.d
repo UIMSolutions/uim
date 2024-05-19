@@ -21,5 +21,5 @@ class DeleteQuery : DQuery {
             this.from([myrepository.aliasName(): myrepository.getTable()]);
         }
         return super.sql(mybinder);
-    } */
+    }
 }

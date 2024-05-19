@@ -184,5 +184,5 @@ class DResultsetFactory {
             results = new mydata["entityClass"](results, options);
         }
         return results;
-    } */
+    }
 }

@@ -304,5 +304,5 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
                             myname = Inflector.camelize(myname);
                         }
                         return myname;
-                    } */
+                    }
 }

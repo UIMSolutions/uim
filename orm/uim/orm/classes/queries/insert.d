@@ -21,5 +21,5 @@ class DInsertQuery : DQuery {
             this.into(myrepository.getTable());
         }
         return super.sql(mybinder);
-    } */
+    }
 }

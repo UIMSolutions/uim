@@ -393,13 +393,8 @@ mixin template TQuery() {
         return _all().first();
     }
 
-    /**
-     * Get the first result from the executing query or raise an exception.
-     *
-     * @throws uim.Datasource\exceptions.RecordNotFoundException When there is no first record.
-     * @return uim.Datasource\IDatasourceEntity|array The first result from the Resultset.
-     */
-    function firstOrFail() {
+    // Get the first result from the executing query or raise an exception.
+    IDatasourceEntity firstOrFail() {
         entity = this.first();
         if (!entity) {
             table = getRepository();

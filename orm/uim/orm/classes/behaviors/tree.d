@@ -362,9 +362,8 @@ class DTreeBehavior : DBehavior {
      * @param DORMDatasource\IORMEntity node The entity to count children for
      * @param bool direct whether to count all nodes in the subtree or just
      * direct children
-     * @return int Number of children nodes.
      */
-    int childCount(IORMEntity node, bool direct = false) {
+    int countChildNodes(IORMEntity node, bool direct = false) {
         myConfiguration = configuration;
         parent = _table.aliasField(configuration.get("parent"));
 

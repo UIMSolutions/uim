@@ -128,9 +128,8 @@ class DExceptionTrap {
      *
      * @param \Throwable exception Exception to render
      * @param IServerRequest|null request The request if possible.
-     * @return uim.errors.IExceptionRenderer
      */
-    function renderer(Throwable exception, request = null) {
+    IExceptionRenderer renderer(Throwable exception, request = null) {
         request = request ?? Router.getRequest();
 
         /** @var class-string|callable aClassName */

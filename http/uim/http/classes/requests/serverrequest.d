@@ -751,9 +751,6 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string aName The header name.
      * @param string[] avalue The header value
-     * @return static
-     * @link https://www.d-fig.org/psr/psr-7/ This method is part of the PSR-7 server request interface.
-     * @DcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     static auto withAddedHeader(string aName, aValue) {
         new = clone this;

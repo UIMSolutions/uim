@@ -49,9 +49,8 @@ interface ICookie {
      * Create a cookie with an updated domain
      * Params:
      * string adomain Domain to set
-     * @return static
      */
-    // TODO static withDomain(string adomain);
+    static auto withDomain(string adomain);
 
     /**
      * Get the current expiry time

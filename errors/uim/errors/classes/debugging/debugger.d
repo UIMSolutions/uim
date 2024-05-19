@@ -285,7 +285,6 @@ class DDebugger {
      *
      * @param string file The file to create a link for.
      * @param int line The line number to create a link for.
-     * @return string The formatted URL.
      */
     static string editorUrl(string file, int line) {
         instance = getInstance();

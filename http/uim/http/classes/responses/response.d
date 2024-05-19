@@ -965,10 +965,8 @@ class DResponse : IResponse {
      * Create a new response with the Content-Length header set.
      * Params:
      * string|int bytes Number of bytes
-     * @return static
      */
-    auto withLength(string|int bytes): static
-    {
+    static auto withLength(string|int bytes) {
         return _withHeader("Content-Length", (string)bytes);
     }
     

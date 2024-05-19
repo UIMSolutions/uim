@@ -426,7 +426,6 @@ class DPaginator : IPaginator {
      *
      * @param Json[string] myParams Request params.
      * @param Json[string] settings The settings to merge with the request data.
-     * @return Array of merged options.
      */
     Json[string] mergeOptions(Json[string] myParams, Json[string] settings) {
         if (!settings.isEmpty("scope"))) {

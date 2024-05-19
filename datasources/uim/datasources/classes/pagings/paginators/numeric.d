@@ -569,7 +569,6 @@ class DNumericPaginator : IPaginator {
      *
      * @param Json[string] fields Current fields
      * @param string model Current model alias
-     * @return Json[string] fields Unaliased fields where applicable
      */
     protected Json[string] _removeAliases(string[] fieldNames, string model) {
         result = null;

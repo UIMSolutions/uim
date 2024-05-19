@@ -97,6 +97,6 @@ class DDashedRoute : DRoute {
             .each!(element => urlKeys[element] = Inflector.dasherize(urlKeys[element]));
 
         return urlKeys;
-    } */
+    }
 }
 mixin(RouteCalls!("Dashed"));

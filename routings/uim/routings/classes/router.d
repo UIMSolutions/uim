@@ -711,5 +711,5 @@ class DRouter {
             _routePaths[myurl] = mydefaults;
         }
         return mydefaults;
-    } */
+    }
 }

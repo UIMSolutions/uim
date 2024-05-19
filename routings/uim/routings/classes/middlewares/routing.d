@@ -83,5 +83,5 @@ class DRoutingMiddleware : IRoutingMiddleware {
         runner = new DRunner();
 
         return runner.run(middleware, request, handler);
-    } */
+    }
 }

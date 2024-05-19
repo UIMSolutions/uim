@@ -858,5 +858,5 @@ class DRouteBuilder {
        _collection.middlewareGroup(routings, mymiddlewareNames);
 
         return this;
-    } */
+    }
 }

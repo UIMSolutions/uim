@@ -304,5 +304,5 @@ class DAsset {
             plugin = first;
         }
         return [plugin, name];
-    } */
+    }
 }

@@ -116,5 +116,5 @@ class DAssetMiddleware : IRoutingMiddleware {
             .withHeader("Date", gmdate(DATE_RFC7231, time()))
             .withHeader("Last-Modified", gmdate(DATE_RFC7231, modified))
             .withHeader("Expires", gmdate(DATE_RFC7231, expire));
-    } */
+    }
 }

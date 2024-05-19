@@ -166,5 +166,5 @@ class DResultset { // TODO }: IResultset {
         return [
             "items": myitems,
         ];
-    } */
+    }
 }

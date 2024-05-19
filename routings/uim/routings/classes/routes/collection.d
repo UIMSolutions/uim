@@ -380,5 +380,5 @@ class DRouteCollection {
             result ~= _middleware[routings];
         });
         return result;
-    } */
+    }
 }

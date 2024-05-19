@@ -59,6 +59,6 @@ class DEntityRoute : DRoute {
                 get_debug_type(myentity)
             ));
         }
-    } */
+    }
 }
 mixin(RouteCalls!("Entity"));

@@ -154,5 +154,5 @@ mixin template TTranslateStrategy() {
      */
     void afterSave(IEvent event, IORMEntity anEntity) {
         entity.unset("_i18n");
-    } */
+    }
 }

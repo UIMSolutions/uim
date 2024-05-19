@@ -39,5 +39,5 @@ class DSessionHasKey : DConstraint {
      */
     override string toString() {
         return "is a path present in the session";
-    } */
+    }
 }

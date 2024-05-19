@@ -17,5 +17,5 @@ class DStatusSuccess : DStatusCodeBase {
     // Assertion message
     override string toString() {
         return "%d is between 200 and 308".format(this.response.statusCode());
-    } */
+    }
 }

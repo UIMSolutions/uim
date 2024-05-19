@@ -1134,5 +1134,5 @@ mixin template TIntegrationTest() {
     
     protected TestSession getSession() {
         return new DTestSession(_SESSION);
-    } */
+    }
 }

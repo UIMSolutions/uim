@@ -85,5 +85,5 @@ class DMiddlewareDispatcher {
         auto newServer = new DServer(_app);
 
         return newServer.run(_createRequest(requestSpec));
-    } */
+    }
 }

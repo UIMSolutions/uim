@@ -71,5 +71,5 @@ class DFlashParamEquals : DConstraint {
             return "is in \"%s\" %s #%d".format(this.key, this.param, this.at);
         }
         return "is in \"%s\" %s".format(this.key, this.param);
-    } */
+    }
 }

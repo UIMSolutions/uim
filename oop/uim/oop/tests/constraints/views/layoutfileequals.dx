@@ -9,5 +9,5 @@ class DLayoutFileEquals : DTemplateFileEquals {
     /* 
     override string toString() {
         return "equals layout file `%s`".format(this.filename);
-    } */
+    }
 }

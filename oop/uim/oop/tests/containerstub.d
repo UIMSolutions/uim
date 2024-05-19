@@ -111,6 +111,6 @@ mixin template TContainerStub() {
        _appArgs = null;
        _appClass = null;
         l__containerServices = null;
-    } */
+    }
 }
 

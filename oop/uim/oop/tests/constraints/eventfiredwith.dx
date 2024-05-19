@@ -84,5 +84,5 @@ class DEventFiredWith : DConstraint {
     // Assertion message string
     override string toString() {
         return "was fired with " ~ _dataKey ~ " matching " ~ to!string(_dataValue);
-    } */
+    }
 }

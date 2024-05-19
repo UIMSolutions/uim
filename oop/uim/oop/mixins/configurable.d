@@ -44,5 +44,5 @@ mixin template TConfigurable() {
         if (configuration) {
             configuration.set(key, newData);
         }
-    } */
+    }
 }

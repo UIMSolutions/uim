@@ -45,5 +45,5 @@ class DEventFired : DConstraint {
      */
     override string toString() {
         return "was fired";
-    } */
+    }
 }

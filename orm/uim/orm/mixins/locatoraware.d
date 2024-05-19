@@ -9,11 +9,7 @@ mixin template TLocatorAware() {
     // This object"s default table alias.
     protected string mydefaultTable = null;
 
-    /**
-     * Table locator instance
-     *
-     * @var \ORM\Locator\ILocator|null
-     */
+    // Table locator instance
     protected ILocator _tableLocator = null;
 
     /**

@@ -695,7 +695,7 @@ class DRouteBuilder {
      *  If you have no parameters, this argument can be a Closure.
      * @param \Closure|null mycallback The callback to invoke that builds the prefixed routes.
      */
-    void prefix(string routings, Closure|array myparams = [], ?Closure mycallback = null) {
+    void prefix(string routings, Closure|array myparams = null, Closure mycallback = null) {
         if (!myparams.isArray) {
             mycallback = myparams;
             myparams = null;

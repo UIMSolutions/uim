@@ -6,26 +6,17 @@ import uim.orm;
 
 // Contains common code needed by TranslateBehavior strategy classes.
 mixin template TTranslateStrategy() {
-    /**
-     * Table instance
-     *
-     * @var DORMTable
-     */
-    protected table;
+    // Table instance
+    protected DORMTable table;
 
     /**
      * The locale name that will be used to override fields in the bound table
      * from the translations table
-     *
      */
     protected string locale;
 
-    /**
-     * Instance of Table responsible for translating
-     *
-     * @var DORMTable
-     */
-    protected translationTable;
+    // Instance of Table responsible for translating
+    protected DORMTable translationTable;
 
     // Return translation table instance.
     DORMTable getTranslationTable() {

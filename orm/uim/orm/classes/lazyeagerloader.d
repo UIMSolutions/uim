@@ -45,7 +45,7 @@ class DLazyEagerLoader {
      * @param Json[string] mycontain The associations to be loaded
      * @param \ORM\Table mysource The table to use for fetching the top level entities
      */
-    protected ISelectQuery _getQuery(IORMEntity[] myentities, Json[string] mycontain, Table mysource)SelectQuery {
+    protected ISelectQuery _getQuery(IORMEntity[] myentities, Json[string] mycontain, Table mysource) {
         auto myprimaryKey = mysource.primaryKeys();
         auto mymethod = isString(myprimaryKey) ? "get" : "extract";
 

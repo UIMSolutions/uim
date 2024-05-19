@@ -12,12 +12,10 @@ mixin template TAssociationsNormalizer() {
     /**
      * Returns an array out of the original passed associations list where dot notation
      * is transformed into nested arrays so that they can be parsed by other routines
-     * Params:
-     * string[] myassociations The array of included associations.
      */
-     protected Json[string] _normalizeAssociations(string[] myassociations) {
+     protected Json[string] _normalizeAssociations(string[string] includedAssociations) {
         Json[string] result;
-        foreach (mytable, options; (array)myassociations) {
+        foreach (mytable, options; includedAssociations) {
             mypointer = &result;
 
             if (mytable.isInt) {
@@ -46,6 +44,7 @@ mixin template TAssociationsNormalizer() {
             mypointer["associated"] += [mytable: []];
             mypointer["associated"][mytable] = options + mypointer["associated"][mytable];
         }
+        
         return result["associated"] ?? result;
     }
 }

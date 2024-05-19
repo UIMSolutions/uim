@@ -29,18 +29,10 @@ class DValidationRule {
      */
     protected string _provider = "default";
 
-    /**
-     * The "on" key
-     *
-     * @var callable|string|null
-     */
-    protected _on = null;
+    // The "on" key
+    protected string _on = null;
 
-    /**
-     * Extra arguments to be passed to the validation method
-     *
-     * @var array
-      /
+    // Extra arguments to be passed to the validation method
     protected Json[string] _pass = null;
 
     /**

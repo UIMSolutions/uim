@@ -19,22 +19,22 @@ mixin template TTranslate() {
             return this;
         }
 
-        i18n = get("_translations");
-        created = false;
+        auto i18n = get("_translations");
+        auto isCreated = false;
 
         if (i18n.isEmpty) {
             i18n = null;
-            created = true;
+            isCreated = true;
         }
 
-        if (created || i18n.isEmpty(language) || !(i18n[language] instanceof IORMEntity)) {
+        if (isCreated || i18n.isEmpty(language) || !(i18n[language] instanceof IORMEntity)) {
             className = class;
 
             i18n[language] = new className();
-            created = true;
+            isCreated = true;
         }
 
-        if (created) {
+        if (isCreated) {
             set("_translations", i18n);
         }
 

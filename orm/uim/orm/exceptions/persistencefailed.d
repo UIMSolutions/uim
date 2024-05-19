@@ -25,7 +25,6 @@ class DPersistenceFailedException : DORMException {
 
 mixin(ExceptionCalls!("PersistenceFailed"));
 
-/*
     // The entity on which the persistence operation failed
     protected IORMEntity _entity;
 

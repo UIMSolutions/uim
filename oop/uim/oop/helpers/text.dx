@@ -996,5 +996,5 @@ class DText {
             mymap["/[%s]+/mu".format(myquotedReplacement)] = options["replacement"];
         }
         return (string)preg_replace(mymap.keys, mymap, mystring);
-    } */
+    }
 }

@@ -265,5 +265,5 @@ REGEXP;
     // Returns the DSN class map for this class.
     static array<string, class-string> getDsnClassMap() {
         return _dsnClassMap;
-    } */
+    }
 }

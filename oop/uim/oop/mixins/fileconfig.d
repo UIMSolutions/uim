@@ -35,5 +35,5 @@ mixin template TFileConfig() {
             return realFilePath;
         }
         throw new UimException("Could not load configuration file: `%s`.".format(filePath));
-    } */
+    }
 }

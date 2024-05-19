@@ -1083,5 +1083,5 @@ class Hash {
         }
         /** @var list<array> * /
         return array_values(result);
-    } */
+    }
 }

@@ -47,5 +47,5 @@ class OpenSsl {
 
         auto value = openssl_decrypt(cipher, decryptMethod, cipherKey, OPENSSL_RAW_DATA, iv);
         return value.isEmpty ? null : value;
-    } */
+    }
 }

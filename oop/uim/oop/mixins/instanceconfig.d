@@ -236,5 +236,5 @@ mixin template TInstanceConfig() {
             }
             update = &update[myKey];
         }
-    } */
+    }
 }

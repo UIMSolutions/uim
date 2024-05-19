@@ -129,5 +129,5 @@ mixin template TCookieCrypt() {
             myarray[aKey[0]] = aKey[1];
         }
         return myarray;
-    } */
+    }
 }

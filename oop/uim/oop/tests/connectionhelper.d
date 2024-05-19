@@ -116,5 +116,5 @@ class DConnectionHelper {
                 dbConnection.disableConstraints(fn (Connection aConnection): aCallback(aConnection));
             });
         }
-    } */
+    }
 }

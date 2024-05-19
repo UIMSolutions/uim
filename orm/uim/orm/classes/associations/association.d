@@ -393,7 +393,7 @@ class DAssociation : IAssociation {
                 msg = "Association property name '%s' clashes with field of same name of table '%s'." ~
                     " You should explicitly specify the " propertyName" option.";
                 trigger_error(
-                    sprintf(msg, _propertyName, _sourceTable.getTable()),
+                     msg.format(_propertyName, _sourceTable.getTable()),
                     E_USER_WARNING
                 );
             }

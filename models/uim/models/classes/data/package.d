@@ -31,9 +31,8 @@ public {
 }
 
 public { // Modules
-    import uim.models.datatypes.data;
-    import uim.models.datatypes.helper;
-    import uim.models.datatypes.interface_;
-    import uim.models.datatypes.null_;
-    import uim.models.datatypes.mixin_;
+    import uim.models.classes.data.helper;
+    import uim.models.classes.data.interface_;
+    import uim.models.classes.data.null_;
+    import uim.models.classes.data.mixin_;
 }

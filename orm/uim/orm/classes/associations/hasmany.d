@@ -68,7 +68,7 @@ class DHasManyAssociation : DAssociation {
      */
     void setSaveStrategy(string strategy) {
         if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
-            msg = sprintf("Invalid save strategy '%s'", strategy);
+            msg =  "Invalid save strategy '%s'".format(strategy);
             throw new DInvalidArgumentException(msg);
         }
 

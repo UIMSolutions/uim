@@ -607,9 +607,8 @@ class DResponse : IResponse {
      * content type will not take effect as these status codes do not have content-types.
      * Params:
      * string acontentType Either a file extension which will be mapped to a mime-type or a concrete mime-type.
-     * @return static
      */
-    static withType(string acontentType) {
+    static auto withType(string acontentType) {
         mappedType = this.resolveType(contentType);
         new = clone this;
         new._setContentType(mappedType);

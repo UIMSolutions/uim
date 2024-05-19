@@ -1312,7 +1312,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     ) {
         if (myMessage.isNull) {
             if (!_useI18n) {
-                myMessage = sprintf("The provided value must not be same as `%s`", mysecondField);
+                myMessage =  "The provided value must not be same as `%s`".format(mysecondField);
             } else {
                 myMessage = __d("uim", "The provided value must not be same as `{0}`", mysecondField);
             }

@@ -70,10 +70,8 @@ class DSelectLoader {
      * iterator. The options accepted by this method are the same as `Association.eagerLoader()`
      *
      * @param Json[string] options Same options as `Association.eagerLoader()`
-     * @return \Closure
      */
-    function buildEagerLoader(Json[string] optionData): Closure
-    {
+    Closure buildEagerLoader(Json[string] optionData) {
         auto updatedOptions = options.update_defaultOptions();
         fetchQuery = _buildQuery(options);
         resultMap = _buildResultMap(fetchQuery, options);

@@ -990,7 +990,7 @@ class DText {
         myquotedReplacement = preg_quote((string)options["replacement"], "/");
         mymap = [
             "/[" ~ myregex ~ "]/mu": options["replacement"],
-            sprintf("/^[%s]+|[%s]+my/", myquotedReplacement, myquotedReplacement): "",
+             "/^[%s]+|[%s]+my/".format(myquotedReplacement, myquotedReplacement): "",
         ];
         if (isString(options["replacement"]) && !options["replacement"].isEmpty) {
             mymap["/[%s]+/mu".format(myquotedReplacement)] = options["replacement"];

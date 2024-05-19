@@ -28,11 +28,8 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         return CODE_SUCCESS;
     }
     
-    /**
-     * Output text.
-     * @param iterable<string, string|object> commands The command collection to output.
-     */
-    protected void asText(IConsoleIo aConsoleIo, STRINGAA commands) {
+    // Output text.
+    protected void asText(IConsoleIo aConsoleIo, STRINGAA commandCollection) {
         string[][string] myInvert = null;
         foreach (name, className; commands) {
             /* if (isObject(className)) {

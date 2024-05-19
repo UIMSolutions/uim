@@ -819,8 +819,6 @@ abstract class DQuery : IQuery { // : IExpression {
      * This method does allow empty inputs in contrast to where() if you set
      * 'allowEmpty' to true.
      * Be careful about using it without proper sanity checks.
-     * Params:
-     * @param Json[string]  someValues Array of values
      */
     auto whereNotInList(string fieldName, Json[string] someValues, Json[string] options = null) {
         auto auto updatedOptions = options.update([

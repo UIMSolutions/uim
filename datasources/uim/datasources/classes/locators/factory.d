@@ -13,14 +13,10 @@ class DFactoryLocator {
     // A list of model factory functions.
     protected static ILocator[string] _modelFactories;
 
-    /**
-     * Register a callable to generate repositories of a given type.
-     *
-     * @param string type The name of the repository type the factory bool is for.
-     */
+    // Register a callable to generate repositories of a given type.
     static void add(string repositoryType, ILocator factory) {
         if (factory instanceof ILocator) {
-            _modelFactories[type] = factory;
+            _modelFactories[repositoryType] = factory;
 
             return;
         }

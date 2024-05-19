@@ -7,13 +7,8 @@ import uim.databases;
  * going from D into a database.
  */
 interface IType {
-    /**
-     * Casts given value from a D type to one acceptable by a database.
-     * Params:
-     * Json aValue Value to be converted to a database equivalent.
-     * @param \UIM\Database\Driver driver Object from which database preferences and configuration will be extracted.
-     */
-    Json toDatabase(Json aValue, IDriver driver) ;
+    // Casts given value from a D type to one acceptable by a database.
+    Json toDatabase(Json valueToConvert, IDriver driver) ;
 
     // Casts given value from a database type to a D equivalent.
     Json ToD(Json valueToConvert, IDriver driver);

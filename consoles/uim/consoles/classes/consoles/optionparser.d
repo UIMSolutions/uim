@@ -508,17 +508,14 @@ class DConsoleOptionParser {
     /**
      * Parse the value for a long option out of _tokens. Will handle
      * options with an `=` in them.
-     * Params:
-     * string optionToParse The option to parse.
-     * @param params The params to append the parsed value into
      */
-    protected Json[string] _parseLongOption(string optionToParse, Json[string] params) {
+    protected Json[string] _parseLongOption(string optionToParse, Json[string] paramsData) {
         string name = substr(optionToParse, 2);
         if (name.has("=")) {
             [name, aValue] = split("=", name, 2);
             array_unshift(_tokens, aValue);
         }
-        return _parseOption(name, params);
+        return _parseOption(name, paramsData);
     }
     
     /**

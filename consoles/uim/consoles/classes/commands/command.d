@@ -191,11 +191,8 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * If you are using a string command name, that command`s dependencies
      * will not be resolved with the application container. Instead you will
      * need to pass the command as an object with all of its dependencies.
-     * Params:
-     * \UIM\Console\ICommand|string acommand The command class name or command instance.
-     * @param \UIM\Console\ConsoleIo|null  aConsoleIo The ConsoleIo instance to use for the executed command.
      */
-    int executeCommand(string acommand, Json[string] commandArguments = null, IConsoleIo aConsoleIo = null) {
+    int executeCommand(string commandClass name, Json[string] commandArguments = null, IConsoleIo aConsoleIo = null) {
         assert(
             isSubclass_of(command, ICommand.classname),
             "Command `%s` is not a subclass of `%s`.".format(command, ICommand.classname)

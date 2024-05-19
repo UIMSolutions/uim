@@ -190,14 +190,9 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         return array_merge(resolved, passedParams);
     }
     
-    /**
-     * Coerces string argument to primitive type.
-     * Params:
-     * string aargument Argument to coerce
-     * @param \ReflectionNamedType type Parameter type
-     */
-    protected string[]|float|bool|null coerceStringToType(string argumentToCoerce, ReflectionNamedType type) {
-        return match (type.name) {
+    // Coerces string argument to primitive type.
+    protected string[] coerceStringToType(string argumentToCoerce, ReflectionNamedType parameterType) {
+        return match (parameterType.name) {
             "string": argumentToCoerce,
             "float": isNumeric(argumentToCoerce) ? (float)argumentToCoerce : null,
             "int": filter_var(argumentToCoerce, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE),

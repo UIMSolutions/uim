@@ -26,7 +26,7 @@ interface ICollection {
      * });
      * ```
      */
-    // ICollection each(callable callbackforeachElement);
+    ICollection each(callable callbackforeachElement);
 
     /**
      * Looks through each value in the collection, and returns another collection with
@@ -73,7 +73,7 @@ interface ICollection {
      * });
      * ```
      */
-    // ICollection reject(callable callbackForEachElement);
+    ICollection reject(callable callbackForEachElement);
 
     /**
      * Returns true if all values in this collection pass the truth test provided
@@ -91,7 +91,7 @@ interface ICollection {
      * ```
      * Empty collections always return true.
      */
-    // bool every(callable callback);
+    bool every(callable callback);
 
     /**
      * Returns true if any of the values in this collection pass the truth test
@@ -108,13 +108,13 @@ interface ICollection {
      * });
      * ```
      */
-    // bool any(callable callback);
+    bool any(callable callback);
 
     /**
      * Returns true if value is present in this collection. Comparisons are made
      * both by value and type.
      */
-    // bool contains(Json value);
+    bool contains(Json value);
 
     /**
      * Returns another collection after modifying each of the values in this one using
@@ -134,7 +134,7 @@ interface ICollection {
      * });
      * ```
      */
-    // ICollection map(callable callback);
+    ICollection map(callable callback);
 
     /**
      * Folds the values in this collection to a single value, as the result of
@@ -197,18 +197,18 @@ interface ICollection {
      * ### Examples:
      *
      * ```
-     */ For a collection of employees
+     * For a collection of employees
      * max = collection.max("age");
      * max = collection.max("user.salary");
      * max = collection.max(// function (e) {
      * return e.get("user").get("salary");
      * });
      *
-     */ Display employee name
+     * Display employee name
      * writeln(max.name;
      * ```
      */
-    // Json max(string columnName, int sortType = SORT_NUMERIC);
+    Json max(string columnName, int sortType = SORT_NUMERIC);
 
     /**
      * Returns the bottom element in this collection after being sorted by a property.
@@ -217,14 +217,14 @@ interface ICollection {
      * ### Examples:
      *
      * ```
-     */ For a collection of employees
+     * For a collection of employees
      * min = collection.min("age");
      * min = collection.min("user.salary");
      * min = collection.min(// function (e) {
      * return e.get("user").get("salary");
      * });
      *
-     */ Display employee name
+     * Display employee name
      * writeln(min.name;
      * ```
      */
@@ -244,16 +244,16 @@ interface ICollection {
      *
      * total = (new DCollection(items)).avg("invoice.total");
      *
-     */ Total: 150
+     * Total: 150
      *
      * total = (new DCollection([1, 2, 3])).avg();
-     */ Total: 2
+     * Total: 2
      * ```
      *
      * The average of an empty set or 0 rows is `null`. Collections with `null`
      * values are not considered empty.
      */
-    // float avg(string propertyName = null);
+    float avg(string propertyName = null);
 
     /**
      * Returns the median of all the values extracted with path
@@ -272,20 +272,16 @@ interface ICollection {
      *
      * total = (new DCollection(items)).median("invoice.total");
      *
-     */ Total: 333
+     * Total: 333
      *
      * total = (new DCollection([1, 2, 3, 4])).median();
-     */ Total: 2.5
+     * Total: 2.5
      * ```
      *
      * The median of an empty set or 0 rows is `null`. Collections with `null`
      * values are not considered empty.
-     *
-     * @param callable|string path The property name to sum or a function
-     * If no value is passed, an identity // function will be used.
-     * that will return the value of the property to sum.
      */
-    // float median(path = null);
+    float median(string propertyName = null);
 
     /**
      * Returns a sorted iterator out of the elements in this collection,
@@ -305,13 +301,13 @@ interface ICollection {
      * return user.age;
      * });
      *
-     */ alternatively
+     * alternatively
      * items = collection.sortBy("age");
      *
-     */ or use a property path
+     * or use a property path
      * items = collection.sortBy("department.name");
      *
-     */ output all user name order by their age in descending order
+     * output all user name order by their age in descending order
      * foreach (items as user) {
      * writeln(user.name;
      * }

@@ -40,7 +40,7 @@ mixin(ExceptionCalls!("PersistenceFailed"));
      * @param int|null code The code of the error, is also the HTTP status code for the error.
      * @param \Throwable|null previous the previous exception.
      */
-    this(IORMEntity anEntity, myMessage, Nullable!int code = null, ?Throwable previous = null) {
+    this(IORMEntity anEntity, myMessage, Nullable!int code = null, Throwable previous = null) {
         _entity = entity;
         if ((myMessage.isArray) {
             myErrors = null;

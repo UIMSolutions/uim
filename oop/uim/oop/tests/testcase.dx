@@ -279,7 +279,7 @@ abstract class DTestCase : DBaseTestCase {
      * @param \UIM\Event\EventManager|null eventManager Event manager to check, defaults to global event manager
      * @param string amessage Assertion failure message
      */
-    void assertEventFired(string aName, ?EventManager eventManager = null, string amessage= null) {
+    void assertEventFired(string aName, EventManager eventManager = null, string amessage= null) {
         if (!eventManager) {
             eventManager = EventManager.instance();
         }

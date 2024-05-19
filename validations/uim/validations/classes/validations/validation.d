@@ -592,7 +592,7 @@ class DValidation {
      * @param bool mydeep Perform a deeper validation (if true), by also checking availability of host
      * @param string|null myregex Regex to use (if none it will use built in regex)
      */
-    static bool email(Json mycheck, ?bool mydeep = false, string myregex = null) {
+    static bool email(Json mycheck, bool mydeep = false, string myregex = null) {
         if (!isString(mycheck)) {
             return false;
         }

@@ -384,7 +384,7 @@ mixin template TIntegrationTest() {
      * \UIM\Event\IEvent event A dispatcher event.
      * @param \UIM\Controller\Controller|null controller Controller instance.
      */
-    void controllerSpy(IEvent event, ?Controller controller = null) {
+    void controllerSpy(IEvent event, Controller controller = null) {
         if (!controller) {
             controller = event.getSubject();
             assert(cast(DController)controller);

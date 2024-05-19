@@ -194,7 +194,7 @@ class DEagerLoader {
      * options to the filtering query
      * @param Json[string] options Extra options for the association matching.
      */
-    void setMatching(string associationPath, ?callable builder = null, Json[string] optionData = null) {
+    void setMatching(string associationPath, callable builder = null, Json[string] optionData = null) {
         if (_matching == null) {
             _matching = new static();
         }

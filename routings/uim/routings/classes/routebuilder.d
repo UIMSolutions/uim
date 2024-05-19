@@ -264,7 +264,7 @@ class DRouteBuilder {
      * @param \Closure|null mycallback An optional callback to be executed in a nested scope. Nested
      *  scopes inherit the existing path and "id" parameter.
      */
-    auto resources(string routings, Closure|Json[string] optionData = null, ?Closure mycallback = null) {
+    auto resources(string routings, Closure|Json[string] optionData = null, Closure mycallback = null) {
         if (!options.isArray) {
             mycallback = options;
             options = null;

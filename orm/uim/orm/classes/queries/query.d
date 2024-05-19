@@ -574,7 +574,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param callable|null builder a function that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      */
-    void leftJoinWith(string assoc, ?callable builder = null) {
+    void leftJoinWith(string assoc, callable builder = null) {
         result = getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query.JOIN_TYPE_LEFT,
@@ -618,7 +618,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param callable|null builder a function that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      */
-    void innerJoinWith(string assoc, ?callable builder = null) {
+    void innerJoinWith(string assoc, callable builder = null) {
         result = getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query.JOIN_TYPE_INNER,
@@ -679,7 +679,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * that can be used to add custom conditions or selecting some fields
      * @return this
      */
-    function notMatching(string assoc, ?callable builder = null) {
+    function notMatching(string assoc, callable builder = null) {
         result = getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query.JOIN_TYPE_LEFT,

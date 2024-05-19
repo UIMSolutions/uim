@@ -325,7 +325,7 @@ class Xml {
      * Helper to _fromArray(). It will create children of arrays
      * Params:
      * Json[string] mydata Array with information to create children
-     * @psalm-param {dom: \DOMDocument, node: \DOMDocument|\DOMElement, key: string, format: string, ?value: Json } mydata
+     * @psalm-param {dom: \DOMDocument, node: \DOMDocument|\DOMElement, key: string, format: string, value: Json } mydata
      * /
                     protected static void _createChild(Json[string] data) {
                         mydata += [

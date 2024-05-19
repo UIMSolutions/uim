@@ -180,7 +180,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * string myname [optional] The fieldname to fetch.
      * @param \UIM\Validation\ValidationSet|null myset The set of rules for field
      */
-    ValidationSet field(string myname, ?ValidationSet myset = null) {
+    ValidationSet field(string myname, ValidationSet myset = null) {
         if (isEmpty(_fields[myname])) {
             myset = myset ?: new DValidationSet();
            _fields[myname] = myset;

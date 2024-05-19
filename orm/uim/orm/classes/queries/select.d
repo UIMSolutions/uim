@@ -295,7 +295,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * @param \Closure|null myreducer The reducing function
      * @param bool myoverwrite Set to true to overwrite existing map + reduce functions.
      */
-    void mapReduce(?Closure mymapper = null, ?Closure myreducer = null, bool myoverwrite = false) {
+    void mapReduce(?Closure mymapper = null, Closure myreducer = null, bool myoverwrite = false) {
         if (myoverwrite) {
            _mapReduce = null;
         }

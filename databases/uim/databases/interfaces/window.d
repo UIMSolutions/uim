@@ -57,12 +57,8 @@ interface IWindow {
      * Adds a simple rows frame to the window.
      *
      * See `range()` for details.
-     * Params:
-     * int start Frame start
-     * @param int end Frame end
-     * If not passed in, only frame start SQL will be generated.
      */
-    auto rows(int start, int end = 0);
+    auto rows(int frameStart, int frameEnd = 0);
 
     /**
      * Adds a simple groups frame to the window.

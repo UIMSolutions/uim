@@ -18,17 +18,16 @@ class DTupleComparisonExpression : DComparisonExpression {
      
      * Params:
      * \UIM\Database\IExpression|string[] fieldNames the fields to use to form a tuple
-     * @param \UIM\Database\IExpression|array  someValues the values to use to form a tuple
      * @param array<string> types the types names to use for casting each of the values, only
      * one type per position in the value array in needed
      */
     this(
         IExpression | string[] fieldNames,
         IExpression | Json[string] someValues,
-        Json[string] types = null,
+        Json[string] typesNames = null,
         string compareOperator = "="
     ) {
-        this.types = types;
+        this.typesNames = typesNames;
         setFieldNames(fields);
         _operator = compareOperator;
         setValue(someValues);
@@ -84,7 +83,7 @@ class DTupleComparisonExpression : DComparisonExpression {
             foreach (someParts as anI : aValue) {
                 if (cast(IExpression) aValue) {
                     someValues ~= aValue.sql(aBinder); continue;}
-                    type = this.types; isMultiOperation = this.isMulti(); if (isEmpty(type)) {
+                    type = this.typesNames; isMultiOperation = this.isMulti(); if (isEmpty(type)) {
                         type = null;}
                         if (isMultiOperation) {
                             string[] bound = null; aValue.byKeyValue

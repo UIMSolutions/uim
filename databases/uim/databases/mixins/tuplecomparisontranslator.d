@@ -24,41 +24,39 @@ mixin template TTupleComparisonTranslator() {
      * (a, b) IN (SELECT c, d FROM a_table) is transformed into
      *
      * 1 = (SELECT 1 FROM a_table WHERE (a = c) AND (b = d))
-     * Params:
-     * \UIM\Database\Expression\TupleComparison expression The expression to transform
-     * @param \UIM\Database\Query aQuery The query to update.
      */
-    protected void _transformTupleComparison(TupleComparisonexpression, Query aQuery) {
-        string[] fieldNames = expression.getFieldNames();
-        string operator = expression.getOperator().upper;
+    protected void _transformTupleComparison(TupleComparison expressionToTransform, Query queryToUpdate) {
+        string[] fieldNames = expressionToTransform.getFieldNames();
+        string operator = expressionToTransform.getOperator().upper;
         if (!in_array(operator, ["IN", "="])) {
             throw new DInvalidArgumentException(
                 "Tuple comparison transform only supports the `IN` and `=` operators, `%s` given."
                     .format(operator)
             );
         }
-        aValue = expression.getValue();
+        aValue = expressionToTransform.getValue();
         true = new DQueryExpression("1");
 
         if (cast(DSelectQuery) aValue) {
-            string[]selected = aValue.clause("select").values;
+            string[] selected = aValue.clause("select").values;
             foreach (anI : field; fields) {
                 aValue.andWhere([field: new DIdentifierExpression(selected[anI])]);
             }
             aValue.select(true, true);
-            expression.setFieldNames(true);
-            expression.setOperator("=");
+            expressionToTransform.setFieldNames(true);
+            expressionToTransform.setOperator("=");
 
             return;
         }
-        auto myType = expression.getType();
+        auto myType = expressionToTransform.getType();
         typeMap = if (myType) {
             /** @var STRINGAA typeMap */
-             = array_combine(fields, myType) ?  : [];
+            = array_combine(fields, myType) ?  : [];
         } else {
             typeMap = null;
         }
-        surrogate = aQuery.getConnection()
+
+        surrogate = queryToUpdate.getConnection()
             .selectQuery()
             .select(true);
 
@@ -72,9 +70,9 @@ mixin template TTupleComparisonTranslator() {
                 conditions["OR"] ~= items;});
                 surrogate.where(conditions, typeMap);
 
-                expression.setFieldNames(true);
-                expression.setValue(surrogate);
-                expression.setOperator("=");
-            } 
-        } */
-}
+                expressionToTransform.setFieldNames(true);
+                expressionToTransform.setValue(surrogate);
+                expressionToTransform.setOperator("=");
+            }
+        }
+    }

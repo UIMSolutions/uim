@@ -15,7 +15,6 @@ interface ISqlGenerator {
      *
      * Uses the connection to access the schema dialect
      * to generate platform specific SQL.
-     * @param DDBAConnection connection The connection to generate SQL for.
      */
     Json[string] createSql(Connection connection);
 

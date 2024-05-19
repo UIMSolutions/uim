@@ -156,12 +156,12 @@ class DConnectionManager {
      *
      * @param string aName The connection name.
      */
-    static IConnection get(string aName, bool useAliases = true) {
-        if (useAliases && isset(_aliasMap[name])) {
-            name = _aliasMap[name];
+    static IConnection get(string connectionName, bool useAliases = true) {
+        if (useAliases && isset(_aliasMap[connectionName])) {
+            connectionName = _aliasMap[connectionName];
         }
-        if (configuration.isEmpty(name])) {
-            throw new DMissingDatasourceConfigException(["name": name]);
+        if (configuration.isEmpty(connectionName)) {
+            throw new DMissingDatasourceConfigException(["name": connectionName]);
         }
         /** @psalm-suppress RedundantPropertyInitializationCheck  */
         if (!isset(_registry)) {
@@ -169,10 +169,10 @@ class DConnectionManager {
         }
 
         return _registry. {
-            name
+            connectionName
         }
         
-        ?  ? _registry.load(name, configuration.get(name]);
+        ?  ? _registry.load(connectionName, configuration.get(connectionName]);
     } 
 }
 /**
@@ -225,9 +225,8 @@ static Json[string] parseDsn(string adsn) {
      * ### Usage
      *
      * ```
-     */ Make 'things' resolve to 'test_things' connection
+     * Make 'things' resolve to 'test_things' connection
      * ConnectionManager.alias("test_things", "things");
-     * ```
      * Params:
      * @param string aalias The alias name that resolves to `source`.
      */

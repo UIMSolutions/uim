@@ -8,8 +8,6 @@ module uim.databases.interfaces.dbaexpression;
 @safe:
 import uim.databases;
 
-//TODO 
-
 // An interface used by Expression objects.
 interface IDBAExpression {
     // Converts the Node into a SQL string fragment.

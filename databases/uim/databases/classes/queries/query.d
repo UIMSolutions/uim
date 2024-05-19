@@ -1338,17 +1338,9 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      * aQuery.bind(":id", 1, "integer");
      * ```
-     * Params:
-     * string|int param placeholder to be replaced with quoted version
-     * of aValue
-     * @param Json aValue The value to be bound
-     * @param string|int type the mapped type name, used for casting when sending
-     * to database
      */
-    auto bind(string|int param, Json aValue, string|int type = null) {
-        getValueBinder().bind(param, aValue, type);
-
-        return this;
+    void bind(string placeholderToQuote, Json valueToBound, string typeName = null) {
+        getValueBinder().bind(placeholderToQuote, valueToBound, typeName);
     }
     
     /**

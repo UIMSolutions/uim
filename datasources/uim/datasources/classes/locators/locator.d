@@ -33,22 +33,16 @@ abstract class DAbstractLocator : ILocator {
         return _instances[aliasName] = this.createInstance(aliasName, options);
     }
 
-    /**
-     * Create an instance of a given classname.
-     *
-     * @param string aliasNameName Repository aliasNameName.
-     * @param Json[string] options The options you want to build the instance with.
-     */
-    abstract protected IRepository createInstance(string aliasNameName, Json[string] optionData);
+    // Create an instance of a given classname.
+    abstract protected IRepository createInstance(string repositoryAlias, Json[string] optionData);
 
-
-    function set(string aliasNameName, IRepository repository) {
-        return _instances[aliasNameName] = repository;
+    function set(string repositoryAlias, IRepository repository) {
+        return _instances[repositoryAlias] = repository;
     }
 
 
-    bool exists(string aliasNameName) {
-        return _instances.hasKey(aliasNameName);
+    bool exists(string repositoryAlias) {
+        return _instances.hasKey(repositoryAlias);
     }
 
 

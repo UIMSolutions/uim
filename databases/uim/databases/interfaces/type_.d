@@ -15,13 +15,8 @@ interface IType {
      */
     Json toDatabase(Json aValue, IDriver driver) ;
 
-    /**
-     * Casts given value from a database type to a D equivalent.
-     * Params:
-     * Json aValue Value to be converted to D equivalent
-     * @param \UIM\Database\Driver driver Object from which database preferences and configuration will be extracted
-     */
-    Json ToD(Json aValue, IDriver driver);
+    // Casts given value from a database type to a D equivalent.
+    Json ToD(Json valueToConvert, IDriver driver);
 
     /**
      * Get the binding type to use in a PDO statement.

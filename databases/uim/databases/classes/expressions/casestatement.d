@@ -76,12 +76,8 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * Note that `null` is a valid case value, and thus should
      * only be passed if you actually want to create the simple
      * case expression variant!
-     * Params:
-     * \UIM\Database\IExpression|object|scalar|null aValue The case value.
-     * @param string valueType The case value type. If no type is provided, the type will be tried to be inferred
-     * from the value.
      */
-    this(Json aValue = null, string valueType = null) {
+    this(Json caseValue = null, string valueType = null) {
         if (func_num_args() > 0) {
             if (
                 aValue !isNull &&

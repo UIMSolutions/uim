@@ -40,23 +40,22 @@ interface Document {
   /**
    * Puts the value related to the key.
    * @param value element value
-   * /
+   */
   void put(string key, DProperty value);
 
   /**
    * Gets the value for the key.
    *
    * @param key element key
-   * /
+   */
   DProperty get(string key);
 
   /**
    * Gets the stream of child documents.
    *
-   * @param key         element key
    * @param constructor constructor of child class
-   * /
-  Document[] children(string key);
+   */
+  Document[] children(string elementKey);
 }
 
 // DAbstract implementation of Document interface.
@@ -95,7 +94,7 @@ abstract class DAbstractDocument : Document {
   /**
    * Program entry point.
    * @param args command line args
-   * /
+   */
 
 /// DAbstractDocument test class
 class DAbstractDocumentTest {
@@ -154,7 +153,7 @@ class DAppTest {
    *
    * Solution: Inserted assertion to check whether the execution of the main method in {@link App}
    * throws an exception.
-   * /
+   */
 
   @Test
   void shouldExecuteAppWithoutException() {
@@ -236,7 +235,7 @@ class DomainTest {
   }
 
 }
-* /
+*/
 
 version(test_uim_oop) { unittest {
     writeln("Abstract Document Demo"); 
@@ -273,5 +272,5 @@ version(test_uim_oop) { unittest {
 }
   }
 }
-* /
+*/
 // } */

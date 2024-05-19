@@ -9,8 +9,8 @@ import uim.http;
  *
  * Examples:
  *
- *  - Request is invalid (e.g. method is missing)
- *  - Runtime request errors (e.g. the body stream is not seekable)
+ * - Request is invalid (e.g. method is missing)
+ * - Runtime request errors (e.g. the body stream is not seekable)
  */
 class DRequestException : RuntimeException, IRequestException {
     protected IRequest _request;

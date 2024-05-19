@@ -60,7 +60,7 @@ class DServer { // }: IEventDispatcher {
      * - App.bootstrap() - Perform any bootstrapping logic for your application here.
      * - App.middleware() - Attach any application middleware here.
      * - Trigger the `server.buildMiddleware' event. You can use this to modify the
-     *  from event listeners.
+     * from event listeners.
      * - Run the middleware queue including the application.
      * Params:
      * \Psr\Http\Message\IServerRequest|null request The request to use or null.
@@ -113,7 +113,7 @@ class DServer { // }: IEventDispatcher {
      * Params:
      * \Psr\Http\Message\IResponse response The response to emit
      * @param \UIM\Http\ResponseEmitter|null emitter The emitter to use.
-     *  When null, a SAPI Stream Emitter will be used.
+     * When null, a SAPI Stream Emitter will be used.
      */
     void emit(IResponse response, ResponseEmitter emitter = null) {
         if (!emitter) {

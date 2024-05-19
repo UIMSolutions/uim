@@ -17,7 +17,7 @@ class DUploadedFileFactory { //}: IUploadedFileFactory {
      * @link http://D.net/manual/features.file-upload.post-method.d
      * @link http://D.net/manual/features.file-upload.errors.d
      * @param \Psr\Http\Message\IStream stream The underlying stream representing the
-     *    uploaded file content.
+     *   uploaded file content.
      * @param int size The size of the file in bytes.
      * @param int error The D file upload error.
      * @param string clientFilename The filename as provided by the client, if any.

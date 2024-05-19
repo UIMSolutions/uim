@@ -47,12 +47,12 @@ class DSession {
      *
      * - D: just use session as configured in D.ini
      * - cache: Use the UIM caching system as an storage for the session, you will need
-     *  to pass the `config` key with the name of an already configured Cache engine.
+     * to pass the `config` key with the name of an already configured Cache engine.
      * - database: Use the UIM ORM to persist and manage sessions. By default this requires
-     *  a table in your database named `sessions` or a `model` key in the configuration
-     *  to indicate which Table object to use.
+     * a table in your database named `sessions` or a `model` key in the configuration
+     * to indicate which Table object to use.
      * - uim: Use files for storing the sessions, but let UIM manage them and decide
-     *  where to store them.
+     * where to store them.
      *
      * The full list of options follows:
      *
@@ -154,12 +154,12 @@ class DSession {
      *
      * - timeout: The time in minutes the session should be valid for.
      * - cookiePath: The url path for which session cookie is set. Maps to the
-     *  `session.cookie_path` D.ini config. Defaults to base path of app.
+     * `session.cookie_path` D.ini config. Defaults to base path of app.
      * - ini: A list of D.ini directives to change before the session start.
      * - handler: An array containing at least the `engine` key. To be used as the session
-     *  engine for persisting data. The rest of the keys in the array will be passed as
-     *  the configuration array for the engine. You can set the `engine` key to an already
-     *  instantiated session handler object.
+     * engine for persisting data. The rest of the keys in the array will be passed as
+     * the configuration array for the engine. You can set the `engine` key to an already
+     * instantiated session handler object.
      * Params:
      * Json[string] configData The Configuration to apply to this session object
      */

@@ -417,7 +417,7 @@ class DResponse : IResponse {
     
     /**
      * Formats the Content-Type header based on the configured contentType and charset
-     * the charset will only be set in the header if the response is of type text/*    * Params:
+     * the charset will only be set in the header if the response is of type text/*   * Params:
      * string atype The type to set.
      */
     protected void _setContentType(string atype) {
@@ -525,8 +525,8 @@ class DResponse : IResponse {
      * @link https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
      * @param int code The 3-digit integer status code to set.
      * @param string areasonPhrase The reason phrase to use with the
-     *    provided status code; if none is provided, implementations MAY
-     *    use the defaults as suggested in the HTTP specification.
+     *   provided status code; if none is provided, implementations MAY
+     *   use the defaults as suggested in the HTTP specification.
      * @throws \InvalidArgumentException For invalid status code arguments.
      */
     static auto withStatus(int code, string areasonPhrase = "") {
@@ -717,7 +717,7 @@ class DResponse : IResponse {
      * Create a new instace with the public/private Cache-Control directive set.
      * Params:
      * bool anIf set to true, the Cache-Control header will be set as public
-     *  if set to false, the response will be set to private.
+     * if set to false, the response will be set to private.
      * @param int time time in seconds after which the response should no longer be considered fresh.
      */
     static withSharable(bool public, int time = null) {
@@ -878,7 +878,7 @@ class DResponse : IResponse {
      * Json[string] with the current Vary header value is returned
      * Params:
      * string[]|string acacheVariances A single Vary string or an array
-     *  containing the list for variances.
+     * containing the list for variances.
      */
     static withVary(string[] acacheVariances) {
         return _withHeader("Vary", (array)cacheVariances);
@@ -973,7 +973,7 @@ class DResponse : IResponse {
      *
      * ```
      * response = response.withAddedLink("http://example.com?page=1", ["rel": "prev"])
-     *    .withAddedLink("http://example.com?page=3", ["rel": "next"]);
+     *   .withAddedLink("http://example.com?page=3", ["rel": "next"]);
      * ```
      *
      * Will generate:
@@ -1149,7 +1149,7 @@ class DResponse : IResponse {
      *
      * - name: Alternate download name
      * - download: If `true` sets download header and forces file to
-     *  be downloaded rather than displayed inline.
+     * be downloaded rather than displayed inline.
      * Params:
      * string aPath Absolute path to file.
      */

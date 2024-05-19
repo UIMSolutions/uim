@@ -17,7 +17,7 @@ class UriFactory { // }: IUriFactory {
      * Get a new Uri instance and base info from the provided server data.
      * Params:
      * array|null serverData Array of server data to build the Uri from.
-     *  _SERVER will be used if serverData parameter.isNull.
+     * _SERVER will be used if serverData parameter.isNull.
      */
     static Json[string] marshalUriAndBaseFromSapi(Json[string] serverData = null) {
         serverData ??= _SERVER;

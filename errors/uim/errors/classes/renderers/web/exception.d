@@ -268,11 +268,10 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Params:
      * \Throwable exception Exception instance.
      * @param string methodName Method name.
-     * @param int code Error code.
      */
-    protected string templateName(Throwable exception, string methodName, int code) {
+    protected string templateName(Throwable exception, string methodName, int errorCode) {
         if (cast(HttpException)exception || !configuration.hasKey("debug")) {
-            return _template = code < 500 ? "error400' : 'error500";
+            return _template = errorCode < 500 ? "error400' : 'error500";
         }
         if (cast(PDOException)exception) {
             return _template = "pdo_error";
@@ -280,11 +279,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         return _template = method;
     }
     
-    /**
-     * Gets the appropriate http status code for exception.
-     * Params:
-     * \Throwable exception Exception.
-     */
+    // Gets the appropriate http status code for exception.
     protected int getHttpCode(Throwable exception) {
         if (cast(HttpException)exception) {
             return exception.getCode();

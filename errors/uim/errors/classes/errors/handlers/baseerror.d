@@ -123,31 +123,30 @@ abstract class DERRErrorHandler {
      * You can use the "errorLevel" option to set what type of errors will be handled.
      * Stack traces for errors can be enabled with the "trace" option.
      *
-     * @param int code Code of error
      * @param string description Error description
      * @param string file File on which error occurred
      * @param int|null line Line that triggered the error
      * @param Json[string]|null context DContext
      */
     bool handleError(
-        int myCode,
+        int errorCode,
         string myDescription,
         string myFile = null,
         int myLine = null,
         STRINGAA myContext = null
     ) {
-        if (!(error_reporting() & myCode)) {
+        if (!(error_reporting() & errorCode)) {
             return false;
         }
         _handled = true;
-        [myError, myLog] = mapErrorCode(myCode);
+        [myError, myLog] = mapErrorCode(errorCode);
         if (myLog == LOG_ERR) {
             /** @psalm-suppress PossiblyNullArgument */
-            return _handleFatalError(myCode, myDescription, myFile, myLine);
+            return _handleFatalError(errorCode, myDescription, myFile, myLine);
         }
         data = [
             "level": myLog,
-            "code": myCode,
+            "code": errorCode,
             "error": myError,
             "description": myDescription,
             "file": myFile,
@@ -209,14 +208,13 @@ abstract class DERRErrorHandler {
     /**
      * Display/Log a fatal error.
      *
-     * @param int code Code of error
      * @param string description Error description
      * @param string file File on which error occurred
      * @param int line Line that triggered the error
      */
-    bool handleFatalError(int code, string description, string file, int line) {
+    bool handleFatalError(int errorCode, string description, string file, int line) {
         data = [
-            "code": code,
+            "code": errorCode,
             "description": description,
             "file": file,
             "line": line,

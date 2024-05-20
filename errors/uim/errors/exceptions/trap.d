@@ -261,12 +261,11 @@ class DExceptionTrap {
     /**
      * Display/Log a fatal error.
      * Params:
-     * int code Code of error
      * @param string errorDescription Error description
      * @param string afile File on which error occurred
      * @param int line Line that triggered the error
      */
-    void handleFatalError(int code, string errorDescription, string afile, int line) {
+    void handleFatalError(int errorCode, string errorDescription, string afile, int line) {
         this.handleException(new DFatalErrorException("Fatal Error: " ~ errorDescription, 500, file, line));
     }
     

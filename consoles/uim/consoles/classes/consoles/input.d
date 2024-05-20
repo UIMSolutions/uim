@@ -37,7 +37,6 @@ class DConsoleInput {
      */
     protected bool _canReadline;
 
-    /*
     this(string streamLocation = "uim://stdin") {
         bool _canReadline = (extension_loaded("readline") && streamLocation == "uim://stdin");
         auto anInput = fopen(streamLocation, "rb");
@@ -84,5 +83,4 @@ class DConsoleInput {
             return readyFds > 0;
         } 
     }
-    */
 }

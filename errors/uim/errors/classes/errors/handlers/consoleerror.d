@@ -85,14 +85,10 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
         _stderr.write(message);
     }
 
-    /**
-     * Stop the execution and set the exit code for the process.
-     *
-     * @param int code The exit code.
-     */
-    protected void _stop(int code) {
-        exit(code);
-    } */
+    // Stop the execution and set the exit code for the process.
+    protected void _stop(int exitCode) {
+        exit(exitCode);
+    }
 }
 
 

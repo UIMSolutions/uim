@@ -66,18 +66,13 @@ class DClientResponse { // }: Message : IResponse {
     mixin TMessage;
 
     // The status code of the response.
-    protected int code = 0;
+    protected int _statusCode = 0;
 
     // The reason phrase for the status code
     protected string _reasonPhrase;
 
-    /**
-     * Cookie Collection instance
-     *
-     * @var \UIM\Http\Cookie\CookieCollection|null
-     */
-    protected ICookieCollection cookies = null;
-
+    // Cookie Collection instance
+    protected ICookieCollection _cookies = null;
 
     // Cached decoded XML data.
     protected ISimpleXMLElement _xml = null;
@@ -193,26 +188,19 @@ class DClientResponse { // }: Message : IResponse {
         return _statusCode;
     }
     
-    /**
- Params:
-     * int code The status code to set.
-     * @param string areasonPhrase The status reason phrase.
-     */
-    static withStatus(int code, string areasonPhrase= null) {
-        new = clone this;
-        new.code = code;
-        new.reasonPhrase = reasonPhrase;
+    static withStatus(int statusCode, string reasonPhrase = null) {
+        auto newResponse = clone this;
+        newResponse.code = code;
+        newResponse.reasonPhrase = reasonPhrase;
 
-        return new;
+        return newResponse;
     }
     
     string getReasonPhrase() {
         return _reasonPhrase;
     }
     
-    /**
-     * Get the encoding if it was set.
-     */
+    // Get the encoding if it was set.
     string getEncoding() {
         content = getHeaderLine("content-type");
         if (!content) {

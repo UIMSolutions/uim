@@ -9,8 +9,7 @@ import uim.oop;
  * @internal
  */
 class DStatusSuccess : DStatusCodeBase {
-    /**
-     * @var array<int, int>|int
+    //  @var array<int, int>|int
      */
     // TODO protected array|int code = [200, 308];
 

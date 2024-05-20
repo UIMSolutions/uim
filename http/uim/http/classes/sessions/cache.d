@@ -55,17 +55,11 @@ class DCacheSession { // }: !SessionHandler {
         return Cache.read(anId, _options["config"]) ?? "";
     }
     
-    /**
-     * Helper auto called on write for cache sessions.
-     * Params:
-     * string aid ID that uniquely identifies session in cache.
-     * @param string adata The data to be saved.
-     */
-    bool write(string aid, string adata) {
-        if (!anId) {
-            return false;
-        }
-        return Cache.write(anId, someData, _options["config"]);
+    // Helper auto called on write for cache sessions.
+    bool write(string sessionId, string dataToSave) {
+        return sessionId
+            ? Cache.write(sessionId, dataToSave, _options["config"])
+            : false;
     }
     
     /**

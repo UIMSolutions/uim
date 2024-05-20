@@ -601,16 +601,13 @@ class DClient { // }: IClient {
      *
      * Uses the authentication type to choose the correct strategy
      * and use its methods to add headers.
-     * Params:
-     * \UIM\Http\Client\Request  myrequest The request to modify.
-     * @param Json[string] options Array of options containing the 'auth' key.
      */
-  protected DRequest _addAuthentication(Request myrequest, Json[string] options = null) :  {
-    myauth = options["auth"];
+  protected DRequest _addAuthentication(Request myrequest, Json[string] optionsWithAuthKey = null) :  {
+    myauth = optionsWithAuthKey["auth"];
     /** @var \UIM\Http\Client\Auth\Basic  myadapter */
     myadapter = _createAuth(myauth, options);
 
-    return myadapter.authentication(myrequest, options["auth"]);
+    return myadapter.authentication(myrequest, optionsWithAuthKey["auth"]);
   }
 
   /**

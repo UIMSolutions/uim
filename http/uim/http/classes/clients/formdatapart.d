@@ -20,30 +20,19 @@ class DFormDataPart { // }: Stringable {
     // Filename to send if using files.
     mixin(TProperty!("sting", "filename"));
 
-    /**
-     * The encoding used in this part.
-     */
+    // The encoding used in this part.
     protected string atransferEncoding = null;
 
-    /**
-     * The contentId for the part
-     */
-    protected string acontentId = null;
+    // The contentId for the part
+    protected string _contentId = null;
 
-    /**
-     
-     * Params:
-     * string aName The name of the data.
-     * @param string avalue The value of the data.
-     * @param string adisposition The type of disposition to use, defaults to form-data.
-     * @param string charset The charset of the data.
-     */
     this(
-        protected string aName,
-        protected string avalue,
-        protected string adisposition = "form-data",
-        protected string acharset = null
+        protected string nameOfData,
+        protected string ValueOfData,
+        protected string dispositionType = "form-data",
+        protected string dataCharset = null
     ) {
+        // TODO 
     }
     
     /**
@@ -51,23 +40,17 @@ class DFormDataPart { // }: Stringable {
      *
      * By passing in `false` you can disable the disposition
      * header from being added.
-     * Params:
-     * string disposition Use null to get/string to set.
      */
-    string disposition(string adisposition = null) {
-        if (disposition.isNull) {
+    void disposition(string adisposition = null) {
+        _disposition = disposition;
+    }
+    string disposition() {
             return _disposition;
-        }
-        return _disposition = disposition;
     }
     
-    /**
-     * Get/set the contentId for a part.
-     * Params:
-     * string  anId The content id.
-     */
-    string contentId(string aid = null) {
-        if (anId.isNull) {
+    // Get/set the contentId for a part.
+    string contentId(string _contentId = null) {
+        if (_contentId.isNull) {
             return _contentId;
         }
         return _contentId = anId;

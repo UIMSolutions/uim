@@ -199,9 +199,6 @@ class DOauth {
      * - Request values are concatenated and urlencoded.
      * - The request URL (without querystring) is normalized.
      * - The HTTP method, URL and request parameters are concatenated and returned.
-     * Params:
-     * \UIM\Http\Client\Request request The request object.
-     * @param Json[string] oauthData Oauth values.
      */
     string baseString(Request request, Json[string] oauthData) {
         auto someParts = [

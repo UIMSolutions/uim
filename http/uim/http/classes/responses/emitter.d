@@ -77,29 +77,30 @@ class DResponseEmitter {
      * Json[string] range The range data to emit
      * @param \Psr\Http\Message\IResponse response The response to emit
      */
-    protected void emitBodyRange(Json[string] range, IResponse response) {
-        [, first, last] = range;
+    protected void emitBodyRange(Json[string] dataToEmit, IResponse responseToEmit) {
+        [, first, last] = dataToEmit;
 
-        body = response.getBody();
+        auto responseBody = responseToEmit.getBody();
 
-        if (!body.isSeekable()) {
-            contents = body.getContents();
+        if (!responseBody.isSeekable()) {
+            contents = responseBody.getContents();
             writeln(substr(contents, first, last - first + 1);
 
             return;
         }
-        body = new DRelativeStream(body, first);
-        body.rewind();
+
+        auto streamBody = new DRelativeStream(responseBody, first);
+        streamBody.rewind();
         
         size_t pos = 0;
         size_t length = last - first + 1;
-        while (!body.eof() && pos < length) {
+        while (!streamBody.eof() && pos < length) {
             if (pos + _maxBufferLength > length) {
-                writeln(body.read(length - pos);
+                writeln(streamBody.read(length - pos);
                 break;
             }
-            writeln(body.read(this.maxBufferLength);
-            pos = body.tell();
+            writeln(streamBody.read(this.maxBufferLength);
+            pos = streamBody.tell();
         }
     }
     

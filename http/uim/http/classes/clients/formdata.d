@@ -57,14 +57,14 @@ class DFormData { // }: Countable {
      * or the part data object.
      * @param Json aValue The value for the part.
      */
-    void add(FormDataPart|string aName, Json aValue = null) {
+    void add(FormDataPart|string aName, Json partValue = null) {
         if (isString(name)) {
-            if (isArray(aValue)) {
-                this.addRecursive(name, aValue);
-            } else if (isResource(aValue) || cast(IUploadedFile)aValue) {
-                this.addFile(name, aValue);
+            if (isArray(partValue)) {
+                this.addRecursive(name, partValue);
+            } else if (isResource(partValue) || cast(IUploadedFile)partValue) {
+                this.addFile(name, partValue);
             } else {
-               _parts ~= this.newPart(name, (string)aValue);
+               _parts ~= this.newPart(name, (string)partValue);
             }
         } else {
            _hasComplexPart = true;
@@ -89,7 +89,7 @@ class DFormData { // }: Countable {
      * @param \Psr\Http\Message\IUploadedFile|resource|string avalue Either a string filename, or a filehandle,
      * or a IUploadedFile instance.
      */
-    DFormDataPart addFile(string aName, Json aValue) {
+    DFormDataPart addFile(string nameToUse, Json aValue) {
        bool _hasFile = true;
 
         filename = false;
@@ -113,7 +113,7 @@ class DFormData { // }: Countable {
             content = (string)file_get_contents(aValue);
             contentType = (string)finfo.file(aValue);
         }
-        part = this.newPart(name, content);
+        part = this.newPart(nameToUse, content);
         part.type(contentType);
         if (filename) {
             part.filename(filename);

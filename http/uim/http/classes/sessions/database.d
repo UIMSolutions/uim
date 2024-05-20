@@ -93,17 +93,12 @@ class DatabaseSession { // }: SessionHandler {
             : null;
     }
     
-    /**
-     * Helper auto called on write for database sessions.
-     * Params:
-     * string aid ID that uniquely identifies session in database.
-     * @param string adata The data to be saved.
-     */
-    bool write(string aid, string adata) {
+    // Helper auto called on write for database sessions.
+    bool write(string sessionId, string dataToSave) {
         string[] primaryKeys = _table.primaryKeys();
-        session = _table.newEntity([
-            primaryKeys:  anId,
-            "data": someData,
+        auto session = _table.newEntity([
+            primaryKeys:  sessionId,
+            "data": dataToSave,
             "expires": time() + _timeout,
         ], ["accessibleFields": [primaryKeys: true]]);
 

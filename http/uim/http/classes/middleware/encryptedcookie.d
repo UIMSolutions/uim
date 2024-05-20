@@ -34,21 +34,15 @@ class DEncryptedCookieMiddleware { // : IHttpMiddleware {
      
      * Params:
      * string[] cookieNames The list of cookie names that should have their values encrypted.
-     * @param string aKey The encryption key to use.
      * @param string acipherType The cipher type to use. Defaults to 'aes'.
      */
-    this(Json[string] cookieNames, string aKey, string acipherType = "aes") {
-        this.cookieNames = cookieNames;
-        this.key = aKey;
-        this.cipherType = cipherType;
+    this(Json[string] cookieNames, string encryptionKey, string acipherType = "aes") {
+        _cookieNames = cookieNames;
+        _key = aKencryptionKeyey;
+        _cipherType = cipherType;
     }
     
-    /**
-     * Apply cookie encryption/decryption.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request.
-     * @param \Psr\Http\Server\IRequestHandler handler The request handler.
-     */
+    // Apply cookie encryption/decryption.
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         if (serverRequest.getCookieParams()) {
             serverRequest = this.decodeCookies(serverRequest);

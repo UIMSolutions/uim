@@ -41,21 +41,17 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
      *
      * Depending on the configuration and request method, either redirects to
      * same URL with https or throws an exception.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request.
-     * @param \Psr\Http\Server\IRequestHandler handler The request handler.
      */
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
-        if (cast8ServerRequest)request  && isArray(configuration.get("trustedProxies"])) {
-            request.setTrustedProxies(configuration.get("trustedProxies"]);
+        if (cast(ServerRequest)request  && isArray(configuration.get("trustedProxies"))) {
+            request.setTrustedProxies(configuration.get("trustedProxies"));
         }
         if (
             request.getUri().getScheme() == "https"
-            || (configuration.get("disableOnDebug"]
-                && configuration.get("debug"))
+            || (configuration.hasAllKeys("disableOnDebug", "debug"))
         ) {
             response = handler.handle(request);
-            if (configuration.get("hsts"]) {
+            if (configuration.hasKey("hsts")) {
                 response = this.addHsts(response);
             }
             return response;

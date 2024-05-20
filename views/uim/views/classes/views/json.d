@@ -91,7 +91,7 @@ class DJsonView : DSerializedView {
      * Render a Json view.
      * Params:
      * string mytemplate The template being rendered.
-     * @param string|false|null mylayout The layout being rendered.
+     * @param string|null mylayout The layout being rendered.
      */
     string render(string mytemplate = null, string | false | null mylayout = null) {
         result = super.render(mytemplate, mylayout); myJsonp = configurationData.isSet("Jsonp");

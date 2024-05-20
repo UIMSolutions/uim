@@ -551,9 +551,9 @@ static string contentType() {
      * the template will be located along the regular view path cascade.
      * Params:
      * string mytemplate Name of template file to use
-     * @param string|false|null mylayout Layout to use. False to disable.
+     * @param string|null mylayout Layout to use. False to disable.
      */
-    string render(string mytemplate = null, string|false|null mylayout = null) {
+    string render(string mytemplate = null, string|null mylayout = null) {
         mydefaultLayout = "";
         mydefaultAutoLayout = null;
         if (mylayout == false) {

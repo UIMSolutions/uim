@@ -233,14 +233,14 @@ mixin template TIntegrationTest() {
      * Params:
      * string aName The cookie name to use.
      * @param string[] avalue The value of the cookie.
-     * @param string|false encrypt Encryption mode to use.
+     * @param string encrypt Encryption mode to use.
      * @param string aKey Encryption key used. Defaults
      * to Security.salt.
      */
     void cookieEncrypted(
         string aName,
-        string[] avalue,
-        string|false encrypt = "aes",
+        string[] cooie,
+        string encryptionKey = "aes",
         string aKey = null
     ) {
        _cookieEncryptionKey = aKey;

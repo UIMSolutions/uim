@@ -44,9 +44,9 @@ class DSerializedView : DView {
      * Render view template or return serialized data.
      * Params:
      * string mytemplate The template being rendered.
-     * @param string|false|null mylayout The layout being rendered.
+     * @param string|null mylayout The layout being rendered.
      */
-    string render(string mytemplate = null, string|false|null renderLayout = null) {
+    string render(string mytemplate = null, string|null renderLayout = null) {
         bool shouldSerialize = configurationData.isSet("serialize", false);
 
         if (shouldSerialize == true) {

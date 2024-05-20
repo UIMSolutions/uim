@@ -21,12 +21,12 @@ mixin template TCookieCrypt() {
      * Encrypts myvalue using mytype method in Security class
      * Params:
      * string[] myvalue Value to encrypt
-     * @param string|false myencrypt Encryption mode to use. False
+     * @param string myencrypt Encryption mode to use. False
      * disabled encryption.
      * @param string aKey Used as the security salt if specified.
      * returns Encoded values
      */
-    protected string _encrypt(string[] myvalue, string|false myencrypt, string aKey = null) {
+    protected string _encrypt(string[] myvalue, string myencrypt, string aKey = null) {
         if (myvalue.isArray) {
             myvalue = _join(myvalue);
         }
@@ -55,10 +55,10 @@ mixin template TCookieCrypt() {
      * Decrypts myvalue using mytype method in Security class
      * Params:
      * string[]|string myvalues Values to decrypt
-     * @param string|false mymode Encryption mode
+     * @param string mymode Encryption mode
      * @param string aKey Used as the security salt if specified.
      */
-    protected string[] _decrypt(string[] myvalues, string|false mymode, string aKey = null) {
+    protected string[] _decrypt(string[] myvalues, string mymode, string aKey = null) {
         if (isString(myvalues)) {
             return _decode(myvalues, mymode, aKey);
         }
@@ -72,10 +72,10 @@ mixin template TCookieCrypt() {
      * Decodes and decrypts a single value.
      * Params:
      * string myvalue The value to decode & decrypt.
-     * @param string|false myencrypt The encryption cipher to use.
+     * @param string myencrypt The encryption cipher to use.
      * @param string aKey Used as the security salt if specified.
      */
-    protected string[] _decode(string myvalue, string|false myencrypt, string aKey) {
+    protected string[] _decode(string myvalue, string myencrypt, string aKey) {
         if (!myencrypt) {
             return _split(myvalue);
         }

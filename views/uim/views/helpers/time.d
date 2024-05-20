@@ -337,13 +337,13 @@ class DTimeHelper : DHelper {
      * or DateTime object (or a date format string).
      * @param array<int>|string|int myformat date format string (or a UNIX timestamp,
      * `strtotime()` valid string or DateTime object).
-     * @param string|false myinvalid Default value to display on invalid dates
+     * @param string myinvalid Default value to display on invalid dates
      * @param \DateTimeZone|string mytimezone User"s timezone string or DateTimeZone object
      */
     string|int|false format(
         DChronosDate|Jsonmydate,
         string[]|int myformat = null,
-        string|false myinvalid = false,
+        string myinvalid = false,
         DateTimeZone|string mytimezone = null
     ) {
         return _i18nFormat(mydate, myformat, myinvalid, mytimezone);
@@ -355,13 +355,13 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\Jsonmydate UNIX timestamp, strtotime() valid string or DateTime object
      * @param string[]|int myformat Intl compatible format string.
-     * @param string|false myinvalid Default value to display on invalid dates
+     * @param string myinvalid Default value to display on invalid dates
      * @param \DateTimeZone|string mytimezone User"s timezone string or DateTimeZone object
      */
     string|int|false i18nFormat(
         DChronosDate|Jsonmydate,
         string[]|int myformat = null,
-        string|false myinvalid = false,
+        string myinvalid = false,
         DateTimeZone|string mytimezone = null
     ) {
         if (mydate.isNull) {

@@ -163,11 +163,11 @@ class DPaginatorHelper : DHelper {
     /**
      * Generate an active/inactive link for next/prev methods.
      * Params:
-     * string|false mytext The enabled text for the link.
+     * string mytext The enabled text for the link.
      * @param options An array of options from the calling method.
      * @param mytemplates An array of templates with the "active" and "disabled" keys.
      */
-    protected string _toggledLink(string|false mytext, bool enabled, Json[string] options, Json[string] mytemplates) {
+    protected string _toggledLink(string mytext, bool enabled, Json[string] options, Json[string] mytemplates) {
         auto mytemplate = mytemplates["active"];
         if (!enabled) {
             mytext = options["disabledTitle"];

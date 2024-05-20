@@ -215,7 +215,7 @@ class DDebugger {
             return getInstance().setConfig(key, value, merge);
         }
 
-        return getInstance().getConfig(key);
+        return getInstance().configuration.get(key);
     }
 
     /**

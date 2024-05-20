@@ -68,7 +68,7 @@ class DFlashComponent : DComponent {
     }
 
     void setConfig(string[] aKey, Json valueToSet = null, bool merge = true) {
-        flash().setConfig(aKey, valueToSet, merge);
+        flash().configuration.set(aKey, valueToSet, merge);
     }
 
     /**

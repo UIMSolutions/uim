@@ -78,7 +78,7 @@ class DDebugger {
                 .format(editorName, known)
             );
         }
-         anInstance.setConfig("editor", name);
+         anInstance.configuration.set("editor", name);
     }
     
     /**

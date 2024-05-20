@@ -203,17 +203,17 @@ class DServerRequest { // }: IServerRequest {
      */
     this(Json[string] configData = null) {
         configData += [
-            'params": this.params,
-            'query": Json.emptyArray,
-            'post": Json.emptyArray,
-            'files": Json.emptyArray,
-            'cookies": Json.emptyArray,
-            'environment": Json.emptyArray,
-            'url": "",
-            'uri": Json(null),
-            'base": "",
-            'webroot": "",
-            'input": Json(null),
+            "params": this.params,
+            "query": Json.emptyArray,
+            "post": Json.emptyArray,
+            "files": Json.emptyArray,
+            "cookies": Json.emptyArray,
+            "environment": Json.emptyArray,
+            "url": "",
+            "uri": Json(null),
+            "base": "",
+            "webroot": "",
+            "input": Json(null),
         ];
 
        _setConfig(configData);

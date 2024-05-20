@@ -128,7 +128,7 @@ class DExceptionTrap {
         request = request ?? Router.getRequest();
 
         /** @var class-string|callable aClassName */
-        aClassName = getConfig("exceptionRenderer");
+        aClassName = configuration.get("exceptionRenderer");
         deprecateDFileConfigEngine = (aClassName == ExceptionRenderer.class && D_SAPI == "cli");
         if (deprecateDFileConfigEngine) {
             deprecationWarning(
@@ -326,7 +326,7 @@ class DExceptionTrap {
     void logException(Throwable exception, IServerRequest request = null) {
         shouldLog = _config["log"];
         if (shouldLog) {
-            foreach (getConfig("skipLog") as aClassName) {
+            foreach (configuration.get("skipLog") as aClassName) {
                 if (exception instanceof aClassName) {
                     shouldLog = false;
                 }

@@ -94,10 +94,10 @@ mixin template TStaticConfig() {
      * string aKey The name of the configuration.
      */
     static Json getConfigOrFail(string aKey) {
-        if (!isSet(configuration.data(aKey])) {
+        if (!isSet(configuration.data(aKey))) {
             throw new DInvalidArgumentException("Expected configuration `%s` not found.".format(aKey));
         }
-        return configuration.data(aKey];
+        return configuration.data(aKey);
     }
     
     /**

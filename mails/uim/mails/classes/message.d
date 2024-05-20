@@ -1089,11 +1089,7 @@ class DMessage { //: JsonSerializable {
         return message;
     }
     
-    /**
-     * Sets priority.
-     * Params:
-     * int priority 1 (highest) to 5 (lowest)
-     */
+    // Sets priority.
     auto setPriority(int priority) {
         this.priority = priority;
 

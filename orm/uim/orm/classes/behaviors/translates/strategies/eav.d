@@ -319,7 +319,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      */
     string translationField(string field) {
         table = this.table;
-        if (locale() == getConfig("defaultLocale")) {
+        if (locale() == configuration.get("defaultLocale")) {
             return table.aliasField(field);
         }
         associationName = table.aliasName() ~ "_" ~ field ~ "_translation";

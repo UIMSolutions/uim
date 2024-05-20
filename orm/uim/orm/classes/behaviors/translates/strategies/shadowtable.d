@@ -640,7 +640,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * Lazy define and return the main table fields.
      */
                                                                             protected string[] mainFields() {
-                                                                                fields = getConfig(
+                                                                                fields = configuration.get(
                                                                                 "mainTableFields");
 
                                                                                 if (

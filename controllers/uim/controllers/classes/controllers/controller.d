@@ -409,7 +409,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         if (cast(Response)result) {
             return _response = result;
         }
-        
+
         if (event.isStopped()) {
             return null;
         }
@@ -425,21 +425,20 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Instantiates the correct view class, hands it its data, and uses it to render the view output.
      * Params:
      * string template Template to use for rendering
-     * @param string  layout Layout to use
      * returns A response object containing the rendered view.
      */
-    Response render(string atemplate = null, string alayout = null) {
-         builder = viewBuilder();
+    Response render(string templateName = null, string layoutName = null) {
+        auto builder = viewBuilder();
         if (! builder.getTemplatePath()) {
              builder.setTemplatePath(_templatePath());
         }
         _autoRender = false;
 
-        if (template) {
-             builder.setTemplate(template);
+        if (templateName) {
+             builder.setTemplate(templateName);
         }
-        if (layout) {
-             builder.setLayout(layout);
+        if (layoutName) {
+             builder.setLayout(layoutName);
         }
         event = this.dispatchEvent("Controller.beforeRender");
         if (cast(Response)event.getResult()) {

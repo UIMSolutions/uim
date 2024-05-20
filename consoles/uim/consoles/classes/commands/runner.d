@@ -183,15 +183,12 @@ class DCommandRunner { // }: IEventDispatcher {
      *
      * Build the longest command name that matches a
      * defined command. This will traverse a maximum of 3 tokens.
-     * Params:
-     * \UIM\Console\CommandCollection commands The command collection to check.
-     * @param Json[string] cliArguments The CLI arguments.
      */
-    protected Json[string] longestCommandName(CommandCollection commands, Json[string] cliArguments) {
+    protected Json[string] longestCommandName(CommandCollection commandsToCheck, Json[string] cliArguments) {
         for (anI = 3;  anI > 1;  anI--) {
             someParts = array_slice(cliArguments, 0,  anI);
             name = someParts.join(" ");
-            if (commands.has(name)) {
+            if (commandsToCheck.has(name)) {
                 return [name, array_slice(cliArguments,  anI)];
             }
         }
@@ -211,21 +208,21 @@ class DCommandRunner { // }: IEventDispatcher {
      * \UIM\Console\CommandCollection commands The command collection to check.
      * @param string name The name from the CLI args.
      */
-    protected string resolveName(CommandCollection commands, IConsoleIo aConsoleIo, string cliArgumentName) {
+    protected string resolveName(CommandCollection comandsToCheck, IConsoleIo aConsoleIo, string cliArgumentName) {
         if (!cliArgumentName) {
              aConsoleIo.writeErrorMessages("<error>No command provided. Choose one of the available commands.</error>", 2);
             cliArgumentName = "help";
         }
         cliArgumentName = _aliases[cliArgumentName] ?? cliArgumentName;
-        if (!commands.has(cliArgumentName)) {
+        if (!comandsToCheck.has(cliArgumentName)) {
             cliArgumentName = Inflector.underscore(cliArgumentName);
         }
-        if (!commands.has(cliArgumentName)) {
+        if (!comandsToCheck.has(cliArgumentName)) {
             throw new DMissingOptionException(
                 "Unknown command `{this.root} {cliArgumentName}`. " .
                 "Run `{this.root} --help` to get the list of commands.",
                 cliArgumentName,
-                commands.keys()
+                comandsToCheck.keys()
             );
         }
         return cliArgumentName;

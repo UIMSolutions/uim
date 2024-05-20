@@ -38,7 +38,6 @@ class DValuesExpression : DExpression {
      * Params:
      * \UIM\Database\Query|Json[string] someValues Array of data to append into the insert, or
      * a query for doing INSERT INTO .. SELECT style commands
-     * @throws \UIM\Database\Exception\DatabaseException When mixing Json[string] + Query data types.
      */
     void add(Query|Json[string] someValues) {
         if (

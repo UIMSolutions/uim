@@ -54,7 +54,6 @@ class DConsoleIo {
 
     protected bool _isInteractive = true;
 
-    /*
     // The output stream
     protected IConsoleOutput _out;
 
@@ -67,24 +66,15 @@ class DConsoleIo {
     // The helper registry.
     protected DHelperRegistry _helpers;
 
-
-    /**
-     
-     * Params:
-     * \UIM\Console\ConsoleOutput|null  result A ConsoleOutput object for stdout.
-     * @param \UIM\Console\ConsoleOutput|null err A ConsoleOutput object for stderr.
-     * @param \UIM\Console\ConsoleInput|null  anIn A ConsoleInput object for stdin.
-     * @param \UIM\Console\HelperRegistry|null helpers A HelperRegistry instance
-     */
     this(
-        ConsoleOutput  result = null,
-        ConsoleOutput err = null,
-        ConsoleInput  anIn = null,
+        ConsoleOutput output = null,
+        ConsoleOutput errOutput = null,
+        ConsoleInput input = null,
         ?HelperRegistry helpers = null
     ) {
-       _out = result ? result : new DConsoleOutput("uim://stdout");
-       _err = err ?: new DConsoleOutput("uim://stderr");
-       _in = anIn ?: new DConsoleInput("uim://stdin");
+       _out = output ? result : new DConsoleOutput("uim://stdout");
+       _err = errOutput ?: new DConsoleOutput("uim://stderr");
+       _in = input ?: new DConsoleInput("uim://stdin");
        _helpers = helpers ?: new DHelperRegistry();
        _helpers.setIo(this);
     }

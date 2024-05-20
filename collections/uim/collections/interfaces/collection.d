@@ -603,19 +603,15 @@ interface ICollection {
      * ages = [25, 28];
      * inserted = (new DCollection(items)).insert("comment.user.age", ages);
      *
-     */ Result will look like this when converted to array
+     * Result will look like this when converted to array
      * [
      * ["comment": ["body": "cool", "user": ["name": "Mark", "age": 25]],
      * ["comment": ["body": "awesome", "user": ["name": "Renan", "age": 28]]
      * ];
      * ```
      *
-     * @param string path a dot separated string symbolizing the path to follow
-     * inside the hierarchy of each value so that the value can be inserted
-     * @param mixed values The values to be inserted at the specified path,
-     * values are matched with the elements in this collection by its positional index.
      */
-    ICollection insert(string path, values);
+    ICollection insert(string path, json[string] valuesToInsert);
 
     /**
      * Returns an array representation of the results
@@ -636,8 +632,7 @@ interface ICollection {
     /**
      * Returns the data that can be converted to Json. This returns the same data
      * as `toArray()` which contains only unique keys.
-     *
-     * Part of JsonSerializable interface.
+     * Part of JsonSerializable interface
      */
     Json[string] JsonSerialize();
 

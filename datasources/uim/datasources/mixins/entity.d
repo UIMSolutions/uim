@@ -220,7 +220,7 @@ mixin template TEntity() {
      * You do not need to use the guard option when assigning fields individually:
      *
      * ```
-     */ No need to use the guard option.
+     * No need to use the guard option.
      * entity.set("name", "Andrew");
      * ```
      *
@@ -243,8 +243,6 @@ mixin template TEntity() {
      * first argument is also an array, in which case will be treated as options
      * @param Json[string] optionData Options to be used for setting the field. Allowed option
      * keys are `setter`, `guard` and `asOriginal`
-
-     * @throws \InvalidArgumentException
     */
   void set(string[] afield, Json aValue = null, Json[string] optionData = null) {
     if (isString(field) && !field.isEmpty) {

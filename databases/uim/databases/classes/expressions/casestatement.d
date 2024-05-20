@@ -239,10 +239,6 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * the value side of the array entries, or custom bindings!
      * @param STRINGAA|string type The when value type. Either an associative array when using array style
      * conditions, or else a string. If no valueType is provided, the valueType will be tried to be inferred from the value.
-
-     * @throws \LogicException In case this a closing `then()` call is required before calling this method.
-     * @throws \LogicException In case the callable doesn`t return an instance of
-     * `\UIM\Database\Expression\WhenThenExpression`.
      */
     void when(Json  when, string[] whenValueType = null) {
         if (!_whenBuffer.isNull) {
@@ -329,33 +325,27 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
     /**
      * Sets the `ELSE` result value.
      * Params:
-     * \UIM\Database\IExpression|object|scalar|null result The result value.
-     * @param string type The result type. If no type is provided, the type will be tried to be inferred from the
-     * value.
-
-     * @throws \LogicException In case a closing `then()` call is required before calling this method.
-     * @throws \InvalidArgumentException In case the `result` argument is neither a scalar value, nor an object, an
-     * instance of `\UIM\Database\IExpression`, or `null`.
+     * \UIM\Database\|object|scalar|null result The result value.
      */
-    void else(Json result, string resultType = null) {
+    void else(/* IExpression */ Json resultValue, string resultType = null) {
         if (!_whenBuffer.isNull) {
             throw new DLogicException("Cannot call `else()` between `when()` and `then()`.");
         }
         if (
-            !result.isNull &&
-            !isScalar(result) &&
-            !(isObject(result) && !(cast(DClosure)result))
+            !resultValue.isNull &&
+            !isScalar(resultValue) &&
+            !(isObject(resultValue) && !(cast(DClosure)resultValue))
         ) {
             throw new DInvalidArgumentException(
                 "The `result` argument must be either `null`, a scalar value, an object, " .
                 "or an instance of `\%s`, `%s` given."
                 .format(IExpression.classname,
-                get_debug_type(result)
+                get_debug_type(resultValue)
             ));
         }
-        resultType ??= this.inferType(result);
+        resultType ??= this.inferType(resultValue);
 
-        _else = result;
+        _else = resultValue;
         _elseType = resultType;
     }
     
@@ -378,15 +368,15 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
             if (!type.isNull) {
                 types ~= type;
             }
-        }
+        });
         if (_elseType.isNull) {
             types ~= _elseType;
         }
         types = array_unique(types);
-        if (count(types) == 1) {
-            return types[0];
-        }
-        return "string";
+        
+        return count(types) == 1
+            ? types[0]
+            : "string";
     }
     
     /**

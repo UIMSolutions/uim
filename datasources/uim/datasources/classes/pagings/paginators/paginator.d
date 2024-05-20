@@ -163,7 +163,7 @@ class DPaginator : IPaginator {
      * @param Json[string] requestParams Request params
      * @param Json[string] settings The settings/configuration used for pagination.
      */
-    IDSResultset paginate(object object, Json[string] requestParams = null, Json[string] settings= null) {
+    IDSResultset paginate(object object, Json[string] requestParams = null, Json[string] paginationSettings = null) {
         myQuery = null;
         if (object instanceof IQuery) {
             myQuery = object;
@@ -173,7 +173,7 @@ class DPaginator : IPaginator {
             }
         }
 
-        myData = this.extractData(object, requestParams, settings);
+        myData = this.extractData(object, requestParams, paginationSettings);
         myQuery = getQuery(object, myQuery, myData);
 
         cleanQuery = clone myQuery;
@@ -218,11 +218,11 @@ class DPaginator : IPaginator {
      *
      * @param \uim\Datasource\IRepository object The repository object.
      * @param Json[string] requestParams Request params
-     * @param Json[string] settings The settings/configuration used for pagination.
+     * @param Json[string] paginationSettings The paginationSettings/configuration used for pagination.
      */
-    protected Json[string] extractData(IRepository anRepository, Json[string] requestParams, Json[string] settings) {
+    protected Json[string] extractData(IRepository anRepository, Json[string] requestParams, Json[string] paginationSettings) {
         aliasName = object.aliasName();
-        defaults = getDefaults(aliasName, settings);
+        defaults = getDefaults(aliasName, paginationSettings);
         options = mergeOptions(requestParams, defaults);
         options = validateSort(anRepository, options);
         options = checkLimit(options);
@@ -388,16 +388,13 @@ class DPaginator : IPaginator {
         return allowed;
     }
 
-    /**
-     * Shim method for reading the deprecated sortWhitelist or sortableFields options.
-     * @param Json[string] myConfig The configuration data to coalesce and emit warnings on.
-     */
-    protected string[] getSortableFields(Json[string] myConfig) {
-        allowed = myConfig.get("sortableFields", null);
+    // Shim method for reading the deprecated sortWhitelist or sortableFields options.
+    protected string[] getSortableFields(Json[string] configData) {
+        auto allowed = configData.get("sortableFields");
         if (allowed !== null) {
             return allowed;
         }
-        deprecated = myConfig["sortWhitelist"] ?? null;
+        deprecated = configData["sortWhitelist"] ?? null;
         if (deprecated !== null) {
             deprecationWarning("The `sortWhitelist` option is deprecated. Use `sortableFields` instead.");
         }

@@ -51,18 +51,18 @@ class DFactoryLocator {
      * @param string type The repository type to get the factory for.
      * @throws \InvalidArgumentException If the specified repository type has no factory.
      */
-    static ILocator get(string type) {
+    static ILocator get(string repositoryType) {
         if ("Table"  !in _modelFactories) {
             _modelFactories["Table"] = new DTableLocator();
         }
 
-        if (!isset(_modelFactories[type])) {
+        if (!isset(_modelFactories[repositoryType])) {
             throw new DInvalidArgumentException(
                 "Unknown repository type '%s'. Make sure you register a type before trying to use it."
-                .format(type)
+                .format(repositoryType)
             );
         }
 
-        return _modelFactories[type];
+        return _modelFactories[repositoryType];
     } 
 }

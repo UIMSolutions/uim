@@ -310,13 +310,9 @@ class DConsoleIo {
         return _out.getStyle(styleToGet);
     }
     
-    /**
-     * Adds a new output style.
-     * Params:
-     * @param Json[string] definition The array definition of the style to change or create.
-     */
-    void setStyle(string styleToSet, Json[string] definition) {
-       _out.setStyle(styleToSet, definition);
+    // Adds a new output style.
+    void setStyle(string styleToSet, Json[string] styleDefinition) {
+       _out.setStyle(styleToSet, styleDefinition);
     }
     
     // Prompts the user for input based on a list of options, and returns it.
@@ -453,17 +449,13 @@ class DConsoleIo {
      * be coerced to true and all files will be overwritten.
      * Params:
      * string aPath The path to create the file at.
-     * @param string acontents The contents to put into the file.
-     * If true, no question will be asked about whether to overwrite existing files.
-     * @throws \UIM\Console\Exception\StopException When `q` is given as an answer
-     * to whether a file should be overwritten.
      */
-    bool createFile(string aPath, string acontents, bool shouldOverwrite = false) {
+    bool createFile(string fileCreationPath, string contentsForFile, bool shouldOverwrite = false) {
         writeln();
-        shouldOverwrite = shouldOverwrite || this.forceOverwrite;
+        shouldOverwrite = shouldOverwrite || _forceOverwrite;
 
         if (fileExists(somePath) && shouldOverwrite == false) {
-            warning("File `{somePath}` exists");
+            warning("File `{fileCreationPath}` exists");
             aKey = this.askChoice("Do you want to overwrite?", ["y", "n", "a", "q"], "n");
             aKey = aKey.lower;
 
@@ -472,38 +464,38 @@ class DConsoleIo {
                 throw new DStopException("Not creating file. Quitting.");
             }
             if (aKey == "a") {
-                this.forceOverwrite = true;
+                _forceOverwrite = true;
                 aKey = "y";
             }
             if (aKey != "y") {
-                writeln("Skip `{somePath}`", 2);
+                writeln("Skip `{fileCreationPath}`", 2);
 
                 return false;
             }
         } else {
-            writeln("Creating file {somePath}");
+            writeln("Creating file {fileCreationPath}");
         }
         try {
             // Create the directory using the current user permissions.
-            directory = dirname(somePath);
+            directory = dirname(fileCreationPath);
             if (!fileExists(directory)) {
                 mkdir(directory, 0777 ^ umask(), true);
             }
-            file = new DSplFileObject(somePath, "w");
+            file = new DSplFileObject(fileCreationPath, "w");
         } catch (RuntimeException) {
-            this.error("Could not write to `{somePath}`. Permission denied.", 2);
+            this.error("Could not write to `{fileCreationPath}`. Permission denied.", 2);
 
             return false;
         }
         file.rewind();
-        file.fwrite(contents);
-        if (fileExists(somePath)) {
-            writeln("<success>Wrote</success> `{somePath}`");
+        file.fwrite(contentsForFile);
+        if (fileExists(fileCreationPath)) {
+            writeln("<success>Wrote</success> `{fileCreationPath}`");
 
             return true;
         }
-        this.error("Could not write to `{somePath}`.", 2);
+        this.error("Could not write to `{fileCreationPath}`.", 2);
 
         return false;
-    } */ 
+    } 
 }

@@ -484,13 +484,13 @@ class DNumericPaginator : IPaginator {
      * @param uim.Datasource\IRepository object Repository object.
      * @param Json[string] options The pagination options being used for this request.
      */
-    Json[string] validateSort(IRepository object, Json[string] optionData) {
-        if (options.isSet("sort")) {
+    Json[string] validateSort(IRepository object, Json[string] paginationOptions) {
+        if (paginationOptions.isSet("sort")) {
             auto direction = null;
             if (isset(
-                    options["direction"])) {
+                    paginationOptions["direction"])) {
                 direction = strtolower(
-                    options["direction"]);
+                    paginationOptions["direction"]);
             }
             if (!hasAllValues(direction, [
                         "asc", "desc"
@@ -498,54 +498,54 @@ class DNumericPaginator : IPaginator {
                 direction = "asc";
             }
 
-            order = isset(options["order"]) && is_array(
-                options["order"]) ? options["order"] : [
+            order = isset(paginationOptions["order"]) && is_array(
+                paginationOptions["order"]) ? paginationOptions["order"] : [
             ];
-            if (order && options["sort"] && indexOf(options["sort"], ".") == false) {
+            if (order && paginationOptions["sort"] && indexOf(paginationOptions["sort"], ".") == false) {
                 order = _removeAliases(order, object.aliasName());
             }
 
-            options["order"] = [
-                options["sort"]: direction
+            paginationOptions["order"] = [
+                paginationOptions["sort"]: direction
             ] + order;
         } else {
-            options["sort"] = null;
+            paginationOptions["sort"] = null;
         }
-        options.remove("direction");
+        paginationOptions.remove("direction");
 
-        if (options.isEmpty("order")) {
-            options["order"] = null;
+        if (paginationOptions.isEmpty("order")) {
+            paginationOptions["order"] = null;
         }
-        if (!options["order"].isArray) {
-            return options;
+        if (!paginationOptions["order"].isArray) {
+            return paginationOptions;
         }
 
         sortAllowed = false;
-        allowed = getSortableFields(options);
+        allowed = getSortableFields(paginationOptions);
         if (allowed != null) {
-            options["sortableFields"] = options["sortWhitelist"] = allowed;
+            paginationOptions["sortableFields"] = paginationOptions["sortWhitelist"] = allowed;
 
-            field = key(options["order"]);
+            field = key(paginationOptions["order"]);
             sortAllowed = hasAllValues(field, allowed, true);
             if (!sortAllowed) {
-                options["order"] = null;
-                options["sort"] = null;
-                return options;
+                paginationOptions["order"] = null;
+                paginationOptions["sort"] = null;
+                return paginationOptions;
             }
         }
 
         if (
-            options["sort"] == null
-            && count(options["order"]) >= 1
-            && !key(options["order"].isNumeric)
+            paginationOptions["sort"] == null
+            && count(paginationOptions["order"]) >= 1
+            && !key(paginationOptions["order"].isNumeric)
             ) {
-            options["sort"] = key(
-                options["order"]);
+            paginationOptions["sort"] = key(
+                paginationOptions["order"]);
         }
 
-        options["order"] = _prefix(object, options["order"], sortAllowed);
+        paginationOptions["order"] = _prefix(object, paginationOptions["order"], sortAllowed);
 
-        return options;
+        return paginationOptions;
     }
 
     /**

@@ -50,13 +50,15 @@ class DTupleComparisonExpression : DComparisonExpression {
     }
 
     string sql(DValueBinder valueBinder) {
-        originalFields = getFieldNames();
+        auto originalFields = getFieldNames();
         if (!isArray(originalFields)) {
             originalFields = [originalFields];
         }
         string[] fieldNames;
-        originalFields.each!(field => fields ~= cast(IExpression) field
-                ? field.sql(valueBinder) : field;}
+        originalFields.each!(field => fieldNames ~= cast(IExpression)field
+                ? field.sql(valueBinder) 
+                : field;
+                );
 
         return "(%s) %s (%s)"
             .format(fields.join(", "), _operator, _stringifyValues(valueBinder));}
@@ -66,11 +68,16 @@ class DTupleComparisonExpression : DComparisonExpression {
      * for the SQL version of this expression
      */
         protected string _stringifyValues(DValueBinder valueBinder) {
-            string[] someValues; someParts = getValue(); if (cast(IExpression) someParts) {
-                return someParts.sql(valueBinder);}
+            string[] someValues; 
+            someParts = getValue(); 
+            if (cast(IExpression) someParts) {
+                return someParts.sql(valueBinder);
+                }
                 foreach (someParts as anI : aValue) {
                     if (cast(IExpression) aValue) {
-                        someValues ~= aValue.sql(valueBinder); continue;}
+                        someValues ~= aValue.sql(valueBinder); 
+                        continue;
+                        }
                         type = this.typesNames; isMultiOperation = this.isMulti();
                             if (isEmpty(type)) {
                                 type = null;}
@@ -118,14 +125,13 @@ class DTupleComparisonExpression : DComparisonExpression {
      * it is an IExpression
      * Params:
      * Json aValue The value to traverse
-     * @param \Closure aCallback The callback to use when traversing
      */
                                                         protected void _traverseValue(
-                                                            Json aValue, IClosure aCallback) {
-                                                            if (cast(IExpression) aValue) {
-                                                                aCallback(aValue);
-                                                                    aValue.traverse(
-                                                                        aCallback);
+                                                            Json traverseToTraverse, IClosure callbackForTraversing) {
+                                                            if (cast(IExpression) traverseToTraverse) {
+                                                                callbackForTraversing(traverseToTraverse);
+                                                                    traverseToTraverse.traverse(
+                                                                        callbackForTraversing);
                                                             }
                                                         }
 
@@ -134,7 +140,5 @@ class DTupleComparisonExpression : DComparisonExpression {
                                                         return in_array(_operator.lower, [
                                                                 "in", "not in"
                                                             ]);}
-
-                                                         *  /
                                                     }
                                                     mixin(ExpressionCalls!("TupleComparison"));

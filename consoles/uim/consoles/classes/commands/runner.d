@@ -43,10 +43,7 @@ class DCommandRunner { // }: IEventDispatcher {
     // Alias mappings.
     protected string[] _aliases;
 
-    /**
-     * consoleApp - The application to run CLI commands for.
-     * @param \UIM\Console\ICommandFactory|null factory Command factory instance.
-     */
+    // consoleApp - The application to run CLI commands for.
     this(
         IConsoleApplication consoleApp,
         string rootCommandName = "uim",
@@ -167,13 +164,7 @@ class DCommandRunner { // }: IEventDispatcher {
         this.app.setEventManager(newEventManager);
     }
     
-    /**
-     * Get the shell instance for a given command name
-     * Params:
-     * \UIM\Console\IConsoleIo aConsoleIo The IO wrapper for the created shell class.
-     * @param \UIM\Console\CommandCollection commands The command collection to find the shell in.
-     * @param string aName The command name to find
-     */
+    // Get the shell instance for a given command name
     protected ICommand getCommand(IConsoleIo aConsoleIo, CommandCollection commands, string commandName) {
         auto anInstance = commands.get(commandName);
         if (isString(anInstance)) {

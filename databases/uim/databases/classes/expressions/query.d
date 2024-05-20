@@ -256,21 +256,19 @@ class DQueryExpression : DExpression { // }, Countable {
      * Adds a new condition to the expression object in the form
      * "field NOT IN (value1, value2)".
      * Params:
-     * \UIM\Database\IExpression|string fieldName Database field to be compared against value
-     * @param \UIM\Database\IExpression|string[] avalues the value to be bound to field for comparison
      * @param string type the type name for aValue as configured using the Type map.
      */
     auto notIn(
-        IExpression|string fieldName,
-        IExpression|string[] avalues,
-        string atype = null
+        /* IExpression */ string fieldName,
+        /* IExpression */ string[] valuesToBound,
+        string valueType = null
     ) {
-        type ??= _calculateType(field);
-        type = type ?: "string";
-        type ~= "[]";
-         someValues = cast(IExpression)someValues  ?  someValues : (array) someValues;
+        valueType ??= _calculateType(fieldName);
+        valueType = valueType ?: "string";
+        valueType ~= "[]";
+         someValues = cast(IExpression)valuesToBound  ?  valuesToBound : (array) valuesToBound;
 
-        return _add(new DComparisonExpression(field,  someValues, type, "NOT IN"));
+        return _add(new DComparisonExpression(fieldName,  valuesToBound, valueType, "NOT IN"));
     }
     
     /**
@@ -279,7 +277,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * \UIM\Database\IExpression|string fieldName Database field to be compared against value
      * @param \UIM\Database\IExpression|string[] avalues the value to be bound to field for comparison
-     * @param string type the type name for aValue as configured using the Type map.
+     * @param string valueType the valueType name for aValue as configured using the Type map.
      */
     auto notInOrNull(
         IExpression|string fieldName,
@@ -288,7 +286,7 @@ class DQueryExpression : DExpression { // }, Countable {
     ) {
          or = new static([], [], "OR");
          or
-            .notIn(field,  someValues, type)
+            .notIn(field,  someValues, valueType)
             .isNull(field);
 
         return _add(or);
@@ -317,12 +315,12 @@ class DQueryExpression : DExpression { // }, Countable {
      * "field BETWEEN from AND to".
      * Params:
      * \UIM\Database\IExpression|string fieldName The field name to compare for values inbetween the range.
-     * @param string type the type name for aValue as configured using the Type map.
+     * @param string valueType the valueType name for aValue as configured using the Type map.
      */
     auto between(IExpression|string fieldName, Json fromValue, Json toValue, string atype = null) {
-        type ??= _calculateType(field);
+        valueType ??= _calculateType(field);
 
-        return _add(new BetweenExpression(field, fromValue, toValue, type));
+        return _add(new BetweenExpression(field, fromValue, toValue, valueType));
     }
     
     /**
@@ -377,13 +375,8 @@ class DQueryExpression : DExpression { // }, Countable {
         return count(_conditions);
     }
     
-    /**
-     * Builds equal condition or assignment with identifier wrapping.
-     * Params:
-     * string aleftField Left join condition field name.
-     * @param string arightField Right join condition field name.
-     */
-    auto equalFields(string aleftField, string arightField) {
+    // Builds equal condition or assignment with identifier wrapping.
+    auto equalFields(string leftFieldName, string rightFieldName) {
          wrapIdentifier = auto (field) {
             if (cast(IExpression)field ) {
                 return field;
@@ -391,8 +384,9 @@ class DQueryExpression : DExpression { // }, Countable {
             return new DIdentifierExpression(field);
         };
 
-        return _eq(wrapIdentifier(leftField),  wrapIdentifier(rightField));
+        return _eq(wrapIdentifier(leftFieldName),  wrapIdentifier(rightFieldName));
     }
+    
     string sql(DValueBinder aBinder) {
         size_t length = count();
         if (len == 0) {

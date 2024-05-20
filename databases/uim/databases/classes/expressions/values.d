@@ -13,7 +13,6 @@ import uim.databases;
 class DValuesExpression : DExpression {
     mixin(ExpressionThis!("Values"));
 
-    /*
     mixin TExpressionTypeCaster;
     mixin TTypeMap;
 
@@ -29,12 +28,6 @@ class DValuesExpression : DExpression {
     // Whether values have been casted to expression already.
     protected bool _castedExpressions = false;
 
-    /**
-     
-     * Params:
-     * Json[string] someColumns The list of columns that are going to be part of the values.
-     * @param \UIM\Database\TypeMap typeMap A dictionary of column ~ type names
-     */
     this(Json[string] someColumns, TypeMap typeMap) {
        _columns = someColumns;
         setTypeMap(typeMap);
@@ -198,6 +191,6 @@ class DValuesExpression : DExpression {
             }
         }
        _castedExpressions = true;
-    } */
+    } 
 }
 mixin(ExpressionCalls!("Values"));

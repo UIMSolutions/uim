@@ -16,18 +16,15 @@ class DFatalErrorException : UimException {
 
         return true;
     }
-    /**
-     * @param int|null line Line number.
-     * @param \Throwable|null previous The previous exception.
-     */
+
     this(
         string message,
         int code = 0,
         string fileName = null,
         int lineNumber = 0,
-        ?Throwable previousException = null
+        Throwable previousException = null
     ) {
-        super(message, code, previous);
+        super(message, code, previousException);
         if (fileName) {
             _fileName = fileName;
         }

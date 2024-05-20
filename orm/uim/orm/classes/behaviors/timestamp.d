@@ -39,7 +39,7 @@ class DTimestampBehavior : DBehavior {
         "refreshTimestamp": true.toJson,
     ]);*/
         if (configuration.hasKey("events")) {
-            configuration.update("events", configuration.data("events"), false);
+            configuration.update("events", configuration.get("events"), false);
         } */
         configuration.data(initData);
 

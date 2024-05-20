@@ -144,10 +144,10 @@ mixin template TInstanceConfig() {
             return _config;
         }
         if (!keyToRead.has(".")) {
-            return configuration.data(keyToRead] ?? null;
+            return configuration.get(keyToRead);
         }
-        result = _config;
 
+        result = _config;
         foreach (myKey; keyToRead.split(".")) {
             if (!isArray(result) || !isSet(result[myKey])) {
                 result = null;

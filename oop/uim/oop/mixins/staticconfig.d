@@ -83,7 +83,7 @@ mixin template TStaticConfig() {
      * string aKey The name of the configuration.
      */
     static Json getConfig(string aKey) {
-        return _config.get(aKey, null);
+        return configuration.get(aKey, null);
     }
     
     /**

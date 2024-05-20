@@ -208,10 +208,10 @@ class DDebugger {
      */
     static Json configInstance(key = null, value = null, bool merge = true) {
         if (key == null) {
-            return getInstance().getConfig(key);
+            return getInstance().configuration.get(key);
         }
 
-        if ((key.isArray || func_num_args() >= 2) {
+        if (key.isArray || func_num_args() >= 2) {
             return getInstance().setConfig(key, value, merge);
         }
 

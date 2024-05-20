@@ -170,7 +170,7 @@ class DExceptionTrap {
     // Get an instance of the logger.
     IErrorLogger logger() {
         /** @var class-string<uim.errors.IErrorLogger> aClassName */
-        auto aClassName = getConfig("logger", _defaultConfig["logger"]);
+        auto aClassName = configuration.get("logger", _defaultConfig["logger"]);
 
         return new aClassName(_config);
     }

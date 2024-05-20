@@ -98,10 +98,10 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * If the index already exists, the new middleware will be inserted,
      * and the existing element will be shifted one index greater.
      * Params:
-     * int  anIndex The index to insert at.
+     * int anIndex The index to insert at.
      * @param \Psr\Http\Server\IHttpMiddleware|\Closure|string amiddleware The middleware to insert.
      */
-    auto insertAt(int  anIndex, IHttpMiddleware|Closure|string amiddleware) {
+    auto insertAt(int anIndex, IHttpMiddleware|Closure|string amiddleware) {
         array_splice(this.queue,  anIndex, 0, [middleware]);
 
         return this;

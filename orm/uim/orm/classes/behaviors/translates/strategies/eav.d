@@ -157,7 +157,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
     void beforeFind(IEvent event, Query query, ArrayObject options) {
         locale = Hash.get(options, "locale", locale());
 
-        if (locale == getConfig("defaultLocale")) {
+        if (locale == configuration.get("defaultLocale")) {
             return;
         }
 

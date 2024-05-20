@@ -9,22 +9,16 @@ mixin template TFileConfig() {
     // The path this engine finds files on.
     protected string _path = "";
 
-    // TODO 
-    /**
-     * Get file path
-     * Params:
-     * string aKey The identifier to write to. If the key has a ~ it will be treated as a plugin prefix.
-     * @param bool checkExists Whether to check if file exists. Defaults to false.
-     */
-    protected string _getFilePath(string aKey, bool checkExists = false) {
-        if (aKey.has("..")) {
+    // Get file path
+    protected string _getFilePath(string KeyToWrite, bool checkExists = false) {
+        if (KeyToWrite.has("..")) {
             throw new UimException("Cannot load/dump configuration files with ../ in them.");
         }
-        [pluginName, aKey] = pluginSplit(aKey);
+        [pluginName, KeyToWrite] = pluginSplit(KeyToWrite);
 
         string filePath = !pluginName.isEmpty
-            ? Plugin.configPath(pluginName) ~ aKey
-            : _path ~ aKey;
+            ? Plugin.configPath(pluginName) ~ KeyToWrite
+            : _path ~ KeyToWrite;
         filePath ~= _extension;
 
         if (!checkExists || isFile(filePath)) {
@@ -36,5 +30,5 @@ mixin template TFileConfig() {
             return realFilePath;
         }
         throw new UimException("Could not load configuration file: `%s`.".format(filePath));
-    } */
+    } 
 }

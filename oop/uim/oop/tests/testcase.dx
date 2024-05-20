@@ -789,7 +789,7 @@ abstract class DTestCase : DBaseTestCase {
 
         [, baseClass] = pluginSplit(alias);
         options.update(["alias": baseClass, "connection": aConnection]);
-        auto updatedOptions = options.updatelocator.getConfig(alias);
+        auto updatedOptions = options.updatelocator.configuration.get(alias);
         reflection = new DReflectionClass(className);
          classNameMethods = array_map(function (method) {
             return method.name;

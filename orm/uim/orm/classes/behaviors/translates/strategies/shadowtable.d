@@ -460,7 +460,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                             translatedFields = this
                                                                             .translatedFields();
                                                                             if (in_array(field, translatedFields, true)) {
-                                                                                return _getConfig(
+                                                                                return _configuration.get(
                                                                                 "hasOneAlias") ~ "." ~ field;
                                                                             }
 

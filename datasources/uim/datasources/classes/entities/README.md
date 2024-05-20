@@ -421,9 +421,9 @@ class User : DDSEntity {
     protected $_hidden = ['password'];
 }
 
-This list can be modified at runtime using the setHidden() method:
+This list can be modified at runtime using the hiddenFields() method:
 
-user->setHidden(['password', 'recovery_question']);
+user->hiddenFields(['password', 'recovery_question']);
 
 Storing Complex Types
 

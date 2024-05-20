@@ -208,14 +208,9 @@ class DPaginator : IPaginator {
         return myQuery;
     }
 
-    /**
-     * Get total count of records.
-     *
-     * @param \uim\Datasource\IQuery myQuery Query instance.
-     * @param Json[string] myData Pagination data.
-     */
-    protected int getCount(IQuery myQuery, Json[string] myData) {
-        return myQuery.count();
+    // Get total count of records.
+    protected int getCount(IQuery query, Json[string] paginationData) {
+        return query.count();
     }
 
     /**

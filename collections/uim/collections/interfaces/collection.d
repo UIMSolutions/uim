@@ -47,10 +47,6 @@ interface ICollection {
      * return value % 2 == 0;
      * });
      * ```
-     *
-     * @param callable|null callback the method that will receive each of the elements and
-     *  returns true whether they should be in the resulting collection.
-     *  If left null, a callback that filters out falsey values will be used.
      */
     ICollection filter(bool delegate(Json item));
 

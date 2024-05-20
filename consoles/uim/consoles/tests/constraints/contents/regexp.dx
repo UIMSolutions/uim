@@ -4,18 +4,11 @@ import uim.consoles;
 
 @safe:
 
-/* * ContentsRegExp
- *
- * @internal
- */
+// ContentsRegExp
 class DContentsRegExp : DContentsBase {
-    /**
-     * Checks if contents contain expected
-     * Params:
-     * Json other Expected
-     */
-   bool matches(Json other) {
-        return preg_match(other, this.contents) > 0;
+    // Checks if contents contain expected
+   bool matches(Json expectedValue) {
+        return preg_match(expectedValue, this.contents) > 0;
     }
     
     // Assertion message
@@ -23,9 +16,8 @@ class DContentsRegExp : DContentsBase {
         return "PCRE pattern found in %s".format(this.output);
     }
     
-    // @param Json other Expected
-    string failureDescription(Json other) {
-        return "`" ~ other ~ "` " ~ toString();
+    string failureDescription(Json expectedValue) {
+        return "`" ~ expectedValue ~ "` " ~ toString();
     }
 }
 

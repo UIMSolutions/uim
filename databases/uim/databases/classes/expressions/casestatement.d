@@ -91,7 +91,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
                     get_debug_type(aValue)
                 ));
             }
-            this.value = aValue;
+            _value = aValue;
 
             if (
                 !aValue.isNull &&
@@ -244,7 +244,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * @throws \LogicException In case the callable doesn`t return an instance of
      * `\UIM\Database\Expression\WhenThenExpression`.
      */
-    void when(Json  when, string[] valueType = null) {
+    void when(Json  when, string[] whenValueType = null) {
         if (!_whenBuffer.isNull) {
             throw new DLogicException("Cannot call `when()` between `when()` and `then()`.");
         }
@@ -260,7 +260,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
         if (cast(WhenThenExpression) when) {
             _when ~= when;
         } else {
-            _whenBuffer = ["when":  when, "type": valueType];
+            _whenBuffer = ["when":  when, "type": whenValueType];
         }
     }
 
@@ -431,7 +431,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
         
         string aValue = "";
         if (this.isSimpleVariant) {
-            aValue = this.compileNullableValue(aBinder, this.value, _valueType) ~ " ";
+            aValue = this.compileNullableValue(aBinder, _value, _valueType) ~ " ";
         }
         
         auto whenThenExpressions = _when
@@ -448,9 +448,9 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
             throw new DLogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }
         
-        if (cast(IExpression)this.value ) {
-            aCallback(this.value);
-            this.value.traverse(aCallback);
+        if (cast(IExpression)_value ) {
+            aCallback(_value);
+            _value.traverse(aCallback);
         }
         _when.each!(when => {
             aCallback(when);
@@ -468,8 +468,8 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
         if (whenBuffer) {
             throw new DLogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }
-        if (cast(IExpression)this.value ) {
-            this.value = clone this.value;
+        if (cast(IExpression)_value ) {
+            _value = clone _value;
         }
         foreach (_when as aKey:  when) {
             _when[aKey] = clone _when[aKey];

@@ -587,28 +587,24 @@ abstract class DQuery : IQuery { // : IExpression {
      * Json[string]|string atable The table to join with
      * @param \UIM\Database\IExpression|\Closure|string[] aconditions The conditions
      * to use for joining.
-     * @param string atype the join type to use
      */
     protected Json[string] _makeJoin(
-        string[] atable,
-        IExpression|Closure|string[] aconditions,
-        string atype
+        string[] tableToJoin,
+        /* IExpression|Closure| */ string[] aconditions,
+        string joinType
     ) {
-        alias = aTable;
+        string tableAlias = tableToJoin;
 
-        if (isArray(aTable)) {
-            alias = key(aTable);
-            aTable = current(aTable);
+        if (isArray(tableToJoin)) {
+            tableAlias = key(tableToJoin);
+            tableToJoin = current(tableToJoin);
         }
-        /**
-         * @var string aalias
-         * @psalm-suppress InvalidArrayOffset
-         */
+
         return [
-            alias: [
-                'table": aTable,
-                'conditions": conditions,
-                'type": type,
+            tableAlias: [
+                "table": tableToJoin,
+                "conditions": conditions,
+                "type": joinType,
             ],
         ];
     }

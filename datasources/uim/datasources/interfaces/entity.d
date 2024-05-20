@@ -23,10 +23,10 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      * fieldNames - An array of fields to hide from array exports.
      * shouldMerge - Merge the new fields with the existing. By default false.
      */
-   void setHidden(string[] fieldNames, bool shouldMerge = false);
+   void hiddenFields(string[] fieldNames, bool shouldMerge = false);
 
    // Gets the hidden fields.
-   string[] getHidden();
+   string[] hiddenFields();
 
    // Sets the virtual fields on this entity.
    void setVirtual(string[] fieldNames, bool canMergeExisting = false);

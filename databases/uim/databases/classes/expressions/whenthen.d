@@ -70,41 +70,33 @@ class DWhenThenExpression : DExpression {
      * plan to use user data, either pass a single type for the `type` argument (which forces the ` when` value to be
      * a non-array, and then always binds the data), use a conditions array where the user data is only passed on the
      * value side of the array entries, or custom bindings!
-     * @param STRINGAA|string type The when value type. Either an associative array when using array style
-     * conditions, or else a string. If no type is provided, the type will be tried to be inferred from the value.
-
-     * @throws \InvalidArgumentException In case the ` when` argument is an empty array.
-     * @throws \InvalidArgumentException In case the ` when` argument is an array, and the `type` argument is neither
-     * an array, nor null.
-     * @throws \InvalidArgumentException In case the ` when` argument is a non-array value, and the `type` argument is
-     * neither a string, nor null.
      */
-    void when(object|string[]|float|bool when, string[] type = null) {
+    void when(object|string[]|float|bool when, string[] valueType = null) {
         if (isArray(when)) {
             if (isEmpty(when)) {
                 throw new DInvalidArgumentException("The ` when` argument must be a non-empty array");
             }
             if (
-                type !isNull &&
-                !isArray(type)
+                valueType !isNull &&
+                !isArray(valueType)
             ) {
                 throw new DInvalidArgumentException(
                     "When using an array for the ` when` argument, the `type` argument must be an " ~
-                    "array too, `%s` given.".format(get_debug_type(type)
+                    "array too, `%s` given.".format(get_debug_type(valueType)
                 ));
             }
             // avoid dirtying the type map for possible consecutive `when()` calls
             typeMap = clone _typeMap;
             if (
-                isArray(type) &&
-                count(type) > 0
+                isArray(valueType) &&
+                count(valueType) > 0
             ) {
-                typeMap = typeMap.setTypes(type);
+                typeMap = typeMap.setTypes(valueType);
             }
              when = new DQueryExpression(when, typeMap);
         } else {
             if (
-                type !isNull &&
+                valueType !isNull &&
                 !isString(type)
             ) {
                 throw new DInvalidArgumentException(
@@ -113,14 +105,14 @@ class DWhenThenExpression : DExpression {
                 );
             }
             if (
-                type.isNull &&
+                valueType.isNull &&
                 !(cast(IExpression) when )
             ) {
-                type = this.inferType(when);
+                valueType = this.inferType(when);
             }
         }
         this.when = when;
-        this.whenType = type;
+        this.whenType = valueType;
     }
     
     // Sets the `THEN` result value.

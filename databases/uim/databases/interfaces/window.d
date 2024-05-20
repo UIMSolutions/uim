@@ -6,7 +6,6 @@ import uim.databases;
 
 // This defines the functions used for building window expressions.
 interface IWindow {
-    /*
     const string PRECEDING = "PRECEDING";
 
     const string FOLLOWING = "FOLLOWING";
@@ -53,11 +52,7 @@ interface IWindow {
      */
     auto range(IExpression|string|int start, IExpression|string|int end = 0);
 
-    /**
-     * Adds a simple rows frame to the window.
-     *
-     * See `range()` for details.
-     */
+    // Adds a simple rows frame to the window.
     auto rows(int frameStart, int frameEnd = 0);
 
     /**
@@ -84,14 +79,13 @@ interface IWindow {
      * - `null` - 'UNBOUNDED'
      * Params:
      * @param \UIM\Database\IExpression|string|int startOffset Frame start offset
-     * @param string astartDirection Frame start direction
      * @param \UIM\Database\IExpression|string|int endOffset Frame end offset
      */
     void frame(
         string frameType,
-        IExpression|string|int startOffset,
-        string astartDirection,
-        IExpression|string|int endOffset,
+        IExpression|string|int frameStartOffset,
+        string frameStartDirection,
+        IExpression|string|int frameEndOffset,
         string frameEndDirection
     );
 
@@ -103,6 +97,4 @@ interface IWindow {
 
     // Adds ties frame exclusion.
     auto excludeTies();
-
-    */
 }

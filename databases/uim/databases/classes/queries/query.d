@@ -283,11 +283,9 @@ abstract class DQuery : IQuery { // : IExpression {
      *       .query(cteQuery);
      * });
      * ```
-     * Params:
-     * \UIM\Database\Expression\CommonTableExpression|\Closure cte The CTE to add.
-     * @param bool shouldOverwrite Whether to reset the list of CTEs.
      */
-    void with(CommonTableExpression|Closure cte, bool shouldOverwrite = false) {
+    // TODO void with(Closure cteToAdd, bool shouldOverwrite = false) {
+    void with(CommonTableExpression cteToAdd, bool shouldOverwrite = false) {
         if (shouldOverwrite) {
            _parts["with"] = null;
         }
@@ -313,13 +311,13 @@ abstract class DQuery : IQuery { // : IExpression {
      * ### Example:
      *
      * ```
-     */ Ignore cache query in MySQL
+     * Ignore cache query in MySQL
      * aQuery.select(["name", "city"]).from("products").modifier("SQL_NO_CACHE");
-     */ It will produce the SQL: SELECT SQL_NO_CACHE name, city FROM products
+     * It will produce the SQL: SELECT SQL_NO_CACHE name, city FROM products
      *
-     */ Or with multiple modifiers
+     * Or with multiple modifiers
      * aQuery.select(["name", "city"]).from("products").modifier(["HIGH_PRIORITY", "SQL_NO_CACHE"]);
-     */ It will produce the SQL: SELECT HIGH_PRIORITY SQL_NO_CACHE name, city FROM products
+     * It will produce the SQL: SELECT HIGH_PRIORITY SQL_NO_CACHE name, city FROM products
      * ```
      * Params:
      * \UIM\Database\IExpression|string[] amodifiers modifiers to be applied to the query
@@ -395,7 +393,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *       'conditions": 'a.id = b.author_id'
      *   ]
      * ]);
-     */ Produces LEFT JOIN authors a ON a.id = b.author_id
+     * Produces LEFT JOIN authors a ON a.id = b.author_id
      * ```
      *
      * You can even specify multiple joins in an array, including the full description:
@@ -413,8 +411,8 @@ abstract class DQuery : IQuery { // : IExpression {
      *       "conditions": "p.id = b.publisher_id AND p.name = "uim Software Foundation"'
      *   ]
      * ]);
-     */ LEFT JOIN authors a ON a.id = b.author_id
-     */ INNER JOIN publishers p ON p.id = b.publisher_id AND p.name = "uim Software Foundation"
+     * LEFT JOIN authors a ON a.id = b.author_id
+     * INNER JOIN publishers p ON p.id = b.publisher_id AND p.name = "uim Software Foundation"
      * ```
      *
      * ### Using conditions and types

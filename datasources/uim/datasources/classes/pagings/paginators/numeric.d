@@ -356,16 +356,16 @@ class DNumericPaginator : IPaginator {
      *
      * @param Json[string] options the pagination options.
      */
-    protected Json[string] _extractFinder(Json[string] optionData) {
-        type = !options.isEmpty("finder"]) ? options["finder"] : "all";
-        options.remove("finder"], options["maxLimit"]);
+    protected Json[string] _extractFinder(Json[string] paginationOptions) {
+        type = !paginationOptions.isEmpty("finder") ? paginationOptions["finder"] : "all";
+        paginationOptions.remove("finder"), options["maxLimit"]);
 
         if (type.isArray) {
-            options = (array) current(type)+options;
+            paginationOptions = (array) current(type)+paginationOptions;
             type = key(type);
         }
 
-        return [type, options];
+        return [type, paginationOptions];
     }
 
     // Get paging params after pagination operation.

@@ -522,12 +522,8 @@ class DConsoleOptionParser {
      * Parse the value for a short option out of _tokens
      * If the option is a combination of multiple shortcuts like -otf
      * they will be shifted onto the token stack and parsed individually.
-     * Params:
-     * @param params The params to append the parsed value into
-     * params with option added in.
-     * @throws \UIM\Console\Exception\ConsoleException When unknown short options are encountered.
      */
-    protected Json[string] _parseShortOption(string optionToParse, Json[string] params) {
+    protected Json[string] _parseShortOption(string optionToParse, Json[string] paramsToAppen) {
         string aKey = substr(optionToParse, 1);
         if (aKey.length > 1) {
             flags = str_split(aKey);
@@ -547,7 +543,7 @@ class DConsoleOptionParser {
         }
         name = _shortOptions[aKey];
 
-        return _parseOption(name, params);
+        return _parseOption(name, paramsToAppen);
     }
     
     /**

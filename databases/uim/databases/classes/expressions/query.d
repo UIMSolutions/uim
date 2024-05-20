@@ -243,14 +243,10 @@ class DQueryExpression : DExpression { // }, Countable {
      * Note that `null` is a valid case value, and thus should
      * only be passed if you actually want to create the simple
      * case expression variant!
-     * Params:
-     * \UIM\Database\IExpression|object|scalar|null aValue The case value.
-     * @param string type The case value type. If no type is provided, the type will be tried to be inferred
-     * from the value.
      */
-    CaseStatementExpression case(Json aValue = null, string atype = null) {
+    CaseStatementExpression case(Json caseValue = null, string caseValueType = null) {
         auto caseExpression = (func_num_args() > 0) 
-            ? new DCaseStatementExpression(aValue, type);
+            ? new DCaseStatementExpression(caseValue, caseValueType);
             : new DCaseStatementExpression();
         
         return caseExpression.setTypeMap(getTypeMap());

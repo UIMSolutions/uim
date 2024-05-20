@@ -337,7 +337,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * @throws \InvalidArgumentException In case the `result` argument is neither a scalar value, nor an object, an
      * instance of `\UIM\Database\IExpression`, or `null`.
      */
-    void else(Json result, string atype = null) {
+    void else(Json result, string resultType = null) {
         if (!_whenBuffer.isNull) {
             throw new DLogicException("Cannot call `else()` between `when()` and `then()`.");
         }
@@ -353,10 +353,10 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
                 get_debug_type(result)
             ));
         }
-        type ??= this.inferType(result);
+        resultType ??= this.inferType(result);
 
-        this.else = result;
-        this.elseType = type;
+        _else = result;
+        _elseType = resultType;
     }
     
     /**
@@ -379,8 +379,8 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
                 types ~= type;
             }
         }
-        if (this.elseType.isNull) {
-            types ~= this.elseType;
+        if (_elseType.isNull) {
+            types ~= _elseType;
         }
         types = array_unique(types);
         if (count(types) == 1) {
@@ -439,7 +439,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
             .array;        
         string whenThen = whenThenExpressions.join(" ");
         
-        auto sqlElse = this.compileNullableValue(aBinder, this.else, this.elseType);
+        auto sqlElse = this.compileNullableValue(aBinder, _else, _elseType);
         return "CASE {aValue}{ whenThen} ELSE else END";
     }
  
@@ -457,9 +457,9 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
             when.traverse(aCallback);
         });
 
-        if (cast(IExpression)this.else ) {
-            aCallback(this.else);
-            this.else.traverse(aCallback);
+        if (cast(IExpression)_else ) {
+            aCallback(_else);
+            _else.traverse(aCallback);
         }
     }
     
@@ -474,9 +474,9 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
         foreach (_when as aKey:  when) {
             _when[aKey] = clone _when[aKey];
         }
-        if (cast(IExpression)this.else ) {
-            this.else = clone this.else;
+        if (cast(IExpression)_else ) {
+            _else = clone _else;
         }
-    } */
+    } 
 }
 mixin(ExpressionCalls!("CaseStatement"));

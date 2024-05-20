@@ -160,10 +160,10 @@ class DPaginator : IPaginator {
      *
      * @param \uim\Datasource\IRepository|\uim\Datasource\IQuery object The repository or query
      *  to paginate.
-     * @param Json[string] myParams Request params
+     * @param Json[string] requestParams Request params
      * @param Json[string] settings The settings/configuration used for pagination.
      */
-    IDSResultset paginate(object object, Json[string] myParams= null, Json[string] settings= null) {
+    IDSResultset paginate(object object, Json[string] requestParams = null, Json[string] settings= null) {
         myQuery = null;
         if (object instanceof IQuery) {
             myQuery = object;
@@ -173,7 +173,7 @@ class DPaginator : IPaginator {
             }
         }
 
-        myData = this.extractData(object, myParams, settings);
+        myData = this.extractData(object, requestParams, settings);
         myQuery = getQuery(object, myQuery, myData);
 
         cleanQuery = clone myQuery;
@@ -222,13 +222,13 @@ class DPaginator : IPaginator {
      * Extract pagination data needed
      *
      * @param \uim\Datasource\IRepository object The repository object.
-     * @param Json[string] myParams Request params
+     * @param Json[string] requestParams Request params
      * @param Json[string] settings The settings/configuration used for pagination.
      */
-    protected Json[string] extractData(IRepository anRepository, Json[string] myParams, Json[string] settings) {
+    protected Json[string] extractData(IRepository anRepository, Json[string] requestParams, Json[string] settings) {
         aliasName = object.aliasName();
         defaults = getDefaults(aliasName, settings);
-        options = mergeOptions(myParams, defaults);
+        options = mergeOptions(requestParams, defaults);
         options = validateSort(anRepository, options);
         options = checkLimit(options);
 
@@ -273,68 +273,68 @@ class DPaginator : IPaginator {
     /**
      * Add "page" and "pageCount" params.
      *
-     * @param Json[string] myParams Paging params.
+     * @param Json[string] pagingParams Paging params.
      * @param Json[string] myData Paginator data.
      */
-    protected Json[string] addPageCountParams(Json[string] myParams, Json[string] myData) {
-        page = myParams["page"];
+    protected Json[string] addPageCountParams(Json[string] pagingParams, Json[string] myData) {
+        page = pagingParams["page"];
         pageCount = 0;
 
-        if (myParams["count"] !== null) {
-            pageCount = max((int)ceil(myParams["count"] / myParams["perPage"]), 1);
+        if (pagingParams["count"] !== null) {
+            pageCount = max((int)ceil(pagingParams["count"] / pagingParams["perPage"]), 1);
             page = min(page, pageCount);
-        } elseif (myParams["current"] == 0 && myParams["requestedPage"] > 1) {
+        } elseif (pagingParams["current"] == 0 && pagingParams["requestedPage"] > 1) {
             page = 1;
         }
 
-        myParams["page"] = page;
-        myParams["pageCount"] = pageCount;
+        pagingParams["page"] = page;
+        pagingParams["pageCount"] = pageCount;
 
-        return myParams;
+        return pagingParams;
     }
 
     /**
      * Add "start" and "end" params.
      *
-     * @param Json[string] myParams Paging params.
+     * @param Json[string] pagingParams Paging params.
      * @param Json[string] myData Paginator data.
      */
-    protected Json[string] addStartEndParams(Json[string] myParams, Json[string] myData) {
+    protected Json[string] addStartEndParams(Json[string] pagingParams, Json[string] myData) {
         start = end = 0;
 
-        if (myParams["current"] > 0) {
-            start = ((myParams["page"] - 1) * myParams["perPage"]) + 1;
-            end = start + myParams["current"] - 1;
+        if (pagingParams["current"] > 0) {
+            start = ((pagingParams["page"] - 1) * pagingParams["perPage"]) + 1;
+            end = start + pagingParams["current"] - 1;
         }
 
-        myParams["start"] = start;
-        myParams["end"] = end;
+        pagingParams["start"] = start;
+        pagingParams["end"] = end;
 
-        return myParams;
+        return pagingParams;
     }
 
     /**
      * Add "prevPage" and "nextPage" params.
      *
-     * @param Json[string] myParams Paginator params.
+     * @param Json[string] paginatorParams Paginator params.
      * @param Json[string] myData Paging data.
      */
-    protected Json[string] addPrevNextParams(Json[string] myParams, Json[string] myData) {
-        myParams["prevPage"] = myParams["page"] > 1;
-        myParams["nextPage"] = myParams["count"] == null
+    protected Json[string] addPrevNextParams(Json[string] paginatorParams, Json[string] myData) {
+        paginatorParams["prevPage"] = paginatorParams["page"] > 1;
+        paginatorParams["nextPage"] = paginatorParams["count"] == null
             ? true
-            myParams["count"] > myParams["page"] * myParams["perPage"];
+            paginatorParams["count"] > paginatorParams["page"] * paginatorParams["perPage"];
 
-        return myParams;
+        return paginatorParams;
     }
 
     /**
      * Add sorting / ordering params.
      *
-     * @param Json[string] myParams Paginator params.
+     * @param Json[string] paginatorParams Paginator params.
      * @param Json[string] myData Paging data.
      */
-    protected Json[string] addSortingParams(Json[string] myParams, Json[string] myData) 
+    protected Json[string] addSortingParams(Json[string] paginatorParams, Json[string] myData) 
         defaults = myData["defaults"];
         order = (array)myData["options"]["order"];
         sortDefault = directionDefault = false;
@@ -344,7 +344,7 @@ class DPaginator : IPaginator {
             directionDefault = current(defaults["order"]);
         }
 
-        myParams += [
+        paginatorParams += [
             "sort":myData["options"]["sort"],
             "direction":isset(myData["options"]["sort"]) && count(order) ? current(order) : null,
             "sortDefault":sortDefault,
@@ -352,7 +352,7 @@ class DPaginator : IPaginator {
             "completeSort":order,
         ];
 
-        return myParams;
+        return paginatorParams;
     }
 
     /**
@@ -422,19 +422,19 @@ class DPaginator : IPaginator {
      * combined together. You can change config value `allowedParameters` to modify
      * which options/values can be set using request parameters.
      *
-     * @param Json[string] myParams Request params.
+     * @param Json[string] requestParams Request params.
      * @param Json[string] settings The settings to merge with the request data.
      */
-    Json[string] mergeOptions(Json[string] myParams, Json[string] settings) {
+    Json[string] mergeOptions(Json[string] requestParams, Json[string] settings) {
         if (!settings.isEmpty("scope"))) {
             scope = settings["scope"];
-            myParams = !myParams.isEmpty(scope)) ? (array)myParams[scope] : [];
+            requestParams = !requestParams.isEmpty(scope)) ? (array)requestParams[scope] : [];
         }
 
         allowed = getAllowedParameters();
-        myParams = array_intersect_key(myParams, array_flip(allowed));
+        requestParams = array_intersect_key(requestParams, array_flip(allowed));
 
-        return array_merge(settings, myParams);
+        return array_merge(settings, requestParams);
     }
 
     /**

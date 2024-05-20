@@ -131,7 +131,7 @@ abstract class DConfiguration : IConfiguration {
         return results;
     }
 
-    Json get(string key, Json defaultData = Json(null)) {
+    Json get(string key, Json defaultValue = Json(null)) {
         return defaultData;
     }
 

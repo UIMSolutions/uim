@@ -85,7 +85,7 @@ class DFileConfigEngine {
      * string var Variable to obtain. Use '.' to access array elements.
      * @param Json defaultValue The return value when the configure does not exist
      */
-    static Json read(string avar = null, Json defaultData = null) {
+    static Json read(string avar = null, Json defaultValue = null) {
         if (var.isNull) {
             return _values;
         }

@@ -185,19 +185,19 @@ class DCommandRunner { // }: IEventDispatcher {
      * defined command. This will traverse a maximum of 3 tokens.
      * Params:
      * \UIM\Console\CommandCollection commands The command collection to check.
-     * @param Json[string] argv The CLI arguments.
+     * @param Json[string] cliArguments The CLI arguments.
      */
-    protected Json[string] longestCommandName(CommandCollection commands, Json[string] argv) {
+    protected Json[string] longestCommandName(CommandCollection commands, Json[string] cliArguments) {
         for (anI = 3;  anI > 1;  anI--) {
-            someParts = array_slice(argv, 0,  anI);
+            someParts = array_slice(cliArguments, 0,  anI);
             name = someParts.join(" ");
             if (commands.has(name)) {
-                return [name, array_slice(argv,  anI)];
+                return [name, array_slice(cliArguments,  anI)];
             }
         }
-        name = array_shift(argv);
+        name = array_shift(cliArguments);
 
-        return [name, argv];
+        return [name, cliArguments];
     }
     
     /**
@@ -211,24 +211,24 @@ class DCommandRunner { // }: IEventDispatcher {
      * \UIM\Console\CommandCollection commands The command collection to check.
      * @param string name The name from the CLI args.
      */
-    protected string resolveName(CommandCollection commands, IConsoleIo aConsoleIo, string aName) {
-        if (!name) {
+    protected string resolveName(CommandCollection commands, IConsoleIo aConsoleIo, string cliArgumentName) {
+        if (!cliArgumentName) {
              aConsoleIo.writeErrorMessages("<error>No command provided. Choose one of the available commands.</error>", 2);
-            name = "help";
+            cliArgumentName = "help";
         }
-        name = _aliases[name] ?? name;
-        if (!commands.has(name)) {
-            name = Inflector.underscore(name);
+        cliArgumentName = _aliases[cliArgumentName] ?? cliArgumentName;
+        if (!commands.has(cliArgumentName)) {
+            cliArgumentName = Inflector.underscore(cliArgumentName);
         }
-        if (!commands.has(name)) {
+        if (!commands.has(cliArgumentName)) {
             throw new DMissingOptionException(
-                "Unknown command `{this.root} {name}`. " .
+                "Unknown command `{this.root} {cliArgumentName}`. " .
                 "Run `{this.root} --help` to get the list of commands.",
-                name,
+                cliArgumentName,
                 commands.keys()
             );
         }
-        return name;
+        return cliArgumentName;
     }
     
     /**

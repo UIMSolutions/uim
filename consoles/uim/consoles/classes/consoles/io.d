@@ -345,33 +345,27 @@ class DConsoleIo {
         return anIn;
     }
     
-    /**
-     * Prompts the user for input, and returns it.
-     * Params:
-     * string aprompt Prompt text.
-     * @param string options String of options. Pass null to omit.
-     * @param string default Default input value. Pass null to omit.
-     */
-    protected string _getInput(string promptText, string options, string defaultValue) {
+    // Prompts the user for input, and returns it.
+    protected string _getInput(string promptText, string options, string defaultInputValue) {
         if (!this.interactive) {
-            return to!string(defaultValue);
+            return to!string(defaultInputValue);
         }
 
         string optionsText = isSet(options) 
             ? " options " 
             : "";
 
-        string defaultText = !defaultValue.isNull ? "[%s] ".format(defaultValue) : "";
+        string defaultText = !defaultInputValue.isNull ? "[%s] ".format(defaultInputValue) : "";
         _out.write("<question>" ~ promptText ~ "</question>%s\n%s> ".fomat(optionsText, defaultText), 0);
         result = _in.read();
 
-        string result = result.isNull 
-            ? "" 
-            : result.strip;
+        string result = !result.isNull 
+            ? result.strip
+            : "";
         
-        return result.isEmpty
-            ? defaultValue
-            : result;
+        return !result.isEmpty
+            ?result
+            : defaultValue;
     }
     
     /**

@@ -790,7 +790,7 @@ class DDebugger {
         restore = null;
         if (showHtml != null) {
             restore = debugger.getConfig('exportFormatter');
-            debugger.setConfig('exportFormatter', showHtml ? HtmlFormatter.class : TextFormatter.class);
+            debugger.configuration.set('exportFormatter', showHtml ? HtmlFormatter.class : TextFormatter.class);
         }
         contents = exportVar(var, 25);
         formatter = debugger.getExportFormatter();

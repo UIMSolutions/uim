@@ -79,12 +79,10 @@ mixin template TInstanceConfig() {
      * ```
      * _configData.isSet("some-key", "default-value");
      * ```
-     * Params:
-     * @param Json defaultValue The return value when the key does not exist.
      */
-    Json getConfig(string keyToGet = null, Json defaultData = null) {
+    Json getConfig(string keyToGet = null, Json defaultValue = null) {
         if (!_configInitialized) {
-           _config = _defaultConfigData;
+           _config = defaultValue;
            _configInitialized = true;
         }
         return _configRead(keyToGet) ?? default;

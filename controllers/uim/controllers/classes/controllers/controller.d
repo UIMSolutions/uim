@@ -392,9 +392,8 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Redirects to given url, after turning off this.autoRender.
      * Params:
      * \Psr\Http\Message\IUri|string[] aurl A string, array-based URL or IUri instance.
-     * @param int status HTTP status code. Defaults to `302`.
      */
-    Response redirect(IUri|string[] aurl, int httpStatusCode = 302) {
+    Response redirect(/* IUri */string[] url, int httpStatusCode = 302) {
         _autoRender = false;
 
         if (httpStatusCode < 300 || httpStatusCode > 399) {
@@ -410,11 +409,12 @@ class DController : IController { // IEventListener, IEventDispatcher {
         if (cast(Response)result) {
             return _response = result;
         }
+        
         if (event.isStopped()) {
             return null;
         }
-        response = _response;
 
+        response = _response;
         if (!response.getHeaderLine("Location")) {
             response = response.withLocation(Router.url(url, true));
         }

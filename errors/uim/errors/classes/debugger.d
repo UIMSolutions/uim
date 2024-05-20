@@ -678,7 +678,7 @@ class DDebugger {
         restore = null;
         if (!showHtml.isNull) {
             restore = debugger.configuration.get("exportFormatter");
-            debugger.setConfig("exportFormatter", showHtml ? HtmlFormatter.classname : TextFormatter.classname);
+            debugger.configuration.set("exportFormatter", showHtml ? HtmlFormatter.classname : TextFormatter.classname);
         }
         contents = exportVar(var, 25);
         formatter = debugger.getExportFormatter();
@@ -686,7 +686,7 @@ class DDebugger {
         if (restore) {
             debugger.setConfig("exportFormatter", restore);
         }
-        writeln(formatter.formatWrapper(contents, location);
+        writeln(formatter.formatWrapper(contents, location));
     }
     
     /**

@@ -208,13 +208,13 @@ class DClient { // }: IClient {
         "path": ""
       ]);
 
-    if (isEmpty(configuration.data("scheme"]) || configuration.data("host"].isEmpty) {
+    if (isEmpty(configuration.get("scheme"]) || configuration.get("host"].isEmpty) {
       throw new DInvalidArgumentException(
         "The URL was parsed but did not contain a scheme or host");
     }
-    if (isSet(configuration.data("path"])) {
-      configuration.data("basePath"] = configuration.data("path"];
-      unset(configuration.data("path"]);
+    if (isSet(configuration.get("path"])) {
+      configuration.get("basePath"] = configuration.get("path"];
+      unset(configuration.get("path"]);
     }
     return new static(configData);
   }
@@ -564,35 +564,27 @@ class DClient { // }: IClient {
     return myrequest;
   }
 
-  /**
-     * Returns headers for Accept/Content-Type based on a short type
-     * or full mime-type.
-     *
-     * @Dstan-param non-empty-string mytype
-     * @param string mytype short type alias or full mimetype.
-     * returns Headers to set on the request.
-     * @throws \UIM\Core\Exception\UimException When an unknown type alias is used.
-     * @psalm-return array<non-empty-string, non-empty-string>
-     */
-  protected STRINGAA _typeHeaders(string mytype) {
+  // Returns headers for Accept/Content-Type based on a short type or full mime-type.
+  protected STRINGAA _typeHeaders(string mimetype) {
     if (mytype.has("/")) {
       return [
-        "Accept": mytype,
-        "Content-Type": mytype,
+        "Accept": mimetype,
+        "Content-Type": mimetype,
       ];
     }
-    mytypeMap = [
+
+    auto mytypeMap = [
       "Json": "application/Json",
       "xml": "application/xml",
     ];
-    if (!isSet(mytypeMap[mytype])) {
+    if (!isSet(mytypeMap[mimetype])) {
       throw new UimException(
         "Unknown type alias `%s`."
-          .format(mytype));
+          .format(mimetype));
     }
     return [
-      "Accept": mytypeMap[mytype],
-      "Content-Type": mytypeMap[mytype],
+      "Accept": mytypeMap[mimetype],
+      "Content-Type": mytypeMap[mimetype],
     ];
   }
 

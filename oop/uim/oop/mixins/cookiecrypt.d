@@ -21,24 +21,24 @@ mixin template TCookieCrypt() {
      * Encrypts myvalue using mytype method in Security class
      * Params:
      * string[] myvalue Value to encrypt
-     * @param string myencrypt Encryption mode to use. False
+     * @param string encryptionMode Encryption mode to use. False
      * disabled encryption.
      * @param string aKey Used as the security salt if specified.
      * returns Encoded values
      */
-    protected string _encrypt(string[] myvalue, string myencrypt, string aKey = null) {
+    protected string _encrypt(string[] myvalue, string encryptionMode, string aKey = null) {
         if (myvalue.isArray) {
             myvalue = _join(myvalue);
         }
-        if (myencrypt == false) {
+        if (encryptionMode == false) {
             return myvalue;
         }
-       _checkCipher(myencrypt);
+       _checkCipher(encryptionMode);
         string myprefix = "Q2FrZQ==.";
         
         string mycipher = "";
         aKey ??= _getCookieEncryptionKey();
-        return myencrypt == "aes"
+        return encryptionMode == "aes"
             ? Security.encrypt(myvalue, aKey)
             : myprefix ~ base64_encode(mycipher);
     }
@@ -72,14 +72,14 @@ mixin template TCookieCrypt() {
      * Decodes and decrypts a single value.
      * Params:
      * string myvalue The value to decode & decrypt.
-     * @param string myencrypt The encryption cipher to use.
+     * @param string encryptionCipher The encryption cipher to use.
      * @param string aKey Used as the security salt if specified.
      */
-    protected string[] _decode(string myvalue, string myencrypt, string aKey) {
-        if (!myencrypt) {
+    protected string[] _decode(string myvalue, string encryptionCipher, string aKey) {
+        if (!encryptionCipher) {
             return _split(myvalue);
         }
-       _checkCipher(myencrypt);
+       _checkCipher(encryptionCipher);
         myprefix = "Q2FrZQ==.";
         myprefixLength = myprefix.length;
 
@@ -92,7 +92,7 @@ mixin template TCookieCrypt() {
             return "";
         }
         aKey ??= _getCookieEncryptionKey();
-        if (myencrypt == "aes") {
+        if (encryptionCipher == "aes") {
             myvalue = Security.decrypt(myvalue, aKey);
         }
         if (myvalue.isNull) {

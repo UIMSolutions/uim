@@ -80,13 +80,14 @@ mixin template TInstanceConfig() {
      * _configData.isSet("some-key", "default-value");
      * ```
      */
-    Json getConfig(string keyToGet = null, Json defaultValue = null) {
+    // TODO Kill code?
+    /* Json getConfig(string keyToGet = null, Json defaultValue = null) {
         if (!_configInitialized) {
            _config = defaultValue;
            _configInitialized = true;
         }
-        return _configRead(keyToGet) ?? default;
-    }
+        // TODO return _configRead(keyToGet) ?? default;
+    } */
     
     /**
      * Returns the config for this specific key.
@@ -96,7 +97,7 @@ mixin template TInstanceConfig() {
      * string keyToGet The key to get.
      */
     Json getConfigOrFail(string keyToGet) {
-        configData = configuration.get(keyToGet);
+        Json configData = configuration.get(keyToGet);
         if (configData.isNull) {
             throw new DInvalidArgumentException(
                 "Expected configuration `%s` not found.".format(keyToGet));

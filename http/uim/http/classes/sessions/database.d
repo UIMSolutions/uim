@@ -26,7 +26,7 @@ class DatabaseSession { // }: SessionHandler {
      */
     this(Json[string] configData = null) {
         if (configData.hasKey("tableLocator")) {
-            setTableLocator(configuration.data("tableLocator"]);
+            setTableLocator(configuration.get("tableLocator"]);
         }
         aTableLocator = getTableLocator();
 
@@ -34,7 +34,7 @@ class DatabaseSession { // }: SessionHandler {
             configData = aTableLocator.exists("Sessions") ? [] : ["table": "sessions", "allowFallbackClass": true.toJson];
            _table = aTableLocator.get("Sessions", configData);
         } else {
-           _table = aTableLocator.get(configuration.data("model"]);
+           _table = aTableLocator.get(configuration.get("model"]);
         }
        _timeout = to!int(ini_get("session.gc_maxlifetime"));
     }

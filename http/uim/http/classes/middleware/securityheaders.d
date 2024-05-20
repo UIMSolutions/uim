@@ -175,20 +175,13 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
         this.headers["x-permitted-cross-domain-policies"] = policyValue;
     }
     
-    /**
-     * Convenience method to check if a value is in the list of allowed args
-     *
-     * @throws \InvalidArgumentException Thrown when a value is invalid.
-     * @param string avalue Value to check
-     * @param string[] allowed List of allowed values
-     */
-    protected void checkValues(string avalue, Json[string] allowed) {
-        if (!in_array(aValue, allowed, true)) {
-            array_walk(allowed, fn (&x): x = "`x`");
+    // Convenience method to check if a value is in the list of allowed args
+    protected void checkValues(string valueToCheck, string[] allowedValues) {
+        if (!in_array(valueToCheck, allowedValues, true)) {
+            array_walk(allowedValues, fn (&x): x = "`x`");
             throw new DInvalidArgumentException(
                 "Invalid arg `%s`, use one of these: %s."
-                .format(aValue,
-                allowed.join(", ")
+                .format(valueToCheck, allowedValues.join(", ")
             ));
         }
     }

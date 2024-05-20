@@ -52,27 +52,25 @@ mixin template TStaticConfig() {
      * Params:
      * Json[string]|string aKey The name of the configuration, or an array of multiple configs.
      * @param Json[string] configData Configuration value. Generally an array of name: configuration data for adapter.
-     * @throws \BadMethodCallException When trying to modify an existing config.
-     * @throws \LogicException When trying to store an invalid structured config array.
      */
-    void setConfiguration(string[] aKey, Json[string] configData = null) {
-        if (!isString(aKey)) {
+    void setConfiguration(string[] configurationName, Json[string] configData = null) {
+        if (!isString(configurationName)) {
             throw new DLogicException("If config is not null, key must be a string.");
         }
-        if (configuration.hasKey(aKey))) {
-            throw new BadMethodCallException("Cannot reconfigure existing key `%s`.".format(aKey));
+        if (configuration.hasKey(configurationName))) {
+            throw new BadMethodCallException("Cannot reconfigure existing key `%s`.".format(configurationName));
         }
         if (isObject(configData)) {
             configData = ["className": configData];
         }
         if (isArray(configData) && isSet(configData["url"])) {
-            parsed = parseDsn(configuration.data("url"]);
-            unset(configuration.data("url"]);
+            parsed = parseDsn(configuration.get("url"));
+            unset(configuration.get("url"));
             configData = parsed + configData;
         }
         if (configData.isSet("engine") && configData[]"className"].isEmpty) {
-            configuration.data("className"] = configuration.data("engine"];
-            unset(configuration.data("engine"]);
+            configuration.set("className", configuration.get("engine"));
+            unset(configuration.get("engine"]);
         }
         configuration.data(aKey] = configData;
     }

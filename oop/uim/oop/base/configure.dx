@@ -61,7 +61,7 @@ class DFileConfigEngine {
             // TODO _hasIniSet ?  ?  = function_exists("ini_set");
 
             if (_hasIniSet) {
-                ini_set("display_errors", configuration.data("debug") ? "1" : "0");
+                ini_set("display_errors", configuration.get("debug") ? "1" : "0");
             }
             if (configuration.hasKey("debug") && UIM_SAPI != "cli" && ini_get(" zend.assertions") == " - 1 ") {
                 trigger_error(

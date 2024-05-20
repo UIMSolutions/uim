@@ -1118,7 +1118,7 @@ class DMessage { //: JsonSerializable {
             }
         });
         if (configuration.hasKey("headers")) {
-            setHeaders(configuration.data("headers"));
+            setHeaders(configuration.get("headers"));
         }
         return this;
     }

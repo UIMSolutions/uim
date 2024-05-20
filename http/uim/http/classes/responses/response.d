@@ -377,7 +377,6 @@ class DResponse : IResponse {
      * - status: the HTTP status code to respond with
      * - type: a complete mime-type string or an extension mapped in this class
      * - charset: the charset for the response body
-     * @throws \InvalidArgumentException
      */
     this(Json[string] options = null) {
        _streamTarget = options["streamTarget"] ?? _streamTarget;
@@ -1203,11 +1202,7 @@ class DResponse : IResponse {
         return new;
     }
     
-    /**
-     * Validate a file path is a valid response body.
-     * Params:
-     * @throws \UIM\Http\Exception\NotFoundException
-     */
+    // Validate a file path is a valid response body.
     protected ISplFileInfo validateFile(string filePath) {
         if (filePath.has("../") || somefilePathPath.has("..\\")) {
             throw new DNotFoundException(__d("uim", "The requested file contains `..` and will not be read."));

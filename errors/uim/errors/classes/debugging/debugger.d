@@ -329,11 +329,9 @@ class DDebugger {
      * - `args` - Should arguments for functions be shown? If true, the arguments for each method call
      *  will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
-     *
-     * @param Json[string] options Format for outputting stack trace.
      */
-    static auto trace(Json[string] optionData = null) {
-        return Debugger.formatTrace(debug_backtrace(), options);
+    static auto trace(Json[string] formatOptions = null) {
+        return Debugger.formatTrace(debug_backtrace(), formatOptions);
     }
 
     /**

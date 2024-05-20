@@ -85,9 +85,9 @@ class DConsoleFormatter : IErrorFormatter {
      * Convert a tree of IErrorNode objects into a plain text string.
      * Params:
      * \UIM\Error\Debug\IErrorNode var The node tree to dump.
-     * @param int  anIndent The current indentation level.
+     * @param int anIndent The current indentation level.
      */
-    protected string export_(IErrorNode var, int  anIndent) {
+    protected string export_(IErrorNode var, int anIndent) {
         if (cast(DScalarNode)var) {
             return match (var.getType()) {
                 "bool": this.style("const", var.getValue() ? "true" : "false"),
@@ -114,9 +114,9 @@ class DConsoleFormatter : IErrorFormatter {
      * Export an array type object
      * Params:
      * \UIM\Error\Debug\ArrayNode var The array to export.
-     * @param int  anIndent The current indentation level.
+     * @param int anIndent The current indentation level.
      */
-    protected string exportArray(ArrayNode arrayToExport, int  anIndent) {
+    protected string exportArray(ArrayNode arrayToExport, int anIndent) {
          result = this.style("punct", "[");
         break = "\n" ~ str_repeat("  ",  anIndent);
         end = "\n" ~ str_repeat("  ",  anIndent - 1);
@@ -139,9 +139,9 @@ class DConsoleFormatter : IErrorFormatter {
      * Handles object to string conversion.
      * Params:
      * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\ReferenceNode var Object to convert.
-     * @param int  anIndent Current indentation level.
+     * @param int anIndent Current indentation level.
      */
-    protected string exportObject(ClassNode|ReferenceNode var, int  anIndent) {
+    protected string exportObject(ClassNode|ReferenceNode var, int indentLevel) {
         props = null;
 
         if (cast(ReferenceNode)var) {

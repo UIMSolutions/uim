@@ -1102,9 +1102,9 @@ abstract class DQuery : IQuery { // : IExpression {
      * aQuery.offset(aQuery.newExpr().add(["1 + 1"])); // OFFSET (1 + 1)
      * ```
      * Params:
-     * \UIM\Database\IExpression|int  anOffset number of records to be skipped
+     * \UIM\Database\IExpression|int anOffset number of records to be skipped
      */
-    auto offset(IExpression|int  anOffset) {
+    auto offset(IExpression|int anOffset) {
        _isDirty();
        _parts["offset"] = anOffset;
 

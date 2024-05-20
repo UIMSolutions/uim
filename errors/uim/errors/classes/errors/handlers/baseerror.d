@@ -198,10 +198,8 @@ abstract class DERRErrorHandler {
      * Stop the process.
      *
      * Implemented in subclasses that need it.
-     *
-     * @param int code Exit code.
      */
-    protected void _stop(int code) {
+    protected void _stop(int exitCode) {
         // Do nothing.
     }
 
@@ -255,13 +253,8 @@ abstract class DERRErrorHandler {
         }
     }
 
-    /**
-     * Log an error.
-     *
-     * @param string|int level The level name of the log.
-     * @param Json[string] data Array of error data.
-     */
-    protected bool _logError(level, Json[string] data) {
+    // Log an error.
+    protected bool _logError(string levelName, Json[string] errorData) {
         message = "%s (%s): %s in [%s, line %s]".format(
             data["error"],
             data["code"],

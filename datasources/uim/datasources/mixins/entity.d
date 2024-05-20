@@ -164,12 +164,8 @@ mixin template TEntity() {
     return get(field);
   }
 
-  /**
-     * Magic setter to add or edit a field in this entity
-     * Params:
-     * @param Json aValue The value to set to the field
-    */
-  void __set(string fieldName, Json aValue) {
+  // Magic setter to add or edit a field in this entity
+  void __set(string fieldName, Json valueToSet) {
     set(fieldName, aValue);
   }
 
@@ -881,7 +877,7 @@ mixin template TEntity() {
      * ### Example
      *
      * ```
-     */ Sets the error messages for a single field
+     * Sets the error messages for a single field
      * entity.setErrors("salary", ["must be numeric", "must be a positive number"]);
      * ```
      * Params:
@@ -979,14 +975,14 @@ mixin template TEntity() {
      * Read the error(s) from one or many objects.
      * Params:
      * \UIM\Datasource\IDatasourceEntity|range object The object to read errors from.
-     * @param string somePath The field name for errors.
+     * @param string errorFieldname The field name for errors.
     */
       protected Json[string] _readError(
-        IDatasourceEntity | range object, string aPath = null) {
-        if (somePath!isNull && cast(
+        IDatasourceEntity | range object, string errorFieldname = null) {
+        if (errorFieldname!isNull && cast(
           IDatasourceEntity) object) {
           return object.getError(
-            somePath);
+            errorFieldname);
         }
         if (
           cast(IDatasourceEntity) object) {

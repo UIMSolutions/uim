@@ -65,18 +65,13 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
    Json[string] getErrors();
 
    // Returns validation errors of a field
-   TODO Json[string] getError(string fieldName);
+   Json[string] getError(string fieldName);
 
    // Sets error messages to the entity
-   TODO void setErrors(Json[string] errors, bool shouldOoverwrite = false);
+   void setErrors(Json[string] errors, bool shouldOoverwrite = false);
 
-   /**
-     * Sets errors for a single field
-     * Params:
-     * string fieldName The field to get errors for, or the array of errors to set.
-     * @param string[] aerrors The errors to be set for field
-     */
-    IDatasourceEntity setErrors(string fieldName, string[] aerrors, bool overwrite = false);
+   //Sets errors for a single field
+    IDatasourceEntity setErrors(string fieldName, string[] FieldErrors, bool overwrite = false);
 
     /**
      * Stores whether a field value can be changed or set in this entity.
@@ -92,12 +87,10 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
    bool isAccessible(string fieldName);
 
    // Sets the source alias
-   void setSource(string aliasName);
+   void setSource(string sourceAlias);
 
-   /**
-     * Returns the alias of the repository from which this entity came from.
-     */
-   // string source();
+   // Returns the alias of the repository from which this entity came from.
+  string source();
 
    /**
      * Returns an array with the requested original fields

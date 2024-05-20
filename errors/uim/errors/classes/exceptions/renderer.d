@@ -81,16 +81,10 @@ class DExceptionRenderer { // }: IExceptionRenderer
         MissingRouteException.class: 404,
     ];
 
-    /**
-     * Creates the controller to perform rendering on the error response.
-     *
-     * @param \Throwable exception Exception.
-     * @param uim.uim.http.ServerRequest|null myRequest The request if this is set it will be used
-     *  instead of creating a new one.
-     */
-    this(DThrowable exception, ServerRequest myRequest = null) {
+    // Creates the controller to perform rendering on the error response.
+    this(DThrowable exception, ServerRequest serverRequest = null) {
         this.error = exception;
-        this.request = myRequest;
+        this.request = serverRequest;
         this.controller = _getController();
     }
 

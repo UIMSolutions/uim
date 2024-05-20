@@ -161,7 +161,7 @@ interface IQuery {
      * aQuery.offset(aQuery.newExpr().add(["1 + 1"])); // OFFSET (1 + 1)
      * ```
      * Params:
-     * int  anOffset number of records to be skipped
+     * int anOffset number of records to be skipped
      */
     auto offset(int anOffset);
 

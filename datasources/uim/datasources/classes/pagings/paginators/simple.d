@@ -23,19 +23,19 @@ class DSimplePaginator : DNumericPaginator {
      * Get one additional record than the limit. This helps deduce if next page exits.
      * Params:
      * \UIM\Datasource\IQuery aQuery Query to fetch items.
-     * @param Json[string] data Paging data.
+     * @param Json[string] pagingData Paging pagingData.
      */
-    protected IResultset getItems(IQuery aQuery, Json[string] data) {
-        return aQuery.limit(someData["options"]["limit"] + 1).all();
+    protected IResultset getItems(IQuery aQuery, Json[string] pagingData) {
+        return aQuery.limit(pagingData["options"]["limit"] + 1).all();
     }
  
-    protected Json[string] buildParams(Json[string] data) {
+    protected Json[string] buildParams(Json[string] pagingData) {
         hasNextPage = false;
-        if (this.pagingParams["count"] > someData["options"]["limit"]) {
+        if (this.pagingParams["count"] > pagingData["options"]["limit"]) {
             hasNextPage = true;
             this.pagingParams["count"] -= 1;
         }
-        super.buildParams(someData);
+        super.buildParams(pagingData);
 
         this.pagingParams["hasNextPage"] = hasNextPage;
 
@@ -47,13 +47,11 @@ class DSimplePaginator : DNumericPaginator {
      *
      * Since the query fetches an extra record, drop the last record if records
      * fetched exceeds the limit/per page.
-     * Params:
-     * \UIM\Datasource\IResultset  someItems
      */
-    protected IPaginated buildPaginated(IResultset  someItems, Json[string] pagingParams) {
-        if (count(someItems) > this.pagingParams["perPage"]) {
-             someItems = someItems.take(this.pagingParams["perPage"]);
+    protected IPaginated buildPaginated(IResultset resultItems, Json[string] pagingParams) {
+        if (count(resultItems) > this.pagingParams["perPage"]) {
+             resultItems = someItems.take(this.pagingParams["perPage"]);
         }
-        return new DPaginatedResultset(someItems, pagingParams);
-    } */
+        return new DPaginatedResultset(resultItems, pagingParams);
+    } 
 }

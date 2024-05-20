@@ -156,20 +156,15 @@ class DFixtureHelper {
         }, testFixtures);
     }
     
-    /**
-     * Truncates all fixtures for a connection and provides friendly errors for bad data.
-     * Params:
-     * \UIM\Datasource\IConnection aConnection Fixture connection
-     * @param array<\UIM\Datasource\IFixture> fixtures Connection fixtures
-     */
-    protected void truncateConnection(IConnection aConnection, Json[string] fixtures) {
+    // Truncates all fixtures for a connection and provides friendly errors for bad data.
+    protected void truncateConnection(IConnection fixtureConnection, IFixture[] fixtures) {
         fixtures.each!((fixture) {
             try {
-                fixture.truncate(aConnection);
+                fixture.truncate(fixtureConnection);
             } catch (PDOException exception) {
-                string message = "Unable to truncate table `%s`."
-                        ~ " Fixture records might have invalid data or unknown contraints.\n%s".format(
-                    fixture.sourceName(),exception.getMessage());
+                string message = "Unable to truncate table `%s`." ~ 
+                    " Fixture records might have invalid data or unknown contraints.\n%s"
+                    .format(fixture.sourceName(),exception.getMessage());
                 throw new UimException(message);
             }
         });

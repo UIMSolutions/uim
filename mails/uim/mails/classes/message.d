@@ -360,15 +360,9 @@ class DMessage { //: JsonSerializable {
         return _cc;
     }
     
-    /**
-     * Add "cc" address.
-     * Params:
-     * string[] aemail String with email,
-     * Array with email as key, name as value or email as value (without name)
-     * @param string name Name
-     */
-    auto addCc(string[] aemail, string aName = null) {
-        return _addEmail("cc", email, name);
+    // Add "cc" address.
+    auto addCc(string[] emails, string name = null) {
+        return _addEmail("cc", emails, name);
     }
     
     /**

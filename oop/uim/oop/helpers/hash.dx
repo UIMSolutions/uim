@@ -365,18 +365,18 @@ class Hash {
      * Creates an associative array using `mykeyPath` as the path to build its keys, and optionally
      * `myvaluePath` as path to get the values. If `myvaluePath` is not specified, all values will be initialized
      * to null (useful for Hash.merge). You can optionally group the values by what is obtained when
-     * following the path specified in `mygroupPath`.
+     * following the path specified in `groupPath`.
      * Params:
      * Json[string] data Array from where to extract keys and values
      * @param string[]|string mykeyPath A dot-separated string.
      * @param string[]|string myvaluePath A dot-separated string.
-     * @param string mygroupPath A dot-separated string.
+     * @param string groupPath A dot-separated string.
      */
     static Json[string] combine(
         array data,
         string[] mykeyPath,
         string[] myvaluePath = null,
-        string mygroupPath = null
+        string groupPath = null
     ) {
         if (isEmpty(mydata)) {
             return null;
@@ -411,8 +411,8 @@ class Hash {
                 "`Hash.combine()` needs an equal number of keys + values."
             );
         }
-        if (mygroupPath !isNull) {
-            mygroup = extract(mydata, mygroupPath);
+        if (groupPath !isNull) {
+            mygroup = extract(mydata, groupPath);
             if (!mygroup.isEmpty) {
                 myc = isArray(someKeys) ? count(someKeys): count(myvals);
                 result = null;

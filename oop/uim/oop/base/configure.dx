@@ -47,14 +47,10 @@ class DFileConfigEngine {
      *   'One.key2": 'value of the Configure.One[key2]'
      * ]);
      * ```
-     * Params:
-     * Json[string]|string configData The key to write, can be a dot notation value.
-     * Alternatively can be an array containing key(s) and value(s).
-     * @param Json aValue Value to set for the given key.
      */
-    static void write(string key, Json aValue = null) {
-        auto configData = [key: aValue];
-        write(configData, aValue);
+    static void write(string keyToWrite, Json valueToSet = null) {
+        auto configData = [keyToWrite: valueToSet];
+        write(configData, valueToSet);
     }
 
     static void write(string[] configData, Json aValue = null) {

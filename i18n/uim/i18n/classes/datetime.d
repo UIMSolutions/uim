@@ -380,14 +380,9 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * Returns a nicely formatted date string for this object.
      *
      * The format to be used is stored in the auto property `DateTime.niceFormat`.
-     * Params:
-     * \DateTimeZone|string timezone Timezone string or DateTimeZone object
-     * in which the date will be displayed. The timezone stored for this object will not
-     * be changed.
-     * @param string locale The locale name in which the date should be displayed (e.g. pt-BR)
      */
-    string nice(DateTimeZone|string timezone = null, string alocale = null) {
-        return (string)this.i18nFormat(niceFormat, timezone, locale);
+    string nice(DateTimeZone|string timezone = null, string localeName = null) {
+        return (string)this.i18nFormat(niceFormat, timezone, localeName);
     }
     
     /**

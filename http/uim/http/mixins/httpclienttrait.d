@@ -29,15 +29,9 @@ mixin template THttpClient() {
         return new DResponse(aHeaders, body);
     }
     
-    /**
-     * Add a mock response for a POST request.
-     * Params:
-     * string aurl The URL to mock
-     * @param \UIM\Http\Client\Response response The response for the mock.
-     * @param Json[string] options Additional options. See Client.addMockResponse()
-     */
-    void mockClientPost(string aurl, Response response, Json[string] options = null) {
-        Client.addMockResponse("POST", url, response, options);
+    // Add a mock response for a POST request.
+    void mockClientPost(string urlToMock, Response responseToMock, Json[string] additionalOptions = null) {
+        Client.addMockResponse("POST", urlToMock, responseToMock, additionalOptions);
     }
     
     /**

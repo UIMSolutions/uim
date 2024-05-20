@@ -111,14 +111,9 @@ mixin template TEmail() {
         this.assertThat(address, new DMailSentTo(), message);
     }
     
-    /**
-     * Asserts an email was sent from an address
-     * Params:
-     * string[]|string aaddress Email address
-     * @param string amessage Message
-     */
-    void assertMailSentFrom(string[] aaddress, string amessage = null) {
-        this.assertThat(address, new DMailSentFrom(), message);
+    // Asserts an email was sent from an address
+    void assertMailSentFrom(string[] emailAddress, string emailMessage = null) {
+        this.assertThat(emailAddress, new DMailSentFrom(), emailMessage);
     }
     
     /**

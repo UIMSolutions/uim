@@ -21,14 +21,9 @@ string __(string asingular, Json ...someArguments) {
 /**
  * Returns correct plural form of message identified by singular and plural for count count.
  * Some languages have more than one form for plural messages dependent on the count.
- *
- * @param string asingular Singular text to translate.
- * @param string aplural Plural text.
- * @param int count Count.
- * @param Json ...someArguments Array with arguments or multiple arguments in function.
  */
-string __n(string asingular, string aplural, int count, Json ...someArguments) {
-    if (!singular) {
+string __n(string singularText, string pluralText, size_t count, Json ...someArguments) {
+    if (!singularText) {
         return "";
     }
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
@@ -36,7 +31,7 @@ string __n(string asingular, string aplural, int count, Json ...someArguments) {
     }
     return I18n.getTranslator().translate(
         plural,
-        ["_count": count, "_singular": singular] + someArguments
+        ["_count": count, "_singular": singularText] + someArguments
     );
 }
 

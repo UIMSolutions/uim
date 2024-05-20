@@ -6,28 +6,18 @@ import uim.errors;
 
 /*
  * Plain text error rendering with a stack trace.
- *
  * Writes to STDERR via a UIM\Console\ConsoleOutput instance for console environments
  */
 class DConsoleErrorRenderer { // }: IErrorRenderer {
     protected bool _trace = false;
-    /*
+
     protected IConsoleOutput _output;
 
-
-    /**
-     .
-     *
-     * ### Options
-     *
-     * - `stderr` - The ConsoleOutput instance to use. Defaults to `D://stderr`
-     * - `trace` - Whether or not stacktraces should be output.
-     * Params:
-     * Json[string] configData Error handling configuration.
-     */
-    this(Json[string] configData = null) {
-       _output = configuration.get("stderr"] ?? new DConsoleOutput("D://stderr");
-        this.trace = (bool)(configuration.get("trace"] ?? false);
+    this(Json[string] initData = null) {
+        initialize(initData);
+        // `stderr` - The ConsoleOutput instance to use. Defaults to `D://stderr`
+        // `trace` - Whether or not stacktraces should be output.       _output = configuration.get("stderr", new DConsoleOutput("D://stderr"));
+       _trace = (configuration.getBoolean("trace", false);
     }
  
     void write(string outputText) {
@@ -48,5 +38,5 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
                 error.getFile() ?? "",
                 trace
             );
-    } */
+    }
 }

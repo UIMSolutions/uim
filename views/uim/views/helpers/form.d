@@ -173,18 +173,18 @@ class DFormHelper : DHelper {
     this(IView myview, Json[string] configData = null) {
         mylocator = null;
         mywidgets = _defaultWidgets;
-        if (isSet(configuration.get("locator"])) {
+        if (configuration.hasKey("locator")) {
             mylocator = configuration.get("locator"];
             configuration.remove("locator");
         }
-        if (isSet(configuration.get("widgets"])) {
+        if (configuration.hasKey("widgets")) {
             if (isString(configuration.get("widgets"])) {
                 configuration.get("widgets"] = (array)configuration.get("widgets"];
             }
             mywidgets = configuration.get("widgets"] + mywidgets;
             configuration.remove("widgets");
         }
-        if (isSet(configuration.get("groupedInputTypes"])) {
+        if (configuration.hasKey("groupedInputTypes")) {
            _groupedInputTypes = configuration.get("groupedInputTypes"];
             configuration.remove("groupedInputTypes");
         }

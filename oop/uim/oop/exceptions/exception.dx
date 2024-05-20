@@ -94,7 +94,7 @@ class UimException : IException {
      *  that are made available in the view, and sprintf()"d into Exception._messageTemplate
      * @param \Throwable|null previous the previous exception.
      */
-/* this(myMessage = "", int errorCode = null, Throwable previous = null) {
+/* this(myMessage = "", int errorCode = null, Throwable previousException = null) {
       if (myMessage.isArray) {
         _attributes = myMessage;
         myMessage = vsprintf(_messageTemplate, myMessage);

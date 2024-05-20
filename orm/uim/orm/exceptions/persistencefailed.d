@@ -37,7 +37,7 @@ mixin(ExceptionCalls!("PersistenceFailed"));
      * @param string[]|string myMessage Either the string of the error message, or an array of attributes
      *  that are made available in the view, and sprintf()"d into Exception._messageTemplate
      */
-    this(IORMEntity anEntity, myMessage, int errorCode = null, Throwable previous = null) {
+    this(IORMEntity anEntity, myMessage, int errorCode = null, Throwable previousException = null) {
         _entity = entity;
         if (myMessage.isArray) {
             myErrors = null;

@@ -82,7 +82,7 @@ class DWidget : IWidget {
     }
 
     return _stringContents.format("input",
-        updatedData.data("name", "type", "templateVars")
+        updatedData.get("name", "type", "templateVars")
           .update(["attrs": _stringContents.formatAttributes(updatedData, ["name", "type"])])
     );
   }

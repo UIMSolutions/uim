@@ -48,13 +48,8 @@ class DDigest {
     // Is Sess algorithm
     protected bool isSessAlgorithm = false;
 
-    /**
-     
-     * Params:
-     * \UIM\Http\Client client Http client object.
-     * @param array|null options Options list.
-     */
-    this(IClient httpClient, Json[string] options = null) {
+    this(IClient httpClient, Json[string] initData = null) {
+        initialize(initData);
        _client = httpClient;
     }
     

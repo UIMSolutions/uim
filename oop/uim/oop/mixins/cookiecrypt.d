@@ -84,21 +84,21 @@ mixin template TCookieCrypt() {
         myprefixLength = myprefix.length;
 
         if (strncmp(myvalue, myprefix, myprefixLength) != 0) {
-            return "";
+            return null;
         }
         string myvalue = base64_decode(substr(myvalue, myprefixLength), true);
 
         if (myvalue == false || myvalue.isEmpty) {
-            return "";
+            return null;
         }
         aKey ??= _getCookieEncryptionKey();
         if (encryptionCipher == "aes") {
             myvalue = Security.decrypt(myvalue, aKey);
         }
-        if (myvalue.isNull) {
-            return "";
-        }
-        return _split(myvalue);
+
+        return myvalue.isNull
+            ? null
+            : _split(myvalue);
     }
     
     /**

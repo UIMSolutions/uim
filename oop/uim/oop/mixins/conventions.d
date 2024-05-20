@@ -34,7 +34,7 @@ mixin template TConventions() {
      * string aKey Foreign key
      */
     protected string _modelNameFromKey(string aKey) {
-        aKey = aKey..replace("_id", "");
+        aKey = aKey.replace("_id", "");
 
         return Inflector.camelize(Inflector.pluralize(aKey));
     }
@@ -98,5 +98,4 @@ mixin template TConventions() {
     protected string _pluginNamespace(string pluginName) {
         return pluginName.replace("/", "\\", pluginName);
     } 
-    */
 }

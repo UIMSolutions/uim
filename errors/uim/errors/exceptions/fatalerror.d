@@ -17,26 +17,22 @@ class DFatalErrorException : UimException {
         return true;
     }
     /**
-     
-     *
-     * @param string message Message string.
-     * @param string file File name.
      * @param int|null line Line number.
      * @param \Throwable|null previous The previous exception.
      */
     this(
         string message,
         int code = 0,
-        string file = null,
-        Nullable!int line = null,
-        ?Throwable previous = null
+        string fileName = null,
+        int lineNumber = 0,
+        ?Throwable previousException = null
     ) {
         super(message, code, previous);
-        if (file) {
-            this.file = file;
+        if (fileName) {
+            _fileName = fileName;
         }
-        if (line) {
-            this.line = line;
+        if (lineNumber > 0) { // TODO Logical error 
+            _lineNumber = lineNumber;
         }
     } 
 }

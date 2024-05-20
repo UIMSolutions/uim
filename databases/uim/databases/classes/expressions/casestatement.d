@@ -62,8 +62,6 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
     protected string resultType = null;
 
     /**
-     .
-     *
      * When a value is set, the syntax generated is
      * `CASE case_value WHEN when_value ... END` (simple case),
      * where the `when_value``s are compared against the

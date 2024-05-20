@@ -72,18 +72,13 @@ class DRulesChecker {
     // The list of rules to check during delete operations
     protected DRuleInvoker[] _deleteRules = null;
 
-    /* 
     // List of options to pass to every callable rule
     protected Json[string] _options = null;
 
     // Whether to use I18n functions for translating default error messages
     protected bool _useI18n = false;
 
-    /**
-     . Takes the options to be passed to all rules.
-     * Params:
-     * Json[string] optionData The options to pass to every rule
-     */
+    // Takes the options to be passed to all rules.
     this(Json[string] optionData = null) {
        _options = options;
        _useI18n = function_exists("\UIM\I18n\__d");

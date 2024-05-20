@@ -206,7 +206,6 @@ class DCommandRunner { // }: IEventDispatcher {
      * command names take precedence over less specific ones.
      * Params:
      * \UIM\Console\CommandCollection commands The command collection to check.
-     * @param string name The name from the CLI args.
      */
     protected string resolveName(CommandCollection comandsToCheck, IConsoleIo aConsoleIo, string cliArgumentName) {
         if (!cliArgumentName) {

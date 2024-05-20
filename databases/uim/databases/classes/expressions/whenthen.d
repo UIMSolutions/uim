@@ -51,12 +51,6 @@ class DWhenThenExpression : DExpression {
     // The `THEN` result type.
     protected string athenType = null;
 
-    /**
-     .
-     * Params:
-     * \UIM\Database\TypeMap|null typeMap The type map to use when using an array of conditions for the `WHEN`
-     * value.
-     */
     this(DTypeMap typeMap = null) {
        _typeMap = typeMap ?? new DTypeMap();
     }

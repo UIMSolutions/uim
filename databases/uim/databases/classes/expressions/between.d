@@ -25,12 +25,7 @@ class DBetweenExpression : DExpression { // TODO}, IField {
     // The data valueType for the from and to arguments
     protected Json _type;
 
-    /**
-     
-     * Params:
-     * \UIM\Database\IExpression|string fieldName The field name to compare for values inbetween the range.
-     */
-    this(IExpression|string fieldName, Json fromValue, Json toValue, string typeName = null) {
+    this(/* IExpression| */ string fieldName, Json fromValue, Json toValue, string typeName = null) {
         if (!typeName.isNull) {
             from = _castToExpression(fromValue, typeName);
             to = _castToExpression(toValue, typeName);

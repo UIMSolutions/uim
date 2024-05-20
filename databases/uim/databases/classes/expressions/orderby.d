@@ -8,20 +8,14 @@ import uim.databases;
 class DOrderByExpression : DQueryExpression {
     mixin(ExpressionThis!("OrderBy"));
 
-    /**
-     
-     * Params:
-     * \UIM\Database\IExpression|string[] aconditions The sort columns
-     * @param \UIM\Database\TypeMap|STRINGAA types The types for each column.
-     * @param string aconjunction The glue used to join conditions together.
-     */
     this(
-        IExpression|string[] aconditions = null,
-        TypeMap|array types = null,
-        string aConjunction = ""
+        /* IExpression */ string[] sortColumns = null,
+        TypeMap types = null,
+        string conjunctionName = ""
     ) {
-        super(conditions, types, aConjunction);
+        super(sortColumns, types, conjunctionName);
     }
+
     string sql(DValueBinder aBinder) {
         string[] sqlOrders;
         foreach (myKey:  direction; _conditions) {

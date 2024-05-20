@@ -564,15 +564,8 @@ interface ICollection {
      * "a": [1: "foo", 3: "baz"],
      * "b": [2: "bar"]
      * ];
-
-     * @param callable|string aKeyPath the column name path to use for indexing
-     * or a // function returning the indexing key out of the provided element
-     * @param callable|string aValuePath the column name path to use as the array value
-     * or a // function returning the value out of the provided element
-     * @param callable|string  groupPath the column name path to use as the parent
-     * grouping key or a // function returning the key out of the provided element
      */
-    ICollection combine(keyPath, valuePath,  groupPath = null);
+    ICollection combine(string keyPath, string valuePath, string groupPath = null);
 
     /**
      * Returns a new DCollection where the values are nested in a tree-like structure

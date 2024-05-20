@@ -109,16 +109,9 @@ class DExceptionTrap {
      */
     protected static registeredTrap = null;
 
-    /**
-     * Track if this trap was removed from the global handler.
-     */
+    // Track if this trap was removed from the global handler.
     protected bool disabled = false;
 
-    /**
-     
-     *
-     * @param Json[string] options An options array. See _defaultConfig.
-     */
     this(Json[string] optionData = null) {
         configuration.update(options);
     }
@@ -145,7 +138,7 @@ class DExceptionTrap {
             aClassName = this.chooseRenderer();
         }
 
-        if ((aClassName.isString) {
+        if (aClassName.isString) {
             /** @psalm-suppress ArgumentTypeCoercion */
             if (!(method_exists(aClassName, "render") && method_exists(aClassName, "write"))) {
                 throw new DInvalidArgumentException(

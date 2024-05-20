@@ -9,22 +9,15 @@ import uim.datasources;
  * Used by {@link \UIM\Datasource\QueryTrait} internally.
  */
 class DQueryCacher {
-    /* 
     // The key or auto to generate a key
     protected IClosure|string _key;
 
     // Config for cache engine.
     protected ICache|string configuration;
 
-    /**
-     .
-     * Params:
-     * \Closure|string aKey The key or auto to generate a key.
-     * @param \Psr\SimpleCache\ICache|string configData The cache config name or cache engine instance.
-     */
-    this(IClosure|string aKey, ICache|string configData) {
-       _key = aKey;
-       configuration = configData;
+    this(/*IClosure */string keyToUse, /* ICache */ string configName) {
+       _key = keyToUse;
+       // TODO configuration = configName;
     }
     
     /**
@@ -42,15 +35,10 @@ class DQueryCacher {
             : result;
     }
     
-    /**
-     * Store the result set into the cache.
-     * Params:
-     * object aQuery The query the cache read is for.
-     * @param \Traversable results The result set to store.
-     */
-    bool store(object aQuery, Traversable results) {
-        aKey = _resolveKey(aQuery);
-        storage = _resolveCacher();
+    // Store the result set into the cache.
+    bool store(object cacheQuery, Traversable resultsToStore) {
+        auto aKey = _resolveKey(aQuery);
+        auto storage = _resolveCacher();
 
         return storage.set(aKey, results);
     }
@@ -64,7 +52,8 @@ class DQueryCacher {
         if (isString(_key)) {
             return _key;
         }
-        func = _key;
+
+        auto func = _key;
         auto result = func(aQuery);
         if (!isString(result)) {
             string message = "Cache key functions must return a string. Got %s."
@@ -80,5 +69,5 @@ class DQueryCacher {
             return Cache.pool(configuration);
         }
         return configuration;
-    } */
+    } 
 }

@@ -95,14 +95,8 @@ abstract class DQuery : IQuery { // : IExpression {
     // Instance of functions builder object used for generating arbitrary SQL functions.
     protected DFunctionsBuilder _functionsBuilder;
 
-    /**
-     .
-     * Params:
-     * \UIM\Database\Connection aConnection The connection
-     * object to be used for transforming and executing this query
-     */
-    this(IConnection aConnection) {
-        setConnection(aConnection);
+    this(IConnection newConnection) {
+        setConnection(newConnection);
     }
     
     // Sets the connection instance to be used for executing and transforming this query.

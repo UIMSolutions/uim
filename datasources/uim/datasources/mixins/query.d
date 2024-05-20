@@ -45,8 +45,6 @@ mixin template TQuery() {
     /**
      * Set the default Table object that will be used by this query
      * and form the `FROM` clause.
-     *
-     * @param uim.Datasource\IRepository|uim.orm.Table repository The default table object to use
      */
     void repository(IRepository repository) {
         _repository = repository;

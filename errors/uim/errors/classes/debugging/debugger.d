@@ -308,17 +308,13 @@ class DDebugger {
     /**
      * Creates an entry in the log file. The log entry will contain a stack trace from where it was called.
      * as well as export the variable using exportVar. By default, the log is written to the debug log.
-     *
-     * @param mixed var Variable or content to log.
-     * @param string|int level Type of log to use. Defaults to 'debug'.
-     * @param int maxDepth The depth to output to. Defaults to 3.
      */
-    static void log(var, level = 'debug', int maxDepth = 3) {
+    static void log(Json varToLog, string logLevel = "debug", size_t maxOutputDepth = 3) {
         string source = trace(["start": 1]) ~ "\n";
 
         Log.write(
-            level,
-            "\n" ~ source ~ exportVarAsPlainText(var, maxDepth)
+            logLevel,
+            "\n" ~ source ~ exportVarAsPlainText(varToLog, maxOutputDepth)
         );
     }
 

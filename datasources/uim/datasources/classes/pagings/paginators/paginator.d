@@ -329,9 +329,9 @@ class DPaginator : IPaginator {
      * @param Json[string] paginatorParams Paginator params.
      * @param Json[string] myData Paging data.
      */
-    protected Json[string] addSortingParams(Json[string] paginatorParams, Json[string] myData) 
-        defaults = myData["defaults"];
-        order = (array)myData["options"]["order"];
+    protected Json[string] addSortingParams(Json[string] paginatorParams, Json[string] pagingData) 
+        defaults = pagingData["defaults"];
+        order = (array)pagingData["options"]["order"];
         sortDefault = directionDefault = false;
 
         if (!defaults.isEmpty("order")) && count(defaults["order"]) == 1) {
@@ -340,8 +340,8 @@ class DPaginator : IPaginator {
         }
 
         paginatorParams += [
-            "sort":myData["options"]["sort"],
-            "direction":isset(myData["options"]["sort"]) && count(order) ? current(order) : null,
+            "sort":pagingData["options"]["sort"],
+            "direction":isset(pagingData["options"]["sort"]) && count(order) ? current(order) : null,
             "sortDefault":sortDefault,
             "directionDefault":directionDefault,
             "completeSort":order,

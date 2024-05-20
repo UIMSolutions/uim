@@ -38,9 +38,6 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
     /**
      * Handle errors in the console environment. Writes errors to stderr,
      * and logs messages if Configure.read("debug") is false.
-     *
-     * @param \Throwable exception Exception instance.
-     * @throws \Exception When renderer class not found
      */
     void handleException(Throwable exception) {
         _displayException(exception);

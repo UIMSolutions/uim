@@ -355,9 +355,6 @@ abstract class DQuery : IQuery { // : IExpression {
      * aQuery.from(["products"], true); // Resets the list: FROM products
      * aQuery.from(["sub": countQuery]); // FROM (SELECT ...) sub
      * ```
-     * Params:
-     * the examples above for the valid call types.
-     * @param bool shouldOverwrite whether to reset tables with passed list or not
      */
     void from(string[] tableNames, bool shouldOverwrite = false) {
         if (tableNames.isEmpty) { return; }

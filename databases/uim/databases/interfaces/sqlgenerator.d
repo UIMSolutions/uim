@@ -23,8 +23,6 @@ interface ISqlGenerator {
      *
      * Uses the connection to access the schema dialect to generate platform
      * specific SQL.
-     *
-     * @param DDBAConnection connection The connection to generate SQL for.
      */
     Json[string] dropSql(DDBAConnection connection);
 
@@ -37,7 +35,6 @@ interface ISqlGenerator {
     // Generate the SQL statements to drop the constraints to the table
     Json[string] dropConstraintSql(DDBAConnection connection);
 }
-/* use uim.databases.Connection;
 
 // An interface used by TableSchema objects.
 interface ISqlGenerator {

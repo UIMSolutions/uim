@@ -277,23 +277,17 @@ class DExceptionRenderer { // }: IExceptionRenderer
         return myMessage;
     }
 
-    /**
-     * Get template for rendering exception info.
-     *
-     * @param \Throwable myException Exception instance.
-     * @param string method Method name.
-     * @param int errorCode Error errorCode.
-     */
-    protected string templateName(Throwable myException, string method, int errorCode) {
-        if (myException instanceof HttpException || !Configure.read("debug")) {
+    // Get template for rendering exception info.
+    protected string templateName(Throwable exception, string methodName, int errorCode) {
+        if (exception instanceof HttpException || !Configure.read("debug")) {
             return _template = errorCode < 500 ? "error400" : "error500";
         }
 
-        if (myException instanceof PDOException) {
+        if (exception instanceof PDOException) {
             return _template = "pdo_error";
         }
 
-        return _template = method;
+        return _template = methodName;
     }
 
     // Gets the appropriate http status code for exception.

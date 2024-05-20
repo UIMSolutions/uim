@@ -137,13 +137,8 @@ mixin template TEntity() {
     _invalidFields += [field: aValue];
   }
 
-  /**
-     * Sets a field as invalid and not patchable into the entity.
-     * Params:
-     * string fieldName The value to set.
-     * @param Json aValue The invalid value to be set for field.
-    */
-  void setInvalidField(string fieldName, Json aValue) {
+  // Sets a field as invalid and not patchable into the entity.
+  void setInvalidField(string fieldName, Json invalidValue) {
     _invalidFields[field] = aValue;
   }
   /**
@@ -478,18 +473,18 @@ mixin template TEntity() {
      * string[] fieldNames An array of fields to hide from array exports.
      * @param bool merge Merge the new fields with the existing. By default false.
     */
-  void setHidden(string[] fields, bool mergeFields = false) {
-    if (mergeFields == false) {
-      _hidden = mergeFields;
-
+  void hiddenFields(string[] fieldsToHide, bool shouldMerge = false) {
+    if (shouldMerge == false) {
+      _hidden = fieldsToHide;
       return;
     }
-    mergeFields = chain(_hidden, mergeFields);
-    _hidden = array_unique(mergeFields);
+    
+    auto mergedFields = chain(_hidden, fieldsToHide);
+    _hidden = array_unique(mergedFields);
   }
 
   // Gets the hidden fields.
-  string[] getHidden() {
+  string[] hiddenFields() {
     return _hidden;
   }
 

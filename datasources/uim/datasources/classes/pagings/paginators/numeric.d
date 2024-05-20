@@ -292,7 +292,7 @@ class DNumericPaginator : IPaginator {
      *
      * @param Json[string] data Paginator data.
      */
-    protected Json[string] addStartEndParams(Json[string] pagingParams, Json[string] data) {
+    protected Json[string] addStartEndParams(Json[string] pagingParams, Json[string] paginatorData) {
         start = end = 0;
 
         if (pagingParams["current"] > 0) {
@@ -310,9 +310,9 @@ class DNumericPaginator : IPaginator {
      * Add "prevPage" and "nextPage" params.
      *
      * @param Json[string] params Paginator params.
-     * @param Json[string] data Paging data.
+     * @param Json[string] pagingData Paging pagingData.
      */
-    protected Json[string] addPrevNextParams(Json[string] params, Json[string] data) {
+    protected Json[string] addPrevNextParams(Json[string] params, Json[string] pagingData) {
         params["prevPage"] = params["page"] > 1;
         params["nextPage"] = params["count"] == null
             ? true : params["count"] > params["page"] * params["perPage"];
@@ -324,11 +324,11 @@ class DNumericPaginator : IPaginator {
      * Add sorting / ordering params.
      *
      * @param Json[string] params Paginator params.
-     * @param Json[string] data Paging data.
+     * @param Json[string] pagingData Paging pagingData.
      */
-    protected Json[string] addSortingParams(Json[string] params, Json[string] data) {
-        defaults = data["defaults"];
-        order = (array) data["options"]["order"];
+    protected Json[string] addSortingParams(Json[string] params, Json[string] pagingData) {
+        defaults = pagingData["defaults"];
+        order = (array) pagingData["options"]["order"];
         sortDefault = directionDefault = false;
 
         if (!defaults.isEmpty("order"))
@@ -341,8 +341,8 @@ class DNumericPaginator : IPaginator {
         }
 
         params += [
-            "sort": data["options"]["sort"],
-            "direction": isset(data["options"]["sort"]) && count(order) ? current(order): null,
+            "sort": pagingData["options"]["sort"],
+            "direction": isset(pagingData["options"]["sort"]) && count(order) ? current(order): null,
             "sortDefault": sortDefault,
             "directionDefault": directionDefault,
             "completeSort": order,
@@ -393,7 +393,7 @@ class DNumericPaginator : IPaginator {
     /**
      * Shim method for reading the deprecated sortWhitelist or sortableFields options.
      *
-     * @param Json[string] myConfiguration The configuration data to coalesce and emit warnings on.
+     * @param Json[string] myConfiguration The configuration configData to coalesce and emit warnings on.
      */
     protected string[] getSortableFields(Json myConfiguration) {
         allowed = configuration.get("sortableFields") ?  ? null;
@@ -445,11 +445,11 @@ class DNumericPaginator : IPaginator {
             settings = settings[alias];
         }
 
-        defaults = this.configuration.data;
-        defaults["whitelist"] = defaults["allowedParameters"] = getAllowedParameters();
+        auto defaultData = this.configuration.data;
+        defaultData["whitelist"] = defaultData["allowedParameters"] = getAllowedParameters();
 
-        maxLimit = settings["maxLimit"] ?  ? defaults["maxLimit"];
-        limit = settings["limit"] ?  ? defaults["limit"];
+        maxLimit = settings["maxLimit"] ?  ? defaultData["maxLimit"];
+        limit = settings["limit"] ?  ? defaultData["limit"];
 
         if (limit > maxLimit) {
             limit = maxLimit;
@@ -457,7 +457,7 @@ class DNumericPaginator : IPaginator {
 
         settings["maxLimit"] = maxLimit;
         settings["limit"] = limit;
-        return settings + defaults;
+        return settings + defaultData;
     }
 
     /**

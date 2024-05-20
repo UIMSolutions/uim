@@ -76,18 +76,18 @@ class DSqlserverDriver : DDriver {
             return;
         }
 
-        if (configuration.hasKey("persistent") && configuration.data("persistent")) {
+        if (configuration.hasKey("persistent") && configuration.get("persistent")) {
             throw new DInvalidArgumentException(
                 "Config setting 'persistent' cannot be set to true, "
                 ~ "as the Sqlserver PDO driver does not support PDO.ATTR_PERSISTENT"
             );
         }
-        configuration.data("flags").data([
+        configuration.get("flags").data([
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
         ]);
 
-        if (!configuration.data("encoding").isEmpty) {
-            configuration.data("flags"][PDO.SQLSRV_ATTR_ENCODING] = configuration.data("encoding"];
+        if (!configuration.get("encoding").isEmpty) {
+            configuration.get("flags"][PDO.SQLSRV_ATTR_ENCODING] = configuration.get("encoding"];
         }
         string port = configuration.getString("port");
         }

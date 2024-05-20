@@ -62,13 +62,13 @@ mixin template TPluginAssets() {
 
             if (
                 configuration.hasKey("namespaced") &&
-                !isDir(configuration.data("destDir")) &&
-                !_createDirectory(configuration.data("destDir"))
+                !isDir(configuration.get("destDir")) &&
+                !_createDirectory(configuration.get("destDir"))
             ) {
                 continue;
             }
             
-            string dest = configuration.data("destDir") ~ configuration.data("link");
+            string dest = configuration.get("destDir") ~ configuration.get("link");
             if (fileExists(dest)) {
                 if (overwriteExisting && !_remove(configData)) {
                     continue;
@@ -83,7 +83,7 @@ mixin template TPluginAssets() {
             }
             if (!copyMode) {
                 result = _createSymlink(
-                    configuration.data("srcPath"],
+                    configuration.get("srcPath"],
                     dest
                 );
                 if (result) {
@@ -91,7 +91,7 @@ mixin template TPluginAssets() {
                 }
             }
            _copyDirectory(
-                configuration.data("srcPath"],
+                configuration.get("srcPath"],
                 dest
             );
         }
@@ -105,15 +105,15 @@ mixin template TPluginAssets() {
      * configData - Plugin config.
      */
     protected bool _remove(Json[string] configData = null) {
-        if (configuration.data("namespaced"] && !isDir(configuration.data("destDir"])) {
+        if (configuration.get("namespaced"] && !isDir(configuration.get("destDir"])) {
             this.io.verbose(
-                configuration.data("destDir"] ~ configuration.data("link"] ~ " does not exist",
+                configuration.get("destDir"] ~ configuration.get("link"] ~ " does not exist",
                 1
             );
 
             return false;
         }
-        dest = configuration.data("destDir"] ~ configuration.data("link"];
+        dest = configuration.get("destDir"] ~ configuration.get("link"];
 
         if (!fileExists(dest)) {
             this.io.verbose(

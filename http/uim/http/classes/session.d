@@ -171,22 +171,22 @@ class DSession {
             "handler": Json.emptyArray,
         ];
 
-        if (configuration.data("timeout"]) {
-            configuration.data("ini"]["session.gc_maxlifetime"] = 60 * configuration.data("timeout"];
+        if (configuration.get("timeout"]) {
+            configuration.get("ini"]["session.gc_maxlifetime"] = 60 * configuration.get("timeout"];
         }
-        if (configuration.data("cookie"]) {
-            configuration.data("ini"]["session.name"] = configuration.data("cookie"];
+        if (configuration.get("cookie"]) {
+            configuration.get("ini"]["session.name"] = configuration.get("cookie"];
         }
-        if (!configuration.data("ini"].isSet("session.cookie_path")) {
-            cookiePath = configData.isEmpty("cookiePath") ? "/" : configuration.data("cookiePath"];
-            configuration.data("ini"]["session.cookie_path"] = cookiePath;
+        if (!configuration.get("ini"].isSet("session.cookie_path")) {
+            cookiePath = configData.isEmpty("cookiePath") ? "/" : configuration.get("cookiePath"];
+            configuration.get("ini"]["session.cookie_path"] = cookiePath;
         }
-        options(configuration.data("ini"]);
+        options(configuration.get("ini"]);
 
         if (!configData.isEmpty("handler")) {
-            className = configuration.data("handler"]["engine"];
-            unset(configuration.data("handler"]["engine"]);
-            this.engine(className, configuration.data("handler"]);
+            className = configuration.get("handler"]["engine"];
+            unset(configuration.get("handler"]["engine"]);
+            this.engine(className, configuration.get("handler"]);
         }
         _lifetime = (int) ini_get("session.gc_maxlifetime");
         _isCLI = (UIM_SAPI == "cli" || UIM_SAPI == "Ddbg");

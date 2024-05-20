@@ -30,27 +30,26 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Resolve middleware name to a PSR 15 compliant middleware instance.
      * Params:
      * \Psr\Http\Server\IHttpMiddleware|\Closure|string amiddleware The middleware to resolve.
-     * @throws \InvalidArgumentException If Middleware not found.
      */
-    protected IHttpMiddleware resolve(IHttpMiddleware|Closure|string amiddleware) {
-        if (isString(middleware)) {
-            if (this.container && this.container.has(middleware)) {
-                middleware = this.container.get(middleware);
+    protected IHttpMiddleware resolve(/* IHttpMiddleware|Closure|*/ string middlewareName) {
+        if (isString(middlewareName)) {
+            if (this.container && this.container.has(middlewareName)) {
+                middlewareName = this.container.get(middlewareName);
             } else {
-                string className = App.className(middleware, "Middleware", "Middleware");
+                string className = App.className(middlewareName, "Middleware", "Middleware");
                 if (className.isNull) {
                     throw new DInvalidArgumentException(
                         "Middleware `%s` was not found."
-                        .format(middleware
+                        .format(middlewareName
                     ));
                 }
-                IHttpMiddleware middleware = new className();
+                IHttpMiddleware middlewareName = new className();
             }
         }
-        if (cast(IHttpMiddleware)middleware) {
-            return middleware;
+        if (cast(IHttpMiddleware)middlewareName) {
+            return middlewareName;
         }
-        return new DClosureDecoratorMiddleware(middleware);
+        return new DClosureDecoratorMiddleware(middlewareName);
     }
     
     /**

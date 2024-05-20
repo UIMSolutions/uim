@@ -121,16 +121,16 @@ class DTableHelper { // }: Helper {
     widths = _calculateWidths(commandArguments);
 
     _rowSeparator(widths);
-    if (configuration.data("headers"] == true) {
-        _render(array_shift(commandArguments), widths, ["style": configuration.data("headerStyle"]]);
+    if (configuration.get("headers"] == true) {
+        _render(array_shift(commandArguments), widths, ["style": configuration.get("headerStyle"]]);
             _rowSeparator(widths); }
             if (commandArguments.isEmpty) {
               return; }
               commandArguments.each!((line) {
-                _render(line, widths); if (configuration.data("rowSeparator"] == true) {
+                _render(line, widths); if (configuration.get("rowSeparator"] == true) {
                     _rowSeparator(widths); }
                   }
-                  if (configuration.data("rowSeparator"] != true) {
+                  if (configuration.get("rowSeparator"] != true) {
                       _rowSeparator(widths); }
                     }
 

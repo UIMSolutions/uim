@@ -68,7 +68,7 @@ class DConnectionManager {
      */
     static void configuration.update(string[] aKey, IConnection | Closure | array | null configData = null) {
         if (isArray(configData)) {
-            configuration.data("name", aKey);
+            configuration.get("name", aKey);
         }
         configuration.update(aKey, configData);
     }
@@ -201,12 +201,12 @@ class DConnectionManager {
 static Json[string] parseDsn(string adsn) {
     configData = _parseDsn(dsn);
 
-    if (configuration.hasKey("path") && configuration.data("database").isEmpty) {
-        configuration.data("database", substr(configuration.data("path"), 1);}
-        if (configuration.data("driver").isEmpty) {
-            configuration.data("driver", configuration.data("className")); configuration.data("className", Connection
+    if (configuration.hasKey("path") && configuration.get("database").isEmpty) {
+        configuration.get("database", substr(configuration.get("path"), 1);}
+        if (configuration.get("driver").isEmpty) {
+            configuration.get("driver", configuration.get("className")); configuration.get("className", Connection
                     .classname);}
-            unset(configuration.data("path"]); return configData;}
+            unset(configuration.get("path"]); return configData;}
 
             /**
      * Set one or more connection aliases.

@@ -79,9 +79,9 @@ class UriFactory { // }: IUriFactory {
             "webroot": Json(null),
             "baseUrl": Json(null),
         ];
-        string base = configuration.data("base"];
-        auto baseUrl = configuration.data("baseUrl"];
-        auto webroot = to!string(configuration.data("webroot"]);
+        string base = configuration.get("base"];
+        auto baseUrl = configuration.get("baseUrl"];
+        auto webroot = to!string(configuration.get("webroot"]);
 
         if (!base.isNull) {
             return ["base": base, "webroot": base ~ "/"];

@@ -18,8 +18,8 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
 
     this(DThrowable errorToRender, IServerRequest serverRequest, Json[string] errorHandlingData) {
         this.error = error;
-        this.output = configuration.data("stderr") ?? new DConsoleOutput("D://stderr");
-        this.trace = configuration.data("trace") ?? true;
+        this.output = configuration.get("stderr") ?? new DConsoleOutput("D://stderr");
+        this.trace = configuration.get("trace") ?? true;
     }
     
     // Render an exception into a plain text message.

@@ -26,8 +26,8 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
      * Json[string] configData Error handling configuration.
      */
     this(Json[string] configData = null) {
-       _output = configuration.data("stderr"] ?? new DConsoleOutput("D://stderr");
-        this.trace = (bool)(configuration.data("trace"] ?? false);
+       _output = configuration.get("stderr"] ?? new DConsoleOutput("D://stderr");
+        this.trace = (bool)(configuration.get("trace"] ?? false);
     }
  
     void write(string outputText) {

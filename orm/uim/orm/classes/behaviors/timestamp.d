@@ -145,18 +145,12 @@ class DTimestampBehavior : DBehavior {
         return result;
     }
     
-    /**
-     * Update a field, if it hasn"t been updated already
-     * Params:
-     * \UIM\Datasource\IORMEntity myentity Entity instance.
-     * @param string fieldName Field name
-     * @param bool myrefreshTimestamp Whether to refresh timestamp.
-     */
-    protected void _updateField(IORMEntity myentity, string fieldName, bool myrefreshTimestamp) {
-        if (myentity.isDirty(fieldName)) {
+    // Update a field, if it hasn"t been updated already
+    protected void _updateField(IORMEntity entity, string fieldName, bool shouldRefreshTimestamp) {
+        if (entity.isDirty(fieldName)) {
             return;
         }
-        myts = this.timestamp(null, myrefreshTimestamp);
+        myts = this.timestamp(null, shouldRefreshTimestamp);
 
         mycolumnType = this.table().getSchema().getColumnType(fieldName);
         if (!mycolumnType) {
@@ -171,6 +165,6 @@ class DTimestampBehavior : DBehavior {
 
         myclass = mytype.getDateTimeClassName();
 
-        myentity.set(fieldName, new myclass(myts));
+        entity.set(fieldName, new myclass(myts));
     }
 }

@@ -130,16 +130,12 @@ class DCounterCacheBehavior : DBehavior {
      * afterSave callback.
      *
      * Makes sure to update counter cache when a new record is created or updated.
-     * Params:
-     * \UIM\Event\IEvent<\ORM\Table> myevent The afterSave event that was fired.
-     * @param \UIM\Datasource\IORMEntity myentity The entity that was saved.
-     * @param \ArrayObject<string, mixed> options The options for the query
      */
-    void afterSave(IEvent myevent, IORMEntity myentity, ArrayObject options) {
-        if (isSet(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
+    void afterSave(IEvent firedEvent, IORMEntity entity, ArrayObject queryOptions) {
+        if (isSet(queryOptions["ignoreCounterCache"]) && queryOptions["ignoreCounterCache"] == true) {
             return;
         }
-       _processAssociations(myevent, myentity);
+       _processAssociations(firedEvent, entity);
        _ignoreDirty = null;
     }
     

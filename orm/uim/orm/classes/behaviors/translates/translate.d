@@ -181,17 +181,12 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
     }
 
     /**
-
      * Add in `_translations` marshalling handlers. You can disable marshalling
      * of translations by setting `"translations": false.toJson` in the options
      * provided to `Table.newEntity()` or `Table.patchEntity()`.
-     * Params:
-     * \ORM\Marshaller mymarshaller The marhshaller of the table the behavior is attached to.
-     * @param Json[string] mymap The property map being built.
-     * @param Json[string] options The options array used in the marshalling call.
      */
-    array buildMarshalMap(DMarshaller mymarshaller, Json[string] mymap, Json[string] options) {
-        return _getStrategy().buildMarshalMap(mymarshaller, mymap, options);
+    Json[string] buildMarshalMap(DMarshaller tableMarshaller, Json[string] propertyMap, Json[string] marshallingOptions) {
+        return _getStrategy().buildMarshalMap(tableMarshaller, propertyMap, marshallingOptions);
     }
 
     /**

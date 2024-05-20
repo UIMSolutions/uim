@@ -84,12 +84,12 @@ class DExceptionRenderer { // }: IExceptionRenderer
     /**
      * Creates the controller to perform rendering on the error response.
      *
-     * @param \Throwable myException Exception.
+     * @param \Throwable exception Exception.
      * @param uim.uim.http.ServerRequest|null myRequest The request if this is set it will be used
      *  instead of creating a new one.
      */
-    this(DThrowable myException, ServerRequest myRequest = null) {
-        this.error = myException;
+    this(DThrowable exception, ServerRequest myRequest = null) {
+        this.error = exception;
         this.request = myRequest;
         this.controller = _getController();
     }
@@ -165,28 +165,28 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
     // Renders the response for the exception.
     IResponse render() {
-        myException = this.error;
-        code = getHttpCode(myException);
-        method = _method(myException);
-        myTemplate = templateName(myException, method, code);
+        exception = this.error;
+        code = getHttpCode(exception);
+        method = _method(exception);
+        myTemplate = templateName(exception, method, code);
         clearOutput();
 
         if (method_exists(this, method)) {
-            return _customMethod(method, myException);
+            return _customMethod(method, exception);
         }
 
-        myMessage = _message(myException, code);
+        myMessage = _message(exception, code);
         myUrl = this.controller.getRequest().getRequestTarget();
         response = this.controller.getResponse();
 
-        if (myException instanceof UIMException) {
+        if (exception instanceof UIMException) {
             /** @psalm-suppress DeprecatedMethod */
-            foreach ((array)myException.responseHeader() as myKey: myValue) {
+            foreach ((array)exception.responseHeader() as myKey: myValue) {
                 response = response.withHeader(myKey, myValue);
             }
         }
-        if (myException instanceof HttpException) {
-            foreach (myException.getHeaders() as myName: myValue) {
+        if (exception instanceof HttpException) {
+            foreach (exception.getHeaders() as myName: myValue) {
                 response = response.withHeader(myName, myValue);
             }
         }
@@ -195,20 +195,20 @@ class DExceptionRenderer { // }: IExceptionRenderer
         viewVars = [
             "message":myMessage,
             "url":h(myUrl),
-            "error":myException,
+            "error":exception,
             "code":code,
         ];
         serialize = ["message", "url", "code"];
 
         isDebug = Configure.read("debug");
         if (isDebug) {
-            trace = (array)Debugger.formatTrace(myException.getTrace(), [
+            trace = (array)Debugger.formatTrace(exception.getTrace(), [
                 "format":"array",
                 "args":false,
             ]);
             origin = [
-                "file":myException.getFile() ?: "null",
-                "line":myException.getLine() ?: "null",
+                "file":exception.getFile() ?: "null",
+                "line":exception.getLine() ?: "null",
             ];
             // Traces don"t include the origin file/line.
             array_unshift(trace, origin);
@@ -220,8 +220,8 @@ class DExceptionRenderer { // }: IExceptionRenderer
         this.controller.set(viewVars);
         this.controller.viewBuilder().setOption("serialize", serialize);
 
-        if (myException instanceof UIMException && isDebug) {
-            this.controller.set(myException.getAttributes());
+        if (exception instanceof UIMException && isDebug) {
+            this.controller.set(exception.getAttributes());
         }
         this.controller.setResponse(response);
 
@@ -232,10 +232,10 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * Render a custom error method/template.
      *
      * @param string method The method name to invoke.
-     * @param \Throwable myException The exception to render.
+     * @param \Throwable exception The exception to render.
      */
-    protected DResponse _customMethod(string method, Throwable myException) {
-        auto myResult = this.{method}(myException);
+    protected DResponse _customMethod(string method, Throwable exception) {
+        auto myResult = this.{method}(exception);
         _shutdown();
         if (!myResult.isString) { return result; }
 
@@ -243,8 +243,8 @@ class DExceptionRenderer { // }: IExceptionRenderer
     }
 
     // Get method name
-    protected string _method(Throwable myException) {
-        [, baseClass] = moduleSplit(get_class(myException));
+    protected string _method(Throwable exception) {
+        [, baseClass] = moduleSplit(get_class(exception));
 
         if (substr(baseClass, -9) == "Exception") {
             baseClass = substr(baseClass, 0, -9);
@@ -256,18 +256,13 @@ class DExceptionRenderer { // }: IExceptionRenderer
         return _method = method;
     }
 
-    /**
-     * Get error message.
-     *
-     * @param \Throwable myException Exception.
-     * @param int code Error code.
-     */
-    protected string _message(Throwable myException, int errorCode) {
-        myMessage = myException.getMessage();
+    // Get error message.
+    protected string _message(Throwable exception, int errorCode) {
+        myMessage = exception.getMessage();
 
         if (
             !Configure.read("debug") &&
-            !(myException instanceof HttpException)
+            !(exception instanceof HttpException)
         ) {
             myMessage = errorCode < 500
                 ? __d("uim", "Not Found") 
@@ -291,12 +286,12 @@ class DExceptionRenderer { // }: IExceptionRenderer
     }
 
     // Gets the appropriate http status code for exception.
-    protected int getHttpCode(Throwable myException) {
-        if (myException instanceof HttpException) {
-            return myException.getCode();
+    protected int getHttpCode(Throwable exception) {
+        if (exception instanceof HttpException) {
+            return exception.getCode();
         }
 
-        return _exceptionHttpCodes[get_class(myException)] ?? 500;
+        return _exceptionHttpCodes[get_class(exception)] ?? 500;
     }
 
     /**

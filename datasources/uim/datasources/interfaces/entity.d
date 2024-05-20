@@ -65,10 +65,10 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
    Json[string] getErrors();
 
    // Returns validation errors of a field
-   // TODO Json[string] getError(string fieldName);
+   TODO Json[string] getError(string fieldName);
 
    // Sets error messages to the entity
-   // TODO void setErrors(Json[string] errors, bool shouldOoverwrite = false);
+   TODO void setErrors(Json[string] errors, bool shouldOoverwrite = false);
 
    /**
      * Sets errors for a single field

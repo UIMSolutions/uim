@@ -120,15 +120,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      */
     protected int _resultsCount;
 
-    /**
-     
-     *
-     * @param DORMdatabases.Connection connection The connection object
-     * @param DORMDORMTable aTable The table this query is starting on
-     */
-    this(IConnection aConnection, DORMTable aTable) {
-        super(aConnection);
-        this.repository(aTable);
+    this(IConnection connection, DORMTable queryTable) {
+        super(connection);
+        this.repository(queryTable);
 
         if (_repository != null) {
             this.addDefaultTypes(_repository);

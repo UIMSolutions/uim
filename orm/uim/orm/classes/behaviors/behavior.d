@@ -136,20 +136,10 @@ class DBehavior : IEventListener {
      *
      * Stores the reflected method + finder methods per class.
      * This prevents reflecting the same class multiple times in a single process.
-     *
-     * @var array<string, array>
      */
-    protected static _reflectionCache = null;
+    protected static Json[string] _reflectionCache = null;
 
-    /**
-     
-     *
-     * Merges config with the default and store in the config property
-     *
-     * @param DORMDORMTable aTable The table this behavior is attached to.
-     * @param Json[string] myConfiguration The config for this behavior.
-     */
-    this(DORMTable aTable, Json[string] configData) {
+    this(DORMTable attachedTable, Json[string] configData) {
         myConfiguration = _resolveMethodAliases(
             "implementedFinders",
             _defaultConfig,
@@ -160,7 +150,7 @@ class DBehavior : IEventListener {
             _defaultConfig,
             myConfiguration
         );
-        _table = table;
+        _table = attachedTable;
         configuration.update(myConfiguration);
         this.initialize(myConfiguration);
     }
@@ -173,30 +163,29 @@ class DBehavior : IEventListener {
     /**
      * Removes aliased methods that would otherwise be duplicated by userland configuration.
      *
-     * @param string aKey The key to filter.
-     * @param Json[string] defaults The default method mappings.
+     * @param string aKey The keyToFilter to filter.
      * @param Json[string] myConfiguration The customized method mappings.
      */
-    protected Json[string] _resolveMethodAliases(string aKey, Json[string] defaults, Json myConfiguration) {
-        if (!isset(defaults[key], configuration.get(key))) {
+    protected Json[string] _resolveMethodAliases(string keyToFilter, Json[string] defaultMethodMap, Json myConfiguration) {
+        if (!isset(defaultMethodMap[keyToFilter], configuration.get(keyToFilter))) {
             return configuration;
         }
-        if (configuration.has(key) && configuration.get(key) == []) {
-            configuration.update(key, [], false);
-            configuration.remove(key);
+        if (configuration.has(keyToFilter) && configuration.get(keyToFilter) == []) {
+            configuration.update(keyToFilter, [], false);
+            configuration.remove(keyToFilter);
 
             return configuration;
         }
 
-        indexed = array_flip(defaults[key]);
-        indexedCustom = array_flip(configuration.get(key));
+        indexed = array_flip(defaultMethodMap[keyToFilter]);
+        indexedCustom = array_flip(configuration.get(keyToFilter));
         foreach (indexed as method: alias) {
             if (!isset(indexedCustom[method])) {
                 indexedCustom[method] = alias;
             }
         }
-        configuration.update(key, array_flip(indexedCustom), false);
-        configuration.remove(key);
+        configuration.update(keyToFilter, array_flip(indexedCustom), false);
+        configuration.remove(keyToFilter);
 
         return configuration;
     }

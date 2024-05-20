@@ -24,19 +24,19 @@ class DRulesChecker { // }: BaseRulesChecker {
      * - `allowMultipleNulls` Allows any field to have multiple null values. Defaults to false.
      * Params:
      * string[] fieldNames The list of fields to check for uniqueness.
-     * @param Json[string]|string mymessage The error message to show in case the rule does not pass. Can
+     * @param Json[string]|string errorMessage The error message to show in case the rule does not pass. Can
      * also be an array of options. When an array, the "message" key can be used to provide a message.
      */
-    RuleInvoker isUnique(Json[string] fieldNames, string[] mymessage = null) {
-        options = isArray(mymessage) ? mymessage : ["message": mymessage];
-        mymessage = options["message"] ?? null;
+    RuleInvoker isUnique(Json[string] fieldNames, string[] errorMessage = null) {
+        options = isArray(errorMessage) ? errorMessage : ["message": errorMessage];
+        errorMessage = options["message"] ?? null;
         options.remove("message");
 
-        if (!mymessage) {
+        if (!errorMessage) {
             if (_useI18n) {
-                mymessage = __d("uim", "This value is already in use");
+                errorMessage = __d("uim", "This value is already in use");
             } else {
-                mymessage = "This value is already in use";
+                errorMessage = "This value is already in use";
             }
         }
         myerrorField = current(fieldNames);
@@ -65,25 +65,25 @@ class DRulesChecker { // }: BaseRulesChecker {
      * string[]|string fieldName The field or list of fields to check for existence by
      * primary key lookup in the other table.
      * @param \ORM\Table|\ORM\Association|string mytable The table name where the fields existence will be checked.
-     * @param Json[string]|string mymessage The error message to show in case the rule does not pass. Can
+     * @param Json[string]|string errorMessage The error message to show in case the rule does not pass. Can
      * also be an array of options. When an array, the "message" key can be used to provide a message.
      */
     DRuleInvoker existsIn(
         string[] fieldName,
         Table|Association|string mytable,
-        string[] mymessage = null
+        string[] errorMessage = null
     ) {
         options = null;
-        if (mymessage.isArray) {
-            options = mymessage ~ ["message": Json(null)];
-            mymessage = options["message"];
+        if (errorMessage.isArray) {
+            options = errorMessage ~ ["message": Json(null)];
+            errorMessage = options["message"];
             options.remove("message");
         }
-        if (!mymessage) {
+        if (!errorMessage) {
             if (_useI18n) {
-                mymessage = __d("uim", "This value does not exist");
+                errorMessage = __d("uim", "This value does not exist");
             } else {
-                mymessage = "This value does not exist";
+                errorMessage = "This value does not exist";
             }
         }
         myerrorField = isString(fieldName) ? fieldName : current(fieldName);
@@ -106,17 +106,17 @@ class DRulesChecker { // }: BaseRulesChecker {
      * \ORM\Association|string myassociation The association to check for links.
      * @param string fieldName The name of the association property. When supplied, this is the name used to set
      * possible errors. When absent, the name is inferred from `myassociation`.
-     * @param string mymessage The error message to show in case the rule does not pass.
+     * @param string errorMessage The error message to show in case the rule does not pass.
      */
     RuleInvoker isLinkedTo(
         Association|string myassociation,
         string fieldName = null,
-        string mymessage = null
+        string errorMessage = null
     ) {
         return _addLinkConstraintRule(
             myassociation,
             fieldName,
-            mymessage,
+            errorMessage,
             LinkConstraint.STATUS_LINKED,
             "_isLinkedTo"
         );
@@ -137,17 +137,16 @@ class DRulesChecker { // }: BaseRulesChecker {
      * \ORM\Association|string myassociation The association to check for links.
      * @param string fieldName The name of the association property. When supplied, this is the name used to set
      * possible errors. When absent, the name is inferred from `myassociation`.
-     * @param string mymessage The error message to show in case the rule does not pass.
      */
     RuleInvoker isNotLinkedTo(
         Association|string myassociation,
         string fieldName = null,
-        string mymessage = null
+        string errorMessage = null
     ) {
         return _addLinkConstraintRule(
             myassociation,
             fieldName,
-            mymessage,
+            errorMessage,
             LinkConstraint.STATUS_NOT_LINKED,
             "_isNotLinkedTo"
         );
@@ -159,14 +158,13 @@ class DRulesChecker { // }: BaseRulesChecker {
      * \ORM\Association|string myassociation The association to check for links.
      * @param string myerrorField The name of the property to use for setting possible errors. When absent,
      * the name is inferred from `myassociation`.
-     * @param string mymessage The error message to show in case the rule does not pass.
      * @param string mylinkStatus The ink status required for the check to pass.
      * @param string myruleName The alias/name of the rule.
      */
     protected DRuleInvoker _addLinkConstraintRule(
         Association|string myassociation,
         string myerrorField,
-        string mymessage,
+        string errorMessage,
         string mylinkStatus,
         string myruleName
     ) {
@@ -186,7 +184,7 @@ class DRulesChecker { // }: BaseRulesChecker {
                 }
             }
         }
-        if (!mymessage) {
+        if (!errorMessage) {
             myMessage = _useI18n
                 ? __d(
                     "uim",
@@ -210,19 +208,18 @@ class DRulesChecker { // }: BaseRulesChecker {
      * string fieldName The field to check the count on.
      * @param int mycount The expected count.
      * @param string myoperator The operator for the count comparison.
-     * @param string mymessage The error message to show in case the rule does not pass.
      */
     RuleInvoker validCount(
         string fieldName,
         int mycount = 0,
         string myoperator = ">",
-        string mymessage = null
+        string errorMessage = null
     ) {
-        if (!mymessage) {
+        if (!errorMessage) {
             if (_useI18n) {
-                mymessage = __d("uim", "The count does not match {0}{1}", [myoperator, mycount]);
+                errorMessage = __d("uim", "The count does not match {0}{1}", [myoperator, mycount]);
             } else {
-                mymessage = "The count does not match %s%d".format(myoperator, mycount);
+                errorMessage = "The count does not match %s%d".format(myoperator, mycount);
             }
         }
         myerrorField = fieldName;

@@ -354,26 +354,20 @@ class DTreeBehavior : DBehavior {
             .order([left: "ASC"]);
     }
 
-    /**
-     * Get the number of children nodes.
-     *
-     * @param DORMDatasource\IORMEntity node The entity to count children for
-     * @param bool direct whether to count all nodes in the subtree or just
-     * direct children
-     */
-    int countChildNodes(IORMEntity node, bool direct = false) {
-        myConfiguration = configuration;
-        parent = _table.aliasField(configuration.get("parent"));
+    // Get the number of children nodes.
+    int countChildNodes(IORMEntity entityNode, bool shouldCountDirect = false) {
+        auto configData = configuration.data;
+        auto parent = _table.aliasField(configData.get("parent"));
 
-        if (direct) {
+        if (shouldCountDirect) {
             return _scope(_table.find())
-                .where([parent: node.get(_primaryKeys())])
+                .where([parent: entityNode.get(_primaryKeys())])
                 .count();
         }
 
-        _ensureFields(node);
+        _ensureFields(entityNode);
 
-        return (node.get(configuration.get("right")) - node.get(configuration.get("left")) - 1) / 2;
+        return (entityNode.get(configData.get("right")) - entityNode.get(configData.get("left")) - 1) / 2;
     }
 
     /**

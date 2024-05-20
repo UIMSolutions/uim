@@ -20,11 +20,11 @@ class DResultsetFactory {
      * \ORM\Query\SelectQuery<T> myquery Query from where results came.
      * @param Json[string] results Results array.
      */
-    Resultset<array|\UIM\Datasource\IORMEntity> createResultset(SelectQuery myquery, Json[string] results) {
-        mydata = this.collectData(myquery);
+    IResultset createResultset(SelectQuery myquery, Json[string] results) {
+        auto collectData = this.collectData(myquery);
 
         foreach (results as myi: myrow) {
-            results[myi] = this.groupResult(myrow, mydata);
+            results[myi] = this.groupResult(myrow, collectData);
         }
         return new DResultset(results);
     }
@@ -88,24 +88,23 @@ class DResultsetFactory {
      * Hydrate row array into entity if hydration is enabled.
      * Params:
      * Json[string] myrow Array containing columns and values.
-     * @param Json[string] data Array containing table and query metadata
      */
-    protected IORMEntity|array groupResult(Json[string] myrow, Json[string] metadata) {
+    protected IORMEntity|array groupResult(Json[string] columnsValues, Json[string] tableMetadata) {
         results = mypresentAliases = null;
-        metadata.addData([
+        tableMetadata.addData([
             "useSetters": BoolData(false),
             "markClean": BoolData(true),
             "markNew": BoolData(false),
             "guard": BoolData(false),
         ]);
 
-        foreach (aliasName, someKeys; mydata["matchingColumns"]) {
+        foreach (aliasName, someKeys; tableMetadata["matchingColumns"]) {
             mymatching = metadata["matchingAssoc"][aliasName];
             results["_matchingData"][aliasName] = array_combine(
                 someKeys,
                 array_intersect_key(myrow, someKeys)
             );
-            if (mydata["hydrate"]) {
+            if (tableMetadata["hydrate"]) {
                 mytable = mymatching["instance"];
                 assert(cast(Table)mytable || cast(DAssociation)mytable);
 
@@ -116,7 +115,7 @@ class DResultsetFactory {
                 results["_matchingData"][aliasName] = myentity;
             }
         }
-        mydata["fields"].byKeyValue
+        tableMetadata["fields"].byKeyValue
             .each!((tableKeys) {
                 results[tableKeys.key] = array_combine(tableKeys.value, array_intersect_key(myrow, tableKeys.value));
                 mypresentAliases[tableKeys.key] = true;
@@ -124,15 +123,15 @@ class DResultsetFactory {
         // If the default table is not in the results, set
         // it to an empty array so that any contained
         // associations hydrate correctly.
-        results[mydata["primaryAlias"]] ??= null;
+        results[tableMetadata["primaryAlias"]] ??= null;
 
-        unset(mypresentAliases[mydata["primaryAlias"]]);
+        unset(mypresentAliases[tableMetadata["primaryAlias"]]);
 
-        foreach (myassoc; mydata["containAssoc"]) {
+        foreach (myassoc; tableMetadata["containAssoc"]) {
             aliasName = myassoc["nestKey"];
             
             bool mycanBeJoined = myassoc["canBeJoined"];
-            if (mycanBeJoined && mydata["fields"][aliasName].isEmpty)) {
+            if (mycanBeJoined && tableMetadata["fields"][aliasName].isEmpty)) {
                 continue;
             }
             myinstance = myassoc["instance"];
@@ -149,7 +148,7 @@ class DResultsetFactory {
             options["source"] = mytarget.registryKey();
             mypresentAliasesm.remove(yalias);
 
-            if (myassoc["canBeJoined"] && mydata["autoFields"] != false) {
+            if (myassoc["canBeJoined"] && tableMetadata["autoFields"] != false) {
                 myhasData = false;
                 foreach (results[aliasName] as myv) {
                     if (myv !isNull && myv != []) {
@@ -161,7 +160,7 @@ class DResultsetFactory {
                     results[aliasName] = null;
                 }
             }
-            if (mydata["hydrate"] && results[aliasName] !isNull && myassoc["canBeJoined"]) {
+            if (tableMetadata["hydrate"] && results[aliasName] !isNull && myassoc["canBeJoined"]) {
                 myentity = new myassoc["entityClass"](results[aliasName], options);
                 results[aliasName] = myentity;
             }
@@ -171,17 +170,17 @@ class DResultsetFactory {
             if (!isSet(results[aliasName])) {
                 continue;
             }
-            results[mydata["primaryAlias"]][aliasName] = results[aliasName];
+            results[tableMetadata["primaryAlias"]][aliasName] = results[aliasName];
         }
         if (isSet(results["_matchingData"])) {
-            results[mydata["primaryAlias"]]["_matchingData"] = results["_matchingData"];
+            results[tableMetadata["primaryAlias"]]["_matchingData"] = results["_matchingData"];
         }
-        options["source"] = mydata["registryAlias"];
-        if (isSet(results[mydata["primaryAlias"]])) {
-            results = results[mydata["primaryAlias"]];
+        options["source"] = tableMetadata["registryAlias"];
+        if (isSet(results[tableMetadata["primaryAlias"]])) {
+            results = results[tableMetadata["primaryAlias"]];
         }
-        if (mydata["hydrate"] && !(cast(IORMEntity)results)) {
-            results = new mydata["entityClass"](results, options);
+        if (tableMetadata["hydrate"] && !(cast(IORMEntity)results)) {
+            results = new tableMetadata["entityClass"](results, options);
         }
         return results;
     }

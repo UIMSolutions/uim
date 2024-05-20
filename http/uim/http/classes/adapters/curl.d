@@ -141,13 +141,8 @@ class DCurl { // }: IAdapter {
         };
     }
     
-    /**
-     * Convert the raw curl response into an Http\Client\Response
-     * Params:
-     * \CurlHandle handle Curl handle
-     * @param string aresponseData string The response data from curl_exec
-     */
-    protected DREsponse[] createResponse(CurlHandle handle, string aresponseData) {
+    // Convert the raw curl response into an Http\Client\Response
+    protected DREsponse[] createResponse(CurlHandle handle, string responseData) {
          aHeaderSize = curl_getinfo(handle, CURLINFO_HEADER_SIZE);
          aHeaders = strip(substr(responseData, 0,  aHeaderSize));
         body = substr(responseData,  aHeaderSize);

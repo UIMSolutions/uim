@@ -10,30 +10,16 @@ import uim.errors;
  * Useful in CI or plain text environments.
  */
 class DConsoleExceptionRenderer { // }: IExceptionRenderer {
-    /* 
-    private Throwable error;
+    private Throwable _error;
 
-    /**
-     * @var \UIM\Console\ConsoleOutput
-     */
-    private ConsoleOutput output;
+    private ConsoleOutput _output;
 
-    /**
-     * @var bool
-     */
-    private bool trace;
+    private bool _trace;
 
-    /**
-     .
-     * Params:
-     * \Throwable error The error to render.
-     * @param \Psr\Http\Message\IServerRequest|null request Not used.
-     * @param Json[string] configData Error handling configuration.
-     */
-    this(DThrowable error, IServerRequest serverRequest, Json[string] configData) {
+    this(DThrowable errorToRender, IServerRequest serverRequest, Json[string] errorHandlingData) {
         this.error = error;
-        this.output = configuration.data("stderr"] ?? new DConsoleOutput("D://stderr");
-        this.trace = configuration.data("trace"] ?? true;
+        this.output = configuration.data("stderr") ?? new DConsoleOutput("D://stderr");
+        this.trace = configuration.data("trace") ?? true;
     }
     
     // Render an exception into a plain text message.
@@ -53,36 +39,31 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
         return results.join("\n");
     }
     
-    /**
-     * Render an individual exception
-     * Params:
-     * \Throwable exception The exception to render.
-     * @param ?\Throwable parent The Exception index in the chain
-     */
-    protected Json[string] renderException(Throwable exception, Throwable parent) {
+    // Render an individual exception
+    protected Json[string] renderException(Throwable exceptionToRender, Throwable parentException) {
         auto result = [
                 "<error>%s[%s] %s</error> in %s on line %s"
                 .format(
                     parent ? "Caused by " : "",
-                    exception.classname,
-                    exception.getMessage(),
-                    exception.getFile(),
-                    exception.getLine()
+                    exceptionToRender.classname,
+                    exceptionToRender.getMessage(),
+                    exceptionToRender.getFile(),
+                    exceptionToRender.getLine()
                 ),
         ];
 
         debug = configuration.get("debug");
-        if (debug && cast(UimException)exception) {
-            attributes = exception.getAttributes();
+        if (debug && cast(UimException)exceptionToRender) {
+            attributes = exceptionToRender.getAttributes();
             if (attributes) {
                 result ~= "";
                 result ~= "<info>Exception Attributes</info>";
                 result ~= "";
-                result ~= var_export_(exception.getAttributes(), true);
+                result ~= var_export_(exceptionToRender.getAttributes(), true);
             }
         }
         if (this.trace) {
-            stacktrace = Debugger.getUniqueFrames(exception, parent);
+            stacktrace = Debugger.getUniqueFrames(exceptionToRender, parentException);
             result ~= "";
             result ~= "<info>Stack Trace:</info>";
             result ~= "";

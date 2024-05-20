@@ -43,18 +43,12 @@ mixin template TEventDispatcher() {
 
     /**
      * Wrapper for creating and dispatching events.
-     *
      * Returns a dispatched event.
-     * Params:
-     * @param Json[string] data Any value you wish to be transported with this event to
-     * it can be read by listeners.
-     * @param TSubject|null subject The object that this event applies to
-     * (this by default).
      */
-    IEvent dispatchEvent(string eventName, Json[string] data = null, object subject = null) {
-        subject ??= this;
+    IEvent dispatchEvent(string eventName, Json[string] dataToListener = null, object eventSubject = null) {
+        eventSubject ??= this;
 
-        auto event = new _eventClass(eventName, subject, someData);
+        auto event = new _eventClass(eventName, eventSubject, dataToListener);
         getEventManager().dispatch(event);
 
         return event;

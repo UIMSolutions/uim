@@ -72,22 +72,22 @@ class DOauth {
      * services.
      * Params:
      * \UIM\Http\Client\Request request The request object.
-     * @param Json[string] credentials Authentication credentials.
+     * @param Json[string] authCredentials Authentication authCredentials.
      */
-    protected string _plaintext(Request request, Json[string] credentials) {
+    protected string _plaintext(Request request, Json[string] authCredentials) {
         auto someValues = [
             "oauth_version": "1.0",
             "oauth_nonce": uniqid(),
             "oauth_timestamp": time(),
             "oauth_signature_method": "PLAINTEXT",
-            "oauth_token": credentials["token"],
-            "oauth_consumer_key": credentials["consumerKey"],
+            "oauth_token": authCredentials["token"],
+            "oauth_consumer_key": authCredentials["consumerKey"],
         ];
-        if (credentials.isSet("realm")) {
-             someValues["oauth_realm"] = credentials["realm"];
+        if (authCredentials.isSet("realm")) {
+             someValues["oauth_realm"] = authCredentials["realm"];
         }
         
-        string[] keys = [credentials["consumerSecret"], credentials["tokenSecret"]];
+        string[] keys = [authCredentials["consumerSecret"], authCredentials["tokenSecret"]];
         string key = keys.join("&");
         someValues["oauth_signature"] = key;
 
@@ -100,29 +100,29 @@ class DOauth {
      * This method is suitable for plain HTTP or HTTPS.
      * Params:
      * \UIM\Http\Client\Request request The request object.
-     * @param Json[string] credentials Authentication credentials.
+     * @param Json[string] authCredentials Authentication authCredentials.
      */
-    protected string _hmacSha1(Request request, Json[string] credentials) {
-        auto nonce = credentials["nonce"] ?? uniqid();
-        auto timestamp = credentials["timestamp"] ?? time();
+    protected string _hmacSha1(Request request, Json[string] authCredentials) {
+        auto nonce = authCredentials["nonce"] ?? uniqid();
+        auto timestamp = authCredentials["timestamp"] ?? time();
          someValues = [
             "oauth_version": "1.0",
             "oauth_nonce": nonce,
             "oauth_timestamp": timestamp,
             "oauth_signature_method": "HMAC-SHA1",
-            "oauth_token": credentials["token"],
-            "oauth_consumer_key": _encode(credentials["consumerKey"]),
+            "oauth_token": authCredentials["token"],
+            "oauth_consumer_key": _encode(authCredentials["consumerKey"]),
         ];
         baseString = this.baseString(request,  someValues);
 
         // Consumer key should only be encoded for base string calculation as
         // auth header generation already encodes independently
-         someValues["oauth_consumer_key"] = credentials["consumerKey"];
+         someValues["oauth_consumer_key"] = authCredentials["consumerKey"];
 
-        if (isSet(credentials["realm"])) {
-             someValues["oauth_realm"] = credentials["realm"];
+        if (isSet(authCredentials["realm"])) {
+             someValues["oauth_realm"] = authCredentials["realm"];
         }
-        string[] aKey = [credentials["consumerSecret"], credentials["tokenSecret"]];
+        string[] aKey = [authCredentials["consumerSecret"], authCredentials["tokenSecret"]];
         aKey = array_map(_encode(...), aKey);
         aKey = aKey.join("&");
 
@@ -170,7 +170,7 @@ class DOauth {
             credentials["privateKey"] = privateKey;
         }
         credentials += [
-            'privateKeyPassphrase": "",
+            "privateKeyPassphrase": "",
         ];
         if (isResource(credentials["privateKeyPassphrase"])) {
             resource = credentials["privateKeyPassphrase"];
@@ -201,13 +201,13 @@ class DOauth {
      * - The HTTP method, URL and request parameters are concatenated and returned.
      * Params:
      * \UIM\Http\Client\Request request The request object.
-     * @param Json[string] oauthValues Oauth values.
+     * @param Json[string] oauthData Oauth values.
      */
-    string baseString(Request request, Json[string] oauthValues) {
+    string baseString(Request request, Json[string] oauthData) {
         auto someParts = [
             request.getMethod(),
            _normalizedUrl(request.getUri()),
-           _normalizedParams(request, oauthValues),
+           _normalizedParams(request, oauthData),
         ];
         someParts = array_map(_encode(...), someParts);
 
@@ -220,7 +220,7 @@ class DOauth {
     }
     
     /**
-     * Sorts and normalizes request data and oauthValues
+     * Sorts and normalizes request data and oauthData
      *
      * Section 9.1.1 of Oauth spec.
      *
@@ -228,9 +228,9 @@ class DOauth {
      * - Sort keys & values by byte value.
      * Params:
      * \UIM\Http\Client\Request request The request object.
-     * @param Json[string] oauthValues Oauth values.
+     * @param Json[string] oauthData Oauth values.
      */
-    protected string _normalizedParams(Request request, Json[string] oauthValues) {
+    protected string _normalizedParams(Request request, Json[string] oauthData) {
         aQuery = parse_url((string)request.getUri(), UIM_URL_QUERY);
         parse_str((string)aQuery, aQueryArgs);
 
@@ -239,7 +239,7 @@ class DOauth {
         if (contentType.isEmpty || contentType == "application/x-www-form-urlencoded") {
             parse_str(to!string(request.getBody()), post);
         }
-        someArguments = chain(aQueryArgs, oauthValues, post);
+        someArguments = chain(aQueryArgs, oauthData, post);
         pairs = _normalizeData(someArguments);
         someData = null;
         foreach (pairs as pair) {
@@ -280,7 +280,7 @@ class DOauth {
     }
     
     // Builds the Oauth Authorization header value.
-    protected string _buildAuth(Json[string] oauthValues) {
+    protected string _buildAuth(Json[string] oauthData) {
         string result = "OAuth ";
         string[] params = someData.byKeyValue
             .map!(kv => kv.key ~ "=\"" ~ _encode((string)kv.value) ~ "\"").array;

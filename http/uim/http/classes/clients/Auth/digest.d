@@ -126,28 +126,21 @@ class DDigest {
         return credentials;
     }
     
-    /**
-     */
     protected string generateCnonce() {
         return uniqid();
     }
     
-    /**
-     * Generate the header Authorization
-     * Params:
-     * \UIM\Http\Client\Request request The request object.
-     * @param Json[string] credentials Authentication credentials.
-     */
-    protected string _generateHeader(Request request, Json[string] credentials) {
+    // Generate the header Authorization
+    protected string _generateHeader(Request request, Json[string] authCredentials) {
         somePath = request.getRequestTarget();
 
         if (this.isSessAlgorithm) {
             credentials["cnonce"] = this.generateCnonce();
-            a1 = hash(this.hashType, credentials["username"] ~ ":" .
-                    credentials["realm"] ~ ":" ~ credentials["password"]) ~ ":" .
-                credentials["nonce"] ~ ":" ~ credentials["cnonce"];
+            a1 = hash(this.hashType, authCredentials["username"] ~ ":" ~
+                    authCredentials["realm"] ~ ":" ~ authCredentials["password"]) ~ ":" ~
+                authCredentials["nonce"] ~ ":" ~ authCredentials["cnonce"];
         } else {
-            a1 = credentials["username"] ~ ":" ~ credentials["realm"] ~ ":" ~ credentials["password"];
+            a1 = authCredentials["username"] ~ ":" ~ authCredentials["realm"] ~ ":" ~ authCredentials["password"];
         }
         ha1 = hash(this.hashType, a1);
         a2 = request.getMethod() ~ ":" ~ somePath;
@@ -158,7 +151,7 @@ class DDigest {
             response = hash(this.hashType, ha1 ~ ":" ~ credentials["nonce"] ~ ":" ~ ha2);
         } else {
             if (!in_array(credentials["qop"], [self.QOP_AUTH, self.QOP_AUTH_INT])) {
-                throw new DInvalidArgumentException("Invalid QOP parameter. Valid types are: ' .
+                throw new DInvalidArgumentException("Invalid QOP parameter. Valid types are: " ~
                     join(",", [self.QOP_AUTH, self.QOP_AUTH_INT]));
             }
             if (credentials["qop"] == self.QOP_AUTH_INT) {
@@ -182,15 +175,15 @@ class DDigest {
         result ~= "uri="" ~ somePath ~ "", ";
         result ~= "algorithm="" ~ this.algorithm ~ """;
 
-        if (!credentials.isEmpty("qop")) {
+        if (!authCredentials.isEmpty("qop")) {
             result ~= ", qop=" ~ credentials["qop"];
         }
-        if (this.isSessAlgorithm || !credentials.isEmpty("qop")) {
+        if (this.isSessAlgorithm || !authCredentials.isEmpty("qop")) {
             result ~= ", nc=" ~ nc ~ ", cnonce="" ~ credentials["cnonce"] ~ """;
         }
         result ~= ", response="" ~ response ~ """;
 
-        if (!credentials.isEmpty("opaque")) {
+        if (!authCredentials.isEmpty("opaque")) {
             result ~= ", opaque="" ~ credentials["opaque"] ~ """;
         }
         return result;

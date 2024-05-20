@@ -52,22 +52,17 @@ class DHtmlErrorRenderer : IErrorRenderer {
 HTML;
     }
     
-    /**
-     * Render a toggle link in the error content.
-     * Params:
-     * @param string aid The error id scope.
-     * @param string asuffix The element selector.
-     */
-    private string renderToggle(string textToInsert, string aid, string asuffix) {
-        string selector = anId ~ "-" ~ suffix;
+    // Render a toggle link in the error content.
+    private string renderToggle(string textToInsert, string errorId, string elementSelector) {
+        string selector = errorId ~ "-" ~ elementSelector;
         
-        return <<<HTML
+        return `<<<HTML
 <a href="javascript:void(0);"
   onclick="document.getElementById("{selector}").style.display = (document.getElementById("{selector}").style.display == "none' ? "" : 'none")"
 >
     {textToInsert}
 </a>
-HTML;
+HTML`;
         
-    } */ 
+    } 
 }

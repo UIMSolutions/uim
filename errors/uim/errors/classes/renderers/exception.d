@@ -168,8 +168,8 @@ class DExceptionRenderer : IExceptionRenderer {
         }
 
         myMessage = _message(myException, code);
-        myUrl = this.controller.getRequest().getRequestTarget();
-        response = this.controller.getResponse();
+        myUrl = _controller.getRequest().getRequestTarget();
+        response = _controller.getResponse();
 
         if (myException instanceof UIMException) {
             /** @psalm-suppress DeprecatedMethod */
@@ -209,13 +209,13 @@ class DExceptionRenderer : IExceptionRenderer {
             serialize ~= "file";
             serialize ~= "line";
         }
-        this.controller.set(viewVars);
-        this.controller.viewBuilder().setOption("serialize", serialize);
+        _controller.set(viewVars);
+        _controller.viewBuilder().setOption("serialize", serialize);
 
         if (myException instanceof UIMException && isDebug) {
-            this.controller.set(myException.getAttributes());
+            _controller.set(myException.getAttributes());
         }
-        this.controller.setResponse(response);
+        _controller.setResponse(response);
 
         return _outputMessage(myTemplate);
     }
@@ -264,30 +264,21 @@ class DExceptionRenderer : IExceptionRenderer {
         return myMessage;
     }
 
-    /**
-     * Get template for rendering exception info.
-     *
-     * @param \Throwable myException Exception instance.
-     * @param string method Method name.
-     */
-    protected string templateName(Throwable myException, string method, int errorCode) {
-        if (myException instanceof HttpException || !Configure.read("debug")) {
+    // Get template for rendering exception info.
+    protected string templateName(Throwable exception, string methodName, int errorCode) {
+        if (exception instanceof HttpException || !Configure.read("debug")) {
             return _template = errorCode < 500 ? "error400" : "error500";
         }
 
         return cast(PDOException)myException
             ? "pdo_error"
-            : method;
+            : methodName;
     }
 
-    /**
-     * Gets the appropriate http status code for exception.
-     *
-     * @param \Throwable myException Exception.
-     */
-    protected int getHttpCode(Throwable myException) {
-        if (myException instanceof HttpException) {
-            return myException.getCode();
+    // Gets the appropriate http status code for exception.
+    protected int getHttpCode(Throwable exception) {
+        if (exception instanceof HttpException) {
+            return exception.getCode();
         }
 
         return _exceptionHttpCodes[get_class(myException)] ?? 500;
@@ -300,7 +291,7 @@ class DExceptionRenderer : IExceptionRenderer {
      */
     protected DResponse _outputMessage(string myTemplate) {
         try {
-            this.controller.render(myTemplate);
+            _controller.render(myTemplate);
 
             return _shutdown();
         } catch (MissingTemplateException e) {
@@ -315,8 +306,8 @@ class DExceptionRenderer : IExceptionRenderer {
             return _outputMessage("error500");
         } catch (MissingPluginException e) {
             attributes = e.getAttributes();
-            if (isset(attributes["plugin"]) && attributes["plugin"] == this.controller.getPlugin()) {
-                this.controller.setPlugin(null);
+            if (isset(attributes["plugin"]) && attributes["plugin"] == _controller.getPlugin()) {
+                _controller.setPlugin(null);
             }
 
             return _outputMessageSafe("error500");
@@ -332,17 +323,17 @@ class DExceptionRenderer : IExceptionRenderer {
      * @param string myTemplate The template to render.
      */
     protected DResponse _outputMessageSafe(string myTemplate) {
-        myBuilder = this.controller.viewBuilder();
+        myBuilder = _controller.viewBuilder();
         myBuilder
             .setHelpers([], false)
             .setLayoutPath("")
             .setTemplatePath("Error");
-        view = this.controller.createView("View");
+        view = _controller.createView("View");
 
-        response = this.controller.getResponse()
+        response = _controller.getResponse()
             .withType("html")
             .withStringBody(view.render(myTemplate, "error"));
-        this.controller.setResponse(response);
+        _controller.setResponse(response);
 
         return response;
     }
@@ -353,7 +344,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * Triggers the afterFilter and afterDispatch events.
      */
     protected DResponse _shutdown() {
-        this.controller.dispatchEvent("Controller.shutdown");
+        _controller.dispatchEvent("Controller.shutdown");
 
         return _controller.getResponse();
     }

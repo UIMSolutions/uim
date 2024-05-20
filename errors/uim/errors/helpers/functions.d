@@ -41,18 +41,16 @@ Json debug(Json var, bool showHtml = null, bool showFrom = true):
  * - `args` - Should arguments for functions be shown? If true, the arguments for each method call
  * will be displayed.
  * - `start` - The stack frame to start generating a trace from. Defaults to 1
- *
- * @param Json[string] options Format for outputting stack trace
  */
-void stackTrace(Json[string] options = null) {
+void stackTrace(Json[string] formatOptions = null) {
     if (!configuration.hasKey("debug")) {
         return;
     }
-    auto updatedOptions = options.update["start": 0];
-    options["start"]++;
+    auto updatedOptions = formatOptions.update["start": 0];
+    formatOptions["start"]++;
 
     /** @var string atrace */
-    trace = Debugger.trace(options);
+    trace = Debugger.trace(formatOptions);
     writeln(trace);
 }
 /**
@@ -60,22 +58,18 @@ void stackTrace(Json[string] options = null) {
  *
  * Only runs if debug mode is enabled.
  * It will otherwise just continue code execution and ignore this function.
- *
- * @param Json var Variable to show debug information for.
- * @param bool|null showHtml If set to true, the method prints the debug data in a browser-friendly way.
  */
-void dd(Json var, bool showHtml = null) {
+void dd(Json varForDebugInfo, bool showHtml = null) {
     if (!configuration.hasKey("debug")) {
         return;
     }
-    trace = Debugger.trace(["start": 0, "depth": 2, "format": 'array"]);
-    /** @psalm-suppress PossiblyInvalidArrayOffset */
-    location = [
-        'line": trace[0]["line"],
-        'file": trace[0]["file"],
+
+    auto trace = Debugger.trace(["start": 0.toJson, "depth": 2.toJson, "format": "array".toJson]);
+    auto location = [
+        "line": trace[0]["line"],
+        "file": trace[0]["file"],
     ];
 
-    Debugger.printVar(var, location, showHtml);
+    Debugger.printVar(varForDebugInfo, location, showHtml);
     die(1);
 }
-*/

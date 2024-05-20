@@ -165,12 +165,9 @@ class DDebugger {
      * ### Example
      *
      * Debugger.setOutputMask(["password": '[*************]");
-     * Params:
-     * STRINGAA aValue An array where keys are replaced by their values in output.
-     * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      */
-    static void setOutputMask(Json[string] aValue, bool merge = true) {
-        configInstance("outputMask", aValue, merge);
+    static void setOutputMask(Json[string] keyReplaceData, bool shouldMerge = true) {
+        configInstance("outputMask", keyReplaceData, shouldMerge);
     }
     
     

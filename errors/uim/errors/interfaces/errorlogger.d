@@ -15,16 +15,10 @@ import uim.errors;
  * Used by the ErrorHandlerMiddleware and global error handlers to log exceptions and errors.
  */
 interface IErrorLogger {
-    /**
-     * Log an error for an exception with optional request context.
-     * Params:
-     * \Throwable exception The exception to log a message for.
-     * @param \Psr\Http\Message\IServerRequest|null request The current request if available.
-     * @param bool anIncludeTrace Should the log message include a stacktrace.
-     */
+    // Log an error for an exception with optional request context.
     void logException(
         Throwable exception,
-        IServerRequest serverRequest = null,
+        IServerRequest currentRequest = null,
         bool anIncludeTrace = false
     );
 

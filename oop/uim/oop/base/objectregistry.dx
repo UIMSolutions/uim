@@ -24,7 +24,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * Loads/constructs an object instance.
      *
      * Will return the instance in the registry if it already exists.
-     * If a subclass provides event support, you can use `configuration.data("enabled"] = false`
+     * If a subclass provides event support, you can use `configuration.get("enabled"] = false`
      * to exclude constructed objects from being registered for events.
      *
      * Using {@link \UIM\Controller\Component.components} as an example. You can alias
@@ -47,7 +47,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
     string myObjectName;
     if (configuration.hasKey("className")) {
       objName = objectName;
-      objectName = configuration.data("className");
+      objectName = configuration.get("className");
     } else {
       [, objName] = pluginSplit(objectName);
     }

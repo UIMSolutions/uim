@@ -90,8 +90,8 @@ class DEagerLoadable {
             "aliasPath", "propertyPath", "forMatching", "targetProperty",
         ];
         allowed
-            .filter!(property => isSet(configuration.get(property]))
-            .each!(property => this.{"_" ~ property} = configuration.get(property]);
+            .filter!(property => configuration.hasKey(property))
+            .each!(property => this.{"_" ~ property} = configuration.get(property));
         }
     }
     

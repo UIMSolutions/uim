@@ -22,15 +22,9 @@ class DTestFixture : IFixture {
      * The schema for this fixture.
      *
      * @var \UIM\Database\Schema\TableISchema&\UIM\Database\Schema\ISqlGenerator
-     * @psalm-suppress PropertyNotSetInConstructor
      */
     protected ITableISchema&ISqlGenerator _schema;
 
-    /**
-     * Instantiate the fixture.
-     *
-     * @throws \UIM\Core\Exception\UimException on invalid datasource usage.
-     */
     this() {
         if (!this.connection.isEmpty) {
             aConnection = this.connection;
@@ -58,9 +52,7 @@ class DTestFixture : IFixture {
        _schemaFromReflection();
     }
     
-    /**
-     * Returns the table name using the fixture class
-     */
+    // Returns the table name using the fixture class
     protected string _tableFromClass() {
         [,  className] = namespaceSplit(class);
         preg_match("/^(.*)Fixture/",  className, matches);

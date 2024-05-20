@@ -212,9 +212,9 @@ class DClient { // }: IClient {
       throw new DInvalidArgumentException(
         "The URL was parsed but did not contain a scheme or host");
     }
-    if (isSet(configuration.get("path"])) {
+    if (configuration.hasKey("path")) {
       configuration.get("basePath"] = configuration.get("path"];
-      unset(configuration.get("path"]);
+      unset(configuration.get("path"));
     }
     return new static(configData);
   }

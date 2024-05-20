@@ -191,23 +191,23 @@ class DSocket {
         .each!((kv) {
             string contextKey = substr(kv.key, 4);
             if (isEmpty(configuration.get("context/ssl/"~contextKey])) {
-                configuration.get("context/ssl/"~contextKey] = kv.value;
+                configuration.set("context/ssl/"~contextKey, kv.value);
             }
             unset(configuration.getString(kv.key));
         });
-        if (!isSet(configuration.get("context/ssl"]["SNI_enabled"])) {
-            configuration.get("context/ssl/SNI_enabled"] = true;
+        if (!configuration.hasKey("context/ssl"]["SNI_enabled"])) {
+            configuration.set("context/ssl/SNI_enabled", true);
         }
         if (isEmpty(configuration.get("context/ssl"]["peer_name"])) {
-            configuration.get("context/ssl/peer_name"] = hostName;
+            configuration.set("context/ssl/peer_name", hostName);
         }
         if (configuration.isEmpty("context/ssl/cafile")) {
-            configuration.get("context/ssl/cafile"] = CaBundle.getBundledCaBundlePath();
+            configuration.set("context/ssl/cafile", CaBundle.getBundledCaBundlePath());
         }
         if (!configuration.isEmpty("context/ssl/verify_host"])) {
-            configuration.get("context/ssl/CN_match"] = hostName;
+            configuration.set("context/ssl/CN_match", hostName);
         }
-        configuration.remove("context/ssl/verify_host"]);
+        configuration.remove("context/ssl/verify_host");
     }
 
     /*

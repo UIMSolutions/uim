@@ -39,13 +39,8 @@ class DEventFiredWith : DConstraint {
         }
     }
     
-    /**
-     * Checks if event is in fired array
-     * Params:
-     * Json other Constraint check
-     * @throws \Unit\Framework\AssertionFailedError
-     */
-    bool matches(Json expectedOther) {
+    // Checks if event is in fired array
+    bool matches(Json constraintCheckValue) {
         firedEvents = null;
         list = _eventManager.getEventList();
         if (list !isNull) {
@@ -60,16 +55,16 @@ class DEventFiredWith : DConstraint {
             })
             .toArray();
 
-        if (!array_key_exists(other, eventGroup)) {
+        if (!array_key_exists(constraintCheckValue, eventGroup)) {
             return false;
         }
         /** @var array<\UIM\Event\IEvent<object>> events */
-        events = eventGroup[other];
+        events = eventGroup[constraintCheckValue];
 
         if (count(events) > 1) {
             throw new AssertionFailedError(
                 "Event `%s` was fired %d times, cannot make data assertion".format(
-                other,
+                constraintCheckValue,
                 count(events)
             ));
         }

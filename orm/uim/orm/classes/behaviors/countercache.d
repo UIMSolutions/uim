@@ -117,7 +117,7 @@ class DCounterCacheBehavior : DBehavior {
                 if (
                     !isCallable(configData) &&
                     configuration.hasKey("ignoreDirty") &&
-                    configuration.data("ignoreDirty"] == true &&
+                    configuration.get("ignoreDirty"] == true &&
                     myentity.myentityAlias.isDirty(fieldName)
                 ) {
                    _ignoreDirty[myregistryAlias][fieldName] = true;
@@ -254,10 +254,10 @@ class DCounterCacheBehavior : DBehavior {
     protected int _getCount(Json[string] configData, Json[string] myconditions) {
         myfinder = "all";
         if (!igData.isEmpty("finder")) {
-            myfinder = configuration.data("finder"];
-            unset(configuration.data("finder"]);
+            myfinder = configuration.get("finder"];
+            unset(configuration.get("finder"]);
         }
-        configuration.data("conditions"] = chain(myconditions, configuration.data("conditions"] ?? []);
+        configuration.get("conditions"] = chain(myconditions, configuration.get("conditions"] ?? []);
         myquery = _table.find(myfinder, ...configData);
 
         return myquery.count();

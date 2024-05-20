@@ -47,7 +47,7 @@ class DConsoleLog { /* }: BaseLog {
         } else {
             throw new DInvalidArgumentException("`stream` not a ConsoleOutput nor string");
         }
-        if (isSet(configuration.get("outputAs"])) {
+        if (configuration.hasKey("outputAs")) {
            _output.setOutputAs(configuration.get("outputAs"]);
         }
     }

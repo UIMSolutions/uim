@@ -18,12 +18,10 @@ mixin template THttpClient() {
     /**
      * Create a new response.
      * Params:
-     * int code The response code to use. Defaults to 200
      * @param string[] aHeaders A list of headers for the response. Example `Content-Type: application/Json`
      * @param string abody The body for the response.
-     * \UIM\Http\Client\Response
      */
-    Response newClientResponse(int code = 200, Json[string] aHeaders = null, string abody= null) {
+    Response newClientResponse(int responseCode = 200, Json[string] aHeaders = null, string abody= null) {
          aHeaders = chain(["HTTP/1.1 {code}"],  aHeaders);
 
         return new DResponse(aHeaders, body);

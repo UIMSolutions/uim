@@ -633,7 +633,6 @@ mixin template TIntegrationTest() {
     /**
      * Asserts a specific response status code.
      * Params:
-     * int code Status code to assert.
      * @param string amessage Custom message for failure.
      */
     void assertResponseCode(int statusCode, string failureMessage = null) {

@@ -88,7 +88,6 @@ class DErrorTrap {
      * This method will dispatch the `Error.beforeRender` event which can be listened
      * to on the global event manager.
      * Params:
-     * int code Code of error
      * @param string adescription Error description
      * @param string file File on which error occurred
      * @param int line Line that triggered the error

@@ -176,13 +176,9 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      */
     abstract int execute(Json[string] someArguments, IConsoleIo aConsoleIo);
 
-    /**
-     * Halt the current process with a StopException.
-     * Params:
-     * int code The exit code to use.
-     */
-    never abort(int code = self.CODE_ERROR) {
-        throw new DStopException("Command aborted", code);
+    // Halt the current process with a StopException.
+    never abort(int exitCode = self.CODE_ERROR) {
+        throw new DStopException("Command aborted", exitCode);
     }
 
     /**

@@ -521,17 +521,13 @@ class DResponse : IResponse {
      * might include status codes that are now allowed which will throw an
      * `\InvalidArgumentException`.
      *
-     * @link https://tools.ietf.org/html/rfc7231#section-6
-     * @link https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
-     * @param int code The 3-digit integer status code to set.
      * @param string areasonPhrase The reason phrase to use with the
      *   provided status code; if none is provided, implementations MAY
      *   use the defaults as suggested in the HTTP specification.
-     * @throws \InvalidArgumentException For invalid status code arguments.
      */
-    static auto withStatus(int code, string areasonPhrase = "") {
+    static auto withStatus(int statusCode, string areasonPhrase = "") {
         new = clone this;
-        new._setStatus(code, reasonPhrase);
+        new._setStatus(statusCode, reasonPhrase);
 
         return new;
     }
@@ -539,24 +535,23 @@ class DResponse : IResponse {
     /**
      * Modifier for response status
      * Params:
-     * int code The status code to set.
      * @param string areasonPhrase The response reason phrase.
      */
-    protected auto _setStatus(int code, string areasonPhrase = "") {
-        if (code < STATUS_CODE_MIN || code > STATUS_CODE_MAX) {
+    protected auto _setStatus(int statusCode, string areasonPhrase = "") {
+        if (code < STATUS_CODE_MIN || statusCode > STATUS_CODE_MAX) {
             throw new DInvalidArgumentException(
                 "Invalid status code: %s. Use a valid HTTP status code in range 1xx - 5xx."
-                .format(code)
+                .format(statusCode)
             );
         }
-       _status = code;
-        if (reasonPhrase == "" && isSet(_statusCodes[code])) {
-            reasonPhrase = _statusCodes[code];
+       _status = statusCode;
+        if (reasonPhrase == "" && isSet(_statusCodes[statusCode])) {
+            reasonPhrase = _statusCodes[statusCode];
         }
        _reasonPhrase = reasonPhrase;
 
         // These status codes don`t have bodies and can`t have content-types.
-        if (in_array(code, [304, 204], true)) {
+        if (in_array(statusCode, [304, 204], true)) {
            _clearHeader("Content-Type");
         }
     }
@@ -569,9 +564,6 @@ class DResponse : IResponse {
      * choose to return the default RFC 7231 recommended reason phrase (or those
      * listed in the IANA HTTP Status Code Registry) for the response`s
      * status code.
-     *
-     * @link https://tools.ietf.org/html/rfc7231#section-6
-     * @link https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
      */
     string getReasonPhrase() {
         return _reasonPhrase;

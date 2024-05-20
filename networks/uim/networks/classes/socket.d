@@ -210,35 +210,17 @@ class DSocket {
         configuration.remove("context/ssl/verify_host"]);
     }
 
-    
-    <<  <<  <<  < HEAD
-
-        == == == =
-
-        
-
-        >>>  >>>  > 74 a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf /**
+    /*
      * socket_stream_client() does not populate errNum, or errStr when there are
      * connection errors, as in the case of SSL verification failure.
      *
      * Instead we need to handle those errors manually.
-     * Params:
-     * int code Code number.
-     * @param string amessage Message.
      */
-        protected void _connectionErrorHandler(intcode, string amessage) {
+        protected void _connectionErrorHandler(int codeNumber, string message) {
             _connectionErrors ~= message;
         }
-    
-    <<  <<  <<  < HEAD
-
-        == == == =
-
         
-
-        >>>  >>>  > 74 a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf /**
-     * Get the connection context.
-     */
+    // Get the connection context.
         Json[string] context() {
             if (!this.connection) {
                 return null;

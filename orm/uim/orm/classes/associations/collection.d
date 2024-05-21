@@ -181,7 +181,6 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param Json[string] associations Array of associations to save.
      * @param Json[string] options Original options
      * returns True if Success
-     * @throws \InvalidArgumentException When an unknown alias is used.
      */
     protected bool _saveAssociations(
         DORMTable aTable,

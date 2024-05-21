@@ -331,7 +331,7 @@ class DAssociation : IAssociation {
      *
      * @param bool dependent Set the dependent mode. Use null to read the current state.
      */
-     void setDependent(bool dependent) {
+    void setDependent(bool dependent) {
         _dependent = dependent;
     }
 
@@ -361,7 +361,7 @@ class DAssociation : IAssociation {
      *
      * @param string type the join type to be used (e.g. INNER)
      */
-     void setJoinType(string type) {
+    void setJoinType(string type) {
         _joinType = type;
     }
 
@@ -393,7 +393,7 @@ class DAssociation : IAssociation {
                 msg = "Association property name '%s' clashes with field of same name of table '%s'." ~
                     " You should explicitly specify the " propertyName" option.";
                 trigger_error(
-                     msg.format(_propertyName, _sourceTable.getTable()),
+                    msg.format(_propertyName, _sourceTable.getTable()),
                     E_USER_WARNING
                 );
             }
@@ -417,16 +417,12 @@ class DAssociation : IAssociation {
      * rendering any changes to this setting void.
      *
      * @param string aName The strategy type. Use null to read the current value.
-     * @throws \InvalidArgumentException When an invalid strategy is provided.
      */
     void setStrategy(string aName) {
         if (!in_array(name, _validStrategies, true)) {
             throw new DInvalidArgumentException(
                 "Invalid strategy '%s' was provided. Valid options are (%s)."
                     .format(name, implode(", ", _validStrategies));
-
-            
-
             );
         }
         _strategy = name;
@@ -868,7 +864,7 @@ class DAssociation : IAssociation {
         }
 
         foreach (foreignKeys as k : f) {
-            field =  "%s.%s".format(sAlias, bindingKeys[k]);
+            field = "%s.%s".format(sAlias, bindingKeys[k]);
             value = new DIdentifierExpression(format("%s.%s", tAlias, f));
             conditions[field] = value;
         }
@@ -980,9 +976,9 @@ class DAssociation : IAssociation {
      * @param DORMDatasource\IORMEntity anEntity The entity that started the cascaded delete.
      * @param Json[string] options The options for the original delete.
      */
-abstract bool cascaderemove(IORMEntity anEntity, Json[string] optionData = null);
+    abstract bool cascaderemove(IORMEntity anEntity, Json[string] optionData = null);
 
-/**
+    /**
      * Returns whether the passed table is the owning side for this
      * association. This means that rows in the "target" table would miss important
      * or required information if the row in "source" did not exist.

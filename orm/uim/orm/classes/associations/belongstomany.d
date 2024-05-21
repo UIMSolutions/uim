@@ -692,8 +692,6 @@ class DBelongsToManyAssociation : DAssociation {
      * @param array<DORMDatasource\IORMEntity> targetEntities list of entities belonging to the `target` side
      *  of this association
      * @param Json[string] options list of options to be passed to the internal `save` call
-     * @throws \InvalidArgumentException when any of the values in targetEntities is
-     *  detected to not be already persisted
      * @return bool true on success, false otherwise
      */
     bool link(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] optionData = null) {

@@ -129,7 +129,6 @@ class HFilesystem {
      * Delete directory along with all it"s contents.
      * Params:
      * string mypath Directory path.
-     * @throws \UIM\Core\Exception\UimException If path is not a directory.
      */
     bool deleteDir(string mypath) {
         if (!fileExists(mypath)) {

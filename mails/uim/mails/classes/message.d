@@ -412,7 +412,6 @@ class DMessage { //: JsonSerializable {
      * TransferEncoding setter.
      * Params:
      * string encoding Encoding set.
-     * @throws \InvalidArgumentException
      */
     void setTransferEncoding(string aencoding) {
         if (encoding !isNull) {

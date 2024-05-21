@@ -344,7 +344,6 @@ mixin template TIntegrationTest() {
      * string[] aurl The URL
      * @param string httpMethod The HTTP method
      * @param string[] adata The request data.
-     * @throws \Unit\Exception|\Throwable
      */
     protected void _sendRequest(string[] aurl, string httpMethod, string[] adata = []) {
         dispatcher = _makeDispatcher();

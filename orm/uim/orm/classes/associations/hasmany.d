@@ -280,8 +280,6 @@ class DHasManyAssociation : DAssociation {
      * this association
      * @param Json[string]|bool options list of options to be passed to the internal `delete` call.
      *  If boolean it will be used a value for "cleanProperty" option.
-     * @throws \InvalidArgumentException if non persisted entities are passed or if
-     * any of them is lacking a primary key value
      */
         void unlink(IORMEntity sourceEntity, Json[string] myTargetEntities, options = null) {
             if (is_bool(options)) {

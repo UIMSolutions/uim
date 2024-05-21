@@ -778,7 +778,6 @@ abstract class DTestCase : DBaseTestCase {
      * string aalias The model to get a mock for.
      * @param string[] someMethods The list of methods to mock
      * @param Json[string] options The config data for the mock"s constructor.
-     * @throws \ORM\Exception\MissingTableClassException
      */
     Table|MockObject getMockForModel(string aalias, Json[string] someMethods = [], Json[string] options = null) {
         auto className = _getTableClassName(alias, options);

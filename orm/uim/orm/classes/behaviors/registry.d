@@ -189,7 +189,6 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      *
      * @param string aMethodName The method to invoke.
      * @param Json[string] args The arguments you want to invoke the method with.
-     * @throws \BadMethodCallException When the method is unknown.
      */
     Json call(string aMethodName, Json[string] args = null) {
         aMethodName = strtolower(aMethodName);

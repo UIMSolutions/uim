@@ -413,8 +413,6 @@ class DPaginator : IPaginator {
      * The result of this method is the aggregate of all the option sets
      * combined together. You can change config value `allowedParameters` to modify
      * which options/values can be set using request parameters.
-     *
-     * @param Json[string] settingsData The settingsData to merge with the request data.
      */
     Json[string] mergeOptions(Json[string] requestData, Json[string] settingsData) {
         if (!settingsData.isEmpty("scope"))) {

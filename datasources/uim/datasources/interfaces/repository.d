@@ -104,9 +104,6 @@ interface IRepository {
      * Persists an entity based on the fields that are marked as dirty and
      * returns the same entity after a successful save or false in case
      * of any error.
-     * Params:
-     * \UIM\Datasource\IDatasourceEntity entity the entity to be saved
-     * @param Json[string] optionData The options to use when saving.
      */
     IDatasourceEntity|false save(IDatasourceEntity entity, Json[string] optionData = null);
 

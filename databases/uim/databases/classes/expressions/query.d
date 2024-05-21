@@ -318,7 +318,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * passedTypes Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
      */
-    static and(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = null) {
+    static and(/* IExpression|Closure */string[] aconditions, STRINGAA passedTypes = null) {
         return cast(DClosure)conditions
             ? conditions(new static([], getTypeMap().setTypes(passedTypes)))
             : new static(conditions, getTypeMap().setTypes(passedTypes));

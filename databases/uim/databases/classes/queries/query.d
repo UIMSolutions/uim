@@ -1270,14 +1270,7 @@ abstract class DQuery : IQuery { // : IExpression {
             .each!(part => _expressionsVisitor(part, aCallback));
     }
     
-    /**
-     * Query parts traversal method used by traverseExpressions()
-     * Params:
-     * Json expression Query expression or
-     * array of expressions.
-     * @param \Closure aCallback The callback to be executed for each IExpression
-     * found inside this query.
-     */
+    // Query parts traversal method used by traverseExpressions()
     protected void _expressionsVisitor(Json[] queryExpressions, IClosure aCallback) {
         queryExpressions
             .each!(exp => expressionsVisitor(exp, aCallback));

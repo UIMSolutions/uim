@@ -235,8 +235,6 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * you plan to use user data, either pass a single type for the `type` argument (which forces the ` when` value to
      * be a non-array, and then always binds the data), use a conditions array where the user data is only passed on
      * the value side of the array entries, or custom bindings!
-     * @param STRINGAA|string type The when value type. Either an associative array when using array style
-     * conditions, or else a string. If no valueType is provided, the valueType will be tried to be inferred from the value.
      */
     void when(Json when, string[] whenValueType = null) {
         if (!_whenBuffer.isNull) {

@@ -211,12 +211,9 @@ class DRulesChecker {
     /**
      * Runs each of the rules by passing the provided entity and returns true if all
      * of them pass. The rules selected will be only those specified to be run on 'delete'
-     * Params:
-     * \UIM\Datasource\IDatasourceEntity entity The entity to check for validity.
-     * @param Json[string] optionData Extra options to pass to checker functions.
      */
     bool checkremove(IDatasourceEntity entity, Json[string] optionData = null) {
-        return _checkRules(entity, options, _deleteRules);
+        return _checkRules(entity, optionData, _deleteRules);
     }
     
     /**

@@ -26,7 +26,7 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
      * \UIM\Database\IExpression|\Closure|string[] aconditions The conditions to filter on.
      * typeNames Associative array of type names used to bind values to query
      */
-    void filter(IExpression|Closure|string[] aconditions, STRINGAA typeNames = null) {
+    void filter(/* IExpression|Closure */string[] aconditions, STRINGAA typeNames = null) {
         _filter ??= new DQueryExpression();
 
         if (cast(DClosure)conditions ) {

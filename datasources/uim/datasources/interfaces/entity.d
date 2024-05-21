@@ -115,13 +115,11 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      * fields with their respective values
      * @param Json aValue The value to set to the field or an array if the
      * first argument is also an array, in which case will be treated as options
-     * @param Json[string] options Options to be used for setting the field. Allowed option
-     * keys are `setter` and `guard`
      */
     void set(string[] fieldName, Json aValue = null, Json[string] optionData = null);
 
     // Returns the value of a field by name
-    Json &get(string fieldName) ;
+    // TODO Json &get(string fieldName) ;
 
     /**
      * Enable/disable field presence check when accessing a property.

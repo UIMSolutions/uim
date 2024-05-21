@@ -29,26 +29,26 @@ mixin template TRulesAware() {
      */
    bool checkRules(
         IDatasourceEntity entity,
-        string aoperation = RulesChecker.CREATE,
-        ArrayObject[] options = null
+        string operationToRun = RulesChecker.CREATE,
+        ArrayObject[] ruleOptions = null
     ) {
         auto rules = this.rulesChecker();
-        options = options ?: new ArrayObject();
-        options = options.isArray ? new ArrayObject(options): options;
+        ruleOptions = ruleOptions ?: new ArrayObject();
+        ruleOptions = ruleOptions.isArray ? new ArrayObject(ruleOptions): ruleOptions;
         bool hasEvents = (cast(IEventDispatcher)this);
 
-        if ($hasEvents) {
+        if (hasEvents) {
             event = this.dispatchEvent(
                 "Model.beforeRules",
-                compact("entity", "options", "operation")
+                compact("entity", "ruleOptions", "operation")
             );
             if (event.isStopped()) {
                 return event.getResult();
             }
         }
-        result = rules.check(entity, operation, options.getArrayCopy());
+        result = rules.check(entity, operationToRun, ruleOptions.getArrayCopy());
 
-        if ($hasEvents) {
+        if (hasEvents) {
             event = this.dispatchEvent(
                 "Model.afterRules",
                 compact("entity", "options", "result", "operation")

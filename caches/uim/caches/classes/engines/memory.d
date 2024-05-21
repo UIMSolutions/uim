@@ -39,20 +39,20 @@ class DMemoryCacheEngine : DCacheEngine {
      *  Use the \Memory.OPT_* constants as keys.
      */
     configuration.updateDefaults([
-      "compress":  false.toJson,
-      "duration":  Json(3600),
-      "groups":  Json.emptyArray,
-      "host":  Json(null),
-      "username":  "".toJson,
-      "password":  Json(null),
-      "persistent":  Json(null),
-      "port":  Json(null),
-      "prefix":  Json("uim_"),
-      "serialize":  Json("d"),
+      "compress": false.toJson,
+      "duration": Json(3600),
+      "groups": Json.emptyArray,
+      "host": Json(null),
+      "username": "".toJson,
+      "password": Json(null),
+      "persistent": Json(null),
+      "port": Json(null),
+      "prefix": Json("uim_"),
+      "serialize": Json("d"),
       // `servers` String or array of memcached servers. If an array MemcacheEngine will use them as a pool.
-      // TODO "servers":  StringArrayData(["127.0.0.1"]),
+      // TODO "servers": StringArrayData(["127.0.0.1"]),
       // `options` - Additional options for the memcached client. Should be an array of option: value.
-      "options":  Json.emptyArray,
+      "options": Json.emptyArray,
     ]);
 
     return true;
@@ -77,9 +77,9 @@ class DMemoryCacheEngine : DCacheEngine {
       throw new UimException("The `memcached` extension must be enabled to use MemoryEngine.");
     }
     /* _serializers = [
-      "igbinary":  Memory: : SERIALIZER_IGBINARY,
-      "Json":  Memory: : SERIALIZER_Json,
-      "d":  Memory: : SERIALIZER_D,
+      "igbinary": Memory: : SERIALIZER_IGBINARY,
+      "Json": Memory: : SERIALIZER_Json,
+      "d": Memory: : SERIALIZER_D,
     ]; */
 
     if (defined("Memory.HAVE_MSGPACK")) {

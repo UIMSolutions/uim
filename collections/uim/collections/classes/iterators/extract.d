@@ -28,8 +28,8 @@ class DExtractIterator : DCollection {
      *
      * ```
      * someItems = [
-     * ["comment":  ["body":  'cool", "user":  ["name":  'Mark"]],
-     * ["comment":  ["body":  'very cool", "user":  ["name":  'Renan"]]
+     * ["comment": ["body": 'cool", "user": ["name": 'Mark"]],
+     * ["comment": ["body": 'very cool", "user": ["name": 'Renan"]]
      * ];
      * anExtractor = new DExtractIterator(someItems, "comment.user.name"");
      * ```

@@ -376,9 +376,9 @@ mixin template TCollection() {
         string mygroupPath = null
     ) {
         Json[string] options = [
-            "keyPath":  _propertyExtractor(mykeyPath),
-            "valuePath":  _propertyExtractor(myvaluePath),
-            "groupPath":  mygroupPath ? _propertyExtractor(mygroupPath): Json(null),
+            "keyPath": _propertyExtractor(mykeyPath),
+            "valuePath": _propertyExtractor(myvaluePath),
+            "groupPath": mygroupPath ? _propertyExtractor(mygroupPath): Json(null),
         ];
 
         mymapper = auto (myvalue, aKey, MapReduce mymapReduce) use (options) {
@@ -518,9 +518,9 @@ mixin template TCollection() {
         if (isString(myorder)) {
             myorder = myorder.lower;
             auto mymodes = [
-                "desc":  RecursiveIteratorIterator.SELF_FIRST,
-                "asc":  RecursiveIteratorIterator.CHILD_FIRST,
-                "leaves":  RecursiveIteratorIterator.LEAVES_ONLY,
+                "desc": RecursiveIteratorIterator.SELF_FIRST,
+                "asc": RecursiveIteratorIterator.CHILD_FIRST,
+                "leaves": RecursiveIteratorIterator.LEAVES_ONLY,
             ];
 
             if (!mymodes.isSet(myorder)) {

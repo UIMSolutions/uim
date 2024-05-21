@@ -26,9 +26,9 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
     // Gets the option parser instance and configures it.
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser aConsoleParser) {
         STRINGAA modes = [
-            "commands":  "Output a list of available commands",
-            "subcommands":  "Output a list of available sub-commands for a command",
-            "options":  "Output a list of available options for a command and possible subcommand.",
+            "commands": "Output a list of available commands",
+            "subcommands": "Output a list of available sub-commands for a command",
+            "options": "Output a list of available options for a command and possible subcommand.",
         ];
 
         string modeHelp = modes.byKeyValue
@@ -38,17 +38,17 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
             "Used by shells like bash to autocomplete command name, options and arguments"
         );
         aParser.addArgument("mode", [
-                "help":  "The type of thing to get completion on.",
-                "required":  true.toJson,
-                "choices":  modes.keys,
+                "help": "The type of thing to get completion on.",
+                "required": true.toJson,
+                "choices": modes.keys,
             ]);
         aParser.addArgument("command", [
-                "help":  "The command name to get information on.",
-                "required":  false.toJson,
+                "help": "The command name to get information on.",
+                "required": false.toJson,
             ]);
         aParser.addArgument("subcommand", [
-                "help":  "The sub-command related to command to get information on.",
-                "required":  false.toJson,
+                "help": "The sub-command related to command to get information on.",
+                "required": false.toJson,
             ]);
         aParser.setEpilog(
             [

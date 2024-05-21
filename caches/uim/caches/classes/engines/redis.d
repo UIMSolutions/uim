@@ -216,7 +216,7 @@ class DRedisCacheEngine : DCacheEngine {
         auto aKey = _key(dataId);
         auto aValue = serialize(dataToCache);
 
-        return (_redis.set(aKey, aValue, ["nx", "ex":  aDuration]));
+        return (_redis.set(aKey, aValue, ["nx", "ex": aDuration]));
     }
     
     /**

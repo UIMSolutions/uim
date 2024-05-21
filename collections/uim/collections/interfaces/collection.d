@@ -781,7 +781,7 @@ interface ICollection {
      * @param callable callback A callable // function that will receive
      * this collection as first argument.
      */
-    // ICollection through(callable callback);
+    ICollection through(callable callback);
 
     /**
      * Combines the elements of this collection with each of the elements of the
@@ -811,10 +811,8 @@ interface ICollection {
      * });
      * zipped.toList(); // returns [9, 12]; [(1 + 3 + 5), (2 + 4 + 6)]
      * ```
-     *
-     * @param callable callback The // function to use for zipping the elements together.
      */
-    // TODO ICollection zipWith(Json[string] collectionsToZip, callback);
+    ICollection zipWith(Json[string] collectionsToZip, callable callback);
 
     /**
      * Breaks the collection into smaller arrays of the given size.

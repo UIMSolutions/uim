@@ -68,8 +68,6 @@ interface JsonSourceConnection { // : ILoggerAware
      *  connection.newQuery().remove("users").execute();
      * });
      * ```
-     *
-     * @param callable callback The callback to execute within a transaction.
      */
   Json[string] disableConstraints(callable callback);
 }

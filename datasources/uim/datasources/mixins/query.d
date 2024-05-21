@@ -143,9 +143,6 @@ mixin template TQuery() {
      *
      * If the field is already aliased, then it will not be changed.
      * If no alias is passed, the default table for this query will be used.
-     *
-     * @param string field The field to alias
-     * @param string alias the alias used to prefix the field
      */
     STRINGAA aliasField(string fieldName, string fieldAlias = null) {
         if (indexOf(fieldName, ".") == false) {
@@ -157,6 +154,7 @@ mixin template TQuery() {
         }
 
         auto key = "%s__%s".format(fieldAlias, field);
+
         return [key: fieldAlias];
     }
 

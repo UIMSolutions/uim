@@ -55,11 +55,8 @@ interface IDriver : INamed {
      * Returns a callable function that will be used to transform a passed Query object.
      * This function, in turn, will return an instance of a Query object that has been
      * transformed to accommodate any specificities of the SQL dialect in use.
-     *
-     * @param string myType The type of query to be transformed
-     * (select, insert, update, delete).
      */
-    Closure queryTranslator(string myType);
+    Closure queryTranslator(string queryType); /* select, insert, update, delete */ 
 
     /**
      * Get the schema dialect.

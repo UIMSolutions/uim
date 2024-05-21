@@ -95,13 +95,9 @@ class DRulesChecker {
      * - `errorField`: The name of the entity field that will be marked as invalid
      *  if the rule does not pass.
      * - `message`: The error message to set to `errorField` if the rule does not pass.
-     * Params:
-     * callable rule A callable auto or object that will return whether
-     * the entity is valid or not.
-     * @param string[] name The alias for a rule, or an array of options.
      */
-    void add(callable rule, string[] name = null, Json[string] optionData = null) {
-       _rules ~= _addError(rule, name, optionData);
+    void add(callable ruleCallable, string[] ruleAlias = null, Json[string] optionData = null) {
+       _rules ~= _addError(rule, ruleAlias, optionData);
     }
     
     /**

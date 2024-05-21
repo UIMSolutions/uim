@@ -163,18 +163,18 @@ class DPaginator : IPaginator {
      * @param Json[string] requestData Request params
      * @param Json[string] settings The settings/configuration used for pagination.
      */
-    IDSResultset paginate(object object, Json[string] requestData = null, Json[string] paginationSettings = null) {
+    IDSResultset paginate(Query objectToPaginate, Json[string] requestData = null, Json[string] paginationSettings = null) {
         myQuery = null;
-        if (object instanceof IQuery) {
-            myQuery = object;
-            object = myQuery.getRepository();
-            if (object == null) {
+        if (objectToPaginate instanceof IQuery) {
+            myQuery = objectToPaginate;
+            objectToPaginate = myQuery.getRepository();
+            if (objectToPaginate == null) {
                 throw new DuimException("No repository set for query.");
             }
         }
 
-        myData = this.extractData(object, requestData, paginationSettings);
-        myQuery = getQuery(object, myQuery, myData);
+        myData = this.extractData(objectToPaginate, requestData, paginationSettings);
+        myQuery = getQuery(objectToPaginate, myQuery, myData);
 
         cleanQuery = clone myQuery;
         myResults = myQuery.all();
@@ -182,7 +182,7 @@ class DPaginator : IPaginator {
         myData["count"] = getCount(cleanQuery, myData);
 
         pagingParams = this.buildParams(myData);
-        aliasName = object.aliasName();
+        aliasName = objectToPaginate.aliasName();
         _pagingParams = [aliasName: pagingParams];
         if (pagingParams["requestedPage"] > pagingParams["page"]) {
             throw new DPageOutOfBoundsException([
@@ -198,9 +198,9 @@ class DPaginator : IPaginator {
     // \uim\Datasource\IRepository object Repository instance.
     // \uim\Datasource\IQuery|null myQuery Query Instance.
     //  Json[string] myData Pagination data.
-    protected IDSQuery getQuery(IRepository object, IQuery myQuery, Json[string] myData) {
+    protected IDSQuery getQuery(IRepository repository, IQuery myQuery, Json[string] myData) {
         if (myQuery == null) {
-            myQuery = object.find(myData["finder"], myData["options"]);
+            myQuery = repository.find(myData["finder"], myData["options"]);
         } else {
             myQuery.applyOptions(myData["options"]);
         }
@@ -216,12 +216,12 @@ class DPaginator : IPaginator {
     /**
      * Extract pagination data needed
      *
-     * @param \uim\Datasource\IRepository object The repository object.
+     * @param \uim\Datasource\IRepository repository The repository repository.
      * @param Json[string] requestData Request params
      * @param Json[string] paginationSettings The paginationSettings/configuration used for pagination.
      */
     protected Json[string] extractData(IRepository anRepository, Json[string] requestData, Json[string] paginationSettings) {
-        aliasName = object.aliasName();
+        aliasName = repository.aliasName();
         defaults = getDefaults(aliasName, paginationSettings);
         options = mergeOptions(requestData, defaults);
         options = validateSort(anRepository, options);
@@ -455,7 +455,7 @@ class DPaginator : IPaginator {
     }
 
     /**
-     * Validate that the desired sorting can be performed on the object.
+     * Validate that the desired sorting can be performed on the repository.
      *
      * Only fields or virtualFields can be sorted on. The direction param will
      * also be sanitized. Lastly sort + direction keys will be converted into
@@ -475,10 +475,10 @@ class DPaginator : IPaginator {
      * The default order options provided to paginate() will be merged with the user"s
      * requested sorting field/direction.
      *
-     * @param \uim\Datasource\IRepository object Repository object.
+     * @param \uim\Datasource\IRepository repository Repository repository.
      * @param Json[string] options The pagination options being used for this request.
      */
-    Json[string] validateSort(IRepository object, Json[string] options) {
+    Json[string] validateSort(IRepository repository, Json[string] options) {
         if (isset(options["sort"])) {
             direction = null;
             if (isset(options["direction"])) {
@@ -490,7 +490,7 @@ class DPaginator : IPaginator {
 
             order = isset(options["order"]) && (options["order"].isArray ? options["order"] : [];
             if (order && options["sort"] && indexOf(options["sort"], ".") == false) {
-                order = _removeAliases(order, object.aliasName());
+                order = _removeAliases(order, repository.aliasName());
             }
 
             options["order"] = [options["sort"]: direction] + order;
@@ -529,7 +529,7 @@ class DPaginator : IPaginator {
             options["sort"] = key(options["order"]);
         }
 
-        options["order"] = _prefix(object, options["order"], sortAllowed);
+        options["order"] = _prefix(repository, options["order"], sortAllowed);
 
         return options;
     }
@@ -564,11 +564,11 @@ class DPaginator : IPaginator {
     /**
      * Prefixes the field with the table alias if possible.
      *
-     * @param \uim\Datasource\IRepository object Repository object.
+     * @param \uim\Datasource\IRepository repository Repository repository.
      * @param Json[string] order DOrder array.
      */
-    protected Json[string] _prefix(IRepository object, Json[string] order, bool isAllowed = false) {
-        sring myTableAlias = object.aliasName();
+    protected Json[string] _prefix(IRepository repository, Json[string] order, bool isAllowed = false) {
+        sring myTableAlias = repository.aliasName();
         myTableOrder= null;
         foreach (order as myKey: myValue) {
             if (myKey.isNumeric) {
@@ -585,11 +585,11 @@ class DPaginator : IPaginator {
 
             if (correctAlias && isAllowed) {
                 // Disambiguate fields in schema. As id is quite common.
-                if (object.hasField(myField)) {
+                if (repository.hasField(myField)) {
                     myField = aliasName ~ "." ~ myField;
                 }
                 myTableOrder[myField] = myValue;
-            } elseif (correctAlias && object.hasField(myField)) {
+            } elseif (correctAlias && repository.hasField(myField)) {
                 myTableOrder[myTableAlias ~ "." ~ myField] = myValue;
             } elseif (!correctAlias && isAllowed) {
                 myTableOrder[aliasName ~ "." ~ myField] = myValue;

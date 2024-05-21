@@ -30,11 +30,9 @@ class DHasManyAssociation : DAssociation {
      *
      * @var \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string
      */
-    // TODO protected IExpression|Closure|string[] _sort = null;
+    protected /* IExpression|Closure */string[] _sort = null;
 
-    /**
-     * The type of join to be used when adding the association to a query
-     */
+    // The type of join to be used when adding the association to a query
     protected string _joinType = Query.JOIN_TYPE_INNER;
 
     // The strategy name to be used to fetch associated records.

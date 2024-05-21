@@ -165,7 +165,6 @@ class DRulesChecker {
      * \UIM\Datasource\IDatasourceEntity entity The entity to check for validity.
      * @param string amode Either 'create, "update' or 'delete'.
      * @param Json[string] optionData Extra options to pass to checker functions.
-     * @throws \InvalidArgumentException if an invalid mode is passed.
      */
     bool check(IDatasourceEntity entity, string amode, Json[string] optionData = null) {
         if (mode == self.CREATE) {

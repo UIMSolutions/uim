@@ -28,7 +28,7 @@ class DHasManyAssociation : DAssociation {
     /**
      * DOrder in which target records should be returned
      *
-     * @var \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string
+     * @var \UIM\Database\IExpression|\Closure|array<\UIM\Database\/* IExpression| */ string>|string
      */
     protected /* IExpression|Closure */string[] _sort = null;
 

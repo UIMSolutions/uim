@@ -10,18 +10,10 @@ import uim.datasources;
 @safe:
 // Registries for repository objects should implement this interface.
 interface ILocator {
-    /**
-     * Get a repository instance from the registry.
-     *
-     * @param Json[string] options The options you want to build the table with.
-     */
-    IRepository get(string aliasName, Json[string] optionData = null);
+    // Get a repository instance from the registry.
+    IRepository get(string aliasName, Json[string] buildData = null);
 
-    /**
-     * Set a repository instance.
-     *
-     * @param uim.Datasource\IRepository repository The repository to set.
-     */
+    // Set a repository instance.
     IRepository set(string aliasName, IRepository repository);
 
     // Check to see if an instance exists in the registry.

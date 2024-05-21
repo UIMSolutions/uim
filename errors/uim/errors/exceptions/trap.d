@@ -171,9 +171,6 @@ class DExceptionTrap {
      *
      * Uses a template method provided by subclasses to display errors in an
      * environment appropriate way.
-     * Params:
-     * \Throwable anException Exception instance.
-     * @throws \Exception When renderer class not found
      */
     void handleException(Throwable anException) {
         if (this.disabled) {

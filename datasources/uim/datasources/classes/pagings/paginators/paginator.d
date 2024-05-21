@@ -307,43 +307,36 @@ class DPaginator : IPaginator {
     /**
      * Add "prevPage" and "nextPage" params.
      *
-     * @param Json[string] paginatorParams Paginator params.
+     * @param Json[string] paginatorData Paginator params.
      * @param Json[string] myData Paging data.
      */
-    protected Json[string] addPrevNextParams(Json[string] paginatorParams, Json[string] myData) {
-        paginatorParams["prevPage"] = paginatorParams["page"] > 1;
-        paginatorParams["nextPage"] = paginatorParams["count"] == null
+    protected Json[string] addPrevNextParams(Json[string] paginatorData, Json[string] myData) {
+        paginatorData["prevPage"] = paginatorData["page"] > 1;
+        paginatorData["nextPage"] = paginatorData["count"] == null
             ? true
-            paginatorParams["count"] > paginatorParams["page"] * paginatorParams["perPage"];
+            paginatorData["count"] > paginatorData["page"] * paginatorData["perPage"];
 
-        return paginatorParams;
+        return paginatorData;
     }
 
-    /**
-     * Add sorting / ordering params.
-     *
-     * @param Json[string] paginatorParams Paginator params.
-     * @param Json[string] myData Paging data.
-     */
-    protected Json[string] addSortingParams(Json[string] paginatorParams, Json[string] pagingData) 
-        defaults = pagingData["defaults"];
-        order = (array)pagingData["options"]["order"];
-        sortDefault = directionDefault = false;
+    // Add sorting / ordering params.
+    protected Json[string] addSortingParams(Json[string] paginatorData, Json[string] pagingData) 
+        auto defaults = pagingData["defaults"];
+        auto order = (array)pagingData["options"]["order"];
+        bool sortDefault = directionDefault = false;
 
         if (!defaults.isEmpty("order")) && count(defaults["order"]) == 1) {
             sortDefault = key(defaults["order"]);
             directionDefault = current(defaults["order"]);
         }
 
-        paginatorParams += [
+        return paginatorData.update([
             "sort":pagingData["options"]["sort"],
             "direction":isset(pagingData["options"]["sort"]) && count(order) ? current(order) : null,
             "sortDefault":sortDefault,
             "directionDefault":directionDefault,
             "completeSort":order,
-        ];
-
-        return paginatorParams;
+        ]);
     }
 
     /**

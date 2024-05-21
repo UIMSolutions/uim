@@ -715,9 +715,6 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      *
      * If category is `null` - it will actually convert that into `category_id isNull` - if it`s `4` it will convert it into `category_id = 4`
-     * Params:
-     * @param STRINGAA types Associative array of type names used to bind values to query
-     * @param bool shouldOverwrite whether to reset conditions with passed list or not
      */
     void where(
         /* IExpression|Closure */ string[] conditionsToFilter = null,

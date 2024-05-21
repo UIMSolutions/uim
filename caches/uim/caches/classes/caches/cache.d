@@ -116,10 +116,7 @@ class DCache : ICache {
         _registry = cacheRegistry;
     } 
 
-    /**
-     * Finds and builds the instance of the required engine class.
-     * @throws \RuntimeException If loading of the engine failed.
-     */
+    // Finds and builds the instance of the required engine class.
     protected static void _buildEngine(string configName) {
         auto myRegistry = getRegistry();
 

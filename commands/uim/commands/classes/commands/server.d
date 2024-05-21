@@ -86,7 +86,7 @@ class DServerCommand : DCommand {
         }
         commandText = "%s %s".format(commandText, escapeshellarg(_documentRoot ~ "/index.d"));
 
-        string port = ":" ~ _port;
+        string port = ": " ~ _port;
          aConsoleIo.writeln("built-in server is running in http://%s%s/".format(_host, port));
          aConsoleIo.writeln("You can exit with <info>`CTRL-C`</info>");
         system(commandText);
@@ -105,20 +105,20 @@ class DServerCommand : DCommand {
             ].join("\n"));
             
             addOption("host", [
-                "short": "H",
-                "help": "serverHost",
+                "short":  "H",
+                "help":  "serverHost",
             ]);
             addOption("port", [
-                "short": "p",
-                "help": "ListenPort",
+                "short":  "p",
+                "help":  "ListenPort",
             ]);
             addOption("ini_path", [
-                "short": "I",
-                "help": "D.ini path",
+                "short":  "I",
+                "help":  "D.ini path",
             ]);
             addOption("document_root", [
-                "short": "d",
-                "help": "DocumentRoot",
+                "short":  "d",
+                "help":  "DocumentRoot",
             ]);
         }
 

@@ -32,14 +32,14 @@ class DPluginAssetsCopyCommand : DCommand {
 
         /* 
         parserToUpdate.addArgument("name", [
-            "help": "A specific plugin you want to copy assets for.",
-            "required": false.toJson,
+            "help":  "A specific plugin you want to copy assets for.",
+            "required":  false.toJson,
         ]);
         
         parserToUpdate.addOption("overwrite", [
-            "help": "Overwrite existing symlink / folder / files.",
-            "default": false.toJson,
-            "boolean": true.toJson,
+            "help":  "Overwrite existing symlink / folder / files.",
+            "default":  false.toJson,
+            "boolean":  true.toJson,
         ]); */
 
         return parserToUpdate;

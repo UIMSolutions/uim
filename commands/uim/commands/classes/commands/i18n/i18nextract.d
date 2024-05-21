@@ -419,7 +419,7 @@ class DI18nExtractCommand : DCommand {
                         auto occurrences = null;
                         foreach (file: lines; files) {
                             array_unique(lines)
-                                .each!(line => occurrences ~= file ~ ":" ~ line);
+                                .each!(line => occurrences ~= file ~ ": " ~ line);
                         }
                         occurrences = join("\n#: ", occurrences);
 

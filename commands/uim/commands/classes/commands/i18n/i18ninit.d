@@ -69,11 +69,11 @@ class DI18nInitCommand : DCommand {
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser  aParser) {
          aParser.description("Initialize a language PO file from the POT file")
            .addOption("plugin", [
-               "help": "The plugin to create a PO file in.",
-               "short": "p",
+               "help":  "The plugin to create a PO file in.",
+               "short":  "p",
            ])
            .addArgument("language", [
-               "help": "Two-letter language code to create PO files for.",
+               "help":  "Two-letter language code to create PO files for.",
            ]);
 
         return aParser;

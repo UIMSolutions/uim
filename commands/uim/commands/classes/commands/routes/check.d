@@ -29,7 +29,7 @@ class DRoutesCheckCommand : DCommand {
   int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
     auto myUrl = commandArguments.getArgument("url");
     try {
-      auto request = new DServerRequest(["url": url]);
+      auto request = new DServerRequest(["url":  url]);
       auto route = Router.parseRequest(request);
       string name = null;
       foreach (myRoute; Router.routes()) {
@@ -69,8 +69,8 @@ class DRoutesCheckCommand : DCommand {
         "Will output the routing parameters the route resolves to."
     )
       .addArgument("url", [
-          "help": "The URL to check.",
-          "required": true.toJson,
+          "help":  "The URL to check.",
+          "required":  true.toJson,
         ]);
 
     return parserToUpdate;

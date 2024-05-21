@@ -53,13 +53,6 @@ class DApplication {
      */
     protected IContainer container = null;
 
-    /**
-     
-     * Params:
-     * string configDataDir The directory the bootstrap configuration is held in.
-     * @param \UIM\Event\IEventManager|null eventManager Application event manager instance.
-     * @param \UIM\Http\IControllerFactory|null controllerFactory Controller factory.
-     */
     this(
         string configDataDir,
         IEventManager eventManager = null,
@@ -73,8 +66,7 @@ class DApplication {
     
     abstract MiddlewareQueue middleware(MiddlewareQueue middlewareQueue);
  
-    auto pluginMiddleware(MiddlewareQueue middleware): MiddlewareQueue
-    {
+    MiddlewareQueue pluginMiddleware(MiddlewareQueue middleware) {
         foreach (this.plugins.with("middleware") as plugin) {
             middleware = plugin.middleware(middleware);
         }

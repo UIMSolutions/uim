@@ -95,34 +95,31 @@ class DExceptionTrap {
      * Get an instance of the renderer.
      * Params:
      * \Throwable renderException Exception to render
-     * @param \Psr\Http\Message\IServerRequest|null serverRequest The request if possible.
      */
-    IExceptionRenderer renderer(Throwable renderException, IServerRequest serverRequest = null) {
+    IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {
         auto myRequest = serverRequest.isNull ? Router.getRequest() : serverRequest;
 
         string className = _configData.isSet("exceptionRenderer") ? _configuration.get("exceptionRenderer"] : chooseRenderer();
         if (isString(className)) {
             if (!isSubclass_of(className, IExceptionRenderer.className)) {
                 throw new DInvalidArgumentException(
-                    "Cannot use `{ className}` as an `exceptionRenderer`. " .
-                    'It must be an instance of `UIM\Error\IExceptionRenderer`.'
+                    "Cannot use `{ className}` as an `exceptionRenderer`. " ~
+                    "It must be an instance of `UIM\Error\IExceptionRenderer`."
                 );
             }
             /** @var class-string<\UIM\Error\IExceptionRenderer>  className */
-            return new className(renderException, myRequest, _configData);
+            return new className(exceptionToRender, myRequest, _configData);
         }
-        return className(renderException, myRequest);
+        return className(exceptionToRender, myRequest);
     }
     
     // Choose an exception renderer based on config or the SAPI
     protected string chooseRenderer() {
-        /** @var class-string<\UIM\Error\IExceptionRenderer> */
         return UIM_SAPI == "cli" ? ConsoleExceptionRenderer.classname : WebExceptionRenderer.classname;
     }
     
     // Get an instance of the logger.
     IErrorLogger logger() {
-        /** @var class-string<\UIM\Error\IErrorLogger>  className */
          className = _configData.isSet("logger", _defaultConfigData["logger"]);
 
         return new className(_config);
@@ -144,7 +141,6 @@ class DExceptionTrap {
     
     /**
      * Remove this instance from the singleton
-     *
      * If this instance is not currently the registered singleton nothing happens.
      */
     void unregister() {
@@ -161,8 +157,7 @@ class DExceptionTrap {
      * is mutable and the object returned by this method
      * could be a stale value.
      */
-    static DExceptionTrap instance(): self
-    {
+    static auto DExceptionTrap instance() {
         return RegisteredTrap;
     }
     
@@ -255,15 +250,9 @@ class DExceptionTrap {
         }
     }
     
-    /**
-     * Display/Log a fatal error.
-     * Params:
-     * @param string errorDescription Error description
-     * @param string afile File on which error occurred
-     * @param int line Line that triggered the error
-     */
-    void handleFatalError(int errorCode, string errorDescription, string afile, int line) {
-        this.handleException(new DFatalErrorException("Fatal Error: " ~ errorDescription, 500, file, line));
+    //Display/Log a fatal error.
+    void handleFatalError(int errorCode, string errorDescription, string fileName, int triggerdLine) {
+        this.handleException(new DFatalErrorException("Fatal Error: " ~ errorDescription, 500, fileName, triggerdLine));
     }
     
     /**

@@ -11,13 +11,8 @@ import uim.errors;
  * by Debugger and ErrorTrap to render D errors.
  */
 interface IErrorRenderer {
-    /**
-     * Render output for the provided error.
-     * Params:
-     * \UIM\Error\UimError error The error to be rendered.
-     * @param bool shouldDebug Whether or not the application is in debug mode.
-     */
-    string render(UimError error, bool shouldDebug);
+    // Render output for the provided error.
+    string render(UimError errorToRender, bool shouldDebug);
 
     /**
      * Write output to the renderer`s output stream
@@ -25,5 +20,4 @@ interface IErrorRenderer {
      * string aout The content to output.
      */
     void write(string aout);
-    */
 }

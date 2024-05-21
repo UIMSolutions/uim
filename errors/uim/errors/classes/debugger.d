@@ -466,13 +466,10 @@ class DDebugger {
      *
      * This is done to protect database credentials, which could be accidentally
      * shown in an error message if UIM is deployed in development mode.
-     * Params:
-     * Json var Variable to convert.
-     * @param int maxDepth The depth to output to. Defaults to 3.
      */
-    static string exportVar(Json var, int maxDepth = 3) {
+    static string exportVar(Json varToConvert, int maxDepth = 3) {
         auto context = new DebugContext(maxDepth);
-        auto node = export_(var, context);
+        auto node = export_(varToConvert, context);
 
         return getInstance().getExportFormatter().dump(node);
     }

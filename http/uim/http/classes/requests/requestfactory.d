@@ -6,12 +6,7 @@ import uim.http;
 
 // Factory for creating request instances.
 class DRequestFactory { //} : IRequestFactory {
-    /**
-     * Create a new request.
-     * Params:
-     * string httpMethod The HTTP method associated with the request.
-     * @param \Psr\Http\Message\IUri|string auri The URI associated with the request.
-     */
+    // Create a new request.
     IRequest createRequest(string httpMethod, string requestUri) {
         return new DRequest(requestUri, httpMethod);
     }

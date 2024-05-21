@@ -71,12 +71,7 @@ class DResponseEmitter {
         }
     }
     
-    /**
-     * Emit a range of the message body.
-     * Params:
-     * Json[string] range The range data to emit
-     * @param \Psr\Http\Message\IResponse response The response to emit
-     */
+    // Emit a range of the message body.
     protected void emitBodyRange(Json[string] dataToEmit, IResponse responseToEmit) {
         [, first, last] = dataToEmit;
 
@@ -84,7 +79,7 @@ class DResponseEmitter {
 
         if (!responseBody.isSeekable()) {
             contents = responseBody.getContents();
-            writeln(substr(contents, first, last - first + 1);
+            writeln(substr(contents, first, last - first + 1));
 
             return;
         }
@@ -96,10 +91,10 @@ class DResponseEmitter {
         size_t length = last - first + 1;
         while (!streamBody.eof() && pos < length) {
             if (pos + _maxBufferLength > length) {
-                writeln(streamBody.read(length - pos);
+                writeln(streamBody.read(length - pos));
                 break;
             }
-            writeln(streamBody.read(this.maxBufferLength);
+            writeln(streamBody.read(this.maxBufferLength));
             pos = streamBody.tell();
         }
     }

@@ -9,11 +9,10 @@ import uim.errors;
  *
  * Only runs if debug mode is enabled.
  *
- * @param Json var Variable to show debug information for.
  * @param bool|null showHtml If set to true, the method prints the debug data in a browser-friendly way.
  * @param bool showFrom If set to true, the method prints from where the auto was called.
  */
-Json debug(Json var, bool showHtml = null, bool showFrom = true):  
+Json debug(Json debugVariable, bool showHtml = null, bool showFrom = true):  
 {
     if (!configuration.hasKey("debug")) {
         return var;
@@ -28,9 +27,9 @@ Json debug(Json var, bool showHtml = null, bool showFrom = true):
             ];
         }
     }
-    Debugger.printVar(var, location, showHtml);
+    Debugger.printVar(debugVariable, location, showHtml);
 
-    return var;
+    return debugVariable;
 }
 /**
  * Outputs a stack trace based on the supplied options.

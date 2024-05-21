@@ -103,10 +103,11 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      * Referrer-Policy
      *
      * @link https://w3c.github.io/webappsec-referrer-policy
-     * @param string apolicy Policy value. Available Value: 'no-referrer", "no-referrer-when-downgrade", "origin",
-     *   'origin-when-cross-origin", "same-origin", "strict-origin", "strict-origin-when-cross-origin", "unsafe-url'
+     * @param string policyValue Policy value.
      */
-    void setReferrerPolicy(string apolicy = self.SAME_ORIGIN) {
+    void setReferrerPolicy(string policyValue = self.SAME_ORIGIN) {
+        // policyValue = Available Value: 'no-referrer", "no-referrer-when-downgrade", "origin",
+        // 'origin-when-cross-origin", "same-origin", "strict-origin", "strict-origin-when-cross-origin", "unsafe-url'
         auto available = [
             self.NO_REFERRER,
             self.NO_REFERRER_WHEN_DOWNGRADE,
@@ -118,8 +119,8 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
             self.UNSAFE_URL,
         ];
 
-        this.checkValues(policy, available);
-        this.headers["referrer-policy"] = policy;
+        this.checkValues(policyValue, available);
+        _headers["referrer-policy"] = policyValue;
     }
     
     /**
@@ -138,7 +139,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
             }
             option ~= " " ~ url;
         }
-        this.headers["x-frame-options"] = option;
+        _headers["x-frame-options"] = option;
     }
     
     /**
@@ -154,7 +155,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
             mode = self.XSS_ENABLED_BLOCK;
         }
         this.checkValues(mode, [self.XSS_ENABLED, self.XSS_DISABLED, self.XSS_ENABLED_BLOCK]);
-        this.headers["x-xss-protection"] = mode;
+        _headers["x-xss-protection"] = mode;
     }
     
     /**
@@ -172,7 +173,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
             self.BY_CONTENT_TYPE,
             self.BY_FTP_FILENAME,
         ]);
-        this.headers["x-permitted-cross-domain-policies"] = policyValue;
+        _headers["x-permitted-cross-domain-policies"] = policyValue;
     }
     
     // Convenience method to check if a value is in the list of allowed args
@@ -194,7 +195,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      */
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         response = handler.handle(request);
-        this.headers.byKeyValue
+        _headers.byKeyValue
             .each!(headerValue => response = response.withHeader(headerValue.key, headerValue.value));
         return response;
     }

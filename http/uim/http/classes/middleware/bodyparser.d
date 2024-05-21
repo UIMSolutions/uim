@@ -97,16 +97,15 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      * Will modify the request adding a parsed body if the content-type is known.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request.
-     * @param \Psr\Http\Server\IRequestHandler handler The request handler.
      */
-    IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
+    IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
         if (!in_array(request.getMethod(), this.methods, true)) {
-            return handler.handle(request);
+            return requestHandler.handle(request);
         }
         [type] = request.getHeaderLine("Content-Type").split(";");
         type = type.lower;
         if (!this.parsers.isSet(type)) {
-            return handler.handle(request);
+            return requestHandler.handle(request);
         }
          aParser = this.parsers[type];
         result = aParser(request.getBody().getContents());
@@ -115,7 +114,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
         }
         request = request.withParsedBody(result);
 
-        return handler.handle(request);
+        return requestHandler.handle(request);
     }
     
     // Decode Json into an array.

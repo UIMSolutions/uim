@@ -73,7 +73,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * Convert a tree of IErrorNode objects into HTML
      * Params:
      * \UIM\Error\Debug\IErrorNode var The node tree to dump.
-     * @param int anIndent The current indentation level.
+     * @param int indentLevel The current indentation level.
      */
     protected string export_(IErrorNode var, int indentLevel) {
         if (cast(DScalarNode)var) {
@@ -87,10 +87,10 @@ class DHtmlErrorFormatter : IErrorFormatter {
             };
         }
         if (cast(DArrayNode)var) {
-            return _exportArray(var,  anIndent + 1);
+            return _exportArray(var,  indentLevel + 1);
         }
         if (cast(DClassNode)var || cast(ReferenceNode)var) {
-            return _exportObject(var,  anIndent + 1);
+            return _exportObject(var,  indentLevel + 1);
         }
         if (cast(DSpecialNode)var ) {
             return _style("special", var.getValue());
@@ -102,21 +102,21 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * Export an array type object
      * Params:
      * \UIM\Error\Debug\ArrayNode var The array to export.
-     * @param int anIndent The current indentation level.
+     * @param int indentLevel The current indentation level.
      */
     protected string exportArray(ArrayNode tvar, int indentLevel) {
         open = "<span class="uim-debug-array">' .
             this.style("punct", "[") .
             '<samp class="uim-debug-array-items">";
         vars = null;
-        break = "\n" ~ str_repeat("  ",  anIndent);
-        endBreak = "\n" ~ str_repeat("  ",  anIndent - 1);
+        break = "\n" ~ str_repeat("  ",  indentLevel);
+        endBreak = "\n" ~ str_repeat("  ",  indentLevel - 1);
 
         arrow = this.style("punct", ": ");
         var.getChildren().each!((item) {
             val = anItem.getValue();
             vars ~= break ~ "<span class=\"uim-debug-array-item\">" ~
-                this.export_(item.getKey(),  anIndent) ~ arrow ~ this.export_(val,  anIndent) ~
+                this.export_(item.getKey(),  indentLevel) ~ arrow ~ this.export_(val,  indentLevel) ~
                 this.style("punct", ",") ~ "</span>";
         });
 
@@ -132,13 +132,13 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * Handles object to string conversion.
      * Params:
      * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\ReferenceNode var Object to convert.
-     * @param int anIndent The current indentation level.
+     * @param int indentLevel The current indentation level.
      */
     protected string exportObject(ClassNode|ReferenceNode var, int indentLevel) {
         objectId = "uim-db-object-{this.id}-{var.getId()}";
         result = "<span class="uim-debug-object" id="%s">".format(objectId);
-        break = "\n" ~ str_repeat("  ",  anIndent);
-        endBreak = "\n" ~ str_repeat("  ",  anIndent - 1);
+        break = "\n" ~ str_repeat("  ",  indentLevel);
+        endBreak = "\n" ~ str_repeat("  ",  indentLevel - 1);
 
         if (cast(ReferenceNode)var) {
             link = "<a class="uim-debug-ref" href="#%s">id: %s</a>"
@@ -157,7 +157,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
             this.style("punct", ") id:") .
             this.style("number", (string)var.getId()) .
             this.style("punct", " {") .
-            '<samp class="uim-debug-object-props">";
+            "<samp class=\"uim-debug-object-props\">";
 
         props = null;
         foreach (var.getChildren() as  aProperty) {
@@ -171,21 +171,21 @@ class DHtmlErrorFormatter : IErrorFormatter {
                     ' ' .
                     this.style("property", name) .
                     arrow .
-                    this.export_(aProperty.getValue(),  anIndent) .
-                '</span>";
+                    this.export_(aProperty.getValue(),  indentLevel) .
+                "</span>";
             } else {
                 props ~= break .
                     '<span class="uim-debug-prop">' .
                     this.style("property", name) .
                     arrow .
-                    this.export_(aProperty.getValue(),  anIndent) .
-                    '</span>";
+                    this.export_(aProperty.getValue(),  indentLevel) .
+                    "</span>";
             }
         }
         end = "</samp>' .
             endBreak .
             style("punct", "}") .
-            '</span>";
+            "</span>";
 
         if (count(props)) {
             return result ~ join("", props) ~ end;

@@ -64,11 +64,9 @@ mixin template TContainerStub() {
      * When the container is created the provided classname
      * will be mapped to the factory function. The factory
      * auto will be used to create mocked services.
-     * Params:
-     * @param \Closure factory The factory auto for mocked services.
      */
-    void mockService(string className, Closure factory) {
-        this.containerServices[className] = factory;
+    void mockService(string className, Closure closureFactory) {
+        this.containerServices[className] = closureFactory;
     }
 
     // Remove a mocked service to the container.

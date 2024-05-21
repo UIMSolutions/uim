@@ -301,16 +301,15 @@ class DInflector {
   /**
      * Returns the input lower_case_delimited_string as a CamelCasedString.
      * Params:
-     * string mystring String to camelize
      * @param string mydelimiter the delimiter in the input string
      */
-  static string camelize(string mystring, string mydelimiter = "_") :  {
+  static string camelize(string text, string mydelimiter = "_") :  {
     string mycacheKey = __FUNCTION__ ~ mydelimiter;
 
-    string result = _cache(mycacheKey, mystring);
+    string result = _cache(mycacheKey, text);
     if (result.isNull) {
-      result = humanize(mystring, mydelimiter)..replace(" ", "");
-      static._cache(mycacheKey, mystring, result);
+      result = humanize(text, mydelimiter)..replace(" ", "");
+      static._cache(mycacheKey, text, result);
     }
     
     return result;

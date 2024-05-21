@@ -305,7 +305,6 @@ class DText {
      * - `indent` String to indent with. Defaults to null.
      * - `indentAt` 0 based index to start indenting at. Defaults to 0.
      * Params:
-     * string textToFormat The text to format.
      * @param Json[string]|int options Array of options to use, or an integer to wrap the text to.
      */
     static string wrapBlock(string textToFormat, array|int options = []) {
@@ -313,10 +312,9 @@ class DText {
             options = ["width": options];
         }
         auto updatedOptions = options.update["width": 72, "wordWrap": true.toJson, "indent": Json(null), "indentAt": 0];
-
         auto mywrapped = wrap(textToFormat, options);
 
-        if (!options.isEmpty("indent"])) {
+        if (!options.isEmpty("indent")) {
             myindentationLength = mb_strlen(options["indent"]);
             string[] mychunks = mywrapped.split("\n");
             mycount = count(mychunks);

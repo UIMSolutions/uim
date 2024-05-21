@@ -54,24 +54,20 @@ class DIniConfig : DConfigEngine {
     /**
      * Build and construct a new ini file parser. The parser can be used to read
      * ini files that are on the filesystem.
-     * Params:
-     * string someKey Key to load ini config files from. Defaults to CONFIG.
-     * @param string section Only get one section, leave null to parse and fetch
-     *   all sections in the ini file.
      */
-    this(string aKey = null, string asection = null) {
-       _key = someKey ? someKey : CONFIG;
+    this(string iniKey = null, string section = null) {
+       _key = iniKey ? iniKey : CONFIG;
        _section = section;
     }
     
     /**
      * Read an ini file and return the results as an array.
      * Params:
-     * string aKey The identifier to read from. If the key has a ~ it will be treated
+     * string  The identifier to read from. If the key has a ~ it will be treated
      * as a plugin prefix. The chosen file must be on the engine`s key.
      */
-    array read(string aKey) {
-        file = _getFileKey(aKey, true);
+    array read(string key) {
+        file = _getFileKey(key, true);
 
         contents = parse_ini_file(file, true);
         if (contents == false) {
@@ -93,10 +89,7 @@ class DIniConfig : DConfigEngine {
         return someValues;
     }
     
-    /**
-     * parses nested values out of keys.
-     * Params:
-     */
+    // parses nested values out of keys.
     protected Json[string] _parseNestedValues(Json[string] valuesToExploded) {
         valuesToExploded.byKeyValue
             .each!((kv) {
@@ -119,7 +112,7 @@ class DIniConfig : DConfigEngine {
     /**
      * Dumps the state of Configure data into an ini formatted string.
      * Params:
-     * string aKey The identifier to write to. If the key has a ~ it will be treated
+     * string key The identifier to write to. If the key has a ~ it will be treated
      * as a plugin prefix.
      * @param Json[string] data The data to convert to ini file.
      */

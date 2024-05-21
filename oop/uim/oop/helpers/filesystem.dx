@@ -75,28 +75,23 @@ class HFilesystem {
         return new DCallbackFilterIterator(iterator, regexFilter);
     }
     
-    /**
-     * Dump contents to file.
-     * Params:
-     * string myfilename File path.
-     * @param string mycontent Content to dump.
-     */
-    void dumpFile(string myfilename, string mycontent) {
-        mydir = dirname(myfilename);
+    // Dump contents to file.
+    void dumpFile(string filePath, string contentToDump) {
+        mydir = dirname(filepath);
         if (!isDir(mydir)) {
             this.mkdir(mydir);
         }
-        myexists = fileExists(myfilename);
+        myexists = fileExists(filepath);
 
-        mysuccess = (this.isStream(myfilename)) 
-            ? @file_put_contents(myfilename, mycontent)
-            : @file_put_contents(myfilename, mycontent, LOCK_EX);
+        mysuccess = (this.isStream(filepath)) 
+            ? @file_put_contents(filepath, contentToDump)
+            : @file_put_contents(filepath, contentToDump, LOCK_EX);
 
         if (mysuccess == false) {
             throw new UimException("Failed dumping content to file `%s`".format(mydir));
         }
         if (!myexists) {
-            chmod(myfilename, 0666 & ~umask());
+            chmod(filepath, 0666 & ~umask());
         }
     }
     
@@ -161,10 +156,8 @@ class HFilesystem {
     
     /**
      * Copies directory with all it"s contents.
-     * Params:
-     * string mysource Source path.
      */
-   bool copyDir(string mysource, string destinationPath) {
+   bool copyDir(string sourcepath, string destinationPath) {
         auto destPath = (new DSplFileInfo(destinationPath)).getPathname();
 
         if (!isDir(destPath)) {
@@ -172,7 +165,7 @@ class HFilesystem {
         }
 
         bool result = true;
-        new HFilesystemIterator(mysource).each!((fileInfo) {
+        new HFilesystemIterator(sourcepath).each!((fileInfo) {
             if (fileInfo.isDir()) {
                 result = result && this.copyDir(
                     fileInfo.getPathname(),

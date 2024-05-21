@@ -21,20 +21,19 @@ class Hash {
      * Params:
      * \ArrayAccess|array data Array of data or object implementing
      * \ArrayAccess interface to operate on.
-     * @param string[]|string|int mypath The path being searched for. Either a dot
+     * @param string[]|string|int searchedpath The path being searched for. Either a dot
      * separated string, or an array of path segments.
-     * @param Json mydefault The return value when the path does not exist
      */
-    // TODO static Json get(ArrayAccess data, string[] mypath, Json mydefault = null) {
+    // TODO static Json get(ArrayAccess data, string[] searchedpath, Json defaultValue = Json(null)) {
 
-    static Json get(Json[string] data, string[] mypath, Json mydefault = null) {
-        if (mydata.isEmpty || mypath.isNull) {
+    static Json get(Json[string] data, string[] mpath, Json defaultValue = Json(null)) {
+        if (mydata.isEmpty || path.isNull) {
             return mydefault;
         }
-        if (isString(mypath) || isInt(mypath)) {
-            string[] myparts = to!string(mypath.split("."));
+        if (isString(searchedpath) || isInt(searchedpath)) {
+            string[] myparts = to!string(searchedpath.split("."));
         } else {
-            myparts = mypath;
+            myparts = searchedpath;
         }
         switch (count(myparts)) {
             case 1:
@@ -56,7 +55,7 @@ class Hash {
     }
     
     /**
-     * Gets the values from an array matching the mypath expression.
+     * Gets the values from an array matching the pathtoextract expression.
      * The path expression is a dot separated expression, that can contain a set
      * of patterns and expressions:
      *
@@ -81,24 +80,24 @@ class Hash {
      * - `{n}.User[id=1].name` Get the Users name with id matching `1`.
      * Params:
      * \ArrayAccess|array data The data to extract from.
-     * @param string mypath The path to extract.
+     * @param string pathToExtract The path to extract.
      */
-    static ArrayAccess|array extract(ArrayAccess|array data, string mypath) {
-        if (isEmpty(mypath)) {
+    static ArrayAccess|array extract(ArrayAccess|array data, string pathToExtract) {
+        if (isEmpty(pathToExtract)) {
             return mydata;
         }
         // Simple paths.
-        if (!preg_match("/[{\[]/", mypath)) {
-            mydata = get(mydata, mypath);
+        if (!preg_match("/[{\[]/", pathToExtract)) {
+            mydata = get(mydata, pathToExtract);
             if (mydata !isNull && !(isArray(mydata) || cast(DArrayAccess)mydata)) {
                 return [mydata];
             }
             return !mydata.isNull ? (array)mydata : [];
         }
 
-        myTokens = !mypath.has("[")
-            ? mypath.split(".")
-            : Text.tokenize(mypath, ".", "[", "]");
+        myTokens = !pathToExtract.has("[")
+            ? pathToExtract.split(".")
+            : Text.tokenize(pathToExtract, ".", "[", "]");
         _key = "__set_item__";
 
         mycontext = [_key: [mydata]];
@@ -150,14 +149,13 @@ class Hash {
      * Check a key against a token.
      * Params:
      * string aKey The key in the array being searched.
-     * @param string mytoken The token being matched.
      */
-    protected static bool _matchToken(string aKey, string mytoken) {
-        return match (mytoken) {
+    protected static bool _matchToken(string aKey, string tokenToMatch) {
+        return match (tokenToMatch) {
             "{n}": isNumeric(aKey),
             "{s}": isString(aKey),
             "{*}": true.toJson,
-            default: isNumeric(mytoken) ? (aKey == mytoken): aKey == mytoken,
+            default: isNumeric(tokenToMatch) ? (aKey == tokenToMatch): aKey == mytoken,
         };
     }
     

@@ -1063,16 +1063,11 @@ mixin template TIntegrationTest() {
         );
     }
     
-    /**
-     * Asserts that a file with the given name was sent in the response
-     * Params:
-     * string aexpected The absolute file path that should be sent in the response.
-     * @param string amessage The failure message that will be appended to the generated message.
-     */
-    void assertFileResponse(string aexpected, string amessage = "") {
-        verboseMessage = this.extractVerboseMessage(message);
+    // Asserts that a file with the given name was sent in the response
+    void assertFileResponse(string filePath, string failureMessage = "") {
+        verboseMessage = this.extractVerboseMessage(failureMessage);
         this.assertThat(null, new DFileSent(_response), verboseMessage);
-        this.assertThat(expected, new DFileSentAs(_response), verboseMessage);
+        this.assertThat(filePath, new DFileSentAs(_response), verboseMessage);
 
         if (!_response) {
             return;
@@ -1083,20 +1078,20 @@ mixin template TIntegrationTest() {
     /**
      * Inspect controller to extract possible causes of the failed assertion
      * Params:
-     * string amessage Original message to use as a base
+     * string amessage Original originalMessage to use as a base
      */
-    protected string extractVerboseMessage(string message) {
+    protected string extractVerboseMessage(string originalMessage) {
         if (cast(DException)_exception) {
-            message ~= this.extractExceptionMessage(_exception);
+            originalMessage ~= this.extractExceptionMessage(_exception);
         }
         if (_controller.isNull) {
-            return message;
+            return originalMessage;
         }
         error = _controller.viewBuilder().getVar("error");
         if (cast(DException)error) {
-            message ~= this.extractExceptionMessage(this.viewVariable("error"));
+            originalMessage ~= this.extractExceptionMessage(this.viewVariable("error"));
         }
-        return message;
+        return originalMessage;
     }
     
     // Extract verbose message for existing exception

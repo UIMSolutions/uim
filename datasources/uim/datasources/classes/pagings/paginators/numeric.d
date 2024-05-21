@@ -164,8 +164,8 @@ class DNumericPaginator : IPaginator {
         auto query = null;
         if (cast(IQuery) object) {
             query = object;
-            object = query.getRepository();
-            if (object == null) {
+            repository = query.getRepository();
+            if (repository == null) {
                 throw new UIMException("No repository set for query.");
             }
         }
@@ -424,7 +424,7 @@ class DNumericPaginator : IPaginator {
     }
 
     /**
-     * Validate that the desired sorting can be performed on the object.
+     * Validate that the desired sorting can be performed on the repository.
      *
      * Only fields or virtualFields can be sorted on. The direction param will
      * also be sanitized. Lastly sort + direction keys will be converted into
@@ -444,7 +444,7 @@ class DNumericPaginator : IPaginator {
      * The default order options provided to paginate() will be merged with the user"s
      * requested sorting field/direction.
      */
-    Json[string] validateSort(IRepository object, Json[string] paginationOptions) {
+    Json[string] validateSort(IRepository repository, Json[string] paginationOptions) {
         if (paginationOptions.isSet("sort")) {
             auto direction = null;
             if (isset(
@@ -462,7 +462,7 @@ class DNumericPaginator : IPaginator {
                 paginationOptions["order"]) ? paginationOptions["order"] : [
             ];
             if (order && paginationOptions["sort"] && indexOf(paginationOptions["sort"], ".") == false) {
-                order = _removeAliases(order, object.aliasName());
+                order = _removeAliases(order, repository.aliasName());
             }
 
             paginationOptions["order"] = [
@@ -503,7 +503,7 @@ class DNumericPaginator : IPaginator {
                 paginationOptions["order"]);
         }
 
-        paginationOptions["order"] = _prefix(object, paginationOptions["order"], sortAllowed);
+        paginationOptions["order"] = _prefix(repository, paginationOptions["order"], sortAllowed);
 
         return paginationOptions;
     }
@@ -537,12 +537,12 @@ class DNumericPaginator : IPaginator {
     /**
      * Prefixes the field with the table alias if possible.
      *
-     * @param uim.Datasource\IRepository object Repository object.
+     * @param uim.Datasource\IRepository repository Repository repository.
      * @param Json[string] order DOrder array.
      * @param bool allowed Whether the field was allowed.
      */
-    protected Json[string] _prefix(IRepository object, Json[string] order, bool allowed = false) {
-        tableAlias = object.aliasName();
+    protected Json[string] _prefix(IRepository repository, Json[string] order, bool allowed = false) {
+        tableAlias = repository.aliasName();
         tableOrder = null;
         foreach (order as key : value) {
             if (key.isNumeric) {
@@ -560,13 +560,13 @@ class DNumericPaginator : IPaginator {
             if (
                 correctAlias && allowed) {
                 // Disambiguate fields in schema. As id is quite common.
-                if (object.hasField(
+                if (repository.hasField(
                         field)) {
                     field = alias ~ "." ~ field;
                 }
                 tableOrder[field] = value;
             }
-            elseif(correctAlias && object.hasField(
+            elseif(correctAlias && repository.hasField(
                     field)) {
                 tableOrder[tableAlias ~ "." ~ field] = value;
             }

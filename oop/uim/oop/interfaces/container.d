@@ -14,6 +14,5 @@ import uim.oop;
  * by league/container as that is the library that UIM uses.
  */
 interface IContainer { // TODO: IDefinitionContainer {
-    // @param \Psr\Container\IContainer container The container instance to use as delegation
-    // TODO IPsrContainer delegate(IPsrContainer container);
+    IPsrContainer delegate(IPsrContainer container);
 }

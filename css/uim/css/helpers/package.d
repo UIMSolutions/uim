@@ -9,11 +9,11 @@ string toCSS(STRINGAA values, bool sorted = false) {
 }
 
 unittest {
-  assert(toCSS(["a":  "b"]) == `a:b;`);
-  assert(toCSS(["a":  "b"], true) == `a:b;`);
+  assert(toCSS(["a": "b"]) == `a:b;`);
+  assert(toCSS(["a": "b"], true) == `a:b;`);
 
-  assert(toCSS(["a":  "b", "c":  "d"]) == `c:d;a:b;`);
-  assert(toCSS(["a":  "b", "c":  "d"], true) == `a:b;c:d;`);
+  assert(toCSS(["a": "b", "c": "d"]) == `c:d;a:b;`);
+  assert(toCSS(["a": "b", "c": "d"], true) == `a:b;c:d;`);
 }
 
 string toCSS(STRINGAA[string] values, bool shouldSort = false) {

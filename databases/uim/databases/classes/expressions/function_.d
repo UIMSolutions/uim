@@ -29,7 +29,7 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      *
      * Previous line will generate `CONCAT("UIM", " rules")`
      *
-     * `f = new DFunctionExpression("CONCAT", ["name":  'literal", " rules"]);`
+     * `f = new DFunctionExpression("CONCAT", ["name": 'literal", " rules"]);`
      *
      * Will produce `CONCAT(name, " rules")`
      */
@@ -66,7 +66,7 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
             put(_conditions, condition);
             return;
         }
-        put(_conditions, ["value":  condition, "type":  type]);
+        put(_conditions, ["value": condition, "type": type]);
     }
  
     string sql(DValueBinder aBinder) {

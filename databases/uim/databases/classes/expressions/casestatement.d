@@ -252,7 +252,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
         if (cast(WhenThenExpression) when) {
             _when ~= when;
         } else {
-            _whenBuffer = ["when":  when, "type": whenValueType];
+            _whenBuffer = ["when": when, "type": whenValueType];
         }
     }
 

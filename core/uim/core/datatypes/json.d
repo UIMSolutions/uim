@@ -451,10 +451,10 @@ T minValue(T)(Json[] jsons, string key) {
 unittest {
   assert(minValue!string(
       [
-      ["a":  "5"].toJson,
-      ["a":  "2"].toJson,
-      ["a":  "1"].toJson,
-      ["a":  "4"].toJson
+      ["a": "5"].toJson,
+      ["a": "2"].toJson,
+      ["a": "1"].toJson,
+      ["a": "4"].toJson
     ], "a") == "1");
 }
 
@@ -485,10 +485,10 @@ version (test_uim_core) {
   unittest {
     assert(maxValue!string(
         [
-        ["a":  "5"].toJson,
-        ["a":  "2"].toJson,
-        ["a":  "1"].toJson,
-        ["a":  "4"].toJson
+        ["a": "5"].toJson,
+        ["a": "2"].toJson,
+        ["a": "1"].toJson,
+        ["a": "4"].toJson
       ], "a") == "5");
   }
 }
@@ -577,8 +577,8 @@ Json toJson(string aKey, string aValue) {
     return json;
   }
   unittest {
-    assert(["a":  "1", "b":  "2", "c":  "3"].toJson.length == 3);
-    assert(["a":  "1", "b":  "2", "c":  "3"].toJson["a"] == "1");
+    assert(["a": "1", "b": "2", "c": "3"].toJson.length == 3);
+    assert(["a": "1", "b": "2", "c": "3"].toJson["a"] == "1");
   }
 // #endregion toJson
 
@@ -607,11 +607,11 @@ Json set(T)(Json json, T[string] newValues) {
 ///
 unittest {
   auto json = parseJsonString(`{"a": "b", "x": "y"}`);
-  assert(json.set(["a":  "c"])["a"].get!string == "c");
+  assert(json.set(["a": "c"])["a"].get!string == "c");
 
   json = parseJsonString(`{"a": "b", "x": "y"}`);
-  assert(json.set(["a":  "c", "x":  "z"])["x"].get!string == "z");
-  assert(json.set(["a":  "c", "x":  "z"])["x"].get!string != "c");
+  assert(json.set(["a": "c", "x": "z"])["x"].get!string == "z");
+  assert(json.set(["a": "c", "x": "z"])["x"].get!string != "c");
 }
 // #endregion
 
@@ -820,14 +820,14 @@ unittest {
   Json json = Json.emptyObject;
   json["a"] = "hallo";
   assert(json["a"].get!string == "hallo");
-  json = json.update(["a":  "world"]);
+  json = json.update(["a": "world"]);
   assert(json["a"].get!string == "world");
 
   json = Json.emptyArray;
   json ~= Json("hallo");
   json ~= Json(42);
   json ~= true.toJson;
-  json = json.update(["a":  "world"]);
+  json = json.update(["a": "world"]);
   assert(json["a"].get!string == "world");
 }
 

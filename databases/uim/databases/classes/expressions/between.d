@@ -38,8 +38,8 @@ class DBetweenExpression : DExpression { // TODO}, IField {
  
     string sql(DValueBinder aValueBinder) {
         auto someParts = [
-            "from":  _from.toJson,
-            "to":  _to.toJson,
+            "from": _from.toJson,
+            "to": _to.toJson,
         ];
 
         auto field = _field;

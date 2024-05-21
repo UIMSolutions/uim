@@ -21,11 +21,11 @@ class DFlashComponent : DComponent {
         }
 
         configuration.updateDefaults([
-            "key":  Json("flash"),
-            "element":  Json("default"),
-            "params":  Json.emptyArray,
-            "clear":  false.toJson,
-            "duplicate":  true.toJson
+            "key": Json("flash"),
+            "element": Json("default"),
+            "params": Json.emptyArray,
+            "clear": false.toJson,
+            "duplicate": true.toJson
         ]);
 
         return true;
@@ -111,7 +111,7 @@ class DFlashComponent : DComponent {
      * Note that the parameter `element` will be always overridden. In order to call a
      * specific element from a plugin, you should set the `plugin` option in someArguments.
      *
-     * For example: `this.Flash.warning("My message", ["plugin":  'PluginName"])` would
+     * For example: `this.Flash.warning("My message", ["plugin": 'PluginName"])` would
      * use the `warning.d` element under `plugins/PluginName/templates/element/flash/` for
      * rendering the flash message.
      */
@@ -121,12 +121,12 @@ class DFlashComponent : DComponent {
         if (count(someArguments) == 0) {
             throw new DInternalErrorException("Flash message missing.");
         }
-        auto options = ["element":  anElement];
+        auto options = ["element": anElement];
 
         if (!someArguments[1].isEmpty) {
             if (!someArguments[1]["plugin"].isEmpty)) {
                 options = [
-                    "element":  someArguments[1]["plugin"] ~ "." ~ anElement
+                    "element": someArguments[1]["plugin"] ~ "." ~ anElement
                 ];
                 someArguments[1].remove("plugin");
             }

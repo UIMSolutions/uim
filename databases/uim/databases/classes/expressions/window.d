@@ -93,14 +93,14 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
         string myendDirection
     ) {
         this.frame = [
-            "type":  mytype,
-            "start":  [
-                "offset":  mystartOffset,
-                "direction":  mystartDirection,
+            "type": mytype,
+            "start": [
+                "offset": mystartOffset,
+                "direction": mystartDirection,
             ],
-            "end":  [
-                "offset":  myendOffset,
-                "direction":  myendDirection,
+            "end": [
+                "offset": myendOffset,
+                "direction": myendDirection,
             ],
         ];
 

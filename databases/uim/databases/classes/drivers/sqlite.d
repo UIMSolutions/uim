@@ -14,16 +14,16 @@ class DSqliteDriver : DDriver {
 
         // `mask` The mask used for created database
         configuration.merge([
-            "persistent":  false.toJson,
-            "username":  "".toJson,
-            "password":  "".toJson,
-            "database":  Json(": memory:"),
-            "encoding":  Json("utf8"), 
-            "mask":  Json(/*0*/644),
-            "cache":  Json(null),
-            "mode":  Json(null),
-            "flags":  Json.emptyArray,
-            "init":  Json.emptyArray 
+            "persistent": false.toJson,
+            "username": "".toJson,
+            "password": "".toJson,
+            "database": Json(": memory:"),
+            "encoding": Json("utf8"), 
+            "mask": Json(/*0*/644),
+            "cache": Json(null),
+            "mode": Json(null),
+            "flags": Json.emptyArray,
+            "init": Json.emptyArray 
         ]);
 
         startQuote("\"");
@@ -53,19 +53,19 @@ class DSqliteDriver : DDriver {
 
     // Mapping of date parts.
     protected STRINGAA _dateParts = [
-        "day":  "d",
-        "hour":  "H",
-        "month":  "m",
-        "minute":  "M",
-        "second":  "s",
-        "week":  "W",
-        "year":  "Y",
+        "day": "d",
+        "hour": "H",
+        "month": "m",
+        "minute": "M",
+        "second": "s",
+        "week": "W",
+        "year": "Y",
     ];
 
     // Mapping of feature to db server version for feature availability checks.
     protected STRINGAA featureVersions = [
-        "cte":  "3.8.3",
-        "window":  "3.28.0",
+        "cte": "3.8.3",
+        "window": "3.28.0",
     ];
 
     void connect() {
@@ -175,18 +175,18 @@ class DSqliteDriver : DDriver {
                 }
                 break;
             case "NOW": 
-                expression.name("DATETIME").add(["'now'":  "literal"]);
+                expression.name("DATETIME").add(["'now'": "literal"]);
                 break;
             case "RAND": 
                 expression
                     .name("ABS")
-                    .add(["RANDOM() % 1":  "literal"], [], true);
+                    .add(["RANDOM() % 1": "literal"], [], true);
                 break;
             case "CURRENT_DATE": 
-                expression.name("DATE").add(["'now'":  "literal"]);
+                expression.name("DATE").add(["'now'": "literal"]);
                 break;
             case "CURRENT_TIME": 
-                expression.name("TIME").add(["'now'":  "literal"]);
+                expression.name("TIME").add(["'now'": "literal"]);
                 break;
             case "EXTRACT": 
                 expression
@@ -196,7 +196,7 @@ class DSqliteDriver : DDriver {
                         if (aKey == 0) {
                             aValue = stripRight(sp.lower, "s");
                             if (isSet(_dateParts[aValue])) {
-                                p = ["value":  '%" ~ _dateParts[aValue], "type":  Json(null)];
+                                p = ["value": '%" ~ _dateParts[aValue], "type": Json(null)];
                             }
                         }
                         return p;
@@ -208,7 +208,7 @@ class DSqliteDriver : DDriver {
                     .conjunctionType(",")
                     .iterateParts(function (p, aKey) {
                         if (aKey == 1) {
-                            p = ["value":  p, "type":  Json(null)];
+                            p = ["value": p, "type": Json(null)];
                         }
                         return p;
                     });
@@ -217,8 +217,8 @@ class DSqliteDriver : DDriver {
                 expression
                     .name("STRFTIME")
                     .conjunctionType(" ")
-                    .add(["'%w", ":  "literal"], [], true)
-                    .add([") + (1":  "literal"]); // Sqlite starts on index 0 but Sunday should be 1
+                    .add(["'%w", ": "literal"], [], true)
+                    .add([") + (1": "literal"]); // Sqlite starts on index 0 but Sunday should be 1
                 break;
         }
     } */

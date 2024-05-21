@@ -778,7 +778,7 @@ abstract class DQuery : IQuery { // : IExpression {
             return _where("1=0");
         }
 
-        return _where([fieldName ~ " IN":  someValues], options["types"]);
+        return _where([fieldName ~ " IN": someValues], options["types"]);
     }
     
     /**
@@ -799,7 +799,7 @@ abstract class DQuery : IQuery { // : IExpression {
             return _where([fieldName ~ " IS NOT": Json(null)]);
         }
 
-        return _where([fieldName ~ " NOT IN":  someValues], options["types"]);
+        return _where([fieldName ~ " NOT IN": someValues], options["types"]);
     }
     
     /**
@@ -826,7 +826,7 @@ abstract class DQuery : IQuery { // : IExpression {
 
         return _where(
             [
-                "OR": [fieldName ~ " NOT IN":  someValues, fieldName ~ " IS": Json(null)],
+                "OR": [fieldName ~ " NOT IN": someValues, fieldName ~ " IS": Json(null)],
             ],
             options["types"]
         );

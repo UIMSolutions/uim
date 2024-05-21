@@ -37,10 +37,10 @@ class DFormProtectionComponent : DComponent {
         configuration.updateDefaults([
             // `validate` - Whether to validate request body / data. Set to false to disable
             // for data coming from 3rd party services, etc.
-            "validate":  true.toJson,
-            "unlockedFields":  Json.emptyArray,
-            "unlockedActions":  Json.emptyArray,
-            "validationFailureCallback":  Json(null),
+            "validate": true.toJson,
+            "unlockedFields": Json.emptyArray,
+            "unlockedActions": Json.emptyArray,
+            "validationFailureCallback": Json(null),
         ]);
 
         return true;
@@ -88,10 +88,10 @@ class DFormProtectionComponent : DComponent {
             }
         }
         auto mytoken = [
-            "nlockedFields":  _config["unlockedFields"],
+            "nlockedFields": _config["unlockedFields"],
         ];
          request = request.withAttribute("formTokenData", [
-                "unlockedFields":  token["unlockedFields"],
+                "unlockedFields": token["unlockedFields"],
             ]);
 
         if (someData.isArray) {
@@ -106,7 +106,7 @@ class DFormProtectionComponent : DComponent {
     // Events supported by this component.
     IEvent[] implementedEvents() {
         return [
-            "Controller.startup":  "startup",
+            "Controller.startup": "startup",
         ];
     }
 

@@ -131,10 +131,10 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         if (someArguments.getOption("quiet")) {
             aConsoleIo.setInteractive(false);
         }
-        this.dispatchEvent("Command.beforeExecute", ["args": someArguments]);
+        dispatchEvent("Command.beforeExecute", ["args": someArguments]);
         /** @var int result  */
         result = this.execute(someArguments, aConsoleIo);
-        this.dispatchEvent("Command.afterExecute", [
+        dispatchEvent("Command.afterExecute", [
                 "args": someArguments,
                 "result": result
             ]);

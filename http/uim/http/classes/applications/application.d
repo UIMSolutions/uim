@@ -180,7 +180,7 @@ class DApplication {
         this.plugins.with("services")
             .each!(plugin => plugin.services(container));
 
-        event = this.dispatchEvent("Application.buildContainer", ["container": container]);
+        event = dispatchEvent("Application.buildContainer", ["container": container]);
         if (cast(IContainer)event.getResult()) {
             return event.getResult();
         }

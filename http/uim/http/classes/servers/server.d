@@ -41,12 +41,6 @@ class DServer { // }: IEventDispatcher {
 
     protected DRunner _runner;
 
-    /**
-     
-     * Params:
-     * \UIM\Core\IHttpApplication app The application to use.
-     * @param \UIM\Http\Runner|null runner Application runner.
-     */
     this(IHttpApplication httpApp, Runner appRunner = null) {
         _app = httpApp;
         _runner = appRunner ?? new DRunner();
@@ -62,32 +56,29 @@ class DServer { // }: IEventDispatcher {
      * - Trigger the `server.buildMiddleware' event. You can use this to modify the
      * from event listeners.
      * - Run the middleware queue including the application.
-     * Params:
-     * \Psr\Http\Message\IServerRequest|null request The request to use or null.
-     * @param \UIM\Http\MiddlewareQueue|null middlewareQueue MiddlewareQueue or null.
      */
     IResponse run(
         IServerRequest serverRequest = null,
-        ?MiddlewareQueue middlewareQueue = null
+        MiddlewareQueue middlewareQueue = null
     ) {
-        this.bootstrap();
+        bootstrap();
 
         request = request ?: ServerRequestFactory.fromGlobals();
 
         if (middlewareQueue.isNull) {
-            if (cast(IContainerApplication)this.app) {
-                middlewareQueue = new DMiddlewareQueue([], this.app.getContainer());
+            if (cast(IContainerApplication)_app) {
+                middlewareQueue = new DMiddlewareQueue([], _app.getContainer());
             } else {
                 middlewareQueue = new DMiddlewareQueue();
             }
         }
-        middleware = this.app.middleware(middlewareQueue);
-        if (cast(IPluginApplication)this.app ) {
-            middleware = this.app.pluginMiddleware(middleware);
+        middleware = _app.middleware(middlewareQueue);
+        if (cast(IPluginApplication)_app ) {
+            middleware = _app.pluginMiddleware(middleware);
         }
-        this.dispatchEvent("Server.buildMiddleware", ["middleware": middleware]);
+        dispatchEvent("Server.buildMiddleware", ["middleware": middleware]);
 
-        response = this.runner.run(middleware, request, this.app);
+        response = this.runner.run(middleware, request, _app);
 
         if (request instanceof ServerRequest) {
             request.getSession().close();
@@ -102,9 +93,9 @@ class DServer { // }: IEventDispatcher {
      * plugins are bootstrapped.
      */
     protected void bootstrap() {
-        this.app.bootstrap();
-        if (this.app instanceof IPluginApplication) {
-            this.app.pluginBootstrap();
+        _app.bootstrap();
+        if (_app instanceof IPluginApplication) {
+            _app.pluginBootstrap();
         }
     }
     
@@ -122,16 +113,14 @@ class DServer { // }: IEventDispatcher {
         emitter.emit(response);
     }
     
-    /**
-     * Get the current application.
-     */
+    // Get the current application.
     IHttpApplication getApp() {
         return _app;
     }
     
     // Get the application`s event manager or the global one.
     IEventManager getEventManager() {
-        if (cast(IEventDispatcher)this.app) {
+        if (cast(IEventDispatcher)_app) {
             return _app.getEventManager();
         }
         return EventManager.instance();
@@ -141,12 +130,10 @@ class DServer { // }: IEventDispatcher {
      * Set the application`s event manager.
      *
      * If the application does not support events, an exception will be raised.
-     * Params:
-     * \UIM\Event\IEventManager eventManager The event manager to set.
      */
     void setEventManager(IEventManager eventManager) {
-        if (this.app instanceof IEventDispatcher) {
-            this.app.setEventManager(eventManager);
+        if (_app instanceof IEventDispatcher) {
+            _app.setEventManager(eventManager);
 
             return;
         }

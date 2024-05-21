@@ -333,7 +333,7 @@ class DExceptionTrap {
                 this.logger().log(exception, request);
             }
         }
-        this.dispatchEvent("Exception.beforeRender", ["exception": exception]);
+        dispatchEvent("Exception.beforeRender", ["exception": exception]);
     }
 
     /**

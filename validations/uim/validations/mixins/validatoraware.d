@@ -94,7 +94,7 @@ mixin template TValidatorAware() {
             auto validatorEvent = defined(class ~ ".BUILD_VALIDATOR_EVENT")
                 ? BUILD_VALIDATOR_EVENT
                 : "Model.buildValidator";
-            this.dispatchEvent(validatorEvent, compact("validator", "name"));
+            dispatchEvent(validatorEvent, compact("validator", "name"));
         }
         assert(
             cast(DValidator)result,

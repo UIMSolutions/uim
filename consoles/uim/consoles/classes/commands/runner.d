@@ -91,7 +91,7 @@ class DCommandRunner { // }: IEventDispatcher {
     int run(Json[string] argv, IConsoleIo aConsoleIo = null) {
         assert(!argv.isEmpty, "Cannot run any commands. No arguments received.");
 
-        this.bootstrap();
+        bootstrap();
 
         auto myCommands = new DCommandCollection([
             "help": HelpCommand.classname,
@@ -104,7 +104,7 @@ class DCommandRunner { // }: IEventDispatcher {
         if (cast(IPluginApplication)_app) {
             myCommands = this.app.pluginConsole(myCommands);
         }
-        this.dispatchEvent("Console.buildCommands", ["commands": myCommands]);
+        dispatchEvent("Console.buildCommands", ["commands": myCommands]);
         this.loadRoutes();
 
         // Remove the root executable segment

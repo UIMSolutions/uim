@@ -362,7 +362,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * - triggers Component `startup` methods.
      */
     IResponse startupProcess() {
-        result = this.dispatchEvent("Controller.initialize").getResult();
+        result = dispatchEvent("Controller.initialize").getResult();
         if (cast(IResponse)result) { return result; }
 
         result = dispatchEvent("Controller.startup").getResult();
@@ -379,7 +379,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * - calls the Controller`s `afterFilter` method.
      */
     IResponse shutdownProcess() {
-        result = this.dispatchEvent("Controller.shutdown").getResult();
+        result = dispatchEvent("Controller.shutdown").getResult();
         if (cast(IResponse)result) {
             return result;
         }
@@ -402,7 +402,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         }
         _response = _response.withStatus(httpStatusCode);
         
-        auto event = this.dispatchEvent("Controller.beforeRedirect", [url, _response]);
+        auto event = dispatchEvent("Controller.beforeRedirect", [url, _response]);
         auto result = event.getResult();
         if (cast(Response)result) {
             return _response = result;
@@ -438,7 +438,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         if (layoutName) {
              builder.setLayout(layoutName);
         }
-        event = this.dispatchEvent("Controller.beforeRender");
+        event = dispatchEvent("Controller.beforeRender");
         if (cast(Response)event.getResult()) {
             return event.getResult();
         }

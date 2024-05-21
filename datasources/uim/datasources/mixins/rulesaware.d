@@ -33,7 +33,7 @@ mixin template TRulesAware() {
         bool hasEvents = (cast(IEventDispatcher)this);
 
         if (hasEvents) {
-            event = this.dispatchEvent(
+            event = dispatchEvent(
                 "Model.beforeRules",
                 compact("entity", "ruleOptions", "operation")
             );
@@ -44,7 +44,7 @@ mixin template TRulesAware() {
         result = rules.check(entity, operationToRun, ruleOptions.getArrayCopy());
 
         if (hasEvents) {
-            event = this.dispatchEvent(
+            event = dispatchEvent(
                 "Model.afterRules",
                 compact("entity", "options", "result", "operation")
             );
@@ -74,7 +74,7 @@ mixin template TRulesAware() {
          * @Dstan-ignore-next-line
          */
         _rulesChecker = this.buildRules(new className(["repository": this]));
-        this.dispatchEvent("Model.buildRules", ["rules": _rulesChecker]);
+        dispatchEvent("Model.buildRules", ["rules": _rulesChecker]);
 
         return _rulesChecker;
     }

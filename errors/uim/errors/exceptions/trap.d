@@ -176,7 +176,7 @@ class DExceptionTrap {
         logException(anException, myRequest);
 
         try {
-            event = this.dispatchEvent("Exception.beforeRender", ["exception": anException, "request": myRequest]);
+            event = dispatchEvent("Exception.beforeRender", ["exception": anException, "request": myRequest]);
             auto myException = event.getData("exception");
             assert(cast(Throwable)myException);
             

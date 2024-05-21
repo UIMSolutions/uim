@@ -119,7 +119,7 @@ class DErrorTrap {
         try {
             // Log first incase rendering or event listeners fail
             this.logError(error);
-            event = this.dispatchEvent("Error.beforeRender", ["error": error]);
+            event = dispatchEvent("Error.beforeRender", ["error": error]);
             if (event.isStopped()) {
                 return true;
             }

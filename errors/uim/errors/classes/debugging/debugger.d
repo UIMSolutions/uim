@@ -609,19 +609,19 @@ class DDebugger {
     protected static IErrorNode export_(var, DebugContext context) {
         type = getType(var);
         switch (type) {
-            case "float":
-            case "string":
-            case "resource":
-            case "resource (closed)":
-            case "null":
+            case "float": 
+            case "string": 
+            case "resource": 
+            case "resource (closed)": 
+            case "null": 
                 return new DScalarNode(type, var);
-            case "boolean":
+            case "boolean": 
                 return new DScalarNode('bool', var);
-            case "integer":
+            case "integer": 
                 return new DScalarNode('int', var);
-            case "array":
+            case "array": 
                 return exportArray(var, context.withAddedDepth());
-            case "unknown":
+            case "unknown": 
                 return new DSpecialNode('(unknown)');
             default:
                 return exportObject(var, context.withAddedDepth());

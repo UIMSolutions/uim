@@ -45,9 +45,9 @@ class DPaginator : IPaginator {
         * @var Json[string]
         */
         configuration.updateDefaults([
-            "page":Json(1),
-            "limit":Json(20),
-            "maxLimit":Json(100),
+            "page": Json(1),
+            "limit": Json(20),
+            "maxLimit": Json(100),
             // TODO "allowedParameters": Json.emptyArray(["limit", "sort", "page", "direction"]),
         ]);
     
@@ -74,8 +74,8 @@ class DPaginator : IPaginator {
      *
      * ```
      * settings = [
-     *   "limit":20,
-     *   "maxLimit":100
+     *   "limit": 20,
+     *   "maxLimit": 100
      * ];
      * myResults = paginator.paginate(myTable, settings);
      * ```
@@ -85,11 +85,11 @@ class DPaginator : IPaginator {
      *
      * ```
      * settings = [
-     *   "Articles":[
-     *     "limit":20,
-     *     "maxLimit":100
+     *   "Articles": [
+     *     "limit": 20,
+     *     "maxLimit": 100
      *   ],
-     *   "Comments":[... ]
+     *   "Comments": [... ]
      * ];
      * myResults = paginator.paginate(myTable, settings);
      * ```
@@ -107,9 +107,9 @@ class DPaginator : IPaginator {
      *
      * ```
      * settings = [
-     *  "Articles":[
-     *    "finder":"custom",
-     *    "sortableFields":["title", "author_id", "comment_count"],
+     *  "Articles": [
+     *    "finder": "custom",
+     *    "sortableFields": ["title", "author_id", "comment_count"],
      *  ]
      * ];
      * ```
@@ -123,8 +123,8 @@ class DPaginator : IPaginator {
      *
      * ```
      * settings = [
-     *   "Articles":[
-     *     "finder":"popular"
+     *   "Articles": [
+     *     "finder": "popular"
      *   ]
      * ];
      * myResults = paginator.paginate(myTable, settings);
@@ -136,7 +136,7 @@ class DPaginator : IPaginator {
      *
      * ```
      * myQuery = this.Articles.find("popular").matching("Tags", function (q) {
-     *  return q.where(["name":"uimD"])
+     *  return q.where(["name": "uimD"])
      * });
      * myResults = paginator.paginate(myQuery);
      * ```
@@ -147,8 +147,8 @@ class DPaginator : IPaginator {
      * the same controller action:
      *
      * ```
-     * articles = paginator.paginate(articlesQuery, ["scope":"articles"]);
-     * tags = paginator.paginate(tagsQuery, ["scope":"tags"]);
+     * articles = paginator.paginate(articlesQuery, ["scope": "articles"]);
+     * tags = paginator.paginate(tagsQuery, ["scope": "tags"]);
      * ```
      *
      * Each of the above queries will use different query string parameter sets
@@ -163,7 +163,7 @@ class DPaginator : IPaginator {
      * @param Json[string] requestData Request params
      * @param Json[string] settings The settings/configuration used for pagination.
      */
-    IDSResultset paginate(Query objectToPaginate, Json[string] requestData = null, Json[string] paginationSettings = null) {
+    IDSResultset paginate(Query objectToPaginate, Json[string] requestData = null, Json[string] paginationData = null) {
         myQuery = null;
         if (objectToPaginate instanceof IQuery) {
             myQuery = objectToPaginate;
@@ -173,7 +173,7 @@ class DPaginator : IPaginator {
             }
         }
 
-        myData = this.extractData(objectToPaginate, requestData, paginationSettings);
+        myData = this.extractData(objectToPaginate, requestData, paginationData);
         myQuery = getQuery(objectToPaginate, myQuery, myData);
 
         cleanQuery = clone myQuery;
@@ -186,8 +186,8 @@ class DPaginator : IPaginator {
         _pagingParams = [aliasName: pagingParams];
         if (pagingParams["requestedPage"] > pagingParams["page"]) {
             throw new DPageOutOfBoundsException([
-                "requestedPage":pagingParams["requestedPage"],
-                "pagingParams":_pagingParams,
+                "requestedPage": pagingParams["requestedPage"],
+                "pagingParams": _pagingParams,
             ]);
         }
 
@@ -195,17 +195,14 @@ class DPaginator : IPaginator {
     }
 
     // Get query for fetching paginated results.
-    // \uim\Datasource\IRepository object Repository instance.
-    // \uim\Datasource\IQuery|null myQuery Query Instance.
-    //  Json[string] myData Pagination data.
-    protected IDSQuery getQuery(IRepository repository, IQuery myQuery, Json[string] myData) {
-        if (myQuery == null) {
-            myQuery = repository.find(myData["finder"], myData["options"]);
+    protected IDSQuery getQuery(IRepository repository, IQuery query, Json[string] myData) {
+        if (query == null) {
+            query = repository.find(myData["finder"], myData["options"]);
         } else {
-            myQuery.applyOptions(myData["options"]);
+            query.applyOptions(myData["options"]);
         }
 
-        return myQuery;
+        return query;
     }
 
     // Get total count of records.
@@ -213,20 +210,15 @@ class DPaginator : IPaginator {
         return query.count();
     }
 
-    /**
-     * Extract pagination data needed
-     *
-     * @param Json[string] requestData Request params
-     * @param Json[string] paginationSettings The paginationSettings/configuration used for pagination.
-     */
-    protected Json[string] extractData(IRepository repository, Json[string] requestData, Json[string] paginationSettings) {
+    // Extract pagination data needed
+    protected Json[string] extractData(IRepository repository, Json[string] requestData, Json[string] paginationData) {
         aliasName = repository.aliasName();
-        defaults = getDefaults(aliasName, paginationSettings);
+        defaults = getDefaults(aliasName, paginationData);
         options = mergeOptions(requestData, defaults);
         options = validateSort(anRepository, options);
         options = checkLimit(options);
 
-        auto updatedOptions = options.update["page":1, "scope":null];
+        auto updatedOptions = options.update["page": 1, "scope": null];
         options["page"] = (int)options["page"] < 1 ? 1 : (int)options["page"];
         [myFinder, options] = _extractFinder(options);
 
@@ -240,11 +232,11 @@ class DPaginator : IPaginator {
         // containing keys "options",
         // "count", "defaults", "finder", "numResults".
         Json[string] paging = [
-            "count":myData["count"],
-            "current":myData["numResults"],
-            "perPage":limit,
-            "page":myData["options"]["page"],
-            "requestedPage":myData["options"]["page"],
+            "count": myData["count"],
+            "current": myData["numResults"],
+            "perPage": limit,
+            "page": myData["options"]["page"],
+            "requestedPage": myData["options"]["page"],
         ];
 
         paging = addPageCountParams(paging, paginatorData);
@@ -253,9 +245,9 @@ class DPaginator : IPaginator {
         paging = addSortingParams(paging, paginatorData);
 
         paging += [
-            "limit":paginatorData["defaults"]["limit"] != limit ? limit : null,
-            "scope":paginatorData["options"]["scope"],
-            "finder":paginatorData["finder"],
+            "limit": paginatorData["defaults"]["limit"] != limit ? limit : null,
+            "scope": paginatorData["options"]["scope"],
+            "finder": paginatorData["finder"],
         ];
 
         return paging;
@@ -310,7 +302,7 @@ class DPaginator : IPaginator {
      * @param Json[string] paginatorData Paginator params.
      * @param Json[string] myData Paging data.
      */
-    protected Json[string] addPrevNextParams(Json[string] paginatorData, Json[string] myData) {
+    protected Json[string] addPrevNextParams(Json[string] paginatorData, Json[string] pagingData) {
         paginatorData["prevPage"] = paginatorData["page"] > 1;
         paginatorData["nextPage"] = paginatorData["count"] == null
             ? true
@@ -331,11 +323,11 @@ class DPaginator : IPaginator {
         }
 
         return paginatorData.update([
-            "sort":pagingData["options"]["sort"],
-            "direction":isset(pagingData["options"]["sort"]) && count(order) ? current(order) : null,
-            "sortDefault":sortDefault,
-            "directionDefault":directionDefault,
-            "completeSort":order,
+            "sort": pagingData["options"]["sort"],
+            "direction": isset(pagingData["options"]["sort"]) && count(order) ? current(order) : null,
+            "sortDefault": sortDefault,
+            "directionDefault": directionDefault,
+            "completeSort": order,
         ]);
     }
 

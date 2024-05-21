@@ -45,11 +45,11 @@ class DError {
 
         // TODO
         /* _logMap = [
-            "error": LOG_ERR,
-            "warning": LOG_WARNING,
-            "notice": LOG_NOTICE,
-            "strict": LOG_NOTICE,
-            "deprecated": LOG_NOTICE,
+            "error":  LOG_ERR,
+            "warning":  LOG_WARNING,
+            "notice":  LOG_NOTICE,
+            "strict":  LOG_NOTICE,
+            "deprecated":  LOG_NOTICE,
         ]; */
 
         return true;

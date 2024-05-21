@@ -1281,7 +1281,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Associates a query placeholder to a value and a type.
      *
      * ```
-     * aQuery.bind(":id", 1, "integer");
+     * aQuery.bind(": id", 1, "integer");
      * ```
      */
     void bind(string placeholderToQuote, Json valueToBound, string typeName = null) {

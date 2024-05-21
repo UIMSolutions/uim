@@ -223,10 +223,10 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      *    .select([
      *        'val": aQuery.newExpr()
      *            .case()
-     *            .when(aQuery.newExpr(":userData"))
+     *            .when(aQuery.newExpr(": userData"))
      *            .then(123)
      *    ])
-     *    .bind(":userData", userData, "integer")
+     *    .bind(": userData", userData, "integer")
      * ```
      * Params:
      * \UIM\Database\IExpression|\Closure|object|array|scalar  when The `WHEN` value. When using an

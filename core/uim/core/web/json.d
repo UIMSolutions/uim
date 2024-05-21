@@ -45,13 +45,13 @@ unittest {
 
 /// Convert keypair to a JsonValue
 string toJSONObjectItem(T)(string key, T value) {
-  return "\"%s\":%s".format(key, value.toJSONValue);
+  return "\"%s\": %s".format(key, value.toJSONValue);
 }
 
 version (test_uim_core) {
   unittest {
-    assert(toJSONObjectItem("name", true) == `"name":true`);
-    assert(toJSONObjectItem("name", 100) == `"name":100`);
-    assert(toJSONObjectItem("name", "value") == `"name":"value"`);
+    assert(toJSONObjectItem("name", true) == `"name": true`);
+    assert(toJSONObjectItem("name", 100) == `"name": 100`);
+    assert(toJSONObjectItem("name", "value") == `"name": "value"`);
   }
 }

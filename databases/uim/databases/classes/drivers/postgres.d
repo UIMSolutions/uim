@@ -12,17 +12,17 @@ class DPostgresDriver : DDriver {
         }
 
         configuration.updateDefaults([
-            "persistent": true.toJson,
-            "host": Json("localhost"),
-            "username": Json("root"),
-            "password": "".toJson,
-            "database": Json("uim"),
-            "schema": Json("public"),
-            "port": Json(5432),
-            "encoding": Json("utf8"),
-            "timezone": Json(null),
-            "flags": Json.emptyArray,
-            "init": Json.emptyArray,
+            "persistent":  true.toJson,
+            "host":  Json("localhost"),
+            "username":  Json("root"),
+            "password":  "".toJson,
+            "database":  Json("uim"),
+            "schema":  Json("public"),
+            "port":  Json(5432),
+            "encoding":  Json("utf8"),
+            "timezone":  Json(null),
+            "flags":  Json.emptyArray,
+            "init":  Json.emptyArray,
         ]);
 
         // String used to start a database identifier quoting to make it safe
@@ -158,31 +158,31 @@ protected void _transformIdentifierExpression(IdentifierExpression expressionToT
      */
 protected void _transformFunctionExpression(FunctionExpression expressionToConvert) {
     switch (expressionToConvert.name) {
-    case "CONCAT":
+    case "CONCAT": 
         // CONCAT bool is expressed as exp1 || exp2
         expressionToConvert.name("").conjunctionType(" ||");
         break;
-    case "DATEDIFF":
+    case "DATEDIFF": 
         expressionToConvert
             .name("")
             .conjunctionType("-")
             .iterateParts(function(p) {
                 if (isString(p)) {
-                    p = ["value": [p: "literal"], "type": Json(null)];} else {
+                    p = ["value":  [p: "literal"], "type":  Json(null)];} else {
                         p["value"] = [p["value"]];}
                         return new DFunctionExpression("DATE", p["value"], [p["type"]]);
                     }
 );
                     break;
-    case "CURRENT_DATE" : time = new DFunctionExpression("LOCALTIMESTAMP", [" 0 ": "literal"]);
+    case "CURRENT_DATE" : time = new DFunctionExpression("LOCALTIMESTAMP", [" 0 ":  "literal"]);
                     expressionToConvert.name("CAST").conjunctionType(" AS ")
-                        .add([time, "date": "literal"]);
+                        .add([time, "date":  "literal"]);
                     break;
-    case "CURRENT_TIME" : time = new DFunctionExpression("LOCALTIMESTAMP", [" 0 ": "literal"]);
+    case "CURRENT_TIME" : time = new DFunctionExpression("LOCALTIMESTAMP", [" 0 ":  "literal"]);
                     expressionToConvert.name("CAST").conjunctionType(" AS ")
-                        .add([time, "time": "literal"]);
+                        .add([time, "time":  "literal"]);
                     break;
-    case "NOW" : expressionToConvert.name("LOCALTIMESTAMP").add([" 0 ": "literal"]);
+    case "NOW" : expressionToConvert.name("LOCALTIMESTAMP").add([" 0 ":  "literal"]);
                     break;
     case "RAND" : expressionToConvert.name("RANDOM");
                     break;
@@ -197,8 +197,8 @@ protected void _transformFunctionExpression(FunctionExpression expressionToConve
     case "DAYOFWEEK" : expressionToConvert
                                 .name("EXTRACT")
                                 .conjunctionType(" ")
-                                .add(["DOW FROM": "literal"], [], true)
-                                .add([") + (1": "literal"]); // Postgres starts on index 0 but Sunday should be 1
+                                .add(["DOW FROM":  "literal"], [], true)
+                                .add([") + (1":  "literal"]); // Postgres starts on index 0 but Sunday should be 1
                                 break;
                             }
                         }

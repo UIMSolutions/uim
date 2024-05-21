@@ -18,7 +18,7 @@ alias opEquals = Object.opEquals;
 	bool opEquals(DCSSDeclaration obj) { return toString == obj.toString; }
 
 	override string toString() {
-		return name~":"~value;
+		return name~": "~value;
 	}
 }
 auto CSSDeclaration() { return new DCSSDeclaration(); }

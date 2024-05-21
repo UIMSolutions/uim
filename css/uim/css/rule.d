@@ -27,8 +27,8 @@ class DCSSRule : DCSSObj {
 	O declaration(this O)(string name, string value){ _declarations[name] = value; return cast(O)this; }
 	version(test_uim_css) { unittest {
 		assert(CSSRule("test").declaration("do", "it") == `test{do:it}`);
-		assert(CSSRule("body", ["background-color": "lightgreen"]) == "body{background-color:lightgreen}");
-		assert(CSSRule("body", ["background-color": "lightgreen"]).declaration("border","0") == "body{background-color:lightgreen;border:0}");
+		assert(CSSRule("body", ["background-color":  "lightgreen"]) == "body{background-color:lightgreen}");
+		assert(CSSRule("body", ["background-color":  "lightgreen"]).declaration("border","0") == "body{background-color:lightgreen;border:0}");
 	}}
 
 	alias opEquals = Object.opEquals;
@@ -37,7 +37,7 @@ class DCSSRule : DCSSObj {
 
 	override string toString() {
 		string[] inner;
-		foreach(k; _declarations.byKey().array.sort!("a < b")) inner ~= k~":"~_declarations[k];  
+		foreach(k; _declarations.byKey().array.sort!("a < b")) inner ~= k~": "~_declarations[k];  
 		return _selector~"{"~inner.join(";")~"}";
 	}
 }
@@ -49,6 +49,6 @@ auto CSSRule(string selector, STRINGAA someDeclarations) { return new DCSSRule(s
 version(test_uim_css) { unittest {
 	assert(CSSRule("test") == `test{}`);
 	assert(CSSRule("test").declaration("do", "it") == `test{do:it}`);
-	assert(CSSRule("body", ["background-color": "lightgreen"]) == "body{background-color:lightgreen}");
-	assert(CSSRule("body", ["background-color": "lightgreen"]).declaration("border","0") == "body{background-color:lightgreen;border:0}");
+	assert(CSSRule("body", ["background-color":  "lightgreen"]) == "body{background-color:lightgreen}");
+	assert(CSSRule("body", ["background-color":  "lightgreen"]).declaration("border","0") == "body{background-color:lightgreen;border:0}");
 }}

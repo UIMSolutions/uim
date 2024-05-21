@@ -280,22 +280,22 @@ version(test_uim_css) { unittest {
 //	auto css = CSSRuleSet;
 //
 //	auto media = CSSMedia("screen and (min-width: 480px)");
-//	media.rules = media.rules ~ CSSRule("body", ["background-color": "lightgreen"]);
+//	media.rules = media.rules ~ CSSRule("body", ["background-color":  "lightgreen"]);
 //	css.add(media);
 //
 //	media = CSSMedia("screen and (min-width: 480px)");
-//	media.rules = media.rules ~ CSSRule(".h1", ["background-color": "lightgreen"]);
+//	media.rules = media.rules ~ CSSRule(".h1", ["background-color":  "lightgreen"]);
 //	css.add(media);
 //
-//	css.add(CSSRule("#tt", ["background-color": "lightgreen"]));
+//	css.add(CSSRule("#tt", ["background-color":  "lightgreen"]));
 //	writeln(css);
 
 	//	auto css3 = CSS
 	//		.media("screen and (min-width: 480px)", [
-	//				CSSRule("img", ["background-color": "lightgreen"]),
-	//				CSSRule("xxs", ["background-color": "lightgreen"])
+	//				CSSRule("img", ["background-color":  "lightgreen"]),
+	//				CSSRule("xxs", ["background-color":  "lightgreen"])
 	//			])
-	//		.media("screen and (min-width: 490px)", [CSSRule("img", ["background-color": "lightgreen"])]);
+	//		.media("screen and (min-width: 490px)", [CSSRule("img", ["background-color":  "lightgreen"])]);
 
 	
 	/*	string css_text = CSS

@@ -4,7 +4,7 @@ auto importPhobos(string[] libNames = null) {
   char[] result;
   foreach(libName; libNames.length > 0 ? libNames : ["Base", "Networking", "Numeric", "String"]) {
     switch(libName) {
-      case "Base":
+      case "Base": 
         result ~= "
           public {
             import std.algorithm; 
@@ -33,7 +33,7 @@ auto importPhobos(string[] libNames = null) {
           }";
           break;
 
-      case "Networking":
+      case "Networking": 
         result ~= "
           public import std.socket; // Socket primitives.
           public import std.net.curl; // Networking client functionality as provided by libcurl.
@@ -42,7 +42,7 @@ auto importPhobos(string[] libNames = null) {
           public import std.uuid; // Universally-unique identifiers for resources in distributed systems.";
           break;
 
-      case "Numeric":
+      case "Numeric": 
         result ~= "
           public import std.bigint; // An arbitrary-precision integer type.
           public import std.complex; // A complex number type.
@@ -52,7 +52,7 @@ auto importPhobos(string[] libNames = null) {
           public import std.random; // Pseudo-random number generators.";
           break;
 
-      case "String":
+      case "String": 
         result ~= "
           public import std.string; // Algorithms that work specifically with strings.
           public import std.array; // Manipulate builtin arrays.

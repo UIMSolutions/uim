@@ -22,16 +22,16 @@ class DMysqlDriver : DDriver {
 
         // Base configuration settings for MySQL driver
         configuration.merge([
-            "persistent": true.toJson,
-            "host": Json("localhost"),
-            "username": Json("root"),
-            "password": "".toJson,
-            "database": Json("uim"),
-            "port": Json("3306"),
-            "flags": Json.emptyArray,
-            "encoding": Json("utf8mb4"),
-            "timezone": Json(null),
-            "init": Json.emptyArray,
+            "persistent":  true.toJson,
+            "host":  Json("localhost"),
+            "username":  Json("root"),
+            "password":  "".toJson,
+            "database":  Json("uim"),
+            "port":  Json("3306"),
+            "flags":  Json.emptyArray,
+            "encoding":  Json("utf8mb4"),
+            "timezone":  Json(null),
+            "init":  Json.emptyArray,
         ]);
 
         startQuote("`");
@@ -50,15 +50,15 @@ class DMysqlDriver : DDriver {
 
     // Mapping of feature to db server version for feature availability checks.
     protected Json _featureVersions = [
-        "mysql": [
-            "Json": "5.7.0",
-            "cte": "8.0.0",
-            "window": "8.0.0",
+        "mysql":  [
+            "Json":  "5.7.0",
+            "cte":  "8.0.0",
+            "window":  "8.0.0",
         ],
-        "mariadb": [
-            "Json": "10.2.7",
-            "cte": "10.2.1",
-            "window": "10.2.0",
+        "mariadb":  [
+            "Json":  "10.2.7",
+            "cte":  "10.2.1",
+            "window":  "10.2.0",
         ],
     ];
 

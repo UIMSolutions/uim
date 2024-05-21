@@ -20,7 +20,7 @@ class DCSSRules : DCSSObj {
 			this.rule(aSelector, aDeclaration); }
 		return cast(O)this; }
 	version(test_uim_css) { unittest {
-		assert(CSSRules.rules(["body": ["background-color": "lightgreen"]]) == "body{background-color:lightgreen}");
+		assert(CSSRules.rules(["body":  ["background-color":  "lightgreen"]]) == "body{background-color:lightgreen}");
 	}}
 
 	auto find(string selector) { foreach(i, rule; _rules) if (rule.selector == selector) return i; return -1; }
@@ -51,10 +51,10 @@ auto CSSRules(DCSSRule[] someRules) { return new DCSSRules(someRules); }
 auto CSSRules(DCSSRules someRules) { return new DCSSRules(someRules); }
 
 version(test_uim_css) { unittest {
-	assert(CSSRules.rule(CSSRule("body", ["background-color": "lightgreen"])) == "body{background-color:lightgreen}");
+	assert(CSSRules.rule(CSSRule("body", ["background-color":  "lightgreen"])) == "body{background-color:lightgreen}");
 		assert(CSSRules.rule("body", "background-color", "lightgreen") == "body{background-color:lightgreen}");
-		assert(CSSRules.rule("body", ["background-color": "lightgreen"]) == "body{background-color:lightgreen}");
+		assert(CSSRules.rule("body", ["background-color":  "lightgreen"]) == "body{background-color:lightgreen}");
 		assert(CSSRules
-		.rule("body", ["background-color": "lightgreen"])
-		.rule("test", ["background-color": "lightgreen"]) == "body{background-color:lightgreen}test{background-color:lightgreen}");
+		.rule("body", ["background-color":  "lightgreen"])
+		.rule("test", ["background-color":  "lightgreen"]) == "body{background-color:lightgreen}test{background-color:lightgreen}");
 }}

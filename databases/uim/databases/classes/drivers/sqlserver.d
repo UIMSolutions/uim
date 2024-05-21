@@ -14,24 +14,24 @@ class DSqlserverDriver : DDriver {
         }
 
         configuration.update([
-            "host": Json("localhost\\SQLEXPRESS"),
-            "username": "".toJson,
-            "password": "".toJson,
-            "database": Json("uim"),
-            "port": "".toJson,
+            "host":  Json("localhost\\SQLEXPRESS"),
+            "username":  "".toJson,
+            "password":  "".toJson,
+            "database":  Json("uim"),
+            "port":  "".toJson,
             // PDO.SQLSRV_ENCODING_UTF8
-            "encoding": Json(65_001),
-            "flags": Json.emptyArray,
-            "init": Json.emptyArray,
-            "settings": Json.emptyArray,
-            "attributes": Json.emptyArray,
-            "app": Json(null),
-            "connectionPooling": Json(null),
-            "failoverPartner": Json(null),
-            "loginTimeout": Json(null),
-            "multiSubnetFailover": Json(null),
-            "encrypt": Json(null),
-            "trustServerCertificate": Json(null),
+            "encoding":  Json(65_001),
+            "flags":  Json.emptyArray,
+            "init":  Json.emptyArray,
+            "settings":  Json.emptyArray,
+            "attributes":  Json.emptyArray,
+            "app":  Json(null),
+            "connectionPooling":  Json(null),
+            "failoverPartner":  Json(null),
+            "loginTimeout":  Json(null),
+            "multiSubnetFailover":  Json(null),
+            "encrypt":  Json(null),
+            "trustServerCertificate":  Json(null),
         ]);
 
         startQuote("[");
@@ -190,7 +190,7 @@ class DSqlserverDriver : DDriver {
          anOffset = aQuery.clause("offset");
 
         if (numberOfRows &&  anOffset.isNull) {
-            aQuery.modifier(["_auto_top_": "TOP %d".format(numberOfRows)]);
+            aQuery.modifier(["_auto_top_":  "TOP %d".format(numberOfRows)]);
         }
         if (anOffset !isNull && !aQuery.clause("order")) {
             aQuery.orderBy(aQuery.newExpr().add("(SELECT NULL)"));
@@ -240,14 +240,14 @@ class DSqlserverDriver : DDriver {
 
         auto aQuery = clone  original;
         aQuery.select([
-                "_uim_page_rownum_": new DUnaryExpression("ROW_NUMBER() OVER",  order),
+                "_uim_page_rownum_":  new DUnaryExpression("ROW_NUMBER() OVER",  order),
             ]).limit(null)
             .offset(null)
             .orderBy([], true);
 
         auto outer = aQuery.getConnection().selectQuery();
          outer.select("*")
-            .from(["_uim_paging_": aQuery]);
+            .from(["_uim_paging_":  aQuery]);
 
         if (rowsOffset) {
              outer.where(["field > " ~  rowsOffset]);
@@ -289,7 +289,7 @@ class DSqlserverDriver : DDriver {
                     .conjunctionType(" ");
 
                 return [
-                    "_uim_distinct_pivot_":  over,
+                    "_uim_distinct_pivot_":   over,
                 ];
             })
             .limit(null)
@@ -298,8 +298,8 @@ class DSqlserverDriver : DDriver {
 
          outer = new DSelectQuery(aQuery.getConnection());
          outer.select("*")
-            .from(["_uim_distinct_": aQuery])
-            .where(["_uim_distinct_pivot_": 1]);
+            .from(["_uim_distinct_":  aQuery])
+            .where(["_uim_distinct_pivot_":  1]);
 
         // Decorate the original query as that is what the
         // end developer will be calling execute() on originally.
@@ -328,11 +328,11 @@ class DSqlserverDriver : DDriver {
      */
     protected void _transformFunctionExpression(FunctionExpression expression) {
         switch (expression.name) {
-            case "CONCAT":
+            case "CONCAT": 
                 // CONCAT bool is expressed as exp1 + exp2
                 expression.name("").conjunctionType(" +");
                 break;
-            case "DATEDIFF":
+            case "DATEDIFF": 
                 $hasDay = false;
                  visitor = auto (aValue) use (&$hasDay) {
                     if (aValue == "day") {
@@ -343,24 +343,24 @@ class DSqlserverDriver : DDriver {
                 expression.iterateParts(visitor);
 
                 if (!$hasDay) {
-                    expression.add(["day": "literal"], [], true);
+                    expression.add(["day":  "literal"], [], true);
                 }
                 break;
-            case "CURRENT_DATE":
+            case "CURRENT_DATE": 
                 time = new DFunctionExpression("GETUTCDATE");
-                expression.name("CONVERT").add(["date": "literal", time]);
+                expression.name("CONVERT").add(["date":  "literal", time]);
                 break;
-            case "CURRENT_TIME":
+            case "CURRENT_TIME": 
                 time = new DFunctionExpression("GETUTCDATE");
-                expression.name("CONVERT").add(["time": "literal", time]);
+                expression.name("CONVERT").add(["time":  "literal", time]);
                 break;
-            case "NOW":
+            case "NOW": 
                 expression.name("GETUTCDATE");
                 break;
-            case "EXTRACT":
+            case "EXTRACT": 
                 expression.name("DATEPART").conjunctionType(" ,");
                 break;
-            case "DATE_ADD":
+            case "DATE_ADD": 
                 params = null;
                  visitor = auto (p, aKey) use (&params) {
                     if (aKey == 0) {
@@ -383,13 +383,13 @@ class DSqlserverDriver : DDriver {
                     .iterateParts(manipulator)
                     .add([params[2]: "literal"]);
                 break;
-            case "DAYOFWEEK":
+            case "DAYOFWEEK": 
                 expression
                     .name("DATEPART")
                     .conjunctionType(" ")
-                    .add(["weekday, ": "literal"], [], true);
+                    .add(["weekday, ":  "literal"], [], true);
                 break;
-            case "SUBSTR":
+            case "SUBSTR": 
                 expression.name("SUBSTRING");
                 if (count(expression) < 4) {
                     params = null;

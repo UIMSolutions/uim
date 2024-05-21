@@ -8,7 +8,7 @@ class DCSSObj : Obj {
 	protected void _init() {}
 
 	override string toString() {
-		return "";
+		return null;
 	}
 }
 auto CSSOBJ() { return new DCSSObj(); }

@@ -104,7 +104,7 @@ class DValuesExpression : DExpression {
  
     string sql(DValueBinder aBinder) {
         if (_values.isEmpty && _query.isEmpty) {
-            return "";
+            return null;
         }
         if (!_castedExpressions) {
            _processExpressions();

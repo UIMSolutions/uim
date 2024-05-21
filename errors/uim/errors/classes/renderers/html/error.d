@@ -17,7 +17,7 @@ class DHtmlErrorRenderer : IErrorRenderer {
  
     string render(UimError error, bool shouldDebug) {
         if (!debug) {
-            return "";
+            return null;
         }
         string anId = "uimErr" ~ uniqid();
         file = error.getFile();

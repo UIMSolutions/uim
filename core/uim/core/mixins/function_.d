@@ -19,7 +19,7 @@ auto tFunc(string fName, string[][] functions) {
 	char[] x;
 	if (functions.length == 1) return "O "~fName~"(this O)("~functions[0][0]~") {"~functions[0][1]~" return cast(O)this; }";
 	if (functions.length > 1) return "O "~fName~"(this O)("~functions[0][0]~") {"~functions[0][1]~" return cast(O)this; }"~tFunc(fName, functions[1..$]);
-	return ""; 
+	return null; 
 }
 
 template TFunction(string fName, string[][] functions) {

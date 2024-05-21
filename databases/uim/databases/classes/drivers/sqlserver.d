@@ -46,7 +46,7 @@ class DSqlserverDriver : DDriver {
 
     string releaseSavePointSQL(name) {
         // SQLServer has no release save point operation.
-        return "";
+        return null;
     }
     /*
 

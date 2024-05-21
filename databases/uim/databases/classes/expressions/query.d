@@ -349,7 +349,7 @@ class DQueryExpression : DExpression { // }, Countable {
     string sql(DValueBinder aBinder) {
         size_t length = count();
         if (len == 0) {
-            return "";
+            return null;
         }
         conjunction = _conjunction;
         template = len == 1 ? "%s' : '(%s)";

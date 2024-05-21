@@ -59,7 +59,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
 
     // Get the command description.
     static string description() {
-        return "";
+        return null;
     }
 
     // Get the root command name.

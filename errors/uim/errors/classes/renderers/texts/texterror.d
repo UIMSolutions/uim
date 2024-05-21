@@ -44,7 +44,7 @@ class DTextErrorRenderer { // }: IErrorRenderer {
   }
 
   string render(DError anError, bool isDebug) {
-    if (!isDebug) { return ""; }
+    if (!isDebug) { return null; }
 
     // isDebug
     return 

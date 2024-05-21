@@ -579,7 +579,7 @@ mixin template TEntity() {
       return _accessors[className][accessorType][aProperty] = "";
     }
     if (class == Entity.classname) {
-      return "";
+      return null;
     }
     get_class_methods(className).each!((method) {
       string prefix = substr(method, 1, 3);

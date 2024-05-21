@@ -583,7 +583,7 @@ string existsFolderMixin() {
 }
 
 string folderMixin() {
-  return "";
+  return null;
     
 }
 
@@ -615,7 +615,7 @@ string removeFoldersMixin() {
 }
 
 string createFolderMixin() {
-  return "";
+  return null;
 }
 
 string copyFolderMixin() {

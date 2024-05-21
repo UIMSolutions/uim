@@ -32,7 +32,7 @@ class DCSSContainer {
 	protected void init() { }
 
   override string toString() {
-    return "";
+    return null;
   }
 }
 auto CSSContainer() { return new DCSSContainer(); }

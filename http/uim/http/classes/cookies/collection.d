@@ -236,7 +236,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
 
         cookies = createFromHeader(
             response.getHeader("Set-Cookie"),
-            ["domain": host, "path": somePath]
+            ["domain":  host, "path":  somePath]
         );
         new = clone this;
         foreach (cookies as cookie) {

@@ -41,6 +41,6 @@ class DBasic {
      * @param string apass Password.
      */
     protected string _generateHeader(string auser, string apass) {
-        return "Basic " ~ base64_encode(user ~ ":" ~ pass);
+        return "Basic " ~ base64_encode(user ~ ": " ~ pass);
     }
 }

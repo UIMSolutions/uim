@@ -105,7 +105,7 @@ class DDigest {
         response = _client.get(
             to!string(request.getUri()),
             [],
-            ["auth": ["type": Json(null)]]
+            ["auth":  ["type":  Json(null)]]
         );
 
         aHeader = response.getHeader("WWW-Authenticate");
@@ -131,26 +131,26 @@ class DDigest {
 
         if (this.isSessAlgorithm) {
             credentials["cnonce"] = this.generateCnonce();
-            a1 = hash(this.hashType, authCredentials["username"] ~ ":" ~
-                    authCredentials["realm"] ~ ":" ~ authCredentials["password"]) ~ ":" ~
-                authCredentials["nonce"] ~ ":" ~ authCredentials["cnonce"];
+            a1 = hash(this.hashType, authCredentials["username"] ~ ": " ~
+                    authCredentials["realm"] ~ ": " ~ authCredentials["password"]) ~ ": " ~
+                authCredentials["nonce"] ~ ": " ~ authCredentials["cnonce"];
         } else {
-            a1 = authCredentials["username"] ~ ":" ~ authCredentials["realm"] ~ ":" ~ authCredentials["password"];
+            a1 = authCredentials["username"] ~ ": " ~ authCredentials["realm"] ~ ": " ~ authCredentials["password"];
         }
         ha1 = hash(this.hashType, a1);
-        a2 = request.getMethod() ~ ":" ~ somePath;
+        a2 = request.getMethod() ~ ": " ~ somePath;
         nc = "%08x".format(credentials.get("nc", 1));
 
         if (credentials.isEmpty("qop")) {
             ha2 = hash(this.hashType, a2);
-            response = hash(this.hashType, ha1 ~ ":" ~ credentials["nonce"] ~ ":" ~ ha2);
+            response = hash(this.hashType, ha1 ~ ": " ~ credentials["nonce"] ~ ": " ~ ha2);
         } else {
             if (!in_array(credentials["qop"], [self.QOP_AUTH, self.QOP_AUTH_INT])) {
                 throw new DInvalidArgumentException("Invalid QOP parameter. Valid types are: " ~
                     join(",", [self.QOP_AUTH, self.QOP_AUTH_INT]));
             }
             if (credentials["qop"] == self.QOP_AUTH_INT) {
-                a2 = request.getMethod() ~ ":" ~ somePath ~ ":" ~ hash(this.hashType, (string)request.getBody());
+                a2 = request.getMethod() ~ ": " ~ somePath ~ ": " ~ hash(this.hashType, (string)request.getBody());
             }
             if (credentials.isEmpty("cnonce")) {
                 credentials["cnonce"] = this.generateCnonce();
@@ -159,8 +159,8 @@ class DDigest {
             auto ha2 = hash(this.hashType, a2);
             auto response = hash(
                 this.hashType,
-                ha1 ~ ":" ~ credentials["nonce"] ~ ":" ~ nc ~ ":" .
-                credentials["cnonce"] ~ ":" ~ credentials["qop"] ~ ":" ~ ha2
+                ha1 ~ ": " ~ credentials["nonce"] ~ ": " ~ nc ~ ": " .
+                credentials["cnonce"] ~ ": " ~ credentials["qop"] ~ ": " ~ ha2
             );
         }
         string result = "Digest ";

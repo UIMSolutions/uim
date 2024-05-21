@@ -94,8 +94,8 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
            _buildSslContext(request, options);
         }
        _context = stream_context_create([
-            "http": _contextOptions,
-            "ssl": _sslContextOptions,
+            "http":  _contextOptions,
+            "ssl":  _sslContextOptions,
         ]);
     }
     

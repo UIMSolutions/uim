@@ -31,7 +31,7 @@ class DOauth {
         credentials["method"] = credentials.getString("method").upper;
 
         switch (credentials["method"]) {
-            case "HMAC-SHA1":
+            case "HMAC-SHA1": 
                 bool hasKeys = credentials.hasKeys(["consumerSecret", "token", "tokenSecret"]);
                 if (!hasKeys) {
                     return request;
@@ -39,14 +39,14 @@ class DOauth {
                 aValue = _hmacSha1(request, credentials);
                 break;
 
-            case "RSA-SHA1":
+            case "RSA-SHA1": 
                 if (!isSet(credentials["privateKey"])) {
                     return request;
                 }
                 aValue = _rsaSha1(request, credentials);
                 break;
 
-            case "PLAINTEXT":
+            case "PLAINTEXT": 
                 hasKeys = isSet(
                     credentials["consumerSecret"],
                     credentials["token"],
@@ -76,12 +76,12 @@ class DOauth {
      */
     protected string _plaintext(Request request, Json[string] authCredentials) {
         auto someValues = [
-            "oauth_version": "1.0",
-            "oauth_nonce": uniqid(),
-            "oauth_timestamp": time(),
-            "oauth_signature_method": "PLAINTEXT",
-            "oauth_token": authCredentials["token"],
-            "oauth_consumer_key": authCredentials["consumerKey"],
+            "oauth_version":  "1.0",
+            "oauth_nonce":  uniqid(),
+            "oauth_timestamp":  time(),
+            "oauth_signature_method":  "PLAINTEXT",
+            "oauth_token":  authCredentials["token"],
+            "oauth_consumer_key":  authCredentials["consumerKey"],
         ];
         if (authCredentials.isSet("realm")) {
              someValues["oauth_realm"] = authCredentials["realm"];
@@ -106,12 +106,12 @@ class DOauth {
         auto nonce = authCredentials["nonce"] ?? uniqid();
         auto timestamp = authCredentials["timestamp"] ?? time();
          someValues = [
-            "oauth_version": "1.0",
-            "oauth_nonce": nonce,
-            "oauth_timestamp": timestamp,
-            "oauth_signature_method": "HMAC-SHA1",
-            "oauth_token": authCredentials["token"],
-            "oauth_consumer_key": _encode(authCredentials["consumerKey"]),
+            "oauth_version":  "1.0",
+            "oauth_nonce":  nonce,
+            "oauth_timestamp":  timestamp,
+            "oauth_signature_method":  "HMAC-SHA1",
+            "oauth_token":  authCredentials["token"],
+            "oauth_consumer_key":  _encode(authCredentials["consumerKey"]),
         ];
         baseString = this.baseString(request,  someValues);
 
@@ -143,11 +143,11 @@ class DOauth {
         nonce = credentials["nonce"] ?? bin2hex(Security.randomBytes(16));
         timestamp = credentials["timestamp"] ?? time();
          someValues = [
-            "oauth_version": "1.0",
-            "oauth_nonce": nonce,
-            "oauth_timestamp": timestamp,
-            "oauth_signature_method": "RSA-SHA1",
-            "oauth_consumer_key": credentials["consumerKey"],
+            "oauth_version":  "1.0",
+            "oauth_nonce":  nonce,
+            "oauth_timestamp":  timestamp,
+            "oauth_signature_method":  "RSA-SHA1",
+            "oauth_consumer_key":  credentials["consumerKey"],
         ];
         if (isSet(credentials["consumerSecret"])) {
              someValues["oauth_consumer_secret"] = credentials["consumerSecret"];
@@ -170,7 +170,7 @@ class DOauth {
             credentials["privateKey"] = privateKey;
         }
         credentials += [
-            "privateKeyPassphrase": "",
+            "privateKeyPassphrase":  "",
         ];
         if (isResource(credentials["privateKeyPassphrase"])) {
             resource = credentials["privateKeyPassphrase"];
@@ -213,7 +213,7 @@ class DOauth {
     
     // Builds a normalized URL
     protected string _normalizedUrl(IUri anUri) {
-        return anUri.getScheme() ~ "://" ~ anUri.getHost().lower ~ anUri.getPath();
+        return anUri.getScheme() ~ ": //" ~ anUri.getHost().lower ~ anUri.getPath();
     }
     
     /**

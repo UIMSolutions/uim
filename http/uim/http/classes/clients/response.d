@@ -137,10 +137,10 @@ class DClientResponse { // }: Message : IResponse {
                 this.reasonPhrase = strip(matches[3]);
                 continue;
             }
-            if (!aValue.has(":")) {
+            if (!aValue.has(": ")) {
                 continue;
             }
-            [name, aValue] = split(":", aValue, 2);
+            [name, aValue] = split(": ", aValue, 2);
             aValue = strip(aValue);
             /** @Dstan-var non-empty-string aName */
             string name = strip(name);

@@ -33,8 +33,8 @@ class DRequest { // }: Message, IRequest {
         setMethod(method);
         this.uri = this.createUri(url);
          aHeaders += [
-            "Connection": "close",
-            "User-Agent": ini_get("user_agent") ?: "UIM",
+            "Connection":  "close",
+            "User-Agent":  ini_get("user_agent") ?: "UIM",
         ];
         this.addHeaders(aHeaders);
 
@@ -74,7 +74,7 @@ class DRequest { // }: Message, IRequest {
             formData.addMany(requestBody);
             /** @Dstan-var array<non-empty-string, non-empty-string>  aHeaders *
             /
-             aHeaders = ["Content-Type": formData.contentType()];
+             aHeaders = ["Content-Type":  formData.contentType()];
             this.addHeaders(aHeaders);
             auto myFormData = (string)formData;
         }

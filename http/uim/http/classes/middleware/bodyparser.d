@@ -45,7 +45,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      * Json[string] options The options to use. See above.
      */
     this(Json[string] options = null) {
-        auto updatedOptions = options.update["Json": true.toJson, "xml": false.toJson, "methods": Json(null)];
+        auto updatedOptions = options.update["Json":  true.toJson, "xml":  false.toJson, "methods":  Json(null)];
         if (options["Json"]) {
             this.addParser(
                 ["application/Json", "text/Json"],
@@ -134,7 +134,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
     // Decode XML into an array.
     protected Json[string] decodeXml(string bodyToDecode) {
         try {
-            xml = Xml.build(bodyToDecode, ["return": "domdocument", "readFile": false.toJson]);
+            xml = Xml.build(bodyToDecode, ["return":  "domdocument", "readFile":  false.toJson]);
             // We might not get child nodes if there are nested inline entities.
             /** @var \DOMNodeList domNodeList */
             domNodeList = xml.childNodes;

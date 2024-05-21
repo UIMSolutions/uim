@@ -37,9 +37,9 @@ class DMockAdapter { //}: IAdapter {
             ));
         }
         this.responses ~= [
-            "request": request,
-            "response": response,
-            "options": options,
+            "request":  request,
+            "response":  response,
+            "options":  options,
         ];
     }
     
@@ -81,7 +81,7 @@ class DMockAdapter { //}: IAdapter {
 
             return [mock["response"]];
         }
-        throw new DMissingResponseException(["method": method, "url": requestUri]);
+        throw new DMissingResponseException(["method":  method, "url":  requestUri]);
     }
     
     // Check if the request URI matches the mock URI.

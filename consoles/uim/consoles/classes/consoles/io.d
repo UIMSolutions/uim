@@ -359,7 +359,7 @@ class DConsoleIo {
      * through uim`s Log class, call this auto with `enable=false`.
      *
      * If you would like to take full control of how console application logging
-     * to stdout works add a logger that uses `'className": 'Console'`. By
+     * to stdout works add a logger that uses `'className":  'Console'`. By
      * providing a console logger you replace the framework default behavior.
      * Params:
      * int|bool enable Use a boolean to enable/toggle all logging. Use
@@ -387,16 +387,16 @@ class DConsoleIo {
         }
         if (enable != QUIET) {
             stdout = new DConsoleLog([
-                "types": outLevels,
-                "stream": _out,
+                "types":  outLevels,
+                "stream":  _out,
             ]);
-            Log.configuration.update("stdout", ["engine": stdout]);
+            Log.configuration.update("stdout", ["engine":  stdout]);
         }
         stderr = new DConsoleLog([
-            "types": ["emergency", "alert", "critical", "error", "warning"],
-            "stream": _err,
+            "types":  ["emergency", "alert", "critical", "error", "warning"],
+            "stream":  _err,
         ]);
-        Log.configuration.update("stderr", ["engine": stderr]);
+        Log.configuration.update("stderr", ["engine":  stderr]);
     }
     
     /**

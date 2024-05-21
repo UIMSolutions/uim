@@ -60,9 +60,9 @@ string timeToDateString(size_t time, string regionFormat = "DE") {
 	auto sec = to!string(sysTime.second);
 	
 	switch(regionFormat) {
-		case "UK":
+		case "UK": 
 			return "%s/%s/%s - %s:%s:%s".format(day, mon, year, hour, min, sec);
-		case "US":
+		case "US": 
 			return "%s/%s/%s - %s:%s:%s".format(mon, day, year, hour, min, sec);
 		default: 
 			return "%s. %s. %s - %s:%s:%s".format(day, mon, year, hour, min, sec);

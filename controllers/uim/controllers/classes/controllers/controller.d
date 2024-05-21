@@ -272,10 +272,10 @@ class DController : IController { // IEventListener, IEventDispatcher {
 
         if (!this.isAction(action)) {
             throw new DMissingActionException([
-                "controller": _name ~ "Controller",
-                "action":  request.getParam("action"),
-                "prefix":  request.getParam("prefix") ?: "",
-                "plugin":  request.getParam("plugin"),
+                "controller":  _name ~ "Controller",
+                "action":   request.getParam("action"),
+                "prefix":   request.getParam("prefix") ?: "",
+                "plugin":   request.getParam("plugin"),
             ]);
         }
         return _action(...);
@@ -311,8 +311,8 @@ class DController : IController { // IEventListener, IEventDispatcher {
     }
     void middleware(string amiddleware, Json[string] options = null) {
         this.middlewares ~= [
-            "middleware":  middleware,
-            "options": options,
+            "middleware":   middleware,
+            "options":  options,
         ];
     }
 
@@ -346,10 +346,10 @@ class DController : IController { // IEventListener, IEventDispatcher {
      */
     IEvent[] implementedEvents() {
         return [
-            "Controller.initialize": "beforeFilter",
-            "Controller.beforeRender": "beforeRender",
-            "Controller.beforeRedirect": "beforeRedirect",
-            "Controller.shutdown": "afterFilter",
+            "Controller.initialize":  "beforeFilter",
+            "Controller.beforeRender":  "beforeRender",
+            "Controller.beforeRedirect":  "beforeRedirect",
+            "Controller.shutdown":  "afterFilter",
         ];
     }
     

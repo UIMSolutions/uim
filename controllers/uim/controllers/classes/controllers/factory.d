@@ -137,13 +137,13 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
                     continue;
                 }
                 throw new DInvalidParameterException([
-                    "template": "missing_dependency",
-                    "parameter": parameter.name,
-                    "type": typeName,
-                    "controller": _controller.name,
-                    "action": _controller.getRequest().getParam("action"),
-                    "prefix": _controller.getRequest().getParam("prefix"),
-                    "plugin": _controller.getRequest().getParam("plugin"),
+                    "template":  "missing_dependency",
+                    "parameter":  parameter.name,
+                    "type":  typeName,
+                    "controller":  _controller.name,
+                    "action":  _controller.getRequest().getParam("action"),
+                    "prefix":  _controller.getRequest().getParam("prefix"),
+                    "plugin":  _controller.getRequest().getParam("plugin"),
                 ]);
             }
             // Use any passed params as positional arguments
@@ -154,14 +154,14 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
 
                     if (typedArgument.isNull) {
                         throw new DInvalidParameterException([
-                            "template": "failed_coercion".toJson,
-                            "passed": argument.toJson,
-                            "type": type.name.toJson,
-                            "parameter": parameter.name.toJson,
-                            "controller": _controller.name.toJson,
-                            "action": _controller.getRequest().getParam("action").toJson,
-                            "prefix": _controller.getRequest().getParam("prefix").toJson,
-                            "plugin": _controller.getRequest().getParam("plugin").toJson,
+                            "template":  "failed_coercion".toJson,
+                            "passed":  argument.toJson,
+                            "type":  type.name.toJson,
+                            "parameter":  parameter.name.toJson,
+                            "controller":  _controller.name.toJson,
+                            "action":  _controller.getRequest().getParam("action").toJson,
+                            "prefix":  _controller.getRequest().getParam("prefix").toJson,
+                            "plugin":  _controller.getRequest().getParam("plugin").toJson,
                         ]);
                     }
                     argument = typedArgument;
@@ -179,12 +179,12 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
                 continue;
             }
             throw new DInvalidParameterException([
-                "template": "missing_parameter",
-                "parameter": parameter.name,
-                "controller": _controller.name,
-                "action": _controller.getRequest().getParam("action"),
-                "prefix": _controller.getRequest().getParam("prefix"),
-                "plugin": _controller.getRequest().getParam("plugin"),
+                "template":  "missing_parameter",
+                "parameter":  parameter.name,
+                "controller":  _controller.name,
+                "action":  _controller.getRequest().getParam("action"),
+                "prefix":  _controller.getRequest().getParam("prefix"),
+                "plugin":  _controller.getRequest().getParam("plugin"),
             ]);
         }
         return array_merge(resolved, passedParams);
@@ -193,11 +193,11 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
     // Coerces string argument to primitive type.
     protected string[] coerceStringToType(string argumentToCoerce, ReflectionNamedType parameterType) {
         return match (parameterType.name) {
-            "string": argumentToCoerce,
-            "float": isNumeric(argumentToCoerce) ? (float)argumentToCoerce : null,
-            "int": filter_var(argumentToCoerce, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE),
-            "bool": argumentToCoerce == "0" ? false : (argumentToCoerce == "1" ? true : null),
-            "array": argumentToCoerce == "" ? [] : split(",", argumentToCoerce),
+            "string":  argumentToCoerce,
+            "float":  isNumeric(argumentToCoerce) ? (float)argumentToCoerce : null,
+            "int":  filter_var(argumentToCoerce, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE),
+            "bool":  argumentToCoerce == "0" ? false : (argumentToCoerce == "1" ? true : null),
+            "array":  argumentToCoerce == "" ? [] : split(",", argumentToCoerce),
             default: Json(null),
         };
     }
@@ -242,10 +242,10 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      */
     protected DMissingControllerException missingController(ServerRequest serverRequest) {
         return new DMissingControllerException([
-            "controller":  request.getParam("controller"),
-            "plugin":  request.getParam("plugin"),
-            "prefix":  request.getParam("prefix"),
-            "_ext":  request.getParam("_ext"),
+            "controller":   request.getParam("controller"),
+            "plugin":   request.getParam("plugin"),
+            "prefix":   request.getParam("prefix"),
+            "_ext":   request.getParam("_ext"),
         ]);
     } */
 }

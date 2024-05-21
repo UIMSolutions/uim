@@ -87,7 +87,7 @@ V[K] copyFrom(V, K)(V[K] leftValues, V[K] rightValues) { // right will overright
 
 ///
 unittest {
-  assert(["a": "b"].copyFrom(["c": "d"]) == ["a": "b", "c": "d"]);
+  assert(["a":  "b"].copyFrom(["c":  "d"]) == ["a":  "b", "c":  "d"]);
 }
 
 /// Concat rightValues to leftValues   
@@ -99,8 +99,8 @@ V[K] concatPrefixInValues(V, K)(V[K] leftValues, V preValue) { // right will ove
 }
 
 unittest {
-  assert(["a": "b"].concatPrefixInValues("abc") == ["a": "abcb"]);
-  assert(["a": [1, 2, 3]].concatPrefixInValues([0]) == ["a": [0, 1, 2, 3]]);
+  assert(["a":  "b"].concatPrefixInValues("abc") == ["a":  "abcb"]);
+  assert(["a":  [1, 2, 3]].concatPrefixInValues([0]) == ["a":  [0, 1, 2, 3]]);
 }
 
 /// Concat rightValues to leftValues   
@@ -112,8 +112,8 @@ V[K] concatPostfixInValues(V, K)(V[K] leftValues, V postValue) { // right will o
 }
 ///
 unittest {
-  assert(["a": "b"].concatPostfixInValues("abc") == ["a": "babc"]);
-  assert(["a": [1, 2, 3]].concatPostfixInValues([4]) == ["a": [1, 2, 3, 4]]);
+  assert(["a":  "b"].concatPostfixInValues("abc") == ["a":  "babc"]);
+  assert(["a":  [1, 2, 3]].concatPostfixInValues([4]) == ["a":  [1, 2, 3, 4]]);
 }
 
 /// Concat rightValues to leftValues   
@@ -127,7 +127,7 @@ V[string] concatPrefixInKeys(V)(V[string] leftValues, string preValue) { // righ
 
 version (test_uim_core) {
   unittest {
-    assert(["a": "b"].concatPrefixInKeys("abc") == ["abca": "b"]);
+    assert(["a":  "b"].concatPrefixInKeys("abc") == ["abca":  "b"]);
   }
 }
 
@@ -141,6 +141,6 @@ V[K] concatPostfixInKeys(V, K)(V[K] leftValues, V postValue) { // right will ove
 
 version (test_uim_core) {
   unittest {
-    assert(["a": "b"].concatPostfixInKeys("abc") == ["aabc": "b"]);
+    assert(["a":  "b"].concatPostfixInKeys("abc") == ["aabc":  "b"]);
   }
 }

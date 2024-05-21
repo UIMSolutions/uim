@@ -21,7 +21,7 @@ bool isObject(Json aJson) {
 }
 ///
 unittest {
-  assert(parseJsonString(`{"a":"b"}`).isObject);
+  assert(parseJsonString(`{"a": "b"}`).isObject);
   assert(!parseJsonString(`["a", "b", "c"]`).isObject);
 }
 
@@ -31,7 +31,7 @@ bool isArray(Json aJson) {
 ///
 unittest {
   assert(parseJsonString(`["a", "b", "c"]`).isArray);
-  assert(!parseJsonString(`{"a":"b"}`).isArray);
+  assert(!parseJsonString(`{"a": "b"}`).isArray);
 }
 
 bool isBigInteger(Json aJson) {
@@ -118,7 +118,7 @@ bool hasAllKeys(Json aJson, string[] keys, bool deepSearch = false) {
 }
 ///
 unittest {
-  auto json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}]}`);
+  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
   assert(json.hasAllKeys(["a", "c"]));
   assert(json.hasAllKeys(["a", "d"], true));
 }
@@ -135,7 +135,7 @@ bool hasAnyKey(Json aJson, string[] keys, bool deepSearch = false) {
 }
 ///
 unittest {
-  auto json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}]}`);
+  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
   assert(json.hasAnyKey(["a"]));
   assert(json.hasAnyKey(["d"], true));
 }
@@ -171,7 +171,7 @@ bool hasKey(Json aJson, string key, bool deepSearch = false) {
 ///
 version (test_uim_core) {
   unittest {
-    auto json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}]}`);
+    auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
     assert(json.hasKey("a"));
     assert(json.hasKey("d", true));
   }
@@ -187,7 +187,7 @@ bool hasAllValues(Json aJson, Json[] values, bool deepSearch = false) {
 ///
 version (test_uim_core) {
   unittest {
-    auto json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}], "i":"j"}`);
+    auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}], "i": "j"}`);
     assert(json.hasAllValues([Json("b"), Json("j")]));
     assert(json.hasAllValues([Json("h"), Json(1)], true));
   }
@@ -200,7 +200,7 @@ bool hasAnyValue(Json jsonData, Json[] values, bool deepSearch = false) {
 ///
 version (test_uim_core) {
   unittest {
-    auto json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}], "i":"j"}`);
+    auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}], "i": "j"}`);
     assert(json.hasAllValues([Json("b"), Json("j")]));
     assert(json.hasAllValues([Json("h"), Json(1)], true));
   }
@@ -237,7 +237,7 @@ bool hasValue(Json jsonData, Json value, bool deepSearch = false) {
 }
 ///
 unittest {
-  auto json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}]}`);
+  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
   assert(json.hasValue(Json("b")));
   assert(json.hasValue(Json("h"), true));
   assert(!json.hasValue(Json("x")));
@@ -258,7 +258,7 @@ bool hasPath(Json aJson, string path) {
 }
 ///
 unittest {
-  auto json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}]}`);
+  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
   assert(json.hasPath("/c/d"));
   assert(!json.hasPath("/x/y"));
 }
@@ -287,7 +287,7 @@ bool hasPath(Json json, string[] pathItems) {
 }
 ///
 unittest {
-  auto json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}]}`);
+  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
   assert(json.hasPath(["c", "d"]));
 }
 
@@ -323,7 +323,7 @@ Json removeKeys(Json aJson, string[] delKeys) {
 }
 ///
 unittest {
-  auto json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}]}`);
+  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
   assert(json.hasValue(Json("b")));
   assert(json.hasValue(Json("h"), true));
 }
@@ -345,11 +345,11 @@ Json remove(Json json, string aKey) {
 
 version (test_uim_core) {
   unittest {
-    auto json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}]}`);
+    auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
     assert(json.hasKey("a"));
     assert(!json.remove("a").hasKey("a"));
 
-    json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}]}`);
+    json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
     assert(!json.hasKey("x"));
     assert(!json.remove("x").hasKey("x"));
     assert(json.remove("x").hasKey("a"));
@@ -451,10 +451,10 @@ T minValue(T)(Json[] jsons, string key) {
 unittest {
   assert(minValue!string(
       [
-      ["a": "5"].toJson,
-      ["a": "2"].toJson,
-      ["a": "1"].toJson,
-      ["a": "4"].toJson
+      ["a":  "5"].toJson,
+      ["a":  "2"].toJson,
+      ["a":  "1"].toJson,
+      ["a":  "4"].toJson
     ], "a") == "1");
 }
 
@@ -485,10 +485,10 @@ version (test_uim_core) {
   unittest {
     assert(maxValue!string(
         [
-        ["a": "5"].toJson,
-        ["a": "2"].toJson,
-        ["a": "1"].toJson,
-        ["a": "4"].toJson
+        ["a":  "5"].toJson,
+        ["a":  "2"].toJson,
+        ["a":  "1"].toJson,
+        ["a":  "4"].toJson
       ], "a") == "5");
   }
 }
@@ -577,8 +577,8 @@ Json toJson(string aKey, string aValue) {
     return json;
   }
   unittest {
-    assert(["a": "1", "b": "2", "c": "3"].toJson.length == 3);
-    assert(["a": "1", "b": "2", "c": "3"].toJson["a"] == "1");
+    assert(["a":  "1", "b":  "2", "c":  "3"].toJson.length == 3);
+    assert(["a":  "1", "b":  "2", "c":  "3"].toJson["a"] == "1");
   }
 // #endregion toJson
 
@@ -606,12 +606,12 @@ Json set(T)(Json json, T[string] newValues) {
 }
 ///
 unittest {
-  auto json = parseJsonString(`{"a":"b", "x":"y"}`);
-  assert(json.set(["a": "c"])["a"].get!string == "c");
+  auto json = parseJsonString(`{"a": "b", "x": "y"}`);
+  assert(json.set(["a":  "c"])["a"].get!string == "c");
 
-  json = parseJsonString(`{"a":"b", "x":"y"}`);
-  assert(json.set(["a": "c", "x": "z"])["x"].get!string == "z");
-  assert(json.set(["a": "c", "x": "z"])["x"].get!string != "c");
+  json = parseJsonString(`{"a": "b", "x": "y"}`);
+  assert(json.set(["a":  "c", "x":  "z"])["x"].get!string == "z");
+  assert(json.set(["a":  "c", "x":  "z"])["x"].get!string != "c");
 }
 // #endregion
 
@@ -632,8 +632,8 @@ Json mergeJsons(Json[] jsons, bool overwrite = true) {
 }
 ///
 /* unittest {
-  auto json0 = parseJsonString(`{"a":"b", "c":{"d":1}}`);
-  auto json1 = parseJsonString(`{"e":["f", {"g":"h"}]}`);
+  auto json0 = parseJsonString(`{"a": "b", "c": {"d": 1}}`);
+  auto json1 = parseJsonString(`{"e": ["f", {"g": "h"}]}`);
   auto mergeJson = mergeJsons(json0, json1);
   assert(mergeJson.hasKey("a") && mergeJson.hasKey("e"), mergeJson.toString);
 } */
@@ -656,8 +656,8 @@ Json mergeJsonObjects(Json baseJson, Json mergeJson, bool overwrite = true) {
 
 ///
 unittest {
-  auto json0 = parseJsonString(`{"a":"b", "c":{"d":1}}`);
-  auto json1 = parseJsonString(`{"e":["f", {"g":"h"}]}`);
+  auto json0 = parseJsonString(`{"a": "b", "c": {"d": 1}}`);
+  auto json1 = parseJsonString(`{"e": ["f", {"g": "h"}]}`);
   auto mergeJson = mergeJsonObjects(json0, json1);
   assert(mergeJson.hasKey("a") && mergeJson.hasKey("e"), mergeJson.toString);
 }
@@ -686,10 +686,10 @@ Json jsonWithMinVersion(Json[] jsons) {
 }
 ///
 unittest {
-  auto json1 = parseJsonString(`{"versionNumber":1}`);
-  auto json2 = parseJsonString(`{"versionNumber":2}`);
+  auto json1 = parseJsonString(`{"versionNumber": 1}`);
+  auto json2 = parseJsonString(`{"versionNumber": 2}`);
 
-  auto json3 = parseJsonString(`{"versionNumber":3}`);
+  auto json3 = parseJsonString(`{"versionNumber": 3}`);
 
   assert(jsonWithMinVersion(json1, json2)["versionNumber"].get!size_t == 1);
   assert(jsonWithMinVersion([json1, json2])["versionNumber"].get!size_t == 1);
@@ -723,10 +723,10 @@ Json jsonWithMaxVersion(Json[] jsons) {
 }
 ///
 unittest {
-  auto json1 = parseJsonString(`{"versionNumber":1}`);
-  auto json2 = parseJsonString(`{"versionNumber":2}`);
+  auto json1 = parseJsonString(`{"versionNumber": 1}`);
+  auto json2 = parseJsonString(`{"versionNumber": 2}`);
 
-  auto json3 = parseJsonString(`{"versionNumber":3}`);
+  auto json3 = parseJsonString(`{"versionNumber": 3}`);
 
   assert(jsonWithMaxVersion(json1, json2)["versionNumber"].get!size_t == 2);
   assert(jsonWithMaxVersion([json1, json2])["versionNumber"].get!size_t == 2);
@@ -758,9 +758,9 @@ size_t maxVersionNumber(Json[] jsons) {
 }
 ///
 unittest {
-  auto json1 = parseJsonString(`{"versionNumber":1}`);
-  auto json2 = parseJsonString(`{"versionNumber":2}`);
-  auto json3 = parseJsonString(`{"versionNumber":3}`);
+  auto json1 = parseJsonString(`{"versionNumber": 1}`);
+  auto json2 = parseJsonString(`{"versionNumber": 2}`);
+  auto json3 = parseJsonString(`{"versionNumber": 3}`);
 
   assert(maxVersionNumber(json1, json2) == 2);
   assert(maxVersionNumber([json1, json2]) == 2);
@@ -779,7 +779,7 @@ Json toArray(Json data) {
 }
 
 unittest {
-  auto json1 = parseJsonString(`{"versionNumber":1}`);
+  auto json1 = parseJsonString(`{"versionNumber": 1}`);
   // TODO create test
 }
 
@@ -820,14 +820,14 @@ unittest {
   Json json = Json.emptyObject;
   json["a"] = "hallo";
   assert(json["a"].get!string == "hallo");
-  json = json.update(["a": "world"]);
+  json = json.update(["a":  "world"]);
   assert(json["a"].get!string == "world");
 
   json = Json.emptyArray;
   json ~= Json("hallo");
   json ~= Json(42);
   json ~= true.toJson;
-  json = json.update(["a": "world"]);
+  json = json.update(["a":  "world"]);
   assert(json["a"].get!string == "world");
 }
 

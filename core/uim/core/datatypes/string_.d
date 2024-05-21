@@ -39,8 +39,8 @@ string bind(string source, STRINGAA replaceMap, string placeHolder = "{{%s}}") {
 	return updatedText;
 }
 unittest {
-	assert("{{abc}}".bind(["abc": "xyz"]) == "xyz");
-	assert("0{{abc}}0".bind(["abc": "xyz"]) == "0xyz0");
+	assert("{{abc}}".bind(["abc":  "xyz"]) == "xyz");
+	assert("0{{abc}}0".bind(["abc":  "xyz"]) == "0xyz0");
 }
 
 

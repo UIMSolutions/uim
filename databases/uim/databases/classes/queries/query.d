@@ -314,9 +314,9 @@ abstract class DQuery : IQuery { // : IExpression {
      * It will produce the SQL: SELECT HIGH_PRIORITY SQL_NO_CACHE name, city FROM products
      * ```
      * Params:
-     * \UIM\Database\IExpression|string[] amodifiers modifiers to be applied to the query
+     * \UIM\Database\/* IExpression| */ string[] amodifiers modifiers to be applied to the query
      */
-    void modifier(IExpression|string[] amodifiers, bool shouldOverwrite = false) {
+    void modifier(/* IExpression| */ string[] amodifiers, bool shouldOverwrite = false) {
        _isDirty();
         if (shouldOverwrite) {
            _parts["modifier"] = null;
@@ -733,10 +733,10 @@ abstract class DQuery : IQuery { // : IExpression {
     /**
      * Convenience method that adds a NOT NULL condition to the query
      * Params:
-     * \UIM\Database\IExpression|string[] fieldNames A single field or expressions or a list of them
+     * \UIM\Database\/* IExpression| */ string[] fieldNames A single field or expressions or a list of them
      * that should be not null.
      */
-    auto whereNotNull(IExpression|string[] fieldNames) {
+    auto whereNotNull(/* IExpression| */ string[] fieldNames) {
         if (!isArray(fields)) {
             fields = [fields];
         }
@@ -749,10 +749,10 @@ abstract class DQuery : IQuery { // : IExpression {
     /**
      * Convenience method that adds a isNull condition to the query
      * Params:
-     * \UIM\Database\IExpression|string[] fieldNames A single field or expressions or a list of them
+     * \UIM\Database\/* IExpression| */ string[] fieldNames A single field or expressions or a list of them
      * that should be null.
      */
-    auto whereNull(IExpression|string[] fieldNames) {
+    auto whereNull(/* IExpression| */ string[] fieldNames) {
         if (!isArray(fields)) {
             fields = [fields];
         }
@@ -1118,9 +1118,9 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * Epliog content is raw SQL and not suitable for use with user supplied data.
      * Params:
-     * \UIM\Database\IExpression|string expression The expression to be appended
+     * \UIM\Database\/* IExpression| */ string expression The expression to be appended
      */
-    auto epilog(IExpression|string expression = null) {
+    auto epilog(/* IExpression| */ string expression = null) {
        _isDirty();
        _parts["epilog"] = expression;
 
@@ -1167,9 +1167,9 @@ abstract class DQuery : IQuery { // : IExpression {
      * expression = aQuery.expr("Table.column = Table2.column"); // Return a raw SQL expression
      * ```
      * Params:
-     * \UIM\Database\IExpression|string[] rawExpression A string, Json[string] or anything you want wrapped in an expression object
+     * \UIM\Database\/* IExpression| */ string[] rawExpression A string, Json[string] or anything you want wrapped in an expression object
      */
-    QueryExpression newExpr(IExpression|string[] rawExpression = null) {
+    QueryExpression newExpr(/* IExpression| */ string[] rawExpression = null) {
         return _expr(rawExpression);
     }
     
@@ -1187,9 +1187,9 @@ abstract class DQuery : IQuery { // : IExpression {
      * expression = aQuery.expr("Table.column = Table2.column"); // Return a raw SQL expression
      * ```
      * Params:
-     * \UIM\Database\IExpression|string[] rawExpression A string, Json[string] or anything you want wrapped in an expression object
+     * \UIM\Database\/* IExpression| */ string[] rawExpression A string, Json[string] or anything you want wrapped in an expression object
      */
-    QueryExpression expr(IExpression|string[] rawExpression = null) {
+    QueryExpression expr(/* IExpression| */ string[] rawExpression = null) {
         expression = new DQueryExpression([], getTypeMap());
 
         if (!rawExpressionisNull) {

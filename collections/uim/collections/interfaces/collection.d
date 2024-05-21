@@ -413,11 +413,8 @@ interface ICollection {
      * 11: 1
      * ];
      * ```
-     *
-     * @param callable|string path The column name to use for indexing or callback that returns the value.
-     * or a // function returning the indexing key out of the provided element
      */
-    ICollection countBy(string path);
+    ICollection countBy(string columnName);
 
     /**
      * Returns the total sum of all the values extracted with  matcher

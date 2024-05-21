@@ -19,14 +19,14 @@ interface IWindow {
     /**
      * Adds one or more partition expressions to the window.
      * Params:
-     * \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string apartitions Partition expressions
+     * \UIM\Database\IExpression|\Closure|array<\UIM\Database\/* IExpression| */ string>|string apartitions Partition expressions
      */
     auto partition(/* IExpression|Closure */string[] apartitions);
 
     /**
      * Adds one or more order by clauses to the window.
      * Params:
-     * \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string fieldNames DOrder expressions
+     * \UIM\Database\IExpression|\Closure|array<\UIM\Database\/* IExpression| */ string>|string fieldNames DOrder expressions
      */
     auto orderBy(/* IExpression|Closure */string[] fieldNames);
 
@@ -46,7 +46,7 @@ interface IWindow {
      * If you need to use 'FOLLOWING' with frame start or
      * 'PRECEDING' with frame end, use `frame()` instead.
      */
-    auto range(/* IExpression|string */ int frameStart = 0, /* IExpression|string */ int frameEnd = 0);
+    auto range(/* /* IExpression| */ string */ int frameStart = 0, /* /* IExpression| */ string */ int frameEnd = 0);
 
     // Adds a simple rows frame to the window.
     auto rows(int frameStart, int frameEnd = 0);
@@ -68,9 +68,9 @@ interface IWindow {
      */
     void frame(
         string frameType,
-        /* IExpression|string| */ int frameStartOffset,
+        /* /* IExpression| */ string| */ int frameStartOffset,
         string frameStartDirection,
-        /* IExpression|string| */ int frameEndOffset,
+        /* /* IExpression| */ string| */ int frameEndOffset,
         string frameEndDirection
     );
 

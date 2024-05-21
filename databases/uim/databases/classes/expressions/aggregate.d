@@ -60,7 +60,7 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
         getWindow().orderBy(fields);
     }
  
-    void range(IExpression|string|int start, IExpression|string|int end = 0) {
+    void range(/* IExpression| */ string|int start, /* IExpression| */ string|int end = 0) {
         getWindow().range(start, end);
     }
  
@@ -74,9 +74,9 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
  
     void frame(
         string atype,
-        IExpression|string|int startOffset,
+        /* IExpression| */ string|int startOffset,
         string astartDirection,
-        IExpression|string|int endOffset,
+        /* IExpression| */ string|int endOffset,
         string aendDirection
     ) {
         getWindow().frame(type, startOffset, startDirection, endOffset, endDirection);

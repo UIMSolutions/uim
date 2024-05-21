@@ -15,7 +15,7 @@ class DOrderClauseExpression : DExpression { // TODO }, IField {
   /**
      
      * Params:
-     * \UIM\Database\IExpression|string fieldName The field to order on.
+     * \UIM\Database\/* IExpression| */ string fieldName The field to order on.
      */
   this(IExpression afield, string sortDirection) {
     // TODO

@@ -35,7 +35,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
     protected IExpression[] _valueExpressions;
 
     this(
-        IExpression|string fieldName,
+        /* IExpression| */ string fieldName,
         Json valueToCompare,
         string typeName = null,
         string operator = "="

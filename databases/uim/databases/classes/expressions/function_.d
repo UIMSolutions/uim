@@ -40,7 +40,7 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
     }
 
     // Adds one or more arguments for the auto call.
-    void add(IExpression|string[] conditionArguments, Json[string] associatedTypes = null, bool prependOrAppend = false) {
+    void add(/* IExpression| */ string[] conditionArguments, Json[string] associatedTypes = null, bool prependOrAppend = false) {
         string put = prependOrAppend ? "array_unshift" : "array_push";
         typeMap = getTypeMap().setTypes(associatedTypes);
 

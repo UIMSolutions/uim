@@ -11,7 +11,7 @@ import uim.i18n;
  */
 string __(string asingular, Json ...someArguments) {
     if (!singular) {
-        return "";
+        return null;
     }
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
         someArguments = someArguments[0];
@@ -24,7 +24,7 @@ string __(string asingular, Json ...someArguments) {
  */
 string __n(string singularText, string pluralText, size_t count, Json ...someArguments) {
     if (!singularText) {
-        return "";
+        return null;
     }
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
         someArguments = someArguments[0];
@@ -44,7 +44,7 @@ string __n(string singularText, string pluralText, size_t count, Json ...someArg
  */
 string __d(string adomain, string messageToTranslate, Json ...someArguments) {
     if (messageToTranslate.isEmpty) {
-        return "";
+        return null;
     }
 
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
@@ -67,7 +67,7 @@ string __d(string adomain, string messageToTranslate, Json ...someArguments) {
 string __dn(string adomain, string asingular, string aplural, int count, Json ...someArguments): 
 {
     if (singular.isEmpty) {
-        return "";
+        return null;
     }
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
         someArguments = someArguments[0];
@@ -89,7 +89,7 @@ string __dn(string adomain, string asingular, string aplural, int count, Json ..
 string __x(string acontext, string asingular, Json ...someArguments)
 {
     if (!singular) {
-        return "";
+        return null;
     }
     if (isSet(someArguments[0]) && someArguments[0].isArray) {
         someArguments = someArguments[0];
@@ -110,7 +110,7 @@ string __x(string acontext, string asingular, Json ...someArguments)
  */
 string __xn(string acontext, string asingular, string aplural, int count, Json ...someArguments) {
     if (!singular) {
-        return "";
+        return null;
     }
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
         someArguments = someArguments[0];
@@ -133,7 +133,7 @@ string __xn(string acontext, string asingular, string aplural, int count, Json .
  */
 string __dx(string adomain, string acontext, string amsg, Json ...someArguments) {
     if (!message) {
-        return "";
+        return null;
     }
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
         someArguments = someArguments[0];
@@ -166,7 +166,7 @@ string __dxn(
     Json ...someArguments
 ) {
     if (!singular) {
-        return "";
+        return null;
     }
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
         someArguments = someArguments[0];

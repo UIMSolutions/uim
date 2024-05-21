@@ -867,7 +867,7 @@ class DServerRequest { // }: IServerRequest {
     string domain(int tldLength = 1) {
         auto host = this.host();
         if (isEmpty(host)) {
-            return "";
+            return null;
         }
         
         string[] segments = host.split(".");

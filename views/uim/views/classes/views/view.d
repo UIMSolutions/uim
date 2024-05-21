@@ -188,7 +188,7 @@ class DView : IView { //  }: IEventDispatcher {
 
 // Mime-type this view class renders as.
 static string contentType() {
-    return "";
+    return null;
 }
 // #endregion contentType
 
@@ -473,7 +473,7 @@ static string contentType() {
             return _renderElement(filepath, mydata, options);
         }
         if (options["ignoreMissing"]) {
-            return "";
+            return null;
         }
         [_plugin, myelementName] = _pluginSplit(templatefilename, _pluginCheck);
         auto mypaths = iterator_to_array(_getElementPaths(_plugin));

@@ -138,7 +138,7 @@ class DDateTimeWidget : DWidget {
         Json[string] optionsForConversion
     ) {
         if (myvalue == "" || myvalue.isNull) {
-            return "";
+            return null;
         }
         try {
             if (cast(IDateTime)myvalue  || cast(DChronosDate)myvalue || cast(DChronosTime)myvalue) {

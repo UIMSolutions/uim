@@ -186,7 +186,7 @@ Json oneVersion(Json[size_t] jsons) {
 }
 
 string versionPath(Json json, string sep = "/", string extension = ".json") {
-  if (json.isEmpty) return "";
+  if (json.isEmpty) return null;
  
   if ("id" in json && "versionNumber" in json) return json["id"].get!string~sep~"1"~extension;
 
@@ -195,7 +195,7 @@ string versionPath(Json json, string sep = "/", string extension = ".json") {
 }
 
 /* string jsonversionPath(Json json, string sep = "/") {
-  if (json.isEmpty) return "";
+  if (json.isEmpty) return null;
  
   if ("id" in json && "versionNumber" in json) return json["id"].get!string~sep~"1.json";
 
@@ -204,7 +204,7 @@ string versionPath(Json json, string sep = "/", string extension = ".json") {
 } */
 
 /* string jsonversionPath(string startPath, Json json, string sep = "/") {
-  if (json.isEmpty) return "";
+  if (json.isEmpty) return null;
   return startPath~sep~jsonversionPath(json, sep);
 } */
 

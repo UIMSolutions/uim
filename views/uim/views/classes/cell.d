@@ -207,7 +207,7 @@ abstract class DCell { // }: IEventDispatcher {
                 .format(exception.getMessage(), exception.getFile(), exception.getLine()), 
                 E_USER_WARNING);
 
-            return "";
+            return null;
         } catch (DError error) {
             throw new DError(
                 "Could not render cell - %s [%s, line %d]"

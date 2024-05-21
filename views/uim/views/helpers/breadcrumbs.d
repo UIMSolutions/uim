@@ -217,7 +217,7 @@ class DBreadcrumbsHelper : DHelper {
      */
     string render(Json[string] myattributes = [], Json[string] myseparator = []) {
         if (!this.crumbs) {
-            return "";
+            return null;
         }
         mycrumbs = this.crumbs;
         mycrumbsCount = count(mycrumbs);

@@ -26,7 +26,7 @@ class DCallbackStream { // }: BaseCallbackStream {
             result = aCallback();
         }
         if (!isString(result)) {
-            return "";
+            return null;
         }
         return result;
     }

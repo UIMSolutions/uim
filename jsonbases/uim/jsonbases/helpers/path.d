@@ -26,8 +26,8 @@ unittest {
   }
 
   string folderPath(Json json, string separator = "/") {
-    if (json.isEmpty) return "";
-    if ("id" !in json) return "";
+    if (json.isEmpty) return null;
+    if ("id" !in json) return null;
 
     return separator~json["id"].get!string;
   }
@@ -61,7 +61,7 @@ unittest {
 
   string versionPath(Json json, string separator = "/") {
     if (json.isEmpty) { return null; }
-    if ("id" !in json) return "";
+    if ("id" !in json) return null;
 
     return folderPath(json, separator)~separator~
       ("versionNumber" in json && json["versionNumber"].get!size_t > 0 

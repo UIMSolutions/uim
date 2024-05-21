@@ -36,6 +36,6 @@ class DNegotiationRequiredView : DView {
      * @param string|null mylayout Layout to use. False to disable.
      */
     string render(string templateName = null, string | false | nullmylayout = null) {
-        return "";
+        return null;
     }
 }

@@ -411,7 +411,7 @@ class DFormHelper : DHelper {
 
         mycsrfToken = myrequest.getAttribute("csrfToken");
         if (!mycsrfToken) {
-            return "";
+            return null;
         }
         return _hidden("_csrfToken", [
             "value": mycsrfToken,
@@ -461,7 +461,7 @@ class DFormHelper : DHelper {
      */
     string secure(Json[string] fieldNames = [], Json[string] mysecureAttributes = []) {
         if (!this.formProtector) {
-            return "";
+            return null;
         }
         foreach (fieldNames as fieldName: myvalue) {
             if (isInt(fieldName)) {
@@ -571,7 +571,7 @@ class DFormHelper : DHelper {
 
         formContext = _getContext();
         if (!formContext.hasError(fieldName)) {
-            return "";
+            return null;
         }
         myerror = formContext.error(fieldName);
 

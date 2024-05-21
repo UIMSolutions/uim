@@ -81,7 +81,7 @@ class DatabaseSession { // }: SessionHandler {
             .first();
 
         if (result.isEmpty) {
-            return "";
+            return null;
         }
         if (isString(result["data"])) {
             return result["data"];

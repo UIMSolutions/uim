@@ -26,7 +26,7 @@ public  {
 @safe:
 string filePath(Json json, string sep = "/", string extension = ".json") {
   if (json.isNull)
-    return "";
+    return null;
 
   if ("id" in json && "versionNumber" in json) {
     return json["id"].get!string ~ sep ~ "1" ~ extension;
@@ -38,7 +38,7 @@ string filePath(Json json, string sep = "/", string extension = ".json") {
 }
 
 /* string jsonFilePath(Json json, string sep = "/") {
-  if (json.isNull) return "";
+  if (json.isNull) return null;
  
   if ("id" in json && "versionNumber" in json) return json["id"].get!string~sep~"1.json";
 
@@ -47,7 +47,7 @@ string filePath(Json json, string sep = "/", string extension = ".json") {
 } */
 
 /* string jsonFilePath(string startPath, Json json, string sep = "/") {
-  if (json.isNull) return "";
+  if (json.isNull) return null;
   return startPath~sep~jsonFilePath(json, sep);
 } */
 
@@ -61,18 +61,18 @@ string dirPath(UUID id, string separator = "/") {
 
 string dirPath(string path, Json json, string separator = "/") {
   if (json.isNull)
-    return "";
+    return null;
   if ("id" !in json)
-    return "";
+    return null;
 
   return path ~ dirPath(json, separator);
 }
 
 string dirPath(Json json, string separator = "/") {
   if (json.isNull)
-    return "";
+    return null;
   if ("id" !in json)
-    return "";
+    return null;
 
   return separator ~ json["id"].get!string;
 }
@@ -87,18 +87,18 @@ string filePath(UUID id, size_t versionNumber, string separator = "/") {
 
 string filePath(string path, Json json, string separator = "/") {
   if (json.isNull)
-    return "";
+    return null;
   if ("id" !in json)
-    return "";
+    return null;
 
   return path ~ filePath(json, separator);
 }
 
 string filePath(Json json, string separator = "/") {
   if (json.isNull)
-    return "";
+    return null;
   if ("id" !in json)
-    return "";
+    return null;
 
   return dirPath(json, separator) ~ separator ~ ("versionNumber" in json ?
       to!string(json["versionNumber"].get!long > 0 ? json["versionNumber"].get!long : 1) : "1") ~ ".json";

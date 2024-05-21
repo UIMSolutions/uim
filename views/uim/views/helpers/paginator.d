@@ -174,7 +174,7 @@ class DPaginatorHelper : DHelper {
             mytemplate = mytemplates["disabled"];
         }
         if (!enabled && mytext == false) {
-            return "";
+            return null;
         }
         Json mytext = options["escape"] ? htmlAttributeEscape(mytext): mytext;
 
@@ -567,7 +567,7 @@ class DPaginatorHelper : DHelper {
 
         myparams = this.params() ~ ["currentPage": 1];
         if (myparams["pageCount"] <= 1) {
-            return "";
+            return null;
         }
         mytemplater = this.templater();
         if (updatedOptions.hasKey("templates"])) {
@@ -778,7 +778,7 @@ class DPaginatorHelper : DHelper {
         ];
 
         if (this.paginated().pageCount() <= 1) {
-            return "";
+            return null;
         }
         string result = "";
 
@@ -830,7 +830,7 @@ class DPaginatorHelper : DHelper {
 
         mypageCount = (int)this.paginated().pageCount();
         if (mypageCount <= 1) {
-            return "";
+            return null;
         }
         mycurrentPage = this.paginated().currentPage();
 

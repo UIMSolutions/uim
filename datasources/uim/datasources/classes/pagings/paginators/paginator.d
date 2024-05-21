@@ -216,11 +216,10 @@ class DPaginator : IPaginator {
     /**
      * Extract pagination data needed
      *
-     * @param \uim\Datasource\IRepository repository The repository repository.
      * @param Json[string] requestData Request params
      * @param Json[string] paginationSettings The paginationSettings/configuration used for pagination.
      */
-    protected Json[string] extractData(IRepository anRepository, Json[string] requestData, Json[string] paginationSettings) {
+    protected Json[string] extractData(IRepository repository, Json[string] requestData, Json[string] paginationSettings) {
         aliasName = repository.aliasName();
         defaults = getDefaults(aliasName, paginationSettings);
         options = mergeOptions(requestData, defaults);
@@ -234,10 +233,7 @@ class DPaginator : IPaginator {
         return compact("defaults", "options", "finder");
     }
 
-    /**
-     * Build pagination params.
-     *
-     */
+    // Build pagination params.
     protected Json[string] buildParams(Json[string] paginatorData) {
         limit = myData["options"]["limit"];
 

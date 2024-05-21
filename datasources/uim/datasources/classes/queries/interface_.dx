@@ -132,10 +132,8 @@ interface IQuery {
      * query.limit(10) // generates LIMIT 10
      * query.limit(query.newExpr().add(["1 + 1"])); // LIMIT (1 + 1)
      * ```
-     *
-     * @param uim.databases.IExpression|int|null limit number of records to be returned
      */
-    void limit(limit);
+    void limit(/* IExpression */ int limit);
 
     /**
      * Sets the number of records that should be skipped from the original result set

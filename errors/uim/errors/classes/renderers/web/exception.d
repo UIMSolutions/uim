@@ -142,14 +142,14 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     IResponse render() {
         auto exception = _error;
         auto code = getHttpCode(exception);
-        auto method = _method(exception);
+        auto method = methodName(exception);
         auto template = templateName(exception, method, code);
         clearOutput();
 
         if (method_exists(this, method)) {
             return _customMethod(method, exception);
         }
-        message = _message(exception, code);
+        message = errorMessage(exception, code);
         url = this.controller.getRequest().getRequestTarget();
         
         auto response = this.controller.getResponse();
@@ -233,7 +233,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     }
     
     // Get method name
-    protected string _method(Throwable exception) {
+    protected string methodName(Throwable exception) {
         [, baseClass] = namespaceSplit(exception.classname);
 
         if (baseClass.endsWith("Exception")) {
@@ -248,7 +248,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     /**
      * Get error message.
      */
-    protected string _message(Throwable exception, int errorCode) {
+    protected string errorMessage(Throwable exception, int errorCode) {
         string result = exception.getMessage();
 
         if (

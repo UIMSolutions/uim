@@ -159,7 +159,7 @@ class DExceptionRenderer : IExceptionRenderer {
     IResponse render() {
         myException = this.error;
         code = getHttpCode(myException);
-        method = _method(myException);
+        method = methodName(myException);
         myTemplate = templateName(myException, method, code);
         clearOutput();
 
@@ -167,7 +167,7 @@ class DExceptionRenderer : IExceptionRenderer {
             return _customMethod(method, myException);
         }
 
-        myMessage = _message(myException, code);
+        myMessage = errorMessage(myException, code);
         myUrl = _controller.getRequest().getRequestTarget();
         response = _controller.getResponse();
 
@@ -232,7 +232,7 @@ class DExceptionRenderer : IExceptionRenderer {
     }
 
     // Get method name
-    protected string _method(Throwable myException) {
+    protected string methodName(Throwable myException) {
         [, baseClass] = moduleSplit(get_class(myException));
 
         if (substr(baseClass, -9) == "Exception") {
@@ -249,7 +249,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * Get error message.
      * @param \Throwable myException Exception.
      */
-    protected string _message(Throwable myException, int errorCode) {
+    protected string errorMessage(Throwable myException, int errorCode) {
         auto myMessage = myException.getMessage();
 
         if (

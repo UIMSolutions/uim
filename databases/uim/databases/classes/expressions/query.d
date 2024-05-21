@@ -126,14 +126,12 @@ class DQueryExpression : DExpression { // }, Countable {
     /**
      * Adds a new condition to the expression object in the form "field >= value".
      * Params:
-     * \UIM\Database\/* IExpression| */ string fieldName Database field to be compared against value
-     * @param Json aValue The value to be bound to field for comparison
      * @param string type the type name for aValue as configured using the Type map.
      */
-    auto gte(/* IExpression| */ string fieldName, Json aValue, string atype = null) {
-        type ??= _calculateType(field);
+    auto gte(/* IExpression| */ string fieldName, Json valueToBound, string valueType = null) {
+        valueType ? valueType : _calculateType(fieldName);
 
-        return _add(new DComparisonExpression(field, aValue, type, ">="));
+        return _add(new DComparisonExpression(fieldName, valueToBound, valueType, ">="));
     }
     
     // Adds a new condition to the expression object in the form "field <= value".

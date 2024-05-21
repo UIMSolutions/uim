@@ -774,9 +774,6 @@ interface ICollection {
      *     return new DMyCustomCollection(collection);
      * });
      * ```
-     *
-     * @param callable callback A callable // function that will receive
-     * this collection as first argument.
      */
     ICollection through(callable callback);
 

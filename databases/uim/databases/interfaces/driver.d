@@ -72,10 +72,8 @@ interface IDriver : INamed {
     /**
      * Quotes a database identifier (a column name, table name, etc..) to
      * be used safely in queries without the risk of using reserved words.
-     *
-     * @param string myIdentifier The identifier expression to quote.
      */
-    string quoteIdentifier(string myIdentifier);
+    string quoteIdentifier(string identifierExpression);
 
     // Escapes values for use in schema definitions.
     string schemaValue(Json myValue);

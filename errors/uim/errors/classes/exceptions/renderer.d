@@ -161,7 +161,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
     IResponse render() {
         exception = this.error;
         code = getHttpCode(exception);
-        method = _method(exception);
+        method = methodName(exception);
         myTemplate = templateName(exception, method, code);
         clearOutput();
 
@@ -169,7 +169,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
             return _customMethod(method, exception);
         }
 
-        myMessage = _message(exception, code);
+        myMessage = errorMessage(exception, code);
         myUrl = this.controller.getRequest().getRequestTarget();
         response = this.controller.getResponse();
 
@@ -228,8 +228,8 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * @param string method The method name to invoke.
      * @param \Throwable exception The exception to render.
      */
-    protected DResponse _customMethod(string method, Throwable exception) {
-        auto myResult = this.{method}(exception);
+    protected DResponse _customMethod(string methodName, Throwable exception) {
+        auto myResult = this.{methodName}(exception);
         _shutdown();
         if (!myResult.isString) { return result; }
 
@@ -237,7 +237,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
     }
 
     // Get method name
-    protected string _method(Throwable exception) {
+    protected string methodName(Throwable exception) {
         [, baseClass] = moduleSplit(get_class(exception));
 
         if (substr(baseClass, -9) == "Exception") {
@@ -251,7 +251,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
     }
 
     // Get error message.
-    protected string _message(Throwable exception, int errorCode) {
+    protected string errorMessage(Throwable exception, int errorCode) {
         myMessage = exception.getMessage();
 
         if (

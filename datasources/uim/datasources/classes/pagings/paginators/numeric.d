@@ -259,11 +259,7 @@ class DNumericPaginator : IPaginator {
         return paging;
     }
 
-    /**
-     * Add "page" and "pageCount" params.
-     *
-     * @param Json[string] data Paginator data.
-     */
+    // Add "page" and "pageCount" params.
     protected Json[string] addPageCountParams(Json[string] pagingParams, Json[string] paginatorData) {
         page = pagingParams["page"];
         pageCount = 0;

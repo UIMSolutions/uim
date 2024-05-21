@@ -6,15 +6,8 @@ import uim.datasources;
 
 // This interface describes the methods for paginator instance.
 interface IPaginator {
-    // TODO
-    /**
-     * Handles pagination of data.
-     * Params:
-     * Json target Anything that needs to be paginated.
-     * @param Json[string] params Request params.
-     * @param Json[string] settings The settings/configuration used for pagination.
-     */
-    IResultset paginate(object object, Json[string] myParams = null, Json[string] settings = null);
+    //  Handles pagination of data.
+    IResultset paginate(Json target, Json[string] requestData = null, Json[string] paginationData = null);
 
     // Get paging params after pagination operation.
     Json[string] pagingParams();

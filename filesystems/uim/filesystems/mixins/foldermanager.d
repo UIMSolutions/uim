@@ -13,7 +13,7 @@ mixin template TFolderManager() {
     // #region existsFolders() 
       bool existsFolders(string aPath) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath); } 
 
         // IN Check
@@ -24,7 +24,7 @@ mixin template TFolderManager() {
       
       bool existsFolders(string aPath, string aFolderName) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
         
         // IN Check
@@ -35,7 +35,7 @@ mixin template TFolderManager() {
 
       bool existsFolders(string[] aPath) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath); } 
           
         // IN Check
@@ -59,7 +59,7 @@ mixin template TFolderManager() {
       
       IFolder[] folders(string aPath) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath); } 
 
         if (aPath.isEmpty) return null; 
@@ -69,7 +69,7 @@ mixin template TFolderManager() {
       
       IFolder[] folders(string aPath, string aFolderName) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
 
         if (aPath.isEmpty || aFolderName.isEmpty) return null; 
@@ -79,7 +79,7 @@ mixin template TFolderManager() {
 
       IFolder[] folders(string[] aPath) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath); } 
 
         if (aPath.isEmpty) return null; 
@@ -92,7 +92,7 @@ mixin template TFolderManager() {
 
       IFolder[] folders(string[] aPath, string aFolderName) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
 
         return null;
@@ -102,7 +102,7 @@ mixin template TFolderManager() {
     // #region countFolders() 
       size_t countFolders(string aPath) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath); } 
 
         if (aPath.isEmpty) return 0; 
@@ -112,7 +112,7 @@ mixin template TFolderManager() {
 
       size_t countFolders(string aPath, string aFolderName) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
 
         if (aPath.isEmpty || aFolderName.isEmpty) return 0; 
@@ -122,7 +122,7 @@ mixin template TFolderManager() {
 
       size_t countFolders(string[] aPath) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath); } 
 
         if (aPath.isEmpty) return 0; 
@@ -135,7 +135,7 @@ mixin template TFolderManager() {
 
       size_t countFolders(string[] aPath, string aFolderName) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
 
         return 0;
@@ -148,7 +148,7 @@ mixin template TFolderManager() {
       // #region createFolder()
         IFolder createFolder(string aPath) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath); } 
 
           // IN Check
@@ -159,7 +159,7 @@ mixin template TFolderManager() {
 
         IFolder createFolder(string aPath, string aFolderName) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
           
           // IN Check
@@ -170,7 +170,7 @@ mixin template TFolderManager() {
 
         IFolder createFolder(string[] aPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = ", aPath); }           
           
           // IN Check
@@ -184,7 +184,7 @@ mixin template TFolderManager() {
 
         IFolder createFolder(string[] aPath, string aFolderName) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
           
           return null;
@@ -194,7 +194,7 @@ mixin template TFolderManager() {
       // #region createIfNotExistsFolder()
         IFolder createIfNotExistsFolder(string aPath) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath); } 
 
           // IN Check
@@ -205,7 +205,7 @@ mixin template TFolderManager() {
 
         IFolder createIfNotExistsFolder(string aPath, string aFolderName) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
           
           // IN Check
@@ -216,7 +216,7 @@ mixin template TFolderManager() {
 
         IFolder createIfNotExistsFolder(string[] aPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = ", aPath); }           
           
           // IN Check
@@ -230,7 +230,7 @@ mixin template TFolderManager() {
 
         IFolder createIfNotExistsFolder(string[] aPath, string aFolderName) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
           
           return !existsFolder(aPath, aFolderName) 
@@ -242,7 +242,7 @@ mixin template TFolderManager() {
       // #region copyFolder()
         bool copyFolder(string fromPath, string toPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("FromPath = ", fromPath, "\t toPath = ", toPath); }
 
           // IN Check
@@ -253,7 +253,7 @@ mixin template TFolderManager() {
 
         bool copyFolder(string[] fromPath, string toPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("FromPath = ", fromPath, "\t toPath = ", toPath); 
           }
 
@@ -265,7 +265,7 @@ mixin template TFolderManager() {
 
         bool copyFolder(string fromPath, string[] toPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("FromPath = ", fromPath, "\t toPath = ", toPath); }
 
           // IN Check
@@ -276,7 +276,7 @@ mixin template TFolderManager() {
 
         bool copyFolder(string[] fromPath, string[] toPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("FromPath = ", fromPath, "\t toPath = ", toPath); }
 
           // IN Check
@@ -301,7 +301,7 @@ mixin template TFolderManager() {
       // #region existsFolder() 
         bool existsFolder(string aPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = ", aPath); } 
           
           // IN Check
@@ -312,7 +312,7 @@ mixin template TFolderManager() {
         
         bool existsFolder(string aPath, string aFolderName) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
 
           // IN Check
@@ -323,7 +323,7 @@ mixin template TFolderManager() {
 
         bool existsFolder(string[] aPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = ", aPath); } 
             
           // IN Check
@@ -337,7 +337,7 @@ mixin template TFolderManager() {
 
         bool existsFolder(string[] aPath, string aFolderName) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
 
           return false;
@@ -347,7 +347,7 @@ mixin template TFolderManager() {
       // #region folder()
         IFolder folder(string aPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = ", aPath); } 
 
           // IN Check
@@ -358,7 +358,7 @@ mixin template TFolderManager() {
 
         IFolder folder(string aPath, string aFolderName) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
 
           // IN Check
@@ -369,7 +369,7 @@ mixin template TFolderManager() {
         
         IFolder folder(string[] aPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = ", aPath); } 
 
           // IN Check
@@ -383,7 +383,7 @@ mixin template TFolderManager() {
 
         IFolder folder(string[] aPath, string aFolderName) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
 
           return null; 
@@ -427,7 +427,7 @@ mixin template TFolderManager() {
     // #region MoveFolder
       bool moveFolder(string fromPath, string toPath) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("FromPath = ", fromPath, "\t toPath = ", toPath); 
         }
 
@@ -439,7 +439,7 @@ mixin template TFolderManager() {
 
       bool moveFolder(string[] fromPath, string toPath) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("FromPath = ", fromPath, "\t toPath = ", toPath); 
         }
 
@@ -451,7 +451,7 @@ mixin template TFolderManager() {
 
       bool moveFolder(string fromPath, string[] toPath) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("FromPath = ", fromPath, "\t toPath = ", toPath); 
         }
         
@@ -463,7 +463,7 @@ mixin template TFolderManager() {
 
       bool moveFolder(string[] fromPath, string[] toPath) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("FromPath = ", fromPath, "\t toPath = ", toPath); 
         }
         
@@ -488,7 +488,7 @@ mixin template TFolderManager() {
       // #region removeFolder()
         bool removeFolder(string aPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = ", aPath); } 
 
           return removeFolder(toPathItems(aPath, pathSeparator));
@@ -496,7 +496,7 @@ mixin template TFolderManager() {
         
         bool removeFolder(string aPath, string aFolderName) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
 
           return removeFolder(aPath, aFolderName);
@@ -504,7 +504,7 @@ mixin template TFolderManager() {
 
         bool removeFolder(string[] aPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = ", aPath); } 
 
           // IN Check
@@ -518,7 +518,7 @@ mixin template TFolderManager() {
 
         bool removeFolder(string[] aPath, string aFolderName) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
 
           return false;

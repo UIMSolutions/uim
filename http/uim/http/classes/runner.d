@@ -79,9 +79,9 @@ class DRunner : IRequestHandler {
             return _fallbackHandler.handle(request);
         }
         return new DResponse([
-            'body": 'Middleware queue was exhausted without returning a response '
+            'body":  'Middleware queue was exhausted without returning a response '
                 ~ "and no fallback request handler was set for Runner",
-            `status": 500,
+            `status":  500,
         ]);
     }
 }

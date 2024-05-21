@@ -14,7 +14,7 @@ mixin template TFileManager() {
       // #region hasFiles()
         bool hasFiles(string aPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = %s".format(aPath)); }
           
           return hasFiles(toPathItems(aPath, pathSeparator));    
@@ -22,7 +22,7 @@ mixin template TFileManager() {
 
         bool hasFiles(string aPath, string aFolderName) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = %s \t aFolderName = %s".format(aPath, aFolderName)); }
 
           return hasFiles(toPathItems(aPath, pathSeparator), aFolderName);
@@ -30,7 +30,7 @@ mixin template TFileManager() {
 
         bool hasFiles(string[] aPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = %s".format(aPath)); }
           
           // Preconditions
@@ -45,7 +45,7 @@ mixin template TFileManager() {
 
         bool hasFiles(string[] aPath, string aFolderName) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = %s \t aFolderName = %s".format(aPath, aFolderName)); }
 
           return false;
@@ -55,7 +55,7 @@ mixin template TFileManager() {
       // #region countFiles()
         size_t countFiles(string aPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = %s".format(aPath)); }
           
           if (aPath.isEmpty) return 0; 
@@ -65,7 +65,7 @@ mixin template TFileManager() {
 
         size_t countFiles(string aPath, string aFolderName) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = %s \t aFolderName = %s".format(aPath, aFolderName)); }
 
           if (aPath.isEmpty) return 0; 
@@ -75,7 +75,7 @@ mixin template TFileManager() {
 
         size_t countFiles(string[] aPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = %s".format(aPath)); }
 
           // Preconditions
@@ -90,7 +90,7 @@ mixin template TFileManager() {
 
         size_t countFiles(string[] aPath, string aFolderName) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = %s \t aFolderName = %s".format(aPath, aFolderName)); }
 
           return 0;
@@ -104,7 +104,7 @@ mixin template TFileManager() {
         
         IFile[] files(string aPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = %s".format(aPath)); }
           
           if (aPath.isEmpty) return null; 
@@ -114,7 +114,7 @@ mixin template TFileManager() {
 
         IFile[] files(string aPath, string aFolderName) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = %s \t aFolderName = %s".format(aPath, aFolderName)); }
 
           if (aPath.isEmpty || aFolderName.isEmpty) return null; 
@@ -124,7 +124,7 @@ mixin template TFileManager() {
 
         IFile[] files(string[] aPath) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = %s".format(aPath)); }
           
           // Preconditions
@@ -139,7 +139,7 @@ mixin template TFileManager() {
         
         IFile[] files(string[] aPath, string aFolderName) {
           version(testUimFilesystems) { 
-            debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+            debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
             debug writeln("aPath = %s \t aFolderName = %s".format(aPath, aFolderName)); }
             
           return null;    
@@ -152,19 +152,19 @@ mixin template TFileManager() {
     // #region CREATE
       // #region createFile
         IFile createFile(string aPath) {
-          version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+          version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
           return createFile(toPathItems(aPath, pathSeparator));    
         }
 
         IFile createFile(string aPath, string aFileName) {
-          version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+          version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
           return createFile(toPathItems(aPath, pathSeparator), aFileName);    
         }
 
         IFile createFile(string[] aPath) {
-          version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+          version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
           if (aPath.isEmpty) return null; 
 
@@ -175,7 +175,7 @@ mixin template TFileManager() {
         }
 
         IFile createFile(string[] aPath, string fileName) {
-          version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+          version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
           
           return null;    
         }
@@ -203,19 +203,19 @@ mixin template TFileManager() {
     // #region READ
       // #region existsFile
         bool existsFile(string aPath) {
-          version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+          version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
           return existsFile(toPathItems(aPath, pathSeparator));    
         }
 
         bool existsFile(string aPath, string aFileName) {
-          version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+          version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
           return existsFile(toPathItems(aPath, pathSeparator), aFileName);    
         }
 
         bool existsFile(string[] aPath) {
-          version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+          version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
           if (aPath.isEmpty) { return false; } 
 
@@ -232,19 +232,19 @@ mixin template TFileManager() {
 
       // #region file
         IFile file(string aPath) {
-          version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+          version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
           return file(toPathItems(aPath, pathSeparator));    
         }
 
         IFile file(string aPath, string aFileName) {
-          version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+          version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
           
           return file(toPathItems(aPath, pathSeparator), aFileName);    
         }
 
         IFile file(string[] aPath) {
-          version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+          version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
           if (aPath.isEmpty) return null; 
 
           string[] aNullArray;
@@ -254,7 +254,7 @@ mixin template TFileManager() {
         }
 
         IFile file(string[] aPath, string fileName) {
-          version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+          version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
           return null;    
         }
@@ -264,7 +264,7 @@ mixin template TFileManager() {
     // #region UPDATE
       // #region renameFile
         bool renameFile(string oldPathAndName, string newName) {
-          version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+          version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
           if (oldPathAndName is null || newName.isNull) { return false; } 
           return renameFile(toPathItems(oldPathAndName, pathSeparator), newName);
@@ -302,7 +302,7 @@ mixin template TFileManager() {
         }
 
         bool removeFile(string[] aPath) {
-          version(testUimFilesystems) { debug writeln("\n", __MODULE__~":IFile removeFile(string[] aPath)"); }
+          version(testUimFilesystems) { debug writeln("\n", __MODULE__~": IFile removeFile(string[] aPath)"); }
           if (aPath.isEmpty) { return false; } 
 
           string[] aNullArray;

@@ -24,7 +24,7 @@ class UriFactory { // }: IUriFactory {
         azto  aHeaders = marshalHeadersFromSapi(serverData);
 
         anUri = DiactorosUriFactory.createFromSapi(serverData,  aHeaders);
-        ["base": base, "webroot": webroot] = getBase(anUri, serverData);
+        ["base":  base, "webroot":  webroot] = getBase(anUri, serverData);
 
         // Look in PATH_INFO first, as this is the exact value we need prepared
         // by D.
@@ -36,7 +36,7 @@ class UriFactory { // }: IUriFactory {
         if (!anUri.getHost()) {
             anUri = anUri.withHost("localhost");
         }
-        return ["uri": anUri, "base": base, "webroot": webroot];
+        return ["uri":  anUri, "base":  base, "webroot":  webroot];
     }
     
     /**
@@ -75,22 +75,22 @@ class UriFactory { // }: IUriFactory {
      */
     protected static Json[string] getBase(IUri anUri, Json[string] serverData) {
         auto configData = (array)configuration.get("App") ~ [
-            "base": Json(null),
-            "webroot": Json(null),
-            "baseUrl": Json(null),
+            "base":  Json(null),
+            "webroot":  Json(null),
+            "baseUrl":  Json(null),
         ];
         string base = configuration.get("base"];
         auto baseUrl = configuration.get("baseUrl"];
         auto webroot = to!string(configuration.get("webroot"]);
 
         if (!base.isNull) {
-            return ["base": base, "webroot": base ~ "/"];
+            return ["base":  base, "webroot":  base ~ "/"];
         }
         
         if (!baseUrl) {
             DSelf = serverData["UIM_SELF"] ?? null;
             if (DSelf.isNull) {
-                return ["base": "", "webroot": "/"];
+                return ["base":  "", "webroot":  "/"];
             }
             base = dirname(serverData.get("UIM_SELF", DIRECTORY_SEPARATOR));
             // Clean up additional / which cause following code to fail..
@@ -108,7 +108,7 @@ class UriFactory { // }: IUriFactory {
             }
             base = join("/", array_map("rawurlencode", base.split("/")));
 
-            return ["base": base, "webroot": base ~ "/"];
+            return ["base":  base, "webroot":  base ~ "/"];
         }
         file = "/" ~ basename(baseUrl);
         base = dirname(baseUrl);
@@ -125,6 +125,6 @@ class UriFactory { // }: IUriFactory {
         ) {
             webrootDir ~= webroot ~ "/";
         }
-        return ["base": base ~ file, "webroot": webrootDir];
+        return ["base":  base ~ file, "webroot":  webrootDir];
     }
 }

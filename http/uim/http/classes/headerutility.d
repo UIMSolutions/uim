@@ -27,7 +27,7 @@ class DHeaderUtility {
         preg_match("/<(.*)>[; ]?[; ]?(.*)?/i", headerPart, matches);
 
         auto myUrl = matches[1];
-        auto myParsedParams = ["link": myUrl];
+        auto myParsedParams = ["link":  myUrl];
 
         auto params = matches[2];
         if (params) {
@@ -39,9 +39,9 @@ class DHeaderUtility {
                     // See https://www.rfc-editor.org/rfc/rfc8187#section-3.2.3
                     preg_match("/(.*)\'(.*)\'(.*)/i", trimedValue, matches);
                     trimedValue = [
-                        "language": matches[2],
-                        "encoding": matches[1],
-                        "value": urldecode(matches[3]),
+                        "language":  matches[2],
+                        "encoding":  matches[1],
+                        "value":  urldecode(matches[3]),
                     ];
                 }
                 myParsedParams[trimedKey] = trimedValue;

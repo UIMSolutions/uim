@@ -87,7 +87,7 @@ class DCorsBuilder {
         auto result;
         foreach (domain; someDomains) {
             if (domain == "*") {
-                result ~= ["preg": "@.@", "original": "*"];
+                result ~= ["preg":  "@.@", "original":  "*"];
                 continue;
             }
             result ~= normalizeDomain(domain);
@@ -98,7 +98,7 @@ protected string normalizeDomain(string aDomain) {
     string result;
 
     original = preg = aDomain;
-    if (!aDomain.has("://")) {
+    if (!aDomain.has(": //")) {
         preg = (_isSsl ? "https://' : 'http://") ~ aDomain;
     }
     preg = "@^" ~ preg_quote(preg, "@").replace("\*", ".*") ~ "@";

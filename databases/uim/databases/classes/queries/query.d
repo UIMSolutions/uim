@@ -963,23 +963,20 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * If you need to set complex expressions as order conditions, you
      * should use `orderByAsc()` or `orderByDesc()`.
-     * Params:
-     * \UIM\Database\IExpression|\Closure|string[] fieldNames fields to be added to the list
-     * @param bool shouldOverwrite whether to reset order with field list or not
      */
-    auto orderBy(IExpression|Closure|string[] fieldNames, bool shouldOverwrite = false) {
+    void orderBy(/* IExpression|Closure| */ string[] fieldNames, bool shouldOverwrite = false) {
         if (shouldOverwrite) {
            _parts["order"] = null;
         }
-        if (!fields) {
-            return this;
+        if (!fieldNames) {
+            return;
         }
         if (!_parts["order"]) {
            _parts["order"] = new DOrderByExpression();
         }
-       _conjugate("order", fields, "", []);
+       _conjugate("order", fieldNames, "", []);
 
-        return this;
+        return;
     }
     
     /**
@@ -990,25 +987,21 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * DOrder fields are not suitable for use with user supplied data as they are
      * not sanitized by the query builder.
-     * Params:
-     * \UIM\Database\IExpression|\Closure|string fieldName The field to order on.
      */
-    auto orderByAsc(IExpression|Closure|string fieldName, bool shouldOverwrite = false) {
+    void orderByAsc(/* IExpression|Closure| */ string fieldName, bool shouldOverwrite = false) {
         if (shouldOverwrite) {
            _parts["order"] = null;
         }
-        if (!field) {
-            return this;
+        if (!fieldName) {
+            return;
         }
-        if (cast(DClosure)field) {
-            field = field(this.newExpr(), this);
+        if (cast(DClosure)fieldName) {
+            fieldName = field(this.newExpr(), this);
         }
         if (!_parts["order"]) {
            _parts["order"] = new DOrderByExpression();
         }
-       _parts["order"].add(new DOrderClauseExpression(field, "ASC"));
-
-        return this;
+       _parts["order"].add(new DOrderClauseExpression(fieldName, "ASC"));
     }
     
     /**

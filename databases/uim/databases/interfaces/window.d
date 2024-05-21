@@ -45,12 +45,8 @@ interface IWindow {
      *
      * If you need to use 'FOLLOWING' with frame start or
      * 'PRECEDING' with frame end, use `frame()` instead.
-     * Params:
-     * \UIM\Database\IExpression|string|int start Frame start
-     * @param \UIM\Database\IExpression|string|int end Frame end
-     * If not passed in, only frame start SQL will be generated.
      */
-    auto range(IExpression|string|int start, IExpression|string|int end = 0);
+    auto range(/* IExpression|string */ int frameStart = 0, /* IExpression|string */ int frameEnd = 0);
 
     // Adds a simple rows frame to the window.
     auto rows(int frameStart, int frameEnd = 0);

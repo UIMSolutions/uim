@@ -160,10 +160,10 @@ class DPaginator : IPaginator {
      *
      * @param \uim\Datasource\IRepository|\uim\Datasource\IQuery object The repository or query
      *  to paginate.
-     * @param Json[string] requestParams Request params
+     * @param Json[string] requestData Request params
      * @param Json[string] settings The settings/configuration used for pagination.
      */
-    IDSResultset paginate(object object, Json[string] requestParams = null, Json[string] paginationSettings = null) {
+    IDSResultset paginate(object object, Json[string] requestData = null, Json[string] paginationSettings = null) {
         myQuery = null;
         if (object instanceof IQuery) {
             myQuery = object;
@@ -173,7 +173,7 @@ class DPaginator : IPaginator {
             }
         }
 
-        myData = this.extractData(object, requestParams, paginationSettings);
+        myData = this.extractData(object, requestData, paginationSettings);
         myQuery = getQuery(object, myQuery, myData);
 
         cleanQuery = clone myQuery;
@@ -217,13 +217,13 @@ class DPaginator : IPaginator {
      * Extract pagination data needed
      *
      * @param \uim\Datasource\IRepository object The repository object.
-     * @param Json[string] requestParams Request params
+     * @param Json[string] requestData Request params
      * @param Json[string] paginationSettings The paginationSettings/configuration used for pagination.
      */
-    protected Json[string] extractData(IRepository anRepository, Json[string] requestParams, Json[string] paginationSettings) {
+    protected Json[string] extractData(IRepository anRepository, Json[string] requestData, Json[string] paginationSettings) {
         aliasName = object.aliasName();
         defaults = getDefaults(aliasName, paginationSettings);
-        options = mergeOptions(requestParams, defaults);
+        options = mergeOptions(requestData, defaults);
         options = validateSort(anRepository, options);
         options = checkLimit(options);
 
@@ -414,47 +414,46 @@ class DPaginator : IPaginator {
      * combined together. You can change config value `allowedParameters` to modify
      * which options/values can be set using request parameters.
      *
-     * @param Json[string] requestParams Request params.
-     * @param Json[string] settings The settings to merge with the request data.
+     * @param Json[string] settingsData The settingsData to merge with the request data.
      */
-    Json[string] mergeOptions(Json[string] requestParams, Json[string] settings) {
-        if (!settings.isEmpty("scope"))) {
-            scope = settings["scope"];
-            requestParams = !requestParams.isEmpty(scope)) ? (array)requestParams[scope] : [];
+    Json[string] mergeOptions(Json[string] requestData, Json[string] settingsData) {
+        if (!settingsData.isEmpty("scope"))) {
+            scope = settingsData["scope"];
+            requestData = !requestData.isEmpty(scope) ? (array)requestData[scope] : [];
         }
 
         allowed = getAllowedParameters();
-        requestParams = array_intersect_key(requestParams, array_flip(allowed));
+        requestData = array_intersect_key(requestData, array_flip(allowed));
 
-        return array_merge(settings, requestParams);
+        return array_merge(settingsData, requestData);
     }
 
     /**
      * Get the settings for a myModel. If there are no settings for a specific
      * repository, the general settings will be used.
      *
-     * @param string aliasName Model name to get settings for.
-     * @param Json[string] settings The settings which is used for combining.
+     * @param string aliasName Model name to get settingsData for.
+     * @param Json[string] settingsData The settingsData which is used for combining.
      */
-    Json[string] getDefaults(string aliasName, Json[string] settings) {
-        if (isset(settings[aliasName])) {
-            settings = settings[aliasName];
+    Json[string] getDefaults(string aliasName, Json[string] settingsData) {
+        if (isset(settingsData[aliasName])) {
+            settingsData = settingsData[aliasName];
         }
 
         defaults = configuration.data;
         defaults["whitelist"] = defaults["allowedParameters"] = getAllowedParameters();
 
-        maxLimit = settings["maxLimit"] ?? defaults["maxLimit"];
-        limit = settings["limit"] ?? defaults["limit"];
+        maxLimit = settingsData["maxLimit"] ?? defaults["maxLimit"];
+        limit = settingsData["limit"] ?? defaults["limit"];
 
         if (limit > maxLimit) {
             limit = maxLimit;
         }
 
-        settings["maxLimit"] = maxLimit;
-        settings["limit"] = limit;
+        settingsData["maxLimit"] = maxLimit;
+        settingsData["limit"] = limit;
 
-        return settings + defaults;
+        return settingsData + defaults;
     }
 
     /**

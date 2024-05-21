@@ -10,28 +10,20 @@ import uim.datasources;
  * @template-extends \IteratorIterator<mixed, mixed, \Traversable<mixed>>
  * @template T
  */
-class DPaginatedResultset { /* }: IteratorIterator : JsonSerializable, IPaginated {
-    // Paging params.
-    protected Json[string] params = null;
+class DPaginatedResultset { // }: IteratorIterator : JsonSerializable, IPaginated {
+    protected Json[string] _params = null;
 
-    /**
-     
-     * Params:
-     * \Traversable<T> results Resultset instance.
-     * @param Json[string] params Paging params.
-     */
-    this(DTraversable results, Json[string] params) {
+    this(DTraversable results, Json[string] pagingData) {
         super(results);
 
-        this.params = params;
+        _params = pagingData;
     }
  
     size_t count() {
         return _params["count"];
     }
     
-    /**
-     * Get paginated items.
+    // Get paginated items.
      */
     Traversable items() {
         return _getInnerIterator();

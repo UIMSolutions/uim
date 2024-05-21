@@ -99,8 +99,8 @@ class DJsonView : DSerializedView {
                 if (myJsonp == true) {
                     myJsonp = "callback";}
 
-                    if (this.request.getQuery(myJsonp)) {
-                        result = "%s(%s)".format(h(this.request.getQuery(myJsonp)), result);
+                    if (_request.getQuery(myJsonp)) {
+                        result = "%s(%s)".format(h(_request.getQuery(myJsonp)), result);
                             this.response = this.response.withType("js");}
                     }
                     return result;}

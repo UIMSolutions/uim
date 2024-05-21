@@ -82,29 +82,16 @@ class DQueryExpression : DExpression { // }, Countable {
        _addConditions(conditions, types);
     }
 
-    /**
-     * Adds a new condition to the expression object in the form "field = value".
-     * Params:
-     * \UIM\Database\IExpression|string fieldName Database field to be compared against value
-     * @param Json aValue The value to be bound to field for comparison
-     * If it is suffixed with "[]" and the value is an array then multiple placeholders
-     * will be created, one per each value in the array.
-     */
-    auto eq(IExpression|string fieldName, Json aValue, string typeName = null) {
+    // Adds a new condition to the expression object in the form "field = value".
+    // TODO auto eq(IExpression|string fieldName, Json valueToDriver, string typeName = null) {
+    auto eq(string fieldName, Json valueToDriver, string typeName = null) {
         typeName = typeName.ifEmpty(_calculateType(field));
 
-        return _add(new DComparisonExpression(field, aValue, typeName, "="));
+        return _add(new DComparisonExpression(fieldName, valueToDriver, typeName, "="));
     }
 
-    /**
-     * Adds a new condition to the expression object in the form "field != value".
-     * Params:
-     * \UIM\Database\IExpression|string fieldName Database field to be compared against value
-     * @param Json aValue The value to be bound to field for comparison
-     * @param string type the type name for aValue as configured using the Type map.
-     * If it is suffixed with "[]" and the value is an array then multiple placeholders
-     * will be created, one per each value in the array.
-     */
+    // Adds a new condition to the expression object in the form "field != value".
+    // TODO auto notEq(IExpression|string fieldName, Json valueToBound, string valueType = null) {
     auto notEq(IExpression|string fieldName, Json valueToBound, string valueType = null) {
         valueType ? valueType : _calculateType(field);
 

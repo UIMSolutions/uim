@@ -152,8 +152,6 @@ class DConnectionManager {
      * to the registry. This method will use any aliases that have been
      * defined. If you want the original unaliased connections pass `false`
      * as second parameter.
-     *
-     * @param string aName The connection name.
      */
     static IConnection get(string connectionName, bool useAliases = true) {
         if (useAliases && isset(_aliasMap[connectionName])) {
@@ -171,7 +169,7 @@ class DConnectionManager {
             connectionName
         }
         
-        ?  ? _registry.load(connectionName, configuration.get(connectionName]);
+        ?  ? _registry.load(connectionName, configuration.get(connectionName));
     } 
 }
 /**

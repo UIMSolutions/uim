@@ -163,10 +163,10 @@ class DNumericPaginator : IPaginator {
      * @param uim.Datasource\IRepository|uim.Datasource\IQuery object The repository or query
      *  to paginate.
      * @param Json[string] params Request params
-     * @param Json[string] settings The settings/configuration used for pagination.
+     * @param Json[string] paginationData The paginationData/configuration used for pagination.
      */
-    IResultset paginate(object object, Json[string] RequestParams = null, Json[string] settings = null) {
-        query = null;
+    IResultset paginate(object object, Json[string] requestData = null, Json[string] paginationData = null) {
+        auto query = null;
         if (cast(IQuery) object) {
             query = object;
             object = query.getRepository();
@@ -175,15 +175,15 @@ class DNumericPaginator : IPaginator {
             }
         }
 
-        data = this.extractData(object, RequestParams, settings);
+        auto data = this.extractData(object, requestData, paginationData);
         query = getQuery(object, query, data);
 
         cleanQuery = clone query;
-        results = query.all();
+        auto results = query.all();
         data["numResults"] = count(results);
         data["count"] = getCount(cleanQuery, data);
 
-        pagingParams = this.buildParams(data);
+        auto pagingParams = this.buildParams(data);
         alias = object.aliasName();
         _pagingParams = [alias: pagingParams];
         if (pagingParams["requestedPage"] > pagingParams["page"]) {
@@ -217,11 +217,11 @@ class DNumericPaginator : IPaginator {
      *
      * @param uim.Datasource\IRepository object The repository object.
      * @param Json[string] params Request params
-     * @param Json[string] settings The settings/configuration used for pagination.
+     * @param Json[string] paginationData The paginationData/configuration used for pagination.
      */
-    Json[string] extractData(IRepository object, Json[string] params, Json[string] settings) {
+    Json[string] extractData(IRepository object, Json[string] params, Json[string] paginationData) {
         alias = object.aliasName();
-        defaults = getDefaults(alias, settings);
+        defaults = getDefaults(alias, paginationData);
         options = this.mergeOptions(params, defaults);
         options = this.validateSort(object, options);
         options = this.checkLimit(options);
@@ -390,23 +390,9 @@ class DNumericPaginator : IPaginator {
         return allowed;
     }
 
-    /**
-     * Shim method for reading the deprecated sortWhitelist or sortableFields options.
-     *
-     * @param Json[string] myConfiguration The configuration configData to coalesce and emit warnings on.
-     */
+    // Shim method for reading the deprecated sortWhitelist or sortableFields options.
     protected string[] getSortableFields(Json myConfiguration) {
-        allowed = configuration.get("sortableFields") ?  ? null;
-        if (allowed != null) {
-            return allowed;
-        }
-        deprecated = configuration.get("sortWhitelist") ?  ? null;
-        if (deprecated != null) {
-            deprecationWarning(
-                "The `sortWhitelist` option is deprecated. Use `sortableFields` instead.");
-        }
-
-        return deprecated;
+        return configuration.getStringArray("sortableFields");
     }
 
     /**

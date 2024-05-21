@@ -118,18 +118,13 @@ abstract class DERRErrorHandler {
      *
      * You can use the "errorLevel" option to set what type of errors will be handled.
      * Stack traces for errors can be enabled with the "trace" option.
-     *
-     * @param string description Error description
-     * @param string file File on which error occurred
-     * @param int|null line Line that triggered the error
-     * @param Json[string]|null context DContext
      */
     bool handleError(
         int errorCode,
-        string myDescription,
-        string myFile = null,
-        int myLine = null,
-        STRINGAA myContext = null
+        string errorDescription,
+        string fileWithError = null,
+        int triggerErrorLine = null,
+        STRINGAA context = null
     ) {
         if (!(error_reporting() & errorCode)) {
             return false;
@@ -137,16 +132,15 @@ abstract class DERRErrorHandler {
         _handled = true;
         [myError, myLog] = mapErrorCode(errorCode);
         if (myLog == LOG_ERR) {
-            /** @psalm-suppress PossiblyNullArgument */
-            return _handleFatalError(errorCode, myDescription, myFile, myLine);
+            return _handleFatalError(errorCode, errorDescription, fileWithError, triggerErrorLine);
         }
         data = [
             "level": myLog,
             "code": errorCode,
             "error": myError,
-            "description": myDescription,
-            "file": myFile,
-            "line": myLine,
+            "description": errorDescription,
+            "file": fileWithError,
+            "line": triggerErrorLine
         ];
 
         debug = (bool)Configure.read("debug");

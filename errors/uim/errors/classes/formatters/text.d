@@ -40,12 +40,7 @@ TEXT;
         return _export_(node, indentSize);
     }
     
-    /**
-     * Convert a tree of IErrorNode objects into a plain text string.
-     * Params:
-     * \UIM\Error\Debug\IErrorNode nodeToDump The node tree to dump.
-     * @param int indentSize The current indentation level.
-     */
+    // Convert a tree of IErrorNode objects into a plain text string.
     protected string export_(IErrorNode nodeToDump, int indentSize) {
         if (cast(DScalarNode)nodeToDump) {
             return match (nodeToDump.getType()) {
@@ -67,12 +62,7 @@ TEXT;
         throw new DInvalidArgumentException("Unknown node received " ~ nodeToDump.classname);
     }
     
-    /**
-     * Export an array type object
-     * Params:
-     * \UIM\Error\Debug\ArrayNode nodeToExport The array to export.
-     * @param int indentSize The current indentation level.
-     */
+    // Export an array type object
     protected string exportArray(ArrayNode nodeToExport, int indentSize) {
         auto result = "[";
         auto mybreak = "\n" ~ str_repeat("  ", indentSize);

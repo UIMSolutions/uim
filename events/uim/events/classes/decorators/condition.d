@@ -11,7 +11,6 @@ import uim.events;
  * be invoked if the `if` and/or `unless` conditions pass.
  */
 class DConditionDecorator : DDecorator {
-    /* 
     Json __invoke() {
         someArguments = func_get_args();
         if (!this.canTrigger(someArguments[0])) {
@@ -28,12 +27,7 @@ class DConditionDecorator : DDecorator {
         return canIf && !canUnless;
     }
     
-    /**
-     * Evaluates the filter conditions
-     *
-     * @template TSubject of object
-     * @param \UIM\Event\IEvent<TSubject> event Event object
-     */
+    // Evaluates the filter conditions
     protected bool _evaluateCondition(string conditionType, IEvent event) {
         if (!_options.isSet(conditionType)) {
             return conditionType != "unless";

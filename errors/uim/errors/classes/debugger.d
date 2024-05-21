@@ -184,28 +184,18 @@ class DDebugger {
     /**
      * Creates an entry in the log file. The log entry will contain a stack trace from where it was called.
      * as well as export the variable using exportVar. By default, the log is written to the debug log.
-     * Params:
-     * Json var Variable or content to log.
-     * @param string|int level Type of log to use. Defaults to 'debug'.
-     * @param int maxDepth The depth to output to. Defaults to 3.
      */
-    static void log(Json var, string|int level = "debug", int maxDepth = 3) {
-        /** @var string asource */
-        source = trace(["start": 1]);
+    static void log(Json varToLog, string levelType = "debug", int maxDepth = 3) {
+        string source = trace(["start": 1]);
         source ~= "\n";
 
         Log.write(
-            level,
-            "\n" ~ source ~ exportVarAsPlainText(var, maxDepth)
+            levelType,
+            "\n" ~ source ~ exportVarAsPlainText(varToLog, maxDepth)
         );
     }
     
-    /**
-     * Get the frames from exception that are not present in parent
-     * Params:
-     * \Throwable exception The exception to get frames from.
-     * @param ?\Throwable parent The parent exception to compare frames with.
-     */
+    // Get the frames from exception that are not present in parent
     static Json[string] getUniqueFrames(Throwable exception, Throwable parent) {
         if (parent.isNull) {
             return exception.getTrace();
@@ -274,24 +264,21 @@ class DDebugger {
      * - `args` - Should arguments for functions be shown? If true, the arguments for each method call
      * will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
-     * Params:
-     * \Throwable|array backtrace Trace as array or an exception object.
-     * @param Json[string] options Format for outputting stack trace.
      */
-    static string[] formatTrace(Throwable|array backtrace, Json[string] options = null) {
+    static string[] formatTrace(Throwable backtrace, Json[string] options = null) {
         if (cast(Throwable)backtrace) {
             backtrace = backtrace.getTrace();
         }
         defaults = [
-            "depth": 999,
-            "format": "text",
+            "depth": 999.toJson,
+            "format": "text".toJson,
             "args": false.toJson,
-            "start": 0,
+            "start": 0.toJson,
             "scope": Json(null),
-            "exclude": ["call_user_func_array", "trigger_error"],
+            "exclude": ["call_user_func_array", "trigger_error"].toJson,
         ];
-        options = Hash.merge(defaults, options);
 
+        options = Hash.merge(defaults, options);
         count = count(backtrace) + 1;
         back = null;
 
@@ -339,10 +326,7 @@ class DDebugger {
         return join("\n", back);
     }
     
-    /**
-     * Shortens file paths by replacing the application base path with 'APP", and the UIM core
-     * path with 'CORE'.
-     */
+    // Shortens file paths by replacing the application base path with 'APP", and the UIM core path with 'CORE'.
     static string trimPath(string pathToShorten) {
         if (defined("APP") && pathToShorten.startWith(APP)) {
             return pathToShorten.replace(APP, "APP/");
@@ -370,15 +354,14 @@ class DDebugger {
      * applied.
      * Params:
      * string afile Absolute path to a D file.
-     * @param int lineToHighlight Line number to highlight.
      * @param int context Number of lines of context to extract above and below lineToHighlight.
      */
-    static string[] excerpt(string afile, int lineToHighlight, int context = 2) {
+    static string[] excerpt(string filePath, int lineToHighlight, int context = 2) {
         lines = null;
-        if (!fileExists(file)) {
+        if (!fileExists(filePath)) {
             return null;
         }
-        someData = file_get_contents(file);
+        someData = file_get_contents(filePath);
         if (isEmpty(someData)) {
             return lines;
         }
@@ -635,12 +618,7 @@ class DDebugger {
         return node;
     }
     
-    /**
-     * Get the type of the given variable. Will return the class name
-     * for objects.
-     * Params:
-     * Json var The variable to get the type of.
-     */
+    // Get the type of the given variable. Will return the class name for objects.
     static string getType(Json variableToCheck) {
         string variableType = get_debug_type(variableToCheck);
 
@@ -660,14 +638,15 @@ class DDebugger {
         if (locationData["file"]) {
             locationData["file"] = trimPath((string)locationData["file"]);
         }
-        debugger = getInstance();
-        restore = null;
+        
+        auto debugger = getInstance();
+        auto restore = null;
         if (!showHtml.isNull) {
             restore = debugger.configuration.get("exportFormatter");
             debugger.configuration.set("exportFormatter", showHtml == "true" ? HtmlFormatter.classname : TextFormatter.classname);
         }
-        contents = exportVar(debugValue, 25);
-        formatter = debugger.getExportFormatter();
+        auto contents = exportVar(debugValue, 25);
+        auto formatter = debugger.getExportFormatter();
 
         if (restore) {
             debugger.setConfig("exportFormatter", restore);
@@ -701,5 +680,5 @@ class DDebugger {
                 E_USER_NOTICE
             );
         }
-    } */
+    } 
 }

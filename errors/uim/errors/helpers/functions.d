@@ -8,9 +8,6 @@ import uim.errors;
  * variable that was passed.
  *
  * Only runs if debug mode is enabled.
- *
- * @param bool|null showHtml If set to true, the method prints the debug data in a browser-friendly way.
- * @param bool showFrom If set to true, the method prints from where the auto was called.
  */
 Json debug(Json debugVariable, bool showHtml = null, bool showFrom = true):  
 {

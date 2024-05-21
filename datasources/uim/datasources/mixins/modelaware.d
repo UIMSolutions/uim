@@ -90,15 +90,10 @@ mixin template TModelAware() {
         throw new DMissingModelException([modelClass, modelType]);
     }
     
-    /**
-     * Override a existing callable to generate repositories of a given type.
-     * Params:
-     * string atype The name of the repository type the factory bool is for.
-     * @param \UIM\Datasource\Locator\ILocator|callable factory The factory auto used to create instances.
-     */
-    void modelFactory(string atype, ILocator|callable factory) {
-       _modelFactories[type] = factory;
+    // Override a existing callable to generate repositories of a given type.
+    void modelFactory(string repositoryType, ILocator /*|callable*/ factory) {
+       _modelFactories[repositoryType] = factory;
     }
     
-    mixin(TProperty!("string", "modelType")); */
+    mixin(TProperty!("string", "modelType")); 
 } 

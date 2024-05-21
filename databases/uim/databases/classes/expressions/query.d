@@ -93,20 +93,15 @@ class DQueryExpression : DExpression { // }, Countable {
     
     // Adds a new condition to the expression object in the form "field > value".
     auto gt(/* IExpression| */ string fieldName, Json valueToBound, string valueType = null) {
-        valueType = valueType.ifEmpty(_calculateType(fieldName)), ">"));
-        return _add(new DComparisonExpression(fieldName, valueToBound, 
+        valueType = valueType.ifEmpty(_calculateType(fieldName));
+        return _add(new DComparisonExpression(fieldName, valueToBound, valueType, ">"));
     }
     
-    /**
-     * Adds a new condition to the expression object in the form "field < value".
-     * Params:
-     * @param Json aValue The value to be bound to field for comparison
-     * @param string type the type name for aValue as configured using the Type map.
-     */
-    auto lt(/* IExpression| */ string fieldName, Json aValue, string valueType = null) {
-        valueType = valueType.ifEmpty(_calculateType(field));
+    // Adds a new condition to the expression object in the form "field < value".
+    auto lt(/* IExpression| */ string fieldName, Json valueToBound, string valueType = null) {
+        valueType = valueType.ifEmpty(_calculateType(fieldName));
 
-        return _add(new DComparisonExpression(field, aValue, valueType, "<"));
+        return _add(new DComparisonExpression(fieldName, valueToBound, valueType, "<"));
     }
     
     // Adds a new condition to the expression object in the form "field >= value".
@@ -130,7 +125,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * tested for null
      */
     auto isNull(/* IExpression| */ string fieldName) {
-        if (!(cast(IExpression)field )) {
+        if (!cast(IExpression)field) {
             field = new DIdentifierExpression(field);
         }
         return _add(new DUnaryExpression("isNull", field, UnaryExpression.POSTFIX));

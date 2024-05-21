@@ -325,16 +325,16 @@ class DPaginator : IPaginator {
      *
      * @param Json[string] options the pagination options.
      */
-    protected Json[string] _extractFinder(Json[string] options) {
-        myType = !options.isEmpty("finder"]) ? options["finder"] : "all";
-        options.remove("finder"], options["maxLimit"]);
+    protected Json[string] _extractFinder(Json[string] paginationOptions) {
+        myType = !paginationOptions.isEmpty("finder") ? paginationOptions["finder"] : "all";
+        paginationOptions.remove("finder", paginationOptions["maxLimit"]);
 
-        if (is_array(myType)) {
-            options = (array)current(myType) + options;
+        if (isArray(myType)) {
+            paginationOptions = (array)current(myType) + paginationOptions;
             myType = key(myType);
         }
 
-        return [myType, options];
+        return [myType, paginationOptions];
     }
 
     // Get paging params after pagination operation.
@@ -346,7 +346,7 @@ class DPaginator : IPaginator {
     protected string[] getAllowedParameters() {
         allowed = configuration.get("allowedParameters");
         if (!allowed) {
-            allowed= null;
+            allowed = null;
         }
         whitelist = configuration.get("whitelist");
         if (whitelist) {
@@ -364,12 +364,13 @@ class DPaginator : IPaginator {
         if (allowed !== null) {
             return allowed;
         }
-        deprecated = configData["sortWhitelist"] ?? null;
-        if (deprecated !== null) {
+        
+        auto deprecatedMode = configData["sortWhitelist"] ?? null;
+        if (deprecatedMode !== null) {
             deprecationWarning("The `sortWhitelist` option is deprecated. Use `sortableFields` instead.");
         }
 
-        return deprecated;
+        return deprecatedMode;
     }
 
     /**

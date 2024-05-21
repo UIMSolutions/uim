@@ -202,9 +202,6 @@ interface IQuery {
      *
      * If you need to set complex expressions as order conditions, you
      * should use `orderByAsc()` or `orderByDesc()`.
-     * Params:
-     * \Closure|string[] fieldNames fields to be added to the list
-     * @param bool overwrite whether to reset order with field list or not
      */
     auto orderBy(/* Closure */ string[] fieldNames, bool shouldOverwrite = false);
 

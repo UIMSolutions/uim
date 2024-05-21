@@ -458,7 +458,7 @@ class DNumericPaginator : IPaginator {
                 direction = "asc";
             }
 
-            order = isset(paginationOptions["order"]) && is_array(
+            order = isset(paginationOptions["order"]) && isArray(
                 paginationOptions["order"]) ? paginationOptions["order"] : [
             ];
             if (order && paginationOptions["sort"] && indexOf(paginationOptions["sort"], ".") == false) {

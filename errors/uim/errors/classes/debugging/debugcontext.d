@@ -70,11 +70,12 @@ class DebugContext {
      * @param object object The object to get a reference for.
      */
     int getReferenceId(object object) {
-      if (this.refs.contains(object)) {
+      if (_refs.contains(object)) {
           return _refs[object];
       }
-      refId = this.refs.count();
-      this.refs.attach(object, refId);
+      
+      auto refId = _refs.count();
+      _refs.attach(object, refId);
 
       return refId;
     }

@@ -74,13 +74,8 @@ import uim.errors;
  * Would enable handling for all non Notice errors.
  */
 class DErrorHandler { // }: DERRErrorHandler
-    /**
-     
-     *
-     * @param Json[string] aConfig The options for error handling.
-     */
-    this(Json aConfig = null) {
-        aConfig += [
+    this(Json initData = null) {
+        initData += [
             "exceptionRenderer": ExceptionRenderer.class,
         ];
 
@@ -89,17 +84,14 @@ class DErrorHandler { // }: DERRErrorHandler
 
     /**
      * Display an error.
-     *
      * Template method of DERRErrorHandler.
-     *
-     * @param Json[string] error An array of error data.
-     * @param bool shouldDebug Whether the app is in debug mode.
      */
-    protected void _displayError(Json[string] error, bool shouldDebug) {
-        if (!debug) {
+    protected void _displayError(Json[string] errorData, bool shouldDebug) {
+        if (!shouldDebug) {
             return;
         }
-        Debugger.getInstance().outputError(error);
+        
+        Debugger.getInstance().outputError(errorData);
     }
 
     // Displays an exception response body.

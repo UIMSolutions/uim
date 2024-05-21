@@ -142,18 +142,14 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         return result;
     }
 
-    /**
-     * Output help content
-     * Params:
-     * \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The option parser.
-     */
-    protected void displayHelp(DConsoleOptionParser buildOptionParser aParser, Json[string] someArguments, IConsoleIo aConsoleIo) {
+    // Output help content
+    protected void displayHelp(DConsoleOptionParser optionParser, Json[string] someArguments, IConsoleIo aConsoleIo) {
         string format = "text";
         if (someArguments.getArgumentAt(0) == "xml") {
             format = "xml";
             aConsoleIo.setOutputAs(ConsoleOutput.RAW);
         }
-        aConsoleIo.writeln(aParser.help(format));
+        aConsoleIo.writeln(optionParser.help(format));
     }
 
     // Set the output level based on the Json[string].

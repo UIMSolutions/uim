@@ -61,17 +61,11 @@ class DHelperRegistry { // }: ObjectRegistry {
 
     /**
      * Create the helper instance.
-     *
      * Part of the template method for UIM\Core\ObjectRegistry.load()
-     * Params:
-     * \UIM\Console\Helper|class-string<\UIM\Console\Helper> className The classname to create.
-     * configData - An array of settings to use for the helper.
      */
-    protected DHelper _create(object obj, string helperAlias, Json[string] configData) {
-        return obj;
-    }
+    // TODO protected DHelper _create(object obj, string helperAlias, Json[string] initData) {
 
-    protected DHelper _create(string className, string helperAlias, Json[string] configData) {
-        return new className(_io, configData);
-    } */
+    protected DHelper _create(string classnameToCreate, string helperAlias, Json[string] initData) {
+        return new className(_io, initData);
+    } 
 }

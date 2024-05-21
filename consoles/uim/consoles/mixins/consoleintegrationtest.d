@@ -31,11 +31,9 @@ mixin template TConsoleIntegrationTest() {
     /**
      * Runs CLI integration test
      * Params:
-     * string acommand Command to run
-     * @throws \UIM\Console\TestSuite\MissingConsoleInputException
-     * @throws \InvalidArgumentException
+     * string commandToRun Command to run
      */
-    void exec(string acommand, Json[string] inputValues = null) {
+    void exec(string commandToRun, Json[string] inputValues = null) {
         runner = this.makeRunner();
 
         _out ?  ?  = new DStubConsoleOutput();
@@ -150,19 +148,15 @@ mixin template TConsoleIntegrationTest() {
         return new DCommandRunner(myApp);
     }
 
-    /**
-     * Creates an argv array from a command string
-     * Params:
-     * string acommand Command string
-     */
-    protected string[] commandStringToArgs(string acommand) {
-        size_t charCount = command.length;
+    // Creates an argv array from a command string
+    protected string[] commandStringToArgs(string commandString) {
+        size_t charCount = commandString.length;
         string[] argv = null;
         string argument;
         anInDQuote = false;
         anInSQuote = false;
         for (anI = 0; anI < charCount; anI++) {
-            string char = substr(command, anI, 1);
+            string char = substr(commandString, anI, 1);
 
             // end of argument
             if (char == " " && !anInDQuote && !anInSQuote) {

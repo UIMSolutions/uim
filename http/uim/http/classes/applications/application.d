@@ -153,11 +153,9 @@ class DApplication {
      *
      * By default, all commands in UIM, plugins and the application will be
      * loaded using conventions based names.
-     * Params:
-     * \UIM\Console\CommandCollection commands The CommandCollection to add commands into.
      */
-    CommandCollection console(CommandCollection commands) {
-        return commands.addMany(commands.autoDiscover());
+    CommandCollection console(CommandCollection commandsToAdd) {
+        return commands.addMany(commandsToAdd.autoDiscover());
     }
  
     auto pluginConsole(CommandCollection commands): CommandCollection

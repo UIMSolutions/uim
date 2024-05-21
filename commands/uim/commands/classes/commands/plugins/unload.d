@@ -26,21 +26,20 @@ class DPluginUnloadCommand : DCommand {
         return super.execute(arguments, aConsoleIo);
     }
 
-    /* 
-  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
-        auto plugin = to!string(commandArguments.getArgument("plugin"));
+    int execute(Json[string] commandArguments, IConsoleIo aConsoleIo) {
+        string pluginName = commandArguments.getString("plugin");
 
-        result = modifyConfigFile(plugin);
-        if (result.isNull) {
-             aConsoleIo.success("Plugin removed from `CONFIG/plugins.d`");
+        auto modificationResult = modifyConfigFile(pluginName);
+        if (modificationResult.isNull) {
+            aConsoleIo.success("Plugin removed from `CONFIG/plugins.d`");
 
             return CODE_SUCCESS;
         }
-         aConsoleIo.writeErrorMessages(result);
+        aConsoleIo.writeErrorMessages(modificationResult);
 
         return CODE_ERROR;
     }
-    
+
     //  Modify the plugins config file.
     protected string modifyConfigFile(string pluginName) {
         auto configData = @include _configFile;
@@ -65,21 +64,18 @@ class DPluginUnloadCommand : DCommand {
         }
         return "Failed to update `CONFIG/plugins.d`";
     }
-    
-    /**
-     * Get the option parser.
-     * Params:
-     * \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The option parser to update
-     */
-    DConsoleOptionParser buildOptionParser(DConsoleOptionParser aParser) {
-         aParser.description("Command for unloading plugins.");
-        .addArgument("plugin", [
-            "help": 'Name of the plugin to unload.",
-            "required": true.toJson,
-        ]);
 
-        return aParser;
-    } */
+    // Get the option parser.
+    DConsoleOptionParser buildOptionParser(DConsoleOptionParser parsertoUpdate) {
+        parsertoUpdate.description("Command for unloading plugins.");
+        
+        .addArgument("plugin", [
+                "help": "Name of the plugin to unload.",
+                "required": true.toJson,
+            ]);
+
+        return parsertoUpdate;
+    }
 }
 
 mixin(CommandCalls!("PluginUnload"));

@@ -236,12 +236,8 @@ class DI18nExtractCommand : DCommand {
          aConsoleIo.writeln("Done.");
     }
     
-    /**
-     * Gets the option parser instance and configures it.
-     * Params:
-     * \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The parser to configure
-     */
-    DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser  aParser) {
+    // Gets the option parser instance and configures it.
+    DConsoleOptionParser buildOptionParser(DConsoleOptionParser aParser) {
          aParser.description(
             "Extract i18n POT files from application source files. " ~
             "source files are parsed and string literal format strings " ~
@@ -405,7 +401,6 @@ class DI18nExtractCommand : DCommand {
     // Build the translate template file contents out of obtained strings
     protected void _buildFiles(Json[string] consoleArguments) {
         somePaths = _paths;
-        /** @psalm-suppress UndefinedConstant  /
         somePaths ~= realpath(APP) ~ DIRECTORY_SEPARATOR;
 
         usort(somePaths, auto (string aa, string ab) {
@@ -464,11 +459,7 @@ class DI18nExtractCommand : DCommand {
 
     }
     
-    /**
-     * Write the files that need to be stored
-     * Params:
-     * \UIM\Console\Json[string] commandArguments The command commandArguments.
-     */
+    // Write the files that need to be stored
     protected void _writeFiles(Json[string] commandArguments, IConsoleIo aConsoleIo) {
          aConsoleIo.writeln();
         bool overwriteAll = false;

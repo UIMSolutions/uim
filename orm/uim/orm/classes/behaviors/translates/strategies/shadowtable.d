@@ -519,7 +519,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
              * @psalm-suppress PossiblyInvalidArgument
              */
                                                                                 keys = hydrated ? translation
-                                                                                .getVisible() : translation
+                                                                                .visibleFields() : translation
                                                                                 .keys;
 
                                                                                 foreach (

@@ -38,7 +38,7 @@ mixin template TViewVars() {
         });
         
         return mybuilder.build(
-            this.request.ifNull(null),
+            _request.ifNull(null),
             this.response ?? null,
             cast(IEventDispatcher)this ? getEventManager(): null
         );

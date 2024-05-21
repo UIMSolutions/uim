@@ -140,14 +140,10 @@ class DHelpFormatter {
         return result;
     }
     
-    /**
-     * Get the help as an XML string.
-     * Params:
-     * bool string Return the SimpleXml object or a string. Defaults to true.
-     */
-    SimpleXMLElement|string xml(bool string = true) {
+    // Get the help as an XML string.
+    SimpleXMLElement|string xml(bool returnString = true) {
         auto myParser = _parser;
-        xml = new DSimpleXMLElement("<shell></shell>");
+        auto xml = new DSimpleXMLElement("<shell></shell>");
         xml.addChild("command", myParser.getCommand());
         xml.addChild("description", myParser.getDescription());
 
@@ -159,7 +155,6 @@ class DHelpFormatter {
 
         xml.addChild("epilog", myParser.getEpilog());
 
-        return string ? to!string($xml.asXML()#)
-            : xml;
-    } */
+        return returnString ? to!string(xml.asXML()) : xml;
+    } 
 }

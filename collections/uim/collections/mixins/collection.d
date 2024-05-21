@@ -499,7 +499,7 @@ mixin template TCollection() {
         return _newCollection(toArray(mykeepKeys));
     }
  
-    ICollection lazy() {
+    ICollection lazyCollection() {
         mygenerator = auto () {
             unwrap().byKeyValue
                 .each!(kv => yield kv.key: kv.value);

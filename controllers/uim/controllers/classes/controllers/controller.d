@@ -157,8 +157,6 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Params:
      * \UIM\Http\ServerRequest serverRequest Request object for this controller.
      * but expect that features that use the request parameters will not work.
-     * @param string nameToOverride Override the nameToOverride useful in testing when using mocks.
-     * @param \UIM\Event\IEventManager|null eventManager The event manager. Defaults to a new instance.
      */
     this(
         ServerRequest serverRequest,

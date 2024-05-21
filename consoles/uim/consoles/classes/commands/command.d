@@ -168,9 +168,9 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
     /**
      * Implement this method with your command`s logic.
      * Params:
-     * \UIM\Console\Json[string] someArguments The command arguments.
+     * \UIM\Console\Json[string] commandArguments The command arguments.
      */
-    abstract int execute(Json[string] someArguments, IConsoleIo aConsoleIo);
+    abstract int execute(Json[string] commandArguments, IConsoleIo aConsoleIo);
 
     // Halt the current process with a StopException.
     never abort(int exitCode = self.CODE_ERROR) {

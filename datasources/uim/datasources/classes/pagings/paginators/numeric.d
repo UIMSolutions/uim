@@ -466,9 +466,6 @@ class DNumericPaginator : IPaginator {
      *
      * The default order options provided to paginate() will be merged with the user"s
      * requested sorting field/direction.
-     *
-     * @param uim.Datasource\IRepository object Repository object.
-     * @param Json[string] options The pagination options being used for this request.
      */
     Json[string] validateSort(IRepository object, Json[string] paginationOptions) {
         if (paginationOptions.isSet("sort")) {

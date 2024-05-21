@@ -509,18 +509,13 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      *
      * See `join()` for further details on conditions and types.
-     * Params:
-     * @param \UIM\Database\IExpression|\Closure|string[] aconditions The conditions
-     * to use for joining.
-     * @param Json[string] types a list of types associated to the conditions used for converting
-     * values to the corresponding database representation.
     */
     auto leftJoin(
         string[] tableNames,
-        IExpression|Closure|string[] aconditions = null,
+        IExpression|Closure|string[] conditionsForJoin = null,
         Json[string] types = null
     ) {
-        join(_makeJoin(tableNames, conditions, JOIN_TYPE_LEFT), types);
+        join(_makeJoin(tableNames, conditionsForJoin, JOIN_TYPE_LEFT), types);
     }
     
     /**

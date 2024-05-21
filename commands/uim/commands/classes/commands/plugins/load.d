@@ -14,7 +14,7 @@ class DPluginLoadCommand : DCommand {
         }
 
         // TODO configDataFile = CONFIG ~ "plugins.d";
-        
+
         return true;
     }
 
@@ -29,7 +29,6 @@ class DPluginLoadCommand : DCommand {
         return super.execute(arguments, aConsoleIo);
     }
 
-    /* 
     int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         auto plugin = to!string(commandArguments.getArgument("plugin"));
         auto options = null;
@@ -42,13 +41,13 @@ class DPluginLoadCommand : DCommand {
         if (commandArguments.getOption("optional")) {
             options["optional"] = true;
         }
-        foreach ($hook; IPlugin.VALID_HOOKS) {
+        foreach (hook; IPlugin.VALID_HOOKS) {
             if (commandArguments.getOption("no-" ~ hook)) {
-                options[$hook] = false;
+                options[hook] = false;
             }
         }
         try {
-        Plugin. getCollection().findPath(plugin);
+            Plugin.getCollection().findPath(plugin);
         } catch (MissingPluginException anException) {
             /** @psalm-suppress InvalidArgument */
             if (options.isEmpty("optional")) {
@@ -69,7 +68,7 @@ class DPluginLoadCommand : DCommand {
 
     // Modify the plugins config file.
     protected int modifyConfigFile(string pluginName, Json[string] options = null) {
-        
+
         configData = @include this.configFile;
         configData = !configData.isArray ? Json.empty;
     } else {
@@ -78,56 +77,57 @@ class DPluginLoadCommand : DCommand {
 
     configuration.set(pluginName, options);
     auto Json[string] = class_exists(VarExporter.class)
-        ? VarExporter.export_(configData, VarExporter.TRAILING_COMMA_IN_ARRAY) 
-        : var_export_(configData, true);
+        ? VarExporter.export_(configData, VarExporter.TRAILING_COMMA_IN_ARRAY) : var_export_(
+            configData, true);
 
     contents = "\n\n" ~ "return " ~ Json[string] ~ ";" ~ "\n";
 
     return file_put_contents(this.configFile, contents)
-        ? CODE_SUCCESS
-        : CODE_ERROR;
+        ? CODE_SUCCESS : CODE_ERROR;
 }
 
 DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
     with (parserToUpdate) {
-        description("Command for loading plugins."); 
+        description("Command for loading plugins.");
         addArgument("plugin", [
-            "help": "Name of the plugin to load. Must be in CamelCase format. Example: uim plugin load Example",
-            "required": true.toJson,
-        ]); 
+                "help": "Name of the plugin to load. Must be in CamelCase format. Example: uim plugin load Example",
+                "required": true.toJson,
+            ]);
         addOption("only-debug", [
-            "boolean": true.toJson,
-            "help": "Load the plugin only when `debug` is enabled.",
-        ]); 
+                "boolean": true.toJson,
+                "help": "Load the plugin only when `debug` is enabled.",
+            ]);
         addOption("only-cli", [
-            "boolean": true.toJson,
-            "help": "Load the plugin only for CLI.",
-        ]); 
+                "boolean": true.toJson,
+                "help": "Load the plugin only for CLI.",
+            ]);
         addOption("optional", [
-            "boolean": true.toJson,
-            "help": "Do not throw an error if the plugin is not available.",
-        ]); 
+                "boolean": true.toJson,
+                "help": "Do not throw an error if the plugin is not available.",
+            ]);
         addOption("no-bootstrap", [
-            "boolean": true.toJson,
-            "help": "Do not run the `bootstrap()` hook.",
-        ]); 
+                "boolean": true.toJson,
+                "help": "Do not run the `bootstrap()` hook.",
+            ]);
         addOption("no-console", [
-            "boolean": true.toJson,
-            "help": "Do not run the `console()` hook.",
-        ]); addOption("no-middleware", [
-            "boolean": true.toJson,
-            "help": "Do not run the `middleware()` hook..",
-        ]); 
+                "boolean": true.toJson,
+                "help": "Do not run the `console()` hook.",
+            ]);
+        addOption("no-middleware", [
+                "boolean": true.toJson,
+                "help": "Do not run the `middleware()` hook..",
+            ]);
         addOption("no-routes", [
-            "boolean": true.toJson,
-            "help": "Do not run the `routes()` hook.",
-        ]);
+                "boolean": true.toJson,
+                "help": "Do not run the `routes()` hook.",
+            ]);
         addOption("no-services", [
-            "boolean": true.toJson,
-            "help": "Do not run the `services()` hook.",
-        ]);
+                "boolean": true.toJson,
+                "help": "Do not run the `services()` hook.",
+            ]);
 
-    return aParser;
-} */
+        return aParser;
+    }
 }
+
 mixin(CommandCalls!("PluginLoad"));

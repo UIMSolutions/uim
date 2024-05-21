@@ -329,12 +329,12 @@ interface ICollection {
      *
      * group = (new DCollection(items)).groupBy("parent_id");
      *
-     */ Or
+     * Or
      * group = (new DCollection(items)).groupBy(// function (e) {
      * return e["parent_id"];
      * });
      *
-     */ Result will look like this when converted to array
+     * Result will look like this when converted to array
      * [
      * 10: [
      *     ["id": 1, "name": "foo", "parent_id": 10],
@@ -368,12 +368,12 @@ interface ICollection {
      *
      * indexed = (new DCollection(items)).indexBy("id");
      *
-     */ Or
+     * Or
      * indexed = (new DCollection(items)).indexBy(// function (e) {
      * return e["id"];
      * });
      *
-     */ Result will look like this when converted to array
+     * Result will look like this when converted to array
      * [
      * 1: ["id": 1, "name": "foo"],
      * 3: ["id": 3, "name": "baz"],
@@ -403,12 +403,12 @@ interface ICollection {
      *
      * group = (new DCollection(items)).countBy("parent_id");
      *
-     */ Or
+     *  Or
      * group = (new DCollection(items)).countBy(// function (e) {
      * return e["parent_id"];
      * });
      *
-     */ Result will look like this when converted to array
+     *  Result will look like this when converted to array
      * [
      * 10: 2,
      * 11: 1
@@ -418,7 +418,7 @@ interface ICollection {
      * @param callable|string path The column name to use for indexing or callback that returns the value.
      * or a // function returning the indexing key out of the provided element
      */
-    ICollection countBy(path);
+    ICollection countBy(string path);
 
     /**
      * Returns the total sum of all the values extracted with  matcher
@@ -434,10 +434,10 @@ interface ICollection {
      *
      * total = (new DCollection(items)).sumOf("invoice.total");
      *
-     */ Total: 300
+     *  Total: 300
      *
      * total = (new DCollection([1, 2, 3])).sumOf();
-     */ Total: 6
+     *  Total: 6
      * ```
      *
      * @param callable|string path The property name to sum or a function
@@ -472,7 +472,7 @@ interface ICollection {
      *
      * last = (new DCollection(items)).takeLast(3);
      *
-     */ Result will look like this when converted to array
+     * Result will look like this when converted to array
      * [3, 4, 5];
      */
     ICollection takeLast(int numberOfElements);
@@ -656,7 +656,7 @@ interface ICollection {
      *
      * A lazy collection can only be iterated once. A second attempt results in an error.
      */
-    ICollection lazy();
+    ICollection lazyCollection();
 
     /**
      * Returns a new DCollection where the operations performed by this collection.
@@ -729,14 +729,8 @@ interface ICollection {
      * ```
      * comments = (new DCollection(comments)).stopWhen(["is_approved": false.toJson]);
      * ```
-     *
-     * @param callable|array condition the method that will receive each of the elements and
-     * returns true when the iteration should be stopped.
-     * If an array, it will be interpreted as a key-value list of conditions where
-     * the key is a property path as accepted by `Collection.extract`,
-     * and the value the condition against with each element will be matched.
      */
-    ICollection stopWhen(condition):;
+    ICollection stopWhen(Json[string] condition);
 
     /**
      * Creates a new DCollection where the items are the
@@ -770,7 +764,7 @@ interface ICollection {
      * @param callable|null callback A callable // function that will receive each of
      * the items in the collection and should return an array or Traversable object
      */
-    // ICollection unfold(callable callback = null);
+    ICollection unfold(callable callback = null);
 
     /**
      * Passes this collection through a callable as its first argument.

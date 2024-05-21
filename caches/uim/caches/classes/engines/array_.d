@@ -105,7 +105,7 @@ class DArrayCacheEngine : DCacheEngine {
     configuration.get("groups").each!((group) {
       string key = configuration.getString("prefix") ~ myGroup;
       if (!_cachedData.isSet(key)) {
-        _cachedData[aKey] = ["exp": D_INT_MAX, "val": 1];
+        _cachedData[aKey] = ["exp":  D_INT_MAX, "val":  1];
       }
       string myvalue = _cachedData[aKey]["val"];
       results ~= myGroup ~ myvalue;

@@ -80,8 +80,8 @@ class DBufferedIterator : DCollection { // }, Countable {
       _current = super.current();
       _key = super.key();
       _buffer.push([
-          "key": _key,
-          "value": _current,
+          "key":  _key,
+          "value":  _current,
         ]);
     }
     _finished = ! valid;

@@ -46,10 +46,10 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         }
         
         configuration.updateDefaults([
-            "duration": Json(3600),
-            "groups": Json.emptyArray,
-            "prefix": Json("uim_"),
-            "warnOnWriteFailures": true.toJson,
+            "duration":  Json(3600),
+            "groups":  Json.emptyArray,
+            "prefix":  Json("uim_"),
+            "warnOnWriteFailures":  true.toJson,
         ]); 
 
         return true;

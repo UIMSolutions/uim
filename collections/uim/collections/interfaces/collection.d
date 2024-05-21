@@ -437,10 +437,9 @@ interface ICollection {
      * ```
      *
      * @param callable|string path The property name to sum or a function
-     * If no value is passed, an identity // function will be used.
      * that will return the value of the property to sum.
      */
-    float sumOf(path = null);
+    float sumOf(string path = null);
 
     /**
      * Returns a new DCollection with the elements placed in a random order,

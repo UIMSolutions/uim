@@ -58,7 +58,7 @@ class DCollection : /* IteratorIterator, */ ICollection {
       countItems = "An exception occurred while getting count";
     }
     return [
-      "count": Json(countItems),
+      "count":  Json(countItems),
     ];
   } */ 
 }

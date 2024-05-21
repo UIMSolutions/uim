@@ -81,33 +81,28 @@ class DConsoleFormatter : IErrorFormatter {
         return _export_(node, myIndent);
     }
     
-    /**
-     * Convert a tree of IErrorNode objects into a plain text string.
-     * Params:
-     * \UIM\Error\Debug\IErrorNode var The node tree to dump.
-     * @param int anIndent The current indentation level.
-     */
-    protected string export_(IErrorNode var, int anIndent) {
-        if (cast(DScalarNode)var) {
-            return match (var.getType()) {
-                "bool": this.style("const", var.getValue() ? "true" : "false"),
+    // Convert a tree of IErrorNode objects into a plain text string.
+    protected string export_(IErrorNode nodeTreeToDump, int indentLevel) {
+        if (cast(DScalarNode)nodeTreeToDump) {
+            return match (nodeTreeToDump.getType()) {
+                "bool": this.style("const", nodeTreeToDump.getValue() ? "true" : "false"),
                 "null": this.style("const", "null"),
-                "string": this.style("string", "'" ~ (string)var.getValue() ~ "'"),
-                "int", "float": this.style("visibility", "({var.getType()})") ~
-                        " " ~ this.style("number", "{var.getValue()}"),
-                default: "({var.getType()}) {var.getValue()}",
+                "string": this.style("string", "'" ~ (string)nodeTreeToDump.getValue() ~ "'"),
+                "int", "float": this.style("visibility", "({nodeTreeToDump.getType()})") ~
+                        " " ~ this.style("number", "{nodeTreeToDump.getValue()}"),
+                default: "({nodeTreeToDump.getType()}) {nodeTreeToDump.getValue()}",
             };
         }
-        if (cast(DArrayNode)var) {
-            return _exportArray(var,  anIndent + 1);
+        if (cast(DArrayNode)nodeTreeToDump) {
+            return _exportArray(nodeTreeToDump,  indentLevel + 1);
         }
-        if (cast(DClassNode)var || cast(ReferenceNode)var) {
-            return _exportObject(var,  anIndent + 1);
+        if (cast(DClassNode)nodeTreeToDump || cast(ReferenceNode)nodeTreeToDump) {
+            return _exportObject(nodeTreeToDump,  indentLevel + 1);
         }
-        if (cast(DSpecialNode)var) {
-            return _style("special", var.getValue());
+        if (cast(DSpecialNode)nodeTreeToDump) {
+            return _style("special", nodeTreeToDump.getValue());
         }
-        throw new DInvalidArgumentException("Unknown node received " ~ var.classname);
+        throw new DInvalidArgumentException("Unknown node received " ~ nodeTreeToDump.classname);
     }
     
     /**
@@ -116,7 +111,7 @@ class DConsoleFormatter : IErrorFormatter {
      * \UIM\Error\Debug\ArrayNode var The array to export.
      * @param int anIndent The current indentation level.
      */
-    protected string exportArray(ArrayNode arrayToExport, int anIndent) {
+    protected string exportArray(ArrayNode arrayToExport, int indentLevel) {
          result = this.style("punct", "[");
         break = "\n" ~ str_repeat("  ",  anIndent);
         end = "\n" ~ str_repeat("  ",  anIndent - 1);

@@ -14,22 +14,17 @@ import uim.errors;
  */
 class DConsoleErrorHandler { // } : DERRErrorHandler {
     // Standard error stream.
-    // TODO protected DCONConsoleOutput _stderr;
+    protected DCONConsoleOutput _stderr;
 
-    /**
-     
-     *
-     * @param Json[string] aConfig Config options for the error handler.
-     */
-    this(Json aConfig = null) {
-        super();
+    this(Json[string] aConfig = null) {
+        // TODO super();
 
         configuration.update(aConfig);
         _stderr = _config["stderr"];
     }
 
     bool initialize() {
-        super.initialize;
+        // TODO super.initialize;
 
         aConfig["stderr"] = new DConsoleOutput("D://stderr");
         aConfig["log"] = false;

@@ -75,7 +75,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * \UIM\Error\Debug\IErrorNode var The node tree to dump.
      * @param int anIndent The current indentation level.
      */
-    protected string export_(IErrorNode var, int anIndent) {
+    protected string export_(IErrorNode var, int indentLevel) {
         if (cast(DScalarNode)var) {
             return match (var.getType()) {
                 "bool": this.style("const", var.getValue() ? "true" : "false"),
@@ -104,7 +104,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * \UIM\Error\Debug\ArrayNode var The array to export.
      * @param int anIndent The current indentation level.
      */
-    protected string exportArray(ArrayNode tvar, int anIndent) {
+    protected string exportArray(ArrayNode tvar, int indentLevel) {
         open = "<span class="uim-debug-array">' .
             this.style("punct", "[") .
             '<samp class="uim-debug-array-items">";
@@ -134,7 +134,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\ReferenceNode var Object to convert.
      * @param int anIndent The current indentation level.
      */
-    protected string exportObject(ClassNode|ReferenceNode var, int anIndent) {
+    protected string exportObject(ClassNode|ReferenceNode var, int indentLevel) {
         objectId = "uim-db-object-{this.id}-{var.getId()}";
         result = "<span class="uim-debug-object" id="%s">".format(objectId);
         break = "\n" ~ str_repeat("  ",  anIndent);

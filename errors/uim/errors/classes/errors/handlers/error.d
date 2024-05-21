@@ -116,12 +116,7 @@ class DErrorHandler { // }: DERRErrorHandler
         }
     }
 
-    /**
-     * Get a renderer instance.
-     *
-     * @param \Throwable exception The exception being rendered.
-     * @param IServerRequest|null request The request.
-     */
+    // Get a renderer instance.
     IExceptionRenderer getRenderer(
         Throwable exception,
         IServerRequest request = null

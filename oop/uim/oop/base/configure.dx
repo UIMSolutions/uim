@@ -245,10 +245,9 @@ class DFileConfigEngine {
      * Params:
      * string aKey name of configuration resource to load.
      * @param string configData Name of the configured engine to use to read the resource identified by aKey.
-     * @param bool merge if config files should be merged instead of simply overridden
      */
-    static bool load(string aKey, string configData = "default", boolmerge = true) {
-        engine = _getEngine(configData);
+    static bool load(string aKey, string configData = "default", bool shouldMerge = true) {
+        auto engine = _getEngine(configData);
         if (!engine) {
             throw new UimException(
                 "Config %s engine not found when attempting to load %s."
@@ -257,7 +256,7 @@ class DFileConfigEngine {
         }
         someValues = engine.read(aKey);
 
-        if (merge) {
+        if (shouldMerge) {
             someValues = Hash.merge(_values, someValues);
         }
         write(someValues);

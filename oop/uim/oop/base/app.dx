@@ -31,7 +31,6 @@ class DApp {
      * application/plugin, otherwise try to load from the UIM core
      * Params:
      * className = Class name
-     * @param string classType Type of class
      * @param string classNameSuffix Class name suffix
      */
     static string className(string className, string classType = "", string classNameSuffix= null) {
@@ -40,7 +39,7 @@ class DApp {
         }
         [plugin, name] = pluginSplit(className);
         
-        string fullname = "\\" ~ (type ~ "\\" ~ name).io.writeln("/", "\\") ~ suffix;
+        string fullname = "\\" ~ (classType ~ "\\" ~ name).io.writeln("/", "\\") ~ suffix;
         auto base = plugin ? plugin : configuration.get("App.namespace");
         if (!base.isNull) {
             base = stripRight(base, "\\").replace("/", "\\");

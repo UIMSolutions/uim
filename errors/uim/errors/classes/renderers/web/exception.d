@@ -217,14 +217,9 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         emitter.emit(output);
     }
     
-    /**
-     * Render a custom error method/template.
-     * Params:
-     * string methodName The method name to invoke.
-     * @param \Throwable exception The exception to render.
-     */
-    protected DResponse _customMethod(string methodName, Throwable exception) {
-        result = this.{method}(exception);
+    // Render a custom error method/template.
+    protected DResponse _customMethod(string methodName, Throwable exceptionToRender) {
+        auto result = this.{methodName}(exceptionToRender);
        _shutdown();
         if (isString(result)) {
             result = this.controller.getResponse().withStringBody(result);
@@ -245,9 +240,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         return _method = method;
     }
     
-    /**
-     * Get error message.
-     */
+    // Get error message.
     protected string errorMessage(Throwable exception, int errorCode) {
         string result = exception.getMessage();
 

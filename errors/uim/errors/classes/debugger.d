@@ -31,19 +31,19 @@ class DDebugger {
         configuration.data(initData);
 
         configuration.updateDefaults([
-            "outputMask":  Json.emptyArray,
-            "exportFormatter":  Json(null),
-            "editor":  Json("Dstorm"),
+            "outputMask": Json.emptyArray,
+            "exportFormatter": Json(null),
+            "editor": Json("Dstorm"),
         ]);
 
     _editors = [
-        "atom":  "atom://core/open/file?filename={file}&line={line}",
-        "emacs":  "emacs://open?url=file://{file}&line={line}",
-        "macvim":  "mvim://open/?url=file://{file}&line={line}",
-        "Dstorm":  "Dstorm://open?file={file}&line={line}",
-        "sublime":  "subl://open?url=file://{file}&line={line}",
-        "textmate":  "txmt://open?url=file://{file}&line={line}",
-        "vscode":  "vscode://file/{file}:{line}",
+        "atom": "atom://core/open/file?filename={file}&line={line}",
+        "emacs": "emacs://open?url=file://{file}&line={line}",
+        "macvim": "mvim://open/?url=file://{file}&line={line}",
+        "Dstorm": "Dstorm://open?file={file}&line={line}",
+        "sublime": "subl://open?url=file://{file}&line={line}",
+        "textmate": "txmt://open?url=file://{file}&line={line}",
+        "vscode": "vscode://file/{file}:{line}",
     ];
 
         return true;
@@ -163,7 +163,7 @@ class DDebugger {
      *
      * ### Example
      *
-     * Debugger.setOutputMask(["password":  '[*************]");
+     * Debugger.setOutputMask(["password": '[*************]");
      */
     static void setOutputMask(Json[string] keyReplaceData, bool shouldMerge = true) {
         configInstance("outputMask", keyReplaceData, shouldMerge);
@@ -191,7 +191,7 @@ class DDebugger {
      */
     static void log(Json var, string|int level = "debug", int maxDepth = 3) {
         /** @var string asource */
-        source = trace(["start":  1]);
+        source = trace(["start": 1]);
         source ~= "\n";
 
         Log.write(
@@ -283,12 +283,12 @@ class DDebugger {
             backtrace = backtrace.getTrace();
         }
         defaults = [
-            "depth":  999,
-            "format":  "text",
-            "args":  false.toJson,
-            "start":  0,
-            "scope":  Json(null),
-            "exclude":  ["call_user_func_array", "trigger_error"],
+            "depth": 999,
+            "format": "text",
+            "args": false.toJson,
+            "start": 0,
+            "scope": Json(null),
+            "exclude": ["call_user_func_array", "trigger_error"],
         ];
         options = Hash.merge(defaults, options);
 
@@ -296,9 +296,9 @@ class DDebugger {
         back = null;
 
         for (anI = options["start"];  anI < count &&  anI < options["depth"];  anI++) {
-            frame = ["file":  "[main]", "line":  ""];
+            frame = ["file": "[main]", "line": ""];
             if (isSet(backtrace[anI])) {
-                frame = backtrace[anI] ~ ["file":  "[internal]", "line":  "??"];
+                frame = backtrace[anI] ~ ["file": "[internal]", "line": "??"];
             }
             signature = reference = frame["file"];
             if (!frame["class"].isEmpty) {
@@ -317,7 +317,7 @@ class DDebugger {
                 continue;
             }
             if (options["format"] == "points") {
-                back ~= ["file":  frame["file"], "line":  frame["line"], "reference":  reference];
+                back ~= ["file": frame["file"], "line": frame["line"], "reference": reference];
             } else if (options["format"] == "array") {
                 if (!options["args"]) {
                     unset(frame["args"]);
@@ -515,11 +515,11 @@ class DDebugger {
             return new DScalarNode(type, var);
         }
         return match (type) {
-            "float", "string", "null":  new DScalarNode(type, var),
-            "bool":  new DScalarNode("bool", var),
-            "int":  new DScalarNode("int", var),
-            "array":  exportArray(var, context.withAddedDepth()),
-            "unknown":  new DSpecialNode("(unknown)"),
+            "float", "string", "null": new DScalarNode(type, var),
+            "bool": new DScalarNode("bool", var),
+            "int": new DScalarNode("int", var),
+            "array": exportArray(var, context.withAddedDepth()),
+            "unknown": new DSpecialNode("(unknown)"),
             default: exportObject(var, context.withAddedDepth()),
         };
     }
@@ -669,7 +669,7 @@ class DDebugger {
      *  environment conditions.
      */
     static void printVar(Json var, Json[string] location = null, bool showHtml = null) {
-        auto location ~= ["file":  Json(null), "line":  Json(null)];
+        auto location ~= ["file": Json(null), "line": Json(null)];
         if (location["file"]) {
             location["file"] = trimPath((string)location["file"]);
         }

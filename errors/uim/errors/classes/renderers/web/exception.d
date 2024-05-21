@@ -166,23 +166,23 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             previous = previous.getPrevious();
         }
         viewVars = [
-            "message":  message,
-            "url":  htmlAttributeEscape(url),
-            "error":  exception,
-            "exceptions":  exceptions,
-            "code":  code,
+            "message": message,
+            "url": htmlAttributeEscape(url),
+            "error": exception,
+            "exceptions": exceptions,
+            "code": code,
         ];
         serialize = ["message", "url", "code"];
 
          isDebug = configuration.get("debug");
         if (isDebug) {
             trace = (array)Debugger.formatTrace(exception.getTrace(), [
-                "format":  "array",
-                "args":  true.toJson,
+                "format": "array",
+                "args": true.toJson,
             ]);
             origin = [
-                "file":  exception.getFile() ?: "null",
-                "line":  exception.getLine() ?: "null",
+                "file": exception.getFile() ?: "null",
+                "line": exception.getLine() ?: "null",
             ];
             // Traces don`t include the origin file/line.
             array_unshift(trace, origin);
@@ -356,11 +356,11 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      */
     Json[string] debugInfo() {
         return [
-            "error":  _error,
-            "request":  this.request,
-            "controller":  this.controller,
-            "template":  this.template,
-            "method":  this.method,
+            "error": _error,
+            "request": this.request,
+            "controller": this.controller,
+            "template": this.template,
+            "method": this.method,
         ];
     } */
 }

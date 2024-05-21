@@ -52,16 +52,16 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
      * ### Example:
      *
      * ```
-     * entity = new DDatasourceEntity(["id":  1, "name":  "Andrew"])
+     * entity = new DDatasourceEntity(["id": 1, "name": "Andrew"])
      * ```
      */
     this(Json[string] hashOfProperties = null, Json[string] optionData = null) {
         auto updatedOptions = options.update[
-            "useSetters":  true.toJson,
-            "markClean":  false.toJson,
-            "markNew":  Json(null),
-            "guard":  false.toJson,
-            "source":  Json(null),
+            "useSetters": true.toJson,
+            "markClean": false.toJson,
+            "markNew": Json(null),
+            "guard": false.toJson,
+            "source": Json(null),
         ];
 
         if (!options["source"].isEmpty) {
@@ -80,8 +80,8 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
 
         if (!properties.isEmpty) {
             set(properties, [
-                "setter":  options["useSetters"],
-                "guard":  options["guard"],
+                "setter": options["useSetters"],
+                "guard": options["guard"],
             ]);
         }
 

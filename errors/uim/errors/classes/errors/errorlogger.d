@@ -21,7 +21,7 @@ class DErrorLogger : IErrorLogger {
         configuration.data(initData);
         configuration.updateDefaults([
             // `trace` = Should error logs include stack traces?
-            "trace":  false.toJson,
+            "trace": false.toJson,
         ]);
         
         return true;
@@ -37,8 +37,8 @@ class DErrorLogger : IErrorLogger {
         }
         label = error.getLabel();
         level = match (label) {
-            "strict":  LOG_NOTICE,
-            "deprecated":  LOG_DEBUG,
+            "strict": LOG_NOTICE,
+            "deprecated": LOG_DEBUG,
             default: label,
         };
 
@@ -83,7 +83,7 @@ class DErrorLogger : IErrorLogger {
             }
         }
         if (anIncludeTrace) {
-            trace = Debugger.formatTrace(exception, ["format":  "points"]);
+            trace = Debugger.formatTrace(exception, ["format": "points"]);
             assert(isArray(trace));
             message ~= "\nStack Trace:\n";
             trace.each!((line) {

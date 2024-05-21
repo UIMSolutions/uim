@@ -65,7 +65,7 @@ class DExceptionTrap {
      * - `skipLog` - array - List of exceptions to skip for logging. Exceptions that
      *  extend one of the listed exceptions will also not be logged. E.g.:
      *  ```
-     *  "skipLog":  ["uim\Http\exceptions.NotFoundException", "uim\Http\exceptions.UnauthorizedException"]
+     *  "skipLog": ["uim\Http\exceptions.NotFoundException", "uim\Http\exceptions.UnauthorizedException"]
      *  ```
      *  This option is forwarded to the configured `logger`
      * - `extraFatalErrorMemory` - int - The number of megabytes to increase the memory limit by when a fatal error is
@@ -75,13 +75,13 @@ class DExceptionTrap {
      * @var Json[string]
      */
     configuration.updateDefaults([
-        "exceptionRenderer":  Json(null),
-        "logger":  ErrorLogger.class,
-        "stderr":  Json(null),
-        "log":  true.toJson,
-        "skipLog":  Json.emptyArray,
-        "trace":  false.toJson,
-        "extraFatalErrorMemory":  4,
+        "exceptionRenderer": Json(null),
+        "logger": ErrorLogger.class,
+        "stderr": Json(null),
+        "log": true.toJson,
+        "skipLog": Json.emptyArray,
+        "trace": false.toJson,
+        "extraFatalErrorMemory": 4,
     ]);
 
         return true;
@@ -338,7 +338,7 @@ class DExceptionTrap {
                 this.logger().log(exception, request);
             }
         }
-        this.dispatchEvent("Exception.beforeRender", ["exception":  exception]);
+        this.dispatchEvent("Exception.beforeRender", ["exception": exception]);
     }
 
     /**

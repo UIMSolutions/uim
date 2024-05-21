@@ -13,21 +13,21 @@ class DConsoleFormatter : IErrorFormatter {
     // text colors used in colored output.
     protected STRINGAA styles = [
         // bold yellow
-        "const":  "1;33",
+        "const": "1;33",
         // green
-        "string":  "0;32",
+        "string": "0;32",
         // bold blue
-        "number":  "1;34",
+        "number": "1;34",
         // cyan
-        "class":  "0;36",
+        "class": "0;36",
         // grey
-        "punct":  "0;90",
+        "punct": "0;90",
         // default foreground
-        "property":  "0;39",
+        "property": "0;39",
         // magenta
-        "visibility":  "0;35",
+        "visibility": "0;35",
         // red
-        "special":  "0;31",
+        "special": "0;31",
     ];
 
     /**
@@ -90,10 +90,10 @@ class DConsoleFormatter : IErrorFormatter {
     protected string export_(IErrorNode var, int anIndent) {
         if (cast(DScalarNode)var) {
             return match (var.getType()) {
-                "bool":  this.style("const", var.getValue() ? "true" : "false"),
-                "null":  this.style("const", "null"),
-                "string":  this.style("string", "'" ~ (string)var.getValue() ~ "'"),
-                "int", "float":  this.style("visibility", "({var.getType()})") ~
+                "bool": this.style("const", var.getValue() ? "true" : "false"),
+                "null": this.style("const", "null"),
+                "string": this.style("string", "'" ~ (string)var.getValue() ~ "'"),
+                "int", "float": this.style("visibility", "({var.getType()})") ~
                         " " ~ this.style("number", "{var.getValue()}"),
                 default: "({var.getType()}) {var.getValue()}",
             };
@@ -122,7 +122,7 @@ class DConsoleFormatter : IErrorFormatter {
         end = "\n" ~ str_repeat("  ",  anIndent - 1);
         vars = null;
 
-        auto arrow = this.style("punct", ":  ");
+        auto arrow = this.style("punct", ": ");
         arrayToExport.getChildren().each!((item) {
             auto val = item.getValue();
             vars ~= break ~ this.export_(item.getKey(),  anIndent) ~ arrow ~ this.export_(val,  anIndent);
@@ -160,7 +160,7 @@ class DConsoleFormatter : IErrorFormatter {
         break = "\n" ~ str_repeat("  ",  anIndent);
         end = "\n" ~ str_repeat("  ",  anIndent - 1) ~ this.style("punct", "}");
 
-        arrow = this.style("punct", ":  ");
+        arrow = this.style("punct", ": ");
         foreach (aProperty; var.getChildren()) {
             auto visibility = aProperty.getVisibility();
             auto name = aProperty.name;

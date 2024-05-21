@@ -41,11 +41,11 @@ class DErrorTrap {
         * - `trace` - boolean - Whether or not backtraces should be included in logged errors.
         */
         configuration.updateDefaults([
-            // TODOD "errorLevel":  E_ALL,
-            "errorRenderer":  Json(null),
-            "log":  true.toJson,
-            // TODO "logger":  ErrorLogger.classname,
-            "trace":  false.toJson,
+            // TODOD "errorLevel": E_ALL,
+            "errorRenderer": Json(null),
+            "log": true.toJson,
+            // TODO "logger": ErrorLogger.classname,
+            "trace": false.toJson,
         ]);
 
         return true;
@@ -104,7 +104,7 @@ class DErrorTrap {
         if (errorCode == E_USER_ERROR ||  errorCode == E_ERROR || errorCode == E_PARSE) {
             throw new DFatalErrorException(description, errorCode, file, line);
         }
-        auto trace = (array)Debugger.trace(["start":  1, "format":  "points"]);
+        auto trace = (array)Debugger.trace(["start": 1, "format": "points"]);
         auto error = new UimError(errorCode, description, file, line, trace);
 
         auto anIgnoredPaths = (array)configuration.get("Error.ignoredDeprecationPaths");
@@ -123,7 +123,7 @@ class DErrorTrap {
         try {
             // Log first incase rendering or event listeners fail
             this.logError(error);
-            event = this.dispatchEvent("Error.beforeRender", ["error":  error]);
+            event = this.dispatchEvent("Error.beforeRender", ["error": error]);
             if (event.isStopped()) {
                 return true;
             }

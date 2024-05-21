@@ -25,7 +25,7 @@ interface IEventManager {
      * Binding with options:
      *
      * ```
-     * eventManager.on("Model.beforeSave", ["priority":  90], aCallable);
+     * eventManager.on("Model.beforeSave", ["priority": 90], aCallable);
      * ```
      * Params:
      * \UIM\Event\IEventListener|string aeventKey The event unique identifier name

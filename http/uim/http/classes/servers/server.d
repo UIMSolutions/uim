@@ -85,7 +85,7 @@ class DServer { // }: IEventDispatcher {
         if (cast(IPluginApplication)this.app ) {
             middleware = this.app.pluginMiddleware(middleware);
         }
-        this.dispatchEvent("Server.buildMiddleware", ["middleware":  middleware]);
+        this.dispatchEvent("Server.buildMiddleware", ["middleware": middleware]);
 
         response = this.runner.run(middleware, request, this.app);
 

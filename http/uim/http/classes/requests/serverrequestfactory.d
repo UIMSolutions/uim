@@ -32,23 +32,23 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         Json[string] files = null
     ) {
         server = normalizeServer(server ?? _SERVER);
-        ["uri":  anUri, "base":  base, "webroot":  webroot] = UriFactory.marshalUriAndBaseFromSapi(server);
+        ["uri": anUri, "base": base, "webroot": webroot] = UriFactory.marshalUriAndBaseFromSapi(server);
 
         sessionConfig = (array)configuration.get("Session") ~ [
-            "defaults":  "D",
-            "cookiePath":  webroot,
+            "defaults": "D",
+            "cookiePath": webroot,
         ];
         session = Session.create(sessionConfig);
 
         request = new DServerRequest([
-            "environment":  server,
-            "uri":  anUri,
-            "cookies":  cookies ?? _COOKIE,
-            "query":  aQuery ?? _GET,
-            "webroot":  webroot,
-            "base":  base,
-            "session":  session,
-            "input":  server["uimD_INPUT"] ?? null,
+            "environment": server,
+            "uri": anUri,
+            "cookies": cookies ?? _COOKIE,
+            "query": aQuery ?? _GET,
+            "webroot": webroot,
+            "base": base,
+            "session": session,
+            "input": server["uimD_INPUT"] ?? null,
         ]);
 
         request = marshalBodyAndRequestMethod(parsedBody ?? _POST, request);
@@ -138,7 +138,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      */
     IServerRequest createServerRequest(string httpMethod, anUri, Json[string] serverParams = null) {
         serverParams["REQUEST_METHOD"] = method;
-        options = ["environment":  serverParams];
+        options = ["environment": serverParams];
 
         if (isString(anUri)) {
             anUri = (new UriFactory()).createUri(anUri);

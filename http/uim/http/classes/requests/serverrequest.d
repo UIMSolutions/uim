@@ -24,29 +24,29 @@ class DServerRequest { // }: IServerRequest {
         configuration.data(initData);
 
     _urlParams = [
-        "plugin":  Json(null),
-        "controller":  Json(null),
-        "action":  Json(null),
-        "_ext":  Json(null),
-        "pass":  Json.emptyArray,
+        "plugin": Json(null),
+        "controller": Json(null),
+        "action": Json(null),
+        "_ext": Json(null),
+        "pass": Json.emptyArray,
     ];
 
     _detectors = [
-        "get":  ["env":  'REQUEST_METHOD", "value":  'GET"],
-        "post":  ["env":  'REQUEST_METHOD", "value":  'POST"],
-        "put":  ["env":  'REQUEST_METHOD", "value":  'PUT"],
-        "patch":  ["env":  'REQUEST_METHOD", "value":  'PATCH"],
-        "delete":  ["env":  'REQUEST_METHOD", "value":  'DELETE"],
-        "head":  ["env":  'REQUEST_METHOD", "value":  'HEAD"],
-        "options":  ["env":  'REQUEST_METHOD", "value":  'OPTIONS"],
-        "https":  ["env":  'HTTPS", "options":  [1, "on"]],
-        "ajax":  ["env":  'HTTP_X_REQUESTED_WITH", "value":  'XMLHttpRequest"],
-        "Json":  ["accept":  ["application/Json"], "param":  '_ext", "value":  'Json"],
-        "xml":  [
-            "accept":  ["application/xml", "text/xml"],
-            "exclude":  ["text/html"],
-            "param":  '_ext",
-            "value":  'xml",
+        "get": ["env": 'REQUEST_METHOD", "value": 'GET"],
+        "post": ["env": 'REQUEST_METHOD", "value": 'POST"],
+        "put": ["env": 'REQUEST_METHOD", "value": 'PUT"],
+        "patch": ["env": 'REQUEST_METHOD", "value": 'PATCH"],
+        "delete": ["env": 'REQUEST_METHOD", "value": 'DELETE"],
+        "head": ["env": 'REQUEST_METHOD", "value": 'HEAD"],
+        "options": ["env": 'REQUEST_METHOD", "value": 'OPTIONS"],
+        "https": ["env": 'HTTPS", "options": [1, "on"]],
+        "ajax": ["env": 'HTTP_X_REQUESTED_WITH", "value": 'XMLHttpRequest"],
+        "Json": ["accept": ["application/Json"], "param": '_ext", "value": 'Json"],
+        "xml": [
+            "accept": ["application/xml", "text/xml"],
+            "exclude": ["text/html"],
+            "param": '_ext",
+            "value": 'xml",
         ],
     ];
 
@@ -203,17 +203,17 @@ class DServerRequest { // }: IServerRequest {
      */
     this(Json[string] configData = null) {
         configData += [
-            "params":  this.params,
-            "query":  Json.emptyArray,
-            "post":  Json.emptyArray,
-            "files":  Json.emptyArray,
-            "cookies":  Json.emptyArray,
-            "environment":  Json.emptyArray,
-            "url":  "",
-            "uri":  Json(null),
-            "base":  "",
-            "webroot":  "",
-            "input":  Json(null),
+            "params": this.params,
+            "query": Json.emptyArray,
+            "post": Json.emptyArray,
+            "files": Json.emptyArray,
+            "cookies": Json.emptyArray,
+            "environment": Json.emptyArray,
+            "url": "",
+            "uri": Json(null),
+            "base": "",
+            "webroot": "",
+            "input": Json(null),
         ];
 
        _setConfig(configData);
@@ -227,7 +227,7 @@ class DServerRequest { // }: IServerRequest {
     protected void _setConfig(Json[string] configData = null) {
         if (isEmpty(configData["session"])) {
             configData["session"] = new DSession([
-                'cookiePath":  configData["base"],
+                'cookiePath": configData["base"],
             ]);
         }
         if (isEmpty(configData["environment"]["REQUEST_METHOD"])) {
@@ -244,7 +244,7 @@ class DServerRequest { // }: IServerRequest {
             if (configData["url"] != "") {
                 configData = this.processUrlOption(configData);
             }
-            ["uri":  anUri] = UriFactory.marshalUriAndBaseFromSapi(configData["environment"]);
+            ["uri": anUri] = UriFactory.marshalUriAndBaseFromSapi(configData["environment"]);
         }
        _environmentData = configData["environment"];
 
@@ -596,7 +596,7 @@ class DServerRequest { // }: IServerRequest {
      * the environment value is equality checked against the provided value.
      *
      * ```
-     * addDetector("post", ["env":  'REQUEST_METHOD", "value":  'POST"]);
+     * addDetector("post", ["env": 'REQUEST_METHOD", "value": 'POST"]);
      * ```
      *
      * ### Request parameter comparison
@@ -604,7 +604,7 @@ class DServerRequest { // }: IServerRequest {
      * Allows for custom detectors on the request parameters.
      *
      * ```
-     * addDetector("admin", ["param":  'prefix", "value":  'admin"]);
+     * addDetector("admin", ["param": 'prefix", "value": 'admin"]);
      * ```
      *
      * ### Accept comparison
@@ -612,7 +612,7 @@ class DServerRequest { // }: IServerRequest {
      * Allows for detector to compare against Accept header value.
      *
      * ```
-     * addDetector("csv", ["accept":  'text/csv"]);
+     * addDetector("csv", ["accept": 'text/csv"]);
      * ```
      *
      * ### Header comparison
@@ -620,7 +620,7 @@ class DServerRequest { // }: IServerRequest {
      * Allows for one or more headers to be compared.
      *
      * ```
-     * addDetector("fancy", ["header":  ["X-Fancy":  1]);
+     * addDetector("fancy", ["header": ["X-Fancy": 1]);
      * ```
      *
      * The `param`, `env` and comparison types allow the following
@@ -631,7 +631,7 @@ class DServerRequest { // }: IServerRequest {
      * Pattern value comparison allows you to compare a value fetched from `enviroment()` to a regular expression.
      *
      * ```
-     * addDetector("iphone", ["env":  'HTTP_USER_AGENT", "pattern":  '/iPhone/i"]);
+     * addDetector("iphone", ["env": 'HTTP_USER_AGENT", "pattern": '/iPhone/i"]);
      * ```
      *
      * ### Option based comparison
@@ -640,14 +640,14 @@ class DServerRequest { // }: IServerRequest {
      * to add an already defined options detector will merge the options.
      *
      * ```
-     * addDetector("mobile", ["env":  'HTTP_USER_AGENT", "options":  ["Fennec"]]);
+     * addDetector("mobile", ["env": 'HTTP_USER_AGENT", "options": ["Fennec"]]);
      * ```
      *
      * You can also make compare against multiple values
      * using the `options` key. This is useful when you want to check
      * if a request value is in a list of options.
      *
-     * `addDetector("extension", ["param":  '_ext", "options":  ["pdf", "csv"]]`
+     * `addDetector("extension", ["param": '_ext", "options": ["pdf", "csv"]]`
      * Params:
      * string aName The name of the detector.
      * @param \Closure|array detector A Closure or options array for the detector definition.
@@ -1306,10 +1306,10 @@ class DServerRequest { // }: IServerRequest {
      */
     Json[string] getAttributes() {
         emulated = [
-            "params":  this.params,
-            "webroot":  this.webroot,
-            "base":  this.base,
-            "here":  this.base ~ this.uri.getPath(),
+            "params": this.params,
+            "webroot": this.webroot,
+            "base": this.base,
+            "here": this.base ~ this.uri.getPath(),
         ];
 
         return _attributes + emulated;

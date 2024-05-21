@@ -123,7 +123,7 @@ class DMessagesFileLoader {
      * and catalog name.
      */
     string[] translationsFolders() {
-        locale = Locale.parseLocale(_locale) ~ ["region":  Json(null)];
+        locale = Locale.parseLocale(_locale) ~ ["region": Json(null)];
 
         folders = [
             join("_", [locale["language"], locale["region"]]),

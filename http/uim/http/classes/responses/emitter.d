@@ -172,7 +172,7 @@ class DResponseEmitter {
      */
     protected bool setCookie(ICookie|string acookie) {
         if (isString(cookie)) {
-            cookie = Cookie.createFromHeaderString(cookie, ["path":  ""]);
+            cookie = Cookie.createFromHeaderString(cookie, ["path": ""]);
         }
         return setcookie(cookie.name, cookie.getScalarValue(), cookie.getOptions());
     }

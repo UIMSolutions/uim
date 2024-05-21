@@ -29,8 +29,8 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      *  FormHelper.
      */
     protected Json _config = [
-        "key":  Json("csrfToken"),
-        "field":  Json("_csrfToken"),
+        "key": Json("csrfToken"),
+        "field": Json("_csrfToken"),
     ];
 
     /**
@@ -214,7 +214,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * @param string aKey The session key/attribute to set.
      */
     static ServerRequest replaceToken(ServerRequest serverRequest, string aKey = "csrfToken") {
-        middleware = new DSessionCsrfProtectionMiddleware(["key":  aKey]);
+        middleware = new DSessionCsrfProtectionMiddleware(["key": aKey]);
 
         token = middleware.createToken();
         request.getSession().write(aKey, token);

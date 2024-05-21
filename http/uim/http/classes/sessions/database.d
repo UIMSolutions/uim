@@ -31,7 +31,7 @@ class DatabaseSession { // }: SessionHandler {
         aTableLocator = getTableLocator();
 
         if (configData.isEmpty("model")) {
-            configData = aTableLocator.exists("Sessions") ? [] : ["table":  "sessions", "allowFallbackClass":  true.toJson];
+            configData = aTableLocator.exists("Sessions") ? [] : ["table": "sessions", "allowFallbackClass": true.toJson];
            _table = aTableLocator.get("Sessions", configData);
         } else {
            _table = aTableLocator.get(configuration.get("model"]);
@@ -98,9 +98,9 @@ class DatabaseSession { // }: SessionHandler {
         string[] primaryKeys = _table.primaryKeys();
         auto session = _table.newEntity([
             primaryKeys:  sessionId,
-            "data":  dataToSave,
-            "expires":  time() + _timeout,
-        ], ["accessibleFields":  [primaryKeys: true]]);
+            "data": dataToSave,
+            "expires": time() + _timeout,
+        ], ["accessibleFields": [primaryKeys: true]]);
 
         return (bool)_table.save(session);
     }
@@ -121,6 +121,6 @@ class DatabaseSession { // }: SessionHandler {
      * int maxlifetime Sessions that have not updated for the last maxlifetime seconds will be removed.
      */
     int gc(int maxlifetime) {
-        return _table.deleteAll(["expires <":  time()]);
+        return _table.deleteAll(["expires <": time()]);
     }
 }

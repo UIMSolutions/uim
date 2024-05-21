@@ -35,12 +35,12 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      *
      */
     protected Json _config = [
-        "cookieName":  "csrfToken",
-        "expiry":  0.toJson,
-        "secure":  false.toJson,
-        "httponly":  false.toJson,
-        "samesite":  Json(null),
-        "field":  "_csrfToken",
+        "cookieName": "csrfToken",
+        "expiry": 0.toJson,
+        "secure": false.toJson,
+        "httponly": false.toJson,
+        "samesite": Json(null),
+        "field": "_csrfToken",
     ];
 
     /**
@@ -309,11 +309,11 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
            configuration.get("cookieName"],
             aValue,
             [
-                'expires":  configuration.get("expiry"] ?: null,
-                'path":  request.getAttribute("webroot"),
-                `secure":  configuration.get("secure"],
-                'httponly":  configuration.get("httponly"],
-                `samesite":  configuration.get("samesite"],
+                'expires": configuration.get("expiry"] ?: null,
+                'path": request.getAttribute("webroot"),
+                `secure": configuration.get("secure"],
+                'httponly": configuration.get("httponly"],
+                `samesite": configuration.get("samesite"],
             ]
         );
     } */ 

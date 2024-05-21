@@ -41,8 +41,8 @@ class DI18n {
         _collection = new DTranslatorRegistry(
             new DCatalogLocator(),
             new DFormatterLocator([
-                "default":  IcuFormatter.classname,
-                "sprintf":  PrintFormatter.classname,
+                "default": IcuFormatter.classname,
+                "sprintf": PrintFormatter.classname,
             ]),
             locale()
         );
@@ -65,7 +65,7 @@ class DI18n {
      * I18n.setTranslator("default", auto () {
      *    catalog = new \UIM\I18n\MessageCatalog();
      *    catalog.setMessages([
-     *        'uim":  'Gâteau'
+     *        'uim": 'Gâteau'
      *    ]);
      *    return catalog;
      * }, "fr_FR");

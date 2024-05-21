@@ -512,7 +512,7 @@ abstract class DQuery : IQuery { // : IExpression {
     */
     auto leftJoin(
         string[] tableNames,
-        IExpression|Closure|string[] conditionsForJoin = null,
+        /* IExpression|Closure */string[] conditionsForJoin = null,
         Json[string] types = null
     ) {
         join(_makeJoin(tableNames, conditionsForJoin, JOIN_TYPE_LEFT), types);
@@ -533,7 +533,7 @@ abstract class DQuery : IQuery { // : IExpression {
      */
     void rightJoin(
         string[] tableNames,
-        IExpression|Closure|string[] aconditions = null,
+        /* IExpression|Closure */string[] aconditions = null,
         Json[string] types = null
     ) {
         join(_makeJoin(tableNames, conditions, JOIN_TYPE_RIGHT), types);
@@ -554,7 +554,7 @@ abstract class DQuery : IQuery { // : IExpression {
      */
     auto innerJoin(
         string[] tableNames,
-        IExpression|Closure|string[] aconditions = null,
+        /* IExpression|Closure */string[] aconditions = null,
         Json[string] types = null
     ) {
         join(_makeJoin(tableNames, conditions, JOIN_TYPE_INNER), types);
@@ -571,7 +571,7 @@ abstract class DQuery : IQuery { // : IExpression {
      */
     protected Json[string] _makeJoin(
         string[] tableNames,
-        /* IExpression|Closure| */ string[] aconditions,
+        /* /* IExpression|Closure */ */ string[] aconditions,
         string joinType
     ) {
         string tableAlias = tableNames;
@@ -888,7 +888,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * \UIM\Database\IExpression|\Closure|string[] aconditions The conditions to add with AND.
      * @param STRINGAA types Associative array of type names used to bind values to query
      */
-    auto andWhere(IExpression|Closure|string[] aconditions, Json[string] types = null) {
+    auto andWhere(/* IExpression|Closure */string[] aconditions, Json[string] types = null) {
        _conjugate("where", conditions, "AND", types);
 
         return this;
@@ -951,7 +951,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * If you need to set complex expressions as order conditions, you
      * should use `orderByAsc()` or `orderByDesc()`.
      */
-    void orderBy(/* IExpression|Closure| */ string[] fieldNames, bool shouldOverwrite = false) {
+    void orderBy(/* /* IExpression|Closure */ */ string[] fieldNames, bool shouldOverwrite = false) {
         if (shouldOverwrite) {
            _parts["order"] = null;
         }
@@ -975,7 +975,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * DOrder fields are not suitable for use with user supplied data as they are
      * not sanitized by the query builder.
      */
-    void orderByAsc(/* IExpression|Closure| */ string fieldName, bool shouldOverwrite = false) {
+    void orderByAsc(/* /* IExpression|Closure */ */ string fieldName, bool shouldOverwrite = false) {
         if (shouldOverwrite) {
            _parts["order"] = null;
         }
@@ -1002,7 +1002,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \UIM\Database\IExpression|\Closure|string fieldName The field to order on.
       */
-    auto orderByDesc(IExpression|Closure|string fieldName, bool shouldOverwrite = false) {
+    auto orderByDesc(/* IExpression|Closure */string fieldName, bool shouldOverwrite = false) {
         if (shouldOverwrite) {
            _parts["order"] = null;
         }
@@ -1324,7 +1324,7 @@ abstract class DQuery : IQuery { // : IExpression {
     // Helper auto used to build conditions by composing QueryExpression objects.
     protected void _conjugate(
         string queryPart,
-        /* IExpression|Closure| */ string[] appendExpression,
+        /* /* IExpression|Closure */ */ string[] appendExpression,
         string conjunctionType,
         Json[string] typesNames
     ) {

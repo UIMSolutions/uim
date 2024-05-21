@@ -21,14 +21,14 @@ interface IWindow {
      * Params:
      * \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string apartitions Partition expressions
      */
-    auto partition(IExpression|Closure|string[] apartitions);
+    auto partition(/* IExpression|Closure */string[] apartitions);
 
     /**
      * Adds one or more order by clauses to the window.
      * Params:
      * \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string fieldNames DOrder expressions
      */
-    auto orderBy(IExpression|Closure|string[] fieldNames);
+    auto orderBy(/* IExpression|Closure */string[] fieldNames);
 
     /**
      * Adds a simple range frame to the window.

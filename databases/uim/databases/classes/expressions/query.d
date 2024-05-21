@@ -332,7 +332,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * passedTypes Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
      */
-    static or(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = null) {
+    static or(/* IExpression|Closure */string[] aconditions, STRINGAA passedTypes = null) {
         if (cast(DClosure)conditions) {
             return conditions(new static([], getTypeMap().setTypes(passedTypes), "OR"));
         }
@@ -349,7 +349,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * passedTypes Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
      */
-    auto not(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = null) {
+    auto not(/* IExpression|Closure */string[] aconditions, STRINGAA passedTypes = null) {
         return _add(["NOT": conditions], passedTypes);
     }
     

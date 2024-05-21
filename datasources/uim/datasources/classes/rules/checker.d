@@ -156,14 +156,9 @@ class DRulesChecker {
      * Params:
      * callable rule A callable auto or object that will return whether
      * the entity is valid or not.
-     * @param string[] name The alias for a rule, or an array of options.
-     * @param Json[string] optionData List of extra options to pass to the rule callable as
-     * second argument.
      */
-    auto addremove(callable rule, string[] name = null, Json[string] optionData = null) {
-       _deleteRules ~= _addError(rule, name, options);
-
-        return this;
+    void addremove(callable rule, string[] ruleAlias = null, Json[string] optionData = null) {
+       _deleteRules ~= _addError(rule, ruleAlias, options);
     }
     
     /**

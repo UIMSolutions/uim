@@ -75,7 +75,7 @@ interface IRepository {
      * @param \Closure|string[] conditions Conditions to be used, accepts anything Query.where()
      * can take.
      */
-    int updateAll(Closure|string[] fieldNames, IClosure|string[] conditions);
+    int updateAll(/* Closure */ string[] fieldNames,/* IClosure */ string[] conditions);
 
     /**
      * Deletes all records matching the provided conditions.
@@ -90,7 +90,7 @@ interface IRepository {
      * \Closure|string[] conditions Conditions to be used, accepts anything Query.where()
      * can take.
      */
-    int deleteAll(Closure|string[] conditions);
+    int deleteAll(/* Closure */ string[] conditions);
 
     /**
      * Returns true if there is any record in this repository matching the specified
@@ -98,7 +98,7 @@ interface IRepository {
      * Params:
      * \Closure|string[] conditions list of conditions to pass to the query
      */
-   bool exists(Closure|string[] conditions);
+   bool exists(/* Closure */ string[] conditions);
 
     /**
      * Persists an entity based on the fields that are marked as dirty and

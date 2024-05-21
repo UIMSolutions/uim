@@ -159,13 +159,8 @@ class DNumericPaginator : IPaginator {
      * ```
      * dashboard?articles[page]=1&tags[page]=2
      * ```
-     *
-     * @param uim.Datasource\IRepository|uim.Datasource\IQuery object The repository or query
-     *  to paginate.
-     * @param Json[string] params Request params
-     * @param Json[string] paginationData The paginationData/configuration used for pagination.
      */
-    IResultset paginate(object object, Json[string] requestData = null, Json[string] paginationData = null) {
+    IResultset paginate(IQuery queryObject, Json[string] requestData = null, Json[string] paginationData = null) {
         auto query = null;
         if (cast(IQuery) object) {
             query = object;

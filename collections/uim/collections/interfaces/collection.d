@@ -305,9 +305,8 @@ interface ICollection {
      * writeln(user.name;
      * }
      * ```
-     * @param callable|string path The column name to use for sorting or callback that returns the value.
      */
-    ICollection sortBy(path, int sortOrder = SORT_DESC, int sortType = SORT_NUMERIC);
+    ICollection sortBy(string columnName, int sortOrder = SORT_DESC, int sortType = SORT_NUMERIC);
 
     /**
      * Splits a collection into sets, grouped by the result of running each value

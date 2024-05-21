@@ -48,15 +48,15 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
         }
     }
  
-    void partition(IExpression|Closure|string[] apartitions) {
+    void partition(/* IExpression|Closure */string[] apartitions) {
         getWindow().partition(partitions);
     }
 
-    auto order(IExpression|Closure|string[] fieldNames) {
+    auto order(/* IExpression|Closure */string[] fieldNames) {
         return _orderBy(fields);
     }
  
-    void orderBy(IExpression|Closure|string[] fieldNames) {
+    void orderBy(/* IExpression|Closure */string[] fieldNames) {
         getWindow().orderBy(fields);
     }
  

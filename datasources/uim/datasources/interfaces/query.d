@@ -21,9 +21,9 @@ interface IQuery {
      * If `true` is passed in the second argument, any previous selections will
      * be overwritten with the list passed in the first argument.
      * Params:
-     * \Closure|string[]|float fields Fields.
+     * \/* Closure */ string[] fields Fields.
      */
-    auto select(Closure|string[]|float fields, bool shuldOverwrite = false);
+    auto select(/* Closure */ string[] fields, bool shuldOverwrite = false);
 
     /**
      * Returns a key: value array representing a single aliased field
@@ -32,9 +32,6 @@ interface IQuery {
      *
      * If the field is already aliased, then it will not be changed.
      * If no alias is passed, the default table for this query will be used.
-     * Params:
-     * string fieldName The field to alias
-     * @param string alias the alias used to prefix the field
      */
     STRINGAA aliasField(string fieldName, string aliasName = null);
 
@@ -213,7 +210,7 @@ interface IQuery {
      * \Closure|string[] fieldNames fields to be added to the list
      * @param bool overwrite whether to reset order with field list or not
      */
-    auto orderBy(Closure|string[] fieldNames, bool overwrite = false);
+    auto orderBy(/* Closure */ string[] fieldNames, bool overwrite = false);
 
     /**
      * Set the page of results you want.
@@ -358,5 +355,5 @@ interface IQuery {
      * @param STRINGAA types Associative array of type names used to bind values to query
      * @param bool overwrite whether to reset conditions with passed list or not
      */
-    // TODO auto where(Closure|string[] conditions = null, Json[string] types = null, bool overwrite = false);
+    // TODO auto where(/* Closure */ string[] conditions = null, Json[string] types = null, bool overwrite = false);
 }

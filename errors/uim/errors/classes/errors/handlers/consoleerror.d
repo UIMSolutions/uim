@@ -41,20 +41,16 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
      */
     void handleException(Throwable exception) {
         _displayException(exception);
-        this.logException(exception);
+        logException(exception);
 
         exitCode = Command.CODE_ERROR;
-        if (exception instanceof ConsoleException) {
+        if (cast(ConsoleException)exception) {
             exitCode = exception.getCode();
         }
         _stop(exitCode);
     }
 
-    /**
-     * Prints an exception to stderr.
-     *
-     * @param \Throwable exception The exception to handle
-     */
+    // Prints an exception to stderr.
     protected void _displayException(Throwable exception) {
         errorName = "Exception:";
         if (cast(DFatalErrorException)exception) {
@@ -62,8 +58,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
         }
 
         message = "<error>%s</error> %s\nIn [%s, line %s]\n"
-            .format(errorName, exception.getMessage(), exception.getFile(), exception.getLine())
-        );
+            .format(errorName, exception.getMessage(), exception.getFile(), exception.getLine());
         _stderr.write(message);
     }
 
@@ -71,16 +66,13 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
      * Prints an error to stderr.
      *
      * Template method of DERRErrorHandler.
-     *
-     * @param Json[string] error An array of error data.
      */
-    protected void _displayError(Json[string] error, bool shouldDebug) {
-        string message = "%s\nIn [%s, line %s]".format(
-            error["description"], error["file"], error["line"]
-        );
+    protected void _displayError(Json[string] errorData, bool shouldDebug) {
+        string message = "%s\nIn [%s, line %s]"
+            .format(errorData["description"], errorData["file"], errorData["line"]);
 
-        message = "<error>%s Error:</error> %s\n"
-            .format(error["error"], message);
+        string message = "<error>%s Error:</error> %s\n"
+            .format(errorData["error"], message);
 
         _stderr.write(message);
     }

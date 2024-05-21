@@ -147,18 +147,17 @@ mixin template TQuery() {
      * @param string field The field to alias
      * @param string alias the alias used to prefix the field
      */
-    STRINGAA aliasField(string fieldName, string aliasName = null) {
-        if (indexOf(field, ".") == false) {
-            alias = alias ?: getRepository().aliasName();
-            aliasedField = alias ~ "." ~ field;
+    STRINGAA aliasField(string fieldName, string fieldAlias = null) {
+        if (indexOf(fieldName, ".") == false) {
+            fieldAlias = fieldAlias ? fieldAlias : getRepository().aliasName();
+            fieldAlias = fieldAlias ~ "." ~ field;
         } else {
-            aliasedField = field;
-            [alias, field] = explode(".", field);
+            fieldAlias = field;
+            [fieldAlias, field] = explode(".", field);
         }
 
-        key = "%s__%s".format(alias, field);
-
-        return [key: aliasedField];
+        auto key = "%s__%s".format(fieldAlias, field);
+        return [key: fieldAlias];
     }
 
     /**

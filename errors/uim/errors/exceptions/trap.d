@@ -181,7 +181,7 @@ class DExceptionTrap {
         }
         myRequest = Router.getRequest();
 
-        this.logException(anException, myRequest);
+        logException(anException, myRequest);
 
         try {
             event = this.dispatchEvent("Exception.beforeRender", ["exception": anException, "request": myRequest]);

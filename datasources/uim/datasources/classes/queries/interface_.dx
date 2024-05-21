@@ -105,12 +105,8 @@ interface IQuery {
      *
      * The above is an example of stacking multiple finder methods onto
      * a single query.
-     *
-     * @param string finder The finder method to use.
-     * @param Json[string] options The options for the finder.
-     * @return static Returns a modified query.
      */
-    function find(string finder, Json[string] optionData = null);
+    static auto find(string finderMethod, Json[string] optionData = null);
 
     /**
      * Returns the first result out of executing this query, if the query has not been
@@ -124,9 +120,7 @@ interface IQuery {
      */
     IDatasourceEntity first();
 
-    /**
-     * Returns the total amount of results for the query.
-     */
+    // Returns the total amount of results for the query.
     size_t count();
 
     /**

@@ -218,7 +218,7 @@ class DExceptionTrap {
         }
         request = Router.getRequest();
 
-        this.logException(exception, request);
+        logException(exception, request);
 
         try {
             renderer = this.renderer(exception);

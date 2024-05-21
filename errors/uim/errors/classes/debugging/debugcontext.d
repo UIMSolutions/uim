@@ -45,12 +45,8 @@ class DebugContext {
       return _maxDepth - _depth;
     }
     
-    /* 
     private SplObjectStorage _refs;
 
-    /**
-     * @param int maxDepth The desired depth of dump output.
-     */
     this(int aMaxDepth) {
         _maxDepth = aMaxDepth;
         _refs = new DSplObjectStorage();

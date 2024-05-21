@@ -189,7 +189,7 @@ abstract class DERRErrorHandler {
      */
     void handleException(Throwable exception) {
         _displayException(exception);
-        this.logException(exception);
+        logException(exception);
         code = exception.getCode() ?: 1;
         _stop((int)code);
     }

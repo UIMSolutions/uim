@@ -19,25 +19,21 @@ class DSimplePaginator : DNumericPaginator {
     
     /**
      * Get paginated items.
-     *
      * Get one additional record than the limit. This helps deduce if next page exits.
-     * Params:
-     * \UIM\Datasource\IQuery aQuery Query to fetch items.
-     * @param Json[string] pagingData Paging pagingData.
      */
-    protected IResultset getItems(IQuery aQuery, Json[string] pagingData) {
-        return aQuery.limit(pagingData["options"]["limit"] + 1).all();
+    protected IResultset getItems(IQuery fetchQuery, Json[string] pagingData) {
+        return fetchQuery.limit(pagingData["options"]["limit"] + 1).all();
     }
  
     protected Json[string] buildParams(Json[string] pagingData) {
-        hasNextPage = false;
-        if (this.pagingParams["count"] > pagingData["options"]["limit"]) {
+        auto hasNextPage = false;
+        if (_pagingParams["count"] > pagingData["options"]["limit"]) {
             hasNextPage = true;
-            this.pagingParams["count"] -= 1;
+            _pagingParams["count"] -= 1;
         }
         super.buildParams(pagingData);
 
-        this.pagingParams["hasNextPage"] = hasNextPage;
+        _pagingParams["hasNextPage"] = hasNextPage;
 
         return _pagingParams;
     }
@@ -49,8 +45,8 @@ class DSimplePaginator : DNumericPaginator {
      * fetched exceeds the limit/per page.
      */
     protected IPaginated buildPaginated(IResultset resultItems, Json[string] pagingParams) {
-        if (count(resultItems) > this.pagingParams["perPage"]) {
-             resultItems = someItems.take(this.pagingParams["perPage"]);
+        if (count(resultItems) > _pagingParams["perPage"]) {
+             resultItems = someItems.take(_pagingParams["perPage"]);
         }
         return new DPaginatedResultset(resultItems, pagingParams);
     } 

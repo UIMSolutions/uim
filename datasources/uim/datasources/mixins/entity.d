@@ -241,8 +241,6 @@ mixin template TEntity() {
      * fields with their respective values
      * @param Json aValue The value to set to the field or an array if the
      * first argument is also an array, in which case will be treated as options
-     * @param Json[string] optionData Options to be used for setting the field. Allowed option
-     * keys are `setter`, `guard` and `asOriginal`
     */
   void set(string[] afield, Json aValue = null, Json[string] optionData = null) {
     if (isString(field) && !field.isEmpty) {
@@ -250,26 +248,26 @@ mixin template TEntity() {
       field = [field: aValue];
     } else {
       guard = true;
-      options = (array) aValue;
+      optionData = (array) aValue;
     }
     if (!isArray(field)) {
       throw new DInvalidArgumentException("Cannot set an empty field");
     }
-    auto updatedOptions = options.update["setter": true.toJson, "guard": guard, "asOriginal": false
+    auto updatedOptions = optionData.update["setter": true.toJson, "guard": guard, "asOriginal": false
       .toJson];
 
-    if (options["asOriginal"] == true) {
+    if (optionData["asOriginal"] == true) {
       setOriginalField(field.keys);
     }
     field.byKeyValue
       .each((kv) {
         auto fieldName = (string) name;
-        if (options["guard"] == true && !this.isAccessible(fieldName)) {
+        if (optionData["guard"] == true && !this.isAccessible(fieldName)) {
           continue;
         }
         isDirty(fieldName, true);
 
-        if (options["setter"]) {
+        if (optionData["setter"]) {
           setter = _accessor(fieldName, "set");
           if (setter) {
             aValue = this. {
@@ -288,7 +286,6 @@ mixin template TEntity() {
         }
         _fields[fieldName] = aValue;
       });
-    return;
   }
 
   // Returns the value of a field by name
@@ -472,7 +469,7 @@ mixin template TEntity() {
       _hidden = fieldsToHide;
       return;
     }
-    
+
     auto mergedFields = chain(_hidden, fieldsToHide);
     _hidden = array_unique(mergedFields);
   }
@@ -582,6 +579,7 @@ mixin template TEntity() {
       return _accessors[className][accessorType][aProperty];
     }
     if (!_accessors.isEmpty(className))
+      
       ) {
       return _accessors[className][accessorType][aProperty] = "";
     }
@@ -835,7 +833,7 @@ mixin template TEntity() {
         return _fieldErrors[field] ?  ? _nestedErrors(field);
       }
 
-    /**
+      /**
      * Sets error messages to the entity
      *
      * ## Example
@@ -1107,6 +1105,8 @@ mixin template TEntity() {
           ];
         }
       }
+
       
-      */
+
+      *  /
     }

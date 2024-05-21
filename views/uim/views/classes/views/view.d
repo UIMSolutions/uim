@@ -745,8 +745,6 @@ static string contentType() {
      * parent template and populate blocks in the parent template.
      * Params:
      * string views The template or element to "extend" the current one with.
-     * @throws \LogicException when you extend a template with itself or make extend loops.
-     * @throws \LogicException when you extend an element which doesn"t exist
      */
     void extend(string views) {
         mytype = views[0] == "/" ? TYPE_TEMPLATE : _currentType;

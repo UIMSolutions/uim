@@ -117,8 +117,6 @@ class DBreadcrumbsHelper : DHelper {
      * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to
      * the link)
      * - *templateVars*: Specific template vars in case you override the templates provided.
-
-     * @throws \LogicException In case the index is out of bound
      */
     void insertAt(int myindex, string mytitle, string[] myurl = null, Json[string] options  = null) {
         if (!isSet(this.crumbs[myindex]) && myindex != count(this.crumbs)) {

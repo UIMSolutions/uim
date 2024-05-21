@@ -80,13 +80,11 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * and uim\Core\ObjectRegistry.remove()
      *
      * aClassName - The classname that is missing.
-     * @param string plugin The plugin the behavior is missing in.
-     * @throws DORMexceptions.MissingBehaviorException
      */
-    protected void _throwMissingClassError(string aClassName , string plugin) {
+    protected void _throwMissingClassError(string aClassName , string pluginName) {
         throw new DMissingBehaviorException([
             "class": aClassName ~ "Behavior",
-            "plugin": plugin,
+            "plugin": pluginName,
         ]);
     }
 

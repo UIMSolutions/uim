@@ -173,8 +173,6 @@ class DResultset : IResultset {
      * Rewinds a Resultset.
      *
      * Part of Iterator interface.
-     *
-     * @throws DORMdatabases.exceptions.DatabaseException
      */
     void rewind() {
         if (_index == 0) {

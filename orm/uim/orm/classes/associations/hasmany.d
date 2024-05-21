@@ -373,8 +373,6 @@ class DHasManyAssociation : DAssociation {
      * @param Json[string] myTargetEntities list of entities from the target table to be linked
      * @param Json[string] options list of options to be passed to the internal `save`/`delete` calls
      * when persisting/updating new links, or deleting existing ones
-     * @throws \InvalidArgumentException if non persisted entities are passed or if
-     * any of them is lacking a primary key value
      */
                     bool replace(IORMEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
                         property = getProperty();

@@ -1116,9 +1116,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      */
     SelectQuery findList(
         SelectQuery myquery,
-        Closure|string[]|string mykeyField = null,
-        Closure|string[]|string myvalueField = null,
-        Closure|string[]|string mygroupField = null,
+       /* Closure */ string[]|string mykeyField = null,
+       /* Closure */ string[]|string myvalueField = null,
+       /* Closure */ string[]|string mygroupField = null,
         string myvalueSeparator = ";"
     ) {
         mykeyField ??= this.primaryKeys();
@@ -1176,8 +1176,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      */
     SelectQuery findThreaded(
         SelectQuery myquery,
-        Closure|string[]|string mykeyField = null,
-        Closure|string[]|string myparentField = "parent_id",
+       /* Closure */ string[]|string mykeyField = null,
+       /* Closure */ string[]|string myparentField = "parent_id",
         string mynestingKey = "children"
     ) {
         mykeyField ??= this.primaryKeys();

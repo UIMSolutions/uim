@@ -332,11 +332,10 @@ class DViewBuilder { // }: DJsonSerializable {
      * \UIM\Http\ServerRequest|null myrequest The request to use.
      * @param \UIM\Http\Response|null myresponse The response to use.
      * @param \UIM\Event\IEventManager|null myevents The event manager to use.
-     * @throws \UIM\View\Exception\MissingViewException
      */
     View build(
-        ?ServerRequest myrequest = null,
-        ?Response myresponse = null,
+        ServerRequest myrequest = null,
+        Response myresponse = null,
         IEventManager myevents = null
     ) {
         myclassName = _className ?? App.className("App", "View", "View") ?? View.classname;

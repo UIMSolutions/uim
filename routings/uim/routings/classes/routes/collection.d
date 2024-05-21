@@ -305,8 +305,6 @@ class DRouteCollection {
      * Params:
      * string routings The name of the middleware. Used when applying middleware to a scope.
      * @param \Psr\Http\Server\IRoutingMiddleware|\Closure|string mymiddleware The middleware to register.
-
-     * @throws \RuntimeException
      */
     void registerMiddleware(string routings, IRoutingMiddleware | Closure | string mymiddleware) {
         _middleware[routings] = mymiddleware;

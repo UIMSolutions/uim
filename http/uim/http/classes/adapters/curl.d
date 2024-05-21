@@ -49,7 +49,7 @@ class DCurl { // }: IAdapter {
     // Convert client options into curl options.
     Json[string] buildOptions(IRequest request, Json[string] clientOptions = null) {
         string[] aHeaders = request.getHeaders().byKeyValue
-            .map!(keyValues => aKey ~ ":  " ~ someValues.join(", ")).array;
+            .map!(keyValues => aKey ~ ": " ~ someValues.join(", ")).array;
 
          result = [
             CURLOPT_URL: (string)request.getUri(),
@@ -94,12 +94,12 @@ class DCurl { // }: IAdapter {
             clientOptions["ssl_verify_host"] = 2;
         }
         optionMap = [
-            "timeout":  CURLOPT_TIMEOUT,
-            "ssl_verify_peer":  CURLOPT_SSL_VERIFYPEER,
-            "ssl_verify_host":  CURLOPT_SSL_VERIFYHOST,
-            "ssl_cafile":  CURLOPT_CAINFO,
-            "ssl_local_cert":  CURLOPT_SSLCERT,
-            "ssl_passphrase":  CURLOPT_SSLCERTPASSWD,
+            "timeout": CURLOPT_TIMEOUT,
+            "ssl_verify_peer": CURLOPT_SSL_VERIFYPEER,
+            "ssl_verify_host": CURLOPT_SSL_VERIFYHOST,
+            "ssl_cafile": CURLOPT_CAINFO,
+            "ssl_local_cert": CURLOPT_SSLCERT,
+            "ssl_passphrase": CURLOPT_SSLCERTPASSWD,
         ];
         
         optionMap.byKeyValue
@@ -129,9 +129,9 @@ class DCurl { // }: IAdapter {
      */
     protected int getProtocolVersion(IRequest request) {
         return match (request.getProtocolVersion()) {
-            "1.0":  CURL_HTTP_VERSION_1_0,
-            "1.1":  CURL_HTTP_VERSION_1_1,
-            "2", "2.0":  defined("CURL_HTTP_VERSION_2TLS")
+            "1.0": CURL_HTTP_VERSION_1_0,
+            "1.1": CURL_HTTP_VERSION_1_1,
+            "2", "2.0": defined("CURL_HTTP_VERSION_2TLS")
                 ? CURL_HTTP_VERSION_2TLS
                 : (defined("CURL_HTTP_VERSION_2_0")
                     ? CURL_HTTP_VERSION_2_0

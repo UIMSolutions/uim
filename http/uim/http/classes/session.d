@@ -102,38 +102,38 @@ class DSession {
     protected static Json[string]  _defaultConfigData(string aName) {
         tmp = defined("TMP") ? TMP : sys_get_temp_dir() ~ DIRECTORY_SEPARATOR;
         Json[string] defaults = [
-            "D":  [
-                "ini":  [
-                    "session.use_trans_sid":  0,
+            "D": [
+                "ini": [
+                    "session.use_trans_sid": 0,
                 ],
             ],
-            "uim":  [
-                "ini":  [
-                    "session.use_trans_sid":  0,
-                    "session.serialize_handler":  "D",
-                    "session.use_cookies":  1,
-                    "session.save_path":  tmp ~ "sessions",
-                    "session.save_handler":  "files",
+            "uim": [
+                "ini": [
+                    "session.use_trans_sid": 0,
+                    "session.serialize_handler": "D",
+                    "session.use_cookies": 1,
+                    "session.save_path": tmp ~ "sessions",
+                    "session.save_handler": "files",
                 ],
             ],
-            "cache":  [
-                "ini":  [
-                    "session.use_trans_sid":  0,
-                    "session.use_cookies":  1,
+            "cache": [
+                "ini": [
+                    "session.use_trans_sid": 0,
+                    "session.use_cookies": 1,
                 ],
-                "handler":  [
-                    "engine":  "CacheSession",
-                    "config":  "default",
+                "handler": [
+                    "engine": "CacheSession",
+                    "config": "default",
                 ],
             ],
-            "database":  [
-                "ini":  [
-                    "session.use_trans_sid":  0,
-                    "session.use_cookies":  1,
-                    "session.serialize_handler":  "D",
+            "database": [
+                "ini": [
+                    "session.use_trans_sid": 0,
+                    "session.use_cookies": 1,
+                    "session.serialize_handler": "D",
                 ],
-                "handler":  [
-                    "engine":  "DatabaseSession",
+                "handler": [
+                    "engine": "DatabaseSession",
                 ],
             ],
         ];
@@ -165,10 +165,10 @@ class DSession {
      */
     this(Json[string] configData = null) {
         configData += [
-            "timeout":  Json(null),
-            "cookie":  Json(null),
-            "ini":  Json.emptyArray,
-            "handler":  Json.emptyArray,
+            "timeout": Json(null),
+            "cookie": Json(null),
+            "ini": Json.emptyArray,
+            "handler": Json.emptyArray,
         ];
 
         if (configuration.get("timeout"]) {
@@ -248,7 +248,7 @@ class DSession {
      * ### Example:
      *
      * ```
-     * session.options(["session.use_cookies":  1]);
+     * session.options(["session.use_cookies": 1]);
      * ```
      * Params:
      * Json[string] options Ini options to set.
@@ -284,7 +284,7 @@ class DSession {
         }
         filename = line = null;
         if (ini_get("session.use_cookies") && headers_sent(filename, line)) {
-            this.headerSentInfo = ["filename":  filename, "line":  line];
+            this.headerSentInfo = ["filename": filename, "line": line];
 
             return false;
         }

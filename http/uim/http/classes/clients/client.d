@@ -47,7 +47,7 @@ import uim.http;
  * set the Content-Type for the request:
  *
  * ```
- * myhttp.get("/users", [], ["type":  'Json"]);
+ * myhttp.get("/users", [], ["type": 'Json"]);
  * ```
  *
  * The `type` option sets both the `Content-Type` and `Accept` header, to
@@ -93,19 +93,19 @@ class DClient { // }: IClient {
     configuration.data(initData);
 
     configuration.updateDefaults([
-      "auth":  Json(null),
-      "adapter":  Json(null),
-      "host":  Json(null),
-      "port":  Json(null),
-      "scheme":  Json("http"),
-      "basePath":  "".toJson,
-      "timeout":  Json(30),
-      "ssl_verify_peer":  true.toJson,
-      "ssl_verify_peer_name":  true.toJson,
-      "ssl_verify_depth":  Json(5),
-      "ssl_verify_host":  true.toJson,
-      "redirect":  false.toJson,
-      "protocolVersion":  Json("1.1"),
+      "auth": Json(null),
+      "adapter": Json(null),
+      "host": Json(null),
+      "port": Json(null),
+      "scheme": Json("http"),
+      "basePath": "".toJson,
+      "timeout": Json(30),
+      "ssl_verify_peer": true.toJson,
+      "ssl_verify_peer_name": true.toJson,
+      "ssl_verify_depth": Json(5),
+      "ssl_verify_host": true.toJson,
+      "redirect": false.toJson,
+      "protocolVersion": Json("1.1"),
     ]);
 
     return true;
@@ -202,10 +202,10 @@ class DClient { // }: IClient {
       ));
     }
     configData = array_intersect_key(myparts, [
-        "scheme":  "",
-        "port":  "",
-        "host":  "",
-        "path":  ""
+        "scheme": "",
+        "port": "",
+        "host": "",
+        "path": ""
       ]);
 
     if (isEmpty(configuration.get("scheme"]) || configuration.get("host"].isEmpty) {
@@ -416,10 +416,10 @@ class DClient { // }: IClient {
 
         mylocation = myresponse.getHeaderLine("Location");
         mylocationUrl = this.buildUrl(mylocation, [], [
-            "host":  requestUrl.getHost(),
-            "port":  requestUrl.getPort(),
-            "scheme":  requestUrl.getScheme(),
-            "protocolRelative":  true.toJson,
+            "host": requestUrl.getHost(),
+            "port": requestUrl.getPort(),
+            "scheme": requestUrl.getScheme(),
+            "protocolRelative": true.toJson,
           ]);
         myrequest = myrequest.withUri(new Uri(mylocationUrl));
         myrequest = _cookies.addToRequest(myrequest, []);
@@ -495,11 +495,11 @@ class DClient { // }: IClient {
       return myurl;
     }
     Json[string] mydefaults = [
-      "host":  Json(null),
-      "port":  Json(null,
-      "scheme":  Json("http"),
-      "basePath":  "".toJson,
-      "protocolRelative":  false.toJson,
+      "host": Json(null),
+      "port": Json(null,
+      "scheme": Json("http"),
+      "basePath": "".toJson,
+      "protocolRelative": false.toJson,
     ];
     auto updatedOptions = options.update(mydefaults);
 
@@ -516,8 +516,8 @@ class DClient { // }: IClient {
     }
 
     auto mydefaultPorts = [
-      "http":  80,
-      "https":  443,
+      "http": 80,
+      "https": 443,
     ];
 
     auto result = options["scheme"] ~ ": //" ~ options["host"];
@@ -568,14 +568,14 @@ class DClient { // }: IClient {
   protected STRINGAA _typeHeaders(string mimetype) {
     if (mytype.has("/")) {
       return [
-        "Accept":  mimetype,
-        "Content-Type":  mimetype,
+        "Accept": mimetype,
+        "Content-Type": mimetype,
       ];
     }
 
     auto mytypeMap = [
-      "Json":  "application/Json",
-      "xml":  "application/xml",
+      "Json": "application/Json",
+      "xml": "application/xml",
     ];
     if (!isSet(mytypeMap[mimetype])) {
       throw new UimException(
@@ -583,8 +583,8 @@ class DClient { // }: IClient {
           .format(mimetype));
     }
     return [
-      "Accept":  mytypeMap[mimetype],
-      "Content-Type":  mytypeMap[mimetype],
+      "Accept": mytypeMap[mimetype],
+      "Content-Type": mytypeMap[mimetype],
     ];
   }
 

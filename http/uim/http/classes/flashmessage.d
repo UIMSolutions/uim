@@ -36,12 +36,12 @@ class DFlashMessage {
 
     // Default configuration
     configuration.updateDefaults([
-        "key":  Json("flash"),
-        "element":  Json("default"),
-        "plugin":  Json(null),
-        "params":  Json.emptyArray,
-        "clear":  false.toJson,
-        "duplicate":  true.toJson,
+        "key": Json("flash"),
+        "element": Json("default"),
+        "plugin": Json(null),
+        "params": Json.emptyArray,
+        "clear": false.toJson,
+        "duplicate": true.toJson,
     ];
 
     protected ISession _session;
@@ -94,10 +94,10 @@ class DFlashMessage {
             }
         }
         messages ~= [
-            "message":  messageToBeFlashed,
-            "key":  options["key"],
-            "element":  options["element"],
-            "params":  options["params"],
+            "message": messageToBeFlashed,
+            "key": options["key"],
+            "element": options["element"],
+            "params": options["params"],
         ];
 
         this.session.write("Flash." ~ options["key"], messages);
@@ -108,8 +108,8 @@ class DFlashMessage {
      *
      * The following options will be set by default if unset:
      * ```
-     * 'element":  'error",
-     * `params":  ["code":  exception.getCode()]
+     * 'element": 'error",
+     * `params": ["code": exception.getCode()]
      * ```
      * Params:
      * \Throwable exception Exception instance.

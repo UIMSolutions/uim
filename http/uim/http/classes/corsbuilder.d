@@ -87,7 +87,7 @@ class DCorsBuilder {
         auto result;
         foreach (domain; someDomains) {
             if (domain == "*") {
-                result ~= ["preg":  "@.@", "original":  "*"];
+                result ~= ["preg": "@.@", "original": "*"];
                 continue;
             }
             result ~= normalizeDomain(domain);

@@ -9,7 +9,7 @@ import uim.filesystems;
 
 unittest {
 	version (testUimFilesystems) {
-		debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+		debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 	}
 }
 
@@ -84,7 +84,7 @@ class DFilesystemEntry : IFilesystemEntry {
 	// Path starting from filesystem TODO: required?
 	string relPath(string aPath) {
 		version (testUimFilesystems) {
-			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+			debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 			debug writeln("aPath = %s".format(aPath));
 		}
 
@@ -93,7 +93,7 @@ class DFilesystemEntry : IFilesystemEntry {
 
 	string relPath(string[] pathItems = null) {
 		version (testUimFilesystems) {
-			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+			debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 			debug writeln("pathItems = %s".format(pathItems));
 		}
 
@@ -103,7 +103,7 @@ class DFilesystemEntry : IFilesystemEntry {
 	// Path starting from rootpath
 	string absolutePath(string aPath) {
 		version (testUimFilesystems) {
-			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+			debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 			debug writeln("aPath = %s".format(aPath));
 		}
 
@@ -112,7 +112,7 @@ class DFilesystemEntry : IFilesystemEntry {
 
 	string absolutePath(string[] pathItems = null) {
 		version (testUimFilesystems) {
-			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+			debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 			debug writeln("pathItems = %s".format(pathItems));
 		}
 
@@ -149,7 +149,7 @@ class DFilesystemEntry : IFilesystemEntry {
 	// #endregion isLink
 
 	override string toString() {
-		return this.className ~ ": " ~ name;
+		return this.className ~ ":  " ~ name;
 	}
 
 	string debugInfo() {

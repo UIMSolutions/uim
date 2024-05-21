@@ -45,7 +45,7 @@ class DEvent : IEvent {
      * ### Examples of usage:
      *
      * ```
-     * event = new DEvent("Order.afterBuy", this, ["buyer": userData]);
+     * event = new DEvent("Order.afterBuy", this, ["buyer":  userData]);
      * event = new DEvent("User.afterRegister", userModel);
      * ```
      * Params:

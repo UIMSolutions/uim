@@ -9,7 +9,7 @@ import uim.filesystems;
 
 unittest {
 	version (testUimFilesystems) {
-		debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+		debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 	}
 }
 
@@ -61,7 +61,7 @@ class DFile : DFilesystemEntry, IFile {
 	// Returns the date and time when a specified file was last modified.
 	long modifiedOn() {
 		version (testUimFilesystems) {
-			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+			debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 		}
 
 		return 0;
@@ -70,7 +70,7 @@ class DFile : DFilesystemEntry, IFile {
 	// Returns the drive letter of the drive where a specified file or folder resides.
 	string driveName() {
 		version (testUimFilesystems) {
-			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+			debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 		}
 
 		return null;
@@ -79,7 +79,7 @@ class DFile : DFilesystemEntry, IFile {
 	// Returns the type of a specified file.
 	string type() {
 		version (testUimFilesystems) {
-			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+			debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 		}
 
 		return null;
@@ -88,7 +88,7 @@ class DFile : DFilesystemEntry, IFile {
 
 	void[] readContent(size_t dataSitze = size_t.max) {
 		version (testUimFilesystems) {
-			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+			debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 		}
 
 		return (hasFilesystem ? filesystem.readFromFile(path, name, dataSitze) : null);
@@ -96,7 +96,7 @@ class DFile : DFilesystemEntry, IFile {
 
 	void writeContent(const void[] content) {
 		version (testUimFilesystems) {
-			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+			debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 		}
 
 		if (hasFilesystem)
@@ -105,7 +105,7 @@ class DFile : DFilesystemEntry, IFile {
 
 	void appendContent(const void[] content) {
 		version (testUimFilesystems) {
-			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+			debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 		}
 
 		if (hasFilesystem)
@@ -114,7 +114,7 @@ class DFile : DFilesystemEntry, IFile {
 
 	string readText() {
 		version (testUimFilesystems) {
-			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+			debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 		}
 
 		return (hasFilesystem ? filesystem.readTextFromFile(path, name) : null);
@@ -122,7 +122,7 @@ class DFile : DFilesystemEntry, IFile {
 
 	void writeText(string aText) {
 		version (testUimFilesystems) {
-			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+			debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 		}
 
 		if (hasFilesystem)
@@ -131,7 +131,7 @@ class DFile : DFilesystemEntry, IFile {
 
 	void appendText(string aText) {
 		version (testUimFilesystems) {
-			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+			debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 		}
 
 		if (hasFilesystem)
@@ -140,7 +140,7 @@ class DFile : DFilesystemEntry, IFile {
 
 	string[] readLines() {
 		version (testUimFilesystems) {
-			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+			debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 		}
 
 		return (hasFilesystem ? filesystem.readLines(path, name) : null);
@@ -148,7 +148,7 @@ class DFile : DFilesystemEntry, IFile {
 
 	Json readJson() {
 		version (testUimFilesystems) {
-			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+			debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 		}
 
 		return Json(null);
@@ -156,7 +156,7 @@ class DFile : DFilesystemEntry, IFile {
 
 	bool writeJson(Json jsonData) {
 		version (testUimFilesystems) {
-			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+			debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 		}
 
 		return false;
@@ -195,7 +195,7 @@ class DFile : DFilesystemEntry, IFile {
 	}
 
 	override string toString() {
-		return this.className ~ ": " ~ name;
+		return this.className ~ ":  " ~ name;
 	}
 	// TODO: OpenAsTextStream 	Opens a specified file and returns a TextStream object to access the file.
 	// #endregion Methods

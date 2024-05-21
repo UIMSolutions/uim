@@ -9,7 +9,7 @@ import uim.filesystems;
 
 unittest {
   version (testUimFilesystems) {
-    debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+    debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
   }
 }
 
@@ -104,7 +104,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   // #region isFolder
   bool isFolder(string aPath) {
     version (testUimFilesystems) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
     if (aPath.isNull) {
       return false;
@@ -114,14 +114,14 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
 
   bool isFolder(string aPath, string aFileName) {
     version (testUimFilesystems) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
     return isFolder(toPathItems(aPath, pathSeparator), aFileName);
   }
 
   bool isFolder(string[] aPath) {
     version (testUimFilesystems) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
     if (aPath.length == 0) {
       return false;
@@ -140,7 +140,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   // #region isFile
   bool isFile(string aPath) {
     version (testUimFilesystems) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
     if (aPath.isNull) {
       return false;
@@ -154,7 +154,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
 
   bool isFile(string[] aPath) {
     version (testUimFilesystems) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
     if (aPath.length == 0) {
       return false;
@@ -173,7 +173,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   // #region isLink
   bool isLink(string aPath) {
     version (testUimFilesystems) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
     // IN check
@@ -187,7 +187,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
 
   bool isLink(string aPath, string aLinkName) {
     version (testUimFilesystems) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
     return isLink(toPathItems(aPath, pathSeparator), aLinkName);
@@ -195,7 +195,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
 
   bool isLink(string[] aPath) {
     version (testUimFilesystems) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
     // IN Check
@@ -248,7 +248,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
 
   void[] readFromFile(string[] aPath, string aFileName, size_t numberOfBytes = size_t.max) {
     version (testUimFilesystems) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
       debug writeln("aPath     = \t", aPath);
       debug writeln("aFileName = \t", aFileName);
     }
@@ -258,7 +258,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
 
   void writeToFile(string[] aPath, string aFileName, const void[] buffer) {
     version (testUimFilesystems) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
       debug writeln("aPath     = \t", aPath);
       debug writeln("aFileName = \t", aFileName);
     }
@@ -266,7 +266,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
 
   void appendToFile(string[] aPath, string aFileName, const void[] buffer) {
     version (testUimFilesystems) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
       debug writeln("aPath     = \t", aPath);
       debug writeln("aFileName = \t", aFileName);
     }
@@ -274,7 +274,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
 
   string readTextFromFile(string[] aPath, string aFileName) {
     version (testUimFilesystems) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
       debug writeln("aPath     = \t", aPath);
       debug writeln("aFileName = \t", aFileName);
     }
@@ -284,7 +284,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
 
   void writeTextToFile(string[] aPath, string aFileName, string aText) {
     version (testUimFilesystems) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
       debug writeln("aPath     = \t", aPath);
       debug writeln("aFileName = \t", aFileName);
     }
@@ -292,7 +292,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
 
   void appendTextToFile(string[] aPath, string aFileName, string aText) {
     version (testUimFilesystems) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
       debug writeln("aPath     = \t", aPath);
       debug writeln("aFileName = \t", aFileName);
     }
@@ -300,7 +300,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
 
   string[] readLines(string[] aPath, string aFileName) {
     version (testUimFilesystems) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
       debug writeln("aPath     = \t", aPath);
       debug writeln("aFileName = \t", aFileName);
     }

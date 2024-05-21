@@ -9,7 +9,7 @@ import uim.filesystems;
 
 unittest {
 	version (testUimFilesystems) {
-		debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+		debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
 	}
 }
 
@@ -41,7 +41,7 @@ class DLink : DFilesystemEntry, ILink {
 	}
 
 	override string toString() {
-		return this.className ~ ": " ~ name;
+		return this.className ~ ":  " ~ name;
 	}
 }
 

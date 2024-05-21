@@ -9,7 +9,7 @@ import uim.filesystems;
 
 unittest { 
   version(testUimFilesystems) { 
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }
 
@@ -105,7 +105,7 @@ class DFolder : DFilesystemEntry, IFolder, IFolderManager, IFileManager, ILinkMa
   mixin TLinkManager!();
 
   override string toString() {
-    return this.className~": "~name;
+    return this.className~":  "~name;
   }
 }
 // mixin(FolderCalls!("Folder"));

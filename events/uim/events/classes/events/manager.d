@@ -69,14 +69,14 @@ class DEventManager { // }: IEventManager {
         if (!aCallable) {
             /** @var callable options */
            _listeners[eventKey][defaultPriority] ~= [
-                "callable": options(...),
+                "callable":  options(...),
             ];
 
             return;
         }
         priority = options["priority"] ?? defaultPriority;
        _listeners[eventKey][priority] ~= [
-            "callable": aCallable(...),
+            "callable":  aCallable(...),
         ];
     }
 
@@ -205,7 +205,7 @@ class DEventManager { // }: IEventManager {
             aCallable = subscriber.aCallable(...);
 >>>>>>> 6c77f0755345c40125ff261f87e4ab75fc24b38d
         }
-        return ["callable": aCallable, "settings": settings];
+        return ["callable":  aCallable, "settings":  settings];
     }
  
     IEvent dispatch(IEvent|string aevent) {

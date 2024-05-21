@@ -13,7 +13,7 @@ class DUnfoldIterator {  /* }: IteratorIterator, RecursiveIterator {
      * A auto that is passed each element in this iterator and
      * must return an array or Traversable object.
           */
-    protected callable  _unfolder;
+    protected callable _unfolder;
 
     // A reference to the internal iterator this object is wrapping.
     protected ITraversable _innerIterator;

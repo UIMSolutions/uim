@@ -955,5 +955,5 @@ interface ICollection {
      * @param callable|null filter A filtering callback that must return true for a result to be part
      *  of the final results.
      */
-    ICollection cartesianProduct(callable  operation = null, callable filter = null);
+    ICollection cartesianProduct(callable operation = null, callable filter = null);
 }

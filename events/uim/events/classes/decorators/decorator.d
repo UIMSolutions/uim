@@ -8,7 +8,7 @@ import uim.events;
 abstract class DDecorator : IDecorator {
     /* 
     // Callable
-    protected callable  _callable;
+    protected callable _callable;
 
     // Decorator options
     protected Json[string] _options = null;

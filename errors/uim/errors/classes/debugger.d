@@ -142,7 +142,6 @@ class DDebugger {
      * Json[string]|string aKey The key to get/set, or a complete array of configs.
      * @param mixed|null aValue The value to set.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
-     * @throws \UIM\Core\Exception\UimException When trying to set a key that is invalid.
      */
     static Json[string] configSettings = nullInstance(string[] aKey = null, Json aValue = null, bool merge = true) {
         if (aKey.isNull) {

@@ -22,7 +22,7 @@ class DRuleInvoker {
 
     /* 
     // Rule callable
-    protected callable  _rule;
+    protected callable _rule;
 
     /**
      

@@ -51,8 +51,6 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
      *
      * Part of the template method for {@link \UIM\Core\ObjectRegistry.load()}
      * and {@link \UIM\Core\ObjectRegistry.unload()}
-     * Params:
-     * @throws \UIM\Controller\Exception\MissingComponentException
      */
     protected void _throwMissingClassError(string className, string pluginName) {
         throw new DMissingComponentException([

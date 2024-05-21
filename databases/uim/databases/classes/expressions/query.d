@@ -122,11 +122,7 @@ class DQueryExpression : DExpression { // }, Countable {
         return _add(new DComparisonExpression(field, aValue, type, "<"));
     }
     
-    /**
-     * Adds a new condition to the expression object in the form "field >= value".
-     * Params:
-     * @param string type the type name for aValue as configured using the Type map.
-     */
+    // Adds a new condition to the expression object in the form "field >= value".
     auto gte(/* IExpression| */ string fieldName, Json valueToBound, string valueType = null) {
         valueType ? valueType : _calculateType(fieldName);
 

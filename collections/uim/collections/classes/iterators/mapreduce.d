@@ -103,8 +103,6 @@ class DMapReduce { // }: IteratorAggregate {
      * Runs the actual Map-Reduce algorithm. This is iterate the original data
      * and call the mapper auto for each , then for each intermediate
      * bucket created during the Map phase call the reduce function.
-     *
-     * @throws \LogicException if emitIntermediate was called but no reducer function
      * was provided
      */
     protected void _execute() {

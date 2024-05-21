@@ -22,9 +22,9 @@ class DTableHelper { // }: Helper {
   bool initialize(Json[string] initData = null) {
     configuration(MemoryConfiguration);
     configuration.updateDefaults([
-      "headers": true.toJson,
-      "rowSeparator": false.toJson,
-      "headerStyle": Json("info")
+      "headers":  true.toJson,
+      "rowSeparator":  false.toJson,
+      "headerStyle":  Json("info")
     ]);
     configuration.data(initData);
 
@@ -115,14 +115,14 @@ class DTableHelper { // }: Helper {
     if (commandArguments.isEmpty) {
       return;
     }
-    _io.setStyle("text-right", ["text": Json(null)]);
+    _io.setStyle("text-right", ["text":  Json(null)]);
 
     configData = this.configuration.data;
     widths = _calculateWidths(commandArguments);
 
     _rowSeparator(widths);
     if (configuration.get("headers"] == true) {
-        _render(array_shift(commandArguments), widths, ["style": configuration.get("headerStyle"]]);
+        _render(array_shift(commandArguments), widths, ["style":  configuration.get("headerStyle"]]);
             _rowSeparator(widths); }
             if (commandArguments.isEmpty) {
               return; }

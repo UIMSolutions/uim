@@ -54,8 +54,8 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
      */
     protected void _throwMissingClassError(string className, string pluginName) {
         throw new DMissingComponentException([
-            "class":  className ~ "Component",
-            "plugin": pluginName,
+            "class":   className ~ "Component",
+            "plugin":  pluginName,
         ]);
     }
     

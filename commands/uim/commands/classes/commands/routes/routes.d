@@ -103,9 +103,9 @@ class DRoutesCommand : DCommand {
          aParser
             .description("Get the list of routes connected in this application.")
             .addOption("sort", [
-                "help": "sorts alphabetically by route name A-Z",
-                "short": "s",
-                "boolean": true.toJson,
+                "help":  "sorts alphabetically by route name A-Z",
+                "short":  "s",
+                "boolean":  true.toJson,
             ]);
 
         return aParser;
@@ -176,9 +176,9 @@ class DRoutesCommand : DCommand {
          aParser
             .description("Get the list of routes connected in this application.")
             .addOption("sort", [
-                "help": "sorts alphabetically by route name A-Z",
-                "short": "s",
-                "boolean": true.toJson,
+                "help":  "sorts alphabetically by route name A-Z",
+                "short":  "s",
+                "boolean":  true.toJson,
             ]);
 
         return aParser;

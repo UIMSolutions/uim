@@ -76,7 +76,7 @@ class DHtmlHelper : DHelper {
      * this.Html.meta("icon", "favicon.ico");
      * ```
      *
-     * Append the meta tag to custom view block "meta":
+     * Append the meta tag to custom view block "meta": 
      *
      * ```
      * this.Html.meta("description", "A great page", ["block": true.toJson]);
@@ -293,7 +293,7 @@ class DHtmlHelper : DHelper {
      * writeln(this.Html.css(["one.css", "two.css"]);
      * ```
      *
-     * Add the stylesheet to view block "css":
+     * Add the stylesheet to view block "css": 
      *
      * ```
      * this.Html.css("styles.css", ["block": true.toJson]);
@@ -535,7 +535,7 @@ class DHtmlHelper : DHelper {
     string style(Json[string] data, bool myoneLine = true) {
         string[] result;
         foreach (mydata as aKey: myvalue) {
-            result ~= aKey ~ ":" ~ myvalue ~ ";";
+            result ~= aKey ~ ": " ~ myvalue ~ ";";
         }
         if (myoneLine) {
             return result.join(" ");

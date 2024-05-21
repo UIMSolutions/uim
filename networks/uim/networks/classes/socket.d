@@ -85,12 +85,12 @@ class DSocket {
         if (this.connection) {
             this.disconnect();
         }
-        if (configuration.get("host"].has("://")) {
-            [configuration.get("protocol"), configuration.get("host")] = split("://", configuration.get("host"]);
+        if (configuration.get("host"].has(": //")) {
+            [configuration.get("protocol"), configuration.get("host")] = split(": //", configuration.get("host"]);
         }
         scheme = null;
         if (!configuration.isEmpty("protocol")) {
-            scheme = configuration.get("protocol"]~"://";
+            scheme = configuration.get("protocol"]~": //";
         }
         _setSslContext(configuration.get("host"));
         context = !configuration..isEmpty("context"))
@@ -109,7 +109,7 @@ class DSocket {
         remoteSocketTarget = scheme ~ configuration.get("host"];
         port = to!int(configuration.get("port"]);
         if (port > 0) {
-            remoteSocketTarget ~= ":" ~ port;
+            remoteSocketTarget ~= ": " ~ port;
         }
         errNum = 0;
         errStr = "";

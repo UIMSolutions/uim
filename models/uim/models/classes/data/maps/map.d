@@ -187,5 +187,5 @@ unittest {
 
   stringMap["key6"] = [Json("v1"), Json("v2")];
 
-  assert(stringMap.toJson.toString == `{"key1":"value1","key6":null,"key2":"value2","key3":true,"key5":100.1,"key4":100}`); */
+  assert(stringMap.toJson.toString == `{"key1": "value1","key6": null,"key2": "value2","key3": true,"key5": 100.1,"key4": 100}`); */
 }

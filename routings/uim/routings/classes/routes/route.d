@@ -275,9 +275,9 @@ class DRoute : IRoute {
 
         string routings = "";
         someKeys = [
-            "prefix": ":",
+            "prefix": ": ",
             "plugin": ".",
-            "controller": ":",
+            "controller": ": ",
             "action": "",
         ];
         foreach (aKey: myglue; someKeys) {
@@ -676,7 +676,7 @@ class DRoute : IRoute {
 
             // append the port & scheme if they exists.
             if (isSet(myparams["_port"])) {
-                myhost ~= ":" ~ myparams["_port"];
+                myhost ~= ": " ~ myparams["_port"];
             }
             myscheme = myparams["_scheme"] ?? "http";
             result = "{myscheme}://{myhost}{result}";

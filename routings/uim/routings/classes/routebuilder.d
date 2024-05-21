@@ -139,7 +139,7 @@ class DRouteBuilder {
         if (myrouteKey != false && _path.has("}")) {
             return substr(_path, 0, myrouteKey);
         }
-        myrouteKey = indexOf(_path, ":");
+        myrouteKey = indexOf(_path, ": ");
         if (myrouteKey != false) {
             return substr(_path, 0, myrouteKey);
         }

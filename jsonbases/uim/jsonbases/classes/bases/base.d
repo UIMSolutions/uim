@@ -4,7 +4,7 @@ import uim.jsonbases;
 
 unittest {
   version (testUimJsonbase) {
-    debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+    debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
   }
 }
 
@@ -102,7 +102,7 @@ class DJsonBase : IJsonBase, IJsonTenantManager {
   // Add tenant
   bool addTenant(IJsonTenant aTenant) {
     version (testUimJsonbase) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
     return (aTenant ? addTenant(aTenant.name, aTenant) : false);
@@ -110,7 +110,7 @@ class DJsonBase : IJsonBase, IJsonTenantManager {
 
   bool addTenant(string aName, IJsonTenant aTenant) {
     version (testUimJsonbase) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
     if (aName.isEmpty
@@ -125,7 +125,7 @@ class DJsonBase : IJsonBase, IJsonTenantManager {
   // #region CREATE
   IJsonTenant[] createTenants(string[] someNames...) {
     version (testUimJsonbase) {
-      debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+      debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
     return createTenants(someNames.dup);
@@ -167,6 +167,6 @@ class DJsonBase : IJsonBase, IJsonTenantManager {
 
 unittest {
   version (testUimJsonbase) {
-    debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+    debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
   }
 }

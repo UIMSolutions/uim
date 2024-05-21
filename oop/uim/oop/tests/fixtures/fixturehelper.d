@@ -21,13 +21,13 @@ class DFixtureHelper {
 
                 string baseNamespace = "";
                 switch(type) {
-                    case "core":
+                    case "core": 
                         baseNamespace = "uim";
                         break;
-                    case "app":
+                    case "app": 
                         baseNamespace = configuration.get("App.namespace");
                         break;
-                    case "plugin":
+                    case "plugin": 
                         [plugin, name] = somePathName.split(".");
                         baseNamespace = plugin.replace("/", "\\");
                         additionalPath = null;

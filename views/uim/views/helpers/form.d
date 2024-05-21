@@ -306,19 +306,19 @@ class DFormHelper : DHelper {
 
         myhtmlAttributes = null;
         switch (options["type"].lower) {
-            case "get":
+            case "get": 
                 myhtmlAttributes["method"] = "get";
                 break;
             // Set enctype for form
-            case "file":
+            case "file": 
                 myhtmlAttributes["enctype"] = "multipart/form-data";
                 options["type"] = myisCreate ? "post" : "put";
             // Move on
-            case "put":
+            case "put": 
             // Move on
-            case "delete":
+            case "delete": 
             // Set patch method
-            case "patch":
+            case "patch": 
                 myappend ~= this.hidden("_method", [
                     "name": "_method",
                     "value": strtoupper(options["type"]),
@@ -1003,9 +1003,9 @@ class DFormHelper : DHelper {
         options.remove("labelOptions");
 
         switch (options.getString("type").lower) {
-            case "select":
-            case "radio":
-            case "multicheckbox":
+            case "select": 
+            case "radio": 
+            case "multicheckbox": 
                 myopts = options["options"];
                 if (myopts.isNull) {
                     myopts = null;
@@ -1013,7 +1013,7 @@ class DFormHelper : DHelper {
                 options.remove("options"]);
 
                 return _{options["type"]}(fieldName, myopts, options ~ ["label": mylabel]);
-            case "input":
+            case "input": 
                 throw new DInvalidArgumentException(
                     "Invalid type `input` used for field `%s`.".format(fieldName
                 ));
@@ -1678,7 +1678,7 @@ class DFormHelper : DHelper {
         }
         options.remove("secure"]);
 
-        bool myisUrl = mycaption.has("://");
+        bool myisUrl = mycaption.has(": //");
         bool myisImage = preg_match("/\.(jpg|jpe|jpeg|gif|png|ico)my/", mycaption);
 
         mytype = options["type"];

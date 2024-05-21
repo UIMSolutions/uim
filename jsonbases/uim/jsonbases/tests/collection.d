@@ -33,14 +33,14 @@ bool test_findMany_select(DJsonCollection col) {
   auto json = toJson(randomUUID, 22);
   json["name"] = "test";
   col.insertOne(json);
-  return col.findMany(["name":"test"]).length > 0;
+  return col.findMany(["name": "test"]).length > 0;
 }
 
 bool test_findMany_select_allVersions(DJsonCollection col) {
   auto json = toJson(randomUUID, 22);
   json["name"] = "test";
   col.insertOne(json);
-  return col.findMany(["name":"test"], true).length > 0;
+  return col.findMany(["name": "test"], true).length > 0;
 }
 
 bool test_findMany_jselect(DJsonCollection col) {
@@ -79,14 +79,14 @@ bool test_findOne_select(DJsonCollection col) {
   auto json = toJson(randomUUID, 22);
   json["name"] = "test";
   col.insertOne(json);
-  return col.findOne(["name":"test"]) != Json(null);
+  return col.findOne(["name": "test"]) != Json(null);
 }
 
 bool test_findOne_select_allVersions(DJsonCollection col) {
   auto json = toJson(randomUUID, 22);
   json["name"] = "test";
   col.insertOne(json);
-  return col.findOne(["name":"test"], true) != Json(null);
+  return col.findOne(["name": "test"], true) != Json(null);
 }
 
 bool test_findOne_jselect(DJsonCollection col) {
@@ -117,7 +117,7 @@ bool test_updateMany_select_data(DJsonCollection col) {
   col.insertOne(json2);
 
   auto sel = ["id": id.toString];  
-  col.updateMany(sel, ["name":"newName"]);
+  col.updateMany(sel, ["name": "newName"]);
   return col.findMany(sel).length > 0;
 }
 
@@ -140,7 +140,7 @@ bool test_updateOne_select_data(DJsonCollection col) {
   col.insertOne(json);
 
   auto select = ["id": id.toString];  
-  col.updateOne(select, ["name":"newName"]);
+  col.updateOne(select, ["name": "newName"]);
   return col.findMany(select).length == 1;
 }
 
@@ -150,7 +150,7 @@ bool test_updateOne_jselect_data(DJsonCollection col) {
   col.insertOne(json);
 
   auto sel = toJson(["id": id.toString]);  
-  col.updateOne(sel, toJson(["name":"newName"]));
+  col.updateOne(sel, toJson(["name": "newName"]));
   return col.findMany(sel).length == 1;
 }
 
@@ -175,7 +175,7 @@ bool test_removeMany_id_allVersions(DJsonCollection col) {
 bool test_removeMany_select(DJsonCollection col) {
   auto json = toJson(randomUUID, 20);
   col.insertOne(json);
-  auto data = ["id": json["id"].get!string, "versionNumber":json["versionNumber"].toString];
+  auto data = ["id": json["id"].get!string, "versionNumber": json["versionNumber"].toString];
   return col.removeMany(data) > 0;
 }
 
@@ -217,7 +217,7 @@ bool test_removeOne_id_versionNumber(DJsonCollection col) {
 bool test_removeOne_select(DJsonCollection col) {
   auto json = toJson(randomUUID, 20);
   col.insertOne(json);
-  auto data = ["id": json["id"].get!string, "versionNumber":json["versionNumber"].toString];
+  auto data = ["id": json["id"].get!string, "versionNumber": json["versionNumber"].toString];
   return col.removeOne(data);
 }
 

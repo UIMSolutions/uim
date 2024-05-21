@@ -4,7 +4,7 @@ import uim.jsonbases;
 
 version(testUimJsonbase) { 
   unittest {
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }
 
@@ -15,7 +15,7 @@ class DFileJsonTenant : DJsonTenant {
 
   // #region hasCollection() 
   override bool hasCollection(string aName) {
-    version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+    version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
     return (aName in _collections ? true : false);
   }
@@ -25,6 +25,6 @@ mixin(JsonTenantCalls!("FileJsonTenant"));
 
 unittest {
   version(testUimJsonbase) { 
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }

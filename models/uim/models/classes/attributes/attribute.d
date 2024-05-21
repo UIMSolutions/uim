@@ -127,88 +127,88 @@ class DAttribute { // TODO:  /* DEntity,  */ IAttribute {
       auto k = keyvalue.key;
       auto v = keyvalue.value;
       switch (k) {
-      case "attribute":
+      case "attribute": 
         this.attribute(UUID(v.get!string));
         break;
-      case "isNullable":
+      case "isNullable": 
         this.isNullable(v.get!bool);
         break;
-      case "valueType":
+      case "valueType": 
         this.valueType(v.get!string);
         break;
-      case "keyType":
+      case "keyType": 
         this.keyType(v.get!string);
         break;
-      case "dataType_display":
+      case "dataType_display": 
         this.dataType_display(v.get!string);
         break;
-      case "defaultValueLong":
+      case "defaultValueLong": 
         this.defaultValueLong(v.get!long);
         break;
-      case "defaultValueString":
+      case "defaultValueString": 
         this.defaultValueString(v.get!string);
         break;
-      case "baseDynamicPropertyId":
+      case "baseDynamicPropertyId": 
         this.baseDynamicPropertyId(v.get!string);
         break;
-      case "overwrittenDynamicPropertyId":
+      case "overwrittenDynamicPropertyId": 
         this.overwrittenDynamicPropertyId(v.get!string);
         break;
-      case "rootDynamicPropertyId":
+      case "rootDynamicPropertyId": 
         this.rootDynamicPropertyId(v.get!string);
         break;
-      case "precision":
+      case "precision": 
         this.precision(v.get!int);
         break;
-      case "stateCode":
+      case "stateCode": 
         this.stateCode(v.get!string);
         break;
-      case "stateCode_display":
+      case "stateCode_display": 
         this.stateCode_display(v.get!string);
         break;
-      case "statusCode":
+      case "statusCode": 
         this.statusCode(v.get!string);
         break;
-      case "statusCode_display":
+      case "statusCode_display": 
         this.statusCode_display(v.get!string);
         break;
-      case "regardingObjectId":
+      case "regardingObjectId": 
         this.regardingObjectId(v.get!string);
         break;
-      case "defaultValueDouble":
+      case "defaultValueDouble": 
         this.defaultValueDouble(v.get!double);
         break;
-      case "minValueDouble":
+      case "minValueDouble": 
         this.minValueDouble(v.get!double);
         break;
-      case "maxValueDouble":
+      case "maxValueDouble": 
         this.maxValueDouble(v.get!double);
         break;
-      case "minValueLong":
+      case "minValueLong": 
         this.minValueLong(v.get!long);
         break;
-      case "maxValueLong":
+      case "maxValueLong": 
         this.maxValueLong(v.get!long);
         break;
-      case "isReadOnly":
+      case "isReadOnly": 
         this.isReadOnly(v.get!bool);
         break;
-      case "isHidden":
+      case "isHidden": 
         this.isHidden(v.get!bool);
         break;
-      case "isRequired":
+      case "isRequired": 
         this.isRequired(v.get!bool);
         break;
-      case "isArray":
+      case "isArray": 
         this.isArray(v.get!bool);
         break;
-      case "isAssociativeArray":
+      case "isAssociativeArray": 
         this.isAssociativeArray(v.get!bool);
         break;
-      case "maxLengthString":
+      case "maxLengthString": 
         this.maxLengthString(v.get!int);
         break;
-      case "defaultValueOptionSet":
+      case "defaultValueOptionSet": 
         this.defaultValueOptionSet(v.get!string);
         break;
       default:

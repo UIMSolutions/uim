@@ -4,7 +4,7 @@ import uim.jsonbases;
 
 unittest { 
   version(testUimJsonbase) { 
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }
 
@@ -37,8 +37,8 @@ class DNullJsonCollection : DJsonCollection {
   version(test_uim_jsonbase) { unittest {
     
       auto col = NullJsonCollection;
-      assert(!col.findMany(["name":"aName"])); 
-      assert(!col.findMany(["name":"aName"], true)); 
+      assert(!col.findMany(["name": "aName"])); 
+      assert(!col.findMany(["name": "aName"], true)); 
       // TODO 
       }}
 
@@ -46,8 +46,8 @@ class DNullJsonCollection : DJsonCollection {
   version(test_uim_jsonbase) { unittest {
     
       auto col = NullJsonCollection;
-      assert(!col.findMany(toJson(["name":"aName"]))); 
-      assert(!col.findMany(toJson(["name":"aName"]), true)); 
+      assert(!col.findMany(toJson(["name": "aName"]))); 
+      assert(!col.findMany(toJson(["name": "aName"]), true)); 
       // TODO 
       }}
   // #endregion findMany
@@ -75,8 +75,8 @@ class DNullJsonCollection : DJsonCollection {
   version(test_uim_jsonbase) { unittest {
     
       auto col = NullJsonCollection;
-      assert(col.findOne(["name":"aName"]).isEmpty);
-      assert(col.findOne(["name":"aName"], true).isEmpty);
+      assert(col.findOne(["name": "aName"]).isEmpty);
+      assert(col.findOne(["name": "aName"], true).isEmpty);
       // TODO 
       }}
 
@@ -84,8 +84,8 @@ class DNullJsonCollection : DJsonCollection {
   version(test_uim_jsonbase) { unittest {
     
       auto col = NullJsonCollection;
-      assert(col.findOne(toJson(["name":"aName"])).isEmpty);
-      assert(col.findOne(toJson(["name":"aName"]), true).isEmpty);
+      assert(col.findOne(toJson(["name": "aName"])).isEmpty);
+      assert(col.findOne(toJson(["name": "aName"]), true).isEmpty);
       // TODO 
       }}
   // #endregion findOne
@@ -95,7 +95,7 @@ class DNullJsonCollection : DJsonCollection {
   version(test_uim_jsonbase) { unittest {
     
       auto col = NullJsonCollection;
-      assert(col.insertOne(toJson(["name":"aName"])).isEmpty);
+      assert(col.insertOne(toJson(["name": "aName"])).isEmpty);
       // TODO 
       }}
   // #endregion insertOne
@@ -105,7 +105,7 @@ class DNullJsonCollection : DJsonCollection {
   version(test_uim_jsonbase) { unittest {
     
       auto col = NullJsonCollection;
-      assert(col.updateMany(toJson(["id":randomUUID.toString]), toJson(["name":"aName"])) == 0); 
+      assert(col.updateMany(toJson(["id": randomUUID.toString]), toJson(["name": "aName"])) == 0); 
       // TODO
       }}
   // #endregion updateMany
@@ -117,7 +117,7 @@ class DNullJsonCollection : DJsonCollection {
   version(test_uim_jsonbase) { unittest {
     
       auto col = NullJsonCollection;
-      assert(col.updateOne(toJson(["id":randomUUID.toString]), toJson(["name":"aName"])) == 0); 
+      assert(col.updateOne(toJson(["id": randomUUID.toString]), toJson(["name": "aName"])) == 0); 
       // TODO
       }}
   // #endregion updateOne
@@ -139,8 +139,8 @@ class DNullJsonCollection : DJsonCollection {
   version(test_uim_jsonbase) { unittest {
     
       auto col = NullJsonCollection;
-      assert(col.removeMany(["name":"aName"]) == 0);
-      assert(col.removeMany(["name":"aName"], true) == 0);
+      assert(col.removeMany(["name": "aName"]) == 0);
+      assert(col.removeMany(["name": "aName"], true) == 0);
       // TODO
       }}
 
@@ -148,8 +148,8 @@ class DNullJsonCollection : DJsonCollection {
   version(test_uim_jsonbase) { unittest {
     
       auto col = NullJsonCollection;
-      assert(col.removeMany(toJson(["name":"aName"])) == 0);
-      assert(col.removeMany(toJson(["name":"aName"]), true) == 0);
+      assert(col.removeMany(toJson(["name": "aName"])) == 0);
+      assert(col.removeMany(toJson(["name": "aName"]), true) == 0);
       // TODO
       }}
   // #endregion removeMany
@@ -204,6 +204,6 @@ mixin(JsonCollectionCalls!("NullJsonCollection"));
 
 unittest {
   version(testUimJsonbase) { 
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }

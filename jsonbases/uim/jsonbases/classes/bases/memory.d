@@ -4,7 +4,7 @@ import uim.jsonbases;
 
 unittest { 
   version(testUimJsonbase) { 
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }
 
@@ -22,6 +22,6 @@ mixin(JsonBaseCalls!("MemoryJsonBase"));
 
 unittest {
   version(testUimJsonbase) { 
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }

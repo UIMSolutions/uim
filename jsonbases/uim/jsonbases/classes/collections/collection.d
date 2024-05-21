@@ -4,7 +4,7 @@ import uim.jsonbases;
 
 unittest { 
   version(testUimJsonbase) { 
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }
 
@@ -37,7 +37,7 @@ abstract class DJsonCollection : IJsonCollection {
   // #region READ
     // #region has()
       bool has(Json jsonObject, UUID id) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         // IN Check
         if (jsonObject.isNull) { return false; }
@@ -46,7 +46,7 @@ abstract class DJsonCollection : IJsonCollection {
         return jsonObject.hasKey("id") ? jsonObject["id"].get!string == id.toString : false; }
 
       bool has(Json jsonObject, string name) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         // IN Check
         if (jsonObject.isNull) { return false; }
@@ -55,7 +55,7 @@ abstract class DJsonCollection : IJsonCollection {
         return jsonObject.hasKey("name") ? jsonObject["name"].get!string == name : false; }
 
       bool has(Json jsonObject, size_t versionNumber = 0) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         // IN Check
         if (jsonObject.isNull) { return false; }
@@ -92,19 +92,19 @@ abstract class DJsonCollection : IJsonCollection {
     /// Count items in the collection with id and versions.
     /// allVersion = true include versions; = false results in existing id (1 if exists, 0 if none) 
     size_t count(bool allVersions = false) {
-      version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
       return findMany(allVersions).length; }
 
     size_t count(UUID id, bool allVersions = false) {
-      version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
       return findMany(id, allVersions).length; }
 
     /// Count all items in the collection with ids and versionNumber.
     /// allVersion = true include versions; = false results in existing ids 
     size_t count(UUID[] ids, size_t versionNumber) {
-      version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       
       // IN Check
       if (ids.empty) { return 0; }
@@ -120,7 +120,7 @@ abstract class DJsonCollection : IJsonCollection {
     size_t count(STRINGAA[] selects, bool allVersions = false) {
       return selects.map!(a => count(a, allVersions)).sum; }
 
-    // Searching based on parameter "select":STRINGAA
+    // Searching based on parameter "select": STRINGAA
     size_t count(STRINGAA select, bool allVersions = false) {
       return findMany(select, allVersions).length; }
 
@@ -128,7 +128,7 @@ abstract class DJsonCollection : IJsonCollection {
     size_t count(Json[] selects, bool allVersions = false) {
       return selects.map!(a => count(a, allVersions)).sum; }
 
-    // Searching based on parameter "select":Json[]
+    // Searching based on parameter "select": Json[]
     size_t count(Json select, bool allVersions = false) {
       return findMany(select, allVersions).length; }
     // #endregion count
@@ -164,7 +164,7 @@ abstract class DJsonCollection : IJsonCollection {
 
     /// Find all (many) items in a collection with select. allVersions:false = find last version, allVersion:true = find all versions
     Json[] findMany(Json select, bool allVersions = false) {
-      version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
       Json[] results = findMany(allVersions);
       return results.filter!(a => checkVersion(a, select)).array; 
@@ -174,7 +174,7 @@ abstract class DJsonCollection : IJsonCollection {
     // Searching in store
     // Searching for existing ids
     Json findOne(UUID[] ids, bool allVersions = false) {
-      version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
       auto jsons = ids.map!(a => findOne(a, allVersions)).array; 
       return jsons.length > 0 ? jsons[0] : Json(null); 
@@ -182,14 +182,14 @@ abstract class DJsonCollection : IJsonCollection {
 
     // Searching for existing id
     Json findOne(UUID id, bool allVersions = false) {
-      version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       
       return Json(null); 
     }
 
     /// Searching for existing ids & versionNumber
     Json findOne(UUID[] ids, size_t versionNumber) {
-      version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
       auto jsons = ids.map!(a => findOne(a, versionNumber)).array; 
       return jsons.length > 0 ? jsons[0] : Json(null); }
@@ -203,13 +203,13 @@ abstract class DJsonCollection : IJsonCollection {
       auto jsons = selects.map!(a => findOne(a, allVersions)).array; 
       return jsons.length > 0 ? jsons[0] : Json(null); }
 
-    // Searching based on parameter "select":STRINGAA
+    // Searching based on parameter "select": STRINGAA
     Json findOne(STRINGAA select, bool allVersions = false) {
       return Json(null); }
 
     // Searching for existing selects:json[]
     Json findOne(Json[] selects, bool allVersions = false) {
-      version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       auto jsons = selects.map!(a => findOne(a, allVersions)).array; 
       
       return jsons.length > 0 ? jsons[0] : Json(null); 
@@ -223,19 +223,19 @@ abstract class DJsonCollection : IJsonCollection {
   // #region UPDATE
     // #region updateMany()
       size_t updateMany(STRINGAA select, STRINGAA updateData) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         return updateMany(select.toJson, updateData.toJson); 
       }
 
       size_t updateMany(STRINGAA select, Json updateData) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         return updateMany(select.toJson, updateData); 
       }
 
       size_t updateMany(Json select, STRINGAA updateData) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         return updateMany(select, updateData.toJson); 
       }
@@ -245,19 +245,19 @@ abstract class DJsonCollection : IJsonCollection {
 
     // #region updateOne()
       bool updateOne(STRINGAA select, STRINGAA updateData) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         return updateOne(select.toJson, updateData.toJson); 
       }
 
       bool updateOne(STRINGAA select, Json updateData) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
         
         return updateOne(select.serializeToJson, updateData); 
       }
 
       bool updateOne(Json select, STRINGAA updateData) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         return updateOne(select, updateData.toJson); 
       }
@@ -269,50 +269,50 @@ abstract class DJsonCollection : IJsonCollection {
   // #region DELETE
     // #region removeMany()
       size_t removeMany(UUID[] ids, bool allVersions = false) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         return ids.map!(a => removeMany(a, allVersions)).sum; 
       }
 
       size_t removeMany(UUID id, bool allVersions = false) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         return 0; 
       }
 
       size_t removeMany(UUID[] ids, size_t versionNumber) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         return ids.map!(a => removeMany(a, versionNumber)).sum; 
       }
 
       size_t removeMany(UUID id, size_t versionNumber) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         return 0; 
       }
 
       size_t removeMany(STRINGAA[] selects, bool allVersions = false) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         return selects.map!(a => removeMany(a, allVersions)).sum; 
       }
 
       size_t removeMany(STRINGAA select, bool allVersions = false) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         auto jsons = findMany(select, allVersions);
         return jsons.map!(a => removeOne(a) ? 1 : 0).sum; 
       }
 
       size_t removeMany(Json[] selects, bool allVersions = false) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         return selects.map!(a => removeMany(a, allVersions)).sum; 
       }
 
       size_t removeMany(Json select, bool allVersions = false) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         auto jsons = findMany(select, allVersions);
         return jsons.filter!(j => removeOne(j)).array.length; 
@@ -354,6 +354,6 @@ abstract class DJsonCollection : IJsonCollection {
 
 unittest {
   version(testUimJsonbase) { 
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }

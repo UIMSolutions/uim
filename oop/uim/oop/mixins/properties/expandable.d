@@ -79,8 +79,8 @@ template XStringAA(string name) {
 }
 version(test_uim_oop) { unittest {
 	class DTest { mixin(XStringAA!"a"); }
-	assert((new DTest).a(["a":"x"]).a == ["a":"x"]);
-	assert((new DTest).a("a", "x").a == ["a":"x"]);
+	assert((new DTest).a(["a": "x"]).a == ["a": "x"]);
+	assert((new DTest).a("a", "x").a == ["a": "x"]);
 	assert((new DTest).a("a", "x").clearA.a == null);
 }}
 

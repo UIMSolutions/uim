@@ -947,7 +947,7 @@ static string contentType() {
         if (!views.has(DIRECTORY_SEPARATOR) && views != "" && !views.startWith(".")) {
             views = mytemplatePath ~ mysubDir ~ _inflectTemplateFileName(views);
         } elseif (views.has(DIRECTORY_SEPARATOR)) {
-            if (views[0] == DIRECTORY_SEPARATOR || views[1] == ":") {
+            if (views[0] == DIRECTORY_SEPARATOR || views[1] == ": ") {
                 views = strip(views, DIRECTORY_SEPARATOR);
             } elseif (!_plugin || _templatePath != _name) {
                 views = mytemplatePath ~ mysubDir ~ views;

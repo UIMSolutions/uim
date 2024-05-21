@@ -4,19 +4,19 @@ import uim.jsonbases;
 
 unittest { 
   version(testUimJsonbase) { 
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }
 
 @safe:
 IFolder idFolder(IFolder aFolder, UUID anId) {
-  version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+  version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
   return idFolder(aFolder, anId.toString);
 }
 
 IFolder idFolder(IFolder aFolder, string anId) {
-  version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+  version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
   // Preconditions
   if (aFolder is null || // Empty parameter 
@@ -28,7 +28,7 @@ IFolder idFolder(IFolder aFolder, string anId) {
 }
 
 IFile[] versionFiles(IFolder aFolder, string anId) {
-  version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+  version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
   auto idFolder = idFolder(aFolder, anId);
   if (idFolder.isNull) { return null; }
@@ -37,7 +37,7 @@ IFile[] versionFiles(IFolder aFolder, string anId) {
 }
 
 IFile versionFile(IFolder aFolder, string anId, string aVersionNumber = null) {
-  version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+  version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
   auto idFolder = idFolder(aFolder, anId);
   if (idFolder.isNull) { return null; } // Folder not found
@@ -48,6 +48,6 @@ IFile versionFile(IFolder aFolder, string anId, string aVersionNumber = null) {
 
 unittest {
   version(testUimJsonbase) { 
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }

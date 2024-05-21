@@ -4,7 +4,7 @@ import uim.jsonbases;
 
 version(testUimJsonbase) { 
   unittest {
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }
 
@@ -59,9 +59,9 @@ version(testUimJsonbase) {
   }
   /// 
   unittest {
-    auto json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}], "i":1}`);
-    /*    assert(checkVersion(json, ["a":"b"]), 
-        "Wrong CheckVersion result. Should be true -> %s for %s using %s".format(checkVersion(json, ["a":"b"]), json, ["a":"b"])); */
+    auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}], "i": 1}`);
+    /*    assert(checkVersion(json, ["a": "b"]), 
+        "Wrong CheckVersion result. Should be true -> %s for %s using %s".format(checkVersion(json, ["a": "b"]), json, ["a": "b"])); */
 
     assert(checkVersion(json, ["a": "b", "i": "1"]));
     assert(!checkVersion(json, ["a": "y"]));
@@ -88,11 +88,11 @@ version(testUimJsonbase) {
     return true;
   }
   unittest {
-    auto json = parseJsonString(`{"a":"b", "c":{"d":1}, "e":["f", {"g":"h"}], "i":1}`);
-    assert(checkVersion(json, parseJsonString(`{"a":"b"}`)));
-    assert(checkVersion(json, parseJsonString(`{"a":"b", "c":{"d":1}}`)));
-    assert(!checkVersion(json, parseJsonString(`{"a":"y"}`)));
-    assert(!checkVersion(json, parseJsonString(`{"x":"y"}`)));
+    auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}], "i": 1}`);
+    assert(checkVersion(json, parseJsonString(`{"a": "b"}`)));
+    assert(checkVersion(json, parseJsonString(`{"a": "b", "c": {"d": 1}}`)));
+    assert(!checkVersion(json, parseJsonString(`{"a": "y"}`)));
+    assert(!checkVersion(json, parseJsonString(`{"x": "y"}`)));
   }
 
   bool checkVersion(T)(Json entity, string key, T value) {

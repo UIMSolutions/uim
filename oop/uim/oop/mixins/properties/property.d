@@ -9,15 +9,15 @@ import std.string;
 
 template PropertyDefinition(string datatype, string fieldName, string propertyName, bool get = true, bool set = true, string defaultValue = null, string condition = null) {
 	const char[] fieldDefinition = datatype~" "~fieldName~(defaultValue.length>0?"="~defaultValue:"")~"; ";
-	const char[] getDefinition = get ? "@safe @property "~datatype~" "~propertyName~"() { return "~fieldName~"; } ":"";
-	const char[] setDefinition = set ? "@safe @property O "~propertyName~"(this O)("~datatype~" value) { "~(condition.length>0?"if ("~condition~")":"")~fieldName~"=value; return cast(O)this; } ":"";
+	const char[] getDefinition = get ? "@safe @property "~datatype~" "~propertyName~"() { return "~fieldName~"; } ": "";
+	const char[] setDefinition = set ? "@safe @property O "~propertyName~"(this O)("~datatype~" value) { "~(condition.length>0?"if ("~condition~")": "")~fieldName~"=value; return cast(O)this; } ": "";
 	const char[] PropertyDefinition = fieldDefinition~getDefinition~setDefinition;
 }
 
 template PropertyDefinition(string datatype, string propertyName, bool get = true, bool set = true, string defaultValue = null, string condition = null) {
 	const char[] fieldDefinition = datatype~" _"~propertyName~(defaultValue.length>0?"="~defaultValue:"")~"; ";
-	const char[] getDefinition = get ? "@safe @property "~datatype~" "~propertyName~"() { return _"~propertyName~"; } ":"";
-	const char[] setDefinition = set ? "@safe @property O "~propertyName~"(this O)("~datatype~" value) { "~(condition.length>0?"if ("~condition~")":"")~"_"~propertyName~"=value; return cast(O)this; } ":"";
+	const char[] getDefinition = get ? "@safe @property "~datatype~" "~propertyName~"() { return _"~propertyName~"; } ": "";
+	const char[] setDefinition = set ? "@safe @property O "~propertyName~"(this O)("~datatype~" value) { "~(condition.length>0?"if ("~condition~")": "")~"_"~propertyName~"=value; return cast(O)this; } ": "";
 	const char[] PropertyDefinition = fieldDefinition~getDefinition~setDefinition;
 }
 

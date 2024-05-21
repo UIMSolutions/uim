@@ -151,11 +151,11 @@ public class DNYPizzaStore : DPizzaStore {
 		IPizzaIngredientFactory ingredientFactory = new DNYPizzaIngredientFactory();
 
 		switch (item) {
-		case "cheese":
+		case "cheese": 
 			pizza = new DCheesePizza(ingredientFactory);
 			pizza.setName("NY Style Cheese Pizza");
 			break;
-		case "clam":
+		case "clam": 
 			pizza = new DClamPizza(ingredientFactory);
 			pizza.setName("NY Style Clam Pizza");
 			break;
@@ -174,11 +174,11 @@ public class DChicagoPizzaStore : DPizzaStore {
 		IPizzaIngredientFactory ingredientFactory = new DChicagoPizzaIngredientFactory();
 
 		switch (item) {
-		case "cheese":
+		case "cheese": 
 			pizza = new DCheesePizza(ingredientFactory);
 			pizza.setName("Chicago Style Cheese Pizza");
 			break;
-		case "clam":
+		case "clam": 
 			pizza = new DClamPizza(ingredientFactory);
 			pizza.setName("Chicago Style Clam Pizza");
 			break;

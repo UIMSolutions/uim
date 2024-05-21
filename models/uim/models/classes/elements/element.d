@@ -142,11 +142,11 @@ class DElement : IElement {
   // Returns data in string format (HTML compatible)
   string opIndex(string key) {
     switch (key) {
-    case "className":
+    case "className": 
       return className;
-    case "requestPrefix":
+    case "requestPrefix": 
       return requestPrefix;
-    case "registerPath":
+    case "registerPath": 
       return registerPath;
     default:
       if (auto value = valueOfKey(key)) {
@@ -212,16 +212,16 @@ class DElement : IElement {
   // Set data 
   void opIndexAssign(string newValue, string key) {
     switch (key) {
-    case "className":
+    case "className": 
       this.className(newValue);
       break;
-    case "name":
+    case "name": 
       this.name(newValue);
       break;
-    case "requestPrefix":
+    case "requestPrefix": 
       this.requestPrefix(newValue);
       break;
-    case "registerPath":
+    case "registerPath": 
       this.registerPath(newValue);
       break;
     default:
@@ -364,16 +364,16 @@ class DElement : IElement {
       auto k = keyvalue.key;
       auto v = keyvalue.value;
       switch (k) {
-      case "className":
+      case "className": 
         this.className(v.get!string);
         break;
-      case "name":
+      case "name": 
         this.name(v.get!string);
         break;
-      case "requestPrefix":
+      case "requestPrefix": 
         this.requestPrefix(v.get!string);
         break;
-      case "registerPath":
+      case "registerPath": 
         this.registerPath(v.get!string);
         break;
       default:

@@ -203,8 +203,8 @@ class DFormProtector {
             return null;
         }
         token = urldecode(formData["_Token"]["fields"]);
-        if (token.has(":")) {
-            [token, ] = split(":", token, 2);
+        if (token.has(": ")) {
+            [token, ] = split(": ", token, 2);
         }
         return token;
     }
@@ -232,8 +232,8 @@ class DFormProtector {
         auto token = urldecode(formData["_Token"]["fields"]);
         auto unlocked = urldecode(formData["_Token"]["unlocked"]);
 
-        if (token.has(":")) {
-            [, locked] = split(":", token, 2);
+        if (token.has(": ")) {
+            [, locked] = split(": ", token, 2);
         }
         unset(formData["_Token"]);
 
@@ -335,7 +335,7 @@ class DFormProtector {
         locked = locked.keys.join("|");
 
         return [
-            "fields": urlencode(fields ~ ":" ~ locked),
+            "fields": urlencode(fields ~ ": " ~ locked),
             "unlocked": urlencode(join("|", unlockedFields)),
             "debug": urlencode((string)Json_ncode([
                 url,

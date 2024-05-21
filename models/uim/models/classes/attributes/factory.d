@@ -26,51 +26,51 @@ class DAttributeFactory {
 
         switch (aName) {
         case "bool": return new DBooleanAttribute;
-        case "byte":
+        case "byte": 
             break;
-        case "ubyte":
+        case "ubyte": 
             break;
-        case "short":
+        case "short": 
             break;
-        case "ushort":
+        case "ushort": 
             break;
-        case "int":
+        case "int": 
             break;
-        case "uint":
+        case "uint": 
             break;
-        case "long":
+        case "long": 
             break;
-        case "ulong":
+        case "ulong": 
             break;
-        case "float":
+        case "float": 
             break;
-        case "double":
+        case "double": 
             break;
-        case "real":
+        case "real": 
             break;
-        case "ifloat":
+        case "ifloat": 
             break;
-        case "idouble":
+        case "idouble": 
             break;
-        case "ireal":
+        case "ireal": 
             break;
-        case "cfloat":
+        case "cfloat": 
             break;
-        case "cdouble":
+        case "cdouble": 
             break;
-        case "creal":
+        case "creal": 
             break;
-        case "char":
+        case "char": 
             break;
-        case "wchar":
+        case "wchar": 
             break;
-        case "dchar":
+        case "dchar": 
             break;
-        case "string":
+        case "string": 
             break;
-        case "uuid":
+        case "uuid": 
             break;
-        case "datetime":
+        case "datetime": 
             break;
         default:
             return new DAttribute;

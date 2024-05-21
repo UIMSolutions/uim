@@ -532,51 +532,51 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     super.opIndex(key);
 
     switch (key) {
-    case "registerPath":
+    case "registerPath": 
       return registerPath;
-    case "id":
+    case "id": 
       return id.toString;
-    case "etag":
+    case "etag": 
       return to!string(etag);
-    case "name":
+    case "name": 
       return name;
-    case "display":
+    case "display": 
       return display;
-    case "createdOn":
+    case "createdOn": 
       return to!string(createdOn);
-    case "createdBy":
+    case "createdBy": 
       return createdBy.toString;
-    case "modifiedOn":
+    case "modifiedOn": 
       return to!string(modifiedOn);
-    case "modifiedBy":
+    case "modifiedBy": 
       return modifiedBy.toString;
-    case "lastAccessedOn":
+    case "lastAccessedOn": 
       return to!string(lastAccessedOn);
-    case "lastAccessBy":
+    case "lastAccessBy": 
       return lastAccessBy.toString;
-    case "description":
+    case "description": 
       return description;
-    case "isLocked":
+    case "isLocked": 
       return isLocked ? "true" : "false";
-    case "lockedOn":W
+    case "lockedOn": W
       return to!string(lockedOn);
-    case "lockedBy":
+    case "lockedBy": 
       return lockedBy.toString;
-    case "isDeleted":
+    case "isDeleted": 
       return isDeleted ? "true" : "false";
-    case "deletedOn":
+    case "deletedOn": 
       return to!string(deletedOn);
-    case "deletedBy":
+    case "deletedBy": 
       return deletedBy.toString;
-    case "versionNumber":
+    case "versionNumber": 
       return to!string(versionNumber);
-    case "versionDisplay":
+    case "versionDisplay": 
       return versionDisplay;
-    case "versionMode":
+    case "versionMode": 
       return versionMode;
       /*      case "versionOn": return to!string(versionOn);
       case "versionBy": return to!string(versionBy); */
-    case "versionDescription":
+    case "versionDescription": 
       return versionDescription;
     default:
       //if (key in attributes) { return attributes[key].StringData; }
@@ -604,75 +604,75 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     super.opIndexAssign(value, key);
 
     switch (key) {
-    case "id":
+    case "id": 
       id(value);
       break;
-    case "etag":
+    case "etag": 
       etag(value);
       break;
-    case "name":
+    case "name": 
       name(value);
       break;
-    case "display":
+    case "display": 
       display(value);
       break;
-    case "createdOn":
+    case "createdOn": 
       createdOn(value);
       break;
-    case "createdBy":
+    case "createdBy": 
       createdBy(value);
       break;
-    case "modifiedOn":
+    case "modifiedOn": 
       modifiedOn(value);
       break;
-    case "modifiedBy":
+    case "modifiedBy": 
       modifiedBy(value);
       break;
-    case "lastAccessedOn":
+    case "lastAccessedOn": 
       lastAccessedOn(value);
       break;
-    case "lastAccessBy":
+    case "lastAccessBy": 
       lastAccessBy(value);
       break;
-    case "description":
+    case "description": 
       description(value);
       break;
-    case "isLocked":
+    case "isLocked": 
       isLocked(value);
       break;
-    case "lockedOn":
+    case "lockedOn": 
       lockedOn(value);
       break;
-    case "lockedBy":
+    case "lockedBy": 
       lockedBy(value);
       break;
-    case "isDeleted":
+    case "isDeleted": 
       isDeleted(value);
       break;
-    case "deletedOn":
+    case "deletedOn": 
       deletedOn(value);
       break;
-    case "deletedBy":
+    case "deletedBy": 
       deletedBy(value);
       break;
-    case "hasVersions":
+    case "hasVersions": 
       hasVersions(value);
       break;
-    case "hasLanguages":
+    case "hasLanguages": 
       hasLanguages(value);
       break;
-    case "versionNumber":
+    case "versionNumber": 
       versionNumber(value);
       break;
-    case "versionDisplay":
+    case "versionDisplay": 
       versionDisplay(value);
       break;
-    case "versionMode":
+    case "versionMode": 
       versionMode(value);
       break;
       /*      case "versionOn": versionOn(value); break;
       case "versionBy": versionBy(value); break; */
-    case "versionDescription":
+    case "versionDescription": 
       versionDescription(value);
       break;
     default:
@@ -701,22 +701,22 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     super.opIndexAssign(value, key);
 
     switch (key) {
-    case "id":
+    case "id": 
       id(value);
       break;
-    case "createdBy":
+    case "createdBy": 
       createdBy(value);
       break;
-    case "modifiedBy":
+    case "modifiedBy": 
       modifiedBy(value);
       break;
-    case "lastAccessBy":
+    case "lastAccessBy": 
       lastAccessBy(value);
       break;
-    case "lockedBy":
+    case "lockedBy": 
       lockedBy(value);
       break;
-    case "deletedBy":
+    case "deletedBy": 
       deletedBy(value);
       break;
       /*      case "versionBy": versionBy(value); break; */
@@ -733,19 +733,19 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     super.opIndexAssign(value, key);
 
     switch (key) {
-    case "createdOn":
+    case "createdOn": 
       createdOn(value);
       break;
-    case "modifiedOn":
+    case "modifiedOn": 
       modifiedOn(value);
       break;
-    case "lastAccessedOn":
+    case "lastAccessedOn": 
       lastAccessedOn(value);
       break;
-    case "lockedOn":
+    case "lockedOn": 
       lockedOn(value);
       break;
-    case "deletedOn":
+    case "deletedOn": 
       deletedOn(value);
       break;
       /*      case "versionOn": versionOn(value); break; */
@@ -759,13 +759,13 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     super.opIndexAssign(value, key);
 
     switch (key) {
-    case "isLocked":
+    case "isLocked": 
       isLocked(value);
       break;
-    case "isDeleted":
+    case "isDeleted": 
       isDeleted(value);
       break;
-    case "hasVersions":
+    case "hasVersions": 
       hasVersions(value);
       break;
     default:
@@ -826,52 +826,52 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       auto k = keyvalue.key;
       auto v = keyvalue.value;
       switch (k) {
-      case "pool":
+      case "pool": 
         pool(v.get!string);
         break;
-      case "id":
+      case "id": 
         id(v.get!string);
         break;
-      case "etag":
+      case "etag": 
         etag(v.get!long);
         break;
-      case "name":
+      case "name": 
         name(v.get!string);
         break;
-      case "display":
+      case "display": 
         display(v.get!string);
         break;
-      case "createdOn":
+      case "createdOn": 
         createdOn(v.get!long);
         break;
-      case "createdBy":
+      case "createdBy": 
         createdBy(v.get!string);
         break;
-      case "modifiedOn":
+      case "modifiedOn": 
         modifiedOn(v.get!long);
         break;
-      case "modifiedBy":
+      case "modifiedBy": 
         modifiedBy(v.get!string);
         break;
-      case "description":
+      case "description": 
         description(v.get!string);
         break;
-      case "isLocked":
+      case "isLocked": 
         isLocked(v.get!bool);
         break;
-      case "lockedOn":
+      case "lockedOn": 
         lockedOn(v.get!long);
         break;
-      case "lockedBy":
+      case "lockedBy": 
         lockedBy(v.get!string);
         break;
-      case "isDeleted":
+      case "isDeleted": 
         isDeleted(v.get!bool);
         break;
-      case "deletedOn":
+      case "deletedOn": 
         deletedOn(v.get!long);
         break;
-      case "deletedBy":
+      case "deletedBy": 
         deletedBy(v.get!string);
         break;
         /*        case "model": 
@@ -879,34 +879,34 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
           if (id.isUUID) model(OOPModel(UUID(id)));
           else model(OOPModel(id));
           break; */
-      case "hasVersions":
+      case "hasVersions": 
         hasVersions(v.get!bool);
         break;
-      case "hasLanguages":
+      case "hasLanguages": 
         hasLanguages(v.get!bool);
         break;
-      case "parameters":
+      case "parameters": 
         STRINGAA values;
         foreach (kv; v.byKeyValue) {
           values[kv.key] = kv.value.get!string;
         }
         parameters(values);
         break;
-      case "config":
+      case "config": 
         config(v);
         break;
-      case "versionNumber":
+      case "versionNumber": 
         versionNumber(v.get!long);
         break;
-      case "versionDisplay":
+      case "versionDisplay": 
         versionDisplay(v.get!string);
         break;
-      case "versionMode":
+      case "versionMode": 
         versionMode(v.get!string);
         break;
         /*        case "versionOn": versionOn(v.get!long); break;
         case "versionBy": versionBy(v.get!string); break; */
-      case "versionDescription":
+      case "versionDescription": 
         versionDescription(v.get!string);
         break;
       default:

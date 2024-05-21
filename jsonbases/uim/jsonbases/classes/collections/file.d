@@ -4,7 +4,7 @@ import uim.jsonbases;
 
 unittest { 
   version(testUimJsonbase) { 
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }
 
@@ -22,7 +22,7 @@ class DFileJsonCollection : DJsonCollection {
 
       // Find all (many) items in a collection. allVersions:false = find last versions, allVersion:true = find all versions
       override Json[] findMany(bool allVersions = false) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
         
         // Preconditions
         if (!folder || !folder.exists) { return null; }    
@@ -36,7 +36,7 @@ class DFileJsonCollection : DJsonCollection {
 
       /// Find all (many) items in a collection with id. allVersions:false = find last version, allVersion:true = find all versions
       override Json[] findMany(UUID anId, bool allVersions = false) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         if (!folder || !folder.exists) { return null; }  
 
@@ -50,14 +50,14 @@ class DFileJsonCollection : DJsonCollection {
       }
 
       override Json[] findMany(STRINGAA select, bool allVersions = false) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         return super.findMany(select, allVersions); 
       }
 
       /// find items by select - allVersions:false - last versions; allVersions:true - all versions
       override Json[] findMany(Json select, bool allVersions = false) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         return super.findMany(select, allVersions); 
       }
@@ -68,7 +68,7 @@ class DFileJsonCollection : DJsonCollection {
 
       /// Find one item in a collection. allVersions:false = last version, allVersion:true = one version
       override Json findOne(UUID id, bool allVersions = false) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         if (!folder || !folder.exists) { return Json(null); }  
 
@@ -82,7 +82,7 @@ class DFileJsonCollection : DJsonCollection {
       }
 
       override Json findOne(UUID anId, size_t versionNumber) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         if (!folder || !folder.exists) { return Json(null); } 
 
@@ -96,7 +96,7 @@ class DFileJsonCollection : DJsonCollection {
       }
 
       override Json findOne(STRINGAA select, bool allVersions = false) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         if (!folder || !folder.exists) { return Json(null); }
 
@@ -120,7 +120,7 @@ class DFileJsonCollection : DJsonCollection {
       }
 
       override Json findOne(Json select, bool allVersions = false) {
-        version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         if (!folder || !folder.exists) { return Json(null); }
 
@@ -147,7 +147,7 @@ class DFileJsonCollection : DJsonCollection {
   alias insertOne = DJsonCollection.insertOne;
 
   override Json insertOne(Json newData) {
-    version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+    version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
     // Preconditions
     if (!folder || !folder.exists) { return Json(null); }
@@ -169,7 +169,7 @@ class DFileJsonCollection : DJsonCollection {
 
   // #region updateMany()
     override size_t updateMany(STRINGAA select, STRINGAA updateData) {
-      version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       
       // Preconditions
       if (!folder || !folder.exists) { return 0; }  
@@ -185,7 +185,7 @@ class DFileJsonCollection : DJsonCollection {
     }
 
     override size_t updateMany(Json select, Json updateData) {
-      version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       
       // Preconditions
       if (!folder || !folder.exists) { return 0; }  
@@ -202,7 +202,7 @@ class DFileJsonCollection : DJsonCollection {
   // #region updateOne()
     alias updateOne = DJsonCollection.updateOne;
     override bool updateOne(Json select, Json updateData) {
-      version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       
       // Preconditions
       if (!folder || !folder.exists) { 
@@ -413,6 +413,6 @@ mixin(JsonCollectionCalls!("FileJsonCollection"));
 
 unittest {
   version(testUimJsonbase) { 
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }

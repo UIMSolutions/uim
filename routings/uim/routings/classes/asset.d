@@ -115,7 +115,7 @@ class DAsset {
         if (preg_match("/^data:[a-z]+\/[a-z]+;/", somePath)) {
             return somePath;
         }
-        if (somePath.has("://") || preg_match("/^[a-z]+:/i", somePath)) {
+        if (somePath.has(": //") || preg_match("/^[a-z]+:/i", somePath)) {
             return stripLeft(Router.url(somePath), "/");
         }
         if (!array_key_exists("plugin", options) || options["plugin"] != false) {

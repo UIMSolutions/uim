@@ -266,7 +266,7 @@ class DHasManyAssociation : DAssociation {
      * ```
      * myUser = myUsers.get(1);
      * myUser.articles = [article1, article2, article3, article4];
-     * myUsers.save(myUser, ["Associated":["Articles"]]);
+     * myUsers.save(myUser, ["Associated": ["Articles"]]);
      * allArticles = [article1, article2, article3];
      * myUsers.Articles.unlink(myUser, allArticles);
      * ```

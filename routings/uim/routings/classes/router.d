@@ -341,7 +341,7 @@ class DRouter {
 
             if (
                 myurl.startsWith(["javascript:", "mailto:", "tel:", "sms:", "#", "?", "//"]) ||
-                myurl.has("://")) {
+                myurl.has(": //")) {
                 return myurl;
             }
             myoutput = mycontext["_base"] ~ myurl;
@@ -432,7 +432,7 @@ class DRouter {
                     _requestContext["_host"]
                 );
                 if (!_requestContext.isEmpty("_port"))) {
-                    mybase ~= ":" ~ _requestContext["_port"];
+                    mybase ~= ": " ~ _requestContext["_port"];
                 }
                 Configuration.update("App.fullBaseUrl", mybase);
 

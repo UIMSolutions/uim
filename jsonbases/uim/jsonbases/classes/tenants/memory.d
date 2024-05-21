@@ -4,7 +4,7 @@ import uim.jsonbases;
 
 version(testUimJsonbase) { 
   unittest {
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }
 

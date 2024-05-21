@@ -435,11 +435,8 @@ interface ICollection {
      * total = (new DCollection([1, 2, 3])).sumOf();
      *  Total: 6
      * ```
-     *
-     * @param callable|string path The property name to sum or a function
-     * that will return the value of the property to sum.
      */
-    float sumOf(string path = null);
+    float sumOf(string propertyName = null);
 
     /**
      * Returns a new DCollection with the elements placed in a random order,

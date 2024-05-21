@@ -805,19 +805,15 @@ class DDebugger {
      * - HTML escape the message.
      * - Convert `bool` into `<code>bool</code>`
      * - Convert newlines into `<br />`
-     *
-     * @param string message The string message to format.
      */
-    static string formatHtmlMessage(string message) {
-        Json message = htmlAttributeEscape(message);
-        message = preg_replace('/`([^`]+)`/', '<code>1</code>', message);
+    static string formatHtmlMessage(string messageToFormat) {
+        messageToFormat = htmlAttributeEscape(messageToFormat);
+        messageToFormat = preg_replace('/`([^`]+)`/', '<code>1</code>', messageToFormat);
 
-        return nl2br(message);
+        return nl2br(messageToFormat);
     }
 
-    /**
-     * Verifies that the application's salt and cipher seed value has been changed from the default value.
-     */
+    // Verifies that the application's salt and cipher seed value has been changed from the default value.
     static void checkSecurityKeys() {
         salt = Security.getSalt();
         if (salt == '__SALT__' || strlen(salt) < 32) {

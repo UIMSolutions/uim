@@ -344,10 +344,6 @@ interface IQuery {
      * data type automatically for you, thus securing your application from SQL injections.
      * If you use string conditions make sure that your values are correctly quoted.
      * The safest thing you can do is to never use string conditions.
-     * Params:
-     * \Closure|string[] conditions The conditions to filter on.
-     * @param STRINGAA types Associative array of type names used to bind values to query
-     * @param bool overwrite whether to reset conditions with passed list or not
      */
-    // TODO auto where(/* Closure */ string[] conditions = null, Json[string] types = null, bool overwrite = false);
+    auto where(/* Closure */ string[] conditionsToFilter = null, Json[string] types = null, bool shouldOverwrite = false);
 }

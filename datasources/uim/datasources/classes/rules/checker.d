@@ -149,9 +149,6 @@ class DRulesChecker {
      * - `errorField`: The name of the entity field that will be marked as invalid
      *  if the rule does not pass.
      * - `message`: The error message to set to `errorField` if the rule does not pass.
-     * Params:
-     * callable rule A callable auto or object that will return whether
-     * the entity is valid or not.
      */
     void addremove(callable rule, string[] ruleAlias = null, Json[string] optionData = null) {
        _deleteRules ~= _addError(rule, ruleAlias, options);
@@ -162,21 +159,18 @@ class DRulesChecker {
      * of them pass. The rules to be applied are depended on the mode parameter which
      * can only be RulesChecker.CREATE, RulesChecker.UPDATE or RulesChecker.DELETE
      * Params:
-     * \UIM\Datasource\IDatasourceEntity entity The entity to check for validity.
-     * @param string amode Either 'create, "update' or 'delete'.
-     * @param Json[string] optionData Extra options to pass to checker functions.
      */
-    bool check(IDatasourceEntity entity, string amode, Json[string] optionData = null) {
-        if (mode == self.CREATE) {
+    bool check(IDatasourceEntity entity, string checkMode /* 'create, "update' or 'delete'*/ , Json[string] optionData = null) {
+        if (checkMode == self.CREATE) {
             return _checkCreate(entity, options);
         }
-        if (mode == self.UPDATE) {
+        if (checkMode == self.UPDATE) {
             return _checkUpdate(entity, options);
         }
-        if (mode == self.DELETE) {
+        if (checkMode == self.DELETE) {
             return _checkremove(entity, options);
         }
-        throw new DInvalidArgumentException("Wrong checking mode: " ~ mode);
+        throw new DInvalidArgumentException("Wrong checking mode: " ~ checkMode);
     }
     
     /**
@@ -214,10 +208,10 @@ class DRulesChecker {
      * @param Json[string] optionData Extra options to pass to checker functions.
      * @param array<\UIM\Datasource\RuleInvoker> rules The list of rules that must be checked.
      */
-    protected bool _checkRules(IDatasourceEntity entity, Json[string] optionData = null, Json[string] rules = null) {
+    protected bool _checkRules(IDatasourceEntity entity, Json[string] optionData = null, Json[string] rulesToCheck = null) {
         success = true;
         auto updatedOptions = options.update_options;
-        rules
+        rulesToCheck
           .each!(rule => success = rule(entity, options) && success);
         return success;
     }

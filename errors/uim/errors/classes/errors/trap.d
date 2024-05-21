@@ -87,25 +87,21 @@ class DErrorTrap {
      *
      * This method will dispatch the `Error.beforeRender` event which can be listened
      * to on the global event manager.
-     * Params:
-     * @param string adescription Error description
-     * @param string file File on which error occurred
-     * @param int line Line that triggered the error
      */
     bool handleError(
         int errorCode,
-        string adescription,
-        string afile = null,
-        int line = null
+        string errorDescription,
+        string fileName = null,
+        int errorTriggerLine = null
     ) {
         if (!(error_reporting() & errorCode )) {
             return false;
         }
         if (errorCode == E_USER_ERROR ||  errorCode == E_ERROR || errorCode == E_PARSE) {
-            throw new DFatalErrorException(description, errorCode, file, line);
+            throw new DFatalErrorException(errorDescription, errorCode, fileName, errorTriggerLine);
         }
         auto trace = (array)Debugger.trace(["start": 1, "format": "points"]);
-        auto error = new UimError(errorCode, description, file, line, trace);
+        auto error = new UimError(errorCode, errorDescription, fileName, errorTriggerLine, trace);
 
         auto anIgnoredPaths = (array)configuration.get("Error.ignoredDeprecationPaths");
         if (errorCode == E_USER_DEPRECATED &&  anIgnoredPaths) {

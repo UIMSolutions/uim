@@ -79,12 +79,8 @@ class DebugContext {
       return refId;
     }
 
-    /**
-     * Check whether an object has been seen before.
-     *
-     * @param object object The object to get a reference for.
-     */
-    bool hasReference(object object) {
-        return _refs.contains(object);
-    } */
+    // Check whether an object has been seen before.
+    bool hasReference(object referenceObject) {
+        return _refs.contains(referenceObject);
+    } 
 }

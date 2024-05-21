@@ -161,18 +161,15 @@ mixin template TQuery() {
     /**
      * Runs `aliasField()` for each field in the provided list and returns
      * the result under a single array.
-     *
-     * @param Json[string] fields The fields to alias
-     * @param string defaultAlias The default alias
      */
-    STRINGAA aliasFields(string[] fieldNames, string defaultAlias = null) {
-        aliased = null;
-        foreach (fields as alias: field) {
-            if (alias.isNumeric && field.isString) {
+    STRINGAA aliasFields(string[] fieldAlias, string defaultAlias = null) {
+        auto aliased = null;
+        foreach (fieldAlias as aliasName: field) {
+            if (aliasName.isNumeric && field.isString) {
                 aliased += this.aliasField(field, defaultAlias);
                 continue;
             }
-            aliased[alias] = field;
+            aliased[aliasName] = field;
         }
 
         return aliased;

@@ -525,18 +525,13 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * The arguments of this method are identical to the `leftJoin()` shorthand, please refer
      * to that methods description for further details.
-     * Params:
-     * @param \UIM\Database\IExpression|\Closure|string[] aconditions The conditions
-     * to use for joining.
-     * @param Json[string] types a list of types associated to the conditions used for converting
-     * values to the corresponding database representation.
      */
     void rightJoin(
         string[] tableNames,
-        /* IExpression|Closure */string[] aconditions = null,
-        Json[string] types = null
+        /* IExpression|Closure */string[] conditionsForJoining = null,
+        Json[string] conditionTypes = null
     ) {
-        join(_makeJoin(tableNames, conditions, JOIN_TYPE_RIGHT), types);
+        join(_makeJoin(tableNames, conditionsForJoining, JOIN_TYPE_RIGHT), conditionTypes);
     }
     
     /**
@@ -810,9 +805,6 @@ abstract class DQuery : IQuery { // : IExpression {
      * This method does allow empty inputs in contrast to where() if you set
      * 'allowEmpty' to true.
      * Be careful about using it without proper sanity checks.
-     * Params:
-     * @param Json[string]  someValues Array of values
-     * @param Json[string] options Options
      */
     auto whereNotInListOrNull(string fieldName, Json[string] someValues, Json[string] options = null) {
         auto auto updatedOptions = options.update() [

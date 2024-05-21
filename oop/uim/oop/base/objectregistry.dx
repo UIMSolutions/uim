@@ -143,7 +143,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * This method should construct and do any other initialization logic
      * required.
      * Params:
-     * object|string className The class to build.
+     * /* object */ string className The class to build.
      * configData - The Configuration settings for construction
      */
   abstract protected object _create(object objInstance, string aliasName, Json[string] configData);

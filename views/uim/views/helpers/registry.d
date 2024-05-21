@@ -101,7 +101,7 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      * @param string aliasName The alias of the loaded helper.
      * @param Json[string] configData An array of settings to use for the helper.
      */
-    protected DHelper _create(object|string myclass, string aliasName, Json[string] configData) {
+    protected DHelper _create(/* object */ string myclass, string aliasName, Json[string] configData) {
         if (isObject(myclass)) {
             return myclass;
         }

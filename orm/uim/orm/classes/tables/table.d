@@ -553,15 +553,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         return _entityClass;
     }
     
-    /**
-     * Sets the class used to hydrate rows for this table.
-     * Params:
-     * string myname The name of the class to use
-     * @throws \ORM\Exception\MissingEntityException when the entity class DCannot be found
-     */
-    void setEntityClass(string myname) {
+    // Sets the class used to hydrate rows for this table.
+    void setEntityClass(string nameOfClass) {
         /** @var class-string<\UIM\Datasource\IORMEntity>|null myclass */
-        myclass = App.className(myname, "Model/Entity");
+        auto myclass = App.className(nameOfClass, "Model/Entity");
         if (myclass.isNull) {
             throw new DMissingEntityException([myname]);
         }
@@ -1920,8 +1915,6 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     /**
      * @param iterable<\UIM\Datasource\IORMEntity> myentities Entities to save.
      * @param Json[string] options Options used when calling Table.save() for each entity.
-     * @throws \ORM\Exception\PersistenceFailedException If an entity couldn"t be saved.
-     * @throws \Exception If an entity couldn"t be saved.
      */
     protected IORMEntity[] _saveMany(
         range myentities,

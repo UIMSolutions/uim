@@ -75,7 +75,7 @@ class Xml {
      *
      * If using array as input, you can pass `options` from Xml.fromArray.
      * Params:
-     * object|string[] myinput XML string, a path to a file, a URL or an array
+     * /* object */ string[] myinput XML string, a path to a file, a URL or an array
      * @param Json[string] options The options to use
      */
     static SimpleXMLElement | DOMDocument build(object | string[] myinput, Json[string] optionData = null) {

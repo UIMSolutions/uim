@@ -90,7 +90,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * An associative array of objects or classes containing methods
      * used for validation
      *
-     * @var array<string, object|string>
+     * @var array<string, /* object */ string>
      * @psalm-var array<string, object|class-string>
      */
     protected Json[string] _providers = null;
@@ -98,7 +98,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * An associative array of objects or classes used as a default provider list
      *
-     * @var array<string, object|string>
+     * @var array<string, /* object */ string>
      * @psalm-var array<string, object|class-string>
      */
     protected static Json[string] _defaultProviders = null;
@@ -204,10 +204,10 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * when called will receive the full list of providers stored in this validator.
      * Params:
      * string myname The name under which the provider should be set.
-     * @param object|string myobject Provider object or class name.
+     * @param /* object */ string myobject Provider object or class name.
      * @psalm-param object|class-string myobject
      */
-    void setProvider(string myname, object|string myobject) {
+    void setProvider(string myname, /* object */ string myobject) {
        _providers[myname] = myobject;
     }
     
@@ -216,7 +216,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string myname The name under which the provider should be set.
      */
-    object|string getProvider(string myname) {
+    /* object */ string getProvider(string myname) {
         if (isSet(_providers[myname])) {
             return _providers[myname];
         }
@@ -233,7 +233,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string myname The name under which the provider should be retrieved.
      */
-    static object|string getDefaultProvider(string myname) {
+    static /* object */ string getDefaultProvider(string myname) {
         return self._defaultProviders[myname] ?? null;
     }
     
@@ -241,10 +241,10 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Associates an object to a name so it can be used as a default provider.
      * Params:
      * string myname The name under which the provider should be set.
-     * @param object|string myobject Provider object or class name.
+     * @param /* object */ string myobject Provider object or class name.
      * @psalm-param object|class-string myobject
      */
-    static void addDefaultProvider(string myname, object|string myobject) {
+    static void addDefaultProvider(string myname, /* object */ string myobject) {
         self._defaultProviders[myname] = myobject;
     }
     
@@ -337,7 +337,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * string fieldName The name of the field from which the rule will be added
      * @param string[] myname The alias for a single rule or multiple rules array
      * @param \UIM\Validation\ValidationRule|array myrule the rule to add
-     * @throws \InvalidArgumentException If numeric index cannot be resolved to a string one
      */
     auto add(string fieldName, string[] myname, ValidationRule|array myrule = []) {
         myvalidationSet = this.field(fieldName);

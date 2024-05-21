@@ -2217,13 +2217,8 @@ class DFormHelper : DHelper {
         return _valueSources;
     }
     
-    /**
-     * Validate value sources.
-     * Params:
-     * string[] mysources A list of strings identifying a source.
-     * @throws \InvalidArgumentException If sources list contains invalid value.
-     */
-    protected void validateValueSources(Json[string] mysources) {
+    // Validate value sources.
+    protected void validateValueSources(Json[string] sourceIds) {
         mydiff = array_diff(mysources, this.supportedValueSources);
 
         if (mydiff) {

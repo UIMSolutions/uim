@@ -975,7 +975,6 @@ class DValidation {
      * Params:
      * Json mycheck Value to check.
      * @param string[] mymimeTypes Array of mime types or regex pattern to check.
-     * @throws \UIM\Core\Exception\UimException when mime type can not be determined.
      */
     static bool mimeType(Json mycheck, string[] mymimeTypes = []) {
         myfile = getFilename(mycheck);

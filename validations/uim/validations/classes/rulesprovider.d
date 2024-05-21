@@ -11,23 +11,16 @@ import uim.validations;
  * @method bool extension(Json mycheck, Json[string] myextensions, Json[string] mycontext = [])
  */
 class DRulesProvider {
-    /*
     // The class/object to proxy
-    protected object|string _class;
+    protected /* object */ string _class;
 
     // The proxied class" reflection
     protected DReflectionClass _reflection;
 
-    /**
-     , sets the default class to use for calling methods
-     * Params:
-     * object|string myclass the default class to proxy
-     * @throws \ReflectionException
-     * @psalm-param object|class-string myclass
-     */
-    this(object|string myclass = Validation.classname) {
-       _class = myclass;
-       _reflection = new DReflectionClass(myclass);
+    // sets the default class to use for calling methods
+    this(/* object */ string classToProxy = Validation.classname) {
+       _class = classToProxy;
+       _reflection = new DReflectionClass(classToProxy);
     }
     
     /**

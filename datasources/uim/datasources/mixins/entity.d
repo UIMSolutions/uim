@@ -115,13 +115,10 @@ mixin template TEntity() {
      * This is useful for batch operations when one needs to get the original value for an error message after patching.
      * This value could not be patched into the entity and is simply copied into the _invalidFields property for debugging
      * purposes or to be able to log it away.
-     * Params:
-     * Json[string] fields The values to set.
-     * @param bool overwrite Whether to overwrite pre-existing values for field.
     */
-  void setFieldsInvalid(arrayfields, booloverwrite = false) {
-    foreach (fields asfield : aValue) {
-      if (overwrite == true) {
+  void setFieldsInvalid(Json[string] fields, bool shouldOverwrite = false) {
+    foreach (fields as field : aValue) {
+      if (shouldOverwrite == true) {
         _invalidFields[field] = aValue;
         continue;
       }
@@ -141,11 +138,8 @@ mixin template TEntity() {
   void setInvalidField(string fieldName, Json invalidValue) {
     _invalidFields[field] = aValue;
   }
-  /**
-     * Holds a cached list of getters/setters per class
-     *
-     * @var array<string, array<string, STRINGAA>>
-    */
+
+  // Holds a cached list of getters/setters per class
   protected static Json[string] _accessors = null;
 
   /**
@@ -153,7 +147,7 @@ mixin template TEntity() {
      *
      * If enabled an exception will be thrown when trying to access a non-existent property.
     */
-  protected boolrequireFieldPresence = false;
+  protected bool requireFieldPresence = false;
 
   /**
      * Magic getter to access fields that have been set in this entity
@@ -874,7 +868,7 @@ mixin template TEntity() {
      * @param string[] aerrors The errors to be set for field
      * @param bool overwrite Whether to overwrite pre-existing errors for field
     */
-      auto setErrors(string fieldName, string[] aerrors, booloverwrite = false) {
+      auto setErrors(string fieldName, string[] aerrors, bool shouldOverwrite = false) {
         if (isString(errors)) {
           errors = [errors];
         }

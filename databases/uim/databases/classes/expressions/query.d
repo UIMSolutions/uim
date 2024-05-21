@@ -86,28 +86,27 @@ class DQueryExpression : DExpression { // }, Countable {
     // Adds a new condition to the expression object in the form "field != value".
     // TODO auto notEq(/* IExpression| */ string fieldName, Json valueToBound, string valueType = null) {
     auto notEq(/* IExpression| */ string fieldName, Json valueToBound, string valueType = null) {
-        valueType ? valueType : _calculateType(field);
+        valueType = valueType.ifEmpty(_calculateType(field));
 
         return _add(new DComparisonExpression(field, valueToBound, valueType, "!="));
     }
     
     // Adds a new condition to the expression object in the form "field > value".
     auto gt(/* IExpression| */ string fieldName, Json valueToBound, string valueType = null) {
+        valueType = valueType.ifEmpty(_calculateType(fieldName)), ">"));
         return _add(new DComparisonExpression(fieldName, valueToBound, 
-        valueType.ifEmpty(_calculateType(fieldName)), ">"));
     }
     
     /**
      * Adds a new condition to the expression object in the form "field < value".
      * Params:
-     * \UIM\Database\/* IExpression| */ string fieldName Database field to be compared against value
      * @param Json aValue The value to be bound to field for comparison
      * @param string type the type name for aValue as configured using the Type map.
      */
-    auto lt(/* IExpression| */ string fieldName, Json aValue, string atype = null) {
-        type ??= _calculateType(field);
+    auto lt(/* IExpression| */ string fieldName, Json aValue, string valueType = null) {
+        valueType = valueType.ifEmpty(_calculateType(field));
 
-        return _add(new DComparisonExpression(field, aValue, type, "<"));
+        return _add(new DComparisonExpression(field, aValue, valueType, "<"));
     }
     
     // Adds a new condition to the expression object in the form "field >= value".
@@ -137,11 +136,7 @@ class DQueryExpression : DExpression { // }, Countable {
         return _add(new DUnaryExpression("isNull", field, UnaryExpression.POSTFIX));
     }
     
-    /**
-     * Adds a new condition to the expression object in the form "field IS NOT NULL".
-     * Params:
-     * \UIM\Database\/* IExpression| */ string fieldName database field to be tested for not null
-     */
+    // Adds a new condition to the expression object in the form "field IS NOT NULL".
     auto isNotNull(/* IExpression| */ string fieldName) {
         if (!(cast(IExpression)field)) {
             field = new DIdentifierExpression(field);

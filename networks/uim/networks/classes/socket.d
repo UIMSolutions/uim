@@ -48,13 +48,13 @@ class DSocket {
     protected resource aConnection;
 
     // This boolean contains the current state of the Socket class
-    protected boolconnected = false;
+    protected bool connected = false;
 
     // This variable contains an array with the last error number (num) and string (str)
-    protected Json[string]lastError = null;
+    protected Json[string] lastError = null;
 
     // True if the socket stream is encrypted after a {@link \UIM\Network\Socket.enableCrypto()} call
-    protected boolencrypted = false;
+    protected bool encrypted = false;
 
     /**
      * Contains all the encryption methods available

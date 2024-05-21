@@ -101,13 +101,9 @@ interface IQuery {
      * repository.find("all").find("recent");
      * ```
      *
-     * The above is an example of stacking multiple finder methods onto
-     * a single query.
-     * Params:
-     * string afinder The finder method to use.
-     * @param Json ...someArguments Arguments that match up to finder-specific parameters
+     * The above is an example of stacking multiple finder methods onto a single query.
      */
-    static find(string afinder, Json ...someArguments);
+    static find(string finderMethod, Json ...someArguments);
 
     /**
      * Returns the first result out of executing this query, if the query has not been
@@ -210,7 +206,7 @@ interface IQuery {
      * \Closure|string[] fieldNames fields to be added to the list
      * @param bool overwrite whether to reset order with field list or not
      */
-    auto orderBy(/* Closure */ string[] fieldNames, bool overwrite = false);
+    auto orderBy(/* Closure */ string[] fieldNames, bool shouldOverwrite = false);
 
     /**
      * Set the page of results you want.

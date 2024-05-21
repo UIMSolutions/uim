@@ -66,7 +66,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
   void setErrors(Json[string] errors, bool shouldOoverwrite = false);
 
   //Sets errors for a single field
-  IDatasourceEntity setErrors(string fieldName, string[] FieldErrors, bool overwrite = false);
+  IDatasourceEntity setErrors(string fieldName, string[] FieldErrors, bool shouldOverwrite = false);
 
   /**
      * Stores whether a field value can be changed or set in this entity.
@@ -113,12 +113,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
   // Returns whether a field has an original value
   bool hasOriginal(string fieldName);
 
-  /**
-     * Returns the original value of a field.
-     * Params:
-     * string fieldName The name of the field.
-     * @param bool allowFallback whether to allow falling back to the current field value if no original exists
-    */
+  // Returns the original value of a field.
   Json getOriginal(string fieldName, bool allowFallback = true);
 
   // Gets all original values of the entity.

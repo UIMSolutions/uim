@@ -224,15 +224,15 @@ class DRulesChecker {
      * @param string[] name The alias for a rule or an array of options
      * @param Json[string] optionData The options containing the error message and field.
      */
-    protected DRuleInvoker _addError(callable rule, string[] name = null, Json[string] optionData = null) {
-        if (isArray(name)) {
-            options = name;
-            name = null;
+    protected DRuleInvoker _addError(callable rule, string[] ruleAlias = null, Json[string] optionData = null) {
+        if (isArray(ruleAlias)) {
+            options = ruleAlias;
+            ruleAlias = null;
         }
 
         return !cast(RuleInvoker)rule
-            ? new DRuleInvoker(rule, name, options)
-            : rule.setOptions(options).name(name);
+            ? new DRuleInvoker(rule, ruleAlias, options)
+            : rule.setOptions(options).name(ruleAlias);
 
         return rule;
     }

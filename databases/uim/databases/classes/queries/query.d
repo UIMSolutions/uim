@@ -541,18 +541,13 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * The arguments of this method are identical to the `leftJoin()` shorthand, please refer
      * to that method`s description for further details.
-     * Params:
-     * @param \UIM\Database\IExpression|\Closure|string[] aconditions The conditions
-     * to use for joining.
-     * @param STRINGAA types a list of types associated to the conditions used for converting
-     * values to the corresponding database representation.
      */
     void innerJoin(
         string[] tableNames,
         /* IExpression|Closure */string[] conditionsForJoining = null,
-        Json[string] types = null
+        Json[string] conditionTypes = null
     ) {
-        join(_makeJoin(tableNames, conditionsForJoining, JOIN_TYPE_INNER), types);
+        join(_makeJoin(tableNames, conditionsForJoining, JOIN_TYPE_INNER), conditionTypes);
     }
     
     // Returns an array that can be passed to the join method describing a single join clause

@@ -356,7 +356,7 @@ version (test_uim_core) {
   }
 }
 
-Json readJson(Json target, Json source, bool overwrite = true) {
+Json readJson(Json target, Json source, bool shouldOverwrite = true) {
   if (!target.isObject || !source.isObject) {
     return target;
   }
@@ -621,7 +621,7 @@ Json mergeJsons(Json[] jsons...) {
   return mergeJsons(jsons.dup, true);
 }
 /// Merge jsons objects in array to one
-Json mergeJsons(Json[] jsons, bool overwrite = true) {
+Json mergeJsons(Json[] jsons, bool shouldOverwrite = true) {
   Json result = Json.emptyObject;
 
   jsons
@@ -638,7 +638,7 @@ Json mergeJsons(Json[] jsons, bool overwrite = true) {
   assert(mergeJson.hasKey("a") && mergeJson.hasKey("e"), mergeJson.toString);
 } */
 
-Json mergeJsonObjects(Json baseJson, Json mergeJson, bool overwrite = true) {
+Json mergeJsonObjects(Json baseJson, Json mergeJson, bool shouldOverwrite = true) {
   Json result = Json.emptyObject;
   if (baseJson.isNull && !baseJson.isObject) {
     return result;

@@ -211,14 +211,12 @@ class DNumericPaginator : IPaginator {
      * Extract pagination data needed
      *
      * @param uim.Datasource\IRepository object The repository object.
-     * @param Json[string] params Request params
-     * @param Json[string] paginationData The paginationData/configuration used for pagination.
      */
-    Json[string] extractData(IRepository object, Json[string] params, Json[string] paginationData) {
-        alias = object.aliasName();
+    Json[string] extractData(IRepository repository, Json[string] requestData, Json[string] paginationData) {
+        alias = repository.aliasName();
         defaults = getDefaults(alias, paginationData);
-        options = this.mergeOptions(params, defaults);
-        options = this.validateSort(object, options);
+        options = this.mergeOptions(requestData, defaults);
+        options = this.validateSort(repository, options);
         options = this.checkLimit(options);
 
         auto updatedOptions = options.update["page": 1, "scope": Json(null)];

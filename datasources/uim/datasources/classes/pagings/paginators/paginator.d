@@ -157,11 +157,6 @@ class DPaginator : IPaginator {
      * ```
      use uim\ORM\Entity;dashboard?articles[page]=1&tags[page]=2
      * ```
-     *
-     * @param \uim\Datasource\IRepository|\uim\Datasource\IQuery object The repository or query
-     *  to paginate.
-     * @param Json[string] requestData Request params
-     * @param Json[string] settings The settings/configuration used for pagination.
      */
     IDSResultset paginate(Query objectToPaginate, Json[string] requestData = null, Json[string] paginationData = null) {
         myQuery = null;
@@ -507,13 +502,8 @@ class DPaginator : IPaginator {
         return options;
     }
 
-    /**
-     * Remove alias if needed.
-     *
-     * @param Json[string] fieldNames Current fields
-     * @param string myModel Current model alias
-     */
-    protected Json[string] _removeAliases(Json[string] fieldNames, string myModel) {
+    // Remove alias if needed.
+    protected Json[string] _removeAliases(Json[string] fieldNames, string modelAlias) {
         myResult= null;
         foreach (fieldNames as myField: sort) {
             if (indexOf(myField, ".") == false) {
@@ -523,7 +513,7 @@ class DPaginator : IPaginator {
 
             [aliasName, currentField] = explode(".", myField);
 
-            if (aliasName == myModel) {
+            if (aliasName == modelAlias) {
                 myResult[currentField] = sort;
                 continue;
             }

@@ -649,19 +649,13 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * The url and status variables have same meaning as for the controller`s method.
      * You can set the event result to response instance or modify the redirect location
      * using controller`s response instance.
-     * Params:
-     * \UIM\Event\IEvent<\UIM\Controller\Controller> event An Event instance
-     * @param \Psr\Http\Message\IUri|string[] aurl A string or array-based URL pointing to another location within the app,
-     *   or an absolute URL
      */
-    Response beforeRedirect(IEvent event, IUri|string[] aurl, Response response) {
+    Response beforeRedirect(IEvent event, /* IUri */ string[] url, Response response) {
         return null; 
     }
     
-    /**
-     * Called after the controller action is run and rendered.
-     */
+    // Called after the controller action is run and rendered.
     Response afterFilter(IEvent event) {
         return null; 
-    } */
+    }
 }

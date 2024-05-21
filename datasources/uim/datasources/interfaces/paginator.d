@@ -17,5 +17,5 @@ interface IPaginator {
     IResultset paginate(object object, Json[string] myParams = null, Json[string] settings = null);
 
     // Get paging params after pagination operation.
-    Json[string] getPagingParams();
+    Json[string] pagingParams();
 }

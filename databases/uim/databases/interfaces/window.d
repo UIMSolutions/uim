@@ -55,16 +55,8 @@ interface IWindow {
     // Adds a simple rows frame to the window.
     auto rows(int frameStart, int frameEnd = 0);
 
-    /**
-     * Adds a simple groups frame to the window.
-     *
-     * See `range()` for details.
-     * Params:
-     * int start Frame start
-     * @param int end Frame end
-     * If not passed in, only frame start SQL will be generated.
-     */
-    auto groups(int start, int end = 0);
+    // Adds a simple groups frame to the window.
+    auto groups(int frameStart, int frameEnd = 0);
 
     /**
      * Adds a frame to the window.
@@ -77,15 +69,12 @@ interface IWindow {
      * With both `startOffset` and `endOffset`:
      * - `0` - 'CURRENT ROW'
      * - `null` - 'UNBOUNDED'
-     * Params:
-     * @param \UIM\Database\IExpression|string|int startOffset Frame start offset
-     * @param \UIM\Database\IExpression|string|int endOffset Frame end offset
      */
     void frame(
         string frameType,
-        IExpression|string|int frameStartOffset,
+        /* IExpression|string| */ int frameStartOffset,
         string frameStartDirection,
-        IExpression|string|int frameEndOffset,
+        /* IExpression|string| */ int frameEndOffset,
         string frameEndDirection
     );
 

@@ -105,10 +105,10 @@ class DQueryExpression : DExpression { // }, Countable {
      * If it is suffixed with "[]" and the value is an array then multiple placeholders
      * will be created, one per each value in the array.
      */
-    auto notEq(IExpression|string fieldName, Json valueToBound, string atype = null) {
-        auto type ??= _calculateType(field);
+    auto notEq(IExpression|string fieldName, Json valueToBound, string valueType = null) {
+        valueType ? valueType : _calculateType(field);
 
-        return _add(new DComparisonExpression(field, valueToBound, type, "!="));
+        return _add(new DComparisonExpression(field, valueToBound, valueType, "!="));
     }
     
     /**

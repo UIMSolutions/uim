@@ -45,12 +45,7 @@ class DFactoryLocator {
         _modelFactories.remove(aRepositoryTypeName));
     }
 
-    /**
-     * Get the factory for the specified repository type.
-     *
-     * @param string type The repository type to get the factory for.
-     * @throws \InvalidArgumentException If the specified repository type has no factory.
-     */
+    // Get the factory for the specified repository type.
     static ILocator get(string repositoryType) {
         if ("Table"  !in _modelFactories) {
             _modelFactories["Table"] = new DTableLocator();

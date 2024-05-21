@@ -309,24 +309,24 @@ class DNumericPaginator : IPaginator {
     /**
      * Add "prevPage" and "nextPage" params.
      *
-     * @param Json[string] params Paginator params.
+     * @param Json[string] paginatorData Paginator paginatorData.
      * @param Json[string] pagingData Paging pagingData.
      */
-    protected Json[string] addPrevNextParams(Json[string] params, Json[string] pagingData) {
-        params["prevPage"] = params["page"] > 1;
-        params["nextPage"] = params["count"] == null
-            ? true : params["count"] > params["page"] * params["perPage"];
+    protected Json[string] addPrevNextParams(Json[string] paginatorData, Json[string] pagingData) {
+        paginatorData["prevPage"] = paginatorData["page"] > 1;
+        paginatorData["nextPage"] = paginatorData["count"] == null
+            ? true : paginatorData["count"] > paginatorData["page"] * paginatorData["perPage"];
 
-        return params;
+        return paginatorData;
     }
 
     /**
      * Add sorting / ordering params.
      *
-     * @param Json[string] params Paginator params.
+     * @param Json[string] paginatorData Paginator paginatorData.
      * @param Json[string] pagingData Paging pagingData.
      */
-    protected Json[string] addSortingParams(Json[string] params, Json[string] pagingData) {
+    protected Json[string] addSortingParams(Json[string] paginatorData, Json[string] pagingData) {
         defaults = pagingData["defaults"];
         order = (array) pagingData["options"]["order"];
         sortDefault = directionDefault = false;
@@ -340,7 +340,7 @@ class DNumericPaginator : IPaginator {
             directionDefault = current(defaults["order"]);
         }
 
-        params += [
+        paginatorData += [
             "sort": pagingData["options"]["sort"],
             "direction": isset(pagingData["options"]["sort"]) && count(order) ? current(order): null,
             "sortDefault": sortDefault,
@@ -348,7 +348,7 @@ class DNumericPaginator : IPaginator {
             "completeSort": order,
         ];
 
-        return params;
+        return paginatorData;
     }
 
     /**
@@ -369,7 +369,7 @@ class DNumericPaginator : IPaginator {
     }
 
     // Get paging params after pagination operation.
-    Json[string] getPagingParams() {
+    Json[string] pagingParams() {
         return _pagingParams;
     }
 

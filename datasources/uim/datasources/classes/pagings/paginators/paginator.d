@@ -368,7 +368,7 @@ class DPaginator : IPaginator {
     }
 
     // Get paging params after pagination operation.
-    Json[string] getPagingParams() {
+    Json[string] pagingParams() {
         return _pagingParams;
     }
 

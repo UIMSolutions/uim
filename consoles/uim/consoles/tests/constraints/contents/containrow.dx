@@ -30,8 +30,7 @@ class DContentsContainRow : DContentsRegExp {
         return "row was in %s".format(this.output);
     }
     
-    // @param Json other Expected content
-    string failureDescription(Json other) {
-        return "`" ~ this.exporter().shortenedExport(other) ~ "` " ~ toString();
-    } */
+    string failureDescription(Json expectedContent) {
+        return "`" ~ this.exporter().shortenedExport(expectedContent) ~ "` " ~ toString();
+    } 
 }

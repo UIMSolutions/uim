@@ -1348,22 +1348,14 @@ abstract class DQuery : IQuery { // : IExpression {
        _valueBinder = aBinder;
     }
     
-    /**
-     * Helper auto used to build conditions by composing QueryExpression objects.
-     * Params:
-     * string apart Name of the query part to append the new part to
-     * @param \UIM\Database\IExpression|\Closure|string[] append Expression or builder auto to append.
-     * to append.
-     * @param string aconjunction type of conjunction to be used to operate part
-     * @param STRINGAA types Associative array of type names used to bind values to query
-     */
+    // Helper auto used to build conditions by composing QueryExpression objects.
     protected void _conjugate(
         string queryPart,
-        IExpression|Closure|string[] append,
-        string aconjunction,
-        Json[string] types
+        /* IExpression|Closure| */ string[] appendExpression,
+        string conjunctionType,
+        Json[string] typesNames
     ) {
-        expression = _parts[part] ?: this.newExpr();
+        expression = _parts[queryPart] ?: this.newExpr();
         if (isEmpty(append)) {
            _parts[queryPart] = expression;
 
@@ -1372,12 +1364,12 @@ abstract class DQuery : IQuery { // : IExpression {
         if (cast(DClosure)append) {
             append = append(this.newExpr(), this);
         }
-        if (expression.conjunctionType() == conjunction) {
-            expression.add(append, types);
+        if (expression.conjunctionType() == conjunctionType) {
+            expression.add(append, typesNames);
         } else {
             expression = this.newExpr()
-                .conjunctionType(conjunction)
-                .add([expression, append], types);
+                .conjunctionType(conjunctionType)
+                .add([expression, append], typesNames);
         }
        _parts[queryPart] = expression;
        _isDirty();

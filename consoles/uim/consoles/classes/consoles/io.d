@@ -125,13 +125,9 @@ class DConsoleIo {
      * The verbose and quiet output levels, map to the `verbose` and `quiet` output switches
      * present in most shells. Using ConsoleIo.QUIET for a message means it will always display.
      * While using ConsoleIo.VERBOSE means it will only display when verbose output is toggled.
-     * Params:
-     * string[]|string amessage A string or an array of strings to output
-     * @param int newLinesToAppend Number of newLinesToAppend to append
-     * @param int level The message`s output level, see above.
      */
-    int out(string[] amessage = "", int newLinesToAppend = 1, int level = self.NORMAL) {
-        if (level > _level) {
+    int out(string[] amessage = null, int newLinesToAppend = 1, int outputLevel = self.NORMAL) {
+        if (outputLevel > _level) {
             return null;
         }
        _lastWritten = _out.write(message, newLinesToAppend);
@@ -247,9 +243,6 @@ class DConsoleIo {
     /**
      * Outputs a single or multiple error messages to stderr. If no parameters
      * are passed outputs just a newline.
-     * Params:
-     * string[]|string amessage A string or an array of strings to output
-     * @param int newLinesToAppend Number of newLinesToAppend to append
      */
     int writeErrorMessages(string[] messages...) {
         return writeErrorMessages(messages.dup);

@@ -12,7 +12,7 @@ class DLinuxFolder : DFolder {
   mixin(FolderThis!("Linux"));
 
 	override bool exists() {
-    version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+    version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
 		if (filesystem.isNull) { return false; }
 
@@ -23,9 +23,9 @@ class DLinuxFolder : DFolder {
 			: absolutePath(name);
 
 	  version(testUimFilesystems) { 
-			debug writeln("\n", __MODULE__~":name = ", name); 
-	  	debug writeln("\n", __MODULE__~":path = ", path); 
-	  	debug writeln("\n", __MODULE__~":myPath = ", myPath);
+			debug writeln("\n", __MODULE__~": name = ", name); 
+	  	debug writeln("\n", __MODULE__~": path = ", path); 
+	  	debug writeln("\n", __MODULE__~": myPath = ", myPath);
 		} 
 		return (myPath.exists ? myPath.isDir : false);
 	}
@@ -36,18 +36,18 @@ class DLinuxFolder : DFolder {
 
   // Returns the date and time when a specified folder was last accessed.
   override long accessedOn() {
-    version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+    version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 		return (exists ? 0 /* toTimestamp(timeLastAccessed(absolutePath)) */ : 0); 
 	}
 
   // Returns the date and time when a specified folder was last modified.
   override long modifiedOn() {
-    version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+    version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 		return (exists ? toTimestamp(timeLastModified(absolutePath)) : 0); 
 	}
 
 	override ILink[] links(string[] aPath) {
-    version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+    version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 		return (exists ? filesystem.links(aPath) : null); 
 	}
 
@@ -56,7 +56,7 @@ class DLinuxFolder : DFolder {
 			alias existsFolders = DFolder.existsFolders;
       override bool existsFolders(string[] aPath, string aFolderName) {
 	      version(testUimFilesystems) { 
-					debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+					debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 	      	debug writeln("Path = \t", path, "\tName = \t", name); 
 	      	debug writeln("aPath = \t", aPath, "\taFolderName = \t", aFolderName); }
 				if (!hasFilesystem) { return false; }
@@ -69,7 +69,7 @@ class DLinuxFolder : DFolder {
 			alias folders = DFolder.folders;
 			override IFolder[] folders() {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); } 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); } 
 				if (!hasFilesystem) { 
 					return null; 
 				}
@@ -79,7 +79,7 @@ class DLinuxFolder : DFolder {
 
       override IFolder[] folders(string[] aPath, string aFolderName) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
 
 				if (!hasFilesystem) { 
@@ -94,7 +94,7 @@ class DLinuxFolder : DFolder {
 			alias countFolders = DFolder.countFolders;
       override size_t countFolders(string[] aPath, string aFolderName) {
         version(testUimFilesystems) { 
-          debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+          debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
           debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
 				if (!hasFilesystem) { 
 					return 0;
@@ -110,7 +110,7 @@ class DLinuxFolder : DFolder {
 			alias createFolder = DFolder.createFolder;
 			override IFolder createFolder(string[] aPath, string aFolderName) {
 	      version(testUimFilesystems) { 
-					debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+					debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 	      	debug writeln("Path = \t", path, "\tName = \t", name); 
 	      	debug writeln("aPath = \t", aPath, "\taFolderName = \t", aFolderName); }
 
@@ -131,7 +131,7 @@ class DLinuxFolder : DFolder {
 				alias existsFolder = DFolder.existsFolder;
 				override bool existsFolder(string[] aPath, string aFolderName) {
 					version(testUimFilesystems) { 
-						debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+						debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 						debug writeln("Path = \t", path, "\tName = \t", name); 
 						debug writeln("aPath = \t", aPath, "\taFolderName = \t", aFolderName); }
 
@@ -148,7 +148,7 @@ class DLinuxFolder : DFolder {
 				alias folder = DFolder.folder;
 				override IFolder folder(string[] aPath, string aFolderName) {
 					version(testUimFilesystems) { 
-						debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+						debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 						debug writeln("Path = \t", path, "\tName = \t", name); 
 						debug writeln("aPath = \t", aPath, "\taFolderName = \t", aFolderName); }
 					if (!hasFilesystem) { return null; }
@@ -161,7 +161,7 @@ class DLinuxFolder : DFolder {
 		// #region Update
 			alias renameFolder = DFolder.renameFolder;
 		  override bool renameFolder(string[] aPath, string oldName, string newName) {
-      	version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      	version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 				if (!hasFilesystem) { return false; }
 
 				return filesystem.renameFolder(chain(path, [name], aPath).array, oldName, newName);
@@ -172,7 +172,7 @@ class DLinuxFolder : DFolder {
 			alias removeFolder = DFolder.removeFolder;
 			override bool removeFolder(string[] aPath, string aFolderName) {
 				version(testUimFilesystems) { 
-					debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+					debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 					debug writeln("Path = \t", path, "\tName = \t", name); 
 					debug writeln("aPath = \t", aPath, "\taFolderName = \t", aFolderName); }
 				if (!hasFilesystem) { return false; }
@@ -187,7 +187,7 @@ class DLinuxFolder : DFolder {
 			alias createFile = DFolder.createFile;
 			override IFile createFile(string[] aPath, string aFileName) {
 				version(testUimFilesystems) { 
-					debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+					debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 					debug writeln("Path = \t", path, "\tName = \t", name); 
 					debug writeln("aPath = \t", aPath, "\taFileName = \t", aFileName); }
 				if (!hasFilesystem) { return null; }
@@ -200,7 +200,7 @@ class DLinuxFolder : DFolder {
 			alias existsFile = DFolder.existsFile;
 			override bool existsFile(string[] aPath, string aFileName) {
 				version(testUimFilesystems) { 
-					debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+					debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 					debug writeln("Path = \t", path, "\tName = \t", name); 
 					debug writeln("aPath = \t", aPath, "\taFileName = \t", aFileName); }
 				if (!hasFilesystem) { return false; }
@@ -211,7 +211,7 @@ class DLinuxFolder : DFolder {
 			alias file = DFolder.file;
 			override IFile file(string[] aPath, string aFileName) {
 				version(testUimFilesystems) { 
-					debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+					debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 					debug writeln("Path = \t", path, "\tName = \t", name); 
 					debug writeln("aPath = \t", aPath, "\taFileName = \t", aFileName); }
 				if (!hasFilesystem) { return null; }
@@ -224,7 +224,7 @@ class DLinuxFolder : DFolder {
 			alias renameFile = DFolder.renameFile;
 			override bool renameFile(string[] aPath, string oldName, string newName) {
 				version(testUimFilesystems) { 
-					debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+					debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 					debug writeln("Path = \t", path, "\tName = \t", name); 
 					debug writeln("aPath = \t", aPath, "\toldName = \t", oldName, " \tnewName = \t", newName); }
 				if (!hasFilesystem) { return false; }
@@ -236,7 +236,7 @@ class DLinuxFolder : DFolder {
 		// #region Delete
 			alias removeFile = DFolder.removeFile;
 			override bool removeFile(string[] aPath, string aFileName) {
-        version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 				if (!hasFilesystem) { return false; }
 
 				return filesystem.removeFile(chain(path, [name], aPath).array, aFileName);

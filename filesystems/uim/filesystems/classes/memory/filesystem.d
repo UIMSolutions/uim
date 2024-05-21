@@ -9,7 +9,7 @@ import uim.filesystems;
 
 unittest { 
   version(testUimFilesystems) { 
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }
 
@@ -30,14 +30,14 @@ class DMemoryFilesystem : DFilesystem {
 
 	// #region isFolder
     override bool isFolder(string aPath, string aFileName) {
-      version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       if (aFileName.isEmpty) { return isFolder(aPath); }
 
       return isFolder(aPath~pathSeparator~aFileName);
     }
 
     override bool isFolder(string aPath) {
-      version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       if (aPath.isEmpty) { return false; } 
 
       string myPath = correctPath(aPath);
@@ -45,7 +45,7 @@ class DMemoryFilesystem : DFilesystem {
     }
     
     override bool isFolder(string[] aPath, string aFileName) {
-      version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       if (aFileName.isEmpty) { return isFolder(aPath); }
 
       string myPath = correctPath((aPath~aFileName).join(pathSeparator));
@@ -53,7 +53,7 @@ class DMemoryFilesystem : DFilesystem {
     }
 
     override bool isFolder(string[] aPath) {
-      version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       if (aPath.isEmpty) { return false; } 
 
       string myPath = correctPath(aPath.join(pathSeparator));
@@ -64,14 +64,14 @@ class DMemoryFilesystem : DFilesystem {
 
 	// #region isFile
     override bool isFile(string aPath, string aFileName) {
-      version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       if (aFileName.isEmpty) { return isFile(aPath); }
 
       return isFile(aPath~pathSeparator~aFileName);
     }
 
     override bool isFile(string aPath) {
-      version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       if (aPath.isEmpty) { return false; } 
 
       string myPath = correctPath(aPath);
@@ -79,7 +79,7 @@ class DMemoryFilesystem : DFilesystem {
     }
     
     override bool isFile(string[] aPath, string aFileName) {
-      version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       if (aFileName.isEmpty) { return isFile(aPath); }
 
       string myPath = correctPath((aPath~aFileName).join(pathSeparator));
@@ -87,7 +87,7 @@ class DMemoryFilesystem : DFilesystem {
     }
 
     override bool isFile(string[] aPath) {
-      version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       if (aPath.isEmpty) { return false; } 
 
       string myPath = correctPath(aPath.join(pathSeparator));
@@ -98,14 +98,14 @@ class DMemoryFilesystem : DFilesystem {
 
 	// #region isLink
     override bool isLink(string aPath, string aFileName) {
-      version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       if (aFileName.isEmpty) { return isLink(aPath); }
 
       return isLink(aPath~pathSeparator~aFileName);
     }
 
     override bool isLink(string aPath) {
-      version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       if (aPath.isEmpty) { return false; } 
 
       string myPath = correctPath(aPath);
@@ -113,7 +113,7 @@ class DMemoryFilesystem : DFilesystem {
     }
     
     override bool isLink(string[] aPath, string aFileName) {
-      version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       if (aFileName.isEmpty) { return isLink(aPath); }
 
       string myPath = correctPath((aPath~aFileName).join(pathSeparator));
@@ -121,7 +121,7 @@ class DMemoryFilesystem : DFilesystem {
     }
 
     override bool isLink(string[] aPath) {
-      version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
       if (aPath.isEmpty) { return false; } 
 
       string myPath = correctPath(aPath.join(pathSeparator));

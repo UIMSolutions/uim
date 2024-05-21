@@ -26,7 +26,7 @@ class DLinuxFilesystem : DFilesystem {
 
 	// #region isFolder
 		override bool isFolder(string[] aPath, string aFolderName) {
-      version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+      version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 			if (aPath.length == 0 && aFolderName.length == 0) { return false; }
 
 			auto myPath = (aPath.length > 0 
@@ -46,7 +46,7 @@ class DLinuxFilesystem : DFilesystem {
 				alias existsFolders = DFilesystem.existsFolders;
 				override bool existsFolders(string[] aPath, string aFolderName) {
 					version(testUimFilesystems) { 
-						debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+						debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 						debug writeln("aPath = \t", aPath, "\taFolderName = \t", aFolderName); }
 					auto myFolderPath = (!aPath.isEmpty || !aFolderName.isEmpty ? absolutePath(aPath~aFolderName) : rootPath);
 
@@ -61,7 +61,7 @@ class DLinuxFilesystem : DFilesystem {
 			alias folders = DFilesystem.folders;
 			override IFolder[] folders(string[] aPath, string aFolderName) {
 				version(testUimFilesystems) { 
-					debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+					debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 					debug writeln("aPath = \t", aPath, "\t aFolderName = \t", aFolderName); }
 				auto myFolderPath = (!aPath.isEmpty || !aFolderName.isEmpty ? absolutePath(aPath~aFolderName) : rootPath);
 
@@ -86,7 +86,7 @@ class DLinuxFilesystem : DFilesystem {
 				alias countFolders = DFilesystem.countFolders;
 				override size_t countFolders(string[] aPath, string aFolderName) {
 					version(testUimFilesystems) { 
-						debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+						debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 						debug writeln("aPath = ", aPath, "\t aFolderName = ", aFolderName); } 
 					auto myFolderPath = (!aPath.isEmpty || !aFolderName.isEmpty ? absolutePath(aPath~aFolderName) : rootPath);
 
@@ -110,7 +110,7 @@ class DLinuxFilesystem : DFilesystem {
 			alias createFolder = DFilesystem.createFolder;
 			override IFolder createFolder(string[] aPath, string aFolderName) {
 	      version(testUimFilesystems) { 
-					debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+					debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 	      	debug writeln("aPath = \t", aPath); 
 	      	debug writeln("aFolderName = \t", aFolderName); }
 				if (existsFolder(aPath, aFolderName)) { return null; } // A Folder exists
@@ -126,7 +126,7 @@ class DLinuxFilesystem : DFilesystem {
 				alias existsFolder = DFilesystem.existsFolder;
 				override bool existsFolder(string[] aPath, string aFolderName) {
 					version(testUimFilesystems) { 
-						debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+						debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 						debug writeln("aPath = \t", aPath); 
 						debug writeln("aFolderName = \t", aFolderName); }
 					return (std.file.exists(absolutePath(aPath~aFolderName)) && std.file.isDir(absolutePath(aPath~aFolderName)));
@@ -137,7 +137,7 @@ class DLinuxFilesystem : DFilesystem {
 				alias folder = DFilesystem.folder;
 				override IFolder folder(string[] aPath, string aFolderName) {
 					version(testUimFilesystems) { 
-						debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+						debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 						debug writeln("aPath = \t", aPath); 
 						debug writeln("aFolderName = \t", aFolderName); }
 					if (!existsFolder(aPath, aFolderName)) { return null; } 
@@ -151,7 +151,7 @@ class DLinuxFilesystem : DFilesystem {
 			alias renameFolder = DFilesystem.renameFolder;
 		  override bool renameFolder(string[] aPath, string oldName, string newName) {
 	      version(testUimFilesystems) { 
-					debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+					debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 	      	debug writeln("aPath = \t", aPath); 
 	      	debug writeln("oldName = \t", oldName, " \tnewName = \t", newName); }
         if (!existsFolder(aPath, oldName) || newName.isNull) { return false; } 
@@ -164,7 +164,7 @@ class DLinuxFilesystem : DFilesystem {
 		// #region Delete
 			alias removeFolder = DFilesystem.removeFolder;
 			override bool removeFolder(string[] aPath, string aFolderName) {
-	      version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+	      version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 				if (!existsFolder(aPath)) { return false; } // Folder missing
 
 				debug writeln("absolutePath(aPath) -> ", absolutePath(aPath~aFolderName));
@@ -196,7 +196,7 @@ class DLinuxFilesystem : DFilesystem {
 			alias createFile = DFilesystem.createFile;
 			override IFile createFile(string[] aPath, string aFileName) {
 				version(testUimFilesystems) { 
-					debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+					debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 					debug writeln("aPath = \t", aPath, "\taFileName = \t", aFileName); }
 				if (aPath.isEmpty || aFileName.length == 0) { return null; }
 				if (existsFile(aPath, aFileName)) { return null; } 
@@ -212,7 +212,7 @@ class DLinuxFilesystem : DFilesystem {
 			alias existsFile = DFilesystem.existsFile;
 			override bool existsFile(string[] aPath, string aFileName) {
 				version(testUimFilesystems) { 
-					debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+					debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 					debug writeln("aPath = \t", aPath, "\taFileName = \t", aFileName); }
 				string myabsolutePath = absolutePath(aPath~aFileName);
 				return std.file.exists(myabsolutePath) && std.file.isFile(myabsolutePath);
@@ -220,7 +220,7 @@ class DLinuxFilesystem : DFilesystem {
 
 			alias file = DFilesystem.file;
 			override IFile file(string[] aPath, string aFileName) {
-        version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 				string myabsolutePath = absolutePath(aPath~aFileName);
 				if (!std.file.exists(myabsolutePath) || !std.file.isFile(myabsolutePath)) { return null; }
 
@@ -232,7 +232,7 @@ class DLinuxFilesystem : DFilesystem {
 			alias renameFile = DFilesystem.renameFile;
 		  override bool renameFile(string[] aPath, string oldFileName, string newFileName) {
 	      version(testUimFilesystems) { 
-					debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+					debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 	      	debug writeln("aPath = \t", aPath); 
 	      	debug writeln("oldFileName = \t", oldFileName, " \newFileName = \t", newFileName); }
         if (!existsFile(aPath, oldFileName) || newFileName.isNull) { return false; } 
@@ -246,7 +246,7 @@ class DLinuxFilesystem : DFilesystem {
 		// #region Delete
 			alias removeFile = DFilesystem.removeFile;
 			override bool removeFile(string[] aPath, string aFileName) {
-        version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
+        version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 				if (!existsFile(aPath, aFileName)) { return false; }
 				
 				remove(absolutePath(aPath~aFileName));
@@ -286,7 +286,7 @@ class DLinuxFilesystem : DFilesystem {
 
   override bool isFile(string[] aPath, string aFileName) {
     version(testUimFilesystems) { 
-			debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
     	debug writeln("aPath = \t", aPath, "\t aFileName = \t", aFileName); }
 		if (aPath.length == 0 && aFileName.length == 0) { return false; }
 
@@ -299,7 +299,7 @@ class DLinuxFilesystem : DFilesystem {
 
   override bool isLink(string[] aPath, string aLinkName) {
     version(testUimFilesystems) { 
-			debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
     	debug writeln("aPath = \t", aPath, "\t aLinkName = \t", aLinkName); }
 		if (aPath.isEmpty && aLinkName.isEmpty) { return false; }
 
@@ -314,7 +314,7 @@ class DLinuxFilesystem : DFilesystem {
 	// #region Filemanager
   override IFile[] files(string[] aPath) {
 		version(testUimFilesystems) { 
-			debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 			debug writeln("aPath = \t", aPath); }
 		auto myFolderPath = aPath ? absolutePath(aPath) : rootPath;
 
@@ -331,7 +331,7 @@ class DLinuxFilesystem : DFilesystem {
 
   override void[] readFromFile(string[] aPath, string aFileName, size_t numberOfBytes = size_t.max) { 
 		version(testUimFilesystems) { 
-			debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 			debug writeln("aPath     = \t", aPath); 
 			debug writeln("aFileName = \t", aFileName); }
 
@@ -340,7 +340,7 @@ class DLinuxFilesystem : DFilesystem {
 	
 	override void writeToFile(string[] aPath, string aFileName, const void[] data) {
 		version(testUimFilesystems) { 
-			debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 			debug writeln("aPath     = \t", aPath); 
 			debug writeln("aFileName = \t", aFileName); }
 
@@ -349,7 +349,7 @@ class DLinuxFilesystem : DFilesystem {
 
 	override void appendToFile(string[] aPath, string aFileName, const void[] data) {
 		version(testUimFilesystems) { 
-			debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 			debug writeln("aPath     = \t", aPath); 
 			debug writeln("aFileName = \t", aFileName); }
 
@@ -358,7 +358,7 @@ class DLinuxFilesystem : DFilesystem {
 
 	override string readTextFromFile(string[] aPath, string aFileName) { 
 		version(testUimFilesystems) { 
-			debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 			debug writeln("aPath     = \t", aPath); 
 			debug writeln("aFileName = \t", aFileName); }
 
@@ -367,7 +367,7 @@ class DLinuxFilesystem : DFilesystem {
 	
 	override void writeTextToFile(string[] aPath, string aFileName, string aText) {
 		version(testUimFilesystems) { 
-			debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 			debug writeln("aPath     = \t", aPath); 
 			debug writeln("aFileName = \t", aFileName); }
 
@@ -376,7 +376,7 @@ class DLinuxFilesystem : DFilesystem {
 
 	override void appendTextToFile(string[] aPath, string aFileName, string aText) {
 		version(testUimFilesystems) { 
-			debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 			debug writeln("aPath     = \t", aPath); 
 			debug writeln("aFileName = \t", aFileName); }
 
@@ -385,7 +385,7 @@ class DLinuxFilesystem : DFilesystem {
 
 	override string[] readLines(string[] aPath, string aFileName) { 
 		version(testUimFilesystems) { 
-			debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
+			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 			debug writeln("aPath     = \t", aPath); 
 			debug writeln("aFileName = \t", aFileName); }
 

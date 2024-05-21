@@ -526,11 +526,8 @@ interface ICollection {
     // Prepend a set of items to a collection creating a new DCollection
     ICollection prepend(Json[string] itemsToPrepend);
 
-    /**
-     * Prepend a single item creating a new DCollection.
-     * @param mixed  key The key to prepend the item with. If null a key will be generated.
-     */
-    ICollection prependItem(json itemToPrepend,  key = null);
+    // Prepend a single item creating a new DCollection.
+    ICollection prependItem(Json itemToPrepend, Json key = null);
 
     /**
      * Returns a new DCollection where the values extracted based on a value path
@@ -599,7 +596,6 @@ interface ICollection {
      * ["comment": ["body": "awesome", "user": ["name": "Renan", "age": 28]]
      * ];
      * ```
-     *
      */
     ICollection insert(string path, json[string] valuesToInsert);
 

@@ -32,9 +32,6 @@ class DOrderByExpression : DQueryExpression {
      * building a tree structure inside this object to represent the full SQL expression.
      *
      * New order by expressions are merged to existing ones
-     * Params:
-     * Json[string] conditions list of order by expressions
-     * @param Json[string] types list of types associated on fields referenced in conditions
      */
     protected void _addConditions(Json[string] conditions, Json[string] associatedTypes) {
         conditions.byKeyValue.each!((kv) {
@@ -52,6 +49,6 @@ class DOrderByExpression : DQueryExpression {
             }
         });
        _conditions = array_merge(_conditions, conditions);
-    } */
+    } 
 }
 mixin(ExpressionCalls!("OrderBy"));

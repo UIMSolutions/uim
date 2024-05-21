@@ -482,23 +482,20 @@ mixin template TEntity() {
   /**
      * Sets the virtual fields on this entity.
      * Params:
-     * string[] fieldNames An array of fields to treat as virtual.
      * @param bool merge Merge the new fields with the existing. By default false.
     */
-  void setVirtual(arrayfields, bool merge = false) {
-    if (merge == false) {
-      _virtual = fields;
+  void setVirtual(string[] fieldNames, bool shouldMerge = false) {
+    if (shouldMerge == false) {
+      _virtual = fieldNames;
 
       return;
     }
-    fields = chain(_virtual, fields);
-    _virtual = array_unique(fields);
+    fieldNames = chain(_virtual, fieldNames);
+    _virtual = array_unique(fieldNames);
   }
 
-  /**
-     * Gets the virtual fields on this entity.
-    */
-  string[] getVirtual() {
+  // Gets the virtual fields on this entity.
+  string[] virtualFields() {
     return _virtual;
   }
 
@@ -508,7 +505,7 @@ mixin template TEntity() {
      * The list of visible fields is all standard fields
      * plus virtual fields minus hidden fields.
     */
-  string[] getVisible() {
+  string[] visibleFields() {
     fields = _fields.keys;
     fields = chain(fields, _virtual);
 
@@ -524,7 +521,7 @@ mixin template TEntity() {
     */
   Json[string] toDataArray() {
     Json[string] dataMap;
-    foreach (getVisible() asfield) {
+    foreach (visibleFields() asfield) {
       aValue = get(field);
       if (isArray(aValue)) {
         dataMap[field] = null;
@@ -542,7 +539,7 @@ mixin template TEntity() {
 
   // Returns the fields that will be serialized as Json
   Json[string] JsonSerialize() {
-    return _extract(getVisible());
+    return _extract(visibleFields());
   }
 
   bool offsetExists(Json anOffset) {
@@ -578,9 +575,7 @@ mixin template TEntity() {
     if (isSet(_accessors[className][accessorType][aProperty])) {
       return _accessors[className][accessorType][aProperty];
     }
-    if (!_accessors.isEmpty(className))
-      
-      ) {
+    if (!_accessors.isEmpty(className)) {
       return _accessors[className][accessorType][aProperty] = "";
     }
     if (class == Entity.classname) {
@@ -610,7 +605,7 @@ mixin template TEntity() {
      * stored in this entity, indexed by field name
     */
   Json[string] extract(string[] fieldNamesToReturn, bool returnOnlyDirty = false) {
-    STRINGAA result;
+    Json[string] result;
     fieldsToReturn
       .filter!(field => !returnOnlyDirty || this.isDirty(field))
       .each!(field => result[field] = get(field));
@@ -627,15 +622,16 @@ mixin template TEntity() {
      * Params:
      * string[] fieldNames List of fields to be returned
     */
-  Json[string] extractOriginal(arrayfields) {
-    auto result;
-    fields.each!((field) {
+  Json[string] extractOriginal(string[] fieldsToReturn) {
+    Json[string] result;
+    fieldsToReturn.each!((field) {
       if (this.hasOriginal(field)) {
         result[field] = getOriginal(field);
       } else if (this.isOriginalField(field)) {
         result[field] = get(field);
       }
     });
+
     return result;
   }
 
@@ -646,9 +642,9 @@ mixin template TEntity() {
      * This method will only return fields that have been modified since
      * the entity was built. Unchanged fields will be omitted.
     */
-  Json[string] extractOriginalChanged(string[] fieldNames) {
-    auto result;
-    fields
+  Json[string] extractOriginalChanged(string[] fieldsToReturn) {
+    Json[string] result;
+    fieldsToReturn
       .filter!(field => hasOriginal(field))
       .each!((field) {
         auto originalField = getOriginal(field);
@@ -656,6 +652,7 @@ mixin template TEntity() {
           result[field] = originalField;
         }
       });
+
     return result;
   }
 
@@ -675,18 +672,14 @@ mixin template TEntity() {
   /**
      * Sets the given field or a list of fields to as original.
      * Normally there is no need to call this method manually.
-     * Params:
-     * string[]|string fieldName the name of a field or a list of fields to set as original
     */
-  protected void setOriginalField(string | arrayfield, bool shouldMerge = true) {
-  }
   protected void setOriginalField(string[] fieldNames, bool shouldMerge = true) {
     if (!shouldMerge) {
-      _originalFields = fields;
+      _originalFields = fieldNames;
 
       return;
     }
-    fields
+    fiefieldNameslds
       .each!((field) {
         field = (string) field;
         if (!isOriginalField(field)) {

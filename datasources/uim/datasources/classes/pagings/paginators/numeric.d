@@ -408,15 +408,15 @@ class DNumericPaginator : IPaginator {
      * which options/values can be set using request parameters.
      */
     Json[string] mergeOptions(Json[string] requestData, Json[string] settingsToMerge) {
-        if (!settings.isEmpty("scope")) {
-            scope = settings["scope"];
-            params = !params.isEmpty(scope) ? (array) params[scope] : [];
+        if (!settingsToMerge.isEmpty("scope")) {
+            scope = settingsToMerge["scope"];
+            requestData = !requestData.isEmpty(scope) ? (array) requestData[scope] : [];
         }
 
         allowed = getAllowedParameters();
-        params = array_intersect_key(params, array_flip(
+        params = array_intersect_key(requestData, array_flip(
                 allowed));
-        return array_merge(settings, params);
+        return array_merge(settingsToMerge, requestData);
     }
 
     /**

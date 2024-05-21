@@ -30,7 +30,7 @@ class DWhenThenExpression : DExpression {
      *
      * @var \UIM\Database\IExpression|object|scalar|null
      */
-    protected Json  when = null;
+    protected Json when = null;
 
     // The `WHEN` value type.
     protected string[]  whenType = null;

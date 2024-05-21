@@ -13,23 +13,16 @@ interface IType {
     // Casts given value from a database type to a D equivalent.
     Json ToD(Json valueToConvert, IDriver driver);
 
-    /**
-     * Get the binding type to use in a PDO statement.
-     * Params:
-     * Json aValue The value being bound.
-     * @param \UIM\Database\Driver driver Object from which database preferences and configuration will be extracted.
-     */
-    int toStatement(Json aValue, IDriver driver);
+    // Get the binding type to use in a PDO statement.
+    int toStatement(Json value, IDriver driver);
 
     /**
      * Marshals flat data into D objects.
      *
      * Most useful for converting request data into D objects,
      * that make sense for the rest of the ORM/Database layers.
-     * Params:
-     * Json aValue The value to convert.
      */
-    Json marshal(Json aValue);
+    Json marshal(Json valueToConvert);
 
     /**
      * Returns the base type name that this class is inheriting.
@@ -40,9 +33,7 @@ interface IType {
      */
     string getBaseType();
 
-    /**
-     * Returns type identifier name for this object.
-     */
+    // Returns type identifier name for this object.
     string name();
 
     /**

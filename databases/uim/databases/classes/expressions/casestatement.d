@@ -238,7 +238,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * @param STRINGAA|string type The when value type. Either an associative array when using array style
      * conditions, or else a string. If no valueType is provided, the valueType will be tried to be inferred from the value.
      */
-    void when(Json  when, string[] whenValueType = null) {
+    void when(Json when, string[] whenValueType = null) {
         if (!_whenBuffer.isNull) {
             throw new DLogicException("Cannot call `when()` between `when()` and `then()`.");
         }

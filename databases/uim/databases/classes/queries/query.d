@@ -489,10 +489,10 @@ abstract class DQuery : IQuery { // : IExpression {
      * be aliased:
      *
      * ```
-     */ LEFT JOIN authors ON authors.id = posts.author_id
+     * LEFT JOIN authors ON authors.id = posts.author_id
      * aQuery.leftJoin("authors", "authors.id = posts.author_id");
      *
-     */ LEFT JOIN authors a ON a.id = posts.author_id
+     * LEFT JOIN authors a ON a.id = posts.author_id
      * aQuery.leftJoin(["a": 'authors"], "a.id = posts.author_id");
      * ```
      *
@@ -510,20 +510,17 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * See `join()` for further details on conditions and types.
      * Params:
-     * Json[string]|string atable The table to join with
      * @param \UIM\Database\IExpression|\Closure|string[] aconditions The conditions
      * to use for joining.
      * @param Json[string] types a list of types associated to the conditions used for converting
      * values to the corresponding database representation.
-       */
+    */
     auto leftJoin(
-        string[] atable,
+        string[] tableNames,
         IExpression|Closure|string[] aconditions = null,
         Json[string] types = null
     ) {
-        this.join(_makeJoin(aTable, conditions, JOIN_TYPE_LEFT), types);
-
-        return this;
+        join(_makeJoin(tableNames, conditions, JOIN_TYPE_LEFT), types);
     }
     
     /**
@@ -534,18 +531,17 @@ abstract class DQuery : IQuery { // : IExpression {
      * The arguments of this method are identical to the `leftJoin()` shorthand, please refer
      * to that methods description for further details.
      * Params:
-     * Json[string]|string atable The table to join with
      * @param \UIM\Database\IExpression|\Closure|string[] aconditions The conditions
      * to use for joining.
      * @param Json[string] types a list of types associated to the conditions used for converting
      * values to the corresponding database representation.
      */
     void rightJoin(
-        string[] atable,
+        string[] tableNames,
         IExpression|Closure|string[] aconditions = null,
         Json[string] types = null
     ) {
-        this.join(_makeJoin(aTable, conditions, JOIN_TYPE_RIGHT), types);
+        join(_makeJoin(tableNames, conditions, JOIN_TYPE_RIGHT), types);
     }
     
     /**
@@ -556,18 +552,17 @@ abstract class DQuery : IQuery { // : IExpression {
      * The arguments of this method are identical to the `leftJoin()` shorthand, please refer
      * to that method`s description for further details.
      * Params:
-     * Json[string]|string atable The table to join with
      * @param \UIM\Database\IExpression|\Closure|string[] aconditions The conditions
      * to use for joining.
      * @param STRINGAA types a list of types associated to the conditions used for converting
      * values to the corresponding database representation.
      */
     auto innerJoin(
-        string[] atable,
+        string[] tableNames,
         IExpression|Closure|string[] aconditions = null,
         Json[string] types = null
     ) {
-        this.join(_makeJoin(aTable, conditions, JOIN_TYPE_INNER), types);
+        join(_makeJoin(tableNames, conditions, JOIN_TYPE_INNER), types);
 
         return this;
     }
@@ -580,15 +575,15 @@ abstract class DQuery : IQuery { // : IExpression {
      * to use for joining.
      */
     protected Json[string] _makeJoin(
-        string[] tableToJoin,
+        string[] tableNames,
         /* IExpression|Closure| */ string[] aconditions,
         string joinType
     ) {
-        string tableAlias = tableToJoin;
+        string tableAlias = tableNames;
 
-        if (isArray(tableToJoin)) {
-            tableAlias = key(tableToJoin);
-            tableToJoin = current(tableToJoin);
+        if (isArray(tableNames)) {
+            tableAlias = key(tableNames);
+            tableToJoin = current(tableNames);
         }
 
         return [
@@ -726,21 +721,18 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * If category is `null` - it will actually convert that into `category_id isNull` - if it`s `4` it will convert it into `category_id = 4`
      * Params:
-     * \UIM\Database\IExpression|\Closure|string[] conditions The conditions to filter on.
      * @param STRINGAA types Associative array of type names used to bind values to query
      * @param bool shouldOverwrite whether to reset conditions with passed list or not
      */
-    auto where(
-        IExpression|Closure|string[] conditions = null,
+    void where(
+        /* IExpression|Closure */ string[] conditionsToFilter = null,
         Json[string] types = null,
         bool shouldOverwrite = false
     ) {
         if (shouldOverwrite) {
            _parts["where"] = this.newExpr();
         }
-       _conjugate("where", conditions, "AND", types);
-
-        return this;
+       _conjugate("where", conditionsToFilter, "AND", types);
     }
     
     /**

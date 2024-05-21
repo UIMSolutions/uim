@@ -13,7 +13,7 @@ import uim.datasources;
  * Describes the methods that any class representing a data storage should
  * comply with.
  *
- * @property Json  anId Alias for commonly used primary key.
+ * @property Json anId Alias for commonly used primary key.
  * @template-extends \ArrayAccess<string, mixed>
  */
 interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
@@ -32,7 +32,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
    void setVirtual(string[] fieldNames, bool canMergeExisting = false);
 
    // Gets the virtual fields on this entity.
-   string[] getVirtual();
+   string[] virtualFields();
 
    /**
      * Returns whether a field is an original one.
@@ -159,7 +159,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
    void unset(string[] fieldNames);
 
    // Get the list of visible fields.
-   string[] getVisible();
+   string[] visibleFields();
 
    /**
      * Returns an array with all the visible fields set in this entity.

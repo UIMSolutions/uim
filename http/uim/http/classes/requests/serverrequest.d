@@ -899,13 +899,13 @@ class DServerRequest { // }: IServerRequest {
      * #### Get all types:
      *
      * ```
-     * this.request.accepts();
+     * _request.accepts();
      * ```
      *
      * #### Check for a single type:
      *
      * ```
-     * this.request.accepts("application/Json");
+     * _request.accepts("application/Json");
      * ```
      *
      * This method will order the returned content types by the preference values indicated
@@ -1169,9 +1169,9 @@ class DServerRequest { // }: IServerRequest {
      *
      * Example:
      *
-     * this.request.allowMethod("post");
+     * _request.allowMethod("post");
      * or
-     * this.request.allowMethod(["post", "delete"]);
+     * _request.allowMethod(["post", "delete"]);
      *
      * If the request would be GET, response header "Allow: POST, DELETE" will be set
      * and a 405 error will be returned.

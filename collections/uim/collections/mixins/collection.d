@@ -23,7 +23,7 @@ mixin template TCollection() {
             .each!(kv => callback(kv.value, kv.key));
     }
  
-    ICollection filter(?callable aCallback = null) {
+    ICollection filter(callable aCallback = null) {
         mycallback ??= auto (myv) {
             return (bool)myv;
         };
@@ -31,7 +31,7 @@ mixin template TCollection() {
         return new DFilterIterator(unwrap(), mycallback);
     }
  
-    ICollection reject(?callable aCallback = null) {
+    ICollection reject(callable aCallback = null) {
         mycallback ??= auto (myv, myKey, myi) {
             return (bool)myv;
         };
@@ -40,7 +40,7 @@ mixin template TCollection() {
         !mycallback(myvalue, aKey, myitems));
     }
  
-    ICollection unique(?callable aCallback = null) {
+    ICollection unique(callable aCallback = null) {
         mycallback ??= auto (myv) {
             return myv;
         };
@@ -545,7 +545,7 @@ mixin template TCollection() {
         return new DStoppableIterator(unwrap(), mycondition);
     }
  
-    ICollection unfold(?callable aCallback = null) {
+    ICollection unfold(callable aCallback = null) {
         mycallback ??= auto (myitem) {
             return myitem;
         };
@@ -637,7 +637,7 @@ mixin template TCollection() {
         return myiterator;
     }
     
-    ICollection cartesianProduct(?callable callableOperation = null, callable filterCallback = null) {
+    ICollection cartesianProduct(callable callableOperation = null, callable filterCallback = null) {
         if (this.isEmpty) {
             return _newCollection([]);
         }

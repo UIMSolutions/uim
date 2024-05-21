@@ -231,7 +231,7 @@ mixin template TQuery() {
      * @param callable|null reducer The reducing function.
      * @param bool canOverwrite Set to true to overwrite existing map + reduce functions.
      */
-    function mapReduce(?callable mapper = null, callable reducer = null, bool canOverwrite = false) {
+    function mapReduce(callable mapper = null, callable reducer = null, bool canOverwrite = false) {
         if (canOverwrite) {
             _mapReduce = null;
         }
@@ -340,7 +340,7 @@ mixin template TQuery() {
      * @param callable|null formatter The formatting callable.
      * @param int|bool mode Whether to overwrite, append or prepend the formatter.
      */
-    void formatResults(?callable formatter = null, mode = self.APPEND) {
+    void formatResults(callable formatter = null, mode = self.APPEND) {
         if (mode == self.OVERWRITE) {
             _formatters = null;
         }

@@ -272,5 +272,4 @@ version(test_uim_oop) { unittest {
 }
   }
 }
-*/
-// } */
+// } 

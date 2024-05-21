@@ -900,7 +900,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param callable|null counter The counter value
      */
-    void counter(?callable counter) {
+    void counter(callable counter) {
         _counter = counter;
     }
 

@@ -157,16 +157,16 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Params:
      * \UIM\Http\ServerRequest serverRequest Request object for this controller.
      * but expect that features that use the request parameters will not work.
-     * @param string name Override the name useful in testing when using mocks.
+     * @param string nameToOverride Override the nameToOverride useful in testing when using mocks.
      * @param \UIM\Event\IEventManager|null eventManager The event manager. Defaults to a new instance.
      */
     this(
         ServerRequest serverRequest,
-        string aName = null,
+        string nameToOverride = null,
         IEventManager eventManager = null,
     ) {
-        if (aName) {
-            name(aName);
+        if (nameToOverride) {
+            name(nameToOverride);
         } elseif (!isSet(_name)) {
             auto controller = request.getParam("controller");
             if (controller) {
@@ -175,7 +175,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         }
         if (!isSet(_name)) {
             [, name] = namespaceSplit(class);
-            _name = substr(name, 0, -10);
+            _name = substr(nameToOverride, 0, -10);
         }
         setRequest(request);
         _response = new DResponse();
@@ -184,7 +184,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
             setEventManager(eventManager);
         }
         if (_defaultTable.isNull) {
-            _pluginName = this.request.getParam("plugin");
+            _pluginName = _request.getParam("plugin");
             aTableAlias = (_pluginName ? _pluginName ~ "." : "") ~ _name;
             _defaultTable = aTableAlias;
         }
@@ -321,7 +321,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
     // Get middleware to be applied for this controller.
     Json[string] getMiddlewares() {
         auto matching = null;
-        auto requestAction = this.request.getParam("action");
+        auto requestAction = _request.getParam("action");
 
         foreach (this.middlewares as  middleware) {
             options = middleware["options"];
@@ -448,7 +448,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
             return _response;
         }
         if (builder.getTemplate().isNull) {
-             builder.setTemplate(this.request.getParam("action"));
+             builder.setTemplate(_request.getParam("action"));
         }
          viewClass = this.chooseViewClass();
          view = this.createView(viewClass);
@@ -528,10 +528,10 @@ class DController : IController { // IEventListener, IEventDispatcher {
     // Get the templatePath based on controller name and request prefix.
     protected string _templatePath() {
         string templatePath = _name;
-        if (this.request.getParam("prefix")) {
+        if (_request.getParam("prefix")) {
             prefixes = array_map(
                 "UIM\Utility\Inflector.camelize",
-                split("/", this.request.getParam("prefix"))
+                split("/", _request.getParam("prefix"))
             );
             templatePath = prefixes.join(DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR ~ templatePath;
         }
@@ -546,12 +546,12 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * returns Referring URL
      */
     string referer(string[] defaultValue = "/", bool isLocal = true) {
-         referer = this.request.referer(isLocal);
+         referer = _request.referer(isLocal);
         if (!referer.isNull) {
             return referer;
         }
         url = Router.url(default, !isLocal);
-         base = this.request.getAttribute("base");
+         base = _request.getAttribute("base");
         if (isLocal &&  base && url.startsWith(base)) {
             url = substr(url,  base.length);
             if (url[0] != "/") {
@@ -594,7 +594,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         try {
             results = paginator.paginate(
                  object,
-                this.request.queryArguments(),
+                _request.queryArguments(),
                 settingsForPagination
             );
         } catch (PageOutOfBoundsException exception) {

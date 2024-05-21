@@ -179,12 +179,9 @@ interface ICollection {
      * Result will contain
      * [1, 2, 3, 4]
      * ```
-     *
-     * @param callable|string path A dot separated path of column to follow
-     * so that the final one can be returned or a callable that will take care
-     * of doing that.
-     */
-    ICollection extract(path);
+    */
+    // TODO  ICollection extract(/* callable */ string path);
+    ICollection extract(string path);
 
     /**
      * Returns the top element in this collection after being sorted by a property.
@@ -707,9 +704,8 @@ interface ICollection {
      * ]);
      * flattenedIds = collection.listNested().extract("id"); // Yields [1, 2, 3, 4, 5]
      * ```
-     * @param callable|string nestingKey The key name under which children are nested
-     * or a callable // function that will return the children list
      */
+    // ICollection listNested(callable - string order = "desc", string nestingKey = "children");
     ICollection listNested(string order = "desc", string nestingKey = "children");
 
     /**
@@ -778,7 +774,7 @@ interface ICollection {
      * @param callable|null callback A callable // function that will receive each of
      * the items in the collection and should return an array or Traversable object
      */
-    // ICollection unfold(?callable callback = null);
+    // ICollection unfold(callable callback = null);
 
     /**
      * Passes this collection through a callable as its first argument.

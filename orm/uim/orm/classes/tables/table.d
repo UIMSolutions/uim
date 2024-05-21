@@ -1362,7 +1362,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      */
     IORMEntity findOrCreate(
         SelectQuery|callable|array mysearch,
-        ?callable aCallback = null,
+        callable aCallback = null,
         Json[string] optionData = null
     ) {
         options = new ArrayObject(options ~ [
@@ -1393,7 +1393,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      */
     protected IORMEntity _processFindOrCreate(
         SelectQuery|callable|array mysearch,
-        ?callable aCallback = null,
+        callable aCallback = null,
         Json[string] optionData = null
     ) {
         myquery = _getFindOrCreateQuery(mysearch);

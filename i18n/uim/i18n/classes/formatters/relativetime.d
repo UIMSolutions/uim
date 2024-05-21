@@ -138,13 +138,13 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         // When time has passed
         if (!backwards) {
             aboutAgo = [
-                "second": __d("uim", "about a second ago"),
-                "minute": __d("uim", "about a minute ago"),
-                "hour": __d("uim", "about an hour ago"),
-                "day": __d("uim", "about a day ago"),
-                "week": __d("uim", "about a week ago"),
-                "month": __d("uim", "about a month ago"),
-                "year": __d("uim", "about a year ago"),
+                "second":  __d("uim", "about a second ago"),
+                "minute":  __d("uim", "about a minute ago"),
+                "hour":  __d("uim", "about an hour ago"),
+                "day":  __d("uim", "about a day ago"),
+                "week":  __d("uim", "about a week ago"),
+                "month":  __d("uim", "about a month ago"),
+                "year":  __d("uim", "about a year ago"),
             ];
             return relativeDate ? options["relativeString"].format(relativeDate): aboutAgo[fWord];
         }
@@ -153,13 +153,13 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
             return relativeDate;
         }
         aboutIn = [
-            "second": __d("uim", "in about a second"),
-            "minute": __d("uim", "in about a minute"),
-            "hour": __d("uim", "in about an hour"),
-            "day": __d("uim", "in about a day"),
-            "week": __d("uim", "in about a week"),
-            "month": __d("uim", "in about a month"),
-            "year": __d("uim", "in about a year"),
+            "second":  __d("uim", "in about a second"),
+            "minute":  __d("uim", "in about a minute"),
+            "hour":  __d("uim", "in about an hour"),
+            "day":  __d("uim", "in about a day"),
+            "week":  __d("uim", "in about a week"),
+            "month":  __d("uim", "in about a month"),
+            "year":  __d("uim", "in about a year"),
         ];
 
         return aboutIn[fWord];
@@ -333,10 +333,10 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         // When time has passed
         if (!backwards) {
             aboutAgo = [
-                'day": __d("uim", "about a day ago"),
-                'week": __d("uim", "about a week ago"),
-                'month": __d("uim", "about a month ago"),
-                'year": __d("uim", "about a year ago"),
+                'day":  __d("uim", "about a day ago"),
+                'week":  __d("uim", "about a week ago"),
+                'month":  __d("uim", "about a month ago"),
+                'year":  __d("uim", "about a year ago"),
             ];
 
             return relativeDate ? options["relativeString"].format(relativeDate): aboutAgo[fWord];
@@ -346,10 +346,10 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
             return relativeDate;
         }
         aboutIn = [
-            'day": __d("uim", "in about a day"),
-            'week": __d("uim", "in about a week"),
-            'month": __d("uim", "in about a month"),
-            'year": __d("uim", "in about a year"),
+            'day":  __d("uim", "in about a day"),
+            'week":  __d("uim", "in about a week"),
+            'month":  __d("uim", "in about a month"),
+            'year":  __d("uim", "in about a year"),
         ];
 
         return aboutIn[fWord];
@@ -362,13 +362,13 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
      */
     protected Json[string] _options(Json[string] options, string className) {
         auto updatedOptions = options.update[
-            "from":  className.now(),
-            "timezone": Json(null),
-            "format":  className.wordFormat,
-            "accuracy":  className.wordAccuracy,
-            "end":  className.wordEnd,
-            "relativeString": __d("uim", "%s ago"),
-            "absoluteString": __d("uim", "on %s"),
+            "from":   className.now(),
+            "timezone":  Json(null),
+            "format":   className.wordFormat,
+            "accuracy":   className.wordAccuracy,
+            "end":   className.wordEnd,
+            "relativeString":  __d("uim", "%s ago"),
+            "absoluteString":  __d("uim", "on %s"),
         ];
         if (isString(options["accuracy"])) {
             accuracy = options["accuracy"];

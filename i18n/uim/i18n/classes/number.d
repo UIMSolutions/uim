@@ -49,7 +49,7 @@ class DNumber {
      * Json aValue A floating point number.
      */
     static string precision(Json aValue, int numberPrecision = 3, Json[string] formattingOptions = null) {
-        auto formatter = formatter(["precision": precision, "places": precision] + options);
+        auto formatter = formatter(["precision":  precision, "places":  precision] + options);
         return to!string(formatter.format((float)aValue);
     }
     
@@ -83,7 +83,7 @@ class DNumber {
      * @param Json[string] options Options
      */
     static string toPercentage(Json aValue, int precision = 2, Json[string] options = null) {
-        auto updatedOptions = options.update["multiply": false.toJson, "type": NumberFormatter.PERCENT];
+        auto updatedOptions = options.update["multiply":  false.toJson, "type":  NumberFormatter.PERCENT];
         if (!options["multiply"]) {
             aValue = (float)aValue / 100;
         }
@@ -106,7 +106,7 @@ class DNumber {
      */
     static string format(Json aValue, Json[string] options = null) {
         auto formatter = formatter(options);
-        auto updatedOptions = options.update(["before": "", "after": ""]);
+        auto updatedOptions = options.update(["before":  "", "after":  ""]);
 
         return updatedOptions["before"] ~ formatter.format((float)aValue) ~ updatedOptions["after"];
     }
@@ -144,7 +144,7 @@ class DNumber {
      * @param Json[string] options Options list.
      */
     static string formatDelta(Json aValue, Json[string] options = null) {
-        auto updatedOptions = options.update["places": 0];
+        auto updatedOptions = options.update["places":  0];
         aValue = number_format((float)aValue, options["places"], ".", "");
         sign = aValue > 0 ? "+" : "";
         options["before"] = isSet(options["before"]) ? options["before"] ~ sign : sign;
@@ -181,13 +181,13 @@ class DNumber {
         if (isSet(options["zero"]) && !aValue) {
             return options["zero"];
         }
-        formatter = formatter(["type": getDefaultCurrencyFormat()] + options);
+        formatter = formatter(["type":  getDefaultCurrencyFormat()] + options);
         abs = abs(aValue);
         if (!options["fractionSymbol"].isEmpty && abs > 0 && abs < 1) {
             aValue *= 100;
             string pos = options.get("fractionPosition", "after");
 
-            return format(aValue, ["precision": 0, pos: options["fractionSymbol"]]);
+            return format(aValue, ["precision":  0, pos: options["fractionSymbol"]]);
         }
         before = options.get("before", "");
         after = options.get("after", "");
@@ -336,6 +336,6 @@ class DNumber {
      * @param Json[string] options An array with options.
      */
     static string ordinal(float aValue, Json[string] options = null) {
-        return to!string(formatter(["type": NumberFormatter.ORDINAL] + options)).format(aValue);
+        return to!string(formatter(["type":  NumberFormatter.ORDINAL] + options)).format(aValue);
     }
 }

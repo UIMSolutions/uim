@@ -135,7 +135,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * time = new DTime("23:10:10");
      * time.i18nFormat();
      * time.i18nFormat(\IntlDateFormatter.FULL);
-     * time.i18nFormat("HH":'mm":`ss");
+     * time.i18nFormat("HH": 'mm": `ss");
      * ```
      *
      * You can control the default format used through `Time.setToStringFormat()`.

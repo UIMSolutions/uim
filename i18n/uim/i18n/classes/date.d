@@ -67,13 +67,13 @@ class Date { // }: DChronosDate, JsonSerializable {
      * and the difference is less than `Date.wordEnd`
      */
     static string[] wordAccuracy = [
-        "year": "day",
-        "month": "day",
-        "week": "day",
-        "day": "day",
-        "hour": "day",
-        "minute": "day",
-        "second": "day",
+        "year":  "day",
+        "month":  "day",
+        "week":  "day",
+        "day":  "day",
+        "hour":  "day",
+        "minute":  "day",
+        "second":  "day",
     ];
 
     // The end of relative time telling

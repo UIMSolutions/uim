@@ -93,13 +93,13 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * and the difference is less than `DateTime.wordEnd`
      */
     auto STRINGAA wordAccuracy = [
-        "year": "day",
-        "month": "day",
-        "week": "day",
-        "day": "hour",
-        "hour": "minute",
-        "minute": "minute",
-        "second": "second",
+        "year":  "day",
+        "month":  "day",
+        "week":  "day",
+        "day":  "hour",
+        "hour":  "minute",
+        "minute":  "minute",
+        "second":  "second",
     ];
 
     // The end of relative time telling
@@ -445,14 +445,14 @@ class DateTime /* : Chronos, JsonSerializable */ {
     ) {
         if (isBool(options)) {
             options = [
-                'group": options,
+                'group":  options,
             ];
         }
         defaults = [
-            'group": true.toJson,
-            'abbr": false.toJson,
-            'before": ' - ",
-            'after": Json(null),
+            'group":  true.toJson,
+            'abbr":  false.toJson,
+            'before":  ' - ",
+            'after":  Json(null),
         ];
         auto updatedOptions = options.updatedefaults;
          anGroup = options["group"];

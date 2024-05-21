@@ -459,10 +459,8 @@ class DTreeBehavior : DBehavior {
      *
      * @param DORMQuery query The query object to format.
      * @param Json[string] options Array of options as described above.
-     * @return DORMQuery Augmented query.
      */
-    function formatTreeList(Query query, Json[string] optionData = null): Query
-    {
+    DORMQuery formatTreeList(Query query, Json[string] optionData = null) {
         return query.formatResults(function (ICollection results) use (options) {
             auto updatedOptions = options.update[
                 "keyPath": _primaryKeys(),

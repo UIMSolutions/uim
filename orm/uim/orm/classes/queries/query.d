@@ -1168,13 +1168,10 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @param string method the method to call
      * @param Json[string] arguments list of arguments for the method to call
-     * @return mixed
      */
-    function __call(string method, Json[string] arguments) {
+    Json __call(string method, Json[string] arguments) {
         if (this.type() == "select") {
             return _call(method, arguments);
         }

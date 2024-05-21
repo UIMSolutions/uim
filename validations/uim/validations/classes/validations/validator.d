@@ -655,7 +655,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * to be empty. Valid values are false (never), "create", "update". If a
      * Closure is passed then the field will be required to be not empty when
      * the callback returns true.
-     * @return this
      */
     auto notEmptyArray(string fieldName, string myMessage = null, IClosure|string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);

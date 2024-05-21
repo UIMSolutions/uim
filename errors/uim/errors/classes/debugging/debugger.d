@@ -218,11 +218,7 @@ class DDebugger {
         return getInstance().configuration.get(key);
     }
 
-    /**
-     * Reads the current output masking.
-     *
-     * @return array<string, string>
-     */
+    // Reads the current output masking.
     static STRINGAA outputMask() {
         return configInstance('outputMask');
     }

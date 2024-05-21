@@ -433,3 +433,11 @@ string[] split(string[] texts, string splitText = " ") {
 unittest {
   // TODO create test
 }
+
+string ifNull(string value, string defaultValue) {
+	return !values.isNull ? value : defaultValue;
+}
+
+string ifEmpty(string value, string defaultValue) {
+	return !values.isEmpty ? value : defaultValue;
+}

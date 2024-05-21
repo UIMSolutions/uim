@@ -1164,7 +1164,6 @@ class DBelongsToManyAssociation : DAssociation {
      *  of this association.
      * @param Json[string] targetEntities The rows belonging to the target side of this
      *  association.
-     * @return array<DORMDatasource\>
      */
     protected IORMEntity[] _collectJointEntities(IORMEntity sourceEntity, Json[string] targetEntities) {
         auto target = getTarget();

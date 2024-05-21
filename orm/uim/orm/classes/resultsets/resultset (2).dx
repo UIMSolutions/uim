@@ -143,11 +143,8 @@ class DResultset : IResultset {
      * Returns the current record in the result iterator
      *
      * Part of Iterator interface.
-     *
-     * @return object|array
      */
-    #[\ReturnTypeWillChange]
-    function current() {
+    Json current() {
         return _current;
     }
 
@@ -223,10 +220,8 @@ class DResultset : IResultset {
      * Get the first record from a result set.
      *
      * This method will also close the underlying statement cursor.
-     *
-     * @return object|array|null
      */
-    function first() {
+    json first() {
         foreach (this as result) {
             if (_statement != null && !_useBuffering) {
                 _statement.closeCursor();

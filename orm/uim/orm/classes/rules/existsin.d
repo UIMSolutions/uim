@@ -51,7 +51,6 @@ class DExistsIn {
      * \UIM\Datasource\IORMEntity myentity The entity from where to extract the fields
      * @param Json[string] options Options passed to the check,
      * where the `repository` key is required.
-     * @throws \UIM\Database\Exception\DatabaseException When the rule refers to an undefined association.
      */
    bool __invoke(IORMEntity myentity, Json[string] options) {
         if (isString(_repository)) {

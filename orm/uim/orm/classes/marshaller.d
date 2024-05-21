@@ -28,7 +28,6 @@ class DMarshaller {
      * Params:
      * Json[string] data The data being marshalled.
      * @param Json[string] options List of options containing the "associated" key.
-     * @throws \InvalidArgumentException When associations do not exist.
      */
     protected Json[string] _buildPropertyMap(Json[string] data, Json[string] options) {
         auto mymap = null;

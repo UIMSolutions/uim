@@ -948,14 +948,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         return _cache(key, myConfiguration);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @return DORMDatasource\IResultset
-     * @throws \RuntimeException if this method is called on a non-select Query.
-     */
-    function all(): IResultset
-    {
+    IResultset all() {
         if (_type != "select" && _type != null) {
             throw new DRuntimeException(
                 "You cannot call all() on a non-select query. Use execute() instead."
@@ -1180,7 +1173,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param string method the method to call
      * @param Json[string] arguments list of arguments for the method to call
      * @return mixed
-     * @throws \BadMethodCallException if the method is called for a non-select query
      */
     function __call(string method, Json[string] arguments) {
         if (this.type() == "select") {

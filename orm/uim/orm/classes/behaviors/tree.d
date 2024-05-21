@@ -60,7 +60,6 @@ class DTreeBehavior : DBehavior {
      *
      * @param DORMevents.IEvent event The beforeSave event that was fired
      * @param DORMDatasource\IORMEntity anEntity the entity that is going to be saved
-     * @throws \RuntimeException if the parent to set for the node is invalid
      */
     void beforeSave(IEvent event, IORMEntity anEntity) {
         isNew = entity.isNew();
@@ -541,7 +540,6 @@ class DTreeBehavior : DBehavior {
      *
      * @param DORMDatasource\IORMEntity node The node to move
      * @param int|true number How many places to move the node, or true to move to first position
-     * @throws DORMDatasource\exceptions.RecordNotFoundException When node was not found
      */
     IORMEntity moveUp(IORMEntity node, number = 1) {
         if (number < 1) {
@@ -628,7 +626,6 @@ class DTreeBehavior : DBehavior {
      *
      * @param DORMDatasource\IORMEntity node The node to move
      * @param int|true number How many places to move the node or true to move to last position
-     * @throws DORMDatasource\exceptions.RecordNotFoundException When node was not found
      */
     IORMEntity moveDown(IORMEntity node, number = 1) {
         if (number < 1) {

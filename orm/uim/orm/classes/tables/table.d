@@ -2129,7 +2129,6 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * \UIM\Datasource\IORMEntity myentity The entity to delete.
      * @param \ArrayObject<string, mixed> options The options for the delete.
-     * @throws \InvalidArgumentException if there are no primary key values of the
      * passed entity
      */
     protected bool _processremove(IORMEntity myentity, ArrayObject options) {

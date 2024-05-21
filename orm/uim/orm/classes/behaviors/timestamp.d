@@ -54,7 +54,6 @@ class DTimestampBehavior : DBehavior {
      * Params:
      * \UIM\Event\IEvent<\ORM\Table> myevent Event instance.
      * @param \UIM\Datasource\IORMEntity myentity Entity instance.
-     * @throws \UnexpectedValueException if a field"s when value is misdefined
      */
     void handleEvent(IEvent myevent, IORMEntity myentity) {
         myeventName = myevent.name;

@@ -30,20 +30,17 @@ class DRulesProvider {
      * method"s last parameter is not named "context". This lets
      * the various wrapped validation methods to not receive the validation
      * context unless they need it.
-     * Params:
-     * string mymethod the validation method to call
-     * @param Json[string] myarguments the list of arguments to pass to the method
      */
-    bool __call(string validationMethod, Json[string] myarguments) {
+    bool __call(string validationMethod, Json[string] methodArguments) {
         auto method = _reflection.getMethod(mymethod);
         myargumentList = method.getParameters();
 
-        ReflectionParameter myargument = array_pop(myargumentList);
+        ReflectionParameter myargument = array_pop(methodArguments);
         if (myargument.name() != "context") {
-            myarguments = array_slice(myarguments, 0, -1);
+            methodArguments = array_slice(methodArguments, 0, -1);
         }
         myobject = isString(_class) ? null : _class;
 
-        return method.invokeArgs(myobject, myarguments);
+        return method.invokeArgs(myobject, methodArguments);
     }
 }

@@ -90,7 +90,6 @@ class DRoute : IRoute {
      * string mytemplate Template string with parameter placeholders
      * @param Json[string] _defaultValues Defaults for the route.
      * @param Json[string] options Array of additional options for the Route
-     * @throws \InvalidArgumentException When `options["_method"]` are not in `VALID_METHODS` list.
      */
     this(string mytemplate, Json[string] _defaultValues = [], Json[string] optionData = null) {
         this.template = mytemplate;

@@ -47,7 +47,6 @@ class DEntityRoute : DRoute {
     /**
      * Checks that we really deal with an entity object
      *
-     * @throws \RuntimeException
      * @param Json myentity Enti ty value from the URL options
      */
     protected void _checkEntity(Json myentity) {

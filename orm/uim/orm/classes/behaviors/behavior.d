@@ -194,8 +194,6 @@ class DBehavior : IEventListener {
      * verifyConfig
      *
      * Checks that implemented keys contain values pointing at callable.
-     *
-     * @throws DORMCore\exceptions.UIMException if config are invalid
      */
     void verifyConfig() {
         string[] keys = ["implementedFinders", "implementedMethods"];

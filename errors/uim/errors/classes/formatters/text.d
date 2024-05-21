@@ -49,9 +49,9 @@ TEXT;
     protected string export_(IErrorNode nodeToDump, int indentSize) {
         if (cast(DScalarNode)nodeToDump) {
             return match (nodeToDump.getType()) {
-                "bool": nodeToDump.getValue() ? "true" : "false",
-                "null": "null",
-                "string": "'" ~ (string)nodeToDump.getValue() ~ "'",
+                "bool":  nodeToDump.getValue() ? "true" : "false",
+                "null":  "null",
+                "string":  "'" ~ (string)nodeToDump.getValue() ~ "'",
                 default: "({nodeToDump.getType()}) {nodeToDump.getValue()}",
             };
         }
@@ -81,7 +81,7 @@ TEXT;
 
         foreach (anItem; nodeToExport.getChildren()) {
             auto val = anItem.getValue();
-            aNodes ~= break ~ this.export_(anItem.getKey(), indentSize) ~ ": " ~ this.export_(val, indentSize);
+            aNodes ~= break ~ this.export_(anItem.getKey(), indentSize) ~ ":  " ~ this.export_(val, indentSize);
         }
         if (count(aNodes)) {
             return result ~ join(",", aNodes) ~ end ~ "]";

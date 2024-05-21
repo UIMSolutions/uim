@@ -187,22 +187,22 @@ class DExceptionRenderer { // }: IExceptionRenderer
         response = response.withStatus(code);
 
         viewVars = [
-            "message":myMessage,
-            "url":h(myUrl),
-            "error":exception,
-            "code":code,
+            "message": myMessage,
+            "url": h(myUrl),
+            "error": exception,
+            "code": code,
         ];
         serialize = ["message", "url", "code"];
 
         isDebug = Configure.read("debug");
         if (isDebug) {
             trace = (array)Debugger.formatTrace(exception.getTrace(), [
-                "format":"array",
-                "args":false,
+                "format": "array",
+                "args": false,
             ]);
             origin = [
-                "file":exception.getFile() ?: "null",
-                "line":exception.getLine() ?: "null",
+                "file": exception.getFile() ?: "null",
+                "line": exception.getLine() ?: "null",
             ];
             // Traces don"t include the origin file/line.
             array_unshift(trace, origin);
@@ -354,11 +354,11 @@ class DExceptionRenderer { // }: IExceptionRenderer
     // Returns an array that can be used to describe the internal state of this object.
     Json[string] __debugInfo() {
         return [
-            "error":this.error,
-            "request":this.request,
-            "controller":this.controller,
-            "template":this.template,
-            "method":this.method,
+            "error": this.error,
+            "request": this.request,
+            "controller": this.controller,
+            "template": this.template,
+            "method": this.method,
         ];
     } 
 }

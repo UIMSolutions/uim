@@ -67,7 +67,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
             result ~= "";
             result ~= "<info>Stack Trace:</info>";
             result ~= "";
-            result ~= Debugger.formatTrace(stacktrace, ["format": "text"]);
+            result ~= Debugger.formatTrace(stacktrace, ["format":  "text"]);
             result ~= "";
         }
         return result;

@@ -20,11 +20,11 @@ Json debug(Json var, bool showHtml = null, bool showFrom = true):
     }
     location = null;
     if (showFrom) {
-        trace = Debugger.trace(["start": 0, "depth": 1, "format": "array"]);
+        trace = Debugger.trace(["start":  0, "depth":  1, "format":  "array"]);
         if (isSet(trace[0]["line"]) && isSet(trace[0]["file"])) {
             location = [
-                "line": trace[0]["line"],
-                "file": trace[0]["file"],
+                "line":  trace[0]["line"],
+                "file":  trace[0]["file"],
             ];
         }
     }
@@ -46,7 +46,7 @@ void stackTrace(Json[string] formatOptions = null) {
     if (!configuration.hasKey("debug")) {
         return;
     }
-    auto updatedOptions = formatOptions.update["start": 0];
+    auto updatedOptions = formatOptions.update["start":  0];
     formatOptions["start"]++;
 
     /** @var string atrace */
@@ -64,10 +64,10 @@ void dd(Json varForDebugInfo, bool showHtml = null) {
         return;
     }
 
-    auto trace = Debugger.trace(["start": 0.toJson, "depth": 2.toJson, "format": "array".toJson]);
+    auto trace = Debugger.trace(["start":  0.toJson, "depth":  2.toJson, "format":  "array".toJson]);
     auto location = [
-        "line": trace[0]["line"],
-        "file": trace[0]["file"],
+        "line":  trace[0]["line"],
+        "file":  trace[0]["file"],
     ];
 
     Debugger.printVar(varForDebugInfo, location, showHtml);

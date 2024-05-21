@@ -45,7 +45,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      *  extend one of the listed exceptions will also not be logged. Example:
      *
      *  ```
-     *  "skipLog":["uim\errors.NotFoundException", "uim\errors.UnauthorizedException"]
+     *  "skipLog": ["uim\errors.NotFoundException", "uim\errors.UnauthorizedException"]
      *  ```
      *
      * - `trace` Should error logs include stack traces?
@@ -54,10 +54,10 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      *  Defaults to uim.errorss.ExceptionRenderer
      */
     configuration.updateDefaults([
-        "skipLog": Json.emptyArray,
-        "log": true.toJson,
-        "trace": false.toJson,
-        "exceptionRenderer": ExceptionRenderer.className,
+        "skipLog":  Json.emptyArray,
+        "log":  true.toJson,
+        "trace":  false.toJson,
+        "exceptionRenderer":  ExceptionRenderer.className,
     ]);
 
         return true;
@@ -154,7 +154,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
 
     // Handle internal errors.
     protected IResponse handleInternalError() {
-        response = new DResponse(["body":"An Internal Server Error Occurred"]);
+        response = new DResponse(["body": "An Internal Server Error Occurred"]);
 
         return response.withStatus(500);
     }

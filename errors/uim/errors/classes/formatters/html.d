@@ -78,10 +78,10 @@ class DHtmlErrorFormatter : IErrorFormatter {
     protected string export_(IErrorNode var, int anIndent) {
         if (cast(DScalarNode)var) {
             return match (var.getType()) {
-                "bool": this.style("const", var.getValue() ? "true" : "false"),
-                "null": this.style("const", "null"),
-                "string": this.style("string", "'" ~ (string)var.getValue() ~ "'"),
-                "int", "float": this.style("visibility", "({var.getType()})") ~
+                "bool":  this.style("const", var.getValue() ? "true" : "false"),
+                "null":  this.style("const", "null"),
+                "string":  this.style("string", "'" ~ (string)var.getValue() ~ "'"),
+                "int", "float":  this.style("visibility", "({var.getType()})") ~
                         " " ~ this.style("number", "{var.getValue()}"),
                 default: "({var.getType()}) {var.getValue()}",
             };
@@ -112,7 +112,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
         break = "\n" ~ str_repeat("  ",  anIndent);
         endBreak = "\n" ~ str_repeat("  ",  anIndent - 1);
 
-        arrow = this.style("punct", ": ");
+        arrow = this.style("punct", ":  ");
         var.getChildren().each!((item) {
             val = anItem.getValue();
             vars ~= break ~ "<span class=\"uim-debug-array-item\">" ~
@@ -161,7 +161,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
 
         props = null;
         foreach (var.getChildren() as  aProperty) {
-            arrow = this.style("punct", ": ");
+            arrow = this.style("punct", ":  ");
             visibility = aProperty.getVisibility();
             name = aProperty.name;
             if (visibility && visibility != "public") {

@@ -81,7 +81,7 @@ class DErrorHandler { // }: DERRErrorHandler
      */
     this(Json aConfig = null) {
         aConfig += [
-            "exceptionRenderer": ExceptionRenderer.class,
+            "exceptionRenderer":  ExceptionRenderer.class,
         ];
 
         configuration.update(aConfig);

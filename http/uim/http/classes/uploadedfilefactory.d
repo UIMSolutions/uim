@@ -22,7 +22,6 @@ class DUploadedFileFactory { //}: IUploadedFileFactory {
      * @param int error The D file upload error.
      * @param string clientFilename The filename as provided by the client, if any.
      * @param string clientMediaType The media type as provided by the client, if any.
-     * @throws \InvalidArgumentException If the file resource is not readable.
      */
     IUploadedFile createUploadedFile(
         IStream stream,

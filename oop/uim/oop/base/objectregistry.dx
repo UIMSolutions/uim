@@ -88,7 +88,6 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * Params:
      * string aName The name of the alias in the registry.
      * configData - The config data for the new instance.
-     * @throws \UIM\Core\Exception\UimException When a duplicate is found.
      */
   protected void _checkDuplicate(string aliasName, Json[string] configData) {
     auto existing = _loaded[aliasName];

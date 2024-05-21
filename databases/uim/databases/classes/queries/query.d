@@ -1025,14 +1025,8 @@ abstract class DQuery : IQuery { // : IExpression {
      * the existing limit clause, and if that too is empty, then `25` will be used.
      *
      * Pages must start at 1.
-     * Params:
-     * int num The page number you want.
-     * @param int aLimit The number of rows you want in the page. If null
-     * the current limit clause will be used.
-
-     * @throws \InvalidArgumentException If page number < 1.
      */
-    auto page(int num, int aLimit = null) {
+    auto page(int pageNumber, int limitNumberRows = null) {
         throw new UimException("Not implemented");
     }
     

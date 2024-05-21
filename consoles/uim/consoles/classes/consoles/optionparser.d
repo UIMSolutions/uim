@@ -551,7 +551,6 @@ class DConsoleOptionParser {
      * Params:
      * params The params to append the parsed value into
      * returns Params with option added in.
-     * @throws \UIM\Console\Exception\ConsoleException
      */
     protected Json[string] _parseOption(string nameToParse, Json[string] params) {
         if (!_options.isSet(nameToParse)) {

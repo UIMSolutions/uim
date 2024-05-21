@@ -62,7 +62,6 @@ class DHasManyAssociation : DAssociation {
      * Sets the strategy that should be used for saving.
      *
      * @param string strategy the strategy name to be used
-     * @throws \InvalidArgumentException if an invalid strategy name is passed
      */
     void setSaveStrategy(string strategy) {
         if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {

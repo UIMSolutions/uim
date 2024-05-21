@@ -34,7 +34,6 @@ class DConsoleLog { /* }: BaseLog {
      * - `dateFormat` D date() format.
      *
      * configData - Options for the FileLog, see above.
-     * @throws \InvalidArgumentException
      */
     this(Json[string] configData = null) {
         super(configData);

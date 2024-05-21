@@ -119,7 +119,6 @@ class DSchemaLoader {
      * Params:
      * string afile Schema file
      * @param string aconnectionName Connection name
-     * @throws \InvalidArgumentException For missing table name(s).
      */
     void loadInternalFile(string afile, string aconnectionName = "test") {
         // Don"t reload schema when we are in a separate process state.

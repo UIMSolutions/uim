@@ -384,7 +384,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * by inheriting the contain callback"s query argument:
      *
      * ```
-     */ Assuming a `Articles belongsTo Authors` association that uses the join strategy
+     * Assuming a `Articles belongsTo Authors` association that uses the join strategy
      *
      * myarticlesQuery.contain("Authors", auto (myauthorsQuery) {
      *   return myauthorsQuery.formatResults(function (results, myquery) use (myauthorsQuery) {
@@ -448,11 +448,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         return _all().first();
     }
     
-    /**
-     * Get the first result from the executing query or raise an exception.
-     *
-     * @throws \UIM\Datasource\Exception\RecordNotFoundException When there is no first record.
-     */
+    // Get the first result from the executing query or raise an exception.
     Json firstOrFail() {
         myentity = this.first();
         if (!myentity) {

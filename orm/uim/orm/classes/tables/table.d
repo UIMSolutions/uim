@@ -583,7 +583,6 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string myname The name of the behavior. Can be a short class reference.
      * @param Json[string] options The options for the behavior to use.
-     * @throws \RuntimeException If a behavior is being reloaded.
      */
     void addBehavior(string behaviorName, Json[string] optionData = null) {
        _behaviors.load(behaviorName, options);

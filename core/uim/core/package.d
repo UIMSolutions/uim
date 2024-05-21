@@ -227,7 +227,7 @@ template CascadeNotNull(alias A, alias B, alias C, alias D) {
 
 version (test_uim_core) {
   unittest {
-    assert(stringAA2Array(["A":  "B", "C":  "D"], "/") == ["A/B", "C/D"]);
+    assert(stringAA2Array(["A": "B", "C": "D"], "/") == ["A/B", "C/D"]);
   }
 }
 

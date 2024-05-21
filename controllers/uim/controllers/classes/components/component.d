@@ -110,7 +110,7 @@ class DComponent { // TODO }: IEventListener {
         }
         if (isSet(this.components[componentName])) {
             configData = this.components[componentName] ~ [
-                "enabled":  false.toJson
+                "enabled": false.toJson
             ];
 
             return _componentInstances[componentName] = _registry.load(
@@ -133,11 +133,11 @@ class DComponent { // TODO }: IEventListener {
      */
     IEvent[] implementedEvents() {
         auto eventMap = [
-            "Controller.initialize":  "beforeFilter",
-            "Controller.startup":  "startup",
-            "Controller.beforeRender":  "beforeRender",
-            "Controller.beforeRedirect":  "beforeRedirect",
-            "Controller.shutdown":  "afterFilter",
+            "Controller.initialize": "beforeFilter",
+            "Controller.startup": "startup",
+            "Controller.beforeRender": "beforeRender",
+            "Controller.beforeRedirect": "beforeRedirect",
+            "Controller.shutdown": "afterFilter",
         ];
 
         Json[string] myEvents;
@@ -153,9 +153,9 @@ class DComponent { // TODO }: IEventListener {
     /*
     Json[string] debugInfo() {
         return [
-            "components":  this.components, 
-            "implementedEvents":  this.implementedEvents(),
-            "_config":  _configuration.data,
+            "components": this.components, 
+            "implementedEvents": this.implementedEvents(),
+            "_config": _configuration.data,
         ];
     } */
 }

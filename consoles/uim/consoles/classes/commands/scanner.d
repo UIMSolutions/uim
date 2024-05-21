@@ -105,10 +105,10 @@ class DCommandScanner {
                 name = className.defaultName();
             }
             commands[somePath ~ file] = [
-                "file":  somePath ~ file,
-                "fullName":  commandPrefix ~ name,
-                "name":  name,
-                "class":   className,
+                "file": somePath ~ file,
+                "fullName": commandPrefix ~ name,
+                "name": name,
+                "class": className,
             ];
         }
         ksort(commands);

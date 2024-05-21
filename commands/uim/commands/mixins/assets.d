@@ -43,10 +43,10 @@ mixin template TPluginAssets() {
                 dir = wwwRoot ~ join(DIRECTORY_SEPARATOR, someParts) ~ DIRECTORY_SEPARATOR;
             }
             plugins[plugin] = [
-                "srcPath":  Plugin.path(plugin) ~ "webroot",
-                "destDir":  dir,
-                "link":  link,
-                "namespaced":  namespaced,
+                "srcPath": Plugin.path(plugin) ~ "webroot",
+                "destDir": dir,
+                "link": link,
+                "namespaced": namespaced,
             ];
         });
 

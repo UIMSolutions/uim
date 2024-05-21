@@ -61,8 +61,8 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
                 if (names > 1) { shortestName = names[1..$].join("."); }
             }
             anGrouped[prefix] ~= [
-                "name":  shortestName,
-                "description":  isSubclass_of(className, BaseCommand.class) 
+                "name": shortestName,
+                "description": isSubclass_of(className, BaseCommand.class) 
                     ?  className.getDescription()
                     : ""
             ];

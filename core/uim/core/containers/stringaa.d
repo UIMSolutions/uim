@@ -19,8 +19,8 @@ STRINGAA addKeyPrefix(STRINGAA entries, string prefix) {
 
 version (test_uim_core) {
   unittest {
-    assert(["a":  "1"].addKeyPrefix("x") == ["xa":  "1"]);
-    assert(["a":  "1", "b":  "2"].addKeyPrefix("x").hasKey("xb"));
+    assert(["a": "1"].addKeyPrefix("x") == ["xa": "1"]);
+    assert(["a": "1", "b": "2"].addKeyPrefix("x").hasKey("xb"));
   }
 }
 
@@ -35,8 +35,8 @@ STRINGAA allStartsWith(STRINGAA entries, string prefix) {
 
 version (test_uim_core) {
   unittest {
-    assert(allStartsWith(["preA":  "a", "b":  "b"], "pre") == ["preA":  "a"]);
-    assert(["preA":  "a", "b":  "b"].allStartsWith("pre") == ["preA":  "a"]);
+    assert(allStartsWith(["preA": "a", "b": "b"], "pre") == ["preA": "a"]);
+    assert(["preA": "a", "b": "b"].allStartsWith("pre") == ["preA": "a"]);
   }
 }
 
@@ -51,8 +51,8 @@ STRINGAA allStartsNotWith(STRINGAA entries, string prefix) { // right will overr
 
 version (test_uim_core) {
   unittest {
-    assert(allStartsNotWith(["preA":  "a", "b":  "b"], "pre") == ["b":  "b"]);
-    assert(["preA":  "a", "b":  "b"].allStartsNotWith("pre") == ["b":  "b"]);
+    assert(allStartsNotWith(["preA": "a", "b": "b"], "pre") == ["b": "b"]);
+    assert(["preA": "a", "b": "b"].allStartsNotWith("pre") == ["b": "b"]);
   }
 }
 
@@ -99,7 +99,7 @@ STRINGAA filterByKeys(STRINGAA entries, string[] keys) {
 
 version (test_uim_core) {
   unittest {
-    assert(["a":  "1", "b":  "2"].filterByKeys("a") == ["a":  "1"]);
+    assert(["a": "1", "b": "2"].filterByKeys("a") == ["a": "1"]);
   }
 }
 STRINGAA notFilterByKeys(STRINGAA entries, string[] keys...) {
@@ -117,7 +117,7 @@ STRINGAA notFilterByKeys(STRINGAA entries, string[] keys) {
 
 version (test_uim_core) {
   unittest {
-    assert(["a":  "1", "b":  "2"].notFilterByKeys("a") == ["b":  "2"]);
+    assert(["a": "1", "b": "2"].notFilterByKeys("a") == ["b": "2"]);
   }
 }
 
@@ -138,10 +138,10 @@ STRINGAA filterByValues(STRINGAA entries, string[] someValues) {
 
 version (test_uim_core) {
   unittest {
-    assert(["a":  "1", "b":  "2"].filterByValues("1") == ["a":  "1"]);
-    assert(["a":  "1", "b":  "2"].filterByValues("0").empty);
-    assert(["a":  "1", "b":  "2", "c":  "3"].filterByValues("1", "2") == ["a":  "1"]);
-    assert(["a":  "1", "b":  "2", "c":  "3"].filterByValues("0").empty);
+    assert(["a": "1", "b": "2"].filterByValues("1") == ["a": "1"]);
+    assert(["a": "1", "b": "2"].filterByValues("0").empty);
+    assert(["a": "1", "b": "2", "c": "3"].filterByValues("1", "2") == ["a": "1"]);
+    assert(["a": "1", "b": "2", "c": "3"].filterByValues("0").empty);
   }
 }
 // #endregion filter

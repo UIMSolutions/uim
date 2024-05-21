@@ -12,7 +12,7 @@ import uim.commands;
  * The ProgressHelper can be accessed from shells using the helper() method
  *
  * ```
- * this.helper("Progress").output(["callback":  auto (progress) {
+ * this.helper("Progress").output(["callback": auto (progress) {
  *   // Do work
  *   progress.increment();
  * });
@@ -69,7 +69,7 @@ class DProgressHelper { // } : Helper {
      * Json[string] commandArguments The arguments/options to use when outputing the progress bar.
      */
   void output(Json[string] commandArguments) {
-    commandArguments ~= ["callback":  Json(null)];
+    commandArguments ~= ["callback": Json(null)];
     if (isSet(commandArguments[0])) {
       commandArguments["callback"] = commandArguments[0];
     }
@@ -99,7 +99,7 @@ class DProgressHelper { // } : Helper {
 
      */
   bool initialize(Json[string] commandArguments = null) {
-    commandArguments += ["total":  self: : DEFAULT_TOTAL, "width":  self: : DEFAULT_WIDTH];
+    commandArguments += ["total": self: : DEFAULT_TOTAL, "width": self: : DEFAULT_WIDTH];
     _progress = 0;
     _width = commandArguments["width"];
     _total = commandArguments["total"];

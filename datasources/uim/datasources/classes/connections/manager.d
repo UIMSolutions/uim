@@ -224,8 +224,6 @@ static Json[string] parseDsn(string adsn) {
      * ```
      * Make 'things' resolve to 'test_things' connection
      * ConnectionManager.alias("test_things", "things");
-     * Params:
-     * @param string aalias The alias name that resolves to `source`.
      */
     static void alias(string connectionAlias, string sourceAlias) {
         _connectionAliases[connectionAlias] = sourceAlias;

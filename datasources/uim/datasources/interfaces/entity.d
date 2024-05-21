@@ -167,13 +167,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      */
   Json[string] toDataArray();
 
-  /**
-     * Returns an array with the requested fields
-     * stored in this entity, indexed by field name
-     * Params:
-     * string[] fieldNames list of fields to be returned
-     * @param bool onlyDirty Return the requested field only if it is dirty
-     */
+  // Returns an array with the requested fields stored in this entity, indexed by field name
   Json[string] extract(string[] fieldNames, bool onlyDirty = false);
 
   /**

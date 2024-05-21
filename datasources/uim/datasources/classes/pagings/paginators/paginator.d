@@ -418,9 +418,6 @@ class DPaginator : IPaginator {
     /**
      * Get the settings for a myModel. If there are no settings for a specific
      * repository, the general settings will be used.
-     *
-     * @param string aliasName Model name to get settingsData for.
-     * @param Json[string] settingsData The settingsData which is used for combining.
      */
     Json[string] getDefaults(string aliasName, Json[string] settingsData) {
         if (isset(settingsData[aliasName])) {

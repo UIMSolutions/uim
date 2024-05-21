@@ -65,12 +65,6 @@ class DQueryExpression : DExpression { // }, Countable {
      * If the type passed for any of the fields is expressed "type[]" (note braces)
      * then it will cause the placeholder to be re-written dynamically so if the
      * value is an array, it will create as many placeholders as values are in it.
-     * Params:
-     * be added. When using an array and the key is 'OR' or 'AND' a new expression
-     * object will be created with that conjunction and internal array value passed
-     * as conditions.
-     * @param array<int|string, string> types Associative array of fields pointing to the type of the
-     * values that are being passed. Used for correctly binding values to statements.
      */
     void add(/* IExpression| */ string[] conditions, Json[string] types = null) {
         if (isString(conditions) || cast(IExpression)conditions ) {

@@ -25,20 +25,13 @@ class DRuleInvoker {
     protected callable _rule;
 
     /**
-     
-     *
      * ### Options
      *
      * - `errorField` The field errors should be set onto.
      * - `message` The error message.
      *
-     * Individual rules may have additional options that can be
-     * set here. Any options will be passed into the rule as part of the
-     * rule scope.
-     * Params:
-     * callable rule The rule to be invoked.
-     * @param string name The name of the rule. Used in error messages.
-     * @param Json[string] optionData The options for the rule. See above.
+     * Individual rules may have additional options that can be set here. 
+     * Any options will be passed into the rule as part of the rule scope.
      */
     this(callable rule, string ruleName, Json[string] ruleOptions = null) {
         _rule = rule;

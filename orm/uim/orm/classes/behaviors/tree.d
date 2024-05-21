@@ -63,9 +63,9 @@ class DTreeBehavior : DBehavior {
      */
     void beforeSave(IEvent event, IORMEntity anEntity) {
         isNew = entity.isNew();
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         parent = entity.get(configuration.get("parent"));
-        primaryKeys = _primaryKeys();
+        primaryKeys = primaryKeys();
         dirty = entity.isDirty(configuration.get("parent"));
         level = configuration.get("level");
 
@@ -141,19 +141,19 @@ class DTreeBehavior : DBehavior {
      * @param DORMDatasource\IORMEntity anEntity The entity whose descendants need to be updated.
      */
     protected void _setChildrenLevel(IORMEntity anEntity) {
-        myConfiguration = configuration;
+        auto configData = configuration.data;
 
         if (entity.get(configuration.get("left")) + 1 == entity.get(configuration.get("right"))) {
             return;
         }
 
-        primaryKeys = _primaryKeys();
+        primaryKeys = primaryKeys();
         primaryKeysValue = entity.get(primaryKeys);
         depths = [primaryKeysValue: entity.get(configuration.get("level"))];
 
         children = _table.find("children", [
             "for": primaryKeysValue,
-            "fields": [_primaryKeys(), configuration.get("parent"), configuration.get("level")],
+            "fields": [primaryKeys(), configuration.get("parent"), configuration.get("level")],
             "order": configuration.get("left"),
         ]);
 
@@ -177,7 +177,7 @@ class DTreeBehavior : DBehavior {
      * @param DORMDatasource\IORMEntity anEntity The entity that is going to be saved
      */
     void beforeremove(IEvent event, IORMEntity anEntity) {
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         _ensureFields(entity);
         left = entity.get(configuration.get("left"));
         right = entity.get(configuration.get("right"));
@@ -215,7 +215,7 @@ class DTreeBehavior : DBehavior {
      * @param mixed parent the id of the parent to set
      */
     protected void _setParent(IORMEntity anEntity, parent) {
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         parentNode = _getNode(parent);
         _ensureFields(entity);
         parentLeft = parentNode.get(configuration.get("left"));
@@ -227,7 +227,7 @@ class DTreeBehavior : DBehavior {
             throw new DRuntimeException(format(
                 "Cannot use node '%s' as parent for entity '%s'",
                 parent,
-                entity.get(_primaryKeys())
+                entity.get(primaryKeys())
             ));
         }
 
@@ -273,7 +273,7 @@ class DTreeBehavior : DBehavior {
      * @param DORMDatasource\IORMEntity anEntity The entity to set as a new root
      */
     protected void _setAsRoot(IORMEntity anEntity) {
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         edge = _getMax();
         _ensureFields(entity);
         right = entity.get(configuration.get("right"));
@@ -303,7 +303,7 @@ class DTreeBehavior : DBehavior {
      * wouldn't change while performing other tree transformations.
      */
     protected void _unmarkInternalTree() {
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         _table.updateAll(
             function (exp) use (myConfiguration) {
                 /** @var DDBExpression\QueryExpression exp */
@@ -335,7 +335,7 @@ class DTreeBehavior : DBehavior {
             throw new DInvalidArgumentException("The 'for' key is required for find('path')");
         }
 
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         [left, right] = array_map(
             function (field) {
                 return _table.aliasField(field);
@@ -360,7 +360,7 @@ class DTreeBehavior : DBehavior {
 
         if (shouldCountDirect) {
             return _scope(_table.find())
-                .where([parent: entityNode.get(_primaryKeys())])
+                .where([parent: entityNode.get(primaryKeys())])
                 .count();
         }
 
@@ -384,7 +384,7 @@ class DTreeBehavior : DBehavior {
      * @param Json[string] options Array of options as described above
      */
     DORMQuery findChildren(Query query, Json[string] optionData) {
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         auto updatedOptions = options.update["for": Json(null), "direct": false.toJson];
         [parent, left, right] = array_map(
             function (field) {
@@ -463,7 +463,7 @@ class DTreeBehavior : DBehavior {
     DORMQuery formatTreeList(Query query, Json[string] optionData = null) {
         return query.formatResults(function (ICollection results) use (options) {
             auto updatedOptions = options.update[
-                "keyPath": _primaryKeys(),
+                "keyPath": primaryKeys(),
                 "valuePath": _table.getDisplayField(),
                 "spacer": "_",
             ];
@@ -498,7 +498,7 @@ class DTreeBehavior : DBehavior {
      * @param DORMDatasource\IORMEntity node The node to remove from the tree
      */
     protected IORMEntity _removeFromTree(IORMEntity node) {
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         left = node.get(configuration.get("left"));
         right = node.get(configuration.get("right"));
         parent = node.get(configuration.get("parent"]);
@@ -509,7 +509,7 @@ class DTreeBehavior : DBehavior {
             return _table.save(node);
         }
 
-        primary = _primaryKeys();
+        primary = primaryKeys();
         _table.updateAll(
             [configuration.get("parent"]: parent],
             [configuration.get("parent"]: node.get(primary)]
@@ -558,7 +558,7 @@ class DTreeBehavior : DBehavior {
      * @param int|true number How many places to move the node, or true to move to first position
      */
     protected IORMEntity _moveUp(IORMEntity node, number) {
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         [parent, left, right] = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
         [nodeParent, nodeLeft, nodeRight] = array_values(node.extract([parent, left, right]));
 
@@ -644,7 +644,7 @@ class DTreeBehavior : DBehavior {
      * @param int|true number How many places to move the node, or true to move to last position
      */
     protected IORMEntity _moveDown(IORMEntity node, number) {
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         [parent, left, right] = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
         [nodeParent, nodeLeft, nodeRight] = array_values(node.extract([parent, left, right]));
 
@@ -708,9 +708,9 @@ class DTreeBehavior : DBehavior {
      * @param mixed id Record id.
      */
     protected IORMEntity _getNode(id) {
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         [parent, left, right] = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
-        primaryKeys = _primaryKeys();
+        primaryKeys = primaryKeys();
         fields = [parent, left, right];
         if (configuration.get("level"]) {
             fields ~= configuration.get("level"];
@@ -747,9 +747,9 @@ class DTreeBehavior : DBehavior {
      * @param int level Node level
      */
     protected int _recoverTree(int lftRght = 1, parentId = null, level = 0) {
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         [parent, left, right] = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
-        primaryKeys = _primaryKeys();
+        primaryKeys = primaryKeys();
         order = configuration.get("recoverOrder"] ?: primaryKeys;
 
         nodes = _scope(_table.query())
@@ -807,7 +807,7 @@ class DTreeBehavior : DBehavior {
      * modified by future calls to this function.
      */
     protected void _sync(int shift, string dir, string conditions, bool mark = false) {
-        myConfiguration = configuration;
+        auto configData = configuration.data;
 
         foreach ([configuration.get("leftField"), configuration.get("rightField")] as field) {
             query = _scope(_table.query());
@@ -858,14 +858,14 @@ class DTreeBehavior : DBehavior {
      * @param DORMDatasource\IORMEntity anEntity The entity to ensure fields for
      */
     protected void _ensureFields(IORMEntity anEntity) {
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         fields = [configuration.get("left"), configuration.get("right")];
         values = array_filter(entity.extract(fields));
         if (count(values) == count(fields)) {
             return;
         }
 
-        fresh = _table.get(entity.get(_primaryKeys()));
+        fresh = _table.get(entity.get(primaryKeys()));
         entity.set(fresh.extract(fields), ["guard": false.toJson]);
 
         foreach (fields as field) {
@@ -873,10 +873,8 @@ class DTreeBehavior : DBehavior {
         }
     }
 
-    /**
-     * Returns a single string value representing the primary key of the attached table
-     */
-    protected string _primaryKeys() {
+    // Returns a single string value representing the primary key of the attached table
+    protected string[] primaryKeys() {
         if (!_primaryKeys) {
             primaryKeys = (array)_table.primaryKeys();
             _primaryKeys = primaryKeys[0];
@@ -885,19 +883,14 @@ class DTreeBehavior : DBehavior {
         return _primaryKeys;
     }
 
-    /**
-     * Returns the depth level of a node in the tree.
-     *
-     * @param DORMDatasource\IORMEntity|string|int entity The entity or primary key get the level of.
-     * @return int|false Integer of the level or false if the node does not exist.
-     */
-    function getLevel(entity) {
-        primaryKeys = _primaryKeys();
+    // Returns the depth level of a node in the tree.
+    int getLevel(entity) {
+        primaryKeys = primaryKeys();
         id = entity;
         if (entity instanceof IORMEntity) {
             id = entity.get(primaryKeys);
         }
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         entity = _table.find("all")
             .select([configuration.get("left"), configuration.get("right")])
             .where([primaryKeys: id])

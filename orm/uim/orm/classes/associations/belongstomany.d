@@ -92,15 +92,9 @@ class DBelongsToManyAssociation : DAssociation {
         return _targetForeignKeys;
     }
 
-    /**
-     * Whether this association can be expressed directly in a query join
-     *
-     * @param Json[string] options custom options key that could alter the return value
-     * @return bool if the "matching" key in option is true then this function
-     * will return true, false otherwise
-     */
+    // Whether this association can be expressed directly in a query join
     bool canBeJoined(Json[string] optionData = null) {
-        return !options.isEmpty("matching"]);
+        return options.hasKey("matching");
     }
 
     // Gets the name of the field representing the foreign key to the source table.
@@ -787,20 +781,13 @@ class DBelongsToManyAssociation : DAssociation {
         return this;
     }
 
-    /**
-     * Sets the current join table, either the name of the Table instance or the instance itself.
-     *
-     * @param DORMTable|string through Name of the Table instance or the instance itself
-     */
-    void setThrough(through) {
+    // Sets the current join table, either the name of the Table instance or the instance itself.
+    DORMTable setThrough(through) {
         _through = through;
     }
 
-    /**
-     * Gets the current join table, either the name of the Table instance or the instance itself.
-     * @return DORMTable|string
-     */
-    function getThrough() {
+    // Gets the current join table, either the name of the Table instance or the instance itself.
+    DORMTable getThrough() {
         return _through;
     }
 
@@ -809,24 +796,20 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * Any string expressions, or expression objects will
      * also be returned in this list.
-     *
-     * @return array|\Closure|null Generally an array. If the conditions
-     *  are not an array, the association conditions will be
-     *  returned unmodified.
      */
-    protected function targetConditions() {
+    protected json[string] targetConditions() {
         if (_targetConditions != null) {
             return _targetConditions;
         }
 
         auto conditions = getConditions();
-        if (!(conditions.isArray) {
+        if (!conditions.isArray) {
             return conditions;
         }
         matching = null;
-        alias = this.aliasName() ~ ".";
+        auto aliasName = this.aliasName() ~ ".";
         foreach (conditions as field: value) {
-            if (field.isString && indexOf(field, alias) == 0) {
+            if (field.isString && indexOf(field, alialiasNameas) == 0) {
                 matching[field] = value;
             } elseif (is_int(field) || value instanceof IExpression) {
                 matching[field] = value;

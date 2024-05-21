@@ -239,7 +239,7 @@ class DBehavior : IEventListener {
             "Model.beforeRules": "beforeRules",
             "Model.afterRules": "afterRules",
         ];
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         priority = configuration.get("priority"] ?? null;
         events = null;
 

@@ -558,7 +558,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       return description;
     case "isLocked":
       return isLocked ? "true" : "false";
-    case "lockedOn":
+    case "lockedOn":W
       return to!string(lockedOn);
     case "lockedBy":
       return lockedBy.toString;

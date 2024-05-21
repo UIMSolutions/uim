@@ -220,12 +220,8 @@ interface IQuery {
      * the existing limit clause, and if that too is empty, then `25` will be used.
      *
      * Pages must start at 1.
-     * Params:
-     * int num The page number you want.
-     * @param int aLimit The number of rows you want in the page. If null
-     * the current limit clause will be used.
      */
-    void page(int num, int aLimit = null);
+    void page(int pageNumber, int numberOfRows = null);
 
     // Returns an array representation of the results after executing the query.
     Json[string] toDataArray();
@@ -233,8 +229,6 @@ interface IQuery {
     /**
      * Set the default Table object that will be used by this query
      * and form the `FROM` clause.
-     * Params:
-     * \UIM\Datasource\IRepository repository The default repository object to use
      */
     void setRepository(IRepository repository);
 

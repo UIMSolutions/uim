@@ -756,9 +756,6 @@ interface ICollection {
      * return service.fetchPage(page).toJString();
      * });
      * ```
-     *
-     * @param callable|null callback A callable // function that will receive each of
-     * the items in the collection and should return an array or Traversable object
      */
     ICollection unfold(callable callback = null);
 

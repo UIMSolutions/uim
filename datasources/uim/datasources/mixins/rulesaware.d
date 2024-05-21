@@ -15,22 +15,17 @@ import uim.datasources;
  * if they need to customize which class is used for rules objects.
  */
 mixin template TRulesAware() {
-    /*
     // The domain rules to be applied to entities saved by this table
     protected DRulesChecker _rulesChecker = null;
 
     /**
      * Returns whether the passed entity complies with all the rules stored in
      * the rules checker.
-     * Params:
-     * \UIM\Datasource\IDatasourceEntity entity The entity to check for validity.
-     * @param string aoperation The operation being run. Either 'create", "update' or 'delete'.
-     * @param \ArrayObject<string, mixed>|array|null options The options To be passed to the rules.
      */
    bool checkRules(
         IDatasourceEntity entity,
         string operationToRun = RulesChecker.CREATE,
-        ArrayObject[] ruleOptions = null
+        Json[string] ruleOptions = null
     ) {
         auto rules = this.rulesChecker();
         ruleOptions = ruleOptions ?: new ArrayObject();

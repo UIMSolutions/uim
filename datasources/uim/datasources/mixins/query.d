@@ -316,7 +316,7 @@ mixin template TQuery() {
      * Retaining access to the association target query instance of joined associations,
      * by inheriting the contain callback"s query argument:
      *
-     */ Assuming a `Articles belongsTo Authors` association that uses the join strategy
+     * Assuming a `Articles belongsTo Authors` association that uses the join strategy
      *
      * articlesQuery.contain("Authors", function (authorsQuery) {
      *    return authorsQuery.formatResults(function (results, query) use (authorsQuery) {
@@ -333,11 +333,8 @@ mixin template TQuery() {
      *        return results;
      *    });
      * });
-     *
-     * @param callable|null formatter The formatting callable.
-     * @param int|bool mode Whether to overwrite, append or prepend the formatter.
      */
-    void formatResults(callable formatter = null, mode = self.APPEND) {
+    void formatResults(callable formatter = null, int mode = self.APPEND) {
         if (mode == self.OVERWRITE) {
             _formatters = null;
         }

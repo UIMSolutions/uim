@@ -62,11 +62,8 @@ class DConnectionManager {
      * Configure a new connection object.
      *
      * The connection will not be constructed until it is first used.
-     * Params:
-     * Json[string]|string aKey The name of the connection config, or an array of multiple configs.
-     * @param \UIM\Datasource\IConnection|\Closure|Json[string]|null configData An array of name: config data for adapter.
      */
-    static void configuration.update(string[] aKey, /* IConnection | Closure */ | array | null configData = null) {
+    static void configuration.update(string[] aKey, /* IConnection | Closure */ Json[string] configData = null) {
         if (isArray(configData)) {
             configuration.get("name", aKey);
         }

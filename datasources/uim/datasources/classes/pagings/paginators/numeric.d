@@ -297,12 +297,7 @@ class DNumericPaginator : IPaginator {
         return pagingParams;
     }
 
-    /**
-     * Add "prevPage" and "nextPage" params.
-     *
-     * @param Json[string] paginatorData Paginator paginatorData.
-     * @param Json[string] pagingData Paging pagingData.
-     */
+    // Add "prevPage" and "nextPage" params.
     protected Json[string] addPrevNextParams(Json[string] paginatorData, Json[string] pagingData) {
         paginatorData["prevPage"] = paginatorData["page"] > 1;
         paginatorData["nextPage"] = paginatorData["count"] == null

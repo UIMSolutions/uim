@@ -68,10 +68,6 @@ interface IRepository {
      * Sets the fields to the provided values based on conditions.
      * This method will *not* trigger beforeSave/afterSave events. If you need those
      * first load a collection of records and update them.
-     * Params:
-     * \Closure|string[] fieldNames A hash of field: new value.
-     * @param \Closure|string[] conditions Conditions to be used, accepts anything Query.where()
-     * can take.
      */
     int updateAll(/* Closure */ string[] fieldNames,/* IClosure */ string[] conditions);
 

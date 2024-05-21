@@ -97,9 +97,8 @@ class DQueryExpression : DExpression { // }, Countable {
      * @param string type the type name for aValue as configured using the Type map.
      */
     auto gt(/* IExpression| */ string fieldName, Json valueToBound, string valueType = null) {
-        valueType ? valueType : _calculateType(fieldName);
-
-        return _add(new DComparisonExpression(fieldName, valueToBound, valueType, ">"));
+        return _add(new DComparisonExpression(fieldName, valueToBound, 
+        valueType.ifEmpty(_calculateType(fieldName)), ">"));
     }
     
     /**
@@ -238,23 +237,16 @@ class DQueryExpression : DExpression { // }, Countable {
         return _add(new DComparisonExpression(fieldName,  valuesToBound, valueType, "NOT IN"));
     }
     
-    /**
-     * Adds a new condition to the expression object in the form
-     * "(field NOT IN (value1, value2) OR field isNull".
-     * Params:
-     * \UIM\Database\/* IExpression| */ string fieldName Database field to be compared against value
-     * @param \UIM\Database\/* IExpression| */ string[] avalues the value to be bound to field for comparison
-     * @param string valueType the valueType name for aValue as configured using the Type map.
-     */
+    // Adds a new condition to the expression object in the form "(field NOT IN (value1, value2) OR field isNull".
     auto notInOrNull(
         /* IExpression| */ string fieldName,
-        /* IExpression| */ string[] avalues,
-        string atype = null
+        /* IExpression| */ string[] valuesToBound,
+        string valueType = null
     ) {
-         or = new static([], [], "OR");
+         auto or = new static([], [], "OR");
          or
-            .notIn(field,  someValues, valueType)
-            .isNull(field);
+            .notIn(fieldName,  valuesToBound, valueType)
+            .isNull(fieldName);
 
         return _add(or);
     }

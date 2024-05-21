@@ -1081,10 +1081,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param string finder The finder method to use.
      * @param Json[string] options The options for the finder.
-     * @return static Returns a modified query.
-     * @psalm-suppress MoreSpecificReturnType
      */
-    function find(string finder, Json[string] optionData = null) {
+    static auto  find(string finder, Json[string] optionData = null) {
         table = getRepository();
 
         /** @psalm-suppress LessSpecificReturnStatement */
@@ -1123,11 +1121,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * This changes the query type to be "delete".
      * Can be combined with the where() method to create delete queries.
-     *
-     * @param string table Unused parameter.
-     * @return this
      */
-    function remove(string table = null) {
+    auto  remove(string tableName = null) {
         repository = getRepository();
         this.from([repository.aliasName(): repository.getTable()]);
 

@@ -85,7 +85,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * in before find - so create/modify it there.
      */
     protected void setupAssociations() {
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         targetAlias = this.translationTable.aliasName();
         this.table.hasMany(targetAlias, [
                 "className": configuration.get("translationTable"),
@@ -107,7 +107,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      */
     void beforeFind(IEvent event, Query query, ArrayObject options) {
         locale = Hash.get(options, "locale", locale());
-        myConfiguration = configuration;
+        auto configData = configuration.data;
         if (
             locale == configuration.get("defaultLocale")) {
             return;
@@ -141,7 +141,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      */
         protected void setupHasOneAssociation(
             string locale, ArrayObject options) {
-            myConfiguration = configuration;
+            auto configData = configuration.data;
             [plugin] = pluginSplit(
                 configuration.get(
                     "translationTable"));

@@ -28,11 +28,10 @@ abstract class DTestCase : DBaseTestCase {
      * Overrides SimpleTestCase.skipIf to provide a boolean return value
      * Params:
      * bool myshouldSkip Whether the test should be skipped.
-     * @param string mymessage The message to display.
      */
-   bool skipIf(bool myshouldSkip, string mymessage = null) {
+   bool skipIf(bool myshouldSkip, string messageToDisplay = null) {
         if (myshouldSkip) {
-            this.markTestSkipped(mymessage);
+            this.markTestSkipped(messageToDisplay);
         }
         return myshouldSkip;
     }
@@ -90,11 +89,7 @@ abstract class DTestCase : DBaseTestCase {
         return _capturedError;
     }
     
-    /**
-     * Helper method for check deprecation methods
-     * Params:
-     * \Closure mycallable callable auto that will receive asserts
-     */
+    // Helper method for check deprecation methods
     void deprecated(Closure mycallable) {
         auto myduplicate = configuration.get("Error.allowDuplicateDeprecations");
         Configuration.update("Error.allowDuplicateDeprecations", true);

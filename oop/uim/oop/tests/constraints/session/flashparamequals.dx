@@ -24,10 +24,10 @@ class DFlashParamEquals : DConstraint {
      * Params:
      * \UIM\Http\Session|null session Session
      * @param string aKey Flash key
-     * @param string aparam Param to check
+     * @param string paramToCheck Param to check
      * @param int at Expected index
      */
-    this(ISession session, string aKey, string aparam, int at = null) {
+    this(ISession session, string aKey, string paramToCheck, int at = null) {
         if (!session) {
             string message = "There is no stored session data. Perhaps you need to run a request?";
             message ~= " Additionally, ensure `this.enableRetainFlashMessages()` has been enabled for the test.";
@@ -35,16 +35,12 @@ class DFlashParamEquals : DConstraint {
         }
         this.session = session;
         this.key = aKey;
-        this.param = param;
+        this.param = paramToCheck;
         this.at = at;
     }
     
-    /**
-     * Compare to flash message(s)
-     * Params:
-     * Json other Value to compare with
-     */
-   bool matches(Json expectedOther) {
+    // Compare to flash message(s)
+   bool matches(Json valueToCompare) {
         // Server.run calls Session.close at the end of the request.
         // Which means, that we cannot use Session object here to access the session data.
         // Call to Session.read will start new session (and will erase the data).
@@ -58,7 +54,7 @@ class DFlashParamEquals : DConstraint {
             if (!message.isSet(this.param)) {
                 continue;
             }
-            if (message[this.param] == other) {
+            if (message[this.param] == ovalueToComparether) {
                 return true;
             }
         }

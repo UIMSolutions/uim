@@ -31,5 +31,5 @@ interface IPaginated { // : Countable, Traversable {
     Json[string] pagingParam(string aName);
 
     // Get all paging params.
-    Json[string] pagingParams();
+    Json[string] pagingData();
 }

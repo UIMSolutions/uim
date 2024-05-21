@@ -28,13 +28,12 @@ class DSchemaLoader {
      * Load and apply schema sql file, or an array of files.
      * Params:
      * string[]|string aPaths Schema files to load
-     * @param string aconnectionName Connection name
-     * @param bool dropTables Drop all tables prior to loading schema files
+     * @param bool shouldDropTables Drop all tables prior to loading schema files
      */
     void loadSqlFiles(
         string[] aPaths,
-        string aconnectionName = "test",
-        bool dropTables = true,
+        string connectionName = "test",
+        bool shouldDropTables = true,
         bool truncateTables = false
     ) {
         files = (array)somePaths;
@@ -43,23 +42,24 @@ class DSchemaLoader {
         if (isSet(GLOBALS["__DUNIT_BOOTSTRAP"])) {
             return;
         }
-        if (dropTables) {
+        if (shouldDropTables) {
             this.helper.dropTables(aConnectionName);
         }
         /** @var \UIM\Database\Connection aConnection */
         aConnection = ConnectionManager.get(aConnectionName);
-        files.each!((file) {
-            if (!fileExists(file)) {
+        files.each!((schemaFile) {
+            if (!fileExists(schemaFile)) {
                 throw new DInvalidArgumentException(
-                    "Unable to load SQL file `%s`.".format(file));
+                    "Unable to load SQL file `%s`.".format(schemaFile));
             }
-            sql = file_get_contents(file);
+            
+            auto sql = file_get_contents(schemaFile);
             if (sql == false) {
-                throw new UimException("Cannot read file content of `%s`".format(file));
+                throw new UimException("Cannot read file content of `%s`".format(schemaFile));
             }
             // Use the underlying PDO connection so we can avoid prepared statements
             // which don"t support multiple queries in postgres.
-            driver = aConnection.getDriver();
+            auto driver = aConnection.getDriver();
             driver.exec(sql);
         });
         
@@ -117,10 +117,10 @@ class DSchemaLoader {
      *
      * A more complete example can be found in `tests/schema.d`.
      * Params:
-     * string afile Schema file
+     * string schemaFile Schema file
      * @param string aconnectionName Connection name
      */
-    void loadInternalFile(string afile, string aconnectionName = "test") {
+    void loadInternalFile(string schemaFile, string aconnectionName = "test") {
         // Don"t reload schema when we are in a separate process state.
         if (isSet(GLOBALS["__DUNIT_BOOTSTRAP"])) {
             return;

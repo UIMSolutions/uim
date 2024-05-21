@@ -348,7 +348,7 @@ class DNumericPaginator : IPaginator {
     }
 
     // Get paging params after pagination operation.
-    Json[string] pagingParams() {
+    Json[string] pagingData() {
         return _pagingParams;
     }
 

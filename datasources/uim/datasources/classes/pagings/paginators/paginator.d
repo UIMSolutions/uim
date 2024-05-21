@@ -252,43 +252,42 @@ class DPaginator : IPaginator {
      * Add "page" and "pageCount" params.
      *
      * @param Json[string] pagingParams Paging params.
-     * @param Json[string] myData Paginator data.
      */
-    protected Json[string] addPageCountParams(Json[string] pagingParams, Json[string] myData) {
-        page = pagingParams["page"];
-        pageCount = 0;
+    protected Json[string] addPageCountParams(Json[string] pagingData, Json[string] paginatorData) {
+        auto page = pagingData["page"];
+        auto pageCount = 0;
 
-        if (pagingParams["count"] !== null) {
-            pageCount = max((int)ceil(pagingParams["count"] / pagingParams["perPage"]), 1);
+        if (!pagingData.isNull("count")) {
+            pageCount = max((int)ceil(pagingData["count"] / pagingData["perPage"]), 1);
             page = min(page, pageCount);
-        } elseif (pagingParams["current"] == 0 && pagingParams["requestedPage"] > 1) {
+        } elseif (pagingData["current"] == 0 && pagingData["requestedPage"] > 1) {
             page = 1;
         }
 
-        pagingParams["page"] = page;
-        pagingParams["pageCount"] = pageCount;
+        pagingData["page"] = page;
+        pagingData["pageCount"] = pageCount;
 
-        return pagingParams;
+        return pagingData;
     }
 
     /**
      * Add "start" and "end" params.
      *
-     * @param Json[string] pagingParams Paging params.
+     * @param Json[string] pagingData Paging params.
      * @param Json[string] myData Paginator data.
      */
-    protected Json[string] addStartEndParams(Json[string] pagingParams, Json[string] myData) {
+    protected Json[string] addStartEndParams(Json[string] pagingData, Json[string] myData) {
         start = end = 0;
 
-        if (pagingParams["current"] > 0) {
-            start = ((pagingParams["page"] - 1) * pagingParams["perPage"]) + 1;
-            end = start + pagingParams["current"] - 1;
+        if (pagingData["current"] > 0) {
+            start = ((pagingData["page"] - 1) * pagingData["perPage"]) + 1;
+            end = start + pagingData["current"] - 1;
         }
 
-        pagingParams["start"] = start;
-        pagingParams["end"] = end;
+        pagingData["start"] = start;
+        pagingData["end"] = end;
 
-        return pagingParams;
+        return pagingData;
     }
 
     // Add "prevPage" and "nextPage" params.
@@ -339,7 +338,7 @@ class DPaginator : IPaginator {
     }
 
     // Get paging params after pagination operation.
-    Json[string] pagingParams() {
+    Json[string] pagingData() {
         return _pagingParams;
     }
 

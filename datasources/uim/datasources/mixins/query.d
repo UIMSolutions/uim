@@ -402,28 +402,23 @@ mixin template TQuery() {
         return _options;
     }
 
-    /**
-     * Enables calling methods from the result set as if they were from this class
-     *
-     * @param string method the method to call
-     * @param Json[string] arguments list of arguments for the method to call
-     */
-    Json __call(string method, Json[string] arguments) {
+    // Enables calling methods from the result set as if they were from this class
+    Json __call(string methodName, Json[string] methodArguments) {
         resultSetClass = _decoratorClass();
-        if (hasAllValues(method, get_class_methods(resultSetClass), true)) {
+        if (hasAllValues(methodName, get_class_methods(resultSetClass), true)) {
             deprecationWarning(format(
                 "Calling `%s` methods, such as `%s()`, on queries is deprecated~ " ~
                 "You must call `all()` first (for example, `all().%s()`).",
                 IResultset.class,
-                method,
-                method,
+                methodName,
+                methodName,
             ), 2);
             results = this.all();
 
-            return results.method(...arguments);
+            return results.method(...methodArguments);
         }
         throw new BadMethodCallException(
-            "Unknown method '%s'".format(method)
+            "Unknown method '%s'".format(methodName)
         );
     }
 

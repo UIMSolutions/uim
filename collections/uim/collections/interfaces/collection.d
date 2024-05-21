@@ -943,10 +943,6 @@ interface ICollection {
      *    ["C", 3],
      * ];
      * ```
-     *
-     * @param callable|null  operation A callable that allows you to customize the product result.
-     * @param callable|null filter A filtering callback that must return true for a result to be part
-     *  of the final results.
      */
     ICollection cartesianProduct(callable operation = null, callable filter = null);
 }

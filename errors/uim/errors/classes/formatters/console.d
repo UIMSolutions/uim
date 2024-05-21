@@ -109,18 +109,18 @@ class DConsoleFormatter : IErrorFormatter {
      * Export an array type object
      * Params:
      * \UIM\Error\Debug\ArrayNode var The array to export.
-     * @param int anIndent The current indentation level.
+     * @param int indentLevel The current indentation level.
      */
     protected string exportArray(ArrayNode arrayToExport, int indentLevel) {
          result = this.style("punct", "[");
-        break = "\n" ~ str_repeat("  ",  anIndent);
-        end = "\n" ~ str_repeat("  ",  anIndent - 1);
+        break = "\n" ~ str_repeat("  ",  indentLevel);
+        end = "\n" ~ str_repeat("  ",  indentLevel - 1);
         vars = null;
 
         auto arrow = this.style("punct", ": ");
         arrayToExport.getChildren().each!((item) {
             auto val = item.getValue();
-            vars ~= break ~ this.export_(item.getKey(),  anIndent) ~ arrow ~ this.export_(val,  anIndent);
+            vars ~= break ~ this.export_(item.getKey(),  indentLevel) ~ arrow ~ this.export_(val,  indentLevel);
         });
 
         auto close = this.style("punct", "]");
@@ -134,7 +134,7 @@ class DConsoleFormatter : IErrorFormatter {
      * Handles object to string conversion.
      * Params:
      * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\ReferenceNode var Object to convert.
-     * @param int anIndent Current indentation level.
+     * @param int indentLevel Current indentation level.
      */
     protected string exportObject(ClassNode|ReferenceNode var, int indentLevel) {
         props = null;
@@ -152,8 +152,8 @@ class DConsoleFormatter : IErrorFormatter {
             this.style("number", (string)var.getId()) ~
             this.style("punct", " {");
 
-        break = "\n" ~ str_repeat("  ",  anIndent);
-        end = "\n" ~ str_repeat("  ",  anIndent - 1) ~ this.style("punct", "}");
+        break = "\n" ~ str_repeat("  ",  indentLevel);
+        end = "\n" ~ str_repeat("  ",  indentLevel - 1) ~ this.style("punct", "}");
 
         arrow = this.style("punct", ": ");
         foreach (aProperty; var.getChildren()) {
@@ -163,9 +163,9 @@ class DConsoleFormatter : IErrorFormatter {
             props ~= visibility && visibility != "public" 
                 ? this.style("visibility", visibility) ~ " " ~
                 this.style("property", name) ~ arrow ~
-                this.export_(aProperty.getValue(),  anIndent)
+                this.export_(aProperty.getValue(),  indentLevel)
                 : this.style("property", name) ~  arrow ~
-                this.export_(aProperty.getValue(),  anIndent);
+                this.export_(aProperty.getValue(),  indentLevel);
         }
         if (count(props)) {
             return result ~ break ~ join(break, props) ~ end;

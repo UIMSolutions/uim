@@ -403,27 +403,25 @@ class DNumericPaginator : IPaginator {
     /**
      * Get the settings for a model. If there are no settings for a specific
      * repository, the general settings will be used.
-     *
-     * @param string aliasName Model name to get settings for.
      * @param Json[string] settings The settings which is used for combining.
      */
-    Json[string] getDefaults(string aliasName, Json[string] settings) {
-        if (isset(settings[alias])) {
-            settings = settings[alias];
+    Json[string] getDefaults(string aliasName, Json[string] settingData) {
+        if (isset(settingData[aliasName])) {
+            settingData = settingData[aliasName];
         }
 
         auto defaultData = this.configuration.data;
         defaultData["whitelist"] = defaultData["allowedParameters"] = getAllowedParameters();
 
-        maxLimit = settings["maxLimit"] ?  ? defaultData["maxLimit"];
-        limit = settings["limit"] ?  ? defaultData["limit"];
+        maxLimit = settingData["maxLimit"] ?  ? defaultData["maxLimit"];
+        limit = settingData["limit"] ?  ? defaultData["limit"];
 
         if (limit > maxLimit) {
             limit = maxLimit;
         }
 
-        settings["maxLimit"] = maxLimit;
-        settings["limit"] = limit;
+        settingData["maxLimit"] = maxLimit;
+        settingData["limit"] = limit;
         return settings + defaultData;
     }
 

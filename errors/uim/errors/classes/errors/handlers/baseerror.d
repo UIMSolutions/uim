@@ -65,14 +65,10 @@ abstract class DERRErrorHandler {
      *
      * Subclasses should implement this method to display an uncaught exception as
      * desired for the runtime they operate in.
-     *
-     * @param \Throwable exception The uncaught exception.
      */
     abstract protected void _displayException(Throwable exception);
 
-    /**
-     * Register the error and exception handlers.
-     */
+    // Register the error and exception handlers.
     void register() {
         deprecationWarning(
             "Use of `DERRErrorHandler` and subclasses are deprecated~ " ~

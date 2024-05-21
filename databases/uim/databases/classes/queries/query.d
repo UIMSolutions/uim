@@ -547,26 +547,18 @@ abstract class DQuery : IQuery { // : IExpression {
      * @param STRINGAA types a list of types associated to the conditions used for converting
      * values to the corresponding database representation.
      */
-    auto innerJoin(
+    void innerJoin(
         string[] tableNames,
-        /* IExpression|Closure */string[] aconditions = null,
+        /* IExpression|Closure */string[] conditionsForJoining = null,
         Json[string] types = null
     ) {
-        join(_makeJoin(tableNames, conditions, JOIN_TYPE_INNER), types);
-
-        return this;
+        join(_makeJoin(tableNames, conditionsForJoining, JOIN_TYPE_INNER), types);
     }
     
-    /**
-     * Returns an array that can be passed to the join method describing a single join clause
-     * Params:
-     * Json[string]|string atable The table to join with
-     * @param \UIM\Database\IExpression|\Closure|string[] aconditions The conditions
-     * to use for joining.
-     */
+    // Returns an array that can be passed to the join method describing a single join clause
     protected Json[string] _makeJoin(
         string[] tableNames,
-        /* /* IExpression|Closure */ */ string[] aconditions,
+        /* IExpression|Closure */ string[] conditionsForJoin,
         string joinType
     ) {
         string tableAlias = tableNames;
@@ -579,7 +571,7 @@ abstract class DQuery : IQuery { // : IExpression {
         return [
             tableAlias: [
                 "table": tableToJoin,
-                "conditions": conditions,
+                "conditions": conditionsForJoin,
                 "type": joinType,
             ],
         ];

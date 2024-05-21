@@ -112,14 +112,14 @@ class DQueryExpression : DExpression { // }, Countable {
     
     // Adds a new condition to the expression object in the form "field >= value".
     auto gte(/* IExpression| */ string fieldName, Json valueToBound, string valueType = null) {
-        valueType ? valueType : _calculateType(fieldName);
+        valueType = valueType.ifEmpty(_calculateType(fieldName));
 
         return _add(new DComparisonExpression(fieldName, valueToBound, valueType, ">="));
     }
     
     // Adds a new condition to the expression object in the form "field <= value".
     auto lte(/* IExpression| */ string fieldName, Json valueToBound, string valueType = null) {
-        type ??= _calculateType(fieldName);
+        valueType = valueType.ifEmpty(_calculateType(fieldName));
 
         return _add(new DComparisonExpression(fieldName, valueToBound, valueType, "<="));
     }
@@ -151,7 +151,7 @@ class DQueryExpression : DExpression { // }, Countable {
     
     //  Adds a new condition to the expression object in the form "field LIKE value".
     auto like(/* IExpression| */ string fieldName, Json valueToBound, string valueType = null) {
-        type ??= _calculateType(field);
+        valueType = valueType.ifEmpty(_calculateType(field));
 
         return _add(new DComparisonExpression(field, valueToBound, valueType, "LIKE"));
     }
@@ -159,14 +159,13 @@ class DQueryExpression : DExpression { // }, Countable {
     /**
      * Adds a new condition to the expression object in the form "field NOT LIKE value".
      * Params:
-     * \UIM\Database\/* IExpression| */ string fieldName Database field to be compared against value
      * @param Json aValue The value to be bound to field for comparison
      * @param string type the type name for aValue as configured using the Type map.
      */
-    auto notLike(/* IExpression| */ string fieldName, Json aValue, string atype = null) {
-        type ??= _calculateType(field);
+    auto notLike(/* IExpression| */ string fieldName, Json valueToBound, string atype = null) {
+        valueType = valueType.ifEmpty(_calculateType(fieldName));
 
-        return _add(new DComparisonExpression(field, aValue, type, "NOT LIKE"));
+        return _add(new DComparisonExpression(fieldName, valueToBound, valueType, "NOT LIKE"));
     }
     
     /**

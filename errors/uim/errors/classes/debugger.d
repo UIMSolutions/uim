@@ -370,10 +370,10 @@ class DDebugger {
      * applied.
      * Params:
      * string afile Absolute path to a D file.
-     * @param int line Line number to highlight.
-     * @param int context Number of lines of context to extract above and below line.
+     * @param int lineToHighlight Line number to highlight.
+     * @param int context Number of lines of context to extract above and below lineToHighlight.
      */
-    static string[] excerpt(string afile, int line, int context = 2) {
+    static string[] excerpt(string afile, int lineToHighlight, int context = 2) {
         lines = null;
         if (!fileExists(file)) {
             return null;
@@ -385,18 +385,18 @@ class DDebugger {
         if (someData.has("\n")) {
             string[] someData = someData.split("\n");
         }
-        line--;
-        if (!isSet(someData[line])) {
+        lineToHighlight--;
+        if (!isSet(someData[lineToHighlight])) {
             return lines;
         }
-        for (anI = line - context;  anI < line + context + 1;  anI++) {
+        for (anI = lineToHighlight - context;  anI < lineToHighlight + context + 1;  anI++) {
             if (!isSet(someData[anI])) {
                 continue;
             }
-            string line = .replace(["\r\n", "\n"], "", _highlight(someData[anI]));
-            lines ~= anI == line
+            string lineToHighlight = .replace(["\r\n", "\n"], "", _highlight(someData[anI]));
+            lines ~= anI == lineToHighlight
                 ? "<span class="code-highlight">" ~ string ~ "</span>"
-                : line;
+                : lineToHighlight;
         }
         return lines;
     }
@@ -657,35 +657,25 @@ class DDebugger {
         }
     }
     
-    /**
-     * Prints out debug information about given variable.
-     * Params:
-     * Json var Variable to show debug information for.
-     * @param Json[string] location If contains keys "file" and "line" their values will
-     *  be used to show location info.
-     * @param bool|null showHtml If set to true, the method prints the debug
-     *  data encoded as HTML. If false, plain text formatting will be used.
-     *  If null, the format will be chosen based on the configured exportFormatter, or
-     *  environment conditions.
-     */
-    static void printVar(Json var, Json[string] location = null, bool showHtml = null) {
-        auto location ~= ["file": Json(null), "line": Json(null)];
-        if (location["file"]) {
-            location["file"] = trimPath((string)location["file"]);
+    // Prints out debug information about given variable.
+    static void printVar(Json debugValue, Json[string] locationData = null, string showHtml = null) {
+        auto locationData ~= ["file": Json(null), "line": Json(null)];
+        if (locationData["file"]) {
+            locationData["file"] = trimPath((string)locationData["file"]);
         }
         debugger = getInstance();
         restore = null;
         if (!showHtml.isNull) {
             restore = debugger.configuration.get("exportFormatter");
-            debugger.configuration.set("exportFormatter", showHtml ? HtmlFormatter.classname : TextFormatter.classname);
+            debugger.configuration.set("exportFormatter", showHtml == "true" ? HtmlFormatter.classname : TextFormatter.classname);
         }
-        contents = exportVar(var, 25);
+        contents = exportVar(debugValue, 25);
         formatter = debugger.getExportFormatter();
 
         if (restore) {
             debugger.setConfig("exportFormatter", restore);
         }
-        writeln(formatter.formatWrapper(contents, location));
+        writeln(formatter.formatWrapper(contents, locationData));
     }
     
     /**
@@ -696,8 +686,6 @@ class DDebugger {
      * - HTML escape the message.
      * - Convert `bool` into `<code>bool</code>`
      * - Convert newlines into `<br>`
-     * Params:
-     * string messageToFormat The string message to format.
      */
     static string formatHtmlMessage(string messageToFormat) {
         string message = htmlAttributeEscape(messageToFormat);

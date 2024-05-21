@@ -86,7 +86,6 @@ class DHasManyAssociation : DAssociation {
      * @param DORMDatasource\IORMEntity anEntity an entity from the source table
      * @param Json[string] options options to be passed to the save method in the target table
      * the saved entity
-     * @throws \InvalidArgumentException when the association data cannot be traversed.
      */
     IORMEntity saveAssociated(IORMEntity anEntity, Json[string] options = null) {
         myTargetEntities = entity.get(getProperty());

@@ -183,9 +183,6 @@ abstract class DERRErrorHandler {
      *
      * Uses a template method provided by subclasses to display errors in an
      * environment appropriate way.
-     *
-     * @param \Throwable exception Exception instance.
-     * @throws \Exception When renderer class not found
      */
     void handleException(Throwable exception) {
         _displayException(exception);

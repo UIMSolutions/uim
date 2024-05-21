@@ -487,7 +487,6 @@ class DBelongsToManyAssociation : DAssociation {
      * Sets the strategy that should be used for saving.
      *
      * @param string strategy the strategy name to be used
-     * @throws \InvalidArgumentException if an invalid strategy name is passed
      */
      void setSaveStrategy(string strategy) {
         if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
@@ -520,12 +519,8 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param DORMDatasource\IORMEntity anEntity an entity from the source table
      * @param Json[string] options options to be passed to the save method in the target table
-     * @throws \InvalidArgumentException if the property representing the association
-     * in the parent entity cannot be traversed
-     * @return DORMDatasource\IORMEntity|false false if entity could not be saved, otherwise it returns
-     * the saved entity
      */
-    function saveAssociated(IORMEntity anEntity, Json[string] optionData = null) {
+    IORMEntity saveAssociated(IORMEntity anEntity, Json[string] optionData = null) {
         targetEntity = entity.get(getProperty());
         strategy = getSaveStrategy();
 
@@ -557,12 +552,10 @@ class DBelongsToManyAssociation : DAssociation {
      * @param Json[string] entities list of entities to persist in target table and to
      * link to the parent entity
      * @param Json[string] options list of options accepted by `Table.save()`
-     * @throws \InvalidArgumentException if the property representing the association
-     * in the parent entity cannot be traversed
      */
     protected IORMEntity _saveTarget(IORMEntity parentEntity, Json[string] entities, options) {
         joinAssociations = false;
-        if (isset(options["associated"]) && (options["associated"].isArray) {
+        if (isset(options["associated"]) && options["associated"].isArray) {
             if (!options.isEmpty("associated"][_junctionProperty]["associated"])) {
                 joinAssociations = options["associated"][_junctionProperty]["associated"];
             }
@@ -740,8 +733,6 @@ class DBelongsToManyAssociation : DAssociation {
      *  this association.
      * @param string[]|bool options List of options to be passed to the internal `delete` call,
      *  or a `boolean` as `cleanProperty` key shortcut.
-     * @throws \InvalidArgumentException If non persisted entities are passed or if
-     *  any of them is lacking a primary key value.
      */
     bool unlink(IORMEntity sourceEntity, Json[string] targetEntities, options = null) {
         if (is_bool(options)) {
@@ -980,8 +971,6 @@ class DBelongsToManyAssociation : DAssociation {
      * @param Json[string] targetEntities list of entities from the target table to be linked
      * @param Json[string] options list of options to be passed to the internal `save`/`delete` calls
      *  when persisting/updating new links, or deleting existing ones
-     * @throws \InvalidArgumentException if non persisted entities are passed or if
-     *  any of them is lacking a primary key value
      */
     bool replaceLinks(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] optionData = null) {
         bindingKey = (array)getBindingKey();
@@ -1175,16 +1164,14 @@ class DBelongsToManyAssociation : DAssociation {
      *  of this association.
      * @param Json[string] targetEntities The rows belonging to the target side of this
      *  association.
-     * @throws \InvalidArgumentException if any of the entities is lacking a primary
-     *  key value
-     * @return array<DORMDatasource\IORMEntity>
+     * @return array<DORMDatasource\>
      */
-    protected Json[string] _collectJointEntities(IORMEntity sourceEntity, Json[string] targetEntities) {
-        target = getTarget();
-        source = source();
-        junction = this.junction();
-        jointProperty = _junctionProperty;
-        primary = (array)target.primaryKeys();
+    protected IORMEntity[] _collectJointEntities(IORMEntity sourceEntity, Json[string] targetEntities) {
+        auto target = getTarget();
+        auto source = source();
+        auto junction = this.junction();
+        auto jointProperty = _junctionProperty;
+        auto primary = (array)target.primaryKeys();
 
         result = null;
         missing = null;

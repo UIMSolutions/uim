@@ -132,7 +132,6 @@ class DDateTimeWidget : DWidget {
      * Params:
      * \UIM\Chronos\DChronosDate|\UIM\Chronos\ChronosTime|\Jsonmyvalue Value to deconstruct.
      * @param Json[string] options Options for conversion.
-     * @throws \InvalidArgumentException If invalid input type is passed.
      */
     protected string formatDateTime(
         DChronosDate|ChronosTime|Jsonmyvalue,

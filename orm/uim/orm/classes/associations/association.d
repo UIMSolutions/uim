@@ -483,7 +483,6 @@ class DAssociation : IAssociation {
      *
      * @param DORMQuery query the query to be altered to include the target table data
      * @param Json[string] options Any extra options or overrides to be taken in account
-     * @throws \RuntimeException Unable to build the query or associations.
      */
     void attachTo(Query query, Json[string] optionData = null) {
         target = getTarget();

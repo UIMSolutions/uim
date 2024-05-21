@@ -8,7 +8,7 @@ import uim.datasources;
  * The basis for every query object
  *
  * @method this andWhere(conditions, Json[string] types = null) Connects any previously defined set of conditions to the
- * provided list using the AND operator. {@see \UIM\Database\Query.andWhere()}
+ * provided list using the AND operator. 
  * @method \UIM\Datasource\IDatasourceEntity|array firstOrFail() Get the first result from the executing query or raise an exception.
  */
 interface IQuery {

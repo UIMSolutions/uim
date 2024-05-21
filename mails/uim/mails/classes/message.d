@@ -906,7 +906,6 @@ class DMessage { //: JsonSerializable {
      * Add attachments
      * Params:
      * Json[string] attachments Array of filenames.
-     * @throws \InvalidArgumentException
      */
     void addAttachments(Json[string] attachments) {
         current = this.attachments;

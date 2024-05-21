@@ -208,7 +208,6 @@ mixin template TInstanceConfig() {
      * Deletes a single config key.
      * Params:
      * string keyToDelete Key to delete.
-     * @throws \UIM\Core\Exception\UimException if attempting to clobber existing config
      */
     protected void _configDelete(string keyToDelete) {
         if (!keyToDelete.has(".")) {

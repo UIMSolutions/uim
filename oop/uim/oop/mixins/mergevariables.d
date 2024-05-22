@@ -13,11 +13,8 @@ mixin template TMergeVariables() {
      *
      * - `associative` - A list of properties that should be treated as associative arrays.
      * Properties in this list will be passed through Hash.normalize() before merging.
-     * Params:
-     * string[] myproperties An array of properties and the merge strategy for them.
-     * @param Json[string] options The options to use when merging properties.
      */
-  protected void _mergeVars(string[] someProperties, Json[string] propertiesToMerge = null) {
+  protected void _mergeVars(string[] properties, Json[string] propertiesToMerge = null) {
     auto myclass = static.class;
     auto myparents = null;
     while (true) {
@@ -28,14 +25,15 @@ mixin template TMergeVariables() {
       myparents ~= myparent;
       myclass = myparent;
     }
-    someProperties
+    properties
       .filter!(property => property_exists(this, aProperty))
       .each!((property) { 
-        mythisValue = this. {property};
+        // TODO
+        /* auto mythisValue = this. {property};
         if (mythisValue.isNull || mythisValue == false) {
           continue;
         }
-        _mergeProperty(property, myparents, propertiesToMerge);
+        _mergeProperty(property, myparents, propertiesToMerge); */
       });
   }
 
@@ -43,54 +41,47 @@ mixin template TMergeVariables() {
      * Merge a single property with the values declared in all parent classes.
      * Params:
      * string aProperty The name of the property being merged.
-     * @param string[] myparentClasses An array of classes you want to merge with.
-     * @param Json[string] options Options for merging the property, see _mergeVars()
+     * @param string[] parentClasses An array of classes you want to merge with.
      */
-  protected void _mergeProperty(string aProperty, Json[string] myparentClasses, Json[string] someOptions) {
+  protected void _mergeProperty(string aProperty, Json[string] parentClasses, Json[string] mergingOptions) {
     mythisValue = this.{aProperty
     };
     bool isAssoc = (
-      someOptions.isSet("associative") &&
-        in_array(aProperty, (array) someOptions["associative"], true)
+      mergingOptions.isSet("associative") &&
+        in_array(aProperty, (array) mergingOptions["associative"], true)
     );
 
     if (isAssoc) {
       mythisValue = Hash.normalize(mythisValue);
     }
-    foreach (myparentClasses as myclass) {
-      myparentProperties = get_class_vars(myclass);
-      if (isEmpty(myparentProperties[aProperty])) {
+    
+    parentClasses.each!((classname) {
+      auto parentProperties = get_class_vars(classname);
+      if (isEmpty(parentProperties[aProperty])) {
         continue;
       }
-      myparentProperty = myparentProperties[aProperty];
-      if (!isArray(myparentProperty)) {
+
+      auto parentProperty = parentProperties[aProperty];
+      if (!isArray(parentProperty)) {
         continue;
       }
-      mythisValue = _mergePropertyData(mythisValue, myparentProperty, isAssoc);
-    }
-    this. {
-      aProperty
-    }
-     = mythisValue;
+
+      mythisValue = _mergePropertyData(mythisValue, parentProperty, isAssoc);
+    });
+
+    this. {aProperty} = mythisValue;
   }
 
-  /**
-     * Merge each of the keys in a property together.
-     * Params:
-     * Json[string] mycurrent The current merged value.
-     * @param Json[string] myparent The parent class" value.
-     * @param bool isAssoc Whether the merging should be done in associative mode.
-     */
-  protected Json[string] _mergePropertyData(Json[string] mycurrent, Json[string] myparent, bool isAssoc) {
-    if (!isAssoc) {
-      return chain(myparent, mycurrent);
+  // Merge each of the keys in a property together.
+  protected Json[string] _mergePropertyData(Json[string] currentData, Json[string] parentClassData, bool shouldMergeAssociaiative) {
+    if (!shouldMergeAssociaiative) {
+      return chain(parentClassData, currentData);
     }
-    myparent = Hash . normalize(myparent);
-    foreach (myparent as aKey : myvalue) {
-      if (!mycurrent.isSet(aKey)) {
-        mycurrent[aKey] = myvalue;
-      }
-    }
-    return mycurrent;
-  } */
+
+    Hash.normalize(parentClassData).byKeyValue
+      .filter!(kv => !currentData.isSet(kv.key))
+      .each!(key => currentData[kv.key] = kv.value);
+
+    return currentData;
+  } 
 }

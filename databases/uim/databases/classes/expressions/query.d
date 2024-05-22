@@ -146,12 +146,7 @@ class DQueryExpression : DExpression { // }, Countable {
         return _add(new DComparisonExpression(field, valueToBound, valueType, "LIKE"));
     }
     
-    /**
-     * Adds a new condition to the expression object in the form "field NOT LIKE value".
-     * Params:
-     * @param Json aValue The value to be bound to field for comparison
-     * @param string type the type name for aValue as configured using the Type map.
-     */
+    // Adds a new condition to the expression object in the form "field NOT LIKE value".
     auto notLike(/* IExpression| */ string fieldName, Json valueToBound, string valueType = null) {
         valueType = valueType.ifEmpty(_calculateType(fieldName));
 

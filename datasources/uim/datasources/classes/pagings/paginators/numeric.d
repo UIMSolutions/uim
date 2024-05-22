@@ -275,11 +275,7 @@ class DNumericPaginator : IPaginator {
         return params;
     }
 
-    /**
-     * Add "start" and "end" params.
-     *
-     * @param Json[string] data Paginator data.
-     */
+    // Add "start" and "end" params.
     protected Json[string] addStartEndParams(Json[string] pagingParams, Json[string] paginatorData) {
         start = end = 0;
 
@@ -306,7 +302,7 @@ class DNumericPaginator : IPaginator {
     // Add sorting / ordering params.
     protected Json[string] addSortingParams(Json[string] paginatorData, Json[string] pagingData) {
         defaults = pagingData["defaults"];
-        order = (array) pagingData["options"]["order"];
+        auto order = (array) pagingData["options"]["order"];
         sortDefault = directionDefault = false;
 
         if (!defaults.isEmpty("order"))
@@ -507,12 +503,7 @@ class DNumericPaginator : IPaginator {
         return paginationOptions;
     }
 
-    /**
-     * Remove alias if needed.
-     *
-     * @param Json[string] fields Current fields
-     * @param string modelAlias Current modelAlias alias
-     */
+    // Remove alias if needed.
     protected Json[string] _removeAliases(string[] fieldNames, string modelAlias) {
         result = null;
         foreach (fields as field : sort) {
@@ -538,12 +529,11 @@ class DNumericPaginator : IPaginator {
      *
      * @param uim.Datasource\IRepository repository Repository repository.
      * @param Json[string] order DOrder array.
-     * @param bool allowed Whether the field was allowed.
      */
-    protected Json[string] _prefix(IRepository repository, Json[string] order, bool allowed = false) {
+    protected Json[string] _prefix(IRepository repository, Json[string] orderData, bool allowed = false) {
         tableAlias = repository.aliasName();
         tableOrder = null;
-        foreach (order as key : value) {
+        foreach (orderData as key : value) {
             if (key.isNumeric) {
                 tableOrder ~= value;
                 continue;

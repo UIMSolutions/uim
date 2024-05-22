@@ -168,15 +168,15 @@ class DPaginator : IPaginator {
             }
         }
 
-        myData = this.extractData(objectToPaginate, requestData, paginationData);
-        myQuery = getQuery(objectToPaginate, myQuery, myData);
+        paginatorData = this.extractData(objectToPaginate, requestData, paginationData);
+        myQuery = getQuery(objectToPaginate, myQuery, paginatorData);
 
         cleanQuery = clone myQuery;
         myResults = myQuery.all();
-        myData["numResults"] = count(myResults);
-        myData["count"] = getCount(cleanQuery, myData);
+        paginatorData["numResults"] = count(myResults);
+        paginatorData["count"] = getCount(cleanQuery, paginatorData);
 
-        pagingParams = this.buildParams(myData);
+        pagingParams = this.buildParams(paginatorData);
         aliasName = objectToPaginate.aliasName();
         _pagingParams = [aliasName: pagingParams];
         if (pagingParams["requestedPage"] > pagingParams["page"]) {
@@ -276,7 +276,7 @@ class DPaginator : IPaginator {
      * @param Json[string] pagingData Paging params.
      * @param Json[string] myData Paginator data.
      */
-    protected Json[string] addStartEndParams(Json[string] pagingData, Json[string] myData) {
+    protected Json[string] addStartEndParams(Json[string] pagingData, Json[string] paginatorData) {
         start = end = 0;
 
         if (pagingData["current"] > 0) {
@@ -320,13 +320,9 @@ class DPaginator : IPaginator {
         ]);
     }
 
-    /**
-     * Extracts the finder name and options out of the provided pagination options.
-     *
-     * @param Json[string] options the pagination options.
-     */
+    // Extracts the finder name and options out of the provided pagination options.
     protected Json[string] _extractFinder(Json[string] paginationOptions) {
-        myType = !paginationOptions.isEmpty("finder") ? paginationOptions["finder"] : "all";
+        auto myType = !paginationOptions.isEmpty("finder") ? paginationOptions["finder"] : "all";
         paginationOptions.remove("finder", paginationOptions["maxLimit"]);
 
         if (isArray(myType)) {
@@ -443,63 +439,62 @@ class DPaginator : IPaginator {
      * The default order options provided to paginate() will be merged with the user"s
      * requested sorting field/direction.
      *
-     * @param \uim\Datasource\IRepository repository Repository repository.
-     * @param Json[string] options The pagination options being used for this request.
+     * @param Json[string] paginationData The pagination options being used for this request.
      */
-    Json[string] validateSort(IRepository repository, Json[string] options) {
-        if (isset(options["sort"])) {
+    Json[string] validateSort(IRepository repository, Json[string] paginationData) {
+        if (isset(paginationData["sort"])) {
             direction = null;
-            if (isset(options["direction"])) {
-                direction = strtolower(options["direction"]);
+            if (isset(paginationData["direction"])) {
+                direction = strtolower(paginationData["direction"]);
             }
             if (!in_array(direction, ["asc", "desc"], true)) {
                 direction = "asc";
             }
 
-            order = isset(options["order"]) && (options["order"].isArray ? options["order"] : [];
-            if (order && options["sort"] && indexOf(options["sort"], ".") == false) {
+            order = isset(paginationData["order"]) && paginationData["order"].isArray ? paginationData["order"] : [];
+            if (order && paginationData["sort"] && indexOf(paginationData["sort"], ".") == false) {
                 order = _removeAliases(order, repository.aliasName());
             }
 
-            options["order"] = [options["sort"]: direction] + order;
+            paginationData["order"] = [paginationData["sort"]: direction] + order;
         } else {
-            options["sort"] = null;
+            paginationData["sort"] = null;
         }
-        options.remove("direction"]);
+        paginationData.remove("direction");
 
-        if (options.isEmpty("order"])) {
-            options["order"]= null;
+        if (paginationData.isEmpty("order")) {
+            paginationData["order"]= null;
         }
-        if (!(options["order"].isArray) {
-            return options;
+        if (!paginationData["order"].isArray) {
+            return paginationData;
         }
 
         sortAllowed = false;
-        allowed = getSortableFields(options);
+        allowed = getSortableFields(paginationData);
         if (allowed !== null) {
-            options["sortableFields"] = options["sortWhitelist"] = allowed;
+            paginationData["sortableFields"] = paginationData["sortWhitelist"] = allowed;
 
-            myField = key(options["order"]);
+            myField = key(paginationData["order"]);
             sortAllowed = in_array(myField, allowed, true);
             if (!sortAllowed) {
-                options["order"]= null;
-                options["sort"] = null;
+                paginationData["order"]= null;
+                paginationData["sort"] = null;
 
-                return options;
+                return paginationData;
             }
         }
 
         if (
-            options["sort"] == null
-            && count(options["order"]) == 1
-            && !key(options["order"].isNumeric)
+            paginationData["sort"] == null
+            && count(paginationData["order"]) == 1
+            && !key(paginationData["order"].isNumeric)
         ) {
-            options["sort"] = key(options["order"]);
+            paginationData["sort"] = key(paginationData["order"]);
         }
 
-        options["order"] = _prefix(repository, options["order"], sortAllowed);
+        paginationData["order"] = _prefix(repository, paginationData["order"], sortAllowed);
 
-        return options;
+        return paginationData;
     }
 
     // Remove alias if needed.
@@ -528,12 +523,12 @@ class DPaginator : IPaginator {
      * Prefixes the field with the table alias if possible.
      *
      * @param \uim\Datasource\IRepository repository Repository repository.
-     * @param Json[string] order DOrder array.
+     * @param Json[string] orderData DOrder array.
      */
-    protected Json[string] _prefix(IRepository repository, Json[string] order, bool isAllowed = false) {
+    protected Json[string] _prefix(IRepository repository, Json[string] orderData, bool isAllowed = false) {
         sring myTableAlias = repository.aliasName();
         myTableOrder= null;
-        foreach (order as myKey: myValue) {
+        foreach (orderData as myKey: myValue) {
             if (myKey.isNumeric) {
                 myTableOrder ~= myValue;
                 continue;
@@ -562,11 +557,7 @@ class DPaginator : IPaginator {
         return myTableOrder;
     }
 
-    /**
-     * Check the limit parameter and ensure it"s within the maxLimit bounds.
-     *
-     * @param Json[string] options An array of options with a limit key to be checked.
-     */
+    // Check the limit parameter and ensure it"s within the maxLimit bounds.
     Json[string] checkLimit(Json[string] options) {
         options["limit"] = (int)options["limit"];
         if (options["limit"] < 1) {

@@ -860,14 +860,9 @@ abstract class DQuery : IQuery { // : IExpression {
      * Generates the following conditions:
      *
      * `WHERE (title = "Foo") AND (author_id = 1 OR author_id = 2)`
-     * Params:
-     * \UIM\Database\IExpression|\Closure|string[] aconditions The conditions to add with AND.
-     * @param STRINGAA types Associative array of type names used to bind values to query
      */
-    auto andWhere(/* IExpression|Closure */string[] aconditions, Json[string] types = null) {
-       _conjugate("where", conditions, "AND", types);
-
-        return this;
+    void andWhere(/* IExpression|Closure */string[] conditionsToAdd, Json[string] typeNames = null) {
+       _conjugate("where", conditionsToAdd, "AND", typeNames);
     }
     
     /**

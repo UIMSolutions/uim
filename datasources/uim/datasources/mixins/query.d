@@ -37,9 +37,7 @@ mixin template TQuery() {
      */
     protected callable[] _formatters = null;
 
-    /**
-     * A query cacher instance if this query has caching enabled.
-     */
+    // A query cacher instance if this query has caching enabled.
     protected QueryCacher _cache;
 
     /**
@@ -96,29 +94,26 @@ mixin template TQuery() {
      * Simple string key + config
      * query.cache("_key", "db_results");
      *
-     */ Function to generate key.
+     * Function to generate key.
      * query.cache(function (q) {
      *  key = serialize(q.clause("select"));
      *  key ~= serialize(q.clause("where"));
      *  return md5(key);
      * });
      *
-     */ Using a pre-built cache engine.
+     * Using a pre-built cache engine.
      * query.cache("_key", engine);
      *
-     */ Disable caching
+      Disable caching
      * query.cache(false);
      *
-     * @param \Closure|string|false key Either the cache key or a function to generate the cache key.
+     * @param |false key Either the cache key or a function to generate the cache key.
      *  When using a function, this query instance will be supplied as an argument.
-     * @param \Psr\SimpleCache\ICache|string myConfiguration Either the name of the cache config to use, or
-     *  a cache engine instance.
      */
-    void cache(key, myConfiguration = "default") {
-        if (key == false) {
+    void cache(/* \Closure */ string key, string cacheConfigName = "default") {
+        if (key.isEmpty) {
             _cache = null;
-
-            return this;
+            return;
         }
         _cache = new DQueryCacher(key, myConfiguration);
     }
@@ -419,8 +414,6 @@ mixin template TQuery() {
     /**
      * Populates or adds parts to current query clauses using an array.
      * This is handy for passing all query clauses at once.
-     *
-     * @param Json[string] options the options to be applied
      */
     abstract void applyOptions(Json[string] optionData);
 
@@ -432,25 +425,25 @@ mixin template TQuery() {
      *
      * @param \Traversable result Original results
      */
-    protected IResultset _decorateResults(Traversable result) {
+    protected IResultset _decorateResults(Traversable originalResults) {
         decorator = _decoratorClass();
         foreach (_mapReduce as functions) {
-            result = new DMapReduce(result, functions["mapper"], functions["reducer"]);
+            originalResults = new DMapReduce(originalResults, functions["mapper"], functions["reducer"]);
         }
 
         if (!_mapReduce.isEmpty) {
-            result = new decorator(result);
+            originalResults = new decorator(originalResults);
         }
 
         foreach (_formatters as formatter) {
-            result = formatter(result, this);
+            originalResults = formatter(originalResults, this);
         }
 
-        if (!_formatters.isEmpty && !(result instanceof decorator)) {
-            result = new decorator(result);
+        if (!_formatters.isEmpty && !(originalResults instanceof decorator)) {
+            originalResults = new decorator(originalResults);
         }
 
-        return result;
+        return originalResults;
     }
 
     // Returns the name of the class to be used for decorating results

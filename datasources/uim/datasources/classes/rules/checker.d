@@ -197,26 +197,18 @@ class DRulesChecker {
     /**
      * Used by top level functions checkDelete, checkCreate and checkUpdate, this function
      * iterates an array containing the rules to be checked and checks them all.
-     * Params:
-     * \UIM\Datasource\IDatasourceEntity entity The entity to check for validity.
-     * @param Json[string] optionData Extra options to pass to checker functions.
-     * @param array<\UIM\Datasource\RuleInvoker> rules The list of rules that must be checked.
      */
     protected bool _checkRules(IDatasourceEntity entity, Json[string] optionData = null, Json[string] rulesToCheck = null) {
-        success = true;
-        auto updatedOptions = options.update_options;
+        bool success = true;
+        auto updatedOptions = optionData.update_options;
         rulesToCheck
-          .each!(rule => success = rule(entity, options) && success);
+          .each!(rule => success = rule(entity, updatedOptions) && success);
         return success;
     }
     
     /**
      * Utility method for decorating any callable so that if it returns false, the correct
      * property in the entity is marked as invalid.
-     * Params:
-     * \UIM\Datasource\RuleInvoker|callable rule The rule to decorate
-     * @param string[] name The alias for a rule or an array of options
-     * @param Json[string] optionData The options containing the error message and field.
      */
     protected DRuleInvoker _addError(callable rule, string[] ruleAlias = null, Json[string] optionData = null) {
         if (isArray(ruleAlias)) {

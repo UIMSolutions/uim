@@ -24,13 +24,13 @@ mixin template TInstanceConfig() {
      * Setting a specific value:
      *
      * ```
-     * configuration.update("key", aValue);
+     * configuration.update("key", valueToSet);
      * ```
      *
      * Setting a nested value:
      *
      * ```
-     * configuration.update("some.nested.key", aValue);
+     * configuration.update("some.nested.key", valueToSet);
      * ```
      *
      * Updating multiple config settings at the same time:
@@ -40,15 +40,15 @@ mixin template TInstanceConfig() {
      * ```
      * Params:
      * Json[string]|string keyToSet The key to set, or a complete array of configs.
-     * @param mixed|null aValue The value to set.
-     * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
+     * @param mixed|null valueToSet The value to set.
+     * @param bool shouldMerge Whether to recursively shouldMerge or overwrite existing config, defaults to true.
      */
-    void setConfig(string[] keyToSet, Json aValue = null, bool shouldMerge = true) {
+    void setConfig(string[] keyToSet, Json valueToSet = null, bool shouldMerge = true) {
         if (!_configInitialized) {
            _config = _defaultConfigData;
            _configInitialized = true;
         }
-       _configWrite(keyToSet, aValue, shouldMerge);
+       _configWrite(keyToSet, valueToSet, shouldMerge);
     }
     
     /**
@@ -112,13 +112,13 @@ mixin template TInstanceConfig() {
      * Setting a specific value:
      *
      * ```
-     * this.configShallow("key", aValue);
+     * this.configShallow("key", valueToSet);
      * ```
      *
      * Setting a nested value:
      *
      * ```
-     * this.configShallow("some.nested.key", aValue);
+     * this.configShallow("some.nested.key", valueToSet);
      * ```
      *
      * Updating multiple config settings at the same time:
@@ -128,14 +128,14 @@ mixin template TInstanceConfig() {
      * ```
      * Params:
      * Json[string]|string keyToSet The key to set, or a complete array of configs.
-     * @param mixed|null aValue The value to set.
+     * @param mixed|null valueToSet The value to set.
      */
-    void configShallow(string[] keyToSet, Json aValue = null) {
+    void configShallow(string[] keyToSet, Json valueToSet = null) {
         if (!_configInitialized) {
            _config = _defaultConfigData;
            _configInitialized = true;
         }
-       _configWrite(keyToSet, aValue, "shallow");
+       _configWrite(keyToSet, valueToSet, "shallow");
     }
     
     // Reads a config key.
@@ -148,13 +148,13 @@ mixin template TInstanceConfig() {
         }
 
         result = _config;
-        foreach (myKey; keyToRead.split(".")) {
-            if (!isArray(result) || !isSet(result[myKey])) {
+        keyToRead.split(".").each!((key) { // TODO
+            if (!isArray(result) || !isSet(result[key])) {
                 result = null;
                 break;
             }
-            result = result[myKey];
-        }
+            result = result[key];
+        });
         return result;
     }
     
@@ -162,22 +162,21 @@ mixin template TInstanceConfig() {
      * Writes a config key.
      * Params:
      * Json[string]|string keyToWrite Key to write to.
-     * @param Json aValue Value to write.
-     * @param string merge True to merge recursively, "shallow' for simple merge,
+     * @param string shouldMerge True to shouldMerge recursively, "shallow' for simple shouldMerge,
      * false to overwrite, defaults to false.
      */
-    protected void _configWrite(string[] keyToWrite, Json aValue, string merge = false) {
-        if (isString(keyToWrite) && aValue.isNull) {
+    protected void _configWrite(string[] keyToWrite, Json valueToWrite, string shouldMerge = false) {
+        if (isString(keyToWrite) && valueToWrite.isNull) {
            _configDelete(keyToWrite);
 
             return;
         }
-        if (merge) {
-            update = isArray(keyToWrite) ? keyToWrite : [keyToWrite: aValue];
+        if (shouldMerge) {
+            update = isArray(keyToWrite) ? keyToWrite : [keyToWrite: valueToWrite];
 
-            _config = merge == "shallow"
+            _config = shouldMerge == "shallow"
                 ? chain(_config, Hash.expand(update))
-                : Hash.merge(_config, Hash.expand(update));
+                : Hash.shouldMerge(_config, Hash.expand(update));
 
             return;
         }
@@ -187,21 +186,21 @@ mixin template TInstanceConfig() {
             return;
         }
         if (!keyToWrite.has(".")) {
-           configuration.data(keyToWrite] = aValue;e
-
+           configuration.set(keyToWrite, valueToWrite);
             return;
         }
-        update = &_config;
-        string[] stack = keyToWrite.split(".");
 
-        foreach (myKey; stack) {
+        auto update = &_config;
+
+        string[] stack = keyToWrite.split(".");
+        stack.each!((key) {
             if (!isArray(update)) {
                 throw new UimException("Cannot set `%s` value.".format(keyToWrite));
             }
-            update[myKey] = update.get(myKey, null);
-            update = &update[myKey];
-        }
-        update = aValue;
+            update[key] = update.get(key, null);
+            update = &update[key];
+        });
+        update = valueToWrite;
     }
     
     // Deletes a single config key.

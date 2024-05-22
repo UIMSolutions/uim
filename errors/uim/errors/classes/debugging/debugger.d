@@ -192,16 +192,15 @@ class DDebugger {
      * Read or write configuration options for the Debugger instance.
      *
      * @param Json[string]|string key The key to get/set, or a complete array of configs.
-     * @param mixed|null value The value to set.
      * @param bool shouldMerge Whether to recursively merge or overwrite existing config, defaults to true.
      */
-    static Json configInstance(key = null, value = null, bool shouldMerge = true) {
+    static Json configInstance(key = null, Json valueToSet = null, bool shouldMerge = true) {
         if (key == null) {
             return getInstance().configuration.get(key);
         }
 
         if (key.isArray || func_num_args() >= 2) {
-            return getInstance().setConfig(key, value, shouldMerge);
+            return getInstance().setConfig(key, valueToSet, shouldMerge);
         }
 
         return getInstance().configuration.get(key);
@@ -220,7 +219,6 @@ class DDebugger {
      * Debugger.setOutputMask(['password': '[*************]');
      *
      * @param array<string, string> value An array where keys are replaced by their values in output.
-     * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      */
     static void setOutputMask(Json[string] value, bool shouldMerge = true) {
         configInstance('outputMask', value, shouldMerge);
@@ -232,31 +230,24 @@ class DDebugger {
      * Template strings can use the `{file}` and `{line}` placeholders.
      * Closures templates must return a string, and accept two parameters:
      * The file and line.
-     *
-     * @param string aName The name of the editor.
-     * @param \Closure|string template The string template or closure
      */
-    static void addEditor(string aName, template) {
+    static void addEditor(string editorName, /* Closure */ string templateName) {
         auto instance = getInstance();
-        if (!template.isString && !(template instanceof Closure)) {
-            type = getTypeName(template);
+        if (!templatenName.isString && !(cast(Closure)templatenName )) {
+            auto type = getTypeName(templatenName);
             throw new DRuntimeException("Invalid editor type of `{type}`. Expected string or Closure.");
         }
-        instance.editors[name] = template;
+        instance.editors[editorName] = templatenName;
     }
 
-    /**
-     * Choose the editor link style you want to use.
-     *
-     * @param string aName The editor name.
-     */
-    static void setEditor(string aName) {
-        instance = getInstance();
-        if (!isset(instance.editors[name])) {
+    // Choose the editor link style you want to use.
+    static void setEditor(string editorName) {
+        auto instance = getInstance();
+        if (!isset(instance.editors[editorName])) {
             known = instance.editors.keys.join(", ");
             throw new DRuntimeException("Unknown editor `{name}`. Known editors are {known}");
         }
-        instance.configuration.update("editor", name);
+        instance.configuration.update("editor", editorName);
     }
 
     /**

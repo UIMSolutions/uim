@@ -233,27 +233,25 @@ mixin template TEntity() {
      * Params:
      * Json[string]|string fieldName the name of field to set or a list of
      * fields with their respective values
-     * @param Json aValue The value to set to the field or an array if the
-     * first argument is also an array, in which case will be treated as options
     */
-  void set(string[] afield, Json aValue = null, Json[string] optionData = null) {
-    if (isString(field) && !field.isEmpty) {
+  void set(string[] fieldName, Json valueToSet = null, Json[string] optionData = null) {
+    if (isString(fieldName) && !fieldName.isEmpty) {
       guard = false;
-      field = [field: aValue];
+      fieldName = [fieldName: valueToSet];
     } else {
       guard = true;
-      optionData = (array) aValue;
+      optionData = (array) valueToSet;
     }
-    if (!isArray(field)) {
+    if (!isArray(fieldName)) {
       throw new DInvalidArgumentException("Cannot set an empty field");
     }
     auto updatedOptions = optionData.update["setter": true.toJson, "guard": guard, "asOriginal": false
       .toJson];
 
     if (optionData["asOriginal"] == true) {
-      setOriginalField(field.keys);
+      setOriginalField(fieldName.keys);
     }
-    field.byKeyValue
+    fieldName.byKeyValue
       .each((kv) {
         auto fieldName = (string) name;
         if (optionData["guard"] == true && !this.isAccessible(fieldName)) {
@@ -264,44 +262,40 @@ mixin template TEntity() {
         if (optionData["setter"]) {
           setter = _accessor(fieldName, "set");
           if (setter) {
-            aValue = this. {
+            valueToSet = this. {
               setter
             }
-            (aValue);
+            (valueToSet);
           }
         }
         if (
           this.isOriginalField(fieldName) &&
         !array_key_exists(fieldName, _original) &&
         array_key_exists(fieldName, _fields) &&
-        aValue != _fields[fieldName]
+        valueToSet != _fields[fieldName]
           ) {
           _original[fieldName] = _fields[fieldName];
         }
-        _fields[fieldName] = aValue;
+        _fields[fieldName] = valueToSet;
       });
   }
 
   // Returns the value of a field by name
-  Json & get(string fieldName) {
+  Json get(string fieldName) {
     if (fieldName.isEmpty) {
       throw new DInvalidArgumentException("Cannot get an empty field");
     }
 
-    aValue = null;
+    Json aValue = null;
     fieldIsPresent = false;
     if (array_key_exists(fieldName, _fields)) {
       fieldIsPresent = true;
       aValue =  & _fields[fieldName];
     }
-    method = _accessor(fieldName, "get");
+    
+    auto method = _accessor(fieldName, "get");
     if (method) {
-      result = this. {
-        method
-      }
-      (aValue);
-
-      return result;
+      return this.{method}(aValue);
     }
     if (!fieldIsPresent && this.requireFieldPresence) {
       throw new DMissingPropertyException([
@@ -314,7 +308,6 @@ mixin template TEntity() {
 
   /**
      * Enable/disable field presence check when accessing a property.
-     *
      * If enabled an exception will be thrown when trying to access a non-existent property.
     */
   void requireFieldPresence(bool enable = true) {

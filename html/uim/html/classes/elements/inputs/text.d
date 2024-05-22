@@ -1,4 +1,4 @@
-﻿module uim.html.elements.inputs.text;
+﻿module uim.html.classes.elements.inputs.text;
 
 @safe:
 import uim.html;

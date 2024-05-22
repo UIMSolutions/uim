@@ -1,4 +1,4 @@
-﻿module uim.html.elements.inputs.number;
+﻿module uim.html.classes.elements.inputs.number;
 
 @safe:
 import uim.html;

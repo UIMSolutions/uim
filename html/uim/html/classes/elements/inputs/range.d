@@ -1,4 +1,4 @@
-﻿module uim.html.elements.inputs.range;
+﻿module uim.html.classes.elements.inputs.range;
 
 @safe:
 import uim.html;

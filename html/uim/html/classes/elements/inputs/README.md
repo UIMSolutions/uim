@@ -1,1 +1,1 @@
-# Package 📦 uim.html.elements.inputs
+# Package 📦 uim.html.classes.elements.inputs

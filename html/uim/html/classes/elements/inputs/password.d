@@ -1,4 +1,4 @@
-﻿module uim.html.elements.inputs.password;
+﻿module uim.html.classes.elements.inputs.password;
 
 @safe:
 import uim.html;

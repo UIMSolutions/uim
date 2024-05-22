@@ -1,4 +1,4 @@
-﻿module uim.html.elements.inputs.search;
+﻿module uim.html.classes.elements.inputs.search;
 
 @safe:
 import uim.html;

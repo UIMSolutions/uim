@@ -1,4 +1,4 @@
-﻿module uim.html.elements.inputs.radio;
+﻿module uim.html.classes.elements.inputs.radio;
 
 @safe:
 import uim.html;

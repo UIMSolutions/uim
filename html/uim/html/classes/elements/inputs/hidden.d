@@ -1,4 +1,4 @@
-﻿module uim.html.elements.inputs.hidden;
+﻿module uim.html.classes.elements.inputs.hidden;
 
 @safe:
 import uim.html;

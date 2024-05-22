@@ -1,4 +1,4 @@
-﻿module uim.html.elements.inputs.week;
+﻿module uim.html.classes.elements.inputs.week;
 
 @safe:
 import uim.html;

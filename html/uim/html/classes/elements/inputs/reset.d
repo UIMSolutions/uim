@@ -1,4 +1,4 @@
-﻿module uim.html.elements.inputs.reset;
+﻿module uim.html.classes.elements.inputs.reset;
 
 @safe:
 import uim.html;

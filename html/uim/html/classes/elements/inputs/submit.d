@@ -1,4 +1,4 @@
-﻿module uim.html.elements.inputs.submit;
+﻿module uim.html.classes.elements.inputs.submit;
 
 @safe:
 import uim.html;

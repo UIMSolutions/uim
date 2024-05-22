@@ -1,4 +1,4 @@
-﻿module uim.html.elements.noscript;
+﻿module uim.html.classes.elements.noscript;
 
 @safe:
 import uim.html;

@@ -1,4 +1,4 @@
-﻿module uim.html.elements.nav;
+﻿module uim.html.classes.elements.nav;
 
 @safe:
 import uim.html;

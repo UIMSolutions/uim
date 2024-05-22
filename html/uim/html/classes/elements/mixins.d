@@ -1,4 +1,4 @@
-﻿module uim.html.elements.mixins;
+﻿module uim.html.classes.elements.mixins;
 
 
 

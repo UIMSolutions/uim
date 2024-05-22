@@ -1,4 +1,4 @@
-﻿module uim.html.elements.optgroup;
+﻿module uim.html.classes.elements.optgroup;
 
 @safe:
 import uim.html;

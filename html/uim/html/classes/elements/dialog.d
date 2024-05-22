@@ -1,4 +1,4 @@
-﻿module uim.html.elements.dialog;
+﻿module uim.html.classes.elements.dialog;
 
 @safe:
 import uim.html;

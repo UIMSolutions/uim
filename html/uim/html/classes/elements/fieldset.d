@@ -1,4 +1,4 @@
-﻿module uim.html.elements.fieldset;
+﻿module uim.html.classes.elements.fieldset;
 
 @safe:
 import uim.html;

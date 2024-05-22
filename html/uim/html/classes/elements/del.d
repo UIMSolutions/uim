@@ -1,4 +1,4 @@
-﻿module uim.html.elements.del;
+﻿module uim.html.classes.elements.del;
 
 @safe:
 import uim.html;

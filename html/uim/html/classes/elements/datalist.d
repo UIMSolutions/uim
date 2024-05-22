@@ -1,4 +1,4 @@
-﻿module uim.html.elements.datalist;
+﻿module uim.html.classes.elements.datalist;
 
 @safe:
 import uim.html;

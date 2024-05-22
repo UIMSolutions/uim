@@ -1,4 +1,4 @@
-﻿module uim.html.elements.span;
+﻿module uim.html.classes.elements.span;
 
 @safe:
 import uim.html;

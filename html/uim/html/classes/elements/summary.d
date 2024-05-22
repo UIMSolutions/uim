@@ -1,4 +1,4 @@
-﻿module uim.html.elements.summary;
+﻿module uim.html.classes.elements.summary;
 
 @safe:
 import uim.html;

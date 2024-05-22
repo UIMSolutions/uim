@@ -1,1 +1,1 @@
-# Package 📦 uim.html.dragdrop
+# Package 📦 uim.html.classes.dragdrop

@@ -1,4 +1,4 @@
-﻿module uim.html.elements.bdi;
+﻿module uim.html.classes.elements.bdi;
 
 @safe:
 import uim.html;

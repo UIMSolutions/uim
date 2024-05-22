@@ -1,4 +1,4 @@
-module uim.html.elements.audio;
+module uim.html.classes.elements.audio;
 
 @safe:
 import uim.html;

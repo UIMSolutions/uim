@@ -1,4 +1,4 @@
-﻿module uim.html.elements.area;
+﻿module uim.html.classes.elements.area;
 
 @safe:
 import uim.html;

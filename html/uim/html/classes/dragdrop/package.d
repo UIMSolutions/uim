@@ -1,4 +1,4 @@
-module uim.html.dragdrop;
+module uim.html.classes.dragdrop;
 
 @safe:
 import uim.html;

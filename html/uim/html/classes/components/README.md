@@ -1,1 +1,1 @@
-# Package 📦 uim.html.components
+# Package 📦 uim.html.classes.components

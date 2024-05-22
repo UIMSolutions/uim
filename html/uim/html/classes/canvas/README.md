@@ -1,1 +1,1 @@
-# Package 📦 uim.html.canvas
+# Package 📦 uim.html.classes.canvas

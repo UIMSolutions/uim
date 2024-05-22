@@ -1,3 +1,3 @@
-module uim.html.audio;
+module uim.html.classes.audio;
 
 import uim.html;

@@ -1,4 +1,4 @@
-module uim.html.components.sidebar_dropdown;
+module uim.html.classes.components.sidebar_dropdown;
 
 @safe:
 import uim.html;

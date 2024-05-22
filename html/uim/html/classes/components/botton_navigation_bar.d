@@ -1,4 +1,4 @@
-module uim.html.components.botton_navigation_bar;
+module uim.html.classes.components.botton_navigation_bar;
 
 @safe:
 import uim.html;

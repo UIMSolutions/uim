@@ -1,2 +1,2 @@
-module uim.html.classes;
+module uim.html.classes.classes;
 

@@ -1,4 +1,4 @@
-module uim.html.components.component;
+module uim.html.classes.components.component;
 
 @safe:
 import uim.html;

@@ -214,7 +214,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         this.controller.set(viewVars);
         this.controller.viewBuilder().setOption("serialize", serialize);
 
-        if (exception instanceof UIMException && isDebug) {
+        if (cast(UIMException)exception && isDebug) {
             this.controller.set(exception.getAttributes());
         }
         this.controller.setResponse(response);
@@ -222,14 +222,9 @@ class DExceptionRenderer { // }: IExceptionRenderer
         return _outputMessage(myTemplate);
     }
 
-    /**
-     * Render a custom error method/template.
-     *
-     * @param string method The method name to invoke.
-     * @param \Throwable exception The exception to render.
-     */
-    protected DResponse _customMethod(string methodName, Throwable exception) {
-        auto myResult = this.{methodName}(exception);
+    // Render a custom error method/template.
+    protected DResponse _customMethod(string methodName, Throwable exceptionToRender) {
+        auto myResult = this.{methodName}(exceptionToRender);
         _shutdown();
         if (!myResult.isString) { return result; }
 

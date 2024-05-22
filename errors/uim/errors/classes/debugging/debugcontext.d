@@ -66,16 +66,14 @@ class DebugContext {
      *
      * If this object does not exist in the reference storage,
      * it will be added and the id will be returned.
-     *
-     * @param object object The object to get a reference for.
      */
-    int getReferenceId(object object) {
-      if (_refs.contains(object)) {
-          return _refs[object];
+    int getReferenceId(object referenceForObject) {
+      if (_refs.contains(referenceForObject)) {
+          return _refs[referenceForObject];
       }
       
       auto refId = _refs.count();
-      _refs.attach(object, refId);
+      _refs.attach(referenceForObject, refId);
 
       return refId;
     }

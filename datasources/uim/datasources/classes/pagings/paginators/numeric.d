@@ -4,9 +4,7 @@ import uim.datasources;
 
 @safe:
 
-/**
- * This class is used to handle automatic model data pagination.
- */
+// This class is used to handle automatic model data pagination.
 class DNumericPaginator : IPaginator {
     mixin TConfigurable;
 
@@ -26,11 +24,6 @@ class DNumericPaginator : IPaginator {
     bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
-
-        return true;
-    }
-
-    mixin(TProperty!("string", "name"));
 
     /**
      * Default pagination settings.
@@ -53,6 +46,12 @@ class DNumericPaginator : IPaginator {
             "maxLimit": 100,
             "allowedParameters": ["limit", "sort", "page", "direction"],
         ]);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+
 
     /**
      * Paging params after pagination operation is done.
@@ -512,9 +511,9 @@ class DNumericPaginator : IPaginator {
      * Remove alias if needed.
      *
      * @param Json[string] fields Current fields
-     * @param string model Current model alias
+     * @param string modelAlias Current modelAlias alias
      */
-    protected Json[string] _removeAliases(string[] fieldNames, string model) {
+    protected Json[string] _removeAliases(string[] fieldNames, string modelAlias) {
         result = null;
         foreach (fields as field : sort) {
             if (indexOf(field, ".") == false) {
@@ -523,7 +522,7 @@ class DNumericPaginator : IPaginator {
             }
 
             [alias, currentField] = explode(".", field);
-            if (alias == model) {
+            if (alias == modelAlias) {
                 result[currentField] = sort;
                 continue;
             }

@@ -152,7 +152,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * @param Json aValue The value to be bound to field for comparison
      * @param string type the type name for aValue as configured using the Type map.
      */
-    auto notLike(/* IExpression| */ string fieldName, Json valueToBound, string atype = null) {
+    auto notLike(/* IExpression| */ string fieldName, Json valueToBound, string valueType = null) {
         valueType = valueType.ifEmpty(_calculateType(fieldName));
 
         return _add(new DComparisonExpression(fieldName, valueToBound, valueType, "NOT LIKE"));
@@ -245,26 +245,15 @@ class DQueryExpression : DExpression { // }, Countable {
         return _add(new DUnaryExpression("EXISTS", expression, UnaryExpression.PREFIX));
     }
     
-    /**
-     * Adds a new condition to the expression object in the form "NOT EXISTS (...)".
-     * Params:
-     * \UIM\Database\IExpression expression the inner query
-     */
-    auto notExists(IExpression expression) {
-        return _add(new DUnaryExpression("NOT EXISTS", expression, UnaryExpression.PREFIX));
+    //  Adds a new condition to the expression object in the form "NOT EXISTS (...)".
+    auto notExists(IExpression innerQuery) {
+        return _add(new DUnaryExpression("NOT EXISTS", innerQuery, UnaryExpression.PREFIX));
     }
     
-    /**
-     * Adds a new condition to the expression object in the form
-     * "field BETWEEN from AND to".
-     * Params:
-     * \UIM\Database\/* IExpression| */ string fieldName The field name to compare for values inbetween the range.
-     * @param string valueType the valueType name for aValue as configured using the Type map.
-     */
-    auto between(/* IExpression| */ string fieldName, Json fromValue, Json toValue, string atype = null) {
-        valueType ??= _calculateType(field);
-
-        return _add(new BetweenExpression(field, fromValue, toValue, valueType));
+    // Adds a new condition to the expression object in the form "field BETWEEN from AND to".
+    auto between(/* IExpression| */ string fieldName, Json fromValue, Json toValue, string valueType = null) {
+        valueType = valueType.ifEmpty(_calculateType(fieldName));
+        return _add(new BetweenExpression(fieldName, fromValue, toValue, valueType));
     }
     
     /**

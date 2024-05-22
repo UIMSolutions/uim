@@ -105,12 +105,8 @@ class DDebugger {
         'js': HtmlErrorRenderer.classname,
     ];
 
-    /**
-     * A map of editors to their link templates.
-     *
-     * @var array<string, string|callable>
-     */
-    protected editors = [
+    // A map of editors to their link templates.
+    protected STRINGAA editors = [
         'atom': 'atom://core/open/file?filename={file}&line={line}',
         'emacs': 'emacs://open?url=file://{file}&line={line}',
         'macvim': 'mvim://open/?url=file://{file}&line={line}',
@@ -120,16 +116,9 @@ class DDebugger {
         'vscode': 'vscode://file/{file}:{line}',
     ];
 
-    /**
-     * Holds current output data when outputFormat is false.
-     *
-     * @var array
-     */
-    protected _data = null;
+    // Holds current output data when outputFormat is false.
+    protected Json[string] _data = null;
 
-    /**
-     .
-     */
     this() {
         docRef = ini_get('docref_root');
         if (docRef.isEMpty && function_exists('ini_set')) {
@@ -204,15 +193,15 @@ class DDebugger {
      *
      * @param Json[string]|string key The key to get/set, or a complete array of configs.
      * @param mixed|null value The value to set.
-     * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
+     * @param bool shouldMerge Whether to recursively merge or overwrite existing config, defaults to true.
      */
-    static Json configInstance(key = null, value = null, bool merge = true) {
+    static Json configInstance(key = null, value = null, bool shouldMerge = true) {
         if (key == null) {
             return getInstance().configuration.get(key);
         }
 
         if (key.isArray || func_num_args() >= 2) {
-            return getInstance().setConfig(key, value, merge);
+            return getInstance().setConfig(key, value, shouldMerge);
         }
 
         return getInstance().configuration.get(key);
@@ -233,8 +222,8 @@ class DDebugger {
      * @param array<string, string> value An array where keys are replaced by their values in output.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      */
-    static void setOutputMask(Json[string] value, bool merge = true) {
-        configInstance('outputMask', value, merge);
+    static void setOutputMask(Json[string] value, bool shouldMerge = true) {
+        configInstance('outputMask', value, shouldMerge);
     }
 
     /**
@@ -345,7 +334,6 @@ class DDebugger {
      * @param \Throwable|array backtrace Trace as array or an exception object.
      * @param Json[string] options Format for outputting stack trace.
      * @return array|string Formatted stack trace.
-     * @link https://book.uimD.org/4/en/development/debugging.html#generating-stack-traces
      */
     static function formatTrace(backtrace, Json[string] optionData = null) {
         if (backtrace instanceof Throwable) {

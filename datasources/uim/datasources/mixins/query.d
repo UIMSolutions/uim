@@ -220,10 +220,6 @@ mixin template TQuery() {
      *
      * If the third argument is set to true, it will erase previous map reducers
      * and replace it with the arguments passed.
-     *
-     * @param callable|null mapper The mapper callable.
-     * @param callable|null reducer The reducing function.
-     * @param bool canOverwrite Set to true to overwrite existing map + reduce functions.
      */
     function mapReduce(callable mapper = null, callable reducer = null, bool canOverwrite = false) {
         if (canOverwrite) {
@@ -239,9 +235,7 @@ mixin template TQuery() {
         _mapReduce ~= compact("mapper", "reducer");
     }
 
-    /**
-     * Returns the list of previously registered map reduce routines.
-     */
+    // Returns the list of previously registered map reduce routines.
     Json[string] getMapReducers() {
         return _mapReduce;
     }

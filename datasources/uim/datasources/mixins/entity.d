@@ -326,11 +326,7 @@ mixin template TEntity() {
     return array_key_exists(fieldName, _original);
   }
 
-  /**
-     * Returns the value of an original field by name
-     * Params:
-     * @param bool allowFallback whether to allow falling back to the current field value if no original exists
-    */
+  // Returns the value of an original field by name
   Json getOriginal(string fieldName, bool allowFallback = true) {
     if (fieldName.isEmpty) {
       throw new DInvalidArgumentException("Cannot get an empty field");
@@ -452,12 +448,7 @@ mixin template TEntity() {
     return this;
   }
 
-  /**
-     * Sets hidden fields.
-     * Params:
-     * string[] fieldNames An array of fields to hide from array exports.
-     * @param bool merge Merge the new fields with the existing. By default false.
-    */
+  // Sets hidden fields.
   void hiddenFields(string[] fieldsToHide, bool shouldMerge = false) {
     if (shouldMerge == false) {
       _hidden = fieldsToHide;
@@ -473,11 +464,7 @@ mixin template TEntity() {
     return _hidden;
   }
 
-  /**
-     * Sets the virtual fields on this entity.
-     * Params:
-     * @param bool merge Merge the new fields with the existing. By default false.
-    */
+  // Sets the virtual fields on this entity.
   void setVirtual(string[] fieldNames, bool shouldMerge = false) {
     if (shouldMerge == false) {
       _virtual = fieldNames;
@@ -495,15 +482,11 @@ mixin template TEntity() {
 
   /**
      * Gets the list of visible fields.
-     *
-     * The list of visible fields is all standard fields
-     * plus virtual fields minus hidden fields.
+     * The list of visible fields is all standard fields plus virtual fields minus hidden fields.
     */
   string[] visibleFields() {
-    fields = _fields.keys;
-    fields = chain(fields, _virtual);
-
-    return array_diff(fields, _hidden);
+    auto fieldKeys = chain(_fields.keys, _virtual);
+    return array_diff(fieldKeys, _hidden);
   }
 
   /**
@@ -515,7 +498,7 @@ mixin template TEntity() {
     */
   Json[string] toDataArray() {
     Json[string] dataMap;
-    foreach (visibleFields() asfield) {
+    visibleFields.each!((field) {
       aValue = get(field);
       if (isArray(aValue)) {
         dataMap[field] = null;
@@ -527,7 +510,7 @@ mixin template TEntity() {
       } else {
         dataMap[field] = aValue;
       }
-    }
+    });
     return dataMap;
   }
 
@@ -561,9 +544,8 @@ mixin template TEntity() {
      * Accessor methods (available or not) are cached in _accessors
      * Params:
      * string aproperty the field name to derive getter name from
-     * @param string atype the accessor type ("get' or `set")
     */
-  protected static string _accessor(string aproperty, string accessorType) {
+  protected static string _accessor(string fieldName, string accessorType) {
     className = class;
 
     if (isSet(_accessors[className][accessorType][aProperty])) {
@@ -863,16 +845,12 @@ mixin template TEntity() {
      * Sets the error messages for a single field
      * entity.setErrors("salary", ["must be numeric", "must be a positive number"]);
      * ```
-     * Params:
-     * string fieldName The field to get errors for, or the array of errors to set.
-     * @param string[] aerrors The errors to be set for field
-     * @param bool overwrite Whether to overwrite pre-existing errors for field
     */
-      auto setErrors(string fieldName, string[] aerrors, bool shouldOverwrite = false) {
-        if (isString(errors)) {
-          errors = [errors];
+      auto setErrors(string fieldName, string[] errorsForField, bool shouldOverwrite = false) {
+        if (isString(errorsForField)) {
+          errors = [errorsForField];
         }
-        return _setErrors([field: errors], overwrite);
+        return _setErrors([fieldName: errorsForField], shouldOverwrite);
       }
 
       /**

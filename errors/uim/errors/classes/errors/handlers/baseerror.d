@@ -190,23 +190,18 @@ abstract class DERRErrorHandler {
         // Do nothing.
     }
 
-    /**
-     * Display/Log a fatal error.
-     *
-     * @param string description Error description
-     * @param string file File on which error occurred
-     */
-    bool handleFatalError(int errorCode, string description, string file, int errorTriggerLine) {
-        data = [
+    // Display/Log a fatal error.
+    bool handleFatalError(int errorCode, string errorDescription, string fileWithError, int errorTriggerLine) {
+        auto data = [
             "code": errorCode,
-            "description": description,
-            "file": file,
+            "description": errorDescription,
+            "file": fileWithError,
             "line": errorTriggerLine,
             "error": "Fatal Error",
         ];
         _logError(LOG_ERR, data);
 
-        this.handleException(new DFatalErrorException(description, 500, file, errorTriggerLine));
+        this.handleException(new DFatalErrorException(errorDescription, 500, fileWithError, errorTriggerLine));
 
         return true;
     }

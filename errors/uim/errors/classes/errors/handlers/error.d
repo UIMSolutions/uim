@@ -10,8 +10,6 @@ module uim.errors.errors.errorhandler;
 @safe:
 import uim.errors;
 
-
-
 /**
  * Error Handler provides basic error and exception handling for your application. It captures and
  * handles all unhandled exceptions and errors. Displays helpful framework errors when debug mode is on.
@@ -90,7 +88,7 @@ class DErrorHandler { // }: DERRErrorHandler
         if (!shouldDebug) {
             return;
         }
-        
+
         Debugger.getInstance().outputError(errorData);
     }
 
@@ -112,7 +110,7 @@ class DErrorHandler { // }: DERRErrorHandler
     IExceptionRenderer getRenderer(
         Throwable exception,
         IServerRequest request = null
-    )  {
+    ) {
         renderer = _config["exceptionRenderer"];
 
         if (renderer.isString) {
@@ -120,8 +118,8 @@ class DErrorHandler { // }: DERRErrorHandler
             aClassName = App.className(renderer, "Error");
             if (!aClassName) {
                 throw new DRuntimeException(format(
-                    "The '%s' renderer class DCould not be found.",
-                    renderer
+                        "The '%s' renderer class DCould not be found.",
+                        renderer
                 ));
             }
 
@@ -152,19 +150,14 @@ class DErrorHandler { // }: DERRErrorHandler
         trigger_error(message, E_USER_ERROR);
     }
 
-    /**
-     * Method that can be easily stubbed in testing.
-     *
-     * @param IResponse|string response Either the message or response object.
-     */
-    protected void _sendResponse(response) {
-        if (response.isString) {
-            writeln(response);
-
-            return;
-        }
-
+    // Method that can be easily stubbed in testing.
+    protected void _sendResponse(IResponse response) {
         auto emitter = new DResponseEmitter();
         emitter.emit(response);
-    } */
+    }
+
+    protected void _sendResponse(string responseMessage) {
+        writeln(response);
+
+    }
 }

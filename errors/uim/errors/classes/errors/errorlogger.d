@@ -58,32 +58,27 @@ class DErrorLogger : IErrorLogger {
         Log.error(exceptionMessage);
     }
     
-    /**
-     * Generate the message for the exception
-     * Params:
-     * \Throwable exception The exception to log a message for.
-     * @param bool anIncludeTrace Whether or not to include a stack trace.
-     */
-    protected string getMessage(Throwable exception, bool isPrevious = false, bool anIncludeTrace = false) {
+    // Generate the message for the exception
+    protected string getMessage(Throwable exceptionToLog, bool isPrevious = false, bool includeTrace = false) {
         string message = "%s[%s] %s in %s on line %s"
             .format(
                 isPrevious ? "\nCaused by: " : "",
-                exception.classname,
-                exception.getMessage(),
-                exception.getFile(),
-                exception.getLine()
+                exceptionToLog.classname,
+                exceptionToLog.getMessage(),
+                exceptionToLog.getFile(),
+                exceptionToLog.getLine()
             );
 
         debug = configuration.get("debug");
 
-        if (debug && cast(UimException)exception) {
-            attributes = exception.getAttributes();
+        if (debug && cast(UimException)exceptionToLog) {
+            attributes = exceptionToLog.getAttributes();
             if (attributes) {
-                message ~= "\nException Attributes: " ~ var_export_(exception.getAttributes(), true);
+                message ~= "\nException Attributes: " ~ var_export_(exceptionToLog.getAttributes(), true);
             }
         }
-        if (anIncludeTrace) {
-            trace = Debugger.formatTrace(exception, ["format": "points"]);
+        if (includeTrace) {
+            trace = Debugger.formatTrace(exceptionToLog, ["format": "points"]);
             assert(isArray(trace));
             message ~= "\nStack Trace:\n";
             trace.each!((line) {
@@ -93,9 +88,9 @@ class DErrorLogger : IErrorLogger {
             });
         }
 
-        auto previousException = exception.getPrevious();
+        auto previousException = exceptionToLog.getPrevious();
         if (previousException) {
-            message ~= getMessage(previousException, true,  anIncludeTrace);
+            message ~= getMessage(previousException, true,  includeTrace);
         }
         return message;
     }

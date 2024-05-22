@@ -1,4 +1,4 @@
-﻿module uim.html.elements.progress;
+﻿module uim.html.classes.elements.progress;
 
 @safe:
 import uim.html;

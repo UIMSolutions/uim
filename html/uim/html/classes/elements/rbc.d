@@ -1,4 +1,4 @@
-﻿module uim.html.elements.rbc;
+﻿module uim.html.classes.elements.rbc;
 
 @safe:
 import uim.html;

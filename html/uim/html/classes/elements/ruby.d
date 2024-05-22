@@ -1,4 +1,4 @@
-﻿module uim.html.elements.ruby;
+﻿module uim.html.classes.elements.ruby;
 
 import uim.html; 
 

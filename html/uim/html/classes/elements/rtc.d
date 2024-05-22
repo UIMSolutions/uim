@@ -1,4 +1,4 @@
-﻿module uim.html.elements.rtc;
+﻿module uim.html.classes.elements.rtc;
 
 @safe:
 import uim.html;

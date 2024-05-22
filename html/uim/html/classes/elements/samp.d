@@ -1,4 +1,4 @@
-﻿module uim.html.elements.samp;
+﻿module uim.html.classes.elements.samp;
 
 @safe:
 import uim.html;

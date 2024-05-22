@@ -54,19 +54,15 @@ class DHtmlErrorFormatter : IErrorFormatter {
         return to!string(ob_get_clean());
     }
     
-    /**
-     * Convert a tree of IErrorNode objects into HTML
-     * Params:
-     * \UIM\Error\Debug\IErrorNode node The node tree to dump.
-     */
+    // Convert a tree of IErrorNode objects into HTML
     string dump(IErrorNode nodeToDump) {
-        html = this.export_(node, 0);
-        head = "";
+        auto html = this.export_(nodeToDump, 0);
+        string head = "";
         if (!outputHeader) {
             outputHeader = true;
             head = this.dumpHeader();
         }
-        return head ~ "<div class="uim-debug">" ~ html ~ "</div>";
+        return head ~ "<div class=\"uim-debug\">" ~ html ~ "</div>";
     }
     
     /**

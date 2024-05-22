@@ -1,4 +1,4 @@
-﻿module uim.html.elements.colgroup;
+﻿module uim.html.classes.elements.colgroup;
 
 @safe:
 import uim.html;

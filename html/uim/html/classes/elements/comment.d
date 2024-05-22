@@ -1,4 +1,4 @@
-﻿module uim.html.elements.comment;
+﻿module uim.html.classes.elements.comment;
 
 @safe:
 import uim.html;

@@ -1,4 +1,4 @@
-﻿module uim.html.elements.cite;
+﻿module uim.html.classes.elements.cite;
 
 @safe:
 import uim.html;

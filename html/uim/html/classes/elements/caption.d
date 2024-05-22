@@ -1,4 +1,4 @@
-﻿module uim.html.elements.caption;
+﻿module uim.html.classes.elements.caption;
 
 @safe:
 import uim.html;

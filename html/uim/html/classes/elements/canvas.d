@@ -1,4 +1,4 @@
-﻿module uim.html.elements.canvas;
+﻿module uim.html.classes.elements.canvas;
 
 import std.stdio;
 import std.conv;

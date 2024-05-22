@@ -1,4 +1,4 @@
-﻿module uim.html.elements.blockquote;
+﻿module uim.html.classes.elements.blockquote;
 
 @safe:
 import uim.html;

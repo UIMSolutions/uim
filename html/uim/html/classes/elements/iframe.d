@@ -1,4 +1,4 @@
-﻿module uim.html.elements.iframe;
+﻿module uim.html.classes.elements.iframe;
 
 @safe:
 import uim.html;

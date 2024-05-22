@@ -1,4 +1,4 @@
-﻿module uim.html.elements.img;
+﻿module uim.html.classes.elements.img;
 
 @safe:
 import uim.html;

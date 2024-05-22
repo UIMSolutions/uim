@@ -1,4 +1,4 @@
-﻿module uim.html.elements.footer;
+﻿module uim.html.classes.elements.footer;
 
 @safe:
 import uim.html;

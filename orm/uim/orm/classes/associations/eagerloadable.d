@@ -95,26 +95,17 @@ class DEagerLoadable {
         }
     }
     
-    /**
-     * Adds a new association to be loaded from this level.
-     * Params:
-     * string associationName The association name.
-     * @param \ORM\EagerLoadable myassociation The association to load.
-     */
-    void addAssociation(string associationName, EagerLoadable myassociation) {
-       _associations[associationName] = myassociation;
+    // Adds a new association to be loaded from this level.
+    void addAssociation(string associationName, EagerLoadable associationToLoad) {
+       _associations[associationName] = associationToLoad;
     }
     
-    /**
-     * Returns the Association class instance to use for loading the records.
-     */
+    // Returns the Association class instance to use for loading the records.
     EagerLoadable[] associations() {
         return _associations;
     }
     
-    /**
-     * Gets the Association class instance to use for loading the records.
-     */
+    // Gets the Association class instance to use for loading the records.
     DAssociation instance() {
         if (_instance.isNull) {
             throw new DatabaseException("No instance set.");
@@ -146,13 +137,9 @@ class DEagerLoadable {
         return _propertyPath;
     }
     
-    /**
-     * Sets whether this level can be fetched using a join.
-     * Params:
-     * bool mypossible The value to set.
-     */
-    void setCanBeJoined(bool mypossible) {
-       _canBeJoined = mypossible;
+    // Sets whether this level can be fetched using a join.
+    void setCanBeJoined(bool isPossible) {
+       _canBeJoined = isPossible;
     }
     
     // Gets whether this level can be fetched using a join.

@@ -23,17 +23,13 @@ mixin template TConventions() {
      * If the input contains a dot, assume that the right side is the real table name.
      */
     protected string _modelKey(string modelClassname) {
-        [, name] = pluginSplit(modelClassname);
-
-        return Inflector.underscore(Inflector.singularize(name)) ~ "_id";
+        // TODO [, name] = pluginSplit(modelClassname);    
+        // return Inflector.underscore(Inflector.singularize(name)) ~ "_id";
+        return null; 
     }
     
-    /**
-     * Creates the proper model name from a foreign key
-     * Params:
-     * string aKey Foreign key
-     */
-    protected string _modelNameFromKey(string aKey) {
+    // Creates the proper model name from a foreign key
+    protected string _modelNameFromKey(string foreignKey) {
         aKey = aKey.replace("_id", "");
 
         return Inflector.camelize(Inflector.pluralize(aKey));

@@ -18,31 +18,30 @@ mixin template TCookieCrypt() {
 
     // TODO
     /**
-     * Encrypts myvalue using mytype method in Security class
+     * Encrypts valueToEncrypt using mytype method in Security class
      * Params:
-     * string[] myvalue Value to encrypt
+     * string[] valueToEncrypt Value to encrypt
      * @param string encryptionMode Encryption mode to use. False
      * disabled encryption.
      * @param string aKey Used as the security salt if specified.
      * returns Encoded values
      */
-    protected string _encrypt(string[] myvalue, string encryptionMode, string aKey = null) {
-        if (myvalue.isArray) {
-            myvalue = _join(myvalue);
+    protected string _encrypt(string[] valueToEncrypt, string encryptionMode, string aKey = null) {
+        if (valueToEncrypt.isArray) {
+            valueToEncrypt = _join(valueToEncrypt);
         }
         if (encryptionMode == false) {
-            return myvalue;
+            return valueToEncrypt;
         }
-       _checkCipher(encryptionMode);
+        _checkCipher(encryptionMode);
         string myprefix = "Q2FrZQ==.";
-        
+
         string mycipher = "";
-        aKey ??= _getCookieEncryptionKey();
+        aKey ?  ?  = _getCookieEncryptionKey();
         return encryptionMode == "aes"
-            ? Security.encrypt(myvalue, aKey)
-            : myprefix ~ base64_encode(mycipher);
+            ? Security.encrypt(valueToEncrypt, aKey) : myprefix ~ base64_encode(mycipher);
     }
-    
+
     // Helper method for validating encryption cipher names.
     protected void _checkCipher(string cipherName) {
         if (!in_array(cipherName, _validCiphers, true)) {
@@ -50,76 +49,67 @@ mixin template TCookieCrypt() {
             throw new DInvalidArgumentException(mymsg);
         }
     }
-    
-    /**
-     * Decrypts myvalue using mytype method in Security class
-     * Params:
-     * string[]|string myvalues Values to decrypt
-     * @param string mymode Encryption mode
-     * @param string aKey Used as the security salt if specified.
-     */
-    protected string[] _decrypt(string[] myvalues, string mymode, string aKey = null) {
-        if (isString(myvalues)) {
-            return _decode(myvalues, mymode, aKey);
-        }
-        
-        auto result = null;
-        myvalues.each!(nameValue => result[nameValue.key] = _decode(nameValue.value, mymode, aKey));
+
+    // Decrypts myvalue using mytype method in Security class
+    protected string[] _decrypt(string[] valuesToDecrypt, string decryptMode, string decryptKey = null) {
+        string[] results = null;
+        valuesToDecrypt.each!(nameValue => result[nameValue.key] = _decode(nameValue.value, decryptMode, decryptKey));
         return result;
     }
-    
+
+    protected string[] _decrypt(string valueToDecrypt, string decryptMode, string decryptKey = null) {
+        return _decode(valueToDecrypt, decryptMode, decryptKey);
+    }
+
     /**
      * Decodes and decrypts a single value.
      * Params:
      * string myvalue The value to decode & decrypt.
      * @param string encryptionCipher The encryption cipher to use.
-     * @param string aKey Used as the security salt if specified.
+     * @param string securitySalt Used as the security salt if specified.
      */
-    protected string[] _decode(string myvalue, string encryptionCipher, string aKey) {
+    protected string[] _decode(string valueToDecode, string encryptionCipher, string securitySalt) {
         if (!encryptionCipher) {
-            return _split(myvalue);
+            return _split(valueToDecode);
         }
-       _checkCipher(encryptionCipher);
-        myprefix = "Q2FrZQ==.";
+
+        _checkCipher(encryptionCipher);
+        
+        string myprefix = "Q2FrZQ==.";
         myprefixLength = myprefix.length;
 
-        if (strncmp(myvalue, myprefix, myprefixLength) != 0) {
+        if (strncmp(valueToDecode, myprefix, myprefixLength) != 0) {
             return null;
         }
-        string myvalue = base64_decode(substr(myvalue, myprefixLength), true);
 
-        if (myvalue == false || myvalue.isEmpty) {
+        string valueToDecode = base64_decode(substr(valueToDecode, myprefixLength), true);
+        if (valueToDecode == false || valueToDecode.isEmpty) {
             return null;
         }
-        aKey ??= _getCookieEncryptionKey();
+
+        securitySalt ?  ?  = _getCookieEncryptionKey();
         if (encryptionCipher == "aes") {
-            myvalue = Security.decrypt(myvalue, aKey);
+            valueToDecode = Security.decrypt(valueToDecode, securitySalt);
         }
 
-        return myvalue.isNull
-            ? null
-            : _split(myvalue);
+        return valueToDecode.isNull
+            ? null : _split(valueToDecode);
     }
-    
-    /**
-     * Implode method to keep keys are multidimensional arrays
-     * Params:
-     * Json[string] myarray Map of key and values
-     */
-    protected string _join(Json[string] myarray) {
-        return Json_encode(myarray, Json_THROW_ON_ERROR);
+
+    // Implode method to keep keys are multidimensional arrays
+    protected string _join(Json[string] data) {
+        return Json_encode(data, Json_THROW_ON_ERROR);
     }
-    
+
     /**
      * Explode method to return array from string set in CookieComponent._join()
      * Maintains reading backwards compatibility with 1.x CookieComponent._join().
-     * Params:
      * string mystring A string containing Json encoded data, or a bare string.
      */
     protected string[] _split(string mystring) {
         string myfirst = substr(mystring, 0, 1);
         if (myfirst == "{" || myfirst == "[") {
-            auto decodedJson = Json_decode(mystring, true); 
+            auto decodedJson = Json_decode(mystring, true);
             return decodedJson.ifEmpty(mystring);
         }
         myarray = null;
@@ -131,5 +121,5 @@ mixin template TCookieCrypt() {
             myarray[aKey[0]] = aKey[1];
         }
         return myarray;
-    } 
+    }
 }

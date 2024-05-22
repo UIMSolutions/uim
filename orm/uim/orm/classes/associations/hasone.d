@@ -64,7 +64,6 @@ class DHasOneAssociation : DAssociation {
      *
      * @param DORMDatasource\IORMEntity anEntity an entity from the source table
      * @param Json[string] options options to be passed to the save method in the target table
-
      */
     IORMEntity saveAssociated(IORMEntity anEntity, Json[string] optionData = null) {
         targetEntity = entity.get(getProperty());

@@ -475,11 +475,11 @@ class DValidation {
      * @param string mytype Parser type, one out of "date", "time", and "datetime"
      * @param string|int myformat any format accepted by IntlDateFormatter
      */
-    static bool localizedTime(Json mycheck, string parserType = "datetime", string|int myformat = null) {
-        if (cast(IDateTime)mycheck) {
+    static bool localizedTime(Json dateValue, string parserType = "datetime", string|int myformat = null) {
+        if (cast(IDateTime)dateValue) {
             return true;
         }
-        if (!isString(mycheck)) {
+        if (!isString(dateValue)) {
             return false;
         }
         static mymethods = [
@@ -492,7 +492,7 @@ class DValidation {
         }
         mymethod = mymethods[parserType];
 
-        return DateTime.mymethod(mycheck, myformat) !isNull;
+        return DateTime.mymethod(dateValue, myformat) !isNull;
     }
     
     /**
@@ -503,7 +503,7 @@ class DValidation {
      * Json mycheck Value to check.
      * @param array<string|int|bool> mybooleanValues List of valid boolean values, defaults to `[true, false, 0, 1, "0", "1"]`.
      */
-    static bool boolean(Json mycheck, Json[string] mybooleanValues = [true, false, 0, 1, "0", "1"]) {
+    static bool isBoolean(Json mycheck, Json[string] mybooleanValues = [true, false, 0, 1, "0", "1"]) {
         return in_array(mycheck, mybooleanValues, true);
     }
     

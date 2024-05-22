@@ -11,6 +11,11 @@ import uim.orm;
 class DShadowTableStrategy { // TODO }: ITranslateStrategy {
     mixin TConfigurable;
 
+    mixin TLocatorAware;
+    // TODO mixin TTranslateStrategy() {
+    //     buildMarshalMap as private _buildMarshalMap;
+    // }
+
     this() {
         initialize;
     }
@@ -34,7 +39,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             "referencename": "".toJson,
             "allowEmptyTranslations": true.toJson,
             "onlyTranslated": false.toJson,
-            "strategy": Json("subquery"),
+            "strategy": "subquery".toJson,
             "tableLocator": Json(null),
             "validator": false.toJson,
         ]);
@@ -43,14 +48,8 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
     }
 
     mixin(TProperty!("string", "name"));
-    /* 
-    mixin TLocatorAware;
-    mixin TTranslateStrategy() {
-        buildMarshalMap as private _buildMarshalMap;
-    }
 
-    /**
-     
+    /**     
      *
      * @param DORMDORMTable aTable Table instance.
      * @param Json[string] myConfiguration Configuration.

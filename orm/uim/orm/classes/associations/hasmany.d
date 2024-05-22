@@ -82,21 +82,17 @@ class DHasManyAssociation : DAssociation {
      * matching the property name for this association. The found entity will be
      * saved on the target table for this association by passing supplied
      * `options`
-     *
-     * @param DORMDatasource\IORMEntity anEntity an entity from the source table
-     * @param Json[string] options options to be passed to the save method in the target table
-     * the saved entity
      */
-    IORMEntity saveAssociated(IORMEntity anEntity, Json[string] options = null) {
-        myTargetEntities = entity.get(getProperty());
+    IORMEntity saveAssociated(IORMEntity sourceEntity, Json[string] options = null) {
+        myTargetEntities = sourceEntity.get(getProperty());
 
         isEmpty = in_array(myTargetEntities, [null, [], "", false], true);
         if (isEmpty) {
             if (
-                entity.isNew() ||
+                sourceEntity.isNew() ||
                 getSaveStrategy() != self.SAVE_REPLACE
                 ) {
-                return entity;
+                return sourceEntity;
             }
 
             myTargetEntities = null;
@@ -110,26 +106,26 @@ class DHasManyAssociation : DAssociation {
 
         foreignKeyReference = array_combine(
             (array) foreignKeys(),
-            entity.extract((array) getBindingKey())
+            sourceEntity.extract((array) getBindingKey())
         );
 
         options["_sourceTable"] = source();
 
         if (
             _saveStrategy == self.SAVE_REPLACE &&
-            !_unlinkAssociated(foreignKeyReference, entity, getTarget(), myTargetEntities, options)
+            !_unlinkAssociated(foreignKeyReference, sourceEntity, getTarget(), myTargetEntities, options)
             ) {
-            return false;
+            return null;
         }
 
         if (!myTargetEntities.isArray) {
             myTargetEntities = iterator_to_array(myTargetEntities);
         }
-        if (!_saveTarget(foreignKeyReference, entity, myTargetEntities, options)) {
-            return false;
+        if (!_saveTarget(foreignKeyReference, sourceEntity, myTargetEntities, options)) {
+            return null;
         }
 
-        return entity;
+        return sourceEntity;
     }
 
     /**
@@ -138,16 +134,11 @@ class DHasManyAssociation : DAssociation {
      *
      * @param Json[string] foreignKeyReference The foreign key reference defining the link between the
      * target entity, and the parent entity.
-     * @param DORMDatasource\IORMEntity parentEntity The source entity containing the target
-     * entities to be saved.
-     * @param Json[string] entities list of entities
-     * to persist in target table and to link to the parent entity
-     * @param Json[string] options list of options accepted by `Table.save()`.
      */
     protected bool _saveTarget(
         array foreignKeyReference,
-        IORMEntity parentEntity,
-        array entities,
+        IORMEntity sourceEntity,
+        IORMEntity[] entities,
         Json[string] options
     ) {
         foreignKey = foreignKeyReference.keys;
@@ -184,7 +175,7 @@ class DHasManyAssociation : DAssociation {
             }
         }
 
-        parentEntity.set(getProperty(), entities);
+        sourceEntity.set(getProperty(), entities);
 
         return true;
     }

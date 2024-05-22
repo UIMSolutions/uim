@@ -88,8 +88,8 @@ class DEagerLoader {
      * the new one.
      * @param \Closure|null myqueryBuilder The query builder callback.
      */
-    array contain(string[] myassociations, Closure myqueryBuilder = null) {
-        if (myqueryBuilder) {
+    array contain(string[] myassociations, Closure queryBuilderCallback = null) {
+        if (queryBuilderCallback) {
             if (!isString(myassociations)) {
                 throw new DInvalidArgumentException(
                     "Cannot set containments. To use myqueryBuilder, myassociations must be a string"
@@ -97,7 +97,7 @@ class DEagerLoader {
             }
             myassociations = [
                 myassociations: [
-                    "queryBuilder": myqueryBuilder,
+                    "queryBuilder": queryBuilderCallback,
                 ],
             ];
         }

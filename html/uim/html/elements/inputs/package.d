@@ -1,0 +1,24 @@
+﻿module uim.html.elements.inputs;
+
+public import uim.html.elements.inputs.button;
+public import uim.html.elements.inputs.checkbox;
+public import uim.html.elements.inputs.color;
+public import uim.html.elements.inputs.date;
+public import uim.html.elements.inputs.datetime;
+public import uim.html.elements.inputs.datetimelocal;
+public import uim.html.elements.inputs.email;
+public import uim.html.elements.inputs.file;
+public import uim.html.elements.inputs.hidden;
+public import uim.html.elements.inputs.image;
+public import uim.html.elements.inputs.month;
+public import uim.html.elements.inputs.number;
+public import uim.html.elements.inputs.password;
+public import uim.html.elements.inputs.radio;
+public import uim.html.elements.inputs.range;
+public import uim.html.elements.inputs.reset;
+public import uim.html.elements.inputs.search;
+public import uim.html.elements.inputs.submit;
+public import uim.html.elements.inputs.tel;
+public import uim.html.elements.inputs.text;
+public import uim.html.elements.inputs.time;
+public import uim.html.elements.inputs.week;

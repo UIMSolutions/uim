@@ -78,11 +78,11 @@ class DHtmlErrorFormatter : IErrorFormatter {
     protected string export_(IErrorNode var, int indentLevel) {
         if (cast(DScalarNode)var) {
             return match (var.getType()) {
-                "bool": this.style("const", var.getValue() ? "true" : "false"),
-                "null": this.style("const", "null"),
-                "string": this.style("string", "'" ~ (string)var.getValue() ~ "'"),
-                "int", "float": this.style("visibility", "({var.getType()})") ~
-                        " " ~ this.style("number", "{var.getValue()}"),
+                "bool":style("const", var.getValue() ? "true" : "false"),
+                "null":style("const", "null"),
+                "string":style("string", "'" ~ (string)var.getValue() ~ "'"),
+                "int", "float":style("visibility", "({var.getType()})") ~
+                        " " ~style("number", "{var.getValue()}"),
                 default: "({var.getType()}) {var.getValue()}",
             };
         }
@@ -106,23 +106,23 @@ class DHtmlErrorFormatter : IErrorFormatter {
      */
     protected string exportArray(ArrayNode tvar, int indentLevel) {
         open = "<span class="uim-debug-array">' .
-            this.style("punct", "[") .
+           style("punct", "[") .
             '<samp class="uim-debug-array-items">";
         vars = null;
         break = "\n" ~ str_repeat("  ",  indentLevel);
         endBreak = "\n" ~ str_repeat("  ",  indentLevel - 1);
 
-        arrow = this.style("punct", ": ");
+        arrow =style("punct", ": ");
         var.getChildren().each!((item) {
             val = anItem.getValue();
             vars ~= break ~ "<span class=\"uim-debug-array-item\">" ~
                 this.export_(item.getKey(),  indentLevel) ~ arrow ~ this.export_(val,  indentLevel) ~
-                this.style("punct", ",") ~ "</span>";
+               style("punct", ",") ~ "</span>";
         });
 
         close = "</samp>" ~
             endBreak ~
-            this.style("punct", "]") ~
+           style("punct", "]") ~
             "</span>";
 
         return open ~ join("", vars) ~ close;
@@ -132,59 +132,58 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * Handles object to string conversion.
      * Params:
      * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\ReferenceNode var Object to convert.
-     * @param int indentLevel The current indentation level.
      */
-    protected string exportObject(ClassNode|ReferenceNode var, int indentLevel) {
-        objectId = "uim-db-object-{this.id}-{var.getId()}";
-        result = "<span class="uim-debug-object" id="%s">".format(objectId);
-        break = "\n" ~ str_repeat("  ",  indentLevel);
-        endBreak = "\n" ~ str_repeat("  ",  indentLevel - 1);
+    protected string exportObject(ClassNode|ReferenceNode objToConvert, int indentLevel) {
+        auto objectId = "uim-db-object-{this.id}-{var.getId()}";
+        auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
+        auto breakText = "\n" ~ str_repeat("  ",  indentLevel);
+        auto endBreak = "\n" ~ str_repeat("  ",  indentLevel - 1);
 
         if (cast(ReferenceNode)var) {
             link = "<a class="uim-debug-ref" href="#%s">id: %s</a>"
                 .format(objectId, var.getId());
 
-            return "<span class="uim-debug-ref">' .
-                this.style("punct", "object(") .
-                this.style("class", var.getValue()) .
-                this.style("punct", ") ") .
-                link .
-                this.style("punct", " {}") .
-                '</span>";
+            return "<span class=\"uim-debug-ref\">" ~
+               style("punct", "object(") ~
+               style("class", var.getValue()) ~
+               style("punct", ") ") ~
+                link ~
+               style("punct", " {}") ~
+                "</span>";
         }
-         result ~= this.style("punct", "object(") .
-            this.style("class", var.getValue()) .
-            this.style("punct", ") id:") .
-            this.style("number", (string)var.getId()) .
-            this.style("punct", " {") .
+         result ~= style("punct", "object(") ~
+           style("class", var.getValue()) ~
+           style("punct", ") id:") ~
+           style("number", (string)var.getId()) ~
+           style("punct", " {") ~
             "<samp class=\"uim-debug-object-props\">";
 
         props = null;
         foreach (var.getChildren() as  aProperty) {
-            arrow = this.style("punct", ": ");
+            arrow = style("punct", ": ");
             visibility = aProperty.getVisibility();
             name = aProperty.name;
             if (visibility && visibility != "public") {
-                props ~= break .
-                    '<span class="uim-debug-prop">' .
-                    this.style("visibility", visibility) .
-                    ' ' .
-                    this.style("property", name) .
-                    arrow .
-                    this.export_(aProperty.getValue(),  indentLevel) .
+                props ~= breakText ~
+                    '<span class="uim-debug-prop">' ~
+                   style("visibility", visibility) ~
+                    ' ' ~
+                   style("property", name) ~
+                    arrow ~
+                    this.export_(aProperty.getValue(),  indentLevel) ~
                 "</span>";
             } else {
-                props ~= break .
-                    '<span class="uim-debug-prop">' .
-                    this.style("property", name) .
-                    arrow .
-                    this.export_(aProperty.getValue(),  indentLevel) .
+                props ~= breakText ~
+                    '<span class="uim-debug-prop">' ~
+                   style("property", name) ~
+                    arrow ~
+                    this.export_(aProperty.getValue(),  indentLevel) ~
                     "</span>";
             }
         }
-        end = "</samp>' .
-            endBreak .
-            style("punct", "}") .
+        end = "</samp>" ~
+            endBreak ~
+            style("punct", "}") ~
             "</span>";
 
         if (count(props)) {
@@ -193,13 +192,9 @@ class DHtmlErrorFormatter : IErrorFormatter {
         return result ~ end;
     }
     
-    /**
-     * Style text with HTML class names
-     * Params:
-     * @param string atext The text to style.
-     */
-    protected string style(string styleToUse, string atext) {
-        return "<span class="uim-debug-%s">%s</span>"
-            .format(styleToUse, htmlAttributeEscape(text));
-    } */
+    // Style text with HTML class names
+    protected string style(string styleToUse, string testToStyle) {
+        return "<span class=\"uim-debug-%s\">%s</span>"
+            .format(styleToUse, htmlAttributeEscape(testToStyle));
+    }
 }

@@ -166,12 +166,12 @@ class DQueryExpression : DExpression { // }, Countable {
         /* IExpression| */ string[] avalues,
         string valueType = null
     ) {
-        type ??= _calculateType(field);
+        type ??= _calculateType(fieldName);
         valueType = valueType.ifEmpty("string");
         type ~= "[]";
          someValues = cast(IExpression)someValues  ?  someValues : (array) someValues;
 
-        return _add(new DComparisonExpression(field,  someValues, valueType, "IN"));
+        return _add(new DComparisonExpression(fieldName,  someValues, valueType, "IN"));
     }
     
     /**
@@ -201,17 +201,13 @@ class DQueryExpression : DExpression { // }, Countable {
     /**
      * Adds a new condition to the expression object in the form
      * "field NOT IN (value1, value2)".
-     * Params:
-     * @param string type the type name for aValue as configured using the Type map.
      */
     auto notIn(
         /* IExpression */ string fieldName,
         /* IExpression */ string[] valuesToBound,
         string valueType = null
     ) {
-        valueType ??= _calculateType(fieldName);
-        valueType = valueType ?: "string";
-        valueType ~= "[]";
+        valueType = valueType.ifEmpty(_calculateType(fieldName)).ifEmpty("string");
          someValues = cast(IExpression)valuesToBound  ?  valuesToBound : (array) valuesToBound;
 
         return _add(new DComparisonExpression(fieldName,  valuesToBound, valueType, "NOT IN"));

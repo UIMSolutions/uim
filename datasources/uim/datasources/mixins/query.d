@@ -110,12 +110,10 @@ mixin template TQuery() {
      * @param |false key Either the cache key or a function to generate the cache key.
      *  When using a function, this query instance will be supplied as an argument.
      */
-    void cache(/* \Closure */ string key, string cacheConfigName = "default") {
-        if (key.isEmpty) {
-            _cache = null;
-            return;
-        }
-        _cache = new DQueryCacher(key, myConfiguration);
+    void cache(/* \Closure */ string cacheKey, string cacheConfigName = "default") {
+        _cache = cacheKey.isEmpty
+            ? null
+            : new DQueryCacher(cacheKey, cacheConfigName);
     }
 
     // Returns the current configured query `_eagerLoaded` value

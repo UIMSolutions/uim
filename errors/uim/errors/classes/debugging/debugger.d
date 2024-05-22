@@ -51,14 +51,11 @@ class DDebugger {
     // The current output format.
     protected string _outputFormat = "js";
 
-    /*
     /**
      * Templates used when generating trace or error strings. Can be global or indexed by the format
      * value used in _outputFormat.
-     *
-     * @var array<string, Json[string]>
      */
-    protected _stringContents = [
+    protected Json[string][string] _stringContents = [
         "log": [
             // These templates are not actually used, as Debugger.log() is called instead.
             "trace": "{:reference} - {:path}, line {:line}",
@@ -96,10 +93,8 @@ class DDebugger {
      * Error renderers are replacing output formatting with
      * an object based system. Having Debugger handle and render errors
      * will be deprecated and the new DErrorTrap system should be used instead.
-     *
-     * @var array<string, class-string>
      */
-    protected renderers = [
+    protected STRINGAA renderers = [
         'txt': TextErrorRenderer.classname,
         // The html alias currently uses no JS and will be deprecated.
         'js': HtmlErrorRenderer.classname,
@@ -107,13 +102,13 @@ class DDebugger {
 
     // A map of editors to their link templates.
     protected STRINGAA editors = [
-        'atom': 'atom://core/open/file?filename={file}&line={line}',
-        'emacs': 'emacs://open?url=file://{file}&line={line}',
-        'macvim': 'mvim://open/?url=file://{file}&line={line}',
-        'Dstorm': 'Dstorm://open?file={file}&line={line}',
-        'sublime': 'subl://open?url=file://{file}&line={line}',
-        'textmate': 'txmt://open?url=file://{file}&line={line}',
-        'vscode': 'vscode://file/{file}:{line}',
+        "atom": 'atom://core/open/file?filename={file}&line={line}',
+        "emacs": 'emacs://open?url=file://{file}&line={line}',
+        "macvim": 'mvim://open/?url=file://{file}&line={line}',
+        "Dstorm": 'Dstorm://open?file={file}&line={line}',
+        "sublime": 'subl://open?url=file://{file}&line={line}',
+        "textmate": 'txmt://open?url=file://{file}&line={line}',
+        "vscode": 'vscode://file/{file}:{line}',
     ];
 
     // Holds current output data when outputFormat is false.
@@ -188,13 +183,8 @@ class DDebugger {
         return instance[0];
     }
 
-    /**
-     * Read or write configuration options for the Debugger instance.
-     *
-     * @param Json[string]|string key The key to get/set, or a complete array of configs.
-     * @param bool shouldMerge Whether to recursively merge or overwrite existing config, defaults to true.
-     */
-    static Json configInstance(key = null, Json valueToSet = null, bool shouldMerge = true) {
+    // Read or write configuration options for the Debugger instance.
+    static Json configInstance(string key = null, Json valueToSet = null, bool shouldMerge = true) {
         if (key == null) {
             return getInstance().configuration.get(key);
         }
@@ -572,38 +562,35 @@ class DDebugger {
      * The node tree can be manipulated and serialized more easily
      * than many object graphs can.
      *
-     * @param mixed var Variable to convert.
      * @param int maxDepth The depth to generate nodes to. Defaults to 3.
      */
-    static IErrorNode exportVarAsNodes(var, int maxDepth = 3) {
-        return export_(var, new DebugContext(maxDepth));
+    static IErrorNode exportVarAsNodes(Json varToConvert, int maxDepth = 3) {
+        return export_(varToConvert, new DebugContext(maxDepth));
     }
 
     /**
      * Protected export function used to keep track of indentation and recursion.
-     *
-     * @param mixed var The variable to dump.
      * @param uim.errors.debugs.DebugContext context Dump context
      */
-    protected static IErrorNode export_(var, DebugContext context) {
-        type = getType(var);
+    protected static IErrorNode export_(varToDump, DebugContext dumpContext) {
+        type = getType(varToDump);
         switch (type) {
             case "float": 
             case "string": 
             case "resource": 
             case "resource (closed)": 
             case "null": 
-                return new DScalarNode(type, var);
+                return new DScalarNode(type, varToDump);
             case "boolean": 
-                return new DScalarNode('bool', var);
+                return new DScalarNode('bool', varToDump);
             case "integer": 
-                return new DScalarNode('int', var);
+                return new DScalarNode('int', varToDump);
             case "array": 
-                return exportArray(var, context.withAddedDepth());
+                return exportArray(varToDump, context.withAddedDepth());
             case "unknown": 
                 return new DSpecialNode('(unknown)');
             default:
-                return exportObject(var, context.withAddedDepth());
+                return exportObject(varToDump, context.withAddedDepth());
         }
     }
 
@@ -755,7 +742,7 @@ class DDebugger {
      * @param Json[string] location If contains keys "file" and "line" their values will
      *   be used to show location info.
      */
-    static void printVar(var, Json[string] location = null, bool showHtml = false) {
+    static void printVar(Json varToShow, Json[string] location = null, bool showHtml = false) {
         auto location += ['file': null, 'line': null];
         if (location["file"]) {
             location["file"] = trimPath((string)location['file']);
@@ -767,7 +754,7 @@ class DDebugger {
             restore = debugger.getConfig('exportFormatter');
             debugger.configuration.set('exportFormatter', showHtml ? HtmlFormatter.class : TextFormatter.class);
         }
-        contents = exportVar(var, 25);
+        contents = exportVar(varToShow, 25);
         formatter = debugger.getExportFormatter();
 
         if (restore) {

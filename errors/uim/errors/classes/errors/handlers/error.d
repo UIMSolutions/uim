@@ -132,11 +132,7 @@ class DErrorHandler { // }: DERRErrorHandler
         return factory(exception, request);
     }
 
-    /**
-     * Log internal errors.
-     *
-     * @param \Throwable exception Exception.
-     */
+    // Log internal errors.
     protected void _logInternalError(Throwable exception) {
         // Disable trace for internal errors.
         _config["trace"] = false;
@@ -158,6 +154,5 @@ class DErrorHandler { // }: DERRErrorHandler
 
     protected void _sendResponse(string responseMessage) {
         writeln(response);
-
     }
 }

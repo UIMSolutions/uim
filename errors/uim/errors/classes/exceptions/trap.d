@@ -24,7 +24,7 @@ import uim.errors;
  * If undefined, an ExceptionRenderer will be selected based on the current SAPI (CLI or Web).
  */
 class DExceptionTrap {
-    // TODO mixin TEventDispatcher;
+    mixin TEventDispatcher;
     mixin TConfigurable;
 
     this() {
@@ -43,12 +43,6 @@ class DExceptionTrap {
     bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
-
-        return true;
-    }
-
-    // Name of the event
-    mixin(TProperty!("string", "name"));
 
  /**
      * Configuration options. Generally these will be defined in your config/app.D
@@ -71,8 +65,6 @@ class DExceptionTrap {
      * - `extraFatalErrorMemory` - int - The number of megabytes to increase the memory limit by when a fatal error is
      *  encountered. This allows breathing room to complete logging or error handling.
      * - `stderr` Used in console environments so that renderers have access to the current console output stream.
-     *
-     * @var Json[string]
      */
     configuration.updateDefaults([
         "exceptionRenderer": Json(null),
@@ -288,15 +280,9 @@ class DExceptionTrap {
         }
     }
 
-    /**
-     * Display/Log a fatal error.
-     *
-     * @param string description Error description
-     * @param string file File on which error occurred
-     * @param int line Line that triggered the error
-     */
-    void handleFatalError(int errorCode, string description, string file, int line) {
-        this.handleException(new DFatalErrorException("Fatal Error: " ~ description, 500, file, line));
+    // Display/Log a fatal error.
+    void handleFatalError(int errorCode, string errorDescription, string fileWithError, int errorLine) {
+        this.handleException(new DFatalErrorException("Fatal Error: " ~ description, 500, fileWithError, errorLine));
     }
 
     /**
@@ -311,11 +297,11 @@ class DExceptionTrap {
      * @param \Throwable exception The exception to log
      * @param IServerRequest|null request The optional request
      */
-    void logException(Throwable exception, IServerRequest request = null) {
-        shouldLog = _config["log"];
+    void logException(Throwable exceptionToLog, IServerRequest request = null) {
+        auto shouldLog = _config["log"];
         if (shouldLog) {
             foreach (configuration.get("skipLog") as aClassName) {
-                if (exception instanceof aClassName) {
+                if (exceptionToLog instanceof aClassName) {
                     shouldLog = false;
                 }
             }
@@ -323,17 +309,17 @@ class DExceptionTrap {
         if (shouldLog) {
             logger = this.logger();
             if (method_exists(logger, "logException")) {
-                logger.logException(exception, request, _config["trace"]);
+                logger.logException(exceptionToLog, request, _config["trace"]);
             } else {
                 loggerClass = get_class(logger);
                 deprecationWarning(
                     "The configured logger `{loggerClass}` should implement `logException()` " ~
                     "to be compatible with future versions of UIM."
                 );
-                this.logger().log(exception, request);
+                this.logger().log(exceptionToLog, request);
             }
         }
-        dispatchEvent("Exception.beforeRender", ["exception": exception]);
+        dispatchEvent("Exception.beforeRender", ["exception": exceptionToLog]);
     }
 
     /**
@@ -345,12 +331,12 @@ class DExceptionTrap {
      *
      * @param \Throwable exception Exception to log
      */
-    void logInternalError(Throwable exception) {
+    void logInternalError(Throwable exceptionToLog) {
         message = "[%s] %s (%s:%s)".format( // Keeping same message format
-            get_class(exception),
-            exception.getMessage(),
-            exception.getFile(),
-            exception.getLine(),
+            get_class(exceptionToLog),
+            exceptionToLog.getMessage(),
+            exceptionToLog.getFile(),
+            exceptionToLog.getLine(),
         );
         trigger_error(message, E_USER_ERROR);
     }

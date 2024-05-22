@@ -519,12 +519,7 @@ class DPaginator : IPaginator {
         return myResult;
     }
 
-    /**
-     * Prefixes the field with the table alias if possible.
-     *
-     * @param \uim\Datasource\IRepository repository Repository repository.
-     * @param Json[string] orderData DOrder array.
-     */
+    // Prefixes the field with the table alias if possible.
     protected Json[string] _prefix(IRepository repository, Json[string] orderData, bool isAllowed = false) {
         sring myTableAlias = repository.aliasName();
         myTableOrder= null;

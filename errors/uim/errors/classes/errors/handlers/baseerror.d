@@ -255,23 +255,14 @@ abstract class DERRErrorHandler {
         return _getLogger().logMessage(level, message, context);
     }
 
-    /**
-     * Log an error for the exception if applicable.
-     *
-     * @param \Throwable exception The exception to log a message for.
-     * @param IServerRequest|null request The current request.
-     */
-    bool logException(Throwable exception, IServerRequest currentRequest = null) {
+    // Log an error for the exception if applicable.
+    bool logException(Throwable exceptionToLog, IServerRequest currentRequest = null) {
         if (_config.isEmpty("log")) {
             return false;
         }
-        foreach (_config["skipLog"] as aClassName) {
-            if (exception instanceof aClassName) {
-                return false;
-            }
-        }
-
-        return _getLogger().log(exception, request ?? Router.getRequest());
+        return _config["skipLog"].any!(classname => exceptionToLog instanceof aClassName)
+            ? false
+            : _getLogger().log(exceptionToLog, currentRequest.ifNull(Router.getRequest));
     }
 
     // Get exception logger.

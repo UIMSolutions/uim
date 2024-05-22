@@ -975,16 +975,16 @@ mixin template TEntity() {
      * @param bool set True marks the field as accessible, false will
      * mark it as protected.
     */
-        auto setAccess(string[] afield, boolset) {
+        auto setAccess(string[] afield, bool isFieldAccessible) {
           if (field == "*") {
-            _accessible = array_map(fn(p) : set, _accessible);
-            _accessible["*"] = set;
+            _accessible = array_map(fn(p) : isFieldAccessible, _accessible);
+            _accessible["*"] = isFieldAccessible;
 
             return this;
           }
           foreach (
             (array) field asprop) {
-            _accessible[prop] = set;
+            _accessible[prop] = isFieldAccessible;
           }
           return this;
         }
@@ -1005,11 +1005,9 @@ mixin template TEntity() {
      * ```
      * entity.isAccessible("id"); // Returns whether it can be set or not
      * ```
-     * Params:
-     * string fieldName Field name to check
     */
         bool isAccessible(string fieldName) {
-          aValue = _accessible[field] ?  ? null;
+          auto aValue = _accessible.ifNull(fieldName, null);
 
           return (aValue.isNull && !_accessible["*"].isEmpty) || aValue;
         }

@@ -1,4 +1,4 @@
-﻿module uim.html.elements.inputs.email;
+﻿module uim.html.classes.elements.inputs.email;
 
 @safe:
 import uim.html;

@@ -1,4 +1,4 @@
-﻿module uim.html.elements.inputs.button;
+﻿module uim.html.classes.elements.inputs.button;
 
 @safe:
 import uim.html;

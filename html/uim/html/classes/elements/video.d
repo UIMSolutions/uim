@@ -1,4 +1,4 @@
-﻿module uim.html.elements.video;
+﻿module uim.html.classes.elements.video;
 
 @safe:
 import uim.html;

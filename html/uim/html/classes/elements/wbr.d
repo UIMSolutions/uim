@@ -1,4 +1,4 @@
-﻿module uim.html.elements.wbr;
+﻿module uim.html.classes.elements.wbr;
 
 @safe:
 import uim.html;

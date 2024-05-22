@@ -1,4 +1,4 @@
-﻿module uim.html.elements.inputs.color;
+﻿module uim.html.classes.elements.inputs.color;
 
 @safe:
 import uim.html;

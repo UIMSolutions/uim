@@ -1,4 +1,4 @@
-﻿module uim.html.elements.inputs.date;
+﻿module uim.html.classes.elements.inputs.date;
 
 @safe:
 import uim.html;

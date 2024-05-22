@@ -1,4 +1,4 @@
-﻿module uim.html.elements.inputs.checkbox;
+﻿module uim.html.classes.elements.inputs.checkbox;
 
 @safe:
 import uim.html;

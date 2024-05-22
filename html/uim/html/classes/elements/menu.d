@@ -1,4 +1,4 @@
-﻿module uim.html.elements.menu;
+﻿module uim.html.classes.elements.menu;
 
 @safe:
 import uim.html;

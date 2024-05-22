@@ -1,4 +1,4 @@
-﻿module uim.html.elements.mark;
+﻿module uim.html.classes.elements.mark;
 
 @safe:
 import uim.html;

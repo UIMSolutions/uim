@@ -1,4 +1,4 @@
-﻿module uim.html.elements.map;
+﻿module uim.html.classes.elements.map;
 
 @safe:
 import uim.html;

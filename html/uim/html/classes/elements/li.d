@@ -1,4 +1,4 @@
-﻿module uim.html.elements.li;
+﻿module uim.html.classes.elements.li;
 
 @safe:
 import uim.html;

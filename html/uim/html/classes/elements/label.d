@@ -1,4 +1,4 @@
-﻿module uim.html.elements.label;
+﻿module uim.html.classes.elements.label;
 
 @safe:
 import uim.html;

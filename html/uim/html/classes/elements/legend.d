@@ -1,4 +1,4 @@
-﻿module uim.html.elements.legend;
+﻿module uim.html.classes.elements.legend;
 
 @safe:
 import uim.html;

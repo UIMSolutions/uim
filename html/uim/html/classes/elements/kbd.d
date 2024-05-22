@@ -1,4 +1,4 @@
-﻿module uim.html.elements.kbd;
+﻿module uim.html.classes.elements.kbd;
 
 @safe:
 import uim.html;

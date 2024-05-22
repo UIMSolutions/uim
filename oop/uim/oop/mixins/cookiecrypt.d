@@ -119,7 +119,8 @@ mixin template TCookieCrypt() {
     protected string[] _split(string mystring) {
         string myfirst = substr(mystring, 0, 1);
         if (myfirst == "{" || myfirst == "[") {
-            return Json_decode(mystring, true) ?? mystring;
+            auto decodedJson = Json_decode(mystring, true); 
+            return decodedJson.ifEmpty(mystring);
         }
         myarray = null;
         foreach (mypair; mystring.split(",")) {
@@ -130,5 +131,5 @@ mixin template TCookieCrypt() {
             myarray[aKey[0]] = aKey[1];
         }
         return myarray;
-    } */
+    } 
 }

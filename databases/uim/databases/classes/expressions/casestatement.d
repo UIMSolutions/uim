@@ -22,26 +22,16 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
     // Whether this is a simple case expression.
     protected bool isSimpleVariant = false;
 
-    /**
-     * The case value.
-     *
-     * @var \UIM\Database\IExpression|object|scalar|null
-     */
-    protected Json aValue = null;
+    // The case value.
+    protected /* IExpression|object|scalar|null */ Json aValue = null;
 
-    /**
-     * The case value type.
-     */
-    protected string avalueType = null;
+    // The case value type.
+    protected string _caseValueType = null;
 
     // The `WHEN ... THEN ...` expressions.
     protected DWhenThenExpression[]  when = null;
 
-    /**
-     * Buffer that holds values and types for use with `then()`.
-     *
-     * @var array|null
-     */
+    // Buffer that holds values and types for use with `then()`.
     protected Json[string] whenBuffer = null;
 
     /**

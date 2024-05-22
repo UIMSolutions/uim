@@ -7,19 +7,13 @@ import uim.databases;
 // An expression object that represents a SQL BETWEEN snippet
 class DBetweenExpression : DExpression { // TODO}, IField {
     mixin(ExpressionThis!("Between"));
-    mixin TField;
-
-    /* 
+    mixin TField; 
     mixin TExpressionTypeCaster;
 
     // The first value in the expression
     protected Json _from;
 
-    /**
-     * The second value in the expression
-     *
-     * @var mixed
-     */
+    / The second value in the expression
     protected Json _to;
 
     // The data valueType for the from and to arguments

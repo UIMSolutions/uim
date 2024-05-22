@@ -435,9 +435,9 @@ unittest {
 }
 
 string ifNull(string value, string defaultValue) {
-	return !values.isNull ? value : defaultValue;
+	return !value.isNull ? value : defaultValue;
 }
 
 string ifEmpty(string value, string defaultValue) {
-	return !values.isEmpty ? value : defaultValue;
+	return !value.isEmpty ? value : defaultValue;
 }

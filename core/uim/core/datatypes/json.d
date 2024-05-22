@@ -363,7 +363,7 @@ Json readJson(Json target, Json source, bool shouldOverwrite = true) {
 
   auto result = target;
   foreach (kv; source.byKeyValue) {
-    if (overwrite) {
+    if (shouldOverwrite) {
       result[kv.key] = kv.value;
     } else {
       if (!result.hasKey(kv.key)) {
@@ -626,7 +626,7 @@ Json mergeJsons(Json[] jsons, bool shouldOverwrite = true) {
 
   jsons
     .filter!(json => json.isObject)
-    .each!(json => result = result.mergeJsonObjects(json, overwrite));
+    .each!(json => result = result.mergeJsonObjects(json, shouldOverwrite));
 
   return result;
 }
@@ -643,12 +643,12 @@ Json mergeJsonObjects(Json baseJson, Json mergeJson, bool shouldOverwrite = true
   if (baseJson.isNull && !baseJson.isObject) {
     return result;
   }
-  result = result.readJson(baseJson, overwrite);
+  result = result.readJson(baseJson, shouldOverwrite);
 
   if (mergeJson.isNull && !mergeJson.isObject) {
     return result;
   }
-  result = result.readJson(mergeJson, overwrite);
+  result = result.readJson(mergeJson, shouldOverwrite);
 
   // Out
   return result;

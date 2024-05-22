@@ -43,14 +43,14 @@ class DCommonTableExpression : IExpression {
     this(string cteName = "", IExpression cteQuery = null) {
        _cteName = new DIdentifierExpression(cteName);
         if (cteQuery) {
-            this.query(cteQuery);
+            _query(cteQuery);
         }
     }
 
     this(string cteName = "", IClosure cteQuery) {
        _cteName = new DIdentifierExpression(cteName);
         if (cteQuery) {
-            this.query(cteQuery);
+            _query(cteQuery);
         }
     }
     
@@ -64,23 +64,19 @@ class DCommonTableExpression : IExpression {
         _name = new DIdentifierExpression(cteName);
     }
     
-    /**
-     * Sets the query for this CTE.
-     * Params:
-     * \UIM\Database\IExpression|\Closure aQuery CTE query
-     */
-    void query(IExpression|Closure aQuery) {
-    }
-    void query(IExpression|Closure aQuery) {
-        if (cast(DClosure)aQuery) {
-            aQuery = aQuery();
-            if (!(cast(IExpression)aQuery)) {
+    // Sets the query for this CTE.
+    // TODO void query(IExpression|Closure cteQuery) {
+    // }
+    void query(/* IExpression| */ Closure cteQuery) {
+        if (cast(DClosure)cteQuery) {
+            cteQuery = aQuery();
+            if (!(cast(IExpression)cteQuery)) {
                 throw new DatabaseException(
                     "You must return an `IExpression` from a Closure passed to `query()`."
                 );
             }
         }
-        this.query = aQuery;
+        _query = cteQuery;
     }
     
     /**
@@ -88,16 +84,16 @@ class DCommonTableExpression : IExpression {
      * Params:
      * \UIM\Database\Expression\IdentifierExpression|array<\UIM\Database\Expression\IdentifierExpression>|string[]|string fieldNames Field names
      */
-    void field(IdentifierExpression|string[] fieldNames) {
-        auto fields = (array)fields;
+    void field(/* IdentifierExpression[] */ string[] fieldNames) {
+        fieldNames = (array)fieldNames;
         /** @var array<string|\UIM\Database\Expression\IdentifierExpression> fields */
-        fields.each!((field) {
+        fieldNames.each!((field) {
             if (!(cast(IdentifierExpression)field)) {
                 field = new DIdentifierExpression(field);
             }
         });
         /** @var array<\UIM\Database\Expression\IdentifierExpression>  mergedFields */
-        this.fields = chain(this.fields, fields);
+        _fields = chain(_fields, fieldNames);
     }
 
     // Sets this CTE as materialized.
@@ -122,8 +118,8 @@ class DCommonTableExpression : IExpression {
  
     string sql(DValueBinder aBinder) {
         string myFields = "";
-        if (this.fields) {
-            someExpressions = array_map(fn (IdentifierExpression  anException):  anException.sql(aBinder), this.fields);
+        if (_fields) {
+            someExpressions = array_map(fn (IdentifierExpression  anException):  anException.sql(aBinder), _fields);
             myFields = "(%s)".format(join(", ", someExpressions));
         }
 
@@ -133,31 +129,31 @@ class DCommonTableExpression : IExpression {
             this.name.sql(aBinder),
             myFields,
             suffix,
-            this.query ? this.query.sql(aBinder): ""
+            _query ? _query.sql(aBinder): ""
         );
     }
  
     void traverse(Closure aCallback) {
         aCallback(this.name);
-        this.fields.each!((filed) {
+        _fields.each!((filed) {
             aCallback(field);
             field.traverse(aCallback);
         });
         
-        if (this.query) {
-            aCallback(this.query);
-            this.query.traverse(aCallback);
+        if (_query) {
+            aCallback(_query);
+            _query.traverse(aCallback);
         }
     }
     
     // Clones the inner expression objects.
     void clone() {
         this.name = clone this.name;
-        if (this.query) {
-            this.query = clone this.query;
+        if (_query) {
+            _query = clone _query;
         }
-        foreach (aKey: field; this.fields) {
-            this.fields[aKey] = clone field;
+        foreach (aKey: field; _fields) {
+            _fields[aKey] = clone field;
         }
     } */
 }

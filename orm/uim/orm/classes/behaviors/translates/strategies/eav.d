@@ -39,12 +39,12 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         configuration.updateDefaults([
             "fields": Json.emptyArray,
-            "translationTable": Json("I18n"),
+            "translationTable": "I18n".toJson,
             "defaultLocale": Json(null),
             "referencename": "".toJson,
             "allowEmptyTranslations": true.toJson,
             "onlyTranslated": false.toJson,
-            "strategy": Json("subquery"),
+            "strategy": "subquery".toJson,
             "tableLocator": Json(null),
             "validator": false.toJson,
         ]);

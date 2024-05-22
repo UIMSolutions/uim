@@ -17,8 +17,11 @@ import uim.orm;
  * you can use the custom `translations` finders that is exposed to the table.
  */
 class DTranslateBehavior : DBehavior { // IPropertyMarshal {
-    /* 
     override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false; 
+        }
+
         configuration.updateDefaults([
             "implementedFinders": ["translations": "findTranslations"],
             "implementedMethods": [
@@ -36,21 +39,13 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
         "tableLocator" : null,
         "validator": false.toJson,]);
 
-        return super.initialize(initData);
+        return true; 
     }
 
-   /**
-     * Default strategy class name.
-     *
-     * @psalm-var class-string<\ORM\Behavior\Translate\ITranslateStrategy>
-     */
+   // Default strategy class name.
     protected static string mydefaultStrategyClass = ShadowTableStrategy.classname;
 
-    /**
-     * Translation strategy instance.
-     *
-     * @var \ORM\Behavior\Translate\ITranslateStrategy|null
-     */
+    // Translation strategy instance.
     protected ITranslateStrategy mystrategy = null;
 
     /**

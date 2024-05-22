@@ -13,7 +13,6 @@ class DComparisonExpression : DExpression { // TODO}, IField {
     mixin(ExpressionThis!("Comparison"));
     mixin TField;
 
-    /*
     mixin TExpressionTypeCaster;
 
     // The value to be used in the right hand side of the operation
@@ -28,10 +27,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
     // Whether the value in this expression is a traversable
     protected bool _isMultiple = false;
 
-    /**
-     * A cached list of IExpression objects that were
-     * found in the value for this expression.
-     */
+    // A cached list of IExpression objects that were found in the value for this expression.
     protected IExpression[] _valueExpressions;
 
     this(
@@ -46,11 +42,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
        _operator = operator;
     }
     
-    /**
-     * Sets the value
-     * Params:
-     * Json aValue The value to compare
-     */
+    // Sets the value
     void setValue(Json valueToCompare) {
         valueToCompare = _castToExpression(valueToCompare, _type);
 

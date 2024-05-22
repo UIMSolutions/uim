@@ -35,11 +35,7 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
         _filter.add(conditions, typeNames);
     }
     
-    /**
-     * Adds an empty `OVER()` window expression or a named window epression.
-     * Params:
-     * string windowName Window name
-     */
+    // Adds an empty `OVER()` window expression or a named window epression.
     void over(string windowName = null) {
         auto window = getWindow();
         if (!windowName.isEmpty) {

@@ -1,4 +1,4 @@
-﻿module uim.html.elements.textarea;
+﻿module uim.html.classes.elements.textarea;
 
 @safe:
 import uim.html;

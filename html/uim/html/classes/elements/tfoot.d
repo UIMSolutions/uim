@@ -1,4 +1,4 @@
-﻿module uim.html.elements.tfoot;
+﻿module uim.html.classes.elements.tfoot;
 
 @safe:
 import uim.html;

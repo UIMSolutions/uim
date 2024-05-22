@@ -1,4 +1,4 @@
-﻿module uim.html.elements.svg;
+﻿module uim.html.classes.elements.svg;
 
 @safe:
 import uim.html;

@@ -1,4 +1,4 @@
-﻿module uim.html.elements.time;
+﻿module uim.html.classes.elements.time;
 
 @safe:
 import uim.html;

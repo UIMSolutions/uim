@@ -171,16 +171,16 @@ class DExceptionTrap {
         if (this.disabled) {
             return;
         }
-        myRequest = Router.getRequest();
+        auto myRequest = Router.getRequest();
 
         logException(anException, myRequest);
 
         try {
-            event = dispatchEvent("Exception.beforeRender", ["exception": anException, "request": myRequest]);
+            auto event = dispatchEvent("Exception.beforeRender", ["exception": anException, "request": myRequest]);
             auto myException = event.getData("exception");
             assert(cast(Throwable)myException);
             
-            renderer = this.renderer(myException, myRequest);
+            auto renderer = this.renderer(myException, myRequest);
             renderer.write(event.getResult() ?? renderer.render());
         } catch (Throwable myException) {
             this.logInternalError(myException);
@@ -191,10 +191,7 @@ class DExceptionTrap {
         }
     }
     
-    /**
-     * Shutdown handler
-     * Convert fatal errors into exceptions that we can render.
-     */
+    // Shutdown handler - Convert fatal errors into exceptions that we can render.
     void handleShutdown() {
         if (this.disabled) {
             return;
@@ -223,14 +220,9 @@ class DExceptionTrap {
         );
     }
     
-    /**
-     * Increases the D "memory_limit" ini setting by the specified amount
-     * in kilobytes
-     * Params:
-     * int additionalKb Number in kilobytes
-     */
+    // Increases the D "memory_limit" ini setting by the specified amount in kilobytes
     void increaseMemoryLimit(int additionalKb) {
-        aLimit = ini_get("memory_limit");
+        auto aLimit = ini_get("memory_limit");
         if (aLimit == false || aLimit == "" || aLimit == "-1") {
             return;
         }
@@ -265,20 +257,19 @@ class DExceptionTrap {
      * After logging is attempted the `Exception.beforeRender` event is triggered.
      * Params:
      * \Throwable exception The exception to log
-     * @param \Psr\Http\Message\IServerRequest|null serverRequest The optional request
      */
-    void logException(Throwable anException, IServerRequest serverRequest = null) {
+    void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
         shouldLog = configuration.get("log"];
         if (shouldLog) {
             foreach (_configData.isSet("skipLog") as  className) {
-                if (cast(className)anException) {
+                if (cast(className)exceptionToLog) {
                     shouldLog = false;
                     break;
                 }
             }
         }
         if (shouldLog) {
-            this.logger().logException(anException, serverRequest, configuration.get("trace"]);
+            this.logger().logException(exceptionToLog, serverRequest, configuration.get("trace"]);
         }
     }
     

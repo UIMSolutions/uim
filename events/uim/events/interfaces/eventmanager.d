@@ -77,8 +77,8 @@ interface IEventManager {
      * @param \UIM\Event\IEventListener|callable|null aCallable The callback you want to detach.
      */
     auto off(
-        IEventListener|callable|string aeventKey,
-        IEventListener|callable|null aCallable = null
+        /* IEventListener|callable */ string aeventKey,
+        /* IEventListener|callable */ callable aCallable = null
     );
 
     /**

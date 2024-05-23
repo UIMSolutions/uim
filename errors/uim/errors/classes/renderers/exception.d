@@ -77,12 +77,11 @@ class DExceptionRenderer : IExceptionRenderer {
     /**
      * Creates the controller to perform rendering on the error response.
      *
-     * @param \Throwable myException Exception.
      * @param uim.uim.http.ServerRequest|null myRequest The request if this is set it will be used
      *  instead of creating a new one.
      */
-    this(DThrowable myException, ServerRequest myRequest = null) {
-        this.error = myException;
+    this(DThrowable exception, ServerRequest myRequest = null) {
+        this.error = exception;
         this.request = myRequest;
         this.controller = _getController();
     }
@@ -157,7 +156,7 @@ class DExceptionRenderer : IExceptionRenderer {
 
     // Renders the response for the exception.
     IResponse render() {
-        myException = this.error;
+        auto myException = this.error;
         code = getHttpCode(myException);
         method = methodName(myException);
         myTemplate = templateName(myException, method, code);

@@ -63,7 +63,7 @@ class DDebugger {
      * Params:
      * @param \Closure|string atemplate The string template or closure
      */
-    static void addEditor(string editorName, IClosure|string atemplate) {
+    static void addEditor(string editorName, /* IClosure */ string atemplate) {
         auto anInstance = getInstance();
          anInstance.editors[editorName] = template;
     }

@@ -93,8 +93,8 @@ class DEventManager { // }: IEventManager {
     }
  
     auto off(
-        IEventListener|callable|string aeventKey,
-        IEventListener|callable|null aCallable = null
+        /* IEventListener|callable */ string aeventKey,
+        /* IEventListener|callable */ callable aCallable = null
     ) {
         if (cast(IEventListener)eventKey) {
            _detachSubscriber(eventKey);
@@ -184,26 +184,20 @@ class DEventManager { // }: IEventManager {
      * - `settings` - The event handler settings
      * Params:
      * \UIM\Event\IEventListener subscriber Event subscriber
-     * @param \Closure|array|string ahandler Event handler
+     * @param \Closure|array|string ahandler Event eventHandler
      */
-<<<<<<< HEAD
-    protected Json[string] normalizeHandler(IEventListener subscriber, Closure|array|string ahandler) {
-        callable = handler;
-        settings = null;
+    protected Json[string] normalizeHandler(IEventListener subscriber, /* Closure|array| */ string eventHandler) {
+        auto callable = eventHandler;
+        auto settings = null;
 
-        if (isArray(handler)) {
-            callable = handler["callable"];
+        if (isArray(eventHandler)) {
+            callable = eventHandler["callable"];
 
-            settings = handler;
+            settings = eventHandler;
             unset(settings["callable"]);
         }
-<<<<<<< HEAD
-        if (isString(callable)) {
-            callable = subscriber.callable(...);
-=======
         if (isString(aCallable)) {
             aCallable = subscriber.aCallable(...);
->>>>>>> 6c77f0755345c40125ff261f87e4ab75fc24b38d
         }
         return ["callable": aCallable, "settings": settings];
     }

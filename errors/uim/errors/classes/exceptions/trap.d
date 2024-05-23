@@ -291,8 +291,6 @@ class DExceptionTrap {
      * skipping logging if the exception should not be logged.
      *
      * After logging is attempted the `Exception.beforeRender` event is triggered.
-     *
-     * @param IServerRequest|null request The optional request
      */
     void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
         auto shouldLog = _config["log"];

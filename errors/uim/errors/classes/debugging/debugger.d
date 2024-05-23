@@ -426,7 +426,7 @@ class DDebugger {
      * @param int line Line number to highlight.
      * @param int context Number of lines of context to extract above and below line.
      */
-    static string[] excerpt(string file, int line, int context = 2) {
+    static string[] excerpt(string file, int lineNumber, int context = 2) {
         lines = null;
         if (!fileExists(file)) {
             return [];
@@ -439,16 +439,16 @@ class DDebugger {
         if (indexOf(data, "\n") != false) {
             data = explode("\n", data);
         }
-        line--;
-        if (!isset(data[line])) {
+        lineNumber--;
+        if (!isset(data[lineNumber])) {
             return lines;
         }
-        for (i = line - context; i < line + context + 1; i++) {
+        for (i = lineNumber - context; i < lineNumber + context + 1; i++) {
             if (!isset(data[i])) {
                 continue;
             }
             string = replace(["\r\n", "\n"], '', _highlight(data[i]));
-            if (i == line) {
+            if (i == lineNumber) {
                 lines ~= '<span class="code-highlight">' . string . '</span>';
             } else {
                 lines ~= string;
@@ -745,7 +745,7 @@ class DDebugger {
             location["file"] = trimPath((string)location['file']);
         }
 
-        debugger = getInstance();
+        auto debugger = getInstance();
         restore = null;
         if (showHtml != null) {
             restore = debugger.getConfig('exportFormatter');

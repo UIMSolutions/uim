@@ -275,7 +275,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     // Gets the appropriate http status code for exception.
     protected int getHttpCode(Throwable exception) {
         if (cast(HttpException)exception) {
-            return exception.getCode();
+            return exception.code();
         }
         return _exceptionHttpCodes[exception.classname] ?? 500;
     }

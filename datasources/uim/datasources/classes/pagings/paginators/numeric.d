@@ -227,9 +227,9 @@ class DNumericPaginator : IPaginator {
      *  "count", "defaults", "finder", "numResults".
      */
     protected Json[string] buildParams(Json[string] data) {
-        limit = data["options"]["limit"];
+        auto limit = data["options"]["limit"];
 
-        paging = [
+        auto paging = [
             "count": data["count"],
             "current": data["numResults"],
             "perPage": limit,
@@ -320,14 +320,10 @@ class DNumericPaginator : IPaginator {
         return paginatorData;
     }
 
-    /**
-     * Extracts the finder name and options out of the provided pagination options.
-     *
-     * @param Json[string] options the pagination options.
-     */
+    // Extracts the finder name and options out of the provided pagination options.
     protected Json[string] _extractFinder(Json[string] paginationOptions) {
         type = !paginationOptions.isEmpty("finder") ? paginationOptions["finder"] : "all";
-        paginationOptions.remove("finder"), options["maxLimit"]);
+        paginationOptions.remove("finder"), paginationOptions["maxLimit"]);
 
         if (type.isArray) {
             paginationOptions = (array) current(type)+paginationOptions;

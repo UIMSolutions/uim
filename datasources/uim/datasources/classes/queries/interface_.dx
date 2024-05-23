@@ -21,10 +21,8 @@ interface IQuery {
      *
      * If `true` is passed in the second argument, any previous selections will
      * be overwritten with the list passed in the first argument.
-     *
-     * @param uim.databases.IExpression|uim.orm.Association|uim.orm.Table|callable|array|string fields Fields.
      */
-    void select(string[] fieldNames, bool canOverwrite = false);
+    void select(/* IExpression|uim.orm.Association|uim.orm.Table|callable|array */ string[] fieldNames, bool canOverwrite = false);
 
     /**
      * Returns a key: value array representing a single aliased field
@@ -198,11 +196,8 @@ interface IQuery {
      *
      * If you need to set complex expressions as order conditions, you
      * should use `orderAsc()` or `orderDesc()`.
-     *
-     * @param uim.databases.IExpression|\Closure|array|string fields fields to be added to the list
-     * @param bool canOverwrite whether to reset order with field list or not
      */
-    void order(fields, canOverwrite = false);
+    void order(/* IExpression|\Closure|array|string */ fields, bool canOverwrite = false);
 
     /**
      * Set the page of results you want.
@@ -213,11 +208,10 @@ interface IQuery {
      *
      * Pages must start at 1.
      *
-     * @param int num The page number you want.
      * @param int|null limit The number of rows you want in the page. If null
      * the current limit clause will be used.
      */
-    void page(int num, Nullable!int limit = null);
+    void page(int pageNumber, int limit = null);
 
     // Returns an array representation of the results after executing the query.
     Json[string] toDataArray();

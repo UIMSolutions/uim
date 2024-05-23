@@ -28,7 +28,7 @@ class DTextExceptionRenderer {
     // Render an exception into a plain text message.
     string render() {
         return "%s : %s on line %s of %s\nTrace:\n%s".format(
-            _error.getCode(),
+            _error.code(),
             _error.getMessage(),
             _error.getLine(),
             _error.getFile(),

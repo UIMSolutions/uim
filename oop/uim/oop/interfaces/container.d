@@ -14,5 +14,5 @@ import uim.oop;
  * by league/container as that is the library that UIM uses.
  */
 interface IContainer { // TODO: IDefinitionContainer {
-    IPsrContainer delegate(IPsrContainer container);
+    // TODO IPsrContainer delegate(IPsrContainer container);
 }

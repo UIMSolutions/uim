@@ -166,8 +166,7 @@ class DQueryExpression : DExpression { // }, Countable {
         /* IExpression| */ string[] avalues,
         string valueType = null
     ) {
-        type ??= _calculateType(fieldName);
-        valueType = valueType.ifEmpty("string");
+        valueType = valueType.ifEmpty(_calculateType(fieldName)).ifEmpty("string");
         type ~= "[]";
          someValues = cast(IExpression)someValues  ?  someValues : (array) someValues;
 
@@ -190,7 +189,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * only be passed if you actually want to create the simple
      * case expression variant!
      */
-    CaseStatementExpression case(Json caseValue = null, string caseValueType = null) {
+    CaseStatementExpression caseExpression(Json caseValue = null, string caseValueType = null) {
         auto caseExpression = (func_num_args() > 0) 
             ? new DCaseStatementExpression(caseValue, caseValueType);
             : new DCaseStatementExpression();
@@ -439,7 +438,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * be extracted.
      * @param Json aValue The value to be bound to a placeholder for the field
      */
-    protected /* IExpression| */ string _parseCondition(string acondition, Json aValue) {
+    protected /* IExpression| */ string _parseCondition(string acondition, Json valueToBound) {
         auto expression = strip(condition);
          operator = "=";
 
@@ -476,34 +475,38 @@ class DQueryExpression : DExpression { // }, Countable {
         }
 
         if (typeMultiple) {
-            aValue = cast(IExpression)aValue  ? aValue : (array)aValue;
+            valueToBound = cast(IExpression)valueToBound  ? valueToBound : (array)valueToBound;
         }
-        if (operator == "IS' && aValue.isNull) {
-            return new DUnaryExpression(
-                'isNull",
-                new DIdentifierExpression(expression),
-                UnaryExpression.POSTFIX
-            );
+        if (valueToBound.isNull) {
+            if (operator == "IS") {
+                return new DUnaryExpression(
+                    "IS NULL",
+                    new DIdentifierExpression(expression),
+                    UnaryExpression.POSTFIX
+                );
+            }
+            if (operator == "IS NOT") {
+                return new DUnaryExpression(
+                    "IS NOT NULL",
+                    new DIdentifierExpression(expression),
+                    UnaryExpression.POSTFIX
+                );
+            }
         }
-        if (operator == "IS NOT" && aValue.isNull) {
-            return new DUnaryExpression(
-                "IS NOT NULL",
-                new DIdentifierExpression(expression),
-                UnaryExpression.POSTFIX
-            );
+        else {
+            if (operator == "IS") {
+                operator = "=";
+            }
+            if (operator == "IS NOT") {
+                operator = "!=";
+            }
         }
-        if (operator == "IS" && aValue !isNull) {
-             operator = "=";
-        }
-        if (operator == "IS NOT" && aValue !isNull) {
-             operator = "!=";
-        }
-        if (aValue.isNull && _conjunction != ",") {
+        if (valueToBound.isNull && _conjunction != ",") {
             throw new DInvalidArgumentException(
                 "Expression `%s` is missing operator (IS, IS NOT) with `null` value.".format(expression)
             );
         }
-        return new DComparisonExpression(expression, aValue, type,  operator);
+        return new DComparisonExpression(expression, valueToBound, type,  operator);
     }
     
     /**

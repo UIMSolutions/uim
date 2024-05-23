@@ -50,7 +50,7 @@ class DTextErrorRenderer { // }: IErrorRenderer {
     return 
       "%s: %s . %s on line %s of %s\nTrace:\n%s".format(
         error.getLabel(),
-        error.getCode(),
+        error.code(),
         error.getMessage(),
         error.getLine() ?? "",
         error.getFile() ?? "",

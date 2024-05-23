@@ -129,16 +129,12 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
         return response;
     }
 
-    /**
-     * Convert a redirect exception into a response.
-     *
-     * @param uim.uim.http.exceptions.RedirectException exception The exception to handle
-     */
-    IResponse handleRedirect(DRedirectException exception) {
+    // Convert a redirect exception into a response.
+    IResponse handleRedirect(DRedirectException exceptionToHandle) {
         return new DRedirectResponse(
-            exception.getMessage(),
-            exception.getCode(),
-            exception.getHeaders()
+            exceptionToHandle.getMessage(),
+            exceptionToHandle.code(),
+            exceptionToHandle.getHeaders()
         );
     }
 

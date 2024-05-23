@@ -109,7 +109,7 @@ class DFlashMessage {
      * The following options will be set by default if unset:
      * ```
      * 'element": 'error",
-     * `params": ["code": exception.getCode()]
+     * `params": ["code": exception.code()]
      * ```
      * Params:
      * \Throwable exception Exception instance.
@@ -117,7 +117,7 @@ class DFlashMessage {
      */
     void setExceptionMessage(Throwable exception, Json[string] options = null) {
         options["element"] ??= "error";
-        options["params"]["code"] ??= exception.getCode();
+        options["params"]["code"] ??= exception.code();
 
         message = exception.getMessage();
         set(message, options);

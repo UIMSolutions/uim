@@ -277,17 +277,13 @@ class DExceptionRenderer { // }: IExceptionRenderer
     // Gets the appropriate http status code for exception.
     protected int getHttpCode(Throwable exception) {
         if (exception instanceof HttpException) {
-            return exception.getCode();
+            return exception.code();
         }
 
         return _exceptionHttpCodes[get_class(exception)] ?? 500;
     }
 
-    /**
-     * Generate the response using the controller object.
-     *
-     * @param string myTemplate The template to render.
-     */
+    // Generate the response using the controller object.
     protected DResponse _outputMessage(string templateToRender) {
         try {
             _controller.render(templateToRender);

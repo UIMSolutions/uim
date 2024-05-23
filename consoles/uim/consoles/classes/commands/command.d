@@ -201,7 +201,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
                 return acommand.run(commandArguments, myConsoleIo);
             }
  catch (StopException anException) {
-                return anException.getCode();
+                return anException.code();
             }
         }
     } */ 

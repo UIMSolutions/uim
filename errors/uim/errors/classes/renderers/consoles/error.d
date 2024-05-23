@@ -32,7 +32,7 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
         return "<error>%s: %s . %s</error> on line %s of %s%s"
             .format(
                 error.getLabel(),
-                error.getCode(),
+                error.code(),
                 error.getMessage(),
                 error.getLine() ?? "",
                 error.getFile() ?? "",

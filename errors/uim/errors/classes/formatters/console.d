@@ -60,10 +60,10 @@ class DConsoleFormatter : IErrorFormatter {
             lineInfo = "%s (line %s)".format(location["file"], location["line"]);
         }
         someParts = [
-            this.style("const", lineInfo),
-            this.style("special", "########## DEBUG ##########"),
+            style("const", lineInfo),
+            style("special", "########## DEBUG ##########"),
             contents,
-            this.style("special", "###########################"),
+            style("special", "###########################"),
             "",
         ];
 
@@ -85,11 +85,11 @@ class DConsoleFormatter : IErrorFormatter {
     protected string export_(IErrorNode nodeTreeToDump, int indentLevel) {
         if (cast(DScalarNode)nodeTreeToDump) {
             return match (nodeTreeToDump.getType()) {
-                "bool": this.style("const", nodeTreeToDump.getValue() ? "true" : "false"),
-                "null": this.style("const", "null"),
-                "string": this.style("string", "'" ~ (string)nodeTreeToDump.getValue() ~ "'"),
-                "int", "float": this.style("visibility", "({nodeTreeToDump.getType()})") ~
-                        " " ~ this.style("number", "{nodeTreeToDump.getValue()}"),
+                "bool": style("const", nodeTreeToDump.getValue() ? "true" : "false"),
+                "null": style("const", "null"),
+                "string": style("string", "'" ~ (string)nodeTreeToDump.getValue() ~ "'"),
+                "int", "float": style("visibility", "({nodeTreeToDump.getType()})") ~
+                        " " ~ style("number", "{nodeTreeToDump.getValue()}"),
                 default: "({nodeTreeToDump.getType()}) {nodeTreeToDump.getValue()}",
             };
         }
@@ -109,77 +109,74 @@ class DConsoleFormatter : IErrorFormatter {
      * Export an array type object
      * Params:
      * \UIM\Error\Debug\ArrayNode var The array to export.
-     * @param int indentLevel The current indentation level.
      */
     protected string exportArray(ArrayNode arrayToExport, int indentLevel) {
-         result = this.style("punct", "[");
+         result = style("punct", "[");
         break = "\n" ~ str_repeat("  ",  indentLevel);
         end = "\n" ~ str_repeat("  ",  indentLevel - 1);
         vars = null;
 
-        auto arrow = this.style("punct", ": ");
+        auto arrow = style("punct", ": ");
         arrayToExport.getChildren().each!((item) {
             auto val = item.getValue();
-            vars ~= break ~ this.export_(item.getKey(),  indentLevel) ~ arrow ~ this.export_(val,  indentLevel);
+            vars ~= break ~ export_(item.getKey(),  indentLevel) ~ arrow ~ export_(val,  indentLevel);
         });
 
-        auto close = this.style("punct", "]");
-        if (count(vars)) {
-            return result ~ join(this.style("punct", ","), vars) ~ end ~ close;
-        }
-        return result ~ close;
+        auto close = style("punct", "]");
+        return count(vars) > 0
+            ? result ~ join(style("punct", ","), vars) ~ end ~ close
+            : result ~ close;
     }
     
     /**
      * Handles object to string conversion.
      * Params:
      * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\ReferenceNode var Object to convert.
-     * @param int indentLevel Current indentation level.
      */
-    protected string exportObject(ClassNode|ReferenceNode var, int indentLevel) {
+    protected string exportObject(/* ClassNode| */ DReferenceNode nodeToConvert, int indentLevel) {
         props = null;
 
-        if (cast(ReferenceNode)var) {
+        if (cast(ReferenceNode)nodeToConvert) {
             return _style("punct", "object(") ~
-                this.style("class", var.getValue()) ~
-                this.style("punct", ") id:") ~
-                this.style("number", to!string(var.getId())) ~
-                this.style("punct", " {}");
+                style("class", nodeToConvert.getValue()) ~
+                style("punct", ") id:") ~
+                style("number", to!string(nodeToConvert.getId())) ~
+                style("punct", " {}");
         }
          result = style("punct", "object(") ~
-            style("class", var.getValue()) ~
+            style("class", nodeToConvert.getValue()) ~
             style("punct", ") id:") ~
-            this.style("number", (string)var.getId()) ~
-            this.style("punct", " {");
+            style("number", (string)nodeToConvert.getId()) ~
+            style("punct", " {");
 
         break = "\n" ~ str_repeat("  ",  indentLevel);
-        end = "\n" ~ str_repeat("  ",  indentLevel - 1) ~ this.style("punct", "}");
+        end = "\n" ~ str_repeat("  ",  indentLevel - 1) ~ style("punct", "}");
 
-        arrow = this.style("punct", ": ");
-        foreach (aProperty; var.getChildren()) {
+        arrow = style("punct", ": ");
+        foreach (aProperty; nodeToConvert.getChildren()) {
             auto visibility = aProperty.getVisibility();
             auto name = aProperty.name;
 
             props ~= visibility && visibility != "public" 
-                ? this.style("visibility", visibility) ~ " " ~
-                this.style("property", name) ~ arrow ~
-                this.export_(aProperty.getValue(),  indentLevel)
-                : this.style("property", name) ~  arrow ~
-                this.export_(aProperty.getValue(),  indentLevel);
+                ? style("visibility", visibility) ~ " " ~
+                style("property", name) ~ arrow ~
+                export_(aProperty.getValue(),  indentLevel)
+                : style("property", name) ~  arrow ~
+                export_(aProperty.getValue(),  indentLevel);
         }
         if (count(props)) {
             return result ~ break ~ join(break, props) ~ end;
         }
-        return result ~ this.style("punct", "}");
+        return result ~ style("punct", "}");
     }
     
     /**
      * Style text with ANSI escape codes.
      * @param string atext The text to style.
      */
-    protected string style(string styleToUse, string atext) {
-        auto code = this.styles[styleToUse];
+    protected string style(string styleToUse, string textToStyle) {
+        auto code = _styles[styleToUse];
 
-        return "\033[{code}m{text}\033[0m";
+        return "\033[{code}m{textToStyle}\033[0m";
     } */
 }

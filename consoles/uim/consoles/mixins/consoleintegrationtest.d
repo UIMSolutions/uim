@@ -56,7 +56,7 @@ mixin template TConsoleIntegrationTest() {
             }
             throw anException;
         } catch (DStopException exception) {
-            _exitCode = exception.getCode();
+            _exitCode = exception.code();
         }
     }
 

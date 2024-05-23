@@ -278,7 +278,7 @@ class DExceptionRenderer : IExceptionRenderer {
     // Gets the appropriate http status code for exception.
     protected int getHttpCode(Throwable exception) {
         if (exception instanceof HttpException) {
-            return exception.getCode();
+            return exception.code();
         }
 
         return _exceptionHttpCodes[get_class(myException)] ?? 500;

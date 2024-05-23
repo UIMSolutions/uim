@@ -238,7 +238,7 @@ class DCommandRunner { // }: IEventDispatcher {
             }
             return command.run(argumentsToInvoke,  aConsoleIo);
         } catch (StopException  anException) {
-            return anException.getCode();
+            return anException.code();
         }
     }
     

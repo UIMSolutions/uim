@@ -109,8 +109,8 @@ class DExceptionTrap {
     }
 
     // Get an instance of the renderer.
-    IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest request = null) {
-        request = request ?? Router.getRequest();
+    IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {
+        serverRequest = serverRequest ?? Router.getRequest();
 
         /** @var class-string|callable aClassName */
         aClassName = configuration.get("exceptionRenderer");
@@ -140,10 +140,10 @@ class DExceptionTrap {
             }
 
             /** @var class-string<uim.errors.IExceptionRenderer> aClassName */
-            return new aClassName(exception, request, _config);
+            return new aClassName(exception, serverRequest, _config);
         }
 
-        return aClassName(exception, request);
+        return aClassName(exception, serverRequest);
     }
 
     // Choose an exception renderer based on config or the SAPI
@@ -201,15 +201,13 @@ class DExceptionTrap {
      *
      * Uses a template method provided by subclasses to display errors in an
      * environment appropriate way.
-     *
-     * @param \Throwable exception Exception instance.
      */
     void handleException(Throwable exception) {
         if (this.disabled) {
             return;
         }
-        request = Router.getRequest();
-
+        
+        auto request = Router.getRequest();
         logException(exception, request);
 
         try {
@@ -294,10 +292,9 @@ class DExceptionTrap {
      *
      * After logging is attempted the `Exception.beforeRender` event is triggered.
      *
-     * @param \Throwable exception The exception to log
      * @param IServerRequest|null request The optional request
      */
-    void logException(Throwable exceptionToLog, IServerRequest request = null) {
+    void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
         auto shouldLog = _config["log"];
         if (shouldLog) {
             foreach (configuration.get("skipLog") as aClassName) {
@@ -309,14 +306,14 @@ class DExceptionTrap {
         if (shouldLog) {
             logger = this.logger();
             if (method_exists(logger, "logException")) {
-                logger.logException(exceptionToLog, request, _config["trace"]);
+                logger.logException(exceptionToLog, serverRequest, _config["trace"]);
             } else {
                 loggerClass = get_class(logger);
                 deprecationWarning(
                     "The configured logger `{loggerClass}` should implement `logException()` " ~
                     "to be compatible with future versions of UIM."
                 );
-                this.logger().log(exceptionToLog, request);
+                this.logger().log(exceptionToLog, serverRequest);
             }
         }
         dispatchEvent("Exception.beforeRender", ["exception": exceptionToLog]);

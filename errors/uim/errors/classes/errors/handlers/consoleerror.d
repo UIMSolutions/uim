@@ -40,7 +40,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
 
         exitCode = Command.CODE_ERROR;
         if (cast(ConsoleException)exception) {
-            exitCode = exception.getCode();
+            exitCode = exception.code();
         }
         _stop(exitCode);
     }

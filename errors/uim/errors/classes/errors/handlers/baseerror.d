@@ -177,7 +177,7 @@ abstract class DERRErrorHandler {
     void handleException(Throwable exception) {
         _displayException(exception);
         logException(exception);
-        code = exception.getCode() ?: 1;
+        code = exception.code() ?: 1;
         _stop((int)code);
     }
 

@@ -49,9 +49,6 @@ mixin template TStaticConfig() {
      * ```
      * Cache.setConfig(arrayOfConfig);
      * ```
-     * Params:
-     * Json[string]|string aKey The name of the configuration, or an array of multiple configs.
-     * @param Json[string] configData Configuration value. Generally an array of name: configuration data for adapter.
      */
     void setConfiguration(string[] configurationName, Json[string] configData = null) {
         if (!isString(configurationName)) {
@@ -68,19 +65,15 @@ mixin template TStaticConfig() {
             unset(configuration.get("url"));
             configData = parsed + configData;
         }
-        if (configData.isSet("engine") && configData[]"className"].isEmpty) {
+        if (configData.isSet("engine") && configData["className"].isEmpty) {
             configuration.set("className", configuration.get("engine"));
-            unset(configuration.get("engine"]);
+            configuration.remove("engine");
         }
-        configuration.data(aKey] = configData;
+        configuration.set(aKey, configData);
     }
     
-    /**
-     * Reads existing configuration.
-     * Params:
-     * string aKey The name of the configuration.
-     */
-    static Json getConfig(string aKey) {
+    // Reads existing configuration.
+    static Json getConfig(string key) {
         return configuration.get(aKey, null);
     }
     
@@ -106,24 +99,20 @@ mixin template TStaticConfig() {
      *
      * If the implementing objects supports a ` _registry` object the named configuration
      * will also be unloaded from the registry.
-     * Params:
-     * string configData An existing configuration you wish to remove.
-    static bool drop(string configData) {
-        if (!isSet(configuration.data(configData])) {
+    */
+    static bool drop(string key) {
+        if (!configuration.hasKey(key)) {
             return false;
         }
-        /** @Dstan-ignore-next-line */
-        if (isSet(_registry)) {
-            _registry.unload(configData);
+        if (!_registry.isNull) {
+            _registry.unload(key);
         }
-        unset(configuration.data(configData]);
+        configuration.remove(key);
 
         return true;
     }
     
-    /**
-     * Returns an array containing the named configurations
-     */
+    // Returns an array containing the named configurations
     static string[] configured() {
         configDataurations = _config.keys;
 
@@ -167,7 +156,7 @@ mixin template TStaticConfig() {
             return null;
         }
 
-        somePattern = <<<'REGEXP'
+        auto somePattern = ` <<<'REGEXP'
 {
     ^
     (?P<_scheme>
@@ -197,7 +186,7 @@ mixin template TStaticConfig() {
     )?
     
 }x
-REGEXP;
+REGEXP`;
 
         preg_match(somePattern, dsn, parsed);
 
@@ -208,6 +197,8 @@ REGEXP;
         /**
          * @var string|int myKey
          */
+         // TODO
+         /*
         foreach (myKey: v; parsed) {
             if (isInt(myKey)) {
                 parsed.remove(myKey);
@@ -217,7 +208,7 @@ REGEXP;
             } else if (v == "" && !exists[myKey]) {
                 parsed.remove(myKey);
             }
-        }
+        } */
         
         string aQuery = "";
         if (parsed.isSet("query")) {
@@ -226,15 +217,16 @@ REGEXP;
         }
         parse_str(aQuery, aQueryArgs);
 
-        foreach (aKey: aValue; aQueryArgs) {
-            if (aValue == "true") {
-                aQueryArgs[aKey] = true;
-            } else if (aValue == "false") {
-                aQueryArgs[aKey] = false;
-            } else if (aValue == "null") {
-                aQueryArgs[aKey] = null;
+        aQueryArgs.byKeyValue.each!((kv) {
+            string value = value.get!string;
+            if (value == "true") {
+                aQueryArgs[kv.key] = true;
+            } else if (value == "false") {
+                aQueryArgs[kv.key] = false;
+            } else if (value == "null") {
+                aQueryArgs[kv.key] = null;
             }
-        }
+        });
 
         Json[string] parsed = aQueryArgs + parsed;
         if (isEmpty(parsed["className"])) {
@@ -250,18 +242,13 @@ REGEXP;
         return parsed;
     }
     
-    /**
-     * Updates the DSN class map for this class.
-     * Params:
-     * STRINGAA map Additions/edits to the class map to apply.
-     * @psalm-param array<string, class-string> map
-     */
-    static void setDsnClassMap(Json[string] map) {
+    // Updates the DSN class map for this class.
+    static void setDsnClassMap(STRINGAA map) {
         _dsnClassMap = map + _dsnClassMap;
     }
     
     // Returns the DSN class map for this class.
-    static array<string, class-string> getDsnClassMap() {
+    static STRINGAA getDsnClassMap() {
         return _dsnClassMap;
     }
 }

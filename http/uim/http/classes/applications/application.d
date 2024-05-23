@@ -67,7 +67,7 @@ class DApplication {
     abstract MiddlewareQueue middleware(MiddlewareQueue middlewareQueue);
  
     MiddlewareQueue pluginMiddleware(MiddlewareQueue middleware) {
-        foreach (this.plugins.with("middleware") as plugin) {
+        foreach (_plugins.with("middleware") as plugin) {
             middleware = plugin.middleware(middleware);
         }
         return middleware;
@@ -75,10 +75,10 @@ class DApplication {
  
     void addPlugin(name, Json[string] configData = null) {
         plugin = isString(name)
-            ? this.plugins.create(name, configData)
+            ? _plugins.create(name, configData)
             : name;
 
-        this.plugins.add(plugin);
+        _plugins.add(plugin);
     }
     
     /**
@@ -86,12 +86,11 @@ class DApplication {
      *
      * If it isn`t available, ignore it.
      * Params:
-     * \UIM\Core\IPlugin|string aName The plugin name or plugin object.
      * @param Json[string] configData The configuration data for the plugin if using a string for name
      */
-    void addOptionalPlugin(IPlugin|string aName, Json[string] configData = null) {
+    void addOptionalPlugin(/* IPlugin| */ string pluginName, Json[string] pluginData = null) {
         try {
-            this.addPlugin(name, configData);
+            this.addPlugin(pluginName, pluginData);
         } catch (MissingPluginException) {
             // Do not halt if the plugin is missing
         }
@@ -108,12 +107,12 @@ class DApplication {
         // Dcs:ignore
         plugins = @include this.configDir ~ "plugins.d";
         if (isArray(plugins)) {
-            this.plugins.addFromConfig(plugins);
+            _plugins.addFromConfig(plugins);
         }
     }
  
     void pluginBootstrap() {
-        this.plugins.with("bootstrap").each!(plugin => plugin.bootstrap(this));
+        _plugins.with("bootstrap").each!(plugin => plugin.bootstrap(this));
     }
     
     /**
@@ -132,11 +131,8 @@ class DApplication {
         }
     }
  
-    auto pluginRoutes(RouteBuilder routes): RouteBuilder
-    {
-        foreach (this.plugins.with("routes") as plugin) {
-            plugin.routes(routes);
-        }
+    DRouteBuilder pluginRoutes(RouteBuilder routes) {
+        _plugins.with("routes").each!(plugin => plugin.routes(routes));
         return routes;
     }
     
@@ -152,7 +148,7 @@ class DApplication {
  
     auto pluginConsole(CommandCollection commands): CommandCollection
     {
-        foreach (this.plugins.with("console") as plugin) {
+        foreach (_plugins.with("console") as plugin) {
             commands = plugin.console(commands);
         }
         return commands;
@@ -177,7 +173,7 @@ class DApplication {
     protected IContainer buildContainer() {
         container = new DContainer();
         this.services(container);
-        this.plugins.with("services")
+        _plugins.with("services")
             .each!(plugin => plugin.services(container));
 
         event = dispatchEvent("Application.buildContainer", ["container": container]);

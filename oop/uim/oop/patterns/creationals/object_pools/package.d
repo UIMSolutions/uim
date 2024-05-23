@@ -6,6 +6,8 @@
 module uim.oop.patterns.creationals.object_pools;
 
 import uim.oop;
+
+// TODO
 /* 
 @safe:
 class DConnection {
@@ -31,41 +33,43 @@ abstract class ObjectPool(T) {
 
   abstract void expire(T o);
 
-  /* synchronized */ T checkOut() {
-    long now = toTimestamp(now());
-    T t;
-    if (!unlocked.empty) {
-      foreach(e; unlocked.byKey.array) {
-        t = e;
-        if ((now - unlocked[t]) > expirationTime) {
-          // object has expired
+  /* synchronized * /
+T checkOut() {
+  long now = toTimestamp(now());
+  T t;
+  if (!unlocked.empty) {
+    foreach (e; unlocked.byKey.array) {
+      t = e;
+      if ((now - unlocked[t]) > expirationTime) {
+        // object has expired
+        unlocked.remove(t);
+        expire(t);
+        t = null;
+      } else {
+        if (validate(t)) {
+          unlocked.remove(t);
+          locked[t] = now;
+          return (t);
+        } else {
+          // object failed validation
           unlocked.remove(t);
           expire(t);
           t = null;
-        } else {
-          if (validate(t)) {
-            unlocked.remove(t);
-            locked[t] = now;
-            return (t);
-          } else {
-            // object failed validation
-            unlocked.remove(t);
-            expire(t);
-            t = null;
-          }
         }
       }
     }
-    // no objects available, create a new one
-    t = create();
-    locked[t] = now;
-    return (t);
   }
+  // no objects available, create a new one
+  t = create();
+  locked[t] = now;
+  return (t);
+}
 
-  /* synchronized */ void checkIn(T t) {
-    locked.remove(t);
-    unlocked[t] = toTimestamp(now());
-  }
+/* synchronized * /
+void checkIn(T t) {
+  locked.remove(t);
+  unlocked[t] = toTimestamp(now());
+}
 }
 
 //The three remaining methods are abstract 
@@ -105,7 +109,8 @@ class DConnectionPool : ObjectPool!Connection {
   }
 }
 
-version(test_uim_oop) { unittest {
+version (test_uim_oop) {
+  unittest {
     // Create the ConnectionPool:
     ConnectionPool pool = new DConnectionPool(
       "org.hsqldb.jdbcDriver", "jdbc:hsqldb://localhost/mydb",
@@ -117,4 +122,5 @@ version(test_uim_oop) { unittest {
     // Return the connection:
     pool.checkIn(con);
   }
-} */
+}
+ * / 

@@ -248,20 +248,20 @@ class DClient { // }: IClient {
      * @param string[] mydata The query data you want to send.
      * @param Json[string] options Additional options for the request.
      */
-  Response get(string myurl, string[] mydata = null, Json[string] options = null) {
-    options = _mergeOptions(options);
+  Response get(string myurl, string[] mydata = null, Json[string] requestOptions = null) {
+    requestOptions = _mergeOptions(requestOptions);
     mybody = null;
     if (isArray(mydata) && isSet(mydata["_content"])) {
       mybody = mydata["_content"];
       unset(mydata["_content"]);
     }
-    myurl = this.buildUrl(myurl, mydata, options);
+    myurl = this.buildUrl(myurl, mydata, requestOptions);
 
     return _doRequest(
       Request.METHOD_GET,
       myurl,
       mybody,
-      options
+      requestOptions
     );
   }
 
@@ -270,13 +270,13 @@ class DClient { // }: IClient {
      * Params:
      * string myurl The url or path you want to request.
      * @param Json mydata The post data you want to send.
-     * @param Json[string] options Additional options for the request.
+     * @param Json[string] requestOptions Additional requestOptions for the request.
      */
-  Response post(string myurl, Json mydata = null, Json[string] options = null) {
-    options = _mergeOptions(options);
-    myurl = this.buildUrl(myurl, [], options);
+  Response post(string myurl, Json mydata = null, Json[string] requestOptions = null) {
+    requestOptions = _mergeOptions(requestOptions);
+    myurl = this.buildUrl(myurl, [], requestOptions);
 
-    return _doRequest(Request.METHOD_POST, myurl, mydata, options);
+    return _doRequest(Request.METHOD_POST, myurl, mydata, requestOptions);
   }
 
   /**
@@ -284,13 +284,13 @@ class DClient { // }: IClient {
      * Params: 
      * @param string myurl The url or path you want to request.
      * @param Json requestData The request data you want to send.
-     * options = Additional options for the request.
+     * requestOptions = Additional requestOptions for the request.
      */
-  Response put(string myurl, Json requestData = nullll, Json[string] options = null) {
-    options = _mergeOptions(options);
-    myurl = this.buildUrl(myurl, [], options);
+  Response put(string myurl, Json requestData = nullll, Json[string] requestOptions = null) {
+    requestOptions = _mergeOptions(requestOptions);
+    myurl = this.buildUrl(myurl, [], requestOptions);
 
-    return _doRequest(Request.METHOD_PUT, myurl, requestData, options);
+    return _doRequest(Request.METHOD_PUT, myurl, requestData, requestOptions);
   }
 
   /**
@@ -298,13 +298,13 @@ class DClient { // }: IClient {
      * Params:
      * string myurl The url or path you want to request.
      * @param Json requestData The request data you want to send.
-     * @param Json[string] options Additional options for the request.
+     * @param Json[string] requestOptions Additional requestOptions for the request.
      */
-  Response patch(string myurl, Json requestData = null, Json[string] options = null) {
-    options = _mergeOptions(options);
-    myurl = this.buildUrl(myurl, [], options);
+  Response patch(string myurl, Json requestData = null, Json[string] requestOptions = null) {
+    requestOptions = _mergeOptions(requestOptions);
+    myurl = this.buildUrl(myurl, [], requestOptions);
 
-    return _doRequest(Request.METHOD_PATCH, myurl, requestData, options);
+    return _doRequest(Request.METHOD_PATCH, myurl, requestData, requestOptions);
   }
 
   /**
@@ -312,13 +312,13 @@ class DClient { // }: IClient {
      * Params:
      * @param string myurl The url or path you want to request.
      * @param Json sendData The request data you want to send.
-     * options = Additional options for the request.
+     * requestOptions = Additional requestOptions for the request.
      */
-  Response options(string myurl, Json sendData = null, Json[string] options = null) {
-    options = _mergeOptions(options);
-    myurl = this.buildUrl(myurl, [], options);
+  Response requestOptions(string myurl, Json sendData = null, Json[string] requestOptions = null) {
+    requestOptions = _mergeOptions(requestOptions);
+    myurl = this.buildUrl(myurl, [], requestOptions);
 
-    return _doRequest(Request.METHOD_OPTIONS, myurl, sendData, options);
+    return _doRequest(Request.METHOD_OPTIONS, myurl, sendData, requestOptions);
   }
 
   /**
@@ -326,13 +326,13 @@ class DClient { // }: IClient {
      * Params:
      * string myurl The url or path you want to request.
      * @param Json sendData The request data you want to send.
-     * @param Json[string] options Additional options for the request.
+     * @param Json[string] requestOptions Additional requestOptions for the request.
      */
-  Response trace(string myurl, Json sendData = null, Json[string] options = null) {
-    options = _mergeOptions(options);
-    myurl = this.buildUrl(myurl, [], options);
+  Response trace(string myurl, Json sendData = null, Json[string] requestOptions = null) {
+    requestOptions = _mergeOptions(requestOptions);
+    myurl = this.buildUrl(myurl, [], requestOptions);
 
-    return _doRequest(Request.METHOD_TRACE, myurl, sendData, options);
+    return _doRequest(Request.METHOD_TRACE, myurl, sendData, requestOptions);
   }
 
   /**
@@ -340,7 +340,7 @@ class DClient { // }: IClient {
      * Params:
      * string myurl The url or path you want to request.
      * @param Json sendData The request data you want to send.
-     * @param Json[string] options Additional options for the request.
+     * @param Json[string] requestOptions Additional requestOptions for the request.
      */
   Response remove(string myurl, Json sendData = null, Json[string] optionsForRequest = null) {
     auto optionsForRequest = _mergeOptions(optionsForRequest);
@@ -354,7 +354,7 @@ class DClient { // }: IClient {
      * Params:
      * string myurl The url or path you want to request.
      * @param Json[string] data The query string data you want to send.
-     * @param Json[string] options Additional options for the request.
+     * @param Json[string] requestOptions Additional requestOptions for the request.
      */
   Response head(string myurl, Json[string] data = null, Json[string] optionsForRequest = null) {
     auto optionsForRequest = _mergeOptions(optionsForRequest);

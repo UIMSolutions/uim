@@ -124,13 +124,13 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @param string anAlias The alias of the object.
      */
     protected Json[string] _getMethods(Behavior instance, string aClassName , string anAlias) {
-        finders = array_change_key_case(instance.implementedFinders());
-        aMethodNames = array_change_key_case(instance.implementedMethods());
+        auto finders = array_change_key_case(instance.implementedFinders());
+        auto aMethodNames = array_change_key_case(instance.implementedMethods());
 
         foreach (finder, myMethodName; finders) {
             if (isset(_finderMap[finder]) && this.has(_finderMap[finder][0])) {
-                duplicate = _finderMap[finder];
-                error =  
+                auto duplicate = _finderMap[finder];
+                auto error =  
                     "%s contains duplicate finder '%s' which is already provided by '%s'"
                     .format(class, finder, duplicate[0]);
                 throw new DLogicException(error);
@@ -141,7 +141,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
         foreach (myMethodKey, methodName; methods) {
             if (isset(_methodMap[myMethodKey]) && this.has(_methodMap[myMethodKey][0])) {
                 duplicate = _methodMap[myMethodKey];
-                error =  
+                auto error =  
                     "%s contains duplicate method '%s' which is already provided by '%s'".format(aClassName,
                     method,
                     duplicate[0]
@@ -159,22 +159,16 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      *
      * Will return true if any behavior provides a non-finder method
      * with the chosen name.
-     *
-     * @param string aMethodName The method to check for.
      */
     bool hasMethod(string aMethodName) {
-        method = strtolower(method);
+        method = strtolower(aMethodName);
 
-        return isset(_methodMap[method]);
+        return isset(_methodMap[aMethodName]);
     }
 
     /**
      * Check if any loaded behavior : the named finder.
-     *
-     * Will return true if any behavior provides a method with
-     * the chosen name.
-     *
-     * @param string aMethodName The method to check for.
+     * Will return true if any behavior provides a method with the chosen name.
      */
     bool hasFinder(string aMethodName) {
         aMethodName = aMethodName.lower;
@@ -182,18 +176,13 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
         return isset(_finderMap[aMethodName]);
     }
 
-    /**
-     * Invoke a method on a behavior.
-     *
-     * @param string aMethodName The method to invoke.
-     * @param Json[string] args The arguments you want to invoke the method with.
-     */
-    Json call(string aMethodName, Json[string] args = null) {
+    // Invoke a method on a behavior.
+    Json call(string aMethodName, Json[string] methodsData = null) {
         aMethodName = strtolower(aMethodName);
         if (this.hasMethod(aMethodName) && this.has(_methodMap[aMethodName][0])) {
             [behavior, callMethod] = _methodMap[aMethodName];
 
-            return _loaded[behavior].{callMethod}(...args);
+            return _loaded[behavior].{callMethod}(...methodsData);
         }
 
         throw new BadMethodCallException(
@@ -201,24 +190,19 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
         );
     }
 
-    /**
-     * Invoke a finder on a behavior.
-     *
-     * @param string type The finder type to invoke.
-     * @param Json[string] args The arguments you want to invoke the method with.
-     */
-    DORMQuery callFinder(string type, Json[string] args = null) {
-        type = type.lower;
+    // Invoke a finder on a behavior.
+    DORMQuery callFinder(string finderType, Json[string] methodsData = null) {
+        finderType = finderType.lower;
 
-        if (this.hasFinder(type) && this.has(_finderMap[type][0])) {
-            [behavior, callMethod] = _finderMap[type];
+        if (this.hasFinder(finderType) && this.has(_finderMap[finderType][0])) {
+            [behavior, callMethod] = _finderMap[finderType];
             callable = [_loaded[behavior], callMethod];
 
-            return callable(...args);
+            return callable(...methodsData);
         }
 
         throw new BadMethodCallException(
-            "Cannot call finder '%s' it does not belong to any attached behavior.".format(type)
+            "Cannot call finder '%s' it does not belong to any attached behavior.".format(finderType)
         );
     }
 }

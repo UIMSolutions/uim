@@ -25,10 +25,9 @@ class DMockAdapter { //}: IAdapter {
      * - `match` An additional closure to match requests with.
      * Params:
      * \Psr\Http\Message\IRequest request A partial request to use for matching.
-     * @param \UIM\Http\Client\Response response The response that matches the request.
-     * @param Json[string] options See above.
+     * @param \UIM\Http\Client\Response response The response that matches the requestForMatch.
      */
-    void addResponse(IRequest request, Response response, Json[string] options = null) {
+    void addResponse(IRequest requestForMatch, Response response, Json[string] options = null) {
         if (isSet(options["match"]) && !(cast(DClosure)options["match"])) {
             type = get_debug_type(options["match"]);
             throw new DInvalidArgumentException(
@@ -37,7 +36,7 @@ class DMockAdapter { //}: IAdapter {
             ));
         }
         this.responses ~= [
-            "request": request,
+            "request": requestForMatch,
             "response": response,
             "options": options,
         ];
@@ -46,12 +45,12 @@ class DMockAdapter { //}: IAdapter {
     /**
      * Find a response if one exists.
      * Params:
-     * \Psr\Http\Message\IRequest request The request to match
+     * \Psr\Http\Message\IRequest requestToMatch The requestToMatch to match
      */
-    Response[] send(IRequest request, Json[string] options = null) {
-        found = null;
-        method = request.getMethod();
-        requestUri = to!string(request.getUri());
+    Response[] send(IRequest requestToMatch, Json[string] options = null) {
+        auto found = null;
+        auto method = requestToMatch.getMethod();
+        auto requestUri = to!string(requestToMatch.getUri());
 
         foreach (anIndex: mock; this.responses) {
             if (method != mock["request"].getMethod()) {

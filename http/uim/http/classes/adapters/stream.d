@@ -81,17 +81,17 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Build the stream context out of the request object.
      * Params:
      * \Psr\Http\Message\IRequest request The request to build context from.
-     * @param Json[string] options Additional request options.
+     * @param Json[string] requestOptions Additional request requestOptions.
      */
-    protected void _buildContext(IRequest request, Json[string] options = null) {
-       _buildContent(request, options);
-       _buildHeaders(request, options);
-       _buildOptions(request, options);
+    protected void _buildContext(IRequest request, Json[string] requestOptions = null) {
+       _buildContent(request, requestOptions);
+       _buildHeaders(request, requestOptions);
+       _buildOptions(request, requestOptions);
 
         url = request.getUri();
         scheme = parse_url(to!string(url, UIM_URL_SCHEME));
         if (scheme == "https") {
-           _buildSslContext(request, options);
+           _buildSslContext(request, requestOptions);
         }
        _context = stream_context_create([
             "http": _contextOptions,
@@ -103,16 +103,12 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Build the header context for the request.
      *
      * Creates cookies & headers.
-     * Params:
-     * \Psr\Http\Message\IRequest request The request being sent.
-     * @param Json[string] options Array of options to use.
      */
     protected void _buildHeaders(IRequest request, Json[string] options = null) {
-         aHeaders = null;
-        foreach (request.getHeaders() as name:  someValues) {
-             aHeaders ~= "%s: %s".format(name, join(", ",  someValues));
-        }
-       _contextOptions["header"] = join("\r\n",  aHeaders);
+        auto headers = request.getHeaders().byKeyValue
+            .map!(kv => "%s: %s".format(kv.key, kv.value.join(", "))).array;
+
+       _contextOptions["header"] = aHeaders.join("\r\n");
     }
     
     /**

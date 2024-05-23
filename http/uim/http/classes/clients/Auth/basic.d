@@ -20,12 +20,7 @@ class DBasic {
         return request;
     }
     
-    /**
-     * Proxy Authentication
-     * Params:
-     * \UIM\Http\Client\Request request Request instance.
-     * @param Json[string] credentials Credentials.
-     */
+    // Proxy Authentication
     Request proxyAuthentication(Request request, Json[string] credentials) {
         if (isSet(credentials["username"], credentials["password"])) {
             aValue = _generateHeader(credentials["username"], credentials["password"]);

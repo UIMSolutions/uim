@@ -20,6 +20,8 @@ class DConnectionHelper {
      * The `default` connection is aliased to `test`.
      */
     void addTestAliases() {
+        // TODO
+        /*
         ConnectionManager.alias("test", "default");
         ConnectionManager.configured()
             .filter!(connection => !(aConnection == "test" || aConnection == "default"))
@@ -28,7 +30,7 @@ class DConnectionHelper {
                 ? substr(connection, 5) // original
                 : "test_" ~ aConnection
             ));
-        }
+        } */
     }
     
     /**
@@ -37,7 +39,8 @@ class DConnectionHelper {
      * array<int, string>|null aConnections Connection names or null for all.
      */
     void enableQueryLogging(Json[string] aConnections = null) {
-        aConnections ??= ConnectionManager.configured();
+        // TODO
+        /* aConnections ??= ConnectionManager.configured();
         foreach (aConnections as aConnection) {
             aConnection = ConnectionManager.get(aConnection);
             string message = "--Starting test run " ~ date("Y-m-d H:i:s");
@@ -48,24 +51,19 @@ class DConnectionHelper {
                 aConnection.getDriver().setLogger(new QueryLogger());
                 aConnection.getDriver().log(message);
             }
-        }
+        } */
     }
     
-    /**
-     * Drops all tables.
-     * Params:
-     * string aconnectionName Connection name
-     * @param string[] aTables List of tables names or null for all.
-     */
-    void dropTables(string aconnectionName, string[] aTables = null) {
+    // Drops all tables.
+    void dropTables(string connectionName, string[] tableNames = null) {
         aConnection = ConnectionManager.get(aConnectionName);
         assert(cast(DConnection)aConnection);
         collection = aConnection.getSchemaCollection();
         allTables = collection.listTablesWithoutViews();
 
-        aTables = aTables !isNull ? array_intersect(aTables, allTables): allTables;
+        tableNames = tableNames !isNull ? array_intersect(tableNames, allTables): allTables;
         /** @var array<\UIM\Database\Schema\TableSchema> schemas Specify type for psalm */
-        schemas = array_map(fn (aTable): collection.describe(aTable), aTables);
+        schemas = array_map(fn (aTable): collection.describe(aTable), tableNames);
 
         dialect = aConnection.getDriver().schemaDialect();
         foreach (schemas as tableSchema) {
@@ -78,21 +76,16 @@ class DConnectionHelper {
         }
     }
     
-    /**
-     * Truncates all tables.
-     * Params:
-     * string aconnectionName Connection name
-     * @param string[] aTables List of tables names or null for all.
-     */
-    void truncateTables(string aconnectionName, Json[string] aTables = null) {
+    // Truncates all tables.
+    void truncateTables(string connectionName, Json[string] tableNames = null) {
         aConnection = ConnectionManager.get(aConnectionName);
         assert(cast(DConnection)aConnection);
         collection = aConnection.getSchemaCollection();
 
         allTables = collection.listTablesWithoutViews();
-        aTables = aTables !isNull ? array_intersect(aTables, allTables): allTables;
+        tableNames = tableNames !isNull ? array_intersect(tableNames, allTables): allTables;
         /** @var array<\UIM\Database\Schema\TableSchema> schemas Specify type for psalm */
-        schemas = array_map(fn (aTable): collection.describe(aTable), aTables);
+        schemas = array_map(fn (aTable): collection.describe(aTable), tableNames);
 
         this.runWithoutConstraints(aConnection, void (Connection aConnection) use (schemas) {
             dialect = aConnection.getDriver().schemaDialect();

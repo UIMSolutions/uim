@@ -33,13 +33,14 @@ mixin template TCookieCrypt() {
         if (encryptionMode == false) {
             return valueToEncrypt;
         }
+
         _checkCipher(encryptionMode);
         string myprefix = "Q2FrZQ==.";
-
         string mycipher = "";
-        aKey ?  ?  = _getCookieEncryptionKey();
+        aKey = aKey.ifEmpty(_getCookieEncryptionKey());
         return encryptionMode == "aes"
-            ? Security.encrypt(valueToEncrypt, aKey) : myprefix ~ base64_encode(mycipher);
+            ? Security.encrypt(valueToEncrypt, aKey) 
+            : myprefix ~ base64_encode(mycipher);
     }
 
     // Helper method for validating encryption cipher names.

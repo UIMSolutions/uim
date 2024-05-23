@@ -129,12 +129,9 @@ class Date { // }: DChronosDate, JsonSerializable {
      * time = Date.parseDate("13 Oct, 2013", "dd MMM, y");
      * time = Date.parseDate("13 Oct, 2013", IntlDateFormatter.SHORT);
      * ```
-     * Params:
-     * string adate The date string to parse.
-     * @param string|int format Any format accepted by IntlDateFormatter.
      */
-    static auto parseDate(string adate, int format) {
-        return parseDate(adate, to!string(format));
+    static auto parseDate(string adadateToParsete, int format) {
+        return parseDate(dateToParse, to!string(format));
     }
     static auto parseDate(string adate, string format = null) {
         string myFormat = !format.isEmpty ? format : wordFormat;
@@ -189,9 +186,6 @@ class Date { // }: DChronosDate, JsonSerializable {
      *
      * You can control the default locale used through `Date.setDefaultLocale()`.
      * If empty, the default will be taken from the `intl.default_locale` ini config.
-     * Params:
-     * string|int format Format string.
-     * @param string locale The locale name in which the date should be displayed (e.g. pt-BR)
      */
     string i18nFormat(int format, string localeName = null) {
         return i18nFormat(to!string(format), localeName);

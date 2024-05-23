@@ -20,25 +20,15 @@ import uim.http;
 class DClosureDecoratorMiddleware { // }: IHttpMiddleware {
     protected IClosure aCallable;
 
-    /**
-     
-     * Params:
-     * \Closure callable A closure.
-     */
     this(IClosure aCallable) {
         _callable = aCallable;
     }
     
-    /**
-     * Run the callable to process an incoming server request.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest Request instance.
-     * @param \Psr\Http\Server\IRequestHandler handler Request handler instance.
-     */
-    IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
+    // Run the callable to process an incoming server request.
+    IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
         return (_callable)(
-            request,
-            handler
+            serverRequest,
+            requestHandler
         );
     }
     

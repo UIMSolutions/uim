@@ -57,8 +57,6 @@ class DPoFileParser {
      * - Message IDs are allowed to have other encodings as just US-ASCII.
      *
      * Items with an empty id are ignored.
-     * Params:
-     * string resourceFilepath The file name to parse
      */
     Json[string] parse(string resourceFilepath) {
         if (!exists(resourceFilepath)){
@@ -164,15 +162,15 @@ class DPoFileParser {
      * Json[string] messages The messages array being collected from the file
      * @param Json[string]  anItem The current item being inspected
      */
-    protected void addMessage(Json[string] messages, Json anItem) {
-        auto ids = anItem["ids"];
+    protected void addMessage(Json[string] messages, Json itemToInspect) {
+        auto ids = itemToInspect["ids"];
         if (ids["singular"].isEmpty && ids["plural"].isEmpty) {
             return;
         }
 
         auto singular = stripcslashes(ids["singular"]);
-        auto context = anItem.get("context", null);
-        auto translation = anItem["translated"];
+        auto context = itemToInspect.get("context", null);
+        auto translation = itemToInspect["translated"];
 
         if (isArray(translation)) {
             translation = translation[0];
@@ -186,7 +184,7 @@ class DPoFileParser {
         }
 
         if (ids.isSet("plural")) {
-            plurals = anItem["translated"];
+            plurals = itemToInspect["translated"];
             // PO are by definition indexed so sort by index.
             ksort(plurals);
 

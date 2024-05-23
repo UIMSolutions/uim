@@ -52,7 +52,6 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      * Params:
      * \UIM\I18n\CatalogLocator catalogs The catalog locator.
      * @param \UIM\I18n\FormatterLocator formatters The formatter locator.
-     * @param string localName The default locale code to use.
      */
     this(
         DCatalogLocator catalogs,
@@ -63,10 +62,10 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         _formatters = formatters;
         _localeName(localName);
 
-        this.registerLoader(FALLBACK_LOADER, auto (name, locale) {
+        this.registerLoader(FALLBACK_LOADER, auto (name, localName) {
             loader = new DChainMessagesLoader([
-                new DMessagesFileLoader(name, locale, "mo"),
-                new DMessagesFileLoader(name, locale, "po"),
+                new DMessagesFileLoader(name, localName, "mo"),
+                new DMessagesFileLoader(name, localName, "po"),
             ]);
 
             formatter = name == "uim" ? "default" : _defaultFormatter;
@@ -77,13 +76,9 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         });
     }
     
-    /**
-     * Sets the default locale code.
-     * Params:
-     * string localName The new locale code.
-     */
+    // Sets the default locale code.
     void setLocale(string localName) {
-        this.locale = locale;
+        _locale = localName;
     }
     
     /**
@@ -103,13 +98,8 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         return _formatters;
     }
     
-    /**
-     * Sets the CacheEngine instance used to remember translators across
-     * requests.
-     * Params:
-     * \Psr\SimpleCache\ICache&\UIM\Cache\ICacheEngine cacher The cacher instance.
-     */
-    void cacher(ICache&ICacheEngine cacher) {
+    // Sets the CacheEngine instance used to remember translators across requests.
+    void cacher(/* ICache */ ICacheEngine cacher) {
        _cacher = cacher;
     }
     

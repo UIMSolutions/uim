@@ -112,8 +112,8 @@ class DTime { // : ChronosTime, JsonSerializable {
      * string atime The time string to parse.
      * @param string|int format Any format accepted by IntlDateFormatter.
      */
-    static static parseTime(string atime, string|int format = null) {
-        format ??= [IntlDateFormatter.NONE, IntlDateFormatter.SHORT];
+    static static parseTime(string atime, string /* |int */ format = null) {
+        format = format.ifEmpty([IntlDateFormatter.NONE, IntlDateFormatter.SHORT]);
         if (isInt(format)) {
             format = [IntlDateFormatter.NONE, format];
         }
@@ -156,22 +156,19 @@ class DTime { // : ChronosTime, JsonSerializable {
      *
      * You can control the default locale used through `DateTime.setDefaultLocale()`.
      * If empty, the default will be taken from the `intl.default_locale` ini config.
-     * Params:
-     * string|int format Format string.
-     * @param string locale The locale name in which the time should be displayed (e.g. pt-BR)
      */
-    string|int i18nFormat(
-        string|int format = null,
-        string alocale = null
+    string /* int */  i18nFormat(
+        string /* int */ format = null,
+        string localName = null
     ) {
         if (format == DateTime.UNIX_TIMESTAMP_FORMAT) {
             throw new DInvalidArgumentException("UNIT_TIMESTAMP_FORMAT is not supported for Time.");
         }
         format ??= _toStringFormat;
         format = isInt(format) ? [IntlDateFormatter.NONE, format] : format;
-        locale = locale ?: DateTime.getDefaultLocale();
+        localName = localName ?: DateTime.getDefaultLocale();
 
-        return _formatObject(toNative(), format, locale);
+        return _formatObject(toNative(), format, localName);
     }
     
     /**

@@ -227,7 +227,7 @@ class DServerRequest { // }: IServerRequest {
     protected void _setConfig(Json[string] configData = null) {
         if (isEmpty(configData["session"])) {
             configData["session"] = new DSession([
-                'cookiePath": configData["base"],
+                "cookiePath": configData["base"],
             ]);
         }
         if (isEmpty(configData["environment"]["REQUEST_METHOD"])) {

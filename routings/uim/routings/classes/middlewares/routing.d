@@ -68,7 +68,7 @@ class DRoutingMiddleware : IRoutingMiddleware {
         } catch (DRedirectException  anException) {
             return new DRedirectResponse(
                  anException.getMessage(),
-                 anException.getCode(),
+                 anException.code(),
                  anException.getHeaders()
             );
         }

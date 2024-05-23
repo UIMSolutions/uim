@@ -242,12 +242,10 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * time = DateTime.parseDate("13 Oct, 2013", "dd MMM, y");
      * time = DateTime.parseDate("13 Oct, 2013", IntlDateFormatter.SHORT);
      * ```
-     * Params:
-     * string adate The date string to parse.
-     * @param string[]|int format Any format accepted by IntlDateFormatter.
      */
-    auto parseDate(string adate, int format)
-    }
+    // TODO auto parseDate(string dateToParse, int format)
+    // }
+
     auto parseDate(string adate, string[] format = null) {
         format ??= wordFormat;
         if (isInt(format)) {

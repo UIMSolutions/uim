@@ -41,7 +41,6 @@ class DTranslator : ITranslator {
      * Params:
      * string localename The locale being used.
      * @param \UIM\I18n\MessageCatalog catalog The catalog containing keys and translations.
-     * @param \UIM\I18n\II18NFormatter formatter A message formatter.
      * @param \UIM\I18n\Translator|null fallback A fallback translator.
      */
     this(

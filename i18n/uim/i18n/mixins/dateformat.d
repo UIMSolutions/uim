@@ -15,10 +15,6 @@ mixin template TDateFormat() {
     /**
      * Returns a translated and localized date string.
      * : what IntlDateFormatter.formatObject() is in D 5.5+
-     * Params:
-     * \IDateTime date Date.
-     * @param array<int>|string aformat Format.
-     * @param string locale The locale name in which the date should be displayed.
      */
     protected string _formatObject(
         IDateTime date,
@@ -33,11 +29,11 @@ mixin template TDateFormat() {
             dateFormat = timeFormat = IntlDateFormatter.FULL;
              somePattern = format;
         }
-        locale = locale ? locale : I18n.locale();
+        localName = localName.ifEmpty(I18n.locale());
 
         calendar = preg_match(
                 "/@calendar=(japanese|buddhist|chinese|persian|indian|islamic|hebrew|coptic|ethiopic)/",
-                locale) 
+                localName) 
                 ? IntlDateFormatter.TRADITIONAL
                 : IntlDateFormatter.GREGORIAN;
 
@@ -52,7 +48,7 @@ mixin template TDateFormat() {
             }
 
             auto formatter = datefmt_create(
-                locale,
+                localName,
                 dateFormat,
                 timeFormat,
                 timezone,
@@ -108,9 +104,9 @@ mixin template TDateFormat() {
             dateFormat = timeFormat = IntlDateFormatter.FULL;
              somePattern = format;
         }
-        locale = DateTime.getDefaultLocale() ?? I18n.locale();
+        localName = DateTime.getDefaultLocale() ?? I18n.locale();
         formatter = datefmt_create(
-            locale,
+            localName,
             dateFormat,
             timeFormat,
             tz,

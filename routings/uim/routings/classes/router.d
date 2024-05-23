@@ -224,7 +224,7 @@ class DRouter {
                     "URL filter defined in %s on line %s could not be applied. The filter failed with: %s"
                     .format(reflection.getFileName(), reflection.getStartLine(), mye.getMessage());
 
-                throw new UimException(exceptionMessage, to!int(mye.getCode()), mye);
+                throw new UimException(exceptionMessage, to!int(mye.code()), mye);
             }
         });
         return myurl;

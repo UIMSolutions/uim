@@ -85,17 +85,13 @@ class DI18n {
      * 'fr_FR'
      * );
      * ```
-     * Params:
-     * @param callable loader A callback auto or callable class responsible for
-     * constructing a translations catalog instance.
-     * @param string locale The locale for the translator.
      */
     static void setTranslator(string domainName, callable loader, string translatorLocale = null) {
-        translatorlocale = translatorlocale ?: locale();
+        translatorlocale = translatorlocale.ifEmpty(locale());
 
-        translators = translators();
-        loader = translators.setLoaderFallback(domainname, loader);
-        catalogs = translators.getPackages();
+        auto translators = translators();
+        auto loader = translators.setLoaderFallback(domainname, loader);
+        auto catalogs = translators.getPackages();
         catalogs.set(domainname, translatorlocale, loader);
     }
     

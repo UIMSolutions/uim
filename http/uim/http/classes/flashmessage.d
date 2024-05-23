@@ -111,9 +111,6 @@ class DFlashMessage {
      * 'element": 'error",
      * `params": ["code": exception.code()]
      * ```
-     * Params:
-     * \Throwable exception Exception instance.
-     * @param Json[string] options An array of options.
      */
     void setExceptionMessage(Throwable exception, Json[string] options = null) {
         options["element"] ??= "error";

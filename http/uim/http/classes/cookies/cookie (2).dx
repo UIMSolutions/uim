@@ -51,8 +51,6 @@ class DCookie : ICookie {
      * @param \IDateTime|null expiresAt Expiration time and date
      * @param string somePath Path
      * @param string domain Domain
-     * @param bool|null isSecure 
-     * @param bool|null isHttpOnly HTTP Only
      * @param \UIM\Http\Cookie\SameSiteEnum|string sameSite Samesite
      */
     this(

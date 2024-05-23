@@ -61,7 +61,6 @@ string __d(string adomain, string messageToTranslate, Json ...someArguments) {
  * @param string adomain Domain.
  * @param string asingular Singular string to translate.
  * @param string aplural Plural.
- * @param int count Count.
  * @param Json ...someArguments Array with arguments or multiple arguments in function.
  */
 string __dn(string adomain, string asingular, string aplural, int count, Json ...someArguments): 

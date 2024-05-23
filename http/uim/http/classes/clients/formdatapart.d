@@ -135,15 +135,12 @@ class DFormDataPart { // }: Stringable {
      *
      * If the value contains non-ASCII letters an additional header indicating
      * the charset encoding will be set.
-     * Params:
-     * string aName The name of the header parameter
-     * @param string avalue The value of the header parameter
      */
-    protected string _headerParameterToString(string aName, string avalue) {
-        transliterated = Text.transliterate(aValue.replace("\"", ""));
-        result = "%s="%s"".format(name, transliterated);
-        if (_charset && aValue != transliterated) {
-            result ~= "; %s*=%s""%s".format(name, _charset.lower, rawurlencode(aValue));
+    protected string _headerParameterToString(string headerParameterName, string headerParameterValue) {
+        auto transliterated = Text.transliterate(headerParameterValue.replace("\"", ""));
+        string result = "%s="%s"".format(headerParameterName, transliterated);
+        if (_charset && headerParameterValue != transliterated) {
+            result ~= "; %s*=%s""%s".format(headerParameterName, _charset.lower, rawurlencode(headerParameterValue));
         }
         return result;
     }

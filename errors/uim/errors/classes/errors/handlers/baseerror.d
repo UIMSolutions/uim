@@ -209,11 +209,9 @@ abstract class DERRErrorHandler {
     /**
      * Increases the D "memory_limit" ini setting by the specified amount
      * in kilobytes
-     *
-     * @param int additionalKb Number in kilobytes
      */
     void increaseMemoryLimit(int additionalKb) {
-        limit = ini_get("memory_limit");
+        auto limit = ini_get("memory_limit");
         if (limit == false || limit == "" || limit == "-1") {
             return;
         }

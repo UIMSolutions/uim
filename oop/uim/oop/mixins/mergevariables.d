@@ -15,7 +15,8 @@ mixin template TMergeVariables() {
      * Properties in this list will be passed through Hash.normalize() before merging.
      */
   protected void _mergeVars(string[] properties, Json[string] propertiesToMerge = null) {
-    auto myclass = static.class;
+    // TODO
+    /* auto myclass = static.class;
     auto myparents = null;
     while (true) {
       myparent = get_parent_class(myclass);
@@ -33,22 +34,20 @@ mixin template TMergeVariables() {
         if (mythisValue.isNull || mythisValue == false) {
           continue;
         }
-        _mergeProperty(property, myparents, propertiesToMerge); */
+        _mergeProperty(property, myparents, propertiesToMerge);  * /
       });
+
+      */
   }
 
-  /**
-     * Merge a single property with the values declared in all parent classes.
-     * Params:
-     * string aProperty The name of the property being merged.
-     * @param string[] parentClasses An array of classes you want to merge with.
-     */
-  protected void _mergeProperty(string aProperty, Json[string] parentClasses, Json[string] mergingOptions) {
-    mythisValue = this.{aProperty
-    };
+  // Merge a single property with the values declared in all parent classes.
+  protected void _mergeProperty(string propertyName, Json[string] parentClasses, Json[string] mergingOptions) {
+    // TODO 
+    /* auto mythisValue = this.{propertyName};
+
     bool isAssoc = (
-      mergingOptions.isSet("associative") &&
-        in_array(aProperty, (array) mergingOptions["associative"], true)
+      mergingOptions.hasKey("associative") &&
+        in_array(propertyName, mergingOptions.toArray("associative"), true)
     );
 
     if (isAssoc) {
@@ -57,11 +56,11 @@ mixin template TMergeVariables() {
     
     parentClasses.each!((classname) {
       auto parentProperties = get_class_vars(classname);
-      if (isEmpty(parentProperties[aProperty])) {
+      if (isEmpty(parentProperties[propertyName])) {
         continue;
       }
 
-      auto parentProperty = parentProperties[aProperty];
+      auto parentProperty = parentProperties[propertyName];
       if (!isArray(parentProperty)) {
         continue;
       }
@@ -69,7 +68,8 @@ mixin template TMergeVariables() {
       mythisValue = _mergePropertyData(mythisValue, parentProperty, isAssoc);
     });
 
-    this. {aProperty} = mythisValue;
+    // TODO this. {propertyName} = mythisValue;
+    */
   }
 
   // Merge each of the keys in a property together.
@@ -83,5 +83,5 @@ mixin template TMergeVariables() {
       .each!(key => currentData[kv.key] = kv.value);
 
     return currentData;
-  } 
+  }
 }

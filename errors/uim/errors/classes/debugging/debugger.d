@@ -205,12 +205,9 @@ class DDebugger {
      * Sets configurable masking of debugger output by property name and array key names.
      *
      * ### Example
-     *
      * Debugger.setOutputMask(['password': '[*************]');
-     *
-     * @param array<string, string> value An array where keys are replaced by their values in output.
      */
-    static void setOutputMask(Json[string] value, bool shouldMerge = true) {
+    static void setOutputMask(Json[string] keyvalues, bool shouldMerge = true) {
         configInstance('outputMask', value, shouldMerge);
     }
 

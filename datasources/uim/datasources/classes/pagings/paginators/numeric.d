@@ -25,7 +25,7 @@ class DNumericPaginator : IPaginator {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
-    /**
+        /**
      * Default pagination settings.
      *
      * When calling paginate() these settings will be merged with the configuration
@@ -40,18 +40,17 @@ class DNumericPaginator : IPaginator {
      *
      * @var Json[string]
      */
-    protected configuration.updateDefaults([
-            "page": 1,
-            "limit": 20,
-            "maxLimit": 100,
-            "allowedParameters": ["limit", "sort", "page", "direction"],
-        ]);
+        protected configuration.updateDefaults([
+                "page": 1,
+                "limit": 20,
+                "maxLimit": 100,
+                "allowedParameters": ["limit", "sort", "page", "direction"],
+            ]);
 
         return true;
     }
 
     mixin(TProperty!("string", "name"));
-
 
     /**
      * Paging params after pagination operation is done.
@@ -206,11 +205,7 @@ class DNumericPaginator : IPaginator {
         return query.count();
     }
 
-    /**
-     * Extract pagination data needed
-     *
-     * @param uim.Datasource\IRepository object The repository object.
-     */
+    // Extract pagination data needed
     Json[string] extractData(IRepository repository, Json[string] requestData, Json[string] paginationData) {
         alias = repository.aliasName();
         defaults = getDefaults(alias, paginationData);
@@ -562,23 +557,14 @@ class DNumericPaginator : IPaginator {
         return tableOrder;
     }
 
-    /**
-     * Check the limit parameter and ensure it"s within the maxLimit bounds.
-     *
-     * @param Json[string] options An array of options with a limit key to be checked.
-     */
-    Json[string] checkLimit(
-        Json[string] optionData) {
-        options["limit"] = (int) options["limit"];
-        if (options["limit"] < 1) {
-            options["limit"] = 1;
+    // Check the limit parameter and ensure it"s within the maxLimit bounds.
+    Json[string] checkLimit(Json[string] optionData) {
+        int limitOption = options.getInt("limit");
+        if (limitOption < 1) {
+            limitOption = 1;
         }
-        options["limit"] = max(min(options["limit"], options["maxLimit"]), 1);
+        options["limit"] = max(min(limitOption, options.getInt("maxLimit")), 1);
 
         return options;
     }
-
-    
-
-    */
 }

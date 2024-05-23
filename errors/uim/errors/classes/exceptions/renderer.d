@@ -170,8 +170,8 @@ class DExceptionRenderer { // }: IExceptionRenderer
         }
 
         myMessage = errorMessage(exception, code);
-        myUrl = this.controller.getRequest().getRequestTarget();
-        response = this.controller.getResponse();
+        myUrl = _controller.getRequest().getRequestTarget();
+        response = _controller.getResponse();
 
         if (exception instanceof UIMException) {
             /** @psalm-suppress DeprecatedMethod */
@@ -211,13 +211,13 @@ class DExceptionRenderer { // }: IExceptionRenderer
             serialize ~= "file";
             serialize ~= "line";
         }
-        this.controller.set(viewVars);
-        this.controller.viewBuilder().setOption("serialize", serialize);
+        _controller.set(viewVars);
+        _controller.viewBuilder().setOption("serialize", serialize);
 
         if (cast(UIMException)exception && isDebug) {
-            this.controller.set(exception.getAttributes());
+            _controller.set(exception.getAttributes());
         }
-        this.controller.setResponse(response);
+        _controller.setResponse(response);
 
         return _outputMessage(myTemplate);
     }
@@ -288,15 +288,15 @@ class DExceptionRenderer { // }: IExceptionRenderer
      *
      * @param string myTemplate The template to render.
      */
-    protected DResponse _outputMessage(string myTemplate) {
+    protected DResponse _outputMessage(string templateToRender) {
         try {
-            this.controller.render(myTemplate);
+            _controller.render(templateToRender);
 
             return _shutdown();
         } catch (MissingTemplateException e) {
             attributes = e.getAttributes();
             if (
-                e instanceof MissingLayoutException ||
+                cast(MissingLayoutException)e ||
                 indexOf(attributes["file"], "error500") != false
             ) {
                 return _outputMessageSafe("error500");
@@ -305,8 +305,8 @@ class DExceptionRenderer { // }: IExceptionRenderer
             return _outputMessage("error500");
         } catch (MissingPluginException e) {
             attributes = e.getAttributes();
-            if (isset(attributes["plugin"]) && attributes["plugin"] == this.controller.getPlugin()) {
-                this.controller.setPlugin(null);
+            if (isset(attributes["plugin"]) && attributes["plugin"] == _controller.getPlugin()) {
+                _controller.setPlugin(null);
             }
 
             return _outputMessageSafe("error500");
@@ -320,16 +320,16 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * and doesn"t call component methods.
      */
     protected DResponse _outputMessageSafe(string templateToRender) {
-        myBuilder = this.controller.viewBuilder();
+        auto myBuilder = _controller.viewBuilder();
         myBuilder
             .setHelpers([], false)
             .setLayoutPath("")
             .setTemplatePath("Error");
-        view = this.controller.createView("View");
+        view = _controller.createView("View");
 
-        response = this.controller.getResponse()
+        auto response = _controller.getResponse()
             .withType("html")
-            .withStringBody(view.render(myTemplate, "error"));
+            .withStringBody(view.render(templateToRender, "error"));
         _controller.setResponse(response);
 
         return response;
@@ -341,7 +341,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * Triggers the afterFilter and afterDispatch events.
      */
     protected DResponse _shutdown() {
-        this.controller.dispatchEvent("Controller.shutdown");
+        _controller.dispatchEvent("Controller.shutdown");
 
         return _controller.getResponse();
     }

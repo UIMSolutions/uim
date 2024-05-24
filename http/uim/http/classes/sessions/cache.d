@@ -27,31 +27,19 @@ class DCacheSession { // }: !SessionHandler {
        _options = configData;
     }
     
-    /**
-     * Method called on open of a database session.
-     * Params:
-     * string aPath The path where to store/retrieve the session.
-     * @param string aName The session name.
-         */
-    bool open(string aPath, string aName) {
+    // Method called on open of a database session.
+    bool open(string sessionPath, string sessionName) {
         return true;
     }
     
-    /**
-     * Method called on close of a database session.
-     *
-         */
+    // Method called on close of a database session.
     bool close() {
         return true;
     }
     
-    /**
-     * Method used to read from a cache session.
-     * Params:
-     * string aid ID that uniquely identifies session in cache.
-     */
-    string read(string aid) {
-        return Cache.read(anId, _options["config"]) ?? "";
+    // Method used to read from a cache session.
+    string read(string sessionId) {
+        return Cache.read(sessionId, _options["config"]) ?? "";
     }
     
     // Helper auto called on write for cache sessions.

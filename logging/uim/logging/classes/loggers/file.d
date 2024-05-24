@@ -89,13 +89,7 @@ class DFileLog { // TODO /*}: BaseLog {
         }
     }
     
-    /**
-     * : writing to log files.
-     * Params:
-     * Json logLevel The severity level of the message being written.
-     * @param \string messageToLog The message you want to log.
-     * @param Json[string] messageContext Additional information about the logged message
-     */
+    // writing to log files.
     void log(logLevel, string messageToLog, Json[string] messageContext = null) {
         string message = this.interpolate(messageToLog, messageContext);
         message = this.formatter.format(logLevel, message, messageContext);

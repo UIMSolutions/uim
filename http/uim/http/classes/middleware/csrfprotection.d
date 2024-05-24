@@ -67,11 +67,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
        _config = configData + _config;
     }
     
-    /**
-     * Checks and sets the CSRF token depending on the HTTP verb.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request.
-     */
+    // Checks and sets the CSRF token depending on the HTTP verb.
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
         auto method = requestHandler.getMethod();
         auto hasData = in_array(method, ["PUT", "POST", "DELETE", "PATCH"], true)
@@ -93,8 +89,9 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
                 "Check both your `Application.middleware()` method and `config/routes.d`.";
             );
         }
-        cookies = requestHandler.getCookieParams();
-        cookieData = Hash.get(cookies, configuration.get("cookieName"));
+
+        auto cookies = requestHandler.getCookieParams();
+        auto cookieData = Hash.get(cookies, configuration.get("cookieName"));
 
         if (isString(cookieData) && !cookieData.isEmpty) {
             try {
@@ -110,6 +107,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
 
             return _addTokenCookie(token, requestHandler, response);
         }
+
         if (hasData) {
            _validateToken(requestHandler);
             requestHandler = _unsetTokenField(requestHandler);
@@ -280,10 +278,10 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * string avalue Cookie value
      * @param \Psr\Http\Message\IServerRequest serverRequest The request object.
      */
-    protected ICookie _createCookie(string avalue, IServerRequest serverRequest) {
+    protected ICookie _createCookie(string cookieValue, IServerRequest serverRequest) {
         return Cookie.create(
            configuration.get("cookieName"],
-            aValue,
+            cookieValue,
             [
                 'expires": configuration.get("expiry"] ?: null,
                 'path": request.getAttribute("webroot"),

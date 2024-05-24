@@ -71,36 +71,35 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      * into Json[string] for PUT/PATCH/DELETE requests.
      * Params:
      * Json[string] parsedBody Parsed body.
-     * @param \UIM\Http\ServerRequest serverRequest Request instance.
      */
     protected static ServerRequest marshalBodyAndRequestMethod(Json[string] parsedBody, ServerRequest serverRequest) {
-        method = request.getMethod();
+        method = serverRequest.getMethod();
         override = false;
 
         if (
             in_array(method, ["PUT", "DELETE", "PATCH"], true) &&
-            (string)request.contentType().startWith("application/x-www-form-urlencoded")
+            (string)serverRequest.contentType().startWith("application/x-www-form-urlencoded")
         ) {
-            someData = (string)request.getBody();
+            someData = (string)serverRequest.getBody();
             parse_str(someData, parsedBody);
         }
-        if (request.hasHeader("X-Http-Method-Override")) {
-            parsedBody["_method"] = request.getHeaderLine("X-Http-Method-Override");
+        if (serverRequest.hasHeader("X-Http-Method-Override")) {
+            parsedBody["_method"] = serverRequest.getHeaderLine("X-Http-Method-Override");
             override = true;
         }
-        request = request.withenviroment("ORIGINAL_REQUEST_METHOD", method);
+        serverRequest = serverRequest.withenviroment("ORIGINAL_REQUEST_METHOD", method);
         if (isSet(parsedBody["_method"])) {
-            request = request.withenviroment("REQUEST_METHOD", parsedBody["_method"]);
+            serverRequest = serverRequest.withenviroment("REQUEST_METHOD", parsedBody["_method"]);
             unset(parsedBody["_method"]);
             override = true;
         }
         if (
             override &&
-            !in_array(request.getMethod(), ["PUT", "POST", "DELETE", "PATCH"], true)
+            !in_array(serverRequest.getMethod(), ["PUT", "POST", "DELETE", "PATCH"], true)
         ) {
             parsedBody = null;
         }
-        return request.withParsedBody(parsedBody);
+        return serverRequest.withParsedBody(parsedBody);
     }
     
     /**
@@ -111,15 +110,15 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      */
     protected static ServerRequest marshalFiles(Json[string] files, ServerRequest serverRequest) {
         files = normalizeUploadedFiles(files);
-        request = request.withUploadedFiles(files);
+        serverRequest = serverRequest.withUploadedFiles(files);
 
-        parsedBody = request.getParsedBody();
+        parsedBody = serverRequest.getParsedBody();
         if (!isArray(parsedBody)) {
-            return request;
+            return serverRequest;
         }
         parsedBody = Hash.merge(parsedBody, files);
 
-        return request.withParsedBody(parsedBody);
+        return serverRequest.withParsedBody(parsedBody);
     }
     
     /**
@@ -133,17 +132,15 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      * @param \Psr\Http\Message\IUri|string auri The URI associated with the request. If
      *   the value is a string, the factory MUST create a IUri
      *   instance based on it.
-     * @param Json[string] serverParams Array of SAPI parameters with which to seed
-     *   the generated request instance.
      */
-    IServerRequest createServerRequest(string httpMethod, anUri, Json[string] serverParams = null) {
-        serverParams["REQUEST_METHOD"] = method;
-        options = ["environment": serverParams];
+    IServerRequest createServerRequest(string httpMethod, /* IUri */ string uri, Json[string] serverOptions = null) {
+        serverOptions["REQUEST_METHOD"] = method;
+        options = ["environment": serverOptions];
 
-        if (isString(anUri)) {
-            anUri = (new UriFactory()).createUri(anUri);
+        if (isString(uri)) {
+            uri = (new UriFactory()).createUri(uri);
         }
-        options["uri"] = anUri;
+        options["uri"] = uri;
 
         return new DServerRequest(options);
     } 

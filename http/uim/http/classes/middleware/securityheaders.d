@@ -4,9 +4,7 @@ import uim.http;
 
 @safe:
 
-/**
- * Handles common security headers in a convenient way
- */
+// Handles common security headers in a convenient way
 class DSecurityHeadersMiddleware { // }: IHttpMiddleware { 
     // X-Content-Type-Option nosniff */
     const string NOSNIFF = "nosniff";
@@ -127,19 +125,19 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      * X-Frame-Options
      *
      * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
-     * @param string aoption Option value. Available Values: 'deny", "sameorigin", "allow-from <uri>'
+     * @param string optionValue Option value. Available Values: 'deny", "sameorigin", "allow-from <uri>'
      * @param string url URL if mode is `allow-from`
      */
-    void setXFrameOptions(string aoption = self.SAMEORIGIN, string aurl = null) {
-        this.checkValues(option, [self.DENY, self.SAMEORIGIN, self.ALLOW_FROM]);
+    void setXFrameOptions(string optionValue = self.SAMEORIGIN, string aurl = null) {
+        this.checkValues(optionValue, [self.DENY, self.SAMEORIGIN, self.ALLOW_FROM]);
 
-        if (option == self.ALLOW_FROM) {
+        if (optionValue == self.ALLOW_FROM) {
             if (url.isEmpty) {
                 throw new DInvalidArgumentException("The 2nd arg url can not be empty when `allow-from` is used");
             }
-            option ~= " " ~ url;
+            optionValue ~= " " ~ url;
         }
-        _headers["x-frame-options"] = option;
+        _headers["x-frame-options"] = optionValue;
     }
     
     /**
@@ -147,15 +145,14 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      * use a strong Content-Security-Policy that disables the use of inline JavaScript
      * via 'unsafe-inline' option.
      *
-     * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection
      * @param string amode Mode value. Available Values: '1", "0", "block'
      */
-    void setXssProtection(string amode = self.XSS_BLOCK) {
-        if (mode == self.XSS_BLOCK) {
-            mode = self.XSS_ENABLED_BLOCK;
+    void setXssProtection(string modeValue = self.XSS_BLOCK) {
+        if (modeValue == self.XSS_BLOCK) {
+            modeValue = self.XSS_ENABLED_BLOCK;
         }
-        this.checkValues(mode, [self.XSS_ENABLED, self.XSS_DISABLED, self.XSS_ENABLED_BLOCK]);
-        _headers["x-xss-protection"] = mode;
+        this.checkValues(modeValue, [self.XSS_ENABLED, self.XSS_DISABLED, self.XSS_ENABLED_BLOCK]);
+        _headers["x-xss-protection"] = modeValue;
     }
     
     /**

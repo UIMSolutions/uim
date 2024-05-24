@@ -225,15 +225,9 @@ class DMessage { //: JsonSerializable {
 
 
     
-    /**
-     * Sets "from" address.
-     * Params:
-     * string[] aemail String with email,
-     * Array with email as key, name as value or email as value (without name)
-     * @param string name Name
-     */
-    auto setFrom(string[] email, string aName = null) {
-        return _setEmailSingle("from", email, aName, "From requires only 1 email address.");
+    // Sets "from" address.
+    auto setFrom(string[] email, string name = null) {
+        return _setEmailSingle("from", email, name, "From requires only 1 email address.");
     }
 
     // Gets "from" address

@@ -688,7 +688,7 @@ class DResponse : IResponse {
      * string|int since a valid time since the response text has not been modified
      * @param string|int time a valid time for cache expiry
      */
-    static withCache(string|int since, string|int time = "+1 day") {
+    static withCache(/* string */ int since, /* int */ time = "+1 day") {
         if (!isInt(time)) {
             time = strtotime(time);
             if (time == false) {

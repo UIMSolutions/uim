@@ -66,14 +66,10 @@ class DConnectionHelper {
         schemas = array_map(fn (aTable) : collection.describe(aTable), tableNames);
 
         dialect = connection.getDriver().schemaDialect();
-        foreach (schemas as tableSchema) {
-            foreach (dialect.dropConstraintSql(tableSchema) as statement) {
-                connection.execute(statement);
-            }
-        }
-        foreach (schemas as tableSchema) {
-            dialect.dropTableSql(tableSchema).each!(statement => connection.execute(statement));
-        }
+        schemas.each!((tableSchema) {
+            dialect.dropConstraintSql(tableSchema).each!(statement => connection.execute(statement));
+        });
+        schemas.each!(tableSchema => dialect.dropTableSql(tableSchema).each!(statement => connection.execute(statement)));
     }
     
     // Truncates all tables.

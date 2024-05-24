@@ -76,13 +76,7 @@ class DLogger : ILogger {
         // return configuration.get("scopes").getStringArray;
     }
 
-/*
-    /**
-     * Replaces placeholders in message string with context values.
-     * Params:
-     * \string amessage Formatted message.
-     * @param Json[string] context DContext for placeholder values.
-     */
+    // Replaces placeholders in message string with context values.
     protected string interpolate(string formattedMessage, Json[string] context = []) {
         if (!formattedMessage.has("{", "}")) {
             return formattedMessage;
@@ -95,10 +89,10 @@ class DLogger : ILogger {
         if (isEmpty(matches)) {
             return formattedMessage;
         }
-        placeholders = array_intersect(matches[1], context.keys);
-        replacements = null;
-        JsonFlags = Json_THROW_ON_ERROR | Json_UNESCAPED_UNICODE;
 
+        auto placeholders = array_intersect(matches[1], context.keys);
+        auto replacements = null;
+        auto JsonFlags = Json_THROW_ON_ERROR | Json_UNESCAPED_UNICODE;
         foreach (aKey; placeholders) {
             aValue = context[aKey];
 

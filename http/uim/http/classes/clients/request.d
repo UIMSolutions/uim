@@ -11,7 +11,7 @@ import uim.http;
  * for making requests.
  */
 class DRequest { // }: Message, IRequest {
-    // TODO mixin TRequest;
+    mixin TRequest;
 
     /**
      

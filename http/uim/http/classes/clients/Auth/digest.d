@@ -86,26 +86,22 @@ class DDigest {
      * Retrieve information about the authentication
      *
      * Will get the realm and other tokens by performing
-     * another request without authentication to get authentication
-     * challenge.
-     * Params:
-     * \UIM\Http\Client\Request request The request object.
-     * @param Json[string] credentials Authentication credentials.
+     * another request without authentication to get authentication challenge.
      */
     protected Json[string] _getServerInfo(Request request, Json[string] credentials) {
-        response = _client.get(
+        auto response = _client.get(
             to!string(request.getUri()),
             [],
             ["auth": ["type": Json(null)]]
         );
 
-        aHeader = response.getHeader("WWW-Authenticate");
+        auto aHeader = response.getHeader("WWW-Authenticate");
         if (!aHeader) {
             return null;
         }
-        matches = HeaderUtility.parseWwwAuthenticate(aHeader[0]);
-        credentials = array_merge(credentials, matches);
-
+        
+        auto matches = HeaderUtility.parseWwwAuthenticate(aHeader[0]);
+        auto credentials = array_merge(credentials, matches);
         if ((this.isSessAlgorithm || !credentials.isEmpty("qop"))) && credentials.isEmpty("nc"))) {
             credentials["nc"] = 1;
         }
@@ -118,7 +114,7 @@ class DDigest {
     
     // Generate the header Authorization
     protected string _generateHeader(Request request, Json[string] authCredentials) {
-        somePath = request.getRequestTarget();
+        auto somePath = request.getRequestTarget();
 
         if (this.isSessAlgorithm) {
             credentials["cnonce"] = this.generateCnonce();

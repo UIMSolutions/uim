@@ -23,9 +23,6 @@ class DMockAdapter { //}: IAdapter {
      * ### Options
      *
      * - `match` An additional closure to match requests with.
-     * Params:
-     * \Psr\Http\Message\IRequest request A partial request to use for matching.
-     * @param \UIM\Http\Client\Response response The response that matches the requestForMatch.
      */
     void addResponse(IRequest requestForMatch, Response response, Json[string] options = null) {
         if (isSet(options["match"]) && !(cast(DClosure)options["match"])) {
@@ -42,11 +39,7 @@ class DMockAdapter { //}: IAdapter {
         ];
     }
     
-    /**
-     * Find a response if one exists.
-     * Params:
-     * \Psr\Http\Message\IRequest requestToMatch The requestToMatch to match
-     */
+    // Find a response if one exists.
     Response[] send(IRequest requestToMatch, Json[string] options = null) {
         auto found = null;
         auto method = requestToMatch.getMethod();

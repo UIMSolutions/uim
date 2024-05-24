@@ -222,12 +222,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
         return hash_equals(hmac, expectedHmac);
     }
     
-    /**
-     * Add a CSRF token to the response cookies.
-     * Params:
-     * string atoken The token to add.
-     * @param \Psr\Http\Message\IServerRequest serverRequest The request to validate against.
-     */
+    // Add a CSRF token to the response cookies.
     protected IResponse _addTokenCookie(
         string tokenToAdd,
         IServerRequest serverRequest,
@@ -246,7 +241,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * \Psr\Http\Message\IServerRequest serverRequest The request to validate against.
      */
     protected void _validateToken(IServerRequest serverRequest) {
-        cookie = Hash.get(request.getCookieParams(), configuration.get("cookieName"]);
+        auto cookie = Hash.get(request.getCookieParams(), configuration.get("cookieName"));
 
         if (!cookie || !isString(cookie)) {
             throw new DInvalidCsrfTokenException(__d("uim", "Missing or incorrect CSRF cookie type."));
@@ -259,9 +254,10 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
 
             throw exception;
         }
-        body = request.getParsedBody();
-        if (isArray(body) || cast(DArrayAccess)body) {
-            post = to!string(Hash.get(body, configuration.get("field"]));
+        
+        auto parsedBody = request.getParsedBody();
+        if (isArray(parsedBody) || cast(DArrayAccess)parsedBody) {
+            post = to!string(Hash.get(parsedBody, configuration.get("field"));
             post = this.unsaltToken(post);
             if (hash_equals(post, cookie)) {
                 return;

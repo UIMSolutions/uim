@@ -12,33 +12,22 @@ import uim.events;
  *
  * The {@link \UIM\Event\EventDispatcherTrait} lets you easily implement
  * this interface.
- *
- * @template TSubject of object
  */
 interface IEventDispatcher {
     /**
      * Wrapper for creating and dispatching events.
-     *
      * Returns a dispatched event.
-     * Params:
-     * @param Json[string] data Any value you wish to be transported with this event to
-     * it can be read by listeners.
-     * @param TSubject|null subject The object that this event applies to
-     * (this by default).
      */
-    // TODO IEvent dispatchEvent(string eventName, Json[string] data = null, object subject = null);
+    IEvent dispatchEvent(string eventName, Json[string] dataToTransport = null, /* TSubject */ object subject = null);
 
     /**
      * Sets the UIM\Event\EventManager manager instance for this object.
      *
      * You can use this instance to register any new listeners or callbacks to the
      * object events, or create your own events and trigger them at will.
-     * Params:
-     * \UIM\Event\IEventManager eventManager the eventManager to set
      */
     void setEventManager(IEventManager eventManager);
 
     // Returns the UIM\Event\EventManager manager instance for this object.
     IEventManager getEventManager();
-    */
 }

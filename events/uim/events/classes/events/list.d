@@ -17,56 +17,31 @@ class DEventList { // }: ArrayAccess, Countable {
        _events = null;
     }
     
-    /**
-     * Adds an event to the list when event listing is enabled.
-     * Params:
-     * \UIM\Event\IEvent<object> event An event to the list of dispatched events.
-     */
+    // Adds an event to the list when event listing is enabled.
     void add(IEvent event) {
        _events ~= event;
     }
     
-    /**
-     * Whether a offset exists
-     *
-     * @link https://secure.D.net/manual/en/arrayaccess.offsetexists.D
-     * @param Json anOffset An offset to check for.
-     */
-    bool offsetExists(Json anOffset) {
-        return isSet(_events[anOffset]);
+    // Whether a offset exists
+    bool offsetExists(Json offsetToCheck) {
+        return isSet(_events[offsetToCheck]);
     }
 
-    /**
-     * Offset to retrieve
-     *
-     * @link https://secure.D.net/manual/en/arrayaccess.offsetget.D
-     * @param Json anOffset The offset to retrieve.
-     */
-    IEvent offsetGet(Json anOffset) {
-        if (!this.offsetExists(anOffset)) {
+    // Offset to retrieve
+    IEvent offsetGet(Json offsetToRetrieve) {
+        if (!offsetExists(offsetToRetrieve)) {
             return null;
         }
-        return _events[anOffset];
+        return _events[offsetToRetrieve];
     }
     
-    /**
-     * Offset to set
-     *
-     * @link https://secure.D.net/manual/en/arrayaccess.offsetset.D
-     * @param Json anOffset The offset to assign the value to.
-     * @param Json aValue The value to set.
-     */
-    void offsetSet(Json anOffset, Json aValue) {
-       _events[anOffset] = aValue;
+    // Offset to set
+    void offsetSet(Json offsetToAssign, Json valueToSet) {
+       _events[offsetToAssign] = valueToSet;
     }
 
-    /**
-     * Offset to unset
-     *
-     * @link https://secure.D.net/manual/en/arrayaccess.offsetunset.D
-     * @param Json anOffset The offset to unset.
-     */
-    void offsetUnset(Json anOffset) {
+    // Offset to unset
+    void offsetUnset(Json offsetToUnset) {
         unset(_events[anOffset]);
     }
 
@@ -79,5 +54,4 @@ class DEventList { // }: ArrayAccess, Countable {
     bool hasEvent(string eventName) {
         return _events.any!(event => event.name == eventName)
     }
-    */
 }

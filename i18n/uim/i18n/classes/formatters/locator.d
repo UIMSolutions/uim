@@ -4,11 +4,7 @@ import uim.i18n;
 
 @safe:
 
-/*
- * A ServiceLocator implementation for loading and retaining formatter objects.
- *
- * @internal
- */
+// A ServiceLocator implementation for loading and retaining formatter objects.
 class DFormatterLocator {
     // A registry to retain formatter objects.
     protected II18NFormatter[string] registry = null;
@@ -25,12 +21,7 @@ class DFormatterLocator {
         //TODO     .each!(nameSpec => set(nameSpec.key, nameSpec.value));
     }
     
-    /**
-     * Sets a formatter into the registry by name.
-     * Params:
-     * string aName The formatter name.
-     * @param class-string<\UIM\I18n\II18NFormatter>  className A FQCN for a formatter.
-     */
+    // Sets a formatter into the registry by name.
     void set(string formatterName, string className) {
         this.registry[formatterName] = className;
         this.converted[formatterName] = false;

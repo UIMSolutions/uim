@@ -29,13 +29,8 @@ class DBasic {
         return request;
     }
     
-    /**
-     * Generate basic [proxy] authentication header
-     * Params:
-     * string auser Username.
-     * @param string apass Password.
-     */
-    protected string _generateHeader(string auser, string apass) {
-        return "Basic " ~ base64_encode(user ~ ": " ~ pass);
+    // Generate basic [proxy] authentication header
+    protected string _generateHeader(string username, string password) {
+        return "Basic " ~ base64_encode(username ~ ": " ~ password);
     }
 }

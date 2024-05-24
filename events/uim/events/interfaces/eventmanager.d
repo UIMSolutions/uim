@@ -71,23 +71,14 @@ interface IEventManager {
      * ```
      * manager.off(aCallback);
      * ```
-     *
-     * @param \UIM\Event\IEventListener|callable|string aeventKey The event unique identifier name
-     *  with which the callback has been associated, or the listener you want to remove.
-     * @param \UIM\Event\IEventListener|callable|null aCallable The callback you want to detach.
      */
     auto off(
-        /* IEventListener|callable */ string aeventKey,
+        /* IEventListener|callable */ string eventKey,
         /* IEventListener|callable */ callable aCallable = null
     );
 
-    /**
-     * Dispatches a new event to all configured listeners
-     *
-     * @template TSubject of object
-     * @param \UIM\Event\IEvent<TSubject>|string aevent The event key name or instance of IEvent.
-     */
-    IEvent dispatch(IEvent|string aevent);
+    // Dispatches a new event to all configured listeners
+    IEvent dispatch(/* IEvent */ string event);
 
     // Returns a list of all listeners for an eventKey in the order they should be called
     Json[string] listeners(string eventKey);

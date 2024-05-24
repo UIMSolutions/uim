@@ -53,18 +53,17 @@ class DCspMiddleware { // }: IHttpMiddleware {
      
      * Params:
      * \ParagonIE\CSPBuilder\CSPBuilder|array csp CSP object or config array
-     * @param Json[string] configData Configuration options.
      */
-    this(ICSPBuilder|Json[string] csp, Json[string] configData = null) {
+    this(ICSPBuilder|Json[string] cspObject, Json[string] configData = null) {
         if (!class_exists(CSPBuilder.classname)) {
             throw new UimException("You must install paragonie/csp-builder to use CspMiddleware");
         }
         configuration.update(configData);
 
-        if (!cast(DCSPBuilder)csp) {
-            csp = new DCSPBuilder(csp);
+        if (!cast(DCSPBuilder)cspObject) {
+            cspObject = new DCSPBuilder(cspObject);
         }
-        this.csp = csp;
+        _cspObject = cspObject;
     }
     
     /**

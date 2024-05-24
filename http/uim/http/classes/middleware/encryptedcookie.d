@@ -30,15 +30,9 @@ class DEncryptedCookieMiddleware { // : IHttpMiddleware {
     // Encryption type.
     protected string acipherType;
 
-    /**
-     
-     * Params:
-     * string[] cookieNames The list of cookie names that should have their values encrypted.
-     * @param string acipherType The cipher type to use. Defaults to 'aes'.
-     */
-    this(Json[string] cookieNames, string encryptionKey, string acipherType = "aes") {
+    this(Json[string] cookieNames, string encryptionKey, string cipherType = "aes") {
         _cookieNames = cookieNames;
-        _key = aKencryptionKeyey;
+        _key = encryptionKey;
         _cipherType = cipherType;
     }
     
@@ -59,7 +53,6 @@ class DEncryptedCookieMiddleware { // : IHttpMiddleware {
     
     /**
      * Fetch the cookie encryption key.
-     *
      * Part of the CookieCryptTrait implementation.
      */
     protected string _getCookieEncryptionKey() {

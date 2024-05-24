@@ -115,15 +115,10 @@ class DFormData { // }: Countable {
         return part;
     }
 
-    /**
-     * Recursively add data.
-     * Params:
-     * string aName The name to use.
-     * @param Json aValue The value to add.
-     */
+    // Recursively add data.
     void addRecursive(string nameToUse, Json valueToAdd) {
         valueToAdd.byKeyValue.each!((kv) {
-            string key = name ~ "[" ~ kv.key ~ "]";
+            string key = nameToUse ~ "[" ~ kv.key ~ "]";
             add(key, kv.value);
         });
     }
@@ -133,10 +128,7 @@ class DFormData { // }: Countable {
         return count(_parts);
     }
 
-    /**
-     * Check whether the current payload
-     * has any files.
-     */
+    // Check whether the current payload has any files.
     bool hasFile() {
         return _hasFile;
     }

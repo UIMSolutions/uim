@@ -99,18 +99,12 @@ class DServer { // }: IEventDispatcher {
         }
     }
     
-    /**
-     * Emit the response using the D SAPI.
-     * Params:
-     * \Psr\Http\Message\IResponse response The response to emit
-     * @param \UIM\Http\ResponseEmitter|null emitter The emitter to use.
-     * When null, a SAPI Stream Emitter will be used.
-     */
-    void emit(IResponse response, ResponseEmitter emitter = null) {
-        if (!emitter) {
-            emitter = new DResponseEmitter();
+    // Emit the response using the D SAPI.
+    void emit(IResponse responseToEmit, ResponseEmitter emitterToUse = null) {
+        if (!emitterToUse) {
+            emitterToUse = new DResponseEmitter();
         }
-        emitter.emit(response);
+        emitterToUse.emit(responseToEmit);
     }
     
     // Get the current application.

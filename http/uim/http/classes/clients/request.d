@@ -45,10 +45,7 @@ class DRequest { // }: Message, IRequest {
         }
     }
     
-    /**
-     * Add an array of headers to the request.
-     * @param STRINGAA  aHeaders The headers to add.
-     */
+    // Add an array of headers to the request.
     protected void addHeaders(STRINGAA headersToAdd) {
         headersToAdd.byKeyValue
             .each!(kv => addHeader(kv.key, kv.value));

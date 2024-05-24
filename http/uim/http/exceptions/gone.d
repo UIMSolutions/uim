@@ -4,21 +4,12 @@ import uim.http;
 
 @safe:
 
-/**
- * Represents an HTTP 410 error.
- */
+// Represents an HTTP 410 error.
 class DGoneException : DHttpException {
  
     protected int _defaultCode = 410;
 
-    /**
-     
-     * Params:
-     * string aMessage If no message is given 'Gone' will be the message
-     * @param int statusCode Status code, defaults to 410
-     * @param \Throwable|null previousException The previous exception.
-     */
-    this(string aMessage = null, int statusCode = null, Throwable previousException = null) {
+    this(string aMessage = null, int statusCode = 410, Throwable previousException = null) {
         if (aMessage.isEmpty) {
             aMessage = "Gone";
         }

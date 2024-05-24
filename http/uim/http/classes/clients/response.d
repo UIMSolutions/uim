@@ -80,17 +80,13 @@ class DClientResponse { // }: Message : IResponse {
     // Cached decoded Json data.
     protected Json _data = null;
 
-    /**
-     *
-     * @param string abody The response body.
-     */
-    this(string[] unparsedHeaders = null, string abody= null) {
+    this(string[] unparsedHeaders = null, string responseBody = null) {
        _parseHeaders(unparsedHeaders);
         if (getHeaderLine("Content-Encoding") == "gzip") {
-            body = _decodeGzipBody(body);
+            responseBody = _decodeGzipBody(responseBody);
         }
         stream = new DStream("D://memory", "wb+");
-        stream.write(body);
+        stream.write(responseBody);
         stream.rewind();
         this.stream = stream;
     }

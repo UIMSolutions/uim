@@ -15,7 +15,6 @@ import uim.http;
  * It is most convenient to get this object via `Response.cors()`.
  */
 class DCorsBuilder {
-    /* 
     // The response object this builder is attached to.
     protected IResponse _response;
 
@@ -28,14 +27,8 @@ class DCorsBuilder {
     // The headers that have been queued so far.
     protected Json[string] _headers = null;
 
-    /**
-     .
-     * Params:
-     * \Psr\Http\Message\IResponse response The response object to add headers onto.
-     * @param string aorigin The request`s Origin header.
-     */
-    this(IResponse aResponse, string anOrigin, bool isRequestOverSsl = false) {
-       _origin = anOrigin;
+    this(IResponse aResponse, string originHeader, bool isRequestOverSsl = false) {
+       _origin = originHeader;
        _isSsl = isRequestOverSsl;
        _response = aResponse;
     }
@@ -66,9 +59,9 @@ class DCorsBuilder {
      * Params:
      * string[]|string adomains The allowed domains
      */
-    void allowOrigin(string[] adomains) {
-        auto allowedDomains = _normalizeDomains((array)domains);
-        foreach (domain; allowedDomains) {
+    void allowOrigin(string[] allowedDomains) {
+        auto normalizeDomains = _normalizeDomains((array)allowedDomains);
+        foreach (domain; normalizeDomains) {
             if (!preg_match(domain["preg"], _origin)) {
                 continue;
             }
@@ -78,22 +71,19 @@ class DCorsBuilder {
         }
     }
     
-    /**
-     * Normalize the origin to regular expressions and put in an array format
-     *
-     * someDomains = Domain names to normalize.
-     */
-    protected Json[string] _normalizeDomains(string[] someDomains) {
+    // Normalize the origin to regular expressions and put in an array format
+    protected Json[string] _normalizeDomains(string[] domainNamesToNormalize) {
         auto result;
-        foreach (domain; someDomains) {
-            if (domain == "*") {
+        foreach (domainName; domainNamesToNormalize) {
+            if (domainName == "*") {
                 result ~= ["preg": "@.@", "original": "*"];
                 continue;
             }
-            result ~= normalizeDomain(domain);
+            result ~= normalizeDomain(domainName);
         }
         return result;
     }
+
 protected string normalizeDomain(string aDomain) {
     string result;
 

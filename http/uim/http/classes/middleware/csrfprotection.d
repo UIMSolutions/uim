@@ -71,52 +71,50 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * Checks and sets the CSRF token depending on the HTTP verb.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request.
-     * @param \Psr\Http\Server\IRequestHandler handler The request handler.
      */
-    IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
-        method = request.getMethod();
-        hasData = in_array(method, ["PUT", "POST", "DELETE", "PATCH"], true)
-            || request.getParsedBody();
+    IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
+        auto method = requestHandler.getMethod();
+        auto hasData = in_array(method, ["PUT", "POST", "DELETE", "PATCH"], true)
+            || requestHandler.getParsedBody();
 
         if (
             hasData
             && _skipCheckCallback !isNull
-            && call_user_func(_skipCheckCallback, request) == true
+            && call_user_func(_skipCheckCallback, requestHandler) == true
         ) {
-            request = _unsetTokenField(request);
+            requestHandler = _unsetTokenField(requestHandler);
 
-            return handler.handle(request);
+            return requestHandler.handle(requestHandler);
         }
-        if (request.getAttribute("csrfToken")) {
+        if (requestHandler.getAttribute("csrfToken")) {
             throw new UimException(
-                'A CSRF token is already set in the request.' .
-                "\n" .
-                'Ensure you do not have the CSRF middleware applied more than once. ' .
-                'Check both your `Application.middleware()` method and `config/routes.d`.'
+                "A CSRF token is already set in the request.\n" ~
+                "Ensure you do not have the CSRF middleware applied more than once. " ~
+                "Check both your `Application.middleware()` method and `config/routes.d`.";
             );
         }
-        cookies = request.getCookieParams();
-        cookieData = Hash.get(cookies, configuration.get("cookieName"]);
+        cookies = requestHandler.getCookieParams();
+        cookieData = Hash.get(cookies, configuration.get("cookieName"));
 
         if (isString(cookieData) && !cookieData.isEmpty) {
             try {
-                request = request.withAttribute("csrfToken", this.saltToken(cookieData));
+                requestHandler = requestHandler.withAttribute("csrfToken", this.saltToken(cookieData));
             } catch (InvalidArgumentException  anException) {
                 cookieData = null;
             }
         }
         if (method == "GET" && cookieData.isNull) {
             token = this.createToken();
-            request = request.withAttribute("csrfToken", this.saltToken(token));
-            response = handler.handle(request);
+            requestHandler = requestHandler.withAttribute("csrfToken", this.saltToken(token));
+            response = requestHandler.handle(requestHandler);
 
-            return _addTokenCookie(token, request, response);
+            return _addTokenCookie(token, requestHandler, response);
         }
         if (hasData) {
-           _validateToken(request);
-            request = _unsetTokenField(request);
+           _validateToken(requestHandler);
+            requestHandler = _unsetTokenField(requestHandler);
         }
-        return handler.handle(request);
+        return requestHandler.handle(requestHandler);
     }
     
     /**
@@ -124,8 +122,6 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      *
      * The callback will receive request instance as argument and must return
      * `true` if you want to skip token check for the current request.
-     * Params:
-     * callable aCallback A callable.
      */
     void skipCheckCallback(callable aCallback) {
         _skipCheckCallback = aCallback;
@@ -137,31 +133,15 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * \Psr\Http\Message\IServerRequest serverRequest The request object.
      */
     protected IServerRequest _unsetTokenField(IServerRequest serverRequest) {
-        body = request.getParsedBody();
-        if (isArray(body)) {
-            unset(body[configuration.get("field"]]);
-            request = request.withParsedBody(body);
+        auto parsedBody = serverRequest.getParsedBody();
+        if (isArray(parsedBody)) {
+            unset(parsedBody[configuration.get("field")]);
+            serverRequest = serverRequest.withParsedBody(parsedBody);
         }
-        return request;
+        return serverRequest;
     }
     
-    /**
-     * Test if the token predates salted tokens.
-     *
-     * These tokens are hexadecimal values and equal
-     * to the token with checksum length. While they are vulnerable
-     * to BREACH they should rotate over time and support will be dropped
-     * in 5.x.
-     * Params:
-     * string atoken The token to test.
-     */
-    protected bool isHexadecimalToken(string atoken) {
-        return preg_match("/^[a-f0-9]{" ~ TOKEN_WITH_CHECKSUM_LENGTH ~ "}/", token) == 1;
-    }
-    
-    /**
-     * Create a new token to be used for CSRF protection
-     */
+    // Create a new token to be used for CSRF protection
     string createToken() {
         aValue = Security.randomBytes(TOKEN_VALUE_LENGTH);
 

@@ -323,8 +323,6 @@ class DExceptionTrap {
      * By triggering an E_USER_ERROR we can end up in the default
      * exception handling which will log the rendering failure,
      * and hopefully render an error page.
-     *
-     * @param \Throwable exception Exception to log
      */
     void logInternalError(Throwable exceptionToLog) {
         message = "[%s] %s (%s:%s)".format( // Keeping same message format

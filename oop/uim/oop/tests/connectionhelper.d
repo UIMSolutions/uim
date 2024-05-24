@@ -56,42 +56,42 @@ class DConnectionHelper {
     
     // Drops all tables.
     void dropTables(string connectionName, string[] tableNames = null) {
-        aConnection = ConnectionManager.get(aConnectionName);
+        auto connection = ConnectionManager.get(aConnectionName);
         assert(cast(DConnection)aConnection);
-        collection = aConnection.getSchemaCollection();
+        collection = connection.getSchemaCollection();
         allTables = collection.listTablesWithoutViews();
 
         tableNames = tableNames !isNull ? array_intersect(tableNames, allTables): allTables;
         /** @var array<\UIM\Database\Schema\TableSchema> schemas Specify type for psalm */
-        schemas = array_map(fn (aTable): collection.describe(aTable), tableNames);
+        schemas = array_map(fn (aTable) : collection.describe(aTable), tableNames);
 
-        dialect = aConnection.getDriver().schemaDialect();
+        dialect = connection.getDriver().schemaDialect();
         foreach (schemas as tableSchema) {
             foreach (dialect.dropConstraintSql(tableSchema) as statement) {
-                aConnection.execute(statement);
+                connection.execute(statement);
             }
         }
         foreach (schemas as tableSchema) {
-            dialect.dropTableSql(tableSchema).each!(statement => aConnection.execute(statement));
+            dialect.dropTableSql(tableSchema).each!(statement => connection.execute(statement));
         }
     }
     
     // Truncates all tables.
     void truncateTables(string connectionName, Json[string] tableNames = null) {
-        aConnection = ConnectionManager.get(aConnectionName);
-        assert(cast(DConnection)aConnection);
-        collection = aConnection.getSchemaCollection();
+        connection = ConnectionManager.get(aConnectionName);
+        assert(cast(DConnection)connection);
+        collection = connection.getSchemaCollection();
 
         allTables = collection.listTablesWithoutViews();
         tableNames = tableNames !isNull ? array_intersect(tableNames, allTables): allTables;
         /** @var array<\UIM\Database\Schema\TableSchema> schemas Specify type for psalm */
         schemas = array_map(fn (aTable): collection.describe(aTable), tableNames);
 
-        this.runWithoutConstraints(aConnection, void (Connection aConnection) use (schemas) {
-            dialect = aConnection.getDriver().schemaDialect();
+        this.runWithoutConstraints(connection, void (Connection connection) use (schemas) {
+            dialect = connection.getDriver().schemaDialect();
             tableSchema.each!(schema => 
                 dialect.truncateTableSql(schema)
-                    .each!(statement => aConnection.execute(statement));
+                    .each!(statement => connection.execute(statement));
             );
         });
     }
@@ -99,11 +99,11 @@ class DConnectionHelper {
     /**
      * Runs callback with constraints disabled correctly per-database
      * Params:
-     * \UIM\Database\Connection aConnection Database connection
+     * \UIM\Database\Connection connection Database connection
      */
     void runWithoutConstraints(Connection dbConnection, Closure aCallback) {
         if (dbConnection.getDriver().supports(DriverFeatures.DISABLE_CONSTRAINT_WITHOUT_TRANSACTION)) {
-            dbConnection.disableConstraints(fn (Connection aConnection): aCallback(aConnection));
+            dbConnection.disableConstraints(fn (Connection connection): aCallback(connection));
         } else {
             dbConnection.transactional(void (Connection aConnection) use (aCallback) {
                 dbConnection.disableConstraints(fn (Connection aConnection): aCallback(aConnection));

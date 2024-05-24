@@ -426,7 +426,7 @@ class DDebugger {
      * @param int line Line number to highlight.
      * @param int context Number of lines of context to extract above and below line.
      */
-    static string[] excerpt(string file, int lineNumber, int context = 2) {
+    static string[] excerpt(string file, int lineNumber, int numberLinesContext = 2) {
         lines = null;
         if (!fileExists(file)) {
             return [];
@@ -443,7 +443,7 @@ class DDebugger {
         if (!isset(data[lineNumber])) {
             return lines;
         }
-        for (i = lineNumber - context; i < lineNumber + context + 1; i++) {
+        for (i = lineNumber - numberLinesContext; i < lineNumber + numberLinesContext + 1; i++) {
             if (!isset(data[i])) {
                 continue;
             }
@@ -535,7 +535,7 @@ class DDebugger {
      * @param int maxDepth The depth to output to. Defaults to 3.
      */
     static string exportVar(var, int maxDepth = 3) {
-        context = new DebugContext(maxDepth);
+        auto context = new DebugContext(maxDepth);
         node = export_(var, context);
 
         return getInstance().getExportFormatter().dump(node);

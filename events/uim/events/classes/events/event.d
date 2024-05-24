@@ -40,25 +40,17 @@ class DEvent : IEvent {
     }
 
     /**
-     
-     *
      * ### Examples of usage:
      *
      * ```
      * event = new DEvent("Order.afterBuy", this, ["buyer": userData]);
      * event = new DEvent("User.afterRegister", userModel);
      * ```
-     * Params:
-     * @param object|null subject the object that this event applies to
-     * (usually the object that is generating the event).
-     * @param Json[string] data any value you wish to be transported
-     * with this event to it can be read by listeners.
-     * @psalm-param TSubject|null subject
      */
-    this(string eventName, IEventObject subject = null, Json data = null) {
+    this(string eventName, IEventObject subject = null, Json[string] dataToTransport = null) {
         _name = eventName;
         _subject = subject;
-        _data = data;
+        _data = dataToTransport;
     }
 
     // Returns the subject of this event

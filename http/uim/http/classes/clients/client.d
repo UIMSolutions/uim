@@ -483,16 +483,10 @@ class DClient { // }: IClient {
     return array_pop(myresponses);
   }
 
-  /**
-     * Generate a URL based on the scoped client options.
-     * Params:
-     * string myurl Either a full URL or just the path.
-     * @param string[] myquery The query data for the URL.
-     * @param Json[string] options The config options stored with Client.config()
-     */
-  string buildUrl(string myurl, string[] myquery = null, Json[string] options = null) {
-    if (options.isEmpty && myquery.isEmpty) {
-      return myurl;
+  // Generate a URL based on the scoped client options.
+  string buildUrl(string fullUrl, string[] queryData = null, Json[string] options = null) {
+    if (options.isEmpty && queryData.isEmpty) {
+      return fullUrl;
     }
     Json[string] mydefaults = [
       "host": Json(null),
@@ -503,16 +497,16 @@ class DClient { // }: IClient {
     ];
     auto updatedOptions = options.update(mydefaults);
 
-    if (myquery) {
-      myq = myurl.has("?") ? "&' : '?";
-      myurl ~= myq;
-      myurl ~= isString(myquery) ? myquery : http_build_query(myquery, "", "&", UIM_QUERY_RFC3986);
+    if (queryData) {
+      myq = fullUrl.has("?") ? "&' : '?";
+      fullUrl ~= myq;
+      fullUrl ~= isString(queryData) ? queryData : http_build_query(queryData, "", "&", UIM_QUERY_RFC3986);
     }
-    if (options["protocolRelative"] && myurl.startWith("//")) {
-      myurl = options["scheme"] ~ ": " ~ myurl;
+    if (options["protocolRelative"] && fullUrl.startWith("//")) {
+      fullUrl = options["scheme"] ~ ": " ~ fullUrl;
     }
-    if (preg_match("#^https?://#", myurl)) {
-      return myurl;
+    if (preg_match("#^https?://#", fullUrl)) {
+      return fullUrl;
     }
 
     auto mydefaultPorts = [
@@ -524,10 +518,10 @@ class DClient { // }: IClient {
     if (options["port"] && (int) options["port"] != mydefaultPorts[options["scheme"]]) {
       result ~= ": " ~ options["port"];
     }
-    if (!options.isEmpty("basePath"])) {
-      result ~= "/" ~ strip(options["basePath"], "/");
-    }
-    result ~= "/" ~ stripLeft(myurl, "/");
+
+    result ~= !options.isEmpty("basePath")
+      ? "/" ~ options["basePath"].strip("/")
+      : "/" ~ fullUrl.stripLeft("/");
 
     return result;
   }

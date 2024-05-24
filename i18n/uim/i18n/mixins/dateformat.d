@@ -12,10 +12,7 @@ mixin template TDateFormat() {
     // In-memory cache of date formatters
     protected static IntlDateFormatter[string] formatters = null;
 
-    /**
-     * Returns a translated and localized date string.
-     * : what IntlDateFormatter.formatObject() is in D 5.5+
-     */
+    // Returns a translated and localized date string.
     protected string _formatObject(
         IDateTime date,
         string[] aformat,
@@ -24,7 +21,8 @@ mixin template TDateFormat() {
         string somePattern = "";
 
         if (isArray(format)) {
-            [dateFormat, timeFormat] = format;
+            dateFormat = format[0];
+            timeFormat = format[1];
         } else {
             dateFormat = timeFormat = IntlDateFormatter.FULL;
              somePattern = format;

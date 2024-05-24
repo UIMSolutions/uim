@@ -106,9 +106,6 @@ mixin template TQuery() {
      *
       Disable caching
      * query.cache(false);
-     *
-     * @param |false key Either the cache key or a function to generate the cache key.
-     *  When using a function, this query instance will be supplied as an argument.
      */
     void cache(/* \Closure */ string cacheKey, string cacheConfigName = "default") {
         _cache = cacheKey.isEmpty

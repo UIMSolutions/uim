@@ -85,8 +85,6 @@ class DApplication {
      * Add an optional plugin
      *
      * If it isn`t available, ignore it.
-     * Params:
-     * @param Json[string] configData The configuration data for the plugin if using a string for name
      */
     void addOptionalPlugin(/* IPlugin| */ string pluginName, Json[string] pluginData = null) {
         try {

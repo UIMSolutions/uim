@@ -53,11 +53,7 @@ class DDigest {
        _client = httpClient;
     }
     
-    /**
-     * Set algorithm based on credentials
-     * Params:
-     * Json[string] credentials authentication params
-     */
+    // Set algorithm based on credentials
     protected void setAlgorithm(Json[string] credentials) {
         algorithm = credentials.get("algorithm", self.ALGO_MD5);
         if (!isSet(self.HASH_ALGORITHMS[algorithm])) {
@@ -69,12 +65,7 @@ class DDigest {
         this.hashType = Hash.get(self.HASH_ALGORITHMS, this.algorithm);
     }
     
-    /**
-     * Add Authorization header to the request.
-     * Params:
-     * \UIM\Http\Client\Request request The request object.
-     * @param Json[string] credentials Authentication credentials.
-     */
+    // Add Authorization header to the request.
     Request authentication(Request request, Json[string] credentials) {
         if (!isSet(credentials["username"], credentials["password"])) {
             return request;

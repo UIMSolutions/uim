@@ -43,7 +43,7 @@ class DFormData { // }: Countable {
     FormDataPart newPart(string aName, string valueToAdd) {
         return new DFormDataPart(name, valueToAdd);
     }
-    
+
     /**
      * Add a new part to the data.
      *
@@ -55,23 +55,22 @@ class DFormData { // }: Countable {
      * Params:
      * \UIM\Http\Client\FormDataPart|string aName The name of the part to add,
      * or the part data object.
-     * @param Json aValue The value for the part.
      */
-    void add(FormDataPart|string aName, Json partValue = null) {
-        if (isString(name)) {
+    void add( /* FormDataPart| */ string partName, Json partValue = null) {
+        if (isString(partName)) {
             if (isArray(partValue)) {
-                this.addRecursive(name, partValue);
-            } else if (isResource(partValue) || cast(IUploadedFile)partValue) {
-                this.addFile(name, partValue);
+                this.addRecursive(partName, partValue);
+            } else if (isResource(partValue) || cast(IUploadedFile) partValue) {
+                this.addFile(partName, partValue);
             } else {
-               _parts ~= this.newPart(name, (string)partValue);
+                _parts ~= this.newPart(partName, (string) partValue);
             }
         } else {
-           _hasComplexPart = true;
-           _parts ~= name;
+            _hasComplexPart = true;
+            _parts ~= partName;
         }
     }
-    
+
     /**
      * Add multiple parts at once.
      * Iterates the parameter and adds all the key/values.
@@ -80,38 +79,31 @@ class DFormData { // }: Countable {
         data.byKeyValue
             .each!(nameValue => add(nameValue.key, nameValue.value));
     }
-    
-    /**
-     * Add either a file reference (string starting with @)
-     * or a file handle.
-     * Params:
-     * string aName The name to use.
-     * @param \Psr\Http\Message\IUploadedFile|resource|string avalue Either a string filename, or a filehandle,
-     * or a IUploadedFile instance.
-     */
-    DFormDataPart addFile(string nameToUse, Json aValue) {
-       bool _hasFile = true;
 
-        filename = false;
-        contentType = "application/octet-stream";
-        if (cast(IUploadedFile)aValue) {
-            content = (string)aValue.getStream();
+    // Add either a file reference (string starting with @) or a file handle.
+    DFormDataPart addFile(string nameToUse, Json aValue) {
+        bool _hasFile = true;
+
+        auto filename = false;
+        auto contentType = "application/octet-stream";
+        if (cast(IUploadedFile) aValue) {
+            content = (string) aValue.getStream();
             contentType = aValue.getClientMediaType();
             filename = aValue.getClientFilename();
         } else if (isResource(aValue)) {
-            content = (string)stream_get_contents(aValue);
+            content = (string) stream_get_contents(aValue);
             if (stream_is_local(aValue)) {
                 finfo = new finfo(FILEINFO_MIME);
                 metadata = stream_get_meta_data(aValue);
-                contentType = (string)finfo.file(metadata["uri"]);
+                contentType = (string) finfo.file(metadata["uri"]);
                 filename = basename(metadata["uri"]);
             }
         } else {
             finfo = new finfo(FILEINFO_MIME);
             aValue = substr(aValue, 1);
             filename = basename(aValue);
-            content = (string)file_get_contents(aValue);
-            contentType = (string)finfo.file(aValue);
+            content = (string) file_get_contents(aValue);
+            contentType = (string) finfo.file(aValue);
         }
         part = this.newPart(nameToUse, content);
         part.type(contentType);
@@ -122,7 +114,7 @@ class DFormData { // }: Countable {
 
         return part;
     }
-    
+
     /**
      * Recursively add data.
      * Params:
@@ -135,12 +127,12 @@ class DFormData { // }: Countable {
             add(key, kv.value);
         });
     }
-    
+
     // Returns the count of parts inside this object.
     size_t count() {
         return count(_parts);
     }
-    
+
     /**
      * Check whether the current payload
      * has any files.
@@ -148,7 +140,7 @@ class DFormData { // }: Countable {
     bool hasFile() {
         return _hasFile;
     }
-    
+
     /**
      * Check whether the current payload
      * is multipart.
@@ -159,7 +151,7 @@ class DFormData { // }: Countable {
     bool isMultipart() {
         return _hasFile() || _hasComplexPart;
     }
-    
+
     /**
      * Get the content type for this payload.
      *
@@ -172,7 +164,7 @@ class DFormData { // }: Countable {
         }
         return "multipart/form-data; boundary=" ~ this.boundary();
     }
-    
+
     /**
      * Converts the FormData and its parts into a string suitable
      * for use in an HTTP request.

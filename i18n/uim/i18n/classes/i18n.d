@@ -99,18 +99,16 @@ class DI18n {
      * Returns an instance of a translator that was configured for the name and locale.
      *
      * If no locale is passed then it takes the value returned by the `locale()` method.
-     * Params:
-     * string domainName The domain of the translation messages.
-     * @param string translatorlocale The translatorlocale for the translator.
      */
-    static Translator getTranslator(string domainName = "default", string alocale = null) {
-        translators = translators();
+    static Translator getTranslator(string domainName = "default", string translatorLocale = null) {
+        auto translators = translators();
 
         if (translatorlocale) {
             currentLocale = translators.locale();
             translators.setLocale(translatorlocale);
         }
-        translator = translators.get(domainname);
+        
+        auto translator = translators.get(domainName);
         if (translator.isNull) {
             throw new DI18nException(
                 "Translator for domain `%s` could not be found.".format(domainname));
@@ -170,14 +168,12 @@ class DI18n {
     /**
      * Sets the default locale to use for future translator instances.
      * This also affects the `intl.default_locale` D setting.
-     * Params:
-     * string alocale The name of the locale to set as default.
-      /
-    static void setLocale(string alocale) {
+     */
+    static void setLocale(string localName) {
         getDefaultLocale();
-        Locale.setDefault(locale);
+        Locale.setDefault(localName);
         if (isSet(_collection)) {
-            translators().setLocale(locale);
+            translators().setLocale(localName);
         }
     }
     
@@ -206,9 +202,7 @@ class DI18n {
         return _defaultLocale ??= Locale.getDefault() ?: DEFAULT_LOCALE;
     }
     
-    /**
-     * Returns the currently configured default formatter.
-     */
+    // Returns the currently configured default formatter.
     static string getDefaultFormatter() {
         return translators().defaultFormatter();
     }
@@ -224,11 +218,7 @@ class DI18n {
         translators().defaultFormatter(formatterName);
     }
     
-    /**
-     * Set if the domain fallback is used.
-     * Params:
-     * bool enable flag to enable or disable fallback
-     */
+    // Set if the domain fallback is used.
     static void useFallback(bool enable = true) {
         translators().useFallback(enable);
     }
@@ -239,5 +229,5 @@ class DI18n {
      */
     static void clear() {
         _collection = null;
-    } */ 
+    } 
 }

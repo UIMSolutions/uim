@@ -79,15 +79,11 @@ TEXT;
         return result ~ "]";
     }
     
-    /**
-     * Handles object to string conversion.
-     * Params:
-     * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\ReferenceNode nodeToConvert Object to convert.
-     * @param int indentSize Current indentation level.
-     */
-    protected string exportObject(ClassNode|ReferenceNode nodeToConvert, int indentSize) {
+    // Handles object to string conversion.
+    protected string exportObject(/* ClassNode| */ ReferenceNode nodeToConvert, int indentSize) {
         return "object({nodeToConvert.getValue()}) id:{nodeToConvert.getId()} {}";
     }
+
     protected string exportObject(ClassNode aNode, int indentSize) {
         auto result = "";
 

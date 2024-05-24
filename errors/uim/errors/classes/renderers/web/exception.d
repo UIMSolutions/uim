@@ -77,8 +77,8 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      */
     this(DThrowable exception, ServerRequest serverRequest = null) {
         _error = exception;
-        this.request = request;
-        this.controller = _getController();
+        _request = serverRequest;
+        _controller = _getController();
     }
     
     /**
@@ -88,7 +88,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * a bare controller will be used.
      */
     protected IController _getController() {
-        request = this.request;
+        request = _request;
         routerRequest = Router.getRequest();
         // Fallback to the request in the router or make a new one from
         // _SERVER
@@ -150,9 +150,9 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             return _customMethod(method, exception);
         }
         message = errorMessage(exception, code);
-        url = this.controller.getRequest().getRequestTarget();
+        url = _controller.getRequest().getRequestTarget();
         
-        auto response = this.controller.getResponse();
+        auto response = _controller.getResponse();
         if (cast(HttpException)exception) {
             exception.getHeaders().byKeyValue
                 .each!(nameValue => response = response.withHeader(nameValue.name, nameValue.value));
@@ -191,13 +191,13 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             serialize ~= "file";
             serialize ~= "line";
         }
-        this.controller.set(viewVars);
-        this.controller.viewBuilder().setOption("serialize", serialize);
+        _controller.set(viewVars);
+        _controller.viewBuilder().setOption("serialize", serialize);
 
         if (cast(UimException)exception &&  isDebug) {
-            this.controller.set(exception.getAttributes());
+            _controller.set(exception.getAttributes());
         }
-        this.controller.setResponse(response);
+        _controller.setResponse(response);
 
         return _outputMessage(template);
     }
@@ -222,7 +222,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         auto result = this.{methodName}(exceptionToRender);
        _shutdown();
         if (isString(result)) {
-            result = this.controller.getResponse().withStringBody(result);
+            result = _controller.getResponse().withStringBody(result);
         }
         return result;
     }
@@ -283,7 +283,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     // Generate the response using the controller object.
     protected DResponse _outputMessage(string templateToRender) {
         try {
-            this.controller.render(templateToRender);
+            _controller.render(templateToRender);
 
             return _shutdown();
         } catch (MissingTemplateException  anException) {
@@ -297,8 +297,8 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             return _outputMessage("error500");
         } catch (MissingPluginException  anException) {
             attributes = anException.getAttributes();
-            if (isSet(attributes["plugin"]) && attributes["plugin"] == this.controller.pluginName) {
-                this.controller.setPlugin(null);
+            if (isSet(attributes["plugin"]) && attributes["plugin"] == _controller.pluginName) {
+                _controller.setPlugin(null);
             }
             return _outputMessageSafe("error500");
         } catch (Throwable outer) {
@@ -317,17 +317,17 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * string atemplate The template to render.
      */
     protected DResponse _outputMessageSafe(string atemplate) {
-        builder = this.controller.viewBuilder();
+        builder = _controller.viewBuilder();
         builder
             .setHelpers([])
             .setLayoutPath("")
             .setTemplatePath("Error");
-        view = this.controller.createView("View");
+        view = _controller.createView("View");
 
-        response = this.controller.getResponse()
+        response = _controller.getResponse()
             .withType("html")
             .withStringBody(view.render(template, "error"));
-        this.controller.setResponse(response);
+        _controller.setResponse(response);
 
         return response;
     }
@@ -338,7 +338,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Triggers the afterFilter and afterDispatch events.
      */
     protected DResponse _shutdown() {
-        this.controller.dispatchEvent("Controller.shutdown");
+        _controller.dispatchEvent("Controller.shutdown");
 
         return _controller.getResponse();
     }
@@ -350,8 +350,8 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     Json[string] debugInfo() {
         return [
             "error": _error,
-            "request": this.request,
-            "controller": this.controller,
+            "request": _request,
+            "controller": _controller,
             "template": this.template,
             "method": this.method,
         ];

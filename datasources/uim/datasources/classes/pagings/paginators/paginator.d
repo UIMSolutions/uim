@@ -168,15 +168,15 @@ class DPaginator : IPaginator {
             }
         }
 
-        paginatorData = this.extractData(objectToPaginate, requestData, paginationData);
-        myQuery = getQuery(objectToPaginate, myQuery, paginatorData);
+        paginatorOptions = this.extractData(objectToPaginate, requestData, paginationData);
+        myQuery = getQuery(objectToPaginate, myQuery, paginatorOptions);
 
         cleanQuery = clone myQuery;
         myResults = myQuery.all();
-        paginatorData["numResults"] = count(myResults);
-        paginatorData["count"] = getCount(cleanQuery, paginatorData);
+        paginatorOptions["numResults"] = count(myResults);
+        paginatorOptions["count"] = getCount(cleanQuery, paginatorOptions);
 
-        pagingParams = this.buildParams(paginatorData);
+        pagingParams = this.buildParams(paginatorOptions);
         aliasName = objectToPaginate.aliasName();
         _pagingParams = [aliasName: pagingParams];
         if (pagingParams["requestedPage"] > pagingParams["page"]) {
@@ -221,7 +221,7 @@ class DPaginator : IPaginator {
     }
 
     // Build pagination params.
-    protected Json[string] buildParams(Json[string] paginatorData) {
+    protected Json[string] buildParams(Json[string] paginatorOptions) {
         limit = myData["options"]["limit"];
 
         // containing keys "options",
@@ -234,76 +234,72 @@ class DPaginator : IPaginator {
             "requestedPage": myData["options"]["page"],
         ];
 
-        paging = addPageCountParams(paging, paginatorData);
-        paging = addStartEndParams(paging, paginatorData);
-        paging = addPrevNextParams(paging, paginatorData);
-        paging = addSortingParams(paging, paginatorData);
+        paging = addPageCountParams(paging, paginatorOptions);
+        paging = addStartEndParams(paging, paginatorOptions);
+        paging = addPrevNextParams(paging, paginatorOptions);
+        paging = addSortingParams(paging, paginatorOptions);
 
         paging += [
-            "limit": paginatorData["defaults"]["limit"] != limit ? limit : null,
-            "scope": paginatorData["options"]["scope"],
-            "finder": paginatorData["finder"],
+            "limit": paginatorOptions["defaults"]["limit"] != limit ? limit : null,
+            "scope": paginatorOptions["options"]["scope"],
+            "finder": paginatorOptions["finder"],
         ];
 
         return paging;
     }
 
-    /**
-     * Add "page" and "pageCount" params.
-     *
-     * @param Json[string] pagingParams Paging params.
-     */
-    protected Json[string] addPageCountParams(Json[string] pagingData, Json[string] paginatorData) {
-        auto page = pagingData["page"];
+    // Add "page" and "pageCount" params.
+    protected Json[string] addPageCountParams(Json[string] pagingOptions, Json[string] paginatorOptions) {
+        auto page = pagingOptions["page"];
         auto pageCount = 0;
 
-        if (!pagingData.isNull("count")) {
-            pageCount = max((int)ceil(pagingData["count"] / pagingData["perPage"]), 1);
+        if (!pagingOptions.isNull("count")) {
+            pageCount = max((int)ceil(pagingOptions["count"] / pagingOptions["perPage"]), 1);
             page = min(page, pageCount);
-        } elseif (pagingData["current"] == 0 && pagingData["requestedPage"] > 1) {
+        } elseif (pagingOptions["current"] == 0 && pagingOptions["requestedPage"] > 1) {
             page = 1;
         }
 
-        pagingData["page"] = page;
-        pagingData["pageCount"] = pageCount;
+        pagingOptions["page"] = page;
+        pagingOptions["pageCount"] = pageCount;
 
-        return pagingData;
+        return pagingOptions;
     }
 
     /**
      * Add "start" and "end" params.
      *
-     * @param Json[string] pagingData Paging params.
+     * @param Json[string] pagingOptions Paging params.
      * @param Json[string] myData Paginator data.
      */
-    protected Json[string] addStartEndParams(Json[string] pagingData, Json[string] paginatorData) {
+    protected Json[string] addStartEndParams(Json[string] pagingOptions, Json[string] paginatorOptions) {
         start = end = 0;
 
-        if (pagingData["current"] > 0) {
-            start = ((pagingData["page"] - 1) * pagingData["perPage"]) + 1;
-            end = start + pagingData["current"] - 1;
+        if (pagingOptions["current"] > 0) {
+            start = ((pagingOptions["page"] - 1) * pagingOptions["perPage"]) + 1;
+            end = start + pagingOptions["current"] - 1;
         }
 
-        pagingData["start"] = start;
-        pagingData["end"] = end;
+        pagingOptions["start"] = start;
+        pagingOptions["end"] = end;
 
-        return pagingData;
+        return pagingOptions;
     }
 
     // Add "prevPage" and "nextPage" params.
-    protected Json[string] addPrevNextParams(Json[string] paginatorData, Json[string] pagingData) {
-        paginatorData["prevPage"] = paginatorData["page"] > 1;
-        paginatorData["nextPage"] = paginatorData["count"] == null
+    protected Json[string] addPrevNextParams(Json[string] paginatorOptions, Json[string] pagingOptions) {
+        paginatorOptions["prevPage"] = paginatorOptions["page"] > 1;
+        paginatorOptions["nextPage"] = paginatorOptions["count"] == null
             ? true
-            paginatorData["count"] > paginatorData["page"] * paginatorData["perPage"];
+            paginatorOptions["count"] > paginatorOptions["page"] * paginatorOptions["perPage"];
 
-        return paginatorData;
+        return paginatorOptions;
     }
 
     // Add sorting / ordering params.
-    protected Json[string] addSortingParams(Json[string] paginatorData, Json[string] pagingData) 
-        auto defaults = pagingData["defaults"];
-        auto order = (array)pagingData["options"]["order"];
+    protected Json[string] addSortingParams(Json[string] paginatorOptions, Json[string] pagingOptions) 
+        auto defaults = pagingOptions["defaults"];
+        auto order = (array)pagingOptions["options"]["order"];
         bool sortDefault = directionDefault = false;
 
         if (!defaults.isEmpty("order")) && count(defaults["order"]) == 1) {
@@ -311,9 +307,9 @@ class DPaginator : IPaginator {
             directionDefault = current(defaults["order"]);
         }
 
-        return paginatorData.update([
-            "sort": pagingData["options"]["sort"],
-            "direction": isset(pagingData["options"]["sort"]) && count(order) ? current(order) : null,
+        return paginatorOptions.update([
+            "sort": pagingOptions["options"]["sort"],
+            "direction": isset(pagingOptions["options"]["sort"]) && count(order) ? current(order) : null,
             "sortDefault": sortDefault,
             "directionDefault": directionDefault,
             "completeSort": order,
@@ -334,7 +330,7 @@ class DPaginator : IPaginator {
     }
 
     // Get paging params after pagination operation.
-    Json[string] pagingData() {
+    Json[string] pagingOptions() {
         return _pagingParams;
     }
 

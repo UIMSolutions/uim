@@ -415,11 +415,7 @@ mixin template TQuery() {
     // Executes this query and returns a traversable object containing the results
     abstract protected IResultset _execute();
 
-    /**
-     * Decorates the results iterator with MapReduce routines and formatters
-     *
-     * @param \Traversable result Original results
-     */
+    // Decorates the results iterator with MapReduce routines and formatters
     protected IResultset _decorateResults(Traversable originalResults) {
         decorator = _decoratorClass();
         foreach (_mapReduce as functions) {

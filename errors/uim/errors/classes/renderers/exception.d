@@ -81,8 +81,8 @@ class DExceptionRenderer : IExceptionRenderer {
      *  instead of creating a new one.
      */
     this(DThrowable exception, ServerRequest myRequest = null) {
-        this.error = exception;
-        this.request = myRequest;
+        _error = exception;
+        _request = myRequest;
         this.controller = _getController();
     }
 
@@ -93,7 +93,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * a bare controller will be used.
      */
     protected IController _getController() {
-        myRequest = this.request;
+        myRequest = _request;
         routerRequest = Router.getRequest();
         // Fallback to the request in the router or make a new one from
         // _SERVER
@@ -156,7 +156,7 @@ class DExceptionRenderer : IExceptionRenderer {
 
     // Renders the response for the exception.
     IResponse render() {
-        auto myException = this.error;
+        auto myException = _error;
         code = getHttpCode(myException);
         method = methodName(myException);
         myTemplate = templateName(myException, method, code);
@@ -321,17 +321,17 @@ class DExceptionRenderer : IExceptionRenderer {
      *
      * @param string myTemplate The template to render.
      */
-    protected DResponse _outputMessageSafe(string myTemplate) {
-        myBuilder = _controller.viewBuilder();
+    protected DResponse _outputMessageSafe(string templateToRender) {
+        auto myBuilder = _controller.viewBuilder();
         myBuilder
             .setHelpers([], false)
             .setLayoutPath("")
             .setTemplatePath("Error");
         view = _controller.createView("View");
 
-        response = _controller.getResponse()
+        auto response = _controller.getResponse()
             .withType("html")
-            .withStringBody(view.render(myTemplate, "error"));
+            .withStringBody(view.render(templateToRender, "error"));
         _controller.setResponse(response);
 
         return response;
@@ -348,14 +348,11 @@ class DExceptionRenderer : IExceptionRenderer {
         return _controller.getResponse();
     }
 
-    /**
-     * Returns an array that can be used to describe the internal state of this
-     * object.
-     */
+    // Returns an array that can be used to describe the internal state of this object.
     Json[string] __debugInfo() {
         return [
-            "error": this.error,
-            "request": this.request,
+            "error": _error,
+            "request": _request,
             "controller": this.controller,
             "template": this.template,
             "method": this.method,

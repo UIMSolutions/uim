@@ -12,7 +12,7 @@ import uim.errors;
  */
 class DDebugger {
     mixin TConfigurable;
-    
+
     this() {
         initialize;
     }
@@ -36,24 +36,24 @@ class DDebugger {
             "editor": Json("Dstorm"),
         ]);
 
-    _editors = [
-        "atom": "atom://core/open/file?filename={file}&line={line}",
-        "emacs": "emacs://open?url=file://{file}&line={line}",
-        "macvim": "mvim://open/?url=file://{file}&line={line}",
-        "Dstorm": "Dstorm://open?file={file}&line={line}",
-        "sublime": "subl://open?url=file://{file}&line={line}",
-        "textmate": "txmt://open?url=file://{file}&line={line}",
-        "vscode": "vscode://file/{file}:{line}",
-    ];
+        _editors = [
+            "atom": "atom://core/open/file?filename={file}&line={line}",
+            "emacs": "emacs://open?url=file://{file}&line={line}",
+            "macvim": "mvim://open/?url=file://{file}&line={line}",
+            "Dstorm": "Dstorm://open?file={file}&line={line}",
+            "sublime": "subl://open?url=file://{file}&line={line}",
+            "textmate": "txmt://open?url=file://{file}&line={line}",
+            "vscode": "vscode://file/{file}:{line}",
+        ];
 
         return true;
     }
 
     mixin(TProperty!("string", "name"));
-    
+
     // A map of editors to their link templates.
-    protected STRINGAA _editors;  
-      
+    protected STRINGAA _editors;
+
     /**
      * Add an editor link format
      *
@@ -65,9 +65,9 @@ class DDebugger {
      */
     static void addEditor(string editorName, /* IClosure */ string atemplate) {
         auto anInstance = getInstance();
-         anInstance.editors[editorName] = template;
+        anInstance.editors[editorName] = template;
     }
-    
+
     // Choose the editor link style you want to use.
     static void setEditor(string editorName) {
         auto anInstance = getInstance();
@@ -75,12 +75,12 @@ class DDebugger {
             auto known = anInstance.editors.keys.join(", ");
             throw new DInvalidArgumentException(
                 "Unknown editor `%s`. Known editors are `%s`."
-                .format(editorName, known)
+                    .format(editorName, known)
             );
         }
-         anInstance.configuration.set("editor", name);
+        anInstance.configuration.set("editor", name);
     }
-    
+
     /**
      * Get a formatted URL for the active editor.
      * Params:
@@ -93,11 +93,11 @@ class DDebugger {
         if (!anInstance.editors.isSet(editor)) {
             throw new DInvalidArgumentException(
                 "Cannot format editor URL `%s` is not a known editor."
-                .format(editor));
+                    .format(editor));
         }
         template = anInstance.editors[editor];
         if (isString(template)) {
-            return template.replace(["{file}", "{line}"], [file, (string)line]);
+            return template.replace(["{file}", "{line}"], [file, (string) line]);
         }
         return template(file, line);
     }
@@ -124,18 +124,18 @@ class DDebugger {
      */
     static static getInstance(string className = null) {
         /** @var array<int, static>  anInstance */
-        static  anInstance = null;
+        static anInstance = null;
         if (className) {
             if (!anInstance || strtolower(className) != get_class(anInstance[0]).lower) {
-                 anInstance[0] = new className();
+                anInstance[0] = new className();
             }
         }
         if (!anInstance) {
-             anInstance[0] = new Debugger();
+            anInstance[0] = new Debugger();
         }
         return anInstance[0];
     }
-    
+
     /**
      * Read or write configuration options for the Debugger instance.
      * Params:
@@ -147,17 +147,18 @@ class DDebugger {
         if (aKey.isNull) {
             return getInstance().configuration.get(aKey);
         }
+
         if (isArray(aKey) || func_num_args() >= 2) {
             return getInstance().setConfig(aKey, aValue, merge);
         }
         return getInstance().configuration.get(aKey);
     }
-    
+
     // Reads the current output masking.
     static STRINGAA outputMask() {
         return configInstance("outputMask");
     }
-    
+
     /**
      * Sets configurable masking of debugger output by property name and array key names.
      *
@@ -168,9 +169,7 @@ class DDebugger {
     static void setOutputMask(Json[string] keyReplaceData, bool shouldMerge = true) {
         configInstance("outputMask", keyReplaceData, shouldMerge);
     }
-    
-    
-    
+
     /**
      * Recursively formats and outputs the contents of the supplied variable.
      * Params:
@@ -180,7 +179,7 @@ class DDebugger {
     static void dump(Json var, int maxDepth = 3) {
         pr(exportVar(var, maxDepth));
     }
-    
+
     /**
      * Creates an entry in the log file. The log entry will contain a stack trace from where it was called.
      * as well as export the variable using exportVar. By default, the log is written to the debug log.
@@ -194,7 +193,7 @@ class DDebugger {
             "\n" ~ source ~ exportVarAsPlainText(varToLog, maxDepth)
         );
     }
-    
+
     // Get the frames from exception that are not present in parent
     static Json[string] getUniqueFrames(Throwable exception, Throwable parent) {
         if (parent.isNull) {
@@ -208,29 +207,29 @@ class DDebugger {
 
         // Reverse loop through both traces removing frames that
         // are the same.
-        for (anI = frameCount, p = parentCount;  anI >= 0 && p >= 0; p--) {
+        for (anI = frameCount, p = parentCount; anI >= 0 && p >= 0; p--) {
             parentTail = parentFrames[p];
             tail = frames[anI];
 
             // Frames without file/line are never equal to another frame.
-             isEqual = (
+            isEqual = (
                 (
                     isSet(tail["file"]) &&
                     isSet(tail["line"]) &&
                     isSet(parentTail["file"]) &&
                     isSet(parentTail["line"])
-                ) &&
+            ) &&
                 (tail["file"] == parentTail["file"]) &&
                 (tail["line"] == parentTail["line"])
             );
             if (isEqual) {
                 unset(frames[anI]);
-                 anI--;
+                anI--;
             }
         }
         return frames;
     }
-    
+
     /**
      * Outputs a stack trace based on the supplied options.
      *
@@ -252,7 +251,7 @@ class DDebugger {
 
         return Debugger.formatTrace(backtrace, options);
     }
-    
+
     /**
      * Formats a stack trace based on the supplied options.
      *
@@ -266,7 +265,7 @@ class DDebugger {
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      */
     static string[] formatTrace(Throwable backtrace, Json[string] options = null) {
-        if (cast(Throwable)backtrace) {
+        if (cast(Throwable) backtrace) {
             backtrace = backtrace.getTrace();
         }
         defaults = [
@@ -282,7 +281,7 @@ class DDebugger {
         count = count(backtrace) + 1;
         back = null;
 
-        for (anI = options["start"];  anI < count &&  anI < options["depth"];  anI++) {
+        for (anI = options["start"]; anI < count && anI < options["depth"]; anI++) {
             frame = ["file": "[main]", "line": ""];
             if (isSet(backtrace[anI])) {
                 frame = backtrace[anI] ~ ["file": "[internal]", "line": "??"];
@@ -304,7 +303,11 @@ class DDebugger {
                 continue;
             }
             if (options["format"] == "points") {
-                back ~= ["file": frame["file"], "line": frame["line"], "reference": reference];
+                back ~= [
+                    "file": frame["file"],
+                    "line": frame["line"],
+                    "reference": reference
+                ];
             } else if (options["format"] == "array") {
                 if (!options["args"]) {
                     unset(frame["args"]);
@@ -314,9 +317,9 @@ class DDebugger {
                 somePath = trimPath(frame["file"]);
                 back ~= "%s - %s, line %d".format(reference, somePath, frame["line"]);
             } else {
-                debug(options);
+                debug (options);
                 throw new DInvalidArgumentException(
-                    "Invalid trace format of `{options["format"]}` chosen. Must be one of `array`, `points` or `text`."
+                    "Invalid trace format of `{options[" format"]}` chosen. Must be one of `array`, `points` or `text`."
                 );
             }
         }
@@ -325,7 +328,7 @@ class DDebugger {
         }
         return join("\n", back);
     }
-    
+
     // Shortens file paths by replacing the application base path with 'APP", and the UIM core path with 'CORE'.
     static string trimPath(string pathToShorten) {
         if (defined("APP") && pathToShorten.startWith(APP)) {
@@ -335,10 +338,9 @@ class DDebugger {
             return pathToShorten.replace(uim_CORE_INCLUDE_PATH, "CORE");
         }
         return defined("ROOT") && pathToShorten.startWith(ROOT)
-            ? pathToShorten.replace(ROOT, "ROOT")
-            : pathToShorten;
+            ? pathToShorten.replace(ROOT, "ROOT") : pathToShorten;
     }
-    
+
     /**
      * Grabs an excerpt from a file and highlights a given line of code.
      *
@@ -353,11 +355,10 @@ class DDebugger {
      * are processed with highlight_string() as well, so they have basic D syntax highlighting
      * applied.
      * Params:
-     * string afile Absolute path to a D file.
      * @param int context Number of lines of context to extract above and below lineToHighlight.
      */
-    static string[] excerpt(string filePath, int lineToHighlight, int context = 2) {
-        lines = null;
+    static string[] excerpt(string filePath, int lineToHighlight, int numberOfLinesToExtract = 2) {
+        auto lines = null;
         if (!fileExists(filePath)) {
             return null;
         }
@@ -372,34 +373,32 @@ class DDebugger {
         if (!isSet(someData[lineToHighlight])) {
             return lines;
         }
-        for (anI = lineToHighlight - context;  anI < lineToHighlight + context + 1;  anI++) {
+        for (anI = lineToHighlight - numberOfLinesToExtract; anI < lineToHighlight + numberOfLinesToExtract + 1;
+            anI++) {
             if (!isSet(someData[anI])) {
                 continue;
             }
             string lineToHighlight = .replace(["\r\n", "\n"], "", _highlight(someData[anI]));
             lines ~= anI == lineToHighlight
-                ? "<span class="code-highlight">" ~ string ~ "</span>"
-                : lineToHighlight;
+                ? "<span class=\"code-highlight\">" ~ string ~ "</span>" : lineToHighlight;
         }
         return lines;
     }
-    
+
     /**
      * Wraps the highlight_string auto in case the server API does not
      * implement the auto as it is the case of the HipHop interpreter
-     * Params:
-     * string astr The string to convert.
      */
-    protected static string _highlight(string astr) {
+    protected static string _highlight(string stringToConvert) {
         if (function_exists("hD_log") || function_exists("hD_gettid")) {
-            return htmlentities(str);
+            return htmlentities(stringToConvert);
         }
         added = false;
-        if (!str.has("")) {
+        if (!stringToConvert.has("")) {
             added = true;
-            str = " \n" ~ str;
+            stringToConvert = " \n" ~ stringToConvert;
         }
-        highlight = highlight_string(str, true);
+        highlight = highlight_string(stringToConvert, true);
         if (added) {
             highlight = highlight.replace(
                 ["&lt;?D&nbsp;<br/>", "&lt;?D&nbsp;<br />"],
@@ -407,32 +406,30 @@ class DDebugger {
         }
         return highlight;
     }
-    
-    /**
-     * Get the configured export formatter or infer one based on the environment.
-     */
+
+    // Get the configured export formatter or infer one based on the environment.
     IErrorFormatter getExportFormatter() {
-         anInstance = getInstance();
-         className = anInstance.configuration.get("exportFormatter");
+        auto anInstance = getInstance();
+        auto className = anInstance.configuration.get("exportFormatter");
         if (!className) {
             if (ConsoleFormatter.environmentMatches()) {
-                 className = ConsoleFormatter.classname;
+                className = ConsoleFormatter.classname;
             } else if (HtmlFormatter.environmentMatches()) {
-                 className = HtmlFormatter.classname;
+                className = HtmlFormatter.classname;
             } else {
-                 className = TextFormatter.classname;
+                className = TextFormatter.classname;
             }
         }
-         anInstance = new className();
-        if (!cast(IErrorFormatter)anInstance ) {
+        anInstance = new className();
+        if (!cast(IErrorFormatter) anInstance) {
             throw new UimException(
                 "The `%s` formatter does not implement `%s`."
-                .format(className, IErrorFormatter.classname)
+                    .format(className, IErrorFormatter.classname)
             );
         }
         return anInstance;
     }
-    
+
     /**
      * Converts a variable to a string for debug output.
      *
@@ -456,7 +453,7 @@ class DDebugger {
 
         return getInstance().getExportFormatter().dump(node);
     }
-    
+
     /**
      * Converts a variable to a plain text string.
      * Params:
@@ -468,7 +465,7 @@ class DDebugger {
             export_(var, new DebugContext(maxDepth))
         );
     }
-    
+
     /**
      * Convert the variable to the internal node tree.
      *
@@ -481,7 +478,7 @@ class DDebugger {
     static IErrorNode exportVarAsNodes(Json var, int maxDepth = 3) {
         return export_(var, new DebugContext(maxDepth));
     }
-    
+
     /**
      * Protected export auto used to keep track of indentation and recursion.
      * Params:
@@ -494,16 +491,16 @@ class DDebugger {
         if (type.startWith("resource ")) {
             return new DScalarNode(type, var);
         }
-        return match (type) {
-            "float", "string", "null": new DScalarNode(type, var),
-            "bool": new DScalarNode("bool", var),
-            "int": new DScalarNode("int", var),
-            "array": exportArray(var, context.withAddedDepth()),
-            "unknown": new DSpecialNode("(unknown)"),
-            default: exportObject(var, context.withAddedDepth()),
+        return match(type) {
+            "float", "string", "null" : new DScalarNode(type, var),
+            "bool" : new DScalarNode("bool", var),
+            "int" : new DScalarNode("int", var),
+            "array" : exportArray(var, context.withAddedDepth()),
+            "unknown" : new DSpecialNode("(unknown)"),
+            default : exportObject(var, context.withAddedDepth()),
         };
     }
-    
+
     /**
      * Export an array type object. Filters out keys used in datasource configuration.
      *
@@ -526,7 +523,7 @@ class DDebugger {
         remaining = context.remainingDepth();
         if (remaining >= 0) {
             outputMask = outputMask();
-            foreach (aKey: val; var) {
+            foreach (aKey : val; var) {
                 if (array_key_exists(aKey, outputMask)) {
                     node = new DScalarNode("string", outputMask[aKey]);
                 } else if (val != var) {
@@ -536,17 +533,17 @@ class DDebugger {
                     // Likely recursion, so we increase depth.
                     node = export_(val, context.withAddedDepth());
                 }
-                 someItems ~= new ArrayItemNode(export_(aKey, context), node);
+                someItems ~= new ArrayItemNode(export_(aKey, context), node);
             }
         } else {
-             someItems ~= new ArrayItemNode(
+            someItems ~= new ArrayItemNode(
                 new DScalarNode("string", ""),
                 new DSpecialNode("[maximum depth reached]")
             );
         }
         return new ArrayNode(someItems);
     }
-    
+
     /**
      * Handles object to node conversion.
      * Params:
@@ -554,10 +551,10 @@ class DDebugger {
      * @param \UIM\Error\Debug\DebugContext context The dump context.
      */
     protected static IErrorNode exportObject(object var, DebugContext context) {
-         isRef = context.hasReference(var);
+        isRef = context.hasReference(var);
         refNum = context.getReferenceId(var);
 
-         className = var.classname;
+        className = var.classname;
         if (isRef) {
             return new DReferenceNode(className, refNum);
         }
@@ -567,12 +564,13 @@ class DDebugger {
         if (remaining > 0) {
             if (method_exists(var, "__debugInfo")) {
                 try {
-                    foreach ((array)var.__debugInfo() as aKey: val) {
+                    foreach ((array) var.__debugInfo() as aKey : val) {
                         node.addProperty(new DPropertyNode("'{aKey}'", null, export_(val, context)));
                     }
                     return node;
-                } catch (Exception  anException) {
-                    return new DSpecialNode("(unable to export object: { anException.getMessage()})");
+                } catch (Exception anException) {
+                    return new DSpecialNode(
+                        "(unable to export object: { anException.getMessage()})");
                 }
             }
             outputMask = outputMask();
@@ -583,16 +581,16 @@ class DDebugger {
                         kv.value = outputMask[kv.key];
                     }
                     node.addProperty(
-                        new DPropertyNode((string)kv.key, "public", export_(kv.value, context.withAddedDepth()))
+                        new DPropertyNode((string) kv.key, "public", export_(kv.value, context.withAddedDepth()))
                     );
-            });
+                });
             ref = new DReflectionObject(var);
 
             filters = [
                 ReflectionProperty.IS_PROTECTED: "protected",
                 ReflectionProperty.IS_PRIVATE: "private",
             ];
-            foreach (filter: visibility; filters) {
+            foreach (filter : visibility; filters) {
                 reflectionProperties = ref.getProperties(filter);
                 foreach (reflectionProperty; reflectionProperties) {
                     reflectionProperty.setAccessible(true);
@@ -600,7 +598,7 @@ class DDebugger {
                     if (
                         method_exists(reflectionProperty, "isInitialized") &&
                         !reflectionProperty.isInitialized(var)
-                    ) {
+                        ) {
                         aValue = new DSpecialNode("[uninitialized]");
                     } else {
                         aValue = export_(reflectionProperty.getValue(var), context.withAddedDepth());
@@ -610,40 +608,41 @@ class DDebugger {
                             reflectionProperty.name,
                             visibility,
                             aValue
-                        )
+                    )
                     );
                 }
             }
         }
         return node;
     }
-    
+
     // Get the type of the given variable. Will return the class name for objects.
     static string getType(Json variableToCheck) {
         string variableType = get_debug_type(variableToCheck);
 
-        switch(variableType) {
-            case "double": 
-                return "float";
-            case "unknown type": 
-                return "unknown";
-            default:    
-                return variableType;
+        switch (variableType) {
+        case "double":
+            return "float";
+        case "unknown type":
+            return "unknown";
+        default:
+            return variableType;
         }
     }
-    
+
     // Prints out debug information about given variable.
     static void printVar(Json debugValue, Json[string] locationData = null, string showHtml = null) {
         auto locationData ~= ["file": Json(null), "line": Json(null)];
         if (locationData["file"]) {
-            locationData["file"] = trimPath((string)locationData["file"]);
+            locationData["file"] = trimPath((string) locationData["file"]);
         }
-        
+
         auto debugger = getInstance();
         auto restore = null;
         if (!showHtml.isNull) {
             restore = debugger.configuration.get("exportFormatter");
-            debugger.configuration.set("exportFormatter", showHtml == "true" ? HtmlFormatter.classname : TextFormatter.classname);
+            debugger.configuration.set("exportFormatter", showHtml == "true" ? HtmlFormatter.classname
+                    : TextFormatter.classname);
         }
         auto contents = exportVar(debugValue, 25);
         auto formatter = debugger.getExportFormatter();
@@ -653,7 +652,7 @@ class DDebugger {
         }
         writeln(formatter.formatWrapper(contents, locationData));
     }
-    
+
     /**
      * Format an exception message to be HTML formatted.
      *
@@ -665,20 +664,20 @@ class DDebugger {
      */
     static string formatHtmlMessage(string messageToFormat) {
         string message = htmlAttributeEscape(messageToFormat);
-        message = (string)preg_replace("/`([^`]+)`/", "<code>0</code>", message);
+        message = (string) preg_replace("/`([^`]+)`/", "<code>0</code>", message);
 
         return nl2br(message);
     }
-    
+
     // Verifies that the application`s salt and cipher seed value has been changed from the default value.
     static void checkSecurityKeys() {
         salt = Security.getSalt();
-        if (salt == "__SALT__" || salt.length< 32) {
+        if (salt == "__SALT__" || salt.length < 32) {
             trigger_error(
                 "Please change the value of `Security.salt` in `ROOT/config/app_local.d` " ~
-                "to a random value of at least 32 characters.",
-                E_USER_NOTICE
+                    "to a random value of at least 32 characters.",
+                    E_USER_NOTICE
             );
         }
-    } 
+    }
 }

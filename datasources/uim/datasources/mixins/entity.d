@@ -929,10 +929,9 @@ mixin template TEntity() {
      * Read the error(s) from one or many objects.
      * Params:
      * \UIM\Datasource\IDatasourceEntity|range object The object to read errors from.
-     * @param string errorFieldname The field name for errors.
     */
       protected Json[string] _readError(
-        IDatasourceEntity | range object, string errorFieldname = null) {
+        /* IDatasourceEntity | range*/ Json[string] object, string errorFieldname = null) {
         if (errorFieldname!isNull && cast(
           IDatasourceEntity) object) {
           return object.getError(

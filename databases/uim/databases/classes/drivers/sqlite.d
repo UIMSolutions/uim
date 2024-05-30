@@ -67,7 +67,7 @@ class DSqliteDriver : DDriver {
     ];
 
     void connect() {
-        if (isSet(this.pdo)) {
+        if (isSet(_pdo)) {
             return;
         }
         configData = configuration;
@@ -76,14 +76,14 @@ class DSqliteDriver : DDriver {
             PDO.ATTR_EMULATE_PREPARES: false,
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
         ];
-        if (!configuration.get("database"].isString) || configuration.get("database"] == "") {
+        if (!configuration.get("database").isString) || configuration.getString("database"] == "") {
             name = configData.get("name", "unknown");
             throw new DInvalidArgumentException(
                 "The `database` key for the `{name}` SQLite connection needs to be a non-empty string."
             );
         }
         chmodFile = false;
-        if (configuration.get("database"] != ": memory:" && configuration.get("mode"] != "memory") {
+        if (configuration.getString("database") != ": memory:" && configuration.getString("mode") != "memory") {
             chmodFile = !fileExists(configuration.get("database"]);
         }
         
@@ -98,13 +98,13 @@ class DSqliteDriver : DDriver {
             ? "sqlite:file:" ~ configuration.get("database") ~ "?" ~ params.join("&")
             : "sqlite:" ~ configuration.get("database"];
         }
-        this.pdo = this.createPdo(dsn, configData);
+        _pdo = createPdo(dsn, configData);
         if (chmodFile) {
             @chmod(configuration.get("database"), configuration.get("mask"]);
         }
         if (!(configuration.isEmpty("init")) {
             foreach (command; (array)configuration.get("init"] ) {
-                this.pdo.exec(command);
+                _pdo.exec(command);
             }
         }
     }
@@ -218,5 +218,4 @@ class DSqliteDriver : DDriver {
                 break;
         }
     } 
-
 }

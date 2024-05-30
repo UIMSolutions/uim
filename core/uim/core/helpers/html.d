@@ -7,3 +7,5 @@ import um.core;
 string doubleTag(string name) {
 return "<"~name~">";
 }
+unittest {
+}

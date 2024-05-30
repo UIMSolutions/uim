@@ -55,15 +55,15 @@ class DPostgresDriver : DDriver {
             : `pgsql:dbname={configuration.get("database"]}`;
     }
 
-    this.pdo = this.createPdo(dsn, configData);
-    if (!(configuration.get("encoding"].isEmpty) {
+    _pdo = this.createPdo(dsn, configData);
+    if (!(configuration.isEmpty("encoding")) {
         setEncoding(configuration.get("encoding"]);
     }
 
-    if (!configuration.get("schema"].isEmpty) {
+    if (!configuration.isEmpty("schema")) {
         setSchema(configuration.get("schema"]);
     }
-    if (!configuration.get("timezone"].isEmpty) {
+    if (!configuration.isEmpty("timezone")) {
         configuration.get("init"] ~= "SET timezone = %s".format(getPdo()
                 .quote(configuration.get("timezone"]));
     }
@@ -213,5 +213,5 @@ protected void _transformFunctionExpression(FunctionExpression expressionToConve
                     QueryCompiler newCompiler() {
                         return new DPostgresCompiler();
                     }
-                } */
+                } 
 }

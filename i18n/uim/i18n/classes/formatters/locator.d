@@ -32,8 +32,8 @@ class DFormatterLocator {
      * @param class-string<\UIM\I18n\II18NFormatter>  className A FQCN for a formatter.
      */
     void set(string formatterName, string className) {
-        this.registry[formatterName] = className;
-        this.converted[formatterName] = false;
+        _registry[formatterName] = className;
+        _converted[formatterName] = false;
     }
     
     // Gets a formatter from the registry by name.

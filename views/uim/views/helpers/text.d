@@ -196,7 +196,7 @@ class DTextHelper : DHelper {
      * string mytext Text
      */
     string autoParagraph(string mytext) {
-        mytext ??= "";
+        mytext = myText.ifEmpty("");
         if (mytext.strip != "") {
             mytext = to!string(preg_replace("|<br[^>]*>\s*<br[^>]*>|i", "\n\n", mytext ~ "\n"));
             mytext = (string)preg_replace("/\n\n+/", "\n\n", mytext.replace(["\r\n", "\r"], "\n"));
@@ -210,8 +210,7 @@ class DTextHelper : DHelper {
         return mytext;
     }
     
-    /**
-     * Event listeners.
+    // Event listeners.
      */
     IEvent[] implementedEvents() {
         return null;

@@ -114,8 +114,6 @@ class DSqliteDriver : DDriver {
         return in_array("sqlite", PDO.getAvailableDrivers(), true);
     }
     
-
-
     bool supports(DriverFeatures feature) {
         return match (feature) {
             DriverFeatures.DISABLE_CONSTRAINT_WITHOUT_TRANSACTION,
@@ -133,14 +131,14 @@ class DSqliteDriver : DDriver {
         };
     }
  
-    SchemaDialect schemaDialect() {
+    DSchemaDialect schemaDialect() {
         if (isSet(_schemaDialect)) {
             return _schemaDialect;
         }
         return _schemaDialect = new DSqliteSchemaDialect(this);
     }
  
-    QueryCompiler newCompiler() {
+    DQueryCompiler newCompiler() {
         return new DSqliteCompiler();
     }
  
@@ -157,7 +155,7 @@ class DSqliteDriver : DDriver {
      * Params:
      * \UIM\Database\Expression\FunctionExpression expression The auto expression to convert to TSQL.
      */
-    protected void _transformFunctionExpression(FunctionExpression expression) {
+    protected void _transformFunctionExpression(DFunctionExpression expression) {
         switch (expression.name) {
             case "CONCAT": 
                 // CONCAT bool is expressed as exp1 || exp2
@@ -219,6 +217,6 @@ class DSqliteDriver : DDriver {
                     .add([") + (1": "literal"]); // Sqlite starts on index 0 but Sunday should be 1
                 break;
         }
-    } */
+    } 
 
 }

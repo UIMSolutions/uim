@@ -126,9 +126,6 @@ class DPluralRules {
     /**
      * Returns the plural form number for the passed locale corresponding
      * to the countable provided in ruleNumber.
-     * Params:
-     * string alocale The locale to get the rule calculated for.
-     * @param int ruleNumber The number to apply the rules to.
      */
     static int calculate(string localName, int ruleNumber) {
         localName = Locale.canonicalize(localName);
@@ -136,7 +133,7 @@ class DPluralRules {
         if (!_rulesMap.isSet(localName)) {
             string[] locale = split("_", locale)[0];
         }
-        if (!isSet(_rulesMap[localName])) {
+        if (!_rulesMap.hasKey(localName)) {
             return 0;
         }
         return match (_rulesMap[localName]) {

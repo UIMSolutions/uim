@@ -28,20 +28,28 @@ class DCommandCollection { // : IteratorAggregate, Countable {
     protected ICommand[string] _commands;
 
     this(ICommand[string] newCommands) {
-        newCommands.byKeyValue
-          .each!(nameCommand => add(nameCommand.key, nameCommand.value));
+        this().addCommands(newCommands);
     }
-    // Add a command to the collection
-    void addCommand(string commandName, ICommand newCommand) {
-        _commands[commandName] = newCommand;
-    }
+    
+// #region add
     // Add multiple commands at once.
     void addCommands(ICommand[string] newCommands) {
         newCommands.byKeyValue
             .each!(kv => addCommand(kv.key, kv.value));
     }
 
+// Add a command to the collection
+    void addCommand(string commandName, ICommand newCommand) {
+        _commands[commandName] = newCommand;
+    }
+// #endregion add
+
+
     // Remove a command from the collection if it exists.
+void remove(string[] commandNames) {
+        commandNames.each!(name => remove(name));
+    }
+
     void remove(string commandName) {
         _commands.remove(commandName);
     }
@@ -105,7 +113,7 @@ class DCommandCollection { // : IteratorAggregate, Countable {
             // If the short name has been used, use the full name.
             // This allows app shells to have name preference.
             // and app shells to overwrite core shells.
-            if (this.has(infoName) && addLong) {
+            if (has(infoName) && addLong) {
                 infoName = anInfo["fullName"];
             }
 
@@ -145,7 +153,7 @@ class DCommandCollection { // : IteratorAggregate, Countable {
     */
     
     // Get the list of available command names.
-    string[] commandNames() {
+    string[] names() {
         return _commands.keys;
     }
 }

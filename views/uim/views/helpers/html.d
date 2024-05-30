@@ -134,7 +134,7 @@ class DHtmlHelper : DHelper {
 
             } elseif (isSet(htmlAttributes["type"], mytypes[htmlAttributes["type"]])) {
                 mytype = mytypes[htmlAttributes["type"]];
-                unset(htmlAttributes["type"]);
+                htmlAttributes.remove("type");
             } else {
                 mytype = null;
             }
@@ -142,7 +142,7 @@ class DHtmlHelper : DHelper {
         htmlAttributes += mytype ~ ["block": Json(null)];
         string result = "";
 
-        if (isSet(htmlAttributes["link"])) {
+        if (htmlAttributes.hasKey("link")) {
             htmlAttributes["link"] = isArray(htmlAttributes["link"]) 
                 ? this.Url.build(htmlAttributes["link"])
                 this.Url.assetUrl(htmlAttributes["link"]);
@@ -214,7 +214,7 @@ class DHtmlHelper : DHelper {
       */
     string link(string[] mytitle, string[] myurl = null, Json[string] htmlAttributes = null) {
         myescapeTitle = true;
-        if (myurl !isNull) {
+        if (!myurl.isNull) {
             myurl = this.Url.build(myurl, htmlAttributes);
             htmlAttributes.remove("fullBase");
         } else {

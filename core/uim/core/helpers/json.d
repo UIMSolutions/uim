@@ -1,6 +1,6 @@
 module um.core.helpers.json;
 
-import um.core;
+import uim.core;
 
 @safe:
 

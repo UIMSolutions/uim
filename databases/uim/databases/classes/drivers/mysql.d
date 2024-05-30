@@ -99,7 +99,7 @@ class DMysqlDriver : DDriver {
         this.pdo = this.createPdo(dsn, configData);
 
         if (!configuration.isEmpty("init")) {
-            (array)configuration.get("init"]
+            (array)configuration.get("init")
               .each!(command => _pdo.exec(command));
         }
     }
@@ -158,7 +158,7 @@ class DMysqlDriver : DDriver {
            _version = (string)getPdo().getAttribute(PDO.ATTR_SERVER_VERSION);
 
             if (_version.has("MariaDB")) {
-                this.serverType = SERVER_TYPE_MARIADB;
+                _serverType = SERVER_TYPE_MARIADB;
                 preg_match("/^(?:5\.5\.5-)?(\d+\.\d+\.\d+.*-MariaDB[^:]*)/", _version,  matches);
                _version = matches[1];
             }

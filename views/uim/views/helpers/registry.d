@@ -33,16 +33,16 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      * Params:
      * string myhelper The helper name to be loaded
      */
-    bool __isSet(string myhelper) {
-        if (isSet(_loaded[myhelper])) {
+    bool __isSet(string helperName) {
+        if (_loaded.hasKey(helperName)) {
             return true;
         }
         try {
-            this.load(myhelper);
+            load(helperName);
         } catch (MissingHelperException myexception) {
             myplugin = _View.pluginName;
             if (!myplugin)) {
-                this.load(myhelper, ["className": myplugin ~ "." ~ myhelper]);
+                load(helperName, ["className": myplugin ~ "." ~ helperName]);
 
                 return true;
             }

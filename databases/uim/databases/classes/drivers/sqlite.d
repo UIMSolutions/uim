@@ -46,8 +46,6 @@ class DSqliteDriver : DDriver {
 
     protected const STATEMENT_CLASS = SqliteStatement.classname;
 
-
-
     // Whether the connected server supports window functions
     protected bool _supportsWindowFunctions = null;
 
@@ -90,21 +88,21 @@ class DSqliteDriver : DDriver {
         }
         
         string[] params = null;
-        if (configuration.get("cache"]) {
-            params ~= "cache=" ~ configuration.get("cache"];
+        if (configuration.hasKey("cache"]) {
+            params ~= "cache=" ~ configuration.getString("cache");
         }
-        if (configuration.get("mode"]) {
-            params ~= "mode=" ~ configuration.get("mode"];
+        if (configuration.hasKey("mode")) {
+            params ~= "mode=" ~ configuration.getString("mode");
         }
         auto dsn = params 
-            ? "sqlite:file:" ~ configuration.get("database"] ~ "?" ~ params.join("&")
+            ? "sqlite:file:" ~ configuration.get("database") ~ "?" ~ params.join("&")
             : "sqlite:" ~ configuration.get("database"];
         }
         this.pdo = this.createPdo(dsn, configData);
         if (chmodFile) {
-            @chmod(configuration.get("database"], configuration.get("mask"]);
+            @chmod(configuration.get("database"), configuration.get("mask"]);
         }
-        if (!(configuration.get("init"].isEmpty) {
+        if (!(configuration.isEmpty("init")) {
             foreach (command; (array)configuration.get("init"] ) {
                 this.pdo.exec(command);
             }

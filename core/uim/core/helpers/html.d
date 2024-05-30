@@ -1,6 +1,6 @@
 module him.core.helpers.html;
 
-import um.core;
+import uim.core;
 
 @safe:
 

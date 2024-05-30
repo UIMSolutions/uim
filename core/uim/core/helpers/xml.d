@@ -1,5 +1,5 @@
 module uim.core.helpers.xml;
 
-import um.core;
+import uim.core;
 
 @safe:

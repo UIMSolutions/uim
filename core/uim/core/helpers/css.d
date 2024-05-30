@@ -1,6 +1,6 @@
 module uim.core.helpers.css;
 
-import um.core;
+import uim.core;
 
 @safe:
 

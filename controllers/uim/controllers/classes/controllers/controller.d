@@ -89,12 +89,12 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * This object contains all the information about a request and several methods for reading
      * additional information about the request.
      */
-    protected IServerRequest serverRequest;
+    protected IServerRequest _serverRequest;
 
     /**
      * An instance of a Response object that contains information about the impending response
      */
-    protected DResponse response;
+    protected DResponse _response;
 
     /**
      * Pagination settings.
@@ -113,7 +113,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
     protected Json[string] paginate;
 
     // Set to true to automatically render the view after action logic.
-    protected bool autoRender = true;
+    protected bool _autoRender = true;
 
     /**
      * Instance of ComponentRegistry used to create Components
@@ -124,7 +124,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
 
 
 // Gets the request instance.
-    @property ServerRequest request() {
+    @property DServerRequest request() {
         return _request;
     }
 
@@ -147,7 +147,6 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * @psalm-var array<int, array{middleware:\Psr\Http\Server\IMiddleware|\Closure|string, options:array{only?: string[], except?: string[]}}>
      */
     protected Json[string] middlewares = null;
-
 
     /**
      .
@@ -266,7 +265,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
     
 
     // Get the closure for action to be invoked by ControllerFactory.
-    Closure getAction() {
+    IClosure getAction() {
          request = this.request;
         action = request.getParam("action");
 
@@ -323,14 +322,14 @@ class DController : IController { // IEventListener, IEventDispatcher {
 
         foreach (this.middlewares as  middleware) {
             options = middleware["options"];
-            if (!options["only"].isEmpty) {
+            if (!options.isEmpty("only")) {
                 if (in_array(requestAction, (array)options["only"], true)) {
                      matching ~= middleware["middleware"];
                 }
                 continue;
             }
             if (
-                !options.isEmpty("except"]) &&
+                !options.isEmpty("except") &&
                 in_array(requestAction, (array)options["except"], true)
             ) {
                 continue;
@@ -413,7 +412,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         }
 
         response = _response;
-        if (!response.getHeaderLine("Location")) {
+        if (!response.headerLine("Location")) {
             response = response.withLocation(Router.url(url, true));
         }
         return _response = response;
@@ -433,10 +432,10 @@ class DController : IController { // IEventListener, IEventDispatcher {
         _autoRender = false;
 
         if (templateName) {
-             builder.setTemplate(templateName);
+             builder.templateName(templateName);
         }
         if (layoutName) {
-             builder.setLayout(layoutName);
+             builder.layout(layoutName);
         }
         event = dispatchEvent("Controller.beforeRender");
         if (cast(Response)event.getResult()) {
@@ -445,7 +444,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         if (event.isStopped()) {
             return _response;
         }
-        if (builder.getTemplate().isNull) {
+        if (builder.templateName().isNull) {
              builder.setTemplate(_request.getParam("action"));
         }
          viewClass = this.chooseViewClass();
@@ -543,19 +542,19 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Careful with trusting external sources.
      * returns Referring URL
      */
-    string referer(string[] defaultValue = "/", bool isLocal = true) {
+    string referer(string[] defaultUrl = "/", bool isLocal = true) {
          referer = _request.referer(isLocal);
         if (!referer.isNull) {
             return referer;
         }
-        url = Router.url(default, !isLocal);
+        url = Router.url(defaultUrl, !isLocal);
          base = _request.getAttribute("base");
         if (isLocal &&  base && url.startsWith(base)) {
             url = substr(url,  base.length);
-            if (url[0] != "/") {
-                url = "/" ~ url;
-            }
-            return url;
+
+return url[0] != "/"
+     ?"/" ~ url
+: url;
         }
         return url;
     }

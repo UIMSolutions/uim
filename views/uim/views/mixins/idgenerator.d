@@ -59,8 +59,8 @@ mixin template TIdGenerator() {
      * Params:
      * string myvalue The value to convert into an ID.
      */
-    protected string _domId(string myvalue) {
-        string mydomId = Text.slug(myvalue, "-").lower;
+    protected string _domId(string valueToConvert) {
+        string mydomId = Text.slug(valueToConvert, "-").lower;
         if (_idPrefix) {
             mydomId = _idPrefix ~ "-" ~ mydomId;
         }

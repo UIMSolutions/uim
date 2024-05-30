@@ -125,9 +125,9 @@ class DHtmlHelper : DHelper {
             if (mytype == "icon" && mycontent.isNull) {
                 mytypes["icon"]["link"] = "favicon.ico";
             }
-            if (isSet(mytypes[mytype])) {
+            if (mytypes.hasKey(mytype)) {
                 mytype = mytypes[mytype];
-            } elseif (!htmlAttributes.isSet("type") && mycontent !isNull) {
+            } elseif (!htmlAttributes.hasKey("type") && mycontent !isNull) {
                 mytype = isArray(mycontent) && isSet(mycontent["_ext"])
                     ? mytypes[mycontent["_ext"]]
                     : ["name": mytype, "content": mycontent];
@@ -147,23 +147,23 @@ class DHtmlHelper : DHelper {
                 ? this.Url.build(htmlAttributes["link"])
                 this.Url.assetUrl(htmlAttributes["link"]);
 
-            if (isSet(htmlAttributes["rel"]) && htmlAttributes["rel"] == "icon") {
-                result = this.formatTemplate("metalink", [
+            if (htmlAttributes.getString("rel") == "icon") {
+                result = formatTemplate("metalink", [
                     "url": htmlAttributes["link"],
-                    "attrs": this.templater().formatAttributes(htmlAttributes, ["block", "link"]),
+                    "attrs": templater().formatAttributes(htmlAttributes, ["block", "link"]),
                 ]);
                 htmlAttributes["rel"] = "shortcut icon";
             }
-            result ~= this.formatTemplate("metalink", [
+            result ~= formatTemplate("metalink", [
                 "url": htmlAttributes["link"],
-                "attrs": this.templater().formatAttributes(htmlAttributes, ["block", "link"]),
+                "attrs": templater().formatAttributes(htmlAttributes, ["block", "link"]),
             ]);
         } else {
-            result = this.formatTemplate("meta", [
+            result = formatTemplate("meta", [
                 "attrs": this.templater().formatAttributes(htmlAttributes, ["block", "type"]),
             ]);
         }
-        if (htmlAttributes..isEmpty("block")) {
+        if (htmlAttributes.isEmpty("block")) {
             return result;
         }
         if (htmlAttributes["block"] == true) {

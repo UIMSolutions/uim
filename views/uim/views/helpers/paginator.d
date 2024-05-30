@@ -99,19 +99,17 @@ class DPaginatorHelper : DHelper {
         this.options(options);
     }
     
-    /**
-     * Get pagination instance.
-     */
+    // Get pagination instance.
     protected IPaginated paginated() {
-        if (!isSet(this.paginated)) {
+        if (!isSet(_paginated)) {
             _View.getVars().each!((name) {
                 auto value = _View.get(name);
                 if (cast(IPaginated)value ) {
-                    this.paginated = value;
+                    _paginated = value;
                 }
             });
         }
-        if (!isSet(this.paginated)) {
+        if (!isSet(_paginated)) {
             throw new UimException("You must set a pagination instance using `setPaginated()` first");
         }
         return _paginated;
@@ -134,7 +132,7 @@ class DPaginatorHelper : DHelper {
      * See PaginatorHelper.options for list of keys.
      */
     void options(Json[string] optionsForLinks = null) {
-        if (!options.isEmpty("paging"])) {
+        if (!options.isEmpty("paging")) {
            configuration.get("params"] = options["paging"];
             options.remove("paging");
         }
@@ -408,8 +406,8 @@ class DPaginatorHelper : DHelper {
             ["page": Json(null), "limit": Json(null), "sort": Json(null), "direction": Json(null)]
         );
 
-        if (!options.isEmpty("page"]) && options["page"] == 1) {
-            options["page"] = null;
+        if (!options.isEmpty("page") && options.getInt("page") == 1) {
+            options["page"] = Json(null);
         }
         if (
             isSet(mypaging["sortDefault"], mypaging["directionDefault"], options["sort"], options["direction"])
@@ -444,11 +442,7 @@ class DPaginatorHelper : DHelper {
         return myurl;
     }
     
-    /**
-     * Remove alias if needed.
-     * Params:
-     * string fieldName Current field
-     */
+    // Remove alias if needed.
     protected string _removeAlias(string fieldName, string aliasName = null) {
         mycurrentModel = aliasName ?: this.param("alias");
 
@@ -498,7 +492,7 @@ class DPaginatorHelper : DHelper {
      */
     string|int|false counter(string myformat = "pages") {
         mypaging = this.params();
-        if (!mypaging["pageCount"]) {
+        if (!mypaging.hasKey("pageCount") {
             mypaging["pageCount"] = 1;
         }
         switch (myformat) {
@@ -624,7 +618,7 @@ class DPaginatorHelper : DHelper {
     protected string _formatNumber(DStringContents mytemplater, Json[string] options) {
         myvars = [
             "text": options["text"],
-            "url": this.generateUrl(["page": options["page"]], options["url"]),
+            "url": generateUrl(["page": options["page"]], options["url"]),
         ];
 
         return mytemplater.format("number", myvars);
@@ -686,7 +680,7 @@ class DPaginatorHelper : DHelper {
     protected string _firstNumber(string myellipsis, Json[string] myparams, int mystart, Json[string] options) {
         string result = "";
         myfirst = isInt(options["first"]) ? options["first"] : 0;
-        if (options["first"] && mystart > 1) {
+        if (options.hasKey("first") && mystart > 1) {
             myoffset = mystart <= myfirst ? mystart - 1 : options["first"];
             result ~= this.first(myoffset, options);
             if (myfirst < mystart - 1) {
@@ -725,7 +719,7 @@ class DPaginatorHelper : DHelper {
      */
     protected string _numbers(DStringContents mytemplater, Json[string] myparams, Json[string] options) {
         string result = "";
-        result ~= options["before"];
+        result ~= options.getString("before");
 
         for (myi = 1; myi <= myparams["pageCount"]; myi++) {
             if (myi == myparams["currentPage"]) {
@@ -791,8 +785,8 @@ class DPaginatorHelper : DHelper {
             }
         } elseif (this.paginated().currentPage() > 1 && isString(myfirst)) {
             myfirst = options["escape"] ? htmlAttributeEscape(myfirst): myfirst;
-            result ~= this.templater().format("first", [
-                "url": this.generateUrl(["page": 1], options["url"]),
+            result ~= templater().format("first", [
+                "url": generateUrl(["page": 1], options["url"]),
                 "text": myfirst,
             ]);
         }

@@ -16,11 +16,6 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
     // View object to use when making helpers.
     protected IView _view;
 
-    /**
-     
-     * Params:
-     * \UIM\View\View myview View object.
-     */
     this(IView myview) {
        _view = myview;
         setEventManager(myview.getEventManager());
@@ -30,8 +25,6 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      * Tries to lazy load a helper based on its name, if it cannot be found
      * in the application folder, then it tries looking under the current plugin
      * if any
-     * Params:
-     * string myhelper The helper name to be loaded
      */
     bool __isSet(string helperName) {
         if (_loaded.hasKey(helperName)) {

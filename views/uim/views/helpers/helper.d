@@ -78,8 +78,8 @@ class DHelper { // TODO }: IEventListener {
         if (isSet(this.helperInstances[propertyName])) {
             return _helperInstances[propertyName];
         }
-        if (isSet(this.helpers[propertyName])) {
-            helperSettings = ["enabled": false.toJson] + this.helpers[propertyName];
+        if (helpers.hasKey(propertyName)) {
+            helperSettings = ["enabled": false.toJson] + helpers[propertyName];
 
             return _helperInstances[propertyName] = _View.loadHelper(propertyName, helperSettings);
         }
@@ -104,10 +104,10 @@ class DHelper { // TODO }: IEventListener {
      * @param string aKey the key to use for class. Defaults to `"class"`.
      */
     Json[string] addClass(Json[string] options, string classname, string aKey = "class") {
-        if (isSet(options[aKey]) && isArray(options[aKey])) {
+        if (options.hasKey(aKey) && options.isArray(aKey)) {
             options[aKey] ~= classname;
         }
-        elseif(isSet(options[aKey]) && strip(options[aKey])) {
+        elseif(options.hasKey(aKey) && strip(options[aKey])) {
             options[aKey] ~= " " ~ classname;
         } else {
             options[aKey] = classname;
@@ -157,11 +157,11 @@ class DHelper { // TODO }: IEventListener {
     // Returns an array that can be used to describe the internal state of this object.
     Json __debugInfo() {
         return [
-            "helpers": this.helpers,
-            "implementedEvents": this.implementedEvents(),
-            "configuration": this.configuration.data,
+            "helpers": helpers,
+            "implementedEvents": implementedEvents(),
+            "configuration": configuration.data,
         ];
     }
 
-     */
+     
 }

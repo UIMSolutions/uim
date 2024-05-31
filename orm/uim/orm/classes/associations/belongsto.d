@@ -29,8 +29,8 @@ class DBelongsToAssociation : DAssociation {
 
     // Gets the name of the field representing the foreign key to the target table.
     string[] foreignKeys() {
-      if (_foreignKeyss == null) {
-        //TODO _foreignKeyss = _modelKey(getTarget().aliasName());
+      if (_foreignKeys == null) {
+        //TODO _foreignKeys = _modelKey(getTarget().aliasName());
       }
 
       return _foreignKeys;

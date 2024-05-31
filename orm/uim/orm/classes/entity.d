@@ -9,7 +9,6 @@ import uim.orm;
  * methods for retrieving and storing properties associated in this row.
  */
 class DORMEntity { // }: IORMEntity, IInvalidProperty {
-    /* 
     mixin TEntity();
 
     /**
@@ -41,23 +40,23 @@ class DORMEntity { // }: IORMEntity, IInvalidProperty {
         ]);
 
         if (!options.isEmpty("source")) {
-            setSource(options["source"]);
+            setSource(options.get("source"));
         }
-        if (!options["markNew"].isNull) {
+        if (!options.isNull("markNew")) {
             setNew(options["markNew"]);
         }
         if (!myproperties.isEmpty) {
             //Remember the original field names here.
             setOriginalField(myproperties.keys);
 
-            if (options["markClean"] && !options["useSetters"]) {
+            if (options.hasKey("markClean") && !options.hasKey("useSetters")) {
                _fields = myproperties;
 
                 return;
             }
             set(myproperties, [
-                "setter": options["useSetters"],
-                "guard": options["guard"],
+                "setter": options.get("useSetters"),
+                "guard": options.get("guard"),
             ]);
         }
         if (options["markClean"]) {

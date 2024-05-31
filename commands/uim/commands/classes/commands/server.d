@@ -9,7 +9,9 @@ class DServerCommand : DCommand {
    mixin(CommandThis!("Server"));
 
   	override bool initialize(Json[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
+		if (!super.initialize(initData)) { 
+return false; 
+}
 		
 		return true;
 	}
@@ -39,15 +41,15 @@ class DServerCommand : DCommand {
      * \UIM\Console\Json[string] arguments The command arguments.
      */
     protected void startup(Json[string] arguments, IConsoleIo aConsoleIo) {
-        _host = commandArguments.getString("host", _host); 
+        _host = arguments.getString("host", _host); 
 
-        _port = commandArguments.getInteger("port", _port));
+        _port = arguments.getInteger("port", _port));
 
-        if (commandArguments.getOption("document_root")) {
-           _documentRoot = to!string(commandArguments.getOption("document_root"));
+        if (arguments.hasKey("document_root")) {
+           _documentRoot = arguments.getString("document_root");
         }
         if (commandArguments.getOption("ini_path")) {
-           _iniPath = to!string(commandArguments.getOption("ini_path"));
+           _iniPath = arguments.getString("ini_path"));
         }
         // For Windows
         if (substr(_documentRoot, -1, 1) == DIRECTORY_SEPARATOR) {
@@ -70,7 +72,7 @@ class DServerCommand : DCommand {
          aConsoleIo.hr();
     }
 
-  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
+  overwrite int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         this.startup(commandArguments,  aConsoleIo);
         DBinary = to!string(enviroment("D", "d"));
         string commandText = "%s -S %s:%d -t %s"

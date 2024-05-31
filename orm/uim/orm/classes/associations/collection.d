@@ -16,7 +16,7 @@ import uim.orm;
  * ordering operations around saving and deleting.
  */
 class DAssociationCollection { // }: IteratorAggregate {
-    /* mixin TAssociationsNormalizer;
+    mixin TAssociationsNormalizer;
     mixin TLocatorAware;
 
     // Stored associations
@@ -52,11 +52,11 @@ class DAssociationCollection { // }: IteratorAggregate {
     /**
      * Creates and adds the Association object to this collection.
      *
-     * @param string anClassName The name of association class.
+     * @param string anClassName The name of associationClassname
      * @param string associated The alias for the target table.
      * @param Json[string] options List of options to configure the association definition.
      */
-    DORMAssociation load(string anClassName, string associated, Json[string] optionData = null) {
+    DORMAssociation load(string associationClassname, string associated, Json[string] optionData = null) {
         someOptions["tableLocator"] = getTableLocator();
         association = new className(associated, someOptions);
 
@@ -277,7 +277,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      */
     Json[string] normalizeKeys(keys) {
         if (keys == true) {
-            keys = this.keys();
+            keys = keys();
         }
 
         if (keys.isEmpty) {

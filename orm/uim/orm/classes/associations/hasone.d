@@ -47,7 +47,7 @@ class DHasOneAssociation : DAssociation {
      *
      * @param DORMTable side The potential Table with ownership
      */
-    bool isOwningSide(Table side) {
+    bool isOwningSide(DORMTable side) {
         return side == source();
     }
 
@@ -66,8 +66,8 @@ class DHasOneAssociation : DAssociation {
      * @param Json[string] options options to be passed to the save method in the target table
      */
     IORMEntity saveAssociated(IORMEntity anEntity, Json[string] optionData = null) {
-        targetEntity = entity.get(getProperty());
-        if (targetEntity.isEmpty || !(targetEntity instanceof IORMEntity)) {
+        auto targetEntity = entity.get(getProperty());
+        if (targetEntity.isEmpty || !cast(DORMTable)targetEntity) {
             return entity;
         }
 
@@ -87,9 +87,8 @@ class DHasOneAssociation : DAssociation {
     }
 
 
-    function eagerLoader(Json[string] optionData): Closure
-    {
-        loader = new DSelectLoader([
+    Closure eagerLoader(Json[string] optionData) {
+        auto loader = new DSelectLoader([
             "alias": this.aliasName(),
             "sourceAlias": source().aliasName(),
             "targetAlias": getTarget().aliasName(),
@@ -107,7 +106,7 @@ class DHasOneAssociation : DAssociation {
     bool cascaderemove(IORMEntity anEntity, Json[string] optionData = null) {
         helper = new DependentDeleteHelper();
 
-        return helper.cascaderemove(this, entity, options);
+        return helper.cascadeRemove(this, entity, options);
     }
 }
 mixin(AssociationCalls!("HasOne"));

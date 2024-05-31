@@ -6,7 +6,6 @@ import uim.events;
 
 // Common base class for event decorator subclasses.
 abstract class DDecorator : IDecorator {
-    /* 
     // Callable
     protected callable _callable;
 
@@ -27,5 +26,5 @@ abstract class DDecorator : IDecorator {
         aCallable = _callable;
 
         return aCallable(...someArguments);
-    } */
+    } 
 }

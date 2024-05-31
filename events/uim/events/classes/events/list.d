@@ -33,26 +33,21 @@ class DEventList { // }: ArrayAccess, Countable {
      * @param Json anOffset An offset to check for.
      */
     bool offsetExists(Json anOffset) {
-        return isSet(_events[anOffset]);
+        return _events.hasValue(anOffset);
     }
 
     /**
      * Offset to retrieve
-     *
-     * @link https://secure.D.net/manual/en/arrayaccess.offsetget.D
      * @param Json anOffset The offset to retrieve.
      */
     IEvent offsetGet(Json anOffset) {
-        if (!this.offsetExists(anOffset)) {
-            return null;
-        }
-        return _events[anOffset];
+        return offsetExists(anOffset)
+? _events[anOffset]
+: null;
     }
     
     /**
      * Offset to set
-     *
-     * @link https://secure.D.net/manual/en/arrayaccess.offsetset.D
      * @param Json anOffset The offset to assign the value to.
      * @param Json aValue The value to set.
      */
@@ -62,8 +57,6 @@ class DEventList { // }: ArrayAccess, Countable {
 
     /**
      * Offset to unset
-     *
-     * @link https://secure.D.net/manual/en/arrayaccess.offsetunset.D
      * @param Json anOffset The offset to unset.
      */
     void offsetUnset(Json anOffset) {
@@ -72,12 +65,11 @@ class DEventList { // }: ArrayAccess, Countable {
 
     // Count elements of an object
     size_t count() {
-        return count(_events);
+        return _events.length;
     }
     
     // Checks if an event is in the list.
     bool hasEvent(string eventName) {
         return _events.any!(event => event.name == eventName)
     }
-    */
 }

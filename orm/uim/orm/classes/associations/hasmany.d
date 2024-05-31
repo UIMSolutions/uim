@@ -44,26 +44,23 @@ class DHasManyAssociation : DAssociation {
         self.STRATEGY_SUBQUERY,
     ];
 
+// #region saveStrategy
     // Saving strategy to be used by this association
-    protected string _saveStrategy = self.SAVE_APPEND;
- /**
-     * Sets the strategy that should be used for saving.
-     *
-     * @param string strategy the strategy name to be used
-     */
-    void setSaveStrategy(string strategy) {
-        if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
-            msg = "Invalid save strategy '%s'".format(strategy);
-            throw new DInvalidArgumentException(msg);
-        }
+    protected string _saveStrategy = SAVE_APPEND;
 
-        _saveStrategy = strategy;
+ // Sets the strategy that should be used for saving.
+    void setSaveStrategy(string strategyName) {
+        if (!in_array(strategyName, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
+            throw new DInvalidArgumentException("Invalid save strategy '%s'".format(strategyName));
+        }
+        _saveStrategy = strategyName;
     }
 
     // Gets the strategy that should be used for saving.
     string getSaveStrategy() {
         return _saveStrategy;
     }
+// #endregion saveStrategy
 
     /**
      * Returns whether the passed table is the owning side for this

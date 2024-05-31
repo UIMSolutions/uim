@@ -14,12 +14,7 @@ class DMarshaller {
     // The table instance this marshaller is for.
     protected ITable _table;
 
-    /**
-     .
-     * Params:
-     * \ORM\Table mytable The table this marshaller is for.
-     */
-    this(DTable mytable) {
+    this(DORMTable mytable) {
        _table = mytable;
     }
     
@@ -156,12 +151,11 @@ class DMarshaller {
                 // Skip marshalling "" for pk fields.
                 continue;
             }
-            if (isSet(mypropertyMap[aKey])) {
-                myproperties[aKey] = mypropertyMap[aKey](myvalue, myentity);
-            } else {
-                myproperties[aKey] = myvalue;
-            }
-        }
+
+myproperties[aKey] = mypropertyMap.hasKey(aKey)
+? mypropertyMap[aKey](myvalue, myentity)
+: myvalue;
+       
         if (isSet(options["fields"])) {
             foreach ((array)options["fields"] as fieldName) {
                 if (array_key_exists(fieldName, myproperties)) {
@@ -227,14 +221,14 @@ class DMarshaller {
      * @param Json aValue The data to hydrate. If not an array, this method will return null.
      * @param Json[string] options List of options.
      */
-    protected IORMEntity[] _marshalAssociation(Association myassoc, Json aValue, Json[string] options) {
+    protected IORMEntity[] _marshalAssociation(DORMAssociation myassoc, Json aValue, Json[string] options) {
         if (!isArray(myvalue)) {
             return null;
         }
-        mytargetTable = myassoc.getTarget();
-        mymarshaller = mytargetTable.marshaller();
-        mytypes = [Association.ONE_TO_ONE, Association.MANY_TO_ONE];
-        mytype = myassoc.type();
+        auto mytargetTable = myassoc.getTarget();
+        auto mymarshaller = mytargetTable.marshaller();
+        auto mytypes = [Association.ONE_TO_ONE, Association.MANY_TO_ONE];
+        auto mytype = myassoc.type();
         if (in_array(mytype, mytypes, true)) {
             return mymarshaller.one(myvalue, options);
         }
@@ -276,7 +270,7 @@ class DMarshaller {
      * @param Json[string] options List of options
      */
     IORMEntity[] many(Json[string] data, Json[string] optionData = null) {
-        myoutput = null;
+        auto myoutput = null;
         foreach (mydata as myrecord) {
             if (!isArray(myrecord)) {
                 continue;
@@ -322,7 +316,7 @@ class DMarshaller {
                     myconditions = chain(myconditions, myrowConditions);
                 }
             } else {
-                myrecords[index] = this.one(myrow, options);
+                myrecords[index] = one(myrow, options);
             }
         }
         if (!myconditions.isEmpty) {
@@ -680,10 +674,10 @@ class DMarshaller {
         if (myhasIds || myonlyIds) {
             return null;
         }
-        if (!empty(myassociated) && !in_array("_joinData", myassociated, true) && !isSet(myassociated["_joinData"])) {
-            return _mergeMany(myoriginal, myvalue, options);
-        }
-        return _mergeJoinData(myoriginal, associationToMarshall, myvalue, options);
+
+        return !empty(myassociated) && !in_array("_joinData", myassociated, true) && !isSet(myassociated["_joinData"])
+? _mergeMany(myoriginal, myvalue, options)
+        : _mergeJoinData(myoriginal, associationToMarshall, myvalue, options);
     }
     
     /**
@@ -695,8 +689,8 @@ class DMarshaller {
      * @param Json[string] options List of options.
      */
     protected IORMEntity[] _mergeJoinData(Json[string] myoriginal, BelongsToMany myassoc, Json[string] myvalue, Json[string] options) {
-        myassociated = options["associated"] ?? [];
-        myextra = null;
+        auto myassociated = options["associated"] ?? [];
+        auto myextra = null;
         foreach (myoriginal as myentity) {
             // Mark joinData as accessible so we can marshal it properly.
             myentity.setAccess("_joinData", true);
@@ -726,7 +720,7 @@ class DMarshaller {
             }
             // Scalar data can"t be handled
             if (!isArray(myvalue)) {
-                myrecord.unset("_joinData");
+                myrecord.remove("_joinData");
                 continue;
             }
             // Marshal data into the old object, or make a new joinData object.
@@ -748,8 +742,8 @@ class DMarshaller {
      * @param Json[string] options List of options that are readOnly.
      */
     protected void dispatchAfterMarshal(IORMEntity myentity, Json[string] data, Json[string] optionData = null) {
-        mydata = new ArrayObject(mydata);
-        options = new ArrayObject(options);
+        auto mydata = new ArrayObject(mydata);
+        auto options = new ArrayObject(options);
        _table.dispatchEvent("Model.afterMarshal", compact("entity", "data", "options"));
     }
 }

@@ -51,10 +51,8 @@ class DEagerLoader {
     /**
      * List of options accepted by associations in contain()
      * index by key for faster access
-     *
-     * @var array<string, int>
      */
-    protected _containOptions = [
+    protected int[string]_containOptions = [
         "associations": 1,
         "foreignKey": 1,
         "conditions": 1,
@@ -82,20 +80,14 @@ class DEagerLoader {
      */
     protected _aliasList = null;
 
-    /**
-     * Another EagerLoader instance that will be used for "matching" associations.
-     *
-     * @var DORMEagerLoader|null
-     */
-    protected _matching;
+    // Another EagerLoader instance that will be used for "matching" associations.
+    protected DORMEagerLoader _matching;
 
     /**
      * A map of table aliases pointing to the association objects they represent
-     * for the query.
-     *
-     * @var array<string, DORMEagerLoadable>
+     * for the query
      */
-    protected _joinsMap = null;
+    protected DORMEagerLoadable[string] _joinsMap = null;
 
 
 
@@ -171,9 +163,7 @@ class DEagerLoader {
         _loadExternal = null;
         _aliasList = null;
     }
-
  
-
     /**
      * Adds a new association to the list that will be used to filter the results of
      * any given query based on the results of finding records for that association.
@@ -198,9 +188,9 @@ class DEagerLoader {
         }
 
         auto updatedOptions = options.update["joinType": Query.JOIN_TYPE_INNER];
-        sharedOptions = ["negateMatch": false.toJson, "matching": true.toJson] + options;
+        auto sharedOptions = ["negateMatch": false.toJson, "matching": true.toJson] + options;
 
-        contains = null;
+        auto contains = null;
         nested = &contains;
         foreach (explode(".", associationPath) as association) {
             // Add contain to parent contain using association name as key
@@ -285,7 +275,7 @@ class DEagerLoader {
                 options = current(options);
             }
 
-            if (isset(_containOptions[table])) {
+            if (_containOptions.hasKey(table)) {
                 pointer[table] = options;
                 continue;
             }
@@ -300,7 +290,7 @@ class DEagerLoader {
             }
 
             if ((options.isArray) {
-                options = isset(options["config"]) ?
+                options = options.hasKey("config") ?
                     options["config"] + options["associations"] :
                     options;
                 options = _reformatContain(
@@ -374,10 +364,10 @@ class DEagerLoader {
      * the array keys are the association aliases and the values will contain an array
      * with uim\orm.EagerLoadable objects.
      *
-     * @param DORMTable repository The table containing the associations to be
+     * @param  repository The table containing the associations to be
      * attached
      */
-    DORMEagerLoadable[] attachableAssociations(Table repository) {
+    DORMEagerLoadable[] attachableAssociations(DORMTable repository) {
         contain = this.normalized(repository);
         matching = _matching ? _matching.normalized(repository) : [];
         _fixStrategies();
@@ -415,9 +405,9 @@ class DEagerLoader {
      * chain of associations to be loaded. The second value is the path to follow in
      * entities" properties to fetch a record of the corresponding association.
      */
-    protected DEagerLoadable _normalizeContain(Table parent, string anAliasName, Json[string] optionData, Json[string] paths) {
-        defaults = _containOptions;
-        instance = parent.getAssociation(alias);
+    protected DEagerLoadable _normalizeContain(DORMTable parent, string anAliasName, Json[string] optionData, Json[string] paths) {
+        auto defaults = _containOptions;
+        auto instance = parent.getAssociation(alias);
 
         paths += ["aliasPath": "", "propertyPath": "", "root": alias];
         paths["aliasPath"] ~= "." ~ alias;
@@ -697,7 +687,7 @@ class DEagerLoader {
      * @param DORMdatabases.StatementInterface statement The statement to work on
      */
     protected Json[string] _collectKeys(Json[string] external, Query query, statement) {
-        collectKeys = null;
+        auto collectKeys = null;
         foreach (external as meta) {
             instance = meta.instance();
             if (!instance.requiresKeys(meta.configuration.data)) {
@@ -735,7 +725,7 @@ class DEagerLoader {
      * @param array<string, array> collectKeys The keys to collect
      */
     protected Json[string] _groupKeys(BufferedStatement statement, Json[string] collectKeys) {
-        keys = null;
+        auto keys = null;
         foreach ((statement.fetchAll("assoc") ?: []) as result) {
             foreach (collectKeys as nestKey: parts) {
                 if (parts[2] == true) {
@@ -768,9 +758,7 @@ class DEagerLoader {
         return keys;
     }
 
-    /**
-     * Handles cloning eager loaders and eager loadables.
-     */
+    // Handles cloning eager loaders and eager loadables
     void clone() {
         if (_matching) {
             _matching = clone _matching;

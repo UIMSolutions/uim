@@ -18,24 +18,23 @@ class DI18nInitCommand : DCommand {
         return "i18n-init";
     }
 
-    /* 
-    int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
+    int execute(Json[string] arguments, IConsoleIo consoleIo) {
         auto myLanguage = commandArguments.getArgument("language");
         if (!myLanguage) {
-            myLanguage = aConsoleIo.ask("Please specify language code, e.g. `en`, `eng`, `en_US` etc.");
+            myLanguage = consoleIo.ask("Please specify language code, e.g. `en`, `eng`, `en_US` etc.");
         }
         if (myLanguage.length < 2) {
-             aConsoleIo.writeErrorMessages("Invalid language code. Valid is `en`, `eng`, `en_US` etc.");
+             consoleIo.writeErrorMessages("Invalid language code. Valid is `en`, `eng`, `en_US` etc.");
 
             return CODE_ERROR;
         }
         
         auto somePaths = App.path("locales");
-        if (commandArguments.hasOption("plugin")) {
-            plugin = Inflector.camelize(to!string(commandArguments.getOption("plugin")));
+        if (arguments.hasKey("plugin")) {
+            plugin = Inflector.camelize(arguments.getString("plugin")));
             somePaths = [Plugin.path(plugin) ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales" ~ DIRECTORY_SEPARATOR];
         }
-        response = aConsoleIo.ask("What folder?", stripRight(somePaths[0], DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);
+        response = consoleIo.ask("What folder?", stripRight(somePaths[0], DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);
         sourceFolder = stripRight(response, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
         targetFolder = sourceFolder ~ myLanguage ~ DIRECTORY_SEPARATOR;
         if (!isDir(targetFolder)) {
@@ -56,7 +55,7 @@ class DI18nInitCommand : DCommand {
                 aConsoleIo.createFile(targetFolder ~ newFilename, content);
                 countFiles++;
             });
-         aConsoleIo.writeln("Generated " ~ countFiles ~ " PO files in " ~ targetFolder);
+         consoleIo.writeln("Generated " ~ countFiles ~ " PO files in " ~ targetFolder);
 
         return CODE_SUCCESS;
     }
@@ -66,7 +65,7 @@ class DI18nInitCommand : DCommand {
      * Params:
      * \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The parser to update
      */
-    DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser  aParser) {
+    DConsoleOptionParser buildOptionParser(DConsoleOptionParser aParser) {
          aParser.description("Initialize a language PO file from the POT file")
            .addOption("plugin", [
                "help": "The plugin to create a PO file in.",

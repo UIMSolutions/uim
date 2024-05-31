@@ -28,12 +28,12 @@ class DBelongsToAssociation : DAssociation {
     }
 
     // Gets the name of the field representing the foreign key to the target table.
-    string[] foreignKeyss() {
+    string[] foreignKeys() {
       if (_foreignKeyss == null) {
         //TODO _foreignKeyss = _modelKey(getTarget().aliasName());
       }
 
-      return _foreignKeyss;
+      return _foreignKeys;
     }
     
     // Valid strategies for this type of association
@@ -50,7 +50,7 @@ class DBelongsToAssociation : DAssociation {
      * @param DORMDatasource\IORMEntity anEntity The entity that started the cascaded delete.
      * @param Json[string] options The options for the original delete.
      */
-    bool cascaderemove(IORMEntity anEntity, Json[string] optionData = null) {
+    bool cascadeRemove(IORMEntity anEntity, Json[string] optionData = null) {
       return true;
     }
 
@@ -114,24 +114,22 @@ class DBelongsToAssociation : DAssociation {
      * @param Json[string] options list of options passed to attachTo method
      */
     protected Expression[] _joinCondition(Json[string] optionData) {
-        conditions = null;
-        tAlias = _name;
-        sAlias = _sourceTable.aliasName();
-        foreignKeys = (array)options["foreignKeys"];
-        bindingKey = (array)getBindingKey();
+        auto conditions = null;
+        auto tAlias = _name;
+        auto sAlias = _sourceTable.aliasName();
+        auto foreignKeys = (array)options["foreignKeys"];
+        auto bindingKeys = (array)getBindingKey();
 
-        if (count(foreignKeys) != count(bindingKey)) {
-            if (bindingKey.isEmpty) {
+        if (count(foreignKeys) != count(bindingKeys)) {
+            if (bindingKeys.isEmpty) {
                 msg = "The '%s' table does not define a primary key. Please set one.";
                 throw new DRuntimeException(msg.format(getTarget().getTable()));
             }
 
-            msg = "Cannot match provided foreignKeys for '%s', got '(%s)' but expected foreign key for '(%s)'";
-            throw new DRuntimeException(format(
-                msg,
-                _name,
-                implode(", ", foreignKeys),
-                bindingKey.join(", ")
+            string message = ;
+            throw new DRuntimeException(
+"Cannot match provided foreignKeys for '%s', got '(%s)' but expected foreign key for '(%s)'"
+                .format(_name, implode(", ", foreignKeys), bindingKeys.join(", ")
             ));
         }
 
@@ -145,8 +143,7 @@ class DBelongsToAssociation : DAssociation {
     }
 
 
-    function eagerLoader(Json[string] optionData): Closure
-    {
+    Closure eagerLoader(Json[string] optionData) {
         loader = new DSelectLoader([
             "alias": this.aliasName(),
             "sourceAlias": source().aliasName(),

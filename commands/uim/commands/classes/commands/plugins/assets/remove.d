@@ -7,7 +7,6 @@ import uim.commands;
 // Command for removing plugin assets from app`s webroot.
 class DPluginAssetsRemoveCommand : DCommand {
     mixin(CommandThis!("PluginAssetsRemove"));
-
     mixin TPluginAssets;
 
     override bool initialize(Json[string] initData = null) {
@@ -22,25 +21,25 @@ class DPluginAssetsRemoveCommand : DCommand {
         return "plugin-assets-remove";
     }
 
-    /* 
+    
     // Remove plugin assets from app`s webroot.
     override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
-        this.io = aConsoleIo;
-        this.args = commandArguments;
+        _io = aConsoleIo;
+        _args = arguments;
 
-        auto name = commandArguments.getArgument("name");
+        auto name = arguments.getArgument("name");
         plugins = _list(name);
 
         plugins.byKeyValue
             .each!((pluginConfigData) {
-                this.io.writeln();
-                this.io.writeln("For plugin: " ~ pluginConfigData.key);
-                this.io.hr();
+                _io.writeln();
+                _io.writeln("For plugin: " ~ pluginConfigData.key);
+                _io.hr();
 
                 _remove(pluginConfigData.value);
             });
-        this.io.writeln();
-        this.io.writeln("Done");
+        _io.writeln();
+        _io.writeln("Done");
 
         return CODE_SUCCESS;
     }
@@ -55,7 +54,9 @@ class DPluginAssetsRemoveCommand : DCommand {
             ]);
 
         return parserToUpdate;
-    } */
+    } 
 }
-
 mixin(CommandCalls!("PluginAssetsRemove"));
+
+unittest{
+}

@@ -85,6 +85,30 @@ class DAssociation : IAssociation {
 
     // The class name of the target table object
     protected string _className;
+   /**
+     * Sets the class name of the target table object.
+     *
+     * @param string anClassName Class name to set.
+     */
+    void setClassName(string nameToSet) {
+        if (
+            _targetTable != null &&
+            get_class(_targetTable) != App
+            .className(nameToSet, "Model/Table", "Table")
+            ) {
+            throw new DInvalidArgumentException(format(
+                    "The class name '%s' doesn\"t match the target table class name of '%s'.",
+                    nameToSet, get_class(_targetTable)
+            ));
+        }
+
+        _className = nameToSet;
+    }
+
+    // Gets the class name of the target table object.
+    string getClassName() {
+        return _className;
+    }
 
     /**
      * Whether the records on the target table are dependent on the source table,
@@ -95,10 +119,6 @@ class DAssociation : IAssociation {
 
     // The type of join to be used when adding the association to a query
     // TODO protected string _joinType = DQuery.JOIN_TYPE_LEFT;
-    /* 
-
-    // Name given to the association, it usually represents the alias assigned to the target associated table
-
 
 
     /**
@@ -111,107 +131,12 @@ class DAssociation : IAssociation {
     // Whether cascaded deletes should also fire callbacks.
     protected bool _cascadeCallbacks = false;
 
+// #region sourceTable
     // Source table instance
     protected IORMTable _sourceTable;
 
-    // Target table instance
-    protected IORMTable _targetTable;
-
-    /**
-     * The default finder name to use for fetching rows from the target table
-     * With array value, finder name and default options are allowed.
-     *
-     * @var array|string
-     */
-    protected _finder = "all";
-
-    // Valid strategies for this association. Subclasses can narrow this down.
-    protected string[] _validStrategies = [
-        STRATEGY_JOIN,
-        STRATEGY_SELECT,
-        STRATEGY_SUBQUERY,
-    ];
-
-    /**
-     . Subclasses can override _options function to get the original
-     * list of passed options if expecting any other special key
-     *
-     * anAliasName - The name given to the association
-     * @param Json[string] options A list of properties to be set on this object
-     */
-    this(string anAliasName, Json[string] optionData = null) {
-        defaults = [
-            "cascadeCallbacks",
-            "className",
-            "conditions",
-            "dependent",
-            "finder",
-            "bindingKeys",
-            "foreignKeys",
-            "joinType",
-            "tableLocator",
-            "propertyName",
-            "sourceTable",
-            "targetTable",
-        ];
-        foreach (property; defaults) {
-            if (property in options) {
-                this. {
-                    "_" ~ property
-                }
-
-                
-
-                = options[property];
-            }
-        }
-
-        if (_className.isEmpty) {
-            _className = anAliasName;
-        }
-
-        [, name] = pluginSplit(anAliasName);
-        _name = name;
-
-        _options(options);
-
-        if (!options.isEmpty("strategy"])) {
-            setStrategy(options["strategy"]);
-        }
-    }
-
-    /**
-     * Sets the class name of the target table object.
-     *
-     * @param string anClassName Class name to set.
-     */
-    void setClassName(string anClassName) {
-        if (
-            _targetTable != null &&
-            get_class(_targetTable) != App
-            .className(className, "Model/Table", "Table")
-            ) {
-            throw new DInvalidArgumentException(format(
-                    "The class name '%s' doesn\"t match the target table class name of '%s'.",
-                    className,
-                    get_class(_targetTable)
-            ));
-        }
-
-        _className = className;
-    }
-
-    // Gets the class name of the target table object.
-    string getClassName() {
-        return _className;
-    }
-
-    /**
-     * Sets the table instance for the source side of the association.
-     *
-     * @param DORMDORMTable aTable the instance to be assigned as source side
-     */
-    void setSource(DORMTable aTable) {
+    // Sets the table instance for the source side of the association.
+    void setSource(DORMTable table) {
         _sourceTable = table;
     }
 
@@ -219,8 +144,11 @@ class DAssociation : IAssociation {
     Table source() {
         return _sourceTable;
     }
+// #endregion sourceTable 
 
-    // Sets the table instance for the target side of the association.
+    // Target table instance
+    protected IORMTable _targetTable;
+// Sets the table instance for the target side of the association.
     void setTarget(DORMTable aTable) {
         _targetTable = table;
     }
@@ -267,6 +195,78 @@ class DAssociation : IAssociation {
 
         return _targetTable;
     }
+
+    /**
+     * The default finder name to use for fetching rows from the target table
+     * With array value, finder name and default options are allowed.
+     *
+     * @var array|string
+     */
+    protected _finder = "all";
+ // Gets the default finder to use for fetching rows from the target table.
+    Json[string] getFinder() {
+        return _finder;
+    }
+
+    /**
+     * Sets the default finder to use for fetching rows from the target table.
+     *
+     * @param array|string finder the finder name to use or array of finder name and option.
+     */
+    void setFinder(finder) {
+        _finder = finder;
+    }
+
+    // Valid strategies for this association. Subclasses can narrow this down.
+    protected string[] _validStrategies = [
+        STRATEGY_JOIN,
+        STRATEGY_SELECT,
+        STRATEGY_SUBQUERY,
+    ];
+
+    /**
+     . Subclasses can override _options function to get the original
+     * list of passed options if expecting any other special key
+     *
+     * anAliasName - The name given to the association
+     * @param Json[string] options A list of properties to be set on this object
+     */
+    this(string anAliasName, Json[string] optionData = null) {
+        defaults = [
+            "cascadeCallbacks",
+            "className",
+            "conditions",
+            "dependent",
+            "finder",
+            "bindingKeys",
+            "foreignKeys",
+            "joinType",
+            "tableLocator",
+            "propertyName",
+            "sourceTable",
+            "targetTable",
+        ];
+        foreach (property; defaults) {
+            if (property in options) {
+                this. {"_" ~ property} = options[property];
+            }
+        }
+
+        if (_className.isEmpty) {
+            _className = anAliasName;
+        }
+
+        [, name] = pluginSplit(anAliasName);
+        _name = name;
+
+        _options(options);
+
+        if (!options.isEmpty("strategy"])) {
+            setStrategy(options["strategy"]);
+        }
+    }
+
+    
 
     /**
      * Sets a list of conditions to be always included when fetching records from
@@ -437,19 +437,7 @@ class DAssociation : IAssociation {
         return _strategy;
     }
 
-    // Gets the default finder to use for fetching rows from the target table.
-    Json[string] getFinder() {
-        return _finder;
-    }
-
-    /**
-     * Sets the default finder to use for fetching rows from the target table.
-     *
-     * @param array|string finder the finder name to use or array of finder name and option.
-     */
-    void setFinder(finder) {
-        _finder = finder;
-    }
+   
 
     /**
      * Override this function to initialize any concrete association class, it will

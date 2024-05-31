@@ -22,7 +22,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
         return "plugin-assets-symlink";
     }
 
-    override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
+    override int execute(Json[string] arguments, IConsoleIo consoleIo) {
         return super.execute(arguments, aConsoleIo);
     }
 
@@ -54,13 +54,11 @@ class DPluginAssetsSymlinkCommand : DCommand {
         this.args = commandArguments;
 
         auto name = commandArguments.getArgument("name");
-       auto overwrite = (bool)commandArguments.getOption("overwrite");
+       auto overwrite = (bool)arguments.getBool("overwrite");
        _process(_list(name), false, overwrite);
 
         return CODE_SUCCESS;
     }
-
- */
 }
 
 mixin(CommandCalls!("PluginAssetsSymlink"));

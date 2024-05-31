@@ -51,7 +51,7 @@ class DI18nExtractCommand : DCommand {
 
     // Count number of marker errors found
     protected size_t _countMarkerError = 0;
-    /* 
+   
     // Extracted tokens
     protected Json[string] _tokens = null;
 
@@ -73,36 +73,36 @@ class DI18nExtractCommand : DCommand {
                 "Current paths: %s\nWhat is the path you would like to extract?\n[Q]uit [D]one"
                 .format(currentPaths.join(", "));
 
-            string response = aConsoleIo.ask(message, defaultPaths[defaultPathIndex] ?? "D");
-            if (strtoupper(response) == "Q") {
+            string response = consoleIo.ask(message, defaultPaths[defaultPathIndex] ?? "D");
+            if (response.upper == "Q") {
                  aConsoleIo.writeErrorMessages("Extract Aborted");
                 abort();
             }
-            if (strtoupper(response) == "D" && count(_paths)) {
-                 aConsoleIo.writeln();
+            if (response.upper == "D" && count(_paths)) {
+                 consoleIo.writeln();
 
                 return;
             }
-            if (strtoupper(response) == "D") {
-                 aConsoleIo.warning("No directories selected. Please choose a directory.");
+            if (response.upper == "D") {
+                 consoleIo.warning("No directories selected. Please choose a directory.");
             } else if (isDir(response)) {
                _paths ~= response;
                 defaultPathIndex++;
             } else {
                  aConsoleIo.writeErrorMessages("The directory path you supplied was not found. Please try again.");
             }
-             aConsoleIo.writeln();
+             consoleIo.writeln();
         }
     }
 
     // Execute the command
-  int execute(Json[string] commandArguments, IConsoleIo aConsoleIo) {
+  int execute(Json[string] commandArguments, IConsoleIo consoleIo) {
         string myPlugin = "";
-        if (commandArguments.getOption("exclude")) {
-           _exclude = to!string(commandArguments.getOption("exclude")).split(",");
+        if (arguments.hasKey("exclude")) {
+           _exclude = arguments.getString("exclude").split(",");
         }
-        if (commandArguments.getOption("files")) {
-           _fileNames = to!string(commandArguments.getOption("files")).split(",");
+        if (arguments.hasKey("files")) {
+           _fileNames = arguments.getString("files").split(",");
         }
         if (commandArguments.getOption("paths")) {
            _paths = to!string(commandArguments.getOption("paths")).split(",");
@@ -114,7 +114,7 @@ class DI18nExtractCommand : DCommand {
         }
         string _extractCore; 
         if (commandArguments.hasOption("extract-core")) {
-           _extractCore = !(to!string(commandArguments.getOption("extract-core")).lower == "no");
+           _extractCore = !commandArguments.getString("extract-core").lower == "no");
         } else {
             response = aConsoleIo.askChoice(
                 "Would you like to extract the messages from the UIM core?",

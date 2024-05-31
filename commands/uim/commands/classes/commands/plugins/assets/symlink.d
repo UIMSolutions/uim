@@ -23,7 +23,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
     }
 
     override int execute(Json[string] arguments, IConsoleIo consoleIo) {
-        return super.execute(arguments, aConsoleIo);
+        return super.execute(arguments, consoleIo);
     }
 
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
@@ -50,11 +50,11 @@ class DPluginAssetsSymlinkCommand : DCommand {
      * for vendor name are created if required.
      */
     int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
-        this.io = aConsoleIo;
-        this.args = commandArguments;
+        _io = aConsoleIo;
+        _args = commandArguments;
 
         auto name = commandArguments.getArgument("name");
-       auto overwrite = (bool)arguments.getBool("overwrite");
+       auto overwrite = arguments.getBool("overwrite");
        _process(_list(name), false, overwrite);
 
         return CODE_SUCCESS;

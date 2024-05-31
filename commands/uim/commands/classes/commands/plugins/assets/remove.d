@@ -23,8 +23,8 @@ class DPluginAssetsRemoveCommand : DCommand {
 
     
     // Remove plugin assets from app`s webroot.
-    override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
-        _io = aConsoleIo;
+    override int execute(Json[string] arguments, IConsoleIo consoleIo) {
+        _io = consoleIo;
         _args = arguments;
 
         auto name = arguments.getArgument("name");
@@ -58,5 +58,5 @@ class DPluginAssetsRemoveCommand : DCommand {
 }
 mixin(CommandCalls!("PluginAssetsRemove"));
 
-unittest{
+unittest {
 }

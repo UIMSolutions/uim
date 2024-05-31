@@ -22,20 +22,20 @@ class DPluginUnloadCommand : DCommand {
         return "plugin-unload";
     }
 
-    override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
-        return super.execute(arguments, aConsoleIo);
+    override int execute(Json[string] arguments, IConsoleIo consoleIo) {
+        return super.execute(arguments, consoleIo);
     }
 
-    int execute(Json[string] commandArguments, IConsoleIo aConsoleIo) {
-        string pluginName = commandArguments.getString("plugin");
+    int execute(Json[string] arguments, IConsoleIo consoleIo) {
+        string pluginName = arguments.getString("plugin");
 
         auto modificationResult = modifyConfigFile(pluginName);
         if (modificationResult.isNull) {
-            aConsoleIo.success("Plugin removed from `CONFIG/plugins.d`");
+            consoleIo.success("Plugin removed from `CONFIG/plugins.d`");
 
             return CODE_SUCCESS;
         }
-        aConsoleIo.writeErrorMessages(modificationResult);
+        consoleIo.writeErrorMessages(modificationResult);
 
         return CODE_ERROR;
     }
@@ -69,7 +69,7 @@ class DPluginUnloadCommand : DCommand {
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser parsertoUpdate) {
         parsertoUpdate.description("Command for unloading plugins.");
         
-        .addArgument("plugin", [
+        parsertoUpdate.addArgument("plugin", [
                 "help": "Name of the plugin to unload.",
                 "required": true.toJson,
             ]);

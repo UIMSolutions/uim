@@ -206,5 +206,5 @@ class DPoFileParser {
                 messages[Translator.PLURAL_PREFIX ~ aKey]["_context"][""] = plurals;
             }
         }
-    } */ 
+    } 
 }

@@ -89,7 +89,7 @@ mixin template TEntity() {
     * Entities default to assuming they are new. You can use Table.persisted()
     * to set the new flag on an entity based on records in the database.
   */
-  protected bool _new = true;
+  protected bool _isNew = true;
 
   /**
     * Map of fields in this entity that can be safely mass assigned, each
@@ -718,20 +718,18 @@ mixin template TEntity() {
      * Params:
      * bool new DIndicate whether this entity has been persisted.
     */
-  void setNew(bool isNew) {
-    if (isNew) {
+  void setNew(bool status) {
+    if (status) {
       foreach (_fields as myKey : p) {
         _isDirty[myKey] = true;
       }
     }
-    _new = isNew;
+    _isNew = status;
   }
 
-  /**
-     * Returns whether this entity has already been persisted.
-    */
+  // Returns whether this entity has already been persisted.
   bool isNew() {
-    return _new;
+    return _isNew;
   }
 
   /**
@@ -932,8 +930,7 @@ mixin template TEntity() {
     */
       protected Json[string] _readError(
         /* IDatasourceEntity | range*/ Json[string] object, string errorFieldname = null) {
-        if (errorFieldname!isNull && cast(
-          IDatasourceEntity) object) {
+        if (errorFieldname!isNull && cast(IDatasourceEntity) object) {
           return object.getError(
             errorFieldname);
         }

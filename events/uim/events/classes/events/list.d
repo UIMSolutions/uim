@@ -65,6 +65,6 @@ class DEventList { // }: ArrayAccess, Countable {
 
     // Checks if an event is in the list.
     bool hasEvent(string eventName) {
-        return _events.any!(event => event.name == eventName)
+        return _events.any!(event => event.name == eventName);
     }
 }

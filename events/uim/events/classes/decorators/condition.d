@@ -14,8 +14,7 @@ class DConditionDecorator : DDecorator {
     Json __invoke() {
         someArguments = func_get_args();
         return canTrigger(someArguments[0])
-?  _call(someArguments)
-: null;
+            ? _call(someArguments) : Json(null);
     }
 
     // Checks if the event is triggered for this listener.
@@ -25,15 +24,18 @@ class DConditionDecorator : DDecorator {
 
         return canIf && !canUnless;
     }
-    
+
     // Evaluates the filter conditions
     protected bool _evaluateCondition(string conditionType, IEvent event) {
         if (!_options.hasKey(conditionType)) {
             return conditionType != "unless";
         }
+
         if (!_options[conditionType].isCallable) {
-            throw new DInvalidArgumentException(self.class ~ " the `" ~ conditionType ~ "` condition is not a callable!");
+            throw new DInvalidArgumentException(
+                this.classname ~ " the `" ~ conditionType ~ "` condition is not a callable!");
         }
-        return (bool)_options[conditionType](event);
-    } 
+        
+        return _options[conditionType].getBool(event);
+    }
 }

@@ -4,9 +4,7 @@ import uim.logging;
 
 @safe:
 
-/**
- * Console logging. Writes logs to console output.
- */
+// Console logging. Writes logs to console output.
 class DConsoleLog { /* }: BaseLog {
     /* configuration.updateDefaults([
         "stream": "D://stderr",
@@ -39,15 +37,15 @@ class DConsoleLog { /* }: BaseLog {
         super(configData);
 
         configData = configuration;
-        if (cast(DConsoleOutput)configuration.get("stream"]) {
-           _output = configuration.get("stream"];
-        }  else if (isString(configuration.get("stream"])) {
-           _output = new DConsoleOutput(configuration.get("stream"]);
+        if (cast(DConsoleOutput)configuration.get("stream")) {
+           _output = configuration.get("stream");
+        }  else if (configuration.isString("stream")) {
+           _output = new DConsoleOutput(configuration.get("stream"));
         } else {
             throw new DInvalidArgumentException("`stream` not a ConsoleOutput nor string");
         }
         if (configuration.hasKey("outputAs")) {
-           _output.setOutputAs(configuration.get("outputAs"]);
+           _output.setOutputAs(configuration.get("outputAs"));
         }
     }
     

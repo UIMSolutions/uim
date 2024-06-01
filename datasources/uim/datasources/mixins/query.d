@@ -415,17 +415,13 @@ mixin template TQuery() {
     // Decorates the results iterator with MapReduce routines and formatters
     protected IResultset _decorateResults(Traversable originalResults) {
         auto decorator = _decoratorClass();
-        foreach (_mapReduce as functions) {
-            originalResults = new DMapReduce(originalResults, functions["mapper"], functions["reducer"]);
-        }
+        _mapReduce.each!(functions => originalResults = new DMapReduce(originalResults, functions["mapper"], functions["reducer"]));
 
         if (!_mapReduce.isEmpty) {
             originalResults = new decorator(originalResults);
         }
 
-        foreach (_formatters as formatter) {
-            originalResults = formatter(originalResults, this);
-        }
+        _formatters.each!(formatter => originalResults = formatter(originalResults, this));
 
         if (!_formatters.isEmpty && !(cast(decorator)originalResults)) {
             originalResults = new decorator(originalResults);

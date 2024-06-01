@@ -56,7 +56,7 @@ mixin template TDateFormat() {
 
             if (!formatter) {
                 throw new UimException(
-                    'Your version of icu does not support creating a date formatter for ' .
+                    "Your version of icu does not support creating a date formatter for " ~
                     "`aKey`. You should try to upgrade libicu and the intl extension."
                 );
             }
@@ -92,7 +92,7 @@ mixin template TDateFormat() {
     protected static auto _parseDateTime(
         string atime,
         string[] aformat,
-        DateTimeZone|string tz = null
+        /* DateTimeZone| */ string tz = null
     ) {
         string somePattern = "";
 
@@ -122,11 +122,11 @@ mixin template TDateFormat() {
         }
         dateTime = new DateTimeImmutable("@" ~ time);
 
-        if (!(cast(DateTimeZone)tz)) {
-            tz = new DateTimeZone(tz ?? date_default_timezone_get());
+        if (!cast(DateTimeZone)tz) {
+            tz = new DateTimeZone(tz.ifNull(date_default_timezone_get()));
         }
         dateTime = dateTime.setTimezone(tz);
 
-        return new static(dateTime);
+        return null; // TODO new static(dateTime);
     }
 }

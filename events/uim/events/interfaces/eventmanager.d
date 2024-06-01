@@ -40,9 +40,9 @@ interface IEventManager {
      * callable|null callable The callable auto you want invoked.
      */
     void on(
-        IEventListener|string aeventKey,
-        callable|Json[string] options = null,
-        callable callable = null
+        /* IEventListener */ string eventKey,
+        /* callable| */ Json[string] options = null // ,
+        /* callable callable = null */
     );
 
     /**

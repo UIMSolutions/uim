@@ -57,14 +57,14 @@ class DFileLog { // TODO /*}: BaseLog {
         "types": Json(null),
         "levels": Json.emptyArray,
         "scopes": Json.emptyArray,
-        "rotate": 10,
-        "size": 10485760, // 10MB
+        "rotate": 10.toJson,
+        "size": 10485760.toJson, // 10MB
         "mask": Json(null),
-        "dirMask": 0770,
+        "dirMask": 0770.toJson,
         "formatter": [
             "className": DefaultFormatter.classname,
-        ],
-    ];
+        ].toJson,
+    ]);
 
 
 
@@ -137,7 +137,7 @@ class DFileLog { // TODO /*}: BaseLog {
             return null;
         }
         
-        size_t rotate = configuration.get("rotate"];
+        size_t rotate = configuration.get("rotate");
         result = rotate == 0 
             ? unlink(logFilepath)
             : rename(logFilepath, logFilepath ~ "." ~ time());

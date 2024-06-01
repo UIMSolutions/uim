@@ -208,7 +208,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             table = table.getTarget();
         }
 
-        if (!(table instanceof Table)) {
+        if (!(cast(Table)table)) {
             throw new DInvalidArgumentException("You must provide either an Association or a Table object");
         }
 

@@ -105,7 +105,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param \ArrayObject options The options for the query.
      */
     void beforeFind(IEvent event, Query query, ArrayObject options) {
-        locale = Hash.get(options, "locale", locale());
+        auto locale = Hash.get(options, "locale", locale());
         auto configData = configuration.data;
         if (
             locale == configuration.get("defaultLocale")) {
@@ -117,8 +117,8 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             query, myConfiguration);
         orderByTranslatedField = this.iterateClause(query, "order", myConfiguration);
         filteredByTranslatedField =
-            this.traverseClause(query, "where", myConfiguration) ||
-            configuration.get("onlyTranslated") ||
+            traverseClause(query, "where", myConfiguration) ||
+            configuration.hasKey("onlyTranslated") ||
             (options["filterByCurrentLocale"] ?  ? null);
         if (!fieldsAdded && !orderByTranslatedField && !filteredByTranslatedField) {
             return;
@@ -161,8 +161,8 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             }
 
             string joinType = isset(options["filterByCurrentLocale"])
-                ? (options["filterByCurrentLocale"] ? "INNER" : "LEFT")
-                : (configuration.getString("onlyTranslated") ? "INNER" : "LEFT");
+                ? (options["filterByCurrentLocale"] ? "INNER" : "LEFT") : (
+                    configuration.getString("onlyTranslated") ? "INNER" : "LEFT");
 
             this.table.hasOne(configuration.get("hasOneAlias"), [
                     "foreignKey": ["id"],
@@ -284,7 +284,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                         expression) use(
                                                         fields, alias, mainTableAlias, mainTableFields,  & joinRequired) {
                                                             if (!(
-                                                                cast(IField)expression instanceof )) {
+                                                                cast(IField) expression)) {
                                                                 return;}
                                                                 field = expression.getField();
                                                                 if (!(field.isString || indexOf(
@@ -580,7 +580,8 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                                     unset(
                                                                                     row["_i18n"]);
                                                                                     if (
-                                                                                        row instanceof IORMEntity) {
+                                                                                        cast(
+                                                                                        IORMEntity) row) {
                                                                                         row.clean();
                                                                                     }
 
@@ -689,5 +690,5 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
                                                                             
 
-                                                                            * /
+                                                                            *  /
                                                                         }

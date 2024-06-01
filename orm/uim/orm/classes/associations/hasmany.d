@@ -140,7 +140,7 @@ class DHasManyAssociation : DAssociation {
         myTable = getTarget();
         original = entities;
         foreach (entities as k : entity) {
-            if (!(entity instanceof IORMEntity)) {
+            if (!cast(IORMEntity)entity) {
                 break;
             }
 

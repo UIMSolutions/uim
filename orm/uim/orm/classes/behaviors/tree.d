@@ -887,7 +887,7 @@ class DTreeBehavior : DBehavior {
     int getLevel(entity) {
         primaryKeys = primaryKeys();
         id = entity;
-        if (cast(IORMEntity)entity instanceof ) {
+        if (cast(IORMEntity)entity) {
             id = entity.get(primaryKeys);
         }
         auto configData = configuration.data;

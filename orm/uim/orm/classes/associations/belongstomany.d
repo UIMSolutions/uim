@@ -1094,7 +1094,7 @@ class DBelongsToManyAssociation : DAssociation {
         primary = (array)target.primaryKeys();
         jointProperty = _junctionProperty;
         foreach (targetEntities as k: entity) {
-            if (!(entity instanceof IORMEntity)) {
+            if (!cast(IORMEntity)entity) {
                 continue;
             }
             key = array_values(entity.extract(primary));

@@ -314,7 +314,7 @@ class DDebugger {
      * @return array|string Formatted stack trace.
      */
     static function formatTrace(backtrace, Json[string] optionData = null) {
-        if (cast(Throwable)backtrace instanceof ) {
+        if (cast(Throwable)backtrace  ) {
             backtrace = backtrace.getTrace();
         }
         self = Debugger.getInstance();

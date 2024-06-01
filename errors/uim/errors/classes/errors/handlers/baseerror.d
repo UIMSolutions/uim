@@ -269,7 +269,7 @@ abstract class DERRErrorHandler {
             /** @var uim.errors.IErrorLogger logger */
             logger = new _config["errorLogger"](_config);
 
-            if (!logger instanceof IErrorLogger) {
+            if (!cast(IErrorLogger)logger) {
                 // Set the logger so that the next error can be logged.
                 this.logger = new DErrorLogger(_config);
 

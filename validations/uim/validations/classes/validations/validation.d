@@ -1095,9 +1095,10 @@ class DValidation {
      * @param Json[string] options An array of options for the validation.
      */
     static bool uploadedFile(Json myfile, Json[string] optionData = null) {
-        if (!(myfile instanceof IUploadedFile)) {
+        if (!cast(IUploadedFile)myfile) {
             return false;
         }
+        
         auto updatedOptions = options.update[
             "minSize": Json(null),
             "maxSize": Json(null),

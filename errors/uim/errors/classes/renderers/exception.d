@@ -253,7 +253,7 @@ class DExceptionRenderer : IExceptionRenderer {
 
         if (
             !Configure.read("debug") &&
-            !(myException instanceof HttpException)
+            !(cast(HttpException)myException instanceof )
         ) {
             myMessage = errorCode < 500
                 ? __d("uim", "Not Found")

@@ -256,7 +256,7 @@ protected const MAX_ALIAS_LENGTH = 128;
         // end developer will be calling execute() on originally.
          original.decorateResults(function (row) {
             if (row.hasKey(["_uim_page_rownum_"])) {
-                unset(row["_uim_page_rownum_"]);
+                row.remove("_uim_page_rownum_");
             }
             return row;
         });

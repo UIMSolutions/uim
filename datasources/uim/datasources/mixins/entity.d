@@ -170,7 +170,7 @@ mixin template TEntity() {
 
   // Removes a field from this entity
   void __unset(string fieldName) {
-    this.unset(fieldName);
+    this.remove(fieldName);
   }
 
   /**

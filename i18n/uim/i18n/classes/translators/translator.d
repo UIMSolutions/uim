@@ -95,7 +95,7 @@ class DTranslator : ITranslator {
         // Check for missing/invalid context
         if (tokensValues.hasKey("_context")) {
             message = resolveContext(messageKey, message, tokensValues);
-            tokensValues.unSet("_context");
+            tokensValues.remove("_context");
         }
         if (tokensValues.isEmpty) { // Fallback for plurals that were using the singular key
             return message ~ [""].values[0];

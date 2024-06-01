@@ -78,7 +78,7 @@ class DHasOneAssociation : DAssociation {
         targetEntity.set(properties, ["guard": false.toJson]);
 
         if (!getTarget().save(targetEntity, options)) {
-            targetEntity.unset(properties.keys);
+            targetEntity.remove(properties.keys);
 
             return false;
         }

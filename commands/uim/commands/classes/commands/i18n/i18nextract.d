@@ -299,12 +299,13 @@ class DI18nExtractCommand : DCommand {
     
     // Extract tokens out of all files to be processed
     protected void _extractTokens(Json[string] commandArguments, IConsoleIo aConsoleIo) {
-        progress = aConsoleIo.helper("progress");
+        auto progress = aConsoleIo.helper("progress");
         assert(cast(ProgressHelper)progress);
+        
         progress.initialize(["total": count(_fileNames)]);
-         isVerbose = commandArguments.getOption("verbose");
+        bool isVerbose = commandArguments.getOption("verbose");
 
-        functions = [
+        auto functions = [
             "__": ["singular"],
             "__n": ["singular", "plural"],
             "__d": ["domain", "singular"],
@@ -314,7 +315,7 @@ class DI18nExtractCommand : DCommand {
             "__dx": ["domain", "context", "singular"],
             "__dxn": ["domain", "context", "singular", "plural"],
         ];
-         somePattern = "/(" ~ functions.keys.join("|") ~ ")\s*\(/";
+        string somePattern = "/(" ~ functions.keys.join("|") ~ ")\s*\(/";
 
         foreach (file; _fileNames) {
             auto _fileName = file;
@@ -332,7 +333,7 @@ class DI18nExtractCommand : DCommand {
                         .map!(token => token).array;
 
                 }
-                unset(allTokens);
+                allTokens.clear;
 
                 foreach (functionName: map; functions) {
                    _parse(aConsoleIo, functionName, map);

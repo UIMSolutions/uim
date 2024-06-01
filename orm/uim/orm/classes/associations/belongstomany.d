@@ -638,7 +638,7 @@ class DBelongsToManyAssociation : DAssociation {
             // or if we are updating an existing link.
             if (changedKeys) {
                 joint.setNew(true);
-                joint.unset(junction.primaryKeys())
+                joint.remove(junction.primaryKeys())
                     .set(array_merge(sourceKeys, targetKeys), ["guard": false.toJson]);
             }
             saved = junction.save(joint, options);

@@ -1522,7 +1522,6 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     }
     
     /**
-
      * ### Options
      *
      * The options array accepts the following keys:
@@ -1583,11 +1582,11 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * be saved and to pass additional option for saving them.
      *
      * ```
-     */ Only save the comments association
+     * Only save the comments association
      * myarticles.save(myentity, ["associated": ["Comments"]]);
      *
-     */ Save the company, the employees and related addresses for each of them.
-     */ For employees do not check the entity rules
+     * Save the company, the employees and related addresses for each of them.
+     * For employees do not check the entity rules
      * mycompanies.save(myentity, [
      * "associated": [
      *   "Employees": [
@@ -1597,15 +1596,14 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * ]
      * ]);
      *
-     */ Save no associations
+     * Save no associations
      * myarticles.save(myentity, ["associated": false.toJson]);
      * ```
      * Params:
      * \UIM\Datasource\IORMEntity myentity the entity to be saved
      * @param Json[string] options The options to use when saving.
      */
-    IORMEntity|false save(
-        IORMEntity myentity,
+    IORMEntity save(IORMEntity entityToSave,
         Json[string] optionData = null
     ) {
         options = new ArrayObject(options ~ [
@@ -1617,14 +1615,14 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             "_cleanOnSuccess": true.toJson,
         ]);
 
-        if (myentity.hasErrors((bool)options["associated"])) {
+        if (entityToSave.hasErrors((bool)options["associated"])) {
             return false;
         }
-        if (myentity.isNew() == false && !myentity.isDirty()) {
-            return myentity;
+        if (entityToSave.isNew() == false && !entityToSave.isDirty()) {
+            return entityToSave;
         }
         mysuccess = _executeTransaction(
-            fn (): _processSave(myentity, options),
+            fn (): _processSave(entityToSave, options),
             options["atomic"]
         );
 
@@ -1634,10 +1632,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             }
             if (options["atomic"] || options["_primary"]) {
                 if (options["_cleanOnSuccess"]) {
-                    myentity.clean();
-                    myentity.setNew(false);
+                    entityToSave.clean();
+                    entityToSave.setNew(false);
                 }
-                myentity.setSource(this.registryKey());
+                entityToSave.setSource(this.registryKey());
             }
         }
         return mysuccess;
@@ -1647,13 +1645,13 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Try to save an entity or throw a PersistenceFailedException if the application rules checks failed,
      * the entity contains errors or the save was aborted by a callback.
      * Params:
-     * \UIM\Datasource\IORMEntity myentity the entity to be saved
+     * \UIM\Datasource\IORMEntity entityToSave the entity to be saved
      * @param Json[string] options The options to use when saving.
      */
-    IORMEntity saveOrFail(IORMEntity myentity, Json[string] optionData = null) {
-        mysaved = this.save(myentity, options);
+    IORMEntity saveOrFail(IORMEntity entityToSave, Json[string] optionData = null) {
+        mysaved = this.save(entityToSave, options);
         if (mysaved == false) {
-            throw new DPersistenceFailedException(myentity, ["save"]);
+            throw new DPersistenceFailedException(entityToSave, ["save"]);
         }
         return mysaved;
     }
@@ -1661,22 +1659,22 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     /**
      * Performs the actual saving of an entity based on the passed options.
      * Params:
-     * \UIM\Datasource\IORMEntity myentity the entity to be saved
+     * \UIM\Datasource\IORMEntity entityToSave the entity to be saved
      * @param \ArrayObject<string, mixed> options the options to use for the save operation
      */
-    protected IORMEntity|false _processSave(IORMEntity myentity, ArrayObject options) {
+    protected IORMEntity|false _processSave(IORMEntity entityToSave, ArrayObject options) {
         myprimaryColumns = (array)this.primaryKeys();
 
-        if (options["checkExisting"] && myprimaryColumns && myentity.isNew() && myentity.has(myprimaryColumns)) {
+        if (options["checkExisting"] && myprimaryColumns && entityToSave.isNew() && entityToSave.has(myprimaryColumns)) {
             aliasName = aliasName();
             myconditions = null;
-            foreach (myentity.extract(myprimaryColumns) as myKey: myv) {
+            foreach (entityToSave.extract(myprimaryColumns) as myKey: myv) {
                 myconditions["aliasName.myKey"] = myv;
             }
-            myentity.setNew(!this.exists(myconditions));
+            entityToSave.setNew(!this.exists(myconditions));
         }
-        mymode = myentity.isNew() ? RulesChecker.CREATE : RulesChecker.UPDATE;
-        if (options["checkRules"] && !this.checkRules(myentity, mymode, options)) {
+        mymode = entityToSave.isNew() ? RulesChecker.CREATE : RulesChecker.UPDATE;
+        if (options["checkRules"] && !this.checkRules(entityToSave, mymode, options)) {
             return false;
         }
         options["associated"] = _associations.normalizeKeys(options["associated"]);
@@ -1698,7 +1696,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         }
         mysaved = _associations.saveParents(
             this,
-            myentity,
+            entityToSave,
             options["associated"],
             ["_primary": false.toJson] + options.getArrayCopy()
         );
@@ -1706,34 +1704,34 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (!mysaved && options["atomic"]) {
             return false;
         }
-        mydata = myentity.extract(getSchema().columns(), true);
-        myisNew = myentity.isNew();
+        mydata = entityToSave.extract(getSchema().columns(), true);
+        myisNew = entityToSave.isNew();
 
         mysuccess = myisNew
-            ? _insert(myentity, mydata)
-            : _update(myentity, mydata);
+            ? _insert(entityToSave, mydata)
+            : _update(entityToSave, mydata);
 
         if (mysuccess) {
-            mysuccess = _onSaveSuccess(myentity, options);
+            mysuccess = _onSaveSuccess(entityToSave, options);
         }
         if (!mysuccess && myisNew) {
-            myentity.unset(this.primaryKeys());
-            myentity.setNew(true);
+            entityToSave.remove(this.primaryKeys());
+            entityToSave.setNew(true);
         }
-        return mysuccess ? myentity : false;
+        return mysuccess ? entityToSave : false;
     }
     
     /**
      * Handles the saving of children associations and executing the afterSave logic
      * once the entity for this table has been saved successfully.
      * Params:
-     * \UIM\Datasource\IORMEntity myentity the entity to be saved
+     * \UIM\Datasource\IORMEntity entityToSave the entity to be saved
      * @param \ArrayObject<string, mixed> options the options to use for the save operation
      */
-    protected bool _onSaveSuccess(IORMEntity myentity, ArrayObject options) {
+    protected bool _onSaveSuccess(IORMEntity entityToSave, ArrayObject options) {
         mysuccess = _associations.saveChildren(
             this,
-            myentity,
+            entityToSave,
             options["associated"],
             ["_primary": false.toJson] + options.getArrayCopy()
         );
@@ -1747,9 +1745,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             throw new DRolledbackTransactionException(["table": class]);
         }
         if (!options["atomic"] && !options["_primary"]) {
-            myentity.clean();
-            myentity.setNew(false);
-            myentity.setSource(this.registryKey());
+            entityToSave.clean();
+            entityToSave.setNew(false);
+            entityToSave.setSource(this.registryKey());
         }
         return true;
     }

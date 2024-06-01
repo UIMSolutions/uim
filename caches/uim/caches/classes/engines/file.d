@@ -139,19 +139,17 @@ class DFileCacheEngine : DCacheEngine {
 
     // Delete a key from the cache
     override bool remove(string dataId) {
-        auto aKey = _key(dataId);
+        auto key = _key(dataId);
 
-        if (_setKey(aKey) == false || !_init) {
+        if (_setKey(key) == false || !_init) {
             return false;
         }
         auto mypath = _File.getRealPath();
         unset(_File);
 
-        if (mypath == false) {
-            return false;
-        }
-
-        return @unlink(mypath) ;
+        return mypath.isEmpty
+            ? false
+            : @unlink(mypath) ;
     }
 
     // Delete all values from the cache
@@ -179,7 +177,8 @@ class DFileCacheEngine : DCacheEngine {
                 unset(myfileInfo);
                 continue;
             }
-            myrealPath = myfileInfo.getRealPath();
+            
+            auto myrealPath = myfileInfo.getRealPath();
             if (!myrealPath) {
                 unset(myfileInfo);
                 continue;

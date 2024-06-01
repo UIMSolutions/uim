@@ -166,7 +166,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
             _valueExpressions.byKeyValue
                 .each!((kv) {
                     someParts[kv.key] = kv.value.sql(aBinder);
-                    unset(aValue[kv.key]);
+                    aValue.remove(kv.key);
                 });
         }
 

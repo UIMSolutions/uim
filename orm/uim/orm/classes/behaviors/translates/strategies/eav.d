@@ -182,7 +182,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         alias = this.table.aliasName();
         select = query.clause("select");
 
-        changeFilter = isset(options["filterByCurrentLocale"]) &&
+        changeFilter = options.hasKey("filterByCurrentLocale") &&
             options["filterByCurrentLocale"] != configuration.get("onlyTranslated"];
 
         foreach (fields as field) {

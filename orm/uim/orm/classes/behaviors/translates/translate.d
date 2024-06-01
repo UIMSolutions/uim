@@ -124,7 +124,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
             ["implementedFinders", "implementedMethods", "strategyClass"]
         );
         /** @var class-string<\ORM\Behavior\Translate\ITranslateStrategy> myclassName */
-        myclassName = configurationData.isSet("strategyClass", mydefaultStrategyClass);
+        myclassName = configurationData.hasKey("strategyClass", mydefaultStrategyClass);
 
         return new myclassName(_table, configData);
     }
@@ -165,8 +165,8 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
         if (isSet(options["translations"]) && !options["translations"]) {
             return;
         }
-        mydefaultLocale = configurationData.isSet("defaultLocale");
-        if (!mydata["_translations"].isSet(mydefaultLocale)) {
+        mydefaultLocale = configurationData.hasKey("defaultLocale");
+        if (!mydata["_translations"].hasKey(mydefaultLocale)) {
             return;
         }
         foreach (mydata["_translations"][mydefaultLocale] as fieldName : myvalue) {

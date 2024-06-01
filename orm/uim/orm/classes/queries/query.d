@@ -1069,7 +1069,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
                 types[alias] = typeMap[alias];
                 continue;
             }
-            if (value.isString && isset(typeMap[value])) {
+            if (value.isString && typeMap.hasKey(value)) {
                 types[alias] = typeMap[value];
             }
         }

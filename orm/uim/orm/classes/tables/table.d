@@ -406,7 +406,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (isArray(myschema)) {
             auto constraints = null;
 
-            if (myschema.isSet("_constraints")) {
+            if (myschema.hasKey("_constraints")) {
                 constraints = myschema["_constraints"];
                 unset(myschema["_constraints"]);
             }
@@ -1782,7 +1782,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (count(primaryKey) > 1) {
             myschema = getSchema();
             foreach (myKey: myv; myprimary) {
-                if (!mydata.isSet(myKey) && myschema.getColumn(myKey)["autoIncrement"].isEmpty) {
+                if (!mydata.hasKey(myKey) && myschema.getColumn(myKey)["autoIncrement"].isEmpty) {
                     mymsg = "Cannot insert row, some of the primary key values are missing. ";
                     mymsg ~= 
                         "Got (%s), expecting (%s)"
@@ -1808,7 +1808,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             myschema = getSchema();
             mydriver = getConnection().getDriver();
             foreach (aKey: myv; myprimary ) {
-                if (!mydata.isSet(aKey)) {
+                if (!mydata.hasKey(aKey)) {
                     myid = mystatement.lastInsertId(getTable(), aKey);
                     mytype = myschema.getColumnType(aKey);
                     assert(mytype !isNull);

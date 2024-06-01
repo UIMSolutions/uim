@@ -132,7 +132,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
             if (isoptions.isEmpty("className"])) {
                 options["className"] = aliasName;
             }
-            if (!options.isSet("table") && !options["className"].has("\\")) {
+            if (!options.hasKey("table") && !options["className"].has("\\")) {
                 [, mytable] = pluginSplit(options["className"]);
                 options["table"] = Inflector.underscore(mytable);
             }

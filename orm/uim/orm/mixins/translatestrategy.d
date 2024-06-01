@@ -116,7 +116,7 @@ mixin template TTranslateStrategy() {
                 options["validate"] = configuration.get("validator"];
                 errors = null;
                 foreach (value as language: fields) {
-                    if (!isset(translations[language])) {
+                    if (!translations.hasKey(language)) {
                         translations[language] = this.table.newEmptyEntity();
                     }
                     marshaller.merge(translations[language], fields, options);

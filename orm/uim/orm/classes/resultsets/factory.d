@@ -71,7 +71,7 @@ class DResultsetFactory {
         });
 
         foreach (mydata["matchingAssoc"] as aliasName: myassoc) {
-            if (!fieldNames.isSet(aliasName)) {
+            if (!fieldNames.hasKey(aliasName)) {
                 continue;
             }
             mydata["matchingColumns"][aliasName] = fieldNames[aliasName];

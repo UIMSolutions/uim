@@ -615,7 +615,7 @@ class DRouteBuilder {
                 }
             }
             mydefaults += _params ~ ["plugin": Json(null)];
-            if (!mydefaults.isSet("action") && !options.isSet("action")) {
+            if (!mydefaults.hasKey("action") && !options.hasKey("action")) {
                 mydefaults["action"] = "index";
             }
             myroute = new myrouteClass(myroute, mydefaults, options);

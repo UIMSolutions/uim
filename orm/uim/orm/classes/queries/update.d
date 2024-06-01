@@ -20,7 +20,7 @@ class DUpdateQuery : DQuery {
     }
  
     string sql(DValueBinder mybinder = null) {
-        if (!_parts.isSet("update") || _parts["update"].isEmpty) {
+        if (!_parts.hasKey("update") || _parts["update"].isEmpty) {
             myrepository = getRepository();
             this.update(myrepository.getTable());
         }

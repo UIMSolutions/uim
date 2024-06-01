@@ -195,7 +195,7 @@ class DRouter {
      *
      * ```
      * Router.addUrlFilter(function (myparams, myrequest) {
-     * if (myrequest.getParam("lang") && !myparams.isSet("lang")) {
+     * if (myrequest.getParam("lang") && !myparams.hasKey("lang")) {
      *  myparams["lang"] = myrequest.getParam("lang");
      * }
      * return myparams;
@@ -306,7 +306,7 @@ class DRouter {
 
             myurl = _applyUrlFilters(myurl);
 
-            if (!myurl.isSet("_name")) {
+            if (!myurl.hasKey("_name")) {
                 // Copy the current action if the controller is the current one.
                 if (
                     myurl.isEmpty("action")) &&
@@ -318,7 +318,7 @@ class DRouter {
                     myurl["action"] = myparams["action"];
                 }
                 // Keep the current prefix around if none set.
-                if (isSet(myparams["prefix"]) && !myurl.isSet("prefix"])) {
+                if (isSet(myparams["prefix"]) && !myurl.hasKey("prefix"])) {
                     myurl["prefix"] = myparams["prefix"];
                 }
                 myurl += [
@@ -330,7 +330,7 @@ class DRouter {
             }
             // If a full URL is requested with a scheme the host should default
             // to App.fullBaseUrl to avoid corrupt URLs
-            if (myfull && isSet(myurl["_scheme"]) && !myurl.isSet("_host")) {
+            if (myfull && isSet(myurl["_scheme"]) && !myurl.hasKey("_host")) {
                 myurl["_host"] = mycontext["_host"];
             }
             mycontext["params"] = myparams;

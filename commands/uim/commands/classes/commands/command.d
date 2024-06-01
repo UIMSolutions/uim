@@ -28,7 +28,5 @@ class DCommand : ICommand {
     mixin(TProperty!("string", "name"));
 
     // Implement this method with your command`s logic.
-    int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
-        return 0;
-    }
+    abstract int execute(Json[string] arguments, IConsoleIo aConsoleIo);
 }

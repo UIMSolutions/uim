@@ -23,26 +23,26 @@ class DPluginLoadCommand : DCommand {
     }
 
     //  Config file
-    protected string configDataFile;
+    protected string _configDataFile;
 
     override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         return super.execute(arguments, aConsoleIo);
     }
 
     int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
-        auto plugin = to!string(commandArguments.getArgument("plugin"));
+        auto plugin = arguments.getString("plugin"));
         auto options = null;
-        if (commandArguments.getOption("only-debug")) {
+        if (arguments.getOption("only-debug")) {
             options["onlyDebug"] = true;
         }
-        if (commandArguments.getOption("only-cli")) {
+        if (arguments.hasKey("only-cli")) {
             options["onlyCli"] = true;
         }
-        if (commandArguments.getOption("optional")) {
+        if (arguments.getOption("optional")) {
             options["optional"] = true;
         }
         foreach (hook; IPlugin.VALID_HOOKS) {
-            if (commandArguments.getOption("no-" ~ hook)) {
+            if (arguments.getOption("no-" ~ hook)) {
                 options[hook] = false;
             }
         }

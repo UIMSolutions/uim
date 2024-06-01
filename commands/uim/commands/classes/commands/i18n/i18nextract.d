@@ -51,7 +51,7 @@ class DI18nExtractCommand : DCommand {
 
     // Count number of marker errors found
     protected size_t _countMarkerError = 0;
-    /* 
+   
     // Extracted tokens
     protected Json[string] _tokens = null;
 
@@ -73,48 +73,48 @@ class DI18nExtractCommand : DCommand {
                 "Current paths: %s\nWhat is the path you would like to extract?\n[Q]uit [D]one"
                 .format(currentPaths.join(", "));
 
-            string response = aConsoleIo.ask(message, defaultPaths[defaultPathIndex] ?? "D");
-            if (strtoupper(response) == "Q") {
+            string response = consoleIo.ask(message, defaultPaths[defaultPathIndex] ?? "D");
+            if (response.upper == "Q") {
                  aConsoleIo.writeErrorMessages("Extract Aborted");
                 abort();
             }
-            if (strtoupper(response) == "D" && count(_paths)) {
-                 aConsoleIo.writeln();
+            if (response.upper == "D" && count(_paths)) {
+                 consoleIo.writeln();
 
                 return;
             }
-            if (strtoupper(response) == "D") {
-                 aConsoleIo.warning("No directories selected. Please choose a directory.");
+            if (response.upper == "D") {
+                 consoleIo.warning("No directories selected. Please choose a directory.");
             } else if (isDir(response)) {
                _paths ~= response;
                 defaultPathIndex++;
             } else {
-                 aConsoleIo.writeErrorMessages("The directory path you supplied was not found. Please try again.");
+                 consoleIo.writeErrorMessages("The directory path you supplied was not found. Please try again.");
             }
-             aConsoleIo.writeln();
+             consoleIo.writeln();
         }
     }
 
     // Execute the command
-  int execute(Json[string] commandArguments, IConsoleIo aConsoleIo) {
+  int execute(Json[string] arguments, IConsoleIo consoleIo) {
         string myPlugin = "";
-        if (commandArguments.getOption("exclude")) {
-           _exclude = to!string(commandArguments.getOption("exclude")).split(",");
+        if (arguments.hasKey("exclude")) {
+           _exclude = arguments.getString("exclude").split(",");
         }
-        if (commandArguments.getOption("files")) {
-           _fileNames = to!string(commandArguments.getOption("files")).split(",");
+        if (arguments.hasKey("files")) {
+           _fileNames = arguments.getString("files").split(",");
         }
-        if (commandArguments.getOption("paths")) {
-           _paths = to!string(commandArguments.getOption("paths")).split(",");
-        } else if (commandArguments.getOption("plugin")) {
-            myPlugin = Inflector.camelize(to!string(commandArguments.getOption("plugin")));
+        if (arguments.getOption("paths")) {
+           _paths = arguments.getString("paths").split(",");
+        } else if (arguments.getOption("plugin")) {
+            myPlugin = Inflector.camelize(commandArguments.getString("plugin"));
            _paths = [Plugin.classPath(myPlugin), Plugin.templatePath(myPlugin)];
         } else {
            _getPaths(aConsoleIo);
         }
         string _extractCore; 
-        if (commandArguments.hasOption("extract-core")) {
-           _extractCore = !(to!string(commandArguments.getOption("extract-core")).lower == "no");
+        if (arguments.hasOption("extract-core")) {
+           _extractCore = !arguments.getString("extract-core").lower == "no");
         } else {
             response = aConsoleIo.askChoice(
                 "Would you like to extract the messages from the UIM core?",
@@ -123,15 +123,15 @@ class DI18nExtractCommand : DCommand {
             );
            _extractCore = response.toLowe == "y";
         }
-        if (commandArguments.hasOption("exclude-plugins") && _isExtractingApp()) {
+        if (arguments.hasOption("exclude-plugins") && _isExtractingApp()) {
            _exclude = chain(_exclude, App.path("plugins"));
         }
         if (_extractCore) {
            _paths ~= uim;
         }
-        if (commandArguments.hasOption("output")) {
-           _output = to!string(commandArguments.getOption("output"));
-        } else if (commandArguments.hasOption("plugin")) {
+        if (arguments.hasOption("output")) {
+           _output = to!string(arguments.getOption("output"));
+        } else if (arguments.hasOption("plugin")) {
            _output = Plugin.path(plugin)
                 ~ "resources" ~ DIRECTORY_SEPARATOR
                 ~ "locales" ~ DIRECTORY_SEPARATOR;
@@ -142,12 +142,12 @@ class DI18nExtractCommand : DCommand {
                 localePaths ~= ROOT ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales";
             }
             while (true) {
-                response = aConsoleIo.ask(
+                response = consoleIo.ask(
                     message,
                     localePaths[0]
                 );
-                if (strtoupper(response) == "Q") {
-                     aConsoleIo.writeErrorMessages("Extract Aborted");
+                if (response.upper == "Q") {
+                     consoleIo.writeErrorMessages("Extract Aborted");
 
                     return CODE_ERROR;
                 }
@@ -155,37 +155,37 @@ class DI18nExtractCommand : DCommand {
                    _output = response ~ DIRECTORY_SEPARATOR;
                     break;
                 }
-                 aConsoleIo.writeErrorMessages("");
-                 aConsoleIo.writeErrorMessages(
+                 consoleIo.writeErrorMessages("");
+                 consoleIo.writeErrorMessages(
                     "<error>The directory path you supplied was " ~
                     "not found. Please try again.</error>"
                 );
-                 aConsoleIo.writeErrorMessages("");
+                 consoleIo.writeErrorMessages("");
             }
         }
-        if (commandArguments.hasOption("merge")) {
-           _merge = !(strtolower(to!string(commandArguments.getOption("merge")) == "no"));
+        if (arguments.hasOption("merge")) {
+           _merge = !(strtolower(to!string(arguments.getOption("merge")) == "no"));
         } else {
-             aConsoleIo.writeln();
-            response = aConsoleIo.askChoice(
+             consoleIo.writeln();
+            response = consoleIo.askChoice(
                 "Would you like to merge all domain strings into the default.pot file?",
                 ["y", "n"],
                 "n"
             );
-           _merge = strtolower(response) == "y";
+           _merge = response.lower == "y";
         }
-       _markerError = (bool)commandArguments.getOption("marker-error");
+       _markerError = arguments.getBool("marker-error");
 
         if (_fileNames.isEmpty) {
            _searchFiles();
         }
        _output = stripRight(_output, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
         if (!_isPathUsable(_output)) {
-             aConsoleIo.writeErrorMessages("The output directory `%s` was not found or writable.".format(_output));
+             consoleIo.writeErrorMessages("The output directory `%s` was not found or writable.".format(_output));
 
             return CODE_ERROR;
         }
-       _extract(commandArguments,  aConsoleIo);
+       _extract(arguments, consoleIo);
 
         return CODE_SUCCESS;
     }
@@ -196,7 +196,7 @@ class DI18nExtractCommand : DCommand {
      * Takes care of duplicate translations
      */
     protected void _addTranslation(string domainName, string messageId, Json[string] contextData = null) {
-        context = contextData.get("msgctxt", "");
+        auto context = contextData.get("msgctxt", "");
 
         if (isEmpty(_translations[domainName][messageId][context])) {
            _translations[domainName][messageId][context] = [

@@ -22,8 +22,8 @@ class DPluginAssetsCopyCommand : DCommand {
         return "plugin-assets-copy";
     }
 
-    override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
-        return super.execute(arguments, aConsoleIo);
+    override int execute(Json[string] arguments, IConsoleIo consoleIo) {
+        return super.execute(arguments, consoleIo);
     }
 
     // Get the option parser.
@@ -49,16 +49,16 @@ class DPluginAssetsCopyCommand : DCommand {
      * Copying plugin assets to app`s webroot. For vendor namespaced plugin,
      * parent folder for vendor name are created if required.
      */
-    int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
-        this.io = aConsoleIo;
-        this.args = commandArguments;
+    int execute(Json[string] arguments, IConsoleIo consoleIo) {
+        _io = consoleIo;
+        _args = arguments;
 
-        auto name = commandArguments.getArgument("name");
-        auto shouldOverwrite = (bool)commandArguments.getOption("overwrite");
+        auto name = arguments.getString("name");
+        auto shouldOverwrite = arguments.getBool("overwrite");
        _process(_list(name), true, shouldOverwrite);
 
         return CODE_SUCCESS;
-    } */ 
+    } 
 }
 
 mixin(CommandCalls!("PluginAssetsCopy"));

@@ -20,8 +20,8 @@ class DPluginLoadedCommand : DCommand {
         return "plugin-loaded";
     }
 
-    override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
-        return super.execute(arguments, aConsoleIo);
+    override int execute(Json[string] arguments, IConsoleIo consoleIo) {
+        return super.execute(arguments, consoleIo);
     }
 
     /* 
@@ -35,13 +35,12 @@ class DPluginLoadedCommand : DCommand {
         return static . CODE_SUCCESS;
     }
     
-    /**
-     * Get the option parser.
+    // Get the option parser.
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
         parserToUpdate.description("Displays all currently loaded plugins.");
 
         return parserToUpdate;
-    } */
+    } 
 }
 
 mixin(CommandCalls!("PluginLoaded"));

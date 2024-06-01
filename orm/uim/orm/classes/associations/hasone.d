@@ -72,10 +72,7 @@ class DHasOneAssociation : DAssociation {
             return entity;
         }
 
-        properties = array_combine(
-            (array)foreignKeys(),
-            entity.extract((array)getBindingKey())
-        );
+        auto properties = chain(foreignKeys(), entity.extract(bindingKeys()));
         targetEntity.set(properties, ["guard": false.toJson]);
 
         if (!getTarget().save(targetEntity, options)) {

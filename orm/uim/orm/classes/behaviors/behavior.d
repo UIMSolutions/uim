@@ -177,13 +177,13 @@ class DBehavior : IEventListener {
             return configuration;
         }
 
-        indexed = array_flip(defaultMethodMap[keyToFilter]);
-        indexedCustom = array_flip(configuration.get(keyToFilter));
-        foreach (indexed as method: alias) {
-            if (!isset(indexedCustom[method])) {
-                indexedCustom[method] = alias;
+        auto indexed = array_flip(defaultMethodMap[keyToFilter]);
+        auto indexedCustom = array_flip(configuration.get(keyToFilter));
+        indexed.byKeyValue.each!((methodAlias) {
+            if (!indexedCustom.hasKey(methodAlias.key)) {
+                indexedCustom[methodAlias.key] = methodAlias.value;
             }
-        }
+        });
         configuration.update(keyToFilter, array_flip(indexedCustom), false);
         configuration.remove(keyToFilter);
 

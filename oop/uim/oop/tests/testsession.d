@@ -24,10 +24,10 @@ class DTestSession {
         if (_session.isNull) {
             return false;
         }
-        if (nameToCheck.isNull) {
-            return (bool)_session;
-        }
-        return !Hash.get(_session, nameToCheck).isNull;
+        
+        return nameToCheck.isNull
+            ? !_session.isNull
+            : !Hash.get(_session, nameToCheck).isNull;
     }
     
     // Returns given session variable, or all of them, if no parameters given.

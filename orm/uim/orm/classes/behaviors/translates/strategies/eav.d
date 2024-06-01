@@ -380,6 +380,9 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * @param DORMDatasource\ results Results to modify.
      */
     ICollection groupTranslations(IResultset resultsToModify) {
+        return null;
+        // TODO
+        /* 
         return resultsToModify.map(function (row) {
             if (!cast(IORMEntity)row) {
                 return row;
@@ -408,24 +411,22 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             row.clean();
 
             return row;
-        });
+        }); */
     }
 
     /**
      * Helper method used to generated multiple translated field entities
      * out of the data found in the `_translations` property in the passed
      * entity. The result will be put into its `_i18n` property.
-     *
-     * @param DORMDatasource\IORMEntity anEntity Entity
      */
-    protected void bundleTranslatedFields(entity) {
-        translations = (array)entity.get("_translations");
+    protected void bundleTranslatedFields(IORMEntity entity) {
+        auto translations = entity.getStringArray("_translations");
 
         if (translations.isEmpty && !entity.isDirty("_translations")) {
             return;
         }
 
-        fields = configuration.get("fields"];
+        fields = configuration.get("fields");
         primaryKeys = (array)this.table.primaryKeys();
         key = entity.get(current(primaryKeys));
         find = null;

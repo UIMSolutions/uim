@@ -118,66 +118,68 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         orderByTranslatedField = this.iterateClause(query, "order", myConfiguration);
         filteredByTranslatedField =
             traverseClause(query, "where", myConfiguration) ||
-            configuration.hasKey("onlyTranslated") ||
+            configuration.hasKey(
+                "onlyTranslated") ||
             (options["filterByCurrentLocale"] ?  ? null);
         if (!fieldsAdded && !orderByTranslatedField && !filteredByTranslatedField) {
             return;
         }
 
         query.contain([configuration.get("hasOneAlias")]);
+        // TODO
+        /*
         query.formatResults(
-            function(
-                results) use(locale) {
+            function(results) use(locale) {
             return _rowMapper(results, locale);}, query:
              : PREPEND);
-        }
+             */
+    }
 
-        /**
+    /**
      * Create a hasOne association for record with required locale.
      *
      * @param string locale Locale
      * @param \ArrayObject options Find options
      */
-        protected void setupHasOneAssociation(
-            string locale, ArrayObject options) {
-            auto configData = configuration.data;
-            [plugin] = pluginSplit(
-                configuration.get(
-                    "translationTable"));
-            hasOneTargetAlias = plugin ? (
-                plugin ~ "." ~ configuration.get(
-                    "hasOneAlias")) : configuration.get(
-                "hasOneAlias");
-            if (!getTableLocator()
-                .exists(hasOneTargetAlias)) {
-                // Load table before hand with fallback class usage enabled
-                getTableLocator().get(
-                    hasOneTargetAlias,
-                    [
-                        "className": configuration.get("translationTable"),
-                        "allowFallbackClass": true.toJson,
-                    ]
-                );
-            }
-
-            string joinType = isset(options["filterByCurrentLocale"])
-                ? (options["filterByCurrentLocale"] ? "INNER" : "LEFT") : (
-                    configuration.getString("onlyTranslated") ? "INNER" : "LEFT");
-
-            this.table.hasOne(configuration.get("hasOneAlias"), [
-                    "foreignKey": ["id"],
-                    "joinType": joinType,
-                    "propertyName": "translation",
-                    "className": configuration.getString("translationTable"),
-                    "conditions": [
-                        configuration.getString("hasOneAlias") ~ ".locale": locale,
-
-                    
-
-                ],]);
+    protected void setupHasOneAssociation(string locale, ArrayObject options) {
+        auto configData = configuration.data;
+        [plugin] = pluginSplit(
+            configuration.get(
+                "translationTable"));
+        hasOneTargetAlias = plugin ? (
+            plugin ~ "." ~ configuration.get(
+                "hasOneAlias")) : configuration.get(
+            "hasOneAlias");
+        if (!getTableLocator()
+            .exists(hasOneTargetAlias)) {
+            // Load table before hand with fallback class usage enabled
+            getTableLocator().get(
+                hasOneTargetAlias,
+                [
+                    "className": configuration.get("translationTable"),
+                    "allowFallbackClass": true.toJson,
+                ]
+            );
         }
 
-        /**
+        string joinType = isset(options["filterByCurrentLocale"])
+            ? (options["filterByCurrentLocale"] ? "INNER" : "LEFT") : (
+                configuration.getString("onlyTranslated") ? "INNER" : "LEFT");
+
+        this.table.hasOne(configuration.get("hasOneAlias"), [
+                "foreignKey": ["id"],
+                "joinType": joinType,
+                "propertyName": "translation",
+                "className": configuration.getString("translationTable"),
+                "conditions": [
+                    configuration.getString("hasOneAlias") ~ ".locale": locale,
+
+                
+
+            ],]);
+    }
+
+    /**
      * Add translation fields to query.
      *
      * If the query is using autofields (directly or implicitly) add the
@@ -189,41 +191,39 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param DORMQuery query The query to check.
      * @param Json[string] myConfiguration The config to use for adding fields.
      */
-        protected bool addFieldsToQuery(query, Json myConfiguration) {
-            if (query.isAutoFieldsEnabled()) {
-                return true;
+    protected bool addFieldsToQuery(DORMQuery query, Json myConfiguration) {
+        if (query.isAutoFieldsEnabled()) {
+            return true;
+        }
+
+        auto select = array_filter(query.clause(
+                "select"), function(
+                field) { return field
+                .isString; });
+        if (!select) {
+            return true;
+        }
+
+        auto aliasName"mainTableAlias");
+        joinRequired = false;
+        foreach (
+            this.translatedFields() as field) {
+            if (array_intersect(select, [
+                        field, "alias.field"
+                    ])) {
+                joinRequired = true;
+                query.select(query.aliasField(field, configuration.get("hasOneAlias")));
             }
+        }
 
-            select = array_filter(query.clause(
-                    "select"), function(
-                    field) { return field
-                    .isString; });
-            if (!select) {
-                return true;
-            }
+        if (joinRequired) {
+            query.select(query.aliasField("locale", configuration.get("hasOneAlias")));
+        }
 
-            alias = configuration.get(
-                "mainTableAlias");
-            joinRequired = false;
-            foreach (
-                this.translatedFields() as field) {
-                if (array_intersect(select, [
-                            field, "alias.field"
-                        ])) {
-                    joinRequired = true;
-                    query.select(query.aliasField(
-                            field, configuration.get(
-                            "hasOneAlias"]));}
-                }
+        return joinRequired;
+    }
 
-                if (joinRequired) {
-                    query.select(query.aliasField(
-                            "locale", configuration.get(
-                            "hasOneAlias"]));}
-
-                    return joinRequired;}
-
-                    /**
+    /**
      * Iterate over a clause to alias fields.
      *
      * The objective here is to transparently prevent ambiguous field errors by
@@ -234,32 +234,44 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param string aName The clause name.
      * @param Json[string] myConfiguration The config to use for adding fields.
      */
-                    protected bool iterateClause(query, name = "", myConfiguration = null) {
-                        clause = query.clause(
-                            name); if (!clause || !clause.count()) {
-                            return false;}
+    protected bool iterateClause(query, name = "", myConfiguration = null) {
+        clause = query.clause(
+            name);
+        if (!clause || !clause.count()) {
+            return false;
+        }
 
-                            alias = configuration.get(
-                                "hasOneAlias"); fields = this.translatedFields(); mainTableAlias = configuration.get(
-                                "mainTableAlias"); mainTableFields = this.mainFields();
-                                joinRequired = false; clause.iterateParts(
-                                    function(c,  & field) use(fields, alias, mainTableAlias, mainTableFields,  & joinRequired) {
-                                    if (!field.isString || indexOf(
-                                        field, ".")) {
-                                        return c;}
+        alias = configuration.get(
+            "hasOneAlias");
+        fields = this.translatedFields();
+        mainTableAlias = configuration.get(
+            "mainTableAlias");
+        mainTableFields = this.mainFields();
+        joinRequired = false;
+        clause.iterateParts(
+            function(c,  & field) use(fields, alias, mainTableAlias, mainTableFields,  & joinRequired) {
+            if (!field.isString || indexOf(
+                field, ".")) {
+                return c;
+            }
 
-                                        /** @psalm-suppress ParadoxicalCondition */
-                                        if (in_array(field, fields, true)) {
-                                            joinRequired = true; field = "alias.field";
-                                        }
-                                        elseif(in_array(field, mainTableFields, true)) {
-                                            field = "mainTableAlias.field";}
+            /** @psalm-suppress ParadoxicalCondition */
+            if (in_array(field, fields, true)) {
+                joinRequired = true;
+                field = "alias.field";
+            }
+            elseif(in_array(field, mainTableFields, true)) {
+                field = "mainTableAlias.field";
+            }
 
-                                            return c;}
+            return c;
+        }
 
-                                            ); return joinRequired;}
+        );
+        return joinRequired;
+    }
 
-                                            /**
+    /**
      * Traverse over a clause to alias fields.
      *
      * The objective here is to transparently prevent ambiguous field errors by
@@ -270,44 +282,41 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param string aName The clause name.
      * @param Json[string] myConfiguration The config to use for adding fields.
      */
-                                            protected bool traverseClause(query, name = "", myConfiguration = null) {
-                                                clause = query.clause(
-                                                    name); if (!clause || !clause.count()) {
-                                                    return false;}
+    protected bool traverseClause(query, name = "", myConfiguration = null) {
+        clause = query.clause(
+            name);
+        if (!clause || !clause.count()) {
+            return false;
+        }
 
-                                                    Json alias = configuration.get(
-                                                        "hasOneAlias"]; fields = this.translatedFields();
-                                                        mainTableAlias = configuration.get(
-                                                        "mainTableAlias"]; mainTableFields = this.mainFields();
-                                                        joinRequired = false; clause.traverse(
-                                                        function(
-                                                        expression) use(
-                                                        fields, alias, mainTableAlias, mainTableFields,  & joinRequired) {
-                                                            if (!(
-                                                                cast(IField) expression)) {
-                                                                return;}
-                                                                field = expression.getField();
-                                                                if (!(field.isString || indexOf(
-                                                                    field, ".")) {
-                                                                        return; }
+        Json alias = configuration.get(
+            "hasOneAlias"];
+        fields = this.translatedFields();
+        mainTableAlias = configuration.get(
+            "mainTableAlias"]; mainTableFields = this.mainFields(); joinRequired = false;
+                clause.traverse(
+                    function(
+                    expression) use(
+                    fields, alias, mainTableAlias, mainTableFields,  & joinRequired) {
+                    if (!(
+                        cast(IField) expression)) {
+                        return;}
+                        field = expression.getField(); if (!(field.isString || indexOf(
+                            field, ".")) {
+                                return; }
 
-                                                                        if (in_array(field, fields, true)) {
-                                                                            joinRequired = true;
-                                                                            expression.setField(
-                                                                            "alias.field");
-                                                                            return;
-                                                                        }
+                                if (in_array(field, fields, true)) {
+                                    joinRequired = true; expression.setField(
+                                    "alias.field"); return; }
 
-                                                                        /** @psalm-suppress ParadoxicalCondition */
-                                                                        if (in_array(field, mainTableFields, true)) {
-                                                                            expression.setField(
-                                                                            "mainTableAlias.field");
-                                                                        }
-                                                                    }
-                                                                ); return joinRequired;
-                                                            }
+                                    /** @psalm-suppress ParadoxicalCondition */
+                                    if (in_array(field, mainTableFields, true)) {
+                                        expression.setField(
+                                        "mainTableAlias.field"); }
+                                    }
+                                    ); return joinRequired;}
 
-                                                            /**
+                                    /**
      * Modifies the entity before it is saved so that translated fields are persisted
      * in the database too.
      *
@@ -315,95 +324,84 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param DORMDatasource\IORMEntity anEntity The entity that is going to be saved.
      * @param \ArrayObject options the options passed to the save method.
      */
-                                                            void beforeSave(IEvent event, IORMEntity anEntity, ArrayObject options) {
-                                                                locale = entity.get("_locale") ?
-                                                                 : locale(); newOptions = [
-                                                                    this.translationTable.aliasName(): [
-                                                                        "validate": false
-                                                                        .toJson
-                                                                    ]
-                                                                ]; options["associated"] = newOptions + options["associated"];
+                                    void beforeSave(IEvent event, IORMEntity anEntity, ArrayObject options) {
+                                        locale = entity.get("_locale") ?
+                                         : locale(); newOptions = [
+                                            this.translationTable.aliasName(): [
+                                                "validate": false
+                                                .toJson
+                                            ]
+                                        ]; options["associated"] = newOptions + options["associated"];
 
-                                                                // Check early if empty translations are present in the entity.
-                                                                // If this is the case, unset them to prevent persistence.
-                                                                // This only applies if configuration.get("allowEmptyTranslations"] is false
-                                                                if (
-                                                                    configuration.get(
-                                                                    "allowEmptyTranslations"] == false) {
-                                                                        this.unsetEmptyFields(
-                                                                        entity); }
+                                        // Check early if empty translations are present in the entity.
+                                        // If this is the case, unset them to prevent persistence.
+                                        // This only applies if configuration.get("allowEmptyTranslations"] is false
+                                        if (
+                                            configuration.get(
+                                            "allowEmptyTranslations"] == false) {
+                                                this.unsetEmptyFields(
+                                                entity); }
 
-                                                                        this.bundleTranslatedFields(
-                                                                        entity); bundled = entity.get("_i18n") ?  : [];
-                                                                        noBundled = count(
-                                                                        bundled) == 0;
+                                                this.bundleTranslatedFields(
+                                                entity); bundled = entity.get("_i18n") ?
+                                                 : []; noBundled = count(
+                                                bundled) == 0; // No additional translation records need to be saved,
+                                                // as the entity is in the default locale.
+                                                if (noBundled && locale == getConfig(
+                                                    "defaultLocale")) {
+                                                    return; }
 
-                                                                        // No additional translation records need to be saved,
-                                                                        // as the entity is in the default locale.
-                                                                        if (noBundled && locale == getConfig(
-                                                                            "defaultLocale")) {
-                                                                            return;
-                                                                        }
+                                                    values = entity.extract(
+                                                    this.translatedFields(), true);
+                                                    fields = values
+                                                    .keys; noFields = empty(
+                                                    fields);  // If there are no fields and no bundled translations, or both fields
+                                                    // in the default locale and bundled translations we can
+                                                    // skip the remaining logic as its not necessary.
+                                                    if (noFields && noBundled || (
+                                                        fields && bundled)) {
+                                                        return; }
 
-                                                                        values = entity.extract(
-                                                                        this.translatedFields(), true);
-                                                                        fields = values
-                                                                        .keys; noFields = empty(
-                                                                        fields);  // If there are no fields and no bundled translations, or both fields
-                                                                        // in the default locale and bundled translations we can
-                                                                        // skip the remaining logic as its not necessary.
-                                                                        if (noFields && noBundled || (
-                                                                            fields && bundled)) {
-                                                                            return;
-                                                                        }
+                                                        primaryKeys = (
+                                                        array)this.table
+                                                        .primaryKeys(); id = entity.get(
+                                                        current(
+                                                        primaryKeys)); // When we have no key and bundled translations, we
+                                                        // need to mark the entity dirty so the root
+                                                        // entity persists.
+                                                        if (noFields && bundled && !id) {
+                                                            foreach (
+                                                                this.translatedFields() as field) {
+                                                                entity.setDirty(field, true);
+                                                            }
 
-                                                                        primaryKeys = (
-                                                                        array)this.table
-                                                                        .primaryKeys();
-                                                                        id = entity.get(
-                                                                        current(
-                                                                        primaryKeys));
+                                                            return; }
 
-                                                                        // When we have no key and bundled translations, we
-                                                                        // need to mark the entity dirty so the root
-                                                                        // entity persists.
-                                                                        if (noFields && bundled && !id) {
-                                                                            foreach (
-                                                                                this.translatedFields() as field) {
-                                                                                entity.setDirty(field, true);
-                                                                            }
+                                                            if (
+                                                                noFields) {
+                                                                return; }
 
-                                                                            return;
-                                                                        }
+                                                                where = [
+                                                                    "locale": locale
+                                                                ]; translation = null;
+                                                                if (id) {
+                                                                    where["id"] = id;
 
-                                                                        if (
-                                                                            noFields) {
-                                                                            return;
-                                                                        }
+                                                                    /** @var DORMdatasources.IORMEntity|null translation */
+                                                                    translation = this
+                                                                    .translationTable.find()
+                                                                    .select(array_merge([
+                                                                        "id",
+                                                                        "locale"
+                                                                    ], fields))
+                                                                    .where(where)
+                                                                    .disableBufferedResults()
+                                                                    .first(); }
 
-                                                                        where = [
-                                                                            "locale": locale
-                                                                        ]; translation = null;
-                                                                        if (id) {
-                                                                            where["id"] = id;
-
-                                                                            /** @var DORMdatasources.IORMEntity|null translation */
-                                                                            translation = this
-                                                                            .translationTable.find()
-                                                                            .select(array_merge([
-                                                                                "id",
-                                                                                "locale"
-                                                                            ], fields))
-                                                                            .where(where)
-                                                                            .disableBufferedResults()
-                                                                            .first();
-                                                                        }
-
-                                                                        if (
-                                                                            translation) {
-                                                                            translation.set(
-                                                                            values);
-                                                                        } else {
+                                                                    if (
+                                                                        translation) {
+                                                                        translation.set(
+                                                                        values); } else {
                                                                             translation = this
                                                                             .translationTable
                                                                             .newEntity(
@@ -449,7 +447,8 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      */
                                                                         string translationField(
                                                                         string field) {
-                                                                            if (locale() == getConfig(
+                                                                            if (
+                                                                                locale() == getConfig(
                                                                                 "defaultLocale")) {
                                                                                 return _table
                                                                                 .aliasField(

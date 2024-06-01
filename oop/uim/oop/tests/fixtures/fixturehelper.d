@@ -131,6 +131,8 @@ class DFixtureHelper {
     
     // Truncates fixture tables.
     void truncate(IFixture[] testFixtures) {
+        // TODO
+        /* 
         this.runPerConnection(void (IConnection aConnection, Json[string] anGroupFixtures) {
             if (cast(DConnection)aConnection) {
                 sortedFixtures = null;
@@ -150,6 +152,7 @@ class DFixtureHelper {
                 this.truncateConnection(aConnection,  anGroupFixtures);
             }
         }, testFixtures);
+        */
     }
     
     // Truncates all fixtures for a connection and provides friendly errors for bad data.
@@ -185,6 +188,8 @@ class DFixtureHelper {
         });
         // Check if any fixtures reference another fixture with constrants
         // If they do, then there might be cross-dependencies which we don"t support sorting
+        // TODO 
+        /*
         foreach (constrained as ["references": references]) {
             foreach (references as reference) {
                 if (isSet(constrained[reference])) {
@@ -192,6 +197,7 @@ class DFixtureHelper {
                 }
             }
         }
+        */
         return chain(unconstrained, array_column(constrained, "fixture"));
     }
     
@@ -212,14 +218,16 @@ class DFixtureHelper {
         }
         tableSchema = schemas[aTableName];
 
-        references = null;
+        string[] references;
+        // TODO
+        /* 
         foreach (tableSchema.constraints() as constraintName) {
             constraint = tableSchema.getConstraint(constraintName);
 
             if (constraint && constraint["type"] == TableSchema.CONSTRAINT_FOREIGN) {
                 references ~= constraint["references"][0];
             }
-        }
+        } */
         return references;
-    } */ 
+    } 
 }

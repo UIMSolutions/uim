@@ -455,20 +455,20 @@ mixin template TIntegrationTest() {
             "QUERY_STRING": aQuery,
             "REQUEST_URI": url,
         ];
-        if (!hostInfo.isEmpty("https"))) {
+        if (!hostInfo.isEmpty("https")) {
             env["HTTPS"] = "on";
         }
         if (isSet(hostInfo["host"])) {
             env["HTTP_HOST"] = hostInfo["host"];
         }
         if (isSet(_request["headers"])) {
-            foreach (_request["headers"] as myKey: v) {
-                name = myKey.replace("-", "_").upper;
-                if (!in_array(name, ["CONTENT_LENGTH", "CONTENT_TYPE"], true)) {
+            _request["headers"].byKeyValue.each!((kv) {
+                string name = kv.key.replace("-", "_").upper;
+                if (!["CONTENT_LENGTH", "CONTENT_TYPE"].has(name)) {
                     name = "HTTP_" ~ name;
                 }
-                env[name] = v;
-            }
+                env[name] = kv.value;
+            });
             _request.remove("headers");
         }
         props = [

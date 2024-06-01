@@ -434,16 +434,16 @@ class DBelongsToManyAssociation : DAssociation {
         if (!getDependent()) {
             return true;
         }
-        foreignKey = (array)foreignKeys();
-        bindingKey = (array)getBindingKey();
-        conditions = null;
 
+        auto foreignKeys = foreignKeys();
+        auto bindingKeys = bindingKeys();
+        auto bindingKeys = null;
         if (!bindingKey.isEmpty) {
-            conditions = array_combine(foreignKey, entity.extract(bindingKey));
+            conditions = chain(foreignKeys, entity.extract(bindingKeyx));
         }
 
-        table = this.junction();
-        hasMany = source().getAssociation(table.aliasName());
+        auto table = this.junction();
+        auto hasMany = source().getAssociation(table.aliasName());
         if (_cascadeCallbacks) {
             foreach (hasMany.find("all").where(conditions).all().toList() as related) {
                 success = table.remove(related, options);
@@ -455,40 +455,35 @@ class DBelongsToManyAssociation : DAssociation {
             return true;
         }
 
-        assocConditions = hasMany.getConditions();
-        if ((assocConditions.isArray) {
+        auto assocConditions = hasMany.getConditions();
+        if (assocConditions.isArray) {
             conditions = array_merge(conditions, assocConditions);
         } else {
             conditions ~= assocConditions;
         }
 
         table.deleteAll(conditions);
-
         return true;
     }
 
     /**
      * Returns boolean true, as both of the tables "own" rows in the other side
      * of the association via the joint table.
-     *
-     * @param DORMTable side The potential Table with ownership
      */
-    bool isOwningSide(Table side) {
+    bool isOwningSide(DORMTable tableWithOwnership) {
         return true;
     }
 
     /**
      * Sets the strategy that should be used for saving.
-     *
-     * @param string strategy the strategy name to be used
      */
-     void setSaveStrategy(string strategy) {
-        if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
-            msg =  "Invalid save strategy '%s'".format(strategy);
-            throw new DInvalidArgumentException(msg);
+     void setSaveStrategy(string strategyName) {
+        if (![self.SAVE_APPEND, self.SAVE_REPLACE].has(strategyName)) {
+            auto message =  "Invalid save strategy '%s'".format(strategyName);
+            throw new DInvalidArgumentException(message);
         }
 
-        _saveStrategy = strategy;
+        _saveStrategy = strategyName;
     }
 
     // Gets the strategy that should be used for saving.
@@ -515,8 +510,8 @@ class DBelongsToManyAssociation : DAssociation {
      * @param Json[string] options options to be passed to the save method in the target table
      */
     IORMEntity saveAssociated(IORMEntity anEntity, Json[string] optionData = null) {
-        targetEntity = entity.get(getProperty());
-        strategy = getSaveStrategy();
+        auto targetEntity = entity.get(getProperty());
+        auto strategy = getSaveStrategy();
 
         isEmpty = in_array(targetEntity, [null, [], "", false], true);
         if (isEmpty && entity.isNew()) {

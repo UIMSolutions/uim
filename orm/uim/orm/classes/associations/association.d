@@ -733,8 +733,10 @@ class DAssociation : IAssociation {
             return;
         }
 
-        property = options["propertyPath"];
-        propertyPath = explode(".", property);
+        auto property = options["propertyPath"];
+        // TODO auto propertyPath = explode(".", property);
+        // TODO
+        /* 
         query.formatResults(
             function(ICollection results, query) use(formatters, property, propertyPath) {
             extracted = null;
@@ -755,7 +757,7 @@ class DAssociation : IAssociation {
                 if (!extracted instanceof IResultset) {
                     extracted = new DResultsetDecorator(extracted);
                 }
-            } */
+            } * /
 
             results = results.insert(property, extracted);
             if (query.isHydrationEnabled()) {
@@ -770,7 +772,7 @@ class DAssociation : IAssociation {
         },
     Query:
          : PREPEND
-        );
+        );*/
     }
 
     /**

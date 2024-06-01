@@ -32,26 +32,14 @@ mixin template THttpClient() {
         Client.addMockResponse("POST", urlToMock, responseToMock, additionalOptions);
     }
     
-    /**
-     * Add a mock response for a GET request.
-     * Params:
-     * string aurl The URL to mock
-     * @param \UIM\Http\Client\Response response The response for the mock.
-     * @param Json[string] options Additional options. See Client.addMockResponse()
-     */
-    void mockClientGet(string aurl, Response response, Json[string] options = null) {
-        Client.addMockResponse("GET", url, response, options);
+    // Add a mock response for a GET request.
+    void mockClientGet(string urlToMock, Response response, Json[string] responseOptions = null) {
+        Client.addMockResponse("GET", urlToMock, response, responseOptions);
     }
     
-    /**
-     * Add a mock response for a PATCH request.
-     * Params:
-     * string aurl The URL to mock
-     * @param \UIM\Http\Client\Response response The response for the mock.
-     * @param Json[string] options Additional options. See Client.addMockResponse()
-     */
-    void mockClientPatch(string aurl, Response response, Json[string] options = null) {
-        Client.addMockResponse("PATCH", url, response, options);
+    // Add a mock response for a PATCH request.
+    void mockClientPatch(string urlToMock, Response response, Json[string] responseOptions = null) {
+        Client.addMockResponse("PATCH", urlToMock, response, responseOptions);
     }
     
     /**
@@ -61,8 +49,8 @@ mixin template THttpClient() {
      * @param \UIM\Http\Client\Response response The response for the mock.
      * @param Json[string] options Additional options. See Client.addMockResponse()
      */
-    void mockClientPut(string aurl, Response response, Json[string] options = null) {
-        Client.addMockResponse("PUT", url, response, options);
+    void mockClientPut(string urlToMock, Response response, Json[string] responseOptions = null) {
+        Client.addMockResponse("PUT", urlToMock, response, responseOptions);
     }
     
     /**

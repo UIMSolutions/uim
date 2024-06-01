@@ -12,26 +12,15 @@ import uim.http;
  * Example: the target host name can not be resolved or the connection failed.
  */
 class DNetworkException { // }: RuntimeException : INetworkException {
-    /**
-     * @var \Psr\Http\Message\IRequest
-     */
-    protected IRequest request;
+    protected IRequest _request;
 
-    /**
-     .
-     * Params:
-     * string amessage Exeception message.
-     * @param \Psr\Http\Message\IRequest request Request instance.
-     * @param \Throwable|null previous Previous Exception
-     */
-    this(string amessage, IRequest request, Throwable previousException = null) {
-        this.request = request;
-        super(message, 0, previous);
+    this(string execeptionMessage, IRequest request, Throwable previousException = null) {
+        _request = request;
+        super(execeptionMessage, 0, previousException);
     }
     
     /**
      * Returns the request.
-     *
      * The request object MAY be a different object from the one passed to IClient.sendRequest()
      */
     IRequest getRequest() {

@@ -519,24 +519,16 @@ class DResponse : IResponse {
      * returns a status code integer. However, keep in mind that these constants
      * might include status codes that are now allowed which will throw an
      * `\InvalidArgumentException`.
-     *
-     * @param string areasonPhrase The reason phrase to use with the
-     *   provided status code; if none is provided, implementations MAY
-     *   use the defaults as suggested in the HTTP specification.
      */
-    static auto withStatus(int statusCode, string areasonPhrase = "") {
-        new = clone this;
-        new._setStatus(statusCode, reasonPhrase);
+    static auto withStatus(int statusCode, string reasonPhrase = "") {
+        auto newResponse = clone();
+        newResponse._setStatus(statusCode, reasonPhrase);
 
-        return new;
+        return newResponse;
     }
     
-    /**
-     * Modifier for response status
-     * Params:
-     * @param string areasonPhrase The response reason phrase.
-     */
-    protected auto _setStatus(int statusCode, string areasonPhrase = "") {
+    // Modifier for response status
+    protected auto _setStatus(int statusCode, string reasonPhrase = "") {
         if (code < STATUS_CODE_MIN || statusCode > STATUS_CODE_MAX) {
             throw new DInvalidArgumentException(
                 "Invalid status code: %s. Use a valid HTTP status code in range 1xx - 5xx."
@@ -575,11 +567,10 @@ class DResponse : IResponse {
      *
      * This is needed for RequestHandlerComponent and recognition of types.
      * Params:
-     * string atype Content type.
      * @param string[]|string amimeType Definition of the mime type.
      */
-    void setTypeMap(string atype, string[] amimeType) {
-       _mimeTypes[type] = mimeType;
+    void setTypeMap(string contentType, string[] amimeType) {
+       _mimeTypes[contentType] = mimeType;
     }
     
     // Returns the current content type.

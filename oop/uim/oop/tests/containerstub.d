@@ -41,7 +41,7 @@ mixin template TContainerStub() {
      * Create an application instance.
      * Uses the configuration set in `configApplication()`.
      */
-    protected IHttpApplication|IConsoleApplication createApp() {
+    protected IHttpApplication /*|IConsoleApplication */ createApp() {
         appClass = _appClass
             ? _appClass
             : configuration.get("App.namespace") ~ "\Application";

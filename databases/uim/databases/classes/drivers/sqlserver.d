@@ -40,6 +40,12 @@ class DSqlserverDriver : DDriver {
         return true;
     }
 
+protected const MAX_ALIAS_LENGTH = 128;
+ 
+    protected const RETRY_ERROR_CODES = [
+        40613, // Azure Sql Database paused
+    ];
+
     string savePointSQL(name) {
         return "SAVE TRANSACTION t" ~ name;
     }
@@ -50,27 +56,17 @@ class DSqlserverDriver : DDriver {
     }
     /*
 
-    protected const MAX_ALIAS_LENGTH = 128;
- 
-    protected const RETRY_ERROR_CODES = [
-        40613, // Azure Sql Database paused
-    ];
-
- 
     protected const STATEMENT_CLASS = SqlserverStatement.classname;
-
-
 
     /**
      * Establishes a connection to the database server.
      *
      * Please note that the PDO.ATTR_PERSISTENT attribute is not supported by
      * the SQL Server D PDO drivers.  As a result you cannot use the
-     * persistent config option when connecting to a SQL Server  (for more
-     * information see: https://github.com/Microsoft/msDsql/issues/65).
+     * persistent config option when connecting to a SQL Server 
      */
     void connect() {
-        if (isSet(this.pdo)) {
+        if (isSet(_pdo)) {
             return;
         }
 
@@ -96,19 +92,19 @@ class DSqlserverDriver : DDriver {
         dsn ~= !configuration.get("failoverPartner"].isNull ? ";Failover_Partner={configuration.get("failoverPartner"]}" : null;
         dsn ~= !configuration.get("loginTimeout"].isNull ? ";LoginTimeout={configuration.get("loginTimeout"]}" : null;
         dsn ~= !configuration.get("multiSubnetFailover"].isNull ? ";MultiSubnetFailover={configuration.get("multiSubnetFailover"]}" : null;
-        dsn ~= !configuration.get("encrypt"].isNull ? ";Encrypt={configuration.get("encrypt"]}" : null;
-        dsn ~= !configuration.get("trustServerCertificate"].isNull ? ";TrustServerCertificate={configuration.get("trustServerCertificate"]}" : null;
+        dsn ~= !configuration.isNull("encrypt") ? ";Encrypt={configuration.get("encrypt"]}" : null;
+        dsn ~= !configuration.isNull("trustServerCertificate") ? ";TrustServerCertificate={configuration.get("trustServerCertificate"]}" : null;
         
-        this.pdo = this.createPdo(dsn, configData);
-        if (!(configuration.get("init"].isEmpty) {
-            (array)configuration.get("init"])
+        _pdo = createPdo(dsn, configData);
+        if (!(configuration.isEmpty("init")) {
+            (array)configuration.get("init"))
                 .each!(command => this.pdo.exec(command));
         }
-        if (!configuration.get("settings"].isEmpty && isArray(configuration.get("settings"])) {
+        if (!configuration.isEmpty("settings") && isArray(configuration.get("settings"])) {
             configuration.get("settings"].byKeyValue
                 .each!(kv => this.pdo.exec("SET %s %s".format(kv.key, kv.value)));
         }
-        if (!configuration..isEmpty("attributes") && isArray(configuration.get("attributes"])) {
+        if (!configuration.isEmpty("attributes") && isArray(configuration.get("attributes"])) {
             configuration.get("attributes"].byKeyValue
                 .each(kv => this.pdo.setAttribute(kv.key, kv.value));
         }
@@ -192,10 +188,10 @@ class DSqlserverDriver : DDriver {
         if (numberOfRows &&  anOffset.isNull) {
             aQuery.modifier(["_auto_top_": "TOP %d".format(numberOfRows)]);
         }
-        if (anOffset !isNull && !aQuery.clause("order")) {
+        if (!anOffset.isNull && !aQuery.clause("order")) {
             aQuery.orderBy(aQuery.newExpr().add("(SELECT NULL)"));
         }
-        if (this.currentVersion() < 11 &&  anOffset !isNull) {
+        if (currentVersion() < 11 &&  !anOffset.isNull) {
             return _pagingSubquery(aQuery, numberOfRows,  anOffset);
         }
         return _transformDistinct(aQuery);
@@ -304,9 +300,8 @@ class DSqlserverDriver : DDriver {
         // Decorate the original query as that is what the
         // end developer will be calling execute() on originally.
          original.decorateResults(function (row) {
-            if (isSet(row["_uim_distinct_pivot_"])) {
-                unset(row["_uim_distinct_pivot_"]);
-            }
+             
+                row.remove("_uim_distinct_pivot_");
             return row;
         });
 
@@ -401,5 +396,5 @@ class DSqlserverDriver : DDriver {
                 }
                 break;
         }
-    } */
+    } 
 }

@@ -46,8 +46,6 @@ class DSqliteDriver : DDriver {
 
     protected const STATEMENT_CLASS = SqliteStatement.classname;
 
-
-
     // Whether the connected server supports window functions
     protected bool _supportsWindowFunctions = null;
 
@@ -69,7 +67,7 @@ class DSqliteDriver : DDriver {
     ];
 
     void connect() {
-        if (isSet(this.pdo)) {
+        if (isSet(_pdo)) {
             return;
         }
         configData = configuration;
@@ -78,35 +76,35 @@ class DSqliteDriver : DDriver {
             PDO.ATTR_EMULATE_PREPARES: false,
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
         ];
-        if (!configuration.get("database"].isString) || configuration.get("database"] == "") {
+        if (!configuration.get("database").isString) || configuration.getString("database"] == "") {
             name = configData.get("name", "unknown");
             throw new DInvalidArgumentException(
                 "The `database` key for the `{name}` SQLite connection needs to be a non-empty string."
             );
         }
         chmodFile = false;
-        if (configuration.get("database"] != ": memory:" && configuration.get("mode"] != "memory") {
+        if (configuration.getString("database") != ": memory:" && configuration.getString("mode") != "memory") {
             chmodFile = !fileExists(configuration.get("database"]);
         }
         
         string[] params = null;
-        if (configuration.get("cache"]) {
-            params ~= "cache=" ~ configuration.get("cache"];
+        if (configuration.hasKey("cache"]) {
+            params ~= "cache=" ~ configuration.getString("cache");
         }
-        if (configuration.get("mode"]) {
-            params ~= "mode=" ~ configuration.get("mode"];
+        if (configuration.hasKey("mode")) {
+            params ~= "mode=" ~ configuration.getString("mode");
         }
         auto dsn = params 
-            ? "sqlite:file:" ~ configuration.get("database"] ~ "?" ~ params.join("&")
+            ? "sqlite:file:" ~ configuration.get("database") ~ "?" ~ params.join("&")
             : "sqlite:" ~ configuration.get("database"];
         }
-        this.pdo = this.createPdo(dsn, configData);
+        _pdo = createPdo(dsn, configData);
         if (chmodFile) {
-            @chmod(configuration.get("database"], configuration.get("mask"]);
+            @chmod(configuration.get("database"), configuration.get("mask"]);
         }
-        if (!(configuration.get("init"].isEmpty) {
+        if (!(configuration.isEmpty("init")) {
             foreach (command; (array)configuration.get("init"] ) {
-                this.pdo.exec(command);
+                _pdo.exec(command);
             }
         }
     }
@@ -116,8 +114,6 @@ class DSqliteDriver : DDriver {
         return in_array("sqlite", PDO.getAvailableDrivers(), true);
     }
     
-
-
     bool supports(DriverFeatures feature) {
         return match (feature) {
             DriverFeatures.DISABLE_CONSTRAINT_WITHOUT_TRANSACTION,
@@ -135,14 +131,14 @@ class DSqliteDriver : DDriver {
         };
     }
  
-    SchemaDialect schemaDialect() {
+    DSchemaDialect schemaDialect() {
         if (isSet(_schemaDialect)) {
             return _schemaDialect;
         }
         return _schemaDialect = new DSqliteSchemaDialect(this);
     }
  
-    QueryCompiler newCompiler() {
+    DQueryCompiler newCompiler() {
         return new DSqliteCompiler();
     }
  
@@ -159,7 +155,7 @@ class DSqliteDriver : DDriver {
      * Params:
      * \UIM\Database\Expression\FunctionExpression expression The auto expression to convert to TSQL.
      */
-    protected void _transformFunctionExpression(FunctionExpression expression) {
+    protected void _transformFunctionExpression(DFunctionExpression expression) {
         switch (expression.name) {
             case "CONCAT": 
                 // CONCAT bool is expressed as exp1 || exp2
@@ -221,6 +217,5 @@ class DSqliteDriver : DDriver {
                     .add([") + (1": "literal"]); // Sqlite starts on index 0 but Sunday should be 1
                 break;
         }
-    } */
-
+    } 
 }

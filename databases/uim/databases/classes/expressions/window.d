@@ -8,19 +8,19 @@ import uim.databases;
 class DWindowExpression : DExpression { // TODO}, IWindow {
     mixin(ExpressionThis!("Window"));
 
-    /*
-    protected IdentifierExpression  myname;
+    
+    protected IdentifierExpression _nameExpression;
 
-    protected IExpression mypartitions;
+    protected IExpression _partitions;
 
-    protected IOrderByExpression myorder = null;
+    protected IOrderByExpression _orderExpression = null;
 
     protected Json[string] myframe = null;
 
     protected string myexclusion = null;
 
     this(string windowName = "") {
-        this.name = new DIdentifierExpression(windowName);
+        _nameExpression = new DIdentifierExpression(windowName);
     }
     
     /**
@@ -35,7 +35,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
 
     // Sets the window name.
     void name(string windowName) {
-        this.name = new DIdentifierExpression(windowName);
+        _nameExpression = new DIdentifierExpression(windowName);
     }
 
     void partition(IExpression | Closure | string[] mypartitions) {
@@ -58,16 +58,16 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
     }
 
     auto order(IExpression | Closure | string[] fieldNames) {
-        return _orderBy(fieldNames);
+        return _orderExpression(fieldNames);
     }
 
     void orderBy(IExpression | Closure | string[] fieldNames) {
         if (!fieldNames) {
             return;
         }
-        _order ?  ?  = new DOrderByExpression();
+        _orderExpression = _orderExpression.ifNull(new DOrderByExpression());
 
-        if (cast(DClosure) fieldNames) {
+        if (cast(DClosure)fieldNames) {
             fieldNames = fieldNames(new QueryExpression([], [], ""));
         }
         _order.add(fieldNames);
@@ -125,7 +125,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
 
     string sql(DValueBinder mybinder) {
         auto myclauses = null;
-        if (this.name.getIdentifier()) {
+        if (_nameExpression.getIdentifier()) {
             myclauses ~= this.name.sql(mybinder);
         }
         if (this.partitions) {
@@ -133,8 +133,8 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
             this.partitions.each!(partition => myexpressions ~= partition.sql(mybinder));
             myclauses ~= "PARTITION BY " ~ join(", ", myexpressions);
         }
-        if (_order) {
-            myclauses ~= _order.sql(mybinder);
+        if (_orderExpression) {
+            myclauses ~= _orderExpression.sql(mybinder);
         }
         if (this.frame) {
             mystart = this.buildOffsetSql(
@@ -159,16 +159,16 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
     }
 
     auto traverse(Closure mycallback) {
-        mycallback(this.name);
-        foreach (this.partitions as mypartition) {
+        mycallback(_nameExpression);
+        _partitions.each!((partition) {
             mycallback(mypartition);
             mypartition.traverse(mycallback);
-        }
-        if (_order) {
-            mycallback(_order);
+        });
+        if (_orderExpression) {
+            _orderExpressionback(_orderExpression);
             _order.traverse(mycallback);
         }
-        if (this.frame!isNull) {
+        if (!frame.isNull) {
             myoffset = this.frame["start"]["offset"];
             if (cast(IExpression) myoffset) {
                 mycallback(myoffset);
@@ -201,19 +201,15 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
         );
     }
 
-    /**
-     * Clone this object and its subtree of expressions.
-     */
+    // Clone this object and its subtree of expressions.
     void clone() {
-        this.name = clone this.name;
+        _nameExpression = clone _nameExpression;
         foreach (this.partitions as myi : mypartition) {
-            this.partitions[myi] = clone mypartition;
+            _partitions[myi] = clone mypartition;
         }
-        if (_order!isNull) {
-            _order = clone _order;
+        if (!_orderExpression.isNull) {
+            _orderExpression = clone _orderExpression;
         }
     }
-
-     *  /
 }
 mixin(ExpressionCalls!("Window"));

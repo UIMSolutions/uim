@@ -4,7 +4,6 @@ import uim.databases;
 
 @safe:
 
-/*
 /**
  * This represents an SQL aggregate auto expression in an SQL statement.
  * Calls can be constructed by passing the name of the auto and a list of params.
@@ -14,10 +13,17 @@ import uim.databases;
 class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
     mixin(ExpressionThis!("Aggregate"));
 
-    /* 
-    protected IQueryExpression filter = null;
+    
+    protected IQueryExpression _filter = null;
 
-    protected DWindowExpression  window = null;
+    protected DWindowExpression _window = null;
+// Returns or creates WindowExpression for function.
+    protected DWindowExpression getWindow() {
+if (_window.isNull) {
+_window = new WindowExpression();
+}
+        return _window;
+    }
 
     /**
      * Adds conditions to the FILTER clause. The conditions are the same format as
@@ -75,27 +81,21 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
         /* IExpression| */ string|int endOffset,
         string aendDirection
     ) {
-        getWindow().frame(type, startOffset, startDirection, endOffset, endDirection);
+        window().frame(type, startOffset, startDirection, endOffset, endDirection);
     }
  
     void excludeCurrent() {
-        getWindow().excludeCurrent();
+        window().excludeCurrent();
     }
  
     void excludeGroup() {
-        getWindow().excludeGroup();
+        window().excludeGroup();
     }
  
     void excludeTies() {
-        getWindow().excludeTies();
+        window().excludeTies();
     }
 
-    /**
-     * Returns or creates WindowExpression for function.
-     */
-    protected DWindowExpression getWindow() {
-        return _window ??= new WindowExpression();
-    }
     string sql(DValueBinder aBinder) {
         string result = super.sql(aBinder);
         if (!_filter.isNull) {
@@ -138,6 +138,6 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
         if (!_window.isNull) {
             _window = clone _window;
         }
-    } */
+    } 
 }
 mixin(ExpressionCalls!("Aggregate"));

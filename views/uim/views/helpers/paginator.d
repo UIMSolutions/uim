@@ -117,7 +117,7 @@ class DPaginatorHelper : DHelper {
     
     // Gets the current paging parameters from the resultset for the given model
     array params() {
-        return configurationData.isSet("params") + this.paginated().pagingData();
+        return configurationData.hasKey("params") + this.paginated().pagingData();
     }
     
     // Convenience access to any of the paginator params.

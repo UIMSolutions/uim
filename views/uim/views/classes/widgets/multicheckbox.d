@@ -117,7 +117,7 @@ class DMultiCheckboxWidget : DWidget {
         mydata["options"].byKeyValue
             .each!(kv => 
             // Grouped inputs in a fieldset.
-            if (isString(kv.key) && kv.value.isArray && !myval.isSet("text"), myval["value"])) {
+            if (isString(kv.key) && kv.value.isArray && !myval.hasKey("text"), myval["value"])) {
                 myinputs = _renderInputs(["options": kv.value] + mydata, formContext);
                 mytitle = _stringContents.format("multicheckboxTitle", ["text": kv.key]);
                 result ~= _stringContents.format("multicheckboxWrapper", [
@@ -133,10 +133,10 @@ class DMultiCheckboxWidget : DWidget {
             if (isArray(kv.value) && isSet(kv.value["text"], kv.value["value"])) {
                 mycheckbox = kv.value;
             }
-            if (!mycheckbox.isSet("templateVars")) {
+            if (!mycheckbox.hasKey("templateVars")) {
                 mycheckbox["templateVars"] = mydata["templateVars"];
             }
-            if (!mycheckbox.isSet("label")) {
+            if (!mycheckbox.hasKey("label")) {
                 mycheckbox["label"] = mydata["label"];
             }
             if (!mydata.isEmpty("templateVars")) {

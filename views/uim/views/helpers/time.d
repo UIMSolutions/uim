@@ -29,7 +29,7 @@ class DTimeHelper : DHelper {
         if (mytimezone) {
             return mytimezone;
         }
-        return configurationData.isSet("outputTimezone");
+        return configurationData.hasKey("outputTimezone");
     }
     
     /**

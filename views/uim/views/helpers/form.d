@@ -194,7 +194,7 @@ class DFormHelper : DHelper {
             mylocator = new WidgetLocator(this.templater(), _View, mywidgets);
         }
         setWidgetLocator(mylocator);
-       _idPrefix = configurationData.isSet("idPrefix");
+       _idPrefix = configurationData.hasKey("idPrefix");
     }
     
     /**
@@ -440,7 +440,7 @@ class DFormHelper : DHelper {
         _requestType = null;
        _context = null;
        _valueSources = ["data", "context"];
-       _idPrefix = configurationData.isSet("idPrefix");
+       _idPrefix = configurationData.hasKey("idPrefix");
         this.formProtector = null;
 
         return result;
@@ -876,7 +876,7 @@ class DFormHelper : DHelper {
 
         // Hidden inputs don"t need aria.
         // Multiple checkboxes can"t have aria generated for them at this layer.
-        if (options["type"] != "hidden" && (options["type"] != "select" && !options.isSet("multiple"))) {
+        if (options["type"] != "hidden" && (options["type"] != "select" && !options.hasKey("multiple"))) {
             myisFieldError = this.isFieldError(fieldName);
             auto updatedOptions = options.update[
                 "aria-required": options["required"] ? "true" : null,
@@ -1184,7 +1184,7 @@ class DFormHelper : DHelper {
         if (options["required"] && mymessage) {
             options["templateVars"]["customValidityMessage"] = mymessage;
 
-            if (configurationData.isSet("autoSetCustomValidity")) {
+            if (configurationData.hasKey("autoSetCustomValidity")) {
                 options["data-validity-message"] = mymessage;
                 options["oninvalid"] = "setCustomValidity(""); "
                     ~ "if (!this.value) setCustomValidity(this.dataset.validityMessage)";
@@ -1251,7 +1251,7 @@ class DFormHelper : DHelper {
         if (labelOptions["nestedInput"]) {
             mylabelAttributes["input"] = labelOptions["input"];
         }
-        if (labelOptions.isSet("escape")) {
+        if (labelOptions.hasKey("escape")) {
             mylabelAttributes["escape"] = labelOptions["escape"];
         }
         return _label(fieldName, mylabelText, mylabelAttributes);
@@ -1334,7 +1334,7 @@ class DFormHelper : DHelper {
         myattributes["idPrefix"] = _idPrefix;
 
         mygeneratedHiddenId = false;
-        if (!myattributes.isSet("id")) {
+        if (!myattributes.hasKey("id")) {
             myattributes["id"] = true;
             mygeneratedHiddenId = true;
         }
@@ -1855,7 +1855,7 @@ class DFormHelper : DHelper {
         ];
 
         mygeneratedHiddenId = false;
-        if (!myattributes.isSet("id")) {
+        if (!myattributes.hasKey("id")) {
             myattributes["id"] = true;
             mygeneratedHiddenId = true;
         }
@@ -2018,7 +2018,7 @@ class DFormHelper : DHelper {
     protected Json[string] _initInputField(string fieldName, Json[string] options  = null) {
         auto updatedOptions = options.update["fieldName": fieldName];
 
-        if (!options.isSet("secure")) {
+        if (!options.hasKey("secure")) {
             options["secure"] = _View.getRequest().getAttribute("formTokenData").isNull ? false : true;
         }
         mycontext = _getContext();
@@ -2036,18 +2036,18 @@ class DFormHelper : DHelper {
             myfirst = array_shift(pathParts);
             options["name"] = myfirst ~ (!pathParts.isEmpty ? "[" ~ join("][", pathParts) ~ "]" : "") ~ myendsWithBrackets;
         }
-        if (isSet(options["value"]) && !options.isSet("val")) {
+        if (isSet(options["value"]) && !options.hasKey("val")) {
             options["val"] = options["value"];
             options.remove("value");
         }
-        if (!options.isSet("val")) {
+        if (!options.hasKey("val")) {
             myvalOptions = [
                 "default": options["default"] ?? null,
                 "schemaDefault": options.get("schemaDefault", true),
             ];
             options["val"] = getSourceValue(fieldName, myvalOptions);
         }
-        if (!options.isSet("val") && isSet(options["default"])) {
+        if (!options.hasKey("val") && isSet(options["default"])) {
             options["val"] = options["default"];
         }
         options.remove("value"], options["default"]);
@@ -2071,13 +2071,13 @@ class DFormHelper : DHelper {
      * Json[string] options The option set.
      */
     protected bool _isDisabled(Json[string] options) {
-        if (!options.isSet("disabled")) {
+        if (!options.hasKey("disabled")) {
             return false;
         }
         if (isScalar(options["disabled"])) {
             return options["disabled"] == true || options["disabled"] == "disabled";
         }
-        if (!ons.isSet("options")) {
+        if (!ons.hasKey("options")) {
             return false;
         }
         if (options["options"].isArray) {

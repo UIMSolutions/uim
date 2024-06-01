@@ -106,7 +106,7 @@ class DWidgetLocator {
      * the `_default` widget is undefined.
      */
     IWidget get(string widgetName) {
-        if (!_widgets.isSet(widgetName)) {
+        if (!_widgets.hasKey(widgetName)) {
             if (_widgets.isEmpty("_default")) {
                 throw new DInvalidArgumentException("Unknown widget `%s`".format(widgetName));
             }

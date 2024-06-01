@@ -103,8 +103,8 @@ class DWidget : IWidget {
     /* 
     if (
       !data.isEmpty("disabled") && (
-        (data.isSet("type") && data.get("type") != Json("hidden"))
-        || !data.isSet("type"))
+        (data.hasKey("type") && data.get("type") != Json("hidden"))
+        || !data.hasKey("type"))
         && formContext.isRequired(fieldName)
       ) {
       data["required"] = BooleanData(true);

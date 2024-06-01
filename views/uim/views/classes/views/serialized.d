@@ -23,7 +23,7 @@ class DSerializedView : DView {
 
     // Load helpers only if serialization is disabled.
     /* void loadHelpers() {
-        if (!configurationData.isSet("serialize")) {
+        if (!configurationData.hasKey("serialize")) {
             super.loadHelpers();
         }
     } */
@@ -47,7 +47,7 @@ class DSerializedView : DView {
      * @param string|null mylayout The layout being rendered.
      */
     string render(string mytemplate = null, string|null renderLayout = null) {
-        bool shouldSerialize = configurationData.isSet("serialize", false);
+        bool shouldSerialize = configurationData.hasKey("serialize", false);
 
         if (shouldSerialize == true) {
             options = array_map(

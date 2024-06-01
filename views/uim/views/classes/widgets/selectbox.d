@@ -224,7 +224,7 @@ class DSelectBoxWidget : DWidget {
             if (
                 (!isInt(kv.key) && myisIterable) ||
                 (isInt(kv.key) && myisRange &&
-                    (isSet(myval["options"]) || !myval.isSet("value"))
+                    (isSet(myval["options"]) || !myval.hasKey("value"))
                 )
             ) {
                 /** @var \ArrayAccess<string, mixed>|Json[string] myval */

@@ -580,7 +580,7 @@ class DHtmlHelper : DHelper {
         }
         htmlAttributes = array_diff_key(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
-        if (!htmlAttributes.isSet("alt")) {
+        if (!htmlAttributes.hasKey("alt")) {
             htmlAttributes["alt"] = "";
         }
         myurl = false;
@@ -888,7 +888,7 @@ class DHtmlHelper : DHelper {
                         "src": mysource,
                     ];
                 }
-                if (!mysource.isSet("type")) {
+                if (!mysource.hasKey("type")) {
                     myext = pathinfo(mysource["src"], PATHINFO_EXTENSION);
                     mysource["type"] = _View.getResponse().getMimeType(myext);
                 }

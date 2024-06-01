@@ -27,7 +27,7 @@ class UrlHelper : DHelper {
 		
 		return true;
 	}
-        myengineClassConfig = configurationData.isSet("assetUrlClassName");
+        myengineClassConfig = configurationData.hasKey("assetUrlClassName");
 
         /** @var class-string<\UIM\Routing\Asset>|null myengineClass */
         myengineClass = App.className(myengineClassConfig, "Routing");

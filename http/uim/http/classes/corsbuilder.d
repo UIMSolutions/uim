@@ -44,7 +44,7 @@ class DCorsBuilder {
         if (_origin.isEmpty) {
             return response;
         }
-        if (isSet(_headers["Access-Control-Allow-Origin"])) {
+        if (isSet(_headers.hasKey(["Access-Control-Allow-Origin"])) {
             _headers.byKeyValue
                 .each!(kv => response.withHeader(kv.key, kv.value));
         }

@@ -545,7 +545,7 @@ class DClient { // }: IClient {
       myheaders["Content-Type"] = "application/x-www-form-urlencoded";
     }
     myrequest = new DRequest(myurl, mymethod, myheaders, mydata);
-    myrequest = myrequest.withProtocolVersion(_configData.isSet("protocolVersion"));
+    myrequest = myrequest.withProtocolVersion(_configData.hasKey("protocolVersion"));
     mycookies = options["cookies"] ?  ? [];
     /** @var \UIM\Http\Client\Request  myrequest */
     myrequest = _cookies.addToRequest(myrequest, mycookies);

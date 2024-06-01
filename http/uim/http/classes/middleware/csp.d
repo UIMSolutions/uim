@@ -68,7 +68,7 @@ class DCspMiddleware { // }: IHttpMiddleware {
     
     // Add nonces (if enabled) to the request and apply the CSP header to the response.
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
-        if (_configData.isSet("scriptNonce")) {
+        if (_configData.hasKey("scriptNonce")) {
             serverRequest = serverRequest.withAttribute("cspScriptNonce", this.csp.nonce("script-src"));
         }
         if (getconfig("styleNonce")) {

@@ -104,7 +104,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
         }
         [type] = request.getHeaderLine("Content-Type").split(";");
         type = type.lower;
-        if (!this.parsers.isSet(type)) {
+        if (!this.parsers.hasKey(type)) {
             return requestHandler.handle(request);
         }
          aParser = this.parsers[type];

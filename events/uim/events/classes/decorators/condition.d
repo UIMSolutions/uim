@@ -28,7 +28,7 @@ class DConditionDecorator : DDecorator {
     
     // Evaluates the filter conditions
     protected bool _evaluateCondition(string conditionType, IEvent event) {
-        if (!_options.isSet(conditionType)) {
+        if (!_options.hasKey(conditionType)) {
             return conditionType != "unless";
         }
         if (!_options[conditionType].isCallable) {

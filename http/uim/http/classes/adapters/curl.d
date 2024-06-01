@@ -103,7 +103,7 @@ class DCurl { // }: IAdapter {
         ];
         
         optionMap.byKeyValue
-            .filter!(optionCurlOpt => clientOptions.isSet(optionCurlOpt.key))
+            .filter!(optionCurlOpt => clientOptions.hasKey(optionCurlOpt.key))
             .each!(optionCurlOpt => result[optionCurlOpt.value] = clientOptions[optionCurlOpt.key]);
             
         if (isSet(clientOptions["proxy"]["proxy"])) {

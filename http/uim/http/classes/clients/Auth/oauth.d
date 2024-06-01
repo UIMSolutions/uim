@@ -83,7 +83,7 @@ class DOauth {
             "oauth_token": authCredentials["token"],
             "oauth_consumer_key": authCredentials["consumerKey"],
         ];
-        if (authCredentials.isSet("realm")) {
+        if (authCredentials.hasKey("realm")) {
              someValues["oauth_realm"] = authCredentials["realm"];
         }
         

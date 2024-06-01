@@ -177,7 +177,7 @@ class DSession {
         if (configuration.get("cookie"]) {
             configuration.get("ini"]["session.name"] = configuration.get("cookie"];
         }
-        if (!configuration.get("ini"].isSet("session.cookie_path")) {
+        if (!configuration.get("ini"].hasKey("session.cookie_path")) {
             cookiePath = configData.isEmpty("cookiePath") ? "/" : configuration.get("cookiePath"];
             configuration.get("ini"]["session.cookie_path"] = cookiePath;
         }

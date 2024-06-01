@@ -87,7 +87,7 @@ class DViewBlock {
 
             return;
         }
-        if (!_blocks.isSet(blockName)) {
+        if (!_blocks.hasKey(blockName)) {
            _blocks[blockName] = "";
         }
         _blocks[blockName] = blockMode == DViewBlock.PREPEND

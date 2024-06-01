@@ -36,7 +36,7 @@ class DEntityRoute : DRoute {
            _checkEntity(myentity);
 
             this.keys
-                .filter!(field => !myurl.isSet(field) && myentity.isSetfield)
+                .filter!(field => !myurl.hasKey(field) && myentity.isSetfield)
                 .each!(field => myurl[field] = myentity[field]);
 
             }

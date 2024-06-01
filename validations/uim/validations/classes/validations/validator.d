@@ -2562,7 +2562,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * string fieldName Field name
      */
     string getRequiredMessage(string fieldName) {
-        if (!_fields.isSet(fieldName)) {
+        if (!_fields.hasKey(fieldName)) {
             return null;
         }
         if (isSet(_presenceMessages[fieldName])) {

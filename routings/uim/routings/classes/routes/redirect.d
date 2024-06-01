@@ -44,7 +44,7 @@ class DRedirectRoute : DRoute {
             return null;
         }
         myredirect = this.redirect;
-        if (this.redirect && count(this.redirect) == 1 && !this.redirect.isSet("controller")) {
+        if (this.redirect && count(this.redirect) == 1 && !this.redirect.hasKey("controller")) {
             myredirect = this.redirect[0];
         }
         if (isSet(configuration.update("persist"]) && isArray(myredirect)) {
@@ -58,7 +58,7 @@ class DRedirectRoute : DRoute {
         }
         
         auto statusCode = 301;
-        if (this.options.isSet("status") && (configuration.update("status"] >= 300 && configuration.update("status"] < 400)) {
+        if (this.options.hasKey("status") && (configuration.update("status"] >= 300 && configuration.update("status"] < 400)) {
             statusCode = configuration.update("status"];
         }
         throw new DRedirectException(Router.url(myredirect, true), statusCode);

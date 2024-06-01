@@ -187,7 +187,7 @@ class DStringContents {
     string format(string templateName, Json[string] insertData) {
         auto dataToInsert = insertData.dup;
         
-        // TODO if (!_compiledtemplates.isSet(templateName)) {
+        // TODO if (!_compiledtemplates.hasKey(templateName)) {
         // TODO     throw new DInvalidArgumentException("Cannot find template named `%s`.".format(templateName));
         // TODO }
         // TODO [mytemplate, myplaceholders] = _compiledtemplates[templateName];
@@ -195,7 +195,7 @@ class DStringContents {
         
         string[] myplaceholders;
         Json templateVars;
-        if (dataToInsert.isSet("templateVars")) {
+        if (dataToInsert.hasKey("templateVars")) {
             templateVars = dataToInsert["templateVars"];
             dataToInsert.remove("templateVars");
         }

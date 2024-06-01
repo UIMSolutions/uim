@@ -94,7 +94,7 @@ class DJsonView : DSerializedView {
      * @param string|null mylayout The layout being rendered.
      */
     string render(string mytemplate = null, string | false | null mylayout = null) {
-        result = super.render(mytemplate, mylayout); myJsonp = configurationData.isSet("Jsonp");
+        result = super.render(mytemplate, mylayout); myJsonp = configurationData.hasKey("Jsonp");
             if (myJsonp) {
                 if (myJsonp == true) {
                     myJsonp = "callback";}

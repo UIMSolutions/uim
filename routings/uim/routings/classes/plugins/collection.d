@@ -260,7 +260,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
 
     // Part of Iterator Interface
     bool valid() {
-        auto result = _names.isSet(_positions[_loopDepth]);
+        auto result = _names.hasKey(_positions[_loopDepth]);
         if (!result) {
             // TODO array_pop(_positions);
             _loopDepth -= 1;

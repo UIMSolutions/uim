@@ -1063,7 +1063,7 @@ class DValidation {
         if (valueToCheck instanceof IUploadedFile) {
             mycode = valueToCheck.getError();
         } elseif (isArray(valueToCheck)) {
-            if (!valueToCheck.isSet("error")) {
+            if (!valueToCheck.hasKey("error")) {
                 return false;
             }
             mycode = valueToCheck["error"];
@@ -1137,7 +1137,7 @@ class DValidation {
      * @param Json[string] options Options to validate width and height.
      */
     static bool imageSize(Json myfile, Json[string] options) {
-        if (!options.isSet("height") && !options.isSet("width")) {
+        if (!options.hasKey("height") && !options.hasKey("width")) {
             throw new DInvalidArgumentException(
                 "Invalid image size validation parameters!Missing `width` and / or `height`."
             );

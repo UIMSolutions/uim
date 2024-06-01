@@ -177,7 +177,7 @@ class DFormProtector {
 
             return null;
         }
-        if (!formData["_Token"].isSet("fields")) {
+        if (!formData["_Token"].hasKey("fields")) {
             this.debugMessage = message.format("_Token.fields");
 
             return null;

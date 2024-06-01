@@ -67,7 +67,7 @@ mixin template TValidatorAware() {
      */
     Validator getValidator(string myname = null) {
         myname = myname ?: DEFAULT_VALIDATOR;
-        if (!_validators.isSet(myname)) {
+        if (!_validators.hasKey(myname)) {
             setValidator(myname, this.createValidator(myname));
         }
         return _validators[myname];

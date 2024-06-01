@@ -126,20 +126,19 @@ class DSchemaLoader {
      * or SQL dump files over this format for ease of maintenance.
      *
      * A more complete example can be found in `tests/schema.d`.
-     * Params:
-     * string schemaFile Schema file
-     * @param string aconnectionName Connection name
      */
-    void loadInternalFile(string schemaFile, string aconnectionName = "test") {
+    void loadInternalFile(string schemaFile, string connectionName = "test") {
         // Don"t reload schema when we are in a separate process state.
-        if (isSet(GLOBALS["__DUNIT_BOOTSTRAP"])) {
+        if (GLOBALS.hasKey("__DUNIT_BOOTSTRAP")) {
             return;
         }
-        _helper.dropTables(aConnectionName);
+        _helper.dropTables(connectionName);
 
-        aTables = include file;
-
-        auto aConnection = ConnectionManager.get(aConnectionName);
+        // TODO aTables = include file;
+        auto connection = ConnectionManager.get(connectionName);
+        
+        // TODO 
+        /* 
         aConnection.disableConstraints(void (Connection aConnection) use (aTables) {
             foreach (aTables as aTableName: aTable) {
                 name = aTable.getString("table", aTableName);
@@ -162,6 +161,6 @@ class DSchemaLoader {
                 // Generate SQL for each table.
                 tableSchema.createSql(aConnection).each!(sql => aConnection.execute(sql));
             }
-        });
+        }); */
     }
 }

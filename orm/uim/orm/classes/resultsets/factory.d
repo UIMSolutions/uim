@@ -20,11 +20,11 @@ class DResultsetFactory {
      * \ORM\Query\SelectQuery<T> myquery Query from where results came.
      * @param Json[string] results Results array.
      */
-    IResultset createResultset(SelectQuery myquery, Json[string] results) {
-        auto collectData = this.collectData(myquery);
+    IResultset createResultset(SelectQuery resultQuery, Json[string] results) {
+        auto collectData = collectData(resultQuery);
 
-        foreach (results as myi: myrow) {
-            results[myi] = this.groupResult(myrow, collectData);
+        foreach (i, row; results) {
+            results[i] = groupResult(row, collectData);
         }
         return new DResultset(results);
     }
@@ -35,7 +35,7 @@ class DResultsetFactory {
      * Params:
      * \ORM\Query\SelectQuery myquery The query from where to derive the data.
      */
-    protected Json[string] collectData(SelectQuery myquery) {
+    protected Json[string] collectData(DSelectQuery myquery) {
         myprimaryTable = myquery.getRepository();
         mydata = [
             "primaryAlias": myprimaryTable.aliasName(),

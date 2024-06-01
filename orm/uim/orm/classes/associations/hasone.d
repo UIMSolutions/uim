@@ -26,7 +26,7 @@ class DHasOneAssociation : DAssociation {
 
     // Gets the name of the field representing the foreign key to the target table.
     string[] foreignKeys() {
-        if (_foreignKeys == null) {
+        if (_foreignKeys.isNull) {
             _foreignKeys = _modelKey(source().aliasName());
         }
 
@@ -35,7 +35,8 @@ class DHasOneAssociation : DAssociation {
 
     // Returns default property name based on association name.
     protected string _propertyName() {
-        [, name] = pluginSplit(_name);
+        string[] plugItems = pluginSplit(_name);
+        auto name = plugItems[1]; 
 
         return Inflector.underscore(Inflector.singularize(name));
     }

@@ -197,20 +197,19 @@ class DBehavior : IEventListener {
      */
     void verifyConfig() {
         string[] keys = ["implementedFinders", "implementedMethods"];
-        foreach (keys as key) {
+        keys.each!((key) {
             if (!configuration.has(key)) {
                 continue;
             }
 
             foreach (configuration.get(key) as method) {
                 if (!is_callable([this, method])) {
-                    throw new UIMException(format(
-                        "The method %s is not callable on class %s",
-                        method, class
-                    ));
+                    throw new UIMException(
+                        "The method %s is not callable on class %s"
+                        .format(method, classname));
                 }
             }
-        }
+        });
     }
 
     /**
@@ -239,9 +238,9 @@ class DBehavior : IEventListener {
             "Model.afterRules": "afterRules",
         ];
         auto configData = configuration.data;
-        priority = configuration.get("priority"] ?? null;
-        events = null;
-
+        
+        Json priority = configuration.get("priority");
+        Json[string] events = null;
         foreach (eventMap as event: method) {
             if (!method_exists(this, method)) {
                 continue;

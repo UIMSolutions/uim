@@ -30,18 +30,14 @@ class DTestSession {
         return !Hash.get(_session, nameToCheck).isNull;
     }
     
-    /**
-     * Returns given session variable, or all of them, if no parameters given.
-     * Params:
-     * string myname The name of the session variable (or a path as sent to Hash.extract)
-     */
-    Json read(string myname = null) {
+    // Returns given session variable, or all of them, if no parameters given.
+    Json read(string sessionName = null) {
         if (_session.isNull) {
             return null;
         }
-        if (myname.isNull) {
-            return _session ?: [];
+        if (sessionName.isNull) {
+            return _session ? _session : null;
         }
-        return Hash.get(_session, myname);
+        return Hash.get(_session, sessionName);
     } 
 }

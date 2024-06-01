@@ -378,20 +378,16 @@ mixin template TIntegrationTest() {
         return new DMiddlewareDispatcher(app);
     }
     
-    /**
-     * Adds additional event spies to the controller/view event manager.
-     * Params:
-     * \UIM\Event\IEvent event A dispatcher event.
-     * @param \UIM\Controller\Controller|null controller Controller instance.
-     */
-    void controllerSpy(IEvent event, Controller controller = null) {
+    // Adds additional event spies to the controller/view event manager.
+    void controllerSpy(IEvent dispatcherEvent, IController controller = null) {
         if (!controller) {
-            controller = event.getSubject();
+            controller = dispatcherEvent.getSubject();
             assert(cast(DController)controller);
         }
        _controller = controller;
-        events = controller.getEventManager();
-        flashCapture = void (IEvent event) {
+        auto events = controller.getEventManager();
+        // TODO
+        /* flashCapture = void (IEvent event) {
             if (!_retainFlashMessages) {
                 return;
             }
@@ -400,7 +396,7 @@ mixin template TIntegrationTest() {
                _flashMessages,
                 controller.getRequest().getSession().read("Flash")
             );
-        };
+        }; */
         events.on("Controller.beforeRedirect", ["priority": -100], flashCapture);
         events.on("Controller.beforeRender", ["priority": -100], flashCapture);
         // TODO events.on("View.beforeRender", void (event, viewFile) {

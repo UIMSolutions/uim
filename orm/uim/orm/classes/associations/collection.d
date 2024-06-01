@@ -41,11 +41,10 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * If the alias added contains a `.` the part preceding the `.` will be dropped.
      * This makes using plugins simpler as the Plugin.Class syntax is frequently used.
-     * @param DORMDORMAssociation anAssociation The association to add.
      */
-     DORMAssociation add(string anAliasName, DORMAssociation anAssociation) {
-        string anAliasName = pluginSplit(alias)[1];
-        return _items[anAliasName] = anAssociation;
+    DORMAssociation add(string anAliasName, DORMAssociation associationToAdd) {
+        string pluginName = pluginSplit(anAliasName)[1];
+        return _items[pluginName] = associationToAdd;
     }
 
     /**
@@ -64,17 +63,15 @@ class DAssociationCollection { // }: IteratorAggregate {
 
     // Fetch an attached association by name.
     DORMAssociation get(string associationAlias) {
-        return _items[alias] ?? null;
+        return _items.get(associationAlias, null);
     }
 
     /**
      * Fetch an association by property name.
-     *
      * aProperty - The property to find an association by.
-     * returns the association or null.
      */
     DORMAssociation getByProperty(string aProperty) {
-        foreach (myAssociation; _items ) {
+        foreach (myAssociation; _items) {
             if (myAssociation.getProperty() == aProperty) {
                 return myAssociation;
             }
@@ -90,12 +87,12 @@ class DAssociationCollection { // }: IteratorAggregate {
      * return true if the association exists.
      */
     bool has(string anAliasName) {
-      return isset(_items[alias]);
+        return isset(_items[anAliasName]);
     }
 
     // Get the names of all the associations in the collection.
     string[] keys() {
-      return _items.keys;
+        return _items.keys;
     }
 
     /**
@@ -106,15 +103,17 @@ class DAssociationCollection { // }: IteratorAggregate {
      * returns an array of Association objects.
      */
     DORMAssociation[] getByType(string[] someClassNames...) {
-      auto myClassNames = someClassNames.map!(className => className.lower).array;
+        auto myClassNames = someClassNames.map!(className => className.lower).array;
 
-      out = array_filter(_items, function (assoc) use (class) {
-          [, name] = namespaceSplit(get_class(assoc));
+        // TODO
+        /* 
+        out  = array_filter(_items, function(assoc) use(class) {
+            [, name] = namespaceSplit(get_class(assoc)); return in_array(name.lower, classname, true);
+        });
 
-          return in_array(name.lower, class, true);
-      });
-
-      return array_values(out);
+        return array_values(out );
+        */
+        return null; 
     }
 
     /**
@@ -132,9 +131,9 @@ class DAssociationCollection { // }: IteratorAggregate {
      * Once removed associations will no longer be reachable
      */
     void removeAll() {
-      foreach (myAliasName, object; _items) {
-        remove(myAliasName);
-      }
+        foreach (myAliasName, object; _items) {
+            remove(myAliasName);
+        }
     }
 
     /**
@@ -150,9 +149,8 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param Json[string] options The options for the save operation.
      */
     bool saveParents(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] optionData = null) {
-      return associations.isEmpty
-        ? true
-        : _saveAssociations(aTable, entity, associations, options, false);
+        return associations.isEmpty
+            ? true : _saveAssociations(aTable, entity, associations, options, false);
     }
 
     /**
@@ -168,8 +166,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      */
     bool saveChildren(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] optionData) {
         return associations.isEmpty
-            ? true
-            : _saveAssociations(table, entity, associations, options, true);
+            ? true : _saveAssociations(table, entity, associations, options, true);
     }
 
     /**
@@ -189,14 +186,14 @@ class DAssociationCollection { // }: IteratorAggregate {
         bool isOwningSide
     ) {
         options.remove("associated"]);
-        foreach (associations as alias: nested) {
+        foreach (associations as alias : nested) {
             if (is_int(alias)) {
                 alias = nested;
                 nested = null;
             }
             relation = get(alias);
             if (!relation) {
-                msg =  
+                msg =
                     "Cannot save %s, it is not associated to %s"
                     .format(alias, table.aliasName())
                 );
@@ -234,7 +231,7 @@ class DAssociationCollection { // }: IteratorAggregate {
             options = nested + options;
         }
 
-        return (bool)association.saveAssociated(entity, options);
+        return (bool) association.saveAssociated(entity, options);
     }
 
     /**
@@ -288,6 +285,6 @@ class DAssociationCollection { // }: IteratorAggregate {
 
     // Allow looping through the associations
     DORMAssociation[string] getIterator() {
-      return new DArrayIterator(_items);
+        return new DArrayIterator(_items);
     }
-} 
+}

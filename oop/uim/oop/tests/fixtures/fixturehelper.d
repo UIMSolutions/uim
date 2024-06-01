@@ -47,10 +47,10 @@ class DFixtureHelper {
                     additionalPath,
                     name ~ "Fixture",
                 ];
-                /** @var class-string<\UIM\Datasource\IFixture>  className */
+                /** @var class-string<\UIM\Datasource\IFixture>  className * /
                 string className = array_filter(nameSegments).join("\\");
             } else {
-                /** @var class-string<\UIM\Datasource\IFixture>  className */
+                /** @var class-string<\UIM\Datasource\IFixture>  className * /
                  className = fixtureName;
             }
 
@@ -89,13 +89,11 @@ class DFixtureHelper {
             .each!(nameFixtures => aCallback(ConnectionManager.get(nameFixtures.key), nameFixtures.value));
     }
     
-    /**
-     * Inserts fixture data.
-     * Params:
-     * array<\UIM\Datasource\IFixture> fixtures Test fixtures
-     */
-    void insert(Json[string] fixtures) {
-        this.runPerConnection(void (IConnection aConnection, Json[string] anGroupFixtures) {
+    // Inserts fixture data.
+    void insert(IFixture[] fixtures) {
+        // TODO
+        /* 
+        runPerConnection(void (IConnection aConnection, Json[string] anGroupFixtures) {
             if (cast(DConnection)aConnection) {
                 sortedFixtures = this.sortByConstraint(aConnection,  anGroupFixtures);
                 if (sortedFixtures) {
@@ -111,18 +109,16 @@ class DFixtureHelper {
                 this.insertConnection(aConnection,  anGroupFixtures);
             }
         }, fixtures);
+        */
     }
     
-    /**
-     * Inserts all fixtures for a connection and provides friendly errors for bad data.
-     * Params:
-     * \UIM\Datasource\IConnection aConnection Fixture connection
-     * @param array<\UIM\Datasource\IFixture> fixtures Connection fixtures
-     */
-    protected void insertConnection(IConnection aConnection, Json[string] fixtures) {
-        fixtures.each!((fixture) {
+    // Inserts all fixtures for a connection and provides friendly errors for bad data.
+    protected void insertConnection(IConnection fixtureConnection, IFixture[] connectionFixtures) {
+        // TODO
+        /*
+        connectionFixtures.each!((fixture) {
             try {
-                fixture.insert(aConnection);
+                fixture.insert(fixtureConnection);
             } catch (PDOException exception) {
                 string message = "Unable to insert rows for table `%s`."
                         ~ " Fixture records might have invalid data or unknown constraints.\n%s"
@@ -130,11 +126,10 @@ class DFixtureHelper {
                 throw new UimException(message);
             }
         });
+        */
     }
     
-    /**
-     * Truncates fixture tables.
-     */
+    // Truncates fixture tables.
     void truncate(IFixture[] testFixtures) {
         this.runPerConnection(void (IConnection aConnection, Json[string] anGroupFixtures) {
             if (cast(DConnection)aConnection) {

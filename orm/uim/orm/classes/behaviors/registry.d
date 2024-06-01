@@ -49,19 +49,16 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      *
      * @param DORMTable aTable The table this registry is attached to.
      */
-    @property table(DORMTable aTable) {
+    @property void table(DORMTable aTable) {
         _table = aTable;
         setEventManager(aTable.getEventManager());
     }
 
-    /**
-     * Resolve a behavior classname.
-     *
-     * @param string aClassName  Partial classname to resolve.
-     */
-    static string className(string aClassName ) {
-        return App.className(class, "Model/Behavior", "Behavior")
-            ?: App.className(class, "ORM/Behavior", "Behavior");
+    // Resolve a behavior classname.
+    static string className(string partialClassname ) {
+        return App.className(partialClassname, "Model/Behavior", "Behavior")
+            ? App.className(partialClassname, "Model/Behavior", "Behavior")
+            : App.className(partialClassname, "ORM/Behavior", "Behavior");
     }
 
     /**

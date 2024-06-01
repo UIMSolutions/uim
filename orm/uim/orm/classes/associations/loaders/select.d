@@ -104,7 +104,7 @@ class DSelectLoader {
 
         /** @var DORMQuery query */
         DORMQuery query = finder();
-        if (isset(options["finder"])) {
+        if (options.hasKey("finder")) {
             [finderName, opts] = _extractFinder(options["finder"]);
             query = query.find(finderName, opts);
         }

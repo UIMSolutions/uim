@@ -59,7 +59,7 @@ class DFixtureHelper {
             if (!class_exists(className)) {
                 throw new DUnexpectedValueException("Could not find fixture `%s`.".format(fixtureName));
             }
-            if (!cachedFixtures.isSet(className)) {
+            if (!cachedFixtures.hasKey(className)) {
                 cachedFixtures[className] = new className();
             }
             fixtures[className] = cachedFixtures[className];
@@ -211,7 +211,7 @@ class DFixtureHelper {
 
         // Get and cache off the schema since TestFixture generates a fake schema based on fields
         aTableName = fixture.sourceName();
-        if (!schemas.isSet(aTableName)) {
+        if (!schemas.hasKey(aTableName)) {
             schemas[aTableName] = aConnection.getSchemaCollection().describe(aTableName);
         }
         tableSchema = schemas[aTableName];

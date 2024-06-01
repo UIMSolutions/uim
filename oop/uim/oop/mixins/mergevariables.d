@@ -79,7 +79,7 @@ mixin template TMergeVariables() {
     }
 
     Hash.normalize(parentClassData).byKeyValue
-      .filter!(kv => !currentData.isSet(kv.key))
+      .filter!(kv => !currentData.hasKey(kv.key))
       .each!(key => currentData[kv.key] = kv.value);
 
     return currentData;

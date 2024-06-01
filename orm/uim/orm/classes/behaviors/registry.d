@@ -139,7 +139,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
         }
 
         foreach (myMethodKey, methodName; methods) {
-            if (isset(_methodMap[myMethodKey]) && this.has(_methodMap[myMethodKey][0])) {
+            if (_methodMap.hasKey(myMethodKey) && this.has(_methodMap[myMethodKey][0])) {
                 duplicate = _methodMap[myMethodKey];
                 auto error =  
                     "%s contains duplicate method '%s' which is already provided by '%s'".format(aClassName,

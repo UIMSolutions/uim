@@ -533,7 +533,7 @@ mixin template TIntegrationTest() {
             // the inverse.
            _session[_csrfKeyName] = token;
            _cookie[_csrfKeyName] = token;
-            if (!someData.isSet("_csrfToken")) {
+            if (!someData.hasKey("_csrfToken")) {
                 someData["_csrfToken"] = token;
             }
         }

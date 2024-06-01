@@ -56,7 +56,7 @@ class DMiddlewareDispatcher {
     
     // Create a PSR7 request from the request spec.
     protected IServerRequest _createRequest(Json[string] spec) {
-        if (spec.isSet("input")) {
+        if (spec.hasKey("input")) {
             spec["post"] = null;
             spec["environment"]["uimUIM_INPUT"] = spec["input"];
         }

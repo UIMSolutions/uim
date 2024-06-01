@@ -334,7 +334,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
             });
             foreach (index: myrow; mydata) {
                 string[] keys = mykeyFields
-                    .filter!(key => myrow.isSet(myKey))
+                    .filter!(key => myrow.hasKey(myKey))
                     .map!(key => myrow[key])
                     .array;
 
@@ -485,7 +485,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
             myproperties[aKey] = myvalue;
         }
         myentity.setErrors(myerrors);
-        if (!options.isSet("fields")) {
+        if (!options.hasKey("fields")) {
             myentity.set(myproperties);
 
             myproperties.byKeyValue

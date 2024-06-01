@@ -413,7 +413,7 @@ class DEagerLoader {
         paths["aliasPath"] ~= "." ~ alias;
 
         if (
-            isset(options["matching"]) &&
+            options.hasKey("matching") &&
             options["matching"] == true
         ) {
             paths["propertyPath"] = "_matchingData." ~ alias;

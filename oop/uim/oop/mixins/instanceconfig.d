@@ -65,19 +65,19 @@ mixin template TInstanceConfig() {
      * Reading a specific value:
      *
      * ```
-     * _configData.isSet("key");
+     * _configData.hasKey("key");
      * ```
      *
      * Reading a nested value:
      *
      * ```
-     * _configData.isSet("some.nested.key");
+     * _configData.hasKey("some.nested.key");
      * ```
      *
      * Reading with default value:
      *
      * ```
-     * _configData.isSet("some-key", "default-value");
+     * _configData.hasKey("some-key", "default-value");
      * ```
      */
     // TODO Kill code?
@@ -219,7 +219,7 @@ mixin template TInstanceConfig() {
             if (!isArray(update)) {
                 throw new UimException("Cannot unset `%s` value.".format(keyToDelete));
             }
-            if (!update.isSet(myKey)) {
+            if (!update.hasKey(myKey)) {
                 break;
             }
             if (index == stackLength - 1) {

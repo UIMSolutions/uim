@@ -65,7 +65,7 @@ mixin template TStaticConfig() {
             unset(configuration.get("url"));
             configData = parsed + configData;
         }
-        if (configData.isSet("engine") && configData["className"].isEmpty) {
+        if (configData.hasKey("engine") && configData["className"].isEmpty) {
             configuration.set("className", configuration.get("engine"));
             configuration.remove("engine");
         }
@@ -211,7 +211,7 @@ REGEXP`;
         } */
         
         string aQuery = "";
-        if (parsed.isSet("query")) {
+        if (parsed.hasKey("query")) {
             aQuery = parsed["query"];
             parsed.remove("query");
         }

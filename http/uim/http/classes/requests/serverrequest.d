@@ -236,7 +236,7 @@ class DServerRequest { // }: IServerRequest {
         this.cookies = configData["cookies"];
 
         if (isSet(configData["uri"])) {
-            if (!cast(IUri)configData["uri"] instanceof ) {
+            if (!cast(IUri)configData["uri"]  ) {
                 throw new UimException("The `uri` key must be an instance of " ~ IUri.classname);
             }
             anUri = configData["uri"];

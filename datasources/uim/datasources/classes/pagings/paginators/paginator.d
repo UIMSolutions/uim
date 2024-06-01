@@ -160,7 +160,7 @@ class DPaginator : IPaginator {
      */
     IDSResultset paginate(Query objectToPaginate, Json[string] requestData = null, Json[string] paginationData = null) {
         myQuery = null;
-        if (cast(IQuery)objectToPaginate instanceof ) {
+        if (cast(IQuery)objectToPaginate  ) {
             myQuery = objectToPaginate;
             objectToPaginate = myQuery.getRepository();
             if (objectToPaginate == null) {

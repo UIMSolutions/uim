@@ -80,7 +80,7 @@ class DServer { // }: IEventDispatcher {
 
         response = this.runner.run(middleware, request, _app);
 
-        if (request instanceof ServerRequest) {
+        if (cast(ServerRequest)request instanceof ) {
             request.getSession().close();
         }
         return response;

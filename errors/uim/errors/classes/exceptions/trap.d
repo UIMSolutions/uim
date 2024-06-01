@@ -296,7 +296,7 @@ class DExceptionTrap {
         auto shouldLog = _config["log"];
         if (shouldLog) {
             foreach (configuration.get("skipLog") as aClassName) {
-                if (cast(aClassName)exceptionToLog instanceof ) {
+                if (cast(aClassName)exceptionToLog  ) {
                     shouldLog = false;
                 }
             }

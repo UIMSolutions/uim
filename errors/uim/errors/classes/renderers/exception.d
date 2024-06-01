@@ -176,7 +176,7 @@ class DExceptionRenderer : IExceptionRenderer {
                 response = response.withHeader(myKey, myValue);
             }
         }
-        if (myException instanceof HttpException) {
+        if (cast(HttpException)myException) {
             foreach (myException.getHeaders() as myName: myValue) {
                 response = response.withHeader(myName, myValue);
             }

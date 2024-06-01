@@ -269,7 +269,7 @@ class DEagerLoader {
                 options = null;
             }
 
-            if (options instanceof EagerLoadable) {
+            if (cast(EagerLoadable)options) {
                 options = options.asContainArray();
                 table = key(options);
                 options = current(options);

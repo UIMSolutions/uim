@@ -99,7 +99,7 @@ class DExceptionTrap {
     IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {
         auto myRequest = serverRequest.isNull ? Router.getRequest() : serverRequest;
 
-        string className = _configData.isSet("exceptionRenderer") ? _configuration.get("exceptionRenderer"] : chooseRenderer();
+        string className = _configData.hasKey("exceptionRenderer") ? _configuration.get("exceptionRenderer"] : chooseRenderer();
         if (isString(className)) {
             if (!isSubclass_of(className, IExceptionRenderer.className)) {
                 throw new DInvalidArgumentException(
@@ -120,7 +120,7 @@ class DExceptionTrap {
     
     // Get an instance of the logger.
     IErrorLogger logger() {
-         className = _configData.isSet("logger", _defaultConfigData["logger"]);
+         className = _configData.hasKey("logger", _defaultConfigData["logger"]);
 
         return new className(_config);
     }
@@ -261,7 +261,7 @@ class DExceptionTrap {
     void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
         shouldLog = configuration.get("log"];
         if (shouldLog) {
-            foreach (_configData.isSet("skipLog") as  className) {
+            foreach (_configData.hasKey("skipLog") as  className) {
                 if (cast(className)exceptionToLog) {
                     shouldLog = false;
                     break;

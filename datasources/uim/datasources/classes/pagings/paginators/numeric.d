@@ -431,7 +431,7 @@ class DNumericPaginator : IPaginator {
      * requested sorting field/direction.
      */
     Json[string] validateSort(IRepository repository, Json[string] paginationOptions) {
-        if (paginationOptions.isSet("sort")) {
+        if (paginationOptions.hasKey("sort")) {
             auto direction = null;
             if (isset(
                     paginationOptions["direction"])) {

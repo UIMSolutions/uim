@@ -90,7 +90,7 @@ class DDebugger {
     static string editorUrl(string afile, int line) {
         auto anInstance = getInstance();
         editor = anInstance.configuration.get("editor");
-        if (!anInstance.editors.isSet(editor)) {
+        if (!anInstance.editors.hasKey(editor)) {
             throw new DInvalidArgumentException(
                 "Cannot format editor URL `%s` is not a known editor."
                     .format(editor));

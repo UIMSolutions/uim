@@ -230,7 +230,7 @@ class DDebugger {
     // Choose the editor link style you want to use.
     static void setEditor(string editorName) {
         auto instance = getInstance();
-        if (!isset(instance.editors[editorName])) {
+        if (!instance.editors.hasKey(editorName)) {
             known = instance.editors.keys.join(", ");
             throw new DRuntimeException("Unknown editor `{name}`. Known editors are {known}");
         }

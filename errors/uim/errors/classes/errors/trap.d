@@ -56,7 +56,7 @@ class DErrorTrap {
     /*
     // Choose an error renderer based on config or the SAPI
     protected string chooseErrorRenderer() {
-        configData = _configData.isSet("errorRenderer");
+        configData = _configData.hasKey("errorRenderer");
         if (configData !isNull) {
             return configData;
         }

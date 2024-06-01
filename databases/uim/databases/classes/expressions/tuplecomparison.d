@@ -84,7 +84,7 @@ class DTupleComparisonExpression : DComparisonExpression {
                                 if (isMultiOperation) {
                                     string[] bound = null; aValue.byKeyValue
                                         .each!((kv) {
-                                            auto valType = type && isSet(type[myKey]) ? type[myKey]
+                                            auto valType = type && type.hasKey(myKey) ? type[myKey]
                                                 : type;
                                             assert(valType.isNull || isScalar(valType));
                                             bound ~= _bindValue(val, valueBinder, valType);

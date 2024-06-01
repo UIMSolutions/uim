@@ -438,9 +438,9 @@ class DPaginator : IPaginator {
      * @param Json[string] paginationData The pagination options being used for this request.
      */
     Json[string] validateSort(IRepository repository, Json[string] paginationData) {
-        if (isset(paginationData["sort"])) {
+        if (paginationData.hasKey("sort")) {
             direction = null;
-            if (isset(paginationData["direction"])) {
+            if (paginationData.hasKey("direction")) {
                 direction = strtolower(paginationData["direction"]);
             }
             if (!in_array(direction, ["asc", "desc"], true)) {

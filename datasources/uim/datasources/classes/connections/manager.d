@@ -95,12 +95,12 @@ class DConnectionManager {
     static Json[string] parseDsn(string dsnToConvert) {
         auto data = _parseDsn(dsnToConvert);
 
-        if (data.isSet("path") && data.isEmpty("database")) {
+        if (data.hasKey("path") && data.isEmpty("database")) {
             data["database"] = substr(data.getString("path"), 1);
         }
 
         if (data.isEmpty("driver")) {
-            data["driver"] = data.getString("className"];
+            data["driver"] = data.getString("className");
             data["className"] = DConnection.class;
         }
         data.remove("path");

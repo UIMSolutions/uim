@@ -220,7 +220,7 @@ protected const MAX_ALIAS_LENGTH = 128;
                 .iterateParts(function (direction,  orderBy) use (select,  order) {
                     aKey = orderBy;
                     if (
-                        isSet(select[orderBy]) &&
+                        select.hasKey(orderBy) &&
                         cast(IExpression)select[orderBy] 
                     ) {
                          order.add(new DOrderClauseExpression(select[orderBy],  direction));
@@ -255,7 +255,7 @@ protected const MAX_ALIAS_LENGTH = 128;
         // Decorate the original query as that is what the
         // end developer will be calling execute() on originally.
          original.decorateResults(function (row) {
-            if (isSet(row["_uim_page_rownum_"])) {
+            if (row.hasKey(["_uim_page_rownum_"])) {
                 unset(row["_uim_page_rownum_"]);
             }
             return row;

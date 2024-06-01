@@ -46,7 +46,7 @@ class DMysqlDriver : DDriver {
      * If the underlying server is MariaDB, its value will get set to `'mariadb'`
      * after `currentVersion()` method is called.
      */
-    protected string serverType = SERVER_TYPE_MYSQL;
+    protected string _serverType = SERVER_TYPE_MYSQL;
 
     // Mapping of feature to db server version for feature availability checks.
     protected Json _featureVersions = [
@@ -64,7 +64,7 @@ class DMysqlDriver : DDriver {
 
  
     void connect() {
-        if (this.pdo.isSet) {
+        if (_pdo.isSet) {
             return;
         }
         auto configData = configuration;
@@ -81,15 +81,15 @@ class DMysqlDriver : DDriver {
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
         ];
 
-        if (!configuration.get("ssl_key"].isEmpty && !configuration..isEmpty("ssl_cert"])) {
+        if (!configuration.get("ssl_key"].isEmpty && !configuration.isEmpty("ssl_cert"])) {
             configuration.get("flags"][PDO.MYSQL_ATTR_SSL_KEY] = configuration.get("ssl_key"];
             configuration.get("flags"][PDO.MYSQL_ATTR_SSL_CERT] = configuration.get("ssl_cert"];
         }
-        if (!configuration.get("ssl_ca"].isEmpty) {
+        if (!configuration.isEmpty("ssl_ca")) {
             configuration.get("flags"][PDO.MYSQL_ATTR_SSL_CA] = configuration.get("ssl_ca"];
         }
 
-        auto dsn = configuration.get("unix_socket"].isEmpty
+        auto dsn = configuration.isEmpty("unix_socket")
             ? "mysql:host={configuration.get("host"]};port={configuration.get("port"]};dbname={configuration.get("database"]}"
             : "mysql:unix_socket={configuration.get("unix_socket"]};dbname={configuration.get("database"]}";
         }
@@ -98,15 +98,15 @@ class DMysqlDriver : DDriver {
         }
         this.pdo = this.createPdo(dsn, configData);
 
-        if (!configuration.get("init"].isEmpty) {
-            (array)configuration.get("init"]
-                .each!(command => this.pdo.exec(command));
+        if (!configuration.isEmpty("init")) {
+            (array)configuration.get("init")
+              .each!(command => _pdo.exec(command));
         }
     }
     
     // Returns whether D is able to use this driver for connecting to database
     override bool enabled() {
-        return PDO.getAvailableDrivers().has("mysql");
+        return PDO.availableDrivers().has("mysql");
     }
  
     SchemaDialect schemaDialect() {
@@ -120,9 +120,7 @@ class DMysqlDriver : DDriver {
         return configuration.get("database"];
     }
     
-    /**
-     * Get the SQL for disabling foreign keys.
-     */
+    // Get the SQL for disabling foreign keys.
     string disableForeignKeySQL() {
         return "SET foreign_key_checks = 0";
     }
@@ -160,11 +158,11 @@ class DMysqlDriver : DDriver {
            _version = (string)getPdo().getAttribute(PDO.ATTR_SERVER_VERSION);
 
             if (_version.has("MariaDB")) {
-                this.serverType = SERVER_TYPE_MARIADB;
+                _serverType = SERVER_TYPE_MARIADB;
                 preg_match("/^(?:5\.5\.5-)?(\d+\.\d+\.\d+.*-MariaDB[^:]*)/", _version,  matches);
                _version = matches[1];
             }
         }
         return _version;
-    } */
+    } 
 }

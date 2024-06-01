@@ -35,7 +35,6 @@ class DDriver { // }: IDriver {
     // String used to end a database identifier quoting to make it safe
     mixin(TProperty!("string", "endQuote"));
 
-
     void connect() {
     }
 

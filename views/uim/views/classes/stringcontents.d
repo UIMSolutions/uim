@@ -125,7 +125,7 @@ class DStringContents {
     } 
     
     // Remove the named template.
-    void remove(string templateName) {
+    bool remove(string templateName) {
         configuration.remove(templateName);
         _compiledTemplates.remove(templateName);
     }

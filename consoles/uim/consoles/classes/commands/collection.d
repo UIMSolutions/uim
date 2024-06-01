@@ -30,28 +30,27 @@ class DCommandCollection { // : IteratorAggregate, Countable {
     this(ICommand[string] newCommands) {
         this().addCommands(newCommands);
     }
-    
-// #region add
+
+    // #region add
     // Add multiple commands at once.
     void addCommands(ICommand[string] newCommands) {
         newCommands.byKeyValue
             .each!(kv => addCommand(kv.key, kv.value));
     }
 
-// Add a command to the collection
+    // Add a command to the collection
     void addCommand(string commandName, ICommand newCommand) {
         _commands[commandName] = newCommand;
     }
-// #endregion add
-
+    // #endregion add
 
     // Remove a command from the collection if it exists.
-bool remove(string[] commandNames) {
-        commandNames.each!(name => remove(name));
+    bool remove(string[] commandNames) {
+        return commandNames.all!(name => remove(name));
     }
 
     bool remove(string commandName) {
-        _commands.remove(commandName);
+        return _commands.remove(commandName);
     }
 
     // Check whether the command name exists in the collection.
@@ -74,7 +73,7 @@ bool remove(string[] commandNames) {
     Traversable getIterator() {
         return new DArrayIterator(_commands);
     }
-    */ 
+    */
 
     // Get the number of commands in the collection.
     size_t count() {
@@ -89,14 +88,14 @@ bool remove(string[] commandNames) {
      * defined in the collection and discovered in a plugin, only
      * the long name (`plugin.command`) will be returned.
      */
-     // TODO
-/*   STRINGAA discoverPlugin(string pluginName) {
+    // TODO
+    /*   STRINGAA discoverPlugin(string pluginName) {
         auto commandScanner = new DCommandScanner();
         auto pluginShells = commandScanner.scanPlugin(pluginName);
 
         return _resolveNames(pluginShells);
     } */
-    
+
     /**
      * Resolve names based on existing commands
      * Params:
@@ -127,7 +126,7 @@ bool remove(string[] commandNames) {
         return results;
     }
     */
-    
+
     /**
      * Automatically discover commands in UIM, the application and all plugins.
      *
@@ -140,7 +139,7 @@ bool remove(string[] commandNames) {
      * Commands defined in the application will overwrite commands with
      * the same name provided by UIM.
      */
-     // TODO
+    // TODO
     /*
     STRINGAA autoDiscover() {
         auto myScanner = new DCommandScanner();
@@ -151,7 +150,7 @@ bool remove(string[] commandNames) {
         return app + core;
     }
     */
-    
+
     // Get the list of available command names.
     string[] names() {
         return _commands.keys;

@@ -78,8 +78,8 @@ interface IConfiguration : INamed {
     IConfiguration merge(Json[string] newData, string[] validKeys = null);
     IConfiguration merge(string key, Json newValue);
 
-    IConfiguration remove(string[] keys);
-    IConfiguration remove(string keys);
+    bool remove(string[] keys);
+    bool remove(string keys);
 
     IConfiguration clear();
 }

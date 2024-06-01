@@ -105,7 +105,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string myname The name under which the rule should be unset
      */
-    void remove(string myname) {
+    bool remove(string myname) {
         unset(_rules[myname]);
     }
     

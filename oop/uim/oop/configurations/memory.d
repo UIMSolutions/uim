@@ -157,7 +157,7 @@ class DMemoryConfiguration : DConfiguration {
             ? this : set(key, value);
     }
 
-    override IConfiguration remove(string key) {
+    override bool remove(string key) {
         _data.remove(key);
         return this;
     }

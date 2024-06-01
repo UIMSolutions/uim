@@ -107,8 +107,8 @@ bool testConfiguration(IConfiguration aConfig) {
     void merge(string key, Json newData);
     void merge(string key, Json[string] newData);
 
-    IConfiguration remove(string[] keys);
-    IConfiguration remove(string keys);
+    bool remove(string[] keys);
+    bool remove(string keys);
 
     IConfiguration clear();
 */

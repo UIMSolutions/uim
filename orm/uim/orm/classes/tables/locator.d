@@ -225,7 +225,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         return _fallbacked;
     }
  
-    void remove(string aliasToRemove) {
+    bool remove(string aliasToRemove) {
         super.remove(aliasName);
 
         unset(_fallbacked[aliasName]);

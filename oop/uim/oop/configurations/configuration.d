@@ -234,11 +234,11 @@ abstract class DConfiguration : IConfiguration {
         return this;
     }
 
-    IConfiguration remove(string[] keys) {
+    bool remove(string[] keys) {
         keys.each!(key => remove(key));
         return this;
     }
 
-    abstract IConfiguration remove(string key);
+    abstract bool remove(string key);
     // #region remove - clear
 }

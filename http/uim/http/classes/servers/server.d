@@ -114,10 +114,9 @@ class DServer { // }: IEventDispatcher {
     
     // Get the application`s event manager or the global one.
     IEventManager getEventManager() {
-        if (cast(IEventDispatcher)_app) {
-            return _app.getEventManager();
-        }
-        return EventManager.instance();
+        return cast(IEventDispatcher)_app
+            ? _app.getEventManager()
+            : EventManager.instance();
     }
     
     /**
@@ -126,7 +125,7 @@ class DServer { // }: IEventDispatcher {
      * If the application does not support events, an exception will be raised.
      */
     void setEventManager(IEventManager eventManager) {
-        if (_app instanceof IEventDispatcher) {
+        if (cast(IEventDispatcher)_app) {
             _app.setEventManager(eventManager);
 
             return;

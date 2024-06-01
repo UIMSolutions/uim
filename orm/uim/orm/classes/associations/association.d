@@ -176,7 +176,7 @@ class DAssociation : IAssociation {
                 className = App.className(_className, "Model/Table", "Table") ?  : Table:
                  : class;
 
-                if (!_targetTable instanceof className) {
+                if (!cast(className)_targetTable instanceof ) {
                     errorMessage = "%s association '%s' of type '%s' to '%s' doesn\"t match the expected class '%s'~ ";
                     errorMessage ~= "You can\"t have an association of the same name with a different target ";
                     errorMessage ~= ""c lassName" option anywhere in your app.";

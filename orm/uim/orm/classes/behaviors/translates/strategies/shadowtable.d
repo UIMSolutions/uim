@@ -284,7 +284,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                         expression) use(
                                                         fields, alias, mainTableAlias, mainTableFields,  & joinRequired) {
                                                             if (!(
-                                                                expression instanceof IField)) {
+                                                                cast(IField)expression instanceof )) {
                                                                 return;}
                                                                 field = expression.getField();
                                                                 if (!(field.isString || indexOf(

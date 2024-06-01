@@ -845,16 +845,11 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 
         if (!complex) {
             // Expression fields could have bound parameters.
-            foreach (query.clause("select") as field) {
-                if (field instanceof IExpression) {
-                    complex = true;
-                    break;
-                }
-            }
+            complex = query.clause("select").any!(field => cast(IExpression)field);
         }
 
         if (!complex && _valueBinder != null) {
-            order = this.clause("order");
+            auto order = this.clause("order");
             complex = order == null ? false : order.hasNestedExpression();
         }
 
@@ -873,14 +868,12 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
                 .execute();
         }
 
-        result = statement.fetch("assoc");
+        auto result = statement.fetch("assoc");
         statement.closeCursor();
 
-        if (result == false) {
-            return 0;
-        }
-
-        return (int)result["count"];
+        return result == false
+            ? 0
+            : result.getInt("count");
     }
 
     /**
@@ -1061,7 +1054,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         types = null;
 
         foreach (select as alias: value) {
-            if (value instanceof ITypedResult) {
+            if (cast(ITypedResult)value) {
                 types[alias] = value.getReturnType();
                 continue;
             }

@@ -377,14 +377,15 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * Modifies the results from a table find in order to merge full translation
      * records into each entity under the `_translations` key.
      *
-     * @param DORMDatasource\IResultset results Results to modify.
+     * @param DORMDatasource\ results Results to modify.
      */
-    ICollection groupTranslations(results) {
-        return results.map(function (row) {
-            if (!row instanceof IORMEntity) {
+    ICollection groupTranslations(IResultset resultsToModify) {
+        return resultsToModify.map(function (row) {
+            if (!cast(IORMEntity)row) {
                 return row;
             }
-            translations = (array)row.get("_i18n");
+            
+            auto translations = (array)row.get("_i18n");
             if (translations.isEmpty && row.get("_translations")) {
                 return row;
             }

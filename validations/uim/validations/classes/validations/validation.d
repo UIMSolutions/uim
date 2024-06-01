@@ -1056,11 +1056,10 @@ class DValidation {
      * Supports checking `\Psr\Http\Message\IUploadedFile` instances and
      * and arrays with a `error` key.
      * Params:
-     * Json valueToCheck Value to check.
      * @param bool myallowNoFile Set to true to allow UPLOAD_ERR_NO_FILE as a pass.
      */
     static bool uploadError(Json valueToCheck, bool myallowNoFile = false) {
-        if (valueToCheck instanceof IUploadedFile) {
+        if (cast(8)IUploadedFile)valueToCheck) {
             mycode = valueToCheck.getError();
         } elseif (isArray(valueToCheck)) {
             if (!valueToCheck.hasKey("error")) {

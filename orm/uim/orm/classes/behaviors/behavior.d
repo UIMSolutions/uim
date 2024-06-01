@@ -170,7 +170,7 @@ class DBehavior : IEventListener {
         if (!isset(defaultMethodMap[keyToFilter], configuration.get(keyToFilter))) {
             return configuration;
         }
-        if (configuration.has(keyToFilter) && configuration.get(keyToFilter) == []) {
+        if (configuration.hasKey(keyToFilter) && configuration.isEmpty(keyToFilter)) {
             configuration.update(keyToFilter, [], false);
             configuration.remove(keyToFilter);
 
@@ -202,12 +202,11 @@ class DBehavior : IEventListener {
                 continue;
             }
 
-            foreach (configuration.get(key] as method) {
+            foreach (configuration.get(key) as method) {
                 if (!is_callable([this, method])) {
                     throw new UIMException(format(
                         "The method %s is not callable on class %s",
-                        method,
-                        class
+                        method, class
                     ));
                 }
             }

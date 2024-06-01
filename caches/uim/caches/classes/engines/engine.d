@@ -80,7 +80,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         ensureValidType(myvalues, self.CHECK_KEY);
 
         if (timeToLive != 0) {
-            myrestore = configurationData.isSet("duration");
+            myrestore = configurationData.hasKey("duration");
             configuration.update("duration", timeToLive);
         }
         try {
@@ -203,7 +203,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * if option warnOnWriteFailures is set to true.
      */
     protected void warning(string warningMessage) {
-        if (configurationData.isSet("warnOnWriteFailures") != true) {
+        if (configurationData.hasKey("warnOnWriteFailures") != true) {
             return;
         }
         triggerWarning(warningMessage);

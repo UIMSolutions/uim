@@ -453,7 +453,7 @@ class DI18nExtractCommand : DCommand {
     protected void _store(string domainName, string headerContent, string sentenceToStore) {
        _storage[domainName] ??= null;
 
-        _storage[domainName][sentence] = _storage[domainName].isSet(sentence))
+        _storage[domainName][sentence] = _storage[domainName].hasKey(sentence))
            ? _storage[domainName][sentence] ~ headerContent
            : headerContent;
 

@@ -53,7 +53,7 @@ class DArrayCacheEngine : DCacheEngine {
   /*
   override Json get(string itemKey, Json defaultValue = Json(null)) {
     auto key = _key(itemKey);
-    if (!_cachedData.isSet(key)) {
+    if (!_cachedData.hasKey(key)) {
       return defaultValue;
     }
 
@@ -104,7 +104,7 @@ class DArrayCacheEngine : DCacheEngine {
     
     configuration.get("groups").each!((group) {
       string key = configuration.getString("prefix") ~ myGroup;
-      if (!_cachedData.isSet(key)) {
+      if (!_cachedData.hasKey(key)) {
         _cachedData[aKey] = ["exp": D_INT_MAX, "val": 1];
       }
       string myvalue = _cachedData[aKey]["val"];
@@ -124,7 +124,7 @@ class DArrayCacheEngine : DCacheEngine {
   bool clearGroup(string groupName) {
     string aKey = configuration.get("prefix").toString ~ groupName;
     // TODO 
-/*    if (_cachedData.isSet(aKey)) {
+/*    if (_cachedData.hasKey(aKey)) {
       _cachedData[aKey]["val"] += 1;
     }
  */    

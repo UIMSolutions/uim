@@ -68,7 +68,7 @@ mixin template TExtract() {
 
                 return (new DCollection(someData)).extract(rest);
             }
-            if (!someData.isSet(myColumn)) {
+            if (!someData.hasKey(myColumn)) {
                 return null;
             }
             aValue = someData[myColumn];

@@ -106,7 +106,7 @@ class DApcuCacheEngine : DCacheEngine {
     auto mygroups = apcu_fetch(_compiledGroupNames, mysuccess);
     if (mysuccess && count(mygroups) != count(configuration.get("groups"])) {
       _compiledGroupNames.each!((groupname) {
-        if (!mygroups.isSet(groupname)) {
+        if (!mygroups.hasKey(groupname)) {
           auto myvalue = 1;
           if (apcu_store(groupname, myvalue) == false) {
             warning(

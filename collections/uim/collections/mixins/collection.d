@@ -452,7 +452,7 @@ mixin template TCollection() {
                 myisObject = isObject(current(myparents));
                 myfoundOutType = true;
             }
-            if (isEmpty(aKey) || !myparents.isSet(aKey)) {
+            if (isEmpty(aKey) || !myparents.hasKey(aKey)) {
                 myvalues.each!((id) {
                     myparents[id] = myisObject ? myparents[myid] : new DArrayIterator(myparents[myid], 1);
                     mymapReduce.emit(myparents[id]);
@@ -523,7 +523,7 @@ mixin template TCollection() {
                 "leaves": RecursiveIteratorIterator.LEAVES_ONLY,
             ];
 
-            if (!mymodes.isSet(myorder)) {
+            if (!mymodes.hasKey(myorder)) {
                 throw new DInvalidArgumentException(
                     "Invalid direction `%s` provided. Must be one of: \'desc\", \'asc\", \'leaves\'."
                     .format(myorder

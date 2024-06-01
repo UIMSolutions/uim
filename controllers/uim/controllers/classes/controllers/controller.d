@@ -496,7 +496,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         auto typeMap = null;
         foreach (className; possibleViewClasses) {
              viewContentType = className.contentType();
-            if (viewContentType && !typeMap.isSet(viewContentType)) {
+            if (viewContentType && !typeMap.hasKey(viewContentType)) {
                 typeMap[viewContentType] = className;
             }
         }
@@ -507,7 +507,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         if (ext) {
             auto extTypes = (array)(_response.getMimeType(ext) ?: []);
             extTypes.each!((extType) {
-                if (typeMap.isSet(extTypes)) {
+                if (typeMap.hasKey(extTypes)) {
                     return typeMap[extType];
                 }
             });

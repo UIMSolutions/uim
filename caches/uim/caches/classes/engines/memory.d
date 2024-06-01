@@ -164,7 +164,7 @@ protected void _setOptions() {
   _Memory.setOption(Memory.OPT_LIBKETAMA_COMPATIBLE, true);
 
   string myserializer = configuration.getString("serialize").lower;
-  if (!_serializers.isSet(myserializer)) {
+  if (!_serializers.hasKey(myserializer)) {
     throw new DInvalidArgumentException(
       "`%s` is not a valid serializer engine for Memory.".format(myserializer)
     );
@@ -335,7 +335,7 @@ override bool add(string itemKey, Json dataToCache) {
   mygroups = _Memory.getMulti(_compiledGroupNames) ?  : [];
   if (count(mygroups) != count(configuration.get("groups"])) {
     _compiledGroupNames.each!((groupName) {
-      if (!mygroups.isSet(groupName)) {
+      if (!mygroups.hasKey(groupName)) {
         _Memory.set(mygroup, 1, 0);
         mygroups[mygroup] = 1;
       }

@@ -532,7 +532,7 @@ class DConsoleOptionParser {
                 array_unshift(_tokens, "-" ~ flags[anI]);
             }
         }
-        if (!_shortOptions.isSet(aKey)) {
+        if (!_shortOptions.hasKey(aKey)) {
             auto options = _shortOptions.byKeyValue
                 .map!(shortLong => shortLong.key ~ " (short for `--"~shortLong.value~"`)");
 
@@ -553,7 +553,7 @@ class DConsoleOptionParser {
      * returns Params with option added in.
      */
     protected Json[string] _parseOption(string nameToParse, Json[string] params) {
-        if (!_options.isSet(nameToParse)) {
+        if (!_options.hasKey(nameToParse)) {
             throw new DMissingOptionException(
                 "Unknown option `%s`.".format(nameToParse),
                 nameToParse, _options.keys

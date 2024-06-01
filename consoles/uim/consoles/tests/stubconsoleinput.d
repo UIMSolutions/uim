@@ -17,7 +17,6 @@ class DStubConsoleInput : DConsoleInput {
     // Current message index
     protected size_t _currentIndex = -1;
 
-    /* 
     this(string[] repliesForRead) {
         super();
 
@@ -28,7 +27,7 @@ class DStubConsoleInput : DConsoleInput {
     string read() {
         _currentIndex += 1;
 
-        if (!this.replies.isSet(_currentIndex)) {
+        if (!_replies.hasKey(_currentIndex)) {
             total = count(this.replies);
             formatter = new DNumberFormatter("en", NumberFormatter.ORDINAL);
             nth = formatter.format(_currentIndex + 1);
@@ -45,6 +44,6 @@ class DStubConsoleInput : DConsoleInput {
     //  Check if data is available on stdin
     bool dataAvailable(int timeToWait = 0) {
         return true;
-    } */
+    } 
 }
 

@@ -710,7 +710,7 @@ class DEagerLoader {
             return [[], statement];
         }
 
-        if (!(statement instanceof BufferedStatement)) {
+        if (!cast(BufferedStatement)statement) {
             statement = new BufferedStatement(statement, query.getConnection().getDriver());
         }
 

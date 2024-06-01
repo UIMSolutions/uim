@@ -1360,7 +1360,7 @@ class DServerRequest { // }: IServerRequest {
                 this.validateUploadedFiles(file, aKey ~ ".");
                 continue;
             }
-            if (!file instanceof IUploadedFile) {
+            if (!cast(IUploadedFile)file instanceof ) {
                 throw new DInvalidArgumentException("Invalid file at `%s%s`.".format(somePath, aKey));
             }
         }

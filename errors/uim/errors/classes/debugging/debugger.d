@@ -505,7 +505,7 @@ class DDebugger {
             }
         }
         instance = new aClassName();
-        if (!instance instanceof IErrorFormatter) {
+        if (!cast(IErrorFormatter)instance instanceof ) {
             throw new DRuntimeException(
                 "The `{aClassName}` formatter does not implement " ~ IErrorFormatter.class
             );

@@ -506,10 +506,10 @@ class DAssociation : IAssociation {
 
         if (!options.isEmpty("queryBuilder"])) {
             dummy = options["queryBuilder"](dummy);
-            if (!(dummy instanceof Query)) {
+            if (!cast(Query)dummy) {
                 throw new DRuntimeException(format(
-                        "Query builder for association '%s' did not return a query",
-                        getName()
+                    "Query builder for association '%s' did not return a query",
+                    getName()
                 ));
             }
         }

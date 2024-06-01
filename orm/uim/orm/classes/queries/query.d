@@ -1219,8 +1219,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @return bool|null The current value. Returns null if neither enabled or disabled yet.
      */
-    bool isAutoFieldsEnabled(): bool
-    {
+    bool isAutoFieldsEnabled() {
         return _autoFields;
     }
 
@@ -1234,7 +1233,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     {
         result = _applyDecorators(result);
 
-        if (!(result instanceof Resultset) && this.isBufferedResultsEnabled()) {
+        if (!cast(Resultset)result instanceof ) && isBufferedResultsEnabled()) {
             class = _decoratorClass();
             result = new class(result.buffered());
         }

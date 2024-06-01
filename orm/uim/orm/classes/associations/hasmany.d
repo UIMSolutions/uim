@@ -443,7 +443,7 @@ class DHasManyAssociation : DAssociation {
                                         void(
                                         entry) use(
                                         myTarget) {
-                                        if (entry instanceof FieldInterface) {
+                                        if (entry instanceof IField) {
                                             myField = entry
                                             .getField(); 
 if (myField

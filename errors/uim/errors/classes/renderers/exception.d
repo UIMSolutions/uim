@@ -211,7 +211,7 @@ class DExceptionRenderer : IExceptionRenderer {
         _controller.set(viewVars);
         _controller.viewBuilder().setOption("serialize", serialize);
 
-        if (myException instanceof UIMException && isDebug) {
+        if (cast(UIMException)myException instanceof  && isDebug) {
             _controller.set(myException.getAttributes());
         }
         _controller.setResponse(response);

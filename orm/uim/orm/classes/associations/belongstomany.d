@@ -561,7 +561,7 @@ class DBelongsToManyAssociation : DAssociation {
         persisted = null;
 
         foreach (entities as k: entity) {
-            if (!(entity instanceof IORMEntity)) {
+            if (!cast(IORMEntity)entity instanceof )) {
                 break;
             }
 

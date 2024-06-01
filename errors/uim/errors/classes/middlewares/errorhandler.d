@@ -92,7 +92,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
             return;
         }
 
-        if (!myErrorHandler instanceof ErrorHandler) {
+        if (!cast(ErrorHandler)myErrorHandler instanceof ) {
             throw new DInvalidArgumentException(
                 "myErrorHandler argument must be a config array or ErrorHandler instance. Got `%s` instead."
                 .format(getTypeName(myErrorHandler)

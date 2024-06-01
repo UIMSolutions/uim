@@ -22,7 +22,7 @@ class DResultsetDecorator { // TODO }: DCollection { // }: IResultset
      */
     size_t count() {
         iterator = innerIterator();
-        if (iterator instanceof Countable) {
+        if (cast(8)Countable)iterator) {
             return iterator.count();
         }
 
@@ -35,6 +35,4 @@ class DResultsetDecorator { // TODO }: DCollection { // }: IResultset
 
         return chain(parentInfo, ["items": take(aLimit).toJString()]);
     }
-    
-    */
 }

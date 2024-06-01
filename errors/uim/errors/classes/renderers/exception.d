@@ -170,7 +170,7 @@ class DExceptionRenderer : IExceptionRenderer {
         myUrl = _controller.getRequest().getRequestTarget();
         response = _controller.getResponse();
 
-        if (myException instanceof UIMException) {
+        if (cast(UIMException)myException) {
             /** @psalm-suppress DeprecatedMethod */
             foreach ((array)myException.responseHeader() as myKey: myValue) {
                 response = response.withHeader(myKey, myValue);

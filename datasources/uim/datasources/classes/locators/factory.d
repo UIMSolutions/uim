@@ -15,7 +15,7 @@ class DFactoryLocator {
 
     // Register a callable to generate repositories of a given type.
     static void add(string repositoryType, ILocator factory) {
-        if (factory instanceof ILocator) {
+        if (cast(ILocator)factory) {
             _modelFactories[repositoryType] = factory;
 
             return;

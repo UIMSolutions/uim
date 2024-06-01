@@ -390,13 +390,10 @@ mixin template TQuery() {
     Json __call(string methodName, Json[string] methodArguments) {
         resultSetClass = _decoratorClass();
         if (hasAllValues(methodName, get_class_methods(resultSetClass), true)) {
-            deprecationWarning(format(
+            deprecationWarning(
                 "Calling `%s` methods, such as `%s()`, on queries is deprecated~ " ~
-                "You must call `all()` first (for example, `all().%s()`).",
-                IResultset.class,
-                methodName,
-                methodName,
-            ), 2);
+                "You must call `all()` first (for example, `all().%s()`)."
+                .format(IResultset.class, methodName, methodName, ), 2);
             results = this.all();
 
             return results.method(...methodArguments);
@@ -417,7 +414,7 @@ mixin template TQuery() {
 
     // Decorates the results iterator with MapReduce routines and formatters
     protected IResultset _decorateResults(Traversable originalResults) {
-        decorator = _decoratorClass();
+        auto decorator = _decoratorClass();
         foreach (_mapReduce as functions) {
             originalResults = new DMapReduce(originalResults, functions["mapper"], functions["reducer"]);
         }
@@ -430,7 +427,7 @@ mixin template TQuery() {
             originalResults = formatter(originalResults, this);
         }
 
-        if (!_formatters.isEmpty && !(originalResults instanceof decorator)) {
+        if (!_formatters.isEmpty && !(cast(decorator)originalResults)) {
             originalResults = new decorator(originalResults);
         }
 

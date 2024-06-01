@@ -105,11 +105,11 @@ class Date { // }: DChronosDate, JsonSerializable {
      * can receive this object and return a formatted string.
      */
     static void setJsonEncodeFormat(Closure format) {
-        _JsonEncodeFormat = format;
+        _jsonEncodeFormat = format;
     }
 
     static void setJsonEncodeFormat(string format) {
-        _JsonEncodeFormat = format;
+        _jsonEncodeFormat = format;
     }
     
     /**
@@ -208,7 +208,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      * string localname The localname name in which the date should be displayed (e.g. pt-BR)
      */
     string nice(string localeName = null) {
-        return to!string(this.i18nFormat(niceFormat, localeName));
+        return to!string(i18nFormat(niceFormat, localeName));
     }
     
     /**
@@ -250,13 +250,13 @@ class Date { // }: DChronosDate, JsonSerializable {
     
     // Returns a string that should be serialized when converting this object to Json
     string JsonSerialize() {
-        if (cast(DClosure)_JsonEncodeFormat) {
-            return call_user_func(_JsonEncodeFormat, this);
+        if (cast(DClosure)_jsonEncodeFormat) {
+            return call_user_func(_jsonEncodeFormat, this);
         }
-        return _i18nFormat(_JsonEncodeFormat);
+        return _i18nFormat(_jsonEncodeFormat);
     }
  
     override string toString() {
-        return to!string(this.i18nFormat());
+        return to!string(i18nFormat());
     }
 }

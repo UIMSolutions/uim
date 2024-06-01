@@ -61,31 +61,28 @@ class DEvent : IEvent {
         return _subject;
     }
 
-
-
     // #region data handling
     Json opIndex(string key) {
         return data(string key);
     }
 
-    @property Json data(string aKey) {
-        if (aKey!isNull) {
-            return _data[aKey] ?  ? null;
-        }
-        return _data;
+    @property Json data(string key) {
+        return !aKey.isNull
+            ? _data.get(aKey)
+: _data;
     }
 
     void opIndexAssign(Json value, string key) {
         data(key, value);
     }
 
-    @property void data(string aKey, Json aValue) {
-        if (isArray(aKey)) {
-            _data = aKey;
-        } else {
-            _data[aKey] = aValue;
+void data(string[] keys, Json aValue) {
+_data = keys;
+}
+    void data(string key, Json value) {
+            _data[key] = value;
         }
-    }
+
     // #endregion data handling
-    */
+    
 }

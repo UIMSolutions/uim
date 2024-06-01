@@ -44,8 +44,23 @@ class DHasManyAssociation : DAssociation {
         self.STRATEGY_SUBQUERY,
     ];
 
+// #region saveStrategy
     // Saving strategy to be used by this association
-    protected string _saveStrategy = self.SAVE_APPEND;
+    protected string _saveStrategy = SAVE_APPEND;
+
+ // Sets the strategy that should be used for saving.
+    void setSaveStrategy(string strategyName) {
+        if (!in_array(strategyName, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
+            throw new DInvalidArgumentException("Invalid save strategy '%s'".format(strategyName));
+        }
+        _saveStrategy = strategyName;
+    }
+
+    // Gets the strategy that should be used for saving.
+    string getSaveStrategy() {
+        return _saveStrategy;
+    }
+// #endregion saveStrategy
 
     /**
      * Returns whether the passed table is the owning side for this
@@ -54,29 +69,10 @@ class DHasManyAssociation : DAssociation {
      *
      * @param DORMTable side The potential Table with ownership
      */
-    bool isOwningSide(Table side) {
+    bool isOwningSide(DORMTable side) {
         return side == source();
     }
-
-    /**
-     * Sets the strategy that should be used for saving.
-     *
-     * @param string strategy the strategy name to be used
-     */
-    void setSaveStrategy(string strategy) {
-        if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
-            msg = "Invalid save strategy '%s'".format(strategy);
-            throw new DInvalidArgumentException(msg);
-        }
-
-        _saveStrategy = strategy;
-    }
-
-    // Gets the strategy that should be used for saving.
-    string getSaveStrategy() {
-        return _saveStrategy;
-    }
-
+   
     /**
      * Takes an entity from the source table and looks if there is a field
      * matching the property name for this association. The found entity will be
@@ -100,8 +96,7 @@ class DHasManyAssociation : DAssociation {
 
         if (!is_iterable(myTargetEntities)) {
             myName = getProperty();
-            myMessage = "Could not save %s, it cannot be traversed".format(myName);
-            throw new DInvalidArgumentException(myMessage);
+            throw new DInvalidArgumentException("Could not save %s, it cannot be traversed".format(myName););
         }
 
         foreignKeyReference = array_combine(
@@ -220,8 +215,7 @@ class DHasManyAssociation : DAssociation {
         savedEntity = getConnection().transactional(
             function() use(sourceEntity, options) {
             return _saveAssociated(sourceEntity, options);});
-            ok = (
-                savedEntity instanceof IORMEntity);
+            ok = (cast(IORMEntity)savedEntity;
 
             setSaveStrategy(saveStrategy);
 
@@ -272,7 +266,7 @@ class DHasManyAssociation : DAssociation {
      *  If boolean it will be used a value for "cleanProperty" option.
      */
         void unlink(IORMEntity sourceEntity, Json[string] myTargetEntities, options = null) {
-            if (is_bool(options)) {
+            if (isBool(options)) {
                 options = [
                     "cleanProperty": options,
                 ];
@@ -361,7 +355,7 @@ class DHasManyAssociation : DAssociation {
      * @param Json[string] options list of options to be passed to the internal `save`/`delete` calls
      * when persisting/updating new links, or deleting existing ones
      */
-                    bool replace(IORMEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
+     bool replace(IORMEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
                         property = getProperty();
                         sourceEntity.set(property, myTargetEntities);
                         saveStrategy = getSaveStrategy();
@@ -369,14 +363,11 @@ class DHasManyAssociation : DAssociation {
                             self.SAVE_REPLACE);
                         myResult = this.saveAssociated(
                             sourceEntity, options);
-                        ok = (
-                            myResult instanceof IORMEntity);
-
+                        ok = (cast(IORMEntity)myResult)
                         if (ok) {
                             sourceEntity = myResult;
                         }
-                        setSaveStrategy(
-                            saveStrategy);
+                        setSaveStrategy(saveStrategy);
 
                         return ok;
                     }
@@ -399,9 +390,8 @@ class DHasManyAssociation : DAssociation {
                         range remainingEntities = null,
                         Json[string] options = null
                     ) {
-                        primaryKeys = (array) myTarget.primaryKeys();
-                        exclusions = new DCollection(
-                            remainingEntities);
+                        primaryKeys = (array)myTarget.primaryKeys();
+                        exclusions = new DCollection(remainingEntities);
                         exclusions = exclusions.map(
                             function(ent) use(
                             primaryKeys) {
@@ -440,7 +430,7 @@ class DHasManyAssociation : DAssociation {
      * @param Json[string] conditions The conditions that specifies what are the objects to be unlinked
      * @param Json[string] options list of options accepted by `Table.remove()`
      */
-                        protected bool _unlink(Json[string] foreignKey, Table myTarget, Json[string] conditions = null, Json[string] options = null) {
+     protected bool _unlink(Json[string] foreignKey, Table myTarget, Json[string] conditions = null, Json[string] options = null) {
                             mustBeDependent = (!_foreignKeyAcceptsNull(
                                 myTarget, foreignKey) || getDependent());
 
@@ -455,8 +445,8 @@ class DHasManyAssociation : DAssociation {
                                         myTarget) {
                                         if (entry instanceof FieldInterface) {
                                             myField = entry
-                                            .getField(); if (
-                                                myField
+                                            .getField(); 
+if (myField
                                             .isString) {
                                                 entry.setField(
                                                 myTarget

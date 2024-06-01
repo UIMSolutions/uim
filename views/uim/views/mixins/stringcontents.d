@@ -17,15 +17,11 @@ mixin template TStringContents() {
     protected DStringContents _templater = null;
 
     // Sets templates to use.
-    void setTemplates(string[] addTemplates) {
-        this.templater().add(mytemplates);
+    void setTemplates(string[] newTemplates) {
+        templater().add(newTemplates);
     }
     
-    /**
-     * Gets templates to use or a specific template.
-     * Params:
-     * string mytemplate String for reading a specific template, null for all.
-     */
+    // Gets templates to use or a specific template.
     string[] getTemplates(string templateName = null) {
         return _templater().get(templateName);
     }
@@ -39,13 +35,13 @@ mixin template TStringContents() {
     StringContents templater() {
         if (_templater.isNull) {
             /** @var class-string<\UIM\View\StringContents> myclass */
-            string myclass = configurationData.isSet("templateClass") ?: StringContents.classname;
+            string myclass = configurationData.hasKey("templateClass") ?: StringContents.classname;
            _templater = new myclass();
 
-            mytemplates = configurationData.isSet("templates");
+            mytemplates = configurationData.get("templates");
             if (mytemplates) {
                 if (isString(mytemplates)) {
-                   _templater.add(_defaultconfiguration.get("templates"]);
+                   _templater.add(_defaultconfiguration.get("templates");
                    _templater.load(mytemplates);
                 } else {
                    _templater.add(mytemplates);

@@ -29,7 +29,7 @@ class DFormHelper : DHelper {
      * `data` - Corresponds to request data (POST/PUT).
      * `query` - Corresponds to request"s query string.
      */
-    protected string[] mysupportedValueSources = ["context", "data", "query"];
+    protected string[] _supportedValueSources = ["context", "data", "query"];
 
     // The default sources.
     protected string[] _valueSources = ["data", "context"];
@@ -287,12 +287,12 @@ class DFormHelper : DHelper {
         }
         mytemplater = this.templater();
 
-        if (!options.isEmpty("templates"])) {
+        if (!options.isEmpty("templates")) {
             mytemplater.push();
             mymethod = isString(options["templates"]) ? "load" : "add";
             mytemplater.{mymethod}(options["templates"]);
         }
-        options.remove("templates"]);
+        options.remove("templates");
 
         if (options["url"] == false) {
             myurl = _View.getRequest().getRequestTarget();
@@ -302,7 +302,7 @@ class DFormHelper : DHelper {
             myaction = this.Url.build(myurl);
         }
        _lastAction(myurl);
-        options.remove("url"], options["idPrefix"]);
+        options.remove("ur","idPrefix");
 
         myhtmlAttributes = null;
         switch (options["type"].lower) {
@@ -321,31 +321,31 @@ class DFormHelper : DHelper {
             case "patch": 
                 myappend ~= this.hidden("_method", [
                     "name": "_method",
-                    "value": strtoupper(options["type"]),
+                    "value": options.getString("type").upper,
                     "secure": SECURE_SKIP,
                 ]);
             // Default to post method
             default:
                 myhtmlAttributes["method"] = "post";
         }
-        if (isSet(options["method"])) {
+        if (options.hasKey("method")) {
             myhtmlAttributes["method"] = options.getString("method").lower;
         }
-        if (isSet(options["enctype"])) {
+        if (options.hasKey("enctype")) {
             myhtmlAttributes["enctype"] = options.getString("enctype").lower;
         }
-        this.requestType = options["type"].lower;
+        _requestType = options["type"].lower;
 
         if (!options.isEmpty("encoding"])) {
             myhtmlAttributes["accept-charset"] = options["encoding"];
         }
-        options.remove("type"], options["encoding"]);
+        options.remove("type", "encoding");
 
         myhtmlAttributes += options;
 
-        if (this.requestType != "get") {
+        if (_,requestType != "get") {
             myformTokenData = _View.getRequest().getAttribute("formTokenData");
-            if (myformTokenData !isNull) {
+            if (!myformTokenData.isNull) {
                 this.formProtector = this.createFormProtector(myformTokenData);
             }
             myappend ~= _csrfField();
@@ -436,8 +436,8 @@ class DFormHelper : DHelper {
         }
         result ~= this.formatTemplate("formEnd", []);
 
-        this.templater().pop();
-        this.requestType = null;
+        templater().pop();
+        _requestType = null;
        _context = null;
        _valueSources = ["data", "context"];
        _idPrefix = configurationData.isSet("idPrefix");

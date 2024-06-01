@@ -11,6 +11,10 @@ import uim.views;
  */
 abstract class DCell { // }: IEventDispatcher {
     mixin TConfigurable;
+// TEventDispatcherTrait<IView 
+    mixin TEventDispatcher;
+    mixin TLocatorAware;
+    mixin TViewVars;
 
     this() {
         initialize;
@@ -49,12 +53,7 @@ abstract class DCell { // }: IEventDispatcher {
      */
     protected IView _view;
 
-    /**
-     * @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
-     */
-    mixin TEventDispatcher;
-    mixin TLocatorAware;
-    mixin TViewVars;
+    
 
     /**
      * An instance of a UIM\Http\ServerRequest object that contains information about the current request.

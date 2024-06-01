@@ -45,14 +45,15 @@ mixin template TViewVars() {
     }
     
     // Saves a variable or an associative array of variables for use inside a template.
+void set(string viewName, Json aValue = null) {
+        auto mydata = [views: myvalue];
+        viewBuilder().setData(mydata);
+    }
     void set(string[] views, Json aValue = null) {
-        if (views.isArray) {
-            mydata = myvalue.isArray
+        auto mydata = myvalue.isArray
                 ? array_combine(views, myvalue)
                 : views;
-        } else {
-            mydata = [views: myvalue];
-        }
+     
         viewBuilder().setData(mydata);
     }
 } 

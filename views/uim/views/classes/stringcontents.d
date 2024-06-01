@@ -288,10 +288,7 @@ class DStringContents {
     } 
 
     string[] addClassnameToList(string[] classnames, string[] newClassnames) {
-        if (newClassnames.isEmpty) {
-            return classnames;
-        }
-
-        return uniq(chain(classnames, newClassnames)).array; 
-    }
+        return newClassnames.isEmpty
+? classnames : uniq(chain(classnames, newClassnames)).array; 
+    
 }

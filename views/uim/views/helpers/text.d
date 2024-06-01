@@ -93,13 +93,13 @@ class DTextHelper : DHelper {
      * Json[string] mymatches An array of regexp matches.
      */
     protected string _insertPlaceHolder(Json[string] mymatches) {
-        mymatch = mymatches[0];
-        myenvelope = ["", ""];
-        if (isSet(mymatches["url"])) {
+        auto mymatch = mymatches[0];
+        string[] myenvelope = ["", ""];
+        if (mymatches.hasKey("url")) {
             mymatch = mymatches["url"];
             myenvelope = [mymatches["left"], mymatches["right"]];
         }
-        if (isSet(mymatches["url_bare"])) {
+        if (mymatches.hasKey("url_bare")) {
             mymatch = mymatches["url_bare"];
         }
         aKey = hash_hmac("sha1", mymatch, Security.getSalt());
@@ -183,7 +183,7 @@ class DTextHelper : DHelper {
      * @param Json[string] options Array of HTML options, and options listed above.
      */
     string autoLink(string mytext, Json[string] options  = null) {
-        mytext = this.autoLinkUrls(mytext, options);
+        mytext = autoLinkUrls(mytext, options);
 
         return _autoLinkEmails(mytext, ["escape": false.toJson] + options);
     }
@@ -196,8 +196,8 @@ class DTextHelper : DHelper {
      * string mytext Text
      */
     string autoParagraph(string mytext) {
-        mytext ??= "";
-        if (trim(mytext) != "") {
+        mytext = myText.ifEmpty("");
+        if (mytext.strip != "") {
             mytext = to!string(preg_replace("|<br[^>]*>\s*<br[^>]*>|i", "\n\n", mytext ~ "\n"));
             mytext = (string)preg_replace("/\n\n+/", "\n\n", mytext.replace(["\r\n", "\r"], "\n"));
             mytexts = preg_split("/\n\s*\n/", mytext, -1, PREG_SPLIT_NO_EMPTY) ?: [];
@@ -210,8 +210,7 @@ class DTextHelper : DHelper {
         return mytext;
     }
     
-    /**
-     * Event listeners.
+    // Event listeners.
      */
     IEvent[] implementedEvents() {
         return null;

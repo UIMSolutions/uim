@@ -434,7 +434,7 @@ class DServerRequest { // }: IServerRequest {
             return false;
         }
         type = type.lower;
-        if (!_detectors.isSet(type)) {
+        if (!_detectors.hasKey(type)) {
             throw new DInvalidArgumentException("No detector set for type `%s`."
             .format(type));
         }
@@ -711,7 +711,7 @@ class DServerRequest { // }: IServerRequest {
      */
     bool hasHeader(string headerName) {
         auto normalizedName = this.normalizeHeaderName(headerName);
-        return _environmentData.isSet(normalizedName);
+        return _environmentData.hasKey(normalizedName);
     }
     
     /**
@@ -722,7 +722,7 @@ class DServerRequest { // }: IServerRequest {
      */
     string[] getHeader(string headerName) {
         name = this.normalizeHeaderName(headerName);
-        return _environmentData.isSet(headerName)
+        return _environmentData.hasKey(headerName)
             ? (array)_environmentData[headerName]
             : null;
     }

@@ -183,7 +183,7 @@ class DPoFileParser {
             messages[singular]["_context"][""] = translation;
         }
 
-        if (ids.isSet("plural")) {
+        if (ids.hasKey("plural")) {
             plurals = itemToInspect["translated"];
             // PO are by definition indexed so sort by index.
             ksort(plurals);

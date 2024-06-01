@@ -72,7 +72,7 @@ class DFileLog { // TODO /*}: BaseLog {
     this(Json[string] configData = null) {
         super(configData);
 
-       auto _path = configurationData.isSet("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);
+       auto _path = configurationData.hasKey("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);
         if (!isDir(_path)) {
             mkdir(_path, configuration.get("dirMask"), true);
         }

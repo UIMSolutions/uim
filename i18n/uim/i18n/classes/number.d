@@ -271,7 +271,7 @@ class DNumber {
                 type = NumberFormatter.CURRENCY_ACCOUNTING;
             }
         }
-        if (!_formatters[locale].isSet(type)) {
+        if (!_formatters[locale].hasKey(type)) {
             _formatters[locale][type] = new DNumberFormatter(locale, type);
         }
         /** @var \NumberFormatter formatter */

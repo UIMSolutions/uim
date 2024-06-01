@@ -137,7 +137,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
             return _createInstance(catalogName, localname);
         }
 
-        ICatalog catalog = _loaders.isSet(catalogName)
+        ICatalog catalog = _loaders.hasKey(catalogName)
             ? _loaders[catalogName](catalogName, localname)
             : _loaders[FALLBACK_LOADER](catalogName, localname);
 

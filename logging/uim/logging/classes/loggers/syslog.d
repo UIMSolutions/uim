@@ -77,7 +77,7 @@ class DSysLogger : DLogger {
            _open = true;
         }
         priority = LOG_DEBUG;
-        if (_levelMap.isSet(level)) {
+        if (_levelMap.hasKey(level)) {
             priority = _levelMap[level];
         }
         auto myLines = this.interpolate(messageToLog, context).split("\n");

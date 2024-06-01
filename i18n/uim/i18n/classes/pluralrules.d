@@ -130,7 +130,7 @@ class DPluralRules {
     static int calculate(string localName, int ruleNumber) {
         localName = Locale.canonicalize(localName);
 
-        if (!_rulesMap.isSet(localName)) {
+        if (!_rulesMap.hasKey(localName)) {
             string[] locale = split("_", locale)[0];
         }
         if (!_rulesMap.hasKey(localName)) {

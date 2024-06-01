@@ -846,7 +846,7 @@ class DMessage { //: JsonSerializable {
             if (!isArray(dirEntry)) {
                 dirEntry = ["file": dirEntry];
             }
-            if (!dirEntry.isSet("file")) {
+            if (!dirEntry.hasKey("file")) {
                 if (!isSet(dirEntry["data"])) {
                     throw new DInvalidArgumentException("No file or data specified.");
                 }

@@ -34,7 +34,7 @@ class DFormatterLocator {
     
     // Gets a formatter from the registry by name.
     II18NFormatter get(string formatterName) {
-        if (!_registry.isSet(formatterName)) {
+        if (!_registry.hasKey(formatterName)) {
             // TODO throw new DI18nException("Formatter named `%s` has not been registered.".format(name));
         }
         if (!_converted.hasKey(formatterName)) {

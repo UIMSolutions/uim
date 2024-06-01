@@ -77,7 +77,7 @@ class DTranslator : ITranslator {
     /* 
     string translate(string messageKey, STRINGAA tokensValues) {
         string[] message;
-        if (tokensValues.isSet("_count")) { // use plural
+        if (tokensValues.hasKey("_count")) { // use plural
             message = getMessage(PLURAL_PREFIX ~ messageKey);
             if (message.isEmpty) { // Fallback to singular
                 message = getMessage(messageKey);
@@ -93,7 +93,7 @@ class DTranslator : ITranslator {
         }
 
         // Check for missing/invalid context
-        if (tokensValues.isSet("_context")) {
+        if (tokensValues.hasKey("_context")) {
             message = resolveContext(messageKey, message, tokensValues);
             tokensValues.unSet("_context");
         }
@@ -102,7 +102,7 @@ class DTranslator : ITranslator {
         }
 
         // Singular message, but plural call
-        if (tokensValues.isSet("_singular")) {
+        if (tokensValues.hasKey("_singular")) {
             message = [tokensValues["_singular"], message];
         }
 

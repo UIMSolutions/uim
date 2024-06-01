@@ -10,31 +10,24 @@ import uim.oop;
  * Read only access to the session during testing.
  */
 class DTestSession {
-    /**
-     * @var array|null
-     */
-    protected Json[string] mysession = null;
+    protected Json[string] _session = null;
 
     /**
      * @param array|null mysession Session data.
      */
-    this(Json[string] mysession) {
-        this.session = mysession;
+    this(Json[string] sessionData) {
+        _session = sessionData;
     }
     
-    /**
-     * Returns true if given variable name is set in session.
-     * Params:
-     * string myname Variable name to check for
-     */
-    bool check(string myname = null) {
-        if (this.session.isNull) {
+    // Returns true if given variable name is set in session.
+    bool check(string nameToCheck = null) {
+        if (_session.isNull) {
             return false;
         }
-        if (myname.isNull) {
-            return (bool)this.session;
+        if (nameToCheck.isNull) {
+            return (bool)_session;
         }
-        return Hash.get(this.session, myname) !isNull;
+        return !Hash.get(_session, nameToCheck).isNull;
     }
     
     /**
@@ -43,12 +36,12 @@ class DTestSession {
      * string myname The name of the session variable (or a path as sent to Hash.extract)
      */
     Json read(string myname = null) {
-        if (this.session.isNull) {
+        if (_session.isNull) {
             return null;
         }
         if (myname.isNull) {
             return _session ?: [];
         }
-        return Hash.get(this.session, myname);
-    } */ 
+        return Hash.get(_session, myname);
+    } 
 }

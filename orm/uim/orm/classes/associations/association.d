@@ -728,9 +728,8 @@ class DAssociation : IAssociation {
      * @param Json[string] options options passed to the method `attachTo`
      */
     protected void _formatAssociationResults(Query query, Query surrogate, Json[string] optionData) {
-        formatters = surrogate.getResultFormatters();
-
-        if (!formatters || options.isEmpty("propertyPath"])) {
+        auto formatters = surrogate.getResultFormatters();
+        if (!formatters || options.isEmpty("propertyPath")) {
             return;
         }
 
@@ -750,12 +749,13 @@ class DAssociation : IAssociation {
                 extracted ~= result;
             }
             extracted = new DCollection(extracted);
-            foreach (formatters as callable) {
+            // TODO 
+            /* foreach (formatters as callable) {
                 extracted = callable(extracted, query);
                 if (!extracted instanceof IResultset) {
                     extracted = new DResultsetDecorator(extracted);
                 }
-            }
+            } */
 
             results = results.insert(property, extracted);
             if (query.isHydrationEnabled()) {

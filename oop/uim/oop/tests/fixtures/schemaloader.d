@@ -31,31 +31,41 @@ class DSchemaLoader {
      * @param bool shouldDropTables Drop all tables prior to loading schema files
      */
     void loadSqlFiles(
-        string[] aPaths,
+        string fileToLoad,
         string connectionName = "test",
         bool shouldDropTables = true,
         bool truncateTables = false
     ) {
-        files = (array)somePaths;
+        loadSqlFiles([fileToLoad], connectionName, shouldDropTables, truncateTables);
+    }
+
+    void loadSqlFiles(
+        string[] filesToLoad,
+        string connectionName = "test",
+        bool shouldDropTables = true,
+        bool truncateTables = false
+    ) {
+        auto filePaths = filesToLoad.dup;
 
         // Don"t create schema if we are in a Dunit separate process test method.
-        if (isSet(GLOBALS["__DUNIT_BOOTSTRAP"])) {
+        if (GLOBALS.hasKey("__DUNIT_BOOTSTRAP")) {
             return;
         }
         if (shouldDropTables) {
-            this.helper.dropTables(aConnectionName);
+            _helper.dropTables(aConnectionName);
         }
         /** @var \UIM\Database\Connection aConnection */
         aConnection = ConnectionManager.get(aConnectionName);
-        files.each!((schemaFile) {
-            if (!fileExists(schemaFile)) {
+        filePaths.each!((filePath) {
+            if (!fileExists(filePath)) {
                 throw new DInvalidArgumentException(
-                    "Unable to load SQL file `%s`.".format(schemaFile));
+                    "Unable to load SQL file `%s`."
+                    .format(filePath));
             }
             
-            auto sql = file_get_contents(schemaFile);
-            if (sql == false) {
-                throw new UimException("Cannot read file content of `%s`".format(schemaFile));
+            auto sql = file_get_contents(filePath);
+            if (sql.isEmpty) {
+                throw new UimException("Cannot read file content of `%s`".format(filePath));
             }
             // Use the underlying PDO connection so we can avoid prepared statements
             // which don"t support multiple queries in postgres.
@@ -64,7 +74,7 @@ class DSchemaLoader {
         });
         
         if (truncateTables) {
-            this.helper.truncateTables(aConnectionName);
+            _helper.truncateTables(aConnectionName);
         }
     }
     
@@ -125,24 +135,22 @@ class DSchemaLoader {
         if (isSet(GLOBALS["__DUNIT_BOOTSTRAP"])) {
             return;
         }
-        this.helper.dropTables(aConnectionName);
+        _helper.dropTables(aConnectionName);
 
         aTables = include file;
 
-        /**
-         * @var \UIM\Database\Connection aConnection
-         */
-        aConnection = ConnectionManager.get(aConnectionName);
+        auto aConnection = ConnectionManager.get(aConnectionName);
         aConnection.disableConstraints(void (Connection aConnection) use (aTables) {
             foreach (aTables as aTableName: aTable) {
-                name = aTable["table"] ?? aTableName;
-                if (!isString(name)) {
+                name = aTable.getString("table", aTableName);
+                if (!name.isString) {
                     throw new DInvalidArgumentException(
-                        "`%s` is not a valid table name. Either use a string key for the table definition"
-                            ~ "(`\"articles\": [...]`) or define the `table` key in the table definition.".format(name)
+                        "`%s` is not a valid table name. Either use a string key for the table definition"~
+                        "(`\"articles\": [...]`) or define the `table` key in the table definition."
+                        .format(name)
                     );
                 }
-                tableSchema = new DTableSchema(name, aTable["columns"]);
+                auto tableSchema = new DTableSchema(name, aTable["columns"]);
                 if (aTable.hasKey("indexes")) {
                     aTable["indexes"].byKeyValue.each(kv => tableSchema.addIndex(kv.key, kv.value));
                 }

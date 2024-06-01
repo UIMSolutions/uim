@@ -53,14 +53,15 @@ class DFixtureHelper {
                 /** @var class-string<\UIM\Datasource\IFixture>  className */
                  className = fixtureName;
             }
-            if (isSet(fixtures[className])) {
+
+            if (fixtures.hasKey(className)) {
                 throw new DUnexpectedValueException("Found duplicate fixture `%s`.".format(fixtureName));
             }
             if (!class_exists(className)) {
                 throw new DUnexpectedValueException("Could not find fixture `%s`.".format(fixtureName));
             }
             if (!cachedFixtures.hasKey(className)) {
-                cachedFixtures[className] = new className();
+                // TODO cachedFixtures[className] = new className();
             }
             fixtures[className] = cachedFixtures[className];
         });

@@ -41,7 +41,6 @@ class DSqliteDriver : DDriver {
         return "PRAGMA foreign_keys = ON";
     }
 
-    /*
     mixin TupleComparisonTranslatorTemplate;
 
     protected const STATEMENT_CLASS = SqliteStatement.classname;
@@ -88,12 +87,9 @@ class DSqliteDriver : DDriver {
         }
         
         string[] params = null;
-        if (configuration.hasKey("cache"]) {
-            params ~= "cache=" ~ configuration.getString("cache");
-        }
-        if (configuration.hasKey("mode")) {
-            params ~= "mode=" ~ configuration.getString("mode");
-        }
+        params ~= configuration.hasKey("cache") ? "cache=" ~ configuration.getString("cache") : null;
+        params ~= configuration.hasKey("mode") ? "mode=" ~ configuration.getString("mode") : null;
+
         auto dsn = params 
             ? "sqlite:file:" ~ configuration.get("database") ~ "?" ~ params.join("&")
             : "sqlite:" ~ configuration.get("database"];

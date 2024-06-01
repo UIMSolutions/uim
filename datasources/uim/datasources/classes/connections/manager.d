@@ -17,41 +17,40 @@ import uim.datasources;
 class DConnectionManager {
     mixin TConfigurable;
 
-  this() {
-    initialize;
-  }
-  
-  // Hook method
-  bool initialize(Json[string] initData = null) {
+    this() {
+        initialize;
+    }
 
-    configuration(MemoryConfiguration);
-    configuration.data(initData);
+    // Hook method
+    bool initialize(Json[string] initData = null) {
 
-       // An array mapping url schemes to fully qualified driver class names
-    _dsnClassMap = [
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        // An array mapping url schemes to fully qualified driver class names
+        _dsnClassMap = [
             "mysql": Mysql.classname,
             "postgres": Postgres.classname,
             "sqlite": Sqlite.classname,
             "sqlserver": Sqlserver.classname,
         ];
 
-    return true;
-  }
- 
         return true;
     }
 
-    // A map of connection aliases.
-    protected static STRINGAA _connectionAliases;
+    return true;
+}
 
-    // An array mapping url schemes to fully qualified driver class names
-    protected static STRINGAA _dsnClassMap;
+// A map of connection aliases.
+protected static STRINGAA _connectionAliases;
 
+// An array mapping url schemes to fully qualified driver class names
+protected static STRINGAA _dsnClassMap;
 
-    // The ConnectionRegistry used by the manager.
-    protected static DConnectionRegistry _registry;
+// The ConnectionRegistry used by the manager.
+protected static DConnectionRegistry _registry;
 
-        /*
+/*
     mixin template TStaticConfig() {
         setConfig as protected _setConfig;
         parseDsn as protected _parseDsn;
@@ -63,14 +62,12 @@ class DConnectionManager {
      *
      * The connection will not be constructed until it is first used.
      */
-    static void configuration.update(string[] aKey, /* IConnection | Closure */ Json[string] configData = null) {
-        if (isArray(configData)) {
-            configuration.get("name", aKey);
-        }
-        configuration.update(aKey, configData);
-    }
+static void configuration.update(string[] aKey, /* IConnection | Closure */ Json[string] configData = null) {
+    configuration.get("name", aKey);
+    configuration.update(aKey, configData);
+}
 
-    /**
+/**
      * Parses a DSN into a valid connection configuration
      *
      * This method allows setting a DSN using formatting similar to that used by PEAR.DB.
@@ -92,23 +89,23 @@ class DConnectionManager {
      *
      * Note that query-string arguments are also parsed and set as values in the returned configuration.
      */
-    static Json[string] parseDsn(string dsnToConvert) {
-        auto data = _parseDsn(dsnToConvert);
+static Json[string] parseDsn(string dsnToConvert) {
+    auto data = _parseDsn(dsnToConvert);
 
-        if (data.hasKey("path") && data.isEmpty("database")) {
-            data["database"] = substr(data.getString("path"), 1);
-        }
-
-        if (data.isEmpty("driver")) {
-            data["driver"] = data.getString("className");
-            data["className"] = DConnection.class;
-        }
-        data.remove("path");
-
-        return data;
+    if (data.hasKey("path") && data.isEmpty("database")) {
+        data["database"] = substr(data.getString("path"), 1);
     }
 
-    /**
+    if (data.isEmpty("driver")) {
+        data["driver"] = data.getString("className");
+        data["className"] = Connection.className;
+    }
+    data.remove("path");
+
+    return data;
+}
+
+/**
      * Set one or more connection aliases.
      *
      * Connection aliases allow you to rename active connections without overwriting
@@ -128,21 +125,21 @@ class DConnectionManager {
      * ConnectionManager.alias("test_things", "things");
      * ```
      */
-    static void alias(string sourceConnection, string aliasName) {
-        _aliasMap[aliasName] = sourceConnection;
-    }
+static void alias(string sourceConnection, string aliasName) {
+    _aliasMap[aliasName] = sourceConnection;
+}
 
-    /**
+/**
      * Drop an alias.
      *
      * Removes an alias from ConnectionManager. Fetching the aliased
      * connection may fail if there is no other connection with that name.
      */
-    static void dropAlias(aliasToDrop) {
-        unset(_aliasMap[aliasToDrop]);
-    }
+static void dropAlias(aliasToDrop) {
+    unset(_aliasMap[aliasToDrop]);
+}
 
-    /**
+/**
      * Get a connection.
      *
      * If the connection has not been constructed an instance will be added
@@ -150,24 +147,26 @@ class DConnectionManager {
      * defined. If you want the original unaliased connections pass `false`
      * as second parameter.
      */
-    static IConnection get(string connectionName, bool useAliases = true) {
-        if (useAliases && isset(_aliasMap[connectionName])) {
-            connectionName = _aliasMap[connectionName];
-        }
-        if (configuration.isEmpty(connectionName)) {
-            throw new DMissingDatasourceConfigException(["name": connectionName]);
-        }
-        /** @psalm-suppress RedundantPropertyInitializationCheck  */
-        if (!isset(_registry)) {
-            _registry = new DConnectionRegistry();
-        }
+static IConnection get(string connectionName, bool useAliases = true) {
+    if (useAliases && isset(_aliasMap[connectionName])) {
+        connectionName = _aliasMap[connectionName];
+    }
+    if (configuration.isEmpty(connectionName)) {
+        throw new DMissingDatasourceConfigException(["name": connectionName]);
+    }
+    /** @psalm-suppress RedundantPropertyInitializationCheck  */
+    if (!isset(_registry)) {
+        _registry = new DConnectionRegistry();
+    }
 
-        return _registry. {
-            connectionName
-        }
-        
-        ?  ? _registry.load(connectionName, configuration.get(connectionName));
-    } 
+    return _registry. {
+        connectionName
+    }
+
+    
+
+    ?  ? _registry.load(connectionName, configuration.get(connectionName));
+}
 }
 /**
      * Parses a DSN into a valid connection configuration
@@ -222,26 +221,23 @@ static Json[string] parseDsn(string adsn) {
      * Make 'things' resolve to 'test_things' connection
      * ConnectionManager.alias("test_things", "things");
      */
-    static void alias(string connectionAlias, string sourceAlias) {
-        _connectionAliases[connectionAlias] = sourceAlias;
-    }
+            static void alias(string connectionAlias, string sourceAlias) {
+                _connectionAliases[connectionAlias] = sourceAlias;}
 
-    /**
+                /**
      * Drop an alias.
      *
      * Removes an alias from ConnectionManager. Fetching the aliased
      * connection may fail if there is no other connection with that name.
      */
-    static void dropAlias(string connectionAlias) {
-        unset(_connectionAliases[connectionAlias]);
-    }
+                static void dropAlias(string connectionAlias) {
+                    unset(_connectionAliases[connectionAlias]);}
 
-    // Returns the current connection aliases and what they alias.
-    static STRINGAA aliases() {
-        return _connectionAliases;
-    }
+                    // Returns the current connection aliases and what they alias.
+                    static STRINGAA aliases() {
+                        return _connectionAliases;}
 
-    /**
+                        /**
      * Get a connection.
      *
      * If the connection has not been constructed an instance will be added
@@ -250,19 +246,21 @@ static Json[string] parseDsn(string adsn) {
      * as second parameter.
      * Params:
      */
-    static IConnection get(string connectionName, bool useAliases = true) {
-        if (useAliases && isSet(_connectionAliases[connectionName])) {
-            connectionName = _connectionAliases[connectionName];
-        }
-        if (!isSet(configuration.data(connectionName])) {
-            throw new DMissingDatasourceConfigException(
-                ["name": connectionName]); }
+                        static IConnection get(string connectionName, bool useAliases = true) {
+                            if (useAliases && isSet(_connectionAliases[connectionName])) {
+                                connectionName = _connectionAliases[connectionName];
+                            }
+                            if (!isSet(configuration.data(connectionName])) {
+                                    throw new DMissingDatasourceConfigException(
+                                        ["name": connectionName]); }
 
-            _registry ? _registry : new DConnectionRegistry();
-                return _registry. {
-                    connectionName
-                }
-                ?  ? _registry.load(connectionName, configuration.data(
-                connectionName]); 
-    }*/
-}
+                                    _registry ? _registry : new DConnectionRegistry();
+                                        return _registry. {
+                                            connectionName
+                                        }
+                                    
+                                    ?  ? _registry.load(connectionName, configuration.data(
+                                        connectionName]); }
+
+                                     *  /
+                                }

@@ -344,21 +344,23 @@ mixin template TIntegrationTest() {
      * @param string httpMethod The HTTP method
      * @param string[] adata The request data.
      */
-    protected void _sendRequest(string[] aurl, string httpMethod, string[] adata = []) {
+    protected void _sendRequest(string[] url, string httpMethod, string[] adata = []) {
         dispatcher = _makeDispatcher();
-        url = dispatcher.resolveUrl(url);
+        auto resolvedUrl = dispatcher.resolveUrl(url);
 
         try {
-            request = _buildRequest(url, method, someData);
+            request = _buildRequest(resolvedUrl, method, someData);
             response = dispatcher.execute(request);
            _requestSession = request["session"];
             if (_retainFlashMessages && _flashMessages) {
                _requestSession.write("Flash", _flashMessages);
             }
            _response = response;
-        } catch (UnitException | DatabaseException  anException) {
-            throw  anException;
-        } catch (Throwable  anException) {
+        } catch (UnitException exception) {
+            throw exception;
+        } catch (DatabaseException exception) {
+            throw exception;
+        } catch (Throwable exception) {
            _exception = anException;
             // Simulate the global exception handler being invoked.
            _handleError(anException);
@@ -437,13 +439,15 @@ mixin template TIntegrationTest() {
      * @param string httpMethod The HTTP method
      * @param string[] adata The request data.
      */
-    protected Json[string] _buildRequest(string aurl, string httpMethod, string[] adata = []) {
-        sessionConfig = (array)configuration.get("Session") ~ [
-            "defaults": "D",
-        ];
-        session = Session.create(sessionConfig);
+    protected Json[string] _buildRequest(string url, string httpMethod, string[] requestData = null) {
+        auto sessionConfig = configuration.data("Session").update([
+            "defaults": "D".toJson,
+        ]);
+        
+        auto session = Session.create(sessionConfig);
         [url, aQuery, hostInfo] = _url(url);
-        tokenUrl = url;
+        
+        auto tokenUrl = url;
 
         if (aQuery) {
             tokenUrl ~= "?" ~ aQuery;

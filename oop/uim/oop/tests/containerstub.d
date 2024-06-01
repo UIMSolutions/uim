@@ -44,7 +44,7 @@ mixin template TContainerStub() {
     protected IHttpApplication /*|IConsoleApplication */ createApp() {
         appClass = _appClass
             ? _appClass
-            : configuration.get("App.namespace") ~ "\Application";
+            : configuration.getString("App.namespace") ~ "\\Application";
 
         if (!class_exists(appClass)) {
             throw new DLogicException("Cannot load `%s` for use in integration testing.".format(appClass));
@@ -85,17 +85,17 @@ mixin template TContainerStub() {
         if (isEmpty(this.containerServices)) {
             return;
         }
-        foreach (aKey: factor; this.containerServices) {
-            if (containerToWrap.has(aKey)) {
+        _containerServices.byKeyValue.each!((keyFactory) {
+            if (containerToWrap.has(keyFactory.key)) {
                 try {
-                    containerToWrap.extend(aKey).setConcrete(factory);
-                } catch (NotFoundException  anException) {
-                    containerToWrap.add(aKey, factory);
+                    containerToWrap.extend(keyFactory.key).setConcrete(keyFactory.value);
+                } catch (DNotFoundException exception) {
+                    containerToWrap.add(keyFactory.key, keyFactory.value);
                 }
             } else {
-                containerToWrap.add(aKey, factory);
+                containerToWrap.add(keyFactory.key, keyFactory.value);
             }
-        }
+        });
         anEvent.setResult(containerToWrap);
     }
     

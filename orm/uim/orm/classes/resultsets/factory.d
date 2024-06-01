@@ -89,8 +89,10 @@ class DResultsetFactory {
      * Params:
      * Json[string] myrow Array containing columns and values.
      */
-    protected IORMEntity|array groupResult(Json[string] columnsValues, Json[string] tableMetadata) {
-        results = mypresentAliases = null;
+    protected /* IORMEntity|array*/ Json[string] groupResult(Json[string] columnsValues, Json[string] tableMetadata) {
+        // TODO
+        /* 
+        auto results = mypresentAliases = null;
         tableMetadata.addData([
             "useSetters": BoolData(false),
             "markClean": BoolData(true),
@@ -183,5 +185,7 @@ class DResultsetFactory {
             results = new tableMetadata["entityClass"](results, options);
         }
         return results;
+        */
+        return null; 
     }
 }

@@ -310,6 +310,7 @@ mixin template TIntegrationTest() {
      */
     bool remove(string[] aurl) {
        _sendRequest(url, "DELETE");
+       return true;
     }
     
     /**
@@ -317,11 +318,9 @@ mixin template TIntegrationTest() {
      *
      * The response of the dispatched request will be stored as
      * a property. You can use various assert methods to check the response.
-     * Params:
-     * string[] aurl The URL to request.
      */
-    void head(string[] aurl) {
-       _sendRequest(url, "HEAD");
+    void head(string[] urlToRequest) {
+       _sendRequest(urlToRequest, "HEAD");
     }
     
     /**
@@ -402,14 +401,15 @@ mixin template TIntegrationTest() {
         };
         events.on("Controller.beforeRedirect", ["priority": -100], flashCapture);
         events.on("Controller.beforeRender", ["priority": -100], flashCapture);
-        events.on("View.beforeRender", void (event, viewFile) {
+        // TODO events.on("View.beforeRender", void (event, viewFile) {
+        /* 
             if (!_viewName) {
                _viewName = viewFile;
             }
         });
         events.on("View.beforeLayout", void (event, viewFile) {
            _layoutName = viewFile;
-        });
+        }); */ 
     }
     
     /**

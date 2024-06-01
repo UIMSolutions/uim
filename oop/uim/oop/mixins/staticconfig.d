@@ -54,7 +54,7 @@ mixin template TStaticConfig() {
         if (!isString(configurationName)) {
             throw new DLogicException("If config is not null, key must be a string.");
         }
-        if (configuration.hasKey(configurationName))) {
+        if (configuration.hasKey(configurationName)) {
             throw new BadMethodCallException("Cannot reconfigure existing key `%s`.".format(configurationName));
         }
         if (isObject(configData)) {
@@ -84,11 +84,11 @@ mixin template TStaticConfig() {
      * Params:
      * string aKey The name of the configuration.
      */
-    static Json getConfigOrFail(string aKey) {
-        if (!isSet(configuration.data(aKey))) {
-            throw new DInvalidArgumentException("Expected configuration `%s` not found.".format(aKey));
+    static Json getConfigOrFail(string configName) {
+        if (!isSet(configuration.data(configName))) {
+            throw new DInvalidArgumentException("Expected configuration `%s` not found.".format(configName));
         }
-        return configuration.data(aKey);
+        return configuration.data(configName);
     }
     
     /**
@@ -193,7 +193,7 @@ REGEXP`;
         if (!parsed) {
             throw new DInvalidArgumentException("The DSN string `%s` could not be parsed.".format(dsn));
         }
-        exists = null;d
+        exists = null;
         /**
          * @var string|int myKey
          */

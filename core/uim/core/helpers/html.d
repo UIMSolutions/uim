@@ -1,11 +1,12 @@
-module him.core.helpers.html;
+module uim.core.helpers.html;
 
 import uim.core;
 
 @safe:
 
 string doubleTag(string name) {
-return "<"~name~">";
+    return "<" ~ name ~ ">";
 }
+
 unittest {
 }

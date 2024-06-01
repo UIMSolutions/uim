@@ -88,7 +88,7 @@ mixin template TCookieCrypt() {
             return null;
         }
 
-        securitySalt ?  ?  = _getCookieEncryptionKey();
+        securitySalt = securitySalt.isEmpty(_getCookieEncryptionKey());
         if (encryptionCipher == "aes") {
             valueToDecode = Security.decrypt(valueToDecode, securitySalt);
         }
@@ -113,7 +113,8 @@ mixin template TCookieCrypt() {
             auto decodedJson = Json_decode(mystring, true);
             return decodedJson.ifEmpty(mystring);
         }
-        myarray = null;
+        
+        auto myarray = null;
         foreach (mypair; mystring.split(",")) {
             string[] aKey = mypair.split("|");
             if (!isSet(aKey[1])) {

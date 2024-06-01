@@ -1,37 +1,41 @@
-module um.core.helpers.json;
+module uim.core.helpers.json;
 
 import uim.core;
 
 @safe:
 
 string jsonValue(bool value) {
-return value ? "true" : "false";
+    return value ? "true" : "false";
 }
+
 unittest {
 }
 
 string jsonValue(string value) {
-return "\"%s\"".format(value);
+    return "\"%s\"".format(value);
 }
+
 unittest {
 }
 
 string jsonValue(long value) {
-return "%s".format(value);
+    return "%s".format(value);
 }
+
 unittest {
 }
 
 string jsonArray(T)(T[] values) {
- values.map!(value => jsonValue(value));
- return "[]";
+    values.map!(value => jsonValue(value));
+    return "[]";
 }
+
 unittest {
 }
 
 string jsonObject() {
- return "{}";
-}
-unittest {
+    return "{}";
 }
 
+unittest {
+}

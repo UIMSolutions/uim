@@ -63,7 +63,7 @@ class DConnectionHelper {
 
         tableNames = tableNames !isNull ? array_intersect(tableNames, allTables): allTables;
         /** @var array<\UIM\Database\Schema\TableSchema> schemas Specify type for psalm */
-        schemas = array_map(fn (aTable) : collection.describe(aTable), tableNames);
+        // TODO schemas = array_map(fn (aTable) : collection.describe(aTable), tableNames);
 
         dialect = connection.getDriver().schemaDialect();
         schemas.each!((tableSchema) {
@@ -81,29 +81,25 @@ class DConnectionHelper {
         allTables = collection.listTablesWithoutViews();
         tableNames = tableNames !isNull ? array_intersect(tableNames, allTables): allTables;
         /** @var array<\UIM\Database\Schema\TableSchema> schemas Specify type for psalm */
-        schemas = array_map(fn (aTable): collection.describe(aTable), tableNames);
+        // TODO schemas = array_map(fn (aTable): collection.describe(aTable), tableNames);
 
-        this.runWithoutConstraints(connection, void (Connection connection) use (schemas) {
+        /* this.runWithoutConstraints(connection, void (Connection connection) use (schemas) {
             dialect = connection.getDriver().schemaDialect();
             tableSchema.each!(schema => 
                 dialect.truncateTableSql(schema)
                     .each!(statement => connection.execute(statement));
             );
-        });
+        }); */ 
     }
     
-    /**
-     * Runs callback with constraints disabled correctly per-database
-     * Params:
-     * \UIM\Database\Connection connection Database connection
-     */
+    // Runs callback with constraints disabled correctly per-database
     void runWithoutConstraints(Connection dbConnection, Closure aCallback) {
-        if (dbConnection.getDriver().supports(DriverFeatures.DISABLE_CONSTRAINT_WITHOUT_TRANSACTION)) {
-            dbConnection.disableConstraints(fn (Connection connection): aCallback(connection));
+        // TODO if (dbConnection.getDriver().supports(DriverFeatures.DISABLE_CONSTRAINT_WITHOUT_TRANSACTION)) {
+        /*     dbConnection.disableConstraints(fn (Connection configName): aCallback(configName));
         } else {
             dbConnection.transactional(void (Connection aConnection) use (aCallback) {
                 dbConnection.disableConstraints(fn (Connection aConnection): aCallback(aConnection));
             });
-        }
+        } */
     }
 }

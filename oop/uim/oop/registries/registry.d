@@ -90,9 +90,9 @@ class DObjectRegistry(T : Object) {
 	}
 
 	unittest {
-            version(test_uim_oop) {
-                writeln(__MODULE__, " in ", __LINE__);
-            }
+		version (test_uim_oop) {
+			writeln(__MODULE__, " in ", __LINE__);
+		}
 		// TODO 
 	}
 
@@ -103,11 +103,14 @@ class DObjectRegistry(T : Object) {
 	void register(string registration, T registeredObject) {
 		_registeredObjects[registration] = registeredObject;
 	}
+
 	unittest {
-            version(test_uim_oop) {
-                writeln(__MODULE__, " in ", __LINE__);
-            }
-		class DTest{}
+		version (test_uim_oop) {
+			writeln(__MODULE__, " in ", __LINE__);
+		}
+		class DTest {
+		}
+
 		auto registry = DObjectRegistry!DTest;
 		// TODO
 	}
@@ -115,41 +118,31 @@ class DObjectRegistry(T : Object) {
 	void opIndexAssign(string registration, T registeredObject) {
 		register(registration, registeredObject);
 	}
+
 	unittest {
-            version(test_uim_oop) {
-                writeln(__MODULE__, " in ", __LINE__);
-            }
-		class DTest{}
+		version (test_uim_oop) {
+			writeln(__MODULE__, " in ", __LINE__);
+		}
+		class DTest {
+		}
+
 		auto registry = DObjectRegistry!DTest;
 		// TODO
 	}
 
 	// #region remove
 	bool remove(string[] registrations) {
-		registrations.each!(reg => remove(reg));
-	}
-	unittest {
-            version(test_uim_oop) {
-                writeln(__MODULE__, " in ", __LINE__);
-            }
-		class DTest{}
-		auto registry = DObjectRegistry!DTest;
-		// TODO
+		return registrations.all!(reg => remove(reg));
 	}
 
 	bool remove(string registration) {
-		_registeredObjects.remove(registration);
+		return _registeredObjects.remove(registration);
 	}
-	unittest {
-            version(test_uim_oop) {
-                writeln(__MODULE__, " in ", __LINE__);
-            }
-		class DTest{}
-		auto registry = DObjectRegistry!DTest;
-		// TODO
+
+	void clear() {
+		_registeredObjects = null;
 	}
 	// #endregion remove
-
 
 	// Create the registeredobject object with the correct settings.
 	/* 
@@ -159,7 +152,4 @@ class DObjectRegistry(T : Object) {
 			: null;
     } */
 
-	void clear() {
-		_registeredObjects = null;
-	}
 }

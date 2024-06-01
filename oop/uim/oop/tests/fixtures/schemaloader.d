@@ -143,12 +143,10 @@ class DSchemaLoader {
                     );
                 }
                 tableSchema = new DTableSchema(name, aTable["columns"]);
-                if (isSet(aTable["indexes"])) {
-                    foreach (aTable["indexes"] as aKey:  anIndex) {
-                        tableSchema.addIndex(aKey,  anIndex);
-                    }
+                if (aTable.hasKey("indexes")) {
+                    aTable["indexes"].byKeyValue.each(kv => tableSchema.addIndex(kv.key, kv.value));
                 }
-                if (isSet(aTable["constraints"])) {
+                if (aTable.hasKey("constraints")) {
                     aTable["constraints"].byKeyValue
                         .each!(kv => tableSchema.addConstraint(aKey,  anIndex));
                 }

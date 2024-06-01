@@ -8,8 +8,9 @@ module uim.oop.patterns.creationals.object_pools;
 import uim.oop;
 
 // TODO
-/* 
 @safe:
+
+/* 
 class DConnection {
   void close() {}
   bool isClosed() { 
@@ -123,4 +124,4 @@ version (test_uim_oop) {
     pool.checkIn(con);
   }
 }
- * / 
+ */ 

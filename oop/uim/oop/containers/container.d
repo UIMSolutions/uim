@@ -83,12 +83,12 @@ abstract class DContainer(T : Object) {
     return _items.length = 0;
   } 
 
-  void remove(T[] removeItems) {
+  bool remove(T[] removeItems) {
     removeItems.each!(item => remove(item));
   }
 
   // Removes a single instance of the specified element from this container, if it is present.
-  void remove(T removeItem) {
+  bool remove(T removeItem) {
     _items.remove(removeItem);
   }
 

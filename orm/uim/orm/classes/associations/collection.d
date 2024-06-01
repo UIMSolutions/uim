@@ -123,7 +123,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * Once removed the association will no longer be reachable
      */
-    void remove(string aliasName) {
+    bool remove(string aliasName) {
         unset(_items[aliasName]);
     }
 

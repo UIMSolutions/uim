@@ -1112,7 +1112,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     }
   }
 
-  void remove(bool allVersions = false) {
+  bool remove(bool allVersions = false) {
     /* if (collection)
       collection.removeMany(this, allVersions); */
   }

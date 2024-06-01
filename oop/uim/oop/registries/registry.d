@@ -125,7 +125,7 @@ class DObjectRegistry(T : Object) {
 	}
 
 	// #region remove
-	void remove(string[] registrations) {
+	bool remove(string[] registrations) {
 		registrations.each!(reg => remove(reg));
 	}
 	unittest {
@@ -137,7 +137,7 @@ class DObjectRegistry(T : Object) {
 		// TODO
 	}
 
-	void remove(string registration) {
+	bool remove(string registration) {
 		_registeredObjects.remove(registration);
 	}
 	unittest {

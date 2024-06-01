@@ -308,7 +308,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string[] aurl The URL to request.
      */
-    void remove(string[] aurl) {
+    bool remove(string[] aurl) {
        _sendRequest(url, "DELETE");
     }
     

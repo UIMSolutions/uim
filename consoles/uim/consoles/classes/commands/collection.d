@@ -46,11 +46,11 @@ class DCommandCollection { // : IteratorAggregate, Countable {
 
 
     // Remove a command from the collection if it exists.
-void remove(string[] commandNames) {
+bool remove(string[] commandNames) {
         commandNames.each!(name => remove(name));
     }
 
-    void remove(string commandName) {
+    bool remove(string commandName) {
         _commands.remove(commandName);
     }
 

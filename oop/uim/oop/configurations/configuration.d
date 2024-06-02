@@ -53,13 +53,13 @@ abstract class DConfiguration : IConfiguration {
 
     abstract IConfiguration updateDefault(string key, Json newValue);
 
-    override IConfiguration mergeDefaults(Json[string] newData) {
+    override bool mergeDefaults(Json[string] newData) {
         newData.byKeyValue
             .each!(kv => mergeDefault(kv.key, kv.value));
         return this;
     }
 
-    abstract IConfiguration mergeDefault(string key, Json newValue);
+    abstract bool mergeDefault(string key, Json newValue);
     // #endregion defaultData
 
     // #region data
@@ -132,7 +132,7 @@ abstract class DConfiguration : IConfiguration {
     }
 
     Json get(string key, Json defaultValue = Json(null)) {
-        return defaultData;
+        return defaultValue;
     }
 
     int getInt(string key) {
@@ -177,12 +177,12 @@ abstract class DConfiguration : IConfiguration {
     // #endregion get
 
     // #region set
-    IConfiguration set(STRINGAA data, string[] keys = null) {
+    bool set(STRINGAA data, string[] keys = null) {
         set(data.toJsonMap, keys);
         return this;
     }
 
-    IConfiguration set(Json[string] newData, string[] keys = null) {
+    bool set(Json[string] newData, string[] keys = null) {
         if (keys.isNull) {
             keys.each!(key => set(key, newData[key]));
         } else {
@@ -192,7 +192,7 @@ abstract class DConfiguration : IConfiguration {
         return this;
     }
 
-    abstract IConfiguration set(string key, Json newValue);
+    abstract bool set(string key, Json newValue);
 
     void opIndexAssign(Json value, string key) {
         set(key, value);
@@ -214,7 +214,7 @@ abstract class DConfiguration : IConfiguration {
     // #region update
 
     // #region merge
-    IConfiguration merge(Json[string] newData, string[] includedKeys = null) {
+    bool merge(Json[string] newData, string[] includedKeys = null) {
         if (includedKeys.isNull) {
             newData.keys.each!(key => merge(key, newData[key]));
         } else {
@@ -225,18 +225,16 @@ abstract class DConfiguration : IConfiguration {
         return this;
     }
 
-    abstract IConfiguration merge(string key, Json newValue);
+    abstract bool merge(string key, Json newValue);
     // #endregion merge
 
     // #region remove - clear
-    IConfiguration clear() {
-        remove(keys);
-        return this;
+    bool clear() {
+        return remove(keys);
     }
 
     bool remove(string[] keys) {
-        keys.each!(key => remove(key));
-        return this;
+        return keys.all!(key => remove(key));
     }
 
     abstract bool remove(string key);

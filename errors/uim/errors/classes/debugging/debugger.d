@@ -12,7 +12,7 @@ import uim.errors;
 /**
  * Provide custom logging and error handling.
  *
- * Debugger : D's default error handling and gives
+ * Debugger : D"s default error handling and gives
  * simpler to use more powerful interfaces.
  *
  * @link https://book.uimD.org/4/en/development/debugging.html#namespace-uim\Error
@@ -62,28 +62,28 @@ class DDebugger {
             "error": "{:error} ({:code}): {:description} in [{:file}, line {:line}]",
         ],
         "js": [
-            "error": '',
-            "info": '',
-            "trace": '<pre class="stack-trace">{:trace}</pre>',
-            "code": '',
-            "context": '',
+            "error": "",
+            "info": "",
+            "trace": "<pre class="stack-trace">{:trace}</pre>",
+            "code": "",
+            "context": "",
             "links": [],
             "escapeContext": true.toJson,
         ],
-        'html': [
-            'trace': '<pre class="uim-error trace"><b>Trace</b> <p>{:trace}</p></pre>',
-            'context': '<pre class="uim-error context"><b>Context</b> <p>{:context}</p></pre>',
-            'escapeContext': true,
+        "html": [
+            "trace": "<pre class="uim-error trace"><b>Trace</b> <p>{:trace}</p></pre>",
+            "context": "<pre class="uim-error context"><b>Context</b> <p>{:context}</p></pre>",
+            "escapeContext": true,
         ],
-        'txt': [
-            'error': "{:error}: {:code} . {:description} on line {:line} of {:path}\n{:info}",
-            'code': '',
-            'info': '',
+        "txt": [
+            "error": "{:error}: {:code} . {:description} on line {:line} of {:path}\n{:info}",
+            "code": "",
+            "info": "",
         ],
-        'base': [
-            'traceLine': '{:reference} - {:path}, line {:line}',
-            'trace': "Trace:\n{:trace}\n",
-            'context': "Context:\n{:context}\n",
+        "base": [
+            "traceLine": "{:reference} - {:path}, line {:line}",
+            "trace": "Trace:\n{:trace}\n",
+            "context": "Context:\n{:context}\n",
         ],
     ];
 
@@ -95,81 +95,81 @@ class DDebugger {
      * will be deprecated and the new DErrorTrap system should be used instead.
      */
     protected STRINGAA renderers = [
-        'txt': TextErrorRenderer.classname,
+        "txt": TextErrorRenderer.classname,
         // The html alias currently uses no JS and will be deprecated.
-        'js': HtmlErrorRenderer.classname,
+        "js": HtmlErrorRenderer.classname,
     ];
 
     // A map of editors to their link templates.
     protected STRINGAA editors = [
-        "atom": 'atom://core/open/file?filename={file}&line={line}',
-        "emacs": 'emacs://open?url=file://{file}&line={line}',
-        "macvim": 'mvim://open/?url=file://{file}&line={line}',
-        "Dstorm": 'Dstorm://open?file={file}&line={line}',
-        "sublime": 'subl://open?url=file://{file}&line={line}',
-        "textmate": 'txmt://open?url=file://{file}&line={line}',
-        "vscode": 'vscode://file/{file}:{line}',
+        "atom": "atom://core/open/file?filename={file}&line={line}",
+        "emacs": "emacs://open?url=file://{file}&line={line}",
+        "macvim": "mvim://open/?url=file://{file}&line={line}",
+        "Dstorm": "Dstorm://open?file={file}&line={line}",
+        "sublime": "subl://open?url=file://{file}&line={line}",
+        "textmate": "txmt://open?url=file://{file}&line={line}",
+        "vscode": "vscode://file/{file}:{line}",
     ];
 
     // Holds current output data when outputFormat is false.
     protected Json[string] _data = null;
 
     this() {
-        docRef = ini_get('docref_root');
-        if (docRef.isEMpty && function_exists('ini_set')) {
-            ini_set('docref_root', 'https://secure.D.net/');
+        docRef = ini_get("docref_root");
+        if (docRef.isEMpty && function_exists("ini_set")) {
+            ini_set("docref_root", "https://secure.D.net/");
         }
-        if (!defined('E_RECOVERABLE_ERROR')) {
-            define('E_RECOVERABLE_ERROR', 4096);
+        if (!defined("E_RECOVERABLE_ERROR")) {
+            define("E_RECOVERABLE_ERROR", 4096);
         }
 
-        aConfig = array_intersect_key((array)Configure.read('Debugger'), _defaultConfig);
+        aConfig = array_intersect_key((array)Configure.read("Debugger"), _defaultConfig);
         configuration.update(aConfig);
 
-        e = '<pre class="uim-error">';
-        e ~= '<a href="javascript:void(0);" onclick="document.getElementById(\'{:id}-trace\')';
-        e ~= '.style.display = (document.getElementById(\'{:id}-trace\').style.display == ';
-        e ~= '\'none\' ? \'\' : \'none\');"><b>{:error}</b> ({:code})</a>: {:description} ';
-        e ~= '[<b>{:path}</b>, line <b>{:line}</b>]';
+        e = `<pre class="uim-error">`;
+        e ~= `<a href="javascript:void(0);" onclick="document.getElementById(\"{:id}-trace\")`;
+        e ~= `.style.display = (document.getElementById(\"{:id}-trace\").style.display == `;
+        e ~= `\"none\" ? \"\" : \"none\");"><b>{:error}</b> ({:code})</a>: {:description} `;
+        e ~= `[<b>{:path}</b>, line <b>{:line}</b>]`;
 
-        e ~= '<div id="{:id}-trace" class="uim-stack-trace" style="display: none;">';
-        e ~= '{:links}{:info}</div>';
-        e ~= '</pre>';
-        _stringContents['js']['error'] = e;
+        e ~= `<div id="{:id}-trace" class="uim-stack-trace" style="display: none;">`;
+        e ~= `{:links}{:info}</div>`;
+        e ~= `</pre>`;
+        _stringContents["js"]["error"] = e;
 
-        t = '<div id="{:id}-trace" class="uim-stack-trace" style="display: none;">';
-        t ~= '{:context}{:code}{:trace}</div>';
-        _stringContents['js']['info'] = t;
+        t = `<div id="{:id}-trace" class="uim-stack-trace" style="display: none;">`;
+        t ~= `{:context}{:code}{:trace}</div>`;
+        _stringContents["js"]["info"] = t;
 
         links = null;
-        link = '<a href="javascript:void(0);" onclick="document.getElementById(\'{:id}-code\')';
-        link ~= '.style.display = (document.getElementById(\'{:id}-code\').style.display == ';
-        link ~= '\'none\' ? \'\' : \'none\')">Code</a>';
-        links['code'] = link;
+        link = `<a href="javascript:void(0);" onclick="document.getElementById(\"{:id}-code\")`;
+        link ~= `.style.display = (document.getElementById(\"{:id}-code\").style.display == `;
+        link ~= `\"none\" ? \"\" : \"none\")">Code</a>`;
+        links["code"] = link;
 
-        link = '<a href="javascript:void(0);" onclick="document.getElementById(\'{:id}-context\')';
-        link ~= '.style.display = (document.getElementById(\'{:id}-context\').style.display == ';
-        link ~= '\'none\' ? \'\' : \'none\')">Context</a>';
-        links['context'] = link;
+        link = `<a href="javascript:void(0);" onclick="document.getElementById(\"{:id}-context\")`;
+        link ~= `.style.display = (document.getElementById(\"{:id}-context\").style.display == `;
+        link ~= `\"none\" ? \"\" : \"none\")">Context</a>`;
+        links["context"] = link;
 
-        _stringContents['js']['links'] = links;
+        _stringContents["js"]["links"] = links;
 
-        _stringContents['js']['context'] = '<pre id="{:id}-context" class="uim-context uim-debug" ';
-        _stringContents['js']['context'] ~= 'style="display: none;">{:context}</pre>';
+        _stringContents["js"]["context"] = `<pre id="{:id}-context" class="uim-context uim-debug" `;
+        _stringContents["js"]["context"] ~= `style="display: none;">{:context}</pre>`;
 
-        _stringContents['js']['code'] = '<pre id="{:id}-code" class="uim-code-dump" ';
-        _stringContents['js']['code'] ~= 'style="display: none;">{:code}</pre>';
+        _stringContents["js"]["code"] = "<pre id="{:id}-code" class="uim-code-dump" ";
+        _stringContents["js"]["code"] ~= "style="display: none;">{:code}</pre>";
 
-        e = '<pre class="uim-error"><b>{:error}</b> ({:code}) : {:description} ';
-        e ~= '[<b>{:path}</b>, line <b>{:line}]</b></pre>';
-        _stringContents['html']['error'] = e;
+        e = "<pre class="uim-error"><b>{:error}</b> ({:code}) : {:description} ";
+        e ~= "[<b>{:path}</b>, line <b>{:line}]</b></pre>";
+        _stringContents["html"]["error"] = e;
 
-        _stringContents['html']['context'] = '<pre class="uim-context uim-debug"><b>Context</b> ';
-        _stringContents['html']['context'] ~= '<p>{:context}</p></pre>';
+        _stringContents["html"]["context"] = "<pre class="uim-context uim-debug"><b>Context</b> ";
+        _stringContents["html"]["context"] ~= "<p>{:context}</p></pre>";
     }
 
     // Returns a reference to the Debugger singleton object instance.
-    static function getInstance(string aClassName = null) {
+    static auto getInstance(string aClassName = null) {
         static instance = null;
         if (!aClassName.isEmpty) {
             if (!instance || strtolower(aClassName) != strtolower(get_class(instance[0]))) {
@@ -198,17 +198,17 @@ class DDebugger {
 
     // Reads the current output masking.
     static STRINGAA outputMask() {
-        return configInstance('outputMask');
+        return configInstance("outputMask");
     }
 
     /**
      * Sets configurable masking of debugger output by property name and array key names.
      *
      * ### Example
-     * Debugger.setOutputMask(['password': '[*************]');
+     * Debugger.setOutputMask(["password": "[*************]");
      */
     static void setOutputMask(Json[string] keyvalues, bool shouldMerge = true) {
-        configInstance('outputMask', value, shouldMerge);
+        configInstance("outputMask", value, shouldMerge);
     }
 
     /**
@@ -245,14 +245,14 @@ class DDebugger {
      */
     static string editorUrl(string file, int line) {
         instance = getInstance();
-        editor = instance.getConfig('editor');
+        editor = instance.getConfig("editor");
         if (!isset(instance.editors[editor])) {
             throw new DRuntimeException("Cannot format editor URL `{editor}` is not a known editor.");
         }
 
         template = instance.editors[editor];
         if (template.isString) {
-            return replace(['{file}', '{line}'], [file, (string)line], template);
+            return replace(["{file}", "{line}"], [file, (string)line], template);
         }
 
         return template(file, line);
@@ -288,7 +288,7 @@ class DDebugger {
      *
      * - `depth` - The number of stack frames to return. Defaults to 999
      * - `format` - The format you want the return. Defaults to the currently selected format. If
-     *   format is 'array' or 'points' the return will be an array.
+     *   format is "array" or "points" the return will be an array.
      * - `args` - Should arguments for functions be shown? If true, the arguments for each method call
      *  will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
@@ -304,7 +304,7 @@ class DDebugger {
      *
      * - `depth` - The number of stack frames to return. Defaults to 999
      * - `format` - The format you want the return. Defaults to the currently selected format. If
-     *   format is 'array' or 'points' the return will be an array.
+     *   format is "array" or "points" the return will be an array.
      * - `args` - Should arguments for functions be shown? If true, the arguments for each method call
      *  will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
@@ -319,12 +319,12 @@ class DDebugger {
         }
         self = Debugger.getInstance();
         defaults = [
-            'depth': 999,
-            'format': self._outputFormat,
-            'args': false,
-            'start': 0,
-            'scope': null,
-            'exclude': ['call_user_func_array', 'trigger_error'],
+            "depth": 999,
+            "format": self._outputFormat,
+            "args": false,
+            "start": 0,
+            "scope": null,
+            "exclude": ["call_user_func_array", "trigger_error"],
         ];
         options = Hash.merge(defaults, options);
 
@@ -338,48 +338,48 @@ class DDebugger {
             "function": "[main]".toJson,
         ];
 
-        for (i = options['start']; i < count && i < options['depth']; i++) {
-            trace = backtrace[i] + ['file': '[internal]', 'line': '??'];
+        for (i = options["start"]; i < count && i < options["depth"]; i++) {
+            trace = backtrace[i] + ["file": "[internal]", "line": "??"];
             string signature = "[main]";
             string reference = "[main]";
 
             if (isset(backtrace[i + 1])) {
                 next = backtrace[i + 1] + _trace;
-                signature = reference = next['function'];
+                signature = reference = next["function"];
 
                 if (!next.isEmpty("class")) {
-                    signature = next['class'] . '.' . next['function'];
-                    reference = signature . '(';
-                    if (options['args'] && isset(next['args'])) {
+                    signature = next["class"] . "." . next["function"];
+                    reference = signature . "(";
+                    if (options["args"] && isset(next["args"])) {
                         auto args = next["args"].map!(arg => Debugger.exportVar(arg)).array;
-                        reference ~= args.join(', ');
+                        reference ~= args.join(", ");
                     }
-                    reference ~= ')';
+                    reference ~= ")";
                 }
             }
-            if (hasAllValues(signature, options['exclude'], true)) {
+            if (hasAllValues(signature, options["exclude"], true)) {
                 continue;
             }
-            if (options['format'] == 'points') {
-                back ~= ['file': trace['file'], 'line': trace['line'], 'reference': reference];
-            } elseif (options['format'] == 'array') {
-                if (!options['args']) {
-                    unset(trace['args']);
+            if (options["format"] == "points") {
+                back ~= ["file": trace["file"], "line": trace["line"], "reference": reference];
+            } elseif (options["format"] == "array") {
+                if (!options["args"]) {
+                    unset(trace["args"]);
                 }
                 back ~= trace;
             } else {
-                tpl = isset(self._stringContents[options['format']]['traceLine']))
-                    ? self._stringContents[options['format']]['traceLine'];
-                    : self._stringContents['base']['traceLine'];
+                tpl = isset(self._stringContents[options["format"]]["traceLine"]))
+                    ? self._stringContents[options["format"]]["traceLine"];
+                    : self._stringContents["base"]["traceLine"];
                 }
-                trace['path'] = trimPath(trace['file']);
-                trace['reference'] = reference;
-                unset(trace['object'], trace['args']);
-                back ~= Text.insert(tpl, trace, ['before': '{:', 'after': '}']);
+                trace["path"] = trimPath(trace["file"]);
+                trace["reference"] = reference;
+                unset(trace["object"], trace["args"]);
+                back ~= Text.insert(tpl, trace, ["before": "{:", "after": "}"]);
             }
         }
 
-        if (options['format'] == 'array' || options['format'] == 'points') {
+        if (options["format"] == "array" || options["format"] == "points") {
             return back;
         }
 
@@ -391,14 +391,14 @@ class DDebugger {
     }
 
     /**
-     * Shortens file paths by replacing the application base path with 'APP', and the UIM core
-     * path with 'CORE'.
+     * Shortens file paths by replacing the application base path with "APP", and the UIM core
+     * path with "CORE".
      */
     static string trimPath(string pathToShorten) {
         if (defined("APP") && indexOf(path, APP) == 0) {
             return replace(APP, "APP/", path);
         }
-        if (defined('UIM_CORE_INCLUDE_PATH') && indexOf(path, UIM_CORE_INCLUDE_PATH) == 0) {
+        if (defined("UIM_CORE_INCLUDE_PATH") && indexOf(path, UIM_CORE_INCLUDE_PATH) == 0) {
             return replace(uim_CORE_INCLUDE_PATH, "CORE", path);
         }
         if (defined("ROOT") && indexOf(path, ROOT) == 0) {
@@ -414,7 +414,7 @@ class DDebugger {
      * Usage:
      *
      * ```
-     * Debugger.excerpt('/path/to/file', 100, 4);
+     * Debugger.excerpt("/path/to/file", 100, 4);
      * ```
      *
      * The above would return an array of 8 items. The 4th item would be the provided line,
@@ -447,9 +447,9 @@ class DDebugger {
             if (!isset(data[i])) {
                 continue;
             }
-            string = replace(["\r\n", "\n"], '', _highlight(data[i]));
+            string = replace(["\r\n", "\n"], "", _highlight(data[i]));
             if (i == lineNumber) {
-                lines ~= '<span class="code-highlight">' . string . '</span>';
+                lines ~= "<span class="code-highlight">" . string . "</span>";
             } else {
                 lines ~= string;
             }
@@ -465,19 +465,19 @@ class DDebugger {
      * @param string str The string to convert.
      */
     protected static string _highlight(string stringToConvert) {
-        if (function_exists('hD_log') || function_exists('hD_gettid')) {
+        if (function_exists("hD_log") || function_exists("hD_gettid")) {
             return htmlentities(stringToConvert);
         }
         added = false;
-        if (indexOf(str, '<?D') == false) {
+        if (indexOf(str, "<?D") == false) {
             added = true;
             stringToConvert = "<?D \n" ~ stringToConvert;
         }
         highlight = highlight_string(stringToConvert, true);
         if (added) {
             highlight = replace(
-                ['&lt;?D&nbsp;<br/>', '&lt;?D&nbsp;<br />'],
-                '',
+                ["&lt;?D&nbsp;<br/>", "&lt;?D&nbsp;<br />"],
+                "",
                 highlight
             );
         }
@@ -494,7 +494,7 @@ class DDebugger {
      */
     IErrorFormatter getExportFormatter() {
         instance = getInstance();
-        aClassName = instance.getConfig('exportFormatter');
+        aClassName = instance.getConfig("exportFormatter");
         if (!aClassName) {
             if (ConsoleFormatter.environmentMatches()) {
                 aClassName = ConsoleFormatter.class;
@@ -579,13 +579,13 @@ class DDebugger {
             case "null": 
                 return new DScalarNode(type, varToDump);
             case "boolean": 
-                return new DScalarNode('bool', varToDump);
+                return new DScalarNode("bool", varToDump);
             case "integer": 
-                return new DScalarNode('int', varToDump);
+                return new DScalarNode("int", varToDump);
             case "array": 
                 return exportArray(varToDump, context.withAddedDepth());
             case "unknown": 
-                return new DSpecialNode('(unknown)');
+                return new DSpecialNode("(unknown)");
             default:
                 return exportObject(varToDump, context.withAddedDepth());
         }
@@ -594,7 +594,7 @@ class DDebugger {
     /**
      * Export an array type object. Filters out keys used in datasource configuration.
      *
-     * The following keys are replaced with ***'s
+     * The following keys are replaced with ***"s
      *
      * - password
      * - login
@@ -617,7 +617,7 @@ class DDebugger {
             outputMask = outputMask();
             foreach (var as key: val) {
                 if (array_key_exists(key, outputMask)) {
-                    node = new DScalarNode('string', outputMask[key]);
+                    node = new DScalarNode("string", outputMask[key]);
                 } elseif (val != var) {
                     // Dump all the items without increasing depth.
                     node = export_(val, context);
@@ -629,8 +629,8 @@ class DDebugger {
             }
         } else {
             items ~= new DArrayItemErrorNode(
-                new DScalarNode('string', ''),
-                new DSpecialNode('[maximum depth reached]')
+                new DScalarNode("string", ""),
+                new DSpecialNode("[maximum depth reached]")
             );
         }
 
@@ -657,10 +657,10 @@ class DDebugger {
 
         remaining = context.remainingDepth();
         if (remaining > 0) {
-            if (method_exists(var, '__debugInfo')) {
+            if (method_exists(var, "__debugInfo")) {
                 try {
                     foreach ((array)var.__debugInfo() as key: val) {
-                        node.addProperty(new DPropertyNode("'{key}'", null, export_(val, context)));
+                        node.addProperty(new DPropertyNode(""{key}"", null, export_(val, context)));
                     }
 
                     return node;
@@ -677,23 +677,23 @@ class DDebugger {
                 }
                 /** @psalm-suppress RedundantCast */
                 node.addProperty(
-                    new DPropertyNode((string)key, 'public', export_(value, context.withAddedDepth()))
+                    new DPropertyNode((string)key, "public", export_(value, context.withAddedDepth()))
                 );
             }
 
             ref = new DReflectionObject(var);
 
             filters = [
-                ReflectionProperty.IS_PROTECTED: 'protected',
-                ReflectionProperty.IS_PRIVATE: 'private',
+                ReflectionProperty.IS_PROTECTED: "protected",
+                ReflectionProperty.IS_PRIVATE: "private",
             ];
             foreach (filters as filter: visibility) {
                 reflectionProperties = ref.getProperties(filter);
                 foreach (reflectionProperties as reflectionProperty) {
                     reflectionProperty.setAccessible(true);
 
-                    value = method_exists(reflectionProperty, 'isInitialized') && !reflectionProperty.isInitialized(var) 
-                        ? new DSpecialNode('[uninitialized]')
+                    value = method_exists(reflectionProperty, "isInitialized") && !reflectionProperty.isInitialized(var) 
+                        ? new DSpecialNode("[uninitialized]")
                         : export_(reflectionProperty.getValue(var), context.withAddedDepth());
 
                     node.addProperty(
@@ -717,16 +717,16 @@ class DDebugger {
     static string getType(Json var) {
         type = getTypeName(var);
 
-        if (type == 'NULL') {
-            return 'null';
+        if (type == "NULL") {
+            return "null";
         }
 
-        if (type == 'double') {
-            return 'float';
+        if (type == "double") {
+            return "float";
         }
 
-        if (type == 'unknown type') {
-            return 'unknown';
+        if (type == "unknown type") {
+            return "unknown";
         }
 
         return type;
@@ -740,22 +740,22 @@ class DDebugger {
      *   be used to show location info.
      */
     static void printVar(Json varToShow, Json[string] location = null, bool showHtml = false) {
-        auto location += ['file': null, 'line': null];
+        auto location += ["file": null, "line": null];
         if (location["file"]) {
-            location["file"] = trimPath((string)location['file']);
+            location["file"] = trimPath((string)location["file"]);
         }
 
         auto debugger = getInstance();
         restore = null;
         if (showHtml != null) {
-            restore = debugger.getConfig('exportFormatter');
-            debugger.configuration.set('exportFormatter', showHtml ? HtmlFormatter.class : TextFormatter.class);
+            restore = debugger.getConfig("exportFormatter");
+            debugger.configuration.set("exportFormatter", showHtml ? HtmlFormatter.class : TextFormatter.class);
         }
         contents = exportVar(varToShow, 25);
         formatter = debugger.getExportFormatter();
 
         if (restore) {
-            debugger.setConfig('exportFormatter', restore);
+            debugger.setConfig("exportFormatter", restore);
         }
         writeln(formatter.formatWrapper(contents, location);
     }
@@ -771,18 +771,18 @@ class DDebugger {
      */
     static string formatHtmlMessage(string messageToFormat) {
         messageToFormat = htmlAttributeEscape(messageToFormat);
-        messageToFormat = preg_replace('/`([^`]+)`/', '<code>1</code>', messageToFormat);
+        messageToFormat = preg_replace("/`([^`]+)`/", "<code>1</code>", messageToFormat);
 
         return nl2br(messageToFormat);
     }
 
-    // Verifies that the application's salt and cipher seed value has been changed from the default value.
+    // Verifies that the application"s salt and cipher seed value has been changed from the default value.
     static void checkSecurityKeys() {
         salt = Security.getSalt();
-        if (salt == '__SALT__' || strlen(salt) < 32) {
+        if (salt == "__SALT__" || strlen(salt) < 32) {
             trigger_error(
-                'Please change the value of `Security.salt` in `ROOT/config/app_local.D` ' .
-                'to a random value of at least 32 characters.',
+                "Please change the value of `Security.salt` in `ROOT/config/app_local.D` " .
+                "to a random value of at least 32 characters.",
                 E_USER_NOTICE
             );
         }

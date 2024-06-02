@@ -55,6 +55,8 @@ class DMiddlewareDispatcher {
     }
     
     // Create a PSR7 request from the request spec.
+    // TODO
+    /* 
     protected DServerRequest _createRequest(Json[string] requestSpec) {
         if (requestSpec.hasKey("input")) {
             requestSpec["post"] = null;
@@ -78,12 +80,13 @@ class DMiddlewareDispatcher {
         return request
             .withAttribute("session", requestSpec["session"])
             .withAttribute("flash", new DFlashMessage(requestSpec["session"]));
-    }
+    } */
     
     // Run a request and get the response.
-    IResponse execute(Json[string] requestSpec) {
+    // TODO 
+    /* IResponse execute(Json[string] requestSpec) {
         auto newServer = new DServer(_app);
 
         return newServer.run(_createRequest(requestSpec));
-    }
+    } */ 
 }

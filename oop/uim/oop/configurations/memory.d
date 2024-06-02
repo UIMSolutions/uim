@@ -46,13 +46,13 @@ class DMemoryConfiguration : DConfiguration {
         return this;
     }
 
-    override IConfiguration mergeDefaults(Json[string] newData) {
+    override bool mergeDefaults(Json[string] newData) {
         newData.byKeyValue
             .each!(kv => mergeDefault(kv.key, kv.value));
         return this;
     }
 
-    override IConfiguration mergeDefault(string key, Json value) {
+    override bool mergeDefault(string key, Json value) {
         if (!hasDefault(key)) {
             _defaultData[key] = value;
         }
@@ -143,7 +143,7 @@ class DMemoryConfiguration : DConfiguration {
             ? getDefault(key) : defaultValue;
     }
 
-    override IConfiguration set(string key, Json value) {
+    override bool set(string key, Json value) {
         _data[key] = value;
         return this;
     }
@@ -152,14 +152,13 @@ class DMemoryConfiguration : DConfiguration {
         return set(key, value);
     }
 
-    override IConfiguration merge(string key, Json value) {
+    override bool merge(string key, Json value) {
         return hasKey(key)
-            ? this : set(key, value);
+            ? false : set(key, value);
     }
 
     override bool remove(string key) {
-        _data.remove(key);
-        return this;
+        return _data.remove(key);
     }
 }
 

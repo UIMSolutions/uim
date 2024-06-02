@@ -536,7 +536,7 @@ class DClient { // }: IClient {
      */
   protected DRequest _createRequest(string mymethod, string myurl, Json mydata, Json[string] options = null) {
     /** @var array<non-empty-string, non-empty-string>  myheaders */
-    myheaders = (array)(options["headers"] ?  ? []);
+    auto myheaders = options.get("headers");
     if (options.hasKey("type")) {
       myheaders = chain(myheaders, _typeHeaders(options["type"]));
     }
@@ -544,18 +544,18 @@ class DClient { // }: IClient {
         myheaders["content-type"])) {
       myheaders["Content-Type"] = "application/x-www-form-urlencoded";
     }
-    myrequest = new DRequest(myurl, mymethod, myheaders, mydata);
+    auto myrequest = new DRequest(myurl, mymethod, myheaders, mydata);
     myrequest = myrequest.withProtocolVersion(_configData.hasKey("protocolVersion"));
     mycookies = options["cookies"] ?  ? [];
     /** @var \UIM\Http\Client\Request  myrequest */
     myrequest = _cookies.addToRequest(myrequest, mycookies);
-    if (isSet(options["auth"])) {
+    if (options.hasKey("auth")) {
       myrequest = _addAuthentication(myrequest, options);
     }
-    if (isSet(options["proxy"])) {
-      myrequest = _addProxy(myrequest, options);
-    }
-    return myrequest;
+
+    return options.hasKey("proxy")
+      ? _addProxy(myrequest, options)
+      : myrequest;
   }
 
   // Returns headers for Accept/Content-Type based on a short type or full mime-type.

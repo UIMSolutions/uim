@@ -526,12 +526,12 @@ class DServerRequest { // }: IServerRequest {
      */
     protected bool _paramDetector(Json[string] detect) {
         aKey = detect["param"];
-        if (isSet(detect["value"])) {
+        if (detect.hasKey("value")) {
             aValue = detect["value"];
 
             return isSet(this.params[aKey]) ? this.params[aKey] == aValue : false;
         }
-        if (isSet(detect["options"])) {
+        if (detect.hasKey("options")) {
             return isSet(this.params[aKey]) ? in_array(this.params[aKey], detect["options"]): false;
         }
         return false;
@@ -543,14 +543,14 @@ class DServerRequest { // }: IServerRequest {
      * Json[string] detect Detector options array.
      */
     protected bool _environmentDetector(Json[string] detect) {
-        if (isSet(detect["env"])) {
-            if (isSet(detect["value"])) {
+        if (detect.hasKey("env")) {
+            if (detect.hasKey("value")) {
                 return _getEnvironmentData(detect["env"]) == detect["value"];
             }
-            if (isSet(detect["pattern"])) {
+            if (detect.hasKey("pattern")) {
                 return (bool)preg_match(detect["pattern"], (string)getEnvironmentData(detect["env"]));
             }
-            if (isSet(detect["options"])) {
+            if (detect.hasKey("options")) {
                  somePattern = "/" ~ join("|", detect["options"]) ~ "/i";
 
                 return (bool)preg_match(somePattern, (string)getEnvironmentData(detect["env"]));
@@ -569,7 +569,7 @@ class DServerRequest { // }: IServerRequest {
      * string[] types The types to check.
      */
     bool isAll(Json[string] types) {
-        foreach (types as type) {
+        foreach (type; types) {
             if (!this.is(type)) {
                 return false;
             }
@@ -736,10 +736,9 @@ class DServerRequest { // }: IServerRequest {
     
     // Get a modified request with the provided header.
     static withHeader(string headerName, string[] headerValue) {
-        auto result = clone this;
-        name = this.normalizeHeaderName(headerName);
-        result._environmentData[headerName] = aValue;
-
+        auto result = this.clone;
+        auto normalizedName = normalizeHeaderName(headerName);
+        result._environmentData[normalizedName] = aValue;
         return result;
     }
     

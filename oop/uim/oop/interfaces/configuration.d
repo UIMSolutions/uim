@@ -21,8 +21,8 @@ interface IConfiguration : INamed {
         IConfiguration updateDefaults(Json[string] newData);
         IConfiguration updateDefault(string key, Json newData);
 
-        IConfiguration mergeDefaults(Json[string] newData);
-        IConfiguration mergeDefault(string key, Json newData);
+        bool mergeDefaults(Json[string] newData);
+        bool mergeDefault(string key, Json newData);
     // #endregion default data
 
     // #region keys
@@ -67,16 +67,16 @@ interface IConfiguration : INamed {
         void opIndexAssign(Json data, string key);
         void opAssign(Json[string] data);
 
-        IConfiguration set(STRINGAA values, string[] keys = null);
-        IConfiguration set(Json[string] newData, string[] keys = null);
-        IConfiguration set(string key, Json newValue);
+        bool set(STRINGAA values, string[] keys = null);
+        bool set(Json[string] newData, string[] keys = null);
+        bool set(string key, Json newValue);
     // #endregion set
 
     IConfiguration update(Json[string] newData, string[] validKeys = null);
     IConfiguration update(string key, Json newValue);
 
-    IConfiguration merge(Json[string] newData, string[] validKeys = null);
-    IConfiguration merge(string key, Json newValue);
+    bool merge(Json[string] newData, string[] validKeys = null);
+    bool merge(string key, Json newValue);
 
     bool remove(string[] keys);
     bool remove(string keys);

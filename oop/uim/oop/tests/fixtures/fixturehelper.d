@@ -80,6 +80,8 @@ class DFixtureHelper {
      * \Closure aCallback Callback run per connection
      * @param array<\UIM\Datasource\IFixture> fixtures Test fixtures
      */
+    // TODO 
+    /* 
     void runPerConnection(DClosure aCallback, Json[string] fixtures) {
         auto anGroups = null;
         fixtures
@@ -87,12 +89,11 @@ class DFixtureHelper {
 
         anGroups.byKeyValue
             .each!(nameFixtures => aCallback(ConnectionManager.get(nameFixtures.key), nameFixtures.value));
-    }
+    } */
     
     // Inserts fixture data.
-    void insert(IFixture[] fixtures) {
-        // TODO
-        /* 
+    // TODO
+    /* void insert(IFixture[] fixtures) {
         runPerConnection(void (IConnection aConnection, Json[string] anGroupFixtures) {
             if (cast(DConnection)aConnection) {
                 sortedFixtures = this.sortByConstraint(aConnection,  anGroupFixtures);
@@ -109,11 +110,11 @@ class DFixtureHelper {
                 this.insertConnection(aConnection,  anGroupFixtures);
             }
         }, fixtures);
-        */
-    }
+    } */
     
     // Inserts all fixtures for a connection and provides friendly errors for bad data.
-    protected void insertConnection(DConnection fixtureConnection, DFixture[] connectionFixtures) {
+    // TODO 
+    /* protected void insertConnection(DConnection fixtureConnection, DFixture[] connectionFixtures) {
         // TODO
         /*
         connectionFixtures.each!((fixture) {
@@ -126,13 +127,13 @@ class DFixtureHelper {
                 throw new UimException(message);
             }
         });
-        */
-    }
+    } */
     
     // Truncates fixture tables.
+    // TODO
+    /* 
     void truncate(IFixture[] testFixtures) {
         // TODO
-        /* 
         this.runPerConnection(void (IConnection aConnection, Json[string] anGroupFixtures) {
             if (cast(DConnection)aConnection) {
                 sortedFixtures = null;
@@ -152,11 +153,11 @@ class DFixtureHelper {
                 this.truncateConnection(aConnection,  anGroupFixtures);
             }
         }, testFixtures);
-        */
-    }
+    } */
     
     // Truncates all fixtures for a connection and provides friendly errors for bad data.
-    protected void truncateConnection(IConnection fixtureConnection, IFixture[] fixtures) {
+    // TODO
+    /* protected void truncateConnection(IConnection fixtureConnection, IFixture[] fixtures) {
         fixtures.each!((fixture) {
             try {
                 fixture.truncate(fixtureConnection);
@@ -167,7 +168,7 @@ class DFixtureHelper {
                 throw new UimException(message);
             }
         });
-    }
+    } */
     
     /**
      * Sort fixtures with foreign constraints last if possible, otherwise returns null.
@@ -175,7 +176,8 @@ class DFixtureHelper {
      * \UIM\Database\Connection aConnection Database connection
      * @param array<\UIM\Datasource\IFixture> fixtures Database fixtures
      */
-    protected Json[string] sortByConstraint(Connection aConnection, Json[string] fixtures) {
+    // TODO
+    /* protected Json[string] sortByConstraint(Connection aConnection, Json[string] fixtures) {
         constrained = null;
         unconstrained = null;
         fixtures.each((fixture) {
@@ -197,9 +199,9 @@ class DFixtureHelper {
                 }
             }
         }
-        */
+        * /
         return chain(unconstrained, array_column(constrained, "fixture"));
-    }
+    } */
     
     /**
      * Gets array of foreign references for fixtures table.
@@ -207,9 +209,10 @@ class DFixtureHelper {
      * \UIM\Database\Connection aConnection Database connection
      * @param \UIM\Datasource\IFixture fixture Database fixture
      */
+    // TODO 
+    /*
     protected string[] getForeignReferences(Connection aConnection, IFixture fixture) {
-        /** @var array<string, \UIM\Database\Schema\TableISchema> schemas */
-        static schemas = null;
+        static TableISchema[] schemas = null;
 
         // Get and cache off the schema since TestFixture generates a fake schema based on fields
         aTableName = fixture.sourceName();
@@ -227,7 +230,7 @@ class DFixtureHelper {
             if (constraint && constraint["type"] == TableSchema.CONSTRAINT_FOREIGN) {
                 references ~= constraint["references"][0];
             }
-        } */
+        } 
         return references;
-    } 
+    } */
 }

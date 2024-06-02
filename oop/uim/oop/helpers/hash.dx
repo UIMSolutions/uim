@@ -495,7 +495,7 @@ class Hash {
 
             if (array_key_exists(aKey, mydata) && isArray(myval)) {
                 mynext = mydata[aKey];
-                unset(mydata[aKey]);
+                mydata.tremove(aKey);
 
                 if (!myval.isEmpty) {
                     mystack ~= [myval, mynext];

@@ -240,13 +240,13 @@ class DDebugger {
      * @param int line The line number to create a link for.
      */
     static string editorUrl(string file, int line) {
-        instance = getInstance();
-        editor = instance.getConfig("editor");
+        auto instance = getInstance();
+        auto editor = instance.getConfig("editor");
         if (!isset(instance.editors[editor])) {
             throw new DRuntimeException("Cannot format editor URL `{editor}` is not a known editor.");
         }
 
-        template = instance.editors[editor];
+        auto template = instance.editors[editor];
         if (template.isString) {
             return replace(["{file}", "{line}"], [file, (string)line], template);
         }
@@ -313,8 +313,8 @@ class DDebugger {
         if (cast(Throwable)backtrace  ) {
             backtrace = backtrace.getTrace();
         }
-        self = Debugger.getInstance();
-        defaults = [
+        auto self = Debugger.getInstance();
+        auto defaults = [
             "depth": 999,
             "format": self._outputFormat,
             "args": false,
@@ -322,10 +322,10 @@ class DDebugger {
             "scope": null,
             "exclude": ["call_user_func_array", "trigger_error"],
         ];
-        options = Hash.merge(defaults, options);
+        auto options = Hash.merge(defaults, options);
 
-        count = count(backtrace);
-        back = null;
+        auto count = count(backtrace);
+        auto back = null;
 
         _trace = [
             "line": "??".toJson,
@@ -356,11 +356,13 @@ class DDebugger {
             if (hasAllValues(signature, options["exclude"], true)) {
                 continue;
             }
-            if (options["format"] == "points") {
+
+            auto formatValue = options.getString("format");
+            if (formatValue == "points") {
                 back ~= ["file": trace["file"], "line": trace["line"], "reference": reference];
-            } elseif (options["format"] == "array") {
+            } elseif (formatValue == "array") {
                 if (!options["args"]) {
-                    unset(trace["args"]);
+                    trace.remove("args");
                 }
                 back ~= trace;
             } else {
@@ -375,15 +377,9 @@ class DDebugger {
             }
         }
 
-        if (options["format"] == "array" || options["format"] == "points") {
-            return back;
-        }
-
-        /**
-         * @psalm-suppress InvalidArgument
-         * @Dstan-ignore-next-line
-         */
-        return implode("\n", back);
+        return ["array", "points"].has(options.getString("format"))
+            ? back 
+            : implode("\n", back);
     }
 
     /**
@@ -423,11 +419,11 @@ class DDebugger {
      * @param int context Number of lines of context to extract above and below line.
      */
     static string[] excerpt(string file, int lineNumber, int numberLinesContext = 2) {
-        lines = null;
+        auto lines = null;
         if (!fileExists(file)) {
             return [];
         }
-        data = file_get_contents(file);
+        auto data = file_get_contents(file);
         if (data.isEmpty) {
             return lines;
         }
@@ -435,7 +431,7 @@ class DDebugger {
         if (indexOf(data, "\n") != false) {
             data = explode("\n", data);
         }
-        lineNumber--;
+        auto lineNumber--;
         if (!isset(data[lineNumber])) {
             return lines;
         }
@@ -489,8 +485,8 @@ class DDebugger {
      * @since 4.1.0
      */
     IErrorFormatter getExportFormatter() {
-        instance = getInstance();
-        aClassName = instance.getConfig("exportFormatter");
+        auto instance = getInstance();
+        auto aClassName = instance.getConfig("exportFormatter");
         if (!aClassName) {
             if (ConsoleFormatter.environmentMatches()) {
                 aClassName = ConsoleFormatter.class;

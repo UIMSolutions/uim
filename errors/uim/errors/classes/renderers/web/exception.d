@@ -109,7 +109,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
              className = factory.getControllerClass(request.withAttribute("params", params));
 
             if (!className && !params.isEmpty("prefix")) && !empty(params["plugin"])) {
-                unset(params["prefix"]);
+                params.remove("prefix");
                 // Fallback to only plugin
                  className = factory.getControllerClass(request.withAttribute("params", params));
             }

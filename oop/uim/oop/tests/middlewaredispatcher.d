@@ -32,9 +32,10 @@ class DMiddlewareDispatcher {
         // Simulate application bootstrap and route loading.
         // We need both to ensure plugins are loaded.
         _app.bootstrap();
-        if (cast(IPluginApplication)_app) {
+        // TODO 
+        /* if (cast(IPluginApplication)_app) {
             _app.pluginBootstrap();
-        }
+        } 
                 
         auto builder = Router.createRouteBuilder("/");
         if (cast(IRoutingApplication)_app) {
@@ -43,8 +44,11 @@ class DMiddlewareDispatcher {
         if (cast(IPluginApplication)_app) {
             _app.pluginRoutes(builder);
         }
-         result = Router.url(urlToResolve);
-        Router.resetRoutes();
+        */
+
+        string result;
+        // TODO = Router.url(urlToResolve);
+        // TODO Router.resetRoutes();
 
         return result;
     }

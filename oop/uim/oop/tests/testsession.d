@@ -21,12 +21,12 @@ class DTestSession {
     
     // Returns true if given variable name is set in session.
     bool check(string nameToCheck = null) {
-        if (_session.isNull) {
+        if (_session is null) {
             return false;
         }
         
         return nameToCheck.isNull
-            ? !_session.isNull
+            ? _session !is null
             : !Hash.get(_session, nameToCheck).isNull;
     }
     

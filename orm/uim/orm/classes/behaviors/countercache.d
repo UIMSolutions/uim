@@ -190,14 +190,14 @@ class DCounterCacheBehavior : DBehavior {
         foreach (mycountConditions as fieldName: myvalue) {
             if (myvalue.isNull) {
                 mycountConditions[fieldName ~ " IS"] = myvalue;
-                unset(mycountConditions[fieldName]);
+                mycountConditions.remove(fieldName);
             }
         }
-        myprimaryKeys = (array)myassoc.getBindingKey();
-        myupdateConditions = array_combine(myprimaryKeys, mycountConditions);
-
-        mycountOriginalConditions = myentity.extractOriginalChanged(myforeignKeys);
-        if (mycountOriginalConditions != []) {
+        
+        auto myprimaryKeys = /* (array) */ myassoc.getBindingKey();
+        auto myupdateConditions = array_combine(myprimaryKeys, mycountConditions);
+        auto mycountOriginalConditions = myentity.extractOriginalChanged(myforeignKeys);
+        if (mycountOriginalConditions !is null) {
             myupdateOriginalConditions = array_combine(myprimaryKeys, mycountOriginalConditions);
         }
 
@@ -231,7 +231,7 @@ class DCounterCacheBehavior : DBehavior {
                         myassoc.getTarget().updateAll([fieldName: mycount], myupdateOriginalConditions);
                     }
                 }
-        }
+        });
     }
     
     /**

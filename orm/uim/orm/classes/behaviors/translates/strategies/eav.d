@@ -407,7 +407,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
             options = ["setter": false.toJson, "guard": false.toJson];
             row.set("_translations", result, options);
-            unset(row["_i18n"]);
+            row.remove("_i18n");
             row.clean();
 
             return row;

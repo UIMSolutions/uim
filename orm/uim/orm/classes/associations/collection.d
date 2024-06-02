@@ -118,11 +118,10 @@ class DAssociationCollection { // }: IteratorAggregate {
 
     /**
      * Drop/remove an association.
-     *
      * Once removed the association will no longer be reachable
      */
     bool remove(string aliasName) {
-        unset(_items[aliasName]);
+        return _items.remove(aliasName);
     }
 
     /**

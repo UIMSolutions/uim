@@ -192,7 +192,7 @@ class DCookie : ICookie {
         });
         if (someData.isSet("max-age")) {
             someData["expires"] = time() + (int)someData["max-age"];
-            unset(someData["max-age"]);
+            someData.remove("max-age");
         }
         // Ignore invalid value when parsing headers
         // https://tools.ietf.org/html/draft-west-first-party-cookies-07#section-4.1

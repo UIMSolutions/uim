@@ -1,4 +1,4 @@
-module uim.models.datatypes.scalars.mixin_;
+module uim.models.data.scalars.mixin_;
 
 import uim.models; 
  

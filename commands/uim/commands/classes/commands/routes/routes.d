@@ -29,7 +29,7 @@ class DRoutesCommand : DCommand {
         output = someDuplicateRoutesCounter = null;
 
         someAvailableRoutes.each!((route) {
-             someMethods = isSet(route.defaults["_method"]) ? (array)route.defaults["_method"] : [""];
+             someMethods = isSet(route.defaults["_method"]) ? /* (array) */route.defaults["_method"] : [""];
 
              anItem = [
                 route.options.get("_name", route.name),
@@ -68,7 +68,7 @@ class DRoutesCommand : DCommand {
          someDuplicateRoutes = null;
 
         foreach (myRoute;  someAvailableRoutes) {
-            string[] someMethods = isSet(myRoute.defaults["_method"]) ? (array)myRoute.defaults["_method"] : [""];
+            string[] someMethods = isSet(myRoute.defaults["_method"]) ? /* (array) */myRoute.defaults["_method"] : [""];
 
             someMethods.each!((method) {
                 if (

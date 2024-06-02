@@ -657,12 +657,12 @@ class DRouteBuilder {
      * element should match. Also contains additional parameters such as which routed parameters should be
      * shifted into the passed arguments. As well as supplying patterns for routing parameters.
      */
-    Route redirect(string myroute, string[] myurl, Json[string] optionData = null) {
-        options["routeClass"] ??= RedirectRoute.classname;
+    Route redirect(string routeTemplate, string[] myurl, Json[string] optionData = null) {
+        auto options = optionData.merge(["routeClass": RedirectRoute.classname.toJson]);
         if (isString(myurl)) {
             myurl = ["redirect": myurl];
         }
-        return _connect(myroute, myurl, options);
+        return _connect(routeTemplate, myurl, options);
     }
     
     /**

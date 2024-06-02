@@ -197,29 +197,22 @@ abstract class DConfiguration : IConfiguration {
     // #endregion set
 
     // #region update
-        bool update(Json[string] newData, string[] includedKeys = null) {
-            if (keys.isNull) {
-                includedKeys.each!(key => update(key, newData[key]));
-            } else {
-                includedKeys.filter!(key => key in newData)
-                    .each!(key => update(key, newData[key]));
-            }
-            return this;
-        }
+    bool update(Json[string] newData, string[] includedKeys = null) {
+        return keys.isNull
+            ? includedKeys.all!(key => update(key, newData[key])) : includedKeys.filter!(
+                key => key in newData)
+            .all!(key => update(key, newData[key]));
+    }
 
-        abstract bool update(string key, Json newValue);
+    abstract bool update(string key, Json newValue);
     // #region update
 
     // #region merge
     bool merge(Json[string] newData, string[] includedKeys = null) {
-        if (includedKeys.isNull) {
-            newData.keys.each!(key => merge(key, newData[key]));
-        } else {
-            includedKeys
-                .filter!(key => key in newData)
-                .each!(key => merge(key, newData[key]));
-        }
-        return this;
+        return includedKeys.isNull
+            ? newData.keys.all!(key => merge(key, newData[key])) : includedKeys
+            .filter!(key => key in newData)
+            .all!(key => merge(key, newData[key]));
     }
 
     abstract bool merge(string key, Json newValue);

@@ -75,12 +75,12 @@ class DConnectionHelper {
     
     // Truncates all tables.
     void truncateTables(string connectionName, Json[string] tableNames = null) {
-        auto connection = ConnectionManager.get(aConnectionName);
+         // TODO auto connection = ConnectionManager.get(aConnectionName);
         // TODO assert(cast(DConnection)connection);
-        auto collection = connection.getSchemaCollection();
+         // TODO auto collection = connection.getSchemaCollection();
 
-        auto allTables = collection.listTablesWithoutViews();
-        auto tableNames = tableNames !isNull ? array_intersect(tableNames, allTables): allTables;
+         // TODO auto allTables = collection.listTablesWithoutViews();
+         // TODO auto tableNames = tableNames !isNull ? array_intersect(tableNames, allTables): allTables;
         /** @var array<\UIM\Database\Schema\TableSchema> schemas Specify type for psalm */
         // TODO schemas = array_map(fn (aTable): collection.describe(aTable), tableNames);
 

@@ -96,7 +96,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         filter = configuration.get("onlyTranslated"];
 
         targetAlias = this.translationTable.aliasName();
-        alias = this.table.aliasName();
+        alias = _table.aliasName();
         tableLocator = getTableLocator();
 
         foreach (fields as field) {
@@ -121,7 +121,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                 conditions[name ~ ".content !="] = "";
             }
 
-            this.table.hasOne(name, [
+            _table.hasOne(name, [
                 "targetTable": fieldTable,
                 "foreignKey": "foreign_key",
                 "joinType": filter ? Query.JOIN_TYPE_INNER : Query.JOIN_TYPE_LEFT,
@@ -135,7 +135,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             conditions["targetAlias.content !="] = "";
         }
 
-        this.table.hasMany(targetAlias, [
+        _table.hasMany(targetAlias, [
             "className": table,
             "foreignKey": "foreign_key",
             "strategy": strategy,
@@ -168,7 +168,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                 if (
                     query.isAutoFieldsEnabled() ||
                     in_array(field, select, true) ||
-                    in_array(this.table.aliasField(field), select, true)
+                    in_array(_table.aliasField(field), select, true)
                 ) {
                     q.select(["id", "content"]);
                 }
@@ -177,16 +177,16 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             };
         };
 
-        contain = null;
-        fields = configuration.get("fields"];
-        alias = this.table.aliasName();
-        select = query.clause("select");
+        auto contain = null;
+        auto fields = configuration.get("fields");
+        auto aliasName = _table.aliasName();
+        auto select = query.clause("select");
 
-        changeFilter = options.hasKey("filterByCurrentLocale") &&
-            options["filterByCurrentLocale"] != configuration.get("onlyTranslated"];
+        auto changeFilter = options.hasKey("filterByCurrentLocale") &&
+            options["filterByCurrentLocale"] != configuration.get("onlyTranslated");
 
         foreach (fields as field) {
-            name = alias ~ "_" ~ field ~ "_translation";
+            name = aliasName ~ "_" ~ field ~ "_translation";
 
             contain[name]["queryBuilder"] = conditions(
                 field,
@@ -204,10 +204,11 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         }
 
         query.contain(contain);
-        query.formatResults(function (results) use (locale) {
+        // TODO
+/*         query.formatResults(function (results) use (locale) {
             return _rowMapper(results, locale);
         }, query.PREPEND);
-    }
+ */    }
 
     /**
      * Modifies the entity before it is saved so that translated fields are persisted
@@ -225,13 +226,13 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         // Check early if empty translations are present in the entity.
         // If this is the case, unset them to prevent persistence.
         // This only applies if configuration.get("allowEmptyTranslations"] is false
-        if (configuration.get("allowEmptyTranslations"] == false) {
-            this.unsetEmptyFields(entity);
+        if (configuration.get("allowEmptyTranslations") == false) {
+            unsetEmptyFields(entity);
         }
 
-        this.bundleTranslatedFields(entity);
-        bundled = entity.get("_i18n") ?: [];
-        noBundled = count(bundled) == 0;
+        bundleTranslatedFields(entity);
+        auto bundled = entity.get("_i18n") ?: [];
+        auto noBundled = count(bundled) == 0;
 
         // No additional translation records need to be saved,
         // as the entity is in the default locale.
@@ -239,7 +240,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             return;
         }
 
-        values = entity.extract(configuration.get("fields"], true);
+        values = entity.extract(configuration.get("fields"), true);
         fields = values.keys;
         noFields = fields.isEmpty;
 
@@ -250,14 +251,14 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             return;
         }
 
-        primaryKeys = (array)this.table.primaryKeys();
+        primaryKeys = (array)_table.primaryKeys();
         key = entity.get(current(primaryKeys));
 
         // When we have no key and bundled translations, we
         // need to mark the entity dirty so the root
         // entity persists.
         if (noFields && bundled && !key) {
-            foreach (configuration.get("fields"] as field) {
+            foreach (field; configuration.get("fields")) {
                 entity.setDirty(field, true);
             }
 
@@ -268,9 +269,8 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             return;
         }
 
-        model = configuration.get("referenceName"];
-
-        preexistent = null;
+        auto model = configuration.get("referenceName");
+        auto preexistent = null;
         if (key) {
             preexistent = this.translationTable.find()
                 .select(["id", "field"])
@@ -286,12 +286,13 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         }
 
         modified = null;
-        foreach (preexistent as field: translation) {
+        foreach (field, translation; preexistent) {
             translation.set("content", values[field]);
             modified[field] = translation;
         }
 
-        new = array_diff_key(values, modified);
+        // TODO
+/*         new = array_diff_key(values, modified);
         foreach (new as field: content) {
             new[field] = new DORMEntity(compact("locale", "field", "content", "model"), [
                 "useSetters": false.toJson,
@@ -306,7 +307,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         foreach (fields as field) {
             entity.setDirty(field, false);
         }
-    }
+ */    }
 
     /**
      * Returns a fully aliased field name for translated fields.
@@ -346,7 +347,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             }
             hydrated = !row.isArray;
 
-            foreach (configuration.get("fields") as field) {
+            foreach (field; configuration.getStringArray("fields")) {
                 auto name = field ~ "_translation";
                 auto translation = row.get(name);
 
@@ -355,12 +356,12 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                     continue;
                 }
 
-                content = translation["content"] ?? null;
-                if (content != null) {
+                auto content = translation.get("content");
+                if (!content.isNull) {
                     row[field] = content;
                 }
 
-                unset(row[name]);
+                row.remove(name);
             }
 
             row["_locale"] = locale;
@@ -396,7 +397,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
             result = null;
             foreach (grouped.combine("field", "content", "locale") as locale: keys) {
-                entityClass = this.table.getEntityClass();
+                entityClass = _table.getEntityClass();
                 translation = new DORMEntityClass(keys + ["locale": locale], [
                     "markNew": false.toJson,
                     "useSetters": false.toJson,
@@ -427,7 +428,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         }
 
         fields = configuration.get("fields");
-        primaryKeys = (array)this.table.primaryKeys();
+        primaryKeys = (array)_table.primaryKeys();
         key = entity.get(current(primaryKeys));
         find = null;
         contents = null;
@@ -472,7 +473,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * @param Json[string] ruleSet An array of array of conditions to be used for finding each
      */
     protected Json[string] findExistingTranslations(ruleSet) {
-        association = this.table.getAssociation(this.translationTable.aliasName());
+        association = _table.getAssociation(this.translationTable.aliasName());
 
         query = association.find()
             .select(["id", "num": 0])

@@ -56,7 +56,9 @@ class DSchemaLoader {
             // TODO _helper.dropTables(aConnectionName);
         }
         /** @var \UIM\Database\Connection aConnection */
-        aConnection = ConnectionManager.get(aConnectionName);
+        // TODO aConnection = ConnectionManager.get(aConnectionName);
+         // TODO 
+         /* 
         filePaths.each!((filePath) {
             if (!fileExists(filePath)) {
                 throw new DInvalidArgumentException(
@@ -72,11 +74,11 @@ class DSchemaLoader {
             // which don"t support multiple queries in postgres.
             auto driver = aConnection.getDriver();
             driver.exec(sql);
-        });
+        }); 
         
         if (truncateTables) {
             _helper.truncateTables(connectionName);
-        }
+        } */
     }
     
     /**

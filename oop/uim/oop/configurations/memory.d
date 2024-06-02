@@ -42,7 +42,7 @@ class DMemoryConfiguration : DConfiguration {
 
     override bool updateDefault(string key, Json value) {
         _defaultData[key] = value;
-        return this;
+        return true;
     }
 
     override bool mergeDefaults(Json[string] newData) {

@@ -32,7 +32,7 @@ class DDependentDeleteHelper {
         table = anAssociation.getTarget();
         /** @psalm-suppress InvalidArgument */
         foreignKey = array_map([anAssociation, "aliasField"], /* (array) */anAssociation.foreignKeys());
-        bindingKey = (array)anAssociation.getBindingKey();
+        bindingKey = /* (array) */anAssociation.getBindingKey();
         bindingValue = entity.extract(bindingKey);
         if (in_array(null, bindingValue, true)) {
             return true;

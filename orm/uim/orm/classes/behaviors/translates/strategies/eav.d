@@ -231,7 +231,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         }
 
         bundleTranslatedFields(entity);
-        auto bundled = entity.get("_i18n") ?: [];
+        auto bundled = entity.get("_i18n");
         auto noBundled = count(bundled) == 0;
 
         // No additional translation records need to be saved,
@@ -251,7 +251,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             return;
         }
 
-        primaryKeys = (array)_table.primaryKeys();
+        primaryKeys = /* (array) */_table.primaryKeys();
         key = entity.get(current(primaryKeys));
 
         // When we have no key and bundled translations, we
@@ -389,7 +389,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                 return row;
             }
             
-            auto translations = (array)row.get("_i18n");
+            auto translations = /* (array) */row.get("_i18n");
             if (translations.isEmpty && row.get("_translations")) {
                 return row;
             }
@@ -428,7 +428,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         }
 
         fields = configuration.get("fields");
-        primaryKeys = (array)_table.primaryKeys();
+        primaryKeys = /* (array) */_table.primaryKeys();
         key = entity.get(current(primaryKeys));
         find = null;
         contents = null;

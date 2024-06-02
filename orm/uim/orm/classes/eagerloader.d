@@ -132,7 +132,7 @@ class DEagerLoader {
             ];
         }
 
-        associations = (array)associations;
+        associations = /* (array) */associations;
         associations = _reformatContain(associations, _containments);
         _normalized = null;
         _loadExternal = null;
@@ -230,7 +230,7 @@ class DEagerLoader {
      */
     array normalized(Table repository) {
         if (_normalized != null || _containments.isEmpty) {
-            return (array)_normalized;
+            return /* (array) */_normalized;
         }
 
         contain = null;
@@ -696,8 +696,8 @@ class DEagerLoader {
 
             source = instance.source();
             keys = instance.type() == Association.MANY_TO_ONE ?
-                (array)instance.foreignKeys() :
-                (array)instance.getBindingKey();
+                /* (array) */instance.foreignKeys() :
+                /* (array) */instance.getBindingKey();
 
             alias = source.aliasName();
             pkFields = null;

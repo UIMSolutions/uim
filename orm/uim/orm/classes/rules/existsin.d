@@ -41,7 +41,7 @@ class DExistsIn {
         auto updatedOptions = options.update["allowNullableNulls": false.toJson];
        _options = options;
 
-       _fields = (array)fieldNames;
+       _fields = /* (array) */fieldNames;
        _repository = myrepository;
     }
     
@@ -66,10 +66,10 @@ class DExistsIn {
         fieldNames = _fields;
         mysource = mytarget = _repository;
         if (cast(DAssociation)mytarget) {
-            mybindingKey = (array)mytarget.getBindingKey();
+            mybindingKey = /* (array) */mytarget.getBindingKey();
             myrealTarget = mytarget.getTarget();
         } else {
-            mybindingKey = (array)mytarget.primaryKeys();
+            mybindingKey = /* (array) */mytarget.primaryKeys();
             myrealTarget = mytarget;
         }
         if (!options.isEmpty("_sourceTable"]) && myrealTarget == options["_sourceTable"]) {

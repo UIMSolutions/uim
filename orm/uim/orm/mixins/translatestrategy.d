@@ -60,7 +60,7 @@ mixin template TTranslateStrategy() {
      */
     protected void unsetEmptyFields(entity) {
         /** @var array<DORMEntity> translations */
-        translations = (array)entity.get("_translations");
+        translations = /* (array) */entity.get("_translations");
         foreach (translations as locale: translation) {
             fields = translation.extract(configuration.get("fields"], false);
             foreach (fields as field: value) {

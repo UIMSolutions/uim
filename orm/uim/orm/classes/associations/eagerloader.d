@@ -220,7 +220,7 @@ class DEagerLoader {
      */
     array normalized(Table myrepository) {
         if (_normalized !isNull || _containments.isEmpty) {
-            return (array)_normalized;
+            return /* (array) */_normalized;
         }
         mycontain = null;
         foreach (_containments as aliasName: options) {
@@ -653,8 +653,8 @@ class DEagerLoader {
             }
             mysource = myinstance.source();
             someKeys = myinstance.type() == Association.MANY_TO_ONE ?
-                (array)myinstance.foreignKeys():
-                (array)myinstance.getBindingKey();
+                /* (array) */myinstance.foreignKeys():
+                /* (array) */myinstance.getBindingKey();
 
             aliasName = mysource.aliasName();
             auto mypkFields = someKeys

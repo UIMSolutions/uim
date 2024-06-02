@@ -1125,9 +1125,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             !isObject(mygroupField)
         ) {
             fieldNames = chain(
-                (array)mykeyField,
-                (array)myvalueField,
-                (array)mygroupField
+                /* (array) */mykeyField,
+                /* (array) */myvalueField,
+                /* (array) */mygroupField
             );
             mycolumns = getSchema().columns();
             if (count(fieldNames) == count(array_intersect(fieldNames, mycolumns))) {

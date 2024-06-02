@@ -876,7 +876,7 @@ class DTreeBehavior : DBehavior {
     // Returns a single string value representing the primary key of the attached table
     protected string[] primaryKeys() {
         if (!_primaryKeys) {
-            primaryKeys = (array)_table.primaryKeys();
+            primaryKeys = /* (array) */_table.primaryKeys();
             _primaryKeys = primaryKeys[0];
         }
 

@@ -99,7 +99,7 @@ class DSqliteDriver : DDriver {
             @chmod(configuration.get("database"), configuration.get("mask"]);
         }
         if (!(configuration.isEmpty("init")) {
-            foreach (command; (array)configuration.get("init"] ) {
+            foreach (command; /* (array) */configuration.get("init"] ) {
                 _pdo.exec(command);
             }
         }

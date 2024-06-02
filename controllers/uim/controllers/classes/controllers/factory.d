@@ -95,7 +95,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         action = controller.getAction();
         someArguments = getActionArgs(
             action,
-            (array)controller.getRequest().getParam("pass").values
+            /* (array) */controller.getRequest().getParam("pass").values
         );
         controller.invokeAction(action, someArguments);
 

@@ -85,7 +85,7 @@ class DCommonTableExpression : IExpression {
      * \UIM\Database\Expression\IdentifierExpression|array<\UIM\Database\Expression\IdentifierExpression>|string[]|string fieldNames Field names
      */
     void field(/* IdentifierExpression[] */ string[] fieldNames) {
-        fieldNames = (array)fieldNames;
+        fieldNames = /* (array) */fieldNames;
         /** @var array<string|\UIM\Database\Expression\IdentifierExpression> fields */
         fieldNames.each!((field) {
             if (!(cast(IdentifierExpression)field)) {

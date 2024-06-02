@@ -99,7 +99,7 @@ class DMysqlDriver : DDriver {
         this.pdo = this.createPdo(dsn, configData);
 
         if (!configuration.isEmpty("init")) {
-            (array)configuration.get("init")
+            /* (array) */configuration.get("init")
               .each!(command => _pdo.exec(command));
         }
     }

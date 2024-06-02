@@ -97,7 +97,7 @@ protected const MAX_ALIAS_LENGTH = 128;
         
         _pdo = createPdo(dsn, configData);
         if (!(configuration.isEmpty("init")) {
-            (array)configuration.get("init"))
+            /* (array) */configuration.get("init"))
                 .each!(command => this.pdo.exec(command));
         }
         if (!configuration.isEmpty("settings") && isArray(configuration.get("settings"])) {

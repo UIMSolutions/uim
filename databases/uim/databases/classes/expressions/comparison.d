@@ -193,7 +193,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
          isArray = isArray(someValues);
 
         if (isArray) {
-            result = (array)someValues;
+            result = /* (array) */someValues;
         }
         someValues.byKeyValue
             .each!((kv) {

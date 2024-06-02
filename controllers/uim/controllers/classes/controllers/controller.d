@@ -323,7 +323,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         foreach (this.middlewares as  middleware) {
             options = middleware["options"];
             if (!options.isEmpty("only")) {
-                if (in_array(requestAction, (array)options["only"], true)) {
+                if (in_array(requestAction, /* (array) */options["only"], true)) {
                      matching ~= middleware["middleware"];
                 }
                 continue;
@@ -505,7 +505,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         // Prefer the _ext route parameter if it is defined.
         ext = request.getParam("_ext");
         if (ext) {
-            auto extTypes = (array)(_response.getMimeType(ext) ?: []);
+            auto extTypes = /* (array) */(_response.getMimeType(ext) ?: []);
             extTypes.each!((extType) {
                 if (typeMap.hasKey(extTypes)) {
                     return typeMap[extType];

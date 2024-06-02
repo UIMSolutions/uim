@@ -68,7 +68,7 @@ class DRoutesCommand : DCommand {
          someDuplicateRoutes = null;
 
         foreach (myRoute;  someAvailableRoutes) {
-            string[] someMethods = myRoute.defaults.hasKey("_method") ? (array)myRoute.defaults["_method"] : [""];
+            string[] someMethods = myRoute.defaults.hasKey("_method") ? /* (array) */myRoute.defaults["_method"] : [""];
 
             someMethods.each!((method) {
                 string routeTemplateName = myRoute.templateName;
@@ -142,7 +142,7 @@ class DRoutesCommand : DCommand {
          someDuplicateRoutes = null;
 
         foreach (myRoute;  someAvailableRoutes) {
-            string[] someMethods = isSet(myRoute.defaults["_method"]) ? (array)myRoute.defaults["_method"] : [""];
+            string[] someMethods = isSet(myRoute.defaults["_method"]) ? /* (array) */myRoute.defaults["_method"] : [""];
 
             someMethods.each((method) {
                 if (

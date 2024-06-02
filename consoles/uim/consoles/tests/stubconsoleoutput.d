@@ -21,7 +21,7 @@ class DStubConsoleOutput : DConsoleOutput {
 
     // Write output to the buffer.
     int write(string[] outputMessage, int newlinesToAppend = 1) {
-        (array) outputMessage.each!(line => _out ~= line);
+        /* (array) */ outputMessage.each!(line => _out ~= line);
 
         int newlinesToAppend--;
         while (newlinesToAppend > 0) {

@@ -54,31 +54,26 @@ class DConsoleFormatter : IErrorFormatter {
         return true;
     }
  
-    string formatWrapper(string acontents, Json[string] location) {
-        string alineInfo = "";
-        if (isSet(location["file"], location["file"])) {
+    string formatWrapper(stringcontents, Json[string] location) {
+        string lineInfo = "";
+        if (location.hasAllKeys(["file", "line"])) {
             lineInfo = "%s (line %s)".format(location["file"], location["line"]);
         }
-        someParts = [
+        
+        return [
             style("const", lineInfo),
             style("special", "########## DEBUG ##########"),
             contents,
             style("special", "###########################"),
             "",
-        ];
-
-        return join("\n", someParts);
+        ].join("\n");
     }
     
-    /**
-     * Convert a tree of IErrorNode objects into a plain text string.
-     * Params:
-     * \UIM\Error\Debug\IErrorNode node The node tree to dump.
-     */
+    // Convert a tree of IErrorNode objects into a plain text string.
     string dump(IErrorNode nodeToDump) {
         size_t myIndent = 0;
 
-        return _export_(node, myIndent);
+        return _export_(nodeToDump, myIndent);
     }
     
     // Convert a tree of IErrorNode objects into a plain text string.

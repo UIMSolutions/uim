@@ -552,7 +552,7 @@ class DAssociation : IAssociation {
      */
     protected void _appendNotMatching(Query query, Json[string] optionData) {
         target = _targetTable;
-        if (!options.isEmpty("negateMatch"])) {
+        if (!options.isEmpty("negateMatch")) {
             primaryKeys = query.aliasFields((array) target.primaryKeys(), _name);
             query.andWhere(function(exp) use(primaryKeys) {
                 array_map([exp, "isNull"], primaryKeys);

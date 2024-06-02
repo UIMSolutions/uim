@@ -394,24 +394,24 @@ class DPaginator : IPaginator {
      * repository, the general settings will be used.
      */
     Json[string] getDefaults(string aliasName, Json[string] settingsData) {
-        if (isset(settingsData[aliasName])) {
+        if (settingsData.hasKey(aliasName)) {
             settingsData = settingsData[aliasName];
         }
 
-        defaults = configuration.data;
+        auto defaults = configuration.data;
         defaults["whitelist"] = defaults["allowedParameters"] = getAllowedParameters();
 
-        maxLimit = settingsData["maxLimit"] ?? defaults["maxLimit"];
-        limit = settingsData["limit"] ?? defaults["limit"];
+        int maxLimit = settingsData.getInt("maxLimit", defaults.getInt("maxLimit"));
+        int limit = settingsData.getInt("limit", defaults..getInt("limit"));
 
         if (limit > maxLimit) {
             limit = maxLimit;
         }
 
-        settingsData["maxLimit"] = maxLimit;
-        settingsData["limit"] = limit;
+        settingsData["maxLimit"] = maxLimit.toJson;
+        settingsData["limit"] = limit.toJson;
 
-        return settingsData + defaults;
+        return settingsData.merge(defaults);
     }
 
     /**

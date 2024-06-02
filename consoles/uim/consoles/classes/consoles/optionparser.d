@@ -429,17 +429,17 @@ class DConsoleOptionParser {
             }
             if (token.startsWith("--")) {
                 params = _parseLongOption(token, params);
-            } else if (str_starts_with(token, "-")) {
+            } else if (token.startsWith("-")) {
                 params = _parseShortOption(token, params);
             } else {
                 someArguments = _parseArg(token, someArguments);
             }
         }
-        if (isSet(params["help"])) {
+        if (params.hasKey("help")) {
             return [params, someArguments];
         }
-        foreach (anI: arg; argToParse) {
-            if (arg.isRequired() && !isSet(someArguments[anI])) {
+        foreach (index: arg; argToParse) {
+            if (arg.isRequired() && !isSet(someArguments[index])) {
                 throw new DConsoleException(
                     "Missing required argument. The `%s` argument is required.".format(arg.name())
                 );

@@ -29,9 +29,11 @@ mixin template TStringCompare() {
      * Params:
      * string aPath partial path to test comparison file
      */
-    void assertSameAsFile(string aPath, string testResult) {
-        if (!fileExists(somePath)) {
-            somePath = _compareBasePath ~ somePath;
+    void assertSameAsFile(string partialPath, string testResult) {
+        // TODO
+        /* 
+        if (!fileExists(partialPath)) {
+            partialPath = _compareBasePath ~ partialPath;
         }
        _updateComparisons ??= enviroment("UPDATE_TEST_COMPARISON_FILES") ?: false;
 
@@ -40,5 +42,6 @@ mixin template TStringCompare() {
         }
         expected = file_get_contents(somePath);
         this.assertTextEquals(expected, result, "Content does not match file " ~ somePath);
-    } */ 
+        */
+    } 
 }

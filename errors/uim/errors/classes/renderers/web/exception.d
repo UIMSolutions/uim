@@ -297,7 +297,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             return _outputMessage("error500");
         } catch (MissingPluginException  anException) {
             attributes = anException.getAttributes();
-            if (isSet(attributes["plugin"]) && attributes["plugin"] == _controller.pluginName) {
+            if (attributes.hasKey("plugin"]) && attributes["plugin"] == _controller.pluginName) {
                 _controller.setPlugin(null);
             }
             return _outputMessageSafe("error500");

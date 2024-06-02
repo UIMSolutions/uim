@@ -160,21 +160,21 @@ class DOauth {
         }
         baseString = this.baseString(request,  someValues);
 
-        if (isSet(credentials["realm"])) {
+        if (credentials.hasKey("realm")) {
              someValues["oauth_realm"] = credentials["realm"];
         }
         if (isResource(credentials["privateKey"])) {
-            resource = credentials["privateKey"];
-            privateKey = stream_get_contents(resource);
+            auto resource = credentials["privateKey"];
+            auto privateKey = stream_get_contents(resource);
             rewind(resource);
             credentials["privateKey"] = privateKey;
         }
-        credentials += [
+        credentials.merge([
             "privateKeyPassphrase": "",
-        ];
+        ]);
         if (isResource(credentials["privateKeyPassphrase"])) {
-            resource = credentials["privateKeyPassphrase"];
-            passphrase = stream_get_line(resource, 0, D_EOL);
+            auto resource = credentials["privateKeyPassphrase"];
+            auto passphrase = stream_get_line(resource, 0, D_EOL);
             rewind(resource);
             credentials["privateKeyPassphrase"] = passphrase;
         }

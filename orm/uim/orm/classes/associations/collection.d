@@ -185,8 +185,9 @@ class DAssociationCollection { // }: IteratorAggregate {
         Json[string] optionData,
         bool isOwningSide
     ) {
-        options.remove("associated"]);
-        foreach (associations as alias : nested) {
+        options.remove("associated");
+        // TODO 
+        /* foreach (associations as alias : nested) {
             if (is_int(alias)) {
                 alias = nested;
                 nested = null;
@@ -205,7 +206,7 @@ class DAssociationCollection { // }: IteratorAggregate {
             if (!_save(relation, entity, nested, options)) {
                 return false;
             }
-        }
+        } */
 
         return true;
     }

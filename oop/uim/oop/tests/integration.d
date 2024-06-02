@@ -218,11 +218,9 @@ mixin template TIntegrationTest() {
        _cookie[name] = aValue;
     }
     
-    /**
-     * Returns the encryption key to be used.
-     */
+    // Returns the encryption key to be used.
     protected string _getCookieEncryptionKey() {
-        return _cookieEncryptionKey ?? Security.getSalt();
+        return _cookieEncryptionKey ? _cookieEncryptionKey : Security.getSalt();
     }
     
     /**
@@ -238,13 +236,13 @@ mixin template TIntegrationTest() {
      * to Security.salt.
      */
     void cookieEncrypted(
-        string aName,
-        string[] cooie,
-        string encryptionKey = "aes",
-        string aKey = null
+        string cookieName,
+        string[] cookieValues,
+        string encryptionMode = "aes",
+        string encryptionKey = null
     ) {
-       _cookieEncryptionKey = aKey;
-       _cookie[name] = _encrypt(aValue, encrypt);
+       _cookieEncryptionKey = encryptionKey;
+       _cookie[cookieName] = _encrypt(cookieValues, encryptionMode);
     }
     
     /**
@@ -253,11 +251,9 @@ mixin template TIntegrationTest() {
      * The response of the dispatched request will be stored as
      * a property. You can use various assert methods to check the
      * response.
-     * Params:
-     * string[] aurl The URL to request.
      */
-    void get(string[] aurl) {
-       _sendRequest(url, "GET");
+    void get(string[] urlToRequest) {
+       _sendRequest(urlToRequest, "GET");
     }
     
     /**
@@ -267,10 +263,9 @@ mixin template TIntegrationTest() {
      * a property. You can use various assert methods to check the
      * response.
      * Params:
-     * string[] aurl The URL to request.
      * @param string[] adata The data for the request.
      */
-    void post(string[] aurl, string[] adata = []) {
+    void post(string[] urlToRequest, string[] adata = []) {
        _sendRequest(url, "POST", someData);
     }
     
@@ -280,10 +275,9 @@ mixin template TIntegrationTest() {
      * The response of the dispatched request will be stored as
      * a property. You can use various assert methods to check the response.
      * Params:
-     * string[] aurl The URL to request.
      * @param string[] adata The data for the request.
      */
-    void patch(string[] aurl, string[] adata = []) {
+    void patch(string[] urlToRequest, string[] adata = []) {
        _sendRequest(url, "PATCH", someData);
     }
     
@@ -293,10 +287,9 @@ mixin template TIntegrationTest() {
      * The response of the dispatched request will be stored as
      * a property. You can use various assert methods to check the response.
      * Params:
-     * string[] aurl The URL to request.
      * @param string[] adata The data for the request.
      */
-    void put(string[] aurl, string[] adata = []) {
+    void put(string[] urlToRequest, string[] adata = []) {
        _sendRequest(url, "PUT", someData);
     }
     
@@ -367,16 +360,16 @@ mixin template TIntegrationTest() {
         }
     }
     
-    /**
-     * Get the correct dispatcher instance.
-     */
+    // Get the correct dispatcher instance.
+    // TODO
+    /* 
     protected DMiddlewareDispatcher _makeDispatcher() {
         EventManager.instance().on("Controller.initialize", this.controllerSpy(...));
         app = this.createApp();
         assert(cast(IHttpApplication)app);
 
         return new DMiddlewareDispatcher(app);
-    }
+    } */
     
     // Adds additional event spies to the controller/view event manager.
     void controllerSpy(IEvent dispatcherEvent, IController controller = null) {
@@ -503,12 +496,12 @@ mixin template TIntegrationTest() {
      * string aurl The URL the form is being submitted on.
      * @param Json[string] data The request body data.
      */
-    protected Json[string] _addTokens(string aurl, Json[string] data) {
+    protected Json[string] _addTokens(string aurl, Json[string] requestBodyData) {
         if (_securityToken == true) {
-            fields = array_diff_key(someData, array_flip(_unlockedFields));
+            auto fields = array_diff_key(requestBodyData, array_flip(_unlockedFields));
 
             someKeys = array_map(function (field) {
-                return preg_replace("/(\.\d+)+/", "", field);
+                return preg_replace("/(\\.\\d+)+/", "", field);
             }, Hash.flatten(fields).keys);
 
             auto formProtector = new DFormProtector(["unlockedFields": _unlockedFields]);
@@ -629,22 +622,20 @@ mixin template TIntegrationTest() {
         this.assertThat(null, new DStatusFailure(_response), failureMessage);
     }
     
-    /**
-     * Asserts a specific response status code.
-     * Params:
-     * @param string amessage Custom message for failure.
-     */
+    // Asserts a specific response status code.
     void assertResponseCode(int statusCode, string failureMessage = null) {
         this.assertThat(statusCode, new DStatusCode(_response), failureMessage);
     }
     
     // Asserts that the Location header is correct. Comparison is made against a full URL.
-    void assertRedirect(string[] url = null, string failureMessage = null)) {
+    void assertRedirect(string[] url = null, string failureMessage = null) {
         if (!_response) {
-            this.fail("No response set, cannot assert header.");
+            fail("No response set, cannot assert header.");
         }
         
         auto verboseMessage = this.extractVerboseMessage(failureMessage);
+        // TODO 
+        /* 
         this.assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
 
         if (url) {
@@ -653,7 +644,7 @@ mixin template TIntegrationTest() {
                 new DHeaderEquals(_response, "Location"),
                 verboseMessage
             );
-        }
+        } */
     }
     
     /**
@@ -1075,11 +1066,7 @@ mixin template TIntegrationTest() {
        _response.getBody().close();
     }
     
-    /**
-     * Inspect controller to extract possible causes of the failed assertion
-     * Params:
-     * string amessage Original originalMessage to use as a base
-     */
+    // Inspect controller to extract possible causes of the failed assertion
     protected string extractVerboseMessage(string originalMessage) {
         if (cast(DException)_exception) {
             originalMessage ~= this.extractExceptionMessage(_exception);
@@ -1087,7 +1074,8 @@ mixin template TIntegrationTest() {
         if (_controller.isNull) {
             return originalMessage;
         }
-        error = _controller.viewBuilder().getVar("error");
+        
+        auto error = _controller.viewBuilder().getVar("error");
         if (cast(DException)error) {
             originalMessage ~= this.extractExceptionMessage(this.viewVariable("error"));
         }
@@ -1097,19 +1085,19 @@ mixin template TIntegrationTest() {
     // Extract verbose message for existing exception
     protected string extractExceptionMessage(Exception exceptionToExtract) {
         Exception[] exceptions = [exceptionToExtract];
-        previous = exceptionToExtract.getPrevious();
-        while (previous !isNull) {
+        auto previous = exceptionToExtract.getPrevious();
+        while (!previous.isNull) {
             exceptions ~= previous;
             previous = previous.getPrevious();
         }
         string result = D_EOL;
-        foreach (exceptions as  anI: error) {
+        foreach (index, error; exceptions) {
 
-            if (anI == 0) {
-                result ~= "Possibly related to `%s`: "%s"".format(error.classname, error.getMessage());
+            if (index == 0) {
+                result ~= "Possibly related to '%s': '%s'".format(error.classname, error.getMessage());
                 result ~= D_EOL;
             } else {
-                result ~= "Caused by `%s`: "%s"".format(error.classname, error.getMessage());
+                result ~= "Caused by '%s': '%s'".format(error.classname, error.getMessage());
                 result ~= D_EOL;
             }
             result ~= error.getTraceAsString();

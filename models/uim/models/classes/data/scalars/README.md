@@ -1,1 +1,1 @@
-# Package 📦 uim.models.data.scalars
+# Package 📦 uim.models.classes.data.scalars

@@ -95,8 +95,8 @@ class DRoute : IRoute {
         this.template = mytemplate;
         this.defaults = _defaultValues;
         _options = options ~ ["_ext": Json.emptyArray, "_middleware": Json.emptyArray];
-        setExtensions((array)configuration.update("_ext"]);
-        setMiddleware((array)configuration.update("_middleware"]);
+        setExtensions(/* (array) */configuration.update("_ext"]);
+        setMiddleware(/* (array) */configuration.update("_middleware"]);
         unset(configuration.update("_middleware"]);
 
         if (isSet(this.defaults["_method"])) {
@@ -344,7 +344,7 @@ class DRoute : IRoute {
         }
         if (
             isSet(this.defaults["_method"]) &&
-            !in_array(mymethod, (array)this.defaults["_method"], true)
+            !in_array(mymethod, /* (array) */this.defaults["_method"], true)
         ) {
             return null;
         }
@@ -529,7 +529,7 @@ class DRoute : IRoute {
         if (!isSet(myhostOptions["_base"]) && isSet(mycontext["_base"])) {
             myhostOptions["_base"] = mycontext["_base"];
         }
-        myquery = !myurl.isEmpty("?") ? (array)myurl["?"] : [];
+        myquery = !myurl.isEmpty("?") ? /* (array) */myurl["?"] : [];
         unset(myurl["_host"], myurl["_scheme"], myurl["_port"], myurl["_base"], myurl["?"]);
 
         // Move extension into the hostOptions so its not part of
@@ -615,8 +615,8 @@ class DRoute : IRoute {
         if (myurl["_method"].isEmpty) {
             myurl["_method"] = "GET";
         }
-        _defaultValues = (array)this.defaults["_method"];
-        mymethods = (array)this.normalizeAndValidateMethods(myurl["_method"]);
+        _defaultValues = /* (array) */this.defaults["_method"];
+        mymethods = /* (array) */this.normalizeAndValidateMethods(myurl["_method"]);
         foreach (myvalue; mymethods) {
             if (in_array(myvalue, _defaultValues, true)) {
                 return true;

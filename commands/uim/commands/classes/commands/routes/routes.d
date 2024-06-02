@@ -68,21 +68,22 @@ class DRoutesCommand : DCommand {
          someDuplicateRoutes = null;
 
         foreach (myRoute;  someAvailableRoutes) {
-            string[] someMethods = isSet(myRoute.defaults["_method"]) ? /* (array) */myRoute.defaults["_method"] : [""];
+            string[] someMethods = myRoute.defaults.hasKey("_method") ? (array)myRoute.defaults["_method"] : [""];
 
             someMethods.each!((method) {
+                string routeTemplateName = myRoute.templateName;
                 if (
-                     someDuplicateRoutesCounter[myRoute.template][method] > 1 ||
-                    (method.isEmpty && count(someDuplicateRoutesCounter[myRoute.template]) > 1) ||
-                    (method != "" && isSet(someDuplicateRoutesCounter[myRoute.template][""]))
+                     someDuplicateRoutesCounter[routeTemplateName][method] > 1 ||
+                    (method.isEmpty && count(someDuplicateRoutesCounter[routeTemplateName]) > 1) ||
+                    (method != "" && isSet(someDuplicateRoutesCounter[routeTemplateName][""]))
                 ) {
                      someDuplicateRoutes ~= [
-                        myRoute.options["_name"] ?? myRoute.name,
-                        myRoute.template,
-                        myRoute.defaults.get("plugin", ""),
-                        myRoute.defaults.get("prefix", ""),
-                        myRoute.defaults.get("controller", ""),
-                        myRoute.defaults.get("action", ""),
+                        myRoute.options.getString("_name", myRoute.name),
+                        routeTemplateName,
+                        myRoute.defaults.getString("pluginName"),
+                        myRoute.defaults.getString("prefix")Name,
+                        myRoute.defaults.getString("controNameller"),
+                        myRoute.defaults.getString("action"),
                         someMethods.join(", "),
                     ];
 

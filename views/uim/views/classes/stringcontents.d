@@ -231,7 +231,7 @@ class DStringContents {
      * This method uses the "attribute" and "compactAttribute" templates. Each of
      * these templates uses the `name` and `value` variables. You can modify these
      * templates to change how attributes are formatted.
-     */    
+     */
      string formatAttributes(Json[string] options, string[] excludedKeys) {
         bool[string] excludedOptions;
         excludedKeys.each!(ex => excludedOptions[ex] = true);

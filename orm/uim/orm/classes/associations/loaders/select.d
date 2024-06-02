@@ -160,7 +160,7 @@ class DSelectLoader {
      * and options as value.
      */
     protected Json[string] _extractFinder(finderData) {
-        finderData = (array)finderData;
+        finderData = /* (array) */finderData;
 
         if (key(finderData).isNumeric) {
             return [current(finderData), []];

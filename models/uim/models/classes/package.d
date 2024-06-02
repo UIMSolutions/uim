@@ -3,7 +3,6 @@ module uim.models.classes;
 public { // Packages
   import uim.models.classes.attributes;
   import uim.models.classes.data;
-  import uim.models.classes.datatypes;
   import uim.models.classes.entities;
   import uim.models.classes.errors;
   import uim.models.classes.exceptions;

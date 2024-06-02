@@ -1,1 +1,1 @@
-# Package 📦 uim.models.data.arrays
+# Package 📦 uim.models.classes.data.arrays

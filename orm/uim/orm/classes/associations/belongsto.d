@@ -100,7 +100,7 @@ class DBelongsToAssociation : DAssociation {
 
         auto properties = array_combine(
             (array)foreignKeys(),
-            targetEntity.extract((array)getBindingKey())
+            targetEntity.extract(/* (array) */getBindingKey())
         );
         entity.set(properties, ["guard": false.toJson]);
 
@@ -117,8 +117,8 @@ class DBelongsToAssociation : DAssociation {
         auto conditions = null;
         auto tAlias = _name;
         auto sAlias = _sourceTable.aliasName();
-        auto foreignKeys = (array)options["foreignKeys"];
-        auto bindingKeys = (array)getBindingKey();
+        auto foreignKeys = /* (array) */options["foreignKeys"];
+        auto bindingKeys = /* (array) */getBindingKey();
 
         if (count(foreignKeys) != count(bindingKeys)) {
             if (bindingKeys.isEmpty) {

@@ -633,7 +633,7 @@ abstract class DTestCase : DBaseTestCase {
             [description, someExpressions,  anItemNum] = assertion;
             
             string expression;
-            (array)someExpressions.each!((expression) {
+            /* (array) */someExpressions.each!((expression) {
                 string expression = "/^%s/s".format(expression);
                 if (mlText && preg_match(expression, mlText, match)) {
                     matches = true;

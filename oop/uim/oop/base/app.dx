@@ -154,7 +154,7 @@ class DApp {
 
         /* 
         if (pluginName.isNull) {
-            return (array)configuration.get("App.paths." ~ pathType);
+            return /* (array) */configuration.get("App.paths." ~ pathType);
         }
         
         return match (type) {

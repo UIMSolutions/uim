@@ -609,9 +609,9 @@ class DBelongsToManyAssociation : DAssociation {
         entityClass = junction.getEntityClass();
         belongsTo = junction.getAssociation(target.aliasName());
         foreignKey = (array)foreignKeys();
-        assocForeignKey = (array)belongsTo.foreignKeys();
-        targetBindingKey = (array)belongsTo.getBindingKey();
-        bindingKey = (array)getBindingKey();
+        assocForeignKey = /* (array) */belongsTo.foreignKeys();
+        targetBindingKey = /* (array) */belongsTo.getBindingKey();
+        bindingKey = /* (array) */getBindingKey();
         jointProperty = _junctionProperty;
         junctionRegistryAlias = junction.registryKey();
 
@@ -949,7 +949,7 @@ class DBelongsToManyAssociation : DAssociation {
      *  when persisting/updating new links, or deleting existing ones
      */
     bool replaceLinks(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] optionData = null) {
-        bindingKey = (array)getBindingKey();
+        bindingKey = /* (array) */getBindingKey();
         primaryValue = sourceEntity.extract(bindingKey);
 
         if (count(Hash.filter(primaryValue)) != count(bindingKey)) {
@@ -962,7 +962,7 @@ class DBelongsToManyAssociation : DAssociation {
                 junction = this.junction();
                 target = getTarget();
 
-                foreignKey = (array)foreignKeys();
+                foreignKey = /* (array) */foreignKeys();
                 assocForeignKey = (array)junction.getAssociation(target.aliasName()).foreignKeys();
 
                 prefixedForeignKey = array_map([junction, "aliasField"], foreignKey);

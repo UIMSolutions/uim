@@ -256,7 +256,7 @@ class Hash {
             ) {
                 mydata[myKey] = mynextPath
                     ? insert(myv, mynextPath, myvalues)
-                    : chain(myv, (array)myvalues);
+                    : chain(myv, /* (array) */myvalues);
             }
         }
         return mydata;
@@ -664,8 +664,8 @@ class Hash {
                     }
                     if (
                         !empty(mycurMerge[1][aKey])
-                        && (array)mycurMerge[1][aKey] == mycurMerge[1][aKey]
-                        && (array)myval == myval
+                        && /* (array) */mycurMerge[1][aKey] == mycurMerge[1][aKey]
+                        && /* (array) */myval == myval
                     ) {
                         // Recurse into the current merge data as it is an array.
                         mystack ~= [&myval, &mycurMerge[1][aKey]];
@@ -746,7 +746,7 @@ class Hash {
      * @param callable myfunction The auto to call on each extracted value.
      */
     static Json[string] map(Json[string] data, string mypath, callable myfunction) {
-        myvalues = (array)extract(mydata, mypath);
+        myvalues = /* (array) */extract(mydata, mypath);
 
         return array_map(myfunction, myvalues);
     }
@@ -759,7 +759,7 @@ class Hash {
      * @param callable myfunction The auto to call on each extracted value.
      */
     static Json reduce(Json[string] data, string mypath, callable myfunction) {
-        myvalues = (array)extract(mydata, mypath);
+        myvalues = /* (array) */extract(mydata, mypath);
 
         return array_reduce(myvalues, myfunction);
     }
@@ -788,7 +788,7 @@ class Hash {
      * @param callable myfunction The auto to call on each extracted value.
      */
     static Json apply(Json[string] data, string mypath, callable myfunction) {
-        myvalues = (array)extract(mydata, mypath);
+        myvalues = /* (array) */extract(mydata, mypath);
 
         return myfunction(myvalues);
     }

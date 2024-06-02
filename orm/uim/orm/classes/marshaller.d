@@ -496,7 +496,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
 
             return myentity;
         }
-        foreach ((array)options["fields"] as fieldName) {
+        foreach (/* (array) */options["fields"] as fieldName) {
             assert(isString(fieldName));
             if (!array_key_exists(fieldName, myproperties)) {
                 continue;
@@ -541,7 +541,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
      * @param Json[string] options List of options.
      */
     IORMEntity[] mergeMany(Json[string] myentities, Json[string] data, Json[string] optionData = null) {
-        myprimary = (array)_table.primaryKeys();
+        myprimary = /* (array) */_table.primaryKeys();
 
         myindexed = (new DCollection(mydata))
             .groupBy(function (myel) use (myprimary) {
@@ -705,7 +705,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
 
         mynested = null;
         if (isSet(myassociated["_joinData"])) {
-            mynested = (array)myassociated["_joinData"];
+            mynested = /* (array) */myassociated["_joinData"];
         }
         options["accessibleFields"] = ["_joinData": true.toJson];
 

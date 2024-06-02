@@ -53,7 +53,7 @@ class DLazyEagerLoader {
 
         auto myquery = mysource
             .find()
-            .select((array)myprimaryKey)
+            .select(/* (array) */myprimaryKey)
             .where(function (QueryExpression myexp, SelectQuery myq) use (myprimaryKey, someKeys, mysource) {
                 if (isArray(myprimaryKey) && count(myprimaryKey) == 1) {
                     myprimaryKey = current(myprimaryKey);
@@ -111,7 +111,7 @@ class DLazyEagerLoader {
     ) {
         myinjected = null;
         myproperties = _getPropertyMap(mysource, myassociations);
-        myprimaryKey = (array)mysource.primaryKeys();
+        myprimaryKey = /* (array) */mysource.primaryKeys();
         /** @var array<\UIM\Datasource\IORMEntity> results */
         results = myquery
             .all()

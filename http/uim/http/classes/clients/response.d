@@ -144,7 +144,7 @@ class DClientResponse { // }: Message : IResponse {
             if (_headers.hasKey(name)) {
                 _headers[name] ~= aValue;
             } else {
-                _headers[name] = (array)aValue;
+                _headers[name] = /* (array) */aValue;
                 this.headerNames[normalized] = name;
             }
         }

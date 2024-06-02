@@ -475,7 +475,7 @@ class DQueryExpression : DExpression { // }, Countable {
         }
 
         if (typeMultiple) {
-            valueToBound = cast(IExpression)valueToBound  ? valueToBound : (array)valueToBound;
+            valueToBound = cast(IExpression)valueToBound  ? valueToBound : /* (array) */valueToBound;
         }
         if (valueToBound.isNull) {
             if (operator == "IS") {

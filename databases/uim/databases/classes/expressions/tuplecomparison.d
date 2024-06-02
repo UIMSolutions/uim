@@ -103,7 +103,7 @@ class DTupleComparisonExpression : DComparisonExpression {
                                         return placeholder;}
 
                                         void traverse(Closure aCallback) {
-                                            fields = (array) getFieldNames(); fields.each!(
+                                            fields = /* (array) */ getFieldNames(); fields.each!(
                                                 field => _traverseValue(field, aCallback));
 
                                                 auto myValue = getValue(); if (

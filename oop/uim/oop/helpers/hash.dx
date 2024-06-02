@@ -92,7 +92,7 @@ class Hash {
             if (mydata !isNull && !(isArray(mydata) || cast(DArrayAccess)mydata)) {
                 return [mydata];
             }
-            return !mydata.isNull ? (array)mydata : [];
+            return !mydata.isNull ? /* (array) */mydata : [];
         }
 
         myTokens = !pathToExtract.has("[")

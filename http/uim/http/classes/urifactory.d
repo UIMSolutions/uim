@@ -74,7 +74,7 @@ class UriFactory { // }: IUriFactory {
      * @param Json[string] serverData The SERVER data to use.
      */
     protected static Json[string] getBase(IUri anUri, Json[string] serverData) {
-        auto configData = (array)configuration.get("App") ~ [
+        auto configData = /* (array) */configuration.get("App") ~ [
             "base": Json(null),
             "webroot": Json(null),
             "baseUrl": Json(null),

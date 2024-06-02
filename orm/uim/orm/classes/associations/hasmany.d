@@ -102,7 +102,7 @@ class DHasManyAssociation : DAssociation {
         }
 
         foreignKeyReference = array_combine(
-            (array) foreignKeys(),
+            /* (array) */ foreignKeys(),
             sourceEntity.extract((array) getBindingKey())
         );
 

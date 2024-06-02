@@ -809,7 +809,7 @@ interface ICollection {
      * ```
      * items [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
      * chunked = (new DCollection(items)).chunk(3).toList();
-     */ Returns [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11]]
+     * Returns [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11]]
      * ```
      */
     ICollection chunk(int chunkMaxsize);
@@ -822,7 +822,7 @@ interface ICollection {
      * ```
      * items ["a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "f": 6];
      * chunked = (new DCollection(items)).chunkWithKeys(3).toList();
-     */ Returns [["a": 1, "b": 2, "c": 3], ["d": 4, "e": 5, "f": 6]]
+     * Returns [["a": 1, "b": 2, "c": 3], ["d": 4, "e": 5, "f": 6]]
      * ```
      */
     ICollection chunkWithKeys(int chunkMaxsize, bool shouldKeepKeys = true);
@@ -865,13 +865,13 @@ interface ICollection {
      *
      * transpose = (new DCollection(items)).transpose().toList();
      *
-     */ Returns
-     */ [
-     */     ["Products", "Product A", "Product B", "Product C"],
-     */     ["2012", "200", "300", "400"],
-     */     ["2013", "100", "200", "300"],
-     */     ["2014", "50", "100", "200"],
-     */ ]
+     * Returns
+     * [
+     *     ["Products", "Product A", "Product B", "Product C"],
+     *     ["2012", "200", "300", "400"],
+     *     ["2013", "100", "200", "300"],
+     *     ["2014", "50", "100", "200"],
+     * ]
      * ```
      */
     ICollection transpose();

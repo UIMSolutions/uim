@@ -550,15 +550,17 @@ class DAssociation : IAssociation {
      * @param DORMQuery query The query to modify
      * @param Json[string] options Options array containing the `negateMatch` key.
      */
-    protected void _appendNotMatching(Query query, Json[string] optionData) {
-        target = _targetTable;
-        if (!options.isEmpty("negateMatch")) {
+    protected void _appendNotMatching(DQuery query, Json[string] optionData) {
+        auto target = _targetTable;
+        if (!optionData.isEmpty("negateMatch")) {
+            // TODO
+            /* 
             primaryKeys = query.aliasFields((array) target.primaryKeys(), _name);
             query.andWhere(function(exp) use(primaryKeys) {
                 array_map([exp, "isNull"], primaryKeys);
 
                 return exp;
-            });
+            }); */
         }
     }
 

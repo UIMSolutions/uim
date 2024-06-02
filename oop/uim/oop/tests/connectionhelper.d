@@ -76,7 +76,7 @@ class DConnectionHelper {
     // Truncates all tables.
     void truncateTables(string connectionName, Json[string] tableNames = null) {
         auto connection = ConnectionManager.get(aConnectionName);
-        assert(cast(DConnection)connection);
+        // TODO assert(cast(DConnection)connection);
         auto collection = connection.getSchemaCollection();
 
         auto allTables = collection.listTablesWithoutViews();

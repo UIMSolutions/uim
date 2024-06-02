@@ -45,10 +45,9 @@ abstract class DConfiguration : IConfiguration {
     abstract bool hasDefault(string key);
     abstract Json getDefault(string key);
 
-    override IConfiguration updateDefaults(Json[string] newData) {
-        newData.byKeyValue
-            .each!(kv => updateDefault(kv.key, kv.value));
-        return this;
+    override bool updateDefaults(Json[string] newData) {
+        return newData.byKeyValue
+            .all!(kv => updateDefault(kv.key, kv.value));
     }
 
     abstract IConfiguration updateDefault(string key, Json newValue);
@@ -64,7 +63,7 @@ abstract class DConfiguration : IConfiguration {
     // #region data
     abstract Json[string] data();
 
-    abstract IConfiguration data(Json[string] newData);
+    abstract void data(Json[string] newData);
 
     void opAssign(Json[string] newData) {
         data(newData);
@@ -177,8 +176,7 @@ abstract class DConfiguration : IConfiguration {
 
     // #region set
     bool set(STRINGAA data, string[] keys = null) {
-        set(data.toJsonMap, keys);
-        return this;
+        return set(data.toJsonMap, keys);
     }
 
     bool set(Json[string] newData, string[] keys = null) {
@@ -188,7 +186,7 @@ abstract class DConfiguration : IConfiguration {
             keys.filter!(key => key in newData)
                 .each!(key => set(key, newData[key]));
         }
-        return this;
+        return true;
     }
 
     abstract bool set(string key, Json newValue);

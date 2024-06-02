@@ -6,7 +6,7 @@ import uim.oop;
 interface IConfiguration : INamed {
     // #region default data
         Json[string] data(); 
-        IConfiguration data(Json[string] newData);
+        void data(Json[string] newData);
     // #endregion default data
 
     // #region default data
@@ -18,7 +18,7 @@ interface IConfiguration : INamed {
         bool hasDefault(string key);
         Json getDefault(string key);
 
-        IConfiguration updateDefaults(Json[string] newData);
+        bool updateDefaults(Json[string] newData);
         IConfiguration updateDefault(string key, Json newData);
 
         bool mergeDefaults(Json[string] newData);

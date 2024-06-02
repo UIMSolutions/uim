@@ -40,12 +40,14 @@ class DDependentDeleteHelper {
         conditions = array_combine(foreignKey, bindingValue);
 
         if (anAssociation.getCascadeCallbacks()) {
+            // TODO 
+            /* 
             foreach (anAssociation.find().where(conditions).all().toList() as related) {
                 success = table.remove(related, options);
                 if (!success) {
                     return false;
                 }
-            }
+            } */ 
 
             return true;
         }

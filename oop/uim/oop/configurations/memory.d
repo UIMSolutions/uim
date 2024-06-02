@@ -35,10 +35,9 @@ class DMemoryConfiguration : DConfiguration {
         return (key in _defaultData) ? _defaultData[key] : Json(null);
     }
     
-    override IConfiguration updateDefaults(Json[string] newDefaults) {
-        newDefaults.byKeyValue
-            .each!(kv => updateDefault(kv.key, kv.value));
-        return this;
+    override bool updateDefaults(Json[string] newDefaults) {
+        return newDefaults.byKeyValue
+            .all!(kv => updateDefault(kv.key, kv.value));
     }
 
     override IConfiguration updateDefault(string key, Json value) {
@@ -47,29 +46,29 @@ class DMemoryConfiguration : DConfiguration {
     }
 
     override bool mergeDefaults(Json[string] newData) {
-        newData.byKeyValue
-            .each!(kv => mergeDefault(kv.key, kv.value));
-        return this;
+        return newData.byKeyValue
+            .all!(kv => mergeDefault(kv.key, kv.value));
     }
 
     override bool mergeDefault(string key, Json value) {
         if (!hasDefault(key)) {
             _defaultData[key] = value;
+            return true; 
         }
-        return this;
+        return false; 
     }
     // #endregion defaultData
 
     // #region data
+    // Set and get data
     protected Json[string] _data;
 
     override Json[string] data() {
         return _data.dup;
     }
 
-    override IConfiguration data(Json[string] newData) {
+    override void data(Json[string] newData) {
         _data = newData.dup;
-        return this;
     }
     // #endregion data
 
@@ -145,7 +144,7 @@ class DMemoryConfiguration : DConfiguration {
 
     override bool set(string key, Json value) {
         _data[key] = value;
-        return this;
+        return true;
     }
 
     override bool update(string key, Json value) {

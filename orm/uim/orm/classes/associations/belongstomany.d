@@ -756,11 +756,11 @@ class DBelongsToManyAssociation : DAssociation {
             storage.attach(e);
         }
 
-        foreach (existing as k: e) {
-            if (storage.contains(e)) {
-                unset(existing[k]);
+        existing.byKeyValue.each!((keyEntity){
+            if (storage.contains(keyEntity.value)) {
+                existing.remove(keyEntity.key);
             }
-        }
+        });
 
         sourceEntity.set(property, array_values(existing));
         sourceEntity.setDirty(property, false);

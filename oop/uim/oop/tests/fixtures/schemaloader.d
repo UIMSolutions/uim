@@ -48,11 +48,12 @@ class DSchemaLoader {
         auto filePaths = filesToLoad.dup;
 
         // Don"t create schema if we are in a Dunit separate process test method.
-        if (GLOBALS.hasKey("__DUNIT_BOOTSTRAP")) {
+        // TODO 
+        /* if (GLOBALS.hasKey("__DUNIT_BOOTSTRAP")) {
             return;
-        }
+        } */
         if (shouldDropTables) {
-            _helper.dropTables(aConnectionName);
+            // TODO _helper.dropTables(aConnectionName);
         }
         /** @var \UIM\Database\Connection aConnection */
         aConnection = ConnectionManager.get(aConnectionName);

@@ -254,7 +254,7 @@ class DAssociationCollection { // }: IteratorAggregate {
             }
         }
 
-        foreach (noCascade as assoc) {
+        foreach (assoc; noCascade) {
             if (!assoc.cascadeRemove(anEntity, deleteOptions)) {
                 return false;
             }

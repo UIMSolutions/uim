@@ -393,12 +393,13 @@ class DHasManyAssociation : DAssociation {
         Json[string] options = null
     ) {
         primaryKeys = (array) myTarget.primaryKeys();
-        exclusions = new DCollection(
-            remainingEntities);
+        exclusions = new DCollection(remainingEntities);
+        // TODO
+        /* 
         exclusions = exclusions.map(
             function(ent) use(
                 primaryKeys) {
-            /** @var DORMdatasources.IORMEntity ent */
+            /** @var DORMdatasources.IORMEntity ent * /
             return ent.extract(
                 primaryKeys);}
             )
@@ -419,7 +420,7 @@ class DHasManyAssociation : DAssociation {
             }
 
             return _unlink(foreignKeyReference.keys, myTarget, conditions, options);
-        }
+        } */
 
         /**
      * Deletes/sets null the related objects matching conditions.

@@ -222,17 +222,17 @@ class DAssociationCollection { // }: IteratorAggregate {
     protected bool _save(
         DORMAssociation anAssociation,
         IORMEntity anEntity,
-        array nested,
+        Json[string] nested,
         Json[string] optionData
     ) {
         if (!anEntity.isDirty(association.getProperty())) {
             return true;
         }
         if (!nested.isEmpty) {
-            options = nested + options;
+            optionData = nested.update(optionData);
         }
 
-        return (bool) association.saveAssociated(entity, options);
+        return !association.saveAssociated(anEntity, optionData).isNull;
     }
 
     /**
@@ -242,22 +242,21 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param DORMDatasource\IORMEntity anEntity The entity to delete associations for.
      * @param Json[string] options The options used in the delete operation.
      */
-    bool cascaderemove(IORMEntity anEntity, Json[string] optionData) {
+    bool cascadeRemove(IORMEntity anEntity, Json[string] deleteOptions) {
         noCascade = null;
-        foreach (_items as assoc) {
+        foreach (assoc; _items) {
             if (!assoc.getCascadeCallbacks()) {
                 noCascade ~= assoc;
                 continue;
             }
-            success = assoc.cascaderemove(anEntity, options);
-            if (!success) {
+            
+            if (!assoc.cascadeRemove(anEntity, deleteOptions)) {
                 return false;
             }
         }
 
         foreach (noCascade as assoc) {
-            success = assoc.cascaderemove(anEntity, options);
-            if (!success) {
+            if (!assoc.cascadeRemove(anEntity, deleteOptions)) {
                 return false;
             }
         }

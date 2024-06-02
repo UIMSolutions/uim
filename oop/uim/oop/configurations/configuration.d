@@ -200,7 +200,7 @@ abstract class DConfiguration : IConfiguration {
     // #endregion set
 
     // #region update
-        IConfiguration update(Json[string] newData, string[] includedKeys = null) {
+        bool update(Json[string] newData, string[] includedKeys = null) {
             if (keys.isNull) {
                 includedKeys.each!(key => update(key, newData[key]));
             } else {
@@ -210,7 +210,7 @@ abstract class DConfiguration : IConfiguration {
             return this;
         }
 
-        abstract IConfiguration update(string key, Json newValue);
+        abstract bool update(string key, Json newValue);
     // #region update
 
     // #region merge

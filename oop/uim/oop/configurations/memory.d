@@ -148,7 +148,7 @@ class DMemoryConfiguration : DConfiguration {
         return this;
     }
 
-    override IConfiguration update(string key, Json value) {
+    override bool update(string key, Json value) {
         return set(key, value);
     }
 

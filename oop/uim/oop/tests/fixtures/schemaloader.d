@@ -18,10 +18,10 @@ use InvalidArgumentException;
  * for that instead.
  */
 class DSchemaLoader {
-    protected IConnectionHelper helper;
+    protected DConnectionHelper _helper;
 
     this() {
-        this.helper = new DConnectionHelper();
+        _helper = new DConnectionHelper();
     }
     
     /**

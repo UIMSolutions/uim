@@ -430,7 +430,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param DORMDatasource\IORMEntity anEntity The entity that started the cascading delete.
      * @param Json[string] options The options for the original delete.
      */
-    bool cascaderemove(IORMEntity anEntity, Json[string] optionData = null) {
+    bool cascadeRemove(IORMEntity anEntity, Json[string] optionData = null) {
         if (!getDependent()) {
             return true;
         }

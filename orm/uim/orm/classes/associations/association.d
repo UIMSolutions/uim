@@ -960,7 +960,7 @@ class DAssociation : IAssociation {
      * @param DORMDatasource\IORMEntity anEntity The entity that started the cascaded delete.
      * @param Json[string] options The options for the original delete.
      */
-    abstract bool cascaderemove(IORMEntity anEntity, Json[string] optionData = null);
+    abstract bool cascadeRemove(IORMEntity anEntity, Json[string] optionData = null);
 
     /**
      * Returns whether the passed table is the owning side for this

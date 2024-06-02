@@ -55,6 +55,8 @@ class DConnectionHelper {
     }
     
     // Drops all tables.
+    // TODO 
+    /* 
     void dropTables(string connectionName, string[] tableNames = null) {
         auto connection = ConnectionManager.get(aConnectionName);
         assert(cast(DConnection)aConnection);
@@ -62,24 +64,23 @@ class DConnectionHelper {
         allTables = collection.listTablesWithoutViews();
 
         tableNames = tableNames !isNull ? array_intersect(tableNames, allTables): allTables;
-        /** @var array<\UIM\Database\Schema\TableSchema> schemas Specify type for psalm */
-        // TODO schemas = array_map(fn (aTable) : collection.describe(aTable), tableNames);
+        TableSchema[] schemas = array_map(fn (aTable) : collection.describe(aTable), tableNames);
 
         dialect = connection.getDriver().schemaDialect();
         schemas.each!((tableSchema) {
             dialect.dropConstraintSql(tableSchema).each!(statement => connection.execute(statement));
         });
         schemas.each!(tableSchema => dialect.dropTableSql(tableSchema).each!(statement => connection.execute(statement)));
-    }
+    } */
     
     // Truncates all tables.
     void truncateTables(string connectionName, Json[string] tableNames = null) {
-        connection = ConnectionManager.get(aConnectionName);
+        auto connection = ConnectionManager.get(aConnectionName);
         assert(cast(DConnection)connection);
-        collection = connection.getSchemaCollection();
+        auto collection = connection.getSchemaCollection();
 
-        allTables = collection.listTablesWithoutViews();
-        tableNames = tableNames !isNull ? array_intersect(tableNames, allTables): allTables;
+        auto allTables = collection.listTablesWithoutViews();
+        auto tableNames = tableNames !isNull ? array_intersect(tableNames, allTables): allTables;
         /** @var array<\UIM\Database\Schema\TableSchema> schemas Specify type for psalm */
         // TODO schemas = array_map(fn (aTable): collection.describe(aTable), tableNames);
 

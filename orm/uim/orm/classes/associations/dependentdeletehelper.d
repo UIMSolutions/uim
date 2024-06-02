@@ -24,7 +24,7 @@ class DDependentDeleteHelper {
      * @param DORMDatasource\IORMEntity anEntity The entity that started the cascaded delete.
      * @param Json[string] options The options for the original delete.
      */
-    bool cascaderemove(DORMAssociation anAssociation, IORMEntity anEntity, Json[string] optionData = null) {
+    bool cascadeRemove(DORMAssociation anAssociation, IORMEntity anEntity, Json[string] optionData = null) {
         if (!anAssociation.getDependent()) {
             return true;
         }

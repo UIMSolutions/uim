@@ -6,16 +6,12 @@
 **********************************************************************************************************/
 module uim.errors.classes.debugging.debugger;
 
-@safe:
 import uim.errors;
 
+@safe:
 /**
  * Provide custom logging and error handling.
- *
- * Debugger : D"s default error handling and gives
- * simpler to use more powerful interfaces.
- *
- * @link https://book.uimD.org/4/en/development/debugging.html#namespace-uim\Error
+ * Debugger : D"s default error handling and gives simpler to use more powerful interfaces.
  */
 class DDebugger {
     mixin TConfigurable;

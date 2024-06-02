@@ -72,8 +72,8 @@ interface IConfiguration : INamed {
         bool set(string key, Json newValue);
     // #endregion set
 
-    IConfiguration update(Json[string] newData, string[] validKeys = null);
-    IConfiguration update(string key, Json newValue);
+    bool update(Json[string] newData, string[] validKeys = null);
+    bool update(string key, Json newValue);
 
     bool merge(Json[string] newData, string[] validKeys = null);
     bool merge(string key, Json newValue);

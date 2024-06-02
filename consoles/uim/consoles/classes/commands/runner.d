@@ -99,10 +99,10 @@ class DCommandRunner { // }: IEventDispatcher {
         if (class_exists(VersionCommand.classname)) {
             myCommands.add("version", VersionCommand.classname);
         }
-        myCommands = this.app.console(myCommands);
+        myCommands = _app.console(myCommands);
 
         if (cast(IPluginApplication)_app) {
-            myCommands = this.app.pluginConsole(myCommands);
+            myCommands = _app.pluginConsole(myCommands);
         }
         dispatchEvent("Console.buildCommands", ["commands": myCommands]);
         this.loadRoutes();
@@ -139,9 +139,9 @@ class DCommandRunner { // }: IEventDispatcher {
      * plugins are bootstrapped.
      */
     protected void bootstrap() {
-        this.app.bootstrap();
+        _app.bootstrap();
         if (cast(IPluginApplication)_app) {
-            this.app.pluginBootstrap();
+            _app.pluginBootstrap();
         }
     }
     
@@ -160,7 +160,7 @@ class DCommandRunner { // }: IEventDispatcher {
             "Cannot set the event manager, the application does not support events."
         );
 
-        this.app.setEventManager(newEventManager);
+        _app.setEventManager(newEventManager);
     }
     
     // Get the shell instance for a given command name
@@ -247,7 +247,7 @@ class DCommandRunner { // }: IEventDispatcher {
         if (!this.factory) {
             container = null;
             if (cast(IContainerApplication)this.app) {
-                container = this.app.getContainer();
+                container = _app.getContainer();
             }
             this.factory = new DCommandFactory(container);
         }
@@ -264,9 +264,9 @@ class DCommandRunner { // }: IEventDispatcher {
         }
         builder = Router.createRouteBuilder("/");
 
-        this.app.routes(builder);
+        _app.routes(builder);
         if (cast(IPluginApplication)this.app) {
-            this.app.pluginRoutes(builder);
+            _app.pluginRoutes(builder);
         }
     } 
 }

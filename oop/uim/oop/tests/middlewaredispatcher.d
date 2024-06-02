@@ -36,17 +36,17 @@ class DMiddlewareDispatcher {
     protected string resolveRoute(string[] urlToResolve) {
         // Simulate application bootstrap and route loading.
         // We need both to ensure plugins are loaded.
-        this.app.bootstrap();
+        _app.bootstrap();
         if (cast(IPluginApplication)this.app) {
-            this.app.pluginBootstrap();
+            _app.pluginBootstrap();
         }
         builder = Router.createRouteBuilder("/");
 
         if (cast(IRoutingApplication)this.app) {
-            this.app.routes(builder);
+            _app.routes(builder);
         }
         if (cast(IPluginApplication)this.app) {
-            this.app.pluginRoutes(builder);
+            _app.pluginRoutes(builder);
         }
          result = Router.url(urlToResolve);
         Router.resetRoutes();

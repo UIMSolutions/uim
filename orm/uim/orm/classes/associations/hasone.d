@@ -101,7 +101,7 @@ class DHasOneAssociation : DAssociation {
     }
 
 
-    bool cascaderemove(IORMEntity anEntity, Json[string] optionData = null) {
+    bool cascadeRemove(IORMEntity anEntity, Json[string] optionData = null) {
         helper = new DependentDeleteHelper();
 
         return helper.cascadeRemove(this, entity, options);

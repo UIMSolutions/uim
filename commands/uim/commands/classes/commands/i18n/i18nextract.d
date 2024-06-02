@@ -203,11 +203,11 @@ class DI18nExtractCommand : DCommand {
                 "msgid_plural": false.toJson,
             ];
         }
-        if (isSet(contextData["msgid_plural"])) {
+        if (contextData.hasKey("msgid_plural")) {
            _translations[domainName][messageId][context]["msgid_plural"] = contextData["msgid_plural"];
         }
-        if (isSet(contextData["file"])) {
-            line = contextData["line"] ?? 0;
+        if (contextData.hasKey("file")) {
+            auto line = contextData.hetInt("line", 0);
            _translations[domainName][messageId][context]["references"][contextData["file"]] ~= line;
         }
     }

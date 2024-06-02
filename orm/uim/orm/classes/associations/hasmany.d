@@ -594,10 +594,10 @@ class DHasManyAssociation : DAssociation {
                         options);
                 }
 
-                bool cascaderemove(IORMEntity anEntity, Json[string] options = null) {
+                bool cascadeRemove(IORMEntity anEntity, Json[string] options = null) {
                     helper = new DependentDeleteHelper();
 
-                    return helper.cascaderemove(this, entity, options);
+                    return helper.cascadeRemove(this, entity, options);
                 }
             }
 

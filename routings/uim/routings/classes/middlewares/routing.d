@@ -29,9 +29,9 @@ class DRoutingMiddleware : IRoutingMiddleware {
      */
     protected void loadRoutes() {
         builder = Router.createRouteBuilder("/");
-        this.app.routes(builder);
+        _app.routes(builder);
         if (cast(IPluginApplication)this.app) {
-            this.app.pluginRoutes(builder);
+            _app.pluginRoutes(builder);
         }
     }
     
@@ -77,7 +77,7 @@ class DRoutingMiddleware : IRoutingMiddleware {
             return handler.handle(request);
         }
         container = cast(IContainerApplication)this.app
-            ? this.app.getContainer()
+            ? _app.getContainer()
             : null;
         middleware = new DMiddlewareQueue(matching, container);
         runner = new DRunner();

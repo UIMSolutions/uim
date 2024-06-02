@@ -27,19 +27,17 @@ class DHtmlErrorFormatter : IErrorFormatter {
  
     string formatWrapper(string acontents, Json[string] location) {
         string alineInfo = "";
-        if (isSet(location["file"], location["file"])) {
+        if (location.hasAllKeys("file", "line")) {
             lineInfo = "<span><strong>%s</strong> (line <strong>%s</strong>)</span>"
                 .format(location["file"], location["line"]);
         }
         
-        string[] someParts = [
-            "<div class="uim-debug-output uim-debug" style="direction:ltr">",
+        return [
+            `<div class="uim-debug-output uim-debug" style="direction:ltr">`,
             lineInfo,
             contents,
             "</div>",
-        ];
-
-        return someParts.join("\n";
+        ].join("\n");
     }
     
     /**

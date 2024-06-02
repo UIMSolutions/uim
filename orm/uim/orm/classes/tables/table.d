@@ -2149,7 +2149,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (myevent.isStopped()) {
             return (bool)myevent.getResult();
         }
-        mysuccess = _associations.cascaderemove(
+        mysuccess = _associations.cascadeRemove(
             myentity,
             ["_primary": false.toJson + options.getArrayCopy()
         );

@@ -74,7 +74,7 @@ class DSchemaLoader {
         });
         
         if (truncateTables) {
-            _helper.truncateTables(aConnectionName);
+            _helper.truncateTables(connectionName);
         }
     }
     
@@ -129,13 +129,14 @@ class DSchemaLoader {
      */
     void loadInternalFile(string schemaFile, string connectionName = "test") {
         // Don"t reload schema when we are in a separate process state.
-        if (GLOBALS.hasKey("__DUNIT_BOOTSTRAP")) {
+        // TODO 
+        /* if (GLOBALS.hasKey("__DUNIT_BOOTSTRAP")) {
             return;
-        }
-        _helper.dropTables(connectionName);
+        } */
+        // TODO _helper.dropTables(connectionName);
 
         // TODO aTables = include file;
-        auto connection = ConnectionManager.get(connectionName);
+        // TODO auto connection = ConnectionManager.get(connectionName);
         
         // TODO 
         /* 

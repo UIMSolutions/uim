@@ -12,8 +12,7 @@ import uim.oop;
  * Any test that calls Connection.rollback(true) will break this strategy.
  */
 class DTransactionStrategy : IFixtureStrategy {
-    /* 
-        mixin TConfigurable;
+    mixin TConfigurable;
 
     this() {
         initialize;
@@ -39,12 +38,15 @@ class DTransactionStrategy : IFixtureStrategy {
     
     protected DFixtureHelper helper;
 
-    protected IFixture[] fixtures;
+    // TODO protected IFixture[] fixtures;
 
-    this() {
+    // TODO 
+    /* this() {
         _helper = new DFixtureHelper();
-    }
+    } */
  
+    // TODO 
+    /*
     void setupTest(string[] fixtureNames) {
         if (isEmpty(fixtureNames)) {
             return;

@@ -60,7 +60,7 @@ class DCorsBuilder {
      * string[]|string adomains The allowed domains
      */
     void allowOrigin(string[] allowedDomains) {
-        auto normalizeDomains = _normalizeDomains((array)allowedDomains);
+        auto normalizeDomains = _normalizeDomains(/* (array) */allowedDomains);
         foreach (domain; normalizeDomains) {
             if (!preg_match(domain["preg"], _origin)) {
                 continue;

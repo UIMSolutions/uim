@@ -391,7 +391,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *
      * - `from`: another Time object representing the "now" time
      * - `format`: a fall back format if the relative time is longer than the duration specified by end
-     * - `accuracy`: Specifies how accurate the date should be described (array)
+     * - `accuracy`: Specifies how accurate the date should be described /* (array) */
      *   - year:   The format if years > 0   (default "day")
      *   - month:  The format if months > 0  (default "day")
      *   - week:   The format if weeks > 0   (default "day")

@@ -637,7 +637,7 @@ class DResponse : IResponse {
             return array_map(this.mapType(...), ctype);
         }
         foreach (_mimeTypes as alias: types) {
-            if (in_array(ctype, (array)types, true)) {
+            if (in_array(ctype, /* (array) */types, true)) {
                 return alias;
             }
         }
@@ -863,7 +863,7 @@ class DResponse : IResponse {
      * containing the list for variances.
      */
     static withVary(string[] acacheVariances) {
-        return _withHeader("Vary", (array)cacheVariances);
+        return _withHeader("Vary", /* (array) */cacheVariances);
     }
     
     /**

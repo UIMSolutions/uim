@@ -34,7 +34,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         server = normalizeServer(server ?? _SERVER);
         ["uri": anUri, "base": base, "webroot": webroot] = UriFactory.marshalUriAndBaseFromSapi(server);
 
-        sessionConfig = (array)configuration.get("Session") ~ [
+        sessionConfig = /* (array) */configuration.get("Session") ~ [
             "defaults": "D",
             "cookiePath": webroot,
         ];

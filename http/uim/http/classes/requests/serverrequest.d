@@ -697,7 +697,7 @@ class DServerRequest { // }: IServerRequest {
             if (!name.isNull) {
                 name = name.lower.replace("_", " ");
                 name = ucwords(name).replace(" ", "-");
-                result[name] = (array)kv.value;
+                result[name] = /* (array) */kv.value;
             }
         }
         return result;
@@ -722,7 +722,7 @@ class DServerRequest { // }: IServerRequest {
     string[] getHeader(string headerName) {
         name = this.normalizeHeaderName(headerName);
         return _environmentData.hasKey(headerName)
-            ? (array)_environmentData[headerName]
+            ? /* (array) */_environmentData[headerName]
             : null;
     }
     
@@ -757,7 +757,7 @@ class DServerRequest { // }: IServerRequest {
         if (isSet(new._environmentData[name])) {
             existing = (array)new._environmentData[name];
         }
-        existing = array_merge(existing, (array)aValue);
+        existing = array_merge(existing, /* (array) */aValue);
         new._environmentData[name] = existing;
 
         return new;
@@ -1177,7 +1177,7 @@ class DServerRequest { // }: IServerRequest {
      * string[]|string httpMethods Allowed HTTP request methods.
      */
     bool allowMethod(string[] amethods) {
-         someMethods = (array) someMethods;
+         someMethods = /* (array) */ someMethods;
         foreach (someMethods as method) {
             if (this.is(method)) {
                 return true;

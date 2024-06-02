@@ -698,7 +698,7 @@ class DMessage { //: JsonSerializable {
             if (isEmpty(aValue) && aValue != "0") {
                 continue;
             }
-            foreach ((array)aValue as val) {
+            foreach (/* (array) */aValue as val) {
                  aHeaders ~= aKey ~ ": " ~ val;
             }
         }
@@ -945,7 +945,7 @@ class DMessage { //: JsonSerializable {
         this.createBoundary();
         string[] message;
 
-        contentIds = array_filter((array)Hash.extract(this.attachments, "{s}.contentId"));
+        contentIds = array_filter(/* (array) */Hash.extract(this.attachments, "{s}.contentId"));
         hasInlineAttachments = count(contentIds) > 0;
         hasAttachments = !_attachments.isEmpty;
         hasMultipleTypes = this.emailFormat == MESSAGE_BOTH;
@@ -1449,7 +1449,7 @@ class DMessage { //: JsonSerializable {
         Json[string] = this.JsonSerialize();
         array_walk_recursive(array, void (& anItem, aKey) {
             if (cast(DSimpleXMLElement)anItem ) {
-                 anItem = Json_decode((string)Json_encode((array) anItem), true);
+                 anItem = Json_decode((string)Json_encode(/* (array) */ anItem), true);
             }
         });
 

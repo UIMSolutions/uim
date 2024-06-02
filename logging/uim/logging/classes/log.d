@@ -308,7 +308,7 @@ class DLog {
                 "Invalid log level `%s`".format(level));
         }
         logged = false;
-        context = (array)context;
+        context = /* (array) */context;
         if (isSet(context[0])) {
             context = ["scope": context];
         }
@@ -326,7 +326,7 @@ class DLog {
             }
             auto correctLevel = levels.isEmpty || in_array(level, levels, true);
              anInScope = scopes.isNull && context.isEmpty("scope")) || scopes == [] ||
-                isArray(scopes) && array_intersect((array)context["scope"], scopes);
+                isArray(scopes) && array_intersect(/* (array) */context["scope"], scopes);
 
             if (correctLevel &&  anInScope) {
                 logger.log(level, message, context);

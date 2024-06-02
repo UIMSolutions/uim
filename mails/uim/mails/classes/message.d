@@ -1067,10 +1067,10 @@ class DMessage { //: JsonSerializable {
             if (isEmpty(dirEntry["contentId"])) {
                 continue;
             }
-            someData = dirEntry["data"] ?? this.readFile(dirEntry["file"]);
+            auto someData = dirEntry.get("data", readFile(dirEntry["file"]));
 
-            message ~= "--" ~ boundary;
-            part = new DFormDataPart("", someData, "inline", getHeaderCharset());
+            auto message ~= "--" ~ boundary;
+            auto part = new DFormDataPart("", someData, "inline", getHeaderCharset());
             part.type(dirEntry["mimetype"]);
             part.transferEncoding("base64");
             part.contentId(dirEntry["contentId"]);

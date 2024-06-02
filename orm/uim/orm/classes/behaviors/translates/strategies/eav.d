@@ -347,11 +347,11 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             hydrated = !row.isArray;
 
             foreach (configuration.get("fields") as field) {
-                name = field ~ "_translation";
-                translation = row[name] ?? null;
+                auto name = field ~ "_translation";
+                auto translation = row.get(name);
 
-                if (translation == null || translation == false) {
-                    unset(row[name]);
+                if (translation.isEmpty) {
+                    row.remove(name);
                     continue;
                 }
 

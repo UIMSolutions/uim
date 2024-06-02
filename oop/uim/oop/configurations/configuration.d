@@ -54,9 +54,8 @@ abstract class DConfiguration : IConfiguration {
     abstract IConfiguration updateDefault(string key, Json newValue);
 
     override bool mergeDefaults(Json[string] newData) {
-        newData.byKeyValue
-            .each!(kv => mergeDefault(kv.key, kv.value));
-        return this;
+        return newData.byKeyValue
+            .all!(kv => mergeDefault(kv.key, kv.value));
     }
 
     abstract bool mergeDefault(string key, Json newValue);

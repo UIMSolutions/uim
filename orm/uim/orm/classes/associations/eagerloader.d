@@ -274,12 +274,12 @@ class DEagerLoader {
                 });
             }
             if (isArray(options)) {
-                options = isSet(options["config"]) ?
+                options = options.hasKey()"config") ?
                     options["config"] + options["associations"] :
                     options;
                 options = _reformatContain(
                     options,
-                    mypointer[mytable] ?? []
+                    mypointer.get(mytable)
                 );
             }
             if (cast(DClosure)options) {

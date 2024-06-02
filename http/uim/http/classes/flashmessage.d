@@ -103,21 +103,14 @@ class DFlashMessage {
         this.session.write("Flash." ~ options["key"], messages);
     }
     
-    /**
-     * Set an exception`s message as flash message.
-     *
-     * The following options will be set by default if unset:
-     * ```
-     * 'element": 'error",
-     * `params": ["code": exception.code()]
-     * ```
-     */
+    // Set an exception`s message as flash message.
     void setExceptionMessage(Throwable exception, Json[string] options = null) {
-        options["element"] ??= "error";
-        options["params"]["code"] ??= exception.code();
+        options = options.merge([
+            "element": "error".toJson,
+            "params.code": exception.code().toJson
+        ]);
 
-        message = exception.getMessage();
-        set(message, options);
+        set(exception.getMessage(), options);
     }
     
     // Get the messages for given key and remove from session.

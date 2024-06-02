@@ -353,12 +353,12 @@ class DPaginator : IPaginator {
     // Shim method for reading the deprecated sortWhitelist or sortableFields options.
     protected string[] getSortableFields(Json[string] configData) {
         auto allowed = configData.get("sortableFields");
-        if (allowed !== null) {
+        if (!allowed.isNull) {
             return allowed;
         }
         
-        auto deprecatedMode = configData["sortWhitelist"] ?? null;
-        if (deprecatedMode !== null) {
+        auto deprecatedMode = configData.get("sortWhitelist");
+        if (!deprecatedMode.isNull) {
             deprecationWarning("The `sortWhitelist` option is deprecated. Use `sortableFields` instead.");
         }
 

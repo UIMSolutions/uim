@@ -175,11 +175,11 @@ class Hash {
 
         conditions.each!((condition) {
             auto myattr = condition["attr"];
-            auto myop = condition["op"] ?? null;
-            auto myval = condition["val"] ?? null;
+            auto myop = condition.get("op");
+            auto myval = condition.get("val");
 
             // Presence test.
-            if (myop.isEmpty(&& myval.isEmpty(&& !mydata.isSet(myattr)) {
+            if (myop.isEmpty && myval.isEmpty && !mydata.isSet(myattr)) {
                 return false;
             }
             
@@ -191,8 +191,8 @@ class Hash {
             if (!myattrPresent) {
                 return false;
             }
-            myprop = mydata[myattr] ?? "";
-            myisBool = isBool(myprop);
+            auto myprop = mydata.getString(myattr);
+            auto myisBool = isBool(myprop);
             if (myisBool && isNumeric(myval)) {
                 myprop = myprop ? "1" : "0";
             } else if (myisBool) {

@@ -70,13 +70,13 @@ class DResultsetFactory {
             fieldNames[parts[0]][key] = parts[1];
         });
 
-        foreach (mydata["matchingAssoc"] as aliasName: myassoc) {
-            if (!fieldNames.hasKey(aliasName)) {
+        mydata["matchingAssoc"].byKeyValues.each!((nameAssoc) {
+            if (!fieldNames.hasKey(nameAssoc.key)) {
                 continue;
             }
-            mydata["matchingColumns"][aliasName] = fieldNames[aliasName];
-            unset(fieldNames[aliasName]);
-        }
+            mydata["matchingColumns"][nameAssoc.key] = fieldNames[nameAssoc.key];
+            fieldNames.remove(nameAssoc.key);
+        });
         mydata["fields"] = fieldNames;
 
         return mydata;

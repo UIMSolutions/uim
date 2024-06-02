@@ -100,10 +100,10 @@ class DErrorTrap {
         if (errorCode == E_USER_ERROR ||  errorCode == E_ERROR || errorCode == E_PARSE) {
             throw new DFatalErrorException(errorDescription, errorCode, fileName, errorTriggerLine);
         }
-        auto trace = (array)Debugger.trace(["start": 1, "format": "points"]);
+        auto trace = /* (array) */Debugger.trace(["start": 1, "format": "points"]);
         auto error = new UimError(errorCode, errorDescription, fileName, errorTriggerLine, trace);
 
-        auto anIgnoredPaths = (array)configuration.get("Error.ignoredDeprecationPaths");
+        auto anIgnoredPaths = /* (array) */configuration.get("Error.ignoredDeprecationPaths");
         if (errorCode == E_USER_DEPRECATED &&  anIgnoredPaths) {
             auto relativePath = substr((string)file, ROOT.length + 1).replace(DIRECTORY_SEPARATOR, "/");
             foreach (somePattern; anIgnoredPaths) {

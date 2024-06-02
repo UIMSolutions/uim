@@ -127,7 +127,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
         if (Json_last_error() != Json_ERROR_NONE) {
             return null;
         }
-        return (array)decodedBody;
+        return /* (array) */decodedBody;
     }
     
     // Decode XML into an array.

@@ -297,7 +297,7 @@ class DNumericPaginator : IPaginator {
     // Add sorting / ordering params.
     protected Json[string] addSortingParams(Json[string] paginatorData, Json[string] pagingData) {
         defaults = pagingData["defaults"];
-        auto order = (array) pagingData["options"]["order"];
+        auto order = /* (array) */ pagingData["options"]["order"];
         sortDefault = directionDefault = false;
 
         if (!defaults.isEmpty("order"))
@@ -326,7 +326,7 @@ class DNumericPaginator : IPaginator {
         paginationOptions.remove("finder"), paginationOptions["maxLimit"]);
 
         if (type.isArray) {
-            paginationOptions = (array) current(type)+paginationOptions;
+            paginationOptions = /* (array) */ current(type)+paginationOptions;
             type = key(type);
         }
 
@@ -375,7 +375,7 @@ class DNumericPaginator : IPaginator {
     Json[string] mergeOptions(Json[string] requestData, Json[string] settingsToMerge) {
         if (!settingsToMerge.isEmpty("scope")) {
             scope = settingsToMerge["scope"];
-            requestData = !requestData.isEmpty(scope) ? (array) requestData[scope] : [];
+            requestData = !requestData.isEmpty(scope) ? /* (array) */ requestData[scope] : [];
         }
 
         allowed = getAllowedParameters();

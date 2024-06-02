@@ -113,7 +113,7 @@ class DDebugger {
         if (!defined("E_RECOVERABLE_ERROR")) {
             define("E_RECOVERABLE_ERROR", 4096);
         }
-        aConfig = array_intersect_key((array)configuration.get("Debugger"), _defaultConfigData);
+        aConfig = array_intersect_key(/* (array) */configuration.get("Debugger"), _defaultConfigData);
         configuration.update(aConfig);
     }
     
@@ -564,7 +564,7 @@ class DDebugger {
         if (remaining > 0) {
             if (method_exists(var, "__debugInfo")) {
                 try {
-                    foreach ((array) var.__debugInfo() as aKey : val) {
+                    foreach (/* (array) */ var.__debugInfo() as aKey : val) {
                         node.addProperty(new DPropertyNode("'{aKey}'", null, export_(val, context)));
                     }
                     return node;

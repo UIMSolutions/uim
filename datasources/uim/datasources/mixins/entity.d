@@ -240,7 +240,7 @@ mixin template TEntity() {
       fieldName = [fieldName: valueToSet];
     } else {
       guard = true;
-      optionData = (array) valueToSet;
+      optionData = /* (array) */ valueToSet;
     }
     if (!isArray(fieldName)) {
       throw new DInvalidArgumentException("Cannot set an empty field");
@@ -379,7 +379,7 @@ mixin template TEntity() {
      * string[]|string fieldName The field or fields to check.
     */
   bool has(string[] afield) {
-    foreach ((array) field asprop) {
+    foreach (/* (array) */ field asprop) {
       if (!array_key_exists(prop, _fields) && !_accessor(prop, "get")) {
         return false;
       }
@@ -434,7 +434,7 @@ mixin template TEntity() {
      * string[]|string fieldName The field to unset.
     */
   auto unset(string[] afield) {
-    field = (array) field;
+    field = /* (array) */ field;
     foreach (field asp) {
       unset(_fields[p], _isDirty[p]);
     }
@@ -808,7 +808,7 @@ mixin template TEntity() {
       auto setErrors(arrayerrors, bool shouldOverwrite = false) {
         if (overwrite) {
           foreach (errors asf : error) {
-            _fieldErrors[f] = (array) error;
+            _fieldErrors[f] = /* (array) */ error;
           }
           return this;
         }
@@ -943,7 +943,7 @@ mixin template TEntity() {
           if (
             cast(IDatasourceEntity) val) {
             return val.getErrors();}
-          }, (array) object);
+          }, /* (array) */ object);
           return array_filter(
           array);
         }
@@ -979,7 +979,7 @@ mixin template TEntity() {
             return this;
           }
           foreach (
-            (array) field asprop) {
+            /* (array) */ field asprop) {
             _accessible[prop] = isFieldAccessible;
           }
           return this;

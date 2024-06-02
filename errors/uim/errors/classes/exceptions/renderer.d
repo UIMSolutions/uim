@@ -175,7 +175,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
         if (cast(UIMException)exception  ) {
             /** @psalm-suppress DeprecatedMethod */
-            foreach ((array)exception.responseHeader() as myKey: myValue) {
+            foreach (/* (array) */exception.responseHeader() as myKey: myValue) {
                 response = response.withHeader(myKey, myValue);
             }
         }
@@ -196,7 +196,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
         isDebug = Configure.read("debug");
         if (isDebug) {
-            trace = (array)Debugger.formatTrace(exception.getTrace(), [
+            trace = /* (array) */Debugger.formatTrace(exception.getTrace(), [
                 "format": "array",
                 "args": false,
             ]);

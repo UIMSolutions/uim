@@ -168,7 +168,7 @@ class DQueryExpression : DExpression { // }, Countable {
     ) {
         valueType = valueType.ifEmpty(_calculateType(fieldName)).ifEmpty("string");
         type ~= "[]";
-         someValues = cast(IExpression)someValues  ?  someValues : (array) someValues;
+         someValues = cast(IExpression)someValues  ?  someValues : /* (array) */ someValues;
 
         return _add(new DComparisonExpression(fieldName,  someValues, valueType, "IN"));
     }
@@ -207,7 +207,7 @@ class DQueryExpression : DExpression { // }, Countable {
         string valueType = null
     ) {
         valueType = valueType.ifEmpty(_calculateType(fieldName)).ifEmpty("string");
-         someValues = cast(IExpression)valuesToBound  ?  valuesToBound : (array) valuesToBound;
+         someValues = cast(IExpression)valuesToBound  ?  valuesToBound : /* (array) */ valuesToBound;
 
         return _add(new DComparisonExpression(fieldName,  valuesToBound, valueType, "NOT IN"));
     }

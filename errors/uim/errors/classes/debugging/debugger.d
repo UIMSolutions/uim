@@ -651,7 +651,7 @@ class DDebugger {
         if (remaining > 0) {
             if (method_exists(var, "__debugInfo")) {
                 try {
-                    foreach ((array)var.__debugInfo() as key: val) {
+                    foreach (/* (array) */var.__debugInfo() as key: val) {
                         node.addProperty(new DPropertyNode(""{key}"", null, export_(val, context)));
                     }
 

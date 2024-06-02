@@ -384,22 +384,22 @@ class DSelectLoader {
      * @param Json[string] options The options passed to the eager loader
      */
     protected Json[string] _buildResultMap(Query fetchQuery, Json[string] optionData) {
-        resultMap = null;
-        singleResult = in_array(this.associationType, [Association.MANY_TO_ONE, Association.ONE_TO_ONE], true);
-        keys = in_array(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) ?
+        auto resultMap = null;
+        auto singleResult = in_array(this.associationType, [Association.MANY_TO_ONE, Association.ONE_TO_ONE], true);
+        auto keys = in_array(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) ?
             this.foreignKey :
             this.bindingKey;
         key = (array)keys;
 
-        foreach (fetchQuery.all() as result) {
-            values = null;
-            foreach (key as k) {
+        foreach (result; fetchQuery.all()) {
+            string[] values = null;
+            foreach (k; key) {
                 values ~= result[k];
             }
             if (singleResult) {
                 resultMap[values.join(";")] = result;
             } else {
-                resultMap[implode(";", values)] ~= result;
+                resultMap[values.join(";")] ~= result;
             }
         }
 
@@ -458,7 +458,7 @@ class DSelectLoader {
                 values ~= row[key];
             }
 
-            key = implode(";", values);
+            key = values.join(";");
             if (isset(resultMap[key])) {
                 row[nestKey] = resultMap[key];
             }

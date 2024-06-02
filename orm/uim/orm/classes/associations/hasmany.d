@@ -433,15 +433,14 @@ class DHasManyAssociation : DAssociation {
      * @param Json[string] conditions The conditions that specifies what are the objects to be unlinked
      * @param Json[string] options list of options accepted by `Table.remove()`
      */
-        protected bool _unlink(Json[string] foreignKey, Table myTarget, Json[string] conditions = null, Json[string] options = null) {
+        protected bool _unlink(Json[string] foreignKey, DORMTable myTarget, Json[string] conditions = null, Json[string] options = null) {
             mustBeDependent = (!_foreignKeyAcceptsNull(
                     myTarget, foreignKey) || getDependent());
 
             if (mustBeDependent) {
                 if (
                     _cascadeCallbacks) {
-                    conditions = new DQueryExpression(
-                        conditions);
+                    conditions = new DQueryExpression(conditions);
                     conditions.traverse(
                         void(entry) use(
                             myTarget) {

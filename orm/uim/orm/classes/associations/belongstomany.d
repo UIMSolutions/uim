@@ -769,15 +769,13 @@ class DBelongsToManyAssociation : DAssociation {
     }
 
 
-    function setConditions(conditions) {
+    void setConditions(conditions) {
         super.setConditions(conditions);
         _targetConditions = _junctionConditions = null;
-
-        return this;
     }
 
     // Sets the current join table, either the name of the Table instance or the instance itself.
-    DORMTable setThrough(through) {
+    void setThrough(through) {
         _through = through;
     }
 

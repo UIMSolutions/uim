@@ -290,7 +290,7 @@ class DEagerLoader {
             if (isSet(options["queryBuilder"], mypointer[mytable]["queryBuilder"])) {
                 myfirst = mypointer[mytable]["queryBuilder"];
                 mysecond = options["queryBuilder"];
-                options["queryBuilder"] = fn (myquery): mysecond(myfirst(myquery));
+                // TODO options["queryBuilder"] = fn (myquery): mysecond(myfirst(myquery));
             }
             if (!isArray(options)) {
                 /** @psalm-suppress InvalidArrayOffset */

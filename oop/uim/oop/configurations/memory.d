@@ -40,7 +40,7 @@ class DMemoryConfiguration : DConfiguration {
             .all!(kv => updateDefault(kv.key, kv.value));
     }
 
-    override IConfiguration updateDefault(string key, Json value) {
+    override bool updateDefault(string key, Json value) {
         _defaultData[key] = value;
         return this;
     }

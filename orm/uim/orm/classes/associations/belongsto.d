@@ -129,7 +129,7 @@ class DBelongsToAssociation : DAssociation {
             string message = ;
             throw new DRuntimeException(
 "Cannot match provided foreignKeys for '%s', got '(%s)' but expected foreign key for '(%s)'"
-                .format(_name, implode(", ", foreignKeys), bindingKeys.join(", ")
+                .format(_name, foreignKeys.join(", "), bindingKeys.join(", ")
             ));
         }
 

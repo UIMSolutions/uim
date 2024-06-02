@@ -379,7 +379,7 @@ class DDebugger {
 
         return ["array", "points"].has(options.getString("format"))
             ? back 
-            : implode("\n", back);
+            : back.join("\n");
     }
 
     /**

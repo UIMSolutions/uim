@@ -422,7 +422,7 @@ class DAssociation : IAssociation {
         if (!in_array(name, _validStrategies, true)) {
             throw new DInvalidArgumentException(
                 "Invalid strategy '%s' was provided. Valid options are (%s)."
-                    .format(name, implode(", ", _validStrategies));
+                    .format(name, _validStrategies.join(", "));
             );
         }
         _strategy = name;
@@ -827,8 +827,8 @@ class DAssociation : IAssociation {
         auto conditions = null;
         auto tAlias = _name;
         auto sAlias = source().aliasName();
-        auto foreignKeys = (array) options["foreignKeys"];
-        auto bindingKeys = (array) bindingKeys();
+        auto foreignKeys = /* (array) */ options["foreignKeys"];
+        auto bindingKeys = /* (array) */ bindingKeys();
 
         if (count(foreignKeys) != count(bindingKeys)) {
             if (bindingKeys.isEmpty) {
@@ -840,24 +840,20 @@ class DAssociation : IAssociation {
                 throw new DRuntimeException(format(msg, table));
             }
 
-            msg = "Cannot match provided foreignKeys for '%s', got "( % s) " but expected foreign key for "(
-
-                
-
-                    % s) "";
+            string message = "Cannot match provided foreignKeys for '%s', got '(%s)' but expected foreign key for '(%s)'";
             throw new DRuntimeException(format(
-                    msg,
+                    message,
                     _name,
-                    implode(", ", foreignKeys),
+                    foreignKeys.join(", "),
                     bindingKeys.join(", ")
             ));
         }
 
-        foreach (foreignKeys as k : f) {
-            field = "%s.%s".format(sAlias, bindingKeys[k]);
-            value = new DIdentifierExpression(format("%s.%s", tAlias, f));
+        foreignKeys.byKeyValue.each!((kv) {
+            auto field = "%s.%s".format(sAlias, bindingKeys[kv.key]);
+            auto value = new DIdentifierExpression(format("%s.%s", tAlias, kv.value));
             conditions[field] = value;
-        }
+        });
 
         return conditions;
     }

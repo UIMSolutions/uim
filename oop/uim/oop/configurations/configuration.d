@@ -50,7 +50,7 @@ abstract class DConfiguration : IConfiguration {
             .all!(kv => updateDefault(kv.key, kv.value));
     }
 
-    abstract IConfiguration updateDefault(string key, Json newValue);
+    abstract bool updateDefault(string key, Json newValue);
 
     override bool mergeDefaults(Json[string] newData) {
         return newData.byKeyValue

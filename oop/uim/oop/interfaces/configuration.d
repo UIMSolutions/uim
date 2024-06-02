@@ -19,7 +19,7 @@ interface IConfiguration : INamed {
         Json getDefault(string key);
 
         bool updateDefaults(Json[string] newData);
-        IConfiguration updateDefault(string key, Json newData);
+        bool updateDefault(string key, Json newData);
 
         bool mergeDefaults(Json[string] newData);
         bool mergeDefault(string key, Json newData);

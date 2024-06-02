@@ -1,4 +1,4 @@
-module uim.models.datatypes.interface_;
+module uim.models.data.interface_;
 
 import uim.models;
 

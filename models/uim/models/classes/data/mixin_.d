@@ -1,4 +1,4 @@
-module uim.models.datatypes.mixin_;
+module uim.models.data.mixin_;
 
 string dataThis(string name) {
   string fullName = name ~ "Data";

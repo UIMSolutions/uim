@@ -402,15 +402,14 @@ class DClient { // }: IClient {
      * @param Json[string] options Additional options to use.
      */
   Response send(IRequest myrequest, Json[string] options = null) {
-    auto myredirects = 0;
-    if (isSet(options["redirect"])) {
-      myredirects = (int) options["redirect"];
-      options.remove("redirect"]);
+    int myredirects = 0;
+    if (options.hasKey("redirect")) {
+      myredirects = options.getInt("redirect");
+      options.remove("redirect");
     }
     do {
-      myresponse = _sendRequest(myrequest, options);
-
-      myhandleRedirect = myresponse.isRedirect() && myredirects-- > 0;
+      auto myresponse = _sendRequest(myrequest, options);
+      auto myhandleRedirect = myresponse.isRedirect() && myredirects-- > 0;
       if (myhandleRedirect) {
         auto requestUrl = myrequest.getUri();
 
@@ -430,9 +429,7 @@ class DClient { // }: IClient {
     return myresponse;
   }
 
-  /**
-     * Clear all mocked responses
-     */
+  // Clear all mocked responses
   static void clearMockResponses() {
     _mockAdapter = null;
   }
@@ -460,7 +457,7 @@ class DClient { // }: IClient {
     if (!_mockAdapter) {
       _mockAdapter = new DMockAdapter();
     }
-    myrequest = new DRequest(myurl, mymethod);
+    auto myrequest = new DRequest(myurl, mymethod);
     _mockAdapter.addResponse(myrequest, myresponse, options);
   }
 

@@ -11,11 +11,10 @@ import uim.oop;
  * @internal
  */
 class DMiddlewareDispatcher {
-    /* 
     // The application that is being dispatched.
     protected IHttpApplication _app;
 
-    this(IHttpApplication testApp) {
+    /* this(IHttpApplication testApp) {
         _app = testApp;
     }
     
@@ -26,26 +25,22 @@ class DMiddlewareDispatcher {
             return _resolveRoute(urlToResolve);
         }
         return Router.url(urlToResolve);
-    }
+    } */
     
-    /**
-     * Convert a URL array into a string URL via routing.
-     * Params:
-     * Json[string] urlToResolve The url to resolve
-     */ 
+    // Convert a URL array into a string URL via routing.
     protected string resolveRoute(string[] urlToResolve) {
         // Simulate application bootstrap and route loading.
         // We need both to ensure plugins are loaded.
         _app.bootstrap();
-        if (cast(IPluginApplication)this.app) {
+        if (cast(IPluginApplication)_app) {
             _app.pluginBootstrap();
         }
-        builder = Router.createRouteBuilder("/");
-
-        if (cast(IRoutingApplication)this.app) {
+                
+        auto builder = Router.createRouteBuilder("/");
+        if (cast(IRoutingApplication)_app) {
             _app.routes(builder);
         }
-        if (cast(IPluginApplication)this.app) {
+        if (cast(IPluginApplication)_app) {
             _app.pluginRoutes(builder);
         }
          result = Router.url(urlToResolve);

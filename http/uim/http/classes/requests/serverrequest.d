@@ -248,20 +248,21 @@ class DServerRequest { // }: IServerRequest {
         }
        _environmentData = configData["environment"];
 
-        this.uri = anUri;
+        _uri = anUri;
         _base = configData["base"];
-        this.webroot = configData["webroot"];
+        _webroot = configData["webroot"];
 
-        if (isSet(configData["input"])) {
+        DStream stream;
+        if (configData.hasKey("input")) {
             stream = new DStream("D://memory", "rw");
             stream.write(configData["input"]);
             stream.rewind();
         } else {
             stream = new DStream("D://input");
         }
-        this.stream = stream;
+        _stream = stream;
 
-        post = configData["post"];
+        auto post = configData["post"];
         if (!(isArray(post) || isObject(post) || post.isNull)) {
             throw new DInvalidArgumentException(
                 "`post` key must be an array, object or null. " ~ 
@@ -269,20 +270,18 @@ class DServerRequest { // }: IServerRequest {
                 .format(get_debug_type(post)
             ));
         }
-        this.data = post;
-        this.uploadedFiles = configData["files"];
-        this.query = configData["query"];
-        this.params = configData["params"];
-        this.session = configData["session"];
-        this.flash = new DFlashMessage(this.session);
+        _data = post;
+        _uploadedFiles = configData["files"];
+        _query = configData["query"];
+        _params = configData["params"];
+        _session = configData["session"];
+        _flash = new DFlashMessage(this.session);
     }
     
     /**
      * Set environment vars based on `url` option to facilitate IUri instance generation.
      *
      * `query` option is also updated based on URL`s querystring.
-     * Params:
-     * Json[string] configData Config array.
      */
     protected Json[string] processUrlOption(Json[string] configData = null) {
         if (configData["url"][0] != "/") {

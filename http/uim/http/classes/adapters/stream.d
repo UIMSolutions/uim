@@ -121,9 +121,9 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * @param Json[string] options Array of options to use.
      */
     protected void _buildContent(IRequest request, Json[string] options = null) {
-        body = request.getBody();
-        body.rewind();
-       _contextOptions["content"] = body.getContents();
+        auto body_ = request.getBody();
+        body_.rewind();
+       _contextOptions["content"] = body_.getContents();
     }
     
     // Build miscellaneous options for the request.
@@ -132,15 +132,15 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
        _contextOptions["protocol_version"] = request.getProtocolVersion();
        _contextOptions["ignore_errors"] = true;
 
-        if (isSet(optionsToUse["timeout"])) {
+        if (optionsToUse.hasKey("timeout")) {
            _contextOptions["timeout"] = optionsToUse["timeout"];
         }
         // Redirects are handled in the client layer because of cookie handling issues.
        _contextOptions["max_redirects"] = 0;
 
-        if (isSet(optionsToUse["proxy"]["proxy"])) {
+        if (optionsToUse.hasKey("proxy.proxy")) {
            _contextOptions["request_fulluri"] = true;
-           _contextOptions["proxy"] = optionsToUse["proxy"]["proxy"];
+           _contextOptions["proxy"] = optionsToUse.get("proxy.proxy");
         }
     }
     
@@ -151,7 +151,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * @param Json[string] optionsToUse Array of optionsToUse to use.
      */
     protected void _buildSslContext(IRequest request, Json[string] optionsToUse = null) {
-        sslOptions = [
+        auto sslOptions = [
             "ssl_verify_peer",
             "ssl_verify_peer_name",
             "ssl_verify_depth",
@@ -177,13 +177,9 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         });
     }
     
-    /**
-     * Open the stream and send the request.
-     * Params:
-     * \Psr\Http\Message\IRequest request The request object.
-     */
+    // Open the stream and send the request.
     protected Json[string] _send(IRequest request) {
-        deadline = false;
+        auto deadline = false;
         if (isSet(_contextOptions["timeout"]) && _contextOptions["timeout"] > 0) {
             /** @var int deadline */
             deadline = time() + _contextOptions["timeout"];

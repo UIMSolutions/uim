@@ -124,7 +124,7 @@ class DOauth {
         // auth header generation already encodes independently
         someValues["oauth_consumer_key"] = authCredentials["consumerKey"];
 
-        if (isSet(authCredentials["realm"])) {
+        if (authCredentials.hasKey("realm")) {
             someValues["oauth_realm"] = authCredentials["realm"];
         }
         string[] aKey = [

@@ -390,17 +390,17 @@ class DResponse : IResponse {
            _createStream();
         }
         if (isSet(options["body"])) {
-            this.stream.write(options["body"]);
+           _stream.write(options["body"]);
         }
         if (isSet(options["status"])) {
            _setStatus(options["status"]);
         }
-        if (!isSet(options"charset"])) {
+        if (!options.hasKey("charset")) {
             options["charset"] = configuration.get("App.encoding");
         }
        _charset = options["charset"];
         type = "text/html";
-        if (isSet(options["type"])) {
+        if (options.hasKey("type")) {
             type = this.resolveType(options["type"]);
         }
        _setContentType(type);
@@ -1015,7 +1015,7 @@ class DResponse : IResponse {
      * If body is a callable, a blank string is returned.
      */
     override string toString() {
-        this.stream.rewind();
+       _stream.rewind();
 
         return _stream.getContents();
     }

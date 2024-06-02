@@ -141,10 +141,10 @@ class DClientResponse { // }: Message : IResponse {
             /** @Dstan-var non-empty-string aName */
             string name = strip(name);
             string normalized = name.lower;
-            if (isSet(this.headers[name])) {
-                this.headers[name] ~= aValue;
+            if (_headers.hasKey(name)) {
+                _headers[name] ~= aValue;
             } else {
-                this.headers[name] = (array)aValue;
+                _headers[name] = (array)aValue;
                 this.headerNames[normalized] = name;
             }
         }
@@ -184,7 +184,7 @@ class DClientResponse { // }: Message : IResponse {
         return _statusCode;
     }
     
-    static withStatus(int statusCode, string reasonPhrase = null) {
+    static auto withStatus(int statusCode, string reasonPhrase = null) {
         auto newResponse = clone this;
         newResponse.code = code;
         newResponse.reasonPhrase = reasonPhrase;
@@ -308,14 +308,14 @@ class DClientResponse { // }: Message : IResponse {
     
     // Provides magic __get() support.
     protected STRINGAA _getHeaders() {
-        auto results;
-        this.headers.byKeyValue.each!(kv => results[kv.key] = kv.value.join(","));
-        return result;
+        STRINGAA results;
+        _headers.byKeyValue.each!(kv => results[kv.key] = kv.value.join(","));
+        return results;
     }
     
     // Provides magic __get() support.
     protected string _getBody() {
-        this.stream.rewind();
+        _stream.rewind();
 
         return _stream.getContents();
     }

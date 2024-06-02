@@ -74,7 +74,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      */
     protected static ServerRequest marshalBodyAndRequestMethod(Json[string] parsedBody, ServerRequest serverRequest) {
         method = serverRequest.getMethod();
-        override = false;
+        shouldOverride = false;
 
         if (
             in_array(method, ["PUT", "DELETE", "PATCH"], true) &&
@@ -85,21 +85,19 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         }
         if (serverRequest.hasHeader("X-Http-Method-Override")) {
             parsedBody["_method"] = serverRequest.getHeaderLine("X-Http-Method-Override");
-            override = true;
+            shouldOverride = true;
         }
         serverRequest = serverRequest.withenviroment("ORIGINAL_REQUEST_METHOD", method);
-        if (isSet(parsedBody["_method"])) {
+        if (parsedBody.hasKey("_method")) {
             serverRequest = serverRequest.withenviroment("REQUEST_METHOD", parsedBody["_method"]);
             unset(parsedBody["_method"]);
-            override = true;
+            shouldOverride = true;
         }
-        if (
-            override &&
-            !in_array(serverRequest.getMethod(), ["PUT", "POST", "DELETE", "PATCH"], true)
-        ) {
-            parsedBody = null;
-        }
-        return serverRequest.withParsedBody(parsedBody);
+        
+        return shouldOverride &&
+            !["PUT", "POST", "DELETE", "PATCH"].has(serverRequest.getMethod())
+            ? serverRequest.withParsedBody(null)
+            : serverRequest.withParsedBody(parsedBody);
     }
     
     /**

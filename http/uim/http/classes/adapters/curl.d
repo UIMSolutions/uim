@@ -106,12 +106,12 @@ class DCurl { // }: IAdapter {
             .filter!(optionCurlOpt => clientOptions.hasKey(optionCurlOpt.key))
             .each!(optionCurlOpt => result[optionCurlOpt.value] = clientOptions[optionCurlOpt.key]);
             
-        if (isSet(clientOptions["proxy"]["proxy"])) {
+        if (clientOptions.hasKey("proxy.proxy")) {
              result[CURLOPT_PROXY] = clientOptions["proxy"]["proxy"];
         }
-        if (isSet(clientOptions["proxy"]["username"])) {
-            password = !clientOptions["proxy"]["password"].isEmpty) ? clientOptions["proxy"]["password"] : "";
-             result[CURLOPT_PROXYUSERPWD] = clientOptions["proxy"]["username"] ~ ": " ~ password;
+        if (clientOptions.hasKey("proxy.username")) {
+            password = !clientOptions.isEmpty("proxy.password") ? clientOptions["proxy"]["password"] : "";
+             result[CURLOPT_PROXYUSERPWD] = clientOptions.getString("proxy.username") ~ ": " ~ password;
         }
         if (isSet(clientOptions["curl"]) && isArray(clientOptions["curl"])) {
             // Can`t use array_merge() because keys will be re-ordered.

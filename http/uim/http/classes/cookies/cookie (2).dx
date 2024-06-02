@@ -104,10 +104,10 @@ class DCookie : ICookie {
     static void setDefaults(Json[string] options = null) {
         auto options = options.copy;
 
-        if (isSet(options["expires"])) {
+        if (options.hasKey("expires")) {
             options["expires"] = dateTimeInstance(options["expires"]);
         }
-        if (isSet(options["samesite"])) {
+        if (options.hasKey("samesite")) {
             options["samesite"] = resolveSameSiteEnum(options["samesite"]);
         }
         defaultAttributes = options.update(defaultAttributes);

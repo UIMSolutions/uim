@@ -31,39 +31,42 @@ class DOauth {
         credentials["method"] = credentials.getString("method").upper;
 
         switch (credentials["method"]) {
-            case "HMAC-SHA1": 
-                bool hasKeys = credentials.hasKeys(["consumerSecret", "token", "tokenSecret"]);
-                if (!hasKeys) {
-                    return request;
-                }
-                aValue = _hmacSha1(request, credentials);
-                break;
+        case "HMAC-SHA1":
+            bool hasKeys = credentials.hasKeys([
+                "consumerSecret", "token", "tokenSecret"
+            ]);
+            if (!hasKeys) {
+                return request;
+            }
+            aValue = _hmacSha1(request, credentials);
+            break;
 
-            case "RSA-SHA1": 
-                if (!isSet(credentials["privateKey"])) {
-                    return request;
-                }
-                aValue = _rsaSha1(request, credentials);
-                break;
+        case "RSA-SHA1":
+            if (!isSet(credentials["privateKey"])) {
+                return request;
+            }
+            aValue = _rsaSha1(request, credentials);
+            break;
 
-            case "PLAINTEXT": 
-                hasKeys = isSet(
-                    credentials["consumerSecret"],
-                    credentials["token"],
-                    credentials["tokenSecret"]
-                );
-                if (!hasKeys) {
-                    return request;
-                }
-                aValue = _plaintext(request, credentials);
-                break;
+        case "PLAINTEXT":
+            hasKeys = isSet(
+                credentials["consumerSecret"],
+                credentials["token"],
+                credentials["tokenSecret"]
+            );
+            if (!hasKeys) {
+                return request;
+            }
+            aValue = _plaintext(request, credentials);
+            break;
 
-            default:
-                throw new UimException("Unknown Oauth signature method `%s`.".format(credentials["method"]));
+        default:
+            throw new UimException(
+                "Unknown Oauth signature method `%s`.".format(credentials["method"]));
         }
         return request.withHeader("Authorization", aValue);
     }
-    
+
     /**
      * Plaintext signing
      *
@@ -84,16 +87,18 @@ class DOauth {
             "oauth_consumer_key": authCredentials["consumerKey"],
         ];
         if (authCredentials.hasKey("realm")) {
-             someValues["oauth_realm"] = authCredentials["realm"];
+            someValues["oauth_realm"] = authCredentials["realm"];
         }
-        
-        string[] keys = [authCredentials["consumerSecret"], authCredentials["tokenSecret"]];
+
+        string[] keys = [
+            authCredentials["consumerSecret"], authCredentials["tokenSecret"]
+        ];
         string key = keys.join("&");
         someValues["oauth_signature"] = key;
 
         return _buildAuth(someValues);
     }
-    
+
     /**
      * Use HMAC-SHA1 signing.
      *
@@ -103,9 +108,9 @@ class DOauth {
      * @param Json[string] authCredentials Authentication authCredentials.
      */
     protected string _hmacSha1(Request request, Json[string] authCredentials) {
-        auto nonce = authCredentials["nonce"] ?? uniqid();
-        auto timestamp = authCredentials["timestamp"] ?? time();
-         someValues = [
+        auto nonce = authCredentials["nonce"] ?  ? uniqid();
+        auto timestamp = authCredentials["timestamp"] ?  ? time();
+        someValues = [
             "oauth_version": "1.0",
             "oauth_nonce": nonce,
             "oauth_timestamp": timestamp,
@@ -113,26 +118,28 @@ class DOauth {
             "oauth_token": authCredentials["token"],
             "oauth_consumer_key": _encode(authCredentials["consumerKey"]),
         ];
-        baseString = this.baseString(request,  someValues);
+        baseString = this.baseString(request, someValues);
 
         // Consumer key should only be encoded for base string calculation as
         // auth header generation already encodes independently
-         someValues["oauth_consumer_key"] = authCredentials["consumerKey"];
+        someValues["oauth_consumer_key"] = authCredentials["consumerKey"];
 
         if (isSet(authCredentials["realm"])) {
-             someValues["oauth_realm"] = authCredentials["realm"];
+            someValues["oauth_realm"] = authCredentials["realm"];
         }
-        string[] aKey = [authCredentials["consumerSecret"], authCredentials["tokenSecret"]];
+        string[] aKey = [
+            authCredentials["consumerSecret"], authCredentials["tokenSecret"]
+        ];
         aKey = array_map(_encode(...), aKey);
         aKey = aKey.join("&");
 
-         someValues["oauth_signature"] = base64_encode(
+        someValues["oauth_signature"] = base64_encode(
             hash_hmac("sha1", baseString, aKey, true)
         );
 
         return _buildAuth(someValues);
     }
-    
+
     /**
      * Use RSA-SHA1 signing.
      * This method is suitable for plain HTTP or HTTPS. */
@@ -140,28 +147,28 @@ class DOauth {
         if (!function_exists("openssl_pkey_get_private")) {
             throw new UimException("RSA-SHA1 signature method requires the OpenSSL extension.");
         }
-        nonce = credentials["nonce"] ?? bin2hex(Security.randomBytes(16));
-        timestamp = credentials["timestamp"] ?? time();
-         someValues = [
+        nonce = credentials["nonce"] ?  ? bin2hex(Security.randomBytes(16));
+        timestamp = credentials["timestamp"] ?  ? time();
+        someValues = [
             "oauth_version": "1.0",
             "oauth_nonce": nonce,
             "oauth_timestamp": timestamp,
             "oauth_signature_method": "RSA-SHA1",
             "oauth_consumer_key": credentials["consumerKey"],
         ];
-        if (isSet(credentials["consumerSecret"])) {
-             someValues["oauth_consumer_secret"] = credentials["consumerSecret"];
+        if (credentials.hasKey("consumerSecret")) {
+            someValues["oauth_consumer_secret"] = credentials["consumerSecret"];
         }
-        if (isSet(credentials["token"])) {
-             someValues["oauth_token"] = credentials["token"];
+        if (credentials.hasKey("token")) {
+            someValues["oauth_token"] = credentials["token"];
         }
-        if (isSet(credentials["tokenSecret"])) {
-             someValues["oauth_token_secret"] = credentials["tokenSecret"];
+        if (credentials.hasKey("tokenSecret")) {
+            someValues["oauth_token_secret"] = credentials["tokenSecret"];
         }
-        baseString = this.baseString(request,  someValues);
+        baseString = this.baseString(request, someValues);
 
         if (credentials.hasKey("realm")) {
-             someValues["oauth_realm"] = credentials["realm"];
+            someValues["oauth_realm"] = credentials["realm"];
         }
         if (isResource(credentials["privateKey"])) {
             auto resource = credentials["privateKey"];
@@ -170,8 +177,8 @@ class DOauth {
             credentials["privateKey"] = privateKey;
         }
         credentials.merge([
-            "privateKeyPassphrase": "",
-        ]);
+                "privateKeyPassphrase": "",
+            ]);
         if (isResource(credentials["privateKeyPassphrase"])) {
             auto resource = credentials["privateKeyPassphrase"];
             auto passphrase = stream_get_line(resource, 0, D_EOL);
@@ -186,11 +193,11 @@ class DOauth {
         openssl_sign(baseString, signature, privateKey);
         this.checkSslError();
 
-         someValues["oauth_signature"] = base64_encode(signature);
+        someValues["oauth_signature"] = base64_encode(signature);
 
         return _buildAuth(someValues);
     }
-    
+
     /**
      * Generate the Oauth basestring
      *
@@ -203,19 +210,19 @@ class DOauth {
     string baseString(Request request, Json[string] oauthData) {
         auto someParts = [
             request.getMethod(),
-           _normalizedUrl(request.getUri()),
-           _normalizedParams(request, oauthData),
+            _normalizedUrl(request.getUri()),
+            _normalizedParams(request, oauthData),
         ];
         someParts = array_map(_encode(...), someParts);
 
         return join("&", someParts);
     }
-    
+
     // Builds a normalized URL
     protected string _normalizedUrl(IUri anUri) {
         return anUri.getScheme() ~ ": //" ~ anUri.getHost().lower ~ anUri.getPath();
     }
-    
+
     /**
      * Sorts and normalizes request data and oauthData
      *
@@ -228,8 +235,8 @@ class DOauth {
      * @param Json[string] oauthData Oauth values.
      */
     protected string _normalizedParams(Request request, Json[string] oauthData) {
-        aQuery = parse_url((string)request.getUri(), UIM_URL_QUERY);
-        parse_str((string)aQuery, aQueryArgs);
+        aQuery = parse_url((string) request.getUri(), UIM_URL_QUERY);
+        parse_str((string) aQuery, aQueryArgs);
 
         post = null;
         string contentType = request.getHeaderLine("Content-Type");
@@ -246,16 +253,16 @@ class DOauth {
 
         return join("&", someData);
     }
-    
+
     /**
      * Recursively convert request data into the normalized form.
      * Params:
      * Json[string] someArguments The arguments to normalize.
      * @param string aPath The current path being converted.
      */
-    protected Json[string] _normalizeData(Json[string] someArguments, string aPath= null) {
+    protected Json[string] _normalizeData(Json[string] someArguments, string aPath = null) {
         someData = null;
-        foreach (someArguments as aKey: aValue) {
+        foreach (someArguments as aKey : aValue) {
             if (somePath) {
                 // Fold string keys with [].
                 // Numeric keys result in a=b&a=c. While this isn`t
@@ -275,23 +282,23 @@ class DOauth {
         }
         return someData;
     }
-    
+
     // Builds the Oauth Authorization header value.
     protected string _buildAuth(Json[string] oauthData) {
         string result = "OAuth ";
         string[] params = someData.byKeyValue
-            .map!(kv => kv.key ~ "=\"" ~ _encode((string)kv.value) ~ "\"").array;
+            .map!(kv => kv.key ~ "=\"" ~ _encode((string) kv.value) ~ "\"").array;
 
-         result ~= params.join(",");
+        result ~= params.join(",");
 
         return result;
     }
-    
+
     // URL Encodes a value based on rules of rfc3986
     protected string _encode(string valueToEncode) {
         return rawurlencode(valueToEncode).replace(["%7E", "+"], ["~", " "]);
     }
-    
+
     // Check for SSL errors and throw an exception if found.
     protected void checkSslError() {
         string error = "";

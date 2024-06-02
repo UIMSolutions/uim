@@ -537,7 +537,7 @@ class DClient { // }: IClient {
   protected DRequest _createRequest(string mymethod, string myurl, Json mydata, Json[string] options = null) {
     /** @var array<non-empty-string, non-empty-string>  myheaders */
     myheaders = (array)(options["headers"] ?  ? []);
-    if (isSet(options["type"])) {
+    if (options.hasKey("type")) {
       myheaders = chain(myheaders, _typeHeaders(options["type"]));
     }
     if (isString(mydata) && !isSet(myheaders["Content-Type"]) && !isSet(

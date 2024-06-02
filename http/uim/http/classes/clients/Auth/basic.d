@@ -13,9 +13,9 @@ import uim.http;
 class DBasic {
     // Add Authorization header to the request.
     Request authentication(IRequest request, Json[string] credentials) {
-        if (isSet(credentials["username"], credentials["password"])) {
-            aValue = _generateHeader(credentials["username"], credentials["password"]);
-            request = request.withHeader("Authorization", aValue);
+        if (credentials.hasAllKeys("username", "password")) {
+            auto headerValue = _generateHeader(credentials["username"], credentials["password"]);
+            request = request.withHeader("Authorization", headerValue);
         }
         return request;
     }

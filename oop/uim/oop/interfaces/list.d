@@ -3,7 +3,7 @@ module uim.oop.interfaces.list;
 import uim.oop;
 @safe:
 
-interface IList {
+interface IList(T) {
   // Appends the specified element to the end of this list (optional operation).
   /* O add(this O)(T addItem);
 

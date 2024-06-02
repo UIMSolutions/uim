@@ -166,11 +166,11 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         }
         if (!optionsToUse.isEmpty("ssl_verify_host")) {
             url = request.getUri();
-            host = parse_url((string)url, UIM_URL_HOST);
+            host = parse_url(url.toString, UIM_URL_HOST);
            _sslContextOptions["peer_name"] = host;
         }
         sslOptions.each!((key) {
-            if (isSet(optionsToUse[aKey])) {
+            if (optionsToUse.asKey(aKey)) {
                 name = substr(aKey, 4);
                _sslContextOptions[name] = optionsToUse[aKey];
             }

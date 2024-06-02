@@ -80,7 +80,7 @@ class DFixtureHelper {
      * \Closure aCallback Callback run per connection
      * @param array<\UIM\Datasource\IFixture> fixtures Test fixtures
      */
-    void runPerConnection(Closure aCallback, Json[string] fixtures) {
+    void runPerConnection(DClosure aCallback, Json[string] fixtures) {
         auto anGroups = null;
         fixtures
             .each!(fixture => anGroups[fixture.connection()] ~= fixture);
@@ -113,7 +113,7 @@ class DFixtureHelper {
     }
     
     // Inserts all fixtures for a connection and provides friendly errors for bad data.
-    protected void insertConnection(IConnection fixtureConnection, IFixture[] connectionFixtures) {
+    protected void insertConnection(DConnection fixtureConnection, DFixture[] connectionFixtures) {
         // TODO
         /*
         connectionFixtures.each!((fixture) {

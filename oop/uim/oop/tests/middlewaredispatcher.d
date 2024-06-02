@@ -55,29 +55,29 @@ class DMiddlewareDispatcher {
     }
     
     // Create a PSR7 request from the request spec.
-    protected IServerRequest _createRequest(Json[string] spec) {
-        if (spec.hasKey("input")) {
-            spec["post"] = null;
-            spec["environment"]["uimUIM_INPUT"] = spec["input"];
+    protected DServerRequest _createRequest(Json[string] requestSpec) {
+        if (requestSpec.hasKey("input")) {
+            requestSpec["post"] = null;
+            requestSpec["environment"]["uimUIM_INPUT"] = requestSpec["input"];
         }
         environment = array_merge(
-            chain(_SERVER, ["REQUEST_URI": spec["url"]]),
-            spec["environment"]
+            chain(_SERVER, ["REQUEST_URI": requestSpec["url"]]),
+            requestSpec["environment"]
         );
         if (environment["UIM_SELF"].has("Dunit")) {
             environment["UIM_SELF"] = "/";
         }
         request = ServerRequestFactory.fromGlobals(
             environment,
-            spec["query"],
-            spec["post"],
-            spec["cookies"],
-            spec["files"]
+            requestSpec["query"],
+            requestSpec["post"],
+            requestSpec["cookies"],
+            requestSpec["files"]
         );
 
         return request
-            .withAttribute("session", spec["session"])
-            .withAttribute("flash", new DFlashMessage(spec["session"]));
+            .withAttribute("session", requestSpec["session"])
+            .withAttribute("flash", new DFlashMessage(requestSpec["session"]));
     }
     
     // Run a request and get the response.

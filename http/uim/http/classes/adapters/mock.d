@@ -13,9 +13,8 @@ import uim.http;
  * @internal
  */
 class DMockAdapter { //}: IAdapter {
-    /*alias Alias = ;
     // List of mocked responses.
-    protected Json[string] responses = null;
+    protected Json[string] _responses = null;
 
     /**
      * Add a mocked response.
@@ -25,14 +24,14 @@ class DMockAdapter { //}: IAdapter {
      * - `match` An additional closure to match requests with.
      */
     void addResponse(IRequest requestForMatch, Response response, Json[string] options = null) {
-        if (isSet(options["match"]) && !(cast(DClosure)options["match"])) {
-            type = get_debug_type(options["match"]);
+        if (options.haskey("match") && !(cast(DClosure)options["match"])) {
+            auto type = get_debug_type(options["match"]);
             throw new DInvalidArgumentException(
                 "The `match` option must be a `Closure`. Got `%s`."
                 .format(type
             ));
         }
-        this.responses ~= [
+        _responses ~= [
             "request": requestForMatch,
             "response": response,
             "options": options,
@@ -45,11 +44,12 @@ class DMockAdapter { //}: IAdapter {
         auto method = requestToMatch.getMethod();
         auto requestUri = to!string(requestToMatch.getUri());
 
-        foreach (anIndex: mock; this.responses) {
+        size_t foundIndex = -1;
+        foreach (index: mock; _responses) {
             if (method != mock["request"].getMethod()) {
                 continue;
             }
-            if (!this.urlMatches(requestUri, mock["request"])) {
+            if (!urlMatches(requestUri, mock["request"])) {
                 continue;
             }
             if (isSet(mock["options"]["match"])) {
@@ -61,15 +61,15 @@ class DMockAdapter { //}: IAdapter {
                     continue;
                 }
             }
-            found = anIndex;
+            foundIndex = index;
             break;
         }
-        if (!found.isNull) {
+        if (foundIndex >= 0) {
             // Move the current mock to the end so that when there are multiple
             // matches for a URL the next match is used on subsequent requests.
-            mock = this.responses[found];
-            unset(this.responses[found]);
-            this.responses ~= mock;
+            auto mock = _responses[foundIndex];
+            _responses.remove(foundIndex);
+            _responses ~= mock;
 
             return [mock["response"]];
         }

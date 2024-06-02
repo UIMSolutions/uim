@@ -593,11 +593,9 @@ mixin template TIntegrationTest() {
      * Fetches a view variable by name.
      *
      * If the view variable does not exist, null will be returned.
-     * Params:
-     * string aName The view variable to get.
      */
-    Json viewVariable(string aName) {
-        return _controller?.viewBuilder().getVar(name);
+    Json viewVariable(string varName) {
+        return _controller ? controller.viewBuilder().getVar(varName) : Json(null);
     }
     
     // Asserts that the response status code is in the 2xx range.
@@ -633,7 +631,7 @@ mixin template TIntegrationTest() {
             fail("No response set, cannot assert header.");
         }
         
-        auto verboseMessage = this.extractVerboseMessage(failureMessage);
+        auto verboseMessage = extractVerboseMessage(failureMessage);
         // TODO 
         /* 
         this.assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
@@ -1069,7 +1067,7 @@ mixin template TIntegrationTest() {
     // Inspect controller to extract possible causes of the failed assertion
     protected string extractVerboseMessage(string originalMessage) {
         if (cast(DException)_exception) {
-            originalMessage ~= this.extractExceptionMessage(_exception);
+            originalMessage ~= extractExceptionMessage(_exception);
         }
         if (_controller.isNull) {
             return originalMessage;

@@ -93,7 +93,7 @@ class DConnectionHelper {
     }
     
     // Runs callback with constraints disabled correctly per-database
-    void runWithoutConstraints(Connection dbConnection, Closure aCallback) {
+    void runWithoutConstraints(DConnection dbConnection, DClosure aCallback) {
         // TODO if (dbConnection.getDriver().supports(DriverFeatures.DISABLE_CONSTRAINT_WITHOUT_TRANSACTION)) {
         /*     dbConnection.disableConstraints(fn (Connection configName): aCallback(configName));
         } else {

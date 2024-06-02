@@ -1,4 +1,4 @@
-module uim.models.data.maps.helper;
+module uim.models.classes.data.maps.helper;
 
 import uim.models;
 

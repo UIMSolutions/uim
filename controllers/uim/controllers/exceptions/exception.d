@@ -5,7 +5,7 @@ import uim.controllers;
 @safe:
 
 // Controller exception.
-class DControllersException : UimException {
+class DControllersException : DException {
   mixin(ExceptionThis!("Controllers"));
 
   override bool initialize(Json[string] initData = null) {

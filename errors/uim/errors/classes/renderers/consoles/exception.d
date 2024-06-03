@@ -53,7 +53,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
         ];
 
         debug = configuration.get("debug");
-        if (debug && cast(UimException)exceptionToRender) {
+        if (debug && cast(DException)exceptionToRender) {
             attributes = exceptionToRender.getAttributes();
             if (attributes) {
                 result ~= "";

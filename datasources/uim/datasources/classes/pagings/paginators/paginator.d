@@ -164,7 +164,7 @@ class DPaginator : IPaginator {
             myQuery = objectToPaginate;
             objectToPaginate = myQuery.getRepository();
             if (objectToPaginate == null) {
-                throw new DuimException("No repository set for query.");
+                throw new DDException("No repository set for query.");
             }
         }
 

@@ -5,7 +5,7 @@ import uim.errors;
 @safe:
 
 // Base error exception.
-class DErrorsException : UimException {
+class DErrorsException : DException {
   mixin(ExceptionThis!("Errors"));
 
   override bool initialize(Json[string] initData = null) {

@@ -58,7 +58,7 @@ class DQueryCacher {
         if (!isString(result)) {
             string message = "Cache key functions must return a string. Got %s."
             .format(var_export_(result, true));
-            throw new UimException(message);
+            throw new DException(message);
         }
         return result;
     }

@@ -5,7 +5,7 @@ import uim.entitybases;
 @safe:
 
 // Datasource exception.
-class DEntitybasesException : UimException {
+class DEntitybasesException : DException {
   mixin(ExceptionThis!("Entitybases"));
 
   override bool initialize(Json[string] initData = null) {

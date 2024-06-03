@@ -5,7 +5,7 @@ import uim.databases;
 @safe:
 
 // Database exception.
-class DDatabaseException : UimException {
+class DDatabaseException : DException {
   mixin(ExceptionThis!("Database"));
 
   override bool initialize(Json[string] initData = null) {

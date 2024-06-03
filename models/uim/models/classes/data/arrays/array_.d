@@ -70,7 +70,7 @@ class DArrayData : DData {
 
     IData[] values;
     for (auto i = 0; i < checkValue.length; i++) {
-      values ~= checkValue[i].toData;
+      // TODO values ~= checkValue[i].toData;
     }
     return isEqual(values);
   }
@@ -121,7 +121,7 @@ class DArrayData : DData {
   }
 
   override IData clone() {
-    return ArrayData; // (attribute, toJson);
+    return new DArrayData; // (attribute, toJson);
   }
 
   override size_t length() {

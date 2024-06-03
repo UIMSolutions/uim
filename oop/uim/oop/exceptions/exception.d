@@ -8,7 +8,7 @@ module uim.oop.exceptions.exception;
 import uim.oop;
 
 @safe:
-class DException : IException {
+class DException : Exception {
   this(
     string message,
     string file = __FILE__,
@@ -81,7 +81,6 @@ class DException : IException {
      * made available in the view when a development error is displayed.
      */
 // TODO protected Json[string] _attributes = null;
- */
 // --- protected string _messageTemplate = "";
 
 // Array of headers to be passed to {@link uim.Http\Response.withHeader()}

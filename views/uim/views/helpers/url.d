@@ -32,7 +32,7 @@ class UrlHelper : DHelper {
         /** @var class-string<\UIM\Routing\Asset>|null myengineClass */
         myengineClass = App.className(myengineClassConfig, "Routing");
         if (myengineClass.isNull) {
-            throw new UimException("Class for `%s` could not be found.".format(myengineClassConfig));
+            throw new DException("Class for `%s` could not be found.".format(myengineClassConfig));
         }
        _assetUrlClassName = myengineClass;
     }

@@ -70,7 +70,7 @@ class DUUIDData : DData {
   }
 
   alias opEquals = DData.opEquals;
-  override bool opEquals(UUID equalValue) {
+  /* override  */bool opEquals(UUID equalValue) {
     return (get == equalValue);
   }
   ///

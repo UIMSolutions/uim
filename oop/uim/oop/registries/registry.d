@@ -14,7 +14,7 @@ class DObjectRegistry(T : Object) {
 	}
 
 	public static DObjectRegistry!T registry() {
-		if (_registry.isNull) {
+		if (_registry is null) {
 			_registry = new DObjectRegistry!T;
 		}
 		return _registry;

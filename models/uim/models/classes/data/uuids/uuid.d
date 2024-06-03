@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DUUIDData : DData {
-  mixin(DataThis!("UUIDData", "UUID"));
+  mixin(DataThis!("UUID"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -98,7 +98,7 @@ class DUUIDData : DData {
   }
 }
 
-mixin(DataCalls!("UUIDData", "UUID"));
+mixin(DataCalls!("UUID"));
 
 version (test_uim_models) {
   unittest {

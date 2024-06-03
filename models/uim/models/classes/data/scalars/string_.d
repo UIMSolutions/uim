@@ -87,7 +87,8 @@ class DStringData : DScalarData {
   }
 
   string opCall() {
-    return value();
+    return null; 
+    // TODO return value();
   }
 
   mixin(ScalarOpCall!([]));
@@ -102,7 +103,7 @@ class DStringData : DScalarData {
     }
     return;
 
-    set(strValue.value);
+    // TODO set(strValue.value);
   }
   ///
   unittest {
@@ -120,7 +121,7 @@ class DStringData : DScalarData {
       return false;
     }
     if (auto data = cast(DStringData) checkData) {
-      return (value == data.value);
+      // TODO return (value == data.value);
     }
     return false;
   }
@@ -134,7 +135,8 @@ class DStringData : DScalarData {
   }
 
   override bool isEqual(string checkValue) {
-    return (value == checkValue);
+    return false;
+    // TODO return (value == checkValue);
   }
   ///
   unittest {

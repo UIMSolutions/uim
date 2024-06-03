@@ -42,61 +42,65 @@ class DNumberData : DScalarData {
   }
 
   // #region set
-  mixin(ScalarOpCall!(["int", "long", "float", "double"]));
+   // TODO  mixin(ScalarOpCall!(["int", "long", "float", "double"]));
 
-  override void set(IData newValue) {
-    if (newValue.isNull) {
-      _value = 0.0;
-      return;
+    /* override void set(IData newValue) {
+      if (newValue.isNull) {
+        _value = 0.0;
+        return;
+      }
+
+      auto numberValue = cast(DNumberData)newValue;
+      if (numberValue.isNull) {
+        _value = 0.0;
+        return;
+      }
+
+      set(numberValue.value);
+    } */
+
+    override void set(int newValue) {
+      _value = to!double(newValue);
     }
 
-    auto numberValue = cast(DNumberData)newValue;
-    if (numberValue.isNull) {
-      _value = 0.0;
-      return;
+    override void set(long newValue) {
+      _value = to!double(newValue);
     }
 
-    set(numberValue.value);
-  }
-
-  override void set(Json newValue) {
-    if (newValue.isInteger /* || newValue.isDouble */ ) {
-      set(newValue.get!double);
+    override void set(float newValue) {
+      _value = to!double(newValue);
     }
 
-    if (newValue.isString) {
-      set(newValue.get!string);
+    override void set(double newValue) {
+      _value = newValue;
     }
-  }
 
-  override void set(string newValue) {
-    if (newValue.isNumeric) {
-      set(to!double(newValue));
+    override void set(string newValue) {
+      if (newValue.isNumeric) {
+        set(to!double(newValue));
+      }
     }
-  }
 
-  void set(int newValue) {
-    _value = to!double(newValue);
-  }
+    override void set(Json newValue) {
+      if (newValue.isInteger /* || newValue.isDouble */ ) {
+        set(newValue.get!int);
+      }
 
-  void set(long newValue) {
-    _value = to!double(newValue);
-  }
+      if (newValue.isString) {
+        set(newValue.get!string);
+      }
 
-  void set(float newValue) {
-    _value = to!double(newValue);
-  }
+      if (newValue.isDouble) {
+        set(newValue.get!double);
+      }
 
-  void set(double newValue) {
-    _value = newValue;
-  }
+      if (newValue.isNumeric) {
+        set(newValue.get!double);
+      }
+
+      // TODO Throw Exception
+    }  
   // #endregion set
-  ///
-  unittest {
-    auto data = NumberData(0.0);
-    data.set(1.1);
-    writeln(data);
-  }
   // #endregion Getter & Setter
   ///
   unittest {

@@ -32,7 +32,6 @@ public {
 
 public { // Modules
     import uim.models.classes.data.helper;
-    import uim.models.classes.data.interface_;
     import uim.models.classes.data.null_;
     import uim.models.classes.data.mixin_;
 }

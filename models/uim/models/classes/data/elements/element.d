@@ -30,7 +30,8 @@ class DElementData : DData {
 
   // #region Getter & Setter
   DElement get() {
-    return _value;
+    return null; 
+    // TODO return _value;
   }
 
   void set(DElement newValue) {

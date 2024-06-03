@@ -9,12 +9,14 @@ import uim.models;
 
 @safe:
 
-class DMapData {
-  this() {
-    initialize;
-  }
+class DMapData : DData {
+  mixin(DataThis!("Map")); 
 
-  bool initialize(Json[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
+
     return true;
   }
 
@@ -28,7 +30,7 @@ class DMapData {
     return key in _items ? true : false;
   }
 
-  string[] keys() {
+  override string[] keys() {
     return _items.keys;
   }
 
@@ -37,7 +39,6 @@ class DMapData {
   }
 
   Json opIndex(string name) {
-    
     return _items.get(name, NullData);
   }
 
@@ -81,7 +82,7 @@ class DMapData {
 
   }
 
-  Json toJson() {
+  override Json toJson() {
     return toJson(Json.emptyObject);
   }
 

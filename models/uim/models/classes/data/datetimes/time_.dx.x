@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DTimeData : DData {
-  mixin(DataThis!("TimeData", "TimeOfDay"));  
+  mixin(DataThis!("Time"));  
 
   protected TimeOfDay _value;  
   TimeOfDay value() {
@@ -67,7 +67,7 @@ alias toJson = DData.toJson;
     if (isNull) return null; 
     return get.toISOExtString; }
 }
-mixin(DataCalls!("TimeData", "TimeOfDay"));  
+mixin(DataCalls!("Time"));  
 
 unittest {   
   /* 

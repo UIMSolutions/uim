@@ -83,15 +83,15 @@ class DBooleanData : DScalarData {
   // #endregion set 
 
   // #region equal
-  mixin(ScalarOpEquals!(["bool"]));
-  override bool isEqual(IData checkData) {
+  // mixin(ScalarOpEquals!(["bool"]));
+  /* override bool isEqual(IData checkData) {
     if (checkData.isNull || key != checkData.key) {
       return false;
     }
 
     auto data = cast(DBooleanData) checkData;
     return data !is null ? data.value : false;
-  }
+  } */
 
   override bool isEqual(Json checkValue) {
     if (checkValue.isNull || !checkValue.isBoolean) {

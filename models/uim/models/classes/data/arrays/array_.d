@@ -44,7 +44,7 @@ class DArrayData : DData {
   }
 
   // #region equal
-  override bool isEqual(IData checkData) {
+  bool isEqual(IData checkData) {
     auto arrayData = cast(DArrayData)checkData;
     if (arrayData.isNull) {
       return false;

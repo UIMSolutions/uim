@@ -13,148 +13,406 @@ class DData : IData {
     this.initialize;
   }
 
-  this(string newValue) {
-    this().set(newValue);
-  }
-
-  this(Json newValue) {
-    this().set(newValue);
-  }
-
-  /* this(DAttribute theAttribute) {
-    this().attribute(theAttribute);
-  }*/
-
   // Hook
   bool initialize(Json[string] initData = null) {
-    configuration(MemoryConfiguration);
-    configuration.data(initData);
+    _value = Json.emptyObject;
+
     return true;
   }
-
-  mixin TConfigurable;
 
   // #region properties
   // mixin(TProperty!("DAttribute", "attribute"));
 
-  mixin(TProperty!("bool", "isBoolean"));
-  bool toBoolean() {
-    return false;
+  // #region typeName
+    string typeName() {
+      return _value.hasKey("typeName")
+        ? _value["typeName"].get!string : null;
+    }
+
+    void typeName(string name) {
+      _value["typeName"] = name;
+    }
+  // #endregion typeName
+
+  // #region name
+    string name() {
+      return _value.hasKey("name")
+        ? _value["name"].get!string : null;
+    }
+
+    void name(string name) {
+      _value["name"] = name;
+    }
+  // #endregion name
+
+  bool isBoolean() {
+    return _value.hasKey("isBoolean")
+      ? _value["isBoolean"].get!bool : false;
   }
 
-  mixin(TProperty!("bool", "isInteger"));
-  int toInteger() { return 0; }
-  long toLong() { return 0; }
+  void isBoolean(bool mode) {
+    _value["isBoolean"] = mode;
+  }
 
-  mixin(TProperty!("bool", "isNumber"));
-    float toFloat()  { return 0.0; }
-    double toDouble() { return 0.0; }
+  bool isInteger() {
+    return _value.hasKey("isInteger")
+      ? _value["isInteger"].get!bool : false;
+  }
 
-  mixin(TProperty!("bool", "isTime"));
-  mixin(TProperty!("bool", "isDate"));
-  mixin(TProperty!("bool", "isDatetime"));
-  mixin(TProperty!("bool", "isTimestamp"));
-  mixin(TProperty!("bool", "isString"));
-  mixin(TProperty!("bool", "isNumeric"));
+  void isInteger(bool mode) {
+    _value["isInteger"] = mode;
+  }
 
-  mixin(TProperty!("bool", "isScalar"));
-  mixin(TProperty!("bool", "isArray"));
-  mixin(TProperty!("bool", "isObject"));
-  mixin(TProperty!("bool", "isEntity"));
-  mixin(TProperty!("bool", "isUUID"));
+  bool isNumber() {
+    return _value.hasKey("isNumber")
+      ? _value["isNumber"].get!bool : false;
+  }
 
-  mixin(TProperty!("bool", "isReadOnly"));
-  mixin(TProperty!("bool", "isNullable"));
+  void isNumber(bool mode) {
+    _value["isNumber"] = mode;
+  }
 
-  mixin(TProperty!("string", "typeName"));
-  mixin(TProperty!("string", "name"));
+  bool isTime() {
+    return _value.hasKey("isTime")
+      ? _value["isTime"].get!bool : false;
+  }
+
+  void isTime(bool mode) {
+    _value["isTime"] = mode;
+  }
+
+  bool isDate() {
+    return _value.hasKey("isDate")
+      ? _value["isDate"].get!bool : false;
+  }
+
+  void isDate(bool mode) {
+    _value["isDate"] = mode;
+  }
+
+  bool isDatetime() {
+    return _value.hasKey("isDatetime")
+      ? _value["isDatetime"].get!bool : false;
+  }
+
+  void isDatetime(bool mode) {
+    _value["isDatetime"] = mode;
+  }
+
+  bool isTimestamp() {
+    return _value.hasKey("isTimestamp")
+      ? _value["isTimestamp"].get!bool : false;
+  }
+
+  void isTimestamp(bool mode) {
+    _value["isTimestamp"] = mode;
+  }
+
+  bool isString() {
+    return _value.hasKey("isString")
+      ? _value["isString"].get!bool : false;
+  }
+
+  void isString(bool mode) {
+    _value["isString"] = mode;
+  }
+
+  bool isNumeric() {
+    return _value.hasKey("isNumeric")
+      ? _value["isNumeric"].get!bool : false;
+  }
+
+  void isNumeric(bool mode) {
+    _value["isNumeric"] = mode;
+  }
+
+  bool isScalar() {
+    return _value.hasKey("isScalar")
+      ? _value["isScalar"].get!bool : false;
+  }
+
+  void isScalar(bool mode) {
+    _value["isScalar"] = mode;
+  }
+
+  bool isArray() {
+    return _value.hasKey("isArray")
+      ? _value["isArray"].get!bool : false;
+  }
+
+  void isArray(bool mode) {
+    _value["isArray"] = mode;
+  }
+
+  bool isObject() {
+    return _value.hasKey("isObject")
+      ? _value["isObject"].get!bool : false;
+  }
+
+  void isObject(bool mode) {
+    _value["isObject"] = mode;
+  }
+
+  bool isEntity() {
+    return _value.hasKey("isEntity")
+      ? _value["isEntity"].get!bool : false;
+  }
+
+  void isEntity(bool mode) {
+    _value["isEntity"] = mode;
+  }
+
+  bool isUUID() {
+    return _value.hasKey("isUUID")
+      ? _value["isUUID"].get!bool : false;
+  }
+
+  void isUUID(bool mode) {
+    _value["isUUID"] = mode;
+  }
+
+  // #region isReadOnly
+    bool isReadOnly() {
+      return _value.hasKey("isReadOnly")
+        ? _value["isReadOnly"].get!bool : false;
+    }
+
+    void isReadOnly(bool mode) {
+      _value["isReadOnly"] = mode;
+    }
+  // #endregion isReadOnly
+
+  // #region isNullable
+    bool isNullable() {
+      return _value.hasKey("isNullable")
+        ? _value["isNullable"].get!bool : false;
+    }
+
+    void isNullable(bool mode) {
+      _value["isNullable"] = mode;
+    }
+  // #region isNullable
+
+  // #region get
+    bool getBool() {
+      return isBoolean && _value.hasKey("value")
+        ? _value["value"].get!bool : false;
+    }
+
+    int getInt() {
+      return isInt && _value.hasKey("value")
+        ? _value["value"].get!int : 0;
+    }
+
+    long getLong() {
+      return isLong && _value.hasKey("value")
+        ? _value["value"].get!long : 0;
+    }
+
+    float getFloat() {
+      return isFloat && _value.hasKey("value")
+        ? _value["value"].get!float : 0.0;
+    }
+
+    double getDouble() {
+      return isDouble && _value.hasKey("value")
+        ? _value["value"].get!double : 0.0;
+    }
+
+    string getString() {
+      return isString && _value.hasKey("value")
+        ? _value["value"].get!string : null;
+    }
+
+    UUID getUUID() {
+      return isUUID && _value.hasKey("value")
+        ? UUID(_value["value"].get!string) : UUID();
+    }
+
+    Json getJson() {
+      return _value.hasKey("value")
+        ? _value["value"].clone : Json(null);
+    }
+  // #endregion get
+
+
 
   // #region isNull
-  private bool _isNull;
-  bool isNull() {
-    if (isNullable)
-      return isNull;
-    return false;
-  }
+    bool isNull() {
+      return _value.hasKey("value")
+        ? _value["value"].isNull : true;
+    }
 
-  void isNull(bool newNull) {
-    if (isNullable)
-      _isNull = newNull;
-  }
+    void isNull(bool status) {
+      if (isNullable) {
+        _value["value"] = Json(null);
+      }
+    }
   // #endregion isNull
   // #endregion properties 
 
   // #region set
-  void set(IData newValue) {
-    if (isReadOnly) {
-      return;
+    void set(bool newValue) {
+      if (!isReadOnly) {
+        _value["value"] = newValue;
+      }
     }
-    // TODO
-  }
+
+    void set(int newValue) {
+      if (!isReadOnly) {
+        _value["value"] = newValue;
+      }
+    }
+
+    void set(long newValue) {
+      if (!isReadOnly) {
+        _value["value"] = newValue;
+      }
+    }
+
+    void set(float newValue) {
+      if (!isReadOnly) {
+        _value["value"] = newValue;
+      }
+    }
+
+    void set(double newValue) {
+      if (!isReadOnly) {
+        _value["value"] = newValue;
+      }
+    }
+
+    void set(string newValue) {
+      if (!isReadOnly) {
+        _value["value"] = newValue;
+      }
+    }
+
+    void set(UUID newValue) {
+      if (!isReadOnly) {
+        _value["value"] = newValue.toString;
+      }
+    }
+
     void set(Json newValue) {
-    if (isReadOnly) {
-      return;
+      if (!isReadOnly) {
+        _value["value"] = newValue;
+      }
     }
-    // TODO
-  }
-
-  void set(string newValue) {
-    if (isReadOnly) {
-      return;
-    }
-    // TODO
-  }
-
-  void opCall(IData newValue) {
-    set(newValue);
-  }
-
-  void opCall(Json newValue) {
-    set(newValue);
-  }
-
-  void opCall(string newValue) {
-    set(newValue);
-  }
   // #endregion set
 
-  // #region equals
-  bool opEquals(IData[string] checkData) {
-    return isEqual(checkData);
-  }
+  // #region opCall - Example: x("value")
+      void opCall(bool newValue) {
+        set(newValue);
+      }
 
-  bool opEquals(string checkValue) {
-    return isEqual(checkValue);
-  }
+      void opCall(int newValue) {
+        set(newValue);
+      }
 
-  bool opEquals(IData checkValue) {
-    return isEqual(checkValue);
-  }
+      void opCall(long newValue) {
+        set(newValue);
+      }
 
-  bool opEquals(Json checkValue) {
-    return isEqual(checkValue);
-  }
+      void opCall(float newValue) {
+        set(newValue);
+      }
 
-  bool isEqual(IData[string] checkData) {
-    return false;
-  }
+      void opCall(double newValue) {
+        set(newValue);
+      }
 
-  bool isEqual(IData checkValue) {
-    return false;
-  }
+      void opCall(string newValue) {
+        set(newValue);
+      }
 
-  bool isEqual(Json checkValue) {
-    return false;
-  }
+      void opCall(Json newValue) {
+        set(newValue);
+      }
+    // #endregion opCall
+  // #region equal
+    //#region opEquals
+      bool opEquals(bool checkValue) {
+        return isEqual(checkValue);
+      }
 
-  bool isEqual(string checkValue) {
-    return false;
-  }
-  // #endregion equals
+      bool opEquals(int checkValue) {
+        return isEqual(checkValue);
+      }
 
-  IData[] values() {
-    return null;
-  }
+      bool opEquals(long checkValue) {
+        return isEqual(checkValue);
+      }
+
+      bool opEquals(float checkValue) {
+        return isEqual(checkValue);
+      }
+
+      bool opEquals(double checkValue) {
+        return isEqual(checkValue);
+      }
+
+      bool opEquals(string checkValue) {
+        return isEqual(checkValue);
+      }
+
+      bool opEquals(UUID checkValue) {
+        return isEqual(checkValue);
+      }
+
+      bool opEquals(Json checkValue) {
+        return isEqual(checkValue);
+      }
+    //#endregion opEquals
+
+    // #region isEqual
+      bool isEqual(bool checkValue) {
+        return !isNull
+          ? getBool == checkValue
+          : false;
+      }
+
+      bool isEqual(int checkValue) {
+        return !isNull
+          ? getInt == checkValue
+          : false;
+      }
+
+      bool isEqual(long checkValue) {
+        return !isNull
+          ? getLong == checkValue
+          : false;
+      }
+
+      bool isEqual(float checkValue) {
+        return !isNull
+          ? getFloat == checkValue
+          : false;
+      }
+
+      bool isEqual(double checkValue) {
+        return !isNull
+          ? getDouble == checkValue
+          : false;
+      }
+
+      bool isEqual(string checkValue) {
+        return !isNull
+          ? getString == checkValue
+          : false;
+      }
+
+      bool isEqual(UUID checkValue) {
+        return !isNull
+          ? getUUID == checkValue
+          : false;
+      }
+
+      bool isEqual(Json checkValue) {
+        return false;
+      }
+    // #endregion isEqual
+  // #endregion equal
 
   // #region key/keys
   mixin(TProperty!("string", "key"));
@@ -258,30 +516,50 @@ class DData : IData {
     return null;
   }
 
+  IData create() {
+    return new DData;
+  }
+
   IData clone() {
-    return null;
+    auto result = create();
+    result.fromJson();
+    return result;
   }
 
-  Json toJson() {
-    return Json(null);
-  }
+  // #region export
+    Json toJson() {
+      return _value.clone;
+    }
 
-  override string toString() {
-    return null;
-  }
-  
-  string[] toStringArray() {
-    return [toString];
-  }
+    override string toString() {
+      STRINGAA results;
+      _value.byKeyValue.each!(kv => results[kv.key] = kv.value.get!string);
+      return results;
+    }
+  // #endregion export
 
-  void fromJson(Json newValue) {
-  }
-
-  void fromString(string newValue) {
-  }
+  // #region import
+    void fromString(STRINGAA newValue, bool shouldOverwrite = true) {
+      // TODO 
+      /* 
+      if (shouldOverwrite) {
+        _value = _value.update(newValue);
+      } else {
+        _value = _value.merge(newValue);
+      } 
+      */
+    }
+    
+    void fromJson(Json newValue, bool shouldOverwrite = true) {
+      if (shouldOverwrite) {
+        _value = _value.update(newValue);
+      } else {
+        _value = _value.merge(newValue);
+      } 
+    }
+  // #endregion import
 }
 
-version (test_uim_models) {
   unittest {
     void value = new DData;
     assert(!value.isNull);
@@ -292,5 +570,4 @@ version (test_uim_models) {
     assert(!value.isNullable);
     assert(!value.isObject);
     assert(!value.isArray);
-  }
 }

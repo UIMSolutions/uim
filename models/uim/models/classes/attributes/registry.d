@@ -12,5 +12,5 @@ class DAttributeRegistry : DObjectRegistry!DAttribute {
 }
 
 auto AttributeRegistry() { // Singleton
-  return DAttributeRegistry.instance;
+  return DAttributeRegistry.registry;
 }

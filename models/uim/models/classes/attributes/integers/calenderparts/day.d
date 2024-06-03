@@ -11,7 +11,7 @@ import uim.models;
 
 /* means.calendar
 means.calendar.day */
-class DDayPartAttribute : DIntegerCalendarPart {
+class DDayPartAttribute : DIntegerCalendarPartAttribute {
   mixin(AttributeThis!("DayPart"));
 
   override bool initialize(Json[string] initData = null) {

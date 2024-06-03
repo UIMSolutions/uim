@@ -11,7 +11,6 @@ import uim.models;
 class DStringData : DScalarData {
   mixin(DataThis!("String"));
   
-  /*
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
@@ -25,6 +24,7 @@ class DStringData : DScalarData {
 
   mixin(TProperty!("size_t", "maxLength"));
 
+  /*
   protected string _value;
   @property string value() {
     if (maxLength > 0 && _value.length > maxLength) {

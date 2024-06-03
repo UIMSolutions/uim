@@ -14,7 +14,7 @@ means.calendar.week */
 import uim.models;
 
 @safe:
-class DWeekAttribute : DIntegerCalendarPart {
+class DWeekAttribute : DIntegerCalendarPartAttribute {
   mixin(AttributeThis!("Week"));
 
   // Initialization hook method.

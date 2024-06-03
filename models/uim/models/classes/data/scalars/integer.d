@@ -131,7 +131,7 @@ class DIntegerData : DScalarData {
 
     if (auto data = cast(DStringData) dataToAdd) {
       if (data.value.isNumeric) {
-        add(to!long(data.value));
+        // TODO add(to!long(data.value));
         return;
       }
     }
@@ -173,7 +173,7 @@ class DIntegerData : DScalarData {
   // #endregion add
 
   override IData clone() {
-    return IntegerData(value); // TODO (attribute, toJson);
+    return IntegerData; // (value); // TODO (attribute, toJson);
   }
 
   void sub(long opValue) {
@@ -312,7 +312,7 @@ class DIntegerData : DScalarData {
     return to!long(_value);
   }
 
-  mixin TDataConvert; 
+  mixin TDataConvert;
 }
 
 mixin(DataCalls!("Integer"));

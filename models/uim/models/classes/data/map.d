@@ -11,7 +11,9 @@ import uim.models;
 class DMapData {
   this() { initialize; }
 
-  bool initialize(Json[string] initData = null) {}
+  bool initialize(Json[string] initData = null) {
+    return true;
+  }
 
   mixin(TProperty!("Json[string]", "items"));
 
@@ -25,7 +27,7 @@ class DMapData {
 
   // Set value, if key exists
   void opIndexAssign(bool newValue, string key) {
-    _items[key] = BooleanData(newValue);
+    _items[key] = BooleanData; // TODO (newValue);
   }
 
 /*  void opIndexAssign(Json newValue, string key) {
@@ -37,15 +39,15 @@ class DMapData {
   }
 
   void opIndexAssign(long newValue, string key) {
-    _items[key] = IntegerData(newValue);
+    _items[key] = IntegerData; //TODO (newValue);
   }
 
   void opIndexAssign(string newValue, string key) {
-    _items[key] = StringData(newValue);
+    _items[key] = StringData; // TODO (newValue);
   }
 
   void opIndexAssign(UUID newValue, string key) {
-    _items[key] = UUIDData(newValue);
+    _items[key] = UUIDData; // TODO (newValue);
   }
 
   void addValues(Json[string] newValues) {

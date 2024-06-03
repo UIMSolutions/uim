@@ -94,7 +94,7 @@ class Xml {
         if (options["readFile"] && fileExists(myinput)) {
             mycontent = file_get_contents(myinput);
             if (mycontent == false) {
-                throw new UimException(
+                throw new DException(
                     "Cannot read file content of `%s`".format(myinput));
             }
             return _loadXml(mycontent, options);

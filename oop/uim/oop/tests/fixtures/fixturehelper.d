@@ -124,7 +124,7 @@ class DFixtureHelper {
                 string message = "Unable to insert rows for table `%s`."
                         ~ " Fixture records might have invalid data or unknown constraints.\n%s"
                         .format(fixture.sourceName(), exception.getMessage() );
-                throw new UimException(message);
+                throw new DException(message);
             }
         });
     } */
@@ -165,7 +165,7 @@ class DFixtureHelper {
                 string message = "Unable to truncate table `%s`." ~ 
                     " Fixture records might have invalid data or unknown contraints.\n%s"
                     .format(fixture.sourceName(),exception.getMessage());
-                throw new UimException(message);
+                throw new DException(message);
             }
         });
     } */

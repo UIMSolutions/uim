@@ -5,18 +5,8 @@ import uim.oop;
 @safe:
 
 // Base class that all UIM Exceptions extend.
-class UimException : Exception {
-    /**
-     * Array of attributes that are passed in from the constructor, and
-     * made available in the view when a development error is displayed.
-     */
-    protected Json _attributes;
+class DException : Exception {
 
-    // Template string that has attributes sprintf()'ed into it.
-    protected string _messageTemplate = "";
-
-    // Default exception code
-    protected int _defaultCode = 0;
 
     /**
      * Constructor.
@@ -27,13 +17,13 @@ class UimException : Exception {
      * @param int statusCode The error code
      * @param \Throwable|null previous the previous exception.
      */
-    this(Json messageAttributes, int statusCode = 0, UimException previousException = null) {
+    this(Json messageAttributes, int statusCode = 0, DException previousException = null) {
         _attributes = messageAttributes;
         string errorMessage = _messageTemplate.format(message);
         this(errorMessage, statusCode, previousException);
     }
 
-    this(string errorMessage = "", int statusCode = 0, UimException previousException = null) {
+    this(string errorMessage = "", int statusCode = 0, DException previousException = null) {
         // TODO super(errorMessage, statusCode ? statusCode : _defaultCode, previousException);
         super(errorMessage);
     }

@@ -4,7 +4,7 @@ import uim.neurals;
 
 @safe:
 
-class DNeuralsException : UimException {
+class DNeuralsException : DException {
   mixin(ExceptionThis!("Neurals"));
 
   override bool initialize(Json[string] initData = null) {

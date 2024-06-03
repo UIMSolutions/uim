@@ -20,22 +20,21 @@ string dataThis(string name, string datatype = null) { // Name for future releas
     this(DAttribute theAttribute, Json newValue) { this(theAttribute).set(newValue); }` */
 }
 
-unittest {
-  writeln(dataThis("name", "datatype"));
-}
-
 template DataThis(string name, string datatype = null) { // Name for future releases
   const char[] DataThis = dataThis(name, datatype);
 }
 
+string dataCalls(string name, string datatype = null) {
+  string fullName = name ~ "Data";
+  return `
+    auto ` ~ fullName ~ `() { return new D` ~ fullName ~ `(); }
+    // auto ` ~ fullName ~ `(string newValue) { return new D` ~ fullName ~ `(newValue); }
+    // auto ` ~ fullName ~ `(Json newValue) { return new D` ~ fullName ~ `(newValue); }
+  `;
+}
+
 template DataCalls(string name, string datatype = null) {
-  const char[] DataCalls = `  
-    auto `
-    ~ name ~ `() { return new D` ~ name ~ `; }
-    auto `
-    ~ name ~ `(string newValue) { return new D` ~ name ~ `(newValue); }
-    auto `
-    ~ name ~ `(Json newValue) { return new D` ~ name ~ `(newValue); } `;
+  const char[] DataCalls = dataCalls(name, datatype);
   // ~ datatype !is null ? `auto ` ~ name ~ `(` ~ datatype ~ ` newzValue) { return new D` ~ name ~ `(newzValue); }`: null;
 
   /* auto `
@@ -52,6 +51,7 @@ template DataCalls(string name, string datatype = null) {
         ~ name ~ `(DAttribute theAttribute, ` ~ datatype ~ ` newValue) { return new D` ~ name ~ `(theAttribute, newValue); }` : ""); */
 }
 
+
 /* template DataProperty!(string name) {
   const char[] EntityCalls = `
     auto `~name~`() { return _values[`~name~`]; } 
@@ -59,6 +59,7 @@ template DataCalls(string name, string datatype = null) {
     void `~name~`(Json newValue) { this.values[`~name~`].set(newValue);   } 
   `;
 } */
+
 
 string dataGetter(string name, string datatype, string dataClass, string path) {
   string newPath = (path ? path : name);

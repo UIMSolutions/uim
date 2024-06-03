@@ -415,7 +415,7 @@ class DSocket {
             }
             try {
                 if (this.connection.isNull) {
-                    throw new UimException("You must call connect() first.");
+                    throw new DException("You must call connect() first.");
                 }
                 enableCryptoResult = stream_socket_enable_crypto(this.connection, enable, method);
             } catch (Exception anException) {

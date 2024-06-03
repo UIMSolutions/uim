@@ -117,7 +117,7 @@ class DFileConfigEngine {
      */
     static Json readOrFail(string avar) {
         if (!check(var)) {
-            throw new UimException("Expected configuration key `%s` not found.".format(var));
+            throw new DException("Expected configuration key `%s` not found.".format(var));
         }
         return read(var);
     }
@@ -149,7 +149,7 @@ class DFileConfigEngine {
      */
     static Json consumeOrFail(string avar) {
         if (!check(var)) {
-            throw new UimException("Expected configuration key `%s` not found.".format(var));
+            throw new DException("Expected configuration key `%s` not found.".format(var));
         }
         return consume(var);
     }
@@ -249,7 +249,7 @@ class DFileConfigEngine {
     static bool load(string aKey, string configData = "default", bool shouldMerge = true) {
         auto engine = _getEngine(configData);
         if (!engine) {
-            throw new UimException(
+            throw new DException(
                 "Config %s engine not found when attempting to load %s."
                     .format(configData, aKey)
             );
@@ -295,7 +295,7 @@ class DFileConfigEngine {
         ]) {
         auto myEngine = _getEngine(configData);
         if (!myEngine) {
-            throw new UimException("There is no `%s` config engine.".format(configData));
+            throw new DException("There is no `%s` config engine.".format(configData));
         }
         someValues = _values;
         if (!someKeys.isEmpty) {
@@ -358,7 +358,7 @@ class DFileConfigEngine {
         /* someData ?  ?  = _values;
 
         if (!class_exists(Cache.classname)) {
-            throw new UimException("You must install UIM/cache to use Configure.store()");
+            throw new DException("You must install UIM/cache to use Configure.store()");
         }
         return Cache.write(name, someData, cacheConfig); */
         return false;
@@ -373,7 +373,7 @@ class DFileConfigEngine {
      */
     static bool restore(string configFileName, string acacheConfig = "default") {
         if (!class_exists(Cache.classname)) {
-            throw new UimException("You must install UIM/cache to use Configure.restore()");
+            throw new DException("You must install UIM/cache to use Configure.restore()");
         }
 
         auto someValues = Cache.read(name, cacheConfig);

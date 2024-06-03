@@ -5,7 +5,7 @@ import uim.networks;
 @safe:
 
 // Base Networks exception.
-class DNetworksException : UimException {
+class DNetworksException : DException {
   mixin(ExceptionThis!("Networks"));
 
   override bool initialize(Json[string] initData = null) {

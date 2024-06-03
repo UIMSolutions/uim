@@ -5,7 +5,7 @@ import uim.mvc;
 @safe:
 
 // Base MVC exception.
-class DMVCException : UimException {
+class DMVCException : DException {
   mixin(ExceptionThis!("MVC"));
 
   override bool initialize(Json[string] initData = null) {

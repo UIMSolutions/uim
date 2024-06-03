@@ -84,7 +84,7 @@ class DEntityData : DData {
 
   alias opEquals = DData.opEquals;
 
-  override Json clone() {
+  override IData clone() {
     return EntityData; // TODO (attribute, toJson);
   }
 

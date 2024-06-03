@@ -88,7 +88,7 @@ class DElementData : DData {
     return 1;
   }  */
 
-  override Json clone() {
+  override IData clone() {
     return ElementData; // TODO (attribute, toJson);
   }
 

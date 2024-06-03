@@ -10,17 +10,15 @@ import uim.models;
 @safe:
 class DData : IData {
   this() {
-    initialize;
+    this.initialize;
   }
 
   this(string newValue) {
-    this();
-    set(newValue);
+    this().set(newValue);
   }
 
   this(Json newValue) {
-    this();
-    set(newValue);
+    this().set(newValue);
   }
 
   /* this(DAttribute theAttribute) {
@@ -28,9 +26,9 @@ class DData : IData {
   }*/
 
   // Hook
-  bool initialize(IData[string] initData = null) {
-    // configuration(MemoryConfiguration);
-    // configuration.data(initData);
+  bool initialize(Json[string] initData = null) {
+    configuration(MemoryConfiguration);
+    configuration.data(initData);
     return true;
   }
 

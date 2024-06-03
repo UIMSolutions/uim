@@ -26,7 +26,7 @@ class DJsonData : DData {
     return true;
   }
 
-  override Json clone() {
+  override IData clone() {
     return JsonData; // TODO (attribute, toJson);
   }
 

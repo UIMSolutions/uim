@@ -1,42 +1,5 @@
 module uim.models.classes.data.mixin_;
 
-string dataThis(string name) {
-  string fullName = name ~ "Data";
-  return `
-    this() {
-      super(); 
-      this.name("`
-    ~ fullName ~ `");
-    }
-    /* this(string newValue) {
-      this();
-      set(newValue);
-    }
-
-    this(Json newValue) {
-      this();
-      set(newValue);
-    } */
-  `; 
-}
-
-template DataThis(string name) {
-  const char[] DataThis = dataThis(name);
-}
-
-string dataCalls(string name) {
-  string fullName = name ~ "Data";
-  return `
-    auto ` ~ fullName ~ `() { return new D` ~ fullName ~ `(); }
-    // auto ` ~ fullName ~ `(string newValue) { return new D` ~ fullName ~ `(newValue); }
-    // auto ` ~ fullName ~ `(Json newValue) { return new D` ~ fullName ~ `(newValue); }
-  `;
-}
-
-template DataCalls(string name) {
-  const char[] DataCalls = dataCalls(name);
-}
-
 mixin template TDataConvert() {
   alias toJson = DData.toJson;
   override Json toJson() {

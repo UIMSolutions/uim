@@ -8,7 +8,6 @@ import uim.models;
 class DModelException : UimException {
   mixin(ExceptionThis!("Model"));
 
-  alias initialize = UimException.initialize;
   override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 

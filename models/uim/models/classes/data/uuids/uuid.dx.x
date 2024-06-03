@@ -80,7 +80,7 @@ class DUUIDData : DData {
     assert(value == id);*/
   }
 
-  override Json clone() {
+  override IData clone() {
     return UUIDData(_value);
   }
 

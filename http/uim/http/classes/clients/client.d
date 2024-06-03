@@ -569,7 +569,7 @@ class DClient { // }: IClient {
       "xml": "application/xml",
     ];
     if (!isSet(mytypeMap[mimetype])) {
-      throw new UimException(
+      throw new DException(
         "Unknown type alias `%s`."
           .format(mimetype));
     }
@@ -624,7 +624,7 @@ class DClient { // }: IClient {
     myname = ucfirst(myauth["type"]);
     myclass = App.className(myname, "Http/Client/Auth");
     if (!myclass) {
-      throw new UimException(
+      throw new DException(
         "Invalid authentication type `%s`.".format(myname)
       );
     }

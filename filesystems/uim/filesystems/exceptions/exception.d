@@ -5,7 +5,7 @@ import uim.filesystems;
 @safe:
 
 // I18n exception.
-class DFilesystemsException : UimException {
+class DFilesystemsException : DException {
   mixin(ExceptionThis!("Filesystems"));
 
   override bool initialize(Json[string] initData = null) {

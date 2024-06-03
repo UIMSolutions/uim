@@ -5,7 +5,7 @@ import uim.html;
 @safe:
 
 // I18n exception.
-class DHtmlException : UimException {
+class DHtmlException : DException {
   mixin(ExceptionThis!("Html"));
 
   override bool initialize(Json[string] initData = null) {

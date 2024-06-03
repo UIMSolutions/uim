@@ -5,7 +5,7 @@ import uim.gui;
 @safe:
 
 // I18n exception.
-class DGuiException : UimException {
+class DGuiException : DException {
   mixin(ExceptionThis!("Gui"));
 
   override bool initialize(Json[string] initData = null) {

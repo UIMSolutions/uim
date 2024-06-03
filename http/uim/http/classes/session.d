@@ -259,7 +259,7 @@ class DSession {
         }
         foreach (setting : aValue; options) {
             if (ini_set(setting, to!string(aValue)) == false) {
-                throw new UimException(
+                throw new DException(
                     "Unable to configure the session, setting %s failed.".format(setting)
                 );
             }
@@ -280,7 +280,7 @@ class DSession {
             return _started = true;
         }
         if (session_status() == UIM_SESSION_ACTIVE) {
-            throw new UimException("Session was already started");
+            throw new DException("Session was already started");
         }
         filename = line = null;
         if (ini_get("session.use_cookies") && headers_sent(filename, line)) {
@@ -289,7 +289,7 @@ class DSession {
             return false;
         }
         if (!session_start()) {
-            throw new UimException("Could not start the session");
+            throw new DException("Could not start the session");
         }
         _started = true;
 
@@ -314,7 +314,7 @@ class DSession {
             return true;
         }
         if (!session_write_close()) {
-            throw new UimException("Could not close the session");
+            throw new DException("Could not close the session");
         }
         _started = false;
 
@@ -370,7 +370,7 @@ class DSession {
      */
     Json readOrFail(string sessionName) {
         if (!this.check(sessionName)) {
-            throw new UimException("Expected session key `%s` not found.".format(sessionName));
+            throw new DException("Expected session key `%s` not found.".format(sessionName));
         }
         return _read(sessionName);
     }
@@ -406,7 +406,7 @@ class DSession {
                         this.headerSentInfo["line"]
                     );
             }
-            throw new UimException(message);
+            throw new DException(message);
         }
         if (!isArray(name)) {
             name = [name: aValue];

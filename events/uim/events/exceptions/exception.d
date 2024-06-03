@@ -5,7 +5,7 @@ import uim.events;
 @safe:
 
 // Base events exception.
-class DEventsException : UimException {
+class DEventsException : DException {
   mixin(ExceptionThis!("Events"));
 
   override bool initialize(Json[string] initData = null) {

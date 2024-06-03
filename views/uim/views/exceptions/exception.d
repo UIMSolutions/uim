@@ -5,7 +5,7 @@ import uim.views;
 @safe:
 
 // I18n exception.
-class DViewException : UimException {
+class DViewException : DException {
   mixin(ExceptionThis!("View"));
 
   override bool initialize(Json[string] initData = null) {

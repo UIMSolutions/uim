@@ -8,7 +8,7 @@ import uim.views;
 class DMissingTCellException : DMissingTemplateException {
     mixin(ExceptionThis!("MissingTCell"));
     
-    alias initialize = UimException.initialize;
+    alias initialize = DException.initialize;
     override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		

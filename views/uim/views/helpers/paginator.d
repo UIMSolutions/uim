@@ -110,7 +110,7 @@ class DPaginatorHelper : DHelper {
             });
         }
         if (!isSet(_paginated)) {
-            throw new UimException("You must set a pagination instance using `setPaginated()` first");
+            throw new DException("You must set a pagination instance using `setPaginated()` first");
         }
         return _paginated;
     }

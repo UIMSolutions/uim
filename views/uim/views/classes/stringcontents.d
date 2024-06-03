@@ -115,7 +115,7 @@ class DStringContents {
      */
     void load(string fileName) {
         if (fileName.isEmpty) {
-            // TODO throw new UimException("String template filename cannot be an empty string");
+            // TODO throw new DException("String template filename cannot be an empty string");
         }
 
         /* 

@@ -43,7 +43,7 @@ class DViewBlock {
      */
     void start(string blockName, string blockMode = DViewBlock.OVERRIDE) {
         if (_activeBlocks.hasKey(blockName)) {
-            // TODO     throw new UimException("A view block with the name `%s` is already/still open.".format(blockName));
+            // TODO     throw new DException("A view block with the name `%s` is already/still open.".format(blockName));
             return;
         }
        _activeBlocks[blockName] = blockMode;

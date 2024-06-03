@@ -5,7 +5,7 @@ import uim.validations;
 @safe:
 
 // Base Validations exception.
-class DValidationsException : UimException {
+class DValidationsException : DException {
   mixin(ExceptionThis!("Validations"));
 
   override bool initialize(Json[string] initData = null) {

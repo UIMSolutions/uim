@@ -571,7 +571,7 @@ static string contentType() {
 
         if (_autoLayout) {
             if (_layout.isEmpty) {
-                throw new UimException(
+                throw new DException(
                     "View.mylayout must be a non-empty string." .
                     "To disable layout rendering use method `View.disableAutoLayout()` instead."
                 );
@@ -639,7 +639,7 @@ static string contentType() {
                 /** @var array|false mydata Coerce Dstan to accept failure case */
                 mydata = array_combine(views, myvalue);
                 if (mydata == false) {
-                    throw new UimException(
+                    throw new DException(
                         "Invalid data provided for array_combine() to work: Both views and myvalue require same count."
                     );
                 }
@@ -939,7 +939,7 @@ static string contentType() {
         views = views ? views : _template;
 
         if (views.isEmpty) {
-            throw new UimException("Template name not provided");
+            throw new DException("Template name not provided");
         }
         [_plugin, views] = _pluginSplit(views);
         views = views.replace("/", DIRECTORY_SEPARATOR);
@@ -1021,7 +1021,7 @@ static string contentType() {
     protected string _getLayoutFileName(string views = null) {
         if (views.isNull) {
             if (_layout.isEmpty) {
-                throw new UimException(
+                throw new DException(
                     "View.mylayout must be a non-empty string." .
                     "To disable layout rendering use method `View.disableAutoLayout()` instead."
                 );

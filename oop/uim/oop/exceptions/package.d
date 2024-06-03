@@ -6,7 +6,7 @@
 module uim.oop.exceptions;
 
 public {
-  // import uim.oop.exceptions.exception;
+  import uim.oop.exceptions.exception;
   // import uim.oop.exceptions.handler;
   // import uim.oop.exceptions.registry;
   // import uim.oop.exceptions.annotationtypemismatch;

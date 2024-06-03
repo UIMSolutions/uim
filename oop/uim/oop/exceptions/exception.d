@@ -8,20 +8,15 @@ module uim.oop.exceptions.exception;
 import uim.oop;
 
 @safe:
-class UimException : IException {
-  this() {
-  }
-
-  this(string aMessage) {
-    this().message(aMessage);
-  }
-
-  this(Json[string] initData) {
-    this().initialize(initData);
-  }
-
-  this(string aMessage, Json[string] initData) {
-    this(aMessage).initialize(initData);
+class DException : IException {
+  this(
+    string message,
+    string file = __FILE__,
+    ulong line = cast(ulong) __LINE__,
+    Throwable nextInChain = null
+  ) pure nothrow @nogc {
+    super(message, file, line, nextInChain);
+    // TODO 
   }
 
   bool initialize(Json[string] initData = null) {
@@ -33,9 +28,22 @@ class UimException : IException {
     return true;
   }
 
-  mixin(OProperty!("string", "name"));
-  mixin(OProperty!("string", "registerPath"));
-  mixin(OProperty!("string", "message"));
+  mixin(TProperty!("string", "name"));
+  mixin(TProperty!("string", "registerPath"));
+  mixin(TProperty!("string", "message"));
+
+  /**
+     * Array of attributes that are passed in from the constructor, and
+     * made available in the view when a development error is displayed.
+     */
+  // Exception message
+  mixin(TProperty!("Json[string]", "attributes"));
+
+  // Template string that has attributes sprintf()'ed into it.
+  protected string _messageTemplate = "";
+
+  // Default exception code
+  protected int _defaultCode = 0;
 
   // #region messageTemplate
   protected STRINGAA _stringContents;
@@ -58,9 +66,6 @@ class UimException : IException {
     _stringContents = templates;
   }
   // #endregion messageTemplates
-
-  // Exception message
-  mixin(OProperty!("Json[string]", "attributes"));
 }
 
 /*import uim.mvc;
@@ -70,12 +75,12 @@ class UimException : IException {
  *
  * @method int getCode() Gets the Exception code.
  */
-//class UimException : IException /* : RuntimeException */ {
+//class DException : IException /* : RuntimeException */ {
 /**
      * Array of attributes that are passed in from the constructor, and
      * made available in the view when a development error is displayed.
      */
-/*/ TODO protected Json[string] _attributes = null;
+// TODO protected Json[string] _attributes = null;
  */
 // --- protected string _messageTemplate = "";
 

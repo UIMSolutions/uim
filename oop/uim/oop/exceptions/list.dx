@@ -8,11 +8,11 @@ module uim.oop.exceptions.list;
 import uim.oop;
 @safe:
 
-class UimExceptionList {
+class DExceptionList {
   this() {}
 
   bool initialize(/* Json[string] configSettings = null */) {
     return true;
   }  
 }
-auto ExceptionList() { return new UimExceptionList; }
+auto ExceptionList() { return new DExceptionList; }

@@ -83,7 +83,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
             return requestHandler.handle(requestHandler);
         }
         if (requestHandler.getAttribute("csrfToken")) {
-            throw new UimException(
+            throw new DException(
                 "A CSRF token is already set in the request.\n" ~
                 "Ensure you do not have the CSRF middleware applied more than once. " ~
                 "Check both your `Application.middleware()` method and `config/routes.d`.";

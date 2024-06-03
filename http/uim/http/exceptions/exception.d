@@ -9,10 +9,10 @@ import uim.http;
  * All HTTP status/error related exceptions should extend this class so
  * catch blocks can be specifically typed.
  *
- * You may also use this as a meaningful bridge to {@link \UIM\Core\Exception\UimException}, e.g.:
+ * You may also use this as a meaningful bridge to {@link \UIM\Core\Exception\DException}, e.g.:
  * throw new \UIM\Network\Exception\HttpException("HTTP Version Not Supported", 505);
  */
-class DHttpException : UimException {
+class DHttpException : DException {
   mixin(ExceptionThis!("Http"));
 
   override bool initialize(Json[string] initData = null) {

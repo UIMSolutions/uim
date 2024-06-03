@@ -39,7 +39,7 @@ class DChainMessagesLoader {
             auto loader = keyLoader.value;
 
             if (!loader.isNull) {
-                throw new UimException(
+                throw new DException(
                     "Loader `%s` in the chain is not a valid loader."
                         .format(keyLoader.key)
                 );

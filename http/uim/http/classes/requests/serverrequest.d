@@ -237,7 +237,7 @@ class DServerRequest { // }: IServerRequest {
 
         if (isSet(configData["uri"])) {
             if (!cast(IUri)configData["uri"]  ) {
-                throw new UimException("The `uri` key must be an instance of " ~ IUri.classname);
+                throw new DException("The `uri` key must be an instance of " ~ IUri.classname);
             }
             anUri = configData["uri"];
         } else {

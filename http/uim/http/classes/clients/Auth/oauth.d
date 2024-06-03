@@ -61,7 +61,7 @@ class DOauth {
             break;
 
         default:
-            throw new UimException(
+            throw new DException(
                 "Unknown Oauth signature method `%s`.".format(credentials["method"]));
         }
         return request.withHeader("Authorization", aValue);
@@ -145,7 +145,7 @@ class DOauth {
      * This method is suitable for plain HTTP or HTTPS. */
     protected string _rsaSha1(Request request, Json[string] credentials) {
         if (!function_exists("openssl_pkey_get_private")) {
-            throw new UimException("RSA-SHA1 signature method requires the OpenSSL extension.");
+            throw new DException("RSA-SHA1 signature method requires the OpenSSL extension.");
         }
         nonce = credentials["nonce"] ?  ? bin2hex(Security.randomBytes(16));
         timestamp = credentials["timestamp"] ?  ? time();
@@ -306,7 +306,7 @@ class DOauth {
             error ~= text;
         }
         if (error.length > 0) {
-            throw new UimException("openssl error: " ~ error);
+            throw new DException("openssl error: " ~ error);
         }
     }
 }

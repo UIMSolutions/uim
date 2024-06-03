@@ -56,7 +56,7 @@ class DCspMiddleware { // }: IHttpMiddleware {
      */
     this(ICSPBuilder|Json[string] cspObject, Json[string] configData = null) {
         if (!class_exists(CSPBuilder.classname)) {
-            throw new UimException("You must install paragonie/csp-builder to use CspMiddleware");
+            throw new DException("You must install paragonie/csp-builder to use CspMiddleware");
         }
         configuration.update(configData);
 

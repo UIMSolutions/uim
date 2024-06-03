@@ -70,7 +70,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
         }
         session = request.getAttribute("session");
         if (!session || !(cast(DSession)session)) {
-            throw new UimException("You must have a `session` attribute to use session based CSRF tokens");
+            throw new DException("You must have a `session` attribute to use session based CSRF tokens");
         }
         token = session.read(configuration.get("key"]);
         if (token.isNull) {

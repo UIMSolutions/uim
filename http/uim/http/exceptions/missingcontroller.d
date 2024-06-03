@@ -5,7 +5,7 @@ import uim.http;
 @safe:
 
 // Exception used when a controller cannot be found.
-class MissingControllerException : UimException {
+class MissingControllerException : DException {
  
     protected int _defaultCode = 404;
 

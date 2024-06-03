@@ -5,7 +5,7 @@ import uim.routings;
 @safe: 
 
 // Exception raised when a URL cannot be reverse routed or when a URL cannot be parsed.
-class DMissingRouteException : UimException {
+class DMissingRouteException : DException {
     mixin(ExceptionThis!("MissingRoute"));
  
    override bool initialize(Json[string] initData = null) {

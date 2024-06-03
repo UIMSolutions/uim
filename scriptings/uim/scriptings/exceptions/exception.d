@@ -5,7 +5,7 @@ import uim.scriptings;
 @safe:
 
 // Base Scriptings exception.
-class DScriptingsException : UimException {
+class DScriptingsException : DException {
   mixin(ExceptionThis!("Scriptings"));
 
   override bool initialize(Json[string] initData = null) {

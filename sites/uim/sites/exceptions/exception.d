@@ -5,7 +5,7 @@ import uim.sites;
 @safe:
 
 // Base Sites exception.
-class DSitesException : UimException {
+class DSitesException : DException {
   mixin(ExceptionThis!("Sites"));
 
   override bool initialize(Json[string] initData = null) {

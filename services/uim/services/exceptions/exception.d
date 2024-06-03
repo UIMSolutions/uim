@@ -5,7 +5,7 @@ import uim.services;
 @safe:
 
 // Service exception.
-class DServiceException : UimException {
+class DServiceException : DException {
   mixin(ExceptionThis!("Service"));
 
   override bool initialize(Json[string] initData = null) {

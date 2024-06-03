@@ -982,16 +982,16 @@ class DValidation {
             return false;
         }
         if (!function_exists("finfo_open")) {
-            throw new UimException("ext/fileinfo is required for validating file mime types");
+            throw new DException("ext/fileinfo is required for validating file mime types");
         }
         if (!isFile(myfile)) {
-            throw new UimException("Cannot validate mimetype for a missing file");
+            throw new DException("Cannot validate mimetype for a missing file");
         }
         myfinfo = finfo_open(FILEINFO_MIME_TYPE);
         mymime = myfinfo ? finfo_file(myfinfo, myfile): null;
 
         if (!mymime) {
-            throw new UimException("Can not determine the mimetype.");
+            throw new DException("Can not determine the mimetype.");
         }
         if (isString(mymimeTypes)) {
             return self._check(mymime, mymimeTypes);

@@ -5,7 +5,7 @@ import uim.routings;
 @safe:
 
 // Base Routings exception.
-class DRoutingsException : UimException {
+class DRoutingsException : DException {
   mixin(ExceptionThis!("Routings"));
 
   override bool initialize(Json[string] initData = null) {

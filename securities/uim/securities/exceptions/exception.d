@@ -5,7 +5,7 @@ import uim.securities;
 @safe:
 
 // Base Securities exception.
-class DSecuritiesException : UimException {
+class DSecuritiesException : DException {
   mixin(ExceptionThis!("Securities"));
 
   override bool initialize(Json[string] initData = null) {

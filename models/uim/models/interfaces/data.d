@@ -4,66 +4,119 @@ import uim.models;
 
 @safe:
 interface IData {
-    IData[] values();
 
-    // is data empty  
-    // TODO bool isEmpty(string key);
-
-    bool isNumeric();
-    bool isString();
     // IAttribute attribute();
-
-    bool isBoolean();
-    bool toBoolean();
-
-    bool isBoolean();
-    bool isInteger();
-
-    bool isNumber();
-    float toFloat();
-
-    bool isTime();
-    bool isDate();
-    bool isDatetime();
-    bool isTimestamp();
-
-    bool isScalar();
-    bool isArray();
-    bool isObject();
-    bool isEntity();
-    bool isUUID();
-
-    bool isNullable();
-    bool isNull();
-    bool isReadOnly();
-
     string typeName();
 
-    bool getBool();
-    int getInt();
-    long getLong();
-    float getFloat();
-    double getDouble();
-    string getString();
-    UUID getUUID();
-    Json getJson();
+    // #region is-check
+        // #region is-BasicTypes
+            bool isArray();
+            void isArray(bool mode);
 
-    // Check is equal
-    bool isEqual(bool value);
-    bool isEqual(int value);
-    bool isEqual(long value);
-    bool isEqual(float value);
-    bool isEqual(double value);
-    bool isEqual(string value);
-    bool isEqual(UUID value);
-    bool isEqual(Json value);
+            bool isBigInt();	 
+            void isBigInt(bool mode);
 
-    IData at(size_t pos);
+            bool isBool();	 
+            void isBool(bool mode);
+
+            bool isFloat();	 
+            void isFloat(bool mode);
+
+            bool isInt();	 
+            void isInt(bool mode);
+
+            bool isNull();	 
+            void isNull(bool mode);
+
+            bool isObject();	 
+            void isObject(bool mode);
+
+            bool isString();	 
+            void isString(bool mode);
+        // #endregion is-BasicTypes
+
+        // #region is-AdditionalTypes
+            bool isUUID();
+            void isUUID(bool mode);
+
+            bool isNumber();
+            void isNumber(bool mode);
+
+            bool isNumeric();
+            void isNumeric(bool mode);
+
+            bool isTime();
+            void isTime(bool mode);
+
+            bool isDate();
+            void isDate(bool mode);
+
+            bool isDatetime();
+            void isDatetime(bool mode);
+
+            bool isTimestamp();
+            void isTimestamp(bool mode);
+        // #region is-AdditionalTypes
+
+        // #region is-General
+            bool isScalar();
+            void isScalar(bool mode);
+
+            bool isArray();
+            void isArray(bool mode);
+
+            bool isEntity();
+            void isEntity(bool mode);
+
+            bool isNullable();
+            void isNullable(bool mode);
+
+            bool isEmpty();
+            void isEmpty(bool mode);
+
+            bool isReadOnly();
+            void isReadOnly(bool mode);
+        // #region is-General
+    // #endregion is-check
+
+    // #region get
+        bool getBool();
+        int getInt();
+        long getLong();
+        float getFloat();
+        string getString();
+        UUID getUUID();
+        Json getJson();
+    // #region isEqual
+
+    // #region isEqual
+        bool isEqual(bool value);
+        bool isEqual(int value);
+        bool isEqual(long value);
+        bool isEqual(float value);
+        bool isEqual(double value);
+        bool isEqual(string value);
+        bool isEqual(UUID value);
+        bool isEqual(Json value);
+    // #endregion isEqual
+
+    // #region set
+        void set(bool value);
+        void set(int value);
+        void set(long value);
+        void set(float value);
+        void set(double value);
+        void set(string value);
+        void set(UUID value);
+        void set(Json value);
+    // #endregion set
+
+    /* IData at(size_t pos);
     Json toJson();
     string toString();
     string[] toStringArray();
     size_t length();
-    
+
     bool hasPaths(string[] paths, string separator = "/");
     bool hasPath(string path, string separator = "/");
 
@@ -90,9 +143,6 @@ interface IData {
     void data(string key, IData data);
     void opAssignIndex(IData data, string key);
 
-    void set(string newValue);
-    void set(Json newValue);
-
     string toString();
-    Json toJson(string[] selectedKeys = null);
+    Json toJson(string[] selectedKeys = null); */
 }

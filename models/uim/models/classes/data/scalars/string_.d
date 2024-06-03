@@ -86,12 +86,12 @@ class DStringData : DScalarData {
     assert(data >= "test"); */
   }
 
-  string opCall() {
+/*   string opCall() {
     return null; 
     // TODO return value();
-  }
+  } */
 
-  mixin(ScalarOpCall!([]));
+  /* mixin(ScalarOpCall!([]));
   override void set(IData newValue) {
     if (newValue.isNull) {
       _value = null;
@@ -104,7 +104,7 @@ class DStringData : DScalarData {
     return;
 
     // TODO set(strValue.value);
-  }
+  } */
   ///
   unittest {
     /* auto a = Json("aValue");
@@ -114,7 +114,7 @@ class DStringData : DScalarData {
   }
 
   // #region equal
-  mixin(ScalarOpEquals!(null));
+  /* mixin(ScalarOpEquals!(null));
 
   override bool isEqual(IData checkData) {
     if (checkData.isNull || key != checkData.key) {
@@ -137,7 +137,7 @@ class DStringData : DScalarData {
   override bool isEqual(string checkValue) {
     return false;
     // TODO return (value == checkValue);
-  }
+  } */
   ///
   unittest {
     auto data100 = StringData;

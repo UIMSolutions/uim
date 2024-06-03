@@ -22,21 +22,21 @@ class DIntegerData : DScalarData {
       return false;
     }
 
-    isInteger(true);
+    isInt(true);
     typeName("integer");
 
     return true;
   }
 
   // #region Getter & Setter
-  protected long _value;
+/*   protected long _value;
   long value() {
     return _value;
-  }
+  } */
 
   // #region set
-  override void set(Json newValue) {
-    if (newValue.isInteger) {
+  /* override void set(Json newValue) {
+    if (newValue.isInt) {
       set(newValue.get!long);
     }
 
@@ -57,18 +57,18 @@ class DIntegerData : DScalarData {
 
   void set(long newValue) {
     _value = newValue;
-  }
+  } */
   ///
-  unittest {
+/*   unittest {
     auto data = NumberData(0.0);
     data.set(1.1);
     writeln(data);
-  }
+  } */
   // #endregion set
 
   // #region isEqual
-  mixin(ScalarOpEquals!(["int", "bool"]));
-  override bool isEqual(IData checkData) {
+  /* mixin(ScalarOpEquals!(["int", "bool"])); */
+/*   override bool isEqual(IData checkData) {
     if (checkData.isNull || key != checkData.key) {
       return false;
     }
@@ -76,27 +76,16 @@ class DIntegerData : DScalarData {
       return isEqual(data.value);
     }
     return false;
-  }
+  } */
 
-  override bool isEqual(Json checkValue) {
-    if (checkValue.isNull || !checkValue.isInteger) {
+/*   override bool isEqual(Json checkValue) {
+    if (checkValue.isNull || !checkValue.isInt) {
       return false;
     }
 
     return isEqual(checkValue.get!long);
-  }
+  } */
 
-  override bool isEqual(string checkValue) {
-    return isEqual(to!long(checkValue));
-  }
-
-  bool isEqual(bool checkValue) {
-    return ((_value > 0) == checkValue);
-  }
-
-  bool isEqual(long checkValue) {
-    return (_value == checkValue);
-  }
   ///
   unittest {
     auto intData100 = IntegerData;
@@ -300,7 +289,7 @@ class DIntegerData : DScalarData {
     assert((IntegerData(2) / IntegerData(2)) == 1); */
   }
 
-  override int toInteger() {
+ /*  override int toInteger() {
     if (isNull)
       return 0;
     return to!int(_value);
@@ -312,7 +301,7 @@ class DIntegerData : DScalarData {
     return to!long(_value);
   }
 
-  mixin TDataConvert;
+  mixin TDataConvert; */
 }
 
 mixin(DataCalls!("Integer"));

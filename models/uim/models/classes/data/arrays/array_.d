@@ -161,9 +161,9 @@ class DArrayData : DData {
     return "[" ~ _items.map!(item => item.toString).join(",") ~ "]";
   }
 
-  override string[] toStringArray() {
+/*   override string[] toStringArray() {
     return _items.map!(item => item.toString).array;
-  } 
+  }  */
 }
 
 /*

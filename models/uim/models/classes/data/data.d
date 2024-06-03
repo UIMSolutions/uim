@@ -45,184 +45,51 @@ class DData : IData {
     }
   // #endregion name
 
-  bool isBoolean() {
-    return _value.hasKey("isBoolean")
-      ? _value["isBoolean"].get!bool : false;
-  }
+    // #region is-check
+      // #region is-BasicTypes
+        mixin(DataIsCheck!"isArray");
+        mixin(DataIsCheck!"isBigInt");
+        mixin(DataIsCheck!"isBool");
+        mixin(DataIsCheck!"isFloat");
+        mixin(DataIsCheck!"isInt");
+        mixin(DataIsCheck!"isObject");
+        mixin(DataIsCheck!"isString");
+      // #endregion is-check Basic Types
 
-  void isBoolean(bool mode) {
-    _value["isBoolean"] = mode;
-  }
+      // #region is-AdditionalTypes
+        mixin(DataIsCheck!"isUUID");
+        mixin(DataIsCheck!"isNumber");
+        mixin(DataIsCheck!"isNumeric");
+        mixin(DataIsCheck!"isTime");
+        mixin(DataIsCheck!"isDate");
+        mixin(DataIsCheck!"isDatetime");
+        mixin(DataIsCheck!"isTimestamp");
+      // #endregion is-AdditionalTypes
 
-  bool isInteger() {
-    return _value.hasKey("isInteger")
-      ? _value["isInteger"].get!bool : false;
-  }
-
-  void isInteger(bool mode) {
-    _value["isInteger"] = mode;
-  }
-
-  bool isNumber() {
-    return _value.hasKey("isNumber")
-      ? _value["isNumber"].get!bool : false;
-  }
-
-  void isNumber(bool mode) {
-    _value["isNumber"] = mode;
-  }
-
-  bool isTime() {
-    return _value.hasKey("isTime")
-      ? _value["isTime"].get!bool : false;
-  }
-
-  void isTime(bool mode) {
-    _value["isTime"] = mode;
-  }
-
-  bool isDate() {
-    return _value.hasKey("isDate")
-      ? _value["isDate"].get!bool : false;
-  }
-
-  void isDate(bool mode) {
-    _value["isDate"] = mode;
-  }
-
-  bool isDatetime() {
-    return _value.hasKey("isDatetime")
-      ? _value["isDatetime"].get!bool : false;
-  }
-
-  void isDatetime(bool mode) {
-    _value["isDatetime"] = mode;
-  }
-
-  bool isTimestamp() {
-    return _value.hasKey("isTimestamp")
-      ? _value["isTimestamp"].get!bool : false;
-  }
-
-  void isTimestamp(bool mode) {
-    _value["isTimestamp"] = mode;
-  }
-
-  bool isString() {
-    return _value.hasKey("isString")
-      ? _value["isString"].get!bool : false;
-  }
-
-  void isString(bool mode) {
-    _value["isString"] = mode;
-  }
-
-  bool isNumeric() {
-    return _value.hasKey("isNumeric")
-      ? _value["isNumeric"].get!bool : false;
-  }
-
-  void isNumeric(bool mode) {
-    _value["isNumeric"] = mode;
-  }
-
-  bool isScalar() {
-    return _value.hasKey("isScalar")
-      ? _value["isScalar"].get!bool : false;
-  }
-
-  void isScalar(bool mode) {
-    _value["isScalar"] = mode;
-  }
-
-  bool isArray() {
-    return _value.hasKey("isArray")
-      ? _value["isArray"].get!bool : false;
-  }
-
-  void isArray(bool mode) {
-    _value["isArray"] = mode;
-  }
-
-  bool isObject() {
-    return _value.hasKey("isObject")
-      ? _value["isObject"].get!bool : false;
-  }
-
-  void isObject(bool mode) {
-    _value["isObject"] = mode;
-  }
-
-  bool isEntity() {
-    return _value.hasKey("isEntity")
-      ? _value["isEntity"].get!bool : false;
-  }
-
-  void isEntity(bool mode) {
-    _value["isEntity"] = mode;
-  }
-
-  bool isUUID() {
-    return _value.hasKey("isUUID")
-      ? _value["isUUID"].get!bool : false;
-  }
-
-  void isUUID(bool mode) {
-    _value["isUUID"] = mode;
-  }
-
-  // #region isReadOnly
-    bool isReadOnly() {
-      return _value.hasKey("isReadOnly")
-        ? _value["isReadOnly"].get!bool : false;
-    }
-
-    void isReadOnly(bool mode) {
-      _value["isReadOnly"] = mode;
-    }
-  // #endregion isReadOnly
-
-  // #region isNullable
-    bool isNullable() {
-      return _value.hasKey("isNullable")
-        ? _value["isNullable"].get!bool : false;
-    }
-
-    void isNullable(bool mode) {
-      _value["isNullable"] = mode;
-    }
-  // #region isNullable
+      // #region is-AdditionalTypes
+        mixin(DataIsCheck!"isScalar");
+        mixin(DataIsCheck!"isArray");
+        mixin(DataIsCheck!"isEntity");
+        mixin(DataIsCheck!"isNullable");
+        mixin(DataIsCheck!"isReadOnly");
+      // #endregion is-AdditionalTypes
+    // #endregion is-check
 
   // #region get
-    bool getBool() {
-      return isBoolean && _value.hasKey("value")
-        ? _value["value"].get!bool : false;
-    }
-
-    int getInt() {
-      return isInt && _value.hasKey("value")
-        ? _value["value"].get!int : 0;
-    }
-
-    long getLong() {
-      return isLong && _value.hasKey("value")
-        ? _value["value"].get!long : 0;
-    }
-
-    float getFloat() {
-      return isFloat && _value.hasKey("value")
-        ? _value["value"].get!float : 0.0;
-    }
-
-    double getDouble() {
-      return isDouble && _value.hasKey("value")
-        ? _value["value"].get!double : 0.0;
-    }
-
-    string getString() {
-      return isString && _value.hasKey("value")
-        ? _value["value"].get!string : null;
-    }
+    mixin(DataGet!("Bool", "bool", "false"));
+    mixin(DataGet!("byte", "byte", "0"));
+    mixin(DataGet!("Ubyte", "ubyte", "0"));
+    mixin(DataGet!("Short", "short", "0"));
+    mixin(DataGet!("Ushort", "ushort", "0"));
+    mixin(DataGet!("Int", "int", "0"));
+    mixin(DataGet!("Uint", "uint", "0"));
+    mixin(DataGet!("Long", "long", "0"));
+    mixin(DataGet!("Ulong", "ulong", "0"));
+    mixin(DataGet!("Float", "float", "0"));
+    mixin(DataGet!("Double", "double", "0"));
+    mixin(DataGet!("String", "string", "0"));
+    mixin(DataGet!("Array", "Json[]", "Json.emptyArray"));
+    mixin(DataGet!("Object", "Json[string]", "Json.emptyObject"));
 
     UUID getUUID() {
       return isUUID && _value.hasKey("value")
@@ -235,12 +102,10 @@ class DData : IData {
     }
   // #endregion get
 
-
-
   // #region isNull
     bool isNull() {
       return _value.hasKey("value")
-        ? _value["value"].isNull : true;
+        ? _value["value"].isNull : false;
     }
 
     void isNull(bool status) {
@@ -252,84 +117,43 @@ class DData : IData {
   // #endregion properties 
 
   // #region set
-    void set(bool newValue) {
-      if (!isReadOnly) {
-        _value["value"] = newValue;
-      }
-    }
 
-    void set(int newValue) {
-      if (!isReadOnly) {
-        _value["value"] = newValue;
-      }
-    }
 
-    void set(long newValue) {
-      if (!isReadOnly) {
-        _value["value"] = newValue;
-      }
-    }
+  ref Json opAssign (
+  Json v
+) nothrow return @trusted;
 
-    void set(float newValue) {
-      if (!isReadOnly) {
-        _value["value"] = newValue;
-      }
-    }
+void opAssign (
+  typeof(null) __param_0
+) nothrow @trusted;
 
-    void set(double newValue) {
-      if (!isReadOnly) {
-        _value["value"] = newValue;
-      }
-    }
-
-    void set(string newValue) {
-      if (!isReadOnly) {
-        _value["value"] = newValue;
-      }
-    }
+    mixin(DataSet!("bool"));
+    mixin(DataSet!("int"));
+    mixin(DataSet!("long"));
+    mixin(DataSet!("std.bigint.BigInt"));
+    mixin(DataSet!("double"));
+    mixin(DataSet!("string"));
+    mixin(DataSet!("Json"));
+    mixin(DataSet!("Json[]"));
+    mixin(DataSet!("Json[string]"));
 
     void set(UUID newValue) {
-      if (!isReadOnly) {
-        _value["value"] = newValue.toString;
-      }
-    }
-
-    void set(Json newValue) {
-      if (!isReadOnly) {
-        _value["value"] = newValue;
-      }
+      set(newValue.toString);
     }
   // #endregion set
 
   // #region opCall - Example: x("value")
-      void opCall(bool newValue) {
-        set(newValue);
-      }
+    mixin(DataOpCall!("bool"));
+    mixin(DataOpCall!("int"));
+    mixin(DataOpCall!("long"));
+    mixin(DataOpCall!("std.bigint.BigInt"));
+    mixin(DataOpCall!("double"));
+    mixin(DataOpCall!("string"));
+    mixin(DataOpCall!("Json"));
+    mixin(DataOpCall!("Json[]"));
+    mixin(DataOpCall!("Json[string]"));
+  // #endregion opCall
 
-      void opCall(int newValue) {
-        set(newValue);
-      }
-
-      void opCall(long newValue) {
-        set(newValue);
-      }
-
-      void opCall(float newValue) {
-        set(newValue);
-      }
-
-      void opCall(double newValue) {
-        set(newValue);
-      }
-
-      void opCall(string newValue) {
-        set(newValue);
-      }
-
-      void opCall(Json newValue) {
-        set(newValue);
-      }
-    // #endregion opCall
   // #region equal
     //#region opEquals
       bool opEquals(bool checkValue) {
@@ -367,7 +191,7 @@ class DData : IData {
 
     // #region isEqual
       bool isEqual(bool checkValue) {
-        return !isNull
+        return isBool && !isNull
           ? getBool == checkValue
           : false;
       }
@@ -385,19 +209,19 @@ class DData : IData {
       }
 
       bool isEqual(float checkValue) {
-        return !isNull
+        return isFloat && !isNull
           ? getFloat == checkValue
           : false;
       }
 
       bool isEqual(double checkValue) {
-        return !isNull
+        return isDouble && !isNull
           ? getDouble == checkValue
           : false;
       }
 
       bool isEqual(string checkValue) {
-        return !isNull
+        return isString && !isNull
           ? getString == checkValue
           : false;
       }
@@ -460,10 +284,10 @@ class DData : IData {
 
   // #region data
   // #region data()
-  void data(string key, IData data) {
-  }
+/*   void data(string key, IData data) {
+  } */
 
-  // Return data of keys
+/*   // Return data of keys
   override IData[string] data(string[] keys) {
     IData[string] result;
     keys
@@ -475,7 +299,7 @@ class DData : IData {
   IData data(string key) {
     return null;
   }
-  // #endregion data()
+  // #endregion data() */
 
   // #region hasData()
   bool hasData(IData[string] checkData, bool deepSearch = false) {
@@ -564,8 +388,8 @@ class DData : IData {
     void value = new DData;
     assert(!value.isNull);
     assert(!value.isString);
-    assert(!value.isInteger);
-    assert(!value.isBoolean);
+    assert(!value.isInt);
+    assert(!value.isBool);
     assert(!value.isNumber);
     assert(!value.isNullable);
     assert(!value.isObject);

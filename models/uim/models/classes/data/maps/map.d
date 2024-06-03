@@ -78,19 +78,19 @@ class DMapData : DData {
   // #region equal
   // mixin(ScalarDataOpEquals!(null));
 
-  override bool isEqual(IData[string] checkData) {
+  /* override bool isEqual(IData[string] checkData) {
     return false;
     // TODO
     /*
     return checkData.byKeyValue
-      .all!(kv => hasKey(key) && data(kv.key).isEqual(kv.value)); */
-  }
+      .all!(kv => hasKey(key) && data(kv.key).isEqual(kv.value)); * /
+  } */
 
-  override bool isEqual(IData checkData) {
+/*   override bool isEqual(IData checkData) {
     return false;
-  }
+  } */
 
-  override bool isEqual(Json checkValue) {
+/*   override bool isEqual(Json checkValue) {
     if (checkValue.isObject) {
       return checkValue.byKeyValue
         .all!(kv => hasKey(key) && data(kv.key).isEqual(kv.value));
@@ -100,12 +100,12 @@ class DMapData : DData {
 
   override bool isEqual(string checkValue) {
     return false;
-  }
+  } */
   // #endregion equal
 
-  override IData data(string key) {
+/*   override IData data(string key) {
     return _items.get(key, null);
-  }
+  } */
 
   ///
   unittest {

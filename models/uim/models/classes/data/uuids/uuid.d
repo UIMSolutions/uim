@@ -21,7 +21,7 @@ class DUUIDData : DData {
 
     return true;
   }
-
+/* 
   protected UUID _value;
   @property UUID get() {
     return _value;
@@ -67,17 +67,17 @@ class DUUIDData : DData {
 
     isNull(false);
     _value = newValue;
-  }
+  } */
 
-  alias opEquals = DData.opEquals;
-  /* override  */bool opEquals(UUID equalValue) {
+ /*  alias opEquals = DData.opEquals;
+  /* override  * /bool opEquals(UUID equalValue) {
     return (get == equalValue);
   }
   ///
   unittest {
     /* auto id = randomUUID;
     auto value = new DUUIDData(id); 
-    assert(value == id);*/
+    assert(value == id);* /
   }
 
   override IData clone() {
@@ -95,7 +95,7 @@ class DUUIDData : DData {
     if (isNull)
       return UUID().toString;
     return _value.toString;
-  }
+  } */
 }
 
 mixin(DataCalls!("UUID"));

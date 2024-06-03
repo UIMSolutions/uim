@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 // Base ORM exception.
-class DORMException : UimException {
+class DORMException : DException {
   mixin(ExceptionThis!("ORM"));
 
   override bool initialize(Json[string] initData = null) {

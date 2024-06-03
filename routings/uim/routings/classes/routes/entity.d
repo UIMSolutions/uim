@@ -51,7 +51,7 @@ class DEntityRoute : DRoute {
      */
     protected void _checkEntity(Json myentity) {
         if (!cast(DArrayAccess)myentity && !isArray(myentity)) {
-            throw new UimException(
+            throw new DException(
                 "Route `%s` expects the URL option `_entity` to be an array or object implementing \ArrayAccess, "
                 ~ "but `%s` passed."
                 .format(this.template,

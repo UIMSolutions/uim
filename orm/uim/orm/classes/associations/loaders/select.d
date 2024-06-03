@@ -420,19 +420,18 @@ class DSelectLoader {
             this.foreignKey :
             this.bindingKey;
 
-        someSourceKeys = null;
-        foreach ((array)keys as key) {
+        auto someSourceKeys = null;
+        foreach (key; keys) {
             f = fetchQuery.aliasField(key, this.sourceAlias);
             someSourceKeys ~= key(f);
         }
 
-        nestKey = options["nestKey"];
+        auto nestKey = options["nestKey"];
         if (count(someSourceKeys) > 1) {
             return _multiKeysInjector(resultMap, someSourceKeys, nestKey);
         }
 
-        sourceKey = someSourceKeys[0];
-
+        auto sourceKey = someSourceKeys[0];
         return function (row) use (resultMap, sourceKey, nestKey) {
             if (isset(row[sourceKey], resultMap[row[sourceKey]])) {
                 row[nestKey] = resultMap[row[sourceKey]];

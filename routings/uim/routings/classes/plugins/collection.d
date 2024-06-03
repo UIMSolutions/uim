@@ -194,7 +194,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
     // TODO
     /* IPlugin create(string pluginName, Json Data = null) {
         if (pluginName.isEmpty) {
-            throw new UimException("Cannot create a plugin with empty name");
+            throw new DException("Cannot create a plugin with empty name");
         }
         if (pluginName.has("\\")) {
             if (!class_exists(pluginName)) {

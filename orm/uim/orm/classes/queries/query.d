@@ -649,7 +649,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ### Example:
      *
      * ```
-     */ Bring unique articles that were commented by "markstory"
+     * Bring unique articles that were commented by "markstory"
      * query.distinct(["Articles.id"])
      *    .notMatching("Comments.Users", function (q) {
      *        return q.where(["username": "markstory"]);
@@ -1229,8 +1229,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param \Traversable result Original results
      * @return DORMDatasource\IResultset
      */
-    protected function _decorateResults(Traversable result): IResultset
-    {
+    protected IResultset _decorateResults(Traversable result) {
         result = _applyDecorators(result);
 
         if (!cast(Resultset)result instanceof ) && isBufferedResultsEnabled()) {

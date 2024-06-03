@@ -302,7 +302,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             mytable = namespaceSplit(class);
             mytable = substr(to!string(end(mytable)), 0, -5) ?: _aliasName;
             if (!mytable) {
-                throw new UimException(
+                throw new DException(
                     "You must specify either the `alias` or the `table` option for the constructor."
                 );
             }
@@ -326,7 +326,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             aliasName = namespaceSplit(class);
             aliasName = substr(to!string(end(aliasName), 0, -5)) ?: _table;
             if (!aliasName) {
-                throw new UimException(
+                throw new DException(
                     "You must specify either the `alias` or the `table` option for the constructor."
                 );
             }

@@ -4,31 +4,20 @@ import uim.models;
 
 @safe:
 class DModel : IModel {
-    mixin TConfigurable;
+  mixin TConfigurable;
 
-    this() {
-        initialize;
-    }
-
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
-        
-        return true;
-    }
-    
-    
-      this() {
-    this.name("Model");
-    className("Model");
+  this() {
+    initialize;
   }
 
   this(Json[string] configData) {
-    this(); initialize(configData);
+    this();
+    initialize(configData);
   }
 
   this(IModelManager aManager, Json[string] configData = null) {
-    this(configData); manager(aManager);
+    this(configData);
+    manager(aManager);
   }
 
   this(string aName, Json[string] configData = null) {
@@ -85,7 +74,7 @@ class DModel : IModel {
     return Model;
   }
 
-  DModel copy() {
+  IModel clone() {
     auto result = create;
     // result.fromJson(toJson);
     return result;

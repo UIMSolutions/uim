@@ -29,7 +29,7 @@ class DStringArrayAttribute : DAttribute {
   } */
 }
 
-mixin(AttributeCalls!"StringArrayAttribute");
+mixin(AttributeCalls!"StringArray");
 
 unittest {
   assert(testAttribute(new DImageAttribute));

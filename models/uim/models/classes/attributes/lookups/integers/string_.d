@@ -37,7 +37,7 @@ class DIntegerStringAttribute : DLookupAttribute {
 
   bool hasLookupData(string LookupData) {
     return _lookups.values
-      .any!(value => v == LookupData);
+      .any!(value => value == LookupData);
   }
 
   /* override Json createData() {

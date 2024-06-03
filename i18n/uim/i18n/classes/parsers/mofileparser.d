@@ -39,12 +39,12 @@ class MoFileParser {
     Json[string] parse(string filetoParsed) {
         auto stream = fopen(filetoParsed, "rb");
         if (stream.isNull) {
-            throw new UimException("Cannot open resource `%s`".format(filetoParsed));
+            throw new DException("Cannot open resource `%s`".format(filetoParsed));
         }
         
         auto stat = fstat(stream);
         if (stat == false || stat["size"] < MO_HEADER_SIZE) {
-            throw new UimException("Invalid format for MO translations file");
+            throw new DException("Invalid format for MO translations file");
         }
         string magic = unpack("V1", (string) fread(stream, 4));
         magic = hexdec(substr(dechex(current(magic)),  - 8));
@@ -54,7 +54,7 @@ class MoFileParser {
         } else if (magic == self.MO_BIG_ENDIAN_MAGIC) {
             isBigEndian = true;
         } else {
-            throw new UimException("Invalid format for MO translations file");
+            throw new DException("Invalid format for MO translations file");
         }
         // offset formatRevision
         fread(stream, 4);
@@ -91,7 +91,7 @@ class MoFileParser {
             fseek(stream, offsetTranslated + anI * 8);
             length = _readLong(stream, isBigEndian);
             if (length < 0) {
-                throw new UimException("Length must be > 0");
+                throw new DException("Length must be > 0");
             }
 
             anOffset = _readLong(stream, isBigEndian);

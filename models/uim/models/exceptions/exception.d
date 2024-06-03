@@ -5,7 +5,7 @@ import uim.models;
 @safe:
 
 // Model exception.
-class DModelException : UimException {
+class DModelException : DException {
   mixin(ExceptionThis!("Model"));
 
   override bool initialize(Json[string] initData = null) {

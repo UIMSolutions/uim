@@ -55,7 +55,7 @@ mixin template TDateFormat() {
             );
 
             if (!formatter) {
-                throw new UimException(
+                throw new DException(
                     "Your version of icu does not support creating a date formatter for " ~
                     "`aKey`. You should try to upgrade libicu and the intl extension."
                 );
@@ -112,7 +112,7 @@ mixin template TDateFormat() {
              somePattern
         );
         if (!formatter) {
-            throw new UimException("Unable to create IntlDateFormatter instance");
+            throw new DException("Unable to create IntlDateFormatter instance");
         }
         formatter.setLenient(DateTime.lenientParsingEnabled());
 

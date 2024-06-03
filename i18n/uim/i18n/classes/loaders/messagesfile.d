@@ -107,7 +107,7 @@ class DMessagesFileLoader {
         string name = ucfirst(_extension);
         auto className = App.className(name, "I18n\Parser", "FileParser");
         if (!className) {
-            throw new UimException("Could not find class `%s`.".format("{name}FileParser"));
+            throw new DException("Could not find class `%s`.".format("{name}FileParser"));
         }
 
         auto object = Object.factory(className);

@@ -5,7 +5,7 @@ import uim.logging;
 @safe:
 
 // Logging exception.
-class DLoggingException : UimException {
+class DLoggingException : DException {
   mixin(ExceptionThis!("Logging"));
 
   override bool initialize(Json[string] initData = null) {

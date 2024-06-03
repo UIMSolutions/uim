@@ -60,12 +60,12 @@ class DPoFileParser {
      */
     Json[string] parse(string resourceFilepath) {
         if (!exists(resourceFilepath)){
-            throw new UimException("Not found file `%s`".format(resourceFilepath));
+            throw new DException("Not found file `%s`".format(resourceFilepath));
         }
 
         auto fileStream = fopen(resourceFilepath, "rb");
         if (fileStream == false) {
-            throw new UimException("Cannot open resource `%s`".format(resourceFilepath));
+            throw new DException("Cannot open resource `%s`".format(resourceFilepath));
         }
 
         Json defaultItem = Json.emptyObject;

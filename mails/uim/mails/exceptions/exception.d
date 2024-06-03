@@ -5,7 +5,7 @@ import uim.mails;
 @safe:
 
 // Base Mails exception.
-class DMailsException : UimException {
+class DMailsException : DException {
   mixin(ExceptionThis!("Mails"));
 
   override bool initialize(Json[string] initData = null) {

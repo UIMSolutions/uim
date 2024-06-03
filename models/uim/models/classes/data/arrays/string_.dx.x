@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DStringArrayData : DArrayData {
-  mixin(DataThis!("StringArrayData", "string[]"));  
+  mixin(DataThis!("StringArray"));  
   this(DStringArrayData ArrayData) {
     this().add(ArrayData.values);
   }
@@ -71,7 +71,7 @@ alias toJson = DData.toJson;
     return get.join(",");
   }
 }
-mixin(DataCalls!("StringArrayData", "string[]"));  
+mixin(DataCalls!("StringArray"));  
 
 version(test_uim_models) { unittest {
     auto attribute = StringArrayData(["a", "b", "c"]);

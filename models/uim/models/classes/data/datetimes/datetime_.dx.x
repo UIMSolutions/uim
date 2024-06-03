@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DDatetimeData : DData {
-  mixin(DataThis!("DatetimeData", "DateTime"));
+  mixin(DataThis!("Datetime"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -70,7 +70,7 @@ class DDatetimeData : DData {
   }
 }
 
-mixin(DataCalls!("DatetimeData", "DateTime"));
+mixin(DataCalls!("Datetime"));
 
 unittest {
   // TODO

@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DTagArrayData : DStringArrayData {
-  mixin(DataThis!("TagArrayData", "string[]"));  
+  mixin(DataThis!("TagArray"));  
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -38,7 +38,7 @@ class DTagArrayData : DStringArrayData {
       get.map!(d => d.toString).join(separator);
   }
 }
-mixin(DataCalls!("TagArrayData"));  
+mixin(DataCalls!("TagArray"));  
 
 version(test_uim_models) { unittest {
     auto attribute = TagArrayData(["a", "b", "c"]);

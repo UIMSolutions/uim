@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DJsonData : DData {
-  mixin(DataThis!("JsonData"));
+  mixin(DataThis!("Json"));
 
   protected Json _value;
 
@@ -27,7 +27,7 @@ class DJsonData : DData {
   }
 
   override IData clone() {
-    return JsonData; // TODO (attribute, toJson);
+    return new DJsonData; // TODO (attribute, toJson);
   }
 
   alias toJson = DData.toJson;
@@ -44,4 +44,4 @@ class DJsonData : DData {
   }
 }
 
-mixin(DataCalls!("JsonData"));
+mixin(DataCalls!("Json"));

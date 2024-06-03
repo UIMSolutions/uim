@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DEntityData : DData {
-  mixin(DataThis!("EntityData", "IEntity"));
+  mixin(DataThis!("Entity"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -85,7 +85,7 @@ class DEntityData : DData {
   alias opEquals = DData.opEquals;
 
   override IData clone() {
-    return EntityData; // TODO (attribute, toJson);
+    return new DEntityData; // TODO (attribute, toJson);
   }
 
   alias toJson = DData.toJson;
@@ -104,7 +104,7 @@ class DEntityData : DData {
 
 }
 
-mixin(DataCalls!("EntityData", "IEntity"));
+mixin(DataCalls!("Entity"));
 
 version (test_uim_models) {
   unittest {

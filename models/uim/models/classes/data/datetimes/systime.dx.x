@@ -10,7 +10,7 @@ import uim.models;
 @safe:
 
 class DSystimeData : DData {
-  mixin(DataThis!("SystimeData", "SysTime"));
+  mixin(DataThis!("Systime"));
 
   protected ISysTime _value;
 
@@ -73,7 +73,7 @@ class DSystimeData : DData {
   }
 }
 
-mixin(DataCalls!("SystimeData", "SysTime"));
+mixin(DataCalls!("Systime"));
 
 unittest {
   // TODO

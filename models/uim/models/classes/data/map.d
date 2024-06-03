@@ -6,10 +6,13 @@
 module uim.models.classes.data.map;
 
 import uim.models;
+
 @safe:
 
 class DMapData {
-  this() { initialize; }
+  this() {
+    initialize;
+  }
 
   bool initialize(Json[string] initData = null) {
     return true;
@@ -17,20 +20,33 @@ class DMapData {
 
   mixin(TProperty!("Json[string]", "items"));
 
-  string[] names() { return items.keys; }
+  string[] names() {
+    return items.keys;
+  }
 
-  bool hasValue(string key) { return key in _items ? true : false; }
-  string[] keys() { return _items.keys; }
-  Json[] values() { return _items.values; }
+  bool hasValue(string key) {
+    return key in _items ? true : false;
+  }
 
-  Json opIndex(string name) { return _items.get(name, NullData); }
+  string[] keys() {
+    return _items.keys;
+  }
+
+  Json[] values() {
+    return _items.values;
+  }
+
+  Json opIndex(string name) {
+    
+    return _items.get(name, NullData);
+  }
 
   // Set value, if key exists
   void opIndexAssign(bool newValue, string key) {
     _items[key] = BooleanData; // TODO (newValue);
   }
 
-/*  void opIndexAssign(Json newValue, string key) {
+  /*  void opIndexAssign(Json newValue, string key) {
     _items[key] = JsonValue(newValue);
   } */
 
@@ -39,7 +55,7 @@ class DMapData {
   }
 
   void opIndexAssign(long newValue, string key) {
-    _items[key] = IntegerData; //TODO (newValue);
+    // TODO _items[key] = IntegerData; //TODO (newValue);
   }
 
   void opIndexAssign(string newValue, string key) {
@@ -47,22 +63,22 @@ class DMapData {
   }
 
   void opIndexAssign(UUID newValue, string key) {
-    _items[key] = UUIDData; // TODO (newValue);
+    _items[key] = new DUUIDData; // TODO (newValue);
   }
 
   void addValues(Json[string] newValues) {
     newValues.byKey.each!(key => addData(key, newValues[key]));
-    
+
   }
 
   void addValues(DAttribute[string] attributes) {
     attributes.byKey.each!(key => addData(key, attributes[key].createValue));
-    
+
   }
 
   void addData(string fieldName, Json newValue) {
     _items[fieldName] = newValue;
-    
+
   }
 
   Json toJson() {
@@ -73,33 +89,40 @@ class DMapData {
     keys.each!(key => obj[key] = _items[key].toJson);
     return obj;
   }
-  
+
   DMapData copy() {
-    DMapData MapValue = MapValue;
+    DMapData value = MapValue;
 
-    foreach(key, value; _items) {
+    // TODO 
+    /* 
+    foreach (key, value; _items) {
       MapValue[key] = value.clone;
-    }
+    } */
 
-    return MapValue;
+    return value;
   }
 }
-auto MapValue() { return new DMapData; }
 
-version(test_uim_models) { unittest {
-  auto map = MapValue;
-  map["key1"] = "value1";
-  map["key2"] = true;
-  map["key3"] = 100;
-  debug writeln(map.keys);
-  assert("key1" in map);
-  assert(map["key1"].toString == "value1");
-  assert(map["key1"].get == "value1");
-  assert(map["key2"].toString == "true");
-  assert(map["key2"].get());
-  assert(map["key3"].toString == "100");
-  assert(map["key3"].get == 100);
-}}
+auto MapValue() {
+  return new DMapData;
+}
+
+version (test_uim_models) {
+  unittest {
+    auto map = MapValue;
+    map["key1"] = "value1";
+    map["key2"] = true;
+    map["key3"] = 100;
+    debug writeln(map.keys);
+    assert("key1" in map);
+    assert(map["key1"].toString == "value1");
+    assert(map["key1"].get == "value1");
+    assert(map["key2"].toString == "true");
+    assert(map["key2"].get());
+    assert(map["key3"].toString == "100");
+    assert(map["key3"].get == 100);
+  }
+}
 
 unittest {
   auto map = MapValue;
@@ -108,4 +131,4 @@ unittest {
   map["key3"] = 100;
   debug writeln(map.keys);
   debug writeln(map.values.map!(v => v.toString).array);
-} 
+}

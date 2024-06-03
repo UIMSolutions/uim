@@ -11,7 +11,7 @@ import uim.models;
 import std.datetime.date;
 
 class DDateData : DData {
-  mixin(DataThis!("DateData", "Date"));
+  mixin(DataThis!("Date"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -83,7 +83,7 @@ class DDateData : DData {
   }
 }
 
-mixin(DataCalls!("DateData", "Date"));
+mixin(DataCalls!("Date"));
 
 unittest {
   /* 

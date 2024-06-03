@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DIntegerArrayData : DArrayData {
-  mixin(DataThis!("IntegerArrayData", "int[]"));  
+  mixin(DataThis!("IntegerArray"));  
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -34,4 +34,4 @@ class DIntegerArrayData : DArrayData {
     return IntegerArrayData; // TODO (attribute, toJson);
   }
 }
-mixin(DataCalls!("IntegerArrayData"));  
+mixin(DataCalls!("IntegerArray"));  

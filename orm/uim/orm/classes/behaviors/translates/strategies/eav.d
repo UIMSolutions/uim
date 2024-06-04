@@ -99,8 +99,8 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         alias = _table.aliasName();
         tableLocator = getTableLocator();
 
-        foreach (fields as field) {
-            name = alias ~ "_" ~ field ~ "_translation";
+        foreach (field; fields) {
+            string name = alias ~ "_" ~ field ~ "_translation";
 
             if (!tableLocator.exists(name)) {
                 fieldTable = tableLocator.get(name, [
@@ -304,7 +304,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         entity.set("_locale", locale, ["setter": false.toJson]);
         entity.setDirty("_locale", false);
 
-        foreach (fields as field) {
+        foreach (field; fields) {
             entity.setDirty(field, false);
         }
  */    }

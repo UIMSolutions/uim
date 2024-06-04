@@ -1377,7 +1377,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         myselect = this.clause("select");
         mytypes = null;
 
-        foreach (myselect as aliasName: myvalue) {
+        foreach (aliasName: myvalue; myselect) {
             if (cast(ITypedResult)myvalue) {
                 mytypes[aliasName] = myvalue.getReturnType();
                 continue;

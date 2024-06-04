@@ -222,7 +222,7 @@ class DResultset : IResultset {
      * This method will also close the underlying statement cursor.
      */
     json first() {
-        foreach (this as result) {
+        foreach (result; this) {
             if (_statement != null && !_useBuffering) {
                 _statement.closeCursor();
             }

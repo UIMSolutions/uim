@@ -187,7 +187,7 @@ class DCounterCacheBehavior : DBehavior {
         myforeignKeys = /* (array) */myassoc.foreignKeys();
         mycountConditions = myentity.extract(myforeignKeys);
 
-        foreach (mycountConditions as fieldName: myvalue) {
+        foreach (fieldName, myvalue; mycountConditions) {
             if (myvalue.isNull) {
                 mycountConditions[fieldName ~ " IS"] = myvalue;
                 mycountConditions.remove(fieldName);

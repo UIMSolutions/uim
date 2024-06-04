@@ -752,8 +752,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Json[string] myparams Set of associations to bind (indexed by association type)
      */
     void addAssociations(Json[string] myparams) {
-        foreach (myparams as myassocType: mytables) {
-            foreach (mytables as myassociated: options) {
+        foreach (myassocType: mytables; myparams) {
+            foreach (myassociated: options; mytables) {
                 if (isNumeric(myassociated)) {
                     myassociated = options;
                     options = null;

@@ -451,18 +451,20 @@ class DSelectLoader {
      * @param string nestKey The key under which results should be nested
      */
     protected DClosure _multiKeysInjector(Json[string] resultMap, string[] someSourceKeys, string nestKey) {
-        return function (row) use (resultMap, someSourceKeys, nestKey) {
-            values = null;
+        // TODO 
+        /* return function (row) use (resultMap, someSourceKeys, nestKey) {
+            string[] values = null;
             foreach (someSourceKeys as key) {
                 values ~= row[key];
             }
 
-            key = values.join(";");
-            if (isset(resultMap[key])) {
-                row[nestKey] = resultMap[key];
+            string key = values.join(";");
+            if (resultMap.hasKey(key)) {
+                row[nestKey] = resultMap.get(key);
             }
 
             return row;
-        };
+        }; */
+        return null; 
     }
 }

@@ -534,8 +534,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             keys = hydrated ? translation
                 .visibleFields() : translation
                 .keys;
-            foreach (
-                keys as field) {
+            foreach (field; keys) {
                 if (
                     field == "locale") {
                     row["_locale"] = translation[field];

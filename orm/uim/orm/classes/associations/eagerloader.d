@@ -223,7 +223,7 @@ class DEagerLoader {
             return /* (array) */_normalized;
         }
         mycontain = null;
-        foreach (_containments as aliasName: options) {
+        foreach (aliasName, options; _containments) {
             if (!options.isEmpty("instance"])) {
                 mycontain = _containments;
                 break;
@@ -587,7 +587,7 @@ class DEagerLoader {
      * @param bool mymatching Whether it is an association loaded through `matching()`.
      */
     protected DEagerLoadable[] _buildAssociationsMap(Json[string] initialData, Json[string] mylevel, bool mymatching = false) {
-        foreach (mylevel as myassoc: mymeta) {
+        foreach (myassoc, mymeta; mylevel) {
             mycanBeJoined = mymeta.canBeJoined();
             myinstance = mymeta.instance();
             myassociations = mymeta.associations();

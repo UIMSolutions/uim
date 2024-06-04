@@ -1211,7 +1211,7 @@ class DMessage { //: JsonSerializable {
         formatted = null;
         cut = (wrapLength == LINE_LENGTH_MUST);
 
-        foreach (lines as line) {
+        foreach (line; lines) {
             if (isEmpty(line) && line != "0") {
                 formatted ~= "";
                 continue;

@@ -42,7 +42,7 @@ class DContextFactory {
                         return new DEntityContext(mydata);
                     }
                     if (is_iterable(mydata["entity"])) {
-                        mypass = (new DCollection(mydata["entity"])).first() !isNull;
+                        mypass = (new DCollection(mydata["entity"])).first() !is null;
                         return mypass
                             ? new DEntityContext(mydata)
                             : new DNullContext(mydata);

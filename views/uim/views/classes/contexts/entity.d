@@ -192,16 +192,16 @@ class DEntityContext : DContext {
 
             if (cast(IInvalidProperty)myentity) {
                 myval = myentity.invalidField(mypart);
-                if (myval !isNull) {
+                if (myval !is null) {
                     return myval;
                 }
             }
             myval = myentity.get(mypart);
-            if (myval !isNull) {
+            if (myval !is null) {
                 return myval;
             }
             if (
-                options["default"] !isNull
+                options["default"] !is null
                 || !options["schemaDefault"]
                 || !myentity.isNew()
             ) {
@@ -526,7 +526,7 @@ class DEntityContext : DContext {
         myassoc = null;
         foreach (mypart; mynormalized) {
             if (mypart == "_joinData") {
-                if (myassoc !isNull) {
+                if (myassoc !is null) {
                     mytable = myassoc.junction();
                     myassoc = null;
                     continue;

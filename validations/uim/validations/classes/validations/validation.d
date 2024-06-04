@@ -150,7 +150,7 @@ class DValidation {
         if (mb_strlen(myCheckValue) < 13) {
             return false;
         }
-        if (myregex !isNull && _check(myCheckValue, myregex)) {
+        if (myregex !is null && _check(myCheckValue, myregex)) {
             return !mydeep || luhn(myCheckValue);
         }
         auto mycards = [
@@ -492,7 +492,7 @@ class DValidation {
         }
         mymethod = mymethods[parserType];
 
-        return DateTime.mymethod(dateValue, myformat) !isNull;
+        return DateTime.mymethod(dateValue, myformat) !is null;
     }
     
     /**
@@ -642,7 +642,7 @@ class DValidation {
         if (get_debug_type(mycheck) != (string)mybackingType) {
             return false;
         }
-        return myenumClassName.tryFrom(mycheck) !isNull;
+        return myenumClassName.tryFrom(mycheck) !is null;
     }
     
     /**
@@ -1159,13 +1159,13 @@ class DValidation {
         if (isSet(options["width"])) {
             myvalidWidth = self.comparison(mywidth, options["width"][0], options["width"][1]);
         }
-        if (myvalidHeight !isNull && myvalidWidth !isNull) {
+        if (myvalidHeight !is null && myvalidWidth !is null) {
             return myvalidHeight && myvalidWidth;
         }
-        if (myvalidHeight !isNull) {
+        if (myvalidHeight !is null) {
             return myvalidHeight;
         }
-        if (myvalidWidth !isNull) {
+        if (myvalidWidth !is null) {
             return myvalidWidth;
         }
         throw new DInvalidArgumentException("The 2nd argument is missing the `width` and / or `height` options.");

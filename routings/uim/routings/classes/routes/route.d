@@ -185,7 +185,7 @@ class DRoute : IRoute {
      * Check if a Route has been compiled into a regular expression.
      */
     bool compiled() {
-        return _compiledRoute !isNull;
+        return _compiledRoute !is null;
     }
     
     /**
@@ -198,7 +198,7 @@ class DRoute : IRoute {
         if (_compiledRoute.isNull) {
            _writeRoute();
         }
-        assert(_compiledRoute !isNull);
+        assert(_compiledRoute !is null);
 
         return _compiledRoute;
     }

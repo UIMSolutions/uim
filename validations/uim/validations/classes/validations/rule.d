@@ -117,7 +117,7 @@ class DValidationRule {
             return (_on == Validator.WHEN_CREATE && !mynewRecord)
                 || (_on == Validator.WHEN_UPDATE && mynewRecord);
         }
-        if (_on !isNull) {
+        if (_on !is null) {
             myfunction = _on;
 
             return !myfunction(mycontext);

@@ -590,7 +590,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         if (myMessage) {
            _allowEmptyMessages[fieldName] = myMessage;
         }
-        if (myflags !isNull) {
+        if (myflags !is null) {
            _allowEmptyFlags[fieldName] = myflags;
         }
     }
@@ -2659,7 +2659,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         if (isArray(mydata)) {
             myallFieldsAreEmpty = true;
             foreach (mydata as fieldName) {
-                if (fieldName !isNull && fieldName != "") {
+                if (fieldName !is null && fieldName != "") {
                     myallFieldsAreEmpty = false;
                     break;
                 }

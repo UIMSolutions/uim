@@ -92,7 +92,7 @@ abstract class DCell { // }: IEventDispatcher {
         IEventManager myeventManager = null,
         Json[string] cellOptionsToApply = null
     ) {
-        if (myeventManager !isNull) {
+        if (myeventManager !is null) {
             setEventManager(myeventManager);
         }
         this.request = myrequest;
@@ -131,7 +131,7 @@ abstract class DCell { // }: IEventDispatcher {
             }
             mybuilder = viewBuilder();
 
-            if (templateName !isNull) {
+            if (templateName !is null) {
                 mybuilder.setTemplate(templateName);
             }
             myclassName = class;

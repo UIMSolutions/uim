@@ -67,7 +67,7 @@ class DFormContext : DContext {
         ];
 
         myval = _form[fieldName);
-        if (myval !isNull) {
+        if (myval !is null) {
             return myval;
         }
         if (!options["default"].isNull || !options["schemaDefault"]) {

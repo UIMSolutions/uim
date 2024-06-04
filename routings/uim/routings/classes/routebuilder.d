@@ -172,7 +172,7 @@ class DRouteBuilder {
      * string myvalue Either the value to set or null.
      */
     string namePrefix(string myvalue = null) {
-        if (myvalue !isNull) {
+        if (myvalue !is null) {
            _namePrefix = myvalue;
         }
         return _namePrefix;
@@ -328,7 +328,7 @@ class DRouteBuilder {
             ];
             this.connect(myurl, myparams, myrouteOptions);
         }
-        if (mycallback !isNull) {
+        if (mycallback !is null) {
             myidName = Inflector.singularize(Inflector.underscore(routings)) ~ "_id";
             mypath = "/" ~ options["path"] ~ "/{" ~ myidName ~ "}";
             this.scope(mypath, [], mycallback);
@@ -430,7 +430,7 @@ class DRouteBuilder {
      * @param string routings The name of the route.
      */
     protected DRoute _methodRoute(string mymethod, string mytemplate, string[] mytarget, string routings) {
-        if (routings !isNull) {
+        if (routings !is null) {
             routings = _namePrefix ~ routings;
         }
         options = [

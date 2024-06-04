@@ -116,7 +116,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * Defaults to a new instance.
      */
     this(DEventManager eventManager = null) {
-        if (eventManager !isNull) {
+        if (eventManager !is null) {
             setEventManager(eventManager);
         }
         getEventManager().on(this);

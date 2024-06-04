@@ -793,8 +793,6 @@ class DServerRequest { // }: IServerRequest {
     
     /**
      * Update the request method and get a new instance.
-     * Params:
-     * string httpMethod The HTTP method to use.
      */
     static withMethod(string httpMethod) {
         new = clone this;
@@ -802,15 +800,13 @@ class DServerRequest { // }: IServerRequest {
         if (!preg_match("/^[!#%&\'*+.^_`\|~0-9a-z-]+/i", method)) {
             throw new DInvalidArgumentException(
                 "Unsupported HTTP method `%s` provided."
-                .format(method
-            ));
+                .format(method)
+            );
         }
         new._environmentData["REQUEST_METHOD"] = method;
 
         return new;
     }
-    
-
     
     /**
      * Update the query string data and get a new instance.

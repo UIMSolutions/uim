@@ -918,7 +918,7 @@ class DResponse : IResponse {
     bool compress() {
         return ini_get("zlib.output_compression") != "1" &&
             extension_loaded("zlib") &&
-            (string)enviroment("HTTP_ACCEPT_ENCODING").has("gzip") &&
+            /* (string) */enviroment("HTTP_ACCEPT_ENCODING").has("gzip") &&
             ob_start("ob_gzhandler");
     }
     
@@ -926,7 +926,7 @@ class DResponse : IResponse {
      * Returns whether the resulting output will be compressed by D
      */
    bool outputCompressed() {
-        return (string)enviroment("HTTP_ACCEPT_ENCODING").has("gzip")
+        return /* (string) */enviroment("HTTP_ACCEPT_ENCODING").has("gzip")
             && (ini_get("zlib.output_compression") == "1" || in_array("ob_gzhandler", ob_list_handlers(), true));
     }
     
@@ -1153,7 +1153,7 @@ class DResponse : IResponse {
         }
         fileSize = file.getSize();
         if (options["download"]) {
-            agent = (string)enviroment("HTTP_USER_AGENT");
+            agent = /* (string) */enviroment("HTTP_USER_AGENT");
 
             if (agent && preg_match("%Opera([/ ])([0-9].[0-9]{1,2})%", agent)) {
                 contentType = "application/octet-stream";
@@ -1168,7 +1168,7 @@ class DResponse : IResponse {
                 .withHeader("Content-Transfer-Encoding", "binary");
         }
         new = new.withHeader("Accept-Ranges", "bytes");
-        httpRange = (string)enviroment("HTTP_RANGE");
+        httpRange = /* (string) */enviroment("HTTP_RANGE");
         if (httpRange) {
             new._fileRange(file, httpRange);
         } else {

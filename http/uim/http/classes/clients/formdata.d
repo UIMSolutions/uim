@@ -87,23 +87,23 @@ class DFormData { // }: Countable {
         auto filename = false;
         auto contentType = "application/octet-stream";
         if (cast(IUploadedFile) aValue) {
-            content = (string) aValue.getStream();
+            content = /* /* (string) */ */ aValue.getStream();
             contentType = aValue.getClientMediaType();
             filename = aValue.getClientFilename();
         } else if (isResource(aValue)) {
-            content = (string) stream_get_contents(aValue);
+            content = /* (string) */ stream_get_contents(aValue);
             if (stream_is_local(aValue)) {
                 finfo = new finfo(FILEINFO_MIME);
                 metadata = stream_get_meta_data(aValue);
-                contentType = (string) finfo.file(metadata["uri"]);
+                contentType = /* (string) */ finfo.file(metadata["uri"]);
                 filename = basename(metadata["uri"]);
             }
         } else {
             finfo = new finfo(FILEINFO_MIME);
             aValue = substr(aValue, 1);
             filename = basename(aValue);
-            content = (string) file_get_contents(aValue);
-            contentType = (string) finfo.file(aValue);
+            content = /* (string) */ file_get_contents(aValue);
+            contentType = /* (string) */ finfo.file(aValue);
         }
         part = this.newPart(nameToUse, content);
         part.type(contentType);

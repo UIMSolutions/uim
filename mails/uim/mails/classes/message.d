@@ -45,7 +45,7 @@ class DMessage { //: JsonSerializable {
         if (this.appCharset !is null) {
             this.charset = this.appCharset;
         }
-        this.domain = (string)preg_replace("/\:\d+/", "", (string)enviroment("HTTP_HOST"));
+        this.domain = (string)preg_replace("/\:\d+/", "", /* (string) */enviroment("HTTP_HOST"));
         if (isEmpty(this.domain)) {
             this.domain = D_uname("n");
         }
@@ -637,7 +637,7 @@ class DMessage { //: JsonSerializable {
                 if (in_array(var,  aHeadersMultipleEmails)) {
                      aHeaders[aHeader] = join(", ", this.formatAddress(this.{var}));
                 } else {
-                     aHeaders[aHeader] = (string)current(this.formatAddress(this.{var}));
+                     aHeaders[aHeader] = /* (string) */current(this.formatAddress(this.{var}));
                 }
             }
         }
@@ -645,7 +645,7 @@ class DMessage { //: JsonSerializable {
             if (key(this.sender) == key(this.from)) {
                  aHeaders["Sender"] = "";
             } else {
-                 aHeaders["Sender"] = (string)current(this.formatAddress(this.sender));
+                 aHeaders["Sender"] = /* (string) */current(this.formatAddress(this.sender));
             }
         }
          aHeaders += this.headers;
@@ -659,16 +659,16 @@ class DMessage { //: JsonSerializable {
              aHeaders["Message-ID"] = this.messageId;
         }
         if (this.priority) {
-             aHeaders["X-Priority"] = (string)this.priority;
+             aHeaders["X-Priority"] = /* (string) */this.priority;
         }
         if (anInclude["subject"]) {
              aHeaders["Subject"] = this.subject;
         }
          aHeaders["MIME-Version"] = "1.0";
         if (this.attachments) {
-             aHeaders["Content-Type"] = "multipart/mixed; boundary="" ~ (string)this.boundary ~ """;
+             aHeaders["Content-Type"] = "multipart/mixed; boundary="" ~ /* (string) */this.boundary ~ """;
         } else if (this.emailFormat == MESSAGE_BOTH) {
-             aHeaders["Content-Type"] = "multipart/alternative; boundary="" ~ (string)this.boundary ~ """;
+             aHeaders["Content-Type"] = "multipart/alternative; boundary="" ~ /* (string) */this.boundary ~ """;
         } else if (this.emailFormat == MESSAGE_TEXT) {
              aHeaders["Content-Type"] = "text/plain; charset=" ~ getContentTypeCharset();
         } else if (this.emailFormat == MESSAGE_HTML) {
@@ -1048,7 +1048,7 @@ class DMessage { //: JsonSerializable {
             part.type(dirEntry["mimetype"]);
 
             message ~= "--" ~ boundary;
-            message ~= (string)part;
+            message ~= /* (string) */part;
             message ~= "";
         }
         return message;
@@ -1075,7 +1075,7 @@ class DMessage { //: JsonSerializable {
             part.transferEncoding("base64");
             part.contentId(dirEntry["contentId"]);
             part.filename(filename);
-            message ~= (string)part;
+            message ~= /* (string) */part;
             message ~= "";
         }
         return message;
@@ -1373,9 +1373,9 @@ class DMessage { //: JsonSerializable {
      */
     protected string readFile(IUploadedFile|string afile) {
         if (isString(file)) {
-            content = (string)file_get_contents(file);
+            content = /* (string) */file_get_contents(file);
         } else {
-            content = (string)file.getStream();
+            content = /* (string) */file.getStream();
         }
         return chunk_split(base64_encode(content));
     }

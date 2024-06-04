@@ -23,7 +23,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      */
     this(Json[string] cookies = null) {
         this.checkCookies(cookies);
-        cookies.each!(cookie => this.cookies[cookie.id] = cookie);
+        cookies.each!(cookie => _cookies[cookie.id] = cookie);
     }
     
     // Create a Cookie Collection from an array of Set-Cookie Headers
@@ -45,8 +45,8 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * \Psr\Http\Message\IServerRequest serverRequest The request to extract cookie data from
      */
     static static createFromServerRequest(IServerRequest serverRequest) {
-        someData = request.getCookieParams();
-        cookies = null;
+        auto someData = request.getCookieParams();
+        auto cookies = null;
         foreach (someData as name: aValue) {
             cookies ~= new DCookie((string)name, aValue);
         }
@@ -55,7 +55,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
     
     // Get the number of cookies in the collection.
     size_t count() {
-        return count(this.cookies);
+        return count(_cookies);
     }
     
     /**
@@ -67,9 +67,9 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * Params:
      * \UIM\Http\Cookie\ICookie cookie Cookie instance to add.
      */
-    static add(ICookie cookie) {
+    static add(ICookie cookieToAdd) {
         new = clone this;
-        new.cookies[cookie.getId()] = cookie;
+        new.cookies[cookieToAdd.getId()] = cookieToAdd;
 
         return new;
     }
@@ -79,15 +79,12 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * Params:
      * string aName The name of the cookie.
      */
-    ICookie get(string aName) {
-        cookie = __get(name);
-
+    ICookie get(string cookieName) {
+        auto cookie = __get(cookieName);
         if (cookie.isNull) {
             throw new DInvalidArgumentException(
-                
-                    "Cookie `%s` not found. Use `has()` to check first for existence."
-                    .format(name
-                )
+                "Cookie `%s` not found. Use `has()` to check first for existence."
+                .format(cookieName)
             );
         }
         return cookie;
@@ -103,9 +100,9 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * Params:
      * string aName The name of the cookie.
      */
-    ICookie __get(string aName) {
-        aKey = mb_strtolower(name);
-        foreach (cookie; this.cookies) {
+    ICookie __get(string cookieName) {
+        aKey = mb_strtolower(cookieName);
+        foreach (cookie; _cookies) {
             if (mb_strtolower(cookie.name) == aKey) {
                 return cookie;
             }
@@ -152,7 +149,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
     
     // Gets the iterator
     DTraversable getIterator() {
-        return new DArrayIterator(this.cookies);
+        return new DArrayIterator(_cookies);
     }
     
     /**
@@ -200,7 +197,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
     protected Json[string] findMatchingCookies(string ascheme, string ahost, string aPath) {
          auto result;
         now = new DateTimeImmutable("now", new DateTimeZone("UTC"));
-        foreach (this.cookies as cookie) {
+        foreach (_cookies as cookie) {
             if (scheme == "http" && cookie.isSecure()) {
                 continue;
             }
@@ -257,14 +254,14 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
         time = new DateTimeImmutable("now", new DateTimeZone("UTC"));
         hostPattern = "/" ~ preg_quote(host, "/") ~ "/";
 
-        foreach (this.cookies as  anI: cookie) {
+        foreach (_cookies as  anI: cookie) {
             if (!cookie.isExpired(time)) {
                 continue;
             }
             somePathMatches = somePath.startWith(cookie.getPath());
             hostMatches = preg_match(hostPattern, cookie.getDomain());
             if (somePathMatches && hostMatches) {
-                unset(this.cookies[anI]);
+                unset(_cookies[anI]);
             }
         }
     }

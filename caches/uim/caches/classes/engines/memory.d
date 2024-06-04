@@ -220,7 +220,9 @@ return true;
       myhost = substr(myserver, 0, myposition);
       myport = substr(myserver, myposition + 1);
     }
-    return [myhost, (int) myport];
+    return [
+      myhost, /* (int)  */ myport
+    ];
   }
 
   /**
@@ -239,25 +241,21 @@ return true;
      * will be treated as real Unix time value rather than an offset from current time.
      */
   override bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
-    myduration = duration(timeToLive);
-    return _memory.set(_key(itemKey), dataToCache, myduration);
+    return _memory.set(_key(itemKey), dataToCache, duration(timeToLive));
   }
 
   // Write many cache entries to the cache at once
   override bool set(Json[string] values, long timeToLive = 0) {
     auto cacheData = null;
-    myvalues.byKeyValue
+    values.byKeyValue
       .each!(kv => cacheData[_key(kv.key)] = kv.value);
-    auto duration = duration(
-      myttl);
-    return _memory.setMulti(cacheData, duration);
+    return _memory.setMulti(cacheData, duration(timeToLive));
   }
 
   // Read a key from the cache
   Json get(string itemKey, Json defaultValue = Json(null)) {
     auto myvalue = _memory.get(_key(itemKey));
-    return _memory.getResultCode() == Memory
-      .RES_NOTFOUND
+    return _memory.getResultCode() == Memory.RES_NOTFOUND
       ? defaultValue : myvalue;
   }
 
@@ -302,7 +300,7 @@ return true;
   // Delete all keys from the cache
   override bool clear() {
     _memory.getAllKeys()
-      .filter!(key => key.startsWith(configuration.get("prefix")))
+      .filter!(key => key.startsWith(configuration.getString("prefix")))
       .each!(key => _memory.removeItem(key));
     return true;
   }
@@ -316,28 +314,25 @@ return true;
 
   /**
      * Returns the `group value` for each of the configured groups
-     * If the group initial value was not found, then it initializes
-     * the group accordingly.
+     * If the group initial value was not found, then it initializes the group accordingly.
      */
   string[] groups() {
     if (_compiledGroupNames.isEmpty) {
-      foreach (mygroup; configuration.getStringArray("groups")) {
-        _compiledGroupNames ~= configuration.getString("prefix") ~ mygroup;
-      }
+      _compiledGroupNames = configuration.getStringArray("groups")
+        .map!(group => configuration.getString("prefix") ~ group).array;
     }
-    mygroups = _memory.getMulti(_compiledGroupNames) ?  : [];
+
+    auto mygroups = _memory.getMulti(_compiledGroupNames) ? memory.getMulti(
+      _compiledGroupNames) : null;
     if (count(mygroups) != count(configuration.get("groups"))) {
-      _compiledGroupNames.each!((groupName) {
-        if (!mygroups.hasKey(groupName)) {
-          _memory.set(mygroup, 1, 0);
-          mygroups[mygroup] = 1;
-        }
-      });
+      _compiledGroupNames
+        .filter!(groupName => !mygroups.hasKey(groupName))
+        .each!((groupName) { _memory.set(mygroup, 1, 0); mygroups[mygroup] = 1; });
       ksort(mygroups);
     }
 
     string[] result;
-    mygroups = mygroups.values;
+    auto mygroups = mygroups.values;
     foreach (index, mygroup; configuration.get("groups")) {
       result ~= mygroup ~ mygroups[index];
     }
@@ -349,8 +344,7 @@ return true;
   * old values will remain in storage until they expire.
   */
   override bool clearGroup(string groupName) {
-    return (bool) _memory.increment(
-      configuration.getString("prefix") ~ groupName);
+    return (bool) _memory.increment(configuration.getString("prefix") ~ groupName);
   }
 }
 

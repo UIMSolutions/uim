@@ -46,7 +46,7 @@ class DMarshaller {
             }
             // If the key is not a special field like _ids or _joinData
             // it is a missing association that we should error on.
-            if (!_table.hasAssociation((string)aKey)) {
+            if (!_table.hasAssociation(/* (string) */aKey)) {
                 if (!to!string(aKey).startWith("_")) {
                     throw new DInvalidArgumentException(
                         "Cannot marshal data for `%s` association. It is not associated with `%s`."

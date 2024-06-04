@@ -158,7 +158,7 @@ class DAssociation : IAssociation {
         if (_targetTable == null) {
             if (indexOf(_className, ".")) {
                 [plugin] = pluginSplit(_className, true);
-                registryAlias = (string) plugin._name;
+                registryAlias = /* (string) */ plugin._name;
             } else {
                 registryAlias = _name;
             }

@@ -418,7 +418,7 @@ class Xml {
                             myxml.children(mynamespace, true)
                                 .each!(child => _toArray(child, mydata, mynamespace, mynamespaces));
                         }
-                        myasString = strip((string) myxml);
+                        myasString = strip(/* (string) */ myxml);
                         if (isEmpty(mydata)) {
                             mydata = myasString;
                         }

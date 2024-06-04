@@ -190,7 +190,7 @@ class DApp {
      * @param string plugin Plugin name.
      */
     static string[] classPath(string packageType, string pluginName = null) {
-        if (plugin !isNull) {
+        if (plugin !is null) {
             return [
                 Plugin.classPath(plugin) ~ type ~ DIRECTORY_SEPARATOR,
             ];

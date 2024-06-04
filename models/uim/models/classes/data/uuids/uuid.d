@@ -29,7 +29,7 @@ class DUUIDData : DData {
 
   override void set(Json newValue) {
     if (newValue.isEmpty) {
-      if (!isNullable)
+      if (!is nullable)
         return;
 
       isNull(true);
@@ -43,7 +43,7 @@ class DUUIDData : DData {
 
   override void set(string newValue) {
     if (newValue.isNull) {
-      if (!isNullable)
+      if (!is nullable)
         return;
 
       isNull(true);
@@ -58,7 +58,7 @@ class DUUIDData : DData {
 
   void set(UUID newValue) {
     if (newValue == UUID()) {
-      if (!isNullable)
+      if (!is nullable)
         return;
 
       isNull(true);

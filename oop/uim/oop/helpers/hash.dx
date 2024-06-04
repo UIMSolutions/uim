@@ -89,7 +89,7 @@ class Hash {
         // Simple paths.
         if (!preg_match("/[{\[]/", pathToExtract)) {
             mydata = get(mydata, pathToExtract);
-            if (mydata !isNull && !(isArray(mydata) || cast(DArrayAccess)mydata)) {
+            if (mydata !is null && !(isArray(mydata) || cast(DArrayAccess)mydata)) {
                 return [mydata];
             }
             return !mydata.isNull ? /* (array) */mydata : [];
@@ -389,7 +389,7 @@ class Hash {
             someKeys = extract(mydata, mykeyPath);
             assert(isArray(someKeys));
         }
-        if (mykeyPath !isNull && someKeys.isEmpty) {
+        if (mykeyPath !is null && someKeys.isEmpty) {
             return null;
         }
         myvals = null;
@@ -409,7 +409,7 @@ class Hash {
                 "`Hash.combine()` needs an equal number of keys + values."
             );
         }
-        if (groupPath !isNull) {
+        if (groupPath !is null) {
             mygroup = extract(mydata, groupPath);
             if (!mygroup.isEmpty) {
                 myc = isArray(someKeys) ? count(someKeys): count(myvals);
@@ -945,7 +945,7 @@ class Hash {
             return mydata;
         }
         myintersection = array_intersect_key(mydata, mycompare);
-        while ((aKey = key(myintersection)) !isNull) {
+        while ((aKey = key(myintersection)) !is null) {
             if (mydata[aKey] == mycompare[aKey]) {
                 unset(mydata[aKey], mycompare[aKey]);
             }

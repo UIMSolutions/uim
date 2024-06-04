@@ -123,7 +123,7 @@ abstract class DConfiguration : IConfiguration {
         Json[string] results;
 
         keys
-            .filter!(key => !compressMode || !isNull(key))
+            .filter!(key => !compressMode || !key.isNull)
             .each!(key => results[key] = get(key));
 
         return results;

@@ -135,7 +135,7 @@ class DSocket {
         }
         this.connected = isResource(this.connection);
         if (this.connected) {
-            assert(this.connection!isNull);
+            assert(this.connection!is null);
 
             stream_set_timeout(this.connection, (int) configuration.get("timeout"]);
         }
@@ -288,7 +288,7 @@ class DSocket {
         totalBytes = someData.length;
         written = 0;
         while (written < totalBytes) {
-            assert(this.connection!isNull);
+            assert(this.connection!is null);
 
             rv = fwrite(this.connection, substr(someData, written));
             if (rv == false || rv == 0) {
@@ -312,7 +312,7 @@ class DSocket {
         if (!this.connected && !this.connect()) {
             return null;
         }
-        assert(this.connection!isNull);
+        assert(this.connection!is null);
         if (feof(this.connection)) {
             return null;
         }

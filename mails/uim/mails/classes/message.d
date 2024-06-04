@@ -42,7 +42,7 @@ class DMessage { //: JsonSerializable {
         // TODO
         /*
         this.appCharset = configuration.get("App.encoding");
-        if (this.appCharset !isNull) {
+        if (this.appCharset !is null) {
             this.charset = this.appCharset;
         }
         this.domain = (string)preg_replace("/\:\d+/", "", (string)enviroment("HTTP_HOST"));
@@ -408,7 +408,7 @@ class DMessage { //: JsonSerializable {
      * string encoding Encoding set.
      */
     void setTransferEncoding(string aencoding) {
-        if (encoding !isNull) {
+        if (encoding !is null) {
             encoding = encoding.lower;
             if (!in_array(encoding, this.transferEncodingAvailable, true)) {
                 throw new DInvalidArgumentException(
@@ -1426,7 +1426,7 @@ class DMessage { //: JsonSerializable {
         });
 
         return array_filter(array, auto (anI) {
-            return anI !isNull && !isArray(anI) && !isBool(anI) && anI.length || !anI.isEmpty;
+            return anI !is null && !isArray(anI) && !isBool(anI) && anI.length || !anI.isEmpty;
         });
     }
     

@@ -364,7 +364,7 @@ class Xml {
                         }
 
                         auto mychild = dataDom.createElement(dataKey);
-                        if (mychildValue!isNull) {
+                        if (mychildValue!is null) {
                             mychild.appendChild(dataDom.createTextNode(mychildValue));
                         }
                         if (mychildNS) {

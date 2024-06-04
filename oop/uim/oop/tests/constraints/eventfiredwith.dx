@@ -43,7 +43,7 @@ class DEventFiredWith : DConstraint {
     bool matches(Json constraintCheckValue) {
         firedEvents = null;
         list = _eventManager.getEventList();
-        if (list !isNull) {
+        if (list !is null) {
             totalEvents = count(list);
             for (anException = 0;  anException < totalEvents;  anException++) {
                 firedEvents ~= list[anException];

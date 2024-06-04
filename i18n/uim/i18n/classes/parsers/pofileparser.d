@@ -177,7 +177,7 @@ class DPoFileParser {
         }
         translation = stripcslashes(to!string(translation));
 
-        if (context!isNull && !isSet(messages[singular]["_context"][context])) {
+        if (context!is null && !isSet(messages[singular]["_context"][context])) {
             messages[singular]["_context"][context] = translation;
         } else if (!isSet(messages[singular]["_context"][""])) {
             messages[singular]["_context"][""] = translation;

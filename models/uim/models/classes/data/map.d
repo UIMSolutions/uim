@@ -66,7 +66,7 @@ class DMapData : DData {
   void opIndexAssign(UUID newValue, string key) {
     _items[key] = new DUUIDData; // TODO (newValue);
   } */
-
+/* 
   void addValues(Json[string] newValues) {
     newValues.byKey.each!(key => addData(key, newValues[key]));
 
@@ -89,7 +89,7 @@ class DMapData : DData {
   Json toJson(Json obj) {
     // keys.each!(key => obj[key] = _items[key].toJson);
     return obj;
-  }
+  } */
 
   DMapData copy() {
     DMapData value = MapValue;

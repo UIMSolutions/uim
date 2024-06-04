@@ -20,9 +20,11 @@ interface IData {
             void isBool(bool mode);
 
             bool isFloat();	 
+            bool isDouble();	 
             void isFloat(bool mode);
 
             bool isInt();	 
+            bool isLong();	 
             void isInt(bool mode);
 
             bool isNull();	 
@@ -81,8 +83,9 @@ interface IData {
     // #region get
         bool getBool();
         int getInt();
-        /* long getLong(); */
+        long getLong(); 
         float getFloat();
+        double getDouble();
         string getString();
         UUID getUUID();
         Json getJson();

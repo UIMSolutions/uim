@@ -29,7 +29,7 @@ class DElementData : DData {
   }
 
   // #region Getter & Setter
-  DElement get() {
+  /* DElement get() {
     return null; 
     // TODO return _value;
   }
@@ -87,7 +87,7 @@ class DElementData : DData {
   /*  int opCmp(DElement otherValue) {
     /// TODO
     return 1;
-  }  */
+  }  * /
 
   override IData clone() {
     return new DElementData; // TODO (attribute, toJson);
@@ -106,7 +106,7 @@ class DElementData : DData {
       return null;
     return get.toString;
   }
-
+ */
 }
 
 mixin(DataCalls!("Element"));

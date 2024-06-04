@@ -9,28 +9,29 @@ import uim.oop;
 
 @safe:
 class DException : Exception {
+  this() {
+    this.initialize;
+    super(message, __FILE__, cast(ulong) __LINE__, null);
+  }
+
   this(
-    string message,
+    string msg,
     string file = __FILE__,
     ulong line = cast(ulong) __LINE__,
     Throwable nextInChain = null
-  ) pure nothrow @nogc {
-    super(message, file, line, nextInChain);
-    // TODO 
+  ) {
+    super(msg, file, line, nextInChain);
+    this.initialize;
   }
 
   bool initialize(Json[string] initData = null) {
-
-    this
-      .message("");
-
     messageTemplate("default", "");
     return true;
   }
 
   mixin(TProperty!("string", "name"));
-  mixin(TProperty!("string", "registerPath"));
   mixin(TProperty!("string", "message"));
+  mixin(TProperty!("string", "registerPath"));
 
   /**
      * Array of attributes that are passed in from the constructor, and

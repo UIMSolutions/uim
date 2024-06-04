@@ -9,14 +9,24 @@ import uim.oop;
 
 @safe:
 string exceptionThis(string exceptionName) {
-  string name = exceptionName~"Exception";
+  string fullName = exceptionName~"Exception";
 
-  return "
-this() { super(); this.name(\""~name~"\"); }
-this(string aMessage) { this().message(aMessage); }
-this(Json[string] newAttributes) { this().attributes(newAttributes); }
-this(string aMessage, Json[string] newAttributes) { this(aMessage).attributes(newAttributes); }
-  ";
+  return `
+  this() {
+    super();
+    this.name("`~fullName~`");
+  }
+
+  this(
+    string msg,
+    string file = __FILE__,
+    ulong line = cast(ulong) __LINE__,
+    Throwable nextInChain = null
+  ) {
+    super(msg, file, line, nextInChain);
+    this.name("`~fullName~`");
+  }
+  `;
 } 
 
 template ExceptionThis(string exceptionName) {
@@ -28,9 +38,6 @@ string exceptionCalls(string exceptionName) {
 
   return "
 auto "~name~"() { return new D"~name~"();  }
-auto "~name~"(string aMessage) { return new D"~name~"(aMessage); }
-auto "~name~"(Json[string] newAttributes) { return new D"~name~"(newAttributes); }
-auto "~name~"(string aMessage, Json[string] newAttributes) { return new D"~name~"(aMessage, newAttributes); }
   ";
 } 
 

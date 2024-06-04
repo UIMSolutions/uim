@@ -22,7 +22,7 @@ class DEntityData : DData {
 
     return true;
   }
-
+/* 
   IEntity get() {
     return _value;
   }
@@ -56,7 +56,7 @@ class DEntityData : DData {
       // set(newValue.get!`~jType~`);
       isNull(false);
     }
-  }
+  } */
     unittest {
       /* auto entity = SystemUser; // some kind of entity
       entity.set(entity);

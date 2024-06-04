@@ -163,9 +163,42 @@ template IntegerDataProperty(string name, string path = null) {
     dataSetter(name, "string", "DIntegerData", path);
 }
 
+template DataIsCheck(string isname) {
+  const char[] DataIsCheck = `
+    bool `~isname~`() {
+      return _value.hasKey("`~isname~`")
+        ? _value["`~isname~`"].get!bool : false;
+    }
 
+    void `~isname~`(bool mode) {
+      _value["`~isname~`"] = mode;
+    }
+  `;
+}
 
+template DataGet(string typeName, string dataType, string nullValue) {
+  const char[] DataGet = `
+    `~dataType~` get`~typeName~`() {
+      return is`~typeName~` && _value.hasKey("value")
+        ? _value["value"].get!`~dataType~` : `~nullValue~`;
+    }
+  `;
+}
 
+template DataSet(string dataType) {
+  const char[] DataSet = `
+    void set(`~dataType~` newValue) {
+      if (!isReadOnly) {
+        _value["value"] = newValue;
+      }
+    }
+  `;
+}
 
-
-
+template DataOpCall(string dataType) {
+  const char[] DataOpCall = `
+    void opCall(`~dataType~` newValue) {
+      set(newValue);
+    }
+  `;
+}

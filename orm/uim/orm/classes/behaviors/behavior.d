@@ -204,7 +204,7 @@ class DBehavior : IEventListener {
 
             foreach (configuration.get(key) as method) {
                 if (!is_callable([this, method])) {
-                    throw new UIMException(
+                    throw new DException(
                         "The method %s is not callable on class %s"
                         .format(method, classname));
                 }

@@ -84,7 +84,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
             configuration.update("duration", timeToLive);
         }
         try {
-            foreach (aKey: myvalue; myvalues) {
+            foreach (aKey, myvalue; myvalues) {
                 mysuccess = set(aKey, myvalue);
                 if (mysuccess == false) {
                     return false;
@@ -96,7 +96,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
                 configuration.update("duration", myrestore);
             }
         }
-    } */
+    } 
 
     // Deletes multiple cache items as a list
     bool removeItems(string[] someKeys) {

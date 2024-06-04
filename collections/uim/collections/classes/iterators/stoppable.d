@@ -69,5 +69,5 @@ class DStoppableIterator : DCollection {
       res[myKey] = v;
     }
     return new DArrayIterator(res);
-  } */
+  }
 }

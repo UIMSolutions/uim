@@ -125,5 +125,5 @@ return false;
         }
 
         return aParser;
-    } */
+    }
 }

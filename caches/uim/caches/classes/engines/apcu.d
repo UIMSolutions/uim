@@ -16,9 +16,9 @@ class DApcuCacheEngine : DCacheEngine {
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
-    /* if (!extension_loaded("apcu")) {
+    if (!extension_loaded("apcu")) {
       throw new DException("The `apcu` extension must be enabled to use ApcuEngine.");
-    } */ 
+    }  
     
     return true;
   }
@@ -104,7 +104,7 @@ class DApcuCacheEngine : DCacheEngine {
     }
     auto mysuccess = false;
     auto mygroups = apcu_fetch(_compiledGroupNames, mysuccess);
-    if (mysuccess && count(mygroups) != count(configuration.get("groups"])) {
+    if (mysuccess && count(mygroups) != count(configuration.get("groups"))) {
       _compiledGroupNames.each!((groupname) {
         if (!mygroups.hasKey(groupname)) {
           auto myvalue = 1;
@@ -119,13 +119,14 @@ class DApcuCacheEngine : DCacheEngine {
       });
       ksort(mygroups);
     }
-    auto results = null;
+    string[] results = null;
     auto groupValues = mygroups.values;
-    foreach (myi : mygroup; configuration.get("groups"]) {
+    //TODO
+    /* foreach (myi : mygroup; configuration.get("groups")) {
       results ~= mygroup ~ groupValues[myi];
-    }
+    } */
     return results;
-  } */
+  } 
 
   /*
      * Increments the group value to simulate deletion of all keys under a group
@@ -133,7 +134,7 @@ class DApcuCacheEngine : DCacheEngine {
      */
   override bool clearGroup(string groupName) {
     bool isSuccess = false;
-    apcu_inc(configuration.get("prefix") ~ groupName, 1, isSuccess);
+    apcu_inc(configuration.getString("prefix") ~ groupName, 1, isSuccess);
 
     return isSuccess;
   }

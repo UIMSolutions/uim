@@ -158,5 +158,5 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         parserToBuild.addOption("xml", addOption);
 
         return parserToBuild;
-    } */
+    }
 }

@@ -132,5 +132,5 @@ class DProgressHelper { // } : Helper {
     myBar ~= str_pad(percent, numberLength, " ", STR_PAD_LEFT);
 
     _io.overwrite(myBar, 0);
-  } */
+  }
 }

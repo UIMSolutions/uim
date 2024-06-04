@@ -136,19 +136,18 @@ class DCache : ICache {
 
                 return;
             }
-            if (configuration.get("fallback"] == false) {
+            if (!configuration.hasKey("fallback")) {
                 throw mye;
             }
-            if (configuration.get("fallback"] == configName) {
+            if (configuration.getString("fallback") == configName) {
                 throw new DInvalidArgumentException(
                     "`%s` cache configuration cannot fallback to itself."
-                    .format(configName
-                ), 0, mye);
+                    .format(configName), 0, mye);
             }
-            myfallbackEngine = pool(configuration.get("fallback"]).clone;
+            auto myfallbackEngine = pool(configuration.get("fallback")).clone;
             assert(cast(DCacheEngine)myfallbackEngine);
 
-            mynewConfig = configuration.update([
+            auto mynewConfig = configuration.update([
                     "groups": Json.emptyArray, 
                     "prefix": StringData
                 ]);
@@ -159,11 +158,11 @@ class DCache : ICache {
             }
             myRegistry.set(configName, myfallbackEngine);
         }
-        if (cast(DCacheEngine)configuration.get("className"]) {
-            configData = configuration.get("className"].configuration.data;
+        if (cast(DCacheEngine)configuration.get("className")) {
+            configData = configuration.get("className").configuration.data;
         }
         if (!configuration.isEmpty("groups")) {
-            (cast(DArrayData)configuration.get("groups"]).values.each!((groupName) {
+            (cast(DArrayData)configuration.get("groups")).values.each!((groupName) {
                 _groups[groupName] ~= configName;
                 _groups[groupName] = array_unique(_groups[groupName]);
                 _groups[groupName].sort;
@@ -452,5 +451,5 @@ class DCache : ICache {
             return false;
         }
         return pool(configName).add(dataId, dataToCache);
-    } */
+    } 
 }

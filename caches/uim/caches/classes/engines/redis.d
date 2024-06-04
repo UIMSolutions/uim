@@ -67,19 +67,19 @@ class DRedisCacheEngine : DCacheEngine {
         try {
            _redis = new DRedis();
             if (!configuration.isEmpty("unix_socket")) {
-                result = _redis.connect(configuration.get("unix_socket"]);
+                result = _redis.connect(configuration.get("unix_socket"));
             } elseif (configuration.isEmpty("persistent")) {
                 result = _redis.connect(
-                   configuration.get("server"],
-                    configuration.get("port"].toInt,
-                    configuration.get("timeout"].toInt
+                   configuration.get("server"),
+                    configuration.getInt("port"),
+                    configuration.getInt("timeout")
                 );
             } else {
-                persistentId = configuration.get("port"] ~ configuration.get("timeout"] ~ configuration.get("database"];
+                persistentId = configuration.getString("port") ~ configuration.get("timeout"] ~ configuration.get("database"];
                 result = _redis.pconnect(
-                   configuration.get("server"],
-                    configuration.get("port"].toInt,
-                    configuration.get("timeout"].toInt,
+                   configuration.get("server"),
+                    configuration.getInt("port"),
+                    configuration.getInt("timeout"),
                     persistentId
                 );
             }
@@ -89,11 +89,11 @@ class DRedisCacheEngine : DCacheEngine {
             }
             return false;
         }
-        if (result && configuration.get("password"]) {
-            result = _redis.auth(configuration.get("password"]);
+        if (result && configuration.hasKey("password")) {
+            result = _redis.auth(configuration.getString("password"));
         }
         if (result) {
-            result = _redis.select((int)configuration.get("database"]);
+            result = _redis.select((int)configuration.get("database"));
         }
         return result;
     }
@@ -167,7 +167,7 @@ class DRedisCacheEngine : DCacheEngine {
         auto somePattern = configuration.get("prefix") ~ "*";
 
         while (true) {
-            auto someKeys = _redis.scan(anIterator,  somePattern, (int)configuration.get("scanCount"]);
+            auto someKeys = _redis.scan(anIterator,  somePattern, (int)configuration.get("scanCount"));
 
             if (someKeys == false) {
                 break;
@@ -194,7 +194,7 @@ class DRedisCacheEngine : DCacheEngine {
          somePattern = configuration.get("prefix") ~ "*";
 
         while (true) {
-            someKeys = _redis.scan(anIterator,  somePattern, (int)configuration.get("scanCount"]);
+            someKeys = _redis.scan(anIterator,  somePattern, configuration.getInt("scanCount");
 
             if (someKeys == false) {
                 break;

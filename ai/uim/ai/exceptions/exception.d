@@ -5,7 +5,7 @@ import uim.ai;
 @safe:
 
 // Base AI exception.
-class DAIException : UimException {
+class DAIException : DException {
   mixin(ExceptionThis!("AI"));
 
   override bool initialize(Json[string] initData = null) {

@@ -17,7 +17,7 @@ class DApcuCacheEngine : DCacheEngine {
     if (!super.initialize(initData)) { return false; }
 
     /* if (!extension_loaded("apcu")) {
-      throw new UimException("The `apcu` extension must be enabled to use ApcuEngine.");
+      throw new DException("The `apcu` extension must be enabled to use ApcuEngine.");
     } */ 
     
     return true;

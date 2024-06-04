@@ -5,7 +5,7 @@ import uim.caches;
 @safe:
 
 // Base Caches exception.
-class DCachesException : UimException {
+class DCachesException : DException {
   mixin(ExceptionThis!("Caches"));
 
   override bool initialize(Json[string] initData = null) {

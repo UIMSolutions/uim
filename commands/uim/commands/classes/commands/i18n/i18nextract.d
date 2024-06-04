@@ -540,7 +540,7 @@ class DI18nExtractCommand : DCommand {
         
         auto oldFileContent = file_get_contents(oldFile);
         if (oldFileContent == false) {
-            throw new UimException("Cannot read file content of `%s`".format(oldFile));
+            throw new DException("Cannot read file content of `%s`".format(oldFile));
         }
         auto oldChecksum = sha1(substr(oldFileContent,  lengthOfFileheader));
         auto newChecksum = sha1(substr(newFileContent,  lengthOfFileheader));

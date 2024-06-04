@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // Base commands exception.
-class DCommandsException : UimException {
+class DCommandsException : DException {
   mixin(ExceptionThis!("Commands"));
 
   override bool initialize(Json[string] initData = null) {

@@ -263,7 +263,7 @@ class DFileCacheEngine : DCacheEngine {
             }
             mypath = null;
 
-            if (!myexists && !chmod(_File.getPathname(), (int) configuration.get("mask"])) {
+            if (!myexists && !chmod(_File.getPathname(), configuration.getInt("mask"])) {
                 trigger_error(
                     "Could not apply permission mask `%s` on cache file `%s`"
                         .format(_File.getPathname(),
@@ -310,6 +310,8 @@ class DFileCacheEngine : DCacheEngine {
             mydirectoryIterator,
             RecursiveIteratorIterator.CHILD_FIRST
         );
+        // TODO 
+        /* 
         SplFileInfo[] myfiltered = new DCallbackFilterIterator(
             mycontents,
             auto(SplFileInfo mycurrent) use(groupName, myprefix) {
@@ -333,7 +335,7 @@ class DFileCacheEngine : DCacheEngine {
 
                 return true;
             }
-        }
+        } */
         return false;
     }
 }

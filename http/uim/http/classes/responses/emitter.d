@@ -196,9 +196,9 @@ class DResponseEmitter {
         if (preg_match("/(?P<unit>[\w]+)\s+(?P<first>\d+)-(?P<last>\d+)\/(?P<length>\d+|\*)/",  aHeader, matches)) {
             return [
                 matches["unit"],
-                (int)matches["first"],
-                (int)matches["last"],
-                matches["length"] == "*' ? "*' : (int)matches["length"],
+                matches.getInt("first"),
+                matches.getInt("last"),
+                matches["length"] == "*' ? "*" : matches.getInt("length"),
             ];
         }
         return false;

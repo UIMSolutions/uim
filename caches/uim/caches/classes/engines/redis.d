@@ -93,7 +93,7 @@ class DRedisCacheEngine : DCacheEngine {
             result = _redis.auth(configuration.getString("password"));
         }
         if (result) {
-            result = _redis.select((int)configuration.get("database"));
+            result = _redis.select(configuration.getInt("database"));
         }
         return result;
     }

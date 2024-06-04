@@ -512,7 +512,7 @@ class DClient { // }: IClient {
     ];
 
     auto result = options["scheme"] ~ ": //" ~ options["host"];
-    if (options["port"] && (int) options["port"] != mydefaultPorts[options["scheme"]]) {
+    if (options["port"] &&  options.getInt("port") != mydefaultPorts[options["scheme"]]) {
       result ~= ": " ~ options["port"];
     }
 

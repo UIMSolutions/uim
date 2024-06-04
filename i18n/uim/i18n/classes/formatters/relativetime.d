@@ -207,19 +207,18 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
                 years = floor(months / 12);
                 months -= years * 12;
             }
-            if ((int)future["m"] < (int)past["m"] && (int)future["Y"] - (int)past["Y"] == 1) {
+            if (future.getInt("m") < past.getInt("m") && future.getInt("Y") - past.getInt("Y") == 1) {
                 years--;
             }
-            if ((int)future["d"] >= (int)past["d"]) {
+            if ((int)future["d"] >= past.getInt("d") {
                 days = (int)future["d"] - (int)past["d"];
             } else {
                 daysInPastMonth = (int)date("t", pastTime);
-                daysInFutureMonth = (int)date("t", (int)mktime(0, 0, 0, (int)future["m"] - 1, 1, (int)future["Y"]));
+                daysInFutureMonth = (int)date("t", (int)mktime(0, 0, 0, future.getInt("m") - 1, 1, future.getInt("Y"));
 
-                if (!backwards) {
-                    days = daysInPastMonth - (int)past["d"] + (int)future["d"];
-                } else {
-                    days = daysInFutureMonth - (int)past["d"] + (int)future["d"];
+                days = !backwards
+                    ? daysInPastMonth - past.getInt("d") + future.getInt("d");
+                    : daysInFutureMonth - past.getInt("d") + future.getInt("d");
                 }
                 if (future["m"] != past["m"]) {
                     months--;
@@ -286,7 +285,6 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
      * Format a into a relative date string.
      * Params:
      * \UIM\I18n\DateTime|\UIM\I18n\Date date The date to format.
-     * @param Json[string] options Array of options.
      */
     string dateAgoInWords(DateTime|Date date, Json[string] options = null) {
         options = _options(options, Date.classname);

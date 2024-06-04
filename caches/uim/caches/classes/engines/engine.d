@@ -36,7 +36,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         * - `warnOnWriteFailures` Some engines, such as ApcuEngine, may raise warnings on
         *  write failures.
         */
-        
+
         if (configuration.hasKey("groups")) {
             configuration.getStringArray("groups").sort;
             _groupPrefix = str_repeat("%s_", configuration.getStringArray("groups").length);
@@ -44,13 +44,13 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         if (!configuration.isNumeric("duration")) {
             configuration["duration"] = configuration.get("duration").toTime - time();
         }
-        
+
         configuration.updateDefaults([
             "duration": Json(3600),
             "groups": Json.emptyArray,
             "prefix": Json("uim_"),
             "warnOnWriteFailures": true.toJson,
-        ]); 
+        ]);
 
         return true;
     }
@@ -96,7 +96,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
                 configuration.update("duration", myrestore);
             }
         }
-    } 
+    }
 
     // Deletes multiple cache items as a list
     bool removeItems(string[] someKeys) {
@@ -118,10 +118,8 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * and not to be used within your live applications operations for get/set, as this method
      * is subject to a race condition where your has() will return true and immediately after,
      * another script can remove it making the state of your app out of date.
-     * Params:
-     * string aKey The cache item key.
      */
-    bool has(string aKey) {
+    bool has(string itemKey) {
         return false;
     }
 
@@ -162,8 +160,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     bool add(string itemKey, Json dataToCache) {
         auto cachedValue = get(itemKey);
         return cachedValue.isNull
-            ? _set(itemKey, dataToCache)
-            : false;
+            ? _set(itemKey, dataToCache) : false;
     }
 
     /**
@@ -192,7 +189,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     protected string _key(string itemKey) {
         string prefix = _groupPrefix
             ? groups().join("_") //TODO md5(groups().join("_"))
-            : "";
+             : "";
 
         auto changedKey = itemKey.replaceAll.regex(r"/[\s]+/", "_");
         return configuration.getString("prefix") ~ prefix ~ changedKey;
@@ -207,12 +204,11 @@ abstract class DCacheEngine : ICache, ICacheEngine {
             return;
         }
         triggerWarning(warningMessage);
-    } */ 
+    }
 
     // Convert the various expressions of a TTL value into duration in seconds
     protected long duration(long timeToLive = 0) {
         return timeToLive == 0
-            ? configuration.getLong("duration")
-            : timeToLive; 
+            ? configuration.getLong("duration") : timeToLive;
     }
 }

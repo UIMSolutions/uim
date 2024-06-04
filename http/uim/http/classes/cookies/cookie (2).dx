@@ -191,7 +191,7 @@ class DCookie : ICookie {
             someData[aKey] = aValue;
         });
         if (someData.isSet("max-age")) {
-            someData["expires"] = time() + (int)someData["max-age"];
+            someData["expires"] = time() + someData.getInt("max-age");
             someData.remove("max-age");
         }
         // Ignore invalid value when parsing headers

@@ -137,10 +137,9 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
             // We might not get child nodes if there are nested inline entities.
             /** @var \DOMNodeList domNodeList */
             domNodeList = xml.childNodes;
-            if ((int)domNodeList.length > 0) {
-                return Xml.toArray(xml);
-            }
-            return null;
+            return domNodeList.length > 0
+                ? Xml.toArray(xml)
+                : null;
         } catch (XmlException) {
             return null;
         }

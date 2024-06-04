@@ -38,34 +38,34 @@ class DMapData : DData {
     return _items.values;
   }
 
-  Json opIndex(string name) {
+/*   Json opIndex(string name) {
     return _items.get(name, NullData);
-  }
+  } */
 
   // Set value, if key exists
   void opIndexAssign(bool newValue, string key) {
-    _items[key] = BooleanData; // TODO (newValue);
+    // _items[key] = BooleanData; // TODO (newValue);
   }
 
   /*  void opIndexAssign(Json newValue, string key) {
     _items[key] = JsonValue(newValue);
   } */
 
-  void opIndexAssign(DData newValue, string key) {
+/*   void opIndexAssign(DData newValue, string key) {
     _items[key] = newValue;
   }
 
   void opIndexAssign(long newValue, string key) {
     // TODO _items[key] = IntegerData; //TODO (newValue);
-  }
+  } */
 
-  void opIndexAssign(string newValue, string key) {
+/*   void opIndexAssign(string newValue, string key) {
     _items[key] = StringData; // TODO (newValue);
   }
 
   void opIndexAssign(UUID newValue, string key) {
     _items[key] = new DUUIDData; // TODO (newValue);
-  }
+  } */
 
   void addValues(Json[string] newValues) {
     newValues.byKey.each!(key => addData(key, newValues[key]));

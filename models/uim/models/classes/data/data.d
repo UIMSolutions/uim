@@ -20,6 +20,8 @@ class DData : IData {
     return true;
   }
 
+  protected Json _value;
+
   // #region properties
   // mixin(TProperty!("DAttribute", "attribute"));
 
@@ -47,12 +49,10 @@ class DData : IData {
 
     // #region is-check
       // #region is-BasicTypes
-        mixin(DataIsCheck!"isArray");
         mixin(DataIsCheck!"isBigInt");
         mixin(DataIsCheck!"isBool");
         mixin(DataIsCheck!"isFloat");
         mixin(DataIsCheck!"isInt");
-        mixin(DataIsCheck!"isObject");
         mixin(DataIsCheck!"isString");
       // #endregion is-check Basic Types
 
@@ -69,27 +69,33 @@ class DData : IData {
       // #region is-AdditionalTypes
         mixin(DataIsCheck!"isScalar");
         mixin(DataIsCheck!"isArray");
+        mixin(DataIsCheck!"isObject");
         mixin(DataIsCheck!"isEntity");
         mixin(DataIsCheck!"isNullable");
         mixin(DataIsCheck!"isReadOnly");
+
+        bool isEmpty() {
+          return _value.isNull
+            ? true : false; 
+        }
       // #endregion is-AdditionalTypes
     // #endregion is-check
 
   // #region get
     mixin(DataGet!("Bool", "bool", "false"));
-    mixin(DataGet!("byte", "byte", "0"));
-    mixin(DataGet!("Ubyte", "ubyte", "0"));
-    mixin(DataGet!("Short", "short", "0"));
-    mixin(DataGet!("Ushort", "ushort", "0"));
+/*     mixin(DataGet!("Byte", "byte", "0")); */
+    /* mixin(DataGet!("Ubyte", "ubyte", "0")); */
+/*     mixin(DataGet!("Short", "short", "0"));
+    mixin(DataGet!("Ushort", "ushort", "0")); */
     mixin(DataGet!("Int", "int", "0"));
-    mixin(DataGet!("Uint", "uint", "0"));
+/*     mixin(DataGet!("Uint", "uint", "0")); */
     mixin(DataGet!("Long", "long", "0"));
-    mixin(DataGet!("Ulong", "ulong", "0"));
-    mixin(DataGet!("Float", "float", "0"));
-    mixin(DataGet!("Double", "double", "0"));
-    mixin(DataGet!("String", "string", "0"));
-    mixin(DataGet!("Array", "Json[]", "Json.emptyArray"));
-    mixin(DataGet!("Object", "Json[string]", "Json.emptyObject"));
+/*     mixin(DataGet!("Ulong", "ulong", "0")); */
+    mixin(DataGet!("Float", "float", "0.0"));
+     mixin(DataGet!("Double", "double", "0.0")); 
+    mixin(DataGet!("String", "string", "null"));
+    /* mixin(DataGet!("Array", "Json[]", "null"));
+    mixin(DataGet!("Object", "Json[string]", "null")); */
 
     UUID getUUID() {
       return isUUID && _value.hasKey("value")
@@ -131,6 +137,7 @@ void opAssign (
     mixin(DataSet!("int"));
     mixin(DataSet!("long"));
     mixin(DataSet!("std.bigint.BigInt"));
+    mixin(DataSet!("float"));
     mixin(DataSet!("double"));
     mixin(DataSet!("string"));
     mixin(DataSet!("Json"));
@@ -202,11 +209,11 @@ void opAssign (
           : false;
       }
 
-      bool isEqual(long checkValue) {
+/*       bool isEqual(long checkValue) {
         return !isNull
           ? getLong == checkValue
           : false;
-      }
+      } */
 
       bool isEqual(float checkValue) {
         return isFloat && !isNull
@@ -214,11 +221,11 @@ void opAssign (
           : false;
       }
 
-      bool isEqual(double checkValue) {
+/*       bool isEqual(double checkValue) {
         return isDouble && !isNull
           ? getDouble == checkValue
           : false;
-      }
+      } */
 
       bool isEqual(string checkValue) {
         return isString && !isNull
@@ -346,7 +353,7 @@ void opAssign (
 
   IData clone() {
     auto result = create();
-    result.fromJson();
+    /* result.fromJson(toJson); */
     return result;
   }
 
@@ -356,8 +363,8 @@ void opAssign (
     }
 
     override string toString() {
-      STRINGAA results;
-      _value.byKeyValue.each!(kv => results[kv.key] = kv.value.get!string);
+      string results;
+      // _value.byKeyValue.each!(kv => results[kv.key] = kv.value.get!string);
       return results;
     }
   // #endregion export
@@ -375,11 +382,11 @@ void opAssign (
     }
     
     void fromJson(Json newValue, bool shouldOverwrite = true) {
-      if (shouldOverwrite) {
+/*       if (shouldOverwrite) {
         _value = _value.update(newValue);
       } else {
         _value = _value.merge(newValue);
-      } 
+      }  */
     }
   // #endregion import
 }

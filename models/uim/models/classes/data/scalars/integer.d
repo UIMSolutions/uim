@@ -11,6 +11,11 @@ import uim.models;
 // Datatype integer in Javascript 
 class DIntegerData : DScalarData {
   mixin(DataThis!("Integer"));
+  this(int newValue) {
+    this();
+    set(newValue);
+  }
+
   this(long newValue) {
     this();
     set(newValue);
@@ -28,47 +33,9 @@ class DIntegerData : DScalarData {
     return true;
   }
 
-  // #region Getter & Setter
-/*   protected long _value;
-  long value() {
-    return _value;
-  } */
-
-  // #region set
-  /* override void set(Json newValue) {
-    if (newValue.isInt) {
-      set(newValue.get!long);
-    }
-
-    if (newValue.isString) {
-      set(newValue.get!string);
-    }
-  }
-
-  override void set(string newValue) {
-    if (newValue.isNumeric) {
-      set(to!long(newValue));
-    }
-  }
-
-  void set(int newValue) {
-    _value = to!long(newValue);
-  }
-
-  void set(long newValue) {
-    _value = newValue;
-  } */
-  ///
-/*   unittest {
-    auto data = NumberData(0.0);
-    data.set(1.1);
-    writeln(data);
-  } */
-  // #endregion set
-
   // #region isEqual
   /* mixin(ScalarOpEquals!(["int", "bool"])); */
-/*   override bool isEqual(IData checkData) {
+  /*   override bool isEqual(IData checkData) {
     if (checkData.isNull || key != checkData.key) {
       return false;
     }
@@ -78,7 +45,7 @@ class DIntegerData : DScalarData {
     return false;
   } */
 
-/*   override bool isEqual(Json checkValue) {
+  /*   override bool isEqual(Json checkValue) {
     if (checkValue.isNull || !checkValue.isInt) {
       return false;
     }
@@ -106,131 +73,38 @@ class DIntegerData : DScalarData {
   }
   // #endregion isEqual
 
-  // #region add
-  void add(IData dataToAdd) {
-    if (auto data = cast(DIntegerData) dataToAdd) {
-      add(data.value);
-      return;
-    }
-
-    if (auto data = cast(DNumberData) dataToAdd) {
-      add(data.value);
-      return;
-    }
-
-    if (auto data = cast(DStringData) dataToAdd) {
-      if (data.value.isNumeric) {
-        // TODO add(to!long(data.value));
-        return;
-      }
-    }
-  }
-  /// 
-  unittest {
-    auto data = IntegerData(0);
-    data.add(IntegerData(2));
-    assert(data.value == 2);
-
-    data.add(NumberData(1.0));
-    assert(data.value == 3);
-
-    data.add(Json("3"));
-    assert(data.value == 6);
+  // #region operators
+  void add(IData opValue) {
+    add(opValue.getLong);
   }
 
-  void add(string valueToAdd) {
-    if (valueToAdd.isNumeric) {
-      add(to!long(valueToAdd));
-    }
+  void add(long opValue) {
+    set(getLong + opValue);
   }
 
-  void add(double valueToAdd) {
-    add(to!long(valueToAdd));
-  }
-
-  void add(long valueToAdd) {
-    _value += valueToAdd;
-  }
-  ///
-  unittest {
-    auto data = IntegerData(0);
-    data.add(2);
-    assert(data == 2);
-    data.add(2);
-    assert(data == 4);
-  }
-  // #endregion add
-
-  override IData clone() {
-    return IntegerData; // (value); // TODO (attribute, toJson);
+  void sub(IData opValue) {
+    sub(opValue.getLong);
   }
 
   void sub(long opValue) {
-    _value -= opValue;
+    set(getLong - opValue);
   }
 
-  unittest {
-    /* auto data = IntegerData(2);
-    data.sub(2);
-    assert(data == 0);
-
-    data = IntegerData(2);
-    data.sub(2);
-    data.sub(2);
-    assert(data == -2); */
-  }
-
-  void sub(DIntegerData opValue) {
-    sub(opValue.value);
-  }
-
-  unittest {
-    /* auto data1 = IntegerData(2);
-    auto data2 = IntegerData(2);
-    data1.sub(data2);
-    assert(data1 == 0); */
+  void mul(IData opValue) {
+    mul(opValue.getLong);
   }
 
   void mul(long opValue) {
-    _value *= opValue;
+    set(getLong * opValue);
   }
 
-  unittest {
-    /* auto data = IntegerData(2);
-    data.mul(2);
-    assert(data == 4); */
-  }
-
-  void mul(DIntegerData opValue) {
-    mul(opValue.value);
-  }
-  ///
-  unittest {
-    /* auto data1 = IntegerData(2);
-    auto data2 = IntegerData(2);
-    data1.mul(data2);
-    assert(data1 == 4); */
+  void div(IData opValue) {
+    div(opValue.getLong);
   }
 
   void div(long opValue) {
-    _value /= opValue;
-  }
-
-  unittest {
-    /* auto data = IntegerData(2);
-    data.div(2);
-    assert(data == 1); */
-  }
-
-  void div(DIntegerData opValue) {
-    div(opValue.value);
-  }
-
-  unittest {
-    /* auto data1 = IntegerData(2);
-    auto data2 = IntegerData(2);
-    data1.div(data2);
-    assert(data1 == 1); */
+    // TODO Catch case opValue = 0
+    set(getLong / opValue);
   }
 
   DIntegerData opBinary(string op)(long opValue) {
@@ -248,13 +122,6 @@ class DIntegerData : DScalarData {
       static assert(0, "Operator " ~ op ~ " not implemented");
 
     return result;
-  }
-  ///
-  unittest {
-    /* assert((IntegerData(2) + 2) == 4);
-    assert((IntegerData(2) - 2) == 0);
-    assert((IntegerData(2) * 2) == 4);
-    assert((IntegerData(2) / 2) == 1); */
   }
 
   DIntegerData opBinary(string op)(DIntegerData opValue) {
@@ -274,40 +141,17 @@ class DIntegerData : DScalarData {
 
     return result;
   }
-
-  unittest {
-    /* assert((IntegerData(2) + IntegerData(2)) == 4);
-    assert((IntegerData(2) - IntegerData(2)) == 0);
-    assert((IntegerData(2) * IntegerData(2)) == 4);
-    assert((IntegerData(2) / IntegerData(2)) == 1); */
+  // #endregion operators
+  
+  override IData clone() {
+    return IntegerData(getLong);
   }
-
-  unittest {
-    /* assert((IntegerData(2) + IntegerData(2)) == 4);
-    assert((IntegerData(2) - IntegerData(2)) == 0);
-    assert((IntegerData(2) * IntegerData(2)) == 4);
-    assert((IntegerData(2) / IntegerData(2)) == 1); */
-  }
-
- /*  override int toInteger() {
-    if (isNull)
-      return 0;
-    return to!int(_value);
-  }
-
-  override long toLong() {
-    if (isNull)
-      return 0;
-    return to!long(_value);
-  }
-
-  mixin TDataConvert; */
 }
 
 mixin(DataCalls!("Integer"));
-/* auto IntegerData(long newValue) {
+auto IntegerData(long newValue) {
   return new DIntegerData(newValue);
-} */
+}
 
 unittest {
   /* assert(IntegerData.set("100").toLong == 100);

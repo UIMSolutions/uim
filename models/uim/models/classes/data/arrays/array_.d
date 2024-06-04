@@ -44,7 +44,7 @@ class DArrayData : DData {
   }
 
   // #region equal
-  bool isEqual(IData checkData) {
+/*   bool isEqual(IData checkData) {
     auto arrayData = cast(DArrayData)checkData;
     if (arrayData.isNull) {
       return false;
@@ -61,9 +61,9 @@ class DArrayData : DData {
     }
 
     return true;
-  }
+  } */
 
-  override bool isEqual(Json checkValue) {
+  /* override bool isEqual(Json checkValue) {
     if (!checkValue.isArray) {
       return false;
     }
@@ -77,14 +77,14 @@ class DArrayData : DData {
 
   bool isEqual(IData[] checkValue) {
     return false; // (get == checkValue);
-  }
+  } */
   ///
   unittest {
     // TODO
   }
   // #endregion equal
 
-  protected IData[] _values;
+  /* protected IData[] _values;
   IData[] value() {
     return _values;
   }
@@ -126,10 +126,10 @@ class DArrayData : DData {
 
   override size_t length() {
     return _values.length;
-  }
+  } */
 
   void clear() {
-    _values = null;
+    set(Json(null));
   }
 
   alias hasKey = DData.hasKey;
@@ -152,14 +152,14 @@ class DArrayData : DData {
     assert(data.length == 1);
   }
 
-  alias toJson = DData.toJson;
+/*   alias toJson = DData.toJson;
   override Json toJson() {
     return Json(_items.map!(item => item.toJson).array);
   }
 
   override string toString() {
     return "[" ~ _items.map!(item => item.toString).join(",") ~ "]";
-  }
+  } */
 
 /*   override string[] toStringArray() {
     return _items.map!(item => item.toString).array;

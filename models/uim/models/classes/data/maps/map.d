@@ -129,7 +129,7 @@ class DMapData : DData {
     return _items.get(key, null);
   }
 
-  bool isEmpty() {
+  override bool isEmpty() {
     return (_items.length == 0);
   }
 
@@ -148,7 +148,7 @@ class DMapData : DData {
   alias toJson = DData.toJson;
   override Json toJson() {
     Json results = Json.emptyObject;
-    _items.byKeyValue.each!(kv => results[kv.key] = kv.value.toJson);
+    /* _items.byKeyValue.each!(kv => results[kv.key] = kv.value.toJson); */
 
     return results;
   }

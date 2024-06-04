@@ -88,7 +88,7 @@ unittest {
   assert(!80.isGreater([10, 100]));
 }
 
-bool isInt(string aValue) {
+/* bool isInt(string aValue) {
   try {
     return aValue.isNumeric
       ? to!string(to!int(to!double(aValue))) == aValue
@@ -111,4 +111,4 @@ bool isLong(string aValue) {
 unittest {
   assert(isLong("0"));
   assert(!isLong("0.0"));
-}
+} */

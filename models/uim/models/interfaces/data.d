@@ -72,7 +72,6 @@ interface IData {
             void isNullable(bool mode);
 
             bool isEmpty();
-            void isEmpty(bool mode);
 
             bool isReadOnly();
             void isReadOnly(bool mode);
@@ -82,7 +81,7 @@ interface IData {
     // #region get
         bool getBool();
         int getInt();
-        long getLong();
+        /* long getLong(); */
         float getFloat();
         string getString();
         UUID getUUID();
@@ -92,12 +91,12 @@ interface IData {
     // #region isEqual
         bool isEqual(bool value);
         bool isEqual(int value);
-        bool isEqual(long value);
+        /* bool isEqual(long value); */
         bool isEqual(float value);
-        bool isEqual(double value);
+        /* bool isEqual(double value); */
         bool isEqual(string value);
         bool isEqual(UUID value);
-        bool isEqual(Json value);
+        /* bool isEqual(Json value); */
     // #endregion isEqual
 
     // #region set

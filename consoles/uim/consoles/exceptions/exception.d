@@ -5,7 +5,7 @@ import uim.consoles;
 @safe:
 
 // Exception class for Console libraries. This exception will be thrown from Console library classes when they encounter an error.
-class DConsoleException : UimException {
+class DConsoleException : DException {
 	mixin(ExceptionThis!("Console"));
     
     protected int _defaultCode; // = DCommand.CODE_ERROR;

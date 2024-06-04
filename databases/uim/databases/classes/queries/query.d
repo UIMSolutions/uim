@@ -287,7 +287,7 @@ abstract class DQuery : IQuery { // : IExpression {
             aQuery = getConnection().selectQuery();
             cte = cte(new DCommonTableExpression(), aQuery);
             if (!(cast(DCommonTableExpression)cte)) {
-                throw new UimException(
+                throw new DException(
                     'You must return a `CommonTableExpression` from a Closure passed to `with()`.'
                 );
             }
@@ -1001,7 +1001,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Pages must start at 1.
      */
     auto page(int pageNumber, int limitNumberRows = null) {
-        throw new UimException("Not implemented");
+        throw new DException("Not implemented");
     }
     
     /**
@@ -1365,7 +1365,7 @@ abstract class DQuery : IQuery { // : IExpression {
         try {
             set_error_handler(
                 void (errno, errstr) {
-                    throw new UimException(errstr, errno);
+                    throw new DException(errstr, errno);
                 },
                 E_ALL
             );

@@ -5,7 +5,7 @@ import uim.containers;
 @safe:
 
 // Base containers exception.
-class DContainersException : UimException {
+class DContainersException : DException {
   mixin(ExceptionThis!("Containers"));
 
   override bool initialize(Json[string] initData = null) {

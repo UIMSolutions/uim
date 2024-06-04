@@ -41,7 +41,7 @@ class DConsoleInput {
         bool _canReadline = (extension_loaded("readline") && streamLocation == "uim://stdin");
         auto anInput = fopen(streamLocation, "rb");
         if (!anInput) {
-            throw new UimException("Cannot open handle `%s`".format(streamLocation));
+            throw new DException("Cannot open handle `%s`".format(streamLocation));
         }
         _input = anInput;
     }

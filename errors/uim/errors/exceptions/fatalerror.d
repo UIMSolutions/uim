@@ -3,7 +3,7 @@ module uim.errors.exceptions.fatalerror;
 import uim.errors;
 
 // Represents a fatal error
-class DFatalErrorException : UimException {
+class DFatalErrorException : DException {
     mixin(ExceptionThis!("FatalError"));
 
     override bool initialize(Json[string] initData = null) {

@@ -42,7 +42,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
     protected controller;
 
     /**
-     * Template to render for {@link uim.uim.Core\exceptions.UIMException}
+     * Template to render for {@link uim.uim.Core\exceptions.DException}
      */
     protected string _template = "";
 
@@ -173,7 +173,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         myUrl = _controller.getRequest().getRequestTarget();
         response = _controller.getResponse();
 
-        if (cast(UIMException)exception  ) {
+        if (cast(DException)exception  ) {
             /** @psalm-suppress DeprecatedMethod */
             foreach (/* (array) */exception.responseHeader() as myKey: myValue) {
                 response = response.withHeader(myKey, myValue);
@@ -214,7 +214,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         _controller.set(viewVars);
         _controller.viewBuilder().setOption("serialize", serialize);
 
-        if (cast(UIMException)exception && isDebug) {
+        if (cast(DException)exception && isDebug) {
             _controller.set(exception.getAttributes());
         }
         _controller.setResponse(response);

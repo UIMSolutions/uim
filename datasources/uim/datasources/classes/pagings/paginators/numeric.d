@@ -164,7 +164,7 @@ class DNumericPaginator : IPaginator {
             query = object;
             repository = query.getRepository();
             if (repository == null) {
-                throw new UIMException("No repository set for query.");
+                throw new DException("No repository set for query.");
             }
         }
 

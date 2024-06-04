@@ -5,7 +5,7 @@ import uim.css;
 @safe:
 
 // Base css exception.
-class DCssException : UimException {
+class DCssException : DException {
   mixin(ExceptionThis!("Css"));
 
   override bool initialize(Json[string] initData = null) {

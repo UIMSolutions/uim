@@ -422,7 +422,7 @@ class DDebugger {
         }
         anInstance = new className();
         if (!cast(IErrorFormatter) anInstance) {
-            throw new UimException(
+            throw new DException(
                 "The `%s` formatter does not implement `%s`."
                     .format(className, IErrorFormatter.classname)
             );

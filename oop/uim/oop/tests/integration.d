@@ -476,8 +476,8 @@ mixin template TIntegrationTest() {
             props["input"] = someData;
         } else if (
             someData.isArray &&
-            isSet(props["environment"]["CONTENT_TYPE"]) &&
-            props["environment"]["CONTENT_TYPE"] == "application/x-www-form-urlencoded"
+            isSet(props["environment.CONTENT_TYPE"]) &&
+            props["environment.CONTENT_TYPE"] == "application/x-www-form-urlencoded"
         ) {
             props["input"] = http_build_query(someData);
         } else {
@@ -509,7 +509,7 @@ mixin template TIntegrationTest() {
             tokenData = formProtector.buildTokenData(url, "cli");
 
             someData["_Token"] = tokenData;
-            someData["_Token"]["debug"] = "FormProtector debug data would be added here";
+            someData["_Token.debug"] = "FormProtector debug data would be added here";
         }
         if (_csrfToken == true) {
             auto middleware = new DCsrfProtectionMiddleware();

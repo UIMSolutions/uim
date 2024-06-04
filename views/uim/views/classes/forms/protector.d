@@ -182,27 +182,27 @@ class DFormProtector {
 
             return null;
         }
-        if (!isString(formData["_Token"]["fields"])) {
+        if (!isString(formData["_Token.fields"])) {
             this.debugMessage = "`_Token.fields` is invalid.";
 
             return null;
         }
-        if (!isSet(formData["_Token"]["unlocked"])) {
+        if (!isSet(formData["_Token.unlocked"])) {
             this.debugMessage = message.format("_Token.unlocked");
 
             return null;
         }
-        if (configuration.get("debug") && !isSet(formData["_Token"]["debug"])) {
+        if (configuration.get("debug") && !isSet(formData["_Token.debug"])) {
             this.debugMessage = message.format("_Token.debug");
 
             return null;
         }
-        if (!configuration.hasKey("debug") && isSet(formData["_Token"]["debug"])) {
+        if (!configuration.hasKey("debug") && isSet(formData["_Token.debug"])) {
             this.debugMessage = "Unexpected `_Token.debug` found in request data";
 
             return null;
         }
-        token = urldecode(formData["_Token"]["fields"]);
+        token = urldecode(formData["_Token.fields"]);
         if (token.has(": ")) {
             [token, ] = split(": ", token, 2);
         }
@@ -229,8 +229,8 @@ class DFormProtector {
      */
     protected Json[string] extractFields(Json[string] formData) {
         string locked = "";
-        auto token = urldecode(formData["_Token"]["fields"]);
-        auto unlocked = urldecode(formData["_Token"]["unlocked"]);
+        auto token = urldecode(formData["_Token.fields"]);
+        auto unlocked = urldecode(formData["_Token.unlocked"]);
 
         if (token.has(": ")) {
             [, locked] = split(": ", token, 2);
@@ -297,7 +297,7 @@ class DFormProtector {
      * Json[string] formData Data array
      */
     protected string[] sortedUnlockedFields(Json[string] formData) {
-        string unlocked = urldecode(formData["_Token"]["unlocked"]);
+        string unlocked = urldecode(formData["_Token.unlocked"]);
         if (unlocked.isEmpty) {
             return null;
         }
@@ -372,10 +372,10 @@ class DFormProtector {
      */
     protected string debugTokenNotMatching(Json[string] formData, Json[string] hashParts) {
         messages = null;
-        if (!isSet(formData["_Token"]["debug"])) {
+        if (!isSet(formData["_Token.debug"])) {
             return "Form protection debug token not found.";
         }
-        expectedParts = Json_decode(urldecode(formData["_Token"]["debug"]), true);
+        expectedParts = Json_decode(urldecode(formData["_Token.debug"]), true);
         if (!isArray(expectedParts) || count(expectedParts) != 3) {
             return "Invalid form protection debug token.";
         }

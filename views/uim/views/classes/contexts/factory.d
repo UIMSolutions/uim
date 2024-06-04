@@ -60,7 +60,7 @@ class DContextFactory {
             [
                 "type": "array",
                 "callable": auto (myrequest, mydata) {
-                    if (isArray(mydata["entity"]) && isSet(mydata["entity"]["schema"])) {
+                    if (isArray(mydata["entity"]) && isSet(mydata["entity.schema"])) {
                         return new ArrayContext(mydata["entity"]);
                     }
                 },

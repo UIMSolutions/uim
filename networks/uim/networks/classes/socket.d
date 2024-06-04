@@ -195,10 +195,10 @@ class DSocket {
             }
             unset(configuration.getString(kv.key));
         });
-        if (!configuration.hasKey("context/ssl"]["SNI_enabled"])) {
+        if (!configuration.hasKey("context/ssl.SNI_enabled"])) {
             configuration.set("context/ssl/SNI_enabled", true);
         }
-        if (isEmpty(configuration.get("context/ssl"]["peer_name"])) {
+        if (isEmpty(configuration.get("context/ssl.peer_name"])) {
             configuration.set("context/ssl/peer_name", hostName);
         }
         if (configuration.isEmpty("context/ssl/cafile")) {

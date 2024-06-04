@@ -113,7 +113,7 @@ class DPoFileParser {
             return message; 
 
             /* addMessage(messages, anItem);
-            anItem["ids"]["singular"] = substr(line, 7,  - 1);
+            anItem["ids.singular"] = substr(line, 7,  - 1);
             stage = ["ids", "singular"];
             return; */ 
         }
@@ -144,7 +144,7 @@ class DPoFileParser {
             }
         } else if (line.startsWith(" msgid_plural\"")
             ) {
-            anItem["ids"]["plural"] = substr(line, 14, -1);
+            anItem["ids.plural"] = substr(line, 14, -1);
             stage = ["ids", "plural"];
         } else if (line.startsWith("msgstr[")) {
             size = indexOf(line, "]");
@@ -179,8 +179,8 @@ class DPoFileParser {
 
         if (context!is null && !isSet(messages[singular]["_context"][context])) {
             messages[singular]["_context"][context] = translation;
-        } else if (!isSet(messages[singular]["_context"][""])) {
-            messages[singular]["_context"][""] = translation;
+        } else if (!isSet(messages[singular]["_context."])) {
+            messages[singular]["_context."] = translation;
         }
 
         if (ids.hasKey("plural")) {
@@ -203,7 +203,7 @@ class DPoFileParser {
             if (!context.isNull) {
                 messages[Translator.PLURAL_PREFIX ~ aKey]["_context"][context] = plurals;
             } else {
-                messages[Translator.PLURAL_PREFIX ~ aKey]["_context"][""] = plurals;
+                messages[Translator.PLURAL_PREFIX ~ aKey]["_context."] = plurals;
             }
         }
     } 

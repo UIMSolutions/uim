@@ -59,7 +59,7 @@ class DMiddlewareDispatcher {
     protected DServerRequest _createRequest(Json[string] requestSpec) {
         if (requestSpec.hasKey("input")) {
             requestSpec["post"] = null;
-            requestSpec["environment"]["uimUIM_INPUT"] = requestSpec["input"];
+            requestSpec["environment.uimUIM_INPUT"] = requestSpec["input"];
         }
         environment = array_merge(
             chain(_SERVER, ["REQUEST_URI": requestSpec["url"]]),

@@ -112,9 +112,9 @@ class MoFileParser {
                 }
                 continue;
             }
-            messages[singularId]["_context"][""] = singular;
+            messages[singularId]["_context."] = singular;
             if (pluralId!is null) {
-                messages[pluralId]["_context"][""] = plurals;
+                messages[pluralId]["_context."] = plurals;
             }
         }
         fclose(stream);

@@ -52,8 +52,8 @@ class DMockAdapter { //}: IAdapter {
             if (!urlMatches(requestUri, mock["request"])) {
                 continue;
             }
-            if (isSet(mock["options"]["match"])) {
-                match = mock["options"]["match"](request);
+            if (isSet(mock["options.match"])) {
+                match = mock["options.match"](request);
                 if (!isBool(match)) {
                     throw new DInvalidArgumentException("Match callback must return a boolean value.");
                 }

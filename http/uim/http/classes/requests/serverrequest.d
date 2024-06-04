@@ -230,8 +230,8 @@ class DServerRequest { // }: IServerRequest {
                 "cookiePath": configData["base"],
             ]);
         }
-        if (isEmpty(configData["environment"]["REQUEST_METHOD"])) {
-            configData["environment"]["REQUEST_METHOD"] = "GET";
+        if (isEmpty(configData["environment.REQUEST_METHOD"])) {
+            configData["environment.REQUEST_METHOD"] = "GET";
         }
         this.cookies = configData["cookies"];
 
@@ -288,12 +288,12 @@ class DServerRequest { // }: IServerRequest {
             configData["url"] = "/" ~ configData["url"];
         }
         if (configData["url"].has("?")) {
-            [configData["url"], configData["environment"]["QUERY_STRING"]] = split("?", configData["url"]);
+            [configData["url"], configData["environment.QUERY_STRING"]] = split("?", configData["url"]);
 
-            parse_str(configData["environment"]["QUERY_STRING"], aQueryArgs);
+            parse_str(configData["environment.QUERY_STRING"], aQueryArgs);
             configData["query"] += aQueryArgs;
         }
-        configData["environment"]["REQUEST_URI"] = configData["url"];
+        configData["environment.REQUEST_URI"] = configData["url"];
 
         return configData;
     }

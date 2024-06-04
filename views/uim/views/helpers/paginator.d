@@ -34,9 +34,9 @@ class DPaginatorHelper : DHelper {
      * The values that may be specified are:
      *
      * - `url` Url of the action. See Router.url()
-     * - `url["?"]["sort"]` the key that the recordset is sorted.
-     * - `url["?"]["direction"]` Direction of the sorting (default: "asc").
-     * - `url["?"]["page"]` Page number to use in links.
+     * - `url["?.sort"]` the key that the recordset is sorted.
+     * - `url["?.direction"]` Direction of the sorting (default: "asc").
+     * - `url["?.page"]` Page number to use in links.
      * - `escape` Defines if the title field for the link should be escaped (default: true).
      * - `routePlaceholders` An array specifying which paging params should be
      * passed as route placeholders instead of query string parameters. The array
@@ -443,11 +443,11 @@ class DPaginatorHelper : DHelper {
                                                                             myurl["?"] ?  ?  = null;
 
                                                                                 if (!configuration.get(
-                                                                                    "options"]["routePlaceholders"]
+                                                                                    "options.routePlaceholders"]
                                                                                     .isEmpty)) {
                                                                                     myplaceholders = array_flip(
                                                                                         configuration.get(
-                                                                                        "options"]["routePlaceholders"]);
+                                                                                        "options.routePlaceholders"]);
                                                                                         myurl += array_intersect_key(
                                                                                         options, myplaceholders);
                                                                                         myurl["?"] += array_diff_key(

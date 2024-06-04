@@ -150,7 +150,7 @@ class DRadioWidget : DWidget {
         }
         if (!valData.isNull && /* (string) */valData == /* (string) */myradio["value"]) {
             myradio["checked"] = true;
-            myradio["templateVars"]["activeClass"] = "active";
+            myradio["templateVars.activeClass"] = "active";
         }
         auto labelData = options["label"];
         if (!isBool(labelData) && isSet(myradio["checked"]) && myradio["checked"]) {

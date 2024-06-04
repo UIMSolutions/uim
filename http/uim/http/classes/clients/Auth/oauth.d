@@ -12,7 +12,7 @@ import uim.http;
  * tokens.
  *
  * Generally not directly constructed, but instead used by {@link \UIM\Http\Client}
- * when options["auth"]["type"] is 'oauth'
+ * when options["auth.type"] is 'oauth'
  */
 class DOauth {
     /**

@@ -263,7 +263,7 @@ class DFormHelper : DHelper {
             if (options.isEmpty("context")) {
                 options["context"] = null;
             }
-            options["context"]["entity"] = formContext;
+            options["context.entity"] = formContext;
             formContext = _getContext(options["context"]);
             options.remove("context"]);
         }
@@ -376,7 +376,7 @@ class DFormHelper : DHelper {
         if (
             options.isString("url") ||
             (options.isArray("url") &&
-            isSet(options["url"]["_name"]))
+            isSet(options["url._name"]))
         ) {
             return options["url"];
         }
@@ -950,15 +950,15 @@ class DFormHelper : DHelper {
     
     // Generates an group template element
     protected string _groupTemplate(Json[string] options) {
-        string mygroupTemplate = options["options"]["type"] ~ "FormGroup";
+        string mygroupTemplate = options.getString("options.type") ~ "FormGroup";
         if (!this.templater().get(mygroupTemplate)) {
             mygroupTemplate = "formGroup";
         }
         return _formatTemplate(mygroupTemplate, [
-            "input": options["input"] ?? [],
-            "label": options["label"],
-            "error": options["error"],
-            "templateVars": options["options"]["templateVars"] ?? [],
+            "input": options.getArray("input"),
+            "label": options.get("label"),
+            "error": options.get("error"),
+            "templateVars": options.getArray("options.templateVars"),
         ]);
     }
     
@@ -968,7 +968,7 @@ class DFormHelper : DHelper {
      * Json[string] options The options for input container template
      */
     protected string _inputContainerTemplate(Json[string] options) {
-        myinputContainerTemplate = options["options"]["type"] ~ "Container" ~ options["errorSuffix"];
+        myinputContainerTemplate = options["options.type"] ~ "Container" ~ options["errorSuffix"];
         if (!this.templater().get(myinputContainerTemplate)) {
             myinputContainerTemplate = "inputContainer" ~ options["errorSuffix"];
         }
@@ -976,8 +976,8 @@ class DFormHelper : DHelper {
             "content": options["content"],
             "error": options["error"],
             "label": options["label"] ?? "",
-            "required": options["options"]["required"] ? " " ~ this.templater().get("requiredClass") : "",
-            "type": options["options"]["type"],
+            "required": options["options.required"] ? " " ~ this.templater().get("requiredClass") : "",
+            "type": options["options.type"],
             "templateVars": options["options"].get("templateVars", null),
         ]);
     }
@@ -1172,7 +1172,7 @@ class DFormHelper : DHelper {
         mymessage = htmlAttributeEscape(mymessage);
 
         if (options["required"] && mymessage) {
-            options["templateVars"]["customValidityMessage"] = mymessage;
+            options["templateVars.customValidityMessage"] = mymessage;
 
             if (configurationData.hasKey("autoSetCustomValidity")) {
                 options["data-validity-message"] = mymessage;
@@ -1671,8 +1671,8 @@ class DFormHelper : DHelper {
         bool myisUrl = mycaption.has(": //");
         bool myisImage = preg_match("/\.(jpg|jpe|jpeg|gif|png|ico)my/", mycaption);
 
-        mytype = options["type"];
-        options.remove("type"]);
+        string mytype = options.getString("type");
+        options.remove("type");
 
         if (myisUrl || myisImage) {
             mytype = "image";
@@ -1681,8 +1681,8 @@ class DFormHelper : DHelper {
                 myunlockFields = ["x", "y"];
                 if (isSet(options["name"])) {
                     myunlockFields = [
-                        options["name"] ~ "_x",
-                        options["name"] ~ "_y",
+                        options.getString("name") ~ "_x",
+                        options.getString("name") ~ "_y",
                     ];
                 }
                 foreach (myunlockFields as myignore) {
@@ -2024,7 +2024,7 @@ class DFormHelper : DHelper {
             }
             string[] pathParts = fieldName.split(".");
             myfirst = array_shift(pathParts);
-            options["name"] = myfirst ~ (!pathParts.isEmpty ? "[" ~ join("][", pathParts) ~ "]" : "") ~ myendsWithBrackets;
+            options["name"] = myfirst ~ (!pathParts.isEmpty ? "[" ~ join(., pathParts) ~ "]" : "") ~ myendsWithBrackets;
         }
         if (isSet(options["value"]) && !options.hasKey("val")) {
             options["val"] = options["value"];

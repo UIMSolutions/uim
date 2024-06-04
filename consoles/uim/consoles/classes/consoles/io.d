@@ -187,7 +187,7 @@ class DConsoleIo {
     
     // Halts the the current process with a StopException.
     never abort(string errorMessage, int errorCode = ICommand.CODE_ERROR) {
-        this.error(errorMessage);
+        error(errorMessage);
 
         throw new DStopException(errorMessage, errorCode);
     }
@@ -347,7 +347,7 @@ class DConsoleIo {
             : "";
         
         return !result.isEmpty
-            ?result
+            ? result
             : defaultValue;
     }
     
@@ -375,13 +375,14 @@ class DConsoleIo {
         }
         // If the application has configured a console logger
         // we don`t add a redundant one.
-        foreach (loggerName; Log.configured()) {
-            log = Log.engine(loggerName);
-            if (cast(DConsoleLog) log ) {
+        Log.configured().each!((loggerName) {
+            auto log = Log.engine(loggerName);
+            if (cast(DConsoleLog)log) {
                 return;
             }
-        }
-        outLevels = ["notice", "info"];
+        });
+        
+        string[] outLevels = ["notice", "info"];
         if (enable == VERBOSE || enable == true) {
             outLevels ~= "debug";
         }
@@ -411,7 +412,6 @@ class DConsoleIo {
      */
     Helper helper(string nameToRender, Json[string] initData = null) {
         auto renderName = ucfirst(nameToRender);
-
         return _helpers.load(renderName, initData);
     }
     
@@ -424,20 +424,18 @@ class DConsoleIo {
      *
      * If the user replies `a` subsequent `forceOverwrite` parameters will
      * be coerced to true and all files will be overwritten.
-     * Params:
-     * string aPath The path to create the file at.
      */
     bool createFile(string fileCreationPath, string contentsForFile, bool shouldOverwrite = false) {
         writeln();
         shouldOverwrite = shouldOverwrite || _forceOverwrite;
 
-        if (fileExists(somePath) && shouldOverwrite == false) {
+        if (fileExists(fileCreationPath) && shouldOverwrite == false) {
             warning("File `{fileCreationPath}` exists");
-            aKey = this.askChoice("Do you want to overwrite?", ["y", "n", "a", "q"], "n");
+            aKey = askChoice("Do you want to overwrite?", ["y", "n", "a", "q"], "n");
             aKey = aKey.lower;
 
             if (aKey == "q") {
-                this.error("Quitting.", 2);
+                error("Quitting.", 2);
                 throw new DStopException("Not creating file. Quitting.");
             }
             if (aKey == "a") {
@@ -446,13 +444,12 @@ class DConsoleIo {
             }
             if (aKey != "y") {
                 writeln("Skip `{fileCreationPath}`", 2);
-
                 return false;
             }
         } else {
             writeln("Creating file {fileCreationPath}");
         }
-        try {
+        /* try {
             // Create the directory using the current user permissions.
             directory = dirname(fileCreationPath);
             if (!fileExists(directory)) {
@@ -460,10 +457,10 @@ class DConsoleIo {
             }
             file = new DSplFileObject(fileCreationPath, "w");
         } catch (RuntimeException) {
-            this.error("Could not write to `{fileCreationPath}`. Permission denied.", 2);
+            error("Could not write to `{fileCreationPath}`. Permission denied.", 2);
 
             return false;
-        }
+        } */
         file.rewind();
         file.fwrite(contentsForFile);
         if (fileExists(fileCreationPath)) {
@@ -471,8 +468,7 @@ class DConsoleIo {
 
             return true;
         }
-        this.error("Could not write to `{fileCreationPath}`.", 2);
-
+        error("Could not write to `{fileCreationPath}`.", 2);
         return false;
     } 
 }

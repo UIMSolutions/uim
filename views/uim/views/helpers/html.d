@@ -123,7 +123,7 @@ class DHtmlHelper : DHelper {
             ];
 
             if (mytype == "icon" && mycontent.isNull) {
-                mytypes["icon"]["link"] = "favicon.ico";
+                mytypes["icon.link"] = "favicon.ico";
             }
             if (mytypes.hasKey(mytype)) {
                 mytype = mytypes[mytype];
@@ -701,8 +701,8 @@ class DHtmlHelper : DHelper {
                 myi += 1;
 
 
-                mycellOptions["class"] = isSet(mycellOptions["class"])
-                    ? mycellOptions["class"] ~ " column-" ~ myi
+                mycellOptions["class"] = mycellOptions.hasKey("class"))
+                    ? mycellOptions.getString("class") ~ " column-" ~ myi
                     : "column-" ~ myi;
             }
             mycellsOut ~= this.tableCell((string)cell, mycellOptions);

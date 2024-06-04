@@ -101,7 +101,7 @@ class DArrayCacheEngine : DCacheEngine {
      * If the group initial value was not found, then it initializes
      * the group accordingly.
      */
-  string[] groups() {
+  override string[] groups() {
     string[] results;
 
     // TODO

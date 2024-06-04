@@ -8,7 +8,7 @@ import uim.http;
  * Basic authentication adapter for UIM\Http\Client
  *
  * Generally not directly constructed, but instead used by {@link \UIM\Http\Client}
- * when options["auth"]["type"] is 'basic'
+ * when options["auth.type"] is 'basic'
  */
 class DBasic {
     // Add Authorization header to the request.

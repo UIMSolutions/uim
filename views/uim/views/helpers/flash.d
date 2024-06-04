@@ -22,7 +22,7 @@ class DFlashHelper : DHelper {
      * to consolidate all the parameters for a given type of flash message into the view.
      *
      * ```
-     * writeln(this.Flash.render("flash", ["params": ["name": myuser["User"]["name"]]]);
+     * writeln(this.Flash.render("flash", ["params": ["name": myuser["User.name"]]]);
      * ```
      *
      * This would pass the current user"s name into the flash message, so you could create personalized

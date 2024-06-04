@@ -826,7 +826,7 @@ static string contentType() {
         if (myinitialBlocks != myremainingBlocks) {
             throw new DLogicException(
                 "The `%s` block was left open. Blocks are not allowed to cross files."
-                .format((string)_Blocks.active())
+                .format(/* (string) */_Blocks.active())
             );
         }
         return mycontent;
@@ -853,7 +853,7 @@ static string contentType() {
             }
             throw myexception;
         }
-        return (string)ob_get_clean();
+        return /* (string) */ob_get_clean();
     }
 
     /**

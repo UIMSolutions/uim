@@ -141,14 +141,14 @@ class DRadioWidget : DWidget {
         if (myradio..isEmpty("id")) {
             auto idData = options["id"];
             myradio["id"] = !idData.isNull
-                ? idData ~ "-" ~ rstrip(_idSuffix((string)myradio["value"]), "-")
+                ? idData ~ "-" ~ rstrip(_idSuffix(/* (string) */myradio["value"]), "-")
                 : _id(to!string(myradio["name"]), (string)myradio["value"]);
         }
         auto valData = options["val"];
         if (!valData.isNull && valData.isBool) {
             options["val"] = options["val"] ? 1 : 0;
         }
-        if (!valData.isNull && (string)valData == /* (string) */myradio["value"]) {
+        if (!valData.isNull && /* (string) */valData == /* (string) */myradio["value"]) {
             myradio["checked"] = true;
             myradio["templateVars"]["activeClass"] = "active";
         }

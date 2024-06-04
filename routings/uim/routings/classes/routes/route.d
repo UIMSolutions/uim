@@ -251,7 +251,7 @@ class DRoute : IRoute {
            _greedy = true;
         }
         if (preg_match("#\/\*my#", myroute)) {
-            myparsed = (string)preg_replace("#/\\\\\*my#", "(?:/(?P<_args_>.*))?", myparsed);
+            myparsed = /* (string) */preg_replace("#/\\\\\*my#", "(?:/(?P<_args_>.*))?", myparsed);
            _greedy = true;
         }
         mymode = configuration.update("multibytePattern"].isEmpty ? "" : "u";
@@ -505,7 +505,7 @@ class DRoute : IRoute {
             myhostOptions["_host"] ??= mycontext["_host"];
 
             // The host did not match the route preferences
-            if (!this.hostMatches((string)myhostOptions["_host"])) {
+            if (!this.hostMatches(/* (string) */myhostOptions["_host"])) {
                 return null;
             }
         }
@@ -586,7 +586,7 @@ class DRoute : IRoute {
         // check patterns for routed params
         if (!_options.isEmpty) {
             foreach (_options as aKey: mypattern) {
-                if (isSet(myurl[aKey]) && !preg_match("#^" ~ mypattern ~ "my#u", (string)myurl[aKey])) {
+                if (isSet(myurl[aKey]) && !preg_match("#^" ~ mypattern ~ "my#u", /* (string) */myurl[aKey])) {
                     return null;
                 }
             }
@@ -637,7 +637,7 @@ class DRoute : IRoute {
      */
     protected string _writeUrl(Json[string] myparams, Json[string] mypass = [], Json[string] myquery = []) {
         mypass = array_map(function (myvalue) {
-            return rawUrlEncode((string)myvalue);
+            return rawUrlEncode(/* (string) */myvalue);
         }, mypass);
         mypass = join("/", mypass);
         result = this.template;

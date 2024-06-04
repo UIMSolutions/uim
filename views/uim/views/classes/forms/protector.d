@@ -250,7 +250,7 @@ class DFormProtector {
                 multi[anI] = preg_replace("/(\.\d+){1,10}/", "", aKey);
                 unset(fieldList[anI]);
             } else {
-                fieldList[anI] = (string)aKey;
+                fieldList[anI] = /* (string) */aKey;
             }
         }
         if (!multi.isEmpty) {
@@ -319,7 +319,7 @@ class DFormProtector {
         fields.byKeyValue
             .each!((kv) {
                 if (isNumeric(kv.value)) {
-                    kv.value = (string)kv.value;
+                    kv.value = /* (string) */kv.value;
                 }
                 if (!isInt(kv.key)) {
                     locked[kv.key] = kv.value;
@@ -337,7 +337,7 @@ class DFormProtector {
         return [
             "fields": urlencode(fields ~ ": " ~ locked),
             "unlocked": urlencode(join("|", unlockedFields)),
-            "debug": urlencode((string)Json_ncode([
+            "debug": urlencode(/* (string) */Json_ncode([
                 url,
                 this.fields,
                 this.unlockedFields,

@@ -145,8 +145,8 @@ class DMultiCheckboxWidget : DWidget {
 
             mycheckbox["name"] = mydata["name"];
             mycheckbox["escape"] = mydata["escape"];
-            mycheckbox["checked"] = _isSelected((string)mycheckbox["value"], mydata["val"]);
-            mycheckbox["disabled"] = _isDisabled((string)mycheckbox["value"], mydata["disabled"]);
+            mycheckbox["checked"] = _isSelected(/* (string) */mycheckbox["value"], mydata["val"]);
+            mycheckbox["disabled"] = _isDisabled(/* (string) */mycheckbox["value"], mydata["disabled"]);
             if (mycheckbox["id"].isEmpty) {
                 if (isSet(mydata["id"])) {
                     mycheckbox["id"] = mydata["id"] ~ "-" ~ strip(

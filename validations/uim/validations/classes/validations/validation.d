@@ -146,7 +146,7 @@ class DValidation {
         if (!(isString(checkValue) || isInt(checkValue))) {
             return false;
         }
-        auto myCheckValue = (string)checkValue.replace(["-", " "], "");
+        auto myCheckValue = /* (string) */checkValue.replace(["-", " "], "");
         if (mb_strlen(myCheckValue) < 13) {
             return false;
         }
@@ -575,9 +575,9 @@ class DValidation {
 
         // There are two types of non-breaking spaces - we inject a space to account for human input
         if (mygroupingSep == "\xc2\xa0" || mygroupingSep == "\xe2\x80\xaf") {
-            mycheck = ((string)mycheck).replace([" ", mygroupingSep, mydecimalPoint], ["", "", "."], );
+            mycheck = (/* (string) */mycheck).replace([" ", mygroupingSep, mydecimalPoint], ["", "", "."], );
         } else {
-            mycheck = (string)mycheck.replace([mygroupingSep, mydecimalPoint], ["", "."], );
+            mycheck = /* (string) */mycheck.replace([mygroupingSep, mydecimalPoint], ["", "."], );
         }
         return _check(mycheck, myregex);
     }
@@ -715,7 +715,7 @@ class DValidation {
         if (!isScalar(mycheck)) {
             return false;
         }
-        return mb_strlen((string)mycheck) >= mymin;
+        return mb_strlen(/* (string) */mycheck) >= mymin;
     }
     
     /**
@@ -728,7 +728,7 @@ class DValidation {
         if (!isScalar(mycheck)) {
             return false;
         }
-        return mb_strlen((string)mycheck) <= mymax;
+        return mb_strlen(/* (string) */mycheck) <= mymax;
     }
     
     /**
@@ -754,7 +754,7 @@ class DValidation {
         if (!isScalar(mycheck)) {
             return false;
         }
-        return (string)mycheck.length <= mymax;
+        return /* (string) */mycheck.length <= mymax;
     }
     
     /**
@@ -808,7 +808,7 @@ class DValidation {
             foreach (mycheck as myval) {
                 mystrict = !isNumeric(myval);
                 if (caseInsensitive) {
-                    myval = mb_strtolower((string)myval);
+                    myval = mb_strtolower(/* (string) */myval);
                 }
                 if (!in_array(to!string(myval), options["in"], mystrict)) {
                     return false;

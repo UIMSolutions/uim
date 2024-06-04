@@ -192,7 +192,7 @@ class DAsset {
         timestamp ??= configuration.get("Asset.timestamp");
         timestampEnabled = timestamp == "force" || (timestamp == true && configuration.get("debug"));
         if (timestampEnabled) {
-            string filepath = (string)preg_replace(
+            string filepath = /* (string) */preg_replace(
                 "/^" ~ preg_quote(requestWebroot(), "/") ~ "/", "", urldecode(somePath)
             );
             

@@ -386,7 +386,7 @@ class DViewBuilder { // }: DJsonSerializable {
         array_walk_recursive(myarray["_viewData"], _checkViewVars(...));
 
         return array_filter(myarray, auto (myi) {
-            return !isArray(myi) && ((string)myi).length || !myi.isEmpty;
+            return !isArray(myi) && (/* (string) */myi).length || !myi.isEmpty;
         });
     }
     

@@ -275,7 +275,7 @@ class DSelectBoxWidget : DWidget {
         }
         if (!myselected.isArray) {
             myselected = myselected == false ? "0" : myselected;
-            return keyToTest == (string)myselected;
+            return keyToTest == /* (string) */myselected;
         }
         mystrict = !isNumeric(keyToTest);
 

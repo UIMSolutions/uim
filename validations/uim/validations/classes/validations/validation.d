@@ -893,7 +893,7 @@ class DValidation {
         myfragmentAndQuery = "([\?" ~ mysubDelimiters ~ myalpha ~ "]|" ~ myhex ~ ")";
          Generic.Files.LineLength
         myregex = "/^(?:(?:https?|ftps?|sftp|file|news|gopher):\/\/)" ~ (mystrict ? "" : "?") .
-            "(?:" ~ _pattern["IPv4"] ~ "|\[" ~ _pattern["IPv6"] ~ "\]|" ~ _pattern["hostname"] ~ ")(?.[1-9][0-9]{0,4})?" .
+            "(?:" ~ _pattern["IPv4"] ~ "|\[" ~ _pattern.getString("IPv6") ~ "\]|" ~ _pattern["hostname"] ~ ")(?.[1-9][0-9]{0,4})?" .
             "(?:\/" ~ mypath ~ "*)?" .
             "(?:\?" ~ myfragmentAndQuery ~ "*)?" .
             "(?:#" ~ myfragmentAndQuery ~ "*)?my/iu";
@@ -1235,10 +1235,10 @@ class DValidation {
         }
         mypattern = "/^" ~ self._pattern["latitude"] ~ ",\s*" ~ self._pattern["longitude"] ~ "my/";
         if (options["format"] == "long") {
-            mypattern = "/^" ~ self._pattern["longitude"] ~ "my/";
+            mypattern = "/^" ~ self._pattern.getString("longitude") ~ "my/";
         }
         if (options["format"] == "lat") {
-            mypattern = "/^" ~ self._pattern["latitude"] ~ "my/";
+            mypattern = "/^" ~ _pattern.getString("latitude") ~ "my/";
         }
         return (bool)preg_match(mypattern, to!string(myvalue));
     }

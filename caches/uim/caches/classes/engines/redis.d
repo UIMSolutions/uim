@@ -187,8 +187,10 @@ class DRedisCacheEngine : DCacheEngine {
      *
      * Faster than clear() using unlink method.
      */
+    // TODO
+    /* 
     override bool clearBlocking() {
-       _redis.setOption(Redis.OPT_SCAN, /* (string) */Redis.SCAN_RETRY);
+       _redis.setOption(Redis.OPT_SCAN, /* (string) * /Redis.SCAN_RETRY);
 
         override bool isAllDeleted = true;
         auto anIterator = null;
@@ -205,7 +207,7 @@ class DRedisCacheEngine : DCacheEngine {
             });
         }
         return isAllDeleted;
-    }
+    }*/
     
     /**
      * Write data for key into cache if it doesn`t exist already.
@@ -216,7 +218,7 @@ class DRedisCacheEngine : DCacheEngine {
         auto aKey = _key(dataId);
         auto aValue = serialize(dataToCache);
 
-        return (_redis.set(aKey, aValue, ["nx", "ex": aDuration]));
+        return false; // TODO (_redis.set(aKey, aValue, ["nx", "ex": aDuration]));
     }
     
     /**
@@ -259,9 +261,11 @@ class DRedisCacheEngine : DCacheEngine {
     
     // Unserialize string value fetched from Redis.
     protected Json unserialize(string valueToUnserialize) {
+        return Json(null);
+        /*
         return preg_match("/^[-]?\d+$/", valueToUnserialize)
-            ? /* (int) */valueToUnserialize
-            : unserialize(valueToUnserialize);
+            ? /* (int) * / valueToUnserialize
+            : unserialize(valueToUnserialize); */
     }
     
     // Disconnects from the redis server

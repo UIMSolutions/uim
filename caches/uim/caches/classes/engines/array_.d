@@ -71,6 +71,9 @@ class DArrayCacheEngine : DCacheEngine {
 
   // Increments the value of an integer cached key
   int increment(string itemKey, int incValue = 1) {
+    return 0;
+    // TODO
+    /* 
     if (get(itemKey).isNull) {
       set(itemKey, Json(0));
     }
@@ -79,6 +82,7 @@ class DArrayCacheEngine : DCacheEngine {
     _cachedData[itemKey]["val"] += incValue;
 
     return _cachedData[key]["val"];
+    */
   }
 
   // Decrements the value of an integer cached key

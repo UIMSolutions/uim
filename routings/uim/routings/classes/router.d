@@ -271,8 +271,8 @@ class DRouter {
         context["_base"] ??= "";
 
         if (myurl.isEmpty) {
-            myhere = getRequest()?.getRequestTarget() ?? "/";
-            myoutput = context["_base"] ~ myhere;
+            string myhere = getRequest()?.getRequestTarget() ?? "/";
+            string myoutput = context.getString("_base") ~ myhere;
             if (myfull) {
                 myoutput = fullBaseUrl() ~ myoutput;
             }

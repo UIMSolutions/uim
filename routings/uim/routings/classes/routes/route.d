@@ -663,8 +663,8 @@ class DRoute : IRoute {
 
         // add base url if applicable.
         if (isSet(myparams["_base"])) {
-            result = myparams["_base"] ~ result;
-            unset(myparams["_base"]);
+            result = myparams.getString("_base") ~ result;
+            myparams.remove("_base");
         }
         result = result.replace("//", "/");
         if (
@@ -676,16 +676,16 @@ class DRoute : IRoute {
 
             // append the port & scheme if they exists.
             if (isSet(myparams["_port"])) {
-                myhost ~= ": " ~ myparams["_port"];
+                myhost ~= ": " ~ myparams.getString("_port");
             }
-            myscheme = myparams["_scheme"] ?? "http";
+            myscheme = myparams.getString("_scheme", "http");
             result = "{myscheme}://{myhost}{result}";
         }
         if (!myparams.isEmpty("_ext")) || !myquery.isEmpty) {
             result = stripRight(result, "/");
         }
         if (!myparams.isEmpty("_ext"))) {
-            result ~= "." ~ myparams["_ext"];
+            result ~= "." ~ myparams.getString("_ext");
         }
         if (!myquery.isEmpty) {
             result ~= stripRight("?" ~ http_build_query(myquery), "?");

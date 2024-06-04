@@ -205,16 +205,16 @@ class DConsoleOutput {
     protected string _replaceTags(STRINGAA matchesToReplace) {
         style = getStyle(matchesToReplace["tag"]);
         if (style.isEmpty) {
-            return "<" ~ matchesToReplace["tag"] ~ ">" ~ matchesToReplace["text"] ~ "</" ~ matchesToReplace["tag"] ~ ">";
+            return "<" ~ matchesToReplace.getString("tag") ~ ">" ~ matchesToReplace.getString("text") ~ "</" ~ matchesToReplace.getString("tag") ~ ">";
         }
         styleInfo = null;
-        if (!style["text"].isEmpty) && isSet(_foregroundColors[style["text"]])) {
+        if (!style["text"].isEmpty) && _foregroundColors.hasKey(style.getString("text")) {
             styleInfo ~= _foregroundColors[style["text"]];
         }
         if (!style.isEmpty("background")) && isSet(_backgroundColors[style["background"]])) {
             styleInfo ~= _backgroundColors[style["background"]];
         }
-        unset(style["text"], style["background"]);
+        style.remove("text", "background");
         style.byKeyValue
             .filter!(optionValue => optionValue.value)
             .each!(optionValue => styleInfo ~= _options[optionValue.option]);
@@ -227,9 +227,7 @@ class DConsoleOutput {
         return to!int(fwrite(_output, messageToWrite));
     }
     
-    /**
-     * Gets the current styles offered
-     */
+    // Gets the current styles offered
     Json[string] getStyle(string styleName) {
         return _styles.get(styleName, null);
     }

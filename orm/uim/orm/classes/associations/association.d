@@ -800,7 +800,7 @@ class DAssociation : IAssociation {
 
         newContain = null;
         foreach (contain as alias : value) {
-            newContain[options["aliasPath"] ~ "." ~ alias] = value;
+            newContain[options.getString("aliasPath") ~ "." ~ alias] = value;
         }
 
         eagerLoader = query.getEagerLoader();
@@ -810,7 +810,7 @@ class DAssociation : IAssociation {
 
         foreach (matching as alias : value) {
             eagerLoader.setMatching(
-                options["aliasPath"] ~ "." ~ alias,
+                options.getString("aliasPath") ~ "." ~ alias,
                 value["queryBuilder"],
                 value
             );

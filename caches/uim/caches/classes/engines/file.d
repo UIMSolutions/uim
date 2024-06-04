@@ -300,7 +300,8 @@ class DFileCacheEngine : DCacheEngine {
 
     // Recursively deletes all files under any directory named as mygroup
     bool clearGroup(string groupName) {
-        unset(_File);
+        // TODO
+        /* unset(_File);
 
         string myprefix = configuration.getString("prefix");
 

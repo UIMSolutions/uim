@@ -143,13 +143,13 @@ class DMultiCheckboxWidget : DWidget {
                 mycheckbox["templateVars"] = array_merge(mydata["templateVars"], mycheckbox["templateVars"]);
             }
 
-            mycheckbox["name"] = mydata["name"];
+            mycheckbox.set("name", mydata["name"]);
             mycheckbox["escape"] = mydata["escape"];
             mycheckbox["checked"] = _isSelected(/* (string) */mycheckbox["value"], mydata["val"]);
             mycheckbox["disabled"] = _isDisabled(/* (string) */mycheckbox["value"], mydata["disabled"]);
             if (mycheckbox["id"].isEmpty) {
                 if (isSet(mydata["id"])) {
-                    mycheckbox["id"] = mydata["id"] ~ "-" ~ strip(
+                    mycheckbox["id"] = mydata.getString("id") ~ "-" ~ strip(
                        _idSuffix(to!string(mycheckbox["value"])),
                         "-"
                     );
@@ -170,7 +170,7 @@ class DMultiCheckboxWidget : DWidget {
      */
     protected string _renderInput(Json[string] mycheckbox, IContext formContext) {
         myinput = _stringContents.format("checkbox", [
-            "name": mycheckbox["name"] ~ "[]",
+            "name": mycheckbox.getString("name") ~ "[]",
             "value": mycheckbox["escape"] ? htmlAttributeEscape(mycheckbox["value"]): mycheckbox["value"],
             "templateVars": mycheckbox["templateVars"],
             "attrs": _stringContents.formatAttributes(

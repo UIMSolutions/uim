@@ -279,7 +279,7 @@ class DCache : ICache {
      * Cache.readMany(["_data_1", "_data_2], "long_term");
      * ```
      */
-    static Range readMany(string[] keysToFetch, string configName = "default") {
+    static auto readMany(string[] keysToFetch, string configName = "default") {
         return pool(configName).cacheItems(keysToFetch);
     }
 

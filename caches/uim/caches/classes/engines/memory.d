@@ -322,8 +322,7 @@ return true;
   string[] groups() {
     if (_compiledGroupNames.isEmpty) {
       foreach (mygroup; configuration.getStringArray("groups")) {
-        _compiledGroupNames ~= configuration.getString(
-          "prefix") ~ mygroup;
+        _compiledGroupNames ~= configuration.getString("prefix") ~ mygroup;
       }
     }
     mygroups = _memory.getMulti(_compiledGroupNames) ?  : [];

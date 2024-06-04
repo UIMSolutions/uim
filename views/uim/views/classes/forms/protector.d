@@ -102,7 +102,7 @@ class DFormProtector {
 
         if (lock) {
             if (!in_array(field, this.fields, true)) {
-                if (aValue !isNull) {
+                if (aValue !is null) {
                     this.fields[field] = aValue;
 
                     return this;

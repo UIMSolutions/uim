@@ -66,7 +66,7 @@ class DApcuCacheEngine : DCacheEngine {
   /* override bool clear() {
     if (class_exists(APCUIterator.class, false)) {
       auto myIterator = new APCUIterator(
-        "/^" ~ preg_quote(configuration.get("prefix"), "/") ~ "/",
+        "/^" ~ preg_quote(configuration.getString("prefix"), "/") ~ "/",
         APC_ITER_NONE
       );
       apcu_remove(myiterator);
@@ -100,7 +100,7 @@ class DApcuCacheEngine : DCacheEngine {
      */
   string[] groups() {
     if (_compiledGroupNames.isEmpty) {
-      configuration.get("groups").map!(group => configuration.get("prefix") ~ group).array;
+      configuration.get("groups").map!(group => configuration.getString("prefix") ~ group).array;
     }
     auto mysuccess = false;
     auto mygroups = apcu_fetch(_compiledGroupNames, mysuccess);

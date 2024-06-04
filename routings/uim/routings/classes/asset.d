@@ -121,10 +121,10 @@ class DAsset {
         if (!array_key_exists("plugin", options) || options["plugin"] != false) {
             [plugin, somePath] = pluginSplit(somePath);
         }
-        if (!options.isEmpty("pathPrefix"]) && somePath[0] != "/") {
+        if (!options.isEmpty("pathPrefix") && somePath[0] != "/") {
             somePathPrefix = options["pathPrefix"];
             placeHolderVal = "";
-            if (!options.isEmpty("theme"])) {
+            if (!options.isEmpty("theme")) {
                 placeHolderVal = inflectString(options["theme"]) ~ "/";
             } else if (isSet(plugin)) {
                 placeHolderVal = inflectString(plugin) ~ "/";
@@ -132,7 +132,7 @@ class DAsset {
             somePath = .replace("{plugin}", placeHolderVal, somePathPrefix) ~ somePath;
         }
         if (
-            !options.isEmpty("ext"]) &&
+            !options.isEmpty("ext") &&
             !somePath.has("?") &&
             !somePath.endsWith(options["ext"])
         ) {
@@ -145,31 +145,26 @@ class DAsset {
         if (isSet(plugin)) {
             somePath = inflectString(plugin) ~ "/" ~ somePath;
         }
-        optionTimestamp = null;
+        auto optionTimestamp = null;
         if (array_key_exists("timestamp", options)) {
             optionTimestamp = options["timestamp"];
         }
-        webPath = assetTimestamp(
+        auto webPath = assetTimestamp(
             webroot(somePath, options),
             optionTimestamp
         );
 
-        somePath = encodeUrl(webPath);
-
-        if (!options.isEmpty("fullBase"])) {
-            fullBaseUrl = isString(options["fullBase"])
-                ? options["fullBase"]
+        auto somePath = encodeUrl(webPath);
+        if (!options.isEmpty("fullBase")) {
+            fullBaseUrl = options.isString("fullBase")
+                ? options.getString("fullBase")
                 : Router.fullBaseUrl();
-            somePath = stripRight(fullBaseUrl, "/") ~ "/" ~ stripLeft(somePath, "/");
+            somePath = fullBaseUrl.stripRight("/") ~ "/" ~ somePath.stripLeft("/");
         }
         return somePath;
     }
     
-    /**
-     * Encodes URL parts using rawUrlEncode().
-     * Params:
-     * string aurl The URL to encode.
-     */
+    // Encodes URL parts using rawUrlEncode().
     protected static string encodeUrl(string urlToEncode) {
         auto somePath = parse_url(urlToEncode, UIM_URL_PATH);
         if (somePath == false || somePath.isNull) {
@@ -197,12 +192,11 @@ class DAsset {
         timestamp ??= configuration.get("Asset.timestamp");
         timestampEnabled = timestamp == "force" || (timestamp == true && configuration.get("debug"));
         if (timestampEnabled) {
-            filepath = (string)preg_replace(
-                "/^" ~ preg_quote(requestWebroot(), "/") ~ "/",
-                "",
-                urldecode(somePath)
+            string filepath = (string)preg_replace(
+                "/^" ~ preg_quote(requestWebroot(), "/") ~ "/", "", urldecode(somePath)
             );
-            webrootPath = configuration.get("App.wwwRoot") ~ filepath.replace("/", DIRECTORY_SEPARATOR);
+            
+            string webrootPath = configuration.getString("App.wwwRoot") ~ filepath.replace("/", DIRECTORY_SEPARATOR);
             if (isFile(webrootPath)) {
                 return somePath ~ "?" ~ filemtime(webrootPath);
             }
@@ -233,28 +227,25 @@ class DAsset {
      * ### Options:
      *
      * - `theme` Optional theme name
-     * Params:
-     * string afile The file to create a webroot path to.
-     * @param Json[string] options Options array.
      */
-    static string webroot(string afile, Json[string] options = null) {
+    static string webroot(string fileName, Json[string] options = null) {
         auto updatedOptions = options.update["theme": Json(null)];
         requestWebroot = requestWebroot();
 
-        string[] asset = file.split("?");
+        string[] asset = fileName.split("?");
         asset[1] = isSet(asset[1]) ? "?" ~ asset[1] : "";
         webPath = requestWebroot ~ asset[0];
-        file = asset[0];
+        auto file = asset[0];
 
-        themeName = options["theme"];
+        auto themeName = options.getString("theme");
         if (themeName) {
             file = strip(file, "/");
-            theme = inflectString(themeName) ~ "/";
+            auto theme = inflectString(themeName) ~ "/";
 
             if (DIRECTORY_SEPARATOR == "\\") {
                 file = file.replace("/", "\\");
             }
-            if (isFile(configuration.get("App.wwwRoot") ~ theme ~ file)) {
+            if (isFile(configuration.getString("App.wwwRoot") ~ theme ~ file)) {
                 webPath = requestWebroot ~ theme ~ asset[0];
             } else {
                 themePath = Plugin.path(themeName);
@@ -265,22 +256,16 @@ class DAsset {
             }
         }
         return webPath.has("//")
-            ? webPath ~ asset[1]).replace("//", "/")
+            ? (webPath ~ asset[1]).replace("//", "/")
             : webPath ~ asset[1];
     }
     
-    /**
-     * Inflect the theme/plugin name to type set using `Asset.setInflectionType()`.
-     * Params:
-     * string astring String inflected.
-     */
-    protected static string inflectString(string astring) {
-        return Inflector.{anInflectionType}(string);
+    // Inflect the theme/plugin name to type set using `Asset.setInflectionType()`.
+    protected static string inflectString(string inflectedString) {
+        return Inflector.{anInflectionType}(inflectedString);
     }
     
-    /**
-     * Get webroot from request.
-     */
+    // Get webroot from request.
     protected static string requestWebroot() {
         request = Router.getRequest();
         if (request.isNull) {
@@ -293,12 +278,10 @@ class DAsset {
      * Splits a dot syntax plugin name into its plugin and filename.
      * If name does not have a dot, then index 0 will be null.
      * It checks if the plugin is loaded, else filename will stay unchanged for filenames containing dot.
-     * Params:
-     * string aName The name you want to plugin split.
      */
-    protected static Json[string] pluginSplit(string aName) {
-        plugin = null;
-        [first, second] = pluginSplit(name);
+    protected static Json[string] pluginSplit(string nameToSplit) {
+        auto plugin = null;
+        [first, second] = pluginSplit(nameToSplit);
         if (first && Plugin.isLoaded(first)) {
             name = second;
             plugin = first;

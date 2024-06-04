@@ -61,14 +61,13 @@ mixin template TPluginAssets() {
             _io.hr();
 
             if (
-                configuration.hasKey("namespaced") &&
-                !isDir(configuration.get("destDir")) &&
+                configuration.hasKey("namespaced") && !isDir(configuration.get("destDir")) &&
                 !_createDirectory(configuration.get("destDir"))
             ) {
                 continue;
             }
             
-            string dest = configuration.get("destDir") ~ configuration.get("link");
+            string dest = configuration.getString("destDir") ~ configuration.getString("link");
             if (fileExists(dest)) {
                 if (overwriteExisting && !_remove(configData)) {
                     continue;

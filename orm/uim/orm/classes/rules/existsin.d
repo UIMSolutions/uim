@@ -63,8 +63,8 @@ class DExistsIn {
             myrepository = options["repository"].getAssociation(_repository);
            _repository = myrepository;
         }
-        fieldNames = _fields;
-        mysource = mytarget = _repository;
+        auto fieldNames = _fields;
+        auto mysource = mytarget = _repository;
         if (cast(DAssociation)mytarget) {
             mybindingKey = /* (array) */mytarget.getBindingKey();
             myrealTarget = mytarget.getTarget();
@@ -95,11 +95,13 @@ class DExistsIn {
                 }
             }
         }
-        myprimary = array_map(
+        
+        auto myprimary = array_map(
             fn (aKey): mytarget.aliasField(aKey) ~ " IS",
             mybindingKey
         );
-        myconditions = array_combine(
+        
+        auto myconditions = array_combine(
             myprimary,
             myentity.extract(fieldNames)
         );

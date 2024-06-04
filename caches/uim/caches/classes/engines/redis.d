@@ -190,10 +190,10 @@ class DRedisCacheEngine : DCacheEngine {
 
         override bool isAllDeleted = true;
          anIterator = null;
-         somePattern = configuration.get("prefix") ~ "*";
+         somePattern = configuration.getString("prefix") ~ "*";
 
         while (true) {
-            someKeys = _redis.scan(anIterator,  somePattern, configuration.getInt("scanCount"));
+            auto someKeys = _redis.scan(anIterator,  somePattern, configuration.getInt("scanCount"));
 
             if (someKeys == false) {
                 break;
@@ -229,7 +229,7 @@ class DRedisCacheEngine : DCacheEngine {
             auto aValue = _redis.get(configuration.get("prefix") ~  group);
             if (!aValue) {
                 aValue = serialize(1);
-               _redis.set(configuration.get("prefix") ~  group, aValue);
+               _redis.set(configuration.getString("prefix") ~  group, aValue);
             }
             result ~= anGroup ~ aValue;
         });
@@ -242,7 +242,7 @@ class DRedisCacheEngine : DCacheEngine {
      * old values will remain in storage until they expire.
          */
     override bool clearGroup(string groupName) {
-        return /* (bool) */_redis.incr(configuration.get("prefix") ~  groupName);
+        return /* (bool) */_redis.incr(configuration.getString("prefix") ~  groupName);
     }
     
     /**

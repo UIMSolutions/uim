@@ -162,11 +162,8 @@ static IConnection get(string connectionName, bool useAliases = true) {
     return _registry. {
         connectionName
     }
-
     
-
     ?  ? _registry.load(connectionName, configuration.get(connectionName));
-}
 }
 /**
      * Parses a DSN into a valid connection configuration
@@ -196,13 +193,17 @@ static Json[string] parseDsn(string adsn) {
     configData = _parseDsn(dsn);
 
     if (configuration.hasKey("path") && configuration.get("database").isEmpty) {
-        configuration.get("database", substr(configuration.get("path"), 1);}
-        if (configuration.get("driver").isEmpty) {
-            configuration.get("driver", configuration.get("className")); configuration.get("className", Connection
-                    .classname);}
-            unset(configuration.get("path"]); return configData;}
+        configuration.get("database", substr(configuration.get("path"), 1));
+    }
+    if (configuration.get("driver").isEmpty) {
+        configuration.get("driver", configuration.get("className"));
+        configuration.get("className", Connection.classname);
+    }
+    configuration.remove("path");
+    return configData;
+}
 
-            /**
+/**
      * Set one or more connection aliases.
      *
      * Connection aliases allow you to rename active connections without overwriting
@@ -221,23 +222,26 @@ static Json[string] parseDsn(string adsn) {
      * Make 'things' resolve to 'test_things' connection
      * ConnectionManager.alias("test_things", "things");
      */
-            static void alias(string connectionAlias, string sourceAlias) {
-                _connectionAliases[connectionAlias] = sourceAlias;}
+static void alias(string connectionAlias, string sourceAlias) {
+    _connectionAliases[connectionAlias] = sourceAlias;
+}
 
-                /**
+/**
      * Drop an alias.
      *
      * Removes an alias from ConnectionManager. Fetching the aliased
      * connection may fail if there is no other connection with that name.
      */
-                static void dropAlias(string connectionAlias) {
-                    unset(_connectionAliases[connectionAlias]);}
+static void dropAlias(string connectionAlias) {
+    unset(_connectionAliases[connectionAlias]);
+}
 
-                    // Returns the current connection aliases and what they alias.
-                    static STRINGAA aliases() {
-                        return _connectionAliases;}
+// Returns the current connection aliases and what they alias.
+static STRINGAA aliases() {
+    return _connectionAliases;
+}
 
-                        /**
+/**
      * Get a connection.
      *
      * If the connection has not been constructed an instance will be added
@@ -246,21 +250,20 @@ static Json[string] parseDsn(string adsn) {
      * as second parameter.
      * Params:
      */
-                        static IConnection get(string connectionName, bool useAliases = true) {
-                            if (useAliases && isSet(_connectionAliases[connectionName])) {
-                                connectionName = _connectionAliases[connectionName];
-                            }
-                            if (!isSet(configuration.data(connectionName])) {
-                                    throw new DMissingDatasourceConfigException(
-                                        ["name": connectionName]); }
+static IConnection get(string connectionName, bool useAliases = true) {
+    if (useAliases && isSet(_connectionAliases[connectionName])) {
+        connectionName = _connectionAliases[connectionName];
+    }
+    if (!configuration.hasKey(connectionName)) {
+        throw new DMissingDatasourceConfigException(["name": connectionName]);
+    }
+    // TODO
+    return null;
 
-                                    _registry ? _registry : new DConnectionRegistry();
-                                        return _registry. {
-                                            connectionName
-                                        }
-                                    
-                                    ?  ? _registry.load(connectionName, configuration.data(
-                                        connectionName]); }
-
-                                     *  /
-                                }
+    /* 
+    _registry ? _registry : new DConnectionRegistry();
+    return _registry. {
+        connectionName
+    } ?? _registry.load(connectionName, configuration.get(connectionName));
+    */
+}

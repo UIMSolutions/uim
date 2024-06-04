@@ -933,8 +933,6 @@ abstract class DQuery : IQuery { // : IExpression {
            _parts["order"] = new DOrderByExpression();
         }
        _conjugate("order", fieldNames, "", []);
-
-        return;
     }
     
     /**

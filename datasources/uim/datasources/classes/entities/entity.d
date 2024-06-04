@@ -72,7 +72,7 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
             setNew(options["markNew"]);
         }
 
-        if (!properties.isEmpty && options["markClean"] && !options["useSetters"]) {
+        if (!properties.isEmpty && options.hasKey("markClean") && !options.hasKey("useSetters")) {
             _fields = properties;
 
             return;
@@ -85,8 +85,8 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
             ]);
         }
 
-        if (options["markClean"]) {
+        if (options.hasKey["markClean"]) {
             this.clean();
         }
-    } */
+    } 
 }

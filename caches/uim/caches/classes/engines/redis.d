@@ -64,28 +64,30 @@ class DRedisCacheEngine : DCacheEngine {
     
     // Connects to a Redis server
     protected bool _connect() {
-        try {
-           _redis = new DRedis();
+        bool result;
+        // TODO
+        /* try {
+            _redis = new DRedis();
             if (!configuration.isEmpty("unix_socket")) {
                 result = _redis.connect(configuration.get("unix_socket"));
             } elseif (configuration.isEmpty("persistent")) {
                 result = _redis.connect(
-                   configuration.get("server"),
+                    configuration.get("server"),
                     configuration.getInt("port"),
                     configuration.getInt("timeout")
                 );
             } else {
                 persistentId = configuration.getString("port") ~ configuration.getString("timeout") ~ configuration.getString("database");
                 result = _redis.pconnect(
-                   configuration.get("server"),
+                    configuration.get("server"),
                     configuration.getInt("port"),
                     configuration.getInt("timeout"),
                     persistentId
                 );
             }
-        } catch (RedisException  anException) {
+        } catch (RedisException anException) {
             if (class_exists(Log.classname)) {
-                Log.error("RedisEngine could not connect. Got error: " ~  anException.getMessage());
+                Log.error("RedisEngine could not connect. Got error: " ~  anException.message());
             }
             return false;
         }
@@ -94,7 +96,7 @@ class DRedisCacheEngine : DCacheEngine {
         }
         if (result) {
             result = _redis.select(configuration.getInt("database"));
-        }
+        } */
         return result;
     }
     
@@ -111,11 +113,10 @@ class DRedisCacheEngine : DCacheEngine {
     
     // Read a key from the cache
     Json get(string aKey, Json defaultValue = Json(null)) {
-        aValue = _redis.get(_key(aKey));
-        if (aValue == false) {
-            return defaultValue;
-        }
-        return _unserialize(aValue);
+        auto value = _redis.get(_key(aKey));
+        return value == false
+            ? defaultValue  
+            : _unserialize(value);
     }
     
     // Increments the value of an integer cached key & update the expiry time
@@ -186,12 +187,11 @@ class DRedisCacheEngine : DCacheEngine {
      * Faster than clear() using unlink method.
      */
     override bool clearBlocking() {
-       _redis.setOption(Redis.OPT_SCAN, (string)Redis.SCAN_RETRY);
+       _redis.setOption(Redis.OPT_SCAN, /* (string) */Redis.SCAN_RETRY);
 
         override bool isAllDeleted = true;
-         anIterator = null;
-         somePattern = configuration.getString("prefix") ~ "*";
-
+        auto anIterator = null;
+        string somePattern = configuration.getString("prefix") ~ "*";
         while (true) {
             auto someKeys = _redis.scan(anIterator,  somePattern, configuration.getInt("scanCount"));
 
@@ -220,8 +220,7 @@ class DRedisCacheEngine : DCacheEngine {
     
     /**
      * Returns the `group value` for each of the configured groups
-     * If the group initial value was not found, then it initializes
-     * the group accordingly.
+     * If the group initial value was not found, then it initializes the group accordingly.
      */
     string[] groups() {
         string[] result;
@@ -240,7 +239,7 @@ class DRedisCacheEngine : DCacheEngine {
     /**
      * Increments the group value to simulate deletion of all keys under a group
      * old values will remain in storage until they expire.
-         */
+    */
     override bool clearGroup(string groupName) {
         return /* (bool) */_redis.incr(configuration.getString("prefix") ~  groupName);
     }
@@ -259,17 +258,16 @@ class DRedisCacheEngine : DCacheEngine {
     
     // Unserialize string value fetched from Redis.
     protected Json unserialize(string valueToUnserialize) {
-        if (preg_match("/^[-]?\d+$/", valueToUnserialize)) {
-            return (int)valueToUnserialize;
-        }
-        return unserialize(valueToUnserialize);
+        return preg_match("/^[-]?\d+$/", valueToUnserialize)
+            ? /* (int) */valueToUnserialize
+            : unserialize(valueToUnserialize);
     }
     
     // Disconnects from the redis server
     auto __destruct() {
-        if (configuration.get("persistent"]).isEmpty) {
+        if (configuration.isEmpty("persistent")) {
            _redis.close();
         }
-    } */
+    }
 }
 mixin(CacheEngineCalls!("Redis")); 

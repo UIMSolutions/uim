@@ -59,10 +59,9 @@ class DPluginUnloadCommand : DCommand {
         }
         contents = "" ~ "\n" ~ "return " ~ Json[string] ~ ";";
 
-        if (file_put_contents(_configFile, contents)) {
-            return null;
-        }
-        return "Failed to update `CONFIG/plugins.d`";
+        return !file_put_contents(_configFile, contents)
+            ? "Failed to update `CONFIG/plugins.d`"
+            : null;
     }
 
     // Get the option parser.

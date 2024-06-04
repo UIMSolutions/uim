@@ -67,18 +67,18 @@ class DPluginLoadCommand : DCommand {
     }
 
     // Modify the plugins config file.
-    protected int modifyConfigFile(string pluginName, Json[string] options = null) {
+/*     protected int modifyConfigFile(string pluginName, Json[string] options = null) {
 
         configData = @include this.configFile;
         configData = !configData.isArray ? Json.empty;
     } else {
         configData = Hash.normalize(configData);
     }
-
+ */
     configuration.set(pluginName, options);
     auto Json[string] = class_exists(VarExporter.class)
-        ? VarExporter.export_(configData, VarExporter.TRAILING_COMMA_IN_ARRAY) : var_export_(
-            configData, true);
+        ? VarExporter.export_(configData, VarExporter.TRAILING_COMMA_IN_ARRAY) 
+        : var_export_(configData, true);
 
     contents = "\n\n" ~ "return " ~ Json[string] ~ ";" ~ "\n";
 

@@ -235,6 +235,7 @@ mixin template TEntity() {
      * fields with their respective values
     */
   void set(string[] fieldName, Json valueToSet = null, Json[string] optionData = null) {
+    bool guard;
     if (isString(fieldName) && !fieldName.isEmpty) {
       guard = false;
       fieldName = [fieldName: valueToSet];
@@ -245,15 +246,14 @@ mixin template TEntity() {
     if (!isArray(fieldName)) {
       throw new DInvalidArgumentException("Cannot set an empty field");
     }
-    auto updatedOptions = optionData.update["setter": true.toJson, "guard": guard, "asOriginal": false
-      .toJson];
+    auto updatedOptions = optionData.update(["setter": true.toJson, "guard": guard, "asOriginal": false.toJson]);
 
     if (optionData["asOriginal"] == true) {
       setOriginalField(fieldName.keys);
     }
     fieldName.byKeyValue
       .each((kv) {
-        auto fieldName = (string) name;
+        auto fieldName = /* (string)  */name;
         if (optionData["guard"] == true && !this.isAccessible(fieldName)) {
           continue;
         }
@@ -262,17 +262,12 @@ mixin template TEntity() {
         if (optionData["setter"]) {
           setter = _accessor(fieldName, "set");
           if (setter) {
-            valueToSet = this. {
-              setter
-            }
-            (valueToSet);
+            valueToSet = this.{setter}(valueToSet);
           }
         }
         if (
-          this.isOriginalField(fieldName) &&
-        !array_key_exists(fieldName, _original) &&
-        array_key_exists(fieldName, _fields) &&
-        valueToSet != _fields[fieldName]
+          this.isOriginalField(fieldName) && !array_key_exists(fieldName, _original) && 
+          array_key_exists(fieldName, _fields) && valueToSet != _fields[fieldName]
           ) {
           _original[fieldName] = _fields[fieldName];
         }
@@ -294,7 +289,7 @@ mixin template TEntity() {
     }
     
     auto method = _accessor(fieldName, "get");
-    if (method) {
+    if (method) { 
       return this.{method}(aValue);
     }
     if (!fieldIsPresent && this.requireFieldPresence) {
@@ -680,16 +675,11 @@ mixin template TEntity() {
     return this;
   }
 
-  /**
-     * Checks if the entity is dirty or if a single field of it is dirty.
-     * Params:
-     * string field The field to check the status for. Null for the whole entity.
-    */
+  // Checks if the entity is dirty or if a single field of it is dirty.
   bool isDirty(string fieldName = null) {
-    if (field.isNull) {
-      return !_isDirty.isEmpty;
-    }
-    return isSet(_isDirty[field]);
+    return field.isNull 
+      ? !_isDirty.isEmpty
+      : _isDirty.hasKey(field);
   }
 
   // Gets the dirty fields.
@@ -720,9 +710,8 @@ mixin template TEntity() {
     */
   void setNew(bool status) {
     if (status) {
-      foreach (_fields as myKey : p) {
-        _isDirty[myKey] = true;
-      }
+      _fields.byKeyValue
+        .each!(kv => _isDirty[kv.key] = true);
     }
     _isNew = status;
   }
@@ -732,12 +721,8 @@ mixin template TEntity() {
     return _isNew;
   }
 
-  /**
-     * Returns whether this entity has errors.
-     * Params:
-     * bool anIncludeNested true will check nested entities for hasErrors()
-    */
-  bool hasErrors(bool anIncludeNested = true) {
+  // Returns whether this entity has errors.
+  bool hasErrors(bool includeNested = true) {
     if (_hasBeenVisited) {
       // While recursing through entities, each entity should only be visited once. See https://github.com/UIM/UIM/issues/17318
       return false;
@@ -745,15 +730,13 @@ mixin template TEntity() {
     if (Hash.filter(_fieldErrors)) {
       return true;
     }
-    if (anIncludeNested == false) {
+    if (includeNested == false) {
       return false;
     }
     _hasBeenVisited = true;
     try {
-      foreach (_fields asfield) {
-        if (_readHasErrors(field)) {
-          return true;
-        }
+      if (_fields.any!(field => _readHasErrors(field))) {
+        return true;
       }
     } finally {
       _hasBeenVisited = false;
@@ -761,9 +744,8 @@ mixin template TEntity() {
     return false;
   }
 
-  
-
-  / (Returns all validation errors.array getErrors() {
+  // Returns all validation errors.
+  array getErrors() {
     if (_hasBeenVisited) {
       // While recursing through entities, each entity should only be visited once. See https://github.com/UIM/UIM/issues/17318
       return null;
@@ -790,7 +772,7 @@ mixin template TEntity() {
      * string fieldName Field name to get the errors from
     */
       Json[string] getError(string fieldName) {
-        return _fieldErrors[field] ?  ? _nestedErrors(field);
+        return _fieldErrors[fieldName] ?? _nestedErrors(fieldName);
       }
 
       /**

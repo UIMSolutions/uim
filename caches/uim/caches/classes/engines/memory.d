@@ -294,7 +294,7 @@ return true;
   override bool removeItems(string[] itemKeys) {
     auto mycacheKeys = itemKeys
       .map!(key => _key(aKey)).array;
-    return (bool) _memory.deleteMulti(mycacheKeys);
+    return /* (bool) */ _memory.deleteMulti(mycacheKeys);
   }
 
   // Delete all keys from the cache
@@ -308,7 +308,7 @@ return true;
   // Add a key to the cache if it does not already exist.
   override bool add(string itemKey, Json dataToCache) {
     auto myduration = configuration.get("duration");
-    aKey = _key(itemKey);
+    auto aKey = _key(itemKey);
     return _memory.add(aKey, myvalue, myduration);
   }
 
@@ -344,8 +344,7 @@ return true;
   * old values will remain in storage until they expire.
   */
   override bool clearGroup(string groupName) {
-    return (bool) _memory.increment(configuration.getString("prefix") ~ groupName);
+    return /* (bool) */ _memory.increment(configuration.getString("prefix") ~ groupName);
   }
 }
-
 mixin(CacheEngineCalls!("Memory"));

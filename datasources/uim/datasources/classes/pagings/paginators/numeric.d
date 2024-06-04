@@ -272,7 +272,8 @@ class DNumericPaginator : IPaginator {
 
     // Add "start" and "end" params.
     protected Json[string] addStartEndParams(Json[string] pagingParams, Json[string] paginatorData) {
-        start = end = 0;
+        auto start = 0;
+        auto end = 0;
 
         if (pagingParams["current"] > 0) {
             start = ((pagingParams["page"] - 1) * pagingParams["perPage"]) + 1;
@@ -281,30 +282,25 @@ class DNumericPaginator : IPaginator {
 
         pagingParams["start"] = start;
         pagingParams["end"] = end;
-
         return pagingParams;
     }
 
     // Add "prevPage" and "nextPage" params.
     protected Json[string] addPrevNextParams(Json[string] paginatorData, Json[string] pagingData) {
-        paginatorData["prevPage"] = paginatorData["page"] > 1;
-        paginatorData["nextPage"] = paginatorData["count"] == null
-            ? true : paginatorData["count"] > paginatorData["page"] * paginatorData["perPage"];
+        paginatorData["prevPage"] = paginatorData.getInt("page") > 1;
+        paginatorData["nextPage"] = paginatorData.hasKey("count")
+            ? true : paginatorData.getInt("count") > paginatorData.getInt("page") * paginatorData.getInt("perPage");
 
         return paginatorData;
     }
 
     // Add sorting / ordering params.
     protected Json[string] addSortingParams(Json[string] paginatorData, Json[string] pagingData) {
-        defaults = pagingData["defaults"];
+        auto defaults = pagingData["defaults"];
         auto order = /* (array) */ pagingData["options"]["order"];
-        sortDefault = directionDefault = false;
+        auto sortDefault = directionDefault = false;
 
-        if (!defaults.isEmpty("order"))
-
-            
-
-                && count(defaults["order"]) >= 1) {
+        if (!defaults.isEmpty("order") && count(defaults["order"]) >= 1) {
             sortDefault = key(defaults["order"]);
             directionDefault = current(defaults["order"]);
         }
@@ -373,32 +369,31 @@ class DNumericPaginator : IPaginator {
      * which options/values can be set using request parameters.
      */
     Json[string] mergeOptions(Json[string] requestData, Json[string] settingsToMerge) {
+        string scopeValue; 
         if (!settingsToMerge.isEmpty("scope")) {
-            scope = settingsToMerge["scope"];
-            requestData = !requestData.isEmpty(scope) ? /* (array) */ requestData[scope] : [];
+            scopeValue = settingsToMerge.getString("scope");
+            requestData = !requestData.isEmpty(scopeValue) ? /* (array) */ requestData[scopeValue] : [];
         }
 
-        allowed = getAllowedParameters();
-        params = array_intersect_key(requestData, array_flip(
-                allowed));
+        auto allowed = getAllowedParameters();
+        auto params = array_intersect_key(requestData, array_flip(allowed));
         return array_merge(settingsToMerge, requestData);
     }
 
     /**
      * Get the settings for a model. If there are no settings for a specific
      * repository, the general settings will be used.
-     * @param Json[string] settings The settings which is used for combining.
      */
     Json[string] getDefaults(string aliasName, Json[string] settingData) {
-        if (isset(settingData[aliasName])) {
+        if (settingData.hasKey(aliasName)) {
             settingData = settingData[aliasName];
         }
 
         auto defaultData = this.configuration.data;
         defaultData["whitelist"] = defaultData["allowedParameters"] = getAllowedParameters();
 
-        maxLimit = settingData["maxLimit"] ?  ? defaultData["maxLimit"];
-        limit = settingData["limit"] ?  ? defaultData["limit"];
+        auto maxLimit = settingData.getInt("maxLimit", defaultData.getInt("maxLimit"));
+        auto limit = settingData.getInt("limit", defaultData.getInt("limit"));
 
         if (limit > maxLimit) {
             limit = maxLimit;
@@ -406,7 +401,7 @@ class DNumericPaginator : IPaginator {
 
         settingData["maxLimit"] = maxLimit;
         settingData["limit"] = limit;
-        return settings + defaultData;
+        return settings.merge(defaultData);
     }
 
     /**
@@ -433,10 +428,8 @@ class DNumericPaginator : IPaginator {
     Json[string] validateSort(IRepository repository, Json[string] paginationOptions) {
         if (paginationOptions.hasKey("sort")) {
             auto direction = null;
-            if (isset(
-                    paginationOptions["direction"])) {
-                direction = strtolower(
-                    paginationOptions["direction"]);
+            if (paginationOptions.hasKey("direction")) {
+                direction = paginationOptions.getString("direction").lower;
             }
             if (!hasAllValues(direction, [
                         "asc", "desc"
@@ -444,9 +437,8 @@ class DNumericPaginator : IPaginator {
                 direction = "asc";
             }
 
-            order = isset(paginationOptions["order"]) && isArray(
-                paginationOptions["order"]) ? paginationOptions["order"] : [
-            ];
+            order = paginationOptions.hasKey("order") && isArray(paginationOptions["order"]) 
+                ? paginationOptions["order"] : null;
             if (order && paginationOptions["sort"] && indexOf(paginationOptions["sort"], ".") == false) {
                 order = _removeAliases(order, repository.aliasName());
             }
@@ -466,8 +458,8 @@ class DNumericPaginator : IPaginator {
             return paginationOptions;
         }
 
-        sortAllowed = false;
-        allowed = getSortableFields(paginationOptions);
+        auto sortAllowed = false;
+        auto allowed = getSortableFields(paginationOptions);
         if (allowed != null) {
             paginationOptions["sortableFields"] = paginationOptions["sortWhitelist"] = allowed;
 
@@ -480,73 +472,62 @@ class DNumericPaginator : IPaginator {
             }
         }
 
-        if (
-            paginationOptions["sort"] == null
-            && count(paginationOptions["order"]) >= 1
-            && !key(paginationOptions["order"].isNumeric)
-            ) {
-            paginationOptions["sort"] = key(
-                paginationOptions["order"]);
+        if (paginationOptions["sort"] == null && count(paginationOptions["order"]) >= 1 && !key(paginationOptions["order"].isNumeric)) {
+            paginationOptions["sort"] = key(paginationOptions.getString("order"));
         }
 
         paginationOptions["order"] = _prefix(repository, paginationOptions["order"], sortAllowed);
-
         return paginationOptions;
     }
 
     // Remove alias if needed.
     protected Json[string] _removeAliases(string[] fieldNames, string modelAlias) {
-        result = null;
-        foreach (fields as field : sort) {
-            if (indexOf(field, ".") == false) {
+        Json[string] result = null;
+        foreach (field, sort; fields) {
+            if (field.has(".") == false) {
                 result[field] = sort;
                 continue;
             }
 
-            [alias, currentField] = explode(".", field);
-            if (alias == modelAlias) {
+            [aliasName, currentField] = explode(".", field);
+            if (aliasName == modelAlias) {
                 result[currentField] = sort;
                 continue;
             }
 
             result[field] = sort;
         }
-
         return result;
     }
 
     // Prefixes the field with the table alias if possible.
     protected Json[string] _prefix(IRepository repository, Json[string] orderData, bool allowed = false) {
-        tableAlias = repository.aliasName();
-        tableOrder = null;
-        foreach (orderData as key : value) {
+        auto tableAlias = repository.aliasName();
+        auto tableOrder = null;
+        foreach (key, value; orderData) {
             if (key.isNumeric) {
                 tableOrder ~= value;
                 continue;
             }
-            field = key;
-            alias = tableAlias;
+            string field = key;
+            string aliasName = tableAlias;
 
             if (indexOf(key, ".") != false) {
-                [alias, field] = explode(".", key);
+                [aliasName, field] = explode(".", key);
             }
-            correctAlias = (
-                tableAlias == alias);
-            if (
-                correctAlias && allowed) {
+            correctAlias = (tableAlias == aliasName);
+            if (correctAlias && allowed) {
                 // Disambiguate fields in schema. As id is quite common.
-                if (repository.hasField(
-                        field)) {
-                    field = alias ~ "." ~ field;
+                if (repository.hasField(field)) {
+                    field = aliasName ~ "." ~ field;
                 }
                 tableOrder[field] = value;
             }
-            elseif(correctAlias && repository.hasField(
-                    field)) {
+            elseif(correctAlias && repository.hasField(field)) {
                 tableOrder[tableAlias ~ "." ~ field] = value;
             }
             elseif(!correctAlias && allowed) {
-                tableOrder[alias ~ "." ~ field] = value;
+                tableOrder[aliasName ~ "." ~ field] = value;
             }
         }
 
@@ -555,12 +536,11 @@ class DNumericPaginator : IPaginator {
 
     // Check the limit parameter and ensure it"s within the maxLimit bounds.
     Json[string] checkLimit(Json[string] optionData) {
-        int limitOption = options.getInt("limit");
+        int limitOption = optionData.getInt("limit");
         if (limitOption < 1) {
             limitOption = 1;
         }
-        options["limit"] = max(min(limitOption, options.getInt("maxLimit")), 1);
-
+        optionData["limit"] = max(min(limitOption, options.getInt("maxLimit")), 1);
         return options;
     }
 }

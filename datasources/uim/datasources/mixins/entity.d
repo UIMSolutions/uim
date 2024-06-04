@@ -534,13 +534,15 @@ mixin template TEntity() {
      * string aproperty the field name to derive getter name from
     */
   protected static string _accessor(string fieldName, string accessorType) {
-    className = class;
+    auto className = class;
 
-    if (isSet(_accessors[className][accessorType][aProperty])) {
-      return _accessors[className][accessorType][aProperty];
+    auto key = className~"."~accessorType~"."~aProperty;
+    if (_accessors.hasKey(key)) {
+      return _accessors.hasKey(key);
     }
     if (!_accessors.isEmpty(className)) {
-      return _accessors[className][accessorType][aProperty] = "";
+      _accessors(key, "");
+      return _accessors(key);
     }
     if (class == Entity.classname) {
       return null;
@@ -551,17 +553,18 @@ mixin template TEntity() {
         continue;
       }
 
-      stringfield = lcfirst(substr(method, 4));
-      snakeField = Inflector.underscore(field);
-      titleField = ucfirst(field);
-      _accessors[className][prefix][snakeField] = method;
-      _accessors[className][prefix][field] = method;
-      _accessors[className][prefix][titleField] = method;
+      auto stringfield = lcfirst(substr(method, 4));
+      auto snakeField = Inflector.underscore(field);
+      auto titleField = ucfirst(field);
+      auto clPrefix = className~"."~prefix;
+      _accessors.set(clPrefix~"."~snakeField, method);
+      _accessors.set(clPrefix~"."~field, method);
+      _accessors.set(clPrefix~"."~titleField, method);
     });
-    if (!isSet(_accessors[className][accessorType][aProperty])) {
-      _accessors[className][accessorType][aProperty] = "";
+    if (!_accessors.hasKey(key)) {
+      _accessors.set(key, "");
     }
-    return _accessors[className][accessorType][aProperty];
+    return _accessors.get(key);
   }
 
   /**

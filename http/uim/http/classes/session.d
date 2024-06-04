@@ -71,25 +71,25 @@ class DSession {
             }
         }
         if (
-            !isSet(sessionConfig["ini"]["session.cookie_secure"])
+            !isSet(sessionConfig["ini.session.cookie_secure"])
             && enviroment("HTTPS")
             && ini_get("session.cookie_secure") != 1
             ) {
-            sessionConfig["ini"]["session.cookie_secure"] = 1;
+            sessionConfig["ini.session.cookie_secure"] = 1;
         }
         if (
-            !isSet(sessionConfig["ini"]["session.name"])
+            !isSet(sessionConfig["ini.session.name"])
             && isSet(sessionConfig["cookie"])
             ) {
-            sessionConfig["ini"]["session.name"] = sessionConfig["cookie"];
+            sessionConfig["ini.session.name"] = sessionConfig["cookie"];
         }
-        if (!isSet(sessionConfig["ini"]["session.use_strict_mode"]) && ini_get(
+        if (!isSet(sessionConfig["ini.session.use_strict_mode"]) && ini_get(
                 "session.use_strict_mode") != 1) {
-            sessionConfig["ini"]["session.use_strict_mode"] = 1;
+            sessionConfig["ini.session.use_strict_mode"] = 1;
         }
-        if (!isSet(sessionConfig["ini"]["session.cookie_httponly"]) && ini_get(
+        if (!isSet(sessionConfig["ini.session.cookie_httponly"]) && ini_get(
                 "session.cookie_httponly") != 1) {
-            sessionConfig["ini"]["session.cookie_httponly"] = 1;
+            sessionConfig["ini.session.cookie_httponly"] = 1;
         }
         return new static(sessionConfig);
     }
@@ -140,7 +140,7 @@ class DSession {
 
         if (isSet(defaults[name])) {
             if (name != "D" || ini_get("session.cookie_samesite").isEmpty) {
-                defaults["D"]["ini"]["session.cookie_samesite"] = "Lax";
+                defaults["D.ini.session.cookie_samesite"] = "Lax";
             }
             return defaults[name];
         }
@@ -172,20 +172,20 @@ class DSession {
         ];
 
         if (configuration.get("timeout"]) {
-            configuration.get("ini"]["session.gc_maxlifetime"] = 60 * configuration.get("timeout"];
+            configuration.get("ini.session.gc_maxlifetime"] = 60 * configuration.get("timeout"];
         }
         if (configuration.get("cookie"]) {
-            configuration.get("ini"]["session.name"] = configuration.get("cookie"];
+            configuration.get("ini.session.name"] = configuration.get("cookie"];
         }
         if (!configuration.get("ini"].hasKey("session.cookie_path")) {
             cookiePath = configData.isEmpty("cookiePath") ? "/" : configuration.get("cookiePath"];
-            configuration.get("ini"]["session.cookie_path"] = cookiePath;
+            configuration.get("ini.session.cookie_path"] = cookiePath;
         }
         options(configuration.get("ini"]);
 
         if (!configData.isEmpty("handler")) {
-            className = configuration.get("handler"]["engine"];
-            unset(configuration.get("handler"]["engine"]);
+            className = configuration.get("handler.engine"];
+            unset(configuration.get("handler.engine"]);
             this.engine(className, configuration.get("handler"]);
         }
         _lifetime = (int) ini_get("session.gc_maxlifetime");

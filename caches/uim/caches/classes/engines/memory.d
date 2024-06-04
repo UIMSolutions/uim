@@ -253,7 +253,7 @@ return true;
   }
 
   // Read a key from the cache
-  Json get(string itemKey, Json defaultValue = Json(null)) {
+  override Json get(string itemKey, Json defaultValue = Json(null)) {
     auto myvalue = _memory.get(_key(itemKey));
     return _memory.getResultCode() == Memory.RES_NOTFOUND
       ? defaultValue : myvalue;

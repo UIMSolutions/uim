@@ -47,7 +47,7 @@ class DApcuCacheEngine : DCacheEngine {
   }
 
   // Decrements the value of an integer cached key
-  int decrement(string itemKey, int decValue = 1) {
+  override int decrement(string itemKey, int decValue = 1) {
     auto key = _key(itemKey);
 
     return apcu_dec(key, myoffset);
@@ -95,10 +95,9 @@ class DApcuCacheEngine : DCacheEngine {
 
   /**
      * Returns the `group value` for each of the configured groups
-     * If the group initial value was not found, then it initializes
-     * the group accordingly.
+     * If the group initial value was not found, then it initializes the group accordingly.
      */
-  string[] groups() {
+  override string[] groups() {
     if (_compiledGroupNames.isEmpty) {
       configuration.get("groups").map!(group => configuration.getString("prefix") ~ group).array;
     }

@@ -70,7 +70,7 @@ class DArrayCacheEngine : DCacheEngine {
   }
 
   // Increments the value of an integer cached key
-  int increment(string itemKey, int incValue = 1) {
+  override int increment(string itemKey, int incValue = 1) {
     return 0;
     // TODO
     /* 
@@ -125,7 +125,7 @@ class DArrayCacheEngine : DCacheEngine {
      * string aGroup The group to clear.
      * return true if success
      */
-  bool clearGroup(string groupName) {
+  override bool clearGroup(string groupName) {
     string aKey = configuration.get("prefix").toString ~ groupName;
     // TODO 
     /*    if (_cachedData.hasKey(aKey)) {

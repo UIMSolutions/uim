@@ -107,10 +107,10 @@ class DCurl { // }: IAdapter {
             .each!(optionCurlOpt => result[optionCurlOpt.value] = clientOptions[optionCurlOpt.key]);
             
         if (clientOptions.hasKey("proxy.proxy")) {
-             result[CURLOPT_PROXY] = clientOptions["proxy"]["proxy"];
+             result[CURLOPT_PROXY] = clientOptions["proxy.proxy"];
         }
         if (clientOptions.hasKey("proxy.username")) {
-            password = !clientOptions.isEmpty("proxy.password") ? clientOptions["proxy"]["password"] : "";
+            password = !clientOptions.isEmpty("proxy.password") ? clientOptions["proxy.password"] : "";
              result[CURLOPT_PROXYUSERPWD] = clientOptions.getString("proxy.username") ~ ": " ~ password;
         }
         if (isSet(clientOptions["curl"]) && isArray(clientOptions["curl"])) {

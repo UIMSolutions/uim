@@ -131,11 +131,11 @@ class DDebugger {
         e ~= `<div id="{:id}-trace" class="uim-stack-trace" style="display: none;">`;
         e ~= `{:links}{:info}</div>`;
         e ~= `</pre>`;
-        _stringContents["js"]["error"] = e;
+        _stringContents["js.error"] = e;
 
         t = `<div id="{:id}-trace" class="uim-stack-trace" style="display: none;">`;
         t ~= `{:context}{:code}{:trace}</div>`;
-        _stringContents["js"]["info"] = t;
+        _stringContents["js.info"] = t;
 
         links = null;
         link = `<a href="javascript:void(0);" onclick="document.getElementById(\"{:id}-code\")`;
@@ -148,20 +148,20 @@ class DDebugger {
         link ~= `\"none\" ? \"\" : \"none\")">Context</a>`;
         links["context"] = link;
 
-        _stringContents["js"]["links"] = links;
+        _stringContents["js.links"] = links;
 
-        _stringContents["js"]["context"] = `<pre id="{:id}-context" class="uim-context uim-debug" `;
-        _stringContents["js"]["context"] ~= `style="display: none;">{:context}</pre>`;
+        _stringContents["js.context"] = `<pre id="{:id}-context" class="uim-context uim-debug" `;
+        _stringContents["js.context"] ~= `style="display: none;">{:context}</pre>`;
 
-        _stringContents["js"]["code"] = "<pre id="{:id}-code" class="uim-code-dump" ";
-        _stringContents["js"]["code"] ~= "style="display: none;">{:code}</pre>";
+        _stringContents["js.code"] = "<pre id="{:id}-code" class="uim-code-dump" ";
+        _stringContents["js.code"] ~= "style="display: none;">{:code}</pre>";
 
         e = "<pre class="uim-error"><b>{:error}</b> ({:code}) : {:description} ";
         e ~= "[<b>{:path}</b>, line <b>{:line}]</b></pre>";
-        _stringContents["html"]["error"] = e;
+        _stringContents["html.error"] = e;
 
-        _stringContents["html"]["context"] = "<pre class="uim-context uim-debug"><b>Context</b> ";
-        _stringContents["html"]["context"] ~= "<p>{:context}</p></pre>";
+        _stringContents["html.context"] = "<pre class="uim-context uim-debug"><b>Context</b> ";
+        _stringContents["html.context"] ~= "<p>{:context}</p></pre>";
     }
 
     // Returns a reference to the Debugger singleton object instance.
@@ -368,7 +368,7 @@ class DDebugger {
             } else {
                 tpl = isset(self._stringContents[options["format"]]["traceLine"]))
                     ? self._stringContents[options["format"]]["traceLine"];
-                    : self._stringContents["base"]["traceLine"];
+                    : self._stringContents["base.traceLine"];
                 }
                 trace["path"] = trimPath(trace["file"]);
                 trace["reference"] = reference;

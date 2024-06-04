@@ -249,19 +249,19 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
             diff -= minutes * 60;
             seconds = diff;
         }
-        fWord = options["accuracy"]["second"];
+        fWord = options["accuracy.second"];
         if (years > 0) {
-            fWord = options["accuracy"]["year"];
+            fWord = options["accuracy.year"];
         } else if (abs(months) > 0) {
-            fWord = options["accuracy"]["month"];
+            fWord = options["accuracy.month"];
         } else if (abs(weeks) > 0) {
-            fWord = options["accuracy"]["week"];
+            fWord = options["accuracy.week"];
         } else if (abs(days) > 0) {
-            fWord = options["accuracy"]["day"];
+            fWord = options["accuracy.day"];
         } else if (abs(hours) > 0) {
-            fWord = options["accuracy"]["hour"];
+            fWord = options["accuracy.hour"];
         } else if (abs(minutes) > 0) {
-            fWord = options["accuracy"]["minute"];
+            fWord = options["accuracy.minute"];
         }
         fNum = fWord.replace(
             ["year", "month", "week", "day", "hour", "minute", "second"],

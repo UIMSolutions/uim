@@ -22,12 +22,12 @@ class DSimplePaginator : DNumericPaginator {
      * Get one additional record than the limit. This helps deduce if next page exits.
      */
     protected IResultset getItems(IQuery fetchQuery, Json[string] pagingData) {
-        return fetchQuery.limit(pagingData["options"]["limit"] + 1).all();
+        return fetchQuery.limit(pagingData["options.limit"] + 1).all();
     }
  
     protected Json[string] buildParams(Json[string] pagingData) {
         auto hasNextPage = false;
-        if (_pagingParams["count"] > pagingData["options"]["limit"]) {
+        if (_pagingParams["count"] > pagingData["options.limit"]) {
             hasNextPage = true;
             _pagingParams["count"] -= 1;
         }

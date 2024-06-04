@@ -31,5 +31,5 @@ class DTestExceptionRenderer : IExceptionRenderer {
      * \Psr\Http\Message\IResponse|string myoutput The output or response to send.
      */
     void write(IResponse|string myoutput) {
-    } */ 
+    } 
 }

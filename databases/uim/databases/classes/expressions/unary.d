@@ -52,5 +52,5 @@ class DUnaryExpression : DExpression {
         if (cast(IExpression) _value) {
             _value = clone _value;
         }
-    } */
+    }
 }

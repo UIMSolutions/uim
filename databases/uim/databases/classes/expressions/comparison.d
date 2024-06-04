@@ -206,6 +206,6 @@ class DComparisonExpression : DExpression { // TODO}, IField {
             });
 
         return [result, someExpressions];
-    } */
+    }
 }
 mixin(ExpressionCalls!("Comparison"));

@@ -134,5 +134,5 @@ protected string normalizeDomain(string aDomain) {
        _headers["Access-Control-Max-Age"] = age;
 
         return this;
-    } */ 
+    }
 }

@@ -158,5 +158,5 @@ class DCurl { // }: IAdapter {
      */
     protected string exec(CurlHandle ch) {
         return curl_exec(ch);
-    } */
+    }
 }

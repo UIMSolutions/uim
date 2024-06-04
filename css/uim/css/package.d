@@ -302,8 +302,8 @@ version(test_uim_css) { unittest {
 	 .background
 	 .image("xxx")
 	 .color("lightgreen");
-	 */	
-}
-
-version(test_uim_css) { unittest {
+	 	
 } */
+
+unittest {
+}

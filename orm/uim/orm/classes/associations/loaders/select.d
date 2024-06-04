@@ -77,7 +77,7 @@ class DSelectLoader {
         resultMap = _buildResultMap(fetchQuery, options);
 
         return _resultInjector(fetchQuery, resultMap, options);
-    } */
+    } 
 
     // Returns the default options to use for the eagerLoader
     protected Json[string] _defaultOptions() {

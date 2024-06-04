@@ -529,6 +529,6 @@ class DQueryExpression : DExpression { // }, Countable {
                _conditions[anI] = clone condition;
             }
         }
-    } */
+    }
 }
 mixin(ExpressionCalls!("Query"));

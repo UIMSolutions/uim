@@ -263,7 +263,7 @@ class DSocket {
         if (isEmpty(this.lastError)) {
             return null;
         }
-        return _lastError["num"] ~ ": " ~ this.lastError["str"];
+        return _lastError.getString("num") ~ ": " ~ _lastError.getString("str");
     }
 
     /**
@@ -285,8 +285,8 @@ class DSocket {
         if (!this.connected && !this.connect()) {
             return 0;
         }
-        totalBytes = someData.length;
-        written = 0;
+        auto totalBytes = someData.length;
+        auto written = 0;
         while (written < totalBytes) {
             assert(this.connection!is null);
 

@@ -286,10 +286,11 @@ class DDebugger {
             if (isSet(backtrace[anI])) {
                 frame = backtrace[anI] ~ ["file": "[internal]", "line": "??"];
             }
-            signature = reference = frame["file"];
+            string signature = frame.getString("file");
+            string reference = frame.getString("file");
             if (!frame["class"].isEmpty) {
-                signature = frame["class"] ~ frame["type"] ~ frame["function"];
-                reference = signature ~ "(";
+                string signature = frame.getString("class") ~ frame.getString("type") ~ frame.getString("function");
+                string reference = signature ~ "(";
                 if (options["args"] && isSet(frame["args"])) {
                     someArguments = null;
                     foreach (frame["args"] as arg) {

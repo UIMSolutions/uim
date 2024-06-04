@@ -344,9 +344,9 @@ class DDebugger {
                 signature = reference = next["function"];
 
                 if (!next.isEmpty("class")) {
-                    signature = next["class"] . "." . next["function"];
-                    reference = signature . "(";
-                    if (options["args"] && isset(next["args"])) {
+                    string signature = next.getString("class") ~ "." ~ next.getString("class")"function");
+                    reference = signature ~ "(";
+                    if (options.isNull("args") && next.hasKey("args")) {
                         auto args = next["args"].map!(arg => Debugger.exportVar(arg)).array;
                         reference ~= args.join(", ");
                     }
@@ -439,12 +439,10 @@ class DDebugger {
             if (!isset(data[i])) {
                 continue;
             }
-            string = replace(["\r\n", "\n"], "", _highlight(data[i]));
-            if (i == lineNumber) {
-                lines ~= "<span class="code-highlight">" . string . "</span>";
-            } else {
-                lines ~= string;
-            }
+            string text = replace(["\r\n", "\n"], "", _highlight(data[i]));
+            lines ~= i == lineNumber 
+                ? "<span class="code-highlight">" ~ text ~ "</span>"
+                : text;
         }
 
         return lines;
@@ -496,13 +494,12 @@ class DDebugger {
                 aClassName = TextFormatter.class;
             }
         }
-        instance = new aClassName();
-        if (!cast(IErrorFormatter)instance instanceof ) {
+        auto instance = new aClassName();
+        if (!cast(IErrorFormatter)instance) {
             throw new DRuntimeException(
                 "The `{aClassName}` formatter does not implement " ~ IErrorFormatter.class
             );
         }
-
         return instance;
     }
 
@@ -526,9 +523,9 @@ class DDebugger {
      * @param mixed var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
      */
-    static string exportVar(var, int maxDepth = 3) {
+    static string exportVar(Json var, int maxDepth = 3) {
         auto context = new DebugContext(maxDepth);
-        node = export_(var, context);
+        auto node = export_(var, context);
 
         return getInstance().getExportFormatter().dump(node);
     }
@@ -539,7 +536,7 @@ class DDebugger {
      * @param mixed var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
      */
-    static string exportVarAsPlainText(var, int maxDepth = 3) {
+    static string exportVarAsPlainText(Json var, int maxDepth = 3) {
         return (new DTextFormatter()).dump(
             export_(var, new DebugContext(maxDepth))
         );

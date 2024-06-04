@@ -1136,20 +1136,20 @@ class DResponse : IResponse {
      * string aPath Absolute path to file.
      */
     static withFile(string aPath, Json[string] options = null) {
-        file = this.validateFile(somePath);
-        auto auto updatedOptions = options.update([
+        auto file = validateFile(somePath);
+        auto updatedOptions = options.update([
             "name": StringData,
             "download": Json(null)
         ]);
 
         auto fileExtension = file.getExtension().lower;
-        mapped = getMimeType(fileExtension);
-        if ((!fileExtension || !mapped) && options["download"].isNull) {
+        auto mapped = getMimeType(fileExtension);
+        if ((!fileExtension || !mapped) && options.isNull("download")) {
             options["download"] = true;
         }
-        new = clone this;
+        auto newResponse = clone this;
         if (mapped) {
-            new = new.withType(fileExtension);
+            newResponse = newResponse.withType(fileExtension);
         }
         fileSize = file.getSize();
         if (options["download"]) {
@@ -1161,36 +1161,30 @@ class DResponse : IResponse {
                 contentType = "application/force-download";
             }
             if (isSet(contentType)) {
-                new = new.withType(contentType);
+                newResponse = new.withType(contentType);
             }
-            name = options["name"] ?: file.getFileName();
-            new = new.withDownload(name)
+            name = options.getString("name", file.getFileName);
+            newResponse = new.withDownload(name)
                 .withHeader("Content-Transfer-Encoding", "binary");
         }
-        new = new.withHeader("Accept-Ranges", "bytes");
+        newResponse = newResponse.withHeader("Accept-Ranges", "bytes");
         httpRange = /* (string) */enviroment("HTTP_RANGE");
         if (httpRange) {
-            new._fileRange(file, httpRange);
+            newResponse._fileRange(file, httpRange);
         } else {
-            new = new.withHeader("Content-Length", (string)fileSize);
+            newResponse = new.withHeader("Content-Length", (string)fileSize);
         }
-        new._file = file;
-        new.stream = new DStream(file.getPathname(), "rb");
-
-        return new;
+        newResponse._file = file;
+        newResponse.stream = new DStream(file.getPathname(), "rb");
+        return newResponse;
     }
     
-    /**
-     * Convenience method to set a string into the response body
-     * Params:
-     * string string The string to be sent
-     */
-    static withStringBody(string astring) {
-        new = clone this;
-        new._createStream();
-        new.stream.write((string)string);
-
-        return new;
+    // Convenience method to set a string into the response body
+    static withStringBody(string stringToSent) {
+        auto newResponse = clone this;
+        newResponse._createStream();
+        newResponse.stream.write(stringToSent);
+        return newResponse;
     }
     
     // Validate a file path is a valid response body.
@@ -1259,17 +1253,16 @@ class DResponse : IResponse {
     }
     
     // Returns an array that can be used to describe the internal state of this object.
-    /*
     Json[string] debugInfo() {
         return [
-            "status": _status,
-            "contentType": getType(),
-            "headers": this.headers,
-            "file": _file,
-            "fileRange": _fileRange,
-            "cookies": _cookies,
-            "cacheDirectives": _cacheDirectives,
-            "body": (string)getBody(),
+            "status": _status.toJson,
+            "contentType": getType().toJson,
+            "headers": this.headers.toJson,
+            "file": _file.toJson,
+            "fileRange": _fileRange.toJson,
+            "cookies": _cookies.toJson,
+            "cacheDirectives": _cacheDirectives.toJson,
+            "body": getBody().toJson,
         ];
     }
 }

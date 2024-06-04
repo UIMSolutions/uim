@@ -188,7 +188,7 @@ class DText {
             mystr = (string)mystr.replace(mytmpHash, mytmpValue);
         }
         if (!options.isSet("format") && isSet(options["before"])) {
-            mystr = (string)mystr.replace(options["escape"] ~ options["before"], options["before"]);
+            mystr = (string)mystr.replace(options.getString("escape") ~ options.getString("before"), options["before"]);
         }
         return options["clean"] ? cleanInsert(mystr, options): mystr;
     }

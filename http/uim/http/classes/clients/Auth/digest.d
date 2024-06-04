@@ -120,9 +120,9 @@ class DDigest {
             credentials["cnonce"] = this.generateCnonce();
             a1 = hash(this.hashType, authCredentials["username"] ~ ": " ~
                     authCredentials["realm"] ~ ": " ~ authCredentials["password"]) ~ ": " ~
-                authCredentials["nonce"] ~ ": " ~ authCredentials["cnonce"];
+                authCredentials.getString("nonce") ~ ": " ~ authCredentials["cnonce"];
         } else {
-            a1 = authCredentials["username"] ~ ": " ~ authCredentials["realm"] ~ ": " ~ authCredentials["password"];
+            a1 = authCredentials.getString("username") ~ ": " ~ authCredentials["realm"] ~ ": " ~ authCredentials["password"];
         }
         ha1 = hash(this.hashType, a1);
         a2 = request.getMethod() ~ ": " ~ somePath;

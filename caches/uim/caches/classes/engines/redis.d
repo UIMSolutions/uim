@@ -162,7 +162,8 @@ class DRedisCacheEngine : DCacheEngine {
     override bool clear() {
        _redis.setOption(Redis.OPT_SCAN, to!string(Redis.SCAN_RETRY));
 
-        override bool isAllDeleted = true;
+        // TODO
+        /* override bool isAllDeleted = true;
         auto anIterator = null;
         auto somePattern = configuration.getString("prefix") ~ "*";
 
@@ -176,7 +177,7 @@ class DRedisCacheEngine : DCacheEngine {
                  isDeleted = (_redis.del(aKey) > 0);
                  isAllDeleted = isAllDeleted &&  isDeleted;
             });
-        }
+        } */
 
         return isAllDeleted;
     }

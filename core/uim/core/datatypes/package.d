@@ -37,16 +37,15 @@ T rotate(T)(T value, T[] values, bool directionRight = true) {
   if (values.length > 0)
   foreach(index, val; values) {
     if (val == value) {
-      if (directionRight) {
-        return index == values.length-1 
+      return directionRight
+        ? (index == values.length-1 
           ? values[0]
-          : values[index+1];
-      }
-      else {
-        return index == 0 
+          : values[index+1]
+          )
+        : (index == 0 
           ? values[$-1] 
-          : values[index-1];
-      }
+          : values[index-1]
+          );
     }
   }
   return value;

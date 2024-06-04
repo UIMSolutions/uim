@@ -108,7 +108,7 @@ class DNumber {
         auto formatter = formatter(options);
         auto updatedOptions = options.update(["before": "", "after": ""]);
 
-        return updatedOptions["before"] ~ formatter.format((float)aValue) ~ updatedOptions["after"];
+        return updatedOptions.getString("before") ~ formatter.format((float)aValue) ~ updatedOptions.getString("after");
     }
     
     /**

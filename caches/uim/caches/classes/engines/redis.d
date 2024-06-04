@@ -60,7 +60,7 @@ class DRedisCacheEngine : DCacheEngine {
     }
 
     // Redis wrapper.
-    protected IRedis _redis;
+    // TODO protected DRedis _redis;
     
     // Connects to a Redis server
     protected bool _connect() {
@@ -101,7 +101,7 @@ class DRedisCacheEngine : DCacheEngine {
     }
     
     // Write data for key into cache.
-    override bool set(string dataId, Json dataToCache, long timeToLive = null) {
+    override bool set(string dataId, Json dataToCache, long timeToLive = 0) {
         auto myKey = _key(dataId);
         auto serializedData = serialize(dataToCache);
 

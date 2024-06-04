@@ -378,12 +378,12 @@ mixin template TCollection() {
         Json[string] options = [
             "keyPath": _propertyExtractor(mykeyPath),
             "valuePath": _propertyExtractor(myvaluePath),
-            "groupPath": mygroupPath ? _propertyExtractor(mygroupPath): Json(null),
+            "groupPath": mygroupPath ? _propertyExtractor(mygroupPath) : Json(null),
         ];
 
         mymapper = auto (myvalue, aKey, MapReduce mymapReduce) use (options) {
-            auto myrowKey = options["keyPath"];
-            auto myrowVal = options["valuePath"];
+            auto myrowKey = options.get("keyPath");
+            auto myrowVal = options.get("valuePath");
 
             if (!options["groupPath"]) {
                 mymapKey = myrowKey(myvalue, aKey);
@@ -407,8 +407,8 @@ mixin template TCollection() {
             mymapKey = myrowKey(myvalue, aKey);
             if (mymapKey.isNull) {
                 throw new DInvalidArgumentException(
-                    "Cannot index by path that does not exist or contains a null value. ' .
-                    "Use a callback to return a default value for that path.'
+                    "Cannot index by path that does not exist or contains a null value. " ~
+                    "Use a callback to return a default value for that path."
                 );
             }
             mymapReduce.emitIntermediate(
@@ -417,13 +417,13 @@ mixin template TCollection() {
             );
         };
 
-        myreducer = void (myvalues, aKey, MapReduce mymapReduce) {
+/*         myreducer = void (myvalues, aKey, MapReduce mymapReduce) {
             auto result;
             myvalues
                 .each!(value => result += myvalue);
 
             mymapReduce.emit(result, aKey);
-        };
+        }; */
 
         return _newCollection(new DMapReduce(unwrap(), mymapper, myreducer));
     }
@@ -438,15 +438,15 @@ mixin template TCollection() {
         auto myparentPath = _propertyExtractor(myparentPath);
         auto myisObject = true;
 
-       auto mymapper = void (myrow, aKey, MapReduce mymapReduce) use (&myparents, myidPath, myparentPath, mynestingKey) {
+/*        auto mymapper = void (myrow, aKey, MapReduce mymapReduce) use (&myparents, myidPath, myparentPath, mynestingKey) {
             myrow[mynestingKey] = null;
             myid = myidPath(myrow, aKey);
             myparentId = myparentPath(myrow, aKey);
             myparents[myid] = &myrow;
             mymapReduce.emitIntermediate(myid, myparentId);
-        };
+        }; */
 
-        auto myreducer = auto (myvalues, aKey, MapReduce mymapReduce) use (&myparents, &myisObject, mynestingKey) {
+        /* auto myreducer = auto (myvalues, aKey, MapReduce mymapReduce) use (&myparents, &myisObject, mynestingKey) {
             static myfoundOutType = false;
             if (!myfoundOutType) {
                 myisObject = isObject(current(myparents));
@@ -462,10 +462,11 @@ mixin template TCollection() {
             auto mychildren = myvalues
                 .map!(id => &myparents[id]).array;
             myparents[aKey][mynestingKey] = mychildren;
-        };
+        }; */
 
-        return _newCollection(new DMapReduce(unwrap(), mymapper, myreducer))
-            .map(fn (myvalue): myisObject ? myvalue : myvalue.getArrayCopy());
+        /* return _newCollection(new DMapReduce(unwrap(), mymapper, myreducer))
+            .map(fn (myvalue): myisObject ? myvalue : myvalue.getArrayCopy()); */
+        return null; 
     }
  
     auto insert(string mypath, Json myvalues) {

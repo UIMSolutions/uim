@@ -62,7 +62,7 @@ class DFileCacheEngine : DCacheEngine {
     protected bool _init = true;
 
     // Instance of SplFileObject class
-    protected ISplFileObject _splFileObject;
+    // TODO protected DSplFileObject _splFileObject;
 
     // Write data for key into cache
     override bool set(string dataId, Json cacheData, long timeToLive = 0) {
@@ -292,14 +292,14 @@ class DFileCacheEngine : DCacheEngine {
         return mysuccess;
     } */
 
-    protected string _key(string key) {
+    override protected string _key(string key) {
         auto newKey = super._key(key);
 
         return rawUrlEncode(newKey);
     }
 
     // Recursively deletes all files under any directory named as mygroup
-    bool clearGroup(string groupName) {
+    override bool clearGroup(string groupName) {
         // TODO
         /* unset(_File);
 

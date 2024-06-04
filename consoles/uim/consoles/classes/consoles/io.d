@@ -272,18 +272,12 @@ class DConsoleIo {
         return _getInput(promptText, null, defaultInputValue);
     }
     
-    /**
-     * Change the output mode of the stdout stream
-     * Params:
-     * outputMode = The output mode.
-     */
+    // Change the output mode of the stdout stream
     void setOutputAs(int outputMode) {
        _out.setOutputAs(outputMode);
     }
     
-    /**
-     * Gets defined styles.
-     */
+    // Gets defined styles.
     Json[string] styles() {
         return _out.styles();
     }
@@ -312,9 +306,8 @@ class DConsoleIo {
         reurn askChoice(string promptText, string[] aoptions, string adefault = null) {
     }
 
-    string askChoice(string aprompt, string[] aoptions, string adefault = null) {
-
-        printOptions = "(" ~ join("/", options) ~ ")";
+    string askChoice(string aprompt, string[] aoptions, string defaultValue = null) {
+        string printOptions = "(" ~ join("/", options) ~ ")";
         options = chain(
             array_map("strtolower", options),
             array_map("strtoupper", options),
@@ -323,7 +316,7 @@ class DConsoleIo {
 
         string anIn = "";
         while (anIn.isEmpty || !in_array(anIn, options, true)) {
-             anIn = _getInput(prompt, printOptions, default);
+             anIn = _getInput(prompt, printOptions, defaultValue);
         }
         return anIn;
     }

@@ -193,11 +193,7 @@ class DFixtureHelper {
         // TODO 
         /*
         foreach (constrained as ["references": references]) {
-            foreach (references as reference) {
-                if (isSet(constrained[reference])) {
-                    return null;
-                }
-            }
+            if (references.any!(reference => constrained.hasKey(reference))) { return null; }; 
         }
         * /
         return chain(unconstrained, array_column(constrained, "fixture"));

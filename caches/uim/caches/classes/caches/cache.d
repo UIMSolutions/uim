@@ -120,9 +120,10 @@ class DCache : ICache {
     protected static void _buildEngine(string configName) {
         auto myRegistry = getRegistry();
 
-        if (configuration.get(configName)["className"].isEmpty) {
+        if (configuration.isEmpty(configName~".className")) {
             throw new DInvalidArgumentException(
-                "The `%s` cache configuration does not exist.".format(configName)
+                "The `%s` cache configuration does not exist."
+                .format(configName)
             );
         }
         

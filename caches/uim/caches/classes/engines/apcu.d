@@ -16,41 +16,46 @@ class DApcuCacheEngine : DCacheEngine {
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
-    if (!extension_loaded("apcu")) {
+/*     if (!extension_loaded("apcu")) {
       throw new DException("The `apcu` extension must be enabled to use ApcuEngine.");
-    }  
+    }   */
     
     return true;
   }
 
   // Write data for key into cache
      
-  /* override bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
-    auto aKey = _key(itemKey);
+  override bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
+    return false;
+    // TODO 
+    /* auto aKey = _key(itemKey);
     auto myDuration = duration(timeToLive);
 
-    return apcu_store(aKey, dataToCache, myDuration);
-  } */
+    return apcu_store(aKey, dataToCache, myDuration); */
+  }
 
   // Read a key from the cache
   override Json get(string itemKey, Json defaultValue = Json(null)) {
-    auto myValue = apcu_fetch(_key(itemKey), mysuccess);
+    return Json(null); 
+    // TODO 
+/*     auto myValue = apcu_fetch(_key(itemKey), mysuccess);
     
     return mysuccess ? myValue : defaultValue;
-  }
+ */  }
 
   // Increments the value of an integer cached key
   override int increment(string itemKey, int incValue = 1) {
-    auto key = _key(itemKey);
+/*     auto key = _key(itemKey);
 
-    return apcu_inc(key, incValue);
+    return apcu_inc(key, incValue); */
+    return 0;
   }
 
   // Decrements the value of an integer cached key
   override int decrement(string itemKey, int decValue = 1) {
-    auto key = _key(itemKey);
-
-    return apcu_dec(key, myoffset);
+    /* auto key = _key(itemKey);
+    return apcu_dec(key, myoffset); */
+    return 0;
   }
 
   // Delete a key from the cache

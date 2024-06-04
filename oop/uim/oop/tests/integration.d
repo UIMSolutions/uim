@@ -451,10 +451,10 @@ mixin template TIntegrationTest() {
         if (!hostInfo.isEmpty("https")) {
             env["HTTPS"] = "on";
         }
-        if (isSet(hostInfo["host"])) {
+        if (hostInfo.hasKey("host")) {
             env["HTTP_HOST"] = hostInfo["host"];
         }
-        if (isSet(_request["headers"])) {
+        if (_request.hasKey("headers")) {
             _request["headers"].byKeyValue.each!((kv) {
                 string name = kv.key.replace("-", "_").upper;
                 if (!["CONTENT_LENGTH", "CONTENT_TYPE"].has(name)) {
@@ -476,7 +476,7 @@ mixin template TIntegrationTest() {
             props["input"] = someData;
         } else if (
             someData.isArray &&
-            isSet(props["environment.CONTENT_TYPE"]) &&
+            props.hasKey("environment.CONTENT_TYPE") &&
             props["environment.CONTENT_TYPE"] == "application/x-www-form-urlencoded"
         ) {
             props["input"] = http_build_query(someData);
@@ -513,12 +513,12 @@ mixin template TIntegrationTest() {
         }
         if (_csrfToken == true) {
             auto middleware = new DCsrfProtectionMiddleware();
-            if (!isSet(_cookie[_csrfKeyName]) && !isSet(_session[_csrfKeyName])) {
+            if (!_cookie.hasKey(_csrfKeyName]) && !_session.hasKey(_csrfKeyName])) {
                 token = middleware.createToken();
-            } else if (isSet(_cookie[_csrfKeyName])) {
-                token = _cookie[_csrfKeyName];
+            } else if (_cookie.hasKey(_csrfKeyName])) {
+                token = _cookie.get(_csrfKeyName);
             } else {
-                token = _session[_csrfKeyName];
+                token = _session.get(_csrfKeyName);
             }
             // Add the token to both the session and cookie to cover
             // both types of CSRF tokens. We generate the token with the cookie
@@ -527,7 +527,7 @@ mixin template TIntegrationTest() {
            _session[_csrfKeyName] = token;
            _cookie[_csrfKeyName] = token;
             if (!someData.hasKey("_csrfToken")) {
-                someData["_csrfToken"] = token;
+                someData.set("_csrfToken", token);
             }
         }
         return someData;

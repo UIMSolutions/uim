@@ -97,9 +97,8 @@ class DArrayCacheEngine : DCacheEngine {
   } */
 
   /**
-     * Returns the `group value` for each of the configured groups
-     * If the group initial value was not found, then it initializes
-     * the group accordingly.
+     * Returns the `group value` for each of the configured groups.
+     * If the group initial value was not found, then it initializes the group accordingly.
      */
   override string[] groups() {
     string[] results;

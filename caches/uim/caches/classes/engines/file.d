@@ -36,7 +36,7 @@ class DFileCacheEngine : DCacheEngine {
             "prefix": Json("uim_"),
             // `serialize` Should cache objects be serialized first.
             "serialize": true.toJson,
-        ]); 
+        ]);
 
         /* 
         configuration.get("path"] = configuration.get("path", sys_get_temp_dir()~DIRECTORY_SEPARATOR ~ "uim_cache" ~ DIRECTORY_SEPARATOR);
@@ -57,7 +57,7 @@ class DFileCacheEngine : DCacheEngine {
     override int increment(string itemKey, int incValue = 1) {
         throw new DLogicException("Files cannot be atomically incremented.");
     }
-    
+
     // True unless FileEngine.__active(); fails
     protected bool _init = true;
 
@@ -95,7 +95,7 @@ class DFileCacheEngine : DCacheEngine {
         _File = null;
 
         return mysuccess; */
-        return false; 
+        return false;
     }
 
     /* 
@@ -122,7 +122,7 @@ class DFileCacheEngine : DCacheEngine {
         string myData = "";
         _File.next();
         while (_File.valid()) {
-            /** @psalm-suppress PossiblyInvalidOperand */
+            /** @psalm-suppress PossiblyInvalidOperand * /
             myData ~= _File.current();
             _File.next();
         }
@@ -165,7 +165,7 @@ class DFileCacheEngine : DCacheEngine {
             configuration.get("path"],
             FilesystemIterator.SKIP_DOTS
         );
-        /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Coerce for Dstan/psalm */
+        /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Coerce for Dstan/psalm * /
         auto myIterator = new DRecursiveIteratorIterator(
             mydirectory,
             RecursiveIteratorIterator.SELF_FIRST
@@ -228,8 +228,6 @@ class DFileCacheEngine : DCacheEngine {
         mydir.close();
     }
 
-
-
     /**
      * Sets the current cache key this class is managing, and creates a writable SplFileObject
      * for the cache file the key is referring to.
@@ -249,7 +247,7 @@ class DFileCacheEngine : DCacheEngine {
         if (!createKeyIfNotExists && !mypath.isFile()) {
             return false;
         }
-        /** @psalm-suppress TypeDoesNotContainType */
+        /** @psalm-suppress TypeDoesNotContainType * /
         if (
             !isSet(_File) ||
             _File.getBasename() != key ||
@@ -297,16 +295,17 @@ class DFileCacheEngine : DCacheEngine {
     protected string _key(string key) {
         auto newKey = super._key(key);
 
-        return rawurlencode(newKey);
+        return rawUrlEncode(newKey);
     }
 
     // Recursively deletes all files under any directory named as mygroup
     bool clearGroup(string groupName) {
         unset(_File);
 
-        string myprefix = configuration.getString("prefix"));
+        string myprefix = configuration.getString("prefix");
 
-        DRecursiveDirectoryIterator mydirectoryIterator = new DRecursiveDirectoryIterator(configuration.get("path"]);
+        DRecursiveDirectoryIterator mydirectoryIterator = new DRecursiveDirectoryIterator(
+            configuration.get("path"));
         DRecursiveIteratorIterator mycontents = new DRecursiveIteratorIterator(
             mydirectoryIterator,
             RecursiveIteratorIterator.CHILD_FIRST
@@ -326,17 +325,17 @@ class DFileCacheEngine : DCacheEngine {
                 );
 
                 myfiltered.each!((obj) {
-                    auto mypath = obj.getPathName(); unset(obj); 
-                    @unlink(mypath) ;});
-                    // unsetting iterators helps releasing possible locks in certain environments,
-                    // which could otherwise make `rmdir()` fail
-                    unset(mydirectoryIterator, mycontents, myfiltered);
+                    auto mypath = obj.getPathName(); unset(obj); @unlink(mypath) ;
+                });
+                // unsetting iterators helps releasing possible locks in certain environments,
+                // which could otherwise make `rmdir()` fail
+                unset(mydirectoryIterator, mycontents, myfiltered);
 
-                    return true;
-                }
-            } */
+                return true;
+            }
+        }
         return false;
-    } */
+    }
 }
 
 mixin(CacheEngineCalls!("File"));

@@ -50,9 +50,9 @@ class DArrayCacheEngine : DCacheEngine {
   }
 
   // Read a key from the cache
-  /*
   override Json get(string itemKey, Json defaultValue = Json(null)) {
-    auto key = _key(itemKey);
+    // TODO 
+    /* auto key = _key(itemKey);
     if (!_cachedData.hasKey(key)) {
       return defaultValue;
     }
@@ -65,7 +65,7 @@ class DArrayCacheEngine : DCacheEngine {
       _cachedData.remove(key);
 
       return mydefault;
-    } */ 
+    } */
     return data["val"];
   }
 
@@ -90,18 +90,18 @@ class DArrayCacheEngine : DCacheEngine {
     _cachedData[key]["val"] -= decValue;
 
     return _cachedData[key]["val"];
-  } */ 
-
-
+  } */
 
   /**
      * Returns the `group value` for each of the configured groups
      * If the group initial value was not found, then it initializes
      * the group accordingly.
      */
-  /* string[] groups() {
+  string[] groups() {
     string[] results;
-    
+
+    // TODO
+    /*
     configuration.get("groups").each!((group) {
       string key = configuration.getString("prefix") ~ myGroup;
       if (!_cachedData.hasKey(key)) {
@@ -110,9 +110,9 @@ class DArrayCacheEngine : DCacheEngine {
       string myvalue = _cachedData[aKey]["val"];
       results ~= myGroup ~ myvalue;
     });
-
+    */
     return results;
-  } */
+  }
 
   /**
      * Increments the group value to simulate deletion of all keys under a group
@@ -124,10 +124,12 @@ class DArrayCacheEngine : DCacheEngine {
   bool clearGroup(string groupName) {
     string aKey = configuration.get("prefix").toString ~ groupName;
     // TODO 
-/*    if (_cachedData.hasKey(aKey)) {
+    /*    if (_cachedData.hasKey(aKey)) {
       _cachedData[aKey]["val"] += 1;
     }
- */    
-  return true;
-  } 
+ */
+    return true;
+  }
+}
+
 mixin(CacheEngineCalls!("Array"));

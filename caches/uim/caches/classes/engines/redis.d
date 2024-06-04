@@ -105,7 +105,7 @@ class DRedisCacheEngine : DCacheEngine {
 
         auto myDuration = duration(timeToLive);
         return myDuration == 0
-            : _redis.set(myKey, serializedData) 
+            ? _redis.set(myKey, serializedData) 
             : _redis.setEx(myKey, myDuration, serializedData);
     }
     
@@ -150,7 +150,6 @@ class DRedisCacheEngine : DCacheEngine {
     
     /**
      * Delete a key from the cache asynchronously
-     *
      * Just unlink a key from the cache. The actual removal will happen later asynchronously.
      */
     override bool deleteAsync(string dataIdentifier) {
@@ -167,7 +166,7 @@ class DRedisCacheEngine : DCacheEngine {
         auto somePattern = configuration.get("prefix") ~ "*";
 
         while (true) {
-            auto someKeys = _redis.scan(anIterator,  somePattern, (int)configuration.get("scanCount"));
+            auto someKeys = _redis.scan(anIterator,  somePattern, configuration.getInt("scanCount"));
 
             if (someKeys == false) {
                 break;
@@ -194,7 +193,7 @@ class DRedisCacheEngine : DCacheEngine {
          somePattern = configuration.get("prefix") ~ "*";
 
         while (true) {
-            someKeys = _redis.scan(anIterator,  somePattern, configuration.getInt("scanCount");
+            someKeys = _redis.scan(anIterator,  somePattern, configuration.getInt("scanCount"));
 
             if (someKeys == false) {
                 break;
@@ -243,7 +242,7 @@ class DRedisCacheEngine : DCacheEngine {
      * old values will remain in storage until they expire.
          */
     override bool clearGroup(string groupName) {
-        return (bool)_redis.incr(configuration.get("prefix") ~  groupName);
+        return /* (bool) */_redis.incr(configuration.get("prefix") ~  groupName);
     }
     
     /**

@@ -637,7 +637,7 @@ class DRoute : IRoute {
      */
     protected string _writeUrl(Json[string] myparams, Json[string] mypass = [], Json[string] myquery = []) {
         mypass = array_map(function (myvalue) {
-            return rawurlencode((string)myvalue);
+            return rawUrlEncode((string)myvalue);
         }, mypass);
         mypass = join("/", mypass);
         result = this.template;

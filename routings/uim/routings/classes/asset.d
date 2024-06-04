@@ -166,7 +166,7 @@ class DAsset {
     }
     
     /**
-     * Encodes URL parts using rawurlencode().
+     * Encodes URL parts using rawUrlEncode().
      * Params:
      * string aurl The URL to encode.
      */

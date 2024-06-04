@@ -173,7 +173,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
         
         string[] cookiePairs;
         cookies.byKeyValue.each!((kv) {
-            auto cookie = "%s=%s".format(rawurlencode((string)kv.key), rawurlencode(kv.value));
+            auto cookie = "%s=%s".format(rawUrlEncode((string)kv.key), rawUrlEncode(kv.value));
             auto size = cookie.length;
             if (size > 4096) {
                 triggerWarning(

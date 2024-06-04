@@ -88,8 +88,8 @@ class DMemoryCacheEngine : DCacheEngine {
     super.initialize(initData);
 
     if (!configuration.isEmpty("host")) {
-      configuration.get("servers"] = configuration.get("port"].isEmpty
-        ? [configuration.get("host"]] : [
+      configuration.get("servers") = configuration.get("port"].isEmpty
+        ? [configuration.get("host")] : [
           "%s:%d".format(configuration.getString("host"), configuration.getString("port"))
         ];
     }
@@ -103,7 +103,7 @@ class DMemoryCacheEngine : DCacheEngine {
       return true;
     }
     // _Memory = configuration.get("persistent"]
-    // TODO   ? new DMemory(configuration.get("persistent"]) : new DMemory();
+    // TODO ? new DMemory(configuration.get("persistent"]) : new DMemory();
   }
 
   _setOptions();

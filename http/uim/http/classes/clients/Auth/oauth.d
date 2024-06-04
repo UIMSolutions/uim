@@ -296,7 +296,7 @@ class DOauth {
 
     // URL Encodes a value based on rules of rfc3986
     protected string _encode(string valueToEncode) {
-        return rawurlencode(valueToEncode).replace(["%7E", "+"], ["~", " "]);
+        return rawUrlEncode(valueToEncode).replace(["%7E", "+"], ["~", " "]);
     }
 
     // Check for SSL errors and throw an exception if found.

@@ -226,7 +226,7 @@ class DCookie : ICookie {
             aValue = _flatten(aValue);
         }
         aHeaderValue = null;
-        aHeaderValue ~= "%s=%s".format(this.name, rawurlencode(aValue));
+        aHeaderValue ~= "%s=%s".format(this.name, rawUrlEncode(aValue));
 
         if (this.expiresAt) {
              aHeaderValue ~= "expires=%s".format(getFormattedExpires());

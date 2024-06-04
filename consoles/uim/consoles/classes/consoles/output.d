@@ -153,7 +153,7 @@ class DConsoleOutput {
                 !posix_isatty(_output)
             ) ||
             (
-                enviroment("NO_COLOR") !isNull
+                enviroment("NO_COLOR") !is null
             )
         ) {
            _outputAs = self.PLAIN;
@@ -187,7 +187,7 @@ class DConsoleOutput {
                 replaceTags,
                 stylingText
             );
-            if (output !isNull) {
+            if (output !is null) {
                 return output;
             }
         }

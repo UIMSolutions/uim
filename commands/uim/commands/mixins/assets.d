@@ -28,8 +28,8 @@ mixin template TPluginAssets() {
         pluginsList.each!((plugin) {
             auto somePath = Plugin.path(plugin) ~ "webroot";
             if (!isDir(somePath)) {
-                this.io.verbose("", 1);
-                this.io.verbose("Skipping plugin %s. It does not have webroot folder.".format(plugin), 2);
+                _io.verbose("", 1);
+                _io.verbose("Skipping plugin %s. It does not have webroot folder.".format(plugin), 2);
                 continue;
             }
             auto link = Inflector.underscore(plugin);
@@ -56,9 +56,9 @@ mixin template TPluginAssets() {
     // Process plugins
     protected void _process(Json[string] pluginsToProcess, bool copyMode = false, bool overwriteExisting = false) {
         foreach (plugin: configData; pluginsToProcess) {
-            this.io.writeln();
-            this.io.writeln("For plugin: " ~ plugin);
-            this.io.hr();
+            _io.writeln();
+            _io.writeln("For plugin: " ~ plugin);
+            _io.hr();
 
             if (
                 configuration.hasKey("namespaced") &&
@@ -73,7 +73,7 @@ mixin template TPluginAssets() {
                 if (overwriteExisting && !_remove(configData)) {
                     continue;
                 } else if (!overwriteExisting) {
-                    this.io.verbose(
+                    _io.verbose(
                         dest ~ " already exists",
                         1
                     );
@@ -95,8 +95,8 @@ mixin template TPluginAssets() {
                 dest
             );
         }
-        this.io.writeln();
-        this.io.writeln("Done");
+        _io.writeln();
+        _io.writeln("Done");
     }
     
     /**
@@ -105,18 +105,18 @@ mixin template TPluginAssets() {
      * configData - Plugin config.
      */
     protected bool _remove(Json[string] configData = null) {
-        if (configuration.get("namespaced"] && !isDir(configuration.get("destDir"])) {
-            this.io.verbose(
-                configuration.get("destDir"] ~ configuration.get("link"] ~ " does not exist",
+        if (configuration.get("namespaced") && !isDir(configuration.get("destDir"))) {
+            _io.verbose(
+                configuration.getString("destDir") ~ configuration.getString("link") ~ " does not exist",
                 1
             );
 
             return false;
         }
-        dest = configuration.get("destDir"] ~ configuration.get("link"];
+        dest = configuration.getString("destDir") ~ configuration.getString("link");
 
         if (!fileExists(dest)) {
-            this.io.verbose(
+            _io.verbose(
                 dest ~ " does not exist",
                 1
             );
@@ -127,22 +127,22 @@ mixin template TPluginAssets() {
             
             success = DIRECTORY_SEPARATOR == "\\" ? @rmdir(dest): @unlink(dest);
             if (success) {
-                this.io.writeln("Unlinked " ~ dest);
+                _io.writeln("Unlinked " ~ dest);
 
                 return true;
             } else {
-                this.io.writeErrorMessages("Failed to unlink  " ~ dest);
+                _io.writeErrorMessages("Failed to unlink  " ~ dest);
 
                 return false;
             }
         }
         fs = new DFilesystem();
         if (fs.deleteDir(dest)) {
-            this.io.writeln("Deleted " ~ dest);
+            _io.writeln("Deleted " ~ dest);
 
             return true;
         } else {
-            this.io.writeErrorMessages("Failed to delete " ~ dest);
+            _io.writeErrorMessages("Failed to delete " ~ dest);
 
             return false;
         }
@@ -155,11 +155,11 @@ mixin template TPluginAssets() {
         umask(old);
 
         if (result) {
-            this.io.writeln("Created directory " ~ directoryName);
+            _io.writeln("Created directory " ~ directoryName);
 
             return true;
         }
-        this.io.writeErrorMessages("Failed creating directory " ~ directoryName);
+        _io.writeErrorMessages("Failed creating directory " ~ directoryName);
 
         return false;
     }
@@ -169,7 +169,7 @@ mixin template TPluginAssets() {
         auto result = @symlink(targetDirectory, linkName);
 
         if (result) {
-            this.io.writeln("Created symlink " ~ linkName);
+            _io.writeln("Created symlink " ~ linkName);
             return true;
         }
         return false;
@@ -179,11 +179,11 @@ mixin template TPluginAssets() {
     protected bool _copyDirectory(string sourceDir, string destinationDir) {
         auto fs = new DFilesystem();
         if (fs.copyDir(sourceDir, destinationDir)) {
-            this.io.writeln("Copied assets to directory " ~ destinationDir);
+            _io.writeln("Copied assets to directory " ~ destinationDir);
 
             return true;
         }
-        this.io.writeErrorMessages("Error copying assets to directory " ~ destinationDir);
+        _io.writeErrorMessages("Error copying assets to directory " ~ destinationDir);
 
         return false;
     }

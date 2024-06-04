@@ -68,7 +68,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
     this(Json caseValue = null, string valueType = null) {
         if (func_num_args() > 0) {
             if (
-                aValue !isNull &&
+                aValue !is null &&
                 !isScalar(aValue) &&
                 !(isObject(aValue) && !(cast(DClosure)aValue))
             ) {
@@ -420,7 +420,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
     }
  
     void traverse(Closure aCallback) {
-        if (_whenBuffer !isNull) {
+        if (_whenBuffer !is null) {
             throw new DLogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }
         

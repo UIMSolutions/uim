@@ -75,7 +75,7 @@ class DRedisCacheEngine : DCacheEngine {
                     configuration.getInt("timeout")
                 );
             } else {
-                persistentId = configuration.getString("port") ~ configuration.get("timeout"] ~ configuration.get("database"];
+                persistentId = configuration.getString("port") ~ configuration.getString("timeout") ~ configuration.getString("database");
                 result = _redis.pconnect(
                    configuration.get("server"),
                     configuration.getInt("port"),
@@ -163,7 +163,7 @@ class DRedisCacheEngine : DCacheEngine {
 
         override bool isAllDeleted = true;
         auto anIterator = null;
-        auto somePattern = configuration.get("prefix") ~ "*";
+        auto somePattern = configuration.getString("prefix") ~ "*";
 
         while (true) {
             auto someKeys = _redis.scan(anIterator,  somePattern, configuration.getInt("scanCount"));

@@ -71,7 +71,7 @@ class DMemoryCacheEngine : DCacheEngine {
      * Initialize the Cache Engine
      *
      * Called automatically by the cache frontend
-     */
+     * /
 
     if (!extension_loaded("memcached")) {
       throw new DException("The `memcached` extension must be enabled to use MemoryEngine.");
@@ -81,38 +81,39 @@ class DMemoryCacheEngine : DCacheEngine {
       "Json": Memory: : SERIALIZER_Json,
       "d": Memory: : SERIALIZER_D,
     ]; */
-
+  /*
     if (defined("Memory.HAVE_MSGPACK")) {
       // TODO _serializers["msgpack"] = Memory.SERIALIZER_MSGPACK;
     }
     super.initialize(initData);
 
     if (!configuration.isEmpty("host")) {
-      configuration.get("servers") = configuration.get("port"].isEmpty
+      configuration.get("servers") = configuration.isEmpty("port")
         ? [configuration.get("host")] : [
           "%s:%d".format(configuration.getString("host"), configuration.getString("port"))
         ];
     }
     /* if (isSet(configData["servers"])) {
       configuration.update("servers", configuration.get("servers"], false);
-    } */ 
-    /* if (!configuration.get("servers"].isArray) {
+    } */
+  /* if (!configuration.get("servers"].isArray) {
       configuration.get("servers"] = [configuration.get("servers"]];
-    } */ 
-    if (isSet(_Memory)) {
+    } * / 
+    if (!_memory is null) {
       return true;
     }
-    // _Memory = configuration.get("persistent"]
+    // _memory = configuration.get("persistent"]
     // TODO ? new DMemory(configuration.get("persistent"]) : new DMemory();
+    
   }
 
   _setOptions();
 
-  auto servers = _Memory.getServerList();
+  auto servers = _memory.getServerList();
   if (servers) {
-    if (_Memory.isPersistent()) {
+    if (_memory.isPersistent()) {
       servers
-        .filter!(server => !in_array(server["host"] ~ ": " ~ server["port"], configuration.get("servers"], true))
+        .filter!(server => !in_array(server.getString("host") ~ ": " ~ server.getString("port"), configuration.get("servers"), true))
         .each!(server => throw new DInvalidArgumentException(
             "Invalid cache configuration. Multiple persistent cache configurations are detected"
               ." with different `servers` values. `servers` values for persistent cache configurations"
@@ -122,31 +123,31 @@ class DMemoryCacheEngine : DCacheEngine {
     }
     return true;
   }
-  auto myservers = configuration.get("servers"]
+  auto myservers = configuration.get("servers")
     .map!(server => parseServerString(server))
     .array;
 }
-if (!_Memory.addServers(myservers)) {
+if (!_memory.addServers(myservers)) {
   return false;
 }
 
 if (configuration.isArray("options"]) {
   configuration.get("options"].byKeyValue
-    .each!(optValue => _Memory.setOption(optValue.key, optValue.value));
+    .each!(optValue => _memory.setOption(optValue.key, optValue.value));
 }
 if (configuration.isEmpty("username"] && !configuration.isEmpty("login")) {
   throw new DInvalidArgumentException(
     "Please pass " username" instead of 'login' for connecting to Memory"
   );
 }
-if (!configuration.get("username"].isNull && configuration.get("password"]!isNull) {
-  if (!method_exists(_Memory, "setSaslAuthData")) {
+if (!configuration.get("username"].isNull && configuration.get("password"]!is null) {
+  if (!method_exists(_memory, "setSaslAuthData")) {
     throw new DInvalidArgumentException(
       "Memory extension is not built with SASL support"
     );
   }
-  _Memory.setOption(Memory.OPT_BINARY_PROTOCOL, true);
-  _Memory.setSaslAuthData(
+  _memory.setOption(Memory.OPT_BINARY_PROTOCOL, true);
+  _memory.setSaslAuthData(
     configuration.get("username"],
     configuration.get("password"]
   );
@@ -160,203 +161,198 @@ return true;
  When the Memory extension is not built
      * with the desired serializer engine.
      */
-protected void _setOptions() {
-  _Memory.setOption(Memory.OPT_LIBKETAMA_COMPATIBLE, true);
+  protected void _setOptions() {
+    _memory.setOption(Memory.OPT_LIBKETAMA_COMPATIBLE, true);
 
-  string myserializer = configuration.getString("serialize").lower;
-  if (!_serializers.hasKey(myserializer)) {
-    throw new DInvalidArgumentException(
-      "`%s` is not a valid serializer engine for Memory.".format(myserializer)
+    string myserializer = configuration.getString("serialize").lower;
+    if (!_serializers.hasKey(myserializer)) {
+      throw new DInvalidArgumentException(
+        "`%s` is not a valid serializer engine for Memory.".format(myserializer)
+      );
+    }
+    if (myserializer != "d" && !constant("Memory.HAVE_" ~ myserializer.upper)) {
+      throw new DInvalidArgumentException(
+        "Memory extension is not compiled with `%s` support.".format(myserializer)
+      );
+    }
+
+    _memory.setOption(
+      Memory.OPT_SERIALIZER,
+      _serializers[myserializer]
+    ); // Check for Amazon ElastiCache instance
+    if (
+      defined("Memory.OPT_CLIENT_MODE") &&
+      defined("Memory.DYNAMIC_CLIENT_MODE")
+      ) {
+      _memory.setOption(Memory.OPT_CLIENT_MODE, Memory.DYNAMIC_CLIENT_MODE);
+    }
+
+    _memory.setOption(
+      Memory.OPT_COMPRESSION,
+      configuration.getBool("compress")
     );
   }
-  if (
-    myserializer != "d" &&
-    !constant("Memory.HAVE_" ~ myserializer.upper
-    ) {
-    throw new DInvalidArgumentException(
-      "Memory extension is not compiled with `%s` support.".format(myserializer)
-    );
-  }
-  _Memory.setOption(
-Memory.OPT_SERIALIZER,
-    _serializers[myserializer]
-  );
 
-  // Check for Amazon ElastiCache instance
-  if (
-    defined("Memory.OPT_CLIENT_MODE") &&
-    defined("Memory.DYNAMIC_CLIENT_MODE")
-    ) {
-    _Memory.setOption(Memory.OPT_CLIENT_MODE, Memory:
-       : DYNAMIC_CLIENT_MODE);
-  }
-  _Memory.setOption(
-Memory.OPT_COMPRESSION,
-    (bool) configuration.get("compress"]
-  );
-}
-
-/**
+  /**
      * Parses the server address into the host/port. Handles both IPv6 and IPv4
      * addresses and Unix sockets
      * Params:
      * string myserver The server address string.
      */
-Json[string] parseServerString(string myserver) {
-  mysocketTransport = "unix://";
-  if (myserver.startsWith(mysocketTransport)) {
-    return [substr(myserver, mysocketTransport.length), 0];
-  }
-
-  size_t myposition;
-  if (myserver.startsWith("[")) {
-    size_t myposition = indexOf(myserver, "]:");
-    if (myposition != false) {
-      myposition++;
+  Json[string] parseServerString(string myserver) {
+    mysocketTransport = "unix://";
+    if (myserver.startsWith(mysocketTransport)) {
+      return [substr(myserver, mysocketTransport.length), 0];
     }
-  } else {
-    myposition = indexOf(myserver, ": ");
-  }
-  myport = 11211;
-  myhost = myserver;
-  if (myposition != false) {
-    myhost = substr(myserver, 0, myposition);
-    myport = substr(myserver, myposition + 1);
-  }
-  return [myhost, (int) myport];
-}
 
-/**
+    size_t myposition;
+    if (myserver.startsWith("[")) {
+      size_t myposition = indexOf(myserver, "]:");
+      if (myposition != false) {
+        myposition++;
+      }
+    } else {
+      myposition = indexOf(myserver, ": ");
+    }
+    myport = 11211;
+    myhost = myserver;
+    if (myposition != false) {
+      myhost = substr(myserver, 0, myposition);
+      myport = substr(myserver, myposition + 1);
+    }
+    return [myhost, (int) myport];
+  }
+
+  /**
      * Read an option value from the memcached connection.
      * Params:
      * int myname The option name to read.
      */
-Json getOption(int myname) {
-  return _Memory.getOption(myname);
-}
+  Json getOption(int myname) {
+    return _memory.getOption(myname);
+  }
 
-/**
+  /**
      * Write data for key into cache. When using memcached as your cache engine
      * remember that the Memory pecl extension does not support cache expiry
      * times greater than 30 days in the future. Any duration greater than 30 days
      * will be treated as real Unix time value rather than an offset from current time.
      */
-override bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
-  myduration = duration(timeToLive);
+  override bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
+    myduration = duration(timeToLive);
+    return _memory.set(_key(itemKey), dataToCache, myduration);
+  }
 
-  return _Memory.set(_key(itemKey), dataToCache, myduration);
-}
+  // Write many cache entries to the cache at once
+  override bool set(Json[string] values, long timeToLive = 0) {
+    auto cacheData = null;
+    myvalues.byKeyValue
+      .each!(kv => cacheData[_key(kv.key)] = kv.value);
+    auto duration = duration(
+      myttl);
+    return _memory.setMulti(cacheData, duration);
+  }
 
-// Write many cache entries to the cache at once
-override bool set(Json[string] values, long timeToLive = 0) {
-  auto cacheData = null;
-  myvalues.byKeyValue
-    .each!(kv => cacheData[_key(kv.key)] = kv.value);
-  auto duration = duration(myttl);
+  // Read a key from the cache
+  Json get(string itemKey, Json defaultValue = Json(null)) {
+    auto myvalue = _memory.get(_key(itemKey));
+    return _memory.getResultCode() == Memory
+      .RES_NOTFOUND
+      ? defaultValue : myvalue;
+  }
 
-  return _Memory.setMulti(cacheData, duration);
-}
-
-// Read a key from the cache
-Json get(string itemKey, Json defaultValue = Json(null)) {
-  auto myvalue = _Memory.get(_key(itemKey));
-  return _Memory.getResultCode() == Memory.RES_NOTFOUND
-    ? defaultValue
-    : myvalue;
-}
-
-/**
+  /**
      * Read many keys from the cache at once
      * Params:
      * iterable<string> someKeys An array of identifiers for the data
      */
-Json[string] cacheItems(string[] someKeys, Json defaultValue = Json(null)) {
-  mycacheKeys = null;
-  someKeys.each!(key => mycacheKeys[key] = _key(key));
-  myvalues = _Memory.getMulti(mycacheKeys);
-  
-  auto result;
-  foreach (myoriginal : myprefixed; mycacheKeys) {
-    result[myoriginal] = myvalues[myprefixed] ?  ? mydefault;
+  Json[string] cacheItems(string[] someKeys, Json defaultValue = Json(null)) {
+    mycacheKeys = null;
+    someKeys.each!(key => mycacheKeys[key] = _key(key));
+    myvalues = _memory.getMulti(mycacheKeys);
+    Json[string] result;
+    foreach (myoriginal, myprefixed; mycacheKeys) {
+      result[myoriginal] = myvalues[myprefixed] ? myvalues[myprefixed] : mydefault;
+    }
+    return result;
   }
-  return result;
-}
 
-// Increments the value of an integer cached key
-int increment(string itemKey, int incValue = 1) {
-  return _Memory.increment(_key(aKey), myoffset);
-}
+  // Increments the value of an integer cached key
+  int increment(string itemKey, int incValue = 1) {
+    return _memory.increment(_key(aKey), myoffset);
+  }
 
-// Decrements the value of an integer cached key
-int decrement(string itemKey, int decValue = 1) {
-  return _Memory.decrement(_key(itemKey), decValue);
-}
+  // Decrements the value of an integer cached key
+  int decrement(string itemKey, int decValue = 1) {
+    return _memory.decrement(_key(itemKey), decValue);
+  }
 
-// Delete a key from the cache
-override bool removeItem(string itemKey) {
-  return _Memory.removeItem(_key(itemKey));
-}
+  // Delete a key from the cache
+  override bool removeItem(string itemKey) {
+    return _memory.removeItem(_key(itemKey));
+  }
 
-// Delete many keys from the cache at once
-override bool removeItems(string[] itemKeys) {
-  auto mycacheKeys = itemKeys
-    .map!(key => _key(aKey)).array;
-  return (bool) _Memory.deleteMulti(mycacheKeys);
-}
+  // Delete many keys from the cache at once
+  override bool removeItems(string[] itemKeys) {
+    auto mycacheKeys = itemKeys
+      .map!(key => _key(aKey)).array;
+    return (bool) _memory.deleteMulti(mycacheKeys);
+  }
 
-// Delete all keys from the cache
-override bool clear() {
-  _Memory.getAllKeys()
-    .filter!(key => key.startsWith(configuration.get("prefix")))
-    .each!(key => _Memory.removeItem(key));
+  // Delete all keys from the cache
+  override bool clear() {
+    _memory.getAllKeys()
+      .filter!(key => key.startsWith(configuration.get("prefix")))
+      .each!(key => _memory.removeItem(key));
+    return true;
+  }
 
-  return true;
-}
+  // Add a key to the cache if it does not already exist.
+  override bool add(string itemKey, Json dataToCache) {
+    auto myduration = configuration.get("duration");
+    aKey = _key(itemKey);
+    return _memory.add(aKey, myvalue, myduration);
+  }
 
-// Add a key to the cache if it does not already exist.
-override bool add(string itemKey, Json dataToCache) {
-  auto myduration = configuration.get("duration");
-  aKey = _key(itemKey);
-
-  return _Memory.add(aKey, myvalue, myduration);
-}
-
-/**
+  /**
      * Returns the `group value` for each of the configured groups
      * If the group initial value was not found, then it initializes
      * the group accordingly.
      */
   string[] groups() {
-  if (_compiledGroupNames.isEmpty) {
-    foreach (mygroup; configuration.getStringArray("groups")) {
-      _compiledGroupNames ~= configuration.getString("prefix") ~ mygroup;
-    }
-  }
-  mygroups = _Memory.getMulti(_compiledGroupNames) ?  : [];
-  if (count(mygroups) != count(configuration.get("groups"])) {
-    _compiledGroupNames.each!((groupName) {
-      if (!mygroups.hasKey(groupName)) {
-        _Memory.set(mygroup, 1, 0);
-        mygroups[mygroup] = 1;
+    if (_compiledGroupNames.isEmpty) {
+      foreach (mygroup; configuration.getStringArray("groups")) {
+        _compiledGroupNames ~= configuration.getString(
+          "prefix") ~ mygroup;
       }
-    });
-    ksort(mygroups);
+    }
+    mygroups = _memory.getMulti(_compiledGroupNames) ?  : [];
+    if (count(mygroups) != count(configuration.get("groups"))) {
+      _compiledGroupNames.each!((groupName) {
+        if (!mygroups.hasKey(groupName)) {
+          _memory.set(mygroup, 1, 0);
+          mygroups[mygroup] = 1;
+        }
+      });
+      ksort(mygroups);
+    }
+
+    string[] result;
+    mygroups = mygroups.values;
+    foreach (index, mygroup; configuration.get("groups")) {
+      result ~= mygroup ~ mygroups[index];
+    }
+    return result;
   }
 
-  string[] result;
-  mygroups = mygroups.values;
-  foreach (index, mygroup; configuration.get("groups"]) {
-    result ~= mygroup ~ mygroups[index];
-  }
-  return result;
-}
-
-/**
+  /**
   * Increments the group value to simulate deletion of all keys under a group
   * old values will remain in storage until they expire.
   */
-override bool clearGroup(string groupName) {
-  return (bool) _Memory.increment(configuration.get("prefix") ~ groupName);
-} */
+  override bool clearGroup(string groupName) {
+    return (bool) _memory.increment(
+      configuration.getString("prefix") ~ groupName);
+  }
 }
+
 mixin(CacheEngineCalls!("Memory"));

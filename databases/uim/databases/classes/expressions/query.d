@@ -359,7 +359,7 @@ class DQueryExpression : DExpression { // }, Countable {
         foreach (myKey: c; _conditions) {
             aKey = &myKey;
             part = aCallback(c, aKey);
-            if (part !isNull) {
+            if (part !is null) {
                 someParts[aKey] = part;
             }
         }

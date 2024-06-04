@@ -71,7 +71,7 @@ class DWhenThenExpression : DExpression {
                 throw new DInvalidArgumentException("The ` when` argument must be a non-empty array");
             }
             if (
-                valueType !isNull &&
+                valueType !is null &&
                 !isArray(valueType)
             ) {
                 throw new DInvalidArgumentException(
@@ -90,7 +90,7 @@ class DWhenThenExpression : DExpression {
              when = new DQueryExpression(when, typeMap);
         } else {
             if (
-                valueType !isNull &&
+                valueType !is null &&
                 !isString(type)
             ) {
                 throw new DInvalidArgumentException(
@@ -112,7 +112,7 @@ class DWhenThenExpression : DExpression {
     // Sets the `THEN` result value.
     void then(Json resultValue, string resultValue = null) {
         if (
-            resultValue !isNull &&
+            resultValue !is null &&
             !isScalar(resultValue) &&
             !(isObject(resultValue) && !(cast(DClosure)resultValue))
         ) {

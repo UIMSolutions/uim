@@ -416,7 +416,7 @@ class DConsoleOptionParser {
        _tokens = argToParse;
 
         afterDoubleDash = false;
-        while ((token = array_shift(_tokens)) !isNull) {
+        while ((token = array_shift(_tokens)) !is null) {
             token = to!string(token);
             if (token == "--") {
                 afterDoubleDash = true;
@@ -451,7 +451,7 @@ class DConsoleOptionParser {
             defaultValue = option.defaultValue();
 
             useDefault = !isSet(params[name]);
-            if (defaultValue !isNull && useDefault && !isBoolean) {
+            if (defaultValue !is null && useDefault && !isBoolean) {
                 params[name] = defaultValue;
             }
             if (isBoolean && useDefault) {

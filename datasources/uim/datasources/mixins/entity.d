@@ -862,7 +862,7 @@ mixin template TEntity() {
         }
         // Try reading the errors data with field as a simple path
         error = Hash.get(_fieldErrors, fieldName);
-        if (error!isNull) {
+        if (error!is null) {
           return error;
         }
         somePath = split(".", fieldName); // Traverse down the related entities/arrays for
@@ -930,7 +930,7 @@ mixin template TEntity() {
     */
       protected Json[string] _readError(
         /* IDatasourceEntity | range*/ Json[string] object, string errorFieldname = null) {
-        if (errorFieldname!isNull && cast(IDatasourceEntity) object) {
+        if (errorFieldname!is null && cast(IDatasourceEntity) object) {
           return object.getError(
             errorFieldname);
         }

@@ -97,7 +97,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         }
         // If the current request doesn`t have routing data, but we
         // found a request in the router context copy the params over
-        if (request.getParam("controller").isNull && routerRequest !isNull) {
+        if (request.getParam("controller").isNull && routerRequest !is null) {
             request = request.withAttribute("params", routerRequest.getAttribute("params"));
         }
         try {

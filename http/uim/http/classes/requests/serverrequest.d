@@ -1141,7 +1141,7 @@ class DServerRequest { // }: IServerRequest {
         if (!array_key_exists(aKey, _environmentData)) {
            _environmentData[aKey] = enviroment(aKey);
         }
-        return _environmentData[aKey] !isNull ? (string)_environmentData[aKey] : default;
+        return _environmentData[aKey] !is null ? (string)_environmentData[aKey] : default;
     }
     
     /**
@@ -1443,7 +1443,7 @@ class DServerRequest { // }: IServerRequest {
      * defined in the SERVER environment.
      */
     string getRequestTarget() {
-        if (this.requestTarget !isNull) {
+        if (this.requestTarget !is null) {
             return _requestTarget;
         }
 

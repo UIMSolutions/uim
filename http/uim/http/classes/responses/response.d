@@ -709,7 +709,7 @@ class DResponse : IResponse {
         aKey = ? "public" : "private";
         new._cacheDirectives[aKey] = true;
 
-        if (time !isNull) {
+        if (time !is null) {
             new._cacheDirectives["max-age"] = time;
         }
         new._setCacheControl();

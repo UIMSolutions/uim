@@ -98,22 +98,22 @@ class MoFileParser {
             fseek(stream, anOffset);
             translated = (string) fread(stream, length);
 
-            if (pluralId!isNull || translated.has("\000")) {
+            if (pluralId!is null || translated.has("\000")) {
                 string[] translated = translated.split("\000");
-                plurals = pluralId!isNull ? translated : null;
+                plurals = pluralId!is null ? translated : null;
                 translated = translated[0];
             }
             
             singular = translated;
-            if (context!isNull) {
+            if (context!is null) {
                 messages[singularId]["_context"][context] = singular;
-                if (pluralId!isNull) {
+                if (pluralId!is null) {
                     messages[pluralId]["_context"][context] = plurals;
                 }
                 continue;
             }
             messages[singularId]["_context"][""] = singular;
-            if (pluralId!isNull) {
+            if (pluralId!is null) {
                 messages[pluralId]["_context"][""] = plurals;
             }
         }

@@ -75,7 +75,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
 
         if (
             hasData
-            && _skipCheckCallback !isNull
+            && _skipCheckCallback !is null
             && call_user_func(_skipCheckCallback, requestHandler) == true
         ) {
             requestHandler = _unsetTokenField(requestHandler);

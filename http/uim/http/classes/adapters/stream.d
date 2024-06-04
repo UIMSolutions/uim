@@ -189,7 +189,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         content = "";
         timedOut = false;
 
-        assert(_stream !isNull, "HTTP stream failed to open");
+        assert(_stream !is null, "HTTP stream failed to open");
 
         while (!feof(_stream)) {
             if (deadline != false) {

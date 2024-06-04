@@ -61,7 +61,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
 
         if (
             hasData
-            && this.skipCheckCallback !isNull
+            && this.skipCheckCallback !is null
             && call_user_func(this.skipCheckCallback, request) == true
         ) {
             request = this.unsetTokenField(request);

@@ -57,7 +57,7 @@ class DErrorTrap {
     // Choose an error renderer based on config or the SAPI
     protected string chooseErrorRenderer() {
         configData = _configData.hasKey("errorRenderer");
-        if (configData !isNull) {
+        if (configData !is null) {
             return configData;
         }
         /** @var class-string<\UIM\Error\IErrorRenderer> */

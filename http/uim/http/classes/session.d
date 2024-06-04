@@ -343,7 +343,7 @@ class DSession {
         if (name.isNull) {
             return (bool) _SESSION;
         }
-        return Hash.get(_SESSION, variableName) !isNull;
+        return Hash.get(_SESSION, variableName) !is null;
     }
 
     /**
@@ -399,7 +399,7 @@ class DSession {
         started = this.started() || this.start();
         if (!started) {
             message = "Could not start the session";
-            if (this.headerSentInfo!isNull) {
+            if (this.headerSentInfo!is null) {
                 message ~=
                     ", headers already sent in file `%s` on line `%s`"
                     .format(Debugger.trimPath(this.headerSentInfo["filename"]),
@@ -432,7 +432,7 @@ class DSession {
      * string  anId ID to replace the current session ID.
      */
     string id(string aid = null) {
-        if (anId!isNull && !headers_sent()) {
+        if (anId!is null && !headers_sent()) {
             session_id(anId);
         }
         return to!string(session_id());
@@ -526,7 +526,7 @@ class DSession {
             time = this.read("Config.time");
             result = false;
 
-            checkTime = time!isNull && _lifetime > 0;
+            checkTime = time!is null && _lifetime > 0;
             if (checkTime && (time() - (int)time > _lifetime)) {
                 result = true;
             }

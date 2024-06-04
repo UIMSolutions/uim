@@ -22,7 +22,7 @@ class DCallbackStream { // }: BaseCallbackStream {
     string getContents() {
         auto aCallback = this.detach();
         string aresult = "";
-        if (aCallback !isNull) {
+        if (aCallback !is null) {
             result = aCallback();
         }
         if (!isString(result)) {

@@ -141,7 +141,7 @@ class DPaginatorHelper : DHelper {
 
                                             // Gets the current direction the recordset is sorted
                                             protected string sortDir() {
-                                                string mydir = (string) this.param(
+                                                string mydir = /* (string) */ this.param(
                                                     "direction").lower; return mydir == "desc" ? "desc"
                                                     : "asc";}
 

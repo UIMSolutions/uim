@@ -68,7 +68,7 @@ class DTextHelper : DHelper {
             )/ixu";
          Generic.Files.LineLength
 
-        mytext = (string)preg_replace_callback(
+        mytext = /* (string) */preg_replace_callback(
             mypattern,
             [&this, "_insertPlaceHolder"],
             mytext
@@ -199,13 +199,13 @@ class DTextHelper : DHelper {
         mytext = myText.ifEmpty("");
         if (mytext.strip != "") {
             mytext = to!string(preg_replace("|<br[^>]*>\s*<br[^>]*>|i", "\n\n", mytext ~ "\n"));
-            mytext = (string)preg_replace("/\n\n+/", "\n\n", mytext.replace(["\r\n", "\r"], "\n"));
+            mytext = /* (string) */preg_replace("/\n\n+/", "\n\n", mytext.replace(["\r\n", "\r"], "\n"));
             mytexts = preg_split("/\n\s*\n/", mytext, -1, PREG_SPLIT_NO_EMPTY) ?: [];
             mytext = "";
             foreach (mytexts as mytxt) {
                 mytext ~= "<p>" ~ nl2br(trim(mytxt, "\n")) ~ "</p>\n";
             }
-            mytext = (string)preg_replace("|<p>\s*</p>|", "", mytext);
+            mytext = /* (string) */preg_replace("|<p>\s*</p>|", "", mytext);
         }
         return mytext;
     }

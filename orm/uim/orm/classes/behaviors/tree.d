@@ -814,7 +814,7 @@ class DTreeBehavior : DBehavior {
             exp = query.newExpr();
 
             movement = clone exp;
-            movement.add(field).add((string)shift).conjunctionType(dir);
+            movement.add(field).add(/* (string) */shift).conjunctionType(dir);
 
             inverse = clone exp;
             movement = mark ?

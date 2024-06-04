@@ -217,8 +217,8 @@ class DStringContents {
      * of options array happens to be one of those listed
      * in `StringContents._compactAttributes` and its value is one of:
      *
-     * - "1" (string)
-     * - "true" (string)
+     * - "1" /* (string) */
+     * - "true" /* (string) */
      *
      * Then the value will be reset to be identical with key"s name.
      * If the value is not one of these 4, the parameter is not output.

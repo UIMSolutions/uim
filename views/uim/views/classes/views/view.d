@@ -559,7 +559,7 @@ static string contentType() {
         if (mylayout == false) {
             mydefaultAutoLayout = _autoLayout;
             _autoLayout = false;
-        } elseif (mylayout !isNull) {
+        } elseif (mylayout !is null) {
             mydefaultLayout = _layout;
             _layout = mylayout;
         }
@@ -578,10 +578,10 @@ static string contentType() {
             }
             _Blocks.set("content", _renderLayout("", _layout));
         }
-        if (mylayout !isNull) {
+        if (mylayout !is null) {
             _layout = mydefaultLayout;
         }
-        if (mydefaultAutoLayout !isNull) {
+        if (mydefaultAutoLayout !is null) {
             _autoLayout = mydefaultAutoLayout;
         }
         return _Blocks.get("content");
@@ -811,7 +811,7 @@ static string contentType() {
         mycontent = _evaluate(mytemplateFile, mydata);
 
         myafterEvent = _dispatchEvent("View.afterRenderFile", [mytemplateFile, mycontent]);
-        if (myafterEvent.getResult() !isNull) {
+        if (myafterEvent.getResult() !is null) {
             mycontent = myafterEvent.getResult();
         }
         if (isSet(_parents[mytemplateFile])) {
@@ -1130,7 +1130,7 @@ static string contentType() {
             if (_plugin.isNull && !_paths.isEmpty) {
                 return _paths;
             }
-            if (_plugin !isNull && isSet(_pathsForPlugin[_plugin])) {
+            if (_plugin !is null && isSet(_pathsForPlugin[_plugin])) {
                 return _pathsForPlugin[_plugin];
             }
         }
@@ -1165,7 +1165,7 @@ static string contentType() {
             App.core("templates")
         );
 
-        if (_plugin !isNull) {
+        if (_plugin !is null) {
             return _pathsForPlugin[_plugin] = mypaths;
         }
         return _paths = mypaths;

@@ -228,7 +228,7 @@ class DSelectBoxWidget : DWidget {
                 )
             ) {
                 /** @var \ArrayAccess<string, mixed>|Json[string] myval */
-                result ~= _renderOptgroup((string)kv.key, kv.value, mydisabled, myselected, mytemplateVars, escapeHTML);
+                result ~= _renderOptgroup(/* (string) */kv.key, kv.value, mydisabled, myselected, mytemplateVars, escapeHTML);
                 continue;
             }
             // Basic options

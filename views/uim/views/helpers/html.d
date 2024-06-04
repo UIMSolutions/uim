@@ -127,7 +127,7 @@ class DHtmlHelper : DHelper {
             }
             if (mytypes.hasKey(mytype)) {
                 mytype = mytypes[mytype];
-            } elseif (!htmlAttributes.hasKey("type") && mycontent !isNull) {
+            } elseif (!htmlAttributes.hasKey("type") && mycontent !is null) {
                 mytype = isArray(mycontent) && isSet(mycontent["_ext"])
                     ? mytypes[mycontent["_ext"]]
                     : ["name": mytype, "content": mycontent];
@@ -427,7 +427,7 @@ class DHtmlHelper : DHelper {
         htmlAttributes += mydefaults;
 
         if (myurl.isArray) {
-            string result = myurl.map!(i => "\n\t" ~ (string)this.script(myi, htmlAttributes)).join;
+            string result = myurl.map!(i => "\n\t" ~ /* (string) */this.script(myi, htmlAttributes)).join;
             if (htmlAttributes.isEmpty("block")) {
                 return result ~ "\n";
             }
@@ -510,7 +510,7 @@ class DHtmlHelper : DHelper {
      * the settings used when the scriptBlock was started
      */
     string scriptEnd() {
-        mybuffer = (string)ob_get_clean();
+        mybuffer = /* (string) */ob_get_clean();
         options = _scriptBlockOptions;
        _scriptBlockOptions = null;
 

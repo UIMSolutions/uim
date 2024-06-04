@@ -148,7 +148,7 @@ class DRadioWidget : DWidget {
         if (!valData.isNull && valData.isBool) {
             options["val"] = options["val"] ? 1 : 0;
         }
-        if (!valData.isNull && (string)valData == (string)myradio["value"]) {
+        if (!valData.isNull && (string)valData == /* (string) */myradio["value"]) {
             myradio["checked"] = true;
             myradio["templateVars"]["activeClass"] = "active";
         }

@@ -282,7 +282,7 @@ class DFormHelper : DHelper {
             setValueSources(options["valueSources"]);
             options.remove("valueSources"]);
         }
-        if (options["idPrefix"] !isNull) {
+        if (options["idPrefix"] !is null) {
            _idPrefix = options["idPrefix"];
         }
         mytemplater = this.templater();
@@ -319,7 +319,7 @@ class DFormHelper : DHelper {
             case "delete": 
             // Set patch method
             case "patch": 
-                myappend ~= this.hidden("_method", [
+                myappend ~= hidden("_method", [
                     "name": "_method",
                     "value": options.getString("type").upper,
                     "secure": SECURE_SKIP,
@@ -346,7 +346,7 @@ class DFormHelper : DHelper {
         if (_,requestType != "get") {
             myformTokenData = _View.getRequest().getAttribute("formTokenData");
             if (!myformTokenData.isNull) {
-                this.formProtector = this.createFormProtector(myformTokenData);
+                _formProtector = this.createFormProtector(myformTokenData);
             }
             myappend ~= _csrfField();
         }
@@ -431,17 +431,17 @@ class DFormHelper : DHelper {
     string end(Json[string] mysecureAttributes = []) {
         result = "";
 
-        if (this.requestType != "get" && _View.getRequest().getAttribute("formTokenData") !isNull) {
+        if (_requestType != "get" && !_View.getRequest().getAttribute("formTokenData").isNull) {
             result ~= this.secure([], mysecureAttributes);
         }
         result ~= this.formatTemplate("formEnd", []);
 
         templater().pop();
         _requestType = null;
-       _context = null;
-       _valueSources = ["data", "context"];
-       _idPrefix = configurationData.hasKey("idPrefix");
-        this.formProtector = null;
+        _context = null;
+        _valueSources = ["data", "context"];
+        _idPrefix = configurationData.hasKey("idPrefix");
+        _formProtector = null;
 
         return result;
     }
@@ -460,40 +460,40 @@ class DFormHelper : DHelper {
      *  input elements generated for the Security Component.
      */
     string secure(Json[string] fieldNames = [], Json[string] mysecureAttributes = []) {
-        if (!this.formProtector) {
+        if (!_formProtector) {
             return null;
         }
-        foreach (fieldNames as fieldName: myvalue) {
+        foreach (fieldName, myvalue; fieldNames) {
             if (isInt(fieldName)) {
                 fieldName = myvalue;
                 myvalue = null;
             }
-            this.formProtector.addField(fieldName, true, myvalue);
+            _formProtector.addField(fieldName, true, myvalue);
         }
-        mydebugSecurity = (bool)configuration.get("debug");
+        auto mydebugSecurity = configuration.getBool("debug");
         if (isSet(mysecureAttributes["debugSecurity"])) {
             mydebugSecurity = mydebugSecurity && mysecureAttributes["debugSecurity"];
             unset(mysecureAttributes["debugSecurity"]);
         }
         mysecureAttributes["secure"] = SECURE_SKIP;
 
-        mytokenData = this.formProtector.buildTokenData(
+        mytokenData = _formProtector.buildTokenData(
            _lastAction,
            _getFormProtectorSessionId()
         );
         mytokenFields = array_merge(mysecureAttributes, [
             "value": mytokenData["fields"],
         ]);
-        result = this.hidden("_Token.fields", mytokenFields);
+        result = hidden("_Token.fields", mytokenFields);
         mytokenUnlocked = array_merge(mysecureAttributes, [
             "value": mytokenData["unlocked"],
         ]);
-        result ~= this.hidden("_Token.unlocked", mytokenUnlocked);
+        result ~= hidden("_Token.unlocked", mytokenUnlocked);
         if (mydebugSecurity) {
             mytokenDebug = array_merge(mysecureAttributes, [
                 "value": mytokenData["debug"],
             ]);
-            result ~= this.hidden("_Token.debug", mytokenDebug);
+            result ~= hidden("_Token.debug", mytokenDebug);
         }
         return _formatTemplate("hiddenBlock", ["content": result]);
     }
@@ -520,31 +520,25 @@ class DFormHelper : DHelper {
      * Params:
      * Json[string] myformTokenData Token data.
      */
-    protected DFormProtector createFormProtector(Json[string] myformTokenData) {
+    protected DFormProtector createFormProtector(Json[string] tokenData) {
         auto mysession = _View.getRequest().getSession();
         mysession.start();
 
-        return new DFormProtector(
-            myformTokenData
-        );
+        return new DFormProtector(tokenData);
     }
     
     // Get form protector instance.
     FormProtector getFormProtector() {
-        if (this.formProtector.isNull) {
+        if (_formProtector.isNull) {
             throw new DException(
-                "`FormProtector` instance has not been created. Ensure you have loaded the `FormProtectionComponent`"
-                ~ " in your controller and called `FormHelper.create()` before calling `FormHelper.unlockField()`."
+                "`FormProtector` instance has not been created. Ensure you have loaded the `FormProtectionComponent`" ~
+                " in your controller and called `FormHelper.create()` before calling `FormHelper.unlockField()`."
             );
         }
         return _formProtector;
     }
     
-    /**
-     * Returns true if there is an error for the given field, otherwise false
-     * Params:
-     * string fieldName This should be "modelname.fieldname"
-     */
+    // Returns true if there is an error for the given field, otherwise false
     bool isFieldError(string fieldName) {
         return _getContext().hasError(fieldName);
     }
@@ -567,14 +561,13 @@ class DFormHelper : DHelper {
         if (fieldName.endsWith("._ids")) {
             fieldName = substr(fieldName, 0, -5);
         }
-        auto updatedOptions = options.update["escape": true.toJson];
-
-        formContext = _getContext();
+        auto updatedOptions = options.update(["escape": true.toJson]);
+        auto formContext = _getContext();
         if (!formContext.hasError(fieldName)) {
             return null;
         }
-        myerror = formContext.error(fieldName);
 
+        auto myerror = formContext.error(fieldName);
         if (mytext.isArray) {
             mytmp = null;
             foreach (myerror as myKey: mye) {
@@ -588,12 +581,12 @@ class DFormHelper : DHelper {
             }
             mytext = mytmp;
         }
-        if (mytext !isNull) {
+        if (mytext !is null) {
             myerror = mytext;
         }
-        if (options["escape"]) {
+        if (updatedOptions["escape"]) {
             Json myerror = htmlAttributeEscape(myerror);
-            options.remove("escape");
+            updatedOptions.remove("escape");
         }
         if (isArray(myerror)) {
             if (count(myerror) > 1) {
@@ -670,7 +663,7 @@ class DFormHelper : DHelper {
      * fieldName.
      * @param Json[string] options An array of HTML attributes.
      */
-    string label(string fieldName, string mytext = null, Json[string] options  = null) {
+    string label(string fieldName, string mytext = null, Json[string] htmlAttributes  = null) {
         if (mytext.isNull) {
             mytext = fieldName;
             if (mytext.endsWith("._ids")) {
@@ -685,19 +678,19 @@ class DFormHelper : DHelper {
             }
             mytext = __(Inflector.humanize(Inflector.underscore(mytext)));
         }
-        if (isSet(options["for"])) {
-            mylabelFor = options["for"];
-            options.remove("for"]);
+        if (isSet(htmlAttributes["for"])) {
+            mylabelFor = htmlAttributes["for"];
+            htmlAttributes.remove("for"]);
         } else {
             mylabelFor = _domId(fieldName);
         }
-        myattrs = options ~ [
+        myattrs = htmlAttributes ~ [
             "for": mylabelFor,
             "text": mytext,
         ];
-        if (isSet(options["input"])) {
-            if (isArray(options["input"])) {
-                myattrs = options["input"] + myattrs;
+        if (isSet(htmlAttributes["input"])) {
+            if (isArray(htmlAttributes["input"])) {
+                myattrs = htmlAttributes["input"] + myattrs;
             }
             return _widget("nestingLabel", myattrs);
         }
@@ -734,11 +727,9 @@ class DFormHelper : DHelper {
      *  to customize the legend text.
      */
     string allControls(Json[string] fieldNames = [], Json[string] options  = null) {
-        mycontext = _getContext();
-
-        mymodelFields = mycontext.fieldNames();
-
-        fieldNames = array_merge(
+        auto mycontext = _getContext();
+        auto mymodelFields = mycontext.fieldNames();
+        auto fieldNames = array_merge(
             Hash.normalize(mymodelFields),
             Hash.normalize(fieldNames)
         );
@@ -768,9 +759,8 @@ class DFormHelper : DHelper {
      *  Or supply a string to customize the legend text.
      */
     string controls(Json[string] fieldNames, Json[string] options  = null) {
-        fieldNames = Hash.normalize(fieldNames);
-
-        result = "";
+        auto fieldNames = Hash.normalize(fieldNames);
+        string result = "";
         foreach (fieldNames as views: myopts) {
             if (myopts == false) {
                 continue;
@@ -898,19 +888,19 @@ class DFormHelper : DHelper {
                 ];
             }
         }
-        myerror = null;
-        myerrorSuffix = "";
+        
+        auto myerror = null;
+        auto myerrorSuffix = "";
         if (options["type"] != "hidden" && options["error"] != false) {
-            if (isArray(options["error"])) {
-                myerror = this.error(fieldName, options["error"], options["error"]);
-            } else {
-                myerror = this.error(fieldName, options["error"]);
-            }
+            myError = isArray(options["error"])
+                ? error(fieldName, options["error"], options["error"])
+                : error(fieldName, options["error"]);
+
             myerrorSuffix = myerror.isEmpty ? "" : "Error";
-            options.remove("error"]);
+            options.remove("error");
         }
         mylabel = options["label"];
-        options.remove("label"]);
+        options.remove("label");
 
         mylabelOptions = options["labelOptions"];
         options.remove("labelOptions"]);
@@ -1058,7 +1048,7 @@ class DFormHelper : DHelper {
         mytype = "text";
         myinternalType = mycontext.type(fieldName);
         mymap = configuration.get("typeMap"];
-        if (myinternalType !isNull && isSet(mymap[myinternalType])) {
+        if (myinternalType !is null && isSet(mymap[myinternalType])) {
             mytype = mymap[myinternalType];
         }
         auto fieldName = array_slice(fieldName.split("."), -1)[0];
@@ -1296,7 +1286,7 @@ class DFormHelper : DHelper {
             if (isSet(options["disabled"]) && options["disabled"]) {
                 myhiddenOptions["disabled"] = "disabled";
             }
-            myoutput = this.hidden(fieldName, myhiddenOptions);
+            myoutput = hidden(fieldName, myhiddenOptions);
         }
         if (options["hiddenField"] == "_split") {
             options.remove("hiddenField"], options["type"]);
@@ -1345,7 +1335,7 @@ class DFormHelper : DHelper {
 
         myhidden = "";
         if (myhiddenField != false && isScalar(myhiddenField)) {
-            myhidden = this.hidden(fieldName, [
+            myhidden = hidden(fieldName, [
                 "value": myhiddenField == true ? "" : to!string(myhiddenField),
                 "form": myattributes["form"].ifNull(null),
                 "name": myattributes["name"],
@@ -1426,8 +1416,8 @@ class DFormHelper : DHelper {
             ["secure": SECURE_SKIP]
         ));
 
-        if (mysecure == true && this.formProtector) {
-            this.formProtector.addField(
+        if (mysecure == true && _formProtector) {
+            _formProtector.addField(
                 options["name"],
                 true,
                 options["val"] == false ? "0" : to!string(options["val"])
@@ -1519,7 +1509,7 @@ class DFormHelper : DHelper {
         result = this.create(null, myformOptions);
         if (isSet(options["data"]) && isArray(options["data"])) {
             foreach (Hash.flatten(options["data"]) as aKey: myvalue) {
-                result ~= this.hidden(aKey, ["value": myvalue]);
+                result ~= hidden(aKey, ["value": myvalue]);
             }
             options.remove("data"]);
         }
@@ -1581,7 +1571,7 @@ class DFormHelper : DHelper {
 
         myrestoreAction = _lastAction;
        _lastAction(myurl);
-        myrestoreFormProtector = this.formProtector;
+        myrestoreFormProtector = _formProtector;
 
         myaction = mytemplater.formatAttributes([
             "action": this.Url.build(myurl),
@@ -1591,22 +1581,22 @@ class DFormHelper : DHelper {
         result = this.formatTemplate("formStart", [
             "attrs": mytemplater.formatAttributes(myformOptions) ~ myaction,
         ]);
-        result ~= this.hidden("_method", [
+        result ~= hidden("_method", [
             "value": myrequestMethod,
             "secure": SECURE_SKIP,
         ]);
         result ~= _csrfField();
 
         myformTokenData = _View.getRequest().getAttribute("formTokenData");
-        if (myformTokenData !isNull) {
-            this.formProtector = this.createFormProtector(myformTokenData);
+        if (myformTokenData !is null) {
+            _formProtector = this.createFormProtector(myformTokenData);
         }
         
         auto fieldNames = null;
         if (isSet(options["data"]) && isArray(options["data"])) {
             Hash.flatten(options["data"]).each!((kv) {
                 fieldNames[kv.key] = kv.value;
-                result ~= this.hidden(kv.key, ["value": kv.value, "secure": SECURE_SKIP]);
+                result ~= hidden(kv.key, ["value": kv.value, "secure": SECURE_SKIP]);
             });
             options.remove("data"]);
         }
@@ -1614,7 +1604,7 @@ class DFormHelper : DHelper {
         result ~= this.formatTemplate("formEnd", []);
 
        _lastAction = myrestoreAction;
-        this.formProtector = myrestoreFormProtector;
+        _formProtector = myrestoreFormProtector;
 
         if (options["block"]) {
             if (options["block"] == true) {
@@ -1670,8 +1660,8 @@ class DFormHelper : DHelper {
             "templateVars": Json.emptyArray,
         ]);
 
-        if (isSet(options["name"]) && this.formProtector) {
-            this.formProtector.addField(
+        if (isSet(options["name"]) && _formProtector) {
+            _formProtector.addField(
                 options["name"],
                 options["secure"]
             );
@@ -1687,7 +1677,7 @@ class DFormHelper : DHelper {
         if (myisUrl || myisImage) {
             mytype = "image";
 
-            if (this.formProtector) {
+            if (_formProtector) {
                 myunlockFields = ["x", "y"];
                 if (isSet(options["name"])) {
                     myunlockFields = [
@@ -1704,7 +1694,7 @@ class DFormHelper : DHelper {
             options["src"] = mycaption;
         } elseif (myisImage) {
             myUrl = mycaption[0] != "/" 
-                ? this.Url.webroot(configuration.get("App.imageBaseUrl") ~ mycaption)
+                ? this.Url.webroot(configuration.getString("App.imageBaseUrl") ~ mycaption)
                 : this.Url.webroot(trim(mycaption, "/"));
 
             myurl = this.Url.assetTimestamp(myurl);
@@ -1816,7 +1806,7 @@ class DFormHelper : DHelper {
                 "form": myattributes["form"] ?? null,
                 "secure": false.toJson,
             ];
-            myhidden = this.hidden(fieldName, myhiddenAttributes);
+            myhidden = hidden(fieldName, myhiddenAttributes);
         }
         unset(myattributes["hiddenField"], myattributes["type"]);
 
@@ -1872,7 +1862,7 @@ class DFormHelper : DHelper {
                 "disabled": myattributes["disabled"] == true || myattributes["disabled"] == "disabled",
                 "id": myattributes["id"],
             ];
-            myhidden = this.hidden(fieldName, myhiddenAttributes);
+            myhidden = hidden(fieldName, myhiddenAttributes);
         }
         unset(myattributes["hiddenField"]);
 
@@ -2181,13 +2171,13 @@ class DFormHelper : DHelper {
         mywidget = _locator.get(widgetname);
         result = mywidget.render(mydata, this.context());
         if (
-            this.formProtector !isNull &&
+            _formProtector !is null &&
             isSet(mydata["name"]) &&
-            mysecure !isNull &&
+            mysecure !is null &&
             mysecure != self.SECURE_SKIP
         ) {
             foreach (mywidget.secureFields(mydata) as fieldName) {
-                this.formProtector.addField(fieldName, mysecure);
+                _formProtector.addField(fieldName, mysecure);
             }
         }
         return result;
@@ -2262,7 +2252,7 @@ class DFormHelper : DHelper {
             if (isSet(myvalueMap[myvaluesSource])) {
                 mymethod = myvalueMap[myvaluesSource];
                 myvalue = _View.getRequest().{mymethod}(fieldName);
-                if (myvalue !isNull) {
+                if (myvalue !is null) {
                     return myvalue;
                 }
             }

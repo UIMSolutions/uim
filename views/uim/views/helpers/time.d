@@ -43,7 +43,7 @@ class DTimeHelper : DHelper {
         DateTimeZone|string mytimezone = null
     ) {
         mytime = new DateTime(mydateString);
-        if (mytimezone !isNull) {
+        if (mytimezone !is null) {
             mytime = mytime.setTimezone(mytimezone);
         }
         return mytime;

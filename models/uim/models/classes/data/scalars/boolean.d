@@ -31,7 +31,7 @@ class DBooleanData : DScalarData {
 
 
   // #region opCmp
-  alias opCmp = Object.opCmp;
+ /*  alias opCmp = Object.opCmp;
   int opCmp(bool valueToCompare) {
     if (value < valueToCompare)
       return -1;
@@ -50,12 +50,12 @@ class DBooleanData : DScalarData {
   int opCmp(DBooleanData aValue) {
     return aValue
       ? opCmp(aValue.value()) : -1;
-  }
+  } */
   // #endregion opCmp
 
   // #region clone
  override IData clone() {
-    return BooleanData(value);
+    return BooleanData(getBool);
   } 
   // #endregion clone
 }

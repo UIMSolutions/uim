@@ -87,7 +87,7 @@ class DMapData : DData {
   }
 
   Json toJson(Json obj) {
-    keys.each!(key => obj[key] = _items[key].toJson);
+    // keys.each!(key => obj[key] = _items[key].toJson);
     return obj;
   }
 

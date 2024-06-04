@@ -154,9 +154,9 @@ class DMapData : DData {
   }
 
   override string toString() {
-    string content = _items.byKeyValue
+    string content; /*  = _items.byKeyValue
       .map!(kv => "%s:%s".format(kv.key, kv.value))
-      .join(",");
+      .join(","); */
 
     return "[" ~ content ~ "]";
   }

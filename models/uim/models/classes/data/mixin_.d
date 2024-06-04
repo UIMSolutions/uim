@@ -1,7 +1,7 @@
 module uim.models.classes.data.mixin_;
 
 mixin template TDataConvert() {
-  alias toJson = DData.toJson;
+  /* alias toJson = DData.toJson;
   override Json toJson() {
     if (isNull)
       return Json(null);
@@ -12,7 +12,7 @@ mixin template TDataConvert() {
     if (isNull)
       return null;
     return to!string(value);
-  }
+  } */
 }
 
 string dataGetSetTemplate(string nullValue, string dataType, string jsonType = null) {

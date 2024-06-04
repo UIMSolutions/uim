@@ -154,13 +154,13 @@ class DStringData : DScalarData {
   }
   // #endregion equal
 
-  int opCmp(string otherValue) {
+/*   int opCmp(string otherValue) {
     if (_value < otherValue)
       return -1;
     if (_value == otherValue)
       return 0;
     return 1;
-  }
+  } */
 
   // alias toJson = DData.toJson;
   mixin TDataConvert; 

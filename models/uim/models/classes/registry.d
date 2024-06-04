@@ -9,16 +9,9 @@ import uim.models;
 
 @safe:
 class DModelRegistry : DObjectRegistry!DModel{
-  this() {}
-
-  static DModelRegistry registry; 
 }
 auto ModelRegistry() { 
-  if (!DModelRegistry.instance) {
-    DModelRegistry.instance = new DModelRegistry; 
-  }
-  return 
-  DModelRegistry.instance;
+  return DModelRegistry.registry;
 }
 
 version(test_uim_models) { unittest {

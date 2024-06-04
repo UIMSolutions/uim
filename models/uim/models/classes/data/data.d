@@ -52,7 +52,13 @@ class DData : IData {
         mixin(DataIsCheck!"isBigInt");
         mixin(DataIsCheck!"isBool");
         mixin(DataIsCheck!"isFloat");
+        bool isDouble() {
+          return isFloat();
+        }
         mixin(DataIsCheck!"isInt");
+        bool isLong() {
+          return isInt();
+        }
         mixin(DataIsCheck!"isString");
       // #endregion is-check Basic Types
 

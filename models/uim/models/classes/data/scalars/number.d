@@ -104,7 +104,7 @@ class DNumberData : DScalarData {
   // #endregion operators
 
   override IData clone() {
-    return NumberData; // TODO (attribute, toJson);
+    return NumberData(getDouble);
   }
 
 /*   double toDouble() {
@@ -116,10 +116,10 @@ class DNumberData : DScalarData {
 
 }
 
-mixin(DataCalls!("Double"));
-/* auto NumberData(double newValue) {
+mixin(DataCalls!("Number"));
+auto NumberData(double newValue) {
   return new DNumberData(newValue);
-} */
+} 
 
 unittest {
   /*alias Alias = ;

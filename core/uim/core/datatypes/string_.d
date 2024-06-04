@@ -423,11 +423,24 @@ string[] replace(string[] texts, string originText, string newText) {
 }
 // #endregion replace
 
+string[] split(string text, string splitText = " ", int limit) {
+	auto splits = std.string.split(text, splitText); 
+	if (limit > 0 && limit < splits.length) {
+		return splits[0..limit]~splits[limit..$].join(splitText);
+	}
+	if (limit < 0 && limit > -splits.length) {
+		return splits[0..-limit].join(splitText)~splits[-limit..$];
+	}
+	return splits;
+}
+unittest {
+  // TODO create test
+}
 
 // TODO
-string[] split(string[] texts, string splitText = " ") {
+string[] split(string[] texts, string splitText = " ", int limit = 0) {
 	auto splitTexts = texts
-		.map!(text => std.string.split(text, splitText)).array;
+		.map!(text => split(text, splitText, limit)).array;
 	return join(splitTexts);
 }
 unittest {

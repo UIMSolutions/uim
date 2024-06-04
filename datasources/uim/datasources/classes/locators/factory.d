@@ -51,7 +51,7 @@ class DFactoryLocator {
             _modelFactories["Table"] = new DTableLocator();
         }
 
-        if (!isset(_modelFactories[repositoryType])) {
+        if (!_modelFactories.hasKey(repositoryType)) {
             throw new DInvalidArgumentException(
                 "Unknown repository type '%s'. Make sure you register a type before trying to use it."
                 .format(repositoryType)

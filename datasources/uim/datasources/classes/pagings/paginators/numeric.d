@@ -227,14 +227,14 @@ class DNumericPaginator : IPaginator {
      *  "count", "defaults", "finder", "numResults".
      */
     protected Json[string] buildParams(Json[string] data) {
-        auto limit = data["options"]["limit"];
+        auto limit = data["options.limit"];
 
         auto paging = [
             "count": data["count"],
             "current": data["numResults"],
             "perPage": limit,
-            "page": data["options"]["page"],
-            "requestedPage": data["options"]["page"],
+            "page": data["options.page"],
+            "requestedPage": data["options.page"],
         ];
 
         paging = this.addPageCountParams(paging, data);
@@ -243,8 +243,8 @@ class DNumericPaginator : IPaginator {
         paging = this.addSortingParams(paging, data);
 
         paging += [
-            "limit": data["defaults"]["limit"] != limit ? limit: null,
-            "scope": data["options"]["scope"],
+            "limit": data["defaults.limit"] != limit ? limit: null,
+            "scope": data["options.scope"],
             "finder": data["finder"],
         ];
 
@@ -289,7 +289,8 @@ class DNumericPaginator : IPaginator {
     protected Json[string] addPrevNextParams(Json[string] paginatorData, Json[string] pagingData) {
         paginatorData["prevPage"] = paginatorData.getInt("page") > 1;
         paginatorData["nextPage"] = paginatorData.hasKey("count")
-            ? true : paginatorData.getInt("count") > paginatorData.getInt("page") * paginatorData.getInt("perPage");
+            ? true : paginatorData.getInt("count") > paginatorData.getInt(
+                "page") * paginatorData.getInt("perPage");
 
         return paginatorData;
     }
@@ -297,7 +298,7 @@ class DNumericPaginator : IPaginator {
     // Add sorting / ordering params.
     protected Json[string] addSortingParams(Json[string] paginatorData, Json[string] pagingData) {
         auto defaults = pagingData["defaults"];
-        auto order = /* (array) */ pagingData["options"]["order"];
+        auto order = pagingData.getArray("options.order");
         auto sortDefault = directionDefault = false;
 
         if (!defaults.isEmpty("order") && count(defaults["order"]) >= 1) {
@@ -306,8 +307,8 @@ class DNumericPaginator : IPaginator {
         }
 
         paginatorData += [
-            "sort": pagingData["options"]["sort"],
-            "direction": isset(pagingData["options"]["sort"]) && count(order) ? current(order): null,
+            "sort": pagingData.get("options.sort"),
+            "direction": pagingData.hasKey("options.sort") && count(order) ? current(order): null,
             "sortDefault": sortDefault,
             "directionDefault": directionDefault,
             "completeSort": order,
@@ -322,7 +323,7 @@ class DNumericPaginator : IPaginator {
         paginationOptions.remove("finder"), paginationOptions["maxLimit"]);
 
         if (type.isArray) {
-            paginationOptions = /* (array) */ current(type)+paginationOptions;
+            paginationOptions =  /* (array) */ current(type) + paginationOptions;
             type = key(type);
         }
 
@@ -336,11 +337,11 @@ class DNumericPaginator : IPaginator {
 
     // Shim method for reading the deprecated whitelist or allowedParameters options
     protected string[] getAllowedParameters() {
-        allowed = this.configuration.get("allowedParameters");
+        auto allowed = configuration.get("allowedParameters");
         if (!allowed) {
             allowed = null;
         }
-        whitelist = this.configuration.get("whitelist");
+        auto whitelist = configuration.get("whitelist");
         if (whitelist) {
             deprecationWarning(
                 "The `whitelist` option is deprecated. Use the `allowedParameters` option instead.");
@@ -369,10 +370,11 @@ class DNumericPaginator : IPaginator {
      * which options/values can be set using request parameters.
      */
     Json[string] mergeOptions(Json[string] requestData, Json[string] settingsToMerge) {
-        string scopeValue; 
+        string scopeValue;
         if (!settingsToMerge.isEmpty("scope")) {
             scopeValue = settingsToMerge.getString("scope");
-            requestData = !requestData.isEmpty(scopeValue) ? /* (array) */ requestData[scopeValue] : [];
+            requestData = !requestData.isEmpty(scopeValue) ?  /* (array) */ requestData[scopeValue]
+                : [];
         }
 
         auto allowed = getAllowedParameters();
@@ -389,7 +391,7 @@ class DNumericPaginator : IPaginator {
             settingData = settingData[aliasName];
         }
 
-        auto defaultData = this.configuration.data;
+        auto defaultData = configuration.data;
         defaultData["whitelist"] = defaultData["allowedParameters"] = getAllowedParameters();
 
         auto maxLimit = settingData.getInt("maxLimit", defaultData.getInt("maxLimit"));
@@ -431,21 +433,17 @@ class DNumericPaginator : IPaginator {
             if (paginationOptions.hasKey("direction")) {
                 direction = paginationOptions.getString("direction").lower;
             }
-            if (!hasAllValues(direction, [
-                        "asc", "desc"
-                    ], true)) {
+            if (!hasAllValues(direction, ["asc", "desc"], true)) {
                 direction = "asc";
             }
 
-            order = paginationOptions.hasKey("order") && isArray(paginationOptions["order"]) 
+            order = paginationOptions.hasKey("order") && isArray(paginationOptions["order"])
                 ? paginationOptions["order"] : null;
             if (order && paginationOptions["sort"] && indexOf(paginationOptions["sort"], ".") == false) {
                 order = _removeAliases(order, repository.aliasName());
             }
 
-            paginationOptions["order"] = [
-                paginationOptions["sort"]: direction
-            ] + order;
+            paginationOptions.get("order", [paginationOptions["sort"]: direction].update(order);
         } else {
             paginationOptions["sort"] = null;
         }
@@ -454,7 +452,7 @@ class DNumericPaginator : IPaginator {
         if (paginationOptions.isEmpty("order")) {
             paginationOptions["order"] = null;
         }
-        if (!paginationOptions["order"].isArray) {
+        if (!paginationOptions.isArray("order")) {
             return paginationOptions;
         }
 
@@ -472,7 +470,8 @@ class DNumericPaginator : IPaginator {
             }
         }
 
-        if (paginationOptions["sort"] == null && count(paginationOptions["order"]) >= 1 && !key(paginationOptions["order"].isNumeric)) {
+        if (paginationOptions["sort"] == null && count(paginationOptions["order"]) >= 1 && !key(
+                paginationOptions["order"].isNumeric)) {
             paginationOptions["sort"] = key(paginationOptions.getString("order"));
         }
 
@@ -489,7 +488,7 @@ class DNumericPaginator : IPaginator {
                 continue;
             }
 
-            [aliasName, currentField] = explode(".", field);
+            [aliasName, currentField] = field.split(".");
             if (aliasName == modelAlias) {
                 result[currentField] = sort;
                 continue;

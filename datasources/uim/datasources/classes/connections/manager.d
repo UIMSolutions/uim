@@ -148,7 +148,7 @@ static void dropAlias(aliasToDrop) {
      * as second parameter.
      */
 static IConnection get(string connectionName, bool useAliases = true) {
-    if (useAliases && isset(_aliasMap[connectionName])) {
+    if (useAliases && _aliasMap.hasKey(connectionName)) {
         connectionName = _aliasMap[connectionName];
     }
     if (configuration.isEmpty(connectionName)) {
@@ -159,11 +159,14 @@ static IConnection get(string connectionName, bool useAliases = true) {
         _registry = new DConnectionRegistry();
     }
 
+    // TODO 
+    return null;
+    /* 
     return _registry. {
         connectionName
     }
     
-    ?  ? _registry.load(connectionName, configuration.get(connectionName));
+    ?  ? _registry.load(connectionName, configuration.get(connectionName)); */
 }
 /**
      * Parses a DSN into a valid connection configuration

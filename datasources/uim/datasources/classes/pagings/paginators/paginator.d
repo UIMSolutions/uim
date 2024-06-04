@@ -222,7 +222,7 @@ class DPaginator : IPaginator {
 
     // Build pagination params.
     protected Json[string] buildParams(Json[string] paginatorOptions) {
-        limit = myData["options"]["limit"];
+        limit = myData["options.limit"];
 
         // containing keys "options",
         // "count", "defaults", "finder", "numResults".
@@ -230,8 +230,8 @@ class DPaginator : IPaginator {
             "count": myData["count"],
             "current": myData["numResults"],
             "perPage": limit,
-            "page": myData["options"]["page"],
-            "requestedPage": myData["options"]["page"],
+            "page": myData["options.page"],
+            "requestedPage": myData["options.page"],
         ];
 
         paging = addPageCountParams(paging, paginatorOptions);
@@ -240,8 +240,8 @@ class DPaginator : IPaginator {
         paging = addSortingParams(paging, paginatorOptions);
 
         paging += [
-            "limit": paginatorOptions["defaults"]["limit"] != limit ? limit : null,
-            "scope": paginatorOptions["options"]["scope"],
+            "limit": paginatorOptions["defaults.limit"] != limit ? limit : null,
+            "scope": paginatorOptions["options.scope"],
             "finder": paginatorOptions["finder"],
         ];
 
@@ -299,7 +299,7 @@ class DPaginator : IPaginator {
     // Add sorting / ordering params.
     protected Json[string] addSortingParams(Json[string] paginatorOptions, Json[string] pagingOptions) 
         auto defaults = pagingOptions["defaults"];
-        auto order = /* (array) */pagingOptions["options"]["order"];
+        auto order = /* (array) */pagingOptions["options.order"];
         bool sortDefault = directionDefault = false;
 
         if (!defaults.isEmpty("order")) && count(defaults["order"]) == 1) {
@@ -308,8 +308,8 @@ class DPaginator : IPaginator {
         }
 
         return paginatorOptions.update([
-            "sort": pagingOptions["options"]["sort"],
-            "direction": isset(pagingOptions["options"]["sort"]) && count(order) ? current(order) : null,
+            "sort": pagingOptions["options.sort"],
+            "direction": isset(pagingOptions["options.sort"]) && count(order) ? current(order) : null,
             "sortDefault": sortDefault,
             "directionDefault": directionDefault,
             "completeSort": order,
@@ -447,12 +447,12 @@ class DPaginator : IPaginator {
                 direction = "asc";
             }
 
-            order = isset(paginationData["order"]) && paginationData["order"].isArray ? paginationData["order"] : [];
-            if (order && paginationData["sort"] && indexOf(paginationData["sort"], ".") == false) {
+            order = paginationData.hasKey("order") && paginationData["order"].isArray ? paginationData["order"] : [];
+            if (order && paginationData.hasKey("sort") && indexOf(paginationData.getString("sort"), ".") == false) {
                 order = _removeAliases(order, repository.aliasName());
             }
 
-            paginationData["order"] = [paginationData["sort"]: direction] + order;
+            paginationData["order"] = [paginationData.hasKey("sort"): direction] + order;
         } else {
             paginationData["sort"] = null;
         }
@@ -468,9 +468,10 @@ class DPaginator : IPaginator {
         sortAllowed = false;
         allowed = getSortableFields(paginationData);
         if (allowed !== null) {
-            paginationData["sortableFields"] = paginationData["sortWhitelist"] = allowed;
+            paginationData["sortableFields"] = allowed;
+            paginationData["sortWhitelist"] = allowed;
 
-            myField = key(paginationData["order"]);
+            myField = key(paginationData.hasKey("order"));
             sortAllowed = in_array(myField, allowed, true);
             if (!sortAllowed) {
                 paginationData["order"]= null;

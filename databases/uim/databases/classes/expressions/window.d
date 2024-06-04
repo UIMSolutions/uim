@@ -139,13 +139,13 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
         if (this.frame) {
             mystart = this.buildOffsetSql(
                 mybinder,
-                this.frame["start"]["offset"],
-                this.frame["start"]["direction"]
+                this.frame["start.offset"],
+                this.frame["start.direction"]
             );
             myend = this.buildOffsetSql(
                 mybinder,
-                this.frame["end"]["offset"],
-                this.frame["end"]["direction"]
+                this.frame["end.offset"],
+                this.frame["end.direction"]
             );
 
             myframeSql = "%s BETWEEN %s AND %s".format(this.frame["type"], mystart, myend);
@@ -169,7 +169,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
             _order.traverse(mycallback);
         }
         if (!frame.isNull) {
-            myoffset = this.frame["start"]["offset"];
+            myoffset = this.frame["start.offset"];
             if (cast(IExpression) myoffset) {
                 mycallback(myoffset);
                 myoffset.traverse(mycallback);

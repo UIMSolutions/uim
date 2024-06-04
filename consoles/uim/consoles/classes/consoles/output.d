@@ -211,7 +211,7 @@ class DConsoleOutput {
         if (!style["text"].isEmpty) && _foregroundColors.hasKey(style.getString("text")) {
             styleInfo ~= _foregroundColors[style["text"]];
         }
-        if (!style.isEmpty("background")) && isSet(_backgroundColors[style["background"]])) {
+        if (!style.isEmpty("background")) && _backgroundColors.hasKey(style["background"])) {
             styleInfo ~= _backgroundColors[style["background"]];
         }
         style.remove("text", "background");
@@ -219,7 +219,7 @@ class DConsoleOutput {
             .filter!(optionValue => optionValue.value)
             .each!(optionValue => styleInfo ~= _options[optionValue.option]);
 
-        return "\033[" ~ join(";", styleInfo) ~ "m" ~ matchesToReplace["text"] ~ "\033[0m";
+        return "\033[" ~ styleInfo.join(";") ~ "m" ~ matchesToReplace.getString("text") ~ "\033[0m";
     }
     
     // Writes a message to the output stream.

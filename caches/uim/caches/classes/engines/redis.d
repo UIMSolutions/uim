@@ -112,7 +112,7 @@ class DRedisCacheEngine : DCacheEngine {
     }
     
     // Read a key from the cache
-    Json get(string aKey, Json defaultValue = Json(null)) {
+    override Json get(string aKey, Json defaultValue = Json(null)) {
         auto value = _redis.get(_key(aKey));
         return value == false
             ? defaultValue  
@@ -120,19 +120,19 @@ class DRedisCacheEngine : DCacheEngine {
     }
     
     // Increments the value of an integer cached key & update the expiry time
-    int increment(string itemKey, int incOffset = 1) {
-        auto aDuration = configuration.get("duration");
+    override int increment(string itemKey, int incOffset = 1) {
+        /* auto aDuration = configuration.get("duration");
         auto aKey = _key(itemKey);
 
         auto aValue = _redis.incrBy(aKey, incOffset);
         if (aDuration > 0) {
            _redis.expire(aKey,  aDuration);
-        }
-        return aValue;
+        } */
+        return 0; // aValue;
     }
     
     // Decrements the value of an integer cached key & update the expiry time
-    int decrement(string itemKey, int decValue = 1) {
+    override int decrement(string itemKey, int decValue = 1) {
         auto aDuration = configuration.get("duration");
         auto aKey = _key(itemKey);
 
@@ -153,7 +153,7 @@ class DRedisCacheEngine : DCacheEngine {
      * Delete a key from the cache asynchronously
      * Just unlink a key from the cache. The actual removal will happen later asynchronously.
      */
-    override bool deleteAsync(string dataIdentifier) {
+    /* override  */bool deleteAsync(string dataIdentifier) {
         auto key = _key(dataId);
         return _redis.unlink(key) > 0;
     }
@@ -225,7 +225,7 @@ class DRedisCacheEngine : DCacheEngine {
      * Returns the `group value` for each of the configured groups
      * If the group initial value was not found, then it initializes the group accordingly.
      */
-    string[] groups() {
+    override string[] groups() {
         string[] result;
         configuration.get("groups").each!((group) {
             auto aValue = _redis.get(configuration.get("prefix") ~  group);

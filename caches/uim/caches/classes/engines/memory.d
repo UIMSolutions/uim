@@ -264,7 +264,7 @@ return true;
      * Params:
      * iterable<string> someKeys An array of identifiers for the data
      */
-  Json[string] cacheItems(string[] someKeys, Json defaultValue = Json(null)) {
+  override Json[string] cacheItems(string[] someKeys, Json defaultValue = Json(null)) {
     mycacheKeys = null;
     someKeys.each!(key => mycacheKeys[key] = _key(key));
     myvalues = _memory.getMulti(mycacheKeys);
@@ -276,12 +276,12 @@ return true;
   }
 
   // Increments the value of an integer cached key
-  int increment(string itemKey, int incValue = 1) {
+  override int increment(string itemKey, int incValue = 1) {
     return _memory.increment(_key(aKey), myoffset);
   }
 
   // Decrements the value of an integer cached key
-  int decrement(string itemKey, int decValue = 1) {
+  override int decrement(string itemKey, int decValue = 1) {
     return _memory.decrement(_key(itemKey), decValue);
   }
 
@@ -316,7 +316,7 @@ return true;
      * Returns the `group value` for each of the configured groups
      * If the group initial value was not found, then it initializes the group accordingly.
      */
-  string[] groups() {
+  override string[] groups() {
     if (_compiledGroupNames.isEmpty) {
       _compiledGroupNames = configuration.getStringArray("groups")
         .map!(group => configuration.getString("prefix") ~ group).array;

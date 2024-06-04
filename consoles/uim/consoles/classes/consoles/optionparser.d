@@ -131,40 +131,40 @@ class DConsoleOptionParser {
     // Array of args (argv).
     // TODO protected Json[string] _token;
     */
-    
+
     // #region rootName
-        // Root alias used in help output
-        protected string _rootName = "uim";
-        // Set the root name used in the HelpFormatter
-        @property rootName(string aName) {
-            _rootName = name;
-        }
+    // Root alias used in help output
+    protected string _rootName = "uim";
+    // Set the root name used in the HelpFormatter
+    @property rootName(string aName) {
+        _rootName = name;
+    }
     // #endregion rootName
 
     // #region epilog
-        /**
+    /**
         * Sets an epilog to the parser. The epilog is added to the end of
         * the options and arguments listing when help is generated. */
-        mixin(TProperty!("string", "epilog")); 
+    mixin(TProperty!("string", "epilog"));
 
-        @property void epilog(string[] texts) {
-            epilog(texts.join("\n"));
-        }        
+    @property void epilog(string[] texts) {
+        epilog(texts.join("\n"));
+    }
     // #endregion epilog
 
     // #region command
-        // Command name.
-        protected string _command = "";
+    // Command name.
+    protected string _command = "";
 
-        // Sets the command name for shell/task.
-        void setCommand(string newCommandName) {
-            // TODO _command = Inflector.underscore(newCommandName);
-        }
+    // Sets the command name for shell/task.
+    void setCommand(string newCommandName) {
+        // TODO _command = Inflector.underscore(newCommandName);
+    }
 
-        // Gets the command name for shell/task.
-        string getCommand() {
-            return _command;
-        }
+    // Gets the command name for shell/task.
+    string getCommand() {
+        return _command;
+    }
     // #endregion command
 
     /**
@@ -176,29 +176,29 @@ class DConsoleOptionParser {
         setCommand(command);
 
         addOption("help", [
-            "short": "h",
-            "help": "Display this help.",
-            "boolean": true.toJson,
-        ]);
+                "short": "h",
+                "help": "Display this help.",
+                "boolean": true.toJson,
+            ]);
 
         if (isVerboseAndQuiet) {
             addOption("verbose", [
-                "short": "v",
-                "help": "Enable verbose output.",
-                "boolean": true.toJson,
-            ]).addOption("quiet", [
-                "short": "q",
-                "help": "Enable quiet output.",
-                "boolean": true.toJson,
-            ]);
+                    "short": "v",
+                    "help": "Enable verbose output.",
+                    "boolean": true.toJson,
+                ]).addOption("quiet", [
+                    "short": "q",
+                    "help": "Enable quiet output.",
+                    "boolean": true.toJson,
+                ]);
         }
     }
-    
+
     // Static factory method for creating new DOptionParsers so you can chain methods off of them.
     static auto create(string commandName, bool useDefaultOptions = true) {
         return new static(commandName, useDefaultOptions);
     }
-    
+
     /**
      * Build a parser from an array. Uses an array like
      *
@@ -220,20 +220,20 @@ class DConsoleOptionParser {
     static auto buildFromArray(Json[string] sepcData, bool isVerboseAndQuiet = true) {
         auto aParser = new static(sepcData["command"], isVerboseAndQuiet);
         if (!sepcData["arguments"].isEmpty) {
-             aParser.addArguments(sepcData["arguments"]);
+            aParser.addArguments(sepcData["arguments"]);
         }
         if (!sepcData["options"].isEmpty) {
-             aParser.addOptions(sepcData["options"]);
+            aParser.addOptions(sepcData["options"]);
         }
         if (!sepcData["description"].isEmpty) {
-             aParser.description(sepcData["description"]);
+            aParser.description(sepcData["description"]);
         }
         if (!sepcData["epilog"].isEmpty) {
-             aParser.setEpilog(sepcData["epilog"]);
+            aParser.setEpilog(sepcData["epilog"]);
         }
         return aParser;
     }
-    
+
     // Returns an array representation of this parser.
     Json[string] toArray() {
         return [
@@ -244,7 +244,7 @@ class DConsoleOptionParser {
             "epilog": Json(_epilog),
         ];
     }
-    
+
     /**
      * Get or set the command name for shell/task.
      * Params:
@@ -258,13 +258,16 @@ class DConsoleOptionParser {
         if (!spec["arguments"].isEmpty) {
             this.addArguments(spec["arguments"]);
         }
-        if (!spec["options"].isEmpty)) {
+        if (!spec["options"].isEmpty)
+            ) {
             addOptions(spec["options"]);
         }
-        if (!spec["description"].isEmpty)) {
+        if (!spec["description"].isEmpty)
+            ) {
             this.description(spec["description"]);
         }
-        if (!spec["epilog"].isEmpty)) {
+        if (!spec["epilog"].isEmpty)
+            ) {
             setEpilog(spec["epilog"]);
         }
     }
@@ -293,49 +296,50 @@ class DConsoleOptionParser {
      * options An array of parameters that define the behavior of the option
      */
     void addOption(string optionName, Json[string] behaviorOptions = null) {
-            defaultValues = [
-                "short": "".toJson,
-                "help": "".toJson,
-                "default": Json(null),
-                "boolean": false.toJson,
-                "multiple": false.toJson,
-                "choices": Json.emptyArray,
-                "required": false.toJson,
-                "prompt": Json(null),
-            ];
-            behaviorOptions = behaviorOptions.update(defaultValues);
-            
-            auto inputOption = new DConsoleInputOption(
-                name,
-                behaviorOptions["short"],
-                behaviorOptions["help"],
-                behaviorOptions["boolean"],
-                behaviorOptions["default"],
-                behaviorOptions["choices"],
-                behaviorOptions["multiple"],
-                behaviorOptions["required"],
-                behaviorOptions["prompt"]
-            );
-        }
-        addOption(inputOption, behaviorOptions) {
+        defaultValues = [
+            "short": "".toJson,
+            "help": "".toJson,
+            "default": Json(null),
+            "boolean": false.toJson,
+            "multiple": false.toJson,
+            "choices": Json.emptyArray,
+            "required": false.toJson,
+            "prompt": Json(null),
+        ];
+        behaviorOptions = behaviorOptions.update(defaultValues);
+
+        auto inputOption = new DConsoleInputOption(
+            name,
+            behaviorOptions["short"],
+            behaviorOptions["help"],
+            behaviorOptions["boolean"],
+            behaviorOptions["default"],
+            behaviorOptions["choices"],
+            behaviorOptions["multiple"],
+            behaviorOptions["required"],
+            behaviorOptions["prompt"]
+        );
+    }
+
+    addOption(inputOption, behaviorOptions) {
     }
 
     void addOption(ConsoleInputOption inputOption, Json[string] behaviorOptions = null) {
-            string optionName = inputOption.name();
+        string optionName = inputOption.name();
 
-       _options[optionName] = inputOption;
+        _options[optionName] = inputOption;
         asort(_options);
         if (inputOption.short()) {
-           _shortOptions[inputOption.short()] = optionName;
+            _shortOptions[inputOption.short()] = optionName;
             asort(_shortOptions);
         }
     }
-    
+
     // Remove an option from the option parser.
     void removeOption(string optionName) {
         _options.remove(optionName);
     }
-    
+
     /**
      * Add a positional argument to the option parser.
      *
@@ -359,7 +363,7 @@ class DConsoleOptionParser {
     void addArgument(string aName, Json[string] params = null) {
         // TODO
     }
-    
+
     /**
      * Add multiple arguments at once. Take an array of argument definitions.
      * The keys are used as the argument names, and the values as params for the argument.
@@ -367,45 +371,45 @@ class DConsoleOptionParser {
      * array<string, Json[string]|\UIM\Console\ConsoleInputArgument> someArguments Array of arguments to add.
      */
     void addArguments(Json[string] someArguments) {
-        foreach (name: params; someArguments) {
-            if (cast(DConsoleInputArgument)params) {
+        foreach (name : params; someArguments) {
+            if (cast(DConsoleInputArgument) params) {
                 name = params;
                 params = null;
             }
             this.addArgument(name, params);
         }
     }
-    
+
     /**
      * Add multiple options at once. Takes an array of option definitions.
      * The keys are used as option names, and the values as params for the option.
      */
     void addOptions(Json[string] optionsToAdd = null) {
-        foreach (name: params; optionsToAdd) {
-            if (cast(DConsoleInputOption)params) {
+        foreach (name : params; optionsToAdd) {
+            if (cast(DConsoleInputOption) params) {
                 name = params;
                 params = null;
             }
             this.addOption(name, params);
         }
     }
-    
+
     // Gets the arguments defined in the parser.
     ConsoleInputArgument[] arguments() {
         return _args;
     }
-    
+
     // Get the list of argument names.
     string[] argumentNames() {
         auto results = _args.map(arg => arg.name()).array;
         return results;
     }
-    
+
     // Get the defined options in the parser.
     ConsoleInputOption[string] options() {
         return _options;
     }
-    
+
     /**
      * Parse the argv array into a set of params and args.
      * Params:
@@ -413,7 +417,7 @@ class DConsoleOptionParser {
      */
     Json[string] parse(Json[string] argToParse, IConsoleIo aConsoleIo = null) {
         params = someArguments = null;
-       _tokens = argToParse;
+        _tokens = argToParse;
 
         afterDoubleDash = false;
         while ((token = array_shift(_tokens)) !is null) {
@@ -438,7 +442,7 @@ class DConsoleOptionParser {
         if (params.hasKey("help")) {
             return [params, someArguments];
         }
-        foreach (index: arg; argToParse) {
+        foreach (index : arg; argToParse) {
             if (arg.isRequired() && !isSet(someArguments[index])) {
                 throw new DConsoleException(
                     "Missing required argument. The `%s` argument is required.".format(arg.name())
@@ -447,10 +451,10 @@ class DConsoleOptionParser {
         }
         _options.each!((option) {
             name = option.name();
-             isBoolean = option.isBoolean();
+            isBoolean = option.isBoolean();
             defaultValue = option.defaultValue();
 
-            useDefault = !isSet(params[name]);
+            useDefault = !params.hasKey(name);
             if (defaultValue !is null && useDefault && !isBoolean) {
                 params[name] = defaultValue;
             }
@@ -458,7 +462,7 @@ class DConsoleOptionParser {
                 params[name] = false;
             }
             prompt = option.prompt();
-            if (!isSet(params[name]) && prompt) {
+            if (!params.hasKey(name) && prompt) {
                 if (!aConsoleIo) {
                     throw new DConsoleException(
                         "Cannot use interactive option prompts without a ConsoleIo instance. " ~
@@ -468,43 +472,39 @@ class DConsoleOptionParser {
                 choices = option.choices();
 
                 aValue = choices
-                    ? aConsoleIo.askChoice(prompt, choices)
-                    : aConsoleIo.ask(prompt);
+                    ? aConsoleIo.askChoice(prompt, choices) : aConsoleIo.ask(prompt);
 
                 params[name] = aValue;
             }
             if (option.isRequired() && !isSet(params[name])) {
                 throw new DConsoleException(
-                    "Missing required option. The `%s` option is required and has no default value.".format(name)
+                    "Missing required option. The `%s` option is required and has no default value.".format(
+                    name)
                 );
             }
         });
         return [params, someArguments];
     }
-    
+
     /**
      * Gets formatted help for this parser object.
      *
      * Generates help text based on the description, options, arguments and epilog
      * in the parser.
-     * Params:
-     * string aformat Define the output format, can be text or XML
      */
-    string help(string aformat = "text", int formatWidth = 72) {
+    string help(string outputFormat = "text", int formatWidth = 72) {
         auto formatter = new DHelpFormatter(this);
         formatter.aliasName(_rootName);
 
-        if (format == "text") {
+        if (outputFormat == "text") {
             return formatter.text(formatWidth);
         }
-        if (format == "xml") {
+        if (outputFormat == "xml") {
             return to!string(formatter.xml());
         }
         throw new DConsoleException("Invalid format. Output format can be text or xml.");
     }
-    
 
-    
     /**
      * Parse the value for a long option out of _tokens. Will handle
      * options with an `=` in them.
@@ -517,7 +517,7 @@ class DConsoleOptionParser {
         }
         return _parseOption(name, paramsData);
     }
-    
+
     /**
      * Parse the value for a short option out of _tokens
      * If the option is a combination of multiple shortcuts like -otf
@@ -528,13 +528,13 @@ class DConsoleOptionParser {
         if (aKey.length > 1) {
             flags = str_split(aKey);
             aKey = flags[0];
-            for (anI = 1, len = count(flags);  anI < len;  anI++) {
+            for (anI = 1, len = count(flags); anI < len; anI++) {
                 array_unshift(_tokens, "-" ~ flags[anI]);
             }
         }
         if (!_shortOptions.hasKey(aKey)) {
             auto options = _shortOptions.byKeyValue
-                .map!(shortLong => shortLong.key ~ " (short for `--"~shortLong.value~"`)");
+                .map!(shortLong => shortLong.key ~ " (short for `--" ~ shortLong.value ~ "`)");
 
             throw new DMissingOptionException(
                 "Unknown short option `%s`.".format(aKey),
@@ -545,7 +545,7 @@ class DConsoleOptionParser {
 
         return _parseOption(name, paramsToAppen);
     }
-    
+
     /**
      * Parse an option by its name index.
      * Params:
@@ -555,12 +555,13 @@ class DConsoleOptionParser {
     protected Json[string] _parseOption(string nameToParse, Json[string] params) {
         if (!_options.hasKey(nameToParse)) {
             throw new DMissingOptionException(
-                "Unknown option `%s`.".format(nameToParse),
+                "Unknown option `%s`.".format(
+                    nameToParse),
                 nameToParse, _options.keys
             );
         }
         option = _options[nameToParse];
-         isBoolean = option.isBoolean();
+        isBoolean = option.isBoolean();
         nextValue = _nextToken();
         emptyNextValue = (isEmpty(nextValue) && nextValue != "0");
         if (!isBoolean && !emptyNextValue && !_optionExists(nextValue)) {
@@ -579,7 +580,7 @@ class DConsoleOptionParser {
         }
         return params;
     }
-    
+
     // Check to see if name has an option (short/long) defined for it.
     protected bool _optionExists(string optionName) {
         if (optionName.startsWith("--")) {
@@ -590,7 +591,7 @@ class DConsoleOptionParser {
         }
         return false;
     }
-    
+
     /**
      * Parse an argument, and ensure that the argument doesn`t exceed the number of arguments
      * and that the argument is a valid choice.
@@ -606,17 +607,17 @@ class DConsoleOptionParser {
             expected = count(_args);
             throw new DConsoleException(
                 "Received too many arguments. Got `%s` but only `%s` arguments are defined."
-                .format(next, expected)
+                    .format(next, expected)
             );
         }
-       _args[next].validChoice(argument);
+        _args[next].validChoice(argument);
         someArguments ~= argument;
 
         return someArguments;
     }
-    
+
     // Find the next token in the argv set.
     protected string _nextToken() {
-        return _tokens[0] ?? "";
+        return _tokens[0] ?  ? "";
     }
 }

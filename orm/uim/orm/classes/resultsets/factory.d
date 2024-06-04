@@ -153,7 +153,7 @@ class DResultsetFactory {
             if (myassoc["canBeJoined"] && tableMetadata["autoFields"] != false) {
                 myhasData = false;
                 foreach (results[aliasName] as myv) {
-                    if (myv !isNull && myv != []) {
+                    if (myv !is null && myv != []) {
                         myhasData = true;
                         break;
                     }
@@ -162,7 +162,7 @@ class DResultsetFactory {
                     results[aliasName] = null;
                 }
             }
-            if (tableMetadata["hydrate"] && results[aliasName] !isNull && myassoc["canBeJoined"]) {
+            if (tableMetadata["hydrate"] && results[aliasName] !is null && myassoc["canBeJoined"]) {
                 myentity = new myassoc["entityClass"](results[aliasName], options);
                 results[aliasName] = myentity;
             }

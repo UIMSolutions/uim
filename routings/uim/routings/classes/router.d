@@ -415,10 +415,10 @@ class DRouter {
      * For example: `http://example.com`
      */
     static string fullBaseUrl(string mybase = null) {
-        if (mybase.isNull && _fullBaseUrl !isNull) {
+        if (mybase.isNull && _fullBaseUrl !is null) {
             return _fullBaseUrl;
         }
-        if (mybase !isNull) {
+        if (mybase !is null) {
             _fullBaseUrl = mybase;
             Configuration.update("App.fullBaseUrl", mybase);
         } else {

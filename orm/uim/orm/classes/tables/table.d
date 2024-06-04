@@ -180,14 +180,14 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                             .value));
             }
         }
-        _eventManager = myeventManager ?  : new DEventManager();
-        _behaviors = mybehaviors ?  : new BehaviorRegistry();
+        _eventManager = myeventManager.ifNull(new DEventManager());
+        _behaviors = mybehaviors.ifNull(new BehaviorRegistry());
         _behaviors.setTable(this);
-        _associations = myassociations ?  : new AssociationCollection();
+        _associations = myassociations.ifNull(new AssociationCollection());
         /** @psalm-suppress TypeDoesNotContainType */
-        this.queryFactory ??= new DQueryFactory();
+        queryFactory = queryFactory.ifNull(new DQueryFactory());
 
-        assert(_eventManager !isNull, "EventManager not available");
+        assert(_eventManager !is null, "EventManager not available");
 
         _eventManager.on(this);
         dispatchEvent("Model.initialize"); */
@@ -247,9 +247,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     // BehaviorRegistry for this table
     protected IBehaviorRegistry _behaviors;
 
-
     protected IQueryFactory myqueryFactory;
-
     
     /**
      * Get the default connection name.
@@ -311,13 +309,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         return _table;
     }
     
-    /**
-     * Sets the table alias.
-     * Params:
-     * string aliasName Table alias
-     */
-    void aliasName(string tableAlias) {
-       _aliasName = tableAlias;
+    // Sets the table alias.
+    void aliasName(string aliasName) {
+       _aliasName = aliasName;
     }
     
     // Returns the table alias.
@@ -337,10 +331,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     
     /**
      * Alias a field with the table"s current alias.
-     *
      * If field is already aliased it will result in no-op.
-     * Params:
-     * string fieldName The field to alias.
      */
     string aliasField(string fieldName) {
         if (fieldName.has(".")) {
@@ -354,13 +345,13 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string myregistryAlias The key used to access this object.
      */
-    void registryKey(string myregistryAlias) {
-       _registryAlias = myregistryAlias;
+    void registryKey(string key) {
+       _registryAlias = key;
     }
     
     // Returns the table registry key used to create this table instance.
     string registryKey() {
-        return _registryAlias ??= aliasName();
+        return _registryAlias = _registryAlias.ifEmpty(aliasName());
     }
     
     // Sets the connection instance.
@@ -368,9 +359,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
        _connection = myconnection;
     }
     
-    /**
-     * Returns the connection instance.
-     */
+    // Returns the connection instance.
     Connection getConnection() {
         if (!_connection) {
             myconnection = ConnectionManager.get(defaultConnectionName());
@@ -402,7 +391,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * \UIM\Database\Schema\TableISchema|array myschema Schema to be used for this table
      */
-    void setSchema(TableISchema|array myschema) {
+    void setSchema(TableISchema/* |array  */ myschema) {
         if (isArray(myschema)) {
             auto constraints = null;
 
@@ -450,9 +439,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                 "The table alias `%s` and column `%` create an alias longer than (%s). " ~
                 "You must change the table schema in the database and shorten either the table or column " ~
                 "identifier so they fit within the database alias limits.")
-                .format(tableName, name, nameLength);
+                .format(tableName, name, nameLength)
             );
-        };
+        }
     }
     
     /**
@@ -464,7 +453,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * string fieldName The field to check for.
      */
     bool hasField(string fieldName) {
-        return _getSchema().getColumn(fieldName) !isNull;
+        return _getSchema().getColumn(fieldName) !is null;
     }
     
     /**
@@ -472,6 +461,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string[]|string aKey Sets a new name to be used as primary key
      */
+    void primaryKeys(string[]|string aKey) {
+       _primaryKey = aKey;
+    }
+
     void primaryKeys(string[]|string aKey) {
        _primaryKey = aKey;
     }
@@ -503,7 +496,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Returns the display field.
      */
     string[] getDisplayField() {
-        if (_displayField !isNull) {
+        if (_displayField !is null) {
             return _displayField;
         }
         myschema = getSchema();
@@ -700,7 +693,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * string myname The alias used for the association.
      */
    bool hasAssociation(string myname) {
-        return _findAssociation(myname) !isNull;
+        return _findAssociation(myname) !is null;
     }
     
     /**
@@ -720,10 +713,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         }
         result = null;
         [myname, mynext] = array_pad(split(".", myname, 2), 2, null);
-        if (myname !isNull) {
+        if (myname !is null) {
             result = _associations.get(myname);
         }
-        if (result !isNull && mynext !isNull) {
+        if (result !is null && mynext !is null) {
             result = result.getTarget().getAssociation(mynext);
         }
         return result;
@@ -1393,7 +1386,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         myquery = _getFindOrCreateQuery(mysearch);
 
         myrow = myquery.first();
-        if (myrow !isNull) {
+        if (myrow !is null) {
             return myrow;
         }
         myentity = this.newEmptyEntity();
@@ -1401,7 +1394,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             myaccessibleFields = array_combine(mysearch.keys, array_fill(0, count(mysearch), true));
             myentity = this.patchEntity(myentity, mysearch, ["accessibleFields": myaccessibleFields]);
         }
-        if (mycallback !isNull) {
+        if (mycallback !is null) {
             myentity = mycallback(myentity) ?: myentity;
         }
         options.remove("defaults");
@@ -1773,7 +1766,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         primaryKey = array_intersect_key(mydata, primaryKey) + primaryKey;
 
         myfilteredKeys = array_filter(primaryKey, auto (myv) {
-            return myv !isNull;
+            return myv !is null;
         });
         mydata += myfilteredKeys;
 
@@ -1809,7 +1802,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                 if (!mydata.hasKey(aKey)) {
                     myid = mystatement.lastInsertId(getTable(), aKey);
                     mytype = myschema.getColumnType(aKey);
-                    assert(mytype !isNull);
+                    assert(mytype !is null);
                     myentity.set(aKey, TypeFactory.build(mytype).ToD(myid, mydriver));
                     break;
                 }
@@ -1835,7 +1828,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             return null;
         }
         mytypeName = getSchema().getColumnType(myprimary[0]);
-        assert(mytypeName !isNull);
+        assert(mytypeName !is null);
         mytype = TypeFactory.build(mytypeName);
 
         return mytype.newId();
@@ -1956,7 +1949,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
 
             throw mye;
         }
-        if (myfailed !isNull) {
+        if (myfailed !is null) {
             mycleanupOnFailure(myentities);
 
             throw new DPersistenceFailedException(myfailed, ["saveMany"]);
@@ -2047,12 +2040,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] options Options used when calling Table.save() for each entity.
      */
     IORMEntity[] deleteMany(Json[string] myentities, Json[string] optionData = null) {
-        myfailed = _deleteMany(myentities, options);
-
-        if (myfailed !isNull) {
-            return false;
-        }
-        return myentities;
+        auto myfailed = _deleteMany(myentities, options);
+        return myfailed !is null
+            ? false
+            : myentities;
     }
     
     /**
@@ -2066,9 +2057,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] options Options used when calling Table.save() for each entity.
      */
     iterable<\UIM\Datasource\IORMEntity> deleteManyOrFail(Json[string] myentities, Json[string] optionData = null) {
-        myfailed = _deleteMany(myentities, options);
+        auto myfailed = _deleteMany(myentities, options);
 
-        if (myfailed !isNull) {
+        if (myfailed !is null) {
             throw new DPersistenceFailedException(myfailed, ["deleteMany"]);
         }
         return myentities;
@@ -2133,7 +2124,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (myentity.isNew()) {
             return false;
         }
-        myprimaryKey = (array)this.primaryKeys();
+        
+        auto myprimaryKey = (array)this.primaryKeys();
         if (!myentity.has(myprimaryKey)) {
             mymsg = "Deleting requires all primary key values.";
             throw new DInvalidArgumentException(mymsg);
@@ -2151,7 +2143,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         }
         mysuccess = _associations.cascadeRemove(
             myentity,
-            ["_primary": false.toJson + options.getArrayCopy()
+            ["_primary": false.toJson + options.getArrayCopy()}
         );
         if (!mysuccess) {
             return mysuccess;
@@ -2176,10 +2168,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string mytype name of finder to check
      */
-   bool hasFinder(string mytype) {
-        myfinder = "find" ~ mytype;
-
-        return method_exists(this, myfinder) || _behaviors.hasFinder(mytype);
+   bool hasFinder(string finderType) {
+        auto finderName = "find" ~ finderType;
+        return method_exists(this, finderName) || _behaviors.hasFinder(finderType);
     }
     
     /**
@@ -2191,17 +2182,17 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param \ORM\Query\SelectQuery<TSubject> myquery The query object to apply the finder options to.
      * @param Json ...myargs Arguments that match up to finder-specific parameters
      */
-    SelectQuery<TSubject> callFinder(string mytype, SelectQuery myquery, Json ...myargs) {
-        string myfinder = "find" ~ mytype;
+    SelectQuery<TSubject> callFinder(string finderType, SelectQuery myquery, Json ...myargs) {
+        string myfinder = "find" ~ finderType;
         if (method_exists(this, myfinder)) {
             return _invokeFinder(this.{myfinder}(...), myquery, myargs);
         }
-        if (_behaviors.hasFinder(mytype)) {
-            return _behaviors.callFinder(mytype, myquery, ...myargs);
+        if (_behaviors.hasFinder(finderType)) {
+            return _behaviors.callFinder(finderType, myquery, ...myargs);
         }
         throw new BadMethodCallException(
             "Unknown finder method `%s` on `%s`.".format(
-            mytype,
+            finderType,
             class
         ));
     }
@@ -2628,7 +2619,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         );
         myvalues = myentity.extract(fieldNames);
         foreach (myvalues as fieldName) {
-            if (fieldName !isNull && !isScalar(fieldName)) {
+            if (fieldName !is null && !isScalar(fieldName)) {
                 return false;
             }
         }

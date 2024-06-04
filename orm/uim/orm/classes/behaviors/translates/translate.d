@@ -109,7 +109,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * Get strategy class instance.
      */
     ITranslateStrategy getStrategy() {
-        if (this.strategy!isNull) {
+        if (this.strategy!is null) {
             return _strategy;
         }
         return _strategy = this.createStrategy();

@@ -140,7 +140,7 @@ class DFixtureHelper {
                 if (aConnection.getDriver().supports(DriverFeatures.TRUNCATE_WITH_CONSTRAINTS)) {
                     sortedFixtures = this.sortByConstraint(aConnection,  anGroupFixtures);
                 }
-                if (sortedFixtures !isNull) {
+                if (sortedFixtures !is null) {
                     this.truncateConnection(aConnection, array_reverse(sortedFixtures));
                 } else {
                     helper = new DConnectionHelper();

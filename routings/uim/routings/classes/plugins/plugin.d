@@ -120,7 +120,7 @@ class DPlugin : IPlugin {
     }
  
     string getTemplatePath() {
-        if (this.templatePath !isNull) {
+        if (this.templatePath !is null) {
             return _templatePath;
         }
         somePath = getPath();

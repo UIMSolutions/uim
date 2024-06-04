@@ -255,7 +255,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * on UIM\Collection\Collection.
      */
     IResultset<mixed> all() {
-        if (_results !isNull) {
+        if (_results !is null) {
             if (!(cast(IResultset)_results)) {
                _results = _decorateResults(_results);
             }
@@ -1150,7 +1150,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     // Handles cloning eager loaders.
     auto clone() {
         super.clone();
-        if (_eagerLoader !isNull) {
+        if (_eagerLoader !is null) {
            _eagerLoader = clone _eagerLoader;
         }
     }
@@ -1172,7 +1172,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     protected int _performCount() {
         myquery = this.cleanCopy();
         mycounter = _counter;
-        if (mycounter !isNull) {
+        if (mycounter !is null) {
             myquery.counter(null);
 
             return to!int(mycounter(myquery));
@@ -1193,7 +1193,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
                 }
             }
         }
-        if (!mycomplex && _valueBinder !isNull) {
+        if (!mycomplex && _valueBinder !is null) {
             myorder = this.clause("order");
             assert(myorder.isNull || cast(QueryExpression)myorder);
             mycomplex = myorder.isNull ? false : myorder.hasNestedExpression();

@@ -199,7 +199,7 @@ class DEagerLoadable {
             .map!(association => association.asContainArray()).array;
         
         auto configData = configuration.data;
-        if (_forMatching !isNull) {
+        if (_forMatching !is null) {
             configData = configData.merge(["matching": _forMatching]);
         }
 

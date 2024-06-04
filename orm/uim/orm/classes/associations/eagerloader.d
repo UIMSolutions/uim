@@ -219,7 +219,7 @@ class DEagerLoader {
      * will be normalized.
      */
     array normalized(Table myrepository) {
-        if (_normalized !isNull || _containments.isEmpty) {
+        if (_normalized !is null || _containments.isEmpty) {
             return /* (array) */_normalized;
         }
         mycontain = null;
@@ -570,7 +570,7 @@ class DEagerLoader {
         if (!getMatching() && !getContain() && _joinsMap.isEmpty) {
             return mymap;
         }
-        assert(_matching !isNull, "EagerLoader not available");
+        assert(_matching !is null, "EagerLoader not available");
 
         mymap = _buildAssociationsMap(mymap, _matching.normalized(mytable), true);
         mymap = _buildAssociationsMap(mymap, this.normalized(mytable));

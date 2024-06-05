@@ -48,7 +48,7 @@ class DTranslator : ITranslator {
         ICatalog catalog,
         II18NFormatter messageFormatter,
         ITranslator fallback = null
-    ) {
+   ) {
         /* _locale = localeName;
         _catalog(catalog);
         _formatter = messageFormatter;

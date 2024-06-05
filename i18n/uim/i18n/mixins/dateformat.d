@@ -17,7 +17,7 @@ mixin template TDateFormat() {
         IDateTime date,
         string[] aformat,
         string localName
-    ) {
+   ) {
         string somePattern = "";
 
         if (isArray(format)) {
@@ -52,13 +52,13 @@ mixin template TDateFormat() {
                 timezone,
                 calendar,
                  somePattern
-            );
+           );
 
             if (!formatter) {
                 throw new DException(
                     "Your version of icu does not support creating a date formatter for " ~
                     "`aKey`. You should try to upgrade libicu and the intl extension."
-                );
+               );
             }
             formatters[aKey] = formatter;
         }
@@ -93,7 +93,7 @@ mixin template TDateFormat() {
         string atime,
         string[] aformat,
         /* DateTimeZone| */ string tz = null
-    ) {
+   ) {
         string somePattern = "";
 
         if (isArray(format)) {
@@ -110,7 +110,7 @@ mixin template TDateFormat() {
             tz,
             null,
              somePattern
-        );
+       );
         if (!formatter) {
             throw new DException("Unable to create IntlDateFormatter instance");
         }

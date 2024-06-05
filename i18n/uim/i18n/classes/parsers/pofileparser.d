@@ -143,7 +143,7 @@ class DPoFileParser {
                 break;
             }
         } else if (line.startsWith(" msgid_plural\"")
-            ) {
+           ) {
             anItem["ids.plural"] = substr(line, 14, -1);
             stage = ["ids", "plural"];
         } else if (line.startsWith("msgstr[")) {

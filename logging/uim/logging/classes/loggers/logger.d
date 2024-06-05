@@ -85,7 +85,7 @@ class DLogger : ILogger {
             "/(?<!" ~ preg_quote("\\", "/") ~ ")\{([a-z0-9-_]+)\}/i",
             formattedMessage,
             matches
-        ); */
+       ); */
         if (isEmpty(matches)) {
             return formattedMessage;
         }

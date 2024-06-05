@@ -32,7 +32,7 @@ string __n(string singularText, string pluralText, size_t count, Json ...someArg
     return I18n.getTranslator().translate(
         plural,
         ["_count": count, "_singular": singularText] + someArguments
-    );
+   );
 }
 
 /**
@@ -74,7 +74,7 @@ string __dn(string adomain, string asingular, string aplural, int count, Json ..
     return I18n.getTranslator(domain).translate(
         plural,
         ["_count": count, "_singular": singular] + someArguments
-    );
+   );
 }
 /**
  * Returns a translated string if one is found; Otherwise, the submitted message.
@@ -117,7 +117,7 @@ string __xn(string acontext, string asingular, string aplural, int count, Json .
     return I18n.getTranslator().translate(
         plural,
         ["_count": count, "_singular": singular, "_context": context] + someArguments
-    );
+   );
 }
 
 /**
@@ -140,7 +140,7 @@ string __dx(string adomain, string acontext, string amsg, Json ...someArguments)
     return I18n.getTranslator(domain).translate(
         message,
         ["_context": context] + someArguments
-    );
+   );
 }
 
 /**
@@ -173,5 +173,5 @@ string __dxn(
     return I18n.getTranslator(domain).translate(
         plural,
         ["_count": count, "_singular": singular, "_context": context] + someArguments
-    ); 
+   ); 
 } */

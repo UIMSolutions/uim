@@ -12,7 +12,7 @@ mixin template TLog() {
     bool log(string logMessage,
         LOGLEVELS errorLevel = LOGLEVELS.ERROR,
         Json[string] logData = null
-    ) {
+   ) {
         return Log.write(errorLevel, logMessage, logData);
     }
 }

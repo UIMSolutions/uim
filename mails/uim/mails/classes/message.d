@@ -278,7 +278,7 @@ class DMessage { //: JsonSerializable {
             email,
             name,
             "Disposition-Notification-To requires only 1 email address."
-        );
+       );
     }
     
     /**
@@ -414,7 +414,7 @@ class DMessage { //: JsonSerializable {
                 throw new DInvalidArgumentException(
                     "Transfer encoding not available. Can be : %s."
                     .format(join(", ", this.transferEncodingAvailable))
-                );
+               );
             }
         }
         this.transferEncoding = encoding;
@@ -618,7 +618,7 @@ class DMessage { //: JsonSerializable {
                 "to", "cc", "bcc", "subject",
             ],
             false
-        );
+       );
          anInclude += defaults;
 
          aHeaders = null;
@@ -767,7 +767,7 @@ class DMessage { //: JsonSerializable {
         if (!preg_match("/^\<.+@.+\>/", message)) {
             throw new DInvalidArgumentException(
                 "Invalid format to Message-ID. The text should be something like "<uuid@server.com>""
-            );
+           );
         }
         this.messageId = message;
     }
@@ -873,14 +873,14 @@ class DMessage { //: JsonSerializable {
                 throw new DInvalidArgumentException(
                     "File must be a filepath or IUploadedFile instance. Found `%s` instead."
                     .format(dirEntry["file"].stringof)
-                );
+               );
             }
             if (
                 !isSet(dirEntry["mimetype"])
                 && isSet(dirEntry["file"])
                 && isString(dirEntry["file"])
                 && function_exists("mime_content_type")
-            ) {
+           ) {
                 dirEntry["mimetype"] = mime_content_type(dirEntry["file"]);
             }
             if (!isSet(dirEntry["mimetype"])) {
@@ -922,7 +922,7 @@ class DMessage { //: JsonSerializable {
     string getBodyString(string eol = "\r\n") {
         auto lines = getBody();
 
-        return lines.join(eol, );
+        return lines.join(eol,);
     }
     
     /**
@@ -934,8 +934,8 @@ class DMessage { //: JsonSerializable {
             (
                 this.attachments ||
                 this.emailFormat == MESSAGE_BOTH
-            )
-        ) {
+           )
+       ) {
             this.boundary = md5(Security.randomBytes(16));
         }
     }
@@ -970,7 +970,7 @@ class DMessage { //: JsonSerializable {
         if (
             this.emailFormat == MESSAGE_TEXT
             || this.emailFormat == MESSAGE_BOTH
-        ) {
+       ) {
             if (multiPart) {
                 message ~= "--" ~ textBoundary;
                 message ~= "Content-Type: text/plain; charset=" ~ getContentTypeCharset();
@@ -985,7 +985,7 @@ class DMessage { //: JsonSerializable {
         if (
             this.emailFormat == MESSAGE_HTML
             || this.emailFormat == MESSAGE_BOTH
-        ) {
+       ) {
             if (multiPart) {
                 message ~= "--" ~ textBoundary;
                 message ~= "Content-Type: text/html; charset=" ~ getContentTypeCharset();
@@ -1037,7 +1037,7 @@ class DMessage { //: JsonSerializable {
             hasDisposition = (
                 !isSet(dirEntry["contentDisposition"]) ||
                 dirEntry["contentDisposition"]
-            );
+           );
             part = new DFormDataPart("", someData, "", getHeaderCharset());
 
             if (hasDisposition) {
@@ -1127,7 +1127,7 @@ class DMessage { //: JsonSerializable {
                 throw new DInvalidArgumentException(
                     "Invalid message type: `%s`. Valid types are: `text`, `html`.".format(
                     type
-                ));
+               ));
             }
             text = text.replace(["\r\n", "\r"], "\n");
             text = this.encodeString(text, getCharset());
@@ -1224,7 +1224,7 @@ class DMessage { //: JsonSerializable {
                 formatted = array_merge(
                     formatted,
                     Text.wordWrap(line, wrapLength, "\n", cut).split("\n")
-                );
+               );
                 continue;
             }
             tagOpen = false;
@@ -1245,7 +1245,7 @@ class DMessage { //: JsonSerializable {
                                 formatted = chain(
                                     formatted,
                                     Text.wordWrap(trim(tmpLine), wrapLength, "\n", cut).split("\n")
-                                );
+                               );
                                 tmpLine = "";
                                 tmpLineLength = 0;
                             }
@@ -1448,7 +1448,7 @@ class DMessage { //: JsonSerializable {
     Json[string] __serialize() {
         Json[string] = this.JsonSerialize();
         array_walk_recursive(array, void (& anItem, aKey) {
-            if (cast(DSimpleXMLElement)anItem ) {
+            if (cast(DSimpleXMLElement)anItem) {
                  anItem = Json_decode((string)Json_encode(/* (array) */ anItem), true);
             }
         });

@@ -57,7 +57,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         DCatalogLocator catalogs,
         DFormatterLocator formatters,
         string localName
-    ) {
+   ) {
         _catalogs = catalogs;
         _formatters = formatters;
         _localeName(localName);

@@ -165,9 +165,8 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     }
 
     /**
-     * Does whatever initialization for each group is required
-     * and returns the `group value` for each of them, this is
-     * the token representing each group in the cache key
+     * Does whatever initialization for each group is required and returns the `group value` for each of them, 
+     * this is the token representing each group in the cache key
      */
     string[] groups() {
         return configuration.getStringArray("groups");
@@ -193,7 +192,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * if option warnOnWriteFailures is set to true.
      */
     protected void warning(string warningMessage) {
-        if (configurationData.hasKey("warnOnWriteFailures") != true) {
+        if (!configuration.getBool("warnOnWriteFailures") != true) {
             return;
         }
         triggerWarning(warningMessage);

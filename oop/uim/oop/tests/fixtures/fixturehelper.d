@@ -104,7 +104,7 @@ class DFixtureHelper {
                     helper.runWithoutConstraints(
                         aConnection,
                         fn (Connection aConnection): this.insertConnection(aConnection,  anGroupFixtures)
-                    );
+                   );
                 }
             } else {
                 this.insertConnection(aConnection,  anGroupFixtures);
@@ -123,7 +123,7 @@ class DFixtureHelper {
             } catch (PDOException exception) {
                 string message = "Unable to insert rows for table `%s`."
                         ~ " Fixture records might have invalid data or unknown constraints.\n%s"
-                        .format(fixture.sourceName(), exception.getMessage() );
+                        .format(fixture.sourceName(), exception.getMessage());
                 throw new DException(message);
             }
         });
@@ -147,7 +147,7 @@ class DFixtureHelper {
                     helper.runWithoutConstraints(
                         aConnection,
                         fn (Connection aConnection): this.truncateConnection(aConnection,  anGroupFixtures)
-                    );
+                   );
                 }
             } else {
                 this.truncateConnection(aConnection,  anGroupFixtures);

@@ -94,7 +94,7 @@ class DMemoryCacheEngine : DCacheEngine {
         ];
     }
     /* if (isSet(configData["servers"])) {
-      configuration.update("servers", configuration.get("servers"], false);
+      configuration.set("servers", configuration.get("servers"], false);
     } */
   /* if (!configuration.get("servers"].isArray) {
       configuration.get("servers"] = [configuration.get("servers"]];

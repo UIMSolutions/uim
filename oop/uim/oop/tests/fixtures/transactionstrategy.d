@@ -59,14 +59,14 @@ class DTransactionStrategy : IFixtureStrategy {
                     aConnection.inTransaction() == false,
                     "Cannot start transaction strategy inside a transaction. "~
                     "Ensure you have closed all open transactions."
-                );
+               );
                 aConnection.enableSavePoints();
                 if (!aConnection.isSavePointsEnabled()) {
                     throw new DatabaseException(
                         "Could not enable save points for the `{aConnection.configName()}` connection. "~
                             "Your database needs to support savepoints in order to use "~
                             "TransactionStrategy."
-                    );
+                   );
                 }
                 aConnection.begin();
                 aConnection.createSavePoint("__fixtures__");

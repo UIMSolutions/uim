@@ -35,7 +35,7 @@ class DSchemaLoader {
         string connectionName = "test",
         bool shouldDropTables = true,
         bool truncateTables = false
-    ) {
+   ) {
         loadSqlFiles([fileToLoad], connectionName, shouldDropTables, truncateTables);
     }
 
@@ -44,7 +44,7 @@ class DSchemaLoader {
         string connectionName = "test",
         bool shouldDropTables = true,
         bool truncateTables = false
-    ) {
+   ) {
         auto filePaths = filesToLoad.dup;
 
         // Don"t create schema if we are in a Dunit separate process test method.
@@ -151,7 +151,7 @@ class DSchemaLoader {
                         "`%s` is not a valid table name. Either use a string key for the table definition"~
                         "(`\"articles\": [...]`) or define the `table` key in the table definition."
                         .format(name)
-                    );
+                   );
                 }
                 auto tableSchema = new DTableSchema(name, aTable["columns"]);
                 if (aTable.hasKey("indexes")) {

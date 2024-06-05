@@ -29,14 +29,14 @@ class DTransactionFixtureStrategy : IFixtureStrategy {
                 assert(
                     !aConnection.inTransaction(),
                     "Cannot start transaction strategy inside a transaction. This is most likely a bug."
-                );
+               );
                 aConnection.enableSavePoints();
                 if (!aConnection.isSavePointsEnabled()) {
                     throw new DatabaseException(
                         "Could not enable save points for the `{aConnection.configName()}` connection. " .
                             "Your database needs to support savepoints in order to use " .
                             "TransactionFixtureStrategy."
-                    );
+                   );
                 }
                 aConnection.begin();
                 aConnection.createSavePoint("__fixtures__");

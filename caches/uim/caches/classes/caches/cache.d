@@ -155,9 +155,9 @@ class DCache : ICache {
                     "prefix": StringData
                 ]);
 
-            myfallbackEngine.configuration.update("groups", mynewConfig["groups"], false);
+            myfallbackEngine.configuration.set("groups", mynewConfig["groups"], false);
             if (mynewConfig["prefix"]) {
-                myfallbackEngine.configuration.update("prefix", mynewConfig["prefix"], false);
+                myfallbackEngine.configuration.set("prefix", mynewConfig["prefix"], false);
             }
             myRegistry.set(configName, myfallbackEngine);
         } */

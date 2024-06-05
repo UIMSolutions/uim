@@ -51,7 +51,7 @@ class DMarshaller {
                     throw new DInvalidArgumentException(
                         "Cannot marshal data for `%s` association. It is not associated with `%s`."
                         .format(to!string(aKey, _table.aliasName()))
-                    );
+                   );
                 }
                 continue;
             }
@@ -468,17 +468,17 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
                     (
                         isScalar(myvalue)
                         && myoriginal == myvalue
-                    )
+                   )
                     || (
                         myvalue.isNull
                         && myoriginal == myvalue
-                    )
+                   )
                     || (
                         isObject(myvalue)
                         && !(cast(IORMEntity)myvalue)
                         && myoriginal == myvalue
-                    )
-                ) {
+                   )
+               ) {
                     continue;
                 }
             }
@@ -615,7 +615,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
         Association myassoc,
         Json aValue,
         Json[string] options
-    ) {
+   ) {
         if (!myoriginal) {
             return _marshalAssociation(myassoc, myvalue, options);
         }

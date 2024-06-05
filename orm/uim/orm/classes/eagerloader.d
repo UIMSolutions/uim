@@ -122,7 +122,7 @@ class DEagerLoader {
             if (!(associations.isString) {
                 throw new DInvalidArgumentException(
                     "Cannot set containments. To use queryBuilder, associations must be a string"
-                );
+               );
             }
 
             associations = [
@@ -244,7 +244,7 @@ class DEagerLoader {
                 alias,
                 options,
                 ["root": Json(null)]
-            );
+           );
         }
 
         return _normalized = contain;
@@ -296,7 +296,7 @@ class DEagerLoader {
                 options = _reformatContain(
                     options,
                     pointer[table] ?? []
-                );
+               );
             }
 
             if (cast(DClosure)options) {
@@ -415,7 +415,7 @@ class DEagerLoader {
         if (
             options.hasKey("matching") &&
             options["matching"] == true
-        ) {
+       ) {
             paths["propertyPath"] = "_matchingData." ~ alias;
         } else {
             paths["propertyPath"] ~= "." ~ instance.getProperty();
@@ -445,7 +445,7 @@ class DEagerLoader {
             eagerLoadable.addAssociation(
                 t,
                 _normalizeContain(table, t, assoc, paths)
-            );
+           );
         }
 
         return eagerLoadable;
@@ -564,7 +564,7 @@ class DEagerLoader {
                 if (
                     indexOf(path, ".") == false &&
                     (!array_key_exists(path, collected) || !array_key_exists(alias, collected[path]))
-                ) {
+               ) {
                     message = "Unable to load `{path}` association. Ensure foreign key in `{alias}` is selected.";
                     throw new DInvalidArgumentException(message);
                 }
@@ -584,7 +584,7 @@ class DEagerLoader {
                     "keys": keys,
                     "nestKey": meta.aliasPath(),
                 ]
-            );
+           );
             statement = new DCallbackStatement(statement, driver, f);
         }
 
@@ -668,7 +668,7 @@ class DEagerLoader {
         Association assoc,
         bool asMatching = false,
         string targetProperty = null
-    ) {
+   ) {
         _joinsMap[alias] = new DEagerLoadable(alias, [
             "aliasPath": alias,
             "instance": assoc,

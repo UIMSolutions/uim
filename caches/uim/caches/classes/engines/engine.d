@@ -79,9 +79,10 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     bool cacheItems(Json[string] items, long timeToLive = 0) {
         ensureValidType(myvalues, self.CHECK_KEY);
 
+        Json restoreDuration = Json(null); 
         if (timeToLive != 0) {
-            myrestore = configurationData.hasKey("duration");
-            configuration.update("duration", timeToLive);
+            restoreDuration = configurationData.hasKey("duration");
+            configuration.set("duration", timeToLive);
         }
         try {
             foreach (aKey, myvalue; myvalues) {
@@ -92,8 +93,8 @@ abstract class DCacheEngine : ICache, ICacheEngine {
             }
             return true;
         } finally {
-            if (isSet(myrestore)) {
-                configuration.update("duration", myrestore);
+            if (!restoreDuration.isNull) {
+                configuration.set("duration", myrestore);
             }
         }
     }

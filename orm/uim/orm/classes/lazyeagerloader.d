@@ -108,7 +108,7 @@ class DLazyEagerLoader {
         SelectQuery myquery,
         Json[string] myassociations,
         Table mysource
-    ) {
+   ) {
         myinjected = null;
         myproperties = _getPropertyMap(mysource, myassociations);
         myprimaryKey = /* (array) */mysource.primaryKeys();

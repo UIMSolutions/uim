@@ -29,7 +29,7 @@ class DMockAdapter { //}: IAdapter {
             throw new DInvalidArgumentException(
                 "The `match` option must be a `Closure`. Got `%s`."
                 .format(type
-            ));
+           ));
         }
         _responses ~= [
             "request": requestForMatch,

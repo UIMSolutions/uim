@@ -29,7 +29,7 @@ class DRequest { // }: Message, IRequest {
         string httpMethod = self.METHOD_GET,
         Json[string]  aHeaders = null,
         string[] someData = null
-    ) {
+   ) {
         setMethod(method);
         this.uri = this.createUri(url);
          aHeaders += [

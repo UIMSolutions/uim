@@ -57,7 +57,7 @@ class DApplication {
         string configDataDir,
         IEventManager eventManager = null,
         IControllerFactory controllerFactory = null
-    ) {
+   ) {
         this.configDir = stripRight(configDataDir, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
         this.plugins = Plugin.getCollection();
        _eventManager = eventManager ?: EventManager.instance();
@@ -200,7 +200,7 @@ class DApplication {
      */
     IResponse handle(
         IServerRequest serverRequest
-    ) {
+   ) {
         container = getContainer();
         container.add(ServerRequest.classname, request);
         container.add(IContainer.classname, container);

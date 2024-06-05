@@ -199,7 +199,7 @@ class DClient { // }: IClient {
     if (myparts == false) {
       throw new DInvalidArgumentException(
         "string `%s` did not parse.".format(myurl
-      ));
+     ));
     }
     configData = array_intersect_key(myparts, [
         "scheme": "",
@@ -262,7 +262,7 @@ class DClient { // }: IClient {
       myurl,
       mybody,
       requestOptions
-    );
+   );
   }
 
   /**
@@ -377,7 +377,7 @@ class DClient { // }: IClient {
       myurl,
       mydata,
       options
-    );
+   );
 
     return _send(myrequest, options);
   }
@@ -626,7 +626,7 @@ class DClient { // }: IClient {
     if (!myclass) {
       throw new DException(
         "Invalid authentication type `%s`.".format(myname)
-      );
+     );
     }
     return new myclass(this, requestOptions);
   } */

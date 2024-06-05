@@ -74,13 +74,13 @@ class DSession {
             !isSet(sessionConfig["ini.session.cookie_secure"])
             && enviroment("HTTPS")
             && ini_get("session.cookie_secure") != 1
-            ) {
+           ) {
             sessionConfig["ini.session.cookie_secure"] = 1;
         }
         if (
             !isSet(sessionConfig["ini.session.name"])
             && isSet(sessionConfig["cookie"])
-            ) {
+           ) {
             sessionConfig["ini.session.name"] = sessionConfig["cookie"];
         }
         if (!isSet(sessionConfig["ini.session.use_strict_mode"]) && ini_get(
@@ -211,7 +211,7 @@ class DSession {
     SessionHandler engine(
         !SessionHandler | string | null className = null,
         Json[string] options = null
-    ) {
+   ) {
         if (className.isNull) {
             return _engine;
         }
@@ -224,7 +224,7 @@ class DSession {
             throw new DInvalidArgumentException(
                 "The class `%s` does not exist and cannot be used as a session engine"
                     .format(className)
-            );
+           );
         }
         return _setEngine(new className(options));
     }
@@ -261,7 +261,7 @@ class DSession {
             if (ini_set(setting, to!string(aValue)) == false) {
                 throw new DException(
                     "Unable to configure the session, setting %s failed.".format(setting)
-                );
+               );
             }
         }
     }
@@ -404,7 +404,7 @@ class DSession {
                     ", headers already sent in file `%s` on line `%s`"
                     .format(Debugger.trimPath(this.headerSentInfo["filename"]),
                         this.headerSentInfo["line"]
-                    );
+                   );
             }
             throw new DException(message);
         }
@@ -453,7 +453,7 @@ class DSession {
      * @param Json[string] new DNew set of variable: value
      */
     protected void _overwrite(Json[string] & old, arraynew) {
-        ) {
+       ) {
             foreach (old as aKey : var) {
                 if (!isSet(new[aKey])) {
                     unset(old[aKey]);
@@ -511,7 +511,7 @@ class DSession {
                 params["domain"],
                 params["secure"],
                 params["httponly"]
-            );
+           );
 
             if (!session_id().isEmpty) {
                 session_regenerate_id(true);

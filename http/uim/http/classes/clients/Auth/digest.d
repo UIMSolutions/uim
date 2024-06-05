@@ -93,7 +93,7 @@ class DDigest {
             to!string(request.getUri()),
             [],
             ["auth": ["type": Json(null)]]
-        );
+       );
 
         auto aHeader = response.getHeader("WWW-Authenticate");
         if (!aHeader) {
@@ -148,7 +148,7 @@ class DDigest {
                 this.hashType,
                 ha1 ~ ": " ~ credentials["nonce"] ~ ": " ~ nc ~ ": " .
                 credentials["cnonce"] ~ ": " ~ credentials["qop"] ~ ": " ~ ha2
-            );
+           );
         }
         string result = "Digest ";
         result ~= "username="" ~ credentials["username"].replace(["\\", """], ["\\\\", "\\""]) ~ "", ";

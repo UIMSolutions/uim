@@ -61,7 +61,7 @@ class UriFactory { // }: IUriFactory {
         if (
             uriPath.length >= endsWithLength &&
             substr(uriPath, -endsWithLength) == endsWithIndex
-        ) {
+       ) {
             uriPath = "/";
         }
         return anUri.withPath(uriPath);
@@ -122,7 +122,7 @@ class UriFactory { // }: IUriFactory {
         if (
             (!base.isEmpty || !docRoot.has(webroot))
             && !webrootDir.has("/" ~ webroot ~ "/")
-        ) {
+       ) {
             webrootDir ~= webroot ~ "/";
         }
         return ["base": base ~ file, "webroot": webrootDir];

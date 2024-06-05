@@ -161,16 +161,16 @@ class DCache : ICache {
             }
             myRegistry.set(configName, myfallbackEngine);
         } */
-        if (cast(DCacheEngine)configuration.get("className")) {
+/*         if (cast(DCacheEngine)configuration.get("className")) {
             configData = configuration.get("className").configuration.data;
-        }
-        if (!configuration.isEmpty("groups")) {
+        } */
+/*         if (!configuration.isEmpty("groups")) {
             (cast(DArrayData)configuration.get("groups")).values.each!((groupName) {
                 _groups[groupName] ~= configName;
                 _groups[groupName] = array_unique(_groups[groupName]);
                 _groups[groupName].sort;
             });
-        }
+        } */
     }
     
     // Get a SimpleCacheEngine object for the named cache pool.

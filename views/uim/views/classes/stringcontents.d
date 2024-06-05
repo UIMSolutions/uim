@@ -152,7 +152,7 @@ class DStringContents {
 
         // TODO assert(templateValue.isString,
         // TODO     "Template for `%s` must be of type `string`, but is `%s`".format(templateName, templateValue)
-        // TODO );
+        // TODO);
 
         templateValue = templateValue.replace("%", "%%");
 

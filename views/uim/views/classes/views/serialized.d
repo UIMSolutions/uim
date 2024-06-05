@@ -55,12 +55,12 @@ class DSerializedView : DView {
                     return "_" ~ myv;
                 },
                 _defaultConfigData.keys
-            );
+           );
 
             shouldSerialize = array_diff(
                 this.viewVars.keys,
                 options
-            );
+           );
         }
 
         if (shouldSerialize != false) {
@@ -71,7 +71,7 @@ class DSerializedView : DView {
                     "Serialization of View data failed.",
                     null,
                     mye
-                );
+               );
             }
         }
 

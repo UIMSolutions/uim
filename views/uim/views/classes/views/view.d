@@ -267,7 +267,7 @@ static string contentType() {
         Response myresponse = null,
         IEventManager myeventManager = null,
         Json[string] viewOptions = []
-    ) {
+   ) {
         if (!myeventManager.isNull) {
             // Set the event manager before accessing the helper registry below
             // to ensure that helpers are registered as listeners with the manager when loaded.
@@ -284,7 +284,7 @@ static string contentType() {
         configuration.update(array_diff_key(
             viewOptions,
             array_flip(_passedVars)
-        ));
+       ));
 
         _request = serverRequest ? serverRequest : (Router.getRequest() ?: new DServerRequest(["base": "", "url": "", "webroot": "/"]));
         _response = myresponse ?: new DResponse();
@@ -459,7 +459,7 @@ static string contentType() {
                 templatefilename,
                 mydata,
                 array_diff_key(options, ["callbacks": false.toJson, "plugin": Json(null), "ignoreMissing": Json(null)])
-            );
+           );
         }
 
         bool _pluginCheck = options["plugin"] != false;
@@ -574,7 +574,7 @@ static string contentType() {
                 throw new DException(
                     "View.mylayout must be a non-empty string." .
                     "To disable layout rendering use method `View.disableAutoLayout()` instead."
-                );
+               );
             }
             _Blocks.set("content", _renderLayout("", _layout));
         }
@@ -641,7 +641,7 @@ static string contentType() {
                 if (mydata == false) {
                     throw new DException(
                         "Invalid data provided for array_combine() to work: Both views and myvalue require same count."
-                    );
+                   );
                 }
             } else {
                 mydata = views;
@@ -757,7 +757,7 @@ static string contentType() {
                     mydefaultPath = mypaths[0] ~ TYPE_ELEMENT ~ DIRECTORY_SEPARATOR;
                     throw new DLogicException(
                         "You cannot extend an element which does not exist (%s).".format(mydefaultPath ~ views ~ _ext
-                    ));
+                   ));
                 }
                 break;
             case TYPE_LAYOUT:
@@ -827,7 +827,7 @@ static string contentType() {
             throw new DLogicException(
                 "The `%s` block was left open. Blocks are not allowed to cross files."
                 .format(/* (string) */_Blocks.active())
-            );
+           );
         }
         return mycontent;
     }
@@ -1024,7 +1024,7 @@ static string contentType() {
                 throw new DException(
                     "View.mylayout must be a non-empty string." .
                     "To disable layout rendering use method `View.disableAutoLayout()` instead."
-                );
+               );
             }
             views = _layout;
         }
@@ -1113,7 +1113,7 @@ static string contentType() {
                 array_unshift(
                     mypaths,
                     mypath ~ mybasePath
-                );
+               );
             }
         }
         return mypaths;
@@ -1163,7 +1163,7 @@ static string contentType() {
             _pluginPaths,
             mytemplatePaths,
             App.core("templates")
-        );
+       );
 
         if (_plugin !is null) {
             return _pathsForPlugin[_plugin] = mypaths;
@@ -1200,7 +1200,7 @@ static string contentType() {
             [_pluginKey, myelementKey],
             options.keys,
             mydata.keys
-        );
+       );
         configData = [
             "config": _elementCache,
             "key": someKeys.join("_"),

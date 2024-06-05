@@ -204,7 +204,7 @@ class DEntityContext : DContext {
                 options["default"] !is null
                 || !options["schemaDefault"]
                 || !myentity.isNew()
-            ) {
+           ) {
                 return options["default"];
             }
             return _schemaDefault(pathParts);
@@ -293,7 +293,7 @@ class DEntityContext : DContext {
             myisTraversable = (
                 is_iterable(mynext) ||
                 cast(IEntity)mynext
-            );
+           );
             if (myisLast || !myisTraversable) {
                 return myentity;
             }
@@ -302,7 +302,7 @@ class DEntityContext : DContext {
         throw new DException(
             "Unable to fetch property `%s`.".format(
             join(".", mypath)
-        ));
+       ));
     }
     
     /**
@@ -351,7 +351,7 @@ class DEntityContext : DContext {
                 isArray(mynext) ||
                 cast(Traversable)mynext ||
                 cast(IEntity)mynext
-            );
+           );
             if (!myisTraversable) {
                 return [myleafEntity, array_slice(mypath, myi)];
             }
@@ -359,7 +359,7 @@ class DEntityContext : DContext {
         }
         throw new DException(
             "Unable to fetch property `%s`.".format(join(".", mypath)
-        ));
+       ));
     }
     
     /**
@@ -572,7 +572,7 @@ class DEntityContext : DContext {
         return array_intersect_key(
             (array)mytable.getSchema().getColumn(array_pop(pathParts)),
             array_flip(VALID_ATTRIBUTES)
-        );
+       );
     }
     
     /**

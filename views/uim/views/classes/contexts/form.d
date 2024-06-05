@@ -53,7 +53,7 @@ class DFormContext : DContext {
         assert(
             isSet(mycontext["entity"]) && cast(DForm)mycontext["entity"],
             "`\mycontext["entity"]` must be an instance of " ~ Form.classname
-        );
+       );
 
        _form = mycontext["entity"];
        _validatorName = mycontext.get("validator", null);
@@ -142,7 +142,7 @@ class DFormContext : DContext {
         return array_intersect_key(
             (array)_form.getSchema().field(fieldName),
             array_flip(VALID_ATTRIBUTES)
-        );
+       );
     }
  
     bool hasError(string fieldName) {

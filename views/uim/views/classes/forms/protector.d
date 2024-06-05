@@ -50,7 +50,7 @@ class DFormProtector {
             hashParts["unlockedFields"],
             url,
             sessionId
-        );
+       );
 
         if (hash_equals(generatedToken, extractedToken)) {
             return true;
@@ -260,8 +260,8 @@ class DFormProtector {
             chain(
                 this.unlockedFields,
                 unlocked
-            )
-        );
+           )
+       );
 
         /** @var string aKey */
         foreach (anI: aKey; fieldList) {
@@ -393,7 +393,7 @@ class DFormProtector {
             "Unexpected field `%s` in POST data",
             "Tampered field `%s` in POST data (expected value `%s` but found `%s`)",
             "Missing field `%s` in POST data"
-        );
+       );
         expectedUnlockedFields = Hash.get(expectedParts, 2);
         someDataUnlockedFields = Hash.get(hashParts, "unlockedFields") ?: [];
         unlockFieldsMessages = this.debugCheckFields(
@@ -402,7 +402,7 @@ class DFormProtector {
             "Unexpected unlocked field `%s` in POST data",
             "",
             "Missing unlocked field: `%s`"
-        );
+       );
 
         messages = chain(messages, fieldsMessages, unlockFieldsMessages);
 
@@ -425,7 +425,7 @@ class DFormProtector {
         string aintKeyMessage = "",
         string astringKeyMessage = "",
         string amissingMessage = ""
-    ) {
+   ) {
         messages = this.matchExistingFields(someDataFields, expectedFields,  anIntKeyMessage, stringKeyMessage);
         expectedFieldsMessage = this.debugExpectedFields(expectedFields, missingMessage);
         if (!expectedFieldsMessage.isNull) {
@@ -449,7 +449,7 @@ class DFormProtector {
         array &expectedFields,
         string aintKeyMessage,
         string astringKeyMessage
-    ) {
+   ) {
         messages = null;
         foreach (someDataFields as aKey: aValue) {
             if (isInt(aKey)) {

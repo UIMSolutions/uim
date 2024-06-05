@@ -337,7 +337,7 @@ class DViewBuilder { // }: DJsonSerializable {
         ServerRequest myrequest = null,
         Response myresponse = null,
         IEventManager myevents = null
-    ) {
+   ) {
         myclassName = _className ?? App.className("App", "View", "View") ?? View.classname;
         if (myclassName == "View") {
             myclassName = App.className(myclassName, "View");
@@ -404,13 +404,13 @@ class DViewBuilder { // }: DJsonSerializable {
             isResource(myitem) ||
             cast(DClosure)myitem ||
             cast(PDO)myitem
-        ) {
+       ) {
             throw new DInvalidArgumentException(
                 "Failed serializing the `%s` %s in the `%s` view var"
                 .format(isResource(myitem) ? get_resource_type(myitem): myitem.classname,
                 isResource(myitem) ? "resource" : "object",
                 aKey
-            ));
+           ));
         }
     }
     

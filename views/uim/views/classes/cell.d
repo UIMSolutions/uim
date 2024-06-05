@@ -91,7 +91,7 @@ abstract class DCell { // }: IEventDispatcher {
         Response myresponse,
         IEventManager myeventManager = null,
         Json[string] cellOptionsToApply = null
-    ) {
+   ) {
         if (myeventManager !is null) {
             setEventManager(myeventManager);
         }
@@ -142,7 +142,7 @@ abstract class DCell { // }: IEventDispatcher {
             if (!mybuilder.getTemplatePath()) {
                 mybuilder.setTemplatePath(
                     TEMPLATE_FOLDER ~ DIRECTORY_SEPARATOR ~ views.replace("\\", DIRECTORY_SEPARATOR)
-                );
+               );
             }
             templateName = mybuilder.getTemplate();
 
@@ -157,7 +157,7 @@ abstract class DCell { // }: IEventDispatcher {
                     myattributes["paths"],
                     null,
                     mye
-                );
+               );
             }
         };
 

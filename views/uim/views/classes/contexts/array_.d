@@ -85,7 +85,7 @@ class DArrayContext : DContext {
             !configuration.hasKey("schema") || 
             !configuration("schema").hasKey("_constraints") ||
             configuration("schema")["_constraints"].isArray
-        ) {
+       ) {
             return null;
         }
 
@@ -239,7 +239,7 @@ class DArrayContext : DContext {
         return array_intersect_key(
             (array)myschema,
             array_flip(VALID_ATTRIBUTES)
-        );
+       );
     }
 
     /**

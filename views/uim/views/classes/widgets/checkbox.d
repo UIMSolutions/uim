@@ -54,7 +54,7 @@ class DCheckboxWidget : DWidget {
         auto myattrs = _stringContents.formatAttributes(
             updatedData,
             ["name", "value"]
-        );
+       );
 
         return _stringContents.format("checkbox", [
             "name": updatedData["name"],

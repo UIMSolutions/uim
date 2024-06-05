@@ -92,7 +92,7 @@ class DDateTimeWidget : DWidget {
         return _stringContents.format("input", updatedData.data(["name", "type", "templateVars"])
             .update(["attrs": _stringContents.formatAttributes(
                 updatedData, ["name", "type"]
-            )]));
+           )]));
     }
     
     /**
@@ -136,7 +136,7 @@ class DDateTimeWidget : DWidget {
     protected string formatDateTime(
         DChronosDate|ChronosTime|Jsonmyvalue,
         Json[string] optionsForConversion
-    ) {
+   ) {
         if (myvalue == "" || myvalue.isNull) {
             return null;
         }
@@ -170,7 +170,7 @@ class DDateTimeWidget : DWidget {
                 optionsForConversion["type"] == "datetime-local"
                 && isNumeric(optionsForConversion["step"])
                 && optionsForConversion["step"] < 1
-            ) {
+           ) {
                 myformat = "Y-m-d\TH:i:s.v";
             }
         }

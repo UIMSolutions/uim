@@ -152,7 +152,7 @@ class DMultiCheckboxWidget : DWidget {
                     mycheckbox["id"] = mydata.getString("id") ~ "-" ~ strip(
                        _idSuffix(to!string(mycheckbox["value"])),
                         "-"
-                    );
+                   );
                 } else {
                     mycheckbox["id"] = _id(mycheckbox["name"], (string)mycheckbox["value"]);
                 }
@@ -176,7 +176,7 @@ class DMultiCheckboxWidget : DWidget {
             "attrs": _stringContents.formatAttributes(
                 mycheckbox,
                 ["name", "value", "text", "options", "label", "val", "type"]
-            ),
+           ),
         ]);
 
         if (mycheckbox["label"] == false && !_stringContents.get("checkboxWrapper").has("{{input}}")) {

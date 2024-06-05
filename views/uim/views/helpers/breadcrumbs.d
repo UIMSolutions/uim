@@ -148,7 +148,7 @@ class DBreadcrumbsHelper : DHelper {
         string mytitle,
         string[] myurl = null,
         Json[string] options  = null
-    ) {
+   ) {
         aKey = this.findCrumb(mymatchingTitle);
 
         if (aKey.isNull) {
@@ -179,7 +179,7 @@ class DBreadcrumbsHelper : DHelper {
         string mytitle,
         string[] myurl = null,
         Json[string] options  = null
-    ) {
+   ) {
         aKey = this.findCrumb(mymatchingTitle);
 
         if (aKey.isNull) {
@@ -231,7 +231,7 @@ class DBreadcrumbsHelper : DHelper {
             myseparator["attrs"] = mytemplater.formatAttributes(
                 myseparator,
                 ["innerAttrs", "separator"]
-            );
+           );
 
             myseparatorString = this.formatTemplate("separator", myseparator);
         }

@@ -55,7 +55,7 @@ class DYearWidget : DWidget {
         if (
             cast(DChronosDate)mydata["val"]  ||
             cast(IDateTime)updatedData["val"]
-        ) {
+       ) {
             updatedData["val"] = mydata["val"].format("Y");
         }
         if (updatedData.isEmpty("val")) {

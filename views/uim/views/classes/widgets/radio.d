@@ -126,7 +126,7 @@ class DRadioWidget : DWidget {
         string[]|int mytext,
         Json[string] options,
         IContext formContext
-    ) {
+   ) {
         auto escapeData = options["escape"];
         auto myRadio = mytext.isArray && isSet(mytext["text"], mytext["value"])
             ? mytext
@@ -171,7 +171,7 @@ class DRadioWidget : DWidget {
             "attrs": _stringContents.formatAttributes(
                 myradio + options,
                 ["name", "value", "text", "options", "label", "val", "type"]
-            ),
+           ),
         ]);
 
         string mylabel = _renderLabel(
@@ -180,12 +180,12 @@ class DRadioWidget : DWidget {
             myinput,
             formContext,
             myescape
-        );
+       );
 
         if (
             mylabel == false &&
             !_stringContents.get("radioWrapper").has("{{input}}")
-        ) {
+       ) {
             mylabel = myinput;
         }
         return _stringContents.format("radioWrapper", [
@@ -213,7 +213,7 @@ class DRadioWidget : DWidget {
         string myinput,
         IContext formContext,
         bool shouldEscape
-    ) {
+   ) {
         if (isSet(myradio["label"])) {
             mylabel = myradio["label"];
         } elseif (mylabel == false) {

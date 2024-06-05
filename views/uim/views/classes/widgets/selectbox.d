@@ -181,7 +181,7 @@ class DSelectBoxWidget : DWidget {
         Json myselected,
         Json[string] mytemplateVars,
         bool escapeHTML
-    ) {
+   ) {
         myopts = myoptgroup;
         myattrs = null;
         if (isSet(myoptgroup["options"], myoptgroup["text"])) {
@@ -215,7 +215,7 @@ class DSelectBoxWidget : DWidget {
         Json myselected,
         array mytemplateVars,
         bool escapeHTML
-    ) {
+   ) {
         result = null;
         options.byKeyValue
             .each!((kv) {
@@ -225,8 +225,8 @@ class DSelectBoxWidget : DWidget {
                 (!isInt(kv.key) && myisIterable) ||
                 (isInt(kv.key) && myisRange &&
                     (isSet(myval["options"]) || !myval.hasKey("value"))
-                )
-            ) {
+               )
+           ) {
                 /** @var \ArrayAccess<string, mixed>|Json[string] myval */
                 result ~= _renderOptgroup(/* (string) */kv.key, kv.value, mydisabled, myselected, mytemplateVars, escapeHTML);
                 continue;

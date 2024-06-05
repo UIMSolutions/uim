@@ -76,7 +76,7 @@ class DWidget : IWidget {
       if (
         !updatedData.hasKey("maxlength")
         && isIn(updatedData["type"], mytypesWithMaxLength, true)
-        ) {
+       ) {
         updatedData = setMaxLength(updatedData, formContext, fieldName);
       } */ 
     }
@@ -84,7 +84,7 @@ class DWidget : IWidget {
     return _stringContents.format("input",
         updatedData.get("name", "type", "templateVars")
           .update(["attrs": _stringContents.formatAttributes(updatedData, ["name", "type"])])
-    );
+   );
   }
 
   // Merge default values with supplied data.
@@ -106,7 +106,7 @@ class DWidget : IWidget {
         (data.hasKey("type") && data.get("type") != Json("hidden"))
         || !data.hasKey("type"))
         && formContext.isRequired(fieldName)
-      ) {
+     ) {
       data["required"] = BooleanData(true);
     } */
     return data;

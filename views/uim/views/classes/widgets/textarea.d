@@ -51,7 +51,7 @@ class DTextareaWidget : DWidget {
         if (
             !array_key_exists("maxlength", mydata)
             && isSet(mydata["fieldName"])
-        ) {
+       ) {
             mydata = setMaxLength(mydata, formContext, mydata["fieldName"]);
         }
         return _stringContents.format("textarea", [
@@ -61,7 +61,7 @@ class DTextareaWidget : DWidget {
             "attrs": _stringContents.formatAttributes(
                 mydata,
                 ["name", "val"]
-            ),
+           ),
         ]);
     }
 }

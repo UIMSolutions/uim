@@ -89,8 +89,8 @@ class DWidgetLocator {
                     "Widget objects must implement `%s`. Got `%s` instance instead."
                         .format(IWidget.classname,
                         get_debug_type(mywidget)
-                    )
-                );
+                   )
+               );
             }
            _widgets[aKey] = mywidget;
         }

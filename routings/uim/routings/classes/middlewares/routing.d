@@ -70,7 +70,7 @@ class DRoutingMiddleware : IRoutingMiddleware {
                  anException.getMessage(),
                  anException.code(),
                  anException.getHeaders()
-            );
+           );
         }
         matching = Router.getRouteCollection().getMiddleware(middleware);
         if (!matching) {

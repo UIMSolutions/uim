@@ -30,7 +30,7 @@ mixin template TLocatorAware() {
         assert(
             cast(ILocator)mylocator,
             "`FactoryLocator` must return an instance of UIM\ORM\ILocator for type `Table`."
-        );
+       );
 
         return _tableLocator = mylocator;
     }
@@ -48,7 +48,7 @@ mixin template TLocatorAware() {
         if (aliasName.isEmpty) {
             throw new DUnexpectedValueException(
                 "You must provide an `aliasName` or set the `mydefaultTable` property to a non empty string."
-            );
+           );
         }
         return _getTableLocator().get(aliasName, options);
     }

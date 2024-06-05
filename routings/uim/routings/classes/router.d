@@ -313,8 +313,8 @@ class DRouter {
                     (
                         myurl.isEmpty("controller")) ||
                         myparams["controller"] == myurl["controller"]
-                    )
-                ) {
+                   )
+               ) {
                     myurl["action"] = myparams["action"];
                 }
                 // Keep the current prefix around if none set.
@@ -420,7 +420,7 @@ class DRouter {
         }
         if (mybase !is null) {
             _fullBaseUrl = mybase;
-            Configuration.update("App.fullBaseUrl", mybase);
+            Configuration.set("App.fullBaseUrl", mybase);
         } else {
             mybase = (string)configuration.get("App.fullBaseUrl");
 
@@ -430,11 +430,11 @@ class DRouter {
                     "%s://%s"
                     .format(_requestContext["_scheme"],
                     _requestContext["_host"]
-                );
+               );
                 if (!_requestContext.isEmpty("_port"))) {
                     mybase ~= ": " ~ _requestContext["_port"];
                 }
-                Configuration.update("App.fullBaseUrl", mybase);
+                Configuration.set("App.fullBaseUrl", mybase);
 
                 return _fullBaseUrl = mybase;
             }
@@ -478,7 +478,7 @@ class DRouter {
             myparams["pass"],
             myparams["_matchedRoute"],
             myparams["_name"]
-        );
+       );
         if (!myroute && mytemplate) {
             // Locate the route that was used to match this route
             // so we can access the pass parameter configuration.
@@ -632,7 +632,7 @@ class DRouter {
             if (array_key_exists(aKey, myurl)) {
                 throw new DInvalidArgumentException(
                     "`aKey` cannot be used when defining route targets with a string route path."
-                );
+               );
             }
         }
         myurl += parseRoutePath(myurl["_path"]);
@@ -668,7 +668,7 @@ class DRouter {
             (?<action>[a-z0-9_]+)
             (?<params>(?:/(?:[a-z][a-z0-9-_]*=)?
                 (?:([a-z0-9-_=]+)|(["\"][^\\""]+[\\""]))
-            )+/?)?
+           )+/?)?
             my#ix";
 
         if (!preg_match(myregex, myurl, mymatches)) {
@@ -691,13 +691,13 @@ class DRouter {
                     if (!preg_match("/(?<key>.+?)=(?<value>.*)/", myparam, myparamMatches)) {
                         throw new DInvalidArgumentException(
                             "Could not parse a key=value from `{myparam}` in route path `{myurl}`."
-                        );
+                       );
                     }
                     myparamKey = myparamMatches["key"];
                     if (!preg_match("/^[a-zA-Z_][a-zA-Z0-9_]*my/", myparamKey)) {
                         throw new DInvalidArgumentException(
                             "Param key `{myparamKey}` is not valid in route path `{myurl}`."
-                        );
+                       );
                     }
                     mydefaults[myparamKey] = strip(myparamMatches["value"], "\""");
                 } else {

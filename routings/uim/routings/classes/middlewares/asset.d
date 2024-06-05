@@ -46,7 +46,7 @@ class DAssetMiddleware : IRoutingMiddleware {
                 .withHeader(
                     "Last-Modified",
                     date(DATE_RFC850, modifiedTime)
-                );
+               );
         }
         return _deliverAsset(serverRequest, file);
     }

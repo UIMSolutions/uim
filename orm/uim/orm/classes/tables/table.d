@@ -302,7 +302,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             if (!mytable) {
                 throw new DException(
                     "You must specify either the `alias` or the `table` option for the constructor."
-                );
+               );
             }
            _table = Inflector.underscore(mytable);
         }
@@ -322,7 +322,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             if (!aliasName) {
                 throw new DException(
                     "You must specify either the `alias` or the `table` option for the constructor."
-                );
+               );
             }
            _aliasName = aliasName;
         }
@@ -420,7 +420,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             throw new DatabaseException(
                 "Unable to check max alias lengths for `%s` without schema."
                 .format(aliasName()
-            ));
+           ));
         }
         
         auto maxLength = getConnection().getDriver().getMaxAliasLength();
@@ -440,7 +440,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                 "You must change the table schema in the database and shorten either the table or column " ~
                 "identifier so they fit within the database alias limits.")
                 .format(tableName, name, nameLength)
-            );
+           );
         }
     }
     
@@ -512,7 +512,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                 columnSchema["null"] != true &&
                 columnSchema["type"] == "string" &&
                 !preg_match("/pass|token|secret/i", column)
-            ) {
+           ) {
                 return _displayField = column;
             }
         });
@@ -637,7 +637,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             throw new DInvalidArgumentException(
                 "The `%s` behavior is not defined on `%s`."
                 .format(myname, class)
-            );
+           );
         }
 
         return _behaviors.get(myname);
@@ -968,7 +968,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * conditions: ["published": 1],
      * limit: 10,
      * contain: ["Users", "Comments"]
-     * );
+     *);
      * ```
      *
      * Using the builder interface:
@@ -1107,7 +1107,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
        /* Closure */ string[]|string myvalueField = null,
        /* Closure */ string[]|string mygroupField = null,
         string myvalueSeparator = ";"
-    ) {
+   ) {
         mykeyField ??= this.primaryKeys();
         myvalueField ??= getDisplayField();
 
@@ -1116,12 +1116,12 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             !isObject(mykeyField) &&
             !isObject(myvalueField) &&
             !isObject(mygroupField)
-        ) {
+       ) {
             fieldNames = chain(
                 /* (array) */mykeyField,
                 /* (array) */myvalueField,
                 /* (array) */mygroupField
-            );
+           );
             mycolumns = getSchema().columns();
             if (count(fieldNames) == count(array_intersect(fieldNames, mycolumns))) {
                 myquery.select(fieldNames);
@@ -1130,14 +1130,14 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         options = _setFieldMatchers(
             compact("keyField", "valueField", "groupField", "valueSeparator"),
             ["keyField", "valueField", "groupField"]
-        );
+       );
 
         return myquery.formatResults(fn (ICollection results) =>
             results.combine(
                 options["keyField"],
                 options["valueField"],
                 options["groupField"]
-            ));
+           ));
     }
     
     /**
@@ -1166,7 +1166,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
        /* Closure */ string[]|string mykeyField = null,
        /* Closure */ string[]|string myparentField = "parent_id",
         string mynestingKey = "children"
-    ) {
+   ) {
         mykeyField ??= this.primaryKeys();
 
         options = _setFieldMatchers(compact("keyField", "parentField"), ["keyField", "parentField"]);
@@ -1231,12 +1231,12 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         ICache|string mycache = null,
         Closure|string mycacheKey = null,
         Json ...myargs
-    ) {
+   ) {
         if (myprimaryKey.isNull) {
             throw new DInvalidPrimaryKeyException(
                 "Record not found in table `%s` with primary key `[NULL]`."
                 .format(getTable()
-            ));
+           ));
         }
         aKey = (array)this.primaryKeys();
         aliasName = aliasName();
@@ -1255,7 +1255,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             throw new DInvalidPrimaryKeyException(
                 "Record not found in table `%s` with primary key `[%s]`."
                 .format(getTable(), join(", ", myprimaryKey)
-            ));
+           ));
         }
         myconditions = array_combine(aKey, myprimaryKey);
 
@@ -1264,7 +1264,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                 "5.0.0",
                 "Calling Table.get() with options array is deprecated."
                     ~ " Use named arguments instead."
-            );
+           );
 
             myargs += myfinder;
             myfinder = myargs["finder"] ?? "all";
@@ -1285,7 +1285,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                         getConnection().configName(),
                         getTable(),
                         Json_encode(myprimaryKey, Json_THROW_ON_ERROR)
-                    );
+                   );
             }
             myquery.cache(mycacheKey, mycache);
         }
@@ -1351,7 +1351,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         SelectQuery|callable|array mysearch,
         callable aCallback = null,
         Json[string] optionData = null
-    ) {
+   ) {
         options = new ArrayObject(options ~ [
             "atomic": true.toJson,
             "defaults": true.toJson,
@@ -1360,7 +1360,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         myentity = _executeTransaction(
             fn (): _processFindOrCreate(mysearch, mycallback, options.getArrayCopy()),
             options["atomic"]
-        );
+       );
 
         if (myentity && _transactionCommitted(options["atomic"], true)) {
             dispatchEvent("Model.afterSaveCommit", compact("entity", "options"));
@@ -1382,7 +1382,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         SelectQuery|callable|array mysearch,
         callable aCallback = null,
         Json[string] optionData = null
-    ) {
+   ) {
         myquery = _getFindOrCreateQuery(mysearch);
 
         myrow = myquery.first();
@@ -1473,7 +1473,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     int updateAll(
         QueryExpression|Closure|string[]|string fieldNames,
         QueryExpression|Closure|string[]|string myconditions
-    ) {
+   ) {
         mystatement = this.updateQuery()
             .set(fieldNames)
             .where(myconditions)
@@ -1511,7 +1511,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             .limit(1)
             .disableHydration()
             .toJString()
-        );
+       );
     }
     
     /**
@@ -1598,7 +1598,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      */
     IORMEntity save(IORMEntity entityToSave,
         Json[string] optionData = null
-    ) {
+   ) {
         options = new ArrayObject(options ~ [
             "atomic": true.toJson,
             "associated": true.toJson,
@@ -1617,7 +1617,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         mysuccess = _executeTransaction(
             fn (): _processSave(entityToSave, options),
             options["atomic"]
-        );
+       );
 
         if (mysuccess) {
             if (_transactionCommitted(options["atomic"], options["_primary"])) {
@@ -1683,7 +1683,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                     cast(IORMEntity)result,                    
                     "The beforeSave callback must return `false` or `IORMEntity` instance. Got `%s` instead."
                     .format(get_debug_type(result))
-                );
+               );
             }
             return result;
         }
@@ -1692,7 +1692,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             entityToSave,
             options["associated"],
             ["_primary": false.toJson] + options.getArrayCopy()
-        );
+       );
 
         if (!mysaved && options["atomic"]) {
             return false;
@@ -1727,7 +1727,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             entityToSave,
             options["associated"],
             ["_primary": false.toJson] + options.getArrayCopy()
-        );
+       );
 
         if (!mysuccess && options["atomic"]) {
             return false;
@@ -1780,7 +1780,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                         .format(
                         join(", ", myfilteredKeys + myentity.extract(myprimary.keys)),
                         join(", ", myprimary.keys)
-                    );
+                   );
                     throw new DatabaseException(mymsg);
                 }
             }
@@ -1798,7 +1798,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             myentity.set(myfilteredKeys, ["guard": false.toJson]);
             myschema = getSchema();
             mydriver = getConnection().getDriver();
-            foreach (aKey: myv; myprimary ) {
+            foreach (aKey: myv; myprimary) {
                 if (!mydata.hasKey(aKey)) {
                     myid = mystatement.lastInsertId(getTable(), aKey);
                     mytype = myschema.getColumnType(aKey);
@@ -1880,7 +1880,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     IORMEntity[] saveMany(
         range myentities,
         Json[string] optionData = null
-    ) {
+   ) {
         try {
             return _saveMany(myentities, options);
         } catch (PersistenceFailedException myexception) {
@@ -1909,14 +1909,14 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     protected IORMEntity[] _saveMany(
         range myentities,
         Json[string] optionData = null
-    ): range {
+   ): range {
         options = new ArrayObject(
             options ~ [
                 "atomic": true.toJson,
                 "checkRules": true.toJson,
                 "_primary": true.toJson,
             ]
-        );
+       );
         options["_cleanOnSuccess"] = false;
 
         bool[] myisNew;
@@ -2018,7 +2018,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         mysuccess = _executeTransaction(
             fn (): _processremove(myentity, options),
             options["atomic"]
-        );
+       );
 
         if (mysuccess && _transactionCommitted(options["atomic"], options["_primary"])) {
             dispatchEvent("Model.afterDeleteCommit", [
@@ -2144,7 +2144,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         mysuccess = _associations.cascadeRemove(
             myentity,
             ["_primary": false.toJson + options.getArrayCopy()}
-        );
+       );
         if (!mysuccess) {
             return mysuccess;
         }
@@ -2194,7 +2194,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             "Unknown finder method `%s` on `%s`.".format(
             finderType,
             class
-        ));
+       ));
     }
     
     /**
@@ -2220,13 +2220,13 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                 mysecondParam?.name == "options" &&
                 !mysecondParam.isVariadic() &&
                 (mysecondParamType.isNull || mysecondParamTypeName == "array")
-            ) {
+           ) {
                 if (isSet(myargs[0])) {
                     deprecationWarning(
                         "5.0.0",
                         "Using options array for the `find()` call is deprecated."
                         ~ " Use named arguments instead."
-                    );
+                   );
 
                     myargs = myargs[0];
                 }
@@ -2241,7 +2241,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                     "5.0.0",
                     "Calling `{myreflected.name}` finder with options array is deprecated."
                      ~ " Use named arguments instead."
-                );
+               );
 
                 myargs = myargs[0];
             }
@@ -2292,7 +2292,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                     "Not enough arguments for magic finder. Got %s required %s",
                     count(myargs),
                     count(fieldNames)
-                ));
+               ));
             }
             fieldNames.each!(field => myconditions[this.aliasField(field)] = array_shift(myargs));
             return myconditions;
@@ -2301,7 +2301,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (myhasOr != false && myhasAnd != false) {
             throw new BadMethodCallException(
                 "Cannot mix "and" & "or" in a magic finder. Use find() instead."
-            );
+           );
         }
         if (myhasOr == false && myhasAnd == false) {
             myconditions = mymakeConditions([fieldNames], myargs);
@@ -2334,7 +2334,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         }
         throw new BadMethodCallException(
             "Unknown method `%s` called on `%s`".format(methodToInvoke, class)
-        );
+       );
     }
     
     /**
@@ -2347,7 +2347,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             throw new DatabaseException(
                 "Undefined property `%s`. " .
                 "You have not defined the `%s` association on `%s`."
-                .format(associationName, associationName, class ));
+                .format(associationName, associationName, class));
         }
         return myassociation;
     }
@@ -2388,7 +2388,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * myarticle = this.Articles.newEntity(
      * this.request[),
      * ["associated": ["Tags", "Comments.Users"]]
-     * );
+     *);
      * ```
      *
      * You can limit fields that will be present in the constructed entity by
@@ -2399,7 +2399,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * "fields": ["title", "body", "tags", "comments"],
      * "associated": ["Tags", "Comments.Users": ["fields": "username"]]
      * ]
-     * );
+     *);
      * ```
      *
      * The `fields` option lets remove or restrict input data from ending up in
@@ -2410,7 +2410,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * myarticle = this.Articles.newEntity(
      * this.request[),
      * ["accessibleFields": ["protected_field": true.toJson]]
-     * );
+     *);
      * ```
      *
      * By default, the data is validated before being passed to the new DORMEntity. In
@@ -2421,7 +2421,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * myarticle = this.Articles.newEntity(
      * this.request[),
      * ["validate": false.toJson]
-     * );
+     *);
      * ```
      *
      * You can also pass the name of the validator to use in the `validate` option.
@@ -2450,7 +2450,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * myarticles = this.Articles.newEntities(
      * this.request[),
      * ["associated": ["Tags", "Comments.Users"]]
-     * );
+     *);
      * ```
      *
      * You can limit fields that will be present in the constructed entities by
@@ -2461,7 +2461,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * "fields": ["title", "body", "tags", "comments"],
      * "associated": ["Tags", "Comments.Users": ["fields": "username"]]
      * ]
-     * );
+     *);
      * ```
      *
      * You can use the `Model.beforeMarshal` event to modify request data
@@ -2490,7 +2490,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * "fields": ["title", "body", "tags", "comments"],
      * "associated": ["Tags", "Comments.Users": ["fields": "username"]]
      * ]
-     * );
+     *);
      * ```
      *
      * ```
@@ -2548,7 +2548,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * "fields": ["title", "body", "tags", "comments"],
      * "associated": ["Tags", "Comments.Users": ["fields": "username"]]
      * ]
-     * );
+     *);
      * ```
      *
      * You can use the `Model.beforeMarshal` event to modify request data
@@ -2609,11 +2609,11 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                 "markNew": mycontext["newRecord"],
                 "source": this.registryKey(),
             ]
-        );
+       );
         fieldNames = array_merge(
             [mycontext["field"]],
             isSet(options["scope"]) ? (array)options["scope"] : []
-        );
+       );
         myvalues = myentity.extract(fieldNames);
         foreach (myvalues as fieldName) {
             if (fieldName !is null && !isScalar(fieldName)) {

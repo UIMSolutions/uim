@@ -135,7 +135,7 @@ class DAsset {
             !options.isEmpty("ext") &&
             !somePath.has("?") &&
             !somePath.endsWith(options["ext"])
-        ) {
+       ) {
             somePath ~= options["ext"];
         }
         // Check again if path has protocol as `pathPrefix` could be for CDNs.
@@ -152,7 +152,7 @@ class DAsset {
         auto webPath = assetTimestamp(
             webroot(somePath, options),
             optionTimestamp
-        );
+       );
 
         auto somePath = encodeUrl(webPath);
         if (!options.isEmpty("fullBase")) {
@@ -194,7 +194,7 @@ class DAsset {
         if (timestampEnabled) {
             string filepath = /* (string) */preg_replace(
                 "/^" ~ preg_quote(requestWebroot(), "/") ~ "/", "", urldecode(somePath)
-            );
+           );
             
             string webrootPath = configuration.getString("App.wwwRoot") ~ filepath.replace("/", DIRECTORY_SEPARATOR);
             if (isFile(webrootPath)) {

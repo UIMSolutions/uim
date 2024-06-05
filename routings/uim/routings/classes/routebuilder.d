@@ -501,7 +501,7 @@ class DRouteBuilder {
      * "/{lang}/{controller}/{action}/{id}",
      * [],
      * ["id": "[0-9]+", "lang": "[a-z]{3}"]
-     * );
+     *);
      * ```
      *
      * Shows connecting a route with custom route parameters as well as
@@ -596,7 +596,7 @@ class DRouteBuilder {
             if (myrouteClass.isNull) {
                 throw new DInvalidArgumentException(
                     "Cannot find route class %s".format(options["routeClass"])
-                );
+               );
             }
             myroute = (_path ~ myroute).replace("//", "/");
             if (myroute != "/") {
@@ -611,7 +611,7 @@ class DRouteBuilder {
                             myval,
                             myparam,
                             mydefaults[myparam]
-                        ));
+                       ));
                 }
             }
             mydefaults += _params ~ ["plugin": Json(null)];

@@ -41,7 +41,7 @@ mixin template TCommonQuery() {
         assert(
             cast(Table)myrepository,
             "`myrepository` must be an instance of `" ~ Table.classname ~ "`."
-        );
+       );
 
        _repository = myrepository;
     }

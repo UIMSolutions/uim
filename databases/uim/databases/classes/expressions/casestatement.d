@@ -71,21 +71,21 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
                 aValue !is null &&
                 !isScalar(aValue) &&
                 !(isObject(aValue) && !(cast(DClosure)aValue))
-            ) {
+           ) {
                 throw new DInvalidArgumentException(
                     "The `aValue` argument must be either `null`, a scalar value, an object, " .
                     "or an instance of `\%s`, `%s` given."
                     .format(IExpression.classname,
                     get_debug_type(aValue)
-                ));
+               ));
             }
             _value = aValue;
 
             if (
                 !aValue.isNull &&
                 type.isNull &&
-                !(cast(IExpression)aValue )
-            ) {
+                !(cast(IExpression)aValue)
+           ) {
                 type = this.inferType(aValue);
             }
             _valueType = type;
@@ -232,11 +232,11 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
         }
         if (cast(DClosure) when) {
              when = when(new WhenThenExpression(getTypeMap()));
-            if (!(cast(WhenThenExpression) when )) {
+            if (!(cast(WhenThenExpression) when)) {
                 throw new DLogicException(
                     "`when()` callables must return an instance of `\%s`, `%s` given."
                     .format(WhenThenExpression.classname, get_debug_type(when))
-                );
+               );
             }
         }
         if (cast(WhenThenExpression) when) {
@@ -321,13 +321,13 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
             !resultValue.isNull &&
             !isScalar(resultValue) &&
             !(isObject(resultValue) && !(cast(DClosure)resultValue))
-        ) {
+       ) {
             throw new DInvalidArgumentException(
                 "The `result` argument must be either `null`, a scalar value, an object, " .
                 "or an instance of `\%s`, `%s` given."
                 .format(IExpression.classname,
                 get_debug_type(resultValue)
-            ));
+           ));
         }
         resultType ??= this.inferType(resultValue);
 
@@ -392,7 +392,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
             throw new DInvalidArgumentException(
                 "The `clause` argument must be one of `%s`, the given value `%s` is invalid."
                     .format(this.validClauseNames.join("`, `"), clauseName)
-            );
+           );
         }
         return _{clauseName};
     }
@@ -424,7 +424,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
             throw new DLogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }
         
-        if (cast(IExpression)_value ) {
+        if (cast(IExpression)_value) {
             aCallback(_value);
             _value.traverse(aCallback);
         }
@@ -433,7 +433,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
             when.traverse(aCallback);
         });
 
-        if (cast(IExpression)_else ) {
+        if (cast(IExpression)_else) {
             aCallback(_else);
             _else.traverse(aCallback);
         }
@@ -444,13 +444,11 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
         if (whenBuffer) {
             throw new DLogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }
-        if (cast(IExpression)_value ) {
+        if (cast(IExpression)_value) {
             _value = clone _value;
         }
-        foreach (_when as aKey:  when) {
-            _when[aKey] = clone _when[aKey];
-        }
-        if (cast(IExpression)_else ) {
+        _when.each!(kv => _when[kv.key] = clone _when[kv.Key]);
+        if (cast(IExpression)_else) {
             _else = clone _else;
         }
     } 

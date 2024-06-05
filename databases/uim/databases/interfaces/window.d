@@ -72,7 +72,7 @@ interface IWindow {
         string frameStartDirection,
         /* /* IExpression| */ string| */ int frameEndOffset,
         string frameEndDirection
-    );
+   );
 
     // Adds current row frame exclusion.
     auto excludeCurrent();

@@ -73,18 +73,18 @@ class DWhenThenExpression : DExpression {
             if (
                 valueType !is null &&
                 !isArray(valueType)
-            ) {
+           ) {
                 throw new DInvalidArgumentException(
                     "When using an array for the ` when` argument, the `type` argument must be an " ~
                     "array too, `%s` given.".format(get_debug_type(valueType)
-                ));
+               ));
             }
             // avoid dirtying the type map for possible consecutive `when()` calls
             typeMap = clone _typeMap;
             if (
                 isArray(valueType) &&
                 count(valueType) > 0
-            ) {
+           ) {
                 typeMap = typeMap.setTypes(valueType);
             }
              when = new DQueryExpression(when, typeMap);
@@ -92,16 +92,16 @@ class DWhenThenExpression : DExpression {
             if (
                 valueType !is null &&
                 !isString(type)
-            ) {
+           ) {
                 throw new DInvalidArgumentException(
                     "When using a non-array value for the ` when` argument, the `type` argument must " ~
                     "be a string, `%s` given.".format(get_debug_type(type))
-                );
+               );
             }
             if (
                 valueType.isNull &&
-                !(cast(IExpression) when )
-            ) {
+                !(cast(IExpression) when)
+           ) {
                 valueType = this.inferType(when);
             }
         }
@@ -115,12 +115,12 @@ class DWhenThenExpression : DExpression {
             resultValue !is null &&
             !isScalar(resultValue) &&
             !(isObject(resultValue) && !(cast(DClosure)resultValue))
-        ) {
+       ) {
             throw new DInvalidArgumentException(
                 "The `result` argument must be either `null`, a scalar value, an object, " ~
                 "or an instance of `\%s`, `%s` given."
                 .format(IExpression.classname, get_debug_type(resultValue)
-            ));
+           ));
         }
         this.then = result;
 
@@ -151,7 +151,7 @@ class DWhenThenExpression : DExpression {
             throw new DInvalidArgumentException(               
                 "The `clause` argument must be one of `%s`, the given value `%s` is invalid."
                 .format(join("`, `", _validClauseNames), clause)
-            );
+           );
         }
         return _{clause};
     }
@@ -166,13 +166,13 @@ class DWhenThenExpression : DExpression {
          when = this.when;
         if (
             isString(this.whenType) &&
-            !(cast(IExpression) when )
-        ) {
+            !(cast(IExpression) when)
+       ) {
              when = _castToExpression(when, this.whenType);
         }
-        if (cast(Query) when ) {
+        if (cast(Query) when) {
              when = "(%s)".format(when.sql(aBinder));
-        } elseif (cast(IExpression) when ) {
+        } elseif (cast(IExpression) when) {
              when = when.sql(aBinder);
         } else {
             placeholder = aBinder.placeholder("c");
@@ -189,11 +189,11 @@ class DWhenThenExpression : DExpression {
     }
  
     void traverse(Closure aCallback) {
-        if (auto expression = cast(IExpression)_when ) {
+        if (auto expression = cast(IExpression)_when) {
             aCallback(expression);
             this.when.traverse(aCallback);
         }
-        if (auto expression = cast(IExpression)_then ) {
+        if (auto expression = cast(IExpression)_then) {
             aCallback(expression);
             this.then.traverse(aCallback);
         }
@@ -201,10 +201,10 @@ class DWhenThenExpression : DExpression {
 
     // Clones the inner expression objects.
     void clone() {
-        if (cast(IExpression)_when ) {
+        if (cast(IExpression)_when) {
             this.when = clone this.when;
         }
-        if (cast(IExpression)this.then ) {
+        if (cast(IExpression)this.then) {
             this.then = clone this.then;
         }
     } */

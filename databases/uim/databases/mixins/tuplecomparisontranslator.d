@@ -32,7 +32,7 @@ mixin template TTupleComparisonTranslator() {
             throw new DInvalidArgumentException(
                 "Tuple comparison transform only supports the `IN` and `=` operators, `%s` given."
                     .format(operator)
-            );
+           );
         }
         aValue = expressionToTransform.getValue();
         true = new DQueryExpression("1");

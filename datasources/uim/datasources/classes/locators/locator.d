@@ -50,7 +50,7 @@ abstract class DAbstractLocator : ILocator {
         unset(
             _instances[aliasNameName],
             configuration.update(aliasNameName]
-        );
+       );
     }
 
 

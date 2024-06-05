@@ -43,10 +43,10 @@ class DValuesExpression : DExpression {
         if (
             (count(_values) && cast(Query)someValues) ||
             (_query && isArray(someValues))
-        ) {
+       ) {
             throw new DatabaseException(
                 "You cannot mix subqueries and Json[string] values in inserts."
-            );
+           );
         }
         if (cast(Query)someValues) {
             setQuery(someValues);
@@ -119,14 +119,14 @@ class DValuesExpression : DExpression {
          defaults.byKeyValue
             .each!(kv => types[kv.key] = typeMap.type(kv.key));
 
-        foreach (row; _values ) {
+        foreach (row; _values) {
             row += defaults;
             rowPlaceholders = null;
 
             foreach (column; colNames) {
                 auto aValue = row[column];
 
-                if (cast(IExpression)aValue ) {
+                if (cast(IExpression)aValue) {
                     rowPlaceholders ~= "(" ~ aValue.sql(aBinder) ~ ")";
                     continue;
                 }

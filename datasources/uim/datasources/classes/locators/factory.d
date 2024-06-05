@@ -25,7 +25,7 @@ class DFactoryLocator {
             deprecationWarning(
                 "Using a callable as a locator has been deprecated."
                 ~ " Use an instance of uim\Datasource\Locator\ILocatorinstead."
-            );
+           );
 
             _modelFactories[repositoryType] = factory;
 
@@ -34,7 +34,7 @@ class DFactoryLocator {
 
         throw new DInvalidArgumentException("`factory` must be an instance of uim\Datasource\Locator\ILocator a callable. Got type `%s` instead."
             .format(getTypeName(factory)
-        ));
+       ));
     }
 
     /**
@@ -55,7 +55,7 @@ class DFactoryLocator {
             throw new DInvalidArgumentException(
                 "Unknown repository type '%s'. Make sure you register a type before trying to use it."
                 .format(repositoryType)
-            );
+           );
         }
 
         return _modelFactories[repositoryType];

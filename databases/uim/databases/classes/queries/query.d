@@ -254,7 +254,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *   aConnection
      *       .selectQuery("*")
      *       .from("articles")
-     * );
+     *);
      *
      * aQuery.with(cte);
      * ```
@@ -267,7 +267,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * aQuery.with(function (
      *   \UIM\Database\Expression\CommonTableExpression cte,
      *   \UIM\Database\Query aQuery
-     * ) {
+     *) {
      *   cteQuery = aQuery
      *       .select("*")
      *       .from("articles");
@@ -289,7 +289,7 @@ abstract class DQuery : IQuery { // : IExpression {
             if (!(cast(DCommonTableExpression)cte)) {
                 throw new DException(
                     'You must return a `CommonTableExpression` from a Closure passed to `with()`.'
-                );
+               );
             }
         }
        _parts["with"] ~= cte;
@@ -514,7 +514,7 @@ abstract class DQuery : IQuery { // : IExpression {
         string[] tableNames,
         /* IExpression|Closure */string[] conditionsForJoin = null,
         Json[string] types = null
-    ) {
+   ) {
         join(_makeJoin(tableNames, conditionsForJoin, JOIN_TYPE_LEFT), types);
     }
     
@@ -530,7 +530,7 @@ abstract class DQuery : IQuery { // : IExpression {
         string[] tableNames,
         /* IExpression|Closure */string[] conditionsForJoining = null,
         Json[string] conditionTypes = null
-    ) {
+   ) {
         join(_makeJoin(tableNames, conditionsForJoining, JOIN_TYPE_RIGHT), conditionTypes);
     }
     
@@ -546,7 +546,7 @@ abstract class DQuery : IQuery { // : IExpression {
         string[] tableNames,
         /* IExpression|Closure */string[] conditionsForJoining = null,
         Json[string] conditionTypes = null
-    ) {
+   ) {
         join(_makeJoin(tableNames, conditionsForJoining, JOIN_TYPE_INNER), conditionTypes);
     }
     
@@ -555,7 +555,7 @@ abstract class DQuery : IQuery { // : IExpression {
         string[] tableNames,
         /* IExpression|Closure */ string[] conditionsForJoin,
         string joinType
-    ) {
+   ) {
         string tableAlias = tableNames;
 
         if (isArray(tableNames)) {
@@ -702,7 +702,7 @@ abstract class DQuery : IQuery { // : IExpression {
         /* IExpression|Closure */ string[] conditionsToFilter = null,
         Json[string] types = null,
         bool shouldOverwrite = false
-    ) {
+   ) {
         if (shouldOverwrite) {
            _parts["where"] = this.newExpr();
         }
@@ -808,7 +808,7 @@ abstract class DQuery : IQuery { // : IExpression {
                 "OR": [fieldName ~ " NOT IN": someValues, fieldName ~ " IS": Json(null)],
             ],
             options["types"]
-        );
+       );
     }
     
     /**
@@ -1212,7 +1212,7 @@ abstract class DQuery : IQuery { // : IExpression {
             throw new DInvalidArgumentException(
                 "The `%s` clause is not defined. Valid clauses are: %s."
                 .format(clauseName, clauses)
-            );
+           );
         }
         return _parts[name];
     }
@@ -1290,7 +1290,7 @@ abstract class DQuery : IQuery { // : IExpression {
         /* /* IExpression|Closure */ */ string[] appendExpression,
         string conjunctionType,
         Json[string] typesNames
-    ) {
+   ) {
         expression = _parts[queryPart] ?: this.newExpr();
         if (isEmpty(append)) {
            _parts[queryPart] = expression;
@@ -1340,12 +1340,12 @@ abstract class DQuery : IQuery { // : IExpression {
                                _parts[namePart.key][anI][j] = clone aValue;
                             }
                         }
-                    } elseif (cast(IExpression)piece ) {
+                    } elseif (cast(IExpression)piece) {
                        _parts[namePart.key][anI] = clone piece;
                     }
                 }
             }
-            if (cast(IExpression)namePart.value ) {
+            if (cast(IExpression)namePart.value) {
                _parts[namePart.key] = clone namePart.value;
             }
         }
@@ -1366,7 +1366,7 @@ abstract class DQuery : IQuery { // : IExpression {
                     throw new DException(errstr, errno);
                 },
                 E_ALL
-            );
+           );
             mySql = this.sql();
             params = getValueBinder().bindings();
         } catch (Throwable  anException) {

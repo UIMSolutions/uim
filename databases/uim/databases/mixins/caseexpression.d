@@ -34,12 +34,12 @@ mixin template TCaseExpression() {
         } elseif (
             isObject(aValue) &&
             cast(DStringable)aValue
-        ) {
+       ) {
             type = "String";
         } elseif (
            !_typeMap.isNull &&
             cast(IdentifierExpression)aValue 
-        ) {
+       ) {
             type = _typeMap.type(aValue.getIdentifier());
         } elseif (aValue  ITypedResult) {
             type = aValue.getReturnType();
@@ -51,8 +51,8 @@ mixin template TCaseExpression() {
     protected string compileNullableValue(DValueBinder valueBinder, Json aValue, string valueType = null) {
         if (
             !valueType.isNull &&
-            !(cast(IExpression)aValue )
-        ) {
+            !(cast(IExpression)aValue)
+       ) {
             aValue = _castToExpression(aValue, valueType);
         }
         if (aValue.isNull) {

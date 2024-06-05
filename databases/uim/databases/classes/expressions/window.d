@@ -91,7 +91,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
         string mystartDirection,
         IExpression | string | int myendOffset,
         string myendDirection
-    ) {
+   ) {
         this.frame = [
             "type": mytype,
             "start": [
@@ -141,12 +141,12 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
                 mybinder,
                 this.frame["start.offset"],
                 this.frame["start.direction"]
-            );
+           );
             myend = this.buildOffsetSql(
                 mybinder,
                 this.frame["end.offset"],
                 this.frame["end.direction"]
-            );
+           );
 
             myframeSql = "%s BETWEEN %s AND %s".format(this.frame["type"], mystart, myend);
 
@@ -188,7 +188,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
         DValueBinder valueBinder,
         IExpression | string | int frameOffset,
         string frameOffsetDirection
-    ) {
+   ) {
         if (myoffset == 0) {
             return "CURRENT ROW";
         }
@@ -198,7 +198,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
         return "%s %s".format(
             frameOffset ?  frameOffset : "UNBOUNDED",
             frameOffsetDirection
-        );
+       );
     }
 
     // Clone this object and its subtree of expressions.

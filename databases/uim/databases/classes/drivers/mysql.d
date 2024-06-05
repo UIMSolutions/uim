@@ -142,7 +142,7 @@ class DMysqlDriver : DDriver {
                 this.currentVersion(),
                 this.featureVersions[this.serverType][feature.value],
                 '>='
-            ),
+           ),
         };
     }
 

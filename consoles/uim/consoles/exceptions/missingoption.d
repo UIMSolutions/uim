@@ -19,7 +19,7 @@ class DMissingOptionException : DConsoleException {
     string[] suggestions = null,
     int exceptionCode = 0,
     Throwable previousException = null
-  ) {
+ ) {
 
     this();
     

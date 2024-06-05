@@ -79,7 +79,7 @@ class DSqliteDriver : DDriver {
             name = configData.get("name", "unknown");
             throw new DInvalidArgumentException(
                 "The `database` key for the `{name}` SQLite connection needs to be a non-empty string."
-            );
+           );
         }
         chmodFile = false;
         if (configuration.getString("database") != ": memory:" && configuration.getString("mode") != "memory") {
@@ -99,7 +99,7 @@ class DSqliteDriver : DDriver {
             @chmod(configuration.get("database"), configuration.get("mask"]);
         }
         if (!(configuration.isEmpty("init")) {
-            foreach (command; /* (array) */configuration.get("init"] ) {
+            foreach (command; /* (array) */configuration.get("init"]) {
                 _pdo.exec(command);
             }
         }
@@ -123,7 +123,7 @@ class DSqliteDriver : DDriver {
                 this.currentVersion(),
                 this.featureVersions[feature.value],
                 '>='
-            ),
+           ),
         };
     }
  

@@ -167,7 +167,7 @@ void setEncoding(string encodingToUse) {
                             p["type"]
                         ]);
                 }
-                );
+               );
             break;
         case "CURRENT_DATE":
             auto time = new DFunctionExpression("LOCALTIMESTAMP", [" 0 ": "literal"]);

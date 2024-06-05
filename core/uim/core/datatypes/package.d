@@ -41,11 +41,11 @@ T rotate(T)(T value, T[] values, bool directionRight = true) {
         ? (index == values.length-1 
           ? values[0]
           : values[index+1]
-          )
+         )
         : (index == 0 
           ? values[$-1] 
           : values[index-1]
-          );
+         );
     }
   }
   return value;

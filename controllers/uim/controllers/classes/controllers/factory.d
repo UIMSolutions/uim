@@ -96,7 +96,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         someArguments = getActionArgs(
             action,
             /* (array) */controller.getRequest().getParam("pass").values
-        );
+       );
         controller.invokeAction(action, someArguments);
 
         result = controller.shutdownProcess();
@@ -149,7 +149,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
             // Use any passed params as positional arguments
             if (passedParams) {
                 argument = array_shift(passedParams);
-                if (isString(argument) && cast(ReflectionNamedType)type  ) {
+                if (isString(argument) && cast(ReflectionNamedType)type ) {
                     typedArgument = this.coerceStringToType(argument, type);
 
                     if (typedArgument.isNull) {
@@ -228,7 +228,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
             controller.has("/") ||
             controller.has(".") ||
             firstChar == firstChar.lower
-        ) {
+       ) {
             throw this.missingController(request);
         }
         /** @var class-string<\UIM\Controller\Controller>|null */

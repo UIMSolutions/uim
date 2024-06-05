@@ -116,7 +116,7 @@ class DComponent { // TODO }: IEventListener {
             return _componentInstances[componentName] = _registry.load(
                 componentName,
                 configData
-            );
+           );
         }
         return null;
     }

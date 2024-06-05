@@ -76,7 +76,7 @@ class DFormProtectionComponent : DComponent {
             !isIn(request.getParam("action"), _config["unlockedActions"], true)
             && $hasData
             && _config["validate"]
-            ) {
+           ) {
             auto sessionId = _getSessionId();
             auto url = Router.url(request.getRequestTarget());
 

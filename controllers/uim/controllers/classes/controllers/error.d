@@ -36,7 +36,7 @@ class DErrorController : DController {
         if (
             _request.getParam("prefix") &&
             viewBuilder.getTemplate().has(["error400", "error500"])
-        ) {
+       ) {
             string[] parts = viewBuilder.templatePath, -1).toString.split(DIRECTORY_SEPARATOR);
             templatePath = parts.join(DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR ~ "Error";
         }

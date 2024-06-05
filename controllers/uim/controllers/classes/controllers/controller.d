@@ -161,7 +161,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         ServerRequest serverRequest,
         string nameToOverride = null,
         IEventManager eventManager = null,
-    ) {
+   ) {
         if (nameToOverride) {
             name(nameToOverride);
         } elseif (!isSet(_name)) {
@@ -240,9 +240,9 @@ class DController : IController { // IEventListener, IEventDispatcher {
                     propertyName,
                     trace[0]["file"],
                     trace[0]["line"]
-                ),
+               ),
                 E_USER_NOTICE
-            );
+           );
 
         return null;
     }
@@ -288,8 +288,8 @@ class DController : IController { // IEventListener, IEventDispatcher {
                 cast(Response)result,
                     "Controller actions can only return Response instance or null. Got %s instead."
                     .format(get_debug_type(result)
-                )
-            );
+               )
+           );
         } elseif (this.isAutoRenderEnabled()) {
             result = this.render();
         }
@@ -331,7 +331,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
             if (
                 !middlewareOptions.isEmpty("except") &&
                 /* (array) */middlewareOptions["except"].has(requestAction)
-            ) {
+           ) {
                 continue;
             }
              matching ~= middleware["middleware"];
@@ -397,7 +397,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
             throw new DInvalidArgumentException(
                 "Invalid status code `%s`. It should be within the range " ~
                     "`300` - `399` for redirect responses.".format(httpStatusCode)
-            );
+           );
         }
         _response = _response.withStatus(httpStatusCode);
         
@@ -529,7 +529,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
             prefixes = array_map(
                 "UIM\Utility\Inflector.camelize",
                 split("/", _request.getParam("prefix"))
-            );
+           );
             templatePath = prefixes.join(DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR ~ templatePath;
         }
         return templatePath;
@@ -573,7 +573,7 @@ return url[0] != "/"
     IPaginated paginate(
         IRepository|IQuery|string  object = null,
         Json[string] settingsForPagination = null
-    ) {
+   ) {
         if (!isObject(object)) {
              object = this.fetchTable(object);
         }
@@ -583,7 +583,7 @@ return url[0] != "/"
             settingsForPagination["className"] ?? NumericPaginator.classname,
             "Datasource/Paging",
             "Paginator"
-        );
+       );
 
         auto paginator = new paginatorClassname();
         settingsForPagination.remove("className");
@@ -593,7 +593,7 @@ return url[0] != "/"
                  object,
                 _request.queryArguments(),
                 settingsForPagination
-            );
+           );
         } catch (PageOutOfBoundsException exception) {
             throw new DNotFoundException(null, null, exception);
         }

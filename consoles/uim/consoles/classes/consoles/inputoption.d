@@ -80,7 +80,7 @@ class DConsoleInputOption {
         bool acceptsMultiple = false,
         bool isRequiredOption = false,
         string promptText = null
-    ) {
+   ) {
        _name = name;
        _shortAlias = newShortAlias;
        _help = helpText;
@@ -98,13 +98,13 @@ class DConsoleInputOption {
         if (_shortalias.length > 1) {
             throw new DConsoleException(
                 "Short option `%s` is invalid, short options must be one letter.".format(_shortalias)
-            );
+           );
         }
         if (isSet(_default) && this.prompt) {
             throw new DConsoleException(
                 "You cannot set both `prompt` and `default` options. " ~
                 "Use either a static `default` or interactive `prompt`"
-            );
+           );
         }
     }
     
@@ -178,7 +178,7 @@ class DConsoleInputOption {
             throw new DConsoleException(
                 "`%s` is not a valid value for `--%s`. Please use one of `%s`"
                 .format(to!string(aValue), _name, join(", ", _choices))
-            );
+           );
         }
         return true;
     }

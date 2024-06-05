@@ -14,7 +14,7 @@ class DConsoleException : DException {
 
     this(
         string message, int exceptionCode = 0, Throwable previousException = null
-    ) {
+   ) {
         this();
         _exceptionCode = exceptionCode;
         _previousException = previousException;

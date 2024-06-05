@@ -63,7 +63,7 @@ mixin template TPluginAssets() {
             if (
                 configuration.hasKey("namespaced") && !isDir(configuration.get("destDir")) &&
                 !_createDirectory(configuration.get("destDir"))
-            ) {
+           ) {
                 continue;
             }
             
@@ -75,7 +75,7 @@ mixin template TPluginAssets() {
                     _io.verbose(
                         dest ~ " already exists",
                         1
-                    );
+                   );
 
                     continue;
                 }
@@ -84,7 +84,7 @@ mixin template TPluginAssets() {
                 result = _createSymlink(
                     configuration.get("srcPath"],
                     dest
-                );
+               );
                 if (result) {
                     continue;
                 }
@@ -92,7 +92,7 @@ mixin template TPluginAssets() {
            _copyDirectory(
                 configuration.get("srcPath"],
                 dest
-            );
+           );
         }
         _io.writeln();
         _io.writeln("Done");
@@ -108,7 +108,7 @@ mixin template TPluginAssets() {
             _io.verbose(
                 configuration.getString("destDir") ~ configuration.getString("link") ~ " does not exist",
                 1
-            );
+           );
 
             return false;
         }
@@ -118,7 +118,7 @@ mixin template TPluginAssets() {
             _io.verbose(
                 dest ~ " does not exist",
                 1
-            );
+           );
 
             return false;
         }

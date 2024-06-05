@@ -40,7 +40,7 @@ class DCommandScanner {
             "UIM\Command\\",
             "",
             ["command_list"]
-        );
+       );
     }
     
     /**
@@ -54,7 +54,7 @@ class DCommandScanner {
             appNamespace ~ "\Command\\",
             "",
             []
-        );
+       );
     }
     
     // Scan the named plugin for shells and commands

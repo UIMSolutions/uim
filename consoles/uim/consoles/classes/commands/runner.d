@@ -48,7 +48,7 @@ class DCommandRunner { // }: IEventDispatcher {
         IConsoleApplication consoleApp,
         string rootCommandName = "uim",
         ICommandFactory commandFactory = null
-    ) {
+   ) {
         _app = consoleApp;
         _rootCommandName = _rootCommandName;
         _factory = commandFactory;
@@ -158,7 +158,7 @@ class DCommandRunner { // }: IEventDispatcher {
         assert(
             cast(IEventDispatcher) _app,
             "Cannot set the event manager, the application does not support events."
-        );
+       );
 
         _app.setEventManager(newEventManager);
     }
@@ -223,7 +223,7 @@ class DCommandRunner { // }: IEventDispatcher {
                     ."Run `{this.root} --help` to get the list of commands.",
                     cliArgumentName,
                     comandsToCheck.keys()
-            );
+           );
         }
         return cliArgumentName;
     }

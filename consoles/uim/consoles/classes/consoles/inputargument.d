@@ -109,7 +109,7 @@ class DConsoleInputArgument {
             throw new DConsoleException(
                 "`%s` is not a valid value for `%s`. Please use one of `%s`"
                     .format(choiceToValidate, _name, _choices.join(", "))
-            );
+           );
         }
         return true;
     }

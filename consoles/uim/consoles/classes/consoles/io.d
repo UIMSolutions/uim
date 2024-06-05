@@ -71,7 +71,7 @@ class DConsoleIo {
         ConsoleOutput errOutput = null,
         ConsoleInput input = null,
         ?HelperRegistry helpers = null
-    ) {
+   ) {
        _out = output ? result : new DConsoleOutput("uim://stdout");
        _err = errOutput ?: new DConsoleOutput("uim://stderr");
        _in = input ?: new DConsoleInput("uim://stdin");
@@ -312,7 +312,7 @@ class DConsoleIo {
             array_map("strtolower", choices),
             array_map("strtoupper", choices),
             choices
-        );
+       );
 
         string anIn = "";
         while (anIn.isEmpty || !anIn.isIn(choices)) {

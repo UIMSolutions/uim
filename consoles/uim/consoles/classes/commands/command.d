@@ -48,7 +48,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         /* assert(
             newName.has(" ") && !newName.startsWith(" "),
             "The name '{name}' is missing a space. Names should look like `uim routes`"
-        ); */ 
+       ); */ 
         _name = newName;
     }
 
@@ -115,7 +115,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
                 arguments,
                 options,
                 aParser.argumentNames()
-            );
+           );
         } catch (ConsoleException anException) {
             aConsoleIo.writeErrorMessages("Error: " ~ anException.getMessage());
 
@@ -188,7 +188,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         assert(
             isSubclass_of(command, ICommand.classname),
             "Command `%s` is not a subclass of `%s`.".format(command, ICommand.classname)
-        );
+       );
 
         auto newCommand = new command();
         return executeCommand(ICommand acommand, Json[string] commandArguments = null,  ? IConsoleIo aConsoleIo = null) {

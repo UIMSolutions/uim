@@ -259,15 +259,15 @@ class DConsoleOptionParser {
             this.addArguments(spec["arguments"]);
         }
         if (!spec["options"].isEmpty)
-            ) {
+           ) {
             addOptions(spec["options"]);
         }
         if (!spec["description"].isEmpty)
-            ) {
+           ) {
             this.description(spec["description"]);
         }
         if (!spec["epilog"].isEmpty)
-            ) {
+           ) {
             setEpilog(spec["epilog"]);
         }
     }
@@ -318,7 +318,7 @@ class DConsoleOptionParser {
             behaviorOptions["multiple"],
             behaviorOptions["required"],
             behaviorOptions["prompt"]
-        );
+       );
     }
 
     addOption(inputOption, behaviorOptions) {
@@ -446,7 +446,7 @@ class DConsoleOptionParser {
             if (arg.isRequired() && !isSet(someArguments[index])) {
                 throw new DConsoleException(
                     "Missing required argument. The `%s` argument is required.".format(arg.name())
-                );
+               );
             }
         }
         _options.each!((option) {
@@ -467,7 +467,7 @@ class DConsoleOptionParser {
                     throw new DConsoleException(
                         "Cannot use interactive option prompts without a ConsoleIo instance. " ~
                         "Please provide a ` aConsoleIo` parameter to `parse()`."
-                    );
+                   );
                 }
                 choices = option.choices();
 
@@ -480,7 +480,7 @@ class DConsoleOptionParser {
                 throw new DConsoleException(
                     "Missing required option. The `%s` option is required and has no default value.".format(
                     name)
-                );
+               );
             }
         });
         return [params, someArguments];
@@ -539,7 +539,7 @@ class DConsoleOptionParser {
             throw new DMissingOptionException(
                 "Unknown short option `%s`.".format(aKey),
                 aKey, options
-            );
+           );
         }
         name = _shortOptions[aKey];
 
@@ -558,7 +558,7 @@ class DConsoleOptionParser {
                 "Unknown option `%s`.".format(
                     nameToParse),
                 nameToParse, _options.keys
-            );
+           );
         }
         option = _options[nameToParse];
         isBoolean = option.isBoolean();
@@ -608,7 +608,7 @@ class DConsoleOptionParser {
             throw new DConsoleException(
                 "Received too many arguments. Got `%s` but only `%s` arguments are defined."
                     .format(next, expected)
-            );
+           );
         }
         _args[next].validChoice(argument);
         someArguments ~= argument;

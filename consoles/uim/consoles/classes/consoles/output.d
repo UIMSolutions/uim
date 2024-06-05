@@ -147,15 +147,15 @@ class DConsoleOutput {
                 !to!string(enviroment("SHELL")).lower.has("bash.exe") &&
                 !(bool)enviroment("ANSICON") &&
                 enviroment("ConEmuANSI") != "ON"
-            ) ||
+           ) ||
             (
                 function_exists("posix_isatty") &&
                 !posix_isatty(_output)
-            ) ||
+           ) ||
             (
                 enviroment("NO_COLOR") !is null
-            )
-        ) {
+           )
+       ) {
            _outputAs = self.PLAIN;
         }
     }
@@ -186,7 +186,7 @@ class DConsoleOutput {
                 "/<(?P<tag>[a-z0-9-_]+)>(?P<text>.*?)<\/(\1)>/ims",
                 replaceTags,
                 stylingText
-            );
+           );
             if (output !is null) {
                 return output;
             }

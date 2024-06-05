@@ -48,9 +48,9 @@ bool isBool(Json aJson) {
 }
 ///
 unittest {
-  assert(parseJsonString(`true`).isBoolean);
-  assert(parseJsonString(`false`).isBoolean);
-  assert(!parseJsonString(`1`).isBoolean);
+  assert(parseJsonString(`true`).isBool);
+  assert(parseJsonString(`false`).isBool);
+  assert(!parseJsonString(`1`).isBool);
 }
 
 bool isFloat(Json aJson) {
@@ -60,10 +60,6 @@ bool isFloat(Json aJson) {
 unittest {
   assert(parseJsonString(`1.1`).isFloat);
   assert(!parseJsonString(`1`).isFloat);
-}
-
-bool isInt(Json aJson) {
-  return (aJson.type == Json.Type.int_);
 }
 
 bool isInt(Json aJson) {

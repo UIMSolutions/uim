@@ -79,7 +79,7 @@ class DPaginatorHelper : DHelper {
                 "options.url",
                 array_merge(_View.getRequest()
                     .getParam("pass", []), ["?": myquery])
-            );}
+           );}
 
             /**
      * Set paginated results.
@@ -126,7 +126,7 @@ class DPaginatorHelper : DHelper {
                                                 options.remove("paging");}
                                                 configuration.get("options"] = array_filter(
                                                     options + configuration.get("options"]);
-                                                    if (configuration.isEmpty("options/url")) ) {
+                                                    if (configuration.isEmpty("options/url"))) {
                                                     configuration.get("options/url"] = null;
                                                 }
                                     }
@@ -185,7 +185,7 @@ class DPaginatorHelper : DHelper {
                                                                 .currentPage() + options["step"]
                                                             ],
                                                             options["url"]
-                                                            ); result = mytemplater.format(mytemplate, [
+                                                           ); result = mytemplater.format(mytemplate, [
                                                                     "url": myurl,
                                                                     "text": mytext,
                                                                 ]); if (mynewTemplates) {
@@ -314,7 +314,7 @@ class DPaginatorHelper : DHelper {
                                                                     mysortKey == mytable ~ "." ~ fieldName ||
                                                                         mysortKey == aliasName ~ "." ~ aKey ||
                                                                         mytable ~ "." ~ fieldName == aliasName ~ "." ~ mysortKey
-                                                                ); mytemplate = "sort";
+                                                               ); mytemplate = "sort";
                                                                     mydir = mydefaultDir;
                                                                     if (myisSorted) {
                                                                         if (mylocked) {
@@ -358,7 +358,7 @@ class DPaginatorHelper : DHelper {
                                                                 array myurl = [],
                                                                 array myurlOptions = [
                                                                 ]
-                                                            ) {
+                                                           ) {
                                                                 myurlOptions.merge([
                                                                     "escape": true.toJson,
                                                                     "fullBase": false.toJson,
@@ -386,7 +386,7 @@ class DPaginatorHelper : DHelper {
                                                                         !mypaging.isEmpty("sort")) 
                                                                     && !options.isEmpty("sort"])
                                                                     && !options["sort"].has(".")
-                                                                ) {
+                                                               ) {
                                                                     mypaging["sort"] = _removeAlias(
                                                                         mypaging["sort"]);
                                                                 }
@@ -397,7 +397,7 @@ class DPaginatorHelper : DHelper {
                                                                         && !options.isEmpty("sort"])
                                                                         && !options["sort"].has(
                                                                             ".")
-                                                                    ) {
+                                                                   ) {
                                                                     mypaging["sortDefault"] = _removeAlias(
                                                                         mypaging["sortDefault"], this.param(
                                                                             "alias"));
@@ -410,7 +410,7 @@ class DPaginatorHelper : DHelper {
                                                                         "sort": Json(null),
                                                                         "direction": Json(null)
                                                                     ]
-                                                                ); if (!options.isEmpty("page") && options.getInt(
+                                                               ); if (!options.isEmpty("page") && options.getInt(
                                                                         "page") == 1) {
                                                                     options["page"] = Json(null);
                                                                 }
@@ -419,7 +419,7 @@ class DPaginatorHelper : DHelper {
                                                                     && options["sort"] == mypaging["sortDefault"]
                                                                     && options["direction"].lower == mypaging["directionDefault"]
                                                                     .lower
-                                                                    ) {
+                                                                   ) {
                                                                     options["sort"] = options["direction"] = null;
                                                                 }
                                                                 mybaseUrl = configuration.get(
@@ -643,7 +643,7 @@ class DPaginatorHelper : DHelper {
                                                                                     mystart = min(
                                                                                         myparams["pageCount"] - options["modulus"],
                                                                                         myparams["currentPage"] - myhalf - options["modulus"] % 2
-                                                                                    );
+                                                                                   );
 
                                                                                     if (
                                                                                         options["first"]) {
@@ -1046,8 +1046,8 @@ class DPaginatorHelper : DHelper {
                                                                                                 "fullBase": true
                                                                                                 .toJson
                                                                                             ]
-                                                                                        )
-                                                                                        );
+                                                                                       )
+                                                                                       );
                                                                                     }
                                                                                 if (options["next"] && this.hasNext()) {
                                                                                     mylinks ~= this.Html.meta(
@@ -1064,8 +1064,8 @@ class DPaginatorHelper : DHelper {
                                                                                             "fullBase": true
                                                                                             .toJson
                                                                                         ]
-                                                                                    )
-                                                                                    );
+                                                                                   )
+                                                                                   );
                                                                                 }
                                                                                 if (
                                                                                     options["first"]) {
@@ -1079,7 +1079,7 @@ class DPaginatorHelper : DHelper {
                                                                                             "fullBase": true
                                                                                             .toJson
                                                                                         ])
-                                                                                    );
+                                                                                   );
                                                                                 }
                                                                                 if (options["last"]) {
                                                                                     mylinks ~= this.Html.meta(
@@ -1096,8 +1096,8 @@ class DPaginatorHelper : DHelper {
                                                                                             "fullBase": true
                                                                                             .toJson
                                                                                         ]
-                                                                                    )
-                                                                                    );
+                                                                                   )
+                                                                                   );
                                                                                 }
                                                                                 string result = join(
                                                                                     mylinks);

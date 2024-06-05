@@ -25,7 +25,7 @@ class DMissingTCellException : DMissingTemplateException {
         string[] checkPaths = null,
         int errorCode = 0,
         Throwable previousException = null
-    ) {
+   ) {
         viewName = newViewName;
 
         super(fileName, checkPaths, errorCode, previousException);

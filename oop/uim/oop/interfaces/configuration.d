@@ -70,6 +70,7 @@ interface IConfiguration : INamed {
         bool set(STRINGAA values, string[] keys = null);
         bool set(Json[string] newData, string[] keys = null);
         bool set(string key, Json newValue);
+        bool set(string key, string newValue);
     // #endregion set
 
     bool update(Json[string] newData, string[] validKeys = null);

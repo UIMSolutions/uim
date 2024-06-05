@@ -41,7 +41,7 @@ mixin template TViewVars() {
             _request.ifNull(null),
             this.response ?? null,
             cast(IEventDispatcher)this ? getEventManager(): null
-        );
+       );
     }
     
     // Saves a variable or an associative array of variables for use inside a template.

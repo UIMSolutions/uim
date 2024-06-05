@@ -377,7 +377,7 @@ class DFormHelper : DHelper {
             options.isString("url") ||
             (options.isArray("url") &&
             isSet(options["url._name"]))
-        ) {
+       ) {
             return options["url"];
         }
         myactionDefaults = [
@@ -480,7 +480,7 @@ class DFormHelper : DHelper {
         mytokenData = _formProtector.buildTokenData(
            _lastAction,
            _getFormProtectorSessionId()
-        );
+       );
         mytokenFields = array_merge(mysecureAttributes, [
             "value": mytokenData["fields"],
         ]);
@@ -533,7 +533,7 @@ class DFormHelper : DHelper {
             throw new DException(
                 "`FormProtector` instance has not been created. Ensure you have loaded the `FormProtectionComponent`" ~
                 " in your controller and called `FormHelper.create()` before calling `FormHelper.unlockField()`."
-            );
+           );
         }
         return _formProtector;
     }
@@ -732,7 +732,7 @@ class DFormHelper : DHelper {
         auto fieldNames = array_merge(
             Hash.normalize(mymodelFields),
             Hash.normalize(fieldNames)
-        );
+       );
 
         return _controls(fieldNames, options);
     }
@@ -792,7 +792,7 @@ class DFormHelper : DHelper {
             myisCreate = mycontext.isCreate();
             mymodelName = Inflector.humanize(
                 Inflector.singularize(_View.getRequest().getParam("controller"))
-            );
+           );
 
             mylegend = !myisCreate
                 ? __d("uim", "Edit {0}", mymodelName)
@@ -877,7 +877,7 @@ class DFormHelper : DHelper {
             if (
                 mytemplater.get("error").has("{{id}}") &&
                 mytemplater.get("inputContainerError").has("{{error}}")
-            ) {
+           ) {
                 auto updatedOptions = options.update[
                    "aria-describedby": myisFieldError ? _domId(fieldName) ~ "-error" : null,
                 ];
@@ -917,7 +917,7 @@ class DFormHelper : DHelper {
             && options["type"] == "checkbox"
             && !array_key_exists("hiddenField", options)
             && mylabel != false
-        ) {
+       ) {
             options["hiddenField"] = "_split";
         }
 
@@ -1006,7 +1006,7 @@ class DFormHelper : DHelper {
             case "input": 
                 throw new DInvalidArgumentException(
                     "Invalid type `input` used for field `%s`.".format(fieldName
-                ));
+               ));
 
             default:
                 return _{options["type"]}(fieldName, options);
@@ -1056,8 +1056,8 @@ class DFormHelper : DHelper {
         return match (true) {
             isSet(options["checked"]): "checkbox",
             isSet(options["options"]): "select",
-            in_array(fieldName, ["passwd", "password"], true): "password",
-            in_array(fieldName, ["tel", "telephone", "phone"], true): "tel",
+            isIn(fieldName, ["passwd", "password"], true): "password",
+            isIn(fieldName, ["tel", "telephone", "phone"], true): "tel",
             fieldName == "email": "email",
             isSet(options["rows"]) || isSet(options["cols"]): "textarea",
             fieldName == "year": "year",
@@ -1099,7 +1099,7 @@ class DFormHelper : DHelper {
 
         myvarName = Inflector.variable(
             mypluralize ? Inflector.pluralize(fieldName): fieldName
-        );
+       );
         myvarOptions = _View.get(myvarName);
         if (!is_iterable(myvarOptions)) {
             return options;
@@ -1143,8 +1143,8 @@ class DFormHelper : DHelper {
         options = setRequiredAndCustomValidity(fieldName, options);
 
         mytypesWithOptions = ["text", "number", "radio", "select"];
-        mymagicOptions = (in_array(options["type"], ["radio", "select"], true) || allowOverride);
-        if (mymagicOptions && in_array(options["type"], mytypesWithOptions, true)) {
+        mymagicOptions = (isIn(options["type"], ["radio", "select"], true) || allowOverride);
+        if (mymagicOptions && isIn(options["type"], mytypesWithOptions, true)) {
             options = _optionsOptions(fieldName, options);
         }
         if (allowOverride && fieldName.endsWith("._ids")) {
@@ -1235,7 +1235,7 @@ class DFormHelper : DHelper {
             mylabelText = mylabel;
         }
         mylabelAttributes["for"] = labelOptions["id"];
-        if (in_array(labelOptions["type"], _groupedInputTypes, true)) {
+        if (isIn(labelOptions["type"], _groupedInputTypes, true)) {
             mylabelAttributes["for"] = false;
         }
         if (labelOptions["nestedInput"]) {
@@ -1414,14 +1414,14 @@ class DFormHelper : DHelper {
         htmlAttributes = _initInputField(fieldName, array_merge(
             htmlAttributes,
             ["secure": SECURE_SKIP]
-        ));
+       ));
 
         if (mysecure == true && _formProtector) {
             _formProtector.addField(
                 options["name"],
                 true,
                 options["val"] == false ? "0" : to!string(options["val"])
-            );
+           );
         }
         options["type"] = "hidden";
 
@@ -1664,7 +1664,7 @@ class DFormHelper : DHelper {
             _formProtector.addField(
                 options["name"],
                 options["secure"]
-            );
+           );
         }
         options.remove("secure"]);
 
@@ -1792,7 +1792,7 @@ class DFormHelper : DHelper {
             options.isEmpty &&
             myattributes.isEmpty("empty")) &&
             myattributes.isEmpty()"multiple")
-        ) {
+       ) {
             myattributes["secure"] = false;
         }
         myattributes = _initInputField(fieldName, myattributes);
@@ -2080,8 +2080,8 @@ class DFormHelper : DHelper {
             if (isArray(myfirst)) {
                 mydisabled = array_filter(
                     options["options"],
-                    fn (myi): in_array(myi["value"], options["disabled"], true)
-                );
+                    fn (myi): isIn(myi["value"], options["disabled"], true)
+               );
 
                 return count(mydisabled) > 0;
             }
@@ -2175,7 +2175,7 @@ class DFormHelper : DHelper {
             isSet(mydata["name"]) &&
             mysecure !is null &&
             mysecure != self.SECURE_SKIP
-        ) {
+       ) {
             foreach (mywidget.secureFields(mydata) as fieldName) {
                 _formProtector.addField(fieldName, mysecure);
             }
@@ -2217,7 +2217,7 @@ class DFormHelper : DHelper {
             throw new DInvalidArgumentException(
                 "Invalid value source(s): %s. Valid values are: %s."
                 .format(join(", ", mydiff), join(", ", this.supportedValueSources)
-            ));
+           ));
         }
     }
     

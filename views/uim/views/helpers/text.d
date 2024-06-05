@@ -60,25 +60,25 @@ class DTextHelper : DHelper {
                         # Lax match URL
                         (?<url>(?:https?|ftp|nntp):\/\/[\p{L}0-9.\-_:]+(?:[\/?][\p{L}0-9.\-_:\/?=&>\[\]\(\)\#\@\+~!;,%]+[^-_:?>\[\(\@\+~!;<,.%\s])?)
                         (?<right>[\])>]) # right paren,brace
-                    )
-                )
+                   )
+               )
                 |
                 (?<url_bare>(?P>url)) # A bare URL. Use subroutine
-            )
-            )/ixu";
+           )
+           )/ixu";
          Generic.Files.LineLength
 
         mytext = /* (string) */preg_replace_callback(
             mypattern,
             [&this, "_insertPlaceHolder"],
             mytext
-        );
+       );
          Generic.Files.LineLength
         mytext = preg_replace_callback(
             "#(?<!href="|">)(?<!\b[[:punct:]])(?<!http://|https://|ftp://|nntp://)www\.[^\s\n\%\ <]+[^\s<\n\%\,\.\ ](?<!\))#i",
             [&this, "_insertPlaceHolder"],
             mytext
-        );
+       );
          Generic.Files.LineLength
         if (options["escape"]) {
             mytext = htmlAttributeEscape(mytext);
@@ -165,7 +165,7 @@ class DTextHelper : DHelper {
             "/(?<=\s|^|\(|\>|\;)(" ~ myatom ~ "*(?:\." ~ myatom ~ "+)*@[\p{L}0-9-]+(?:\.[\p{L}0-9-]+)+)/ui",
             [&this, "_insertPlaceholder"],
             mytext
-        );
+       );
         if (options["escape"]) {
             mytext = htmlAttributeEscape(mytext);
         }

@@ -41,7 +41,7 @@ class DTimeHelper : DHelper {
     DateTime fromString(
         DChronosDate|JsonmydateString,
         DateTimeZone|string mytimezone = null
-    ) {
+   ) {
         mytime = new DateTime(mydateString);
         if (mytimezone !is null) {
             mytime = mytime.setTimezone(mytimezone);
@@ -60,7 +60,7 @@ class DTimeHelper : DHelper {
         DChronosDate|JsonmydateString = null,
         DateTimeZone|string mytimezone = null,
         string mylocale = null
-    ) {
+   ) {
         mytimezone = _getTimezone(mytimezone);
 
         return (new DateTime(mydateString)).nice(mytimezone, mylocale);
@@ -75,7 +75,7 @@ class DTimeHelper : DHelper {
     bool isToday(
         DChronosDate|JsonmydateString,
         DateTimeZone|string mytimezone = null
-    ) {
+   ) {
         return (new DateTime(mydateString, mytimezone)).isToday();
     }
     
@@ -88,7 +88,7 @@ class DTimeHelper : DHelper {
     bool isFuture(
         DChronosDate|JsonmydateString,
         DateTimeZone|string mytimezone = null
-    ) {
+   ) {
         return (new DateTime(mydateString, mytimezone)).isFuture();
     }
     
@@ -101,7 +101,7 @@ class DTimeHelper : DHelper {
     bool isPast(
         DChronosDate|JsonmydateString,
         DateTimeZone|string mytimezone = null
-    ) {
+   ) {
         return (new DateTime(mydateString, mytimezone)).isPast();
     }
     
@@ -114,7 +114,7 @@ class DTimeHelper : DHelper {
     bool isThisWeek(
         DChronosDate|JsonmydateString,
         DateTimeZone|string mytimezone = null
-    ) {
+   ) {
         return (new DateTime(mydateString, mytimezone)).isThisWeek();
     }
     
@@ -127,7 +127,7 @@ class DTimeHelper : DHelper {
     bool isThisMonth(
         DChronosDate|JsonmydateString,
         DateTimeZone|string mytimezone = null
-    ) {
+   ) {
         return (new DateTime(mydateString, mytimezone)).isThisMonth();
     }
     
@@ -140,7 +140,7 @@ class DTimeHelper : DHelper {
     bool isThisYear(
         DChronosDate|JsonmydateString,
         DateTimeZone|string mytimezone = null
-    ) {
+   ) {
         return (new DateTime(mydateString, mytimezone)).isThisYear();
     }
     
@@ -153,7 +153,7 @@ class DTimeHelper : DHelper {
     bool wasYesterday(
         DChronosDate|JsonmydateString,
         DateTimeZone|string mytimezone = null
-    ) {
+   ) {
         return (new DateTime(mydateString, mytimezone)).isYesterday();
     }
     
@@ -166,7 +166,7 @@ class DTimeHelper : DHelper {
     bool isTomorrow(
         DChronosDate|JsonmydateString,
         DateTimeZone|string mytimezone = null
-    ) {
+   ) {
         return (new DateTime(mydateString, mytimezone)).isTomorrow();
     }
     
@@ -178,7 +178,7 @@ class DTimeHelper : DHelper {
     string[] toQuarter(
         DChronosDate|JsonmydateString,
         bool rangeInYmdFormat = false
-    )|int {
+   )|int {
         return (new DateTime(mydateString)).toQuarter(rangeInYmdFormat);
     }
     
@@ -191,7 +191,7 @@ class DTimeHelper : DHelper {
     string toUnix(
         DChronosDate|JsonmydateString,
         DateTimeZone|string mytimezone = null
-    ) {
+   ) {
         return (new DateTime(mydateString, mytimezone)).toUnixString();
     }
     
@@ -204,7 +204,7 @@ class DTimeHelper : DHelper {
     string toAtom(
         DChronosDate|JsonmydateString,
         DateTimeZone|string mytimezone = null
-    ) {
+   ) {
         mytimezone = _getTimezone(mytimezone) ?: date_default_timezone_get();
 
         return (new DateTime(mydateString)).setTimezone(mytimezone).toAtomString();
@@ -219,7 +219,7 @@ class DTimeHelper : DHelper {
     string toRss(
         DChronosDate|JsonmydateString,
         DateTimeZone|string mytimezone = null
-    ) {
+   ) {
         mytimezone = _getTimezone(mytimezone) ?: date_default_timezone_get();
 
         return (new DateTime(mydateString)).setTimezone(mytimezone).toRssString();
@@ -243,7 +243,7 @@ class DTimeHelper : DHelper {
     string timeAgoInWords(
         DChronosDate|JsonmydateTime,
         Json[string] options  = null
-    ) {
+   ) {
         myelement = null;
         auto updatedOptions = options.update[
             "element": Json(null),
@@ -281,7 +281,7 @@ class DTimeHelper : DHelper {
                 this.templater().formatAttributes(myelement, ["tag"]),
                 myrelativeDate,
                 myelement["tag"]
-            );
+           );
         }
         return myrelativeDate;
     }
@@ -298,7 +298,7 @@ class DTimeHelper : DHelper {
         string timeIntervalValue,
         DChronosDate|JsonmydateString,
         DateTimeZone|string mytimezone = null
-    ) {
+   ) {
         return (new DateTime(mydateString, mytimezone)).wasWithinLast(timeIntervalValue);
     }
     
@@ -314,7 +314,7 @@ class DTimeHelper : DHelper {
         string timeIntervalValue,
         DChronosDate|JsonmydateString,
         DateTimeZone|string mytimezone = null
-    ) {
+   ) {
         return (new DateTime(mydateString, mytimezone)).isWithinNext(timeIntervalValue);
     }
     
@@ -345,7 +345,7 @@ class DTimeHelper : DHelper {
         string[]|int myformat = null,
         string myinvalid = false,
         DateTimeZone|string mytimezone = null
-    ) {
+   ) {
         return _i18nFormat(mydate, myformat, myinvalid, mytimezone);
     }
     
@@ -363,7 +363,7 @@ class DTimeHelper : DHelper {
         string[]|int myformat = null,
         string myinvalid = false,
         DateTimeZone|string mytimezone = null
-    ) {
+   ) {
         if (mydate.isNull) {
             return myinvalid;
         }

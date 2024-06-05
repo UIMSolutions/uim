@@ -646,7 +646,7 @@ class DHtmlHelper : DHelper {
         Json|null myevenTrOptions = null,
         bool useCount = false,
         bool continueOddEven = true
-    ) {
+   ) {
         if (!isArray(mydata)) {
             mydata = [[mydata]];
         } elseif (isEmpty(mydata[0]) || !isArray(mydata[0])) {
@@ -845,7 +845,7 @@ class DHtmlHelper : DHelper {
      * writeln(this.Html.media(
      *    ["video.mp4", ["src": "video.ogv", "type": "video/ogg; codecs="theora, vorbis""]],
      *    ["tag": "video", "autoplay"]
-     * );
+     *);
      * ```
      *
      * Outputs:
@@ -925,7 +925,7 @@ class DHtmlHelper : DHelper {
             htmlAttributes["poster"] = this.Url.assetUrl(
                 htmlAttributes["poster"],
                 ["pathPrefix": configuration.get("App.imageBaseUrl")] + htmlAttributes
-            );
+           );
         }
         mytext = htmlAttributes["text"];
 

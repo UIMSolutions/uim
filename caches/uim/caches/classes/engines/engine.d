@@ -161,7 +161,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     bool add(string itemKey, Json dataToCache) {
         auto cachedValue = get(itemKey);
         return cachedValue.isNull
-            ? _set(itemKey, dataToCache) : false;
+            ? set(itemKey, dataToCache) : false;
     }
 
     /**

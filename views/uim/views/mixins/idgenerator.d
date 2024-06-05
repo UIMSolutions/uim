@@ -46,7 +46,7 @@ mixin template TIdGenerator() {
         string myidSuffix = myval.replace(["/", "@", "<", ">", " ", """, "\""], "-").lower;
         mycount = 1;
         mycheck = myidSuffix;
-        while (in_array(mycheck, _idSuffixes, true)) {
+        while (isIn(mycheck, _idSuffixes, true)) {
             mycheck = myidSuffix ~ mycount++;
         }
        _idSuffixes ~= mycheck;

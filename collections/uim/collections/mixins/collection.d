@@ -163,7 +163,7 @@ mixin template TCollection() {
                 throw new DInvalidArgumentException(
                     "Cannot group by path that does not exist or contains a null value. " ~
                     "Use a callback to return a default value for that path."
-                );
+               );
             }
         });
         return _newCollection(mygroups);
@@ -178,7 +178,7 @@ mixin template TCollection() {
                 throw new DInvalidArgumentException(
                     "Cannot index by path that does not exist or contains a null value. " ~
                     "Use a callback to return a default value for that path."
-                );
+               );
             }
             mygroup[pathValue] = value;
         });
@@ -374,7 +374,7 @@ mixin template TCollection() {
         string mykeyPath,
         string myvaluePath,
         string mygroupPath = null
-    ) {
+   ) {
         Json[string] options = [
             "keyPath": _propertyExtractor(mykeyPath),
             "valuePath": _propertyExtractor(myvaluePath),
@@ -391,7 +391,7 @@ mixin template TCollection() {
                     throw new DInvalidArgumentException(
                         "Cannot index by path that does not exist or contains a null value. " ~
                         "Use a callback to return a default value for that path."
-                    );
+                   );
                 }
                 mymapReduce.emit(myrowVal(myvalue, aKey), mymapKey);
 
@@ -402,19 +402,19 @@ mixin template TCollection() {
                 throw new DInvalidArgumentException(
                     'Cannot group by path that does not exist or contains a null value. ' .
                     'Use a callback to return a default value for that path.'
-                );
+               );
             }
             mymapKey = myrowKey(myvalue, aKey);
             if (mymapKey.isNull) {
                 throw new DInvalidArgumentException(
                     "Cannot index by path that does not exist or contains a null value. " ~
                     "Use a callback to return a default value for that path."
-                );
+               );
             }
             mymapReduce.emitIntermediate(
                 [mymapKey: myrowVal(myvalue, aKey)],
                 aKey
-            );
+           );
         };
 
 /*         myreducer = void (myvalues, aKey, MapReduce mymapReduce) {
@@ -432,7 +432,7 @@ mixin template TCollection() {
         string myidPath,
         string myparentPath,
         string mynestingKey = "children"
-    ) {
+   ) {
         auto myparents = null;
         auto myidPath = _propertyExtractor(myidPath);
         auto myparentPath = _propertyExtractor(myparentPath);
@@ -515,7 +515,7 @@ mixin template TCollection() {
     ICollection listNested(
         string|int myorder = "desc",
         string mynestingKey = "children"
-    ) {
+   ) {
         if (isString(myorder)) {
             myorder = myorder.lower;
             auto mymodes = [
@@ -528,7 +528,7 @@ mixin template TCollection() {
                 throw new DInvalidArgumentException(
                     "Invalid direction `%s` provided. Must be one of: \'desc\", \'asc\", \'leaves\'."
                     .format(myorder
-                ));
+               ));
             }
             myorder = mymodes[myorder];
         }
@@ -536,7 +536,7 @@ mixin template TCollection() {
         return new DTreeIterator(
             new DNestIterator(this, mynestingKey),
             myorder
-        );
+       );
     }
  
     ICollection stopWhen(callable|array mycondition) {
@@ -555,8 +555,8 @@ mixin template TCollection() {
             new DRecursiveIteratorIterator(
                 new DUnfoldIterator(unwrap(), mycallback),
                 RecursiveIteratorIterator.LEAVES_ONLY
-            )
-        );
+           )
+       );
     }
  
     ICollection through(callable aCallback) {
@@ -629,7 +629,7 @@ mixin template TCollection() {
         while (
             myiterator.classname == Collection.classname
             && cast(DOuterIterator)myiterator
-        ) {
+       ) {
             myiterator = myiterator.getInnerIterator();
         }
         if (myiterator != this && cast(ICollection)myiterator) {
@@ -679,7 +679,7 @@ mixin template TCollection() {
                 mychangeIndex = mylastIndex;
                 mycurrentIndexes[mychangeIndex] == mycollectionArraysCounts[mychangeIndex] && mychangeIndex > 0;
                 mychangeIndex--
-            ) {
+           ) {
                 mycurrentIndexes[mychangeIndex] = 0;
                 mycurrentIndexes[mychangeIndex - 1]++;
             }

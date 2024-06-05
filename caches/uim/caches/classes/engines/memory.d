@@ -118,7 +118,7 @@ class DMemoryCacheEngine : DCacheEngine {
             "Invalid cache configuration. Multiple persistent cache configurations are detected" ~
             " with different `servers` values. `servers` values for persistent cache configurations" ~
             " must be the same when using the same persistence id."
-          ));
+         ));
       }
     }
     return true;
@@ -138,19 +138,19 @@ if (configuration.isArray("options"]) {
 if (configuration.isEmpty("username"] && !configuration.isEmpty("login")) {
   throw new DInvalidArgumentException(
     "Please pass " username" instead of 'login' for connecting to Memory"
-  );
+ );
 }
 if (!configuration.get("username"].isNull && configuration.get("password"]!is null) {
   if (!method_exists(_memory, "setSaslAuthData")) {
     throw new DInvalidArgumentException(
       "Memory extension is not built with SASL support"
-    );
+   );
   }
   _memory.setOption(Memory.OPT_BINARY_PROTOCOL, true);
   _memory.setSaslAuthData(
     configuration.get("username"],
     configuration.get("password"]
-  );
+ );
 }
 return true;
 }
@@ -168,29 +168,29 @@ return true;
     if (!_serializers.hasKey(myserializer)) {
       throw new DInvalidArgumentException(
         "`%s` is not a valid serializer engine for Memory.".format(myserializer)
-      );
+     );
     }
     if (myserializer != "d" && !constant("Memory.HAVE_" ~ myserializer.upper)) {
       throw new DInvalidArgumentException(
         "Memory extension is not compiled with `%s` support.".format(myserializer)
-      );
+     );
     }
 
     _memory.setOption(
       Memory.OPT_SERIALIZER,
       _serializers[myserializer]
-    ); // Check for Amazon ElastiCache instance
+   ); // Check for Amazon ElastiCache instance
     if (
       defined("Memory.OPT_CLIENT_MODE") &&
       defined("Memory.DYNAMIC_CLIENT_MODE")
-      ) {
+     ) {
       _memory.setOption(Memory.OPT_CLIENT_MODE, Memory.DYNAMIC_CLIENT_MODE);
     }
 
     _memory.setOption(
       Memory.OPT_COMPRESSION,
       configuration.getBool("compress")
-    );
+   );
   }
 
   /**

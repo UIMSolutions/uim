@@ -25,7 +25,7 @@ class DTreeIterator { // TODO }: RecursiveIteratorIterator, ICollection {
         RecursiveIterator  someItems,
         int iteratorMode = RecursiveIteratorIterator.SELF_FIRST,
         int iteratorFlags = 0
-    ) {
+   ) {
         super(someItems, iteratorMode, iteratorFlags);
        _mode = iteratorMode;
     }
@@ -63,7 +63,7 @@ class DTreeIterator { // TODO }: RecursiveIteratorIterator, ICollection {
         string propertyPath,
         string keyPath = null,
         string aspacer = "__"
-    ) {
+   ) {
         if (! keyPath) {
             counter = 0;
             keyPath = auto () use (&counter) {
@@ -79,6 +79,6 @@ class DTreeIterator { // TODO }: RecursiveIteratorIterator, ICollection {
             keyPath,
             spacer,
            _mode
-        );
+       );
     } */
 }

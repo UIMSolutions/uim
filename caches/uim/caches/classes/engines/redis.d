@@ -75,7 +75,7 @@ class DRedisCacheEngine : DCacheEngine {
                     configuration.get("server"),
                     configuration.getInt("port"),
                     configuration.getInt("timeout")
-                );
+               );
             } else {
                 persistentId = configuration.getString("port") ~ configuration.getString("timeout") ~ configuration.getString("database");
                 result = _redis.pconnect(
@@ -83,7 +83,7 @@ class DRedisCacheEngine : DCacheEngine {
                     configuration.getInt("port"),
                     configuration.getInt("timeout"),
                     persistentId
-                );
+               );
             }
         } catch (RedisException anException) {
             if (class_exists(Log.classname)) {

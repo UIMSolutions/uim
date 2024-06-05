@@ -117,18 +117,19 @@ class DCache : ICache {
     } 
 
     // Finds and builds the instance of the required engine class.
-    protected static void _buildEngine(string configName) {
+    protected /* static */ void _buildEngine(string configName) {
         auto myRegistry = getRegistry();
 
         if (configuration.isEmpty(configName~".className")) {
             throw new DInvalidArgumentException(
                 "The `%s` cache configuration does not exist."
                 .format(configName)
-            );
+           );
         }
         
         auto configData = configuration.get(configName);
-        try {
+        // TODO 
+/*         try {
             myRegistry.load(configName, configData);
         } catch (RuntimeException mye) {
             if (!array_key_exists("fallback", configData)) {
@@ -158,7 +159,7 @@ class DCache : ICache {
                 myfallbackEngine.configuration.update("prefix", mynewConfig["prefix"], false);
             }
             myRegistry.set(configName, myfallbackEngine);
-        }
+        } */
         if (cast(DCacheEngine)configuration.get("className")) {
             configData = configuration.get("className").configuration.data;
         }
@@ -204,9 +205,10 @@ class DCache : ICache {
      * ```
      */
     static bool write(string dataId, Json dataToCache, string configName = "default") {
-        if (isResource(dataToCache)) {
+        // TODO 
+/*         if (isResource(dataToCache)) {
             return false;
-        }
+        } */
         auto mybackend = pool(configName);
         auto wasSuccessful = mybackend.set(dataId, dataToCache);
         if (!wasSuccessful && dataToCache != "") {
@@ -216,7 +218,7 @@ class DCache : ICache {
                     configName,
                     dataId,
                     get_class(mybackend)
-            ));
+           ));
         }
         return wasSuccessful;
     }
@@ -280,8 +282,9 @@ class DCache : ICache {
      * Cache.readMany(["_data_1", "_data_2], "long_term");
      * ```
      */
-    static auto readMany(string[] keysToFetch, string configName = "default") {
-        return pool(configName).cacheItems(keysToFetch);
+    static Json readMany(string[] keysToFetch, string configName = "default") {
+        return Json(null);
+        // TODO return pool(configName).cacheItems(keysToFetch);
     }
 
     // Increment a number under the key and return incremented value.

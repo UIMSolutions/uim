@@ -164,12 +164,12 @@ class DFileCacheEngine : DCacheEngine {
         mydirectory = new DRecursiveDirectoryIterator(
             configuration.get("path"],
             FilesystemIterator.SKIP_DOTS
-        );
+       );
         /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Coerce for Dstan/psalm * /
         auto myIterator = new DRecursiveIteratorIterator(
             mydirectory,
             RecursiveIteratorIterator.SELF_FIRST
-        );
+       );
         
         string[] mycleared;
         myiterator.each!((myfileInfo) {
@@ -252,7 +252,7 @@ class DFileCacheEngine : DCacheEngine {
             !isSet(_File) ||
             _File.getBasename() != key ||
             _File.valid() == false
-            ) {
+           ) {
             myexists = isFile(mypath.getPathname());
             try {
                 _File = mypath.openFile("c+");
@@ -268,7 +268,7 @@ class DFileCacheEngine : DCacheEngine {
                     "Could not apply permission mask `%s` on cache file `%s`"
                         .format(_File.getPathname(),
                             configuration.get("mask"]
-                        ), E_USER_WARNING);
+                       ), E_USER_WARNING);
             }
         }
         return true;
@@ -287,7 +287,7 @@ class DFileCacheEngine : DCacheEngine {
             _init = false;
             trigger_error("%s is not writable"
                     .format(configuration.get("path"]
-                    ), E_USER_WARNING);
+                   ), E_USER_WARNING);
         }
         return mysuccess;
     } */
@@ -310,7 +310,7 @@ class DFileCacheEngine : DCacheEngine {
         DRecursiveIteratorIterator mycontents = new DRecursiveIteratorIterator(
             mydirectoryIterator,
             RecursiveIteratorIterator.CHILD_FIRST
-        );
+       );
         // TODO 
         /* 
         SplFileInfo[] myfiltered = new DCallbackFilterIterator(
@@ -323,9 +323,9 @@ class DFileCacheEngine : DCacheEngine {
                     ? mycurrent.getPathname()
                     .has(
                         DIRECTORY_SEPARATOR ~ groupName ~ DIRECTORY_SEPARATOR
-                    ) : false;}
+                   ) : false;}
 
-                );
+               );
 
                 myfiltered.each!((obj) {
                     auto mypath = obj.getPathName(); unset(obj); @unlink(mypath) ;

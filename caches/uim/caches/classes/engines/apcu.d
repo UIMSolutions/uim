@@ -73,7 +73,7 @@ class DApcuCacheEngine : DCacheEngine {
       auto myIterator = new APCUIterator(
         "/^" ~ preg_quote(configuration.getString("prefix"), "/") ~ "/",
         APC_ITER_NONE
-      );
+     );
       apcu_remove(myiterator);
 
       return true;
@@ -107,7 +107,8 @@ class DApcuCacheEngine : DCacheEngine {
       configuration.get("groups").map!(group => configuration.getString("prefix") ~ group).array;
     }
     auto mysuccess = false;
-    auto mygroups = apcu_fetch(_compiledGroupNames, mysuccess);
+    // TODO 
+    /* auto mygroups = apcu_fetch(_compiledGroupNames, mysuccess);
     if (mysuccess && count(mygroups) != count(configuration.get("groups"))) {
       _compiledGroupNames.each!((groupname) {
         if (!mygroups.hasKey(groupname)) {
@@ -116,15 +117,15 @@ class DApcuCacheEngine : DCacheEngine {
             warning(
               "Failed to store key `%s` with value `%s` into APCu cache."
               .format(groupname, myvalue)
-            );
+           );
           }
           mygroups[mygroup] = myvalue;
         }
       });
-      ksort(mygroups);
-    }
+      //TODO ksort(mygroups);
+    } */
     string[] results = null;
-    auto groupValues = mygroups.values;
+    // TOD auto groupValues = mygroups.values;
     //TODO
     /* foreach (myi : mygroup; configuration.get("groups")) {
       results ~= mygroup ~ groupValues[myi];

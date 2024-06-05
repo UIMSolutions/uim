@@ -37,7 +37,7 @@ class DSortIterator : DCollection {
     string mycallback,
     int sortDirection = SORT_DESC,
     int sortType = SORT_NUMERIC
-  ) {
+ ) {
     auto aCallback = _propertyExtractor(aCallback);
     auto myResults = null;
     foreach (aKey, val; someItems) {

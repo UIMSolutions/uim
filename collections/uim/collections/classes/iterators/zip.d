@@ -45,7 +45,7 @@ class DZipIterator : ICollection {
     this(Json[string] listToZip, callable aCallable = null) {
         _multipleIterator = new DMultipleIterator(
             MultipleIterator.MIT_NEED_ALL | MultipleIterator.MIT_KEYS_NUMERIC
-        );
+       );
 
        _callback = aCallable;
 
@@ -93,7 +93,7 @@ class DZipIterator : ICollection {
     void __unserialize(Json[string] data) {
         _multipleIterator = new DMultipleIterator(
             MultipleIterator.MIT_NEED_ALL | MultipleIterator.MIT_KEYS_NUMERIC
-        );
+       );
 
        _iterators = someData;
         _iterators.each!(iterator => _multipleIterator.attachIterator(iterator));

@@ -45,7 +45,7 @@ class DI18n {
                 "sprintf": PrintFormatter.classname,
             ]),
             locale()
-        );
+       );
 
         if (class_exists(Cache.classname)) {
             _collection.cacher(Cache.pool("_uim_core_"));
@@ -83,7 +83,7 @@ class DI18n {
      * "default",
      * new DMessagesFileLoader("_translations", "custom", "po"),
      * 'fr_FR'
-     * );
+     *);
      * ```
      */
     static void setTranslator(string domainName, callable loader, string translatorLocale = null) {

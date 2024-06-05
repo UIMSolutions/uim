@@ -30,7 +30,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         Json[string]parsedBody = null,
         Json[string] cookies = null,
         Json[string] files = null
-    ) {
+   ) {
         server = normalizeServer(server ?? _SERVER);
         ["uri": anUri, "base": base, "webroot": webroot] = UriFactory.marshalUriAndBaseFromSapi(server);
 
@@ -79,7 +79,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         if (
             isIn(method, ["PUT", "DELETE", "PATCH"], true) &&
             (string)serverRequest.contentType().startWith("application/x-www-form-urlencoded")
-        ) {
+       ) {
             someData = (string)serverRequest.getBody();
             parse_str(someData, parsedBody);
         }

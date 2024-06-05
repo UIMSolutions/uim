@@ -212,7 +212,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
         string timeToParse,
         int format = null,
         /* DateTimeZone| */ string tz = null
-    ) {
+   ) {
         return parseDateTime(timeToParse, [to!string(format)], tz);
     }
 
@@ -220,7 +220,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
         string timeToParse,
         string[] format = null,
         /* DateTimeZone| */ string tz = null
-    ) {
+   ) {
         format = format ? format : _toStringFormat;
         return _parseDateTime(time, format, tz);
     }
@@ -285,7 +285,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
     // Get the difference formatter instance.
     auto RelativeTimeFormatter diffFormatter(DifferenceII18NFormatter formatter = null) {
         if (formatter) {
-            if (!cast(RelativeTimeFormatter)formatter ) {
+            if (!cast(RelativeTimeFormatter)formatter) {
                 throw new DInvalidArgumentException("Formatter for I18n must extend RelativeTimeFormatter.");
             }
             return diffFormatter = formatter;
@@ -350,7 +350,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
         int format = null,
         /* DateTimeZone| */string timezone = null,
         string alocale = null
-    ) {
+   ) {
         string[] myFormat = [to!string(format), to!string(format)];
         return i18nFormat(myFormat, timezone, alocale);
     }
@@ -359,7 +359,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
         string[] format;
         /* DateTimeZone| */ string timezone = null,
         string locale;
-    ) {
+   ) {
         if (format == DateTime.UNIX_TIMESTAMP_FORMAT) {
             return _getTimestamp();
         }
@@ -440,7 +440,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
         string|int filter = null,
         string acountry = null,
         Json auto options = null
-    ) {
+   ) {
         if (isBool(options)) {
             options = [
                 'group": options,

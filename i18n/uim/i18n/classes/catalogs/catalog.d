@@ -17,7 +17,7 @@ class DMessageCatalog : ICatalog {
     string[][string] messages,
     string formatterName = "default",
     string fallbackName = null,
-  ) {
+ ) {
     this();
     this.messages(messages);
     this.formatterName(formatterName);

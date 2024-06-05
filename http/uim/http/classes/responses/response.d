@@ -435,8 +435,8 @@ class DResponse : IResponse {
             (
                 type.startsWith("text/") ||
                 isIn(type, allowed, true)
-            )
-        ) {
+           )
+       ) {
             charset = true;
         }
         if (charset && !type.has(";")) {
@@ -533,7 +533,7 @@ class DResponse : IResponse {
             throw new DInvalidArgumentException(
                 "Invalid status code: %s. Use a valid HTTP status code in range 1xx - 5xx."
                 .format(statusCode)
-            );
+           );
         }
        _status = statusCode;
         if (reasonPhrase == "" && isSet(_statusCodes[statusCode])) {
@@ -685,7 +685,7 @@ class DResponse : IResponse {
             if (time == false) {
                 throw new DInvalidArgumentException(
                     "Invalid time parameter. Ensure your time value can be parsed by strtotime"
-                );
+               );
             }
         }
         return _withHeader("Date", gmdate(DATE_RFC7231, time()))

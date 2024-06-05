@@ -21,7 +21,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         /* DChronosDate| */IDateTime first,
         /* DChronosDateeee| */IDateTime|null second = null,
         bool absolute = false
-    ) {
+   ) {
         auto isNow = second.isNull;
         if (second.isNull) {
             second = cast(DChronosDate)firstChar
@@ -32,7 +32,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         assert(
             (cast(DChronosDate)first && cast(DChronosDate)second) ||
             (cast(IDateTime)first && cast(IDateTime)second)
-        );
+       );
 
         auto diffInterval = first.diff(second);
         string message; 
@@ -266,7 +266,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         fNum = fWord.replace(
             ["year", "month", "week", "day", "hour", "minute", "second"],
             ["1", "2", "3", "4", "5", "6", "7"]
-        );
+       );
 
         return [
             fNum,

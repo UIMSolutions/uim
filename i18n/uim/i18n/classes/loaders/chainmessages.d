@@ -42,7 +42,7 @@ class DChainMessagesLoader {
                 throw new DException(
                     "Loader `%s` in the chain is not a valid loader."
                         .format(keyLoader.key)
-                );
+               );
             }
 
             ICatalog catalog = loader.catalog();

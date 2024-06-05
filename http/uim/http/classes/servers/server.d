@@ -60,7 +60,7 @@ class DServer { // }: IEventDispatcher {
     IResponse run(
         IServerRequest serverRequest = null,
         MiddlewareQueue middlewareQueue = null
-    ) {
+   ) {
         bootstrap();
 
         request = request ?: ServerRequestFactory.fromGlobals();
@@ -73,14 +73,14 @@ class DServer { // }: IEventDispatcher {
             }
         }
         middleware = _app.middleware(middlewareQueue);
-        if (cast(IPluginApplication)_app ) {
+        if (cast(IPluginApplication)_app) {
             middleware = _app.pluginMiddleware(middleware);
         }
         dispatchEvent("Server.buildMiddleware", ["middleware": middleware]);
 
         response = this.runner.run(middleware, request, _app);
 
-        if (cast(ServerRequest)request  ) {
+        if (cast(ServerRequest)request ) {
             request.getSession().close();
         }
         return response;

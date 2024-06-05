@@ -157,7 +157,7 @@ class DTime { // : ChronosTime, JsonSerializable {
     string /* int */  i18nFormat(
         string /* int */ format = null,
         string localName = null
-    ) {
+   ) {
         if (format == DateTime.UNIX_TIMESTAMP_FORMAT) {
             throw new DInvalidArgumentException("UNIT_TIMESTAMP_FORMAT is not supported for Time.");
         }

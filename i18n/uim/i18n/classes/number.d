@@ -292,7 +292,7 @@ class DNumber {
         _formatters[locale][type] = _setAttributes(
             new DNumberFormatter(locale, type),
             options
-        );
+       );
     }
     
     /**

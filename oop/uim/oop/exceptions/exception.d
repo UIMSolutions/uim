@@ -19,7 +19,7 @@ class DException : Exception {
     string file = __FILE__,
     ulong line = cast(ulong) __LINE__,
     Throwable nextInChain = null
-  ) {
+ ) {
     super(msg, file, line, nextInChain);
     this.initialize;
   }

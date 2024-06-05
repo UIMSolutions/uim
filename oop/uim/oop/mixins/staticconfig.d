@@ -161,29 +161,29 @@ mixin template TStaticConfig() {
     ^
     (?P<_scheme>
         (?P<scheme>[\w\\\\]+)://
-    )
+   )
     (?P<_username>
         (?P<username>.*?)
         (?P<_password>
             :(?P<password>.*?)
-        )?
+       )?
         @
-    )?
+   )?
     (?P<_host>
         (?P<host>[^?#/:@]+)
         (?P<_port>
             :(?P<port>\d+)
-        )?
-    )?
+       )?
+   )?
     (?P<_path>
         (?P<path>/[^?#]*)
-    )?
+   )?
     (?P<_query>
         \?(?P<query>[^#]*)
-    )?
+   )?
     (?P<_fragment>
         \#(?P<fragment>.*)
-    )?
+   )?
     
 }x
 REGEXP`;

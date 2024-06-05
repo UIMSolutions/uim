@@ -64,7 +64,7 @@ class DMiddlewareDispatcher {
         environment = array_merge(
             chain(_SERVER, ["REQUEST_URI": requestSpec["url"]]),
             requestSpec["environment"]
-        );
+       );
         if (environment["UIM_SELF"].has("Dunit")) {
             environment["UIM_SELF"] = "/";
         }
@@ -74,7 +74,7 @@ class DMiddlewareDispatcher {
             requestSpec["post"],
             requestSpec["cookies"],
             requestSpec["files"]
-        );
+       );
 
         return request
             .withAttribute("session", requestSpec["session"])

@@ -120,7 +120,7 @@ class DSocket {
             to!int(configuration.get("timeout"]),
             connectAs,
             context
-        );
+       );
         restore_error_handler();
 
         if (this.connection.isNull && (!errNum || !errStr)) {
@@ -131,7 +131,7 @@ class DSocket {
             throw new DSocketException(
                 _connectionErrors.join("\n"),
                 E_WARNING
-            );
+           );
         }
         this.connected = isResource(this.connection);
         if (this.connected) {
@@ -166,7 +166,7 @@ class DSocket {
         inttimeout,
         intconnectAs,
         context
-    ) {
+   ) {
         resource = stream_socket_client(
             remoteSocketTarget,
             errNum,
@@ -174,7 +174,7 @@ class DSocket {
             timeout,
             connectAs,
             context
-        );
+       );
 
         if (!resource) {
             return null;

@@ -29,7 +29,7 @@ class DConnectionHelper {
                 str_starts_with(connection, "test_")
                 ? substr(connection, 5) // original
                 : "test_" ~ aConnection
-            ));
+           ));
         } */
     }
     
@@ -47,7 +47,7 @@ class DConnectionHelper {
             if (
                 cast(DConnection)aConnection &&
                 aConnection.getDriver().log(message) == false
-            ) {
+           ) {
                 aConnection.getDriver().setLogger(new QueryLogger());
                 aConnection.getDriver().log(message);
             }
@@ -89,7 +89,7 @@ class DConnectionHelper {
             tableSchema.each!(schema => 
                 dialect.truncateTableSql(schema)
                     .each!(statement => connection.execute(statement));
-            );
+           );
         }); */ 
     }
     

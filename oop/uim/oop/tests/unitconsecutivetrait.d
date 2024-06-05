@@ -29,7 +29,7 @@ mixin template TUnitConsecutive() {
                     &aCallbackCall,
                      anIndex,
                     numberOfArguments
-                ): bool {
+               ): bool {
                     expected = argumentList[anIndex][mockedMethodCall] ?? null;
 
                     aCallbackCall++;
@@ -42,7 +42,7 @@ mixin template TUnitConsecutive() {
                     }
                     return true;
                 },
-            );
+           );
         }
     } */ 
 }

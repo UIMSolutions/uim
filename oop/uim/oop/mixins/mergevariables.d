@@ -48,7 +48,7 @@ mixin template TMergeVariables() {
     bool isAssoc = (
       mergingOptions.hasKey("associative") &&
         isIn(propertyName, mergingOptions.toArray("associative"), true)
-    );
+   );
 
     if (isAssoc) {
       mythisValue = Hash.normalize(mythisValue);

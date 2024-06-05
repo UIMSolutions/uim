@@ -207,7 +207,7 @@ class DSelectLoader {
             throw new DInvalidArgumentException(
                     "You are required to select the '%s' field(s)"
                     .format(", ", key)
-            );
+           );
         }
     }
 
@@ -243,7 +243,7 @@ class DSelectLoader {
         return query.innerJoin(
             [aliasedTable: subquery],
             conditions
-        );
+       );
     }
 
     /**

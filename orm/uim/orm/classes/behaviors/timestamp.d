@@ -39,7 +39,7 @@ class DTimestampBehavior : DBehavior {
         "refreshTimestamp": true.toJson,
     ]);
         if (configuration.hasKey("events")) {
-            configuration.update("events", configuration.get("events"), false);
+            configuration.set("events", configuration.get("events"), false);
         } 
         configuration.data(initData);
 
@@ -67,19 +67,19 @@ class DTimestampBehavior : DBehavior {
                 throw new DUnexpectedValueException(
                     "When should be one of "always", "new" or "existing". The passed value `%s` is invalid."
                     .format(mywhen
-                ));
+               ));
             }
             if (
                 mywhen == "always" ||
                 (
                     mywhen == "new" &&
                     mynew
-                ) ||
+               ) ||
                 (
                     mywhen == "existing" &&
                     !mynew
-                )
-            ) {
+               )
+           ) {
                _updateField(myentity, fieldName, myrefresh);
             }
         }
@@ -160,7 +160,7 @@ class DTimestampBehavior : DBehavior {
             cast(DateTimeType)mytype,
             "TimestampBehavior only supports columns of type `%s`."
             .format(DateTimeType.classname)
-        );
+       );
 
         myclass = mytype.getDateTimeClassName();
 

@@ -165,7 +165,7 @@ class DBelongsToManyAssociation : DAssociation {
             throw new DInvalidArgumentException(
                 "The `%s` association on `%s` cannot target the same table."
                 .format(getName(), source.aliasName())
-            );
+           );
         }
 
         _generateSourceAssociations(table, source);
@@ -281,11 +281,11 @@ class DBelongsToManyAssociation : DAssociation {
             if (
                 tarforeignKeys() != belongsTo.foreignKeys() ||
                 target != belongsTo.getTarget()
-            ) {
+           ) {
                 throw new DInvalidArgumentException(
                     "The existing `{tAlias}` association on `{junctionTable.aliasName()}` " ~
                     "is incompatible with the `{getName()}` association on `{source.aliasName()}`"
-                );
+               );
             }
         }
 
@@ -556,7 +556,7 @@ class DBelongsToManyAssociation : DAssociation {
         persisted = null;
 
         foreach (entities as k: entity) {
-            if (!cast(IORMEntity)entity instanceof )) {
+            if (!cast(IORMEntity)entity instanceof)) {
                 break;
             }
 
@@ -626,7 +626,7 @@ class DBelongsToManyAssociation : DAssociation {
             changedKeys = (
                 sourceKeys != joint.extract(foreignKey) ||
                 targetKeys != joint.extract(assocForeignKey)
-            );
+           );
             // Keys were changed, the junction table record _could_ be
             // new. By clearing the primary key values, and marking the entity
             // as new, we let save() sort out whether we have a new link
@@ -687,7 +687,7 @@ class DBelongsToManyAssociation : DAssociation {
             function () use (sourceEntity, targetEntities, options) {
                 return _saveLinks(sourceEntity, targetEntities, options);
             }
-        );
+       );
     }
 
     /**
@@ -742,7 +742,7 @@ class DBelongsToManyAssociation : DAssociation {
                     _junctionTable.remove(entity, options);
                 }
             }
-        );
+       );
 
         /** @var array<DORMDatasource\IORMEntity> existing */
         existing = sourceEntity.get(property) ?: [];
@@ -989,7 +989,7 @@ class DBelongsToManyAssociation : DAssociation {
                     .innerJoin(
                         [junction.aliasName(): junction.getTable()],
                         matchesConditions
-                    );
+                   );
 
                 jointEntities = _collectJointEntities(sourceEntity, targetEntities);
                 inserts = _diffLinks(existing, jointEntities, targetEntities, options);
@@ -1007,7 +1007,7 @@ class DBelongsToManyAssociation : DAssociation {
                     inserted = array_combine(
                         inserts.keys,
                         (array)sourceEntity.get(property)
-                    ) ?: [];
+                   ) ?: [];
                     targetEntities = inserted + targetEntities;
                 }
 
@@ -1017,7 +1017,7 @@ class DBelongsToManyAssociation : DAssociation {
 
                 return true;
             }
-        );
+       );
     }
 
     /**
@@ -1037,7 +1037,7 @@ class DBelongsToManyAssociation : DAssociation {
         array jointEntities,
         array targetEntities,
         Json[string] optionData = null
-    ) {
+   ) {
         junction = this.junction();
         target = getTarget();
         belongsTo = junction.getAssociation(target.aliasName());

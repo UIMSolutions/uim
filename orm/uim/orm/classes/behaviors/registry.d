@@ -55,7 +55,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
     }
 
     // Resolve a behavior classname.
-    static string className(string partialClassname ) {
+    static string className(string partialClassname) {
         return App.className(partialClassname, "Model/Behavior", "Behavior")
             ? App.className(partialClassname, "Model/Behavior", "Behavior")
             : App.className(partialClassname, "ORM/Behavior", "Behavior");
@@ -66,7 +66,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      *
      * Part of the template method for uim\Core\ObjectRegistry.load()
      */
-    protected string _resolveClassName(string partialClassname ) {
+    protected string _resolveClassName(string partialClassname) {
         return className(partialClassname);
     }
 
@@ -142,7 +142,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
                     "%s contains duplicate method '%s' which is already provided by '%s'".format(aClassName,
                     method,
                     duplicate[0]
-                );
+               );
                 throw new DLogicException(error);
             }
             methods[myMethodKey] = [alias, methodName];
@@ -184,7 +184,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
 
         throw new BadMethodCallException(
             sprintf("Cannot call '%s' it does not belong to any attached behavior.", aMethodName)
-        );
+       );
     }
 
     // Invoke a finder on a behavior.
@@ -200,7 +200,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
 
         throw new BadMethodCallException(
             "Cannot call finder '%s' it does not belong to any attached behavior.".format(finderType)
-        );
+       );
     }
 }
   auto BehaviorRegistry() { // Singleton

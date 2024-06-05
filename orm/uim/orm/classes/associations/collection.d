@@ -111,7 +111,7 @@ class DAssociationCollection { // }: IteratorAggregate {
             [, name] = namespaceSplit(get_class(assoc)); return isIn(name.lower, classname, true);
         });
 
-        return array_values(out );
+        return array_values(out);
         */
         return null; 
     }
@@ -183,7 +183,7 @@ class DAssociationCollection { // }: IteratorAggregate {
         array associations,
         Json[string] optionData,
         bool isOwningSide
-    ) {
+   ) {
         options.remove("associated");
         // TODO 
         /* foreach (associations as alias : nested) {
@@ -196,7 +196,7 @@ class DAssociationCollection { // }: IteratorAggregate {
                 msg =
                     "Cannot save %s, it is not associated to %s"
                     .format(alias, table.aliasName())
-                );
+               );
                 throw new DInvalidArgumentException(msg);
             }
             if (relation.isOwningSide(table) != isOwningSide) {
@@ -223,7 +223,7 @@ class DAssociationCollection { // }: IteratorAggregate {
         IORMEntity anEntity,
         Json[string] nested,
         Json[string] optionData
-    ) {
+   ) {
         if (!anEntity.isDirty(association.getProperty())) {
             return true;
         }

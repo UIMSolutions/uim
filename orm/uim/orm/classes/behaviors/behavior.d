@@ -144,12 +144,12 @@ class DBehavior : IEventListener {
             "implementedFinders",
             _defaultConfig,
             myConfiguration
-        );
+       );
         myConfiguration = _resolveMethodAliases(
             "implementedMethods",
             _defaultConfig,
             myConfiguration
-        );
+       );
         _table = attachedTable;
         configuration.update(myConfiguration);
         this.initialize(myConfiguration);
@@ -358,7 +358,7 @@ class DBehavior : IEventListener {
             if (
                 isIn(methodName, baseMethods, true) ||
                 isset(eventMethods[methodName])
-            ) {
+           ) {
                 continue;
             }
 

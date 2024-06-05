@@ -88,7 +88,7 @@ class DHasManyAssociation : DAssociation {
             if (
                 sourceEntity.isNew() ||
                 getSaveStrategy() != self.SAVE_REPLACE
-                ) {
+               ) {
                 return sourceEntity;
             }
 
@@ -105,14 +105,14 @@ class DHasManyAssociation : DAssociation {
             /* (array) */
             foreignKeys(),
             sourceEntity.extract(/* (array) */ getBindingKey())
-        );
+       );
 
         options["_sourceTable"] = source();
 
         if (
             _saveStrategy == self.SAVE_REPLACE &&
             !_unlinkAssociated(foreignKeyReference, sourceEntity, getTarget(), myTargetEntities, options)
-            ) {
+           ) {
             return null;
         }
 
@@ -138,7 +138,7 @@ class DHasManyAssociation : DAssociation {
         IORMEntity sourceEntity,
         IORMEntity[] entities,
         Json[string] options
-    ) {
+   ) {
         foreignKey = foreignKeyReference.keys;
         myTable = getTarget();
         original = entities;
@@ -211,8 +211,8 @@ class DHasManyAssociation : DAssociation {
             array_merge(
                 /* (array) */ sourceEntity.get(property),
                 myTargetEntities
-        )
-        );
+       )
+       );
         sourceEntity.set(property, currentEntities);
 
         // TODO 
@@ -310,9 +310,9 @@ class DHasManyAssociation : DAssociation {
                         function(assoc) use(
                         myTargetEntities) {
                             return isIn(assoc, myTargetEntities);}
-                            )
+                           )
                             .toList()
-                            );
+                           );
                         }
 
                     sourceEntity.setDirty(property, false); */
@@ -392,7 +392,7 @@ class DHasManyAssociation : DAssociation {
         Table myTarget,
         range remainingEntities = null,
         Json[string] options = null
-    ) {
+   ) {
         primaryKeys = /* (array) */ myTarget.primaryKeys();
         exclusions = new DCollection(remainingEntities);
         // TODO
@@ -403,10 +403,10 @@ class DHasManyAssociation : DAssociation {
             /** @var DORMdatasources.IORMEntity ent * /
             return ent.extract(
                 primaryKeys);}
-            )
+           )
                 .filter(
                     function(v) { return !isIn(null, v, true); }
-                )
+               )
                 .toList();
             conditions = foreignKeyReference;
 
@@ -496,8 +496,8 @@ class DHasManyAssociation : DAssociation {
                     return myTable.getSchema()
                     .isNullable(prop);},
                     properties
-                    )
-                    );
+                   )
+                   );
                 }
 
             /**

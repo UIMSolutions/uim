@@ -143,7 +143,7 @@ class DSelectWithPivotLoader : DSelectLoader {
                 throw new DRuntimeException(format(
                     "'%s' is missing from the belongsToMany results. Results cannot be created.",
                     this.junctionProperty
-                ));
+               ));
             }
 
             values = null;

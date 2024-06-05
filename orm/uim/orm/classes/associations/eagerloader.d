@@ -93,7 +93,7 @@ class DEagerLoader {
             if (!isString(myassociations)) {
                 throw new DInvalidArgumentException(
                     "Cannot set containments. To use myqueryBuilder, myassociations must be a string"
-                );
+               );
             }
             myassociations = [
                 myassociations: [
@@ -233,7 +233,7 @@ class DEagerLoader {
                 aliasName,
                 options,
                 ["root": Json(null)]
-            );
+           );
         }
         return _normalized = mycontain;
     }
@@ -280,7 +280,7 @@ class DEagerLoader {
                 options = _reformatContain(
                     options,
                     mypointer.get(mytable)
-                );
+               );
             }
             if (cast(DClosure)options) {
                 options = ["queryBuilder": options];
@@ -389,7 +389,7 @@ class DEagerLoader {
         if (
             isSet(options["matching"]) &&
             options["matching"] == true
-        ) {
+       ) {
             mypaths["propertyPath"] = "_matchingData." ~ aliasName;
         } else {
             mypaths["propertyPath"] ~= "." ~ myinstance.getProperty();
@@ -418,7 +418,7 @@ class DEagerLoader {
                 myeagerLoadable.addAssociation(
                     tAssoc.key,
                     _normalizeContain(mytable, tAssoc.key, tAssoc.value, mypaths)
-                );
+               );
             });
         return myeagerLoadable;
     }
@@ -526,7 +526,7 @@ class DEagerLoader {
                 if (
                     !mypath.has(".") &&
                     (!array_key_exists(mypath, mycollected) || !array_key_exists(aliasName, mycollected[mypath]))
-                ) {
+               ) {
                     mymessage = "Unable to load `{mypath}` association. Ensure foreign key in `{aliasName}` is selected.";
                     throw new DInvalidArgumentException(mymessage);
                 }
@@ -544,7 +544,7 @@ class DEagerLoader {
                     "keys": someKeys,
                     "nestKey": mymeta.aliasPath(),
                 ])
-            );
+           );
             results = array_map(mycallback, results);
         }
         return results;
@@ -626,7 +626,7 @@ class DEagerLoader {
         DAssociation myassoc,
         bool myasMatching = false,
         string mytargetProperty = null
-    ) {
+   ) {
        _joinsMap[aliasName] = new DEagerLoadable(aliasName, [
             "aliasPath": aliasName,
             "instance": myassoc,

@@ -119,7 +119,7 @@ class DCounterCacheBehavior : DBehavior {
                     configuration.hasKey("ignoreDirty") &&
                     configuration.get("ignoreDirty"] == true &&
                     myentity.myentityAlias.isDirty(fieldName)
-                ) {
+               ) {
                    _ignoreDirty[myregistryAlias][fieldName] = true;
                 }
             }
@@ -182,7 +182,7 @@ class DCounterCacheBehavior : DBehavior {
         IORMEntity myentity,
         DAssociation myassoc,
         Json[string] mysettings
-    ) {
+   ) {
         /** @var string[] myforeignKeys */
         myforeignKeys = /* (array) */myassoc.foreignKeys();
         mycountConditions = myentity.extract(myforeignKeys);
@@ -210,7 +210,7 @@ class DCounterCacheBehavior : DBehavior {
                 if (
                     isSet(_ignoreDirty[myassoc.getTarget().registryKey()][fieldName]) &&
                 _ignoreDirty[myassoc.getTarget().registryKey()][fieldName] == true
-                ) {
+               ) {
                     continue;
                 }
                 if (_shouldUpdateCount(myupdateConditions)) {

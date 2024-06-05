@@ -86,7 +86,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
         if (cast(DClassNode)var || cast(ReferenceNode)var) {
             return _exportObject(var,  indentLevel + 1);
         }
-        if (cast(DSpecialNode)var ) {
+        if (cast(DSpecialNode)var) {
             return _style("special", var.getValue());
         }
         throw new DInvalidArgumentException("Unknown node received " ~ var.classname);

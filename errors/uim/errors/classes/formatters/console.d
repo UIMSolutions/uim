@@ -48,7 +48,7 @@ class DConsoleFormatter : IErrorFormatter {
             !strtolower((string)enviroment("SHELL")).has("bash.exe") &&
             !(bool)enviroment("ANSICON") &&
             enviroment("ConEmuANSI") != "ON"
-        ) {
+       ) {
             return false;
         }
         return true;

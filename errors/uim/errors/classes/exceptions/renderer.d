@@ -173,13 +173,13 @@ class DExceptionRenderer { // }: IExceptionRenderer
         myUrl = _controller.getRequest().getRequestTarget();
         response = _controller.getResponse();
 
-        if (cast(DException)exception  ) {
+        if (cast(DException)exception ) {
             /** @psalm-suppress DeprecatedMethod */
             foreach (/* (array) */exception.responseHeader() as myKey: myValue) {
                 response = response.withHeader(myKey, myValue);
             }
         }
-        if (cast(HttpException)exception instanceof ) {
+        if (cast(HttpException)exception instanceof) {
             foreach (exception.getHeaders() as myName: myValue) {
                 response = response.withHeader(myName, myValue);
             }
@@ -252,7 +252,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         if (
             !Configure.read("debug") &&
             !(exception instanceof HttpException)
-        ) {
+       ) {
             myMessage = errorCode < 500
                 ? __d("uim", "Not Found") 
                 __d("uim", "An Internal Error Has Occurred.");
@@ -294,7 +294,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
             if (
                 cast(MissingLayoutException)e ||
                 indexOf(attributes["file"], "error500") != false
-            ) {
+           ) {
                 return _outputMessageSafe("error500");
             }
 

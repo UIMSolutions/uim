@@ -120,7 +120,7 @@ class DExceptionTrap {
                 "Your application is using a deprecated `Error.exceptionRenderer`~ " ~
                 "You can either remove the `Error.exceptionRenderer` config key to have UIM choose " ~
                 "one of the default exception renderers, or define a class that is not `uim\errors.ExceptionRenderer`."
-            );
+           );
         }
         if (!aClassName || deprecateDFileConfigEngine) {
             // Default to detecting the exception renderer if we"re
@@ -136,7 +136,7 @@ class DExceptionTrap {
                 throw new DInvalidArgumentException(
                     "Cannot use {aClassName} as an `exceptionRenderer`~ " ~
                     "It must implement render() and write() methods."
-                );
+               );
             }
 
             /** @var class-string<uim.errors.IExceptionRenderer> aClassName */
@@ -252,7 +252,7 @@ class DExceptionTrap {
             error["message"],
             error["file"],
             error["line"]
-        );
+       );
     }
 
     // Increases the D "memory_limit" ini setting by the specified amount in kilobytes
@@ -296,7 +296,7 @@ class DExceptionTrap {
         auto shouldLog = _config["log"];
         if (shouldLog) {
             foreach (configuration.get("skipLog") as aClassName) {
-                if (cast(aClassName)exceptionToLog  ) {
+                if (cast(aClassName)exceptionToLog ) {
                     shouldLog = false;
                 }
             }
@@ -310,7 +310,7 @@ class DExceptionTrap {
                 deprecationWarning(
                     "The configured logger `{loggerClass}` should implement `logException()` " ~
                     "to be compatible with future versions of UIM."
-                );
+               );
                 this.logger().log(exceptionToLog, serverRequest);
             }
         }
@@ -330,7 +330,7 @@ class DExceptionTrap {
             exceptionToLog.getMessage(),
             exceptionToLog.getFile(),
             exceptionToLog.getLine(),
-        );
+       );
         trigger_error(message, E_USER_ERROR);
     }
 }

@@ -98,7 +98,7 @@ class DErrorHandler { // }: DERRErrorHandler
             renderer = getRenderer(
                 exception,
                 Router.getRequest()
-            );
+           );
             response = renderer.render();
             _sendResponse(response);
         } catch (Throwable exception) {
@@ -110,7 +110,7 @@ class DErrorHandler { // }: DERRErrorHandler
     IExceptionRenderer getRenderer(
         Throwable exception,
         IServerRequest request = null
-    ) {
+   ) {
         renderer = _config["exceptionRenderer"];
 
         if (renderer.isString) {
@@ -120,7 +120,7 @@ class DErrorHandler { // }: DERRErrorHandler
                 throw new DRuntimeException(format(
                         "The '%s' renderer class DCould not be found.",
                         renderer
-                ));
+               ));
             }
 
             return new aClassName(exception, request);
@@ -142,7 +142,7 @@ class DErrorHandler { // }: DERRErrorHandler
             exception.getFile(),
             exception.getLine(),
             exception.getTraceAsString()
-        );
+       );
         trigger_error(message, E_USER_ERROR);
     }
 

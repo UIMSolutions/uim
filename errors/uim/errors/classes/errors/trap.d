@@ -93,8 +93,8 @@ class DErrorTrap {
         string errorDescription,
         string fileName = null,
         int errorTriggerLine = null
-    ) {
-        if (!(error_reporting() & errorCode )) {
+   ) {
+        if (!(error_reporting() & errorCode)) {
             return false;
         }
         if (errorCode == E_USER_ERROR ||  errorCode == E_ERROR || errorCode == E_PARSE) {

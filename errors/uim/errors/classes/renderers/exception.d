@@ -253,8 +253,8 @@ class DExceptionRenderer : IExceptionRenderer {
 
         if (
             !Configure.read("debug") &&
-            !(cast(HttpException)myException instanceof )
-        ) {
+            !(cast(HttpException)myException instanceof)
+       ) {
             myMessage = errorCode < 500
                 ? __d("uim", "Not Found")
                 : __d("uim", "An Internal Error Has Occurred.");
@@ -298,7 +298,7 @@ class DExceptionRenderer : IExceptionRenderer {
             if (
                 e instanceof MissingLayoutException ||
                 indexOf(attributes["file"], "error500") != false
-            ) {
+           ) {
                 return _outputMessageSafe("error500");
             }
 

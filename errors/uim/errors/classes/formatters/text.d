@@ -56,7 +56,7 @@ TEXT;
         if (cast(DClassNode)nodeToDump || cast(ReferenceNode)nodeToDump) {
             return _exportObject(nodeToDump, indentSize + 1);
         }
-        if (cast(DSpecialNode)nodeToDump ) {
+        if (cast(DSpecialNode)nodeToDump) {
             return nodeToDump.getValue();
         }
         throw new DInvalidArgumentException("Unknown node received " ~ nodeToDump.classname);

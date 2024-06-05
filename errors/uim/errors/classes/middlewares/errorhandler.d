@@ -77,7 +77,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
             deprecationWarning(
                 "The signature of ErrorHandlerMiddleware.this() has changed~ "
                 ~ "Pass the config array as 1st argument instead."
-            );
+           );
 
             myErrorHandler = func_get_arg(1);
         }
@@ -96,7 +96,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
             throw new DInvalidArgumentException(
                 "myErrorHandler argument must be a config array or ErrorHandler instance. Got `%s` instead."
                 .format(getTypeName(myErrorHandler)
-            ));
+           ));
         }
 
         this.errorHandler = myErrorHandler;
@@ -135,7 +135,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
             exceptionToHandle.getMessage(),
             exceptionToHandle.code(),
             exceptionToHandle.getHeaders()
-        );
+       );
     }
 
     // Handle internal errors.

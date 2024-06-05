@@ -74,7 +74,7 @@ abstract class DERRErrorHandler {
             "Use of `DERRErrorHandler` and subclasses are deprecated~ " ~
             "Upgrade to the new `ErrorTrap` and `ExceptionTrap` subsystem~ " ~
             "See https://book.uimD.org/4/en/appendices/4-4-migration-guide.html"
-        );
+       );
 
         auto myLevel = _config.get("errorLevel", -1);
         error_reporting(level);
@@ -105,7 +105,7 @@ abstract class DERRErrorHandler {
                 error["message"],
                 error["file"],
                 error["line"]
-            );
+           );
         });
     }
 
@@ -125,7 +125,7 @@ abstract class DERRErrorHandler {
         string fileWithError = null,
         int triggerErrorLine = null,
         STRINGAA context = null
-    ) {
+   ) {
         if (!(error_reporting() & errorCode)) {
             return false;
         }
@@ -240,7 +240,7 @@ abstract class DERRErrorHandler {
             data["description"],
             data["file"],
             data["line"]
-        );
+       );
         context = null;
         if (!_config.isEmpty("trace"))) {
             context["trace"] = Debugger.trace([
@@ -258,7 +258,7 @@ abstract class DERRErrorHandler {
         if (_config.isEmpty("log")) {
             return false;
         }
-        return _config["skipLog"].any!(classname => cast(aClassName)exceptionToLog  )
+        return _config["skipLog"].any!(classname => cast(aClassName)exceptionToLog )
             ? false
             : _getLogger().log(exceptionToLog, currentRequest.ifNull(Router.getRequest));
     }

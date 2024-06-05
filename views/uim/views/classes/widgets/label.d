@@ -7,7 +7,7 @@ import uim.views;
 /**
  * Form "widget" for creating labels.
  *
- * Generally this element is used by other widgets, * and FormHelper itself.
+ * Generally this element is used by other widgets, * and FormHelper it
  */
 class DLabelWidget : DWidget {
     mixin(WidgetThis!("Label"));

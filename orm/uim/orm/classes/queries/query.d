@@ -782,7 +782,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         clone.order([], true);
         clone.offset(null);
         clone.mapReduce(null, null, true);
-        clone.formatResults(null, self.OVERWRITE);
+        clone.formatResults(null, OVERWRITE);
         clone.setSelectTypeMap(new DTypeMap());
         clone.decorateResults(null, true);
 
@@ -886,7 +886,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * an estimated number of rows.
      *
      * The callback will receive as first argument a clone of this query and not this
-     * query itself.
+     * query it
      *
      * If the first param is a null value, the built-in counter function will be called
      * instead

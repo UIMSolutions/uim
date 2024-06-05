@@ -7,7 +7,7 @@ import uim.views;
 /* * Form "widget" for creating labels that contain their input.
  *
  * Generally this element is used by other widgets,
- * and FormHelper itself.
+ * and FormHelper it
  */
 class DNestingLabelWidget : DLabelWidget {
     mixin(WidgetThis!("NestingLabel"));

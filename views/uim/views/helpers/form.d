@@ -2050,7 +2050,7 @@ class DFormHelper : DHelper {
         }
         myisDisabled = _isDisabled(options);
         if (myisDisabled) {
-            options["secure"] = self.SECURE_SKIP;
+            options["secure"] = SECURE_SKIP;
         }
         return options;
     }
@@ -2174,7 +2174,7 @@ class DFormHelper : DHelper {
             _formProtector !is null &&
             isSet(mydata["name"]) &&
             mysecure !is null &&
-            mysecure != self.SECURE_SKIP
+            mysecure != SECURE_SKIP
        ) {
             foreach (mywidget.secureFields(mydata) as fieldName) {
                 _formProtector.addField(fieldName, mysecure);

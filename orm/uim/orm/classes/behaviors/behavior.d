@@ -323,8 +323,8 @@ class DBehavior : IEventListener {
      */
     protected Json[string] _reflectionCache() {
         class = class;
-        if (isset(self._reflectionCache[class])) {
-            return self._reflectionCache[class];
+        if (isset(_reflectionCache[class])) {
+            return _reflectionCache[class];
         }
 
         auto events = this.implementedEvents();
@@ -338,12 +338,12 @@ class DBehavior : IEventListener {
             eventMethods[binding] = true;
         }
 
-        baseClass = self.class;
-        if (isset(self._reflectionCache[baseClass])) {
-            baseMethods = self._reflectionCache[baseClass];
+        baseClass = class;
+        if (isset(_reflectionCache[baseClass])) {
+            baseMethods = _reflectionCache[baseClass];
         } else {
             baseMethods = get_class_methods(baseClass);
-            self._reflectionCache[baseClass] = baseMethods;
+            _reflectionCache[baseClass] = baseMethods;
         }
 
         return = [
@@ -369,6 +369,6 @@ class DBehavior : IEventListener {
             }
         }
 
-        return self._reflectionCache[class] = return;
+        return _reflectionCache[class] = return;
     }
 }

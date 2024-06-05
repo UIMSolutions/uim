@@ -135,7 +135,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Executes this query and returns a results iterator. This bool is required
      * for implementing the IteratorAggregate interface and allows the query to be
      * iterated without having to call execute() manually, thus making it look like
-     * a result set instead of the query itself.
+     * a result set instead of the query it
      */
     IResultset getIterator() {
         return _all();
@@ -406,17 +406,17 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * \Closure|null myformatter The formatting function
      * @param int|bool mymode Whether to overwrite, append or prepend the formatter.
      */
-    void formatResults(Closure myformatter = null, int|bool mymode = self.APPEND) {
-        if (mymode == self.OVERWRITE) {
+    void formatResults(Closure myformatter = null, int|bool mymode = APPEND) {
+        if (mymode == OVERWRITE) {
            _formatters = null;
         }
         if (myformatter.isNull) {
-            if (mymode != self.OVERWRITE) {
+            if (mymode != OVERWRITE) {
                 throw new DInvalidArgumentException("myformatter can be null only when mymode is overwrite.");
             }
             return;
         }
-        if (mymode == self.PREPEND) {
+        if (mymode == PREPEND) {
             array_unshift(_formatters, myformatter);
 
             return 
@@ -1132,7 +1132,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         myclone.orderBy([], true);
         myclone.offset(null);
         myclone.mapReduce(null, null, true);
-        myclone.formatResults(null, self.OVERWRITE);
+        myclone.formatResults(null, OVERWRITE);
         myclone.setSelectTypeMap(new DTypeMap());
         myclone.decorateResults(null, true);
 
@@ -1230,7 +1230,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * an estimated number of rows.
      *
      * The callback will receive as first argument a clone of this query and not this
-     * query itself.
+     * query it
      *
      * If the first param is a null value, the built-in counter auto will be called
      * instead

@@ -41,10 +41,10 @@ class DValidation {
     const string DATETIME_ISO8601 = "iso8601";
 
     /* protected const string[] COMPARE_STRING = [
-        self.COMPARE_EQUAL,
-        self.COMPARE_NOT_EQUAL,
-        self.COMPARE_SAME,
-        self.COMPARE_NOT_SAME,
+        COMPARE_EQUAL,
+        COMPARE_NOT_EQUAL,
+        COMPARE_SAME,
+        COMPARE_NOT_SAME,
     ];
     // Some complex patterns needed in multiple places
     protected static STRINGAA _pattern = [
@@ -83,7 +83,7 @@ class DValidation {
         if ((isEmpty(valueToCheck) && valueToCheck != "0") || !isScalar(valueToCheck)) {
             return false;
         }
-        return self._check(valueToCheck, "/^[\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}]+my/Du");
+        return _check(valueToCheck, "/^[\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}]+my/Du");
     }
     
     /**
@@ -101,7 +101,7 @@ class DValidation {
         if ((isEmpty(valueToCheck) && valueToCheck != "0") || !isScalar(valueToCheck)) {
             return false;
         }
-        return self._check(valueToCheck, "/^[[:alnum:]]+my/");
+        return _check(valueToCheck, "/^[[:alnum:]]+my/");
     }
 
     // Checks that a doesn"t contain any non-ascii alpha numeric characters
@@ -212,7 +212,7 @@ class DValidation {
     static bool checkNumElements(Json valueToCheck, string myoperator, int myexpectedCount) {
         return !valueToCheck.isArray && !cast(DCountable)valueToCheck
             ? false
-            : self.comparison(count(valueToCheck), myoperator, myexpectedCount);
+            : comparison(count(valueToCheck), myoperator, myexpectedCount);
     }
     
     /**
@@ -258,7 +258,7 @@ class DValidation {
      * @param Json[string] mycontext The validation context.
      */
     static bool compareWith(Json mycheck, string fieldName, Json[string] mycontext) {
-        return self.compareFields(mycheck, fieldName, COMPARE_SAME, mycontext);
+        return compareFields(mycheck, fieldName, COMPARE_SAME, mycontext);
     }
     
     /**
@@ -597,7 +597,7 @@ class DValidation {
             return false;
         }
          Generic.Files.LineLength
-        myregex ??= "/^[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+(?:\.[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+)*@" ~ self._pattern["hostname"] ~ "my/ui";
+        myregex ??= "/^[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+(?:\.[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+)*@" ~ _pattern["hostname"] ~ "my/ui";
 
         result = _check(mycheck, myregex);
         if (mydeep == false || mydeep.isNull) {
@@ -930,7 +930,7 @@ class DValidation {
     static bool uuid(Json mycheck) {
         myregex = "/^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[0-5][a-fA-F0-9]{3}-[089aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}my/";
 
-        return self._check(mycheck, myregex);
+        return _check(mycheck, myregex);
     }
     
     /**
@@ -994,7 +994,7 @@ class DValidation {
             throw new DException("Can not determine the mimetype.");
         }
         if (isString(mymimeTypes)) {
-            return self._check(mymime, mymimeTypes);
+            return _check(mymime, mymimeTypes);
         }
         foreach (mymimeTypes as aKey: myval) {
             mymimeTypes[aKey] = strtolower(myval);
@@ -1154,10 +1154,10 @@ class DValidation {
         myvalidWidth = myvalidHeight = null;
 
         if (isSet(options["height"])) {
-            myvalidHeight = self.comparison(myheight, options["height"][0], options["height"][1]);
+            myvalidHeight = comparison(myheight, options["height"][0], options["height"][1]);
         }
         if (isSet(options["width"])) {
-            myvalidWidth = self.comparison(mywidth, options["width"][0], options["width"][1]);
+            myvalidWidth = comparison(mywidth, options["width"][0], options["width"][1]);
         }
         if (myvalidHeight !is null && myvalidWidth !is null) {
             return myvalidHeight && myvalidWidth;
@@ -1179,7 +1179,7 @@ class DValidation {
      * @param int mywidth Min or max width.
      */
     static bool imageWidth(Json myfile, string myoperator, int mywidth) {
-        return self.imageSize(myfile, [
+        return imageSize(myfile, [
             "width": [
                 myoperator,
                 mywidth,
@@ -1195,7 +1195,7 @@ class DValidation {
      * @param int myheight Min or max height.
      */
     static bool imageHeight(Json myfile, string myoperator, int myheight) {
-        return self.imageSize(myfile, [
+        return imageSize(myfile, [
             "height": [
                 myoperator,
                 myheight,
@@ -1233,9 +1233,9 @@ class DValidation {
                 .format(options["type"])
            );
         }
-        mypattern = "/^" ~ self._pattern["latitude"] ~ ",\s*" ~ self._pattern["longitude"] ~ "my/";
+        mypattern = "/^" ~ _pattern["latitude"] ~ ",\s*" ~ _pattern["longitude"] ~ "my/";
         if (options["format"] == "long") {
-            mypattern = "/^" ~ self._pattern.getString("longitude") ~ "my/";
+            mypattern = "/^" ~ _pattern.getString("longitude") ~ "my/";
         }
         if (options["format"] == "lat") {
             mypattern = "/^" ~ _pattern.getString("latitude") ~ "my/";
@@ -1253,7 +1253,7 @@ class DValidation {
     static bool latitude(Json latitudeValue, Json[string] optionData = null) {
         optionData["format"] = "lat";
 
-        return self.geoCoordinate(latitudeValue, optionData);
+        return geoCoordinate(latitudeValue, optionData);
     }
     
     /**
@@ -1265,7 +1265,7 @@ class DValidation {
     static bool longitude(Json latitudeValue, Json[string] optionData = null) {
         optionData["format"] = "long";
 
-        return self.geoCoordinate(latitudeValue, optionData);
+        return geoCoordinate(latitudeValue, optionData);
     }
     
     /**

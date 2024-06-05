@@ -111,7 +111,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
     this() {
        _useI18n = function_exists("\UIM\I18n\__d");
-       _providers = self._defaultProviders;
+       _providers = _defaultProviders;
     }
     
     /**
@@ -234,7 +234,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * string myname The name under which the provider should be retrieved.
      */
     static /* object */ string getDefaultProvider(string myname) {
-        return self._defaultProviders[myname] ?? null;
+        return _defaultProviders[myname] ?? null;
     }
     
     /**
@@ -245,12 +245,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @psalm-param object|class-string myobject
      */
     static void addDefaultProvider(string myname, /* object */ string myobject) {
-        self._defaultProviders[myname] = myobject;
+        _defaultProviders[myname] = myobject;
     }
     
     // Get the list of default providers.
     static string[] getDefaultProviders() {
-        return self._defaultProviders.keys;
+        return _defaultProviders.keys;
     }
     
     // Get the list of providers in this validator.
@@ -607,7 +607,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * the field will allowed to be empty only when the callback returns true.
      */
     auto allowEmptyString(string fieldName, string myMessage = null, IClosure|string mywhen = true) {
-        return _allowEmptyFor(fieldName, self.EMPTY_STRING, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, EMPTY_STRING, mywhen, myMessage);
     }
     
     /**
@@ -625,7 +625,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto notEmptyString(string fieldName, string myMessage = null, IClosure|string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
-        return _allowEmptyFor(fieldName, self.EMPTY_STRING, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, EMPTY_STRING, mywhen, myMessage);
     }
     
     /**
@@ -641,7 +641,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * the field will allowed to be empty only when the callback returns true.
      */
     auto allowEmptyArray(string fieldName, string myMessage = null, IClosure|string mywhen = true) {
-        return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_ARRAY, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_ARRAY, mywhen, myMessage);
     }
     
     /**
@@ -659,7 +659,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto notEmptyArray(string fieldName, string myMessage = null, IClosure|string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
-        return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_ARRAY, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_ARRAY, mywhen, myMessage);
     }
     
     /**
@@ -677,7 +677,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @return this
      */
     auto allowEmptyFile(string fieldName, string myMessage = null, IClosure|string mywhen = true) {
-        return _allowEmptyFor(fieldName, self.EMPTY_FILE, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, EMPTY_FILE, mywhen, myMessage);
     }
     
     /**
@@ -695,7 +695,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto notEmptyFile(string fieldName, string myMessage = null, IClosure|string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
-        return _allowEmptyFor(fieldName, self.EMPTY_FILE, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, EMPTY_FILE, mywhen, myMessage);
     }
     
     /**
@@ -711,7 +711,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * the field will allowed to be empty only when the callback returns true.
      */
     auto allowEmptyDate(string fieldName, string myMessage = null, IClosure|string mywhen = true) {
-        return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_DATE, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE, mywhen, myMessage);
     }
     
     /**
@@ -728,7 +728,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto notEmptyDate(string fieldName, string myMessage = null, IClosure|string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
-        return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_DATE, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE, mywhen, myMessage);
     }
     
     /**
@@ -747,7 +747,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * the field will allowed to be empty only when the callback returns true.
      */
     auto allowEmptyTime(string fieldName, string myMessage = null, IClosure|string mywhen = true) {
-        return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_TIME, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_TIME, mywhen, myMessage);
     }
     
     /**
@@ -766,7 +766,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto notEmptyTime(string fieldName, string myMessage = null, IClosure|string mywhen = false) {
         auto mywhen = this.invertWhenClause(mywhen);
 
-        return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_TIME, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_TIME, mywhen, myMessage);
     }
     
     /**
@@ -785,7 +785,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * the field will allowed to be empty only when the callback returns false.
      */
     auto allowEmptyDateTime(string fieldName, string myMessage = null, IClosure|string mywhen = true) {
-        return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_DATE | self.EMPTY_TIME, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE | EMPTY_TIME, mywhen, myMessage);
     }
     
     /**
@@ -806,7 +806,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto notEmptyDateTime(string fieldName, string myMessage = null, IClosure|string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
-        return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_DATE | self.EMPTY_TIME, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE | EMPTY_TIME, mywhen, myMessage);
     }
     
     /**
@@ -2649,10 +2649,10 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         if (mydata.isNull) {
             return true;
         }
-        if (mydata == "" && (myflags & self.EMPTY_STRING)) {
+        if (mydata == "" && (myflags & EMPTY_STRING)) {
             return true;
         }
-        myarrayTypes = self.EMPTY_ARRAY | self.EMPTY_DATE | self.EMPTY_TIME;
+        myarrayTypes = EMPTY_ARRAY | EMPTY_DATE | EMPTY_TIME;
         if (mydata == [] && (myflags & myarrayTypes)) {
             return true;
         }
@@ -2665,16 +2665,16 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 }
             }
             if (myallFieldsAreEmpty) {
-                if ((myflags & self.EMPTY_DATE) && isSet(mydata["year"])) {
+                if ((myflags & EMPTY_DATE) && isSet(mydata["year"])) {
                     return true;
                 }
-                if ((myflags & self.EMPTY_TIME) && isSet(mydata["hour"])) {
+                if ((myflags & EMPTY_TIME) && isSet(mydata["hour"])) {
                     return true;
                 }
             }
         }
         if (
-            (myflags & self.EMPTY_FILE)
+            (myflags & EMPTY_FILE)
             && cast(IUploadedFile)mydata
             && mydata.getError() == UPLOAD_ERR_NO_FILE
        ) {

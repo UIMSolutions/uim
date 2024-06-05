@@ -526,9 +526,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (!_entityClass) {
             mydefault = Entity.classname;
             myself = class;
-            string[] myparts = myself.split("\\");
+            string[] myparts = mysplit("\\");
 
-            if (myself == self.classname || count(myparts) < 3) {
+            if (myself == classname || count(myparts) < 3) {
                 return _entityClass = mydefault;
             }
             aliasName = Inflector.classify(Inflector.underscore(substr(array_pop(myparts), 0, -5)));
@@ -1539,12 +1539,12 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * - Model.beforeRules: Will be triggered right before any rule checking is done
      * for the passed entity if the `checkRules` key in options is not set to false.
      * Listeners will receive as arguments the entity, options array and the operation type.
-     * If the event is stopped the rules check result will be set to the result of the event itself.
+     * If the event is stopped the rules check result will be set to the result of the event it
      * - Model.afterRules: Will be triggered right after the `checkRules()` method is
      * called for the entity. Listeners will receive as arguments the entity,
      * options array, the result of checking the rules and the operation type.
      * If the event is stopped the checking result will be set to the result of
-     * the event itself.
+     * the event it
      * - Model.beforeSave: Will be triggered just before the list of fields to be
      * persisted is calculated. It receives both the entity and the options as
      * arguments. The options array is passed as an ArrayObject, so any changes in

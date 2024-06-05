@@ -291,7 +291,7 @@ class DRouter {
         string myfrag;
         if (myurl.isArray) {
             if (isSet(myurl["_path"])) {
-                myurl = self.unwrapShortString(myurl);
+                myurl = unwrapShortString(myurl);
             }
             if (isSet(myurl["_https"])) {
                 myurl["_scheme"] = myurl["_https"] == true ? "https" : "http";

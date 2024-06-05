@@ -135,7 +135,7 @@ class DValidationRule {
                _pass = array_slice(myvalue, 1);
                 myvalue = array_shift(myvalue);
             }
-            if (in_array(aKey, ["rule", "on", "message", "last", "provider", "pass"], true)) {
+            if (isIn(aKey, ["rule", "on", "message", "last", "provider", "pass"], true)) {
                 this.{"_aKey"} = myvalue;
             }
         }

@@ -101,7 +101,7 @@ class DFormProtector {
         field = to!string(preg_replace("/(\.\d+)+/", "", field));
 
         if (lock) {
-            if (!in_array(field, this.fields, true)) {
+            if (!isIn(field, this.fields, true)) {
                 if (aValue !is null) {
                     this.fields[field] = aValue;
 
@@ -145,7 +145,7 @@ class DFormProtector {
      * Unlocked fields are not included in the field hash.
      */
     auto unlockField(string fieldName) { // fieldName - dot separated name
-        if (!in_array(name, this.unlockedFields, true)) {
+        if (!isIn(name, this.unlockedFields, true)) {
             this.unlockedFields ~= fieldName;
         }
          anIndex = array_search(fieldName, this.fields, true);
@@ -265,7 +265,7 @@ class DFormProtector {
 
         /** @var string aKey */
         foreach (anI: aKey; fieldList) {
-             isLocked = in_array(aKey, locked, true);
+             isLocked = isIn(aKey, locked, true);
 
             if (!unlockedFields.isEmpty) {
                 foreach (off; unlockedFields) {

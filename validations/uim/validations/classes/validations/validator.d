@@ -1751,7 +1751,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string mywhen = null
     ) {
-        if (!in_array(BackedEnum.classname, (array)class_implements(myenumClassName), true)) {
+        if (!isIn(BackedEnum.classname, (array)class_implements(myenumClassName), true)) {
             throw new DInvalidArgumentException(
                 "The `myenumClassName` argument must be the classname of a valid backed enum."
             );
@@ -2612,7 +2612,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             return !myrequired(mycontext);
         }
         mynewRecord = mycontext["newRecord"];
-        if (in_array(myrequired, [WHEN_CREATE, WHEN_UPDATE], true)) {
+        if (isIn(myrequired, [WHEN_CREATE, WHEN_UPDATE], true)) {
             return (myrequired == WHEN_CREATE && !mynewRecord) ||
                 (myrequired == WHEN_UPDATE && mynewRecord);
         }
@@ -2632,7 +2632,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             return myallowed(mycontext);
         }
         mynewRecord = mycontext["newRecord"];
-        if (in_array(myallowed, [WHEN_CREATE, WHEN_UPDATE], true)) {
+        if (isIn(myallowed, [WHEN_CREATE, WHEN_UPDATE], true)) {
             myallowed = (myallowed == WHEN_CREATE && mynewRecord) ||
                 (myallowed == WHEN_UPDATE && !mynewRecord);
         }

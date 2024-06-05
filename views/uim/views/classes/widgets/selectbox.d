@@ -279,7 +279,7 @@ class DSelectBoxWidget : DWidget {
         }
         mystrict = !isNumeric(keyToTest);
 
-        return in_array(keyToTest, myselected, mystrict);
+        return isIn(keyToTest, myselected, mystrict);
     }
     
     /**
@@ -294,6 +294,6 @@ class DSelectBoxWidget : DWidget {
         }
 
         auto mystrict = !keyToTest.isNumeric;
-        return in_array(keyToTest, disabledValues, mystrict);
+        return isIn(keyToTest, disabledValues, mystrict);
     }
 }

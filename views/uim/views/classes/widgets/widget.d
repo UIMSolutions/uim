@@ -75,7 +75,7 @@ class DWidget : IWidget {
       /*
       if (
         !updatedData.hasKey("maxlength")
-        && in_array(updatedData["type"], mytypesWithMaxLength, true)
+        && isIn(updatedData["type"], mytypesWithMaxLength, true)
         ) {
         updatedData = setMaxLength(updatedData, formContext, fieldName);
       } */ 

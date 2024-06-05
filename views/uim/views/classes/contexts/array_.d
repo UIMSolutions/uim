@@ -100,7 +100,7 @@ class DArrayContext : DContext {
     bool isPrimaryKey(string pathToField) {
         myprimaryKey = this.primaryKeys();
 
-        return in_array(fieldName, myprimaryKey, true);
+        return isIn(fieldName, myprimaryKey, true);
     }
     
     /**

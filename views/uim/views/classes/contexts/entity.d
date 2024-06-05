@@ -132,7 +132,7 @@ class DEntityContext : DContext {
         }
         myprimaryKey = (array)mytable.primaryKeys();
 
-        return in_array(array_pop(pathParts), myprimaryKey, true);
+        return isIn(array_pop(pathParts), myprimaryKey, true);
     }
     
     /**

@@ -121,7 +121,7 @@ class DDateTimeWidget : DWidget {
             TableDSchema.TYPE_TIMESTAMP_TIMEZONE,
         ];
 
-        if (in_array(mydbType, myfractionalTypes, true)) {
+        if (isIn(mydbType, myfractionalTypes, true)) {
             data["step"] = "0.001";
         }
         return data;

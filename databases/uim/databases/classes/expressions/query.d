@@ -399,7 +399,7 @@ class DQueryExpression : DExpression { // }, Countable {
              isOperator = isNot = false;
             if (!numericKey) {
                 normalizedKey = myKey.lower;
-                 isOperator = in_array(normalizedKey,  operators);
+                 isOperator = isIn(normalizedKey,  operators);
                  isNot = normalizedKey == "not";
             }
             if ((isOperator ||  isNot) && (isArray || cast(DCountable)c) && count(c) == 0) {
@@ -464,7 +464,7 @@ class DQueryExpression : DExpression { // }, Countable {
 
         type = getTypeMap().type(expression);
         typeMultiple = (isString(type) && type.has("[]"));
-        if (in_array(operator, ["IN", "NOT IN"]) || typeMultiple) {
+        if (isIn(operator, ["IN", "NOT IN"]) || typeMultiple) {
             type = type ?: "string";
             if (!typeMultiple) {
                 type ~= "[]";

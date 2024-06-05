@@ -147,7 +147,7 @@ class DWhenThenExpression : DExpression {
      * string aclause The name of the clause to obtain.
      */
     IExpression|object|scalar|null clause(string aclause) {
-        if (!in_array(clause, _validClauseNames, true)) {
+        if (!isIn(clause, _validClauseNames, true)) {
             throw new DInvalidArgumentException(               
                 "The `clause` argument must be one of `%s`, the given value `%s` is invalid."
                 .format(join("`, `", _validClauseNames), clause)

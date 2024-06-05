@@ -130,7 +130,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     
     // Clear output buffers so error pages display properly.
     protected void clearOutput() {
-        if (in_array(UIM_SAPI, ["cli", "Ddbg"])) {
+        if (isIn(UIM_SAPI, ["cli", "Ddbg"])) {
             return;
         }
         while (ob_get_level()) {

@@ -300,7 +300,7 @@ class DDebugger {
                 }
                 reference ~= ")";
             }
-            if (in_array(signature, options["exclude"], true)) {
+            if (isIn(signature, options["exclude"], true)) {
                 continue;
             }
             if (options["format"] == "points") {

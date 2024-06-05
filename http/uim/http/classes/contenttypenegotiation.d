@@ -106,6 +106,6 @@ class DContentTypeNegotiation {
     bool acceptLanguage(IRequest request, string alang) {
         accept = this.acceptedLanguages(request);
 
-        return in_array(lang.lower, accept, true);
+        return isIn(lang.lower, accept, true);
     }
 }

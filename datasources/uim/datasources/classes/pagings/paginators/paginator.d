@@ -472,7 +472,7 @@ class DPaginator : IPaginator {
             paginationData["sortWhitelist"] = allowed;
 
             myField = key(paginationData.hasKey("order"));
-            sortAllowed = in_array(myField, allowed, true);
+            sortAllowed = isIn(myField, allowed, true);
             if (!sortAllowed) {
                 paginationData["order"]= null;
                 paginationData["sort"] = null;

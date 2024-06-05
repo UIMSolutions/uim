@@ -339,7 +339,7 @@ mixin template TEntity() {
     _fields.byKeyValue
       .each!((kv) {
         if (
-          !in_array(aKey, originalKeys, true) &&
+          !isIn(aKey, originalKeys, true) &&
         this.isOriginalField(aKey)
           ) {
           originals[aKey] = aValue;
@@ -625,7 +625,7 @@ mixin template TEntity() {
 
   // Returns whether a field is an original one
   bool isOriginalField(string fieldName) {
-    return in_array(fieldName, _originalFields);
+    return isIn(fieldName, _originalFields);
   }
 
   /**

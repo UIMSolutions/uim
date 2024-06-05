@@ -56,7 +56,7 @@ class DEntityRoute : DRoute {
                 ~ "but `%s` passed."
                 .format(this.template,
                 get_debug_type(myentity)
-            ));
+           ));
         }
     }
 }

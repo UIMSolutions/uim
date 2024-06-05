@@ -100,7 +100,7 @@ mixin template TValidatorAware() {
             cast(DValidator)result,
                 "The `%s.%s()` validation method must return an instance of `%s`."
                 .format(class, mymethod, result.classname)
-        );
+       );
 
         return result;
     }

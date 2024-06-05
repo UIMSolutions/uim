@@ -357,7 +357,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 if (!isString(nameRule.key)) {
                     throw new DInvalidArgumentException(
                         "You cannot add validation rules without a `name` key. Update rules array to have string keys."
-                    );
+                   );
                 }
                 myvalidationSet.add(nameRule.key, nameRule.value);
             });
@@ -388,7 +388,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         Validator myvalidator,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         myextra = array_filter(["message": myMessage, "on": mywhen]);
 
         myvalidationSet = this.field(rootfieldName);
@@ -431,7 +431,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         Validator myvalidator,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         auto myextra = array_filter(["message": myMessage, "on": mywhen]);
 
         auto myvalidationSet = this.field(rootfieldName);
@@ -585,7 +585,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         int myflags = null,
         Closure|string mywhen = true,
         string myMessage = null
-    ) {
+   ) {
         this.field(fieldName).allowEmpty(mywhen);
         if (myMessage) {
            _allowEmptyMessages[fieldName] = myMessage;
@@ -820,7 +820,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string fieldName,
         array mydefaults = [],
         string[]|int mysettings = []
-    ) {
+   ) {
         if (!mysettings.isArray) {
             fieldName = (string)mysettings;
             mysettings = null;
@@ -982,7 +982,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         Json[string] myrange,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (count(myrange) != 2) {
             throw new DInvalidArgumentException("The myrange argument requires 2 numbers");
         }
@@ -995,14 +995,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     "The length of the provided value must be between `%s` and `%s`, inclusively"
                     .format(mylowerBound,
                     myupperBound
-                );
+               );
             } else {
                 myMessage = __d(
                     "uim",
                     "The length of the provided value must be between `{0}` and `{1}`, inclusively",
                     mylowerBound,
                     myupperBound
-                );
+               );
             }
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
@@ -1028,7 +1028,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string[] mytype = "all",
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (isArray(mytype)) {
             mytypeEnumeration = join(", ", mytype);
         } else {
@@ -1047,13 +1047,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     myMessage = __d(
                         "uim",
                         "The provided value must be a valid credit card number of any type"
-                    );
+                   );
                 } else {
                     myMessage = __d(
                         "uim",
                         "The provided value must be a valid credit card number of these types: `{0}`",
                         mytypeEnumeration
-                    );
+                   );
                 }
             }
         }
@@ -1079,7 +1079,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         float myvalue,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be greater than `%s`".format(myvalue);
@@ -1109,7 +1109,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         float myvalue,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be greater than or equal to `%s`".format(myvalue);
@@ -1139,7 +1139,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         float myvalue,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be less than `%s`"
@@ -1169,7 +1169,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         float myvalue,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be less than or equal to `%s`".format(myvalue);
@@ -1199,7 +1199,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         Json aValue,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             myMessage = !_useI18n
                 ? "The provided value must be equal to `%s`".format(myvalue)
@@ -1227,7 +1227,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         Json aValue,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must not be equal to `%s`".format(myvalue);
@@ -1259,7 +1259,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string mysecondField,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must be same as `%s`", mysecondField);
@@ -1291,7 +1291,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string mysecondField,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage =  "The provided value must not be same as `%s`".format(mysecondField);
@@ -1320,7 +1320,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string mysecondField,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must be equal to the one of field `%s`", mysecondField);
@@ -1329,7 +1329,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     "uim",
                     "The provided value must be equal to the one of field `{0}`",
                     mysecondField
-                );
+               );
             }
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
@@ -1355,7 +1355,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string mysecondField,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must not be equal to the one of field `%s`", mysecondField);
@@ -1364,7 +1364,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     "uim",
                     "The provided value must not be equal to the one of field `{0}`",
                     mysecondField
-                );
+               );
             }
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
@@ -1391,7 +1391,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string mysecondField,
         string errorMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         auto myMessage = errorMessage;
         if (myMessage.isNull) {
             myMessage = !_useI18n
@@ -1400,7 +1400,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     "uim",
                     "The provided value must be greater than the one of field `{0}`",
                     mysecondField
-                );
+               );
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
@@ -1426,19 +1426,19 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string mysecondField,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = 
                     "The provided value must be greater than or equal to the one of field `%s`"
                     .format(mysecondField
-                );
+               );
             } else {
                 myMessage = __d(
                     "uim",
                     "The provided value must be greater than or equal to the one of field `{0}`",
                     mysecondField
-                );
+               );
             }
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
@@ -1463,7 +1463,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string mysecondField,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be less than the one of field `%s`".format(mysecondField);
@@ -1472,7 +1472,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     "uim",
                     "The provided value must be less than the one of field `{0}`",
                     mysecondField
-                );
+               );
             }
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
@@ -1499,19 +1499,19 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string mysecondField,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = 
                     "The provided value must be less than or equal to the one of field `%s`"
                     .format(mysecondField
-                );
+               );
             } else {
                 myMessage = __d(
                     "uim",
                     "The provided value must be less than or equal to the one of field `{0}`",
                     mysecondField
-                );
+               );
             }
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
@@ -1534,7 +1534,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         Json[string]myformats = ["ymd"],
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         myformatEnumeration = join(", ", myformats);
 
         if (myMessage.isNull) {
@@ -1542,13 +1542,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 myMessage = sprintf(
                     "The provided value must be a date of one of these formats: `%s`",
                     myformatEnumeration
-                );
+               );
             } else {
                 myMessage = __d(
                     "uim",
                     "The provided value must be a date of one of these formats: `{0}`",
                     myformatEnumeration
-                );
+               );
             }
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
@@ -1571,19 +1571,19 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         Json[string]myformats = ["ymd"],
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         myformatEnumeration = join(", ", myformats);
 
         if (myMessage.isNull) {
             myMessage = !_useI18n
                 ? "The provided value must be a date and time of one of these formats: `%s`"
                     .format(myformatEnumeration
-                )
+               )
                 : __d(
                     "uim",
                     "The provided value must be a date and time of one of these formats: `{0}`",
                     myformatEnumeration
-                );
+               );
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
@@ -1630,7 +1630,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string mytype = "datetime",
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a localized time, date or date and time";
@@ -1682,7 +1682,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         int myplaces = null,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = myplaces.isNull
@@ -1694,12 +1694,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     ? __d(
                         "uim",
                         "The provided value must be decimal with any number of decimal places, including none"
-                    )
+                   )
                     : __d(
                         "uim",
                         "The provided value must be decimal with `{0}` decimal places",
                         myplaces
-                    );
+                   );
             }
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
@@ -1723,7 +1723,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         bool mycheckMX = false,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             myMessage = !_useI18n
                 ? "The provided value must be an e-mail address"
@@ -1750,11 +1750,11 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myenumClassName,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (!isIn(BackedEnum.classname, (array)class_implements(myenumClassName), true)) {
             throw new DInvalidArgumentException(
                 "The `myenumClassName` argument must be the classname of a valid backed enum."
-            );
+           );
         }
         if (myMessage.isNull) {
             mycases = array_map(fn (mycase): mycase.value, myenumClassName.cases());
@@ -2030,7 +2030,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     "The provided value must be between `{0}` and `{1}`, inclusively",
                     mylowerBound,
                     myupperBound
-                );
+               );
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
@@ -2109,7 +2109,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     "uim",
                     "The provided value must be one of: `{0}`",
                     mylistEnumeration
-                );
+               );
             }
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
@@ -2158,7 +2158,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         Json[string] options,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an uploaded file";
@@ -2429,7 +2429,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         Json[string] optionData = null,
         string myMessage = null,
         Closure|string mywhen = null
-    ) {
+   ) {
         if (myMessage.isNull) {
             myMessage = "The provided value must be a set of multiple options";
             if (_useI18n) {
@@ -2677,7 +2677,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             (myflags & self.EMPTY_FILE)
             && cast(IUploadedFile)mydata
             && mydata.getError() == UPLOAD_ERR_NO_FILE
-        ) {
+       ) {
             return true;
         }
         return false;

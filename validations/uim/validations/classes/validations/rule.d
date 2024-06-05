@@ -84,7 +84,7 @@ class DValidationRule {
                 .format(mymethod,
                _provider,
                 mycontext["field"]
-            );
+           );
             throw new DInvalidArgumentException(mymessage);
         }
         if (_pass) {

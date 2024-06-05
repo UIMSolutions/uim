@@ -55,7 +55,7 @@ class DDashedRoute : DRoute {
             myparams["action"] = Inflector.variable(myparams["action"].replace(
                 "-",
                 "_"
-            ));
+           ));
         }
         return myparams;
     }

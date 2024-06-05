@@ -142,7 +142,7 @@ class DValidation {
         string[] mytype = "fast",
         bool mydeep = false,
         string myregex = null
-    ) {
+   ) {
         if (!(isString(checkValue) || isInt(checkValue))) {
             return false;
         }
@@ -228,7 +228,7 @@ class DValidation {
         if (
             (!isNumeric(mycheck1) || !isNumeric(mycheck2)) &&
             !inArray(myoperator, COMPARE_STRING)
-        ) {
+       ) {
             return false;
         }
         try {
@@ -575,9 +575,9 @@ class DValidation {
 
         // There are two types of non-breaking spaces - we inject a space to account for human input
         if (mygroupingSep == "\xc2\xa0" || mygroupingSep == "\xe2\x80\xaf") {
-            mycheck = (/* (string) */mycheck).replace([" ", mygroupingSep, mydecimalPoint], ["", "", "."], );
+            mycheck = (/* (string) */mycheck).replace([" ", mygroupingSep, mydecimalPoint], ["", "", "."],);
         } else {
-            mycheck = /* (string) */mycheck.replace([mygroupingSep, mydecimalPoint], ["", "."], );
+            mycheck = /* (string) */mycheck.replace([mygroupingSep, mydecimalPoint], ["", "."],);
         }
         return _check(mycheck, myregex);
     }
@@ -625,7 +625,7 @@ class DValidation {
         if (
             cast(myenumClassName)mycheck &&
             cast(BackedEnum)mycheck
-        ) {
+       ) {
             return true;
         }
         mybackingType = null;
@@ -637,7 +637,7 @@ class DValidation {
         if (mybackingType.isNull) {
             throw new DInvalidArgumentException(
                 "The `myenumClassName` argument must be the classname of a valid backed enum."
-            );
+           );
         }
         if (get_debug_type(mycheck) != (string)mybackingType) {
             return false;
@@ -1115,13 +1115,13 @@ class DValidation {
         if (
             isSet(options["minSize"])
             && !fileSize(myfile, COMPARE_GREATER_OR_EQUAL, options["minSize"])
-        ) {
+       ) {
             return false;
         }
         if (
             isSet(options["maxSize"])
             && !fileSize(myfile, COMPARE_LESS_OR_EQUAL, options["maxSize"])
-        ) {
+       ) {
             return false;
         }
         if (isSet(options["types"]) && !mimeType(myfile, options["types"])) {
@@ -1140,7 +1140,7 @@ class DValidation {
         if (!options.hasKey("height") && !options.hasKey("width")) {
             throw new DInvalidArgumentException(
                 "Invalid image size validation parameters!Missing `width` and / or `height`."
-            );
+           );
         }
         myfile = getFilename(myfile);
         if (myfile.isNull) {
@@ -1231,7 +1231,7 @@ class DValidation {
             throw new DInvalidArgumentException(
                 "Unsupported coordinate type `%s`. Use `latLong` instead."
                 .format(options["type"])
-            );
+           );
         }
         mypattern = "/^" ~ self._pattern["latitude"] ~ ",\s*" ~ self._pattern["longitude"] ~ "my/";
         if (options["format"] == "long") {
@@ -1359,7 +1359,7 @@ class DValidation {
         if (
             !isString(valueToCheck) ||
             !preg_match("/^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}my/", valueToCheck)
-        ) {
+       ) {
             return false;
         }
         mycountry = substr(valueToCheck, 0, 2);
@@ -1396,8 +1396,8 @@ class DValidation {
                 isNumeric(myvalue["year"]) &&
                 isNumeric(myvalue["month"]) &&
                 isNumeric(myvalue["day"])
-            )
-        ) {
+           )
+       ) {
             myformatted ~= "%d-%02d-%02d ".format(myvalue["year"], myvalue["month"], myvalue["day"]);
         }
         if (isSet(myvalue["hour"])) {
@@ -1415,14 +1415,14 @@ class DValidation {
                 isNumeric(myvalue["minute"]) &&
                 isNumeric(myvalue["second"]) &&
                 isNumeric(myvalue["microsecond"])
-            ) {
+           ) {
                 myformatted ~= "%02d:%02d:%02d.%06d"
                     .format(
                         myvalue["hour"],
                         myvalue["minute"],
                         myvalue["second"],
                         myvalue["microsecond"]
-                );
+               );
             }
         }
         return strip(myformatted);

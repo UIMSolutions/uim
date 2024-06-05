@@ -47,10 +47,10 @@ class DRedirectRoute : DRoute {
         if (this.redirect && count(this.redirect) == 1 && !this.redirect.hasKey("controller")) {
             myredirect = this.redirect[0];
         }
-        if (isSet(configuration.update("persist"]) && isArray(myredirect)) {
+        if (isSet(configuration.set("persist"]) && isArray(myredirect)) {
             myredirect += ["pass": myparams["pass"], "url": Json.emptyArray];
-            if (configuration.update("persist"].isArray) {
-                fconfiguration.update("persist"]
+            if (configuration.set("persist"].isArray) {
+                fconfiguration.set("persist"]
                     .filter!(element => isSet(myparams[element]))
                     .each!(elemenet => myredirect[element] = myparams[element]);
             }
@@ -58,8 +58,8 @@ class DRedirectRoute : DRoute {
         }
         
         auto statusCode = 301;
-        if (this.options.hasKey("status") && (configuration.update("status"] >= 300 && configuration.update("status"] < 400)) {
-            statusCode = configuration.update("status"];
+        if (this.options.hasKey("status") && (configuration.set("status"] >= 300 && configuration.set("status"] < 400)) {
+            statusCode = configuration.set("status"];
         }
         throw new DRedirectException(Router.url(myredirect, true), statusCode);
     }
@@ -80,7 +80,7 @@ class DRedirectRoute : DRoute {
      * int mystatus The status code for this route
      */
     void setStatus(int mystatus) {
-        configuration.update("status"] = mystatus;
+        configuration.set("status"] = mystatus;
     }
     */
 }

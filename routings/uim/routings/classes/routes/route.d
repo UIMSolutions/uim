@@ -95,9 +95,9 @@ class DRoute : IRoute {
         this.template = mytemplate;
         this.defaults = _defaultValues;
         _options = options ~ ["_ext": Json.emptyArray, "_middleware": Json.emptyArray];
-        setExtensions(/* (array) */configuration.update("_ext"]);
-        setMiddleware(/* (array) */configuration.update("_middleware"]);
-        unset(configuration.update("_middleware"]);
+        setExtensions(/* (array) */configuration.set("_ext"]);
+        setMiddleware(/* (array) */configuration.set("_middleware"]);
+        unset(configuration.set("_middleware"]);
 
         if (isSet(this.defaults["_method"])) {
             this.defaults["_method"] = this.normalizeAndValidateMethods(this.defaults["_method"]);
@@ -133,7 +133,7 @@ class DRoute : IRoute {
         if (mydiff != []) {
             throw new DInvalidArgumentException(
                 "Invalid HTTP method received. `%s` is invalid.".format(mydiff.join(", "))
-            );
+           );
         }
 
         return results;
@@ -148,19 +148,19 @@ class DRoute : IRoute {
     void setPatterns(Json[string] mypatterns) {
         string mypatternValues = mypatterns.join("");
         if (mb_strlen(mypatternValues) < mypatternValues.length) {
-            configuration.update("multibytePattern"] = true;
+            configuration.set("multibytePattern"] = true;
         }
         _options = mypatterns + _options;
     }
     
     // Set host requirement
     void setHost(string hostName) {
-        configuration.update("_host"] = hostName;
+        configuration.set("_host"] = hostName;
     }
     
     // Set the names of parameters that will be converted into passed parameters
     void setPass(string[] parameterNames) {
-        configuration.update("pass"] = parameterNames;
+        configuration.set("pass"] = parameterNames;
     }
     
     /**
@@ -178,7 +178,7 @@ class DRoute : IRoute {
      * Json[string] routingss The names of the parameters that should be passed.
      */
     void setPersist(Json[string] routingss) {
-        configuration.update("persist"] = routingss;
+        configuration.set("persist"] = routingss;
     }
     
     /**
@@ -254,7 +254,7 @@ class DRoute : IRoute {
             myparsed = /* (string) */preg_replace("#/\\\\\*my#", "(?:/(?P<_args_>.*))?", myparsed);
            _greedy = true;
         }
-        mymode = configuration.update("multibytePattern"].isEmpty ? "" : "u";
+        mymode = configuration.set("multibytePattern"].isEmpty ? "" : "u";
         krsort(myrouteParams);
         myparsed = myparsed.replace(myrouteParams.keys, myrouteParams);
        _compiledRoute = "#^" ~ myparsed ~ "[/]*my#" ~ mymode;
@@ -309,7 +309,7 @@ class DRoute : IRoute {
      */
     Json[string] parseRequest(IServerRequest myrequest) {
         myuri = myrequest.getUri();
-        if (isSet(configuration.update("_host"]) && !this.hostMatches(myuri.getHost())) {
+        if (isSet(configuration.set("_host"]) && !this.hostMatches(myuri.getHost())) {
             return null;
         }
         return _parse(myuri.getPath(), myrequest.getMethod());
@@ -345,7 +345,7 @@ class DRoute : IRoute {
         if (
             isSet(this.defaults["_method"]) &&
             !isIn(mymethod, /* (array) */this.defaults["_method"], true)
-        ) {
+       ) {
             return null;
         }
         array_shift(myroute);
@@ -379,16 +379,16 @@ class DRoute : IRoute {
             myroute["_ext"] = myext;
         }
         // pass the name if set
-        if (isSet(configuration.update("_name"])) {
-            myroute["_name"] = configuration.update("_name"];
+        if (isSet(configuration.set("_name"])) {
+            myroute["_name"] = configuration.set("_name"];
         }
         // restructure "pass" key route params
-        if (isSet(configuration.update("pass"])) {
-            myj = count(configuration.update("pass"]);
+        if (isSet(configuration.set("pass"])) {
+            myj = count(configuration.set("pass"]);
             while (myj--) {
                 /** @psalm-suppress PossiblyInvalidArgument */
-                if (isSet(myroute[configuration.update("pass"][myj]])) {
-                    array_unshift(myroute["pass"], myroute[configuration.update("pass"][myj]]);
+                if (isSet(myroute[configuration.set("pass"][myj]])) {
+                    array_unshift(myroute["pass"], myroute[configuration.set("pass"][myj]]);
                 }
             }
         }
@@ -406,7 +406,7 @@ class DRoute : IRoute {
      * string myhost The request"s host name
      */
     bool hostMatches(string myhost) {
-        mypattern = "@^" ~ preg_quote(configuration.update("_host"], "@").replace("\*", ".*") ~ "my@";
+        mypattern = "@^" ~ preg_quote(configuration.set("_host"], "@").replace("\*", ".*") ~ "my@";
 
         return preg_match(mypattern, myhost) != 0;
     }
@@ -461,7 +461,7 @@ class DRoute : IRoute {
      * @param Json[string] myparams An array of persistent values to replace persistent ones.
      */
     protected Json[string] _persistParams(Json[string] myurl, Json[string] myparams) {
-        foreach (configuration.update("persist"] as mypersistKey) {
+        foreach (configuration.set("persist"] as mypersistKey) {
             if (array_key_exists(mypersistKey, myparams) && !isSet(myurl[mypersistKey])) {
                 myurl[mypersistKey] = myparams[mypersistKey];
             }
@@ -490,17 +490,17 @@ class DRoute : IRoute {
 
         if (
             !configuration..isEmpty("persist")) &&
-            isArray(configuration.update("persist"])
-        ) {
+            isArray(configuration.set("persist"])
+       ) {
             myurl = _persistParams(myurl, mycontext["params"]);
         }
         unset(mycontext["params"]);
         myhostOptions = array_intersect_key(myurl, mycontext);
 
         // Apply the _host option if possible
-        if (isSet(configuration.update("_host"])) {
-            if (!isSet(myhostOptions["_host"]) && !configuration.update("_host"].has("*")) {
-                myhostOptions["_host"] = configuration.update("_host"];
+        if (isSet(configuration.set("_host"])) {
+            if (!isSet(myhostOptions["_host"]) && !configuration.set("_host"].has("*")) {
+                myhostOptions["_host"] = configuration.set("_host"];
             }
             myhostOptions["_host"] ??= mycontext["_host"];
 
@@ -515,13 +515,13 @@ class DRoute : IRoute {
             isSet(myhostOptions["_scheme"]) ||
             isSet(myhostOptions["_port"]) ||
             isSet(myhostOptions["_host"])
-        ) {
+       ) {
             myhostOptions += mycontext;
 
             if (
                 myhostOptions["_scheme"] &&
                 getservbyname(myhostOptions["_scheme"], "tcp") == myhostOptions["_port"]
-            ) {
+           ) {
                 unset(myhostOptions["_port"]);
             }
         }
@@ -550,8 +550,8 @@ class DRoute : IRoute {
         }
         // If this route uses pass option, and the passed elements are
         // not set, rekey elements.
-        if (isSet(configuration.update("pass"])) {
-            foreach (configuration.update("pass"] as myi: routings) {
+        if (isSet(configuration.set("pass"])) {
+            foreach (configuration.set("pass"] as myi: routings) {
                 if (isSet(myurl[myi]) && !isSet(myurl[routings])) {
                     myurl[routings] = myurl[myi];
                     unset(myurl[myi]);
@@ -597,7 +597,7 @@ class DRoute : IRoute {
         if (
             (isSet(mykeyNames["controller"]) && !isSet(myurl["controller"])) ||
             (isSet(mykeyNames["action"]) && !isSet(myurl["action"]))
-        ) {
+       ) {
             return null;
         }
         return _writeUrl(myurl, mypass, myquery);
@@ -671,7 +671,7 @@ class DRoute : IRoute {
             isSet(myparams["_scheme"]) ||
             isSet(myparams["_host"]) ||
             isSet(myparams["_port"])
-        ) {
+       ) {
             myhost = myparams["_host"];
 
             // append the port & scheme if they exists.
@@ -702,7 +702,7 @@ class DRoute : IRoute {
             this.template,
             routingsdElements,
             PREG_OFFSET_CAPTURE
-        );
+       );
 
         if (mymatched) {
             return substr(this.template, 0, routingsdElements[0][1]);

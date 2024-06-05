@@ -151,7 +151,7 @@ class DPlugin : IPlugin {
             throw new DInvalidArgumentException(
                 "`%s` is not a valid hook name. Must be one of `%s.`"
                 .format(hookName, VALID_HOOKS.join(", "))
-            );
+           );
         }
     }
  

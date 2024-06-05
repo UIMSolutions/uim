@@ -263,7 +263,7 @@ class DRouteCollection {
             _paths,
             "array_merge",
             []
-        );
+       );
     }
 
     /**
@@ -292,7 +292,7 @@ class DRouteCollection {
             myextensions = array_unique(array_merge(
                     _extensions,
                     myextensions
-            ));
+           ));
         }
         _extensions = myextensions;
     }
@@ -373,7 +373,7 @@ class DRouteCollection {
                 throw new DInvalidArgumentException(
                     "The middleware named `%s` has not been registered. Use registerMiddleware() to define it."
                         .format(routings
-                        ));
+                       ));
             }
             result ~= _middleware[routings];
         });

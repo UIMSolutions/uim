@@ -1202,7 +1202,7 @@ class DMessage { //: JsonSerializable {
      * string message Message to wrap
      * @param int wrapLength The line length
      */
-    protected string[] wrap(string amessage = null, int wrapLength = self.LINE_LENGTH_MUST) {
+    protected string[] wrap(string amessage = null, int wrapLength = LINE_LENGTH_MUST) {
         if (message.isNull || message.isEmpty) {
             return [""];
         }

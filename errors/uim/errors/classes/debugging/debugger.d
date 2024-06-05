@@ -316,7 +316,7 @@ class DDebugger {
         auto self = Debugger.getInstance();
         auto defaults = [
             "depth": 999,
-            "format": self._outputFormat,
+            "format": _outputFormat,
             "args": false,
             "start": 0,
             "scope": null,
@@ -366,9 +366,9 @@ class DDebugger {
                 }
                 back ~= trace;
             } else {
-                tpl = isset(self._stringContents[options["format"]]["traceLine"]))
-                    ? self._stringContents[options["format"]]["traceLine"];
-                    : self._stringContents["base.traceLine"];
+                tpl = isset(_stringContents[options["format"]]["traceLine"]))
+                    ? _stringContents[options["format"]]["traceLine"];
+                    : _stringContents["base.traceLine"];
                 }
                 trace["path"] = trimPath(trace["file"]);
                 trace["reference"] = reference;

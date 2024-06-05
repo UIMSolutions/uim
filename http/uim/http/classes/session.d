@@ -447,7 +447,7 @@ class DSession {
     }
 
     /**
-     * Used to write new data to _SESSION, since D doesn`t like us setting the _SESSION var itself.
+     * Used to write new data to _SESSION, since D doesn`t like us setting the _SESSION var it
      * Params:
      * Json[string] old Set of old variables: values
      * @param Json[string] new DNew set of variable: value

@@ -73,7 +73,7 @@ mixin template TQuery() {
      * Executes this query and returns a results iterator. This bool is required
      * for implementing the IteratorAggregate interface and allows the query to be
      * iterated without having to call execute() manually, thus making it look like
-     * a result set instead of the query itself.
+     * a result set instead of the query it
      */
     IResultset getIterator() {
         return _all();
@@ -315,19 +315,19 @@ mixin template TQuery() {
      *    });
      * });
      */
-    void formatResults(callable formatter = null, int mode = self.APPEND) {
-        if (mode == self.OVERWRITE) {
+    void formatResults(callable formatter = null, int mode = APPEND) {
+        if (mode == OVERWRITE) {
             _formatters = null;
         }
         if (formatter == null) {
-            if (mode != self.OVERWRITE) {
+            if (mode != OVERWRITE) {
                 throw new DInvalidArgumentException("formatter can be null only when mode is overwrite.");
             }
 
             return;
         }
 
-        if (mode == self.PREPEND) {
+        if (mode == PREPEND) {
             array_unshift(_formatters, formatter);
 
             return 

@@ -26,7 +26,7 @@ class DRequest { // }: Message, IRequest {
      */
     this(
         IUri|string aurl = "",
-        string httpMethod = self.METHOD_GET,
+        string httpMethod = METHOD_GET,
         Json[string]  aHeaders = null,
         string[] someData = null
    ) {

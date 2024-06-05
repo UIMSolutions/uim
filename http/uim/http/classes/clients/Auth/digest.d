@@ -28,12 +28,12 @@ class DDigest {
      * Algorithms <. Hash type
      */
     const HASH_ALGORITHMS = [
-        self.ALGO_MD5: "md5",
-        self.ALGO_SHA_256: "sha256",
-        self.ALGO_SHA_512_256: "sha512/256",
-        self.ALGO_MD5_SESS: "md5",
-        self.ALGO_SHA_256_SESS: "sha256",
-        self.ALGO_SHA_512_256_SESS: "sha512/256",
+        ALGO_MD5: "md5",
+        ALGO_SHA_256: "sha256",
+        ALGO_SHA_512_256: "sha512/256",
+        ALGO_MD5_SESS: "md5",
+        ALGO_SHA_256_SESS: "sha256",
+        ALGO_SHA_512_256_SESS: "sha512/256",
     ];
 
     // Instance of UIM\Http\Client
@@ -55,14 +55,14 @@ class DDigest {
     
     // Set algorithm based on credentials
     protected void setAlgorithm(Json[string] credentials) {
-        algorithm = credentials.get("algorithm", self.ALGO_MD5);
-        if (!isSet(self.HASH_ALGORITHMS[algorithm])) {
+        algorithm = credentials.get("algorithm", ALGO_MD5);
+        if (!isSet(HASH_ALGORITHMS[algorithm])) {
             throw new DInvalidArgumentException("Invalid Algorithm. Valid ones are: " ~
-                join(",", self.HASH_ALGORITHMS.keys));
+                join(",", HASH_ALGORITHMS.keys));
         }
         this.algorithm = algorithm;
         this.isSessAlgorithm = indexOf(this.algorithm, "-sess") != false;
-        this.hashType = Hash.get(self.HASH_ALGORITHMS, this.algorithm);
+        this.hashType = Hash.get(HASH_ALGORITHMS, this.algorithm);
     }
     
     // Add Authorization header to the request.
@@ -132,11 +132,11 @@ class DDigest {
             ha2 = hash(this.hashType, a2);
             response = hash(this.hashType, ha1 ~ ": " ~ credentials["nonce"] ~ ": " ~ ha2);
         } else {
-            if (!isIn(credentials["qop"], [self.QOP_AUTH, self.QOP_AUTH_INT])) {
+            if (!isIn(credentials["qop"], [QOP_AUTH, QOP_AUTH_INT])) {
                 throw new DInvalidArgumentException("Invalid QOP parameter. Valid types are: " ~
-                    join(",", [self.QOP_AUTH, self.QOP_AUTH_INT]));
+                    join(",", [QOP_AUTH, QOP_AUTH_INT]));
             }
-            if (credentials["qop"] == self.QOP_AUTH_INT) {
+            if (credentials["qop"] == QOP_AUTH_INT) {
                 a2 = request.getMethod() ~ ": " ~ somePath ~ ": " ~ hash(this.hashType, (string)request.getBody());
             }
             if (credentials.isEmpty("cnonce")) {

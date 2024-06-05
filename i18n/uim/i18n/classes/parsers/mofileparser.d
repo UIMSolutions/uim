@@ -49,9 +49,9 @@ class MoFileParser {
         string magic = unpack("V1", (string) fread(stream, 4));
         magic = hexdec(substr(dechex(current(magic)),  - 8));
 
-        if (magic == self.MO_LITTLE_ENDIAN_MAGIC) {
+        if (magic == MO_LITTLE_ENDIAN_MAGIC) {
             isBigEndian = false;
-        } else if (magic == self.MO_BIG_ENDIAN_MAGIC) {
+        } else if (magic == MO_BIG_ENDIAN_MAGIC) {
             isBigEndian = true;
         } else {
             throw new DException("Invalid format for MO translations file");

@@ -83,7 +83,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
      */
     void noSniff() {
-        _headers["x-content-type-options"] = Json(self.NOSNIFF);
+        _headers["x-content-type-options"] = Json(NOSNIFF);
     }
     
     /**
@@ -94,7 +94,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      * @link https://msdn.microsoft.com/en-us/library/jj542450(v=vs.85).aspx
      */
     void noOpen() {
-        _headers["x-download-options"] = Json(self.NOOPEN);
+        _headers["x-download-options"] = Json(NOOPEN);
     }
     
     /**
@@ -103,18 +103,18 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      * @link https://w3c.github.io/webappsec-referrer-policy
      * @param string policyValue Policy value.
      */
-    void setReferrerPolicy(string policyValue = self.SAME_ORIGIN) {
+    void setReferrerPolicy(string policyValue = SAME_ORIGIN) {
         // policyValue = Available Value: 'no-referrer", "no-referrer-when-downgrade", "origin",
         // 'origin-when-cross-origin", "same-origin", "strict-origin", "strict-origin-when-cross-origin", "unsafe-url'
         auto available = [
-            self.NO_REFERRER,
-            self.NO_REFERRER_WHEN_DOWNGRADE,
-            self.ORIGIN,
-            self.ORIGIN_WHEN_CROSS_ORIGIN,
-            self.SAME_ORIGIN,
-            self.STRICT_ORIGIN,
-            self.STRICT_ORIGIN_WHEN_CROSS_ORIGIN,
-            self.UNSAFE_URL,
+            NO_REFERRER,
+            NO_REFERRER_WHEN_DOWNGRADE,
+            ORIGIN,
+            ORIGIN_WHEN_CROSS_ORIGIN,
+            SAME_ORIGIN,
+            STRICT_ORIGIN,
+            STRICT_ORIGIN_WHEN_CROSS_ORIGIN,
+            UNSAFE_URL,
         ];
 
         this.checkValues(policyValue, available);
@@ -128,10 +128,10 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      * @param string optionValue Option value. Available Values: 'deny", "sameorigin", "allow-from <uri>'
      * @param string url URL if mode is `allow-from`
      */
-    void setXFrameOptions(string optionValue = self.SAMEORIGIN, string aurl = null) {
-        this.checkValues(optionValue, [self.DENY, self.SAMEORIGIN, self.ALLOW_FROM]);
+    void setXFrameOptions(string optionValue = SAMEORIGIN, string aurl = null) {
+        this.checkValues(optionValue, [DENY, SAMEORIGIN, ALLOW_FROM]);
 
-        if (optionValue == self.ALLOW_FROM) {
+        if (optionValue == ALLOW_FROM) {
             if (url.isEmpty) {
                 throw new DInvalidArgumentException("The 2nd arg url can not be empty when `allow-from` is used");
             }
@@ -147,11 +147,11 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      *
      * @param string amode Mode value. Available Values: '1", "0", "block'
      */
-    void setXssProtection(string modeValue = self.XSS_BLOCK) {
-        if (modeValue == self.XSS_BLOCK) {
-            modeValue = self.XSS_ENABLED_BLOCK;
+    void setXssProtection(string modeValue = XSS_BLOCK) {
+        if (modeValue == XSS_BLOCK) {
+            modeValue = XSS_ENABLED_BLOCK;
         }
-        this.checkValues(modeValue, [self.XSS_ENABLED, self.XSS_DISABLED, self.XSS_ENABLED_BLOCK]);
+        this.checkValues(modeValue, [XSS_ENABLED, XSS_DISABLED, XSS_ENABLED_BLOCK]);
         _headers["x-xss-protection"] = modeValue;
     }
     
@@ -162,13 +162,13 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      * @param string apolicy Policy value. Available Values: 'all", "none", "master-only", "by-content-type",
      *   'by-ftp-filename'
      */
-    void setCrossDomainPolicy(string policyValue = self.ALL) {
+    void setCrossDomainPolicy(string policyValue = ALL) {
         this.checkValues(policyValue, [
-            self.ALL,
-            self.NONE,
-            self.MASTER_ONLY,
-            self.BY_CONTENT_TYPE,
-            self.BY_FTP_FILENAME,
+            ALL,
+            NONE,
+            MASTER_ONLY,
+            BY_CONTENT_TYPE,
+            BY_FTP_FILENAME,
         ]);
         _headers["x-permitted-cross-domain-policies"] = policyValue;
     }

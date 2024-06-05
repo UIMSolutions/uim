@@ -496,7 +496,7 @@ class DServerRequest { // }: IServerRequest {
         if (accepted.isNull) {
             return false;
         }
-        if (exclude && in_array(accepted, exclude, true)) {
+        if (exclude && isIn(accepted, exclude, true)) {
             return false;
         }
         return true;
@@ -531,7 +531,7 @@ class DServerRequest { // }: IServerRequest {
             return isSet(this.params[aKey]) ? this.params[aKey] == aValue : false;
         }
         if (detect.hasKey("options")) {
-            return isSet(this.params[aKey]) ? in_array(this.params[aKey], detect["options"]): false;
+            return isSet(this.params[aKey]) ? isIn(this.params[aKey], detect["options"]): false;
         }
         return false;
     }
@@ -669,7 +669,7 @@ class DServerRequest { // }: IServerRequest {
     // Normalize a header name into the SERVER version.
     protected string normalizeHeaderName(string headerName) {
         string result = headerName.upper.replace("-", "_");
-        return in_array(name, ["CONTENT_LENGTH", "CONTENT_TYPE"], true)
+        return isIn(name, ["CONTENT_LENGTH", "CONTENT_TYPE"], true)
             ? result
             : "HTTP_" ~ result;
     }
@@ -1249,7 +1249,7 @@ class DServerRequest { // }: IServerRequest {
      */
     static withAttribute(string attributeName, Json aValue) {
         new = clone this;
-        if (in_array(attributeName, this.emulatedAttributes, true)) {
+        if (isIn(attributeName, this.emulatedAttributes, true)) {
             new.{attributeName} = aValue;
         } else {
             new.attributes[attributeName] = aValue;
@@ -1264,7 +1264,7 @@ class DServerRequest { // }: IServerRequest {
      */
     static auto withoutAttribute(string aName) {
         new = clone this;
-        if (in_array(name, this.emulatedAttributes, true)) {
+        if (isIn(name, this.emulatedAttributes, true)) {
             throw new DInvalidArgumentException(
                 "You cannot unset 'name'. It is a required UIM attribute."
             );
@@ -1281,7 +1281,7 @@ class DServerRequest { // }: IServerRequest {
      * @param Json defaultValue The default value if the attribute has not been set.
      */
     Json getAttribute(string aName, Json defaultValue = Json(null)) {
-        if (in_array(name, this.emulatedAttributes, true)) {
+        if (isIn(name, this.emulatedAttributes, true)) {
             if (name == "here") {
                 return _base ~ this.uri.getPath();
             }

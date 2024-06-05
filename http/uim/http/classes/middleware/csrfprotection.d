@@ -70,7 +70,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
     // Checks and sets the CSRF token depending on the HTTP verb.
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
         auto method = requestHandler.getMethod();
-        auto hasData = in_array(method, ["PUT", "POST", "DELETE", "PATCH"], true)
+        auto hasData = isIn(method, ["PUT", "POST", "DELETE", "PATCH"], true)
             || requestHandler.getParsedBody();
 
         if (

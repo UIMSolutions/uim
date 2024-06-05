@@ -175,7 +175,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
     
     // Convenience method to check if a value is in the list of allowed args
     protected void checkValues(string valueToCheck, string[] allowedValues) {
-        if (!in_array(valueToCheck, allowedValues, true)) {
+        if (!isIn(valueToCheck, allowedValues, true)) {
             array_walk(allowedValues, fn (&x): x = "`x`");
             throw new DInvalidArgumentException(
                 "Invalid arg `%s`, use one of these: %s."

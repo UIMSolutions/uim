@@ -35,7 +35,7 @@ class DCurl { // }: IAdapter {
                 CURLE_URL_MALFORMAT,
                 CURLE_URL_MALFORMAT_USER,
             ];
-            if (in_array(errorCode, errorNumbers, true)) {
+            if (isIn(errorCode, errorNumbers, true)) {
                 throw new DRequestException(message, request);
             }
             throw new DNetworkException(message, request);

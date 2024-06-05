@@ -99,7 +99,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      * \Psr\Http\Message\IServerRequest serverRequest The request.
      */
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
-        if (!in_array(request.getMethod(), this.methods, true)) {
+        if (!isIn(request.getMethod(), this.methods, true)) {
             return requestHandler.handle(request);
         }
         [type] = request.getHeaderLine("Content-Type").split(";");

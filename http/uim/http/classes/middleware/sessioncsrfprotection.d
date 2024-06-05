@@ -56,7 +56,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      */
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         method = request.getMethod();
-        hasData = in_array(method, ["PUT", "POST", "DELETE", "PATCH"], true)
+        hasData = isIn(method, ["PUT", "POST", "DELETE", "PATCH"], true)
             || request.getParsedBody();
 
         if (

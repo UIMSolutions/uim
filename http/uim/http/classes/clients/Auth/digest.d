@@ -132,7 +132,7 @@ class DDigest {
             ha2 = hash(this.hashType, a2);
             response = hash(this.hashType, ha1 ~ ": " ~ credentials["nonce"] ~ ": " ~ ha2);
         } else {
-            if (!in_array(credentials["qop"], [self.QOP_AUTH, self.QOP_AUTH_INT])) {
+            if (!isIn(credentials["qop"], [self.QOP_AUTH, self.QOP_AUTH_INT])) {
                 throw new DInvalidArgumentException("Invalid QOP parameter. Valid types are: " ~
                     join(",", [self.QOP_AUTH, self.QOP_AUTH_INT]));
             }

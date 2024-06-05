@@ -80,7 +80,7 @@ class DEncryptedCookieMiddleware { // : IHttpMiddleware {
      */
     protected DResponse encodeCookies(Response response) {
         response.getCookieCollection()
-            .filter!(cookie => in_array(cookie.name, this.cookieNames, true))
+            .filter!(cookie => isIn(cookie.name, this.cookieNames, true))
             .each!((cookie) {
                 aValue = _encrypt(cookie.getValue(), this.cipherType);
                 response = response.withCookie(cookie.withValue(aValue));
@@ -94,7 +94,7 @@ class DEncryptedCookieMiddleware { // : IHttpMiddleware {
         auto aHeader = null;
         auto cookies = CookieCollection.createFromHeader(response.getHeader("Set-Cookie"));
         cookies.each!((cookie) {
-            if (in_array(cookie.name, this.cookieNames, true)) {
+            if (isIn(cookie.name, this.cookieNames, true)) {
                 auto value = _encrypt(cookie.getValue(), this.cipherType);
                 auto cookieWithValue = cookie.withValue(value);
             }

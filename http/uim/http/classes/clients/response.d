@@ -176,7 +176,7 @@ class DClientResponse { // }: Message : IResponse {
             STATUS_PERMANENT_REDIRECT,
         ];
 
-        return in_array(_statusCode, codes, true) &&
+        return isIn(_statusCode, codes, true) &&
             getHeaderLine("Location");
     }
     

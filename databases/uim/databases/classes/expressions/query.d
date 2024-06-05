@@ -399,7 +399,7 @@ class DQueryExpression : DExpression { // }, Countable {
              isOperator = isNot = false;
             if (!numericKey) {
                 normalizedKey = myKey.lower;
-                 isOperator = isIn(normalizedKey,  operators);
+                 isOperator = normalizedKey.isIn(operators);
                  isNot = normalizedKey == "not";
             }
             if ((isOperator ||  isNot) && (isArray || cast(DCountable)c) && count(c) == 0) {

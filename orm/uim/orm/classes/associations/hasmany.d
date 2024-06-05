@@ -51,7 +51,7 @@ class DHasManyAssociation : DAssociation {
 
     // Sets the strategy that should be used for saving.
     void setSaveStrategy(string strategyName) {
-        if (!in_array(strategyName, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
+        if (!isIn(strategyName, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
             throw new DInvalidArgumentException("Invalid save strategy '%s'".format(strategyName));
         }
         _saveStrategy = strategyName;
@@ -83,7 +83,7 @@ class DHasManyAssociation : DAssociation {
     IORMEntity saveAssociated(IORMEntity sourceEntity, Json[string] options = null) {
         myTargetEntities = sourceEntity.get(getProperty());
 
-        isEmpty = in_array(myTargetEntities, [null, [], "", false], true);
+        isEmpty = isIn(myTargetEntities, [null, [], "", false], true);
         if (isEmpty) {
             if (
                 sourceEntity.isNew() ||
@@ -309,7 +309,7 @@ class DHasManyAssociation : DAssociation {
                         .reject(
                         function(assoc) use(
                         myTargetEntities) {
-                            return in_array(assoc, myTargetEntities);}
+                            return isIn(assoc, myTargetEntities);}
                             )
                             .toList()
                             );
@@ -405,7 +405,7 @@ class DHasManyAssociation : DAssociation {
                 primaryKeys);}
             )
                 .filter(
-                    function(v) { return !in_array(null, v, true); }
+                    function(v) { return !isIn(null, v, true); }
                 )
                 .toList();
             conditions = foreignKeyReference;
@@ -488,7 +488,7 @@ class DHasManyAssociation : DAssociation {
      * @param Json[string] properties the list of fields that compose the foreign key
      */
         protected bool _foreignKeyAcceptsNull(Table myTable, Json[string] properties) {
-            return !in_array(
+            return !isIn(
                 false,
                 array_map(
                     function(prop) use(

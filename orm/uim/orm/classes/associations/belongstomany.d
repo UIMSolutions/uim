@@ -513,7 +513,7 @@ class DBelongsToManyAssociation : DAssociation {
         auto targetEntity = entity.get(getProperty());
         auto strategy = getSaveStrategy();
 
-        isEmpty = in_array(targetEntity, [null, [], "", false], true);
+        isEmpty = isIn(targetEntity, [null, [], "", false], true);
         if (isEmpty && entity.isNew()) {
             return entity;
         }
@@ -834,7 +834,7 @@ class DBelongsToManyAssociation : DAssociation {
             }
             // Assume that operators contain junction conditions.
             // Trying to manage complex conditions could result in incorrect queries.
-            if (isString && in_array(strtoupper(field), ["OR", "NOT", "AND", "XOR"], true)) {
+            if (isString && isIn(strtoupper(field), ["OR", "NOT", "AND", "XOR"], true)) {
                 matching[field] = value;
             }
         }

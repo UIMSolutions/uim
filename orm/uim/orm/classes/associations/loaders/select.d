@@ -188,7 +188,7 @@ class DSelectLoader {
         }
         missingKey = function (fieldList, key) {
             foreach (key as keyField) {
-                if (!in_array(keyField, fieldList, true)) {
+                if (!isIn(keyField, fieldList, true)) {
                     return true;
                 }
             }
@@ -301,7 +301,7 @@ class DSelectLoader {
             throw new DRuntimeException(msg);
         }
 
-        keys = in_array(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) ?
+        keys = isIn(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) ?
             this.foreignKey :
             this.bindingKey;
 
@@ -385,8 +385,8 @@ class DSelectLoader {
      */
     protected Json[string] _buildResultMap(Query fetchQuery, Json[string] optionData) {
         auto resultMap = null;
-        auto singleResult = in_array(this.associationType, [Association.MANY_TO_ONE, Association.ONE_TO_ONE], true);
-        auto keys = in_array(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) ?
+        auto singleResult = isIn(this.associationType, [Association.MANY_TO_ONE, Association.ONE_TO_ONE], true);
+        auto keys = isIn(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) ?
             this.foreignKey :
             this.bindingKey;
         key = (array)keys;

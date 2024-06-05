@@ -34,7 +34,7 @@ class DDependentDeleteHelper {
         foreignKey = array_map([anAssociation, "aliasField"], /* (array) */anAssociation.foreignKeys());
         bindingKey = /* (array) */anAssociation.getBindingKey();
         bindingValue = entity.extract(bindingKey);
-        if (in_array(null, bindingValue, true)) {
+        if (isIn(null, bindingValue, true)) {
             return true;
         }
         conditions = array_combine(foreignKey, bindingValue);

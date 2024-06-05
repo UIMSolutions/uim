@@ -63,7 +63,7 @@ class DTimestampBehavior : DBehavior {
         myrefresh = configuration.get("refreshTimestamp"];
 
         foreach (fieldName: mywhen; myevents[myeventName]) {
-            if (!in_array(mywhen, ["always", "new", "existing"], true)) {
+            if (!isIn(mywhen, ["always", "new", "existing"], true)) {
                 throw new DUnexpectedValueException(
                     "When should be one of "always", "new" or "existing". The passed value `%s` is invalid."
                     .format(mywhen
@@ -135,7 +135,7 @@ class DTimestampBehavior : DBehavior {
         myrefresh = configuration.get("refreshTimestamp"];
 
         foreach (myevents[myeventName] as fieldName: mywhen) {
-            if (in_array(mywhen, ["always", "existing"], true)) {
+            if (isIn(mywhen, ["always", "existing"], true)) {
                 result = true;
                 myentity.setDirty(fieldName, false);
                _updateField(myentity, fieldName, myrefresh);

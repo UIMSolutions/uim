@@ -112,7 +112,7 @@ class DApp {
             "uim",
             (to!string(configuration.get("App.namespace"))).replace("\\", "/"),
         ];
-        if (in_array(pluginName, nonPluginNamespaces, true)) {
+        if (isIn(pluginName, nonPluginNamespaces, true)) {
             return name;
         }
         return pluginName ~ "." ~ name;

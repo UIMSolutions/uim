@@ -147,7 +147,7 @@ class DMarshaller {
                 }
                 continue;
             }
-            if (myvalue == "" && in_array(aKey, myprimaryKey, true)) {
+            if (myvalue == "" && isIn(aKey, myprimaryKey, true)) {
                 // Skip marshalling "" for pk fields.
                 continue;
             }
@@ -229,7 +229,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
         auto mymarshaller = mytargetTable.marshaller();
         auto mytypes = [Association.ONE_TO_ONE, Association.MANY_TO_ONE];
         auto mytype = myassoc.type();
-        if (in_array(mytype, mytypes, true)) {
+        if (isIn(mytype, mytypes, true)) {
             return mymarshaller.one(myvalue, options);
         }
         if (mytype == Association.ONE_TO_MANY || mytype == Association.MANY_TO_MANY) {
@@ -626,7 +626,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
         auto mymarshaller = mytargetTable.marshaller();
         auto mytypes = [Association.ONE_TO_ONE, Association.MANY_TO_ONE];
         auto mytype = myassoc.type();
-        if (in_array(mytype, mytypes, true)) {
+        if (isIn(mytype, mytypes, true)) {
             /** @var \UIM\Datasource\IORMEntity myoriginal */
             return mymarshaller.merge(myoriginal, myvalue, options);
         }
@@ -675,7 +675,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
             return null;
         }
 
-        return !empty(myassociated) && !in_array("_joinData", myassociated, true) && !isSet(myassociated["_joinData"])
+        return !empty(myassociated) && !isIn("_joinData", myassociated, true) && !isSet(myassociated["_joinData"])
 ? _mergeMany(myoriginal, myvalue, options)
         : _mergeJoinData(myoriginal, associationToMarshall, myvalue, options);
     }

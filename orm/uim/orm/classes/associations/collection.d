@@ -108,7 +108,7 @@ class DAssociationCollection { // }: IteratorAggregate {
         // TODO
         /* 
         out  = array_filter(_items, function(assoc) use(class) {
-            [, name] = namespaceSplit(get_class(assoc)); return in_array(name.lower, classname, true);
+            [, name] = namespaceSplit(get_class(assoc)); return isIn(name.lower, classname, true);
         });
 
         return array_values(out );

@@ -389,7 +389,7 @@ class DAssociation : IAssociation {
     string getProperty() {
         if (!_propertyName) {
             _propertyName = _propertyName();
-            if (in_array(_propertyName, _sourceTable.getSchema().columns(), true)) {
+            if (isIn(_propertyName, _sourceTable.getSchema().columns(), true)) {
                 msg = "Association property name '%s' clashes with field of same name of table '%s'." ~
                     " You should explicitly specify the " propertyName" option.";
                 trigger_error(
@@ -419,7 +419,7 @@ class DAssociation : IAssociation {
      * @param string aName The strategy type. Use null to read the current value.
      */
     void setStrategy(string aName) {
-        if (!in_array(name, _validStrategies, true)) {
+        if (!isIn(name, _validStrategies, true)) {
             throw new DInvalidArgumentException(
                 "Invalid strategy '%s' was provided. Valid options are (%s)."
                     .format(name, _validStrategies.join(", "));

@@ -41,7 +41,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
                     throw new DInvalidArgumentException(
                         "Middleware `%s` was not found."
                         .format(middlewareName
-                    ));
+                   ));
                 }
                 IHttpMiddleware middlewareName = new className();
             }
@@ -122,9 +122,9 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
                 (
                     isString(object)
                     && object == className
-                )
+               )
                 || isA(object,  className)
-            ) {
+           ) {
                 isFound = true;
                 break;
             }
@@ -154,9 +154,9 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
                 (
                     isString(object)
                     && object == className
-                )
+               )
                 || isA(object,  className)
-            ) {
+           ) {
                 found = true;
                 break;
             }

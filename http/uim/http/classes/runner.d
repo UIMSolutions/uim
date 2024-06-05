@@ -49,7 +49,7 @@ class DRunner : IRequestHandler {
         MiddlewareQueue queue,
         IServerRequest serverRequest,
         IRequestHandler fallbackHandler = null
-    ) {
+   ) {
         this.queue = queue;
         this.queue.rewind();
         this.fallbackHandler = fallbackHandler;
@@ -57,7 +57,7 @@ class DRunner : IRequestHandler {
         if (
             cast(IRoutingApplication)fallbackHandler  &&
             cast(DServerRequest)request
-        ) {
+       ) {
             Router.setRequest(request);
         }
         return _handle(request);

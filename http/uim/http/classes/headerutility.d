@@ -93,7 +93,7 @@ class DHeaderUtility {
             authenticateHeader,
             matches,
             PREG_SET_ORDER
-        );
+       );
 
         auto result;
         matches.each!(match => result[match[1]] = match[3] ? match[3] : match[2]);

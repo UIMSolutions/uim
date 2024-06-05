@@ -45,7 +45,7 @@ template DTag(string fName, string tName) {
 //
 //	this(T...)(T values) { this(); add(values); }
 //	this() { listener = this;}
-//	// this(DHTML aListener ) { listener = aListener; }
+//	// this(DHTML aListener) { listener = aListener; }
 ////	this(string entry) { this(); add(entry); }
 //	// this(string[] entries...) { this(); add(entries); }
 ////	this(DOPObject entry) { this(); add(entry); }

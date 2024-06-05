@@ -115,7 +115,7 @@ class dynamicSortableTable : DH5Component {
                 .click(function() {
                     (this).closest("tr").remove();
                 })
-        ).appendTo((tr));
+       ).appendTo((tr));
         * /
         
         // add the new row

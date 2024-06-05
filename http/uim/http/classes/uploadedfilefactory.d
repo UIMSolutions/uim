@@ -29,7 +29,7 @@ class DUploadedFileFactory { //}: IUploadedFileFactory {
         int error = UPLOAD_ERR_OK,
         string aclientFilename = null,
         string aclientMediaType = null
-    ) {
+   ) {
         if (size == 0) {
             size = stream.getSize() ?? 0;
         }

@@ -12,7 +12,7 @@ import uim.http;
  * IResponse (
  *   IServerRequest serverRequest,
  *   IRequestHandler handler
- * ): 
+ *): 
  * ```
  *
  * such that it will operate as PSR-15 middleware.
@@ -29,7 +29,7 @@ class DClosureDecoratorMiddleware { // }: IHttpMiddleware {
         return (_callable)(
             serverRequest,
             requestHandler
-        );
+       );
     }
     
     Closure getCallable() {

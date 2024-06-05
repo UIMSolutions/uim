@@ -50,13 +50,13 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
             this.addParser(
                 ["application/Json", "text/Json"],
                 this.decodeJson(...)
-            );
+           );
         }
         if (options["xml"]) {
             this.addParser(
                 ["application/xml", "text/xml"],
                 this.decodeXml(...)
-            );
+           );
         }
         if (options["methods"]) {
             setMethods(options["methods"]);

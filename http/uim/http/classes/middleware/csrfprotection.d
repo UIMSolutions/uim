@@ -77,7 +77,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
             hasData
             && _skipCheckCallback !is null
             && call_user_func(_skipCheckCallback, requestHandler) == true
-        ) {
+       ) {
             requestHandler = _unsetTokenField(requestHandler);
 
             return requestHandler.handle(requestHandler);
@@ -87,7 +87,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
                 "A CSRF token is already set in the request.\n" ~
                 "Ensure you do not have the CSRF middleware applied more than once. " ~
                 "Check both your `Application.middleware()` method and `config/routes.d`.";
-            );
+           );
         }
 
         auto cookies = requestHandler.getCookieParams();
@@ -225,7 +225,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
         string tokenToAdd,
         IServerRequest serverRequest,
         IResponse response
-    ) {
+   ) {
         cookie = _createCookie(tokenToAdd, serverRequest);
         if (cast(Response)response) {
             return response.withCookie(cookie);
@@ -269,7 +269,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
         throw new DInvalidCsrfTokenException(__d(
             "uim",
             "CSRF token from either the request body or request headers did not match or is missing."
-        ));
+       ));
     }
     
     /**
@@ -289,6 +289,6 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
                 'httponly": configuration.get("httponly"],
                 `samesite": configuration.get("samesite"],
             ]
-        );
+       );
     } */ 
 }

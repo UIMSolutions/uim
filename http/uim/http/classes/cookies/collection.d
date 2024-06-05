@@ -85,7 +85,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
             throw new DInvalidArgumentException(
                 "Cookie `%s` not found. Use `has()` to check first for existence."
                 .format(cookieName)
-            );
+           );
         }
         return cookie;
     }
@@ -141,8 +141,8 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
                         class,
                         get_debug_type(cookie),
                         anIndex
-                    )
-                );
+                   )
+               );
             }
         }
     }
@@ -165,7 +165,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
             anUri.getScheme(),
             anUri.getHost(),
             anUri.getPath() ?: '/'
-        );
+       );
         cookies = extraCookies + cookies;
         
         string[] cookiePairs;
@@ -176,7 +176,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
                 triggerWarning(
                     "The cookie `%s` exceeds the recommended maximum cookie length of 4096 bytes."
                     .format(kv.key)
-                );
+               );
             }
             cookiePairs ~= cookie;
         });
@@ -234,7 +234,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
         cookies = createFromHeader(
             response.getHeader("Set-Cookie"),
             ["domain": host, "path": somePath]
-        );
+       );
         new = clone this;
         foreach (cookies as cookie) {
             new.cookies[cookie.getId()] = cookie;

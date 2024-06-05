@@ -113,7 +113,7 @@ class DResponseEmitter {
             .format(response.getProtocolVersion(),
             response.statusCode(),
             (reasonPhrase ? " " ~ reasonPhrase : "")
-        ));
+       ));
     }
     
     /**
@@ -142,7 +142,7 @@ class DResponseEmitter {
                     "%s: %s".format(
                     name,
                     aValue
-                ), first);
+               ), first);
                 first = false;
             }
         }

@@ -53,7 +53,7 @@ class DOauth {
                 credentials["consumerSecret"],
                 credentials["token"],
                 credentials["tokenSecret"]
-            );
+           );
             if (!hasKeys) {
                 return request;
             }
@@ -135,7 +135,7 @@ class DOauth {
 
         someValues["oauth_signature"] = base64_encode(
             hash_hmac("sha1", baseString, aKey, true)
-        );
+       );
 
         return _buildAuth(someValues);
     }

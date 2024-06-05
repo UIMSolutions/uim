@@ -236,7 +236,7 @@ class DServerRequest { // }: IServerRequest {
         this.cookies = configData["cookies"];
 
         if (isSet(configData["uri"])) {
-            if (!cast(IUri)configData["uri"]  ) {
+            if (!cast(IUri)configData["uri"] ) {
                 throw new DException("The `uri` key must be an instance of " ~ IUri.classname);
             }
             anUri = configData["uri"];
@@ -268,7 +268,7 @@ class DServerRequest { // }: IServerRequest {
                 "`post` key must be an array, object or null. " ~ 
                 " Got `%s` instead."
                 .format(get_debug_type(post)
-            ));
+           ));
         }
         _data = post;
         _uploadedFiles = configData["files"];
@@ -801,7 +801,7 @@ class DServerRequest { // }: IServerRequest {
             throw new DInvalidArgumentException(
                 "Unsupported HTTP method `%s` provided."
                 .format(method)
-            );
+           );
         }
         new._environmentData["REQUEST_METHOD"] = method;
 
@@ -1267,7 +1267,7 @@ class DServerRequest { // }: IServerRequest {
         if (isIn(name, this.emulatedAttributes, true)) {
             throw new DInvalidArgumentException(
                 "You cannot unset 'name'. It is a required UIM attribute."
-            );
+           );
         }
         unset(new.attributes[name]);
 
@@ -1354,7 +1354,7 @@ class DServerRequest { // }: IServerRequest {
                 this.validateUploadedFiles(file, aKey ~ ".");
                 continue;
             }
-            if (!cast(IUploadedFile)file instanceof ) {
+            if (!cast(IUploadedFile)file instanceof) {
                 throw new DInvalidArgumentException("Invalid file at `%s%s`.".format(somePath, aKey));
             }
         }

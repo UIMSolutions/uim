@@ -63,7 +63,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
             hasData
             && this.skipCheckCallback !is null
             && call_user_func(this.skipCheckCallback, request) == true
-        ) {
+       ) {
             request = this.unsetTokenField(request);
 
             return handler.handle(request);
@@ -201,7 +201,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
         throw new DInvalidCsrfTokenException(__d(
             'uim",
             'CSRF token from either the request body or request headers did not match or is missing.'
-        ));
+       ));
     }
     
     /**

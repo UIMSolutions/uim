@@ -180,7 +180,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
             throw new DInvalidArgumentException(
                 "Invalid arg `%s`, use one of these: %s."
                 .format(valueToCheck, allowedValues.join(", ")
-            ));
+           ));
         }
     }
     

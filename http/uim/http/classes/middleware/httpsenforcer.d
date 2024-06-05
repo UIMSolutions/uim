@@ -49,7 +49,7 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
         if (
             request.getUri().getScheme() == "https"
             || (configuration.hasAllKeys("disableOnDebug", "debug"))
-        ) {
+       ) {
             response = handler.handle(request);
             if (configuration.hasKey("hsts")) {
                 response = this.addHsts(response);
@@ -66,11 +66,11 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
                 requestUri,
                 configuration.get("statusCode"],
                 configuration.get("headers"]
-            );
+           );
         }
         throw new BadRequestException(
             "Requests to this URL must be made with HTTPS."
-        );
+       );
     }
     
     /**

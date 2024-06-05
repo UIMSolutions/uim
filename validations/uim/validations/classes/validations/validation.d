@@ -504,7 +504,7 @@ class DValidation {
      * @param array<string|int|bool> mybooleanValues List of valid boolean values, defaults to `[true, false, 0, 1, "0", "1"]`.
      */
     static bool isBoolean(Json mycheck, Json[string] mybooleanValues = [true, false, 0, 1, "0", "1"]) {
-        return in_array(mycheck, mybooleanValues, true);
+        return isIn(mycheck, mybooleanValues, true);
     }
     
     /**
@@ -516,7 +516,7 @@ class DValidation {
      * @param array<string|int|bool> mytruthyValues List of valid truthy values, defaults to `[true, 1, "1"]`.
      */
     static bool truthy(Json mycheck, Json[string] mytruthyValues = [true, 1, "1"]) {
-        return in_array(mycheck, mytruthyValues, true);
+        return isIn(mycheck, mytruthyValues, true);
     }
     
     /**
@@ -528,7 +528,7 @@ class DValidation {
      * @param array<string|int|bool> myfalseyValues List of valid falsey values, defaults to `[false, 0, "0"]`.
      */
     static bool falsey(Json mycheck, Json[string] myfalseyValues = [false, 0, "0"]) {
-        return in_array(mycheck, myfalseyValues, true);
+        return isIn(mycheck, myfalseyValues, true);
     }
     
     /**
@@ -810,7 +810,7 @@ class DValidation {
                 if (caseInsensitive) {
                     myval = mb_strtolower(/* (string) */myval);
                 }
-                if (!in_array(to!string(myval), options["in"], mystrict)) {
+                if (!isIn(to!string(myval), options["in"], mystrict)) {
                     return false;
                 }
             }
@@ -919,7 +919,7 @@ class DValidation {
         } else {
             mylist = array_map("strval", mylist);
         }
-        return in_array(to!string(mycheck, mylist, true);
+        return isIn(to!string(mycheck, mylist, true);
     }
     
     /**
@@ -999,7 +999,7 @@ class DValidation {
         foreach (mymimeTypes as aKey: myval) {
             mymimeTypes[aKey] = strtolower(myval);
         }
-        return in_array(mymime.lower, mymimeTypes, true);
+        return isIn(mymime.lower, mymimeTypes, true);
     }
     
     /**
@@ -1070,7 +1070,7 @@ class DValidation {
             mycode = valueToCheck;
         }
         if (myallowNoFile) {
-            return in_array((int)mycode, [UPLOAD_ERR_OK, UPLOAD_ERR_NO_FILE], true);
+            return isIn((int)mycode, [UPLOAD_ERR_OK, UPLOAD_ERR_NO_FILE], true);
         }
         return (int)mycode == UPLOAD_ERR_OK;
     }

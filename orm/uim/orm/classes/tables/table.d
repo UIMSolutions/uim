@@ -1198,7 +1198,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             }
             
             auto fieldNames = options[field];
-            auto myglue = in_array(field, ["keyField", "parentField"], true) ? ";" : options["valueSeparator"];
+            auto myglue = isIn(field, ["keyField", "parentField"], true) ? ";" : options["valueSeparator"];
             options[field] = auto (myrow) use (fieldNames, myglue) {
                 auto mymatches = fieldNames.each!(fld => myrow[fld]).array;
                 return join(myglue, mymatches);

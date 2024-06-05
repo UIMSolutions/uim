@@ -304,7 +304,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                 return;
             }
 
-            if (in_array(field, fields, true)) {
+            if (isIn(field, fields, true)) {
                 joinRequired = true;
                 expression.setField(
                     "alias.field");
@@ -312,7 +312,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             }
 
             /** @psalm-suppress ParadoxicalCondition */
-            if (in_array(field, mainTableFields, true)) {
+            if (isIn(field, mainTableFields, true)) {
                 expression.setField(
                     "mainTableAlias.field");
             }
@@ -477,7 +477,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
         translatedFields = this
             .translatedFields();
-        if (in_array(field, translatedFields, true)) {
+        if (isIn(field, translatedFields, true)) {
             return _configuration.getString("hasOneAlias") ~ "." ~ field;
         }
 

@@ -167,8 +167,8 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
                 if (
                     query.isAutoFieldsEnabled() ||
-                    in_array(field, select, true) ||
-                    in_array(_table.aliasField(field), select, true)
+                    isIn(field, select, true) ||
+                    isIn(_table.aliasField(field), select, true)
                 ) {
                     q.select(["id", "content"]);
                 }

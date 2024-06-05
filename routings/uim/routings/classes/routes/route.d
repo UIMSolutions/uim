@@ -344,7 +344,7 @@ class DRoute : IRoute {
         }
         if (
             isSet(this.defaults["_method"]) &&
-            !in_array(mymethod, /* (array) */this.defaults["_method"], true)
+            !isIn(mymethod, /* (array) */this.defaults["_method"], true)
         ) {
             return null;
         }
@@ -618,7 +618,7 @@ class DRoute : IRoute {
         _defaultValues = /* (array) */this.defaults["_method"];
         mymethods = /* (array) */this.normalizeAndValidateMethods(myurl["_method"]);
         foreach (myvalue; mymethods) {
-            if (in_array(myvalue, _defaultValues, true)) {
+            if (isIn(myvalue, _defaultValues, true)) {
                 return true;
             }
         }

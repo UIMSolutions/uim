@@ -275,7 +275,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      */
     // TODO
     /*   Generator<\UIM\Core\IPlugin> with (string myhook) {
-        if (!in_array(hook, IPlugin:
+        if (!isIn(hook, IPlugin:
                  : VALID_HOOKS, true)) {
             throw new DInvalidArgumentException(
                 "The `%s` hook is not a known plugin hook.".format(hook));

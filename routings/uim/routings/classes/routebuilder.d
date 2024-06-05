@@ -307,7 +307,7 @@ class DRouteBuilder {
             myprefix = _params["prefix"] ~ "/" ~ myprefix;
         }
         foreach (myresourceMap as mymethod: myparams) {
-            if (!in_array(mymethod, myonly, true)) {
+            if (!isIn(mymethod, myonly, true)) {
                 continue;
             }
             myaction = options["actions"].get(mymethod, myparams["action"]);

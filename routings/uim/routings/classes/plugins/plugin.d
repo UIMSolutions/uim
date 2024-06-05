@@ -147,7 +147,7 @@ class DPlugin : IPlugin {
     
     // Check if a hook name is valid
     protected void checkHook(string hookName) {
-        if (!in_array(aHook, VALID_HOOKS, true)) {
+        if (!isIn(aHook, VALID_HOOKS, true)) {
             throw new DInvalidArgumentException(
                 "`%s` is not a valid hook name. Must be one of `%s.`"
                 .format(hookName, VALID_HOOKS.join(", "))

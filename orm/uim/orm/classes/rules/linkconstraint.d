@@ -30,7 +30,7 @@ class DLinkConstraint {
      * succeed.
      */
     this(Association|string myassociation, string myrequiredLinkStatus) {
-        if (!in_array(myrequiredLinkStatus, [STATUS_LINKED, STATUS_NOT_LINKED], true)) {
+        if (!isIn(myrequiredLinkStatus, [STATUS_LINKED, STATUS_NOT_LINKED], true)) {
             throw new DInvalidArgumentException(
                 "Argument 2 is expected to match one of the `\ORM\Rule\LinkConstraint.STATUS_*` constants."
             );

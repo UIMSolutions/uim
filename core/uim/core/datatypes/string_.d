@@ -454,3 +454,11 @@ string ifNull(string value, string defaultValue) {
 string ifEmpty(string value, string defaultValue) {
 	return !value.isEmpty ? value : defaultValue;
 }
+
+bool isIn(string value, string[] values) {
+	return canFind(values, value);
+}
+unittest {
+	assert("a".isIn(["a", "b", "c"]));
+	assert(!"x".isIn(["a", "b", "c"]));
+}

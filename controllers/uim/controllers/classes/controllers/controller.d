@@ -321,16 +321,16 @@ class DController : IController { // IEventListener, IEventDispatcher {
         auto requestAction = _request.getParam("action");
 
         foreach (this.middlewares as  middleware) {
-            options = middleware["options"];
-            if (!options.isEmpty("only")) {
-                if (in_array(requestAction, /* (array) */options["only"], true)) {
+            auto middlewareOptions = options = middleware["options"];
+            if (!middlewareOptions.isEmpty("only")) {
+                if (/* (array) */middlewareOptions["only"].has(requestAction)) {
                      matching ~= middleware["middleware"];
                 }
                 continue;
             }
             if (
-                !options.isEmpty("except") &&
-                in_array(requestAction, /* (array) */options["except"], true)
+                !middlewareOptions.isEmpty("except") &&
+                /* (array) */middlewareOptions["except"].has(requestAction)
             ) {
                 continue;
             }

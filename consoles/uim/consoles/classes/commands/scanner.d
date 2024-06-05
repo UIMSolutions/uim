@@ -90,10 +90,11 @@ class DCommandScanner {
             auto file = fileInfo.getFilename();
 
             auto name = Inflector.underscore(to!string(preg_replace(classNamePattern, "", file)));
-            if (in_array(name, commandsToHide, true)) {
+            if (commandsToHide.has(name)) {
                 continue;
             }
-             className = namespace ~ fileInfo.getBasename(".d");
+            
+            className = namespace ~ fileInfo.getBasename(".d");
             if (!isSubclass_of(className, ICommand.classname)) {
                 continue;
             }

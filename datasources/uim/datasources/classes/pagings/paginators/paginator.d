@@ -443,7 +443,7 @@ class DPaginator : IPaginator {
             if (paginationData.hasKey("direction")) {
                 direction = strtolower(paginationData["direction"]);
             }
-            if (!in_array(direction, ["asc", "desc"], true)) {
+            if (!["asc", "desc"].has(direction)) {
                 direction = "asc";
             }
 

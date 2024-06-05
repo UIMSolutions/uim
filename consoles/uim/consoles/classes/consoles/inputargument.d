@@ -105,10 +105,10 @@ class DConsoleInputArgument {
         if (_choices.isEmpty) {
             return true;
         }
-        if (!in_array(choiceToValidate, _choices, true)) {
+        if (!_choices.has(choiceToValidate)) {
             throw new DConsoleException(
                 "`%s` is not a valid value for `%s`. Please use one of `%s`"
-                    .format(aValue, _name, _choices.join(", "))
+                    .format(choiceToValidate, _name, _choices.join(", "))
             );
         }
         return true;

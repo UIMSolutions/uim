@@ -2256,12 +2256,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             reset(myparams);
 
             if (mylastParam == false || !mylastParam.isVariadic()) {
-                myparamNames = null;
-                foreach (myparams as myparam) {
-                    myparamNames ~= myparam.name;
-                }
+                string[] myparamNames = myparams.map!(param => myparam.name).array;
                 myargs.byKeyValue
-                    .filter(kv => isString(kv.key) && !in_array(kv.key, myparamNames, true))
+                    .filter(kv => isString(kv.key) && !myparamNames.has(kv.key))
                     .each!(kv => unset(myargs[kv.key]));
             }
         }

@@ -109,21 +109,21 @@ class DMemoryCacheEngine : DCacheEngine {
 
   _setOptions();
 
-  auto servers = _memory.getServerList();
-  if (servers) {
+  string[] serversFromConfig = configuration.get("servers");
+  if (auto servers = _memory.getServerList()) {
     if (_memory.isPersistent()) {
       servers
-        .filter!(server => !in_array(server.getString("host") ~ ": " ~ server.getString("port"), configuration.get("servers"), true))
+        .filter!(server => !server.getString("host") ~ ": " ~ server.getString("port").isIn(serversFromConfig))
         .each!(server => throw new DInvalidArgumentException(
-            "Invalid cache configuration. Multiple persistent cache configurations are detected"
-              ." with different `servers` values. `servers` values for persistent cache configurations"
-              ." must be the same when using the same persistence id."
+            "Invalid cache configuration. Multiple persistent cache configurations are detected" ~
+            " with different `servers` values. `servers` values for persistent cache configurations" ~
+            " must be the same when using the same persistence id."
           ));
       }
     }
     return true;
   }
-  auto myservers = configuration.get("servers")
+  serversFromConfig
     .map!(server => parseServerString(server))
     .array;
 }

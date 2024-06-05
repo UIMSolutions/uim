@@ -57,7 +57,7 @@ class DTupleComparisonExpression : DComparisonExpression {
         string[] fieldNames;
         originalFields.each!(field => fieldNames ~= cast(IExpression)field
                 ? field.sql(valueBinder) 
-                : field;
+                : field
                 );
 
         return "(%s) %s (%s)"
@@ -137,8 +137,7 @@ class DTupleComparisonExpression : DComparisonExpression {
 
                                                     // Determines if each of the values in this expressions is a tuple in itself
                                                     bool isMulti() {
-                                                        return in_array(_operator.lower, [
-                                                                "in", "not in"
-                                                            ]);}
+                                                        return ["in", "not in"].has(_operator.lower);
+                                                        }
                                                     }
                                                     mixin(ExpressionCalls!("TupleComparison"));

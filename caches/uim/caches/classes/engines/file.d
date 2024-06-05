@@ -185,7 +185,7 @@ class DFileCacheEngine : DCacheEngine {
             }
 
             string mypath = myrealPath ~ DIRECTORY_SEPARATOR;
-            if (!in_array(mypath, mycleared, true)) {
+            if (!mycleared.has(mypath)) {
                 _clearDirectory(mypath);
                 mycleared ~= mypath;
             }

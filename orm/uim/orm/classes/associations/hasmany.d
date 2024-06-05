@@ -37,12 +37,12 @@ class DHasManyAssociation : DAssociation {
     protected string _joinType = Query.JOIN_TYPE_INNER;
 
     // The strategy name to be used to fetch associated records.
-    protected string _strategy = self.STRATEGY_SELECT;
+    protected string _strategy = STRATEGY_SELECT;
 
     // Valid strategies for this type of association
     protected string[] _validStrategies = [
-        self.STRATEGY_SELECT,
-        self.STRATEGY_SUBQUERY,
+        STRATEGY_SELECT,
+        STRATEGY_SUBQUERY,
     ];
 
     // #region saveStrategy
@@ -51,7 +51,7 @@ class DHasManyAssociation : DAssociation {
 
     // Sets the strategy that should be used for saving.
     void setSaveStrategy(string strategyName) {
-        if (!isIn(strategyName, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
+        if (!isIn(strategyName, [SAVE_APPEND, SAVE_REPLACE], true)) {
             throw new DInvalidArgumentException("Invalid save strategy '%s'".format(strategyName));
         }
         _saveStrategy = strategyName;
@@ -87,7 +87,7 @@ class DHasManyAssociation : DAssociation {
         if (isEmpty) {
             if (
                 sourceEntity.isNew() ||
-                getSaveStrategy() != self.SAVE_REPLACE
+                getSaveStrategy() != SAVE_REPLACE
                ) {
                 return sourceEntity;
             }
@@ -110,7 +110,7 @@ class DHasManyAssociation : DAssociation {
         options["_sourceTable"] = source();
 
         if (
-            _saveStrategy == self.SAVE_REPLACE &&
+            _saveStrategy == SAVE_REPLACE &&
             !_unlinkAssociated(foreignKeyReference, sourceEntity, getTarget(), myTargetEntities, options)
            ) {
             return null;
@@ -363,7 +363,7 @@ class DHasManyAssociation : DAssociation {
         sourceEntity.set(property, myTargetEntities);
         auto saveStrategy = getSaveStrategy();
         setSaveStrategy(
-            self.SAVE_REPLACE);
+            SAVE_REPLACE);
         auto myResult = this.saveAssociated(
             sourceEntity, options);
         auto ok = (cast(IORMEntity) myResult);
@@ -504,7 +504,7 @@ class DHasManyAssociation : DAssociation {
      * Get the relationship type.
      */
             string type() {
-                return self.ONE_TO_MANY;
+                return ONE_TO_MANY;
             }
 
             /**

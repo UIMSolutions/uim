@@ -64,13 +64,22 @@ interface IConfiguration : INamed {
     // #endregion get
 
     // #region set
-        void opIndexAssign(Json data, string key);
         void opAssign(Json[string] data);
 
         bool set(STRINGAA values, string[] keys = null);
         bool set(Json[string] newData, string[] keys = null);
-        bool set(string key, Json newValue);
+        
+        bool set(string key, bool newValue);
+        bool set(string key, long newValue);
+        bool set(string key, double newValue);
         bool set(string key, string newValue);
+        bool set(string key, Json newValue);
+
+        void opIndexAssign(bool newValue, string key);
+        void opIndexAssign(long newValue, string key);
+        void opIndexAssign(double newValue, string key);
+        void opIndexAssign(string newValue, string key);
+        void opIndexAssign(Json newValue, string key);
     // #endregion set
 
     bool update(Json[string] newData, string[] validKeys = null);

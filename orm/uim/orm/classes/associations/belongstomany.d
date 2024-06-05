@@ -57,8 +57,8 @@ class DBelongsToManyAssociation : DAssociation {
 
     // Valid strategies for this type of association
     protected  string[]_validStrategies = [
-        self.STRATEGY_SELECT,
-        self.STRATEGY_SUBQUERY,
+        STRATEGY_SELECT,
+        STRATEGY_SUBQUERY,
     ];
 
     /**
@@ -387,7 +387,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Get the relationship type.
      */
     string type() {
-        return self.MANY_TO_MANY;
+        return MANY_TO_MANY;
     }
 
     /**
@@ -478,7 +478,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Sets the strategy that should be used for saving.
      */
      void setSaveStrategy(string strategyName) {
-        if (![self.SAVE_APPEND, self.SAVE_REPLACE].has(strategyName)) {
+        if (![SAVE_APPEND, SAVE_REPLACE].has(strategyName)) {
             auto message =  "Invalid save strategy '%s'".format(strategyName);
             throw new DInvalidArgumentException(message);
         }
@@ -521,7 +521,7 @@ class DBelongsToManyAssociation : DAssociation {
             targetEntity = null;
         }
 
-        if (strategy == self.SAVE_APPEND) {
+        if (strategy == SAVE_APPEND) {
             return _saveTarget(entity, targetEntity, options);
         }
 
@@ -774,12 +774,12 @@ class DBelongsToManyAssociation : DAssociation {
         _targetConditions = _junctionConditions = null;
     }
 
-    // Sets the current join table, either the name of the Table instance or the instance itself.
+    // Sets the current join table, either the name of the Table instance or the instance it
     void setThrough(through) {
         _through = through;
     }
 
-    // Gets the current join table, either the name of the Table instance or the instance itself.
+    // Gets the current join table, either the name of the Table instance or the instance it
     DORMTable getThrough() {
         return _through;
     }

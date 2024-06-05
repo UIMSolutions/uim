@@ -74,7 +74,7 @@ class DBelongsToAssociation : DAssociation {
 
     // Get the relationship type.
     string type() {
-        return self.MANY_TO_ONE;
+        return MANY_TO_ONE;
     }
 
     /**

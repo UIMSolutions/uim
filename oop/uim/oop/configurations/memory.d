@@ -142,6 +142,7 @@ class DMemoryConfiguration : DConfiguration {
             ? getDefault(key) : defaultValue;
     }
 
+    alias set = DConfiguration.set;
     override bool set(string key, Json value) {
         _data[key] = value;
         return true;

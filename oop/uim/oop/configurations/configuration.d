@@ -189,10 +189,34 @@ abstract class DConfiguration : IConfiguration {
         return true;
     }
 
+    bool set(string key, bool newValue) {
+        return set(key, Json(newValue));
+    }
+    bool set(string key, long newValue) {
+        return set(key, Json(newValue));
+    } 
+    bool set(string key, double newValue) {
+        return set(key, Json(newValue));
+    } 
+    bool set(string key, string newValue) {
+        return set(key, Json(newValue));
+    } 
     abstract bool set(string key, Json newValue);
 
-    void opIndexAssign(Json value, string key) {
-        set(key, value);
+    void opIndexAssign(bool newValue, string key) {
+        set(key, newValue);
+    }
+    void opIndexAssign(long newValue, string key) {
+        set(key, newValue);
+    }
+    void opIndexAssign(double newValue, string key) {
+        set(key, newValue);
+    }
+    void opIndexAssign(string newValue, string key) {
+        set(key, newValue);
+    }
+    void opIndexAssign(Json newValue, string key) {
+        set(key, newValue);
     }
     // #endregion set
 

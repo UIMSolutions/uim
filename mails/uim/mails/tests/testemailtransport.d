@@ -25,7 +25,7 @@ class DTestEmailTransport { // TODO }: DDebugTransport {
 
         configDatauredTransports.each!((transport) {
             auto configData = TransportFactory.configuration.get(transport);
-            configData["className"] = self.classname;
+            configData["className"] = classname;
             TransportFactory.drop(transport);
             TransportFactory.configuration.set(transport, configData);
         });

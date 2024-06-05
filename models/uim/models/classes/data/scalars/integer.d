@@ -195,7 +195,7 @@ decode(String nm)
 Decodes a String into an Integer.
 Optional<Integer>
 describeConstable()
-Returns an Optional containing the nominal descriptor for this instance, which is the instance itself.
+Returns an Optional containing the nominal descriptor for this instance, which is the instance it
 static long
 divideUnsigned(long dividend, long divisor)
 Returns the unsigned quotient of dividing the first argument by the second where each argument and the result is interpreted as an unsigned value.
@@ -273,7 +273,7 @@ remainderUnsigned(long dividend, long divisor)
 Returns the unsigned remainder from dividing the first argument by the second where each argument and the result is interpreted as an unsigned value.
 Integer
 resolveConstantDesc(MethodHandles.Lookup lookup)
-Resolves this instance as a ConstantDesc, the result of which is the instance itself.
+Resolves this instance as a ConstantDesc, the result of which is the instance it
 static long
 reverse(long i)
 Returns the value obtained by reversing the order of the bits in the two's complement binary representation of the specified long value.

@@ -36,9 +36,9 @@ mixin template TUnitConsecutive() {
                     mockedMethodCall = to!int((aCallbackCall / numberOfArguments));
 
                     if (cast(DConstraint)expected) {
-                        self.assertThat(actualArgument, expected);
+                        assertThat(actualArgument, expected);
                     } else {
-                        self.assertEquals(expected, actualArgument);
+                        assertEquals(expected, actualArgument);
                     }
                     return true;
                 },

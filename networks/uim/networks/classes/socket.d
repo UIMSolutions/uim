@@ -377,7 +377,7 @@ class DSocket {
             if (state.isEmpty) {
                 static anInitialState = null;
                 if (isEmpty(anInitialState)) {
-                    anInitialState = get_class_vars(self.classname);
+                    anInitialState = get_class_vars(classname);
                 }
                 state = anInitialState;
             }

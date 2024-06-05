@@ -67,7 +67,7 @@ class DRoutesCheckCommand : DCommand {
     parserToUpdate.description(
       "Check a URL string against the routes. " ~
         "Will output the routing parameters the route resolves to."
-    )
+   )
       .addArgument("url", [
           "help": "The URL to check.",
           "required": true.toJson,

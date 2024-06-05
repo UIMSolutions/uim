@@ -36,7 +36,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
 
         aParser.description(
             "Used by shells like bash to autocomplete command name, options and arguments"
-        );
+       );
         aParser.addArgument("mode", [
                 "help": "The type of thing to get completion on.",
                 "required": true.toJson,

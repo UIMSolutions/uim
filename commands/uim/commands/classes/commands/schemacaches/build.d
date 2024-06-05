@@ -51,7 +51,7 @@ class DSchemacacheBuildCommand : DCommand {
         parserToUpdate.description(
             "Build all metadata caches for the connection. If a " ~
             "table name is provided, only that table will be cached."
-        ).addOption("connection", [
+       ).addOption("connection", [
             "help": "The connection to build/clear metadata cache data for.",
             "short": "c",
             "default": "default",

@@ -76,7 +76,7 @@ class DRoutesCommand : DCommand {
                      someDuplicateRoutesCounter[routeTemplateName][method] > 1 ||
                     (method.isEmpty && count(someDuplicateRoutesCounter[routeTemplateName]) > 1) ||
                     (method != "" && isSet(someDuplicateRoutesCounter[routeTemplateName][""]))
-                ) {
+               ) {
                      someDuplicateRoutes ~= [
                         myRoute.options.getString("_name", myRoute.name),
                         routeTemplateName,
@@ -149,7 +149,7 @@ class DRoutesCommand : DCommand {
                      someDuplicateRoutesCounter[myRoute.template][method] > 1 ||
                     (method.isEmpty && count(someDuplicateRoutesCounter[myRoute.template]) > 1) ||
                     (method != "" && isSet(someDuplicateRoutesCounter[myRoute.template][""]))
-                ) {
+               ) {
                      someDuplicateRoutes ~= [
                         myRoute.options["_name"] ?? myRoute.name,
                         myRoute.template,

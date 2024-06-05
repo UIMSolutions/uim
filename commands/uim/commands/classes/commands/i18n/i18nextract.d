@@ -65,7 +65,7 @@ class DI18nExtractCommand : DCommand {
             [APP],
             App.path("templates"),
             ["D"] // This is required to break the loop below
-        );
+       );
         int defaultPathIndex = 0;
         while (true) {
             currentPaths = count(_paths) > 0 ? _paths : ["None"];
@@ -120,7 +120,7 @@ class DI18nExtractCommand : DCommand {
                 "Would you like to extract the messages from the UIM core?",
                 ["y", "n"],
                 "n"
-            );
+           );
            _extractCore = response.toLowe == "y";
         }
         if (arguments.hasOption("exclude-plugins") && _isExtractingApp()) {
@@ -145,7 +145,7 @@ class DI18nExtractCommand : DCommand {
                 response = consoleIo.ask(
                     message,
                     localePaths[0]
-                );
+               );
                 if (response.upper == "Q") {
                      consoleIo.writeErrorMessages("Extract Aborted");
 
@@ -159,7 +159,7 @@ class DI18nExtractCommand : DCommand {
                  consoleIo.writeErrorMessages(
                     "<error>The directory path you supplied was " ~
                     "not found. Please try again.</error>"
-                );
+               );
                  consoleIo.writeErrorMessages("");
             }
         }
@@ -171,7 +171,7 @@ class DI18nExtractCommand : DCommand {
                 "Would you like to merge all domain strings into the default.pot file?",
                 ["y", "n"],
                 "n"
-            );
+           );
            _merge = response.lower == "y";
         }
        _markerError = arguments.getBool("marker-error");
@@ -242,7 +242,7 @@ class DI18nExtractCommand : DCommand {
             "Extract i18n POT files from application source files. " ~
             "source files are parsed and string literal format strings " ~
             "provided to the <info>__</info> family of functions are extracted."
-        );
+       );
         aParser.addOption("app", [
             "help": Json("Directory where your application is located."),
         ]);
@@ -487,7 +487,7 @@ class DI18nExtractCommand : DCommand {
                     "Error: %s already exists in this location. Overwrite? [Y]es, [N]o, [A]ll".format(filename),
                     ["y", "n", "a"],
                     'y'
-                );
+               );
                 if (strtoupper(response) == "N") {
                     response = "";
                     while (!response) {
@@ -557,15 +557,15 @@ class DI18nExtractCommand : DCommand {
             && (_tokens[position] == ","
                 || _tokens[position][0] == T_CONSTANT_ENCAPSED_STRING
                 || _tokens[position][0] == T_LNUMBER
-            )
-        ) {
+           )
+       ) {
             count = count(strings);
             if (_tokens[position][0] == T_CONSTANT_ENCAPSED_STRING && _tokens[position + 1] == ".") {
                 string = "";
                 while (
                    _tokens[position][0] == T_CONSTANT_ENCAPSED_STRING
                     || _tokens[position] == "."
-                ) {
+               ) {
                     if (_tokens[position][0] == T_CONSTANT_ENCAPSED_STRING) {
                         string ~= _formatString(_tokens[position][1]);
                     }

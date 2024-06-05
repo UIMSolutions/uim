@@ -81,7 +81,7 @@ return false;
                 _host,
                 _port,
                 escapeshellarg(_documentRoot)
-            );
+           );
 
         if (!_iniPath.isEmpty) {
             commandText = "%s -c %s".format(commandText, _iniPath);

@@ -60,7 +60,7 @@ mixin template TExtract() {
             if (
                 isCollectionTransform &&
                 !(cast(Traversable)someData || isArray(someData))
-            ) {
+           ) {
                 return null;
             }
             if (isCollectionTransform) {

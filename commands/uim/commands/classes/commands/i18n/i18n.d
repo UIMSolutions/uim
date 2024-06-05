@@ -41,7 +41,7 @@ class DI18nCommand : DCommand {
             default : consoleIo.writeErrorMessages(
                     "You have made an invalid selection. " ~
                         "Please choose a command to execute by entering E, I, H, or Q."
-                );
+               );
             }
             if (code == CODE_ERROR) {
                 abort();
@@ -56,7 +56,7 @@ class DI18nCommand : DCommand {
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
         parserToUpdate.description(
             "I18n commands let you generate .pot files to power translations in your application."
-        );
+       );
 
         return aParser;
     } 

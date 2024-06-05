@@ -122,7 +122,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
         configData = array_diff_key(
             configuration,
             ["implementedFinders", "implementedMethods", "strategyClass"]
-        );
+       );
         /** @var class-string<\ORM\Behavior\Translate\ITranslateStrategy> myclassName */
         myclassName = configurationData.hasKey("strategyClass", mydefaultStrategyClass);
 

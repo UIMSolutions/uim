@@ -33,7 +33,7 @@ class DLinkConstraint {
         if (!isIn(myrequiredLinkStatus, [STATUS_LINKED, STATUS_NOT_LINKED], true)) {
             throw new DInvalidArgumentException(
                 "Argument 2 is expected to match one of the `\ORM\Rule\LinkConstraint.STATUS_*` constants."
-            );
+           );
         }
        _association = myassociation;
        _requiredLinkState = myrequiredLinkStatus;
@@ -52,7 +52,7 @@ class DLinkConstraint {
         if (!(cast(Table)mytable)) {
             throw new DInvalidArgumentException(
                 "Argument 2 is expected to have a `repository` key that holds an instance of `\ORM\Table`."
-            );
+           );
         }
         myassociation = _association;
         if (!cast(DAssociation)myassociation) {
@@ -64,12 +64,12 @@ class DLinkConstraint {
             (
                _requiredLinkState == STATUS_LINKED &&
                 mycount < 1
-            ) ||
+           ) ||
             (
                _requiredLinkState == STATUS_NOT_LINKED &&
                 mycount != 0
-            )
-        ) {
+           )
+       ) {
             return false;
         }
         return true;
@@ -100,7 +100,7 @@ class DLinkConstraint {
                 "The number of fields is expected to match the number of values, got %d field(s) and %d value(s)."
                 .format(count(fieldNames),
                 count(myvalues)
-            ));
+           ));
         }
         return array_combine(fieldNames, myvalues);
     }
@@ -122,13 +122,13 @@ class DLinkConstraint {
                 .format(mysource.aliasName(),
                 join(", ", myprimaryKey),
                 join(", ", myentity.extract(myprimaryKey))
-            ));
+           ));
         }
         myaliasedPrimaryKey = _aliasFields(myprimaryKey, mysource);
         myconditions = _buildConditions(
             myaliasedPrimaryKey,
             myentity.extract(myprimaryKey)
-        );
+       );
 
         return mysource
             .find()

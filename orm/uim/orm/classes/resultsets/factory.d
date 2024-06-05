@@ -105,7 +105,7 @@ class DResultsetFactory {
             results["_matchingData"][aliasName] = array_combine(
                 someKeys,
                 array_intersect_key(myrow, someKeys)
-            );
+           );
             if (tableMetadata["hydrate"]) {
                 mytable = mymatching["instance"];
                 assert(cast(Table)mytable || cast(DAssociation)mytable);

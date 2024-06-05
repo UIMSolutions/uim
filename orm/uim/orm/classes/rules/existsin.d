@@ -58,7 +58,7 @@ class DExistsIn {
                 throw new DatabaseException(
                     "ExistsIn rule for `%s` is invalid. `%s` is not associated with `%s`."
                     .format(_fields.join(", "), _repository, get_class(options["repository"])
-                ));
+               ));
             }
             myrepository = options["repository"].getAssociation(_repository);
            _repository = myrepository;
@@ -99,12 +99,12 @@ class DExistsIn {
         auto myprimary = array_map(
             fn (aKey): mytarget.aliasField(aKey) ~ " IS",
             mybindingKey
-        );
+       );
         
         auto myconditions = array_combine(
             myprimary,
             myentity.extract(fieldNames)
-        );
+       );
 
         return mytarget.exists(myconditions);
     }

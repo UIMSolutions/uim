@@ -166,7 +166,7 @@ class DTreeBehavior : DBehavior {
             _table.updateAll(
                 [configuration.get("level"): depth],
                 [primaryKeys: node.get(primaryKeys)]
-            );
+           );
         }
     }
 
@@ -228,7 +228,7 @@ class DTreeBehavior : DBehavior {
                 "Cannot use node '%s' as parent for entity '%s'",
                 parent,
                 entity.get(primaryKeys())
-            ));
+           ));
         }
 
         // Values for moving to the left
@@ -319,7 +319,7 @@ class DTreeBehavior : DBehavior {
                 /** @var DDBExpression\QueryExpression exp */
                 return exp.lt(configuration.get("leftField"), 0);
             }
-        );
+       );
     }
 
     /**
@@ -341,7 +341,7 @@ class DTreeBehavior : DBehavior {
                 return _table.aliasField(field);
             },
             [configuration.get("left"), configuration.get("right")]
-        );
+       );
 
         node = _table.get(options["for"], ["fields": [left, right]]);
 
@@ -391,7 +391,7 @@ class DTreeBehavior : DBehavior {
                 return _table.aliasField(field);
             },
             [configuration.get("parent"), configuration.get("left"), configuration.get("right")]
-        );
+       );
 
         [for, direct] = [options["for"], options["direct"]];
 
@@ -513,7 +513,7 @@ class DTreeBehavior : DBehavior {
         _table.updateAll(
             [configuration.get("parent"]: parent],
             [configuration.get("parent"]: node.get(primary)]
-        );
+       );
         _sync(1, "-", "BETWEEN " ~ (left + 1) ~ " AND " ~ (right - 1));
         _sync(2, "-", "> {right}");
         edge = _getMax();
@@ -771,7 +771,7 @@ class DTreeBehavior : DBehavior {
             _table.updateAll(
                 fields,
                 [primaryKeys: node[primaryKeys]]
-            );
+           );
         }
 
         return lftRght;

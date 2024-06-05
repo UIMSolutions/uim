@@ -76,7 +76,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         this.translationTable = getTableLocator().get(
             configuration.get("translationTable"],
             ["allowFallbackClass": true.toJson]
-        );
+       );
 
         setupAssociations();
     }
@@ -169,7 +169,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                     query.isAutoFieldsEnabled() ||
                     isIn(field, select, true) ||
                     isIn(_table.aliasField(field), select, true)
-                ) {
+               ) {
                     q.select(["id", "content"]);
                 }
 
@@ -193,7 +193,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                 locale,
                 query,
                 select
-            );
+           );
 
             if (changeFilter) {
                 filter = options["filterByCurrentLocale"]

@@ -396,7 +396,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             getRepository(),
             getTypeMap(),
             loader.getContain()
-        );
+       );
     }
 
     /**
@@ -841,7 +841,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             count(query.clause("group")) ||
             count(query.clause("union")) ||
             query.clause("having")
-        );
+       );
 
         if (!complex) {
             // Expression fields could have bound parameters.
@@ -945,7 +945,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         if (_type != "select" && _type != null) {
             throw new DRuntimeException(
                 "You cannot call all() on a non-select query. Use execute() instead."
-            );
+           );
         }
 
         return _all();
@@ -1166,7 +1166,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 
         throw new BadMethodCallException(
              "Cannot call method '%s' on a '%s' query".format(method, this.type())
-        );
+       );
     }
 
 
@@ -1232,7 +1232,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     protected IResultset _decorateResults(Traversable result) {
         result = _applyDecorators(result);
 
-        if (!cast(Resultset)result instanceof ) && isBufferedResultsEnabled()) {
+        if (!cast(Resultset)result instanceof) && isBufferedResultsEnabled()) {
             class = _decoratorClass();
             result = new class(result.buffered());
         }

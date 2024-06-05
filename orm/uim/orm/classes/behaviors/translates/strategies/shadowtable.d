@@ -72,7 +72,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             .get(
                 configuration.get("translationTable"),
                 ["allowFallbackClass": true.toJson]
-            );
+           );
         setupAssociations();
     }
 
@@ -158,7 +158,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                     "className": configuration.get("translationTable"),
                     "allowFallbackClass": true.toJson,
                 ]
-            );
+           );
         }
 
         string joinType = isset(options["filterByCurrentLocale"])
@@ -264,7 +264,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
         
 
-        );
+       );
         return joinRequired;
     }
 
@@ -317,7 +317,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                     "mainTableAlias.field");
             }
         }
-        );
+       );
         return joinRequired;
     }
 
@@ -429,7 +429,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                         "markNew": true
                         .toJson,
                     ]
-                );
+               );
         }
 
         entity.set("_i18n", array_merge(

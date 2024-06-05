@@ -72,7 +72,7 @@ class DRulesChecker { // }: BaseRulesChecker {
         string[] fieldName,
         Table|Association|string mytable,
         string[] errorMessage = null
-    ) {
+   ) {
         options = null;
         if (errorMessage.isArray) {
             options = errorMessage ~ ["message": Json(null)];
@@ -112,14 +112,14 @@ class DRulesChecker { // }: BaseRulesChecker {
         Association|string myassociation,
         string fieldName = null,
         string errorMessage = null
-    ) {
+   ) {
         return _addLinkConstraintRule(
             myassociation,
             fieldName,
             errorMessage,
             LinkConstraint.STATUS_LINKED,
             "_isLinkedTo"
-        );
+       );
     }
     
     /**
@@ -142,14 +142,14 @@ class DRulesChecker { // }: BaseRulesChecker {
         Association|string myassociation,
         string fieldName = null,
         string errorMessage = null
-    ) {
+   ) {
         return _addLinkConstraintRule(
             myassociation,
             fieldName,
             errorMessage,
             LinkConstraint.STATUS_NOT_LINKED,
             "_isNotLinkedTo"
-        );
+       );
     }
     
     /**
@@ -167,7 +167,7 @@ class DRulesChecker { // }: BaseRulesChecker {
         string errorMessage,
         string mylinkStatus,
         string myruleName
-    ) {
+   ) {
         if (cast(DAssociation)myassociation) {
             myassociationAlias = myassociation.name;
             myerrorField ??= myassociation.getProperty();
@@ -190,14 +190,14 @@ class DRulesChecker { // }: BaseRulesChecker {
                     "uim",
                     "Cannot modify row: a constraint for the `{0}` association fails.",
                     myassociationAlias
-                )
+               )
                 : "Cannot modify row: a constraint for the `%s` association fails."
                     .format(myassociationAlias);
         }
         myrule = new DLinkConstraint(
             myassociation,
             mylinkStatus
-        );
+       );
 
         return _addError(myrule, myruleName, compact("errorField", "message"));
     }
@@ -214,7 +214,7 @@ class DRulesChecker { // }: BaseRulesChecker {
         int mycount = 0,
         string myoperator = ">",
         string errorMessage = null
-    ) {
+   ) {
         if (!errorMessage) {
             if (_useI18n) {
                 errorMessage = __d("uim", "The count does not match {0}{1}", [myoperator, mycount]);
@@ -228,6 +228,6 @@ class DRulesChecker { // }: BaseRulesChecker {
             new DValidCount(fieldName),
             "_validCount",
             compact("count", "operator", "errorField", "message")
-        );
+       );
     }
 }

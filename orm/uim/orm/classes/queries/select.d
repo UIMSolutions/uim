@@ -456,7 +456,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             throw new DRecordNotFoundException(
                 "Record not found in table `%s`.",
                 .format(mytable.getTable()
-            ));
+           ));
         }
         return myentity;
     }
@@ -633,7 +633,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     auto select(
         IExpression|Table|Association|/* Closure */ string[] fieldNames = [],
         bool myoverwrite = false
-    ) {
+   ) {
         if (cast(DAssociation)fieldNames) {
             fieldNames = fieldNames.getTarget();
         }
@@ -658,7 +658,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      */
     auto selectAlso(
         IExpression|Table|Association|/* Closure */ string[] fieldNames
-    ) {
+   ) {
         this.select(fieldNames);
        _autoFields = true;
 
@@ -833,7 +833,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             getRepository(),
             getTypeMap(),
             myloader.getContain()
-        );
+       );
 
         return this;
     }
@@ -1182,12 +1182,12 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             count(myquery.clause("group")) ||
             count(myquery.clause("union")) ||
             myquery.clause("having")
-        );
+       );
 
         if (!mycomplex) {
             // Expression fields could have bound parameters.
             foreach (myquery.clause("select") as fieldName) {
-                if (cast(IExpression)fieldName ) {
+                if (cast(IExpression)fieldName) {
                     mycomplex = true;
                     break;
                 }

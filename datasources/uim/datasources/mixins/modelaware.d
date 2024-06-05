@@ -75,7 +75,7 @@ mixin template TModelAware() {
                 modelClass,
                 indexOf(modelClass, "\\") + 1,
                 -modelType.length
-            );
+           );
             modelClass = alias;
         }
         factory = _modelFactories[modelType] ?? FactoryLocator.get(modelType);

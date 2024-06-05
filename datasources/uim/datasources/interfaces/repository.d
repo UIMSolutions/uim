@@ -50,7 +50,7 @@ interface IRepository {
         /* ICache| */ string cache = null,
         /* Closure */ string cacheKey = null,
         Json[] someArguments
-    );
+   );
 
     // Creates a new Query instance for this repository
     IQuery query();

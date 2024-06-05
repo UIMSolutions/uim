@@ -160,7 +160,7 @@ class DPaginator : IPaginator {
      */
     IDSResultset paginate(Query objectToPaginate, Json[string] requestData = null, Json[string] paginationData = null) {
         myQuery = null;
-        if (cast(IQuery)objectToPaginate  ) {
+        if (cast(IQuery)objectToPaginate ) {
             myQuery = objectToPaginate;
             objectToPaginate = myQuery.getRepository();
             if (objectToPaginate == null) {
@@ -485,7 +485,7 @@ class DPaginator : IPaginator {
             paginationData["sort"] == null
             && count(paginationData["order"]) == 1
             && !key(paginationData["order"].isNumeric)
-        ) {
+       ) {
             paginationData["sort"] = key(paginationData["order"]);
         }
 

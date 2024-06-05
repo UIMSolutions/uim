@@ -365,7 +365,7 @@ mixin template TQuery() {
             throw new DRecordNotFoundException(format(
                 "Record not found in table '%s'",
                 table.getTable()
-            ));
+           ));
         }
 
         return entity;
@@ -393,14 +393,14 @@ mixin template TQuery() {
             deprecationWarning(
                 "Calling `%s` methods, such as `%s()`, on queries is deprecated~ " ~
                 "You must call `all()` first (for example, `all().%s()`)."
-                .format(IResultset.class, methodName, methodName, ), 2);
+                .format(IResultset.class, methodName, methodName,), 2);
             results = this.all();
 
             return results.method(...methodArguments);
         }
         throw new BadMethodCallException(
             "Unknown method '%s'".format(methodName)
-        );
+       );
     }
 
     /**

@@ -268,7 +268,7 @@ mixin template TEntity() {
         if (
           this.isOriginalField(fieldName) && !array_key_exists(fieldName, _original) && 
           array_key_exists(fieldName, _fields) && valueToSet != _fields[fieldName]
-          ) {
+         ) {
           _original[fieldName] = _fields[fieldName];
         }
         _fields[fieldName] = valueToSet;
@@ -341,7 +341,7 @@ mixin template TEntity() {
         if (
           !isIn(aKey, originalKeys, true) &&
         this.isOriginalField(aKey)
-          ) {
+         ) {
           originals[aKey] = aValue;
         }
       });
@@ -870,7 +870,7 @@ mixin template TEntity() {
             isArray(val) ||
           cast(Traversable) val ||
           cast(IDatasourceEntity) val
-            ) {
+           ) {
             entity = val;
           } else {
             somePath ~= part;

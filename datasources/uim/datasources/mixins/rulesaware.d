@@ -26,7 +26,7 @@ mixin template TRulesAware() {
         IDatasourceEntity entity,
         string operationToRun = RulesChecker.CREATE,
         Json[string] ruleOptions = null
-    ) {
+   ) {
         auto rules = this.rulesChecker();
         ruleOptions = ruleOptions ?: new ArrayObject();
         ruleOptions = ruleOptions.isArray ? new ArrayObject(ruleOptions): ruleOptions;
@@ -36,7 +36,7 @@ mixin template TRulesAware() {
             event = dispatchEvent(
                 "Model.beforeRules",
                 compact("entity", "ruleOptions", "operation")
-            );
+           );
             if (event.isStopped()) {
                 return event.getResult();
             }
@@ -47,7 +47,7 @@ mixin template TRulesAware() {
             event = dispatchEvent(
                 "Model.afterRules",
                 compact("entity", "options", "result", "operation")
-            );
+           );
 
             if (event.isStopped()) {
                 return event.getResult();

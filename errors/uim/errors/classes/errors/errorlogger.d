@@ -49,7 +49,7 @@ class DErrorLogger : IErrorLogger {
         Throwable exception,
         IServerRequest serverRequest = null,
         bool anIncludeTrace = false
-    ) {
+   ) {
         exceptionMessage = getMessage(exception, false,  anIncludeTrace);
 
         if (!request.isNull) {
@@ -67,7 +67,7 @@ class DErrorLogger : IErrorLogger {
                 exceptionToLog.getMessage(),
                 exceptionToLog.getFile(),
                 exceptionToLog.getLine()
-            );
+           );
 
         debug = configuration.get("debug");
 

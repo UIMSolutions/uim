@@ -76,7 +76,7 @@ class DDebugger {
             throw new DInvalidArgumentException(
                 "Unknown editor `%s`. Known editors are `%s`."
                     .format(editorName, known)
-            );
+           );
         }
         anInstance.configuration.set("editor", name);
     }
@@ -191,7 +191,7 @@ class DDebugger {
         Log.write(
             levelType,
             "\n" ~ source ~ exportVarAsPlainText(varToLog, maxDepth)
-        );
+       );
     }
 
     // Get the frames from exception that are not present in parent
@@ -218,10 +218,10 @@ class DDebugger {
                     isSet(tail["line"]) &&
                     isSet(parentTail["file"]) &&
                     isSet(parentTail["line"])
-            ) &&
+           ) &&
                 (tail["file"] == parentTail["file"]) &&
                 (tail["line"] == parentTail["line"])
-            );
+           );
             if (isEqual) {
                 unset(frames[anI]);
                 anI--;
@@ -321,7 +321,7 @@ class DDebugger {
                 debug (options);
                 throw new DInvalidArgumentException(
                     "Invalid trace format of `{options[" format"]}` chosen. Must be one of `array`, `points` or `text`."
-                );
+               );
             }
         }
         if (options["format"] == "array" || options["format"] == "points") {
@@ -426,7 +426,7 @@ class DDebugger {
             throw new DException(
                 "The `%s` formatter does not implement `%s`."
                     .format(className, IErrorFormatter.classname)
-            );
+           );
         }
         return anInstance;
     }
@@ -464,7 +464,7 @@ class DDebugger {
     static string exportVarAsPlainText(Json var, int maxDepth = 3) {
         return (new DTextFormatter()).dump(
             export_(var, new DebugContext(maxDepth))
-        );
+       );
     }
 
     /**
@@ -540,7 +540,7 @@ class DDebugger {
             someItems ~= new ArrayItemNode(
                 new DScalarNode("string", ""),
                 new DSpecialNode("[maximum depth reached]")
-            );
+           );
         }
         return new ArrayNode(someItems);
     }
@@ -583,7 +583,7 @@ class DDebugger {
                     }
                     node.addProperty(
                         new DPropertyNode((string) kv.key, "public", export_(kv.value, context.withAddedDepth()))
-                    );
+                   );
                 });
             ref = new DReflectionObject(var);
 
@@ -599,7 +599,7 @@ class DDebugger {
                     if (
                         method_exists(reflectionProperty, "isInitialized") &&
                         !reflectionProperty.isInitialized(var)
-                        ) {
+                       ) {
                         aValue = new DSpecialNode("[uninitialized]");
                     } else {
                         aValue = export_(reflectionProperty.getValue(var), context.withAddedDepth());
@@ -609,8 +609,8 @@ class DDebugger {
                             reflectionProperty.name,
                             visibility,
                             aValue
-                    )
-                    );
+                   )
+                   );
                 }
             }
         }
@@ -678,7 +678,7 @@ class DDebugger {
                 "Please change the value of `Security.salt` in `ROOT/config/app_local.d` " ~
                     "to a random value of at least 32 characters.",
                     E_USER_NOTICE
-            );
+           );
         }
     }
 }

@@ -216,7 +216,7 @@ class DDebugger {
      */
     static void addEditor(string editorName, /* Closure */ string templateName) {
         auto instance = getInstance();
-        if (!templatenName.isString && !(cast(Closure)templatenName )) {
+        if (!templatenName.isString && !(cast(Closure)templatenName)) {
             auto type = getTypeName(templatenName);
             throw new DRuntimeException("Invalid editor type of `{type}`. Expected string or Closure.");
         }
@@ -274,7 +274,7 @@ class DDebugger {
         Log.write(
             logLevel,
             "\n" ~ source ~ exportVarAsPlainText(varToLog, maxOutputDepth)
-        );
+       );
     }
 
     /**
@@ -310,7 +310,7 @@ class DDebugger {
      * @return array|string Formatted stack trace.
      */
     static function formatTrace(backtrace, Json[string] optionData = null) {
-        if (cast(Throwable)backtrace  ) {
+        if (cast(Throwable)backtrace ) {
             backtrace = backtrace.getTrace();
         }
         auto self = Debugger.getInstance();
@@ -469,7 +469,7 @@ class DDebugger {
                 ["&lt;?D&nbsp;<br/>", "&lt;?D&nbsp;<br />"],
                 "",
                 highlight
-            );
+           );
         }
 
         return highlight;
@@ -498,7 +498,7 @@ class DDebugger {
         if (!cast(IErrorFormatter)instance) {
             throw new DRuntimeException(
                 "The `{aClassName}` formatter does not implement " ~ IErrorFormatter.class
-            );
+           );
         }
         return instance;
     }
@@ -539,7 +539,7 @@ class DDebugger {
     static string exportVarAsPlainText(Json var, int maxDepth = 3) {
         return (new DTextFormatter()).dump(
             export_(var, new DebugContext(maxDepth))
-        );
+       );
     }
 
     /**
@@ -620,7 +620,7 @@ class DDebugger {
             items ~= new DArrayItemErrorNode(
                 new DScalarNode("string", ""),
                 new DSpecialNode("[maximum depth reached]")
-            );
+           );
         }
 
         return new ArrayNode(items);
@@ -667,7 +667,7 @@ class DDebugger {
                 /** @psalm-suppress RedundantCast */
                 node.addProperty(
                     new DPropertyNode((string)key, "public", export_(value, context.withAddedDepth()))
-                );
+               );
             }
 
             ref = new DReflectionObject(var);
@@ -690,8 +690,8 @@ class DDebugger {
                             reflectionProperty.getName(),
                             visibility,
                             value
-                        )
-                    );
+                       )
+                   );
                 }
             }
         }
@@ -773,7 +773,7 @@ class DDebugger {
                 "Please change the value of `Security.salt` in `ROOT/config/app_local.D` " .
                 "to a random value of at least 32 characters.",
                 E_USER_NOTICE
-            );
+           );
         }
     }
 }

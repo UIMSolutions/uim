@@ -78,7 +78,7 @@ class DError {
         string newErrorFilename = "",
         int newLineNumber = 0,
         int[string][] traceData = null
-    ) {
+   ) {
         this.code(newErrorCode);
         this.message(newErrorMessage);
         this.filename(newErrorFilename);

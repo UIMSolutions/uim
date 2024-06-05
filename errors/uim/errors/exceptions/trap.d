@@ -105,7 +105,7 @@ class DExceptionTrap {
                 throw new DInvalidArgumentException(
                     "Cannot use `{ className}` as an `exceptionRenderer`. " ~
                     "It must be an instance of `UIM\Error\IExceptionRenderer`."
-                );
+               );
             }
             /** @var class-string<\UIM\Error\IExceptionRenderer>  className */
             return new className(exceptionToRender, myRequest, _configData);
@@ -217,7 +217,7 @@ class DExceptionTrap {
             error["message"],
             error["file"],
             error["line"]
-        );
+       );
     }
     
     // Increases the D "memory_limit" ini setting by the specified amount in kilobytes
@@ -290,7 +290,7 @@ class DExceptionTrap {
                 logException.getMessage(),
                 logException.getFile(),
                 logException.getLine(),
-            );
+           );
         trigger_error(message, E_USER_ERROR);
     } */
 }

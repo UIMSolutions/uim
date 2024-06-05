@@ -43,7 +43,7 @@ interface IEventManager {
         /* IEventListener */ string eventKey,
         /* callable| */ Json[string] options = null // ,
         /* callable callable = null */
-    );
+   );
 
     /**
      * Remove a listener from the active listeners.
@@ -75,7 +75,7 @@ interface IEventManager {
     auto off(
         /* IEventListener|callable */ string eventKey,
         /* IEventListener|callable */ callable aCallable = null
-    );
+   );
 
     // Dispatches a new event to all configured listeners
     IEvent dispatch(/* IEvent */ string event);

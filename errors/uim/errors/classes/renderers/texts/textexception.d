@@ -33,7 +33,7 @@ class DTextExceptionRenderer {
             _error.getLine(),
             _error.getFile(),
             _error.getTraceAsString(),
-        );
+       );
     }
 
     // Write output to stdout.

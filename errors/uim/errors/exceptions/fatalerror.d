@@ -23,7 +23,7 @@ class DFatalErrorException : DException {
         string fileName = null,
         int lineNumber = 0,
         Throwable previousException = null
-    ) {
+   ) {
         super(message, code, previousException);
         if (fileName) {
             _fileName = fileName;

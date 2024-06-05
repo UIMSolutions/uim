@@ -37,6 +37,6 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
                 error.getLine() ?? "",
                 error.getFile() ?? "",
                 trace
-            );
+           );
     }
 }

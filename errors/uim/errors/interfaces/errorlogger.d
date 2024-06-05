@@ -20,7 +20,7 @@ interface IErrorLogger {
         Throwable exception,
         IServerRequest currentRequest = null,
         bool anIncludeTrace = false
-    );
+   );
 
     /**
      * Log an error to uim`s Log subsystem
@@ -32,5 +32,5 @@ interface IErrorLogger {
         UimError error,
         IServerRequest serverRequest = null,
         bool shouldLogIncludeTrace = false
-    ); 
+   ); 
 }

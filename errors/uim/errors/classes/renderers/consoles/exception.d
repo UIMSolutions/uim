@@ -49,7 +49,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
                     exceptionToRender.getMessage(),
                     exceptionToRender.getFile(),
                     exceptionToRender.getLine()
-                ),
+               ),
         ];
 
         debug = configuration.get("debug");

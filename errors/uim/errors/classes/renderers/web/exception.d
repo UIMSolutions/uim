@@ -247,7 +247,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         if (
             !configuration.hasKey("debug") &&
             !(cast(HttpException)exception)
-        ) {
+       ) {
             result = code < 500
                 ? __d("uim", "Not Found")
                 : __d("uim", "An Internal Error Has Occurred.");
@@ -291,7 +291,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             if (
                 cast(MissingLayoutException)anException ||
                 attributes["file"].has("error500")
-            ) {
+           ) {
                 return _outputMessageSafe("error500");
             }
             return _outputMessage("error500");

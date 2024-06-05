@@ -55,7 +55,7 @@ class DEventManager { // }: IEventManager {
         void on(IEventListener|string aeventKey,
         callable|Json[string] options = null,
         callable callable = null
-    ) {
+   ) {
         if (cast(IEventListener)eventKey) {
            _attachSubscriber(eventKey);
 
@@ -64,7 +64,7 @@ class DEventManager { // }: IEventManager {
         if (!aCallable && !isCallable(options)) {
             throw new DInvalidArgumentException(
                 "second argument of `EventManager.on()` must be a callable if `aCallable`.isNull."
-            );
+           );
         }
         if (!aCallable) {
             /** @var callable options */
@@ -95,7 +95,7 @@ class DEventManager { // }: IEventManager {
     auto off(
         /* IEventListener|callable */ string aeventKey,
         /* IEventListener|callable */ callable aCallable = null
-    ) {
+   ) {
         if (cast(IEventListener)eventKey) {
            _detachSubscriber(eventKey);
 
@@ -292,8 +292,8 @@ class DEventManager { // }: IEventManager {
            _listeners,
             array_flip(
                 preg_grep(matchPattern, _listeners.keys, 0) ?: []
-            )
-        );
+           )
+       );
     }
     
     // Returns the event list.

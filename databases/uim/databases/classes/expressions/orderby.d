@@ -12,14 +12,14 @@ class DOrderByExpression : DQueryExpression {
         /* IExpression */ string[] sortColumns = null,
         TypeMap types = null,
         string conjunctionName = ""
-    ) {
+   ) {
         super(sortColumns, types, conjunctionName);
     }
 
     string sql(DValueBinder aBinder) {
         string[] sqlOrders;
         foreach (myKey:  direction; _conditions) {
-            if (cast(IExpression) direction ) {
+            if (cast(IExpression) direction) {
                 direction = direction.sql(aBinder);
             }
             sqlOrders ~= isNumeric(myKey) ?  direction : "%s %s".format(myKey,  direction);
@@ -39,13 +39,13 @@ class DOrderByExpression : DQueryExpression {
                 isString(kv.key) &&
                 isString(kv.value) &&
                 !isIn(kv.value, ["ASC", "DESC"], true)
-            ) {
+           ) {
                 throw new DInvalidArgumentException(
                     "Passing extra expressions by associative array (`\'%s\": \'%s\'`) " ~
                     "is not allowed to avoid potential SQL injection. " ~
                     "Use QueryExpression or numeric array instead."
                     .format(kv.key, kv.value)
-                );
+               );
             }
         });
        _conditions = array_merge(_conditions, conditions);

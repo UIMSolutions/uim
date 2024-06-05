@@ -19,7 +19,7 @@ class DTupleComparisonExpression : DComparisonExpression {
         IExpression | Json[string] someValues,
         Json[string] typesNames = null,
         string compareOperator = "="
-    ) {
+   ) {
         this.typesNames = typesNames;
         setFieldNames(fields);
         _operator = compareOperator;
@@ -37,13 +37,13 @@ class DTupleComparisonExpression : DComparisonExpression {
             if (isArray(valueToCompare) && !isArray(current(valueToCompare))) {
                 throw new DInvalidArgumentException(
                     "Multi-tuple comparisons require a multi-tuple value, single-tuple given."
-                );
+               );
             }
         } else {
             if (isArray(valueToCompare) && isArray(current(valueToCompare))) {
                 throw new DInvalidArgumentException(
                     "single-tuple comparisons require a single-tuple value, multi-tuple given."
-                );
+               );
             }
         }
         _value = valueToCompare;
@@ -58,7 +58,7 @@ class DTupleComparisonExpression : DComparisonExpression {
         originalFields.each!(field => fieldNames ~= cast(IExpression)field
                 ? field.sql(valueBinder) 
                 : field
-                );
+               );
 
         return "(%s) %s (%s)"
             .format(fields.join(", "), _operator, _stringifyValues(valueBinder));}

@@ -37,7 +37,7 @@ class DBetweenExpression : DExpression { // TODO}, IField {
         ];
 
         auto field = _field;
-        if (cast(IExpression)field ) {
+        if (cast(IExpression)field) {
             field = field.sql(aValueBinder);
         }
         foreach (name: part; someParts) {

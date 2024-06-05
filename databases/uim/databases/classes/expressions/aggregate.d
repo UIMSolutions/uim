@@ -35,7 +35,7 @@ _window = new WindowExpression();
     void filter(/* IExpression|Closure */string[] aconditions, STRINGAA typeNames = null) {
         _filter ??= new DQueryExpression();
 
-        if (cast(DClosure)conditions ) {
+        if (cast(DClosure)conditions) {
             conditions = conditions(new QueryExpression());
         }
         _filter.add(conditions, typeNames);
@@ -80,7 +80,7 @@ _window = new WindowExpression();
         string astartDirection,
         /* IExpression| */ string|int endOffset,
         string aendDirection
-    ) {
+   ) {
         window().frame(type, startOffset, startDirection, endOffset, endDirection);
     }
  

@@ -73,7 +73,7 @@ class DCommonTableExpression : IExpression {
             if (!(cast(IExpression)cteQuery)) {
                 throw new DatabaseException(
                     "You must return an `IExpression` from a Closure passed to `query()`."
-                );
+               );
             }
         }
         _query = cteQuery;
@@ -130,7 +130,7 @@ class DCommonTableExpression : IExpression {
             myFields,
             suffix,
             _query ? _query.sql(aBinder): ""
-        );
+       );
     }
  
     void traverse(Closure aCallback) {

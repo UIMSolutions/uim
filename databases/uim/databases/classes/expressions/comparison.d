@@ -35,7 +35,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
         Json valueToCompare,
         string typeName = null,
         string operator = "="
-    ) {
+   ) {
        _type = typeName;
         setFieldNames(field);
         setValue(valueToCompare);
@@ -72,13 +72,13 @@ class DComparisonExpression : DExpression { // TODO}, IField {
     string sql(DValueBinder aBinder) {
         auto field = _field;
 
-        if (cast(IExpression)field ) {
+        if (cast(IExpression)field) {
             field = field.sql(aBinder);
         }
         if (cast(IdentifierExpression)_value) {
             template = "%s %s %s";
             aValue = _value.sql(aBinder);
-        } elseif (cast(IExpression)_value ) {
+        } elseif (cast(IExpression)_value) {
             template = "%s %s (%s)";
             aValue = _value.sql(aBinder);
         } else {
@@ -90,11 +90,11 @@ class DComparisonExpression : DExpression { // TODO}, IField {
     }
  
     void traverse(Closure aCallback) {
-        if (cast(IExpression)_field ) {
+        if (cast(IExpression)_field) {
             aCallback(_field);
            _field.traverse(aCallback);
         }
-        if (cast(IExpression)_value ) {
+        if (cast(IExpression)_value) {
             aCallback(_value);
            _value.traverse(aCallback);
         }
@@ -137,7 +137,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
                 string field = cast(IExpression)_field  ? _field.sql(valueBinder): _field;
                 throw new DatabaseException(
                     "Impossible to generate condition with empty list of values for field (%s)".format(field)
-                );
+               );
             }
         } else {
             template ~= "%s %s";
@@ -184,7 +184,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      * \UIM\Database\IExpression|range  someValues The rows to insert
      */
     protected Json[string] _collectExpressions(IExpression|range  someValues) {
-        if (cast(IExpression)someValues ) {
+        if (cast(IExpression)someValues) {
             return [someValues, []];
         }
     }

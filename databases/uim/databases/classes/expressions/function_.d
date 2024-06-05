@@ -59,7 +59,7 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
         }
         
         quto type = typeMap.type(myKey);
-        if (!type.isNull && !cast(IExpression)p ) {
+        if (!type.isNull && !cast(IExpression)p) {
             condition = _castToExpression(p, type);
         }
         if (cast(IExpression)condition) {
@@ -74,7 +74,7 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
         _conditions.each!((condition) {
             if (cast(Query)condition) {
                 condition = "(%s)".format(condition.sql(aBinder));
-            } elseif (cast(IExpression)condition ) {
+            } elseif (cast(IExpression)condition) {
                 condition = condition.sql(aBinder);
             } elseif (isArray(condition)) {
                 p = aBinder.placeholder("param");

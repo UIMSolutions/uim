@@ -37,7 +37,7 @@ class DQueryExpression : DExpression { // }, Countable {
         /* IExpression| */ string[] aconditions = null,
         TypeMap|array types = null,
         string conjunctionType = "AND" // or "OR", "XOR"
-    ) {
+   ) {
         setTypeMap(types);
         conjunctionType(conjunctionType.upper);
         if (!conditions.isEmpty) {
@@ -67,7 +67,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * value is an array, it will create as many placeholders as values are in it.
      */
     void add(/* IExpression| */ string[] conditions, Json[string] types = null) {
-        if (isString(conditions) || cast(IExpression)conditions ) {
+        if (isString(conditions) || cast(IExpression)conditions) {
            _conditions ~= conditions;
 
             return;
@@ -165,7 +165,7 @@ class DQueryExpression : DExpression { // }, Countable {
         /* IExpression| */ string fieldName,
         /* IExpression| */ string[] avalues,
         string valueType = null
-    ) {
+   ) {
         valueType = valueType.ifEmpty(_calculateType(fieldName)).ifEmpty("string");
         type ~= "[]";
          someValues = cast(IExpression)someValues  ?  someValues : /* (array) */ someValues;
@@ -205,7 +205,7 @@ class DQueryExpression : DExpression { // }, Countable {
         /* IExpression */ string fieldName,
         /* IExpression */ string[] valuesToBound,
         string valueType = null
-    ) {
+   ) {
         valueType = valueType.ifEmpty(_calculateType(fieldName)).ifEmpty("string");
          someValues = cast(IExpression)valuesToBound  ?  valuesToBound : /* (array) */ valuesToBound;
 
@@ -217,7 +217,7 @@ class DQueryExpression : DExpression { // }, Countable {
         /* IExpression| */ string fieldName,
         /* IExpression| */ string[] valuesToBound,
         string valueType = null
-    ) {
+   ) {
          auto or = new static([], [], "OR");
          or
             .notIn(fieldName,  valuesToBound, valueType)
@@ -278,7 +278,7 @@ class DQueryExpression : DExpression { // }, Countable {
     /**
      * Adds a new set of conditions to this level of the tree and negates
      * the final result by prepending a NOT, it will look like
-     * "NOT ((condition1) AND (conditions2) )" conjunction depends on the one
+     * "NOT ((condition1) AND (conditions2))" conjunction depends on the one
      * currently configured for this object.
      * Params:
      * \UIM\Database\IExpression|\Closure|string[] aconditions to be added and negated
@@ -301,7 +301,7 @@ class DQueryExpression : DExpression { // }, Countable {
     // Builds equal condition or assignment with identifier wrapping.
     auto equalFields(string leftFieldName, string rightFieldName) {
          wrapIdentifier = auto (field) {
-            if (cast(IExpression)field ) {
+            if (cast(IExpression)field) {
                 return field;
             }
             return new DIdentifierExpression(field);
@@ -333,7 +333,7 @@ class DQueryExpression : DExpression { // }, Countable {
 
     void traverse(Closure aCallback) {
         _conditions.each!((condition) {
-            if (cast(IExpression)c ) {
+            if (cast(IExpression)c) {
                 aCallback(condition);
                 condition.traverse(aCallback);
             }
@@ -405,7 +405,7 @@ class DQueryExpression : DExpression { // }, Countable {
             if ((isOperator ||  isNot) && (isArray || cast(DCountable)c) && count(c) == 0) {
                 continue;
             }
-            if (numericKey && cast(IExpression)c ) {
+            if (numericKey && cast(IExpression)c) {
                _conditions ~= c;
                 continue;
             }
@@ -483,14 +483,14 @@ class DQueryExpression : DExpression { // }, Countable {
                     "IS NULL",
                     new DIdentifierExpression(expression),
                     UnaryExpression.POSTFIX
-                );
+               );
             }
             if (operator == "IS NOT") {
                 return new DUnaryExpression(
                     "IS NOT NULL",
                     new DIdentifierExpression(expression),
                     UnaryExpression.POSTFIX
-                );
+               );
             }
         }
         else {
@@ -504,7 +504,7 @@ class DQueryExpression : DExpression { // }, Countable {
         if (valueToBound.isNull && _conjunction != ",") {
             throw new DInvalidArgumentException(
                 "Expression `%s` is missing operator (IS, IS NOT) with `null` value.".format(expression)
-            );
+           );
         }
         return new DComparisonExpression(expression, valueToBound, type,  operator);
     }
@@ -525,7 +525,7 @@ class DQueryExpression : DExpression { // }, Countable {
     // Clone this object and its subtree of expressions.
     void clone() {
         foreach (anI: condition; _conditions) {
-            if (cast(IExpression)condition ) {
+            if (cast(IExpression)condition) {
                _conditions[anI] = clone condition;
             }
         }

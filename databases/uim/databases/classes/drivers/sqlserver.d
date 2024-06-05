@@ -74,7 +74,7 @@ protected const MAX_ALIAS_LENGTH = 128;
             throw new DInvalidArgumentException(
                 "Config setting 'persistent' cannot be set to true, "
                 ~ "as the Sqlserver PDO driver does not support PDO.ATTR_PERSISTENT"
-            );
+           );
         }
         configuration.get("flags").data([
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
@@ -122,7 +122,7 @@ protected const MAX_ALIAS_LENGTH = 128;
                 "This is probably due to a very large WHERE IN () clause which generates a parameter " ~
                 "for each value in the array. " ~
                 "If using an Association, try changing the `strategy` from select to subquery."
-            );
+           );
         }
         return prepare(queryToPrepare.sql());
     }
@@ -136,7 +136,7 @@ protected const MAX_ALIAS_LENGTH = 128;
                 PDO.ATTR_CURSOR: PDO.CURSOR_SCROLL,
                 PDO.SQLSRV_ATTR_CURSOR_SCROLL_TYPE: PDO.SQLSRV_CURSOR_BUFFERED,
             ]
-        );
+       );
 
         typeMap = null;
         if (cast(DSelectQuery)aQuery  && aQuery.isResultsCastingEnabled()) {
@@ -222,7 +222,7 @@ protected const MAX_ALIAS_LENGTH = 128;
                     if (
                         select.hasKey(orderBy) &&
                         cast(IExpression)select[orderBy] 
-                    ) {
+                   ) {
                          order.add(new DOrderClauseExpression(select[orderBy],  direction));
                     } else {
                          order.add([aKey:  direction]);

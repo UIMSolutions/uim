@@ -144,7 +144,7 @@ class DCache : ICache {
             }
             if (configuration.getString("fallback") == configName) {
                 throw new DInvalidArgumentException(
-                    "`%s` cache configuration cannot fallback to itself."
+                    "`%s` cache configuration cannot fallback to it"
                     .format(configName), 0, mye);
             }
             auto myfallbackEngine = pool(configuration.get("fallback")).clone;
@@ -210,7 +210,7 @@ class DCache : ICache {
 /*         if (isResource(dataToCache)) {
             return false;
         } */
-        auto mybackend = pool(configName);
+        /* auto mybackend = pool(configName);
         auto wasSuccessful = mybackend.set(dataId, dataToCache);
         if (!wasSuccessful && dataToCache != "") {
             throw new DCacheWriteException(
@@ -221,7 +221,8 @@ class DCache : ICache {
                     get_class(mybackend)
            ));
         }
-        return wasSuccessful;
+        return wasSuccessful; */
+        return false;
     }
     
     /**
@@ -363,7 +364,7 @@ class DCache : ICache {
     static bool[string] clearAll() {
         bool[string] mystatus;
 
-        // TODO self.configured().each!(configName => mystatus[configName] = self.clear(configName));
+        // TODO configured().each!(configName => mystatus[configName] = clear(configName));
 
         return mystatus;
     }
@@ -395,8 +396,8 @@ class DCache : ICache {
         if (groupName.isNull) {
             return _groups;
         }
-        if (isSet(self._groups[groupName])) {
-            return [groupName: self._groups[groupName]];
+        if (isSet(_groups[groupName])) {
+            return [groupName: _groups[groupName]];
         }
         throw new DInvalidArgumentException("Invalid cache group `%s`.".format(groupName));
     } */
@@ -423,13 +424,13 @@ class DCache : ICache {
      * the cache key is empty.
      */
     /* static Json remember(string aKey, IClosure callbackWhenEmpty, string configName = "default") {
-        auto myexisting = self.read(aKey, configName);
+        auto myexisting = read(aKey, configName);
         if (myexisting) {
             return myexisting;
         }
         
         Json results = callbackWhenEmpty();
-        self.write(aKey, results, configName);
+        write(aKey, results, configName);
 
         return results;
     } */

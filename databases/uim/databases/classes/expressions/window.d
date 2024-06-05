@@ -74,15 +74,15 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
     }
 
     auto range(IExpression | string | int mystart, IExpression | string | int myend = 0) {
-        return _frame(self.RANGE, mystart, self.PRECEDING, myend, self.FOLLOWING);
+        return _frame(RANGE, mystart, PRECEDING, myend, FOLLOWING);
     }
 
     auto rows(int mystart, int myend = 0) {
-        return _frame(self.ROWS, mystart, self.PRECEDING, myend, self.FOLLOWING);
+        return _frame(ROWS, mystart, PRECEDING, myend, FOLLOWING);
     }
 
     auto groups(int mystart, int myend = 0) {
-        return _frame(self.GROUPS, mystart, self.PRECEDING, myend, self.FOLLOWING);
+        return _frame(GROUPS, mystart, PRECEDING, myend, FOLLOWING);
     }
 
     auto frame(

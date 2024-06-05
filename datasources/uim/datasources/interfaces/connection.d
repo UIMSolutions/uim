@@ -12,7 +12,7 @@ import uim.datasources;
 // This interface defines the methods you can depend on in a connection
 interface JsonSourceConnection { // : ILoggerAware
   // Gets the driver instance.
-  // object getDriver(string role = self.ROLE_WRITE);
+  // object getDriver(string role = ROLE_WRITE);
 
   // Get / Set a cacher
   // mixin(IProperty!("ICache", "cacher"));

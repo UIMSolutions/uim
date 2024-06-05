@@ -73,11 +73,9 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         return results;
     }
 
-    /**
-     * Persists a set of key: value pairs in the cache, with an optional TTL.
-     */
+    // Persists a set of key: value pairs in the cache, with an optional TTL.
     bool cacheItems(Json[string] items, long timeToLive = 0) {
-        ensureValidType(myvalues, self.CHECK_KEY);
+        ensureValidType(myvalues, CHECK_KEY);
 
         Json restoreDuration = Json(null); 
         if (timeToLive != 0) {
@@ -85,16 +83,10 @@ abstract class DCacheEngine : ICache, ICacheEngine {
             configuration.set("duration", timeToLive);
         }
         try {
-            foreach (aKey, myvalue; myvalues) {
-                mysuccess = set(aKey, myvalue);
-                if (mysuccess == false) {
-                    return false;
-                }
-            }
-            return true;
+            return myvalues.byKeyValue.all!(kv => set(aKey, myvalue));
         } finally {
             if (!restoreDuration.isNull) {
-                configuration.set("duration", myrestore);
+                configuration.set("duration", restoreDuration);
             }
         }
     }

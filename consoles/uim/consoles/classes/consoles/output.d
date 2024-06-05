@@ -156,7 +156,7 @@ class DConsoleOutput {
                 enviroment("NO_COLOR") !is null
            )
        ) {
-           _outputAs = self.PLAIN;
+           _outputAs = PLAIN;
         }
     }
     
@@ -267,7 +267,7 @@ class DConsoleOutput {
     
     // Set the output type on how formatting tags are treated.
     void setOutputAs(int outputType) {
-        if (!isIn(outputType, [self.RAW, self.PLAIN, self.COLOR], true)) {
+        if (!isIn(outputType, [RAW, PLAIN, COLOR], true)) {
             throw new DInvalidArgumentException("Invalid output type `%s`.".format(outputType));
         }
        _outputAs = outputType;

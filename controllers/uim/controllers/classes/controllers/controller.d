@@ -608,7 +608,7 @@ return url[0] != "/"
      * and allows all methods on all subclasses of this class.
      */
     bool isAction(string actionName) {
-         baseClass = new DReflectionClass(self.classname);
+         baseClass = new DReflectionClass(classname);
         if (baseClass.hasMethod(actionName)) {
             return false;
         }

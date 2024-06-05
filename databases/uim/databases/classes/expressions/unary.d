@@ -34,7 +34,7 @@ class DUnaryExpression : DExpression {
         if (cast(IExpression) operand) {
             operand = operand.sql(aBinder);
         }
-        if (this.position == self.POSTFIX) {
+        if (this.position == POSTFIX) {
             return "(" ~ operand ~ ") " ~ _operator;
         }
         return _operator ~ " (" ~ operand ~ ")";

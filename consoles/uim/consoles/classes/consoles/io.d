@@ -101,7 +101,7 @@ class DConsoleIo {
     }
     
     int verbose(string[] messages, int newLinesToAppend = 1) {
-        return _writeln(messages, newLinesToAppend, self.VERBOSE);
+        return _writeln(messages, newLinesToAppend, VERBOSE);
     }
     
     /**
@@ -126,7 +126,7 @@ class DConsoleIo {
      * present in most shells. Using ConsoleIo.QUIET for a message means it will always display.
      * While using ConsoleIo.VERBOSE means it will only display when verbose output is toggled.
      */
-    int out(string[] amessage = null, int newLinesToAppend = 1, int outputLevel = self.NORMAL) {
+    int out(string[] amessage = null, int newLinesToAppend = 1, int outputLevel = NORMAL) {
         if (outputLevel > _level) {
             return null;
         }
@@ -152,7 +152,7 @@ class DConsoleIo {
         return comment(outputMessages.dup);
     }
 
-    int comment(string[] outputMessages, int newLinesToAppendToAppend = 1, int outputLevel = self.NORMAL) {
+    int comment(string[] outputMessages, int newLinesToAppendToAppend = 1, int outputLevel = NORMAL) {
         auto message = wrapMessageWithType("comment", message);
 
         return _writeln(message, newLinesToAppend, outputLevel);
@@ -178,7 +178,7 @@ class DConsoleIo {
     }
     
     // Convenience method for out() that wraps message between <success> tag
-    int success(string[] messagesToOutput, int newLinesToAppend = 1, int outputLevel = self.NORMAL) {
+    int success(string[] messagesToOutput, int newLinesToAppend = 1, int outputLevel = NORMAL) {
         string messageType = "success";
         message = wrapMessageWithType(messageType, message);
 
@@ -356,7 +356,7 @@ class DConsoleIo {
      * providing a console logger you replace the framework default behavior.
      * Params:
      * int|bool enable Use a boolean to enable/toggle all logging. Use
-     * one of the verbosity constants (self.VERBOSE, self.QUIET, self.NORMAL)
+     * one of the verbosity constants (VERBOSE, QUIET, NORMAL)
      * to control logging levels. VERBOSE enables debug logs, NORMAL does not include debug logs,
      * QUIET disables notice, info and debug logs.
      */

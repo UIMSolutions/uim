@@ -155,13 +155,13 @@ class DRulesChecker {
      * Params:
      */
     bool check(IDatasourceEntity entity, string checkMode /* 'create, "update' or 'delete'*/ , Json[string] optionData = null) {
-        if (checkMode == self.CREATE) {
+        if (checkMode == CREATE) {
             return _checkCreate(entity, options);
         }
-        if (checkMode == self.UPDATE) {
+        if (checkMode == UPDATE) {
             return _checkUpdate(entity, options);
         }
-        if (checkMode == self.DELETE) {
+        if (checkMode == DELETE) {
             return _checkremove(entity, options);
         }
         throw new DInvalidArgumentException("Wrong checking mode: " ~ checkMode);

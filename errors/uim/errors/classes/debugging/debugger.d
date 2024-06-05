@@ -230,7 +230,7 @@ class DDebugger {
             known = instance.editors.keys.join(", ");
             throw new DRuntimeException("Unknown editor `{name}`. Known editors are {known}");
         }
-        instance.configuration.update("editor", editorName);
+        instance.configuration.set("editor", editorName);
     }
 
     /**

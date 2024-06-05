@@ -95,11 +95,11 @@ class DAssociation : IAssociation {
             _targetTable != null &&
             get_class(_targetTable) != App
             .className(nameToSet, "Model/Table", "Table")
-            ) {
+           ) {
             throw new DInvalidArgumentException(format(
                     "The class name '%s' doesn\"t match the target table class name of '%s'.",
                     nameToSet, get_class(_targetTable)
-            ));
+           ));
         }
 
         _className = nameToSet;
@@ -176,7 +176,7 @@ class DAssociation : IAssociation {
                 className = App.className(_className, "Model/Table", "Table") ?  : Table:
                  : class;
 
-                if (!cast(className)_targetTable  ) {
+                if (!cast(className)_targetTable ) {
                     errorMessage = "%s association '%s' of type '%s' to '%s' doesn\"t match the expected class '%s'~ ";
                     errorMessage ~= "You can\"t have an association of the same name with a different target ";
                     errorMessage ~= ""c lassName" option anywhere in your app.";
@@ -188,7 +188,7 @@ class DAssociation : IAssociation {
                             this.type(),
                             get_class(_targetTable),
                             className
-                    ));
+                   ));
                 }
             }
         }
@@ -395,7 +395,7 @@ class DAssociation : IAssociation {
                 trigger_error(
                     msg.format(_propertyName, _sourceTable.getTable()),
                     E_USER_WARNING
-                );
+               );
             }
         }
 
@@ -423,7 +423,7 @@ class DAssociation : IAssociation {
             throw new DInvalidArgumentException(
                 "Invalid strategy '%s' was provided. Valid options are (%s)."
                     .format(name, _validStrategies.join(", "));
-            );
+           );
         }
         _strategy = name;
     }
@@ -510,7 +510,7 @@ class DAssociation : IAssociation {
                 throw new DRuntimeException(format(
                     "Query builder for association '%s' did not return a query",
                     getName()
-                ));
+               ));
             }
         }
 
@@ -518,10 +518,10 @@ class DAssociation : IAssociation {
             !options.isEmpty("matching"]) &&
             _strategy == STRATEGY_JOIN &&
             dummy.getContain()
-            ) {
+           ) {
             throw new DRuntimeException(
                 "`{getName()}` association cannot contain() associations when using JOIN strategy."
-            );
+           );
         }
 
         dummy.where(options["conditions"]);
@@ -709,7 +709,7 @@ class DAssociation : IAssociation {
         if (
             (fields.isEmpty && options["includeFields"]) ||
             surrogate.isAutoFieldsEnabled()
-            ) {
+           ) {
             fields = array_merge(fields, _targetTable.getSchema().columns());
         }
 
@@ -774,7 +774,7 @@ class DAssociation : IAssociation {
         },
     Query:
          : PREPEND
-        );*/
+       );*/
     }
 
     /**
@@ -813,7 +813,7 @@ class DAssociation : IAssociation {
                 options.getString("aliasPath") ~ "." ~ alias,
                 value["queryBuilder"],
                 value
-            );
+           );
         }
     }
 
@@ -846,7 +846,7 @@ class DAssociation : IAssociation {
                     _name,
                     foreignKeys.join(", "),
                     bindingKeys.join(", ")
-            ));
+           ));
         }
 
         foreignKeys.byKeyValue.each!((kv) {

@@ -24,13 +24,13 @@ mixin template TInstanceConfig() {
      * Setting a specific value:
      *
      * ```
-     * configuration.update("key", valueToSet);
+     * configuration.set("key", valueToSet);
      * ```
      *
      * Setting a nested value:
      *
      * ```
-     * configuration.update("some.nested.key", valueToSet);
+     * configuration.set("some.nested.key", valueToSet);
      * ```
      *
      * Updating multiple config settings at the same time:

@@ -16,7 +16,7 @@ import uim.logging;
  * A sample configuration would look like:
  *
  * ```
- * Log.configuration.update("_log", ["className": "FileLog"]);
+ * Log.configuration.set("_log", ["className": "FileLog"]);
  * ```
  *
  * You can define the className as any fully namespaced classname or use a short hand
@@ -35,7 +35,7 @@ import uim.logging;
  * This allows you to disable debug messages in production for example:
  *
  * ```
- * Log.configuration.update("default", [
+ * Log.configuration.set("default", [
  *   "className": "File",
  *   "path": LOGS,
  *   "levels": ["error", "critical", "alert", "emergency"]
@@ -53,7 +53,7 @@ import uim.logging;
  * all scopes that match the handled levels.
  *
  * ```
- * Log.configuration.update("payments", [
+ * Log.configuration.set("payments", [
  *   "className": "File",
  *   "scopes": ["payment", "order"]
  * ]);
@@ -204,19 +204,19 @@ class DLog {
      * Setting a cache engine up.
      *
      * ```
-     * Log.configuration.update("default", settings);
+     * Log.configuration.set("default", settings);
      * ```
      *
      * Injecting a constructed adapter in:
      *
      * ```
-     * Log.configuration.update("default",  anInstance);
+     * Log.configuration.set("default",  anInstance);
      * ```
      *
      * Using a factory auto to get an adapter:
      *
      * ```
-     * Log.configuration.update("default", auto () { return new DFileLog(); });
+     * Log.configuration.set("default", auto () { return new DFileLog(); });
      * ```
      *
      * Configure multiple adapters at once:

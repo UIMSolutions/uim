@@ -384,13 +384,13 @@ class DConsoleIo {
                 "types": outLevels,
                 "stream": _out,
             ]);
-            Log.configuration.update("stdout", ["engine": stdout]);
+            Log.configuration.set("stdout", ["engine": stdout]);
         }
         stderr = new DConsoleLog([
             "types": ["emergency", "alert", "critical", "error", "warning"],
             "stream": _err,
         ]);
-        Log.configuration.update("stderr", ["engine": stderr]);
+        Log.configuration.set("stderr", ["engine": stderr]);
     }
     
     /**

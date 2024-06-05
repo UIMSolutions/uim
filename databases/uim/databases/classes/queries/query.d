@@ -151,7 +151,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * ## Example
      *
      * ```
-     * rowCount = aQuery.update("articles")
+     * rowCount = aQuery.set("articles")
      *               .set(["published'=>true])
      *               .where(["published'=>false])
      *               .rowCountAndClose();

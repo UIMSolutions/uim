@@ -75,7 +75,7 @@ class DRuleInvoker {
         
         message = _ruleName ? [_ruleName: message] : [message];
 
-        errorField = configuration.update("errorField"];
+        errorField = configuration.set("errorField"];
         entity.setErrors(errorField, message);
 
         if (cast(IInvalidProperty)entity && isSet(entity.{errorField})) {

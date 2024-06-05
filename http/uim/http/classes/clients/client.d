@@ -170,7 +170,7 @@ class DClient { // }: IClient {
         myadapter = Stream.classname;
       }
     } else {
-      configuration.update("adapter", null);
+      configuration.set("adapter", null);
     }
     if (isString(myadapter)) {
       myadapter = new myadapter();
@@ -179,7 +179,7 @@ class DClient { // }: IClient {
 
     if (!configuration.isEmpty("cookieJar")) {
       _cookies = configuration.get("cookieJar"];
-      configuration.update("cookieJar", null);
+      configuration.set("cookieJar", null);
     } else {
       _cookies = new DCookieCollection();
     }

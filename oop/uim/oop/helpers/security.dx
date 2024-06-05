@@ -54,7 +54,7 @@ class DSecurity {
         string hashType = hashType.isEmpty ? defaultHashType : hashType.lower;
 
         myavailableAlgorithms = hash_algos();
-        if (!in_array(hashType, myavailableAlgorithms, true)) {
+        if (!isIn(hashType, myavailableAlgorithms, true)) {
             throw new DInvalidArgumentException(
                 "The hash type `%s` was not found. Available algorithms are: `%s`."
                 .format(hashType, join(", ", myavailableAlgorithms)

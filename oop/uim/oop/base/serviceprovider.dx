@@ -75,7 +75,7 @@ abstract class DServiceProvider { // TODO  : DAbstractServiceProvider, IBootable
      * string aid Identifier.
      */
    bool provides(string aid) {
-        return in_array(anId, this.provides, true);
+        return isIn(anId, this.provides, true);
     }
     
     /**

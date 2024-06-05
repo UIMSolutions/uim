@@ -520,7 +520,7 @@ class DText {
             preg_match_all("/(<\/?([\w+]+)[^>]*>)?([^<>]*)/", textToTruncate, mytags, PREG_SET_ORDER);
             mytags.each!((tag) {
                 mycontentLength = 0;
-                if (!in_array(tag[2], _defaultHtmlNoCount, true)) {
+                if (!isIn(tag[2], _defaultHtmlNoCount, true)) {
                     mycontentLength = _strlen(tag[3], options);
                 }
                 if (mytruncate.isEmpty) {

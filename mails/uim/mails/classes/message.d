@@ -410,7 +410,7 @@ class DMessage { //: JsonSerializable {
     void setTransferEncoding(string aencoding) {
         if (encoding !is null) {
             encoding = encoding.lower;
-            if (!in_array(encoding, this.transferEncodingAvailable, true)) {
+            if (!isIn(encoding, this.transferEncodingAvailable, true)) {
                 throw new DInvalidArgumentException(
                     "Transfer encoding not available. Can be : %s."
                     .format(join(", ", this.transferEncodingAvailable))
@@ -634,7 +634,7 @@ class DMessage { //: JsonSerializable {
          aHeadersMultipleEmails = ["to", "cc", "bcc", "replyTo"];
         foreach (relation as var:  aHeader) {
             if (anInclude[var]) {
-                if (in_array(var,  aHeadersMultipleEmails)) {
+                if (isIn(var,  aHeadersMultipleEmails)) {
                      aHeaders[aHeader] = join(", ", this.formatAddress(this.{var}));
                 } else {
                      aHeaders[aHeader] = /* (string) */current(this.formatAddress(this.{var}));
@@ -736,7 +736,7 @@ class DMessage { //: JsonSerializable {
      * string aformat Formatting string.
      */
     void setEmailFormat(string aformat) {
-        if (!in_array(aformat, this.emailFormatAvailable, true)) {
+        if (!isIn(aformat, this.emailFormatAvailable, true)) {
             throw new DInvalidArgumentException("Format not available.");
         }
         this.emailFormat = format;
@@ -1123,7 +1123,7 @@ class DMessage { //: JsonSerializable {
      */
     auto setBody(Json[string] content) {
         foreach (content as type: text) {
-            if (!in_array(type, this.emailFormatAvailable, true)) {
+            if (!isIn(type, this.emailFormatAvailable, true)) {
                 throw new DInvalidArgumentException(
                     "Invalid message type: `%s`. Valid types are: `text`, `html`.".format(
                     type
@@ -1390,7 +1390,7 @@ class DMessage { //: JsonSerializable {
         }
         
         string charset = this.charset.upper;
-        if (in_array(charset, this.charset8bit, true)) {
+        if (isIn(charset, this.charset8bit, true)) {
             return "8bit";
         }
         return "7bit";

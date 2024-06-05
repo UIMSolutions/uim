@@ -299,10 +299,10 @@ class DLog {
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
     static bool write(string|int level, string amessage, string[] acontext = []) {
-        if (isInt(level) && in_array(level, _levelMap, true)) {
+        if (isInt(level) && isIn(level, _levelMap, true)) {
             level = array_search(level, _levelMap, true);
         }
-        if (!in_array(level, _levels, true)) {
+        if (!isIn(level, _levels, true)) {
             /** @psalm-suppress PossiblyFalseArgument */
             throw new DInvalidArgumentException(
                 "Invalid log level `%s`".format(level));
@@ -324,7 +324,7 @@ class DLog {
                 levels = logger.levels();
                 scopes = logger.scopes();
             }
-            auto correctLevel = levels.isEmpty || in_array(level, levels, true);
+            auto correctLevel = levels.isEmpty || isIn(level, levels, true);
              anInScope = scopes.isNull && context.isEmpty("scope")) || scopes == [] ||
                 isArray(scopes) && array_intersect(/* (array) */context["scope"], scopes);
 

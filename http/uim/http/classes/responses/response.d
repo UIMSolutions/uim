@@ -420,7 +420,7 @@ class DResponse : IResponse {
      * string atype The type to set.
      */
     protected void _setContentType(string atype) {
-        if (in_array(_status, [304, 204], true)) {
+        if (isIn(_status, [304, 204], true)) {
            _clearHeader("Content-Type");
 
             return;
@@ -434,7 +434,7 @@ class DResponse : IResponse {
            _charset &&
             (
                 type.startsWith("text/") ||
-                in_array(type, allowed, true)
+                isIn(type, allowed, true)
             )
         ) {
             charset = true;
@@ -542,7 +542,7 @@ class DResponse : IResponse {
        _reasonPhrase = reasonPhrase;
 
         // These status codes don`t have bodies and can`t have content-types.
-        if (in_array(statusCode, [304, 204], true)) {
+        if (isIn(statusCode, [304, 204], true)) {
            _clearHeader("Content-Type");
         }
     }
@@ -637,7 +637,7 @@ class DResponse : IResponse {
             return array_map(this.mapType(...), ctype);
         }
         foreach (_mimeTypes as alias: types) {
-            if (in_array(ctype, /* (array) */types, true)) {
+            if (isIn(ctype, /* (array) */types, true)) {
                 return alias;
             }
         }
@@ -927,7 +927,7 @@ class DResponse : IResponse {
      */
    bool outputCompressed() {
         return /* (string) */enviroment("HTTP_ACCEPT_ENCODING").has("gzip")
-            && (ini_get("zlib.output_compression") == "1" || in_array("ob_gzhandler", ob_list_handlers(), true));
+            && (ini_get("zlib.output_compression") == "1" || isIn("ob_gzhandler", ob_list_handlers(), true));
     }
     
     /**
@@ -996,7 +996,7 @@ class DResponse : IResponse {
         responseTag = getHeaderLine("Etag");
         etagMatches = null;
         if (responseTag) {
-            etagMatches = in_array("*", etags, true) || in_array(responseTag, etags, true);
+            etagMatches = isIn("*", etags, true) || isIn(responseTag, etags, true);
         }
         modifiedSince = serverRequest.getHeaderLine("If-Modified-Since");
         timeMatches = null;

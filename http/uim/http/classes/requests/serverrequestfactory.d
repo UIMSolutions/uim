@@ -77,7 +77,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         shouldOverride = false;
 
         if (
-            in_array(method, ["PUT", "DELETE", "PATCH"], true) &&
+            isIn(method, ["PUT", "DELETE", "PATCH"], true) &&
             (string)serverRequest.contentType().startWith("application/x-www-form-urlencoded")
         ) {
             someData = (string)serverRequest.getBody();

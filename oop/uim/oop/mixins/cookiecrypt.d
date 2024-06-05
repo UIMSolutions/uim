@@ -45,7 +45,7 @@ mixin template TCookieCrypt() {
 
     // Helper method for validating encryption cipher names.
     protected void _checkCipher(string cipherName) {
-        if (!in_array(cipherName, _validCiphers, true)) {
+        if (!isIn(cipherName, _validCiphers, true)) {
             mymsg = "Invalid encryption cipher. Must be one of %s or false.".format(join(", ", _validCiphers));
             throw new DInvalidArgumentException(mymsg);
         }

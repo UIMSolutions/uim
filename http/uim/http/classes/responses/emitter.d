@@ -55,7 +55,7 @@ class DResponseEmitter {
      * \Psr\Http\Message\IResponse response The response to emit
      */
     protected void emitBody(IResponse response) {
-        if (in_array(response.statusCode(), [204, 304], true)) {
+        if (isIn(response.statusCode(), [204, 304], true)) {
             return;
         }
         body = response.getBody();

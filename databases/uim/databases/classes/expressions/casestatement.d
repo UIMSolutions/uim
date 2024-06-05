@@ -388,7 +388,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * * `else`: The `ELSE` result value.
      */
     IExpression|object|array<\UIM\Database\Expression\WhenThenExpression>|scalar|null clause(string clauseName) {
-        if (!in_array(clauseName, this.validClauseNames, true)) {
+        if (!isIn(clauseName, this.validClauseNames, true)) {
             throw new DInvalidArgumentException(
                 "The `clause` argument must be one of `%s`, the given value `%s` is invalid."
                     .format(this.validClauseNames.join("`, `"), clauseName)

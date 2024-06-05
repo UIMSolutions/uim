@@ -267,7 +267,7 @@ class DConsoleOutput {
     
     // Set the output type on how formatting tags are treated.
     void setOutputAs(int outputType) {
-        if (!in_array(outputType, [self.RAW, self.PLAIN, self.COLOR], true)) {
+        if (!isIn(outputType, [self.RAW, self.PLAIN, self.COLOR], true)) {
             throw new DInvalidArgumentException("Invalid output type `%s`.".format(outputType));
         }
        _outputAs = outputType;

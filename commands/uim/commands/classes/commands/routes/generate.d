@@ -46,7 +46,7 @@ class DRoutesGenerateCommand : DCommand {
     commandArguments.each!((argument) {
       if (argument.has(": ")) {
         [aKey, aValue] = argument.split(": ");
-        if (in_array(aValue, ["true", "false"], true)) {
+        if (isIn(aValue, ["true", "false"], true)) {
           aValue = aValue == "true";
         }
 

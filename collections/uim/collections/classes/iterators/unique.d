@@ -26,11 +26,11 @@ class DUniqueIterator : DCollection {
         itemToFilter.byKeyValue
             .each!((kv) {
                 auto compareValue = aCallback(kv.value, kv.key);
-                if (!in_array(compareValue, uniqueValues, true)) {
+                if (!compareValue.isIn(uniqueValues)) {
                     unique[kv.key] = kv.value;
                     uniqueValues ~= compareValue;
                 }
             }); 
         super(unique);
-    } */
+    }
 }

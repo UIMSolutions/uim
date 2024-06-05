@@ -174,7 +174,7 @@ class DConsoleInputOption {
         if (_choices.isEmpty) {
             return true;
         }
-        if (!in_array(aValue, _choices, true)) {
+        if (!isIn(aValue, _choices, true)) {
             throw new DConsoleException(
                 "`%s` is not a valid value for `--%s`. Please use one of `%s`"
                 .format(to!string(aValue), _name, join(", ", _choices))

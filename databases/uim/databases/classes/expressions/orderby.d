@@ -38,7 +38,7 @@ class DOrderByExpression : DQueryExpression {
             if (
                 isString(kv.key) &&
                 isString(kv.value) &&
-                !in_array(kv.value, ["ASC", "DESC"], true)
+                !isIn(kv.value, ["ASC", "DESC"], true)
             ) {
                 throw new DInvalidArgumentException(
                     "Passing extra expressions by associative array (`\'%s\": \'%s\'`) " ~

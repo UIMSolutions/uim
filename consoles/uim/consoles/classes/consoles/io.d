@@ -306,16 +306,16 @@ class DConsoleIo {
         reurn askChoice(string promptText, string[] aoptions, string adefault = null) {
     }
 
-    string askChoice(string aprompt, string[] aoptions, string defaultValue = null) {
-        string printOptions = "(" ~ join("/", options) ~ ")";
-        options = chain(
-            array_map("strtolower", options),
-            array_map("strtoupper", options),
-            options
+    string askChoice(string aprompt, string[] choices, string defaultValue = null) {
+        string printChoices = "(" ~ join("/", choices) ~ ")";
+        choices = chain(
+            array_map("strtolower", choices),
+            array_map("strtoupper", choices),
+            choices
         );
 
         string anIn = "";
-        while (anIn.isEmpty || !in_array(anIn, options, true)) {
+        while (anIn.isEmpty || !anIn.isIn(choices)) {
              anIn = _getInput(prompt, printOptions, defaultValue);
         }
         return anIn;

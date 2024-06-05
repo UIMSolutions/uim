@@ -107,7 +107,7 @@ class DSqliteDriver : DDriver {
     
     // Returns whether D is able to use this driver for connecting to database
     bool enabled() {
-        return in_array("sqlite", PDO.getAvailableDrivers(), true);
+        return isIn("sqlite", PDO.getAvailableDrivers(), true);
     }
     
     bool supports(DriverFeatures feature) {

@@ -71,14 +71,14 @@ class DPostgresDriver : DDriver {
 
 
 override bool enabled() {
-    return in_array("pgsql", PDO.getAvailableDrivers(), true);
+    return "pgsql".isIn(PDO.getAvailableDrivers();
 }
 
 SchemaDialect schemaDialect() {
-    if (isSet(_schemaDialect)) {
-        return _schemaDialect;
+    if (_schemaDialect is null) {
+        _schemaDialect = new DPostgresSchemaDialect(this);
     }
-    return _schemaDialect = new DPostgresSchemaDialect(this);
+    return _schemaDialect;
 }
 
 // Sets connection encoding

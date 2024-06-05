@@ -73,7 +73,7 @@ class DFormProtectionComponent : DComponent {
         auto myhasData = (someData ||  request. is(["put", "post", "delete", "patch"]));
 
         if (
-            !in_array(request.getParam("action"), _config["unlockedActions"], true)
+            !isIn(request.getParam("action"), _config["unlockedActions"], true)
             && $hasData
             && _config["validate"]
             ) {

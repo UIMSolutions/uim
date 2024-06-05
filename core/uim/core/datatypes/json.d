@@ -43,7 +43,7 @@ unittest {
   assert(!parseJsonString(`1`).isBigInteger);
 }
 
-bool isBoolean(Json aJson) {
+bool isBool(Json aJson) {
   return (aJson.type == Json.Type.bool_);
 }
 ///
@@ -66,7 +66,7 @@ bool isInt(Json aJson) {
   return (aJson.type == Json.Type.int_);
 }
 
-bool isInteger(Json aJson) {
+bool isInt(Json aJson) {
   return (aJson.type == Json.Type.int_);
 }
 ///

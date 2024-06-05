@@ -74,7 +74,7 @@ class DErrorTrap {
      * via error_reporting().
      */
     void register() {
-        auto level = configuration.getInteger("errorLevel", -1);
+        auto level = configuration.getInt("errorLevel", -1);
         error_reporting(level);
         set_error_handler(this.handleError(...), level);
     }

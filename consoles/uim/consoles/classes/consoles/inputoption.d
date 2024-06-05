@@ -58,7 +58,7 @@ class DConsoleInputOption {
     // Check if this option is a boolean option
     // Is the option a boolean option. Boolean options do not consume a parameter.
     protected bool _isBooleanOption;
-    bool isBoolean() {
+    bool isBool() {
         return _isBooleanOption;
     }
     

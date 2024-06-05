@@ -17,7 +17,7 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
         initialize(initData);
         // `stderr` - The ConsoleOutput instance to use. Defaults to `D://stderr`
         // `trace` - Whether or not stacktraces should be output.       _output = configuration.get("stderr", new DConsoleOutput("D://stderr"));
-       _trace = configuration.getBoolean("trace", false);
+       _trace = configuration.getBool("trace", false);
     }
  
     void write(string outputText) {

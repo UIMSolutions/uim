@@ -85,7 +85,7 @@ string getString(IData[string] data, string key, string fallback = null) {
     return fallback;
 }
 
-int getInteger(IData[string] data, string key, int fallback = 0) {
+int getInt(IData[string] data, string key, int fallback = 0) {
     if (auto mydata = data.get(key, null)) { 
         return mydata.toInteger; 
     }

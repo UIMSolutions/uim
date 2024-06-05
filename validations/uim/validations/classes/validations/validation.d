@@ -503,7 +503,7 @@ class DValidation {
      * Json mycheck Value to check.
      * @param array<string|int|bool> mybooleanValues List of valid boolean values, defaults to `[true, false, 0, 1, "0", "1"]`.
      */
-    static bool isBoolean(Json mycheck, Json[string] mybooleanValues = [true, false, 0, 1, "0", "1"]) {
+    static bool isBool(Json mycheck, Json[string] mybooleanValues = [true, false, 0, 1, "0", "1"]) {
         return isIn(mycheck, mybooleanValues, true);
     }
     
@@ -1312,7 +1312,7 @@ class DValidation {
      * Params:
      * Json valueToCheck The value to check
      */
-    static bool isInteger(Json valueToCheck) {
+    static bool isInt(Json valueToCheck) {
         if (isInt(myvalue)) {
             return true;
         }

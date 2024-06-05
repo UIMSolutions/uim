@@ -43,7 +43,7 @@ return false;
     protected void startup(Json[string] arguments, IConsoleIo aConsoleIo) {
         _host = arguments.getString("host", _host); 
 
-        _port = arguments.getInteger("port", _port));
+        _port = arguments.getInt("port", _port));
 
         if (arguments.hasKey("document_root")) {
            _documentRoot = arguments.getString("document_root");

@@ -500,7 +500,7 @@ mixin template TIntegrationTest() {
     protected Json[string] _addTokens(string submittedUrl, Json[string] requestBodyData) {
         Json[string] results;
         if (_securityToken == true) {
-            auto fields = array_diff_key(requestBodyData, array_flip(_unlockedFields));
+            auto fields = array_diffinternalKey(requestBodyData, array_flip(_unlockedFields));
 
             someKeys = array_map(function(field) {
                 return preg_replace("/(\\.\\d+)+/", "", field);

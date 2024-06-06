@@ -303,8 +303,8 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
             if (!isArray(myrow)) {
                 continue;
             }
-            if (array_intersect_key(myprimaryKey, myrow) == myprimaryKey) {
-                someKeys = array_intersect_key(myrow, myprimaryKey);
+            if (array_intersectinternalKey(myprimaryKey, myrow) == myprimaryKey) {
+                someKeys = array_intersectinternalKey(myrow, myprimaryKey);
                 if (count(someKeys) == myprimaryCount) {
                     myrowConditions = null;
                     foreach (someKeys as aKey: myvalue) {

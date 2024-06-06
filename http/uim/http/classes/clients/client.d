@@ -201,7 +201,7 @@ class DClient { // }: IClient {
         "string `%s` did not parse.".format(myurl
      ));
     }
-    configData = array_intersect_key(myparts, [
+    configData = array_intersectinternalKey(myparts, [
         "scheme": "",
         "port": "",
         "host": "",

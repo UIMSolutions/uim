@@ -61,7 +61,7 @@ class DLazyEagerLoader {
                 if (isString(myprimaryKey)) {
                     return myexp.in(mysource.aliasField(myprimaryKey), someKeys);
                 }
-                mytypes = array_intersect_key(myq.getDefaultTypes(), array_flip(myprimaryKey));
+                mytypes = array_intersectinternalKey(myq.getDefaultTypes(), array_flip(myprimaryKey));
                 myprimaryKey = array_map([mysource, "aliasField"], myprimaryKey);
 
                 return new DTupleComparison(myprimaryKey, someKeys, mytypes, "IN");

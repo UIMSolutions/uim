@@ -299,7 +299,7 @@ class DFileConfigEngine {
         }
         someValues = _values;
         if (!someKeys.isEmpty) {
-            someValues = array_intersect_key(someValues, array_flip(someKeys));
+            someValues = array_intersectinternalKey(someValues, array_flip(someKeys));
         }
         return myEngine.dump(aKey, someValues);
     }

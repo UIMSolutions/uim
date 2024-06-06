@@ -355,7 +355,7 @@ class DEagerLoader {
             }
 
             newAttachable = this.attachableAssociations(repository);
-            attachable = array_diff_key(newAttachable, processed);
+            attachable = array_diffinternalKey(newAttachable, processed);
         } while (!attachable.isEmpty);
     }
 
@@ -423,11 +423,11 @@ class DEagerLoader {
 
         table = instance.getTarget();
 
-        extra = array_diff_key(options, defaults);
+        extra = array_diffinternalKey(options, defaults);
         myConfiguration = [
             "associations": Json.emptyArray,
             "instance": instance,
-            "config": array_diff_key(options, extra),
+            "config": array_diffinternalKey(options, extra),
             "aliasPath": strip(paths["aliasPath"], "."),
             "propertyPath": strip(paths["propertyPath"], "."),
             "targetProperty": instance.getProperty(),

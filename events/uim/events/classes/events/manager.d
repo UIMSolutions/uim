@@ -288,7 +288,7 @@ class DEventManager { // }: IEventManager {
     Json[string] matchingListeners(string aeventKeyPattern) {
         matchPattern = "/" ~ preg_quote(eventKeyPattern, "/") ~ "/";
 
-        return array_intersect_key(
+        return array_intersectinternalKey(
            _listeners,
             array_flip(
                 preg_grep(matchPattern, _listeners.keys, 0) ?: []

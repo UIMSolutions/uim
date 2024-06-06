@@ -93,15 +93,15 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     }
 
     // Deletes multiple cache items as a list
-    bool removeKeys(string[] keys...) {
-        return removeKeys(keys.dup);
+    bool removeItems(string[] keys...) {
+        return removeItems(keys.dup);
     }
 
-    bool removeKeys(string[] keys) {
+    bool removeItems(string[] keys) {
         return keys.all!(key => remove(key));
     }
 
-    bool remove(string key) {
+    bool removeItem(string key) {
         if (!key.isEmpty) {
             // TODO remove(key);
             return true;

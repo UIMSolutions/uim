@@ -239,6 +239,6 @@ abstract class DConfiguration : IConfiguration {
         return keys.all!(key => remove(key));
     }
 
-    abstract bool remove(string key);
+    abstract bool removeItem(string key);
     // #region remove - clear
 }

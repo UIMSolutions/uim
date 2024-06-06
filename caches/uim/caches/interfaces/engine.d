@@ -12,7 +12,7 @@ interface ICacheEngine : INamed {
     long increment(string itemKey, int incValue = 1);
     long decrement(string itemKey, int decValue = 1);
     bool remove(string itemKey);
-    bool removeKeys(string[] itemKeys);
+    bool removeItems(string[] itemKeys);
     bool clear();
     bool clearGroup(string groupName);
 }

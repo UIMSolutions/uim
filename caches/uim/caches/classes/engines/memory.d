@@ -294,7 +294,7 @@ return true;
   }
 
   // Delete many keys from the cache at once
-  override bool removeKeys(string[] itemKeys) {
+  override bool removeItems(string[] itemKeys) {
     auto internalKeys = itemKeys
       .map!(key => internalKey(key)).array;
     return _memory.remove(internalKeys);

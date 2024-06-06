@@ -344,7 +344,7 @@ class DCache : ICache {
      * ```
      */
     static bool deleteMany(string[] someKeys, string configName = "default") {
-        // TODO return pool(configName).removeKeys(someKeys);
+        // TODO return pool(configName).removeItems(someKeys);
         return false;
     }
     

@@ -344,7 +344,8 @@ class DCache : ICache {
      * ```
      */
     static bool deleteMany(string[] someKeys, string configName = "default") {
-        return pool(configName).removeKeys(someKeys);
+        // TODO return pool(configName).removeKeys(someKeys);
+        return false;
     }
     
     /**
@@ -454,9 +455,11 @@ class DCache : ICache {
      * ```
      */
     static bool add(string dataId, Json dataToCache, string configName = "default") {
-        if (isResource(dataToCache)) {
+        // TODO
+        /* if (isResource(dataToCache)) {
             return false;
         }
-        return pool(configName).add(dataId, dataToCache);
+        return pool(configName).add(dataId, dataToCache); */
+        return false;
     } 
 }

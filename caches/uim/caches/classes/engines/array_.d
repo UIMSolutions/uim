@@ -28,7 +28,7 @@ class DArrayCacheEngine : DCacheEngine {
     Json data = Json.emptyObject;
     data["exp"] = 0; // TODO time() + duration(timeToLive);
     data["val"] = dataForCache;
-    _cachedData[_key(itemKey)] = data;
+    _cachedData[internalKey(itemKey)] = data;
 
     return true;
   }
@@ -38,7 +38,7 @@ class DArrayCacheEngine : DCacheEngine {
   protected Json[string] _cachedData;
   // Delete a key from the cache
   override bool remove(string itemKey) {
-    _cachedData.remove(_key(itemKey));
+    _cachedData.remove(internalKey(itemKey));
 
     return true;
   }
@@ -52,7 +52,7 @@ class DArrayCacheEngine : DCacheEngine {
   // Read a key from the cache
   override Json get(string itemKey, Json defaultValue = Json(null)) {
     // TODO 
-    /* auto key = _key(itemKey);
+    /* auto key = internalKey(itemKey);
     if (!_cachedData.hasKey(key)) {
       return defaultValue;
     }
@@ -79,7 +79,7 @@ class DArrayCacheEngine : DCacheEngine {
       set(itemKey, Json(0));
     }
 
-    auto key = _key(itemKey);
+    auto key = internalKey(itemKey);
     _cachedData[itemKey]["val"] += incValue;
 
     return _cachedData[key]["val"];
@@ -91,7 +91,7 @@ class DArrayCacheEngine : DCacheEngine {
     if (get(itemKey).isNull) {
       set(itemKey, Json(0));
     }
-    auto key = _key(itemKey);
+    auto key = internalKey(itemKey);
     _cachedData[key]["val"] -= decValue;
 
     return _cachedData[key]["val"];

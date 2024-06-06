@@ -73,7 +73,7 @@ class DFileCacheEngine : DCacheEngine {
             return false;
         }
 
-        auto aKey = _key(dataId);
+        auto aKey = internalKey(dataId);
 
         if (_setKey(aKey, true) == false) {
             return false;
@@ -104,7 +104,7 @@ class DFileCacheEngine : DCacheEngine {
     /* 
     // Read a key from the cache
     Json get(string dataId, Json defaultValue = Json(null)) {
-        auto key = _key(dataId);
+        auto key = internalKey(dataId);
 
         if (!_init || _setKey(key) == false) {
             return defaultValue;
@@ -142,7 +142,7 @@ class DFileCacheEngine : DCacheEngine {
 
     // Delete a key from the cache
     override bool remove(string dataId) {
-        auto key = _key(dataId);
+        auto key = internalKey(dataId);
 
         if (_setKey(key) == false || !_init) {
             return false;
@@ -295,8 +295,8 @@ class DFileCacheEngine : DCacheEngine {
         return mysuccess;
     } */
 
-    override protected string _key(string key) {
-        auto newKey = super._key(key);
+    override protected string internalKey(string key) {
+        auto newKey = super.internalKey(key);
 
         return rawUrlEncode(newKey);
     }

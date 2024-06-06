@@ -183,7 +183,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * If the requested key is valid, the group prefix value and engine prefix are applied.
      * Whitespace in keys will be replaced.
      */
-    protected string _key(string itemKey) {
+    protected string internalKey(string itemKey) {
         string prefix = _groupPrefix
             ? groups().join("_") //TODO md5(groups().join("_"))
              : "";

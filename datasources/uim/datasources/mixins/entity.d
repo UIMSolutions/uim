@@ -753,7 +753,7 @@ mixin template TEntity() {
       // While recursing through entities, each entity should only be visited once. See https://github.com/UIM/UIM/issues/17318
       return null;
     }
-    diff = array_diff_key(_fields, _fieldErrors);
+    diff = array_diffinternalKey(_fields, _fieldErrors);
     _hasBeenVisited = true;
     try {
       errors = _fieldErrors + (new DCollection(diff))

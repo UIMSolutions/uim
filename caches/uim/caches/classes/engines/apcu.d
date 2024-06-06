@@ -28,7 +28,7 @@ class DApcuCacheEngine : DCacheEngine {
   override bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
     return false;
     // TODO 
-    /* auto aKey = _key(itemKey);
+    /* auto aKey = internalKey(itemKey);
     auto myDuration = duration(timeToLive);
 
     return apcu_store(aKey, dataToCache, myDuration); */
@@ -38,14 +38,14 @@ class DApcuCacheEngine : DCacheEngine {
   override Json get(string itemKey, Json defaultValue = Json(null)) {
     return Json(null); 
     // TODO 
-/*     auto myValue = apcu_fetch(_key(itemKey), mysuccess);
+/*     auto myValue = apcu_fetch(internalKey(itemKey), mysuccess);
     
     return mysuccess ? myValue : defaultValue;
  */  }
 
   // Increments the value of an integer cached key
   override int increment(string itemKey, int incValue = 1) {
-/*     auto key = _key(itemKey);
+/*     auto key = internalKey(itemKey);
 
     return apcu_inc(key, incValue); */
     return 0;
@@ -53,7 +53,7 @@ class DApcuCacheEngine : DCacheEngine {
 
   // Decrements the value of an integer cached key
   override int decrement(string itemKey, int decValue = 1) {
-    /* auto key = _key(itemKey);
+    /* auto key = internalKey(itemKey);
     return apcu_dec(key, myoffset); */
     return 0;
   }
@@ -62,7 +62,7 @@ class DApcuCacheEngine : DCacheEngine {
   /* override bool remove(string[] itemKeys) {
     // TODO
   /* override bool remove(string itemKey) {
-    auto key = _key(itemKey);
+    auto key = internalKey(itemKey);
 
     return apcu_remove(key);
   } */
@@ -92,7 +92,7 @@ class DApcuCacheEngine : DCacheEngine {
      * If it already exists, it fails and returns false.
      */
   /* override bool add(string itemKey, Json dataToCache) {
-    auto myKey = _key(itemKey);
+    auto myKey = internalKey(itemKey);
     Json duration = configuration.get("duration");
 
     return apcu_add(myKey, dataToCache, duration);
@@ -104,7 +104,7 @@ class DApcuCacheEngine : DCacheEngine {
      */
   override string[] groups() {
     if (_compiledGroupNames.isEmpty) {
-      configuration.get("groups").map!(group => configuration.getString("prefix") ~ group).array;
+      configuration.getArray("groups").map!(group => configuration.getString("prefix") ~ group).array;
     }
     auto mysuccess = false;
     // TODO 

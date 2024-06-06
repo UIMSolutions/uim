@@ -286,7 +286,7 @@ class DCache : ICache {
      */
     static Json readMany(string[] keysToFetch, string configName = "default") {
         return Json(null);
-        // TODO return pool(configName).cacheItems(keysToFetch);
+        // TODO return pool(configName).items(keysToFetch);
     }
 
     // Increment a number under the key and return incremented value.

@@ -8,7 +8,7 @@ interface ICacheEngine : INamed {
     bool set(string itemKey, Json valueToSet, long timeToLive = 0);
     bool set(Json[string] valuesToSet, long timeToLive = 0);
     Json get(string itemKey, Json defaultValue = null);
-    Json[string] cacheItems(string[] itemKeys, Json defaultValue = null);
+    Json[string] items(string[] itemKeys, Json defaultValue = null);
     long increment(string itemKey, int incValue = 1);
     long decrement(string itemKey, int decValue = 1);
     bool remove(string itemKey);

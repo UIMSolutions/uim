@@ -64,7 +64,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     protected string _groupPrefix = "";
 
     // Obtains multiple cache items by their unique keys.
-    Json[string] cacheItems(string[] keys, Json defaultValue = Json(null)) {
+    Json[string] items(string[] keys, Json defaultValue = Json(null)) {
         Json[string] results;
         keys
             .filter!(key => !key.isEmpty)
@@ -74,7 +74,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     }
 
     // Persists a set of key: value pairs in the cache, with an optional TTL.
-    bool cacheItems(Json[string] items, long timeToLive = 0) {
+    bool items(Json[string] items, long timeToLive = 0) {
         // TODO ensureValidType(myvalues, CHECK_KEY);
 
         Json restoreDuration = Json(null); 

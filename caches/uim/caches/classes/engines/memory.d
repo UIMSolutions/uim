@@ -265,7 +265,7 @@ return true;
      * Params:
      * iterable<string> someKeys An array of identifiers for the data
      */
-  override Json[string] cacheItems(string[] keys, Json defaultValue = Json(null)) {
+  override Json[string] items(string[] keys, Json defaultValue = Json(null)) {
     STRINGAA cacheKeys = null;
     keys.each!(key => cacheKeys[key] = internalKey(key));
     Json[string] values = _memory.data(cacheKeys.values);

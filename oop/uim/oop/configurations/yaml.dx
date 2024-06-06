@@ -44,7 +44,7 @@ class DYamlConfiguration : DFileConfiguration {
         // TODO 
     }
 
-    override IConfiguration remove(string key) {
+    override IConfiguration removeItem(string key) {
         // TODO 
         return this;
     }

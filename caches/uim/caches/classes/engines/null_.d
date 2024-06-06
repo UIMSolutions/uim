@@ -29,7 +29,7 @@ class DNullCacheEngine : DCacheEngine {
     return defaultValue;
   }
 
-  override Json[string] cacheItems(string[] itemKeys, Json defaultValue = null) {
+  override Json[string] items(string[] itemKeys, Json defaultValue = null) {
     return null;
   }
 

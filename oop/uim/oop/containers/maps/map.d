@@ -19,7 +19,7 @@ class DMap(T : Object) : IMap {
 	bool remove(string[] keys) {
 		return keys.all!(key => _values.remove(key));
 	}
-	bool remove(string key) {
+	bool removeItem(string key) {
 		return _values.remove(key);
 	}
 	void clear(this O)() { 

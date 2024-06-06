@@ -344,7 +344,7 @@ class DHtmlHelper : DHelper {
             return null;
         }
         myurl = this.Url.css(mypath, htmlAttributes);
-        htmlAttributes = array_diff_key(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
+        htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
         if (htmlAttributes["once"] && isSet(_includedAssets[__METHOD__][mypath])) {
             return null;
@@ -434,7 +434,7 @@ class DHtmlHelper : DHelper {
             return null;
         }
         myurl = this.Url.script(myurl, htmlAttributes);
-        htmlAttributes = array_diff_key(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
+        htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
         if (htmlAttributes["once"] && isSet(_includedAssets[__METHOD__][myurl])) {
             return null;
@@ -578,7 +578,7 @@ class DHtmlHelper : DHelper {
         } else {
             mypath = this.Url.build(mypath, htmlAttributes);
         }
-        htmlAttributes = array_diff_key(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
+        htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
         if (!htmlAttributes.hasKey("alt")) {
             htmlAttributes["alt"] = "";
@@ -929,7 +929,7 @@ class DHtmlHelper : DHelper {
         }
         mytext = htmlAttributes["text"];
 
-        htmlAttributes = array_diff_key(htmlAttributes, [
+        htmlAttributes = array_diffinternalKey(htmlAttributes, [
             "tag": Json(null),
             "fullBase": Json(null),
             "pathPrefix": Json(null),

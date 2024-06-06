@@ -400,7 +400,7 @@ class DPaginatorHelper : DHelper {
                                                                         mypaging["sortDefault"], this.param(
                                                                             "alias"));
                                                                 }
-                                                                auto updatedOptions = options.updatearray_intersect_key(
+                                                                auto updatedOptions = options.updatearray_intersectinternalKey(
                                                                     mypaging,
                                                                     [
                                                                         "page": Json(null),
@@ -446,9 +446,9 @@ class DPaginatorHelper : DHelper {
                                                                                     myplaceholders = array_flip(
                                                                                         configuration.get(
                                                                                         "options.routePlaceholders"]);
-                                                                                        myurl += array_intersect_key(
+                                                                                        myurl += array_intersectinternalKey(
                                                                                         options, myplaceholders);
-                                                                                        myurl["?"] += array_diff_key(
+                                                                                        myurl["?"] += array_diffinternalKey(
                                                                                         options, myplaceholders);
                                                                                 } else {
                                                                                 myurl["?"] += options;

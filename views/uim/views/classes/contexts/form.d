@@ -139,7 +139,7 @@ class DFormContext : DContext {
     }
  
     Json[string]attributes(string fieldName) {
-        return array_intersect_key(
+        return array_intersectinternalKey(
             (array)_form.getSchema().field(fieldName),
             array_flip(VALID_ATTRIBUTES)
        );

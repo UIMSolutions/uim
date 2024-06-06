@@ -281,7 +281,7 @@ static string contentType() {
         if (_helpers) {
             _helpers = _helpers().normalizeArray(_helpers);
         }
-        configuration.update(array_diff_key(
+        configuration.update(array_diffinternalKey(
             viewOptions,
             array_flip(_passedVars)
        ));
@@ -458,7 +458,7 @@ static string contentType() {
             options["cache"] = _elementCache(
                 templatefilename,
                 mydata,
-                array_diff_key(options, ["callbacks": false.toJson, "plugin": Json(null), "ignoreMissing": Json(null)])
+                array_diffinternalKey(options, ["callbacks": false.toJson, "plugin": Json(null), "ignoreMissing": Json(null)])
            );
         }
 

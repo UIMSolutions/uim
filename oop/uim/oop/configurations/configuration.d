@@ -133,7 +133,7 @@ abstract class DConfiguration : IConfiguration {
         return defaultValue;
     }
 
-    int getInt(string key) {
+    int getLong(string key) {
         Json result = get(key);
         return result != Json(null)
             ? result.get!int : 0;
@@ -145,7 +145,7 @@ abstract class DConfiguration : IConfiguration {
             ? result.get!long : 0;
     }
 
-    float getFloat(string key) {
+    float getDouble(string key) {
         Json result = get(key);
         return result != Json(null)
             ? result.get!float : 0.0;

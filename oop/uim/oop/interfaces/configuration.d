@@ -54,9 +54,9 @@ interface IConfiguration : INamed {
         Json get(string key, Json defaultValue = Json(null));
         Json[string] get(string[] keys, bool compressMode = false);
 
-        int getInt(string key);
+        int getLong(string key);
         long getLong(string key);
-        float getFloat(string key);
+        float getDouble(string key);
         double getDouble(string key);
         string getString(string key);
         string[] getStringArray(string key);
@@ -68,7 +68,7 @@ interface IConfiguration : INamed {
 
         bool set(STRINGAA values, string[] keys = null);
         bool set(Json[string] newData, string[] keys = null);
-        
+
         bool set(string key, bool newValue);
         bool set(string key, long newValue);
         bool set(string key, double newValue);

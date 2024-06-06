@@ -82,7 +82,7 @@ interface IData {
 
     // #region get
         bool getBool();
-        int getInt();
+        int getLong();
         long getLong(); 
         float getFloat();
         double getDouble();

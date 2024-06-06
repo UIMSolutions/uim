@@ -49,8 +49,8 @@ class DYearWidget : DWidget {
         if (updatedData.hasKey("max")) {
             updatedData["max"] = date("Y", strtotime("+5 years"));
         }
-        updatedData["min"] = updatedData.getInt("min");
-        updatedData["max"] = updatedData.getInt("max");
+        updatedData["min"] = updatedData.getLong("min");
+        updatedData["max"] = updatedData.getLong("max");
 
         if (
             cast(DChronosDate)mydata["val"]  ||
@@ -59,8 +59,8 @@ class DYearWidget : DWidget {
             updatedData["val"] = mydata["val"].format("Y");
         }
         if (updatedData.isEmpty("val")) {
-            updatedData["min"] = min(mydata.getInt("val"), updatedData["min"]);
-            mydata["max"] = max(mydata.getInt("val"), mydata["max"]);
+            updatedData["min"] = min(mydata.getLong("val"), updatedData["min"]);
+            mydata["max"] = max(mydata.getLong("val"), mydata["max"]);
         }
         if (mydata["max"] < mydata["min"]) {
             throw new DInvalidArgumentException("Max year cannot be less than min year");

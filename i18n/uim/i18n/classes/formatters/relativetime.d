@@ -207,18 +207,18 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
                 years = floor(months / 12);
                 months -= years * 12;
             }
-            if (future.getInt("m") < past.getInt("m") && future.getInt("Y") - past.getInt("Y") == 1) {
+            if (future.getLong("m") < past.getLong("m") && future.getLong("Y") - past.getLong("Y") == 1) {
                 years--;
             }
-            if ((int)future["d"] >= past.getInt("d") {
+            if ((int)future["d"] >= past.getLong("d") {
                 days = (int)future["d"] - (int)past["d"];
             } else {
                 daysInPastMonth = (int)date("t", pastTime);
-                daysInFutureMonth = (int)date("t", (int)mktime(0, 0, 0, future.getInt("m") - 1, 1, future.getInt("Y"));
+                daysInFutureMonth = (int)date("t", (int)mktime(0, 0, 0, future.getLong("m") - 1, 1, future.getLong("Y"));
 
                 days = !backwards
-                    ? daysInPastMonth - past.getInt("d") + future.getInt("d");
-                    : daysInFutureMonth - past.getInt("d") + future.getInt("d");
+                    ? daysInPastMonth - past.getLong("d") + future.getLong("d");
+                    : daysInFutureMonth - past.getLong("d") + future.getLong("d");
                 }
                 if (future["m"] != past["m"]) {
                     months--;

@@ -212,13 +212,13 @@ float
 floatValue()
 Returns the value of this Integer as a float after a widening primitive conversion.
 static Integer
-getInt(String nm)
+getLong(String nm)
 Determines the integer value of the system property with the specified name.
 static Integer
-getInt(String nm, long val)
+getLong(String nm, long val)
 Determines the integer value of the system property with the specified name.
 static Integer
-getInt(String nm, Integer val)
+getLong(String nm, Integer val)
 Returns the integer value of the system property with the specified name.
 long
 hashCode()

@@ -82,9 +82,9 @@ bool testConfiguration(IConfiguration aConfig) {
         Json get(string key, Json defaultValue = Json(null));
         Json[string] get(string[] keys, bool compressMode = false);
 
-        int getInt(string key);
+        int getLong(string key);
         long getLong(string key);
-        float getFloat(string key);
+        float getDouble(string key);
         double getDouble(string key);
         string getString(string key);
         string[] getStringArray(string key);

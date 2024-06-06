@@ -408,7 +408,7 @@ class DPaginatorHelper : DHelper {
                                                                         "sort": Json(null),
                                                                         "direction": Json(null)
                                                                     ]
-                                                               ); if (!options.isEmpty("page") && options.getInt(
+                                                               ); if (!options.isEmpty("page") && options.getLong(
                                                                         "page") == 1) {
                                                                     options["page"] = Json(null);
                                                                 }
@@ -527,16 +527,16 @@ class DPaginatorHelper : DHelper {
                                                                                     this.templater().add([mytemplate: myformat]);
                                                                             }
                                                                             mymap = array_map([this.Number, "format"], [
-                                                                                    "page": mypaging.getInt(
+                                                                                    "page": mypaging.getLong(
                                                                                     "currentPage"),
-                                                                                    "pages": mypaging.getInt("pageCount"),
-                                                                                    "current": mypaging.getInt(
+                                                                                    "pages": mypaging.getLong("pageCount"),
+                                                                                    "current": mypaging.getLong(
                                                                                     "count"),
-                                                                                    "count": mypaging.getInt(
+                                                                                    "count": mypaging.getLong(
                                                                                     "totalCount"),
-                                                                                    "start": mypaging.getInt(
+                                                                                    "start": mypaging.getLong(
                                                                                     "start"),
-                                                                                    "end": mypaging.getInt("end"),
+                                                                                    "end": mypaging.getLong("end"),
                                                                                 ]);
 
                                                                             aliasName = this.param(

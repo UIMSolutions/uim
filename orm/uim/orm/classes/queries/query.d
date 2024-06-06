@@ -873,7 +873,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 
         return result == false
             ? 0
-            : result.getInt("count");
+            : result.getLong("count");
     }
 
     /**

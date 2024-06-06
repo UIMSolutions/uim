@@ -127,7 +127,7 @@ class DFormContext : DContext {
         if (myattributes.isEmpty("length")) {
             return null;
         }
-        return myattributes.getInt("length");
+        return myattributes.getLong("length");
     }
  
     string[] fieldNames() {

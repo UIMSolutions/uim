@@ -22,11 +22,11 @@ class DSerializedView : DView {
     }
 
     // Load helpers only if serialization is disabled.
-    /* void loadHelpers() {
-        if (!configurationData.hasKey("serialize")) {
+    void loadHelpers() {
+        if (!configuration.hasKey("serialize")) {
             super.loadHelpers();
         }
-    } */
+    }
 
     /**
      * Serialize view vars.

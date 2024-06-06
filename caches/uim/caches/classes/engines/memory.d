@@ -161,7 +161,7 @@ return true;
      * with the desired serializer engine.
      */
   protected void _setOptions() {
-    _memory.setOption(Memory.OPT_LIBKETAMA_COMPATIBLE, true);
+    // _memory.setOption(Memory.OPT_LIBKETAMA_COMPATIBLE, true);
 
     string myserializer = configuration.getString("serialize").lower;
     if (!_serializers.hasKey(myserializer)) {
@@ -201,9 +201,9 @@ return true;
      */
   Json[string] parseServerString(string myserver) {
     auto mysocketTransport = "unix://";
-    if (myserver.startsWith(mysocketTransport)) {
+    /* if (myserver.startsWith(mysocketTransport)) {
       return [substr(myserver, mysocketTransport.length), 0];
-    }
+    } */
 
     size_t myposition;
     if (myserver.startsWith("[")) {
@@ -246,9 +246,9 @@ return true;
 
   // Write many cache entries to the cache at once
   override bool set(Json[string] values, long timeToLive = 0) {
-    auto cacheData = null;
-    values.byKeyValue
-      .each!(kv => cacheData[_key(kv.key)] = kv.value);
+    Json[string] cacheData = null;
+    /* values.byKeyValue
+      .each!(kv => cacheData[_key(kv.key)] = kv.value); */
     return _memory.setMulti(cacheData, duration(timeToLive));
   }
 

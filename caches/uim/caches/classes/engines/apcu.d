@@ -139,7 +139,7 @@ class DApcuCacheEngine : DCacheEngine {
      */
   override bool clearGroup(string groupName) {
     bool isSuccess = false;
-    apcu_inc(configuration.getString("prefix") ~ groupName, 1, isSuccess);
+    // TODO apcu_inc(configuration.getString("prefix") ~ groupName, 1, isSuccess);
 
     return isSuccess;
   }

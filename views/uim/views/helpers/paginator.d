@@ -85,7 +85,6 @@ class DPaginatorHelper : DHelper {
      * Set paginated results.
      * Params:
      * \UIM\Datasource\Paging\IPaginated mypaginated Instance to use.
-     * @param Json[string] options Options array.
      */
             void setPaginated(IPaginated mypaginated, Json[string] options = null) {
                 this.paginated = mypaginated; this.options(options);}
@@ -106,13 +105,13 @@ class DPaginatorHelper : DHelper {
                         return _paginated;}
 
                         // Gets the current paging parameters from the resultset for the given model
-                        array params() {
-                            return configurationData.hasKey("params") + this.paginated()
-                                .pagingData();}
+                        // TODO 
+                        /* Json[string] params() {
+                            return configuration.getArray("params") ~ this.paginated().pagingData();}
 
                             // Convenience access to any of the paginator params.
                             Json param(string paramKey) {
-                                return _params()[paramKey] ?  ? null;}
+                                return _params()[paramKey] ?  ? null;} */
 
                                 /**
      * Sets default options for all pagination links
@@ -122,12 +121,11 @@ class DPaginatorHelper : DHelper {
      */
                                 void options(Json[string] optionsForLinks = null) {
                                     if (!options.isEmpty("paging")) {
-                                        configuration.get("params"] = options["paging"];
+                                        configuration.set("params", options["paging"]);
                                                 options.remove("paging");}
-                                                configuration.get("options"] = array_filter(
-                                                    options + configuration.get("options"]);
+                                                configuration.set("options", array_filter(options + configuration.get("options"));
                                                     if (configuration.isEmpty("options/url"))) {
-                                                    configuration.get("options/url"] = null;
+                                                    configuration.set("options/url", "");
                                                 }
                                     }
 

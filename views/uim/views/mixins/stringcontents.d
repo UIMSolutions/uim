@@ -34,8 +34,8 @@ mixin template TStringContents() {
     // Returns the templater instance.
     StringContents templater() {
         if (_templater.isNull) {
-            /** @var class-string<\UIM\View\StringContents> myclass */
-            string myclass = configurationData.hasKey("templateClass") ?: StringContents.classname;
+            /** @var class-string<\UIM\View\StringContents> myclass * /
+            string myclass = configuration.getString("templateClass", StringContents.classname);
            _templater = new myclass();
 
             mytemplates = configurationData.get("templates");
@@ -49,5 +49,5 @@ mixin template TStringContents() {
             }
         }
         return _templater;
-    }
+    } */
 }

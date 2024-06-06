@@ -25,11 +25,11 @@ class DTimeHelper : DHelper {
      * Params:
      * \DateTimeZone|string mytimezone The override timezone if applicable.
      */
-    protected DateTimeZone|string _getTimezone(DateTimeZone|string mytimezone) {
+    protected /* DateTimeZone| */string _getTimezone(/* DateTimeZone| */string mytimezone) {
         if (mytimezone) {
             return mytimezone;
         }
-        return configurationData.hasKey("outputTimezone");
+        return configuration.getString("outputTimezone");
     }
     
     /**
@@ -39,8 +39,8 @@ class DTimeHelper : DHelper {
      * @param \DateTimeZone|string mytimezone User"s timezone string or DateTimeZone object
      */
     DateTime fromString(
-        DChronosDate|JsonmydateString,
-        DateTimeZone|string mytimezone = null
+        /* DChronosDate| */Json mydateString,
+        /* DateTimeZone| */string mytimezone = null
    ) {
         mytime = new DateTime(mydateString);
         if (mytimezone !is null) {
@@ -57,8 +57,8 @@ class DTimeHelper : DHelper {
      * @param string mylocale Locale string.
      */
     string nice(
-        DChronosDate|JsonmydateString = null,
-        DateTimeZone|string mytimezone = null,
+        /* DChronosDate| */Json mydateString = null,
+        /* DateTimeZone| */string mytimezone = null,
         string mylocale = null
    ) {
         mytimezone = _getTimezone(mytimezone);

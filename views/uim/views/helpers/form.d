@@ -171,21 +171,21 @@ class DFormHelper : DHelper {
      * @param Json[string] configData Configuration settings for the helper.
      */
     this(IView myview, Json[string] configData = null) {
-        mylocator = null;
-        mywidgets = _defaultWidgets;
+        auto mylocator = null;
+        auto mywidgets = _defaultWidgets;
         if (configuration.hasKey("locator")) {
             mylocator = configuration.get("locator"];
             configuration.remove("locator");
         }
         if (configuration.hasKey("widgets")) {
-            if (isString(configuration.get("widgets"])) {
-                configuration.get("widgets"] = (array)configuration.get("widgets"];
+            if (configuration.isString("widgets")) {
+                configuration.set("widgets", [configuration.getString("widgets")]);
             }
-            mywidgets = configuration.get("widgets"] + mywidgets;
+            mywidgets = configuration.get("widgets") + mywidgets;
             configuration.remove("widgets");
         }
         if (configuration.hasKey("groupedInputTypes")) {
-           _groupedInputTypes = configuration.get("groupedInputTypes"];
+           _groupedInputTypes = configuration.get("groupedInputTypes");
             configuration.remove("groupedInputTypes");
         }
         super(myview, configData);
@@ -194,12 +194,10 @@ class DFormHelper : DHelper {
             mylocator = new WidgetLocator(this.templater(), _View, mywidgets);
         }
         setWidgetLocator(mylocator);
-       _idPrefix = configurationData.hasKey("idPrefix");
+       _idPrefix = configuration.getString("idPrefix");
     }
     
-    /**
-     * Get the widget locator currently used by the helper.
-     */
+    // Get the widget locator currently used by the helper.
     WidgetLocator getWidgetLocator() {
         return _locator;
     }

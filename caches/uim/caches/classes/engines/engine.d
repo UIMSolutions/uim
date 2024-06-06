@@ -39,11 +39,11 @@ abstract class DCacheEngine : ICache, ICacheEngine {
 
         if (configuration.hasKey("groups")) {
             configuration.getStringArray("groups").sort;
-            _groupPrefix = str_repeat("%s_", configuration.getStringArray("groups").length);
+            // TODO _groupPrefix = str_repeat("%s_", configuration.getStringArray("groups").length);
         }
-        if (!configuration.isNumeric("duration")) {
+        /* if (!configuration.isNumeric("duration")) {
             // TODO configuration.set("duration", configuration.get("duration").toTime - time());
-        }
+        } */
 
         configuration.updateDefaults([
             "duration": Json(3600),
@@ -188,8 +188,8 @@ abstract class DCacheEngine : ICache, ICacheEngine {
             ? groups().join("_") //TODO md5(groups().join("_"))
              : "";
 
-        auto changedKey = itemKey.replaceAll.regex(r"/[\s]+/", "_");
-        return configuration.getString("prefix") ~ prefix ~ changedKey;
+        // TODO auto changedKey = itemKey.replaceAll.regex(r"/[\s]+/", "_");
+        return configuration.getString("prefix") ~ prefix; //  ~ changedKey;
     }
 
     /**

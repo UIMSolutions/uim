@@ -47,7 +47,7 @@ class DSerializedView : DView {
      * @param string|null mylayout The layout being rendered.
      */
     string render(string mytemplate = null, string|null renderLayout = null) {
-        bool shouldSerialize = configurationData.hasKey("serialize", false);
+        bool shouldSerialize = configuration,Data.hasKey("serialize", false);
 
         if (shouldSerialize == true) {
             options = array_map(

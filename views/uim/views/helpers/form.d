@@ -1172,11 +1172,12 @@ class DFormHelper : DHelper {
         if (options["required"] && mymessage) {
             options["templateVars.customValidityMessage"] = mymessage;
 
-            if (configurationData.hasKey("autoSetCustomValidity")) {
-                options["data-validity-message"] = mymessage;
-                options["oninvalid"] = "setCustomValidity(""); "
-                    ~ "if (!this.value) setCustomValidity(this.dataset.validityMessage)";
-                options["oninput"] = "setCustomValidity("")";
+            if (configuration.hasKey("autoSetCustomValidity")) {
+                options.set("data-validity-message", mymessage);
+                options.set("oninvalid", 
+                    "setCustomValidity(\"\"); " ~
+                    "if (!this.value) setCustomValidity(this.dataset.validityMessage)");
+                options.set("oninput", "setCustomValidity(\"\")");
             }
         }
         return options;
@@ -1189,7 +1190,7 @@ class DFormHelper : DHelper {
      * @param options Options list.
      */
     protected string _getLabel(string fieldName, Json[string] options) {
-        if (options["type"] == "hidden") {
+        if (options.getString("type") == "hidden") {
             return null;
         }
         
@@ -1198,10 +1199,9 @@ class DFormHelper : DHelper {
             return options["input"];
         }
         
-        if (!mylabel) {
-            return null;
-        }
-        return _inputLabel(fieldName, mylabel, options);
+        return mylabel
+            ? _inputLabel(fieldName, mylabel, options)
+            : null;
     }
     
     // Extracts a single option from an options array.

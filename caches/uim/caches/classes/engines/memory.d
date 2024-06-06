@@ -63,9 +63,9 @@ class DMemoryCacheEngine : DCacheEngine {
   protected int[string] _serializers;
 
   protected string[] _compiledGroupNames;
-
-  // memcached wrapper.
+  protected Json[string] _memory;
   /* protected DMemory _memcached;
+  
 
   /**
      * Initialize the Cache Engine
@@ -255,8 +255,9 @@ return true;
   // Read a key from the cache
   override Json get(string itemKey, Json defaultValue = Json(null)) {
     auto myvalue = _memory.get(_key(itemKey));
-    return _memory.getResultCode() == Memory.RES_NOTFOUND
-      ? defaultValue : myvalue;
+    /* return _memory.getResultCode() == Memory.RES_NOTFOUND
+      ? defaultValue : myvalue; */
+    return Json(null);
   }
 
   /**
@@ -264,20 +265,21 @@ return true;
      * Params:
      * iterable<string> someKeys An array of identifiers for the data
      */
-  override Json[string] cacheItems(string[] someKeys, Json defaultValue = Json(null)) {
-    mycacheKeys = null;
-    someKeys.each!(key => mycacheKeys[key] = _key(key));
-    myvalues = _memory.getMulti(mycacheKeys);
-    Json[string] result;
+  override Json[string] cacheItems(string[] keys, Json defaultValue = Json(null)) {
+    STRINGAA cacheKeys = null;
+    keys.each!(key => cacheKeys[key] = _key(key));
+    Json[string] values = _memory.data(cacheKeys.values);
+    Json[string] results;
     foreach (myoriginal, myprefixed; mycacheKeys) {
-      result[myoriginal] = myvalues[myprefixed] ? myvalues[myprefixed] : mydefault;
+      results[myoriginal] = values.get(myprefixed, defaultValue);
     }
-    return result;
+    return results;
   }
 
   // Increments the value of an integer cached key
   override int increment(string itemKey, int incValue = 1) {
-    return _memory.increment(_key(aKey), myoffset);
+    // return _memory.increment(_key(aKey), myoffset);
+    return 0; 
   }
 
   // Decrements the value of an integer cached key
@@ -322,7 +324,7 @@ return true;
         .map!(group => configuration.getString("prefix") ~ group).array;
     }
 
-    auto mygroups = _memory.getMulti(_compiledGroupNames) ? memory.getMulti(
+    auto mygroups = _memory.data(_compiledGroupNames) ? memory.data(
       _compiledGroupNames) : null;
     if (count(mygroups) != count(configuration.get("groups"))) {
       _compiledGroupNames

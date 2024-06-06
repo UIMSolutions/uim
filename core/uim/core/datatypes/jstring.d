@@ -4,6 +4,19 @@ import uim.core;
 
 @safe:
 
+Json[string] data(Json[string] values, string[] keys = null) {
+  if (keys.length == 0) {
+    return values.dup;
+  }
+
+  Json[string] results;
+  keys
+    .filter!(key => key in values)
+    .each!(key => results[key] = values[key]);
+
+  return results;
+}
+
 Json[string] merge(Json[string] originValues, Json mergeValues) {
   Json[string] mergedValues = originValues.dup;
   if (!mergeValues.isObject) {
@@ -33,10 +46,28 @@ Json[string] copy(Json[string] origin) {
   return results;
 }
 
-string getString(Json[string] values, string  key) {
+bool getBool(Json[string] values, string key, bool defaultValue = false) {
   return key in values 
-    ? values[key].to!string
-    : null;
+    ? values[key].get!bool
+    : defaultValue;
+}
+
+long getLong(Json[string] values, string key, long defaultValue = 0) {
+  return key in values 
+    ? values[key].get!long
+    : defaultValue;
+}
+
+double getDouble(Json[string] values, string key, double defaultValue = 0.0) {
+  return key in values 
+    ? values[key].get!double
+    : defaultValue;
+}
+
+string getString(Json[string] values, string key, string defaultValue = null) {
+  return key in values 
+    ? values[key].get!string
+    : defaultValue;
 }
 unittest {
   Json[string] values;
@@ -45,6 +76,18 @@ unittest {
   assert(values.getString("a") == "A");
   assert(values.getString("b") != "A");
   assert(values.getString("b") == "B");
+}
+
+Json[] getArray(Json[string] values, string key, Json[] defaultValue = null) {
+  return key in values 
+    ? values[key].get!(Json[])
+    : defaultValue;
+}
+
+Json[string] getMap(Json[string] values, string key, Json[string] defaultValue = null) {
+  return key in values 
+    ? values[key].get!(Json[string])
+    : defaultValue;
 }
 
 bool isEmpty(Json[string] values, string  key) {

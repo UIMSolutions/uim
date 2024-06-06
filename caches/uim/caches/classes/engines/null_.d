@@ -41,7 +41,7 @@ class DNullCacheEngine : DCacheEngine {
     return 0;
   }
 
-  override bool removeKey(string itemKey) {
+  override bool remove(string itemKey) {
     return true;
   }
 

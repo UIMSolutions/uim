@@ -284,26 +284,28 @@ return true;
 
   // Decrements the value of an integer cached key
   override int decrement(string itemKey, int decValue = 1) {
-    return _memory.decrement(internalKey(itemKey), decValue);
+    // return _memory.decrement(internalKey(itemKey), decValue);
+    return 0; 
   }
 
   // Delete a key from the cache
-  override bool removeKey(string itemKey) {
+  override bool remove(string itemKey) {
     return _memory.remove(internalKey(itemKey));
   }
 
   // Delete many keys from the cache at once
   override bool removeKeys(string[] itemKeys) {
-    auto mycacheKeys = itemKeys
+    auto internalKeys = itemKeys
       .map!(key => internalKey(key)).array;
-    return  /* (bool) */ _memory.deleteMulti(mycacheKeys);
+    return _memory.remove(internalKeys);
   }
 
   // Delete all keys from the cache
   override bool clear() {
+    string prefix = configuration.getString("prefix");
     _memory.getAllKeys()
-      .filter!(key => key.startsWith(configuration.getString("prefix")))
-      .each!(key => _memory.removeKey(key));
+      .filter!(key => key.startsWith(prefix))
+      .each!(key => _memory.remove(key));
     return true;
   }
 

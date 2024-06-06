@@ -98,10 +98,10 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     }
 
     bool removeKeys(string[] keys) {
-        return keys.all!(key => removeKey(key));
+        return keys.all!(key => remove(key));
     }
 
-    bool removeKey(string key) {
+    bool remove(string key) {
         if (!key.isEmpty) {
             // TODO remove(key);
             return true;

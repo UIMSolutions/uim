@@ -11,7 +11,7 @@ interface ICacheEngine : INamed {
     Json[string] cacheItems(string[] itemKeys, Json defaultValue = null);
     int increment(string itemKey, int incValue = 1);
     int decrement(string itemKey, int decValue = 1);
-    bool removeKey(string itemKey);
+    bool remove(string itemKey);
     bool removeKeys(string[] itemKeys);
     bool clear();
     bool clearGroup(string groupName);

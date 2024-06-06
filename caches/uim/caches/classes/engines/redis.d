@@ -73,15 +73,15 @@ class DRedisCacheEngine : DCacheEngine {
             } elseif (configuration.isEmpty("persistent")) {
                 result = _redis.connect(
                     configuration.get("server"),
-                    configuration.getInt("port"),
-                    configuration.getInt("timeout")
+                    configuration.getLong("port"),
+                    configuration.getLong("timeout")
                );
             } else {
                 persistentId = configuration.getString("port") ~ configuration.getString("timeout") ~ configuration.getString("database");
                 result = _redis.pconnect(
                     configuration.get("server"),
-                    configuration.getInt("port"),
-                    configuration.getInt("timeout"),
+                    configuration.getLong("port"),
+                    configuration.getLong("timeout"),
                     persistentId
                );
             }
@@ -95,7 +95,7 @@ class DRedisCacheEngine : DCacheEngine {
             result = _redis.auth(configuration.getString("password"));
         }
         if (result) {
-            result = _redis.select(configuration.getInt("database"));
+            result = _redis.select(configuration.getLong("database"));
         } */
         return result;
     }
@@ -168,7 +168,7 @@ class DRedisCacheEngine : DCacheEngine {
         auto somePattern = configuration.getString("prefix") ~ "*";
 
         while (true) {
-            auto someKeys = _redis.scan(anIterator,  somePattern, configuration.getInt("scanCount"));
+            auto someKeys = _redis.scan(anIterator,  somePattern, configuration.getLong("scanCount"));
 
             if (someKeys == false) {
                 break;
@@ -196,7 +196,7 @@ class DRedisCacheEngine : DCacheEngine {
         auto anIterator = null;
         string somePattern = configuration.getString("prefix") ~ "*";
         while (true) {
-            auto someKeys = _redis.scan(anIterator,  somePattern, configuration.getInt("scanCount"));
+            auto someKeys = _redis.scan(anIterator,  somePattern, configuration.getLong("scanCount"));
 
             if (someKeys == false) {
                 break;

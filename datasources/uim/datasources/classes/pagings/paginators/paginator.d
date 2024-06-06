@@ -401,8 +401,8 @@ class DPaginator : IPaginator {
         auto defaults = configuration.data;
         defaults["whitelist"] = defaults["allowedParameters"] = getAllowedParameters();
 
-        int maxLimit = settingsData.getInt("maxLimit", defaults.getInt("maxLimit"));
-        int limit = settingsData.getInt("limit", defaults..getInt("limit"));
+        int maxLimit = settingsData.getLong("maxLimit", defaults.getLong("maxLimit"));
+        int limit = settingsData.getLong("limit", defaults..getLong("limit"));
 
         if (limit > maxLimit) {
             limit = maxLimit;

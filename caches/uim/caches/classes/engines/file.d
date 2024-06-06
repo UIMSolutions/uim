@@ -266,7 +266,7 @@ class DFileCacheEngine : DCacheEngine {
             }
             mypath = null;
 
-            if (!myexists && !chmod(_File.getPathname(), configuration.getInt("mask"])) {
+            if (!myexists && !chmod(_File.getPathname(), configuration.getLong("mask"])) {
                 trigger_error(
                     "Could not apply permission mask `%s` on cache file `%s`"
                         .format(_File.getPathname(),

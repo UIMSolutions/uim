@@ -40,7 +40,7 @@ class DMemoryCacheEngine : DCacheEngine {
      */
     configuration.updateDefaults([
       "compress": false.toJson,
-      "duration": Json(3600),
+      "duration": 3600.toJson,
       "groups": Json.emptyArray,
       "host": Json(null),
       "username": "".toJson,
@@ -50,7 +50,7 @@ class DMemoryCacheEngine : DCacheEngine {
       "prefix": Json("uim_"),
       "serialize": Json("d"),
       // `servers` String or array of memcached servers. If an array MemcacheEngine will use them as a pool.
-      // TODO "servers": StringArrayData(["127.0.0.1"]),
+      "servers": ["127.0.0.1"].toJson,
       // `options` - Additional options for the memcached client. Should be an array of option: value.
       "options": Json.emptyArray,
     ]);

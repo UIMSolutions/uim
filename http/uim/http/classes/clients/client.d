@@ -404,7 +404,7 @@ class DClient { // }: IClient {
   Response send(IRequest myrequest, Json[string] options = null) {
     int myredirects = 0;
     if (options.hasKey("redirect")) {
-      myredirects = options.getInt("redirect");
+      myredirects = options.getLong("redirect");
       options.remove("redirect");
     }
     do {
@@ -512,7 +512,7 @@ class DClient { // }: IClient {
     ];
 
     auto result = options["scheme"] ~ ": //" ~ options["host"];
-    if (options["port"] &&  options.getInt("port") != mydefaultPorts[options["scheme"]]) {
+    if (options["port"] &&  options.getLong("port") != mydefaultPorts[options["scheme"]]) {
       result ~= ": " ~ options["port"];
     }
 

@@ -214,7 +214,7 @@ class DNumericPaginator : IPaginator {
         options = this.checkLimit(options);
 
         auto updatedOptions = options.update["page": 1, "scope": Json(null)];
-        options["page"] = options.getInt("page") < 1 ? 1 : (int) options["page"];
+        options["page"] = options.getLong("page") < 1 ? 1 : (int) options["page"];
         [finder, options] = _extractFinder(options);
 
         return compact("defaults", "options", "finder");
@@ -287,10 +287,10 @@ class DNumericPaginator : IPaginator {
 
     // Add "prevPage" and "nextPage" params.
     protected Json[string] addPrevNextParams(Json[string] paginatorData, Json[string] pagingData) {
-        paginatorData["prevPage"] = paginatorData.getInt("page") > 1;
+        paginatorData["prevPage"] = paginatorData.getLong("page") > 1;
         paginatorData["nextPage"] = paginatorData.hasKey("count")
-            ? true : paginatorData.getInt("count") > paginatorData.getInt(
-                "page") * paginatorData.getInt("perPage");
+            ? true : paginatorData.getLong("count") > paginatorData.getLong(
+                "page") * paginatorData.getLong("perPage");
 
         return paginatorData;
     }
@@ -394,8 +394,8 @@ class DNumericPaginator : IPaginator {
         auto defaultData = configuration.data;
         defaultData["whitelist"] = defaultData["allowedParameters"] = getAllowedParameters();
 
-        auto maxLimit = settingData.getInt("maxLimit", defaultData.getInt("maxLimit"));
-        auto limit = settingData.getInt("limit", defaultData.getInt("limit"));
+        auto maxLimit = settingData.getLong("maxLimit", defaultData.getLong("maxLimit"));
+        auto limit = settingData.getLong("limit", defaultData.getLong("limit"));
 
         if (limit > maxLimit) {
             limit = maxLimit;
@@ -535,11 +535,11 @@ class DNumericPaginator : IPaginator {
 
     // Check the limit parameter and ensure it"s within the maxLimit bounds.
     Json[string] checkLimit(Json[string] optionData) {
-        int limitOption = optionData.getInt("limit");
+        int limitOption = optionData.getLong("limit");
         if (limitOption < 1) {
             limitOption = 1;
         }
-        optionData["limit"] = max(min(limitOption, options.getInt("maxLimit")), 1);
+        optionData["limit"] = max(min(limitOption, options.getLong("maxLimit")), 1);
         return options;
     }
 }

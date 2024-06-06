@@ -344,7 +344,7 @@ class DCache : ICache {
      * ```
      */
     static bool deleteMany(string[] someKeys, string configName = "default") {
-        return pool(configName).removeItems(someKeys);
+        return pool(configName).removeKeys(someKeys);
     }
     
     /**
@@ -353,7 +353,8 @@ class DCache : ICache {
      * returns True if the cache was successfully cleared, false otherwise
      */
     static bool clear(string configName = "default") {
-        return pool(configName).clear();
+        // TODO return pool(configName).clear();
+        return false; 
     }
     
     /**

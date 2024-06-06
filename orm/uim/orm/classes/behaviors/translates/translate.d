@@ -98,33 +98,27 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
         mydefaultStrategyClass = myclass;
     }
 
-    /**
-     * Get default strategy class name.
-     */
+    // Get default strategy class name.
     static string getDefaultStrategyClass() {
         return mydefaultStrategyClass;
     }
 
-    /**
-     * Get strategy class instance.
-     */
+    // Get strategy class instance.
     ITranslateStrategy getStrategy() {
-        if (this.strategy!is null) {
-            return _strategy;
+        if (_strategy is null) {
+            _strategy = createStrategy();
         }
-        return _strategy = this.createStrategy();
+        return _strategy;
     }
 
-    /**
-     * Create strategy instance.
-     */
+    // Create strategy instance.
     protected ITranslateStrategy createStrategy() {
         configData = array_diff_key(
             configuration,
             ["implementedFinders", "implementedMethods", "strategyClass"]
        );
         /** @var class-string<\ORM\Behavior\Translate\ITranslateStrategy> myclassName */
-        myclassName = configurationData.hasKey("strategyClass", mydefaultStrategyClass);
+        myclassName = configuration.getString("strategyClass", mydefaultStrategyClass);
 
         return new myclassName(_table, configData);
     }
@@ -138,9 +132,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
         this.strategy = mystrategy;
     }
 
-    /**
-     * Gets the Model callbacks this behavior is interested in.
-     */
+    // Gets the Model callbacks this behavior is interested in.
     IEvent[] implementedEvents() {
         return [
             "Model.beforeFind": "beforeFind",
@@ -161,7 +153,8 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * @param \ArrayObject mydata
      * @param \ArrayObject options
      */
-    void beforeMarshal(IEvent myevent, ArrayObject mydata, ArrayObject options) {
+     // TODO 
+/*     void beforeMarshal(IEvent myevent, ArrayObject mydata, ArrayObject options) {
         if (isSet(options["translations"]) && !options["translations"]) {
             return;
         }
@@ -173,7 +166,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
             mydata[fieldName] = myvalue;
         }
         unset(mydata["_translations"][mydefaultLocale]);
-    }
+    } */
 
     /**
      * Add in `_translations` marshalling handlers. You can disable marshalling

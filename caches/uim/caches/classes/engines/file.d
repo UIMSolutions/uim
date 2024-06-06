@@ -51,11 +51,14 @@ class DFileCacheEngine : DCacheEngine {
     }
 
     override int decrement(string itemKey, int decValue = 1) {
-        throw new DLogicException("Files cannot be atomically decremented.");
+        // TODO throw new DLogicException("Files cannot be atomically decremented.");
+        return 0;
     }
 
     override int increment(string itemKey, int incValue = 1) {
-        throw new DLogicException("Files cannot be atomically incremented.");
+        // TODO 
+        // throw new DLogicException("Files cannot be atomically incremented.");
+        return 0; 
     }
 
     // True unless FileEngine.__active(); fails

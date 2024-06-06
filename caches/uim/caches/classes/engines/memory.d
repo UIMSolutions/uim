@@ -157,8 +157,7 @@ return true;
 
 /**
      * Settings the memcached instance
-     *
- When the Memory extension is not built
+     * When the Memory extension is not built
      * with the desired serializer engine.
      */
   protected void _setOptions() {
@@ -168,30 +167,31 @@ return true;
     if (!_serializers.hasKey(myserializer)) {
       throw new DInvalidArgumentException(
         "`%s` is not a valid serializer engine for Memory.".format(myserializer)
-     );
+      );
     }
-    if (myserializer != "d" && !constant("Memory.HAVE_" ~ myserializer.upper)) {
+    /*     if (myserializer != "d" && !constant("Memory.HAVE_" ~ myserializer.upper)) {
       throw new DInvalidArgumentException(
         "Memory extension is not compiled with `%s` support.".format(myserializer)
-     );
-    }
-
-    _memory.setOption(
-      Memory.OPT_SERIALIZER,
-      _serializers[myserializer]
-   ); // Check for Amazon ElastiCache instance
-    if (
-      defined("Memory.OPT_CLIENT_MODE") &&
-      defined("Memory.DYNAMIC_CLIENT_MODE")
-     ) {
-      _memory.setOption(Memory.OPT_CLIENT_MODE, Memory.DYNAMIC_CLIENT_MODE);
-    }
-
-    _memory.setOption(
-      Memory.OPT_COMPRESSION,
-      configuration.getBool("compress")
-   );
+     ); */
   }
+
+  /* _memory.setOption(
+    Memory.OPT_SERIALIZER,
+    _serializers[myserializer]
+  );  */
+  // Check for Amazon ElastiCache instance
+  /* if (
+    defined("Memory.OPT_CLIENT_MODE") &&
+    defined("Memory.DYNAMIC_CLIENT_MODE")
+    ) {
+    _memory.setOption(Memory.OPT_CLIENT_MODE, Memory.DYNAMIC_CLIENT_MODE);
+  } */
+
+  /* _memory.setOption(
+    Memory.OPT_COMPRESSION,
+    configuration.getBool("compress")
+  ); 
+}*/
 
   /**
      * Parses the server address into the host/port. Handles both IPv6 and IPv4
@@ -200,7 +200,7 @@ return true;
      * string myserver The server address string.
      */
   Json[string] parseServerString(string myserver) {
-    mysocketTransport = "unix://";
+    auto mysocketTransport = "unix://";
     if (myserver.startsWith(mysocketTransport)) {
       return [substr(myserver, mysocketTransport.length), 0];
     }
@@ -214,8 +214,8 @@ return true;
     } else {
       myposition = indexOf(myserver, ": ");
     }
-    myport = 11211;
-    myhost = myserver;
+    auto myport = 11211;
+    auto myhost = myserver;
     if (myposition != false) {
       myhost = substr(myserver, 0, myposition);
       myport = substr(myserver, myposition + 1);
@@ -286,22 +286,22 @@ return true;
   }
 
   // Delete a key from the cache
-  override bool removeItem(string itemKey) {
-    return _memory.removeItem(_key(itemKey));
+  override bool removeKey(string itemKey) {
+    return _memory.removeKey(_key(itemKey));
   }
 
   // Delete many keys from the cache at once
-  override bool removeItems(string[] itemKeys) {
+  override bool removeKeys(string[] itemKeys) {
     auto mycacheKeys = itemKeys
       .map!(key => _key(aKey)).array;
-    return /* (bool) */ _memory.deleteMulti(mycacheKeys);
+    return  /* (bool) */ _memory.deleteMulti(mycacheKeys);
   }
 
   // Delete all keys from the cache
   override bool clear() {
     _memory.getAllKeys()
       .filter!(key => key.startsWith(configuration.getString("prefix")))
-      .each!(key => _memory.removeItem(key));
+      .each!(key => _memory.removeKey(key));
     return true;
   }
 
@@ -344,7 +344,8 @@ return true;
   * old values will remain in storage until they expire.
   */
   override bool clearGroup(string groupName) {
-    return /* (bool) */ _memory.increment(configuration.getString("prefix") ~ groupName);
+    return  /* (bool) */ _memory.increment(configuration.getString("prefix") ~ groupName);
   }
 }
+
 mixin(CacheEngineCalls!("Memory"));

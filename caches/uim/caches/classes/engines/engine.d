@@ -42,7 +42,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
             _groupPrefix = str_repeat("%s_", configuration.getStringArray("groups").length);
         }
         if (!configuration.isNumeric("duration")) {
-            configuration["duration"] = configuration.get("duration").toTime - time();
+            // TODO configuration.set("duration", configuration.get("duration").toTime - time());
         }
 
         configuration.updateDefaults([
@@ -64,9 +64,9 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     protected string _groupPrefix = "";
 
     // Obtains multiple cache items by their unique keys.
-    Json[string] cacheItems(string[] someKeys, Json defaultValue = Json(null)) {
+    Json[string] cacheItems(string[] keys, Json defaultValue = Json(null)) {
         Json[string] results;
-        someKeys
+        keys
             .filter!(key => !key.isEmpty)
             .each!(key => results[key] = get(key, defaultValue));
 
@@ -75,28 +75,33 @@ abstract class DCacheEngine : ICache, ICacheEngine {
 
     // Persists a set of key: value pairs in the cache, with an optional TTL.
     bool cacheItems(Json[string] items, long timeToLive = 0) {
-        ensureValidType(myvalues, CHECK_KEY);
+        // TODO ensureValidType(myvalues, CHECK_KEY);
 
         Json restoreDuration = Json(null); 
         if (timeToLive != 0) {
-            restoreDuration = configurationData.hasKey("duration");
+            restoreDuration = configuration.hasKey("duration");
             configuration.set("duration", timeToLive);
         }
-        try {
+/*         try {
             return myvalues.byKeyValue.all!(kv => set(aKey, myvalue));
         } finally {
             if (!restoreDuration.isNull) {
                 configuration.set("duration", restoreDuration);
             }
         }
+ */        return false;
     }
 
     // Deletes multiple cache items as a list
-    bool removeItems(string[] someKeys) {
-        return someKeys.all!(key => removeItem(key));
+    bool removeKeys(string[] keys...) {
+        return removeKeys(keys.dup);
     }
 
-    bool removeItem(string key) {
+    bool removeKeys(string[] keys) {
+        return keys.all!(key => removeKey(key));
+    }
+
+    bool removeKey(string key) {
         if (!key.isEmpty) {
             // TODO remove(key);
             return true;
@@ -192,10 +197,10 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * if option warnOnWriteFailures is set to true.
      */
     protected void warning(string warningMessage) {
-        if (!configuration.getBool("warnOnWriteFailures") != true) {
+        if (!configuration.getBool("warnOnWriteFailures")) {
             return;
         }
-        triggerWarning(warningMessage);
+        // TODO triggerWarning(warningMessage);
     }
 
     // Convert the various expressions of a TTL value into duration in seconds

@@ -65,8 +65,9 @@ class DArrayCacheEngine : DCacheEngine {
       _cachedData.remove(key);
 
       return mydefault;
-    } */
-    return data["val"];
+    } 
+    return data["val"]; */
+    return Json(null);
   }
 
   // Increments the value of an integer cached key

@@ -44,7 +44,7 @@ class DApcuCacheEngine : DCacheEngine {
  */  }
 
   // Increments the value of an integer cached key
-  override int increment(string itemKey, int incValue = 1) {
+  override long increment(string itemKey, int incValue = 1) {
 /*     auto key = internalKey(itemKey);
 
     return apcu_inc(key, incValue); */
@@ -52,7 +52,7 @@ class DApcuCacheEngine : DCacheEngine {
   }
 
   // Decrements the value of an integer cached key
-  override int decrement(string itemKey, int decValue = 1) {
+  override long decrement(string itemKey, int decValue = 1) {
     /* auto key = internalKey(itemKey);
     return apcu_dec(key, myoffset); */
     return 0;

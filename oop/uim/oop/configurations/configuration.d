@@ -133,22 +133,10 @@ abstract class DConfiguration : IConfiguration {
         return defaultValue;
     }
 
-    int getLong(string key) {
-        Json result = get(key);
-        return result != Json(null)
-            ? result.get!int : 0;
-    }
-
     long getLong(string key) {
         Json result = get(key);
         return result != Json(null)
             ? result.get!long : 0;
-    }
-
-    float getDouble(string key) {
-        Json result = get(key);
-        return result != Json(null)
-            ? result.get!float : 0.0;
     }
 
     double getDouble(string key) {

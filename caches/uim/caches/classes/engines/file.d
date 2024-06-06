@@ -50,12 +50,12 @@ class DFileCacheEngine : DCacheEngine {
         return true;
     }
 
-    override int decrement(string itemKey, int decValue = 1) {
+    override long decrement(string itemKey, int decValue = 1) {
         // TODO throw new DLogicException("Files cannot be atomically decremented.");
         return 0;
     }
 
-    override int increment(string itemKey, int incValue = 1) {
+    override long increment(string itemKey, int incValue = 1) {
         // TODO 
         // throw new DLogicException("Files cannot be atomically incremented.");
         return 0; 

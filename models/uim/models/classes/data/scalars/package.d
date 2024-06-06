@@ -8,8 +8,8 @@ module uim.models.classes.data.scalars;
 public { 
 	import uim.models.classes.data.scalars.scalar;
 	import uim.models.classes.data.scalars.boolean;
+	import uim.models.classes.data.scalars.long_;
 	import uim.models.classes.data.scalars.number;
-	import uim.models.classes.data.scalars.integer;
 	import uim.models.classes.data.scalars.mixin_;
 	import uim.models.classes.data.scalars.string_; 
 }

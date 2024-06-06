@@ -71,7 +71,7 @@ class DArrayCacheEngine : DCacheEngine {
   }
 
   // Increments the value of an integer cached key
-  override int increment(string itemKey, int incValue = 1) {
+  override long increment(string itemKey, int incValue = 1) {
     return 0;
     // TODO
     /* 
@@ -87,7 +87,7 @@ class DArrayCacheEngine : DCacheEngine {
   }
 
   // Decrements the value of an integer cached key
-  /* int decrement(string itemKey, int decValue = 1) {
+  /* long decrement(string itemKey, int decValue = 1) {
     if (get(itemKey).isNull) {
       set(itemKey, Json(0));
     }

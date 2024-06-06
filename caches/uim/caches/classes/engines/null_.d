@@ -33,11 +33,11 @@ class DNullCacheEngine : DCacheEngine {
     return null;
   }
 
-  override int increment(string itemKey, int incValue = 1) {
+  override long increment(string itemKey, int incValue = 1) {
     return 1;
   }
 
-  override int decrement(string itemKey, int decValue = 1) {
+  override long decrement(string itemKey, int decValue = 1) {
     return 0;
   }
 

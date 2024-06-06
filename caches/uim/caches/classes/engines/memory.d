@@ -277,13 +277,13 @@ return true;
   }
 
   // Increments the value of an integer cached key
-  override int increment(string itemKey, int incValue = 1) {
+  override long increment(string itemKey, int incValue = 1) {
     // return _memory.increment(internalKey(aKey), myoffset);
     return 0; 
   }
 
   // Decrements the value of an integer cached key
-  override int decrement(string itemKey, int decValue = 1) {
+  override long decrement(string itemKey, int decValue = 1) {
     // return _memory.decrement(internalKey(itemKey), decValue);
     return 0; 
   }

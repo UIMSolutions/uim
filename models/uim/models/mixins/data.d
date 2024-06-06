@@ -180,7 +180,7 @@ template DataGet(string typeName, string dataType, string nullValue) {
   const char[] DataGet = `
     `~dataType~` get`~typeName~`() {
       return is`~typeName~` && _value.hasKey("value")
-        ? _value["value"].get!`~dataType~` : `~nullValue~`;
+        ? _value["value"].get!(`~dataType~`) : `~nullValue~`;
     }
   `;
 }

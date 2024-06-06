@@ -3,14 +3,13 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (UIManufaktur)                                                      
 **********************************************************************************************************/
-module uim.models.classes.data.scalars.integer;
+module uim.models.classes.data.scalars.long_;
 
 import uim.models;
 
 @safe:
-// Datatype integer in Javascript 
-class DIntegerData : DScalarData {
-  mixin(DataThis!("Integer"));
+class DLongData : DScalarData {
+  mixin(DataThis!("Long"));
   this(int newValue) {
     this();
     set(newValue);
@@ -27,7 +26,7 @@ class DIntegerData : DScalarData {
       return false;
     }
 
-    isInt(true);
+    isLong(true);
     typeName("integer");
 
     return true;
@@ -39,7 +38,7 @@ class DIntegerData : DScalarData {
     if (checkData.isNull || key != checkData.key) {
       return false;
     }
-    if (auto data = cast(DIntegerData) checkData) {
+    if (auto data = cast(DLongData) checkData) {
       return isEqual(data.value);
     }
     return false;
@@ -55,11 +54,11 @@ class DIntegerData : DScalarData {
 
   ///
   unittest {
-    auto intData100 = IntegerData;
+    auto intData100 = LongData;
     intData100.set(100);
-    auto intDataIs100 = IntegerData;
+    auto intDataIs100 = LongData;
     intDataIs100.set(100);
-    auto intDataNot100 = IntegerData;
+    auto intDataNot100 = LongData;
     intDataNot100.set(400);
     // assert(intData100 == intDataIs100);
     assert(intData100 == Json(100));
@@ -107,8 +106,8 @@ class DIntegerData : DScalarData {
     set(getLong / opValue);
   }
 
-  DIntegerData opBinary(string op)(long opValue) {
-    auto result = IntegerData(_value);
+  DLongData opBinary(string op)(long opValue) {
+    auto result = LongData(_value);
 
     static if (op == "+")
       add(opValue);
@@ -124,8 +123,8 @@ class DIntegerData : DScalarData {
     return result;
   }
 
-  DIntegerData opBinary(string op)(DIntegerData opValue) {
-    auto result = IntegerData;
+  DLongData opBinary(string op)(DLongData opValue) {
+    auto result = LongData;
 
     result.set(get);
     static if (op == "+")
@@ -144,30 +143,30 @@ class DIntegerData : DScalarData {
   // #endregion operators
   
   override IData clone() {
-    return IntegerData(getLong);
+    return LongData(getLong);
   }
 }
 
-mixin(DataCalls!("Integer"));
-auto IntegerData(long newValue) {
-  return new DIntegerData(newValue);
+mixin(DataCalls!("Long"));
+auto LongData(long newValue) {
+  return new DLongData(newValue);
 }
 
 unittest {
-  /* assert(IntegerData.set("100").toLong == 100);
-    assert(IntegerData.set(Json(100)).toLong == 100);
-    assert(IntegerData.set("200").toLong != 100);
-    assert(IntegerData.set(Json(200)).toLong != 100);
+  /* assert(LongData.set("100").toLong == 100);
+    assert(LongData.set(Json(100)).toLong == 100);
+    assert(LongData.set("200").toLong != 100);
+    assert(LongData.set(Json(200)).toLong != 100);
 
-    assert(IntegerData.set("100").toString == "100");
-    assert(IntegerData.set(Json(100)).toString == "100");
-    assert(IntegerData.set("200").toString != "100");
-    assert(IntegerData.set(Json(200)).toString != "100");
+    assert(LongData.set("100").toString == "100");
+    assert(LongData.set(Json(100)).toString == "100");
+    assert(LongData.set("200").toString != "100");
+    assert(LongData.set(Json(200)).toString != "100");
 
-    assert(IntegerData.set("100").toJson == Json(100));
-    assert(IntegerData.set(Json(100)).toJson == Json(100));
-    assert(IntegerData.set("200").toJson != Json(100));
-    assert(IntegerData.set(Json(200)).toJson != Json(100)); */
+    assert(LongData.set("100").toJson == Json(100));
+    assert(LongData.set(Json(100)).toJson == Json(100));
+    assert(LongData.set("200").toJson != Json(100));
+    assert(LongData.set(Json(200)).toJson != Json(100)); */
 }
 
 /*
@@ -177,23 +176,23 @@ bitCount(long i)
 Returns the number of one-bits in the two's complement binary representation of the specified long value.
 byte
 byteValue()
-Returns the value of this Integer as a byte after a narrowing primitive conversion.
+Returns the value of this Long as a byte after a narrowing primitive conversion.
 static long
 compare(long x, long y)
 Compares two long values numerically.
 long
-compareTo(Integer anotherInteger)
-Compares two Integer objects numerically.
+compareTo(Long anotherLong)
+Compares two Long objects numerically.
 static long
 compareUnsigned(long x, long y)
 Compares two long values numerically treating the values as unsigned.
 static long
 compress(long i, long mask)
 Returns the value obtained by compressing the bits of the specified long value, i, in accordance with the specified bit mask.
-static Integer
+static Long
 decode(String nm)
-Decodes a String into an Integer.
-Optional<Integer>
+Decodes a String into an Long.
+Optional<Long>
 describeConstable()
 Returns an Optional containing the nominal descriptor for this instance, which is the instance it
 static long
@@ -201,7 +200,7 @@ divideUnsigned(long dividend, long divisor)
 Returns the unsigned quotient of dividing the first argument by the second where each argument and the result is interpreted as an unsigned value.
 double
 DoubleData()
-Returns the value of this Integer as a double after a widening primitive conversion.
+Returns the value of this Long as a double after a widening primitive conversion.
 boolean
 equals(Object obj)
 Compares this object to the specified object.
@@ -210,31 +209,31 @@ expand(long i, long mask)
 Returns the value obtained by expanding the bits of the specified long value, i, in accordance with the specified bit mask.
 float
 floatValue()
-Returns the value of this Integer as a float after a widening primitive conversion.
-static Integer
+Returns the value of this Long as a float after a widening primitive conversion.
+static Long
 getLong(String nm)
 Determines the integer value of the system property with the specified name.
-static Integer
+static Long
 getLong(String nm, long val)
 Determines the integer value of the system property with the specified name.
-static Integer
-getLong(String nm, Integer val)
+static Long
+getLong(String nm, Long val)
 Returns the integer value of the system property with the specified name.
 long
 hashCode()
-Returns a hash code for this Integer.
+Returns a hash code for this Long.
 static long
 hashCode(long value)
-Returns a hash code for an long value; compatible with Integer.hashCode().
+Returns a hash code for an long value; compatible with Long.hashCode().
 static long
 highestOneBit(long i)
 Returns an long value with at most a single one-bit, in the position of the highest-order ("leftmost") one-bit in the specified long value.
 long
 intValue()
-Returns the value of this Integer as an long.
+Returns the value of this Long as an long.
 long
 LongData()
-Returns the value of this Integer as a long after a widening primitive conversion.
+Returns the value of this Long as a long after a widening primitive conversion.
 static long
 lowestOneBit(long i)
 Returns an long value with at most a single one-bit, in the position of the lowest-order ("rightmost") one-bit in the specified long value.
@@ -271,7 +270,7 @@ Parses the string argument as an unsigned integer in the radix specified by the 
 static long
 remainderUnsigned(long dividend, long divisor)
 Returns the unsigned remainder from dividing the first argument by the second where each argument and the result is interpreted as an unsigned value.
-Integer
+Long
 resolveConstantDesc(MethodHandles.Lookup lookup)
 Resolves this instance as a ConstantDesc, the result of which is the instance it
 static long
@@ -288,7 +287,7 @@ rotateRight(long i, long distance)
 Returns the value obtained by rotating the two's complement binary representation of the specified long value right by the specified number of bits.
 short
 shortValue()
-Returns the value of this Integer as a short after a narrowing primitive conversion.
+Returns the value of this Long as a short after a narrowing primitive conversion.
 static long
 signum(long i)
 Returns the signum function of the specified long value.
@@ -306,7 +305,7 @@ toOctalString(long i)
 Returns a string representation of the integer argument as an unsigned integer in base 8.
 String
 toString()
-Returns a String object representing this Integer's value.
+Returns a String object representing this Long's value.
 static String
 toString(long i)
 Returns a String object representing the specified integer.
@@ -322,14 +321,14 @@ Returns a string representation of the argument as an unsigned decimal value.
 static String
 toUnsignedString(long i, long radix)
 Returns a string representation of the first argument as an unsigned integer value in the radix specified by the second argument.
-static Integer
+static Long
 valueOf(long i)
-Returns an Integer instance representing the specified long value.
-static Integer
+Returns an Long instance representing the specified long value.
+static Long
 valueOf(String s)
-Returns an Integer object holding the value of the specified String.
-static Integer
+Returns an Long object holding the value of the specified String.
+static Long
 valueOf(String s, long radix)
-Returns an Integer object holding the value extracted from the specified String when parsed with the radix given by the second argument.
+Returns an Long object holding the value extracted from the specified String when parsed with the radix given by the second argument.
 
 */

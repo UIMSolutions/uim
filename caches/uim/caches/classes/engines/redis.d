@@ -120,7 +120,7 @@ class DRedisCacheEngine : DCacheEngine {
     }
     
     // Increments the value of an integer cached key & update the expiry time
-    override int increment(string itemKey, int incOffset = 1) {
+    override long increment(string itemKey, int incOffset = 1) {
         /* auto aDuration = configuration.get("duration");
         auto aKey = internalKey(itemKey);
 
@@ -132,7 +132,7 @@ class DRedisCacheEngine : DCacheEngine {
     }
     
     // Decrements the value of an integer cached key & update the expiry time
-    override int decrement(string itemKey, int decValue = 1) {
+    override long decrement(string itemKey, int decValue = 1) {
         auto aDuration = configuration.get("duration");
         auto aKey = internalKey(itemKey);
 

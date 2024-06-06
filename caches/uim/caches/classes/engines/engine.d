@@ -130,12 +130,12 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     abstract bool set(string itemKey, Json valueToStore, long timeToLive = 0);
 
     // Increment a number under the key and return incremented value
-    int increment(string itemKey, int incValue = 1) {
+    long increment(string itemKey, int incValue = 1) {
         return 0;
     }
 
     // Decrement a number under the key and return decremented value
-    int decrement(string itemKey, int decValue = 1) {
+    long decrement(string itemKey, int decValue = 1) {
         return 0;
     }
 

@@ -298,7 +298,7 @@ class DCache : ICache {
     } */
 
     // Decrement a number under the key and return decremented value.
-    /* static int decrement(string itemKey, int decValue = 1, string configName = "default") {
+    /* static long decrement(string itemKey, int decValue = 1, string configName = "default") {
         if (decValue < 0) {
             throw new DInvalidArgumentException("Offset cannot be less than `0`.");
         }

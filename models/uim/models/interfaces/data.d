@@ -19,13 +19,11 @@ interface IData {
             bool isBool();	 
             void isBool(bool mode);
 
-            bool isFloat();	 
             bool isDouble();	 
-            void isFloat(bool mode);
+            void isDouble(bool mode);
 
-            bool isInt();	 
             bool isLong();	 
-            void isInt(bool mode);
+            void isLong(bool mode);
 
             bool isNull();	 
             void isNull(bool mode);
@@ -82,9 +80,7 @@ interface IData {
 
     // #region get
         bool getBool();
-        int getLong();
         long getLong(); 
-        float getFloat();
         double getDouble();
         string getString();
         UUID getUUID();
@@ -93,10 +89,8 @@ interface IData {
 
     // #region isEqual
         bool isEqual(bool value);
-        bool isEqual(int value);
-        /* bool isEqual(long value); */
-        bool isEqual(float value);
-        /* bool isEqual(double value); */
+        bool isEqual(long value); 
+        bool isEqual(double value);
         bool isEqual(string value);
         bool isEqual(UUID value);
         /* bool isEqual(Json value); */
@@ -104,9 +98,7 @@ interface IData {
 
     // #region set
         void set(bool value);
-        void set(int value);
         void set(long value);
-        void set(float value);
         void set(double value);
         void set(string value);
         void set(UUID value);

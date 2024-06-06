@@ -157,7 +157,7 @@ class DMemoryConfiguration : DConfiguration {
             ? false : set(key, value);
     }
 
-    override bool removeItem(string key) {
+    override bool remove(string key) {
         return _data.remove(key);
     }
 }

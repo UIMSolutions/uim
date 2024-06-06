@@ -108,7 +108,7 @@ class DSelectBoxWidget : DWidget {
 
         options = _renderContent(renderData);
         auto nameData = renderData["name"];
-        renderData.removeKeys("name", "options", "empty", "val", "escape");
+        renderData.removeItems("name", "options", "empty", "val", "escape");
         if (renderData.hasKey("disabled") && renderData["disabled"].isArray) {
             renderData.remove("disabled");
         }

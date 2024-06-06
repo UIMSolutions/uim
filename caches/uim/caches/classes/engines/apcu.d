@@ -7,24 +7,24 @@ import uim.caches;
 // APCu storage engine for cache
 class DApcuCacheEngine : DCacheEngine {
   mixin(CacheEngineThis!("Apcu"));
-  /**
-     * Contains the compiled group names
-     * (prefixed with the global configuration prefix)
-     */
+
+  // Contains the compiled group names (prefixed with the global configuration prefix)
   protected string[] _compiledGroupNames;
 
   override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) { return false; }
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
-/*     if (!extension_loaded("apcu")) {
+    /*     if (!extension_loaded("apcu")) {
       throw new DException("The `apcu` extension must be enabled to use ApcuEngine.");
     }   */
-    
+
     return true;
   }
 
   // Write data for key into cache
-     
+
   override bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
     return false;
     // TODO 
@@ -36,36 +36,34 @@ class DApcuCacheEngine : DCacheEngine {
 
   // Read a key from the cache
   override Json get(string itemKey, Json defaultValue = Json(null)) {
-    return Json(null); 
-    // TODO 
-/*     auto myValue = apcu_fetch(internalKey(itemKey), mysuccess);
-    
-    return mysuccess ? myValue : defaultValue;
- */  }
+    auto internKey = internalKey(key);
+    // TODO /*     auto myValue = apcu_fetch(internalKey(internKey), mysuccess);
+
+    // return mysuccess ? myValue : defaultValue;
+    return Json(null);
+  }
 
   // Increments the value of an integer cached key
-  override long increment(string itemKey, int incValue = 1) {
-/*     auto key = internalKey(itemKey);
-
-    return apcu_inc(key, incValue); */
+  override long increment(string key, int incValue = 1) {
+    auto internKey = internalKey(key);
+    // TODO return apcu_inc(internKey, incValue); */
     return 0;
   }
 
   // Decrements the value of an integer cached key
-  override long decrement(string itemKey, int decValue = 1) {
-    /* auto key = internalKey(itemKey);
-    return apcu_dec(key, myoffset); */
+  override long decrement(string key, int decValue = 1) {
+    auto internKey = internalKey(itemKey);
+    // TODO return apcu_dec(internKey, myoffset); */
     return 0;
   }
 
   // Delete a key from the cache
-  /* override bool remove(string[] itemKeys) {
-    // TODO
-  /* override bool remove(string itemKey) {
-    auto key = internalKey(itemKey);
+  override bool remove(string key) {
+    auto internKey = internalKey(key);
 
-    return apcu_remove(key);
-  } */
+    // TODO return apcu_remove(internKey);
+    return false;
+  }
 
   //  Delete all keys from the cache. This will clear every cache config using APC.
   /* override bool clear() {
@@ -85,18 +83,18 @@ class DApcuCacheEngine : DCacheEngine {
       .each!(key => apcu_remove(aKey["info"]));
     }
     return true;
-  } */ 
+  } */
 
   /**
      * Write data for key into cache if it doesn`t exist already.
      * If it already exists, it fails and returns false.
      */
   /* override bool add(string itemKey, Json dataToCache) {
-    auto myKey = internalKey(itemKey);
+    auto internKey = internalKey(itemKey);
     Json duration = configuration.get("duration");
 
-    return apcu_add(myKey, dataToCache, duration);
-  } */ 
+    return apcu_add(internKey, dataToCache, duration);
+  } */
 
   /**
      * Returns the `group value` for each of the configured groups
@@ -104,7 +102,8 @@ class DApcuCacheEngine : DCacheEngine {
      */
   override string[] groups() {
     if (_compiledGroupNames.isEmpty) {
-      configuration.getArray("groups").map!(group => configuration.getString("prefix") ~ group).array;
+      configuration.getArray("groups")
+        .map!(group => configuration.getString("prefix") ~ group).array;
     }
     auto mysuccess = false;
     // TODO 
@@ -131,7 +130,7 @@ class DApcuCacheEngine : DCacheEngine {
       results ~= mygroup ~ groupValues[myi];
     } */
     return results;
-  } 
+  }
 
   /*
      * Increments the group value to simulate deletion of all keys under a group
@@ -144,4 +143,5 @@ class DApcuCacheEngine : DCacheEngine {
     return isSuccess;
   }
 }
+
 mixin(CacheEngineCalls!("Apcu"));

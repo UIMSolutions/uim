@@ -101,29 +101,31 @@ class DRedisCacheEngine : DCacheEngine {
     }
     
     // Write data for key into cache.
-    override bool set(string dataId, Json dataToCache, long timeToLive = 0) {
-        auto myKey = internalKey(dataId);
+    override bool set(string key, Json dataToCache, long timeToLive = 0) {
+        auto internKey = internalKey(key);
         auto serializedData = serialize(dataToCache);
 
         auto myDuration = duration(timeToLive);
         return myDuration == 0
-            ? _redis.set(myKey, serializedData) 
-            : _redis.setEx(myKey, myDuration, serializedData);
+            ? _redis.set(internKey, serializedData) 
+            : _redis.setEx(internKey, myDuration, serializedData);
     }
     
     // Read a key from the cache
-    override Json get(string aKey, Json defaultValue = Json(null)) {
-        auto value = _redis.get(internalKey(aKey));
-        return value == false
+    override Json get(string key, Json defaultValue = Json(null)) {
+        auto internKey = internalKey(key);
+        auto value = _redis.get(internKey);
+        return value.isNull
             ? defaultValue  
             : _unserialize(value);
     }
     
     // Increments the value of an integer cached key & update the expiry time
-    override long increment(string itemKey, int incOffset = 1) {
-        /* auto aDuration = configuration.get("duration");
+    override long increment(string key, int incOffset = 1) {
         auto aKey = internalKey(itemKey);
+        auto aDuration = configuration.getLong("duration");
 
+        /* 
         auto aValue = _redis.incrBy(aKey, incOffset);
         if (aDuration > 0) {
            _redis.expire(aKey,  aDuration);
@@ -144,7 +146,7 @@ class DRedisCacheEngine : DCacheEngine {
     }
     
     // Delete a key from the cache
-    override bool remove(string dataIdentifier) {
+    override bool remove(string key) {
         auto key = internalKey(dataIdentifier);
         return _redis.del(key) > 0;
     }

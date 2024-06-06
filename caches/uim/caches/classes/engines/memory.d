@@ -231,7 +231,7 @@ return true;
      * int myname The option name to read.
      */
   Json getOption(string myname) {
-    return _memory.ge^^t(myname);
+    return _memory.get(myname);
   }
 
   /**
@@ -244,12 +244,19 @@ return true;
     return _memory.set(internalKey(itemKey), dataToCache, duration(timeToLive));
   }
 
-  // Write many cache entries to the cache at once
-  override bool set(Json[string] values, long timeToLive = 0) {
+  override bool merge(Json[string] values, long timeToLive = 0) {
     Json[string] cacheData = null;
-    /* values.byKeyValue
-      .each!(kv => cacheData[internalKey(kv.key)] = kv.value); */
-    return _memory.setMulti(cacheData, duration(timeToLive));
+    values.byKeyValue
+      .each!(kv => cacheData[internalKey(kv.key)] = kv.value);
+    return _memory.merge(cacheData, duration(timeToLive));
+  }
+
+  // Write many cache entries to the cache at once
+  override bool setItems(Json[string] values, long timeToLive = 0) {
+    Json[string] cacheData = null;
+    values.byKeyValue
+      .each!(kv => cacheData[internalKey(kv.key)] = kv.value);
+    return _memory.update(cacheData, duration(timeToLive));
   }
 
   // Read a key from the cache
@@ -260,44 +267,30 @@ return true;
     return Json(null);
   }
 
-  /**
-     * Read many keys from the cache at once
-     * Params:
-     * iterable<string> someKeys An array of identifiers for the data
-     */
+  // Read many keys from the cache at once
   override Json[string] items(string[] keys, Json defaultValue = Json(null)) {
     STRINGAA cacheKeys = null;
     keys.each!(key => cacheKeys[key] = internalKey(key));
-    Json[string] values = _memory.data(cacheKeys.values);
+    Json[string] values = _memory.items(cacheKeys.values);
     Json[string] results;
-    foreach (myoriginal, myprefixed; cacheKeys) {
-      results[myoriginal] = values.get(myprefixed, defaultValue);
-    }
+    cacheKeys.byKeyValue.each(kv => 
+      results[kv.key] = values.get(kv.value, defaultValue));
     return results;
   }
 
   // Increments the value of an integer cached key
-  override long increment(string itemKey, int incValue = 1) {
-    // return _memory.increment(internalKey(aKey), myoffset);
-    return 0; 
+  override long increment(string key, int incValue = 1) {
+    return _memory.set(internalKey(key), _memory.getLong(internalKey(key)) + incValue);
   }
 
   // Decrements the value of an integer cached key
   override long decrement(string itemKey, int decValue = 1) {
-    // return _memory.decrement(internalKey(itemKey), decValue);
-    return 0; 
+    return _memory.set(internalKey(key), _memory.getLong(internalKey(key)) - decValue);
   }
 
   // Delete a key from the cache
-  override bool remove(string itemKey) {
-    return _memory.remove(internalKey(itemKey));
-  }
-
-  // Delete many keys from the cache at once
-  override bool removeItems(string[] itemKeys) {
-    auto internalKeys = itemKeys
-      .map!(key => internalKey(key)).array;
-    return _memory.remove(internalKeys);
+  override bool removeItem(string key) {
+    return _memory.remove(internalKey(key));
   }
 
   // Delete all keys from the cache
@@ -348,8 +341,8 @@ return true;
   * old values will remain in storage until they expire.
   */
   override bool clearGroup(string groupName) {
-    return  /* (bool) */ _memory.increment(configuration.getString("prefix") ~ groupName);
+    // TODO return  /* (bool) */ _memory.increment(configuration.getString("prefix") ~ groupName);
+    return false;
   }
 }
-
 mixin(CacheEngineCalls!("Memory"));

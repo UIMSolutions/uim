@@ -57,117 +57,92 @@ abstract class DCacheEngine : ICache, ICacheEngine {
 
     mixin(TProperty!("string", "name"));
 
-    /**
-     * Contains the compiled string with all group
-     * prefixes to be prepended to every key in this cache engine
-     */
-    protected string _groupPrefix = "";
+    // Group prefixes to be prepended to every key in this cache engine
+    mixin(TPropery!("string", "groupName"));
 
-    // Obtains multiple cache items by their unique keys.
-    Json[string] items(string[] keys, Json defaultValue = Json(null)) {
-        Json[string] results;
-        keys
-            .filter!(key => !key.isEmpty)
-            .each!(key => results[key] = get(key, defaultValue));
-
-        return results;
-    }
-
-    // Persists a set of key: value pairs in the cache, with an optional TTL.
-    bool items(Json[string] items, long timeToLive = 0) {
-        // TODO ensureValidType(myvalues, CHECK_KEY);
-
-        Json restoreDuration = Json(null); 
-        if (timeToLive != 0) {
-            restoreDuration = configuration.hasKey("duration");
-            configuration.set("duration", timeToLive);
+    // #region items
+        // Obtains multiple cache items by their unique keys.
+        void items(Json[string] itemData, long timeToLive = 0) {
+            merge(itemData, timeToLive);
         }
-/*         try {
-            return myvalues.byKeyValue.all!(kv => set(aKey, myvalue));
-        } finally {
-            if (!restoreDuration.isNull) {
-                configuration.set("duration", restoreDuration);
+
+        Json[string] items(string[] keys) {
+            Json[string] results;
+            keys
+                .filter!(key => !key.isEmpty)
+                .each!(key => results[key] = get(key));
+
+            return results;
+        }
+
+        // Persists a set of key: value pairs in the cache, with an optional TTL.
+        bool items(Json[string] items, long timeToLive = 0) {
+            // TODO ensureValidType(myvalues, CHECK_KEY);
+
+            Json restoreDuration = Json(null); 
+            if (timeToLive != 0) {
+                restoreDuration = configuration.hasKey("duration");
+                configuration.set("duration", timeToLive);
             }
+            try {
+                return items.byKeyValue
+                    .all!(kv => update(aKey, myvalue));
+            } finally {
+                if (restoreDuration.isNull) {
+                    configuration.set("duration", restoreDuration);
+                }
+            }
+            return false;
         }
- */        return false;
-    }
-
-    // Deletes multiple cache items as a list
-    bool removeItems(string[] keys...) {
-        return removeItems(keys.dup);
-    }
-
-    bool removeItems(string[] keys) {
-        return keys.all!(key => remove(key));
-    }
-
-    bool removeItem(string key) {
-        if (!key.isEmpty) {
-            // TODO remove(key);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Determines whether an item is present in the cache.
-     *
-     * NOTE: It is recommended that has() is only to be used for cache warming type purposes
-     * and not to be used within your live applications operations for get/set, as this method
-     * is subject to a race condition where your has() will return true and immediately after,
-     * another script can remove it making the state of your app out of date.
-     */
-    bool has(string itemKey) {
-        return false;
-    }
+    // #region items
 
     // Fetches the value for a given key from the cache.
-    Json get(string itemKey, Json defaultValue = Json(null)) {
-        return Json(null);
+    Json[] get(string[] keys, Json defaultValue = Json(null)) {
+        return keys.map!(key => get(key, defaultValue)).array;
     }
+    abstract Json get(string key, Json defaultValue = Json(null));
 
     // Persists data in the cache, uniquely referenced by the given key with an optional expiration TTL time.
-    abstract bool set(string itemKey, Json valueToStore, long timeToLive = 0);
+    bool update(Json[string] items, long timeToLive = 0) {
+        return items.byKeyValue
+            .all!(kv => update(aKey, myvalue));
+    }
+    abstract bool update(string key, Json value, long timeToLive = 0);
 
     // Increment a number under the key and return incremented value
-    long increment(string itemKey, int incValue = 1) {
-        return 0;
-    }
+    abstract long increment(string key, int incValue = 1); 
 
     // Decrement a number under the key and return decremented value
-    long decrement(string itemKey, int decValue = 1) {
-        return 0;
-    }
+    abstract long decrement(string key, int decValue = 1);
 
-    // Delete a key from the cache
-    bool remove(string itemKey) {
-        return false;
-    }
-
-    // Delete all keys from the cache
-    bool clear() {
-        return false;
-    }
-
-    /**
-     * Add a key to the cache if it does not already exist.
-     *
-     * Defaults to a non-atomic implementation. Subclasses should
-     * prefer atomic implementations.
-     */
-    bool add(string itemKey, Json dataToCache) {
-        auto cachedValue = get(itemKey);
+    // Merge an item (key, value) to the cache if it does not already exist.
+    bool merge(string key, Json value) {
+        auto cachedValue = get(key);
         return cachedValue.isNull
-            ? set(itemKey, dataToCache) : false;
+            ? set(key, value) : false;
     }
+
+    // #region remove
+        // Delete all keys from the cache
+        bool clear() {
+            return removeItems(keys);
+        }
+
+        // Deletes multiple cache items as a list
+        bool removeItems(string[] keys) {
+            return keys.all!(key => removeItem(key));
+        }
+
+        // Delete a key from the cache
+        abstract bool removeItem(string key); 
+    // #endregion remove
+
 
     /**
      * Clears all values belonging to a group. Is up to the implementing engine
      * to decide whether actually delete the keys or just simulate it to achieve the same result.
      */
-    bool clearGroup(string groupName) {
-        return false;
-    }
+    abstract bool clearGroup(string groupName); 
 
     /**
      * Does whatever initialization for each group is required and returns the `group value` for each of them, 
@@ -183,12 +158,12 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * If the requested key is valid, the group prefix value and engine prefix are applied.
      * Whitespace in keys will be replaced.
      */
-    protected string internalKey(string itemKey) {
+    protected string internalKey(string key) {
         string prefix = _groupPrefix
             ? groups().join("_") //TODO md5(groups().join("_"))
              : "";
 
-        // TODO auto changedKey = itemKey.replaceAll.regex(r"/[\s]+/", "_");
+        // TODO auto changedKey = key.replaceAll.regex(r"/[\s]+/", "_");
         return configuration.getString("prefix") ~ prefix; //  ~ changedKey;
     }
 

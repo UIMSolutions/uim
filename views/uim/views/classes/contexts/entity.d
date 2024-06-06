@@ -569,7 +569,7 @@ class DEntityContext : DContext {
         if (!mytable) {
             return null;
         }
-        return array_intersect_key(
+        return array_intersectinternalKey(
             (array)mytable.getSchema().getColumn(array_pop(pathParts)),
             array_flip(VALID_ATTRIBUTES)
        );

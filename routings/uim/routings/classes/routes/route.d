@@ -495,7 +495,7 @@ class DRoute : IRoute {
             myurl = _persistParams(myurl, mycontext["params"]);
         }
         unset(mycontext["params"]);
-        myhostOptions = array_intersect_key(myurl, mycontext);
+        myhostOptions = array_intersectinternalKey(myurl, mycontext);
 
         // Apply the _host option if possible
         if (isSet(configuration.set("_host"])) {
@@ -545,7 +545,7 @@ class DRoute : IRoute {
         unset(myurl["_method"], myurl["[method]"], _defaultValues["_method"]);
 
         // Defaults with different values are a fail.
-        if (array_intersect_key(myurl, _defaultValues) != _defaultValues) {
+        if (array_intersectinternalKey(myurl, _defaultValues) != _defaultValues) {
             return null;
         }
         // If this route uses pass option, and the passed elements are
@@ -560,7 +560,7 @@ class DRoute : IRoute {
         }
         // check that all the key names are in the url
         mykeyNames = array_flip(this.keys);
-        if (array_intersect_key(mykeyNames, myurl) != mykeyNames) {
+        if (array_intersectinternalKey(mykeyNames, myurl) != mykeyNames) {
             return null;
         }
         mypass = null;

@@ -236,7 +236,7 @@ class DArrayContext : DContext {
         myschema = Hash.get(_context["schema"], fieldName)
             ?? Hash.get(_context["schema"], this.stripNesting(fieldName));
 
-        return array_intersect_key(
+        return array_intersectinternalKey(
             (array)myschema,
             array_flip(VALID_ATTRIBUTES)
        );

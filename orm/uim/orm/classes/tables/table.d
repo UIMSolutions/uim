@@ -1763,7 +1763,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
 
         // Generate primary keys preferring values in mydata.
         primaryKey = array_combine(primaryKey, myid);
-        primaryKey = array_intersect_key(mydata, primaryKey) + primaryKey;
+        primaryKey = array_intersectinternalKey(mydata, primaryKey) + primaryKey;
 
         myfilteredKeys = array_filter(primaryKey, auto (myv) {
             return myv !is null;
@@ -1844,7 +1844,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         myprimaryColumns = (array)this.primaryKeys();
         myprimaryKey = myentity.extract(myprimaryColumns);
 
-        mydata = array_diff_key(mydata, myprimaryKey);
+        mydata = array_diffinternalKey(mydata, myprimaryKey);
         if (isEmpty(mydata)) {
             return myentity;
         }

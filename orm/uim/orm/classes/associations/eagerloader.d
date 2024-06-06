@@ -330,7 +330,7 @@ class DEagerLoader {
                 myprocessed[aliasName] = true;
             }
             mynewAttachable = this.attachableAssociations(myrepository);
-            myattachable = array_diff_key(mynewAttachable, myprocessed);
+            myattachable = array_diffinternalKey(mynewAttachable, myprocessed);
         } while (!myattachable.isEmpty);
     }
     
@@ -396,11 +396,11 @@ class DEagerLoader {
         }
         mytable = myinstance.getTarget();
 
-        myextra = array_diff_key(options, mydefaults);
+        myextra = array_diffinternalKey(options, mydefaults);
         configData = [
             "associations": Json.emptyArray,
             "instance": myinstance,
-            "config": array_diff_key(options, myextra),
+            "config": array_diffinternalKey(options, myextra),
             "aliasPath": strip(mypaths["aliasPath"], "."),
             "propertyPath": strip(mypaths["propertyPath"], "."),
             "targetProperty": myinstance.getProperty(),

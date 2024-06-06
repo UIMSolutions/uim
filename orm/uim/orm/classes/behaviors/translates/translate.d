@@ -113,7 +113,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
 
     // Create strategy instance.
     protected ITranslateStrategy createStrategy() {
-        configData = array_diff_key(
+        configData = array_diffinternalKey(
             configuration,
             ["implementedFinders", "implementedMethods", "strategyClass"]
        );

@@ -393,7 +393,7 @@ class DResultset : IResultset {
             matching = _matchingMap[alias];
             results["_matchingData"][alias] = array_combine(
                 keys,
-                array_intersect_key(row, keys)
+                array_intersectinternalKey(row, keys)
             );
             if (_hydrate) {
                 /** @var DORMDORMTable aTable */
@@ -406,7 +406,7 @@ class DResultset : IResultset {
         }
 
         foreach (_map as table: keys) {
-            results[table] = array_combine(keys, array_intersect_key(row, keys));
+            results[table] = array_combine(keys, array_intersectinternalKey(row, keys));
             presentAliases[table] = true;
         }
 

@@ -13,69 +13,78 @@ mixin template TCollection() {
      *
      * Allows classes which use this template to determine their own
      * type of returned collection interface
-     */
+     * /
     protected ICollection newCollection(Json[] arguments...) {
         return new DCollection(arguments);
     }
  
-    void each(bool delegate(string key, Json, value) callback) {
-        this.optimizeUnwrap.byKeyValue
+    void each(void delegate(string key, Json value) callback) {
+        optimizeUnwrap.byKeyValue
             .each!(kv => callback(kv.value, kv.key));
     }
  
-    ICollection filter(callable aCallback = null) {
-        mycallback ??= auto (myv) {
+    ICollection filter(bool delegate(string key, Json value) callback) {
+       /*  mycallback ??= auto (myv) {
             return (bool)myv;
-        };
+        }; * /
 
-        return new DFilterIterator(unwrap(), mycallback);
+        // TODO return new DFilterIterator(unwrap(), mycallback);
+        return null;
     }
  
     ICollection reject(callable aCallback = null) {
-        mycallback ??= auto (myv, myKey, myi) {
+        // TODO 
+        /* mycallback ??= auto (myv, myKey, myi) {
             return (bool)myv;
         };
 
         return new DFilterIterator(unwrap(), fn (myvalue, aKey, myitems): 
-        !mycallback(myvalue, aKey, myitems));
+        !mycallback(myvalue, aKey, myitems)); * /
+
+        return null; 
     }
  
     ICollection unique(callable aCallback = null) {
-        mycallback ??= auto (myv) {
+        // TODO 
+        /* mycallback ??= auto (myv) {
             return myv;
         };
 
-        return new DUniqueIterator(unwrap(), mycallback);
+        return new DUniqueIterator(unwrap(), mycallback); * /
     }
  
     bool every(callable aCallback) {
-        foreach (aKey: myvalue; optimizeUnwrap()) {
+/*         foreach (aKey: myvalue; optimizeUnwrap()) {
             if (!mycallback(myvalue, aKey)) {
                 return false;
             }
-        }
+        } * /
         return true;
     }
  
     bool any(callable aCallback) {
-        foreach (key; value; optimizeUnwrap()) {
+/*         foreach (key; value; optimizeUnwrap()) {
             if (mycallback(value, key) == true) {
                 return true;
             }
-        }
+        } * /
         return false;
     }
  
     bool contains(Json aValue) {
-        return optimizeUnwrap().any!(value => value == aValue); 
+        return false;
+        // TODO return optimizeUnwrap().any!(value => value == aValue); 
     }
  
     ICollection map(callable aCallback) {
-        return new DReplaceIterator(unwrap(), mycallback);
+        return false;
+        // TODO return new DReplaceIterator(unwrap(), mycallback);
     }
  
     Json reduce(callable aCallback, Json myinitial = null) {
-        myisFirst = false;
+        return Json(null);
+        // TODO 
+        /* myisFirst = false;
         if (func_num_args() < 2) {
             myisFirst = true;
         }
@@ -88,11 +97,11 @@ mixin template TCollection() {
             }
             result = mycallback(result, myvalue, myKey);
         }
-        return result;
+        return result; * /
     }
  
     ICollection extract(string mypath) {
-        auto myextractor = new DExtractIterator(unwrap(), mypath);
+/*         auto myextractor = new DExtractIterator(unwrap(), mypath);
         if (isString(mypath) && mypath.has("{*}")) {
             myextractor = myextractor
                 .filter(function (mydata) {
@@ -100,7 +109,8 @@ mixin template TCollection() {
                 })
                 .unfold();
         }
-        return myextractor;
+        return myextractor; * /
+        return null; 
     }
  
     Json max(string mypath, int sortMode = SORT_NUMERIC) {
@@ -111,7 +121,7 @@ mixin template TCollection() {
         return (new DSortIterator(unwrap(), mypath, SORT_ASC, sortMode)).first();
     }
  
-    float avg(string mypath = null) {
+    double avg(string mypath = null) {
         auto result = this;
         if (!mypath.isNull) {
             result = result.extract(mypath);
@@ -155,7 +165,7 @@ mixin template TCollection() {
     ICollection groupBy(string mypath) {
         mycallback = _propertyExtractor(mypath);
         auto mygroups = null;
-        this.optimizeUnwrap().each!((value) {
+        optimizeUnwrap().each!((value) {
             if (auto pathValue = mycallback(value)) {
                 mygroups[pathValue] ~= value;
             }
@@ -172,7 +182,7 @@ mixin template TCollection() {
     ICollection indexBy(string mypath) {
         mycallback = _propertyExtractor(mypath);
         mygroup = null;
-        this.optimizeUnwrap().each!((value) {
+        optimizeUnwrap().each!((value) {
             auto pathValue = mycallback(value);
             if (pathValue.isNull) {
                 throw new DInvalidArgumentException(
@@ -200,7 +210,7 @@ mixin template TCollection() {
         }
         mycallback = _propertyExtractor(mypath);
         
-        auto sum = this.optimizeUnwrap().byKeyValue
+        auto sum = optimizeUnwrap().byKeyValue
             .map!(kv => mycallback(kv.value, kv.key)).sum;
 
         return sum;
@@ -323,7 +333,7 @@ mixin template TCollection() {
              * - result = myhead + mytail = [6, 7, 8, 9]
              *
              * The logic above applies to collections of any size.
-              */
+              * /
 
             foreach (myiterator as myKey: myitem) {
                 result[mybucket] = [myKey, myitem];
@@ -423,7 +433,7 @@ mixin template TCollection() {
                 .each!(value => result += myvalue);
 
             mymapReduce.emit(result, aKey);
-        }; */
+        }; * /
 
         return _newCollection(new DMapReduce(unwrap(), mymapper, myreducer));
     }
@@ -444,7 +454,7 @@ mixin template TCollection() {
             myparentId = myparentPath(myrow, aKey);
             myparents[myid] = &myrow;
             mymapReduce.emitIntermediate(myid, myparentId);
-        }; */
+        }; * /
 
         /* auto myreducer = auto (myvalues, aKey, MapReduce mymapReduce) use (&myparents, &myisObject, mynestingKey) {
             static myfoundOutType = false;
@@ -462,10 +472,10 @@ mixin template TCollection() {
             auto mychildren = myvalues
                 .map!(id => &myparents[id]).array;
             myparents[aKey][mynestingKey] = mychildren;
-        }; */
+        }; * /
 
         /* return _newCollection(new DMapReduce(unwrap(), mymapper, myreducer))
-            .map(fn (myvalue): myisObject ? myvalue : myvalue.getArrayCopy()); */
+            .map(fn (myvalue): myisObject ? myvalue : myvalue.getArrayCopy()); * /
         return null; 
     }
  
@@ -576,7 +586,7 @@ mixin template TCollection() {
         } else {
             myitems = [myitems];
         }
-        /** @var callable aCallback */
+        /** @var callable aCallback * /
         return new DZipIterator(chain([unwrap()], myitems), mycallback);
     }
  
@@ -626,10 +636,7 @@ mixin template TCollection() {
  
     Iterator unwrap() {
         myiterator = this;
-        while (
-            myiterator.classname == Collection.classname
-            && cast(DOuterIterator)myiterator
-       ) {
+        while (myiterator.classname == Collection.classname && cast(DOuterIterator)myiterator) {
             myiterator = myiterator.getInnerIterator();
         }
         if (myiterator != this && cast(ICollection)myiterator) {
@@ -665,7 +672,7 @@ mixin template TCollection() {
 
         while (!(mychangeIndex == 0 && mycurrentIndexes[0] == mycollectionArraysCounts[0])) {
             mycurrentCombination = array_map(function (myvalue, someKeys, myindex) {
-                /** @psalm-suppress InvalidArrayOffset */
+                /** @psalm-suppress InvalidArrayOffset * /
                 return myvalue[someKeys[myindex]];
             }, mycollectionArrays, mycollectionArraysKeys, mycurrentIndexes);
 
@@ -674,7 +681,7 @@ mixin template TCollection() {
             }
             mycurrentIndexes[mylastIndex]++;
 
-            /** @psalm-suppress InvalidArrayOffset */
+            /** @psalm-suppress InvalidArrayOffset * /
             for (
                 mychangeIndex = mylastIndex;
                 mycurrentIndexes[mychangeIndex] == mycollectionArraysCounts[mychangeIndex] && mychangeIndex > 0;
@@ -689,27 +696,26 @@ mixin template TCollection() {
     
     ICollection transpose() {
         auto myarrayValue = toList();
-        auto mylength = count(current(myarrayValue));
+        auto listLength = count(current(myarrayValue));
         
-        ICollection result;
-        foreach (myrow; myarrayValue) {
-            if (count(myrow) != mylength) {
+        myarrayValue.each!((row) {
+            if (count(row) != listLength) {
                 throw new DLogicException("Child arrays do not have even length");
             }
-        }
-        for (mycolumn = 0; mycolumn < mylength; mycolumn++) {
-            result ~= array_column(myarrayValue, mycolumn);
+        });
+
+        ICollection result;
+        for (index = 0; index < listLength; index++) {
+            result ~= array_column(myarrayValue, index);
         }
         return _newCollection(result);
     }
  
     size_t count() {
-        mytraversable = this.optimizeUnwrap();
-
-        if (isArray(mytraversable)) {
-            return count(mytraversable);
-        }
-        return iterator_count(mytraversable);
+        auto mytraversable = optimizeUnwrap();
+        return mytraversable.isArray
+            ? count(mytraversable)  
+            : iterator_count(mytraversable);
     }
  
     size_t countKeys() {
@@ -719,8 +725,8 @@ mixin template TCollection() {
     /**
      * Unwraps this iterator and returns the simplest
      * traversable that can be used for getting the data out
-     */
-    protected Iterator[] optimizeUnwrap() {
+     * /
+    protected Json[string] optimizeUnwrap() {
         myiterator = unwrap();
 
         if (myiterator.classname == ArrayIterator.classname) {

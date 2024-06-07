@@ -29,23 +29,23 @@ class DInsertIterator : DCollection {
   this(Json[string] targetValues, string propertyPath, Json[string] sourceValues) {
     super(targetValues);
 
-    if (!(cast(DCollection) sourceValues)) {
+    /* if (!(cast(DCollection) sourceValues)) {
        sourceValues = new DCollection(sourceValues);
     }
     string[] pathParts = propertyPath.split(".");
     auto mytarget = array_pop(pathParts);
    _path = propertyPath;
    _target = target;
-   _values = sourceValues;
+   _values = sourceValues; */
   }
 
   // Advances the cursor to the next record
   void next() {
-    super.next();
+    /*     super.next();
     if (_validValues) {
      _values.next();
     }
-   _validValues = _values.valid();
+   _validValues = _values.valid(); */
   }
 
   /**
@@ -55,7 +55,7 @@ class DInsertIterator : DCollection {
   Json current() {
     auto myRow = super.current();
 
-    if (!_validValues) {
+    /*     if (!_validValues) {
       return myRow;
     }
     auto aPointer = & myRow;
@@ -65,15 +65,15 @@ class DInsertIterator : DCollection {
       }
       aPointer = & aPointer[aStep];
     })
-    aPointer[_target] = _values.current();
+    aPointer[_target] = _values.current(); */
 
     return myRow;
   }
 
   // Resets the collection pointer.
   void rewind() {
-    super.rewind();
+    /*     super.rewind();
    _values.rewind();
-   _validValues = _values.valid();
-  } 
+   _validValues = _values.valid(); */
+  }
 }

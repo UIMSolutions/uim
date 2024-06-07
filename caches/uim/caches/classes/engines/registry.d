@@ -1,4 +1,4 @@
-module caches.uim.caches.classes.engines.registry;
+module uim.caches.classes.engines.registry;
 
 import uim.caches;
 

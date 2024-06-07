@@ -7,8 +7,6 @@ import uim.collections;
 /**
  * A type of collection that is aware of nested items and exposes methods to
  * check or retrieve them
- *
- * @template-implements \RecursiveIterator<mixed, mixed>
  */
 class DNestIterator : DCollection {// }, RecursiveIterator {
     // The name of the property that contains the nested items for each element
@@ -32,12 +30,12 @@ class DNestIterator : DCollection {// }, RecursiveIterator {
      * configured nestKey for the current item
      */
     bool hasChildren() {
-        auto myProperty = _propertyExtractor(_nestedKey);
+        /* auto myProperty = _propertyExtractor(_nestedKey);
         auto myChildren = myProperty(this.current());
 
-        if (myChildren.isArray) {
-            return !myChildren.isEmpty;
-        }
-        return cast(Traversable)myChildren;
-    } */
+        return myChildren.isArray
+            ? !myChildren.isEmpty   
+            : cast(Traversable)myChildren; */
+        return false;
+    } 
 }

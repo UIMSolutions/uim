@@ -15,18 +15,95 @@ import uim.collections;
  * generating other collections.
  */
 interface ICollection {
-    /**
-     * Applies a callback to the elements in this collection.
-     *
-     * ### Example:
-     *
-     * ```
-     * collection = (new DCollection(items)).each(// function (value,  key) {
-     * writeln("Element  key: value";
-     * });
-     * ```
-     */
-    ICollection each(callable callbackforeachElement);
+  /* append
+
+appendItem
+
+avg
+
+buffered
+
+chunk
+
+chunkWithKeys
+
+combine
+
+compile
+
+contains
+
+countBy
+
+each
+
+every
+
+extract
+
+filter
+
+first
+
+firstMatch
+
+groupBy
+
+indexBy
+
+insert
+
+isEmpty
+
+last
+
+listNested
+
+map
+
+match
+
+max
+
+median
+
+min
+
+nest
+
+prepend
+
+prependItem
+
+reduce
+
+reject
+
+sample
+
+shuffle
+
+skip
+
+some
+
+sortBy
+
+stopWhen
+
+sumOf
+
+take
+
+through
+
+transpose
+
+unfold
+
+zip */
+    // Applies a callback to the elements in this collection.
+    ICollection each(void function(string key, Json value) functionCall);
 
     /**
      * Looks through each value in the collection, and returns another collection with
@@ -246,7 +323,7 @@ interface ICollection {
      * The average of an empty set or 0 rows is `null`. Collections with `null`
      * values are not considered empty.
      */
-    float avg(string propertyName = null);
+    double avg(string propertyName = null);
 
     /**
      * Returns the median of all the values extracted with path
@@ -274,7 +351,7 @@ interface ICollection {
      * The median of an empty set or 0 rows is `null`. Collections with `null`
      * values are not considered empty.
      */
-    float median(string propertyName = null);
+    double median(string propertyName = null);
 
     /**
      * Returns a sorted iterator out of the elements in this collection,

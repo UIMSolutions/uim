@@ -97,5 +97,5 @@ class DZipIterator : ICollection {
 
        _iterators = someData;
         _iterators.each!(iterator => _multipleIterator.attachIterator(iterator));
-    } */
+    } 
 }

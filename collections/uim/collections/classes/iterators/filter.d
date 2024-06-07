@@ -58,5 +58,5 @@ class DFilterIterator : DCollection {
             .each!(kv => myres[kv.key] = kv.value);
         }
         return new DArrayIterator(myres);
-    } */
+    } 
 }

@@ -25,20 +25,23 @@ class DReplaceIterator : DCollection {
      * as arguments, in that order.
      */
   this(Json[string] itemToFilter, callable callableaCallback) {
-   _callback = aCallback;
-  super(itemToFilter);
-   _innerIterator = innerIterator();
+    _callback = aCallback;
+    super(itemToFilter);
+    _innerIterator = innerIterator();
   }
 
   // Returns the value returned by the callback after passing the current value in the iteration
   Json current() {
-    aCallback = _callback;
+    // TODO
+    /* aCallback = _callback;
 
-    return aCallback(super.current(), this.key(), _innerIterator);
+    return aCallback(super.current(), this.key(), _innerIterator); */
+    return Json(null);
   }
 
   Iterator unwrap() {
-     anIterator = _innerIterator;
+    // TODO
+    /*  anIterator = _innerIterator;
 
     if (cast(ICollection) anIterator) {
        anIterator = anIterator.unwrap();
@@ -55,6 +58,7 @@ class DReplaceIterator : DCollection {
     anIterator.byKeyValue
       .each!(kv => res[kv.key] = aCallback(kv.value, kv.key,  anIterator));
     
-    return new DArrayIterator(res);
-  } */
+    return new DArrayIterator(res); */
+    return null;
+  }
 }

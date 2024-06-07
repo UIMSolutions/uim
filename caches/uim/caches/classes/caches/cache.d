@@ -206,19 +206,19 @@ class DCache : ICache {
      * Cache.write("cached_data", mydata, "long_term");
      * ```
      */
-    static bool write(string dataId, Json dataToCache, string configName = "default") {
+    static bool write(string key, Json dataToCache, string configName = "default") {
         // TODO 
 /*         if (isResource(dataToCache)) {
             return false;
         } */
         /* auto mybackend = pool(configName);
-        auto wasSuccessful = mybackend.set(dataId, dataToCache);
+        auto wasSuccessful = mybackend.set(key, dataToCache);
         if (!wasSuccessful && dataToCache != "") {
             throw new DCacheWriteException(
                 "%s cache was unable to write '%s' to %s cache"
                 .format(
                     configName,
-                    dataId,
+                    key,
                     get_class(mybackend)
            ));
         }
@@ -264,8 +264,8 @@ class DCache : ICache {
      * Cache.read("_data", "long_term");
      * ```
      */
-    /* static Json read(string dataId, string configName = "default") {
-        return pool(configName).get(dataId);
+    /* static Json read(string key, string configName = "default") {
+        return pool(configName).get(key);
     } */
 
     /**
@@ -291,11 +291,11 @@ class DCache : ICache {
     }
 
     // Increment a number under the key and return incremented value.
-    /* static int|false increment(string dataId, int incValue = 1, string configName = "default") {
+    /* static int|false increment(string key, int incValue = 1, string configName = "default") {
         if (incValue < 0) {
             throw new DInvalidArgumentException("Offset cannot be less than `0`.");
         }
-        return pool(configName).increment(dataId, incValue);
+        return pool(configName).increment(key, incValue);
     } */
 
     // Decrement a number under the key and return decremented value.
@@ -323,8 +323,8 @@ class DCache : ICache {
      * Cache.remove("_data", "long_term");
      * ```
      */
-    /* static bool remove(string dataId, string configName = "default") {
-        return pool(configName).remove(dataId);
+    /* static bool remove(string key, string configName = "default") {
+        return pool(configName).remove(key);
     } */
 
     /**
@@ -455,12 +455,12 @@ class DCache : ICache {
      * Cache.add("cached_data", mydata, "long_term");
      * ```
      */
-    static bool add(string dataId, Json dataToCache, string configName = "default") {
+    static bool add(string key, Json dataToCache, string configName = "default") {
         // TODO
         /* if (isResource(dataToCache)) {
             return false;
         }
-        return pool(configName).add(dataId, dataToCache); */
+        return pool(configName).add(key, dataToCache); */
         return false;
     } 
 }

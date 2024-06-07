@@ -75,7 +75,7 @@ class DMapReduce { // }: IteratorAggregate {
      * Returns an iterator with the end result of running the Map and Reduce
      * phases on the original data
      */
-    Traversable getIterator() {
+    auto getIterator() {
         if (!_executed) {
            _execute();
         }
@@ -86,8 +86,8 @@ class DMapReduce { // }: IteratorAggregate {
      * Appends a new record to the bucket labelled with aKey, usually as a result
      * of mapping a single record from the original data.
      */
-    void emitIntermediate(Json storeData, Json aBucketName)) {
-       _intermediate[aBucketName] ~= storeData;
+    void emitIntermediate(Json storeData, string bucketName) {
+       _intermediate[bucketName] ~= storeData;
     }
     
     /**

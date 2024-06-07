@@ -16,7 +16,7 @@ import uim.collections;
  * return user.age;
  * });
  *
- */ output all user name order by their age in descending order
+ *  output all user name order by their age in descending order
  * sorted.each!(user => writeln(user.name));
  * ```
  *
@@ -37,15 +37,15 @@ class DSortIterator : DCollection {
     string mycallback,
     int sortDirection = SORT_DESC,
     int sortType = SORT_NUMERIC
- ) {
+  ) {
     auto aCallback = _propertyExtractor(aCallback);
     auto myResults = null;
     foreach (aKey, val; someItems) {
       auto callbackValue = aCallback(val);
       auto isDateTime =
-        cast(DChronosDate)callbackValue ||
-        cast(DChronosTime)callbackValue ||
-        cast(IDateTime)callbackValue;
+        cast(DChronosDate) callbackValue ||
+        cast(DChronosTime) callbackValue ||
+        cast(IDateTime) callbackValue;
 
       if (isDateTime && sortType == SORT_NUMERIC) {
         callbackValue = callbackValue.format("U");
@@ -57,11 +57,11 @@ class DSortIterator : DCollection {
 
     myResults.keys
       .each!(key => myResults[key] = someItems[key]);
-  }
+
   super(myResults);
 }
 
 Iterator unwrap() {
   return _getInnerIterator();
-} */
+}
 }

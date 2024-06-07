@@ -87,7 +87,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         abstract string[] keys(); 
 
         // Persists a set of key: value pairs in the cache, with an optional TTL.
-        bool items(Json[string] items, long timeToLive = 0) {
+/*         bool items(Json[string] items, long timeToLive = 0) {
             // TODO ensureValidType(myvalues, CHECK_KEY);
 
             Json restoreDuration = Json(null); 
@@ -104,7 +104,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
                 }
             }
             return false;
-        }
+        } */
     // #region items
 
     // #region read
@@ -119,7 +119,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     // Persists data in the cache, uniquely referenced by the given key with an optional expiration timeToLive time.
     bool update(Json[string] items, long timeToLive = 0) {
         return items.byKeyValue
-            .all!(kv => update(aKey, myvalue));
+            .all!(kv => update(kv.key, kv.value, timeToLive));
     }
     abstract bool update(string key, Json value, long timeToLive = 0);
     // #endregion update
@@ -131,25 +131,24 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     abstract long decrement(string key, int decValue = 1);
 
     // Merge an item (key, value) to the cache if it does not already exist.
-    bool merge(string key, Json value) {
-        auto cachedValue = get(key);
-        return cachedValue.isNull
-            ? set(key, value) : false;
+    bool merge(string key, Json value, long timeToLive = 0) {
+        return read(key).isNull
+            ? update(key, value, timeToLive) : false;
     }
 
     // #region remove
         // Delete all keys from the cache
         bool clear() {
-            return removeItems(keys);
+            return remove(keys);
         }
 
         // Deletes multiple cache items as a list
-        bool removeItems(string[] keys) {
-            return keys.all!(key => removeItem(key));
+        bool remove(string[] keys) {
+            return keys.all!(key => remove(key));
         }
 
         // Delete a key from the cache
-        abstract bool removeItem(string key); 
+        abstract bool remove(string key); 
     // #endregion remove
 
 
@@ -174,7 +173,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * Whitespace in keys will be replaced.
      */
     protected string internalKey(string key) {
-        string prefix = _groupPrefix
+        string prefix = groupName
             ? groups().join("_") //TODO md5(groups().join("_"))
              : "";
 

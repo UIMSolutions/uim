@@ -64,8 +64,12 @@ class DMemoryCacheEngine : DCacheEngine {
 
   protected string[] _compiledGroupNames;
   protected Json[string] _memory;
-  /* protected DMemory _memcached;
-  
+  /* protected DMemory _memcached;*/
+
+  override string[] keys() {
+    // TODO wrong these are the internal Keys
+    return _memory.keys;
+  }
 
   /**
      * Initialize the Cache Engine
@@ -199,13 +203,13 @@ return true;
      * Params:
      * string myserver The server address string.
      */
-  Json[string] parseServerString(string myserver) {
+  /* Json[string] parseServerString(string myserver) {
     auto mysocketTransport = "unix://";
     /* if (myserver.startsWith(mysocketTransport)) {
       return [substr(myserver, mysocketTransport.length), 0];
-    } */
+    } * /
 
-    size_t myposition;
+    /* size_t myposition;
     if (myserver.startsWith("[")) {
       size_t myposition = indexOf(myserver, "]:");
       if (myposition != false) {
@@ -221,18 +225,18 @@ return true;
       myport = substr(myserver, myposition + 1);
     }
     return [
-      myhost, /* (int)  */ myport
-    ];
-  }
+      myhost, /* (int)  * / myport
+    ]; 
+  } */
 
   /**
      * Read an option value from the memcached connection.
      * Params:
      * int myname The option name to read.
      */
-  Json getOption(string myname) {
+  /* Json getOption(string myname) {
     return _memory.get(myname);
-  }
+  } */
 
   /**
      * Write data for key into cache. When using memcached as your cache engine
@@ -241,79 +245,73 @@ return true;
      * will be treated as real Unix time value rather than an offset from current time.
      */
   override bool update(string itemKey, Json dataToCache, long timeToLive = 0) {
-    return _memory.set(internalKey(itemKey), dataToCache, duration(timeToLive));
+      return false;
+      // TODO 
+    // return _memory.update(internalKey(itemKey), dataToCache, duration(timeToLive));
   }
 
-  override bool merge(Json[string] items, long timeToLive = 0) {
+/*   override bool merge(Json[string] items, long timeToLive = 0) {
     Json[string] cacheData = null;
     items.byKeyValue
       .each!(kv => cacheData[internalKey(kv.key)] = kv.value);
     return _memory.merge(cacheData, duration(timeToLive));
-  }
+  } */
 
   // Write many cache entries to the cache at once
-  override bool update(Json[string] items, long timeToLive = 0) {
+  /*   override bool update(Json[string] items, long timeToLive = 0) {
     Json[string] cacheData = null;
     items.byKeyValue
       .each!(kv => cacheData[internalKey(kv.key)] = kv.value);
-    return _memory.update(cacheData, duration(timeToLive));
-  }
+    return _memory.update(cacheData); //, duration(timeToLive));
+  } */
 
   // Read a key from the cache
   override Json read(string key, Json defaultValue = Json(null)) {
-    auto myvalue = _memory.get(internalKey(key));
+    string internKey = internalKey(key);
+    // TODO auto myvalue = _memory.get(internKey);
     /* return _memory.getResultCode() == Memory.RES_NOTFOUND
       ? defaultValue : myvalue; */
     return Json(null);
   }
 
-  // Read many keys from the cache at once
-  override Json[string] items(string[] keys) {
-    Json[string] results;
-    keys.byKeyValue
-      .each((kv) {
-        
-      } => results[kv.key] = read(kv.value));
-    return results;
-  }
-
   // Increments the value of an integer cached key
   override long increment(string key, int incValue = 1) {
-    return _memory.set(internalKey(key), _memory.getLong(internalKey(key)) + incValue);
+    return 1;
+    // TODO return _memory.set(internalKey(key), _memory.getLong(internalKey(key)) + incValue);
   }
 
   // Decrements the value of an integer cached key
   override long decrement(string key, int decValue = 1) {
-    return _memory.set(internalKey(key), _memory.getLong(internalKey(key)) - decValue);
+    return 0;
+    // TODO return _memory.set(internalKey(key), _memory.getLong(internalKey(key)) - decValue);
   }
 
   // Delete a key from the cache
-  override bool removeItem(string key) {
+  override bool remove(string key) {
     return _memory.remove(internalKey(key));
   }
 
   // Delete all keys from the cache
   override bool clear() {
     string prefix = configuration.getString("prefix");
-    _memory.getAllKeys()
+/*     _memory.getAllKeys()
       .filter!(key => key.startsWith(prefix))
-      .each!(key => _memory.remove(key));
+      .each!(key => _memory.remove(key)); */
     return true;
   }
 
   // Add a key to the cache if it does not already exist.
-  override bool add(string itemKey, Json dataToCache) {
-    auto myduration = configuration.get("duration");
-    auto aKey = internalKey(itemKey);
-    return _memory.add(aKey, myvalue, myduration);
-  }
+/*   override bool merge(string key, Json value, long timeToLive = 0) {
+    auto internKey = internalKey(key);
+    return _memory.add(internKey, value, duration);
+  } */
 
   /**
      * Returns the `group value` for each of the configured groups
      * If the group initial value was not found, then it initializes the group accordingly.
      */
   override string[] groups() {
-    if (_compiledGroupNames.isEmpty) {
+    /* if (_compiledGroupNames.isEmpty) {
       _compiledGroupNames = configuration.getStringArray("groups")
         .map!(group => configuration.getString("prefix") ~ group).array;
     }
@@ -323,25 +321,25 @@ return true;
     if (count(mygroups) != count(configuration.get("groups"))) {
       _compiledGroupNames
         .filter!(groupName => !mygroups.hasKey(groupName))
-        .each!((groupName) { _memory.set(mygroup, 1, 0); mygroups[mygroup] = 1; });
-      ksort(mygroups);
-    }
+        .each!((groupName) { _memory.set(mygroup, 1, 0); mygroups[mygroup] = 1; }); */
+    /*  ksort(mygroups); * /
+  } */
 
-    string[] result;
-    auto mygroups = mygroups.values;
+  string[] result;
+  /* auto mygroups = mygroups.values;
     foreach (index, mygroup; configuration.get("groups")) {
       result ~= mygroup ~ mygroups[index];
-    }
-    return result;
-  }
+    } */
+  return result;
+}
 
-  /**
+/**
   * Increments the group value to simulate deletion of all keys under a group
   * old values will remain in storage until they expire.
   */
-  override bool clearGroup(string groupName) {
-    // TODO return  /* (bool) */ _memory.increment(configuration.getString("prefix") ~ groupName);
-    return false;
-  }
+override bool clearGroup(string groupName) {
+  // TODO return  /* (bool) */ _memory.increment(configuration.getString("prefix") ~ groupName);
+  return false;
+}
 }
 mixin(CacheEngineCalls!("Memory"));

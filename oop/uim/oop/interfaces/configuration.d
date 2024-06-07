@@ -54,13 +54,11 @@ interface IConfiguration : INamed {
         Json get(string key, Json defaultValue = Json(null));
         Json[string] get(string[] keys, bool compressMode = false);
 
-        int getLong(string key);
+        bool getBool(string key);
         long getLong(string key);
-        float getDouble(string key);
         double getDouble(string key);
         string getString(string key);
         string[] getStringArray(string key);
-        Json getJson(string key);
     // #endregion get
 
     // #region set

@@ -8,6 +8,10 @@ import uim.caches;
 class DNullCacheEngine : DCacheEngine {
   mixin(CacheEngineThis!("Null"));
 
+  override string[] keys() {
+    return null;
+  }
+
   override bool update(string key, Json valueToSet, long timeToLive = 0) {
     return true;
   }
@@ -25,6 +29,10 @@ class DNullCacheEngine : DCacheEngine {
   }
 
   override bool remove(string key) {
+    return true;
+  }
+
+    override bool clearGroup(string groupName) {
     return true;
   }
 }

@@ -43,8 +43,8 @@ unittest {
   assert(!parseJsonString(`1`).isBigInteger);
 }
 
-bool isBool(Json aJson) {
-  return (aJson.type == Json.Type.bool_);
+bool isBool(Json value) {
+  return (value.type == Json.Type.bool_);
 }
 ///
 unittest {
@@ -53,8 +53,11 @@ unittest {
   assert(!parseJsonString(`1`).isBool);
 }
 
-bool isFloat(Json aJson) {
-  return (aJson.type == Json.Type.float_);
+bool isFloat(Json value) {
+  return (value.type == Json.Type.float_);
+}
+bool isDouble(Json value) {
+  return (value.type == Json.Type.float_);
 }
 ///
 unittest {
@@ -62,8 +65,12 @@ unittest {
   assert(!parseJsonString(`1`).isFloat);
 }
 
-bool isInt(Json aJson) {
-  return (aJson.type == Json.Type.int_);
+bool isInt(Json value) {
+  return (value.type == Json.Type.int_);
+}
+
+bool isLong(Json value) {
+  return (value.type == Json.Type.int_);
 }
 ///
 unittest {
@@ -71,8 +78,8 @@ unittest {
   assert(!parseJsonString(`1.1`).isInt);
 }
 
-bool isNull(Json aJson) {
-  return aJson == Json(null);
+bool isNull(Json value) {
+  return value == Json(null);
 }
 
 unittest {
@@ -81,8 +88,8 @@ unittest {
   assert(!Json.emptyArray.isNull); */
 }
 
-bool isString(Json aJson) {
-  return (aJson.type == Json.Type.string);
+bool isString(Json value) {
+  return (value.type == Json.Type.string);
 }
 
 unittest {
@@ -90,8 +97,8 @@ unittest {
   assert(!parseJsonString(`1.1`).isString);
 }
 
-bool isUndefined(Json aJson) {
-  return (aJson.type == Json.Type.undefined);
+bool isUndefined(Json value) {
+  return (value.type == Json.Type.undefined);
 }
 
 unittest {
@@ -99,9 +106,16 @@ unittest {
   assert(!parseJsonString(`1.1`).isUndefined);
 }
 
-bool isEmpty(Json aJson) {
-  return aJson == Json(null);
+bool isEmpty(Json value) {
+  if (value.isNull) {
+    return true;
+  }
+  
+  if (value.isString) {
+    return value.getString.length == 0;
+  }
 
+  return false;
   // TODO add not null, but empty
 }
 // #endregion
@@ -861,4 +875,44 @@ Json[string] toJsonMap(STRINGAA map, string[] excludeKeys = null) {
     .filter!(kv => !excludeKeys.any!(key => key == kv.key))
     .each!(kv => json[kv.key] = Json(kv.value));
   return json;
+}
+
+bool getBool(Json value) {
+  return !value.isNull && value.isBool
+    ? value.get!bool : false;
+}
+
+int getInt(Json value) {
+  return !value.isNull && value.isInt
+    ? value.get!int : 0;
+}
+
+long getLong(Json value) {
+  return !value.isNull && (value.isInt || value.isLong)
+    ? value.get!long : 0;
+}
+
+float getFloat(Json value) {
+  return !value.isNull && value.isFloat
+    ? value.get!float : 0.0;
+}
+
+double getDouble(Json value) {
+  return !value.isNull && (value.isFloat || value.isDouble)
+    ? value.get!double : 0.0;
+}
+
+string getString(Json value) {
+  return !value.isNull && value.isString
+    ? value.get!string : null;
+}
+
+Json[] getArray(Json value) {
+  return !value.isNull && value.isArray
+    ? value.get!(Json[]) : null;
+}
+
+Json[string] getMap(Json value) {
+  return !value.isNull && value.isObject
+    ? value.get!(Json[string]) : null;
 }

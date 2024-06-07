@@ -60,5 +60,5 @@ class DCollection : /* IteratorIterator, */ ICollection {
     return [
       "count": Json(countItems),
     ];
-  } */ 
+  } 
 }

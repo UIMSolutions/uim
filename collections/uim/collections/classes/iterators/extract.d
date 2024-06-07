@@ -54,9 +54,10 @@ class DExtractIterator : DCollection {
     if (cast(ICollection)myIterator) {
       myIterator = anIterator.unwrap();
     }
-    if (myIterator.class != ArrayIterator.class) {
+    TODO 
+    /* if (myIterator.class != ArrayIterator.class) {
       return this;
-    }
+    } */
     
     // ArrayIterator can be traversed strictly.
     // Let`s do that for performance gains
@@ -67,5 +68,5 @@ class DExtractIterator : DCollection {
     myIterator.getArrayCopy().byKeyValue.each!(kv => res[kv.key] = aCallback(kv.value));
 
     return new DArrayIterator(res);
-  } */
+  } 
 }

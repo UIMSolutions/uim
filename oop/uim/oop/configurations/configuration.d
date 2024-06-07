@@ -133,22 +133,20 @@ abstract class DConfiguration : IConfiguration {
         return defaultValue;
     }
 
+    long getBool(string key) {
+        return get(key).getBool;
+    }
+    
     long getLong(string key) {
-        Json result = get(key);
-        return result != Json(null)
-            ? result.get!long : 0;
+        return get(key).getLong;
     }
 
     double getDouble(string key) {
-        Json result = get(key);
-        return result != Json(null)
-            ? result.get!double : 0.0;
+        return get(key).getDouble;
     }
 
     string getString(string key) {
-        Json result = get(key);
-        return result != Json(null)
-            ? result.get!string : null;
+        return get(key).getString;
     }
 
     string[] getStringArray(string key) {

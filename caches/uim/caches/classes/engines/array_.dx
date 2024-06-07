@@ -44,7 +44,6 @@ class DArrayCacheEngine : DCacheEngine {
 
   // Delete all keys from the cache. This will clear every cache config using APC.
 
-
   // Read a key from the cache
   override Json read(string key, Json defaultValue = Json(null)) {
     string internKey = internalKey(key);
@@ -59,8 +58,8 @@ class DArrayCacheEngine : DCacheEngine {
     if (value.getLong("exp") <= checkTime) {
       _cachedData.remove(internKey);
       return defaultValue;
-    } 
-    
+    }
+
     return value["val"];
   }
 
@@ -70,10 +69,10 @@ class DArrayCacheEngine : DCacheEngine {
       update(key, 0);
     }
     auto internKey = internalKey(key);
-    _cachedData.update(internKey~".val", _cachedData.getLong(internKey~".val") + incValue);
+    _cachedData.update(internKey ~ ".val", _cachedData.getLong(internKey ~ ".val") + incValue);
 
-    return _cachedData[internKey~".val"];
-  } 
+    return _cachedData[internKey ~ ".val"];
+  }
 
   // Decrements the value of an integer cached key
   override long decrement(string key, int decValue = 1) {
@@ -81,13 +80,9 @@ class DArrayCacheEngine : DCacheEngine {
       set(key, 0);
     }
     auto internKey = internalKey(key);
-    _cachedData.update(internKey~".val", _cachedData.getLong(internKey~".val") - decValue);
+    _cachedData.update(internKey ~ ".val", _cachedData.getLong(internKey ~ ".val") - decValue);
 
-    return _cachedData[internKey~".val"];
-  } 
-
-  override bool remove(string internKey) {
-    return false;
+    return _cachedData[internKey ~ ".val"];
   }
 
   /**
@@ -127,4 +122,5 @@ class DArrayCacheEngine : DCacheEngine {
     return true;
   }
 }
+
 mixin(CacheEngineCalls!("Array"));

@@ -62,12 +62,13 @@ class DCache : ICache {
 
         // An array mapping URL schemes to fully qualified caching engine class names.
         _dsnClassMap = [
-            "array": ArrayCacheEngine.className,
+            /* "array": ArrayCacheEngine.className,
             "apcu": ApcuCacheEngine.className,
-            "file": FileCacheEngine.className,
+            "file": FileCacheEngine.className, */
             "memcached": MemoryCacheEngine.className,
+            "memory": MemoryCacheEngine.className,
             "null": NullCacheEngine.className,
-            "redis": RedisCacheEngine.className,
+            /* "redis": RedisCacheEngine.className, */
         ];
 
         return true;

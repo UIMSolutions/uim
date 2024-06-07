@@ -58,22 +58,33 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     mixin(TProperty!("string", "name"));
 
     // Group prefixes to be prepended to every key in this cache engine
-    mixin(TPropery!("string", "groupName"));
+    mixin(TProperty!("string", "groupName"));
 
     // #region items
         // Obtains multiple cache items by their unique keys.
-        void items(Json[string] itemData, long timeToLive = 0) {
-            merge(itemData, timeToLive);
+        void items(Json[string] newItems, long timeToLive = 0) {
+            clear();
+            update(newItems.dup, timeToLive);
         }
 
-        Json[string] items(string[] keys) {
+        Json[string] items(string[] keysToUse = null) {
+            if (keysToUse.isNull) { 
+                return items(keys);
+            } 
+
             Json[string] results;
-            keys
-                .filter!(key => !key.isEmpty)
-                .each!(key => results[key] = get(key));
+            keysToUse
+                .each!((key) {
+                    auto item = read(key);
+                    if (!item.isNull) {
+                       results[key] = item; 
+                    }
+                });
 
             return results;
         }
+
+        abstract string[] keys(); 
 
         // Persists a set of key: value pairs in the cache, with an optional TTL.
         bool items(Json[string] items, long timeToLive = 0) {
@@ -96,18 +107,22 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         }
     // #region items
 
+    // #region read
     // Fetches the value for a given key from the cache.
-    Json[] get(string[] keys, Json defaultValue = Json(null)) {
-        return keys.map!(key => get(key, defaultValue)).array;
+    Json[] read(string[] keys, Json defaultValue = Json(null)) {
+        return keys.map!(key => read(key, defaultValue)).array;
     }
-    abstract Json get(string key, Json defaultValue = Json(null));
+    abstract Json read(string key, Json defaultValue = Json(null));
+    // #endregion read
 
-    // Persists data in the cache, uniquely referenced by the given key with an optional expiration TTL time.
+    // #region update
+    // Persists data in the cache, uniquely referenced by the given key with an optional expiration timeToLive time.
     bool update(Json[string] items, long timeToLive = 0) {
         return items.byKeyValue
             .all!(kv => update(aKey, myvalue));
     }
     abstract bool update(string key, Json value, long timeToLive = 0);
+    // #endregion update
 
     // Increment a number under the key and return incremented value
     abstract long increment(string key, int incValue = 1); 

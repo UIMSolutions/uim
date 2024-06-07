@@ -24,7 +24,7 @@ class DArrayCacheEngine : DCacheEngine {
   }
 
   // Write data for key into cache
-  override bool set(string itemKey, Json dataForCache, long timeToLive = 0) {
+  override bool update(string itemKey, Json dataForCache, long timeToLive = 0) {
     Json data = Json.emptyObject;
     data["exp"] = 0; // TODO time() + duration(timeToLive);
     data["val"] = dataForCache;
@@ -37,28 +37,27 @@ class DArrayCacheEngine : DCacheEngine {
   // Structured as [key: [exp: expiration, val: value]]
   protected Json[string] _cachedData;
   // Delete a key from the cache
-  override bool removeItem(string itemKey) {
-    return _cachedData.remove(internalKey(itemKey));
+  override bool remove(string key) {
+    string internKey = internalKey(key);
+    return _cachedData.remove(internKey);
   }
 
   // Delete all keys from the cache. This will clear every cache config using APC.
-  override bool clear() {
-    return _cachedData.clear;
-  }
+
 
   // Read a key from the cache
-  override Json get(string key, Json defaultValue = Json(null)) {
-    string internalKey = internalKey(key);
-    if (!_cachedData.hasKey(internalKey)) {
+  override Json read(string key, Json defaultValue = Json(null)) {
+    string internKey = internalKey(key);
+    if (!_cachedData.hasKey(internKey)) {
       return defaultValue;
     }
 
-    auto value = _cachedData[internalKey];
+    auto value = _cachedData[internKey];
 
     // Check expiration
     auto checkTime = time();
     if (value.getLong("exp") <= checkTime) {
-      _cachedData.remove(internalKey);
+      _cachedData.remove(internKey);
       return defaultValue;
     } 
     
@@ -66,33 +65,28 @@ class DArrayCacheEngine : DCacheEngine {
   }
 
   // Increments the value of an integer cached key
-  override long increment(string itemKey, int incValue = 1) {
-    return 0;
-    // TODO
-    /* 
-    if (get(itemKey).isNull) {
-      set(itemKey, Json(0));
+  override long increment(string key, int incValue = 1) {
+    if (read(key).isNull) {
+      update(key, 0);
     }
+    auto internKey = internalKey(key);
+    _cachedData.update(internKey~".val", _cachedData.getLong(internKey~".val") + incValue);
 
-    auto key = internalKey(itemKey);
-    _cachedData[itemKey]["val"] += incValue;
-
-    return _cachedData[key]["val"];
-    */
-  }
+    return _cachedData[internKey~".val"];
+  } 
 
   // Decrements the value of an integer cached key
-  /* long decrement(string itemKey, int decValue = 1) {
-    if (get(itemKey).isNull) {
-      set(itemKey, Json(0));
+  override long decrement(string key, int decValue = 1) {
+    if (get(key).isNull) {
+      set(key, 0);
     }
-    auto key = internalKey(itemKey);
-    _cachedData[key]["val"] -= decValue;
+    auto internKey = internalKey(key);
+    _cachedData.update(internKey~".val", _cachedData.getLong(internKey~".val") - decValue);
 
-    return _cachedData[key]["val"];
-  } */
+    return _cachedData[internKey~".val"];
+  } 
 
-  override bool removeItem(string key) {
+  override bool remove(string internKey) {
     return false;
   }
 
@@ -117,6 +111,9 @@ class DArrayCacheEngine : DCacheEngine {
     return results;
   }
 
+  override bool clear() {
+    return _cachedData.clear;
+  }
   /**
      * Increments the group value to simulate deletion of all keys under a group
      * old values will remain in storage until they expire.

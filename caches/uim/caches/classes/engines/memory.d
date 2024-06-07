@@ -240,41 +240,40 @@ return true;
      * times greater than 30 days in the future. Any duration greater than 30 days
      * will be treated as real Unix time value rather than an offset from current time.
      */
-  override bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
+  override bool update(string itemKey, Json dataToCache, long timeToLive = 0) {
     return _memory.set(internalKey(itemKey), dataToCache, duration(timeToLive));
   }
 
-  override bool merge(Json[string] values, long timeToLive = 0) {
+  override bool merge(Json[string] items, long timeToLive = 0) {
     Json[string] cacheData = null;
-    values.byKeyValue
+    items.byKeyValue
       .each!(kv => cacheData[internalKey(kv.key)] = kv.value);
     return _memory.merge(cacheData, duration(timeToLive));
   }
 
   // Write many cache entries to the cache at once
-  override bool setItems(Json[string] values, long timeToLive = 0) {
+  override bool update(Json[string] items, long timeToLive = 0) {
     Json[string] cacheData = null;
-    values.byKeyValue
+    items.byKeyValue
       .each!(kv => cacheData[internalKey(kv.key)] = kv.value);
     return _memory.update(cacheData, duration(timeToLive));
   }
 
   // Read a key from the cache
-  override Json get(string itemKey, Json defaultValue = Json(null)) {
-    auto myvalue = _memory.get(internalKey(itemKey));
+  override Json read(string key, Json defaultValue = Json(null)) {
+    auto myvalue = _memory.get(internalKey(key));
     /* return _memory.getResultCode() == Memory.RES_NOTFOUND
       ? defaultValue : myvalue; */
     return Json(null);
   }
 
   // Read many keys from the cache at once
-  override Json[string] items(string[] keys, Json defaultValue = Json(null)) {
-    STRINGAA cacheKeys = null;
-    keys.each!(key => cacheKeys[key] = internalKey(key));
-    Json[string] values = _memory.items(cacheKeys.values);
+  override Json[string] items(string[] keys) {
     Json[string] results;
-    cacheKeys.byKeyValue.each(kv => 
-      results[kv.key] = values.get(kv.value, defaultValue));
+    keys.byKeyValue
+      .each((kv) {
+        
+      } => results[kv.key] = read(kv.value));
     return results;
   }
 
@@ -284,7 +283,7 @@ return true;
   }
 
   // Decrements the value of an integer cached key
-  override long decrement(string itemKey, int decValue = 1) {
+  override long decrement(string key, int decValue = 1) {
     return _memory.set(internalKey(key), _memory.getLong(internalKey(key)) - decValue);
   }
 

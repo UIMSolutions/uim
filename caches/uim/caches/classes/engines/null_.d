@@ -8,11 +8,11 @@ import uim.caches;
 class DNullCacheEngine : DCacheEngine {
   mixin(CacheEngineThis!("Null"));
 
-  override bool set(string key, Json valueToSet, long timeToLive = 0) {
+  override bool update(string key, Json valueToSet, long timeToLive = 0) {
     return true;
   }
 
-  override Json get(string itemKey, Json defaultValue = null) {
+  override Json read(string itemKey, Json defaultValue = null) {
     return defaultValue;
   }
 
@@ -24,7 +24,7 @@ class DNullCacheEngine : DCacheEngine {
     return 1;
   }
 
-  override bool removeItem(string key) {
+  override bool remove(string key) {
     return true;
   }
 }

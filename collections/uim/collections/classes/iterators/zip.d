@@ -60,8 +60,8 @@ class DZipIterator : ICollection {
      * Returns the value resulting out of zipping all the elements for all the
      * iterators with the same positional index.
      */
-    Json current() {
-        auto current = Json(null); /* _multipleIterator.current();
+    Json currentValue() {
+        auto current = Json(null); /* _multipleIterator.currentValue();
         if (_callback) {
             return call_user_func_array(_callback, current);
         } */

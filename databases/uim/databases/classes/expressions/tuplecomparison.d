@@ -34,13 +34,13 @@ class DTupleComparisonExpression : DComparisonExpression {
     // Sets the value
     void setValue(Json valueToCompare) {
         if (this.isMulti()) {
-            if (isArray(valueToCompare) && !isArray(current(valueToCompare))) {
+            if (isArray(valueToCompare) && !isArray(currentValue(valueToCompare))) {
                 throw new DInvalidArgumentException(
                     "Multi-tuple comparisons require a multi-tuple value, single-tuple given."
                );
             }
         } else {
-            if (isArray(valueToCompare) && isArray(current(valueToCompare))) {
+            if (isArray(valueToCompare) && isArray(currentValue(valueToCompare))) {
                 throw new DInvalidArgumentException(
                     "single-tuple comparisons require a single-tuple value, multi-tuple given."
                );

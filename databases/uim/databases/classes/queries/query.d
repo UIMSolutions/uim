@@ -560,7 +560,7 @@ abstract class DQuery : IQuery { // : IExpression {
 
         if (isArray(tableNames)) {
             tableAlias = key(tableNames);
-            tableToJoin = current(tableNames);
+            tableToJoin = currentValue(tableNames);
         }
 
         return [

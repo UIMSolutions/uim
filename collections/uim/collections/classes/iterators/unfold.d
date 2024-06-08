@@ -41,7 +41,7 @@ class DUnfoldIterator {  /* }: IteratorIterator, RecursiveIterator {
      * the current value with the callable function.
      * /
     DRecursiveIterator getChildren() {
-        auto current = current();
+        auto current = currentValue();
         auto key = key();
         auto unfolder = _unfolder;
 

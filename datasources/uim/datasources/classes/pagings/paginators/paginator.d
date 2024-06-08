@@ -304,12 +304,12 @@ class DPaginator : IPaginator {
 
         if (!defaults.isEmpty("order")) && count(defaults["order"]) == 1) {
             sortDefault = key(defaults["order"]);
-            directionDefault = current(defaults["order"]);
+            directionDefault = currentValue(defaults["order"]);
         }
 
         return paginatorOptions.update([
             "sort": pagingOptions["options.sort"],
-            "direction": isset(pagingOptions["options.sort"]) && count(order) ? current(order) : null,
+            "direction": isset(pagingOptions["options.sort"]) && count(order) ? currentValue(order) : null,
             "sortDefault": sortDefault,
             "directionDefault": directionDefault,
             "completeSort": order,
@@ -322,7 +322,7 @@ class DPaginator : IPaginator {
         paginationOptions.remove("finder", paginationOptions["maxLimit"]);
 
         if (isArray(myType)) {
-            paginationOptions = /* (array) */current(myType) + paginationOptions;
+            paginationOptions = /* (array) */currentValue(myType) + paginationOptions;
             myType = key(myType);
         }
 

@@ -459,7 +459,7 @@ mixin template TCollection() {
         /* auto myreducer = auto (myvalues, aKey, MapReduce mymapReduce) use (&myparents, &myisObject, mynestingKey) {
             static myfoundOutType = false;
             if (!myfoundOutType) {
-                myisObject = isObject(current(myparents));
+                myisObject = isObject(currentValue(myparents));
                 myfoundOutType = true;
             }
             if (isEmpty(aKey) || !myparents.hasKey(aKey)) {
@@ -598,7 +598,7 @@ mixin template TCollection() {
                 if (!myiterator.valid()) {
                     break;
                 }
-                myvalues ~= myiterator.current();
+                myvalues ~= myiterator.currentValue();
             }
             return myvalues;
         });
@@ -617,9 +617,9 @@ mixin template TCollection() {
                     break;
                 }
                 if (mykeepKeys) {
-                    myvalues[myiterator.key()] = myiterator.current();
+                    myvalues[myiterator.key()] = myiterator.currentValue();
                 } else {
-                    myvalues ~= myiterator.current();
+                    myvalues ~= myiterator.currentValue();
                 }
             }
             return myvalues;
@@ -696,7 +696,7 @@ mixin template TCollection() {
     
     ICollection transpose() {
         auto myarrayValue = toList();
-        auto listLength = count(current(myarrayValue));
+        auto listLength = count(currentValue(myarrayValue));
         
         myarrayValue.each!((row) {
             if (count(row) != listLength) {

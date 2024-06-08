@@ -303,12 +303,12 @@ class DNumericPaginator : IPaginator {
 
         if (!defaults.isEmpty("order") && count(defaults["order"]) >= 1) {
             sortDefault = key(defaults["order"]);
-            directionDefault = current(defaults["order"]);
+            directionDefault = currentValue(defaults["order"]);
         }
 
         paginatorData += [
             "sort": pagingData.get("options.sort"),
-            "direction": pagingData.hasKey("options.sort") && count(order) ? current(order): null,
+            "direction": pagingData.hasKey("options.sort") && count(order) ? currentValue(order): null,
             "sortDefault": sortDefault,
             "directionDefault": directionDefault,
             "completeSort": order,
@@ -323,7 +323,7 @@ class DNumericPaginator : IPaginator {
         paginationOptions.remove("finder"), paginationOptions["maxLimit"]);
 
         if (type.isArray) {
-            paginationOptions =  /* (array) */ current(type) + paginationOptions;
+            paginationOptions =  /* (array) */ currentValue(type) + paginationOptions;
             type = key(type);
         }
 

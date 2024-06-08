@@ -60,7 +60,7 @@ mixin template TTupleComparisonTranslator() {
             .selectQuery()
             .select(true);
 
-        if (!isArray(current(aValue))) {
+        if (!isArray(currentValue(aValue))) {
             aValue = [aValue];
         }
         conditions = ["OR": Json.emptyArray];

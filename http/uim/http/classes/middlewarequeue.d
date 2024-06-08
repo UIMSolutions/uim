@@ -197,7 +197,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     }
     
     // Returns the current middleware.
-    IHttpMiddleware current() {
+    IHttpMiddleware currentValue() {
         if (!isSet(this.queue[this.position])) {
             throw new DOutOfBoundsException("Invalid current position (%s).".format(this.position));
         }

@@ -39,7 +39,7 @@ class DStoppableIterator : DCollection {
     if (!super.valid()) {
       return false;
     }
-    current = current();
+    current = currentValue();
     aKey = key();
     condition = _condition;
 

@@ -351,7 +351,7 @@ mixin template TFolderManager() {
             debug writeln("aPath = ", aPath); } 
 
           // IN Check
-          if (aPath.isNull) { return null; } 
+          if (aPath is null) { return null; } 
 
           return folder(toPathItems(aPath, pathSeparator));
         }
@@ -395,7 +395,7 @@ mixin template TFolderManager() {
       // #region renameFolder
         bool renameFolder(string oldPathAndName, string newName) {
           // IN Check
-          if (oldPathAndName is null || newName.isNull) { return false; } 
+          if (oldPathAndName is null || newName is null) { return false; } 
 
           return renameFolder(toPathItems(oldPathAndName, pathSeparator), newName);
         }

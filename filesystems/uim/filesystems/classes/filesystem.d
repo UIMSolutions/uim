@@ -106,7 +106,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
     version (testUimFilesystems) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
-    if (aPath.isNull) {
+    if (aPath is null) {
       return false;
     }
     return isFolder(toPathItems(aPath, pathSeparator));
@@ -142,7 +142,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
     version (testUimFilesystems) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
-    if (aPath.isNull) {
+    if (aPath is null) {
       return false;
     }
     return isFile(toPathItems(aPath, pathSeparator));

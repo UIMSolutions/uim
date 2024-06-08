@@ -130,7 +130,7 @@ class DPaginatorHelper : DHelper {
                                     }
 
                                     // Gets the current page of the recordset for the given model
-                                    int current() {
+                                    int currentValue() {
                                         return _paginated().currentPage();}
 
                                         // Gets the total number of pages in the recordset for the given model.

@@ -266,12 +266,12 @@ mixin template TFileManager() {
         bool renameFile(string oldPathAndName, string newName) {
           version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
-          if (oldPathAndName is null || newName.isNull) { return false; } 
+          if (oldPathAndName is null || newName is null) { return false; } 
           return renameFile(toPathItems(oldPathAndName, pathSeparator), newName);
         }
 
         bool renameFile(string aPath, string oldName, string newName) {
-          if (aPath is null || oldName is null || newName.isNull) { return false; } 
+          if (aPath is null || oldName is null || newName is null) { return false; } 
           return renameFile(toPathItems(aPath, pathSeparator), oldName, newName);
         }
         

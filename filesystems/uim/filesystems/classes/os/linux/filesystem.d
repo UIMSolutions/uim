@@ -154,7 +154,7 @@ class DLinuxFilesystem : DFilesystem {
 					debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 	      	debug writeln("aPath = \t", aPath); 
 	      	debug writeln("oldName = \t", oldName, " \tnewName = \t", newName); }
-        if (!existsFolder(aPath, oldName) || newName.isNull) { return false; } 
+        if (!existsFolder(aPath, oldName) || newName is null) { return false; } 
 
 				std.file.rename(absolutePath(aPath~oldName), absolutePath(aPath~newName));
 				return existsFolder(aPath, newName);
@@ -235,7 +235,7 @@ class DLinuxFilesystem : DFilesystem {
 					debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 	      	debug writeln("aPath = \t", aPath); 
 	      	debug writeln("oldFileName = \t", oldFileName, " \newFileName = \t", newFileName); }
-        if (!existsFile(aPath, oldFileName) || newFileName.isNull) { return false; } 
+        if (!existsFile(aPath, oldFileName) || newFileName is null) { return false; } 
 
 	      // version(testUimFilesystems) { debug writeln("From ", absolutePath(aPath~oldName), " to", absolutePath(aPath~newName)); 
 				std.file.rename(absolutePath(aPath~oldFileName), absolutePath(aPath~newFileName));

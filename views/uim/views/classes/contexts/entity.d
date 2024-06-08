@@ -519,7 +519,7 @@ class DEntityContext : DContext {
         if (isSet(_tables[mypath])) {
             return _tables[mypath];
         }
-        if (current(mynormalized) == _rootName) {
+        if (currentValue(mynormalized) == _rootName) {
             mynormalized = array_slice(mynormalized, 1);
         }
         mytable = _tables[_rootName];

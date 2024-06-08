@@ -623,7 +623,7 @@ class DHtmlHelper : DHelper {
                 myattrs = myarg[1];
             } else {
                 mycontent = key(myarg);
-                myattrs = current(myarg);
+                myattrs = currentValue(myarg);
             }
             result ~= this.formatTemplate("tableheader", [
                 "attrs": this.templater().formatAttributes(myattrs),

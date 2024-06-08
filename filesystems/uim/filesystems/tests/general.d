@@ -9,7 +9,7 @@ import uim.filesystems;
 
 @safe:
 bool testFilesystem(IFilesystem aFilesystem) {
-	if (aFilesystem.isNull) { return false; }
+	if (aFilesystem is null) { return false; }
 
  	if (!aFilesystem.existsFolder("testFolder")) {
 		assert(aFilesystem.createFolder("testFolder"), "testFilesystem: Couldn't create testFolder");

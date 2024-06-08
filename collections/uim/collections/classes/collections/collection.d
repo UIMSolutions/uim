@@ -35,7 +35,7 @@ class DCollection : /* IteratorIterator, */ ICollection {
     if (someItems.isArray) {
       someItems = new DArrayIterator(someItems);
     } */
-    super(someItems);
+    // super(someItems);
   }
 
 
@@ -48,14 +48,14 @@ class DCollection : /* IteratorIterator, */ ICollection {
 
   //  Rebuilds the Collection instance.
   void __unserialize(Json[string] data) {
-    __construct(someData);
+    // __construct(someData);
   }
 
   // Returns an array that can be used to describe the internal state of this object.
   protected Json[string] debugInfo() {
     size_t countItems;
     try {
-      countItems = count();
+      // countItems = count();
     } catch (Exception exception) {
       // countItems = "An exception occurred while getting count";
     }

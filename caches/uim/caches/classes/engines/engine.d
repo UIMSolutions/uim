@@ -61,33 +61,35 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     mixin(TProperty!("string", "groupName"));
 
     // #region items
-        // Obtains multiple cache items by their unique keys.
-        void items(Json[string] newItems, long timeToLive = 0) {
-            clear();
-            update(newItems.dup, timeToLive);
+    // Obtains multiple cache items by their unique keys.
+    void items(Json[string] newItems, long timeToLive = 0) {
+        clear();
+        update(newItems.dup, timeToLive);
+    }
+
+    Json[string] items(string[] keysToUse = null) {
+        if (keysToUse.isNull) {
+            return items(keys);
         }
 
-        Json[string] items(string[] keysToUse = null) {
-            if (keysToUse.isNull) { 
-                return items(keys);
-            } 
+        Json[string] results;
+        keysToUse
+            .each!((key) {
+                auto item = read(key);
+                if (!item.isNull) {
+                    results[key] = item;
+                }
+            });
 
-            Json[string] results;
-            keysToUse
-                .each!((key) {
-                    auto item = read(key);
-                    if (!item.isNull) {
-                       results[key] = item; 
-                    }
-                });
+        return results;
+    }
 
-            return results;
-        }
+    string[] keys() {
+        return null;
+    }
 
-        abstract string[] keys(); 
-
-        // Persists a set of key: value pairs in the cache, with an optional TTL.
-/*         bool items(Json[string] items, long timeToLive = 0) {
+    // Persists a set of key: value pairs in the cache, with an optional TTL.
+    /*         bool items(Json[string] items, long timeToLive = 0) {
             // TODO ensureValidType(myvalues, CHECK_KEY);
 
             Json restoreDuration = Json(null); 
@@ -112,7 +114,11 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     Json[] read(string[] keys, Json defaultValue = Json(null)) {
         return keys.map!(key => read(key, defaultValue)).array;
     }
-    abstract Json read(string key, Json defaultValue = Json(null));
+
+    Json read(string key, Json defaultValue = Json(null)) {
+        return Json(null);
+    }
+
     // #endregion read
 
     // #region update
@@ -121,14 +127,20 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         return items.byKeyValue
             .all!(kv => update(kv.key, kv.value, timeToLive));
     }
-    abstract bool update(string key, Json value, long timeToLive = 0);
+
+    bool update(string key, Json value, long timeToLive = 0) {
+        return false;
+    }
     // #endregion update
 
     // Increment a number under the key and return incremented value
-    abstract long increment(string key, int incValue = 1); 
-
+    long increment(string key, int incValue = 1) {
+        return 0;
+    }
     // Decrement a number under the key and return decremented value
-    abstract long decrement(string key, int decValue = 1);
+    long decrement(string key, int decValue = 1) {
+        return 0;
+    }
 
     // Merge an item (key, value) to the cache if it does not already exist.
     bool merge(string key, Json value, long timeToLive = 0) {
@@ -137,26 +149,27 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     }
 
     // #region remove
-        // Delete all keys from the cache
-        bool clear() {
-            return remove(keys);
-        }
+    // Delete all keys from the cache
+    bool clear() {
+        return remove(keys);
+    }
 
-        // Deletes multiple cache items as a list
-        bool remove(string[] keys) {
-            return keys.all!(key => remove(key));
-        }
+    // Deletes multiple cache items as a list
+    bool remove(string[] keys) {
+        return keys.all!(key => remove(key));
+    }
 
-        // Delete a key from the cache
-        abstract bool remove(string key); 
+    // Delete a key from the cache
+    bool remove(string key) {
+        return false;
+    }
     // #endregion remove
-
 
     /**
      * Clears all values belonging to a group. Is up to the implementing engine
      * to decide whether actually delete the keys or just simulate it to achieve the same result.
      */
-    abstract bool clearGroup(string groupName); 
+    abstract bool clearGroup(string groupName);
 
     /**
      * Does whatever initialization for each group is required and returns the `group value` for each of them, 

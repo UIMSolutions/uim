@@ -68,7 +68,7 @@ class DFileCacheEngine : DCacheEngine {
     // TODO protected DSplFileObject _splFileObject;
 
     // Write data for key into cache
-    override bool set(string dataId, Json cacheData, long timeToLive = 0) {
+    /* override */ bool set(string dataId, Json cacheData, long timeToLive = 0) {
         /* TODO if (cacheData == "" || !_init) {
             return false;
         }
@@ -298,7 +298,8 @@ class DFileCacheEngine : DCacheEngine {
     override protected string internalKey(string key) {
         auto newKey = super.internalKey(key);
 
-        return rawUrlEncode(newKey);
+        /* return rawUrlEncode(newKey); */
+        return null; 
     }
 
     // Recursively deletes all files under any directory named as mygroup

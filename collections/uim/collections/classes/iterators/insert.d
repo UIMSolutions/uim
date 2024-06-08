@@ -53,7 +53,7 @@ class DInsertIterator : DCollection {
      * the value from the source collection into the specified path.
     */
   Json currentValue() {
-    auto myRow = super.currentValue();
+    // auto myRow = super.currentValue();
 
     /*     if (!_validValues) {
       return myRow;
@@ -67,7 +67,8 @@ class DInsertIterator : DCollection {
     })
     aPointer[_target] = _values.currentValue(); */
 
-    return myRow;
+    // TODO return myRow;
+    return Json(null);
   }
 
   // Resets the collection pointer.

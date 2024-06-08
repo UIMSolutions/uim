@@ -11,7 +11,7 @@ unittest {
 @safe:
 
 string debugInfo(IFilesystemEntry anEntry) {
-  if (anEntry.isNull) { return "entry is missing (null)."; }
+  if (anEntry is null) { return "entry is missing (null)."; }
 
   return `
 -----------

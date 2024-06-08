@@ -65,7 +65,7 @@ class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
 
   // Advances the cursor one position
   void next() {
-    super.next();
+    // super.next();
     _current = null;
   }
 

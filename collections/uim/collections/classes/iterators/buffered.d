@@ -74,11 +74,11 @@ class DBufferedIterator : DCollection { // }, Countable {
 
       return true; * /
     } */
-    valid = super.valid();
+    // valid = super.valid();
 
     if (valid) {
-      _current = super.currentValue();
-      _key = super.key();
+      // _current = super.currentValue();
+      // _key = super.key();
       /* _buffer.push([
           "key": _key,
           "value": _current,
@@ -86,7 +86,8 @@ class DBufferedIterator : DCollection { // }, Countable {
     }
     // TODO _finished = ! valid;
 
-    return valid;
+    // return valid;
+    return false;
   }
 
   // Advances the iterator pointer to the next element
@@ -104,13 +105,14 @@ class DBufferedIterator : DCollection { // }, Countable {
 
   // Returns the number or items in this collection
   size_t count() {
-    if (!_started) {
+    /* if (!_started) {
       _rewind();
-    }
+    } */
     while (this.valid()) {
       this.next();
     }
-    return _buffer.count();
+    // TODO return _buffer.count();
+    return 0; 
   }
 
   // Magic method used for serializing the iterator instance.

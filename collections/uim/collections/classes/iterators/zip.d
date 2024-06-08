@@ -85,7 +85,8 @@ class DZipIterator : ICollection {
     
     // Magic method used for serializing the iterator instance.
     Json[string] __serialize() {
-        return _iterators;
+        // return _iterators;
+        return null; 
     }
     
     /**

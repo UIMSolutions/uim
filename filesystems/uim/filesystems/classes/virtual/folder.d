@@ -63,7 +63,7 @@ class DVirtualFolder : DFolder {
 			return _folders.values.dup;
 		}
 		// Without hidden folders
-		return _folders.values.filter!(f => !f.isHidden("")).array;
+		return _folders.values.filter!(folder => !folder.isHidden/* ("") */).array;
 	}
 
 	override bool addFolder(IFolder aFolder) {
@@ -72,7 +72,7 @@ class DVirtualFolder : DFolder {
 
 	bool removeFolder() {
 		return false;
-	} */
+	}
 	// #endregion Folders
 }
 mixin(FolderCalls!("Virtual"));

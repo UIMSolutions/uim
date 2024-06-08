@@ -20,7 +20,7 @@ class DTreeIterator { // TODO }: RecursiveIteratorIterator, ICollection {
      
      * Params:
      * \RecursiveIterator<mixed, mixed>  someItems The iterator to flatten.
-     */
+     * /
     this(
         RecursiveIterator  someItems,
         int iteratorMode = RecursiveIteratorIterator.SELF_FIRST,
@@ -70,7 +70,7 @@ class DTreeIterator { // TODO }: RecursiveIteratorIterator, ICollection {
                 return counter++;
             };
         }
-        /** @var \RecursiveIterator  anIterator */
+        /** @var \RecursiveIterator  anIterator * /
         auto myIterator = innerIterator();
 
         return new DTreePrinter(

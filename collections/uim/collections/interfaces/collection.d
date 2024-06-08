@@ -180,13 +180,13 @@ zip */
      * return value < 21;
      * });
      * ```
-     */
+     * /
     bool any(callable callback);
 
     /**
      * Returns true if value is present in this collection. Comparisons are made
      * both by value and type.
-     */
+     * /
     bool contains(Json value);
 
     /**
@@ -206,7 +206,7 @@ zip */
      * return person.gender == "female";
      * });
      * ```
-     */
+     * /
     ICollection map(callable callback);
 
     /**
@@ -216,7 +216,7 @@ zip */
      * by the callback function.
      * If zero is omitted the first value of the collection will be used in its place
      * and reduction will start from the second item.
-     */
+     * /
     Json reduce(callable callback, initial = null);
 
     /**
@@ -278,7 +278,7 @@ zip */
      * writeln(max.name;
      * ```
      */
-    Json max(string columnName, int sortType = SORT_NUMERIC);
+    Json max(string columnName, int sortType = 0); // TODO SORT_NUMERIC);
 
     /**
      * Returns the bottom element in this collection after being sorted by a property.
@@ -383,7 +383,7 @@ zip */
      * }
      * ```
      */
-    ICollection sortBy(string columnName, int sortOrder = SORT_DESC, int sortType = SORT_NUMERIC);
+    ICollection sortBy(string columnName, int sortOrder = 0 /* SORT_DESC */, int sortType = 0 /* SORT_NUMERIC */);
 
     /**
      * Splits a collection into sets, grouped by the result of running each value
@@ -1021,5 +1021,5 @@ zip */
      * ];
      * ```
      */
-    ICollection cartesianProduct(callable operation = null, callable filter = null);
+    // ICollection cartesianProduct(callable operation = null, callable filter = null);
 }

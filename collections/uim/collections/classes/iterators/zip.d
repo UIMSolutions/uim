@@ -73,7 +73,7 @@ class DZipIterator : ICollection {
     void next() {
         _multipleIterator.next();
     }
-    void rewind()) {
+    void rewind() {
         _multipleIterator.rewind();
     }
     bool valid() {

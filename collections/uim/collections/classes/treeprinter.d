@@ -69,8 +69,9 @@ class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
 
   // Returns the current iteration element and caches its value
   protected Json _fetchCurrent() {
-    return !_current.isNull
-      ? _current
-      : _current = super.current();
+    if (!_current.isNull) {
+      return _current;
+    }
+    return _current = super.current();
   }
 }

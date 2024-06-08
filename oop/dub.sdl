@@ -19,9 +19,8 @@ importPaths "."
 
 targetName "uim-oop"
 
-configuration "default" {
-	versions ""
-}
+// configuration "default" {}
+
 configuration "test_uim_oop" {
 	versions "test_uim_oop"
 }

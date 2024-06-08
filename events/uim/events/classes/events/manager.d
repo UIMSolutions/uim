@@ -43,9 +43,9 @@ class DEventManager { // }: IEventManager {
         if (cast(DEventManager)manager) {
             _generalManager = manager;
         }
-        if (_generalManager.isEmpty) {
+        /* if (_generalManager.isEmpty) {
             _generalManager = new static();
-        }
+        } */
         _generalManager._isGlobal = true;
 
         return _generalManager;

@@ -512,7 +512,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         foreach (fieldName as fieldName: mysetting) {
             mysettings = _convertValidatorToArray((string)fieldName, mydefaults, mysetting);
-            string fieldName = current(mysettings.keys);
+            string fieldName = currentValue(mysettings.keys);
 
             this.field((string)fieldName).requirePresence(mysettings[fieldName]["mode"]);
             if (mysettings[fieldName]["message"]) {

@@ -377,7 +377,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             array) this.table
             .primaryKeys();
         id = entity.get(
-            current(
+            currentValue(
                 primaryKeys)); // When we have no key and bundled translations, we
         // need to mark the entity dirty so the root
         // entity persists.
@@ -623,7 +623,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             array) this.table
             .primaryKeys();
         key = entity.get(
-            current(
+            currentValue(
                 primaryKeys));
         foreach (
             translations as lang : translation) {

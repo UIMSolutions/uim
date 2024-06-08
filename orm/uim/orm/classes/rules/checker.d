@@ -39,7 +39,7 @@ class DRulesChecker { // }: BaseRulesChecker {
                 errorMessage = "This value is already in use";
             }
         }
-        myerrorField = current(fieldNames);
+        myerrorField = currentValue(fieldNames);
 
         return _addError(new DIsUnique(fieldNames, options), "_isUnique", compact("errorField", "message"));
     }
@@ -86,7 +86,7 @@ class DRulesChecker { // }: BaseRulesChecker {
                 errorMessage = "This value does not exist";
             }
         }
-        myerrorField = isString(fieldName) ? fieldName : current(fieldName);
+        myerrorField = isString(fieldName) ? fieldName : currentValue(fieldName);
 
         return _addError(new DExistsIn(fieldName, mytable, options), "_existsIn", compact("errorField", "message"));
     }

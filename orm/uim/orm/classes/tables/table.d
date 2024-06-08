@@ -1193,7 +1193,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
                 continue;
             }
             if (count(options[field]) == 1) {
-                options[field] = current(options[field]);
+                options[field] = currentValue(options[field]);
                 continue;
             }
             
@@ -1963,7 +1963,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
 
                 if (cast(IORMEntity)myvalue) {
                     mycleanupOnSuccess(myvalue);
-                } else if (isArray(myvalue) && cast(IORMEntity)current(myvalue)) {
+                } else if (isArray(myvalue) && cast(IORMEntity)currentValue(myvalue)) {
                     myvalue.each!(associated => mycleanupOnSuccess(associated));
                 }
             }

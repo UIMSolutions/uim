@@ -252,7 +252,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         }
 
         primaryKeys = /* (array) */_table.primaryKeys();
-        key = entity.get(current(primaryKeys));
+        key = entity.get(currentValue(primaryKeys));
 
         // When we have no key and bundled translations, we
         // need to mark the entity dirty so the root
@@ -429,7 +429,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         fields = configuration.get("fields");
         primaryKeys = /* (array) */_table.primaryKeys();
-        key = entity.get(current(primaryKeys));
+        key = entity.get(currentValue(primaryKeys));
         find = null;
         contents = null;
 
@@ -477,7 +477,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         query = association.find()
             .select(["id", "num": 0])
-            .where(current(ruleSet))
+            .where(currentValue(ruleSet))
             .disableHydration()
             .disableBufferedResults();
 

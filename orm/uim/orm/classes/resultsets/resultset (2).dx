@@ -144,7 +144,7 @@ class DResultset : IResultset {
      *
      * Part of Iterator interface.
      */
-    Json current() {
+    Json currentValue() {
         return _current;
     }
 

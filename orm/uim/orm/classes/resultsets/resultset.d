@@ -67,7 +67,7 @@ class DResultset { // TODO }: IResultset {
      *
      * Part of Iterator interface.
      */
-    IORMEntity|array|null current() {
+    IORMEntity|array|null currentValue() {
         return _current;
     }
     

@@ -245,7 +245,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
     }
 
     // Part of Iterator Interface
-    IPlugin current() {
+    IPlugin currentValue() {
         auto position = _positions[_loopDepth];
         auto pluginName = _names[position];
 

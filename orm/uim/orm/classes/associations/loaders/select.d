@@ -163,10 +163,10 @@ class DSelectLoader {
         finderData = /* (array) */finderData;
 
         if (key(finderData).isNumeric) {
-            return [current(finderData), []];
+            return [currentValue(finderData), []];
         }
 
-        return [key(finderData), current(finderData)];
+        return [key(finderData), currentValue(finderData)];
     }
 
     /**
@@ -236,7 +236,7 @@ class DSelectLoader {
         if ((key.isArray) {
             conditions = _createTupleCondition(query, key, filter, "=");
         } else {
-            filter = current(filter);
+            filter = currentValue(filter);
             conditions = query.newExpr([key: filter]);
         }
 

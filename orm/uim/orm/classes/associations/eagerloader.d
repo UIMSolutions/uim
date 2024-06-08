@@ -259,7 +259,7 @@ class DEagerLoader {
             if (cast8EagerLoadable)options) {
                 options = options.asContainArray();
                 mytable = key(options);
-                options = current(options);
+                options = currentValue(options);
             }
             if (isSet(_containOptions[mytable])) {
                 mypointer[mytable] = options;

@@ -84,7 +84,7 @@ class DBufferedIterator : DCollection { // }, Countable {
           "value": _current,
         ]);
     }
-    _finished = ! valid;
+    // TODO _finished = ! valid;
 
     return valid;
   }
@@ -94,12 +94,12 @@ class DBufferedIterator : DCollection { // }, Countable {
     _index++;
 
     // Don`t move inner iterator if we have more buffer
-    if (_buffer.offsetExists(_index)) {
+    /* if (_buffer.offsetExists(_index)) {
       return;
     }
     if (!_finished) {
       super.next();
-    }
+    } */
   }
 
   // Returns the number or items in this collection
@@ -114,19 +114,19 @@ class DBufferedIterator : DCollection { // }, Countable {
   }
 
   // Magic method used for serializing the iterator instance.
-  Json[string] __serialize() {
+  /* Json[string] __serialize() {
     if (!_finished) {
       count();
     }
     return iterator_to_array(_buffer);
-  }
+  } */
 
   // Magic method used to rebuild the iterator instance.
-  void __unserialize(Json[string] data) {
+ /*  void __unserialize(Json[string] data) {
     __construct([]);
 
     data.each!(value => _buffer.push(value));
     _started = true;
     _finished = true;
-  }
+  } */
 }

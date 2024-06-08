@@ -17,8 +17,8 @@ class DNoChildrenIterator : DCollection { // }, RecursiveIterator {
   }
 
   // Returns a self instance without any elements.
-  DRecursiveIterator getChildren() {
+  /* DRecursiveIterator getChildren() {
     // return new DRecursiveIterator;
     return null; 
-  }
+  } */
 }

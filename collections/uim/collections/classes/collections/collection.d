@@ -56,10 +56,10 @@ class DCollection : /* IteratorIterator, */ ICollection {
     try {
       countItems = count();
     } catch (Exception exception) {
-      countItems = "An exception occurred while getting count";
+      // countItems = "An exception occurred while getting count";
     }
     return [
-      "count": Json(countItems),
+      "count": countItems.toJson,
     ];
   } 
 }

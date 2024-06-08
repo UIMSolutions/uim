@@ -101,7 +101,7 @@ transpose
 
 unfold
 
-zip */
+zip * /
     // Applies a callback to the elements in this collection.
     ICollection each(void function(string key, Json value) functionCall);
 
@@ -124,7 +124,7 @@ zip */
      * return value % 2 == 0;
      * });
      * ```
-     */
+     * /
     ICollection filter(bool delegate(Json item));
 
     /**
@@ -146,7 +146,7 @@ zip */
      * });
      * ```
      */
-    ICollection reject(callable callbackForEachElement);
+    // ICollection reject(callable callbackForEachElement);
 
     /**
      * Returns true if all values in this collection pass the truth test provided
@@ -163,7 +163,7 @@ zip */
      * });
      * ```
      * Empty collections always return true.
-     */
+     * /
     bool every(callable callback);
 
     /**
@@ -256,9 +256,9 @@ zip */
      * Result will contain
      * [1, 2, 3, 4]
      * ```
-    */
-    // TODO  ICollection extract(/* callable */ string path);
-    ICollection extract(string path);
+    * /
+    // TODO  ICollection extract(/* callable * / string path);
+    /* ICollection extract(string path);
 
     /**
      * Returns the top element in this collection after being sorted by a property.
@@ -277,7 +277,7 @@ zip */
      * Display employee name
      * writeln(max.name;
      * ```
-     */
+     * /
     Json max(string columnName, int sortType = 0); // TODO SORT_NUMERIC);
 
     /**
@@ -322,7 +322,7 @@ zip */
      *
      * The average of an empty set or 0 rows is `null`. Collections with `null`
      * values are not considered empty.
-     */
+     * /
     double avg(string propertyName = null);
 
     /**
@@ -350,7 +350,7 @@ zip */
      *
      * The median of an empty set or 0 rows is `null`. Collections with `null`
      * values are not considered empty.
-     */
+     * /
     double median(string propertyName = null);
 
     /**
@@ -382,8 +382,8 @@ zip */
      * writeln(user.name;
      * }
      * ```
-     */
-    ICollection sortBy(string columnName, int sortOrder = 0 /* SORT_DESC */, int sortType = 0 /* SORT_NUMERIC */);
+     * /
+    ICollection sortBy(string columnName, int sortOrder = 0 /* SORT_DESC * /, int sortType = 0 /* SORT_NUMERIC * /);
 
     /**
      * Splits a collection into sets, grouped by the result of running each value
@@ -421,7 +421,7 @@ zip */
      * ]
      * ];
      * ```
-      */
+      * /
     ICollection groupBy(string columnName);
 
     /**
@@ -456,7 +456,7 @@ zip */
      * 2: ["id": 2, "name": "bar"],
      * ];
      * ```
-     */
+     * /
     ICollection indexBy(string columnName);
 
     /**
@@ -490,7 +490,7 @@ zip */
      * 11: 1
      * ];
      * ```
-     */
+     * /
     ICollection countBy(string columnName);
 
     /**
@@ -512,13 +512,13 @@ zip */
      * total = (new DCollection([1, 2, 3])).sumOf();
      *  Total: 6
      * ```
-     */
+     * /
     float sumOf(string propertyName = null);
 
     /**
      * Returns a new DCollection with the elements placed in a random order,
      * this // function does not preserve the original keys in the collection.
-     */
+     * /
     ICollection shuffle();
 
     // Returns a new DCollection with maximum size random elements from this collection
@@ -528,7 +528,7 @@ zip */
      * Returns a new DCollection with maximum size elements in the internal
      * order this collection was created. If a second parameter is passed, it
      * will determine from what position to start taking elements.
-     */
+     * /
     ICollection take(int numberOfElements = 1, int positionalOffset = 0);
 
     /**
@@ -543,13 +543,13 @@ zip */
      *
      * Result will look like this when converted to array
      * [3, 4, 5];
-     */
+     * /
     ICollection takeLast(int numberOfElements);
 
     /**
      * Returns a new DCollection that will skip the specified amount of elements
      * at the beginning of the iteration.
-     */
+     * /
     ICollection skip(int elementsToSkip);
 
     /**
@@ -571,7 +571,7 @@ zip */
      * ["comment": ["body": "very cool", "user": ["name": "Renan"]]
      * ]
      * ```
-     */
+     * /
     ICollection match(Json[string] conditions);
 
     // Returns the first result matching all the key-value pairs listed in conditions.
@@ -586,7 +586,7 @@ zip */
     /**
      * Returns a new DCollection as the result of concatenating the list of elements
      * in this collection with the passed list of elements
-     */
+     * /
     ICollection append(Json[] items);
 
     // Append a single item creating a new DCollection.
@@ -627,13 +627,13 @@ zip */
      * "a": [1: "foo", 3: "baz"],
      * "b": [2: "bar"]
      * ];
-     */
+     * /
     ICollection combine(string keyPath, string valuePath, string groupPath = null);
 
     /**
      * Returns a new DCollection where the values are nested in a tree-like structure
      * based on an id property path and a parent id property path.
-     */
+     * /
     ICollection nest(string idPath, string parentPath, string nestingKey = "children");
 
     /**
@@ -665,8 +665,8 @@ zip */
      * ["comment": ["body": "awesome", "user": ["name": "Renan", "age": 28]]
      * ];
      * ```
-     */
-    ICollection insert(string path, json[string] valuesToInsert);
+     * /
+    ICollection insert(string path, Json[string] valuesToInsert);
 
     /**
      * Returns an array representation of the results
@@ -675,20 +675,20 @@ zip */
      * collection as the array keys. Keep in mind that it is valid for iterators
      * to return the same key for different elements, setting this value to false
      * can help getting all items if keys are not important in the result.
-      */
+      * /
     Json[string] toArray(bool shouldKeepKeys = true);
 
     /**
      * Returns an numerically-indexed array representation of the results.
      * This is equivalent to calling `toArray(false)`
-     */
+     * /
     Json[string] toList();
 
     /**
      * Returns the data that can be converted to Json. This returns the same data
      * as `toArray()` which contains only unique keys.
      * Part of JsonSerializable interface
-     */
+     * /
     Json[string] JsonSerialize();
 
     /**
@@ -716,7 +716,7 @@ zip */
      *
      * You can think of this method as a way to create save points for complex
      * calculations in a collection.
-     */
+     * /
     ICollection compile(bool shouldKeepKeys = true);
 
     /**
@@ -724,7 +724,7 @@ zip */
      * to be run lazily. That is, elements will be yieleded one at a time.
      *
      * A lazy collection can only be iterated once. A second attempt results in an error.
-     */
+      * /
     ICollection lazyCollection();
 
     /**
@@ -733,7 +733,7 @@ zip */
      * only be performed once.
      *
      * This can also be used to make any non-rewindable iterator rewindable.
-     */
+     * /
     ICollection buffered();
 
     /**
@@ -769,7 +769,7 @@ zip */
      * ]);
      * flattenedIds = collection.listNested().extract("id"); // Yields [1, 2, 3, 4, 5]
      * ```
-     */
+     * /
     // ICollection listNested(callable - string order = "desc", string nestingKey = "children");
     ICollection listNested(string order = "desc", string nestingKey = "children");
 
@@ -798,7 +798,7 @@ zip */
      * ```
      * comments = (new DCollection(comments)).stopWhen(["is_approved": false.toJson]);
      * ```
-     */
+     * /
     ICollection stopWhen(Json[string] condition);
 
     /**
@@ -829,7 +829,7 @@ zip */
      * return service.fetchPage(page).toJString();
      * });
      * ```
-     */
+     * /
     ICollection unfold(callable callback = null);
 
     /**
@@ -844,7 +844,7 @@ zip */
      *     return new DMyCustomCollection(collection);
      * });
      * ```
-     */
+     * /
     ICollection through(callable callback);
 
     /**
@@ -857,7 +857,7 @@ zip */
      * collection = new DCollection([1, 2]);
      * collection.zip([3, 4], [5, 6]).toList(); // returns [[1, 3, 5], [2, 4, 6]]
      * ```
-     */
+     * /
     // ICollection zip(Json[string] itemsToZip): ;
 
     /**
@@ -875,7 +875,7 @@ zip */
      * });
      * zipped.toList(); // returns [9, 12]; [(1 + 3 + 5), (2 + 4 + 6)]
      * ```
-     */
+     * /
     ICollection zipWith(Json[string] collectionsToZip, callable callback);
 
     /**
@@ -888,7 +888,7 @@ zip */
      * chunked = (new DCollection(items)).chunk(3).toList();
      * Returns [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11]]
      * ```
-     */
+     * /
     ICollection chunk(int chunkMaxsize);
 
     /**
@@ -901,7 +901,7 @@ zip */
      * chunked = (new DCollection(items)).chunkWithKeys(3).toList();
      * Returns [["a": 1, "b": 2, "c": 3], ["d": 4, "e": 5, "f": 6]]
      * ```
-     */
+     * /
     ICollection chunkWithKeys(int chunkMaxsize, bool shouldKeepKeys = true);
 
     /**
@@ -917,14 +917,14 @@ zip */
      * ```
      * (new DCollection([])).isEmpty(); // true
      * ```
-     */
+     * /
     bool isEmpty();
 
     /**
      * Returns the closest nested iterator that can be safely traversed without
      * losing any possible transformations. This is used mainly to remove empty
      * IteratorIterator wrappers that can only slowdown the iteration process.
-     */
+     * /
     Traversable unwrap();
 
     /**
@@ -950,7 +950,7 @@ zip */
      *     ["2014", "50", "100", "200"],
      * ]
      * ```
-     */
+     * /
     ICollection transpose();
 
     /**
@@ -985,7 +985,7 @@ zip */
      *
      * If you need the count of elements after taking the keys in consideration
      * (the count of unique keys), you can call `countKeys()`
-     */
+     * /
     size_t count();
 
     /**
@@ -994,7 +994,7 @@ zip */
      *
      * This method comes with a number of caveats. Please refer to `ICollection.count()`
      * for details.
-     */
+     * /
     size_t countKeys();
 
     /**

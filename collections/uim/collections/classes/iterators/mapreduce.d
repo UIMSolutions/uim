@@ -34,7 +34,7 @@ class DMapReduce { // }: IteratorAggregate {
     /**
      * A callable that will be executed for each intermediate record emitted during
      * the Map phase
-     */
+     * /
     protected callable _reducer;
 
     /**

@@ -15,7 +15,7 @@ class DExtractIterator : DCollection {
   /**
      * A callable responsible for extracting a single value for each
      * item in the collection.
-          */
+          * /
   protected callable _extractor;
 
   /**
@@ -35,7 +35,7 @@ class DExtractIterator : DCollection {
      * ```
      * Params:
      * Json[string] someItems The list of values to iterate
-     */
+     * /
   this(Json[string] someItems, string aPath) {
     _extractor = _propertyExtractor(aPath);
     super(someItems);
@@ -57,7 +57,7 @@ class DExtractIterator : DCollection {
     TODO 
     /* if (myIterator.class != ArrayIterator.class) {
       return this;
-    } */
+    } * /
     
     // ArrayIterator can be traversed strictly.
     // Let`s do that for performance gains
@@ -68,5 +68,5 @@ class DExtractIterator : DCollection {
     myIterator.getArrayCopy().byKeyValue.each!(kv => res[kv.key] = aCallback(kv.value));
 
     return new DArrayIterator(res);
-  } 
+  } */
 }

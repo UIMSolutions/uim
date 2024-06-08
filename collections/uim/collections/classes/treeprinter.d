@@ -31,7 +31,7 @@ class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
      
      * Params:
      * \RecursiveIterator<mixed, mixed>  someItems The iterator to flatten.
-     */
+     * /
   this(
     IRecursiveIterator someItems,
     string pathToValue,
@@ -43,7 +43,7 @@ class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
     _value = _propertyExtractor(pathToValue);
     _key = _propertyExtractor(pathToKey);
     _spacer = spacer;
-  }
+  } */
 
   // Returns the current iteration key
   Json key() {
@@ -69,9 +69,8 @@ class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
 
   // Returns the current iteration element and caches its value
   protected Json _fetchCurrent() {
-    if (!_current.isNull) {
-      return _current;
-    }
-    return _current = super.current();
+    return !_current.isNull
+      ? _current
+      : _current = super.current();
   }
 }

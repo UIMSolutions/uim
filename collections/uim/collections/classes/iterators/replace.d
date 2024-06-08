@@ -23,7 +23,7 @@ class DReplaceIterator : DCollection {
      * Each time the callback is executed it will receive the value of the element
      * in the current iteration, the key of the element and the passed  someItems iterator
      * as arguments, in that order.
-     */
+     * /
   this(Json[string] itemToFilter, callable callableaCallback) {
     _callback = aCallback;
     super(itemToFilter);
@@ -35,7 +35,7 @@ class DReplaceIterator : DCollection {
     // TODO
     /* aCallback = _callback;
 
-    return aCallback(super.current(), this.key(), _innerIterator); */
+    return aCallback(super.current(), this.key(), _innerIterator); * /
     return Json(null);
   }
 
@@ -58,7 +58,7 @@ class DReplaceIterator : DCollection {
     anIterator.byKeyValue
       .each!(kv => res[kv.key] = aCallback(kv.value, kv.key,  anIterator));
     
-    return new DArrayIterator(res); */
+    return new DArrayIterator(res); * /
     return null;
-  }
+  } */
 }

@@ -31,12 +31,12 @@ class DSortIterator : DCollection {
      * the value returned in the callback will be used as the value for sorting such
      * element. Please note that the callback auto could be called more than once
      * per element.
-     */
+     * /
   this(
     Json[string] someItems,
     string mycallback,
-    int sortDirection = SORT_DESC,
-    int sortType = SORT_NUMERIC
+    int sortDirection = 0, //= SORT_DESC,
+    int sortType = 0 // SORT_NUMERIC
   ) {
     auto aCallback = _propertyExtractor(aCallback);
     auto myResults = null;
@@ -61,7 +61,7 @@ class DSortIterator : DCollection {
   super(myResults);
 }
 
-Iterator unwrap() {
+/* Iterator unwrap() {
   return _getInnerIterator();
-}
+} */
 }

@@ -64,7 +64,7 @@ class DMapReduce { // }: IteratorAggregate {
      * ```
      * Params:
      * range someData The original data to be processed.
-     */
+     * /
     this(Json[string] dataToProcess, callable mapper, callable reducer = null) {
        _data = dataToProcess;
        _mapper = mapper;
@@ -74,7 +74,7 @@ class DMapReduce { // }: IteratorAggregate {
     /**
      * Returns an iterator with the end result of running the Map and Reduce
      * phases on the original data
-     */
+     * /
     auto getIterator() {
         if (!_executed) {
            _execute();
@@ -85,7 +85,7 @@ class DMapReduce { // }: IteratorAggregate {
     /**
      * Appends a new record to the bucket labelled with aKey, usually as a result
      * of mapping a single record from the original data.
-     */
+     * /
     void emitIntermediate(Json storeData, string bucketName) {
        _intermediate[bucketName] ~= storeData;
     }
@@ -93,7 +93,7 @@ class DMapReduce { // }: IteratorAggregate {
     /**
      * Appends a new record to the final list of results and optionally assign a key
      * for this record.
-     */
+     * /
     void emit(Json val, string valueKey = null) {
        _result[valueKey ? valueKey : _counter] = val;
        _counter++;
@@ -104,7 +104,7 @@ class DMapReduce { // }: IteratorAggregate {
      * and call the mapper auto for each , then for each intermediate
      * bucket created during the Map phase call the reduce function.
      * was provided
-     */
+      * /
     protected void _execute() {
         auto myMapper = _mapper;
         _data.byKeyValue.each!(kv => myMapper(kv.value, kv.key, this));
@@ -118,5 +118,5 @@ class DMapReduce { // }: IteratorAggregate {
         }
        _intermediate = null;
        _executed = true;
-    }
+    } */
 }

@@ -14,6 +14,6 @@ class DArrayIterator(T) {
     this(T[] values) {        
     }
 }
-auto ArrayIterator(T)() { return new DArrayIterator!(); }
-auto ArrayIterator(T)(DArrayIterator!T iterator) { return new DArrayIterator!(iterator); }
-auto ArrayIterator(T)T[] values() { return new DArrayIterator!(values); }
+auto ArrayIterator(T)() { return new DArrayIterator!T(); }
+auto ArrayIterator(T)(DArrayIterator!T iterator) { return new DArrayIterator!T(iterator); }
+auto ArrayIterator(T)(T[] values) { return new DArrayIterator!T(values); }

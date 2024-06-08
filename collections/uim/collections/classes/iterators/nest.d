@@ -22,7 +22,7 @@ class DNestIterator : DCollection {// }, RecursiveIterator {
     RecursiveIterator getChildren() {
         auto aProperty = _propertyExtractor(_nestedKey);
 
-        return new static(aProperty(this.current()), _nestedKey);
+        return new static(aProperty(this.currentValue()), _nestedKey);
     }
     
     /**
@@ -31,7 +31,7 @@ class DNestIterator : DCollection {// }, RecursiveIterator {
      */
     bool hasChildren() {
         /* auto myProperty = _propertyExtractor(_nestedKey);
-        auto myChildren = myProperty(this.current());
+        auto myChildren = myProperty(this.currentValue());
 
         return myChildren.isArray
             ? !myChildren.isEmpty   

@@ -42,10 +42,10 @@ class DExtractIterator : DCollection {
   }
 
   // Returns the column value defined in somePath or null if the path could not be followed
-  Json current() {
+  Json currentValue() {
     auto myextractor = _extractor;
 
-    return myextractor(super.current());
+    return myextractor(super.currentValue());
   }
 
   Iterator unwrap() {

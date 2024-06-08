@@ -46,19 +46,21 @@ class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
   } */
 
   // Returns the current iteration key
-  Json key() {
-    auto myExtractor = _key;
+  string key() {
+    return null; 
+    /* auto myExtractor = _key;
 
-    return myExtractor(_fetchCurrent(), super.key(), this);
+    return myExtractor(_fetchCurrent(), super.key(), this); */
   }
 
   // Returns the current iteration value
-  string current() {
-    auto myExtractor = _value;
+  Json currentValue() {
+    return Json(null);
+    /* auto myExtractor = _value;
     auto myCurrent = _fetchCurrent();
     auto prefixSpacer = str_repeat(_spacer, getDepth());
 
-    return prefixSpacer ~ myExtractor(myCurrent, super.key(), this);
+    return prefixSpacer ~ myExtractor(myCurrent, super.key(), this); */
   }
 
   // Advances the cursor one position
@@ -69,9 +71,10 @@ class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
 
   // Returns the current iteration element and caches its value
   protected Json _fetchCurrent() {
-    if (!_current.isNull) {
+/*     if (!_current.isNull) {
       return _current;
     }
-    return _current = super.current();
+    return _current = super.currentValue(); */
+    return Json(null);
   }
 }

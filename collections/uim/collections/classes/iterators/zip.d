@@ -61,23 +61,26 @@ class DZipIterator : ICollection {
      * iterators with the same positional index.
      */
     Json current() {
-        current = _multipleIterator.current();
+        auto current = Json(null); /* _multipleIterator.current();
         if (_callback) {
             return call_user_func_array(_callback, current);
-        }
+        } */
         return current;
     }
     Json key() {
-        return _multipleIterator.key();
+        return Json(null);
+        /* 
+        return _multipleIterator.key(); */
     }
     void next() {
-        _multipleIterator.next();
+        /* _multipleIterator.next(); */
     }
     void rewind() {
-        _multipleIterator.rewind();
+        /* _multipleIterator.rewind(); */
     }
     bool valid() {
-        return _multipleIterator.valid();
+        return false; 
+        /* return _multipleIterator.valid(); */
     }
     
     // Magic method used for serializing the iterator instance.
@@ -91,11 +94,11 @@ class DZipIterator : ICollection {
      * Json[string] data Data array.
      */
     void __unserialize(Json[string] data) {
-        _multipleIterator = new DMultipleIterator(
+       /*  _multipleIterator = new DMultipleIterator(
             MultipleIterator.MIT_NEED_ALL | MultipleIterator.MIT_KEYS_NUMERIC
        );
 
        _iterators = someData;
-        _iterators.each!(iterator => _multipleIterator.attachIterator(iterator));
+        _iterators.each!(iterator => _multipleIterator.attachIterator(iterator)); */
     } 
 }

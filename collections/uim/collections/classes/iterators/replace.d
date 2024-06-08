@@ -31,11 +31,11 @@ class DReplaceIterator : DCollection {
   }
 
   // Returns the value returned by the callback after passing the current value in the iteration
-  Json current() {
+  Json currentValue() {
     // TODO
     /* aCallback = _callback;
 
-    return aCallback(super.current(), this.key(), _innerIterator); * /
+    return aCallback(super.currentValue(), this.key(), _innerIterator); * /
     return Json(null);
   }
 

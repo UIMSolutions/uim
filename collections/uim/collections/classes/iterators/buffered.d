@@ -19,7 +19,7 @@ class DBufferedIterator : DCollection { // }, Countable {
   // Last record fetched from the inner iterator
   protected Json _current;
   // Returns the current record in the iterator
-  Json current() {
+  Json currentValue() {
     return _current;
   }
   
@@ -46,7 +46,7 @@ class DBufferedIterator : DCollection { // }, Countable {
      * range itemsToBeFiltered The items to be filtered.
      */
   this(Json[string] itemsToBeFiltered) {
-    _buffer = new DSplDoublyLinkedList();
+    /* _buffer = new DSplDoublyLinkedList(); */
     super(itemsToBeFiltered);
   }
 
@@ -58,7 +58,7 @@ class DBufferedIterator : DCollection { // }, Countable {
   void rewind() {
     if (_index == 0 && !_started) {
       _started = true;
-      super.rewind();
+      /* super.rewind(); */
 
       return;
     }
@@ -67,22 +67,22 @@ class DBufferedIterator : DCollection { // }, Countable {
 
   // Returns whether the iterator has more elements
   bool valid() {
-    if (_buffer.offsetExists(_index)) {
-      auto current = _buffer.offsetGet(_index);
+    /* if (_buffer.offsetExists(_index)) {
+      /* auto current = _buffer.offsetGet(_index);
       _current = current["value"];
       _key = current["key"];
 
-      return true;
-    }
+      return true; * /
+    } */
     valid = super.valid();
 
     if (valid) {
-      _current = super.current();
+      _current = super.currentValue();
       _key = super.key();
-      _buffer.push([
+      /* _buffer.push([
           "key": _key,
           "value": _current,
-        ]);
+        ]); */
     }
     // TODO _finished = ! valid;
 

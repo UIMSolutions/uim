@@ -56,7 +56,7 @@ class DLazyEagerLoader {
             .select(/* (array) */myprimaryKey)
             .where(function (QueryExpression myexp, SelectQuery myq) use (myprimaryKey, someKeys, mysource) {
                 if (isArray(myprimaryKey) && count(myprimaryKey) == 1) {
-                    myprimaryKey = current(myprimaryKey);
+                    myprimaryKey = currentValue(myprimaryKey);
                 }
                 if (isString(myprimaryKey)) {
                     return myexp.in(mysource.aliasField(myprimaryKey), someKeys);

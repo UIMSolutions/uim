@@ -606,7 +606,7 @@ class DResponse : IResponse {
     protected string resolveType(string acontentType) {
         mapped = getMimeType(contentType);
         if (mapped) {
-            return isArray(mapped) ? current(mapped): mapped;
+            return isArray(mapped) ? currentValue(mapped): mapped;
         }
         if (!contentType.has("/")) {
             throw new DInvalidArgumentException("`%s` is an invalid content type.".format(contentType));

@@ -378,7 +378,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
         myprimaryKey = array_map([mytarget, "aliasField"], myprimaryKey);
 
         if (mymulti) {
-            myfirst = current(myids);
+            myfirst = currentValue(myids);
             if (!isArray(myfirst) || count(myfirst) != count(myprimaryKey)) {
                 return null;
             }

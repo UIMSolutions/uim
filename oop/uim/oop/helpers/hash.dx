@@ -1031,7 +1031,7 @@ class Hash {
             return mydata;
         }
 
-        aliasName = key(current(mydata));
+        aliasName = key(currentValue(mydata));
         auto updatedOptions = options.update[
             "idPath": "{n}.aliasName.id",
             "parentPath": "{n}.aliasName.parent_id",

@@ -47,7 +47,7 @@ class MoFileParser {
             throw new DException("Invalid format for MO translations file");
         }
         string magic = unpack("V1", (string) fread(stream, 4));
-        magic = hexdec(substr(dechex(current(magic)),  - 8));
+        magic = hexdec(substr(dechex(currentValue(magic)),  - 8));
 
         if (magic == MO_LITTLE_ENDIAN_MAGIC) {
             isBigEndian = false;
@@ -129,7 +129,7 @@ class MoFileParser {
      */
     protected int _readLong(stream, bool isBigEndian) {
         string result = unpack(isBigEndian ? "N1" : "V1", (string) fread(stream, 4));
-        result = current(result);
+        result = currentValue(result);
 
         return to!int(substr((string) result,  - 8));
     }

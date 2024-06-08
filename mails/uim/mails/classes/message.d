@@ -637,7 +637,7 @@ class DMessage { //: JsonSerializable {
                 if (isIn(var,  aHeadersMultipleEmails)) {
                      aHeaders[aHeader] = join(", ", this.formatAddress(this.{var}));
                 } else {
-                     aHeaders[aHeader] = /* (string) */current(this.formatAddress(this.{var}));
+                     aHeaders[aHeader] = /* (string) */currentValue(this.formatAddress(this.{var}));
                 }
             }
         }
@@ -645,7 +645,7 @@ class DMessage { //: JsonSerializable {
             if (key(this.sender) == key(this.from)) {
                  aHeaders["Sender"] = "";
             } else {
-                 aHeaders["Sender"] = /* (string) */current(this.formatAddress(this.sender));
+                 aHeaders["Sender"] = /* (string) */currentValue(this.formatAddress(this.sender));
             }
         }
          aHeaders += this.headers;

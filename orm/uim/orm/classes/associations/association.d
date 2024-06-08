@@ -877,10 +877,10 @@ class DAssociation : IAssociation {
         finderData = (array) finderData;
 
         if (key(finderData).isNumeric) {
-            return [current(finderData), []];
+            return [currentValue(finderData), []];
         }
 
-        return [key(finderData), current(finderData)];
+        return [key(finderData), currentValue(finderData)];
     }
 
     /**

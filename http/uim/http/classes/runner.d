@@ -70,7 +70,7 @@ class DRunner : IRequestHandler {
      */
     IResponse handle(IServerRequest serverRequest) {
         if (this.queue.valid()) {
-            middleware = this.queue.current();
+            middleware = this.queue.currentValue();
             this.queue.next();
 
             return middleware.process(request, this);

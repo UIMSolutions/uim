@@ -17,10 +17,10 @@ class DSubjectFilterDecorator : DDecorator {
     /* 
     Json __invoke() {
         auto someArguments = func_get_args();
-        if (!this.canTrigger(someArguments[0])) {
-            return null;
-        }
-        return _call(someArguments);
+        
+        return canTrigger(someArguments[0]))
+            ? _call(someArguments)
+            : null;
     }
 
     // Checks if the event is triggered for this listener.

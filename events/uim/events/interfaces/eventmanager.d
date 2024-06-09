@@ -72,7 +72,7 @@ interface IEventManager {
      * manager.off(aCallback);
      * ```
      */
-    auto off(
+    Json off(
         /* IEventListener|callable */ string eventKey,
         /* IEventListener|callable */ // TODO callable aCallable = null
    );

@@ -19,7 +19,7 @@ mixin template TEventDispatcher() {
     protected IEventManager _eventManager = null;
 
     // Default class name for new event objects.
-    protected string _eventClass = Event.class;
+    protected string _eventClass = Event.classname;
 
     /**
      * Returns the UIM\Event\EventManager manager instance for this object.
@@ -46,11 +46,13 @@ mixin template TEventDispatcher() {
      * Returns a dispatched event.
      */
     IEvent dispatchEvent(string eventName, Json[string] dataToListener = null, object eventSubject = null) {
-        eventSubject ??= this;
+//TODO
+/*         eventSubject ??= this;
 
         auto event = new _eventClass(eventName, eventSubject, dataToListener);
         getEventManager().dispatch(event);
-
-        return event;
+ */
+//TODO         return event;
+return null; 
     } 
 }

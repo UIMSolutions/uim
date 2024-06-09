@@ -11,10 +11,12 @@ import uim.events;
  * be invoked if the `if` and/or `unless` conditions pass.
  */
 class DConditionDecorator : DDecorator {
-    Json __invoke() {
-        someArguments = func_get_args();
+    override Json __invoke() {
+        /* auto someArguments = func_get_args();
         return canTrigger(someArguments[0])
-            ? _call(someArguments) : Json(null);
+            ? _call(someArguments) 
+            : Json(null); */
+            return Json(null);
     }
 
     // Checks if the event is triggered for this listener.

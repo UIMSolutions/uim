@@ -7,15 +7,15 @@ import uim.events;
 // Common base class for event decorator subclasses.
 abstract class DDecorator : IDecorator {
     // Callable
-    protected callable _callable;
+    // TODO  protected callable _callable;
 
     // Decorator options
     protected Json[string] _options = null;
 
-    this(callable callable, Json[string] options = null) {
+    /* this(callable callable, Json[string] options = null) {
        _callable = callable;
        _options = options;
-    }
+    } */
     
     Json __invoke() {
         return _call(func_get_args());

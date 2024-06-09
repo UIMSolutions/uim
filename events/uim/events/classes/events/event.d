@@ -63,12 +63,12 @@ class DEvent : IEvent {
 
     // #region data handling
     Json opIndex(string key) {
-        return data(string key);
+        return data(key);
     }
 
-    @property Json data(string key) {
-        return !aKey.isNull
-            ? _data.get(aKey) : _data;
+    Json data(string key) {
+        return !key.isNull
+            ? _data.get(key) : _data;
     }
 
     void opIndexAssign(Json value, string key) {
@@ -76,11 +76,11 @@ class DEvent : IEvent {
     }
 
     void data(string[] keys, Json aValue) {
-        _data = keys;
+        // TODO _data = keys;
     }
 
     void data(string key, Json value) {
-        _data[key] = value;
+        // TODO _data[key] = value;
     }
 
     // #endregion data handling

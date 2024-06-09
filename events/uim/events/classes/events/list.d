@@ -29,7 +29,8 @@ class DEventList { // }: ArrayAccess, Countable {
      * @param Json anOffset An offset to check for.
      */
     bool offsetExists(Json anOffset) {
-        return _events.hasValue(anOffset);
+        // TODO return _events.hasValue(anOffset);
+        return false;
     }
 
     /**
@@ -37,8 +38,9 @@ class DEventList { // }: ArrayAccess, Countable {
      * @param Json anOffset The offset to retrieve.
      */
     IEvent offsetGet(Json anOffset) {
-        return offsetExists(anOffset)
-            ? _events[anOffset] : null;
+        /* return offsetExists(anOffset)
+            ? _events[anOffset] : null; */
+            return null; 
     }
 
     /**

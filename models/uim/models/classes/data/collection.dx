@@ -1,0 +1,246 @@
+
+
+
+Underscore.js
+
+Underscore is a JavaScript library that provides a whole mess of useful functional programming helpers without extending any built-in objects. It’s the answer to the question: “If I sit down in front of a blank HTML page, and want to start being productive immediately, what do I need?” … and the tie to go along with jQuery's tux and Backbone's suspenders.
+
+Underscore provides over 100 functions that support both your favorite workaday functional helpers: map, filter, invoke — as well as more specialized goodies: function binding, javascript templating, creating quick indexes, deep equality testing, and so on.
+
+A complete Test Suite is included for your perusal.
+
+You may also read through the annotated source code. There is a modular version with clickable import references as well.
+
+You may choose between monolithic and modular imports. There is a quick summary of the options below, as well as a more comprehensive discussion in the article.
+
+Enjoying Underscore, and want to turn it up to 11? Try Underscore-contrib.
+
+The project is hosted on GitHub. You can report bugs and discuss features on the issues page or chat in the Gitter channel.
+
+You can support the project by donating on Patreon. Enterprise coverage is available as part of the Tidelift Subscription.
+
+Underscore is an open-source component of DocumentCloud.
+
+v1.13.6 Downloads (Right-click, and use "Save As")
+ESM (Development)	65.9 KB, Uncompressed with Plentiful Comments  (Source Map)
+ESM (Production)	8.59 KB, Minified and Gzipped  (Source Map)
+UMD (Development)	68.4 KB, Uncompressed with Bountiful Comments  (Source Map)
+UMD (Production)	7.48 KB, Minified and Gzipped  (Source Map)
+Edge ESM	Unreleased, current master, use by your own judgement and at your own risk
+Edge UMD	Unreleased, current master, use if you’re feeling lucky
+v1.13.6 CDN URLs (Use with <script src="..."></script>)
+https://cdn.jsdelivr.net/npm/underscore@1.13.6/underscore-umd-min.js
+https://cdn.jsdelivr.net/npm/underscore@1.13.6/underscore-esm-min.js
+https://unpkg.com/underscore@1.13.6/underscore-umd-min.js
+https://unpkg.com/underscore@1.13.6/underscore-esm-min.js
+https://pagecdn.io/lib/underscore/1.13.6/underscore-umd-min.js
+https://pagecdn.io/lib/underscore/1.13.6/underscore-esm-min.js
+https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-umd-min.js
+https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-esm-min.js
+In most cases, you can replace the version number above by latest so that your embed will automatically use the latest version, or stable if you want to delay updating until an update has proven to be free of accidental breaking changes. Example:
+https://cdn.jsdelivr.net/npm/underscore@latest/underscore-umd-min.js
+
+Package Installation
+Node.js npm install underscore
+Meteor.js meteor add underscore
+Bower bower install underscore
+If you are hardcoding the path to the file within the package and you are unsure which build to use, it is very likely that you need underscore-umd.js or the minified variant underscore-umd-min.js.
+
+Monolithic Import (recommended)
+ESM import _, { map } from 'underscore';
+AMD require(['underscore'], ...)
+CommonJS var _ = require('underscore');
+ExtendScript #include "underscore-umd.js"
+Modular Import
+ESM import map from 'underscore/modules/map.js'
+AMD require(['underscore/amd/map.js'], ...)
+CommonJS var map = require('underscore/cjs/map.js');
+For functions with multiple aliases, the file name of the module is always the first name that appears in the documentation. For example, _.reduce/_.inject/_.foldl is exported from underscore/modules/reduce.js. Modular usage is mostly recommended for creating a customized build of Underscore.
+
+Engine Compatibility
+Underscore 1.x is backwards compatible with any engine that fully supports ES3, while also utilizing newer features when available, such as Object.keys, typed arrays and ES modules. We routinely run our unittests against the JavaScript engines listed below:
+
+Chrome 26–latest
+Edge 13, 18 and latest
+Firefox 11–latest
+Internet Explorer 9–11
+Node.js 8–latest LTS
+Safari 8–latest
+In addition:
+
+We have recent confirmation that the library is compatible with Adobe ExtendScript.
+There is support code present for IE 8, which we will retain in future Underscore 1.x updates.
+Patches to enhance support for other ES3-compatible environments are always welcome.
+Underscore 2.x will likely remove support for some outdated environments.
+
+Collection Functions (Arrays or Objects)
+each_.each(list, iteratee, [context]) Alias: forEach source
+Iterates over a list of elements, yielding each in turn to an iteratee function. The iteratee is bound to the context object, if one is passed. Each invocation of iteratee is called with three arguments: (element, index, list). If list is a JavaScript object, iteratee's arguments will be (value, key, list). Returns the list for chaining.
+
+_.each([1, 2, 3], alert);
+=> alerts each number in turn...
+_.each({one: 1, two: 2, three: 3}, alert);
+=> alerts each number value in turn...
+Note: Collection functions work on arrays, objects, and array-like objects such as arguments, NodeList and similar. But it works by duck-typing, so avoid passing objects with a numeric length property. It's also good to note that an each loop cannot be broken out of — to break, use _.find instead.
+
+map_.map(list, iteratee, [context]) Alias: collect source
+Produces a new array of values by mapping each value in list through a transformation function (iteratee). The iteratee is passed three arguments: the value, then the index (or key) of the iteration, and finally a reference to the entire list.
+
+_.map([1, 2, 3], function(num){ return num * 3; });
+=> [3, 6, 9]
+_.map({one: 1, two: 2, three: 3}, function(num, key){ return num * 3; });
+=> [3, 6, 9]
+_.map([[1, 2], [3, 4]], _.first);
+=> [1, 3]
+reduce_.reduce(list, iteratee, [memo], [context]) Aliases: inject, foldl source
+Also known as inject and foldl, reduce boils down a list of values into a single value. Memo is the initial state of the reduction, and each successive step of it should be returned by iteratee. The iteratee is passed four arguments: the memo, then the value and index (or key) of the iteration, and finally a reference to the entire list.
+
+If no memo is passed to the initial invocation of reduce, the iteratee is not invoked on the first element of the list. The first element is instead passed as the memo in the invocation of the iteratee on the next element in the list.
+
+var sum = _.reduce([1, 2, 3], function(memo, num){ return memo + num; }, 0);
+=> 6
+reduceRight_.reduceRight(list, iteratee, [memo], [context]) Alias: foldr source
+The right-associative version of reduce. Foldr is not as useful in JavaScript as it would be in a language with lazy evaluation.
+
+var list = [[0, 1], [2, 3], [4, 5]];
+var flat = _.reduceRight(list, function(a, b) { return a.concat(b); }, []);
+=> [4, 5, 2, 3, 0, 1]
+find_.find(list, predicate, [context]) Alias: detect source
+Looks through each value in the list, returning the first one that passes a truth test (predicate), or undefined if no value passes the test. The function returns as soon as it finds an acceptable element, and doesn't traverse the entire list. predicate is transformed through iteratee to facilitate shorthand syntaxes.
+
+var even = _.find([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
+=> 2
+filter_.filter(list, predicate, [context]) Alias: select source
+Looks through each value in the list, returning an array of all the values that pass a truth test (predicate). predicate is transformed through iteratee to facilitate shorthand syntaxes.
+
+var evens = _.filter([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
+=> [2, 4, 6]
+findWhere_.findWhere(list, properties) source
+Looks through the list and returns the first value that matches all of the key-value pairs listed in properties.
+
+If no match is found, or if list is empty, undefined will be returned.
+
+_.findWhere(publicServicePulitzers, {newsroom: "The New York Times"});
+=> {year: 1918, newsroom: "The New York Times",
+  reason: "For its public service in publishing in full so many official reports,
+  documents and speeches by European statesmen relating to the progress and
+  conduct of the war."}
+where_.where(list, properties) source
+Looks through each value in the list, returning an array of all the values that matches the key-value pairs listed in properties.
+
+_.where(listOfPlays, {author: "Shakespeare", year: 1611});
+=> [{title: "Cymbeline", author: "Shakespeare", year: 1611},
+    {title: "The Tempest", author: "Shakespeare", year: 1611}]
+reject_.reject(list, predicate, [context]) source
+Returns the values in list without the elements that the truth test (predicate) passes. The opposite of filter. predicate is transformed through iteratee to facilitate shorthand syntaxes.
+
+var odds = _.reject([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
+=> [1, 3, 5]
+every_.every(list, [predicate], [context]) Alias: all source
+Returns true if all of the values in the list pass the predicate truth test. Short-circuits and stops traversing the list if a false element is found. predicate is transformed through iteratee to facilitate shorthand syntaxes.
+
+_.every([2, 4, 5], function(num) { return num % 2 == 0; });
+=> false
+some_.some(list, [predicate], [context]) Alias: any source
+Returns true if any of the values in the list pass the predicate truth test. Short-circuits and stops traversing the list if a true element is found. predicate is transformed through iteratee to facilitate shorthand syntaxes.
+
+_.some([null, 0, 'yes', false]);
+=> true
+contains_.contains(list, value, [fromIndex]) Aliases: include, includes source
+Returns true if the value is present in the list. Uses indexOf internally, if list is an Array. Use fromIndex to start your search at a given index.
+
+_.contains([1, 2, 3], 3);
+=> true
+invoke_.invoke(list, methodName, *arguments) source
+Calls the method named by methodName on each value in the list. Any extra arguments passed to invoke will be forwarded on to the method invocation.
+
+_.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
+=> [[1, 5, 7], [1, 2, 3]]
+pluck_.pluck(list, propertyName) source
+A convenient version of what is perhaps the most common use-case for map: extracting a list of property values.
+
+var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+_.pluck(stooges, 'name');
+=> ["moe", "larry", "curly"]
+max_.max(list, [iteratee], [context]) source
+Returns the maximum value in list. If an iteratee function is provided, it will be used on each value to generate the criterion by which the value is ranked. -Infinity is returned if list is empty, so an isEmpty guard may be required. This function can currently only compare numbers reliably. This function uses operator < (note).
+
+var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+_.max(stooges, function(stooge){ return stooge.age; });
+=> {name: 'curly', age: 60};
+min_.min(list, [iteratee], [context]) source
+Returns the minimum value in list. If an iteratee function is provided, it will be used on each value to generate the criterion by which the value is ranked. Infinity is returned if list is empty, so an isEmpty guard may be required. This function can currently only compare numbers reliably. This function uses operator < (note).
+
+var numbers = [10, 5, 100, 2, 1000];
+_.min(numbers);
+=> 2
+sortBy_.sortBy(list, iteratee, [context]) source
+Returns a (stably) sorted copy of list, ranked in ascending order by the results of running each value through iteratee. iteratee may also be the string name of the property to sort by (eg. length). This function uses operator < (note).
+
+_.sortBy([1, 2, 3, 4, 5, 6], function(num){ return Math.sin(num); });
+=> [5, 4, 6, 3, 1, 2]
+
+var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+_.sortBy(stooges, 'name');
+=> [{name: 'curly', age: 60}, {name: 'larry', age: 50}, {name: 'moe', age: 40}];
+groupBy_.groupBy(list, iteratee, [context]) source
+Splits a collection into sets, grouped by the result of running each value through iteratee. If iteratee is a string instead of a function, groups by the property named by iteratee on each of the values.
+
+_.groupBy([1.3, 2.1, 2.4], function(num){ return Math.floor(num); });
+=> {1: [1.3], 2: [2.1, 2.4]}
+
+_.groupBy(['one', 'two', 'three'], 'length');
+=> {3: ["one", "two"], 5: ["three"]}
+indexBy_.indexBy(list, iteratee, [context]) source
+Given a list, and an iteratee function that returns a key for each element in the list (or a property name), returns an object with an index of each item. Just like groupBy, but for when you know your keys are unique.
+
+var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+_.indexBy(stooges, 'age');
+=> {
+  "40": {name: 'moe', age: 40},
+  "50": {name: 'larry', age: 50},
+  "60": {name: 'curly', age: 60}
+}
+countBy_.countBy(list, iteratee, [context]) source
+Sorts a list into groups and returns a count for the number of objects in each group. Similar to groupBy, but instead of returning a list of values, returns a count for the number of values in that group.
+
+_.countBy([1, 2, 3, 4, 5], function(num) {
+  return num % 2 == 0 ? 'even': 'odd';
+});
+=> {odd: 3, even: 2}
+shuffle_.shuffle(list) source
+Returns a shuffled copy of the list, using a version of the Fisher-Yates shuffle.
+
+_.shuffle([1, 2, 3, 4, 5, 6]);
+=> [4, 1, 6, 3, 5, 2]
+sample_.sample(list, [n]) source
+Produce a random sample from the list. Pass a number to return n random elements from the list. Otherwise a single random item will be returned.
+
+_.sample([1, 2, 3, 4, 5, 6]);
+=> 4
+
+_.sample([1, 2, 3, 4, 5, 6], 3);
+=> [1, 6, 2]
+toArray_.toArray(list) source
+Creates a real Array from the list (anything that can be iterated over). Useful for transmuting the arguments object.
+
+(function(){ return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
+=> [2, 3, 4]
+size_.size(list) source
+Return the number of values in the list.
+
+_.size([1, 2, 3, 4, 5]);
+=> 5
+
+_.size({one: 1, two: 2, three: 3});
+=> 3
+partition_.partition(list, predicate) source
+Split list into two arrays: one whose elements all satisfy predicate and one whose elements all do not satisfy predicate. predicate is transformed through iteratee to facilitate shorthand syntaxes.
+
+_.partition([0, 1, 2, 3, 4, 5], isOdd);
+=> [[1, 3, 5], [0, 2, 4]]
+compact_.compact(list) source
+Returns a copy of the list with all falsy values removed. In JavaScript, false, null, 0, "", undefined and NaN are all falsy.
+
+_.compact([0, 1, false, 2, '', 3]);
+=> [1, 2, 3]

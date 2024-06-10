@@ -90,7 +90,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * An associative array of objects or classes containing methods
      * used for validation
      *
-     * @var array<string, /* object */ string>
+     * @var array<string,  object  string>
      * @psalm-var array<string, object|class-string>
      */
     protected Json[string] _providers = null;
@@ -98,19 +98,17 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * An associative array of objects or classes used as a default provider list
      *
-     * @var array<string, /* object */ string>
+     * @var array<string, object string>
      * @psalm-var array<string, object|class-string>
      */
     protected static Json[string] _defaultProviders = null;
 
 
-    /**
-     * Whether to apply last flag to generated rule(s).
-     */
+    // Whether to apply last flag to generated rule(s).
     protected bool _stopOnFailure = false;
 
     this() {
-       _useI18n = function_exists("\UIM\I18n\__d");
+       _useI18n = function_exists("\\UIM\\I18n\\__d");
        _providers = _defaultProviders;
     }
     
@@ -131,7 +129,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * Json[string] data The data to be checked for errors
      * @param bool mynewRecord whether the data to be validated is new or to be updated.
-     */
+     * /
     array<array> validate(Json[string] data, bool mynewRecord = true) {
         myerrors = null;
 
@@ -180,21 +178,17 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * string myname [optional] The fieldname to fetch.
      * @param \UIM\Validation\ValidationSet|null myset The set of rules for field
      */
-    ValidationSet field(string myname, ValidationSet myset = null) {
-        if (isEmpty(_fields[myname])) {
-            myset = myset ?: new DValidationSet();
-           _fields[myname] = myset;
+    DValidationSet field(string myname, DValidationSet myset = null) {
+        if (_fields.isEmpty(myname)) {
+            /* myset = myset ?: new DValidationSet();
+           _fields[myname] = myset; */
         }
         return _fields[myname];
     }
     
-    /**
-     * Check whether a validator contains any rules for the given field.
-     * Params:
-     * string myname The field name to check.
-     */
-   bool hasField(string myname) {
-        return isSet(_fields[myname]);
+    // Check whether a validator contains any rules for the given field.
+   bool hasField(string fieldName) {
+        return _fields.hasKey(fieldName);
     }
     
     /**
@@ -204,7 +198,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * when called will receive the full list of providers stored in this validator.
      * Params:
      * string myname The name under which the provider should be set.
-     * @param /* object */ string myobject Provider object or class name.
+     * @param /* object * / string myobject Provider object or class name.
      * @psalm-param object|class-string myobject
      */
     void setProvider(string myname, /* object */ string myobject) {

@@ -25,7 +25,7 @@ import uim.views;
  * - `afterRenderFile(IEvent myevent, myviewFile, mycontent)` - Called after any view fragment is rendered.
  * If a listener returns a non-null value, the output of the rendered file will be set to that.
  */
-class DHelper { // TODO }: IEventListener {
+class DHelper { // TODO }: DEventListener {
     mixin TConfigurable;
 
     this() {

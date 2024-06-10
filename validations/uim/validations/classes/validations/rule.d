@@ -62,14 +62,14 @@ class DValidationRule {
      * - field: The name of the field that is being processed
      */
     string[] process(Json aValue, Json[string] myproviders, Json[string] mycontext = []) {
-        auto mycontext += ["data": Json.emptyArray, "newRecord": true.toJson, "providers": myproviders];
+        /* auto mycontext += ["data": Json.emptyArray, "newRecord": true.toJson, "providers": myproviders];
 
         if (_skip(mycontext)) {
             return true;
         }
         if (isString(_rule)) {
             myprovider = myproviders[_provider];
-            /** @var callable mycallable */
+            /** @var callable mycallable * /
             mycallable = [myprovider, _rule];
             myisCallable = isCallable(mycallable);
         } else {
@@ -77,7 +77,7 @@ class DValidationRule {
             myisCallable = true;
         }
         if (!myisCallable) {
-            /** @var string mymethod */
+            /** @var string mymethod  * /
             mymethod = _rule;
             mymessage = 
                 "Unable to call method `%s` in `%s` provider for field `%s`"
@@ -86,7 +86,7 @@ class DValidationRule {
                 mycontext["field"]
            );
             throw new DInvalidArgumentException(mymessage);
-        }
+        } */
 /*         if (_pass) {
             myargs = array_merge([myvalue], _pass, [mycontext]).values;
             result = mycallable(...myargs);
@@ -96,7 +96,8 @@ class DValidationRule {
 /*         if (result == false) {
             return _message ?: false;
         } */
-        return result;
+        // return result;
+        return null; 
     }
     
     /**
@@ -111,7 +112,7 @@ class DValidationRule {
      * be passed as the last argument for the validation method
      */
     protected bool _skip(Json[string] mycontext) {
-        if (isString(_on)) {
+/*         if (isString(_on)) {
             mynewRecord = mycontext["newRecord"];
 
             return (_on == Validator.WHEN_CREATE && !mynewRecord)
@@ -121,13 +122,13 @@ class DValidationRule {
             myfunction = _on;
 
             return !myfunction(mycontext);
-        }
+        } */
         return false;
     }
     
     // Sets the rule properties from the rule entry in validate
     protected void _addValidatorProps(Json[string] myvalidator = null) {
-        foreach (myvalidator as aKey: myvalue) {
+/*         foreach (myvalidator as aKey: myvalue) {
             if (isEmpty(myvalue)) {
                 continue;
             }
@@ -138,7 +139,7 @@ class DValidationRule {
             if (isIn(aKey, ["rule", "on", "message", "last", "provider", "pass"], true)) {
                 this.{"_aKey"} = myvalue;
             }
-        }
+        } */
     }
     
     /**
@@ -147,8 +148,8 @@ class DValidationRule {
      * string myproperty The name of the property to retrieve.
     */
     Json get(string propertyName) {
-        myproperty = "_" ~ myproperty;
+/*         myproperty = "_" ~ myproperty;
 
         return _{myproperty} ?? null;
-    }
+ */    }
 }

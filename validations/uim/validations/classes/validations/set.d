@@ -19,32 +19,28 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     protected bool _validatePresent = false;
 
     // Denotes if a field is allowed to be empty
-    protected /* /*callable|*/string */ bool _allowEmpty = false;
+    protected /* /*callable|string */ bool _allowEmpty = false;
 
     // Returns whether a field can be left out.
-    /* /*callable|*/string */ bool isPresenceRequired() {
+    /* /*callable|string */ bool isPresenceRequired() {
         return _validatePresent;
     }
     
     /**
      * Sets whether a field is required to be present in data array.
      * Params:
-     * /*callable|*/string myvalidatePresent Valid values are true, false, "create", "update" or a callable.
+     * callable|string myvalidatePresent Valid values are true, false, "create", "update" or a callable.
      */
-    void requirePresence(/*callable|*/string myvalidatePresent) {
-       _validatePresent = myvalidatePresent;
+    void requirePresence(/*callable|*/string isValidatePresent) {
+       _validatePresent = isValidatePresent;
     }
     
-    /**
-     * Returns whether a field can be left empty.
-     */
+    // Returns whether a field can be left empty.
     /*callable|*/string isEmptyAllowed() {
         return _allowEmpty;
     }
 
-    /**
-     * "create", "update" or a callable.
-     */
+    // "create", "update" or a callable.
     void allowEmpty(/*callable|*/string myallowEmpty) {
        _allowEmpty = myallowEmpty;
     }
@@ -58,9 +54,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
         return _rules[ruleName];
     }
     
-    /**
-     * Returns all rules for this validation set
-     */
+    // Returns all rules for this validation set
     ValidationRule[] rules() {
         return _rules;
     }
@@ -96,29 +90,19 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      *        .remove("notBlank")
      *        .remove("inRange")
      * ```
-     * Params:
-     * string myname The name under which the rule should be unset
      */
-    bool remove(string myname) {
-        unset(_rules[myname]);
+    bool remove(string ruleName) {
+        _rules.remove(ruleName);
     }
     
-    /**
-     * Returns whether an index exists in the rule set
-     * Params:
-     * string myindex name of the rule
-     */
-   bool offsetExists(String ruleName) {
-        return _rules,isSet(ruleName);
+    // Returns whether an index exists in the rule set
+   bool offsetExists(string ruleName) {
+        return _rules.hasKey(ruleName);
     }
     
-    /**
-     * Returns a rule object by its index
-     * Params:
-     * string myindex name of the rule
-     */
-    ValidationRule offsetGet(Json myindex) {
-        return _rules[myindex];
+    // Returns a rule object by its index
+    DValidationRule offsetGet(string ruleName) {
+        return _rules.get(ruleName);
     }
     
     /**
@@ -133,15 +117,15 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
 
     // Unsets a validation rule
     void offsetUnset(String ruleName) {
-        unset(_rules[ruleName]);
+        _rules.remove(ruleName);
     }
 
     /**
      * Returns an iterator for each of the rules to be applied
      */
-    Traversable<string, \UIM\Validation\ValidationRule> getIterator() {
+    /* Traversable<string, \UIM\Validation\ValidationRule> getIterator() {
         return new DArrayIterator(_rules);
-    }
+    } */
 
     // Returns the number of rules in this set
     size_t count() {

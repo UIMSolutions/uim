@@ -109,7 +109,7 @@ mixin template TExtract() {
                 return anExtractor(v) == aValue;
             };
         }
-        return auto (aValue) use (someMatchers) {
+/*         return auto (aValue) use (someMatchers) {
             foreach (match; someMatchers) {
                 if (! match(aValue)) {
                     return false;
@@ -117,5 +117,5 @@ mixin template TExtract() {
             }
             return true;
         };
-    } */
+ * /    } */
 }

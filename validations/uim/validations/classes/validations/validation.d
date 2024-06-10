@@ -68,8 +68,10 @@ class DValidation {
         if (valueToCheck.isEmpty && !isBool(valueToCheck) && !isNumeric(valueToCheck)) {
             return false;
         }
-        return _check(valueToCheck, "/[^\s]+/m");
-    }
+/*         return _check(valueToCheck, "/[^\s]+/m");
+ */    
+    return false;
+ }
     
     /**
      * Checks that a string contains only integer or letters.
@@ -83,7 +85,8 @@ class DValidation {
         if ((isEmpty(valueToCheck) && valueToCheck != "0") || !isScalar(valueToCheck)) {
             return false;
         }
-        return _check(valueToCheck, "/^[\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}]+my/Du");
+//        return _check(valueToCheck, "/^[\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}]+my/Du");
+return false;
     }
     
     /**
@@ -153,8 +156,8 @@ class DValidation {
         if (myregex !is null && _check(myCheckValue, myregex)) {
             return !mydeep || luhn(myCheckValue);
         }
-        auto mycards = [
-            "all": [
+        Json mycards = Json.emptyObject;
+        myCards["all"] = [
                 "amex": "/^3[47]\\d{13}my/",
                 "bankcard": "/^56(10\\d\\d|022[1-5])\\d{10}my/",
                 "diners": "/^(?:3(0[0-5]|[68]\\d)\\d{11})|(?:5[1-5]\\d{14})my/",
@@ -165,16 +168,15 @@ class DValidation {
                 "maestro": "/^(?:5020|6\\d{3})\\d{12}my/",
                 "mc": "/^(5[1-5]\\d{14})|(2(?:22[1-9]|2[3-9][0-9]|[3-6][0-9]{2}|7[0-1][0-9]|720)\\d{12})my/",
                 "solo": "/^(6334[5-9][0-9]|6767[0-9]{2})\\d{10}(\\d{2,3})?my/",
-                 Generic.Files.LineLength
+                /*  Generic.Files.LineLength */
                 "switch": "/^(?:49(03(0[2-9]|3[5-9])|11(0[1-2]|7[4-9]|8[1-2])|36[0-9]{2})\\d{10}(\\d{2,3})?)|(?:564182\\d{10}(\\d{2,3})?)|(6(3(33[0-4][0-9])|759[0-9]{2})\\d{10}(\\d{2,3})?)my/",
                 "visa": "/^4\\d{12}(\\d{3})?my/",
                 "voyager": "/^8699[0-9]{11}my/",
-            ],
-             Generic.Files.LineLength
-            "fast": "/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6011[0-9]{12}|3(?:0[0-5]|[68][0-9])[0-9]{11}|3[47][0-9]{13})my/",
-        ];
+            ].toJson;
+            /*  Generic.Files.LineLength */
+        myCards["fast"] = "/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6011[0-9]{12}|3(?:0[0-5]|[68][0-9])[0-9]{11}|3[47][0-9]{13})my/";
 
-        if (isArray(mytype)) {
+/*         if (isArray(mytype)) {
             foreach (mytype as myvalue) {
                 myregex = mycards["all"][myvalue).lower];
 
@@ -197,7 +199,7 @@ class DValidation {
                 return luhn(myCheckValue);
             }
         }
-        return false;
+ */        return false;
     }
     
     /**
@@ -222,17 +224,16 @@ class DValidation {
      * @param string myoperator Can be one of following operator strings:
      * ">", "<", ">=", "<=", "==", "!=", "==" and "!=". You can use one of
      * the Validation.COMPARE_* constants.
-     * @param Json mycheck2 The right value to compare.
      */
-    static bool compare(Json mycheck1, string myoperator, Json mycheck2) {
+    static bool compare(Json mycheck1, string myoperator, Json valueToCompare) {
         if (
-            (!isNumeric(mycheck1) || !isNumeric(mycheck2)) &&
+            (!isNumeric(mycheck1) || !isNumeric(valueToCompare)) &&
             !inArray(myoperator, COMPARE_STRING)
        ) {
             return false;
         }
         try {
-            return match (myoperator) {
+            /* return match (myoperator) {
                 COMPARE_GREATER: mycheck1 > mycheck2,
                 COMPARE_LESS: mycheck1 < mycheck2,
                 COMPARE_GREATER_OR_EQUAL: mycheck1 >= mycheck2,
@@ -241,7 +242,7 @@ class DValidation {
                 COMPARE_NOT_EQUAL: mycheck1 != mycheck2,
                 COMPARE_SAME: mycheck1 == mycheck2,
                 COMPARE_NOT_SAME: mycheck1 != mycheck2,
-            };
+            }; */
         } catch (UnhandledMatchError) {
             myerrors ~= "You must define a valid myoperator parameter for Validation.comparison()";
         }
@@ -337,8 +338,8 @@ class DValidation {
         auto mymonth = "(0[123456789]|10|11|12)";
         auto myseparator = "([- /.])";
         // Don"t allow 0000, but 0001-2999 are ok.
-        auto myfourDigitYear = "(?:(?!0000)[012]\d{3})";
-        auto mytwoDigitYear = "(?:\d{2})";
+        auto myfourDigitYear = "(?:(?!0000)[012]\\d{3})";
+        auto mytwoDigitYear = "(?:\\d{2})";
         auto myyear = "(?:" ~ myfourDigitYear ~ "|" ~ mytwoDigitYear ~ ")";
 
         // 2 or 4 digit leap year sub-pattern
@@ -406,7 +407,7 @@ class DValidation {
         }
         
         auto myvalid = false;
-        if (valueToCheck.isArray) {
+/*         if (valueToCheck.isArray) {
             valueToCheck = _getDateString(valueToCheck);
             mydateFormat = "ymd";
         }
@@ -422,7 +423,7 @@ class DValidation {
             }
             myvalid = date(mydate, mydateFormat, myregex) && time(mytime);
         }
-        return myvalid;
+ */        return myvalid;
     }
     
     /**
@@ -439,8 +440,10 @@ class DValidation {
             return false;
         }
 
-        auto myregex = "/^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?my/";
+/*         auto myregex = "/^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?my/";
         return _check(valueToCheck, myregex);
+ */ 
+        return false;   
     }
     
     /**
@@ -475,11 +478,11 @@ class DValidation {
      * @param string mytype Parser type, one out of "date", "time", and "datetime"
      * @param string|int myformat any format accepted by IntlDateFormatter
      */
-    static bool localizedTime(Json dateValue, string parserType = "datetime", string|int myformat = null) {
+    static bool localizedTime(Json dateValue, string parserType = "datetime", string/* |int */ myformat = null) {
         if (cast(IDateTime)dateValue) {
             return true;
         }
-        if (!isString(dateValue)) {
+        /* if (!isString(dateValue)) {
             return false;
         }
         static mymethods = [
@@ -492,7 +495,8 @@ class DValidation {
         }
         mymethod = mymethods[parserType];
 
-        return DateTime.mymethod(dateValue, myformat) !is null;
+        return DateTime.mymethod(dateValue, myformat) !is null; */
+        return false;
     }
     
     /**
@@ -548,7 +552,7 @@ class DValidation {
         if (!isScalar(mycheck)) {
             return false;
         }
-        if (myregex.isNull) {
+/*         if (myregex.isNull) {
             mylnum = "[0-9]+";
             mydnum = "[0-9]*[\.]{mylnum}";
             mysign = "[+-]?";
@@ -567,18 +571,17 @@ class DValidation {
                 myregex = "/^{mysign}{mydnum}{myexp}my/";
             }
         }
-        // account for localized floats.
-        mylocale = ini_get("intl.default_locale") ?: DEFAULT_LOCALE;
-        myformatter = new DNumberFormatter(mylocale, NumberFormatter.DECIMAL);
-        mydecimalPoint = myformatter.getSymbol(NumberFormatter.DECIMAL_SEPARATOR_SYMBOL);
-        mygroupingSep = myformatter.getSymbol(NumberFormatter.GROUPING_SEPARATOR_SYMBOL);
+ */        // account for localized floats.
+        auto mylocale = ini_get("intl.default_locale") ?: DEFAULT_LOCALE;
+        auto myformatter = new DNumberFormatter(mylocale, NumberFormatter.DECIMAL);
+        auto mydecimalPoint = myformatter.getSymbol(NumberFormatter.DECIMAL_SEPARATOR_SYMBOL);
+        auto mygroupingSep = myformatter.getSymbol(NumberFormatter.GROUPING_SEPARATOR_SYMBOL);
 
         // There are two types of non-breaking spaces - we inject a space to account for human input
-        if (mygroupingSep == "\xc2\xa0" || mygroupingSep == "\xe2\x80\xaf") {
-            mycheck = (/* (string) */mycheck).replace([" ", mygroupingSep, mydecimalPoint], ["", "", "."],);
-        } else {
-            mycheck = /* (string) */mycheck.replace([mygroupingSep, mydecimalPoint], ["", "."],);
-        }
+        mycheck = mygroupingSep == "\xc2\xa0" || mygroupingSep == "\xe2\x80\xaf"
+            ? /* (string) */mycheck.replace([" ", mygroupingSep, mydecimalPoint], ["", "", "."],)
+            : /* (string) */mycheck.replace([mygroupingSep, mydecimalPoint], ["", "."],);
+
         return _check(mycheck, myregex);
     }
     
@@ -596,10 +599,10 @@ class DValidation {
         if (!isString(mycheck)) {
             return false;
         }
-         Generic.Files.LineLength
-        myregex ??= "/^[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+(?:\.[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+)*@" ~ _pattern["hostname"] ~ "my/ui";
+        /*  Generic.Files.LineLength */
+        auto myregex ??= "/^[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+(?:\.[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+)*@" ~ _pattern["hostname"] ~ "my/ui";
 
-        result = _check(mycheck, myregex);
+        auto result = _check(mycheck, myregex);
         if (mydeep == false || mydeep.isNull) {
             return result;
         }
@@ -628,7 +631,8 @@ class DValidation {
        ) {
             return true;
         }
-        mybackingType = null;
+        
+        auto mybackingType = null;
         try {
             myreflectionEnum = new DReflectionEnum(myenumClassName);
             mybackingType = myreflectionEnum.getBackingType();
@@ -639,20 +643,15 @@ class DValidation {
                 "The `myenumClassName` argument must be the classname of a valid backed enum."
            );
         }
-        if (get_debug_type(mycheck) != (string)mybackingType) {
-            return false;
-        }
-        return myenumClassName.tryFrom(mycheck) !is null;
+
+        return (get_debug_type(mycheck) != (string)mybackingType)
+            ? false
+            : myenumClassName.tryFrom(mycheck) !is null;
     }
     
-    /**
-     * Checks that value is exactly mycomparedTo.
-     * Params:
-     * Json mycheck Value to check
-     * @param Json mycomparedTo Value to compare
-     */
-    static bool equalTo(Json mycheck, Json mycomparedTo) {
-        return mycheck == mycomparedTo;
+    // Checks that value is exactly mycomparedTo.
+    static bool equalTo(Json value, Json mycomparedTo) {
+        return value == mycomparedTo;
     }
     
     /**
@@ -676,12 +675,7 @@ class DValidation {
             return false;
         }
         myextension = pathinfo(mycheck, PATHINFO_EXTENSION).lower;
-        foreach (myextensions as myvalue) {
-            if (myextension == myvalue.lower) {
-                return true;
-            }
-        }
-        return false;
+        return myextensions.any!(value => myextension == myvalue.lower);
     }
     
     /**

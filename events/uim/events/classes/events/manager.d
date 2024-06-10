@@ -106,13 +106,9 @@ class DEventManager { // }: IEventManager {
         string aeventKey, /* DEventListener|callable */
         // TODO callable aCallable = null
 
-        
-
     ) {
         /*     if (!isString(eventKey)) {
-        foreach (_listeners.keys as name) {
-            this.off(name, eventKey);
-        }
+        _listeners.keys.each!(name => off(name, eventKey)); 
         return this;
     }
  */ /* if (cast(DEventListener) aCallable) {

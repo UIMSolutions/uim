@@ -335,11 +335,11 @@ mixin template TCollection() {
              * The logic above applies to collections of any size.
               * /
 
-            foreach (myiterator as myKey: myitem) {
-                result[mybucket] = [myKey, myitem];
+            myiterator.byKeyValue.each!((keyItem) {
+                result[mybucket] = [keyItem.key, keyItem.value];
                 mybucket = (++mybucket) % mylength;
                 myoffset++;
-            }
+            });
             myoffset = myoffset % mylength;
             myhead = array_slice(result, myoffset);
             mytail = array_slice(result, 0, myoffset);
@@ -353,7 +353,7 @@ mixin template TCollection() {
     }
  
     ICollection append(Json[string] myitems) {
-        mylist = new AppendIterator();
+        auto mylist = new AppendIterator();
         mylist.append(unwrap());
         mylist.append(newCollection(myitems).unwrap());
 

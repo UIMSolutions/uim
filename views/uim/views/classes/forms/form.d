@@ -20,7 +20,7 @@ import uim.views;
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\Form\Form>
  */
-class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
+class DForm : IForm { // }: DEventListener, IEventDispatcher, IValidatorAware {
     mixin TConfigurable;
 
     this() {

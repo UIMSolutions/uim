@@ -40,8 +40,9 @@ class DSortIterator : DCollection {
   ) {
     auto aCallback = _propertyExtractor(aCallback);
     auto myResults = null;
-    foreach (aKey, val; someItems) {
-      auto callbackValue = aCallback(val);
+    
+    someItems.byKeyValue.each!((kv) {
+      auto callbackValue = aCallback(kv.value);
       auto isDateTime =
         cast(DChronosDate) callbackValue ||
         cast(DChronosTime) callbackValue ||
@@ -50,8 +51,8 @@ class DSortIterator : DCollection {
       if (isDateTime && sortType == SORT_NUMERIC) {
         callbackValue = callbackValue.format("U");
       }
-      myResults[aKey] = callbackValue;
-    }
+      myResults[kv.key] = callbackValue;
+    });
     sortDirection == SORT_DESC
       ? arsort(myResults, sortType) : asort(myResults, sortType);
 

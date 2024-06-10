@@ -39,7 +39,7 @@ import uim.controllers;
  * While the controller is not an explicit argument for the callback methods it
  * is the subject of each event and can be fetched using IEvent.getSubject().
  */
-class DComponent { // TODO }: IEventListener {
+class DComponent { // TODO }: DEventListener {
     mixin TConfigurable;
     mixin TLog;
 

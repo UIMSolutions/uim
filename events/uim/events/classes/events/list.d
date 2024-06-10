@@ -22,12 +22,7 @@ class DEventList { // }: ArrayAccess, Countable {
         _events ~= event;
     }
 
-    /**
-     * Whether a offset exists
-     *
-     * @link https://secure.D.net/manual/en/arrayaccess.offsetexists.D
-     * @param Json anOffset An offset to check for.
-     */
+    // Whether a offset exists
     bool offsetExists(Json anOffset) {
         // TODO return _events.hasValue(anOffset);
         return false;
@@ -43,21 +38,14 @@ class DEventList { // }: ArrayAccess, Countable {
             return null; 
     }
 
-    /**
-     * Offset to set
-     * @param Json anOffset The offset to assign the value to.
-     * @param Json aValue The value to set.
-     */
-    void offsetSet(Json anOffset, Json aValue) {
-        _events[anOffset] = aValue;
+    // Offset to set
+    void offsetSet(string offset, Json value) {
+        _events[offset] = value;
     }
 
-    /**
-     * Offset to unset
-     * @param Json anOffset The offset to unset.
-     */
-    void offsetUnset(Json anOffset) {
-        unset(_events[anOffset]);
+    // Offset to unset
+    void offsetUnset(string offset) {
+        _events.remove(offset);
     }
 
     // Count elements of an object

@@ -33,10 +33,7 @@ class DVirtualFolder : DFolder {
 	bool addFiles(IFile[] someFiles) {
 		if (someFiles.isEmpty) { return false; }
 
-		foreach(myFile; someFiles) {
-			if (!addFile(myFile)) { return false; }
-		}
-		return true;
+		return someFiles.all!(file => addFile(file));
 	}
 
 	override bool addFile(IFile aFile) {

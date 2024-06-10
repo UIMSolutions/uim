@@ -49,7 +49,7 @@ import uim.controllers;
  * @property \UIM\Controller\Component\CheckHttpCacheComponent checkHttpCache
  * @implements \UIM\Event\IEventDispatcher<\UIM\Controller\Controller>
  */
-class DController : IController { // IEventListener, IEventDispatcher {    
+class DController : IController { // DEventListener, IEventDispatcher {    
     mixin TConfigurable;
     // @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>
     mixin TEventDispatcher;

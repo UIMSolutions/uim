@@ -18,7 +18,8 @@ abstract class DDecorator : IDecorator {
     } */
     
     Json __invoke() {
-        return _call(func_get_args());
+        // TODO return _call(func_get_args());
+        return Json(null);
     }
     
     // Calls the decorated callable with the passed arguments.

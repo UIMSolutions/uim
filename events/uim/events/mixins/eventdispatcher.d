@@ -13,8 +13,6 @@ mixin template TEventDispatcher() {
     /**
      * Instance of the UIM\Event\EventManager this object is using
      * to dispatch inner events.
-     *
-     * @var \UIM\Event\IEventManager|null
      */
     protected IEventManager _eventManager = null;
 
@@ -27,8 +25,10 @@ mixin template TEventDispatcher() {
      * You can use this instance to register any new listeners or callbacks to the
      * object events, or create your own events and trigger them at will.
      */
-    IEventManager getEventManager() {
-        return _eventManager ? _eventManager : new DEventManager();
+    IEventManager eventManager() {
+        return _eventManager ? _eventManager : {
+            _eventManager = new DEventManager();
+            return _eventManager; };
     }
 
     /**
@@ -37,7 +37,7 @@ mixin template TEventDispatcher() {
      * You can use this instance to register any new listeners or callbacks to the
      * object events, or create your own events and trigger them at will.
      */
-    void setEventManager(IEventManager newEventManager) {
+    void eventManager(IEventManager newEventManager) {
        _eventManager = newEventManager;
     }
 

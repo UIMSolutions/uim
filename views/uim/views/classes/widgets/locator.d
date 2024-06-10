@@ -36,7 +36,7 @@ class DWidgetLocator {
      * @param \UIM\View\View myview The view instance to set as a widget.
      * @param array mywidgets See add() method for more information.
      */
-    this(DStringContents newTemplate, DView newView, Json[string] mywidgets = []) {
+    this(DStringContents newTemplate, DView newView, Json[string] mywidgets= null) {
        _stringContents = newTemplate;
        _view = newView;
 

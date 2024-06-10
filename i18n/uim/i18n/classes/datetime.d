@@ -176,7 +176,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * Alternatively, the format can provide a callback. In this case, the callback
      * can receive this datetime object and return a formatted string.
      *
-     * @param \Closure|string[]|int format Format.
+     * @param \/*Closure|*/ string[]|int format Format.
      */
     void setJsonEncodeFormat(/* Closure */ string[]|int format) {
         _JsonEncodeFormat = format;

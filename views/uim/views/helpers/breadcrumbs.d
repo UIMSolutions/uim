@@ -215,7 +215,7 @@ class DBreadcrumbsHelper : DHelper {
      * All other properties will be converted as HTML attributes and will replace the *attrs* key in the template.
      * If you use the default for this option (empty), it will not render a separator.
      */
-    string render(Json[string] myattributes = [], Json[string] myseparator = []) {
+    string render(Json[string] myattributes = [], Json[string] myseparator= null) {
         if (!this.crumbs) {
             return null;
         }

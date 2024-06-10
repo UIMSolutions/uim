@@ -480,7 +480,6 @@ class DDebugger {
      *
      * @return uim.errors.debugs.IErrorFormatter
      * @unstable This method is not stable and may change in the future.
-     * @since 4.1.0
      */
     IErrorFormatter getExportFormatter() {
         auto instance = getInstance();

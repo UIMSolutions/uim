@@ -250,7 +250,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Returns a new QueryExpression object containing all the conditions passed
      * and set up the conjunction to be "AND"
      * Params:
-     * \UIM\Database\IExpression|\Closure|string[] aconditions to be joined with AND
+     * \UIM\Database\IExpression|\/*Closure|*/ string[] aconditions to be joined with AND
      * passedTypes Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
      */
@@ -264,7 +264,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * Returns a new QueryExpression object containing all the conditions passed
      * and set up the conjunction to be "OR"
      * Params:
-     * \UIM\Database\IExpression|\Closure|string[] aconditions to be joined with OR
+     * \UIM\Database\IExpression|\/*Closure|*/ string[] aconditions to be joined with OR
      * passedTypes Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
      */
@@ -281,7 +281,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * "NOT ((condition1) AND (conditions2))" conjunction depends on the one
      * currently configured for this object.
      * Params:
-     * \UIM\Database\IExpression|\Closure|string[] aconditions to be added and negated
+     * \UIM\Database\IExpression|\/*Closure|*/ string[] aconditions to be added and negated
      * passedTypes Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
      */

@@ -29,7 +29,7 @@ _window = new WindowExpression();
      * Adds conditions to the FILTER clause. The conditions are the same format as
      * `Query.where()`.
      * Params:
-     * \UIM\Database\IExpression|\Closure|string[] aconditions The conditions to filter on.
+     * \UIM\Database\IExpression|\/*Closure|*/ string[] aconditions The conditions to filter on.
      * typeNames Associative array of type names used to bind values to query
      */
     void filter(/* IExpression|Closure */string[] aconditions, STRINGAA typeNames = null) {

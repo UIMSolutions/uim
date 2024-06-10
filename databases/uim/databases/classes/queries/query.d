@@ -969,7 +969,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * DOrder fields are not suitable for use with user supplied data as they are
      * not sanitized by the query builder.
      * Params:
-     * \UIM\Database\IExpression|\Closure|string fieldName The field to order on.
+     * \UIM\Database\IExpression|\/*Closure|*/ string fieldName The field to order on.
       */
     auto orderByDesc(/* IExpression|Closure */string fieldName, bool shouldOverwrite = false) {
         if (shouldOverwrite) {

@@ -74,7 +74,7 @@ interface IRepository {
      * use database foreign keys + ON CASCADE rules if you need cascading deletes combined
      * with this method.
      * Params:
-     * \Closure|string[] conditions Conditions to be used, accepts anything Query.where()
+     * \/*Closure|*/ string[] conditions Conditions to be used, accepts anything Query.where()
      * can take.
      */
     int deleteAll(/* Closure */ string[] conditions);
@@ -83,7 +83,7 @@ interface IRepository {
      * Returns true if there is any record in this repository matching the specified
      * conditions.
      * Params:
-     * \Closure|string[] conditions list of conditions to pass to the query
+     * \/*Closure|*/ string[] conditions list of conditions to pass to the query
      */
    bool exists(/* Closure */ string[] conditions);
 

@@ -29,7 +29,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     /**
      * Resolve middleware name to a PSR 15 compliant middleware instance.
      * Params:
-     * \Psr\Http\Server\IHttpMiddleware|\Closure|string amiddleware The middleware to resolve.
+     * \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string amiddleware The middleware to resolve.
      */
     protected IHttpMiddleware resolve(/* IHttpMiddleware|Closure|*/ string middlewareName) {
         if (isString(middlewareName)) {
@@ -55,9 +55,9 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     /**
      * Append a middleware to the end of the queue.
      * Params:
-     * \Psr\Http\Server\IHttpMiddleware|\Closure|string[] amiddleware The middleware(s) to append.
+     * \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string[] amiddleware The middleware(s) to append.
      */
-    void add(IHttpMiddleware|Closure|string[] amiddleware) {
+    void add(IHttpMiddleware|/*Closure|*/ string[] amiddleware) {
         if (middleware.isArray) {
             this.queue = chain(this.queue, middleware);
 
@@ -69,18 +69,18 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     /**
      * Alias for MiddlewareQueue.add().
      * Params:
-     * \Psr\Http\Server\IHttpMiddleware|\Closure|string[] amiddleware The middleware(s) to append.
+     * \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string[] amiddleware The middleware(s) to append.
      */
-    MiddlewareQueue push(IHttpMiddleware|Closure|string[] amiddleware) {
+    MiddlewareQueue push(IHttpMiddleware|/*Closure|*/ string[] amiddleware) {
         return _add(middleware);
     }
     
     /**
      * Prepend a middleware to the start of the queue.
      * Params:
-     * \Psr\Http\Server\IHttpMiddleware|\Closure|string[] amiddleware The middleware(s) to prepend.
+     * \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string[] amiddleware The middleware(s) to prepend.
      */
-    auto prepend(IHttpMiddleware|Closure|string[] amiddleware) {
+    auto prepend(IHttpMiddleware|/*Closure|*/ string[] amiddleware) {
         if (middleware.isArray) {
             this.queue = chain(middleware, this.queue);
 
@@ -98,9 +98,9 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * and the existing element will be shifted one index greater.
      * Params:
      * int anIndex The index to insert at.
-     * @param \Psr\Http\Server\IHttpMiddleware|\Closure|string amiddleware The middleware to insert.
+     * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string amiddleware The middleware to insert.
      */
-    auto insertAt(int anIndex, IHttpMiddleware|Closure|string amiddleware) {
+    auto insertAt(int anIndex, IHttpMiddleware|/*Closure|*/ string amiddleware) {
         array_splice(this.queue,  anIndex, 0, [middleware]);
 
         return this;
@@ -112,9 +112,9 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Finds the index of the first middleware that matches the provided class,
      * and inserts the supplied middleware before it.
      * Params:
-     * @param \Psr\Http\Server\IHttpMiddleware|\Closure|string amiddleware The middleware to insert.
+     * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string amiddleware The middleware to insert.
      */
-    auto insertBefore(string className, IHttpMiddleware|Closure|string amiddleware) {
+    auto insertBefore(string className, IHttpMiddleware|/*Closure|*/ string amiddleware) {
         bool isFound = false;
         anI = 0;
         foreach (anI: object; this.queue) {
@@ -143,9 +143,9 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * this method will behave like add().
      * Params:
      * string className The classname to insert the middleware before.
-     * @param \Psr\Http\Server\IHttpMiddleware|\Closure|string amiddleware The middleware to insert.
+     * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string amiddleware The middleware to insert.
      */
-    auto insertAfter(string className, IHttpMiddleware|Closure|string amiddleware) {
+    auto insertAfter(string className, IHttpMiddleware|/*Closure|*/ string amiddleware) {
         found = false;
          anI = 0;
         foreach (anI: object; this.queue) {

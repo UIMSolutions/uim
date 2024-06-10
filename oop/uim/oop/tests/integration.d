@@ -133,7 +133,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string[] unlockedFields List of fields that are excluded from field validation.
      */
-    void setUnlockedFields(Json[string] unlockedFields = []) {
+    void setUnlockedFields(Json[string] unlockedFields= null) {
         _unlockedFields = unlockedFields;
     }
 
@@ -265,7 +265,7 @@ mixin template TIntegrationTest() {
      * Params:
      * @param string[] adata The data for the request.
      */
-    void post(string[] urlToRequest, string[] adata = []) {
+    void post(string[] urlToRequest, string[] adata= null) {
         _sendRequest(url, "POST", someData);
     }
 
@@ -277,7 +277,7 @@ mixin template TIntegrationTest() {
      * Params:
      * @param string[] adata The data for the request.
      */
-    void patch(string[] urlToRequest, string[] adata = []) {
+    void patch(string[] urlToRequest, string[] adata= null) {
         _sendRequest(url, "PATCH", someData);
     }
 
@@ -289,7 +289,7 @@ mixin template TIntegrationTest() {
      * Params:
      * @param string[] adata The data for the request.
      */
-    void put(string[] urlToRequest, string[] adata = []) {
+    void put(string[] urlToRequest, string[] adata= null) {
         _sendRequest(url, "PUT", someData);
     }
 

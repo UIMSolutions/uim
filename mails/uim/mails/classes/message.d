@@ -606,7 +606,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * string[] anInclude List of headers.
      */
-    string[] getHeaders(Json[string] anInclude = []) {
+    string[] getHeaders(Json[string] anInclude= null) {
         this.createBoundary();
 
         if (anInclude == anInclude.values) {

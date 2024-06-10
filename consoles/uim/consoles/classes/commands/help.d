@@ -41,10 +41,10 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         
         auto anGrouped = null;
         auto plugins = Plugin.loaded();
-        foreach (className, names; myInvert) {
-            preg_match("/^(.+)\\\\Command\\\\/",  className, matches);
+        myInvert.byKeyValue.each!((className) {
+            // preg_match("/^(.+)\\\\Command\\\\/",  className, matches);
             // Probably not a useful class
-            if (matches.isEmpty) { continue; }
+/*             if (matches.isEmpty) { continue; }
             
             string namespace = matches[1].replace("\\", "/");
             
@@ -66,10 +66,10 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
                     ?  className.getDescription()
                     : ""
             ];
-        }
-        ksort(anGrouped);
+ */        });
+        // ksort(anGrouped);
 
-        this.outputPaths(aConsoleIo);
+        outputPaths(aConsoleIo);
         aConsoleIo.out("<info>Available Commands:</info>", 2);
 
         foreach (prefix, names;  anGrouped) {

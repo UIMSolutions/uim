@@ -686,7 +686,7 @@ class DH5 {
  Generates a hyperlink tag.
 
  See also yii\helpers\Url::to().
- public static string a ( text, url = null, options = [])
+ public static string a ( text, url = null, options= null)
  text	string	
  Link body. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image tag. If this is coming from end users, you should consider encode() it to prevent XSS attacks.
  url	array|string|null	
@@ -699,7 +699,7 @@ class DH5 {
  The generated hyperlink
  activeBooleanInput() protected static method (available since version 2.0.9)
  Generates a boolean input This method is mainly called by activeCheckbox() and activeRadio().
- protected static string activeBooleanInput ( type, model, attribute, options = [])
+ protected static string activeBooleanInput ( type, model, attribute, options= null)
  type	string	
  The input type. This can be either radio or checkbox.
  model	yii\base\Model	
@@ -714,7 +714,7 @@ class DH5 {
  Generates a checkbox tag together with a label for the given model attribute.
 
  This method will generate the "checked" tag attribute according to the model attribute value.
- public static string activeCheckbox ( model, attribute, options = [])
+ public static string activeCheckbox ( model, attribute, options= null)
  model	yii\base\Model	
  The model object
  attribute	string	
@@ -727,7 +727,7 @@ class DH5 {
  Generates a list of checkboxes.
 
  A checkbox list allows multiple selection, like listBox(). As a result, the corresponding submitted value is an array. The selection of the checkbox list is taken from the value of the model attribute.
- public static string activeCheckboxList ( model, attribute, items, options = [])
+ public static string activeCheckboxList ( model, attribute, items, options= null)
  model	yii\base\Model	
  The model object
  attribute	string	
@@ -751,7 +751,7 @@ class DH5 {
  Generates a drop-down list for the given model attribute.
 
  The selection of the drop-down list is taken from the value of the model attribute.
- public static string activeDropDownList ( model, attribute, items, options = [])
+ public static string activeDropDownList ( model, attribute, items, options= null)
  model	yii\base\Model	
  The model object
  attribute	string	
@@ -778,7 +778,7 @@ class DH5 {
  Generates a file input tag for the given model attribute.
 
  This method will generate the "name" and "value" tag attributes automatically for the model attribute unless they are explicitly specified in options.
- public static string activeFileInput ( model, attribute, options = [])
+ public static string activeFileInput ( model, attribute, options= null)
  model	yii\base\Model	
  The model object
  attribute	string	
@@ -791,7 +791,7 @@ class DH5 {
  Generates a hidden input tag for the given model attribute.
 
  This method will generate the "name" and "value" tag attributes automatically for the model attribute unless they are explicitly specified in options.
- public static string activeHiddenInput ( model, attribute, options = [])
+ public static string activeHiddenInput ( model, attribute, options= null)
  model	yii\base\Model	
  The model object
  attribute	string	
@@ -804,7 +804,7 @@ class DH5 {
  Generates a hint tag for the given model attribute.
 
  The hint text is the hint associated with the attribute, obtained via yii\base\Model::getAttributeHint(). If no hint content can be obtained, method will return an empty string.
- public static string activeHint ( model, attribute, options = [])
+ public static string activeHint ( model, attribute, options= null)
  model	yii\base\Model	
  The model object
  attribute	string	
@@ -819,7 +819,7 @@ class DH5 {
  Generates an input tag for the given model attribute.
 
  This method will generate the "name" and "value" tag attributes automatically for the model attribute unless they are explicitly specified in options.
- public static string activeInput ( type, model, attribute, options = [])
+ public static string activeInput ( type, model, attribute, options= null)
  type	string	
  The input type (e.g. 'text', 'password')
  model	yii\base\Model	
@@ -834,7 +834,7 @@ class DH5 {
  Generates a label tag for the given model attribute.
 
  The label text is the label associated with the attribute, obtained via yii\base\Model::getAttributeLabel().
- public static string activeLabel ( model, attribute, options = [])
+ public static string activeLabel ( model, attribute, options= null)
  model	yii\base\Model	
  The model object
  attribute	string	
@@ -849,7 +849,7 @@ class DH5 {
  Generates a list box.
 
  The selection of the list box is taken from the value of the model attribute.
- public static string activeListBox ( model, attribute, items, options = [])
+ public static string activeListBox ( model, attribute, items, options= null)
  model	yii\base\Model	
  The model object
  attribute	string	
@@ -877,7 +877,7 @@ class DH5 {
  Generates a list of input fields.
 
  This method is mainly called by activeListBox(), activeRadioList() and activeCheckboxList().
- protected static string activeListInput ( type, model, attribute, items, options = [])
+ protected static string activeListInput ( type, model, attribute, items, options= null)
  type	string	
  The input type. This can be 'listBox', 'radioList', or 'checkBoxList'.
  model	yii\base\Model	
@@ -894,7 +894,7 @@ class DH5 {
  Generates a password input tag for the given model attribute.
 
  This method will generate the "name" and "value" tag attributes automatically for the model attribute unless they are explicitly specified in options.
- public static string activePasswordInput ( model, attribute, options = [])
+ public static string activePasswordInput ( model, attribute, options= null)
  model	yii\base\Model	
  The model object
  attribute	string	
@@ -908,7 +908,7 @@ class DH5 {
  Generates a radio button tag together with a label for the given model attribute.
 
  This method will generate the "checked" tag attribute according to the model attribute value.
- public static string activeRadio ( model, attribute, options = [])
+ public static string activeRadio ( model, attribute, options= null)
  model	yii\base\Model	
  The model object
  attribute	string	
@@ -921,7 +921,7 @@ class DH5 {
  Generates a list of radio buttons.
 
  A radio button list is like a checkbox list, except that it only allows single selection. The selection of the radio buttons is taken from the value of the model attribute.
- public static string activeRadioList ( model, attribute, items, options = [])
+ public static string activeRadioList ( model, attribute, items, options= null)
  model	yii\base\Model	
  The model object
  attribute	string	
@@ -945,7 +945,7 @@ class DH5 {
  Generates a text input tag for the given model attribute.
 
  This method will generate the "name" and "value" tag attributes automatically for the model attribute unless they are explicitly specified in options.
- public static string activeTextInput ( model, attribute, options = [])
+ public static string activeTextInput ( model, attribute, options= null)
  model	yii\base\Model	
  The model object
  attribute	string	
@@ -959,7 +959,7 @@ class DH5 {
  Generates a textarea tag for the given model attribute.
 
  The model attribute value will be used as the content in the textarea.
- public static string activeTextarea ( model, attribute, options = [])
+ public static string activeTextarea ( model, attribute, options= null)
  model	yii\base\Model	
  The model object
  attribute	string	
@@ -1006,7 +1006,7 @@ class DH5 {
  Generates a form start tag.
 
  See also endForm().
- public static string beginForm ( action = '', method = 'post', options = [])
+ public static string beginForm ( action = '', method = 'post', options= null)
  action	array|string	
  The form action URL. This parameter will be processed by yii\helpers\Url::to().
  method	string	
@@ -1024,7 +1024,7 @@ class DH5 {
 
  endTag()
  tag()
- public static string beginTag ( name, options = [])
+ public static string beginTag ( name, options= null)
  name	string|boolean|null	
  The tag name. If name is null or false, the corresponding content will be rendered without any tag.
  options	array	
@@ -1033,7 +1033,7 @@ class DH5 {
  The generated start tag
  booleanInput() protected static method (available since version 2.0.9)
  Generates a boolean input.
- protected static string booleanInput ( type, name, checked = false, options = [])
+ protected static string booleanInput ( type, name, checked = false, options= null)
  type	string	
  The input type. This can be either radio or checkbox.
  name	string	
@@ -1050,7 +1050,7 @@ class DH5 {
  The generated checkbox tag
  button() public static method
  Generates a button tag.
- public static string button ( content = 'Button', options = [])
+ public static string button ( content = 'Button', options= null)
  content	string	
  The content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image tag. If this is is coming from end users, you should consider encode() it to prevent XSS attacks.
  options	array	
@@ -1059,7 +1059,7 @@ class DH5 {
  The generated button tag
  buttonInput() public static method
  Generates an input button.
- public static string buttonInput ( label = 'Button', options = [])
+ public static string buttonInput ( label = 'Button', options= null)
  label	string	
  The value attribute. If it is null, the value attribute will not be generated.
  options	array	
@@ -1068,7 +1068,7 @@ class DH5 {
  The generated button tag
  checkbox() public static method
  Generates a checkbox input.
- public static string checkbox ( name, checked = false, options = [])
+ public static string checkbox ( name, checked = false, options= null)
  name	string	
  The name attribute.
  checked	boolean	
@@ -1081,7 +1081,7 @@ class DH5 {
  Generates a list of checkboxes.
 
  A checkbox list allows multiple selection, like listBox(). As a result, the corresponding submitted value is an array.
- public static string checkboxList ( name, selection = null, items = [], options = [])
+ public static string checkboxList ( name, selection = null, items = [], options= null)
  name	string	
  The name attribute of each checkbox.
  selection	string|array|null	
@@ -1112,7 +1112,7 @@ class DH5 {
  Generates a link tag that refers to an external CSS file.
 
  See also yii\helpers\Url::to().
- public static string cssFile ( url, options = [])
+ public static string cssFile ( url, options= null)
  url	array|string	
  The URL of the external CSS file. This parameter will be processed by yii\helpers\Url::to().
  options	array	
@@ -1164,7 +1164,7 @@ class DH5 {
  The decoded content
  dropDownList() public static method
  Generates a drop-down list.
- public static string dropDownList ( name, selection = null, items = [], options = [])
+ public static string dropDownList ( name, selection = null, items = [], options= null)
  name	string	
  The input name
  selection	string|array|null	
@@ -1226,7 +1226,7 @@ class DH5 {
  Generates a tag that contains the first validation error of the specified model attribute.
 
  Note that even if there is no validation error, this method will still return an empty error tag.
- public static string error ( model, attribute, options = [])
+ public static string error ( model, attribute, options= null)
  model	yii\base\Model	
  The model object
  attribute	string	
@@ -1243,7 +1243,7 @@ class DH5 {
  Generates a summary of the validation errors.
 
  If there is no validation error, an empty error summary markup will still be generated, but it will be hidden.
- public static string errorSummary ( models, options = [])
+ public static string errorSummary ( models, options= null)
  models	yii\base\Model|yii\base\Model[]	
  The model(s) whose validation errors are to be displayed.
  options	array	
@@ -1266,7 +1266,7 @@ class DH5 {
  Generates a file input field.
 
  To use a file input field, you should set the enclosing form's "enctype" attribute to be "multipart/form-data". After the form is submitted, the uploaded file information can be obtained via _FILES[name] (see PHP documentation).
- public static string fileInput ( name, value = null, options = [])
+ public static string fileInput ( name, value = null, options= null)
  name	string	
  The name attribute.
  value	string	
@@ -1336,7 +1336,7 @@ class DH5 {
  if the attribute name contains non-word characters.
  hiddenInput() public static method
  Generates a hidden input field.
- public static string hiddenInput ( name, value = null, options = [])
+ public static string hiddenInput ( name, value = null, options= null)
  name	string	
  The name attribute.
  value	string	
@@ -1347,7 +1347,7 @@ class DH5 {
  The generated hidden input tag
  img() public static method
  Generates an image tag.
- public static string img ( src, options = [])
+ public static string img ( src, options= null)
  src	array|string	
  The image URL. This parameter will be processed by yii\helpers\Url::to().
  options	array	
@@ -1356,7 +1356,7 @@ class DH5 {
  The generated image tag
  input() public static method
  Generates an input type of the given type.
- public static string input ( type, name = null, value = null, options = [])
+ public static string input ( type, name = null, value = null, options= null)
  type	string	
  The type attribute.
  name	string	
@@ -1371,7 +1371,7 @@ class DH5 {
  Generates a script tag that refers to an external JavaScript file.
 
  See also yii\helpers\Url::to().
- public static string jsFile ( url, options = [])
+ public static string jsFile ( url, options= null)
  url	string	
  The URL of the external JavaScript file. This parameter will be processed by yii\helpers\Url::to().
  options	array	
@@ -1382,7 +1382,7 @@ class DH5 {
  The generated script tag
  label() public static method
  Generates a label tag.
- public static string label ( content, for = null, options = [])
+ public static string label ( content, for = null, options= null)
  content	string	
  Label text. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image tag. If this is is coming from end users, you should encode() it to prevent XSS attacks.
  for	string	
@@ -1393,7 +1393,7 @@ class DH5 {
  The generated label tag
  listBox() public static method
  Generates a list box.
- public static string listBox ( name, selection = null, items = [], options = [])
+ public static string listBox ( name, selection = null, items = [], options= null)
  name	string	
  The input name
  selection	string|array|null	
@@ -1419,7 +1419,7 @@ class DH5 {
  The generated list box tag
  mailto() public static method
  Generates a mailto hyperlink.
- public static string mailto ( text, email = null, options = [])
+ public static string mailto ( text, email = null, options= null)
  text	string	
  Link body. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image tag. If this is coming from end users, you should consider encode() it to prevent XSS attacks.
  email	string	
@@ -1430,7 +1430,7 @@ class DH5 {
  The generated mailto link
  ol() public static method
  Generates an ordered list.
- public static string ol ( items, options = [])
+ public static string ol ( items, options= null)
  items	array|Traversable	
  The items for generating the list. Each item generates a single list item. Note that items will be automatically HTML encoded if options['encode'] is not set or true.
  options	array	
@@ -1445,7 +1445,7 @@ class DH5 {
  The generated ordered list. An empty string is returned if items is empty.
  passwordInput() public static method
  Generates a password input field.
- public static string passwordInput ( name, value = null, options = [])
+ public static string passwordInput ( name, value = null, options= null)
  name	string	
  The name attribute.
  value	string	
@@ -1456,7 +1456,7 @@ class DH5 {
  The generated password input tag
  radio() public static method
  Generates a radio button input.
- public static string radio ( name, checked = false, options = [])
+ public static string radio ( name, checked = false, options= null)
  name	string	
  The name attribute.
  checked	boolean	
@@ -1469,7 +1469,7 @@ class DH5 {
  Generates a list of radio buttons.
 
  A radio button list is like a checkbox list, except that it only allows single selection.
- public static string radioList ( name, selection = null, items = [], options = [])
+ public static string radioList ( name, selection = null, items = [], options= null)
  name	string	
  The name attribute of each radio button.
  selection	string|array|null	
@@ -1510,7 +1510,7 @@ class DH5 {
  The CSS properties to be removed. You may use a string if you are removing a single property.
  renderSelectOptions() public static method
  Renders the option tags that can be used by dropDownList() and listBox().
- public static string renderSelectOptions ( selection, items, &tagOptions = [])
+ public static string renderSelectOptions ( selection, items, &tagOptions= null)
  selection	string|array|null	
  The selected value(s). String for single or array for multiple selection(s).
  items	array	
@@ -1537,7 +1537,7 @@ class DH5 {
  The rendering result. If the attributes are not empty, they will be rendered into a string with a leading white space (so that it can be directly appended to the tag name in a tag. If there is no attribute, an empty string will be returned.
  resetButton() public static method
  Generates a reset button tag.
- public static string resetButton ( content = 'Reset', options = [])
+ public static string resetButton ( content = 'Reset', options= null)
  content	string	
  The content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image tag. If this is is coming from end users, you should consider encode() it to prevent XSS attacks.
  options	array	
@@ -1546,7 +1546,7 @@ class DH5 {
  The generated reset button tag
  resetInput() public static method
  Generates a reset input button.
- public static string resetInput ( label = 'Reset', options = [])
+ public static string resetInput ( label = 'Reset', options= null)
  label	string	
  The value attribute. If it is null, the value attribute will not be generated.
  options	array	
@@ -1555,7 +1555,7 @@ class DH5 {
  The generated button tag
  script() public static method
  Generates a script tag.
- public static string script ( content, options = [])
+ public static string script ( content, options= null)
  content	string	
  The script content
  options	array	
@@ -1564,7 +1564,7 @@ class DH5 {
  The generated script tag
  style() public static method
  Generates a style tag.
- public static string style ( content, options = [])
+ public static string style ( content, options= null)
  content	string	
  The style content
  options	array	
@@ -1575,7 +1575,7 @@ class DH5 {
  Generates a submit button tag.
 
  Be careful when naming form elements such as submit buttons. According to the jQuery documentation there are some reserved names that can cause conflicts, e.g. submit, length, or method.
- public static string submitButton ( content = 'Submit', options = [])
+ public static string submitButton ( content = 'Submit', options= null)
  content	string	
  The content enclosed within the button tag. It will NOT be HTML-encoded. Therefore you can pass in HTML code such as an image tag. If this is is coming from end users, you should consider encode() it to prevent XSS attacks.
  options	array	
@@ -1586,7 +1586,7 @@ class DH5 {
  Generates a submit input button.
 
  Be careful when naming form elements such as submit buttons. According to the jQuery documentation there are some reserved names that can cause conflicts, e.g. submit, length, or method.
- public static string submitInput ( label = 'Submit', options = [])
+ public static string submitInput ( label = 'Submit', options= null)
  label	string	
  The value attribute. If it is null, the value attribute will not be generated.
  options	array	
@@ -1600,7 +1600,7 @@ class DH5 {
 
  beginTag()
  endTag()
- public static string tag ( name, content = '', options = [])
+ public static string tag ( name, content = '', options= null)
  name	string|boolean|null	
  The tag name. If name is null or false, the corresponding content will be rendered without any tag.
  content	string	
@@ -1613,7 +1613,7 @@ class DH5 {
  The generated HTML tag
  textInput() public static method
  Generates a text input field.
- public static string textInput ( name, value = null, options = [])
+ public static string textInput ( name, value = null, options= null)
  name	string	
  The name attribute.
  value	string	
@@ -1624,7 +1624,7 @@ class DH5 {
  The generated text input tag
  textarea() public static method
  Generates a text area input.
- public static string textarea ( name, value = '', options = [])
+ public static string textarea ( name, value = '', options= null)
  name	string	
  The input name
  value	string	

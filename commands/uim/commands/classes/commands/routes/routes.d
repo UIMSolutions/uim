@@ -139,7 +139,7 @@ class DRoutesCommand : DCommand {
          aConsoleIo.helper("table").output(output);
          aConsoleIo.writeln();
 
-         someDuplicateRoutes = null;
+        auto someDuplicateRoutes = null;
 
         foreach (myRoute;  someAvailableRoutes) {
             string[] someMethods = isSet(myRoute.defaults["_method"]) ? /* (array) */myRoute.defaults["_method"] : [""];

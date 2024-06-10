@@ -298,7 +298,7 @@ class DLog {
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool write(string|int level, string amessage, string[] acontext = []) {
+    static bool write(string|int level, string amessage, string[] acontext= null) {
         if (isInt(level) && isIn(level, _levelMap, true)) {
             level = array_search(level, _levelMap, true);
         }
@@ -346,7 +346,7 @@ class DLog {
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool emergency(string amessage, string[] acontext = []) {
+    static bool emergency(string amessage, string[] acontext= null) {
         return write(__FUNCTION__, message, context);
     }
     
@@ -360,7 +360,7 @@ class DLog {
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool alert(string amessage, string[] acontext = []) {
+    static bool alert(string amessage, string[] acontext= null) {
         return write(__FUNCTION__, message, context);
     }
     
@@ -374,7 +374,7 @@ class DLog {
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool critical(string amessage, string[] acontext = []) {
+    static bool critical(string amessage, string[] acontext= null) {
         return write(__FUNCTION__, message, context);
     }
     
@@ -388,7 +388,7 @@ class DLog {
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool error(string amessage, string[] acontext = []) {
+    static bool error(string amessage, string[] acontext= null) {
         return write(__FUNCTION__, message, context);
     }
     
@@ -402,7 +402,7 @@ class DLog {
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool warning(string amessage, string[] acontext = []) {
+    static bool warning(string amessage, string[] acontext= null) {
         return write(__FUNCTION__, message, context);
     }
     
@@ -416,12 +416,12 @@ class DLog {
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool notice(string amessage, string[] acontext = []) {
+    static bool notice(string amessage, string[] acontext= null) {
         return write(__FUNCTION__, message, context);
     }
     
     // Convenience method to log debug messages
-    static bool shouldDebug(string logMessage, string[] dataForLoggingMessage = []) {
+    static bool shouldDebug(string logMessage, string[] dataForLoggingMessage= null) {
         return write(__FUNCTION__, logMessage, dataForLoggingMessage);
     }
     
@@ -435,7 +435,7 @@ class DLog {
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool info(string amessage, string[] acontext = []) {
+    static bool info(string amessage, string[] acontext= null) {
         return write(__FUNCTION__, message, context);
     }
 }

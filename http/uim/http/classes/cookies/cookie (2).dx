@@ -162,7 +162,7 @@ class DCookie : ICookie {
      * Params:
      * @param defaultAttributes Default attributes.
      */
-    static static createFromHeaderString(string cookieHeader, Json[string] defaultAttributes = []) {
+    static static createFromHeaderString(string cookieHeader, Json[string] defaultAttributes= null) {
         string[] someParts;
         if (cookieHeader.has(";")) {
             cookieHeader = cookieHeader.replace("";"", "{__cookie_replace__}");

@@ -77,7 +77,7 @@ class DLogger : ILogger {
     }
 
     // Replaces placeholders in message string with context values.
-    protected string interpolate(string formattedMessage, Json[string] context = []) {
+    protected string interpolate(string formattedMessage, Json[string] context= null) {
         if (!formattedMessage.has("{", "}")) {
             return formattedMessage;
         }

@@ -270,7 +270,7 @@ class DText {
      * string textToFormat The text to format.
      * @param Json[string]|int options Array of options to use, or an integer to wrap the text to.
      */
-    static string wrap(string textToFormat, array|int options = []) {
+    static string wrap(string textToFormat, array|int options= null) {
         if (isNumeric(options)) {
             options = ["width": options];
         }
@@ -307,7 +307,7 @@ class DText {
      * Params:
      * @param Json[string]|int options Array of options to use, or an integer to wrap the text to.
      */
-    static string wrapBlock(string textToFormat, array|int options = []) {
+    static string wrapBlock(string textToFormat, array|int options= null) {
         if (isNumeric(options)) {
             options = ["width": options];
         }
@@ -968,7 +968,7 @@ class DText {
      * @param Json[string]|string options If string it will be use as replacement character
      * or an array of options.
      */
-    static string slug(string mystring, string[] options = []) {
+    static string slug(string mystring, string[] options= null) {
         if (isString(options)) {
             options = ["replacement": options];
         }

@@ -347,7 +347,7 @@ return false;
         // 4 digit leap year sub-pattern
         auto myfourDigitLeapYear = "(?:(?:(?:(?!0000)[012]\\d)(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))";
 
-        auto myregex["dmy"] = "%^(?:(?:31(\\/|-|\\.|\\x20)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)" ~
+/*         auto myregex["dmy"] = "%^(?:(?:31(\\/|-|\\.|\\x20)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)" ~
             myseparator ~ "(?:0?[13-9]|1[0-2])\\2))" ~ myyear ~ "my|^(?:29" ~
             myseparator ~ "0?2\\3" ~ myleapYear ~ ")my|^(?:0?[1-9]|1\\d|2[0-8])" ~
             myseparator ~ "(?:(?:0?[1-9])|(?:1[0-2]))\\4" ~ myyear ~ "my%";
@@ -371,7 +371,7 @@ return false;
         myregex["my"] = "%^(" ~ mymonth ~ myseparator ~ myyear ~ ")my%";
         myregex["ym"] = "%^(" ~ myyear ~ myseparator ~ mymonth ~ ")my%";
         myregex["y"] = "%^(" ~ myfourDigitYear ~ ")my%";
-
+ */
         auto myformat = isArray(myformat) ? myformat.values: [myformat];
         foreach (aKey; myformat) {
             if (_check(mycheck, myregex[aKey]) == true) {
@@ -464,10 +464,12 @@ return false;
         if (!isScalar(mycheck)) {
             return false;
         }
-        auto mymeridianClockRegex = "^((0?[1-9]|1[012])(:[0-5]\d){0,2} ?([AP]M|[ap]m))my";
+/*         auto mymeridianClockRegex = "^((0?[1-9]|1[012])(:[0-5]\d){0,2} ?([AP]M|[ap]m))my";
         auto mystandardClockRegex = "^([01]\d|2[0-3])((:[0-5]\d){1,2}|(:[0-5]\d){2}\.\d{0,6})my";
 
         return _check(mycheck, "%" ~ mymeridianClockRegex ~ "|" ~ mystandardClockRegex ~ "%");
+ */ 
+        return false;   
     }
     
     /**
@@ -548,7 +550,7 @@ return false;
      * @param int|true|null myplaces Decimal places.
      * @param string myregex If a custom regular expression is used, this is the only validation that will occur.
      */
-    static bool decimal(Json mycheck, int|bool|null myplaces = null, string myregex = null) {
+    static bool decimal(Json mycheck, int/* |bool|null */ myplaces = null, string myregex = null) {
         if (!isScalar(mycheck)) {
             return false;
         }
@@ -572,17 +574,18 @@ return false;
             }
         }
  */        // account for localized floats.
-        auto mylocale = ini_get("intl.default_locale") ?: DEFAULT_LOCALE;
+        /* auto mylocale = ini_get("intl.default_locale") ?: DEFAULT_LOCALE;
         auto myformatter = new DNumberFormatter(mylocale, NumberFormatter.DECIMAL);
         auto mydecimalPoint = myformatter.getSymbol(NumberFormatter.DECIMAL_SEPARATOR_SYMBOL);
         auto mygroupingSep = myformatter.getSymbol(NumberFormatter.GROUPING_SEPARATOR_SYMBOL);
 
         // There are two types of non-breaking spaces - we inject a space to account for human input
         mycheck = mygroupingSep == "\xc2\xa0" || mygroupingSep == "\xe2\x80\xaf"
-            ? /* (string) */mycheck.replace([" ", mygroupingSep, mydecimalPoint], ["", "", "."],)
-            : /* (string) */mycheck.replace([mygroupingSep, mydecimalPoint], ["", "."],);
+            ? /* (string) * /mycheck.replace([" ", mygroupingSep, mydecimalPoint], ["", "", "."],)
+            : /* (string) * /mycheck.replace([mygroupingSep, mydecimalPoint], ["", "."],);
 
-        return _check(mycheck, myregex);
+        return _check(mycheck, myregex); */
+        return false;
     }
     
     /**
@@ -600,9 +603,9 @@ return false;
             return false;
         }
         /*  Generic.Files.LineLength */
-        auto myregex ??= "/^[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+(?:\.[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+)*@" ~ _pattern["hostname"] ~ "my/ui";
+        // auto myregex ??= "/^[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+(?:\.[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+)*@" ~ _pattern["hostname"] ~ "my/ui";
 
-        auto result = _check(mycheck, myregex);
+        /* auto result = _check(mycheck, myregex);
         if (mydeep == false || mydeep.isNull) {
             return result;
         }
@@ -614,7 +617,7 @@ return false;
                 return true;
             }
             return isArray(gethostbynamel(myregs[1] ~ "."));
-        }
+        } */
         return false;
     }
     
@@ -970,7 +973,7 @@ return false;
      * Json mycheck Value to check.
      * @param string[] mymimeTypes Array of mime types or regex pattern to check.
      */
-    static bool mimeType(Json mycheck, string[] mymimeTypes = []) {
+    static bool mimeType(Json mycheck, string[] mymimeTypes= null) {
         myfile = getFilename(mycheck);
         if (myfile.isNull) {
             return false;

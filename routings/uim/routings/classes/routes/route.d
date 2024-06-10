@@ -481,7 +481,7 @@ class DRoute : IRoute {
      * Contains information such as the current host, scheme, port, base
      * directory and other url params.
      */
-    string match(Json[string] myurl, Json[string] mycontext = []) {
+    string match(Json[string] myurl, Json[string] mycontext= null) {
         if (_compiledRoute.isEmpty) {
             this.compile();
         }
@@ -635,7 +635,7 @@ class DRoute : IRoute {
      * @param Json[string] mypass The additional passed arguments
      * @param Json[string] myquery An array of parameters
      */
-    protected string _writeUrl(Json[string] myparams, Json[string] mypass = [], Json[string] myquery = []) {
+    protected string _writeUrl(Json[string] myparams, Json[string] mypass = [], Json[string] myquery= null) {
         mypass = array_map(function (myvalue) {
             return rawUrlEncode(/* (string) */myvalue);
         }, mypass);

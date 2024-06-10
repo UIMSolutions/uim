@@ -26,6 +26,4 @@ interface IValidatorAware {
 
     // Checks whether a validator has been set.
    bool hasValidator(string validatorName);
-
-   */
 }

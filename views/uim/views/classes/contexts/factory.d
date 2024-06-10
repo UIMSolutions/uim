@@ -7,7 +7,7 @@ import uim.views;
 // Factory for getting form context instance based on provided data.
 class DContextFactory {
     protected string[] providersNames;
-    // TODO protected IContext functiom(DServerRequest serverRequest, Json[string] data = [])[] providerFunctions;;
+    // TODO protected IContext functiom(DServerRequest serverRequest, Json[string] data= null)[] providerFunctions;;
     /*
     // DContext providers.
     // TODO protected array<string, array> myproviders = null;
@@ -18,7 +18,7 @@ class DContextFactory {
      * Json[string] myproviders Array of provider callables. Each element should
      * be of form `["type": "a-string", "callable": ..]`
      */
-    this(Json[string] myproviders = []) {
+    this(Json[string] myproviders= null) {
         foreach (myproviders as myprovider) {
             this.addProvider(myprovider["type"], myprovider["callable"]);
         }
@@ -30,7 +30,7 @@ class DContextFactory {
      * Json[string] myproviders Array of provider callables. Each element should
      * be of form `["type": "a-string", "callable": ..]`
      */
-    static static createWithDefaults(Json[string] myproviders = []) {
+    static static createWithDefaults(Json[string] myproviders= null) {
         auto myproviders = [
             [
                 "type": "orm",
@@ -104,7 +104,7 @@ class DContextFactory {
      * \UIM\Http\ServerRequest serverRequest Request instance.
      * @param Json[string] mydata The data to get a context provider for.
      */
-    IContext get(DServerRequest serverRequest, Json[string] data = []) {
+    IContext get(DServerRequest serverRequest, Json[string] data= null) {
         mydata += ["entity": Json(null)];
 
         foreach (this.providers as myprovider) {

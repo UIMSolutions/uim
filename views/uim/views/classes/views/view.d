@@ -799,7 +799,7 @@ static string contentType() {
      * @param Json[string] data Data to include in rendered view. If empty the current
      * View.myviewVars will be used.
      */
-    protected string _render(string mytemplateFile, Json[string] data = []) {
+    protected string _render(string mytemplateFile, Json[string] data= null) {
         if (mydata.isEmpty) {
             mydata = _viewVars;
         }

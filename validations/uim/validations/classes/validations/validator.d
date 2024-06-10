@@ -228,14 +228,15 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * string myname The name under which the provider should be retrieved.
      */
     static /* object */ string getDefaultProvider(string myname) {
-        return _defaultProviders[myname] ?? null;
+        // return _defaultProviders[myname] ?? null;
+        return null; 
     }
     
     /**
      * Associates an object to a name so it can be used as a default provider.
      * Params:
      * string myname The name under which the provider should be set.
-     * @param /* object */ string myobject Provider object or class name.
+     * @param /* object * / string myobject Provider object or class name.
      * @psalm-param object|class-string myobject
      */
     static void addDefaultProvider(string myname, /* object */ string myobject) {
@@ -252,22 +253,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return _providers.keys;
     }
     
-    /**
-     * Returns whether a rule set is defined for a field or not
-     * Params:
-     * string fieldName name of the field to check
-     */
+    // Returns whether a rule set is defined for a field or not
     bool offsetExists(Json fieldName) {
-        return isSet(_fields[fieldName]);
+        return _fields.get(fieldName);
     }
     
-    /**
-     * Returns the rule set for a field
-     * Params:
-     * string|int fieldName name of the field to check
-     */
-    ValidationSet offsetGet(Json fieldName) {
-        return _field((string)fieldName);
+    // Returns the rule set for a field
+    ValidationSet offsetGet(string fieldName) {
+        return _field(fieldName);
     }
     
     /**
@@ -279,9 +272,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     void offsetSet(string fieldName, Json myrules) {
         if (!cast(ValidationSet)myrules) {
             myset = new DValidationSet();
-            foreach (myrules as myname: myrule) {
-                myset.add(myname, myrule);
-            }
+            myrules.byKeyValue.each!(nameRule => myset.add(nameRule.key, nameRule.value));
             myrules = myset;
         }
        _fields[fieldName] = myrules;
@@ -298,8 +289,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     
     /**
      * Returns an iterator for each of the fields to be validated
-     */
-    Traversable<string, \UIM\Validation\ValidationSet> getIterator() {
+     * /
+    Traversable<string, DValidationSet> getIterator() {
         return new DArrayIterator(_fields);
     }
     
@@ -332,15 +323,17 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param string[] myname The alias for a single rule or multiple rules array
      * @param \UIM\Validation\ValidationRule|array myrule the rule to add
      */
-    auto add(string fieldName, string[] myname, ValidationRule|array myrule = []) {
-        myvalidationSet = this.field(fieldName);
+/*     auto add(string fieldName, string[] myname, ValidationRule[] rules= null) {
+    }
+ */    auto add(string fieldName, string[] myname, DValidationRule[] rules= null) {
+        auto myvalidationSet = this.field(fieldName);
 
         if (!isArray(myname)) {
-            myrules = [myname: myrule];
+            rules = [myname: myrule];
         } else {
-            myrules = myname;
+            rules = myname;
         }
-        myrules.byKeyValue
+        rules.byKeyValue
             .each!((nameRule) {
                 if (isArray(nameRule.value)) {
                     nameRule.value += [

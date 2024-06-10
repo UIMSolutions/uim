@@ -69,7 +69,7 @@ class DFormProtector {
      * Params:
      * Json[string] someData Data array, can contain key `unlockedFields` with list of unlocked fields.
      */
-    this(Json[string] data = []) {
+    this(Json[string] data= null) {
         if (!someData.isEmpty("unlockedFields")) {
             this.unlockedFields = someData["unlockedFields"];
         }

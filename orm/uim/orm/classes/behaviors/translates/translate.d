@@ -241,7 +241,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * \ORM\Query\SelectQuery myquery The original query to modify
      * @param string[] mylocales A list of locales or options with the `locales` key defined
      */
-    SelectQuery findTranslations(SelectQuery myquery, Json[string] mylocales = []) {
+    SelectQuery findTranslations(SelectQuery myquery, Json[string] mylocales= null) {
         mytargetAlias = getStrategy().getTranslationTable().aliasName();
 
         return myquery

@@ -27,7 +27,7 @@ class DEntityRoute : DRoute {
      * Contains information such as the current host, scheme, port, and base
      * directory.
      */
-    string match(Json[string] myurl, Json[string] mycontext = []) {
+    string match(Json[string] myurl, Json[string] mycontext= null) {
         if (_compiledRoute.isEmpty) {
             this.compile();
         }

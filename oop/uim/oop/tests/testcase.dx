@@ -217,7 +217,7 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * Json[string] plugins List of Plugins to load.
      */
-    BaseApplication loadPlugins(Json[string] plugins = []) {
+    BaseApplication loadPlugins(Json[string] plugins= null) {
         /**
          * @psalm-suppress MissingTemplateParam
          */
@@ -253,7 +253,7 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * string[] pluginNames A list of plugins you want to remove.
      */
-    void removePlugins(Json[string] pluginNames = []) {
+    void removePlugins(Json[string] pluginNames= null) {
         auto pluginCollection = Plugin.getCollection();
         pluginNames.each!(name => pluginCollection.remove(name));
     }

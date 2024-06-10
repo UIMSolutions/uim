@@ -70,7 +70,7 @@ class DSysLogger : DLogger {
      * @param \string messageToLog The message you want to log.
      * @param Json[string] context Additional information about the logged message
      */
-    void log(level, string messageToLog, Json[string] context = []) {
+    void log(level, string messageToLog, Json[string] context= null) {
         if (!_open) {
             configData = configuration;
            _open(configuration.get("prefix"), configuration.get("flag"], configuration.get("facility"]);

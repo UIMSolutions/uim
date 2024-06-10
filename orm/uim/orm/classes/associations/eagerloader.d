@@ -471,7 +471,7 @@ class DEagerLoader {
      * array<\ORM\EagerLoadable> myassociations List of associations from which to obtain joins.
      * @param array<\ORM\EagerLoadable> mymatching List of associations that should be forcibly joined.
      */
-    protected DEagerLoadable[] _resolveJoins(Json[string] myassociations, Json[string] mymatching = []) {
+    protected DEagerLoadable[] _resolveJoins(Json[string] myassociations, Json[string] mymatching= null) {
         auto result;
         foreach (mymatching as mytable: myloadable) {
             result[mytable] = myloadable;

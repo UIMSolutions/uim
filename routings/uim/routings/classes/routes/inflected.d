@@ -56,7 +56,7 @@ class DInflectedRoute : DRoute {
      * Contains information such as the current host, scheme, port, and base
      * directory.
      */
-    string match(Json[string] myurl, Json[string] mycontext = []) {
+    string match(Json[string] myurl, Json[string] mycontext= null) {
         myurl = _underscore(myurl);
         if (_inflectedDefaults.isNull) {
             this.compile();

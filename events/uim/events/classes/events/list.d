@@ -40,7 +40,7 @@ class DEventList { // }: ArrayAccess, Countable {
 
     // Offset to set
     void offsetSet(string offset, Json value) {
-        _events[offset] = value;
+        // _events[offset] = value;
     }
 
     // Offset to unset

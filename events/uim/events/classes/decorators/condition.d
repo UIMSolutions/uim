@@ -29,7 +29,7 @@ class DConditionDecorator : DDecorator {
 
     // Evaluates the filter conditions
     protected bool _evaluateCondition(string conditionType, IEvent event) {
-        if (!_options.hasKey(conditionType)) {
+/*         if (!_options.hasKey(conditionType)) {
             return conditionType != "unless";
         }
 
@@ -38,6 +38,7 @@ class DConditionDecorator : DDecorator {
                 this.classname ~ " the `" ~ conditionType ~ "` condition is not a callable!");
         }
         
-        return _options[conditionType].getBool(event);
+        return _options[conditionType].getBool(event); */
+        return false; 
     }
 }

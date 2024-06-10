@@ -186,7 +186,7 @@ class DEventManager { // }: IEventManager {
     }
     return [this.normalizeHandler(subscriber, handlers)];
  */
-        return Json(null);
+        return null;
     }
 
     /**
@@ -295,7 +295,8 @@ class DEventManager { // }: IEventManager {
 
     // Returns the listeners for the specified event key indexed by priority
     Json[string] prioritisedListeners(string key) {
-        return _listeners.get(key);
+        // return _listeners.get(key);
+        return null; 
     }
 
     // Returns the listeners matching a specified pattern

@@ -95,7 +95,7 @@ import uim.orm;
  * - `afterremove(IEvent myevent, IORMEntity myentity, ArrayObject options)`
  * - `afterDeleteCommit(IEvent myevent, IORMEntity myentity, ArrayObject options)`
  */
-class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorAware {
+class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorAware {
     mixin TEventDispatcher;
     mixin TConfigurable;
     mixin TConventions;

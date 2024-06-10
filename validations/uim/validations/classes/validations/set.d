@@ -15,43 +15,37 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     // Holds the ValidationRule objects
     // TODO protected IValidationRule[] _rules = null;
 
-    /**
-     * Denotes whether the fieldname key must be present in data array
-     *
-     * @var callable|string
-     */
-    protected _validatePresent = false;
+    // Denotes whether the fieldname key must be present in data array
+    protected bool _validatePresent = false;
 
     // Denotes if a field is allowed to be empty
-    protected callable|string _allowEmpty = false;
+    protected /* /*callable|*/string */ bool _allowEmpty = false;
 
-    /**
-     * Returns whether a field can be left out.
-     */
-    callable|string isPresenceRequired() {
+    // Returns whether a field can be left out.
+    /* /*callable|*/string */ bool isPresenceRequired() {
         return _validatePresent;
     }
     
     /**
      * Sets whether a field is required to be present in data array.
      * Params:
-     * callable|string myvalidatePresent Valid values are true, false, "create", "update" or a callable.
+     * /*callable|*/string myvalidatePresent Valid values are true, false, "create", "update" or a callable.
      */
-    void requirePresence(callable|string myvalidatePresent) {
+    void requirePresence(/*callable|*/string myvalidatePresent) {
        _validatePresent = myvalidatePresent;
     }
     
     /**
      * Returns whether a field can be left empty.
      */
-    callable|string isEmptyAllowed() {
+    /*callable|*/string isEmptyAllowed() {
         return _allowEmpty;
     }
 
     /**
      * "create", "update" or a callable.
      */
-    void allowEmpty(callable|string myallowEmpty) {
+    void allowEmpty(/*callable|*/string myallowEmpty) {
        _allowEmpty = myallowEmpty;
     }
 

@@ -97,7 +97,7 @@ import uim.orm;
  * ```
  *
  */
-class DBehavior : IEventListener {
+class DBehavior : DEventListener {
     mixin TConfigurable;
 
     this() {

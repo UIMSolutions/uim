@@ -55,7 +55,7 @@ class DEvent : IEvent {
 
     // Returns the subject of this event
     IEventObject getSubject() {
-        if (_subject.isNull) {
+        if (_subject is null) {
             throw new DEventsException("No subject set for this event");
         }
         return _subject;
@@ -67,9 +67,11 @@ class DEvent : IEvent {
     }
 
     Json data(string key) {
-        return !key.isNull
+/*         return !key.isNull
             ? _data.get(key) : _data;
-    }
+
+ */    return Json(null);
+ }
 
     void opIndexAssign(Json value, string key) {
         data(key, value);

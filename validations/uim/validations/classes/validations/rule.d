@@ -62,7 +62,7 @@ class DValidationRule {
      * - field: The name of the field that is being processed
      */
     string[] process(Json aValue, Json[string] myproviders, Json[string] mycontext = []) {
-        mycontext += ["data": Json.emptyArray, "newRecord": true.toJson, "providers": myproviders];
+        auto mycontext += ["data": Json.emptyArray, "newRecord": true.toJson, "providers": myproviders];
 
         if (_skip(mycontext)) {
             return true;
@@ -87,15 +87,15 @@ class DValidationRule {
            );
             throw new DInvalidArgumentException(mymessage);
         }
-        if (_pass) {
+/*         if (_pass) {
             myargs = array_merge([myvalue], _pass, [mycontext]).values;
             result = mycallable(...myargs);
         } else {
             result = mycallable(myvalue, mycontext);
-        }
-        if (result == false) {
+        } */
+/*         if (result == false) {
             return _message ?: false;
-        }
+        } */
         return result;
     }
     

@@ -44,7 +44,7 @@ class DPluginShortRoute : DInflectedRoute {
         }
         this.defaults["controller"] = myurl["controller"];
         result = super.match(myurl, mycontext);
-        unset(this.defaults["controller"]);
+        remove(this.defaults["controller"]);
 
         return result;
     }

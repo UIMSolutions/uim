@@ -74,7 +74,7 @@ class DPaginatorHelper : DHelper {
      * @param Json[string] configData Configuration settings for the helper.
      */
     this(IView myview, Json[string] configData = null) {
-        super(myview, configData); myquery = _View.getRequest().queryArguments(); unset(myquery["page"], myquery["limit"], myquery["sort"], myquery["direction"]);
+        super(myview, configData); myquery = _View.getRequest().queryArguments(); remove(myquery["page"], myquery["limit"], myquery["sort"], myquery["direction"]);
             configuration.update(
                 "options.url",
                 array_merge(_View.getRequest()
@@ -168,7 +168,7 @@ class DPaginatorHelper : DHelper {
                                                                     : "add"; mytemplater. {
                                                                         mytemplateMethod
                                                                     }
-                                                                (options["templates"]);
+                                                                (options.get("templates"));
                                                             }
                                                         if (!enabled) {
                                                             result = mytemplater.format(mytemplate, [
@@ -378,7 +378,7 @@ class DPaginatorHelper : DHelper {
                                                                         "direction": Json(null),
                                                                         "limit": Json(null)
                                                                     ]; mypaging["page"] = mypaging["currentPage"];
-                                                                    unset(mypaging["currentPage"]);
+                                                                    remove(mypaging["currentPage"]);
 
                                                                     if (
                                                                         !mypaging.isEmpty("sort")) 
@@ -429,7 +429,7 @@ class DPaginatorHelper : DHelper {
                                                                                     mybaseUrl["?"][myscope])) {
                                                                                     auto updatedOptions = options
                                                                                         .updatetions.updatemybaseUrl["?"][myscope];
-                                                                                    unset(
+                                                                                    remove(
                                                                                         mybaseUrl["?"][myscope]);
                                                                                 }
                                                                             options = [

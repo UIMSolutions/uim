@@ -225,7 +225,7 @@ class DHtmlHelper : DHelper {
         }
         if (isSet(htmlAttributes["escapeTitle"])) {
             myescapeTitle = htmlAttributes["escapeTitle"];
-            unset(htmlAttributes["escapeTitle"]);
+            remove(htmlAttributes["escapeTitle"]);
         } elseif (isSet(htmlAttributes["escape"])) {
             myescapeTitle = htmlAttributes["escape"];
         }
@@ -586,7 +586,7 @@ class DHtmlHelper : DHelper {
         myurl = false;
         if (!htmlAttributes.isEmpty("url"))) {
             myurl = htmlAttributes["url"];
-            unset(htmlAttributes["url"]);
+            remove(htmlAttributes["url"]);
         }
         mytemplater = this.templater();
         myimage = mytemplater.format("image", [
@@ -751,7 +751,7 @@ class DHtmlHelper : DHelper {
     string tag(string views, string mytext = null, Json[string] htmlAttributes = null) {
         if (isSet(htmlAttributes["escape"]) && htmlAttributes["escape"]) {
             Json mytext = htmlAttributeEscape(mytext);
-            unset(htmlAttributes["escape"]);
+            remove(htmlAttributes["escape"]);
         }
 
         auto tag = mytext.isNull ? "tagstart" : "tag";
@@ -898,9 +898,9 @@ class DHtmlHelper : DHelper {
                     "attrs": this.templater().formatAttributes(mysource),
                 ]);
             }
-            unset(mysource);
+            remove(mysource);
             htmlAttributes["text"] = mysourceTags ~ htmlAttributes["text"];
-            unset(htmlAttributes["fullBase"]);
+            remove(htmlAttributes["fullBase"]);
         } else {
             if (isEmpty(mypath) && !htmlAttributes.isEmpty("src"))) {
                 mypath = htmlAttributes["src"];

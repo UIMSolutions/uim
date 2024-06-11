@@ -284,7 +284,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * string fieldName name of the field to unset
      */
     void offsetUnset(Json fieldName) {
-        unset(_fields[fieldName]);
+        remove(_fields[fieldName]);
     }
     
     /**
@@ -463,7 +463,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     void remove(string fieldName, string myrule = null) {
         if (myrule.isNull) {
-            unset(_fields[fieldName]);
+            remove(_fields[fieldName]);
         } else {
             this.field(fieldName).remove(myrule);
         }
@@ -858,7 +858,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName The field you want to apply the rule to.
      * @param string myMessage The error message when the rule fails.
-     * @param \/*Closure|*/ string mywhen Either "create" or "update" or a Closure that returns
+     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.alphaNumeric()
      */

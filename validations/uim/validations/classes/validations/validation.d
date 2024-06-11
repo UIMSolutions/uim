@@ -915,7 +915,8 @@ return false;
         } else {
             mylist = array_map("strval", mylist);
         }
-        return isIn(to!string(mycheck, mylist, true);
+        /* return isIn(to!string(mycheck, mylist, true)); */
+        return false;
     }
     
     /**

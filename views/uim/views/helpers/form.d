@@ -263,14 +263,14 @@ class DFormHelper : DHelper {
             }
             options["context.entity"] = formContext;
             formContext = _getContext(options["context"]);
-            options.remove("context"]);
+            options.remove("context");
         }
         myisCreate = formContext.isCreate();
 
         auto updatedOptions = options.updatetions.updatetions.updatetions.updatetions.update[
             "type": myisCreate ? "post" : "put",
             "url": Json(null),
-            "encoding": configuration.get("App.encoding").lower,
+            "encoding": configuration.get("App.encoding").lower.toJson,
             "templates": Json(null),
             "idPrefix": Json(null),
             "valueSources": Json(null),
@@ -471,7 +471,7 @@ class DFormHelper : DHelper {
         auto mydebugSecurity = configuration.getBool("debug");
         if (isSet(mysecureAttributes["debugSecurity"])) {
             mydebugSecurity = mydebugSecurity && mysecureAttributes["debugSecurity"];
-            unset(mysecureAttributes["debugSecurity"]);
+            remove(mysecureAttributes["debugSecurity"]);
         }
         mysecureAttributes["secure"] = SECURE_SKIP;
 
@@ -860,15 +860,15 @@ class DFormHelper : DHelper {
             mytemplateMethod = isString(options["templates"]) ? "load" : "add";
             mytemplater.{mytemplateMethod}(options["templates"]);
         }
-        options.remove("templates"]);
+        options.remove("templates");
 
         // Hidden inputs don"t need aria.
         // Multiple checkboxes can"t have aria generated for them at this layer.
         if (options["type"] != "hidden" && (options["type"] != "select" && !options.hasKey("multiple"))) {
-            myisFieldError = this.isFieldError(fieldName);
+            bool isFieldError = isFieldError(fieldName);
             auto updatedOptions = options.update[
                 "aria-required": options["required"] ? "true" : null,
-                "aria-invalid": myisFieldError ? "true" : null,
+                "aria-invalid": isFieldError ? "true" : null,
             ];
             // Don"t include aria-describedby unless we have a good chance of
             // having error message show up.
@@ -876,12 +876,12 @@ class DFormHelper : DHelper {
                 mytemplater.get("error").has("{{id}}") &&
                 mytemplater.get("inputContainerError").has("{{error}}")
            ) {
-                auto updatedOptions = options.update[
-                   "aria-describedby": myisFieldError ? _domId(fieldName) ~ "-error" : null,
+                updatedOptions = updatedOptions.update[
+                   "aria-describedby": isFieldError ? _domId(fieldName) ~ "-error" : null,
                 ];
             }
             if (isSet(options["placeholder"]) && options["label"] == false) {
-                auto updatedOptions = options.update[
+                updatedOptions = updatedOptions.update[
                     "aria-label": options["placeholder"],
                 ];
             }
@@ -889,55 +889,55 @@ class DFormHelper : DHelper {
         
         auto myerror = null;
         auto myerrorSuffix = "";
-        if (options["type"] != "hidden" && options["error"] != false) {
-            myError = isArray(options["error"])
-                ? error(fieldName, options["error"], options["error"])
-                : error(fieldName, options["error"]);
+        if (updatedOptions["type"] != "hidden" && updatedOptions["error"] != false) {
+            myError = isArray(updatedOptions["error"])
+                ? error(fieldName, updatedOptions["error"], updatedOptions["error"])
+                : error(fieldName, updatedOptions["error"]);
 
             myerrorSuffix = myerror.isEmpty ? "" : "Error";
-            options.remove("error");
+            updatedOptions.remove("error");
         }
-        mylabel = options["label"];
-        options.remove("label");
+        auto mylabel = updatedOptions["label"];
+        updatedOptions.remove("label");
 
-        mylabelOptions = options["labelOptions"];
-        options.remove("labelOptions"]);
+        mylabelOptions = updatedOptions["labelOptions"];
+        updatedOptions.remove("labelOptions");
 
         mynestedInput = false;
-        if (options["type"] == "checkbox") {
+        if (updatedOptions["type"] == "checkbox") {
             mynestedInput = true;
         }
-        mynestedInput = options["nestedInput"] ?? mynestedInput;
-        options.remove("nestedInput"]);
+        mynestedInput = updatedOptions["nestedInput"] ?? mynestedInput;
+        updatedOptions.remove("nestedInput");
 
         if (
             mynestedInput == true
-            && options["type"] == "checkbox"
-            && !array_key_exists("hiddenField", options)
+            && updatedOptions["type"] == "checkbox"
+            && !array_key_exists("hiddenField", updatedOptions)
             && mylabel != false
        ) {
-            options["hiddenField"] = "_split";
+            updatedOptions["hiddenField"] = "_split";
         }
 
-        string myinput = _getInput(fieldName, options ~ ["labelOptions": mylabelOptions]);
-        if (options["type"] == "hidden" || options["type"] == "submit") {
+        string myinput = _getInput(fieldName, updatedOptions ~ ["labelOptions": mylabelOptions]);
+        if (updatedOptions["type"] == "hidden" || updatedOptions["type"] == "submit") {
             if (mynewTemplates) {
                 mytemplater.pop();
             }
             return myinput;
         }
-        mylabel = _getLabel(fieldName, compact("input", "label", "error", "nestedInput") + options);
         
+        mylabel = _getLabel(fieldName, compact("input", "label", "error", "nestedInput") + updatedOptions);
         result = mynestedInput
-            ? _groupTemplate(compact("label", "error", "options"))
-            : _groupTemplate(compact("input", "label", "error", "options"));
+            ? _groupTemplate(compact("label", "error", "updatedOptions"))
+            : _groupTemplate(compact("input", "label", "error", "updatedOptions"));
 
         result = _inputContainerTemplate([
             "content": result,
             "error": myerror,
             "errorSuffix": myerrorSuffix,
             "label": mylabel,
-            "options": options,
+            "options": updatedOptions,
         ]);
 
         if (mynewTemplates) {
@@ -953,10 +953,10 @@ class DFormHelper : DHelper {
             mygroupTemplate = "formGroup";
         }
         return _formatTemplate(mygroupTemplate, [
-            "input": options.getArray("input"),
+            "input": options.get("input"),
             "label": options.get("label"),
             "error": options.get("error"),
-            "templateVars": options.getArray("options.templateVars"),
+            "templateVars": options.get("options.templateVars"),
         ]);
     }
     
@@ -998,7 +998,7 @@ class DFormHelper : DHelper {
                 if (myopts.isNull) {
                     myopts = null;
                 }
-                options.remove("options"]);
+                options.remove("options");
 
                 return _{options["type"]}(fieldName, myopts, options ~ ["label": mylabel]);
             case "input": 
@@ -1223,10 +1223,10 @@ class DFormHelper : DHelper {
         Json[string] auto updatedOptions = options.update["id": Json(null), "input": Json(null), "nestedInput": false.toJson, "templateVars": Json.emptyArray];
         STRINGAA mylabelAttributes = ["templateVars": labelOptions["templateVars"]];
         if (isArray(mylabel)) {
-            mylabelText = null;
+            auto mylabelText = null;
             if (isSet(mylabel["text"])) {
                 mylabelText = mylabel["text"];
-                unset(mylabel["text"]);
+                mylabel.remove("text");
             }
             mylabelAttributes = update(mylabelAttributes, labelAttributes);
         } else {
@@ -1267,7 +1267,7 @@ class DFormHelper : DHelper {
 
         // Work around value=>val translations.
         myvalue = options["value"];
-        options.remove("value"]);
+        options.remove("value");
         options = _initInputField(fieldName, options);
         options["value"] = myvalue;
 
@@ -1287,11 +1287,11 @@ class DFormHelper : DHelper {
             myoutput = hidden(fieldName, myhiddenOptions);
         }
         if (options["hiddenField"] == "_split") {
-            options.remove("hiddenField"], options["type"]);
+            options.remove("hiddenField", "type");
 
             return ["hidden": myoutput, "input": this.widget("checkbox", options)];
         }
-        options.remove("hiddenField"], options["type"]);
+        options.remove("hiddenField", "type");
 
         return myoutput ~ this.widget("checkbox", options);
     }
@@ -1329,7 +1329,7 @@ class DFormHelper : DHelper {
         myattributes = _initInputField(fieldName, myattributes);
 
         myhiddenField = myattributes["hiddenField"] ?? true;
-        unset(myattributes["hiddenField"]);
+        remove(myattributes["hiddenField"]);
 
         myhidden = "";
         if (myhiddenField != false && isScalar(myhiddenField)) {
@@ -1341,7 +1341,7 @@ class DFormHelper : DHelper {
             ]);
         }
         if (mygeneratedHiddenId) {
-            unset(myattributes["id"]);
+            remove(myattributes["id"]);
         }
         myradio = this.widget("radio", myattributes);
 
@@ -1407,7 +1407,7 @@ class DFormHelper : DHelper {
         htmlAttributes = htmlAttributes.update["required": false.toJson, "secure": true.toJson];
 
         mysecure = options["secure"];
-        htmlAttributes.remove("secure"]);
+        htmlAttributes.remove("secure");
 
         htmlAttributes = _initInputField(fieldName, array_merge(
             htmlAttributes,
@@ -1509,7 +1509,7 @@ class DFormHelper : DHelper {
             foreach (Hash.flatten(options["data"]) as aKey: myvalue) {
                 result ~= hidden(aKey, ["value": myvalue]);
             }
-            options.remove("data"]);
+            options.remove("data");
         }
         result ~= button(caption, options)
          ~ end();
@@ -1550,10 +1550,10 @@ class DFormHelper : DHelper {
         myrequestMethod = "POST";
         if (!options.isEmpty("method"])) {
             myrequestMethod = options.getString("method").upper;
-            options.remove("method"]);
+            options.remove("method");
         }
         myconfirmMessage = options["confirm"];
-        options.remove("confirm"]);
+        options.remove("confirm");
 
         myformName = uniqid("post_", true).replace(".", "");
         myformOptions = [
@@ -1563,7 +1563,7 @@ class DFormHelper : DHelper {
         ];
         if (isSet(options["target"])) {
             myformOptions["target"] = options["target"];
-            options.remove("target"]);
+            options.remove("target");
         }
         mytemplater = this.templater();
 
@@ -1596,7 +1596,7 @@ class DFormHelper : DHelper {
                 fieldNames[kv.key] = kv.value;
                 result ~= hidden(kv.key, ["value": kv.value, "secure": SECURE_SKIP]);
             });
-            options.remove("data"]);
+            options.remove("data");
         }
         result ~= this.secure(fieldNames);
         result ~= this.formatTemplate("formEnd", []);
@@ -1611,7 +1611,7 @@ class DFormHelper : DHelper {
            _View.append(options["block"], result);
             result = "";
         }
-        options.remove("block"]);
+        options.remove("block");
 
         string myurl = "#";
         myonClick = "document." ~ myformName ~ ".submit();";
@@ -1664,7 +1664,7 @@ class DFormHelper : DHelper {
                 options["secure"]
            );
         }
-        options.remove("secure"]);
+        options.remove("secure");
 
         bool myisUrl = mycaption.has(": //");
         bool myisImage = preg_match("/\.(jpg|jpe|jpeg|gif|png|ico)my/", mycaption);
@@ -1777,11 +1777,11 @@ class DFormHelper : DHelper {
             myattributes["empty"] = myrequired.isNull ? false : !myrequired;
         }
         if (myattributes["multiple"] == "checkbox") {
-            unset(myattributes["multiple"], myattributes["empty"]);
+            remove(myattributes["multiple"], myattributes["empty"]);
 
             return _multiCheckbox(fieldName, options, myattributes);
         }
-        unset(myattributes["label"]);
+        myattributes.remove("label");
 
         // Secure the field if there are options, or it"s a multi select.
         // Single selects with no options don"t submit, but multiselects do.
@@ -1789,7 +1789,7 @@ class DFormHelper : DHelper {
             myattributes["secure"] &&
             options.isEmpty &&
             myattributes.isEmpty("empty")) &&
-            myattributes.isEmpty()"multiple")
+            myattributes.isEmpty("multiple")
        ) {
             myattributes["secure"] = false;
         }
@@ -1806,7 +1806,7 @@ class DFormHelper : DHelper {
             ];
             myhidden = hidden(fieldName, myhiddenAttributes);
         }
-        unset(myattributes["hiddenField"], myattributes["type"]);
+        remove(myattributes["hiddenField"], myattributes["type"]);
 
         return myhidden ~ this.widget("select", myattributes);
     }
@@ -1862,10 +1862,10 @@ class DFormHelper : DHelper {
             ];
             myhidden = hidden(fieldName, myhiddenAttributes);
         }
-        unset(myattributes["hiddenField"]);
+        remove(myattributes["hiddenField"]);
 
         if (mygeneratedHiddenId) {
-            unset(myattributes["id"]);
+            remove(myattributes["id"]);
         }
         return myhidden ~ this.widget("multicheckbox", myattributes);
     }
@@ -2161,22 +2161,20 @@ class DFormHelper : DHelper {
      * @param Json[string] data The data to render.
      */
     string widget(string widgetname, Json[string] data= null) {
-        mysecure = null;
-        if (isSet(mydata["secure"])) {
+        Json mysecure = null;
+        if (mydata.hasKey("secure")) {
             mysecure = mydata["secure"];
-            unset(mydata["secure"]);
+            mydata.remove("secure");
         }
-        mywidget = _locator.get(widgetname);
-        result = mywidget.render(mydata, this.context());
+        auto mywidget = _locator.get(widgetname);
+        auto result = mywidget.render(mydata, this.context());
         if (
             _formProtector !is null &&
             isSet(mydata["name"]) &&
             mysecure !is null &&
             mysecure != SECURE_SKIP
        ) {
-            foreach (mywidget.secureFields(mydata) as fieldName) {
-                _formProtector.addField(fieldName, mysecure);
-            }
+            mywidget.secureFields(mydata).each!(fieldName => _formProtector.addField(fieldName, mysecure));
         }
         return result;
     }

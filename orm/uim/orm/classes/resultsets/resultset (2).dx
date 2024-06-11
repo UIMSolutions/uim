@@ -351,7 +351,7 @@ class DResultset : IResultset {
                 continue;
             }
             _matchingMapColumns[alias] = map[alias];
-            remove(map[alias]);
+            map.remove(alias);
         }
 
         _map = map;

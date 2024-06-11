@@ -108,7 +108,7 @@ class DFormProtector {
                     return this;
                 }
                 if (isSet(this.fields[field])) {
-                    unset(this.fields[field]);
+                    remove(this.fields[field]);
                 }
                 this.fields ~= field;
             }
@@ -150,9 +150,9 @@ class DFormProtector {
         }
          anIndex = array_search(fieldName, this.fields, true);
         if (anIndex != false) {
-            unset(this.fields[anIndex]);
+            remove(this.fields[anIndex]);
         }
-        unset(this.fields[fieldName]);
+        remove(this.fields[fieldName]);
 
         return this;
     }
@@ -235,7 +235,7 @@ class DFormProtector {
         if (token.has(": ")) {
             [, locked] = split(": ", token, 2);
         }
-        unset(formData["_Token"]);
+        remove(formData["_Token"]);
 
         locked = locked ? locked.split("|") : null;
         unlocked = unlocked ? split("|", unlocked): [];
@@ -248,7 +248,7 @@ class DFormProtector {
         foreach (fieldList as  anI: aKey) {
             if (isString(aKey) && preg_match("/(\.\d+){1,10}/", aKey)) {
                 multi[anI] = preg_replace("/(\.\d+){1,10}/", "", aKey);
-                unset(fieldList[anI]);
+                remove(fieldList[anI]);
             } else {
                 fieldList[anI] = /* (string) */aKey;
             }
@@ -278,7 +278,7 @@ class DFormProtector {
                 }
             }
             if (isUnlocked ||  isLocked) {
-                unset(fieldList[anI]);
+                remove(fieldList[anI]);
                 if (isLocked) {
                     lockedFields[aKey] = fields[aKey];
                 }
@@ -323,7 +323,7 @@ class DFormProtector {
                 }
                 if (!isInt(kv.key)) {
                     locked[kv.key] = kv.value;
-                    unset(fields[kv.key]);
+                    remove(fields[kv.key]);
                 }
             });
         sort(unlockedFields, SORT_STRING);
@@ -457,14 +457,14 @@ class DFormProtector {
                 if (foundKey == false) {
                     messages ~= anIntKeyMessage.format(aValue);
                 } else {
-                    unset(expectedFields[foundKey]);
+                    remove(expectedFields[foundKey]);
                 }
             } else {
                 if (isSet(expectedFields[aKey]) && aValue != expectedFields[aKey]) {
                     messages ~= stringKeyMessage
                     .format(aKey, expectedFields[aKey], aValue);
                 }
-                unset(expectedFields[aKey]);
+                remove(expectedFields[aKey]);
             }
         }
         return messages;

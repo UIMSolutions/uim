@@ -47,7 +47,7 @@ abstract class DAbstractLocator : ILocator {
 
 
     bool remove(string aliasNameName) {
-        unset(
+        remove(
             _instances[aliasNameName],
             configuration.update(aliasNameName]
        );

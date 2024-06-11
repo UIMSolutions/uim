@@ -169,7 +169,7 @@ mixin template TEntity() {
   }
 
   // Removes a field from this entity
-  void __unset(string fieldName) {
+  void __remove(string fieldName) {
     this.remove(fieldName);
   }
 
@@ -422,16 +422,16 @@ mixin template TEntity() {
      * ### Examples:
      *
      * ```
-     * entity.unset("name");
-     * entity.unset(["name", "last_name"]);
+     * entity.remove("name");
+     * entity.remove(["name", "last_name"]);
      * ```
      * Params:
      * string[]|string fieldName The field to unset.
     */
-  auto unset(string[] afield) {
+  auto remove(string[] afield) {
     field = /* (array) */ field;
     foreach (field asp) {
-      unset(_fields[p], _isDirty[p]);
+      remove(_fields[p], _isDirty[p]);
     }
     return this;
   }
@@ -522,9 +522,9 @@ mixin template TEntity() {
     set(offsetToSet, valueToSet);
   }
 
-  // unset(result[anOffset]);
+  // remove(result[anOffset]);
   void offsetUnset(Json offsetToRemove) {
-    this.unset(offsetToRemove);
+    this.remove(offsetToRemove);
   }
 
   /**
@@ -666,14 +666,14 @@ mixin template TEntity() {
     if (!dirtyMode) {
       setOriginalField(field);
 
-      _isDirty.unset(field);
-      _original.unset(field);
+      _isDirty.remove(field);
+      _original.remove(field);
 
       return this;
     }
 
     _isDirty[field] = true;
-    unset(_fieldErrors[field], _invalidFields[field]);
+    remove(_fieldErrors[field], _invalidFields[field]);
 
     return this;
   }

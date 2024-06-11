@@ -372,7 +372,7 @@ class DDebugger {
                 }
                 trace["path"] = trimPath(trace["file"]);
                 trace["reference"] = reference;
-                unset(trace["object"], trace["args"]);
+                remove(trace["object"], trace["args"]);
                 back ~= Text.insert(tpl, trace, ["before": "{:", "after": "}"]);
             }
         }

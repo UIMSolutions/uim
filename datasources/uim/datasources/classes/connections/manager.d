@@ -136,7 +136,7 @@ static void alias(string sourceConnection, string aliasName) {
      * connection may fail if there is no other connection with that name.
      */
 static void dropAlias(aliasToDrop) {
-    unset(_aliasMap[aliasToDrop]);
+    remove(_aliasMap[aliasToDrop]);
 }
 
 /**
@@ -236,7 +236,7 @@ static void alias(string connectionAlias, string sourceAlias) {
      * connection may fail if there is no other connection with that name.
      */
 static void dropAlias(string connectionAlias) {
-    unset(_connectionAliases[connectionAlias]);
+    remove(_connectionAliases[connectionAlias]);
 }
 
 // Returns the current connection aliases and what they alias.

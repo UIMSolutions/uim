@@ -130,8 +130,8 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
   bool has(string[] fieldNames);
 
   // Removes a field or list of fields from this entity
-  void unset(string[] fieldName...);
-  void unset(string[] fieldNames);
+  void remove(string[] fieldName...);
+  void remove(string[] fieldNames);
 
   // Get the list of visible fields.
   string[] visibleFields();

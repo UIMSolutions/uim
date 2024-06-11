@@ -223,7 +223,7 @@ class DDebugger {
                 (tail["line"] == parentTail["line"])
            );
             if (isEqual) {
-                unset(frames[anI]);
+                remove(frames[anI]);
                 anI--;
             }
         }
@@ -311,7 +311,7 @@ class DDebugger {
                 ];
             } else if (options["format"] == "array") {
                 if (!options["args"]) {
-                    unset(frame["args"]);
+                    remove(frame["args"]);
                 }
                 back ~= frame;
             } else if (options["format"] == "text") {

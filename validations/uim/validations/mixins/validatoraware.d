@@ -65,12 +65,13 @@ mixin template TValidatorAware() {
      * Params:
      * string myname The name of the validation set to return.
      */
-    Validator getValidator(string myname = null) {
-        myname = myname ?: DEFAULT_VALIDATOR;
+    IValidator getValidator(string myname = null) {
+        /* myname = myname ?: DEFAULT_VALIDATOR;
         if (!_validators.hasKey(myname)) {
             setValidator(myname, this.createValidator(myname));
         }
-        return _validators[myname];
+        return _validators[myname]; */
+        return null;
     }
     
     /**

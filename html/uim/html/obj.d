@@ -56,7 +56,7 @@ class DH5Obj {
 		_css = CSSRules;
 		_classes = null;
 		_attributes = null;
-		_html = [];
+		_html= null;
 		_js = null;
 	}
 	
@@ -96,7 +96,7 @@ class DH5Obj {
 				).array
 			); 
 		} return cast(O)this; }
-	O clearClasses(this O)() { _classes = []; return cast(O)this; }
+	O clearClasses(this O)() { _classes= null; return cast(O)this; }
 
 	/// Attributes of HTML element
 	mixin(XStringAA!"attributes");

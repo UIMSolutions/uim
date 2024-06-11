@@ -10,7 +10,7 @@ import uim.datasources;
  */
 class DQueryCacher {
     // The key or auto to generate a key
-    protected I/*Closure|*/ string _key;
+    protected /*Closure|*/ string _key;
 
     // Config for cache engine.
     protected ICache|string configuration;

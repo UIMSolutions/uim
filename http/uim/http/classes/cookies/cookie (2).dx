@@ -72,7 +72,7 @@ class DCookie : ICookie {
         this.httpOnly = isHttpOnly ?? defaultAttributes["httponly"];
         this.path = somePath ?? defaultAttributes["path"];
         this.isSecure = isSecure ?? defaultAttributes["isSecure"];
-        _sameSite = resolveSameSiteEnum(sameSite ?? defaultAttributes["samesite"]);
+        _sameSite = resolveSameSiteenumeration(sameSite ?? defaultAttributes["samesite"]);
 
         if (expiresAt) {
             if (cast(DateTime)expiresAt) {
@@ -108,7 +108,7 @@ class DCookie : ICookie {
             options["expires"] = dateTimeInstance(options["expires"]);
         }
         if (options.hasKey("samesite")) {
-            options["samesite"] = resolveSameSiteEnum(options["samesite"]);
+            options["samesite"] = resolveSameSiteenumeration(options["samesite"]);
         }
         defaultAttributes = options.update(defaultAttributes);
     }
@@ -198,7 +198,7 @@ class DCookie : ICookie {
         // https://tools.ietf.org/html/draft-west-first-party-cookies-07#section-4.1
         if (isSet(someData["samesite"])) {
             try {
-                someData["samesite"] = resolveSameSiteEnum(someData["samesite"]);
+                someData["samesite"] = resolveSameSiteenumeration(someData["samesite"]);
             } catch (ValueError) {
                 unset(someData["samesite"]);
             }
@@ -421,7 +421,7 @@ class DCookie : ICookie {
  
     static withSameSite(SameSiteEnum|string sameSite) {
         new = clone this;
-        new.sameSite = resolveSameSiteEnum(sameSite);
+        new.sameSite = resolveSameSiteenumeration(sameSite);
 
         return new;
     }
@@ -431,7 +431,7 @@ class DCookie : ICookie {
      * Params:
      * \UIM\Http\Cookie\SameSiteEnum|string sameSite SameSite value
      */
-    protected static SameSiteEnum resolveSameSiteEnum(SameSiteEnum|string sameSite) {
+    protected static SameSiteEnum resolveSameSiteenumeration(SameSiteEnum|string sameSite) {
         return match (true) {
             sameSite.isNull: sameSite,
             sameSite instanceof SameSiteEnum: sameSite,

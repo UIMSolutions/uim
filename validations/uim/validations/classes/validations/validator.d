@@ -413,7 +413,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
-    auto addNestedMany(
+    void addNestedMany(
         string rootfieldName,
         Validator myvalidator,
         string myMessage = null,
@@ -422,7 +422,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         auto myextra = array_filter(["message": myMessage, "on": mywhen]);
 
         auto myvalidationSet = this.field(rootfieldName);
-        myvalidationSet.add(NESTED, myextra ~ ["rule": auto (myvalue, mycontext) use (myvalidator, myMessage) {
+/*         myvalidationSet.add(NESTED, myextra ~ ["rule": auto (myvalue, mycontext) use (myvalidator, myMessage) {
             if (!isArray(myvalue)) { return false; }
 
             this.providers().each!((name) {
@@ -444,8 +444,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
             return myerrors.isEmpty ? true : myerrors + myMessage;
         }]);
-
-        return this;
+ */
     }
     
     /**
@@ -462,13 +461,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * string fieldName The name of the field from which the rule will be removed
      * @param string myrule the name of the rule to be removed
      */
-    auto remove(string fieldName, string myrule = null) {
+    void remove(string fieldName, string myrule = null) {
         if (myrule.isNull) {
             unset(_fields[fieldName]);
         } else {
             this.field(fieldName).remove(myrule);
         }
-        return this;
     }
     
     /**
@@ -488,16 +486,16 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * returns true.
      * @param string myMessage The message to show if the field presence validation fails.
      */
-    void requirePresence(string[] fieldName, I/*Closure|*/ string mymode = true, string myMessage = null) {
+    void requirePresence(string[] fieldName, /*Closure|*/ string mymode = true, string myMessage = null) {
         mydefaults = [
             "mode": mymode,
             "message": myMessage,
         ];
 
-        if (!isArray(fieldName)) {
+/*         if (!isArray(fieldName)) {
             fieldName = _convertValidatorToArray((string)fieldName, mydefaults);
         }
-        foreach (fieldName as fieldName: mysetting) {
+ *//*         foreach (fieldName as fieldName: mysetting) {
             mysettings = _convertValidatorToArray((string)fieldName, mydefaults, mysetting);
             string fieldName = currentValue(mysettings.keys);
 
@@ -506,7 +504,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                _presenceMessages[fieldName] = mysettings[fieldName]["message"];
             }
         }
-    }
+ */    }
     
     /**
      * Low-level method to indicate that a field can be empty.
@@ -593,7 +591,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      */
-    auto allowEmptyString(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = true) {
+    auto allowEmptyString(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = true) {
         return _allowEmptyFor(fieldName, EMPTY_STRING, mywhen, myMessage);
     }
     
@@ -609,7 +607,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Closure is passed then the field will be required to be not empty when
      * the callback returns true.
      */
-    auto notEmptyString(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = false) {
+    auto notEmptyString(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, EMPTY_STRING, mywhen, myMessage);
@@ -627,7 +625,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      */
-    auto allowEmptyArray(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = true) {
+    auto allowEmptyArray(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = true) {
         return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_ARRAY, mywhen, myMessage);
     }
     
@@ -643,7 +641,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Closure is passed then the field will be required to be not empty when
      * the callback returns true.
      */
-    auto notEmptyArray(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = false) {
+    auto notEmptyArray(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_ARRAY, mywhen, myMessage);
@@ -663,7 +661,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * the field will allowed to be empty only when the callback returns true.
      * @return this
      */
-    auto allowEmptyFile(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = true) {
+    auto allowEmptyFile(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = true) {
         return _allowEmptyFor(fieldName, EMPTY_FILE, mywhen, myMessage);
     }
     
@@ -679,7 +677,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Closure is passed then the field will be required to be not empty when
      * the callback returns true.
      */
-    auto notEmptyFile(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = false) {
+    auto notEmptyFile(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, EMPTY_FILE, mywhen, myMessage);
@@ -697,7 +695,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      */
-    auto allowEmptyDate(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = true) {
+    auto allowEmptyDate(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = true) {
         return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE, mywhen, myMessage);
     }
     
@@ -712,7 +710,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * the callback returns true.
      * @return this
      */
-    auto notEmptyDate(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = false) {
+    auto notEmptyDate(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE, mywhen, myMessage);
@@ -733,7 +731,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      */
-    auto allowEmptyTime(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = true) {
+    auto allowEmptyTime(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = true) {
         return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_TIME, mywhen, myMessage);
     }
     
@@ -750,7 +748,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * the callback returns true.
      * @see \UIM\Validation\Validator.allowEmptyTime()
      */
-    auto notEmptyTime(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = false) {
+    auto notEmptyTime(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = false) {
         auto mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_TIME, mywhen, myMessage);
@@ -771,7 +769,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns false.
      */
-    auto allowEmptyDateTime(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = true) {
+    auto allowEmptyDateTime(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = true) {
         return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE | EMPTY_TIME, mywhen, myMessage);
     }
     
@@ -788,7 +786,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * the callback returns true.
      * @return this
      */
-    auto notEmptyDateTime(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = false) {
+    auto notEmptyDateTime(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE | EMPTY_TIME, mywhen, myMessage);
@@ -801,10 +799,10 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param Json[string] mydefaults default settings
      * @param array<string|int, mixed>|string|int mysettings settings from data
      */
-    // TODO protected array<string, array<string|int, mixed>> _convertValidatorToArray(
+    protected auto _convertValidatorToArray(
         string fieldName,
         array mydefaults = [],
-        string[]|int mysettings = []
+        string[]/* |int */ mysettings = []
    ) {
         if (!mysettings.isArray) {
             fieldName = (string)mysettings;
@@ -842,7 +840,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.notBlank()
      */
-    auto notBlank(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto notBlank(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         string message; 
         if (myMessage.isNull) {
             message = !_useI18n
@@ -865,7 +863,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.alphaNumeric()
      */
-    auto alphaNumeric(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto alphaNumeric(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be alphanumeric";
@@ -889,7 +887,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.notAlphaNumeric()
      */
-    auto notAlphaNumeric(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto notAlphaNumeric(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must not be alphanumeric";
@@ -913,7 +911,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.asciiAlphaNumeric()
      */
-    auto asciiAlphaNumeric(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto asciiAlphaNumeric(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be ASCII-alphanumeric";
@@ -937,7 +935,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.notAlphaNumeric()
      */
-    auto notAsciiAlphaNumeric(string fieldName, string errorMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto notAsciiAlphaNumeric(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         auto myMessage = errorMessage;
         if (myMessage.isNull) {
             myMessage = !_useI18n
@@ -1582,7 +1580,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.time()
      */
-    auto time(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto time(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a time";
@@ -1635,7 +1633,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.isBool()
      */
-    auto isBool(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto isBool(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a boolean";
@@ -1726,7 +1724,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|*/ string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
-    auto enum(
+    auto enumeration(
         string fieldName,
         string myenumClassName,
         string myMessage = null,
@@ -1763,7 +1761,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|*/ string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
-    auto ip(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto ip(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an IP address";
@@ -1787,7 +1785,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.ip()
      */
-    auto ipv4(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto ipv4(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an IPv4 address";
@@ -1809,7 +1807,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|*/ string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
-    auto ipv6(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto ipv6(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an IPv6 address";
@@ -1832,7 +1830,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|*/ string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
-    auto minLength(string fieldName, int mymin, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto minLength(string fieldName, int mymin, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must be at least `%s` characters long", mymin);
@@ -1856,7 +1854,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|*/ string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
-    auto minLengthBytes(string fieldName, int mymin, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto minLengthBytes(string fieldName, int mymin, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must be at least `%s` bytes long", mymin);
@@ -1880,7 +1878,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|*/ string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
-    auto maxLength(string fieldName, int mymax, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto maxLength(string fieldName, int mymax, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must be at most `%s` characters long", mymax);
@@ -1904,7 +1902,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|*/ string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
-    auto maxLengthBytes(string fieldName, int mymax, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto maxLengthBytes(string fieldName, int mymax, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage =  "The provided value must be at most `%s` bytes long".format(mymax);
@@ -1926,7 +1924,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|*/ string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
-    auto numeric(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto numeric(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             myMessage = !_useI18n
                 ? "The provided value must be numeric"
@@ -1947,7 +1945,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|*/ string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
-    auto naturalNumber(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto naturalNumber(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a natural number";
@@ -1971,7 +1969,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.naturalNumber()
      */
-    auto nonNegativeInteger(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto nonNegativeInteger(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a non-negative integer";
@@ -1995,7 +1993,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|*/ string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
-    auto range(string fieldName, Json[string] myrange, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto range(string fieldName, Json[string] myrange, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (count(myrange) != 2) {
             throw new DInvalidArgumentException("The myrange argument requires 2 numbers");
         }
@@ -2029,7 +2027,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|*/ string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
-    auto url(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto url(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a URL";
@@ -2055,7 +2053,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.url()
      */
-    auto urlWithProtocol(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto urlWithProtocol(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a URL with protocol";
@@ -2079,7 +2077,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|*/ string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
-    auto inList(string fieldName, Json[string] mylist, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto inList(string fieldName, Json[string] mylist, string myMessage = null, /*Closure|*/ string mywhen = null) {
         mylistEnumeration = join(", ", mylist);
 
         if (myMessage.isNull) {
@@ -2109,7 +2107,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.uuid()
      */
-    auto uuid(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto uuid(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a UUID";
@@ -2165,7 +2163,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.geoCoordinate()
      */
-    auto latLong(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto latLong(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a latitude/longitude coordinate";
@@ -2189,7 +2187,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.latitude()
      */
-    auto latitude(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto latitude(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a latitude";
@@ -2213,7 +2211,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.longitude()
      */
-    auto longitude(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto longitude(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             myMessage = !_useI18n
                 ? "The provided value must be a longitude"
@@ -2236,7 +2234,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.ascii()
      */
-    auto ascii(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto ascii(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be ASCII bytes only";
@@ -2260,7 +2258,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.utf8()
      */
-    auto utf8(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto utf8(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be UTF-8 bytes only";
@@ -2286,7 +2284,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.utf8()
      */
-    auto utf8Extended(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto utf8Extended(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be 3 and 4 byte UTF-8 sequences only";
@@ -2310,7 +2308,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.isInt()
      */
-    auto integer(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto integer(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an integer";
@@ -2334,7 +2332,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.isArray()
      */
-    auto array(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto array(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an array";
@@ -2357,7 +2355,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|*/ string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
-    auto scalar(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto scalar(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             myMessage = "The provided value must be scalar";
             if (_useI18n) {
@@ -2380,7 +2378,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.hexColor()
      */
-    auto hexColor(string fieldName, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto hexColor(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             myMessage = "The provided value must be a hex color";
             if (_useI18n) {
@@ -2437,7 +2435,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.numElements()
      */
-    auto hasAtLeast(string fieldName, int mycount, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto hasAtLeast(string fieldName, int mycount, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             mymewssage = !_useI18n
                 ? sprintf("The provided value must have at least `%s` elements", mycount)
@@ -2467,7 +2465,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.numElements()
      */
-    auto hasAtMost(string fieldName, int mycount, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto hasAtMost(string fieldName, int mycount, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             myMessage = !_useI18n 
                 ? "The provided value must have at most `%s` elements".format(mycount)
@@ -2524,7 +2522,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|*/ string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
-    auto regex(string fieldName, string myregex, string myMessage = null, I/*Closure|*/ string mywhen = null) {
+    auto regex(string fieldName, string myregex, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             myMessage = !_useI18n
                 ? "The provided value must match against the pattern `%s`".format(myregex)

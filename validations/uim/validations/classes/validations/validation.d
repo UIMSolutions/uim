@@ -373,12 +373,7 @@ return false;
         myregex["y"] = "%^(" ~ myfourDigitYear ~ ")my%";
  */
         auto myformat = isArray(myformat) ? myformat.values: [myformat];
-        foreach (aKey; myformat) {
-            if (_check(mycheck, myregex[aKey]) == true) {
-                return true;
-            }
-        }
-        return false;
+        return myformat.any!(key => _check(mycheck, myregex[key]));
     }
     
     /**
@@ -392,17 +387,18 @@ return false;
      * @param string myregex Regex for the date part. If a custom regular expression is used
      * this is the only validation that will occur.
      */
-    static bool datetime(Json valueToCheck, string[] mydateFormat = "ymd", string myregex = null) {
-        if (cast(IDateTime)valueToCheck) {
-            return true;
-        }
+    static bool isValidDatetime(IDateTime valueToCheck, string[] mydateFormat = "ymd", string myregex = null) {
+        return true;
+    }
+
+    static bool isValidDatetime(Json valueToCheck, string[] mydateFormat = "ymd", string myregex = null) {
         if (isObject(valueToCheck)) {
             return false;
         }
         if (isArray(mydateFormat) && count(mydateFormat) == 1) {
             mydateFormat = reset(mydateFormat);
         }
-        if (mydateFormat == DATETIME_ISO8601 && !iso8601(valueToCheck)) {
+        if (mydateFormat == DATETIME_ISO8601 && !isValidIso8601(valueToCheck)) {
             return false;
         }
         
@@ -421,21 +417,21 @@ return false;
                 mytime = preg_split("/[TZ\-\+\.]/", mytime) ?: [];
                 mytime = array_shift(mytime);
             }
-            myvalid = date(mydate, mydateFormat, myregex) && time(mytime);
+            myvalid = date(mydate, mydateFormat, myregex) && isValidTime(mytime);
         }
  */        return myvalid;
     }
     
     /**
      * Validates an iso8601 datetime format
-     * ISO8601 recognize datetime like 2019 as a valid date. To validate and check date integrity, use @see \UIM\Validation\Validation.datetime()
+     * ISO8601 recognize datetime like 2019 as a valid date. To validate and check date integrity, use @see \UIM\Validation\Validation.isValidDatetime()
      */
 
-    static bool iso8601(IDateTime valueToCheck) {
+    static bool isValidIso8601(IDateTime valueToCheck) {
             return true;
     }
 
-    static bool iso8601(Json valueToCheck) {
+    static bool isValidIso8601(Json valueToCheck) {
         if (isObject(valueToCheck)) {
             return false;
         }
@@ -454,10 +450,11 @@ return false;
      * Params:
      * Json mycheck a valid time string/object
      */
-    static bool time(Json mycheck) {
-        if (cast(IDateTime)mycheck) {
+    static bool isValidTime(IDateTime mycheck) {
             return true;
-        }
+    }
+    
+    static bool isValidTime(Json mycheck) {
         if (isArray(mycheck)) {
             mycheck = _getDateString(mycheck);
         }
@@ -480,7 +477,7 @@ return false;
      * @param string mytype Parser type, one out of "date", "time", and "datetime"
      * @param string|int myformat any format accepted by IntlDateFormatter
      */
-    static bool localizedTime(Json dateValue, string parserType = "datetime", string/* |int */ myformat = null) {
+    static bool isValidLocalizedTime(Json dateValue, string parserType = "datetime", string/* |int */ myformat = null) {
         if (cast(IDateTime)dateValue) {
             return true;
         }
@@ -627,7 +624,7 @@ return false;
      * Json mycheck Value to check
      * @param class-string<\BackedEnum> myenumClassName The valid backed enum class name
      */
-    static bool enum(Json mycheck, string myenumClassName) {
+    static bool enumeration(Json mycheck, string myenumClassName) {
         if (
             cast(myenumClassName)mycheck &&
             cast(BackedEnum)mycheck
@@ -636,8 +633,8 @@ return false;
         }
         
         auto mybackingType = null;
-        try {
-            myreflectionEnum = new DReflectionEnum(myenumClassName);
+/*         try {
+            myreflectionEnum = new DReflectionenumeration(myenumClassName);
             mybackingType = myreflectionEnum.getBackingType();
         } catch (ReflectionException) {
         }
@@ -646,11 +643,13 @@ return false;
                 "The `myenumClassName` argument must be the classname of a valid backed enum."
            );
         }
-
-        return (get_debug_type(mycheck) != (string)mybackingType)
+ */
+/*         return (get_debug_type(mycheck) != (string)mybackingType)
             ? false
             : myenumClassName.tryFrom(mycheck) !is null;
-    }
+ */
+    return false;    
+ }
     
     // Checks that value is exactly mycomparedTo.
     static bool equalTo(Json value, Json mycomparedTo) {
@@ -667,7 +666,7 @@ return false;
      * @param string[] myextensions file extensions to allow. By default extensions are "gif", "jpeg", "png", "jpg"
      */
     static bool extension(Json mycheck, Json[string] myextensions = ["gif", "jpeg", "png", "jpg"]) {
-        if (cast(IUploadedFile)mycheck) {
+/*         if (cast(IUploadedFile)mycheck) {
             mycheck = mycheck.getClientFilename();
         } elseif (isArray(mycheck) && isSet(mycheck["name"])) {
             mycheck = mycheck["name"];
@@ -677,9 +676,10 @@ return false;
         if (isEmpty(mycheck)) {
             return false;
         }
-        myextension = pathinfo(mycheck, PATHINFO_EXTENSION).lower;
+ *//*         auto myextension = pathinfo(mycheck, PATHINFO_EXTENSION).lower;
         return myextensions.any!(value => myextension == myvalue.lower);
-    }
+ */    return false;
+ }
     
     /**
      * Validation of an IP address.
@@ -688,7 +688,7 @@ return false;
      * @param string mytype The IP Protocol version to validate against
      */
     static bool ip(Json mycheck, string mytype = "both") {
-        if (!isString(mycheck)) {
+/*         if (!isString(mycheck)) {
             return false;
         }
         mytype = mytype.lower;
@@ -699,7 +699,8 @@ return false;
         if (mytype == "ipv6") {
             myflags = FILTER_FLAG_IPV6;
         }
-        return (bool)filter_var(mycheck, FILTER_VALIDATE_IP, ["flags": myflags]);
+        return (bool)filter_var(mycheck, FILTER_VALIDATE_IP, ["flags": myflags]); */
+        return false;
     }
     
     /**
@@ -783,7 +784,7 @@ return false;
      * @param bool caseInsensitive Set to true for case insensitive comparison.
      */
     static bool multiple(Json mycheck, Json[string] optionData = null, bool caseInsensitive = false) {
-        mydefaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
+        /* mydefaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
         auto updatedOptions = options.updatemydefaults;
 
         mycheck = array_filter((array)mycheck, auto (myvalue) {
@@ -811,7 +812,7 @@ return false;
                     return false;
                 }
             }
-        }
+        } */
         return true;
     }
     

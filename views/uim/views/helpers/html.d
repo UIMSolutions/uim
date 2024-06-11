@@ -955,7 +955,7 @@ class DHtmlHelper : DHelper {
      * @param Json[string] htmlAttributes Options and additional HTML attributes of the list (ol/ul) tag.
      * @param Json[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
      */
-    string|int|false nestedList(Json[string] mylist, Json[string] htmlAttributes = null, Json[string] myitemOptions = []) {
+    string|int|false nestedList(Json[string] mylist, Json[string] htmlAttributes = null, Json[string] myitemOptions= null) {
         htmlAttributes += ["tag": "ul"];
         myitems = _nestedListItem(mylist, htmlAttributes, myitemOptions);
 

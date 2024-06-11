@@ -106,8 +106,8 @@ class DH5Node
     auto items = newClasses.split(" ");
     foreach (ref item; items) { item = item.strip; }
 
-    _classes = [];
-    foreach(item; items) if (item.length > 0) _classes ~= item;    
+    _classes = items.filter!(item => item.length > 0)
+      .map(item => item).array;    
   }
   string classesToH5() {
     if (_classes.empty) return null;
@@ -539,7 +539,7 @@ string nodeToH5(DH5Node[] nodes, size_t level) {
 
   if ((nodes.length ==1) && nodes[0].isContent) {
     results ~= ((nodes[0].txt.length > 0) ? "\"%s\"".format(nodes[0].txt) : "");
-    nodes = [];
+    nodes= null;
   }
   else {
     foreach (node; nodes) {

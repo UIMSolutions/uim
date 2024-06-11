@@ -59,12 +59,11 @@ class DCSSMediaQueries {
     }}
 
   override string toString() {
-    string result;
-
-    foreach(query; _queries.byValue) if (query) result ~= query.toString; 
-
-    return result;
+    return _queries.byValue
+      .filter!(query => !query.isNull)
+      .map!(query => query.toString).join; 
   } 
+  
   version(test_uim_css) { unittest {
       /// TODO
     }}

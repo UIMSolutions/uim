@@ -396,7 +396,7 @@ class DEagerLoader {
         }
         mytable = myinstance.getTarget();
 
-        myextra = array_diffinternalKey(options, mydefaults);
+        Json[string] myextra = array_diffinternalKey(options, mydefaults);
         configData = [
             "associations": Json.emptyArray,
             "instance": myinstance,

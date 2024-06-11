@@ -48,7 +48,7 @@ class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
   // Returns the current iteration key
   string key() {
     return null; 
-    /* auto myExtractor = _key;
+    /* Json[string] myextractor = _key;
 
     return myExtractor(_fetchCurrent(), super.key(), this); */
   }
@@ -56,7 +56,7 @@ class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
   // Returns the current iteration value
   Json currentValue() {
     return Json(null);
-    /* auto myExtractor = _value;
+    /* Json[string] myextractor = _value;
     auto myCurrent = _fetchCurrent();
     auto prefixSpacer = str_repeat(_spacer, getDepth());
 

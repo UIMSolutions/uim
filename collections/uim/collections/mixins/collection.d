@@ -101,7 +101,7 @@ mixin template TCollection() {
     }
  
     ICollection extract(string mypath) {
-/*         auto myextractor = new DExtractIterator(unwrap(), mypath);
+/*         Json[string] myextractor = new DExtractIterator(unwrap(), mypath);
         if (isString(mypath) && mypath.has("{*}")) {
             myextractor = myextractor
                 .filter(function (mydata) {

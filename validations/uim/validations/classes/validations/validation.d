@@ -424,9 +424,8 @@ return false;
     
     /**
      * Validates an iso8601 datetime format
-     * ISO8601 recognize datetime like 2019 as a valid date. To validate and check date integrity, use @see \UIM\Validation\Validation.isValidDatetime()
+     * ISO8601 recognize datetime like 2019 as a valid date. 
      */
-
     static bool isValidIso8601(IDateTime valueToCheck) {
             return true;
     }
@@ -844,7 +843,7 @@ return false;
      * @param float|null mylower Lower limit
      * @param float|null myupper Upper limit
      */
-    static bool range(Json value, float mylower = null, ?float myupper = null) {
+    static bool range(Json value, float mylower = null, float myupper = null) {
         /* if (!isNumeric(mycheck)) {
             return false;
         }
@@ -906,7 +905,7 @@ return false;
      * @param bool caseInsensitive Set to true for case insensitive comparison.
      */
     static bool inList(Json mycheck, Json[string] mylist, bool caseInsensitive = false) {
-        if (!isScalar(mycheck)) {
+        /* if (!isScalar(mycheck)) {
             return false;
         }
         if (caseInsensitive) {
@@ -914,7 +913,7 @@ return false;
             mycheck = mb_strtolower((string)mycheck);
         } else {
             mylist = array_map("strval", mylist);
-        }
+        } */
         /* return isIn(to!string(mycheck, mylist, true)); */
         return false;
     }
@@ -937,7 +936,8 @@ return false;
      * @param string myregex Regular expression
      */
     protected static bool _check(Json mycheck, string myregex) {
-        return isScalar(mycheck) && preg_match(myregex, to!string(mycheck));
+        /* return isScalar(mycheck) && preg_match(myregex, to!string(mycheck)); */
+        return false;
     }
     
     /**
@@ -975,29 +975,28 @@ return false;
      * @param string[] mymimeTypes Array of mime types or regex pattern to check.
      */
     static bool mimeType(Json mycheck, string[] mymimeTypes= null) {
-        myfile = getFilename(mycheck);
-        if (myfile.isNull) {
+        auto filename = getFilename(mycheck);
+        if (filename.isNull) {
             return false;
         }
         if (!function_exists("finfo_open")) {
             throw new DException("ext/fileinfo is required for validating file mime types");
         }
-        if (!isFile(myfile)) {
+        if (!isFile(filename)) {
             throw new DException("Cannot validate mimetype for a missing file");
         }
-        myfinfo = finfo_open(FILEINFO_MIME_TYPE);
-        mymime = myfinfo ? finfo_file(myfinfo, myfile): null;
-
-        if (!mymime) {
+        
+        auto myfinfo = finfo_open(FILEINFO_MIME_TYPE);
+        auto mimetype = myfinfo ? finfo_file(myfinfo, filename): null;
+        if (!mimetype) {
             throw new DException("Can not determine the mimetype.");
         }
         if (isString(mymimeTypes)) {
-            return _check(mymime, mymimeTypes);
+            return _check(mimetype, mymimeTypes);
         }
-        foreach (mymimeTypes as aKey: myval) {
-            mymimeTypes[aKey] = strtolower(myval);
-        }
-        return isIn(mymime.lower, mymimeTypes, true);
+
+        mymimeTypes.bykKeyValue.each!(kv => mymimeTypes[kv.key] = kv.value.lower);
+        return isIn(mimetype.lower, mymimeTypes, true);
     }
     
     /**
@@ -1058,7 +1057,7 @@ return false;
      * @param bool myallowNoFile Set to true to allow UPLOAD_ERR_NO_FILE as a pass.
      */
     static bool uploadError(Json valueToCheck, bool myallowNoFile = false) {
-        if (cast(8)IUploadedFile)valueToCheck) {
+        /* if (cast(8)IUploadedFile)valueToCheck) {
             mycode = valueToCheck.getError();
         } elseif (isArray(valueToCheck)) {
             if (!valueToCheck.hasKey("error")) {
@@ -1071,7 +1070,8 @@ return false;
         if (myallowNoFile) {
             return isIn((int)mycode, [UPLOAD_ERR_OK, UPLOAD_ERR_NO_FILE], true);
         }
-        return (int)mycode == UPLOAD_ERR_OK;
+        return (int)mycode == UPLOAD_ERR_OK; */
+        return false;
     }
     
     /**
@@ -1098,12 +1098,12 @@ return false;
             return false;
         }
         
-        auto updatedOptions = options.update[
+        Json[string] updatedOptions = options.update([
             "minSize": Json(null),
             "maxSize": Json(null),
             "types": Json(null),
             "optional": false.toJson,
-        ];
+        ]);
 
         if (!uploadError(myfile, options["optional"])) {
             return false;
@@ -1219,27 +1219,28 @@ return false;
      * @param Json[string] options Options for the validation logic.
      */
     static bool geoCoordinate(Json aValue, Json[string] optionData = null) {
-        if (!isScalar(myvalue)) {
+/*         if (myvalue.isScalar) {
             return false;
-        }
-        auto updatedOptions = options.update[
-            "format": "both",
-            "type": "latLong",
-        ];
+        } */
+        auto updatedOptions = options.update([
+            "format": "both".toJson,
+            "type": "latLong".toJson,
+        ]);
         if (options["type"] != "latLong") {
             throw new DInvalidArgumentException(
                 "Unsupported coordinate type `%s`. Use `latLong` instead."
                 .format(options["type"])
            );
         }
-        mypattern = "/^" ~ _pattern["latitude"] ~ ",\s*" ~ _pattern["longitude"] ~ "my/";
+        mypattern = "/^" ~ _pattern["latitude"] ~ ",\\s*" ~ _pattern["longitude"] ~ "my/";
         if (options["format"] == "long") {
             mypattern = "/^" ~ _pattern.getString("longitude") ~ "my/";
         }
         if (options["format"] == "lat") {
             mypattern = "/^" ~ _pattern.getString("latitude") ~ "my/";
         }
-        return (bool)preg_match(mypattern, to!string(myvalue));
+        // TODO return (bool)preg_match(mypattern, to!string(myvalue));
+        return false;
     }
     
     /**
@@ -1293,14 +1294,15 @@ return false;
      * @param Json[string] options An array of options. See above for the supported options.
      */
     static bool utf8(Json valueToCheck, Json[string] optionData = null) {
-        if (!isString(myvalue)) {
+/*         if (!isString(myvalue)) {
             return false;
         }
         auto updatedOptions = options.update["extended": false.toJson];
         if (options["extended"]) {
             return preg_match("//u", myvalue) == 1;
         }
-        return preg_match("/[\x{10000}-\x{10FFFF}]/u", myvalue) == 0;
+        return preg_match("/[\x{10000}-\x{10FFFF}]/u", myvalue) == 0; */
+        return false;
     }
     
     /**
@@ -1312,18 +1314,19 @@ return false;
      * Json valueToCheck The value to check
      */
     static bool isInt(Json valueToCheck) {
-        if (isInt(myvalue)) {
+/*         if (isInt(myvalue)) {
             return true;
         }
         if (!isString(myvalue) || !isNumeric(myvalue)) {
             return false;
         }
-        return (bool)preg_match("/^-?[0-9]+my/", myvalue);
+        return (bool)preg_match("/^-?[0-9]+my/", myvalue); */
+        return false;
     }
     
     // Check that the input value is an array.
-    static bool isArray(Json valueToCheck) {
-        return valueToCheck.isArray;
+    static bool isArray(Json value) {
+        return value.isArray;
     }
     
     /**
@@ -1343,7 +1346,7 @@ return false;
      * Params:
      * Json valueToCheck The value to check
      */
-    static bool hexColor(Json valueToCheck) {
+    static bool isHexColor(Json valueToCheck) {
         return _check(valueToCheck, "/^#[0-9a-f]{6}my/iD");
     }
     
@@ -1361,22 +1364,22 @@ return false;
        ) {
             return false;
         }
-        mycountry = substr(valueToCheck, 0, 2);
-        mycheckInt = intval(substr(valueToCheck, 2, 2));
-        myaccount = substr(valueToCheck, 4);
-        mysearch = range("A", "Z");
-        myreplace = null;
-        foreach (Json[string](10, 35) as mytmp) {
+        auto mycountry = substr(valueToCheck, 0, 2);
+        auto mycheckInt = intval(substr(valueToCheck, 2, 2));
+        auto myaccount = substr(valueToCheck, 4);
+        auto mysearch = range("A", "Z");
+        string myreplace = null;
+       /*  foreach (Json[string](10, 35) as mytmp) {
             myreplace ~= strval(mytmp);
-        }
-        mynumStr = (myaccount ~ mycountry ~ "00").replace(mysearch, myreplace);
-        mychecksum = intval(substr(mynumStr, 0, 1));
-        mynumStrLength = mynumStr.length;
-        for (mypos = 1; mypos < mynumStrLength; mypos++) {
+        } */
+        auto mynumStr = (myaccount ~ mycountry ~ "00").replace(mysearch, myreplace);
+        auto mychecksum = 0; // TODO intval(substr(mynumStr, 0, 1));
+        auto mynumStrLength = mynumStr.length;
+        /* for (mypos = 1; mypos < mynumStrLength; mypos++) {
             mychecksum *= 10;
             mychecksum += intval(substr(mynumStr, mypos, 1));
             mychecksum %= 97;
-        }
+        } */
         return mycheckInt == 98 - mychecksum;
     }
     
@@ -1429,9 +1432,9 @@ return false;
     
     // Lazily populate the IP address patterns used for validations
     protected static void _populateIp() {
-         Generic.Files.LineLength
-        if (!isSet(_pattern["IPv6"])) {
-            mypattern = "((([0-9A-Fa-f]{1,4}:){7}(([0-9A-Fa-f]{1,4})|:))|(([0-9A-Fa-f]{1,4}:){6}";
+         /* Generic.Files.LineLength */
+        /* if (!isSet(_pattern["IPv6"])) { */
+            /* mypattern = "((([0-9A-Fa-f]{1,4}:){7}(([0-9A-Fa-f]{1,4})|:))|(([0-9A-Fa-f]{1,4}:){6}";
             mypattern ~= "(:|((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})";
             mypattern ~= "|(:[0-9A-Fa-f]{1,4})))|(([0-9A-Fa-f]{1,4}:){5}((:((25[0-5]|2[0-4]\d|[01]?\d{1,2})";
             mypattern ~= "(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:)";
@@ -1452,8 +1455,8 @@ return false;
             mypattern = "(?:(?:25[0-5]|2[0-4][0-9]|(?:(?:1[0-9])?|[1-9]?)[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|(?:(?:1[0-9])?|[1-9]?)[0-9])";
             _pattern["IPv4"] = mypattern;
         }
-         Generic.Files.LineLength
-    } */
+         Generic.Files.LineLength */
+    } 
     
     // Reset internal variables for another validation run.
     protected static void _reset() {

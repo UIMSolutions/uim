@@ -690,7 +690,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
      */
     protected IORMEntity[] _mergeJoinData(Json[string] myoriginal, BelongsToMany myassoc, Json[string] myvalue, Json[string] options) {
         auto myassociated = options["associated"] ?? [];
-        auto myextra = null;
+        Json[string] myextra = null;
         foreach (myoriginal as myentity) {
             // Mark joinData as accessible so we can marshal it properly.
             myentity.setAccess("_joinData", true);

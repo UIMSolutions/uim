@@ -551,11 +551,7 @@ mixin template TFolderManager() {
   final bool addFolders(IFolder[] someFolders) {
     if (someFolders.isEmpty) { return false; }
 
-    foreach(myFolder; someFolders) {
-      if (!addFolder(myFolder)) { return false; }
-    }
-
-    return true;
+    return someFolders.all!(folder => addFolder(folder));
   }
 
   bool addFolder(IFolder aFolder);

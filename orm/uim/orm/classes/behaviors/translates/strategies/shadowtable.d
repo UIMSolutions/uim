@@ -515,7 +515,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                 empty(
                 row["translation"])) {
                 row["_locale"] = locale;
-                unset(
+                remove(
                     row["translation"]);
                 if (
                     hydrated) {
@@ -549,7 +549,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                 }
             }
 
-            unset(
+            remove(
                 row["translation"]);
             if (
                 hydrated) {
@@ -583,13 +583,13 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             result = null;
             foreach (
                 translations as translation) {
-                unset(
+                remove(
                     translation["id"]);
                 result[translation["locale"]] = translation;
             }
 
             row["_translations"] = result;
-            unset(
+            remove(
                 row["_i18n"]);
             if (
                 cast(

@@ -1073,7 +1073,7 @@ class DBelongsToManyAssociation : DAssociation {
                 }
                 if (matched) {
                     // Remove the unmatched entity so we don"t look at it again.
-                    unset(unmatchedEntityKeys[i]);
+                    remove(unmatchedEntityKeys[i]);
                     found = true;
                     break;
                 }
@@ -1093,7 +1093,7 @@ class DBelongsToManyAssociation : DAssociation {
             key = array_values(entity.extract(primary));
             foreach (present as i: data) {
                 if (key == data && !entity.get(jointProperty)) {
-                    unset(targetEntities[k], present[i]);
+                    remove(targetEntities[k], present[i]);
                     break;
                 }
             }

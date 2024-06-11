@@ -127,7 +127,7 @@ class DResultsetFactory {
         // associations hydrate correctly.
         results[tableMetadata["primaryAlias"]] ??= null;
 
-        unset(mypresentAliases[tableMetadata["primaryAlias"]]);
+        remove(mypresentAliases[tableMetadata["primaryAlias"]]);
 
         foreach (myassoc; tableMetadata["containAssoc"]) {
             aliasName = myassoc["nestKey"];

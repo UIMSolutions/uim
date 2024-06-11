@@ -582,7 +582,7 @@ class DAssociation : IAssociation {
         targetProperty = targetProperty ?  : getProperty();
         if (isset(row[sourceAlias])) {
             row[sourceAlias][targetProperty] = row[nestKey];
-            unset(row[nestKey]);
+            remove(row[nestKey]);
         }
 
         return row;

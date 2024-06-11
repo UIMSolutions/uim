@@ -62,7 +62,7 @@ mixin template TStaticConfig() {
         }
         if (isArray(configData) && isSet(configData["url"])) {
             parsed = parseDsn(configuration.get("url"));
-            unset(configuration.get("url"));
+            remove(configuration.get("url"));
             configData = parsed + configData;
         }
         if (configData.hasKey("engine") && configData["className"].isEmpty) {

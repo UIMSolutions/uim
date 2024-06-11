@@ -255,7 +255,7 @@ class DCounterCacheBehavior : DBehavior {
         myfinder = "all";
         if (!igData.isEmpty("finder")) {
             myfinder = configuration.get("finder"];
-            unset(configuration.get("finder"]);
+            remove(configuration.get("finder"]);
         }
         configuration.get("conditions"] = chain(myconditions, configuration.get("conditions"] ?? []);
         myquery = _table.find(myfinder, ...configData);

@@ -205,7 +205,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
         mytableName = _table.aliasName();
         if (isSet(mydata[mytableName]) && isArray(mydata[mytableName])) {
             mydata += mydata[mytableName];
-            unset(mydata[mytableName]);
+            remove(mydata[mytableName]);
         }
         mydata = new ArrayObject(mydata);
         options = new ArrayObject(options);
@@ -555,7 +555,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
             .toJString();
 
         mynew = myindexed[""] ?? [];
-        unset(myindexed[""]);
+        remove(myindexed[""]);
         myoutput = null;
 
         myentities.each!((entity) {
@@ -565,7 +565,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
                     continue;
                 }
                 myoutput ~= this.merge(myEntity, myindexed[aKey], options);
-                unset(myindexed[aKey]);
+                remove(myindexed[aKey]);
             }
         }
 
@@ -589,7 +589,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
                 string key = entity.extract(myprimary).join(";");
                 if (isSet(myindexed[key])) {
                     myoutput ~= this.merge(myentity, myindexed[key], options);
-                    unset(myindexed[key]);
+                    remove(myindexed[key]);
                 }
             }
         }

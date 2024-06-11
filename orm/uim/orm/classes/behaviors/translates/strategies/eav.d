@@ -481,7 +481,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             .disableHydration()
             .disableBufferedResults();
 
-        unset(ruleSet[0]);
+        remove(ruleSet[0]);
         foreach (ruleSet as i: conditions) {
             q = association.find()
                 .select(["id", "num": i])

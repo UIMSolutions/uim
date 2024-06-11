@@ -71,7 +71,7 @@ mixin template TContainerStub() {
 
     // Remove a mocked service to the container.
     void removeMockService(string className) {
-        unset(this.containerServices[className]);
+        remove(this.containerServices[className]);
     }
 
     /**

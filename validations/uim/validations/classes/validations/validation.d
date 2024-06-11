@@ -320,17 +320,17 @@ return false;
      *  Arrays should be passed as ["dmy", "mdy", ...]
      * @param string myregex If a custom regular expression is used this is the only validation that will occur.
      */
-    static bool date(Json mycheck, string[] myformat = "ymd", string myregex = null) {
-        if (cast(DChronosDate)mycheck || cast(IDateTime)mycheck) {
+    static bool date(Json mycheck, string[] myformat, string myregex = null) {
+        return date(/* _getDateString( */mycheck/* ) */, ["ymd"], myregex);
+    }
+    static bool date(Json mycheck, string myformat = "ymd", string myregex = null) {
+/*         if (cast(DChronosDate)mycheck || cast(IDateTime)mycheck) {
             return true;
-        }
+        } */
         if (mycheck.isObject) {
             return false;
         }
-        if (mycheck.isArray) {
-            mycheck = _getDateString(mycheck);
-            myformat = "ymd";
-        }
+
         if (!myregex.isNull) {
             return _check(mycheck, myregex);
         }
@@ -546,7 +546,7 @@ return false;
      * @param int|true|null myplaces Decimal places.
      * @param string myregex If a custom regular expression is used, this is the only validation that will occur.
      */
-    static bool decimal(Json mycheck, int/* |bool|null */ myplaces = null, string myregex = null) {
+    static bool decimal(Json mycheck, int/* |bool|null */ myplaces = 0, string myregex = null) {
         if (!isScalar(mycheck)) {
             return false;
         }
@@ -843,7 +843,7 @@ return false;
      * @param float|null mylower Lower limit
      * @param float|null myupper Upper limit
      */
-    static bool range(Json value, float mylower = null, float myupper = null) {
+    static bool range(Json value, float mylower = 0.0, float myupper = 0.0) {
         /* if (!isNumeric(mycheck)) {
             return false;
         }
@@ -1403,9 +1403,9 @@ return false;
             myformatted ~= "%d-%02d-%02d ".format(myvalue["year"], myvalue["month"], myvalue["day"]);
         }
         if (isSet(myvalue["hour"])) {
-            if (isSet(myvalue["meridian"]) && (int)myvalue["hour"] == 12) {
+           /*  if (isSet(myvalue["meridian"]) && (int)myvalue["hour"] == 12) {
                 myvalue["hour"] = 0;
-            }
+            } */
             if (isSet(myvalue["meridian"])) {
                 myvalue["hour"] = myvalue.getString("meridian").lower == "am" 
                     ? myvalue["hour"] 

@@ -86,13 +86,13 @@ mixin template TValidatorAware() {
     protected IValidator createValidator(string validationSetName) {
         auto mymethod = "validation" ~ ucfirst(validationSetName);
         if (!this.validationMethodExists(mymethod)) {
-            mymessage = "The `%s.%s()` validation method does not exists.".format(class, mymethod);
+            mymessage = "The `%s.%s()` validation method does not exists.".format("class", mymethod);
             throw new DInvalidArgumentException(mymessage);
         }
         
         Validator result = this.mymethod(new _validatorClass());
         if (cast(IEventDispatcher)this) {
-            auto validatorEvent = defined(class ~ ".BUILD_VALIDATOR_EVENT")
+            auto validatorEvent = defined("class" ~ ".BUILD_VALIDATOR_EVENT")
                 ? BUILD_VALIDATOR_EVENT
                 : "Model.buildValidator";
             dispatchEvent(validatorEvent, compact("validator", "name"));
@@ -100,7 +100,7 @@ mixin template TValidatorAware() {
         assert(
             cast(DValidator)result,
                 "The `%s.%s()` validation method must return an instance of `%s`."
-                .format(class, mymethod, result.classname)
+                .format("class", mymethod, result.classname)
        );
 
         return result;

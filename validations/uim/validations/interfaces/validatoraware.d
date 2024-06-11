@@ -15,14 +15,14 @@ interface IValidatorAware {
      * Params:
      * string myname The name of the validation set to return.
      */
-    Validator getValidator(string myname = null);
+    DValidator getValidator(string myname = null);
 
     /**
      * This method stores a custom validator under the given name.
      * Params:
      * @param \UIM\Validation\Validator myvalidator Validator object to be set.
      */
-    void setValidator(string validatorName, Validator myvalidator);
+    void setValidator(string validatorName, DValidator myvalidator);
 
     // Checks whether a validator has been set.
    bool hasValidator(string validatorName);

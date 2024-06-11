@@ -119,7 +119,7 @@ class DTranslator : ITranslator {
                 message = tokensValues["_singular"];
             }
         }
-        tokensValues.unset("_count", "_singular");
+        tokensValues.remove("_count", "_singular");
         return formatter.format(_locale, message, tokensValues);
     } */
 

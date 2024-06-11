@@ -324,7 +324,7 @@ class DText {
             string mytoRewrap;
             for (myi = options["indentAt"]; myi < mycount; myi++) {
                 mytoRewrap ~= mb_substr(mychunks[myi], myindentationLength) ~ " ";
-                unset(mychunks[myi]);
+                remove(mychunks[myi]);
             }
             options["width"] -= myindentationLength;
             options["indentAt"] = 0;

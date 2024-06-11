@@ -193,7 +193,7 @@ class DSocket {
             if (isEmpty(configuration.get("context/ssl/"~contextKey])) {
                 configuration.set("context/ssl/"~contextKey, kv.value);
             }
-            unset(configuration.getString(kv.key));
+            remove(configuration.getString(kv.key));
         });
         if (!configuration.hasKey("context/ssl.SNI_enabled"])) {
             configuration.set("context/ssl/SNI_enabled", true);

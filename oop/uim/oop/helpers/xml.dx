@@ -352,11 +352,11 @@ class Xml {
                         if (isArray(dataValue)) {
                             if (isSet(dataValue["@"])) {
                                 mychildValue = to!string(dataValue["@"]);
-                                unset(dataValue["@"]);
+                                remove(dataValue["@"]);
                             }
                             if (isSet(dataValue["xmlns:"])) {
                                 mychildNS = dataValue["xmlns:"];
-                                unset(dataValue["xmlns:"]);
+                                remove(dataValue["xmlns:"]);
                             }
                         }
                         else if(!dataValue.isEmpty || dataValue == 0 || dataValue == "0") {

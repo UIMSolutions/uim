@@ -487,7 +487,7 @@ class DResponse : IResponse {
             return;
         }
         original = this.headerNames[normalized];
-        unset(this.headerNames[normalized], this.headers[original]);
+        remove(this.headerNames[normalized], this.headers[original]);
     }
     
     /**
@@ -704,7 +704,7 @@ class DResponse : IResponse {
      */
     static withSharable(bool public, int time = null) {
         new = clone this;
-        unset(new._cacheDirectives["private"], new._cacheDirectives["public"]);
+        remove(new._cacheDirectives["private"], new._cacheDirectives["public"]);
 
         aKey = ? "public" : "private";
         new._cacheDirectives[aKey] = true;
@@ -764,7 +764,7 @@ class DResponse : IResponse {
         if (enable) {
             new._cacheDirectives["must-revalidate"] = true;
         } else {
-            unset(new._cacheDirectives["must-revalidate"]);
+            remove(new._cacheDirectives["must-revalidate"]);
         }
         new._setCacheControl();
 

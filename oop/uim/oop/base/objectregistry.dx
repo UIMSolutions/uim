@@ -182,7 +182,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
   }
 
   // Unsets an object.
-  void __unset(string propertyName) {
+  void __remove(string propertyName) {
     this.unload(propertyName);
   }
 
@@ -250,7 +250,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
         IEventListener) object) {
       getEventManager().off(object);
     }
-    unset(_loaded[name]);
+    remove(_loaded[name]);
   }
 
   // Returns an array iterator.

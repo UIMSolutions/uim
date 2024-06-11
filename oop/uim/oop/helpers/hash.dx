@@ -292,7 +292,7 @@ class Hash {
                 case "remove": 
                     if (myi == mylast) {
                         if (isArray(_list)) {
-                            unset(_list[aKey]);
+                            remove(_list[aKey]);
                         }
                         return mydata;
                     }
@@ -320,7 +320,7 @@ class Hash {
         mynoExpansion = !mypath.has("{");
 
         if (mynoExpansion && mynoTokens && !mypath.has(".")) {
-            unset(mydata[mypath]);
+            remove(mydata[mypath]);
 
             return mydata;
         }
@@ -343,17 +343,17 @@ class Hash {
                         if (!mynextPath.isEmpty) {
                             mydata[myKey] = remove(myv, mynextPath);
                         } else {
-                            unset(mydata[myKey]);
+                            remove(mydata[myKey]);
                         }
                     }
                 } else {
                     mydata[myKey] = remove(myv, mynextPath);
                 }
                 if (mydata[myKey]..isEmpty) {
-                    unset(mydata[myKey]);
+                    remove(mydata[myKey]);
                 }
             } else if (mymatch && mynextPath.isEmpty) {
-                unset(mydata[myKey]);
+                remove(mydata[myKey]);
             }
         }
         return mydata;
@@ -491,7 +491,7 @@ class Hash {
         while (!empty(myneedle)) {
             aKey = key(myneedle);
             myval = myneedle[aKey];
-            unset(myneedle[aKey]);
+            remove(myneedle[aKey]);
 
             if (array_key_exists(aKey, mydata) && isArray(myval)) {
                 mynext = mydata[aKey];
@@ -569,7 +569,7 @@ class Hash {
         while (!mydata.isEmpty) {
             aKey = key(mydata);
             myelement = mydata[aKey];
-            unset(mydata[aKey]);
+            remove(mydata[aKey]);
 
             if (isArray(myelement) && !empty(myelement)) {
                 if (!empty(mydata)) {
@@ -643,7 +643,7 @@ class Hash {
         foreach (myargs as &mycurArg) {
             mystack ~= [(array)mycurArg, &result];
         }
-        unset(mycurArg);
+        remove(mycurArg);
         _merge(mystack, result);
 
         return result;
@@ -677,7 +677,7 @@ class Hash {
                 }
                 mystack.remove(mycurKey);
             }
-            unset(mycurMerge);
+            remove(mycurMerge);
         }
     }
     
@@ -947,7 +947,7 @@ class Hash {
         myintersection = array_intersectinternalKey(mydata, mycompare);
         while ((aKey = key(myintersection)) !is null) {
             if (mydata[aKey] == mycompare[aKey]) {
-                unset(mydata[aKey], mycompare[aKey]);
+                remove(mydata[aKey], mycompare[aKey]);
             }
             next(myintersection);
         }
@@ -1076,7 +1076,7 @@ class Hash {
             myid = get(result, myidKeys);
             myparentId = get(result, myparentKeys);
             if (myid != myroot && myparentId != myroot) {
-                unset(result[myi]);
+                remove(result[myi]);
             }
         }
         /** @var list<array> */

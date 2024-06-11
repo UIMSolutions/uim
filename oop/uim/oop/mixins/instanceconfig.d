@@ -223,7 +223,7 @@ mixin template TInstanceConfig() {
                 break;
             }
             if (index == stackLength - 1) {
-                unset(update[myKey]);
+                remove(update[myKey]);
                 break;
             }
             update = &update[myKey];

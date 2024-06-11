@@ -133,7 +133,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
     protected IServerRequest _unsetTokenField(IServerRequest serverRequest) {
         auto parsedBody = serverRequest.getParsedBody();
         if (isArray(parsedBody)) {
-            unset(parsedBody[configuration.get("field")]);
+            remove(parsedBody[configuration.get("field")]);
             serverRequest = serverRequest.withParsedBody(parsedBody);
         }
         return serverRequest;

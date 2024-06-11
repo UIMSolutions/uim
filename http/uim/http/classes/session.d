@@ -185,7 +185,7 @@ class DSession {
 
         if (!configData.isEmpty("handler")) {
             className = configuration.get("handler.engine"];
-            unset(configuration.get("handler.engine"]);
+            remove(configuration.get("handler.engine"]);
             this.engine(className, configuration.get("handler"]);
         }
         _lifetime = (int) ini_get("session.gc_maxlifetime");
@@ -456,7 +456,7 @@ class DSession {
        ) {
             foreach (old as aKey : var) {
                 if (!isSet(new[aKey])) {
-                    unset(old[aKey]);
+                    remove(old[aKey]);
                 }
             }
             new.byKeyValue

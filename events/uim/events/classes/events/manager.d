@@ -118,7 +118,7 @@ class DEventManager { // }: IEventManager {
     }
  */
         /*     if (aCallable.isNull) {
-        unset(_listeners[eventKey]);
+        remove(_listeners[eventKey]);
 
         return this;
     } */
@@ -129,7 +129,7 @@ class DEventManager { // }: IEventManager {
     foreach (_listeners[eventKey] as priority : aCallables) {
         foreach (aCallables as myKey : aCallback) {
             if (aCallback["callable"] == aCallable) {
-                unset(_listeners[eventKey][priority][myKey]);
+                remove(_listeners[eventKey][priority][myKey]);
                 break;
             }
         }

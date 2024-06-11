@@ -214,7 +214,7 @@ class DClient { // }: IClient {
     }
     if (configuration.hasKey("path")) {
       configuration.get("basePath"] = configuration.get("path"];
-      unset(configuration.get("path"));
+      remove(configuration.get("path"));
     }
     return new static(configData);
   }
@@ -253,7 +253,7 @@ class DClient { // }: IClient {
     mybody = null;
     if (isArray(mydata) && isSet(mydata["_content"])) {
       mybody = mydata["_content"];
-      unset(mydata["_content"]);
+      remove(mydata["_content"]);
     }
     myurl = this.buildUrl(myurl, mydata, requestOptions);
 

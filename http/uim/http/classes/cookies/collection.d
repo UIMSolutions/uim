@@ -125,7 +125,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
         aKey = mb_strtolower(cookieName);
         foreach (result.cookies as  anI: cookie) {
             if (mb_strtolower(cookie.cookieName) == aKey) {
-                unset(result.cookies[anI]);
+                remove(result.cookies[anI]);
             }
         }
         return result;
@@ -261,7 +261,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
             somePathMatches = somePath.startWith(cookie.getPath());
             hostMatches = preg_match(hostPattern, cookie.getDomain());
             if (somePathMatches && hostMatches) {
-                unset(_cookies[anI]);
+                remove(_cookies[anI]);
             }
         }
     }

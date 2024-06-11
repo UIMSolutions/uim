@@ -84,7 +84,7 @@ class DCurl { // }: IAdapter {
              result[CURLOPT_CUSTOMREQUEST] = "get";
         }
         if (result[CURLOPT_POSTFIELDS].isEmpty) {
-            unset(result[CURLOPT_POSTFIELDS]);
+            remove(result[CURLOPT_POSTFIELDS]);
         }
         if (clientOptions.isEmpty("ssl_cafile")) {
             clientOptions["ssl_cafile"] = CaBundle.getBundledCaBundlePath();

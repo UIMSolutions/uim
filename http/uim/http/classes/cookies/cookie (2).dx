@@ -200,13 +200,13 @@ class DCookie : ICookie {
             try {
                 someData["samesite"] = resolveSameSiteenumeration(someData["samesite"]);
             } catch (ValueError) {
-                unset(someData["samesite"]);
+                remove(someData["samesite"]);
             }
         }
         name = someData["name"];
         aValue = someData["value"];
         assert(isString(name) && isString(aValue));
-        unset(someData["name"], someData["value"]);
+        remove(someData["name"], someData["value"]);
 
         return Cookie.create(
             name,

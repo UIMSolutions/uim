@@ -218,7 +218,7 @@ class DRouteCollection {
         // Named routes support optimization.
         if (isSet(myurl["_name"])) {
             routings = myurl["_name"];
-            unset(myurl["_name"]);
+            remove(myurl["_name"]);
             if (isSet(_named[routings])) {
                 myroute = _named[routings];
                 result = myroute.match(myurl + myroute.defaults, mycontext);

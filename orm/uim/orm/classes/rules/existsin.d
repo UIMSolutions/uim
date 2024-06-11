@@ -91,7 +91,7 @@ class DExistsIn {
             myschema = mysource.getSchema();
             foreach (fieldNames as myi: fieldName) {
                 if (myschema.getColumn(fieldName) && myschema.isNullable(fieldName) && myentity.get(fieldName).isNull) {
-                    unset(mybindingKey[myi], fieldNames[myi]);
+                    remove(mybindingKey[myi], fieldNames[myi]);
                 }
             }
         }

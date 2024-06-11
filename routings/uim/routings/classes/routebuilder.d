@@ -705,7 +705,7 @@ class DRouteBuilder {
         string routings = Inflector.camelize(routings);
         if (isSet(myparams["path"])) {
             mypath = myparams["path"];
-            unset(myparams["path"]);
+            remove(myparams["path"]);
         }
         
         if (isSet(_params["prefix"])) {
@@ -783,7 +783,7 @@ class DRouteBuilder {
         if (isSet(myparams["_namePrefix"])) {
             routingsPrefix ~= myparams["_namePrefix"];
         }
-        unset(myparams["_namePrefix"]);
+        remove(myparams["_namePrefix"]);
 
         myparams += _params;
         mybuilder = new static(_collection, mypath, myparams, [

@@ -302,7 +302,7 @@ class DRouter {
             if (isSet(myurl["#"])) {
                 myfrag = "#" ~ myurl["#"];
             }
-            unset(myurl["_https"], myurl["_full"], myurl["#"]);
+            remove(myurl["_https"], myurl["_full"], myurl["#"]);
 
             myurl = _applyUrlFilters(myurl);
 
@@ -474,7 +474,7 @@ class DRouter {
         mypass = myparams["pass"] ?? [];
 
         mytemplate = myparams.get("_matchedRoute", null);
-        unset(
+        remove(
             myparams["pass"],
             myparams["_matchedRoute"],
             myparams["_name"]
@@ -640,7 +640,7 @@ class DRouter {
             "plugin": false.toJson,
             "prefix": false.toJson,
         ];
-        unset(myurl["_path"]);
+        remove(myurl["_path"]);
 
         return myurl;
     }

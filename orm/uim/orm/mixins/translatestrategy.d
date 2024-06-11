@@ -74,14 +74,14 @@ mixin template TTranslateStrategy() {
             // If now, the current locale property is empty,
             // unset it completely.
             if (array_filter(translation).isEmpty) {
-                unset(entity.get("_translations")[locale]);
+                remove(entity.get("_translations")[locale]);
             }
         }
 
         // If now, the whole _translations property is empty,
         // unset it completely and return
         if (entity..isEmpty("_translations"))) {
-            entity.unset("_translations");
+            entity.remove("_translations");
         }
     }
 
@@ -144,6 +144,6 @@ mixin template TTranslateStrategy() {
      * @param DORMDatasource\IORMEntity anEntity The entity that is going to be saved
      */
     void afterSave(IEvent event, IORMEntity anEntity) {
-        entity.unset("_i18n");
+        entity.remove("_i18n");
     }
 }

@@ -351,7 +351,7 @@ class DResultset : IResultset {
                 continue;
             }
             _matchingMapColumns[alias] = map[alias];
-            unset(map[alias]);
+            remove(map[alias]);
         }
 
         _map = map;
@@ -415,7 +415,7 @@ class DResultset : IResultset {
         // associations hydrate correctly.
         results[defaultAlias] = results[defaultAlias] ?? [];
 
-        unset(presentAliases[defaultAlias]);
+        remove(presentAliases[defaultAlias]);
 
         foreach (_containMap as assoc) {
             alias = assoc["nestKey"];
@@ -438,7 +438,7 @@ class DResultset : IResultset {
 
             target = instance.getTarget();
             options["source"] = target.registryKey();
-            unset(presentAliases[alias]);
+            remove(presentAliases[alias]);
 
             if (assoc["canBeJoined"] && _autoFields != false) {
                 hasData = false;

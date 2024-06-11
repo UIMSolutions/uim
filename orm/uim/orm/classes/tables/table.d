@@ -397,7 +397,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
 
             if (myschema.hasKey("_constraints")) {
                 constraints = myschema["_constraints"];
-                unset(myschema["_constraints"]);
+                remove(myschema["_constraints"]);
             }
             myschema = getConnection().getDriver().newTableSchema(getTable(), myschema);
 
@@ -1274,7 +1274,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             if (isSet(myargs["key"])) {
                 mycacheKey = myargs["key"];
             }
-            unset(myargs["key"], myargs["cache"], myargs["finder"]);
+            remove(myargs["key"], myargs["cache"], myargs["finder"]);
         }
         myquery = this.find(myfinder, ...myargs).where(myconditions);
 
@@ -1923,7 +1923,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         mycleanupOnFailure = void (myentities) use (&myisNew) {
             foreach (myentities as aKey: myentity) {
                 if (isSet(myisNew[aKey]) && myisNew[aKey]) {
-                    myentity.unset(this.primaryKeys());
+                    myentity.remove(this.primaryKeys());
                     myentity.setNew(true);
                 }
             }
@@ -2251,7 +2251,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             // Fetch custom args without the query options.
             myargs = myquery.getOptions();
 
-            unset(myparams[0]);
+            remove(myparams[0]);
             mylastParam = end(myparams);
             reset(myparams);
 
@@ -2259,7 +2259,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 string[] myparamNames = myparams.map!(param => myparam.name).array;
                 myargs.byKeyValue
                     .filter(kv => isString(kv.key) && !myparamNames.has(kv.key))
-                    .each!(kv => unset(myargs[kv.key]));
+                    .each!(kv => remove(myargs[kv.key]));
             }
         }
         return mycallable(myquery, ...myargs);

@@ -205,10 +205,10 @@ class DAsset {
             plugin = Inflector.camelize(segments[0]);
             if (!Plugin.isLoaded(plugin) && count(segments) > 1) {
                 string plugin = join("/", [plugin, Inflector.camelize(segments[1])]);
-                unset(segments[1]);
+                remove(segments[1]);
             }
             if (Plugin.isLoaded(plugin)) {
-                unset(segments[0]);
+                remove(segments[0]);
                 pluginPath = Plugin.path(plugin)
                     ~ "webroot"
                     ~ DIRECTORY_SEPARATOR

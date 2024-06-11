@@ -801,27 +801,26 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     protected auto _convertValidatorToArray(
         string fieldName,
-        array mydefaults = [],
+        Json[string] mydefaults = [],
         string[]/* |int */ mysettings = []
    ) {
         if (!mysettings.isArray) {
             fieldName = (string)mysettings;
             mysettings = null;
         }
-        mysettings += mydefaults;
-
+        mysettings = mysettings.merge(mydefaults);
         return [fieldName: mysettings];
     }
     
     /**
      * Invert a when clause for creating notEmpty rules
      * Params:
-     * \/*Closure|*/ string mywhen Indicates when the field is not allowed
+     * /*Closure| / string mywhen Indicates when the field is not allowed
      * to be empty. Valid values are true (always), "create", "update". If a
      * Closure is passed then the field will allowed to be empty only when
      * the callback returns false.
      */
-    protected D/*Closure|*/ string invertWhenClause(/*Closure|*/ string mywhen) {
+    protected /*Closure|*/ string invertWhenClause(/*Closure|*/ string mywhen) {
         if (mywhen == WHEN_CREATE || mywhen == WHEN_UPDATE) {
             return mywhen == WHEN_CREATE ? WHEN_UPDATE : WHEN_CREATE;
         }

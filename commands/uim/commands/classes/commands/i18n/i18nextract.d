@@ -418,11 +418,11 @@ class DI18nExtractCommand : DCommand {
                     string aHeader = "";
                     if (!commandArguments.getOption("no-location")) {
                         auto occurrences = null;
-                        foreach (file: lines; files) {
-                            array_unique(lines)
-                                .each!(line => occurrences ~= file ~ ": " ~ line);
-                        }
-                        occurrences = join("\n#: ", occurrences);
+                        files.byKeyValue.each!(fileLines => 
+                            array_unique(fileLines.value)
+                                .each!(line => occurrences ~= fileLines.key ~ ": " ~ line)
+                        );
+                        occurrences = occurrences.join("\n#: ");
 
                         aHeader = "#: " ~ 
                             occurrences.replace(DIRECTORY_SEPARATOR, "/") ~ 

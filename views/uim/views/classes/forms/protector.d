@@ -420,14 +420,14 @@ class DFormProtector {
      * @param string amissingMessage Message string if missing field
      */
     protected string[] debugCheckFields(
-        array someDataFields,
-        array expectedFields = [],
+        Json[string] someDataFields,
+        Json[string] expectedFields= null,
         string aintKeyMessage = "",
         string astringKeyMessage = "",
         string amissingMessage = ""
    ) {
-        messages = this.matchExistingFields(someDataFields, expectedFields,  anIntKeyMessage, stringKeyMessage);
-        expectedFieldsMessage = this.debugExpectedFields(expectedFields, missingMessage);
+        auto messages = this.matchExistingFields(someDataFields, expectedFields,  anIntKeyMessage, stringKeyMessage);
+        auto expectedFieldsMessage = this.debugExpectedFields(expectedFields, missingMessage);
         if (!expectedFieldsMessage.isNull) {
             messages ~= expectedFieldsMessage;
         }
@@ -476,7 +476,7 @@ class DFormProtector {
      * Json[string] expectedFields Expected fields
      * @param string amissingMessage Message template
      */
-    protected string debugExpectedFields(Json[string] expectedFields = [], string amissingMessage= null) {
+    protected string debugExpectedFields(Json[string] expectedFields= null, string amissingMessage= null) {
         if (count(expectedFields) == 0) {
             return null;
         }

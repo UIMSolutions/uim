@@ -266,7 +266,7 @@ static string contentType() {
         ServerRequest serverRequest = null,
         Response myresponse = null,
         IEventManager myeventManager = null,
-        Json[string] viewOptions = []
+        Json[string] viewOptions= null
    ) {
         if (!myeventManager.isNull) {
             // Set the event manager before accessing the helper registry below
@@ -452,7 +452,7 @@ static string contentType() {
      * - `plugin` - setting to false will force to use the application"s element from plugin templates, when the
      * plugin has element with same name. Defaults to true
      */
-    string element(string templatefilename, Json[string] data = [], Json[string] options  = null) {
+    string element(string templatefilename, Json[string] data= null, Json[string] options  = null) {
         auto updatedOptions = options.update["callbacks": false.toJson, "cache": Json(null), "plugin": Json(null), "ignoreMissing": false.toJson];
         if (isSet(options["cache"])) {
             options["cache"] = _elementCache(

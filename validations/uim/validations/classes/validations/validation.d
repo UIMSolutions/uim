@@ -762,12 +762,11 @@ return false;
      * @param string mysymbolPosition Where symbol is located (left/right)
      */
     static bool money(Json mycheck, string mysymbolPosition = "left") {
-        mymoney = "(?!0,?\d)(?:\d{1,3}(?:([, .])\d{3})?(?:\1\d{3})*|(?:\d+))((?!\1)[,.]\d{1,2})?";
-        if (mysymbolPosition == "right") {
-            myregex = "/^" ~ mymoney ~ "(?<!\x{00a2})\p{Sc}?my/u";
-        } else {
-            myregex = "/^(?!\x{00a2})\p{Sc}?" ~ mymoney ~ "my/u";
-        }
+        auto mymoney = "(?!0,?\\d)(?:\\d{1,3}(?:([, .])\\d{3})?(?:\\1\\d{3})*|(?:\\d+))((?!\\1)[,.]\\d{1,2})?";
+        auto myRegex = mysymbolPosition == "right"
+            ? "/^" ~ mymoney ~ "(?<!\x{00a2})\p{Sc}?my/u"
+            : "/^(?!\x{00a2})\p{Sc}?" ~ mymoney ~ "my/u";
+
         return _check(mycheck, myregex);
     }
     
@@ -787,7 +786,7 @@ return false;
         /* mydefaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
         auto updatedOptions = options.updatemydefaults;
 
-        mycheck = array_filter((array)mycheck, auto (myvalue) {
+        auto mycheck = array_filter((array)mycheck, auto (myvalue) {
             return myvalue || isNumeric(myvalue);
         });
         if (mycheck.isEmpty) {
@@ -803,15 +802,15 @@ return false;
             if (caseInsensitive) {
                 options["in"] = array_map("mb_strtolower", options["in"]);
             }
-            foreach (mycheck as myval) {
+            mycheck.each((myval) {
                 mystrict = !isNumeric(myval);
                 if (caseInsensitive) {
-                    myval = mb_strtolower(/* (string) */myval);
+                    myval = mb_strtolower(/* (string) * /myval);
                 }
                 if (!isIn(to!string(myval), options["in"], mystrict)) {
                     return false;
                 }
-            }
+            });
         } */
         return true;
     }

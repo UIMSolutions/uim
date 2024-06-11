@@ -25,7 +25,7 @@ class DMissingTemplateException : DViewException {
 
   mixin(TProperty!("string", "templateType"));
 
-  this(string newFileName, string[] checkedPaths = [], int errorCode = 0, Throwable previousException = null) {
+  this(string newFileName, string[] checkedPaths= null, int errorCode = 0, Throwable previousException = null) {
     fileName(newFileName);
     templateName(null);
     paths(checkedPaths);

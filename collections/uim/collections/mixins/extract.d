@@ -110,12 +110,7 @@ mixin template TExtract() {
             };
         }
 /*         return auto (aValue) use (someMatchers) {
-            foreach (match; someMatchers) {
-                if (! match(aValue)) {
-                    return false;
-                }
-            }
-            return true;
+            return someMatchers.all!(match => match(aValue));
         };
  * /    } */
 }

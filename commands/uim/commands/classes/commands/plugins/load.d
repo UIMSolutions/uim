@@ -30,22 +30,21 @@ class DPluginLoadCommand : DCommand {
     }
 
     int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
-        auto plugin = arguments.getString("plugin"));
+        auto plugin = arguments.getString("plugin");
         auto options = null;
-        if (arguments.getOption("only-debug")) {
+        if (arguments.hasKey("only-debug")) {
             options["onlyDebug"] = true;
         }
         if (arguments.hasKey("only-cli")) {
             options["onlyCli"] = true;
         }
-        if (arguments.getOption("optional")) {
+        if (arguments.hasKey("optional")) {
             options["optional"] = true;
         }
-        foreach (hook; IPlugin.VALID_HOOKS) {
-            if (arguments.getOption("no-" ~ hook)) {
-                options[hook] = false;
-            }
-        }
+        IPlugin.VALID_HOOKS
+            .filter!(hook => arguments.hasKey("no-" ~ hook))
+            .each!(hook => options[hook] = false);
+
         try {
             Plugin.getCollection().findPath(plugin);
         } catch (MissingPluginException anException) {

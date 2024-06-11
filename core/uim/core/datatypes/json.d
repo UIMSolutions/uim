@@ -372,7 +372,7 @@ Json readJson(Json target, Json source, bool shouldOverwrite = true) {
   }
 
   auto result = target;
-  foreach (kv; source.byKeyValue) {
+  source.byKeyValue.each!((kv) {
     if (shouldOverwrite) {
       result[kv.key] = kv.value;
     } else {
@@ -380,7 +380,7 @@ Json readJson(Json target, Json source, bool shouldOverwrite = true) {
         result[kv.key] = kv.value;
       }
     }
-  }
+  });
 
   return result;
 }

@@ -761,13 +761,14 @@ return false;
      * Json mycheck Value to check
      * @param string mysymbolPosition Where symbol is located (left/right)
      */
-    static bool money(Json mycheck, string mysymbolPosition = "left") {
-        auto mymoney = "(?!0,?\\d)(?:\\d{1,3}(?:([, .])\\d{3})?(?:\\1\\d{3})*|(?:\\d+))((?!\\1)[,.]\\d{1,2})?";
-        auto myRegex = mysymbolPosition == "right"
+    static bool isMoney(Json mycheck, string mysymbolPosition = "left") {
+        // TODO auto mymoney = "(?!0,?\\d)(?:\\d{1,3}(?:([, .])\\d{3})?(?:\\1\\d{3})*|(?:\\d+))((?!\\1)[,.]\\d{1,2})?";
+        /* auto myRegex = mysymbolPosition == "right"
             ? "/^" ~ mymoney ~ "(?<!\x{00a2})\p{Sc}?my/u"
             : "/^(?!\x{00a2})\p{Sc}?" ~ mymoney ~ "my/u";
 
-        return _check(mycheck, myregex);
+        return _check(mycheck, myregex); */
+        return false;
     }
     
     /**
@@ -815,13 +816,9 @@ return false;
         return true;
     }
     
-    /**
-     * Checks if a value is numeric.
-     * Params:
-     * Json mycheck Value to check
-     */
-    static bool numeric(Json mycheck) {
-        return isNumeric(mycheck);
+    // Checks if a value is numeric.
+    static bool numeric(Json value) {
+        return mycheck.isNumeric;
     }
     
     /**
@@ -831,9 +828,10 @@ return false;
      * @param bool myallowZero Set true to allow zero, defaults to false
      */
     static bool naturalNumber(Json mycheck, bool myallowZero = false) {
-        myregex = myallowZero ? "/^(?:0|[1-9][0-9]*)my/" : "/^[1-9][0-9]*my/";
+        /* myregex = myallowZero ? "/^(?:0|[1-9][0-9]*)my/" : "/^[1-9][0-9]*my/";
 
-        return _check(mycheck, myregex);
+        return _check(mycheck, myregex); */
+        return false;
     }
     
     /**
@@ -843,12 +841,11 @@ return false;
      * If they are not set, will return true if mycheck is a
      * legal finite on this platform.
      * Params:
-     * Json mycheck Value to check
      * @param float|null mylower Lower limit
      * @param float|null myupper Upper limit
      */
-    static bool range(Json mycheck, ?float mylower = null, ?float myupper = null) {
-        if (!isNumeric(mycheck)) {
+    static bool range(Json value, float mylower = null, ?float myupper = null) {
+        /* if (!isNumeric(mycheck)) {
             return false;
         }
         if ((float)mycheck != mycheck) {
@@ -857,7 +854,8 @@ return false;
         if (isSet(mylower, myupper)) {
             return mycheck >= mylower && mycheck <= myupper;
         }
-        return is_finite((float)mycheck);
+        return is_finite((float)mycheck); */
+        return false;
     }
     
     /**
@@ -877,7 +875,7 @@ return false;
      * @param bool mystrict Require URL to be prefixed by a valid scheme (one of http(s)/ftp(s)/file/news/gopher)
      */
     static bool url(Json mycheck, bool mystrict = false) {
-        if (!isString(mycheck)) {
+        /* if (!isString(mycheck)) {
             return false;
         }
         _populateIp();
@@ -896,7 +894,8 @@ return false;
             "(?:#" ~ myfragmentAndQuery ~ "*)?my/iu";
          Generic.Files.LineLength
 
-        return _check(mycheck, myregex);
+        return _check(mycheck, myregex); */
+        return false;
     }
     
     /**
@@ -946,7 +945,7 @@ return false;
      * Json mycheck Value to check.
      */
     static bool luhn(Json mycheck) {
-        if (!isScalar(mycheck) || (int)mycheck == 0) {
+        /* if (!isScalar(mycheck) || (int)mycheck == 0) {
             return false;
         }
         mysum = 0;
@@ -960,7 +959,8 @@ return false;
             mynumber = (int)mycheck[myposition] * 2;
             mysum += mynumber < 10 ? mynumber : mynumber - 9;
         }
-        return mysum % 10 == 0;
+        return mysum % 10 == 0; */
+        return false; 
     }
     
     /**
@@ -1034,15 +1034,16 @@ return false;
      * @param string myoperator See `Validation.comparison()`.
      * @param string|int mysize Size in bytes or human readable string like "5MB".
      */
-    static bool fileSize(Json valueToCheck, string myoperator, string|int mysize) {
-        myfile = getFilename(valueToCheck);
+    static bool fileSize(Json value, string operator, string size) {
+        return fileSize(value, operator, Text.parseFileSize(size));
+    }
+
+    static bool fileSize(Json valueToCheck, string myoperator, size_t mysize) {
+        auto myfile = getFilename(valueToCheck);
         if (myfile.isNull) {
             return false;
         }
-        if (isString(mysize)) {
-            mysize = Text.parseFileSize(mysize);
-        }
-        myfilesize = filesize(myfile);
+        auto myfilesize = filesize(myfile);
 
         return comparison(myfilesize, myoperator, mysize);
     }

@@ -52,12 +52,10 @@ class DPluginUnloadCommand : DCommand {
         }
         configData.remove(pluginName);
 
-        if (class_exists(VarExporter.classname)) {
-            Json[string] = VarExporter.export_(configData);
-        } else {
-            Json[string] = var_export_(configData, true);
-        }
-        contents = "" ~ "\n" ~ "return " ~ Json[string] ~ ";";
+        string exported = class_exists(VarExporter.classname)
+            ? VarExporter.export_(configData)
+            : var_export_(configData, true);
+        contents = "" ~ "\n" ~ "return " ~ exported ~ ";";
 
         return !file_put_contents(_configFile, contents)
             ? "Failed to update `CONFIG/plugins.d`"

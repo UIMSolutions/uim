@@ -461,7 +461,7 @@ class DFormHelper : DHelper {
         if (!_formProtector) {
             return null;
         }
-        foreach (fieldName, myvalue; fieldNames) {
+        fieldNames.byKeyValue.each!()
             if (isInt(fieldName)) {
                 fieldName = myvalue;
                 myvalue = null;

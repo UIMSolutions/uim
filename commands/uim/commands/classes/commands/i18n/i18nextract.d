@@ -417,12 +417,11 @@ class DI18nExtractCommand : DCommand {
                     
                     string aHeader = "";
                     if (!commandArguments.getOption("no-location")) {
-                        auto occurrences = null;
                         files.byKeyValue.each!(fileLines => 
                             array_unique(fileLines.value)
                                 .each!(line => occurrences ~= fileLines.key ~ ": " ~ line)
                         );
-                        occurrences = occurrences.join("\n#: ");
+                        auto occurrences = occurrences.join("\n#: ");
 
                         aHeader = "#: " ~ 
                             occurrences.replace(DIRECTORY_SEPARATOR, "/") ~ 
@@ -447,7 +446,7 @@ class DI18nExtractCommand : DCommand {
                         : _store(domain,  aHeader, sentence);
                 }
             }
-        });
+        };
     }
     
     // Prepare a file to be stored

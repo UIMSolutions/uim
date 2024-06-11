@@ -835,7 +835,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName The field you want to apply the rule to.
      * @param string myMessage The error message when the rule fails.
-     * @param \/*Closure|*/ string mywhen Either "create" or "update" or a Closure that returns
+     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.notBlank()
      */
@@ -864,11 +864,9 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     auto alphaNumeric(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
-            if (!_useI18n) {
-                myMessage = "The provided value must be alphanumeric";
-            } else {
-                myMessage = __d("uim", "The provided value must be alphanumeric");
-            }
+            myMessage = !_useI18n
+                ? "The provided value must be alphanumeric"
+                : __d("uim", "The provided value must be alphanumeric");
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 

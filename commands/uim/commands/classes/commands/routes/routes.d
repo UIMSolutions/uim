@@ -81,7 +81,7 @@ class DRoutesCommand : DCommand {
                         myRoute.options.getString("_name", myRoute.name),
                         routeTemplateName,
                         myRoute.defaults.getString("pluginName"),
-                        myRoute.defaults.getString("prefix")Name,
+                        myRoute.defaults.getString("prefix")/* Name */,
                         myRoute.defaults.getString("controNameller"),
                         myRoute.defaults.getString("action"),
                         someMethods.join(", "),
@@ -110,7 +110,7 @@ class DRoutesCommand : DCommand {
             ]);
 
         return aParser;
-    } */
+    }
 }
 
 /*/ Display all routes in an application

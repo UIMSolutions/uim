@@ -140,13 +140,13 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
             if (method_exists(aValue, "getOptionParser")) {
                 aParser = aValue.getOptionParser();
 
-                foreach (commandName, option; aParser.options()) {
-                    options ~= "--commandName";
-                    short = option.short();
-                    if (short) {
-                        options ~= "-short";
-                    }
-                }
+                 aParser.options().byKeyValue
+                    .each!(commandOption) {
+                        options ~= "--commandOption.command";
+                        if (auto short = commandOption.value.short()) {
+                            options ~= "-short";
+                        }
+                });
             }
         }
         options = array_unique(options);

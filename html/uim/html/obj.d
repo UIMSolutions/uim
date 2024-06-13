@@ -90,7 +90,7 @@ class DH5Obj {
 	O removeClasses(this O)(string[] values...) { this.removeClasses(values.dup); return cast(O)this; }
 	O removeClasses(this O)(string[] values) { 
 		foreach(value; values) {
-			this.classes(
+			classes(
 				classes.filter!(
 					a => value.length > 0 && a != value
 				).array
@@ -300,7 +300,7 @@ class DH5Obj {
 
 	 string attsToHTML() {
 		string[] items;
-		foreach(key; _attributes.byKey.array.sort!("a < b")) {
+		_attributes.byKey.array.sort!("a < b").each!((key) {
 			switch(key.toLower) {
 				case "id":
 					this.id(_attributes[key]); 
@@ -315,8 +315,8 @@ class DH5Obj {
 					else items~=key.toLower~`="`~_attributes[key]~`"`;
 					break;
 			}
-		}
-		return " "~items.join(" ");
+		});
+		return " " ~ items.join(" ");
 	}
 
   DH5Obj copy() {

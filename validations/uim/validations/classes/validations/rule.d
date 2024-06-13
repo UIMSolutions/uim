@@ -147,9 +147,9 @@ class DValidationRule {
      * Params:
      * string myproperty The name of the property to retrieve.
     */
-    Json get(string propertyName) {
+    // Json get(string propertyName) {
 /*         myproperty = "_" ~ myproperty;
 
         return _{myproperty} ?? null;
- */    }
+ */   //  }
 }

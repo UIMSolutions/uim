@@ -344,7 +344,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
     entity.addData("int", new DIntegerData(10));
     assert(cast(DIntegerData) entity.values["int"]);
-    assert(entity["int"] == "10");
+    assert(entity.getString("int") == "10");
     assert((cast(DIntegerData) entity.values["int"]).value == 10);
 
     entity.addData(new DCityNameAttribute);

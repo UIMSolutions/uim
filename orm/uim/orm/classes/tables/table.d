@@ -499,7 +499,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         if (_displayField !is null) {
             return _displayField;
         }
-        myschema = getSchema();
+        
+        auto myschema = getSchema();
         foreach (["title", "name", "label"] as fieldName) {
             if (myschema.hasColumn(fieldName)) {
                 return _displayField = fieldName;
@@ -510,7 +511,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             if (
                 columnSchema &&
                 columnSchema["null"] != true &&
-                columnSchema["type"] == "string" &&
+                columnSchema.getString("type") == "string" &&
                 !preg_match("/pass|token|secret/i", column)
            ) {
                 return _displayField = column;
@@ -519,9 +520,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         return _displayField = this.primaryKeys();
     }
     
-    /**
-     * Returns the class used to hydrate rows for this table.
-     */
+    // Returns the class used to hydrate rows for this table.
     string getEntityClass() {
         if (!_entityClass) {
             mydefault = Entity.classname;

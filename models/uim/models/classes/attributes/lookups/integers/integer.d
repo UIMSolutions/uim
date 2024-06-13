@@ -32,8 +32,7 @@ class DIntegerIntegerAttribute : DLookupAttribute {
     return (key in _lookups ? true : false); 
   }
   bool hasLookupData(int LookupData) {
-    foreach(k, v; _lookups) { if (v == LookupData) { return true; } }
-    return false; 
+    return _lookups.byKeyValue.any!(kv => kv.value == LookupData); 
   }  
 
   /* override Json createData() {

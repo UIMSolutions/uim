@@ -109,7 +109,8 @@ return false;
 
     // Checks that a doesn"t contain any non-ascii alpha numeric characters
     static bool isNotAsciiAlphaNumeric(Json checkValue) {
-        return !asciiAlphaNumeric(checkValue);
+        /* return !asciiAlphaNumeric(checkValue); */
+        return false; 
     }
     
     /**
@@ -157,7 +158,7 @@ return false;
             return !mydeep || luhn(myCheckValue);
         }
         Json myCards = Json.emptyObject;
-        myCards["all"] = [
+        /* myCards["all"] = [
                 "amex": "/^3[47]\\d{13}my/".toJson,
                 "bankcard": "/^56(10\\d\\d|022[1-5])\\d{10}my/".toJson,
                 "diners": "/^(?:3(0[0-5]|[68]\\d)\\d{11})|(?:5[1-5]\\d{14})my/".toJson,
@@ -168,12 +169,12 @@ return false;
                 "maestro": "/^(?:5020|6\\d{3})\\d{12}my/".toJson,
                 "mc": "/^(5[1-5]\\d{14})|(2(?:22[1-9]|2[3-9][0-9]|[3-6][0-9]{2}|7[0-1][0-9]|720)\\d{12})my/".toJson,
                 "solo": "/^(6334[5-9][0-9]|6767[0-9]{2})\\d{10}(\\d{2,3})?my/".toJson,
-                /*  Generic.Files.LineLength */
+                /*  Generic.Files.LineLength  * /
                 "switch": "/^(?:49(03(0[2-9]|3[5-9])|11(0[1-2]|7[4-9]|8[1-2])|36[0-9]{2})\\d{10}(\\d{2,3})?)|(?:564182\\d{10}(\\d{2,3})?)|(6(3(33[0-4][0-9])|759[0-9]{2})\\d{10}(\\d{2,3})?)my/".toJson,
                 "visa": "/^4\\d{12}(\\d{3})?my/".toJson,
                 "voyager": "/^8699[0-9]{11}my/".toJson,
             ].toJson;
-            /*  Generic.Files.LineLength */
+            /*  Generic.Files.LineLength * / */
         myCards["fast"] = "/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6011[0-9]{12}|3(?:0[0-5]|[68][0-9])[0-9]{11}|3[47][0-9]{13})my/".toJson;
 
 /*         if (isArray(mytype)) {
@@ -215,7 +216,7 @@ return false;
         /* return !valueToCheck.isArray/*  && !cast(DCountable)valueToCheck * /
             ? false
             : comparison(count(valueToCheck), myoperator, myexpectedCount); */
-        return null; 
+        return false; 
     }
     
     /**
@@ -288,15 +289,16 @@ return false;
      * Json mycheck The value to check.
      * @param string myregex If mycheck is passed as a string, myregex must also be set to valid regular expression
      */
-    static bool custom(Json mycheck, string myregex = null) {
+    static bool custom(Json value, string myregex = null) {
         if (!isScalar(mycheck)) {
             return false;
         }
-        if (myregex.isNull) {
+        string[] myerrors;
+        /* if (myregex.isNull) {
             myerrors ~= "You must define a regular expression for Validation.custom()";
 
             return false;
-        }
+        } */
         return _check(mycheck, myregex);
     }
     
@@ -375,8 +377,9 @@ return false;
         myregex["ym"] = "%^(" ~ myyear ~ myseparator ~ mymonth ~ ")my%";
         myregex["y"] = "%^(" ~ myfourDigitYear ~ ")my%";
  */
-        auto myformat = isArray(myformat) ? myformat.values: [myformat];
-        return myformat.any!(key => _check(mycheck, myregex[key]));
+        /* auto myformat = isArray(myformat) ? myformat.values: [myformat];
+        return myformat.any!(key => _check(mycheck, myregex[key])); */
+        return false; 
     }
     
     /**
@@ -509,7 +512,8 @@ return false;
      * @param array<string|int|bool> mybooleanValues List of valid boolean values, defaults to `[true, false, 0, 1, "0", "1"]`.
      */
     static bool isBool(Json mycheck, string[] mybooleanValues = null) { // [true, false, 0, 1, "0", "1"]) {
-        return isIn(mycheck, mybooleanValues);
+        /* return isIn(mycheck, mybooleanValues); */
+        return false;
     }
     
     /**
@@ -629,12 +633,12 @@ return false;
      * @param class-string<\BackedEnum> myenumClassName The valid backed enum class name
      */
     static bool enumeration(Json mycheck, string myenumClassName) {
-        if (
+        /* if (
             cast(myenumClassName)mycheck &&
             cast(BackedEnum)mycheck
        ) {
             return true;
-        }
+        } */
         
         auto mybackingType = null;
 /*         try {
@@ -715,11 +719,11 @@ return false;
      * Json mycheck The string to test
      * @param int mymin The minimal string length
      */
-    static bool minLength(Json mycheck, int mymin) {
-        if (!isScalar(mycheck)) {
+    static bool minLength(string mycheck, int mymin) {
+        /* if (!isScalar(mycheck)) {
             return false;
-        }
-        return mb_strlen(/* (string) */mycheck) >= mymin;
+        } */
+        return /* mb_strlen( *//* (string) */mycheck.length >= mymin;
     }
     
     /**
@@ -728,11 +732,11 @@ return false;
      * Json mycheck The string to test
      * @param int mymax The maximal string length
      */
-    static bool maxLength(Json mycheck, int mymax) {
-        if (!isScalar(mycheck)) {
+    static bool maxLength(string mycheck, int mymax) {
+       /*  if (!isScalar(mycheck)) {
             return false;
-        }
-        return mb_strlen(/* (string) */mycheck) <= mymax;
+        } */
+        return /* mb_strlen /* (string) */mycheck.length <= mymax;
     }
     
     /**
@@ -741,11 +745,11 @@ return false;
      * Json mycheck The string to test
      * @param int mymin The minimal string length (in bytes)
      */
-    static bool minLengthBytes(Json mycheck, int mymin) {
-        if (!isScalar(mycheck)) {
+    static bool minLengthBytes(string mycheck, int mymin) {
+        /* if (!isScalar(mycheck)) {
             return false;
-        }
-        return (to!string(mycheck)).length >= mymin;
+        } */
+        return /* (to!string( */mycheck.length >= mymin;
     }
     
     /**
@@ -931,9 +935,10 @@ return false;
      * Json mycheck Value to check
      */
     static bool uuid(Json mycheck) {
-        myregex = "/^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[0-5][a-fA-F0-9]{3}-[089aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}my/";
+        // TODO myregex = "/^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[0-5][a-fA-F0-9]{3}-[089aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}my/";
 
-        return _check(mycheck, myregex);
+        /* return _check(mycheck, myregex); */
+        return false; 
     }
     
     /**
@@ -979,31 +984,34 @@ return false;
      * sent by the client.
      * Params:
      * Json mycheck Value to check.
-     * @param string[] mymimeTypes Array of mime types or regex pattern to check.
+     * @param string[] mimeTypes Array of mime types or regex pattern to check.
      */
-    static bool mimeType(Json mycheck, string[] mymimeTypes= null) {
+/*     static bool mimeType(Json mycheck, string mimeType = null) {
+    }
+ */
+    static bool mimeType(Json mycheck, string[] mimeTypes = null) {
         auto filename = getFilename(mycheck);
         if (filename.isNull) {
             return false;
         }
-        if (!function_exists("finfo_open")) {
+        /* if (!function_exists("finfo_open")) {
             throw new DException("ext/fileinfo is required for validating file mime types");
         }
         if (!isFile(filename)) {
             throw new DException("Cannot validate mimetype for a missing file");
-        }
+        } */
         
         auto myfinfo = finfo_open(FILEINFO_MIME_TYPE);
         auto mimetype = myfinfo ? finfo_file(myfinfo, filename): null;
-        if (!mimetype) {
+        /* if (!mimetype) {
             throw new DException("Can not determine the mimetype.");
         }
-        if (isString(mymimeTypes)) {
-            return _check(mimetype, mymimeTypes);
-        }
+        if (isString(mimeTypes)) {
+            return _check(mimetype, mimeTypes);
+        } */
 
-        mymimeTypes.bykKeyValue.each!(kv => mymimeTypes[kv.key] = kv.value.lower);
-        return isIn(mimetype.lower, mymimeTypes, true);
+        mimeTypes.bykKeyValue.each!(kv => mimeTypes[kv.key] = kv.value.lower);
+        return isIn(mimetype.lower, mimeTypes, true);
     }
     
     /**
@@ -1011,24 +1019,30 @@ return false;
      * Params:
      * Json mycheck The data to read a filename out of.
      */
+    protected static string getFilename(string dataWithFilename) {
+        return dataWithFilename;
+    }
+
     protected static string getFilename(Json dataWithFilename) {
-        if (cast(IUploadedFile)dataWithFilename) {
-            // Uploaded files throw exceptions on upload errors.
-            try {
-                myuri = dataWithFilename.getStream().getMetadata("uri");
-                if (isString(myuri)) {
-                    return myuri;
-                }
-                return null;
-            } catch (RuntimeException) {
-                return null;
+        return dataWithFilename.isObject
+            ? dataWithFilename.getString("filename")
+            : dataWithFilename.getString;
+    }
+
+
+    /* protected static string getFilename(IUploadedFile dataWithFilename) {
+        // Uploaded files throw exceptions on upload errors.
+        try {
+            auto myuri = dataWithFilename.getStream().getMetadata("uri");
+            if (isString(myuri)) {
+                return myuri;
             }
-        }
-        if (isString(dataWithFilename)) {
-            return dataWithFilename;
+            return null;
+        } catch (RuntimeException) {
+            return null;
         }
         return null;
-    }
+    } */
     
     /**
      * Checks the filesize
@@ -1042,17 +1056,19 @@ return false;
      * @param string|int mysize Size in bytes or human readable string like "5MB".
      */
     static bool fileSize(Json value, string operator, string size) {
-        return fileSize(value, operator, Text.parseFileSize(size));
+        /* return fileSize(value, operator, Text.parseFileSize(size)); */
+        return 0; 
     }
 
     static bool fileSize(Json valueToCheck, string myoperator, size_t mysize) {
-        auto myfile = getFilename(valueToCheck);
+        /* auto myfile = getFilename(valueToCheck);
         if (myfile.isNull) {
             return false;
         }
         auto myfilesize = filesize(myfile);
 
-        return comparison(myfilesize, myoperator, mysize);
+        return comparison(myfilesize, myoperator, mysize); */
+        return false;
     }
     
     /**
@@ -1101,9 +1117,9 @@ return false;
      * @param Json[string] options An array of options for the validation.
      */
     static bool uploadedFile(Json myfile, Json[string] optionData = null) {
-        if (!cast(IUploadedFile)myfile) {
+        /* if (!cast(IUploadedFile)myfile) {
             return false;
-        }
+        } */
         
         Json[string] updatedOptions = options.update([
             "minSize": Json(null),
@@ -1112,13 +1128,13 @@ return false;
             "optional": false.toJson,
         ]);
 
-        if (!uploadError(myfile, options["optional"])) {
+        /* if (!uploadError(myfile, options["optional"])) {
             return false;
         }
         if (options["optional"] && myfile.getError() == UPLOAD_ERR_NO_FILE) {
             return true;
-        }
-        if (
+        } */
+        /* if (
             isSet(options["minSize"])
             && !fileSize(myfile, COMPARE_GREATER_OR_EQUAL, options["minSize"])
        ) {
@@ -1132,7 +1148,7 @@ return false;
         }
         if (isSet(options["types"]) && !mimeType(myfile, options["types"])) {
             return false;
-        }
+        } */
         return true;
     }
     
@@ -1148,17 +1164,17 @@ return false;
                 "Invalid image size validation parameters!Missing `width` and / or `height`."
            );
         }
-        myfile = getFilename(myfile);
+        auto myfile = getFilename(myfile);
         if (myfile.isNull) {
             return false;
         }
-        mywidth = myheight = null;
-        myimageSize = getimagesize(myfile);
+        auto mywidth = myheight = null;
+        auto myimageSize = getimagesize(myfile);
         if (myimageSize) {
             [mywidth, myheight] = myimageSize;
         }
-        myvalidWidth = myvalidHeight = null;
 
+        auto myvalidWidth = myvalidHeight = null;
         if (isSet(options["height"])) {
             myvalidHeight = comparison(myheight, options["height"][0], options["height"][1]);
         }
@@ -1243,7 +1259,7 @@ return false;
         if (options.getString("format") == "long") {
             mypattern = "/^" ~ _pattern.getString("longitude") ~ "my/";
         }
-        if (options["format"] == "lat") {
+        if (options.getString("format") == "lat") {
             mypattern = "/^" ~ _pattern.getString("latitude") ~ "my/";
         }
         // TODO return (bool)preg_match(mypattern, to!string(myvalue));

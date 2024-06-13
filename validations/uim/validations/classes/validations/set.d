@@ -43,7 +43,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
 
     // "create", "update" or a callable.
     void allowEmpty(/*callable|*/string myallowEmpty) {
-       _allowEmpty = myallowEmpty;
+       /* _allowEmpty = myallowEmpty; */
     }
 
     // Gets a rule for a given name if exists
@@ -86,7 +86,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * ```
      */
     bool remove(string ruleName) {
-        _rules.remove(ruleName);
+        return _rules.remove(ruleName);
     }
     
     // Returns whether an index exists in the rule set

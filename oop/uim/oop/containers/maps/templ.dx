@@ -81,7 +81,7 @@ class DMapTempl(K, V): DMap {
 		return cast(O)this;
 	}
 	O remove(this O)(K[] someKeys) {
-		foreach(key; someKeys) _items.remove(key);
+		someKeys.each!(key => _items.remove(key));
 		return cast(O)this;
 	}
 	O clear(this O)() {

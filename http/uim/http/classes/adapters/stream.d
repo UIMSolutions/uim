@@ -180,7 +180,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
     // Open the stream and send the request.
     protected Json[string] _send(IRequest request) {
         auto deadline = false;
-        if (isSet(_contextOptions["timeout"]) && _contextOptions["timeout"] > 0) {
+        if (_contextOptions.hasKey("timeout")) && _contextOptions["timeout"] > 0) {
             /** @var int deadline */
             deadline = time() + _contextOptions["timeout"];
         }
@@ -211,7 +211,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             throw new DNetworkException("Connection timed out " ~ url, request);
         }
          aHeaders = meta["wrapper_data"];
-        if (isSet(aHeaders["headers"]) && isArray(aHeaders["headers"])) {
+        if (aHeaders.hasKey("headers") && isArray(aHeaders["headers"])) {
              aHeaders = aHeaders["headers"];
         }
         return _createResponses(aHeaders, content);

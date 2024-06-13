@@ -379,9 +379,9 @@ class DResponse : IResponse {
      * - charset: the charset for the response body
      */
     this(Json[string] options = null) {
-       _streamTarget = options["streamTarget"] ?? _streamTarget;
-       _streamMode = options["streamMode"] ?? _streamMode;
-        if (isSet(options["stream"])) {
+       _streamTarget = options.get("streamTarget", _streamTarget);
+       _streamMode = options.get("streamMode", _streamMode);
+        if (options.hasKey("stream")) {
             if (!cast(IStream)options["stream"]) {
                 throw new DInvalidArgumentException("Stream option must be an object that : IStream");
             }
@@ -389,17 +389,17 @@ class DResponse : IResponse {
         } else {
            _createStream();
         }
-        if (isSet(options["body"])) {
+        if (options.hasKey("body")) {
            _stream.write(options["body"]);
         }
-        if (isSet(options["status"])) {
+        if (options.hasKey("status")) {
            _setStatus(options["status"]);
         }
         if (!options.hasKey("charset")) {
             options["charset"] = configuration.get("App.encoding");
         }
        _charset = options["charset"];
-        type = "text/html";
+        auto type = "text/html";
         if (options.hasKey("type")) {
             type = this.resolveType(options["type"]);
         }

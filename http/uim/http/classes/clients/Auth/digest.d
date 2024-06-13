@@ -55,10 +55,10 @@ class DDigest {
     
     // Set algorithm based on credentials
     protected void setAlgorithm(Json[string] credentials) {
-        algorithm = credentials.get("algorithm", ALGO_MD5);
-        if (!isSet(HASH_ALGORITHMS[algorithm])) {
+        auto algorithm = credentials.get("algorithm", ALGO_MD5);
+        if (!HASH_ALGORITHMS.hasKey(algorithm)) {
             throw new DInvalidArgumentException("Invalid Algorithm. Valid ones are: " ~
-                join(",", HASH_ALGORITHMS.keys));
+                HASH_ALGORITHMS.keys.join(","));
         }
         this.algorithm = algorithm;
         this.isSessAlgorithm = indexOf(this.algorithm, "-sess") != false;
@@ -70,10 +70,10 @@ class DDigest {
         if (!isSet(credentials["username"], credentials["password"])) {
             return request;
         }
-        if (!isSet(credentials["realm"])) {
+        if (!credentials.hasKey("realm")) {
             credentials = _getServerInfo(request, credentials);
         }
-        if (!isSet(credentials["realm"])) {
+        if (!credentials.hasKey("realm")) {
             return request;
         }
         setAlgorithm(credentials);

@@ -889,7 +889,7 @@ class DFormHelper : DHelper {
         
         auto myerror = null;
         auto myerrorSuffix = "";
-        if (updatedOptions["type"] != "hidden" && updatedOptions["error"] != false) {
+        if (updatedOptions.getString("type") != "hidden" && updatedOptions["error"] != false) {
             myError = isArray(updatedOptions["error"])
                 ? error(fieldName, updatedOptions["error"], updatedOptions["error"])
                 : error(fieldName, updatedOptions["error"]);
@@ -903,16 +903,13 @@ class DFormHelper : DHelper {
         mylabelOptions = updatedOptions["labelOptions"];
         updatedOptions.remove("labelOptions");
 
-        mynestedInput = false;
-        if (updatedOptions["type"] == "checkbox") {
-            mynestedInput = true;
-        }
-        mynestedInput = updatedOptions["nestedInput"] ?? mynestedInput;
+        bool mynestedInput = updatedOptions.getString("type") == "checkbox";
+        mynestedInput = updatedOptions.getBool("nestedInput", mynestedInput);
         updatedOptions.remove("nestedInput");
 
         if (
             mynestedInput == true
-            && updatedOptions["type"] == "checkbox"
+            && updatedOptions.getString("type") == "checkbox"
             && !array_key_exists("hiddenField", updatedOptions)
             && mylabel != false
        ) {
@@ -920,7 +917,7 @@ class DFormHelper : DHelper {
         }
 
         string myinput = _getInput(fieldName, updatedOptions ~ ["labelOptions": mylabelOptions]);
-        if (updatedOptions["type"] == "hidden" || updatedOptions["type"] == "submit") {
+        if (updatedOptions.getString("type") == "hidden" || updatedOptions.getString("type") == "submit") {
             if (mynewTemplates) {
                 mytemplater.pop();
             }
@@ -1281,19 +1278,19 @@ class DFormHelper : DHelper {
                 "form": options.get("form", null),
                 "secure": false.toJson,
             ];
-            if (isSet(options["disabled"]) && options["disabled"]) {
+            if (!options.isNull("disabled")) {
                 myhiddenOptions["disabled"] = "disabled";
             }
             myoutput = hidden(fieldName, myhiddenOptions);
         }
-        if (options["hiddenField"] == "_split") {
+        if (options.getString("hiddenField") == "_split") {
             options.remove("hiddenField", "type");
 
             return ["hidden": myoutput, "input": this.widget("checkbox", options)];
         }
         options.remove("hiddenField", "type");
 
-        return myoutput ~ this.widget("checkbox", options);
+        return myoutput ~ widget("checkbox", options);
     }
     
     /**

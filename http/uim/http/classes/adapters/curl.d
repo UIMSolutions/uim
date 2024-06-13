@@ -113,7 +113,7 @@ class DCurl { // }: IAdapter {
             password = !clientOptions.isEmpty("proxy.password") ? clientOptions["proxy.password"] : "";
              result[CURLOPT_PROXYUSERPWD] = clientOptions.getString("proxy.username") ~ ": " ~ password;
         }
-        if (isSet(clientOptions["curl"]) && isArray(clientOptions["curl"])) {
+        if (clientOptions.hasKey("curl") && isArray(clientOptions["curl"])) {
             // Can`t use array_merge() because keys will be re-ordered.
             clientOptions["curl"].byKeyValue
                 .each!(kv => result[kv.key] = kv.value);
@@ -128,7 +128,7 @@ class DCurl { // }: IAdapter {
      * \Psr\Http\Message\IRequest request The request to get a protocol version for.
      */
     protected int getProtocolVersion(IRequest request) {
-        return match (request.getProtocolVersion()) {
+        /* return match (request.getProtocolVersion()) {
             "1.0": CURL_HTTP_VERSION_1_0,
             "1.1": CURL_HTTP_VERSION_1_1,
             "2", "2.0": defined("CURL_HTTP_VERSION_2TLS")
@@ -138,7 +138,8 @@ class DCurl { // }: IAdapter {
                     : throw new DHttpException("libcurl 7.33 or greater required for HTTP/2 support")
                ),
             default: CURL_HTTP_VERSION_NONE,
-        };
+        }; */
+        return 0;
     }
     
     // Convert the raw curl response into an Http\Client\Response

@@ -22,9 +22,10 @@ class DBasic {
     
     // Proxy Authentication
     Request proxyAuthentication(Request request, Json[string] credentials) {
-        if (isSet(credentials["username"], credentials["password"])) {
-            aValue = _generateHeader(credentials["username"], credentials["password"]);
-            request = request.withHeader("Proxy-Authorization", aValue);
+        Request request;
+        if (credentials.hasAllKeys("username", credentials["password"])) {
+            auto aValue = _generateHeader(credentials["username"], credentials["password"]);
+            auto request = request.withHeader("Proxy-Authorization", aValue);
         }
         return request;
     }

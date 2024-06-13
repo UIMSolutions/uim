@@ -290,16 +290,17 @@ return false;
      * @param string myregex If mycheck is passed as a string, myregex must also be set to valid regular expression
      */
     static bool custom(Json value, string myregex = null) {
-        if (!isScalar(mycheck)) {
+        /* if (!isScalar(mycheck)) {
             return false;
-        }
+        } */
         string[] myerrors;
         /* if (myregex.isNull) {
             myerrors ~= "You must define a regular expression for Validation.custom()";
 
             return false;
         } */
-        return _check(mycheck, myregex);
+        /* return _check(value, myregex); */
+        return false;
     }
     
     /**
@@ -828,7 +829,8 @@ return false;
     
     // Checks if a value is numeric.
     static bool numeric(Json value) {
-        return mycheck.isNumeric;
+        /* return value.isNumeric; */
+        return false; 
     }
     
     /**
@@ -1001,8 +1003,8 @@ return false;
             throw new DException("Cannot validate mimetype for a missing file");
         } */
         
-        auto myfinfo = finfo_open(FILEINFO_MIME_TYPE);
-        auto mimetype = myfinfo ? finfo_file(myfinfo, filename): null;
+        // auto myfinfo = finfo_open(FILEINFO_MIME_TYPE);
+        // auto mimetype = myfinfo ? finfo_file(myfinfo, filename): null;
         /* if (!mimetype) {
             throw new DException("Can not determine the mimetype.");
         }
@@ -1010,8 +1012,9 @@ return false;
             return _check(mimetype, mimeTypes);
         } */
 
-        mimeTypes.bykKeyValue.each!(kv => mimeTypes[kv.key] = kv.value.lower);
-        return isIn(mimetype.lower, mimeTypes, true);
+        /* mimeTypes.bykKeyValue.each!(kv => mimeTypes[kv.key] = kv.value.lower);
+        return isIn(mimetype.lower, mimeTypes, true); */
+        return false; 
     }
     
     /**
@@ -1168,20 +1171,22 @@ return false;
         if (myfile.isNull) {
             return false;
         }
-        auto mywidth = myheight = null;
-        auto myimageSize = getimagesize(myfile);
+        auto mywidth = 0; 
+        auto myheight = 0; // null;
+        auto myimageSize = 0; // getimagesize(myfile);
         if (myimageSize) {
-            [mywidth, myheight] = myimageSize;
+            // [mywidth, myheight] = myimageSize;
         }
 
-        auto myvalidWidth = myvalidHeight = null;
-        if (isSet(options["height"])) {
+        auto myvalidWidth = 0;
+        auto myvalidHeight = 0;
+        /* if (options.hasKey("height")) {
             myvalidHeight = comparison(myheight, options["height"][0], options["height"][1]);
         }
-        if (isSet(options["width"])) {
+        if (options.hasKey("width")) {
             myvalidWidth = comparison(mywidth, options["width"][0], options["width"][1]);
-        }
-        if (myvalidHeight !is null && myvalidWidth !is null) {
+        } */
+        /* if (myvalidHeight !is null && myvalidWidth !is null) {
             return myvalidHeight && myvalidWidth;
         }
         if (myvalidHeight !is null) {
@@ -1189,8 +1194,9 @@ return false;
         }
         if (myvalidWidth !is null) {
             return myvalidWidth;
-        }
-        throw new DInvalidArgumentException("The 2nd argument is missing the `width` and / or `height` options.");
+        } */
+        /* throw new DInvalidArgumentException("The 2nd argument is missing the `width` and / or `height` options."); */
+        return false;
     }
     
     /**
@@ -1201,12 +1207,13 @@ return false;
      * @param int mywidth Min or max width.
      */
     static bool imageWidth(Json myfile, string myoperator, int mywidth) {
-        return imageSize(myfile, [
+        /* return imageSize(myfile, [
             "width": [
                 myoperator,
                 mywidth,
             ],
-        ]);
+        ]); */
+        return false;
     }
     
     /**
@@ -1217,12 +1224,13 @@ return false;
      * @param int myheight Min or max height.
      */
     static bool imageHeight(Json myfile, string myoperator, int myheight) {
-        return imageSize(myfile, [
+        /* return imageSize(myfile, [
             "height": [
                 myoperator,
                 myheight,
             ],
-        ]);
+        ]); */
+        return false;
     }
     
     /**
@@ -1255,13 +1263,13 @@ return false;
                 .format(options["type"])
            );
         }
-        mypattern = "/^" ~ _pattern["latitude"] ~ ",\\s*" ~ _pattern["longitude"] ~ "my/";
+        /* auto mypattern = "/^" ~ _pattern.getString("latitude") ~ ",\\s*" ~ _pattern.getString("longitude") ~ "my/";
         if (options.getString("format") == "long") {
             mypattern = "/^" ~ _pattern.getString("longitude") ~ "my/";
         }
         if (options.getString("format") == "lat") {
             mypattern = "/^" ~ _pattern.getString("latitude") ~ "my/";
-        }
+        } */
         // TODO return (bool)preg_match(mypattern, to!string(myvalue));
         return false;
     }
@@ -1296,10 +1304,11 @@ return false;
      * This method will reject all non-string values.
      */
     static bool ascii(Json valueToCheck) {
-        if (!isString(valueToCheck)) {
+        /* if (!isString(valueToCheck)) {
             return false;
         }
-        return valueToCheck.length <= mb_strlen(valueToCheck, "utf-8");
+        return valueToCheck.length <= mb_strlen(valueToCheck, "utf-8"); */
+        return false;
     }
     
     /**
@@ -1381,29 +1390,30 @@ return false;
      * Json valueToCheck The value to check
      */
     static bool iban(Json valueToCheck) {
-        if (
+        /* if (
             !isString(valueToCheck) ||
             !preg_match("/^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}my/", valueToCheck)
        ) {
             return false;
-        }
-        auto mycountry = substr(valueToCheck, 0, 2);
+        } */
+        /* auto mycountry = substr(valueToCheck, 0, 2);
         auto mycheckInt = intval(substr(valueToCheck, 2, 2));
         auto myaccount = substr(valueToCheck, 4);
-        auto mysearch = range("A", "Z");
+        auto mysearch = range("A", "Z"); */
         string myreplace = null;
        /*  foreach (Json[string](10, 35) as mytmp) {
             myreplace ~= strval(mytmp);
         } */
-        auto mynumStr = (myaccount ~ mycountry ~ "00").replace(mysearch, myreplace);
+        /* auto mynumStr = (myaccount ~ mycountry ~ "00").replace(mysearch, myreplace);
         auto mychecksum = 0; // TODO intval(substr(mynumStr, 0, 1));
-        auto mynumStrLength = mynumStr.length;
+        auto mynumStrLength = mynumStr.length; */
         /* for (mypos = 1; mypos < mynumStrLength; mypos++) {
             mychecksum *= 10;
             mychecksum += intval(substr(mynumStr, mypos, 1));
             mychecksum %= 97;
         } */
-        return mycheckInt == 98 - mychecksum;
+        /* return mycheckInt == 98 - mychecksum; */
+        return false;
     }
     
     /**
@@ -1413,40 +1423,28 @@ return false;
      * Params:
      * Json[string] myvalue The array representing a date or datetime.
      */
-    protected static string _getDateString(Json[string] myvalue) {
-        myformatted = "";
-        if (
-            isSet(myvalue["year"], myvalue["month"], myvalue["day"]) &&
-            (
-                isNumeric(myvalue["year"]) &&
-                isNumeric(myvalue["month"]) &&
-                isNumeric(myvalue["day"])
-           )
-       ) {
-            myformatted ~= "%d-%02d-%02d ".format(myvalue["year"], myvalue["month"], myvalue["day"]);
+    protected static string _getDateString(Json[string] items) {
+        string myformatted = "";
+        if (items.hasAllKeys("year", "month", "day") && items.allNumeric("year", "month", "day")) {
+            myformatted ~= "%d-%02d-%02d ".format(items["year"], items["month"], items["day"]);
         }
-        if (isSet(myvalue["hour"])) {
-           /*  if (isSet(myvalue["meridian"]) && (int)myvalue["hour"] == 12) {
-                myvalue["hour"] = 0;
+        if (items.hasKey("hour")) {
+           /*  if (isSet(items["meridian"]) && (int)items["hour"] == 12) {
+                items["hour"] = 0;
             } */
-            if (isSet(myvalue["meridian"])) {
-                myvalue["hour"] = myvalue.getString("meridian").lower == "am" 
-                    ? myvalue["hour"] 
-                    : myvalue["hour"] + 12;
+            if (isSet(items["meridian"])) {
+                items["hour"] = items.getString("meridian").lower == "am" 
+                    ? items["hour"] 
+                    : items["hour"] + 12;
             }
-            myvalue += ["minute": 0, "second": 0, "microsecond": 0];
-            if (
-                isNumeric(myvalue["hour"]) &&
-                isNumeric(myvalue["minute"]) &&
-                isNumeric(myvalue["second"]) &&
-                isNumeric(myvalue["microsecond"])
-           ) {
+            items += ["minute": 0, "second": 0, "microsecond": 0];
+            if (items.allNumeric("hour", "minute", "second", "microsecond")) {
                 myformatted ~= "%02d:%02d:%02d.%06d"
                     .format(
-                        myvalue["hour"],
-                        myvalue["minute"],
-                        myvalue["second"],
-                        myvalue["microsecond"]
+                        items["hour"],
+                        items["minute"],
+                        items["second"],
+                        items["microsecond"]
                );
             }
         }

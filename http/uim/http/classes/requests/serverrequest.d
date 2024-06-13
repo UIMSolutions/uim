@@ -456,21 +456,21 @@ class DServerRequest { // }: IServerRequest {
      */
     protected bool _is(string atype, Json[string] someArguments) {
         auto detect = _detectors[type];
-        if (cast(DClosure)detect) {
+        /* if (cast(DClosure)detect) {
             array_unshift(someArguments, this);
 
             return detect(...someArguments);
-        }
-        if (isSet(detect["env"]) && _environmentDetector(detect)) {
+        } */
+        if (detect.hasKey("env") && _environmentDetector(detect)) {
             return true;
         }
-        if (isSet(detect["header"]) && _headerDetector(detect)) {
+        if (detect.hasKey("header") && _headerDetector(detect)) {
             return true;
         }
-        if (isSet(detect["accept"]) && _acceptHeaderDetector(detect)) {
+        if (detect.hasKey("accept") && _acceptHeaderDetector(detect)) {
             return true;
         }
-        if (isSet(detect["param"]) && _paramDetector(detect)) {
+        if (detect.hasKey("param") && _paramDetector(detect)) {
             return true;
         }
         return false;
@@ -482,17 +482,17 @@ class DServerRequest { // }: IServerRequest {
      * Json[string] detect Detector options array.
      */
     protected bool _acceptHeaderDetector(Json[string] detect) {
-        content = new DContentTypeNegotiation();
-        options = detect["accept"];
+        auto content = new DContentTypeNegotiation();
+        auto options = detect["accept"];
 
         // Some detectors overlap with the default browser Accept header
         // For these types we use an exclude list to refine our content type
         // detection.
-        exclude = detect.get("exclude", null);
+        auto exclude = detect.get("exclude", null);
         if (exclude) {
             options = array_merge(options, exclude);
         }
-        accepted = content.preferredType(this, options);
+        auto accepted = content.preferredType(this, options);
         if (accepted.isNull) {
             return false;
         }

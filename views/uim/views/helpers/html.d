@@ -326,11 +326,11 @@ class DHtmlHelper : DHelper {
      * @param Json[string] htmlAttributes Array of options and HTML arguments.
      */
     string css(string[] mypath, Json[string] htmlAttributes = null) {
-        htmlAttributes = htmlAttributes.update([
+        auto htmlAttributes = htmlAttributes.update([
             "once": true.toJson,
             "block": Json(null),
-            "rel": Json("stylesheet"),
-            "nonce": _View.getRequest().getAttribute("cspStyleNonce"),
+            "rel": "stylesheet".toJson,
+            "nonce": _View.getRequest().getAttribute("cspStyleNonce").toJson,
         ]);
 
         if (mypath.isArray) {
@@ -352,8 +352,8 @@ class DHtmlHelper : DHelper {
         htmlAttributes.remove("once");
        _includedAssets[__METHOD__][mypath] = true;
 
-        mytemplater = this.templater();
-        if (htmlAttributes["rel"] == "import") {
+        auto mytemplater = this.templater();
+        if (htmlAttributes.getString("rel") == "import") {
             result = mytemplater.format("style", [
                 "attrs": mytemplater.formatAttributes(htmlAttributes, ["rel", "block"]),
                 "content": "@import url(" ~ myurl ~ ");",

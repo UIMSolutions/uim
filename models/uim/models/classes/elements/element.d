@@ -178,7 +178,7 @@ class DElement : IElement {
     auto element = new DElement;
     element["test"] = value;
 
-    assert(element["test"] == "aValue"); */
+    assert(element.getString("test") == "aValue"); */
   }
 
   // Set data 

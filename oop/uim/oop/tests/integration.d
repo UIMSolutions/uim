@@ -478,7 +478,7 @@ mixin template TIntegrationTest() {
         } else if (
             someData.isArray &&
             props.hasKey("environment.CONTENT_TYPE") &&
-            props["environment.CONTENT_TYPE"] == "application/x-www-form-urlencoded"
+            props.getString("environment.CONTENT_TYPE") == "application/x-www-form-urlencoded"
             ) {
             props["input"] = http_build_query(someData);
         } else {

@@ -278,7 +278,8 @@ return false;
         /* if (!isSet(mycontext["data"]) || !array_key_exists(fieldName, mycontext["data"])) {
             return false;
         } */
-        return comparison(mycheck, myoperator, mycontext["data"][fieldName]);
+        // TODO return comparison(mycheck, myoperator, mycontext["data"][fieldName]);
+        return false;
     }
     
     /**
@@ -397,9 +398,9 @@ return false;
         if (isObject(valueToCheck)) {
             return false;
         }
-        if (isArray(mydateFormat) && count(mydateFormat) == 1) {
+        /* if (isArray(mydateFormat) && count(mydateFormat) == 1) {
             mydateFormat = reset(mydateFormat);
-        }
+        } */
         /* if (mydateFormat == DATETIME_ISO8601 && !isValidIso8601(valueToCheck)) {
             return false;
         } */
@@ -520,7 +521,8 @@ return false;
      * @param array<string|int|bool> mytruthyValues List of valid truthy values, defaults to `[true, 1, "1"]`.
      */
     static bool truthy(Json mycheck, Json[] mytruthyValues/*  = [true, 1, "1"] */) {
-        return isIn(mycheck, mytruthyValues, true);
+        /* return isIn(mycheck, mytruthyValues, true); */
+        return false;
     }
     
     /**
@@ -532,7 +534,8 @@ return false;
      * @param array<string|int|bool> myfalseyValues List of valid falsey values, defaults to `[false, 0, "0"]`.
      */
     static bool falsey(Json mycheck, Json[] myfalseyValues/*  = [false, 0, "0"] */) {
-        return isIn(mycheck, myfalseyValues, true);
+        /* return isIn(mycheck, myfalseyValues, true); */
+        return false;
     }
     
     /**
@@ -1237,7 +1240,7 @@ return false;
            );
         }
         mypattern = "/^" ~ _pattern["latitude"] ~ ",\\s*" ~ _pattern["longitude"] ~ "my/";
-        if (options["format"] == "long") {
+        if (options.getString("format") == "long") {
             mypattern = "/^" ~ _pattern.getString("longitude") ~ "my/";
         }
         if (options["format"] == "lat") {

@@ -2063,7 +2063,7 @@ class DFormHelper : DHelper {
             return false;
         }
         if (isScalar(options["disabled"])) {
-            return options["disabled"] == true || options["disabled"] == "disabled";
+            return options["disabled"] == true || options.getString("disabled") == "disabled";
         }
         if (!ons.hasKey("options")) {
             return false;

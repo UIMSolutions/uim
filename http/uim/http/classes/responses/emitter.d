@@ -198,7 +198,7 @@ class DResponseEmitter {
                 matches["unit"],
                 matches.getLong("first"),
                 matches.getLong("last"),
-                matches["length"] == "*' ? "*" : matches.getLong("length"),
+                matches.getString("length") == "*" ? "*" : matches.getLong("length"),
             ];
         }
         return false;

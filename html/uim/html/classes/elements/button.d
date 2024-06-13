@@ -25,7 +25,7 @@ enum ButtonTypes : string {
 version(test_uim_html) { unittest {
 	assert(H5Button,"<button></button>");
 
-	//	assert(H5Button.type(ButtonTypes.Button).attributes["type"] == "button");
-	//	assert(H5Button.type(ButtonTypes.Reset).attributes["type"] == "submit");
-	//	assert(H5Button.type(ButtonTypes.Submit).attributes["type"] == "reset");
+	//	assert(H5Button.type(ButtonTypes.Button).attributes.getString("type") == "button");
+	//	assert(H5Button.type(ButtonTypes.Reset).attributes.getString("type") == "submit");
+	//	assert(H5Button.type(ButtonTypes.Submit).attributes.getString("type") == "reset");
 }}

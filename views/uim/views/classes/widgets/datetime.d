@@ -167,7 +167,7 @@ class DDateTimeWidget : DWidget {
             myformat = this.formatMap[optionsForConversion["type"]];
 
             if (
-                optionsForConversion["type"] == "datetime-local"
+                optionsForConversion.getString("type") == "datetime-local"
                 && isNumeric(optionsForConversion["step"])
                 && optionsForConversion["step"] < 1
            ) {

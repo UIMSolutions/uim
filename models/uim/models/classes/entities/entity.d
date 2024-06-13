@@ -1160,7 +1160,7 @@ unittest {
   assert(entity["element.name"] == "newElementName");
 
   ElementData = cast(DElementData)entity.values["element"];
-  assert(ElementData.value["name"] == "newElementName");  */
+  assert(ElementData.value.getString("name") == "newElementName");  */
 
   /*
   assert(Entity.id(randomuuid)

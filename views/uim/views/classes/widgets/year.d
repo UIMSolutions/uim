@@ -67,7 +67,7 @@ class DYearWidget : DWidget {
         }
 
 
-        mydata["options"] = mydata["order"] == "desc"
+        mydata["options"] = mydata.getString("order") == "desc"
             ? range(mydata["max"], mydata["min"])   
             : range(mydata["min"], mydata["max"]);
             

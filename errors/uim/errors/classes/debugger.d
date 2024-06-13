@@ -279,7 +279,7 @@ class DDebugger {
 
         auto mergedOptions = Hash.merge(defaults, options);
         auto count = count(backtrace) + 1;
-        auto back = null;
+        string[] back = null;
 
         for (anI = mergedOptions["start"]; anI < count && anI < mergedOptions["depth"]; anI++) {
             frame = ["file": "[main]", "line": ""];
@@ -288,7 +288,7 @@ class DDebugger {
             }
             string signature = frame.getString("file");
             string reference = frame.getString("file");
-            if (!frame["class"].isEmpty) {
+            if (!frame.isEmpty("class")) {
                 string signature = frame.getString("class") ~ frame.getString("type") ~ frame.getString("function");
                 string reference = signature ~ "(";
                 if (mergedOptions["args"] && isSet(frame["args"])) {
@@ -305,25 +305,25 @@ class DDebugger {
                     "line": frame["line"],
                     "reference": reference
                 ];
-            } else if (mergedOptions["format"] == "array") {
+            } else if (mergedOptions.getString("format") == "array") {
                 if (!mergedOptions["args"]) {
                     remove(frame["args"]);
                 }
                 back ~= frame;
-            } else if (mergedOptions["format"] == "text") {
+            } else if (mergedOptions.getString("format") == "text") {
                 somePath = trimPath(frame["file"]);
                 back ~= "%s - %s, line %d".format(reference, somePath, frame["line"]);
             } else {
                 debug (mergedOptions);
                 throw new DInvalidArgumentException(
-                    "Invalid trace format of `{mergedOptions[" format"]}` chosen. Must be one of `array`, `points` or `text`."
+                    "Invalid trace format of `{mergedOptions[\"format\"]}` chosen. Must be one of `array`, `points` or `text`."
                );
             }
         }
-        if (mergedOptions["format"] == "array" || mergedOptions["format"] == "points") {
+        if (mergedOptions.getString("format") == "array" || mergedOptions.getString("format") == "points") {
             return back;
         }
-        return join("\n", back);
+        return back.join("\n");
     }
 
     // Shortens file paths by replacing the application base path with 'APP", and the UIM core path with 'CORE'.

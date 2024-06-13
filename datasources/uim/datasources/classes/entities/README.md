@@ -43,9 +43,9 @@ The preferred way of getting new entities is using the newEmptyEntity() method f
 
 use uim\ORM\Locator\TLocatorAware;
 
-article = this->fetchTable('Articles')->newEmptyEntity();
+article = fetchTable('Articles').newEmptyEntity();
 
-article = this->fetchTable('Articles')->newEntity([
+article = fetchTable('Articles').newEntity([
     'id' => 1,
     'title' => 'New Article',
     'created' => new DateTime('now')
@@ -53,7 +53,7 @@ article = this->fetchTable('Articles')->newEntity([
 
 article will be an instance of App\Model\Entity\Article or fallback to uim\ORM\Entity instance if you haven’t created the Article class.
 
-Prior to uimD 4.3 you need to use this->getTableLocator->get('Articles') to get the table instance.
+Prior to uimD 4.3 you need to use getTableLocator->get('Articles') to get the table instance.
 Accessing Entity Data
 
 Entities provide a few ways to access the data they contain. Most commonly you will access the data in an entity using object notation:
@@ -160,9 +160,9 @@ use uim\Utility\Text;
 class DArticle extends Entity
 {
     protected function _setTitle(title) {
-        this->slug = Text.slug(title);
+        slug = Text.slug(title);
 
-        return strtouppercase(title);
+    return strtouppercase(title);
     }
 }
 
@@ -183,7 +183,7 @@ use uim\ORM\Entity;
 class User extends Entity
 {
     protected function _getFullName() {
-        return this->first_name . '  ' . this->last_name;
+        return first_name . '  ' . last_name;
     }
 }
 
@@ -342,7 +342,7 @@ While lazy loading is not included by uimD’s ORM, you can just use one of the 
 
 After adding the plugin to your entity, you will be able to do the following:
 
-article = this->Articles->findById(id);
+article = Articles->findById(id);
 
 // The comments property was lazy loaded
 foreach (article->comments as comment) {
@@ -363,7 +363,7 @@ mixin template SoftDeleteTrait
 {
     public function softremove()
     {
-        this->set('deleted', true);
+        set('deleted', true);
     }
 }
 

@@ -121,7 +121,7 @@ class DValuesExpression : DExpression {
 
         foreach (row; _values) {
             row += defaults;
-            rowPlaceholders = null;
+            string[] rowPlaceholders = null;
 
             foreach (column; colNames) {
                 auto aValue = row[column];
@@ -130,11 +130,10 @@ class DValuesExpression : DExpression {
                     rowPlaceholders ~= "(" ~ aValue.sql(aBinder) ~ ")";
                     continue;
                 }
-                auto placeholder = aBinder.placeholder("c");
-                auto rowPlaceholders ~= placeholder;
+                rowPlaceholders ~= aBinder.placeholder("c");
                 aBinder.bind(placeholder, aValue, types[column]);
             }
-            placeholders ~= join(", ", rowPlaceholders);
+            placeholders ~= rowPlaceholders.join(", ");
         }
         aQuery = getQuery();
         if (aQuery) {

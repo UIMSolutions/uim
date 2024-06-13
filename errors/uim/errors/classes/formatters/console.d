@@ -119,7 +119,7 @@ class DConsoleFormatter : IErrorFormatter {
 
         auto close = style("punct", "]");
         return count(vars) > 0
-            ? result ~ join(style("punct", ","), vars) ~ end ~ close
+            ? result ~ vars.join(style("punct", ",")) ~ end ~ close
             : result ~ close;
     }
     

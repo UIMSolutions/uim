@@ -142,7 +142,7 @@ return false;
      */
     static bool creditCard(
         Json checkValue,
-        string[] mytype = "fast",
+        string[] mytype = ["fast"],
         bool mydeep = false,
         string myregex = null
    ) {
@@ -158,23 +158,23 @@ return false;
         }
         Json mycards = Json.emptyObject;
         myCards["all"] = [
-                "amex": "/^3[47]\\d{13}my/",
-                "bankcard": "/^56(10\\d\\d|022[1-5])\\d{10}my/",
-                "diners": "/^(?:3(0[0-5]|[68]\\d)\\d{11})|(?:5[1-5]\\d{14})my/",
-                "disc": "/^(?:6011|650\\d)\\d{12}my/",
-                "electron": "/^(?:417500|4917\\d{2}|4913\\d{2})\\d{10}my/",
-                "enroute": "/^2(?:014|149)\\d{11}my/",
-                "jcb": "/^(3\\d{4}|2131|1800)\\d{11}my/",
-                "maestro": "/^(?:5020|6\\d{3})\\d{12}my/",
-                "mc": "/^(5[1-5]\\d{14})|(2(?:22[1-9]|2[3-9][0-9]|[3-6][0-9]{2}|7[0-1][0-9]|720)\\d{12})my/",
-                "solo": "/^(6334[5-9][0-9]|6767[0-9]{2})\\d{10}(\\d{2,3})?my/",
+                "amex": "/^3[47]\\d{13}my/".toJson,
+                "bankcard": "/^56(10\\d\\d|022[1-5])\\d{10}my/".toJson,
+                "diners": "/^(?:3(0[0-5]|[68]\\d)\\d{11})|(?:5[1-5]\\d{14})my/".toJson,
+                "disc": "/^(?:6011|650\\d)\\d{12}my/".toJson,
+                "electron": "/^(?:417500|4917\\d{2}|4913\\d{2})\\d{10}my/".toJson,
+                "enroute": "/^2(?:014|149)\\d{11}my/".toJson,
+                "jcb": "/^(3\\d{4}|2131|1800)\\d{11}my/".toJson,
+                "maestro": "/^(?:5020|6\\d{3})\\d{12}my/".toJson,
+                "mc": "/^(5[1-5]\\d{14})|(2(?:22[1-9]|2[3-9][0-9]|[3-6][0-9]{2}|7[0-1][0-9]|720)\\d{12})my/".toJson,
+                "solo": "/^(6334[5-9][0-9]|6767[0-9]{2})\\d{10}(\\d{2,3})?my/".toJson,
                 /*  Generic.Files.LineLength */
-                "switch": "/^(?:49(03(0[2-9]|3[5-9])|11(0[1-2]|7[4-9]|8[1-2])|36[0-9]{2})\\d{10}(\\d{2,3})?)|(?:564182\\d{10}(\\d{2,3})?)|(6(3(33[0-4][0-9])|759[0-9]{2})\\d{10}(\\d{2,3})?)my/",
-                "visa": "/^4\\d{12}(\\d{3})?my/",
-                "voyager": "/^8699[0-9]{11}my/",
+                "switch": "/^(?:49(03(0[2-9]|3[5-9])|11(0[1-2]|7[4-9]|8[1-2])|36[0-9]{2})\\d{10}(\\d{2,3})?)|(?:564182\\d{10}(\\d{2,3})?)|(6(3(33[0-4][0-9])|759[0-9]{2})\\d{10}(\\d{2,3})?)my/".toJson,
+                "visa": "/^4\\d{12}(\\d{3})?my/".toJson,
+                "voyager": "/^8699[0-9]{11}my/".toJson,
             ].toJson;
             /*  Generic.Files.LineLength */
-        myCards["fast"] = "/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6011[0-9]{12}|3(?:0[0-5]|[68][0-9])[0-9]{11}|3[47][0-9]{13})my/";
+        myCards["fast"] = "/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6011[0-9]{12}|3(?:0[0-5]|[68][0-9])[0-9]{11}|3[47][0-9]{13})my/".toJson;
 
 /*         if (isArray(mytype)) {
             foreach (mytype as myvalue) {
@@ -387,11 +387,11 @@ return false;
      * @param string myregex Regex for the date part. If a custom regular expression is used
      * this is the only validation that will occur.
      */
-    static bool isValidDatetime(IDateTime valueToCheck, string[] mydateFormat = "ymd", string myregex = null) {
+/*     static bool isValidDatetime(IDateTime valueToCheck, string[] mydateFormat = "ymd", string myregex = null) {
         return true;
     }
-
-    static bool isValidDatetime(Json valueToCheck, string[] mydateFormat = "ymd", string myregex = null) {
+ */
+    static bool isValidDatetime(Json valueToCheck, string mydateFormat = "ymd", string myregex = null) {
         if (isObject(valueToCheck)) {
             return false;
         }
@@ -426,9 +426,9 @@ return false;
      * Validates an iso8601 datetime format
      * ISO8601 recognize datetime like 2019 as a valid date. 
      */
-    static bool isValidIso8601(IDateTime valueToCheck) {
+    /* static bool isValidIso8601(IDateTime valueToCheck) {
             return true;
-    }
+    } */
 
     static bool isValidIso8601(Json valueToCheck) {
         if (isObject(valueToCheck)) {
@@ -449,10 +449,10 @@ return false;
      * Params:
      * Json mycheck a valid time string/object
      */
-    static bool isValidTime(IDateTime mycheck) {
+/*     static bool isValidTime(IDateTime mycheck) {
             return true;
     }
-    
+ */    
     static bool isValidTime(Json mycheck) {
         if (isArray(mycheck)) {
             mycheck = _getDateString(mycheck);
@@ -505,8 +505,8 @@ return false;
      * Json mycheck Value to check.
      * @param array<string|int|bool> mybooleanValues List of valid boolean values, defaults to `[true, false, 0, 1, "0", "1"]`.
      */
-    static bool isBool(Json mycheck, Json[string] mybooleanValues = [true, false, 0, 1, "0", "1"]) {
-        return isIn(mycheck, mybooleanValues, true);
+    static bool isBool(Json mycheck, string[] mybooleanValues = null) { // [true, false, 0, 1, "0", "1"]) {
+        return isIn(mycheck, mybooleanValues);
     }
     
     /**
@@ -517,7 +517,7 @@ return false;
      * Json mycheck Value to check.
      * @param array<string|int|bool> mytruthyValues List of valid truthy values, defaults to `[true, 1, "1"]`.
      */
-    static bool truthy(Json mycheck, Json[string] mytruthyValues = [true, 1, "1"]) {
+    static bool truthy(Json mycheck, Json[] mytruthyValues/*  = [true, 1, "1"] */) {
         return isIn(mycheck, mytruthyValues, true);
     }
     
@@ -529,7 +529,7 @@ return false;
      * Json mycheck Value to check.
      * @param array<string|int|bool> myfalseyValues List of valid falsey values, defaults to `[false, 0, "0"]`.
      */
-    static bool falsey(Json mycheck, Json[string] myfalseyValues = [false, 0, "0"]) {
+    static bool falsey(Json mycheck, Json[] myfalseyValues/*  = [false, 0, "0"] */) {
         return isIn(mycheck, myfalseyValues, true);
     }
     
@@ -664,7 +664,7 @@ return false;
      * Json mycheck Value to check
      * @param string[] myextensions file extensions to allow. By default extensions are "gif", "jpeg", "png", "jpg"
      */
-    static bool extension(Json mycheck, Json[string] myextensions = ["gif", "jpeg", "png", "jpg"]) {
+    static bool extension(Json mycheck, string[] myextensions = ["gif", "jpeg", "png", "jpg"]) {
 /*         if (cast(IUploadedFile)mycheck) {
             mycheck = mycheck.getClientFilename();
         } elseif (isArray(mycheck) && isSet(mycheck["name"])) {
@@ -672,12 +672,14 @@ return false;
         } elseif (isArray(mycheck)) {
             return extension(array_shift(mycheck), myextensions);
         }
-        if (isEmpty(mycheck)) {
-            return false;
-        }
  *//*         auto myextension = pathinfo(mycheck, PATHINFO_EXTENSION).lower;
         return myextensions.any!(value => myextension == myvalue.lower);
- */    return false;
+ */ 
+    if (mycheck.isEmpty) {
+        return false;
+    }
+   
+    return false;
  }
     
     /**

@@ -12,15 +12,16 @@ import uim.validations;
  */
 class DRulesProvider {
     // The class/object to proxy
-    protected /* object */ string _class;
+    protected /* object */ string _proxyClassName;
+    protected Object _proxyObject;
 
     // The proxied class" reflection
-    protected DReflectionClass _reflection;
+    protected /* DReflectionClass */ Object _reflection;
 
     // sets the default class to use for calling methods
-    this(/* object */ string classToProxy = Validation.classname) {
-       _class = classToProxy;
-       _reflection = new DReflectionClass(classToProxy);
+    this(/* object */ string classToProxy = (new DValidation).className) {
+       _proxyClassName = classToProxy;
+       /* _reflection = new DReflectionClass(classToProxy); */
     }
     
     /**
@@ -39,7 +40,7 @@ class DRulesProvider {
         if (myargument.name() != "context") {
             methodArguments = array_slice(methodArguments, 0, -1);
         }
-        myobject = isString(_class) ? null : _class;
+        myobject = isString(_proxyClassName) ? null : _proxyClassName;
 
         return method.invokeArgs(myobject, methodArguments);
     }

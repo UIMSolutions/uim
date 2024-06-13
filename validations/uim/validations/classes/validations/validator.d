@@ -257,7 +257,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Returns the rule set for a field
-    ValidationSet offsetGet(string fieldName) {
+    DValidationSet offsetGet(string fieldName) {
         return _field(fieldName);
     }
 
@@ -371,7 +371,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     auto addNested(
         string rootfieldName,
-        Validator myvalidator,
+        DValidator myvalidator,
         string myMessage = null, /*Closure|*/
         string mywhen = null
     ) {
@@ -414,7 +414,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     void addNestedMany(
         string rootfieldName,
-        Validator myvalidator,
+        DValidator myvalidator,
         string myMessage = null, /*Closure|*/
         string mywhen = null
     ) {
@@ -485,7 +485,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * returns true.
      * @param string myMessage The message to show if the field presence validation fails.
      */
-    void requirePresence(string[] fieldName, /*Closure|*/ string mymode = true, string myMessage = null) {
+    void requirePresence(string[] fieldName, /*Closure|*/ string mymode/*  = true */, string myMessage = null) {
         mydefaults = [
             "mode": mymode,
             "message": myMessage,
@@ -557,7 +557,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * myvalidator.allowEmptyDateTime("published");
      * myvalidator.allowEmptyArray("items");
      * Params:
-     * string fieldName The name of the field.
      * @param int myflags A bitmask of EMPTY_* flags which specify what is empty.
      * If no flags/bitmask is provided only `null` will be allowed as empty value.
      * @param \/*Closure|* / string mywhen Indicates when the field is allowed to be empty
@@ -567,8 +566,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     void allowEmptyFor(
         string fieldName,
-        int myflags = null, /*Closure|*/
-        string mywhen = true,
+        int myflags = 0, /*Closure|*/
+        string mywhen = null/*  = true */,
         string myMessage = null
     ) {
         this.field(fieldName).allowEmpty(mywhen);
@@ -591,7 +590,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      */
-    auto allowEmptyString(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = true) {
+    auto allowEmptyString(string fieldName, string myMessage = null, /*Closure|*/ string mywhen/*  = true */) {
         return _allowEmptyFor(fieldName, EMPTY_STRING, mywhen, myMessage);
     }
 
@@ -607,10 +606,9 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Closure is passed then the field will be required to be not empty when
      * the callback returns true.
      */
-    auto notEmptyString(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = false) {
-        mywhen = this.invertWhenClause(mywhen);
-
-        return _allowEmptyFor(fieldName, EMPTY_STRING, mywhen, myMessage);
+    auto notEmptyString(string fieldName, string message = null, /*Closure|*/ string mywhen/*  = false */) {
+        mywhen = invertWhenClause(mywhen);
+        return _allowEmptyFor(fieldName, EMPTY_STRING, mywhen, message);
     }
 
     /**
@@ -625,7 +623,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      */
-    auto allowEmptyArray(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = true) {
+    auto allowEmptyArray(string fieldName, string myMessage = null, /*Closure|*/ string mywhen/*  = true */) {
         return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_ARRAY, mywhen, myMessage);
     }
 
@@ -641,7 +639,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Closure is passed then the field will be required to be not empty when
      * the callback returns true.
      */
-    auto notEmptyArray(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = false) {
+    auto notEmptyArray(string fieldName, string myMessage = null, /*Closure|*/ string mywhen/*  = false */) {
         mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_ARRAY, mywhen, myMessage);
@@ -661,7 +659,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * the field will allowed to be empty only when the callback returns true.
      * @return this
      */
-    auto allowEmptyFile(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = true) {
+    auto allowEmptyFile(string fieldName, string myMessage = null, /*Closure|*/ string mywhen/*  = true */) {
         return _allowEmptyFor(fieldName, EMPTY_FILE, mywhen, myMessage);
     }
 
@@ -677,7 +675,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Closure is passed then the field will be required to be not empty when
      * the callback returns true.
      */
-    auto notEmptyFile(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = false) {
+    auto notEmptyFile(string fieldName, string myMessage = null, /*Closure|*/ string mywhen/*  = false */) {
         mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, EMPTY_FILE, mywhen, myMessage);
@@ -695,7 +693,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      */
-    auto allowEmptyDate(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = true) {
+    auto allowEmptyDate(string fieldName, string myMessage = null, /*Closure|*/ string mywhen/*  = true */) {
         return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE, mywhen, myMessage);
     }
 
@@ -710,7 +708,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * the callback returns true.
      * @return this
      */
-    auto notEmptyDate(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = false) {
+    auto notEmptyDate(string fieldName, string myMessage = null, /*Closure|*/ string mywhen/*  = false */) {
         mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE, mywhen, myMessage);
@@ -731,7 +729,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      */
-    auto allowEmptyTime(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = true) {
+    auto allowEmptyTime(string fieldName, string myMessage = null, /*Closure|*/ string mywhenA) {
         return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_TIME, mywhen, myMessage);
     }
 
@@ -748,7 +746,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * the callback returns true.
      * @see \UIM\Validation\Validator.allowEmptyTime()
      */
-    auto notEmptyTime(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = false) {
+    auto notEmptyTime(string fieldName, string myMessage = null, /*Closure|*/ string mywhen/*  = false */) {
         auto mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_TIME, mywhen, myMessage);
@@ -769,7 +767,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns false.
      */
-    auto allowEmptyDateTime(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = true) {
+    auto allowEmptyDateTime(string fieldName, string myMessage = null, /*Closure|*/ string mywhen/*  = true */) {
         return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE | EMPTY_TIME, mywhen, myMessage);
     }
 
@@ -786,7 +784,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * the callback returns true.
      * @return this
      */
-    auto notEmptyDateTime(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = false) {
+    auto notEmptyDateTime(string fieldName, string myMessage = null, /*Closure|*/ string mywhen/*  = false */) {
         mywhen = this.invertWhenClause(mywhen);
 
         return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE | EMPTY_TIME, mywhen, myMessage);
@@ -801,8 +799,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     protected auto _convertValidatorToArray(
         string fieldName,
-        Json[string] mydefaults = [],
-        Json[string] /* |int */ mysettings = []
+        Json[string] mydefaults = null,
+        Json[string] /* |int */ mysettings = null
     ) {
         /* if (!mysettings.isArray) {
             fieldName = to!string(mysettings);
@@ -1512,18 +1510,17 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a date format validation rule to a field.
      * Params:
-     * @param string[] myformats A list of accepted date formats.
      * @param string myMessage The error message when the rule fails.
      * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
     auto date(
         string fieldName,
-        Json[string] myformats = ["ymd"],
+        string[] dateFormats = ["ymd"],
         string myMessage = null, /*Closure|*/
         string mywhen = null
     ) {
-        myformatEnumeration = join(", ", myformats);
+        auto myformatEnumeration = join(", ", dateFormats);
 
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -1542,25 +1539,25 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
 
         return _add(fieldName, "date", myextra ~ [
-                "rule": ["date", myformats],
+                "rule": ["date", dateFormats],
             ]);
     }
 
     /**
      * Add a date time format validation rule to a field.
      * Params:
-     * @param string[] myformats A list of accepted date formats.
+     * @param string[] dateFormats A list of accepted date formats.
      * @param string myMessage The error message when the rule fails.
      * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
     auto dateTime(
         string fieldName,
-        Json[string] myformats = ["ymd"],
+        string[] dateFormats = ["ymd"],
         string myMessage = null, /*Closure|*/
         string mywhen = null
     ) {
-        myformatEnumeration = join(", ", myformats);
+        myformatEnumeration = join(", ", dateFormats);
 
         if (myMessage.isNull) {
             myMessage = !_useI18n
@@ -1575,7 +1572,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
 
         return _add(fieldName, "dateTime", myextra ~ [
-                "rule": ["datetime", myformats],
+                "rule": ["datetime", dateFormats],
             ]);
     }
 
@@ -1666,7 +1663,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     auto decimal(
         string fieldName,
-        int myplaces = null,
+        int myplaces = 0,
         string myMessage = null, /*Closure|*/
         string mywhen = null
     ) {
@@ -2659,7 +2656,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param Json[string] data the full data passed to the validator
      * @param bool mynewRecord whether is it a new record or an existing one
      */
-    protected Json[string] _processRules(string fieldName, ValidationSet myrules, Json[string] data, bool mynewRecord) {
+    protected Json[string] _processRules(string fieldName, DValidationSet myrules, Json[string] data, bool mynewRecord) {
         Json[string] myerrors = null;
         // Loading default provider in case there is none
         getProvider("default");

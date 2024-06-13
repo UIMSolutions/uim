@@ -531,7 +531,7 @@ abstract class DQuery : IQuery { // : IExpression {
         /* IExpression|Closure */string[] conditionsForJoining = null,
         Json[string] conditionTypes = null
    ) {
-        join(_makeJoin(tableNames, conditionsForJoining, JOIN_TYPE_RIGHT), conditionTypes);
+       _makeJoin(tableNames, conditionsForJoining, JOIN_TYPE_RIGHT), conditionTypes);
     }
     
     /**

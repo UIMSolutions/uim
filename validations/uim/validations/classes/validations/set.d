@@ -46,16 +46,12 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Gets a rule for a given name if exists
-    ValidationRule rule(string ruleName) {
-        if (isEmpty(_rules[ruleName])) {
-            return null;
-        }
-
-        return _rules[ruleName];
+    DValidationRule rule(string ruleName) {
+        return _rules.get(ruleName, null);
     }
     
     // Returns all rules for this validation set
-    ValidationRule[] rules() {
+    DValidationRule[] rules() {
         return _rules;
     }
     
@@ -69,15 +65,12 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      *        .add("notBlank", ["rule": "notBlank"])
      *        .add("inRange", ["rule": ["between", 4, 10])
      * ```
-     * Params:
-     * string myname The name under which the rule should be set
-     * @param \UIM\Validation\ValidationRule|array myrule The validation rule to be set
      */
-    void add(string myname, ValidationRule[] myrule) {
-        if (!(cast(DValidationRule)myrule)) {
-            myrule = new DValidationRule(myrule);
-        }
-       _rules[myname] = myrule;
+    void add(string name, Json[string] ruleData) {
+        add(name, new DValidationRule(ruleData));
+    }
+    void add(string name, DValidationRule[] rule) {
+       _rules[name] = rule;
     }
     
     /**
@@ -105,18 +98,13 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
         return _rules.get(ruleName);
     }
     
-    /**
-     * Sets or replace a validation rule
-     * Params:
-     * string myindex name of the rule
-     * @param \UIM\Validation\ValidationRule|array myrule Rule to add to myindex
-     */
-    void offsetSet(Json myindex, Json myrule) {
-        add(myindex, myrule);
+    // Sets or replace a validation rule
+    void offsetSet(string ruleName, DValidationRule rule) {
+        add(myinruleNamedex, rule);
     }
 
     // Unsets a validation rule
-    void offsetUnset(String ruleName) {
+    void offsetUnset(string ruleName) {
         _rules.remove(ruleName);
     }
 

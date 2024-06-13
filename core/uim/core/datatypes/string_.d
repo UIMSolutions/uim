@@ -9,7 +9,6 @@ import uim.core;
 
 @safe:
 
-
 /// create a string with defined length and content
 string fill(size_t width, string fillText = "0") {
 	if (width == 0 || fillText.length == 0) {
@@ -23,6 +22,7 @@ string fill(size_t width, string fillText = "0") {
 	filledText.length = width; // cut result to length
 	return filledText;
 }
+
 unittest {
 	assert(fill(10, "0").length == 10);
 	assert(fill(10, "0") == "0000000000");
@@ -34,23 +34,24 @@ string bind(string source, STRINGAA replaceMap, string placeHolder = "{{%s}}") {
 
 	string updatedText = source;
 	replaceMap.byKeyValue
-		.each!(kv => updatedText = std.string.replace(updatedText, placeHolder.format(kv.key), kv.value));
+		.each!(kv => updatedText = std.string.replace(updatedText, placeHolder.format(kv.key), kv
+				.value));
 
 	return updatedText;
 }
+
 unittest {
 	assert("{{abc}}".bind(["abc": "xyz"]) == "xyz");
 	assert("0{{abc}}0".bind(["abc": "xyz"]) == "0xyz0");
 }
 
-
 bool endsWith(string text, string[] endings) {
 	if (text.length == 0) {
 		return false;
 	}
-	
+
 	return endings.length > 0
-		? endings.any!(ending => ending.length > 0 && text[$-ending.length..$] == ending)
+		? endings.any!(ending => ending.length > 0 && text[$ - ending.length .. $] == ending)
 		: false;
 }
 ///
@@ -58,46 +59,51 @@ unittest {
 	assert("ABC".endsWith(["C"]));
 	assert(!"".endsWith(["C"]));
 	assert(!"ABC".endsWith([""]));
-} 
+}
 
 // #region has
-	bool hasAllValues(string[] bases, string[] values...) {
-		return hasAllValues(bases, values.dup);
-	}
-	unittest {
-		assert(["One Two Three"].hasAllValues("One"));
-		assert(!["One Two Three", "Eight Seven Six"].hasAllValues("Five", "Four", "Six"));
-		assert(!["One Two Three"].hasAllValues("Five", "Four"));
-	}
+bool hasAllValues(string[] bases, string[] values...) {
+	return hasAllValues(bases, values.dup);
+}
 
-	bool hasAllValues(string[] bases, string[] values) {
-		return bases.all!(base => base.hasAllValues(values));
-	}
-	unittest {
-		assert(["One Two Three"].hasAllValues(["One"]));
-		assert(!["One Two Three", "Eight Seven Six"].hasAllValues(["Five", "Four", "Six"]));
-		assert(!["One Two Three"].hasAllValues(["Five", "Four"]));
-	}
+unittest {
+	assert(["One Two Three"].hasAllValues("One"));
+	assert(!["One Two Three", "Eight Seven Six"].hasAllValues("Five", "Four", "Six"));
+	assert(!["One Two Three"].hasAllValues("Five", "Four"));
+}
 
-	bool hasAllValues(string base, string[] values...) {
-		return hasAllValues(base, values.dup);
-	}
+bool hasAllValues(string[] bases, string[] values) {
+	return bases.all!(base => base.hasAllValues(values));
+}
 
-	bool hasAllValues(string base, string[] values) {
-		return values.all!(value => base.hasValue(value));
-	}
-	unittest {
-		assert("One Two Three".hasAllValues("One"));
-		assert(!"One Two Three".hasAllValues("Five", "Four", "Three"));
-		assert(!"One Two Three".hasAllValues("Five", "Four"));
-	}
+unittest {
+	assert(["One Two Three"].hasAllValues(["One"]));
+	assert(!["One Two Three", "Eight Seven Six"].hasAllValues([
+			"Five", "Four", "Six"
+		]));
+	assert(!["One Two Three"].hasAllValues(["Five", "Four"]));
+}
 
-	bool hasValue(string base, string checkValue) {
-		if (base.length == 0 || checkValue.length == 0 || checkValue.length > base.length) {
-			return false;
-		}
-		return (base.indexOf(checkValue) >= 0);
+bool hasAllValues(string base, string[] values...) {
+	return hasAllValues(base, values.dup);
+}
+
+bool hasAllValues(string base, string[] values) {
+	return values.all!(value => base.hasValue(value));
+}
+
+unittest {
+	assert("One Two Three".hasAllValues("One"));
+	assert(!"One Two Three".hasAllValues("Five", "Four", "Three"));
+	assert(!"One Two Three".hasAllValues("Five", "Four"));
+}
+
+bool hasValue(string base, string checkValue) {
+	if (base.length == 0 || checkValue.length == 0 || checkValue.length > base.length) {
+		return false;
 	}
+	return (base.indexOf(checkValue) >= 0);
+}
 // #endregion has
 
 // #region remove
@@ -120,13 +126,14 @@ unittest {
 	assert(removeValues(["a", "b", "c"], "a", "b") == ["c"]);
 	assert(removeValues(["a", "b", "c", "b"], "a", "b") == ["c"]);
 }
+
 pure string[] removeValue(string[] values, string valueToRemove) {
 	auto updatedValues = values.dup;
 	return valueToRemove.length == 0
 		? updatedValues
 		: updatedValues
-			.filter!(value => value != valueToRemove)
-			.array;
+		.filter!(value => value != valueToRemove)
+		.array;
 }
 
 unittest {
@@ -157,8 +164,7 @@ bool startsWith(string text, string[] startings) {
 	}
 
 	return startings.length > 0
-		? startings.any!(starting => starting.length > 0 && text.indexOf(starting) == 0)
-		: false;
+		? startings.any!(starting => starting.length > 0 && text.indexOf(starting) == 0) : false;
 }
 
 unittest {
@@ -196,6 +202,7 @@ string indent(in string text, size_t indent = 2) {
 
 	return fill(indent, " ") ~ text;
 }
+
 unittest {
 	assert(indent("Hallo").length == 7);
 	assert(indent("Hallo") == "  Hallo");
@@ -237,8 +244,8 @@ string subString(string aText, long startPos) {
 	}
 
 	return startPos > 0
-		? (startPos >= aText.length ? aText : aText[startPos .. $])
-		: (-startPos >= aText.length ? aText : aText[0 .. $ + startPos]);
+		? (startPos >= aText.length ? aText : aText[startPos .. $]) : (
+			-startPos >= aText.length ? aText : aText[0 .. $ + startPos]);
 }
 
 unittest {
@@ -254,8 +261,8 @@ unittest {
 string subString(string aText, size_t startPos, long aLength) {
 	auto myText = subString(aText, startPos);
 	return aLength > 0
-		? (myText.length >= aLength ? myText[0 .. aLength] : myText)
-		: (myText.length >= -aLength ? myText[$ + aLength .. $] : myText);
+		? (myText.length >= aLength ? myText[0 .. aLength] : myText) : (
+			myText.length >= -aLength ? myText[$ + aLength .. $] : myText);
 }
 
 unittest {
@@ -312,8 +319,7 @@ string firstElement(string text, string separator = "/") {
 
 	auto firstIndex = text.countUntil(separator);
 	return firstIndex < 0
-		? text
-		: text[0 .. firstIndex];
+		? text : text[0 .. firstIndex];
 }
 
 unittest {
@@ -353,6 +359,7 @@ unittest {
 	assert(toPath(["a ", "/b", "c/"]) == "a/b/c");
 	assert(toPath(["a ", "", "/b", "c/"]) == "a/b/c");
 }
+
 string lower(string text) {
 	return text.toLower;
 }
@@ -369,12 +376,15 @@ string[] upper(string[] texts) {
 		.map!(text => text.toUpper)
 		.array;
 }
+
 unittest {
 	assert(["a", "b", "c"].upper.equal(["A", "B", "C"]));
 }
+
 string upper(string text) {
 	return text.toUpper;
 }
+
 unittest {
 	assert("a".upper == "A");
 }
@@ -385,6 +395,7 @@ string[] capitalize(string[] texts) {
 		.map!(text => std.string.capitalize(text))
 		.array;
 }
+
 unittest {
 	// TODO
 }
@@ -395,6 +406,7 @@ string[] strip(string[] texts) {
 		.map!(text => std.string.strip(text))
 		.array;
 }
+
 unittest {
 	// TODO
 }
@@ -404,6 +416,7 @@ string[] stripLeft(string[] texts) {
 		.map!(text => std.string.stripLeft(text))
 		.array;
 }
+
 unittest {
 	// TODO
 }
@@ -424,17 +437,18 @@ string[] replace(string[] texts, string originText, string newText) {
 // #endregion replace
 
 string[] split(string text, string splitText = " ", int limit) {
-	auto splits = std.string.split(text, splitText); 
+	auto splits = std.string.split(text, splitText);
 	if (limit > 0 && limit < splits.length) {
-		return splits[0..limit]~splits[limit..$].join(splitText);
+		return splits[0 .. limit] ~ splits[limit .. $].join(splitText);
 	}
 	if (limit < 0 && limit > -splits.length) {
-		return splits[0..-limit].join(splitText)~splits[-limit..$];
+		return splits[0 .. -limit].join(splitText) ~ splits[-limit .. $];
 	}
 	return splits;
 }
+
 unittest {
-  // TODO create test
+	// TODO create test
 }
 
 // TODO
@@ -443,12 +457,28 @@ string[] split(string[] texts, string splitText = " ", int limit = 0) {
 		.map!(text => split(text, splitText, limit)).array;
 	return join(splitTexts);
 }
+
 unittest {
-  // TODO create test
+	// TODO create test
 }
 
 string ifNull(string value, string defaultValue) {
 	return !value.isNull ? value : defaultValue;
+}
+///
+unittest {
+	string a = null;
+	assert(isNull(a));
+	assert(a.isNull);
+
+	a = "";
+	assert(!isNull(a));
+	assert(!a.isNull);
+
+	a = "xyz";
+	assert(!isNull(a));
+	assert(!a.isNull);
+	assert(!"xyz".isNull);
 }
 
 string ifEmpty(string value, string defaultValue) {
@@ -458,6 +488,7 @@ string ifEmpty(string value, string defaultValue) {
 bool isIn(string value, string[] values) {
 	return canFind(values, value);
 }
+
 unittest {
 	assert("a".isIn(["a", "b", "c"]));
 	assert(!"x".isIn(["a", "b", "c"]));

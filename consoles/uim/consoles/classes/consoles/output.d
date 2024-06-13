@@ -191,7 +191,7 @@ class DConsoleOutput {
                 return output;
             }
         }
-        tags = join("|", _styles.keys);
+        tags = _styles.keys.join("|");
         output = preg_replace("#</?(?:" ~ tags ~ ")>#", "", stylingText);
 
         return output ? output : stylingText;
@@ -203,9 +203,9 @@ class DConsoleOutput {
      * matchesToReplace - Array of matches to replace.
      */
     protected string _replaceTags(STRINGAA matchesToReplace) {
-        style = getStyle(matchesToReplace["tag"]);
+        auto style = getStyle(matchesToReplace["tag"]);
         if (style.isEmpty) {
-            return "<" ~ matchesToReplace.getString("tag") ~ ">" ~ matchesToReplace.getString("text") ~ "</" ~ matchesToReplace.getString("tag") ~ ">";
+            return "<" ~ matchesToReplace.get("tag") ~ ">" ~ matchesToReplace.get("text") ~ "</" ~ matchesToReplace.get("tag") ~ ">";
         }
         styleInfo = null;
         if (!style["text"].isEmpty) && _foregroundColors.hasKey(style.getString("text")) {

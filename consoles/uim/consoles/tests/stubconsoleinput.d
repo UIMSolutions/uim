@@ -19,7 +19,6 @@ class DStubConsoleInput : DConsoleInput {
 
     this(string[] repliesForRead) {
         super();
-
         _replies = repliesForRead;
     }
     
@@ -28,14 +27,15 @@ class DStubConsoleInput : DConsoleInput {
         _currentIndex += 1;
 
         if (!_replies.hasKey(_currentIndex)) {
-            total = count(this.replies);
-            formatter = new DNumberFormatter("en", NumberFormatter.ORDINAL);
-            nth = formatter.format(_currentIndex + 1);
-
-            replies = join(", ", this.replies);
+            auto total = count(this.replies);
+            auto formatter = new DNumberFormatter("en", NumberFormatter.ORDINAL);
+            auto nth = formatter.format(_currentIndex + 1);
+            auto repliesText = replies.join(", ");
             
-            string message = "There are no more input replies available. This is the {nth} read operation, " .
-                "only {total} replies were set.\nThe provided replies are: {replies}";
+            string message = (
+                "There are no more input replies available. This is the {nth} %s read operation, " ~
+                "only {total} %s replies were set.\nThe provided replies are: {repliesText} %s")
+                .format(nth, total, repliesText);
             throw new DMissingConsoleInputException(message);
         }
         return _replies[_currentIndex];

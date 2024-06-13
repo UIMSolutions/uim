@@ -1205,16 +1205,16 @@ abstract class DQuery : IQuery { // : IExpression {
      * - union: array
      */
     Json clause(string clauseName) {
-        if (!array_key_exists(clauseName, _parts)) {
-            clauses = _parts.keys;
+/*         if (!array_key_exists(clauseName, _parts)) {
+            auto clauses = _parts.keys;
             array_walk(clauses, fn (&$x): $x = "`$x`");
-            clauses = join(", ", clauses);
+            clauses = clauses.join(", ");
             throw new DInvalidArgumentException(
                 "The `%s` clause is not defined. Valid clauses are: %s."
                 .format(clauseName, clauses)
            );
-        }
-        return _parts[name];
+        } */
+        return _parts[clauseName];
     }
     
     /**

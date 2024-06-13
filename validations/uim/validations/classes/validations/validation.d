@@ -65,9 +65,9 @@ class DValidation {
      * Returns true if string contains something other than whitespace
      */
     static bool isNotBlank(Json valueToCheck) {
-        if (valueToCheck.isEmpty && !isBool(valueToCheck) && !isNumeric(valueToCheck)) {
+        /* if (valueToCheck.isEmpty && !isBool(valueToCheck) && !isNumeric(valueToCheck)) {
             return false;
-        }
+        } */
 /*         return _check(valueToCheck, "/[^\s]+/m");
  */    
     return false;
@@ -96,7 +96,7 @@ return false;
      * Use `notAsciiAlphaNumeric()` if you want to exclude ascii only.
      */
     static bool isNotAlphaNumeric(Json valueToCheck) {
-        return !alphaNumeric(valueToCheck);
+        return false; // TODO !alphaNumeric(valueToCheck);
     }
     
     // Checks that a string contains only ascii integer or letters.
@@ -150,13 +150,13 @@ return false;
             return false;
         }
         auto myCheckValue = /* (string) */checkValue.replace(["-", " "], "");
-        if (mb_strlen(myCheckValue) < 13) {
+        /* if (mb_strlen(myCheckValue) < 13) {
             return false;
-        }
+        } */
         if (myregex !is null && _check(myCheckValue, myregex)) {
             return !mydeep || luhn(myCheckValue);
         }
-        Json mycards = Json.emptyObject;
+        Json myCards = Json.emptyObject;
         myCards["all"] = [
                 "amex": "/^3[47]\\d{13}my/".toJson,
                 "bankcard": "/^56(10\\d\\d|022[1-5])\\d{10}my/".toJson,
@@ -212,9 +212,10 @@ return false;
      * @param int myexpectedCount The expected count value.
      */
     static bool checkNumElements(Json valueToCheck, string myoperator, int myexpectedCount) {
-        return !valueToCheck.isArray && !cast(DCountable)valueToCheck
+        /* return !valueToCheck.isArray/*  && !cast(DCountable)valueToCheck * /
             ? false
-            : comparison(count(valueToCheck), myoperator, myexpectedCount);
+            : comparison(count(valueToCheck), myoperator, myexpectedCount); */
+        return null; 
     }
     
     /**
@@ -226,13 +227,13 @@ return false;
      * the Validation.COMPARE_* constants.
      */
     static bool compare(Json mycheck1, string myoperator, Json valueToCompare) {
-        if (
+        /* if (
             (!isNumeric(mycheck1) || !isNumeric(valueToCompare)) &&
             !inArray(myoperator, COMPARE_STRING)
        ) {
             return false;
-        }
-        try {
+        } */
+       /*  try { */
             /* return match (myoperator) {
                 COMPARE_GREATER: mycheck1 > mycheck2,
                 COMPARE_LESS: mycheck1 < mycheck2,
@@ -243,9 +244,9 @@ return false;
                 COMPARE_SAME: mycheck1 == mycheck2,
                 COMPARE_NOT_SAME: mycheck1 != mycheck2,
             }; */
-        } catch (UnhandledMatchError) {
+        /* } catch (UnhandledMatchError) {
             myerrors ~= "You must define a valid myoperator parameter for Validation.comparison()";
-        }
+        } */
         return false;
     }
     
@@ -259,7 +260,8 @@ return false;
      * @param Json[string] mycontext The validation context.
      */
     static bool compareWith(Json mycheck, string fieldName, Json[string] mycontext) {
-        return compareFields(mycheck, fieldName, COMPARE_SAME, mycontext);
+        /* return compareFields(mycheck, fieldName, COMPARE_SAME, mycontext); */
+        return false; 
     }
     
     /**
@@ -273,9 +275,9 @@ return false;
      * @param Json[string] mycontext The validation context.
      */
     static bool compareFields(Json mycheck, string fieldName, string myoperator, Json[string] mycontext) {
-        if (!isSet(mycontext["data"]) || !array_key_exists(fieldName, mycontext["data"])) {
+        /* if (!isSet(mycontext["data"]) || !array_key_exists(fieldName, mycontext["data"])) {
             return false;
-        }
+        } */
         return comparison(mycheck, myoperator, mycontext["data"][fieldName]);
     }
     
@@ -398,9 +400,9 @@ return false;
         if (isArray(mydateFormat) && count(mydateFormat) == 1) {
             mydateFormat = reset(mydateFormat);
         }
-        if (mydateFormat == DATETIME_ISO8601 && !isValidIso8601(valueToCheck)) {
+        /* if (mydateFormat == DATETIME_ISO8601 && !isValidIso8601(valueToCheck)) {
             return false;
-        }
+        } */
         
         auto myvalid = false;
 /*         if (valueToCheck.isArray) {
@@ -454,12 +456,12 @@ return false;
     }
  */    
     static bool isValidTime(Json mycheck) {
-        if (isArray(mycheck)) {
+        /* if (isArray(mycheck)) {
             mycheck = _getDateString(mycheck);
-        }
-        if (!isScalar(mycheck)) {
+        } */
+        /* if (!isScalar(mycheck)) {
             return false;
-        }
+        } */
 /*         auto mymeridianClockRegex = "^((0?[1-9]|1[012])(:[0-5]\d){0,2} ?([AP]M|[ap]m))my";
         auto mystandardClockRegex = "^([01]\d|2[0-3])((:[0-5]\d){1,2}|(:[0-5]\d){2}\.\d{0,6})my";
 
@@ -477,9 +479,9 @@ return false;
      * @param string|int myformat any format accepted by IntlDateFormatter
      */
     static bool isValidLocalizedTime(Json dateValue, string parserType = "datetime", string/* |int */ myformat = null) {
-        if (cast(IDateTime)dateValue) {
+       /*  if (cast(IDateTime)dateValue) {
             return true;
-        }
+        } */
         /* if (!isString(dateValue)) {
             return false;
         }

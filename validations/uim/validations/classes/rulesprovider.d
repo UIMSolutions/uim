@@ -33,7 +33,7 @@ class DRulesProvider {
      * context unless they need it.
      */
     bool __call(string validationMethod, Json[string] methodArguments) {
-        auto method = _reflection.getMethod(mymethod);
+        /* auto method = _reflection.getMethod(mymethod);
         myargumentList = method.getParameters();
 
         ReflectionParameter myargument = array_pop(methodArguments);
@@ -42,6 +42,7 @@ class DRulesProvider {
         }
         myobject = isString(_proxyClassName) ? null : _proxyClassName;
 
-        return method.invokeArgs(myobject, methodArguments);
+        return method.invokeArgs(myobject, methodArguments); */
+        return false; 
     }
 }

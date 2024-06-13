@@ -916,3 +916,7 @@ Json[string] getMap(Json value) {
   return !value.isNull && value.isObject
     ? value.get!(Json[string]) : null;
 }
+
+bool isIntegral(Json value) {
+  return value.isLong;
+}

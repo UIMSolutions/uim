@@ -13,12 +13,13 @@ import uim.validations;
  */ 
 class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     // Holds the ValidationRule objects
-    // TODO protected IValidationRule[] _rules = null;
+    protected DValidationRule[string] _rules = null;
 
     // Denotes whether the fieldname key must be present in data array
     protected bool _validatePresent = false;
 
     // Denotes if a field is allowed to be empty
+
     protected /* /*callable|string */ bool _allowEmpty = false;
 
     // Returns whether a field can be left out.
@@ -36,7 +37,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     }
     
     // Returns whether a field can be left empty.
-    /*callable|*/string isEmptyAllowed() {
+    /*callable|*/bool isEmptyAllowed() {
         return _allowEmpty;
     }
 
@@ -52,7 +53,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     
     // Returns all rules for this validation set
     DValidationRule[] rules() {
-        return _rules;
+        return _rules.values;
     }
     
     /**
@@ -69,7 +70,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     void add(string name, Json[string] ruleData) {
         add(name, new DValidationRule(ruleData));
     }
-    void add(string name, DValidationRule[] rule) {
+    void add(string name, DValidationRule rule) {
        _rules[name] = rule;
     }
     
@@ -100,7 +101,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     
     // Sets or replace a validation rule
     void offsetSet(string ruleName, DValidationRule rule) {
-        add(myinruleNamedex, rule);
+        add(ruleName, rule);
     }
 
     // Unsets a validation rule
@@ -117,6 +118,6 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
 
     // Returns the number of rules in this set
     size_t count() {
-        return count(_rules);
+        return _rules.length;
     }
 }

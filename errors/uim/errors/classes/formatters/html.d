@@ -119,7 +119,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
            style("punct", "]") ~
             "</span>";
 
-        return open ~ join("", vars) ~ close;
+        return open ~ vars.join("") ~ close;
     }
     
     /**
@@ -181,7 +181,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
             "</span>";
 
         if (count(props)) {
-            return result ~ join("", props) ~ end;
+            return result ~ props.join("") ~ end;
         }
         return result ~ end;
     }

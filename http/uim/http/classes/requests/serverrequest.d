@@ -423,7 +423,7 @@ class DServerRequest { // }: IServerRequest {
      * this method will return true if the request matches any type.
      * @param Json ...someArguments List of arguments
      */
-    bool is(string[] atype, Json ...someArguments) {
+    /* bool is(string[] atype, Json ...someArguments) {
         if (isArray(type)) {
             foreach (type as _type) {
                 if (this.is(_type)) {
@@ -440,8 +440,9 @@ class DServerRequest { // }: IServerRequest {
         if (someArguments) {
             return _is(type, someArguments);
         }
-        return _detectorCache[type] = _detectorCache[type] ?? _is(type, someArguments);
-    }
+        _detectorCache.set(_detectorCache.get(type, _is(type, someArguments)));
+        return _detectorCache[type];
+    } */
     
     // Clears the instance detector cache, used by the is() function
     void clearDetectorCache() {

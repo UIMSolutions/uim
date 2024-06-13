@@ -27,31 +27,32 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
     static ServerRequest fromGlobals(
         Json[string] server = null,
         Json[string] aQuery = null,
-        Json[string]parsedBody = null,
+        Json[string] parsedBody = null,
         Json[string] cookies = null,
         Json[string] files = null
-   ) {
-        server = normalizeServer(server ?? _SERVER);
-        ["uri": anUri, "base": base, "webroot": webroot] = UriFactory.marshalUriAndBaseFromSapi(server);
+    ) {
+        auto server = normalizeServer(server ?  ? _SERVER);
+        ["uri": anUri, "base": base, "webroot": webroot] = UriFactory.marshalUriAndBaseFromSapi(
+            server);
 
-        sessionConfig = /* (array) */configuration.get("Session") ~ [
-            "defaults": "D",
-            "cookiePath": webroot,
-        ];
-        session = Session.create(sessionConfig);
+        auto sessionConfig =  /* (array) */ configuration.get("Session") ~ [
+                "defaults": "D",
+                "cookiePath": webroot,
+            ];
 
-        request = new DServerRequest([
-            "environment": server,
-            "uri": anUri,
-            "cookies": cookies ?? _COOKIE,
-            "query": aQuery ?? _GET,
-            "webroot": webroot,
-            "base": base,
-            "session": session,
-            "input": server["uimD_INPUT"] ?? null,
-        ]);
+        auto session = Session.create(sessionConfig);
+        auto request = new DServerRequest([
+                "environment": server,
+                "uri": anUri,
+                "cookies": cookies ?  ? _COOKIE,
+                "query": aQuery ?  ? _GET,
+                "webroot": webroot,
+                "base": base,
+                "session": session,
+                "input": server.get("uimD_INPUT", null),
+            ]);
 
-        request = marshalBodyAndRequestMethod(parsedBody ?? _POST, request);
+        request = marshalBodyAndRequestMethod(parsedBody ?  ? _POST, request);
         // This is required as `ServerRequest.scheme()` ignores the value of
         // `HTTP_X_FORWARDED_PROTO` unless `trustProxy` is enabled, while the
         // `Uri` instance intially created always takes values of `HTTP_X_FORWARDED_PROTO`
@@ -59,9 +60,9 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         anUri = request.getUri().withScheme(request.scheme());
         request = request.withUri(anUri, true);
 
-        return marshalFiles(files ?? _FILES, request);
+        return marshalFiles(files ?  ? _FILES, request);
     }
-    
+
     /**
      * Sets the REQUEST_METHOD environment variable based on the simulated _method
      * HTTP override value. The 'ORIGINAL_REQUEST_METHOD' is also preserved, if you
@@ -78,9 +79,9 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
 
         if (
             isIn(method, ["PUT", "DELETE", "PATCH"], true) &&
-            (string)serverRequest.contentType().startWith("application/x-www-form-urlencoded")
-       ) {
-            someData = (string)serverRequest.getBody();
+            (string) serverRequest.contentType().startWith("application/x-www-form-urlencoded")
+            ) {
+            someData = (string) serverRequest.getBody();
             parse_str(someData, parsedBody);
         }
         if (serverRequest.hasHeader("X-Http-Method-Override")) {
@@ -93,13 +94,12 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
             remove(parsedBody["_method"]);
             shouldOverride = true;
         }
-        
+
         return shouldOverride &&
             !["PUT", "POST", "DELETE", "PATCH"].has(serverRequest.getMethod())
-            ? serverRequest.withParsedBody(null)
-            : serverRequest.withParsedBody(parsedBody);
+            ? serverRequest.withParsedBody(null) : serverRequest.withParsedBody(parsedBody);
     }
-    
+
     /**
      * Process uploaded files and move things onto the parsed body.
      * Params:
@@ -118,7 +118,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
 
         return serverRequest.withParsedBody(parsedBody);
     }
-    
+
     /**
      * Create a new server request.
      *
@@ -141,5 +141,5 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         options["uri"] = uri;
 
         return new DServerRequest(options);
-    } 
+    }
 }

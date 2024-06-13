@@ -326,7 +326,7 @@ class DBelongsToManyAssociation : DAssociation {
         cond = belongsTo._joinCondition(["foreignKey": belongsTo.foreignKeys()]);
         cond += this.junctionConditions();
 
-        includeFields = options["includeFields"] ?? null;
+        includeFields = options.get("includeFields", null);
 
         // Attach the junction table as well we need it to populate _joinData.
         assoc = _targetTable.getAssociation(junction.aliasName());

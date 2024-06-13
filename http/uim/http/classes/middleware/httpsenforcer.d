@@ -79,15 +79,15 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
      * \Psr\Http\Message\IResponse response Response
      */
     protected IResponse addHsts(IResponse response) {
-        configData = configuration.get("hsts"];
+        auto configData = configuration.get("hsts"];
         if (!isArray(configData)) {
             throw new DUnexpectedValueException("The `hsts` config must be an array.");
         }
-        aValue = "max-age=" ~ configuration.get("maxAge"];
-        if (configuration.get("includeSubDomains"] ?? false) {
+        auto aValue = "max-age=" ~ configuration.get("maxAge"];
+        if (configuration.get("includeSubDomains", false)) {
             aValue ~= "; includeSubDomains";
         }
-        if (configuration.get("preload"] ? configuration.get("preload"] : false) {
+        if (configuration.get("preload", false)) {
             aValue ~= "; preload";
         }
         return response.withHeader("strict-transport-security", aValue);

@@ -769,13 +769,9 @@ mixin template TEntity() {
           return errors;
         }
 
-      /**
-     * Returns validation errors of a field
-     * Params:
-     * string fieldName Field name to get the errors from
-    */
+      // Returns validation errors of a field
       Json[string] getError(string fieldName) {
-        return _fieldErrors[fieldName] ?? _nestedErrors(fieldName);
+        return _fieldErrors.get(fieldName, _nestedErrors(fieldName));
       }
 
       /**

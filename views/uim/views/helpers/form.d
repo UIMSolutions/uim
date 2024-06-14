@@ -253,16 +253,16 @@ class DFormHelper : DHelper {
      * @param Json[string] options An array of html attributes and options.
      */
     string create(Json formContext = null, Json[string] options  = null) {
-        myappend = "";
+        string myappend = "";
 
         if (cast(IContext)formContext) {
-            this.context(formContext);
+            context(formContext);
         } else {
             if (options.isEmpty("context")) {
-                options["context"] = null;
+                options["context"] = Json(null);
             }
             options["context.entity"] = formContext;
-            formContext = _getContext(options["context"]);
+            formContext = _getContext(options.get("context"));
             options.remove("context");
         }
         myisCreate = formContext.isCreate();
@@ -781,14 +781,14 @@ class DFormHelper : DHelper {
      *  to customize the legend text.
      */
     string fieldset(string fieldNames = "", Json[string] options  = null) {
-        auto mylegend = options["legend"] ?? true;
-        auto fieldNameset = options["fieldset"] ?? true;
+        auto mylegend = options.getBool("legend", true);
+        auto fieldNameset = options.getBool("fieldset", true);
         auto mycontext = _getContext();
         auto result = fieldNames;
 
-        if (mylegend == true) {
-            myisCreate = mycontext.isCreate();
-            mymodelName = Inflector.humanize(
+        if (mylegend) {
+            auto myisCreate = mycontext.isCreate();
+            auto mymodelName = Inflector.humanize(
                 Inflector.singularize(_View.getRequest().getParam("controller"))
            );
 
@@ -969,11 +969,11 @@ class DFormHelper : DHelper {
         }
         return _formatTemplate(myinputContainerTemplate, [
             "content": options["content"],
-            "error": options["error"],
-            "label": options["label"] ?? "",
+            "error": options.get("error"),
+            "label": options.getString("label", ""),
             "required": options["options.required"] ? " " ~ this.templater().get("requiredClass") : "",
-            "type": options["options.type"],
-            "templateVars": options["options"].get("templateVars", null),
+            "type": options.get("options.type"),
+            "templateVars": options.get("options.templateVars", null),
         ]);
     }
     
@@ -984,14 +984,14 @@ class DFormHelper : DHelper {
      * @param Json[string] options The options for the input element
      */
     protected string[] _getInput(string fieldName, Json[string] options) {
-        mylabel = options["labelOptions"];
+        auto mylabel = options["labelOptions"];
         options.remove("labelOptions");
 
         switch (options.getString("type").lower) {
             case "select": 
             case "radio": 
             case "multicheckbox": 
-                myopts = options["options"];
+                auto myopts = options.get("options");
                 if (myopts.isNull) {
                     myopts = null;
                 }
@@ -1015,7 +1015,7 @@ class DFormHelper : DHelper {
      * @param Json[string] options Options list.
      */
     protected Json[string] _parseOptions(string fieldName, Json[string] options) {
-        myneedsMagicType = false;
+        auto myneedsMagicType = false;
         if (options.isEmpty("type")) {
             myneedsMagicType = true;
             options["type"] = _inputType(fieldName, options);
@@ -1042,7 +1042,7 @@ class DFormHelper : DHelper {
         }
         mytype = "text";
         myinternalType = mycontext.type(fieldName);
-        mymap = configuration.get("typeMap"];
+        mymap = configuration.get("typeMap");
         if (myinternalType !is null && isSet(mymap[myinternalType])) {
             mytype = mymap[myinternalType];
         }
@@ -1325,7 +1325,7 @@ class DFormHelper : DHelper {
         }
         myattributes = _initInputField(fieldName, myattributes);
 
-        myhiddenField = myattributes["hiddenField"] ?? true;
+        myhiddenField = myattributes.get("hiddenField", true);
         remove(myattributes["hiddenField"]);
 
         myhidden = "";
@@ -1371,8 +1371,8 @@ class DFormHelper : DHelper {
             throw new DException(
                 "Missing field name for `FormHelper.%s`.".format(mymethod));
         }
-        options = myparams[1] ?? [];
-        options["type"] = options["type"] ?? mymethod;
+        options = myparams[1] ? myparams[1] : [];
+        options["type"] = options.get("type", mymethod);
         options = _initInputField(myparams[0], options);
 
         return _widget(options["type"], options);
@@ -1401,9 +1401,8 @@ class DFormHelper : DHelper {
      * string fieldName Name of a field, in the form of "modelname.fieldname"
      */
     string hidden(string fieldName, Json[string] htmlAttributes  = null) {
-        htmlAttributes = htmlAttributes.update["required": false.toJson, "secure": true.toJson];
-
-        mysecure = options["secure"];
+        auto htmlAttributes = htmlAttributes.update["required": false.toJson, "secure": true.toJson];
+        auto mysecure = options["secure"];
         htmlAttributes.remove("secure");
 
         htmlAttributes = _initInputField(fieldName, array_merge(
@@ -2164,7 +2163,7 @@ class DFormHelper : DHelper {
             mydata.remove("secure");
         }
         auto mywidget = _locator.get(widgetname);
-        auto result = mywidget.render(mydata, this.context());
+        auto result = mywidget.render(mydata, context());
         if (
             _formProtector !is null &&
             isSet(mydata["name"]) &&

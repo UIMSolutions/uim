@@ -267,7 +267,7 @@ class DBreadcrumbsHelper : DHelper {
         return _formatTemplate("wrapper", [
             "content": mycrumbTrail,
             "attrs": mytemplater.formatAttributes(myattributes, ["templateVars"]),
-            "templateVars": myattributes["templateVars"] ?? [],
+            "templateVars": myattributes.get("templateVars", null),
         ]);
     }
     

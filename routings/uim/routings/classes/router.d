@@ -442,10 +442,10 @@ class DRouter {
         }
         myparts = parse_url(_fullBaseUrl);
         _requestContext = [
-            "_scheme": myparts["scheme"] ?? null,
-            "_host": myparts.get("host", null),
-            "_port": myparts["port"] ?? null,
-        ] + _requestContext;
+            "_scheme": myparts.get("scheme"),
+            "_host": myparts.get("host"),
+            "_port": myparts.get("port"),
+        ].merge(_requestContext);
 
         return _fullBaseUrl;
     }
@@ -461,7 +461,7 @@ class DRouter {
      *   {@link \UIM\Http\ServerRequest} object that needs to be reversed.
      */
     static Json[string] reverseToArray(ServerRequest|array myparams) {
-        myroute = null;
+        auto myroute = null;
         if (cast(DServerRequest)myparams) {
             myroute = myparams.getAttribute("route");
             assert(myroute.isNull || cast(Route)myroute);
@@ -471,9 +471,9 @@ class DRouter {
             assert(isArray(myparams));
             myparams["?"] = myqueryString;
         }
-        mypass = myparams["pass"] ?? [];
+        auto mypass = myparams.getArray("pass");
 
-        mytemplate = myparams.get("_matchedRoute", null);
+        auto mytemplate = myparams.get("_matchedRoute", null);
         remove(
             myparams["pass"],
             myparams["_matchedRoute"],

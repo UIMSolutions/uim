@@ -37,7 +37,7 @@ class DMarshaller {
             }
         }
         // Map associations
-        options["associated"] = options["associated"] ?? [];
+        options.set("associated", options.getArray("associated"));
         myinclude = _normalizeAssociations(options["associated"]);
         foreach (myinclude as aKey: mynested) {
             if (isInt(aKey) && isScalar(mynested)) {
@@ -77,7 +77,7 @@ class DMarshaller {
         }
         mybehaviors = _table.behaviors();
         foreach (mybehaviors.loaded() as myname) {
-            mybehavior = mybehaviors.get(myname);
+            auto mybehavior = mybehaviors.get(myname);
             if (cast(IPropertyMarshal)mybehavior) {
                 mymap += mybehavior.buildMarshalMap(this, mymap, options);
             }

@@ -91,16 +91,14 @@ class DArrayContext : DContext {
 
         foreach (myData, _context["schema._constraints"]) {
             if (data.getString("type") == "primary") {
-                return (array)(mydata["columns"] ?? []);
+                return mydata.getArray("columns");
             }
         }
         return null;
     }
  
-    bool isPrimaryKey(string pathToField) {
-        myprimaryKey = this.primaryKeys();
-
-        return isIn(fieldName, myprimaryKey, true);
+    bool isPrimaryKey(string fieldName) {
+        return fieldName.isIn(primaryKeys());
     }
     
     /**
@@ -132,20 +130,20 @@ class DArrayContext : DContext {
             "schemaDefault": true.toJson
         ]);
 
-        if (Hash.check(_context["data"], fieldPath)) {
-            return Hash.get(_context["data"], fieldPath);
+        if (Hash.check(_context.get("data"), fieldPath)) {
+            return Hash.get(_context.get("data"), fieldPath);
         }
-        if (!options["default"].isNull || !options["schemaDefault"]) {
+        if (!options.get("default").isNull || !options["schemaDefault"]) {
             return options["default"];
         }
-        if (_context["defaults"].isEmpty || !isArray(_context["defaults"])) {
+        if (_context.get("defaults").isEmpty || !isArray(_context["defaults"])) {
             return null;
         }
         // Using Hash.check here incase the default value is actually null
-        if (Hash.check(_context["defaults"], fieldPath)) {
-            return Hash.get(_context["defaults"], fieldPath);
+        if (Hash.check(_context.get("defaults"), fieldPath)) {
+            return Hash.get(_context.get("defaults"), fieldPath);
         }
-        return Hash.get(_context["defaults"], this.stripNesting(fieldPath));
+        return Hash.get(_context.get("defaults"), this.stripNesting(fieldPath));
     }
     
     /**
@@ -221,7 +219,7 @@ class DArrayContext : DContext {
         myschema = Hash.get(_context["schema"], fieldName)
             ?? Hash.get(_context["schema"], this.stripNesting(fieldName));
 
-        return myschema["type"] ?? null;
+        return myschema.get("type");
     }
 
     /**

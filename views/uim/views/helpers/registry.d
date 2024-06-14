@@ -94,13 +94,12 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      * @param string aliasName The alias of the loaded helper.
      * @param Json[string] configData An array of settings to use for the helper.
      */
+    protected DHelper _create(Object value, string aliasName, Json[string] configData) {
+        return myclass;
+    }
     protected DHelper _create(/* object */ string myclass, string aliasName, Json[string] configData) {
-        if (isObject(myclass)) {
-            return myclass;
-        }
-        myinstance = new myclass(_View, configData);
-
-        if (configuration.get("enabled"] ?? true) {
+        auto myinstance = new myclass(_View, configData);
+        if (configuration.getBool("enabled", true)) {
             getEventManager().on(myinstance);
         }
         return myinstance;

@@ -290,16 +290,16 @@ class DSelectLoader {
      * @param Json[string] options The options for getting the link field.
      */
     protected string[] _linkField(Json[string] optionData) {
-        links = null;
-        name = _aliasName;
+        auto links = null;
+        auto name = _aliasName;
 
-        if (options["foreignKey"] == false && this.associationType == Association.ONE_TO_MANY) {
+        if (options.get("foreignKey") == false && this.associationType == Association.ONE_TO_MANY) {
             msg = "Cannot have foreignKey = false for hasMany associations~ " ~
                    "You must provide a foreignKey column.";
             throw new DRuntimeException(msg);
         }
 
-        keys = isIn(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) ?
+        auto keys = isIn(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) ?
             this.foreignKey :
             this.bindingKey;
 

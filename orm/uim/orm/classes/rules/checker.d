@@ -28,8 +28,8 @@ class DRulesChecker { // }: BaseRulesChecker {
      * also be an array of options. When an array, the "message" key can be used to provide a message.
      */
     RuleInvoker isUnique(Json[string] fieldNames, string[] errorMessage = null) {
-        options = isArray(errorMessage) ? errorMessage : ["message": errorMessage];
-        errorMessage = options["message"] ?? null;
+        auto options = isArray(errorMessage) ? errorMessage : ["message": errorMessage];
+        auto errorMessage = options.get("message", null);
         options.remove("message");
 
         if (!errorMessage) {

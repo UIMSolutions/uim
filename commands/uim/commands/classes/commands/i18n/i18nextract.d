@@ -73,7 +73,7 @@ class DI18nExtractCommand : DCommand {
                 "Current paths: %s\nWhat is the path you would like to extract?\n[Q]uit [D]one"
                 .format(currentPaths.join(", "));
 
-            string response = consoleIo.ask(message, defaultPaths[defaultPathIndex] ?? "D");
+            string response = consoleIo.ask(message, defaultPaths.getString(defaultPathIndex, "D");
             if (response.upper == "Q") {
                  aConsoleIo.writeErrorMessages("Extract Aborted");
                 abort();

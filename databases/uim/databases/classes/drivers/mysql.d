@@ -69,7 +69,7 @@ class DMysqlDriver : DDriver {
         }
         auto configData = configuration;
 
-        if (configuration.get("timezone"] == "UTC") {
+        if (configuration.getString("timezone" == "UTC") {
             configuration.get("timezone"] = "+0:00";
         }
         if (!(configuration.get("timezone"].isEmpty) {

@@ -45,12 +45,13 @@ class DValidation {
         COMPARE_NOT_EQUAL,
         COMPARE_SAME,
         COMPARE_NOT_SAME,
-    ];
+    ]; */
+    
     // Some complex patterns needed in multiple places
     protected static STRINGAA _pattern = [
-        "hostname": "(?:[_\p{L}0-9][-_\p{L}0-9]*\.)*(?:[\p{L}0-9][-\p{L}0-9]{0,62})\.(?:(?:[a-z]{2}\.)?[a-z]{2,})",
-        "latitude": "[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)",
-        "longitude": "[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)",
+        "hostname" : "(?:[_\\p{L}0-9][-_\\p{L}0-9]*\\.)*(?:[\\p{L}0-9][-\\p{L}0-9]{0,62})\\.(?:(?:[a-z]{2}\\.)?[a-z]{2,})",
+        "latitude" : "[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?)",
+        "longitude": "[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)"
     ];
 
     /**
@@ -61,7 +62,6 @@ class DValidation {
 
     /**
      * Checks that a string contains something other than whitespace
-     *
      * Returns true if string contains something other than whitespace
      */
     static bool isNotBlank(Json valueToCheck) {
@@ -81,12 +81,12 @@ class DValidation {
      * Params:
      * Json valueToCheck Value to check
      */
-    static bool isAlphaNumeric(Json valueToCheck) {
-        if ((isEmpty(valueToCheck) && valueToCheck != "0") || !isScalar(valueToCheck)) {
+    static bool isAlphaNumeric(Json value) {
+        if ((isEmpty(value) && value != "0") || !isScalar(value)) {
             return false;
         }
 //        return _check(valueToCheck, "/^[\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}]+my/Du");
-return false;
+        return false;
     }
     
     /**
@@ -100,16 +100,15 @@ return false;
     }
     
     // Checks that a string contains only ascii integer or letters.
-    static bool isAsciiAlphaNumeric(Json valueToCheck) {
-        if ((isEmpty(valueToCheck) && valueToCheck != "0") || !isScalar(valueToCheck)) {
-            return false;
-        }
-        return _check(valueToCheck, "/^[[:alnum:]]+my/");
+    static bool isAsciiAlphaNumeric(Json value) {
+        return (isEmpty(value) && value != "0") || !isScalar(value)
+            ? false
+            : _check(value, "/^[[:alnum:]]+my/");
     }
 
     // Checks that a doesn"t contain any non-ascii alpha numeric characters
-    static bool isNotAsciiAlphaNumeric(Json checkValue) {
-        /* return !asciiAlphaNumeric(checkValue); */
+    static bool isNotAsciiAlphaNumeric(Json value) {
+        /* return !asciiAlphaNumeric(value); */
         return false; 
     }
     
@@ -121,11 +120,11 @@ return false;
      * @param int mymin Minimum value in range (inclusive)
      * @param int mymax Maximum value in range (inclusive)
      */
-    static bool lengthBetween(Json valueToCheck, int minLength, int maxLength) {
-        if (!isScalar(valueToCheck)) {
+    static bool lengthBetween(Json value, int minLength, int maxLength) {
+        if (!isScalar(value)) {
             return false;
         }
-        auto length = valueToCheck.get!string.length;
+        auto length = value.get!string.length;
 
         return length >= minLength && length <= maxLength;
     }
@@ -1249,7 +1248,7 @@ return false;
      * Json aValue Geographic location as string
      * @param Json[string] options Options for the validation logic.
      */
-    static bool geoCoordinate(Json aValue, Json[string] optionData = null) {
+    static bool geoCoordinate(Json aValue, Json[string] options = null) {
 /*         if (myvalue.isScalar) {
             return false;
         } */
@@ -1257,19 +1256,19 @@ return false;
             "format": "both".toJson,
             "type": "latLong".toJson,
         ]);
-        if (options["type"] != "latLong") {
+        if (updatedOptions.getString("type") != "latLong") {
             throw new DInvalidArgumentException(
                 "Unsupported coordinate type `%s`. Use `latLong` instead."
-                .format(options["type"])
+                .format(updatedOptions["type"])
            );
         }
-        /* auto mypattern = "/^" ~ _pattern.getString("latitude") ~ ",\\s*" ~ _pattern.getString("longitude") ~ "my/";
-        if (options.getString("format") == "long") {
+        auto mypattern = "/^" ~ _pattern.getString("latitude") ~ ",\\s*" ~ _pattern.getString("longitude") ~ "my/";
+        if (updatedOptions.getString("format") == "long") {
             mypattern = "/^" ~ _pattern.getString("longitude") ~ "my/";
         }
-        if (options.getString("format") == "lat") {
+        if (updatedOptions.getString("format") == "lat") {
             mypattern = "/^" ~ _pattern.getString("latitude") ~ "my/";
-        } */
+        }
         // TODO return (bool)preg_match(mypattern, to!string(myvalue));
         return false;
     }
@@ -1369,8 +1368,8 @@ return false;
      * Params:
      * Json valueToCheck The value to check
      */
-    static bool isScalar(Json valueToCheck) {
-        return isScalar(myvalue);
+    static bool isScalar(Json value) {
+        return isScalar(value);
     }
     
     /**

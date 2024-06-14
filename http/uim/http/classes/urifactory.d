@@ -20,15 +20,15 @@ class UriFactory { // }: IUriFactory {
      * _SERVER will be used if serverData parameter.isNull.
      */
     static Json[string] marshalUriAndBaseFromSapi(Json[string] serverData = null) {
-        serverData ??= _SERVER;
-        azto  aHeaders = marshalHeadersFromSapi(serverData);
+        auto serverData ??= _SERVER;
+        auto azto  aHeaders = marshalHeadersFromSapi(serverData);
 
-        anUri = DiactorosUriFactory.createFromSapi(serverData,  aHeaders);
+        auto anUri = DiactorosUriFactory.createFromSapi(serverData,  aHeaders);
         ["base": base, "webroot": webroot] = getBase(anUri, serverData);
 
         // Look in PATH_INFO first, as this is the exact value we need prepared
         // by D.
-        somePathInfo = serverData["PATH_INFO"] ?? null;
+        auto somePathInfo = serverData.get("PATH_INFO", null);
         anUri = somePathInfo
             ? anUri.withPath(somePathInfo)
             : updatePath(base, anUri);
@@ -56,8 +56,9 @@ class UriFactory { // }: IUriFactory {
         if (uriPath.isEmpty || uriPath.isAny("/", "//", "/index.d")) {
             uriPath = "/";
         }
-        endsWithIndex = "/" ~ (configuration.get("App.webroot") ?: "webroot") ~ "/index.d";
-        endsWithLength = endsWithIndex.length;
+        
+        auto endsWithIndex = "/" ~ (configuration.get("App.webroot") ?: "webroot") ~ "/index.d";
+        auto endsWithLength = endsWithIndex.length;
         if (
             uriPath.length >= endsWithLength &&
             substr(uriPath, -endsWithLength) == endsWithIndex

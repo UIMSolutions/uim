@@ -470,7 +470,7 @@ class DNumericPaginator : IPaginator {
             }
         }
 
-        if (paginationOptions["sort"] == null && count(paginationOptions["order"]) >= 1 && !key(
+        if (paginationOptions.isNull("sort") && count(paginationOptions["order"]) >= 1 && !key(
                 paginationOptions["order"].isNumeric)) {
             paginationOptions["sort"] = key(paginationOptions.getString("order"));
         }

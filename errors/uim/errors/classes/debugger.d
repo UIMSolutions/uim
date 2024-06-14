@@ -214,10 +214,8 @@ class DDebugger {
             // Frames without file/line are never equal to another frame.
             isEqual = (
                 (
-                    isSet(tail["file"]) &&
-                    isSet(tail["line"]) &&
-                    isSet(parentTail["file"]) &&
-                    isSet(parentTail["line"])
+                    tail.hasAllKeys("file", "line") &&
+                    parentTail.hasAllKeys("file", "line")
            ) &&
                 (tail["file"] == parentTail["file"]) &&
                 (tail["line"] == parentTail["line"])

@@ -265,9 +265,9 @@ class DNumber {
         type = NumberFormatter.DECIMAL;
         if (!options["type"].isEmpty) {
             type = (int)options["type"];
-            if (options["type"] == FORMAT_CURRENCY) {
+            if (options.get("type") == FORMAT_CURRENCY) {
                 type = NumberFormatter.CURRENCY;
-            } else if (options["type"] == FORMAT_CURRENCY_ACCOUNTING) {
+            } else if (options.et("type") == FORMAT_CURRENCY_ACCOUNTING) {
                 type = NumberFormatter.CURRENCY_ACCOUNTING;
             }
         }

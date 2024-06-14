@@ -75,7 +75,7 @@ class DSqliteDriver : DDriver {
             PDO.ATTR_EMULATE_PREPARES: false,
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
         ];
-        if (!configuration.get("database").isString) || configuration.getString("database"] == "") {
+        if (!configuration.get("database").isString) || configuration.getString("database") == "") {
             name = configData.get("name", "unknown");
             throw new DInvalidArgumentException(
                 "The `database` key for the `{name}` SQLite connection needs to be a non-empty string."
@@ -83,7 +83,7 @@ class DSqliteDriver : DDriver {
         }
         chmodFile = false;
         if (configuration.getString("database") != ": memory:" && configuration.getString("mode") != "memory") {
-            chmodFile = !fileExists(configuration.get("database"]);
+            chmodFile = !fileExists(configuration.get("database"));
         }
         
         string[] params = null;

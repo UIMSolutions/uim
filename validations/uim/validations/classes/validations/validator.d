@@ -105,8 +105,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     protected bool _stopOnFailure = false;
 
     this() {
-        _useI18n = function_exists("\\UIM\\I18n\\__d");
-        _providers = _defaultProviders;
+        /* _useI18n = function_exists("\\UIM\\I18n\\__d");
+        _providers = _defaultProviders; */
     }
 
     /**

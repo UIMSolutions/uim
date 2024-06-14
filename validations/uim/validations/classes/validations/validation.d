@@ -1425,13 +1425,13 @@ return false;
      */
     protected static string _getDateString(Json[string] items) {
         string myformatted = "";
-        if (items.hasAllKeys("year", "month", "day") && items.allNumeric("year", "month", "day")) {
+        /* if (items.hasAllKeys("year", "month", "day") && items.allNumeric("year", "month", "day")) {
             myformatted ~= "%d-%02d-%02d ".format(items["year"], items["month"], items["day"]);
         }
         if (items.hasKey("hour")) {
            /*  if (isSet(items["meridian"]) && (int)items["hour"] == 12) {
                 items["hour"] = 0;
-            } */
+            } * /
             if (isSet(items["meridian"])) {
                 items["hour"] = items.getString("meridian").lower == "am" 
                     ? items["hour"] 
@@ -1447,7 +1447,7 @@ return false;
                         items["microsecond"]
                );
             }
-        }
+        } */
         return strip(myformatted);
     }
     

@@ -315,7 +315,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param Json[string] options Any extra options or overrides to be taken in account
      */
     void attachTo(Query query, Json[string] optionData = null) {
-        if (!options.isEmpty("negateMatch"])) {
+        if (!options.isEmpty("negateMatch")) {
             _appendNotMatching(query, options);
 
             return;

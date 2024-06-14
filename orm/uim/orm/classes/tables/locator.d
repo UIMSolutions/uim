@@ -129,24 +129,23 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         if (myclassName) {
             options["className"] = myclassName;
         } else if (myallowFallbackClass) {
-            if (isoptions.isEmpty("className"])) {
+            if (isoptions.isEmpty("className")) {
                 options["className"] = aliasName;
             }
-            if (!options.hasKey("table") && !options["className"].has("\\")) {
+            if (!options.hasKey("table") && !options.getString("className").has("\\")) {
                 [, mytable] = pluginSplit(options["className"]);
                 options["table"] = Inflector.underscore(mytable);
             }
             options["className"] = this.fallbackClassName;
         } else {
-            mymessage = options["className"] ?? aliasName;
-            mymessage = "`" ~ mymessage ~ "`";
+            mymessage = "`" ~ options.getString("className", aliasName) ~ "`";
             if (!mymessage.has("\\")) {
                 mymessage = "for alias " ~ mymessage;
             }
             throw new DMissingTableClassException([mymessage]);
         }
-        if (isoptions.isEmpty("connection"])) {
-            if (!options.isEmpty("connectionName"])) {
+        if (isoptions.isEmpty("connection")) {
+            if (!options.isEmpty("connectionName")) {
                 myconnectionName = options["connectionName"];
             } else {
                 /** @var \ORM\Table myclassName */

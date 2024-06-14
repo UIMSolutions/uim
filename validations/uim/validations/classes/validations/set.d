@@ -32,7 +32,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * callable|string myvalidatePresent Valid values are true, false, "create", "update" or a callable.
      */
-    void requirePresence(/*callable|*/string isValidatePresent) {
+    void requirePresence(/*callable|*//* string  */bool isValidatePresent) {
        _validatePresent = isValidatePresent;
     }
     

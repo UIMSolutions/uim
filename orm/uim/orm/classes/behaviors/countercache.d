@@ -252,14 +252,14 @@ class DCounterCacheBehavior : DBehavior {
      * @param Json[string] myconditions Additional conditions given to the query
      */
     protected int _getCount(Json[string] configData, Json[string] myconditions) {
-        myfinder = "all";
+        /* myfinder = "all";
         if (!igData.isEmpty("finder")) {
-            myfinder = configuration.get("finder"];
-            remove(configuration.get("finder"]);
+            myfinder = configuration.get("finder");
+            remove(configuration.get("finder");
         }
-        configuration.get("conditions"] = chain(myconditions, configuration.get("conditions"] ?? []);
-        myquery = _table.find(myfinder, ...configData);
+        configuration.set("conditions", chain(myconditions, configuration.get("conditions"] ?? []);
+        myquery = _table.find(myfinder, ...configData); */
 
-        return myquery.count();
+        return 0; //TODO myquery.count();
     }
 }

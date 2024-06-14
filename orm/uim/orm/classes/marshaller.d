@@ -291,11 +291,11 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
      * @param Json[string] options List of options.
      */
     protected IORMEntity[] _belongsToMany(BelongsToMany myassoc, Json[string] data, Json[string] optionData = null) {
-        auto myassociated = options["associated"] ?? [];
+        auto myassociated = options.getArray("associated");
         auto myforceNew = options.get("forceNew", false);
         auto mydata = mydata.values;
         auto mytarget = myassoc.getTarget();
-        auto myprimaryKey = array_flip((array)mytarget.primaryKeys());
+        auto myprimaryKey = array_flip(mytarget.primaryKeys());
         auto myrecords = myconditions = null;
         auto myprimaryCount = count(myprimaryKey);
 
@@ -541,9 +541,9 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
      * @param Json[string] options List of options.
      */
     IORMEntity[] mergeMany(Json[string] myentities, Json[string] data, Json[string] optionData = null) {
-        myprimary = /* (array) */_table.primaryKeys();
+        auto myprimary = /* (array) */_table.primaryKeys();
 
-        myindexed = (new DCollection(mydata))
+        auto myindexed = (new DCollection(mydata))
             .groupBy(function (myel) use (myprimary) {
                 auto someKeys = myprimary
                     .map!(key => myel.get(key, "")).array;
@@ -554,7 +554,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
             })
             .toJString();
 
-        mynew = myindexed[""] ?? [];
+        mynew = myindexed.getArray("");
         remove(myindexed[""]);
         myoutput = null;
 

@@ -1797,7 +1797,7 @@ class DFormHelper : DHelper {
             myhiddenAttributes = [
                 "name": myattributes["name"],
                 "value": "",
-                "form": myattributes["form"] ?? null,
+                "form": myattributes.get("form"),
                 "secure": false.toJson,
             ];
             myhidden = hidden(fieldName, myhiddenAttributes);
@@ -2020,27 +2020,27 @@ class DFormHelper : DHelper {
             myfirst = array_shift(pathParts);
             options["name"] = myfirst ~ (!pathParts.isEmpty ? "[" ~ join(., pathParts) ~ "]" : "") ~ myendsWithBrackets;
         }
-        if (isSet(options["value"]) && !options.hasKey("val")) {
+        if (options.hasKey("value") && !options.hasKey("val")) {
             options["val"] = options["value"];
             options.remove("value");
         }
         if (!options.hasKey("val")) {
             myvalOptions = [
-                "default": options["default"] ?? null,
+                "default": options.get("default"),
                 "schemaDefault": options.get("schemaDefault", true),
             ];
-            options["val"] = getSourceValue(fieldName, myvalOptions);
+            options.get("val", getSourceValue(fieldName, myvalOptions));
         }
-        if (!options.hasKey("val") && isSet(options["default"])) {
+        if (!options.hasKey("val") && options.hasKey("default")) {
             options["val"] = options["default"];
         }
-        options.remove("value"], options["default"]);
+        options.remove("value", "default");
 
         if (cast(BackedEnum)options["val"]) {
-            options["val"] = options["val"].value;
+            options.get("val", options["val"].value);
         }
         if (mycontext.hasError(fieldName)) {
-            options = this.addClass(options, configuration.get("errorClass"]);
+            options = addClass(options, configuration.get("errorClass"));
         }
         myisDisabled = _isDisabled(options);
         if (myisDisabled) {

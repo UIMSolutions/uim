@@ -289,13 +289,13 @@ class DEagerLoader {
                 }
             }
 
-            if ((options.isArray) {
+            if (options.isArray) {
                 options = options.hasKey("config") ?
                     options["config"] + options["associations"] :
                     options;
                 options = _reformatContain(
                     options,
-                    pointer[table] ?? []
+                    pointer.getArray(table)
                );
             }
 

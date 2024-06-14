@@ -1266,11 +1266,11 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
            );
 
             myargs += myfinder;
-            myfinder = myargs["finder"] ?? "all";
-            if (isSet(myargs["cache"])) {
+            myfinder = myargs.getString("finder", "all");
+            if (myargs.hasKey("cache")) {
                 mycache = myargs["cache"];
             }
-            if (isSet(myargs["key"])) {
+            if (myargs.hasKey("key")) {
                 mycacheKey = myargs["key"];
             }
             remove(myargs["key"], myargs["cache"], myargs["finder"]);

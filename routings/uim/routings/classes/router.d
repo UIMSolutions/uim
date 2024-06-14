@@ -491,7 +491,7 @@ class DRouter {
         }
         if (myroute) {
             // If we found a route, slice off the number of passed args.
-            myroutePass = myroute.options["pass"] ?? [];
+            myroutePass = myroute.options.getArray("pass", null);
             mypass = array_slice(mypass, count(myroutePass));
         }
         return array_merge(myparams, mypass);

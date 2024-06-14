@@ -48,18 +48,18 @@ class DLinkConstraint {
      * @param Json[string] options Options passed from the rules checker.
      */
     bool __invoke(IORMEntity myentity, Json[string] options) {
-        mytable = options["repository"] ?? null;
+        auto mytable = options.get("repository", null);
         if (!(cast(Table)mytable)) {
             throw new DInvalidArgumentException(
                 "Argument 2 is expected to have a `repository` key that holds an instance of `\ORM\Table`."
            );
         }
-        myassociation = _association;
+        auto myassociation = _association;
         if (!cast(DAssociation)myassociation) {
             myassociation = mytable.getAssociation(myassociation);
         }
-        mycount = _countLinks(myassociation, myentity);
 
+        auto mycount = _countLinks(myassociation, myentity);
         if (
             (
                _requiredLinkState == STATUS_LINKED &&

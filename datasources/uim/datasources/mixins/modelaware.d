@@ -67,16 +67,16 @@ mixin template TModelAware() {
 
         auto options = null;
         if (indexOf(modelClass, "\\") == false) {
-            [, alias] = pluginSplit(modelClass, true);
+            [, aliasName] = pluginSplit(modelClass, true);
         } else {
             options["className"] = modelClass;
             /** @psalm-suppress PossiblyFalseOperand */
-            alias = substr(
+            aliasName = substr(
                 modelClass,
                 indexOf(modelClass, "\\") + 1,
                 -modelType.length
            );
-            modelClass = alias;
+            modelClass = aliasName;
         }
         factory = _modelFactories[modelType] ?? FactoryLocator.get(modelType);
 

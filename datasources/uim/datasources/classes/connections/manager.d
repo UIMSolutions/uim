@@ -125,7 +125,7 @@ static Json[string] parseDsn(string dsnToConvert) {
      * ConnectionManager.alias("test_things", "things");
      * ```
      */
-static void alias(string sourceConnection, string aliasName) {
+static void aliasName(string sourceConnection, string aliasName) {
     _aliasMap[aliasName] = sourceConnection;
 }
 
@@ -225,7 +225,7 @@ static Json[string] parseDsn(string adsn) {
      * Make 'things' resolve to 'test_things' connection
      * ConnectionManager.alias("test_things", "things");
      */
-static void alias(string connectionAlias, string sourceAlias) {
+static void aliasName(string connectionAlias, string sourceAlias) {
     _connectionAliases[connectionAlias] = sourceAlias;
 }
 

@@ -96,15 +96,13 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @param Json[string] myConfiguration An array of config to use for the behavior.
      */
     protected IBehavior _create(class, string anAlias, Json myConfiguration) {
-        /** @var DORMBehavior instance */
-        instance = new class(_table, myConfiguration);
-        enable = configuration.get("enabled"] ?? true;
-        if (enable) {
+        DORMBehavior instance = new class(_table, myConfiguration);
+        if (configuration.getBool("enabled", true)) {
             getEventManager().on(instance);
         }
-        aMethodNames = _getMethods(instance, class, alias);
-        _methodMap += aMethodNames["methods"];
-        _finderMap += aMethodNames["finders"];
+        auto methodNames = _getMethods(instance, class, alias);
+        _methodMap ~= methodNames["methods"];
+        _finderMap ~= methodNames["finders"];
 
         return instance;
     }

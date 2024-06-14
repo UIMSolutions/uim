@@ -449,7 +449,7 @@ abstract class DQuery : IQuery { // : IExpression {
         
         auto joins = null;
         anto anI = count(_parts["join"]);
-        foreach (alias, t; aTables) {
+        foreach (aliasName, t; aTables) {
             if (!isArray(t)) {
                 t = ["table": t, "conditions": this.newExpr()];
             }
@@ -459,8 +459,8 @@ abstract class DQuery : IQuery { // : IExpression {
             if (!cast(IExpression)t["conditions"]) {
                 t["conditions"] = this.newExpr().add(t["conditions"], typeMap);
             }
-            alias = isString(alias) ? alias : null;
-             joins[alias ?:  anI++] = t ~ ["type": JOIN_TYPE_INNER, "alias": alias];
+            aliasName = isString(aliasName) ? aliasName : null;
+             joins[aliasName ?:  anI++] = t ~ ["type": JOIN_TYPE_INNER, "aliasName": aliasName];
         }
         _parts["join"] = shouldOverwrite ?  joins : array_merge(_parts["join"],  joins);
        _isDirty();

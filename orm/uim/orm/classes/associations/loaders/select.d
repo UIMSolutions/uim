@@ -39,9 +39,7 @@ class DSelectLoader {
      */
     protected finder;
 
-    /**
-     * The type of the association triggering the load
-     */
+    // The type of the association triggering the load
     protected string associationType;
 
     // The sorting options for loading the association
@@ -54,15 +52,15 @@ class DSelectLoader {
      * @param Json[string] options Properties to be copied to this class
      */
     this(Json[string] optionData) {
-        this.alias = options["alias"];
-        this.sourceAlias = options["sourceAlias"];
-        this.targetAlias = options["targetAlias"];
-        this.foreignKey = options["foreignKey"];
-        this.strategy = options["strategy"];
-        this.bindingKey = options["bindingKey"];
-        this.finder = options["finder"];
-        this.associationType = options["associationType"];
-        this.sort = options["sort"] ?? null;
+        _alias = options["alias"];
+        _sourceAlias = options["sourceAlias"];
+        _targetAlias = options["targetAlias"];
+        _foreignKey = options["foreignKey"];
+        _strategy = options["strategy"];
+        _bindingKey = options["bindingKey"];
+        _finder = options["finder"];
+        _associationType = options["associationType"];
+        _sort = options["sort"] ?? null;
     }
 
     /**

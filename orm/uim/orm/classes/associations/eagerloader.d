@@ -512,14 +512,13 @@ class DEagerLoader {
         mycollected = _collectKeys(myexternal, myquery, results);
 
         foreach (mymeta; myexternal) {
-            mycontain = mymeta.associations();
-            myinstance = mymeta.instance();
+            auto mycontain = mymeta.associations();
+            auto myinstance = mymeta.instance();
             auto configData = mymeta.configuration.data();
-            aliasName = myinstance.source().aliasName();
-            mypath = mymeta.aliasPath();
+            auto aliasName = myinstance.source().aliasName();
+            auto mypath = mymeta.aliasPath();
 
-            myrequiresKeys = myinstance.requiresKeys(configData);
-            if (myrequiresKeys) {
+            if (auto myrequiresKeys = myinstance.requiresKeys(configData)) {
                 // If the path or alias has no key the required association load will fail.
                 // Nested paths are not subject to this condition because they could
                 // be attached to joined associations.
@@ -532,11 +531,11 @@ class DEagerLoader {
                 }
                 // If the association foreign keys are missing skip loading
                 // as the association could be optional.
-                if (isEmpty(mycollected[mypath][aliasName])) {
+                if (isEmpty(mycollected(mypath~"."~aliasName))) {
                     continue;
                 }
             }
-            someKeys = mycollected[mypath][aliasName] ?? null;
+            someKeys = mycollected.get(mypath~"."~aliasName, null);
             mycallback = myinstance.eagerLoader(
                 configData.update([
                     "query": myquery,

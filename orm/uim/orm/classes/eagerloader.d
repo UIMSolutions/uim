@@ -576,8 +576,8 @@ class DEagerLoader {
                 }
             }
 
-            keys = collected[path][alias] ?? null;
-            f = instance.eagerLoader(
+            auto keys = collected.get(path~"."~aliasName, null);
+            auto f = instance.eagerLoader(
                 myConfiguration + [
                     "query": query,
                     "contain": contain,

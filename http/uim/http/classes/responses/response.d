@@ -622,7 +622,7 @@ class DResponse : IResponse {
      * string aalias the content type alias to map
      */
     string[] getMimeType(string aalias) {
-        return _mimeTypes[alias] ?? false;
+        return _mimeTypes.get(alias, false);
     }
     
     /**

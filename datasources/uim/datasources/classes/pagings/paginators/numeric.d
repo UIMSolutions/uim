@@ -177,8 +177,8 @@ class DNumericPaginator : IPaginator {
         data["count"] = getCount(cleanQuery, data);
 
         auto pagingParams = this.buildParams(data);
-        alias = object.aliasName();
-        _pagingParams = [alias: pagingParams];
+        aliasName = object.aliasName();
+        _pagingParams = [aliasName: pagingParams];
         if (pagingParams["requestedPage"] > pagingParams["page"]) {
             throw new DPageOutOfBoundsException([
                 "requestedPage": pagingParams["requestedPage"],
@@ -207,8 +207,8 @@ class DNumericPaginator : IPaginator {
 
     // Extract pagination data needed
     Json[string] extractData(IRepository repository, Json[string] requestData, Json[string] paginationData) {
-        alias = repository.aliasName();
-        defaults = getDefaults(alias, paginationData);
+        aliasName = repository.aliasName();
+        defaults = getDefaults(aliasName, paginationData);
         options = this.mergeOptions(requestData, defaults);
         options = this.validateSort(repository, options);
         options = this.checkLimit(options);

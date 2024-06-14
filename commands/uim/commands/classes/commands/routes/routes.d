@@ -6,17 +6,19 @@ import uim.commands;
 
 // Provides interactive CLI tools for routing.
 class DRoutesCommand : DCommand {
-   mixin(CommandThis!("Routes"));
+    mixin(CommandThis!("Routes"));
 
-  	override bool initialize(Json[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
-  override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
-    return super.execute(arguments, aConsoleIo);
-  }
+        return true;
+    }
+
+    override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
+        return super.execute(arguments, aConsoleIo);
+    }
 
     /* 
     // Display all routes in an application
@@ -29,59 +31,60 @@ class DRoutesCommand : DCommand {
         output = someDuplicateRoutesCounter = null;
 
         someAvailableRoutes.each!((route) {
-             someMethods = isSet(route.defaults["_method"]) ? /* (array) */route.defaults["_method"] : [""];
+             someMethods = isSet(route.defaults["_method"]) ? /* (array) */
+    route.defaults["_method"] : [""];
 
-             anItem = [
-                route.options.get("_name", route.name),
-                route.template,
-                route.defaults.get("plugin", ""),
-                route.defaults.get("prefix", ""),
-                route.defaults.get("controller", ""),
-                route.defaults.get("action", ""),
-                someMethods.join(", "),
-            ];
+    anItem = [
+        route.options.get("_name", route.name),
+        route.template,
+        route.defaults.get("plugin", ""),
+        route.defaults.get("prefix", ""),
+        route.defaults.get("controller", ""),
+        route.defaults.get("action", ""),
+        someMethods.join(", "),
+    ];
 
-            if (arguments.getOption("verbose")) {
-                ksort(route.defaults);
-                 anItem ~= Json_encode(route.defaults, Json_THROW_ON_ERROR);
-            }
-            output ~= anItem;
+    if (arguments.getOption("verbose")) {
+        ksort(route.defaults);
+        anItem ~= Json_encode(route.defaults, Json_THROW_ON_ERROR);
+    }
 
-            someMethods.each!((method) {
-                if (!isSet(someDuplicateRoutesCounter[route.template][method])) {
-                     someDuplicateRoutesCounter[route.template][method] = 0;
-                }
-                someDuplicateRoutesCounter[route.template][method]++;
-            });
+    output ~= anItem;
+
+    someMethods.each!((method) {
+        if (!isSet(someDuplicateRoutesCounter[route.template][method])) {
+            someDuplicateRoutesCounter[route.template][method] = 0;}
+            someDuplicateRoutesCounter[route.template][method]++;});
         });
 
         if (arguments.getOption("sort")) {
-            usort(output, auto (a, b) {
+            usort(output, auto(a, b) {
                 return strcasecmp(a[0], b[0]);
             });
         }
-        array_unshift(output,  aHeader);
+        array_unshift(output, aHeader);
 
-         aConsoleIo.helper("table").output(output);
-         aConsoleIo.writeln();
+        aConsoleIo.helper("table").output(output);
+        aConsoleIo.writeln();
 
-         someDuplicateRoutes = null;
+        someDuplicateRoutes = null;
 
-        foreach (myRoute;  someAvailableRoutes) {
-            string[] someMethods = myRoute.defaults.hasKey("_method") ? /* (array) */myRoute.defaults["_method"] : [""];
+        foreach (myRoute; someAvailableRoutes) {
+            string[] someMethods = myRoute.defaults.hasKey("_method") ?  /* (array) */ myRoute
+                .defaults["_method"] : [""];
 
             someMethods.each!((method) {
                 string routeTemplateName = myRoute.templateName;
                 if (
-                     someDuplicateRoutesCounter[routeTemplateName][method] > 1 ||
-                    (method.isEmpty && count(someDuplicateRoutesCounter[routeTemplateName]) > 1) ||
-                    (method != "" && isSet(someDuplicateRoutesCounter[routeTemplateName][""]))
-               ) {
-                     someDuplicateRoutes ~= [
+                    someDuplicateRoutesCounter[routeTemplateName][method] > 1 ||
+                (method.isEmpty && count(someDuplicateRoutesCounter[routeTemplateName]) > 1) ||
+                (method != "" && isSet(someDuplicateRoutesCounter[routeTemplateName][""]))
+                    ) {
+                    someDuplicateRoutes ~= [
                         myRoute.options.getString("_name", myRoute.name),
                         routeTemplateName,
                         myRoute.defaults.getString("pluginName"),
-                        myRoute.defaults.getString("prefix")/* Name */,
+                        myRoute.defaults.getString("prefix") /* Name */ ,
                         myRoute.defaults.getString("controNameller"),
                         myRoute.defaults.getString("action"),
                         someMethods.join(", "),
@@ -92,7 +95,7 @@ class DRoutesCommand : DCommand {
             });
         }
         if (someDuplicateRoutes) {
-            array_unshift(someDuplicateRoutes,  aHeader);
+            array_unshift(someDuplicateRoutes, aHeader);
             aConsoleIo.warning("The following possible route collisions were detected.");
             aConsoleIo.helper("table").output(someDuplicateRoutes);
             aConsoleIo.writeln();
@@ -100,20 +103,20 @@ class DRoutesCommand : DCommand {
         return CODE_SUCCESS;
     }
 
-    DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser  aParser) {
-         aParser
+    DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser aParser) {
+        aParser
             .description("Get the list of routes connected in this application.")
             .addOption("sort", [
-                "help": "sorts alphabetically by route name A-Z",
-                "short": "s",
-                "boolean": true.toJson,
-            ]);
+                    "help": "sorts alphabetically by route name A-Z",
+                    "short": "s",
+                    "boolean": true.toJson,
+                ]);
 
         return aParser;
     }
 }
 
-/*/ Display all routes in an application
+// Display all routes in an application
   int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
             if (commandArguments.getOption("verbose")) {
                 ksort(route.defaults);
@@ -127,7 +130,7 @@ class DRoutesCommand : DCommand {
                 }
                 someDuplicateRoutesCounter[route.template][method]++;
             });
-        });
+        };
 
         if (commandArguments.getOption("sort")) {
             usort(output, auto (a, b) {
@@ -142,48 +145,51 @@ class DRoutesCommand : DCommand {
         auto someDuplicateRoutes = null;
 
         foreach (myRoute;  someAvailableRoutes) {
-            string[] someMethods = isSet(myRoute.defaults["_method"]) ? /* (array) */myRoute.defaults["_method"] : [""];
+            string[] someMethods = isSet(myRoute.defaults["_method"]) ? /* (array) */
+myRoute.defaults["_method"] : [""];
 
-            someMethods.each((method) {
-                if (
-                     someDuplicateRoutesCounter[myRoute.template][method] > 1 ||
-                    (method.isEmpty && count(someDuplicateRoutesCounter[myRoute.template]) > 1) ||
-                    (method != "" && isSet(someDuplicateRoutesCounter[myRoute.template][""]))
-               ) {
-                     someDuplicateRoutes ~= [
-                        myRoute.options["_name"] ?? myRoute.name,
-                        myRoute.template,
-                        myRoute.defaults.get("plugin", ""),
-                        myRoute.defaults.get("prefix", ""),
-                        myRoute.defaults.get("controller", ""),
-                        myRoute.defaults.get("action", ""),
-                        someMethods.join(", "),
-                    ];
+someMethods.each((method) {
+    if (
+        someDuplicateRoutesCounter[myRoute.template][method] > 1 ||
+    (method.isEmpty && count(someDuplicateRoutesCounter[myRoute.template]) > 1) ||
+    (method != "" && isSet(someDuplicateRoutesCounter[myRoute.template][""]))
+        ) {
+        someDuplicateRoutes ~= [
+            myRoute.options.getString("_name", myRoute.name),
+            myRoute.template,
+            myRoute.defaults.getString("plugin", ""),
+            myRoute.defaults.getString("prefix", ""),
+            myRoute.defaults.getString("controller", ""),
+            myRoute.defaults.getString("action", ""),
+            someMethods.join(", ")
+        ];
 
-                    break;
-                }
-            }
-        }
-        if (someDuplicateRoutes) {
-            array_unshift(someDuplicateRoutes,  aHeader);
-            aConsoleIo.warning("The following possible route collisions were detected.");
-            aConsoleIo.helper("table").output(someDuplicateRoutes);
-            aConsoleIo.writeln();
-        }
-        return CODE_SUCCESS;
+        break;
     }
+});
+}
+if (someDuplicateRoutes) {
+    array_unshift(someDuplicateRoutes, aHeader);
+    aConsoleIo.warning("The following possible route collisions were detected.");
+    aConsoleIo.helper("table").output(someDuplicateRoutes);
+    aConsoleIo.writeln();
+}
+return CODE_SUCCESS;
+}
 
-    DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser  aParser) {
-         aParser
-            .description("Get the list of routes connected in this application.")
-            .addOption("sort", [
+DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser aParser) {
+    aParser
+        .description("Get the list of routes connected in this application.")
+        .addOption("sort", [
                 "help": "sorts alphabetically by route name A-Z",
                 "short": "s",
                 "boolean": true.toJson,
             ]);
 
-        return aParser;
-    }
+    return aParser;
 }
- */
+}
 
+
+
+*  / 

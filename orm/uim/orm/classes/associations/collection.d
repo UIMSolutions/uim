@@ -188,7 +188,7 @@ class DAssociationCollection { // }: IteratorAggregate {
         // TODO 
         /* foreach (associations as alias : nested) {
             if (is_int(alias)) {
-                alias = nested;
+                aliasName = nested;
                 nested = null;
             }
             relation = get(alias);

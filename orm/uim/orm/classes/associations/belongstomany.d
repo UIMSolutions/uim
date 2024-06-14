@@ -826,7 +826,7 @@ class DBelongsToManyAssociation : DAssociation {
         if (!(conditions.isArray) {
             return matching;
         }
-        alias = _junctionAssociationName() ~ ".";
+        aliasName = _junctionAssociationName() ~ ".";
         foreach (conditions as field: value) {
             isString = field.isString;
             if (isString && indexOf(field, alias) == 0) {

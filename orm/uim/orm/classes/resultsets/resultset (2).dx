@@ -347,10 +347,10 @@ class DResultset : IResultset {
         }
 
         foreach (_matchingMap as alias: assoc) {
-            if (!isset(map[alias])) {
+            if (!isset(map[aliasName])) {
                 continue;
             }
-            _matchingMapColumns[alias] = map[alias];
+            _matchingMapColumns[aliasName] = map[aliasName];
             map.remove(alias);
         }
 
@@ -390,8 +390,8 @@ class DResultset : IResultset {
         ];
 
         foreach (_matchingMapColumns as alias: keys) {
-            matching = _matchingMap[alias];
-            results["_matchingData"][alias] = array_combine(
+            matching = _matchingMap[aliasName];
+            results["_matchingData"][aliasName] = array_combine(
                 keys,
                 array_intersectinternalKey(row, keys)
             );
@@ -400,8 +400,8 @@ class DResultset : IResultset {
                 table = matching["instance"];
                 options["source"] = table.registryKey();
                 /** @var DORMdatasources.IORMEntity anEntity */
-                entity = new matching["entityClass"](results["_matchingData"][alias], options);
-                results["_matchingData"][alias] = entity;
+                entity = new matching["entityClass"](results["_matchingData"][aliasName], options);
+                results["_matchingData"][aliasName] = entity;
             }
         }
 
@@ -418,7 +418,7 @@ class DResultset : IResultset {
         remove(presentAliases[defaultAlias]);
 
         foreach (_containMap as assoc) {
-            alias = assoc["nestKey"];
+            aliasName = assoc["nestKey"];
 
             if (assoc["canBeJoined"] && _map.isEmpty(alias)) {
                 continue;
@@ -427,22 +427,22 @@ class DResultset : IResultset {
             /** @var DORMAssociation instance */
             instance = assoc["instance"];
 
-            if (!assoc["canBeJoined"] && !isset(row[alias])) {
+            if (!assoc["canBeJoined"] && !isset(row[aliasName])) {
                 results = instance.defaultRowValue(results, assoc["canBeJoined"]);
                 continue;
             }
 
             if (!assoc["canBeJoined"]) {
-                results[alias] = row[alias];
+                results[aliasName] = row[aliasName];
             }
 
             target = instance.getTarget();
             options["source"] = target.registryKey();
-            remove(presentAliases[alias]);
+            remove(presentAliases[aliasName]);
 
             if (assoc["canBeJoined"] && _autoFields != false) {
                 hasData = false;
-                foreach (results[alias] as v) {
+                foreach (results[aliasName] as v) {
                     if (v != null && v != []) {
                         hasData = true;
                         break;
@@ -450,23 +450,23 @@ class DResultset : IResultset {
                 }
 
                 if (!hasData) {
-                    results[alias] = null;
+                    results[aliasName] = null;
                 }
             }
 
-            if (_hydrate && results[alias] != null && assoc["canBeJoined"]) {
-                entity = new assoc["entityClass"](results[alias], options);
-                results[alias] = entity;
+            if (_hydrate && results[aliasName] != null && assoc["canBeJoined"]) {
+                entity = new assoc["entityClass"](results[aliasName], options);
+                results[aliasName] = entity;
             }
 
             results = instance.transformRow(results, alias, assoc["canBeJoined"], assoc["targetProperty"]);
         }
 
         foreach (presentAliases as alias: present) {
-            if (!isset(results[alias])) {
+            if (!isset(results[aliasName])) {
                 continue;
             }
-            results[defaultAlias][alias] = results[alias];
+            results[defaultAlias][aliasName] = results[aliasName];
         }
 
         if (isset(results["_matchingData"])) {

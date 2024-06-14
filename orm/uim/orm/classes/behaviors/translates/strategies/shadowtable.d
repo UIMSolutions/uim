@@ -285,7 +285,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             return false;
         }
 
-        string alias = configuration.getString("hasOneAlias");
+        string aliasName = configuration.getString("hasOneAlias");
         string[] fields = translatedFields();
         mainTableAlias = configuration.get("mainTableAlias");
         mainTableFields = this.mainFields();

@@ -830,25 +830,21 @@ abstract class DTestCase : DBaseTestCase {
      * @param Json[string] options The config data for the mock"s constructor.
      */
     protected string _getTableClassName(string aalias, Json[string] options = null) {
-        if (isoptions.isEmpty("className"])) {
-             className = Inflector.camelize(alias);
+        if (isoptions.isEmpty("className")) {
+            auto className = Inflector.camelize(alias);
             /** @var class-string<\ORM\Table>|null  className */
              className = App.className(className, "Model/Table", "Table");
             if (!className) {
-                throw new DMissingTableClassException([alias]);
+                throw new DMissingTableClassException([aliasName]);
             }
-            options["className"] = className;
+            options.set("className", className);
         }
         return options["className"];
     }
     
-    /**
-     * Set the app namespace
-     * Params:
-     * string aappNamespace The app namespace, defaults to "TestApp".
-     */
-    static string setAppNamespace(string aappNamespace = "TestApp") {
-        previous = configuration.get("App.namespace");
+    // Set the app namespace
+    static string setAppNamespace(string appNamespace = "TestApp") {
+        auto previous = configuration.getString("App.namespace");
         Configuration.update("App.namespace", appNamespace);
 
         return previous;

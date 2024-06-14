@@ -94,11 +94,11 @@ class DSelectLoader {
      * the source table
      */
     protected DORMQuery _buildQuery(Json[string] optionData) {
-        key = _linkField(options);
-        filter = options["keys"];
-        useSubquery = options["strategy"] == Association.STRATEGY_SUBQUERY;
-        finder = this.finder;
-        options["fields"] = options["fields"] ?? [];
+        auto key = _linkField(options);
+        auto filter = options["keys"];
+        auto useSubquery = options["strategy"] == Association.STRATEGY_SUBQUERY;
+        auto finder = this.finder;
+        options["fields"] = options.get("fields", null);
 
         /** @var DORMQuery query */
         DORMQuery query = finder();
@@ -107,7 +107,7 @@ class DSelectLoader {
             query = query.find(finderName, opts);
         }
 
-        fetchQuery = query
+        auto fetchQuery = query
             .select(options["fields"])
             .where(options["conditions"])
             .eagerLoaded(true)
@@ -291,7 +291,7 @@ class DSelectLoader {
      */
     protected string[] _linkField(Json[string] optionData) {
         links = null;
-        name = this.alias;
+        name = _aliasName;
 
         if (options["foreignKey"] == false && this.associationType == Association.ONE_TO_MANY) {
             msg = "Cannot have foreignKey = false for hasMany associations~ " ~

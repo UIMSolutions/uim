@@ -351,7 +351,7 @@ class DEagerLoader {
                     "includeFields": includeFields,
                 ];
                 loadable.instance().attachTo(query, myConfiguration);
-                processed[alias] = true;
+                processed[aliasName] = true;
             }
 
             newAttachable = this.attachableAssociations(repository);
@@ -436,7 +436,7 @@ class DEagerLoader {
         eagerLoadable = new DEagerLoadable(alias, myConfiguration);
 
         if (configuration.get("canBeJoined"]) {
-            _aliasList[paths["root"]][alias] ~= eagerLoadable;
+            _aliasList[paths["root"]][aliasName] ~= eagerLoadable;
         } else {
             paths["root"] = configuration.get("aliasPath"];
         }
@@ -553,7 +553,7 @@ class DEagerLoader {
             contain = meta.associations();
             instance = meta.instance();
             myConfiguration = meta.configuration.data;
-            alias = instance.source().aliasName();
+            aliasName = instance.source().aliasName();
             path = meta.aliasPath();
 
             requiresKeys = instance.requiresKeys(myConfiguration);
@@ -571,7 +571,7 @@ class DEagerLoader {
 
                 // If the association foreign keys are missing skip loading
                 // as the association could be optional.
-                if (collected[path][alias].isEmpty)) {
+                if (collected[path][aliasName].isEmpty)) {
                     continue;
                 }
             }
@@ -669,7 +669,7 @@ class DEagerLoader {
         bool asMatching = false,
         string targetProperty = null
    ) {
-        _joinsMap[alias] = new DEagerLoadable(alias, [
+        _joinsMap[aliasName] = new DEagerLoadable(alias, [
             "aliasPath": alias,
             "instance": assoc,
             "canBeJoined": true.toJson,
@@ -699,7 +699,7 @@ class DEagerLoader {
                 /* (array) */instance.foreignKeys() :
                 /* (array) */instance.getBindingKey();
 
-            alias = source.aliasName();
+            aliasName = source.aliasName();
             pkFields = null;
             foreach (keys as key) {
                 pkFields ~= key(query.aliasField(key, alias));

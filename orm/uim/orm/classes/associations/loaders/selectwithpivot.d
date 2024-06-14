@@ -73,7 +73,7 @@ class DSelectWithPivotLoader : DSelectLoader {
         // Ensure that association conditions are applied
         // and that the required keys are in the selected columns.
 
-        tempName = this.alias ~ "_CJoin";
+        tempName = _aliasName ~ "_CJoin";
         schema = assoc.getSchema();
         joinFields = types = null;
 

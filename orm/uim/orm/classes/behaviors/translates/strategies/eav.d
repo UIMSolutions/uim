@@ -96,7 +96,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         filter = configuration.get("onlyTranslated"];
 
         targetAlias = this.translationTable.aliasName();
-        alias = _table.aliasName();
+        aliasName = _table.aliasName();
         tableLocator = getTableLocator();
 
         foreach (field; fields) {

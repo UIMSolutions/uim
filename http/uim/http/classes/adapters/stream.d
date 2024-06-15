@@ -61,7 +61,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
     Response[] createResponses(Json[string] aHeaders, string acontent) {
          anIndexes = responses = null;
         foreach (aHeaders as  anI:  aHeader) {
-            if (substr(aHeader, 0, 5).upper == "HTTP/") {
+            if (subString(aHeader, 0, 5).upper == "HTTP/") {
                  anIndexes ~= anI;
             }
         }
@@ -171,7 +171,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         }
         sslOptions.each!((key) {
             if (optionsToUse.asKey(aKey)) {
-                name = substr(aKey, 4);
+                name = subString(aKey, 4);
                _sslContextOptions[name] = optionsToUse[aKey];
             }
         });

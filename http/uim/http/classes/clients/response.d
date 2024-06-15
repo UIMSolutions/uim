@@ -110,8 +110,8 @@ class DClientResponse { // }: Message : IResponse {
              anOffset = 2;
         }
         // Check the format byte
-        if (substr(encodedBody,  anOffset, 1) == "\x08") {
-            return /* (string) */gzinflate(substr(encodedBody,  anOffset + 8));
+        if (subString(encodedBody,  anOffset, 1) == "\x08") {
+            return /* (string) */gzinflate(subString(encodedBody,  anOffset + 8));
         }
         throw new DException("Invalid gzip response");
     }

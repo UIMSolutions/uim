@@ -227,8 +227,8 @@ class DExceptionTrap {
             return;
         }
         aLimit = strip(aLimit);
-        auto myUnits = substr(aLimit, -1).upper;
-        auto myCurrent = (int)substr(aLimit, 0, -1);
+        auto myUnits = subString(aLimit, -1).upper;
+        auto myCurrent = (int)subString(aLimit, 0, -1);
         if (myUnits == "M") {
             myCurrent *= 1024;
             myUnits = "K";

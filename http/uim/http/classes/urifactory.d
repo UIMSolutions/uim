@@ -61,7 +61,7 @@ class UriFactory { // }: IUriFactory {
         auto endsWithLength = endsWithIndex.length;
         if (
             uriPath.length >= endsWithLength &&
-            substr(uriPath, -endsWithLength) == endsWithIndex
+            subString(uriPath, -endsWithLength) == endsWithIndex
        ) {
             uriPath = "/";
         }
@@ -100,7 +100,7 @@ class UriFactory { // }: IUriFactory {
 
              anIndexPos = indexOf(base, "/" ~ webroot ~ "/index.d");
             if (anIndexPos != false) {
-                base = substr(base, 0,  anIndexPos) ~ "/" ~ webroot;
+                base = subString(base, 0,  anIndexPos) ~ "/" ~ webroot;
             }
             if (webroot == basename(base)) {
                 base = dirname(base);

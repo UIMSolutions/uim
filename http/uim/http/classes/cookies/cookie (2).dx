@@ -551,7 +551,7 @@ class DCookie : ICookie {
      */
     protected string[] _expand(string astring) {
         this.isExpanded = true;
-        first = substr(string, 0, 1);
+        first = subString(string, 0, 1);
         if (first == "{" || first == "[") {
             return Json_decode(string, true) ?? string;
         }

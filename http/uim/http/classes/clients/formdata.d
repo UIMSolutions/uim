@@ -100,7 +100,7 @@ class DFormData { // }: Countable {
             }
         } else {
             finfo = new finfo(FILEINFO_MIME);
-            aValue = substr(aValue, 1);
+            aValue = subString(aValue, 1);
             filename = basename(aValue);
             content = /* (string) */ file_get_contents(aValue);
             contentType = /* (string) */ finfo.file(aValue);

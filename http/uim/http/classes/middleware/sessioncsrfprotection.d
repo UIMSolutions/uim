@@ -136,8 +136,8 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
         if (decodedToken == false || decodedToken.length != TOKEN_VALUE_LENGTH * 2) {
             return token;
         }
-        salted = substr(decodedToken, 0, TOKEN_VALUE_LENGTH);
-        salt = substr(decodedToken, TOKEN_VALUE_LENGTH);
+        salted = subString(decodedToken, 0, TOKEN_VALUE_LENGTH);
+        salt = subString(decodedToken, TOKEN_VALUE_LENGTH);
 
         unsalted = "";
         for (anI = 0;  anI < TOKEN_VALUE_LENGTH;  anI++) {

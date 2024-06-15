@@ -190,8 +190,8 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
         if (decoded == false || decoded.length != TOKEN_WITH_CHECKSUM_LENGTH * 2) {
             return token;
         }
-        salted = substr(decoded, 0, TOKEN_WITH_CHECKSUM_LENGTH);
-        salt = substr(decoded, TOKEN_WITH_CHECKSUM_LENGTH);
+        salted = subString(decoded, 0, TOKEN_WITH_CHECKSUM_LENGTH);
+        salt = subString(decoded, TOKEN_WITH_CHECKSUM_LENGTH);
 
         string unsalted = "";
         for (anI = 0;  anI < TOKEN_WITH_CHECKSUM_LENGTH;  anI++) {
@@ -212,8 +212,8 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
         if (!decoded || decoded.length <= TOKEN_VALUE_LENGTH) {
             return false;
         }
-        aKey = substr(decoded, 0, TOKEN_VALUE_LENGTH);
-        hmac = substr(decoded, TOKEN_VALUE_LENGTH);
+        aKey = subString(decoded, 0, TOKEN_VALUE_LENGTH);
+        hmac = subString(decoded, TOKEN_VALUE_LENGTH);
 
         expectedHmac = hash_hmac("sha1", aKey, Security.getSalt());
 

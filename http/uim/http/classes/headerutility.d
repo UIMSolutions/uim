@@ -68,7 +68,7 @@ class DHeaderUtility {
                 params.each!((param) {
                     size_t qPos = indexOf(param, "q=");
                     if (qPos != false) {
-                        prefValue = substr(param, qPos + 2);
+                        prefValue = subString(param, qPos + 2);
                     }
                 });
             }

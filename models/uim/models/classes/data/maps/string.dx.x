@@ -140,23 +140,23 @@ unittest {
   /* auto stringMap = StringDataMap();
   stringMap["key1"] = Json("value1");
 
-  assert(stringMap["key1"].toString == "value1");
-  assert(cast(DStringData) stringMap["key1"]);
-  assert(!cast(DBoolData) stringMap["key1"]);
+// TODO assert(stringMap["key1"].toString == "value1");
+// TODO assert(cast(DStringData) stringMap["key1"]);
+// TODO assert(!cast(DBoolData) stringMap["key1"]);
 
   stringMap["key2"] = "value2";
-  assert(stringMap["key2"].toString == "value2");
+// TODO assert(stringMap["key2"].toString == "value2");
 
   stringMap["key3"] = true;
-  assert(stringMap["key3"].toString == "true");
+// TODO assert(stringMap["key3"].toString == "true");
 
   stringMap["key4"] = 100;
-  assert(stringMap["key4"].toString == "100");
+// TODO assert(stringMap["key4"].toString == "100");
 
   stringMap["key5"] = 100.1;
-  assert(stringMap["key5"].toString == "100.1");
+// TODO assert(stringMap["key5"].toString == "100.1");
 
   stringMap["key6"] = [Json("v1"), Json("v2")];
 
-  assert(stringMap.toJson.toString == `{"key1":"value1","key6":null,"key2":"value2","key3":true,"key5":100.1,"key4":100}`); */
+// TODO assert(stringMap.toJson.toString == `{"key1":"value1","key6":null,"key2":"value2","key3":true,"key5":100.1,"key4":100}`); */
 }

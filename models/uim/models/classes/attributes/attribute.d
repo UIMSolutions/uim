@@ -8,7 +8,7 @@ module uim.models.classes.attributes.attribute;
 import uim.models;
 
 @safe:
-class DAttribute { // TODO:  /* DEntity,  */ IAttribute {
+class DAttribute : IAttribute { // TODO:  /* DEntity,  */ IAttribute {
   mixin TConfigurable;
 
   this() {

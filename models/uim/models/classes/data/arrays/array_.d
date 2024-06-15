@@ -11,9 +11,9 @@ import uim.models;
 class DArrayData : DData {
   mixin(DataThis!("Array"));
 
-  this(IData[] values) {
+  this(IData[] items) {
     this();
-    _items = values.dup;
+    _items = items.dup;
   }
 
   IData[] _items;
@@ -29,13 +29,13 @@ class DArrayData : DData {
     return true;
   }
 
-  DArrayData add(IData[] values...) {
-    add(values.dup);
+  DArrayData add(IData[] items...) {
+    add(items.dup);
     return this;
   }
 
-  DArrayData add(IData[] values) {
-    _items ~= values.dup;
+  DArrayData add(IData[] items) {
+    _items ~= items.dup;
     return this;
   }
   /// 
@@ -68,11 +68,11 @@ class DArrayData : DData {
       return false;
     }
 
-    IData[] values;
+    IData[] items;
     for (auto i = 0; i < checkValue.length; i++) {
-      // TODO values ~= checkValue[i].toData;
+      // TODO items ~= checkValue[i].toData;
     }
-    return isEqual(values);
+    return isEqual(items);
   }
 
   bool isEqual(IData[] checkValue) {
@@ -84,13 +84,13 @@ class DArrayData : DData {
   }
   // #endregion equal
 
-  /* protected IData[] _values;
+  /* protected IData[] _items;
   IData[] value() {
-    return _values;
+    return _items;
   }
 
   void set(IData[] newValues) {
-    _values = newValues;
+    _items = newValues;
   }
 
   IData[] opCall() {
@@ -125,7 +125,7 @@ class DArrayData : DData {
   }
 
   override size_t length() {
-    return _values.length;
+    return _items.length;
   } */
 
   void clear() {
@@ -142,7 +142,7 @@ class DArrayData : DData {
   }
 
   void opOpAssign(string op : "~")(IData value) {
-    _values ~= value;
+    _items ~= value;
   }
   /// 
   unittest {
@@ -168,8 +168,8 @@ class DArrayData : DData {
 
 /*
 mixin(DataCalls!("Array"));
-auto ArrayData(IData[] values) {
-  return new DArrayData(values);
+auto ArrayData(IData[] items) {
+  return new DArrayData(items);
 }
 
 ///

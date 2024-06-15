@@ -52,16 +52,16 @@ class DConsoleInput {
         if (_canReadline) {
             line = readline("");
 
-            if (!line.isEmpty) {
+            /* if (!line.isEmpty) {
                 readline_add_history(line);
-            }
+            } */
         } else {
             line = fgets(_input);
         }
 
-        return line.isEmpty
-            ? null
-            : line;
+        return !line.isEmpty
+            ? line;
+            : null
     }
     
     // Check if data is available on stdin

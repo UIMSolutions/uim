@@ -36,11 +36,6 @@ public {
 	import uim.models.classes.attributes.uuids;
 }
 
-
-void testAttribute(IAttribute attribute) {
-  assert(attribute);
-}
-
 /* static this() {
   AttributeRegistry
     // Booleans

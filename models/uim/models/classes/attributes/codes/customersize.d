@@ -34,6 +34,6 @@ class DCustomerSizeCodeAttribute : DIntegerStringAttribute {
 mixin(AttributeCalls!("CustomerSizeCode"));
 
 unittest {
-  assert(testAttribute(new DCustomerSizeAttribute));
-  assert(testAttribute(CustomerSizeAttribute));
+  assert(testAttribute(new DCustomerSizeCodeAttribute));
+  assert(testAttribute(CustomerSizeCodeAttribute));
 }

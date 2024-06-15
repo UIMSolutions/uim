@@ -60,7 +60,7 @@ class DEntityData : DData {
     unittest {
       /* auto entity = SystemUser; // some kind of entity
       entity.set(entity);
-      assert(entity.get.id == entity.id);*/
+    // TODO assert(entity.get.id == entity.id);*/
   }
 
 /*  void set(IEntity newValue) {

@@ -484,7 +484,7 @@ mixin template TEntity() {
      * This method will recursively transform entities assigned to fields
      * into arrays as well.
     */
-  Json[string] toDataArray() {
+  Json[string] toArray() {
     Json[string] dataMap;
     visibleFields.each!((field) {
       aValue = get(field);

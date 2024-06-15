@@ -217,7 +217,7 @@ interface IQuery {
     void page(int pageNumber, int numberOfRows = null);
 
     // Returns an array representation of the results after executing the query.
-    Json[string] toDataArray();
+    Json[string] toArray();
 
     /**
      * Set the default Table object that will be used by this query

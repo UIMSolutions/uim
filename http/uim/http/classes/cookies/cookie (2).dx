@@ -531,7 +531,7 @@ class DCookie : ICookie {
         }
         return options;
     }
-    Json[string] toDataArray() {
+    Json[string] toArray() {
         return [
             "name": this.name,
             "value": getScalarValue(),

@@ -142,7 +142,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
      * *Note* hidden fields are not visible, and will not be output
      * by toArray().
      */
-  Json[string] toDataArray();
+  Json[string] toArray();
 
   // Returns an array with the requested fields stored in this entity, indexed by field name
   Json[string] extract(string[] fieldNames, bool onlyDirty = false);

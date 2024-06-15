@@ -8,7 +8,7 @@ import uim.consoles;
 class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     // The command collection to get help on.
     protected ICommandCollection _commands;
-    void setCommandCollection(ICommandCollection newCommands) {
+    void commandCollection(ICommandCollection newCommands) {
         _commands = newCommands;
     }
     

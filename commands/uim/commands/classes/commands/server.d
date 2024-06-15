@@ -42,9 +42,7 @@ return false;
      */
     protected void startup(Json[string] arguments, IConsoleIo aConsoleIo) {
         _host = arguments.getString("host", _host); 
-
         _port = arguments.getLong("port", _port));
-
         if (arguments.hasKey("document_root")) {
            _documentRoot = arguments.getString("document_root");
         }
@@ -52,8 +50,8 @@ return false;
            _iniPath = arguments.getString("ini_path"));
         }
         // For Windows
-        if (subString(_documentRoot, -1, 1) == DIRECTORY_SEPARATOR) {
-           _documentRoot = subString(_documentRoot, 0, _documentRoot.length - 1);
+        if (_documentRoot.subString(-1, 1) == DIRECTORY_SEPARATOR) {
+           _documentRoot = _documentRoot.subString(0, _documentRoot.length - 1);
         }
         if (preg_match("/^([a-z]:)[\\\]+(.+)$/i", _documentRoot, m)) {
            _documentRoot = m[1] ~ "\\" ~ m[2];
@@ -62,14 +60,16 @@ return false;
         if (preg_match("/^([a-z]:)[\\\]+(.+)$/i", _iniPath, m)) {
            _iniPath = m[1] ~ "\\" ~ m[2];
         }
-         aConsoleIo.writeln();
-         aConsoleIo.writeln("<info>Welcome to UIM %s Console</info>".format("v" ~ Configure.currentVersion()));
-         aConsoleIo.hr();
-         aConsoleIo.writeln("App : %s".format(configuration.get("App.dir")));
-         aConsoleIo.writeln("Path: %s".format(APP));
-         aConsoleIo.writeln("DocumentRoot: %s".format(_documentRoot));
-         aConsoleIo.writeln("Ini Path: %s".format(_iniPath));
-         aConsoleIo.hr();
+        with (aConsoleIo) {
+            writeln();
+            writeln("<info>Welcome to UIM %s Console</info>".format("v" ~ Configure.currentVersion()));
+            hr();
+            writeln("App : %s".format(configuration.get("App.dir")));
+            writeln("Path: %s".format(APP));
+            writeln("DocumentRoot: %s".format(_documentRoot));
+            writeln("Ini Path: %s".format(_iniPath));
+            hr();
+        }
     }
 
   overwrite int execute(Json[string] arguments, IConsoleIo aConsoleIo) {

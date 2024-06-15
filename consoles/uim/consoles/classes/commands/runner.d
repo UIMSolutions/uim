@@ -172,7 +172,7 @@ class DCommandRunner { // }: IEventDispatcher {
         anInstance.name("{this.root} %s".format(commandName));
 
         if (cast(ICommandCollectionAware) anInstance) {
-            anInstance.setCommandCollection(commands);
+            anInstance.commandCollection(commands);
         }
         return anInstance;
     }

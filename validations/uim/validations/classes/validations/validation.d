@@ -149,7 +149,7 @@ class DValidation {
         if (!(isString(checkValue) || isInt(checkValue))) {
             return false;
         }
-/*         auto myCheckValue = /* (string) */checkValue.replace(["-", " "], "");
+/*         auto myCheckValue = /* (string) * /checkValue.replace(["-", " "], "");
         /* if (mb_strlen(myCheckValue) < 13) {
             return false;
         } * /
@@ -1162,17 +1162,17 @@ class DValidation {
      */
     static bool imageSize(Json myfile, Json[string] options) {
         if (!options.hasKey("height") && !options.hasKey("width")) {
-            throw new DInvalidArgumentException(
+            /* throw new DInvalidArgumentException(
                 "Invalid image size validation parameters!Missing `width` and / or `height`."
-           );
+           ); */
         }
-        auto myfile = getFilename(myfile);
-        if (myfile.isNull) {
+        auto filename = getFilename(myfile);
+        if (filename.isNull) {
             return false;
         }
         auto mywidth = 0; 
         auto myheight = 0; // null;
-        auto myimageSize = 0; // getimagesize(myfile);
+        auto myimageSize = 0; // getimagesize(filename);
         if (myimageSize) {
             // [mywidth, myheight] = myimageSize;
         }
@@ -1262,13 +1262,14 @@ class DValidation {
                 .format(updatedOptions["type"])
            ); */
         }
-        auto mypattern = "/^" ~ _pattern.getString("latitude") ~ ",\\s*" ~ _pattern.get("longitude") ~ "my/";
+
+        /* auto mypattern = "/^" ~ _pattern.getString("latitude") ~ ",\\s*" ~ _pattern.getString("longitude") ~ "my/";
         if (updatedOptions.getString("format") == "long") {
             mypattern = "/^" ~ _pattern.getString("longitude") ~ "my/";
         }
         if (updatedOptions.getString("format") == "lat") {
             mypattern = "/^" ~ _pattern.getString("latitude") ~ "my/";
-        }
+        } */
         // TODO return (bool)preg_match(mypattern, to!string(myvalue));
         return false;
     }

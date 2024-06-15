@@ -83,10 +83,11 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * name returned would be `'update_table'`.
      */
     static string defaultName() {
-        size_t pos = indexOf(class, "\\");
-        /** @psalm-suppress PossiblyFalseOperand */
-        string name = subString(class, pos + 1,  - 7);
-        return Inflector.underscore(name);
+        /* size_t pos = class.indexOf("\\");
+        /** @psalm-suppress PossiblyFalseOperand * /
+        string name = class.subString(pos + 1,  - 7);
+        return Inflector.underscore(name); */
+        return null; 
     }
 
     /**
@@ -95,14 +96,14 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * You can override buildOptionParser() to define your options & arguments.
      */
     DConsoleOptionParser buildOptionParser getOptionParser() {
-        [root, name] = split(" ", _name, 2);
-        aParser = new DConsoleOptionParser buildOptionParser(name);
+        /* [root, name] = split(" ", _name, 2);
+        auto aParser = new DConsoleOptionParser buildOptionParser(name);
         aParser.setRootName(root);
         aParser.description(getDescription());
-
         aParser = this.buildOptionParser(aParser);
 
-        return aParser;
+        return aParser; */
+        return null; 
     }
 
     int run(Json[string] argv, IConsoleIo aConsoleIo) {

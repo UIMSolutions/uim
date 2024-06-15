@@ -153,13 +153,13 @@ mixin template TConsoleIntegrationTest() {
         size_t charCount = commandString.length;
         string[] argv = null;
         string argument;
-        anInDQuote = false;
-        anInSQuote = false;
+        auto anInDQuote = false;
+        auto anInSQuote = false;
         for (anI = 0; anI < charCount; anI++) {
-            string char = subString(commandString, anI, 1);
+            string oneChar = commandString.subString(anI, 1);
 
             // end of argument
-            if (char == " " && !anInDQuote && !anInSQuote) {
+            if (oneChar == " " && !anInDQuote && !anInSQuote) {
                 if (!argument.isEmpty) {
                     argv ~= argument;
                 }
@@ -167,26 +167,26 @@ mixin template TConsoleIntegrationTest() {
                 continue;
             }
             // exiting single quote
-            if (anInSQuote && char == "'") {
+            if (anInSQuote && oneChar == "'") {
                 anInSQuote = false;
                 continue;
             }
             // exiting double quote
-            if (anInDQuote && char.isEmpty) {
+            if (anInDQuote && oneChar.isEmpty) {
                 anInDQuote = false;
                 continue;
             }
             // entering double quote
-            if (char == `""` && !anInSQuote) {
+            if (oneChar == `""` && !anInSQuote) {
                 anInDQuote = true;
                 continue;
             }
             // entering single quote
-            if (char == "'" && !anInDQuote) {
+            if (oneChar == "'" && !anInDQuote) {
                 anInSQuote = true;
                 continue;
             }
-            argument ~= char;
+            argument ~= oneChar;
         }
         argv ~= argument;
 

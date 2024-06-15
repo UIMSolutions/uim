@@ -39,10 +39,11 @@ class DFileCacheEngine : DCacheEngine {
         ]);
 
         /* 
-        configuration.get("path"] = configuration.get("path", sys_get_temp_dir()~DIRECTORY_SEPARATOR ~ "uim_cache" ~ DIRECTORY_SEPARATOR);
-        if (subString(configuration.get("path"], -1) != DIRECTORY_SEPARATOR) {
-            configuration.get("path"] ~= DIRECTORY_SEPARATOR;
-        }
+        string path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR ~ "uim_cache" ~ DIRECTORY_SEPARATOR);
+        configuration.set("path", path.subString(-1) != DIRECTORY_SEPARATOR
+            ? path ~ DIRECTORY_SEPARATOR
+            : path;
+
         if (_groupPrefix) {
             _groupPrefix = _groupPrefix.replace("_", DIRECTORY_SEPARATOR);
         } 

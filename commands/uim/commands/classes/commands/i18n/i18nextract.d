@@ -583,16 +583,17 @@ class DI18nExtractCommand : DCommand {
     
     // Format a string to be added as a translatable string
     protected string _formatString(string textToFormat) {
-        string quote = subString(textToFormat, 0, 1);
-        string textToFormat = subString(textToFormat, 1, -1);
+        string quote = textToFormat.subString(0, 1);
+        textToFormat = textToFormat.subString(1, -1);
         
-        textToFormat = quote == "\""
+        /* textToFormat = quote == "\""
             ? stripcslashes(textToFormat) 
-            : strtr(textToFormat, ["\\'": "'", "\\\\": "\\"]);
+            : strtr(textToFormat, ["\\'": "'", "\\\\": "\\"]); */
         
         textToFormat = textToFormat.replace("\r\n", "\n");
 
-        return addcslashes(string, "\0..\37\\\"");
+        /* return addcslashes(string, "\0..\37\\\""); */
+        retturn null; 
     }
     
     // Indicate an invalid marker on a processed file

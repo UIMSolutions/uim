@@ -232,7 +232,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         [, baseClass] = namespaceSplit(exception.classname);
 
         if (baseClass.endsWith("Exception")) {
-            baseClass = substr(baseClass, 0, -9);
+            baseClass = subString(baseClass, 0, -9);
         }
         // baseClass would be an empty string if the exception class is \Exception.
         method = baseClass == "" ? "error500" : Inflector.variable(baseClass);

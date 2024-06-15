@@ -903,17 +903,38 @@ double getDouble(Json value) {
 }
 
 string getString(Json value) {
-  return !value.isNull && value.isString
+  if (value.isNull) {
+    return null;
+  }
+
+  return value.isString
     ? value.get!string : null;
 }
 
+string getString(Json value, string key) {
+  if (value.isNull) {
+    return null;
+  }
+
+  return value.isObject && value.hasKey(key)
+    ? value[key].getString : null;
+}
+
 Json[] getArray(Json value) {
-  return !value.isNull && value.isArray
+  if (value.isNull) {
+    return null;
+  }
+
+  return value.isArray
     ? value.get!(Json[]) : null;
 }
 
 Json[string] getMap(Json value) {
-  return !value.isNull && value.isObject
+  if (value.isNull) {
+    return null;
+  }
+
+  return value.isObject
     ? value.get!(Json[string]) : null;
 }
 

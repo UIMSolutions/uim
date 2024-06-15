@@ -235,8 +235,8 @@ class DExceptionRenderer { // }: IExceptionRenderer
     protected string methodName(Throwable exception) {
         [, baseClass] = moduleSplit(get_class(exception));
 
-        if (substr(baseClass, -9) == "Exception") {
-            baseClass = substr(baseClass, 0, -9);
+        if (subString(baseClass, -9) == "Exception") {
+            baseClass = subString(baseClass, 0, -9);
         }
 
         // baseClass would be an empty string if the exception class is \Exception.

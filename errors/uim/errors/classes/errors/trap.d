@@ -105,7 +105,7 @@ class DErrorTrap {
 
         auto anIgnoredPaths = /* (array) */configuration.get("Error.ignoredDeprecationPaths");
         if (errorCode == E_USER_DEPRECATED &&  anIgnoredPaths) {
-            auto relativePath = substr((string)file, ROOT.length + 1).replace(DIRECTORY_SEPARATOR, "/");
+            auto relativePath = subString((string)file, ROOT.length + 1).replace(DIRECTORY_SEPARATOR, "/");
             foreach (somePattern; anIgnoredPaths) {
                 auto somePattern = somePattern..replace(DIRECTORY_SEPARATOR, "/");
                 if (fnmatch(somePattern, relativePath)) {

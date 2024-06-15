@@ -177,7 +177,7 @@
                     ref.addEventListener("click", auto (event) {
                         event.preventDefault();
                         event.stopPropagation();
-                        let target = document.getElementById(ref.getAttribute("href").substr(1));
+                        let target = document.getElementById(ref.getAttribute("href").subString(1));
                         openPath(container, target);
                     });
                 });

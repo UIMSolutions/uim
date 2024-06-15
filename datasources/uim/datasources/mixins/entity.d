@@ -548,12 +548,12 @@ mixin template TEntity() {
       return null;
     }
     get_class_methods(className).each!((method) {
-      string prefix = substr(method, 1, 3);
+      string prefix = subString(method, 1, 3);
       if (method[0] != "_" || (prefix != "get" && prefix != "Set")) {
         continue;
       }
 
-      auto stringfield = lcfirst(substr(method, 4));
+      auto stringfield = lcfirst(subString(method, 4));
       auto snakeField = Inflector.underscore(field);
       auto titleField = ucfirst(field);
       auto clPrefix = className~"."~prefix;

@@ -93,7 +93,7 @@ static Json[string] parseDsn(string dsnToConvert) {
     auto data = _parseDsn(dsnToConvert);
 
     if (data.hasKey("path") && data.isEmpty("database")) {
-        data["database"] = substr(data.getString("path"), 1);
+        data["database"] = subString(data.getString("path"), 1);
     }
 
     if (data.isEmpty("driver")) {
@@ -196,7 +196,7 @@ static Json[string] parseDsn(string adsn) {
     configData = _parseDsn(dsn);
 
     if (configuration.hasKey("path") && configuration.get("database").isEmpty) {
-        configuration.get("database", substr(configuration.get("path"), 1));
+        configuration.get("database", subString(configuration.get("path"), 1));
     }
     if (configuration.get("driver").isEmpty) {
         configuration.get("driver", configuration.get("className"));

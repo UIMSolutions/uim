@@ -71,7 +71,7 @@ mixin template TModelAware() {
         } else {
             options["className"] = modelClass;
             /** @psalm-suppress PossiblyFalseOperand */
-            aliasName = substr(
+            aliasName = subString(
                 modelClass,
                 indexOf(modelClass, "\\") + 1,
                 -modelType.length

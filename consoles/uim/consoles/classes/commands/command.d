@@ -85,7 +85,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
     static string defaultName() {
         size_t pos = indexOf(class, "\\");
         /** @psalm-suppress PossiblyFalseOperand */
-        string name = substr(class, pos + 1,  - 7);
+        string name = subString(class, pos + 1,  - 7);
         return Inflector.underscore(name);
     }
 

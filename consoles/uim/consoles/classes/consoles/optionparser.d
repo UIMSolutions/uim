@@ -510,7 +510,7 @@ class DConsoleOptionParser {
      * options with an `=` in them.
      */
     protected Json[string] _parseLongOption(string optionToParse, Json[string] paramsData) {
-        string name = substr(optionToParse, 2);
+        string name = subString(optionToParse, 2);
         if (name.has("=")) {
             [name, aValue] = split("=", name, 2);
             array_unshift(_tokens, aValue);
@@ -524,7 +524,7 @@ class DConsoleOptionParser {
      * they will be shifted onto the token stack and parsed individually.
      */
     protected Json[string] _parseShortOption(string optionToParse, Json[string] paramsToAppen) {
-        string aKey = substr(optionToParse, 1);
+        string aKey = subString(optionToParse, 1);
         if (aKey.length > 1) {
             flags = str_split(aKey);
             aKey = flags[0];
@@ -584,7 +584,7 @@ class DConsoleOptionParser {
     // Check to see if name has an option (short/long) defined for it.
     protected bool _optionExists(string optionName) {
         if (optionName.startsWith("--")) {
-            return isSet(_options[substr(optionName, 2)]);
+            return isSet(_options[subString(optionName, 2)]);
         }
         if (optionName[0] == "-" && optionName[1] != "-") {
             return isSet(_shortOptions[optionName[1]]);

@@ -156,7 +156,7 @@ mixin template TConsoleIntegrationTest() {
         anInDQuote = false;
         anInSQuote = false;
         for (anI = 0; anI < charCount; anI++) {
-            string char = substr(commandString, anI, 1);
+            string char = subString(commandString, anI, 1);
 
             // end of argument
             if (char == " " && !anInDQuote && !anInSQuote) {

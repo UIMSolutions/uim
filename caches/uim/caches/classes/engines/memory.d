@@ -206,7 +206,7 @@ return true;
   /* Json[string] parseServerString(string myserver) {
     auto mysocketTransport = "unix://";
     /* if (myserver.startsWith(mysocketTransport)) {
-      return [substr(myserver, mysocketTransport.length), 0];
+      return [subString(myserver, mysocketTransport.length), 0];
     } * /
 
     /* size_t myposition;
@@ -221,8 +221,8 @@ return true;
     auto myport = 11211;
     auto myhost = myserver;
     if (myposition != false) {
-      myhost = substr(myserver, 0, myposition);
-      myport = substr(myserver, myposition + 1);
+      myhost = subString(myserver, 0, myposition);
+      myport = subString(myserver, myposition + 1);
     }
     return [
       myhost, /* (int)  * / myport

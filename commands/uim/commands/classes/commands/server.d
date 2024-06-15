@@ -52,8 +52,8 @@ return false;
            _iniPath = arguments.getString("ini_path"));
         }
         // For Windows
-        if (substr(_documentRoot, -1, 1) == DIRECTORY_SEPARATOR) {
-           _documentRoot = substr(_documentRoot, 0, _documentRoot.length - 1);
+        if (subString(_documentRoot, -1, 1) == DIRECTORY_SEPARATOR) {
+           _documentRoot = subString(_documentRoot, 0, _documentRoot.length - 1);
         }
         if (preg_match("/^([a-z]:)[\\\]+(.+)$/i", _documentRoot, m)) {
            _documentRoot = m[1] ~ "\\" ~ m[2];

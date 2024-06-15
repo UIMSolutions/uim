@@ -218,7 +218,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
             prefix = request.getParam("prefix");
             namespace ~= "/" ~ prefix;
         }
-        firstChar = substr(controller, 0, 1);
+        firstChar = subString(controller, 0, 1);
 
         // Disallow plugin short forms, / and \\ from
         // controller names as they allow direct references to

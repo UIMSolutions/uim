@@ -172,7 +172,7 @@ class DController : IController { // DEventListener, IEventDispatcher {
         }
         if (!isSet(_name)) {
             [, name] = namespaceSplit(class);
-            _name = substr(nameToOverride, 0, -10);
+            _name = subString(nameToOverride, 0, -10);
         }
         setRequest(request);
         _response = new DResponse();
@@ -550,7 +550,7 @@ class DController : IController { // DEventListener, IEventDispatcher {
         url = Router.url(defaultUrl, !isLocal);
          base = _request.getAttribute("base");
         if (isLocal &&  base && url.startsWith(base)) {
-            url = substr(url,  base.length);
+            url = subString(url,  base.length);
 
 return url[0] != "/"
      ?"/" ~ url

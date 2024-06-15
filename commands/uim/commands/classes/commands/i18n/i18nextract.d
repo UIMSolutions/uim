@@ -317,10 +317,10 @@ class DI18nExtractCommand : DCommand {
         ];
         string somePattern = "/(" ~ functions.keys.join("|") ~ ")\s*\(/";
 
-        foreach (file; _fileNames) {
-            auto _fileName = file;
+        /* _fileNames.each!((fileName) {
+            auto _fileName = fileName;
             if (isVerbose) {
-                 aConsoleIo.verbose("Processing %s...".format(file));
+                 aConsoleIo.verbose("Processing %s...".format(fileName));
             }
             auto code = to!string(file_get_contents(file));
 
@@ -343,7 +343,7 @@ class DI18nExtractCommand : DCommand {
                 progress.increment(1);
                 progress.draw();
             }
-        }
+        }); */
     }
     
     // Parse tokens
@@ -541,8 +541,8 @@ class DI18nExtractCommand : DCommand {
         if (oldFileContent == false) {
             throw new DException("Cannot read file content of `%s`".format(oldFile));
         }
-        auto oldChecksum = sha1(substr(oldFileContent,  lengthOfFileheader));
-        auto newChecksum = sha1(substr(newFileContent,  lengthOfFileheader));
+        auto oldChecksum = sha1(subString(oldFileContent,  lengthOfFileheader));
+        auto newChecksum = sha1(subString(newFileContent,  lengthOfFileheader));
 
         return oldChecksum == newChecksum;
     }
@@ -583,8 +583,8 @@ class DI18nExtractCommand : DCommand {
     
     // Format a string to be added as a translatable string
     protected string _formatString(string textToFormat) {
-        string quote = substr(textToFormat, 0, 1);
-        textToFormat = substr(textToFormat, 1, -1);
+        string quote = subString(textToFormat, 0, 1);
+        string textToFormat = subString(textToFormat, 1, -1);
         
         textToFormat = quote == "\""
             ? stripcslashes(textToFormat) 
@@ -627,7 +627,7 @@ class DI18nExtractCommand : DCommand {
     
     // Search files that may contain translatable strings
     protected void _searchFiles() {
-         somePattern = false;
+        auto somePattern = false;
         if (!_exclude.isEmpty) {
             exclude = null;
             foreach (anException; _exclude) {

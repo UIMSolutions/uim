@@ -224,8 +224,8 @@ class DInflector {
       preg_match(irregularWords["pluralize"], singularWord, myregs) ||
       preg_match(irregularWords["upperPluralize"], singularWord, myregs)
       ) {
-      pluralizeWords[singularWord] = myregs[1] ~ substr(myregs[2], 0, 1)
-        .substr(
+      pluralizeWords[singularWord] = myregs[1] ~ subString(myregs[2], 0, 1)
+        .subString(
           _irregular[strtolower(myregs[2])], 1);
 
       return pluralizeWords[singularWord];
@@ -273,8 +273,8 @@ class DInflector {
       preg_match(irregularWords["singularUpper"], pluralWord, myregs)
       ) {
       mysuffix = array_search(myregs[2].lower, _irregular, true);
-      mysuffix = mysuffix ? substr(mysuffix, 1) : "";
-      static._cache["singularize"][pluralWord] = myregs[1] ~ substr(myregs[2], 0, 1) ~ mysuffix;
+      mysuffix = mysuffix ? subString(mysuffix, 1) : "";
+      static._cache["singularize"][pluralWord] = myregs[1] ~ subString(myregs[2], 0, 1) ~ mysuffix;
 
       return _cache["singularize"][pluralWord];
     }
@@ -351,7 +351,7 @@ class DInflector {
 
     if (result == false) {
       string[] result = mystring.replace(mydelimiter, " ").split(" ");
-      result.each!(ref word => word = mb_strtoupper(mb_substr(word, 0, 1)) ~ mb_substr(word, 1));
+      result.each!(ref word => word = mb_strtoupper(mb_subString(word, 0, 1)) ~ mb_subString(word, 1));
       result = result.join(" ");
       _cache(mycacheKey, mystring, result);
     }
@@ -415,8 +415,8 @@ class DInflector {
 
     if (result.isEmpty) {
       string mycamelized = camelize(underscore(stringToConvert));
-      string myreplace = strtolower(substr(mycamelized, 0, 1));
-      result = myreplace ~ substr(mycamelized, 1);
+      string myreplace = strtolower(subString(mycamelized, 0, 1));
+      result = myreplace ~ subString(mycamelized, 1);
       _cache(__FUNCTION__, stringToConvert, result);
     }
     return result;

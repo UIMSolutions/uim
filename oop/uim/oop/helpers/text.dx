@@ -85,7 +85,7 @@ class DText {
 
             if (mytmpOffset != -1) {
                 string mybuffer ~= mydata[myoffset..mytmpOffset - myoffset];
-                string mychar = mb_substr(mydata, mytmpOffset, 1);
+                string mychar = mb_subString(mydata, mytmpOffset, 1);
                 if (!mydepth && mychar == myseparator) {
                     results ~= mybuffer;
                     mybuffer = "";
@@ -113,7 +113,7 @@ class DText {
                 mytmpOffset += 1;
                 myoffset = mytmpOffset;
             } else {
-                results ~= mybuffer ~ mb_substr(mydata, myoffset);
+                results ~= mybuffer ~ mb_subString(mydata, myoffset);
                 myoffset = mylength + 1;
             }
         }
@@ -323,7 +323,7 @@ class DText {
             }
             string mytoRewrap;
             for (myi = options["indentAt"]; myi < mycount; myi++) {
-                mytoRewrap ~= mb_substr(mychunks[myi], myindentationLength) ~ " ";
+                mytoRewrap ~= mb_subString(mychunks[myi], myindentationLength) ~ " ";
                 remove(mychunks[myi]);
             }
             options["width"] -= myindentationLength;
@@ -363,9 +363,9 @@ class DText {
         myparts = null;
         if (mycut) {
             while (mb_strlen(textToFormat) > 0) {
-                mypart = mb_substr(textToFormat, 0, mywidth);
+                mypart = mb_subString(textToFormat, 0, mywidth);
                 myparts ~= strip(mypart);
-                textToFormat = strip(mb_substr(textToFormat, mb_strlen(mypart)));
+                textToFormat = strip(mb_subString(textToFormat, mb_strlen(mypart)));
             }
             return join(mybreak, myparts);
         }
@@ -374,8 +374,8 @@ class DText {
                 myparts ~= strip(textToFormat);
                 break;
             }
-            mypart = mb_substr(textToFormat, 0, mywidth);
-            mynextChar = mb_substr(textToFormat, mywidth, 1);
+            mypart = mb_subString(textToFormat, 0, mywidth);
+            mynextChar = mb_subString(textToFormat, mywidth, 1);
             if (mynextChar != " ") {
                 mybreakAt = mb_indexOf(mypart, " ");
                 if (mybreakAt == false) {
@@ -385,11 +385,11 @@ class DText {
                     myparts ~= strip(textToFormat);
                     break;
                 }
-                mypart = mb_substr(textToFormat, 0, mybreakAt);
+                mypart = mb_subString(textToFormat, 0, mybreakAt);
             }
             mypart = strip(mypart);
             myparts ~= mypart;
-            textToFormat = strip(mb_substr(textToFormat, mb_strlen(mypart)));
+            textToFormat = strip(mb_subString(textToFormat, mb_strlen(mypart)));
         }
         return join(mybreak, myparts);
     }
@@ -472,10 +472,10 @@ class DText {
         if (mb_strlen(textToTruncate) <= mylength) {
             return textToTruncate;
         }
-        mytruncate = mb_substr(textToTruncate, mb_strlen(textToTruncate) - mylength + mb_strlen(myellipsis));
+        mytruncate = mb_subString(textToTruncate, mb_strlen(textToTruncate) - mylength + mb_strlen(myellipsis));
         if (!options["exact"]) {
             myspacepos = mb_indexOf(mytruncate, " ");
-            mytruncate = myspacepos == false ? "" : strip(mb_substr(mytruncate, myspacepos));
+            mytruncate = myspacepos == false ? "" : strip(mb_subString(mytruncate, myspacepos));
         }
         return myellipsis ~ mytruncate;
     }
@@ -568,15 +568,15 @@ class DText {
             }
             myellipsisLength = _strlen(options["ellipsis"], options);
         }
-        string result = _substr(textToTruncate, 0, mylength - myellipsisLength, options);
+        string result = _subString(textToTruncate, 0, mylength - myellipsisLength, options);
 
         if (!options["exact"]) {
-            if (_substr(textToTruncate, mylength - myellipsisLength, 1, options) != " ") {
+            if (_subString(textToTruncate, mylength - myellipsisLength, 1, options) != " ") {
                 result = _removeLastWord(result);
             }
             // If result is empty, then we don"t need to count ellipsis in the cut.
             if (result.isEmpty) {
-                result = _substr(textToTruncate, 0, mylength, options);
+                result = _subString(textToTruncate, 0, mylength, options);
             }
         }
         return myprefix ~ result ~ mysuffix;
@@ -641,7 +641,7 @@ class DText {
      * @param int mylength The desired length.
      * @param Json[string] options An array of options.
      */
-    protected static string _substr(string inputText, int mystart, int mylength, Json[string] options) {
+    protected static string _subString(string inputText, int mystart, int mylength, Json[string] options) {
         auto mySustr = isoptions.isEmpty("trimWidth"])
             ? "mb_substr" : "mb_strimwidth";
 
@@ -658,7 +658,7 @@ class DText {
 
         mylength ??= _strlen(inputText, options);
         if (mylength < 0) {
-            inputText = _substr(inputText, mystart, null, options);
+            inputText = _subString(inputText, mystart, null, options);
             mystart = 0;
             mylength += _strlen(inputText, options);
         }
@@ -666,7 +666,7 @@ class DText {
             return "";
         }
         if (isoptions.isEmpty("html"])) {
-            return (string)mysubstr(inputText, mystart, mylength);
+            return (string)mysubString(inputText, mystart, mylength);
         }
         
         auto mytotalOffset = 0;
@@ -697,7 +697,7 @@ class DText {
                     // Entities cannot be passed substr.
                     continue;
                 }
-                mypart = mysubstr(mypart, myoffset, mylength - mytotalLength);
+                mypart = mysubString(mypart, myoffset, mylength - mytotalLength);
                 mylen = _strlen(mypart, options);
             }
             result ~= mypart;
@@ -718,12 +718,12 @@ class DText {
         myspacepos = mb_indexOf(inputText, " ");
 
         if (myspacepos != false) {
-            mylastWord = mb_substr(inputText, myspacepos);
+            mylastWord = mb_subString(inputText, myspacepos);
 
             // Some languages are written without word separation.
             // We recognize a string as a word if it doesn"t contain any full-width characters.
             if (mb_strwidth(mylastWord) == mb_strlen(mylastWord)) {
-                inputText = mb_substr(inputText, 0, myspacepos);
+                inputText = mb_subString(inputText, 0, myspacepos);
             }
             return inputText;
         }
@@ -751,7 +751,7 @@ class DText {
 
         mypos = mb_stripos(searchText, myphrase);
         if (mypos == false) {
-            return mb_substr(searchText, 0, myradius) ~ myellipsis;
+            return mb_subString(searchText, 0, myradius) ~ myellipsis;
         }
         mystartPos = mypos - myradius;
         if (mystartPos <= 0) {
@@ -763,7 +763,7 @@ class DText {
             myendPos = textLength;
             myappend = null;
         }
-        myexcerpt = mb_substr(searchText, mystartPos, myendPos - mystartPos);
+        myexcerpt = mb_subString(searchText, mystartPos, myendPos - mystartPos);
 
         return myprepend ~ myexcerpt ~ myappend;
     }
@@ -869,18 +869,18 @@ class DText {
 
         string mysize = mysize.upper;
         myl = -2;
-        myi = array_search(substr(mysize, -2), ["KB", "MB", "GB", "TB", "PB"], true);
+        myi = array_search(subString(mysize, -2), ["KB", "MB", "GB", "TB", "PB"], true);
         if (myi == false) {
             myl = -1;
-            myi = array_search(substr(mysize, -1), ["K", "M", "G", "T", "P"], true);
+            myi = array_search(subString(mysize, -1), ["K", "M", "G", "T", "P"], true);
         }
         if (myi != false) {
-            mysize = (float)substr(mysize, 0, myl);
+            mysize = (float)subString(mysize, 0, myl);
 
             return (int)(mysize * pow(1024, myi + 1));
         }
-        if (mysize.endsWith("B") && ctype_digit(substr(mysize, 0, -1))) {
-            mysize = substr(mysize, 0, -1);
+        if (mysize.endsWith("B") && ctype_digit(subString(mysize, 0, -1))) {
+            mysize = subString(mysize, 0, -1);
 
             return (int)mysize;
         }

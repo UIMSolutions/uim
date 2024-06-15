@@ -83,7 +83,7 @@ mixin template TCookieCrypt() {
             return null;
         }
 
-        string valueToDecode = base64_decode(substr(valueToDecode, myprefixLength), true);
+        string valueToDecode = base64_decode(subString(valueToDecode, myprefixLength), true);
         if (valueToDecode == false || valueToDecode.isEmpty) {
             return null;
         }
@@ -108,7 +108,7 @@ mixin template TCookieCrypt() {
      * string mystring A string containing Json encoded data, or a bare string.
      */
     protected string[] _split(string mystring) {
-        string myfirst = substr(mystring, 0, 1);
+        string myfirst = subString(mystring, 0, 1);
         if (myfirst == "{" || myfirst == "[") {
             auto decodedJson = Json_decode(mystring, true);
             return decodedJson.ifEmpty(mystring);

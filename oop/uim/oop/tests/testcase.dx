@@ -530,7 +530,7 @@ abstract class DTestCase : DBaseTestCase {
             }
              anI++;
             if (isString(tags) && tags[0] == "<") {
-                tags = [substr(tags, 1): []];
+                tags = [subString(tags, 1): []];
             } else if (isString(tags)) {
                 tagsTrimmed = preg_replace("/\s+/m", "", tags);
 
@@ -541,8 +541,8 @@ abstract class DTestCase : DBaseTestCase {
                         prefix = ["Anything, ", ".*?"];
                     }
                     regex ~= [
-                        "%sClose %s tag".format(prefix[0], substr(tags, match[0].length)),
-                        "%s\s*<[\s]*\/[\s]*%s[\s]*>[\n\r]*".format(prefix[1], substr(tags, match[0].length)),
+                        "%sClose %s tag".format(prefix[0], subString(tags, match[0].length)),
+                        "%s\s*<[\s]*\/[\s]*%s[\s]*>[\n\r]*".format(prefix[1], subString(tags, match[0].length)),
                          anI,
                     ];
                     continue;
@@ -637,7 +637,7 @@ abstract class DTestCase : DBaseTestCase {
                 string expression = "/^%s/s".format(expression);
                 if (mlText && preg_match(expression, mlText, match)) {
                     matches = true;
-                    mlText = substr(mlText, match[0].length);
+                    mlText = subString(mlText, match[0].length);
                     break;
                 }
             });
@@ -683,7 +683,7 @@ abstract class DTestCase : DBaseTestCase {
             foreach (j: assert; asserts) {
                 if (preg_match("/^%s/s".format(assert), string, match)) {
                     matches = true;
-                    string = substr(string, match[0].length);
+                    string = subString(string, match[0].length);
                     array_splice(asserts, j, 1);
                     array_splice(explains, j, 1);
                     break;
@@ -808,7 +808,7 @@ abstract class DTestCase : DBaseTestCase {
 
         if (isoptions.isEmpty("entityClass"]) && mock.getEntityClass() == Entity.classname) {
             string[] someParts = className.split("\\");
-            entityAlias = Inflector.classify(Inflector.underscore(substr(array_pop(someParts), 0, -5)));
+            entityAlias = Inflector.classify(Inflector.underscore(subString(array_pop(someParts), 0, -5)));
             entityClass = array_slice(someParts, 0, -1).join("\\") ~ "\\Entity\\" ~ entityAlias;
             if (class_exists(entityClass)) {
                 mock.setEntityClass(entityClass);

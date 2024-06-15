@@ -362,8 +362,8 @@ class DBehavior : DEventListener {
                 continue;
             }
 
-            if (substr(methodName, 0, 4) == "find") {
-                return["finders"][lcfirst(substr(methodName, 4))] = methodName;
+            if (subString(methodName, 0, 4) == "find") {
+                return["finders"][lcfirst(subString(methodName, 4))] = methodName;
             } else {
                 return["methods"][methodName] = methodName;
             }

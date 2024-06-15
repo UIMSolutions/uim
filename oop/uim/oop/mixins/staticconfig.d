@@ -203,7 +203,7 @@ REGEXP`;
             if (isInt(myKey)) {
                 parsed.remove(myKey);
             } else if (myKey.startsWith("_")) {
-                exists[substr(myKey, 1)] = (!v.isEmpty);
+                exists[subString(myKey, 1)] = (!v.isEmpty);
                 parsed.remove(myKey);
             } else if (v == "" && !exists[myKey]) {
                 parsed.remove(myKey);

@@ -27,7 +27,7 @@ class DConnectionHelper {
             .filter!(connection => !(aConnection == "test" || aConnection == "default"))
             .each!(connection => ConnectionManager.alias(connection, 
                 str_starts_with(connection, "test_")
-                ? substr(connection, 5) // original
+                ? subString(connection, 5) // original
                 : "test_" ~ aConnection
            ));
         } */

@@ -293,7 +293,7 @@ class Xml {
                                         mynode.appendChild(mychild);
                                     } else {
                                         if (aKey[0] == "@") {
-                                            aKey = substr(aKey, 1);
+                                            aKey = subString(aKey, 1);
                                         }
                                         myattribute = domDocument.createAttribute(aKey);
                                         myattribute.appendChild(

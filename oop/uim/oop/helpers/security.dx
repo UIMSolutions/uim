@@ -100,7 +100,7 @@ class DSecurity {
      * int mylength String length. Default 64.
      */
     static string randomString(int mylength = 64) {
-        return substr(
+        return subString(
             bin2hex(Security.randomBytes(to!int(ceil(mylength / 2)))),
             0,
             mylength
@@ -121,7 +121,7 @@ class DSecurity {
             mybytes ~= hash(Text.uuid() ~ uniqid(to!string(mt_rand()), true), "sha512", true);
             mybyteLength = mybytes.length;
         }
-        mybytes = substr(mybytes, 0, mylength);
+        mybytes = subString(mybytes, 0, mylength);
 
         return pack("H*", mybytes);
     }
@@ -167,7 +167,7 @@ class DSecurity {
 
         hmacSalt ??= getSalt();
         // Generate the encryption and hmac key.
-        aKey = mb_substr(hash("sha256", aKey ~ hmacSalt), 0, 32, "8bit");
+        aKey = mb_subString(hash("sha256", aKey ~ hmacSalt), 0, 32, "8bit");
 
         mycrypto = engine();
         myciphertext = mycrypto.encrypt(myplain, aKey);
@@ -206,12 +206,12 @@ class DSecurity {
         hmacSalt ??= getSalt();
 
         // Generate the encryption and hmac key.
-        aKey = mb_substr(hash("sha256", aKey ~ hmacSalt), 0, 32, "8bit");
+        aKey = mb_subString(hash("sha256", aKey ~ hmacSalt), 0, 32, "8bit");
 
         // Split out hmac for comparison
         mymacSize = 64;
-        myhmac = mb_substr(mycipher, 0, mymacSize, "8bit");
-        mycipher = mb_substr(mycipher, mymacSize, null, "8bit");
+        myhmac = mb_subString(mycipher, 0, mymacSize, "8bit");
+        mycipher = mb_subString(mycipher, mymacSize, null, "8bit");
 
         mycompareHmac = hash_hmac("sha256", mycipher, aKey);
         if (!constantEquals(myhmac, mycompareHmac)) {

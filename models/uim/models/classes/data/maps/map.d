@@ -18,21 +18,16 @@ class DMapData : DData {
   }
 
   void opIndexAssign(bool value, string key) {
-    // TODO
     /* if (containsKey(key)) {
       _items[key].set(value ? "true" : "false");
     } else {
       _items[key] = new DBoolData(value);
     } */
+    _items[key] = BoolData(value);
   }
 
   void opIndexAssign(int value, string key) {
-    // TODO
-    /* if (containsKey(key)) {
-      _items[key].set(to!string(value));
-    } else {
-      _items[key] = new DIntegerData(value);
-    } */
+    _items[key] = IntData(value);
   }
 
   void opIndexAssign(double value, string key) {

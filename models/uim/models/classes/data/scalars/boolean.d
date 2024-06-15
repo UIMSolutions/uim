@@ -22,7 +22,7 @@ class DBooleanData : DScalarData {
       return false;
     }
 
-    isBool(true);
+    isBoolean(true);
     typeName("boolean");
 
     return true;

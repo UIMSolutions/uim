@@ -16,41 +16,40 @@ class DData : IData {
   // Hook
   bool initialize(Json[string] initData = null) {
     _value = Json.emptyObject;
+    // TODO _value.update(initData);
 
     return true;
   }
 
-  protected Json _value;
+  mixin(TProperty!("Json", "_value"));
 
   // #region properties
   // mixin(TProperty!("DAttribute", "attribute"));
 
   // #region typeName
-  string typeName() {
-    return _value.hasKey("typeName")
-      ? _value["typeName"].get!string : null;
-  }
+    string typeName() {
+      return _value.getString("typeName");
+    }
 
-  void typeName(string name) {
-    _value["typeName"] = name;
-  }
+    void typeName(string name) {
+      _value.set("typeName", name);
+    }
   // #endregion typeName
 
   // #region name
   string name() {
-    return _value.hasKey("name")
-      ? _value["name"].get!string : null;
+    return _value.getString("name");
   }
 
   void name(string name) {
-    _value["name"] = name;
+    _value.set("name", name);
   }
   // #endregion name
 
   // #region is-check
   // #region is-BasicTypes
   mixin(DataIsCheck!"isBigInt");
-  mixin(DataIsCheck!"isBool");
+  mixin(DataIsCheck!"isBoolean");
   mixin(DataIsCheck!"isDouble");
   mixin(DataIsCheck!"isLong");
   mixin(DataIsCheck!"isString");
@@ -189,7 +188,7 @@ class DData : IData {
 
   // #region isEqual
   bool isEqual(bool checkValue) {
-    return isBool && !isNull
+    return isBoolean && !isNull
       ? getBool == checkValue : false;
   }
 
@@ -367,12 +366,12 @@ class DData : IData {
 
 unittest {
   auto value = new DData;
-// TODO assert(!value.isNull);
-// TODO assert(!value.isString);
-// TODO assert(!value.isInt);
-// TODO assert(!value.isBool);
-// TODO assert(!value.isNumber);
-// TODO assert(!value.isNullable);
-// TODO assert(!value.isObject);
-// TODO assert(!value.isArray);
+  // TODO assert(!value.isNull);
+  // TODO assert(!value.isString);
+  // TODO assert(!value.isInteger);
+  // TODO assert(!value.isBoolean);
+  // TODO assert(!value.isNumber);
+  // TODO assert(!value.isNullable);
+  // TODO assert(!value.isObject);
+  // TODO assert(!value.isArray);
 }

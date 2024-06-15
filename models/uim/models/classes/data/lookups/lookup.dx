@@ -34,9 +34,10 @@ class DLookupData(K, V) : DData {
   alias opEquals = DData.opEquals;
   alias opIndex = DData.opIndex;
 
-  override IData clone() {
+  // TODO 
+  /* override IData clone() {
     return LookupData!(K, V)(attribute, toJson);
-  }
+  } */
 }
 auto LookupData(K, V)() { return new DLookupData!(K, V); }
 auto LookupData(K, V)(DAttribute theAttribute) { return new DLookupData!(K, V)(theAttribute); }

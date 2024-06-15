@@ -16,8 +16,8 @@ interface IData {
             bool isBigInt();	 
             void isBigInt(bool mode);
 
-            bool isBool();	 
-            void isBool(bool mode);
+            bool isBoolean();	 
+            void isBoolean(bool mode);
 
             bool isDouble();	 
             void isDouble(bool mode);

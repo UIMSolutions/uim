@@ -463,7 +463,7 @@ class DMessage { //: JsonSerializable {
         }
         list = null;
         email.byKeyValue.each!((kv) {
-            if (isInt(kv.key)) {
+            if (isInteger(kv.key)) {
                 kv.key = kv.value;
             }
             this.validateEmail(kv.key, varName);
@@ -535,7 +535,7 @@ class DMessage { //: JsonSerializable {
         list = null;
         emailValue.byKeyValue
             .each!((kv) {
-                if (isInt(aKey)) {
+                if (isInteger(aKey)) {
                     aKey = aValue;
                 }
                 this.validateEmail(aKey, varName);
@@ -850,13 +850,13 @@ class DMessage { //: JsonSerializable {
                 if (!isSet(dirEntry["data"])) {
                     throw new DInvalidArgumentException("No file or data specified.");
                 }
-                if (isInt(attName)) {
+                if (isInteger(attName)) {
                     throw new DInvalidArgumentException("No filename specified.");
                 }
                 dirEntry["data"] = chunk_split(base64_encode(dirEntry["data"]), 76, "\r\n");
             } else if (cast(IUploadedFile)dirEntry["file"]) {
                 dirEntry["mimetype"] = dirEntry["file"].getClientMediaType();
-                if (isInt(attName)) {
+                if (isInteger(attName)) {
                     attName = dirEntry["file"].getClientFilename();
                     assert(isString(attName));
                 }
@@ -866,7 +866,7 @@ class DMessage { //: JsonSerializable {
                 if (dirEntry["file"] == false || !fileExists(dirEntry["file"])) {
                     throw new DInvalidArgumentException("File not found: `%s`".format(fileName));
                 }
-                if (isInt(attName)) {
+                if (isInteger(attName)) {
                     attName = basename(dirEntry["file"]);
                 }
             } else {
@@ -1426,7 +1426,7 @@ class DMessage { //: JsonSerializable {
         });
 
         return array_filter(array, auto (anI) {
-            return anI !is null && !isArray(anI) && !isBool(anI) && anI.length || !anI.isEmpty;
+            return anI !is null && !isArray(anI) && !isBoolean(anI) && anI.length || !anI.isEmpty;
         });
     }
     

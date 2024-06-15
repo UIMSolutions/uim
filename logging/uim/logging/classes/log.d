@@ -299,7 +299,7 @@ class DLog {
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
     static bool write(string|int level, string amessage, string[] acontext= null) {
-        if (isInt(level) && isIn(level, _levelMap, true)) {
+        if (isInteger(level) && isIn(level, _levelMap, true)) {
             level = array_search(level, _levelMap, true);
         }
         if (!isIn(level, _levels, true)) {

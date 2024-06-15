@@ -45,7 +45,7 @@ class DLongData : DScalarData {
   } */
 
   /*   override bool isEqual(Json checkValue) {
-    if (checkValue.isNull || !checkValue.isInt) {
+    if (checkValue.isNull || !checkValue.isInteger) {
       return false;
     }
 

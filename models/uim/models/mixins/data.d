@@ -166,12 +166,11 @@ template IntegerDataProperty(string name, string path = null) {
 template DataIsCheck(string isname) {
   const char[] DataIsCheck = `
     bool `~isname~`() {
-      return _value.hasKey("`~isname~`")
-        ? _value["`~isname~`"].get!bool : false;
+      return _value.getBool("`~isname~`");
     }
 
     void `~isname~`(bool mode) {
-      _value["`~isname~`"] = mode;
+      _value.set("`~isname~`", mode);
     }
   `;
 }

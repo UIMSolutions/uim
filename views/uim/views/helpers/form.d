@@ -334,7 +334,7 @@ class DFormHelper : DHelper {
         }
         _requestType = options["type"].lower;
 
-        if (!options.isEmpty("encoding"])) {
+        if (!options.isEmpty("encoding")) {
             myhtmlAttributes["accept-charset"] = options["encoding"];
         }
         options.remove("type", "encoding");
@@ -355,7 +355,7 @@ class DFormHelper : DHelper {
 
         return _formatTemplate("formStart", [
             "attrs": mytemplater.formatAttributes(myhtmlAttributes) ~ myactionAttr,
-            "templateVars": options["templateVars"] ?? [],
+            "templateVars": options.getArray("templateVars"),
         ]) ~ myappend;
     }
     
@@ -557,7 +557,7 @@ class DFormHelper : DHelper {
      */
     string error(string fieldName, string[] mytext = null, Json[string] options  = null) {
         if (fieldName.endsWith("._ids")) {
-            fieldName = substr(fieldName, 0, -5);
+            fieldName = subString(fieldName, 0, -5);
         }
         auto updatedOptions = options.update(["escape": true.toJson]);
         auto formContext = _getContext();
@@ -665,14 +665,14 @@ class DFormHelper : DHelper {
         if (mytext.isNull) {
             mytext = fieldName;
             if (mytext.endsWith("._ids")) {
-                mytext = substr(mytext, 0, -5);
+                mytext = subString(mytext, 0, -5);
             }
             if (mytext.has(".")) {
                 string[] fieldNameElements = mytext.split(".");
                 mytext = array_pop(fieldNameElements);
             }
             if (mytext.endsWith("_id")) {
-                mytext = substr(mytext, 0, -3);
+                mytext = subString(mytext, 0, -3);
             }
             mytext = __(Inflector.humanize(Inflector.underscore(mytext)));
         }
@@ -1085,10 +1085,10 @@ class DFormHelper : DHelper {
         }
         mypluralize = true;
         if (fieldName.endsWith("._ids")) {
-            fieldName = substr(fieldName, 0, -5);
+            fieldName = subString(fieldName, 0, -5);
             mypluralize = false;
         } elseif (fieldName.endsWith("_id")) {
-            fieldName = substr(fieldName, 0, -3);
+            fieldName = subString(fieldName, 0, -3);
         }
         fieldName = array_slice(fieldName.split("."), -1)[0];
 
@@ -2013,7 +2013,7 @@ class DFormHelper : DHelper {
         if (!options["name"])) {
             myendsWithBrackets = "";
             if (fieldName.endsWith("[]")) {
-                fieldName = substr(fieldName, 0, -2);
+                fieldName = subString(fieldName, 0, -2);
                 myendsWithBrackets = "[]";
             }
             string[] pathParts = fieldName.split(".");

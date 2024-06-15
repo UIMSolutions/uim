@@ -137,8 +137,8 @@ abstract class DCell { // }: IEventDispatcher {
             myclassName = class;
             viewsPrefix = "\View\Cell\\";
             /** @psalm-suppress PossiblyFalseOperand */
-            views = substr(myclassName, indexOf(myclassName, viewsPrefix) + viewsPrefix.length);
-            views = substr(views, 0, -4);
+            views = subString(myclassName, indexOf(myclassName, viewsPrefix) + viewsPrefix.length);
+            views = subString(views, 0, -4);
             if (!mybuilder.getTemplatePath()) {
                 mybuilder.setTemplatePath(
                     TEMPLATE_FOLDER ~ DIRECTORY_SEPARATOR ~ views.replace("\\", DIRECTORY_SEPARATOR)

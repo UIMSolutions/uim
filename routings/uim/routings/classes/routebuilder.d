@@ -137,11 +137,11 @@ class DRouteBuilder {
     string path() {
         size_t myrouteKey = indexOf(_path, "{");
         if (myrouteKey != false && _path.has("}")) {
-            return substr(_path, 0, myrouteKey);
+            return subString(_path, 0, myrouteKey);
         }
         myrouteKey = indexOf(_path, ": ");
         if (myrouteKey != false) {
-            return substr(_path, 0, myrouteKey);
+            return subString(_path, 0, myrouteKey);
         }
         return _path;
     }

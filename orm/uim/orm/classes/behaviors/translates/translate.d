@@ -281,7 +281,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      */
                     protected string referenceName(Table mytable) {
                         myname = namespaceSplit(mytable.classname);
-                        myname = substr(to!string(end(myname)), 0,  - 5);
+                        myname = subString(to!string(end(myname)), 0,  - 5);
                         if (myname.isEmpty) {
                             myname = mytable.getTable() ?  : mytable.aliasName();
                             myname = Inflector.camelize(myname);

@@ -96,7 +96,8 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     
     // Returns a rule object by its index
     DValidationRule offsetGet(string ruleName) {
-        return _rules.get(ruleName); 
+        /* return _rules.get(ruleName);  */
+        return null; 
     }
     
     // Sets or replace a validation rule

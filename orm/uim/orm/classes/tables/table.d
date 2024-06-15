@@ -298,7 +298,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     string getTable() {
         if (_table.isNull) {
             mytable = namespaceSplit(class);
-            mytable = substr(to!string(end(mytable)), 0, -5) ?: _aliasName;
+            mytable = subString(to!string(end(mytable)), 0, -5) ?: _aliasName;
             if (!mytable) {
                 throw new DException(
                     "You must specify either the `alias` or the `table` option for the constructor."
@@ -318,7 +318,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     string aliasName() {
         if (_aliasName.isNull) {
             aliasName = namespaceSplit(class);
-            aliasName = substr(to!string(end(aliasName), 0, -5)) ?: _table;
+            aliasName = subString(to!string(end(aliasName), 0, -5)) ?: _table;
             if (!aliasName) {
                 throw new DException(
                     "You must specify either the `alias` or the `table` option for the constructor."
@@ -530,7 +530,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             if (myself == classname || count(myparts) < 3) {
                 return _entityClass = mydefault;
             }
-            aliasName = Inflector.classify(Inflector.underscore(substr(array_pop(myparts), 0, -5)));
+            aliasName = Inflector.classify(Inflector.underscore(subString(array_pop(myparts), 0, -5)));
             myname = join("\\", array_slice(myparts, 0, -1)) ~ "\\Entity\\" ~ aliasName;
             if (!class_exists(myname)) {
                 return _entityClass = mydefault;
@@ -2275,10 +2275,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         preg_match("/^find_([\w]+)_by_/", mymethod, mymatches);
         if (isEmpty(mymatches)) {
             // find_by_is 8 characters.
-            fieldNames = substr(mymethod, 8);
+            fieldNames = subString(mymethod, 8);
             myfindType = "all";
         } else {
-            fieldNames = substr(mymethod, mymatches[0].length);
+            fieldNames = subString(mymethod, mymatches[0].length);
             myfindType = Inflector.variable(mymatches[1]);
         }
         myhasOr = fieldNames.has("_or_");

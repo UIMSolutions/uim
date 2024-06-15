@@ -421,8 +421,8 @@ class DRoute : IRoute {
         if (count(_extensions) && myurl.has(".")) {
             foreach (_extensions as myext) {
                 mylen = myext.length + 1;
-                if (substr(myurl, -mylen) == "." ~ myext) {
-                    return [substr(myurl, 0, mylen * -1), myext];
+                if (subString(myurl, -mylen) == "." ~ myext) {
+                    return [subString(myurl, 0, mylen * -1), myext];
                 }
             }
         }
@@ -705,12 +705,12 @@ class DRoute : IRoute {
        );
 
         if (mymatched) {
-            return substr(this.template, 0, routingsdElements[0][1]);
+            return subString(this.template, 0, routingsdElements[0][1]);
         }
         
         size_t mystar = this.template.indexOf("*");
         if (mystar != false) {
-            string mypath = stripRight(substr(this.template, 0, mystar), "/");
+            string mypath = stripRight(subString(this.template, 0, mystar), "/");
 
             return mypath.isEmpty ? "/" : mypath;
         }

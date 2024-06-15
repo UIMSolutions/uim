@@ -211,7 +211,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
             pos = indexOf(pluginName, "/");
             className = pos == false 
                 ? namespace ~ "\\" ~ pluginName ~ "Plugin"
-                : namespace ~ "\\" ~ substr(pluginName, pos + 1) ~ "Plugin";
+                : namespace ~ "\\" ~ subString(pluginName, pos + 1) ~ "Plugin";
 
             // Check for [Vendor/]Foo/FooPlugin
             if (!class_exists(className)) {

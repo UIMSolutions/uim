@@ -100,7 +100,7 @@ class DPlugin : IPlugin {
 
         // Trim off src
         if (somePath.endsWith("src")) {
-            somePath = substr(somePath, 0, -3);
+            somePath = subString(somePath, 0, -3);
         }
         _path = stripRight(somePath, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
 

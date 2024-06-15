@@ -149,13 +149,13 @@ class DValidation {
         if (!(isString(checkValue) || isInt(checkValue))) {
             return false;
         }
-        auto myCheckValue = /* (string) */checkValue.replace(["-", " "], "");
+/*         auto myCheckValue = /* (string) */checkValue.replace(["-", " "], "");
         /* if (mb_strlen(myCheckValue) < 13) {
             return false;
-        } */
+        } * /
         if (myregex !is null && _check(myCheckValue, myregex)) {
             return !mydeep || luhn(myCheckValue);
-        }
+        } */
         Json myCards = Json.emptyObject;
         /* myCards["all"] = [
                 "amex": "/^3[47]\\d{13}my/".toJson,
@@ -1118,12 +1118,12 @@ class DValidation {
      * Json myfile The uploaded file data from D.
      * @param Json[string] options An array of options for the validation.
      */
-    static bool uploadedFile(Json myfile, Json[string] optionData = null) {
+    static bool uploadedFile(Json myfile, Json[string] options = null) {
         /* if (!cast(IUploadedFile)myfile) {
             return false;
         } */
         
-        Json[string] updatedOptions = options.update([
+        Json[string] updatedOptions = options.merge([
             "minSize": Json(null),
             "maxSize": Json(null),
             "types": Json(null),
@@ -1257,12 +1257,12 @@ class DValidation {
             "type": "latLong".toJson,
         ]);
         if (updatedOptions.getString("type") != "latLong") {
-            throw new DInvalidArgumentException(
+            /* throw new DInvalidArgumentException(
                 "Unsupported coordinate type `%s`. Use `latLong` instead."
                 .format(updatedOptions["type"])
-           );
+           ); */
         }
-        auto mypattern = "/^" ~ _pattern.getString("latitude") ~ ",\\s*" ~ _pattern.getString("longitude") ~ "my/";
+        auto mypattern = "/^" ~ _pattern.getString("latitude") ~ ",\\s*" ~ _pattern.get("longitude") ~ "my/";
         if (updatedOptions.getString("format") == "long") {
             mypattern = "/^" ~ _pattern.getString("longitude") ~ "my/";
         }
@@ -1395,20 +1395,20 @@ class DValidation {
        ) {
             return false;
         } */
-        /* auto mycountry = substr(valueToCheck, 0, 2);
-        auto mycheckInt = intval(substr(valueToCheck, 2, 2));
-        auto myaccount = substr(valueToCheck, 4);
+        /* auto mycountry = subString(valueToCheck, 0, 2);
+        auto mycheckInt = intval(subString(valueToCheck, 2, 2));
+        auto myaccount = subString(valueToCheck, 4);
         auto mysearch = range("A", "Z"); */
         string myreplace = null;
        /*  foreach (Json[string](10, 35) as mytmp) {
             myreplace ~= strval(mytmp);
         } */
         /* auto mynumStr = (myaccount ~ mycountry ~ "00").replace(mysearch, myreplace);
-        auto mychecksum = 0; // TODO intval(substr(mynumStr, 0, 1));
+        auto mychecksum = 0; // TODO intval(subString(mynumStr, 0, 1));
         auto mynumStrLength = mynumStr.length; */
         /* for (mypos = 1; mypos < mynumStrLength; mypos++) {
             mychecksum *= 10;
-            mychecksum += intval(substr(mynumStr, mypos, 1));
+            mychecksum += intval(subString(mynumStr, mypos, 1));
             mychecksum %= 97;
         } */
         /* return mycheckInt == 98 - mychecksum; */

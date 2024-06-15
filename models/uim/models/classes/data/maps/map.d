@@ -13,7 +13,7 @@ class DMapData : DData {
 
   protected IData[string] _items;
 
-  void opIndexAssign(IData value, string key) {
+  /* void opIndexAssign(IData value, string key) {
     _items[key] = value;
   }
 
@@ -32,7 +32,7 @@ class DMapData : DData {
   void opIndexAssign(string value, string key) {
     _items[key] = StringData(value);
 
-  }
+  } * /
 
   void opIndexAssign(UUID value, string key) {
     // TODO
@@ -41,7 +41,7 @@ class DMapData : DData {
       _items[key].set(value.toString);
     } else {
       _items[key] = new DUUIDData(value);
-    } */
+    } * /
   }
 
   void opIndexAssign(IData[] values, string key) {
@@ -51,8 +51,8 @@ class DMapData : DData {
       _items[key] = new DArrayData(values);
     } else {
       _items[key] = new DArrayData(values);
-    } */
-  }
+    } * /
+  } */
 
   // #region equal
   // mixin(ScalarDataOpEquals!(null));

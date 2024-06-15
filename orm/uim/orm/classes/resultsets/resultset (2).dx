@@ -413,7 +413,7 @@ class DResultset : IResultset {
         // If the default table is not in the results, set
         // it to an empty array so that any contained
         // associations hydrate correctly.
-        results[defaultAlias] = results[defaultAlias] ?? [];
+        results[defaultAlias] = results.get(defaultAlias;
 
         remove(presentAliases[defaultAlias]);
 

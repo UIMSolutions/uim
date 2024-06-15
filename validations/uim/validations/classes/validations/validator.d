@@ -172,15 +172,15 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * passed a ValidationSet as second argument, it will replace any other rule set defined
      * before
      * Params:
-     * string myname [optional] The fieldname to fetch.
      * @param \UIM\Validation\ValidationSet|null myset The set of rules for field
      */
-    DValidationSet field(string myname, DValidationSet myset = null) {
-        if (_fields.isEmpty(myname)) {
+    DValidationSet field(string fieldname, DValidationSet myset = null) {
+        /* if (!_fields.has(fieldname)) {
             /* myset = myset ?: new DValidationSet();
-           _fields[myname] = myset; */
+           _fields[fieldname] = myset; * /
         }
-        return _fields[myname];
+        return _fields[fieldname]; */
+        return null; 
     }
 
     // Check whether a validator contains any rules for the given field.

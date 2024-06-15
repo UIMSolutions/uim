@@ -16,7 +16,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     protected DValidationRule[string] _rules = null;
 
     // Denotes whether the fieldname key must be present in data array
-    protected bool _validatePresent = false;
+    protected bool _isValidatePresent = false;
 
     // Denotes if a field is allowed to be empty
 
@@ -24,7 +24,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
 
     // Returns whether a field can be left out.
     /* /*callable|string */ bool isPresenceRequired() {
-        return _validatePresent;
+        return _isValidatePresent;
     }
     
     /**
@@ -33,7 +33,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * callable|string myvalidatePresent Valid values are true, false, "create", "update" or a callable.
      */
     void requirePresence(/*callable|*//* string  */bool isValidatePresent) {
-       _validatePresent = isValidatePresent;
+       _isValidatePresent = isValidatePresent;
     }
     
     // Returns whether a field can be left empty.
@@ -96,7 +96,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     
     // Returns a rule object by its index
     DValidationRule offsetGet(string ruleName) {
-        return _rules.get(ruleName);
+        return _rules.get(ruleName); 
     }
     
     // Sets or replace a validation rule

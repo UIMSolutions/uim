@@ -122,11 +122,11 @@ class DExceptionRenderer : IExceptionRenderer {
 
             controller = new myClass(myRequest);
             controller.startupProcess();
-        } catch (Throwable e) {
+        } catch (Throwable throwable) {
             myErrorOccured = true;
         }
 
-        if (!controller.isNull)) {
+        if (!controller.isNull) {
             return new DController(myRequest);
         }
 
@@ -137,7 +137,7 @@ class DExceptionRenderer : IExceptionRenderer {
             try {
                 myEvent = new DEvent("Controller.startup", controller);
                 controller.RequestHandler.startup(myEvent);
-            } catch (Throwable e) {
+            } catch (Throwable throwable) {
             }
         }
 
@@ -276,7 +276,7 @@ class DExceptionRenderer : IExceptionRenderer {
 
     // Gets the appropriate http status code for exception.
     protected int getHttpCode(Throwable exception) {
-        if (exception instanceof HttpException) {
+        if (cast(HttpException)exception) {
             return exception.code();
         }
 
@@ -288,29 +288,29 @@ class DExceptionRenderer : IExceptionRenderer {
      *
      * @param string myTemplate The template to render.
      */
-    protected DResponse _outputMessage(string myTemplate) {
+    protected DResponse _outputMessage(string templateName) {
         try {
-            _controller.render(myTemplate);
+            _controller.render(templateName);
 
             return _shutdown();
-        } catch (MissingTemplateException e) {
-            attributes = e.getAttributes();
+        } catch (MissingTemplateException miisngTemplateExecution) {
+            attributes = miisngTemplateExecution.getAttributes();
             if (
-                e instanceof MissingLayoutException ||
+                cast(MissingLayoutException)miisngTemplateExecution  ||
                 indexOf(attributes["file"], "error500") != false
            ) {
                 return _outputMessageSafe("error500");
             }
 
             return _outputMessage("error500");
-        } catch (MissingPluginException e) {
-            attributes = e.getAttributes();
+        } catch (MissingPluginException missngPluginExecution) {
+            attributes = missngPluginExecution.getAttributes();
             if (isset(attributes["plugin"]) && attributes["plugin"] == _controller.getPlugin()) {
                 _controller.setPlugin(null);
             }
 
             return _outputMessageSafe("error500");
-        } catch (Throwable e) {
+        } catch (Throwable throwable) {
             return _outputMessageSafe("error500");
         }
     }

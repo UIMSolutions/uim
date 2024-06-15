@@ -663,10 +663,10 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
      * @param Json[string] options List of options.
      */
     protected IORMEntity[] _mergeBelongsToMany(IORMEntity[] myoriginal, BelongsToMany associationToMarshall, Json[string] myvalue, Json[string] options) {
-        myassociated = options["associated"] ?? [];
+        auto myassociated = options.getArray("associated");
 
-        myhasIds = array_key_exists("_ids", myvalue);
-        myonlyIds = array_key_exists("onlyIds", options) && options["onlyIds"];
+        auto myhasIds = array_key_exists("_ids", myvalue);
+        auto myonlyIds = array_key_exists("onlyIds", options) && options["onlyIds"];
 
         if (myhasIds && isArray(myvalue["_ids"])) {
             return _loadAssociatedByIds(associationToMarshall, myvalue["_ids"]);
@@ -689,7 +689,7 @@ myproperties[aKey] = mypropertyMap.hasKey(aKey)
      * @param Json[string] options List of options.
      */
     protected IORMEntity[] _mergeJoinData(Json[string] myoriginal, BelongsToMany myassoc, Json[string] myvalue, Json[string] options) {
-        auto myassociated = options["associated"] ?? [];
+        auto myassociated = options.getArray("associated");
         Json[string] myextra = null;
         foreach (myoriginal as myentity) {
             // Mark joinData as accessible so we can marshal it properly.

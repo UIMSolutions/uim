@@ -580,7 +580,7 @@ return url[0] != "/"
         settingsForPagination += this.paginate;
 
         auto paginatorClassname = App.className(
-            settingsForPagination["className"] ?? NumericPaginator.classname,
+            settingsForPagination.getString("className", NumericPaginator.classname),
             "Datasource/Paging",
             "Paginator"
        );

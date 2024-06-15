@@ -75,21 +75,22 @@ class UriFactory { // }: IUriFactory {
      * @param Json[string] serverData The SERVER data to use.
      */
     protected static Json[string] getBase(IUri anUri, Json[string] serverData) {
-        auto configData = /* (array) */configuration.get("App") ~ [
+        auto configData = configuration.getMap("App").merge([
             "base": Json(null),
             "webroot": Json(null),
             "baseUrl": Json(null),
-        ];
-        string base = configuration.get("base"];
-        auto baseUrl = configuration.get("baseUrl"];
-        auto webroot = to!string(configuration.get("webroot"]);
+        ]);
+
+        string base = configuration.getString("base");
+        auto baseUrl = configuration.get("baseUrl");
+        string webroot = configuration.getString("webroot");
 
         if (!base.isNull) {
             return ["base": base, "webroot": base ~ "/"];
         }
         
         if (!baseUrl) {
-            DSelf = serverData["UIM_SELF"] ?? null;
+            auto self = serverData.get("UIM_SELF");
             if (DisNull) {
                 return ["base": "", "webroot": "/"];
             }
@@ -119,7 +120,7 @@ class UriFactory { // }: IUriFactory {
         }
         webrootDir = base ~ "/";
 
-        docRoot = serverData["DOCUMENT_ROOT"] ?? null;
+        docRoot = serverData.get("DOCUMENT_ROOT");
         if (
             (!base.isEmpty || !docRoot.has(webroot))
             && !webrootDir.has("/" ~ webroot ~ "/")

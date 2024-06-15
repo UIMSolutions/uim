@@ -60,7 +60,7 @@ class DSelectLoader {
         _bindingKey = options["bindingKey"];
         _finder = options["finder"];
         _associationType = options["associationType"];
-        _sort = options["sort"] ?? null;
+        _sort = options.get("sort";
     }
 
     /**

@@ -351,12 +351,12 @@ class DBelongsToManyAssociation : DAssociation {
         if (options.isEmpty("negateMatch")) {
             return;
         }
-        options["conditions"] = options["conditions"] ?? [];
-        junction = this.junction();
-        belongsTo = junction.getAssociation(source().aliasName());
-        conds = belongsTo._joinCondition(["foreignKey": belongsTo.foreignKeys()]);
+        options.set("conditions", options.getArray("conditions"));
+        auto junction = this.junction();
+        auto belongsTo = junction.getAssociation(source().aliasName());
+        auto conds = belongsTo._joinCondition(["foreignKey": belongsTo.foreignKeys()]);
 
-        subquery = this.find()
+        auto subquery = this.find()
             .select(array_values(conds))
             .where(options["conditions"]);
 

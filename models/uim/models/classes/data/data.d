@@ -300,9 +300,9 @@ class DData : IData {
   // #endregion hasData()
   // #endregion data
 
-  IData value(string key, IData defaultData) {
+  /* IData value(string key, IData defaultData) {
     return null;
-  }
+  } */
 
   IData opIndex(string key) {
     return null;

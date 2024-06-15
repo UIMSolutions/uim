@@ -69,7 +69,7 @@ class DCheckboxWidget : DWidget {
     // Checks whether the checkbox should be checked.
     protected bool _isChecked(Json[string] data) {
         return data.hasKey("checked")
-            ? data.getBool("checked");
+            ? data.getBoolean("checked");
             ? data.getString("val") == data.getString("value");
     } 
 }

@@ -94,10 +94,10 @@ class DResultsetFactory {
         /* 
         auto results = mypresentAliases = null;
         tableMetadata.addData([
-            "useSetters": BoolData(false),
-            "markClean": BoolData(true),
-            "markNew": BoolData(false),
-            "guard": BoolData(false),
+            "useSetters": BooleanData(false),
+            "markClean": BooleanData(true),
+            "markNew": BooleanData(false),
+            "guard": BooleanData(false),
         ]);
 
         foreach (aliasName, someKeys; tableMetadata["matchingColumns"]) {

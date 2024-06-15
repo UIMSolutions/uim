@@ -2411,7 +2411,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             }
         }
         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
-        auto mycaseInsensitive = options.getBool("caseInsensitive", false);
+        auto mycaseInsensitive = options.getBoolean("caseInsensitive", false);
         options.remove("caseInsensitive");
 
         return _add(fieldName, "multipleOptions", myextra ~ [

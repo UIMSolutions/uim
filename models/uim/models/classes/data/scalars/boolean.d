@@ -12,8 +12,8 @@ class DBooleanData : DScalarData {
   mixin(DataThis!("Boolean"));
   mixin TDataConvert;
 
-  this(bool newValue) {
-    this().set(newValue);
+  this(bool newValue, Json[string] initData = null) {
+    this(initData).set(newValue);
   }
 
   // Initialization hook method.
@@ -61,9 +61,7 @@ class DBooleanData : DScalarData {
 }
 
 mixin(DataCalls!("Boolean"));
-auto BooleanData(bool newValue) {
-  return new DBooleanData(newValue);
-} 
+auto BooleanData(bool newValue, Json[string] initData = null) { return new DBooleanData(newValue, initData); }
 
 unittest {
   // todo assert(true.toJson == true);

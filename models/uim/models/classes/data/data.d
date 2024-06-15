@@ -85,7 +85,7 @@ class DData : IData {
   // #endregion is-check
 
   // #region get
-  mixin(DataGet!("Bool", "bool", "false"));
+  mixin(DataGet!("Boolean", "bool", "false"));
   mixin(DataGet!("Long", "long", "0"));
   mixin(DataGet!("Double", "double", "0.0"));
   mixin(DataGet!("String", "string", "null"));

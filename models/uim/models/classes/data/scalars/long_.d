@@ -15,9 +15,8 @@ class DLongData : DScalarData {
     set(newValue);
   }
 
-  this(long newValue) {
-    this();
-    set(newValue);
+  this(long newValue, Json[string] initData = null) {
+    this(initData).set(newValue);
   }
 
   // Initialization hook method.
@@ -148,9 +147,8 @@ class DLongData : DScalarData {
 }
 
 mixin(DataCalls!("Long"));
-auto LongData(long newValue) {
-  return new DLongData(newValue);
-}
+auto LongData(long newValue, Json[string] initData = null) { return new DLongData(newValue, initData); }
+
 
 unittest {
   /* assert(LongData.set("100").toLong == 100);

@@ -54,7 +54,7 @@ interface IConfiguration : INamed {
         Json get(string key, Json defaultValue = Json(null));
         Json[string] get(string[] keys, bool compressMode = false);
 
-        bool getBool(string key);
+        bool getBoolean(string key);
         long getLong(string key);
         double getDouble(string key);
         string getString(string key);

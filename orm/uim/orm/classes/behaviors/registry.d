@@ -97,7 +97,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      */
     protected IBehavior _create(class, string anAlias, Json myConfiguration) {
         DORMBehavior instance = new class(_table, myConfiguration);
-        if (configuration.getBool("enabled", true)) {
+        if (configuration.getBoolean("enabled", true)) {
             getEventManager().on(instance);
         }
         auto methodNames = _getMethods(instance, class, alias);

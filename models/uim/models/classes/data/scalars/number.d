@@ -16,8 +16,8 @@ class DNumberData : DScalarData {
     this().set(newValue);
   }
 
-  this(string name, double newValue) {
-    this(name).set(newValue);
+  this(double newValue, Json[string] initData = null) {
+    this(initData).set(newValue);
   }
 
   // Initialization hook method.
@@ -117,9 +117,8 @@ class DNumberData : DScalarData {
 }
 
 mixin(DataCalls!("Number"));
-auto NumberData(double newValue) {
-  return new DNumberData(newValue);
-} 
+auto NumberData(double newValue, Json[string] initData = null) { return new DNumberData(newValue, initData); }
+
 
 unittest {
   /*alias Alias = ;

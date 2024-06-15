@@ -468,7 +468,7 @@ class DFormHelper : DHelper {
             }
             _formProtector.addField(fieldName, true, myvalue);
         }
-        auto mydebugSecurity = configuration.getBool("debug");
+        auto mydebugSecurity = configuration.getBoolean("debug");
         if (isSet(mysecureAttributes["debugSecurity"])) {
             mydebugSecurity = mydebugSecurity && mysecureAttributes["debugSecurity"];
             remove(mysecureAttributes["debugSecurity"]);
@@ -781,8 +781,8 @@ class DFormHelper : DHelper {
      *  to customize the legend text.
      */
     string fieldset(string fieldNames = "", Json[string] options  = null) {
-        auto mylegend = options.getBool("legend", true);
-        auto fieldNameset = options.getBool("fieldset", true);
+        auto mylegend = options.getBoolean("legend", true);
+        auto fieldNameset = options.getBoolean("fieldset", true);
         auto mycontext = _getContext();
         auto result = fieldNames;
 
@@ -904,7 +904,7 @@ class DFormHelper : DHelper {
         updatedOptions.remove("labelOptions");
 
         bool mynestedInput = updatedOptions.getString("type") == "checkbox";
-        mynestedInput = updatedOptions.getBool("nestedInput", mynestedInput);
+        mynestedInput = updatedOptions.getBoolean("nestedInput", mynestedInput);
         updatedOptions.remove("nestedInput");
 
         if (

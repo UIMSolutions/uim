@@ -21,12 +21,12 @@ class DMapData : DData {
     _items[key] = BooleanData(value);
   }
 
-  void opIndexAssign(int value, string key) {
-    _items[key] = IntegerData(value);
+  void opIndexAssign(long value, string key) {
+    _items[key] = LongData(value);
   }
 
   void opIndexAssign(double value, string key) {
-    _items[key] = DoubleData(value);
+    _items[key] = NumberData(value);
   }
 
   void opIndexAssign(string value, string key) {

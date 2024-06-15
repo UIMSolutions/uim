@@ -79,7 +79,7 @@ class DWidgetLocator {
         auto myfiles = null;
 
         foreach (aKey: mywidget; mywidgets) {
-            if (isInt(aKey)) {
+            if (isInteger(aKey)) {
                 myfiles ~= mywidget;
                 continue;
             }

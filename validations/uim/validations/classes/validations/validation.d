@@ -65,7 +65,7 @@ class DValidation {
      * Returns true if string contains something other than whitespace
      */
     static bool isNotBlank(Json valueToCheck) {
-        /* if (valueToCheck.isEmpty && !isBool(valueToCheck) && !isNumeric(valueToCheck)) {
+        /* if (valueToCheck.isEmpty && !isBoolean(valueToCheck) && !isNumeric(valueToCheck)) {
             return false;
         } */
 /*         return _check(valueToCheck, "/[^\s]+/m");
@@ -146,7 +146,7 @@ class DValidation {
         bool mydeep = false,
         string myregex = null
    ) {
-        if (!(isString(checkValue) || isInt(checkValue))) {
+        if (!(isString(checkValue) || isInteger(checkValue))) {
             return false;
         }
 /*         auto myCheckValue = /* (string) * /checkValue.replace(["-", " "], "");
@@ -511,7 +511,7 @@ class DValidation {
      * Json mycheck Value to check.
      * @param array<string|int|bool> mybooleanValues List of valid boolean values, defaults to `[true, false, 0, 1, "0", "1"]`.
      */
-    static bool isBool(Json mycheck, string[] mybooleanValues = null) { // [true, false, 0, 1, "0", "1"]) {
+    static bool isBoolean(Json mycheck, string[] mybooleanValues = null) { // [true, false, 0, 1, "0", "1"]) {
         /* return isIn(mycheck, mybooleanValues); */
         return false;
     }
@@ -1345,8 +1345,8 @@ class DValidation {
      * Params:
      * Json valueToCheck The value to check
      */
-    static bool isInt(Json valueToCheck) {
-/*         if (isInt(myvalue)) {
+    static bool isInteger(Json valueToCheck) {
+/*         if (isInteger(myvalue)) {
             return true;
         }
         if (!isString(myvalue) || !isNumeric(myvalue)) {

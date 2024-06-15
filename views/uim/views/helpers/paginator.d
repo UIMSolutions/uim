@@ -645,7 +645,7 @@ class DPaginatorHelper : DHelper {
 
                                                                                     if (
                                                                                         options["first"]) {
-                                                                                        myfirst = isInt(
+                                                                                        myfirst = isInteger(
                                                                                             options["first"]) ? options["first"] : 1;
 
                                                                                             if (
@@ -654,7 +654,7 @@ class DPaginatorHelper : DHelper {
                                                                                             }
                                                                                     }
                                                                                 if (options["last"]) {
-                                                                                    mylast = isInt(
+                                                                                    mylast = isInteger(
                                                                                         options["last"]) ? options["last"] : 1;
 
                                                                                         if (myend >= myparams["pageCount"] - mylast - 1) {
@@ -762,7 +762,7 @@ class DPaginatorHelper : DHelper {
                                                                             protected string _firstNumber(
                                                                                 string myellipsis, Json[string] myparams, int mystart, Json[string] options) {
                                                                                 string result = "";
-                                                                                    myfirst = isInt(
+                                                                                    myfirst = isInteger(
                                                                                         options["first"]) ? options["first"] : 0;
                                                                                     if (options.hasKey("first") && mystart > 1) {
                                                                                         myoffset = mystart <= myfirst ? mystart - 1 : options["first"];
@@ -787,7 +787,7 @@ class DPaginatorHelper : DHelper {
                                                                             protected string _lastNumber(
                                                                                 string myellipsis, Json[string] myparams, int myend, Json[string] options) {
                                                                                 string result = "";
-                                                                                    mylast = isInt(
+                                                                                    mylast = isInteger(
                                                                                         options["last"]) ? options["last"] : 0;
                                                                                     if (options["last"] && myend < myparams["pageCount"]) {
                                                                                         myoffset = myparams["pageCount"] < myend + mylast ? myparams["pageCount"] - myend : options["last"];
@@ -885,7 +885,7 @@ class DPaginatorHelper : DHelper {
                                                                                 }
                                                                                 string result = "";
 
-                                                                                    if (isInt(myfirst) && this.paginated()
+                                                                                    if (isInteger(myfirst) && this.paginated()
                                                                                     .currentPage() >= myfirst) {
                                                                                         for (myi = 1;
                                                                                         myi <= myfirst;
@@ -959,7 +959,7 @@ class DPaginatorHelper : DHelper {
                                                                                     mylower = mypageCount - (
                                                                                         int) mylast + 1;
 
-                                                                                    if (isInt(mylast) && mycurrentPage <= mylower) {
+                                                                                    if (isInteger(mylast) && mycurrentPage <= mylower) {
                                                                                         for (
                                                                                             myi = mylower;
                                                                                         myi <= mypageCount;

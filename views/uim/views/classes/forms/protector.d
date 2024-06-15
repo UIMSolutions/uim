@@ -321,7 +321,7 @@ class DFormProtector {
                 if (isNumeric(kv.value)) {
                     kv.value = /* (string) */kv.value;
                 }
-                if (!isInt(kv.key)) {
+                if (!isInteger(kv.key)) {
                     locked[kv.key] = kv.value;
                     remove(fields[kv.key]);
                 }
@@ -452,7 +452,7 @@ class DFormProtector {
    ) {
         messages = null;
         foreach (someDataFields as aKey: aValue) {
-            if (isInt(aKey)) {
+            if (isInteger(aKey)) {
                 foundKey = array_search(aValue, expectedFields, true);
                 if (foundKey == false) {
                     messages ~= anIntKeyMessage.format(aValue);
@@ -487,7 +487,7 @@ class DFormProtector {
         return missingMessage.format(join(", ", expectedFieldNames));
     }
     protected string debugExpectedField(aKey, expectedField) {
-        return isInt(aKey)
+        return isInteger(aKey)
             ? expectedField
             : aKey;
     }

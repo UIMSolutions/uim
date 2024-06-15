@@ -145,7 +145,7 @@ class DRadioWidget : DWidget {
                 : _id(to!string(myradio["name"]), (string)myradio["value"]);
         }
         auto valData = options["val"];
-        if (!valData.isNull && valData.isBool) {
+        if (!valData.isNull && valData.isBoolean) {
             options["val"] = options["val"] ? 1 : 0;
         }
         if (!valData.isNull && /* (string) */valData == /* (string) */myradio["value"]) {
@@ -153,7 +153,7 @@ class DRadioWidget : DWidget {
             myradio["templateVars.activeClass"] = "active";
         }
         auto labelData = options["label"];
-        if (!isBool(labelData) && isSet(myradio["checked"]) && myradio["checked"]) {
+        if (!isBoolean(labelData) && isSet(myradio["checked"]) && myradio["checked"]) {
             myselectedClass = _stringContents.format("selectedClass", []);
             mydoptionsata["label"] = _stringContents.addClassnameToList(labelData, myselectedClass);
         }

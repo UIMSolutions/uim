@@ -190,7 +190,7 @@ class DViewBuilder { // }: DJsonSerializable {
     void addHelpers(Json[string] myhelpers) {
         myhelpers.byKeyValue
             .each((helperConfigData) {
-                if (isInt(helperConfigData.key)) {
+                if (isInteger(helperConfigData.key)) {
                     auto myhelper = helperConfigData.value;
                     helperConfigData.value = null;
                 }
@@ -207,7 +207,7 @@ class DViewBuilder { // }: DJsonSerializable {
        _helpers = null;
 
         foreach (myhelpers as myhelper: configData) {
-            if (isInt(myhelper)) {
+            if (isInteger(myhelper)) {
                 myhelper = configData;
                 configData = null;
             }

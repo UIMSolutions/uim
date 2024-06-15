@@ -462,7 +462,7 @@ class DFormHelper : DHelper {
             return null;
         }
         fieldNames.byKeyValue.each!()
-            if (isInt(fieldName)) {
+            if (isInteger(fieldName)) {
                 fieldName = myvalue;
                 myvalue = null;
             }

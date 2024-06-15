@@ -222,8 +222,8 @@ class DSelectBoxWidget : DWidget {
             // Option groups
             myisRange = is_iterable(kv.value);
             if (
-                (!isInt(kv.key) && myisIterable) ||
-                (isInt(kv.key) && myisRange &&
+                (!isInteger(kv.key) && myisIterable) ||
+                (isInteger(kv.key) && myisRange &&
                     (isSet(myval["options"]) || !myval.hasKey("value"))
                )
            ) {

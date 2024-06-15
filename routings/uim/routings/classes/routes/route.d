@@ -360,7 +360,7 @@ class DRoute : IRoute {
             if (isSet(myroute[aKey])) {
                 continue;
             }
-            if (isInt(aKey)) {
+            if (isInteger(aKey)) {
                 myroute["pass"] ~= myvalue;
                 continue;
             }

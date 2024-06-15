@@ -1636,9 +1636,9 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param string myMessage The error message when the rule fails.
      * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
-     * @see \UIM\Validation\Validation.isBool()
+     * @see \UIM\Validation\Validation.isBoolean()
      */
-    auto isBool(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
+    auto isBoolean(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a boolean";
@@ -2304,7 +2304,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param string myMessage The error message when the rule fails.
      * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
-     * @see \UIM\Validation\Validation.isInt()
+     * @see \UIM\Validation\Validation.isInteger()
      */
     auto integer(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {

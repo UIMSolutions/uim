@@ -54,7 +54,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
         _args = commandArguments;
 
         auto name = commandArguments.getArgument("name");
-       auto overwrite = arguments.getBool("overwrite");
+       auto overwrite = arguments.getBoolean("overwrite");
        _process(_list(name), false, overwrite);
 
         return CODE_SUCCESS;

@@ -74,7 +74,7 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
         }
         
         auto anInstance = new  className(this, configData);
-        if (configData.getBool("enabled", true) {
+        if (configData.getBoolean("enabled", true) {
             getEventManager().on(anInstance);
         }
         return anInstance;

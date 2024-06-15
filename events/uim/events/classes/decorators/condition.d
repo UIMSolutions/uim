@@ -38,7 +38,7 @@ class DConditionDecorator : DDecorator {
                 this.classname ~ " the `" ~ conditionType ~ "` condition is not a callable!");
         }
         
-        return _options[conditionType].getBool(event); */
+        return _options[conditionType].getBoolean(event); */
         return false; 
     }
 }

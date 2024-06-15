@@ -54,7 +54,7 @@ class DPluginAssetsCopyCommand : DCommand {
         _args = arguments;
 
         auto name = arguments.getString("name");
-        auto shouldOverwrite = arguments.getBool("overwrite");
+        auto shouldOverwrite = arguments.getBoolean("overwrite");
        _process(_list(name), true, shouldOverwrite);
 
         return CODE_SUCCESS;

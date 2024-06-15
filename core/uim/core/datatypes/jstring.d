@@ -46,7 +46,7 @@ Json[string] copy(Json[string] origin) {
   return results;
 }
 
-bool getBool(Json[string] values, string key, bool defaultValue = false) {
+bool getBoolean(Json[string] values, string key, bool defaultValue = false) {
   return key in values 
     ? values[key].get!bool
     : defaultValue;

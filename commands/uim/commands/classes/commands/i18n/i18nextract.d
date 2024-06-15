@@ -174,7 +174,7 @@ class DI18nExtractCommand : DCommand {
            );
            _merge = response.lower == "y";
         }
-       _markerError = arguments.getBool("marker-error");
+       _markerError = arguments.getBoolean("marker-error");
 
         if (_fileNames.isEmpty) {
            _searchFiles();

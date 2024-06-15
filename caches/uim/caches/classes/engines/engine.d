@@ -199,7 +199,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * if option warnOnWriteFailures is set to true.
      */
     protected void warning(string warningMessage) {
-        if (!configuration.getBool("warnOnWriteFailures")) {
+        if (!configuration.getBoolean("warnOnWriteFailures")) {
             return;
         }
         // TODO triggerWarning(warningMessage);

@@ -882,22 +882,22 @@ Json[string] toJsonMap(STRINGAA map, string[] excludeKeys = null) {
 }
 
 // #region getter
-bool getBool(Json value, string key) {
+bool getBoolean(Json value, string key) {
   return !value.isNull && value.isObject && value.hasKey(key)
-    ? value[key].getBool : false;
+    ? value[key].getBoolean : false;
 }
 
-bool getBool(Json value) {
+bool getBoolean(Json value) {
   return !value.isNull && value.isBoolean
     ? value.get!bool : false;
 }
 
-int getInt(Json value, string key) {
+int getInteger(Json value, string key) {
   return !value.isNull && value.isObject && value.hasKey(key)
-    ? value[key].getInt : 0;
+    ? value[key].getInteger : 0;
 }
 
-int getInt(Json value) {
+int getInteger(Json value) {
   return !value.isNull && value.isInteger
     ? value.get!int : 0;
 }

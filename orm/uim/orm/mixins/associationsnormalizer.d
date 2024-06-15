@@ -18,7 +18,7 @@ mixin template TAssociationsNormalizer() {
         foreach (mytable, options; includedAssociations) {
             mypointer = &result;
 
-            if (mytable.isInt) {
+            if (mytable.isInteger) {
                 mytable = options;
                 options = null;
             }

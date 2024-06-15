@@ -200,7 +200,7 @@ REGEXP`;
          // TODO
          /*
         foreach (myKey: v; parsed) {
-            if (isInt(myKey)) {
+            if (isInteger(myKey)) {
                 parsed.remove(myKey);
             } else if (myKey.startsWith("_")) {
                 exists[subString(myKey, 1)] = (!v.isEmpty);

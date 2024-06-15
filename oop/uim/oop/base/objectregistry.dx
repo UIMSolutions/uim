@@ -195,7 +195,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
   Json[string] < string, Json[string] > normalizeArray(Object[] objects) {
     normal = null;
     foreach (objectName, configData; objects) {
-      if (isInt(objectName)) {
+      if (isInteger(objectName)) {
         objectName = configData;
         configData = null;
       }

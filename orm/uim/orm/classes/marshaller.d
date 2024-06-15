@@ -40,7 +40,7 @@ class DMarshaller {
         options.set("associated", options.getArray("associated"));
         myinclude = _normalizeAssociations(options["associated"]);
         foreach (myinclude as aKey : mynested) {
-            if (isInt(aKey) && isScalar(mynested)) {
+            if (isInteger(aKey) && isScalar(mynested)) {
                 aKey = mynested;
                 mynested = null;
             }

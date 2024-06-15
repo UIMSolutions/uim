@@ -219,7 +219,7 @@ class Xml {
                             throw new XmlException("Invalid input.");
                         }
                         aKey = key(myinput);
-                        if (isInt(aKey)) {
+                        if (isInteger(aKey)) {
                             throw new XmlException("The key of input must be alphanumeric");
                         }
                         Json[string] defaultData = [
@@ -268,7 +268,7 @@ class Xml {
                                     myValue = myValue.toArray();
                                 }
                                 if (!isArray(myValue)) {
-                                    if (isBool(myValue)) {
+                                    if (isBoolean(myValue)) {
                                         myValue = to!int(myValue);
                                     }
                                     else if(myValue.isNull) {

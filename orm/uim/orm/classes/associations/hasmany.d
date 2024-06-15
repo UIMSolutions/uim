@@ -269,7 +269,7 @@ class DHasManyAssociation : DAssociation {
      *  If boolean it will be used a value for "cleanProperty" option.
      */
     void unlink(IORMEntity sourceEntity, Json[string] myTargetEntities, options = null) {
-        if (isBool(options)) {
+        if (isBoolean(options)) {
             options = [
                 "cleanProperty": options,
             ];

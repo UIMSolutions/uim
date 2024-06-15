@@ -108,7 +108,7 @@ class DCounterCacheBehavior : DBehavior {
             myassoc = _table.getAssociation(myassoc);
             /** @var string|int fieldName */
             foreach (mysettings as fieldName: configData) {
-                if (isInt(fieldName)) {
+                if (isInteger(fieldName)) {
                     continue;
                 }
                 myregistryAlias = myassoc.getTarget().registryKey();
@@ -203,7 +203,7 @@ class DCounterCacheBehavior : DBehavior {
 
         mysettings.byKeyValue
             .each((fieldData) {
-                if (isInt(fieldName)) {
+                if (isInteger(fieldName)) {
                     fieldName = fieldData.value;
                     fieldData.value = null;
                 }

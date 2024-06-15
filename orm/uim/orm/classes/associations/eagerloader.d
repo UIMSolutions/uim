@@ -252,7 +252,7 @@ class DEagerLoader {
 
         foreach (myassociations as mytable: options) {
             mypointer = &result;
-            if (isInt(mytable)) {
+            if (isInteger(mytable)) {
                 mytable = options;
                 options = null;
             }

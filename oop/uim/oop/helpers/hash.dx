@@ -30,7 +30,7 @@ class Hash {
         if (mydata.isEmpty || path.isNull) {
             return mydefault;
         }
-        if (isString(searchedpath) || isInt(searchedpath)) {
+        if (isString(searchedpath) || isInteger(searchedpath)) {
             string[] myparts = to!string(searchedpath.split("."));
         } else {
             myparts = searchedpath;
@@ -192,7 +192,7 @@ class Hash {
                 return false;
             }
             auto myprop = mydata.getString(myattr);
-            auto myisBool = isBool(myprop);
+            auto myisBool = isBoolean(myprop);
             if (myisBool && isNumeric(myval)) {
                 myprop = myprop ? "1" : "0";
             } else if (myisBool) {
@@ -991,7 +991,7 @@ class Hash {
 
         if (!myassoc) {
             for (myi = 0; myi < mycount; myi++) {
-                if (!isInt(someKeys[myi])) {
+                if (!isInteger(someKeys[myi])) {
                     mynumeric = false;
                     break;
                 }
@@ -1000,7 +1000,7 @@ class Hash {
         if (!mynumeric || myassoc) {
             mynewList = null;
             for (myi = 0; myi < mycount; myi++) {
-                if (isInt(someKeys[myi])) {
+                if (isInteger(someKeys[myi])) {
                     mynewList[mydata[someKeys[myi]]] = mydefault;
                 } else {
                     mynewList[someKeys[myi]] = mydata[someKeys[myi]];

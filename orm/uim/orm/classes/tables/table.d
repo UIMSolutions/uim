@@ -594,7 +594,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      */
     void addBehaviors(Json[string] behaviorsToLoad) {
         foreach (behaviorsToLoad as myname: options) {
-            if (isInt(myname)) {
+            if (isInteger(myname)) {
                 myname = options;
                 options = null;
             }

@@ -148,7 +148,7 @@ class DPoFileParser {
             stage = ["ids", "plural"];
         } else if (line.startsWith("msgstr[")) {
             size = indexOf(line, "]");
-            assert(isInt(size));
+            assert(isInteger(size));
 
             row = to!int(subString(line, 7, 1));
             anItem["translated"][row] = subString(line, size + 3,  - 1);

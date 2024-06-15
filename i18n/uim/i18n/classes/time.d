@@ -111,7 +111,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      */
     static static parseTime(string timeToParse, string /* |int */ format = null) {
         format = format.ifEmpty([IntlDateFormatter.NONE, IntlDateFormatter.SHORT]);
-        if (isInt(format)) {
+        if (isInteger(format)) {
             format = [IntlDateFormatter.NONE, format];
         }
         return _parseDateTime(timeToParse, format);
@@ -162,7 +162,7 @@ class DTime { // : ChronosTime, JsonSerializable {
             throw new DInvalidArgumentException("UNIT_TIMESTAMP_FORMAT is not supported for Time.");
         }
         format ??= _toStringFormat;
-        format = isInt(format) ? [IntlDateFormatter.NONE, format] : format;
+        format = isInteger(format) ? [IntlDateFormatter.NONE, format] : format;
         localName = localName ?: DateTime.getDefaultLocale();
 
         return _formatObject(toNative(), format, localName);

@@ -248,7 +248,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
 
     auto parseDate(string adate, string[] format = null) {
         format ??= wordFormat;
-        if (isInt(format)) {
+        if (isInteger(format)) {
             format = [format, IntlDateFormatter.NONE];
         }
         return parseDateTime(date, format);
@@ -441,7 +441,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
         string acountry = null,
         Json auto options = null
    ) {
-        if (isBool(options)) {
+        if (isBoolean(options)) {
             options = [
                 'group": options,
             ];

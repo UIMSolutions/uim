@@ -54,7 +54,7 @@ class DMockAdapter { //}: IAdapter {
             }
             if (isSet(mock["options.match"])) {
                 match = mock["options.match"](request);
-                if (!isBool(match)) {
+                if (!isBoolean(match)) {
                     throw new DInvalidArgumentException("Match callback must return a boolean value.");
                 }
                 if (!match) {

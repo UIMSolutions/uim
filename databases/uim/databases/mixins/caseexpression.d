@@ -25,7 +25,7 @@ mixin template TCaseExpression() {
             type = "integer";
         } elseif (isFloat(aValue)) {
             type = "float";
-        } elseif (isBool(aValue)) {
+        } elseif (isBoolean(aValue)) {
             type = "boolean";
         } elseif (cast(DChronosDate)aValue) {
             type = "date";

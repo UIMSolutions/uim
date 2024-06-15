@@ -451,7 +451,7 @@ class DConsoleOptionParser {
         }
         _options.each!((option) {
             name = option.name();
-            isBoolean = option.isBool();
+            isBoolean = option.isBoolean();
             defaultValue = option.defaultValue();
 
             useDefault = !params.hasKey(name);
@@ -561,7 +561,7 @@ class DConsoleOptionParser {
            );
         }
         option = _options[nameToParse];
-        isBoolean = option.isBool();
+        isBoolean = option.isBoolean();
         nextValue = _nextToken();
         emptyNextValue = (isEmpty(nextValue) && nextValue != "0");
         if (!isBoolean && !emptyNextValue && !_optionExists(nextValue)) {

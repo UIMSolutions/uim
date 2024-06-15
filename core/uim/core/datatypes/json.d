@@ -43,14 +43,14 @@ unittest {
   assert(!parseJsonString(`1`).isBigInteger);
 }
 
-bool isBool(Json value) {
+bool isBoolean(Json value) {
   return (value.type == Json.Type.bool_);
 }
 ///
 unittest {
-  assert(parseJsonString(`true`).isBool);
-  assert(parseJsonString(`false`).isBool);
-  assert(!parseJsonString(`1`).isBool);
+  assert(parseJsonString(`true`).isBoolean);
+  assert(parseJsonString(`false`).isBoolean);
+  assert(!parseJsonString(`1`).isBoolean);
 }
 
 bool isFloat(Json value) {
@@ -65,7 +65,7 @@ unittest {
   assert(!parseJsonString(`1`).isFloat);
 }
 
-bool isInt(Json value) {
+bool isInteger(Json value) {
   return (value.type == Json.Type.int_);
 }
 
@@ -74,12 +74,12 @@ bool isLong(Json value) {
 }
 ///
 unittest {
-  assert(parseJsonString(`1`).isInt);
-  assert(!parseJsonString(`1.1`).isInt);
+  assert(parseJsonString(`1`).isInteger);
+  assert(!parseJsonString(`1.1`).isInteger);
 }
 
 bool isNull(Json value) {
-  return value == Json(null);
+  return (value.type == Json.Type.null_);
 }
 
 unittest {
@@ -119,6 +119,10 @@ bool isEmpty(Json value) {
   // TODO add not null, but empty
 }
 // #endregion
+
+bool isIntegral(Json value) {
+  return value.isLong;
+}
 
 /// Checks if every key is in json object
 bool hasAllKeys(Json aJson, string[] keys, bool deepSearch = false) {
@@ -877,19 +881,41 @@ Json[string] toJsonMap(STRINGAA map, string[] excludeKeys = null) {
   return json;
 }
 
+// #region getter
+bool getBool(Json value, string key) {
+  return !value.isNull && value.isObject && value.hasKey(key)
+    ? value[key].getBool : false;
+}
+
 bool getBool(Json value) {
-  return !value.isNull && value.isBool
+  return !value.isNull && value.isBoolean
     ? value.get!bool : false;
 }
 
+int getInt(Json value, string key) {
+  return !value.isNull && value.isObject && value.hasKey(key)
+    ? value[key].getInt : 0;
+}
+
 int getInt(Json value) {
-  return !value.isNull && value.isInt
+  return !value.isNull && value.isInteger
     ? value.get!int : 0;
 }
 
+long getLong(Json value, string key) {
+  return !value.isNull && value.isObject && value.hasKey(key)
+    ? value[key].getLong : 0;
+}
+
 long getLong(Json value) {
-  return !value.isNull && (value.isInt || value.isLong)
+  return !value.isNull && (value.isInteger || value.isLong)
     ? value.get!long : 0;
+}
+
+
+float getFloat(Json value, string key) {
+  return !value.isNull && value.isObject && value.hasKey(key)
+    ? value[key].getFloat : 0.0;
 }
 
 float getFloat(Json value) {
@@ -897,18 +923,14 @@ float getFloat(Json value) {
     ? value.get!float : 0.0;
 }
 
+double getDouble(Json value, string key) {
+  return !value.isNull && value.isObject && value.hasKey(key)
+    ? value[key].getDouble : 0.0;
+}
+
 double getDouble(Json value) {
   return !value.isNull && (value.isFloat || value.isDouble)
     ? value.get!double : 0.0;
-}
-
-string getString(Json value) {
-  if (value.isNull) {
-    return null;
-  }
-
-  return value.isString
-    ? value.get!string : null;
 }
 
 string getString(Json value, string key) {
@@ -920,6 +942,24 @@ string getString(Json value, string key) {
     ? value[key].getString : null;
 }
 
+string getString(Json value) {
+  if (value.isNull) {
+    return null;
+  }
+
+  return value.isString
+    ? value.get!string : null;
+}
+
+Json[] getArray(Json value, string key) {
+  if (value.isNull) {
+    return null;
+  }
+
+  return value.isObject && value.hasKey(key)
+    ? value[key].getArray : null;
+}
+
 Json[] getArray(Json value) {
   if (value.isNull) {
     return null;
@@ -929,15 +969,89 @@ Json[] getArray(Json value) {
     ? value.get!(Json[]) : null;
 }
 
+Json[string] getMap(Json value, string key) {
+  return value.isObject && value.hasKey(key)
+    ? value[key].getMap : null;
+}
+
 Json[string] getMap(Json value) {
-  if (value.isNull) {
+  if (value.isNull) { // TODO required?
     return null;
   }
 
   return value.isObject
     ? value.get!(Json[string]) : null;
 }
+// #endregion getter
 
-bool isIntegral(Json value) {
-  return value.isLong;
+// #region setter
+Json set(Json json, string key) {
+  if (json.isObject) {
+    json[key] = null;
+  }
+  return json;
 }
+
+Json set(Json json, string key, bool value) {
+  if (json.isObject) {
+    json[key] = value;
+  }
+  return json;
+}
+
+Json set(Json json, string key, int value) {
+  if (json.isObject) {
+    json[key] = value;
+  }
+  return json;
+}
+
+Json set(Json json, string key, long value) {
+  if (json.isObject) {
+    json[key] = value;
+  }
+  return json;
+}
+
+Json set(Json json, string key, float value) {
+  if (json.isObject) {
+    json[key] = value;
+  }
+  return json;
+}
+
+Json set(Json json, string key, double value) {
+  if (json.isObject) {
+    json[key] = value;
+  }
+  return json;
+}
+
+Json set(Json json, string key, string value) {
+  if (json.isObject) {
+    json[key] = value;
+  }
+  return json;
+}
+
+Json set(Json json, string key, Json value) {
+  if (json.isObject) {
+    json[key] = value;
+  }
+  return json;
+}
+
+Json set(Json json, string key, Json[] value) {
+  if (json.isObject) {
+    json[key] = value;
+  }
+  return json;
+}
+
+Json set(Json json, string key, Json[string] value) {
+  if (json.isObject) {
+    json[key] = value;
+  }
+  return json;
+}
+// #endregion setter

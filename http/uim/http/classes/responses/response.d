@@ -680,7 +680,7 @@ class DResponse : IResponse {
      * @param string|int time a valid time for cache expiry
      */
     static withCache(/* string */ int since, /* int */ time = "+1 day") {
-        if (!isInt(time)) {
+        if (!isInteger(time)) {
             time = strtotime(time);
             if (time == false) {
                 throw new DInvalidArgumentException(
@@ -899,7 +899,7 @@ class DResponse : IResponse {
     protected IDateTime _getUTCDate(Jsontime = null) {
         if (cast(IDateTime)time) {
             result = clone time;
-        } elseif (isInt(time)) {
+        } elseif (isInteger(time)) {
             result = new DateTime(date("Y-m-d H:i:s", time));
         } else {
             result = new DateTime(time ?? "now");

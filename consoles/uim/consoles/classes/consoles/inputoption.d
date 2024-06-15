@@ -58,7 +58,7 @@ class DConsoleInputOption {
     // Check if this option is a boolean option
     // Is the option a boolean option. Boolean options do not consume a parameter.
     protected bool _isBooleanOption;
-    bool isBool() {
+    bool isBoolean() {
         return _isBooleanOption;
     }
     
@@ -145,7 +145,7 @@ class DConsoleInputOption {
     string usage() {
         name = _shortalias == "" ? "--" ~ _name : "-" ~ _shortalias;
         default = "";
-        if (!_default.isNull && !isBool(_default) && !_default.isEmpty) {
+        if (!_default.isNull && !isBoolean(_default) && !_default.isEmpty) {
             default = " " ~ _default;
         }
         if (_choices) {

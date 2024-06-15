@@ -81,9 +81,9 @@ class Xml {
     static SimpleXMLElement | DOMDocument build(object | string[] myinput, Json[string] optionData = null) {
         Json[string] defaultOptions = [
             "return": Json("simplexml"),
-            "loadEntities": BoolData(false),
-            "readFile": BoolData(false),
-            "parseHuge": BoolData(false)
+            "loadEntities": BooleanData(false),
+            "readFile": BooleanData(false),
+            "parseHuge": BooleanData(false)
         ];                
         auto optionData = optionData.update(defaultOptions);
 
@@ -227,7 +227,7 @@ class Xml {
                             "version": Json("1.0"),
                             "encoding": mb_internal_encoding(),
                             "return": Json("simplexml"),
-                            "pretty": BoolData(false)
+                            "pretty": BooleanData(false)
                         ];
                         optionData = optionData.add(defaultData);
 

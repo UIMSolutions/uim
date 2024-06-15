@@ -7,17 +7,8 @@ import uim.models;
 string dataThis(string name, string datatype = null) { // Name for future releases
   return `  
     this() { super(); }
-    this(string newValue) { this(); set(newValue); }
-    this(Json newValue) { this(); set(newValue); } `;
-  // ~ datatype !is null ? ` this(` ~ datatype ~ ` newzValue) { this(); set(newzValue); }`: null;
-
-  /*     this(DAttribute theAttribute, `
-        ~ datatype ~ ` newValue) { this(theAttribute).set(newValue); }` : "");
-
-    /*
-    this(DAttribute theAttribute) { this().attribute(theAttribute); }
-    this(DAttribute theAttribute, string newValue) { this(theAttribute).set(newValue); }
-    this(DAttribute theAttribute, Json newValue) { this(theAttribute).set(newValue); }` */
+    this(Json[string] initData) { super(initData); }
+    `;
 }
 
 template DataThis(string name, string datatype = null) { // Name for future releases
@@ -28,8 +19,7 @@ string dataCalls(string name, string datatype = null) {
   string fullName = name ~ "Data";
   return `
     auto ` ~ fullName ~ `() { return new D` ~ fullName ~ `(); }
-    // auto ` ~ fullName ~ `(string newValue) { return new D` ~ fullName ~ `(newValue); }
-    // auto ` ~ fullName ~ `(Json newValue) { return new D` ~ fullName ~ `(newValue); }
+    auto ` ~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData); }
   `;
 }
 
@@ -166,7 +156,7 @@ template IntegerDataProperty(string name, string path = null) {
 template DataIsCheck(string isname) {
   const char[] DataIsCheck = `
     bool `~isname~`() {
-      return _value.getBool("`~isname~`");
+      return _value.getBoolean("`~isname~`");
     }
 
     void `~isname~`(bool mode) {

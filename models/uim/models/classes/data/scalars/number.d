@@ -143,7 +143,7 @@ unittest {
 
 ///
 unittest {
-  /* auto boolValue = new DBoolData(true);
+  /* auto boolValue = new DBooleanData(true);
 // TODO assert(boolValue == true);
 // TODO assert(boolValue != false); */
 }

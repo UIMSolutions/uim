@@ -28,7 +28,7 @@ class DStringDataMap : DData, IMap {
     if (containsKey(key)) {
       _items[key].set(value ? "true" : "false"); 
     } else {
-    _items[key] = new DBoolData(value); }
+    _items[key] = new DBooleanData(value); }
 
   }
 
@@ -142,7 +142,7 @@ unittest {
 
 // TODO assert(stringMap["key1"].toString == "value1");
 // TODO assert(cast(DStringData) stringMap["key1"]);
-// TODO assert(!cast(DBoolData) stringMap["key1"]);
+// TODO assert(!cast(DBooleanData) stringMap["key1"]);
 
   stringMap["key2"] = "value2";
 // TODO assert(stringMap["key2"].toString == "value2");

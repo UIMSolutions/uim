@@ -79,7 +79,7 @@ interface IData {
     // #endregion is-check
 
     // #region get
-        bool getBool();
+        bool getBoolean();
         long getLong(); 
         double getDouble();
         string getString();

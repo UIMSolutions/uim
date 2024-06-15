@@ -55,7 +55,7 @@ class DBooleanData : DScalarData {
 
   // #region clone
  override IData clone() {
-    return BooleanData(getBool);
+    return BooleanData(getBoolean);
   } 
   // #endregion clone
 }

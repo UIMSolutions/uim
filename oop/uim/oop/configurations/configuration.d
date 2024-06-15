@@ -133,8 +133,8 @@ abstract class DConfiguration : IConfiguration {
         return defaultValue;
     }
 
-    long getBool(string key) {
-        return get(key).getBool;
+    long getBoolean(string key) {
+        return get(key).getBoolean;
     }
     
     long getLong(string key) {

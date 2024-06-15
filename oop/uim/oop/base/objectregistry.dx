@@ -202,7 +202,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
 
       [plugin, name] = pluginSplit(objectName);
       if (plugin) {
-        configData[]"className"] = objectName;
+        configData.set("className", objectName);
       }
       normal[name] = configData;
     }

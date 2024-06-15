@@ -18,36 +18,20 @@ class DMapData : DData {
   }
 
   void opIndexAssign(bool value, string key) {
-    /* if (containsKey(key)) {
-      _items[key].set(value ? "true" : "false");
-    } else {
-      _items[key] = new DBoolData(value);
-    } */
-    _items[key] = BoolData(value);
+    _items[key] = BooleanData(value);
   }
 
   void opIndexAssign(int value, string key) {
-    _items[key] = IntData(value);
+    _items[key] = IntegerData(value);
   }
 
   void opIndexAssign(double value, string key) {
-    // TODO
-    /*
-    if (containsKey(key)) {
-      _items[key].set(to!string(value));
-    } else {
-      _items[key] = new DDoubleData(value);
-    }*/
+    _items[key] = DoubleData(value);
   }
 
   void opIndexAssign(string value, string key) {
-    // TODO
-    /*
-    if (containsKey(key)) {
-      _items[key].set(value);
-    } else {
-      _items[key] = new DStringData(value);
-    } */
+    _items[key] = StringData(value);
+
   }
 
   void opIndexAssign(UUID value, string key) {
@@ -104,11 +88,11 @@ class DMapData : DData {
 
   ///
   unittest {
-    /* auto boolDataTrue = BoolData;
+    /* auto boolDataTrue = BooleanData;
     boolDataTrue.set(true);
-    auto boolDataIstrue = BoolData;
+    auto boolDataIstrue = BooleanData;
     boolDataIstrue.set(true);
-    auto boolDataNottrue = BoolData;
+    auto boolDataNottrue = BooleanData;
     boolDataNottrue.set(false);
   // TODO assert(boolDataTrue == true.toJson);
   // TODO assert(boolDataTrue == "true");
@@ -166,7 +150,7 @@ unittest {
 
 // TODO assert(stringMap["key1"].toString == "value1");
 // TODO assert(cast(DStringData) stringMap["key1"]);
-// TODO assert(!cast(DBoolData) stringMap["key1"]);
+// TODO assert(!cast(DBooleanData) stringMap["key1"]);
 
   stringMap["key2"] = "value2";
 // TODO assert(stringMap["key2"].toString == "value2");

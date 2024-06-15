@@ -13,6 +13,10 @@ class DData : IData {
     this.initialize;
   }
 
+  this(Json[string] initData) {
+    this.initialize(initData);
+  }
+
   // Hook
   bool initialize(Json[string] initData = null) {
     _value = Json.emptyObject;
@@ -189,7 +193,7 @@ class DData : IData {
   // #region isEqual
   bool isEqual(bool checkValue) {
     return isBoolean && !isNull
-      ? getBool == checkValue : false;
+      ? getBoolean == checkValue : false;
   }
 
   bool isEqual(long checkValue) {

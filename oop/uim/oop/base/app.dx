@@ -102,11 +102,11 @@ class DApp {
             return myClassName;
         }
         
-        string pluginName = substr(myClassName, 0, pos);
-        name = substr(myClassName, pos + type.length);
+        string pluginName = subString(myClassName, 0, pos);
+        name = subString(myClassName, pos + type.length);
 
         if (suffix) {
-            name = substr(name, 0, -suffix.length);
+            name = subString(name, 0, -suffix.length);
         }
         nonPluginNamespaces = [
             "uim",

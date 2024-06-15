@@ -79,7 +79,7 @@ class DResponseEmitter {
 
         if (!responseBody.isSeekable()) {
             contents = responseBody.getContents();
-            writeln(substr(contents, first, last - first + 1));
+            writeln(subString(contents, first, last - first + 1));
 
             return;
         }

@@ -73,7 +73,7 @@ string[] namespaceSplit(string className) {
     if (pos == false) {
         return ["",  className];
     }
-    return [substr(className, 0, pos), substr(className, pos + 1)];
+    return [subString(className, 0, pos), subString(className, pos + 1)];
 }
 
     /**
@@ -169,7 +169,7 @@ string[] namespaceSplit(string className) {
                 if (!name.endsWith(".d")) {
                     anOffset = 4;
                 }
-                return substr(filename, 0, -(name.length + anOffset));
+                return subString(filename, 0, -(name.length + anOffset));
             case "UIM_SELF":
                 return enviroment.getString("SCRIPT_FILENAME").replace(enviroment.getString("DOCUMENT_ROOT"), "");
             case "CGI_MODE":
@@ -217,7 +217,7 @@ string[] namespaceSplit(string className) {
             if (defined("ROOT")) {
                 root = ROOT;
             }
-            relative = str_replace(DIRECTORY_SEPARATOR, "/", substr(frame["file"], root.length + 1));
+            relative = str_replace(DIRECTORY_SEPARATOR, "/", subString(frame["file"], root.length + 1));
             patterns = configuration.get("Error.ignoredDeprecationPaths");
             foreach (somePattern; patterns) {
                 somePattern = somePattern.replace(DIRECTORY_SEPARATOR, "/");

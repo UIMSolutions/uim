@@ -189,7 +189,7 @@ class DSocket {
             .filter!(kv => str_starts_with(kv.key, "ssl_"));
         
         .each!((kv) {
-            string contextKey = substr(kv.key, 4);
+            string contextKey = subString(kv.key, 4);
             if (isEmpty(configuration.get("context/ssl/"~contextKey])) {
                 configuration.set("context/ssl/"~contextKey, kv.value);
             }
@@ -290,7 +290,7 @@ class DSocket {
         while (written < totalBytes) {
             assert(this.connection!is null);
 
-            rv = fwrite(this.connection, substr(someData, written));
+            rv = fwrite(this.connection, subString(someData, written));
             if (rv == false || rv == 0) {
                 return written;
             }

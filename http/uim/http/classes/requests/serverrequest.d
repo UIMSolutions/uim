@@ -379,7 +379,7 @@ class DServerRequest { // }: IServerRequest {
             return null;
         }
         if (local && ref.startWith(base)) {
-            ref = substr(ref, base.length);
+            ref = subString(ref, base.length);
             if (ref.isEmpty || ref.startWith("//")) {
                 ref = "/";
             }
@@ -402,7 +402,7 @@ class DServerRequest { // }: IServerRequest {
      */
     bool __call(string aName, Json[string] params) {
         if (name.startWith("is")) {
-            type = substr(name, 2).lower;
+            type = subString(name, 2).lower;
 
             array_unshift(params, type);
 
@@ -690,7 +690,7 @@ class DServerRequest { // }: IServerRequest {
             .each!((kv) => {
             string name = null;
             if (aKey.startWith("HTTP_")) {
-                name = substr(kv.key, 5);
+                name = subString(kv.key, 5);
             }
             if (kv.key.startWith("CONTENT_")) {
                 name = kv.key;

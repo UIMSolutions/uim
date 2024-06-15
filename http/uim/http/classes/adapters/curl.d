@@ -145,8 +145,8 @@ class DCurl { // }: IAdapter {
     // Convert the raw curl response into an Http\Client\Response
     protected DREsponse[] createResponse(CurlHandle handle, string responseData) {
          aHeaderSize = curl_getinfo(handle, CURLINFO_HEADER_SIZE);
-         aHeaders = strip(substr(responseData, 0,  aHeaderSize));
-        body = substr(responseData,  aHeaderSize);
+         aHeaders = strip(subString(responseData, 0,  aHeaderSize));
+        body = subString(responseData,  aHeaderSize);
         response = new DResponse(split("\r\n",  aHeaders), body);
 
         return [response];

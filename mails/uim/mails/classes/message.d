@@ -1288,8 +1288,8 @@ class DMessage { //: JsonSerializable {
                         if (lastSpace == false) {
                             continue;
                         }
-                        formatted ~= strip(substr(tmpLine, 0, lastSpace));
-                        tmpLine = substr(tmpLine, lastSpace + 1);
+                        formatted ~= strip(subString(tmpLine, 0, lastSpace));
+                        tmpLine = subString(tmpLine, lastSpace + 1);
 
                         tmpLineLength = tmpLine.length;
                     }

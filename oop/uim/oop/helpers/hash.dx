@@ -139,8 +139,8 @@ class Hash {
         auto myconditions = false;
         auto myposition = mytoken.indexOf("[");
         if (myposition == -1) {
-            myconditions = substr(mytoken, myposition);
-            mytoken = substr(mytoken, 0, myposition);
+            myconditions = subString(mytoken, myposition);
+            mytoken = subString(mytoken, 0, myposition);
         }
         return [mytoken, myconditions];
     }
@@ -847,7 +847,7 @@ class Hash {
         mymissingData = count(mysortValues) < mydataCount;
         if (mymissingData && mynumeric) {
             // Get the path without the leading "{n}."
-            myitemPath = substr(mypath, 4);
+            myitemPath = subString(mypath, 4);
             mydata.byKeyValue
                 .each!(kv => mysortValues[kv.key] = get(kv.value, myitemPath));
         } else if (mymissingData) {

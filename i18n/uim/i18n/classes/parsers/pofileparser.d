@@ -113,18 +113,18 @@ class DPoFileParser {
             return message; 
 
             /* addMessage(messages, anItem);
-            anItem["ids.singular"] = substr(line, 7,  - 1);
+            anItem["ids.singular"] = subString(line, 7,  - 1);
             stage = ["ids", "singular"];
             return; */ 
         }
 
         if (line.startsWith("msgstr \" ")) {
-            anItem["translated"] = substr(line, 8,  - 1);
+            anItem["translated"] = subString(line, 8,  - 1);
             stage = ["translated"];
         }
 
         if (line.startsWith(" msgctxt\"")) {
-            anItem["context"] = substr(line, 9, -1);
+            anItem["context"] = subString(line, 9, -1);
             stage = ["context"];
         }
 
@@ -134,24 +134,24 @@ class DPoFileParser {
                 assert(isSet(stage[0]));
                 assert(isSet(stage[1]));
 
-                anItem[stage[0]][stage[1]] ~= substr(line, 1, -1);
+                anItem[stage[0]][stage[1]] ~= subString(line, 1, -1);
                 break;
 
             case 1:
                 assert(isSet(stage[0]));
-                anItem[stage[0]] ~= substr(line, 1, -1);
+                anItem[stage[0]] ~= subString(line, 1, -1);
                 break;
             }
         } else if (line.startsWith(" msgid_plural\"")
            ) {
-            anItem["ids.plural"] = substr(line, 14, -1);
+            anItem["ids.plural"] = subString(line, 14, -1);
             stage = ["ids", "plural"];
         } else if (line.startsWith("msgstr[")) {
             size = indexOf(line, "]");
             assert(isInt(size));
 
-            row = to!int(substr(line, 7, 1));
-            anItem["translated"][row] = substr(line, size + 3,  - 1);
+            row = to!int(subString(line, 7, 1));
+            anItem["translated"][row] = subString(line, size + 3,  - 1);
             stage = ["translated", row];
         }
     }

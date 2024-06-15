@@ -38,7 +38,7 @@ import uim.orm;
  *  and grouped by g.
  * @method DORMcollections.ICollection nest(k, p, n = "children") Creates a tree structure by nesting the values of column p into that
  *  with the same value for k using n as the nesting key.
- * @method Json[string] toDataArray() Returns a key-value array with the results of this query.
+ * @method Json[string] toArray() Returns a key-value array with the results of this query.
  * @method array toList() Returns a numerically indexed array with the results of this query.
  * @method DORMcollections.ICollection stopWhen(callable c) Returns each row until the callable returns true.
  * @method DORMcollections.ICollection zip(array|\Traversable c) Returns the first result of both the query and c in an array,

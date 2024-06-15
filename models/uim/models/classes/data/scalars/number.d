@@ -124,26 +124,26 @@ auto NumberData(double newValue) {
 unittest {
   /*alias Alias = ;
   
-  assert(NumberData("100").toDouble == 100);
-  assert(NumberData(Json(100)).toDouble == 100);
-  assert(NumberData("200").toDouble != 100);
-  assert(NumberData(Json(200)).toDouble != 100);
+// TODO assert(NumberData("100").toDouble == 100);
+// TODO assert(NumberData(Json(100)).toDouble == 100);
+// TODO assert(NumberData("200").toDouble != 100);
+// TODO assert(NumberData(Json(200)).toDouble != 100);
 
-  assert(NumberData("100").toString == "100");
-  assert(NumberData(Json(100)).toString == "100");
-  assert(NumberData("200").toString != "100");
-  assert(NumberData(Json(200)).toString != "100");
+// TODO assert(NumberData("100").toString == "100");
+// TODO assert(NumberData(Json(100)).toString == "100");
+// TODO assert(NumberData("200").toString != "100");
+// TODO assert(NumberData(Json(200)).toString != "100");
 
-  assert(NumberData("100").toJson == Json(100));
-  assert(NumberData(Json(100)).toJson == Json(100));
-  assert(NumberData("200").toJson != Json(100));
-  assert(NumberData(Json(200)).toJson != Json(100)); 
+// TODO assert(NumberData("100").toJson == Json(100));
+// TODO assert(NumberData(Json(100)).toJson == Json(100));
+// TODO assert(NumberData("200").toJson != Json(100));
+// TODO assert(NumberData(Json(200)).toJson != Json(100)); 
   */
 }
 
 ///
 unittest {
   /* auto boolValue = new DBoolData(true);
-  assert(boolValue == true);
-  assert(boolValue != false); */
+// TODO assert(boolValue == true);
+// TODO assert(boolValue != false); */
 }

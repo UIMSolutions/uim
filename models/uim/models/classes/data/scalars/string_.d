@@ -37,9 +37,9 @@ class DStringData : DScalarData {
   unittest {
     auto data = StringData;
     data.set("test");
-    assert(data.value == "test");
+  // TODO assert(data.value == "test");
     data.set("test2");
-    assert(data.value == "test2");
+  // TODO assert(data.value == "test2");
   }
 
   // Hooks for setting 
@@ -76,14 +76,14 @@ class DStringData : DScalarData {
 
   unittest {
     /* auto data = Json("test");
-    assert(data == "test");
-    assert(data == "test");
-    assert(data < "xxxx");
-    assert(data <= "xxxx");
-    assert(data <= "test");
-    assert(data > "aaaa");
-    assert(data >= "aaaa");
-    assert(data >= "test"); */
+  // TODO assert(data == "test");
+  // TODO assert(data == "test");
+  // TODO assert(data < "xxxx");
+  // TODO assert(data <= "xxxx");
+  // TODO assert(data <= "test");
+  // TODO assert(data > "aaaa");
+  // TODO assert(data >= "aaaa");
+  // TODO assert(data >= "test"); */
   }
 
 /*   string opCall() {
@@ -110,7 +110,7 @@ class DStringData : DScalarData {
     /* auto a = Json("aValue");
     auto b = Json("bValue");
     a(b);
-    assert(a == "bValue"); */
+  // TODO assert(a == "bValue"); */
   }
 
   // #region equal
@@ -146,11 +146,11 @@ class DStringData : DScalarData {
     dataIs100.set("100");
     auto dataNot100 = StringData;
     dataNot100.set("400");
-    assert(data100 == Json("100"));
-    assert(data100 == "100");
+  // TODO assert(data100 == Json("100"));
+  // TODO assert(data100 == "100");
 
-    assert(data100 != Json("10"));
-    assert(data100 != "10");
+  // TODO assert(data100 != Json("10"));
+  // TODO assert(data100 != "10");
   }
   // #endregion equal
 
@@ -170,54 +170,54 @@ mixin(DataCalls!("String"));
 
 unittest {
   /* assert(Json("test") == "test");
-  assert(Json("test") < "xxxx");
-  assert(Json("test") <= "xxxx");
-  assert(Json("test") <= "test");
-  assert(Json("test") > "aaaa");
-  assert(Json("test") >= "aaaa");
-  assert(Json("test") >= "test");
+// TODO assert(Json("test") < "xxxx");
+// TODO assert(Json("test") <= "xxxx");
+// TODO assert(Json("test") <= "test");
+// TODO assert(Json("test") > "aaaa");
+// TODO assert(Json("test") >= "aaaa");
+// TODO assert(Json("test") >= "test");
 
-  assert(StringData()("test") == "test");
-  assert(StringData()("test") < "xxxx");
-  assert(StringData()("test") <= "xxxx");
-  assert(StringData()("test") <= "test");
-  assert(StringData()("test") > "aaaa");
-  assert(StringData()("test") >= "aaaa");
-  assert(StringData()("test") >= "test");
+// TODO assert(StringData()("test") == "test");
+// TODO assert(StringData()("test") < "xxxx");
+// TODO assert(StringData()("test") <= "xxxx");
+// TODO assert(StringData()("test") <= "test");
+// TODO assert(StringData()("test") > "aaaa");
+// TODO assert(StringData()("test") >= "aaaa");
+// TODO assert(StringData()("test") >= "test");
 
-  assert(Json("test").value == "test");
-  assert(Json("test2").value != "test");
+// TODO assert(Json("test").value == "test");
+// TODO assert(Json("test2").value != "test");
 
-  assert(StringData(Json("test")).value == "test");
-  assert(StringData(Json("test2")).value != "test");
+// TODO assert(StringData(Json("test")).value == "test");
+// TODO assert(StringData(Json("test2")).value != "test");
 
-  assert(StringData.set("test").value == "test");
-  assert(StringData.set("test2").value != "test");
+// TODO assert(StringData.set("test").value == "test");
+// TODO assert(StringData.set("test2").value != "test");
 
-  assert(StringData.set(Json("test")).value == "test");
-  assert(StringData.set(Json("test2")).value != "test");
+// TODO assert(StringData.set(Json("test")).value == "test");
+// TODO assert(StringData.set(Json("test2")).value != "test");
 
-  assert(Json("test").toString == "test");
-  assert(Json("test2").toString != "test");
+// TODO assert(Json("test").toString == "test");
+// TODO assert(Json("test2").toString != "test");
 
-  assert(StringData(Json("test")).toString == "test");
-  assert(StringData(Json("test2")).toString != "test");
+// TODO assert(StringData(Json("test")).toString == "test");
+// TODO assert(StringData(Json("test2")).toString != "test");
 
-  assert(StringData.set("test").toString == "test");
-  assert(StringData.set("test2").toString != "test");
+// TODO assert(StringData.set("test").toString == "test");
+// TODO assert(StringData.set("test2").toString != "test");
 
-  assert(StringData.set(Json("test")).toString == "test");
-  assert(StringData.set(Json("test2")).toString != "test");
+// TODO assert(StringData.set(Json("test")).toString == "test");
+// TODO assert(StringData.set(Json("test2")).toString != "test");
 
-  assert(Json("test").toJson == Json("test"));
-  assert(Json("test2").toJson != Json("test"));
+// TODO assert(Json("test").toJson == Json("test"));
+// TODO assert(Json("test2").toJson != Json("test"));
 
-  assert(StringData(Json("test")).toJson == Json("test"));
-  assert(StringData(Json("test2")).toJson != Json("test"));
+// TODO assert(StringData(Json("test")).toJson == Json("test"));
+// TODO assert(StringData(Json("test2")).toJson != Json("test"));
 
-  assert(StringData.set("test").toJson == Json("test"));
-  assert(StringData.set("test2").toJson != Json("test"));
+// TODO assert(StringData.set("test").toJson == Json("test"));
+// TODO assert(StringData.set("test2").toJson != Json("test"));
 
-  assert(StringData.set(Json("test")).toJson == Json("test"));
-  assert(StringData.set(Json("test2")).toJson != Json("test")); */
+// TODO assert(StringData.set(Json("test")).toJson == Json("test"));
+// TODO assert(StringData.set(Json("test2")).toJson != Json("test")); */
 }

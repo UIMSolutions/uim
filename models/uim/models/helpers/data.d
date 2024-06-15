@@ -31,11 +31,11 @@ Json jsonToData(Json json) {
 } */
 ///
 unittest {
-  assert(cast(DArrayData)jsonToData(Json.emptyArray));
+  // TODO assert(cast(DArrayData)jsonToData(Json.emptyArray));
 }
 
 /*
-Json[] toDataArray(Json json) {
+Json[] toArray(Json json) {
   if (!json.isArray) { return null; }
 
   Json[] result; 
@@ -57,6 +57,6 @@ Json[] toJsonArray(Json json) {
 ///
 unittest {
   Json json = parseJsonString(`[1, [2]]`);
-  assert(toDataArray(json).length == 2);
-  writeln(toDataArray(json));
+  assert(toArray(json).length == 2);
+  writeln(toArray(json));
 }

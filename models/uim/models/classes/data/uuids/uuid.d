@@ -77,7 +77,7 @@ class DUUIDData : DData {
   unittest {
     /* auto id = randomUUID;
     auto value = new DUUIDData(id); 
-    assert(value == id);* /
+  // TODO assert(value == id);* /
   }
 
   override IData clone() {
@@ -105,23 +105,23 @@ version (test_uim_models) {
     // TODO
     /* 
     auto uuid = randomUUID;
-    assert(UUIDData(uuid).get == uuid);
-    assert(UUIDData(randomUUID).value != uuid);
+  // TODO assert(UUIDData(uuid).get == uuid);
+  // TODO assert(UUIDData(randomUUID).value != uuid);
 
-    assert(UUIDData._value = UUID).get == uuid);
-    assert(UUIDData.value(randomUUID).value != uuid);
+  // TODO assert(UUIDData._value = UUID).get == uuid);
+  // TODO assert(UUIDData.value(randomUUID).value != uuid);
 
-    assert(UUIDData._value = UUID.toString).get == uuid);
-    assert(UUIDData.value(randomUUID.toString).value != uuid);
+  // TODO assert(UUIDData._value = UUID.toString).get == uuid);
+  // TODO assert(UUIDData.value(randomUUID.toString).value != uuid);
 
-    assert(UUIDData.set(Json(uuid.toString)).get == uuid);
-    assert(UUIDData.set(Json(randomUUID.toString)).value != uuid);
+  // TODO assert(UUIDData.set(Json(uuid.toString)).get == uuid);
+  // TODO assert(UUIDData.set(Json(randomUUID.toString)).value != uuid);
 
-    assert(UUIDData(uuid).toString == uuid.toString);
-    assert(UUIDData(randomUUID).toString != uuid.toString);
+  // TODO assert(UUIDData(uuid).toString == uuid.toString);
+  // TODO assert(UUIDData(randomUUID).toString != uuid.toString);
 
-    assert(UUIDData(uuid).toJson == Json(uuid.toString));
-    assert(UUIDData(randomUUID).toJson != Json(uuid.toString));
+  // TODO assert(UUIDData(uuid).toJson == Json(uuid.toString));
+  // TODO assert(UUIDData(randomUUID).toJson != Json(uuid.toString));
     */
   }
 }
@@ -131,6 +131,6 @@ unittest {
   /* auto id = randomUUID;
   auto uuiDData = new DUUIDData(id);
 
-  assert(uuiDData == id);
-  assert(uuiDData != randomUUID); */
+// TODO assert(uuiDData == id);
+// TODO assert(uuiDData != randomUUID); */
 }

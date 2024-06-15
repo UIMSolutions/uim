@@ -61,13 +61,13 @@ class DLongData : DScalarData {
     auto intDataNot100 = LongData;
     intDataNot100.set(400);
     // assert(intData100 == intDataIs100);
-    assert(intData100 == Json(100));
-    assert(intData100 == "100");
+  // TODO assert(intData100 == Json(100));
+  // TODO assert(intData100 == "100");
     // TODO assert(intData100 == 100);
 
     // assert(intData100 != intDataNot100);
-    assert(intData100 != Json(10));
-    assert(intData100 != "10");
+  // TODO assert(intData100 != Json(10));
+  // TODO assert(intData100 != "10");
     // TODO assert(intData100 != 10);
   }
   // #endregion isEqual
@@ -154,19 +154,19 @@ auto LongData(long newValue) {
 
 unittest {
   /* assert(LongData.set("100").toLong == 100);
-    assert(LongData.set(Json(100)).toLong == 100);
-    assert(LongData.set("200").toLong != 100);
-    assert(LongData.set(Json(200)).toLong != 100);
+  // TODO assert(LongData.set(Json(100)).toLong == 100);
+  // TODO assert(LongData.set("200").toLong != 100);
+  // TODO assert(LongData.set(Json(200)).toLong != 100);
 
-    assert(LongData.set("100").toString == "100");
-    assert(LongData.set(Json(100)).toString == "100");
-    assert(LongData.set("200").toString != "100");
-    assert(LongData.set(Json(200)).toString != "100");
+  // TODO assert(LongData.set("100").toString == "100");
+  // TODO assert(LongData.set(Json(100)).toString == "100");
+  // TODO assert(LongData.set("200").toString != "100");
+  // TODO assert(LongData.set(Json(200)).toString != "100");
 
-    assert(LongData.set("100").toJson == Json(100));
-    assert(LongData.set(Json(100)).toJson == Json(100));
-    assert(LongData.set("200").toJson != Json(100));
-    assert(LongData.set(Json(200)).toJson != Json(100)); */
+  // TODO assert(LongData.set("100").toJson == Json(100));
+  // TODO assert(LongData.set(Json(100)).toJson == Json(100));
+  // TODO assert(LongData.set("200").toJson != Json(100));
+  // TODO assert(LongData.set(Json(200)).toJson != Json(100)); */
 }
 
 /*

@@ -7,8 +7,6 @@ authors "Ozan Nurettin Süel"
 description "D-Library for using datasources"
 
 dependency "colored" version="~>0.0.31"
-
-
 dependency "vibe-d" version="~>0.10.0"
 
 dependency "uim:core" path="../"

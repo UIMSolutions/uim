@@ -6,8 +6,6 @@ copyright "Copyright © 2015-2024, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
 dependency "colored" version="~>0.0.31"
-
-
 dependency "vibe-d" version="~>0.10.0"
 
 sourcePaths "."

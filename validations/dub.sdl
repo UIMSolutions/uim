@@ -7,8 +7,6 @@ authors "Ozan Nurettin Süel"
 description "Validation package for creating and using validators that can easily validate any data."
 
 dependency "colored" version="~>0.0.31"
-
-
 dependency "vibe-d" version="~>0.10.0"
 
 dependency "uim:core" path="../"

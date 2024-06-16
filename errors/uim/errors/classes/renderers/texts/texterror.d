@@ -52,8 +52,8 @@ class DTextErrorRenderer { // }: IErrorRenderer {
         error.getLabel(),
         error.code(),
         error.getMessage(),
-        error.getLine() ?? "",
-        error.getFile() ?? "",
+        error.getLine() ? error.getLine() : "",
+        error.getFile() ? "",
         error.getTraceAsString());
   } */
 }

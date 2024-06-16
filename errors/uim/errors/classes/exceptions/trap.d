@@ -110,7 +110,7 @@ class DExceptionTrap {
 
     // Get an instance of the renderer.
     IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {
-        serverRequest = serverRequest ?? Router.getRequest();
+        serverRequest = serverRequest ? serverRequest : Router.getRequest();
 
         /** @var class-string|callable aClassName */
         aClassName = configuration.get("exceptionRenderer");

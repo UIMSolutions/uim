@@ -43,7 +43,7 @@ class DServer { // }: IEventDispatcher {
 
     this(IHttpApplication httpApp, Runner appRunner = null) {
         _app = httpApp;
-        _runner = appRunner ?? new DRunner();
+        _runner = appRunner ? appRunner : new DRunner();
     }
     
     /**

@@ -52,7 +52,7 @@ class DWhenThenExpression : DExpression {
     protected string athenType = null;
 
     this(DTypeMap typeMap = null) {
-       _typeMap = typeMap ?? new DTypeMap();
+       _typeMap = typeMap ?  new DTypeMap();
     }
     
     /**

@@ -902,7 +902,7 @@ class DResponse : IResponse {
         } elseif (isInteger(time)) {
             result = new DateTime(date("Y-m-d H:i:s", time));
         } else {
-            result = new DateTime(time ?? "now");
+            result = new DateTime(time ? time : "now");
         }
         /**
          * @psalm-suppress UndefinedInterfaceMethod

@@ -18,14 +18,14 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
 
     this(DThrowable errorToRender, IServerRequest serverRequest, Json[string] errorHandlingData) {
         this.error = error;
-        this.output = configuration.get("stderr") ?? new DConsoleOutput("D://stderr");
-        this.trace = configuration.get("trace") ?? true;
+        // TODO this.output = configuration.get("stderr") ?? new DConsoleOutput("D://stderr");
+        this.trace = configuration.getBoolean("trace", true);
     }
     
     // Render an exception into a plain text message.
     string render() {
-        exceptions = [this.error];
-        previous = this.error.getPrevious();
+        auto exceptions = [this.error];
+        auto previous = _error.getPrevious();
         while (!previous.isNull) {
             exceptions ~= previous;
             previous = previous.getPrevious();

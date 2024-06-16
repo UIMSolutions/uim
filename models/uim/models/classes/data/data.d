@@ -94,12 +94,16 @@ class DData : IData {
 
   UUID getUUID() {
     return isUUID && _value.hasKey("value")
-      ? UUID(_value["value"].get!string) : UUID();
+      ? UUID(_value.getString("value")) : UUID();
   }
 
   Json getJson() {
     return _value.hasKey("value")
-      ? _value["value"].clone : Json(null);
+      ? _value["value"] : Json(null);
+  }
+  Json getJson(string key) {
+    return _value.hasKey("value")
+      ? get(_value["value"], key) : Json(null);
   }
   // #endregion get
 
@@ -304,12 +308,12 @@ class DData : IData {
     return null;
   } */
 
-  IData opIndex(string key) {
+/*   IData opIndex(string key) {
     return null;
   }
 
   void opAssignIndex(IData data, string key) {
-  }
+  } */
 
   Json toJson(string[] selectedKeys = null) {
     return Json(null);

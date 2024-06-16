@@ -882,6 +882,21 @@ Json[string] toJsonMap(STRINGAA map, string[] excludeKeys = null) {
 }
 
 // #region getter
+Json get(Json value, string key) {
+  if (value.isNull || !value.isObject) {
+    return value;
+  }
+  if (value.hasKey(key)) {
+    return value[key];
+  }
+  if (key.contains(".")) {
+    auto keys = key.split(".");
+    auto j = get(value, keys[0]);
+    return get(j, keys[1..$].join("."));
+  }
+  return value;
+}
+
 bool getBoolean(Json value, string key) {
   return !value.isNull && value.isObject && value.hasKey(key)
     ? value[key].getBoolean : false;

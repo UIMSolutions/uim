@@ -7,8 +7,8 @@ authors "Ozan Nurettin Süel"
 description "D-Library for view management"
 
 dependency "colored" version="~>0.0.31"
-dependency "dlib" version="~>1.2.1"
-dependency "mir-algorithm" version="~>3.21.0"
+
+
 dependency "vibe-d" version="~>0.10.0"
 
 dependency "uim:core" path="../"

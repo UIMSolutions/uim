@@ -71,33 +71,33 @@ unittest {
     // todo assert(BooleanData.value(false) != true);
     // todo assert(BooleanData.set(false.toJson) != true); */
 
-  auto BooleanData = BooleanData;
+  auto data = BooleanData;
 
-  BooleanData.set("true");
-  // todo assert(BooleanData.value());
+  data.set("true");
+  // todo assert(data.value());
 
-  BooleanData.set("false");
-  // todo assert(!BooleanData.value());
+  data.set("false");
+  // todo assert(!data.value());
 
-  BooleanData.set("on");
-  // todo assert(BooleanData.value());
+  data.set("on");
+  // todo assert(data.value());
 
-  BooleanData.set("off");
-  // todo assert(!BooleanData.value());
+  data.set("off");
+  // todo assert(!data.value());
 
-  BooleanData.set("1");
-  // todo assert(BooleanData.value());
+  data.set("1");
+  // todo assert(data.value());
 
-  BooleanData.set("0");
-  // todo assert(!BooleanData.value());
+  data.set("0");
+  // todo assert(!data.value());
 
-  BooleanData.value(true);
-  // todo assert(BooleanData.fromString(BooleanData.toString).value());
-  // todo assert(BooleanData.fromJson(BooleanData.toJson).value());
+  data.set(true);
+  // todo assert(data.fromString(data.toString).value());
+  // todo assert(data.fromJson(data.toJson).value());
 
-  BooleanData.value(false);
-  // todo assert(!BooleanData.fromString(BooleanData.toString).value());
-  // todo assert(!BooleanData.fromJson(BooleanData.toJson).value());
+  data.set(false);
+  // todo assert(!data.fromString(data.toString).value());
+  // todo assert(!data.fromJson(data.toJson).value());
 }
 
 /* booleanean

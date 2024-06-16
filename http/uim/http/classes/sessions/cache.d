@@ -39,7 +39,7 @@ class DCacheSession { // }: !SessionHandler {
     
     // Method used to read from a cache session.
     string read(string sessionId) {
-        return Cache.read(sessionId, _options["config"]) ?? "";
+        return Cache.read(sessionId, _options.getString("config", "");
     }
     
     // Helper auto called on write for cache sessions.

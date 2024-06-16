@@ -9,6 +9,7 @@ import uim.models;
 
 @safe:
 class DStringData : DScalarData {
+
   mixin(DataThis!("String"));
   this(string newValue, Json[string] initData = null) {
     this(initData).set(newValue);
@@ -26,43 +27,73 @@ class DStringData : DScalarData {
   }
 
   mixin(TProperty!("size_t", "maxLength"));
+  protected string nullValue = null;
 
-  /*
   protected string _value;
-  @property string value() {
-    if (maxLength > 0 && _value.length > maxLength) {
-      return _value[0 .. maxLength];
-    } else {
-      return _value;
-    }
+  @property void value(string newValue) {
+      _value = maxLength > 0 && newValue.length > maxLength
+      ? newValue[0 .. maxLength]
+      : newValue;
   }
+  @property string value() {
+    return maxLength > 0 && _value.length > maxLength
+      ? _value[0 .. maxLength]
+      : _value;
+  }
+
   ///
   unittest {
+    assert(StringData("test").value == "test");   
+    assert(StringData("test").value != "test2");
+
     auto data = StringData;
-    data.set("test");
-  // TODO assert(data.value == "test");
-    data.set("test2");
-  // TODO assert(data.value == "test2");
+    data.maxLength(4);
+    data.set("12345678");
+    assert(StringData.value == "1234");   
   }
 
-  // Hooks for setting 
-  override void set(string newValue) {
-    if (newValue.isNull) {
-      isNull(isNullable ? true : false);
-    } else {
-      isNull(false);
+  // #region Getter
+    override bool getBoolean() {
+      return value.lower == "true"; 
     }
-    _value = newValue;
+
+    override long getLong() {
+      return to!long(value);
+    }
+
+    override double getDouble() {
+      return to!double(value);
+    }
+
+    override string getString() {
+      return value;
+    }
+  // #region Getter
+
+  // Setters
+  override void set(bool newValue) {    
+    value(newValue ? "true" : "false");
+  }
+
+  override void set(long newValue) {    
+    value(to!string(newValue));
+  }
+
+  override void set(double newValue) {    
+    value(to!string(newValue));
+  }
+
+  override void set(string newValue) {
+    newValue.isNull
+      ? isNull(isNullable ? true : false)
+      : isNull(false);
+    value(newValue);
   }
 
   override void set(Json newValue) {
-    if (newValue.isEmpty) {
-      _value = null;
-      isNull(isNullable ? true : false);
-    } else {
-      set(newValue.get!string);
-      isNull(false);
-    }
+    newValue.isNull  
+      ? set(nullValue)
+      : set(newValue.getString);
   }
 
   /* property void value(DStringData newValue) {

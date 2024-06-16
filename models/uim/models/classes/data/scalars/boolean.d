@@ -28,7 +28,31 @@ class DBooleanData : DScalarData {
     return true;
   }
 
+  protected bool _value;
+  @property void value(bool newValue) {
+      _value = newValue;
+  }
+  @property bool value() {
+    return _value;
+  }
 
+  // #region Getter
+    override bool getBoolean() {
+      return value; 
+    }
+
+    override long getLong() {
+      return value ? 1 : 0;
+    }
+
+    override double getDouble() {
+      return value ? 1 : 0;
+    }
+
+    override string getString() {
+      return value ? "true" : "false";
+    }
+  // #region Getter
 
   // #region opCmp
  /*  alias opCmp = Object.opCmp;

@@ -31,6 +31,33 @@ class DLongData : DScalarData {
     return true;
   }
 
+  // #region value
+    protected bool _value;
+    @property void value(bool newValue) {
+        _value = newValue;
+    }
+    @property bool value() {
+      return _value;
+    }
+  // #endregion value
+
+  // #region Getter
+    override bool getBoolean() {
+      return value > 0; 
+    }
+
+    override long getLong() {
+      return value;
+    }
+
+    override double getDouble() {
+      return to!double(value);
+    }
+
+    override string getString() {
+      return to!string(value);
+    }
+  // #region Getter
   // #region isEqual
   /* mixin(ScalarOpEquals!(["int", "bool"])); */
   /*   override bool isEqual(IData checkData) {

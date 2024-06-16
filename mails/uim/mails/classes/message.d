@@ -1275,7 +1275,7 @@ class DMessage { //: JsonSerializable {
                 tmpLine ~= char;
                 tmpLineLength++;
                 if (tmpLineLength == wrapLength) {
-                    nextChar = line[anI + 1] ?? "";
+                    nextChar = line[anI + 1] ? line[anI + 1] : "";
                     if (nextChar == " " || nextChar == "<") {
                         formatted ~= strip(tmpLine);
                         tmpLine = "";

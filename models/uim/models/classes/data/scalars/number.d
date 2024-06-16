@@ -33,6 +33,33 @@ class DNumberData : DScalarData {
     return true;
   }
 
+  // #region value
+    protected double _value;
+    @property void value(double newValue) {
+        _value = newValue;
+    }
+    @property double value() {
+      return _value;
+    }
+  // #endregion value
+
+  // #region Getter
+    override bool getBoolean() {
+      return value > 0; 
+    }
+
+    override long getLong() {
+      return to!long(value);
+    }
+
+    override double getDouble() {
+      return to!double(value);
+    }
+
+    override string getString() {
+      return to!string(value);
+    }
+  // #region Getter
   // #region operators
   void add(IData opValue) {
     add(opValue.getDouble);

@@ -84,13 +84,31 @@ class DData : IData {
   // #endregion is-AdditionalTypes
   // #endregion is-check
 
-  // #region get
-  mixin(DataGet!("Boolean", "bool", "false"));
-  mixin(DataGet!("Long", "long", "0"));
-  mixin(DataGet!("Double", "double", "0.0"));
-  mixin(DataGet!("String", "string", "null"));
-  mixin(DataGet!("Array", "Json[]", "null"));
-  mixin(DataGet!("Object", "Json[string]", "null"));
+  // #region Getter
+  bool getBoolean() {
+    return false;
+  }
+
+  long getLong() {
+    return 0;
+  }
+
+  double getDouble() {
+    return 0.0;
+  }
+
+  string getString() {
+    return null;
+  }
+
+  Json[] getArray() {
+    return null;
+  }
+
+  Json[string] getMap() {
+    return null;
+  }
+  // #endregion Getter
 
   UUID getUUID() {
     return isUUID && _value.hasKey("value")
@@ -132,10 +150,7 @@ class DData : IData {
   ) nothrow @trusted;
 
   mixin(DataSet!("bool"));
-  mixin(DataSet!("int"));
   mixin(DataSet!("long"));
-  mixin(DataSet!("std.bigint.BigInt"));
-  mixin(DataSet!("float"));
   mixin(DataSet!("double"));
   mixin(DataSet!("string"));
   mixin(DataSet!("Json"));
@@ -149,9 +164,7 @@ class DData : IData {
 
   // #region opCall - Example: x("value")
   mixin(DataOpCall!("bool"));
-  mixin(DataOpCall!("int"));
   mixin(DataOpCall!("long"));
-  mixin(DataOpCall!("std.bigint.BigInt"));
   mixin(DataOpCall!("double"));
   mixin(DataOpCall!("string"));
   mixin(DataOpCall!("Json"));
@@ -329,7 +342,7 @@ class DData : IData {
   }
 
   IData create() {
-    return new DData;
+    return null; // TODO new DData;
   }
 
   IData clone() {

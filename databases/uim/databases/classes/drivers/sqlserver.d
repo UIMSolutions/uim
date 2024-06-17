@@ -152,12 +152,12 @@ protected const MAX_ALIAS_LENGTH = 128;
         return "ROLLBACK TRANSACTION t" ~ name;
     }
 
-    string disableForeignKeySQL() {
-        return "EXEC sp_MSforeachtable "ALTER TABLE ? NOCHECK CONSTRAINT all"";
+    override string disableForeignKeySQL() {
+        return "EXEC sp_MSforeachtable \"ALTER TABLE ? NOCHECK CONSTRAINT all\"";
     }
     
-    string enableForeignKeySQL() {
-        return "EXEC sp_MSforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all"";
+    override string enableForeignKeySQL() {
+        return "EXEC sp_MSforeachtable \"ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all\"";
     }
  
     bool supports(DriverFeatures feature) {
@@ -172,18 +172,17 @@ protected const MAX_ALIAS_LENGTH = 128;
         };
     }
  
-    auto schemaDialect(): SchemaDialect
-    {
-        return _schemaDialect ??= new DSqlserverSchemaDialect(this);
+    DSchemaDialect schemaDialect() {
+        return _schemaDialect ? _schemaDialect : new DSqlserverSchemaDialect(this);
     }
     
-    QueryCompiler newCompiler() {
+    DQueryCompiler newCompiler() {
         return new DSqlserverCompiler();
     }
  
     protected ISelectQuery _selectQueryTranslator(SelectQuery aQuery) {
-        numberOfRows = aQuery.clause("limit");
-         anOffset = aQuery.clause("offset");
+        auto numberOfRows = aQuery.clause("limit");
+        auto anOffset = aQuery.clause("offset");
 
         if (numberOfRows &&  anOffset.isNull) {
             aQuery.modifier(["_auto_top_": "TOP %d".format(numberOfRows)]);
@@ -191,10 +190,10 @@ protected const MAX_ALIAS_LENGTH = 128;
         if (!anOffset.isNull && !aQuery.clause("order")) {
             aQuery.orderBy(aQuery.newExpr().add("(SELECT NULL)"));
         }
-        if (currentVersion() < 11 &&  !anOffset.isNull) {
-            return _pagingSubquery(aQuery, numberOfRows,  anOffset);
-        }
-        return _transformDistinct(aQuery);
+        
+        return (currentVersion() < 11 &&  !anOffset.isNull)
+            ? _pagingSubquery(aQuery, numberOfRows,  anOffset)
+            : _transformDistinct(aQuery);
     }
     
     /**

@@ -17,26 +17,27 @@ Json[string] data(Json[string] values, string[] keys = null) {
   return results;
 }
 
-Json[string] merge(Json[string] originValues, Json mergeValues) {
-  Json[string] mergedValues = originValues.dup;
-  if (!mergeValues.isObject) {
+// #region merge
+  Json[string] merge(Json[string] originValues, Json valuesToMerge) {
+    Json[string] mergedValues = originValues.dup;
+    if (!valuesToMerge.isObject) {
+      return mergedValues;
+    }
+
+    valuesToMerge.byKeyValue
+      .each!(kv => mergedValues = mergedValues.merge(kv.key, kv.value));
+
     return mergedValues;
   }
 
-  mergeValues.byKeyValue
-    .filter!(kv => kv.key !in originValues)
-    .each!(kv => mergedValues[kv.key] = kv.value);
-
-  return mergedValues;
-}
-
-Json[string] merge(Json[string] baseData, string key, Json value) {
-  Json[string] mergedValues = baseData.dup;
-  if (key !in baseData) {
-    mergedValues[key] = value;
+  Json[string] merge(Json[string] baseData, string key, Json value) {
+    Json[string] mergedValues = baseData.dup;
+    if (key !in baseData) {
+      mergedValues[key] = value;
+    }
+    return mergedValues;
   }
-  return mergedValues;
-}
+// #endregion merge
 
 Json[string] copy(Json[string] origin) {
   Json[string] results;
@@ -46,59 +47,79 @@ Json[string] copy(Json[string] origin) {
   return results;
 }
 
-bool getBoolean(Json[string] values, string key, bool defaultValue = false) {
-  return key in values 
-    ? values[key].get!bool
-    : defaultValue;
-}
+// #region Getter
+  bool getBoolean(Json[string] values, string key, bool defaultValue = false) {
+    return key in values 
+      ? values[key].get!bool
+      : defaultValue;
+  }
 
-long getLong(Json[string] values, string key, long defaultValue = 0) {
-  return key in values 
-    ? values[key].get!long
-    : defaultValue;
-}
+  long getLong(Json[string] values, string key, long defaultValue = 0) {
+    return key in values 
+      ? values[key].get!long
+      : defaultValue;
+  }
 
-double getDouble(Json[string] values, string key, double defaultValue = 0.0) {
-  return key in values 
-    ? values[key].get!double
-    : defaultValue;
-}
+  double getDouble(Json[string] values, string key, double defaultValue = 0.0) {
+    return key in values 
+      ? values[key].get!double
+      : defaultValue;
+  }
 
-string getString(Json[string] values, string key, string defaultValue = null) {
-  return key in values 
-    ? values[key].get!string
-    : defaultValue;
-}
-unittest {
-  Json[string] values;
-  values["a"] = Json("A");
-  values["b"] = "B".toJson;
-  assert(values.getString("a") == "A");
-  assert(values.getString("b") != "A");
-  assert(values.getString("b") == "B");
-}
+  string getString(Json[string] values, string key, string defaultValue = null) {
+    return key in values 
+      ? values[key].get!string
+      : defaultValue;
+  }
+  unittest {
+    Json[string] values;
+    values["a"] = Json("A");
+    values["b"] = "B".toJson;
+    assert(values.getString("a") == "A");
+    assert(values.getString("b") != "A");
+    assert(values.getString("b") == "B");
+  }
 
-Json[] getArray(Json[string] values, string key, Json[] defaultValue = null) {
-  return key in values 
-    ? values[key].get!(Json[])
-    : defaultValue;
-}
+  // #region getStrings
+    STRINGAA getStrings(Json[string] values, string[] keys...) {
+      return getStrings(values, keys.dup);
+    }
+    STRINGAA getStrings(Json[string] values, string[] keys) {
+      STRINGAA results;
+      keys.each!(key => results[key] = values.getString(key));
+      return results;
+    }
+    unittest {
+      Json[string] values;
+      values["a"] = Json("A");
+      values["b"] = "B".toJson;
+      assert(values.getStrings(["a"]) == ["a":"A"]);
+    }
+  // #endregion getStrings
 
-Json[string] getMap(Json[string] values, string key, Json[string] defaultValue = null) {
-  return key in values 
-    ? values[key].get!(Json[string])
-    : defaultValue;
-}
+  Json getJson(Json[string] values, string key, Json defaultValue = Json(null)) {
+    return key in values 
+      ? values[key]
+      : defaultValue;
+  }
+
+  Json[] getArray(Json[string] values, string key, Json[] defaultValue = null) {
+    return key in values 
+      ? values[key].get!(Json[])
+      : defaultValue;
+  }
+
+  Json[string] getMap(Json[string] values, string key, Json[string] defaultValue = null) {
+    return key in values && values[key].isObject
+      ? values[key].get!(Json[string])
+      : defaultValue;
+  }
+// #endregion Getter
 
 bool isEmpty(Json[string] values, string  key) {
   return (key !in values || values[key].isNull);
 }
 
-Json getJson(Json[string] values, string key, Json defaultValue = Json(null)) {
-  return key in values 
-    ? values[key]
-    : defaultValue;
-}
 
 Json[string] filterKeys(Json[string] values, string[] keys) {
   if (keys.length == 0) {

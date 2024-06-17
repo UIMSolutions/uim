@@ -93,18 +93,20 @@ void setEncoding(string encodingToUse) {
      * string aschema The schema names to set `search_path` to.
      */
     void setSchema(string aschema) {
-        pdo = getPdo();
+        auto pdo = getPdo();
         pdo.exec("SET search_path TO " ~ pdo.quote(tableSchema));
     }
 
-    // Get the SQL for disabling foreign keys.
-    string disableForeignKeySQL() {
-        return "SET CONSTRAINTS ALL DEFERRED";
-    }
+    // #region foreignKeySQL
+        // Get the SQL for disabling foreign keys.
+        override string disableForeignKeySQL() {
+            return "SET CONSTRAINTS ALL DEFERRED";
+        }
 
-    string enableForeignKeySQL() {
-        return "SET CONSTRAINTS ALL IMMEDIATE";
-    }
+        override string enableForeignKeySQL() {
+            return "SET CONSTRAINTS ALL IMMEDIATE";
+        }
+    // #endregion foreignKeySQL
 
     bool supports(DriverFeaturesfeature) {
         return match(feature) {
@@ -172,11 +174,11 @@ void setEncoding(string encodingToUse) {
         case "CURRENT_DATE":
             auto time = new DFunctionExpression("LOCALTIMESTAMP", [" 0 ": "literal"]);
             expressionToConvert.name("CAST").conjunctionType(" AS ")
-                .add([time, "date": "literal"]);
+                .add(time, ["date": "literal"]);
             break;
         case "CURRENT_TIME":
             auto time = new DFunctionExpression("LOCALTIMESTAMP", [" 0 ": "literal"]);
-            expressionToConvert.name("CAST").conjunctionType(" AS ").add([time, "time": "literal"]);
+            // TODO expressionToConvert.name("CAST").conjunctionType(" AS ").add(time, ["time": "literal"]);
             break;
         case "NOW":
             expressionToConvert.name("LOCALTIMESTAMP").add([" 0 ": "literal"]);

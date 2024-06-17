@@ -530,3 +530,35 @@ unittest {
 	assert("a".isIn(["a", "b", "c"]));
 	assert(!"x".isIn(["a", "b", "c"]));
 }
+
+string mustache(string text, STRINGAA values) {
+	foreach(key, value; values) {
+		text = text.mustache(key, value);
+	}
+	return text;
+}
+string mustache(string text, string key, string value) {
+	return std.string.replace(text, "{"~key~"}", value);
+}
+unittest {
+	assert("A:{a}, B:{b}".mustache(["a":"x", "b":"y"]) == "A:x, B:y");
+	assert("A:{a}, B:{b}".mustache(["a":"a", "b":"b"]) != "A:x, B:y");
+}
+
+string doubleMustache(string text, STRINGAA values) {
+	foreach(key, value; values) {
+		text = text.doubleMustache(key, value);
+	}
+	return text;
+}
+string doubleMustache(string text, string key, string value) {
+	return std.string.replace(text, "{{"~key~"}}", value);
+}
+unittest {
+	assert("A:{{a}}, B:{{b}}".doubleMustache(["a":"x", "b":"y"]) == "A:x, B:y");
+	assert("A:{{a}}, B:{{b}}".doubleMustache(["a":"a", "b":"b"]) != "A:x, B:y");
+
+	string text = "A:{{a}}, B:{{b}}";
+	assert(text.doubleMustache(["a":"x", "b":"y"]) == "A:x, B:y");
+	assert(text == "A:{{a}}, B:{{b}}");
+}

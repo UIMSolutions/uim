@@ -6,6 +6,7 @@ import uim.databases;
 
 class DSqliteDriver : DDriver {
     mixin(DriverThis!("Sqlite"));
+    mixin TTupleComparisonTranslatorTemplate;
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
@@ -32,21 +33,23 @@ class DSqliteDriver : DDriver {
         return true;
     }
 
-    // Get the SQL for disabling foreign keys.
-    string disableForeignKeySQL() {
-        return "PRAGMA foreign_keys = OFF";
-    }
-
-    string enableForeignKeySQL() {
-        return "PRAGMA foreign_keys = ON";
-    }
-
-    mixin TupleComparisonTranslatorTemplate;
-
     protected const STATEMENT_CLASS = SqliteStatement.classname;
 
     // Whether the connected server supports window functions
     protected bool _supportsWindowFunctions = null;
+    
+    // #region foreignKeySQL
+        // Get the SQL for disabling foreign keys.
+        override string disableForeignKeySQL() {
+            return "PRAGMA foreign_keys = OFF";
+        }
+
+        override string enableForeignKeySQL() {
+            return "PRAGMA foreign_keys = ON";
+        }
+    // #endregion foreignKeySQL
+
+
 
     // Mapping of date parts.
     protected STRINGAA _dateParts = [

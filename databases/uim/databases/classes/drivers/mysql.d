@@ -69,17 +69,17 @@ class DMysqlDriver : DDriver {
         }
         auto configData = configuration;
 
-        if (configuration.getString("timezone" == "UTC") {
-            configuration.get("timezone"] = "+0:00";
+        if (configuration.getString("timezone") == "UTC") {
+            configuration.set("timezone", "+0:00");
         }
-        if (!(configuration.get("timezone"].isEmpty) {
-            configuration.get("init"] ~= "SET time_zone = '%s'".format(configuration.get("timezone"]);
+        if (!configuration.isEmpty("timezone")) {
+            configuration.get("init") ~= "SET time_zone = '%s'".format(configuration.getString("timezone"));
         }
-        configuration.get("flags"] += [
-            PDO.ATTR_PERSISTENT: configuration.get("persistent"],
+        configuration.update("flags", [
+            PDO.ATTR_PERSISTENT: configuration.get("persistent"),
             PDO.MYSQL_ATTR_USE_BUFFERED_QUERY: true,
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
-        ];
+        ]);
 
         if (!configuration.isEmpty("ssl_key") && !configuration.isEmpty("ssl_cert")) {
             configuration.set("flags."~PDO.MYSQL_ATTR_SSL_KEY, configuration.get("ssl_key"));
@@ -90,12 +90,13 @@ class DMysqlDriver : DDriver {
         }
 
         auto dsn = configuration.isEmpty("unix_socket")
-            ? "mysql:host=%s;port={configuration.get("port"]};dbname={configuration.get("database"]}"
-            .format(configuration.getString("host"))
-            : "mysql:unix_socket={configuration.get("unix_socket"]};dbname={configuration.get("database"]}";
-        }
+            ? "mysql:host={host};port={port};dbname={database}"
+                .mustache(configuration.getStrings("host", "port", "database"))
+            : "mysql:unix_socket={unix_socket};dbname={database}"
+                .mustache(configuration.getStrings("unix_socket", "database"));
+
         if (!configuration.isEmpty("encoding")) {
-            dsn ~= ";charset={configuration.get("encoding"]}";
+            dsn ~= ";charset={encoding}".mustache("encoding", configuration.getString("encoding"));
         }
         _pdo = this.createPdo(dsn, configData);
 
@@ -120,16 +121,16 @@ class DMysqlDriver : DDriver {
     }
     
     // Get the SQL for disabling foreign keys.
-    string disableForeignKeySQL() {
+    override string disableForeignKeySQL() {
         return "SET foreign_key_checks = 0";
     }
  
-    string enableForeignKeySQL() {
+     override string enableForeignKeySQL() {
         return "SET foreign_key_checks = 1";
     }
  
     bool supports(DriverFeatures feature) {
-        return match (feature) {
+        /* return match (feature) {
             DriverFeatures.DISABLE_CONSTRAINT_WITHOUT_TRANSACTION,
             DriverFeatures.SAVEPOINT: true,
 
@@ -142,12 +143,12 @@ class DMysqlDriver : DDriver {
                 this.featureVersions[this.serverType][feature.value],
                 '>='
            ),
-        };
+        }; */
+        return false;
     }
 
    bool isMariadb() {
         this.currentVersion();
-
         return _serverType == SERVER_TYPE_MARIADB;
     }
     

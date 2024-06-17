@@ -46,6 +46,7 @@ abstract class DQuery : IQuery { // : IExpression {
         return true;
     }
 
+    // #region Constants
     const string JOIN_TYPE_INNER = "INNER";
 
     const string JOIN_TYPE_LEFT = "LEFT";
@@ -59,6 +60,7 @@ abstract class DQuery : IQuery { // : IExpression {
     const string TYPE_UPDATE = "update";
 
     const string TYPE_DELETE = "delete";
+    // #endregion Constants
 
     // Connection instance to be used to execute this query.
     protected IConnection _connection;

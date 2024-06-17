@@ -64,4 +64,14 @@ class DDriver { // }: IDriver {
     bool enabled() {
         return false;
     }
+
+    // #region foreignKeySQL
+        string disableForeignKeySQL() {
+            return null;
+        }
+
+        string enableForeignKeySQL() {
+            return null;
+        }
+    // #endregion foreignKeySQL
 }

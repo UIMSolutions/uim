@@ -81,27 +81,26 @@ class DMysqlDriver : DDriver {
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
         ];
 
-        if (!configuration.get("ssl_key"].isEmpty && !configuration.isEmpty("ssl_cert"])) {
-            configuration.get("flags"][PDO.MYSQL_ATTR_SSL_KEY] = configuration.get("ssl_key"];
-            configuration.get("flags"][PDO.MYSQL_ATTR_SSL_CERT] = configuration.get("ssl_cert"];
+        if (!configuration.isEmpty("ssl_key") && !configuration.isEmpty("ssl_cert")) {
+            configuration.set("flags."~PDO.MYSQL_ATTR_SSL_KEY, configuration.get("ssl_key"));
+            configuration.set("flags."~PDO.MYSQL_ATTR_SSL_CERT, configuration.get("ssl_cert"));
         }
         if (!configuration.isEmpty("ssl_ca")) {
-            configuration.get("flags"][PDO.MYSQL_ATTR_SSL_CA] = configuration.get("ssl_ca"];
+            configuration.set("flags."~PDO.MYSQL_ATTR_SSL_CA, configuration.get("ssl_ca"));
         }
 
         auto dsn = configuration.isEmpty("unix_socket")
-            ? "mysql:host={configuration.get("host"]};port={configuration.get("port"]};dbname={configuration.get("database"]}"
+            ? "mysql:host=%s;port={configuration.get("port"]};dbname={configuration.get("database"]}"
+            .format(configuration.getString("host"))
             : "mysql:unix_socket={configuration.get("unix_socket"]};dbname={configuration.get("database"]}";
         }
         if (!configuration.isEmpty("encoding")) {
             dsn ~= ";charset={configuration.get("encoding"]}";
         }
-        this.pdo = this.createPdo(dsn, configData);
+        _pdo = this.createPdo(dsn, configData);
 
-        if (!configuration.isEmpty("init")) {
-            /* (array) */configuration.get("init")
-              .each!(command => _pdo.exec(command));
-        }
+        configuration.getArray("init")
+            .each!(command => _pdo.exec(command));
     }
     
     // Returns whether D is able to use this driver for connecting to database
@@ -117,7 +116,7 @@ class DMysqlDriver : DDriver {
     }
  
     string schema() {
-        return configuration.get("database"];
+        return configuration.get("database");
     }
     
     // Get the SQL for disabling foreign keys.

@@ -27,31 +27,49 @@ class DScalarData : DData {
     return 1;
   }
 
+  // #region isEqual
+      override bool isEqual(bool value) {
+      return getBoolean == value; 
+    }
+
+    override bool isEqual(long value) {
+      return getLong == value;
+    }
+
+    override bool isEqual(double value) {
+      return getDouble == value;
+    }
+
+    override bool isEqual(string value) {
+      return getString == value;
+    }
+  // #endregion isEqual
+
   // #region Getter
-  override bool getBoolean() {
-    return false;
-  }
+    override bool getBoolean() {
+      return false;
+    }
 
-  override long getLong() {
-    return 0;
-  }
+    override long getLong() {
+      return 0;
+    }
 
-  override double getDouble() {
-    return 0.0;
-  }
+    override double getDouble() {
+      return 0.0;
+    }
 
-  override string getString() {
-    return null;
-  }
+    override string getString() {
+      return null;
+    }
 
-  override Json[] getArray() {
-    return null;
-  }
+    override Json[] getArray() {
+      return null;
+    }
 
-  override Json[string] getMap() {
-    return null;
-  }
+    override Json[string] getMap() {
+      return null;
+    }
   // #endregion Getter
-}
 
+}
 mixin(DataCalls!("Scalar"));

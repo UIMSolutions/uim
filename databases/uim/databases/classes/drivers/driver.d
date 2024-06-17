@@ -27,13 +27,35 @@ class DDriver { // }: IDriver {
         return true;
     }
 
-    mixin(TProperty!("string", "name"));
+    // #region name
+        protected string _name;
+        string name() {
+            return _name;
+        }
+        void name(string quote) {
+            _name = quote;
+        }
+    // #endregion name
 
-    // String used to start a database identifier quoting to make it safe
-    mixin(TProperty!("string", "startQuote"));
+    // #region startQuote
+        // String used to start a database identifier quoting to make it safe
+        protected string _startQuote;
+        string startQuote() {
+            return _startQuote;
+        }
+        void startQuote(string quote) {
+            _startQuote = quote;
+        }
+    // #endregion startQuote
 
     // String used to end a database identifier quoting to make it safe
-    mixin(TProperty!("string", "endQuote"));
+    protected string _endQuote;
+    string endQuote() {
+        return _endQuote;
+    }
+    void string(string quote) {
+        _endQuote = quote;
+    }
 
     void connect() {
     }

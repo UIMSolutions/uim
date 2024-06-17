@@ -16,7 +16,7 @@ class DLongData : DScalarData {
   }
 
   this(long newValue, Json[string] initData = null) {
-    this(initData).set(newValue);
+    this(initData).value(newValue);
   }
 
   // Initialization hook method.
@@ -32,11 +32,11 @@ class DLongData : DScalarData {
   }
 
   // #region value
-    protected bool _value;
-    @property void value(bool newValue) {
+    protected long _value;
+    @property void value(long newValue) {
         _value = newValue;
     }
-    @property bool value() {
+    @property long value() {
       return _value;
     }
   // #endregion value
@@ -58,25 +58,6 @@ class DLongData : DScalarData {
       return to!string(value);
     }
   // #region Getter
-  // #region isEqual
-  /* mixin(ScalarOpEquals!(["int", "bool"])); */
-  /*   override bool isEqual(IData checkData) {
-    if (checkData.isNull || key != checkData.key) {
-      return false;
-    }
-    if (auto data = cast(DLongData) checkData) {
-      return isEqual(data.value);
-    }
-    return false;
-  } */
-
-  /*   override bool isEqual(Json checkValue) {
-    if (checkValue.isNull || !checkValue.isInteger) {
-      return false;
-    }
-
-    return isEqual(checkValue.get!long);
-  } */
 
   ///
   unittest {

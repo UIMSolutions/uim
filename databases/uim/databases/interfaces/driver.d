@@ -9,10 +9,12 @@ interface IDriver : INamed {
     IDriver connect();
 
     // String used to start a database identifier quoting to make it safe
-    mixin(IProperty!("string", "startQuote"));
+    string startQuote();
+    void startQuote(string quote);
 
     // String used to end a database identifier quoting to make it safe
-    mixin(IProperty!("string", "endQuote"));
+    string endQuote();
+    void endQuote(string quote);
 
     // Get / Set connection resource or object that is internally used.
     mixin(IProperty!("IConnection", "connection"));
@@ -55,7 +57,7 @@ interface IDriver : INamed {
      * Returns a callable function that will be used to transform a passed Query object.
      * This function, in turn, will return an instance of a Query object that has been
      * transformed to accommodate any specificities of the SQL dialect in use.
-     */
+     * /
     Closure queryTranslator(string queryType); /* select, insert, update, delete */ 
 
     /**
@@ -66,7 +68,7 @@ interface IDriver : INamed {
      *
      * If all the tables that use this Driver specify their
      * own schemas, then this may return null.
-     */
+     * /
     SchemaDialect schemaDialect();
 
     /**

@@ -183,11 +183,3 @@ template DataSet(string dataType) {
     }
   `;
 }
-
-template DataOpCall(string dataType) {
-  const char[] DataOpCall = `
-    void opCall(`~dataType~` newValue) {
-      set(newValue);
-    }
-  `;
-}

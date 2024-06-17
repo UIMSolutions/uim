@@ -93,7 +93,9 @@ interface IData {
         bool isEqual(double value);
         bool isEqual(string value);
         bool isEqual(UUID value);
-        /* bool isEqual(Json value); */
+        bool isEqual(Json value);
+        bool isEqual(Json[] value);
+        bool isEqual(Json[string] value);
     // #endregion isEqual
 
     // #region set

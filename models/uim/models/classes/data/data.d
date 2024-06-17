@@ -139,103 +139,133 @@ class DData : IData {
   // #endregion isNull
   // #endregion properties 
 
-  // #region set
-
-  ref Json opAssign(
-    Json v
-  ) nothrow return @trusted;
-
-  void opAssign(
-    typeof(null) __param_0
-  ) nothrow @trusted;
-
-  mixin(DataSet!("bool"));
-  mixin(DataSet!("long"));
-  mixin(DataSet!("double"));
-  mixin(DataSet!("string"));
-  mixin(DataSet!("Json"));
-  mixin(DataSet!("Json[]"));
-  mixin(DataSet!("Json[string]"));
-
-  void set(UUID newValue) {
-    set(newValue.toString);
+  // #region opAssign
+  void opAssign(bool newValue) {
+    set(newValue);
   }
-  // #endregion set
 
-  // #region opCall - Example: x("value")
-  mixin(DataOpCall!("bool"));
-  mixin(DataOpCall!("long"));
-  mixin(DataOpCall!("double"));
-  mixin(DataOpCall!("string"));
-  mixin(DataOpCall!("Json"));
-  mixin(DataOpCall!("Json[]"));
-  mixin(DataOpCall!("Json[string]"));
-  // #endregion opCall
+  void opAssign(long newValue) {
+    set(newValue);
+  }
+
+  void opAssign(double newValue) {
+    set(newValue);
+  }
+
+  void opAssign(string newValue) {
+    set(newValue);
+  }
+
+  void opAssign(Json newValue) {
+    set(newValue);
+  }
+
+  void opAssign(Json[] newValue) {
+    set(newValue);
+  }
+
+  void opAssign(Json[string] newValue) {
+    set(newValue);
+  }
+  // #endregion opAssign
+
+  // #region setter  
+    void set(bool value) {    
+    }
+
+    void set(long value) {    
+    }
+
+    void set(double value) {    
+    }
+
+    void set(string value) {    
+    }
+
+    void set(Json value) {    
+    }
+
+    void set(Json[] value) {    
+    }
+
+    void set(Json[string] value) {    
+    }
+
+    void set(UUID newValue) {
+      set(newValue.toString);
+    }
+  // #endregion setter
 
   // #region equal
   //#region opEquals
-  bool opEquals(bool checkValue) {
-    return isEqual(checkValue);
-  }
+    bool opEquals(bool checkValue) {
+      return isEqual(checkValue);
+    }
 
-  bool opEquals(int checkValue) {
-    return isEqual(checkValue);
-  }
+    bool opEquals(long checkValue) {
+      return isEqual(checkValue);
+    }
 
-  bool opEquals(long checkValue) {
-    return isEqual(checkValue);
-  }
+    bool opEquals(double checkValue) {
+      return isEqual(checkValue);
+    }
 
-  bool opEquals(float checkValue) {
-    return isEqual(checkValue);
-  }
+    bool opEquals(string checkValue) {
+      return isEqual(checkValue);
+    }
 
-  bool opEquals(double checkValue) {
-    return isEqual(checkValue);
-  }
+    bool opEquals(UUID checkValue) {
+      return isEqual(checkValue);
+    }
 
-  bool opEquals(string checkValue) {
-    return isEqual(checkValue);
-  }
+    bool opEquals(Json checkValue) {
+      return isEqual(checkValue);
+    }
 
-  bool opEquals(UUID checkValue) {
-    return isEqual(checkValue);
-  }
+    bool opEquals(Json[] checkValue) {
+      return isEqual(checkValue);
+    }
 
-  bool opEquals(Json checkValue) {
-    return isEqual(checkValue);
-  }
+    bool opEquals(Json[string] checkValue) {
+      return isEqual(checkValue);
+    }
   //#endregion opEquals
 
   // #region isEqual
-  bool isEqual(bool checkValue) {
-    return isBoolean && !isNull
-      ? getBoolean == checkValue : false;
-  }
+// #region isEqual
+    bool isEqual(bool value) {
+      return false;
+    }
 
-  bool isEqual(long checkValue) {
-    return !isNull
-      ? getLong == checkValue : false;
-  }
+    bool isEqual(long value) {
+      return false;
+    }
 
-  bool isEqual(double checkValue) {
-    return isDouble && !isNull
-      ? getDouble == checkValue : false;
-  }
+    bool isEqual(double value) {
+      return false;
+    }
 
-  bool isEqual(string checkValue) {
-    return isString && !isNull
-      ? getString == checkValue : false;
-  }
+    bool isEqual(string value) {
+      return false;
+    }    
 
-  bool isEqual(UUID checkValue) {
-    return !isNull
-      ? getUUID == checkValue : false;
-  }
+    bool isEqual(UUID checkValue) {
+      return false; 
+    }
 
-  bool isEqual(Json checkValue) {
-    return false;
-  }
+    bool isEqual(Json checkValue) {
+      return false;
+    }
+
+    bool isEqual(Json[] value) {
+      return false;
+    }
+    
+    bool isEqual(Json[string] value) {
+      return false;
+    }
+  // #endregion isEqual
+
   // #endregion isEqual
   // #endregion equal
 

@@ -4,39 +4,27 @@ import uim.consoles;
 
 @safe:
 
-/**
- * ExitCode constraint
- *
- * @internal
- */
+// ExitCode constraint
 class DExitCode : DConstraint {
-    private int _exitCode = 0;
+    private size_t _exitCode = 0;
 
-    this(int exitCode) {
+    this(size_t exitCode) {
         _exitCode = exitCode;
     }
     
-    /**
-     * Checks if event is in fired array
-     * Params:
-     * Json other Constraint check
-     */
-   bool matches(Json other) {
-        return other == this.exitCode;
+    // Checks if event is in fired array
+   bool matches(size_t checkValue) {
+        return checkValue == _exitCode;
     }
     
     // Assertion message string
     string toString() {
-        return "matches exit code `%s`".format(this.exitCode ?? "null");
+        return "matches exit code `%s`".format(_exitCode != 0 ?? "null");
     }
     
-    /**
-     * Returns the description of the failure.
-     * Params:
-     * Json other Expected
-     */
-    string failureDescription(Json other) {
-        return "`" ~ other ~ "` " ~ toString();
-    } */
+    // Returns the description of the failure.
+    string failureDescription(string description) {
+        return "`" ~ description ~ "` " ~ toString();
+    }
 }
 

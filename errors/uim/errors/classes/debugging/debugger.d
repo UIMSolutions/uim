@@ -60,15 +60,15 @@ class DDebugger {
         "js": [
             "error": "",
             "info": "",
-            "trace": "<pre class="stack-trace">{:trace}</pre>",
+            "trace": "<pre class=\"stack-trace\">{:trace}</pre>",
             "code": "",
             "context": "",
             "links": [],
             "escapeContext": true.toJson,
         ],
         "html": [
-            "trace": "<pre class="uim-error trace"><b>Trace</b> <p>{:trace}</p></pre>",
-            "context": "<pre class="uim-error context"><b>Context</b> <p>{:context}</p></pre>",
+            "trace": "<pre class=\"uim-error trace\"><b>Trace</b> <p>{:trace}</p></pre>",
+            "context": "<pre class=\"uim-error context\"><b>Context</b> <p>{:context}</p></pre>",
             "escapeContext": true,
         ],
         "txt": [
@@ -138,29 +138,29 @@ class DDebugger {
         _stringContents["js.info"] = t;
 
         links = null;
-        link = `<a href="javascript:void(0);" onclick="document.getElementById(\"{:id}-code\")`;
-        link ~= `.style.display = (document.getElementById(\"{:id}-code\").style.display == `;
-        link ~= `\"none\" ? \"\" : \"none\")">Code</a>`;
+        link = "<a href=\"javascript:void(0);\" onclick=\"document.getElementById(\"{:id}-code\")";
+        link ~= ".style.display = (document.getElementById(\"{:id}-code\").style.display == ";
+        link ~= "\"none\" ? \"\" : \"none\")\">Code</a>";
         links["code"] = link;
 
-        link = `<a href="javascript:void(0);" onclick="document.getElementById(\"{:id}-context\")`;
-        link ~= `.style.display = (document.getElementById(\"{:id}-context\").style.display == `;
-        link ~= `\"none\" ? \"\" : \"none\")">Context</a>`;
+        link = "<a href=\"javascript:void(0);\" onclick=\"document.getElementById(\"{:id}-context\")";
+        link ~= ".style.display = (document.getElementById(\"{:id}-context\").style.display == ";
+        link ~= "\"none\" ? \"\" : \"none\")\">Context</a>";
         links["context"] = link;
 
         _stringContents["js.links"] = links;
 
-        _stringContents["js.context"] = `<pre id="{:id}-context" class="uim-context uim-debug" `;
-        _stringContents["js.context"] ~= `style="display: none;">{:context}</pre>`;
+        _stringContents["js.context"] = "<pre id=\"{:id}-context\" class=\"uim-context uim-debug\" ";
+        _stringContents["js.context"] ~= "style=\"display: none;\">{:context}</pre>";
 
-        _stringContents["js.code"] = "<pre id="{:id}-code" class="uim-code-dump" ";
-        _stringContents["js.code"] ~= "style="display: none;">{:code}</pre>";
+        _stringContents["js.code"] = "<pre id=\"{:id}-code\" class=\"uim-code-dump\" ";
+        _stringContents["js.code"] ~= "style=\"display: none;\">{:code}</pre>";
 
-        e = "<pre class="uim-error"><b>{:error}</b> ({:code}) : {:description} ";
+        e = "<pre class=\"uim-error\"><b>{:error}</b> ({:code}) : {:description} ";
         e ~= "[<b>{:path}</b>, line <b>{:line}]</b></pre>";
         _stringContents["html.error"] = e;
 
-        _stringContents["html.context"] = "<pre class="uim-context uim-debug"><b>Context</b> ";
+        _stringContents["html.context"] = "<pre class=\"uim-context uim-debug\"><b>Context</b> ";
         _stringContents["html.context"] ~= "<p>{:context}</p></pre>";
     }
 
@@ -246,12 +246,10 @@ class DDebugger {
             throw new DRuntimeException("Cannot format editor URL `{editor}` is not a known editor.");
         }
 
-        auto template = instance.editors[editor];
-        if (template.isString) {
-            return replace(["{file}", "{line}"], [file, (string)line], template);
-        }
-
-        return template(file, line);
+        auto templateText = instance.editors[editor];
+        return templateText.isString
+            ? templateText.mustache(["file":file, "line": line])
+            : templateText(file, line);
     }
 
     /**

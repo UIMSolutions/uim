@@ -8,4 +8,5 @@ module uim.errors.classes.debugging;
 
 public {
 	import uim.errors.classes.debugging.debugcontext;
+	import uim.errors.classes.debugging.debugger;
 }

@@ -28,7 +28,7 @@ class DH5Html : DH5Obj {
 				else _body.add(values[0]); break;
 			default: 
 				static if ((is(typeof(values[0]) == string)) && ((is(typeof(values[1]) == string[])) || (is(typeof(values[1]) == STRINGAA)))) { 
-					_id = values[0]; foreach(v; values[1..]) {
+					_id = values[0]; foreach(v; values[1..$]) {
 						static if (is(typeof(v) == DH5Head)) { _head = v; continue; }
 						static if (is(typeof(v) == DH5Body)) { _body = v; continue; }
 						_body.add(v); }

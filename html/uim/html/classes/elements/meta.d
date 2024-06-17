@@ -14,9 +14,8 @@ version(test_uim_html) { unittest {
 }}
 
 string toString(DH5Meta[] metas) {
-	string result;
-	foreach(meta; metas) result ~= meta.toString;
-	return result; }
+	return metas.map!(meta => meta.toString).join;
+}
 version(test_uim_html) { unittest {
     // assert([H5Meta, H5Meta].toString == "<meta><meta>");
 }}

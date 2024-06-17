@@ -703,9 +703,7 @@ auto template_(this O)(string id, string[] classes, STRINGAA attributes, DH5 con
 
     bool opEquals(string text) { return (text == toString); }
     override string toString() {
-        string result;
-        foreach(h; _objs) result ~= h.toString;
-        return result;
+        return _objs.map(obj => h.toString).join;
     }
  }    
 auto H5() { return new DH5(); }

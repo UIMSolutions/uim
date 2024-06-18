@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.samp;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Samp : DH5Obj {
 	mixin(H5This!"samp");

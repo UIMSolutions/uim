@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.q;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for <q> - indicates that the enclosed text is a short inline quotation.
 class DH5Q : DH5Obj {

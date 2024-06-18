@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.rbc;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Rbc : DH5Obj {
 	mixin(H5This!"rbc");

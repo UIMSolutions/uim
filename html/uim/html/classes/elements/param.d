@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.param;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Param : DH5Obj {
 	mixin(H5This!"param");

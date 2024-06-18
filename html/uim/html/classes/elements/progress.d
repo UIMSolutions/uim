@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.progress;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Progress : DH5Obj {
 	mixin(H5This!"progress");

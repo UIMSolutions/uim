@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.rt;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Rt : DH5Obj {
 	mixin(H5This!"rt");

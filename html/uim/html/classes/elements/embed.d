@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.embed;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Embed : DH5Obj {
 	mixin(H5This!"embed");

@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.form;
 
-@safe:
 import uim.html;
+@safe:
 
 @safe:
  class DH5Form : DH5Obj {

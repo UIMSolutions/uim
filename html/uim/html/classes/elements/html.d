@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.html;
 
-@safe:
 import uim.html;
+@safe:
 
 /**
  * DH5Html - Wrapper for the html-Element

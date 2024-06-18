@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.figure;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for the figure tag - represents self-contained content, potentially with an optional caption, which is specified using the <figcaption> element.
 class DH5Figure : DH5Obj {

@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.figcaption;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for figcaption tag - represents a caption or legend describing the rest of the contents of its parent <figure> element.
 class DH5Figcaption : DH5Obj {

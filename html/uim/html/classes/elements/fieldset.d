@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.fieldset;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Fieldset : DH5Obj {
 	mixin(H5This!"fieldset");

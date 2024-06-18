@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.header;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Header : DH5Obj {
 	mixin(H5This!("header"));

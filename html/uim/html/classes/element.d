@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.element;
 
-@safe:
 import uim.html;
+@safe:
 
 template classes() {
 	const char[] classes = `

@@ -1,7 +1,7 @@
 ﻿module uim.html.obj;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Obj {
   this() { initialize; }

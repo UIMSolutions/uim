@@ -128,11 +128,10 @@ unittest {
 	assert(!"One Two Three".contains("Five", "Four"));
 }
 
-bool contains(string base, string checkValue) {
-	if (base.length == 0 || checkValue.length == 0 || checkValue.length > base.length) {
-		return false;
-	}
-	return (base.indexOf(checkValue) >= 0);
+bool contains(string text, string checkValue) {
+	return (text.length == 0 || checkValue.length == 0 || checkValue.length > text.length) 
+		? false
+		: (base.indexOf(checkValue) >= 0);
 }
 
 /* bool hasValue(string base, string checkValue) {

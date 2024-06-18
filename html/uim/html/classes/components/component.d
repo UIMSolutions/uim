@@ -1,7 +1,7 @@
 module uim.html.classes.components.component;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Component {
   this() {

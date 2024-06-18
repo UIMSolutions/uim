@@ -1,7 +1,7 @@
 module uim.html.h5;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5 {
     this() { _objs = []; }

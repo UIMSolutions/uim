@@ -48,6 +48,13 @@ Json[string] copy(Json[string] origin) {
 }
 
 // #region Getter
+  Json get(Json[string] values, string key) {
+    if (values.hasKey(key)) {
+      return values[key];
+    }
+    if (key.contains("."))
+  }
+
   bool getBoolean(Json[string] values, string key, bool defaultValue = false) {
     return key in values 
       ? values[key].get!bool

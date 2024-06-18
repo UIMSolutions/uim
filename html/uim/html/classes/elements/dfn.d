@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.dfn;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Dfn : DH5Obj {
 	mixin(H5This!"dfn");

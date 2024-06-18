@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.del;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Del : DH5Obj {
 	mixin(H5This!"del");

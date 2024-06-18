@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.datalist;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Datalist : DH5Obj {
 	mixin(H5This!"datalist");

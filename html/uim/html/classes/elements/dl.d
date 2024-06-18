@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.dl;
 
-@safe:
 import uim.html;
+@safe:
 
 /**
  * Definitionslisten, seit HTML5 Beschreibungslisten, werden durch dl-Elemente beschrieben. (dl = definition / description list)

@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.dd;
 
-@safe:
 import uim.html;
+@safe:
 
 /* Dd-Elemente enthalten eine Beschreibung eines zu beschreibenden Ausdrucks in einer Beschreibungsliste (Dd = description list data) */
 class DH5Dd : DH5Obj {

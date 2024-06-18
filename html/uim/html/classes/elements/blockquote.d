@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.blockquote;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for the blockquote tag - indicates that the enclosed text is an extended quotation
 class DH5Blockquote : DH5Obj {

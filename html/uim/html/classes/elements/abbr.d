@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.abbr;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for <abbr> - represents an abbreviation or acronym.
 class DH5Abbr : DH5Obj {

@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.a;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for <a> - defines a hyperlink to link from one page to another.
 class DH5A : DH5Obj {

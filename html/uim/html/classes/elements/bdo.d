@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.bdo;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for the bdo tag - overrides the current directionality of text, so that the text within is rendered in a different direction.
 class DH5Bdo : DH5Obj {

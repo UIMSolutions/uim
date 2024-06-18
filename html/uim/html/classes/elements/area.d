@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.area;
 
-@safe:
 import uim.html;
+@safe:
 
 /**
  * The <area> tag defines an area inside an image-map (an image-map is an image with clickable areas).

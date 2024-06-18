@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.base;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for the base tag - specifies the base URL and/or target for all relative URLs in a document. 
 class DH5Base : DH5Obj {

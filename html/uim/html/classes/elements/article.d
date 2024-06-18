@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.article;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for <article> - represents a self-contained composition in a document, page, application, or site, 
 // which is intended to be independently distributable or reusable (e.g., in syndication)

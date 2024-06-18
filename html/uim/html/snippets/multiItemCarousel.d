@@ -1,7 +1,7 @@
 module uim.html.snippets.multiItemCarousel;
 
-@safe:
 import uim.html;
+@safe:
 
 auto css = `
 .MultiCarousel { float: left; overflow: hidden; padding: 15px; width: 100%; position:relative; }

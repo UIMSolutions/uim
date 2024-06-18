@@ -1,7 +1,7 @@
 module uim.html.snippets;
 
-@safe:
 import uim.html;
+@safe:
 
 public import uim.html.snippets.clientOrPartnersLogoSlider;
 public import uim.html.snippets.dynamicSortableTable;

@@ -1,7 +1,7 @@
 module uim.html.snippets.dynamicSortableTable;
 
-@safe:
 import uim.html;
+@safe:
 
 class dynamicSortableTable : DH5Component {
   this() {

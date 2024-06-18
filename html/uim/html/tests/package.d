@@ -1,7 +1,7 @@
 module uim.html.tests;
 
-@safe:
 import uim.html;
+@safe:
 
 void testH5Obj(DH5Obj obj, string tag, bool single = false) {
   assert(obj, tag~" object is null");

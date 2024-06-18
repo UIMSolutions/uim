@@ -1,7 +1,7 @@
 module uim.html.parser;
 
-@safe:
 import uim.html;
+@safe:
 
 size_t[] posOfAll(string text, string searchTxt) {
   size_t[] results;

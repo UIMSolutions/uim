@@ -1,7 +1,7 @@
 module uim.html.sse;
 
-@safe:
 import uim.html;
+@safe:
 
 /*
 <!DOCTYPE html>

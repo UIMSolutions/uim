@@ -1,7 +1,7 @@
 module uim.html.webworker;
 
-@safe:
 import uim.html;
+@safe:
 
 /* 
 <!DOCTYPE html>

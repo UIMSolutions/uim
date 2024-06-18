@@ -1,7 +1,7 @@
 module uim.html.snippets.productShoppingGridStyles;
 
-@safe:
 import uim.html;
+@safe:
 
 auto css = `h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 

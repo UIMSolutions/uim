@@ -1,7 +1,7 @@
 module uim.html.snippets.clientOrPartnersLogoSlider;
 
-@safe:
 import uim.html;
+@safe:
 
 class clientOrPartnersLogoSlider : DH5Component {
   this() {

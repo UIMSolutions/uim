@@ -1,7 +1,7 @@
 ﻿module uim.html.extras.string;
 
-@safe:
 import uim.html;
+@safe:
 
 // Additional element to handle string in DOM
 class DH5String : DH5Obj {

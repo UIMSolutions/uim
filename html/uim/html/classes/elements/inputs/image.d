@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.inputs.image;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5InputIMAGE : DH5Input {
 	mixin(H5This!("Input", null, `["type":"image"]`, true)); 

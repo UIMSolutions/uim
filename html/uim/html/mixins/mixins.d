@@ -1,7 +1,7 @@
 ﻿module uim.html.mixins.mixins;
 
-@safe:
 import uim.html;
+@safe:
 
 template H5Calls(const char[] left, const char[] right = "") {
 	const char[] r = (right.length > 0 ? right : "D"~left);

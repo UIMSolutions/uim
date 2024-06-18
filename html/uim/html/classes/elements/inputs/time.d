@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.inputs.time;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5InputTIME : DH5Input {
 	mixin(H5This!("Input", null, `["type":"time"]`, true)); 

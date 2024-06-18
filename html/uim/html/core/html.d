@@ -1,7 +1,7 @@
 ﻿module uim.html.core.html;
 
-@safe:
 import uim.html;
+@safe:
 
 template sTag(string fName) {
 	const char[] sTag = "	

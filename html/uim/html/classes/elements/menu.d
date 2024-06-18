@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.menu;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Menu : DH5Obj {
 	mixin(H5This!"menu");

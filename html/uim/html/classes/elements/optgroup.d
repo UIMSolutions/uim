@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.optgroup;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Optgroup : DH5Obj {
 	mixin(H5This!"optgroup");

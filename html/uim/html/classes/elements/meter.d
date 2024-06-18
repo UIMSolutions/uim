@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.meter;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for <meter> - represents either a scalar value within a known range or a fractional value.
 class DH5Meter : DH5Obj {

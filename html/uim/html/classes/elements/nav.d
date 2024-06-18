@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.nav;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for <nav>
 // DH5Nav/H5Nav represents a section of a page whose purpose is to provide navigation links, either within the current document or to other documents.

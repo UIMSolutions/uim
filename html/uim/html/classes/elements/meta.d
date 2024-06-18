@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.meta;
 
-@safe:
 import uim.html;
+@safe:
 
 @safe:
 class DH5Meta : DH5Obj {

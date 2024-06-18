@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.option;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Option : DH5Obj {
 	mixin(H5This!"option");

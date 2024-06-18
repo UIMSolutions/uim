@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.tfoot;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Tfoot : DH5Obj {
 	mixin(H5This!"tfoot");

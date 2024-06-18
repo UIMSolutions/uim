@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.template_;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for <template> - s a mechanism for holding HTML that is not to be rendered immediately when a page is loaded but may be instantiated subsequently during runtime using JavaScript.
 class DH5Template : DH5Obj {

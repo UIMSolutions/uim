@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.textarea;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Textarea : DH5Obj {
 	mixin(H5This!"textarea");

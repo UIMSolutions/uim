@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.tbody;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Tbody : DH5Obj {
 	mixin(H5This!"tbody");

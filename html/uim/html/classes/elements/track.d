@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.track;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Track : DH5Obj {
 	mixin(H5This!"track");

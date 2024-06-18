@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.tr;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Tr : DH5Obj {
 	mixin(H5This!"tr");

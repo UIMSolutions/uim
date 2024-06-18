@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.thead;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Thead : DH5Obj {
 	mixin(H5This!"thead");

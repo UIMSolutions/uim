@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.svg;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Svg : DH5Obj {
 	mixin(H5This!"svg");

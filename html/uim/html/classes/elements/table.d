@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.table;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Table : DH5Obj {
 	mixin(H5This!"table");

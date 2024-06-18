@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.time;
 
-@safe:
 import uim.html;
+@safe:
 import std.datetime;
 
 // Wrapper for <time> - represents a specific period in time. It may include the datetime attribute to translate dates into machine-readable format, allowing for better search engine results or custom features such as reminders.

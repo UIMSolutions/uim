@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.link;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Link : DH5Obj {
   mixin(H5This!("link", null, null, true));

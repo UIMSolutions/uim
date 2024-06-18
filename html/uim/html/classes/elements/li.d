@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.li;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for <li> - represent an item in a list.
 class DH5Li : DH5Obj {

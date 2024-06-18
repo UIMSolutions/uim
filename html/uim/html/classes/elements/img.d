@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.img;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Img : DH5Obj {
 	mixin(H5This!("img", null, null, true));

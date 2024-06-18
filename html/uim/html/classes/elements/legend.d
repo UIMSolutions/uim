@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.legend;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for <legend> - represents a caption for the content of its parent <fieldset>.
 class DH5Legend : DH5Obj {

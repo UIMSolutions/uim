@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.ins;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for <ins> - represents a range of text that has been added to a document.
 class DH5Ins : DH5Obj {

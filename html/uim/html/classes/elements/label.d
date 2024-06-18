@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.label;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Label : DH5Obj {
 	mixin(H5This!"label");

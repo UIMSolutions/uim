@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.iframe;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Iframe : DH5Obj {
 	mixin(H5This!"iframe");

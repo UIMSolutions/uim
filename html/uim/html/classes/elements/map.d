@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.map;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Map : DH5Obj {
 	mixin(H5This!("map"));

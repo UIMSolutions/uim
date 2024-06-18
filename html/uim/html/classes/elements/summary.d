@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.summary;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Summary : DH5Obj {
 	mixin(H5This!"summary");

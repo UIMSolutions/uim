@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.sub;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Sub : DH5Obj {
 	mixin(H5This!"sub");

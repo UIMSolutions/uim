@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.style;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Style : DH5Obj {
 	mixin(H5This!("style"));

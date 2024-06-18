@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.sup;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for <sup> - specifies inline text which is to be displayed as superscript for solely typographical reasons. 
 class DH5Sup : DH5Obj {

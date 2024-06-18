@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.script;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Script : DH5Obj {
 	mixin(H5This!"script");

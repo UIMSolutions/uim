@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.span;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Span : DH5Obj {
 	mixin(H5This!"Span");

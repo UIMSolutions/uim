@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.select;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Select : DH5Obj {
 	mixin(H5This!"select");

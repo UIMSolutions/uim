@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.source;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Source : DH5Obj {
 	mixin(H5This!"source");

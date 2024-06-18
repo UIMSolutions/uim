@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.strong;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for <strong> -  indicates that its contents have strong importance, seriousness, or urgency. 
 class DH5Strong : DH5Obj {

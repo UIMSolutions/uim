@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.slot;
 
-@safe:
 import uim.html;
+@safe:
 /* 
 class DH5Slot : DH5Obj {
 	mixin(H5This!"slot");

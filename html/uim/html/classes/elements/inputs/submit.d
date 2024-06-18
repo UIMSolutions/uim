@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.inputs.submit;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5InputSUBMIT : DH5Input {
 	mixin(H5This!("Input", null, `["type":"submit"]`, true)); 

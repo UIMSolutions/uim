@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.inputs.hidden;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5InputHidden : DH5Input {
 	mixin(H5This!("Input", null, `["type":"hidden"]`, true)); 

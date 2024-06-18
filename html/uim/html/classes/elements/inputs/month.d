@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.inputs.month;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5InputMONTH : DH5Input {
 	mixin(H5This!("Input", null, `["type":"month"]`, true)); 

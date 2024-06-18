@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.inputs.password;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5InputPASSWORD : DH5Input {
 	mixin(H5This!("Input", null, `["type":"password"]`, true)); 

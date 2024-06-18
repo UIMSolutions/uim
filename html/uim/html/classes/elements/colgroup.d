@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.colgroup;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Colgroup : DH5Obj {
 	mixin(H5This!"Colgroup");

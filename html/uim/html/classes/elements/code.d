@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.code;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for code tag - displays its contents styled in a fashion intended to indicate that the text is a short fragment of computer code.
 class DH5Code : DH5Obj {

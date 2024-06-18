@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.body_;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Body : DH5Obj {
 	mixin(H5This!("body"));

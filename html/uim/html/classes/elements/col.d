@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.col;
 
-@safe:
 import uim.html;
+@safe:
 
 // WRapper for col tag - defines a column within a table and is used for defining common semantics on all common cells.
 class DH5Col : DH5Obj {

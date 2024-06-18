@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.caption;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for caption tag = specifies the caption (or title) of a table. 
 class DH5Caption : DH5Obj {

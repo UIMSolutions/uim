@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.comment;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Comment : DH5Obj {
 	mixin(H5This!"comment");

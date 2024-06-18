@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.cite;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for cite tag - used to describe a reference to a cited creative work, and must include the title of that work. 
 class DH5Cite : DH5Obj {

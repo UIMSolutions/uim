@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.br;
 
-@safe:
 import uim.html;
+@safe:
 
 // Wrapper for the br tag - produces a line break in text (carriage-return).
 class DH5Br : DH5Obj {

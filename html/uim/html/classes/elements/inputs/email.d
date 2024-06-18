@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.inputs.email;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5InputEmail : DH5Input {
 	mixin(H5This!("Input", null, `["type":"email"]`, true)); 

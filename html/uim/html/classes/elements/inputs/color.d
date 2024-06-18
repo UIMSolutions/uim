@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.inputs.color;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5InputCOLOR : DH5Input {
 	mixin(H5This!""); 

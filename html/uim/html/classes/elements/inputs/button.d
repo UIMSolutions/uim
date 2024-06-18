@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.inputs.button;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5InputButton : DH5Input {
 	mixin(H5This!("Input", null, `["type": "button"]`)); 

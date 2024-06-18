@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.inputs.date;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5InputDate : DH5Input {
 	mixin(H5This!("Input", null, `["type":"date"]`, true)); 

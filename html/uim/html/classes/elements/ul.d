@@ -1,7 +1,7 @@
 ﻿module uim.html.classes.elements.ul;
 
-@safe:
 import uim.html;
+@safe:
 
 class DH5Ul : DH5Obj {
 	mixin(H5This!"ul");

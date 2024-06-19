@@ -101,7 +101,7 @@ class DMemoryCacheEngine : DCacheEngine {
       configuration.set("servers", configuration.get("servers"], false);
     } */
   /* if (!configuration.get("servers"].isArray) {
-      configuration.get("servers"] = [configuration.get("servers"]];
+      configuration.set("servers", [configuration.get("servers")]);
     } * / 
     if (!_memory is null) {
       return true;

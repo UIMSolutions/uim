@@ -274,11 +274,11 @@ class DTreeBehavior : DBehavior {
      */
     protected void _setAsRoot(IORMEntity anEntity) {
         auto configData = configuration.data;
-        edge = _getMax();
+        auto edge = _getMax();
         _ensureFields(entity);
-        right = entity.get(configuration.get("right"));
-        left = entity.get(configuration.get("left"));
-        diff = right - left;
+        auto right = entity.get(configuration.get("right"));
+        auto left = entity.get(configuration.get("left"));
+        auto diff = right - left;
 
         if (right - left > 1) {
             //Correcting internal subtree
@@ -712,7 +712,7 @@ class DTreeBehavior : DBehavior {
         [parent, left, right] = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
         primaryKeys = primaryKeys();
         fields = [parent, left, right];
-        if (configuration.get("level"]) {
+        if (configuration.hasKey("level"]) {
             fields ~= configuration.get("level"];
         }
 
@@ -748,9 +748,9 @@ class DTreeBehavior : DBehavior {
      */
     protected int _recoverTree(int lftRght = 1, parentId = null, level = 0) {
         auto configData = configuration.data;
-        [parent, left, right] = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
+        [parent, left, right] = configuration.getArray("parent", "left", "right");
         primaryKeys = primaryKeys();
-        order = configuration.get("recoverOrder"] ?: primaryKeys;
+        order = configuration.getArray("recoverOrder", primaryKeys);
 
         nodes = _scope(_table.query())
             .select(primaryKeys)
@@ -759,20 +759,19 @@ class DTreeBehavior : DBehavior {
             .disableHydration()
             .all();
 
-        foreach (nodes as node) {
-            nodeLft = lftRght++;
-            lftRght = _recoverTree(lftRght, node[primaryKeys], level + 1);
-
-            fields = [left: nodeLft, right: lftRght++];
-            if (configuration.get("level"]) {
-                fields[configuration.get("level"]] = level;
+        nodes.each!((node) {
+            auto nodeLft = lftRght++;
+            auto lftRght = _recoverTree(lftRght, node[primaryKeys], level + 1);
+            auto fields = [left: nodeLft, right: lftRght++];
+            if (configuration.hasKey("level")) {
+                fields[configuration.get("level")] = level;
             }
 
             _table.updateAll(
                 fields,
                 [primaryKeys: node[primaryKeys]]
            );
-        }
+        });
 
         return lftRght;
     }
@@ -781,18 +780,16 @@ class DTreeBehavior : DBehavior {
      * Returns the maximum index value in the table.
      */
     protected int _getMax() {
-        field = configuration.get("right");
-        rightField = configuration.get("rightField");
-        edge = _scope(_table.find())
+        auto field = configuration.get("right");
+        auto rightField = configuration.get("rightField");
+        auto edge = _scope(_table.find())
             .select([field])
             .orderDesc(rightField)
             .first();
 
-        if (edge == null || edge.isEmpty(field))) {
-            return 0;
-        }
-
-        return edge[field];
+        return edge == null || edge.isEmpty(field)
+            ? 0
+            : edge[field];
     }
 
     /**

@@ -228,7 +228,7 @@ class DRoute : IRoute {
             routings = mymatchArray[1][0];
             // Placeholder with colon/braces, e.g. "{foo}"
             mysearch = preg_quote(mymatchArray[0][0]);
-            if (isSet(configuration.update(routings])) {
+            if (isSet(configuration.update(routings))) {
                 string myoption = "";
                 if (routings != "plugin" && array_key_exists(routings, this.defaults)) {
                     myoption = "?";
@@ -236,9 +236,9 @@ class DRoute : IRoute {
                 // Dcs:disable Generic.Files.LineLength
                 // Offset of the colon/braced placeholder in the full template string
                 if (myparsed[mymatchArray[0][1] - 1] == "/") {
-                    myrouteParams["/" ~ mysearch] = "(?:/(?P<" ~ routings ~ ">" ~ configuration.update(routings] ~ ")" ~ myoption ~ ")" ~ myoption;
+                    myrouteParams["/" ~ mysearch] = "(?:/(?P<" ~ routings ~ ">" ~ configuration.update(routings) ~ ")" ~ myoption ~ ")" ~ myoption;
                 } else {
-                    myrouteParams[mysearch] = "(?:(?P<" ~ routings ~ ">" ~ configuration.update(routings] ~ ")" ~ myoption ~ ")" ~ myoption;
+                    myrouteParams[mysearch] = "(?:(?P<" ~ routings ~ ">" ~ configuration.update(routings) ~ ")" ~ myoption ~ ")" ~ myoption;
                 }
                 // Dcs:enable Generic.Files.LineLength
             } else {

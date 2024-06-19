@@ -405,18 +405,18 @@ class DEagerLoader {
      * chain of associations to be loaded. The second value is the path to follow in
      * entities" properties to fetch a record of the corresponding association.
      */
-    protected DEagerLoadable _normalizeContain(DORMTable parent, string anAliasName, Json[string] optionData, Json[string] paths) {
+    protected DEagerLoadable _normalizeContain(DORMTable parent, string aliasName, Json[string] optionData, Json[string] paths) {
         auto defaults = _containOptions;
-        auto instance = parent.getAssociation(alias);
+        auto instance = parent.getAssociation(aliasName);
 
-        paths += ["aliasPath": "", "propertyPath": "", "root": alias];
-        paths["aliasPath"] ~= "." ~ alias;
+        paths += ["aliasPath": "", "propertyPath": "", "root": aliasName];
+        paths["aliasPath"] ~= "." ~ aliasName;
 
         if (
             options.hasKey("matching") &&
             options["matching"] == true
        ) {
-            paths["propertyPath"] = "_matchingData." ~ alias;
+            paths["propertyPath"] = "_matchingData." ~ aliasName;
         } else {
             paths["propertyPath"] ~= "." ~ instance.getProperty();
         }
@@ -433,12 +433,12 @@ class DEagerLoader {
             "targetProperty": instance.getProperty(),
         ];
         configuration.get("canBeJoined"] = instance.canBeJoined(configuration.get("config"]);
-        eagerLoadable = new DEagerLoadable(alias, myConfiguration);
+        eagerLoadable = new DEagerLoadable(aliasName, myConfiguration);
 
-        if (configuration.get("canBeJoined"]) {
+        if (configuration.hasKey("canBeJoined"]) {
             _aliasList[paths["root"]][aliasName] ~= eagerLoadable;
         } else {
-            paths["root"] = configuration.get("aliasPath"];
+            paths["root"] = configuration.get("aliasPath");
         }
 
         foreach (extra as t: assoc) {
@@ -563,9 +563,9 @@ class DEagerLoader {
                 // be attached to joined associations.
                 if (
                     indexOf(path, ".") == false &&
-                    (!array_key_exists(path, collected) || !array_key_exists(alias, collected[path]))
+                    (!array_key_exists(path, collected) || !array_key_exists(aliasName, collected[path]))
                ) {
-                    message = "Unable to load `{path}` association. Ensure foreign key in `{alias}` is selected.";
+                    message = "Unable to load `{path}` association. Ensure foreign key in `{aliasName}` is selected.";
                     throw new DInvalidArgumentException(message);
                 }
 

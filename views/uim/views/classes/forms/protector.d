@@ -37,28 +37,27 @@ class DFormProtector {
      * @param string aurl URL form was POSTed to.
      * @param string asessionId Session id for hash generation.
      */
-    bool validate(Json formData, string aurl, string asessionId) {
-        this.debugMessage = null;
+    bool validate(Json formData, string formUrl, string asessionId) {
+        _debugMessage = null;
 
         auto extractedToken = this.extractToken(formData);
         if (isEmpty(extractedToken)) {
             return false;
         }
-        auto hashParts = this.extractHashParts(formData);
+        auto hashParts = extractHashParts(formData);
         auto generatedToken = this.generateHash(
             hashParts["fields"],
             hashParts["unlockedFields"],
-            url,
+            formUrl,
             sessionId
        );
 
         if (hash_equals(generatedToken, extractedToken)) {
             return true;
         }
-        if (configuration.get("debug")) {
-            debugMessage = this.debugTokenNotMatching(formData, hashParts + compact("url", "sessionId"));
-            if (debugMessage) {
-                this.debugMessage = debugMessage;
+        if (configuration.hasKey("debug")) {
+            if (auto debugMessage = debugTokenNotMatching(formData, hashParts + compact("url", "sessionId"))) {
+                _debugMessage = debugMessage;
             }
         }
         return false;
@@ -166,39 +165,39 @@ class DFormProtector {
      */
     protected string extractToken(Json formData) {
         if (!isArray(formData)) {
-            this.debugMessage = "Request data is not an array.";
+            _debugMessage = "Request data is not an array.";
 
             return null;
         }
         
         string message = "`%s` was not found in request data.";
         if (!isSet(formData"_Token"])) {
-            this.debugMessage = message.format("_Token");
+            _debugMessage = message.format("_Token");
 
             return null;
         }
         if (!formData["_Token"].hasKey("fields")) {
-            this.debugMessage = message.format("_Token.fields");
+            _debugMessage = message.format("_Token.fields");
 
             return null;
         }
         if (!isString(formData["_Token.fields"])) {
-            this.debugMessage = "`_Token.fields` is invalid.";
+            _debugMessage = "`_Token.fields` is invalid.";
 
             return null;
         }
         if (!isSet(formData["_Token.unlocked"])) {
-            this.debugMessage = message.format("_Token.unlocked");
+            _debugMessage = message.format("_Token.unlocked");
 
             return null;
         }
-        if (configuration.get("debug") && !isSet(formData["_Token.debug"])) {
-            this.debugMessage = message.format("_Token.debug");
+        if (configuration.hasKey("debug") && !isSet(formData["_Token.debug"])) {
+            _debugMessage = message.format("_Token.debug");
 
             return null;
         }
         if (!configuration.hasKey("debug") && isSet(formData["_Token.debug"])) {
-            this.debugMessage = "Unexpected `_Token.debug` found in request data";
+            _debugMessage = "Unexpected `_Token.debug` found in request data";
 
             return null;
         }
@@ -209,11 +208,9 @@ class DFormProtector {
         return token;
     }
     
-    /**
-     * Return hash parts for the token generation
-     */
+    // Return hash parts for the token generation
     protected Json[string] extractHashParts(Json[string] formData) {
-        auti fields = this.extractFields(formData);
+        auto fields = extractFields(formData);
         unlockedFields = this.sortedUnlockedFields(formData);
 
         return [

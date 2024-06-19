@@ -85,8 +85,8 @@ class DSocket {
         if (this.connection) {
             this.disconnect();
         }
-        if (configuration.get("host"].has(": //")) {
-            [configuration.get("protocol"), configuration.get("host")] = split(": //", configuration.get("host"]);
+        if (configuration.getString("host").has(": //")) {
+            [configuration.get("protocol"), configuration.get("host")] = configuration.getString("host").split(": //");
         }
         scheme = null;
         if (!configuration.isEmpty("protocol")) {
@@ -106,14 +106,14 @@ class DSocket {
          * @Dstan-ignore-next-line
          */
         set_error_handler(_connectionErrorHandler(...));
-        remoteSocketTarget = scheme ~ configuration.get("host"];
+        string remoteSocketTarget = scheme ~ configuration.getString("host");
         auto port = configuration.getInteger("port");
         if (port > 0) {
             remoteSocketTarget ~= ": " ~ port;
         }
-        errNum = 0;
-        errStr = "";
-        this.connection = _getStreamSocketClient(
+        auto errNum = 0;
+        auto errStr = "";
+        _connection = _getStreamSocketClient(
             remoteSocketTarget,
             errNum,
             errStr,

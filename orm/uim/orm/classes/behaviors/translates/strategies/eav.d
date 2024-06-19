@@ -226,7 +226,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         // Check early if empty translations are present in the entity.
         // If this is the case, unset them to prevent persistence.
         // This only applies if configuration.get("allowEmptyTranslations"] is false
-        if (configuration.get("allowEmptyTranslations") == false) {
+        if (!configuration.getBoolean("allowEmptyTranslations")) {
             unsetEmptyFields(entity);
         }
 

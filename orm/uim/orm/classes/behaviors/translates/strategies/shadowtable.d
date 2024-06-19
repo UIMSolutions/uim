@@ -145,10 +145,9 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         [plugin] = pluginSplit(
             configuration.get(
                 "translationTable"));
-        hasOneTargetAlias = plugin ? (
-            plugin ~ "." ~ configuration.get(
-                "hasOneAlias")) : configuration.get(
-            "hasOneAlias");
+        hasOneTargetAlias = plugin 
+            ? (plugin ~ "." ~ configuration.getString("hasOneAlias")) 
+            : configuration.get("hasOneAlias");
         if (!getTableLocator()
             .exists(hasOneTargetAlias)) {
             // Load table before hand with fallback class usage enabled

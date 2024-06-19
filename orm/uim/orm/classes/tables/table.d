@@ -406,7 +406,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             }
         }
        _schema = myschema;
-        if (configuration.get("debug")) {
+        if (configuration.hasKey("debug")) {
             this.checkAliasLengths();
         }
     }

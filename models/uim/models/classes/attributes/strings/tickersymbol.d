@@ -24,8 +24,7 @@ class DTickerSymbolAttribute : DStringAttribute {
       return false;
     }
 
-    name("tickerSymbol");
-    registerPath("tickerSymbol");
+    registerPath("attributes.tickersymbol");
 
     return true;
   }
@@ -37,7 +36,7 @@ mixin(AttributeCalls!("TickerSymbol"));
 unittest {
   auto attribute = new DTickerSymbolAttribute;
   assert(attribute.name == "tickerSymbol");
-  assert(attribute.registerPath == "tickerSymbol");
+  assert(attribute.registerPath == "attributes.tickersymbol");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DStringAttribute) generalAttribute);

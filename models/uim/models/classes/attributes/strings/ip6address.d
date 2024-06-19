@@ -26,7 +26,7 @@ class DIP6AddressAttribute : DStringAttribute {
     if (!super.initialize(initData)) { return false; }
 
     name("ip6address");
-    registerPath("ip6address");
+    registerPath("attributes.ip6address");
 
       return true;
 
@@ -38,7 +38,7 @@ mixin(AttributeCalls!("IP6Address"));
 unittest {
   auto attribute = new DIP6AddressAttribute;
   assert(attribute.name == "ip6address");
-  assert(attribute.registerPath == "ip6address");
+  assert(attribute.registerPath == "attributes.ip6address");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DStringAttribute)generalAttribute);

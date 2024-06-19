@@ -22,7 +22,6 @@ class DGenderAttribute : DStringAttribute {
       return false;
     }
 
-    name("gender");
     registerPath("gender");
 
     return true;
@@ -34,6 +33,6 @@ mixin(AttributeCalls!("Gender"));
 ///
 unittest {
   auto attribute = new DGenderAttribute;
-  assert(attribute.name == "gender");
-  assert(attribute.registerPath == "gender");
+  assert(attribute.name == "GenderAttribute");
+  assert(attribute.registerPath == "attributes.gender");
 }

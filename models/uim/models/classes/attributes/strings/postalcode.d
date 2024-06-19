@@ -21,8 +21,7 @@ class DPostalCodeAttribute : DStringAttribute {
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
-    name("postalcode");
-      registerPath("postalcode");
+      registerPath("attributes.postalcode");
 
       return true;
   }
@@ -33,7 +32,7 @@ mixin(AttributeCalls!("PostalCode"));
 unittest {
   auto attribute = new DPostalCodeAttribute;
   assert(attribute.name == "postalcode");
-  assert(attribute.registerPath == "postalcode");
+  assert(attribute.registerPath == "attributes.postalcode");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DStringAttribute)generalAttribute);

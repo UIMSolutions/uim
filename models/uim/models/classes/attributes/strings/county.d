@@ -25,12 +25,12 @@ class DCountyAttribute : DStringAttribute {
   }
 }
 
-mixin(AttributeCalls!("CountyAttribute"));
+mixin(AttributeCalls!("County"));
 
 ///
 unittest {
   auto attribute = new DCountyAttribute;
-  assert(attribute.name == "CountyAttributes");
+  assert(attribute.name == "CountyAttribute");
   assert(attribute.registerPath == "attributes.county");
 
   DAttribute generalAttribute = attribute;

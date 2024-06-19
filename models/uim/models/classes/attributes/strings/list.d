@@ -20,8 +20,7 @@ class DListAttribute : DStringAttribute {
       return false;
     }
 
-    name("list");
-    registerPath("list");
+    registerPath("attributes.list");
 
     return true;
   }
@@ -33,7 +32,7 @@ mixin(AttributeCalls!("List"));
 unittest {
   auto attribute = new DListAttribute;
   assert(attribute.name == "list");
-  assert(attribute.registerPath == "list");
+  assert(attribute.registerPath == "attributes.list");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DStringAttribute) generalAttribute);

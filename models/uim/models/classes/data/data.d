@@ -121,7 +121,7 @@ class DData : IData {
   }
   Json getJson(string key) {
     return _value.hasKey("value")
-      ? get(_value["value"], key) : Json(null);
+      ? uim.core.datatypes.json.getJson(_value["value"], key) : Json(null);
   }
   // #endregion get
 

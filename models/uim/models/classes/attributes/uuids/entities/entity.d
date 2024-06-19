@@ -6,6 +6,7 @@
 module uim.models.classes.attributes.uuids.entities.entity;
 
 import uim.models;
+
 @safe:
 
 // A unique identifier for entity instances
@@ -13,24 +14,33 @@ import uim.models;
 class DEntityIdAttribute : DUUIDAttribute {
   mixin(AttributeThis!("EntityId"));
 
-/*  is.dataFormat.character
+  /*  is.dataFormat.character
 is.dataFormat.big
 is.dataFormat.array
 is.dataFormat.guid
 means.identity.entityId */
 
+  // Initialization hook method.
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) { return false; }
 
+  registerPath("attributes.entityid");
 
+      return true;
+  }  
 }
+
 mixin(AttributeCalls!("EntityId"));
 
 ///
 unittest {
   auto attribute = new DEntityIdAttribute;
+  assert(attribute.name == "EntityIdAttribute");
+  assert(attribute.registerPath == "attributes.entityid");
 
   DAttribute generalAttribute = attribute;
-  assert(cast(DUUIDAttribute)generalAttribute);
-  assert(!cast(DIntegerAttribute)generalAttribute);
+  assert(cast(DUUIDAttribute) generalAttribute);
+  assert(!cast(DIntegerAttribute) generalAttribute);
 
   // Json value = attribute.createValue();
   // assert(cast(DUUIDData)value);

@@ -17,8 +17,7 @@ class DFileIdAttribute : DEntityIdAttribute {
       return false;
     }
 
-    name("fileId");
-    registerPath("fileId");
+    registerPath("attributes.fileId");
 
     return true;
 
@@ -30,8 +29,8 @@ mixin(AttributeCalls!("FileId"));
 ///
 unittest {
   auto attribute = new DFileIdAttribute;
-  assert(attribute.name == "fileId");
-  assert(attribute.registerPath == "fileId");
+  assert(attribute.name == "FileIdAttribute");
+  assert(attribute.registerPath == "attributes.fileid");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DEntityIdAttribute) generalAttribute);

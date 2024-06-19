@@ -17,8 +17,7 @@ class DModifiedOnBehalfByAttribute : DEntityIdAttribute {
       return false;
     }
 
-    name("modifiedOnBehalfBy");
-    registerPath("modifiedOnBehalfBy");
+    registerPath("attributes.modifiedonbehalfby");
 
     return true;
   }
@@ -29,8 +28,8 @@ mixin(AttributeCalls!("ModifiedOnBehalfBy"));
 ///
 unittest {
   auto attribute = new DModifiedOnBehalfByAttribute;
-  assert(attribute.name == "modifiedOnBehalfBy");
-  assert(attribute.registerPath == "modifiedOnBehalfBy");
+  assert(attribute.name == "ModifiedOnBehalfByAttribute");
+  assert(attribute.registerPath == "attributes.modifiedonbehalfby");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DEntityIdAttribute) generalAttribute);

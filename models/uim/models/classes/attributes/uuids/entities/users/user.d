@@ -25,26 +25,28 @@ class DUserIdAttribute : DEntityIdAttribute {
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) { return false; }
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
-    name("userId");
-     registerPath("userId");
+    registerPath("attributes.userid");
 
-      return true;
-  }  
+    return true;
+  }
 }
+
 mixin(AttributeCalls!("UserId"));
 
 ///
 unittest {
   auto attribute = new DUserIdAttribute;
-  assert(attribute.name == "userId");
-  assert(attribute.registerPath == "userId");
+  assert(attribute.name == "UserIdAttribute");
+  assert(attribute.registerPath == "attributes.userid");
 
   DAttribute generalAttribute = attribute;
-  assert(cast(DEntityIdAttribute)generalAttribute);
-  assert(cast(DUUIDAttribute)generalAttribute);
-  assert(!cast(DIntegerAttribute)generalAttribute);
+  assert(cast(DEntityIdAttribute) generalAttribute);
+  assert(cast(DUUIDAttribute) generalAttribute);
+  assert(!cast(DIntegerAttribute) generalAttribute);
 
   // Json value = attribute.createValue();
   // assert(cast(DUUIDData)value);

@@ -17,7 +17,6 @@ class DCampaignIdAttribute : DEntityIdAttribute {
       return false;
     }
 
-    name("campaignId");
     registerPath("campaignId");
 
     return true;
@@ -29,8 +28,8 @@ mixin(AttributeCalls!("CampaignId"));
 ///
 unittest {
   auto attribute = new DCampaignIdAttribute;
-  assert(attribute.name == "campaignId");
-  assert(attribute.registerPath == "campaignId");
+  assert(attribute.name == "CampaignIdAttribute");
+  assert(attribute.registerPath == "attributes.campaignid");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DEntityIdAttribute) generalAttribute);

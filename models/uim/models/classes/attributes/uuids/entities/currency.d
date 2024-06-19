@@ -17,7 +17,6 @@ class DCurrencyIdAttribute : DEntityIdAttribute {
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
-    name("currencyId");
       registerPath("currencyId");
 
       return true;
@@ -28,8 +27,8 @@ mixin(AttributeCalls!("CurrencyId"));
 ///
 unittest {
   auto attribute = new DCurrencyIdAttribute;
-  assert(attribute.name == "currencyId");
-  assert(attribute.registerPath == "currencyId");
+  assert(attribute.name == "CurrencyIdAttribute");
+  assert(attribute.registerPath == "attributes.currencyid");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DEntityIdAttribute)generalAttribute);

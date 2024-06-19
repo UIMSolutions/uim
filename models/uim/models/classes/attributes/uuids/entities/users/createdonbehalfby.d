@@ -17,8 +17,7 @@ class DCreatedOnBehalfByAttribute : DEntityIdAttribute {
       return false;
     }
 
-    name("createdOnBehalfBy");
-    registerPath("createdOnBehalfBy");
+    registerPath("attributes.createdonbehalfby");
 
     return true;
   }
@@ -29,8 +28,8 @@ mixin(AttributeCalls!("CreatedOnBehalfBy"));
 ///
 unittest {
   auto attribute = new DCreatedOnBehalfByAttribute;
-  assert(attribute.name == "createdOnBehalfBy");
-  assert(attribute.registerPath == "createdOnBehalfBy");
+  assert(attribute.name == "CreatedOnBehalfByAttribute");
+  assert(attribute.registerPath == "attributes.createdonbehalfby");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DEntityIdAttribute) generalAttribute);

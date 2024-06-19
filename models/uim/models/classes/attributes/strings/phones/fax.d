@@ -24,8 +24,7 @@ class DFaxAttribute : DStringAttribute {
       return false;
     }
 
-    name("fax");
-    registerPath("fax");
+    registerPath("attributes.fax");
 
     return true;
 
@@ -34,8 +33,6 @@ class DFaxAttribute : DStringAttribute {
 
 mixin(AttributeCalls!("Fax"));
 
-version (test_uim_models) {
   unittest {
     // TODO
-  }
 }

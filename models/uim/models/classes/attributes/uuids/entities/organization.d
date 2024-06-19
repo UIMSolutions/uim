@@ -17,8 +17,7 @@ class DOrganizationIdAttribute : DEntityIdAttribute {
       return false;
     }
 
-    name("organizationId");
-    registerPath("organizationId");
+    registerPath("attributes.organizationid");
 
     return true;
   }
@@ -29,8 +28,8 @@ mixin(AttributeCalls!("OrganizationId"));
 ///
 unittest {
   auto attribute = new DOrganizationIdAttribute;
-  assert(attribute.name == "organizationId");
-  assert(attribute.registerPath == "organizationId");
+  assert(attribute.name == "OrganizationIdAttribute");
+  assert(attribute.registerPath == "attributes.organizationid");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DEntityIdAttribute) generalAttribute);

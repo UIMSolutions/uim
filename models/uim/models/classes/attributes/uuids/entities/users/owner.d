@@ -15,8 +15,7 @@ class DOwnerIdAttribute : DEntityIdAttribute {
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
-    name("ownerId");
-    registerPath("ownerId");
+    registerPath("attributes.ownerId");
 
   return true;
   }  
@@ -26,8 +25,8 @@ mixin(AttributeCalls!("OwnerId"));
 ///
 unittest {
   auto attribute = new DOwnerIdAttribute;
-  assert(attribute.name == "ownerId");
-  assert(attribute.registerPath == "ownerId");
+  assert(attribute.name == "OwnerIdAttribute");
+  assert(attribute.registerPath == "attributes.ownerid");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DEntityIdAttribute)generalAttribute);

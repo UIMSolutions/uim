@@ -327,7 +327,7 @@ class DMarshaller {
 
                 myexisting = null;
                 results.each!((row) {
-                    auto myKey = join(";", row.extract(mykeyFields));
+                    auto myKey = row.extract(mykeyFields).join(";");
                     myexisting[myKey] = row;
                 });
                 foreach (index : myrow; mydata) {
@@ -339,7 +339,7 @@ class DMarshaller {
                     aKey = keys.join(";");
 
                     // Update existing record and child associations
-                    if (isSet(myexisting[aKey])) {
+                    if (myexisting.hasKey(aKey)) {
                         myrecords[index] = this.merge(myexisting[aKey], myrow, options);
                     }
                 }
@@ -681,7 +681,7 @@ class DMarshaller {
                 return null;
             }
 
-            return !empty(myassociated) && !isIn("_joinData", myassociated, true) && !isSet(myassociated["_joinData"])
+            return !empty(myassociated) && !isIn("_joinData", myassociated, true) && !myassociated.hasKey("_joinData")
                 ? _mergeMany(myoriginal, myvalue, options) : _mergeJoinData(myoriginal, associationToMarshall, myvalue, options);
         }
 

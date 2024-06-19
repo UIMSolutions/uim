@@ -15,15 +15,10 @@ class DBreadcrumbsHelper : DHelper {
     mixin(HelperThis!("Breadcrumbs"));
     mixin TStringContents;
 
-    /**
-     * Other helpers used by BreadcrumbsHelper.
-     */
-    protected Json[string] myhelpers = ["Url"];
+    // Other helpers used by BreadcrumbsHelper.
+    protected string[] _helpers = ["Url"];
 
-    /**
-     * Default config for the helper.
-     *
-     */
+    // Default config for the helper.
     configuration.updateDefaults([
         "templates": [
             "wrapper": "<ul{{attrs}}>{{content}}</ul>",
@@ -33,12 +28,8 @@ class DBreadcrumbsHelper : DHelper {
         ],
     ];
 
-    /**
-     * The crumb list.
-     *
-     * @var array
-     */
-    protected Json[string] mycrumbs = null;
+    // The crumb list.
+    protected Json[string] _crumbs = null;
 
     /**
      * Add a crumb to the end of the trail.
@@ -62,10 +53,10 @@ class DBreadcrumbsHelper : DHelper {
      */
     void add(string[] mytitle, string[] myurl = null, Json[string] options  = null) {
         if (mytitle.isArray) {
-            mytitle.each!(crumb => this.crumbs ~= crumb ~ ["title": "", "url": Json(null), "options": Json.emptyArray]);
+            mytitle.each!(crumb => _crumbs ~= crumb ~ ["title": "", "url": Json(null), "options": Json.emptyArray]);
             return;
         }
-        this.crumbs ~= compact("title", "url", "options");
+        _crumbs = _crumbs.update(compact("title", "url", "options"));
     }
     
     /**
@@ -89,13 +80,11 @@ class DBreadcrumbsHelper : DHelper {
      */
     void prepend(string[] titles, string[] myurl = null, Json[string] options  = null) {
         if (mytitle.isArray) {
-            string[] mycrumbs;
-            foreach (title; titles) {
-                mycrumbs ~= title ~ ["title": "", "url": Json(null), "options": Json.emptyArray];
-            }
-            array_splice(this.crumbs, 0, 0, mycrumbs);
+            string[] newCrumbs;
+            titles.each!(title => newCrumbs ~= title ~ ["title": "", "url": Json(null), "options": Json.emptyArray]);
+            array_splice(_crumbs, 0, 0, newCrumbs);
         }
-        array_unshift(this.crumbs, compact("title", "url", "options"));
+        array_unshift(_crumbs, compact("title", "url", "options"));
     }
     
     /**
@@ -123,7 +112,7 @@ class DBreadcrumbsHelper : DHelper {
             throw new DLogicException(
                 "No crumb could be found at index `%s`.".format(myindex));
         }
-        array_splice(this.crumbs, myindex, 0, [compact("title", "url", "options")]);
+        array_splice(_crumbs, myindex, 0, [compact("title", "url", "options")]);
     }
     
     /**

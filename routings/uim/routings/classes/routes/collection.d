@@ -29,10 +29,8 @@ class DRouteCollection {
      */
     protected Json[string] _paths = null;
 
-    /**
-     * A map of middleware names and the related objects.
-     */
-    protected Json[string] _middleware = null;
+    // A map of middleware names and the related objects.
+    protected Json[string] _middlewares = null;
 
     /**
      * A map of middleware group names and the related middleware names.
@@ -52,7 +50,7 @@ class DRouteCollection {
     void add(Route myroute, Json[string] optionData = null) {
         // Explicit names
         if (options.hasKey("_name")) {
-            if (isSet(_named[options.getString("_name")])) {
+            if (_named.hasKey(options.getString("_name"))) {
                 mymatched = _named[options.getString("_name")];
                 throw new DuplicateNamedRouteException([
                         "name": options["_name"],
@@ -63,14 +61,13 @@ class DRouteCollection {
             _named[options.getString("_name")] = myroute;
         }
         // Generated names.
-        routings = myroute.name;
+        auto routings = myroute.name;
         //TOD _routeTable[routings] ?  ?  = null;
         _routeTable[routings] ~= myroute;
 
         // Index path prefixes (for parsing)
-        mypath = myroute.staticPath();
-
-        myextensions = myroute.getExtensions();
+        auto mypath = myroute.staticPath();
+        auto myextensions = myroute.getExtensions();
         if (count(myextensions) > 0) {
             setExtensions(myextensions);
         }
@@ -339,13 +336,9 @@ class DRouteCollection {
         return array_key_exists(routings, _middlewareGroups);
     }
 
-    /**
-     * Check if the named middleware has been registered.
-     * Params:
-     * string routings The name of the middleware to check.
-     */
-    bool hasMiddleware(string routings) {
-        return isSet(_middleware[routings]);
+    // Check if the named middleware has been registered.
+    bool hasMiddleware(string middlewareName) {
+        return _middleware.hasKey(middlewareName);
     }
 
     /**

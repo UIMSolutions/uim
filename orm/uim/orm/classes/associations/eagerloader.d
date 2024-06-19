@@ -478,7 +478,7 @@ class DEagerLoader {
             result += _resolveJoins(myloadable.associations(), []);
         }
         foreach (myassociations as mytable: myloadable) {
-            myinMatching = isSet(mymatching[mytable]);
+            auto myinMatching = mymatching.hasKey(mytable);
             if (!myinMatching && myloadable.canBeJoined()) {
                 result[mytable] = myloadable;
                 result += _resolveJoins(myloadable.associations(), []);

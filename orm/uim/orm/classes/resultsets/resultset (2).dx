@@ -463,18 +463,18 @@ class DResultset : IResultset {
         }
 
         foreach (presentAliases as alias: present) {
-            if (!isset(results[aliasName])) {
+            if (!results.hasKey(aliasName)) {
                 continue;
             }
             results[defaultAlias][aliasName] = results[aliasName];
         }
 
-        if (isset(results["_matchingData"])) {
+        if (results.hasKey("_matchingData")) {
             results[defaultAlias]["_matchingData"] = results["_matchingData"];
         }
 
         options["source"] = _defaultTable.registryKey();
-        if (isset(results[defaultAlias])) {
+        if (results.hasKey(defaultAlias)) {
             results = results[defaultAlias];
         }
         if (_hydrate && !(results instanceof IORMEntity)) {

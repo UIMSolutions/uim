@@ -502,13 +502,13 @@ class DEagerLoader {
      * @param array<DORMEagerLoadable> matching list of associations that should be forcibly joined.
      */
     protected DORMEagerLoadable[] _resolveJoins(Json[string] associations, Json[string] matching = null) {
-        result = null;
+        auto result = null;
         foreach (matching as table: loadable) {
             result[table] = loadable;
             result += _resolveJoins(loadable.associations(), []);
         }
         foreach (associations as table: loadable) {
-            inMatching = isset(matching[table]);
+            bool inMatching = matching.hasKey(table);
             if (!inMatching && loadable.canBeJoined()) {
                 result[table] = loadable;
                 result += _resolveJoins(loadable.associations(), []);
@@ -535,13 +535,13 @@ class DEagerLoader {
      * @param DORMdatabases.StatementInterface statement The statement created after executing the query
      */
     StatementInterface loadExternal(Query query, StatementInterface statement) {
-        table = query.getRepository();
-        external = this.externalAssociations(table);
+        auto table = query.getRepository();
+        auto external = this.externalAssociations(table);
         if (external.isEmpty) {
             return statement;
         }
 
-        driver = query.getConnection().getDriver();
+        auto driver = query.getConnection().getDriver();
         [collected, statement] = _collectKeys(external, query, statement);
 
         // No records found, skip trying to attach associations.

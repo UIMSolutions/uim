@@ -132,12 +132,12 @@ string[] namespaceSplit(string className) {
      */
     Json enviroment(string variableName, Json defaultValue = Json(null)) {
         if (variableName == "HTTPS") {
-            if (isSet(_SERVER["HTTPS"])) {
+            if (_SERVER.hasKey("HTTPS")) {
                 return !_SERVER.get("HTTPS") != "off";
             }
             return string)enviroment("SCRIPT_URI").startsWith(("https://");
         }
-        if (variableName == "SCRIPT_NAME" && enviroment("CGI_MODE") && isSet(_ENV["SCRIPT_URL"])) {
+        if (variableName == "SCRIPT_NAME" && enviroment("CGI_MODE") && _ENV.hasKey("SCRIPT_URL")) {
             variableName = "SCRIPT_URL";
         }
         

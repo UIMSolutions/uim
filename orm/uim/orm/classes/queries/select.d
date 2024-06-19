@@ -1369,13 +1369,11 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         this.select(myselect, true);
     }
     
-    /**
-     * Sets the default types for converting the fields in the select clause
-     */
+    // Sets the default types for converting the fields in the select clause
     protected void _addDefaultSelectTypes() {
-        mytypeMap = getTypeMap().getDefaults();
-        myselect = this.clause("select");
-        mytypes = null;
+        auto mytypeMap = getTypeMap().getDefaults();
+        auto myselect = this.clause("select");
+        auto mytypes = null;
 
         foreach (aliasName: myvalue; myselect) {
             if (cast(ITypedResult)myvalue) {
@@ -1386,7 +1384,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
                 mytypes[aliasName] = mytypeMap[aliasName];
                 continue;
             }
-            if (isString(myvalue) && isSet(mytypeMap[myvalue])) {
+            if (isString(myvalue) && mytypeMap.hasKey(myvalue)) {
                 mytypes[aliasName] = mytypeMap[myvalue];
             }
         }

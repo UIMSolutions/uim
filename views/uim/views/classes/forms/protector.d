@@ -295,11 +295,9 @@ class DFormProtector {
      */
     protected string[] sortedUnlockedFields(Json[string] formData) {
         string unlocked = urldecode(formData["_Token.unlocked"]);
-        if (unlocked.isEmpty) {
-            return null;
-        }
-        
-        return unlocked.split("|").sort(SORT_STRING);
+        return !unlocked.isEmpty
+            ? unlocked.split("|").sort(SORT_STRING)
+            : null;        
     }
     
     /**
@@ -309,8 +307,8 @@ class DFormProtector {
      * @param string asessionId Session Id.
      */
     STRINGAA buildTokenData(string aurl = "", string asessionId= null) {
-        auto fields = this.fields;
-        auto unlockedFields = this.unlockedFields;
+        auto fields = _fields.dup;
+        auto unlockedFields = _unlockedFields.dup;
 
         auto locked = null;
         fields.byKeyValue
@@ -328,7 +326,7 @@ class DFormProtector {
         ksort(locked, SORT_STRING);
         fields += locked;
 
-        fields = this.generateHash(fields, unlockedFields, url, sessionId);
+        fields = generateHash(fields, unlockedFields, url, sessionId);
         locked = locked.keys.join("|");
 
         return [

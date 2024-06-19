@@ -73,7 +73,7 @@ class DIniConfig : DConfigEngine {
         if (contents == false) {
             throw new DException("Cannot parse INI file `%s`".format(file));
         }
-        if (_section && isSet(contents[_section])) {
+        if (_section && contents.hasKey(_section)) {
              someValues = _parseNestedValues(contents[_section]);
         } else {
              someValues = null;

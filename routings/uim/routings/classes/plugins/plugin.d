@@ -77,18 +77,17 @@ class DPlugin : IPlugin {
      */
     this(s[string] options = null) {
         foreach (aKey; VALID_HOOKS) {
-            if (isSet(options[aKey])) {
-                this.{"{aKey}Enabled"} = (bool)options[aKey];
+            if (options.hasKey(aKey)) {
+                this.{"{aKey}Enabled"} = options.getBoolean(aKey);
             }
         }
         ["name", "path", "classPath", "configPath", "templatePath"]
-            .each!(path => if (isSet(options[path])) {
+            .each!(path => if (options.hasKey(path)) {
                 this.{path} = options[path];
             });
 
         this.initialize();
     }
-    */
 
     string path() {
         if (!_path.isNull) {

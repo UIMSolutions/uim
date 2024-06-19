@@ -1137,18 +1137,18 @@ class DValidation {
             return true;
         } */
         /* if (
-            isSet(options["minSize"])
+            options.hasKey("minSize")
             && !fileSize(myfile, COMPARE_GREATER_OR_EQUAL, options["minSize"])
        ) {
             return false;
         }
         if (
-            isSet(options["maxSize"])
+            options.hasKey("maxSize")
             && !fileSize(myfile, COMPARE_LESS_OR_EQUAL, options["maxSize"])
        ) {
             return false;
         }
-        if (isSet(options["types"]) && !mimeType(myfile, options["types"])) {
+        if (options.hasKey("types") && !mimeType(myfile, options["types"])) {
             return false;
         } */
         return true;

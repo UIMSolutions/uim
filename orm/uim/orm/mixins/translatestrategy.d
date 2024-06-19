@@ -97,23 +97,23 @@ mixin template TTranslateStrategy() {
      * @param Json[string] options The options array used in the marshalling call.
      */
     Json[string] buildMarshalMap(DMarshaller marshaller, Json[string] map, Json[string] optionData) {
-        if (isset(options["translations"]) && !options["translations"]) {
+        if (options.hasKey("translations"]) && !options["translations"]) {
             return [];
         }
 
         return [
             "_translations": function (value, entity) use (marshaller, options) {
-                if (!(value.isArray) {
+                if (!value.isArray) {
                     return null;
                 }
 
                 /** @var array<string, DORMDatasource\IORMEntity>|null translations */
-                translations = entity.get("_translations");
+                auto translations = entity.get("_translations");
                 if (translations == null) {
                     translations = null;
                 }
 
-                options["validate"] = configuration.get("validator"];
+                options.set("validate", configuration.get("validator");
                 errors = null;
                 foreach (value as language: fields) {
                     if (!translations.hasKey(language)) {

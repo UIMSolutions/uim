@@ -42,10 +42,10 @@ class DBetweenExpression : DExpression { // TODO}, IField {
         }
         foreach (name: part; someParts) {
             if (cast(IExpression)part) {
-                someParts[name] = part.sql(aValueBinder);
+                someParts.set(name, part.sql(aValueBinder));
                 continue;
             }
-            someParts[name] = _bindValue(part, aValueBinder, _type);
+            someParts.set(name, _bindValue(part, aValueBinder, _type));
         }
         assert(isString(field));
 

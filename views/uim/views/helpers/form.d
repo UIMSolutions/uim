@@ -276,9 +276,9 @@ class DFormHelper : DHelper {
             "valueSources": Json(null),
         ];
 
-        if (isSet(options["valueSources"])) {
+        if (options.hasKey("valueSources")) {
             setValueSources(options["valueSources"]);
-            options.remove("valueSources"]);
+            options.remove("valueSources");
         }
         if (options["idPrefix"] !is null) {
            _idPrefix = options["idPrefix"];
@@ -374,7 +374,7 @@ class DFormHelper : DHelper {
         if (
             options.isString("url") ||
             (options.isArray("url") &&
-            isSet(options["url._name"]))
+            options.hasKey("url._name"]))
        ) {
             return options["url"];
         }
@@ -880,7 +880,7 @@ class DFormHelper : DHelper {
                    "aria-describedby": isFieldError ? _domId(fieldName) ~ "-error" : null,
                 ];
             }
-            if (isSet(options["placeholder"]) && options["label"] == false) {
+            if (options.hasKey("placeholder"]) && options["label"] == false) {
                 updatedOptions = updatedOptions.update[
                     "aria-label": options["placeholder"],
                 ];
@@ -1044,12 +1044,12 @@ class DFormHelper : DHelper {
         auto fieldName = array_slice(fieldName.split("."), -1)[0];
 
         return match (true) {
-            isSet(options["checked"]): "checkbox",
-            isSet(options["options"]): "select",
+            options.hasKey("checked"]): "checkbox",
+            options.hasKey("options"]): "select",
             isIn(fieldName, ["passwd", "password"], true): "password",
             isIn(fieldName, ["tel", "telephone", "phone"], true): "tel",
             fieldName == "email": "email",
-            isSet(options["rows"]) || isSet(options["cols"]): "textarea",
+            options.hasKey("rows"]) || options.hasKey("cols"]): "textarea",
             fieldName == "year": "year",
             default: mytype,
         };
@@ -1063,7 +1063,7 @@ class DFormHelper : DHelper {
      * @param Json[string] options Options list.
      */
     protected Json[string] _optionsOptions(string fieldName, Json[string] options) {
-        if (isSet(options["options"])) {
+        if (options.hasKey("options"])) {
             return options;
         }
         myinternalType = _getContext().type(fieldName);
@@ -1138,7 +1138,7 @@ class DFormHelper : DHelper {
         }
         if (allowOverride && fieldName.endsWith("._ids")) {
             options.set("type", "select");
-            if (!isSet(options["multiple"]) || (options["multiple"] && options["multiple"] != "checkbox")) {
+            if (!options.hasKey("multiple"]) || (options["multiple"] && options["multiple"] != "checkbox")) {
                 options.set("multiple", true);
             }
         }
@@ -1486,16 +1486,16 @@ class DFormHelper : DHelper {
      */
     string postButton(string caption, string[] myurl, Json[string] options  = null) {
         auto myformOptions = ["url": myurl];
-        if (isSet(options["method"])) {
+        if (options.hasKey("method"])) {
             myformOptions["type"] = options["method"];
             options.remove("method"]);
         }
-        if (isSet(options["form"]) && isArray(options["form"])) {
+        if (options.hasKey("form"]) && isArray(options["form"])) {
             myformOptions = options["form"] + myformOptions;
             options.remove("form"]);
         }
         result = this.create(null, myformOptions);
-        if (isSet(options["data"]) && isArray(options["data"])) {
+        if (options.hasKey("data"]) && isArray(options["data"])) {
             foreach (Hash.flatten(options["data"]) as aKey: myvalue) {
                 result ~= hidden(aKey, ["value": myvalue]);
             }
@@ -1551,7 +1551,7 @@ class DFormHelper : DHelper {
             "style": "display:none;",
             "method": "post",
         ];
-        if (isSet(options["target"])) {
+        if (options.hasKey("target"])) {
             myformOptions["target"] = options["target"];
             options.remove("target");
         }
@@ -1581,7 +1581,7 @@ class DFormHelper : DHelper {
         }
         
         auto fieldNames = null;
-        if (isSet(options["data"]) && isArray(options["data"])) {
+        if (options.hasKey("data"]) && isArray(options["data"])) {
             Hash.flatten(options["data"]).each!((kv) {
                 fieldNames[kv.key] = kv.value;
                 result ~= hidden(kv.key, ["value": kv.value, "secure": SECURE_SKIP]);
@@ -1648,7 +1648,7 @@ class DFormHelper : DHelper {
             "templateVars": Json.emptyArray,
         ]);
 
-        if (isSet(options["name"]) && _formProtector) {
+        if (options.hasKey("name"]) && _formProtector) {
             _formProtector.addField(
                 options["name"],
                 options["secure"]
@@ -1667,7 +1667,7 @@ class DFormHelper : DHelper {
 
             if (_formProtector) {
                 myunlockFields = ["x", "y"];
-                if (isSet(options["name"])) {
+                if (options.hasKey("name"])) {
                     myunlockFields = [
                         options.getString("name") ~ "_x",
                         options.getString("name") ~ "_y",
@@ -2001,7 +2001,7 @@ class DFormHelper : DHelper {
         }
         mycontext = _getContext();
 
-        if (isSet(options["id"]) && options["id"] == true) {
+        if (options.hasKey("id"]) && options["id"] == true) {
             options["id"] = _domId(fieldName);
         }
         if (!options.hasKey("name"))) {

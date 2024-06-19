@@ -256,13 +256,12 @@ class DPaginator : IPaginator {
         if (!pagingOptions.isNull("count")) {
             pageCount = max((int)ceil(pagingOptions["count"] / pagingOptions["perPage"]), 1);
             page = min(page, pageCount);
-        } elseif (pagingOptions["current"] == 0 && pagingOptions["requestedPage"] > 1) {
+        } elseif (pagingOptions.getInteger("current") == 0 && pagingOptions["requestedPage"] > 1) {
             page = 1;
         }
 
-        pagingOptions["page"] = page;
-        pagingOptions["pageCount"] = pageCount;
-
+        pagingOptions.set("page", page);
+        pagingOptions.set("pageCount", pageCount);
         return pagingOptions;
     }
 
@@ -488,7 +487,7 @@ class DPaginator : IPaginator {
             && count(paginationData["order"]) == 1
             && !key(paginationData["order"].isNumeric)
        ) {
-            paginationData["sort"] = key(paginationData["order"]);
+            paginationData.set("sort", key(paginationData["order"]));
         }
 
         paginationData["order"] = _prefix(repository, paginationData["order"], sortAllowed);
@@ -498,21 +497,21 @@ class DPaginator : IPaginator {
 
     // Remove alias if needed.
     protected Json[string] _removeAliases(Json[string] fieldNames, string modelAlias) {
-        myResult= null;
+        Json[string] myResult = null;
         foreach (fieldNames as myField: sort) {
             if (indexOf(myField, ".") == false) {
-                myResult[myField] = sort;
+                myResult.set(myField, sort);
                 continue;
             }
 
             [aliasName, currentField] = explode(".", myField);
 
             if (aliasName == modelAlias) {
-                myResult[currentField] = sort;
+                myResult.set(currentField, sort);
                 continue;
             }
 
-            myResult[myField] = sort;
+            myResult.set(myField, sort);
         }
 
         return myResult;
@@ -521,7 +520,7 @@ class DPaginator : IPaginator {
     // Prefixes the field with the table alias if possible.
     protected Json[string] _prefix(IRepository repository, Json[string] orderData, bool isAllowed = false) {
         sring myTableAlias = repository.aliasName();
-        myTableOrder= null;
+        Json[string] myTableOrder = null;
         foreach (orderData as myKey: myValue) {
             if (myKey.isNumeric) {
                 myTableOrder ~= myValue;
@@ -533,18 +532,18 @@ class DPaginator : IPaginator {
             if (indexOf(myKey, ".") !== false) {
                 [aliasName, myField] = explode(".", myKey);
             }
-            correctAlias = (myTableAlias == aliasName);
 
+            auto correctAlias = (myTableAlias == aliasName);
             if (correctAlias && isAllowed) {
                 // Disambiguate fields in schema. As id is quite common.
                 if (repository.hasField(myField)) {
                     myField = aliasName ~ "." ~ myField;
                 }
-                myTableOrder[myField] = myValue;
+                myTableOrder.set(myField, myValue);
             } elseif (correctAlias && repository.hasField(myField)) {
-                myTableOrder[myTableAlias ~ "." ~ myField] = myValue;
+                myTableOrder.set(myTableAlias ~ "." ~ myField, myValue);
             } elseif (!correctAlias && isAllowed) {
-                myTableOrder[aliasName ~ "." ~ myField] = myValue;
+                myTableOrder.set(aliasName ~ "." ~ myField, myValue);
             }
         }
 

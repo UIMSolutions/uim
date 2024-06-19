@@ -272,25 +272,25 @@ class DNumericPaginator : IPaginator {
 
     // Add "start" and "end" params.
     protected Json[string] addStartEndParams(Json[string] pagingParams, Json[string] paginatorData) {
-        auto start = 0;
-        auto end = 0;
+        int start = 0;
+        int end = 0;
 
-        if (pagingParams["current"] > 0) {
+        if (pagingParams.getInteger("current") > 0) {
             start = ((pagingParams["page"] - 1) * pagingParams["perPage"]) + 1;
             end = start + pagingParams["current"] - 1;
         }
 
-        pagingParams["start"] = start;
-        pagingParams["end"] = end;
+        pagingParams.get("start", start);
+        pagingParams.get("end", end);
         return pagingParams;
     }
 
     // Add "prevPage" and "nextPage" params.
     protected Json[string] addPrevNextParams(Json[string] paginatorData, Json[string] pagingData) {
-        paginatorData["prevPage"] = paginatorData.getLong("page") > 1;
-        paginatorData["nextPage"] = paginatorData.hasKey("count")
-            ? true : paginatorData.getLong("count") > paginatorData.getLong(
-                "page") * paginatorData.getLong("perPage");
+        paginatorData.set("prevPage", paginatorData.getLong("page") > 1);
+        paginatorData.set("nextPage", paginatorData.hasKey("count")
+            ? true 
+            : paginatorData.getLong("count") > paginatorData.getLong("page") * paginatorData.getLong("perPage"));
 
         return paginatorData;
     }
@@ -502,17 +502,17 @@ class DNumericPaginator : IPaginator {
     // Prefixes the field with the table alias if possible.
     protected Json[string] _prefix(IRepository repository, Json[string] orderData, bool allowed = false) {
         auto tableAlias = repository.aliasName();
-        auto tableOrder = null;
-        foreach (key, value; orderData) {
-            if (key.isNumeric) {
-                tableOrder ~= value;
+        Json[string] tableOrder = null;
+        orderData.byKeyValue.each!((kv) {
+            if (kv.key.isNumeric) {
+                tableOrder ~= kv.value;
                 continue;
             }
-            string field = key;
+            string field = kv.key;
             string aliasName = tableAlias;
 
-            if (indexOf(key, ".") != false) {
-                [aliasName, field] = explode(".", key);
+            if (indexOf(kv.key, ".") != false) {
+                [aliasName, field] = explode(".", kv.key);
             }
             correctAlias = (tableAlias == aliasName);
             if (correctAlias && allowed) {
@@ -520,26 +520,26 @@ class DNumericPaginator : IPaginator {
                 if (repository.hasField(field)) {
                     field = aliasName ~ "." ~ field;
                 }
-                tableOrder[field] = value;
+                tableOrder.set(field, kv.value);
             }
             elseif(correctAlias && repository.hasField(field)) {
-                tableOrder[tableAlias ~ "." ~ field] = value;
+                tableOrder.set(tableAlias ~ "." ~ field, kv.value);
             }
             elseif(!correctAlias && allowed) {
-                tableOrder[aliasName ~ "." ~ field] = value;
+                tableOrder.set(aliasName ~ "." ~ field, kv.value);
             }
-        }
+        });
 
         return tableOrder;
     }
 
     // Check the limit parameter and ensure it"s within the maxLimit bounds.
-    Json[string] checkLimit(Json[string] optionData) {
-        int limitOption = optionData.getLong("limit");
+    Json[string] checkLimit(Json[string] options) {
+        int limitOption = options.getLong("limit");
         if (limitOption < 1) {
             limitOption = 1;
         }
-        optionData["limit"] = max(min(limitOption, options.getLong("maxLimit")), 1);
+        options.set("limit", max(min(limitOption, options.getLong("maxLimit")), 1));
         return options;
     }
 }

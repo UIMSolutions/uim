@@ -36,8 +36,8 @@ class DResultsetFactory {
      * \ORM\Query\SelectQuery myquery The query from where to derive the data.
      */
     protected Json[string] collectData(DSelectQuery myquery) {
-        myprimaryTable = myquery.getRepository();
-        mydata = [
+        auto myprimaryTable = myquery.getRepository();
+        auto mydata = [
             "primaryAlias": myprimaryTable.aliasName(),
             "registryAlias": myprimaryTable.registryKey(),
             "entityClass": myprimaryTable.getEntityClass(),
@@ -46,7 +46,7 @@ class DResultsetFactory {
             "matchingColumns": Json.emptyArray,
         ];
 
-        myassocMap = myquery.getEagerLoader().associationsMap(myprimaryTable);
+        auto myassocMap = myquery.getEagerLoader().associationsMap(myprimaryTable);
         mydata["matchingAssoc"] = (new DCollection(myassocMap))
             .match(["matching": true.toJson])
             .indexBy("alias")
@@ -57,7 +57,7 @@ class DResultsetFactory {
             .indexBy("nestKey")
             .toJString();
 
-        fieldNames = null;
+        string[] fieldNames = null;
         myquery.clause("select").each!((keyField) {
             string key = strip(keyField.key, "[]");
 
@@ -70,14 +70,14 @@ class DResultsetFactory {
             fieldNames[parts[0]][key] = parts[1];
         });
 
-        mydata["matchingAssoc"].byKeyValues.each!((nameAssoc) {
+        mydata["matchingAssoc"].byKeyValue.each!((nameAssoc) {
             if (!fieldNames.hasKey(nameAssoc.key)) {
                 continue;
             }
-            mydata["matchingColumns"][nameAssoc.key] = fieldNames[nameAssoc.key];
+            mydata.set("matchingColumns."~nameAssoc.key, fieldNames[nameAssoc.key]);
             fieldNames.remove(nameAssoc.key);
         });
-        mydata["fields"] = fieldNames;
+        mydata.set("fields", fieldNames);
 
         return mydata;
     }

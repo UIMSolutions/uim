@@ -88,16 +88,16 @@ class DRouteBuilder {
        _collection = mycollection;
        _path = mypath;
        _params = myparams;
-        if (isSet(options["routeClass"])) {
+        if (options.hasKey("routeClass")) {
            _routeClass = options["routeClass"];
         }
-        if (isSet(options["extensions"])) {
+        if (options.hasKey("extensions")) {
            _extensions = options["extensions"];
         }
-        if (isSet(options["namePrefix"])) {
+        if (options.hasKey("namePrefix")) {
            _namePrefix = options["namePrefix"];
         }
-        if (isSet(options["middleware"])) {
+        if (options.hasKey("middleware")) {
             this.middleware = (array)options["middleware"];
         }
     }
@@ -558,7 +558,7 @@ class DRouteBuilder {
         if (isoptions.isEmpty("routeClass"])) {
             options["routeClass"] = _routeClass;
         }
-        if (isSet(options["_name"]) && _namePrefix) {
+        if (options.hasKey("_name"]) && _namePrefix) {
             options["_name"] = _namePrefix ~ options["_name"];
         }
         if (isoptions.isEmpty("_middleware"])) {

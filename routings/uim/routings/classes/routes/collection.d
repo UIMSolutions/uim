@@ -51,16 +51,16 @@ class DRouteCollection {
      */
     void add(Route myroute, Json[string] optionData = null) {
         // Explicit names
-        if (isSet(options["_name"])) {
-            if (isSet(_named[options["_name"]])) {
-                mymatched = _named[options["_name"]];
+        if (options.hasKey("_name")) {
+            if (isSet(_named[options.getString("_name")])) {
+                mymatched = _named[options.getString("_name")];
                 throw new DuplicateNamedRouteException([
                         "name": options["_name"],
                         "url": mymatched.template,
                         "duplicate": mymatched,
                     ]);
             }
-            _named[options["_name"]] = myroute;
+            _named[options.getString("_name")] = myroute;
         }
         // Generated names.
         routings = myroute.name;

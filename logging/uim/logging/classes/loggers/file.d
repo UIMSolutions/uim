@@ -8,7 +8,7 @@ import uim.logging;
  * File Storage stream for Logging. Writes logs to different files
  * based on the level of log it is.
  */
-class DFileLog { // TODO /*}: BaseLog {
+class DFileLogger : DLogger { 
 
     // Path to save log files on.
     protected string _path;

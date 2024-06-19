@@ -80,33 +80,36 @@ protected const MAX_ALIAS_LENGTH = 128;
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
         ]);
 
-        if (!configuration.get("encoding").isEmpty) {
-            configuration.get("flags"][PDO.SQLSRV_ATTR_ENCODING] = configuration.get("encoding"];
+        if (!configuration.isEmpty("encoding")) {
+            configuration.set("flags."~PDO.SQLSRV_ATTR_ENCODING, configuration.get("encoding"));
         }
         string port = configuration.getString("port");
         }
 
-        string dsn = "sqlsrv:Server={configuration.get("host"]}{port};Database={configuration.get("database"]};MultipleActiveResultsets=false";
-        dsn ~= !configuration.get("app"].isNull ? ";APP=%s".format(configuration.get("app"]) : null;
-        dsn ~= !configuration.get("connectionPooling"].isNull ? ";ConnectionPooling={configuration.get("connectionPooling"]}" : null;
-        dsn ~= !configuration.get("failoverPartner"].isNull ? ";Failover_Partner={configuration.get("failoverPartner"]}" : null;
-        dsn ~= !configuration.get("loginTimeout"].isNull ? ";LoginTimeout={configuration.get("loginTimeout"]}" : null;
-        dsn ~= !configuration.get("multiSubnetFailover"].isNull ? ";MultiSubnetFailover={configuration.get("multiSubnetFailover"]}" : null;
-        dsn ~= !configuration.isNull("encrypt") ? ";Encrypt={configuration.get("encrypt"]}" : null;
-        dsn ~= !configuration.isNull("trustServerCertificate") ? ";TrustServerCertificate={configuration.get("trustServerCertificate"]}" : null;
-        
+        string dsn = "sqlsrv:Server={host}{port};Database={database};MultipleActiveResultsets=false" 
+        ~ (configuration.hasKey("app") ? ";APP={app}" : null)
+        ~ (configuration.hasKey("connectionPooling") ? ";ConnectionPooling={connectionPooling}" : null)
+        ~ (configuration.hasKey("failoverPartner") ? ";Failover_Partner={failoverPartner}" : null)
+        ~ (configuration.hasKey("loginTimeout") ? ";LoginTimeout={loginTimeout}" : null)
+        ~ (configuration.hasKey("multiSubnetFailover") ? ";MultiSubnetFailover={multiSubnetFailover}" : null)
+        ~ (configuration.hasKey("encrypt") ? ";Encrypt={encrypt}" : null)
+        ~ (configuration.hasKey("trustServerCertificate") ? ";TrustServerCertificate={trustServerCertificate}" : null);
+
+        dsn = dsn.mustache(configuration, ["host", "port", "database", "app", "connectionPooling", "failoverPartner", 
+            "loginTimeout", "multiSubnetFailover", "encrypt", "trustServerCertificate"]);
+
         _pdo = createPdo(dsn, configData);
-        if (!(configuration.isEmpty("init")) {
-            /* (array) */configuration.get("init"))
-                .each!(command => this.pdo.exec(command));
+        if (!configuration.isEmpty("init")) {
+            configuration.getArray("init")
+                .each!(command => _pdo.exec(command));
         }
-        if (!configuration.isEmpty("settings") && isArray(configuration.get("settings"])) {
-            configuration.get("settings"].byKeyValue
-                .each!(kv => this.pdo.exec("SET %s %s".format(kv.key, kv.value)));
+        if (!configuration.isEmpty("settings") && configuration.isArray("settings")) {
+            configuration.getMap("settings").byKeyValue
+                .each!(kv => _pdo.exec("SET %s %s".format(kv.key, kv.value)));
         }
-        if (!configuration.isEmpty("attributes") && isArray(configuration.get("attributes"])) {
-            configuration.get("attributes"].byKeyValue
-                .each(kv => this.pdo.setAttribute(kv.key, kv.value));
+        if (!configuration.isEmpty("attributes") && configuration.isArray("attributes")) {
+            configuration.getMap("attributes").byKeyValue
+                .each(kv => _pdo.setAttribute(kv.key, kv.value));
         }
     }
     
@@ -130,7 +133,7 @@ protected const MAX_ALIAS_LENGTH = 128;
     IStatement prepare(string queryToPrepare) {
         string sql = queryToPrepare;
 
-       statement = getPdo().prepare(
+       auto statement = getPdo().prepare(
             sql,
             [
                 PDO.ATTR_CURSOR: PDO.CURSOR_SCROLL,
@@ -138,12 +141,13 @@ protected const MAX_ALIAS_LENGTH = 128;
             ]
        );
 
-        typeMap = null;
+        auto typeMap = null;
         if (cast(DSelectQuery)aQuery  && aQuery.isResultsCastingEnabled()) {
             typeMap = aQuery.getSelectTypeMap();
         }
 
-        return new (STATEMENT_CLASS)(statement, this, typeMap);
+        // return new (STATEMENT_CLASS)(statement, this, typeMap);
+        return null; // TODO
      }
 
 

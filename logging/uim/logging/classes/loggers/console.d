@@ -5,7 +5,7 @@ import uim.logging;
 @safe:
 
 // Console logging. Writes logs to console output.
-class DConsoleLog { /* }: BaseLog {
+class DConsoleLogger : DLogger { 
     /* configuration.updateDefaults([
         "stream": "D://stderr",
         "levels": Json(null),

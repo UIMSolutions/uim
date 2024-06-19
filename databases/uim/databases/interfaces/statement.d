@@ -5,14 +5,10 @@ import uim.databases;
 @safe:
 
 interface IStatement {
-    /**
-     * Maps to PDO.FETCH_NUM.
-     */
+    // Maps to PDO.FETCH_NUM.
     const string FETCH_TYPE_NUM = "num";
 
-    /**
-     * Maps to PDO.FETCH_ASSOC.
-     */
+    // Maps to PDO.FETCH_ASSOC.
     const string FETCH_TYPE_ASSOC = "assoc";
 
     // Maps to PDO.FETCH_OBJ.

@@ -269,7 +269,7 @@ class DExceptionTrap {
             }
         }
         if (shouldLog) {
-            this.logger().logException(exceptionToLog, serverRequest, configuration.get("trace"]);
+            logger().logException(exceptionToLog, serverRequest, configuration.get("trace"]);
         }
     }
     

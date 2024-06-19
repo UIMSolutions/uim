@@ -14,6 +14,8 @@ Contains
 - uim-errors [![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-errors.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-errors.yml)
 - uim-events [![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-events.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-events.yml)
 - uim-forms [![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-forms.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-forms.yml)
+- uim-html [![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-html.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-html.yml)
+- uim-http [![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-http.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-http.yml)
 - uim-languages [![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-languages.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-languages.yml)
 - uim-logging [![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-logging.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-logging.yml)
 - uim-mails [![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-mails.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-mails.yml)

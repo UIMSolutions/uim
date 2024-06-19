@@ -11,7 +11,8 @@ import uim.logging;
  * in testing where using mocks would be complicated. But can also
  * be used in scenarios where you need to capture logs in application code.
  */
-class DArrayLog { /* }: BaseLog {
+class DArrayLogger : DLogger { 
+    /*
     configuration.updateDefaults([
         "levels": Json.emptyArray,
         "scopes": Json.emptyArray,

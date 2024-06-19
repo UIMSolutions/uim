@@ -36,13 +36,13 @@ class DSysLogger : DLogger {
     configuration.updateDefaults([
         "levels": Json.emptyArray,
         "scopes": Json.emptyArray,
-        "flag": LOG_ODELAY,
-        "prefix": "",
-        "facility": LOG_USER,
+        "flag": LOG_ODELAY.toJson,
+        "prefix": "".toJson,
+        "facility": LOG_USER.toJson,
         "formatter": [
-            "className": DefaultFormatter.classname,
+            "className": DefaultFormatter.classname.toJson,
             "includeDate": false.toJson,
-        ],
+        ].toJson
     ];
 
     // Used to map the string names back to their LOG_* constants
@@ -73,14 +73,14 @@ class DSysLogger : DLogger {
     void log(level, string messageToLog, Json[string] context= null) {
         if (!_open) {
             configData = configuration;
-           _open(configuration.get("prefix"), configuration.get("flag"], configuration.get("facility"]);
+           _open(configuration.get("prefix"), configuration.get("flag"), configuration.get("facility"));
            _open = true;
         }
         priority = LOG_DEBUG;
         if (_levelMap.hasKey(level)) {
             priority = _levelMap[level];
         }
-        auto myLines = this.interpolate(messageToLog, context).split("\n");
+        auto myLines = interpolate(messageToLog, context).split("\n");
         myLines.each!(line => _write(priority, this.formatter.format(level, line, context)));
     }
     

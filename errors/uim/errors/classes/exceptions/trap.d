@@ -302,7 +302,7 @@ class DExceptionTrap {
             }
         }
         if (shouldLog) {
-            logger = this.logger();
+            logger = logger();
             if (method_exists(logger, "logException")) {
                 logger.logException(exceptionToLog, serverRequest, _config["trace"]);
             } else {
@@ -311,7 +311,7 @@ class DExceptionTrap {
                     "The configured logger `{loggerClass}` should implement `logException()` " ~
                     "to be compatible with future versions of UIM."
                );
-                this.logger().log(exceptionToLog, serverRequest);
+                logger().log(exceptionToLog, serverRequest);
             }
         }
         dispatchEvent("Exception.beforeRender", ["exception": exceptionToLog]);

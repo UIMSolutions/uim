@@ -10,20 +10,21 @@ import uim.i18n;
  * @param Json ...someArguments Array with arguments or multiple arguments in function.
  */
 string __(string asingular, Json ...someArguments) {
-    if (!singular) {
+    /* if (!singular) {
         return null;
     }
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
         someArguments = someArguments[0];
     }
-    return I18n.getTranslator().translate(singular, someArguments);
+    return I18n.getTranslator().translate(singular, someArguments); */
+    return null; 
 }
 /**
  * Returns correct plural form of message identified by singular and plural for count count.
  * Some languages have more than one form for plural messages dependent on the count.
  */
 string __n(string singularText, string pluralText, size_t count, Json ...someArguments) {
-    if (!singularText) {
+    /* if (!singularText) {
         return null;
     }
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
@@ -32,7 +33,8 @@ string __n(string singularText, string pluralText, size_t count, Json ...someArg
     return I18n.getTranslator().translate(
         plural,
         ["_count": count, "_singular": singularText] + someArguments
-   );
+   ); */
+   return null;
 }
 
 /**
@@ -43,14 +45,15 @@ string __n(string singularText, string pluralText, size_t count, Json ...someArg
  * @param Json ...someArguments Array with arguments or multiple arguments in function.
  */
 string __d(string adomain, string messageToTranslate, Json ...someArguments) {
-    if (messageToTranslate.isEmpty) {
+    /* if (messageToTranslate.isEmpty) {
         return null;
     }
 
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
         someArguments = someArguments[0];
     }
-    return I18n.getTranslator(domain).translate(message, someArguments);
+    return I18n.getTranslator(domain).translate(message, someArguments); */
+    return null;
 }
 
 /**

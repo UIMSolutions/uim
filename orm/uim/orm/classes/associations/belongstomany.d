@@ -1084,14 +1084,14 @@ class DBelongsToManyAssociation : DAssociation {
             }
         }
 
-        primary = (array)target.primaryKeys();
-        jointProperty = _junctionProperty;
-        foreach (targetEntities as k: entity) {
+        auto primary = (array)target.primaryKeys();
+        auto jointProperty = _junctionProperty;
+        foreach (k, entity; targetEntities) {
             if (!cast(IORMEntity)entity) {
                 continue;
             }
-            key = array_values(entity.extract(primary));
-            foreach (present as i: data) {
+            auto key = array_values(entity.extract(primary));
+            foreach (i, data; present) {
                 if (key == data && !entity.get(jointProperty)) {
                     remove(targetEntities[k], present[i]);
                     break;
@@ -1215,8 +1215,6 @@ class DBelongsToManyAssociation : DAssociation {
      * Sets the name of the junction table.
      * If no arguments are passed the current configured name is returned. A default
      * name based of the associated tables will be generated if none found.
-     *
-     * @param string name The name of the junction table.
      */
     protected string _junctionTableName(string tableName = null) {
         if (tableName.isNull) {
@@ -1239,17 +1237,17 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param Json[string] options original list of options passed in constructor
      */
-    protected void _options(Json[string] optionData) {
-        if (!options.isEmpty("targetForeignKey"])) {
+    protected void _options(Json[string] options) {
+        if (!options.isEmpty("targetForeignKey")) {
             tarforeignKeys(options["targetForeignKey"]);
         }
-        if (!options.isEmpty("joinTable"])) {
+        if (!options.isEmpty("joinTable")) {
             _junctionTableName(options["joinTable"]);
         }
-        if (!options.isEmpty("through"])) {
+        if (!options.isEmpty("through")) {
             setThrough(options["through"]);
         }
-        if (!options.isEmpty("saveStrategy"])) {
+        if (!options.isEmpty("saveStrategy")) {
             setSaveStrategy(options["saveStrategy"]);
         }
         if (options.hasKey("sort")) {

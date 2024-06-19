@@ -128,7 +128,7 @@ class DPoFileParser {
             stage = ["context"];
         }
 
-        if (line[0] == "\" ") {
+        /* if (line[0] == "\" ") {
             switch (stage.length) {
             case 2:
                 assert(isSet(stage[0]));
@@ -153,7 +153,7 @@ class DPoFileParser {
             row = to!int(subString(line, 7, 1));
             anItem["translated"][row] = subString(line, size + 3,  - 1);
             stage = ["translated", row];
-        }
+        } */
     }
 
     /**

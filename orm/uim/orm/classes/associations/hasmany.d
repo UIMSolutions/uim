@@ -88,7 +88,7 @@ class DHasManyAssociation : DAssociation {
             if (
                 sourceEntity.isNew() ||
                 getSaveStrategy() != SAVE_REPLACE
-               ) {
+                ) {
                 return sourceEntity;
             }
 
@@ -104,15 +104,15 @@ class DHasManyAssociation : DAssociation {
         foreignKeyReference = array_combine(
             /* (array) */
             foreignKeys(),
-            sourceEntity.extract(/* (array) */ getBindingKey())
-       );
+            sourceEntity.extract( /* (array) */ getBindingKey())
+        );
 
         options["_sourceTable"] = source();
 
         if (
             _saveStrategy == SAVE_REPLACE &&
             !_unlinkAssociated(foreignKeyReference, sourceEntity, getTarget(), myTargetEntities, options)
-           ) {
+            ) {
             return null;
         }
 
@@ -138,7 +138,7 @@ class DHasManyAssociation : DAssociation {
         IORMEntity sourceEntity,
         IORMEntity[] entities,
         Json[string] options
-   ) {
+    ) {
         foreignKey = foreignKeyReference.keys;
         myTable = getTarget();
         original = entities;
@@ -209,10 +209,11 @@ class DHasManyAssociation : DAssociation {
 
         currentEntities = array_unique(
             array_merge(
-                /* (array) */ sourceEntity.get(property),
+                /* (array) */
+                sourceEntity.get(property),
                 myTargetEntities
-       )
-       );
+        )
+        );
         sourceEntity.set(property, currentEntities);
 
         // TODO 
@@ -392,8 +393,8 @@ class DHasManyAssociation : DAssociation {
         Table myTarget,
         range remainingEntities = null,
         Json[string] options = null
-   ) {
-        primaryKeys = /* (array) */ myTarget.primaryKeys();
+    ) {
+        primaryKeys =  /* (array) */ myTarget.primaryKeys();
         exclusions = new DCollection(remainingEntities);
         // TODO
         /* 
@@ -496,8 +497,8 @@ class DHasManyAssociation : DAssociation {
                     return myTable.getSchema()
                     .isNullable(prop);},
                     properties
-                   )
-                   );
+                    )
+                    );
                 }
 
             /**
@@ -561,16 +562,12 @@ class DHasManyAssociation : DAssociation {
             protected void _options(
                 Json[string] options) {
                 if (
-                    !options.isEmpty(
-                        "saveStrategy")) {
+                    !options.isEmpty("saveStrategy")) {
                     setSaveStrategy(
                         options["saveStrategy"]);
                 }
-                if (
-                    isset(
-                        options["sort"])) {
-                    sortOrder(
-                        options["sort"]);
+                if (options.hasKey("sort")) {
+                    sortOrder(options["sort"]);
                 }
             }
 

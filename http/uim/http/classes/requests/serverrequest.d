@@ -203,7 +203,7 @@ class DServerRequest { // }: IServerRequest {
      */
     this(Json[string] configData = null) {
         configData += [
-            "params": this.params,
+            "params": _params,
             "query": Json.emptyArray,
             "post": Json.emptyArray,
             "files": Json.emptyArray,
@@ -529,11 +529,11 @@ class DServerRequest { // }: IServerRequest {
         if (detect.hasKey("value")) {
             aValue = detect["value"];
 
-            return isSet(this.params[aKey]) ? this.params[aKey] == aValue : false;
+            return isSet(_params[aKey]) ? _params[aKey] == aValue : false;
         }
-        if (detect.hasKey("options")) {
-            return isSet(this.params[aKey]) ? isIn(this.params[aKey], detect["options"]): false;
-        }
+        /* if (detect.hasKey("options")) {
+            return isSet(_params[aKey]) ? isIn(_params[aKey], detect["options"]): false;
+        } */
         return false;
     }
     
@@ -1238,9 +1238,9 @@ class DServerRequest { // }: IServerRequest {
         return copy;
     }
     
-    // Safely access the values in this.params.
+    // Safely access the values in _params.
     Json getParam(string path, Json defaultValue = Json(null)) {
-        return Hash.get(this.params, name, default);
+        return Hash.get(_params, name, default);
     }
     
     /**
@@ -1301,7 +1301,7 @@ class DServerRequest { // }: IServerRequest {
      */
     Json[string] getAttributes() {
         emulated = [
-            "params": this.params,
+            "params": _params,
             "webroot": this.webroot,
             "base": this.base,
             "here": this.base ~ this.uri.getPath(),

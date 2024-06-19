@@ -159,34 +159,34 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
     // Renders the response for the exception.
     IResponse render() {
-        exception = this.error;
-        code = getHttpCode(exception);
-        method = methodName(exception);
-        myTemplate = templateName(exception, method, code);
+        auto exception = this.error;
+        auto code = getHttpCode(exception);
+        auto method = methodName(exception);
+        auto myTemplate = templateName(exception, method, code);
         clearOutput();
 
         if (method_exists(this, method)) {
             return _customMethod(method, exception);
         }
 
-        myMessage = errorMessage(exception, code);
-        myUrl = _controller.getRequest().getRequestTarget();
-        response = _controller.getResponse();
+        auto myMessage = errorMessage(exception, code);
+        auto myUrl = _controller.getRequest().getRequestTarget();
+        auto response = _controller.getResponse();
 
         if (cast(DException)exception ) {
             /** @psalm-suppress DeprecatedMethod */
-            foreach (/* (array) */exception.responseHeader() as myKey: myValue) {
+            /* foreach (/* (array) * /exception.responseHeader() as myKey: myValue) {
                 response = response.withHeader(myKey, myValue);
-            }
+            } */
         }
-        if (cast(HttpException)exception instanceof) {
+        /* if (cast(HttpException)exception instanceof) {
             foreach (exception.getHeaders() as myName: myValue) {
                 response = response.withHeader(myName, myValue);
             }
-        }
-        response = response.withStatus(code);
+        } */
+        auto response = response.withStatus(code);
 
-        viewVars = [
+        auto viewVars = [
             "message": myMessage,
             "url": h(myUrl),
             "error": exception,

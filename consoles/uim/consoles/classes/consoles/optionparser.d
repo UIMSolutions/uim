@@ -584,7 +584,7 @@ class DConsoleOptionParser {
             return isSet(_options[subString(optionName, 2)]);
         }
         if (optionName[0] == "-" && optionName[1] != "-") {
-            return isSet(_shortOptions[optionName[1]]);
+            return _shortOptions.hasKey(optionName[1]);
         }
         return false;
     }
@@ -600,8 +600,8 @@ class DConsoleOptionParser {
         }
 
         auto next = count(someArguments);
-        if (!isSet(_args[next])) {
-            expected = count(_args);
+        if (!_args.hasKey(next)) {
+            auto expected = count(_args);
             throw new DConsoleException(
                 "Received too many arguments. Got `%s` but only `%s` arguments are defined."
                     .format(next, expected)

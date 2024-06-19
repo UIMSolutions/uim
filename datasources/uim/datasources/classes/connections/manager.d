@@ -254,7 +254,7 @@ static STRINGAA aliases() {
      * Params:
      */
 static IConnection get(string connectionName, bool useAliases = true) {
-    if (useAliases && isSet(_connectionAliases[connectionName])) {
+    if (useAliases && _connectionAliases.hasKey(connectionName)) {
         connectionName = _connectionAliases[connectionName];
     }
     if (!configuration.hasKey(connectionName)) {

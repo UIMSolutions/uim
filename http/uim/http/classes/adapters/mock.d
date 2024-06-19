@@ -52,14 +52,14 @@ class DMockAdapter { //}: IAdapter {
             if (!urlMatches(requestUri, mock["request"])) {
                 continue;
             }
-            if (isSet(mock["options.match"])) {
-                match = mock["options.match"](request);
+            if (mock.hasKey("options.match")) {
+                /* match = mock["options.match"](request);
                 if (!isBoolean(match)) {
                     throw new DInvalidArgumentException("Match callback must return a boolean value.");
                 }
                 if (!match) {
                     continue;
-                }
+                } */
             }
             foundIndex = index;
             break;

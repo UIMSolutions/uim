@@ -487,14 +487,15 @@ class DDebugger {
         if (type.startWith("resource ")) {
             return new DScalarNode(type, var);
         }
-        return match(type) {
+        return null; // TODO 
+        /* return match(type) {
             "float", "string", "null" : new DScalarNode(type, var),
             "bool" : new DScalarNode("bool", var),
             "int" : new DScalarNode("int", var),
             "array" : exportArray(var, context.withAddedDepth()),
             "unknown" : new DSpecialNode("(unknown)"),
             default : exportObject(var, context.withAddedDepth()),
-        };
+        }; */
     }
 
     /**

@@ -261,7 +261,7 @@ class DAssociation : IAssociation {
 
         _options(options);
 
-        if (!options.isEmpty("strategy"])) {
+        if (!options.isEmpty("strategy")) {
             setStrategy(options["strategy"]);
         }
     }
@@ -504,7 +504,7 @@ class DAssociation : IAssociation {
             .find(finder, opts)
             .eagerLoaded(true);
 
-        if (!options.isEmpty("queryBuilder"])) {
+        if (!options.isEmpty("queryBuilder")) {
             dummy = options["queryBuilder"](dummy);
             if (!cast(Query)dummy) {
                 throw new DRuntimeException(format(
@@ -515,7 +515,7 @@ class DAssociation : IAssociation {
         }
 
         if (
-            !options.isEmpty("matching"]) &&
+            !options.isEmpty("matching") &&
             _strategy == STRATEGY_JOIN &&
             dummy.getContain()
            ) {

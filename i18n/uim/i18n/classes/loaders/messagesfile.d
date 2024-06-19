@@ -123,10 +123,10 @@ class DMessagesFileLoader {
      * and catalog name.
      */
     string[] translationsFolders() {
-        locale = Locale.parseLocale(_locale) ~ ["region": Json(null)];
+        auto locale = Locale.parseLocale(_locale) ~ ["region": Json(null)];
 
-        folders = [
-            join("_", [locale["language"], locale["region"]]),
+        auto folders = [
+            [locale["language"], locale["region"]].join("_"),
             locale["language"],
         ];
 
@@ -136,7 +136,7 @@ class DMessagesFileLoader {
             searchPaths = folders.map!(folder => basePath ~ folder ~ DIRECTORY_SEPARATOR).array;
         }
         localePaths = App.path("locales");
-        if (localePaths.isEmpty(&& defined("APP")) {
+        if (localePaths.isEmpty && defined("APP")) {
             localePaths ~= ROOT ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales" ~ DIRECTORY_SEPARATOR;
         }
         foreach (somePath; localePaths) {

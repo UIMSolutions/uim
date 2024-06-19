@@ -102,14 +102,14 @@ class DFormProtector {
         if (lock) {
             if (!isIn(field, this.fields, true)) {
                 if (aValue !is null) {
-                    this.fields[field] = aValue;
+                    _fields[field] = aValue;
 
                     return this;
                 }
-                if (isSet(this.fields[field])) {
-                    remove(this.fields[field]);
+                if (_fields.hasKey(field)) {
+                    fields.remove(field);
                 }
-                this.fields ~= field;
+                _fields ~= field;
             }
         } else {
             this.unlockField(field);
@@ -149,9 +149,9 @@ class DFormProtector {
         }
          anIndex = array_search(fieldName, this.fields, true);
         if (anIndex != false) {
-            remove(this.fields[anIndex]);
+            remove(_fields[anIndex]);
         }
-        remove(this.fields[fieldName]);
+        remove(_fields[fieldName]);
 
         return this;
     }
@@ -402,8 +402,7 @@ class DFormProtector {
        );
 
         messages = chain(messages, fieldsMessages, unlockFieldsMessages);
-
-        return join(", ", messages);
+        return messages.join(", ", );
     }
     
     /**
@@ -447,21 +446,21 @@ class DFormProtector {
         string aintKeyMessage,
         string astringKeyMessage
    ) {
-        messages = null;
-        foreach (someDataFields as aKey: aValue) {
-            if (isInteger(aKey)) {
-                foundKey = array_search(aValue, expectedFields, true);
+        string[] messages = null;
+        someDataFields.byKeyValue.each!((kv) {
+            if (isInteger(kv.key)) {
+                foundKey = array_search(kv.value, expectedFields, true);
                 if (foundKey == false) {
-                    messages ~= anIntKeyMessage.format(aValue);
+                    messages ~= anIntKeyMessage.format(kv.value);
                 } else {
-                    remove(expectedFields[foundKey]);
+                    expectedFields.remove(foundKey);
                 }
             } else {
-                if (isSet(expectedFields[aKey]) && aValue != expectedFields[aKey]) {
+                if (isSet(expectedFields[kv.key]) && kv.value != expectedFields[kv.key]) {
                     messages ~= stringKeyMessage
-                    .format(aKey, expectedFields[aKey], aValue);
+                    .format(kv.key, expectedFields[kv.key], kv.value);
                 }
-                remove(expectedFields[aKey]);
+                expectedFields.remove(kv.key);
             }
         }
         return messages;

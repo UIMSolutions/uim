@@ -20,7 +20,7 @@ class UriFactory { // }: IUriFactory {
      * _SERVER will be used if serverData parameter.isNull.
      */
     static Json[string] marshalUriAndBaseFromSapi(Json[string] serverData = null) {
-        auto serverData ??= _SERVER;
+        auto serverData ? serverData : _SERVER;
         auto azto  aHeaders = marshalHeadersFromSapi(serverData);
 
         auto anUri = DiactorosUriFactory.createFromSapi(serverData,  aHeaders);
@@ -108,25 +108,26 @@ class UriFactory { // }: IUriFactory {
             if (base == DIRECTORY_SEPARATOR || base == ".") {
                 base = "";
             }
-            base = join("/", array_map("rawurlencode", base.split("/")));
+            base = array_map("rawurlencode", base.split("/")).join("/");
 
             return ["base": base, "webroot": base ~ "/"];
         }
-        file = "/" ~ basename(baseUrl);
-        base = dirname(baseUrl);
 
-        if (base == DIRECTORY_SEPARATOR || base == ".") {
-            base = "";
+        string file = "/" ~ basename(baseUrl);
+        string baseDir = dirname(baseUrl);
+
+        if (baseDir == DIRECTORY_SEPARATOR || baseDir == ".") {
+            baseDir = "";
         }
-        webrootDir = base ~ "/";
+        webrootDir = baseDir ~ "/";
 
         docRoot = serverData.get("DOCUMENT_ROOT");
         if (
-            (!base.isEmpty || !docRoot.has(webroot))
+            (!baseDir.isEmpty || !docRoot.has(webroot))
             && !webrootDir.has("/" ~ webroot ~ "/")
        ) {
             webrootDir ~= webroot ~ "/";
         }
-        return ["base": base ~ file, "webroot": webrootDir];
+        return ["baseDir": baseDir ~ file, "webroot": webrootDir];
     }
 }

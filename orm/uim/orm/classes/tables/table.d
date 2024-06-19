@@ -530,8 +530,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             if (myself == classname || count(myparts) < 3) {
                 return _entityClass = mydefault;
             }
-            aliasName = Inflector.classify(Inflector.underscore(subString(array_pop(myparts), 0, -5)));
-            myname = join("\\", array_slice(myparts, 0, -1)) ~ "\\Entity\\" ~ aliasName;
+            string aliasName = Inflector.classify(Inflector.underscore(subString(array_pop(myparts), 0, -5)));
+            string myname = array_slice(myparts, 0, -1).join("\\") ~ "\\Entity\\" ~ aliasName;
             if (!class_exists(myname)) {
                 return _entityClass = mydefault;
             }

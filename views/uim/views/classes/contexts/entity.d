@@ -468,11 +468,11 @@ class DEntityContext : DContext {
      * Json[string] pathParts Each one of the parts in a path for a field name
      */
     protected IValidator _getValidator(Json[string] pathParts) {
-        mykeyParts = array_filter(array_slice(pathParts, 0, -1), auto (mypart) {
+        string[] mykeyParts = array_filter(array_slice(pathParts, 0, -1), auto (mypart) {
             return !isNumeric(mypart);
         });
-        aKey = join(".", mykeyParts);
-        myentity = this.entity(pathParts);
+        string aKey = mykeyParts.join(".");
+        auto myentity = this.entity(pathParts);
 
         if (isSet(_validator[aKey])) {
             if (isObject(myentity)) {
@@ -480,13 +480,14 @@ class DEntityContext : DContext {
             }
             return _validator[aKey];
         }
-        mytable = _getTable(pathParts);
+        
+        auto mytable = _getTable(pathParts);
         if (!mytable) {
             throw new DInvalidArgumentException("Validator not found: `%s`.".format(aKey));
         }
-        aliasName = mytable.aliasName();
-
-        mymethod = "default";
+        
+        string aliasName = mytable.aliasName();
+        string mymethod = "default";
         if (isString(_context["validator"])) {
             mymethod = _context["validator"];
         } elseif (isSet(_context["validator"][aliasName])) {

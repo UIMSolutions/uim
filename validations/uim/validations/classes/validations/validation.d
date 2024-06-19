@@ -414,10 +414,10 @@ class DValidation {
             mydateFormat = "ymd";
         }
         
-        auto myparts = preg_split("/[\sT]+/", valueToCheck);
+        string[] myparts = preg_split("/[\sT]+/", valueToCheck);
         if (myparts && count(myparts) > 1) {
             mydate = stripRight(array_shift(myparts), ",");
-            mytime = join(" ", myparts);
+            string mytime = myparts.join(" ");
             if (mydateFormat == DATETIME_ISO8601) {
                 mydateFormat = "ymd";
                 mytime = preg_split("/[TZ\-\+\.]/", mytime) ?: [];

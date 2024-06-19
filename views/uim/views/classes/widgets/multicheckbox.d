@@ -97,12 +97,12 @@ class DMultiCheckboxWidget : DWidget {
      * @param \UIM\View\Form\IContext formContext The current form context.
      */
     string render(Json[string] data, IContext formContext) {
-        mydata += this.mergeDefaults(mydata, formContext);
+        auto mergedData = data.mergeDefaults(formContext);
 
-       _idPrefix = mydata["idPrefix"];
+       _idPrefix = mergedData.get("idPrefix");
        _clearIds();
 
-        return join("", _renderInputs(mydata, formContext));
+        return _renderInputs(mydata, formContext).join("");
     }
     
     /**

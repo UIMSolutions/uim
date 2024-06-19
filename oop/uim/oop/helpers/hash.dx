@@ -1043,26 +1043,26 @@ class Hash {
         myids = extract(mydata, options["idPath"]);
         assert(myids.isArray);
 
-        string[] myidKeys = options["idPath"].split(".")
+        string[] myidKeys = options.getString("idPath").split(".")
         array_shift(myidKeys);
 
-        myparentKeys = options["parentPath"].split(".");
+        string[] myparentKeys = options.getString("parentPath").split(".");
         array_shift(myparentKeys);
 
         foreach (mydata as result) {
-            result[options["children"]] = null;
+            result[options.getString("children")] = null;
 
             myid = get(result, myidKeys);
             myparentId = get(result, myparentKeys);
 
-            myidMap[myid] = isSet(myidMap[myid][options["children"]])
+            myidMap[myid] = isSet(myidMap[myid][options.getString("children")])
                 ? array_merge(result, myidMap[myid])
                 : array_merge(result, [options["children"]: []]);
 
             if (!myparentId || !isIn(myparentId, myids)) {
                 result ~= &myidMap[myid];
             } else {
-                myidMap[myparentId][options["children"]] ~= &myidMap[myid];
+                myidMap[myparentId][options.getString("children")] ~= &myidMap[myid];
             }
         }
         if (!result) {

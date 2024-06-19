@@ -753,12 +753,12 @@ abstract class DQuery : IQuery { // : IExpression {
      */
     auto whereInList(string fieldName, Json[string] someValues, Json[string] options = null) {
         // `types` - Associative array of type names used to bind values to query
-        options["types"] = ArrayData;
+        options.set("types", ArrayData);
 
         // `allowEmpty` - Allow empty array.
-        options["allowEmpty"] = false.toJson;
+        options.set("allowEmpty", false);
 
-        if (options["allowEmpty"].toBoolean && !someValues) {
+        if (options.getBoolean("allowEmpty") && !someValues) {
             return _where("1=0");
         }
 

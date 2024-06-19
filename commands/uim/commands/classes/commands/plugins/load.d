@@ -33,13 +33,13 @@ class DPluginLoadCommand : DCommand {
         auto plugin = arguments.getString("plugin");
         auto options = null;
         if (arguments.hasKey("only-debug")) {
-            options["onlyDebug"] = true;
+            options.set("onlyDebug", true);
         }
         if (arguments.hasKey("only-cli")) {
-            options["onlyCli"] = true;
+            options.set("onlyCli", true);
         }
         if (arguments.hasKey("optional")) {
-            options["optional"] = true;
+            options.set("optional", true);
         }
         IPlugin.VALID_HOOKS
             .filter!(hook => arguments.hasKey("no-" ~ hook))

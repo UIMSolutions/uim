@@ -160,7 +160,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
            );
         }
 
-        string joinType = isset(options["filterByCurrentLocale"])
+        string joinType = options.hasKey("filterByCurrentLocale")
             ? (options["filterByCurrentLocale"] ? "INNER" : "LEFT") : (
                 configuration.getString("onlyTranslated") ? "INNER" : "LEFT");
 

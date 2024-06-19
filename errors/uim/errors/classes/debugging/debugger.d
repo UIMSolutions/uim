@@ -359,13 +359,14 @@ class DDebugger {
             if (formatValue == "points") {
                 back ~= ["file": trace["file"], "line": trace["line"], "reference": reference];
             } elseif (formatValue == "array") {
-                if (!options["args"]) {
+                if (!options.hasKey("args")) {
                     trace.remove("args");
                 }
                 back ~= trace;
             } else {
-                tpl = isset(_stringContents[options["format"]]["traceLine"]))
-                    ? _stringContents[options["format"]]["traceLine"];
+                formatValue = options.getString("format");
+                tpl = _stringContents.hasKey(formatValue ~ ".traceLine")
+                    ? _stringContents[formatValue~".traceLine"];
                     : _stringContents["base.traceLine"];
                 }
                 trace["path"] = trimPath(trace["file"]);

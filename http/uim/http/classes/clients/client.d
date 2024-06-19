@@ -511,8 +511,8 @@ class DClient { // }: IClient {
       "https": 443,
     ];
 
-    auto result = options["scheme"] ~ ": //" ~ options["host"];
-    if (options["port"] &&  options.getLong("port") != mydefaultPorts[options["scheme"]]) {
+    auto result = options.getString("scheme") ~ ": //" ~ options.getString("host");
+    if (options["port"] &&  options.getLong("port") != mydefaultPorts[options.getString("scheme")]) {
       result ~= ": " ~ options["port"];
     }
 

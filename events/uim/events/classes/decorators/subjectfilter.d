@@ -29,7 +29,7 @@ class DSubjectFilterDecorator : DDecorator {
             throw new DException(class ~ " Missing subject filter options!");
         }
         if (_options["allowedSubject"].isString) {
-           _options["allowedSubject"] = [_options["allowedSubject"]];
+           _options.set("allowedSubject", [_options["allowedSubject"]);
         }
         IEventObject subject;
         try {

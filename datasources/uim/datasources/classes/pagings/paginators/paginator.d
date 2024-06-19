@@ -173,8 +173,8 @@ class DPaginator : IPaginator {
 
         cleanQuery = clone myQuery;
         myResults = myQuery.all();
-        paginatorOptions["numResults"] = count(myResults);
-        paginatorOptions["count"] = getCount(cleanQuery, paginatorOptions);
+        paginatorOptions.set("numResults", count(myResults));
+        paginatorOptions.set("count", getCount(cleanQuery, paginatorOptions));
 
         pagingParams = this.buildParams(paginatorOptions);
         aliasName = objectToPaginate.aliasName();
@@ -207,14 +207,14 @@ class DPaginator : IPaginator {
 
     // Extract pagination data needed
     protected Json[string] extractData(IRepository repository, Json[string] requestData, Json[string] paginationData) {
-        aliasName = repository.aliasName();
-        defaults = getDefaults(aliasName, paginationData);
+        auto aliasName = repository.aliasName();
+        auto defaults = getDefaults(aliasName, paginationData);
         options = mergeOptions(requestData, defaults);
         options = validateSort(anRepository, options);
         options = checkLimit(options);
 
         auto updatedOptions = options.update["page": 1, "scope": null];
-        options["page"] = (int)options["page"] < 1 ? 1 : (int)options["page"];
+        options.set("page", options.getInteger("page") < 1 ? 1 : options.getInteger("page");
         [myFinder, options] = _extractFinder(options);
 
         return compact("defaults", "options", "finder");
@@ -280,18 +280,20 @@ class DPaginator : IPaginator {
             end = start + pagingOptions["current"] - 1;
         }
 
-        pagingOptions["start"] = start;
-        pagingOptions["end"] = end;
+        pagingOptions.set("start", start);
+        pagingOptions.set("end", end);
 
         return pagingOptions;
     }
 
     // Add "prevPage" and "nextPage" params.
     protected Json[string] addPrevNextParams(Json[string] paginatorOptions, Json[string] pagingOptions) {
-        paginatorOptions["prevPage"] = paginatorOptions["page"] > 1;
-        paginatorOptions["nextPage"] = paginatorOptions["count"] == null
+        paginatorOptions.set("prevPage", paginatorOptions.getInteger("page") > 1);
+        paginatorOptions.set("nextPage", 
+            paginatorOptions.getInetger("count") > 0
             ? true
-            paginatorOptions["count"] > paginatorOptions["page"] * paginatorOptions["perPage"];
+            : paginatorOptions.getInteger("count") > paginatorOptions.getInteger("page") * paginatorOptions.getInteger("perPage")
+        );
 
         return paginatorOptions;
     }
@@ -309,7 +311,7 @@ class DPaginator : IPaginator {
 
         return paginatorOptions.update([
             "sort": pagingOptions["options.sort"],
-            "direction": isset(pagingOptions["options.sort"]) && count(order) ? currentValue(order) : null,
+            "direction": pagingOptions.hasKey("options.sort") && count(order) ? currentValue(order) : null,
             "sortDefault": sortDefault,
             "directionDefault": directionDefault,
             "completeSort": order,

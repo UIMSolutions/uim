@@ -19,7 +19,7 @@ class DLastNameAttribute : DStringAttribute {
       return false;
     }
 
-    registerPath("lastname");
+    registerPath("attributes.lastname");
 
     return true;
   }

@@ -24,8 +24,7 @@ class DEntityNameAttribute : DStringAttribute {
       return false;
     }
 
-    name("entityname");
-    registerPath("attributes.entityName");
+    registerPath("attributes.entityname");
 
     return true;
   }
@@ -36,6 +35,6 @@ mixin(AttributeCalls!("EntityName"));
 ///
 unittest {
   auto attribute = new DEntityNameAttribute;
-  assert(attribute.name == "entityname");
-  assert(attribute.registerPath == "entityName");
+  assert(attribute.name == "EntityNameAttribute");
+  assert(attribute.registerPath == "attributes.entityname");
 }

@@ -23,8 +23,7 @@ class DEthnicityAttribute : DStringAttribute {
       return false;
     }
 
-    name("ethnicity");
-    registerPath("ethnicity");
+    registerPath("attributes.ethnicity");
 
     return true;
 
@@ -35,6 +34,6 @@ mixin(AttributeCalls!("Ethnicity"));
 
 ///
 unittest {
-  assert(EthnicityAttribute.name == "ethnicity");
-  assert(EthnicityAttribute.registerPath == "ethnicity");
+  assert(EthnicityAttribute.name == "EthnicityAttribute");
+  assert(EthnicityAttribute.registerPath == "attributes.ethnicity");
 }

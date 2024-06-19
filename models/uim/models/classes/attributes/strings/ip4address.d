@@ -25,8 +25,7 @@ class DIP4AddressAttribute : DStringAttribute {
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
-    name("ip4address");
-    registerPath("ip4address");
+    registerPath("attributes.ip4address");
 
    return true;
 
@@ -37,8 +36,8 @@ mixin(AttributeCalls!("IP4Address"));
 ///
 unittest {
   auto attribute = new DIP4AddressAttribute;
-  assert(attribute.name == "ip4address");
-  assert(attribute.registerPath == "ip4address");
+  assert(attribute.name == "IP4AddressAttribute");
+  assert(attribute.registerPath == "attributes.ip4address");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DStringAttribute)generalAttribute);

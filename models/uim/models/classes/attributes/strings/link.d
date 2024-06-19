@@ -17,7 +17,7 @@ class DLinkAttribute : DStringAttribute {
       return false;
     }
 
-    registerPath("link");
+    registerPath("attributes.link");
 
     return true;
   }

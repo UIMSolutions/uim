@@ -33,8 +33,7 @@ class DJsonAttribute : DStringAttribute {
       return false;
     }
 
-    name("json");
-    registerPath("json");
+    registerPath("attributes.json");
 
     return true;
   }
@@ -45,8 +44,8 @@ mixin(AttributeCalls!("Json"));
 ///
 unittest {
   auto attribute = new DJsonAttribute;
-  assert(attribute.name == "json");
-  assert(attribute.registerPath == "json");
+  assert(attribute.name == "JsonAttribute");
+  assert(attribute.registerPath == "attributes.json");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DStringAttribute) generalAttribute);

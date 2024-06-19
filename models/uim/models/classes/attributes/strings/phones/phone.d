@@ -22,15 +22,13 @@ class DPhoneAttribute : DStringAttribute {
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
-      name("phone");
-      registerPath("phone");
+      registerPath("attributes.phone");
 
       return true;
   }
 }
 mixin(AttributeCalls!("Phone"));
 
-version(test_uim_models) { unittest {
+  unittest {
     // TODO
-  }
 }

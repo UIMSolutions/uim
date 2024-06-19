@@ -28,8 +28,7 @@ class DHtmlAttribute : DStringAttribute {
       return false;
     }
 
-    name("html");
-    registerPath("html");
+    registerPath("attributes.html");
 
     return true;
   }
@@ -40,8 +39,8 @@ mixin(AttributeCalls!("Html"));
 ///
 unittest {
   auto attribute = new DHtmlAttribute;
-  assert(attribute.name == "html");
-  assert(attribute.registerPath == "html");
+  assert(attribute.name == "HtmlAttribute");
+  assert(attribute.registerPath == "attributes.html");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DStringAttribute) generalAttribute);

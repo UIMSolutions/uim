@@ -191,14 +191,13 @@ class DFormProtector {
 
             return null;
         }
-        if (configuration.hasKey("debug") && !isSet(formData["_Token.debug"])) {
+        if (configuration.hasKey("debug") && !formData.hasKey("_Token.debug")) {
             _debugMessage = message.format("_Token.debug");
 
             return null;
         }
-        if (!configuration.hasKey("debug") && isSet(formData["_Token.debug"])) {
+        if (!configuration.hasKey("debug") && formData.hasKey("_Token.debug")) {
             _debugMessage = "Unexpected `_Token.debug` found in request data";
-
             return null;
         }
         token = urldecode(formData["_Token.fields"]);

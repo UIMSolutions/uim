@@ -31,9 +31,9 @@ class DMissingRouteException : DException {
      */
     this(string[] errorMessages, int errorCode = 404, Throwable previousException = null) {
         if (errorMessages.isArray) {
-            if (isSet(errorMessages["errorMessages"])) {
+            if (errorMessages.hasKey("errorMessages")) {
                _messageTemplate = errorMessages["message"];
-            } else if (isSet(errorMessages["method"]) && errorMessages["method"]) {
+            } else if (errorMessages.hasKey("method") && errorMessages["method"]) {
                _messageTemplate = _messageTemplateWithMethod;
             }
         }

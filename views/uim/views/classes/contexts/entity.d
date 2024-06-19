@@ -485,12 +485,11 @@ class DEntityContext : DContext {
         if (!mytable) {
             throw new DInvalidArgumentException("Validator not found: `%s`.".format(aKey));
         }
-        
         string aliasName = mytable.aliasName();
         string mymethod = "default";
         if (isString(_context["validator"])) {
             mymethod = _context["validator"];
-        } elseif (isSet(_context["validator"][aliasName])) {
+        } elseif (_context.hasKey("validator."~aliasName)) {
             mymethod = _context["validator"][aliasName];
         }
         myvalidator = mytable.getValidator(mymethod);

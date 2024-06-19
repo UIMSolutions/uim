@@ -366,7 +366,7 @@ class DRoute : IRoute {
             }
             myroute[aKey] = myvalue;
         }
-        if (isSet(myroute["_args_"])) {
+        if (myroute.hasKey("_args_")) {
             mypass = _parseArgs(myroute["_args_"], myroute);
             myroute["pass"] = array_merge(myroute["pass"], mypass);
             remove(myroute["_args_"]);
@@ -383,14 +383,14 @@ class DRoute : IRoute {
             myroute["_name"] = configuration.set("_name"];
         }
         // restructure "pass" key route params
-        if (isSet(configuration.set("pass"])) {
-            myj = count(configuration.set("pass"]);
+        if (configuration.hasKey("pass")) {
+            /* myj = count(configuration.get("pass"));
             while (myj--) {
                 /** @psalm-suppress PossiblyInvalidArgument */
-                if (isSet(myroute[configuration.set("pass"][myj]])) {
+                if (myroute.hasKey(configuration.get("pass")[myj]])) {
                     array_unshift(myroute["pass"], myroute[configuration.set("pass"][myj]]);
                 }
-            }
+            } */
         }
         myroute["_route"] = this;
         myroute["_matchedRoute"] = this.template;
@@ -498,11 +498,11 @@ class DRoute : IRoute {
         myhostOptions = array_intersectinternalKey(myurl, mycontext);
 
         // Apply the _host option if possible
-        if (isSet(configuration.set("_host"])) {
-            if (!isSet(myhostOptions["_host"]) && !configuration.set("_host"].contains("*")) {
-                myhostOptions["_host"] = configuration.set("_host"];
+        if (configuration.hasKey("_host")) {
+            if (!myhostOptions.hasKey("_host") && !configuration.getString("_host").contains("*")) {
+                myhostOptions.set("_host", configuration.get("_host"));
             }
-            myhostOptions["_host"] ??= mycontext["_host"];
+            myhostOptions["_host"] ? myhostOptions["_host"] : mycontext["_host"];
 
             // The host did not match the route preferences
             if (!this.hostMatches(/* (string) */myhostOptions["_host"])) {

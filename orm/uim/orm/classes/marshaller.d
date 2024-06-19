@@ -347,15 +347,15 @@ class DMarshaller {
             myjointMarshaller = myassoc.junction().marshaller();
 
             mynested = null;
-            if (isSet(myassociated["_joinData"])) {
+            if (isSet(myassociated.hasKey()"_joinData"])) {
                 mynested = (array) myassociated["_joinData"];
             }
             foreach (myrecords as myi : myrecord) {
                 // Update junction table data in _joinData.
-                if (isSet(mydata[myi]["_joinData"])) {
+                /* if (isSet(mydata[myi]["_joinData"])) {
                     myjoinData = myjointMarshaller.one(mydata[myi]["_joinData"], mynested);
                     myrecord.set("_joinData", myjoinData);
-                }
+                } */
             }
             return myrecords;
         }
@@ -370,10 +370,10 @@ class DMarshaller {
             if (isEmpty(myids)) {
                 return null;
             }
-            mytarget = myassoc.getTarget();
-            myprimaryKey = (array) mytarget.primaryKeys();
-            mymulti = count(myprimaryKey) > 1;
-            myprimaryKey = array_map([mytarget, "aliasField"], myprimaryKey);
+            auto mytarget = myassoc.getTarget();
+            auto myprimaryKey = (array) mytarget.primaryKeys();
+            auto mymulti = count(myprimaryKey) > 1;
+            auto myprimaryKey = array_map([mytarget, "aliasField"], myprimaryKey);
 
             if (mymulti) {
                 myfirst = currentValue(myids);

@@ -69,13 +69,13 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
 
             return;
         }
-        if (isSet(this.instances[aliasName])) {
+        if (_instances.hasKey(aliasName)) {
             throw new DatabaseException(
                 "You cannot configure `%s`, it has already been constructed.".format(
                 aliasName
            ));
         }
-       configuration.data(aliasName] = options;
+       configuration.set(aliasName, options);
     }
  
     

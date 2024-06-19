@@ -708,8 +708,8 @@ class DRouteBuilder {
             remove(myparams["path"]);
         }
         
-        if (isSet(_params["prefix"])) {
-            routings = _params["prefix"] ~ "/" ~ routings;
+        if (_params.hasKey("prefix")) {
+            routings = _params.getString("prefix") ~ "/" ~ routings;
         }
         myparams = array_merge(myparams, ["prefix": routings]);
         this.scope(mypath, myparams, mycallback);

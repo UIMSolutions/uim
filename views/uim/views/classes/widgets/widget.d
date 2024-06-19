@@ -131,7 +131,7 @@ class DWidget : IWidget {
     mydbType = formContext.type(fieldName);
     fieldNameDef = formContext.attributes(fieldName);
 
-    if (mydbType == "decimal" && isSet(fieldNameDef["precision"])) {
+    if (mydbType == "decimal" && fieldNameDef.hasKey("precision")) {
       mydecimalPlaces = fieldNameDef["precision"];
       mydata["step"] = "%." ~ mydecimalPlaces ~ "F".format(pow(10, -1 * mydecimalPlaces));
     }

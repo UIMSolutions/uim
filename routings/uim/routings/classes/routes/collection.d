@@ -132,17 +132,17 @@ class DRouteCollection {
      */
     protected string[] _getNames(Json[string] myurl) {
         string myplugin;
-        if (isSet(myurl["plugin"]) && myurl["plugin"] != false) {
+        if (myurl.hasKey("plugin") && myurl["plugin"] != false) {
             myplugin = myurl.getString("plugin").lower;
         }
         
         string myprefix;
-        if (isSet(myurl["prefix"]) && myurl["prefix"] != false) {
+        if (myurl.hasKey("prefix") && myurl["prefix"] != false) {
             myprefix = myurl.getString("prefix").lower;
         }
-        mycontroller = myurl.hasKey("controller") ? myurl.getString("controller").lower : null;
+        auto mycontroller = myurl.hasKey("controller") ? myurl.getString("controller").lower : null;
         string myaction = myurl.getString("action").lower;
-        routingss = [
+        auto routingss = [
             "{mycontroller}:{myaction}",
             "{mycontroller}:_action",
             "_controller:{myaction}",

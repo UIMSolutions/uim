@@ -129,7 +129,7 @@ class DConsoleFormatter : IErrorFormatter {
      * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\ReferenceNode var Object to convert.
      */
     protected string exportObject(/* ClassNode| */ DReferenceNode nodeToConvert, int indentLevel) {
-        props = null;
+        string[] props;
 
         if (cast(ReferenceNode)nodeToConvert) {
             return _style("punct", "object(") ~
@@ -144,8 +144,8 @@ class DConsoleFormatter : IErrorFormatter {
             style("number", (string)nodeToConvert.getId()) ~
             style("punct", " {");
 
-        break = "\n" ~ str_repeat("  ",  indentLevel);
-        end = "\n" ~ str_repeat("  ",  indentLevel - 1) ~ style("punct", "}");
+        string breakText = "\n" ~ str_repeat("  ",  indentLevel);
+        string endText = "\n" ~ str_repeat("  ",  indentLevel - 1) ~ style("punct", "}");
 
         arrow = style("punct", ": ");
         foreach (aProperty; nodeToConvert.getChildren()) {
@@ -160,7 +160,7 @@ class DConsoleFormatter : IErrorFormatter {
                 export_(aProperty.getValue(),  indentLevel);
         }
         if (count(props)) {
-            return result ~ break ~ join(break, props) ~ end;
+            return result ~ breakText ~ props.join(breakText) ~ endText;
         }
         return result ~ style("punct", "}");
     }

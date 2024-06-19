@@ -1,9 +1,8 @@
 module uim.html.snippets;
 
-import uim.html;
-@safe:
-
-public import uim.html.snippets.clientOrPartnersLogoSlider;
-public import uim.html.snippets.dynamicSortableTable;
-public import uim.html.snippets.multiItemCarousel;
-public import uim.html.snippets.productShoppingGridStyles;
+public {
+    import uim.html.snippets.clientOrPartnersLogoSlider;
+    import uim.html.snippets.dynamicSortableTable;
+    import uim.html.snippets.multiItemCarousel;
+    import uim.html.snippets.productShoppingGridStyles;
+}

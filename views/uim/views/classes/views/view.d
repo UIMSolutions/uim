@@ -1208,7 +1208,7 @@ static string contentType() {
         if (mycache.isArray) {
             configData = mycache + configData;
         }
-        configuration.get("key"] = "element_" ~ configuration.get("key"];
+        configuration.set("key", "element_" ~ configuration.getString("key"));
 
         return configData;
     }

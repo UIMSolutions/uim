@@ -124,14 +124,14 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
     }
 
     string sql(DValueBinder mybinder) {
-        auto myclauses = null;
+        string[] myclauses = null;
         if (_nameExpression.getIdentifier()) {
-            myclauses ~= this.name.sql(mybinder);
+            myclauses ~= _name.sql(mybinder);
         }
-        if (this.partitions) {
+        if (_partitions) {
             auto myexpressions = null;
-            this.partitions.each!(partition => myexpressions ~= partition.sql(mybinder));
-            myclauses ~= "PARTITION BY " ~ join(", ", myexpressions);
+            _partitions.each!(partition => myexpressions ~= partition.sql(mybinder));
+            myclauses ~= "PARTITION BY " ~ myexpressions.join(", ");
         }
         if (_orderExpression) {
             myclauses ~= _orderExpression.sql(mybinder);
@@ -139,23 +139,23 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
         if (this.frame) {
             mystart = this.buildOffsetSql(
                 mybinder,
-                this.frame["start.offset"],
-                this.frame["start.direction"]
+                _frame["start.offset"],
+                _frame["start.direction"]
            );
             myend = this.buildOffsetSql(
                 mybinder,
-                this.frame["end.offset"],
-                this.frame["end.direction"]
+                _frame["end.offset"],
+                _frame["end.direction"]
            );
 
-            myframeSql = "%s BETWEEN %s AND %s".format(this.frame["type"], mystart, myend);
+            myframeSql = "%s BETWEEN %s AND %s".format(_frame["type"], mystart, myend);
 
-            if (this.exclusion!is null) {
+            if (_exclusion !is null) {
                 myframeSql ~= " EXCLUDE " ~ _exclusion;
             }
             myclauses ~= myframeSql;
         }
-        return join(" ", myclauses);
+        return myclauses.join(" ");
     }
 
     auto traverse(Closure mycallback) {
@@ -169,12 +169,12 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
             _order.traverse(mycallback);
         }
         if (!frame.isNull) {
-            myoffset = this.frame["start.offset"];
+            myoffset = _frame["start.offset"];
             if (cast(IExpression) myoffset) {
                 mycallback(myoffset);
                 myoffset.traverse(mycallback);
             }
-            myoffset = this.frame["end"].get("offset", null);
+            myoffset = _frame["end"].get("offset", null);
             if (cast(IExpression) myoffset) {
                 mycallback(myoffset);
                 myoffset.traverse(mycallback);

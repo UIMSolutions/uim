@@ -3,8 +3,10 @@ module uim.html.webstorage;
 import uim.html;
 @safe:
 
-public import uim.html.webstorage.local;
-public import uim.html.webstorage.session;
+public {
+  import uim.html.webstorage.local;
+  import uim.html.webstorage.session;
+}
 
 string h5LocalStorageSetItem(string name, string data) {
   return "localStorage.setItem(%s, %s);".format(name, data);

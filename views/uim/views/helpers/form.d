@@ -1008,17 +1008,12 @@ class DFormHelper : DHelper {
         }
     }
     
-    /**
-     * Generates input options array
-     * Params:
-     * string fieldName The name of the field to parse options for.
-     * @param Json[string] options Options list.
-     */
+    // Generates input options array
     protected Json[string] _parseOptions(string fieldName, Json[string] options) {
         auto myneedsMagicType = false;
         if (options.isEmpty("type")) {
             myneedsMagicType = true;
-            options["type"] = _inputType(fieldName, options);
+            options.set("type", _inputType(fieldName, options));
         }
         return _magicOptions(fieldName, options, myneedsMagicType);
     }
@@ -1136,16 +1131,15 @@ class DFormHelper : DHelper {
         ];
 
         options = setRequiredAndCustomValidity(fieldName, options);
-
-        mytypesWithOptions = ["text", "number", "radio", "select"];
-        mymagicOptions = (isIn(options["type"], ["radio", "select"], true) || allowOverride);
+        auto mytypesWithOptions = ["text", "number", "radio", "select"];
+        auto mymagicOptions = (isIn(options["type"], ["radio", "select"], true) || allowOverride);
         if (mymagicOptions && isIn(options["type"], mytypesWithOptions, true)) {
             options = _optionsOptions(fieldName, options);
         }
         if (allowOverride && fieldName.endsWith("._ids")) {
-            options["type"] = "select";
+            options.set("type", "select");
             if (!isSet(options["multiple"]) || (options["multiple"] && options["multiple"] != "checkbox")) {
-                options["multiple"] = true;
+                options.set("multiple", true);
             }
         }
         return options;
@@ -1372,7 +1366,7 @@ class DFormHelper : DHelper {
                 "Missing field name for `FormHelper.%s`.".format(mymethod));
         }
         options = myparams[1] ? myparams[1] : [];
-        options["type"] = options.get("type", mymethod);
+        options.set("type", options.get("type", mymethod));
         options = _initInputField(myparams[0], options);
 
         return _widget(options["type"], options);
@@ -1623,9 +1617,9 @@ class DFormHelper : DHelper {
         } else {
             myonClick ~= " event.returnValue = false; return false;";
         }
-        options["onclick"] = myonClick;
+        options.set("onclick", myonClick);
 
-        result ~= this.Html.link(mytitle, myurl, options);
+        result ~= _html.link(mytitle, myurl, options);
         return result;
     }
     
@@ -1971,7 +1965,7 @@ class DFormHelper : DHelper {
         ];
 
         options = _initInputField(fieldName, options);
-        options["type"] = "date";
+        options.set("type", "date");
 
         return _widget("datetime", options);
     }
@@ -2010,7 +2004,7 @@ class DFormHelper : DHelper {
         if (isSet(options["id"]) && options["id"] == true) {
             options["id"] = _domId(fieldName);
         }
-        if (!options["name"])) {
+        if (!options.hasKey("name"))) {
             myendsWithBrackets = "";
             if (fieldName.endsWith("[]")) {
                 fieldName = subString(fieldName, 0, -2);
@@ -2018,10 +2012,10 @@ class DFormHelper : DHelper {
             }
             string[] pathParts = fieldName.split(".");
             myfirst = array_shift(pathParts);
-            options["name"] = myfirst ~ (!pathParts.isEmpty ? "[" ~ join(., pathParts) ~ "]" : "") ~ myendsWithBrackets;
+            options.set("name", myfirst ~ (!pathParts.isEmpty ? "[" ~ join(., pathParts) ~ "]" : "") ~ myendsWithBrackets);
         }
         if (options.hasKey("value") && !options.hasKey("val")) {
-            options["val"] = options["value"];
+            options.set("val", options.getJson("value"));
             options.remove("value");
         }
         if (!options.hasKey("val")) {
@@ -2044,7 +2038,7 @@ class DFormHelper : DHelper {
         }
         myisDisabled = _isDisabled(options);
         if (myisDisabled) {
-            options["secure"] = SECURE_SKIP;
+            options.set("secure", SECURE_SKIP);
         }
         return options;
     }

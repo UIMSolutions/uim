@@ -398,7 +398,7 @@ class DResultset : IResultset {
             if (_hydrate) {
                 /** @var DORMDORMTable aTable */
                 table = matching["instance"];
-                options["source"] = table.registryKey();
+                options.get("source", table.registryKey());
                 /** @var DORMdatasources.IORMEntity anEntity */
                 entity = new matching["entityClass"](results["_matchingData"][aliasName], options);
                 results["_matchingData"][aliasName] = entity;

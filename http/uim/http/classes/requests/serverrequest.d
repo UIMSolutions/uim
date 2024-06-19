@@ -551,7 +551,7 @@ class DServerRequest { // }: IServerRequest {
                 return (bool)preg_match(detect["pattern"], (string)getEnvironmentData(detect["env"]));
             }
             if (detect.hasKey("options")) {
-                 somePattern = "/" ~ join("|", detect["options"]) ~ "/i";
+                 somePattern = "/" ~ detect["options"].join("|") ~ "/i";
 
                 return (bool)preg_match(somePattern, (string)getEnvironmentData(detect["env"]));
             }

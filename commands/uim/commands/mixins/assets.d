@@ -32,15 +32,15 @@ mixin template TPluginAssets() {
                 _io.verbose("Skipping plugin %s. It does not have webroot folder.".format(plugin), 2);
                 continue;
             }
-            auto link = Inflector.underscore(plugin);
+            string link = Inflector.underscore(plugin);
             auto wwwRoot = configuration.get("App.wwwRoot");
-            auto dir = wwwRoot;
+            string dir = wwwRoot;
             auto namespaced = false;
-            if (link.has("/")) {
+            if (link.contains("/")) {
                 namespaced = true;
                 string[] someParts = link.split("/");
                 link = array_pop(someParts);
-                dir = wwwRoot ~ join(DIRECTORY_SEPARATOR, someParts) ~ DIRECTORY_SEPARATOR;
+                dir = wwwRoot ~ someParts.join(DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
             }
             plugins[plugin] = [
                 "srcPath": Plugin.path(plugin) ~ "webroot",

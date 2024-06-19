@@ -215,7 +215,7 @@ class DPaginatorHelper : DHelper {
                                                                     "escape": true.toJson,
                                                                 ]; auto updatedOptions = options
                                                                     .updatemydefaults;
-                                                                options["step"] = -1;
+                                                                options.set("step", -1);
 
                                                                     mytemplates = [
                                                                         "active": "prevActive",
@@ -410,7 +410,7 @@ class DPaginatorHelper : DHelper {
                                                                     ]
                                                                ); if (!options.isEmpty("page") && options.getLong(
                                                                         "page") == 1) {
-                                                                    options["page"] = Json(null);
+                                                                    options.set("page", Json(null));
                                                                 }
                                                                 if (
                                                                     isSet(mypaging["sortDefault"], mypaging["directionDefault"], options["sort"], options["direction"])
@@ -418,10 +418,10 @@ class DPaginatorHelper : DHelper {
                                                                     && options["direction"].lower == mypaging["directionDefault"]
                                                                     .lower
                                                                    ) {
-                                                                    options["sort"] = options["direction"] = null;
+                                                                    options.set("direction", Json(null));
+                                                                    options.set("sort", options["direction"]);
                                                                 }
-                                                                mybaseUrl = configuration.get(
-                                                                    "options"].get("url", null);
+                                                                mybaseUrl = configuration.get("options.url", null);
                                                                         if (!mypaging.isEmpty(
                                                                             "scope")) {
                                                                             myscope = mypaging["scope"];

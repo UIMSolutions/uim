@@ -108,14 +108,14 @@ class DJsonView : DSerializedView {
     }
 
     protected string _serialize(string[] myserialize) {
-        mydata = _dataToSerialize(myserialize);
-        dataOptions = configuration.get("JsonOptions",
+        auto mydata = _dataToSerialize(myserialize);
+        auto dataOptions = configuration.get("JsonOptions",
             Json_HEX_TAG | Json_HEX_APOS | Json_HEX_AMP | Json_HEX_QUOT | Json_PARTIAL_OUTPUT_ON_ERROR);
         if (dataOptions == false) {
             dataOptions = 0;
         }
         dataOptions |= Json_THROW_ON_ERROR;
-        if (configuration.get("debug")) {
+        if (configuration.hasKey("debug")) {
             dataOptions |= Json_PRETTY_PRINT;
         }
         return to!string(Json_encode(mydata, dataOptions));

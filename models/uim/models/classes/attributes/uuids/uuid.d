@@ -30,7 +30,7 @@ mixin(AttributeCalls!("UUID"));
 unittest {
   auto attribute = new DUUIDAttribute;
   assert(attribute.name == "UUIDAttribute");
-  assert(attribute.registerPath == "attribute.uuid");
+  assert(attribute.registerPath == "attributes.uuid");
 
   DAttribute generalAttribute = attribute;
   assert(!cast(DIntegerAttribute)generalAttribute);

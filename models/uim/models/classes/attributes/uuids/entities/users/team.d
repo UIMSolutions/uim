@@ -26,7 +26,7 @@ mixin(AttributeCalls!("TeamId"));
 ///
 unittest {
   auto attribute = new DTeamIdAttribute;
-  assert(attribute.name == "TeamIdAttributes");
+  assert(attribute.name == "TeamIdAttribute");
   assert(attribute.registerPath == "attributes.teamid");
 
   DAttribute generalAttribute = attribute;

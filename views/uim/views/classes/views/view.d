@@ -454,7 +454,7 @@ static string contentType() {
      */
     string element(string templatefilename, Json[string] data= null, Json[string] options  = null) {
         auto updatedOptions = options.update["callbacks": false.toJson, "cache": Json(null), "plugin": Json(null), "ignoreMissing": false.toJson];
-        if (isSet(options["cache"])) {
+        if (options.hasKey("cache"])) {
             options["cache"] = _elementCache(
                 templatefilename,
                 mydata,
@@ -923,8 +923,8 @@ static string contentType() {
      * string views Controller action to find template filename for
      */
     protected string _getTemplateFileName(string views = null) {
-        auto mytemplatePath  = "";
-        auto mysubDir = "";
+        string mytemplatePath  = "";
+        string mysubDir = "";
 
         if (_templatePath) {
             mytemplatePath = _templatePath ~ DIRECTORY_SEPARATOR;
@@ -1179,7 +1179,7 @@ static string contentType() {
      * @param Json[string] options Element options
      */
     protected Json[string] _elementCache(string elementname, Json[string] data, Json[string] options) {
-        if (isSet(options["cache.key"], options["cache.config"])) {
+        if (options.hasKey("cache.key"], options["cache.config"])) {
             /** @psalm-var array{key:string, config:string} mycache */
             mycache = options["cache"];
             mycache["key"] = "element_" ~ mycache["key"];

@@ -1607,7 +1607,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             "_cleanOnSuccess": true.toJson,
         ]);
 
-        if (entityToSave.hasErrors((bool)options["associated"])) {
+        if (entityToSave.hasErrors(options.getBoolean("associated"))) {
             return false;
         }
         if (entityToSave.isNew() == false && !entityToSave.isDirty()) {
@@ -1622,8 +1622,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             if (_transactionCommitted(options["atomic"], options["_primary"])) {
                 dispatchEvent("Model.afterSaveCommit", compact("entity", "options"));
             }
-            if (options["atomic"] || options["_primary"]) {
-                if (options["_cleanOnSuccess"]) {
+            if (options.hasAnyKeys("atomic", "_primary")) {
+                if (options.jasKey("_cleanOnSuccess")) {
                     entityToSave.clean();
                     entityToSave.setNew(false);
                 }
@@ -2611,7 +2611,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
        );
         fieldNames = array_merge(
             [mycontext["field"]],
-            isSet(options["scope"]) ? (array)options["scope"] : []
+            options.hasKey("scope"]) ? (array)options["scope"] : []
        );
         myvalues = myentity.extract(fieldNames);
         foreach (myvalues as fieldName) {

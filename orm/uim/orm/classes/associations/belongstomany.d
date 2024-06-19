@@ -544,7 +544,7 @@ class DBelongsToManyAssociation : DAssociation {
      */
     protected IORMEntity _saveTarget(IORMEntity parentEntity, Json[string] entities, options) {
         joinAssociations = false;
-        if (isset(options["associated"]) && options["associated"].isArray) {
+        if (options.hasKey("associated"]) && options["associated"].isArray) {
             if (!options.isEmpty("associated"][_junctionProperty]["associated"])) {
                 joinAssociations = options["associated"][_junctionProperty]["associated"];
             }
@@ -1252,7 +1252,7 @@ class DBelongsToManyAssociation : DAssociation {
         if (!options.isEmpty("saveStrategy"])) {
             setSaveStrategy(options["saveStrategy"]);
         }
-        if (isset(options["sort"])) {
+        if (options.hasKey("sort")) {
             sortOrder(options["sort"]);
         }
     }

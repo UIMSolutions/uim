@@ -187,7 +187,7 @@ class DText {
             mytmpValue = mytmpValue.isArray ? "" : mytmpValue.toString;
             mystr = (string)mystr.replace(mytmpHash, mytmpValue);
         }
-        if (!options.isSet("format") && isSet(options["before"])) {
+        if (!options.isSet("format") && options.hasKey("before"])) {
             mystr = (string)mystr.replace(options.getString("escape") ~ options.getString("before"), options["before"]);
         }
         return options["clean"] ? cleanInsert(mystr, options): mystr;
@@ -509,13 +509,13 @@ class DText {
         string myprefix;
         mysuffix = options["ellipsis"];
 
-        if (options["html"]) {
+        if (options.hasKey("html")) {
             myellipsisLength = _strlen(strip_tags(options["ellipsis"]), options);
 
             mytruncateLength = 0;
             mytotalLength = 0;
             myopenTags = null;
-            mytruncate = "";
+            string mytruncate = "";
 
             preg_match_all("/(<\/?([\w+]+)[^>]*>)?([^<>]*)/", textToTruncate, mytags, PREG_SET_ORDER);
             mytags.each!((tag) {

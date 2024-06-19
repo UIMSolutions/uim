@@ -118,7 +118,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         if (!aliasName.has("\\")) {
             [, myclassAlias] = pluginSplit(aliasName);
             options = ["alias": myclassAlias] + options;
-        } else if (!isSet(options["alias"])) {
+        } else if (!options.hasKey("alias"])) {
             options["className"] = aliasName;
         }
         if (isSet(configuration.data(aliasName])) {
@@ -156,12 +156,12 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         }
         if (options.isEmpty("associations")) {
             myassociations = new AssociationCollection(this);
-            options["associations"] = myassociations;
+            options.set("associations", myassociations);
         }
         if (options.isEmpty("queryFactory")) {
-            options["queryFactory"] = this.queryFactory;
+            options.set("queryFactory", _queryFactory);
         }
-        options["registryAlias"] = aliasName;
+        options.set("registryAlias", aliasName);
         myinstance = _create(options);
 
         if (options["className"] == this.fallbackClassName) {

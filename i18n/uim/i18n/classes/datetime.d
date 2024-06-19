@@ -476,7 +476,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
             before = options["before"];
             after = options["after"];
             anIdentifiers.each!((tz) {
-                abbr = "";
+                string abbr = "";
                 if (options["abbr"]) {
                     dateTimeZone = new DateTimeZone(tz);
                     trans = dateTimeZone.getTransitions(now, now);

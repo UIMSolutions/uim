@@ -222,7 +222,7 @@ class DBreadcrumbsHelper : DHelper {
         mycrumbs = this.crumbs;
         mycrumbsCount = count(mycrumbs);
         mytemplater = this.templater();
-        myseparatorString = "";
+        string myseparatorString = "";
 
         if (myseparator) {
             if (isSet(myseparator["innerAttrs"])) {
@@ -235,14 +235,15 @@ class DBreadcrumbsHelper : DHelper {
 
             myseparatorString = this.formatTemplate("separator", myseparator);
         }
-        mycrumbTrail = "";
+        
+        string mycrumbTrail = "";
         foreach (mycrumbs as aKey: mycrumb) {
             myurl = mycrumb["url"] ? this.Url.build(mycrumb["url"]): null;
             mytitle = mycrumb["title"];
             options = mycrumb["options"];
 
             optionsLink = null;
-            if (isSet(options["innerAttrs"])) {
+            if (options.hasKey("innerAttrs"])) {
                 optionsLink = options["innerAttrs"];
                 options.remove("innerAttrs");
             }

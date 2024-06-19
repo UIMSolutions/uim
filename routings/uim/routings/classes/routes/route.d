@@ -261,8 +261,8 @@ class DRoute : IRoute {
         this.keys = routingss;
 
         // Remove defaults that are also keys. They can cause match failures
-        this.keys.each!(key => remove(this.defaults[aKey]));
-        someKeys = this.keys.sort;
+        _keys.each!(key => remove(this.defaults[aKey]));
+        someKeys = _keys.sort;
 
         this.keys = array_reverse(someKeys);
     }
@@ -639,11 +639,12 @@ class DRoute : IRoute {
         mypass = array_map(function (myvalue) {
             return rawUrlEncode(/* (string) */myvalue);
         }, mypass);
-        mypass = join("/", mypass);
-        result = this.template;
+        string mypass = mypass.join("/");
+        string result = this.template;
 
-        mysearch = myreplace = null;
-        this.keys.each!((key) {
+        auto mysearch = null;
+        auto myreplace = null;
+        _keys.each!((key) {
             if (!array_key_exists(key, myparams)) {
                 throw new DInvalidArgumentException(
                     "Missing required route key `%s`.".format(key));
@@ -659,20 +660,16 @@ class DRoute : IRoute {
             mysearch ~= "*";
             myreplace ~= mypass;
         }
-        result = result.replace(mysearch, myreplace);
+        string result = result.replace(mysearch, myreplace);
 
         // add base url if applicable.
-        if (isSet(myparams["_base"])) {
+        if (myparams.hasKey("_base")) {
             result = myparams.getString("_base") ~ result;
             myparams.remove("_base");
         }
         result = result.replace("//", "/");
-        if (
-            isSet(myparams["_scheme"]) ||
-            isSet(myparams["_host"]) ||
-            isSet(myparams["_port"])
-       ) {
-            myhost = myparams["_host"];
+        if (myparams.hasAnyKeys("_scheme", "_host", "_port")) {
+            string myhost = myparams.getString("_host");
 
             // append the port & scheme if they exists.
             if (isSet(myparams["_port"])) {

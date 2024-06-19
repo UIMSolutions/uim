@@ -1,4 +1,4 @@
-module uim.html.h5;
+module uim.html.classes.h5;
 
 import uim.html;
 @safe:

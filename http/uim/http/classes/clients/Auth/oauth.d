@@ -262,24 +262,24 @@ class DOauth {
      */
     protected Json[string] _normalizeData(Json[string] someArguments, string aPath = null) {
         someData = null;
-        foreach (someArguments as aKey : aValue) {
+        someArguments.byKeyValue((kv) {
             if (somePath) {
                 // Fold string keys with [].
                 // Numeric keys result in a=b&a=c. While this isn`t
                 // standard behavior in D, it is common in other platforms.
-                if (!isNumeric(aKey)) {
-                    aKey = "{somePath}[{aKey}]";
+                if (!isNumeric(kv.key)) {
+                    kv.key = "{somePath}[{kv.key}]";
                 } else {
-                    aKey = somePath;
+                    kv.key = somePath;
                 }
             }
-            if (isArray(aValue)) {
-                uksort(aValue, "strcmp");
-                someData = array_merge(someData, _normalizeData(aValue, aKey));
+            if (isArray(kv.value)) {
+                uksort(kv.value, "strcmp");
+                someData = array_merge(someData, _normalizeData(kv.value, kv.key));
             } else {
-                someData ~= [aKey, aValue];
+                someData ~= [kv.key, kv.value];
             }
-        }
+        });
         return someData;
     }
 

@@ -25,11 +25,11 @@ mixin template TDateFormat() {
             timeFormat = format[1];
         } else {
             dateFormat = timeFormat = IntlDateFormatter.FULL;
-             somePattern = format;
+            somePattern = format;
         }
-        localName = localName.ifEmpty(I18n.locale());
-
-        calendar = preg_match(
+        
+        auto localName = localName.ifEmpty(I18n.locale());
+        auto calendar = preg_match(
                 "/@calendar=(japanese|buddhist|chinese|persian|indian|islamic|hebrew|coptic|ethiopic)/",
                 localName) 
                 ? IntlDateFormatter.TRADITIONAL

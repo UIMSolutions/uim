@@ -1,7 +1,8 @@
 ﻿module uim.html.core;
 
-public import uim.html.core.html;
-
+public {
+	import uim.html.core.html;
+}#
 template sTag(string fName, string tName, string overRide = "") {
 	const char[] dTag = "	
 	 "~overRide~" DH5Root "~fName~"(STRINGAA values) { html.addSTag(\""~tName~"\", values); return this; }

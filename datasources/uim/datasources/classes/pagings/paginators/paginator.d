@@ -452,24 +452,24 @@ class DPaginator : IPaginator {
                 order = _removeAliases(order, repository.aliasName());
             }
 
-            paginationData["order"] = [paginationData.hasKey("sort"): direction] + order;
+            paginationData.set("order", [paginationData.hasKey("sort"): direction] + order);
         } else {
-            paginationData["sort"] = null;
+            paginationData.set("sort", null);
         }
         paginationData.remove("direction");
 
         if (paginationData.isEmpty("order")) {
-            paginationData["order"]= null;
+            paginationData.set("order", null);
         }
         if (!paginationData["order"].isArray) {
             return paginationData;
         }
 
-        sortAllowed = false;
-        allowed = getSortableFields(paginationData);
+        auto sortAllowed = false;
+        auto allowed = getSortableFields(paginationData);
         if (allowed !== null) {
-            paginationData["sortableFields"] = allowed;
-            paginationData["sortWhitelist"] = allowed;
+            paginationData.set("sortableFields", allowed);
+            paginationData.set("sortWhitelist", allowed);
 
             myField = key(paginationData.hasKey("order"));
             sortAllowed = isIn(myField, allowed, true);
@@ -551,11 +551,9 @@ class DPaginator : IPaginator {
 
     // Check the limit parameter and ensure it"s within the maxLimit bounds.
     Json[string] checkLimit(Json[string] options) {
-        options["limit"] = (int)options["limit"];
-        if (options["limit"] < 1) {
-            options["limit"] = 1;
-        }
-        options["limit"] = max(min(options["limit"], options["maxLimit"]), 1);
+        auto limit = options.getInteger("limit");
+        options.set("limit", limit < 1 ? 1 : limit);
+        options.set("limit", max(min(options.getInteger("limit"), options.getInteger("maxLimit")), 1));
 
         return options;
     } 

@@ -119,7 +119,7 @@ mixin template TEntity() {
   void setFieldsInvalid(Json[string] fields, bool shouldOverwrite = false) {
     foreach (fields as field : aValue) {
       if (shouldOverwrite == true) {
-        _invalidFields[field] = aValue;
+        _invalidFields.set(field, aValue);
         continue;
       }
       _invalidFields += [field: aValue];
@@ -128,7 +128,7 @@ mixin template TEntity() {
 
   void setFieldInvalid(field, aValue, booloverwrite = false) {
     if (overwrite == true) {
-      _invalidFields[field] = aValue;
+      _invalidFields.set(field, aValue);
       continue;
     }
     _invalidFields += [field: aValue];
@@ -136,7 +136,7 @@ mixin template TEntity() {
 
   // Sets a field as invalid and not patchable into the entity.
   void setInvalidField(string fieldName, Json invalidValue) {
-    _invalidFields[field] = aValue;
+    _invalidFields.set(field, aValue);
   }
 
   // Holds a cached list of getters/setters per class

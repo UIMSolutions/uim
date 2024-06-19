@@ -6,7 +6,7 @@
 module uim.datasources.exceptions;
 
 // Main class
-public import uim.datasources.exceptions.exception;
+public {import uim.datasources.exceptions.exception;
 
 // Sub class
 public {

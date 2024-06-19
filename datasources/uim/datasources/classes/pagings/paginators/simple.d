@@ -33,7 +33,7 @@ class DSimplePaginator : DNumericPaginator {
         }
         super.buildParams(pagingData);
 
-        _pagingParams["hasNextPage"] = hasNextPage;
+        _pagingParams.get("hasNextPage", hasNextPage);
 
         return _pagingParams;
     }

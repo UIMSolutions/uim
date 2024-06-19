@@ -16,8 +16,7 @@ class DCityNameAttribute : DStringAttribute {
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
-    name("cityName");
-    registerPath("cityName");
+    registerPath("attributes.cityname");
 
    return true;
   }
@@ -27,8 +26,8 @@ mixin(AttributeCalls!("CityName"));
 ///
 unittest {
   auto attribute = new DCityNameAttribute;
-  assert(attribute.name == "cityName");
-  assert(attribute.registerPath == "cityName");
+  assert(attribute.name == "CityNameAttribute");
+  assert(attribute.registerPath == "attributes.cityname");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DStringAttribute)generalAttribute);

@@ -25,7 +25,7 @@ class DEntityNameAttribute : DStringAttribute {
     }
 
     name("entityname");
-    registerPath("entityName");
+    registerPath("attributes.entityName");
 
     return true;
   }

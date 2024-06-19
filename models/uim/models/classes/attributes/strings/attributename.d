@@ -35,8 +35,7 @@ means.attributeName
       return false;
     }
 
-    name("attributeName");
-    registerPath("attributeName");
+    registerPath("attributes.attributename");
 
     return true;
   }
@@ -47,8 +46,8 @@ mixin(AttributeCalls!("AttributeName"));
 ///
 unittest {
   auto attribute = new DAttributeNameAttribute;
-  assert(attribute.name == "attributeName");
-  assert(attribute.registerPath == "attributeName");
+  assert(attribute.name == "AttributeNameAttribute");
+  assert(attribute.registerPath == "attributes.attributename");
 
   IAttribute generalAttribute = attribute;
   assert(cast(DStringAttribute) generalAttribute);

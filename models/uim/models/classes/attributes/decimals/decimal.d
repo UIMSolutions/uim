@@ -18,8 +18,7 @@ class DDecimalAttribute : DAttribute {
     }
 
     dataFormats(["numeric.shaped"]);
-    name("decimal");
-    registerPath("decimal");
+    registerPath("attributes.decimal");
 
     return true;
   }
@@ -27,9 +26,8 @@ class DDecimalAttribute : DAttribute {
 
 mixin(AttributeCalls!"Decimal");
 
-version (test_uim_models) {
+// TODO
   unittest {
     testAttribute(new DDecimalAttribute);
     testAttribute(DecimalAttribute);
-  }
 }

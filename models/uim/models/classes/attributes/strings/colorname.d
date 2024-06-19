@@ -19,7 +19,7 @@ class DColorNameAttribute : DStringAttribute {
       return false;
     }
 
-    registerPath("attributes.colorName");
+    registerPath("attributes.colorname");
 
     return true;
   }

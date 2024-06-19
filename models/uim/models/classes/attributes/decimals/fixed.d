@@ -19,8 +19,7 @@ class DFixedDecimalAttribute : DDecimalAttribute {
       return false;
     }
 
-    name("fixedDecimal");
-    registerPath("fixedDecimal");
+    registerPath("attributes.fixedDecimal");
 
     return true;
   }
@@ -28,9 +27,8 @@ class DFixedDecimalAttribute : DDecimalAttribute {
 
 mixin(AttributeCalls!"FixedDecimal");
 
-version (test_uim_models) {
+// TODO
   unittest {
     testAttribute(new DFixedDecimalAttribute);
     testAttribute(FixedDecimalAttribute);
-  }
 }

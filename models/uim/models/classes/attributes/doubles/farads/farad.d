@@ -31,8 +31,7 @@ class DFaradAttribute : DDoubleAttribute {
       return false;
     }
 
-    name("farad");
-    registerPath("farad");
+    registerPath("attributes.farad");
 
     return true;
   }
@@ -40,8 +39,6 @@ class DFaradAttribute : DDoubleAttribute {
 
 mixin(AttributeCalls!("Farad"));
 
-version (test_uim_models) {
   unittest {
     // TODO
   }
-}

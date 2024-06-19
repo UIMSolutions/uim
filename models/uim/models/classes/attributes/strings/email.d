@@ -19,7 +19,7 @@ class DEmailAttribute : DStringAttribute {
       return false;
     }
 
-    registerPath("email");
+    registerPath("attributes.email");
 
     return true;
   }

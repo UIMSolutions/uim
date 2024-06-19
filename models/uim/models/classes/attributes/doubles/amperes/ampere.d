@@ -26,8 +26,7 @@ class DAmpereAttribute : DDoubleAttribute {
       return false;
     }
 
-    name("ampere");
-    registerPath("ampere");
+    registerPath("attributes.ampere");
 
     return true;
   }
@@ -35,8 +34,6 @@ class DAmpereAttribute : DDoubleAttribute {
 
 mixin(AttributeCalls!("Ampere"));
 
-version (test_uim_models) {
   unittest {
     // TODO
   }
-}

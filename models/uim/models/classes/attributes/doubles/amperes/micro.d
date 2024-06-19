@@ -29,8 +29,7 @@ class DMicroAmpereAttribute : DAmpereAttribute {
       return false;
     }
 
-    name("microAmpere");
-    registerPath("microAmpere");
+    registerPath("attributes.microampere");
 
     return true;
   }
@@ -38,8 +37,6 @@ class DMicroAmpereAttribute : DAmpereAttribute {
 
 mixin(AttributeCalls!("MicroAmpere"));
 
-version (test_uim_models) {
   unittest {
     // TODO
   }
-}

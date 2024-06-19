@@ -68,7 +68,7 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
      * \UIM\Controller\Component|class-string<\UIM\Controller\Component>  className The classname to create.
      * configData - An array of config to use for the component.
      */
-    protected IComponent _create(string className, string componentAlias, Json[string] configData = null) {
+    /* protected IComponent _create(string className, string componentAlias, Json[string] configData = null) {
         if (isObject(className)) {
             return className;
         }
@@ -78,5 +78,8 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
             getEventManager().on(anInstance);
         }
         return anInstance;
-    }
+    } */
+}
+auto ComponentRegistry() {
+    return DComponentRegistry.registry;
 }

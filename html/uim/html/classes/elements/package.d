@@ -1690,10 +1690,10 @@ version(test_uim_html) { unittest {
 //			).toString;
 }}
 
-class DH5CENTER : DH5Obj {
+/* class DH5CENTER : DH5Obj {
 	mixin(H5This!("CENTER"));
 }
-mixin(H5Short!"CENTER");
+mixin(H5Short!"CENTER"); */
 
 version(test_uim_html) { unittest {
 		// TODO Add Test

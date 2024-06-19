@@ -11,30 +11,31 @@ class DH5Attribute {
     }
 
     this(string name, bool isBoolean = false) {
-        this().name(name);
-        this().isBoolean(isBoolean);
+        this.name(name);
+        this.isBoolean(isBoolean);
     }
 
     this(string name, string value, bool isBoolean = false) {
-        this().value(value);
-        this().name(name);
-        this().isBoolean(isBoolean);
+        this.value(value);
+        this.name(name);
+        this.isBoolean(isBoolean);
     }
 
     mixin(TProperty!("string", "name"));    
     mixin(TProperty!("bool", "isBoolean"));
 
     mixin(TProperty!("string", "value"));
-    void value(bool setValue) {
+    @property void value(bool setValue) {
         value("true");
     }
-    void value(int setValue) {
+    @property void value(int setValue) {
         value(to!string(setValue));
     }
-    mixin(TProperty!("string", "value"));
-    // TODO sanitize
+    @property void value(double setValue) {
+        value(to!string(setValue));
+    }    // TODO sanitize
 
-    override toString() {
+    override string toString() {
         return isBoolean && value !is null
             ? name
             : name ~ `="%s"`.format(value);
@@ -42,7 +43,7 @@ class DH5Attribute {
 }
 
 auto H5Attribute() {
-    return new H5Attribute;
+    return new DH5Attribute;
 }
 
 auto H5Attribute(string name, bool isBoolean = false) {

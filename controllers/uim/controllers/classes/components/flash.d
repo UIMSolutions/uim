@@ -50,12 +50,13 @@ class DFlashComponent : DComponent {
      * of \Throwable the throwable message will be used and code will be set
      * in params.
      */
-    void set(Throwable | string amessage, Json[string] options = null) {
-        if (cast(Throwable) aMessage) {
+    void set(/* Throwable |  */string amessage, Json[string] options = null) {
+        // TODO
+        /* if (cast(Throwable) aMessage) {
             flash().setExceptionMessage(message, options);
-        } else {
+        } else { */
             flash().set(message, options);
-        }
+        /* } */
     }
 
     // Get flash message utility instance.

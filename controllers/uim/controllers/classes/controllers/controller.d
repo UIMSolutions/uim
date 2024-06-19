@@ -80,7 +80,6 @@ class DController : IController { // DEventListener, IEventDispatcher {
     mixin(TProperty!("string", "pluginName"));
     mixin(TProperty!("DResponse", "response"));
 
-
     // View classes for content negotiation.
     protected string[] _viewClasses;
 
@@ -158,11 +157,11 @@ class DController : IController { // DEventListener, IEventDispatcher {
      * but expect that features that use the request parameters will not work.
      */
     this(
-        ServerRequest serverRequest,
+        DServerRequest serverRequest,
         string nameToOverride = null,
         IEventManager eventManager = null,
    ) {
-        if (nameToOverride) {
+        /* if (nameToOverride) {
             name(nameToOverride);
         } elseif (!isSet(_name)) {
             auto controller = request.getParam("controller");
@@ -187,7 +186,7 @@ class DController : IController { // DEventListener, IEventDispatcher {
         }
         this.initialize();
 
-        getEventManager().on(this);
+        getEventManager().on(this); */
     }
     
     
@@ -210,7 +209,7 @@ class DController : IController { // DEventListener, IEventDispatcher {
      * Params:
      * configData - The config for the component.
      */
-    Component loadComponent(string componentName, Json[string] configData = null) {
+    DComponent loadComponent(string componentName, Json[string] configData = null) {
         return _components().load(componentName, configData);
     }
     

@@ -19,8 +19,7 @@ class DAgeAttribute : DIntegerAttribute {
 
     //means.demographic.age
     //means.measurement.age
-    name("age");
-    registerPath("age");
+    registerPath("attributes.age");
 
     return true;
   }
@@ -28,9 +27,11 @@ class DAgeAttribute : DIntegerAttribute {
 
 mixin(AttributeCalls!"Age");
 
-version (test_uim_models) {
   unittest {
+auto attribute = new DAgeAttribute;
+  assert(attribute.name == "AgeAttribute");
+  assert(attribute.registerPath == "attributes.age");
+
     testAttribute(new DAgeAttribute);
     testAttribute(AgeAttribute);
   }
-}

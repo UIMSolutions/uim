@@ -68,7 +68,7 @@ class DFormProtectionComponent : DComponent {
      * \UIM\Event\IEvent<\UIM\Controller\Controller> anEvent An Event instance
      */
     DResponse startup(IEvent anEvent) {
-        auto myrequest = getController().getRequest();
+        /* auto myrequest = getController().getRequest();
         auto mydata = request.getParsedBody();
         auto myhasData = (someData ||  request. is(["put", "post", "delete", "patch"]));
 
@@ -98,8 +98,9 @@ class DFormProtectionComponent : DComponent {
             someData.remove("_Token");
              request = request.withParsedBody(someData);
         }
-        getController().setRequest(request);
+        getController().setRequest(request); */
 
+        // TODO
         return null;
     }
 

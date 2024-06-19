@@ -479,7 +479,7 @@ class DBelongsToManyAssociation : DAssociation {
      */
      void setSaveStrategy(string strategyName) {
         if (![SAVE_APPEND, SAVE_REPLACE].has(strategyName)) {
-            auto message =  "Invalid save strategy '%s'".format(strategyName);
+            string message =  "Invalid save strategy '%s'".format(strategyName);
             throw new DInvalidArgumentException(message);
         }
 
@@ -949,11 +949,11 @@ class DBelongsToManyAssociation : DAssociation {
      *  when persisting/updating new links, or deleting existing ones
      */
     bool replaceLinks(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] optionData = null) {
-        bindingKey = /* (array) */getBindingKey();
-        primaryValue = sourceEntity.extract(bindingKey);
+        auto bindingKey = /* (array) */getBindingKey();
+        auto primaryValue = sourceEntity.extract(bindingKey);
 
         if (count(Hash.filter(primaryValue)) != count(bindingKey)) {
-            message = "Could not find primary key value for source entity";
+            string message = "Could not find primary key value for source entity";
             throw new DInvalidArgumentException(message);
         }
 

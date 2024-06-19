@@ -213,10 +213,10 @@ class DRouteCollection {
      */
     string match(Json[string] myurl, Json[string] mycontext) {
         // Named routes support optimization.
-        if (isSet(myurl["_name"])) {
+        if (myurl.hasKey("_name")) {
             routings = myurl["_name"];
-            remove(myurl["_name"]);
-            if (isSet(_named[routings])) {
+            myurl.remove("_name");
+            if (_named.hasKey(routings)) {
                 myroute = _named[routings];
                 result = myroute.match(myurl + myroute.defaults, mycontext);
                 if (result) {
@@ -263,16 +263,12 @@ class DRouteCollection {
        );
     }
 
-    /**
-     * Get the connected named routes.
-     */
+    // Get the connected named routes.
     IRoute[] named() {
         return _named;
     }
 
-    /**
-     * Get the extensions that can be handled.
-     */
+    // Get the extensions that can be handled.
     string[] getExtensions() {
         return _extensions;
     }
@@ -301,7 +297,7 @@ class DRouteCollection {
      * scope or any child scopes that share the same RouteCollection.
      * Params:
      * string routings The name of the middleware. Used when applying middleware to a scope.
-     * @param \Psr\Http\Server\IRoutingMiddleware|\/*Closure|*/ string mymiddleware The middleware to register.
+     * @param \Psr\Http\Server\IRoutingMiddleware|\/*Closure|* / string mymiddleware The middleware to register.
      */
     void registerMiddleware(string routings, IRoutingMiddleware | Closure | string mymiddleware) {
         _middleware[routings] = mymiddleware;
@@ -313,18 +309,18 @@ class DRouteCollection {
      * string routings Name of the middleware group
      * @param string[] mymiddlewareNames Names of the middleware
      */
-    void middlewareGroup(string routings, Json[string] mymiddlewareNames) {
+    void middlewareGroup(string routings, Json[string] middlewareNames) {
         if (this.hasMiddleware(routings)) {
             mymessage = "Cannot add middleware group " routings". A middleware by this name has already been registered.";
             throw new DInvalidArgumentException(mymessage);
         }
-        foreach (mymiddlewareNames as mymiddlewareName) {
-            if (!this.hasMiddleware(mymiddlewareName)) {
-                mymessage = "Cannot add " mymiddlewareName" middleware to group " routings". It has not been registered.";
-                throw new DInvalidArgumentException(mymessage);
+        middlewareNames.each!((middlewareName) {
+            if (!hasMiddleware(middlewareName)) {
+                string message = "Cannot add "~middlewareName~" middleware to group "~routings~". It has not been registered.";
+                throw new DInvalidArgumentException(message);
             }
-        }
-        _middlewareGroups[routings] = mymiddlewareNames;
+        });
+        _middlewareGroups[routings] = middlewareNames;
     }
 
     /**

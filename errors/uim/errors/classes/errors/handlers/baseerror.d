@@ -234,7 +234,7 @@ abstract class DERRErrorHandler {
 
     // Log an error.
     protected bool _logError(string levelName, Json[string] errorData) {
-        message = "%s (%s): %s in [%s, line %s]".format(
+        string message = "%s (%s): %s in [%s, line %s]".format(
             data["error"],
             data["code"],
             data["description"],
@@ -265,7 +265,7 @@ abstract class DERRErrorHandler {
 
     // Get exception logger.
     IErrorLogger getLogger() {
-        if (this.logger == null) {
+        if (_logger == null) {
             /** @var uim.errors.IErrorLogger logger */
             logger = new _config["errorLogger"](_config);
 

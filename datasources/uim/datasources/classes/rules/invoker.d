@@ -62,8 +62,8 @@ class DRuleInvoker {
     
     // Invoke the rule.
     bool __invoke(IDatasourceEntity entity, Json[string] ruleOptions) {
-        rule = _rule;
-        pass = rule(entity, this.options + scope);
+        auto rule = _rule;
+        auto pass = rule(entity, this.options + scope);
         if (pass == true || configuration.isEmpty("errorField")) {
             return pass == true;
         }

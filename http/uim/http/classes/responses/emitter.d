@@ -27,17 +27,17 @@ class DResponseEmitter {
      * \Psr\Http\Message\IResponse response The response to emit.
      */
    bool emit(IResponse response) {
-        file = "";
-        line = 0;
+        string file = "";
+        auto line = 0;
         if (headers_sent(file, line)) {
-            message = "Unable to emit headers. Headers sent in file=file line=line";
+            string message = "Unable to emit headers. Headers sent in file=file line=line";
             trigger_error(message, E_USER_WARNING);
         }
-        this.emitStatusLine(response);
-        this.emitHeaders(response);
-        this.flush();
+        emitStatusLine(response);
+        emitHeaders(response);
+        flush();
 
-        range = this.parseContentRange(response.getHeaderLine("Content-Range"));
+        auto range = this.parseContentRange(response.getHeaderLine("Content-Range"));
         if (isArray(Json[string])) {
             this.emitBodyRange(Json[string], response);
         } else {

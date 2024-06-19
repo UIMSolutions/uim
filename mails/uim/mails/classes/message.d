@@ -902,9 +902,9 @@ class DMessage { //: JsonSerializable {
      * Json[string] attachments Array of filenames.
      */
     void addAttachments(Json[string] attachments) {
-        current = this.attachments;
+        auto current = _attachments;
         setAttachments(attachments);
-        this.attachments = array_merge(current, this.attachments);
+        _attachments = array_merge(current, _attachments);
     }
     
     /**
@@ -912,8 +912,8 @@ class DMessage { //: JsonSerializable {
      *
      */
     Json[string] getBody() {
-        if (isEmpty(this.message)) {
-            this.message = this.generateMessage();
+        if (isEmpty(_message)) {
+            _message = this.generateMessage();
         }
         return _message;
     }
@@ -945,11 +945,11 @@ class DMessage { //: JsonSerializable {
         this.createBoundary();
         string[] message;
 
-        contentIds = array_filter(/* (array) */Hash.extract(this.attachments, "{s}.contentId"));
-        hasInlineAttachments = count(contentIds) > 0;
-        hasAttachments = !_attachments.isEmpty;
-        hasMultipleTypes = this.emailFormat == MESSAGE_BOTH;
-        multiPart = (hasAttachments || hasMultipleTypes);
+        auto contentIds = array_filter(/* (array) */Hash.extract(this.attachments, "{s}.contentId"));
+        auto hasInlineAttachments = count(contentIds) > 0;
+        auto hasAttachments = !_attachments.isEmpty;
+        auto hasMultipleTypes = this.emailFormat == MESSAGE_BOTH;
+        auto multiPart = (hasAttachments || hasMultipleTypes);
 
         string boundary = !_boundary.isEmpty ? _boundary : "";
         string textBoundary = boundary;
@@ -1138,7 +1138,7 @@ class DMessage { //: JsonSerializable {
             this. aProperty = text;
         }
         this.boundary = null;
-        this.message = null;
+        _message = null;
 
         return this;
     }

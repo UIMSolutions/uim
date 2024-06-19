@@ -149,8 +149,8 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         if (method_exists(this, method)) {
             return _customMethod(method, exception);
         }
-        message = errorMessage(exception, code);
-        url = _controller.getRequest().getRequestTarget();
+        string message = errorMessage(exception, code);
+        auto url = _controller.getRequest().getRequestTarget();
         
         auto response = _controller.getResponse();
         if (cast(HttpException)exception) {
@@ -159,8 +159,8 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         }
         response = response.withStatus(code);
 
-        exceptions = [exception];
-        previous = exception.getPrevious();
+        auto exceptions = [exception];
+        auto previous = exception.getPrevious();
         while (!previous.isNull) {
             exceptions ~= previous;
             previous = previous.getPrevious();

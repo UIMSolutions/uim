@@ -163,13 +163,12 @@ class DConsoleOutput {
     /**
      * Outputs a single or multiple messages to stdout or stderr. If no parameters
      * are passed, outputs just a newline.
-     * Params:
-     * string[]|string amessage A string or an array of strings to output
      */
-    int write(string[] amessage, int numberOfLines = 1) {
-        if (isArray(message)) {
-            message = join(LF, message);
-        }
+    int write(string[] messages, int numberOfLines = 1) {
+        return write(messages.join(LF), numberOfLines);
+    }
+
+    int write(string message, int numberOfLines = 1) {
         return _write(this.styleText(message ~ str_repeat(LF, numberOfLines)));
     }
     

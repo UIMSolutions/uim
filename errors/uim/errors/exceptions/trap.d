@@ -283,7 +283,7 @@ class DExceptionTrap {
      * \Throwable logException Exception to log
      */
     void logInternalError(Throwable logException) {
-        message = 
+        string message = 
             "[%s] %s (%s:%s)" // Keeping same message format
             .format(
                 logException.classname,
@@ -292,5 +292,5 @@ class DExceptionTrap {
                 logException.getLine(),
            );
         trigger_error(message, E_USER_ERROR);
-    } */
+    } 
 }

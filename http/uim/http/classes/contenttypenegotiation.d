@@ -84,7 +84,7 @@ class DContentTypeNegotiation {
         auto accept = null;
         foreach (languages; raw) {
             foreach (languages as &lang) {
-                if (lang.has("_")) {
+                if (lang.contains("_")) {
                     lang = lang.replace("_", "-");
                 }
                 lang = lang.lower;

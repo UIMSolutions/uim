@@ -287,7 +287,7 @@ class DServerRequest { // }: IServerRequest {
         if (configData["url"][0] != "/") {
             configData["url"] = "/" ~ configData["url"];
         }
-        if (configData["url"].has("?")) {
+        if (configData["url"].contains("?")) {
             [configData["url"], configData["environment.QUERY_STRING"]] = split("?", configData["url"]);
 
             parse_str(configData["environment.QUERY_STRING"], aQueryArgs);

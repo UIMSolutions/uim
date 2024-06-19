@@ -439,7 +439,7 @@ class DResponse : IResponse {
        ) {
             charset = true;
         }
-        if (charset && !type.has(";")) {
+        if (charset && !type.contains(";")) {
            _setHeader("Content-Type", "{type}; charset={_charset}");
         } else {
            _setHeader("Content-Type", type);
@@ -577,7 +577,7 @@ class DResponse : IResponse {
     string[] getType() {
         string headerLine = getHeaderLine("Content-Type");
         
-        return headerLine.has(";")
+        return headerLine.contains(";")
             ? headerLine.split(";")[0]
             : headerLine;
     }
@@ -608,7 +608,7 @@ class DResponse : IResponse {
         if (mapped) {
             return isArray(mapped) ? currentValue(mapped): mapped;
         }
-        if (!contentType.has("/")) {
+        if (!contentType.contains("/")) {
             throw new DInvalidArgumentException("`%s` is an invalid content type.".format(contentType));
         }
         return contentType;
@@ -918,7 +918,7 @@ class DResponse : IResponse {
     bool compress() {
         return ini_get("zlib.output_compression") != "1" &&
             extension_loaded("zlib") &&
-            /* (string) */enviroment("HTTP_ACCEPT_ENCODING").has("gzip") &&
+            /* (string) */enviroment("HTTP_ACCEPT_ENCODING").contains("gzip") &&
             ob_start("ob_gzhandler");
     }
     
@@ -926,7 +926,7 @@ class DResponse : IResponse {
      * Returns whether the resulting output will be compressed by D
      */
    bool outputCompressed() {
-        return /* (string) */enviroment("HTTP_ACCEPT_ENCODING").has("gzip")
+        return /* (string) */enviroment("HTTP_ACCEPT_ENCODING").contains("gzip")
             && (ini_get("zlib.output_compression") == "1" || isIn("ob_gzhandler", ob_list_handlers(), true));
     }
     
@@ -1189,7 +1189,7 @@ class DResponse : IResponse {
     
     // Validate a file path is a valid response body.
     protected ISplFileInfo validateFile(string filePath) {
-        if (filePath.has("../") || somefilePathPath.has("..\\")) {
+        if (filePath.contains("../") || somefilePathPath.contains("..\\")) {
             throw new DNotFoundException(__d("uim", "The requested file contains `..` and will not be read."));
         }
 

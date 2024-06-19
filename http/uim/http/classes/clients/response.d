@@ -133,7 +133,7 @@ class DClientResponse { // }: Message : IResponse {
                 this.reasonPhrase = strip(matches[3]);
                 continue;
             }
-            if (!aValue.has(": ")) {
+            if (!aValue.contains(": ")) {
                 continue;
             }
             [name, aValue] = split(": ", aValue, 2);

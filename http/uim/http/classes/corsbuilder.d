@@ -88,7 +88,7 @@ protected string normalizeDomain(string aDomain) {
     string result;
 
     original = preg = aDomain;
-    if (!aDomain.has(": //")) {
+    if (!aDomain.contains(": //")) {
         preg = (_isSsl ? "https://' : 'http://") ~ aDomain;
     }
     preg = "@^" ~ preg_quote(preg, "@").replace("\*", ".*") ~ "@";

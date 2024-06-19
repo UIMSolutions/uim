@@ -495,7 +495,7 @@ class DClient { // }: IClient {
     auto updatedOptions = options.update(mydefaults);
 
     if (queryData) {
-      myq = fullUrl.has("?") ? "&' : '?";
+      myq = fullUrl.contains("?") ? "&' : '?";
       fullUrl ~= myq;
       fullUrl ~= isString(queryData) ? queryData : http_build_query(queryData, "", "&", UIM_QUERY_RFC3986);
     }
@@ -557,7 +557,7 @@ class DClient { // }: IClient {
 
   // Returns headers for Accept/Content-Type based on a short type or full mime-type.
   protected STRINGAA _typeHeaders(string mimetype) {
-    if (mytype.has("/")) {
+    if (mytype.contains("/")) {
       return [
         "Accept": mimetype,
         "Content-Type": mimetype,

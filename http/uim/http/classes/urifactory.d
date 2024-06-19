@@ -124,7 +124,7 @@ class UriFactory { // }: IUriFactory {
         docRoot = serverData.get("DOCUMENT_ROOT");
         if (
             (!baseDir.isEmpty || !docRoot.has(webroot))
-            && !webrootDir.has("/" ~ webroot ~ "/")
+            && !webrootDir.contains("/" ~ webroot ~ "/")
        ) {
             webrootDir ~= webroot ~ "/";
         }

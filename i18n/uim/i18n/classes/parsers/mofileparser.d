@@ -82,10 +82,10 @@ class MoFileParser {
 
             fseek(stream, anOffset);
             auto singularId = (string) fread(stream, length);
-            if (singularId.has("\x04")) {
+            if (singularId.contains("\x04")) {
                 [context, singularId] = split("\x04", singularId);
             }
-            if (singularId.has("\000")) {
+            if (singularId.contains("\000")) {
                 [singularId, pluralId] = singularId.split("\000");
             }
             fseek(stream, offsetTranslated + anI * 8);
@@ -98,7 +98,7 @@ class MoFileParser {
             fseek(stream, anOffset);
             translated = (string) fread(stream, length);
 
-            if (pluralId!is null || translated.has("\000")) {
+            if (pluralId!is null || translated.contains("\000")) {
                 string[] translated = translated.split("\000");
                 plurals = pluralId!is null ? translated : null;
                 translated = translated[0];

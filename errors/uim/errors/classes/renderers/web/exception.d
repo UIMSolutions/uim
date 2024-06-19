@@ -290,7 +290,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             attributes = anException.getAttributes();
             if (
                 cast(MissingLayoutException)anException ||
-                attributes["file"].has("error500")
+                attributes["file"].contains("error500")
            ) {
                 return _outputMessageSafe("error500");
             }

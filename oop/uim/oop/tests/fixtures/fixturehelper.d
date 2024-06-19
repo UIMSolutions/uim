@@ -13,7 +13,7 @@ class DFixtureHelper {
 
         fixtures = null;
         fixtureNames.each!((fixtureName) {
-            if (fixtureName.has(".")) {
+            if (fixtureName.contains(".")) {
                 [type, somePathName] = split(".", fixtureName, 2);
                 string[] somePath = somePathName.split("/");
                 string name = array_pop(somePath);

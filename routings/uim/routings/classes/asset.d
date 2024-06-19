@@ -115,7 +115,7 @@ class DAsset {
         if (preg_match("/^data:[a-z]+\/[a-z]+;/", somePath)) {
             return somePath;
         }
-        if (somePath.has(": //") || preg_match("/^[a-z]+:/i", somePath)) {
+        if (somePath.contains(": //") || preg_match("/^[a-z]+:/i", somePath)) {
             return stripLeft(Router.url(somePath), "/");
         }
         if (!array_key_exists("plugin", options) || options["plugin"] != false) {
@@ -133,7 +133,7 @@ class DAsset {
         }
         if (
             !options.isEmpty("ext") &&
-            !somePath.has("?") &&
+            !somePath.contains("?") &&
             !somePath.endsWith(options["ext"])
        ) {
             somePath ~= options["ext"];
@@ -186,7 +186,7 @@ class DAsset {
      * @param string timestamp If set will overrule the value of `Asset.timestamp` in Configure.
      */
     static string assetTimestamp(string aPath, string timestamp = null) {
-        if (somePath.has("?")) {
+        if (somePath.contains("?")) {
             return somePath;
         }
         timestamp ??= configuration.get("Asset.timestamp");
@@ -255,7 +255,7 @@ class DAsset {
                 }
             }
         }
-        return webPath.has("//")
+        return webPath.contains("//")
             ? (webPath ~ asset[1]).replace("//", "/")
             : webPath ~ asset[1];
     }

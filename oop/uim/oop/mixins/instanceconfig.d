@@ -143,7 +143,7 @@ mixin template TInstanceConfig() {
         if (keyToRead.isNull) {
             return _config;
         }
-        if (!keyToRead.has(".")) {
+        if (!keyToRead.contains(".")) {
             return configuration.get(keyToRead);
         }
 
@@ -185,7 +185,7 @@ mixin template TInstanceConfig() {
                 .each!(kv => _configWrite(kv.key, kv.value));
             return;
         }
-        if (!keyToWrite.has(".")) {
+        if (!keyToWrite.contains(".")) {
            configuration.set(keyToWrite, valueToWrite);
             return;
         }
@@ -205,7 +205,7 @@ mixin template TInstanceConfig() {
     
     // Deletes a single config key.
     protected void _configDelete(string keyToDelete) {
-        if (!keyToDelete.has(".")) {
+        if (!keyToDelete.contains(".")) {
             configuration.remove(keyToDelete);
 
             return;

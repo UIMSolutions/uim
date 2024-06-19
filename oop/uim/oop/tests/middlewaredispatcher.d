@@ -65,7 +65,7 @@ class DMiddlewareDispatcher {
             chain(_SERVER, ["REQUEST_URI": requestSpec["url"]]),
             requestSpec["environment"]
        );
-        if (environment["UIM_SELF"].has("Dunit")) {
+        if (environment["UIM_SELF"].contains("Dunit")) {
             environment["UIM_SELF"] = "/";
         }
         request = ServerRequestFactory.fromGlobals(

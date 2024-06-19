@@ -214,7 +214,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * @param string aliasName the alias used to prefix the field
      */
     STRINGAA aliasField(string fieldName, string aliasName = null) {
-        if (fieldName.has(".")) {
+        if (fieldName.contains(".")) {
             myaliasedField = fieldName;
             [aliasName, fieldName] = fieldName.split(".");
         } else {

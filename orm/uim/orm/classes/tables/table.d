@@ -334,7 +334,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * If field is already aliased it will result in no-op.
      */
     string aliasField(string fieldName) {
-        if (fieldName.has(".")) {
+        if (fieldName.contains(".")) {
             return fieldName;
         }
         return _aliasNameName() ~ "." ~ fieldName;
@@ -707,7 +707,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * string myname The alias used for the association.
      */
     protected IAssociation findAssociation(string myname) {
-        if (!myname.has(".")) {
+        if (!myname.contains(".")) {
             return _associations.get(myname);
         }
         result = null;
@@ -2281,8 +2281,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             fieldNames = subString(mymethod, mymatches[0].length);
             myfindType = Inflector.variable(mymatches[1]);
         }
-        myhasOr = fieldNames.has("_or_");
-        myhasAnd = fieldNames.has("_and_");
+        myhasOr = fieldNames.contains("_or_");
+        myhasAnd = fieldNames.contains("_and_");
 
         mymakeConditions = auto (fieldNames, myargs) {
             myconditions = null;

@@ -67,7 +67,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * @param Json[string] myConfiguration The config for this strategy.
      */
     this(DORMTable aTable, Json[string] configData) {
-        if (configuration.has("tableLocator"])) {
+        if (configuration.contains("tableLocator"])) {
             _tableLocator = configuration.get("tableLocator"];
         }
 

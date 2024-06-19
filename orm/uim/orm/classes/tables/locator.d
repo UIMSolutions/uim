@@ -115,7 +115,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
  
     protected auto createInstance(string aliasName, Json[string] options): Table
     {
-        if (!aliasName.has("\\")) {
+        if (!aliasName.contains("\\")) {
             [, myclassAlias] = pluginSplit(aliasName);
             options = ["alias": myclassAlias] + options;
         } else if (!options.hasKey("alias"])) {
@@ -132,14 +132,14 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
             if (isoptions.isEmpty("className")) {
                 options["className"] = aliasName;
             }
-            if (!options.hasKey("table") && !options.getString("className").has("\\")) {
+            if (!options.hasKey("table") && !options.getString("className").contains("\\")) {
                 [, mytable] = pluginSplit(options["className"]);
                 options["table"] = Inflector.underscore(mytable);
             }
             options["className"] = this.fallbackClassName;
         } else {
             mymessage = "`" ~ options.getString("className", aliasName) ~ "`";
-            if (!mymessage.has("\\")) {
+            if (!mymessage.contains("\\")) {
                 mymessage = "for alias " ~ mymessage;
             }
             throw new DMissingTableClassException([mymessage]);
@@ -180,7 +180,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         if (options.isEmpty("className")) {
             options["className"] = aliasName;
         }
-        if (options["className"].has("\\") && class_exists(options["className"])) {
+        if (options["className"].contains("\\") && class_exists(options["className"])) {
             return options["className"];
         }
         foreach (location; this.locations) {

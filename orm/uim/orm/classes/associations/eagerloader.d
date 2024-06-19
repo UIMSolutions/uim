@@ -265,7 +265,7 @@ class DEagerLoader {
                 mypointer[mytable] = options;
                 continue;
             }
-            if (mytable.has(".")) {
+            if (mytable.contains(".")) {
                 string[] mypath = mytable.split(".");
                 mytable = array_pop(mypath);
                 mypath.each!((t) {
@@ -437,7 +437,7 @@ class DEagerLoader {
                 .each!((configData) {
                     foreach (configData as myloadable) {
                         assert(cast(DEagerLoadable)myloadable);
-                        if (myloadable.aliasPath().has(".")) {
+                        if (myloadable.aliasPath().contains(".")) {
                         _correctStrategy(myloadable);
                         }
                     }
@@ -523,7 +523,7 @@ class DEagerLoader {
                 // Nested paths are not subject to this condition because they could
                 // be attached to joined associations.
                 if (
-                    !mypath.has(".") &&
+                    !mypath.contains(".") &&
                     (!array_key_exists(mypath, mycollected) || !array_key_exists(aliasName, mycollected[mypath]))
                ) {
                     mymessage = "Unable to load `{mypath}` association. Ensure foreign key in `{aliasName}` is selected.";

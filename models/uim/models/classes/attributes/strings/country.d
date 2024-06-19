@@ -19,8 +19,7 @@ class DCountryAttribute : DStringAttribute {
       return false;
     }
 
-    name("country");
-    registerPath("country");
+    registerPath("attributes.country");
 
     return true;
   }
@@ -31,8 +30,8 @@ mixin(AttributeCalls!("Country"));
 ///
 unittest {
   auto attribute = new DCountryAttribute;
-  assert(attribute.name == "country");
-  assert(attribute.registerPath == "country");
+  assert(attribute.name == "CountryAttribute");
+  assert(attribute.registerPath == "attributes.country");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DStringAttribute) generalAttribute);

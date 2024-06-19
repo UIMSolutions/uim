@@ -248,15 +248,15 @@ class DClient { // }: IClient {
      * @param string[] mydata The query data you want to send.
      * @param Json[string] options Additional options for the request.
      */
-  Response get(string myurl, string[] mydata = null, Json[string] requestOptions = null) {
-    requestOptions = _mergeOptions(requestOptions);
-    mybody = null;
+  DResponse get(string urlToRequest, string[] mydata = null, Json[string] requestOptions = null) {
+    auto requestOptions = _mergeOptions(requestOptions);
+    auto mybody = null;
     if (isArray(mydata) && isSet(mydata["_content"])) {
       mybody = mydata["_content"];
-      remove(mydata["_content"]);
+      mydata.remove("_content");
     }
-    myurl = this.buildUrl(myurl, mydata, requestOptions);
 
+    auto url = this.buildUrl(urlToRequest, mydata, requestOptions);
     return _doRequest(
       Request.METHOD_GET,
       myurl,

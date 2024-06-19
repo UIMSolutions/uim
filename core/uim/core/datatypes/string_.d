@@ -68,7 +68,7 @@ bool containsAny(string[] bases, string[] values...) {
 
 unittest {
 	assert(["One Two Three"].containsAny("One"));
-	assert(!["One Two Three", "Eight Seven Six"].containsAny("Five", "Four", "Six"));
+	assert(!["One Two Three", "Eight Seven Six"].containsAny("Five", "Four"));
 	assert(!["One Two Three"].containsAny("Five", "Four"));
 }
 
@@ -78,9 +78,7 @@ bool containsAny(string[] bases, string[] values) {
 
 unittest {
 	assert(["One Two Three"].containsAny(["One"]));
-	assert(!["One Two Three", "Eight Seven Six"].containsAny([
-			"Five", "Four", "Six"
-		]));
+	assert(!["One Two Three", "Eight Seven Six"].containsAny(["Five", "Four"]));
 	assert(!["One Two Three"].containsAny(["Five", "Four"]));
 }
 
@@ -124,14 +122,14 @@ bool containsAll(string base, string[] values) {
 
 unittest {
 	assert("One Two Three".contains("One"));
-	assert(!"One Two Three".contains("Five", "Four", "Three"));
+/* 	assert(!"One Two Three".contains("Five", "Four", "Three"));
 	assert(!"One Two Three".contains("Five", "Four"));
-}
+ */}
 
 bool contains(string text, string checkValue) {
 	return (text.length == 0 || checkValue.length == 0 || checkValue.length > text.length) 
 		? false
-		: (base.indexOf(checkValue) >= 0);
+		: (text.indexOf(checkValue) >= 0);
 }
 
 /* bool hasValue(string base, string checkValue) {

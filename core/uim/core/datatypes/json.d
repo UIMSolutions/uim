@@ -552,17 +552,15 @@ version (test_uim_core) {
     }
 
     /// Special case for managing entities
-    Json toJson(UUID id, size_t versionNumber = 0LU) {
-      Json result = "id".toJson(id);
-      if (versionNumber > 0) {
-        result["versionNumber"] = versionNumber;
-      }
+    Json toJson(UUID id, size_t versionNumber) {
+      Json result = toJson("id", id);
+      result["versionNumber"] = versionNumber;
       return result;
     }
     unittest {
       auto id = randomUUID;
-      assert(toJson(id)["id"].get!string == id.toString);
-      assert("versionNumber" !in toJson(id));
+      assert(toJson(id, 0).getString("id") == id.toString);
+      assert("versionNumber" in toJson(id, 0));
       assert(toJson(id, 1)["id"].get!string == id.toString);
       assert(toJson(id, 1)["versionNumber"].get!size_t == 1);
     }
@@ -886,17 +884,19 @@ Json[string] toJsonMap(STRINGAA map, string[] excludeKeys = null) {
 }
 
 // #region getter
-Json get(Json value, string key) {
+Json getJson(Json value, string key) {
   if (value.isNull || !value.isObject) {
-    return value;
+    return Json(null);
   }
   if (value.hasKey(key)) {
     return value[key];
   }
   if (key.contains(".")) {
-    auto keys = key.split(".");
-    auto j = get(value, keys[0]);
-    return get(j, keys[1..$].join("."));
+    auto keys = std.string.split(key, ".");
+    auto json = getJson(value, keys[0]);
+    return keys.length > 1 && !json.isNull
+      ? getJson(json, keys[1..$].join("."))
+      : json;
   }
   return value;
 }

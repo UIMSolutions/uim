@@ -19,7 +19,6 @@ class DEmailAttribute : DStringAttribute {
       return false;
     }
 
-    name("email");
     registerPath("email");
 
     return true;
@@ -31,8 +30,8 @@ mixin(AttributeCalls!("Email"));
 ///
 unittest {
   auto attribute = new DEmailAttribute;
-  assert(attribute.name == "email");
-  assert(attribute.registerPath == "email");
+  assert(attribute.name == "EmailAttribute");
+  assert(attribute.registerPath == "attributes.email");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DStringAttribute) generalAttribute);

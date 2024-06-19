@@ -19,20 +19,19 @@ class DCountyAttribute : DStringAttribute {
       return false;
     }
 
-    name("county");
-    registerPath("county");
+    registerPath("attributes.county");
 
     return true;
   }
 }
 
-mixin(AttributeCalls!("County"));
+mixin(AttributeCalls!("CountyAttribute"));
 
 ///
 unittest {
   auto attribute = new DCountyAttribute;
-  assert(attribute.name == "county");
-  assert(attribute.registerPath == "county");
+  assert(attribute.name == "CountyAttributes");
+  assert(attribute.registerPath == "attributes.county");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DStringAttribute) generalAttribute);

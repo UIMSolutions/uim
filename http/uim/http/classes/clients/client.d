@@ -251,7 +251,7 @@ class DClient { // }: IClient {
   DResponse get(string urlToRequest, string[] mydata = null, Json[string] requestOptions = null) {
     auto requestOptions = _mergeOptions(requestOptions);
     auto mybody = null;
-    if (isArray(mydata) && isSet(mydata["_content"])) {
+    if (isArray(mydata) && mydata.hasKey("_content")) {
       mybody = mydata["_content"];
       mydata.remove("_content");
     }

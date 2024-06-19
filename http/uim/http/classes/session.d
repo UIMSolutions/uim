@@ -64,30 +64,30 @@ class DSession {
      * Json[string] sessionConfig Session config.
      */
     static static create(Json[string] sessionConfig = null) {
-        if (isSet(sessionConfig["defaults"])) {
+        if (sessionConfig.hasKey("defaults")) {
             defaults = _defaultConfigData(sessionConfig["defaults"]);
             if (defaults) {
                 sessionConfig = Hash.merge(defaults, sessionConfig);
             }
         }
         if (
-            !isSet(sessionConfig["ini.session.cookie_secure"])
+            !sessionConfig.hasKey("ini.session.cookie_secure")
             && enviroment("HTTPS")
             && ini_get("session.cookie_secure") != 1
            ) {
-            sessionConfig["ini.session.cookie_secure"] = 1;
+            sessionConfig.set("ini.session.cookie_secure", 1);
         }
         if (
-            !isSet(sessionConfig["ini.session.name"])
-            && isSet(sessionConfig["cookie"])
+            !sessionConfig.hasKey("ini.session.name")
+            && sessionConfig.hasKey("cookie")
            ) {
             sessionConfig["ini.session.name"] = sessionConfig["cookie"];
         }
-        if (!isSet(sessionConfig["ini.session.use_strict_mode"]) && ini_get(
+        if (!sessionConfig.hasKey("ini.session.use_strict_mode") && ini_get(
                 "session.use_strict_mode") != 1) {
             sessionConfig["ini.session.use_strict_mode"] = 1;
         }
-        if (!isSet(sessionConfig["ini.session.cookie_httponly"]) && ini_get(
+        if (!sessionConfig.hasKey("ini.session.cookie_httponly") && ini_get(
                 "session.cookie_httponly") != 1) {
             sessionConfig["ini.session.cookie_httponly"] = 1;
         }

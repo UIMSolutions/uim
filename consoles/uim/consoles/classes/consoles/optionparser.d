@@ -473,7 +473,7 @@ class DConsoleOptionParser {
 
                 params[name] = aValue;
             }
-            if (option.isRequired() && !isSet(params[name])) {
+            if (option.isRequired() && !params.hasKey(name)) {
                 throw new DConsoleException(
                     "Missing required option. The `%s` option is required and has no default value.".format(
                     name)

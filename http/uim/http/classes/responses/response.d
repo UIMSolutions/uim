@@ -536,7 +536,7 @@ class DResponse : IResponse {
            );
         }
        _status = statusCode;
-        if (reasonPhrase == "" && isSet(_statusCodes[statusCode])) {
+        if (reasonPhrase == "" && _statusCodes.hasKey(statusCode)) {
             reasonPhrase = _statusCodes[statusCode];
         }
        _reasonPhrase = reasonPhrase;

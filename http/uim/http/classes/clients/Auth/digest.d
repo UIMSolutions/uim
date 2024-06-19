@@ -67,7 +67,7 @@ class DDigest {
     
     // Add Authorization header to the request.
     Request authentication(Request request, Json[string] credentials) {
-        if (!isSet(credentials["username"], credentials["password"])) {
+        if (!credentials.hasAllKeys("username", "password")) {
             return request;
         }
         if (!credentials.hasKey("realm")) {

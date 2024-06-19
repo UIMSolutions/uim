@@ -190,13 +190,13 @@ class DCookie : ICookie {
             aKey = aKey.lower;
             someData[aKey] = aValue;
         });
-        if (someData.isSet("max-age")) {
-            someData["expires"] = time() + someData.getLong("max-age");
+        if (someData.hasKey("max-age")) {
+            someData.set("expires", time() + someData.getLong("max-age"));
             someData.remove("max-age");
         }
         // Ignore invalid value when parsing headers
         // https://tools.ietf.org/html/draft-west-first-party-cookies-07#section-4.1
-        if (isSet(someData["samesite"])) {
+        if (someData.hasKey("samesite")) {
             try {
                 someData["samesite"] = resolveSameSiteenumeration(someData["samesite"]);
             } catch (ValueError) {

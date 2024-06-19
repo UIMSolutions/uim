@@ -277,10 +277,10 @@ class DEventManager { // }: IEventManager {
 
 /*     auto result;
     foreach (priorities as priority) {
-        if (isSet(globalListeners[priority])) {
+        if (globalListeners.hasKey(priority)) {
             result = array_merge(result, globalListeners[priority]);
         }
-        if (isSet(localListeners[priority])) {
+        if (localListeners.hasKey(priority)) {
             result = array_merge(result, localListeners[priority]);
         }
     }

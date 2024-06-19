@@ -847,7 +847,7 @@ class DMessage { //: JsonSerializable {
                 dirEntry = ["file": dirEntry];
             }
             if (!dirEntry.hasKey("file")) {
-                if (!isSet(dirEntry["data"])) {
+                if (!dirEntry.hasKey("data")) {
                     throw new DInvalidArgumentException("No file or data specified.");
                 }
                 if (isInteger(attName)) {
@@ -876,14 +876,14 @@ class DMessage { //: JsonSerializable {
                );
             }
             if (
-                !isSet(dirEntry["mimetype"])
-                && isSet(dirEntry["file"])
+                !dirEntry.hasKey("mimetype")
+                && dirEntry.hasKey("file")
                 && isString(dirEntry["file"])
                 && function_exists("mime_content_type")
            ) {
                 dirEntry["mimetype"] = mime_content_type(dirEntry["file"]);
             }
-            if (!isSet(dirEntry["mimetype"])) {
+            if (!dirEntry.hasKey("mimetype")) {
                 dirEntry["mimetype"] = "application/octet-stream";
             }
             attach[attName] = dirEntry;

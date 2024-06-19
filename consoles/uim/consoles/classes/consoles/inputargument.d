@@ -51,7 +51,7 @@ class DConsoleInputArgument {
     }
 
     this(STRINGAA aName, string ahelp = "", bool isArgumentRequired = false, string[] optionChoices = null) {
-        if (names.has("name")) {
+        if (names.contains("name")) {
             foreach (aKey : aValue; names) {
                 this. {
                     "_" ~ aKey

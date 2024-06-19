@@ -508,7 +508,7 @@ class DConsoleOptionParser {
      */
     protected Json[string] _parseLongOption(string optionToParse, Json[string] paramsData) {
         string name = subString(optionToParse, 2);
-        if (name.has("=")) {
+        if (name.contains("=")) {
             [name, aValue] = split("=", name, 2);
             array_unshift(_tokens, aValue);
         }

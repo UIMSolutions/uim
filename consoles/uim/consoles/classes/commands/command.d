@@ -46,7 +46,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
 
     @property void name(string newName) {
         /* assert(
-            newName.has(" ") && !newName.startsWith(" "),
+            newName.contains(" ") && !newName.startsWith(" "),
             "The name '{name}' is missing a space. Names should look like `uim routes`"
        ); */ 
         _name = newName;

@@ -56,7 +56,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
             }
 
             string shortestName = getShortestName(names);
-            if (shortestName.has(".")) {
+            if (shortestName.contains(".")) {
                 string[] names = shortestName.split(".");
                 if (names > 1) { shortestName = names[1..$].join("."); }
             }

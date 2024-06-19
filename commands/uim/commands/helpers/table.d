@@ -53,7 +53,7 @@ class DTableHelper { // }: Helper {
     if (maxText.isEmpty) {
       return 0;
     }
-    if (!maxText.has("<") && !maxText.has(">")) {
+    if (!maxText.contains("<") && !maxText.contains(">")) {
       return mb_strwidth(maxText);
     }
     styles = _io.styles();

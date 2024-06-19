@@ -295,9 +295,9 @@ class DConsoleIo {
     // Prompts the user for input based on a list of options, and returns it.
     string askChoice(string promptText, string option, string defaultInput = null) {
         string[] options; 
-        if (option.has(",")) {
+        if (option.contains(",")) {
             options = option.split(",");
-        } else if (option.has("/")) {
+        } else if (option.contains("/")) {
             options = option.split("/");
         } else {
             options = [option];

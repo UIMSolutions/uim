@@ -44,7 +44,7 @@ class DRoutesGenerateCommand : DCommand {
   protected Json[string] < string | bool > _splitArgs(string[] commandArguments) {
     auto result = null;
     commandArguments.each!((argument) {
-      if (argument.has(": ")) {
+      if (argument.contains(": ")) {
         [aKey, aValue] = argument.split(": ");
         if (isIn(aValue, ["true", "false"], true)) {
           aValue = aValue == "true";

@@ -28,7 +28,7 @@ mixin template TExtract() {
         } * /
 
         string[] someParts = somePath.split(".");
-        if (columnPath.has("{*}")) {
+        if (columnPath.contains("{*}")) {
             return fn (anElement)
                 : _extract(anElement, someParts);
         }

@@ -11,6 +11,7 @@ import uim.models;
 class DBooleanIntegerAttribute : DLookupAttribute {
   mixin(AttributeThis!("BooleanInteger"));
 
+  // TODO
   mixin(TProperty!("int[bool]", "lookups"));
 
   /* override Json createData() {

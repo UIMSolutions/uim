@@ -17,8 +17,7 @@ class DSLAInvokedIdAttribute : DEntityIdAttribute {
       return false;
     }
 
-    name("slainvokedid");
-    registerPath("slaInvokedId");
+    registerPath("attributes.slainvokedid");
 
     return true;
   }
@@ -29,8 +28,8 @@ mixin(AttributeCalls!("SLAInvokedId"));
 ///
 unittest {
   auto attribute = new DSLAInvokedIdAttribute;
-  assert(attribute.name == "slainvokedid");
-  assert(attribute.registerPath == "slaInvokedId");
+  assert(attribute.name == "SLAInvokedIdAttribute");
+  assert(attribute.registerPath == "attributes.slainvokedid");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DSLAInvokedIdAttribute) generalAttribute);

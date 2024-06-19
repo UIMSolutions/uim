@@ -35,7 +35,7 @@ mixin(AttributeCalls!("TickerSymbol"));
 ///
 unittest {
   auto attribute = new DTickerSymbolAttribute;
-  assert(attribute.name == "TickerSymbolAttributes");
+  assert(attribute.name == "TickerSymbolAttribute");
   assert(attribute.registerPath == "attributes.tickersymbol");
 
   DAttribute generalAttribute = attribute;

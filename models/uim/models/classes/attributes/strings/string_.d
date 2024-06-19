@@ -21,7 +21,7 @@ class DStringAttribute : DCharAttribute {
 
     name("string");
     isString(true);
-    registerPath("string");
+    registerPath("attributes.string");
 
     return true;
   }

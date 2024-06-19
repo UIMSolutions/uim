@@ -23,7 +23,7 @@ class DFileNameAttribute : DStringAttribute {
 is.dataFormat.big
 is.dataFormat.array
 means.fileName */
-    registerPath("attributes.fileName");
+    registerPath("attributes.filename");
 
     return true;
   }
@@ -34,6 +34,6 @@ mixin(AttributeCalls!("FileName"));
 ///
 unittest {
   auto attribute = new DFileNameAttribute;
-  assert(attribute.name == "FilenameAttribute");
-  assert(attribute.registerPath == "attributes.fileName");
+  assert(attribute.name == "FileNameAttribute");
+  assert(attribute.registerPath == "attributes.filename");
 }

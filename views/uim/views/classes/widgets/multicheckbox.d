@@ -179,7 +179,7 @@ class DMultiCheckboxWidget : DWidget {
            ),
         ]);
 
-        if (mycheckbox["label"] == false && !_stringContents.get("checkboxWrapper").has("{{input}}")) {
+        if (mycheckbox["label"] == false && !_stringContents.get("checkboxWrapper").contains("{{input}}")) {
             mylabel = myinput;
         } else {
             mylabelAttrs = isArray(mycheckbox["label"]) ? mycheckbox["label"] : [];

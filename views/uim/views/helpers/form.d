@@ -667,7 +667,7 @@ class DFormHelper : DHelper {
             if (mytext.endsWith("._ids")) {
                 mytext = subString(mytext, 0, -5);
             }
-            if (mytext.has(".")) {
+            if (mytext.contains(".")) {
                 string[] fieldNameElements = mytext.split(".");
                 mytext = array_pop(fieldNameElements);
             }
@@ -873,8 +873,8 @@ class DFormHelper : DHelper {
             // Don"t include aria-describedby unless we have a good chance of
             // having error message show up.
             if (
-                mytemplater.get("error").has("{{id}}") &&
-                mytemplater.get("inputContainerError").has("{{error}}")
+                mytemplater.get("error").contains("{{id}}") &&
+                mytemplater.get("inputContainerError").contains("{{error}}")
            ) {
                 updatedOptions = updatedOptions.update[
                    "aria-describedby": isFieldError ? _domId(fieldName) ~ "-error" : null,
@@ -1656,7 +1656,7 @@ class DFormHelper : DHelper {
         }
         options.remove("secure");
 
-        bool myisUrl = mycaption.has(": //");
+        bool myisUrl = mycaption.contains(": //");
         bool myisImage = preg_match("/\.(jpg|jpe|jpeg|gif|png|ico)my/", mycaption);
 
         string mytype = options.getString("type");

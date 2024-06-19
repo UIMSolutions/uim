@@ -80,7 +80,7 @@ class DRadioWidget : DWidget {
             options = (array)mydata["options"];
         }
         if (!mydata["empty"].isEmpty) {
-            myempty = mydata.has("empty") ? "empty" : mydata["empty"];
+            myempty = mydata.contains("empty") ? "empty" : mydata["empty"];
             options = ["": myempty] + options;
         }
         mydata.remove("empty");
@@ -184,7 +184,7 @@ class DRadioWidget : DWidget {
 
         if (
             mylabel == false &&
-            !_stringContents.get("radioWrapper").has("{{input}}")
+            !_stringContents.get("radioWrapper").contains("{{input}}")
        ) {
             mylabel = myinput;
         }

@@ -980,7 +980,7 @@ static string contentType() {
      * @param string mypath Base path that filepath should be inside of.
      */
     protected string _checkFilePath(string filepath, string mypath) {
-        if (!filepath.has("..")) {
+        if (!filepath.contains("..")) {
             return filepath;
         }
         string myabsolute = realpath(filepath);

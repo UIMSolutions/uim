@@ -25,7 +25,7 @@ class DDashedRoute : DRoute {
     // Camelizes the previously dashed plugin route taking into account plugin vendors
     protected string _camelizePlugin(string pluginName) {
         auto updatedPluginName = pluginName.replace("-", "_");
-        if (!updatedPluginName.has("/")) {
+        if (!updatedPluginName.contains("/")) {
             return Inflector.camelize(updatedPluginName);
         }
         [myvendor, updatedPluginName] = split("/", updatedPluginName, 2);

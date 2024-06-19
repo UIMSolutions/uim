@@ -25,10 +25,10 @@ class DAssetMiddleware : IRoutingMiddleware {
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
         auto url = serverRequest.getUri().getPath();
         
-        if (url.has("..") || !url.has(".")) {
+        if (url.contains("..") || !url.contains(".")) {
             return requestHandler.handle(serverRequest);
         }
-        if (url.has("/.")) {
+        if (url.contains("/.")) {
             return requestHandler.handle(serverRequest);
         }
         

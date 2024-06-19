@@ -341,7 +341,7 @@ class DRouter {
 
             if (
                 myurl.startsWith(["javascript:", "mailto:", "tel:", "sms:", "#", "?", "//"]) ||
-                myurl.has(": //")) {
+                myurl.contains(": //")) {
                 return myurl;
             }
             myoutput = mycontext["_base"] ~ myurl;
@@ -540,7 +540,7 @@ class DRouter {
         }
         myurl = "/" ~ myurl;
 
-        while (myurl.has("//")) {
+        while (myurl.contains("//")) {
             myurl = myurl.replace("//", "/");
         }
         myurl = preg_replace("/(?:(\/my))/", "", myurl);

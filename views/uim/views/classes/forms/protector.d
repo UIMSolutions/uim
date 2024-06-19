@@ -126,7 +126,7 @@ class DFormProtector {
         if (isEmpty(attributeName) && attributeName != "0") {
             return null;
         }
-        if (!attributeName.has("[")) {
+        if (!attributeName.contains("[")) {
             return Hash.filter(split(".", attributeName));
         }
         
@@ -202,7 +202,7 @@ class DFormProtector {
             return null;
         }
         token = urldecode(formData["_Token.fields"]);
-        if (token.has(": ")) {
+        if (token.contains(": ")) {
             [token, ] = split(": ", token, 2);
         }
         return token;
@@ -229,7 +229,7 @@ class DFormProtector {
         auto token = urldecode(formData["_Token.fields"]);
         auto unlocked = urldecode(formData["_Token.unlocked"]);
 
-        if (token.has(": ")) {
+        if (token.contains(": ")) {
             [, locked] = split(": ", token, 2);
         }
         remove(formData["_Token"]);

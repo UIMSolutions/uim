@@ -196,7 +196,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
         if (pluginName.isEmpty) {
             throw new DException("Cannot create a plugin with empty name");
         }
-        if (pluginName.has("\\")) {
+        if (pluginName.contains("\\")) {
             if (!class_exists(pluginName)) {
                 throw new DInvalidArgumentException("Class `%s` does not exist.".format(pluginName));
             }

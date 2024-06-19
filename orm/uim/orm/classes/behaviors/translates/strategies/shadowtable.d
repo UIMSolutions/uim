@@ -62,7 +62,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             "translationTable": plugin.tableReferenceName ~ "Translations",
             "hasOneAlias": tableAlias ~ "Translation",
         ];
-        if (configuration.has("tableLocator")) {
+        if (configuration.contains("tableLocator")) {
             _tableLocator = configuration.get("tableLocator");
         }
 
@@ -246,7 +246,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         auto joinRequired = false;
         /* clause.iterateParts(
             function(c,  & field) use(fields, aliasName, mainTableAlias, mainTableFields,  & joinRequired) {
-            if (!field.isString || field.has(".")) {
+            if (!field.isString || field.contains(".")) {
                 return c;
             }
 

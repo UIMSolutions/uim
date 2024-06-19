@@ -282,7 +282,7 @@ class DPaginatorHelper : DHelper {
                                                                     if (mytitle.isEmpty) {
                                                                         mytitle = aKey;
 
-                                                                            if (mytitle.has(".")) {
+                                                                            if (mytitle.contains(".")) {
                                                                                 mytitle = mytitle.replace(".", " ");
                                                                             }
                                                                         mytitle = __(Inflector.humanize((
@@ -383,7 +383,7 @@ class DPaginatorHelper : DHelper {
                                                                     if (
                                                                         !mypaging.isEmpty("sort")) 
                                                                     && !options.isEmpty("sort"])
-                                                                    && !options["sort"].has(".")
+                                                                    && !options["sort"].contains(".")
                                                                ) {
                                                                     mypaging["sort"] = _removeAlias(
                                                                         mypaging["sort"]);

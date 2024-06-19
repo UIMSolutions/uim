@@ -282,7 +282,7 @@ class DRoute : IRoute {
         ];
         foreach (aKey: myglue; someKeys) {
             string myvalue; 
-            if (this.template.has("{" ~ aKey ~ "}")) {
+            if (this.template.contains("{" ~ aKey ~ "}")) {
                 myvalue = "_" ~ aKey;
             } else if (isSet(this.defaults[aKey])) {
                 myvalue = this.defaults[aKey];
@@ -418,7 +418,7 @@ class DRoute : IRoute {
      * string myurl The url to parse.
      */
     protected Json[string] _parseExtension(string myurl) {
-        if (count(_extensions) && myurl.has(".")) {
+        if (count(_extensions) && myurl.contains(".")) {
             foreach (_extensions as myext) {
                 mylen = myext.length + 1;
                 if (subString(myurl, -mylen) == "." ~ myext) {
@@ -499,7 +499,7 @@ class DRoute : IRoute {
 
         // Apply the _host option if possible
         if (isSet(configuration.set("_host"])) {
-            if (!isSet(myhostOptions["_host"]) && !configuration.set("_host"].has("*")) {
+            if (!isSet(myhostOptions["_host"]) && !configuration.set("_host"].contains("*")) {
                 myhostOptions["_host"] = configuration.set("_host"];
             }
             myhostOptions["_host"] ??= mycontext["_host"];
@@ -653,10 +653,10 @@ class DRoute : IRoute {
             mysearch ~= key;
             myreplace ~= mystring;
         });
-        if (this.template.has("**")) {
+        if (this.template.contains("**")) {
             array_push(mysearch, "**", "%2F");
             array_push(myreplace, mypass, "/");
-        } else if (this.template.has("*")) {
+        } else if (this.template.contains("*")) {
             mysearch ~= "*";
             myreplace ~= mypass;
         }

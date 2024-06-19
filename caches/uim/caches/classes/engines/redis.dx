@@ -230,7 +230,7 @@ class DRedisCacheEngine : DCacheEngine {
     override string[] groups() {
         string[] result;
         configuration.get("groups").each!((group) {
-            auto aValue = _redis.get(configuration.get("prefix") ~  group);
+            auto aValue = _redis.get(configuration.getString("prefix") ~  group);
             if (!aValue) {
                 aValue = serialize(1);
                _redis.set(configuration.getString("prefix") ~  group, aValue);

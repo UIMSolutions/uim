@@ -104,7 +104,7 @@ mixin template TPluginAssets() {
      * configData - Plugin config.
      */
     protected bool _remove(Json[string] configData = null) {
-        if (configuration.get("namespaced") && !isDir(configuration.get("destDir"))) {
+        if (configuration.hasKey("namespaced") && !isDir(configuration.get("destDir"))) {
             _io.verbose(
                 configuration.getString("destDir") ~ configuration.getString("link") ~ " does not exist",
                 1

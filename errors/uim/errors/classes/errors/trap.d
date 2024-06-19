@@ -105,7 +105,7 @@ class DErrorTrap {
 
         auto anIgnoredPaths = /* (array) */configuration.get("Error.ignoredDeprecationPaths");
         if (errorCode == E_USER_DEPRECATED &&  anIgnoredPaths) {
-            string relativePath = subString((string)file, ROOT.length + 1).replace(DIRECTORY_SEPARATOR, "/");
+            string relativePath = subString(fileName, ROOT.length + 1).replace(DIRECTORY_SEPARATOR, "/");
             foreach (somePattern; anIgnoredPaths) {
                 string somePattern = somePattern.replace(DIRECTORY_SEPARATOR, "/");
                 if (fnmatch(somePattern, relativePath)) {
@@ -118,16 +118,15 @@ class DErrorTrap {
 
         try {
             // Log first incase rendering or event listeners fail
-            this.logError(error);
+            logError(error);
             event = dispatchEvent("Error.beforeRender", ["error": error]);
             if (event.isStopped()) {
                 return true;
             }
             renderer.write(event.getResult() ?: renderer.render(error, debug));
-        } catch (Exception  anException) {
+        } catch (Exception exception) {
             // Fatal errors always log.
-            logger().logException(anException);
-
+            logger().logException(exception);
             return false;
         }
         return true;

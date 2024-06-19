@@ -375,7 +375,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
            _schema = getConnection()
                 .getSchemaCollection()
                 .describe(getTable());
-            if (configuration.get("debug")) {
+            if (configuration.hasKey("debug")) {
                 this.checkAliasLengths();
             }
         }

@@ -84,7 +84,7 @@ class DFileCacheEngine : DCacheEngine {
         myexpires = time() + duration(timeToLive);
         mycontents = [myexpires, D_EOL, cacheData, D_EOL].join();
 
-        if (configuration.get("lock")) {
+        if (configuration.hasKey("lock")) {
             _File.flock(LOCK_EX);
         }
         _File.rewind();
@@ -92,7 +92,7 @@ class DFileCacheEngine : DCacheEngine {
             _File.fwrite(mycontents) &&
             _File.fflush();
 
-        if (configuration.get("lock")) {
+        if (configuration.hasKey("lock")) {
             _File.flock(LOCK_UN);
         }
         _File = null;
@@ -109,7 +109,7 @@ class DFileCacheEngine : DCacheEngine {
         if (!_init || _setKey(key) == false) {
             return defaultValue;
         }
-        if (configuration.get("lock")) {
+        if (configuration.hasKey("lock")) {
             _File.flock(LOCK_SH);
         }
         _File.rewind();
@@ -117,7 +117,7 @@ class DFileCacheEngine : DCacheEngine {
         mycachetime = to!int(_File.currentValue());
 
         if (mycachetime < mytime) {
-            if (configuration.get("lock")) {
+            if (configuration.hasKey("lock")) {
                 _File.flock(LOCK_UN);
             }
             return defaultValue;
@@ -279,18 +279,17 @@ class DFileCacheEngine : DCacheEngine {
 
     // Determine if cache directory is writable
     /* protected bool _active() {
-        mydir = new DSplFileInfo(configuration.get("path"]);
-        mypath = mydir.getPathname();
-        mysuccess = true;
+        auto mydir = new DSplFileInfo(configuration.get("path"));
+        auto mypath = mydir.getPathname();
+        auto mysuccess = true;
         if (!isDir(mypath)) {
-            mysuccess = @mkdir(mypath, configuration.get("dirMask"], true) ;
+            mysuccess = @mkdir(mypath, configuration.get("dirMask"), true) ;
         }
         myisWritableDir = (mydir.isDir() && mydir.isWritable());
         if (!mysuccess || (_init && !myisWritableDir)) {
             _init = false;
             trigger_error("%s is not writable"
-                    .format(configuration.get("path"]
-                   ), E_USER_WARNING);
+                    .format(configuration.getString("path"), E_USER_WARNING));
         }
         return mysuccess;
     } */

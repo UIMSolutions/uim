@@ -171,22 +171,22 @@ class DSession {
             "handler": Json.emptyArray,
         ];
 
-        if (configuration.get("timeout"]) {
+        if (configuration.hasKey("timeout")) {
             configuration.get("ini.session.gc_maxlifetime"] = 60 * configuration.get("timeout"];
         }
-        if (configuration.get("cookie"]) {
-            configuration.get("ini.session.name"] = configuration.get("cookie"];
+        if (configuration.hasKey("cookie")) {
+            configuration.set("ini.session.name", configuration.get("cookie"));
         }
-        if (!configuration.get("ini"].hasKey("session.cookie_path")) {
-            cookiePath = configData.isEmpty("cookiePath") ? "/" : configuration.get("cookiePath"];
-            configuration.get("ini.session.cookie_path"] = cookiePath;
+        if (!configuration.hasKey("ini.session.cookie_path")) {
+            cookiePath = configData.isEmpty("cookiePath") ? "/" : configuration.getString("cookiePath");
+            configuration.set("ini.session.cookie_path", cookiePath);
         }
-        options(configuration.get("ini"]);
+        options(configuration.get("ini"));
 
         if (!configData.isEmpty("handler")) {
-            className = configuration.get("handler.engine"];
-            remove(configuration.get("handler.engine"]);
-            this.engine(className, configuration.get("handler"]);
+            auto className = configuration.get("handler.engine");
+            configuration.remove("handler.engine");
+            engine(className, configuration.get("handler"));
         }
         _lifetime = (int) ini_get("session.gc_maxlifetime");
         _isCLI = (UIM_SAPI == "cli" || UIM_SAPI == "Ddbg");

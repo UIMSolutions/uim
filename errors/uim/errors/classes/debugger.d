@@ -353,16 +353,17 @@ class DDebugger {
      * @param int context Number of lines of context to extract above and below lineToHighlight.
      */
     static string[] excerpt(string filePath, int lineToHighlight, int numberOfLinesToExtract = 2) {
-        auto lines = null;
+        string[] lines = null;
         if (!fileExists(filePath)) {
             return null;
         }
-        someData = file_get_contents(filePath);
-        if (isEmpty(someData)) {
+        
+        string[] someData = file_get_contents(filePath);
+        if (someData.isEmpty) {
             return lines;
         }
         if (someData.has("\n")) {
-            string[] someData = someData.split("\n");
+            someData = someData.split("\n");
         }
         lineToHighlight--;
         if (!isSet(someData[lineToHighlight])) {
@@ -373,7 +374,7 @@ class DDebugger {
             if (!isSet(someData[anI])) {
                 continue;
             }
-            string lineToHighlight = .replace(["\r\n", "\n"], "", _highlight(someData[anI]));
+            string lineToHighlight = _highlight(someData[anI]).replace(["\r\n", "\n"], "");
             lines ~= anI == lineToHighlight
                 ? "<span class=\"code-highlight\">" ~ string ~ "</span>" : lineToHighlight;
         }

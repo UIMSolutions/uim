@@ -98,7 +98,7 @@ class DSocket {
             : stream_context_create();
 
         connectAs = STREAM_CLIENT_CONNECT;
-        if (configuration.get("persistent"]) {
+        if (configuration.hasKey("persistent")) {
             connectAs |= STREAM_CLIENT_PERSISTENT;
         }
         /**
@@ -107,7 +107,7 @@ class DSocket {
          */
         set_error_handler(_connectionErrorHandler(...));
         remoteSocketTarget = scheme ~ configuration.get("host"];
-        port = to!int(configuration.get("port"]);
+        auto port = configuration.getInteger("port");
         if (port > 0) {
             remoteSocketTarget ~= ": " ~ port;
         }
@@ -236,29 +236,24 @@ class DSocket {
             return to!string(gethostbyaddr(this.address()));
         }
 
-    /**
-     * Get the IP address of the current connection.
-     */
+    // Get the IP address of the current connection.
     string address() {
-        if (Validation.ip(configuration.get("host"])) {
-            return configuration.get("host"];
-        }
-        return gethostbyname(configuration.get("host"]);
+        return Validation.ip(configuration.get("host"))
+            ? configuration.get("host");
+            : getHostByName(configuration.getString("host"));
     }
 
     /**
      * Get all IP addresses associated with the current connection.
      */
     Json[string] addresses() {
-        if (Validation.ip(configuration.get("host"])) {
-            return [configuration.get("host"]];
+        if (Validation.ip(configuration.get("host"))) {
+            return ["host": configuration.getString["host"]];
         }
-        return gethostbynamel(configuration.get("host"]) ?  : [];
+        return gethostbynamel(configuration.getMap("host")) ?  : [];
     }
 
-    /**
-     * Get the last error as a string.
-     */
+    // Get the last error as a string.
     string lastError() {
         if (isEmpty(this.lastError)) {
             return null;
@@ -290,7 +285,7 @@ class DSocket {
         while (written < totalBytes) {
             assert(this.connection!is null);
 
-            rv = fwrite(this.connection, subString(someData, written));
+            auto rv = fwrite(this.connection, subString(someData, written));
             if (rv == false || rv == 0) {
                 return written;
             }
@@ -356,19 +351,11 @@ class DSocket {
         
 
         >>>  >>>  > 74 a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf /**
-     * Destructor, used to disconnect from current connection.
-     */
+     // Destructor, used to disconnect from current connection.
         auto __destruct() {
             this.disconnect();
         }
     
-    <<  <<  <<  < HEAD
-
-        == == == =
-
-        
-
-        >>>  >>>  > 74 a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf /**
      * Resets the state of this Socket instance to it"s initial state (before Object.__construct got executed)
      * Params:
      * array|null state Array with key and values to reset
@@ -388,14 +375,7 @@ class DSocket {
                  = aValue;
             }
         }
-    
-    <<  <<  <<  < HEAD
-
-        == == == =
-
-        
-
-        >>>  >>>  > 74 a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf /**
+    /**
      * Encrypts current stream socket, using one of the defined encryption methods
      * Params:
      * string atype can be one of "ssl2", "ssl3", "ssl23" or "tls"
@@ -405,8 +385,8 @@ class DSocket {
             if (!array_key_exists(type ~ "_" ~ clientOrServer, _encryptMethods)) {
                 throw new DInvalidArgumentException("Invalid encryption scheme chosen");
             }
-            method = _encryptMethods[type ~ "_" ~ clientOrServer];
-
+            
+            auto method = _encryptMethods[type ~ "_" ~ clientOrServer];
             if (method == STREAM_CRYPTO_METHOD_TLS_CLIENT) {
                 method |= STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT | STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT;
             }
@@ -432,14 +412,8 @@ class DSocket {
             throw new DSocketException(errorMessage);
         }
     
-    <<  <<  <<  < HEAD /**
-     * Check the encryption status after calling `enableCrypto()`.
-     */
-    == == == =
-
          // Check the encryption status after calling `enableCrypto()`.
-        >>>  >>>  > 74 a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf bool isEncrypted() {
+        bool isEncrypted() {
             return _encrypted;
         }
-    */ 
 }

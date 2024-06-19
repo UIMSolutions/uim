@@ -84,10 +84,10 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
             throw new DUnexpectedValueException("The `hsts` config must be an array.");
         }
         auto aValue = "max-age=" ~ configuration.get("maxAge"];
-        if (configuration.get("includeSubDomains", false)) {
+        if (configuration.hasKey("includeSubDomains")) {
             aValue ~= "; includeSubDomains";
         }
-        if (configuration.get("preload", false)) {
+        if (configuration.hasKey("preload")) {
             aValue ~= "; preload";
         }
         return response.withHeader("strict-transport-security", aValue);

@@ -55,15 +55,13 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     /**
      * Append a middleware to the end of the queue.
      * Params:
-     * \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string[] amiddleware The middleware(s) to append.
+     * \Psr\Http\Server\IHttpMiddleware|\/*Closure|* / string[] amiddleware The middleware(s) to append.
      */
+    void add(/* IHttpMiddleware| Closure|*/ string[] middlewares) {
+            _queue = chain(_queue, middlewares);
+    }
     void add(IHttpMiddleware|/*Closure|*/ string[] amiddleware) {
-        if (middleware.isArray) {
-            this.queue = chain(this.queue, middleware);
-
-            return;
-        }
-        this.queue ~= middleware;
+        _queue ~= middleware;
     }
     
     /**
@@ -82,11 +80,11 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      */
     auto prepend(IHttpMiddleware|/*Closure|*/ string[] amiddleware) {
         if (middleware.isArray) {
-            this.queue = chain(middleware, this.queue);
+            _queue = chain(middleware, _queue);
 
             return this;
         }
-        array_unshift(this.queue, middleware);
+        array_unshift(_queue, middleware);
 
         return this;
     }
@@ -101,7 +99,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string amiddleware The middleware to insert.
      */
     auto insertAt(int anIndex, IHttpMiddleware|/*Closure|*/ string amiddleware) {
-        array_splice(this.queue,  anIndex, 0, [middleware]);
+        array_splice(_queue,  anIndex, 0, [middleware]);
 
         return this;
     }
@@ -117,7 +115,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     auto insertBefore(string className, IHttpMiddleware|/*Closure|*/ string amiddleware) {
         bool isFound = false;
         anI = 0;
-        foreach (anI: object; this.queue) {
+        foreach (anI: object; _queue) {
             if (
                 (
                     isString(object)
@@ -146,9 +144,9 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string amiddleware The middleware to insert.
      */
     auto insertAfter(string className, IHttpMiddleware|/*Closure|*/ string amiddleware) {
-        found = false;
-         anI = 0;
-        foreach (anI: object; this.queue) {
+        auto found = false;
+        auto anI = 0;
+        foreach (anI: object; _queue) {
             /** @psalm-suppress ArgumentTypeCoercion */
             if (
                 (
@@ -173,7 +171,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Implement the Countable interface.
      */
     size_t count() {
-        return count(this.queue);
+        return count(_queue);
     }
     
     /**
@@ -182,7 +180,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * int position The position to seek to.
      */
     void seek(int position) {
-        if (!isSet(this.queue[position])) {
+        if (!isSet(_queue[position])) {
             throw new DOutOfBoundsException("Invalid seek position (%s)."
                 .format(position));
         }
@@ -198,13 +196,13 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     
     // Returns the current middleware.
     IHttpMiddleware currentValue() {
-        if (!isSet(this.queue[this.position])) {
+        if (!isSet(_queue[this.position])) {
             throw new DOutOfBoundsException("Invalid current position (%s).".format(this.position));
         }
-        if (cast(IHttpMiddleware)this.queue[this.position]) {
+        if (cast(IHttpMiddleware)_queue[this.position]) {
             return _queue[this.position];
         }
-        return _queue[this.position] = this.resolve(this.queue[this.position]);
+        return _queue[this.position] = this.resolve(_queue[this.position]);
     }
     
     // Return the key of the middleware.
@@ -219,6 +217,6 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     
     // Checks if current position is valid.
     bool valid() {
-        return isSet(this.queue[this.position]);
+        return isSet(_queue[this.position]);
     } */ 
 }

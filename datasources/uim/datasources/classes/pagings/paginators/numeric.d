@@ -319,7 +319,7 @@ class DNumericPaginator : IPaginator {
 
     // Extracts the finder name and options out of the provided pagination options.
     protected Json[string] _extractFinder(Json[string] paginationOptions) {
-        type = !paginationOptions.isEmpty("finder") ? paginationOptions["finder"] : "all";
+        auto type = !paginationOptions.isEmpty("finder") ? paginationOptions["finder"] : "all";
         paginationOptions.remove("finder"), paginationOptions["maxLimit"]);
 
         if (type.isArray) {
@@ -341,8 +341,8 @@ class DNumericPaginator : IPaginator {
         if (!allowed) {
             allowed = null;
         }
-        auto whitelist = configuration.get("whitelist");
-        if (whitelist) {
+
+        if (auto whitelist = configuration.get("whitelist")) {
             deprecationWarning(
                 "The `whitelist` option is deprecated. Use the `allowedParameters` option instead.");
 

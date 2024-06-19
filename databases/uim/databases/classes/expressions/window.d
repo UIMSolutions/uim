@@ -38,38 +38,40 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
         _nameExpression = new DIdentifierExpression(windowName);
     }
 
-    void partition(IExpression | Closure | string[] mypartitions) {
-        if (!mypartitions) {
+    void partition(Istring aPartition) {
+        partition([aPartition]);
+    }
+
+    void partition(/* IExpression | Closure |  */string[] partitions) {
+        if (!partitions) {
             return;
         }
 
-        if (cast(DClosure) mypartitions) {
+/*         if (cast(DClosure) mypartitions) {
             mypartitions = mypartitions(new QueryExpression([], [], ""));
+        } */
+
+        foreach (ref partition; partitions) {
+            /* if (isString(mypartition)) { */
+                partition = new DIdentifierExpression(mypartition);
+            /* } */
         }
-        if (!isArray(mypartitions)) {
-            mypartitions = [mypartitions];
-        }
-        foreach (mypartitions as & mypartition) {
-            if (isString(mypartition)) {
-                mypartition = new DIdentifierExpression(mypartition);
-            }
-        }
-        this.partitions = array_merge(this.partitions, mypartitions);
+        _partitions = array_merge(this.partitions, mypartitions);
     }
 
     auto order(IExpression | Closure | string[] fieldNames) {
         return _orderExpression(fieldNames);
     }
 
-    void orderBy(IExpression | Closure | string[] fieldNames) {
+    void orderBy(/* IExpression | Closure |  */string[] fieldNames) {
         if (!fieldNames) {
             return;
         }
         _orderExpression = _orderExpression.ifNull(new DOrderByExpression());
 
-        if (cast(DClosure)fieldNames) {
+/*         if (cast(DClosure)fieldNames) {
             fieldNames = fieldNames(new QueryExpression([], [], ""));
-        }
+        } */
         _order.add(fieldNames);
     }
 
@@ -87,12 +89,12 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
 
     auto frame(
         string mytype,
-        IExpression | string | int mystartOffset,
+        /* IExpression | */ string | int mystartOffset,
         string mystartDirection,
-        IExpression | string | int myendOffset,
+        /* IExpression | */ string | int myendOffset,
         string myendDirection
    ) {
-        this.frame = [
+        _frame = [
             "type": mytype,
             "start": [
                 "offset": mystartOffset,

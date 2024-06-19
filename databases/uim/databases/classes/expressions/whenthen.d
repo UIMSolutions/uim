@@ -65,30 +65,31 @@ class DWhenThenExpression : DExpression {
      * a non-array, and then always binds the data), use a conditions array where the user data is only passed on the
      * value side of the array entries, or custom bindings!
      */
-    void when(/* object */ string[]|float|bool when, string[] valueType = null) {
-        if (isArray(when)) {
-            if (isEmpty(when)) {
-                throw new DInvalidArgumentException("The ` when` argument must be a non-empty array");
-            }
-            if (
-                valueType !is null &&
-                !isArray(valueType)
-           ) {
-                throw new DInvalidArgumentException(
-                    "When using an array for the ` when` argument, the `type` argument must be an " ~
-                    "array too, `%s` given.".format(get_debug_type(valueType)
-               ));
-            }
-            // avoid dirtying the type map for possible consecutive `when()` calls
-            typeMap = clone _typeMap;
-            if (
-                isArray(valueType) &&
-                count(valueType) > 0
-           ) {
-                typeMap = typeMap.setTypes(valueType);
-            }
-             when = new DQueryExpression(when, typeMap);
-        } else {
+    void when(string[] when, string[] valueType = null) {
+        if (isEmpty(when)) {
+            throw new DInvalidArgumentException("The ` when` argument must be a non-empty array");
+        }
+        if (
+            valueType !is null &&
+            !isArray(valueType)
+        ) {
+            throw new DInvalidArgumentException(
+                "When using an array for the ` when` argument, the `type` argument must be an " ~
+                "array too, `%s` given.".format(get_debug_type(valueType)
+            ));
+        }
+        // avoid dirtying the type map for possible consecutive `when()` calls
+        typeMap = clone _typeMap;
+        if (
+            isArray(valueType) &&
+            count(valueType) > 0
+        ) {
+            typeMap = typeMap.setTypes(valueType);
+        }
+        when = new DQueryExpression(when, typeMap);
+    }
+    void when(/* object */ float|bool when, string[] valueType = null) {
+        else {
             if (
                 valueType !is null &&
                 !isString(type)
@@ -105,8 +106,8 @@ class DWhenThenExpression : DExpression {
                 valueType = this.inferType(when);
             }
         }
-        this.when = when;
-        this.whenType = valueType;
+        _when = when;
+        _whenType = valueType;
     }
     
     // Sets the `THEN` result value.
@@ -122,11 +123,9 @@ class DWhenThenExpression : DExpression {
                 .format(IExpression.classname, get_debug_type(resultValue)
            ));
         }
-        this.then = result;
-
-        this.thenType = resultValue ? resultValue : this.inferType(resultValue);
-
-        this.hasThenBeenDefined = true;
+        _then = result;
+        _thenType = resultValue ? resultValue : this.inferType(resultValue);
+        _hasThenBeenDefined = true;
     }
     
     // Returns the expression`s result value type.

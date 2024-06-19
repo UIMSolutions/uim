@@ -352,8 +352,8 @@ class DI18nExtractCommand : DCommand {
         size_t tokenCount = count(_tokens);
 
         while (tokenCount - count > 1) {
-            countToken = _tokens[count];
-            firstParenthesis = _tokens[count + 1];
+            auto countToken = _tokens[count];
+            auto firstParenthesis = _tokens[count + 1];
             if (!isArray(countToken)) {
                 count++;
                 continue;

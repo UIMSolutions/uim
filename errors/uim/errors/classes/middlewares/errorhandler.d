@@ -67,7 +67,6 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
 
     /**
      * Error handler instance.
-     *
      * var DERRErrorHandler|null
      */
     protected myErrorHandler;
@@ -88,7 +87,6 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
 
         if (myErrorHandler.isArray) {
             configuration.update(myErrorHandler);
-
             return;
         }
 

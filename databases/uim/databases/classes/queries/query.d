@@ -316,17 +316,18 @@ abstract class DQuery : IQuery { // : IExpression {
      * It will produce the SQL: SELECT HIGH_PRIORITY SQL_NO_CACHE name, city FROM products
      * ```
      * Params:
-     * \UIM\Database\/* IExpression| */ string[] amodifiers modifiers to be applied to the query
+     * \UIM\Database\/* IExpression| * / string[] amodifiers modifiers to be applied to the query
      */
-    void modifier(/* IExpression| */ string[] amodifiers, bool shouldOverwrite = false) {
+    void modifier(/* IExpression| */ string newModifier, bool shouldOverwrite = false) {
+        modifier([newModifier], shouldOverwrite) {
+    }
+    void modifier(/* IExpression| */ string[] modifiers, bool shouldOverwrite = false) {
        _isDirty();
         if (shouldOverwrite) {
            _parts["modifier"] = null;
         }
-        if (!isArray(someModifiers)) {
-            someModifiers = [someModifiers];
-        }
-       _parts["modifier"] = array_merge(_parts["modifier"], someModifiers);
+
+       _parts["modifier"] = array_merge(_parts["modifier"], modifiers);
     }
     
     /**
@@ -714,7 +715,7 @@ abstract class DQuery : IQuery { // : IExpression {
     /**
      * Convenience method that adds a NOT NULL condition to the query
      * Params:
-     * \UIM\Database\/* IExpression| */ string[] fieldNames A single field or expressions or a list of them
+     * \UIM\Database\/* IExpression| * / string[] fieldNames A single field or expressions or a list of them
      * that should be not null.
      */
     auto whereNotNull(/* IExpression| */ string[] fieldNames) {
@@ -730,16 +731,16 @@ abstract class DQuery : IQuery { // : IExpression {
     /**
      * Convenience method that adds a isNull condition to the query
      * Params:
-     * \UIM\Database\/* IExpression| */ string[] fieldNames A single field or expressions or a list of them
+     * \UIM\Database\/* IExpression| * / string[] fieldNames A single field or expressions or a list of them
      * that should be null.
      */
+    auto whereNull(string fieldName) {
+        return whereNull([fieldName]),
+    }
+    
     auto whereNull(/* IExpression| */ string[] fieldNames) {
-        if (!isArray(fields)) {
-            fields = [fields];
-        }
-
-        auto newExpression = this.newExpr();
-        fields.each!(field => newExpression.isNull(field));
+        auto newExpression = newExpr();
+        fieldNames.each!(fieldName => newExpression.isNull(fieldName));
         return _where(newExpression);
     }
     

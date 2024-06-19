@@ -309,11 +309,11 @@ class DPaginator : IPaginator {
         }
 
         return paginatorOptions.update([
-            "sort": pagingOptions["options.sort"],
-            "direction": pagingOptions.hasKey("options.sort") && count(order) ? currentValue(order) : null,
-            "sortDefault": sortDefault,
-            "directionDefault": directionDefault,
-            "completeSort": order,
+            "sort": pagingOptions["options.sort"].toJson,
+            "direction": (pagingOptions.hasKey("options.sort") && count(order) ? currentValue(order) : null).toJson,
+            "sortDefault": sortDefault.toJson,
+            "directionDefault": directionDefault.toJson,
+            "completeSort": order.toJson,
         ]);
     }
 

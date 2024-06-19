@@ -212,7 +212,7 @@ class DExceptionTrap {
         if (!isIn(error["type"], fatals, true)) {
             return;
         }
-        this.handleFatalError(
+        handleFatalError(
             error["type"],
             error["message"],
             error["file"],
@@ -222,22 +222,23 @@ class DExceptionTrap {
     
     // Increases the D "memory_limit" ini setting by the specified amount in kilobytes
     void increaseMemoryLimit(int additionalKb) {
-        auto aLimit = ini_get("memory_limit");
+        string aLimit = ini_get("memory_limit");
         if (aLimit == false || aLimit == "" || aLimit == "-1") {
             return;
         }
         aLimit = strip(aLimit);
-        auto myUnits = subString(aLimit, -1).upper;
+        string units = subString(aLimit, -1).upper;
         auto myCurrent = (int)subString(aLimit, 0, -1);
-        if (myUnits == "M") {
+        
+        if (units == "M") {
             myCurrent *= 1024;
-            myUnits = "K";
+            units = "K";
         }
-        if (myUnits == "G") {
+        if (units == "G") {
             myCurrent = myCurrent * 1024 * 1024;
-            myUnits = "K";
+            units = "K";
         }
-        if (myUnits == "K") {
+        if (units == "K") {
             ini_set("memory_limit", ceil(current + additionalKb) ~ "K");
         }
     }
@@ -259,7 +260,7 @@ class DExceptionTrap {
      * \Throwable exception The exception to log
      */
     void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
-        shouldLog = configuration.get("log"];
+        shouldLog = configuration.get("log");
         if (shouldLog) {
             foreach (_configData.hasKey("skipLog") as  className) {
                 if (cast(className)exceptionToLog) {
@@ -269,7 +270,7 @@ class DExceptionTrap {
             }
         }
         if (shouldLog) {
-            logger().logException(exceptionToLog, serverRequest, configuration.get("trace"]);
+            logger().logException(exceptionToLog, serverRequest, configuration.get("trace"));
         }
     }
     

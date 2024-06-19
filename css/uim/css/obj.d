@@ -3,7 +3,7 @@
 import uim.css;
 @safe:
 
-class DCSSObj : Obj {
+class DCSSObj {
 	this() { _init; }	 
 	protected void _init() {}
 
@@ -13,7 +13,6 @@ class DCSSObj : Obj {
 }
 auto CSSOBJ() { return new DCSSObj(); }
 
-version(test_uim_css) { unittest {
+unittest {
 	// TODO
-}}
-
+}

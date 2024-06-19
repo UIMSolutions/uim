@@ -186,8 +186,8 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         }
         url = request.getUri();
        _open(to!string(url, request));
-        content = "";
-        timedOut = false;
+        string content = "";
+        bool timedOut = false;
 
         assert(_stream !is null, "HTTP stream failed to open");
 
@@ -196,7 +196,6 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
                 stream_set_timeout(_stream, max(deadline - time(), 1));
             }
             content ~= fread(_stream, 8192);
-
             meta = stream_get_meta_data(_stream);
             if (meta["timed_out"] || (deadline != false && time() > deadline)) {
                 timedOut = true;
@@ -210,7 +209,8 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         if (timedOut) {
             throw new DNetworkException("Connection timed out " ~ url, request);
         }
-         aHeaders = meta["wrapper_data"];
+        
+        auto aHeaders = meta["wrapper_data"];
         if (aHeaders.hasKey("headers") && isArray(aHeaders["headers"])) {
              aHeaders = aHeaders["headers"];
         }

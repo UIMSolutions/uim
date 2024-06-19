@@ -10,8 +10,8 @@ class DCSSDeclaration : DCSSObj {
 
 	override protected void _init() { super._init; }
 
-	mixin(PropertyDefinition!("string", "name"));
-	mixin(PropertyDefinition!("string", "value"));
+	mixin(OProperty!("string", "name"));
+	mixin(OProperty!("string", "value"));
 
 alias opEquals = Object.opEquals;
   bool opEquals(string css) { return toString == css; }

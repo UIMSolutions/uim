@@ -31,7 +31,7 @@ mixin(AttributeCalls!("List"));
 ///
 unittest {
   auto attribute = new DListAttribute;
-  assert(attribute.name == "list");
+  assert(attribute.name == "ListAttribute");
   assert(attribute.registerPath == "attributes.list");
 
   DAttribute generalAttribute = attribute;

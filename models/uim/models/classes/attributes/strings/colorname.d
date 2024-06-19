@@ -19,8 +19,7 @@ class DColorNameAttribute : DStringAttribute {
       return false;
     }
 
-    name("colorName");
-    registerPath("colorName");
+    registerPath("attributes.colorName");
 
     return true;
   }
@@ -31,8 +30,8 @@ mixin(AttributeCalls!("ColorName"));
 ///
 unittest {
   auto attribute = new DColorNameAttribute;
-  assert(attribute.name == "colorName");
-  assert(attribute.registerPath == "colorName");
+  assert(attribute.name == "ColorNameAttribute");
+  assert(attribute.registerPath == "attributes.colorname");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DStringAttribute) generalAttribute);

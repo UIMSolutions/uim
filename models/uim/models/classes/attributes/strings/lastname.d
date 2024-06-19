@@ -19,20 +19,18 @@ class DLastNameAttribute : DStringAttribute {
       return false;
     }
 
-    name("lastname");
     registerPath("lastname");
 
     return true;
   }
 }
-
 mixin(AttributeCalls!("LastName"));
 
 ///
 unittest {
   auto attribute = new DLastNameAttribute;
-  assert(attribute.name == "lastname");
-  assert(attribute.registerPath == "lastname");
+  assert(attribute.name == "LastNameAttribute");
+  assert(attribute.registerPath == "attributes.lastname");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DStringAttribute) generalAttribute);

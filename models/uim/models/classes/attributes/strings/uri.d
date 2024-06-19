@@ -19,8 +19,7 @@ class DUriAttribute : DStringAttribute {
       return false;
     }
 
-    name("uri");
-    registerPath("uri");
+    registerPath("attributes.uri");
 
     return true;
   }
@@ -31,8 +30,8 @@ mixin(AttributeCalls!("Uri"));
 ///
 unittest {
   auto attribute = new DUriAttribute;
-  assert(attribute.name == "uri");
-  assert(attribute.registerPath == "uri");
+  assert(attribute.name == "UriAttribute");
+  assert(attribute.registerPath == "attributes.uri");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DUriAttribute) generalAttribute);

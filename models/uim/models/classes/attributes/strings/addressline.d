@@ -24,18 +24,23 @@ class DAddressLineAttribute : DStringAttribute {
     }
 
     // means.location.address
-    name("addressLine");
-    registerPath("addressline");
+    registerPath("attributes.addressline");
 
     return true;
   }
 }
-
 mixin(AttributeCalls!"AddressLine");
 
-version (test_uim_models) {
-  unittest {
-    testAttribute(new DAddressLineAttribute);
-    testAttribute(AddressLineAttribute);
-  }
+///
+unittest {
+  auto attribute = new DAddressLineAttribute;
+  assert(attribute.name == "AddressLineAttribute");
+  assert(attribute.registerPath == "attributes.addressline");
+
+  DAttribute generalAttribute = attribute;
+  assert(cast(DStringAttribute)generalAttribute);
+  assert(!cast(DIntegerAttribute)generalAttribute);
+
+  // Json value = attribute.createValue();
+  // assert(cast(DStringData)value);
 }

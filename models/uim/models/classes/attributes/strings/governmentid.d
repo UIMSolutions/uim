@@ -22,8 +22,7 @@ class DGovernmentIdAttribute : DStringAttribute {
       return false;
     }
 
-    name("governmentId");
-    registerPath("attributes.governmentId");
+    registerPath("attributes.governmentid");
 
     return true;
   }
@@ -33,6 +32,6 @@ mixin(AttributeCalls!("GovernmentId"));
 
 ///
 unittest {
-  assert(GovernmentIdAttribute.name == "governmentId");
-  assert(GovernmentIdAttribute.registerPath == "attributes.governmentId");
+  assert(GovernmentIdAttribute.name == "GovernmentIdAttribute");
+  assert(GovernmentIdAttribute.registerPath == "attributes.governmentid");
 }

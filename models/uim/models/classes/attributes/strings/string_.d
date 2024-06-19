@@ -37,8 +37,8 @@ mixin(AttributeCalls!"String");
 ///
 unittest {
   auto attribute = new DStringAttribute;
-  assert(attribute.name == "string");
-  assert(attribute.registerPath == "string");
+  assert(attribute.name == "StringAttribute");
+  assert(attribute.registerPath == "attributes.string");
 
   DAttribute generalAttribute = attribute;
   assert(!cast(DIntegerAttribute) generalAttribute);

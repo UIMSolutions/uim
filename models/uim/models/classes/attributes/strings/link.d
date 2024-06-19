@@ -17,7 +17,6 @@ class DLinkAttribute : DStringAttribute {
       return false;
     }
 
-    name("link");
     registerPath("link");
 
     return true;
@@ -29,8 +28,8 @@ mixin(AttributeCalls!("Link"));
 ///
 unittest {
   auto attribute = new DLinkAttribute;
-  assert(attribute.name == "link");
-  assert(attribute.registerPath == "link");
+  assert(attribute.name == "LinkAttribute");
+  assert(attribute.registerPath == "attributes.link");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DStringAttribute) generalAttribute);

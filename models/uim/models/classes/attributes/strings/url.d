@@ -15,8 +15,7 @@ class DUrlAttribute : DStringAttribute {
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
-    name("url");
-      registerPath("url");
+    registerPath("attributes.url");
 
    return true;
 
@@ -27,8 +26,8 @@ mixin(AttributeCalls!("Url"));
 ///
 unittest {
   auto attribute = new DUrlAttribute;
-  assert(attribute.name == "url");
-  assert(attribute.registerPath == "url");
+  assert(attribute.name == "UrlAttribute");
+  assert(attribute.registerPath == "attributes.url");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DUrlAttribute)generalAttribute);

@@ -17,8 +17,7 @@ class DAccountIdAttribute : DEntityIdAttribute {
       return false;
     }
 
-    name("accountId");
-    registerPath("accountId");
+    registerPath("attributes.accountid");
 
     return true;
   }
@@ -29,8 +28,8 @@ mixin(AttributeCalls!("AccountId"));
 ///
 unittest {
   auto attribute = new DAccountIdAttribute;
-  assert(attribute.name == "accountId");
-  assert(attribute.registerPath == "accountId");
+  assert(attribute.name == "AccountIdAttribute");
+  assert(attribute.registerPath == "attributes.accountid");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DEntityIdAttribute) generalAttribute);

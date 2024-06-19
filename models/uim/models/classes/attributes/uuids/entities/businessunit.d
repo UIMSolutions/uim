@@ -20,8 +20,7 @@ class DBusinessUnitIdAttribute : DEntityIdAttribute {
       return false;
     }
 
-    name("businessUnitId");
-    registerPath("businessUnitId");
+    registerPath("attributes.businessUnitId");
 
     return true;
   }
@@ -32,8 +31,8 @@ mixin(AttributeCalls!("BusinessUnitId"));
 ///
 unittest {
   auto attribute = new DBusinessUnitIdAttribute;
-  assert(attribute.name == "businessUnitId");
-  assert(attribute.registerPath == "businessUnitId");
+  assert(attribute.name == "BusinessUnitIdAttribute");
+  assert(attribute.registerPath == "attributes.businessunitid");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DEntityIdAttribute) generalAttribute);

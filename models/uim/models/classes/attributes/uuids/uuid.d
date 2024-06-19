@@ -15,9 +15,8 @@ class DUUIDAttribute : DAttribute {
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
-    name("uuid");
       dataFormats(["uuid"]);
-registerPath("uuid");
+registerPath("attributes.uuid");
 
       return true;
   }
@@ -30,8 +29,8 @@ mixin(AttributeCalls!("UUID"));
 ///
 unittest {
   auto attribute = new DUUIDAttribute;
-  assert(attribute.name == "uuid");
-  assert(attribute.registerPath == "uuid");
+  assert(attribute.name == "UUIDAttribute");
+  assert(attribute.registerPath == "attribute.uuid");
 
   DAttribute generalAttribute = attribute;
   assert(!cast(DIntegerAttribute)generalAttribute);

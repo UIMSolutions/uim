@@ -22,7 +22,7 @@ class DGenderAttribute : DStringAttribute {
       return false;
     }
 
-    registerPath("gender");
+    registerPath("attributes.gender");
 
     return true;
   }

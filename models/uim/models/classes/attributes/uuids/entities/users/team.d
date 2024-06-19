@@ -15,7 +15,7 @@ class DTeamIdAttribute : DEntityIdAttribute {
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
-      registerPath("attributes.teamId");
+      registerPath("attributes.teamid");
 
       return true;
 

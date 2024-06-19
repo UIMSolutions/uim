@@ -46,7 +46,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
     void setValue(Json valueToCompare) {
         valueToCompare = _castToExpression(valueToCompare, _type);
 
-         isMultiple = _type && _type.has("[]");
+         isMultiple = _type && _type.contains("[]");
         if (isMultiple) {
             [valueToCompare, _valueExpressions] = _collectExpressions(valueToCompare);
         }

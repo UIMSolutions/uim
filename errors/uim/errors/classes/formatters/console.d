@@ -44,8 +44,8 @@ class DConsoleFormatter : IErrorFormatter {
         // Windows environment checks
         if (
             DIRECTORY_SEPARATOR == "\\" &&
-            !D_uname("v").lower.has("windows 10") &&
-            !strtolower((string)enviroment("SHELL")).has("bash.exe") &&
+            !D_uname("v").lower.contains("windows 10") &&
+            !strtolower((string)enviroment("SHELL")).contains("bash.exe") &&
             !(bool)enviroment("ANSICON") &&
             enviroment("ConEmuANSI") != "ON"
        ) {

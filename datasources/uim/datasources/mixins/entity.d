@@ -357,9 +357,9 @@ mixin template TEntity() {
      *
      * ```
      * entity = new DDatasourceEntity(["id": 1, "name": StringData]);
-     * entity.has("id"); // true
-     * entity.has("name"); // true
-     * entity.has("last_name"); // false
+     * entity.contains("id"); // true
+     * entity.contains("name"); // true
+     * entity.contains("last_name"); // false
      * ```
      *
      * You can check multiple fields by passing an array:
@@ -833,7 +833,7 @@ mixin template TEntity() {
       protected Json[string] _nestedErrors(
         string fieldName) {
         // Only one path element, check for nested entity with error.
-        if (!fieldName.has(".")) {
+        if (!fieldName.contains(".")) {
           entity = get(fieldName);
           if (cast(IDatasourceEntity) entity || is_iterable(
             entity)) {

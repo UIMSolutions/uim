@@ -217,7 +217,7 @@ class DController : IController { // DEventListener, IEventDispatcher {
     //  Magic accessor for the default table.
     Table __get(string propertyName) {
         if (!_defaultTable.isEmpty) {
-            if (_defaultTable.has("\\")) {
+            if (_defaultTable.contains("\\")) {
                  className = App.shortName(_defaultTable, "Model/Table", "Table");
             } else {
                 [,  className] = pluginSplit(_defaultTable, true);

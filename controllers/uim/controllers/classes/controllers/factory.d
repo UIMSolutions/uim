@@ -224,9 +224,9 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         // controller names as they allow direct references to
         // be created.
         if (
-            controller.has("\\") ||
-            controller.has("/") ||
-            controller.has(".") ||
+            controller.contains("\\") ||
+            controller.contains("/") ||
+            controller.contains(".") ||
             firstChar == firstChar.lower
        ) {
             throw this.missingController(request);

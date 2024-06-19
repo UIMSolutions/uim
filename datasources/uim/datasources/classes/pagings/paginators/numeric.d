@@ -483,7 +483,7 @@ class DNumericPaginator : IPaginator {
     protected Json[string] _removeAliases(string[] fieldNames, string modelAlias) {
         Json[string] result = null;
         foreach (field, sort; fields) {
-            if (field.has(".") == false) {
+            if (field.contains(".") == false) {
                 result[field] = sort;
                 continue;
             }

@@ -362,7 +362,7 @@ class DDebugger {
         if (someData.isEmpty) {
             return lines;
         }
-        if (someData.has("\n")) {
+        if (someData.contains("\n")) {
             someData = someData.split("\n");
         }
         lineToHighlight--;
@@ -390,7 +390,7 @@ class DDebugger {
             return htmlentities(stringToConvert);
         }
         added = false;
-        if (!stringToConvert.has("")) {
+        if (!stringToConvert.contains("")) {
             added = true;
             stringToConvert = " \n" ~ stringToConvert;
         }

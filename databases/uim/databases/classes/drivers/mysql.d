@@ -106,7 +106,7 @@ class DMysqlDriver : DDriver {
     
     // Returns whether D is able to use this driver for connecting to database
     override bool enabled() {
-        return PDO.availableDrivers().has("mysql");
+        return PDO.availableDrivers().contains("mysql");
     }
  
     SchemaDialect schemaDialect() {
@@ -157,7 +157,7 @@ class DMysqlDriver : DDriver {
         if (_version.isNull) {
            _version = (string)getPdo().getAttribute(PDO.ATTR_SERVER_VERSION);
 
-            if (_version.has("MariaDB")) {
+            if (_version.contains("MariaDB")) {
                 _serverType = SERVER_TYPE_MARIADB;
                 preg_match("/^(?:5\.5\.5-)?(\d+\.\d+\.\d+.*-MariaDB[^:]*)/", _version,  matches);
                _version = matches[1];

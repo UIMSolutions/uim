@@ -463,7 +463,7 @@ class DQueryExpression : DExpression { // }, Countable {
          operator = operator.strip.upper;
 
         type = getTypeMap().type(expression);
-        typeMultiple = (isString(type) && type.has("[]"));
+        typeMultiple = (isString(type) && type.contains("[]"));
         if (isIn(operator, ["IN", "NOT IN"]) || typeMultiple) {
             type = type ?: "string";
             if (!typeMultiple) {

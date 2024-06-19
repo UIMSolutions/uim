@@ -115,7 +115,7 @@ protected const MAX_ALIAS_LENGTH = 128;
     
     // Returns whether D is able to use this driver for connecting to database
     bool enabled() {
-        return PDO.getAvailableDrivers().has("sqlsrv");
+        return PDO.getAvailableDrivers().contains("sqlsrv");
     }
  
     IStatement prepare(Query queryToPrepare) { 

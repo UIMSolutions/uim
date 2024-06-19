@@ -17,7 +17,7 @@ class DFileIdAttribute : DEntityIdAttribute {
       return false;
     }
 
-    registerPath("attributes.fileId");
+    registerPath("attributes.fileid");
 
     return true;
 

@@ -17,7 +17,7 @@ class DCampaignIdAttribute : DEntityIdAttribute {
       return false;
     }
 
-    registerPath("campaignId");
+    registerPath("attributes.campaignid");
 
     return true;
   }

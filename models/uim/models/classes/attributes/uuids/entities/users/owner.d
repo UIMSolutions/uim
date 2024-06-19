@@ -15,7 +15,7 @@ class DOwnerIdAttribute : DEntityIdAttribute {
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
-    registerPath("attributes.ownerId");
+    registerPath("attributes.ownerid");
 
   return true;
   }  

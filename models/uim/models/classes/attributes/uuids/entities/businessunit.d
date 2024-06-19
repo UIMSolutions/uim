@@ -20,7 +20,7 @@ class DBusinessUnitIdAttribute : DEntityIdAttribute {
       return false;
     }
 
-    registerPath("attributes.businessUnitId");
+    registerPath("attributes.businessunitid");
 
     return true;
   }

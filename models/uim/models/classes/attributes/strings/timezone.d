@@ -23,7 +23,7 @@ class DTimezoneAttribute : DStringAttribute {
     if (!super.initialize(initData)) { return false; }
 
    name("timezone");
-      registerPath("timezone");
+      registerPath("attributes.timezone");
 
       return true;
   }
@@ -33,8 +33,8 @@ mixin(AttributeCalls!("Timezone"));
 ///
 unittest {
   auto attribute = new DTimezoneAttribute;
-  assert(attribute.name == "timezone");
-  assert(attribute.registerPath == "timezone");
+  assert(attribute.name == "TimezoneAttribute");
+  assert(attribute.registerPath == "attributes.timezone");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DStringAttribute)generalAttribute);

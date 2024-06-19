@@ -17,8 +17,7 @@ class DContactIdAttribute : DEntityIdAttribute {
       return false;
     }
 
-    name("contactId");
-    registerPath("contactId");
+    registerPath("attributes.contactid");
 
     return true;
 
@@ -30,8 +29,8 @@ mixin(AttributeCalls!("ContactId"));
 ///
 unittest {
   auto attribute = new DContactIdAttribute;
-  assert(attribute.name == "contactId");
-  assert(attribute.registerPath == "contactId");
+  assert(attribute.name == "ContactIdAttribute");
+  assert(attribute.registerPath == "attributes.contactid");
 
   DAttribute generalAttribute = attribute;
   assert(cast(DEntityIdAttribute) generalAttribute);

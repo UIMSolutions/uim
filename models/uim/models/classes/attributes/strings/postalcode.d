@@ -31,7 +31,7 @@ mixin(AttributeCalls!("PostalCode"));
 ///
 unittest {
   auto attribute = new DPostalCodeAttribute;
-  assert(attribute.name == "PostalcodeAttribute");
+  assert(attribute.name == "PostalCodeAttribute");
   assert(attribute.registerPath == "attributes.postalcode");
 
   DAttribute generalAttribute = attribute;

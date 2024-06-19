@@ -99,7 +99,7 @@ class Xml {
             }
             return _loadXml(mycontent, options);
         }
-        if (myinput.has("<")) {
+        if (myinput.contains("<")) {
             return _loadXml(myinput, options);
         }
         throw new XmlException("XML cannot be read.");
@@ -274,7 +274,7 @@ class Xml {
                                     else if(myValue.isNull) {
                                         myValue = "";
                                     }
-                                    if (aKey.has("xmlns:")) {
+                                    if (aKey.contains("xmlns:")) {
                                         assert(cast(DOMElement) mynode);
                                         mynode.setAttributeNS("http://www.w3.org/2000/xmlns/", aKey, (
                                         string) myValue);

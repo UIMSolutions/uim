@@ -52,7 +52,7 @@ import uim.oop;
      */
     Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string pluginName = null) {
         // TODO
-        /* if (name.has(".")) {
+        /* if (name.contains(".")) {
             string[] someParts = split(".", name, 2);
             if (dotAppend) {
                 someParts[0] ~= ".";

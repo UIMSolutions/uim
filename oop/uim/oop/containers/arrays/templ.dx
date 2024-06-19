@@ -70,8 +70,8 @@ class DArrayTempl(T) : DArrayObj {
 		auto arrayObj = new DArrayTempl!string();
 		arrayObj.items(["a", "b", "c"]);
 
-		assert(arrayObj.has("a"));
-		assert(!arrayObj.has("x"));
+		assert(arrayObj.contains("a"));
+		assert(!arrayObj.contains("x"));
 	}
 
 	bool hasAll(T[] values) {

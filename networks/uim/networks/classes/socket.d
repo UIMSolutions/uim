@@ -85,7 +85,7 @@ class DSocket {
         if (this.connection) {
             this.disconnect();
         }
-        if (configuration.getString("host").has(": //")) {
+        if (configuration.getString("host").contains(": //")) {
             [configuration.get("protocol"), configuration.get("host")] = configuration.getString("host").split(": //");
         }
         scheme = null;

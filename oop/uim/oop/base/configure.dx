@@ -163,7 +163,7 @@ class DFileConfigEngine {
      * string avar The key to read and remove.
      */
     static Json consume(string avar) {
-        if (!var.has(".")) {
+        if (!var.contains(".")) {
             if (!isSet(_values[var])) {
                 return null;
             }

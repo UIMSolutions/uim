@@ -34,7 +34,7 @@ class DApp {
      * @param string classNameSuffix Class name suffix
      */
     static string className(string className, string classType = "", string classNameSuffix= null) {
-        if (className.has("\\")) {
+        if (className.contains("\\")) {
             return class_exists(className) ?  className : null;
         }
         [plugin, name] = pluginSplit(className);

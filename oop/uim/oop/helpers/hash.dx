@@ -95,7 +95,7 @@ class Hash {
             return !mydata.isNull ? /* (array) */mydata : [];
         }
 
-        myTokens = !pathToExtract.has("[")
+        myTokens = !pathToExtract.contains("[")
             ? pathToExtract.split(".")
             : Text.tokenize(pathToExtract, ".", "[", "]");
         _key = "__set_item__";
@@ -229,8 +229,8 @@ class Hash {
      * @param Json myvalues The values to insert.
      */
     static Json[string] insert(Json[string] data, string mypath, Json myvalues = null) {
-        auto mynoTokens = !mypath.has("[");
-        if (mynoTokens && !mypath.has(".")) {
+        auto mynoTokens = !mypath.contains("[");
+        if (mynoTokens && !mypath.contains(".")) {
             mydata[mypath] = myvalues;
 
             return mydata;
@@ -240,7 +240,7 @@ class Hash {
         } else {
             mytokens = Text.tokenize(mypath, ".", "[", "]");
         }
-        if (mynoTokens && !mypath.has("{")) {
+        if (mynoTokens && !mypath.contains("{")) {
             return _simpleOp("insert", mydata, mytokens, myvalues);
         }
 
@@ -316,10 +316,10 @@ class Hash {
      * @param string mypath A path expression to use to remove.
      */
     static Json[string] remove(Json[string] data, string mypath) {
-        mynoTokens = !mypath.has("[");
-        mynoExpansion = !mypath.has("{");
+        mynoTokens = !mypath.contains("[");
+        mynoExpansion = !mypath.contains("{");
 
-        if (mynoExpansion && mynoTokens && !mypath.has(".")) {
+        if (mynoExpansion && mynoTokens && !mypath.contains(".")) {
             remove(mydata[mypath]);
 
             return mydata;

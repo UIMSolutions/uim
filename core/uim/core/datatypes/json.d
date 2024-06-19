@@ -138,7 +138,7 @@ unittest {
 }
 
 /// Check if Json has key
-bool hasAnyKey(Json aJson, string[] keys, bool deepSearch = false) {
+bool hasAnyKeys(Json aJson, string[] keys, bool deepSearch = false) {
   foreach (key; keys) {
     if (hasKey(aJson, key, deepSearch)) {
       return true;
@@ -150,8 +150,8 @@ bool hasAnyKey(Json aJson, string[] keys, bool deepSearch = false) {
 ///
 unittest {
   auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
-  assert(json.hasAnyKey(["a"]));
-  assert(json.hasAnyKey(["d"], true));
+  assert(json.hasAnyKeys(["a"]));
+  assert(json.hasAnyKeys(["d"], true));
 }
 
 /// Searching key in json, if depth = true also in subnodes  

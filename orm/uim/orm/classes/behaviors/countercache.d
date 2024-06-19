@@ -101,7 +101,7 @@ class DCounterCacheBehavior : DBehavior {
      * @param \ArrayObject<string, mixed> options The options for the query
      */
     void beforeSave(IEvent myevent, IORMEntity myentity, ArrayObject options) {
-        if (isSet(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
+        if (options.hasKey("ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
         }
         foreach (configuration as myassoc: mysettings) {
@@ -149,7 +149,7 @@ class DCounterCacheBehavior : DBehavior {
      * @param \ArrayObject<string, mixed> options The options for the query
      */
     void afterremove(IEvent myevent, IORMEntity myentity, ArrayObject options) {
-        if (isSet(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
+        if (options.hasKey("ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
         }
        _processAssociations(myevent, myentity);

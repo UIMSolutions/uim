@@ -70,7 +70,7 @@ class DFlashMessage {
     void set(string messageToBeFlashed, Json[string] options = null) {
         auto auto updatedOptions = options.update(this.configuration.data);
 
-        if (isSet(options["escape"]) && !isSet(options["params.escape"])) {
+        if (options.hasKey("escape"]) && !options.hasKey("params.escape"])) {
             options["params.escape"] = options["escape"];
         }
         [plugin, anElement] = pluginSplit(options["element"]);

@@ -147,7 +147,7 @@ class DNumber {
         auto updatedOptions = options.update["places": 0];
         aValue = number_format((float)aValue, options["places"], ".", "");
         sign = aValue > 0 ? "+" : "";
-        options["before"] = isSet(options["before"]) ? options["before"] ~ sign : sign;
+        options["before"] = options.hasKey("before"]) ? options["before"] ~ sign : sign;
 
         return format(aValue, options);
     }
@@ -178,7 +178,7 @@ class DNumber {
         aValue = (float)aValue;
         currency = currency ?: getDefaultCurrency();
 
-        if (isSet(options["zero"]) && !aValue) {
+        if (options.hasKey("zero"]) && !aValue) {
             return options["zero"];
         }
         formatter = formatter(["type": getDefaultCurrencyFormat()] + options);
@@ -302,10 +302,10 @@ class DNumber {
      * @param Json[string] options See Number.formatter() for possible options.
      */
     protected static NumberFormatter _setAttributes(NumberFormatter formatter, Json[string] options = null) {
-        if (isSet(options["places"])) {
+        if (options.hasKey("places"])) {
             formatter.setAttribute(NumberFormatter.MIN_FRACTION_DIGITS, options["places"]);
         }
-        if (isSet(options["precision"])) {
+        if (options.hasKey("precision"])) {
             formatter.setAttribute(NumberFormatter.MAX_FRACTION_DIGITS, options["precision"]);
         }
         if (!options.isEmpty("pattern"])) {

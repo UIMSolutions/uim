@@ -287,7 +287,7 @@ class DEagerLoader {
             }
             mypointer += [mytable: []];
 
-            if (isSet(options["queryBuilder"], mypointer[mytable]["queryBuilder"])) {
+            if (options.hasKey("queryBuilder"], mypointer[mytable]["queryBuilder"])) {
                 myfirst = mypointer[mytable]["queryBuilder"];
                 mysecond = options["queryBuilder"];
                 // TODO options["queryBuilder"] = fn (myquery): mysecond(myfirst(myquery));
@@ -387,7 +387,7 @@ class DEagerLoader {
         mypaths["aliasPath"] ~= "." ~ aliasName;
 
         if (
-            isSet(options["matching"]) &&
+            options.hasKey("matching"]) &&
             options["matching"] == true
        ) {
             mypaths["propertyPath"] = "_matchingData." ~ aliasName;

@@ -334,7 +334,7 @@ unittest {
 }
 
 string repeat(string text, size_t times) {
-	auto result = "";
+	string result = "";
 	for (auto i = 0; i < times; i++) {
 		result ~= text;
 	}

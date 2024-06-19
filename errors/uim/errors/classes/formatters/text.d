@@ -65,7 +65,7 @@ TEXT;
     // Export an array type object
     protected string exportArray(ArrayNode nodeToExport, int indentSize) {
         auto result = "[";
-        auto mybreak = "\n" ~ str_repeat("  ", indentSize);
+        auto breakText = "\n" ~ str_repeat("  ", indentSize);
         auto myend = "\n" ~ str_repeat("  ", indentSize - 1);
         auto myvars = null;
 
@@ -85,10 +85,10 @@ TEXT;
     }
 
     protected string exportObject(ClassNode aNode, int indentSize) {
-        auto result = "";
+        string result = "";
 
         result ~= "object({aNode.getValue()}) id:{aNode.getId()} {";
-        auto myBreak = "\n" ~ str_repeat("  ", indentSize);
+        auto breakText = "\n" ~ str_repeat("  ", indentSize);
         auto myEnd = "\n" ~ str_repeat("  ", indentSize - 1) ~ "}";
 
         auto props = aNode.getChildren()
@@ -96,7 +96,7 @@ TEXT;
             .array;
 
         if (count(props)) {
-            return result ~ myBreak ~ join(myBreak, props) ~ myEnd;
+            return result ~ breakText ~ props.join(breakText) ~ myEnd;
         }
         return result ~ "}";
     }

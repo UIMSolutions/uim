@@ -57,10 +57,10 @@ class DMarshaller {
             }
             myassoc = _table.getAssociation(to!string(aKey));
 
-            if (isSet(options["forceNew"])) {
+            if (options.hasKey("forceNew"])) {
                 mynested["forceNew"] = options["forceNew"];
             }
-            if (isSet(options["isMerge"])) {
+            if (options.hasKey("isMerge"])) {
                 mycallback = auto(myvalue, IORMEntity myentity) use(myassoc, mynested) {
                     options = mynested ~ ["associated": Json.emptyArray, "association": myassoc];
 
@@ -127,7 +127,7 @@ class DMarshaller {
         myprimaryKey = (array) _table.primaryKeys();
         myentity = _table.newEmptyEntity();
 
-        if (isSet(options["accessibleFields"])) {
+        if (options.hasKey("accessibleFields"])) {
             foreach ((array) options["accessibleFields"] as aKey : myvalue) {
                 myentity.setAccess(aKey, myvalue);
             }
@@ -152,7 +152,7 @@ class DMarshaller {
             myproperties[kv.key] = mypropertyMap.hasKey(kv.key)
                 ? mypropertyMap[kv.key](kv.value, myentity) : kv.value;
 
-            if (isSet(options["fields"])) {
+            if (options.hasKey("fields"])) {
                 foreach ((array) options["fields"] as fieldName) {
                     if (array_key_exists(fieldName, myproperties)) {
                         myentity.set(fieldName, myproperties[fieldName], [
@@ -435,7 +435,7 @@ class DMarshaller {
             if (!myisNew) {
                 someKeys = myentity.extract((array) _table.primaryKeys());
             }
-            if (isSet(options["accessibleFields"])) {
+            if (options.hasKey("accessibleFields"])) {
                 foreach ((array) options["accessibleFields"] as aKey : myvalue) {
                     myentity.setAccess(aKey, myvalue);
                 }

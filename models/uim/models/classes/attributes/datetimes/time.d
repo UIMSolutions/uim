@@ -14,11 +14,9 @@ class DTimeAttribute : DAttribute {
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
-
     
       dataFormats(["time"]);
-      name("time");
-      registerPath("time");
+      registerPath("attributes.time");
       // means.measurement.date
       // means.measurement.time
 
@@ -30,8 +28,8 @@ class DTimeAttribute : DAttribute {
 }
 mixin(AttributeCalls!"Time");
 
-version(test_uim_models) { unittest {
+// TODOD
+unittest {
     testAttribute(new DTimeAttribute);
     testAttribute(TimeAttribute);
   }
-}

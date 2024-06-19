@@ -22,8 +22,7 @@ class DFullNameAttribute : DStringAttribute {
       return false;
     }
 
-    name("fullName");
-    registerPath("fullName");
+    registerPath("attributes.fullName");
 
     return true;
   }
@@ -31,8 +30,6 @@ class DFullNameAttribute : DStringAttribute {
 
 mixin(AttributeCalls!("FullName"));
 
-version (test_uim_models) {
   unittest {
     // TODO
   }
-}

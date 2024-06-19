@@ -17,8 +17,7 @@ class DTimestampAttribute : DLongAttribute {
 
     
       dataFormats(["timestamp"]);
-      name("timestamp");
-      registerPath("timestamp");
+      registerPath("atributes.timestamp");
 
     return true;
   }
@@ -27,8 +26,8 @@ class DTimestampAttribute : DLongAttribute {
 }
 mixin(AttributeCalls!"Timestamp");
 
-version(test_uim_models) { unittest {
+// TODO
+unittest {
     testAttribute(new DTimestampAttribute);
     testAttribute(TimestampAttribute);
-  }
 }

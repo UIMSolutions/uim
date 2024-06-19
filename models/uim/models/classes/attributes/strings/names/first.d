@@ -22,8 +22,7 @@ class DFirstNameAttribute : DStringAttribute {
       return false;
     }
 
-    name("firstName");
-    registerPath("firstname");
+    registerPath("attributes.firstname");
 
     return true;
 

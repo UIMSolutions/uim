@@ -18,8 +18,7 @@ class DDatetimeAttribute : DDateAttribute {
     }
 
     addDataFormats(["time"]);
-    name("datetime");
-    registerPath("datetime");
+    registerPath("attributes.datetime");
     // means.measurement.date
     // means.measurement.time
 
@@ -32,9 +31,8 @@ class DDatetimeAttribute : DDateAttribute {
 
 mixin(AttributeCalls!"Datetime");
 
-version (test_uim_models) {
+// TODO
   unittest {
     testAttribute(new DDatetimeAttribute);
     testAttribute(DatetimeAttribute);
   }
-}

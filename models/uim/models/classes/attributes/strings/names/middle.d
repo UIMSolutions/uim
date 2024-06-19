@@ -24,8 +24,7 @@ class DMiddleNameAttribute : DStringAttribute {
       return false;
     }
 
-    name("middleName");
-    registerPath("middleName");
+    registerPath("attributes.middleName");
 
     return true;
   }

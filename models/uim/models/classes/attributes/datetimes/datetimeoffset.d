@@ -17,8 +17,7 @@ class DDatetimeOffsetAttribute : DDatetimeAttribute {
 
     
       addDataFormats(["timeOffset"]);
-      name("datetimeOffset");
-      registerPath("datetimeOffset");
+      registerPath("attributes.datetimeOffset");
         /* means.measurement.date
         means.measurement.time
         is.dataFormat.timeOffset */
@@ -28,8 +27,8 @@ class DDatetimeOffsetAttribute : DDatetimeAttribute {
 }
 mixin(AttributeCalls!"DatetimeOffset");
 
-version(test_uim_models) { unittest {
+// TODO
+  unittest {
     testAttribute(new DDatetimeOffsetAttribute);
     testAttribute(DatetimeOffsetAttribute);
-  }
 }

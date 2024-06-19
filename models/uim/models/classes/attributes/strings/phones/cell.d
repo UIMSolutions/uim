@@ -3,20 +3,20 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (UIManufaktur)                                                      
 **********************************************************************************************************/
-module uim.models.classes.attributes.strings.names.name;
+module uim.models.classes.attributes.strings.phones.cell;
 
-/* any <- char <- string <- name
+/* any <- char <- string <- phoneCell
 Traits
 is.dataFormat.character
 is.dataFormat.big
 is.dataFormat.array
-means.identity.name */
+means.identity.service.phone.cell */
 
 import uim.models;
 
 @safe:
-class DNameAttribute : DStringAttribute {
-  mixin(AttributeThis!("Name"));
+class DPhoneCellAttribute : DStringAttribute {
+  mixin(AttributeThis!("PhoneCell"));
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -24,13 +24,13 @@ class DNameAttribute : DStringAttribute {
       return false;
     }
 
-    registerPath("attributes.name");
-    
+    registerPath("attributes.phonecell");
+
     return true;
   }
 }
 
-mixin(AttributeCalls!("Name"));
+mixin(AttributeCalls!("PhoneCell"));
 
   unittest {
     // TODO

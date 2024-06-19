@@ -25,8 +25,7 @@ class DBirthDateAttribute : DDatetimeAttribute {
  */
 
     dataFormats(["time"]);
-    name("birthdate");
-    registerPath("birthdate");
+    registerPath("attributes.birthdate");
 
     return true;
   }
@@ -37,9 +36,8 @@ class DBirthDateAttribute : DDatetimeAttribute {
 
 mixin(AttributeCalls!"BirthDate");
 
-version (test_uim_models) {
+// TODO
   unittest {
     testAttribute(new DBirthDateAttribute);
     testAttribute(BirthDateAttribute);
   }
-}

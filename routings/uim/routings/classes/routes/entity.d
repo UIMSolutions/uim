@@ -31,11 +31,11 @@ class DEntityRoute : DRoute {
         if (_compiledRoute.isEmpty) {
             this.compile();
         }
-        if (isSet(myurl["_entity"])) {
+        if (myurl.hasKey("_entity")) {
             myentity = myurl["_entity"];
            _checkEntity(myentity);
 
-            this.keys
+            _keys
                 .filter!(field => !myurl.hasKey(field) && myentity.isSetfield)
                 .each!(field => myurl[field] = myentity[field]);
 

@@ -1432,7 +1432,7 @@ class DValidation {
            /*  if (isSet(items["meridian"]) && (int)items["hour"] == 12) {
                 items["hour"] = 0;
             } * /
-            if (isSet(items["meridian"])) {
+            if (items.hasKey("meridian")) {
                 items["hour"] = items.getString("meridian").lower == "am" 
                     ? items["hour"] 
                     : items["hour"] + 12;

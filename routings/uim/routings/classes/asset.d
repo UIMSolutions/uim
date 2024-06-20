@@ -233,7 +233,7 @@ class DAsset {
         requestWebroot = requestWebroot();
 
         string[] asset = fileName.split("?");
-        asset[1] = isSet(asset[1]) ? "?" ~ asset[1] : "";
+        asset[1] = asset.has(1) ? "?" ~ asset[1] : "";
         webPath = requestWebroot ~ asset[0];
         auto file = asset[0];
 

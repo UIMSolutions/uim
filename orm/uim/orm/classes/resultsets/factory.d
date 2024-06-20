@@ -169,17 +169,17 @@ class DResultsetFactory {
             results = myinstance.transformRow(results, aliasName, myassoc["canBeJoined"], myassoc["targetProperty"]);
         }
         foreach (mypresentAliases as aliasName: mypresent) {
-            if (!isSet(results[aliasName])) {
+            if (!results.hasKey(aliasName)) {
                 continue;
             }
             results[tableMetadata["primaryAlias"]][aliasName] = results[aliasName];
         }
-        if (isSet(results["_matchingData"])) {
+        if (results.hasKey("_matchingData")) {
             results[tableMetadata["primaryAlias"]]["_matchingData"] = results["_matchingData"];
         }
-        options["source"] = tableMetadata["registryAlias"];
-        if (isSet(results[tableMetadata["primaryAlias"]])) {
-            results = results[tableMetadata["primaryAlias"]];
+        options.set("source", tableMetadata["registryAlias"]);
+        if (auto primaryAlias = tableMetadata.getString("primaryAlias")) {
+            results = results[primaryAlias];
         }
         if (tableMetadata["hydrate"] && !(cast(IORMEntity)results)) {
             results = new tableMetadata["entityClass"](results, options);

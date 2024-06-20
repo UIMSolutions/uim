@@ -371,7 +371,7 @@ class DRoute : IRoute {
             myroute["pass"] = array_merge(myroute["pass"], mypass);
             remove(myroute["_args_"]);
         }
-        if (isSet(myroute["_trailing_"])) {
+        if (myroute.hasKey("_trailing_")) {
             myroute["pass"] ~= myroute["_trailing_"];
             myroute.remove("_trailing_");
         }
@@ -379,14 +379,14 @@ class DRoute : IRoute {
             myroute["_ext"] = myext;
         }
         // pass the name if set
-        if (isSet(configuration.set("_name"])) {
-            myroute["_name"] = configuration.set("_name"];
+        if (auto name = configuration.getString("_name")) {
+            myroute.set("_name", name);
         }
         // restructure "pass" key route params
         if (configuration.hasKey("pass")) {
             /* myj = count(configuration.get("pass"));
             while (myj--) {
-                /** @psalm-suppress PossiblyInvalidArgument */
+                /** @psalm-suppress PossiblyInvalidArgument * / 
                 if (myroute.hasKey(configuration.get("pass")[myj]])) {
                     array_unshift(myroute["pass"], myroute[configuration.set("pass"][myj]]);
                 }

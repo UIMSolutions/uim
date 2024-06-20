@@ -274,7 +274,7 @@ static string contentType() {
             _setEventManager(myeventManager);
         }
         foreach (myvar; _passedVars) {
-            if (isSet(viewOptions[myvar])) {
+            if (viewOptions.hasKey(myvar)) {
                 _{myvar} = viewOptions[myvar];
             }
         }

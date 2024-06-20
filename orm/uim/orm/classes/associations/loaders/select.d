@@ -271,12 +271,12 @@ class DSelectLoader {
      * @param mixed filter the value that should be used to match for key
      * @param string operator The operator for comparing the tuples
      */
-    protected TupleComparison _createTupleCondition(Query query, Json[string] keys, filter, operator) {
-        types = null;
-        defaults = query.getDefaultTypes();
-        foreach (keys as k) {
-            if (isset(defaults[k])) {
-                types ~= defaults[k];
+    protected TupleComparison _createTupleCondition(DQuery query, Json[string] keys, Json filter, string operator) {
+        auto types = null;
+        auto defaults = query.getDefaultTypes();
+        foreach (key; keys) {
+            if (defaults.hasKey(key)) {
+                types ~= defaults[key];
             }
         }
 
@@ -294,16 +294,16 @@ class DSelectLoader {
         auto name = _aliasName;
 
         if (options.get("foreignKey") == false && this.associationType == Association.ONE_TO_MANY) {
-            msg = "Cannot have foreignKey = false for hasMany associations~ " ~
+            auto message = "Cannot have foreignKey = false for hasMany associations~ " ~
                    "You must provide a foreignKey column.";
-            throw new DRuntimeException(msg);
+            throw new DRuntimeException(message);
         }
 
         auto keys = isIn(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) ?
             this.foreignKey :
             this.bindingKey;
 
-        foreach ((array)keys as key) {
+        foreach (key; keys) {
             links ~=  "%s.%s".format(name, key);
         }
 
@@ -322,7 +322,7 @@ class DSelectLoader {
      * @param DORMQuery query the original query used to load source records
      */
     protected DORMQuery _buildSubquery(Query query) {
-        filterQuery = clone query;
+        auto filterQuery = clone query;
         filterQuery.disableAutoFields();
         filterQuery.mapReduce(null, null, true);
         filterQuery.formatResults(null, true);
@@ -336,7 +336,7 @@ class DSelectLoader {
             filterQuery.offset(null);
         }
 
-        fields = _subqueryFields(query);
+        auto fields = _subqueryFields(query);
         filterQuery.select(fields["select"], true).group(fields["group"]);
 
         return filterQuery;

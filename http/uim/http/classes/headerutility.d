@@ -52,14 +52,14 @@ class DHeaderUtility {
     
     // Parse the Accept header value into weight: value mapping.
     static string[][string] parseAccept(string headerValue) {
-        accept = null;
+        auto accept = null;
         if (!headerValue) {
             return accept;
         }
         string[] aHeaders = headerValue.split(",");
         foreach (array_filter(aHeaders) as aValue) {
-            prefValue = "1.0";
-            aValue = strip(aValue);
+            auto prefValue = "1.0";
+            auto aValue = strip(aValue);
 
             semiPos = indexOf(aValue, ";");
             if (semiPos != false) {
@@ -72,7 +72,7 @@ class DHeaderUtility {
                     }
                 });
             }
-            if (!isSet(accept[prefValue])) {
+            if (!accept.hasKey(prefValue)) {
                 accept[prefValue] = null;
             }
             if (prefValue) {
@@ -84,18 +84,16 @@ class DHeaderUtility {
         return accept;
     }
     
-    /**
-     * authenticateHeader = The WWW-Authenticate header
-     */
+    // authenticateHeader = The WWW-Authenticate header
     static Json[string] parseWwwAuthenticate(string authenticateHeader) {
-        preg_match_all(
+        /* preg_match_all(
             "@(\w+)=(?:(?:')([^"]+)"|([^\s,]+))@",
             authenticateHeader,
             matches,
             PREG_SET_ORDER
-       );
+       ); */
 
-        auto result;
+        Json[string] result;
         matches.each!(match => result[match[1]] = match[3] ? match[3] : match[2]);
 
         return result;

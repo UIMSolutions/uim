@@ -439,8 +439,8 @@ class DConsoleOptionParser {
         if (params.hasKey("help")) {
             return [params, someArguments];
         }
-        foreach (index : arg; argToParse) {
-            if (arg.isRequired() && !isSet(someArguments[index])) {
+        foreach (index, arg; argToParse) {
+            if (arg.isRequired() && !someArguments.has(index)) {
                 throw new DConsoleException(
                     "Missing required argument. The `%s` argument is required.".format(arg.name())
                 );
@@ -453,10 +453,10 @@ class DConsoleOptionParser {
 
             useDefault = !params.hasKey(name);
             if (defaultValue !is null && useDefault && !isBoolean) {
-                params[name] = defaultValue;
+                params.set(name, defaultValue);
             }
             if (isBoolean && useDefault) {
-                params[name] = false;
+                params.set(name, false);
             }
             prompt = option.prompt();
             if (!params.hasKey(name) && prompt) {
@@ -475,8 +475,8 @@ class DConsoleOptionParser {
             }
             if (option.isRequired() && !params.hasKey(name)) {
                 throw new DConsoleException(
-                    "Missing required option. The `%s` option is required and has no default value.".format(
-                    name)
+                    "Missing required option. The `%s` option is required and has no default value."
+                    .format(name)
                 );
             }
         });

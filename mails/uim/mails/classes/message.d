@@ -632,7 +632,7 @@ class DMessage { //: JsonSerializable {
             "bcc": "Bcc",
         ];
          aHeadersMultipleEmails = ["to", "cc", "bcc", "replyTo"];
-        foreach (relation as var:  aHeader) {
+        foreach (var,  aHeader; relation) {
             if (anInclude[var]) {
                 if (isIn(var,  aHeadersMultipleEmails)) {
                      aHeaders[aHeader] = join(", ", this.formatAddress(this.{var}));
@@ -642,37 +642,37 @@ class DMessage { //: JsonSerializable {
             }
         }
         if (anInclude["sender"]) {
-            if (key(this.sender) == key(this.from)) {
-                 aHeaders["Sender"] = "";
-            } else {
-                 aHeaders["Sender"] = /* (string) */currentValue(this.formatAddress(this.sender));
-            }
+            aheader.set("Sender", 
+                key(this.sender) == key(this.from)
+                ? ""
+                : /* (string) */currentValue(this.formatAddress(this.sender));
         }
-         aHeaders += this.headers;
-        if (!isSet(aHeaders["Date"])) {
-             aHeaders["Date"] = date(DATE_RFC2822);
+        aHeaders += this.headers;
+        if (!aHeaders.hasKey("Date")) {
+            aHeaders["Date"] = date(DATE_RFC2822);
         }
-        if (this.messageId != false) {
-            if (this.messageId == true) {
-                this.messageId = "<" ~ Text.uuid().replace("-", "") ~ "@" ~ this.domain ~ ">";
+        if (_messageId != false) {
+            if (_messageId == true) {
+                _messageId = "<" ~ Text.uuid().replace("-", "") ~ "@" ~ this.domain ~ ">";
             }
-             aHeaders["Message-ID"] = this.messageId;
+            aHeaders["Message-ID"] = _messageId;
         }
         if (this.priority) {
-             aHeaders["X-Priority"] = /* (string) */this.priority;
+            aHeaders["X-Priority"] = /* (string) */this.priority;
         }
         if (anInclude["subject"]) {
-             aHeaders["Subject"] = this.subject;
+            aHeaders["Subject"] = this.subject;
         }
-         aHeaders["MIME-Version"] = "1.0";
+
+        aHeaders.get("MIME-Version", "1.0");
         if (this.attachments) {
-             aHeaders["Content-Type"] = "multipart/mixed; boundary="" ~ /* (string) */this.boundary ~ """;
+             aHeaders.set("Content-Type", "multipart/mixed; boundary="" ~ /* (string) */this.boundary ~ """);
         } else if (this.emailFormat == MESSAGE_BOTH) {
-             aHeaders["Content-Type"] = "multipart/alternative; boundary="" ~ /* (string) */this.boundary ~ """;
+             aHeaders.set("Content-Type", "multipart/alternative; boundary="" ~ /* (string) */this.boundary ~ """);
         } else if (this.emailFormat == MESSAGE_TEXT) {
-             aHeaders["Content-Type"] = "text/plain; charset=" ~ getContentTypeCharset();
+             aHeaders.set("Content-Type", "text/plain; charset=" ~ getContentTypeCharset());
         } else if (this.emailFormat == MESSAGE_HTML) {
-             aHeaders["Content-Type"] = "text/html; charset=" ~ getContentTypeCharset();
+             aHeaders.set("Content-Type", "text/html; charset=" ~ getContentTypeCharset());
         }
          aHeaders["Content-Transfer-Encoding"] = getContentTransferEncoding();
 
@@ -695,7 +695,7 @@ class DMessage { //: JsonSerializable {
         
         auto aHeaders = null;
         foreach (aKey: aValue; lines) {
-            if (isEmpty(aValue) && aValue != "0") {
+            if (aValue.isEmpty && aValue != "0") {
                 continue;
             }
             foreach (/* (array) */aValue as val) {
@@ -714,20 +714,20 @@ class DMessage { //: JsonSerializable {
      * Params:
      * Json[string] address Addresses to format.
      */
-    protected Json[string] formatAddress(Json[string] address) {
-        auto result;
-        foreach (address as email: alias) {
-            if (email == alias) {
-                result ~= email;
+    protected string[] formatAddress(Json[string] address) {
+        string[] results;
+        foreach (email, aliasName; address) {
+            if (email == aliasName) {
+                results ~= email;
             } else {
-                encoded = this.encodeForHeader(alias);
-                if (preg_match("/[^a-z0-9+\-\\=? ]/i", encoded)) {
+                string encoded = encodeForHeader(aliasName);
+                /* if (preg_match("/[^a-z0-9+\-\\=? ]/i", encoded)) {
                     encoded = "\"" ~ addcslashes(encoded, ""\\") ~ "\"";
-                }
-                result ~= "%s <%s>".format(encoded, email);
+                } */
+                results ~= "%s <%s>".format(encoded, email);
             }
         }
-        return result;
+        return results;
     }
     
     /**
@@ -769,7 +769,7 @@ class DMessage { //: JsonSerializable {
                 "Invalid format to Message-ID. The text should be something like "<uuid@server.com>""
            );
         }
-        this.messageId = message;
+        _messageId = message;
     }
     
     // Gets message ID.

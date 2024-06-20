@@ -80,11 +80,11 @@ class DCurl { // }: IAdapter {
         body.rewind();
          result[CURLOPT_POSTFIELDS] = body.getContents();
         // GET requests with bodies require custom request to be used.
-        if (result[CURLOPT_POSTFIELDS] != "" && isSet(result[CURLOPT_HTTPGET])) {
-             result[CURLOPT_CUSTOMREQUEST] = "get";
+        if (result[CURLOPT_POSTFIELDS] != "" && result.hasKey(CURLOPT_HTTPGET))) {
+            result.set(URLOPT_CUSTOMREQUEST, "get");
         }
         if (result[CURLOPT_POSTFIELDS].isEmpty) {
-            remove(result[CURLOPT_POSTFIELDS]);
+            result.remove(CURLOPT_POSTFIELDS);
         }
         if (clientOptions.isEmpty("ssl_cafile")) {
             clientOptions["ssl_cafile"] = CaBundle.getBundledCaBundlePath();

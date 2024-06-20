@@ -23,8 +23,8 @@ class DTextErrorFormatter : IErrorFormatter {
 
 TEXT;
         lineInfo = "";
-        if (isSet(location["file"], location["file"])) {
-            lineInfo = "%s (line %s)".format(location["file"], location["line"]);
+        if (location.hasAllKeys("file", "line")) {
+            lineInfo = "%s (line %s)".format(location.getString("file"), location.getString("line"));
         }
         return template.format(lineInfo, contents);
     }

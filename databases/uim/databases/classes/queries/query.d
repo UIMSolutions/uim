@@ -446,7 +446,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Json[string]|string atables list of tables to be joined in the query
     */
     auto join(string[] atables, Json[string] typeMap = null, bool shouldOverwrite = false) {
-        if (isString(aTables) || isSet(aTables["table"])) {
+        if (isString(aTables) || aTables.hasKey("table")) {
             aTables = [aTables];
         }
         

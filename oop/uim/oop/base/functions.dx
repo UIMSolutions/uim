@@ -208,7 +208,7 @@ string[] namespaceSplit(string className) {
         }
         
         auto trace = debug_backtrace();
-        if (isSet(trace[stackFrame])) {
+        if (trace.hasKey(stackFrame)) {
             frame = trace[stackFrame];
             frame += ["file": "x[internal]", "line": "??"];
 
@@ -244,7 +244,7 @@ string[] namespaceSplit(string className) {
         
         // TODO 
         /* bool isDuplicate = (bool)configuration.get("Error.allowDuplicateDeprecations", false);
-        if (isSet(errors[checksum]) && !isDuplicate) {
+        if (errors.hasKey(checksum) && !isDuplicate) {
             return;
         }
         if (!isDuplicate) {

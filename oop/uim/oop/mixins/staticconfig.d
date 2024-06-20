@@ -60,9 +60,9 @@ mixin template TStaticConfig() {
         if (isObject(configData)) {
             configData = ["className": configData];
         }
-        if (isArray(configData) && isSet(configData["url"])) {
-            parsed = parseDsn(configuration.get("url"));
-            remove(configuration.get("url"));
+        if (isArray(configData) && configData.hasKey("url")) {
+            auto parsed = parseDsn(configuration.get("url"));
+            configuration.remove("url");
             configData = parsed + configData;
         }
         if (configData.hasKey("engine") && configData["className"].isEmpty) {

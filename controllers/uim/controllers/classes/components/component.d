@@ -105,10 +105,10 @@ class DComponent { // TODO }: DEventListener {
      * componentName = Name of component to get.
      */
     IComponent __get(string componentName) {
-        if (isSet(this.componentInstances[componentName])) {
+        if (_componentInstances.hasKey(componentName)) {
             return _componentInstances[componentName];
         }
-        if (isSet(this.components[componentName])) {
+        if (_components.hasKey(componentName)) {
             configData = this.components[componentName] ~ [
                 "enabled": false.toJson
             ];

@@ -60,7 +60,7 @@ class DInsertIterator : DCollection {
     }
     auto aPointer = & myRow;
     _path.each!((step) {
-      if (!isSet(aPointer[aStep])) {
+      if (!aPointer.hasKey(aStep))) {
         return myRow;
       }
       aPointer = & aPointer[aStep];

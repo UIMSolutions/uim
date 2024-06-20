@@ -172,17 +172,15 @@ class DEventManager { // }: IEventManager {
      * \UIM\Event\DEventListener subscriber Event subscriber
      * @param \Closure|array|string ahandlers Event handlers
      */
-    protected Json[string] normalizeHandlers(DEventListener subscriber, /* Closure | array | */ string ahandlers) {
-        // Check if an array of handlers not single handler config array
-        /*     if (isArray(handlers) && !isSet(handlers["callable"])) {
-        foreach (handlers as & handler) {
-            handler = this.normalizeHandler(subscriber, handler);
-        }
+    protected Json[string] normalizeHandlers(DEventListener subscriber, Json[string] handlers) {
+        if (!handlers.hasKey("callable")) {
+       /*  foreach (handlers as & handler) {
+            handler = normalizeHandler(subscriber, handler);
+        } */
         return handlers;
     }
-    return [this.normalizeHandler(subscriber, handlers)];
- */
-        return null;
+    protected Json[string] normalizeHandlers(DEventListener subscriber, /* Closure |  */ string ahandlers) {
+        return [normalizeHandler(subscriber, handlers)];
     }
 
     /**

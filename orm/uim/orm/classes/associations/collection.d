@@ -86,8 +86,8 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param string anAliasName The association alias to get.
      * return true if the association exists.
      */
-    bool has(string anAliasName) {
-        return isset(_items[anAliasName]);
+    bool has(string associationName) {
+        return _items.hasKey(associationName);
     }
 
     // Get the names of all the associations in the collection.

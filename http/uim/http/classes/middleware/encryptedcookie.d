@@ -65,24 +65,20 @@ class DEncryptedCookieMiddleware { // : IHttpMiddleware {
      * \Psr\Http\Message\IServerRequest serverRequest The request to decode cookies from.
      */
     protected IServerRequest decodeCookies(IServerRequest serverRequest) {
-        cookies = serverRequest.getCookieParams();
-        this.cookieNames
-            .filter!(cookieName => isSet(cookies[cookieName]))
-            .each!(cookieName => cookies[cookieName] = _decrypt(cookies[cookieName], this.cipherType, this.key));
+        auto cookies = serverRequest.getCookieParams();
+        _cookieNames
+            .filter!(cookieName => cookies.hasKey(cookieName))
+            .each!(cookieName => cookies[cookieName] = _decrypt(cookies[cookieName], _cipherType, this.key));
 
         return serverRequest.withCookieParams(cookies);
     }
     
-    /**
-     * Encode cookies from a response`s CookieCollection.
-     * Params:
-     * \UIM\Http\Response response The response to encode cookies in.
-     */
-    protected DResponse encodeCookies(Response response) {
+    // Encode cookies from a response`s CookieCollection.
+    protected DResponse encodeCookies(DResponse response) {
         response.getCookieCollection()
-            .filter!(cookie => isIn(cookie.name, this.cookieNames, true))
+            .filter!(cookie => isIn(cookie.name, _cookieNames, true))
             .each!((cookie) {
-                aValue = _encrypt(cookie.getValue(), this.cipherType);
+                aValue = _encrypt(cookie.getValue(), _cipherType);
                 response = response.withCookie(cookie.withValue(aValue));
             });
 
@@ -94,8 +90,8 @@ class DEncryptedCookieMiddleware { // : IHttpMiddleware {
         auto aHeader = null;
         auto cookies = CookieCollection.createFromHeader(response.getHeader("Set-Cookie"));
         cookies.each!((cookie) {
-            if (isIn(cookie.name, this.cookieNames, true)) {
-                auto value = _encrypt(cookie.getValue(), this.cipherType);
+            if (isIn(cookie.name, _cookieNames, true)) {
+                auto value = _encrypt(cookie.getValue(), _cipherType);
                 auto cookieWithValue = cookie.withValue(value);
             }
             aHeader ~= cookieWithValue.toHeaderValue();

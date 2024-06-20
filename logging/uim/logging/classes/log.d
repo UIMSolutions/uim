@@ -150,11 +150,11 @@ class DLog {
         _registry ??= new DLogEngineRegistry();
 
         if (_isDirtyConfig) {
-            foreach (configuration as name: properties) {
-                if (isSet(properties["engine"])) {
+            foreach (name, properties; configuration) {
+                if (properties.hasKey("engine")) {
                     properties["className"] = properties["engine"];
                 }
-                if (!_registry.has(to!string(name))) {
+                if (!_registry.hasKey(to!string(name))) {
                     _registry.load(to!string(name, properties));
                 }
             }

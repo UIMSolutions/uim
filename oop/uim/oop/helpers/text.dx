@@ -187,7 +187,7 @@ class DText {
             mytmpValue = mytmpValue.isArray ? "" : mytmpValue.toString;
             mystr = (string)mystr.replace(mytmpHash, mytmpValue);
         }
-        if (!options.isSet("format") && options.hasKey("before"])) {
+        if (!options.hasKey("format") && options.hasKey("before")) {
             mystr = (string)mystr.replace(options.getString("escape") ~ options.getString("before"), options["before"]);
         }
         return options["clean"] ? cleanInsert(mystr, options): mystr;
@@ -203,7 +203,7 @@ class DText {
      * @param Json[string] options Options list.
      */
     static string cleanInsert(string mystr, Json[string] options) {
-        myclean = options["clean"];
+        auto myclean = options["clean"];
         if (!myclean) {
             return mystr;
         }

@@ -57,7 +57,7 @@ class DFileConfigEngine {
         configData.byKeyValue
             .each!(nameValue => _values = Hash.insert(_values, nameValue.key, nameValue.value));
 
-        if (configData.isSet("debug")) {
+        if (configData.hasKey("debug")) {
             // TODO _hasIniSet ?  ?  = function_exists("ini_set");
 
             if (_hasIniSet) {

@@ -577,10 +577,10 @@ class DAssociation : IAssociation {
      * data shuld be nested in. Will use the default one if not provided.
      */
     array transformRow(Json[string] row, string nestKey, bool joined, string targetProperty = null) {
-        sourceAlias = source().aliasName();
-        nestKey = nestKey ?  : _name;
-        targetProperty = targetProperty ?  : getProperty();
-        if (isset(row[sourceAlias])) {
+        auto sourceAlias = source().aliasName();
+        auto nestKey = nestKey ?  : _name;
+        auto targetProperty = targetProperty ?  : getProperty();
+        if (row.hasKey(sourceAlias)) {
             row[sourceAlias][targetProperty] = row[nestKey];
             remove(row[nestKey]);
         }

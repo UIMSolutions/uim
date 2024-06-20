@@ -486,14 +486,12 @@ class DSession {
             }
         }
 
-        /**
-     * Returns whether a session exists
-     */
+        // Returns whether a session exists
         protected bool _hasSession() {
             return !ini_get("session.use_cookies")
-                || isSet(_COOKIE[session_name()])
+                || _COOKIE.hasKey(session_name())
                 || _isCLI
-                || (ini_get("session.use_trans_sid") && isSet(_GET[session_name()]));
+                || (ini_get("session.use_trans_sid") && _GET.hasKey(session_name()));
         }
 
         // Restarts this session.

@@ -42,7 +42,7 @@ class DOauth {
             break;
 
         case "RSA-SHA1":
-            if (!isSet(credentials["privateKey"])) {
+            if (!credentials.hasKey("privateKey")) {
                 return request;
             }
             aValue = _rsaSha1(request, credentials);

@@ -71,7 +71,7 @@ class DDebugger {
     // Choose the editor link style you want to use.
     static void setEditor(string editorName) {
         auto anInstance = getInstance();
-        if (!isSet(anInstance.editors[editorName])) {
+        if (!anInstance.editors.hasKey(editorName)) {
             auto known = anInstance.editors.keys.join(", ");
             throw new DInvalidArgumentException(
                 "Unknown editor `%s`. Known editors are `%s`."

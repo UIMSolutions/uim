@@ -471,23 +471,20 @@ class DResponse : IResponse {
      */
     protected void _setHeader(string aheader, string avalue) {
         normalized = aHeader.lower;
-        this.headerNames[normalized] = aHeader;
+        _headerNames[normalized] = aHeader;
         this.headers[aHeader] = [aValue];
     }
     
-    /**
-     * Clear header
-     *
-     * @Dstan-param non-empty-string aheader
-     * @param string aheader Header key.
-     */
-    protected void _clearHeader(string aheader) {
-        normalized = aHeader.lower;
-        if (!isSet(this.headerNames[normalized])) {
+    // Clear header
+    protected void _clearHeader(string headerName) {
+        string normalized = headerName.lower;
+        if (!_headerNames.hasKey(normalized)) {
             return;
         }
-        original = this.headerNames[normalized];
-        remove(this.headerNames[normalized], this.headers[original]);
+
+        auto original = _headerNames[normalized];
+        _headerNames.remove(normalized);
+        _headers.remove(original);
     }
     
     /**
@@ -1257,7 +1254,7 @@ class DResponse : IResponse {
         return [
             "status": _status.toJson,
             "contentType": getType().toJson,
-            "headers": this.headers.toJson,
+            "headers": _headers.toJson,
             "file": _file.toJson,
             "fileRange": _fileRange.toJson,
             "cookies": _cookies.toJson,

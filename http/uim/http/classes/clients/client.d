@@ -537,7 +537,7 @@ class DClient { // }: IClient {
     if (options.hasKey("type")) {
       myheaders = chain(myheaders, _typeHeaders(options["type"]));
     }
-    if (isString(mydata) && !isSet(myheaders["Content-Type"]) && !isSet(
+    if (isString(mydata) && !myheaders.hasKey("Content-Type") && !isSet(
         myheaders["content-type"])) {
       myheaders["Content-Type"] = "application/x-www-form-urlencoded";
     }

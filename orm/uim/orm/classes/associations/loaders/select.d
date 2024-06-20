@@ -300,8 +300,8 @@ class DSelectLoader {
         }
 
         auto keys = isIn(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) ?
-            this.foreignKey :
-            this.bindingKey;
+            _foreignKeys :
+            _bindingKeys;
 
         foreach (key; keys) {
             links ~=  "%s.%s".format(name, key);
@@ -352,23 +352,22 @@ class DSelectLoader {
      * @param DORMQuery query The query to get fields from.
      */
     protected Json[string] _subqueryFields(Query query) {
-        keys = (array)this.bindingKey;
+        string[] keys = _bindingKeys;
 
         if (this.associationType == Association.MANY_TO_ONE) {
-            keys = (array)this.foreignKey;
+            keys = (array)_foreignKeys;
         }
 
-        fields = query.aliasFields(keys, this.sourceAlias);
-        group = fields = array_values(fields);
-
-        order = query.clause("order");
+        auto fields = query.aliasFields(keys, this.sourceAlias);
+        auto group = fields = array_values(fields);
+        auto order = query.clause("order");
         if (order) {
-            columns = query.clause("select");
-            order.iterateParts(void (direction, field) use (&fields, columns) {
-                if (isset(columns[field])) {
+            auto columns = query.clause("select");
+            /* order.iterateParts(void (direction, field) use (&fields, columns) {
+                if (columns.hasKey(field)) {
                     fields[field] = columns[field];
                 }
-            });
+            }); */
         }
 
         return ["select": fields, "group": group];
@@ -384,15 +383,15 @@ class DSelectLoader {
     protected Json[string] _buildResultMap(Query fetchQuery, Json[string] optionData) {
         auto resultMap = null;
         auto singleResult = isIn(this.associationType, [Association.MANY_TO_ONE, Association.ONE_TO_ONE], true);
-        auto keys = isIn(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) ?
-            this.foreignKey :
-            this.bindingKey;
-        key = (array)keys;
+        auto keys = isIn(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) 
+            ? _foreignKeys 
+            : _bindingKeys;
+        string[] someKeys = (array)keys;
 
         foreach (result; fetchQuery.all()) {
             string[] values = null;
-            foreach (k; key) {
-                values ~= result[k];
+            foreach (key; someKeys) {
+                values ~= result[key];
             }
             if (singleResult) {
                 resultMap[values.join(";")] = result;
@@ -415,8 +414,8 @@ class DSelectLoader {
      */
     protected Closure _resultInjector(Query fetchQuery, Json[string] resultMap, Json[string] optionData) {
         keys = this.associationType == Association.MANY_TO_ONE ?
-            this.foreignKey :
-            this.bindingKey;
+            _foreignKeys :
+            _bindingKeys;
 
         auto someSourceKeys = null;
         foreach (key; keys) {

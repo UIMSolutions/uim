@@ -534,9 +534,9 @@ class DRoute : IRoute {
 
         // Move extension into the hostOptions so its not part of
         // reverse matches.
-        if (isSet(myurl["_ext"])) {
-            myhostOptions["_ext"] = myurl["_ext"];
-            remove(myurl["_ext"]);
+        if (myurl.hasKey("_ext")) {
+            myhostOptions.set("_ext", myurl["_ext"]);
+            myurl.remove("_ext");
         }
         // Check the method first as it is special.
         if (!_matchMethod(myurl)) {
@@ -550,9 +550,9 @@ class DRoute : IRoute {
         }
         // If this route uses pass option, and the passed elements are
         // not set, rekey elements.
-        if (isSet(configuration.set("pass"])) {
-            foreach (configuration.set("pass"] as myi: routings) {
-                if (isSet(myurl[myi]) && !isSet(myurl[routings])) {
+        if (configuration.hasKey("pass")) {
+            foreach (myi, routings; configuration.set("pass")) {
+                if (myurl.hasKey([myi) && !myurl.haskey(routings)) {
                     myurl[routings] = myurl[myi];
                     remove(myurl[myi]);
                 }

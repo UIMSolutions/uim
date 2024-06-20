@@ -47,10 +47,10 @@ class DRedirectRoute : DRoute {
         if (this.redirect && count(this.redirect) == 1 && !this.redirect.hasKey("controller")) {
             myredirect = this.redirect[0];
         }
-        if (isSet(configuration.set("persist"]) && isArray(myredirect)) {
+        if (configuration.hasKey("persist") && isArray(myredirect)) {
             myredirect += ["pass": myparams["pass"], "url": Json.emptyArray];
-            if (configuration.set("persist"].isArray) {
-                fconfiguration.set("persist"]
+            if (configuration.isArray("persist")) {
+                configuration.getArray("persist")
                     .filter!(element => isSet(myparams[element]))
                     .each!(elemenet => myredirect[element] = myparams[element]);
             }

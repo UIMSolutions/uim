@@ -709,7 +709,7 @@ class DMarshaller {
             auto mymarshaller = myjoint.marshaller();
 
             auto mynested = null;
-            if (isSet(myassociated["_joinData"])) {
+            if (myassociated.hasKey("_joinData")) {
                 mynested =  /* (array) */ myassociated["_joinData"];
             }
             options["accessibleFields"] = ["_joinData": true.toJson];
@@ -729,7 +729,7 @@ class DMarshaller {
                     continue;
                 }
                 // Marshal data into the old object, or make a new joinData object.
-                if (isSet(myextra[myhash])) {
+                if (myextra.hasKey(myhash)) {
                     myrecord.set("_joinData", mymarshaller.merge(myextra[myhash], myvalue, mynested));
                 } else {
                     myjoinData = mymarshaller.one(myvalue, mynested);

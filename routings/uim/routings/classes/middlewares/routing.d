@@ -49,11 +49,11 @@ class DRoutingMiddleware : IRoutingMiddleware {
         try {
             assert(cast(DServerRequest)serverRequest);
             Router.setRequest(serverRequest);
-            params = (array)serverRequest.getAttribute("params", []);
-            middleware = null;
+            auto params = (array)serverRequest.getAttribute("params", []);
+            auto middleware = null;
             if (isEmpty(params["controller"])) {
                 params = Router.parseRequest(serverRequest) + params;
-                if (isSet(params["_middleware"])) {
+                if (params.hasKey("_middleware")) {
                     middleware = params["_middleware"];
                 }
                 route = params["_route"];

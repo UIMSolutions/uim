@@ -684,7 +684,7 @@ class DEagerLoader {
                         continue;
                     }
                     // Assign empty array to avoid not found association when optional.
-                    if (!isSet(result[myparts[1][0]])) {
+                    if (!result.hasKey(myparts[1][0])) {
                         if (!isSet(someKeys[mynestKey][myparts[0]])) {
                             someKeys[mynestKey][myparts[0]] = null;
                         }
@@ -705,9 +705,7 @@ class DEagerLoader {
         return someKeys;
     }
     
-    /**
-     * Handles cloning eager loaders and eager loadables.
-     */
+    // Handles cloning eager loaders and eager loadables.
     void clone() {
         if (_matching) {
            _matching = clone _matching;

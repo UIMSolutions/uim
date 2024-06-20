@@ -329,8 +329,8 @@ class DBehavior : DEventListener {
 
         auto events = this.implementedEvents();
         bool[string] eventMethods = null;
-        foreach (events as binding) {
-            if (binding.isArray && isset(binding["callable"])) {
+        foreach (binding; events) {
+            if (binding.isArray && binding.hasKey("callable")) {
                 /** @var string callable */
                 callable = binding["callable"];
                 binding = callable;
@@ -338,8 +338,8 @@ class DBehavior : DEventListener {
             eventMethods[binding] = true;
         }
 
-        baseClass = class;
-        if (isset(_reflectionCache[baseClass])) {
+        auto baseClass = class;
+        if (_reflectionCache.haskey(baseClass)) {
             baseMethods = _reflectionCache[baseClass];
         } else {
             baseMethods = get_class_methods(baseClass);
@@ -353,12 +353,9 @@ class DBehavior : DEventListener {
 
         reflection = new DReflectionClass(class);
 
-        foreach (reflection.getMethods(ReflectionMethod.IS_PUBLIC) as method) {
-            methodName = method.getName();
-            if (
-                isIn(methodName, baseMethods, true) ||
-                isset(eventMethods[methodName])
-           ) {
+        foreach (method; reflection.getMethods(ReflectionMethod.IS_PUBLIC)) {
+            auto methodName = method.getName();
+            if (isIn(methodName, baseMethods, true) || eventMethods.hasKey(methodName)) {
                 continue;
             }
 

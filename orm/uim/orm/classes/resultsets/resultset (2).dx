@@ -413,12 +413,12 @@ class DResultset : IResultset {
         // If the default table is not in the results, set
         // it to an empty array so that any contained
         // associations hydrate correctly.
-        results[defaultAlias] = results.get(defaultAlias;
+        results[defaultAlias] = results.get(defaultAlias);
 
-        remove(presentAliases[defaultAlias]);
+        presentAliases.remove(defaultAlias);
 
-        foreach (_containMap as assoc) {
-            aliasName = assoc["nestKey"];
+        foreach (assoc; _containMap) {
+            auto aliasName = assoc["nestKey"];
 
             if (assoc["canBeJoined"] && _map.isEmpty(alias)) {
                 continue;
@@ -427,7 +427,7 @@ class DResultset : IResultset {
             /** @var DORMAssociation instance */
             instance = assoc["instance"];
 
-            if (!assoc["canBeJoined"] && !isset(row[aliasName])) {
+            if (!assoc["canBeJoined"] && !row.hasKey(aliasName)) {
                 results = instance.defaultRowValue(results, assoc["canBeJoined"]);
                 continue;
             }
@@ -436,13 +436,13 @@ class DResultset : IResultset {
                 results[aliasName] = row[aliasName];
             }
 
-            target = instance.getTarget();
+            auto target = instance.getTarget();
             options["source"] = target.registryKey();
-            remove(presentAliases[aliasName]);
+            presentAliases.remove(aliasName);
 
             if (assoc["canBeJoined"] && _autoFields != false) {
-                hasData = false;
-                foreach (results[aliasName] as v) {
+                auto hasData = false;
+                foreach (v; results[aliasName]) {
                     if (v != null && v != []) {
                         hasData = true;
                         break;
@@ -462,7 +462,7 @@ class DResultset : IResultset {
             results = instance.transformRow(results, alias, assoc["canBeJoined"], assoc["targetProperty"]);
         }
 
-        foreach (presentAliases as alias: present) {
+        foreach (alias, present; presentAliases) {
             if (!results.hasKey(aliasName)) {
                 continue;
             }
@@ -473,7 +473,7 @@ class DResultset : IResultset {
             results[defaultAlias]["_matchingData"] = results["_matchingData"];
         }
 
-        options["source"] = _defaultTable.registryKey();
+        options.set("source", _defaultTable.registryKey());
         if (results.hasKey(defaultAlias)) {
             results = results[defaultAlias];
         }

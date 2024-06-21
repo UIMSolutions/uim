@@ -106,6 +106,8 @@ class DEventManager { // }: IEventManager {
         string aeventKey, /* DEventListener|callable */
         // TODO callable aCallable = null
 
+        
+
     ) {
         /*     if (!isString(eventKey)) {
         _listeners.keys.each!(name => off(name, eventKey)); 
@@ -174,11 +176,12 @@ class DEventManager { // }: IEventManager {
      */
     protected Json[string] normalizeHandlers(DEventListener subscriber, Json[string] handlers) {
         if (!handlers.hasKey("callable")) {
-       /*  foreach (handlers as & handler) {
-            handler = normalizeHandler(subscriber, handler);
-        } */
+            /*  foreach (handlers as & handler) {
+            handler = normalizeHandler(subscriber, handler);*/
+        }
         return handlers;
     }
+
     protected Json[string] normalizeHandlers(DEventListener subscriber, /* Closure |  */ string ahandlers) {
         return [normalizeHandler(subscriber, handlers)];
     }
@@ -290,7 +293,7 @@ class DEventManager { // }: IEventManager {
     // Returns the listeners for the specified event key indexed by priority
     Json[string] prioritisedListeners(string key) {
         // return _listeners.get(key);
-        return null; 
+        return null;
     }
 
     // Returns the listeners matching a specified pattern

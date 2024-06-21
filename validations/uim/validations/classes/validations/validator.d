@@ -2469,7 +2469,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
         /* return _add(fieldName, "hasAtMost", myextra ~ [
             "rule": auto (myvalue) use (mycount) {
-                if (isArray(myvalue) && isSet(myvalue["_ids"])) {
+                if (isArray(myvalue) && myvalue.hasKey("_ids")) {
                     myvalue = myvalue["_ids"];
                 }
                 return Validation.numElements(myvalue, Validation.COMPARE_LESS_OR_EQUAL, mycount);

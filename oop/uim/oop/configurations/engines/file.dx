@@ -51,7 +51,7 @@ class DFileConfigEngine : DConfigEngine {
     Json[string] read(string aKey) {
         auto file = _getFileKey(aKey, true);
 
-        result = include file;
+        auto result = include file;
         if (isArray(result)) {
             return result;
         }

@@ -521,7 +521,7 @@ class Hash {
      * @param string mypath The path to check for.
      */
     static bool check(Json[string] data, string mypath) {
-        results = extract(mydata, mypath);
+        auto results = extract(mydata, mypath);
         if (!isArray(results)) {
             return false;
         }

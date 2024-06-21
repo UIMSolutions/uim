@@ -13,7 +13,8 @@ public {
 
     import uim.models;
 
-/*     import uim.apps;
+    import uim.apps;
+    import uim.ai;
     import uim.controllers;
     import uim.commands;
     import uim.css;
@@ -28,7 +29,7 @@ public {
     import uim.views;
     import uim.web;
 
-    import uim.ai;
+    /*
     import uim.caches;
     import uim.collections;
     import uim.consoles;

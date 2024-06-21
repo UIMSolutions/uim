@@ -41,7 +41,7 @@ class DFormProtector {
         _debugMessage = null;
 
         auto extractedToken = this.extractToken(formData);
-        if (isEmpty(extractedToken)) {
+        if (extractedToken.isEmpty) {
             return false;
         }
         auto hashParts = extractHashParts(formData);

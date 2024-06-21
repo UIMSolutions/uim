@@ -117,16 +117,15 @@ class DEntityContext : DContext {
     
     /**
      * Get the primary key data for the context.
-     *
      * Gets the primary key columns from the root entity"s schema.
      */
     string[] primaryKeys() {
-        return (array)_tables[_rootName].primaryKeys();
+        return _tables[_rootName].primaryKeys();
     }
  
     bool isPrimaryKey(string pathToField) {
-        pathParts = fieldPath.split(".");
-        mytable = _getTable(pathParts);
+        auto pathParts = fieldPath.split(".");
+        auto mytable = _getTable(pathParts);
         if (!mytable) {
             return false;
         }
@@ -152,10 +151,10 @@ class DEntityContext : DContext {
                 break;
             }
         }
-        if (cast(IEntity)myentity) {
-            return myentity.isNew() != false;
-        }
-        return true;
+
+        return cast(IEntity)myentity
+            ? myentity.isNew() != false
+            : true;
     }
     
     /**
@@ -512,7 +511,7 @@ class DEntityContext : DContext {
         if (!isArray(pathParts) || count(pathParts) == 1) {
             return _tables[_rootName];
         }
-        
+
         string[] mynormalized = array_slice(array_filter(pathParts, auto (mypart) {
             return !isNumeric(mypart);
         }), 0, -1);

@@ -454,22 +454,20 @@ class DMessage { //: JsonSerializable {
      * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
-    protected void setEmail(string avarName, string[] aemail, string aName) {
-        if (!isArray(email)) {
-            this.validateEmail(email, varName);
-            this.{varName} = [email: name ?? email];
-
-            return;
-        }
-        list = null;
+    protected void setEmail(string varName, string email, string name) {
+        validateEmail(email, varName);
+        // TODO this.{varName} = [email: name ?? email];
+    }
+    protected void setEmail(string avarName, string[string] emails, string aName) {
+        string[string] list = null;
         email.byKeyValue.each!((kv) {
-            if (isInteger(kv.key)) {
+/*             if (isInteger(kv.key)) {
                 kv.key = kv.value;
-            }
-            this.validateEmail(kv.key, varName);
+            } */
+            validateEmail(kv.key, varName);
             list[kv.key] = kv.value ? kv.value : kv.key;
         });
-        this.{varName} = list;
+        // TODOD this.{varName} = list;
     }
     
     /**
@@ -526,7 +524,7 @@ class DMessage { //: JsonSerializable {
      */
     protected void addEmail(string avarName, STRINGAA emailValue, string aName) {
         if (!isArray(emailValue)) {
-            this.validateEmail(emailValue, varName);
+            validateEmail(emailValue, varName);
             name ??= emailValue;
             this.{varName}[emailValue] = name;
 
@@ -538,7 +536,7 @@ class DMessage { //: JsonSerializable {
                 if (isInteger(aKey)) {
                     aKey = aValue;
                 }
-                this.validateEmail(aKey, varName);
+                validateEmail(aKey, varName);
                 list[aKey] = aValue;
             });
         this.{varName} = chain(this.{varName}, list);

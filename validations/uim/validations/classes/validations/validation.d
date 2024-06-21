@@ -124,7 +124,6 @@ class DValidation {
             return false;
         }
         auto length = value.get!string.length;
-
         return length >= minLength && length <= maxLength;
     }
 

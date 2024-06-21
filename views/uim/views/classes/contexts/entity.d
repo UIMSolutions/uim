@@ -369,14 +369,14 @@ class DEntityContext : DContext {
      * @param string fieldName The next field to fetch.
      */
     protected Json _getProp(Json mytarget, string fieldName) {
-        if (isArray(mytarget) && isSet(mytarget[fieldName])) {
+        if (isArray(mytarget) && mytarget.hasKey(fieldName)) {
             return mytarget[fieldName];
         }
         if (cast(IEntity)mytarget) {
             return mytarget.get(fieldName);
         }
         if (cast(Traversable)mytarget) {
-            foreach (mytarget as myi: myval) {
+            foreach (myi, myval; mytarget) {
                 if (to!string(myi) == fieldName) {
                     return myval;
                 }
@@ -404,10 +404,10 @@ class DEntityContext : DContext {
         if (!myvalidator.hasField(fieldName)) {
             return null;
         }
-        if (this.type(fieldName) != "boolean") {
-            return !myvalidator.isEmptyAllowed(fieldName, myisNew);
-        }
-        return false;
+
+        return this.type(fieldName) != "boolean"
+            ? !myvalidator.isEmptyAllowed(fieldName, myisNew)
+            : false;
     }
  
     string getRequiredMessage(string fieldName) {
@@ -418,11 +418,11 @@ class DEntityContext : DContext {
         if (!myvalidator.hasField(fieldName)) {
             return null;
         }
-        myruleset = myvalidator.field(fieldName);
-        if (myruleset.isEmptyAllowed()) {
-            return null;
-        }
-        return myvalidator.getNotEmptyMessage(fieldName);
+
+        auto myruleset = myvalidator.field(fieldName);
+        return myruleset.isEmptyAllowed()
+            ? null
+            : myvalidator.getNotEmptyMessage(fieldName);
     }
     
     /**
@@ -437,15 +437,16 @@ class DEntityContext : DContext {
 
         if (myvalidator.hasField(fieldName)) {
             foreach (myrule; myvalidator.field(fieldName).rules()) {
-                if (myrule.get("rule") == "maxLength") {
+                if (myrule.getString("rule") == "maxLength") {
                     return myrule.get("pass")[0];
                 }
             }
         }
-        myattributes = this.attributes(fieldPath);
+
+        auto myattributes = this.attributes(fieldPath);
         return myattributes["length"].isEmpty
             ? null 
-            : (int)myattributes["length"];
+            : myattributes.getInteger("length");
     }
     
     /**
@@ -474,7 +475,7 @@ class DEntityContext : DContext {
         string aKey = mykeyParts.join(".");
         auto myentity = this.entity(pathParts);
 
-        if (isSet(_validator[aKey])) {
+        if (_validator.hasKey(aKey)) {
             if (isObject(myentity)) {
                _validator[aKey].setProvider("entity", myentity);
             }
@@ -492,8 +493,8 @@ class DEntityContext : DContext {
         } elseif (_context.hasKey("validator."~aliasName)) {
             mymethod = _context["validator"][aliasName];
         }
-        myvalidator = mytable.getValidator(mymethod);
-
+        
+        auto myvalidator = mytable.getValidator(mymethod);
         if (isObject(myentity)) {
             myvalidator.setProvider("entity", myentity);
         }

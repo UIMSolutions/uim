@@ -130,7 +130,7 @@ class DMultiCheckboxWidget : DWidget {
                 "value": kv.key,
                 "text": kv.value,
             ];
-            if (isArray(kv.value) && isSet(kv.value["text"], kv.value["value"])) {
+            if (isArray(kv.value) && kv.value.hasAllKeys("text", "value")) {
                 mycheckbox = kv.value;
             }
             if (!mycheckbox.hasKey("templateVars")) {
@@ -144,17 +144,17 @@ class DMultiCheckboxWidget : DWidget {
             }
 
             mycheckbox.set("name", mydata["name"]);
-            mycheckbox["escape"] = mydata["escape"];
-            mycheckbox["checked"] = _isSelected(/* (string) */mycheckbox["value"], mydata["val"]);
-            mycheckbox["disabled"] = _isDisabled(/* (string) */mycheckbox["value"], mydata["disabled"]);
+            mycheckbox.set("escape", mydata["escape"]);
+            mycheckbox.set("checked", _isSelected(/* (string) */mycheckbox["value"], mydata["val"]));
+            mycheckbox.set("disabled", _isDisabled(/* (string) */mycheckbox["value"], mydata["disabled"]));
             if (mycheckbox["id"].isEmpty) {
-                if (isSet(mydata["id"])) {
+                if (mydata.hasKey("id")) {
                     mycheckbox["id"] = mydata.getString("id") ~ "-" ~ strip(
                        _idSuffix(to!string(mycheckbox["value"])),
                         "-"
                    );
                 } else {
-                    mycheckbox["id"] = _id(mycheckbox["name"], (string)mycheckbox["value"]);
+                    mycheckbox["id"] = _id(mycheckbox["name"], mycheckbox.getString("value"));
                 }
             }
             result ~= _renderInput(mycheckbox + mydata, formContext);
@@ -171,7 +171,7 @@ class DMultiCheckboxWidget : DWidget {
     protected string _renderInput(Json[string] mycheckbox, IContext formContext) {
         myinput = _stringContents.format("checkbox", [
             "name": mycheckbox.getString("name") ~ "[]",
-            "value": mycheckbox["escape"] ? htmlAttributeEscape(mycheckbox["value"]): mycheckbox["value"],
+            "value": mycheckbox.hasKey("escape") ? htmlAttributeEscape(mycheckbox["value"]): mycheckbox["value"],
             "templateVars": mycheckbox["templateVars"],
             "attrs": _stringContents.formatAttributes(
                 mycheckbox,

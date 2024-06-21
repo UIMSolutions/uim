@@ -161,7 +161,7 @@ class DDateTimeWidget : DWidget {
             mydateTime = mydateTime.setTimezone(mytimezone);
         }
         
-        if (isSet(optionsForConversion["format"])) {
+        if (optionsForConversion.hasKey("format")) {
             myformat = optionsForConversion["format"];
         } else {
             myformat = this.formatMap[optionsForConversion["type"]];
@@ -176,11 +176,11 @@ class DDateTimeWidget : DWidget {
         }
         return mydateTime.format(myformat);
     }
+
     Json[string] secureFields(Json[string] data) {
-        if (!isSet(data["name"]) || data.getString("name") == "") {
-            return null;
-        }
-        return [data["name"]];
+        return !isSet(data["name"]) || data.getString("name") == ""
+            ? null
+            : [data["name"]];
     } 
 }
 mixin(WidgetCalls!("DateTime"));

@@ -112,7 +112,7 @@ class DViewBlock {
     
     //Check if a block exists
    bool exists(string blockName) {
-        return false; // TODO isSet(_blocks[blockName]);
+        return false; // TODO _blocks.hasKey(blockName);
     }
     
     // Get the names of all the existing blocks.

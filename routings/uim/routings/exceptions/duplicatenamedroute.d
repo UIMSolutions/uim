@@ -26,7 +26,7 @@ class DDuplicateNamedRouteException : DException {
      * that are made available in the view, and sprintf()"d into Exception._messageTemplate
      */
     this(string[] amessage, int errorCode = 404, Throwable previousException = null) {
-        if (message.isArray && isSet(message["message"])) {
+        if (message.isArray && message.hasKey("message")) {
            _messageTemplate = message["message"];
         }
         super(message, errorCode, previous);

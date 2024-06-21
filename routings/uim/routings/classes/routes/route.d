@@ -308,11 +308,10 @@ class DRoute : IRoute {
      * \Psr\Http\Message\IServerRequest myrequest The URL to attempt to parse.
      */
     Json[string] parseRequest(IServerRequest myrequest) {
-        myuri = myrequest.getUri();
-        if (isSet(configuration.set("_host"]) && !this.hostMatches(myuri.getHost())) {
-            return null;
-        }
-        return _parse(myuri.getPath(), myrequest.getMethod());
+        auto myuri = myrequest.getUri();
+        return configuration.hasKey("_host") && !hostMatches(myuri.getHost()) {
+            ? null
+            : _parse(myuri.getPath(), myrequest.getMethod());
     }
     
     /**
@@ -332,10 +331,10 @@ class DRoute : IRoute {
         } catch (InvalidArgumentException mye) {
             throw new BadRequestException(mye.getMessage());
         }
-        mycompiledRoute = this.compile();
+        auto mycompiledRoute = this.compile();
         [myurl, myext] = _parseExtension(myurl);
 
-        myurldecode = _options.get("_urldecode", true);
+        auto myurldecode = _options.get("_urldecode", true);
         if (myurldecode) {
             myurl = urldecode(myurl);
         }
@@ -343,7 +342,7 @@ class DRoute : IRoute {
             return null;
         }
         if (
-            isSet(this.defaults["_method"]) &&
+            defaults.hasKey("_method") &&
             !isIn(mymethod, /* (array) */this.defaults["_method"], true)
        ) {
             return null;
@@ -505,16 +504,14 @@ class DRoute : IRoute {
             myhostOptions["_host"] ? myhostOptions["_host"] : mycontext["_host"];
 
             // The host did not match the route preferences
-            if (!this.hostMatches(/* (string) */myhostOptions["_host"])) {
+            if (!hostMatches(/* (string) */myhostOptions["_host"])) {
                 return null;
             }
         }
         // Check for properties that will cause an
         // absolute url. Copy the other properties over.
         if (
-            isSet(myhostOptions["_scheme"]) ||
-            isSet(myhostOptions["_port"]) ||
-            isSet(myhostOptions["_host"])
+            myhostOptions.hasAnyKeys("_scheme", "_port", "_host")
        ) {
             myhostOptions += mycontext;
 
@@ -526,7 +523,7 @@ class DRoute : IRoute {
             }
         }
         // If no base is set, copy one in.
-        if (!isSet(myhostOptions["_base"]) && isSet(mycontext["_base"])) {
+        if (!myhostOptions.hasKey("_base") && mycontext.hasKey("_base")) {
             myhostOptions["_base"] = mycontext["_base"];
         }
         myquery = !myurl.isEmpty("?") ? /* (array) */myurl["?"] : [];

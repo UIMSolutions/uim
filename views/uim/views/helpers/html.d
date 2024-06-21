@@ -144,8 +144,8 @@ class DHtmlHelper : DHelper {
 
         if (htmlAttributes.hasKey("link")) {
             htmlAttributes["link"] = isArray(htmlAttributes["link"]) 
-                ? this.Url.build(htmlAttributes["link"])
-                this.Url.assetUrl(htmlAttributes["link"]);
+                ? _Url.build(htmlAttributes["link"])
+                _Url.assetUrl(htmlAttributes["link"]);
 
             if (htmlAttributes.getString("rel") == "icon") {
                 result = formatTemplate("metalink", [
@@ -215,18 +215,18 @@ class DHtmlHelper : DHelper {
     string link(string[] mytitle, string[] myurl = null, Json[string] htmlAttributes = null) {
         myescapeTitle = true;
         if (!myurl.isNull) {
-            myurl = this.Url.build(myurl, htmlAttributes);
+            myurl = _Url.build(myurl, htmlAttributes);
             htmlAttributes.remove("fullBase");
         } else {
-            myurl = this.Url.build(mytitle);
+            myurl = _Url.build(mytitle);
             mytitle = htmlspecialchars_decode(myurl, ENT_QUOTES);
             mytitle = htmlAttributeEscape(urldecode(mytitle));
             myescapeTitle = false;
         }
-        if (isSet(htmlAttributes["escapeTitle"])) {
+        if (htmlAttributes.hasKey("escapeTitle")) {
             myescapeTitle = htmlAttributes["escapeTitle"];
-            remove(htmlAttributes["escapeTitle"]);
-        } elseif (isSet(htmlAttributes["escape"])) {
+            htmlAttributes.remove("escapeTitle");
+        } elseif (htmlAttributes.hasKey("escape")) {
             myescapeTitle = htmlAttributes["escape"];
         }
         if (myescapeTitle == true) {
@@ -237,7 +237,7 @@ class DHtmlHelper : DHelper {
         }
         mytemplater = this.templater();
         myconfirmMessage = null;
-        if (isSet(htmlAttributes["confirm"])) {
+        if (htmlAttributes.hasKey("confirm")) {
             myconfirmMessage = htmlAttributes["confirm"];
             htmlAttributes.remove("confirm");
         }
@@ -326,6 +326,14 @@ class DHtmlHelper : DHelper {
      * @param Json[string] htmlAttributes Array of options and HTML arguments.
      */
     string css(string[] mypath, Json[string] htmlAttributes = null) {
+        string result = mypath.map!(path => "\n\t" ~ css(myi, htmlAttributes)).join;
+
+        return htmlAttributes.isEmpty("block")
+            ? result ~ "\n"
+            : null;
+    }
+
+    string css(string[] mypath, Json[string] htmlAttributes = null) {
         auto htmlAttributes = htmlAttributes.update([
             "once": true.toJson,
             "block": Json(null),
@@ -333,18 +341,8 @@ class DHtmlHelper : DHelper {
             "nonce": _View.getRequest().getAttribute("cspStyleNonce").toJson,
         ]);
 
-        if (mypath.isArray) {
-            string result = "";
-            foreach (mypath as myi) {
-                result ~= "\n\t" ~ to!string(this.css(myi, htmlAttributes));
-            }
-            if (isEmpty(htmlAttributes["block"])) {
-                return result ~ "\n";
-            }
-            return null;
-        }
-        myurl = this.Url.css(mypath, htmlAttributes);
-        htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
+        auto myurl = _Url.css(mypath, htmlAttributes);
+        auto htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
         if (htmlAttributes["once"] && isSet(_includedAssets[__METHOD__][mypath])) {
             return null;
@@ -433,7 +431,7 @@ class DHtmlHelper : DHelper {
             }
             return null;
         }
-        myurl = this.Url.script(myurl, htmlAttributes);
+        myurl = _Url.script(myurl, htmlAttributes);
         htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
         if (htmlAttributes["once"] && isSet(_includedAssets[__METHOD__][myurl])) {
@@ -574,9 +572,9 @@ class DHtmlHelper : DHelper {
      */
     string image(string[] mypath, Json[string] htmlAttributes = null) {
         if (isString(mypath)) {
-            mypath = this.Url.image(mypath, htmlAttributes);
+            mypath = _Url.image(mypath, htmlAttributes);
         } else {
-            mypath = this.Url.build(mypath, htmlAttributes);
+            mypath = _Url.build(mypath, htmlAttributes);
         }
         htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
@@ -596,7 +594,7 @@ class DHtmlHelper : DHelper {
 
         if (myurl) {
             return mytemplater.format("link", [
-                "url": this.Url.build(myurl),
+                "url": _Url.build(myurl),
                 "attrs": Json(null),
                 "content": myimage,
             ]);
@@ -892,7 +890,7 @@ class DHtmlHelper : DHelper {
                     myext = pathinfo(mysource["src"], PATHINFO_EXTENSION);
                     mysource["type"] = _View.getResponse().getMimeType(myext);
                 }
-                mysource["src"] = this.Url.assetUrl(mysource["src"], htmlAttributes);
+                mysource["src"] = _Url.assetUrl(mysource["src"], htmlAttributes);
                 mysourceTags ~= this.formatTemplate("tagselfclosing", [
                     "tag": "source",
                     "attrs": this.templater().formatAttributes(mysource),
@@ -906,7 +904,7 @@ class DHtmlHelper : DHelper {
                 mypath = htmlAttributes["src"];
             }
             /** @psalm-suppress PossiblyNullArgument */
-            htmlAttributes["src"] = this.Url.assetUrl(mypath, htmlAttributes);
+            htmlAttributes["src"] = _Url.assetUrl(mypath, htmlAttributes);
         }
         if (mytag.isNull) {
             if (mypath.isArray) {
@@ -922,7 +920,7 @@ class DHtmlHelper : DHelper {
             }
         }
         if (isSet(htmlAttributes["poster"])) {
-            htmlAttributes["poster"] = this.Url.assetUrl(
+            htmlAttributes["poster"] = _Url.assetUrl(
                 htmlAttributes["poster"],
                 ["pathPrefix": configuration.get("App.imageBaseUrl")] + htmlAttributes
            );

@@ -568,9 +568,9 @@ class DFormHelper : DHelper {
         auto myerror = formContext.error(fieldName);
         if (mytext.isArray) {
             mytmp = null;
-            foreach (myerror as myKey: mye) {
-                if (isSet(mytext[myKey])) {
-                    mytmp ~= mytext[myKey];
+            foreach (key: mye; myerror) {
+                if (mytext.hasKey(key)) {
+                    mytmp ~= mytext[key];
                 } elseif (isSet(mytext[mye])) {
                     mytmp ~= mytext[mye];
                 } else {
@@ -589,8 +589,8 @@ class DFormHelper : DHelper {
         if (isArray(myerror)) {
             if (count(myerror) > 1) {
                 myerrorText = null;
-                foreach (myerror as myerr) {
-                    myerrorText ~= this.formatTemplate("errorItem", ["text": myerr]);
+                foreach (error; myerror) {
+                    myerrorText ~= formatTemplate("errorItem", ["text": error]);
                 }
                 myerror = this.formatTemplate("errorList", [
                     "content": join("", myerrorText),

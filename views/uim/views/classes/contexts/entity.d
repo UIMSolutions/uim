@@ -512,12 +512,13 @@ class DEntityContext : DContext {
         if (!isArray(pathParts) || count(pathParts) == 1) {
             return _tables[_rootName];
         }
-        mynormalized = array_slice(array_filter(pathParts, auto (mypart) {
+        
+        string[] mynormalized = array_slice(array_filter(pathParts, auto (mypart) {
             return !isNumeric(mypart);
         }), 0, -1);
 
-        mypath = join(".", mynormalized);
-        if (isSet(_tables[mypath])) {
+        auto mypath = mynormalized.join(".");
+        if (_tables.hasKey(mypath)) {
             return _tables[mypath];
         }
         if (currentValue(mynormalized) == _rootName) {

@@ -75,7 +75,7 @@ class DHelper { // TODO }: DEventListener {
 
     // Lazy loads helpers.
     DHelper __get(string propertyName) {
-        if (isSet(this.helperInstances[propertyName])) {
+        if (helperInstances.hasKey(propertyName)) {
             return _helperInstances[propertyName];
         }
         if (helpers.hasKey(propertyName)) {

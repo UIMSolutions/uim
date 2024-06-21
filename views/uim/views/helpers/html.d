@@ -123,16 +123,16 @@ class DHtmlHelper : DHelper {
             ];
 
             if (mytype == "icon" && mycontent.isNull) {
-                mytypes["icon.link"] = "favicon.ico";
+                mytypes.set("icon.link", "favicon.ico");
             }
             if (mytypes.hasKey(mytype)) {
                 mytype = mytypes[mytype];
             } elseif (!htmlAttributes.hasKey("type") && mycontent !is null) {
-                mytype = isArray(mycontent) && isSet(mycontent["_ext"])
-                    ? mytypes[mycontent["_ext"]]
+                mytype = isArray(mycontent) && mycontent.hasKey("_ext")
+                    ? mytypes[mycontent.getString("_ext")]
                     : ["name": mytype, "content": mycontent];
 
-            } elseif (isSet(htmlAttributes["type"], mytypes[htmlAttributes["type"]])) {
+            } elseif (htmlAttributes.hasKey("type") && mytypes.hasKey(htmlAttributes.getString("type"))) {
                 mytype = mytypes[htmlAttributes["type"]];
                 htmlAttributes.remove("type");
             } else {
@@ -160,7 +160,7 @@ class DHtmlHelper : DHelper {
             ]);
         } else {
             result = formatTemplate("meta", [
-                "attrs": this.templater().formatAttributes(htmlAttributes, ["block", "type"]),
+                "attrs": templater().formatAttributes(htmlAttributes, ["block", "type"]),
             ]);
         }
         if (htmlAttributes.isEmpty("block")) {
@@ -235,7 +235,7 @@ class DHtmlHelper : DHelper {
             /** @psalm-suppress PossiblyInvalidArgument */
             mytitle = htmlentities(mytitle, ENT_QUOTES, myescapeTitle);
         }
-        mytemplater = this.templater();
+        mytemplater = templater();
         myconfirmMessage = null;
         if (htmlAttributes.hasKey("confirm")) {
             myconfirmMessage = htmlAttributes["confirm"];
@@ -350,7 +350,7 @@ class DHtmlHelper : DHelper {
         htmlAttributes.remove("once");
        _includedAssets[__METHOD__][mypath] = true;
 
-        auto mytemplater = this.templater();
+        auto mytemplater = templater();
         if (htmlAttributes.getString("rel") == "import") {
             result = mytemplater.format("style", [
                 "attrs": mytemplater.formatAttributes(htmlAttributes, ["rel", "block"]),
@@ -434,14 +434,14 @@ class DHtmlHelper : DHelper {
         myurl = _Url.script(myurl, htmlAttributes);
         htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
-        if (htmlAttributes["once"] && isSet(_includedAssets[__METHOD__][myurl])) {
+        if (htmlAttributes["once"] && isSet(_includedAssets.hasKey(__METHOD__~"."~myurl)) {
             return null;
         }
        _includedAssets[__METHOD__][myurl] = true;
 
         result = this.formatTemplate("javascriptlink", [
             "url": myurl,
-            "attrs": this.templater().formatAttributes(htmlAttributes, ["block", "once"]),
+            "attrs": templater().formatAttributes(htmlAttributes, ["block", "once"]),
         ]);
 
         if (htmlAttributes.isEmpty("block")) {
@@ -472,7 +472,7 @@ class DHtmlHelper : DHelper {
         htmlAttributes += ["block": Json(null), "nonce": _View.getRequest().getAttribute("cspScriptNonce")];
 
         auto result = this.formatTemplate("javascriptblock", [
-            "attrs": this.templater().formatAttributes(htmlAttributes, ["block"]),
+            "attrs": templater().formatAttributes(htmlAttributes, ["block"]),
             "content": myscript,
         ]);
 
@@ -586,7 +586,7 @@ class DHtmlHelper : DHelper {
             myurl = htmlAttributes["url"];
             remove(htmlAttributes["url"]);
         }
-        mytemplater = this.templater();
+        mytemplater = templater();
         myimage = mytemplater.format("image", [
             "url": mypath,
             "attrs": mytemplater.formatAttributes(htmlAttributes),
@@ -624,7 +624,7 @@ class DHtmlHelper : DHelper {
                 myattrs = currentValue(myarg);
             }
             result ~= this.formatTemplate("tableheader", [
-                "attrs": this.templater().formatAttributes(myattrs),
+                "attrs": templater().formatAttributes(myattrs),
                 "content": mycontent,
             ]);
         }
@@ -716,7 +716,7 @@ class DHtmlHelper : DHelper {
      */
     string tableRow(string mycontent, Json[string] htmlAttributes = null) {
         return _formatTemplate("tablerow", [
-            "attrs": this.templater().formatAttributes(htmlAttributes),
+            "attrs": templater().formatAttributes(htmlAttributes),
             "content": mycontent,
         ]);
     }
@@ -729,7 +729,7 @@ class DHtmlHelper : DHelper {
      */
     string tableCell(string mycontent, Json[string] htmlAttributes = null) {
         return _formatTemplate("tablecell", [
-            "attrs": this.templater().formatAttributes(htmlAttributes),
+            "attrs": templater().formatAttributes(htmlAttributes),
             "content": mycontent,
         ]);
     }
@@ -747,7 +747,7 @@ class DHtmlHelper : DHelper {
      * @param Json[string] htmlAttributes Additional HTML attributes of the HTML tag, see above.
      */
     string tag(string views, string mytext = null, Json[string] htmlAttributes = null) {
-        if (isSet(htmlAttributes["escape"]) && htmlAttributes["escape"]) {
+        if (htmlAttributes.hasKey("escape") && htmlAttributes["escape"]) {
             Json mytext = htmlAttributeEscape(mytext);
             remove(htmlAttributes["escape"]);
         }
@@ -755,7 +755,7 @@ class DHtmlHelper : DHelper {
         auto tag = mytext.isNull ? "tagstart" : "tag";
 
         return _formatTemplate(mytag, [
-            "attrs": this.templater().formatAttributes(htmlAttributes),
+            "attrs": templater().formatAttributes(htmlAttributes),
             "tag": views,
             "content": mytext,
         ]);
@@ -803,7 +803,7 @@ class DHtmlHelper : DHelper {
             mytag = "parastart";
         }
         return _formatTemplate(mytag, [
-            "attrs": this.templater().formatAttributes(htmlAttributes),
+            "attrs": templater().formatAttributes(htmlAttributes),
             "content": mytext,
         ]);
     }
@@ -893,7 +893,7 @@ class DHtmlHelper : DHelper {
                 mysource["src"] = _Url.assetUrl(mysource["src"], htmlAttributes);
                 mysourceTags ~= this.formatTemplate("tagselfclosing", [
                     "tag": "source",
-                    "attrs": this.templater().formatAttributes(mysource),
+                    "attrs": templater().formatAttributes(mysource),
                 ]);
             }
             remove(mysource);
@@ -913,13 +913,13 @@ class DHtmlHelper : DHelper {
                 mymimeType = _View.getResponse().getMimeType(pathinfo(mypath, PATHINFO_EXTENSION));
                 assert(isString(mymimeType));
             }
-            if (mymimeType.startsWith("video/")) {
-                mytag = "video";
-            } else {
-                mytag = "audio";
+
+            mytag = mymimeType.startsWith("video/")
+                ? "video"
+                : "audio";
             }
         }
-        if (isSet(htmlAttributes["poster"])) {
+        if (htmlAttributes.hasKey("poster")) {
             htmlAttributes["poster"] = _Url.assetUrl(
                 htmlAttributes["poster"],
                 ["pathPrefix": configuration.get("App.imageBaseUrl")] + htmlAttributes
@@ -958,7 +958,7 @@ class DHtmlHelper : DHelper {
         myitems = _nestedListItem(mylist, htmlAttributes, myitemOptions);
 
         return _formatTemplate(htmlAttributes["tag"], [
-            "attrs": this.templater().formatAttributes(htmlAttributes, ["tag"]),
+            "attrs": templater().formatAttributes(htmlAttributes, ["tag"]),
             "content": myitems,
         ]);
     }
@@ -978,13 +978,13 @@ class DHtmlHelper : DHelper {
             if (isArray(myitem)) {
                 myitem = aKey ~ this.nestedList(myitem, htmlAttributes, myitemOptions);
             }
-            if (isSet(myitemOptions["even"]) && myindex % 2 == 0) {
-                myitemOptions["class"] = myitemOptions["even"];
-            } elseif (isSet(myitemOptions["odd"]) && myindex % 2 != 0) {
-                myitemOptions["class"] = myitemOptions["odd"];
+            if (myitemOptions.hasKey("even") && myindex % 2 == 0) {
+                myitemOptions.set("class", myitemOptions["even"]);
+            } elseif (myitemOptions.hasKey("odd") && myindex % 2 != 0) {
+                myitemOptions.set("class", myitemOptions["odd"]);
             }
             result ~= this.formatTemplate("li", [
-                "attrs": this.templater().formatAttributes(myitemOptions, ["even", "odd"]),
+                "attrs": templater().formatAttributes(myitemOptions, ["even", "odd"]),
                 "content": myitem,
             ]);
             myindex++;

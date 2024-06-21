@@ -290,19 +290,19 @@ class DRouter {
         
         string myfrag;
         if (myurl.isArray) {
-            if (isSet(myurl["_path"])) {
+            if (myurl.hasKey("_path")) {
                 myurl = unwrapShortString(myurl);
             }
-            if (isSet(myurl["_https"])) {
+            if (myurl.hasKey("_https")) {
                 myurl["_scheme"] = myurl["_https"] == true ? "https" : "http";
             }
-            if (isSet(myurl["_full"]) && myurl["_full"] == true) {
+            if (myurl.hasKey("_full") && myurl["_full"] == true) {
                 myfull = true;
             }
-            if (isSet(myurl["#"])) {
+            if (myurl.hasKey("#")) {
                 myfrag = "#" ~ myurl["#"];
             }
-            remove(myurl["_https"], myurl["_full"], myurl["#"]);
+            myurl.remove("_https", "_full", "#");
 
             myurl = _applyUrlFilters(myurl);
 

@@ -171,7 +171,7 @@ class DFormProtector {
         }
         
         string message = "`%s` was not found in request data.";
-        if (!isSet(formData"_Token"])) {
+        if (!formData.hasKey("_Token")) {
             _debugMessage = message.format("_Token");
 
             return null;
@@ -181,12 +181,12 @@ class DFormProtector {
 
             return null;
         }
-        if (!isString(formData["_Token.fields"])) {
+        if (!formData.isString("_Token.fields")) {
             _debugMessage = "`_Token.fields` is invalid.";
 
             return null;
         }
-        if (!isSet(formData["_Token.unlocked"])) {
+        if (!formData.hasKey("_Token.unlocked")) {
             _debugMessage = message.format("_Token.unlocked");
 
             return null;
@@ -200,7 +200,8 @@ class DFormProtector {
             _debugMessage = "Unexpected `_Token.debug` found in request data";
             return null;
         }
-        token = urldecode(formData["_Token.fields"]);
+        
+        string token = urldecode(formData["_Token.fields"]);
         if (token.contains(": ")) {
             [token, ] = split(": ", token, 2);
         }
@@ -210,7 +211,7 @@ class DFormProtector {
     // Return hash parts for the token generation
     protected Json[string] extractHashParts(Json[string] formData) {
         auto fields = extractFields(formData);
-        unlockedFields = this.sortedUnlockedFields(formData);
+        auto unlockedFields = sortedUnlockedFields(formData);
 
         return [
             "fields": fields,
@@ -225,23 +226,23 @@ class DFormProtector {
      */
     protected Json[string] extractFields(Json[string] formData) {
         string locked = "";
-        auto token = urldecode(formData["_Token.fields"]);
-        auto unlocked = urldecode(formData["_Token.unlocked"]);
+        string token = urldecode(formData["_Token.fields"]);
+        string unlocked = urldecode(formData["_Token.unlocked"]);
 
         if (token.contains(": ")) {
             [, locked] = split(": ", token, 2);
         }
         remove(formData["_Token"]);
 
-        locked = locked ? locked.split("|") : null;
-        unlocked = unlocked ? split("|", unlocked): [];
+        string[] lockeds = locked ? locked.split("|") : null;
+        string[] unlockeds = unlocked ? unlocked.split("|"): [];
 
-        fields = Hash.flatten(formData);
-        fieldList = fields.keys;
-        multi = lockedFields = null;
-         isUnlocked = false;
+        auto fields = Hash.flatten(formData);
+        auto fieldList = fields.keys;
+        auto multi = lockedFields = null;
+         auto isUnlocked = false;
 
-        foreach (fieldList as  anI: aKey) {
+        foreach (anI: aKey; fieldList) {
             if (isString(aKey) && preg_match("/(\.\d+){1,10}/", aKey)) {
                 multi[anI] = preg_replace("/(\.\d+){1,10}/", "", aKey);
                 remove(fieldList[anI]);

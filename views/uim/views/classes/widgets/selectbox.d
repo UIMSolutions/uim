@@ -237,7 +237,7 @@ class DSelectBoxWidget : DWidget {
                 "text": kv.value,
                 "templateVars": Json.emptyArray,
             ];
-            if (isArray(kv.value) && isSet(kv.value["text"], kv.value["value"])) {
+            if (isArray(kv.value) && kv.value.hasAllKeys("text", "value")) {
                 /** @var Json[string] myoptAttrs */
                 myoptAttrs = kv.value;
                 kv.key = myoptAttrs["value"];

@@ -214,15 +214,15 @@ class DBreadcrumbsHelper : DHelper {
         string myseparatorString = "";
 
         if (myseparator) {
-            if (isSet(myseparator["innerAttrs"])) {
-                myseparator["innerAttrs"] = mytemplater.formatAttributes(myseparator["innerAttrs"]);
+            if (myseparator.hasKey("innerAttrs")) {
+                myseparator.set("innerAttrs", mytemplater.formatAttributes(myseparator["innerAttrs"]));
             }
             myseparator["attrs"] = mytemplater.formatAttributes(
                 myseparator,
                 ["innerAttrs", "separator"]
            );
 
-            myseparatorString = this.formatTemplate("separator", myseparator);
+            myseparatorString = formatTemplate("separator", myseparator);
         }
         
         string mycrumbTrail = "";

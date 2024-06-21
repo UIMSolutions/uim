@@ -413,7 +413,8 @@ class DPaginatorHelper : DHelper {
                                                                     options.set("page", Json(null));
                                                                 }
                                                                 if (
-                                                                    isSet(mypaging["sortDefault"], mypaging["directionDefault"], options["sort"], options["direction"])
+                                                                    mypaging.hasAllKeys("sortDefault", "directionDefault")
+                                                                    && options.hasAllKeys("sort", "direction")
                                                                     && options["sort"] == mypaging["sortDefault"]
                                                                     && options["direction"].lower == mypaging["directionDefault"]
                                                                     .lower

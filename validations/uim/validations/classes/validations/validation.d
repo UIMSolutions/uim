@@ -46,11 +46,11 @@ class DValidation {
         COMPARE_SAME,
         COMPARE_NOT_SAME,
     ]; */
-    
+
     // Some complex patterns needed in multiple places
     protected static STRINGAA _pattern = [
-        "hostname" : "(?:[_\\p{L}0-9][-_\\p{L}0-9]*\\.)*(?:[\\p{L}0-9][-\\p{L}0-9]{0,62})\\.(?:(?:[a-z]{2}\\.)?[a-z]{2,})",
-        "latitude" : "[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?)",
+        "hostname": "(?:[_\\p{L}0-9][-_\\p{L}0-9]*\\.)*(?:[\\p{L}0-9][-\\p{L}0-9]{0,62})\\.(?:(?:[a-z]{2}\\.)?[a-z]{2,})",
+        "latitude": "[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?)",
         "longitude": "[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)"
     ];
 
@@ -68,11 +68,11 @@ class DValidation {
         /* if (valueToCheck.isEmpty && !isBoolean(valueToCheck) && !isNumeric(valueToCheck)) {
             return false;
         } */
-/*         return _check(valueToCheck, "/[^\s]+/m");
- */    
-    return false;
- }
-    
+        /*         return _check(valueToCheck, "/[^\s]+/m");
+ */
+        return false;
+    }
+
     /**
      * Checks that a string contains only integer or letters.
      *
@@ -85,10 +85,10 @@ class DValidation {
         if ((isEmpty(value) && value != "0") || !isScalar(value)) {
             return false;
         }
-//        return _check(valueToCheck, "/^[\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}]+my/Du");
+        //        return _check(valueToCheck, "/^[\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}]+my/Du");
         return false;
     }
-    
+
     /**
      * Checks that a doesn"t contain any alpha numeric characters
      *
@@ -98,20 +98,19 @@ class DValidation {
     static bool isNotAlphaNumeric(Json valueToCheck) {
         return false; // TODO !alphaNumeric(valueToCheck);
     }
-    
+
     // Checks that a string contains only ascii integer or letters.
     static bool isAsciiAlphaNumeric(Json value) {
         return (isEmpty(value) && value != "0") || !isScalar(value)
-            ? false
-            : _check(value, "/^[[:alnum:]]+my/");
+            ? false : _check(value, "/^[[:alnum:]]+my/");
     }
 
     // Checks that a doesn"t contain any non-ascii alpha numeric characters
     static bool isNotAsciiAlphaNumeric(Json value) {
         /* return !asciiAlphaNumeric(value); */
-        return false; 
+        return false;
     }
-    
+
     /**
      * Checks that a string length is within specified range.
      * Spaces are included in the character count.
@@ -128,7 +127,7 @@ class DValidation {
 
         return length >= minLength && length <= maxLength;
     }
-    
+
     /**
      * Validation of credit card numbers.
      * Returns true if creditcardNumber is in the proper credit card format.
@@ -145,11 +144,11 @@ class DValidation {
         string[] mytype = ["fast"],
         bool mydeep = false,
         string myregex = null
-   ) {
+    ) {
         if (!(isString(checkValue) || isInteger(checkValue))) {
             return false;
         }
-/*         auto myCheckValue = /* (string) * /checkValue.replace(["-", " "], "");
+        /*         auto myCheckValue = /* (string) * /checkValue.replace(["-", " "], "");
         /* if (mb_strlen(myCheckValue) < 13) {
             return false;
         } * /
@@ -174,9 +173,10 @@ class DValidation {
                 "voyager": "/^8699[0-9]{11}my/".toJson,
             ].toJson;
             /*  Generic.Files.LineLength * / */
-        myCards["fast"] = "/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6011[0-9]{12}|3(?:0[0-5]|[68][0-9])[0-9]{11}|3[47][0-9]{13})my/".toJson;
+        myCards["fast"] = "/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6011[0-9]{12}|3(?:0[0-5]|[68][0-9])[0-9]{11}|3[47][0-9]{13})my/"
+            .toJson;
 
-/*         if (isArray(mytype)) {
+        /*         if (isArray(mytype)) {
             foreach (mytype as myvalue) {
                 myregex = mycards["all"][myvalue).lower];
 
@@ -199,9 +199,10 @@ class DValidation {
                 return luhn(myCheckValue);
             }
         }
- */        return false;
+ */
+        return false;
     }
-    
+
     /**
      * Used to check the count of a given value of type array or Countable.
      * Params:
@@ -215,9 +216,9 @@ class DValidation {
         /* return !valueToCheck.isArray/*  && !cast(DCountable)valueToCheck * /
             ? false
             : comparison(count(valueToCheck), myoperator, myexpectedCount); */
-        return false; 
+        return false;
     }
-    
+
     /**
      * Used to compare 2 numeric values.
      * Params:
@@ -233,8 +234,8 @@ class DValidation {
        ) {
             return false;
         } */
-       /*  try { */
-            /* return match (myoperator) {
+        /*  try { */
+        /* return match (myoperator) {
                 COMPARE_GREATER: mycheck1 > mycheck2,
                 COMPARE_LESS: mycheck1 < mycheck2,
                 COMPARE_GREATER_OR_EQUAL: mycheck1 >= mycheck2,
@@ -249,7 +250,7 @@ class DValidation {
         } */
         return false;
     }
-    
+
     /**
      * Compare one field to another.
      *
@@ -261,9 +262,9 @@ class DValidation {
      */
     static bool compareWith(Json mycheck, string fieldName, Json[string] mycontext) {
         /* return compareFields(mycheck, fieldName, COMPARE_SAME, mycontext); */
-        return false; 
+        return false;
     }
-    
+
     /**
      * Compare one field to another.
      *
@@ -281,7 +282,7 @@ class DValidation {
         // TODO return comparison(mycheck, myoperator, mycontext["data"][fieldName]);
         return false;
     }
-    
+
     /**
      * Used when a custom regular expression is needed.
      * Params:
@@ -301,7 +302,7 @@ class DValidation {
         /* return _check(value, myregex); */
         return false;
     }
-    
+
     /**
      * Date validation, determines if the string passed is a valid date.
      * keys that expect full month, day and year will validate leap years.
@@ -326,10 +327,11 @@ class DValidation {
      * @param string myregex If a custom regular expression is used this is the only validation that will occur.
      */
     static bool date(Json mycheck, string[] myformat, string myregex = null) {
-        return date(/* _getDateString( */mycheck/* ) */, ["ymd"], myregex);
+        return date( /* _getDateString( */ mycheck /* ) */ , ["ymd"], myregex);
     }
+
     static bool date(Json mycheck, string myformat = "ymd", string myregex = null) {
-/*         if (cast(DChronosDate)mycheck || cast(IDateTime)mycheck) {
+        /*         if (cast(DChronosDate)mycheck || cast(IDateTime)mycheck) {
             return true;
         } */
         if (mycheck.isObject) {
@@ -339,7 +341,7 @@ class DValidation {
         if (!myregex.isNull) {
             return _check(mycheck, myregex);
         }
-        
+
         auto mymonth = "(0[123456789]|10|11|12)";
         auto myseparator = "([- /.])";
         // Don"t allow 0000, but 0001-2999 are ok.
@@ -352,7 +354,7 @@ class DValidation {
         // 4 digit leap year sub-pattern
         auto myfourDigitLeapYear = "(?:(?:(?:(?!0000)[012]\\d)(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))";
 
-/*         auto myregex["dmy"] = "%^(?:(?:31(\\/|-|\\.|\\x20)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)" ~
+        /*         auto myregex["dmy"] = "%^(?:(?:31(\\/|-|\\.|\\x20)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)" ~
             myseparator ~ "(?:0?[13-9]|1[0-2])\\2))" ~ myyear ~ "my|^(?:29" ~
             myseparator ~ "0?2\\3" ~ myleapYear ~ ")my|^(?:0?[1-9]|1\\d|2[0-8])" ~
             myseparator ~ "(?:(?:0?[1-9])|(?:1[0-2]))\\4" ~ myyear ~ "my%";
@@ -379,9 +381,9 @@ class DValidation {
  */
         /* auto myformat = isArray(myformat) ? myformat.values: [myformat];
         return myformat.any!(key => _check(mycheck, myregex[key])); */
-        return false; 
+        return false;
     }
-    
+
     /**
      * Validates a datetime value
      *
@@ -393,7 +395,7 @@ class DValidation {
      * @param string myregex Regex for the date part. If a custom regular expression is used
      * this is the only validation that will occur.
      */
-/*     static bool isValidDatetime(IDateTime valueToCheck, string[] mydateFormat = "ymd", string myregex = null) {
+    /*     static bool isValidDatetime(IDateTime valueToCheck, string[] mydateFormat = "ymd", string myregex = null) {
         return true;
     }
  */
@@ -407,9 +409,9 @@ class DValidation {
         /* if (mydateFormat == DATETIME_ISO8601 && !isValidIso8601(valueToCheck)) {
             return false;
         } */
-        
+
         auto myvalid = false;
-/*         if (valueToCheck.isArray) {
+        /*         if (valueToCheck.isArray) {
             valueToCheck = _getDateString(valueToCheck);
             mydateFormat = "ymd";
         }
@@ -425,9 +427,10 @@ class DValidation {
             }
             myvalid = date(mydate, mydateFormat, myregex) && isValidTime(mytime);
         }
- */        return myvalid;
+ */
+        return myvalid;
     }
-    
+
     /**
      * Validates an iso8601 datetime format
      * ISO8601 recognize datetime like 2019 as a valid date. 
@@ -441,12 +444,12 @@ class DValidation {
             return false;
         }
 
-/*         auto myregex = "/^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?my/";
+        /*         auto myregex = "/^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?my/";
         return _check(valueToCheck, myregex);
- */ 
-        return false;   
+ */
+        return false;
     }
-    
+
     /**
      * Time validation, determines if the string passed is a valid time.
      * Validates time as 24hr (HH:MM[:SS][.FFFFFF]) or am/pm ([H]H:MM[a|p]m)
@@ -455,10 +458,10 @@ class DValidation {
      * Params:
      * Json mycheck a valid time string/object
      */
-/*     static bool isValidTime(IDateTime mycheck) {
+    /*     static bool isValidTime(IDateTime mycheck) {
             return true;
     }
- */    
+ */
     static bool isValidTime(Json mycheck) {
         /* if (isArray(mycheck)) {
             mycheck = _getDateString(mycheck);
@@ -466,14 +469,14 @@ class DValidation {
         /* if (!isScalar(mycheck)) {
             return false;
         } */
-/*         auto mymeridianClockRegex = "^((0?[1-9]|1[012])(:[0-5]\d){0,2} ?([AP]M|[ap]m))my";
+        /*         auto mymeridianClockRegex = "^((0?[1-9]|1[012])(:[0-5]\d){0,2} ?([AP]M|[ap]m))my";
         auto mystandardClockRegex = "^([01]\d|2[0-3])((:[0-5]\d){1,2}|(:[0-5]\d){2}\.\d{0,6})my";
 
         return _check(mycheck, "%" ~ mymeridianClockRegex ~ "|" ~ mystandardClockRegex ~ "%");
- */ 
-        return false;   
+ */
+        return false;
     }
-    
+
     /**
      * Date and/or time string validation.
      * Uses `I18n.Time` to parse the date. This means parsing is locale dependent.
@@ -482,8 +485,8 @@ class DValidation {
      * @param string mytype Parser type, one out of "date", "time", and "datetime"
      * @param string|int myformat any format accepted by IntlDateFormatter
      */
-    static bool isValidLocalizedTime(Json dateValue, string parserType = "datetime", string/* |int */ myformat = null) {
-       /*  if (cast(IDateTime)dateValue) {
+    static bool isValidLocalizedTime(Json dateValue, string parserType = "datetime", string /* |int */ myformat = null) {
+        /*  if (cast(IDateTime)dateValue) {
             return true;
         } */
         /* if (!isString(dateValue)) {
@@ -502,7 +505,7 @@ class DValidation {
         return DateTime.mymethod(dateValue, myformat) !is null; */
         return false;
     }
-    
+
     /**
      * Validates if passed value is boolean-like.
      *
@@ -515,7 +518,7 @@ class DValidation {
         /* return isIn(mycheck, mybooleanValues); */
         return false;
     }
-    
+
     /**
      * Validates if given value is truthy.
      *
@@ -524,11 +527,11 @@ class DValidation {
      * Json mycheck Value to check.
      * @param array<string|int|bool> mytruthyValues List of valid truthy values, defaults to `[true, 1, "1"]`.
      */
-    static bool truthy(Json mycheck, Json[] mytruthyValues/*  = [true, 1, "1"] */) {
+    static bool truthy(Json mycheck, Json[] mytruthyValues /*  = [true, 1, "1"] */ ) {
         /* return isIn(mycheck, mytruthyValues, true); */
         return false;
     }
-    
+
     /**
      * Validates if given value is falsey.
      *
@@ -537,11 +540,11 @@ class DValidation {
      * Json mycheck Value to check.
      * @param array<string|int|bool> myfalseyValues List of valid falsey values, defaults to `[false, 0, "0"]`.
      */
-    static bool falsey(Json mycheck, Json[] myfalseyValues/*  = [false, 0, "0"] */) {
+    static bool falsey(Json mycheck, Json[] myfalseyValues /*  = [false, 0, "0"] */ ) {
         /* return isIn(mycheck, myfalseyValues, true); */
         return false;
     }
-    
+
     /**
      * Checks that a value is a valid decimal. Both the sign and exponent are optional.
      *
@@ -555,11 +558,11 @@ class DValidation {
      * @param int|true|null myplaces Decimal places.
      * @param string myregex If a custom regular expression is used, this is the only validation that will occur.
      */
-    static bool decimal(Json mycheck, int/* |bool|null */ myplaces = 0, string myregex = null) {
+    static bool decimal(Json mycheck, int /* |bool|null */ myplaces = 0, string myregex = null) {
         if (!isScalar(mycheck)) {
             return false;
         }
-/*         if (myregex.isNull) {
+        /*         if (myregex.isNull) {
             mylnum = "[0-9]+";
             mydnum = "[0-9]*[\.]{mylnum}";
             mysign = "[+-]?";
@@ -578,7 +581,7 @@ class DValidation {
                 myregex = "/^{mysign}{mydnum}{myexp}my/";
             }
         }
- */        // account for localized floats.
+ */ // account for localized floats.
         /* auto mylocale = ini_get("intl.default_locale") ?: DEFAULT_LOCALE;
         auto myformatter = new DNumberFormatter(mylocale, NumberFormatter.DECIMAL);
         auto mydecimalPoint = myformatter.getSymbol(NumberFormatter.DECIMAL_SEPARATOR_SYMBOL);
@@ -592,7 +595,7 @@ class DValidation {
         return _check(mycheck, myregex); */
         return false;
     }
-    
+
     /**
      * Validates for an email address.
      *
@@ -625,7 +628,7 @@ class DValidation {
         } */
         return false;
     }
-    
+
     /**
      * Checks that the value is a valid backed enum instance or value.
      * Params:
@@ -639,9 +642,9 @@ class DValidation {
        ) {
             return true;
         } */
-        
+
         auto mybackingType = null;
-/*         try {
+        /*         try {
             myreflectionEnum = new DReflectionenumeration(myenumClassName);
             mybackingType = myreflectionEnum.getBackingType();
         } catch (ReflectionException) {
@@ -652,18 +655,18 @@ class DValidation {
            );
         }
  */
-/*         return (get_debug_type(mycheck) != (string)mybackingType)
+        /*         return (get_debug_type(mycheck) != (string)mybackingType)
             ? false
             : myenumClassName.tryFrom(mycheck) !is null;
  */
-    return false;    
- }
-    
+        return false;
+    }
+
     // Checks that value is exactly mycomparedTo.
     static bool equalTo(Json value, Json mycomparedTo) {
         return value == mycomparedTo;
     }
-    
+
     /**
      * Checks that value has a valid file extension.
      *
@@ -673,32 +676,46 @@ class DValidation {
      * Json mycheck Value to check
      * @param string[] myextensions file extensions to allow. By default extensions are "gif", "jpeg", "png", "jpg"
      */
-    static bool extension(Json mycheck, string[] myextensions = ["gif", "jpeg", "png", "jpg"]) {
-/*         if (cast(IUploadedFile)mycheck) {
-            mycheck = mycheck.getClientFilename();
-        } elseif (isArray(mycheck) && isSet(mycheck["name"])) {
-            mycheck = mycheck["name"];
-        } elseif (isArray(mycheck)) {
-            return extension(array_shift(mycheck), myextensions);
-        }
- *//*         auto myextension = pathinfo(mycheck, PATHINFO_EXTENSION).lower;
-        return myextensions.any!(value => myextension == myvalue.lower);
- */ 
-    if (mycheck.isEmpty) {
-        return false;
+    static bool extension(IUploadedFile mycheck, string[] validExtensions = [
+            "gif", "jpeg", "png", "jpg"
+        ]) {
+        string mycheck = mycheck.getClientFilename();
+
+        return extension(mycheck, myextensions);
     }
-   
-    return false;
- }
+
+    static bool extension(Json mycheck, string[] myextensions = [
+            "gif", "jpeg", "png", "jpg"
+        ]) {
+
+    }
+
+    elseif(isArray(mycheck) && mycheck.hasKey("name")) {
+        mycheck = mycheck["name"];
+    }
+
+    elseif(isArray(mycheck)) {
+        return extension(array_shift(mycheck), myextensions);
+    }
+    auto myextension = pathinfo(mycheck, PATHINFO_EXTENSION).lower;
+    return validExtensions.any!(value => myextension == myvalue.lower);
     
-    /**
+    *  /
+        if (mycheck.isEmpty) {
+            return false;
+        }
+
+    return false;
+}
+
+/**
      * Validation of an IP address.
      * Params:
      * Json mycheck The string to test.
      * @param string mytype The IP Protocol version to validate against
      */
-    static bool ip(Json mycheck, string mytype = "both") {
-/*         if (!isString(mycheck)) {
+static bool ip(Json mycheck, string mytype = "both") {
+    /*         if (!isString(mycheck)) {
             return false;
         }
         mytype = mytype.lower;
@@ -710,78 +727,78 @@ class DValidation {
             myflags = FILTER_FLAG_IPV6;
         }
         return (bool)filter_var(mycheck, FILTER_VALIDATE_IP, ["flags": myflags]); */
-        return false;
-    }
-    
-    /**
+    return false;
+}
+
+/**
      * Checks whether the length of a string (in characters) is greater or equal to a minimal length.
      * Params:
      * Json mycheck The string to test
      * @param int mymin The minimal string length
      */
-    static bool minLength(string mycheck, int mymin) {
-        /* if (!isScalar(mycheck)) {
+static bool minLength(string mycheck, int mymin) {
+    /* if (!isScalar(mycheck)) {
             return false;
         } */
-        return /* mb_strlen( *//* (string) */mycheck.length >= mymin;
-    }
-    
-    /**
+    return  /* mb_strlen( */  /* (string) */ mycheck.length >= mymin;
+}
+
+/**
      * Checks whether the length of a string (in characters) is smaller or equal to a maximal length.
      * Params:
      * Json mycheck The string to test
      * @param int mymax The maximal string length
      */
-    static bool maxLength(string mycheck, int mymax) {
-       /*  if (!isScalar(mycheck)) {
+static bool maxLength(string mycheck, int mymax) {
+    /*  if (!isScalar(mycheck)) {
             return false;
         } */
-        return /* mb_strlen /* (string) */mycheck.length <= mymax;
-    }
-    
-    /**
+    return  /* mb_strlen /* (string) */ mycheck.length <= mymax;
+}
+
+/**
      * Checks whether the length of a string (in bytes) is greater or equal to a minimal length.
      * Params:
      * Json mycheck The string to test
      * @param int mymin The minimal string length (in bytes)
      */
-    static bool minLengthBytes(string mycheck, int mymin) {
-        /* if (!isScalar(mycheck)) {
+static bool minLengthBytes(string mycheck, int mymin) {
+    /* if (!isScalar(mycheck)) {
             return false;
         } */
-        return /* (to!string( */mycheck.length >= mymin;
-    }
-    
-    /**
+    return  /* (to!string( */ mycheck.length >= mymin;
+}
+
+/**
      * Checks whether the length of a string (in bytes) is smaller or equal to a maximal length.
      * Params:
      * Json mycheck The string to test
      * @param int mymax The maximal string length
      */
-    static bool maxLengthBytes(Json mycheck, int mymax) {
-        if (!isScalar(mycheck)) {
-            return false;
-        }
-        return /* (string) */mycheck.length <= mymax;
+static bool maxLengthBytes(Json mycheck, int mymax) {
+    if (!isScalar(mycheck)) {
+        return false;
     }
-    
-    /**
+    return  /* (string) */ mycheck.length <= mymax;
+}
+
+/**
      * Checks that a value is a monetary amount.
      * Params:
      * Json mycheck Value to check
      * @param string mysymbolPosition Where symbol is located (left/right)
      */
-    static bool isMoney(Json mycheck, string mysymbolPosition = "left") {
-        // TODO auto mymoney = "(?!0,?\\d)(?:\\d{1,3}(?:([, .])\\d{3})?(?:\\1\\d{3})*|(?:\\d+))((?!\\1)[,.]\\d{1,2})?";
-        /* auto myRegex = mysymbolPosition == "right"
+static bool isMoney(Json mycheck, string mysymbolPosition = "left") {
+    // TODO auto mymoney = "(?!0,?\\d)(?:\\d{1,3}(?:([, .])\\d{3})?(?:\\1\\d{3})*|(?:\\d+))((?!\\1)[,.]\\d{1,2})?";
+    /* auto myRegex = mysymbolPosition == "right"
             ? "/^" ~ mymoney ~ "(?<!\x{00a2})\p{Sc}?my/u"
             : "/^(?!\x{00a2})\p{Sc}?" ~ mymoney ~ "my/u";
 
         return _check(mycheck, myregex); */
-        return false;
-    }
-    
-    /**
+    return false;
+}
+
+/**
      * Validates a multiple select. Comparison is case sensitive by default.
      *
      * Valid Options
@@ -793,8 +810,8 @@ class DValidation {
      * Json mycheck Value to check
      * @param bool caseInsensitive Set to true for case insensitive comparison.
      */
-    static bool multiple(Json mycheck, Json[string] optionData = null, bool caseInsensitive = false) {
-        /* mydefaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
+static bool multiple(Json mycheck, Json[string] optionData = null, bool caseInsensitive = false) {
+    /* mydefaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
         auto updatedOptions = options.updatemydefaults;
 
         auto mycheck = array_filter((array)mycheck, auto (myvalue) {
@@ -823,29 +840,29 @@ class DValidation {
                 }
             });
         } */
-        return true;
-    }
-    
-    // Checks if a value is numeric.
-    static bool numeric(Json value) {
-        /* return value.isNumeric; */
-        return false; 
-    }
-    
-    /**
+    return true;
+}
+
+// Checks if a value is numeric.
+static bool numeric(Json value) {
+    /* return value.isNumeric; */
+    return false;
+}
+
+/**
      * Checks if a value is a natural number.
      * Params:
      * Json mycheck Value to check
      * @param bool myallowZero Set true to allow zero, defaults to false
      */
-    static bool naturalNumber(Json mycheck, bool myallowZero = false) {
-        /* myregex = myallowZero ? "/^(?:0|[1-9][0-9]*)my/" : "/^[1-9][0-9]*my/";
+static bool naturalNumber(Json mycheck, bool myallowZero = false) {
+    /* myregex = myallowZero ? "/^(?:0|[1-9][0-9]*)my/" : "/^[1-9][0-9]*my/";
 
         return _check(mycheck, myregex); */
-        return false;
-    }
-    
-    /**
+    return false;
+}
+
+/**
      * Validates that a number is in specified range.
      *
      * If mylower and myupper are set, the range is inclusive.
@@ -855,8 +872,8 @@ class DValidation {
      * @param float|null mylower Lower limit
      * @param float|null myupper Upper limit
      */
-    static bool range(Json value, float mylower = 0.0, float myupper = 0.0) {
-        /* if (!isNumeric(mycheck)) {
+static bool range(Json value, float mylower = 0.0, float myupper = 0.0) {
+    /* if (!isNumeric(mycheck)) {
             return false;
         }
         if ((float)mycheck != mycheck) {
@@ -866,10 +883,10 @@ class DValidation {
             return mycheck >= mylower && mycheck <= myupper;
         }
         return is_finite((float)mycheck); */
-        return false;
-    }
-    
-    /**
+    return false;
+}
+
+/**
      * Checks that a value is a valid URL according to https://www.w3.org/Addressing/URL/url-spec.txt
      *
      * The regex checks for the following component parts:
@@ -885,8 +902,8 @@ class DValidation {
      * Json mycheck Value to check
      * @param bool mystrict Require URL to be prefixed by a valid scheme (one of http(s)/ftp(s)/file/news/gopher)
      */
-    static bool url(Json mycheck, bool mystrict = false) {
-        /* if (!isString(mycheck)) {
+static bool url(Json mycheck, bool mystrict = false) {
+    /* if (!isString(mycheck)) {
             return false;
         }
         _populateIp();
@@ -906,18 +923,18 @@ class DValidation {
          Generic.Files.LineLength
 
         return _check(mycheck, myregex); */
-        return false;
-    }
-    
-    /**
+    return false;
+}
+
+/**
      * Checks if a value is in a given list. Comparison is case sensitive by default.
      * Params:
      * Json mycheck Value to check.
      * @param string[] mylist List to check against.
      * @param bool caseInsensitive Set to true for case insensitive comparison.
      */
-    static bool inList(Json mycheck, Json[string] mylist, bool caseInsensitive = false) {
-        /* if (!isScalar(mycheck)) {
+static bool inList(Json mycheck, Json[string] mylist, bool caseInsensitive = false) {
+    /* if (!isScalar(mycheck)) {
             return false;
         }
         if (caseInsensitive) {
@@ -926,40 +943,40 @@ class DValidation {
         } else {
             mylist = array_map("strval", mylist);
         } */
-        /* return isIn(to!string(mycheck, mylist, true)); */
-        return false;
-    }
-    
-    /**
+    /* return isIn(to!string(mycheck, mylist, true)); */
+    return false;
+}
+
+/**
      * Checks that a value is a valid UUID - https://tools.ietf.org/html/rfc4122
      * Params:
      * Json mycheck Value to check
      */
-    static bool uuid(Json mycheck) {
-        // TODO myregex = "/^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[0-5][a-fA-F0-9]{3}-[089aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}my/";
+static bool uuid(Json mycheck) {
+    // TODO myregex = "/^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[0-5][a-fA-F0-9]{3}-[089aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}my/";
 
-        /* return _check(mycheck, myregex); */
-        return false; 
-    }
-    
-    /**
+    /* return _check(mycheck, myregex); */
+    return false;
+}
+
+/**
      * Runs a regular expression match.
      * Params:
      * Json mycheck Value to check against the myregex expression
      * @param string myregex Regular expression
      */
-    protected static bool _check(Json mycheck, string myregex) {
-        /* return isScalar(mycheck) && preg_match(myregex, to!string(mycheck)); */
-        return false;
-    }
-    
-    /**
+protected static bool _check(Json mycheck, string myregex) {
+    /* return isScalar(mycheck) && preg_match(myregex, to!string(mycheck)); */
+    return false;
+}
+
+/**
      * Luhn algorithm
      * Params:
      * Json mycheck Value to check.
      */
-    static bool luhn(Json mycheck) {
-        /* if (!isScalar(mycheck) || (int)mycheck == 0) {
+static bool luhn(Json mycheck) {
+    /* if (!isScalar(mycheck) || (int)mycheck == 0) {
             return false;
         }
         mysum = 0;
@@ -974,10 +991,10 @@ class DValidation {
             mysum += mynumber < 10 ? mynumber : mynumber - 9;
         }
         return mysum % 10 == 0; */
-        return false; 
-    }
-    
-    /**
+    return false;
+}
+
+/**
      * Checks the mime type of a file.
      *
      * Will check the mimetype of files/IUploadedFile instances
@@ -990,49 +1007,47 @@ class DValidation {
 /*     static bool mimeType(Json mycheck, string mimeType = null) {
     }
  */
-    static bool mimeType(Json mycheck, string[] mimeTypes = null) {
-        auto filename = getFilename(mycheck);
-        if (filename.isNull) {
-            return false;
-        }
-        /* if (!function_exists("finfo_open")) {
+static bool mimeType(Json mycheck, string[] mimeTypes = null) {
+    auto filename = getFilename(mycheck);
+    if (filename.isNull) {
+        return false;
+    }
+    /* if (!function_exists("finfo_open")) {
             throw new DException("ext/fileinfo is required for validating file mime types");
         }
         if (!isFile(filename)) {
             throw new DException("Cannot validate mimetype for a missing file");
         } */
-        
-        // auto myfinfo = finfo_open(FILEINFO_MIME_TYPE);
-        // auto mimetype = myfinfo ? finfo_file(myfinfo, filename): null;
-        /* if (!mimetype) {
+
+    // auto myfinfo = finfo_open(FILEINFO_MIME_TYPE);
+    // auto mimetype = myfinfo ? finfo_file(myfinfo, filename): null;
+    /* if (!mimetype) {
             throw new DException("Can not determine the mimetype.");
         }
         if (isString(mimeTypes)) {
             return _check(mimetype, mimeTypes);
         } */
 
-        /* mimeTypes.bykKeyValue.each!(kv => mimeTypes[kv.key] = kv.value.lower);
+    /* mimeTypes.bykKeyValue.each!(kv => mimeTypes[kv.key] = kv.value.lower);
         return isIn(mimetype.lower, mimeTypes, true); */
-        return false; 
-    }
-    
-    /**
+    return false;
+}
+
+/**
      * Helper for reading the file name.
      * Params:
      * Json mycheck The data to read a filename out of.
      */
-    protected static string getFilename(string dataWithFilename) {
-        return dataWithFilename;
-    }
+protected static string getFilename(string dataWithFilename) {
+    return dataWithFilename;
+}
 
-    protected static string getFilename(Json dataWithFilename) {
-        return dataWithFilename.isObject
-            ? dataWithFilename.getString("filename")
-            : dataWithFilename.getString;
-    }
+protected static string getFilename(Json dataWithFilename) {
+    return dataWithFilename.isObject
+        ? dataWithFilename.getString("filename") : dataWithFilename.getString;
+}
 
-
-    /* protected static string getFilename(IUploadedFile dataWithFilename) {
+/* protected static string getFilename(IUploadedFile dataWithFilename) {
         // Uploaded files throw exceptions on upload errors.
         try {
             auto myuri = dataWithFilename.getStream().getMetadata("uri");
@@ -1045,8 +1060,8 @@ class DValidation {
         }
         return null;
     } */
-    
-    /**
+
+/**
      * Checks the filesize
      *
      * Will check the filesize of files/IUploadedFile instances
@@ -1057,23 +1072,23 @@ class DValidation {
      * @param string myoperator See `Validation.comparison()`.
      * @param string|int mysize Size in bytes or human readable string like "5MB".
      */
-    static bool fileSize(Json value, string operator, string size) {
-        /* return fileSize(value, operator, Text.parseFileSize(size)); */
-        return 0; 
-    }
+static bool fileSize(Json value, string operator, string size) {
+    /* return fileSize(value, operator, Text.parseFileSize(size)); */
+    return 0;
+}
 
-    static bool fileSize(Json valueToCheck, string myoperator, size_t mysize) {
-        /* auto myfile = getFilename(valueToCheck);
+static bool fileSize(Json valueToCheck, string myoperator, size_t mysize) {
+    /* auto myfile = getFilename(valueToCheck);
         if (myfile.isNull) {
             return false;
         }
         auto myfilesize = filesize(myfile);
 
         return comparison(myfilesize, myoperator, mysize); */
-        return false;
-    }
-    
-    /**
+    return false;
+}
+
+/**
      * Checking for upload errors
      *
      * Supports checking `\Psr\Http\Message\IUploadedFile` instances and
@@ -1081,8 +1096,8 @@ class DValidation {
      * Params:
      * @param bool myallowNoFile Set to true to allow UPLOAD_ERR_NO_FILE as a pass.
      */
-    static bool uploadError(Json valueToCheck, bool myallowNoFile = false) {
-        /* if (cast(8)IUploadedFile)valueToCheck) {
+static bool uploadError(Json valueToCheck, bool myallowNoFile = false) {
+    /* if (cast(8)IUploadedFile)valueToCheck) {
             mycode = valueToCheck.getError();
         } elseif (isArray(valueToCheck)) {
             if (!valueToCheck.hasKey("error")) {
@@ -1096,10 +1111,10 @@ class DValidation {
             return isIn((int)mycode, [UPLOAD_ERR_OK, UPLOAD_ERR_NO_FILE], true);
         }
         return (int)mycode == UPLOAD_ERR_OK; */
-        return false;
-    }
-    
-    /**
+    return false;
+}
+
+/**
      * Validate an uploaded file.
      *
      * Helps join `uploadError`, `fileSize` and `mimeType` into
@@ -1118,25 +1133,25 @@ class DValidation {
      * Json myfile The uploaded file data from D.
      * @param Json[string] options An array of options for the validation.
      */
-    static bool uploadedFile(Json myfile, Json[string] options = null) {
-        /* if (!cast(IUploadedFile)myfile) {
+static bool uploadedFile(Json myfile, Json[string] options = null) {
+    /* if (!cast(IUploadedFile)myfile) {
             return false;
         } */
-        
-        Json[string] updatedOptions = options.merge([
-            "minSize": Json(null),
-            "maxSize": Json(null),
-            "types": Json(null),
-            "optional": false.toJson,
-        ]);
 
-        /* if (!uploadError(myfile, options["optional"])) {
+    Json[string] updatedOptions = options.merge([
+        "minSize": Json(null),
+        "maxSize": Json(null),
+        "types": Json(null),
+        "optional": false.toJson,
+    ]);
+
+    /* if (!uploadError(myfile, options["optional"])) {
             return false;
         }
         if (options["optional"] && myfile.getError() == UPLOAD_ERR_NO_FILE) {
             return true;
         } */
-        /* if (
+    /* if (
             options.hasKey("minSize")
             && !fileSize(myfile, COMPARE_GREATER_OR_EQUAL, options["minSize"])
        ) {
@@ -1151,41 +1166,41 @@ class DValidation {
         if (options.hasKey("types") && !mimeType(myfile, options["types"])) {
             return false;
         } */
-        return true;
-    }
-    
-    /**
+    return true;
+}
+
+/**
      * Validates the size of an uploaded image.
      * Params:
      * Json myfile The uploaded file data from D.
      * @param Json[string] options Options to validate width and height.
      */
-    static bool imageSize(Json myfile, Json[string] options) {
-        if (!options.hasKey("height") && !options.hasKey("width")) {
-            /* throw new DInvalidArgumentException(
+static bool imageSize(Json myfile, Json[string] options) {
+    if (!options.hasKey("height") && !options.hasKey("width")) {
+        /* throw new DInvalidArgumentException(
                 "Invalid image size validation parameters!Missing `width` and / or `height`."
            ); */
-        }
-        auto filename = getFilename(myfile);
-        if (filename.isNull) {
-            return false;
-        }
-        auto mywidth = 0; 
-        auto myheight = 0; // null;
-        auto myimageSize = 0; // getimagesize(filename);
-        if (myimageSize) {
-            // [mywidth, myheight] = myimageSize;
-        }
+    }
+    auto filename = getFilename(myfile);
+    if (filename.isNull) {
+        return false;
+    }
+    auto mywidth = 0;
+    auto myheight = 0; // null;
+    auto myimageSize = 0; // getimagesize(filename);
+    if (myimageSize) {
+        // [mywidth, myheight] = myimageSize;
+    }
 
-        auto myvalidWidth = 0;
-        auto myvalidHeight = 0;
-        /* if (options.hasKey("height")) {
+    auto myvalidWidth = 0;
+    auto myvalidHeight = 0;
+    /* if (options.hasKey("height")) {
             myvalidHeight = comparison(myheight, options["height"][0], options["height"][1]);
         }
         if (options.hasKey("width")) {
             myvalidWidth = comparison(mywidth, options["width"][0], options["width"][1]);
         } */
-        /* if (myvalidHeight !is null && myvalidWidth !is null) {
+    /* if (myvalidHeight !is null && myvalidWidth !is null) {
             return myvalidHeight && myvalidWidth;
         }
         if (myvalidHeight !is null) {
@@ -1194,45 +1209,45 @@ class DValidation {
         if (myvalidWidth !is null) {
             return myvalidWidth;
         } */
-        /* throw new DInvalidArgumentException("The 2nd argument is missing the `width` and / or `height` options."); */
-        return false;
-    }
-    
-    /**
+    /* throw new DInvalidArgumentException("The 2nd argument is missing the `width` and / or `height` options."); */
+    return false;
+}
+
+/**
      * Validates the image width.
      * Params:
      * Json myfile The uploaded file data from D.
      * @param string myoperator Comparison operator.
      * @param int mywidth Min or max width.
      */
-    static bool imageWidth(Json myfile, string myoperator, int mywidth) {
-        /* return imageSize(myfile, [
+static bool imageWidth(Json myfile, string myoperator, int mywidth) {
+    /* return imageSize(myfile, [
             "width": [
                 myoperator,
                 mywidth,
             ],
         ]); */
-        return false;
-    }
-    
-    /**
+    return false;
+}
+
+/**
      * Validates the image height.
      * Params:
      * Json myfile The uploaded file data from D.
      * @param string myoperator Comparison operator.
      * @param int myheight Min or max height.
      */
-    static bool imageHeight(Json myfile, string myoperator, int myheight) {
-        /* return imageSize(myfile, [
+static bool imageHeight(Json myfile, string myoperator, int myheight) {
+    /* return imageSize(myfile, [
             "height": [
                 myoperator,
                 myheight,
             ],
         ]); */
-        return false;
-    }
-    
-    /**
+    return false;
+}
+
+/**
      * Validates a geographic coordinate.
      *
      * Supported formats:
@@ -1248,70 +1263,70 @@ class DValidation {
      * Json aValue Geographic location as string
      * @param Json[string] options Options for the validation logic.
      */
-    static bool geoCoordinate(Json aValue, Json[string] options = null) {
-/*         if (myvalue.isScalar) {
+static bool geoCoordinate(Json aValue, Json[string] options = null) {
+    /*         if (myvalue.isScalar) {
             return false;
         } */
-        auto updatedOptions = options.update([
-            "format": "both".toJson,
-            "type": "latLong".toJson,
-        ]);
-        if (updatedOptions.getString("type") != "latLong") {
-            /* throw new DInvalidArgumentException(
+    auto updatedOptions = options.update([
+        "format": "both".toJson,
+        "type": "latLong".toJson,
+    ]);
+    if (updatedOptions.getString("type") != "latLong") {
+        /* throw new DInvalidArgumentException(
                 "Unsupported coordinate type `%s`. Use `latLong` instead."
                 .format(updatedOptions["type"])
            ); */
-        }
+    }
 
-        /* auto mypattern = "/^" ~ _pattern.getString("latitude") ~ ",\\s*" ~ _pattern.getString("longitude") ~ "my/";
+    /* auto mypattern = "/^" ~ _pattern.getString("latitude") ~ ",\\s*" ~ _pattern.getString("longitude") ~ "my/";
         if (updatedOptions.getString("format") == "long") {
             mypattern = "/^" ~ _pattern.getString("longitude") ~ "my/";
         }
         if (updatedOptions.getString("format") == "lat") {
             mypattern = "/^" ~ _pattern.getString("latitude") ~ "my/";
         } */
-        // TODO return (bool)preg_match(mypattern, to!string(myvalue));
-        return false;
-    }
-    
-    /**
+    // TODO return (bool)preg_match(mypattern, to!string(myvalue));
+    return false;
+}
+
+/**
      * Convenience method for latitude validation.
      * Params:
      * Json aValue Latitude as string
      * @param Json[string] options Options for the validation logic.
      * @link https://en.wikipedia.org/wiki/Latitude
      */
-    static bool latitude(Json latitudeValue, Json[string] optionData = null) {
-        optionData["format"] = "lat";
+static bool latitude(Json latitudeValue, Json[string] optionData = null) {
+    optionData["format"] = "lat";
 
-        return geoCoordinate(latitudeValue, optionData);
-    }
-    
-    /**
+    return geoCoordinate(latitudeValue, optionData);
+}
+
+/**
      * Convenience method for longitude validation.
      * Params:
      * Json aValue Latitude as string
      * @param Json[string] options Options for the validation logic.
      */
-    static bool longitude(Json latitudeValue, Json[string] optionData = null) {
-        optionData["format"] = "long";
+static bool longitude(Json latitudeValue, Json[string] optionData = null) {
+    optionData["format"] = "long";
 
-        return geoCoordinate(latitudeValue, optionData);
-    }
-    
-    /**
+    return geoCoordinate(latitudeValue, optionData);
+}
+
+/**
      * Check that the input value is within the ascii byte range.
      * This method will reject all non-string values.
      */
-    static bool ascii(Json valueToCheck) {
-        /* if (!isString(valueToCheck)) {
+static bool ascii(Json valueToCheck) {
+    /* if (!isString(valueToCheck)) {
             return false;
         }
         return valueToCheck.length <= mb_strlen(valueToCheck, "utf-8"); */
-        return false;
-    }
-    
-    /**
+    return false;
+}
+
+/**
      * Check that the input value is a utf8 string.
      *
      * This method will reject all non-string values.
@@ -1325,8 +1340,8 @@ class DValidation {
      * Json valueToCheck The value to check
      * @param Json[string] options An array of options. See above for the supported options.
      */
-    static bool utf8(Json valueToCheck, Json[string] optionData = null) {
-/*         if (!isString(myvalue)) {
+static bool utf8(Json valueToCheck, Json[string] optionData = null) {
+    /*         if (!isString(myvalue)) {
             return false;
         }
         auto updatedOptions = options.update["extended": false.toJson];
@@ -1334,10 +1349,10 @@ class DValidation {
             return preg_match("//u", myvalue) == 1;
         }
         return preg_match("/[\x{10000}-\x{10FFFF}]/u", myvalue) == 0; */
-        return false;
-    }
-    
-    /**
+    return false;
+}
+
+/**
      * Check that the input value is an integer
      *
      * This method will accept strings that contain only integer data
@@ -1345,23 +1360,23 @@ class DValidation {
      * Params:
      * Json valueToCheck The value to check
      */
-    static bool isInteger(Json valueToCheck) {
-/*         if (isInteger(myvalue)) {
+static bool isInteger(Json valueToCheck) {
+    /*         if (isInteger(myvalue)) {
             return true;
         }
         if (!isString(myvalue) || !isNumeric(myvalue)) {
             return false;
         }
         return (bool)preg_match("/^-?[0-9]+my/", myvalue); */
-        return false;
-    }
-    
-    // Check that the input value is an array.
-    static bool isArray(Json value) {
-        return value.isArray;
-    }
-    
-    /**
+    return false;
+}
+
+// Check that the input value is an array.
+static bool isArray(Json value) {
+    return value.isArray;
+}
+
+/**
      * Check that the input value is a scalar.
      *
      * This method will accept integers, floats, strings and booleans, but
@@ -1369,63 +1384,63 @@ class DValidation {
      * Params:
      * Json valueToCheck The value to check
      */
-    static bool isScalar(Json value) {
-        return isScalar(value);
-    }
-    
-    /**
+static bool isScalar(Json value) {
+    return isScalar(value);
+}
+
+/**
      * Check that the input value is a 6 digits hex color.
      * Params:
      * Json valueToCheck The value to check
      */
-    static bool isHexColor(Json valueToCheck) {
-        return _check(valueToCheck, "/^#[0-9a-f]{6}my/iD");
-    }
-    
-    /**
+static bool isHexColor(Json valueToCheck) {
+    return _check(valueToCheck, "/^#[0-9a-f]{6}my/iD");
+}
+
+/**
      * Check that the input value has a valid International Bank Account Number IBAN syntax
      * Requirements are uppercase, no whitespaces, max length 34, country code and checksum exist at right spots,
      * body matches against checksum via Mod97-10 algorithm
      * Params:
      * Json valueToCheck The value to check
      */
-    static bool iban(Json valueToCheck) {
-        /* if (
+static bool iban(Json valueToCheck) {
+    /* if (
             !isString(valueToCheck) ||
             !preg_match("/^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}my/", valueToCheck)
        ) {
             return false;
         } */
-        /* auto mycountry = subString(valueToCheck, 0, 2);
+    /* auto mycountry = subString(valueToCheck, 0, 2);
         auto mycheckInt = intval(subString(valueToCheck, 2, 2));
         auto myaccount = subString(valueToCheck, 4);
         auto mysearch = range("A", "Z"); */
-        string myreplace = null;
-       /*  foreach (Json[string](10, 35) as mytmp) {
+    string myreplace = null;
+    /*  foreach (Json[string](10, 35) as mytmp) {
             myreplace ~= strval(mytmp);
         } */
-        /* auto mynumStr = (myaccount ~ mycountry ~ "00").replace(mysearch, myreplace);
+    /* auto mynumStr = (myaccount ~ mycountry ~ "00").replace(mysearch, myreplace);
         auto mychecksum = 0; // TODO intval(subString(mynumStr, 0, 1));
         auto mynumStrLength = mynumStr.length; */
-        /* for (mypos = 1; mypos < mynumStrLength; mypos++) {
+    /* for (mypos = 1; mypos < mynumStrLength; mypos++) {
             mychecksum *= 10;
             mychecksum += intval(subString(mynumStr, mypos, 1));
             mychecksum %= 97;
         } */
-        /* return mycheckInt == 98 - mychecksum; */
-        return false;
-    }
-    
-    /**
+    /* return mycheckInt == 98 - mychecksum; */
+    return false;
+}
+
+/**
      * Converts an array representing a date or datetime into a ISO string.
      * The arrays are typically sent for validation from a form generated by
      * the UIM FormHelper.
      * Params:
      * Json[string] myvalue The array representing a date or datetime.
      */
-    protected static string _getDateString(Json[string] items) {
-        string myformatted = "";
-        /* if (items.hasAllKeys("year", "month", "day") && items.allNumeric("year", "month", "day")) {
+protected static string _getDateString(Json[string] items) {
+    string myformatted = "";
+    /* if (items.hasAllKeys("year", "month", "day") && items.allNumeric("year", "month", "day")) {
             myformatted ~= "%d-%02d-%02d ".format(items["year"], items["month"], items["day"]);
         }
         if (items.hasKey("hour")) {
@@ -1448,14 +1463,14 @@ class DValidation {
                );
             }
         } */
-        return strip(myformatted);
-    }
-    
-    // Lazily populate the IP address patterns used for validations
-    protected static void _populateIp() {
-         /* Generic.Files.LineLength */
-        /* if (!isSet(_pattern["IPv6"])) { */
-            /* mypattern = "((([0-9A-Fa-f]{1,4}:){7}(([0-9A-Fa-f]{1,4})|:))|(([0-9A-Fa-f]{1,4}:){6}";
+    return strip(myformatted);
+}
+
+// Lazily populate the IP address patterns used for validations
+protected static void _populateIp() {
+    /* Generic.Files.LineLength */
+    /* if (!isSet(_pattern["IPv6"])) { */
+    /* mypattern = "((([0-9A-Fa-f]{1,4}:){7}(([0-9A-Fa-f]{1,4})|:))|(([0-9A-Fa-f]{1,4}:){6}";
             mypattern ~= "(:|((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})";
             mypattern ~= "|(:[0-9A-Fa-f]{1,4})))|(([0-9A-Fa-f]{1,4}:){5}((:((25[0-5]|2[0-4]\d|[01]?\d{1,2})";
             mypattern ~= "(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:)";
@@ -1477,12 +1492,12 @@ class DValidation {
             _pattern["IPv4"] = mypattern;
         }
          Generic.Files.LineLength */
-    } 
-    
-    // Reset internal variables for another validation run.
-    protected static void _reset() {
-        // TODO myerrors = null;
-    } 
+}
+
+// Reset internal variables for another validation run.
+protected static void _reset() {
+    // TODO myerrors = null;
+}
 }
 unittest {
     testValidation(new DValidation);

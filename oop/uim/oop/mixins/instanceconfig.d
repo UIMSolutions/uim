@@ -149,7 +149,7 @@ mixin template TInstanceConfig() {
 
         result = _config;
         keyToRead.split(".").each!((key) { // TODO
-            if (!isArray(result) || !isSet(result[key])) {
+            if (!isArray(result) || !result.hasKey(key)) {
                 result = null;
                 break;
             }

@@ -44,7 +44,7 @@ class Hash {
                 return mydata[myparts[0]][myparts[1]][myparts[2]] ?? mydefault;
             default:
                 myparts.each!((key) {
-                    if ((isArray(mydata) || cast(DArrayAccess)mydata) && isSet(mydata[aKey])) {
+                    if ((isArray(mydata) || cast(DArrayAccess)mydata) && mydata.hasKey(aKey)) {
                         mydata = mydata[aKey];
                     } else {
                         return mydefault;

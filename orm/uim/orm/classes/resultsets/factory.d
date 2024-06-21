@@ -130,16 +130,16 @@ class DResultsetFactory {
         remove(mypresentAliases[tableMetadata["primaryAlias"]]);
 
         foreach (myassoc; tableMetadata["containAssoc"]) {
-            aliasName = myassoc["nestKey"];
+            auto aliasName = myassoc["nestKey"];
             
             bool mycanBeJoined = myassoc["canBeJoined"];
             if (mycanBeJoined && tableMetadata["fields"][aliasName].isEmpty)) {
                 continue;
             }
-            myinstance = myassoc["instance"];
-            assert(cast(DAssociation)myinstance);
+            auto myinstance = myassoc["instance"];
+            auto assert(cast(DAssociation)myinstance);
 
-            if (!mycanBeJoined && !isSet(myrow[aliasName])) {
+            if (!mycanBeJoined && !myrow.hasKey(aliasName)) {
                 results = myinstance.defaultRowValue(results, mycanBeJoined);
                 continue;
             }

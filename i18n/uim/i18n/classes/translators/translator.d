@@ -115,7 +115,7 @@ class DTranslator : ITranslator {
             message = messageKey;
 
             // If singular haven`t been translated, fallback to the key.
-            if (isSet(tokensValues["_singular"]) && tokensValues["_count"] == 1) {
+            if (tokensValues.hasKey("_singular") && tokensValues["_count"] == 1) {
                 message = tokensValues["_singular"];
             }
         }

@@ -201,7 +201,7 @@ class DMarshaller {
             auto updatedOptions = options.update["validate": true.toJson];
 
             mytableName = _table.aliasName();
-            if (isSet(mydata[mytableName]) && isArray(mydata[mytableName])) {
+            if (mydata.hasKey(mytableName) && isArray(mydata.hasKey(mytableName))) {
                 mydata += mydata[mytableName];
                 remove(mydata[mytableName]);
             }

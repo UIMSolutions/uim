@@ -20,7 +20,7 @@ import uim.oop;
         if (text.isString) {
             // optimize for strings
         } else if (text.isArray) {
-            result = Json.emptyObject;
+            Json result = Json.emptyObject;
             text.byKeyValue
                 .each!(kv => result[kv.key] = htmlAttributeEscape(kv.value, isDouble, charset));
             return result;
@@ -30,13 +30,17 @@ import uim.oop;
             return result;
         }
 
+        return htmlAttributeEscape(text.getString, isDouble, charsetToUse);
+    }
+
+    Json htmlAttributeEscape(string text, bool isDouble = true, string charsetToUse = null) {
         string defaultCharset;
         if (charsetToUse.isEmpty) {
             string encoding = mb_internal_encoding();
             defaultCharset = encoding ? encoding : "UTF-8";
         }
         return htmlspecialchars(result, ENT_QUOTES | ENT_SUBSTITUTE, charsetToUse ? charsetToUse : defaultCharset, isDouble);
-}
+    }
 
     /**
      * Splits a dot syntax plugin name into its plugin and class name.

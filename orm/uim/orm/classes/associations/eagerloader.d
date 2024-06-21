@@ -675,7 +675,7 @@ class DEagerLoader {
      * @param array<string, array> mycollectKeys The keys to collect.
      */
     protected Json[string] _groupKeys(Json[string] results, Json[string] mycollectKeys) {
-        someKeys = null;
+        auto someKeys = null;
         foreach (result; results) {
             foreach (mynestKey: myparts; mycollectKeys) {
                 if (myparts[2] == true) {

@@ -299,11 +299,8 @@ class DRouteBuilder {
             myonly = myresourceMap.keys;
         }
         
-        string myprefix = "";
-        if (options["prefix"]) {
-            myprefix = options["prefix"];
-        }
-        if (isSet(_params["prefix"]) && myprefix) {
+        string myprefix = options.getStrinf("prefix");
+        if (_params.hasKey("prefix") && myprefix) {
             myprefix = _params["prefix"] ~ "/" ~ myprefix;
         }
         foreach (myresourceMap as mymethod: myparams) {
@@ -322,15 +319,15 @@ class DRouteBuilder {
                 myparams["prefix"] = myprefix;
             }
             myrouteOptions = myconnectOptions ~ [
-                "id": options["id"],
+                "id": options.get("id"),
                 "pass": ["id"],
                 "_ext": myext,
             ];
             this.connect(myurl, myparams, myrouteOptions);
         }
         if (mycallback !is null) {
-            myidName = Inflector.singularize(Inflector.underscore(routings)) ~ "_id";
-            mypath = "/" ~ options["path"] ~ "/{" ~ myidName ~ "}";
+            auto myidName = Inflector.singularize(Inflector.underscore(routings)) ~ "_id";
+            auto mypath = "/" ~ options.getString("path") ~ "/{" ~ myidName ~ "}";
             this.scope(mypath, [], mycallback);
         }
         return this;

@@ -19,5 +19,5 @@ interface IDBAExpression {
      * passing as first parameter the instance of the expression currently
      * being iterated.
      */
-    IDBAExpression traverse(Closure aCallback);
+    IDBAExpression traverse(DClosure aCallback);
 }

@@ -29,7 +29,8 @@ interface IStatement {
      * statement.bindValue(5, new \DateTime(), "date");
      * ```
      */
-    void bindValue(string|int column, Json valueToBind, string typeName = "string");
+void bindValue(int column, Json valueToBind, string typeName = "string");
+    void bindValue(string column, Json valueToBind, string typeName = "string");
 
     /**
      * Closes the cursor, enabling the statement to be executed again.
@@ -78,7 +79,9 @@ interface IStatement {
      * string|int mode PDO.FETCH_* constant or fetch mode name.
      * Valid names are 'assoc", "num' or 'obj'.
      */
-    Json fetch(string|int mode = PDO.FETCH_NUM);
+Json fetch(int mode = PDO.FETCH_NUM);
+
+    Json fetch(string mode = PDO.FETCH_NUM);
 
     /**
      * Fetches the remaining rows from a result set
@@ -89,7 +92,8 @@ interface IStatement {
      * string|int mode PDO.FETCH_* constant or fetch mode name.
      * Valid names are 'assoc", "num' or 'obj'.
      */
-    Json[string] fetchAll(string|int mode = PDO.FETCH_NUM);
+Json[string] fetchAll(int mode = PDO.FETCH_NUM);
+    Json[string] fetchAll(string mode = PDO.FETCH_NUM);
 
     /**
      * Fetches the next row from a result set using PDO.FETCH_NUM
@@ -120,7 +124,7 @@ interface IStatement {
     void bind(Json[string] valuesToBound, Json[string] listOfTypes);
 
     // Returns the latest primary inserted using this statement.
-    string|int lastInsertId(string tableName = null, string columnName = null);
+    string lastInsertId(string tableName = null, string columnName = null);
 
     // Returns prepared query string.
     string queryString();

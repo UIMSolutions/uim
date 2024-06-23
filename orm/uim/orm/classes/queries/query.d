@@ -1232,7 +1232,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     protected IResultset _decorateResults(Traversable result) {
         result = _applyDecorators(result);
 
-        if (!cast(Resultset)result instanceof) && isBufferedResultsEnabled()) {
+        if (!cast(Resultset)result) && isBufferedResultsEnabled()) {
             class = _decoratorClass();
             result = new class(result.buffered());
         }

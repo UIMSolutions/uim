@@ -756,7 +756,7 @@ class DAssociation : IAssociation {
             // TODO 
             /* foreach (formatters as callable) {
                 extracted = callable(extracted, query);
-                if (!extracted instanceof IResultset) {
+                if (!cast(IResultset)extracted) {
                     extracted = new DResultsetDecorator(extracted);
                 }
             } * /

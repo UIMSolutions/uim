@@ -434,7 +434,7 @@ class DCookie : ICookie {
     protected static SameSiteEnum resolveSameSiteenumeration(SameSiteEnum|string sameSite) {
         return match (true) {
             sameSite.isNull: sameSite,
-            sameSite instanceof SameSiteEnum: sameSite,
+            cast(SameSiteEnum)sameSite: sameSite,
             default: SameSiteEnum.from(ucfirst(sameSite).lower),
         };
     }

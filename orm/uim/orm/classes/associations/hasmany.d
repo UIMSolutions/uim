@@ -164,7 +164,7 @@ class DHasManyAssociation : DAssociation {
 
             if (!options.isEmpty("atomic")) {
                 original[k].setErrors(entity.getErrors());
-                if (entity instanceof IInvalidProperty) {
+                if (cast(IInvalidProperty)entity) {
                     original[k].setInvalid(
                         entity.invalidFields());
                 }

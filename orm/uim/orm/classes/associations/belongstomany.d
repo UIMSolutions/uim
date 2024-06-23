@@ -556,7 +556,7 @@ class DBelongsToManyAssociation : DAssociation {
         persisted = null;
 
         foreach (entities as k: entity) {
-            if (!cast(IORMEntity)entity instanceof)) {
+            if (!cast(IORMEntity)entity)) {
                 break;
             }
 
@@ -604,20 +604,20 @@ class DBelongsToManyAssociation : DAssociation {
      * @param Json[string] options list of options accepted by `Table.save()`
      */
     protected bool _saveLinks(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] optionData) {
-        target = getTarget();
-        junction = this.junction();
-        entityClass = junction.getEntityClass();
-        belongsTo = junction.getAssociation(target.aliasName());
-        foreignKey = (array)foreignKeys();
-        assocForeignKey = /* (array) */belongsTo.foreignKeys();
-        targetBindingKey = /* (array) */belongsTo.getBindingKey();
-        bindingKey = /* (array) */getBindingKey();
-        jointProperty = _junctionProperty;
-        junctionRegistryAlias = junction.registryKey();
+        auto target = getTarget();
+        auto junction = this.junction();
+        auto entityClass = junction.getEntityClass();
+        auto belongsTo = junction.getAssociation(target.aliasName());
+        auto foreignKey = (array)foreignKeys();
+        auto assocForeignKey = /* (array) */belongsTo.foreignKeys();
+        auto targetBindingKey = /* (array) */belongsTo.getBindingKey();
+        auto bindingKey = /* (array) */getBindingKey();
+        auto jointProperty = _junctionProperty;
+        auto junctionRegistryAlias = junction.registryKey();
 
-        foreach (targetEntities as e) {
+        foreach (e; targetEntities) {
             joint = e.get(jointProperty);
-            if (!joint || !(joint instanceof IORMEntity)) {
+            if (!joint || !cast(IORMEntity)joint) {
                 joint = new DORMEntityClass([], ["markNew": true.toJson, "source": junctionRegistryAlias]);
             }
             sourceKeys = array_combine(foreignKey, sourceEntity.extract(bindingKey));
@@ -804,7 +804,7 @@ class DBelongsToManyAssociation : DAssociation {
         foreach (conditions as field: value) {
             if (field.isString && indexOf(field, alialiasNameas) == 0) {
                 matching[field] = value;
-            } elseif (is_int(field) || value instanceof IExpression) {
+            } elseif (is_int(field) || cast(IExpression)value) {
                 matching[field] = value;
             }
         }
@@ -1148,16 +1148,16 @@ class DBelongsToManyAssociation : DAssociation {
         auto jointProperty = _junctionProperty;
         auto primary = (array)target.primaryKeys();
 
-        result = null;
-        missing = null;
+        auto result = null;
+        auto missing = null;
 
-        foreach (targetEntities as entity) {
-            if (!(entity instanceof IORMEntity)) {
+        foreach (entity; targetEntities) {
+            if (!cast(IORMEntity)entity) {
                 continue;
             }
             joint = entity.get(jointProperty);
 
-            if (!joint || !(joint instanceof IORMEntity)) {
+            if (!joint || !cast(IORMEntity)joint)) {
                 missing ~= entity.extract(primary);
                 continue;
             }

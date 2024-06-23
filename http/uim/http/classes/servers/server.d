@@ -94,7 +94,7 @@ class DServer { // }: IEventDispatcher {
      */
     protected void bootstrap() {
         _app.bootstrap();
-        if (_app instanceof IPluginApplication) {
+        if (cast(IPluginApplication)_app) {
             _app.pluginBootstrap();
         }
     }

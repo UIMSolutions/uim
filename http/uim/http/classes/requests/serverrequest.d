@@ -1350,12 +1350,12 @@ class DServerRequest { // }: IServerRequest {
      * @param string aPath The path thus far.
      */
     protected auto validateUploadedFiles(Json[string] uploadedFiles, string aPath) {
-        foreach (uploadedFiles as aKey: file) {
+        foreach (aKey, file; uploadedFiles) {
             if (isArray(file)) {
                 this.validateUploadedFiles(file, aKey ~ ".");
                 continue;
             }
-            if (!cast(IUploadedFile)file instanceof) {
+            if (!cast(IUploadedFile)file) {
                 throw new DInvalidArgumentException("Invalid file at `%s%s`.".format(somePath, aKey));
             }
         }

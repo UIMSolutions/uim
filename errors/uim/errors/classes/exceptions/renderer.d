@@ -179,7 +179,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
                 response = response.withHeader(myKey, myValue);
             } */
         }
-        /* if (cast(HttpException)exception instanceof) {
+        /* if (cast(HttpException)exception) {
             foreach (exception.getHeaders() as myName: myValue) {
                 response = response.withHeader(myName, myValue);
             }

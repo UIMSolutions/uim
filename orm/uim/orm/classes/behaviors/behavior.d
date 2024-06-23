@@ -192,24 +192,20 @@ class DBehavior : DEventListener {
 
     /**
      * verifyConfig
-     *
      * Checks that implemented keys contain values pointing at callable.
      */
     void verifyConfig() {
-        string[] keys = ["implementedFinders", "implementedMethods"];
-        keys.each!((key) {
-            if (!configuration.has(key)) {
-                continue;
-            }
-
-            foreach (configuration.get(key) as method) {
-                if (!is_callable([this, method])) {
-                    throw new DException(
-                        "The method %s is not callable on class %s"
-                        .format(method, classname));
+        ["implementedFinders", "implementedMethods"]
+            filter(key => configuration.hasKey(key))
+            .each!((key) {
+                foreach (method; configuration.getStringArray(key)) {
+                    if (!is_callable([this, method])) {
+                        throw new DException(
+                            "The method %s is not callable on class %s"
+                            .format(method, classname));
+                    }
                 }
-            }
-        });
+            });
     }
 
     /**

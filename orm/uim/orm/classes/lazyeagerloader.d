@@ -121,7 +121,7 @@ class DLazyEagerLoader {
         myentities.byKeyValue
             .each!((kv) {
             aKey = myobject.extract(myprimaryKey).join(";");
-            if (!isSet(results[aKey])) {
+            if (results.isNull(aKey)) {
                 myinjected[myKey] = myobject;
                 continue;
             }

@@ -366,7 +366,7 @@ class DDebugger {
             someData = someData.split("\n");
         }
         lineToHighlight--;
-        if (!isSet(someData[lineToHighlight])) {
+        if (someData.isNull(lineToHighlight)) {
             return lines;
         }
         for (anI = lineToHighlight - numberOfLinesToExtract; anI < lineToHighlight + numberOfLinesToExtract + 1;

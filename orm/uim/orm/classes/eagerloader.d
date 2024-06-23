@@ -734,7 +734,7 @@ class DEagerLoader {
                         continue;
                     }
                     // Assign empty array to avoid not found association when optional.
-                    if (!isset(result[parts[1][0]])) {
+                    if (result.isNull(parts[1][0])) {
                         if (!isset(string aKeys[nestKey][parts[0]])) {
                             keys[nestKey][parts[0]] = null;
                         }

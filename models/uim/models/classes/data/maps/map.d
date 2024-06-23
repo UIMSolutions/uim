@@ -65,11 +65,11 @@ class DMapData : DData {
       .all!(kv => hasKey(key) && data(kv.key).isEqual(kv.value)); * /
   } */
 
-/*   override bool isEqual(IData checkData) {
+  /*   override bool isEqual(IData checkData) {
     return false;
   } */
 
-/*   override bool isEqual(Json checkValue) {
+  /*   override bool isEqual(Json checkValue) {
     if (checkValue.isObject) {
       return checkValue.byKeyValue
         .all!(kv => hasKey(key) && data(kv.key).isEqual(kv.value));
@@ -82,13 +82,13 @@ class DMapData : DData {
   } */
   // #endregion equal
 
-/*   override IData data(string key) {
+  /*   override IData data(string key) {
     return _items.get(key, null);
   } */
 
   ///
-  unittest {
-    /* auto boolDataTrue = BooleanData;
+  // unittest {
+  /* auto boolDataTrue = BooleanData;
     boolDataTrue.set(true);
     auto boolDataIstrue = BooleanData;
     boolDataIstrue.set(true);

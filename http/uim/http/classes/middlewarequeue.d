@@ -180,7 +180,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * int position The position to seek to.
      */
     void seek(int position) {
-        if (!isSet(_queue[position])) {
+        if (_queue.isNull(position)) {
             throw new DOutOfBoundsException("Invalid seek position (%s)."
                 .format(position));
         }
@@ -196,7 +196,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     
     // Returns the current middleware.
     IHttpMiddleware currentValue() {
-        if (!isSet(_queue[this.position])) {
+        if (_queue.isNull(this.position)) {
             throw new DOutOfBoundsException("Invalid current position (%s).".format(this.position));
         }
         if (cast(IHttpMiddleware)_queue[this.position]) {

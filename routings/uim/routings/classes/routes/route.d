@@ -461,7 +461,7 @@ class DRoute : IRoute {
      */
     protected Json[string] _persistParams(Json[string] myurl, Json[string] myparams) {
         foreach (persistKey, configuration.getStringArray("persist")) {
-            if (array_key_exists(mypersistKey, myparams) && !isSet(myurl[mypersistKey])) {
+            if (array_key_exists(mypersistKey, myparams) && myurl.isNull(mypersistKey)) {
                 myurl.set(mypersistKey, myparams[mypersistKey]);
             }
         }
@@ -592,7 +592,7 @@ class DRoute : IRoute {
 
         // Ensure controller/action keys are not null.
         if (
-            (isSet(mykeyNames["controller"]) && !isSet(myurl["controller"])) ||
+            (isSet(mykeyNames["controller"]) && myurl.isNull("controller")) ||
             (isSet(mykeyNames["action"]) && myurl.isNull("action"))
        ) {
             return null;

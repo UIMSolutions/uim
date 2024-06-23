@@ -567,7 +567,7 @@ class DMarshaller {
 
                     ) {
                     auto aKey = myEntity.extract(myprimary).join(";");
-                    if (!isSet(myindexed[aKey])) {
+                    if (myindexed.isNull(aKey)) {
                         continue;
                     }
                     myoutput ~= this.merge(myEntity, myindexed[aKey], options);

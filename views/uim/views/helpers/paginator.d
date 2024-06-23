@@ -91,14 +91,14 @@ class DPaginatorHelper : DHelper {
 
                 // Get pagination instance.
                 protected IPaginated paginated() {
-                    if (!isSet(_paginated)) {
+                    if (_paginated !is null)) {
                         _View.getVars().each!((name) {
                             auto value = _View.get(name);
                             if (cast(IPaginated) value) {
                                 _paginated = value;
                             }
                         });}
-                        if (!isSet(_paginated)) {
+                        if (_paginated is null)) {
                             throw new DException(
                                 "You must set a pagination instance using `setPaginated()` first");
                         }

@@ -367,7 +367,7 @@ class DFormProtector {
      */
     protected string debugTokenNotMatching(Json[string] formData, Json[string] hashParts) {
         messages = null;
-        if (!isSet(formData["_Token.debug"])) {
+        if (formData.isNull("_Token.debug")) {
             return "Form protection debug token not found.";
         }
         expectedParts = Json_decode(urldecode(formData["_Token.debug"]), true);

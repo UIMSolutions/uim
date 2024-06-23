@@ -114,7 +114,7 @@ class DContextFactory {
                 break;
             }
         }
-        if (!isSet(mycontext)) {
+        if (mycontext !is null)) {
             throw new DException(
                 "No context provider found for value of type `%s`."
                 ~ " Use `null` as 1st argument of FormHelper.create() to create a context-less form."

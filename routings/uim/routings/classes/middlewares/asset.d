@@ -71,7 +71,7 @@ class DAssetMiddleware : IRoutingMiddleware {
         string[] someParts = stripLeft(assetUrl, "/").split("/");
         auto pluginPart = null;
         for (anI = 0;  anI < 2;  anI++) {
-            if (!isSet(someParts[anI])) {
+            if (someParts.isNull(anI)) {
                 break;
             }
             string[] pluginPart ~= Inflector.camelize(someParts[anI]);

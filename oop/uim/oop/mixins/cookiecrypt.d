@@ -117,7 +117,7 @@ mixin template TCookieCrypt() {
         auto myarray = null;
         foreach (mypair; mystring.split(",")) {
             string[] aKey = mypair.split("|");
-            if (!isSet(aKey[1])) {
+            if (aKey.isNull(1)) {
                 return aKey[0];
             }
             myarray[aKey[0]] = aKey[1];

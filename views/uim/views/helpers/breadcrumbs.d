@@ -108,7 +108,7 @@ class DBreadcrumbsHelper : DHelper {
      * - *templateVars*: Specific template vars in case you override the templates provided.
      */
     void insertAt(int myindex, string mytitle, string[] myurl = null, Json[string] options  = null) {
-        if (!isSet(this.crumbs[myindex]) && myindex != count(this.crumbs)) {
+        if (this.crumbs.isNull(myindex) && myindex != count(this.crumbs)) {
             throw new DLogicException(
                 "No crumb could be found at index `%s`.".format(myindex));
         }

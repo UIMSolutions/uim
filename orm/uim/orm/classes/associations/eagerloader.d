@@ -685,7 +685,7 @@ class DEagerLoader {
                     }
                     // Assign empty array to avoid not found association when optional.
                     if (!result.hasKey(myparts[1][0])) {
-                        if (!isSet(someKeys[mynestKey][myparts[0]])) {
+                        if (someKeys.isNull([mynestKey, myparts[0]])) {
                             someKeys[mynestKey][myparts[0]] = null;
                         }
                     } else {

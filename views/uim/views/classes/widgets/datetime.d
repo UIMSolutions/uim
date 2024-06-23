@@ -178,7 +178,7 @@ class DDateTimeWidget : DWidget {
     }
 
     Json[string] secureFields(Json[string] data) {
-        return !isSet(data["name"]) || data.getString("name") == ""
+        return data.isNull("name") || data.getString("name") == ""
             ? null
             : [data["name"]];
     } 

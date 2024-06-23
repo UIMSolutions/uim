@@ -139,7 +139,7 @@ class DSelectWithPivotLoader : DSelectLoader {
         key = (array)options["foreignKey"];
 
         foreach (result; fetchQuery.all()) {
-            if (!isset(result[this.junctionProperty])) {
+            if (result.isNull(this.junctionProperty)) {
                 throw new DRuntimeException(format(
                     "'%s' is missing from the belongsToMany results. Results cannot be created.",
                     this.junctionProperty

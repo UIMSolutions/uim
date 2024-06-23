@@ -275,7 +275,7 @@ class DValidation {
      * @param Json[string] mycontext The validation context.
      */
     static bool compareFields(Json mycheck, string fieldName, string myoperator, Json[string] mycontext) {
-        /* if (!isSet(mycontext["data"]) || !array_key_exists(fieldName, mycontext["data"])) {
+        /* if (mycontext.isNull("data") || !array_key_exists(fieldName, mycontext["data"])) {
             return false;
         } */
         // TODO return comparison(mycheck, myoperator, mycontext["data"][fieldName]);
@@ -1468,7 +1468,7 @@ protected static string _getDateString(Json[string] items) {
 // Lazily populate the IP address patterns used for validations
 protected static void _populateIp() {
     /* Generic.Files.LineLength */
-    /* if (!isSet(_pattern["IPv6"])) { */
+    /* if (_pattern.isNull("IPv6")) { */
     /* mypattern = "((([0-9A-Fa-f]{1,4}:){7}(([0-9A-Fa-f]{1,4})|:))|(([0-9A-Fa-f]{1,4}:){6}";
             mypattern ~= "(:|((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})";
             mypattern ~= "|(:[0-9A-Fa-f]{1,4})))|(([0-9A-Fa-f]{1,4}:){5}((:((25[0-5]|2[0-4]\d|[01]?\d{1,2})";
@@ -1486,7 +1486,7 @@ protected static void _populateIp() {
 
             _pattern["IPv6"] = mypattern;
         }
-        if (!isSet(_pattern["IPv4"])) {
+        if (_pattern.isNull("IPv4")) {
             mypattern = "(?:(?:25[0-5]|2[0-4][0-9]|(?:(?:1[0-9])?|[1-9]?)[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|(?:(?:1[0-9])?|[1-9]?)[0-9])";
             _pattern["IPv4"] = mypattern;
         }

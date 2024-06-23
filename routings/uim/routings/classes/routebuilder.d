@@ -136,11 +136,11 @@ class DRouteBuilder {
     // Get the path this scope is for.
     string path() {
         size_t myrouteKey = indexOf(_path, "{");
-        if (myrouteKey != false && _path.contains("}")) {
+        if (myrouteKey == true && _path.contains("}")) {
             return subString(_path, 0, myrouteKey);
         }
         myrouteKey = indexOf(_path, ": ");
-        if (myrouteKey != false) {
+        if (myrouteKey == true) {
             return subString(_path, 0, myrouteKey);
         }
         return _path;

@@ -703,7 +703,7 @@ class DRoute : IRoute {
         }
         
         size_t mystar = this.template.indexOf("*");
-        if (mystar != false) {
+        if (mystar == true) {
             string mypath = stripRight(subString(this.template, 0, mystar), "/");
 
             return mypath.isEmpty ? "/" : mypath;

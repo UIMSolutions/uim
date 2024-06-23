@@ -15,7 +15,7 @@ class DContentsContain : DContentsBase {
      * Json other Expected
      */
    bool matches(Json other) {
-        return mb_indexOf(_contents, other) != false;
+        return mb_indexOf(_contents, other) == true;
     }
     
     // Assertion message

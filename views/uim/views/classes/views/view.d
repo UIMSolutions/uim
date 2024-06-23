@@ -462,7 +462,7 @@ static string contentType() {
            );
         }
 
-        bool _pluginCheck = options["plugin"] != false;
+        bool _pluginCheck = options["plugin"] == true;
         auto filepath = _getElementFileName(templatefilename, _pluginCheck);
         if (filepath && options["cache"]) {
             return _cache(void () use (filepath, mydata, options) {

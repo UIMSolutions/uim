@@ -687,7 +687,7 @@ class DRouter {
         if (isSet(mymatches["params"]) && !mymatches["params"].isEmpty) {
             string[] myparamsArray = strip(mymatches["params"], "/").split("/");
             foreach (myparamsArray as myparam) {
-                if (indexOf(myparam, "=") != false) {
+                if (indexOf(myparam, "=") == true) {
                     if (!preg_match("/(?<key>.+?)=(?<value>.*)/", myparam, myparamMatches)) {
                         throw new DInvalidArgumentException(
                             "Could not parse a key=value from `{myparam}` in route path `{myurl}`."

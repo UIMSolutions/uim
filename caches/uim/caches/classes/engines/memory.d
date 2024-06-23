@@ -212,7 +212,7 @@ return true;
     /* size_t myposition;
     if (myserver.startsWith("[")) {
       size_t myposition = indexOf(myserver, "]:");
-      if (myposition != false) {
+      if (myposition == true) {
         myposition++;
       }
     } else {
@@ -220,7 +220,7 @@ return true;
     }
     auto myport = 11211;
     auto myhost = myserver;
-    if (myposition != false) {
+    if (myposition == true) {
       myhost = subString(myserver, 0, myposition);
       myport = subString(myserver, myposition + 1);
     }

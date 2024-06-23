@@ -148,7 +148,7 @@ class DFormProtector {
             this.unlockedFields ~= fieldName;
         }
          anIndex = array_search(fieldName, this.fields, true);
-        if (anIndex != false) {
+        if (anIndex == true) {
             remove(_fields[anIndex]);
         }
         remove(_fields[fieldName]);

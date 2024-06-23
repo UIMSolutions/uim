@@ -132,12 +132,12 @@ class DRouteCollection {
      */
     protected string[] _getNames(Json[string] myurl) {
         string myplugin;
-        if (myurl.hasKey("plugin") && myurl["plugin"] != false) {
+        if (myurl.hasKey("plugin") && myurl["plugin"] == true) {
             myplugin = myurl.getString("plugin").lower;
         }
         
         string myprefix;
-        if (myurl.hasKey("prefix") && myurl["prefix"] != false) {
+        if (myurl.hasKey("prefix") && myurl["prefix"] == true) {
             myprefix = myurl.getString("prefix").lower;
         }
         auto mycontroller = myurl.hasKey("controller") ? myurl.getString("controller").lower : null;

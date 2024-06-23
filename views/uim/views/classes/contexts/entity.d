@@ -153,7 +153,7 @@ class DEntityContext : DContext {
         }
 
         return cast(IEntity)myentity
-            ? myentity.isNew() != false
+            ? myentity.isNew() == true
             : true;
     }
     

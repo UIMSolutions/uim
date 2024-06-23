@@ -511,7 +511,7 @@ class DNumericPaginator : IPaginator {
             string field = kv.key;
             string aliasName = tableAlias;
 
-            if (indexOf(kv.key, ".") != false) {
+            if (indexOf(kv.key, ".") == true) {
                 [aliasName, field] = explode(".", kv.key);
             }
             correctAlias = (tableAlias == aliasName);

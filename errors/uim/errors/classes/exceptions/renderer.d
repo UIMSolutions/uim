@@ -291,7 +291,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
             attributes = e.getAttributes();
             if (
                 cast(MissingLayoutException)e ||
-                indexOf(attributes["file"], "error500") != false
+                indexOf(attributes["file"], "error500") == true
            ) {
                 return _outputMessageSafe("error500");
             }

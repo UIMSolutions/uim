@@ -427,7 +427,7 @@ class DDebugger {
             return lines;
         }
 
-        if (indexOf(data, "\n") != false) {
+        if (indexOf(data, "\n") == true) {
             data = explode("\n", data);
         }
         auto lineNumber--;

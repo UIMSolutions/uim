@@ -615,7 +615,7 @@ class DPaginatorHelper : DHelper {
                                                                                         (
                                                                                             updatedoptions["templates"]);
                                                                                     }
-                                                                                if (updatedoptions["modulus"] != false && myparams["pageCount"] > updatedOptions["modulus"]) {
+                                                                                if (updatedoptions["modulus"] == true && myparams["pageCount"] > updatedOptions["modulus"]) {
                                                                                     result = _modulusNumbers(
                                                                                         mytemplater, myparams, options);
                                                                                 } else {

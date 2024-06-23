@@ -796,7 +796,7 @@ class DFormHelper : DHelper {
                 ? __d("uim", "Edit {0}", mymodelName)
                 : __d("uim", "New {0}", mymodelName);
         }
-        if (fieldNameset != false) {
+        if (fieldNameset == true) {
             if (mylegend) {
                 result = this.formatTemplate("legend", ["text": mylegend]) ~ result;
             }
@@ -889,7 +889,7 @@ class DFormHelper : DHelper {
         
         auto myerror = null;
         auto myerrorSuffix = "";
-        if (updatedOptions.getString("type") != "hidden" && updatedOptions["error"] != false) {
+        if (updatedOptions.getString("type") != "hidden" && updatedOptions["error"] == true) {
             myError = isArray(updatedOptions["error"])
                 ? error(fieldName, updatedOptions["error"], updatedOptions["error"])
                 : error(fieldName, updatedOptions["error"]);
@@ -911,7 +911,7 @@ class DFormHelper : DHelper {
             mynestedInput == true
             && updatedOptions.getString("type") == "checkbox"
             && !array_key_exists("hiddenField", updatedOptions)
-            && mylabel != false
+            && mylabel == true
        ) {
             updatedOptions["hiddenField"] = "_split";
         }
@@ -1263,7 +1263,7 @@ class DFormHelper : DHelper {
         options["value"] = myvalue;
 
         myoutput = "";
-        if (options["hiddenField"] != false && isScalar(options["hiddenField"])) {
+        if (options["hiddenField"] == true && isScalar(options["hiddenField"])) {
             myhiddenOptions = [
                 "name": options["name"],
                 "value": options["hiddenField"] != true
@@ -1323,7 +1323,7 @@ class DFormHelper : DHelper {
         remove(myattributes["hiddenField"]);
 
         myhidden = "";
-        if (myhiddenField != false && isScalar(myhiddenField)) {
+        if (myhiddenField == true && isScalar(myhiddenField)) {
             myhidden = hidden(fieldName, [
                 "value": myhiddenField == true ? "" : to!string(myhiddenField),
                 "form": myattributes["form"].ifNull(null),

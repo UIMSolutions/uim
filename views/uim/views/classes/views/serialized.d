@@ -63,7 +63,7 @@ class DSerializedView : DView {
            );
         }
 
-        if (shouldSerialize != false) {
+        if (shouldSerialize == true) {
             try {
                 return _serialize(shouldSerialize);
             } catch (Exception | TypeError mye) {

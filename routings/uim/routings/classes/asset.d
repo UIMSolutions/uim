@@ -118,7 +118,7 @@ class DAsset {
         if (somePath.contains(": //") || preg_match("/^[a-z]+:/i", somePath)) {
             return stripLeft(Router.url(somePath), "/");
         }
-        if (!array_key_exists("plugin", options) || options["plugin"] != false) {
+        if (!array_key_exists("plugin", options) || options["plugin"] == true) {
             [plugin, somePath] = pluginSplit(somePath);
         }
         if (!options.isEmpty("pathPrefix") && somePath[0] != "/") {

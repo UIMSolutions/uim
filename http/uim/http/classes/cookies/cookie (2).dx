@@ -558,7 +558,7 @@ class DCookie : ICookie {
         Json[string] = null;
         foreach (split(",", string) as pair) {
             string[] aKey = pair.split("|");
-            if (!isSet(aKey[1])) {
+            if (aKey[1]) !is null) {
                 return aKey[0];
             }
             array[aKey[0]] = aKey[1];

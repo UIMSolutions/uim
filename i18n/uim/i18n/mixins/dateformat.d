@@ -38,7 +38,7 @@ mixin template TDateFormat() {
         timezone = date.getTimezone().name;
         aKey = "{localName}.{dateFormat}.{timeFormat}.{timezone}.{calendar}.{ somePattern}";
 
-        if (!isSet(formatters[aKey])) {
+        if (formatters.isNull(aKey)) {
             if (timezone == "+00:00" || timezone == "Z") {
                 timezone = "UTC";
             } else if (timezone[0] == "+" || timezone[0] == "-") {

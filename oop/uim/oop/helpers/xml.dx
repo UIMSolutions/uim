@@ -430,7 +430,7 @@ class Xml {
                         }
                         myname = myns ~ myxml.name;
                         if (isSet(myparentData[myname])) {
-                            if (!isArray(myparentData[myname]) || !isSet(myparentData[myname][0])) {
+                            if (!isArray(myparentData[myname]) || myparentData.isNull([myname][0])) {
                                 myparentData[myname] = [myparentData[myname]];
                             }
                             myparentData[myname] ~= mydata;

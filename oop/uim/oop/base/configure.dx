@@ -164,7 +164,7 @@ class DFileConfigEngine {
      */
     static Json consume(string avar) {
         if (!var.contains(".")) {
-            if (!isSet(_values[var])) {
+            if (_values.isNull(var)) {
                 return null;
             }
             aValue = _values[var];
@@ -311,7 +311,7 @@ class DFileConfigEngine {
      * string configData The name of the configured adapter
      */
     protected static IConfigEngine _getEngine(string configData) {
-        if (!isSet(_engines[configData])) {
+        if (_engines.hasKey(configData)) {
             if (configData != "default") {
                 return null;
             }

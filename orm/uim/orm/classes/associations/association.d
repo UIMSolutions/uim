@@ -744,7 +744,7 @@ class DAssociation : IAssociation {
             extracted = null;
             foreach (results as result) {
                 foreach (propertyPath as propertyPathItem) {
-                    if (!isset(result[propertyPathItem])) {
+                    if (result.isNull(propertyPathItem)) {
                         result = null;
                         break;
                     }

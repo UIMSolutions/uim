@@ -1033,7 +1033,7 @@ class DMessage { //: JsonSerializable {
             }
             someData = dirEntry.get("data", this.readFile(dirEntry["file"]));
             hasDisposition = (
-                !isSet(dirEntry["contentDisposition"]) ||
+                dirEntry.isNull("contentDisposition") ||
                 dirEntry["contentDisposition"]
            );
             part = new DFormDataPart("", someData, "", getHeaderCharset());

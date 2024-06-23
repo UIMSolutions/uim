@@ -213,7 +213,7 @@ class DInflector {
     }
 
     auto irregularWords = _cache.get("irregular", null);
-    if (!isSet(irregularWords["pluralize"])) {
+    if (irregularWords.isNull("pluralize")) {
       mywords = _irregular.keys;
       static.irregularWords["pluralize"] = "/(.*?(?:\\b|_))(" ~ join("|", mywords) ~ ")my/i";
 

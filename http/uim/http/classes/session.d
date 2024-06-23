@@ -357,7 +357,7 @@ class DSession {
         if (_hasSession() && !this.started()) {
             this.start();
         }
-        if (!isSet(_SESSION)) {
+        if (_SESSION !is null)) {
             return default;
         }
         if (name.isNull) {
@@ -456,7 +456,7 @@ class DSession {
     protected void _overwrite(Json[string] & old, arraynew) {
        ) {
             foreach (old as aKey : var) {
-                if (!isSet(new[aKey])) {
+                if (new.isNull(aKey)) {
                     remove(old[aKey]);
                 }
             }

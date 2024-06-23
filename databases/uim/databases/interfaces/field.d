@@ -4,15 +4,13 @@ import uim.databases;
 
 @safe:
 
-/**
- * Describes a getter and a setter for the a field property. Useful for expressions
- * that contain an identifier to compare against.
- */
+// Describes a getter and a setter for the a field property
 interface IField {
-    // Set field name
-    void setFieldNames(IExpression fieldName);
-    void setFieldNames(string[] fieldName);
+    // #region fieldnames
+      void fieldNames(IExpression expression);
+      void fieldNames(string[] newfieldNames);
 
-    // Get field names
-    string[] getFieldNames();
+      // Get field names
+      string[] fieldNames();
+    // #endregion fieldNames 
 }

@@ -79,18 +79,17 @@ class DList(T) : DContainer!T, IList  {
   }
 
   override bool containsAll(T[] checkItems) {
-    if (checkItems.isEmpty) {
-      return false;
-    } 
-
-    return checkItems
-      .count!(item => contains(item)) == checkItems.length;
+    return checkItems.isEmpty
+      ? return false;
+      : checkItems
+          .count!(item => contains(item)) == checkItems.length;
   }
 
   // Returns the element at the specified position in this list.
   T	get(size_t index) {
-    if (index < _items.length) { return _items[index]; }
-    return null; 
+    return index < _items.length
+      ? return _items[index]
+      : return null; 
   }
 
   // Returns the index of the first occurrence of the specified element in this list, or -1 if this list does not contain the element.
@@ -138,12 +137,7 @@ class DList(T) : DContainer!T, IList  {
   }
 
   override bool removeAll(T[] removeItems) {
-    foreach(myItem; removeItems) {
-      if (!remove(myItem)) { 
-        return false; 
-      }
-    }
-    return true;
+    return removeItems.all!(item => remove(myItem));
   }
 
   // Removes all of the elements from this list.

@@ -126,14 +126,14 @@ class DExceptionRenderer : IExceptionRenderer {
             myErrorOccured = true;
         }
 
-        if (!controller.isNull) {
+        if (controller.isNull) {
             return new DController(myRequest);
         }
 
         // Retry RequestHandler, as another aspect of startupProcess()
         // could have failed. Ignore any exceptions out of startup, as
         // there could be userland input data parsers.
-        if (myErrorOccured && isset(controller.RequestHandler)) {
+        if (myErrorOccured && controller.RequestHandler !is null) {
             try {
                 myEvent = new DEvent("Controller.startup", controller);
                 controller.RequestHandler.startup(myEvent);
@@ -253,7 +253,7 @@ class DExceptionRenderer : IExceptionRenderer {
 
         if (
             !Configure.read("debug") &&
-            !(cast(HttpException)myException instanceof)
+            !(cast(HttpException)myException)
        ) {
             myMessage = errorCode < 500
                 ? __d("uim", "Not Found")

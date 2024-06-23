@@ -248,10 +248,10 @@ class DEagerLoader {
      * with the new one.
      */
     protected Json[string] _reformatContain(Json[string] myassociations, Json[string] myoriginal) {
-        result = myoriginal;
+        auto result = myoriginal;
 
-        foreach (myassociations as mytable: options) {
-            mypointer = &result;
+        foreach (mytable,  options; myassociations) {
+            auto mypointer = &result;
             if (isInteger(mytable)) {
                 mytable = options;
                 options = null;

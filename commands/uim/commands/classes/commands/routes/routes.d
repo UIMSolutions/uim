@@ -52,144 +52,140 @@ class DRoutesCommand : DCommand {
     output ~= anItem;
 
     someMethods.each!((method) {
-        if (!isSet(someDuplicateRoutesCounter[route.template][method])) {
-            someDuplicateRoutesCounter[route.template][method] = 0;}
-            someDuplicateRoutesCounter[route.template][method]++;});
-        });
+        if (!isSet(someDuplicateRoutesCounter.hasKey([route.template, method]))) {
+            someDuplicateRoutesCounter.set([route.template, method], 0);}
+            someDuplicateRoutesCounter.inc([route.template, method], 1);};});
 
-        if (arguments.getOption("sort")) {
-            usort(output, auto(a, b) {
-                return strcasecmp(a[0], b[0]);
-            });
-        }
-        array_unshift(output, aHeader);
-
-        aConsoleIo.helper("table").output(output);
-        aConsoleIo.writeln();
-
-        someDuplicateRoutes = null;
-
-        foreach (myRoute; someAvailableRoutes) {
-            string[] someMethods = myRoute.defaults.hasKey("_method") ?  /* (array) */ myRoute
-                .defaults["_method"] : [""];
-
-            someMethods.each!((method) {
-                string routeTemplateName = myRoute.templateName;
-                if (
-                    someDuplicateRoutesCounter[routeTemplateName][method] > 1 ||
-                (method.isEmpty && count(someDuplicateRoutesCounter[routeTemplateName]) > 1) ||
-                (method != "" && isSet(someDuplicateRoutesCounter[routeTemplateName][""]))
-                    ) {
-                    someDuplicateRoutes ~= [
-                        myRoute.options.getString("_name", myRoute.name),
-                        routeTemplateName,
-                        myRoute.defaults.getString("pluginName"),
-                        myRoute.defaults.getString("prefix") /* Name */ ,
-                        myRoute.defaults.getString("controNameller"),
-                        myRoute.defaults.getString("action"),
-                        someMethods.join(", "),
-                    ];
-
-                    break;
+            if (arguments.getOption("sort")) {
+                usort(output, auto(a, b) {
+                    return strcasecmp(a[0], b[0]);});
                 }
-            });
-        }
-        if (someDuplicateRoutes) {
-            array_unshift(someDuplicateRoutes, aHeader);
-            aConsoleIo.warning("The following possible route collisions were detected.");
-            aConsoleIo.helper("table").output(someDuplicateRoutes);
-            aConsoleIo.writeln();
-        }
-        return CODE_SUCCESS;
-    }
+                array_unshift(output, aHeader);
 
-    DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser aParser) {
-        aParser
-            .description("Get the list of routes connected in this application.")
-            .addOption("sort", [
-                    "help": "sorts alphabetically by route name A-Z",
-                    "short": "s",
-                    "boolean": true.toJson,
-                ]);
+                aConsoleIo.helper("table").output(output);
+                aConsoleIo.writeln();
 
-        return aParser;
-    }
-}
+                someDuplicateRoutes = null;
 
-// Display all routes in an application
-  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
-            if (commandArguments.getOption("verbose")) {
-                ksort(route.defaults);
-                 anItem ~= Json_encode(route.defaults, Json_THROW_ON_ERROR);
+                foreach (myRoute; someAvailableRoutes) {
+                    string[] someMethods = myRoute.defaults.hasKey("_method") ?  /* (array) */ myRoute
+                        .defaults["_method"] : [""];
+
+                    someMethods.each!((method) {
+                        string routeTemplateName = myRoute.templateName; if (
+                            someDuplicateRoutesCounter[routeTemplateName][method] > 1 ||
+                        (method.isEmpty && count(someDuplicateRoutesCounter[routeTemplateName]) > 1) ||
+                        (method != "" && isSet(
+                        someDuplicateRoutesCounter[routeTemplateName][""]))
+                            ) {
+                            someDuplicateRoutes ~= [
+                                myRoute.options.getString("_name", myRoute.name),
+                                routeTemplateName,
+                                myRoute.defaults.getString("pluginName"),
+                                myRoute.defaults.getString("prefix") /* Name */ ,
+                                myRoute.defaults.getString("controNameller"),
+                                myRoute.defaults.getString("action"),
+                                someMethods.join(", "),
+                            ]; break;}
+                        });
+                    }
+                    if (someDuplicateRoutes) {
+                        array_unshift(someDuplicateRoutes, aHeader);
+                        aConsoleIo.warning(
+                            "The following possible route collisions were detected.");
+                        aConsoleIo.helper("table").output(someDuplicateRoutes);
+                        aConsoleIo.writeln();
+                    }
+                    return CODE_SUCCESS;
+                }
+
+                DConsoleOptionParser buildOptionParser(
+                    DConsoleOptionParser buildOptionParser aParser) {
+                    aParser
+                        .description("Get the list of routes connected in this application.")
+                        .addOption("sort", [
+                                "help": "sorts alphabetically by route name A-Z",
+                                "short": "s",
+                                "boolean": true.toJson,
+                            ]);
+
+                    return aParser;
+                }
             }
-            output ~= anItem;
 
-            someMethods.each!((method) {
-                if (!isSet(someDuplicateRoutesCounter[route.template][method])) {
-                     someDuplicateRoutesCounter[route.template][method] = 0;
+            // Display all routes in an application
+            int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
+                if (commandArguments.getOption("verbose")) {
+                    ksort(route.defaults);
+                    anItem ~= Json_encode(route.defaults, Json_THROW_ON_ERROR);
                 }
-                someDuplicateRoutesCounter[route.template][method]++;
-            });
-        };
+                output ~= anItem;
 
-        if (commandArguments.getOption("sort")) {
-            usort(output, auto (a, b) {
-                return strcasecmp(a[0], b[0]);
-            });
-        }
-        array_unshift(output,  aHeader);
+                someMethods.each!((method) {
+                    if (!isSet(someDuplicateRoutesCounter[route.template][method])) {
+                        someDuplicateRoutesCounter[route.template][method] = 0;
+                    }
+                    someDuplicateRoutesCounter[route.template][method]++;
+                });
+            };
 
-         aConsoleIo.helper("table").output(output);
-         aConsoleIo.writeln();
+            if (commandArguments.getOption("sort")) {
+                usort(output, auto(a, b) {
+                    return strcasecmp(a[0], b[0]);});
+                }
+                array_unshift(output, aHeader);
 
-        auto someDuplicateRoutes = null;
+                aConsoleIo.helper("table").output(output);
+                aConsoleIo.writeln();
 
-        foreach (myRoute;  someAvailableRoutes) {
-            string[] someMethods = myRoute.defaults.hasKey("_method") ? /* (array) */
-myRoute.defaults["_method"] : [""];
+                auto someDuplicateRoutes = null;
 
-someMethods.each((method) {
-    if (
-        someDuplicateRoutesCounter[myRoute.template][method] > 1 ||
-    (method.isEmpty && count(someDuplicateRoutesCounter[myRoute.template]) > 1) ||
-    (method != "" && isSet(someDuplicateRoutesCounter[myRoute.template][""]))
-        ) {
-        someDuplicateRoutes ~= [
-            myRoute.options.getString("_name", myRoute.name),
-            myRoute.template,
-            myRoute.defaults.getString("plugin", ""),
-            myRoute.defaults.getString("prefix", ""),
-            myRoute.defaults.getString("controller", ""),
-            myRoute.defaults.getString("action", ""),
-            someMethods.join(", ")
-        ];
+                foreach (myRoute; someAvailableRoutes) {
+                    string[] someMethods = myRoute.defaults.hasKey(
+                        "_method") ?  /* (array) */
+                        myRoute.defaults["_method"] : [""];
 
-        break;
-    }
-});
-}
-if (someDuplicateRoutes) {
-    array_unshift(someDuplicateRoutes, aHeader);
-    aConsoleIo.warning("The following possible route collisions were detected.");
-    aConsoleIo.helper("table").output(someDuplicateRoutes);
-    aConsoleIo.writeln();
-}
-return CODE_SUCCESS;
-}
+                    someMethods.each((method) {
+                        if (
+                            someDuplicateRoutesCounter.getInteger([myRoute.template, method]) > 1 ||
+                        (method.isEmpty && count(someDuplicateRoutesCounter[myRoute.template]) > 1) ||
+                        (method != "" && someDuplicateRoutesCounter.hasKey([myRoute.template, ""]))
+                            ) {
+                            someDuplicateRoutes ~= [
+                                myRoute.options.getString("_name", myRoute.name),
+                                myRoute.template,
+                                myRoute.defaults.getString("plugin", ""),
+                                myRoute.defaults.getString("prefix", ""),
+                                myRoute.defaults.getString("controller", ""),
+                                myRoute.defaults.getString("action", ""),
+                                someMethods.join(", ")
+                            ]; break;}
+                        });
+                    }
+                    if (someDuplicateRoutes) {
+                        array_unshift(someDuplicateRoutes, aHeader);
+                        aConsoleIo.warning(
+                            "The following possible route collisions were detected.");
+                        aConsoleIo.helper("table").output(someDuplicateRoutes);
+                        aConsoleIo.writeln();
+                    }
+                    return CODE_SUCCESS;
+                }
 
-DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser aParser) {
-    aParser
-        .description("Get the list of routes connected in this application.")
-        .addOption("sort", [
-                "help": "sorts alphabetically by route name A-Z",
-                "short": "s",
-                "boolean": true.toJson,
-            ]);
+                DConsoleOptionParser buildOptionParser(
+                    DConsoleOptionParser buildOptionParser aParser) {
+                    aParser
+                        .description("Get the list of routes connected in this application.")
+                        .addOption("sort", [
+                                "help": "sorts alphabetically by route name A-Z",
+                                "short": "s",
+                                "boolean": true.toJson,
+                            ]);
 
-    return aParser;
-}
-}
+                    return aParser;
+                }
+            }
 
+            
 
-
-*  / 
+            *  / 

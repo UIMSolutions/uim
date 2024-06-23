@@ -34,16 +34,12 @@ class DMapTempl(K, V): DMap {
 	// has is Shortcaut for hasKey
 	bool has(K key) { return (key in _items) ? true : false; }
 
-	bool hasAnyKeys(K[] keys...) { foreach(key; keys) if (hasKey(key)) { return true; } return false; }
-	bool hasAllKeys(K[] keys...) { foreach(key; keys) if (!hasKey(key)) { 
-      return false; 
-    } return true; }
+	bool hasAnyKeys(K[] keys...) { return keys.any!(key => hasKey(key)) }
+	bool hasAllKeys(K[] keys...) { return keys.all!(key => hasKey(key)) }
 	bool hasKey(K key) { return (key in _items) ? true : false; }
 
-	bool hasAnyValues(V[] values...) { foreach(value; values) if (hasValue(value)) { return true; } return false; }
-	bool hasAllValues(V[] values...) { foreach(value; values) if (!hasValue(value)) { 
-      return false; 
-    } return true; }
+	bool hasAnyValues(V[] values...) { return values.any!(value => hasValue(value)) }
+	bool hasAllValues(V[] values...) { return values.all!(value => hasValue(value)) }
 	bool hasValue(V value) { foreach(k, v; _items) if (v == value) { return true; } return false; }
 
 	O add(this O)(V[K] values) { foreach(k, v; values) add(k, v); return cast(O)this; }

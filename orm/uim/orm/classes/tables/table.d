@@ -391,23 +391,25 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Params:
      * \UIM\Database\Schema\TableISchema|array myschema Schema to be used for this table
      */
-    void setSchema(TableISchema/* |array  */ myschema) {
-        if (isArray(myschema)) {
+    void setSchema(TableISchema[string] newSchemas) {
+        if (isArray(newSchemas)) {
             auto constraints = null;
 
-            if (myschema.hasKey("_constraints")) {
-                constraints = myschema["_constraints"];
-                remove(myschema["_constraints"]);
+            if (newSchemas.hasKey("_constraints")) {
+                constraints = newSchemas["_constraints"];
+                newSchemas.remove("_constraints");
             }
-            myschema = getConnection().getDriver().newTableSchema(getTable(), myschema);
 
-            foreach (constraints as myname: myvalue) {
-                myschema.addConstraint(myname, myvalue);
+            newSchemas = getConnection().getDriver().newTableSchema(getTable(), newSchemas);
+            foreach (myname, myvalue; constraints) {
+                newSchemas.addConstraint(myname, myvalue);
             }
         }
-       _schema = myschema;
+    }
+    void setSchema(TableISchema newSchema) {
+       _schema = newSchema;
         if (configuration.hasKey("debug")) {
-            this.checkAliasLengths();
+            checkAliasLengths();
         }
     }
     

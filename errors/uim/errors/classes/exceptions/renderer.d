@@ -129,14 +129,14 @@ class DExceptionRenderer { // }: IExceptionRenderer
             myErrorOccured = true;
         }
 
-        if (!isset(controller)) {
+        if (controller is null) {
             return new DController(myRequest);
         }
 
         // Retry RequestHandler, as another aspect of startupProcess()
         // could have failed. Ignore any exceptions out of startup, as
         // there could be userland input data parsers.
-        if (myErrorOccured && isset(controller.RequestHandler)) {
+        if (myErrorOccured && controller.RequestHandler !is null) {
             try {
                 myEvent = new DEvent("Controller.startup", controller);
                 controller.RequestHandler.startup(myEvent);
@@ -251,7 +251,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
         if (
             !Configure.read("debug") &&
-            !(exception instanceof HttpException)
+            !(cast(HttpException)exception)
        ) {
             myMessage = errorCode < 500
                 ? __d("uim", "Not Found") 
@@ -263,11 +263,11 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
     // Get template for rendering exception info.
     protected string templateName(Throwable exception, string methodName, int errorCode) {
-        if (exception instanceof HttpException || !Configure.read("debug")) {
+        if (cast(HttpException)exception || !Configure.read("debug")) {
             return _template = errorCode < 500 ? "error400" : "error500";
         }
 
-        if (exception instanceof PDOException) {
+        if (cast(PDOException)exception) {
             return _template = "pdo_error";
         }
 
@@ -276,11 +276,9 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
     // Gets the appropriate http status code for exception.
     protected int getHttpCode(Throwable exception) {
-        if (exception instanceof HttpException) {
-            return exception.code();
-        }
-
-        return _exceptionHttpCodes[get_class(exception)] ?? 500;
+        return cast(HttpException)exception
+            ? exception.code()
+            : _exceptionHttpCodes[get_class(exception)] ?? 500;
     }
 
     // Generate the response using the controller object.
@@ -301,7 +299,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
             return _outputMessage("error500");
         } catch (MissingPluginException e) {
             attributes = e.getAttributes();
-            if (isset(attributes["plugin"]) && attributes["plugin"] == _controller.getPlugin()) {
+            if (attributes.hasKey("plugin") && attributes["plugin"] == _controller.getPlugin()) {
                 _controller.setPlugin(null);
             }
 

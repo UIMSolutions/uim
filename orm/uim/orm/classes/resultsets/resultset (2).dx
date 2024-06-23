@@ -256,7 +256,7 @@ class DResultset : IResultset {
             this.next();
         }
 
-        if (_results instanceof SplFixedArray) {
+        if (cast(SplFixedArray)_results instanceof) {
             return _results.toArray();
         }
 

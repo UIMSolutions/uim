@@ -252,7 +252,7 @@ class DFileCacheEngine : DCacheEngine {
         }
         /** @psalm-suppress TypeDoesNotContainType * /
         if (
-            !isSet(_File) ||
+            !_File !is null) ||
             _File.getBasename() != key ||
             _File.valid() == false
            ) {

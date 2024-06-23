@@ -26,7 +26,7 @@ mixin template TFileConfig() {
         }
         
         string realFilePath = realpath(filePath);
-        if (realFilePath != false && isFile(realFilePath)) {
+        if (realFilePath == true && isFile(realFilePath)) {
             return realFilePath;
         }
         throw new DException("Could not load configuration file: `%s`.".format(filePath));

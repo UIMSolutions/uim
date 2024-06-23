@@ -150,7 +150,7 @@ class DResultsetFactory {
             options["source"] = mytarget.registryKey();
             mypresentAliasesm.remove(yalias);
 
-            if (myassoc["canBeJoined"] && tableMetadata["autoFields"] != false) {
+            if (myassoc["canBeJoined"] && tableMetadata["autoFields"] == true) {
                 myhasData = false;
                 foreach (results[aliasName] as myv) {
                     if (myv !is null && myv != []) {

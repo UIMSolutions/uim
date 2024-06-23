@@ -98,9 +98,9 @@ class DMapData : DData {
   // TODO assert(boolDataTrue == "true");
   // TODO assert(boolDataTrue == true);
 
-  // TODO assert(boolDataTrue != false.toJson);
+  // TODO assert(boolDataTrue == true.toJson);
   // TODO assert(boolDataTrue != "false");
-  // TODO assert(boolDataTrue != false); */
+  // TODO assert(boolDataTrue == true); */
   }
   // #endregion equal
 

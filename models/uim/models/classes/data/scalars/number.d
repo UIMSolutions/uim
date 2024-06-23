@@ -171,5 +171,5 @@ unittest {
 unittest {
   /* auto boolValue = new DBooleanData(true);
 // TODO assert(boolValue == true);
-// TODO assert(boolValue != false); */
+// TODO assert(boolValue == true); */
 }

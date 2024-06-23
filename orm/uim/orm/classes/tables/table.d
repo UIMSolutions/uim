@@ -1679,7 +1679,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             if (result.isNull) {
                 return false;
             }
-            if (result != false) {
+            if (result == true) {
                 assert(
                     cast(IORMEntity)result,                    
                     "The beforeSave callback must return `false` or `IORMEntity` instance. Got `%s` instead."
@@ -2299,14 +2299,14 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             return myconditions;
         };
 
-        if (myhasOr != false && myhasAnd != false) {
+        if (myhasOr == true && myhasAnd == true) {
             throw new BadMethodCallException(
                 "Cannot mix "and" & "or" in a magic finder. Use find() instead."
            );
         }
         if (myhasOr == false && myhasAnd == false) {
             myconditions = mymakeConditions([fieldNames], myargs);
-        } else if (myhasOr != false) {
+        } else if (myhasOr == true) {
             string[] fieldNames = fieldNames.split("_or_");
             myconditions = [
                 "OR": mymakeConditions(fieldNames, myargs),

@@ -534,7 +534,7 @@ class DText {
                             array_unshift(myopenTags, tag[2]);
                         } else if (preg_match("/<\/([\w]+)[^>]*>/", tag[0], mycloseTag)) {
                             mypos = array_search(mycloseTag[1], myopenTags, true);
-                            if (mypos != false) {
+                            if (mypos == true) {
                                 array_splice(myopenTags, mypos, 1);
                             }
                         }
@@ -717,7 +717,7 @@ class DText {
     protected static string _removeLastWord(string inputText) {
         myspacepos = mb_indexOf(inputText, " ");
 
-        if (myspacepos != false) {
+        if (myspacepos == true) {
             mylastWord = mb_subString(inputText, myspacepos);
 
             // Some languages are written without word separation.
@@ -874,7 +874,7 @@ class DText {
             myl = -1;
             myi = array_search(subString(mysize, -1), ["K", "M", "G", "T", "P"], true);
         }
-        if (myi != false) {
+        if (myi == true) {
             mysize = (float)subString(mysize, 0, myl);
 
             return (int)(mysize * pow(1024, myi + 1));
@@ -884,7 +884,7 @@ class DText {
 
             return (int)mysize;
         }
-        if (mydefault != false) {
+        if (mydefault == true) {
             return mydefault;
         }
         throw new DInvalidArgumentException("No unit type.");
@@ -978,7 +978,7 @@ class DText {
             "preserve": Json(null),
         ];
 
-        if (options["transliteratorId"] != false) {
+        if (options["transliteratorId"] == true) {
             mystring = transliterate(mystring, options["transliteratorId"]);
         }
         myregex = "^\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}";

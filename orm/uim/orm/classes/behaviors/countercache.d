@@ -218,7 +218,7 @@ class DCounterCacheBehavior : DBehavior {
                         ? fieldData.value(myevent, myentity, _table, false)
                         : _getCount(fieldData.value, mycountConditions);
 
-                    if (mycount != false) {
+                    if (mycount == true) {
                         myassoc.getTarget().updateAll([fieldName: mycount], myupdateConditions);
                     }
                 }
@@ -227,7 +227,7 @@ class DCounterCacheBehavior : DBehavior {
                         ? fieldData.value(myevent, myentity, _table, true)
                         : _getCount(fieldData.value, mycountOriginalConditions);
 
-                    if (mycount != false) {
+                    if (mycount == true) {
                         myassoc.getTarget().updateAll([fieldName: mycount], myupdateOriginalConditions);
                     }
                 }

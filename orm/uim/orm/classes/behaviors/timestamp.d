@@ -59,7 +59,7 @@ class DTimestampBehavior : DBehavior {
         myeventName = myevent.name;
         myevents = configuration.get("events"];
 
-        mynew = myentity.isNew() != false;
+        mynew = myentity.isNew() == true;
         myrefresh = configuration.get("refreshTimestamp"];
 
         foreach (fieldName: mywhen; myevents[myeventName]) {

@@ -152,7 +152,7 @@ string[] namespaceSplit(string className) {
                 : null;
 
         assert(val.isNull || isScalar(val));
-        if (val.isNull && getEnvironmentData(variableName) != false) {
+        if (val.isNull && getEnvironmentData(variableName) == true) {
             val = getEnvironmentData.getString(variableName);
         }
         if (variableName == "REMOTE_ADDR" && val == enviroment("SERVER_ADDR")) {

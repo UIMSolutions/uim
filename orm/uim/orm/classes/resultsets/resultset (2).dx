@@ -204,7 +204,7 @@ class DResultset : IResultset {
         }
 
         _current = _fetchResult();
-        valid = _current != false;
+        valid = _current == true;
 
         if (valid && _useBuffering) {
             _results[_index] = _current;
@@ -434,7 +434,7 @@ class DResultset : IResultset {
             options["source"] = target.registryKey();
             presentAliases.remove(aliasName);
 
-            if (assoc["canBeJoined"] && _autoFields != false) {
+            if (assoc["canBeJoined"] && _autoFields == true) {
                 auto hasData = false;
                 foreach (v; results[aliasName]) {
                     if (v != null && v != []) {

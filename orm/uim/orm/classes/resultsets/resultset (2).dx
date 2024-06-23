@@ -341,7 +341,7 @@ class DResultset : IResultset {
         }
 
         foreach (_matchingMap as alias: assoc) {
-            if (!isset(map[aliasName])) {
+            if (map.isNull(aliasName)) {
                 continue;
             }
             _matchingMapColumns[aliasName] = map[aliasName];

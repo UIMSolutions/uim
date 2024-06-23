@@ -122,7 +122,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             controller.startupProcess();
         } catch (Throwable  anException) {
         }
-        if (!isSet(controller)) {
+        if (controller is null)) {
             return new DController(request);
         }
         return controller;

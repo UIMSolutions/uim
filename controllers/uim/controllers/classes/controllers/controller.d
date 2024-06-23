@@ -163,7 +163,7 @@ class DController : IController { // DEventListener, IEventDispatcher {
    ) {
         /* if (nameToOverride) {
             name(nameToOverride);
-        } elseif (!isSet(_name)) {
+        } elseif (_name is null) {
             auto controller = request.getParam("controller");
             if (controller) {
                 _name = controller;

@@ -167,7 +167,7 @@ class DBehavior : DEventListener {
      * @param Json[string] myConfiguration The customized method mappings.
      */
     protected Json[string] _resolveMethodAliases(string keyToFilter, Json[string] defaultMethodMap, Json myConfiguration) {
-        if (!isset(defaultMethodMap[keyToFilter], configuration.get(keyToFilter))) {
+        if (defaultMethodMap.isNull(keyToFilter) && configuration.isNull(keyToFilter)) {
             return configuration;
         }
         if (configuration.hasKey(keyToFilter) && configuration.isEmpty(keyToFilter)) {

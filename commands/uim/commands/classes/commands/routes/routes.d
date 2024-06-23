@@ -122,7 +122,7 @@ class DRoutesCommand : DCommand {
                 output ~= anItem;
 
                 someMethods.each!((method) {
-                    if (!isSet(someDuplicateRoutesCounter[route.template][method])) {
+                    if (someDuplicateRoutesCounter.isNull([route.template, method])) {
                         someDuplicateRoutesCounter[route.template][method] = 0;
                     }
                     someDuplicateRoutesCounter[route.template][method]++;

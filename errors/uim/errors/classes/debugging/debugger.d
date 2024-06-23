@@ -431,11 +431,11 @@ class DDebugger {
             data = explode("\n", data);
         }
         auto lineNumber--;
-        if (!isset(data[lineNumber])) {
+        if (data.isNull(lineNumber)) {
             return lines;
         }
         for (i = lineNumber - numberLinesContext; i < lineNumber + numberLinesContext + 1; i++) {
-            if (!isset(data[i])) {
+            if (data.isNull(i)) {
                 continue;
             }
             string text = replace(["\r\n", "\n"], "", _highlight(data[i]));

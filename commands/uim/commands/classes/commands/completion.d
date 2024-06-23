@@ -97,14 +97,14 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
         auto options = null;
         _commands.byKeyValue
             .each!((kv) {
-            string[] someParts = kv.key.split(" ");
+                string[] someParts = kv.key.split(" ");
                 if (someParts[0] != commandName) {
                     continue;
                 }
                 // Space separate command name, collect
                 // hits as subcommands
                 if (count(someParts) > 1) {
-                    options ~= join(" ", array_slice(someParts, 1));
+                    options ~= array_slice(someParts, 1).join(" ");
                 }
             });
         options = array_unique(options);
@@ -125,7 +125,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
             if (someParts[0] != commandName) {
                 continue;
             }
-            if (subcommand && !isSet(someParts[1])) {
+            if (subcommand && !isSet(someParts.isNull(1)) {
                 continue;
             }
             if (subcommand && isSet(someParts[1]) && someParts[1] != subcommand) {

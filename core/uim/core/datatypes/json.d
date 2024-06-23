@@ -155,6 +155,23 @@ unittest {
 }
 
 /// Searching key in json, if depth = true also in subnodes  
+bool hasKey(Json aJson, string[] path, bool deepSearch = false) {
+   if (aJson.isObject) {
+    path.
+    foreach (kv; aJson.byKeyValue) {
+      if (kv.key == key) {
+        return true;
+      }
+      if (deepSearch) {
+        auto result = kv.value.hasKey(key, deepSearch);
+        if (result) {
+          return true;
+        }
+      }
+    }
+  }
+}
+
 bool hasKey(Json aJson, string key, bool deepSearch = false) {
   if (aJson.isObject) {
     foreach (kv; aJson.byKeyValue) {

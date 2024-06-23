@@ -56,6 +56,7 @@ unittest {
 bool isFloat(Json value) {
   return (value.type == Json.Type.float_);
 }
+
 bool isDouble(Json value) {
   return (value.type == Json.Type.float_);
 }
@@ -80,6 +81,24 @@ unittest {
 
 bool isNull(Json value) {
   return (value.type == Json.Type.null_);
+}
+
+bool isNull(Json value, string[] path) {
+  if (uim.core.containers.array_.isEmpty(path)) {
+    return true;
+  }
+
+  auto firstKey = path[0];
+  if (value.isNull(firstKey)) {
+    return true;
+  }
+
+  return path.length > 1
+    ? isNull(value[firstKey], path.removeFirst) : false;
+}
+
+bool isNull(Json value, string key) {
+  return value.isObject && value.hasKey(key);
 }
 
 unittest {
@@ -110,7 +129,7 @@ bool isEmpty(Json value) {
   if (value.isNull) {
     return true;
   }
-  
+
   if (value.isString) {
     return value.getString.length == 0;
   }
@@ -155,21 +174,18 @@ unittest {
 }
 
 /// Searching key in json, if depth = true also in subnodes  
-bool hasKey(Json aJson, string[] path, bool deepSearch = false) {
-   if (aJson.isObject) {
-    path.
-    foreach (kv; aJson.byKeyValue) {
-      if (kv.key == key) {
-        return true;
-      }
-      if (deepSearch) {
-        auto result = kv.value.hasKey(key, deepSearch);
-        if (result) {
-          return true;
-        }
-      }
-    }
+bool hasKey(Json value, string[] path) {
+  if (!value.isObject || uim.core.containers.array_.isEmpty(path)) {
+    return false;
   }
+
+  auto firstKey = path[0];
+  if (!value.hasKey(firstKey)) {
+    return false;
+  }
+
+  return path.length > 1
+    ? hasKey(value[firstKey], path.removeFirst) : true;
 }
 
 bool hasKey(Json aJson, string key, bool deepSearch = false) {
@@ -414,6 +430,7 @@ Json[] loadJsonsFromDirectories(string[] dirNames) {
     .array // Json[][]
     .join;
 }
+
 unittest {
   /// TODO Add Tests
 }
@@ -423,7 +440,7 @@ Json[] loadJsonsFromDirectory(string dirName) {
   // debug writeln("In loadJsonsFromDirectory("~dirName~")");
   // debug writeln("Found ", fileNames(dirName).length, " files");
   // TODO return loadJsons(fileNames(dirName, true));
-  return null; 
+  return null;
 }
 
 version (test_uim_core) {
@@ -524,96 +541,100 @@ version (test_uim_core) {
   }
 }
 
-  // #region toJson
-    Json toJson(bool value) {
-      return Json(value);
-    }
+// #region toJson
+Json toJson(bool value) {
+  return Json(value);
+}
 
-    Json toJson(long value) {
-      return Json(value);
-    }
+Json toJson(long value) {
+  return Json(value);
+}
 
-    Json toJson(double value) {
-      return Json(value);
-    }
+Json toJson(double value) {
+  return Json(value);
+}
 
-    Json toJson(string value) {
-      return Json(value);
-    }
+Json toJson(string value) {
+  return Json(value);
+}
 
-    Json toJson(UUID value) {
-      return toJson(value.toString);
-    }
+Json toJson(UUID value) {
+  return toJson(value.toString);
+}
 
-    Json toJson(string aKey, string aValue) {
-      Json result = Json.emptyObject;
-      result[aKey] = aValue;
-      return result;
-    }
+Json toJson(string aKey, string aValue) {
+  Json result = Json.emptyObject;
+  result[aKey] = aValue;
+  return result;
+}
 
-    version (test_uim_core) {
-      unittest {
-        assert(toJson("a", "3")["a"] == "3");
-      }
-    }
+version (test_uim_core) {
+  unittest {
+    assert(toJson("a", "3")["a"] == "3");
+  }
+}
 
-    Json toJson(string aKey, UUID aValue) {
-      Json result = Json.emptyObject;
-      result[aKey] = aValue.toString;
-      return result;
-    }
+Json toJson(string aKey, UUID aValue) {
+  Json result = Json.emptyObject;
+  result[aKey] = aValue.toString;
+  return result;
+}
 
-    unittest {
-      auto id = randomUUID;
-      assert(UUID(toJson("id", id)["id"].get!string) == id);
-    }
+unittest {
+  auto id = randomUUID;
+  assert(UUID(toJson("id", id)["id"].get!string) == id);
+}
 
-    /// Special case for managing entities
-    Json toJson(UUID id, size_t versionNumber) {
-      Json result = toJson("id", id);
-      result["versionNumber"] = versionNumber;
-      return result;
-    }
-    unittest {
-      auto id = randomUUID;
-      assert(toJson(id, 0).getString("id") == id.toString);
-      assert("versionNumber" in toJson(id, 0));
-      assert(toJson(id, 1)["id"].get!string == id.toString);
-      assert(toJson(id, 1)["versionNumber"].get!size_t == 1);
-    }
+/// Special case for managing entities
+Json toJson(UUID id, size_t versionNumber) {
+  Json result = toJson("id", id);
+  result["versionNumber"] = versionNumber;
+  return result;
+}
 
-    Json toJson(bool[] values) {
-      auto json = Json.emptyArray;
-      values.each!(value => json ~= value);
-      return json;
-    }
-    unittest {
-      assert([true, true, false].toJson.length == 3);
-      assert([true, true, false].toJson[0].getBoolean);
-    }
+unittest {
+  auto id = randomUUID;
+  assert(toJson(id, 0).getString("id") == id.toString);
+  assert("versionNumber" in toJson(id, 0));
+  assert(toJson(id, 1)["id"].get!string == id.toString);
+  assert(toJson(id, 1)["versionNumber"].get!size_t == 1);
+}
 
-    Json toJson(string[] values) {
-      auto json = Json.emptyArray;
-      values.each!(value => json ~= value);
-      return json;
-    }
-    unittest {
-      assert(["a", "b", "c"].toJson.length == 3);
-      assert(["a", "b", "c"].toJson[0] == "a");
-    }
+Json toJson(bool[] values) {
+  auto json = Json.emptyArray;
+  values.each!(value => json ~= value);
+  return json;
+}
 
-    Json toJson(STRINGAA map, string[] excludeKeys = null) {
-      Json json = Json.emptyObject;
-      map.byKeyValue
-        .filter!(kv => !excludeKeys.any!(key => key == kv.key))
-        .each!(kv => json[kv.key] = kv.value);
-      return json;
-    }
-    unittest {
-      assert(["a": "1", "b": "2", "c": "3"].toJson.length == 3);
-      assert(["a": "1", "b": "2", "c": "3"].toJson["a"] == "1");
-    }
-  // #endregion toJson
+unittest {
+  assert([true, true, false].toJson.length == 3);
+  assert([true, true, false].toJson[0].getBoolean);
+}
+
+Json toJson(string[] values) {
+  auto json = Json.emptyArray;
+  values.each!(value => json ~= value);
+  return json;
+}
+
+unittest {
+  assert(["a", "b", "c"].toJson.length == 3);
+  assert(["a", "b", "c"].toJson[0] == "a");
+}
+
+Json toJson(STRINGAA map, string[] excludeKeys = null) {
+  Json json = Json.emptyObject;
+  map.byKeyValue
+    .filter!(kv => !excludeKeys.any!(key => key == kv.key))
+    .each!(kv => json[kv.key] = kv.value);
+  return json;
+}
+
+unittest {
+  assert(["a": "1", "b": "2", "c": "3"].toJson.length == 3);
+  assert(["a": "1", "b": "2", "c": "3"].toJson["a"] == "1");
+}
+// #endregion toJson
 
 Json mergeJsonObject(Json baseJson, Json mergeJson) {
   Json result;
@@ -710,9 +731,8 @@ Json jsonWithMinVersion(Json[] jsons) {
   if (jsons.length > 1) {
     jsons[1 .. $]
       .filter!(json => json.isObject && "versionNumber" in json) // Object with versionNumber
-      .each!(json => minJson = json["versionNumber"].get!size_t < minJson["versionNumber"].get!size_t 
-        ? json
-        : minJson);
+      .each!(json => minJson = json["versionNumber"].get!size_t < minJson["versionNumber"].get!size_t
+          ? json : minJson);
   }
 
   return minJson;
@@ -912,142 +932,141 @@ Json getJson(Json value, string key) {
     auto keys = std.string.split(key, ".");
     auto json = getJson(value, keys[0]);
     return keys.length > 1 && !json.isNull
-      ? getJson(json, keys[1..$].join("."))
-      : json;
+      ? getJson(json, keys[1 .. $].join(".")) : json;
   }
   return value;
 }
 
 // #region getBoolean 
-  bool getBoolean(Json value, size_t index) {
-    return !value.isNull && value.isArray && value.length > index
-      ? value[index].getBoolean : false;
-  }
+bool getBoolean(Json value, size_t index) {
+  return !value.isNull && value.isArray && value.length > index
+    ? value[index].getBoolean : false;
+}
 
-  bool getBoolean(Json value, string key) {
-    return !value.isNull && value.isObject && value.hasKey(key)
-      ? value[key].getBoolean : false;
-  }
+bool getBoolean(Json value, string key) {
+  return !value.isNull && value.isObject && value.hasKey(key)
+    ? value[key].getBoolean : false;
+}
 
-  bool getBoolean(Json value) {
-    return !value.isNull && value.isBoolean
-      ? value.get!bool : false;
-  }
+bool getBoolean(Json value) {
+  return !value.isNull && value.isBoolean
+    ? value.get!bool : false;
+}
 
-  unittest {
-    Json jValue = Json(true);
-    
-    Json jArray = Json.emptyArray;
-    jArray ~= true;
-    jArray ~= false;
+unittest {
+  Json jValue = Json(true);
 
-    Json jObject = Json.emptyObject;
-    jObject["true"] = true;
-    jObject["false"] = false;
+  Json jArray = Json.emptyArray;
+  jArray ~= true;
+  jArray ~= false;
 
-    assert(jValue.getBoolean); // == true
-    assert(jArray.getBoolean(0)); // == true
-    assert(jObject.getBoolean("true")); // == true
-  }
+  Json jObject = Json.emptyObject;
+  jObject["true"] = true;
+  jObject["false"] = false;
+
+  assert(jValue.getBoolean); // == true
+  assert(jArray.getBoolean(0)); // == true
+  assert(jObject.getBoolean("true")); // == true
+}
 // #endregion getBoolean
 
 // #region getInteger 
-  int getInteger(Json value, size_t index) {
-    return !value.isNull && value.isArray && value.length > index
-      ? value[index].getInteger : 0;
-  }
+int getInteger(Json value, size_t index) {
+  return !value.isNull && value.isArray && value.length > index
+    ? value[index].getInteger : 0;
+}
 
-  int getInteger(Json value, string key) {
-    return !value.isNull && value.isObject && value.hasKey(key)
-      ? value[key].getInteger : 0;
-  }
+int getInteger(Json value, string key) {
+  return !value.isNull && value.isObject && value.hasKey(key)
+    ? value[key].getInteger : 0;
+}
 
-  int getInteger(Json value) {
-    return !value.isNull && value.isInteger
-      ? value.get!int : 0;
-  }
-  
-  unittest {
-    Json jValue = Json(1);
-    
-    Json jArray = Json.emptyArray;
-    jArray ~= 1;
-    jArray ~= 2;
+int getInteger(Json value) {
+  return !value.isNull && value.isInteger
+    ? value.get!int : 0;
+}
 
-    Json jObject = Json.emptyObject;
-    jObject["one"] = 1;
-    jObject["two"] = 2;
+unittest {
+  Json jValue = Json(1);
 
-    assert(jValue.getInteger == 1); // == true
-    assert(jArray.getInteger(0) == 1); // == true
-    assert(jObject.getInteger("one") == 1); // == true
-  }
+  Json jArray = Json.emptyArray;
+  jArray ~= 1;
+  jArray ~= 2;
+
+  Json jObject = Json.emptyObject;
+  jObject["one"] = 1;
+  jObject["two"] = 2;
+
+  assert(jValue.getInteger == 1); // == true
+  assert(jArray.getInteger(0) == 1); // == true
+  assert(jObject.getInteger("one") == 1); // == true
+}
 // #endregion getInteger
 
 // #region getLong
-  long getLong(Json value, size_t index) {
-    return !value.isNull && value.isArray && value.length > index
-      ? value[index].getLong : 0;
-  }
+long getLong(Json value, size_t index) {
+  return !value.isNull && value.isArray && value.length > index
+    ? value[index].getLong : 0;
+}
 
-  long getLong(Json value, string key) {
-    return !value.isNull && value.isObject && value.hasKey(key)
-      ? value[key].getLong : 0;
-  }
+long getLong(Json value, string key) {
+  return !value.isNull && value.isObject && value.hasKey(key)
+    ? value[key].getLong : 0;
+}
 
-  long getLong(Json value) {
-    return !value.isNull && (value.isInteger || value.isLong)
-      ? value.get!long : 0;
-  }
+long getLong(Json value) {
+  return !value.isNull && (value.isInteger || value.isLong)
+    ? value.get!long : 0;
+}
 
-  unittest {
-    Json jValue = Json(1);
-    
-    Json jArray = Json.emptyArray;
-    jArray ~= 1;
-    jArray ~= 2;
+unittest {
+  Json jValue = Json(1);
 
-    Json jObject = Json.emptyObject;
-    jObject["one"] = 1;
-    jObject["two"] = 2;
+  Json jArray = Json.emptyArray;
+  jArray ~= 1;
+  jArray ~= 2;
 
-    assert(jValue.getLong == 1); // == true
-    assert(jArray.getLong(0) == 1); // == true
-    assert(jObject.getLong("one") == 1); // == true
-  }
+  Json jObject = Json.emptyObject;
+  jObject["one"] = 1;
+  jObject["two"] = 2;
+
+  assert(jValue.getLong == 1); // == true
+  assert(jArray.getLong(0) == 1); // == true
+  assert(jObject.getLong("one") == 1); // == true
+}
 // #endregion getLong
 
 // #region getFloat
-  float getFloat(Json value, size_t index) {
-    return !value.isNull && value.isArray && value.length > index
-      ? value[index].getFloat : 0.0;
-  }
+float getFloat(Json value, size_t index) {
+  return !value.isNull && value.isArray && value.length > index
+    ? value[index].getFloat : 0.0;
+}
 
-  float getFloat(Json value, string key) {
-    return !value.isNull && value.isObject && value.hasKey(key)
-      ? value[key].getFloat : 0.0;
-  }
+float getFloat(Json value, string key) {
+  return !value.isNull && value.isObject && value.hasKey(key)
+    ? value[key].getFloat : 0.0;
+}
 
-  float getFloat(Json value) {
-    return !value.isNull && value.isFloat
-      ? value.get!float : 0.0;
-  }
+float getFloat(Json value) {
+  return !value.isNull && value.isFloat
+    ? value.get!float : 0.0;
+}
 
-  unittest {
-    Json jValue = Json(1.0);
-    
-    Json jArray = Json.emptyArray;
-    jArray ~= 1.0;
-    jArray ~= 2.0;
+unittest {
+  Json jValue = Json(1.0);
 
-    Json jObject = Json.emptyObject;
-    jObject["one"] = 1.0;
-    jObject["two"] = 2.0;
+  Json jArray = Json.emptyArray;
+  jArray ~= 1.0;
+  jArray ~= 2.0;
 
-    assert(jValue.getFloat == 1.0); // == true
-    assert(jArray.getFloat(0) == 1.0); // == true
-    assert(jObject.getFloat("one") == 1.0); // == true
-  }
+  Json jObject = Json.emptyObject;
+  jObject["one"] = 1.0;
+  jObject["two"] = 2.0;
+
+  assert(jValue.getFloat == 1.0); // == true
+  assert(jArray.getFloat(0) == 1.0); // == true
+  assert(jObject.getFloat("one") == 1.0); // == true
+}
 // #endregion getFloat
 
 double getDouble(Json value, string key) {

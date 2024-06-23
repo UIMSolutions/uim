@@ -422,17 +422,7 @@ unittest {
     ]);
 }
 
-bool isNull(T)(T[] values) {
-  return (values is null);
-}
 
-unittest {
-  string[] values;
-  assert(values.isNull);
-
-  values ~= "x";
-  assert(!values.isNull);
-}
 
 T[] ifNull(T)(T[] values, T[] defaultValues = null) {
   return values.isNull ? defaultValues : values;
@@ -440,17 +430,6 @@ T[] ifNull(T)(T[] values, T[] defaultValues = null) {
 
 unittest {
   // TODO create tests
-}
-
-bool isEmpty(T)(T[] values) {
-  return (values.isNull || values.length == 0);
-}
-
-unittest {
-  int[] x;
-  assert(x.isEmpty);
-  assert(![1, 2, 3, 4].isEmpty);
-  assert([].isEmpty);
 }
 
 T[] ifEmpty(T)(T[] values, T[] defaultValues = null) {
@@ -461,3 +440,62 @@ T[] ifEmpty(T)(T[] values, T[] defaultValues = null) {
 unittest {
   // TODO create test
 }
+
+// #region isNull
+bool isNull(T)(T[] values) {
+  return values is null;
+}
+
+unittest {
+  string[] values;
+  assert(values.isNull);
+
+  values ~= "x";
+  assert(!values.isNull);
+}
+// #endregion isNull
+
+// #region isEmpty
+bool isEmpty(T)(T[] values) {
+  return values.length == 0;
+}
+
+unittest {
+  int[] x;
+  assert(x.isEmpty);
+  assert(![1, 2, 3, 4].isEmpty);
+  assert([].isEmpty);
+}// #endregion isEmpty
+
+
+// #region remove
+T[] removeFirst(T)(T[] values) {
+  if (values.isEmpty) { return values; }
+  if (values.length == 1) { values = null; }
+  else {
+    values = values[1..$];
+  }
+
+  return values;
+}
+unittest {
+  writeln(["a", "b", "c"].removeFirst);
+  writeln([1, 3, 5].removeFirst);
+  assert(["a", "b", "c"].removeFirst.length == 2);
+}
+
+T[] removeLast(T)(T[] values) {
+  if (values.isEmpty) { return values; }
+  if (values.length == 1) { values = null; }
+  else {
+    values = values[0..$-1];
+  }
+
+  return values;
+}
+unittest {
+  writeln(["a", "b", "c"].removeLast);
+  writeln([1, 3, 5].removeLast);
+  assert(["a", "b", "c"].removeLast.length == 2);
+}
+// #endregion remove

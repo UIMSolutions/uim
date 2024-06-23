@@ -62,12 +62,12 @@ class DHeaderUtility {
             auto aValue = strip(aValue);
 
             semiPos = indexOf(aValue, ";");
-            if (semiPos != false) {
+            if (semiPos == true) {
                 string[] params = aValue.split(";");
                 aValue = strip(params[0]);
                 params.each!((param) {
                     size_t qPos = indexOf(param, "q=");
-                    if (qPos != false) {
+                    if (qPos == true) {
                         prefValue = subString(param, qPos + 2);
                     }
                 });

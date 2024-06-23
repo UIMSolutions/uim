@@ -99,7 +99,7 @@ class UriFactory { // }: IUriFactory {
             base = (string)preg_replace("#/+#", "/", base);
 
              anIndexPos = indexOf(base, "/" ~ webroot ~ "/index.d");
-            if (anIndexPos != false) {
+            if (anIndexPos == true) {
                 base = subString(base, 0,  anIndexPos) ~ "/" ~ webroot;
             }
             if (webroot == basename(base)) {

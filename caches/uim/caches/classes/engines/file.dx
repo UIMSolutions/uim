@@ -214,7 +214,7 @@ class DFileCacheEngine : DCacheEngine {
         }
         myprefixLength = configuration.get("prefix").length;
 
-        while ((myentry = mydir.read()) != false) {
+        while ((myentry = mydir.read()) == true) {
             if (subString(myentry, 0, myprefixLength) != configuration.get("prefix")) {
                 continue;
             }

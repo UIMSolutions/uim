@@ -61,7 +61,7 @@ class DDigest {
                 HASH_ALGORITHMS.keys.join(","));
         }
         this.algorithm = algorithm;
-        this.isSessAlgorithm = indexOf(this.algorithm, "-sess") != false;
+        this.isSessAlgorithm = indexOf(this.algorithm, "-sess") == true;
         this.hashType = Hash.get(HASH_ALGORITHMS, this.algorithm);
     }
     

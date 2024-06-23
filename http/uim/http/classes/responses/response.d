@@ -1003,7 +1003,7 @@ class DResponse : IResponse {
         if (etagMatches.isNull && timeMatches.isNull) {
             return false;
         }
-        return etagMatches != false && timeMatches != false;
+        return etagMatches == true && timeMatches == true;
     }
     
     /**

@@ -649,7 +649,7 @@ class DMessage { //: JsonSerializable {
         if (!aHeaders.hasKey("Date")) {
             aHeaders["Date"] = date(DATE_RFC2822);
         }
-        if (_messageId != false) {
+        if (_messageId == true) {
             if (_messageId == true) {
                 _messageId = "<" ~ Text.uuid().replace("-", "") ~ "@" ~ this.domain ~ ">";
             }

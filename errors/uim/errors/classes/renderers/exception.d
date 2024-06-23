@@ -223,11 +223,10 @@ class DExceptionRenderer : IExceptionRenderer {
     protected DResponse _customMethod(string methodToInvoke, Throwable myExceptionToRender) {
         myResult = this.{method}(myException);
         _shutdown();
-        if (!myResult.isString) {
-            return myResult;
-        }
 
-        return _controller.getResponse().withStringBody(myResult);
+        return !myResult.isString
+            ? myResult
+            : _controller.getResponse().withStringBody(myResult);
     }
 
     // Get method name
@@ -239,15 +238,12 @@ class DExceptionRenderer : IExceptionRenderer {
         }
 
         // baseClass would be an empty string if the exception class is \Exception.
-        method = baseClass == "" ? "error500" : Inflector.variable(baseClass);
+        _method = baseClass == "" ? "error500" : Inflector.variable(baseClass);
 
-        return _method = method;
+        return _method;
     }
 
-    /**
-     * Get error message.
-     * @param \Throwable myException Exception.
-     */
+    // Get error message.
     protected string errorMessage(Throwable myException, int errorCode) {
         auto myMessage = myException.getMessage();
 
@@ -265,7 +261,7 @@ class DExceptionRenderer : IExceptionRenderer {
 
     // Get template for rendering exception info.
     protected string templateName(Throwable exception, string methodName, int errorCode) {
-        if (exception instanceof HttpException || !Configure.read("debug")) {
+        if (cast(HttpException)exception || !Configure.read("debug")) {
             return _template = errorCode < 500 ? "error400" : "error500";
         }
 
@@ -276,18 +272,12 @@ class DExceptionRenderer : IExceptionRenderer {
 
     // Gets the appropriate http status code for exception.
     protected int getHttpCode(Throwable exception) {
-        if (cast(HttpException)exception) {
-            return exception.code();
-        }
-
-        return _exceptionHttpCodes[get_class(myException)] ?? 500;
+        return cast(HttpException)exception
+            ? exception.code()
+            : _exceptionHttpCodesgetInteger(get_class(myException), 500);
     }
 
-    /**
-     * Generate the response using the controller object.
-     *
-     * @param string myTemplate The template to render.
-     */
+    // Generate the response using the controller object.
     protected DResponse _outputMessage(string templateName) {
         try {
             _controller.render(templateName);
@@ -295,14 +285,10 @@ class DExceptionRenderer : IExceptionRenderer {
             return _shutdown();
         } catch (MissingTemplateException miisngTemplateExecution) {
             attributes = miisngTemplateExecution.getAttributes();
-            if (
-                cast(MissingLayoutException)miisngTemplateExecution  ||
-                indexOf(attributes["file"], "error500") != false
-           ) {
-                return _outputMessageSafe("error500");
-            }
-
-            return _outputMessage("error500");
+            return cast(MissingLayoutException)miisngTemplateExecution  ||
+                attributes.getString("file").has("error500")
+                ? _outputMessageSafe("error500")
+                : _outputMessage("error500");
         } catch (MissingPluginException missngPluginExecution) {
             attributes = missngPluginExecution.getAttributes();
             if (isset(attributes["plugin"]) && attributes["plugin"] == _controller.getPlugin()) {

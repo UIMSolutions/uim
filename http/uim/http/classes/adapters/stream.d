@@ -192,12 +192,12 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         assert(_stream !is null, "HTTP stream failed to open");
 
         while (!feof(_stream)) {
-            if (deadline != false) {
+            if (deadline == true) {
                 stream_set_timeout(_stream, max(deadline - time(), 1));
             }
             content ~= fread(_stream, 8192);
             meta = stream_get_meta_data(_stream);
-            if (meta["timed_out"] || (deadline != false && time() > deadline)) {
+            if (meta["timed_out"] || (deadline == true && time() > deadline)) {
                 timedOut = true;
                 break;
             }

@@ -371,7 +371,7 @@ class DDebugger {
         }
         for (anI = lineToHighlight - numberOfLinesToExtract; anI < lineToHighlight + numberOfLinesToExtract + 1;
             anI++) {
-            if (!isSet(someData[anI])) {
+            if (someData[anI] !is null)) {
                 continue;
             }
             string lineToHighlight = _highlight(someData[anI]).replace(["\r\n", "\n"], "");

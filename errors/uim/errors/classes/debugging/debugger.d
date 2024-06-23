@@ -242,7 +242,7 @@ class DDebugger {
     static string editorUrl(string file, int line) {
         auto instance = getInstance();
         auto editor = instance.getConfig("editor");
-        if (!isset(instance.editors[editor])) {
+        if (instance.editors.isNull(editor)) {
             throw new DRuntimeException("Cannot format editor URL `{editor}` is not a known editor.");
         }
 

@@ -52,7 +52,7 @@ class DRoutesCommand : DCommand {
     output ~= anItem;
 
     someMethods.each!((method) {
-        if (!isSet(someDuplicateRoutesCounter.hasKey([route.template, method]))) {
+        if (!someDuplicateRoutesCounter.hasKey([route.template, method])) {
             someDuplicateRoutesCounter.set([route.template, method], 0);}
             someDuplicateRoutesCounter.inc([route.template, method], 1);};});
 

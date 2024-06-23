@@ -169,7 +169,7 @@ class DController : IController { // DEventListener, IEventDispatcher {
                 _name = controller;
             }
         }
-        if (!isSet(_name)) {
+        if (_name !is null)) {
             [, name] = namespaceSplit(class);
             _name = subString(nameToOverride, 0, -10);
         }

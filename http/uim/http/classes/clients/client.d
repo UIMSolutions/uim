@@ -537,8 +537,8 @@ class DClient { // }: IClient {
     if (options.hasKey("type")) {
       myheaders = chain(myheaders, _typeHeaders(options["type"]));
     }
-    if (isString(mydata) && !myheaders.hasKey("Content-Type") && !isSet(
-        myheaders["content-type"])) {
+    if (isString(mydata) && myheaders.isNull("Content-Type") && 
+        myheaders.isNull("content-type")) {
       myheaders["Content-Type"] = "application/x-www-form-urlencoded";
     }
     auto myrequest = new DRequest(myurl, mymethod, myheaders, mydata);
@@ -568,7 +568,7 @@ class DClient { // }: IClient {
       "Json": "application/Json",
       "xml": "application/xml",
     ];
-    if (!isSet(mytypeMap[mimetype])) {
+    if (mytypeMap.isNull(mimetype)) {
       throw new DException(
         "Unknown type alias `%s`."
           .format(mimetype));

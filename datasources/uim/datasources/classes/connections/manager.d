@@ -155,7 +155,7 @@ static IConnection get(string connectionName, bool useAliases = true) {
         throw new DMissingDatasourceConfigException(["name": connectionName]);
     }
     /** @psalm-suppress RedundantPropertyInitializationCheck  */
-    if (!isset(_registry)) {
+    if (_registry !is null) {
         _registry = new DConnectionRegistry();
     }
 

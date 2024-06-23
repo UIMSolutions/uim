@@ -179,8 +179,8 @@ class DPoFileParser {
 
         if (context!is null && !isSet(messages[singular]["_context"][context])) {
             messages[singular]["_context"][context] = translation;
-        } else if (!isSet(messages[singular]["_context."])) {
-            messages[singular]["_context."] = translation;
+        } else if (messages.isNull([singular, "_context."])) {
+            messages.set([singular, "_context."], translation);
         }
 
         if (ids.hasKey("plural")) {

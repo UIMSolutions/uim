@@ -337,9 +337,10 @@ class DSession {
         if (_hasSession() && !this.started()) {
             this.start();
         }
-        if (!isSet(_SESSION)) {
+        if (_SESSION !is null) {
             return false;
         }
+
         if (name.isNull) {
             return (bool) _SESSION;
         }

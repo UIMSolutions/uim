@@ -63,9 +63,9 @@ class DInsertIterator : DCollection {
       if (!aPointer.hasKey(aStep))) {
         return myRow;
       }
-      aPointer = & aPointer[aStep];
+      aPointer = &aPointer[aStep];
     })
-    aPointer[_target] = _values.currentValue(); */
+    aPointer.set(_target, _values.currentValue()); */
 
     // TODO return myRow;
     return Json(null);

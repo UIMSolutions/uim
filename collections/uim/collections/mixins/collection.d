@@ -606,7 +606,7 @@ mixin template TCollection() {
  
     ICollection chunkWithKeys(int mychunkSize, bool mykeepKeys = true) {
         return _map(function (myv, myKey, Iterator myiterator) use (mychunkSize, mykeepKeys) {
-            aKey = 0;
+            auto aKey = 0;
             if (mykeepKeys) {
                 aKey = myKey;
             }
@@ -617,7 +617,7 @@ mixin template TCollection() {
                     break;
                 }
                 if (mykeepKeys) {
-                    myvalues[myiterator.key()] = myiterator.currentValue();
+                    myvalues.set(myiterator.key(), myiterator.currentValue());
                 } else {
                     myvalues ~= myiterator.currentValue();
                 }

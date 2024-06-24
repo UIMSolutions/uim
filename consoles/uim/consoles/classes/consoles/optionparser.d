@@ -552,15 +552,13 @@ class DConsoleOptionParser {
     protected Json[string] _parseOption(string nameToParse, Json[string] params) {
         if (!_options.hasKey(nameToParse)) {
             throw new DMissingOptionException(
-                "Unknown option `%s`.".format(
-                    nameToParse),
-                nameToParse, _options.keys
+                "Unknown option `%s`.".format(nameToParse), nameToParse, _options.keys
             );
         }
-        option = _options[nameToParse];
-        isBoolean = option.isBoolean();
-        nextValue = _nextToken();
-        emptyNextValue = (isEmpty(nextValue) && nextValue != "0");
+        auto option = _options[nameToParse];
+        auto isBoolean = option.isBoolean();
+        auto nextValue = _nextToken();
+        auto emptyNextValue = (isEmpty(nextValue) && nextValue != "0");
         if (!isBoolean && !emptyNextValue && !_optionExists(nextValue)) {
             array_shift(_tokens);
             aValue = nextValue;
@@ -570,6 +568,7 @@ class DConsoleOptionParser {
             aValue = to!string(option.defaultValue());
         }
         option.validChoice(aValue);
+        
         if (option.acceptsMultiple()) {
             params[nameToParse] ~= aValue;
         } else {
@@ -581,7 +580,7 @@ class DConsoleOptionParser {
     // Check to see if name has an option (short/long) defined for it.
     protected bool _optionExists(string optionName) {
         if (optionName.startsWith("--")) {
-            return isSet(_options[subString(optionName, 2)]);
+            return _options.hasKey(subString(optionName, 2));
         }
         if (optionName[0] == "-" && optionName[1] != "-") {
             return _shortOptions.hasKey(optionName[1]);

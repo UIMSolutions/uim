@@ -74,7 +74,7 @@ class DPluginLoadCommand : DCommand {
         configData = Hash.normalize(configData);
     }
  */
-    configuration.set(pluginName, options);
+    /* configuration.set(pluginName, options);
     auto Json[string] = class_exists(VarExporter.class)
         ? VarExporter.export_(configData, VarExporter.TRAILING_COMMA_IN_ARRAY) 
         : var_export_(configData, true);
@@ -82,7 +82,8 @@ class DPluginLoadCommand : DCommand {
     contents = "\n\n" ~ "return " ~ Json[string] ~ ";" ~ "\n";
 
     return file_put_contents(this.configFile, contents)
-        ? CODE_SUCCESS : CODE_ERROR;
+        ? CODE_SUCCESS : CODE_ERROR; */
+    return 0;
 }
 
 DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {

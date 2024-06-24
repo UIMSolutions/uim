@@ -250,12 +250,13 @@ return true;
     // return _memory.update(internalKey(itemKey), dataToCache, duration(timeToLive));
   }
 
-/*   override bool merge(Json[string] items, long timeToLive = 0) {
+override bool merge(Json[string] items, long timeToLive = 0) {
     Json[string] cacheData = null;
     items.byKeyValue
-      .each!(kv => cacheData[internalKey(kv.key)] = kv.value);
-    return _memory.merge(cacheData, duration(timeToLive));
-  } */
+      .each!(kv => cacheData.set(internalKey(kv.key), kv.value);
+    // TODOreturn _memory.merge(cacheData, duration(timeToLive));
+    return false; 
+  } 
 
   // Write many cache entries to the cache at once
   /*   override bool update(Json[string] items, long timeToLive = 0) {

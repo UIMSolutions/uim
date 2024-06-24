@@ -68,16 +68,15 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     }
 
     Json[string] items(string[] keysToUse = null) {
-        if (keysToUse.isNull) {
+        if (keysToUse.isEmpty) {
             return items(keys);
         }
 
         Json[string] results;
         keysToUse
             .each!((key) {
-                auto item = read(key);
-                if (!item.isNull) {
-                    results[key] = item;
+                if (auto item = read(key)) {
+                    results.set(key, item);
                 }
             });
 

@@ -55,7 +55,7 @@ class DFilterIterator : DCollection {
 
         myiterator.byKeyValue
             .filter!(kv => mycallback(kv.value, kv.key, myiterator)) {
-            .each!(kv => myres[kv.key] = kv.value);
+            .each!(kv => myres.set(kv.key, kv.value);
         }
         return new DArrayIterator(myres);
     } */

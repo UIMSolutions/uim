@@ -27,7 +27,7 @@ class DUniqueIterator : DCollection {
             .each!((kv) {
                 auto compareValue = aCallback(kv.value, kv.key);
                 if (!compareValue.isIn(uniqueValues)) {
-                    unique[kv.key] = kv.value;
+                    unique.set(kv.key, kv.value);
                     uniqueValues ~= compareValue;
                 }
             }); 

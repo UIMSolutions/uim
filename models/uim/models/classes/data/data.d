@@ -19,34 +19,35 @@ class DData : IData {
 
   // Hook
   bool initialize(Json[string] initData = null) {
-    _value = Json.emptyObject;
-    // TODO _value.update(initData);
+    // clear variables
+    _values = null;
+    // TODO values.update(initData);
 
     return true;
   }
 
-  mixin(TProperty!("Json", "_value"));
+  mixin(TProperty!("Json[string]", "values"));
 
   // #region properties
   // mixin(TProperty!("DAttribute", "attribute"));
 
   // #region typeName
     string typeName() {
-      return _value.getString("typeName");
+      return values.getString("typeName");
     }
 
     void typeName(string name) {
-      _value.set("typeName", name);
+      values.set("typeName", name);
     }
   // #endregion typeName
 
   // #region name
   string name() {
-    return _value.getString("name");
+    return values.getString("name");
   }
 
   void name(string name) {
-    _value.set("name", name);
+    values.set("name", name);
   }
   // #endregion name
 
@@ -78,8 +79,7 @@ class DData : IData {
   mixin(DataIsCheck!"isReadOnly");
 
   bool isEmpty() {
-    return _value.isNull
-      ? true : false;
+    return (values is null);
   }
   // #endregion is-AdditionalTypes
   // #endregion is-check
@@ -111,29 +111,30 @@ class DData : IData {
   // #endregion Getter
 
   UUID getUUID() {
-    return isUUID && _value.hasKey("value")
-      ? UUID(_value.getString("value")) : UUID();
+    return isUUID && values.hasKey("value")
+      ? UUID(values.getString("value")) : UUID();
   }
 
   Json getJson() {
-    return _value.hasKey("value")
-      ? _value["value"] : Json(null);
+    return values.hasKey("value")
+      ? _values["value"] : Json(null);
   }
+
   Json getJson(string key) {
-    return _value.hasKey("value")
-      ? uim.core.datatypes.json.getJson(_value["value"], key) : Json(null);
+    return values.hasKey("value")
+      ? _values.getJson("value") : Json(null);
   }
   // #endregion get
 
   // #region isNull
   bool isNull() {
-    return _value.hasKey("value")
-      ? _value["value"].isNull : false;
+    return values.hasKey("value")
+      ? _values["value"].isNull : false;
   }
 
   void isNull(bool status) {
     if (isNullable) {
-      _value["value"] = Json(null);
+      _values["value"] = Json(null);
     }
   }
   // #endregion isNull
@@ -382,13 +383,13 @@ class DData : IData {
   }
 
   // #region export
-  Json toJson() {
-    return _value.clone;
-  }
+  /* Json toJson(string) {
+    return values.clone;
+  } */
 
   override string toString() {
     string results;
-    // _value.byKeyValue.each!(kv => results[kv.key] = kv.value.get!string);
+    // values.byKeyValue.each!(kv => results[kv.key] = kv.value.get!string);
     return results;
   }
   // #endregion export
@@ -398,18 +399,18 @@ class DData : IData {
     // TODO 
     /* 
       if (shouldOverwrite) {
-        _value = _value.update(newValue);
+        _values = values.update(newValue);
       } else {
-        _value = _value.merge(newValue);
+        _values = values.merge(newValue);
       } 
       */
   }
 
   void fromJson(Json newValue, bool shouldOverwrite = true) {
     /*       if (shouldOverwrite) {
-        _value = _value.update(newValue);
+        _values = values.update(newValue);
       } else {
-        _value = _value.merge(newValue);
+        _values = values.merge(newValue);
       }  */
   }
   // #endregion import

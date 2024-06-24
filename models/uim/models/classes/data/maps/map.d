@@ -123,13 +123,13 @@ class DMapData : DData {
     return null; // NullData; // MapValue!string(attribute, toJson);
   }
 
-  alias toJson = DData.toJson;
+  /* alias toJson = DData.toJson;
   override Json toJson() {
     Json results = Json.emptyObject;
-    /* _items.byKeyValue.each!(kv => results[kv.key] = kv.value.toJson); */
+    /* _items.byKeyValue.each!(kv => results[kv.key] = kv.value.toJson); * /
 
     return results;
-  }
+  } */
 
   override string toString() {
     string content; /*  = _items.byKeyValue

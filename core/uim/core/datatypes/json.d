@@ -647,27 +647,7 @@ Json mergeJsonObject(Json baseJson, Json mergeJson) {
   return result;
 }
 
-// #region set()
-Json set(T)(Json json, T[string] newValues) {
-  if (!json.isObject) {
-    return Json(null);
-  }
 
-  auto result = json;
-  newValues.byKeyValue.each!(kv => result[kv.key] = kv.value);
-
-  return result;
-}
-///
-unittest {
-  auto json = parseJsonString(`{"a": "b", "x": "y"}`);
-  assert(json.set(["a": "c"])["a"].get!string == "c");
-
-  json = parseJsonString(`{"a": "b", "x": "y"}`);
-  assert(json.set(["a": "c", "x": "z"])["x"].get!string == "z");
-  assert(json.set(["a": "c", "x": "z"])["x"].get!string != "c");
-}
-// #endregion
 
 // #region merge
 /// Merge jsons objects to one
@@ -1131,73 +1111,114 @@ Json[string] getMap(Json value) {
 // #endregion getter
 
 // #region setter
-Json set(Json json, string key) {
-  if (json.isObject) {
-    json[key] = null;
+Json set(T)(Json json, T[string] newValues) {
+  if (!json.isObject) {
+    return Json(null);
   }
-  return json;
-}
 
-Json set(Json json, string key, bool value) {
-  if (json.isObject) {
-    json[key] = value;
-  }
-  return json;
-}
+  auto result = json;
+  newValues.byKeyValue.each!(kv => result[kv.key] = kv.value);
 
-Json set(Json json, string key, int value) {
-  if (json.isObject) {
-    json[key] = value;
-  }
-  return json;
+  return result;
 }
+///
+unittest {
+  auto json = parseJsonString(`{"a": "b", "x": "y"}`);
+  assert(json.set(["a": "c"])["a"].get!string == "c");
 
-Json set(Json json, string key, long value) {
-  if (json.isObject) {
-    json[key] = value;
-  }
-  return json;
+  json = parseJsonString(`{"a": "b", "x": "y"}`);
+  assert(json.set(["a": "c", "x": "z"])["x"].get!string == "z");
+  assert(json.set(["a": "c", "x": "z"])["x"].get!string != "c");
 }
+// #endregion
 
-Json set(Json json, string key, float value) {
-  if (json.isObject) {
-    json[key] = value;
+  Json set(ref Json json, string key) {
+    if (json.isObject) {
+      json[key] = null;
+    }
+    return json;
   }
-  return json;
-}
 
-Json set(Json json, string key, double value) {
-  if (json.isObject) {
-    json[key] = value;
+  Json set(ref Json json, string key, bool value) {
+    if (json.isObject) {
+      json[key] = value;
+    }
+    return json;
   }
-  return json;
-}
 
-Json set(Json json, string key, string value) {
-  if (json.isObject) {
-    json[key] = value;
+  Json set(ref Json json, string key, int value) {
+    if (json.isObject) {
+      json[key] = value;
+    }
+    return json;
   }
-  return json;
-}
 
-Json set(Json json, string key, Json value) {
-  if (json.isObject) {
-    json[key] = value;
+  Json set(ref Json json, string key, long value) {
+    if (json.isObject) {
+      json[key] = value;
+    }
+    return json;
   }
-  return json;
-}
 
-Json set(Json json, string key, Json[] value) {
-  if (json.isObject) {
-    json[key] = value;
+  Json set(ref Json json, string key, float value) {
+    if (json.isObject) {
+      json[key] = value;
+    }
+    return json;
   }
-  return json;
-}
 
-Json set(Json json, string key, Json[string] value) {
-  if (json.isObject) {
-    json[key] = value;
+  Json set(ref Json json, string key, double value) {
+    if (json.isObject) {
+      json[key] = value;
+    }
+    return json;
   }
-  return json;
-}
+
+  Json set(Json json, string key, string value) {
+    if (json.isObject) {
+      json[key] = value;
+    }
+    return json;
+  }
+
+  Json set(ref Json json, string key, Json value) {
+    if (json.isObject) {
+      json[key] = value;
+    }
+    return json;
+  }
+
+  Json set(ref Json json, string key, Json[] value) {
+    if (json.isObject) {
+      json[key] = value;
+    }
+    return json;
+  }
+
+  Json set(ref Json json, string key, STRINGAA value) {
+    if (json.isObject) {
+      Json[string] convertedValues; 
+      value.byKeyValue.each!(kv => convertedValues[kv.key] = kv.value.toJson);
+      json.set(key, convertedValues);
+    }
+    return json;
+  }
+
+  Json set(ref Json json, string key, Json[string] value) {
+    if (json.isObject) {
+      json[key] = value;
+    }
+    return json;
+  }
+
+  unittest {
+    Json json = Json.emptyObject;
+    assert(json.set("bool", true).getBoolean("bool"));
+    assert(json.set("bool", true).getBoolean("bool"));
+    assert(json.set("long", 1).getLong("long") == 1);
+    assert(json.set("double", 0.1).getDouble("double") == 0.1);
+    assert(json.set("string", "A").getString("string") == "A");
+    assert(json.set("strings", ["x": "X", "y": "Y", "z": "Z"]) != Json(null));
+    writeln(json);
+  }
 // #endregion setter

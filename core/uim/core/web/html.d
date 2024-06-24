@@ -8,6 +8,28 @@ module uim.core.web.html;
 import uim.core;
 
 @safe:
+// #region startTag
+string htmlStartTag(string name, string id, string classes, string attributes) {
+	string startTag;
+	startTag ~= "<" ~ name;
+	startTag ~= !id.isEmpty ? ` id="` ~ id ~ `"` : null;
+	startTag ~= !classes.isEmpty ? ` class="` ~ classes ~ `"` : null;
+	startTag ~= !attributes.isEmpty ? ` ` ~ classes : null;
+	startTag ~= ">";
+	return startTag;
+}
+unittest{
+	
+}
+// #region startTag
+
+string doubleTag(string name) {
+	return "<" ~ name ~ ">";
+}
+
+unittest {
+}
+
 // #region createHtmlStartTag 
 string createHtmlStartTag(string tag, bool close = false) {
 	if (close)
@@ -22,8 +44,7 @@ string createHtmlStartTag(string tag, STRINGAA attributes, bool isCompact = fals
 			.join(" ");
 
 		return isCompact
-			? "<%s %s/>".format(tag, attValue)
-			: "<%s %s>".format(tag, attValue);
+			? "<%s %s/>".format(tag, attValue) : "<%s %s>".format(tag, attValue);
 	}
 	return createHtmlStartTag(tag, isCompact);
 }

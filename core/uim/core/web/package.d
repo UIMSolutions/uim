@@ -7,5 +7,6 @@ module uim.core.web;
 
 public {
   import uim.core.web.html;
+  import uim.core.web.javascript;
   import uim.core.web.json;
 }

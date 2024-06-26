@@ -205,7 +205,7 @@ REGEXP`;
             } else if (myKey.startsWith("_")) {
                 exists[subString(myKey, 1)] = (!v.isEmpty);
                 parsed.remove(myKey);
-            } else if (v == "" && !exists[myKey]) {
+            } else if (v is null && !exists[myKey]) {
                 parsed.remove(myKey);
             }
         } */

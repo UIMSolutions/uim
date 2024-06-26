@@ -325,7 +325,7 @@ class DLog {
                 scopes = logger.scopes();
             }
             auto correctLevel = levels.isEmpty || isIn(level, levels, true);
-             anInScope = scopes.isNull && context.isEmpty("scope")) || scopes == [] ||
+             anInScope = scopes.isNull && context.isEmpty("scope")) || scopes is null ||
                 isArray(scopes) && array_intersect(/* (array) */context["scope"], scopes);
 
             if (correctLevel &&  anInScope) {

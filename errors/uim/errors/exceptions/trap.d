@@ -223,7 +223,7 @@ class DExceptionTrap {
     // Increases the D "memory_limit" ini setting by the specified amount in kilobytes
     void increaseMemoryLimit(int additionalKb) {
         string aLimit = ini_get("memory_limit");
-        if (aLimit == false || aLimit == "" || aLimit == "-1") {
+        if (aLimit == false || aLimit is null || aLimit == "-1") {
             return;
         }
         aLimit = strip(aLimit);

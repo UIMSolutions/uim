@@ -26,7 +26,7 @@ version(test_uim_oop) { unittest {
 	assert((new DTest).a("x").a("x").a == "xx");
 	assert((new DTest).a("x", "x").a == "xx");
 	assert((new DTest).a(["x", "x"]).a == "xx");
-	assert((new DTest).a("x").clearA.a == "");
+	assert((new DTest).a("x").clearA.a is null);
 }}
 
 // Mixin for expandable string array datatypes

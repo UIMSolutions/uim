@@ -212,7 +212,7 @@ abstract class DERRErrorHandler {
      */
     void increaseMemoryLimit(int additionalKb) {
         auto limit = ini_get("memory_limit");
-        if (limit == false || limit == "" || limit == "-1") {
+        if (limit == false || limit is null || limit == "-1") {
             return;
         }
         limit = strip(limit);

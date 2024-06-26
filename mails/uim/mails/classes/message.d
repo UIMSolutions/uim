@@ -501,7 +501,7 @@ class DMessage { //: JsonSerializable {
      * @param string athrowMessage Exception message
      */
     protected void setEmailSingle(string avarName, string[] aemail, string aName, string exceptionMessage) {
-        if (email == []) {
+        if (email is null) {
             this.{varName} = email;
             return;
         }

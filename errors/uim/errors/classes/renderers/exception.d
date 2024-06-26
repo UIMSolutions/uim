@@ -238,7 +238,7 @@ class DExceptionRenderer : IExceptionRenderer {
         }
 
         // baseClass would be an empty string if the exception class is \Exception.
-        _method = baseClass == "" ? "error500" : Inflector.variable(baseClass);
+        _method = baseClass is null ? "error500" : Inflector.variable(baseClass);
 
         return _method;
     }

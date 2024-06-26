@@ -533,7 +533,7 @@ class DResponse : IResponse {
            );
         }
        _status = statusCode;
-        if (reasonPhrase == "" && _statusCodes.hasKey(statusCode)) {
+        if (reasonPhrase is null && _statusCodes.hasKey(statusCode)) {
             reasonPhrase = _statusCodes[statusCode];
         }
        _reasonPhrase = reasonPhrase;
@@ -1230,7 +1230,7 @@ class DResponse : IResponse {
             start = fileSize - (int)end;
             end = lastByte;
         }
-        if (end == "") {
+        if (end is null) {
             end = lastByte;
         }
         if (start > end || end > lastByte || start > lastByte) {

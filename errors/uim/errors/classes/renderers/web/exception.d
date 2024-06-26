@@ -235,7 +235,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             baseClass = subString(baseClass, 0, -9);
         }
         // baseClass would be an empty string if the exception class is \Exception.
-        method = baseClass == "" ? "error500" : Inflector.variable(baseClass);
+        method = baseClass is null ? "error500" : Inflector.variable(baseClass);
 
         return _method = method;
     }

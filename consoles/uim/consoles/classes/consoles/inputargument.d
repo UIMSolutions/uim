@@ -52,11 +52,11 @@ class DConsoleInputArgument {
 
     this(STRINGAA aName, string ahelp = "", bool isArgumentRequired = false, string[] optionChoices = null) {
         if (names.contains("name")) {
-            foreach (aKey : aValue; names) {
-                this. {
+            foreach (aKey, aValue; names) {
+                /* this. {
                     "_" ~ aKey
                 }
-                 = aValue;
+                 = aValue; */
             }
         }
     }
@@ -115,16 +115,15 @@ class DConsoleInputArgument {
     }
 
     // Append this arguments XML representation to the passed in SimpleXml object.
-    SimpleXMLElement xml(SimpleXMLElement parentElement) {
-        auto option = parentElement.addChild("argument");
+    DSimpleXMLElement xml(SimpleXMLElement parentElement) {
+       /*  auto option = parentElement.addChild("argument");
         option.addAttribute("name", _name);
         option.addAttribute("help", _help);
         option.addAttribute("required", to!string(to!int(isRequired())));
 
         auto choices = option.addChild("choices");
         choices.each!(valid => choices.addChild("choice", valid));
-        return parentElement;
+        return parentElement; */
+        return null; 
     }
-
-     *  /
 }

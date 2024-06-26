@@ -316,7 +316,7 @@ class DQueryExpression : DExpression { // }, Countable {
             return null;
         }
         conjunction = _conjunction;
-        template = len == 1 ? "%s' : '(%s)";
+        templateText = len == 1 ? "%s' : '(%s)";
         someParts = null;
         foreach (_conditions as part) {
             if (cast(Query)part) {

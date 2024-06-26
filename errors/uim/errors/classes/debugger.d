@@ -95,7 +95,7 @@ class DDebugger {
                 "Cannot format editor URL `%s` is not a known editor."
                     .format(editor));
         }
-        template = anInstance.editors[editor];
+        templateText = anInstance.editors[editor];
         if (isString(template)) {
             return template.replace(["{file}", "{line}"], [file, (string) line]);
         }

@@ -76,10 +76,10 @@ class DComparisonExpression : DExpression { // TODO}, IField {
             field = field.sql(aBinder);
         }
         if (cast(IdentifierExpression)_value) {
-            template = "%s %s %s";
+            templateText = "%s %s %s";
             aValue = _value.sql(aBinder);
         } elseif (cast(IExpression)_value) {
-            template = "%s %s (%s)";
+            templateText = "%s %s (%s)";
             aValue = _value.sql(aBinder);
         } else {
             [template, aValue] = _stringExpression(aBinder);
@@ -118,10 +118,10 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      * \UIM\Database\DValueBinder aBinder The value binder to use.
      */
     protected Json[string] _stringExpression(DValueBinder valueBinder) {
-        auto template = "%s ";
+        auto templateText = "%s ";
 
         if (cast(IExpression)_field  && !cast(IdentifierExpression)_field) {
-            template = "(%s) ";
+            templateText = "(%s) ";
         }
         if (_isMultiple) {
             template ~= "%s (%s)";

@@ -219,11 +219,9 @@ class DCommandRunner { // }: IEventDispatcher {
         }
         if (!comandsToCheck.has(cliArgumentName)) {
             throw new DMissingOptionException(
-                "Unknown command `{this.root} {cliArgumentName}`. "
-                    ."Run `{this.root} --help` to get the list of commands.",
-                    cliArgumentName,
-                    comandsToCheck.keys()
-           );
+                "Unknown command `{this.root} {cliArgumentName}`. "~
+                "Run `{this.root} --help` to get the list of commands.".format()
+                cliArgumentName, comandsToCheck.keys());
         }
         return cliArgumentName;
     }

@@ -36,7 +36,7 @@ class DRoutesCommand : DCommand {
 
     anItem = [
         route.options.get("_name", route.name),
-        route.template,
+        route.templateText,
         route.defaults.get("plugin", ""),
         route.defaults.get("prefix", ""),
         route.defaults.get("controller", ""),
@@ -52,9 +52,9 @@ class DRoutesCommand : DCommand {
     output ~= anItem;
 
     someMethods.each!((method) {
-        if (!someDuplicateRoutesCounter.hasKey([route.template, method])) {
-            someDuplicateRoutesCounter.set([route.template, method], 0);}
-            someDuplicateRoutesCounter.inc([route.template, method], 1);};});
+        if (!someDuplicateRoutesCounter.hasKey([route.templateText, method])) {
+            someDuplicateRoutesCounter.set([route.templateText, method], 0);}
+            someDuplicateRoutesCounter.inc([route.templateText, method], 1);};});
 
             if (arguments.getOption("sort")) {
                 usort(output, auto(a, b) {
@@ -122,10 +122,10 @@ class DRoutesCommand : DCommand {
                 output ~= anItem;
 
                 someMethods.each!((method) {
-                    if (someDuplicateRoutesCounter.isNull([route.template, method])) {
-                        someDuplicateRoutesCounter[route.template][method] = 0;
+                    if (someDuplicateRoutesCounter.isNull([route.templateText, method])) {
+                        someDuplicateRoutesCounter[route.templateText][method] = 0;
                     }
-                    someDuplicateRoutesCounter[route.template][method]++;
+                    someDuplicateRoutesCounter[route.templateText][method]++;
                 });
             };
 
@@ -147,13 +147,13 @@ class DRoutesCommand : DCommand {
 
                     someMethods.each((method) {
                         if (
-                            someDuplicateRoutesCounter.getInteger([myRoute.template, method]) > 1 ||
-                        (method.isEmpty && count(someDuplicateRoutesCounter[myRoute.template]) > 1) ||
-                        (method != "" && someDuplicateRoutesCounter.hasKey([myRoute.template, ""]))
+                            someDuplicateRoutesCounter.getInteger([myRoute.templateText, method]) > 1 ||
+                        (method.isEmpty && count(someDuplicateRoutesCounter[myRoute.templateText]) > 1) ||
+                        (method != "" && someDuplicateRoutesCounter.hasKey([myRoute.templateText, ""]))
                             ) {
                             someDuplicateRoutes ~= [
                                 myRoute.options.getString("_name", myRoute.name),
-                                myRoute.template,
+                                myRoute.templateText,
                                 myRoute.defaults.getString("plugin", ""),
                                 myRoute.defaults.getString("prefix", ""),
                                 myRoute.defaults.getString("controller", ""),

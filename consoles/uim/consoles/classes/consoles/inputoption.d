@@ -116,20 +116,20 @@ class DConsoleInputOption {
      * int width The width to make the name of the option.
      */
     string help(int width = 0) {
-        string default;
+        string defaultHelpText;
         if (_default && _default != true) {
-            default = " <comment>(default: %s)</comment>".format(_default);
+            defaultHelpText = " <comment>(default: %s)</comment>".format(_default);
         }
         if (_choices) {
-            default ~= " <comment>(choices: %s)</comment>".format(join("|", _choices));
+            defaultHelpText ~= " <comment>(choices: %s)</comment>".format(_choices.join("|"));
         }
 
-        string short;
-        if (!_shortalias.isEmpty) {
-            short = ", -" ~ _shortalias;
+        string shortAliasname;
+        if (!shortAliasname.isEmpty) {
+            shortValue= ", -" ~ shortAliasname;
         }
         
-        string name = "--%s%s".format(_name, short);
+        string name = "--%s%s".format(_name, shortAliasname);
         if (name.length < width) {
             name = str_pad(name, width, " ");
         }
@@ -138,32 +138,31 @@ class DConsoleInputOption {
             ? " <comment>(%s)</comment>".format(_required)
             : "";
 
-        return "%s%s%s%s".format(name, _help, default, required);
+        return "%s%s%s%s".format(name, _help, defaultHelpText, required);
     }
     
     // Get the usage value for this option
     string usage() {
         name = _shortalias is null ? "--" ~ _name : "-" ~ _shortalias;
-        default = "";
+        string defaultText = "";
         if (!_default.isNull && !isBoolean(_default) && !_default.isEmpty) {
-            default = " " ~ _default;
+            defaultText = " " ~ _default;
         }
         if (_choices) {
-            default = " " ~ join("|", _choices);
+            defaultText = " " ~ join("|", _choices);
         }
-        template = "[%s%s]";
-        if (this.isRequired()) {
-            template = "%s%s";
-        }
-        return template.format(name, default);
+
+        string templateText = 
+            isRequired()
+            ? "%s%s" : "[%s%s]";
+
+        return templateText.format(name, defaultText);
     }
     
     // Get the default value for this option
     string defaultValue() {
         return _default;
     }
-    
-
     
     /**
      * Check that a value is a valid choice for this option.
@@ -198,7 +197,7 @@ class DConsoleInputOption {
         option = parent.addChild("option");
         option.addAttribute("name", "--" ~ _name);
         
-        string short = !_shortalias.isEmpty
+        string shortAlias = !_shortalias.isEmpty
             ? "-" ~ _shortalias
             : "";
 
@@ -208,7 +207,7 @@ class DConsoleInputOption {
         } else if (default == false) {
             defaultValuedefaultValue = "false";
         }
-        option.addAttribute("short", short);
+        option.addAttribute("short", shortAlias);
         option.addAttribute("help", _help);
         option.addAttribute("boolean", to!string(to!int(_isBooleanOption)));
         option.addAttribute("required", to!string((int)this.required));
@@ -216,5 +215,5 @@ class DConsoleInputOption {
         choices = option.addChild("choices");
         _choices.each!(valid => choices.addChild("choice", valid));
         return parent;
-    } */
+    } 
 }

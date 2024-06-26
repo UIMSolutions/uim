@@ -15,7 +15,7 @@ import uim.errors;
 class DTextErrorFormatter : IErrorFormatter {
 /*
     string formatWrapper(string acontents, Json[string] location) {
-        template = <<<TEXT
+        templateText = <<<TEXT
 %s
 ########## DEBUG ##########
 %s

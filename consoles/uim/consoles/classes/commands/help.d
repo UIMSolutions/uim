@@ -11,11 +11,11 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     void commandCollection(ICommandCollection newCommands) {
         _commands = newCommands;
     }
-    
+
     // Main auto Prints out the list of commands.
     int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         auto commandIterator = _commands.getIterator();
-        if (cast(DArrayIterator)commandIterator) {
+        if (cast(DArrayIterator) commandIterator) {
             commandIterator.ksort();
         }
         if (commandArguments.getOption("xml")) {
@@ -27,7 +27,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
 
         return CODE_SUCCESS;
     }
-    
+
     // Output text.
     protected void asText(IConsoleIo aConsoleIo, STRINGAA commandCollection) {
         string[][string] myInvert = null;
@@ -38,13 +38,13 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
             myInvert.require(className, null);
             myInvert[className] ~= name;
         }
-        
+
         auto anGrouped = null;
         auto plugins = Plugin.loaded();
         myInvert.byKeyValue.each!((className) {
             // preg_match("/^(.+)\\\\Command\\\\/",  className, matches);
             // Probably not a useful class
-/*             if (matches.isEmpty) { continue; }
+            /*             if (matches.isEmpty) { continue; }
             
             string namespace = matches[1].replace("\\", "/");
             
@@ -66,7 +66,8 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
                     ?  className.getDescription()
                     : ""
             ];
- */        });
+ */
+        });
         // ksort(anGrouped);
 
         /* outputPaths(aConsoleIo);
@@ -84,10 +85,11 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
              aConsoleIo.out("");
         } */
         string root = rootName();
-/*         aConsoleIo.out("To run a command, type <info>`{root} command_name [args|options]`</info>");
+        /*         aConsoleIo.out("To run a command, type <info>`{root} command_name [args|options]`</info>");
         aConsoleIo.out("To get help on a specific command, type <info>`{root} command_name --help`</info>", 2);
- */    }
-    
+ */
+    }
+
     // Output relevant paths if defined
     protected void outputPaths(IConsoleIo aConsoleIo) {
         STRINGAA myPaths;
@@ -105,38 +107,42 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         if (!count(myPaths)) {
             return;
         }
-/*          aConsoleIo.out("<info>Current Paths:</info>", 2);
+        /*          aConsoleIo.out("<info>Current Paths:</info>", 2);
         myPaths.each!(kv => aConsoleIo.out("* %s: %s".format(kv.key, kv.value)));
          aConsoleIo.out(""); */
     }
-    
+
     protected string getShortestName(string[] names) {
-        if (names.isEmpty) { return null; }
-        if (names.length == 1) { return names[0]; }
+        if (names.isEmpty) {
+            return null;
+        }
+        if (names.length == 1) {
+            return names[0];
+        }
 
         auto names = names.sort("a.length < b.length");
         return names[0];
     }
-    
+
     // Output as XML
     protected void asXml(IConsoleIo aConsoleIo, ICommand[string] commands) {
         STRINGAA names = commands.byKeyValue
             .each(nameCommand => names[nameCommand.key] = nameCommand.value);
 
-        asXml(aConsoleIo, names);   
+        asXml(aConsoleIo, names);
     }
-    
+
     protected void asXml(IConsoleIo aConsoleIo, STRINGAA commandNames) {
         auto shells = new DSimpleXMLElement("<shells></shells>");
         commandNames.byKeyValue
             .each(nameClassname => shells.addCommandToShells(nameClassname.key, nameClassname.value));
 
-        aConsoleIo.setOutputAs(ConsoleOutput.RAW);
-        aConsoleIo.out(castto!string(xmlShells.saveXML()));
+        /*         aConsoleIo.setOutputAs(ConsoleOutput.RAW);
+        aConsoleIo.out(castto!string(xmlShells.saveXML())); */
     }
 
     void addCommandToShells(SimpleXMLElement shells, string commandName, ICommand command) {
-        addCommandToShells(shells, commandName, command.classname) {
+        addCommandToShells(shells, commandName, command.classname);
     }
 
     void addCommandToShells(SimpleXMLElement shells, string commandName, string commandClassname) {
@@ -146,14 +152,14 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         shell.addAttribute("provider", commandClassname);
         shell.addAttribute("help", commandName ~ " -h");
     }
-    
+
     // Gets the option parser instance and configures it.
     protected IConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToBuild) {
         parserToBuild.description("Get the list of available commands for this application.");
 
         auto addOption = Json.emptyObject;
         addOption["help"] = "Get the listing as XML.";
-        addOption["boolean"] = true; 
+        addOption["boolean"] = true;
         parserToBuild.addOption("xml", addOption);
 
         return parserToBuild;

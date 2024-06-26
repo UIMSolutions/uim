@@ -434,7 +434,7 @@ class DHtmlHelper : DHelper {
         myurl = _Url.script(myurl, htmlAttributes);
         htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
-        if (htmlAttributes["once"] && isSet(_includedAssets.hasKey(__METHOD__~"."~myurl)) {
+        if (htmlAttributes["once"] && _includedAssets.hasKey([__METHOD__, myurl])) {
             return null;
         }
        _includedAssets[__METHOD__][myurl] = true;
@@ -616,7 +616,7 @@ class DHtmlHelper : DHelper {
             if (!isArray(myarg)) {
                 mycontent = myarg;
                 myattrs = mythOptions;
-            } elseif (isSet(myarg[0], myarg[1])) {
+            } elseif (myarg.has(0) && myarg.has(1)) {
                 mycontent = myarg[0];
                 myattrs = myarg[1];
             } else {

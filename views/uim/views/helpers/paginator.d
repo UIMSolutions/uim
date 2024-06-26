@@ -74,12 +74,15 @@ class DPaginatorHelper : DHelper {
      * @param Json[string] configData Configuration settings for the helper.
      */
     this(IView myview, Json[string] configData = null) {
-        super(myview, configData); myquery = _View.getRequest().queryArguments(); remove(myquery["page"], myquery["limit"], myquery["sort"], myquery["direction"]);
-            configuration.update(
+        super(myview, configData); 
+        myquery = _View.getRequest().queryArguments(); 
+        myquery.remove("page", "limit", "sort", "direction");
+            /* configuration.update(
                 "options.url",
                 array_merge(_View.getRequest()
                     .getParam("pass", []), ["?": myquery])
-           );}
+           ); */
+        }
 
             /**
      * Set paginated results.
@@ -91,14 +94,14 @@ class DPaginatorHelper : DHelper {
 
                 // Get pagination instance.
                 protected IPaginated paginated() {
-                    if (_paginated !is null)) {
+                    if (_paginated !is null) {
                         _View.getVars().each!((name) {
                             auto value = _View.get(name);
                             if (cast(IPaginated) value) {
                                 _paginated = value;
                             }
                         });}
-                        if (_paginated is null)) {
+                        if (_paginated is null) {
                             throw new DException(
                                 "You must set a pagination instance using `setPaginated()` first");
                         }
@@ -426,7 +429,7 @@ class DPaginatorHelper : DHelper {
                                                                         if (!mypaging.isEmpty(
                                                                             "scope")) {
                                                                             myscope = mypaging["scope"];
-                                                                                if (isSet(mybaseUrl["?"][myscope]) && isArray(
+                                                                                if (mybaseUrl.hasKey(["?", myscope]) && isArray(
                                                                                     mybaseUrl["?"][myscope])) {
                                                                                     auto updatedOptions = options
                                                                                         .updatetions.updatemybaseUrl["?"][myscope];
@@ -621,8 +624,8 @@ class DPaginatorHelper : DHelper {
                                                                                 } else {
                                                                                     result = _numbers(mytemplater, myparams, options);
                                                                                 }
-                                                                                if (isSet(
-                                                                                    options["templates"])) {
+                                                                                if (
+                                                                                    options.hasKey("templates")) {
                                                                                     mytemplater.pop();
                                                                                 }
                                                                                 return result;

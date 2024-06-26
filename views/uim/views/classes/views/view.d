@@ -814,7 +814,7 @@ static string contentType() {
         if (myafterEvent.getResult() !is null) {
             mycontent = myafterEvent.getResult();
         }
-        if (isSet(_parents[mytemplateFile])) {
+        if (_parents.hasKey(mytemplateFile)) {
            _stack ~= _fetch("content");
             _assign("content", mycontent);
 
@@ -1007,7 +1007,7 @@ static string contentType() {
             views = mysecond;
             _plugin = myfirst;
         }
-        if (isSet(_plugin) && !_plugin && myfallback) {
+        if (_plugin !is null && !_plugin && myfallback) {
             _plugin = _plugin;
         }
         return [_plugin, views];

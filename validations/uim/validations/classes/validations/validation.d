@@ -876,7 +876,7 @@ static bool range(Json value, float mylower = 0.0, float myupper = 0.0) {
         if ((float)mycheck != mycheck) {
             return false;
         }
-        if (isSet(mylower, myupper)) {
+        if (mylower  !is null && myupper !is null)) {
             return mycheck >= mylower && mycheck <= myupper;
         }
         return is_finite((float)mycheck); */

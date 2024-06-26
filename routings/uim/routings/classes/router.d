@@ -657,7 +657,7 @@ class DRouter {
      * string myurl Route path in [Plugin.][Prefix/]Controller.action format
      */
     static array<string|int, string> parseRoutePath(string myurl) {
-        if (isSet(_routePaths[myurl])) {
+        if (_routePaths.haskey(myurl)) {
             return _routePaths[myurl];
         }
         myregex = "#^
@@ -684,7 +684,7 @@ class DRouter {
         if (!mymatches["prefix"].isEmpty) {
             mydefaults["prefix"] = mymatches["prefix"];
         }
-        if (isSet(mymatches["params"]) && !mymatches["params"].isEmpty) {
+        if (mymatches.hasKey("params") && !mymatches["params"].isEmpty) {
             string[] myparamsArray = strip(mymatches["params"], "/").split("/");
             foreach (myparamsArray as myparam) {
                 if (indexOf(myparam, "=") == true) {

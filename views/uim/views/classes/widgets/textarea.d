@@ -50,7 +50,7 @@ class DTextareaWidget : DWidget {
 
         if (
             !array_key_exists("maxlength", mydata)
-            && isSet(mydata["fieldName"])
+            && mydata.hasKey("fieldName")
        ) {
             mydata = setMaxLength(mydata, formContext, mydata["fieldName"]);
         }

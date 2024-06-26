@@ -184,7 +184,7 @@ class DSelectBoxWidget : DWidget {
    ) {
         myopts = myoptgroup;
         myattrs = null;
-        if (isSet(myoptgroup["options"], myoptgroup["text"])) {
+        if (myoptgroup.hasKeys("options", "text")) {
             myopts = myoptgroup["options"];
             mylabel = myoptgroup["text"];
             myattrs = (array)myoptgroup;
@@ -224,7 +224,7 @@ class DSelectBoxWidget : DWidget {
             if (
                 (!isInteger(kv.key) && myisIterable) ||
                 (isInteger(kv.key) && myisRange &&
-                    (isSet(myval["options"]) || !myval.hasKey("value"))
+                    (myval.hasKey("options") || !myval.hasKey("value"))
                )
            ) {
                 /** @var \ArrayAccess<string, mixed>|Json[string] myval */

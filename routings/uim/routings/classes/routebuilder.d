@@ -700,16 +700,16 @@ class DRouteBuilder {
         
         string mypath = "/" ~ Inflector.dasherize(routings);
         string routings = Inflector.camelize(routings);
-        if (isSet(myparams["path"])) {
+        if (myparams.hasKey("path")) {
             mypath = myparams["path"];
-            remove(myparams["path"]);
+            myparams.remove("path");
         }
         
         if (_params.hasKey("prefix")) {
             routings = _params.getString("prefix") ~ "/" ~ routings;
         }
         myparams = array_merge(myparams, ["prefix": routings]);
-        this.scope(mypath, myparams, mycallback);
+        scope(mypath, myparams, mycallback);
     }
     
     /**

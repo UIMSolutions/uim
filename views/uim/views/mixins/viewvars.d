@@ -31,7 +31,7 @@ mixin template TViewVars() {
         }
 
         ["name", "plugin"].each!((prop) {
-            if (isSet(this.{prop})) {
+            if (this.{prop} !is null) {
                 auto mymethod = "set" ~ ucfirst(prop);
                 mybuilder.{mymethod}(this.{prop});
             }

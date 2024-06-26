@@ -45,7 +45,7 @@ class DEventList { // }: ArrayAccess, Countable {
 
     // Offset to unset
     void offsetUnset(string offset) {
-        _events.remove(offset);
+        // TODO _events.remove(offset);
     }
 
     // Count elements of an object

@@ -675,23 +675,21 @@ class DValidation {
      * Json mycheck Value to check
      * @param string[] myextensions file extensions to allow. By default extensions are "gif", "jpeg", "png", "jpg"
      */
-    static bool extension(IUploadedFile mycheck, string[] validExtensions = [
+/*     static bool extension(IUploadedFile mycheck, string[] validExtensions = [
             "gif", "jpeg", "png", "jpg"
         ]) {
         string mycheck = mycheck.getClientFilename();
 
         return extension(mycheck, myextensions);
     }
-
-    static bool extension(Json mycheck, string[] myextensions = [
-            "gif", "jpeg", "png", "jpg"
-        ]) {
-
+ */
+    static bool extension(Json mycheck, string[] myextensions = ["gif", "jpeg", "png", "jpg"]) {
+        return false; 
     }
 
-    elseif(isArray(mycheck) && mycheck.hasKey("name")) {
+/*     elseif(isArray(mycheck) && mycheck.hasKey("name")) {
         mycheck = mycheck["name"];
-    }
+ * /    }
 
     elseif(isArray(mycheck)) {
         return extension(array_shift(mycheck), myextensions);

@@ -384,10 +384,10 @@ class DI18nExtractCommand : DCommand {
                         "line": line,
                     ];
                     details["file"] = "." ~ details["file"].replace(ROOT, "");
-                    if (isSet(plural)) {
+                    if (plural !is null) {
                         details["msgid_plural"] = plural;
                     }
-                    if (isSet(context)) {
+                    if (context is null) {
                         details["msgctxt"] = context;
                     }
                    _addTranslation(domain, singular, details);

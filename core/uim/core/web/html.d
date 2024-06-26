@@ -9,17 +9,23 @@ import uim.core;
 
 @safe:
 // #region startTag
-string htmlStartTag(string name, string id, string classes, string attributes) {
+string htmlStartTag(string name, string id = null, string classes = null, string attributes = null) {
 	string startTag;
 	startTag ~= "<" ~ name;
 	startTag ~= !id.isEmpty ? ` id="` ~ id ~ `"` : null;
 	startTag ~= !classes.isEmpty ? ` class="` ~ classes ~ `"` : null;
-	startTag ~= !attributes.isEmpty ? ` ` ~ classes : null;
+	startTag ~= !attributes.isEmpty ? ` ` ~ attributes : null;
 	startTag ~= ">";
 	return startTag;
 }
 unittest{
-	
+	assert(htmlStartTag("hello") == "<hello>");
+	assert(htmlStartTag("hello", "x") == `<hello id="x">`);
+	assert(htmlStartTag("hello", "x", "abc def") == `<hello id="x" class="abc def">`);
+	assert(htmlStartTag("hello", "x", "abc def", `alpha="Alpha" beta="Beta"`) == `<hello id="x" class="abc def" alpha="Alpha" beta="Beta">`);
+	assert(htmlStartTag("hello", null, "abc def") == `<hello class="abc def">`);
+	assert(htmlStartTag("hello", null, "abc def", `alpha="Alpha" beta="Beta"`) == `<hello class="abc def" alpha="Alpha" beta="Beta">`);
+	assert(htmlStartTag("hello", null, null, `alpha="Alpha" beta="Beta"`) == `<hello alpha="Alpha" beta="Beta">`);
 }
 // #region startTag
 

@@ -176,14 +176,15 @@ class DEventManager { // }: IEventManager {
      */
     protected Json[string] normalizeHandlers(DEventListener subscriber, Json[string] eventHandlers) {
         if (!eventHandlers.hasKey("callable")) {
-            handlers.byKeyvalue.each!(kv => 
-               eventHandlers[kv.key] = normalizeHandler(subscriber, kv.value));
-        }
+/*             eventHandlers.byKeyValue
+                .each!(kv => eventHandlers[kv.key] = normalizeHandler(subscriber, kv.value));
+ */        }
         return eventHandlers;
     }
 
     protected Json[string] normalizeHandlers(DEventListener subscriber, /* Closure |  */ string eventHandler) {
-        return [normalizeHandler(subscriber, eventHandler)];
+        // TODO return [normalizeHandler(subscriber, eventHandler)];
+        return null; 
     }
 
     /**

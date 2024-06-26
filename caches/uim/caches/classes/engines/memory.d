@@ -97,7 +97,7 @@ class DMemoryCacheEngine : DCacheEngine {
           "%s:%d".format(configuration.getString("host"), configuration.getString("port"))
         ];
     }
-    /* if (isSet(configData["servers"])) {
+    /* if (configData.hasKey("servers")) {
       configuration.set("servers", configuration.get("servers"], false);
     } */
   /* if (!configuration.get("servers"].isArray) {
@@ -253,7 +253,7 @@ return true;
 override bool merge(Json[string] items, long timeToLive = 0) {
     Json[string] cacheData = null;
     items.byKeyValue
-      .each!(kv => cacheData.set(internalKey(kv.key), kv.value);
+      .each!(kv => cacheData.set(internalKey(kv.key), kv.value));
     // TODOreturn _memory.merge(cacheData, duration(timeToLive));
     return false; 
   } 

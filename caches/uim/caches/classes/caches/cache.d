@@ -399,7 +399,7 @@ class DCache : ICache {
         if (groupName.isNull) {
             return _groups;
         }
-        if (isSet(_groups[groupName])) {
+        if (_groups.hasKey(groupName)) {
             return [groupName: _groups[groupName]];
         }
         throw new DInvalidArgumentException("Invalid cache group `%s`.".format(groupName));

@@ -75,8 +75,8 @@ class DRoutesCommand : DCommand {
                         string routeTemplateName = myRoute.templateName; if (
                             someDuplicateRoutesCounter[routeTemplateName][method] > 1 ||
                         (method.isEmpty && count(someDuplicateRoutesCounter[routeTemplateName]) > 1) ||
-                        (method != "" && isSet(
-                        someDuplicateRoutesCounter[routeTemplateName][""]))
+                        (method != "" && 
+                        someDuplicateRoutesCounter.hasKey([routeTemplateName, ""])
                             ) {
                             someDuplicateRoutes ~= [
                                 myRoute.options.getString("_name", myRoute.name),

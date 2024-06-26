@@ -156,11 +156,11 @@ template IntegerDataProperty(string name, string path = null) {
 template DataIsCheck(string isname) {
   const char[] DataIsCheck = `
     bool `~isname~`() {
-      return _value.getBoolean("`~isname~`");
+      return _values.getBoolean("`~isname~`");
     }
 
     void `~isname~`(bool mode) {
-      _value.set("`~isname~`", mode);
+      _values.set("`~isname~`", mode);
     }
   `;
 }
@@ -168,8 +168,8 @@ template DataIsCheck(string isname) {
 template DataGet(string typeName, string dataType, string nullValue) {
   const char[] DataGet = `
     `~dataType~` get`~typeName~`() {
-      return is`~typeName~` && _value.hasKey("value")
-        ? _value["value"].get!(`~dataType~`) : `~nullValue~`;
+      return is`~typeName~` && _values.hasKey("value")
+        ? _values["value"].get!(`~dataType~`) : `~nullValue~`;
     }
   `;
 }
@@ -178,7 +178,7 @@ template DataSet(string dataType) {
   const char[] DataSet = `
     void set(`~dataType~` newValue) {
       if (!isReadOnly) {
-        _value["value"] = newValue;
+        _values["value"] = newValue;
       }
     }
   `;

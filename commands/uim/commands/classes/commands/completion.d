@@ -128,7 +128,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
             if (subcommand && someParts.isNull(1)) {
                 continue;
             }
-            if (subcommand && isSet(someParts[1]) && someParts[1] != subcommand) {
+            if (subcommand && someParts.has(1) && someParts[1] != subcommand) {
                 continue;
             }
             // Handle class strings

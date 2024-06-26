@@ -38,7 +38,7 @@ class DPostgresDriver : DDriver {
 
     /** 
     void connect() {
-        if (isSet(this.pdo)) {
+        if (this.pdo !is null) {
             return;
         }
 

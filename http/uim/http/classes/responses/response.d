@@ -1157,7 +1157,7 @@ class DResponse : IResponse {
             } elseif (agent && preg_match("/MSIE ([0-9].[0-9]{1,2})/", agent)) {
                 contentType = "application/force-download";
             }
-            if (isSet(contentType)) {
+            if (isSet(contentType !is null) {
                 newResponse = new.withType(contentType);
             }
             name = options.getString("name", file.getFileName);

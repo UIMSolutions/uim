@@ -66,7 +66,7 @@ protected const MAX_ALIAS_LENGTH = 128;
      * persistent config option when connecting to a SQL Server 
      */
     void connect() {
-        if (isSet(_pdo)) {
+        if (_pdo !is null) {
             return;
         }
 

@@ -529,7 +529,7 @@ class DServerRequest { // }: IServerRequest {
         if (detect.hasKey("value")) {
             aValue = detect["value"];
 
-            return isSet(_params[aKey]) ? _params[aKey] == aValue : false;
+            return _params.hasKey(aKey) ? _params[aKey] == aValue : false;
         }
         /* if (detect.hasKey("options")) {
             return isSet(_params[aKey]) ? isIn(_params[aKey], detect["options"]): false;
@@ -755,7 +755,7 @@ class DServerRequest { // }: IServerRequest {
         new = clone this;
         name = this.normalizeHeaderName(name);
         existing = null;
-        if (isSet(new._environmentData[name])) {
+        if (new._environmentData[name] !is null) {
             existing = (array)new._environmentData[name];
         }
         existing = array_merge(existing, /* (array) */aValue);
@@ -1099,7 +1099,7 @@ class DServerRequest { // }: IServerRequest {
         // Lazily populate this data as it is generally not used.
         preg_match("/^HTTP\/([\d.]+)/", (string)getEnvironmentData("SERVER_PROTOCOL"), match);
         protocol = "1.1";
-        if (isSet(match[1])) {
+        if (match[1] !is null) {
             protocol = match[1];
         }
         this.protocol = protocol;

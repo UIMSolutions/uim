@@ -291,7 +291,7 @@ class DExceptionRenderer : IExceptionRenderer {
                 : _outputMessage("error500");
         } catch (MissingPluginException missngPluginExecution) {
             attributes = missngPluginExecution.getAttributes();
-            if (isset(attributes["plugin"]) && attributes["plugin"] == _controller.getPlugin()) {
+            if (attributes.hasKey("plugin") && attributes["plugin"] == _controller.getPlugin()) {
                 _controller.setPlugin(null);
             }
 

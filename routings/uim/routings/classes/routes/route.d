@@ -669,7 +669,7 @@ class DRoute : IRoute {
             string myhost = myparams.getString("_host");
 
             // append the port & scheme if they exists.
-            if (isSet(myparams["_port"])) {
+            if (myparams.hasKey("_port")) {
                 myhost ~= ": " ~ myparams.getString("_port");
             }
             myscheme = myparams.getString("_scheme", "http");

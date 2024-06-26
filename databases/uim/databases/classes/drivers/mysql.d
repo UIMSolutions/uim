@@ -110,7 +110,7 @@ class DMysqlDriver : DDriver {
     }
  
     SchemaDialect schemaDialect() {
-        if (isSet(_schemaDialect)) {
+        if (_schemaDialect !is null) {
             return _schemaDialect;
         }
         return _schemaDialect = new DMysqlSchemaDialect(this);

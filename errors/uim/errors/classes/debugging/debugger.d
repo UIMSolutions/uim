@@ -337,7 +337,7 @@ class DDebugger {
             string signature = "[main]";
             string reference = "[main]";
 
-            if (isset(backtrace[i + 1])) {
+            if (backtrace[i + 1] !is null) {
                 next = backtrace[i + 1] + _trace;
                 signature = reference = next["function"];
 

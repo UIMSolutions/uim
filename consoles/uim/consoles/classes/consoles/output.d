@@ -139,7 +139,7 @@ class DConsoleOutput {
             throw new DConsoleException("Invalid stream in constructor. It is not a valid resource.");
         }
        _output = fileStream;
-
+/* 
         if (
             (
                 DIRECTORY_SEPARATOR == "\\" &&
@@ -157,7 +157,7 @@ class DConsoleOutput {
            )
        ) {
            _outputAs = PLAIN;
-        }
+        } */
     }
     
     /**
@@ -179,7 +179,7 @@ class DConsoleOutput {
         }
         if (_outputAs != PLAIN) {
             /** @var \Closure replaceTags */
-            replaceTags = _replaceTags(...);
+            /* replaceTags = _replaceTags(...);
 
             output = preg_replace_callback(
                 "/<(?P<tag>[a-z0-9-_]+)>(?P<text>.*?)<\/(\1)>/ims",
@@ -188,7 +188,7 @@ class DConsoleOutput {
            );
             if (output !is null) {
                 return output;
-            }
+            } */
         }
         tags = _styles.keys.join("|");
         output = preg_replace("#</?(?:" ~ tags ~ ")>#", "", stylingText);
@@ -202,7 +202,7 @@ class DConsoleOutput {
      * matchesToReplace - Array of matches to replace.
      */
     protected string _replaceTags(STRINGAA matchesToReplace) {
-        auto style = getStyle(matchesToReplace["tag"]);
+       /*  auto style = getStyle(matchesToReplace["tag"]);
         if (style.isEmpty) {
             return "<" ~ matchesToReplace.get("tag") ~ ">" ~ matchesToReplace.get("text") ~ "</" ~ matchesToReplace.get("tag") ~ ">";
         }
@@ -218,7 +218,8 @@ class DConsoleOutput {
             .filter!(optionValue => optionValue.value)
             .each!(optionValue => styleInfo ~= _options[optionValue.option]);
 
-        return "\033[" ~ styleInfo.join(";") ~ "m" ~ matchesToReplace.getString("text") ~ "\033[0m";
+        return "\033[" ~ styleInfo.join(";") ~ "m" ~ matchesToReplace.getString("text") ~ "\033[0m"; */
+        return null; 
     }
     
     // Writes a message to the output stream.

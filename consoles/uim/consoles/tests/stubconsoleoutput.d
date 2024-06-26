@@ -23,11 +23,11 @@ class DStubConsoleOutput : DConsoleOutput {
     int write(string[] outputMessage, int newlinesToAppend = 1) {
         /* (array) */ outputMessage.each!(line => _out ~= line);
 
-        int newlinesToAppend--;
+        /* int newlinesToAppend--;
         while (newlinesToAppend > 0) {
             _out ~= "";
             newlinesToAppend--;
-        }
+        } */
         return 0;
     }
 

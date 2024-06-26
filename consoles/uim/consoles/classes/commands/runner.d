@@ -221,7 +221,7 @@ class DCommandRunner { // }: IEventDispatcher {
             throw new DMissingOptionException(
                 "Unknown command `{this.root} {cliArgumentName}`. "~
                 "Run `{this.root} --help` to get the list of commands.".format(
-                cliArgumentName, comandsToCheck.keys());
+                cliArgumentName, comandsToCheck.keys()));
         }
         return cliArgumentName;
     }

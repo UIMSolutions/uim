@@ -34,7 +34,7 @@ mixin template TConsoleIntegrationTest() {
      * string commandToRun Command to run
      */
     void exec(string commandToRun, Json[string] inputValues = null) {
-        runner = this.makeRunner();
+        /* runner = this.makeRunner();
 
         _out ?  ?  = new DStubConsoleOutput();
         _err ?  ?  = new DStubConsoleOutput();
@@ -57,7 +57,7 @@ mixin template TConsoleIntegrationTest() {
             throw anException;
         } catch (DStopException exception) {
             _exitCode = exception.code();
-        }
+        } */
     }
 
     /**

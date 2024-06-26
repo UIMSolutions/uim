@@ -141,10 +141,10 @@ class DHelpFormatter {
     }
     
     // Get the help as an XML string.
-    SimpleXMLElement|string xml(bool returnString = true) {
+    /* DSimpleXMLElement| */string xml(bool returnString = true) {
         auto myParser = _parser;
         auto xml = new DSimpleXMLElement("<shell></shell>");
-        xml.addChild("command", myParser.getCommand());
+        /* xml.addChild("command", myParser.getCommand());
         xml.addChild("description", myParser.getDescription());
 
         auto xmlOptions = xml.addChild("options");
@@ -155,6 +155,7 @@ class DHelpFormatter {
 
         xml.addChild("epilog", myParser.getEpilog());
 
-        return returnString ? to!string(xml.asXML()) : xml;
+        return returnString ? to!string(xml.asXML()) : xml; */
+        return null; 
     } 
 }

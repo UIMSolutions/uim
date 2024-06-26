@@ -71,18 +71,18 @@ class DConsoleIo {
         DConsoleOutput errOutput = null,
         DConsoleInput input = null,
         DHelperRegistry helpers = null
-   ) {
-       _out = output ? result : new DConsoleOutput("uim://stdout");
-       _err = errOutput.ifNull(new DConsoleOutput("uim://stderr"));
-       _in = input.ifNull(new DConsoleInput("uim://stdin"));
-       _helpers = helpers.ifNull(new DHelperRegistry());
-       _helpers.setIo(this);
+    ) {
+        _out = output ? result : new DConsoleOutput("uim://stdout");
+        _err = errOutput.ifNull(new DConsoleOutput("uim://stderr"));
+        _in = input.ifNull(new DConsoleInput("uim://stdin"));
+        _helpers = helpers.ifNull(new DHelperRegistry());
+        _helpers.setIo(this);
     }
-    
+
     void setInteractive(bool aValue) {
         _interactive = aValue;
     }
-    
+
     /**
      * Get/set the current output level.
      * Params:
@@ -90,20 +90,20 @@ class DConsoleIo {
      */
     int level(int level = 0) {
         if (level != 0) {
-           _level = level;
+            _level = level;
         }
         return _level;
     }
-    
+
     // Output at the verbose level.
     int verbose(string[] messages...) {
         return verbose(messages.dup);
     }
-    
+
     int verbose(string[] messages, int newLinesToAppend = 1) {
         return _writeln(messages, newLinesToAppend, VERBOSE);
     }
-    
+
     // Output at all levels.
     int quiet(string[] outputMessages...) {
         return quiet(outputMessages.dup);
@@ -112,7 +112,7 @@ class DConsoleIo {
     int quiet(string[] outputMessages, int newLinesToAppend = 1) {
         return _writeln(outputMessages, newLinesToAppend, QUIET);
     }
-    
+
     /**
      * Outputs a single or multiple messages to stdout. If no parameters
      * are passed outputs just a newline.
@@ -124,27 +124,28 @@ class DConsoleIo {
      * present in most shells. Using ConsoleIo.QUIET for a message means it will always display.
      * While using ConsoleIo.VERBOSE means it will only display when verbose output is toggled.
      */
-    int out(string[] amessage = null, int newLinesToAppend = 1, int outputLevel = NORMAL) {
-        if (outputLevel > _level) {
+    int out_(string[] amessage = null, int newLinesToAppend = 1, int outputLevel = NORMAL) {
+        /* if (outputLevel > _level) {
             return null;
         }
-       _lastWritten = _out.write(message, newLinesToAppend);
+       _lastWritten = _out.write(message, newLinesToAppend); */
 
-        return _lastWritten;
+        // return _lastWritten;
+        return 0;
     }
-    
+
     // Convenience method for out() that wraps message between <info> tag
     int info(string[] outputMessages...) {
         return info(ouztputMessages.dup);
     }
-    
+
     int info(string[] outputMessages, int newLinesToAppend = 1, int outputLevel = NORMAL) {
         string messageType = "info";
         auto myOutputMessages = wrapMessageWithType(messageType, outputMessages);
 
         return _writeln(myOutputMessages, newLinesToAppend, outputLevel);
     }
-    
+
     // Convenience method for out() that wraps message between <comment> tag
     int comment(string[] outputMessages...) {
         return comment(outputMessages.dup);
@@ -155,14 +156,14 @@ class DConsoleIo {
 
         return _writeln(message, newLinesToAppend, outputLevel);
     }
-    
+
     // Convenience method for writeErrorMessages() that wraps message between <warning> tag
     int warning(string[] outputMessages, int newLinesToAppend = 1) {
         auto message = wrapMessageWithType("warning", outputMessages);
 
         return _writeErrorMessages(message, newLinesToAppend);
     }
-    
+
     /**
      * Convenience method for writeErrorMessages() that wraps message between <error> tag
      * Params:
@@ -174,7 +175,7 @@ class DConsoleIo {
 
         return _writeErrorMessages(message, newLinesToAppend);
     }
-    
+
     // Convenience method for out() that wraps message between <success> tag
     int success(string[] messagesToOutput, int newLinesToAppend = 1, int outputLevel = NORMAL) {
         string messageType = "success";
@@ -182,14 +183,14 @@ class DConsoleIo {
 
         return _writeln(message, newLinesToAppend, outputLevel);
     }
-    
+
     // Halts the the current process with a StopException.
     never abort(string errorMessage, int errorCode = ICommand.CODE_ERROR) {
         error(errorMessage);
 
         throw new DStopException(errorMessage, errorCode);
     }
-    
+
     /**
      * Wraps a message with a given message type, e.g. <warning>
      * Params:
@@ -216,12 +217,12 @@ class DConsoleIo {
      * string[]|string amessage The message to output.
      */
     void overwrite(string[] amessage, int newLinesToAppend = 1, int bytesToOverwrite = 0) {
-        auo bytesToOverwrite = bytesToOverwrite ?: _lastWritten;
+        bytesToOverwrite = bytesToOverwrite ? bytesToOverwrite : _lastWritten;
 
         // Output backspaces.
         writeln(str_repeat("\x08", bytesToOverwrite), 0);
 
-        newBytes = (int)writeln(message, 0);
+        auto newBytes =  /* (int) */ writeln(message, 0);
 
         // Fill any remaining bytes with spaces.
         auto fill = bytesToOverwrite - newBytes;
@@ -234,10 +235,10 @@ class DConsoleIo {
         // Store length of content + fill so if the new content
         // is shorter than the old content the next overwrite will work.
         if (fill > 0) {
-           _lastWritten = newBytes + fill;
+            _lastWritten = newBytes + fill;
         }
     }
-    
+
     /**
      * Outputs a single or multiple error messages to stderr. If no parameters
      * are passed outputs just a newline.
@@ -245,10 +246,11 @@ class DConsoleIo {
     int writeErrorMessages(string[] messages...) {
         return writeErrorMessages(messages.dup);
     }
+
     int writeErrorMessages(string[] messages, int newLinesToAppend = 1) {
         return _err.write(messages, newLinesToAppend);
     }
-    
+
     /**
      * Returns a single or multiple linefeeds sequences.
      * Params:
@@ -257,43 +259,43 @@ class DConsoleIo {
     string nl(int linefeedMultiplier = 1) {
         return str_repeat(ConsoleOutput.LF, linefeedMultiplier);
     }
-    
+
     // Outputs a series of minus characters to the standard output, acts as a visual separator.
     void hr(int newLinesToAppend = 0, int widthOfLine = 79) {
         writeln("", newLinesToAppend);
         writeln(str_repeat("-", widthOfLine));
         writeln("", newLinesToAppend);
     }
-    
+
     // Prompts the user for input, and returns it.
     string ask(string promptText, string defaultInputValue = null) {
         return _getInput(promptText, null, defaultInputValue);
     }
-    
+
     // Change the output mode of the stdout stream
     void setOutputAs(int outputMode) {
-       _out.setOutputAs(outputMode);
+        _out.setOutputAs(outputMode);
     }
-    
+
     // Gets defined styles.
     Json[string] styles() {
         return _out.styles();
     }
-    
+
     // Get defined style.
     Json[string] getStyle(string styleToGet) {
         return _out.getStyle(styleToGet);
     }
-    
+
     // Adds a new output style.
     void setStyle(string styleToSet, Json[string] styleDefinition) {
-       _out.setStyle(styleToSet, styleDefinition);
+        _out.setStyle(styleToSet, styleDefinition);
     }
-    
+
     // Prompts the user for input based on a list of options, and returns it.
     string askChoice(string promptText, string option, string defaultInput = null) {
-        string[] options; 
-        if (option.contains(",")) {
+        string[] options;
+        /* if (option.contains(",")) {
             options = option.split(",");
         } else if (option.contains("/")) {
             options = option.split("/");
@@ -301,7 +303,8 @@ class DConsoleIo {
             options = [option];
         }
 
-        reurn askChoice(string promptText, string[] aoptions, string adefault = null) {
+        return askChoice(string promptText, string[] aoptions, string adefault = null); */
+        return null; 
     }
 
     string askChoice(string aprompt, string[] choices, string defaultValue = null) {
@@ -310,38 +313,35 @@ class DConsoleIo {
             array_map("strtolower", choices),
             array_map("strtoupper", choices),
             choices
-       );
+        );
 
         string anIn = "";
         while (anIn.isEmpty || !anIn.isIn(choices)) {
-             anIn = _getInput(prompt, printOptions, defaultValue);
+            anIn = _getInput(prompt, printOptions, defaultValue);
         }
         return anIn;
     }
-    
+
     // Prompts the user for input, and returns it.
     protected string _getInput(string promptText, string options, string defaultInputValue) {
         if (!_interactive) {
             return to!string(defaultInputValue);
         }
 
-        string optionsText = isSet(options) 
-            ? " options " 
-            : "";
+        string optionsText = isSet(options)
+            ? " options " : "";
 
         string defaultText = !defaultInputValue.isNull ? "[%s] ".format(defaultInputValue) : "";
-        _out.write("<question>" ~ promptText ~ "</question>%s\n%s> ".fomat(optionsText, defaultText), 0);
-        result = _in.read();
+        // _out.write("<question>" ~ promptText ~ "</question>%s\n%s> ".fomat(optionsText, defaultText), 0);
+        string result = _in.read();
 
-        string result = !result.isNull 
-            ? result.strip
-            : "";
-        
+        string result = !result.isNull
+            ? result.strip : "";
+
         return !result.isEmpty
-            ? result
-            : defaultValue;
+            ? result : defaultValue;
     }
-    
+
     /**
      * Connects or disconnects the loggers to the console output.
      *
@@ -368,20 +368,20 @@ class DConsoleIo {
         // we don`t add a redundant one.
         Log.configured().each!((loggerName) {
             auto log = Log.engine(loggerName);
-            if (cast(DConsoleLog)log) {
+            if (cast(DConsoleLog) log) {
                 return;
             }
         });
-        
+
         string[] outLevels = ["notice", "info"];
         if (enable == VERBOSE || enable == true) {
             outLevels ~= "debug";
         }
         if (enable != QUIET) {
             stdout = new DConsoleLog([
-                "types": outLevels,
-                "stream": _out,
-            ]);
+                    "types": outLevels,
+                    "stream": _out,
+                ]);
             Log.configuration.set("stdout", ["engine": stdout]);
         }
         stderr = new DConsoleLog([
@@ -390,7 +390,7 @@ class DConsoleIo {
         ]);
         Log.configuration.set("stderr", ["engine": stderr]);
     }
-    
+
     /**
      * Render a Console Helper
      *
@@ -405,7 +405,7 @@ class DConsoleIo {
         auto renderName = ucfirst(nameToRender);
         return _helpers.load(renderName, initData);
     }
-    
+
     /**
      * Create a file at the given path.
      *
@@ -422,7 +422,9 @@ class DConsoleIo {
 
         if (fileExists(fileCreationPath) && shouldOverwrite == false) {
             warning("File `{fileCreationPath}` exists");
-            aKey = askChoice("Do you want to overwrite?", ["y", "n", "a", "q"], "n");
+            aKey = askChoice("Do you want to overwrite?", [
+                    "y", "n", "a", "q"
+                ], "n");
             aKey = aKey.lower;
 
             if (aKey == "q") {
@@ -461,5 +463,5 @@ class DConsoleIo {
         }
         error("Could not write to `{fileCreationPath}`.", 2);
         return false;
-    } 
+    }
 }

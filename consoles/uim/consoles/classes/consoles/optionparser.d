@@ -196,7 +196,8 @@ class DConsoleOptionParser {
 
     // Static factory method for creating new DOptionParsers so you can chain methods off of them.
     static auto create(string commandName, bool useDefaultOptions = true) {
-        return new static(commandName, useDefaultOptions);
+        /* return new static(commandName, useDefaultOptions); */
+        return this; 
     }
 
     /**
@@ -218,7 +219,7 @@ class DConsoleOptionParser {
      * Json[string] sepcData The sepcData to build the OptionParser with.
      */
     static auto buildFromArray(Json[string] sepcData, bool isVerboseAndQuiet = true) {
-        auto aParser = new static(sepcData["command"], isVerboseAndQuiet);
+        /* auto aParser = new static(sepcData["command"], isVerboseAndQuiet);
         if (!sepcData["arguments"].isEmpty) {
             aParser.addArguments(sepcData["arguments"]);
         }
@@ -231,7 +232,8 @@ class DConsoleOptionParser {
         if (!sepcData["epilog"].isEmpty) {
             aParser.setEpilog(sepcData["epilog"]);
         }
-        return aParser;
+        return aParser; */
+        return null; 
     }
 
     // Returns an array representation of this parser.
@@ -255,22 +257,16 @@ class DConsoleOptionParser {
     }
 
     void merge(Json[string] spec) {
-        if (!spec["arguments"].isEmpty) {
-            this.addArguments(spec["arguments"]);
+        if (!spec.isEmpty("arguments")) {
+            addArguments(spec["arguments"]);
         }
-        if (!spec["options"].isEmpty)
-            
-            ) {
+        if (!spec.isEmpty("options")) {
             addOptions(spec["options"]);
         }
-        if (!spec["description"].isEmpty)
-            
-            ) {
-            this.description(spec["description"]);
+        if (!spec.isEmpty("description")) {
+            description(spec["description"]);
         }
-        if (!spec["epilog"].isEmpty)
-            
-            ) {
+        if (!spec.isEmpty("epilog")) {
             setEpilog(spec["epilog"]);
         }
     }
@@ -324,12 +320,12 @@ class DConsoleOptionParser {
     void addOption(ConsoleInputOption inputOption, Json[string] behaviorOptions = null) {
         string optionName = inputOption.name();
 
-        _options.set(optionName, inputOption);
+        /* _options.set(optionName, inputOption);
         asort(_options);
         if (inputOption.short()) {
             _shortOptions[inputOption.short()] = optionName;
             asort(_shortOptions);
-        }
+        } */
     }
 
     // Remove an option from the option parser.
@@ -368,7 +364,7 @@ class DConsoleOptionParser {
      * array<string, Json[string]|\UIM\Console\ConsoleInputArgument> someArguments Array of arguments to add.
      */
     void addArguments(Json[string] someArguments) {
-        foreach (name : params; someArguments) {
+        foreach (name, params; someArguments) {
             if (cast(DConsoleInputArgument) params) {
                 name = params;
                 params = null;
@@ -382,13 +378,13 @@ class DConsoleOptionParser {
      * The keys are used as option names, and the values as params for the option.
      */
     void addOptions(Json[string] optionsToAdd = null) {
-        foreach (name : params; optionsToAdd) {
+        /* foreach (name : params; optionsToAdd) {
             if (cast(DConsoleInputOption) params) {
                 name = params;
                 params = null;
             }
             this.addOption(name, params);
-        }
+        } */
     }
 
     // Gets the arguments defined in the parser.
@@ -614,6 +610,6 @@ class DConsoleOptionParser {
 
     // Find the next token in the argv set.
     protected string _nextToken() {
-        return _tokens[0] ?  ? "";
+        return _tokens[0] ? _tokens[0] :  "";
     }
 }

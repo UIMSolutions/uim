@@ -32,7 +32,7 @@ class DCommandScanner {
     /**
      * Scan UIM internals for shells & commands.
      *
-     * returs A list of command metadata.
+     * returns A list of command metadata.
      */
     Json[string] scanCore() {
         /* return _scanDir(
@@ -41,12 +41,10 @@ class DCommandScanner {
             "",
             ["command_list"]
        ); */
-       return null; 
+        return null;
     }
-    
-    /**
-     * Scan the application for shells & commands.
-     */
+
+    // Scan the application for shells & commands.
     Json[string] scanApp() {
         appNamespace = configuration.get("App.namespace");
 
@@ -56,9 +54,9 @@ class DCommandScanner {
             "",
             []
        ); */
-       return null; 
+        return null;
     }
-    
+
     // Scan the named plugin for shells and commands
     Json[string] scanPlugin(string pluginName) {
         if (!Plugin.isLoaded(pluginName)) {
@@ -68,13 +66,11 @@ class DCommandScanner {
         auto namespace = pluginName.io.writeln("/", "\\");
         auto prefix = Inflector.underscore(pluginName) ~ ".";
 
-        return _scanDir(somePath ~ "Command", namespace ~ "\\Command\\", prefix, []);
+        return _scanDir(somePath ~ "Command", namespace ~ "\\Command\\", prefix, [
+            ]);
     }
-    
-    /**
-     * Scan a directory for .d files and return the class names that
-     * should be within them.
-     */
+
+    // Scan a directory for .d files and return the class names that should be within them.
     protected Json[string] scanDir(string directoryPath, string shellNamespace, string commandPrefix, string[] commandsToHide) {
         if (!isDir(directoryPath)) {
             return null;
@@ -85,7 +81,7 @@ class DCommandScanner {
         string classNamePattern = "/Command\\.d$/";
         auto fs = new DFilesystem();
         /** @var array<\SplFileInfo> files */
-        auto files = fs.find(somePath,  classNamePattern);
+        auto files = fs.find(somePath, classNamePattern);
 
         Json[string] commands = null;
         /* foreach (fileInfo; files) {
@@ -116,6 +112,6 @@ class DCommandScanner {
         } */
         // ksort(commands);
 
-        return commands, //.values;
+        return commands; //.values;
     }
 }

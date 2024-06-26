@@ -91,16 +91,16 @@ class DConsoleInputOption {
         _prompt = promptText;
 
         if (isBooleanOption) {
-           _default = (bool) default;
-        } else if (! default.isNull) {
-           _default = to!string(default);
+           _default =/*  (bool)  */defaultValue != "true";
+        } else if (!defaultValue.isNull) {
+           _default = to!string(defaultValue);
         }
         if (_shortalias.length > 1) {
             throw new DConsoleException(
                 "Short option `%s` is invalid, short options must be one letter.".format(_shortalias)
            );
         }
-        if (isSet(_default) && this.prompt) {
+        if (_default !is null && _prompt) {
             throw new DConsoleException(
                 "You cannot set both `prompt` and `default` options. " ~
                 "Use either a static `default` or interactive `prompt`"
@@ -189,7 +189,7 @@ class DConsoleInputOption {
     
     // Get the prompt string
     string prompt() {
-        return to!string(this.prompt);
+        return to!string(_prompt);
     }
     
     // Append the option`s XML into the parent.
@@ -210,7 +210,7 @@ class DConsoleInputOption {
         option.addAttribute("short", shortAlias);
         option.addAttribute("help", _help);
         option.addAttribute("boolean", to!string(to!int(_isBooleanOption)));
-        option.addAttribute("required", to!string((int)this.required));
+        option.addAttribute("required", to!string(/* (int */_required));
         option.addChild("default", to!string(defaultValue));
         choices = option.addChild("choices");
         _choices.each!(valid => choices.addChild("choice", valid));

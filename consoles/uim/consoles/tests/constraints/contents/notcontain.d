@@ -20,6 +20,6 @@ class DContentsNotContain : DContentsBase {
     
     // Assertion message
     string toString() {
-        return "is not in %s".format(this.output);
-    } */
-} */
+        return "is not in %s".format(_output);
+    } 
+} 

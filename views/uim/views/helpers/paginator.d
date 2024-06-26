@@ -292,15 +292,13 @@ class DPaginatorHelper : DHelper {
                                                                                 string) preg_replace("/_idmy/", "", mytitle)));
                                                                     }
 
-                                                                stringmydefaultDir = isSet(
-                                                                    options["direction"]) ? options.getString(
-                                                                    "direction").lower : "asc";
+                                                                stringmydefaultDir = options.getString("direction", "asc").lower;
                                                                     options.remove("direction");
 
                                                                     mylocked = options.get("lock", false);
                                                                     options["lock"]);
 
-                                                                    mysortKey = to!string(this.param(
+                                                                    mysortKey = to!string(param(
                                                                             "sort"));
                                                                     aliasName = this.param("alias");
                                                                     [
@@ -321,8 +319,7 @@ class DPaginatorHelper : DHelper {
                                                                         if (mylocked) {
                                                                             mytemplate = mydir == "asc" ? "sortDescLocked" : "sortAscLocked";
                                                                         } else {
-                                                                            mydir = this.sortDir() == "asc" ? "desc"
-                                                                                : "asc";
+                                                                            mydir = this.sortDir() == "asc" ? "desc" : "asc";
                                                                             mytemplate = mydir == "asc" ? "sortDesc"
                                                                                 : "sortAsc";
                                                                         }
@@ -338,7 +335,8 @@ class DPaginatorHelper : DHelper {
                                                                 ]; myvars = [
                                                                     "text": options["escape"] ? htmlAttributeEscape(mytitle): mytitle,
                                                                     "url": this.generateUrl(mypaging, myurl),
-                                                                ]; return _templater().format(mytemplate, myvars);
+                                                                ]; 
+                                                                return _templater().format(mytemplate, myvars);
                                                             }
 
                                                             /**

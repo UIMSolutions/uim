@@ -616,8 +616,8 @@ abstract class DTestCase : DBaseTestCase {
             }
         }
         foreach (anI: assertion; regex) {
-            matches = false;
-            if (isSet(assertion["attrs"])) {
+            auto matches = false;
+            if (assertion.hasKey("attrs")) {
                 // Json[string] assertion
                 mlText = _assertAttributes(assertion, mlText, fullDebug, regex);
                 if (fullDebug == true && mlText == false) {

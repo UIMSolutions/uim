@@ -469,7 +469,7 @@ class DFormHelper : DHelper {
             _formProtector.addField(fieldName, true, myvalue);
         }
         auto mydebugSecurity = configuration.getBoolean("debug");
-        if (isSet(mysecureAttributes["debugSecurity"])) {
+        if (mysecureAttributes.haskey("debugSecurity")) {
             mydebugSecurity = mydebugSecurity && mysecureAttributes["debugSecurity"];
             remove(mysecureAttributes["debugSecurity"]);
         }
@@ -1215,7 +1215,7 @@ class DFormHelper : DHelper {
         STRINGAA mylabelAttributes = ["templateVars": labelOptions["templateVars"]];
         if (isArray(mylabel)) {
             auto mylabelText = null;
-            if (isSet(mylabel["text"])) {
+            if (mylabel.hasKey("text")) {
                 mylabelText = mylabel["text"];
                 mylabel.remove("text");
             }
@@ -2117,10 +2117,10 @@ class DFormHelper : DHelper {
      * Json mydata The data to get a context provider for.
      */
     protected IContext _getContext(Json mydata= null) {
-        if (isSet(_context) && mydata.isEmpty) {
+        if (_context !is null && mydata.isEmpty) {
             return _context;
         }
-        mydata += ["entity": Json(null)];
+        mydata.merge(["entity": Json(null)]);
 
         return _context = this.contextFactory()
             .get(_View.getRequest(), mydata);

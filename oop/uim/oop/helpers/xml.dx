@@ -354,7 +354,7 @@ class Xml {
                                 mychildValue = to!string(dataValue["@"]);
                                 remove(dataValue["@"]);
                             }
-                            if (isSet(dataValue["xmlns:"])) {
+                            if (dataValue.haskey("xmlns:")) {
                                 mychildNS = dataValue["xmlns:"];
                                 remove(dataValue["xmlns:"]);
                             }

@@ -100,7 +100,7 @@ abstract class DCell { // }: IEventDispatcher {
 
         _validCellOptions = array_merge(["action", "args"], _validCellOptions);
         _validCellOptions
-            .filter!(var => isSet(cellOptionsToApply[var]))
+            .filter!(var => cellOptionsToApply.hasKey(var))
             .each!(var => this.{var} = cellOptionsToApply[myvar]);
         }
         if (!cellOptionsToApply.isEmpty("cache")) {

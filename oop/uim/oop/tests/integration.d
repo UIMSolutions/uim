@@ -548,8 +548,7 @@ mixin template TIntegrationTest() {
                 }
 
                 if (kv.value.isArray) {
-                    auto looksLikeFile = isSet(kv.value["error"], kv.value["tmp_name"], kv
-                        .value["size"]);
+                    auto looksLikeFile = kv.value.hasKeys("error", "tmp_name", "size");
                     if (looksLikeFile) {
                         continue;
                     }

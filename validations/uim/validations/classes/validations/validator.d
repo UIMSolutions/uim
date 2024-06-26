@@ -1600,7 +1600,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto time(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             myMessage = !_useI18n
-                ? "The provided value must be a time" : `__d("uim", "The provided value must be a time")`;
+                ? "The provided value must be a time"
+                : `__d("uim", "The provided value must be a time")`;
         }
 
         /*         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
@@ -1658,7 +1659,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return _add(fieldName, "boolean", myextra ~ [
                 "rule": "boolean",
             ]); */
-        return null; 
+        return null;
     }
 
     /**
@@ -1699,7 +1700,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return _add(fieldName, "decimal", myextra ~ [
                 "rule": ["decimal", myplaces],
             ]); */
-        return null; 
+        return null;
     }
 
     /**
@@ -1719,7 +1720,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     ) {
         if (myMessage.isNull) {
             myMessage = !_useI18n
-                ? "The provided value must be an e-mail address" 
+                ? "The provided value must be an e-mail address"
                 : `__d("uim", "The provided value must be an e-mail address")`;
         }
         /* Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
@@ -1727,7 +1728,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return _add(fieldName, "email", myextra ~ [
                 "rule": ["email", mycheckMX],
             ]); */
-        return null; 
+        return null;
     }
 
     /**
@@ -1755,7 +1756,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             string mycaseOptions = mycases.join("`, `");
 
             myMessage = !_useI18n
-                ? "The provided value must be one of '%s'".format(mycaseOptions) 
+                ? "The provided value must be one of '%s'".format(
+                    mycaseOptions)
                 : `__d("uim", "The provided value must be one of '{0}'", mycaseOptions)`;
 
         }
@@ -1764,7 +1766,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return _add(fieldName, "enum", myextra ~ [
                 "rule": ["enum", myenumClassName],
             ]); */
-        return null; 
+        return null;
     }
 
     /**
@@ -1782,14 +1784,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             myMessage = !_useI18n
                 ? "The provided value must be an IP address"
                 : `__d("uim", "The provided value must be an IP address")`;
-            
+
         }
         /* Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
 
         return _add(fieldName, "ip", myextra ~ [
                 "rule": "ip",
             ]); */
-        return null; 
+        return null;
     }
 
     /**
@@ -1806,14 +1808,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             myMessage = !_useI18n
                 ? "The provided value must be an IPv4 address"
                 : `__d("uim", "The provided value must be an IPv4 address")`;
-            
+
         }
         /* Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
 
         return _add(fieldName, "ipv4", myextra ~ [
                 "rule": ["ip", "ipv4"],
             ]); */
-        return null; 
+        return null;
     }
 
     /**
@@ -1829,12 +1831,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? "The provided value must be an IPv6 address"
                 : `__d("uim", "The provided value must be an IPv6 address")`;
         }
-/*         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
+        /*         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
 
         return _add(fieldName, "ipv6", myextra ~ [
                 "rule": ["ip", "ipv6"],
             ]); */
-        return null; 
+        return null;
     }
 
     /**
@@ -1853,12 +1855,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 myMessage = `__d("uim", "The provided value must be at least '{0}' characters long", mymin)`;
             }
         }
-/*         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
+        /*         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
 
         return _add(fieldName, "minLength", myextra ~ [
                 "rule": ["minLength", mymin],
             ]); */
-            return null; 
+        return null;
     }
 
     /**
@@ -1873,7 +1875,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto minLengthBytes(string fieldName, int mymin, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             myMessage = !_useI18n
-                ? "The provided value must be at least '%s' bytes long".format(mymin)
+                ? "The provided value must be at least '%s' bytes long".format(
+                    mymin)
                 : `__d("uim", "The provided value must be at least '{0}' bytes long", mymin)`;
         }
 
@@ -1881,7 +1884,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return _add(fieldName, "minLengthBytes", myextra ~ [
                 "rule": ["minLengthBytes", mymin],
             ]); */
-        return null; 
+        return null;
     }
 
     /**
@@ -1896,16 +1899,17 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto maxLength(string fieldName, int mymax, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             myMessage = !_useI18n
-                ? "The provided value must be at most '%s' characters long".format(mymax)
+                ? "The provided value must be at most '%s' characters long".format(
+                    mymax)
                 : `__d("uim", "The provided value must be at most '{0}' characters long", mymax)`;
         }
 
         /* Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
         return _add(fieldName, "maxLength", myextra ~ [
                 "rule": ["maxLength", mymax],
-            ]);*/ 
+            ]);*/
         return null;
-    } 
+    }
 
     /**
      * Add a string length validation rule to a field.
@@ -1929,7 +1933,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return _add(fieldName, "maxLengthBytes", myextra ~ [
                 "rule": ["maxLengthBytes", mymax],
             ]); */
-            return null; 
+        return null;
     }
 
     /**
@@ -1942,7 +1946,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto numeric(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
             myMessage = !_useI18n
-                ? "The provided value must be numeric" : `__d("uim", "The provided value must be numeric")`;
+                ? "The provided value must be numeric"
+                : `__d("uim", "The provided value must be numeric")`;
 
         }
         /* Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
@@ -1950,7 +1955,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return _add(fieldName, "numeric", myextra ~ [
                 "rule": "numeric",
             ]); */
-            return null; 
+        return null;
     }
 
     /**
@@ -1968,12 +1973,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 myMessage = `__d("uim", "The provided value must be a natural number")`;
             }
         }
-/*         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
+        /*         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
 
         return _add(fieldName, "naturalNumber", myextra ~ [
                 "rule": ["naturalNumber", false],
             ]); */
-            return null; 
+        return null;
     }
 
     /**
@@ -1993,12 +1998,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 myMessage = `__d("uim", "The provided value must be a non-negative integer")`;
             }
         }
-/*         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
+        /*         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
 
         return _add(fieldName, "nonNegativeInteger", myextra ~ [
                 "rule": ["naturalNumber", true],
             ]); */
-            return null; 
+        return null;
     }
 
     /**
@@ -2014,23 +2019,24 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         if (count(myrange) != 2) {
             // TODO throw new DInvalidArgumentException("The myrange argument requires 2 numbers");
         }
-        auto mylowerBound = array_shift(myrange);
-        auto myupperBound = array_shift(myrange);
+        auto mylowerBound = "0"; // array_shift(myrange);
+        auto myupperBound = "1"; // array_shift(myrange);
 
         if (myMessage.isNull) {
             myMessage = !_useI18n
-                ? "The provided value must be between '%s' and '%s', inclusively".format(mylowerBound, myupperBound) : `__d(
+                ? "The provided value must be between '%s' and '%s', inclusively".format(mylowerBound, myupperBound)
+                : `__d(
                     "uim",
                     "The provided value must be between '{0}' and '{1}', inclusively",
                     mylowerBound, myupperBound
                 )`;
         }
-/*         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
+        /*         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
 
         return _add(fieldName, "range", myextra ~ [
                 "rule": ["range", mylowerBound, myupperBound],
             ]); */
-            return null; 
+        return null;
     }
 
     /**
@@ -2044,18 +2050,15 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     auto url(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
-            if (!_useI18n) {
-                myMessage = "The provided value must be a URL";
-            } else {
-                myMessage = `__d("uim", "The provided value must be a URL")`;
-            }
+            myMessage = !_useI18n
+                ? "The provided value must be a URL"
+                : `__d("uim", "The provided value must be a URL")`;
         }
-/*         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
-
+        /*         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
         return _add(fieldName, "url", myextra ~ [
                 "rule": ["url", false],
             ]); */
-                        return null; 
+        return null;
 
     }
 
@@ -2072,17 +2075,16 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     auto urlWithProtocol(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
-            if (!_useI18n) {
-                myMessage = "The provided value must be a URL with protocol";
-            } else {
-                myMessage = __d("uim", "The provided value must be a URL with protocol");
-            }
+            myMessage = !_useI18n
+                ? "The provided value must be a URL with protocol"
+                : `__d("uim", "The provided value must be a URL with protocol")`;
         }
-        Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
-
+        
+        /* Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
         return _add(fieldName, "urlWithProtocol", myextra ~ [
                 "rule": ["url", true],
-            ]);
+            ]); */
+        return null; 
     }
 
     /**
@@ -2095,24 +2097,23 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * true when the validation rule should be applied.
      */
     auto inList(string fieldName, Json[string] mylist, string myMessage = null, /*Closure|*/ string mywhen = null) {
-        mylistEnumeration = join(", ", mylist);
+        auto mylistEnumeration = join(", ", mylist);
 
         if (myMessage.isNull) {
-            if (!_useI18n) {
-                myMessage = sprintf("The provided value must be one of: '%s'", mylistEnumeration);
-            } else {
-                myMessage = __d(
+            myMessage = !_useI18n
+                ? "The provided value must be one of: '%s'".format(mylistEnumeration)
+                : `__d(
                     "uim",
                     "The provided value must be one of: '{0}'",
                     mylistEnumeration
-                );
-            }
+                )`;
         }
-        Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
 
+/*         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
         return _add(fieldName, "inList", myextra ~ [
                 "rule": ["inList", mylist],
-            ]);
+            ]); */
+        return null; 
     }
 
     /**
@@ -2126,17 +2127,16 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     auto uuid(string fieldName, string myMessage = null, /*Closure|*/ string mywhen = null) {
         if (myMessage.isNull) {
-            if (!_useI18n) {
-                myMessage = "The provided value must be a UUID";
-            } else {
-                myMessage = __d("uim", "The provided value must be a UUID");
-            }
+            myMessage = !_useI18n
+                ? "The provided value must be a UUID"
+                : `__d("uim", "The provided value must be a UUID")`;
         }
-        Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
-
+        
+/*         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
         return _add(fieldName, "uuid", myextra ~ [
                 "rule": "uuid",
-            ]);
+            ]); */
+        return null; 
     }
 
     /**
@@ -2156,17 +2156,16 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string mywhen = null
     ) {
         if (myMessage.isNull) {
-            if (!_useI18n) {
-                myMessage = "The provided value must be an uploaded file";
-            } else {
-                myMessage = __d("uim", "The provided value must be an uploaded file");
-            }
+            myMessage = !_useI18n
+                ? "The provided value must be an uploaded file"
+                : `__d("uim", "The provided value must be an uploaded file")`;
         }
-        Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
+        /* Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
 
         return _add(fieldName, "uploadedFile", myextra ~ [
                 "rule": ["uploadedFile", options],
-            ]);
+            ]); */
+        return null; 
     }
 
     /**
@@ -2185,14 +2184,15 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             if (!_useI18n) {
                 myMessage = "The provided value must be a latitude/longitude coordinate";
             } else {
-                myMessage = __d("uim", "The provided value must be a latitude/longitude coordinate");
+                myMessage = `__d("uim", "The provided value must be a latitude/longitude coordinate")`;
             }
         }
-        Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
+/*         Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
 
         return _add(fieldName, "latLong", myextra ~ [
                 "rule": "geoCoordinate",
-            ]);
+            ]); */
+        return null; 
     }
 
     /**
@@ -2209,14 +2209,15 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             if (!_useI18n) {
                 myMessage = "The provided value must be a latitude";
             } else {
-                myMessage = __d("uim", "The provided value must be a latitude");
+                myMessage = `__d("uim", "The provided value must be a latitude")`;
             }
         }
-        Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
+        /* Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
 
         return _add(fieldName, "latitude", myextra ~ [
                 "rule": "latitude",
-            ]);
+            ]); */
+        return null; 
     }
 
     /**

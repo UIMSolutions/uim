@@ -181,7 +181,7 @@ class DCache : ICache {
         }
         myRegistry = getRegistry();
 
-        if (isSet(myRegistry.{configName})) {
+        if (myRegistry.{configName} !is null) {
             return myRegistry.{configName};
         }
         _buildEngine(configName);

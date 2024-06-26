@@ -235,7 +235,7 @@ REGEXP`;
             /** @var string ascheme */
             scheme = parsed["scheme"];
             parsed["className"] = scheme;
-            if (isSet(classNameMap[scheme])) {
+            if (classNameMap.hasKey(scheme)) {
                 parsed["className"] = classNameMap[scheme];
             }
         }

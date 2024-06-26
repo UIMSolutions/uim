@@ -412,7 +412,8 @@ class DSelectLoader {
      * the corresponding target table results as value.
      * @param Json[string] options The options passed to the eagerLoader method
      */
-    protected Closure _resultInjector(Query fetchQuery, Json[string] resultMap, Json[string] optionData) {
+     // TODO
+    /* protected Closure _resultInjector(Query fetchQuery, Json[string] resultMap, Json[string] optionData) {
         keys = this.associationType == Association.MANY_TO_ONE ?
             _foreignKeys :
             _bindingKeys;
@@ -430,13 +431,13 @@ class DSelectLoader {
 
         auto sourceKey = someSourceKeys[0];
         return function (row) use (resultMap, sourceKey, nestKey) {
-            if (isset(row[sourceKey], resultMap[row[sourceKey]])) {
+            if (row.hasKey(sourceKey) && resultMap.hasKey(row[sourceKey])) {
                 row[nestKey] = resultMap[row[sourceKey]];
             }
 
             return row;
         };
-    }
+    } */
 
     /**
      * Returns a callable to be used for each row in a query result set

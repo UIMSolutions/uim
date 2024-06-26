@@ -396,7 +396,7 @@ mixin template TEntity() {
     */
   bool isEmpty(string fieldToCheck) {
     auto aValue = get(fieldToCheck);
-    return (aValue.isNull || (isArray(aValue) && aValue.isEmpty || aValue == ""));
+    return (aValue.isNull || (isArray(aValue) && aValue.isEmpty || aValue is null));
   }
 
   /**

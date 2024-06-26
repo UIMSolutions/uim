@@ -203,7 +203,7 @@ T[] filters(T)(T[] baseArray, T[] filterValues...) {
 version (test_uim_core) {
   unittest {
     assert([1, 2, 3].filters(2) == [2]);
-    assert([1, 2, 3].filters() == []);
+    assert([1, 2, 3].filters() is null);
     assert([
         1, 2, 3
       ].filters(1, 2) == [1, 2]);

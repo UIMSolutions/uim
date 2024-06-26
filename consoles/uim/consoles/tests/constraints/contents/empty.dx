@@ -15,7 +15,7 @@ class DContentsEmpty : DContentsBase {
      * Json other Expected
      */
    bool matches(Json other) {
-        return _contents == "";
+        return _contents is null;
     }
     
     // Assertion message

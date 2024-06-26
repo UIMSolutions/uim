@@ -70,7 +70,7 @@ class DFileCacheEngine : DCacheEngine {
 
     // Write data for key into cache
     /* override */ bool set(string dataId, Json cacheData, long timeToLive = 0) {
-        /* TODO if (cacheData == "" || !_init) {
+        /* TODO if (cacheData is null || !_init) {
             return false;
         }
 
@@ -323,7 +323,7 @@ class DFileCacheEngine : DCacheEngine {
             auto(SplFileInfo mycurrent) use(groupName, myprefix) {
             if (!mycurrent.isFile()) {
                 return false;}
-                myhasPrefix = myprefix == "" || str_starts_with(mycurrent.getBasename(), myprefix);
+                myhasPrefix = myprefix is null || str_starts_with(mycurrent.getBasename(), myprefix);
                     return myhasPrefix
                     ? mycurrent.getPathname()
                     .has(

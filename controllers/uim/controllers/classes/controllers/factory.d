@@ -197,7 +197,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
             "float": isNumeric(argumentToCoerce) ? (float)argumentToCoerce : null,
             "int": filter_var(argumentToCoerce, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE),
             "bool": argumentToCoerce == "0" ? false : (argumentToCoerce == "1" ? true : null),
-            "array": argumentToCoerce == "" ? [] : split(",", argumentToCoerce),
+            "array": argumentToCoerce is null ? [] : split(",", argumentToCoerce),
             default: Json(null),
         };
     }

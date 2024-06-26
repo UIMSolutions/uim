@@ -342,7 +342,7 @@ string repeat(string text, size_t times) {
 }
 
 unittest {
-	assert(repeat("bla", 0) == "");
+	assert(repeat("bla", 0) is null);
 	assert(repeat("bla", 2) == "blabla");
 }
 

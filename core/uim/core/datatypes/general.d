@@ -71,9 +71,9 @@ size_t[] positionsIn(T)(T value, T[] values) {
 
 unittest {
   assert(2.positionsIn([1, 2, 3, 2]) == [1, 3]);
-  assert(20.positionsIn([1, 2, 3, 4]) == []);
+  assert(20.positionsIn([1, 2, 3, 4]) is null);
   assert((2.1).positionsIn([1.5, 2.1, 3.3, 2.1]) == [1, 3]);
-  assert((20.1).positionsIn([1.5, 2.1, 3.3, 4.6]) == []);
+  assert((20.1).positionsIn([1.5, 2.1, 3.3, 4.6]) is null);
 }
 
 /// Copies rightValues to leftValues   

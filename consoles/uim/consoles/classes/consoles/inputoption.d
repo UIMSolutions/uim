@@ -143,7 +143,7 @@ class DConsoleInputOption {
     
     // Get the usage value for this option
     string usage() {
-        name = _shortalias == "" ? "--" ~ _name : "-" ~ _shortalias;
+        name = _shortalias is null ? "--" ~ _name : "-" ~ _shortalias;
         default = "";
         if (!_default.isNull && !isBoolean(_default) && !_default.isEmpty) {
             default = " " ~ _default;

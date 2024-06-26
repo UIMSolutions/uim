@@ -18,7 +18,8 @@ import uim.orm;
  * @: DORMCore\ObjectRegistry<DORMBehavior>
  */
 class DBehaviorRegistry : DObjectRegistry!DBehavior {
-        this() {}
+    this() {
+    }
 
     // }: ObjectRegistry, IEventDispatcher {
     /* 
@@ -57,8 +58,8 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
     // Resolve a behavior classname.
     static string className(string partialClassname) {
         return App.className(partialClassname, "Model/Behavior", "Behavior")
-            ? App.className(partialClassname, "Model/Behavior", "Behavior")
-            : App.className(partialClassname, "ORM/Behavior", "Behavior");
+            ? App.className(partialClassname, "Model/Behavior", "Behavior") : App.className(
+                partialClassname, "ORM/Behavior", "Behavior");
     }
 
     /**
@@ -78,7 +79,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      *
      * aClassName - The classname that is missing.
      */
-    protected void _throwMissingClassError(string aClassName , string pluginName) {
+    protected void _throwMissingClassError(string aClassName, string pluginName) {
         throw new DMissingBehaviorException([
             "class": aClassName ~ "Behavior",
             "plugin": pluginName,
@@ -100,6 +101,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
         if (configuration.getBoolean("enabled", true)) {
             getEventManager().on(instance);
         }
+
         auto methodNames = _getMethods(instance, class, alias);
         _methodMap ~= methodNames["methods"];
         _finderMap ~= methodNames["finders"];
@@ -118,14 +120,14 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @param string aClassName  The classname that is missing.
      * @param string anAlias The alias of the object.
      */
-    protected Json[string] _getMethods(Behavior instance, string aClassName , string anAlias) {
+    protected Json[string] _getMethods(Behavior instance, string aClassName, string anAlias) {
         auto finders = array_change_key_case(instance.implementedFinders());
         auto aMethodNames = array_change_key_case(instance.implementedMethods());
 
         foreach (finder, myMethodName; finders) {
             if (isset(_finderMap[finder]) && this.has(_finderMap[finder][0])) {
                 auto duplicate = _finderMap[finder];
-                auto error =  
+                auto error =
                     "%s contains duplicate finder '%s' which is already provided by '%s'"
                     .format(class, finder, duplicate[0]);
                 throw new DLogicException(error);
@@ -136,11 +138,11 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
         foreach (myMethodKey, methodName; methods) {
             if (_methodMap.hasKey(myMethodKey) && this.has(_methodMap[myMethodKey][0])) {
                 duplicate = _methodMap[myMethodKey];
-                auto error =  
+                auto error =
                     "%s contains duplicate method '%s' which is already provided by '%s'".format(aClassName,
-                    method,
-                    duplicate[0]
-               );
+                        method,
+                        duplicate[0]
+                    );
                 throw new DLogicException(error);
             }
             methods[myMethodKey] = [alias, methodName];
@@ -174,15 +176,18 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
     // Invoke a method on a behavior.
     Json call(string aMethodName, Json[string] methodsData = null) {
         aMethodName = strtolower(aMethodName);
-        if (this.hasMethod(aMethodName) && this.has(_methodMap[aMethodName][0])) {
+        if (hasMethod(aMethodName) && this.has(_methodMap[aMethodName][0])) {
             [behavior, callMethod] = _methodMap[aMethodName];
 
-            return _loaded[behavior].{callMethod}(...methodsData);
+            return _loaded[behavior]. {
+                callMethod
+            }
+            (...methodsData);
         }
 
         throw new BadMethodCallException(
-            sprintf("Cannot call '%s' it does not belong to any attached behavior.", aMethodName)
-       );
+            "Cannot call '%s' it does not belong to any attached behavior.".format(aMethodName)
+        );
     }
 
     // Invoke a finder on a behavior.
@@ -197,10 +202,11 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
         }
 
         throw new BadMethodCallException(
-            "Cannot call finder '%s' it does not belong to any attached behavior.".format(finderType)
-       );
+            "Cannot call finder '%s' it does not belong to any attached behavior.".format(
+                finderType)
+        );
     }
 }
-  auto BehaviorRegistry() { // Singleton
+auto BehaviorRegistry() { // Singleton
     return DBehaviorRegistry.instance;
-  }
+}

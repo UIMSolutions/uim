@@ -64,7 +64,7 @@ mixin template TTranslateStrategy() {
         foreach (translations as locale: translation) {
             fields = translation.extract(configuration.get("fields"], false);
             foreach (fields as field: value) {
-                if (value == null || value == "") {
+                if (value == null || value is null) {
                     translation.remove(field);
                 }
             }

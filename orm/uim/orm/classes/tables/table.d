@@ -2211,7 +2211,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         auto mysecondParam = myparams[1] ?? null;
         auto mysecondParamType = null;
 
-        if (myargs == [] || isSet(myargs[0])) {
+        if (myargs is null || isSet(myargs[0])) {
             mysecondParamType = mysecondParam?.getType();
             mysecondParamTypeName = cast(ReflectionNamedType)mysecondParamType ? mysecondParamType.name: null;
             // Backwards compatibility of 4.x style finders with signature `findFoo(SelectQuery myquery, Json[string] options)`

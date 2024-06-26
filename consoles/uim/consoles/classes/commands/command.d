@@ -48,7 +48,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         /* assert(
             newName.contains(" ") && !newName.startsWith(" "),
             "The name '{name}' is missing a space. Names should look like `uim routes`"
-       ); */ 
+       ); */
         _name = newName;
     }
 
@@ -87,7 +87,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         /** @psalm-suppress PossiblyFalseOperand * /
         string name = class.subString(pos + 1,  - 7);
         return Inflector.underscore(name); */
-        return null; 
+        return null;
     }
 
     /**
@@ -95,7 +95,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      *
      * You can override buildOptionParser() to define your options & arguments.
      */
-    DConsoleOptionParser buildOptionParser getOptionParser() {
+    DConsoleOptionParser getOptionParser() {
         /* [root, name] = split(" ", _name, 2);
         auto aParser = new DConsoleOptionParser buildOptionParser(name);
         aParser.setRootName(root);
@@ -103,7 +103,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         aParser = this.buildOptionParser(aParser);
 
         return aParser; */
-        return null; 
+        return null;
     }
 
     int run(Json[string] argv, IConsoleIo aConsoleIo) {
@@ -116,7 +116,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
                 arguments,
                 options,
                 aParser.argumentNames()
-           );
+            );
         } catch (ConsoleException anException) {
             aConsoleIo.writeErrorMessages("Error: " ~ anException.getMessage());
 
@@ -185,25 +185,26 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * will not be resolved with the application container. Instead you will
      * need to pass the command as an object with all of its dependencies.
      */
-    int executeCommand(string commandClass name, Json[string] commandArguments = null, IConsoleIo aConsoleIo = null) {
-        assert(
+    int executeCommand(string commandClassname, Json[string] commandArguments = null, IConsoleIo aConsoleIo = null) {
+        /* assert(
             isSubclass_of(command, ICommand.classname),
             "Command `%s` is not a subclass of `%s`.".format(command, ICommand.classname)
-       );
+        ); */
 
         auto newCommand = new command();
-        return executeCommand(ICommand acommand, Json[string] commandArguments = null,  ? IConsoleIo aConsoleIo = null) {
-        }
+        // return executeCommand(ICommand acommand, Json[string] commandArguments = null,  ? IConsoleIo aConsoleIo = null);
+        return 0; 
+    }
 
-        int executeCommand(ICommand acommand, Json[string] commandArguments = null,  ? IConsoleIo aConsoleIo = null) {
-            auto myConsoleIo = aConsoleIo ?  : new DConsoleIo();
+    int executeCommand(ICommand acommand, Json[string] commandArguments = null,  IConsoleIo aConsoleIo = null) {
+        // auto myConsoleIo = aConsoleIo ?  : new DConsoleIo();
 
-            try {
+        /* try {
                 return acommand.run(commandArguments, myConsoleIo);
             }
- catch (StopException anException) {
+            catch (StopException anException) {
                 return anException.code();
-            }
-        }
-    } */ 
+            } */
+        return 0;
+    }
 }

@@ -137,7 +137,7 @@ class DDateTimeWidget : DWidget {
         DChronosDate|ChronosTime|Jsonmyvalue,
         Json[string] optionsForConversion
    ) {
-        if (myvalue == "" || myvalue.isNull) {
+        if (myvalue is null || myvalue.isNull) {
             return null;
         }
         try {
@@ -178,7 +178,7 @@ class DDateTimeWidget : DWidget {
     }
 
     Json[string] secureFields(Json[string] data) {
-        return data.isNull("name") || data.getString("name") == ""
+        return data.isNull("name") || data.getString("name") is null
             ? null
             : [data["name"]];
     } 

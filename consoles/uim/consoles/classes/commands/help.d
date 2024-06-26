@@ -69,10 +69,10 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
  */        });
         // ksort(anGrouped);
 
-        outputPaths(aConsoleIo);
+        /* outputPaths(aConsoleIo);
         aConsoleIo.out("<info>Available Commands:</info>", 2);
-
-        foreach (prefix, names;  anGrouped) {
+ */
+        /* foreach (prefix, names;  anGrouped) {
             aConsoleIo.out("<info>%s</info>:".format(prefix));
             auto sortedNames = names.sort;
             foreach (someData; sortedNames) {
@@ -82,12 +82,11 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
                 }
             }
              aConsoleIo.out("");
-        }
-        root = this.rootName();
-
-        aConsoleIo.out("To run a command, type <info>`{root} command_name [args|options]`</info>");
+        } */
+        string root = rootName();
+/*         aConsoleIo.out("To run a command, type <info>`{root} command_name [args|options]`</info>");
         aConsoleIo.out("To get help on a specific command, type <info>`{root} command_name --help`</info>", 2);
-    }
+ */    }
     
     // Output relevant paths if defined
     protected void outputPaths(IConsoleIo aConsoleIo) {
@@ -106,9 +105,9 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         if (!count(myPaths)) {
             return;
         }
-         aConsoleIo.out("<info>Current Paths:</info>", 2);
+/*          aConsoleIo.out("<info>Current Paths:</info>", 2);
         myPaths.each!(kv => aConsoleIo.out("* %s: %s".format(kv.key, kv.value)));
-         aConsoleIo.out("");
+         aConsoleIo.out(""); */
     }
     
     protected string getShortestName(string[] names) {

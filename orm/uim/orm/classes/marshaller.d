@@ -144,7 +144,7 @@ class DMarshaller {
                 }
                 continue;
             }
-            if (kv.value == "" && isIn(kv.key, myprimaryKey, true)) {
+            if (kv.value is null && isIn(kv.key, myprimaryKey, true)) {
                 // Skip marshalling "" for pk fields.
                 continue;
             }
@@ -552,7 +552,7 @@ class DMarshaller {
                     return someKeys.join(";");
                 })
                 .map(function(myelement, aKey) {
-                    return aKey == "" ? myelement : myelement[0];
+                    return aKey is null ? myelement : myelement[0];
                 })
                 .toJString();
 

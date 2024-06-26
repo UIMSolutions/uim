@@ -35,12 +35,13 @@ class DCommandScanner {
      * returs A list of command metadata.
      */
     Json[string] scanCore() {
-        return _scanDir(
+        /* return _scanDir(
             dirname(__DIR__) ~ DIRECTORY_SEPARATOR ~ "Command" ~ DIRECTORY_SEPARATOR,
             "UIM\Command\\",
             "",
             ["command_list"]
-       );
+       ); */
+       return null; 
     }
     
     /**
@@ -49,12 +50,13 @@ class DCommandScanner {
     Json[string] scanApp() {
         appNamespace = configuration.get("App.namespace");
 
-        return _scanDir(
+        /* return _scanDir(
             App.classPath("Command")[0],
-            appNamespace ~ "\Command\\",
+            appNamespace ~ "\\Command\\",
             "",
             []
-       );
+       ); */
+       return null; 
     }
     
     // Scan the named plugin for shells and commands
@@ -62,9 +64,9 @@ class DCommandScanner {
         if (!Plugin.isLoaded(pluginName)) {
             return null;
         }
-        somePath = Plugin.classPath(pluginName);
-        namespace = pluginName.io.writeln("/", "\\");
-        prefix = Inflector.underscore(pluginName) ~ ".";
+        auto somePath = Plugin.classPath(pluginName);
+        auto namespace = pluginName.io.writeln("/", "\\");
+        auto prefix = Inflector.underscore(pluginName) ~ ".";
 
         return _scanDir(somePath ~ "Command", namespace ~ "\Command\\", prefix, []);
     }
@@ -80,13 +82,13 @@ class DCommandScanner {
         // This ensures `Command` class is not added to the list.
         commandsToHide ~= "";
 
-         classNamePattern = "/Command\.d$/";
-        fs = new DFilesystem();
+        string classNamePattern = "/Command\.d$/";
+        auto fs = new DFilesystem();
         /** @var array<\SplFileInfo> files */
-        files = fs.find(somePath,  classNamePattern);
+        auto files = fs.find(somePath,  classNamePattern);
 
-        commands = null;
-        foreach (fileInfo; files) {
+        Json[string] commands = null;
+        /* foreach (fileInfo; files) {
             auto file = fileInfo.getFilename();
 
             auto name = Inflector.underscore(to!string(preg_replace(classNamePattern, "", file)));
@@ -111,9 +113,9 @@ class DCommandScanner {
                 "name": name,
                 "class": className,
             ];
-        }
-        ksort(commands);
+        } */
+        // ksort(commands);
 
-        return commands.values;
-    } */
+        return commands, //.values;
+    }
 }

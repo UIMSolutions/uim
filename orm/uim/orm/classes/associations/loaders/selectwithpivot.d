@@ -67,7 +67,7 @@ class DSelectWithPivotLoader : DSelectLoader {
         }
 
         if (query.isAutoFieldsEnabled() == null) {
-            query.enableAutoFields(query.clause("select") == []);
+            query.enableAutoFields(query.clause("select") is null);
         }
 
         // Ensure that association conditions are applied

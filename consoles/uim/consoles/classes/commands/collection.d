@@ -25,21 +25,21 @@ class DCommandCollection { // : IteratorAggregate, Countable {
 
     mixin(TProperty!("string", "name"));
     // Command list
-    protected ICommand[string] _commands;
+    protected DCommand[string] _commands;
 
-    this(ICommand[string] newCommands) {
+    this(DCommand[string] newCommands) {
         this().addCommands(newCommands);
     }
 
     // #region add
     // Add multiple commands at once.
-    void addCommands(ICommand[string] newCommands) {
+    void addCommands(DCommand[string] newCommands) {
         newCommands.byKeyValue
             .each!(kv => addCommand(kv.key, kv.value));
     }
 
     // Add a command to the collection
-    void addCommand(string commandName, ICommand newCommand) {
+    void addCommand(string commandName, DCommand newCommand) {
         _commands[commandName] = newCommand;
     }
     // #endregion add
@@ -60,7 +60,7 @@ class DCommandCollection { // : IteratorAggregate, Countable {
 
     /* 
     // Get the target for a command.
-    ICommand get(string commandName) {
+    DCommand get(string commandName) {
         if (!has(commandName)) {
             throw new DInvalidArgumentException("The `%s` is not a known command name.".format(commandName));
         }
@@ -103,8 +103,8 @@ class DCommandCollection { // : IteratorAggregate, Countable {
      */
     // TODO
     /* 
-    protected ICommand[string] resolveNames(STRINGAA[] anInput) {
-        ICommand[string] results;
+    protected DCommand[string] resolveNames(STRINGAA[] anInput) {
+        DCommand[string] results;
         foreach (anInfo; anInput) {
             auto infoName = anInfo["name"];
             addLong = infoName != anInfo["fullName"];

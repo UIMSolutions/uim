@@ -133,12 +133,12 @@ mixin template TValidatorAware() {
      * Params:
      * string myname The name of a validator.
      */
-   bool hasValidator(string myname) {
-        mymethod = "validation" ~ ucfirst(myname);
-        if (this.validationMethodExists(mymethod)) {
+   bool hasValidator(string validatorName) {
+        auto mymethod = "validation" ~ ucfirst(validatorName);
+        if (validationMethodExists(mymethod)) {
             return true;
         }
-        return isSet(_validators[myname]);
+        return _validators.hasKey(validatorName);
     }
     
     /**
@@ -157,7 +157,7 @@ mixin template TValidatorAware() {
      * \UIM\Validation\Validator myvalidator The validator that can be modified to
      * add some rules to it.
      */
-    Validator validationDefault(Validator myvalidator) {
+    DValidator validationDefault(DValidator myvalidator) {
         return myvalidator;
     }
 } 

@@ -678,7 +678,7 @@ class DFormHelper : DHelper {
         }
         if (isSet(htmlAttributes["for"])) {
             mylabelFor = htmlAttributes["for"];
-            htmlAttributes.remove("for"]);
+            htmlAttributes.remove("for");
         } else {
             mylabelFor = _domId(fieldName);
         }
@@ -686,7 +686,7 @@ class DFormHelper : DHelper {
             "for": mylabelFor,
             "text": mytext,
         ];
-        if (isSet(htmlAttributes["input"])) {
+        if (htmlAttributes.hasKey("input")) {
             if (isArray(htmlAttributes["input"])) {
                 myattrs = htmlAttributes["input"] + myattrs;
             }
@@ -2160,7 +2160,7 @@ class DFormHelper : DHelper {
         auto result = mywidget.render(mydata, context());
         if (
             _formProtector !is null &&
-            isSet(mydata["name"]) &&
+            mydata.hasKey("name") &&
             mysecure !is null &&
             mysecure != SECURE_SKIP
        ) {
@@ -2235,7 +2235,7 @@ class DFormHelper : DHelper {
                     return contextValue;
                 }
             }
-            if (isSet(myvalueMap[myvaluesSource])) {
+            if (myvalueMap.hasKey(myvaluesSource)) {
                 mymethod = myvalueMap[myvaluesSource];
                 myvalue = _View.getRequest().{mymethod}(fieldName);
                 if (myvalue !is null) {

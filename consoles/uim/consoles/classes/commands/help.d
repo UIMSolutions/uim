@@ -13,7 +13,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     }
 
     // Main auto Prints out the list of commands.
-    int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
+    int execute(Json[string] arguments, DConsoleIo aConsoleIo) {
         auto commandIterator = _commands.getIterator();
         if (cast(DArrayIterator) commandIterator) {
             commandIterator.ksort();
@@ -29,7 +29,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     }
 
     // Output text.
-    protected void asText(IConsoleIo aConsoleIo, STRINGAA commandCollection) {
+    protected void asText(DConsoleIo aConsoleIo, STRINGAA commandCollection) {
         string[][string] myInvert = null;
         foreach (name, className; commands) {
             /* if (isObject(className)) {
@@ -91,7 +91,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     }
 
     // Output relevant paths if defined
-    protected void outputPaths(IConsoleIo aConsoleIo) {
+    protected void outputPaths(DConsoleIo aConsoleIo) {
         STRINGAA myPaths;
         if (Configure.check("App.dir")) {
             string appPath = stripRight(Configure.read("App.dir"), DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
@@ -125,14 +125,14 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     }
 
     // Output as XML
-    protected void asXml(IConsoleIo aConsoleIo, ICommand[string] commands) {
+    protected void asXml(DConsoleIo aConsoleIo, DCommand[string] commands) {
         STRINGAA names = commands.byKeyValue
             .each(nameCommand => names[nameCommand.key] = nameCommand.value);
 
         asXml(aConsoleIo, names);
     }
 
-    protected void asXml(IConsoleIo aConsoleIo, STRINGAA commandNames) {
+    protected void asXml(DConsoleIo aConsoleIo, STRINGAA commandNames) {
         auto shells = new DSimpleXMLElement("<shells></shells>");
         commandNames.byKeyValue
             .each(nameClassname => shells.addCommandToShells(nameClassname.key, nameClassname.value));
@@ -141,7 +141,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         aConsoleIo.out(castto!string(xmlShells.saveXML())); */
     }
 
-    void addCommandToShells(SimpleXMLElement shells, string commandName, ICommand command) {
+    void addCommandToShells(DSimpleXMLElement shells, string commandName, DCommand command) {
         addCommandToShells(shells, commandName, command.classname);
     }
 

@@ -454,7 +454,7 @@ class DFormProtector {
                     expectedFields.remove(foundKey);
                 }
             } else {
-                if (isSet(expectedFields[kv.key]) && kv.value != expectedFields[kv.key]) {
+                if (expectedFields.hasKey(kv.key) && kv.value != expectedFields[kv.key]) {
                     messages ~= stringKeyMessage
                     .format(kv.key, expectedFields[kv.key], kv.value);
                 }

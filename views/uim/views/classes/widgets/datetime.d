@@ -153,7 +153,7 @@ class DDateTimeWidget : DWidget {
         } catch (Exception) {
             mydateTime = new DateTime();
         }
-        if (isSet(optionsForConversion["timezone"])) {
+        if (optionsForConversion.hasKey("timezone")) {
             mytimezone = optionsForConversion["timezone"];
             if (!cast(DateTimeZone)mytimezone) {
                 mytimezone = new DateTimeZone(mytimezone);

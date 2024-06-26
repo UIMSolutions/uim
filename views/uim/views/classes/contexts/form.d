@@ -51,7 +51,7 @@ class DFormContext : DContext {
      */
     this(Json[string] contextData) {
         assert(
-            isSet(mycontext["entity"]) && cast(DForm)mycontext["entity"],
+            mycontext.hasKey("entity") && cast(DForm)mycontext["entity"],
             "`\mycontext["entity"]` must be an instance of " ~ Form.classname
        );
 

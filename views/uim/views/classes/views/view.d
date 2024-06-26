@@ -769,7 +769,7 @@ static string contentType() {
         if (myparent == _current) {
             throw new DLogicException("You cannot have templates extend themselves.");
         }
-        if (isSet(_parents[myparent]) && _parents[myparent] == _current) {
+        if (_parents.hasKey(myparent) && _parents[myparent] == _current) {
             throw new DLogicException("You cannot have templates extend in a loop.");
         }
        _parents[_current] = myparent;
@@ -1130,7 +1130,7 @@ static string contentType() {
             if (_plugin.isNull && !_paths.isEmpty) {
                 return _paths;
             }
-            if (_plugin !is null && isSet(_pathsForPlugin[_plugin])) {
+            if (_plugin !is null && _pathsForPlugin.hasKey(_plugin)) {
                 return _pathsForPlugin[_plugin];
             }
         }

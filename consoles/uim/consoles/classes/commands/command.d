@@ -106,7 +106,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         return null;
     }
 
-    int run(Json[string] argv, IConsoleIo aConsoleIo) {
+    int run(Json[string] argv, DConsoleIo aConsoleIo) {
         this.initialize();
 
         aParser = getOptionParser();
@@ -144,7 +144,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
     }
 
     // Output help content
-    protected void displayHelp(DConsoleOptionParser optionParser, Json[string] someArguments, IConsoleIo aConsoleIo) {
+    protected void displayHelp(DConsoleOptionParser optionParser, Json[string] someArguments, DConsoleIo aConsoleIo) {
         string format = "text";
         if (someArguments.getArgumentAt(0) == "xml") {
             format = "xml";
@@ -154,15 +154,15 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
     }
 
     // Set the output level based on the Json[string].
-    protected void setOutputLevel(Json[string] someArguments, IConsoleIo aConsoleIo) {
-        aConsoleIo.setLoggers(ConsoleIo.NORMAL);
+    protected void setOutputLevel(Json[string] someArguments, DConsoleIo aConsoleIo) {
+        aConsoleIo.setLoggers(DConsoleIo.NORMAL);
         if (someArguments.hasKey("quiet")) {
-            aConsoleIo.level(ConsoleIo.QUIET);
-            aConsoleIo.setLoggers(ConsoleIo.QUIET);
+            aConsoleIo.level(DConsoleIo.QUIET);
+            aConsoleIo.setLoggers(DConsoleIo.QUIET);
         }
         if (someArguments.hasKey("verbose")) {
-            aConsoleIo.level(ConsoleIo.VERBOSE);
-            aConsoleIo.setLoggers(ConsoleIo.VERBOSE);
+            aConsoleIo.level(DConsoleIo.VERBOSE);
+            aConsoleIo.setLoggers(DataGetConsoleIo.VERBOSE);
         }
     }
 
@@ -171,12 +171,12 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * Params:
      * \UIM\Console\Json[string] commandArguments The command arguments.
      */
-    abstract int execute(Json[string] commandArguments, IConsoleIo aConsoleIo);
+    abstract int execute(Json[string] commandArguments, DConsoleIo aConsoleIo);
 
     // Halt the current process with a StopException.
-    never abort(int exitCode = CODE_ERROR) {
+    /* never abort(int exitCode = CODE_ERROR) {
         throw new DStopException("Command aborted", exitCode);
-    }
+    } */
 
     /**
      * Execute another command with the provided set of arguments.
@@ -185,18 +185,18 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * will not be resolved with the application container. Instead you will
      * need to pass the command as an object with all of its dependencies.
      */
-    int executeCommand(string commandClassname, Json[string] commandArguments = null, IConsoleIo aConsoleIo = null) {
+    int executeCommand(string commandClassname, Json[string] commandArguments = null, DConsoleIo aConsoleIo = null) {
         /* assert(
             isSubclass_of(command, ICommand.classname),
             "Command `%s` is not a subclass of `%s`.".format(command, ICommand.classname)
         ); */
 
         auto newCommand = new command();
-        // return executeCommand(ICommand acommand, Json[string] commandArguments = null,  ? IConsoleIo aConsoleIo = null);
+        // return executeCommand(ICommand acommand, Json[string] commandArguments = null,  ? DConsoleIo aConsoleIo = null);
         return 0; 
     }
 
-    int executeCommand(ICommand acommand, Json[string] commandArguments = null,  IConsoleIo aConsoleIo = null) {
+    int executeCommand(DCommand acommand, Json[string] commandArguments = null,  DConsoleIo aConsoleIo = null) {
         // auto myConsoleIo = aConsoleIo ?  : new DConsoleIo();
 
         /* try {

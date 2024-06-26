@@ -157,10 +157,8 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * Will return true if any behavior provides a non-finder method
      * with the chosen name.
      */
-    bool hasMethod(string aMethodName) {
-        method = strtolower(aMethodName);
-
-        return isset(_methodMap[aMethodName]);
+    bool hasMethod(string methodName) {
+        return _methodMap.hasKey(methodName.lower);
     }
 
     /**
@@ -170,7 +168,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
     bool hasFinder(string aMethodName) {
         aMethodName = aMethodName.lower;
 
-        return isset(_finderMap[aMethodName]);
+        return _finderMap.haskey(aMethodName);
     }
 
     // Invoke a method on a behavior.

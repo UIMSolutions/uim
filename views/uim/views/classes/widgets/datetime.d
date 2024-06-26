@@ -107,7 +107,7 @@ class DDateTimeWidget : DWidget {
             return data;
         }
 
-        data["step"] = isSet(data["format"])
+        data["step"] = data.hasKey("format")
             ? null
             : this.defaultStep[data["type"]];
 

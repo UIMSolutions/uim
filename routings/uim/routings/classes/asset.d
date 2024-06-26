@@ -126,7 +126,7 @@ class DAsset {
             placeHolderVal = "";
             if (!options.isEmpty("theme")) {
                 placeHolderVal = inflectString(options["theme"]) ~ "/";
-            } else if (isSet(plugin)) {
+            } else if (plugin !is null) {
                 placeHolderVal = inflectString(plugin) ~ "/";
             }
             somePath = .replace("{plugin}", placeHolderVal, somePathPrefix) ~ somePath;
@@ -142,7 +142,7 @@ class DAsset {
         if (preg_match("|^([a-z0-9]+:)?//|", somePath)) {
             return Router.url(somePath);
         }
-        if (isSet(plugin)) {
+        if (plugin !is null) {
             somePath = inflectString(plugin) ~ "/" ~ somePath;
         }
         auto optionTimestamp = null;

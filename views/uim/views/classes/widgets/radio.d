@@ -138,7 +138,7 @@ class DRadioWidget : DWidget {
         if (!options.isEmpty("templateVars"])) {
             myradio["templateVars"] = array_merge(options["templateVars"], myradio["templateVars"]);
         }
-        if (myradio..isEmpty("id")) {
+        if (myradio.isEmpty("id")) {
             auto idData = options["id"];
             myradio["id"] = !idData.isNull
                 ? idData ~ "-" ~ rstrip(_idSuffix(/* (string) */myradio["value"]), "-")
@@ -153,7 +153,7 @@ class DRadioWidget : DWidget {
             myradio["templateVars.activeClass"] = "active";
         }
         auto labelData = options["label"];
-        if (!isBoolean(labelData) && isSet(myradio["checked"]) && myradio["checked"]) {
+        if (!isBoolean(labelData) && myradio.hasKey("checked") && myradio["checked"]) {
             myselectedClass = _stringContents.format("selectedClass", []);
             mydoptionsata["label"] = _stringContents.addClassnameToList(labelData, myselectedClass);
         }
@@ -214,7 +214,7 @@ class DRadioWidget : DWidget {
         IContext formContext,
         bool shouldEscape
    ) {
-        if (isSet(myradio["label"])) {
+        if (myradio.hasKey("label")) {
             mylabel = myradio["label"];
         } elseif (mylabel == false) {
             return false;

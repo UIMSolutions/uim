@@ -4,10 +4,7 @@ import uim.consoles;
 
 @safe:
 
-/* * ContentsContain
- *
- * @internal
- */
+// ContentsContain
 class DContentsContain : DContentsBase {
     /**
      * Checks if contents contain expected
@@ -23,4 +20,4 @@ class DContentsContain : DContentsBase {
         return "is in %s," ~ D_EOL ~ "actual result:" ~ D_EOL ~ "`%s`"
         .format(_output, _contents);
     } 
-} */ 
+} 

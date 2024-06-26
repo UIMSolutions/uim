@@ -136,7 +136,7 @@ mixin template TConsoleIntegrationTest() {
      * Params:
      * string amessage The message to output when the assertion fails.
      */
-    void assertErrorEmpty(string amessage = null) l) {
+    void assertErrorEmpty(string amessage = null) {
         this.assertThat(null, new DContentsEmpty(_err.messages(), "error output"), message);
     }
 
@@ -192,6 +192,4 @@ mixin template TConsoleIntegrationTest() {
 
         return argv;
     }
-
-     * /
 }

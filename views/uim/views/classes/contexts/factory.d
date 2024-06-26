@@ -38,7 +38,7 @@ class DContextFactory {
                     if (cast(IEntity)mydata["entity"]) {
                         return new DEntityContext(mydata);
                     }
-                    if (isSet(mydata["table"])) {
+                    if (mydata.hasKey("table")) {
                         return new DEntityContext(mydata);
                     }
                     if (is_iterable(mydata["entity"])) {

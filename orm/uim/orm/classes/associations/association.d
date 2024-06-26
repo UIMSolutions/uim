@@ -599,7 +599,7 @@ class DAssociation : IAssociation {
      */
     Json[string] defaultRowValue(Json[string] row, bool joined) {
         sourceAlias = source().aliasName();
-        if (isset(row[sourceAlias])) {
+        if (row.hasKey(sourceAlias)) {
             row[sourceAlias][getProperty()] = null;
         }
 
@@ -902,9 +902,10 @@ class DAssociation : IAssociation {
      * @param string property the property name
      */
     bool __isSet(property) {
-        return isset(getTarget(). {
+        /* return isset(getTarget(). {
             property
-        });
+        }); */
+        return false; 
     }
 
     /**

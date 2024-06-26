@@ -736,7 +736,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * ```
      */
     void applyOptions(Json[string] optionData) {
-        valid = [
+        auto valid = [
             "fields": "select",
             "conditions": "where",
             "join": "join",
@@ -750,11 +750,11 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         ];
 
         ksort(options);
-        foreach (options as option: values) {
-            if (isset(valid[option], values)) {
-                this.{valid[option]}(values);
+        foreach (option, values; options) {
+            if (valid.hasKey(option) && values !is null) {
+                // this.{valid[option]}(values);
             } else {
-                _options[option] = values;
+                // _options[option] = values;
             }
         }
     }
@@ -775,7 +775,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * This method creates query clones that are useful when working with subqueries.
      */
     static auto cleanCopy() {
-        clone = clone this;
+       /*  auto clone = clone this;
         clone.triggerBeforeFind();
         clone.disableAutoFields();
         clone.limit(null);
@@ -786,7 +786,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         clone.setSelectTypeMap(new DTypeMap());
         clone.decorateResults(null, true);
 
-        return clone;
+        return clone; */
+        return null; 
     }
 
     /**
@@ -797,12 +798,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         _isDirty();
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * Handles cloning eager loaders.
-     */
-    function clone() {
+    // Handles cloning eager loaders.
+    void clone() {
         super.clone();
         if (_eagerLoader != null) {
             _eagerLoader = clone _eagerLoader;
@@ -1058,7 +1055,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
                 types[aliasName] = value.getReturnType();
                 continue;
             }
-            if (isset(typeMap[aliasName])) {
+            if (typeMap.hasKey(aliasName)) {
                 types[aliasName] = typeMap[aliasName];
                 continue;
             }

@@ -143,7 +143,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         auto exception = _error;
         auto code = getHttpCode(exception);
         auto method = methodName(exception);
-        auto template = templateName(exception, method, code);
+        auto templateText = templateName(exception, method, code);
         clearOutput();
 
         if (method_exists(this, method)) {

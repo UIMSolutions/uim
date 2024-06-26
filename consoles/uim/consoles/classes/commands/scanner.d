@@ -68,7 +68,7 @@ class DCommandScanner {
         auto namespace = pluginName.io.writeln("/", "\\");
         auto prefix = Inflector.underscore(pluginName) ~ ".";
 
-        return _scanDir(somePath ~ "Command", namespace ~ "\Command\\", prefix, []);
+        return _scanDir(somePath ~ "Command", namespace ~ "\\Command\\", prefix, []);
     }
     
     /**
@@ -82,7 +82,7 @@ class DCommandScanner {
         // This ensures `Command` class is not added to the list.
         commandsToHide ~= "";
 
-        string classNamePattern = "/Command\.d$/";
+        string classNamePattern = "/Command\\.d$/";
         auto fs = new DFilesystem();
         /** @var array<\SplFileInfo> files */
         auto files = fs.find(somePath,  classNamePattern);

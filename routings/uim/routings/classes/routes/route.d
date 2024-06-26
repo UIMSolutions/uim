@@ -92,7 +92,7 @@ class DRoute : IRoute {
      * @param Json[string] options Array of additional options for the Route
      */
     this(string mytemplate, Json[string] _defaultValues = [], Json[string] optionData = null) {
-        this.template = mytemplate;
+        _templateText = mytemplate;
         this.defaults = _defaultValues;
         _options = options ~ ["_ext": Json.emptyArray, "_middleware": Json.emptyArray];
         setExtensions(/* (array) */configuration.set("_ext"]);

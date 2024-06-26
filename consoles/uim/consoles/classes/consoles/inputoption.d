@@ -193,8 +193,8 @@ class DConsoleInputOption {
     }
     
     // Append the option`s XML into the parent.
-    SimpleXMLElement xml(SimpleXMLElement parent) {
-        option = parent.addChild("option");
+    DSimpleXMLElement xml(DSimpleXMLElement parent) {
+        auto option = parent.addChild("option");
         option.addAttribute("name", "--" ~ _name);
         
         string shortAlias = !_shortalias.isEmpty
@@ -202,10 +202,10 @@ class DConsoleInputOption {
             : "";
 
         auto defaultValue = _default;
-        if (defaultValue == true) {
+        if (!defaultValue.isEmpty) {
             defaultValue = "true";
-        } else if (default == false) {
-            defaultValuedefaultValue = "false";
+        } else if (defaultValue.isEmpty) {
+            defaultValue = "false";
         }
         option.addAttribute("short", shortAlias);
         option.addAttribute("help", _help);

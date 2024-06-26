@@ -1059,7 +1059,7 @@ var compiled = _.template("hello: <%= name %>");
 compiled({name: 'moe'});
 => "hello: moe"
 
-var template = _.template("<b><%- value %></b>");
+var templateText = _.template("<b><%- value %></b>");
 template({value: '<script>'});
 => "<b>&lt;script&gt;</b>"
 You can also use print from within JavaScript code. This is sometimes more convenient than using <%= ... %>.
@@ -1073,7 +1073,7 @@ _.templateSettings = {
   interpolate: /\{\{(.+?)\}\}/g
 };
 
-var template = _.template("Hello {{ name }}!");
+var templateText = _.template("Hello {{ name }}!");
 template({name: "Mustache"});
 => "Hello Mustache!"
 By default, template places the values from your data in the local scope via the with statement. However, you can specify a single variable name with the variable setting. This can significantly improve the speed at which a template is able to render.

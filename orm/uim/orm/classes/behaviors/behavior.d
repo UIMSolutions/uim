@@ -275,7 +275,7 @@ class DBehavior : DEventListener {
      */
     Json[string] implementedFinders() {
         methods = this.configuration.get("implementedFinders");
-        if (isset(methods)) {
+        if (methods !is null) {
             return methods;
         }
 
@@ -319,7 +319,7 @@ class DBehavior : DEventListener {
      */
     protected Json[string] _reflectionCache() {
         class = class;
-        if (isset(_reflectionCache[class])) {
+        if (_reflectionCache.hasJey(class)) {
             return _reflectionCache[class];
         }
 

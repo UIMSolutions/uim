@@ -67,20 +67,20 @@ class DConsoleIo {
     protected DHelperRegistry _helpers;
 
     this(
-        ConsoleOutput output = null,
-        ConsoleOutput errOutput = null,
-        ConsoleInput input = null,
-        ?HelperRegistry helpers = null
+        DConsoleOutput output = null,
+        DConsoleOutput errOutput = null,
+        DConsoleInput input = null,
+        DHelperRegistry helpers = null
    ) {
        _out = output ? result : new DConsoleOutput("uim://stdout");
-       _err = errOutput ?: new DConsoleOutput("uim://stderr");
-       _in = input ?: new DConsoleInput("uim://stdin");
-       _helpers = helpers ?: new DHelperRegistry();
+       _err = errOutput.ifNull(new DConsoleOutput("uim://stderr"));
+       _in = input.ifNull(new DConsoleInput("uim://stdin"));
+       _helpers = helpers.ifNull(new DHelperRegistry());
        _helpers.setIo(this);
     }
     
     void setInteractive(bool aValue) {
-        this.interactive = aValue;
+        _interactive = aValue;
     }
     
     /**
@@ -104,9 +104,7 @@ class DConsoleIo {
         return _writeln(messages, newLinesToAppend, VERBOSE);
     }
     
-    /**
-     * Output at all levels.
-     */
+    // Output at all levels.
     int quiet(string[] outputMessages...) {
         return quiet(outputMessages.dup);
     }
@@ -323,7 +321,7 @@ class DConsoleIo {
     
     // Prompts the user for input, and returns it.
     protected string _getInput(string promptText, string options, string defaultInputValue) {
-        if (!this.interactive) {
+        if (!_interactive) {
             return to!string(defaultInputValue);
         }
 

@@ -29,7 +29,9 @@ public import uim.core;
 // public import uim.oop.collections;	
 public {
   import uim.oop.complex;
+  import uim.oop.commands;
   import uim.oop.configurations;
+  import uim.oop.consoles;
   import uim.oop.containers;
   import uim.oop.containers.maps;
   import uim.oop.core;

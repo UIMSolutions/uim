@@ -1,2 +1,2 @@
-module oop.uim.oop.commands.mixin_;
+module uim.oop.commands.mixin_;
 

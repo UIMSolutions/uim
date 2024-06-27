@@ -1,2 +1,2 @@
-module oop.uim.oop.commands.factory;
+module uim.oop.commands.factory;
 

@@ -1,2 +1,2 @@
-module oop.uim.oop.commands.interface_;
+module uim.oop.commands.interface_;
 

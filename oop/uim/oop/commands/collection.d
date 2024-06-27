@@ -1,2 +1,2 @@
-module oop.uim.oop.commands.collection;
+module uim.oop.commands.collection;
 

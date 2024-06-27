@@ -1,2 +1,2 @@
-module oop.uim.oop.commands.registry;
+module uim.oop.commands.registry;
 

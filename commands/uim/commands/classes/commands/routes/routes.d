@@ -16,13 +16,13 @@ class DRoutesCommand : DCommand {
         return true;
     }
 
-    override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
+    override override int execute(Json[string] arguments, IConsole aConsole = null) {
         return super.execute(arguments, aConsoleIo);
     }
 
     /* 
     // Display all routes in an application
-  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
+  override int execute(Json[string] arguments, IConsole aConsole = null) {
         auto myheader = ["Route name", "URI template", "Plugin", "Prefix", "Controller", "Action", "Method(s)"];
         if (arguments.hasKey("verbose")) {
              aHeader ~= "Defaults";
@@ -114,7 +114,7 @@ class DRoutesCommand : DCommand {
             }
 
             // Display all routes in an application
-            int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
+            override int execute(Json[string] arguments, IConsole aConsole = null) {
                 if (commandArguments.getOption("verbose")) {
                     ksort(route.defaults);
                     anItem ~= Json_encode(route.defaults, Json_THROW_ON_ERROR);

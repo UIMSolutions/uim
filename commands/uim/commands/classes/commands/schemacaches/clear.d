@@ -19,14 +19,14 @@ class DSchemacacheClearCommand : DCommand {
     return "schema_cache-clear";
   }
   
-    override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
+    override override int execute(Json[string] arguments, IConsole aConsole = null) {
     return super.execute(arguments, aConsoleIo);
   }
 
   /* 
 
   // Display all routes in an application
-  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
+  override int execute(Json[string] arguments, IConsole aConsole = null) {
     try {
       aConnection = ConnectionManager . get(to!string(commandArguments.getOption("connection")));
       assert(cast8Connection)aConnection);

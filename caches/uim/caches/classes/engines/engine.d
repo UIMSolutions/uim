@@ -5,10 +5,11 @@ import uim.caches;
 @safe:
 
 // Storage engine for UIM caching
-abstract class DCacheEngine : UIMObject, ICache, ICacheEngine {
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+class DCacheEngine : UIMObject, ICache, ICacheEngine {
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         /**
         * The default cache configuration is overridden in most cache adapters. These are
@@ -40,8 +41,6 @@ abstract class DCacheEngine : UIMObject, ICache, ICacheEngine {
 
         return true;
     }
-
-    mixin(TProperty!("string", "name"));
 
     // Group prefixes to be prepended to every key in this cache engine
     mixin(TProperty!("string", "groupName"));

@@ -15,46 +15,19 @@ import uim.consoles;
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\Command\Command>
  */
-abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
-    mixin TConfigurable;
+abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
+    mixin(CommandThis!("Console"));
     //  @use \UIM\Event\EventDispatcherTrait<\UIM\Command\Command>
     mixin TEventDispatcher;
     mixin TValidatorAware;
 
-    this() {
-        initialize;
-    }
-
-    this(Json[string] initData) {
-        initialize(initData);
-    }
-
-    this(string name) {
-        this().name(name);
-    }
-
     // Hook method
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         return true;
-    }
-
-    // The name of this command.
-    protected string _name = "unknown command";
-
-    @property void name(string newName) {
-        /* assert(
-            newName.contains(" ") && !newName.startsWith(" "),
-            "The name '{name}' is missing a space. Names should look like `uim routes`"
-       ); */
-        _name = newName;
-    }
-
-    // Get the command name.
-    @property string name() {
-        return _name;
     }
 
     // Get the command description.

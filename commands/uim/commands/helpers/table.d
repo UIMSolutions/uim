@@ -8,30 +8,19 @@ import uim.commands;
  * Create a visually pleasing ASCII art table
  * from 2 dimensional array data.
  */
-class DTableHelper { // }: Helper {
-  mixin TConfigurable;
-
-  this() {
-    initialize;
-  }
-
-  this(Json[string] initData) {
-    this.initialize(initData);
-  }
-
-  bool initialize(Json[string] initData = null) {
-    configuration(MemoryConfiguration);
-    configuration.updateDefaults([
+class DTableHelper : UIMObject { // }: Helper {
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
+    configuration.mergeDefaults([
       "headers": true.toJson,
       "rowSeparator": false.toJson,
       "headerStyle": Json("info")
     ]);
-    configuration.data(initData);
 
     return true;
   }
-
-  mixin(TProperty!("string", "name"));
 
   // Calculate the column widths
   protected int[string] _calculateWidths(Json[string] rows) {

@@ -12,7 +12,6 @@ import uim.models;
 class DScalarData : DData {
   mixin(DataThis!("Scalar"));
 
-  // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;

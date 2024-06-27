@@ -8,26 +8,16 @@ import uim.consoles;
  * An object to represent a single argument used in the command line.
  * DConsoleOptionParser buildOptionParser creates these when you use addArgument()
  */
-class DConsoleInputArgument {
-    mixin TConfigurable;
+class DConsoleInputArgument : UIMObject {
+    mixin(ArgumentThis!("ConsoleInput"));
 
-    this() {
-        initialize;
-    }
-
-    this(Json[string] initData) {
-        initialize(initData);
-    }
-
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         return true;
     }
-
-    // Name of the argument.
-    mixin(TProperty!("string", "name"));
 
     // Help string
     protected string _help;

@@ -8,10 +8,11 @@ string cacheEngineThis(string name) {
         ~ fullName ~ `");
     }
     this(Json[string] initData) {
-        super(initData); this.name("`~ fullName ~ `");
+        super(initData); this.name("`
+        ~ fullName ~ `");
     }
-    this(string name) {
-        this().name(name);
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
     }
     `;
 }
@@ -22,11 +23,11 @@ template CacheEngineThis(string name) {
 
 string cacheEngineCalls(string name) {
     string fullName = name ~ "CacheEngine";
-    return `
+  return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
     auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
-    auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
-    `;
+    auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
+  `;  
 }
 
 template CacheEngineCalls(string name) {

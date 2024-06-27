@@ -4,7 +4,7 @@ import uim.oop;
 
 @safe:
 
-class DCollection(T : UIMObject) : UIMObject, IKeyAndPath, INamed {
+class DCollection(T : UIMObject) : UIMObject, IKeyAndPath, ICollection!T {
     this() {
         super("Collection");
     }
@@ -25,27 +25,46 @@ class DCollection(T : UIMObject) : UIMObject, IKeyAndPath, INamed {
         return true;
     }
 
-    protected T[string] objects;
+    protected string _pathSeparator = ".";
+    protected T[string] _items;
 
-    // #region keys
-    string[] keys() {
-        return _objects.keys;
+    size_t length() {
+        return _items.length;
     }
 
-    bool hasAnyPaths(string[][] paths) {
-        return paths.any!(path => hasPath(path));
+    // #region paths
+    string[][] paths() {
+        return _items.keys.map!(key => key.split(_pathSeparator)).array;
     }
 
     bool hasAllPaths(string[][] paths) {
         return paths.all!(path => hasPath(path));
     }
 
+    bool hasAnyPaths(string[][] paths) {
+        return paths.any!(path => hasPath(path));
+    }
+
     bool hasPath(string[] path) {
-        return _objects.hasKey(path.join(_pathSeparator));
+        return hasKey(path.join(_pathSeparator));
+    }
+    // #endregion paths
+
+    // #region keys
+    string[] keys() {
+        return _items.keys;
+    }
+
+    bool hasAllKeys(string[] keys...) {
+        return hasAllKeys(keys.dup);
     }
 
     bool hasAllKeys(string[] keys) {
         return keys.all!(key => hasKey(key));
+    }
+
+    bool hasAnyKeys(string[] keys...) {
+        return hasAnyKeys(keys.dup);
     }
 
     bool hasAnyKeys(string[] keys) {
@@ -53,75 +72,97 @@ class DCollection(T : UIMObject) : UIMObject, IKeyAndPath, INamed {
     }
 
     bool hasKey(string key) {
-        return _objects.hasKey(key);
+        return key in _items ? true : false;
+    }
+
+    string correctedKey(string[] path) {
+        return correctedKey(path.join(_pathSeparator));
+    }
+
+    string correctedKey(string key) {
+        return key.strip;
     }
     // #endregion keys
 
-    // #region objects
-    T[] objects() {
-        return _objects.values;
-    }
-
-    bool hasAnyObjects(T[] objects) {
-        return objects.any!(obj => hasObject(obj));
-    }
-
-    bool hasAllObjects(T[] objects) {
-        return objects.all!(obj => hasObject(obj));
-    }
-
-    bool hasObject(T object) {
-        foreach (obj; _objects.values) {
-            // if (obj.isEquals(object)) { return true; }
+    // #region items
+        T[] items() {
+            return _items.values;
         }
-        return false;
-    }
 
-    T get(string[] path) {
-        return get(path.join(_pathSeparator));
-    }
+        bool hasAnyItems(T[] items) {
+            return items.any!(obj => hasItem(obj));
+        }
 
-    T opIndex(string key) {
-        return get(key);
-    }
+        bool hasAllItems(T[] items) {
+            return items.all!(obj => hasItem(obj));
+        }
 
-    T get(string key) {
-        return _objects.get(key, _nullValue);
-    }
-    // #endregion objects
+        bool hasItem(T item) {
+            foreach (obj; _items.values) {
+                // if (obj.isEquals(item)) { return true; }
+            }
+            return false;
+        }
+    // #endregion items
+
+    // #region getter
+        T get(string[] path) {
+            return get(path.join(_pathSeparator));
+        }
+
+        T opIndex(string key) {
+            return get(key);
+        }
+
+        T get(string key) {
+            return _items.get(key, null);
+        }
+    // #endregion getter
 
     // #region setter
-    O set(this o)(T[string] newObjects) {
-        newObjects.byKeyValue.each!(kv => set(kv.key, kv.value));
-        return cast(O) this;
-    }
+        O set(this o)(T[string] newItems) {
+            newItems.byKeyValue.each!(kv => set(kv.key, kv.value));
+            return cast(O) this;
+        }
 
-    O set(this o)(string[] path, T newObject) {
-        set(path.join(_pathSeparator), newObject);
-        return cast(O) this;
-    }
+        O set(this o)(string[] path, T newItem) {
+            set(path.join(_pathSeparator), newItem);
+            return cast(O) this;
+        }
 
-    void opIndexAssign(string key, T newObject) {
-        set(key, newObject);
-    }
+        void opIndexAssign(string key, T newItem) {
+            set(key, newItem);
+        }
 
-    O set(this O)(string key, T newObject) {
-        _objects[key] = newObject;
-        return cast(O) this;
-    }
+        O set(this O)(string key, T newItem) {
+            _items[key] = newItem;
+            return cast(O) this;
+        }
     // #endregion setter
 
     // #region remove
-    bool remove(string[] keys) {
-        return keys.all!(reg => remove(reg));
-    }
+        bool removePaths(string[][] paths) {
+            return paths.all!(path => removePath(path));
+        }
 
-    bool remove(string key) {
-        return _objects.remove(key);
-    }
+        bool removePath(string[] path) {
+            return removeKey(correctedKey(path));
+        }
 
-    void clear() {
-        _objects = null;
-    }
+        bool removeKeys(string[] keys...) {
+            return removeKeys(keys.dup);
+        }
+
+        bool removeKeys(string[] keys) {
+            return keys.all!(key => removeKey(key));
+        }
+
+        bool removeKey(string key) {
+            return removeKey(correctedKey(key));
+        }
+
+        void clear() {
+            _items = null;
+        }
     // #endregion remove
 }

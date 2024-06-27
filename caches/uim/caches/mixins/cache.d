@@ -1,19 +1,20 @@
 module uim.caches.mixins.cache;
 
 string cacheThis(string name) {
-    auto fullname = name~"Cache";
+    string fullName = name ~ "Cache";
     return `
-this() {
-   super(); this.name("`~fullname~`"); 
-}
-
-this(Json[string] initData) {
-    super(initData); this.name("`~fullname~`");
-}
-this(string name) {
-    super(name);
-}
-    `;    
+    this() {
+        super(); this.name("`
+        ~ fullName ~ `");
+    }
+    this(Json[string] initData) {
+        super(initData); this.name("`
+        ~ fullName ~ `");
+    }
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
+    }
+    `;
 }
 
 template CacheThis(string name) {
@@ -21,11 +22,12 @@ template CacheThis(string name) {
 }
 
 string cacheCalls(string name) {
-    auto fullname = name~"Cache";
-    return `
-auto `~fullname~`() { return new D`~fullname~`(); }
-auto `~fullname~`(string name) { return new D`~fullname~`(name); }
-    `;    
+  string fullName = name ~ "Cache";
+  return `
+    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
+    auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
+    auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
+  `;  
 }
 
 template CacheCalls(string name) {

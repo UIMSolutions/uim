@@ -6,6 +6,8 @@ import uim.caches;
 
 // Storage engine for UIM caching
 class DCacheEngine : UIMObject, ICache, ICacheEngine {
+    mixin(CacheEngineThis!(""));
+
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;

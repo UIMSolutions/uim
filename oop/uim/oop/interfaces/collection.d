@@ -7,6 +7,10 @@ module uim.oop.interfaces.collection;
 
 import uim.oop;
 
+interface ICollection(T) : IKeyAndPath {
+    
+}
+
 @safe:
 interface ICollection2(T) { // : IIterable!T {
   // Ensures that this collection contains the specified element (optional operation).

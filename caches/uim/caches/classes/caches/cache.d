@@ -42,6 +42,8 @@ import uim.caches;
  * - `XcacheEngine` - Uses the Xcache extension, an alternative to APCu.
  */
 class DCache : UIMObject, ICache {
+    mixin(CacheThis!(""));
+    
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;

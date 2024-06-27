@@ -897,8 +897,8 @@ class Hash {
                 mysorted ~= mydata[myKey];
                 continue;
             }
-            if (isSet(myoriginalKeys[myKey])) {
-                mysorted[myoriginalKeys[myKey]] = mydata[myoriginalKeys[myKey]];
+            if (myoriginalKeys.hasKey(myKey)) {
+                mysorted[myoriginalKeys.getString(myKey)] = mydata[myoriginalKeys.getString(myKey)];
             } else {
                 mysorted[myKey] = mydata[myKey];
             }

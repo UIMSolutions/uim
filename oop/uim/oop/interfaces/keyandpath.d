@@ -5,7 +5,7 @@ import uim.oop;
 
 interface IKeyAndPath {
 	// #region paths
-		string[][] path();
+		string[][] paths();
 
 		bool hasAnyPaths(string[][] paths);
 
@@ -17,10 +17,32 @@ interface IKeyAndPath {
     // #region keys
 		string[] keys();
 
+		bool hasAllKeys(string[] keys...);
+
 		bool hasAllKeys(string[] keys);
+
+		bool hasAnyKeys(string[] keys...);
 
 		bool hasAnyKeys(string[] keys);
 
 		bool hasKey(string key);
+
+        string correctedKey(string[] path);
+
+		string correctedKey(string key);
 	// #endregion keys
+
+	// #region remove
+		bool removePaths(string[][] paths); 
+
+		bool removePath(string[] path); 
+
+		bool removeKeys(string[] keys...); 
+
+		bool removeKeys(string[] keys); 
+
+		bool removeKey(string key); 
+
+		void clear(); 
+	// #endregion remove
 }

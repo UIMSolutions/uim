@@ -24,6 +24,7 @@ public {
 	import uim.oop.interfaces.fixturestrategy;
 	import uim.oop.interfaces.httpapplication;
 	import uim.oop.interfaces.iterable;
+	import uim.oop.interfaces.keyandpath;
 	import uim.oop.interfaces.list;
 	import uim.oop.interfaces.map;
 	import uim.oop.interfaces.named;

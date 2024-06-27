@@ -43,6 +43,7 @@ public {
   import uim.oop.interfaces;
   import uim.oop.keypairs;	
   import uim.oop.mixins;
+  import uim.oop.objects;
   import uim.oop.observers;
   import uim.oop.patterns;
   // TODO import uim.oop.plugins;

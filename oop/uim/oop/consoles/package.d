@@ -1,7 +1,7 @@
 module uim.oop.consoles;
 
 public {
-    import uim.oop.commands.consoles;
+    import uim.oop.consoles.console;
 }
 
 public {
@@ -9,5 +9,5 @@ public {
     import uim.oop.consoles.factory;
     import uim.oop.consoles.interface_;
     import uim.oop.consoles.mixin_;
-    import uim.oop.consoles.register;
+    import uim.oop.consoles.registry;
 }

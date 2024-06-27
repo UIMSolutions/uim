@@ -40,7 +40,7 @@ class DCacheClearCommand : DCommand {
   }
 
   // Implement this method with your command`s logic.
-  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
+  override int execute(Json[string] arguments, IConsole aConsole = null) {
     string engineName = to!string(commandArguments.getArgument("engine"));
     try {
       aConsoleIo.writeln("Clearing {engineName}");

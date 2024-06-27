@@ -49,7 +49,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
      * fallbacks to copying the assets. For vendor namespaced plugin, parent folder
      * for vendor name are created if required.
      */
-    int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
+    override int execute(Json[string] arguments, IConsole aConsole = null) {
         _io = aConsoleIo;
         _args = commandArguments;
 

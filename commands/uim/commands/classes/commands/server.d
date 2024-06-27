@@ -72,7 +72,7 @@ return false;
         }
     }
 
-  overwrite int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
+  overwrite override int execute(Json[string] arguments, IConsole aConsole = null) {
         this.startup(commandArguments,  aConsoleIo);
         DBinary = to!string(enviroment("D", "d"));
         string commandText = "%s -S %s:%d -t %s"

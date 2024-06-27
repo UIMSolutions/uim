@@ -41,24 +41,11 @@ import uim.caches;
  * - `RedisEngine` - Uses redis and D-redis extension to store cache data.
  * - `XcacheEngine` - Uses the Xcache extension, an alternative to APCu.
  */
-class DCache : ICache {
-    mixin TConfigurable;
-
-    this() {
-        initialize;
-    }
-
-    this(Json[string] initData) {
-        initialize(initData);
-    }
-
-    this(string newName) {
-        this().name(newName);
-    }
-
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+class DCache : UIMObject, ICache {
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         // An array mapping URL schemes to fully qualified caching engine class names.
         _dsnClassMap = [
@@ -74,8 +61,6 @@ class DCache : ICache {
         return true;
     }
 
-    mixin(TProperty!("string", "name"));
-
     // An array mapping URL schemes to fully qualified caching engine class names.
     protected static STRINGAA _dsnClassMap;
 
@@ -86,12 +71,12 @@ class DCache : ICache {
     static void enable() {
         _enabled = true;
     }
-    
+
     // Disable caching.
     static void disable() {
         _enabled = false;
     }
-    
+
     // Check whether caching is enabled.
     static bool enabled() {
         return _enabled;
@@ -115,23 +100,23 @@ class DCache : ICache {
      */
     static void setRegistry(DCacheRegistry cacheRegistry) {
         _registry = cacheRegistry;
-    } 
+    }
 
     // Finds and builds the instance of the required engine class.
-    protected /* static */ void _buildEngine(string configName) {
+    protected  /* static */ void _buildEngine(string configName) {
         auto myRegistry = getRegistry();
 
         // TODO 
-/*         if (configuration.isEmpty(configName~".className")) {
+        /*         if (configuration.isEmpty(configName~".className")) {
             throw new DInvalidArgumentException(
                 "The `%s` cache configuration does not exist."
                 .format(configName)
            );
         } */
-        
+
         auto configData = configuration.get(configName);
         // TODO 
-/*         try {
+        /*         try {
             myRegistry.load(configName, configData);
         } catch (RuntimeException mye) {
             if (!array_key_exists("fallback", configData)) {
@@ -162,10 +147,10 @@ class DCache : ICache {
             }
             myRegistry.set(configName, myfallbackEngine);
         } */
-/*         if (cast(DCacheEngine)configuration.get("className")) {
+        /*         if (cast(DCacheEngine)configuration.get("className")) {
             configData = configuration.get("className").configuration.data;
         } */
-/*         if (!configuration.isEmpty("groups")) {
+        /*         if (!configuration.isEmpty("groups")) {
             (cast(DArrayData)configuration.get("groups")).values.each!((groupName) {
                 _groups[groupName] ~= configName;
                 _groups[groupName] = array_unique(_groups[groupName]);
@@ -173,7 +158,7 @@ class DCache : ICache {
             });
         } */
     }
-    
+
     // Get a SimpleCacheEngine object for the named cache pool.
     /* static ICache&ICacheEngine pool(string configName) {
         if (!_enabled) {
@@ -208,7 +193,7 @@ class DCache : ICache {
      */
     static bool write(string key, Json dataToCache, string configName = "default") {
         // TODO 
-/*         if (isResource(dataToCache)) {
+        /*         if (isResource(dataToCache)) {
             return false;
         } */
         /* auto mybackend = pool(configName);
@@ -225,7 +210,7 @@ class DCache : ICache {
         return wasSuccessful; */
         return false;
     }
-    
+
     /**
      * Write data for many keys into cache.
      *
@@ -348,7 +333,7 @@ class DCache : ICache {
         // TODO return pool(configName).removeItems(someKeys);
         return false;
     }
-    
+
     /**
      * Delete all keys from the cache.
      * Params:
@@ -356,9 +341,9 @@ class DCache : ICache {
      */
     static bool clear(string configName = "default") {
         // TODO return pool(configName).clear();
-        return false; 
+        return false;
     }
-    
+
     /**
      * Delete all keys from the cache from all configurations.
      *
@@ -375,9 +360,9 @@ class DCache : ICache {
     // Delete all keys from the cache belonging to the same group.
     static bool clearGroup(string groupName, string configName = "default") {
         // TODO return pool(configName).clearGroup(groupName);
-        return false; 
+        return false;
     }
-    
+
     /**
      * Retrieve group names to config mapping.
      *
@@ -405,7 +390,6 @@ class DCache : ICache {
         throw new DInvalidArgumentException("Invalid cache group `%s`.".format(groupName));
     } */
 
-    
     /**
      * Provides the ability to easily do read-through caching.
      *
@@ -462,5 +446,5 @@ class DCache : ICache {
         }
         return pool(configName).add(key, dataToCache); */
         return false;
-    } 
+    }
 }

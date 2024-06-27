@@ -5,21 +5,7 @@ import uim.caches;
 @safe:
 
 // Storage engine for UIM caching
-abstract class DCacheEngine : ICache, ICacheEngine {
-    mixin TConfigurable;
-
-    this() {
-        initialize;
-    }
-
-    this(Json[string] initData) {
-        initialize(initData);
-    }
-
-    this(string newName) {
-        this().name(newName);
-    }
-
+abstract class DCacheEngine : UIMObject, ICache, ICacheEngine {
     bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);

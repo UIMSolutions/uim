@@ -1,7 +1,7 @@
 module uim.models.mixins.element;
 
 string elementThis(string name) {
-    string fullName = name ~ "element";
+    string fullName = name ~ "Element";
     return `
     this() {
         super(); this.name("`
@@ -10,11 +10,8 @@ string elementThis(string name) {
     this(Json[string] initData) {
         super(initData); this.name("`~ fullName ~ `");
     }
-    this(string name) {
-        this(); this.name(name);
-    }
-    this(string name, Json[string] initData) {
-        this(name).initialize(initData);
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
     }
     `;
 }
@@ -24,11 +21,10 @@ template elementThis(string name) {
 }
 
 string elementCalls(string name) {
-    string fullName = name ~ "element";
+    string fullName = name ~ "Element";
     return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
     auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
-    auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
-    auto `~ fullName ~ `(string name, Json[string] initData) { return new D` ~ fullName ~ `(name, initData); }
+    auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
     `;
 }

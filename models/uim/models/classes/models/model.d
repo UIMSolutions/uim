@@ -3,21 +3,12 @@ module uim.models.classes.models.model;
 import uim.models;
 
 @safe:
-class DModel : UIMModel, IModel {
+class DModel : UIMObject, IModel {
   mixin(ModelThis!(""));
-
-  this(Json[string] configData) {
-    this();
-    initialize(configData);
-  }
 
   this(IModelManager aManager, Json[string] configData = null) {
     this(configData);
     manager(aManager);
-  }
-
-  this(string aName, Json[string] configData = null) {
-    this(configData).name(aName);
   }
 
   this(STRINGAA someParameters, Json[string] configData = null) {
@@ -44,14 +35,14 @@ class DModel : UIMModel, IModel {
     this(aManager, name, configData);
     parameters(someParameters);
   }
-
-  bool initialize(Json[string] initData = null) {
-    configuration(MemoryConfiguration);
-    configuration.data(initData);
+  override bool initialize(Json[string] initData = null) {
+     if (!super.initialize(initData)) {
+      return false;
+    }
+ 
     return true;
   }
 
-  mixin(TProperty!("string", "name"));
   mixin(TProperty!("string", "className"));
   mixin(TProperty!("string", "registerPath"));
   mixin(TProperty!("IModelManager", "manager"));
@@ -77,7 +68,7 @@ class DModel : UIMModel, IModel {
   }
 }
 
-mixin(ModelCalls!("Model", "DModel"));
+mixin(ModelCalls!(""));
 
 version (test_uim_models) {
   unittest {

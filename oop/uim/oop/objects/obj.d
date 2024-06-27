@@ -14,11 +14,7 @@ class UIMObject : INamed {
         this.initialize(initData);
     }
 
-    this(string newName) {
-        this().name(newName);
-    }
-
-    this(string newName, Json[string] initData) {
+    this(string newName, Json[string] initData = null) {
         this(initData).name(newName);
     }
 
@@ -26,7 +22,7 @@ class UIMObject : INamed {
         name("Attribute");
 
         configuration(MemoryConfiguration);
-        configuration.data(initData);
+        configuration.update(initData);
 
         return true;
     }

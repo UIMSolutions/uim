@@ -11,9 +11,6 @@ import uim.models;
 class DStringData : DScalarData {
 
   mixin(DataThis!("String"));
-  this(string newValue, Json[string] initData = null) {
-    this(initData).set(newValue);
-  }
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
@@ -201,7 +198,6 @@ class DStringData : DScalarData {
 }
 
 mixin(DataCalls!("String"));
-auto StringData(string newValue, Json[string] initData = null) { return new DStringData(newValue, initData); }
 
 unittest {
   /* assert(Json("test") == "test");

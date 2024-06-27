@@ -9,7 +9,21 @@ import uim.models;
 @safe:
 
 string modelThis(string name) {
-  return `
+    string fullName = name ~ "Model";
+    return `
+    this() {
+        super(); this.name("`
+        ~ fullName ~ `");
+    }
+    this(Json[string] initData) {
+        super(initData); this.name("`~ fullName ~ `");
+    }
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
+    }
+    `;
+    
+      /* return `
     this() { super("`~name~`"); this.className("`~name~`"); }
     this(Json[string] configSettings = nullData) { super("`~name~`", configData); }
     this(IModelManager aManager, Json[string] configData = null) { this(configData).application(aManager); }
@@ -22,15 +36,21 @@ string modelThis(string name) {
 
     this(string aName, STRINGAA someParameters, Json[string] configData = null) { this(name, configData).parameters(someParameters); }
     this(IModelManager aManager, string aName, STRINGAA someParameters, Json[string] configData = null) { this(aManager, name, configData).parameters(someParameters); }
-  `;
+  `; */
 }
 
 template ModelThis(string name) {
   const char[] ModelThis = modelThis(name);
 }
 
-string modelCalls(string shortName, string className) {
+string modelCalls(string name) {
+  string fullName = name ~ "Model";
   return `
+    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
+    auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
+    auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
+  `;  
+  /* return `
     auto `~shortName~`() { return new `~className~`; }
     auto `~shortName~`(IModelManager aManager) { return new `~className~`(aManager); }
     auto `~shortName~`(string aName) { return new `~className~`(aName); }
@@ -40,9 +60,9 @@ string modelCalls(string shortName, string className) {
 
     auto `~shortName~`(IModelManager aManager, string aName) { return new `~className~`(aManager, aName); }
     auto `~shortName~`(IModelManager aManager, STRINGAA someParameters) { return new `~className~`(aManager, someParameters); }
-  `;
+  `; */
 }
 
-template ModelCalls(string shortName, string className) {
-  const char[] ModelCalls = modelCalls(shortName, className);
+template ModelCalls(string name) {
+  const char[] ModelCalls = modelCalls(name);
 }

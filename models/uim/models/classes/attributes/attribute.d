@@ -9,18 +9,7 @@ import uim.models;
 
 @safe:
 class DAttribute : UIMObject, IAttribute { // TODO:  /* DEntity,  */ IAttribute {
-  this() {
-    super();
-    this.initialize;
-  }
-
-  this(Json[string] initData) {
-    super(initData);
-  }
-
-  this(string newName) {
-    super(newName);
-  }
+  mixin(AttributeThis!(""));
 
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {

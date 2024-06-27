@@ -11,7 +11,6 @@ import uim.models;
 class DData : UIMObject, IData {
   mixin(DataThis!("Data"));
 
-  // Hook
   override bool initialize(Json[string] initData = null) {
      if (!super.initialize(initData)) {
       return false;
@@ -40,11 +39,11 @@ class DData : UIMObject, IData {
   // #endregion typeName
 
   // #region name
-  string name() {
+  override string name() {
     return values.getString("name");
   }
 
-  void name(string name) {
+  override void name(string name) {
     values.set("name", name);
   }
   // #endregion name

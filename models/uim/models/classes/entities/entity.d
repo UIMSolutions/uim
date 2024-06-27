@@ -9,21 +9,12 @@ import uim.models;
 
 @safe:
 class DEntity : DElement, IEntity /* : IRegistrable */ {
-  // static namespace = moduleName!DEntity;
-
-  // Constructors
-  this() {
-    initialize;
-  }
+  mixin(DataThis!(""));
 
   // this(DOOPModel myModel) { this().model(myModel); }
   this(UUID myId) {
     this().id(myId);
     name(id.toString);
-  }
-
-  this(string myName) {
-    this().name(myName);
   }
 
   this(UUID myId, string myName) {

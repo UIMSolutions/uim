@@ -8,17 +8,15 @@ module uim.models.classes.data.data;
 import uim.models;
 
 @safe:
-class DData : IData {
-  this() {
-    this.initialize;
-  }
-
-  this(Json[string] initData) {
-    this.initialize(initData);
-  }
+class DData : UIMObject, IData {
+  mixin(DataThis!("Data"));
 
   // Hook
-  bool initialize(Json[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
+     if (!super.initialize(initData)) {
+      return false;
+    }
+    
     // clear variables
     _values = null;
     // TODO values.update(initData);

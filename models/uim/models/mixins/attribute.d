@@ -10,11 +10,8 @@ string attributeThis(string name) {
     this(Json[string] initData) {
         super(initData); this.name("`~ fullName ~ `");
     }
-    this(string name) {
-        this(); this.name(name);
-    }
-    this(string name, Json[string] initData) {
-        this(name).initialize(initData);
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
     }
     `;
 }
@@ -28,8 +25,7 @@ string attributeCalls(string name) {
     return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
     auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
-    auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
-    auto `~ fullName ~ `(string name, Json[string] initData) { return new D` ~ fullName ~ `(name, initData); }
+    auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
     `;
 }
 

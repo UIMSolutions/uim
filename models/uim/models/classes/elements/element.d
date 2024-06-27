@@ -8,29 +8,23 @@ module uim.models.classes.elements.element;
 import uim.models;
 
 @safe:
-class DElement : IElement {
-  // static namespace = moduleName!DElement;
+class DElement : UIMObject, IElement {
+  mixin(DataThis!(""));
 
-  // Constructors
-  this() {
-    initialize;
-  }
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
-  this(string myName) {
-    this().name(myName);
+    requestPrefix("element_");
+
+    return true; 
   }
 
   this(Json aJson) {
     this();
     if (aJson != Json(null))
       this.fromJson(aJson);
-  }
-
-  bool initialize(Json[string] initData = null) {
-
-    requestPrefix("element_");
-
-    return true;
   }
 
   // mixin(TProperty!("DStringDataMap", "values"));
@@ -75,24 +69,6 @@ class DElement : IElement {
     element.requestPrefix("otherRequestPrefix");
     assert(element.requestPrefix == "otherRequestPrefix");
     assert(element.requestPrefix != "noRequestPrefix");
-  }
-
-  // Every element can have a name like an identifier. 
-  string _name;
-  void name(string newName) {
-    _name = newName.strip.replace(" ", "_");
-  }
-
-  string name() {
-    return _name;
-  }
-
-  unittest {
-    auto entity = Entity;
-    entity.name("name1");
-    assert(entity.name == "name1");
-    entity.name("name2");
-    assert(entity.name == "name2");
   }
 
   mixin(TProperty!("STRINGAA", "parameters"));

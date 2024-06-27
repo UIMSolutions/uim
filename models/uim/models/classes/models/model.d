@@ -1,14 +1,10 @@
-module uim.models.classes.model;
+module uim.models.classes.models.model;
 
 import uim.models;
 
 @safe:
-class DModel : IModel {
-  mixin TConfigurable;
-
-  this() {
-    initialize;
-  }
+class DModel : UIMModel, IModel {
+  mixin(ModelThis!(""));
 
   this(Json[string] configData) {
     this();

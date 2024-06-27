@@ -8,31 +8,26 @@ module uim.models.classes.attributes.attribute;
 import uim.models;
 
 @safe:
-class DAttribute : IAttribute { // TODO:  /* DEntity,  */ IAttribute {
-  mixin TConfigurable;
-
+class DAttribute : UIMObject, IAttribute { // TODO:  /* DEntity,  */ IAttribute {
   this() {
-    initialize;
+    super();
+    this.initialize;
   }
 
   this(Json[string] initData) {
-    this.initialize(initData);
+    super(initData);
   }
 
   this(string newName) {
-    this().name(newName);
+    super(newName);
   }
 
-  this(string newName, Json[string] initData) {
-    this(initData).name(newName);
-  }
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
-  bool initialize(Json[string] initData = null) {
     name("Attribute");
-
-    configuration(MemoryConfiguration);
-    configuration.data(initData);
-
     return true;
   }
 
@@ -55,7 +50,6 @@ class DAttribute : IAttribute { // TODO:  /* DEntity,  */ IAttribute {
   // #endregion dataFormats
 
   mixin(TProperty!("UUID", "id"));
-  mixin(TProperty!("string", "name"));
   mixin(TProperty!("string", "display"));
   mixin(TProperty!("string", "registerPath"));
   mixin(TProperty!("bool", "isNullable"));

@@ -5,9 +5,18 @@ import uim.models;
 @safe:
 
 string dataThis(string name, string datatype = null) { // Name for future releases
-  return `  
-    this() { super(); }
-    this(Json[string] initData) { super(initData); }
+    string fullName = name ~ "Data";
+    return `
+    this() {
+        super(); this.name("`
+        ~ fullName ~ `");
+    }
+    this(Json[string] initData) {
+        super(initData); this.name("`~ fullName ~ `");
+    }
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
+    }
     `;
 }
 
@@ -16,11 +25,12 @@ template DataThis(string name, string datatype = null) { // Name for future rele
 }
 
 string dataCalls(string name, string datatype = null) {
-  string fullName = name ~ "Data";
-  return `
-    auto ` ~ fullName ~ `() { return new D` ~ fullName ~ `(); }
-    auto ` ~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData); }
-  `;
+    string fullName = name ~ "Data";
+    return `
+    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
+    auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
+    auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
+    `;
 }
 
 template DataCalls(string name, string datatype = null) {

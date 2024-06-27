@@ -284,7 +284,7 @@ class DRoute : IRoute {
             string myvalue; 
             if (this.template.contains("{" ~ aKey ~ "}")) {
                 myvalue = "_" ~ aKey;
-            } else if (isSet(this.defaults[aKey])) {
+            } else if (isSet(this.defaults.hasKey(aKey)) {
                 myvalue = this.defaults[aKey];
             }
 

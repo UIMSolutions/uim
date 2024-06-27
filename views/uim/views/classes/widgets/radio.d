@@ -128,7 +128,7 @@ class DRadioWidget : DWidget {
         IContext formContext
    ) {
         auto escapeData = options["escape"];
-        auto myRadio = mytext.isArray && isSet(mytext["text"], mytext["value"])
+        auto myRadio = mytext.isArray && mytext.hasKeys("text", "value")
             ? mytext
             : ["value": myval, "text": mytext];
 

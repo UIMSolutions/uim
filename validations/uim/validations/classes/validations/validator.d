@@ -147,7 +147,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             mycanBeEmpty = _canBeEmpty(fieldName, mycontext);
 
             myflags = EMPTY_NULL;
-            if (isSet(_allowEmptyFlags[myname])) {
+            if (_allowEmptyFlags.hasKey(myname)) {
                 myflags = _allowEmptyFlags[myname];
             }
             myisEmpty = this.isEmpty(mydata[myname], myflags);
@@ -2636,10 +2636,10 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 }
             }
             if (myallFieldsAreEmpty) {
-                if ((myflags & EMPTY_DATE) && isSet(mydata["year"])) {
+                if ((myflags & EMPTY_DATE) && mydata.hasKey("year")) {
                     return true;
                 }
-                if ((myflags & EMPTY_TIME) && isSet(mydata["hour"])) {
+                if ((myflags & EMPTY_TIME) && mydata.hasKey("hour")) {
                     return true;
                 }
             }

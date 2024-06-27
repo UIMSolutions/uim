@@ -571,7 +571,7 @@ class DFormHelper : DHelper {
             foreach (key: mye; myerror) {
                 if (mytext.hasKey(key)) {
                     mytmp ~= mytext[key];
-                } elseif (isSet(mytext[mye])) {
+                } elseif (mytextm.hasKey(ye)) {
                     mytmp ~= mytext[mye];
                 } else {
                     mytmp ~= mye;
@@ -676,7 +676,7 @@ class DFormHelper : DHelper {
             }
             mytext = __(Inflector.humanize(Inflector.underscore(mytext)));
         }
-        if (isSet(htmlAttributes["for"])) {
+        if (htmlAttributes.hasKey("for")) {
             mylabelFor = htmlAttributes["for"];
             htmlAttributes.remove("for");
         } else {
@@ -1038,7 +1038,7 @@ class DFormHelper : DHelper {
         mytype = "text";
         myinternalType = mycontext.type(fieldName);
         mymap = configuration.get("typeMap");
-        if (myinternalType !is null && isSet(mymap[myinternalType])) {
+        if (myinternalType !is null && mymap.hasKey(myinternalType)) {
             mytype = mymap[myinternalType];
         }
         auto fieldName = array_slice(fieldName.split("."), -1)[0];

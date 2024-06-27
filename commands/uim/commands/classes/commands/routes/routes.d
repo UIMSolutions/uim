@@ -31,7 +31,7 @@ class DRoutesCommand : DCommand {
         output = someDuplicateRoutesCounter = null;
 
         someAvailableRoutes.each!((route) {
-             someMethods = route.defaults.hasKey("_method") ? /* (array) */
+             someMethods = route.defaults.hasKey("_method") ? /* (array) * /
     route.defaults["_method"] : [""];
 
     anItem = [
@@ -68,7 +68,7 @@ class DRoutesCommand : DCommand {
                 someDuplicateRoutes = null;
 
                 foreach (myRoute; someAvailableRoutes) {
-                    string[] someMethods = myRoute.defaults.hasKey("_method") ?  /* (array) */ myRoute
+                    string[] someMethods = myRoute.defaults.hasKey("_method") ?  /* (array) * / myRoute
                         .defaults["_method"] : [""];
 
                     someMethods.each!((method) {
@@ -82,7 +82,7 @@ class DRoutesCommand : DCommand {
                                 myRoute.options.getString("_name", myRoute.name),
                                 routeTemplateName,
                                 myRoute.defaults.getString("pluginName"),
-                                myRoute.defaults.getString("prefix") /* Name */ ,
+                                myRoute.defaults.getString("prefix") /* Name * / ,
                                 myRoute.defaults.getString("controNameller"),
                                 myRoute.defaults.getString("action"),
                                 someMethods.join(", "),
@@ -142,7 +142,7 @@ class DRoutesCommand : DCommand {
 
                 foreach (myRoute; someAvailableRoutes) {
                     string[] someMethods = myRoute.defaults.hasKey(
-                        "_method") ?  /* (array) */
+                        "_method") ?  /* (array) * /
                         myRoute.defaults["_method"] : [""];
 
                     someMethods.each((method) {
@@ -186,6 +186,4 @@ class DRoutesCommand : DCommand {
                 }
             }
 
-            
-
-            *  / 
+            * / 

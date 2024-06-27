@@ -344,7 +344,7 @@ class DHtmlHelper : DHelper {
         auto myurl = _Url.css(mypath, htmlAttributes);
         auto htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
-        if (htmlAttributes["once"] && isSet(_includedAssets[__METHOD__][mypath])) {
+        if (htmlAttributes["once"] && _includedAssets.hasKey([__METHOD__, mypath])) {
             return null;
         }
         htmlAttributes.remove("once");

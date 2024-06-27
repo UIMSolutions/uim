@@ -7,8 +7,8 @@ import uim.consoles;
 // Print out command list
 class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     // The command collection to get help on.
-    protected ICommandCollection _commands;
-    void commandCollection(ICommandCollection newCommands) {
+    protected DCommandCollection _commands;
+    void commandCollection(DCommandCollection newCommands) {
         _commands = newCommands;
     }
 
@@ -141,11 +141,12 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         aConsoleIo.out(castto!string(xmlShells.saveXML())); */
     }
 
-    void addCommandToShells(DSimpleXMLElement shells, string commandName, DCommand command) {
+    // TODO
+/*     void addCommandToShells(DSimpleXMLElement shells, string commandName, DCommand command) {
         addCommandToShells(shells, commandName, command.classname);
-    }
+    } */
 
-    void addCommandToShells(SimpleXMLElement shells, string commandName, string commandClassname) {
+    void addCommandToShells(DSimpleXMLElement shells, string commandName, string commandClassname) {
         auto shell = shells.addChild("shell");
         shell.addAttribute("name", commandName);
         shell.addAttribute("call_as", commandName);

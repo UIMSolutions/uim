@@ -44,7 +44,7 @@ class DCommandRunner { // }: IEventDispatcher {
     protected string[] _aliases;
 
     // consoleApp - The application to run CLI commands for.
-    this(
+    /* this(
         IConsoleApplication consoleApp,
         string rootCommandName = "uim",
         ICommandFactory commandFactory = null
@@ -57,7 +57,7 @@ class DCommandRunner { // }: IEventDispatcher {
             "--help": "help",
             "-h": "help",
         ];
-    }
+    } */
 
     /**
      * Replace the entire alias map for a runner.

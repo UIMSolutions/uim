@@ -51,9 +51,9 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
     DHelper __get(string propertyName) {
         // This calls __isSet() and loading the named helper if it isn"t already loaded.
         /** @psalm-suppress NoValue */
-        if (isSet(this.{propertyName})) {
+        /* if (isSet(this.{propertyName})) {
             return _loaded[propertyName];
-        }
+        } */
         return null;
     }
     

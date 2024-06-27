@@ -777,7 +777,7 @@ class DRouteBuilder {
             mypath = _path ~ mypath;
         }
         routingsPrefix = _namePrefix;
-        if (isSet(myparams["_namePrefix"])) {
+        if (myparams.hasKey("_namePrefix")) {
             routingsPrefix ~= myparams["_namePrefix"];
         }
         remove(myparams["_namePrefix"]);

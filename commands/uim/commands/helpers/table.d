@@ -119,7 +119,7 @@ class DTableHelper : UIMObject { // }: Helper {
                 _render(line, widths); if (configuration.get("rowSeparator"] == true) {
                     _rowSeparator(widths); }
                   }
-                  if (configuration.get("rowSeparator"] != true) {
+                  if (configuration.hasKey("rowSeparator") != true) {
                       _rowSeparator(widths); }
                     }
 

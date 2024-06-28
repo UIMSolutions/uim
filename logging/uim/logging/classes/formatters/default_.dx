@@ -26,7 +26,7 @@ class DefaultFormatter : DAbstractFormatter {
             ? "%s %s: %s".format((new DateTime()).format(configuration.get("dateFormat"]), level, messageToFormat)
             : "%s: %s".format(level, messageToFormat);
 
-        if (configuration.get("includeTags"]) {
+        if (configuration.hasKey("includeTags")) {
             result = "<%s>%s</%s>".format(level, result, level);
         }
         return result;

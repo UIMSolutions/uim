@@ -27,7 +27,7 @@ class DLogger : UIMObject, ILogger {
            configuration.get("levels", configuration.get("types").toArray);
         }
 
-        auto formatter = hasconfiguration.get("formatter") ? configuration.get("formatter") : DefaultFormatter.classname;
+        auto formatter = configuration.getString("formatter", DefaultFormatter.classname);
         if (!isObject(formatter)) {
             if (isArray(formatter)) {
                 className = formatter["className"];
@@ -39,7 +39,7 @@ class DLogger : UIMObject, ILogger {
             formatter = new className(options);
         }
         _formatter = formatter; 
-        */
+
         return true;
     }
 

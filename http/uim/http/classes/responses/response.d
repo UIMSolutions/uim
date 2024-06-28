@@ -1192,7 +1192,7 @@ class DResponse : IResponse {
 
         auto file = new DSplFileInfo(filePath);
         if (!file.isFile() || !file.isReadable()) {
-            if (configuration.get("debug")) {
+            if (configuration.hasKey("debug")) {
                 throw new DNotFoundException("The requested file %s was not found or not readable".format(filePath));
             }
             throw new DNotFoundException(__d("uim", "The requested file was not found"));

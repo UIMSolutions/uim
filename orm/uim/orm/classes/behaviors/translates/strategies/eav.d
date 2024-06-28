@@ -117,7 +117,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                 name ~ ".model": model,
                 name ~ ".field": field,
             ];
-            if (!configuration.get("allowEmptyTranslations"]) {
+            if (configuration.hasKey("allowEmptyTranslations") {
                 conditions[name ~ ".content !="] = "";
             }
 
@@ -131,7 +131,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         }
 
         conditions = ["targetAlias.model": model];
-        if (!configuration.get("allowEmptyTranslations"]) {
+        if (configuration.hasKey("allowEmptyTranslations")) {
             conditions["targetAlias.content !="] = "";
         }
 

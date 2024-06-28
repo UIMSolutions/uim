@@ -408,7 +408,7 @@ class DEagerLoader {
         configuration.get("canBeJoined"] = myinstance.canBeJoined(configuration.get("config"]);
         myeagerLoadable = new DEagerLoadable(aliasName, configData);
 
-        if (configuration.get("canBeJoined"]) {
+        if (configuration.hasKey("canBeJoined"]) {
            _aliasList[mypaths["root"]][aliasName] ~= myeagerLoadable;
         } else {
             mypaths["root"] = configuration.get("aliasPath"];

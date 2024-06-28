@@ -56,7 +56,7 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
             }
             return response;
         }
-        if (configuration.get("redirect"] && request.getMethod() == "GET") {
+        if (configuration.hasKey("redirect") && request.getMethod() == "GET") {
             auto requestUri = request.getUri().withScheme("https");
             auto requestBase = request.getAttribute("base");
             if (requestBase) {

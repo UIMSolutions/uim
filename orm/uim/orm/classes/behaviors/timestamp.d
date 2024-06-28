@@ -106,8 +106,8 @@ class DTimestampBehavior : DBehavior {
      */
     DateTime timestamp(IDateTime myts = null, bool myrefreshTimestamp = false) {
         if (myts) {
-            if (configuration.get("refreshTimestamp"]) {
-               configuration.get("refreshTimestamp"] = false;
+            if (configuration.hasKey("refreshTimestamp")) {
+               configuration.set("refreshTimestamp", false);
             }
            _ts = new DateTime(myts);
         } else if (_ts.isNull || myrefreshTimestamp) {

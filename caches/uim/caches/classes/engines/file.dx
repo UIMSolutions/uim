@@ -129,7 +129,7 @@ class DFileCacheEngine : DCacheEngine {
             myData ~= _File.currentValue();
             _File.next();
         }
-        if (configuration.get("lock")) {
+        if (configuration.hasKey("lock")) {
             _File.flock(LOCK_UN);
         }
         myData = strip(myData);

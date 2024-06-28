@@ -984,7 +984,7 @@ Returns a random integer between min and max, inclusive. If you only pass one ar
 
 _.random(0, 100);
 => 42
-mixin_.mixin(object) source
+mixins.mixin(object) source
 Allows you to extend Underscore with your own utility functions. Pass a hash of {name: function} definitions to have your functions added to the Underscore object, as well as the OOP wrapper. Returns the Underscore object to facilitate chaining.
 
 _.mixin({

@@ -32,5 +32,5 @@ public {
 
 public { // Modules
     import uim.models.classes.data.helper;
-    import uim.models.classes.data.mixin_;
+    import uim.models.classes.data.mixins;
 }

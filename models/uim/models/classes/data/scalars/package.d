@@ -10,7 +10,7 @@ public {
 	import uim.models.classes.data.scalars.boolean;
 	import uim.models.classes.data.scalars.long_;
 	import uim.models.classes.data.scalars.number;
-	import uim.models.classes.data.scalars.mixin_;
+	import uim.models.classes.data.scalars.mixins;
 	import uim.models.classes.data.scalars.null_;
 	import uim.models.classes.data.scalars.string_; 
 }

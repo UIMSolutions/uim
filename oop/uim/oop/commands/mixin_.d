@@ -1,4 +1,4 @@
-module uim.oop.commands.mixin_;
+module uim.oop.commands.mixins;
 
 string commandThis(string name) {
     string fullName = name ~ "Command";

@@ -1,4 +1,4 @@
-module uim.oop.consoles.mixin_;
+module uim.oop.consoles.mixins;
 
 import uim.oop;
 @safe:

@@ -195,7 +195,7 @@ abstract class DCell { // }: IEventDispatcher {
      * Starts the rendering process when Cell is echoed.
      *
      * *Note* This method will trigger an error when view rendering has a problem.
-     * This is because D will not allow a __toString() method to throw an exception.
+     * This is because UIM will not allow a __toString() method to throw an exception.
      */
     override string toString() {
         try {

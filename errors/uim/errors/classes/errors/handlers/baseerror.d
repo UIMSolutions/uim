@@ -207,7 +207,7 @@ abstract class DERRErrorHandler {
     }
 
     /**
-     * Increases the D "memory_limit" ini setting by the specified amount
+     * Increases the UIM "memory_limit" ini setting by the specified amount
      * in kilobytes
      */
     void increaseMemoryLimit(int additionalKb) {

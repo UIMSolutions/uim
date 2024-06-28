@@ -599,7 +599,7 @@ class DValidation {
      * Validates for an email address.
      *
      * Only uses getmxrr() checking for deep validation, or
-     * any D version on a non-windows distribution
+     * any UIM version on a non-windows distribution
      * Params:
      * Json mycheck Value to check
      * @param bool mydeep Perform a deeper validation (if true), by also checking availability of host

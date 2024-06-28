@@ -167,7 +167,7 @@ class DI18n {
     
     /**
      * Sets the default locale to use for future translator instances.
-     * This also affects the `intl.default_locale` D setting.
+     * This also affects the `intl.default_locale` UIM setting.
      */
     static void setLocale(string localName) {
         getDefaultLocale();
@@ -179,7 +179,7 @@ class DI18n {
     
     /**
      * Will return the currently configure locale as stored in the
-     * `intl.default_locale` D setting.
+     * `intl.default_locale` UIM setting.
      */
     static string locale() {
         getDefaultLocale();
@@ -195,7 +195,7 @@ class DI18n {
      * Returns the default locale.
      *
      * This returns the default locale before any modifications, i.e.
-     * the value as stored in the `intl.default_locale` D setting before
+     * the value as stored in the `intl.default_locale` UIM setting before
      * any manipulation by this class.
     */
     static string getDefaultLocale() {

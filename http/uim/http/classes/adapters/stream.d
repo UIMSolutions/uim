@@ -235,7 +235,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      */
     protected void _open(string urlToConnect, IRequest request) {
         if (!(bool)ini_get("allow_url_fopen")) {
-            throw new DClientException("The D directive `allow_url_fopen` must be enabled.");
+            throw new DClientException("The UIM directive `allow_url_fopen` must be enabled.");
         }
 
         bool set_error_handler(function (code, message) {

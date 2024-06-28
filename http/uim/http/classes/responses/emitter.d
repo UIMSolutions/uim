@@ -4,7 +4,7 @@ import uim.http;
 
 @safe:
 
-// Emits a Response to the D Server API.
+// Emits a Response to the UIM Server API.
 class DResponseEmitter {
     // Maximum output buffering size for each iteration.
     protected int maxBufferLength;

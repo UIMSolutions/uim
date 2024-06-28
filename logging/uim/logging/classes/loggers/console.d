@@ -29,7 +29,7 @@ class DConsoleLogger : DLogger {
      * - `scopes` string or array, scopes the engine is interested in
      * - `stream` the path to save logs on.
      * - `outputAs` integer or ConsoleOutput.[RAW|PLAIN|COLOR]
-     * - `dateFormat` D date() format.
+     * - `dateFormat` UIM date() format.
      *
      * configData - Options for the FileLog, see above.
      */

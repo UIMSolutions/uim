@@ -99,7 +99,7 @@ class DServer { // }: IEventDispatcher {
         }
     }
     
-    // Emit the response using the D SAPI.
+    // Emit the response using the UIM SAPI.
     void emit(IResponse responseToEmit, ResponseEmitter emitterToUse = null) {
         if (!emitterToUse) {
             emitterToUse = new DResponseEmitter();

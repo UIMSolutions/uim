@@ -35,12 +35,12 @@ class DError {
             ERRORS.WARNING: "warning",
             ERRORS.USER_WARNING: "warning",
             ERRORS.COMPILERRORS.WARNING: "warning",
-            E_RECOVERABLERRORS.ERROR: "warning",
+            ERRORS.RECOVERABLERRORS.ERROR: "warning",
             ERRORS.NOTICE: "notice",
             ERRORS.USER_NOTICE: "notice",
-            E_STRICT: "strict",
-            E_DEPRECATED: "deprecated",
-            E_USER_DEPRECATED: "deprecated",
+            ERRORS.NOTICE: "strict",
+            ERRORS.DEPRECATED: "deprecated",
+            ERRORS.USER_DEPRECATED: "deprecated",
         ]; */
 
         // TODO

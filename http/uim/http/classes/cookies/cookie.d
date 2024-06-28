@@ -47,7 +47,7 @@ class DCookie : ICookie {
     const string SAMESITE_LAX = "Lax";
 
     // SameSite attribute value: Strict
-    const string SAMESITE_STRICT = "Strict";
+    const string SAMESITERRORS.NOTICE = "Strict";
 
     // SameSite attribute value: None
     const string SAMESITE_NONE = "None";
@@ -55,7 +55,7 @@ class DCookie : ICookie {
     // Valid values for "SameSite" attribute.
     const string[] SAMESITE_VALUES = [
         SAMESITE_LAX,
-        SAMESITE_STRICT,
+        SAMESITERRORS.NOTICE,
         SAMESITE_NONE,
     ];
 

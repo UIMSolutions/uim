@@ -104,7 +104,7 @@ class DErrorTrap {
         auto error = new UimError(errorCode, errorDescription, fileName, errorTriggerLine, trace);
 
         auto anIgnoredPaths = /* (array) */configuration.get("Error.ignoredDeprecationPaths");
-        if (errorCode == E_USER_DEPRECATED &&  anIgnoredPaths) {
+        if (errorCode == ERRORS.USER_DEPRECATED &&  anIgnoredPaths) {
             string relativePath = subString(fileName, ROOT.length + 1).replace(DIRECTORY_SEPARATOR, "/");
             foreach (somePattern; anIgnoredPaths) {
                 string somePattern = somePattern.replace(DIRECTORY_SEPARATOR, "/");

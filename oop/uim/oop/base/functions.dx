@@ -207,7 +207,7 @@ string[] namespaceSplit(string className) {
      * as that should point to application/plugin code.
      */
     void deprecationWarning(string versionInfo, string outputMessage, int stackFrame = 1) {
-        if (!(error_reporting() & E_USER_DEPRECATED)) {
+        if (!(error_reporting() & ERRORS.USER_DEPRECATED)) {
             return;
         }
         
@@ -233,7 +233,7 @@ string[] namespaceSplit(string className) {
             outputMessage = 
                 "Since %s: %s\n%s, line: %s\n" ~
                 "You can disable all deprecation warnings by setting `Error.errorLevel` to " ~
-                "`E_ALL & ~E_USER_DEPRECATED`. Adding `%s` to `Error.ignoredDeprecationPaths` " ~
+                "`E_ALL & ~ERRORS.USER_DEPRECATED`. Adding `%s` to `Error.ignoredDeprecationPaths` " ~
                 "in your `config/app.d` config will mute deprecations from that file only."
                 .format(
                     versionInfo,
@@ -254,5 +254,5 @@ string[] namespaceSplit(string className) {
         if (!isDuplicate) {
             errors[checksum] = true;
         }
-        trigger_error(message, E_USER_DEPRECATED); */
+        trigger_error(message, ERRORS.USER_DEPRECATED); */
     } */

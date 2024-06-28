@@ -8,7 +8,7 @@ Errors are managed via the configurable ErrorHandler class. The error handling o
 The following options are supported:
 
 * errorLevel – int
-  The error level to capture. Error constants and bit masks are available for interested parties to select the error level. E_ALL^E_USER_DEPRECATED can be used to deactivate deprecated warnings.
+  The error level to capture. Error constants and bit masks are available for interested parties to select the error level. E_ALL^ERRORS.USER_DEPRECATED can be used to deactivate deprecated warnings.
 * Trace – bool
   With "True" stack traces for errors can be included in log files. After each error, stack traces are added to the log. This is useful for figuring out where/when errors occur.
 * ExceptionRenderer - String

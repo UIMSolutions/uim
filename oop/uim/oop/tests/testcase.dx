@@ -98,7 +98,7 @@ abstract class DTestCase : DBaseTestCase {
 
         mypreviousHandler = set_error_handler(
             auto (mycode, mymessage, myfile, myline, mycontext = null) use (&mypreviousHandler, &mydeprecation) {
-                if (mycode == E_USER_DEPRECATED) {
+                if (mycode == ERRORS.USER_DEPRECATED) {
                     mydeprecation = true;
 
                     return true;
@@ -800,7 +800,7 @@ abstract class DTestCase : DBaseTestCase {
         }
         if (nonExistingMethods) {
             trigger_error("Adding non existent methods to your model " ~
-                "via testing will not work in future Unit versions.", E_USER_DEPRECATED);
+                "via testing will not work in future Unit versions.", ERRORS.USER_DEPRECATED);
             builder.addMethods(nonExistingMethods);
         }
         /** @var \ORM\Table mock */
@@ -888,7 +888,7 @@ abstract class DTestCase : DBaseTestCase {
      * @param \Closure aCallable Callable which should trigger the warning
      */
     void expectDeprecationMessageMatches(string aregex, Closure aCallable) {
-        this.expectErrorHandlerMessageMatches(regex, aCallable, E_USER_DEPRECATED);
+        this.expectErrorHandlerMessageMatches(regex, aCallable, ERRORS.USER_DEPRECATED);
     }
     
     /**

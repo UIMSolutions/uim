@@ -48,9 +48,9 @@ import uim.errors;
  * that are dealt with by ErrorHandler by setting `log` option to true in your config/error.D.
  * Enabling this will log every exception to Log and the configured loggers.
  *
- * ### D errors
+ * ### UIM errors
  *
- * Error handler also provides the built in features for handling D errors (trigger_error).
+ * Error handler also provides the built in features for handling UIM errors (trigger_error).
  * While in debug mode, errors will be output to the screen using debugger. While in production mode,
  * errors will be logged to Log. You can control which errors are logged by setting
  * `errorLevel` option in config/error.D.

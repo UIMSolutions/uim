@@ -413,7 +413,7 @@ class DDebugger {
      * are processed with highlight_string() as well, so they have basic UIM syntax highlighting
      * applied.
      *
-     * @param string file Absolute path to a D file.
+     * @param string file Absolute path to a UIM file.
      * @param int line Line number to highlight.
      * @param int context Number of lines of context to extract above and below line.
      */

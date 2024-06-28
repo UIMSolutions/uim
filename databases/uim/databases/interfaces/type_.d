@@ -3,23 +3,23 @@ import uim.databases;
 
 @safe:
 /**
- * Encapsulates all conversion functions for values coming from a database into D and
- * going from D into a database.
+ * Encapsulates all conversion functions for values coming from a database into UIM and
+ * going from UIM into a database.
  */
 interface IType {
-    // Casts given value from a D type to one acceptable by a database.
+    // Casts given value from a UIM type to one acceptable by a database.
     Json toDatabase(Json valueToConvert, IDriver driver) ;
 
-    // Casts given value from a database type to a D equivalent.
+    // Casts given value from a database type to a UIM equivalent.
     Json ToD(Json valueToConvert, IDriver driver);
 
     // Get the binding type to use in a PDO statement.
     int toStatement(Json value, IDriver driver);
 
     /**
-     * Marshals flat data into D objects.
+     * Marshals flat data into UIM objects.
      *
-     * Most useful for converting request data into D objects,
+     * Most useful for converting request data into UIM objects,
      * that make sense for the rest of the ORM/Database layers.
      */
     Json marshal(Json valueToConvert);

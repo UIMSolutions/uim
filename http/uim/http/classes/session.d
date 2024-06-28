@@ -5,7 +5,7 @@ import uim.http;
 @safe:
 
 /**
- * This class is a wrapper for the native D session functions. It provides
+ * This class is a wrapper for the native UIM session functions. It provides
  * several defaults for the most common session configuration
  * via external handlers and helps with using session in CLI without any warnings.
  *

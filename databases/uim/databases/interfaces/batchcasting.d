@@ -5,7 +5,7 @@ import uim.databases;
 @safe:
 /**
  * Denotes type objects capable of converting many values from their original
- * database representation to D values.
+ * database representation to UIM values.
  */
 interface IBatchCasting {
     // Returns an array of the values converted to the UIM representation of this type.

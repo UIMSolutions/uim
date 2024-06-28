@@ -347,7 +347,7 @@ class DDebugger {
      *
      * The above would return an array of 8 items. The 4th item would be the provided line,
      * and would be wrapped in `<span class="code-highlight"></span>`. All the lines
-     * are processed with highlight_string() as well, so they have basic D syntax highlighting
+     * are processed with highlight_string() as well, so they have basic UIM syntax highlighting
      * applied.
      * Params:
      * @param int context Number of lines of context to extract above and below lineToHighlight.

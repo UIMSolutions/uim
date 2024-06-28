@@ -255,7 +255,7 @@ class DExceptionTrap {
        );
     }
 
-    // Increases the D "memory_limit" ini setting by the specified amount in kilobytes
+    // Increases the UIM "memory_limit" ini setting by the specified amount in kilobytes
     void increaseMemoryLimit(int additionalKb) {
         auto limit = ini_get("memory_limit");
         if (limit.isEmpty || limit == "-1") {

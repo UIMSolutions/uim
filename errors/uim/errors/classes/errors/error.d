@@ -27,15 +27,15 @@ class DError {
         // TODO
         /*
         levelMap = [
-            E_PARSE: "error",
-            E_ERROR: "error",
-            E_CORE_ERROR: "error",
-            E_COMPILE_ERROR: "error",
+            ERRORS.PARSE: "error",
+            ERRORS.ERROR: "error",
+            E_CORERRORS.ERROR: "error",
+            E_COMPILERRORS.ERROR: "error",
             ERRORS.USER_ERROR: "error",
             E_WARNING: "warning",
             ERRORS.USER_WARNING: "warning",
             E_COMPILE_WARNING: "warning",
-            E_RECOVERABLE_ERROR: "warning",
+            E_RECOVERABLERRORS.ERROR: "warning",
             E_NOTICE: "notice",
             ERRORS.USER_NOTICE: "notice",
             E_STRICT: "strict",

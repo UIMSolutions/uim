@@ -185,7 +185,7 @@ class DConsoleIo {
     }
 
     // Halts the the current process with a StopException.
-    never abort(string errorMessage, int errorCode = ICommand.CODE_ERROR) {
+    never abort(string errorMessage, int errorCode = ICommand.CODERRORS.ERROR) {
         error(errorMessage);
 
         throw new DStopException(errorMessage, errorCode);

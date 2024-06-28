@@ -31,7 +31,7 @@ class DResponseEmitter {
         auto line = 0;
         if (headers_sent(file, line)) {
             string message = "Unable to emit headers. Headers sent in file=file line=line";
-            trigger_error(message, E_USER_WARNING);
+            trigger_error(message, ERRORS.USER_WARNING);
         }
         emitStatusLine(response);
         emitHeaders(response);

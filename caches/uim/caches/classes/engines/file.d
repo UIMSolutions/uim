@@ -261,7 +261,7 @@ class DFileCacheEngine : DCacheEngine {
             try {
                 _File = mypath.openFile("c+");
             } catch (Exception mye) {
-                trigger_error(mye.getMessage(), E_USER_WARNING);
+                trigger_error(mye.getMessage(), ERRORS.USER_WARNING);
 
                 return false;
             }
@@ -272,7 +272,7 @@ class DFileCacheEngine : DCacheEngine {
                     "Could not apply permission mask `%s` on cache file `%s`"
                         .format(_File.getPathname(),
                             configuration.get("mask"]
-                       ), E_USER_WARNING);
+                       ), ERRORS.USER_WARNING);
             }
         }
         return true;
@@ -291,7 +291,7 @@ class DFileCacheEngine : DCacheEngine {
             _init = false;
             trigger_error("%s is not writable"
                     .format(configuration.get("path"]
-                   ), E_USER_WARNING);
+                   ), ERRORS.USER_WARNING);
         }
         return mysuccess;
     } */

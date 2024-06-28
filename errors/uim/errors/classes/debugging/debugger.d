@@ -770,7 +770,7 @@ class DDebugger {
             trigger_error(
                 "Please change the value of `Security.salt` in `ROOT/config/app_local.D` " .
                 "to a random value of at least 32 characters.",
-                E_USER_NOTICE
+                ERRORS.USER_NOTICE
            );
         }
     }

@@ -240,7 +240,7 @@ class DController : IController { // DEventListener, IEventDispatcher {
                     trace[0]["file"],
                     trace[0]["line"]
                ),
-                E_USER_NOTICE
+                ERRORS.USER_NOTICE
            );
 
         return null;

@@ -16,7 +16,7 @@ class DVersionCommand : DCommand {
     return true;
   }
 
-  override override int execute(Json[string] arguments, IConsole aConsole = null) {
+  override override ulong execute(Json[string] arguments, IConsole aConsole = null) {
     //TODO aConsoleIo.writeln(Configure.currentVersion());
 
     return 0; //TODO CODE_SUCCESS;

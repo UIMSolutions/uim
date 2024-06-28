@@ -205,7 +205,7 @@ class DExceptionTrap {
             return;
         }
         fatals = [
-            E_USER_ERROR,
+            ERRORS.USER_ERROR,
             E_ERROR,
             E_PARSE,
         ];
@@ -277,7 +277,7 @@ class DExceptionTrap {
     /**
      * Trigger an error that occurred during rendering an exception.
      *
-     * By triggering an E_USER_ERROR we can end up in the default
+     * By triggering an ERRORS.USER_ERROR we can end up in the default
      * exception handling which will log the rendering failure,
      * and hopefully render an error page.
      * Params:
@@ -292,6 +292,6 @@ class DExceptionTrap {
                 logException.getFile(),
                 logException.getLine(),
            );
-        trigger_error(message, E_USER_ERROR);
+        trigger_error(message, ERRORS.USER_ERROR);
     } 
 }

@@ -394,7 +394,7 @@ class DAssociation : IAssociation {
                     " You should explicitly specify the " propertyName" option.";
                 trigger_error(
                     msg.format(_propertyName, _sourceTable.getTable()),
-                    E_USER_WARNING
+                    ERRORS.USER_WARNING
                );
             }
         }

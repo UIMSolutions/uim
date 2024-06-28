@@ -880,7 +880,7 @@ abstract class DTestCase : DBaseTestCase {
      * @param \Closure aCallable Callable which should trigger the warning
      */
     void expectNoticeMessageMatches(string aregex, Closure aCallable) {
-        this.expectErrorHandlerMessageMatches(regex, aCallable, E_USER_NOTICE);
+        this.expectErrorHandlerMessageMatches(regex, aCallable, ERRORS.USER_NOTICE);
     }
     
     /**
@@ -896,7 +896,7 @@ abstract class DTestCase : DBaseTestCase {
      * @param \Closure aCallable Callable which should trigger the warning
      */
     void expectWarningMessageMatches(string aregex, Closure aCallable) {
-        this.expectErrorHandlerMessageMatches(regex, aCallable, E_USER_WARNING);
+        this.expectErrorHandlerMessageMatches(regex, aCallable, ERRORS.USER_WARNING);
     }
     
     /**
@@ -904,7 +904,7 @@ abstract class DTestCase : DBaseTestCase {
      * @param \Closure aCallable Callable which should trigger the warning
      */
     void expectErrorMessageMatches(string aregex, Closure aCallable) {
-        this.expectErrorHandlerMessageMatches(regex, aCallable, E_ERROR | E_USER_ERROR);
+        this.expectErrorHandlerMessageMatches(regex, aCallable, E_ERROR | ERRORS.USER_ERROR);
     }
     
     /**

@@ -111,7 +111,7 @@ class DError : UIMObject, IError {
       ERRORS.CORE_WARNING: "warning",
       ERRORS.COMPILE_ERROR: "error", // E_COMPILE_ERROR - 
       ERRORS.COMPILE_WARNING: "warning", // E_COMPILE_WARNING
-      ERRORS.USER_ERROR: "error", // E_USER_ERROR
+      ERRORS.USER_ERROR: "error", // ERRORS.USER_ERROR
       ERRORS.USER_WARNING: "warning",
       ERRORS.RECOVERABLE_ERROR: "warning",
       ERRORS.USER_NOTICE: "notice",

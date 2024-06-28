@@ -97,7 +97,7 @@ class DErrorTrap {
         if (!(error_reporting() & errorCode)) {
             return false;
         }
-        if (errorCode == E_USER_ERROR ||  errorCode == E_ERROR || errorCode == E_PARSE) {
+        if (errorCode == ERRORS.USER_ERROR ||  errorCode == E_ERROR || errorCode == E_PARSE) {
             throw new DFatalErrorException(errorDescription, errorCode, fileName, errorTriggerLine);
         }
         auto trace = /* (array) */Debugger.trace(["start": 1, "format": "points"]);

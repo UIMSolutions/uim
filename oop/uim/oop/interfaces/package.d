@@ -19,7 +19,6 @@ public {
 	import uim.oop.interfaces.container;
 	import uim.oop.interfaces.containerapplication;
 	import uim.oop.interfaces.enumeration;
-	import uim.oop.interfaces.error;
 	import uim.oop.interfaces.exception;
 	import uim.oop.interfaces.fixturestrategy;
 	import uim.oop.interfaces.httpapplication;

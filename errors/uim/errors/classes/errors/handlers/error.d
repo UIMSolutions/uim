@@ -143,7 +143,7 @@ class DErrorHandler { // }: DERRErrorHandler
             exception.getLine(),
             exception.getTraceAsString()
        );
-        trigger_error(message, E_USER_ERROR);
+        trigger_error(message, ERRORS.USER_ERROR);
     }
 
     // Method that can be easily stubbed in testing.

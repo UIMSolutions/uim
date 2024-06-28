@@ -31,7 +31,7 @@ class DError {
             E_ERROR: "error",
             E_CORE_ERROR: "error",
             E_COMPILE_ERROR: "error",
-            E_USER_ERROR: "error",
+            ERRORS.USER_ERROR: "error",
             E_WARNING: "warning",
             ERRORS.USER_WARNING: "warning",
             E_COMPILE_WARNING: "warning",

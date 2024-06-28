@@ -334,7 +334,7 @@ unittest {
 }
 
 string repeat(string text, size_t times) {
-	string result = "";
+	string result;
 	for (auto i = 0; i < times; i++) {
 		result ~= text;
 	}
@@ -346,7 +346,7 @@ unittest {
 	assert(repeat("bla", 2) == "blabla");
 }
 
-string firstElement(string text, string separator = "/") {
+string firstElement(string text, string separator = ".") {
 	if (text.length == 0) {
 		return text;
 	}
@@ -357,11 +357,11 @@ string firstElement(string text, string separator = "/") {
 }
 
 unittest {
-	assert("a/b/c".firstElement == "a");
+	assert("a/b/c".firstElement("/") == "a");
 	assert("a.b.c".firstElement(".") == "a");
 }
 
-string lastElement(string text, string separator = "/") {
+string lastElement(string text, string separator = ".") {
 	if (text.length == 0) {
 		return null;
 	}
@@ -375,11 +375,11 @@ string lastElement(string text, string separator = "/") {
 }
 
 unittest {
-	assert("a/b/c".lastElement == "c");
+	assert("a/b/c".lastElement("/") == "c");
 	assert("a.b.c".lastElement(".") == "c");
 }
 
-string toPath(string[] pathItems, string separator = "/") {
+string toPath(string[] pathItems, string separator = ".") {
 	return pathItems
 		.map!(item => std.string.strip(item))
 		.map!(item => std.string.strip(item, separator))
@@ -389,9 +389,13 @@ string toPath(string[] pathItems, string separator = "/") {
 }
 
 unittest {
-	assert(toPath(["a", "b", "c"]) == "a/b/c");
-	assert(toPath(["a ", "/b", "c/"]) == "a/b/c");
-	assert(toPath(["a ", "", "/b", "c/"]) == "a/b/c");
+	assert(toPath(["a", "b", "c"]) == "a.b.c");
+	assert(toPath(["a ", ".b", "c."]) == "a.b.c");
+	assert(toPath(["a ", "", ".b", "c."]) == "a.b.c");
+
+	assert(["a", "b", "c"].toPath("/") == "a/b/c");
+	assert(["a ", "/b", "c/"].toPath("/") == "a/b/c");
+	assert(["a ", "", "/b", "c/"].toPath("/") == "a/b/c");
 }
 
 string lower(string text) {

@@ -10,7 +10,8 @@ import uim.oop;
 @safe:
 
 // Error base class for UIM applications
-class DError {
+class DError : UIMObject, IError {
+  mixin(ErrorThis!(""));
   mixin(TProperty!("ulong", "code"));
 
   mixin(TProperty!("string", "message"));

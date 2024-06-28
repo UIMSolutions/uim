@@ -183,7 +183,7 @@ string[] namespaceSplit(string className) {
         }
     }
 
-    // TODO Triggers an E_USER_WARNING.
+    // TODO Triggers an ERRORS.USER_WARNING.
     void triggerWarning(string warningMessage) {
         auto trace = debug_backtrace();
         string outMessage = warningMessage;
@@ -197,7 +197,7 @@ string[] namespaceSplit(string className) {
                 frame["line"]
             );
         }
-        trigger_error(outMessage, E_USER_WARNING);
+        trigger_error(outMessage, ERRORS.USER_WARNING);
     }
 
     /**

@@ -80,7 +80,7 @@ Json enviroment(string variableName, string defaultValue = null) {
     return uimEnvironmentData(variableName, defaultValue);
 }
 
-// Triggers an E_USER_WARNING.
+// Triggers an ERRORS.USER_WARNING.
 void triggerWarning(string warningMessage) {
     uimTriggerWarning(warningMessage);
 }

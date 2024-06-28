@@ -1,4 +1,4 @@
-module oop.uim.oop.errors.collection;
+module uim.oop.errors.collection;
 
 import uim.oop;
 @safe:

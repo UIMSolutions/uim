@@ -12,19 +12,6 @@ import uim.oop;
 // Error base class for UIM applications
 class DError : UIMObject, IError {
   mixin(ErrorThis!(""));
-  mixin(TProperty!("ulong", "code"));
-
-  mixin(TProperty!("string", "message"));
-
-  mixin(TProperty!("string", "file"));
-
-  mixin(TProperty!("ulong", "line"));
-
-  mixin(TProperty!("ulong[string][]", "trace"));
-
-  private string[ulong] _levelMap;
-
-  private ulong[string] _logMap;
 
   this(
     ulong errorCode,
@@ -32,7 +19,7 @@ class DError : UIMObject, IError {
     string filenameOfError = "",
     ulong lineOfError = 0,
     ulong[string][] traceDataForError = null
- ) {
+  ) {
     code(errorCode);
     message(errorMessage);
     file(filenameOfError);
@@ -110,7 +97,11 @@ class DError : UIMObject, IError {
 
   }
 
-  bool initialize(/* DC onfigurationValue configSettings= null */) {
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
+
     _levelMap = _levelMap.merge([
       ERRORS.ERROR: "error", // Fatal run-time errors. These indicate errors that can not be recovered from, such as a memory allocation problem. Execution of the script is halted.
       ERRORS.WARNING: "warning", // Run-time warnings (non-fatal errors). Execution of the script is not halted.
@@ -140,6 +131,20 @@ class DError : UIMObject, IError {
 
     return true;
   }
+
+  mixin(TProperty!("ulong", "code"));
+
+  mixin(TProperty!("string", "message"));
+
+  mixin(TProperty!("string", "file"));
+
+  mixin(TProperty!("ulong", "line"));
+
+  mixin(TProperty!("ulong[string][]", "trace"));
+
+  private string[ulong] _levelMap;
+
+  private ulong[string] _logMap;
 
   /*  // Get the mapped LOG_ constant.
   int logLevel() {

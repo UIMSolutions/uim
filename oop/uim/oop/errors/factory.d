@@ -1,4 +1,4 @@
-module oop.uim.oop.errors.factory;
+module uim.oop.errors.factory;
 
 import uim.oop;
 

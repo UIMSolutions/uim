@@ -116,7 +116,7 @@ class DFileLogger : DLogger {
             trigger_error(
                 "Could not apply permission mask `%s` on log file `%s`"
                     .format(mask, filePath),
-                    E_USER_WARNING);
+                    ERRORS.USER_WARNING);
             selfError = false;
         }
     }

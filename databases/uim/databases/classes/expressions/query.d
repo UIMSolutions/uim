@@ -153,24 +153,17 @@ class DQueryExpression : DExpression { // }, Countable {
         return _add(new DComparisonExpression(fieldName, valueToBound, valueType, "NOT LIKE"));
     }
     
-    /**
-     * Adds a new condition to the expression object in the form
-     * "field IN (value1, value2)".
-     * Params:
-     * \UIM\Database\/* IExpression| */ string fieldName Database field to be compared against value
-     * @param \UIM\Database\/* IExpression| */ string[] avalues the value to be bound to field for comparison
-     * @param string type the type name for aValue as configured using the Type map.
-     */
+    // Adds a new condition to the expression object in the form "field IN (value1, value2)".
     auto in(
         /* IExpression| */ string fieldName,
-        /* IExpression| */ string[] avalues,
+        /* IExpression| */ string[] boundValues,
         string valueType = null
    ) {
         valueType = valueType.ifEmpty(_calculateType(fieldName)).ifEmpty("string");
         type ~= "[]";
-         someValues = cast(IExpression)someValues  ?  someValues : /* (array) */ someValues;
+        // boundValues = cast(IExpression)boundValues  ?  boundValues : /* (array) */ boundValues;
 
-        return _add(new DComparisonExpression(fieldName,  someValues, valueType, "IN"));
+        return _add(new DComparisonExpression(fieldName,  boundValues, valueType, "IN"));
     }
     
     /**
@@ -189,12 +182,13 @@ class DQueryExpression : DExpression { // }, Countable {
      * only be passed if you actually want to create the simple
      * case expression variant!
      */
-    CaseStatementExpression caseExpression(Json caseValue = null, string caseValueType = null) {
-        auto caseExpression = (func_num_args() > 0) 
+    DCaseStatementExpression caseExpression(Json caseValue = null, string caseValueType = null) {
+        /* auto caseExpression = (func_num_args() > 0) 
             ? new DCaseStatementExpression(caseValue, caseValueType);
             : new DCaseStatementExpression();
         
-        return caseExpression.setTypeMap(getTypeMap());
+        return caseExpression.setTypeMap(getTypeMap()); */
+        return null; 
     }
     
     /**

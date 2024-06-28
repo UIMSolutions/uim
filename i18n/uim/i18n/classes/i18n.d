@@ -203,7 +203,7 @@ class DI18n {
     }
     
     // Returns the currently configured default formatter.
-    static string getDefaultFormatter() {
+    static string getDefaultLogFormatter() {
         return translators().defaultFormatter();
     }
     
@@ -214,7 +214,7 @@ class DI18n {
      * Params:
      * string aName The name of the formatter to use.
      */
-    static void setDefaultFormatter(string formatterName) {
+    static void setDefaultLogFormatter(string formatterName) {
         translators().defaultFormatter(formatterName);
     }
     

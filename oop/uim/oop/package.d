@@ -39,8 +39,10 @@ public {
   import uim.oop.errors;
   import uim.oop.exceptions;
   import uim.oop.helpers;
+  import uim.oop.formatters;
   import uim.oop.interfaces;
   import uim.oop.keypairs;	
+  import uim.oop.logformatters;	
   import uim.oop.loggers;	
   import uim.oop.mixins;
   import uim.oop.objects;

@@ -152,8 +152,8 @@ if (configuration.hasKeys("username", "password")) {
   }
   _memory.setOption(Memory.OPT_BINARY_PROTOCOL, true);
   _memory.setSaslAuthData(
-    configuration.get("username"),
-    configuration.get("password")
+    configuration.getString("username"),
+    configuration.getString("password")
  );
 }
 return true;

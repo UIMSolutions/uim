@@ -17,7 +17,7 @@ class DArrayLogger : DLogger {
         "levels": Json.emptyArray,
         "scopes": Json.emptyArray,
         "formatter": [
-            "className": DefaultFormatter.classname,
+            "className": DefaultLogFormatter.classname,
             "includeDate": false.toJson
         ]
     ];

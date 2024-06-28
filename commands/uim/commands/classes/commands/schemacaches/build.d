@@ -19,13 +19,13 @@ class DSchemacacheBuildCommand : DCommand {
         return "schema_cache-build";
     }
     
-      override override int execute(Json[string] arguments, IConsole aConsole = null) {
+      override override ulong execute(Json[string] arguments, IConsole aConsole = null) {
     return super.execute(arguments, aConsoleIo);
   }
 
     /* 
     // Display all routes in an application
-    override int execute(Json[string] arguments, IConsole aConsole = null) {
+    override ulong execute(Json[string] arguments, IConsole aConsole = null) {
         SchemaCache schemaCache;
         try {
             aConnection = ConnectionManager.get(to!string(commandArguments.getOption("connection")));

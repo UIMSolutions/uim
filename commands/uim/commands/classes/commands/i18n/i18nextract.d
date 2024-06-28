@@ -96,7 +96,7 @@ class DI18nExtractCommand : DCommand {
     }
 
     // Execute the command
-  int execute(Json[string] arguments, IConsoleIo consoleIo) {
+  ulong execute(Json[string] arguments, IConsoleIo consoleIo) {
         string myPlugin = "";
         if (arguments.hasKey("exclude")) {
            _exclude = arguments.getString("exclude").split(",");

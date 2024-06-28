@@ -13,7 +13,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     }
 
     // Main auto Prints out the list of commands.
-    int execute(Json[string] arguments, DConsoleIo aConsoleIo) {
+    ulong execute(Json[string] arguments, DConsoleIo aConsoleIo) {
         auto commandIterator = _commands.getIterator();
         if (cast(DArrayIterator) commandIterator) {
             commandIterator.ksort();

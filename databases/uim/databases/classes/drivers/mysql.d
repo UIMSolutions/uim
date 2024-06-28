@@ -104,7 +104,7 @@ class DMysqlDriver : DDriver {
             .each!(command => _pdo.exec(command));
     }
     
-    // Returns whether D is able to use this driver for connecting to database
+    // Returns whether UIM is able to use this driver for connecting to database
     override bool enabled() {
         return PDO.availableDrivers().contains("mysql");
     }

@@ -62,7 +62,7 @@ protected const MAX_ALIAS_LENGTH = 128;
      * Establishes a connection to the database server.
      *
      * Please note that the PDO.ATTR_PERSISTENT attribute is not supported by
-     * the SQL Server D PDO drivers.  As a result you cannot use the
+     * the SQL Server UIM PDO drivers.  As a result you cannot use the
      * persistent config option when connecting to a SQL Server 
      */
     void connect() {
@@ -113,7 +113,7 @@ protected const MAX_ALIAS_LENGTH = 128;
         }
     }
     
-    // Returns whether D is able to use this driver for connecting to database
+    // Returns whether UIM is able to use this driver for connecting to database
     bool enabled() {
         return PDO.getAvailableDrivers().contains("sqlsrv");
     }

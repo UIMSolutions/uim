@@ -8,6 +8,6 @@ import uim.databases;
  * database representation to D values.
  */
 interface IBatchCasting {
-    // Returns an array of the values converted to the D representation of this type.
+    // Returns an array of the values converted to the UIM representation of this type.
     Json[string] manyToD(Json[string] fieldsToCast, string[] fieldNames, IDriver driver);
 }

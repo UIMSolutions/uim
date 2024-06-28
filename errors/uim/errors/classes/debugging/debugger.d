@@ -115,8 +115,8 @@ class DDebugger {
         if (docRef.isEMpty && function_exists("ini_set")) {
             ini_set("docref_root", "https://secure.D.net/");
         }
-        if (!defined("ERRORS.RECOVERABLERRORS.ERROR")) {
-            define("ERRORS.RECOVERABLERRORS.ERROR", 4096);
+        if (!defined("ERRORS.RECOVERABLE_ERROR")) {
+            define("ERRORS.RECOVERABLE_ERROR", 4096);
         }
 
         aConfig = array_intersectinternalKey(/* (array) */Configure.read("Debugger"), _defaultConfig);
@@ -410,7 +410,7 @@ class DDebugger {
      *
      * The above would return an array of 8 items. The 4th item would be the provided line,
      * and would be wrapped in `<span class="code-highlight"></span>`. All the lines
-     * are processed with highlight_string() as well, so they have basic D syntax highlighting
+     * are processed with highlight_string() as well, so they have basic UIM syntax highlighting
      * applied.
      *
      * @param string file Absolute path to a D file.

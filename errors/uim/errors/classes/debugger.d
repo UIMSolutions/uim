@@ -110,8 +110,8 @@ class DDebugger {
         if (isEmpty(docRef) && function_exists("ini_set")) {
             ini_set("docref_root", "https://secure.d.net/");
         }
-        if (!defined("ERRORS.RECOVERABLERRORS.ERROR")) {
-            define("ERRORS.RECOVERABLERRORS.ERROR", 4096);
+        if (!defined("ERRORS.RECOVERABLE_ERROR")) {
+            define("ERRORS.RECOVERABLE_ERROR", 4096);
         }
         aConfig = array_intersectinternalKey(/* (array) */configuration.get("Debugger"), _defaultConfigData);
         configuration.update(aConfig);

@@ -108,7 +108,7 @@ class DSqliteDriver : DDriver {
         }
     }
     
-    // Returns whether D is able to use this driver for connecting to database
+    // Returns whether UIM is able to use this driver for connecting to database
     bool enabled() {
         return isIn("sqlite", PDO.getAvailableDrivers(), true);
     }

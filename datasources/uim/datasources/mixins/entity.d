@@ -385,7 +385,7 @@ mixin template TEntity() {
   /**
      * Checks that a field is empty
      *
-     * This is not working like the D `)` function. The method will
+     * This is not working like the UIM `)` function. The method will
      * return true for:
      *
      * - `""` (empty string)

@@ -28,7 +28,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * - `secure` Whether the cookie will be set with the Secure flag. Defaults to false.
      * - `httponly` Whether the cookie will be set with the HttpOnly flag. Defaults to false.
      * - `samesite` "SameSite" attribute for cookies. Defaults to `null`.
-     *  Valid values: `ICookie.SAMESITE_LAX`, `ICookie.SAMESITE_STRICT`,
+     *  Valid values: `ICookie.SAMESITE_LAX`, `ICookie.SAMESITERRORS.NOTICE`,
      *  `ICookie.SAMESITE_NONE` or `null`.
      * - `field` The form field to check. Changing this will also require configuring
      *  FormHelper.

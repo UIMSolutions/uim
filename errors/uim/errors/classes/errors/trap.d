@@ -138,15 +138,13 @@ class DErrorTrap {
      * \UIM\Error\UimError error The error object to log.
      */
     protected void logError(UimError error) {
-        if (!configuration.get("log")) {
+        if (!configuration.hasKey("log")) {
             return;
         }
         logger().logError(error, Router.getRequest(), configuration.get("trace"));
     }
     
-    /**
-     * Get an instance of the renderer.
-     */
+    // Get an instance of the renderer.
     IErrorRenderer renderer() {
         string className = _configData.get("errorRenderer", this.chooseErrorRenderer());
 

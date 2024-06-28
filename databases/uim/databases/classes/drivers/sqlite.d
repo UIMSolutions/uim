@@ -73,12 +73,12 @@ class DSqliteDriver : DDriver {
             return;
         }
         configData = configuration;
-        configuration.get("flags"] += [
+        configuration.update("flags", [
             PDO.ATTR_PERSISTENT: configuration.get("persistent"],
             PDO.ATTR_EMULATE_PREPARES: false,
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
-        ];
-        if (!configuration.get("database").isString) || configuration.getString("database") is null) {
+        ]);
+        if (!configuration.isString("database") || configuration.getString("database") is null) {
             name = configData.get("name", "unknown");
             throw new DInvalidArgumentException(
                 "The `database` key for the `{name}` SQLite connection needs to be a non-empty string."

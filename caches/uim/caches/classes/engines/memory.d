@@ -100,7 +100,7 @@ class DMemoryCacheEngine : DCacheEngine {
     /* if (configData.hasKey("servers")) {
       configuration.set("servers", configuration.get("servers"], false);
     } */
-  /* if (!configuration.get("servers"].isArray) {
+  /* if (!configuration.isArray("servers")) {
       configuration.set("servers", [configuration.get("servers")]);
     } * / 
     if (!_memory is null) {
@@ -144,7 +144,7 @@ if (configuration.isEmpty("username"] && !configuration.isEmpty("login")) {
     "Please pass " username" instead of 'login' for connecting to Memory"
  );
 }
-if (!configuration.get("username"].isNull && configuration.get("password"]!is null) {
+if (configuration.hasKeys("username", "password")) {
   if (!method_exists(_memory, "setSaslAuthData")) {
     throw new DInvalidArgumentException(
       "Memory extension is not built with SASL support"
@@ -152,8 +152,8 @@ if (!configuration.get("username"].isNull && configuration.get("password"]!is nu
   }
   _memory.setOption(Memory.OPT_BINARY_PROTOCOL, true);
   _memory.setSaslAuthData(
-    configuration.get("username"],
-    configuration.get("password"]
+    configuration.get("username"),
+    configuration.get("password")
  );
 }
 return true;

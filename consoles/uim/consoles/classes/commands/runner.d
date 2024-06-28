@@ -118,7 +118,7 @@ class DCommandRunner { // }: IEventDispatcher {
         } catch (MissingOptionException anException) {
             aConsoleIo.error(anException.getFullMessage());
 
-            return ICommand.CODERRORS.ERROR;
+            return ICommand.CODE_ERROR;
         }
         auto command = getCommand(aConsoleIo, myCommands, name);
 
@@ -129,7 +129,7 @@ class DCommandRunner { // }: IEventDispatcher {
         if (result >= 0 && result <= 255) {
             return result;
         }
-        return ICommand.CODERRORS.ERROR;
+        return ICommand.CODE_ERROR;
     }
 
     /**

@@ -53,11 +53,11 @@ class DPluginLoadCommand : DCommand {
                 aConsoleIo.writeErrorMessages(anException.getMessage());
                 aConsoleIo.writeErrorMessages("Ensure you have the correct spelling and casing.");
 
-                return CODERRORS.ERROR;
+                return CODE_ERROR;
             }
         }
         result = this.modifyConfigFile(plugin, options);
-        if (result == CODERRORS.ERROR) {
+        if (result == CODE_ERROR) {
             aConsoleIo.writeErrorMessages("Failed to update `CONFIG/plugins.d`");
         }
         aConsoleIo.success("Plugin added successfully to `CONFIG/plugins.d`");
@@ -82,7 +82,7 @@ class DPluginLoadCommand : DCommand {
     contents = "\n\n" ~ "return " ~ Json[string] ~ ";" ~ "\n";
 
     return file_put_contents(this.configFile, contents)
-        ? CODE_SUCCESS : CODERRORS.ERROR; */
+        ? CODE_SUCCESS : CODE_ERROR; */
     return 0;
 }
 

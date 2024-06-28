@@ -38,7 +38,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
         _displayException(exception);
         logException(exception);
 
-        exitCode = Command.CODERRORS.ERROR;
+        exitCode = Command.CODE_ERROR;
         if (cast(ConsoleException)exception) {
             exitCode = exception.code();
         }

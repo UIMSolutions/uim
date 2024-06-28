@@ -35,7 +35,7 @@ class DSchemacacheBuildCommand : DCommand {
         } catch (RuntimeException  anException) {
              aConsoleIo.error(anException.getMessage());
 
-            return CODERRORS.ERROR;
+            return CODE_ERROR;
         }
 
         auto aTables = cache.build(commandArguments.getArgument("name"));

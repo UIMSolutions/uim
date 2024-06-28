@@ -35,7 +35,7 @@ class DSchemacacheClearCommand : DCommand {
     } catch (RuntimeException anException) {
       aConsoleIo.error(anException.getMessage());
 
-      return CODERRORS.ERROR;
+      return CODE_ERROR;
     }
     
     auto tables = cache.clear(commandArguments.getArgument("name"));

@@ -93,7 +93,7 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
         } catch (ConsoleException anException) {
             aConsoleIo.writeErrorMessages("Error: " ~ anException.getMessage());
 
-            return CODERRORS.ERROR;
+            return CODE_ERROR;
         }
         setOutputLevel(someArguments, aConsoleIo);
 
@@ -147,7 +147,7 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
     abstract int execute(Json[string] commandArguments, DConsoleIo aConsoleIo);
 
     // Halt the current process with a StopException.
-    /* never abort(int exitCode = CODERRORS.ERROR) {
+    /* never abort(int exitCode = CODE_ERROR) {
         throw new DStopException("Command aborted", exitCode);
     } */
 

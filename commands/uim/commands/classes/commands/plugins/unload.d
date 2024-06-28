@@ -37,7 +37,7 @@ class DPluginUnloadCommand : DCommand {
         }
         consoleIo.writeErrorMessages(modificationResult);
 
-        return CODERRORS.ERROR;
+        return CODE_ERROR;
     }
 
     //  Modify the plugins config file.

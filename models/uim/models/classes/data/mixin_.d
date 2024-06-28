@@ -1,4 +1,4 @@
-module uim.models.classes.data.mixin_;
+module uim.models.classes.data.mixins;
 
 mixin template TDataConvert() {
   /* alias toJson = DData.toJson;

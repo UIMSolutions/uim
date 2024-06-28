@@ -46,7 +46,7 @@ class DCacheClearGroupCommand : DCommand {
     try {
       anGroupConfigs = Cache.groupConfigs(anGroup);
     } catch (InvalidArgumentException anException) {
-      aConsoleIo.error("Cache group " % s" not found".format(anGroup));
+      aConsoleIo.error("Cache group '%s' not found".format(anGroup));
 
       return CODE_ERROR;
     }
@@ -62,11 +62,11 @@ class DCacheClearGroupCommand : DCommand {
       .each!((config) {
         if (!Cache.clearGroup(anGroup, config)) {
           aConsoleIo.error(
-            "Error encountered clearing group " % s". Was unable to clear entries for " % s"."
+            "Error encountered clearing group '%s'. Was unable to clear entries for '%s'."
             .format(anGroup, config));
           abort();
         } else {
-          aConsoleIo.success("Group " % s" was cleared.".format(anGroup));
+          aConsoleIo.success("Group '%s' was cleared.".format(anGroup));
         }
       });
 

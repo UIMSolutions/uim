@@ -51,13 +51,13 @@ class DError : UIMObject, IError {
     ]);
 
     // TODO
-    /*    _logMap = [
-      "error": LOG_ERR,
-      "warning": LOG_WARNING,
-      "notice": LOG_NOTICE,
-      "strict": LOG_NOTICE,
-      "deprecated": LOG_NOTICE,
-    ]; */
+    _logMap = [
+      "error": LOG.ERROR,
+      "warning": LOG.WARNING,
+      "notice": LOG.NOTICE,
+      "strict": LOG.NOTICE,
+      "deprecated": LOG.NOTICE,
+    ];
 
     return true;
   }
@@ -80,7 +80,7 @@ class DError : UIMObject, IError {
   int logLevel() {
       auto myLabel = this.label();
 
-      return _logMap.get(myLabel, LOG_ERR);
+      return _logMap.get(myLabel, LOG.ERROR);
   } */
 
   // Get the error code label

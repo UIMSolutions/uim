@@ -14,9 +14,9 @@ interface IError {
   void message(string message);
   string message();
 
-  string file();
+  string fileName();
 
-  ulong line();
+  ulong lineNumber();
 
   ulong[string][] trace();
 }

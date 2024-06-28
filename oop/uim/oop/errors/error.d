@@ -22,8 +22,8 @@ class DError : UIMObject, IError {
   ) {
     code(errorCode);
     message(errorMessage);
-    file(filenameOfError);
-    line(lineOfError);
+    fileName(filenameOfError);
+    lineNumber(lineOfError);
     trace(traceDataForError);
   }
 

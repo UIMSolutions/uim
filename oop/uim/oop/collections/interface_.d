@@ -1,2 +1,2 @@
-module uim.oop.collections.interface_;
+module uim.oop.collections.interfaces;
 

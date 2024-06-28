@@ -1,4 +1,4 @@
-module uim.oop.consoles.interface_;
+module uim.oop.consoles.interfaces;
 
 import uim.oop;
 @safe:

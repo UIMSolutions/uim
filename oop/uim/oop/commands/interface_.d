@@ -1,4 +1,4 @@
-module uim.oop.commands.interface_;
+module uim.oop.commands.interfaces;
 
 import uim.oop;
 @safe:

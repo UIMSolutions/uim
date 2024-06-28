@@ -1,4 +1,4 @@
-module uim.oop.consoles;
+module oop.uim.oop.consoles copy;
 
 public {
     import uim.oop.consoles.console;

@@ -1,4 +1,4 @@
-module uim.oop.parsers.interface_;
+module uim.oop.parsers.interfaces;
 
 import uim.oop;
 @safe:

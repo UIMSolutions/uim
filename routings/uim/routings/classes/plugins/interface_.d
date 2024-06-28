@@ -1,4 +1,4 @@
-module uim.oop.plugins.interface_;
+module uim.oop.plugins.interfaces;
 
 import uim.oop;
 

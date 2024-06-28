@@ -7,7 +7,7 @@ public {
 public {
     import uim.oop.parsers.collection;
     import uim.oop.parsers.factory;
-    import uim.oop.parsers.interface_;
-    import uim.oop.parsers.mixin_;
+    import uim.oop.parsers.interfaces;
+    import uim.oop.parsers.mixins;
     import uim.oop.parsers.registry;
 }

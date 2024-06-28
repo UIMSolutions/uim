@@ -1,7 +1,10 @@
-module uim.oop.parsers.mixins;
+module oop.uim.oop.loggers.mixins;
 
-string parserThis(string name) {
-    string fullName = name ~ "Parser";
+import uim.oop;
+@safe:
+
+string loggerThis(string name) {
+    string fullName = name ~ "Logger";
     return `
     this() {
         super(); this.name("`
@@ -16,12 +19,12 @@ string parserThis(string name) {
     `;
 }
 
-template ParserThis(string name) {
-    const char[] ParserThis = parserThis(name);
+template LoggerThis(string name) {
+    const char[] LoggerThis = loggerThis(name);
 }
 
-string parserCalls(string name) {
-    string fullName = name ~ "Parser";
+string loggerCalls(string name) {
+    string fullName = name ~ "Logger";
     return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
     auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
@@ -29,6 +32,6 @@ string parserCalls(string name) {
     `;
 }
 
-template ParserCalls(string name) {
-    const char[] ParserCalls = parserCalls(name);
+template LoggerCalls(string name) {
+    const char[] LoggerCalls = loggerCalls(name);
 }

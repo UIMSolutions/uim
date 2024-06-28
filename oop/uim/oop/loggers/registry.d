@@ -1,8 +1,8 @@
-module oop.uim.oop.consoles copy.registry;
+module uim.oop.loggers.registry;
 
 import uim.oop;
 @safe:
 
-class DConsoleRegistry : DObjectRegistry!DConsole {
+class DLoggerRegistry : DObjectRegistry!DLogger {
 }
-auto ConsoleRegistry() { return DConsoleRegistry.registry; }
+auto LoggerRegistry() { return DLoggerRegistry.registry; }

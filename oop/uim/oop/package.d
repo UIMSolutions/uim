@@ -41,6 +41,7 @@ public {
   import uim.oop.helpers;
   import uim.oop.interfaces;
   import uim.oop.keypairs;	
+  import uim.oop.loggers;	
   import uim.oop.mixins;
   import uim.oop.objects;
   import uim.oop.observers;

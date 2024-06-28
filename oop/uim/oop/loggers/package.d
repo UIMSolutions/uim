@@ -1,13 +1,13 @@
-module oop.uim.oop.consoles copy;
+module uim.oop.loggers;
 
-public {
-    import uim.oop.consoles.console;
+public { // Main class
+    import uim.oop.loggers.logger;
 }
 
-public {
-    import uim.oop.consoles.collection;
-    import uim.oop.consoles.factory;
-    import uim.oop.consoles.interfaces;
-    import uim.oop.consoles.mixins;
-    import uim.oop.consoles.registry;
+public { // Helper modules
+    import uim.oop.loggers.collection;
+    import uim.oop.loggers.factory;
+    import uim.oop.loggers.interfaces;
+    import uim.oop.loggers.mixins;
+    import uim.oop.loggers.registry;
 }

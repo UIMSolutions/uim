@@ -1,4 +1,4 @@
-module oop.uim.oop.loggers.interfaces;
+module uim.oop.loggers.interfaces;
 
 import uim.oop;
 @safe:

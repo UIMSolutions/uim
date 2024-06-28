@@ -5,9 +5,11 @@
 **********************************************************************************************************/
 module uim.oop.errors;
 
-public {
+public { // Main class
   import uim.oop.errors.error;
+}
 
+public { // Helper modules
   // import uim.oop.errors.handler;    
   import uim.oop.errors.collection;
   import uim.oop.errors.enumerations;

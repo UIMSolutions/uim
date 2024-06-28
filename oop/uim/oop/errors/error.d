@@ -51,13 +51,13 @@ class DError : UIMObject, IError {
     ]);
 
     // TODO
-    _logMap = [
+    /* _logMap = [
       "error": LOG.ERROR,
       "warning": LOG.WARNING,
       "notice": LOG.NOTICE,
       "strict": LOG.NOTICE,
       "deprecated": LOG.NOTICE,
-    ];
+    ]; */
 
     return true;
   }
@@ -66,9 +66,9 @@ class DError : UIMObject, IError {
 
   mixin(TProperty!("string", "message"));
 
-  mixin(TProperty!("string", "file"));
+  mixin(TProperty!("string", "fileName"));
 
-  mixin(TProperty!("ulong", "line"));
+  mixin(TProperty!("ulong", "lineNumber"));
 
   mixin(TProperty!("ulong[string][]", "trace"));
 

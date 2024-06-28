@@ -5,8 +5,6 @@ import uim.i18n;
 @safe:
 /**
  * Translator to translate the message.
- *
- * @internal
  */
 class DTranslator : ITranslator {
     mixin TConfigurable;

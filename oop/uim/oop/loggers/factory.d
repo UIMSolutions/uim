@@ -1,4 +1,4 @@
-module oop.uim.oop.loggers copy.factory;
+module uim.oop.loggers.factory;
 
 import uim.oop;
 @safe:

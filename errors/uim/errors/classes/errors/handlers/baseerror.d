@@ -94,8 +94,8 @@ abstract class DERRErrorHandler {
             }
             fatals = [
                 ERRORS.USER_ERROR,
-                E_ERROR,
-                E_PARSE,
+                ERRORS.ERROR,
+                ERRORS.PARSE,
             ];
             if (!hasAllValues(error["type"], fatals, true)) {
                 return;
@@ -286,16 +286,16 @@ abstract class DERRErrorHandler {
     // Map an error code into an Error word, and log location.
     static Json[string] mapErrorCode(int errorCodeToMap) {
         levelMap = [
-            E_PARSE: "error",
-            E_ERROR: "error",
-            E_CORE_ERROR: "error",
-            E_COMPILE_ERROR: "error",
+            ERRORS.PARSE: "error",
+            ERRORS.ERROR: "error",
+            ERRORS.CORERRORS.ERROR: "error",
+            ERRORS.COMPILERRORS.ERROR: "error",
             ERRORS.USER_ERROR: "error",
-            E_WARNING: "warning",
+            ERRORS.WARNING: "warning",
             ERRORS.USER_WARNING: "warning",
-            E_COMPILE_WARNING: "warning",
-            E_RECOVERABLE_ERROR: "warning",
-            E_NOTICE: "notice",
+            ERRORS.COMPILERRORS.WARNING: "warning",
+            E_RECOVERABLERRORS.ERROR: "warning",
+            ERRORS.NOTICE: "notice",
             ERRORS.USER_NOTICE: "notice",
             E_STRICT: "strict",
             E_DEPRECATED: "deprecated",

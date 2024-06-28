@@ -204,7 +204,7 @@ abstract class DCell { // }: IEventDispatcher {
             trigger_error(
                 "Could not render cell - %s [%s, line %d]"
                 .format(exception.getMessage(), exception.getFile(), exception.getLine()), 
-                E_USER_WARNING);
+                ERRORS.USER_WARNING);
 
             return null;
         } catch (DError error) {

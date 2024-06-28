@@ -130,7 +130,7 @@ class DSocket {
         if (this.connection.isNull && _connectionErrors) {
             throw new DSocketException(
                 _connectionErrors.join("\n"),
-                E_WARNING
+                ERRORS.WARNING
            );
         }
         this.connected = isResource(this.connection);
@@ -314,7 +314,7 @@ class DSocket {
         buffer = fread(this.connection, length);
         anInfo = stream_get_meta_data(this.connection);
         if (anInfo["timed_out"]) {
-            setLastError(E_WARNING, "Connection timed out");
+            setLastError(ERRORS.WARNING, "Connection timed out");
 
             return null;
         }

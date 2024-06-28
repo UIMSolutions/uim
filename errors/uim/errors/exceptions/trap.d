@@ -206,8 +206,8 @@ class DExceptionTrap {
         }
         fatals = [
             ERRORS.USER_ERROR,
-            E_ERROR,
-            E_PARSE,
+            ERRORS.ERROR,
+            ERRORS.PARSE,
         ];
         if (!isIn(error["type"], fatals, true)) {
             return;

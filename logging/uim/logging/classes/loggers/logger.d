@@ -6,75 +6,14 @@ import uim.logging;
 
 // Base log engine class.
 class DLogger : ILogger {   
-    mixin TConfigurable;
-
-    this() {
-        initialize;
-        this.name("Logger");  
-    }
-
-    this(string name) { 
-        this(); 
-        this.name(name); 
-    }
-
-    this(Json[string] initData) { 
-        this(); 
-        this.initialize(initData); 
-    }
-
     bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
         
-        configuration.updateDefaults([
-            "levels": Json.emptyArray,
-            "scopes": Json.emptyArray,
-            // TODO "formatter": DefaultFormatter.classname
-        ]); 
 
-        // TODO
-        /*
-        if (!configuration.get("scopes").isNull) {
-           configuration.get("scopes", configuration.get("scopes").toArray);
-        }
-        configuration.get("levels", configuration.get("levels").toArray);
-
-        if (!configuration.get("types").isEmpty && configuration.get("levels").isEmpty) {
-           configuration.get("levels", configuration.get("types").toArray);
-        }
-
-        auto formatter = hasconfiguration.get("formatter") ? configuration.get("formatter") : DefaultFormatter.classname;
-        if (!isObject(formatter)) {
-            if (isArray(formatter)) {
-                className = formatter["className"];
-                options = formatter;
-            } else {
-                className = formatter;
-                auto options = null;
-            }
-            formatter = new className(options);
-        }
-        _formatter = formatter; 
-        */
-        return true;
     }
 
-    mixin(TProperty!("string", "name"));
 
-    protected ILogFormatter _formatter;
-
-    // Get the levels this logger is interested in.
-    string[] levels() {
-        return null; 
-        // return configuration.get("levels").getStringArray;
-    }
-    
-    // Get the scopes this logger is interested in.
-    string[] scopes() {
-        return null; 
-        // return configuration.get("scopes").getStringArray;
-    }
 
     // Replaces placeholders in message string with context values.
     protected string interpolate(string formattedMessage, Json[string] context= null) {

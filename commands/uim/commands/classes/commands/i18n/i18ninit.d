@@ -26,7 +26,7 @@ class DI18nInitCommand : DCommand {
         if (myLanguage.length < 2) {
              consoleIo.writeErrorMessages("Invalid language code. Valid is `en`, `eng`, `en_US` etc.");
 
-            return CODE_ERROR;
+            return CODERRORS.ERROR;
         }
         
         auto somePaths = App.path("locales");

@@ -58,7 +58,7 @@ class DRoutesCheckCommand : DCommand {
       aConsoleIo.warning("'url' did not match any routes.");
       aConsoleIo.out ();
 
-      return CODE_ERROR;
+      return CODERRORS.ERROR;
     }
     return CODE_SUCCESS;
   }

@@ -35,7 +35,7 @@ class DRoutesGenerateCommand : DCommand {
         "<warning>The provided parameters do not match any routes.</warning>");
       aConsoleIo.out ();
 
-      return CODE_ERROR;
+      return CODERRORS.ERROR;
     }
     return CODE_SUCCESS;
   }

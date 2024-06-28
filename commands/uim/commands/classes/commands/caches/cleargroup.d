@@ -48,14 +48,14 @@ class DCacheClearGroupCommand : DCommand {
     } catch (InvalidArgumentException anException) {
       aConsoleIo.error("Cache group " % s" not found".format(anGroup));
 
-      return CODE_ERROR;
+      return CODERRORS.ERROR;
     }
 
     auto configData = commandArguments.getArgument("config");
     if (!configData.isNull && Cache.configuration.get(configData).isNull) {
       aConsoleIo.error("Cache config '%s' not found".format(configData));
 
-      return CODE_ERROR;
+      return CODERRORS.ERROR;
     }
     anGroupConfigs[anGroup]
       .filter(config => configData.isNull || configData == config)

@@ -1,4 +1,4 @@
-module uim.oop.errors.mixin_;
+module uim.oop.errors.mixins;
 
 string errorThis(string name) {
     string fullName = name ~ "Error";

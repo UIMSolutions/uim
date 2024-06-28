@@ -10,8 +10,9 @@ public {
 
   // import uim.oop.errors.handler;    
   import uim.oop.errors.collection;
+  import uim.oop.errors.enumerations;
   import uim.oop.errors.factory;
-  import uim.oop.errors.interface_;
-  import uim.oop.errors.mixin_;
+  import uim.oop.errors.interfaces;
+  import uim.oop.errors.mixins;
   import uim.oop.errors.registry;
 }

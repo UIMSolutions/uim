@@ -149,7 +149,7 @@ class DI18nExtractCommand : DCommand {
                 if (response.upper == "Q") {
                      consoleIo.writeErrorMessages("Extract Aborted");
 
-                    return CODERRORS.ERROR;
+                    return CODE_ERROR;
                 }
                 if (_isPathUsable(response)) {
                    _output = response ~ DIRECTORY_SEPARATOR;
@@ -183,7 +183,7 @@ class DI18nExtractCommand : DCommand {
         if (!_isPathUsable(_output)) {
              consoleIo.writeErrorMessages("The output directory `%s` was not found or writable.".format(_output));
 
-            return CODERRORS.ERROR;
+            return CODE_ERROR;
         }
        _extract(arguments, consoleIo);
 

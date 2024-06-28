@@ -70,7 +70,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
             "commands" : getCommands(commandArguments, aConsoleIo),
             "subcommands" : getSubcommands(commandArguments, aConsoleIo),
             "options" : getOptions(commandArguments, aConsoleIo),
-            default : CODERRORS.ERROR,
+            default : CODE_ERROR,
         };
     }
 

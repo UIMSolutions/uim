@@ -25,25 +25,6 @@ class DError {
         configuration.data(initData);
 
         // TODO
-        /*
-        levelMap = [
-            ERRORS.PARSE: "error",
-            ERRORS.ERROR: "error",
-            ERRORS.CORE_ERROR: "error",
-            ERRORS.COMPILER_ERROR: "error",
-            ERRORS.USER_ERROR: "error",
-            ERRORS.WARNING: "warning",
-            ERRORS.USER_WARNING: "warning",
-            ERRORS.COMPILER_WARNING: "warning",
-            ERRORS.RECOVERABLE_ERROR: "warning",
-            ERRORS.NOTICE: "notice",
-            ERRORS.USER_NOTICE: "notice",
-            ERRORS.NOTICE: "strict",
-            ERRORS.DEPRECATED: "deprecated",
-            ERRORS.USER_DEPRECATED: "deprecated",
-        ]; */
-
-        // TODO
         /* _logMap = [
             "error": LOG_ERR,
             "warning": LOG_WARNING,

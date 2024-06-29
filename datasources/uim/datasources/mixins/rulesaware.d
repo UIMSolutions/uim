@@ -67,13 +67,13 @@ mixin template TRulesAware() {
         if (!_rulesChecker.isNull) {
             return _rulesChecker;
         }
-        /** @var class-string<\UIM\Datasource\RulesChecker>  className */
-        auto className = defined("RULES_CLASS") ? RULES_CLASS : RulesChecker.classname;
+        /** @var class-string<\UIM\Datasource\RulesChecker>  classname */
+        auto classname = defined("RULES_CLASS") ? RULES_CLASS : RulesChecker.classname;
         /**
          * @psalm-suppress ArgumentTypeCoercion
          * @Dstan-ignore-next-line
          */
-        _rulesChecker = this.buildRules(new className(["repository": this]));
+        _rulesChecker = this.buildRules(new classname(["repository": this]));
         dispatchEvent("Model.buildRules", ["rules": _rulesChecker]);
 
         return _rulesChecker;

@@ -120,14 +120,14 @@ class DDebugger {
     /**
      * Returns a reference to the Debugger singleton object instance.
      * Params:
-     * class-string<\UIM\Error\Debugger>|null  className Class name.
+     * class-string<\UIM\Error\Debugger>|null  classname Class name.
      */
-    static static getInstance(string className = null) {
+    static static getInstance(string classname = null) {
         /** @var array<int, static>  anInstance */
         static anInstance = null;
-        if (className) {
-            if (!anInstance || strtolower(className) != get_class(anInstance[0]).lower) {
-                anInstance[0] = new className();
+        if (classname) {
+            if (!anInstance || strtolower(classname) != get_class(anInstance[0]).lower) {
+                anInstance[0] = new classname();
             }
         }
         if (!anInstance) {
@@ -406,21 +406,21 @@ class DDebugger {
     // Get the configured export formatter or infer one based on the environment.
     IErrorFormatter getExportFormatter() {
         auto anInstance = getInstance();
-        auto className = anInstance.configuration.get("exportFormatter");
-        if (!className) {
+        auto classname = anInstance.configuration.get("exportFormatter");
+        if (!classname) {
             if (ConsoleFormatter.environmentMatches()) {
-                className = ConsoleFormatter.classname;
+                classname = ConsoleFormatter.classname;
             } else if (HtmlFormatter.environmentMatches()) {
-                className = HtmlFormatter.classname;
+                classname = HtmlFormatter.classname;
             } else {
-                className = TextFormatter.classname;
+                classname = TextFormatter.classname;
             }
         }
-        anInstance = new className();
+        anInstance = new classname();
         if (!cast(IErrorFormatter) anInstance) {
             throw new DException(
                 "The `%s` formatter does not implement `%s`."
-                    .format(className, IErrorFormatter.classname)
+                    .format(classname, IErrorFormatter.classname)
            );
         }
         return anInstance;
@@ -551,11 +551,11 @@ class DDebugger {
         isRef = context.hasReference(var);
         refNum = context.getReferenceId(var);
 
-        className = var.classname;
+        classname = var.classname;
         if (isRef) {
-            return new DReferenceNode(className, refNum);
+            return new DReferenceNode(classname, refNum);
         }
-        node = new DClassNode(className, refNum);
+        node = new DClassNode(classname, refNum);
 
         remaining = context.remainingDepth();
         if (remaining > 0) {

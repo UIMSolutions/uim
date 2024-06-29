@@ -58,8 +58,8 @@ mixin template TModelAware() {
      * string modelClass Name of model class to load. Defaults to this.modelClass.
      * The name can be an alias like `'Post'` or FQCN like `App\Model\Table\PostsTable.classname`.
      */
-    IRepository fetchModel(string modelClassname = null, string modelType = null) {
-        auto modelClass = modelClassname.ifEmpty(_modelClass);
+    IRepository fetchModel(string modelclassname = null, string modelType = null) {
+        auto modelClass = modelclassname.ifEmpty(_modelClass);
         if (modelClass.isEmpty) {
             throw new DUnexpectedValueException("Default modelClass is empty");
         }
@@ -69,7 +69,7 @@ mixin template TModelAware() {
         if (indexOf(modelClass, "\\") == false) {
             [, aliasName] = pluginSplit(modelClass, true);
         } else {
-            options["className"] = modelClass;
+            options["classname"] = modelClass;
             /** @psalm-suppress PossiblyFalseOperand */
             aliasName = subString(
                 modelClass,

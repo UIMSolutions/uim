@@ -534,20 +534,20 @@ mixin template TEntity() {
      * string aproperty the field name to derive getter name from
     */
   protected static string _accessor(string fieldName, string accessorType) {
-    auto className = class;
+    auto classname = class;
 
-    auto key = className~"."~accessorType~"."~aProperty;
+    auto key = classname~"."~accessorType~"."~aProperty;
     if (_accessors.hasKey(key)) {
       return _accessors.hasKey(key);
     }
-    if (!_accessors.isEmpty(className)) {
+    if (!_accessors.isEmpty(classname)) {
       _accessors(key, "");
       return _accessors(key);
     }
     if (class == Entity.classname) {
       return null;
     }
-    get_class_methods(className).each!((method) {
+    get_class_methods(classname).each!((method) {
       string prefix = subString(method, 1, 3);
       if (method[0] != "_" || (prefix != "get" && prefix != "Set")) {
         continue;
@@ -556,7 +556,7 @@ mixin template TEntity() {
       auto stringfield = lcfirst(subString(method, 4));
       auto snakeField = Inflector.underscore(field);
       auto titleField = ucfirst(field);
-      auto clPrefix = className~"."~prefix;
+      auto clPrefix = classname~"."~prefix;
       _accessors.set(clPrefix~"."~snakeField, method);
       _accessors.set(clPrefix~"."~field, method);
       _accessors.set(clPrefix~"."~titleField, method);

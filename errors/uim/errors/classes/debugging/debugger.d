@@ -165,11 +165,11 @@ class DDebugger {
     }
 
     // Returns a reference to the Debugger singleton object instance.
-    static auto getInstance(string aClassName = null) {
+    static auto getInstance(string aclassname = null) {
         static instance = null;
-        if (!aClassName.isEmpty) {
-            if (!instance || strtolower(aClassName) != strtolower(get_class(instance[0]))) {
-                instance[0] = new aClassName();
+        if (!aclassname.isEmpty) {
+            if (!instance || strtolower(aclassname) != strtolower(get_class(instance[0]))) {
+                instance[0] = new aclassname();
             }
         }
         if (!instance) {
@@ -482,20 +482,20 @@ class DDebugger {
      */
     IErrorFormatter getExportFormatter() {
         auto instance = getInstance();
-        auto aClassName = instance.getConfig("exportFormatter");
-        if (!aClassName) {
+        auto aclassname = instance.getConfig("exportFormatter");
+        if (!aclassname) {
             if (ConsoleFormatter.environmentMatches()) {
-                aClassName = ConsoleFormatter.class;
+                aclassname = ConsoleFormatter.class;
             } elseif (HtmlFormatter.environmentMatches()) {
-                aClassName = HtmlFormatter.class;
+                aclassname = HtmlFormatter.class;
             } else {
-                aClassName = TextFormatter.class;
+                aclassname = TextFormatter.class;
             }
         }
-        auto instance = new aClassName();
+        auto instance = new aclassname();
         if (!cast(IErrorFormatter)instance) {
             throw new DRuntimeException(
-                "The `{aClassName}` formatter does not implement " ~ IErrorFormatter.class
+                "The `{aclassname}` formatter does not implement " ~ IErrorFormatter.class
            );
         }
         return instance;
@@ -636,11 +636,11 @@ class DDebugger {
         isRef = context.hasReference(var);
         refNum = context.getReferenceId(var);
 
-        aClassNameName = get_class(var);
+        aclassnameName = get_class(var);
         if (isRef) {
-            return new DReferenceNode(aClassNameName, refNum);
+            return new DReferenceNode(aclassnameName, refNum);
         }
-        node = new DClassNode(aClassNameName, refNum);
+        node = new DClassNode(aclassnameName, refNum);
 
         remaining = context.remainingDepth();
         if (remaining > 0) {

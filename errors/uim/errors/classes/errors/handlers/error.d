@@ -114,16 +114,16 @@ class DErrorHandler { // }: DERRErrorHandler
         renderer = _config["exceptionRenderer"];
 
         if (renderer.isString) {
-            /** @var class-string<uim.errors.IExceptionRenderer>|null aClassName */
-            aClassName = App.className(renderer, "Error");
-            if (!aClassName) {
+            /** @var class-string<uim.errors.IExceptionRenderer>|null aclassname */
+            aclassname = App.classname(renderer, "Error");
+            if (!aclassname) {
                 throw new DRuntimeException(format(
                         "The '%s' renderer class DCould not be found.",
                         renderer
                ));
             }
 
-            return new aClassName(exception, request);
+            return new aclassname(exception, request);
         }
 
         /** @var callable factory */

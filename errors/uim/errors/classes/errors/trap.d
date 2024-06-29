@@ -146,14 +146,14 @@ class DErrorTrap {
     
     // Get an instance of the renderer.
     IErrorRenderer renderer() {
-        string className = _configData.get("errorRenderer", this.chooseErrorRenderer());
+        string classname = _configData.get("errorRenderer", this.chooseErrorRenderer());
 
-        return new className(_config);
+        return new classname(_config);
     }
     
     // Get an instance of the logger.
     IErrorLogger logger() {
-        string className = configData.get("logger", defaultconfiguration.get("logger"));
-        return new className(_config);
+        string classname = configData.get("logger", defaultconfiguration.get("logger"));
+        return new classname(_config);
     } 
 }

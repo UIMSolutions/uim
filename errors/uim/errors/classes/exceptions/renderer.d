@@ -119,7 +119,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
             if (!myClass) {
                 /** @var string myClass */
-                myClass = App.className("Error", "Controller", "Controller");
+                myClass = App.classname("Error", "Controller", "Controller");
             }
 
             /** @var uim.controllers.Controller controller */

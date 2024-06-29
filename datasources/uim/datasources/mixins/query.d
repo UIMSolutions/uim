@@ -432,6 +432,6 @@ mixin template TQuery() {
 
     // Returns the name of the class to be used for decorating results
     protected string _decoratorClass() {
-        return ResultsetDecorator.className;
+        return ResultsetDecorator.classname;
     } 
 }

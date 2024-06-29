@@ -258,7 +258,7 @@ abstract class DERRErrorHandler {
         if (_config.isEmpty("log")) {
             return false;
         }
-        return _config["skipLog"].any!(classname => cast(aClassName)exceptionToLog )
+        return _config["skipLog"].any!(classname => cast(aclassname)exceptionToLog )
             ? false
             : _getLogger().log(exceptionToLog, currentRequest.ifNull(Router.getRequest));
     }

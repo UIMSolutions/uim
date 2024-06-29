@@ -8,7 +8,7 @@ class DConfigEngine : IConfigEngine {
     // mixin TConfigurable; 
 
     this() {
-        initialize; this.name(this.className);
+        initialize; this.name(this.classname);
     }
     this(Json[string] initData) {
         this().initialize(initData);

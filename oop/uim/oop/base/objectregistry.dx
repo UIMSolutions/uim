@@ -28,12 +28,12 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * to exclude constructed objects from being registered for events.
      *
      * Using {@link \UIM\Controller\Component.components} as an example. You can alias
-     * an object by setting the 'className' key, i.e.,
+     * an object by setting the 'classname' key, i.e.,
      *
      * ```
      * protected components = [
      * 'Email": [
-     *   'className": 'App\Controller\Component\AliasedEmailComponent'
+     *   'classname": 'App\Controller\Component\AliasedEmailComponent'
      * ];
      * ];
      * ```
@@ -45,9 +45,9 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      */
   Object load(string objectName, Json[string] configData = null) {
     string myObjectName;
-    if (configuration.hasKey("className")) {
+    if (configuration.hasKey("classname")) {
       objName = objectName;
-      objectName = configuration.get("className");
+      objectName = configuration.get("classname");
     } else {
       [, objName] = pluginSplit(objectName);
     }
@@ -60,16 +60,16 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
       return _loaded[objName];
     }
 
-    string className = name;
+    string classname = name;
     if (isString(name)) {
-      className = _resolveClassName(name);
-      if (className.isNull) {
+      classname = _resolveclassname(name);
+      if (classname.isNull) {
         [plugin, name] = pluginSplit(name);
         _throwMissingClassError(name, plugin);
       }
     }
 
-    auto anInstance = _create(className, objName, configData);
+    auto anInstance = _create(classname, objName, configData);
     _loaded[objName] = anInstance;
 
     return anInstance;
@@ -133,8 +133,8 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
   }
 
   // Should resolve the classname for a given object type.
-  abstract protected string _resolveClassName(string className); // Throw an exception when the requested object name is missing.
-  abstract protected void _throwMissingClassError(string className, string pluginName);
+  abstract protected string _resolveclassname(string classname); // Throw an exception when the requested object name is missing.
+  abstract protected void _throwMissingClassError(string classname, string pluginName);
 
   /**
      * Create an instance of a given classname.
@@ -142,11 +142,11 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * This method should construct and do any other initialization logic
      * required.
      * Params:
-     * /* object */ string className The class to build.
+     * /* object */ string classname The class to build.
      * configData - The Configuration settings for construction
      */
   abstract protected object _create(object objInstance, string aliasName, Json[string] configData);
-  abstract protected object _create(string className, string aliasName, Json[string] configData);
+  abstract protected object _create(string classname, string aliasName, Json[string] configData);
 
   // Get the list of loaded object names.
   string[] loaded() {
@@ -202,7 +202,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
 
       [plugin, name] = pluginSplit(objectName);
       if (plugin) {
-        configData.set("className", objectName);
+        configData.set("classname", objectName);
       }
       normal[name] = configData;
     }

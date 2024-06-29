@@ -35,7 +35,7 @@ class DEnumeration(K, V) : IEnumeration, ICloneable {
 }
 unittest {
   auto enumeration = new DEnumeration!(string, string);
-  assert(enumeration.className == "DEnumeration");
-  assert(enumeration.create.className == "DEnumeration");
-  assert(enumeration.clone.className == "DEnumeration");
+  assert(enumeration.classname == "DEnumeration");
+  assert(enumeration.create.classname == "DEnumeration");
+  assert(enumeration.clone.classname == "DEnumeration");
 }

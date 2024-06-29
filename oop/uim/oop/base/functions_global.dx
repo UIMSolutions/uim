@@ -36,10 +36,10 @@ Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string plug
 /**
      * Split the namespace from the classname.
      *
-     * Commonly used like `list(namespace,  className) = namespaceSplit(className);`.
+     * Commonly used like `list(namespace,  classname) = namespaceSplit(classname);`.
      */
-string[] namespaceSplit(string className) {
-    return uimNamespaceSplit(className);
+string[] namespaceSplit(string classname) {
+    return uimNamespaceSplit(classname);
 }
 
 /**

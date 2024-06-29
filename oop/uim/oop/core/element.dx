@@ -23,7 +23,7 @@ class DOOPElement : ICloneable { // TODO !DOOPElement {
   }
 
   string fullname() {
-    return namespace ~ "." ~ this.className;
+    return namespace ~ "." ~ this.classname;
   }
 
   string fullpath() {
@@ -43,7 +43,7 @@ class DOOPElement : ICloneable { // TODO !DOOPElement {
   Json toJson() {
     auto result = Json.emptyObject;
     result["namespace"] = namespace;
-    result["classname"] = this.className;
+    result["classname"] = this.classname;
     result["fullname"] = fullname;
     result["namespace"] = fullpath;
     return result;
@@ -65,7 +65,7 @@ auto OOPElement(string aName) {
 unittest {
   auto element = new DOOPElement;
   assert(element.namespace == "uim.oop");
-  assert(element.className == "DOOPElement");
+  assert(element.classname == "DOOPElement");
   assert(element.fullname == "uim.oop.DOOPElement");
   assert(element.fullpath == "uim/oop/DOOPElement");
 
@@ -75,7 +75,7 @@ unittest {
   assert(element.name == "test2");
 
   /* 
-  assert(element.create.className == "DOOPElement");
-  assert(element.clone.className == "DOOPElement"); 
-  assert(element.clone(Json(null)).className == "DOOPElement"); */
+  assert(element.create.classname == "DOOPElement");
+  assert(element.clone.classname == "DOOPElement"); 
+  assert(element.clone(Json(null)).classname == "DOOPElement"); */
 }

@@ -21,7 +21,7 @@ class Obj {
 	mixin(PropertyDefinition!("DOOPAssociation[string]", "_associations", "associations")); 
 
 	string namespace() { return "uim.oop"; }
-	string fullname()  { return namespace~"."~this.className; }
+	string fullname()  { return namespace~"."~this.classname; }
 	string fullpath()  { return fullname.replace(".", "/"); }
 
 	O add(this O)(DPropertyObj aProperty) {

@@ -70,14 +70,14 @@ import uim.oop;
 
 /**
     * Split the namespace from the classname.
-    * Commonly used like `list(namespace,  className) = namespaceSplit(className);`.
+    * Commonly used like `list(namespace,  classname) = namespaceSplit(classname);`.
     */
-string[] namespaceSplit(string className) {
-    pos = indexOf(className, "\\");
+string[] namespaceSplit(string classname) {
+    pos = indexOf(classname, "\\");
     if (pos == false) {
-        return ["",  className];
+        return ["",  classname];
     }
-    return [subString(className, 0, pos), subString(className, pos + 1)];
+    return [subString(classname, 0, pos), subString(classname, pos + 1)];
 }
 
     /**

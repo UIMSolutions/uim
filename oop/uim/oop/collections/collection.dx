@@ -119,7 +119,7 @@ auto Collection(T)() {
 }
 
 unittest {
-	/* assert(Collection!string().className == "DCollection");
-	assert(Collection!string().create.className == "DCollection");
-	assert(Collection!string().clone.className == "DCollection"); */
+	/* assert(Collection!string().classname == "DCollection");
+	assert(Collection!string().create.classname == "DCollection");
+	assert(Collection!string().clone.classname == "DCollection"); */
 }

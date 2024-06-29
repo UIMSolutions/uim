@@ -377,16 +377,16 @@ class DInflector {
   }
 
   /**
-     * Returns corresponding table name for given model myclassName. ("people" for the model class "Person").
+     * Returns corresponding table name for given model myclassname. ("people" for the model class "Person").
      * Params:
-     * string myclassName Name of class to get database table name for
+     * string myclassname Name of class to get database table name for
      */
-  static string tableize(string myclassName) :  {
-    result = _cache(__FUNCTION__, myclassName);
+  static string tableize(string myclassname) :  {
+    result = _cache(__FUNCTION__, myclassname);
 
     if (result == false) {
-      result = pluralize(underscore(myclassName));
-      static._cache(__FUNCTION__, myclassName, result);
+      result = pluralize(underscore(myclassname));
+      static._cache(__FUNCTION__, myclassname, result);
     }
     return result;
   }

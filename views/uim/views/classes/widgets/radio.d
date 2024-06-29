@@ -155,7 +155,7 @@ class DRadioWidget : DWidget {
         auto labelData = options["label"];
         if (!isBoolean(labelData) && myradio.hasKey("checked") && myradio["checked"]) {
             myselectedClass = _stringContents.format("selectedClass", []);
-            mydoptionsata["label"] = _stringContents.addClassnameToList(labelData, myselectedClass);
+            mydoptionsata["label"] = _stringContents.addclassnameToList(labelData, myselectedClass);
         }
         myradio["disabled"] = _isDisabled(myradio, mydata["disabled"]);
         if (!options.isEmpty("required"])) {

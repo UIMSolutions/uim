@@ -35,7 +35,7 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
         } catch (MissingHelperException myexception) {
             myplugin = _View.pluginName;
             if (!myplugin)) {
-                load(helperName, ["className": myplugin ~ "." ~ helperName]);
+                load(helperName, ["classname": myplugin ~ "." ~ helperName]);
 
                 return true;
             }
@@ -64,8 +64,8 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      * Params:
      * string myclass DPartial classname to resolve.
      */
-    protected string _resolveClassName(string myclass) {
-        return App.className(myclass, "View/Helper", "Helper");
+    protected string _resolveclassname(string myclass) {
+        return App.classname(myclass, "View/Helper", "Helper");
     }
     
     /**

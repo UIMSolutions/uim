@@ -73,7 +73,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * Can either use plugin notation, a short name
      * or a fully namespaced classname.
      */
-    protected string _className = null;
+    protected string _classname = null;
 
     /**
      * Additional options used when constructing the view.
@@ -177,7 +177,7 @@ class DViewBuilder { // }: DJsonSerializable {
     void addHelper(string myhelper, Json[string] options  = null) {
         [myplugin, views] = pluginSplit(myhelper);
         if (myplugin) {
-            options["className"] = myhelper;
+            options["classname"] = myhelper;
         }
        _helpers[views] = options;
     }
@@ -310,8 +310,8 @@ class DViewBuilder { // }: DJsonSerializable {
      * Params:
      * string views The class name for the view.
      */
-    auto setClassName(string views) {
-       _className = views;
+    auto setclassname(string views) {
+       _classname = views;
 
         return this;
     }
@@ -319,14 +319,14 @@ class DViewBuilder { // }: DJsonSerializable {
     /**
      * Gets the view classname.
      */
-    string getClassName() {
-        return _className;
+    string getclassname() {
+        return _classname;
     }
     
     /**
      * Using the data in the builder, create a view instance.
      *
-     * If className().isNull, App\View\AppView will be used.
+     * If classname().isNull, App\View\AppView will be used.
      * If that class does not exist, then {@link \UIM\View\View} will be used.
      * Params:
      * \UIM\Http\ServerRequest|null myrequest The request to use.
@@ -338,14 +338,14 @@ class DViewBuilder { // }: DJsonSerializable {
         Response myresponse = null,
         IEventManager myevents = null
    ) {
-        myclassName = _className ?? App.className("App", "View", "View") ?? View.classname;
-        if (myclassName == "View") {
-            myclassName = App.className(myclassName, "View");
+        myclassname = _classname ?? App.classname("App", "View", "View") ?? View.classname;
+        if (myclassname == "View") {
+            myclassname = App.classname(myclassname, "View");
         } else {
-            myclassName = App.className(myclassName, "View", "View");
+            myclassname = App.classname(myclassname, "View", "View");
         }
-        if (myclassName.isNull) {
-            throw new DMissingViewException(["class": _className]);
+        if (myclassname.isNull) {
+            throw new DMissingViewException(["class": _classname]);
         }
         mydata = [
             "name": _name,
@@ -361,7 +361,7 @@ class DViewBuilder { // }: DJsonSerializable {
         ];
         mydata += _options;
 
-        return new myclassName(myrequest, myresponse, myevents, mydata);
+        return new myclassname(myrequest, myresponse, myevents, mydata);
     }
     
     /**
@@ -378,7 +378,7 @@ class DViewBuilder { // }: DJsonSerializable {
     array JsonSerialize() {
         auto myproperties = [
             "_templatePath", "_template", "_plugin", "_theme", "_layout", "_autoLayout",
-            "_layoutPath", "_name", "_className", "_options", "_helpers", "_viewData",
+            "_layoutPath", "_name", "_classname", "_options", "_helpers", "_viewData",
         ];
 
         auto myarray = null;

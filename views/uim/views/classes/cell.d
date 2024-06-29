@@ -134,10 +134,10 @@ abstract class DCell { // }: IEventDispatcher {
             if (templateName !is null) {
                 mybuilder.setTemplate(templateName);
             }
-            myclassName = class;
+            myclassname = class;
             viewsPrefix = "\View\Cell\\";
             /** @psalm-suppress PossiblyFalseOperand */
-            views = subString(myclassName, indexOf(myclassName, viewsPrefix) + viewsPrefix.length);
+            views = subString(myclassname, indexOf(myclassname, viewsPrefix) + viewsPrefix.length);
             views = subString(views, 0, -4);
             if (!mybuilder.getTemplatePath()) {
                 mybuilder.setTemplatePath(

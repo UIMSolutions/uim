@@ -1729,24 +1729,24 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a backed enum validation rule to a field.
      * Params:
      * string fieldName The field you want to apply the rule to.
-     * @param class-string<\BackedEnum> myenumClassName The valid backed enum class name.
+     * @param class-string<\BackedEnum> myenumclassname The valid backed enum class name.
      * @param string myMessage The error message when the rule fails.
      * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
     auto enumeration(
         string fieldName,
-        string myenumClassName,
+        string myenumclassname,
         string myMessage = null, /*Closure|*/
         string mywhen = null
     ) {
-        /* if (!isIn(BackedEnum.classname, (array) class_implements(myenumClassName), true)) {
+        /* if (!isIn(BackedEnum.classname, (array) class_implements(myenumclassname), true)) {
             throw new DInvalidArgumentException(
-                "The `myenumClassName` argument must be the classname of a valid backed enum."
+                "The `myenumclassname` argument must be the classname of a valid backed enum."
             );
         } */
         if (myMessage.isNull) {
-            string[] mycases; // TODO = array_map(fn (mycase): mycase.value, myenumClassName.cases());
+            string[] mycases; // TODO = array_map(fn (mycase): mycase.value, myenumclassname.cases());
             string mycaseOptions = mycases.join("`, `");
 
             myMessage = !_useI18n
@@ -1758,7 +1758,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         /* Json[string] myextra = array_filter(["on": mywhen, "message": myMessage]);
 
         return _add(fieldName, "enum", myextra ~ [
-                "rule": ["enum", myenumClassName],
+                "rule": ["enum", myenumclassname],
             ]); */
         return null;
     }

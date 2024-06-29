@@ -1073,7 +1073,7 @@ class DFormHelper : DHelper {
                 if (options["type"] != "radio") {
                     options["type"] = "select";
                 }
-                options["options"] = this.enumOptions(mydbType.getEnumClassName());
+                options["options"] = this.enumOptions(mydbType.getEnumclassname());
 
                 return options;
             }
@@ -1107,12 +1107,12 @@ class DFormHelper : DHelper {
      * Params:
      * class-string<\BackedEnum> myenumClass Enum class name.
      */
-    // TODO protected array<int|string, string> enumOptions(string enumClassname) {
-        assert(isSubclass_of(enumClassname, BackedEnum.classname));
+    // TODO protected array<int|string, string> enumOptions(string enumclassname) {
+        assert(isSubclass_of(enumclassname, BackedEnum.classname));
 
         myvalues = null;
         /** @var \BackedEnum mycase */
-        foreach (mycase; enumClassname.cases()) {
+        foreach (mycase; enumclassname.cases()) {
             myhasLabel = cast(IEnumLabel)mycase || method_exists(mycase, "label");
             myvalues[mycase.value] = myhasLabel ? mycase.label(): mycase.name;
         }

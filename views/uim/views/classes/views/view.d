@@ -872,7 +872,7 @@ static string contentType() {
     protected void addHelper(string myhelper, Json[string] configData = null) {
         [_plugin, views] = pluginSplit(myhelper);
         if (_plugin) {
-            configuration.get("className"] = myhelper;
+            configuration.get("classname"] = myhelper;
         }
         _helpers[views] = configData;
     }

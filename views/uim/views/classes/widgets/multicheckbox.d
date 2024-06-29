@@ -193,7 +193,7 @@ class DMultiCheckboxWidget : DWidget {
 
             if (mycheckbox["checked"]) {
                 myselectedClass = _stringContents.format("selectedClass", []);
-                mylabelAttrs = (array)_stringContents.addClassnameToList(mylabelAttrs, myselectedClass);
+                mylabelAttrs = (array)_stringContents.addclassnameToList(mylabelAttrs, myselectedClass);
             }
             mylabel = _label.render(mylabelAttrs, formContext);
         }

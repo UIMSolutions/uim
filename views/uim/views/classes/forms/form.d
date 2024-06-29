@@ -57,7 +57,7 @@ class DForm : IForm { // }: DEventListener, IEventDispatcher, IValidatorAware {
     // #endregion Constants
 
     // DSchema class.
-    // TODO protected string _schemaClassname = Schema.className;
+    // TODO protected string _schemaclassname = Schema.classname;
 
     // #region Schema
     // The schema used by this form.

@@ -103,7 +103,7 @@ interface IQuery {
      *
      * The above is an example of stacking multiple finder methods onto a single query.
      */
-    static find(string finderMethod, Json ...someArguments);
+    static find(string finderMethod, Json[string] arguments);
 
     /**
      * Returns the first result out of executing this query, if the query has not been

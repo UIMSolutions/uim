@@ -22,12 +22,12 @@ mixin template TViewVars() {
     /**
      * Constructs the view class instance based on the current configuration.
      * Params:
-     * string namespacedClassname Optional namespaced class name of the View class to instantiate.
+     * string namespacedclassname Optional namespaced class name of the View class to instantiate.
      */
-    View createView(string namespacedClassname = null) {
+    View createView(string namespacedclassname = null) {
         auto mybuilder = viewBuilder();
-        if (namespacedClassname) {
-            mybuilder.setClassName(namespacedClassname);
+        if (namespacedclassname) {
+            mybuilder.setclassname(namespacedclassname);
         }
 
         ["name", "plugin"].each!((prop) {

@@ -42,26 +42,26 @@ mixin template TCell() {
                 : [myparts[0], "display"];
                 
         [myplugin] = pluginSplit(mypluginAndCell);
-        myclassName = App.className(mypluginAndCell, "View/Cell", "Cell");
+        myclassname = App.classname(mypluginAndCell, "View/Cell", "Cell");
 
-        if (!myclassName) {
-            throw new DMissingCellException(["className": mypluginAndCell ~ "Cell"]);
+        if (!myclassname) {
+            throw new DMissingCellException(["classname": mypluginAndCell ~ "Cell"]);
         }
         options = ["action": myaction, "args": mydata] + options;
 
-        return _createCell(myclassName, myaction, myplugin, options);
+        return _createCell(myclassname, myaction, myplugin, options);
     }
     
     /**
      * Create and configure the cell instance.
      * Params:
-     * string myclassName The cell classname.
+     * string myclassname The cell classname.
      * @param string myaction The action name.
      * @param string myplugin The plugin name.
      * @param Json[string] options The constructor options for the cell.
      */
-    protected DCell _createCell(string myclassName, string myaction, string myplugin, Json[string] options) {
-        Cell myinstance = new myclassName(this.request, this.response, getEventManager(), options);
+    protected DCell _createCell(string myclassname, string myaction, string myplugin, Json[string] options) {
+        Cell myinstance = new myclassname(this.request, this.response, getEventManager(), options);
 
         mybuilder = myinstance.viewBuilder();
         mybuilder.setTemplate(Inflector.underscore(myaction));
@@ -77,16 +77,16 @@ mixin template TCell() {
                 mybuilder.setTheme(this.theme);
             }
             myclass = class;
-            mybuilder.setClassName(myclass);
-            myinstance.viewBuilder().setClassName(myclass);
+            mybuilder.setclassname(myclass);
+            myinstance.viewBuilder().setclassname(myclass);
 
             return myinstance;
         }
         if (method_exists(this, "viewBuilder")) {
             mybuilder.setTheme(viewBuilder().getTheme());
 
-            if (viewBuilder().getClassName() !is null) {
-                mybuilder.setClassName(viewBuilder().getClassName());
+            if (viewBuilder().getclassname() !is null) {
+                mybuilder.setclassname(viewBuilder().getclassname());
             }
         }
         return myinstance;

@@ -9,11 +9,11 @@ class UrlHelper : DHelper {
     mixin(HelperThis!("Url"));
 
     // Asset URL engine class name
-    protected string _assetUrlClassName;
+    protected string _assetUrlclassname;
 
     /* 
     configuration.updateDefaults([
-        "assetUrlClassName": Asset.classname,
+        "assetUrlclassname": Asset.classname,
     ];
 
 
@@ -27,14 +27,14 @@ class UrlHelper : DHelper {
 		
 		return true;
 	}
-        myengineClassConfig = configurationData.hasKey("assetUrlClassName");
+        myengineClassConfig = configurationData.hasKey("assetUrlclassname");
 
         /** @var class-string<\UIM\Routing\Asset>|null myengineClass */
-        myengineClass = App.className(myengineClassConfig, "Routing");
+        myengineClass = App.classname(myengineClassConfig, "Routing");
         if (myengineClass.isNull) {
             throw new DException("Class for `%s` could not be found.".format(myengineClassConfig));
         }
-       _assetUrlClassName = myengineClass;
+       _assetUrlclassname = myengineClass;
     }
     
     /**
@@ -102,7 +102,7 @@ class UrlHelper : DHelper {
     string image(string mypath, Json[string] options  = null) {
         auto updatedOptions = options.update["theme": _View.getTheme()];
 
-        return htmlAttributeEscape(_assetUrlClassName.imageUrl(mypath, options));
+        return htmlAttributeEscape(_assetUrlclassname.imageUrl(mypath, options));
     }
     
     /**
@@ -125,7 +125,7 @@ class UrlHelper : DHelper {
     string css(string mypath, Json[string] options  = null) {
         auto updatedOptions = options.update["theme": _View.getTheme()];
 
-        return htmlAttributeEscape(_assetUrlClassName.cssUrl(mypath, options));
+        return htmlAttributeEscape(_assetUrlclassname.cssUrl(mypath, options));
     }
     
     /**
@@ -148,7 +148,7 @@ class UrlHelper : DHelper {
     string script(string mypath, Json[string] options  = null) {
         auto updatedOptions = options.update["theme": _View.getTheme()];
 
-        return htmlAttributeEscape(_assetUrlClassName.scriptUrl(mypath, options));
+        return htmlAttributeEscape(_assetUrlclassname.scriptUrl(mypath, options));
     }
     
     /**
@@ -175,7 +175,7 @@ class UrlHelper : DHelper {
     string assetUrl(string mypath, Json[string] options  = null) {
         auto updatedOptions = options.update["theme": _View.getTheme()];
 
-        return htmlAttributeEscape(_assetUrlClassName.url(mypath, options));
+        return htmlAttributeEscape(_assetUrlclassname.url(mypath, options));
     }
     
     /**
@@ -187,7 +187,7 @@ class UrlHelper : DHelper {
      * @param string mytimestamp If set will overrule the value of `Asset.timestamp` in Configure.
      */
     string assetTimestamp(string mypath, string mytimestamp = null) {
-        return htmlAttributeEscape(_assetUrlClassName.assetTimestamp(mypath, mytimestamp));
+        return htmlAttributeEscape(_assetUrlclassname.assetTimestamp(mypath, mytimestamp));
     }
     
     /**
@@ -198,7 +198,7 @@ class UrlHelper : DHelper {
     string webroot(string myfile) {
         options = ["theme": _View.getTheme()];
 
-        return htmlAttributeEscape(_assetUrlClassName.webroot(myfile, options));
+        return htmlAttributeEscape(_assetUrlclassname.webroot(myfile, options));
     }
     
     /**

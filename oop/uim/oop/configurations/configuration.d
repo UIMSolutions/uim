@@ -129,29 +129,27 @@ abstract class DConfiguration : IConfiguration {
         return results;
     }
 
-    Json get(string key, Json defaultValue = Json(null)) {
-        return defaultValue;
-    }
+    abstract Json get(string key, Json nullValue = Json(null)); 
 
-    long getBoolean(string key) {
-        return get(key).getBoolean;
+    long getBoolean(string key, bool nullValue = false) {
+        return hasKey(key) ? get(key).getBoolean : nullValue;
     }
     
-    long getLong(string key) {
-        return get(key).getLong;
+    long getLong(string key, long nullValue = 0) {
+        return hasKey(key) ? get(key).getLong : nullValue;
     }
 
-    double getDouble(string key) {
-        return get(key).getDouble;
+    double getDouble(string key, double nullValue = 0.0) {
+        return hasKey(key) ? get(key).getDouble : nullValue;
     }
 
-    string getString(string key) {
-        return get(key).getString;
+    string getString(string key, string nullValue = null) {
+        return hasKey(key) ? get(key).getString : nullValue;
     }
 
-    string[] getStringArray(string key) {
-        Json[] array = getArray(key);
-        return array.map!(item => item.getString).array;
+    string[] getStringArray(string key, string[] nullValue = null) {
+        return getArray(key)
+            .map!(item => item.getString).array;
     }
 
     Json[] getArray(string key) {
@@ -159,7 +157,7 @@ abstract class DConfiguration : IConfiguration {
     }
 
     Json[string] getMap(string key) {
-        return get(key).getMapp;
+        return get(key).getMap;
     }
     
     string[string] getStringMap(string key) {

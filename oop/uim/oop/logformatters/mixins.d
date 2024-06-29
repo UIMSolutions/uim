@@ -1,6 +1,6 @@
 module uim.oop.logformatters.mixins;
 
-string LogFormatterThis(string name) {
+string logFormatterThis(string name) {
     string fullName = name ~ "LogFormatter";
     return `
     this() {
@@ -17,10 +17,10 @@ string LogFormatterThis(string name) {
 }
 
 template LogFormatterThis(string name) {
-    const char[] LogFormatterThis = LogFormatterThis(name);
+    const char[] LogFormatterThis = logFormatterThis(name);
 }
 
-string LogFormatterCalls(string name) {
+string logFormatterCalls(string name) {
     string fullName = name ~ "LogFormatter";
     return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
@@ -30,5 +30,5 @@ string LogFormatterCalls(string name) {
 }
 
 template LogFormatterCalls(string name) {
-    const char[] LogFormatterCalls = LogFormatterCalls(name);
+    const char[] LogFormatterCalls = logFormatterCalls(name);
 }

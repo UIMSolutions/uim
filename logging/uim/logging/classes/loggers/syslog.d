@@ -40,7 +40,7 @@ class DSysLogger : DLogger {
         "prefix": "".toJson,
         "facility": LOG_USER.toJson,
         "formatter": [
-            "className": DefaultLogFormatter.classname.toJson,
+            "className": StandardLogFormatter.classname.toJson,
             "includeDate": false.toJson,
         ].toJson
     ];

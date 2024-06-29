@@ -2,7 +2,7 @@ module uim.logs.Formatter;
 
 use DateTime;
 
-class DefaultLogFormatter : DAbstractFormatter {
+class StandardLogFormatter : DAbstractFormatter {
   	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
     

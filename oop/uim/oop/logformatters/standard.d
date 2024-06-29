@@ -1,13 +1,11 @@
-module uim.oop.logformatters.logformatter;
+module uim.oop.logformatters.standard;
 
 import uim.oop;
 @safe:
 
 // Base class for LogFormatters
-class DLogFormatter : UIMObject, ILogFormatter {
-    mixin(LogFormatterThis!(""));
-/*     mixin TLocatorAware;
-    mixin TLog; */
+class DStandardLogFormatter : DLogFormatter {
+    mixin(LogFormatterThis!("Standard"));
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
@@ -17,3 +15,4 @@ class DLogFormatter : UIMObject, ILogFormatter {
         return true;
     }
 }
+mixin(LogFormatterCalls!("Standard"));

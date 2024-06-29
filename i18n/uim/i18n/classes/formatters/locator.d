@@ -25,10 +25,10 @@ class DFormatterLocator {
      * Sets a formatter into the registry by name.
      * Params:
      * 
-     * @param class-string<\UIM\I18n\II18NFormatter>  className A FQCN for a formatter.
+     * @param class-string<\UIM\I18n\II18NFormatter>  classname A FQCN for a formatter.
      */
-    void set(string formatterName, string className) {
-        _registry[formatterName] = className;
+    void set(string formatterName, string classname) {
+        _registry[formatterName] = classname;
         _converted[formatterName] = false;
     }
     
@@ -38,8 +38,8 @@ class DFormatterLocator {
             // TODO throw new DI18nException("Formatter named `%s` has not been registered.".format(name));
         }
         if (!_converted.hasKey(formatterName)) {
-            auto formatterClassName = _registry[formatterName];
-            _registry[formatterName] = cast(II18NFormatter)object.factory(formatterClassName);
+            auto formatterclassname = _registry[formatterName];
+            _registry[formatterName] = cast(II18NFormatter)object.factory(formatterclassname);
             _converted[formatterName] = true;
         }
 

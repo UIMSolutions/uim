@@ -105,12 +105,12 @@ class DMessagesFileLoader {
         }
 
         string name = ucfirst(_extension);
-        auto className = App.className(name, "I18n\Parser", "FileParser");
-        if (!className) {
+        auto classname = App.classname(name, "I18n\Parser", "FileParser");
+        if (!classname) {
             throw new DException("Could not find class `%s`.".format("{name}FileParser"));
         }
 
-        auto object = Object.factory(className);
+        auto object = Object.factory(classname);
         auto messages = object.parse(file); */
         auto catalog = new DMessageCatalog("default");
         // TODOD auto catalog.setMessages(messages); 

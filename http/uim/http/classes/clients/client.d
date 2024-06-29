@@ -622,7 +622,7 @@ class DClient { // }: IClient {
       myauth["type"] = "basic";
     }
     myname = ucfirst(myauth["type"]);
-    myclass = App.className(myname, "Http/Client/Auth");
+    myclass = App.classname(myname, "Http/Client/Auth");
     if (!myclass) {
       throw new DException(
         "Invalid authentication type `%s`.".format(myname)

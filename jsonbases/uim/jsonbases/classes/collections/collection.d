@@ -10,11 +10,11 @@ unittest {
 
 @safe:
 abstract class DJsonCollection : IJsonCollection {
-  this() { initialize; this.className("JsonCollection"); }
+  this() { initialize; this.classname("JsonCollection"); }
   this(string aName) { this(); this.name(aName); }
   this(IJsonTenant aTenant) { this(); this.tenant(aTenant); }
 
-  mixin(TProperty!("string", "className"));
+  mixin(TProperty!("string", "classname"));
   mixin(TProperty!("string", "name"));
   mixin(TProperty!("IJsonTenant", "tenant"));
 

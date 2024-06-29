@@ -12,7 +12,7 @@ unittest {
 class DJsonBase : IJsonBase, IJsonTenantManager {
   this() {
     initialize;
-    this.className("JsonBase");
+    this.classname("JsonBase");
   }
 
   this(string aName) {
@@ -24,7 +24,7 @@ class DJsonBase : IJsonBase, IJsonTenantManager {
     return true;
   }
 
-  mixin(TProperty!("string", "className"));
+  mixin(TProperty!("string", "classname"));
   mixin(TProperty!("string", "name"));
 
   // #region TenantManager

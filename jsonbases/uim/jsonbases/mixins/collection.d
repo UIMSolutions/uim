@@ -3,9 +3,9 @@ module uim.jsonbases.mixins.collection;
 import uim.jsonbases;
 
 @safe:
-string jsonCollectionThis(string aClassName) {
+string jsonCollectionThis(string aclassname) {
   return `
-this() { super(); this.className("`~aClassName~`"); }
+this() { super(); this.classname("`~aclassname~`"); }
 this(IJsonTenant aTenant) { this(); this.tenant(aTenant); }
 this(string aName) { this(); this.name(aName); }
 
@@ -17,8 +17,8 @@ template JsonCollectionThis(string aName) {
   const char[] JsonCollectionThis = jsonCollectionThis(aName);
 }
 
-string jsonCollectionCalls(string shortName, string className = null) {
-  string clName = className.length > 0 ? className : "D"~shortName;
+string jsonCollectionCalls(string shortName, string classname = null) {
+  string clName = classname.length > 0 ? classname : "D"~shortName;
   
   return `
 auto `~shortName~`() { return new `~clName~`; }
@@ -29,6 +29,6 @@ auto `~shortName~`(IJsonTenant aTenant, string aName) { return new `~clName~`(aT
   `;
 }
 
-template JsonCollectionCalls(string shortName, string className = null) {
-  const char[] JsonCollectionCalls = jsonCollectionCalls(shortName, className);
+template JsonCollectionCalls(string shortName, string classname = null) {
+  const char[] JsonCollectionCalls = jsonCollectionCalls(shortName, classname);
 }

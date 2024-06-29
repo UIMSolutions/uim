@@ -10,7 +10,7 @@ unittest {
 
 @safe:
 class DJsonTenant : IJsonTenant, IJsonCollectionManager {
-  this() { initialize; this.className("JsonTenant"); }
+  this() { initialize; this.classname("JsonTenant"); }
   this(IJsonBase aBase) { this(); this.base(aBase); }
   this(string aName) { this(); this.name(aName); }
   this(IJsonBase aBase, string aName) { this(aBase); this.name(aName); }
@@ -24,7 +24,7 @@ class DJsonTenant : IJsonTenant, IJsonCollectionManager {
     }
 
   // #region Properties 
-    mixin(TProperty!("string", "className"));
+    mixin(TProperty!("string", "classname"));
     mixin(TProperty!("string", "name"));
     mixin(TProperty!("IJsonBase", "base"));
   // #endregion Properties

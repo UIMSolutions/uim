@@ -16,17 +16,17 @@ import uim.logging;
  * A sample configuration would look like:
  *
  * ```
- * Log.configuration.set("_log", ["className": "FileLog"]);
+ * Log.configuration.set("_log", ["classname": "FileLog"]);
  * ```
  *
- * You can define the className as any fully namespaced classname or use a short hand
+ * You can define the classname as any fully namespaced classname or use a short hand
  * classname to use loggers in the `App\Log\Engine` & `UIM\Log\Engine` namespaces.
  * You can also use plugin short hand to use logging classes provided by plugins.
  *
  * Log adapters are required to implement `Psr\Log\ILogger`, and there is a
  * built-in base class (`UIM\Log\Engine\BaseLog`) that can be used for custom loggers.
  *
- * Outside of the `className` key, all other configuration values will be passed to the
+ * Outside of the `classname` key, all other configuration values will be passed to the
  * logging adapter"s constructor as an array.
  *
  * ### Logging levels
@@ -36,7 +36,7 @@ import uim.logging;
  *
  * ```
  * Log.configuration.set("default", [
- *   "className": "File",
+ *   "classname": "File",
  *   "path": LOGS,
  *   "levels": ["error", "critical", "alert", "emergency"]
  * ]);
@@ -54,7 +54,7 @@ import uim.logging;
  *
  * ```
  * Log.configuration.set("payments", [
- *   "className": "File",
+ *   "classname": "File",
  *   "scopes": ["payment", "order"]
  * ]);
  * ```
@@ -152,7 +152,7 @@ class DLog {
         if (_isDirtyConfig) {
             foreach (name, properties; configuration) {
                 if (properties.hasKey("engine")) {
-                    properties["className"] = properties["engine"];
+                    properties["classname"] = properties["engine"];
                 }
                 if (!_registry.hasKey(to!string(name))) {
                     _registry.load(to!string(name, properties));

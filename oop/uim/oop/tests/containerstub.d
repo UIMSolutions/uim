@@ -30,10 +30,10 @@ mixin template TContainerStub() {
      * Configure the application class to use in integration tests.
      * Params:
      * @param array|null constructorArgs The constructor arguments for your application class.
-     * @psalm-param class-string<\UIM\Core\IHttpApplication>|class-string<\UIM\Core\IConsoleApplication>  className
+     * @psalm-param class-string<\UIM\Core\IHttpApplication>|class-string<\UIM\Core\IConsoleApplication>  classname
      */
-    void configApplication(string className, Json[string] constructorArgs) {
-       _appClass = className;
+    void configApplication(string classname, Json[string] constructorArgs) {
+       _appClass = classname;
        _appArgs = constructorArgs;
     }
     
@@ -65,13 +65,13 @@ mixin template TContainerStub() {
      * will be mapped to the factory function. The factory
      * auto will be used to create mocked services.
      */
-    void mockService(string className, Closure closureFactory) {
-        this.containerServices[className] = closureFactory;
+    void mockService(string classname, Closure closureFactory) {
+        this.containerServices[classname] = closureFactory;
     }
 
     // Remove a mocked service to the container.
-    void removeMockService(string className) {
-        remove(this.containerServices[className]);
+    void removeMockService(string classname) {
+        remove(this.containerServices[classname]);
     }
 
     /**

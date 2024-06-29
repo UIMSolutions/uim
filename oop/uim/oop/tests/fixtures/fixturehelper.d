@@ -47,23 +47,23 @@ class DFixtureHelper {
                     additionalPath,
                     name ~ "Fixture",
                 ];
-                /** @var class-string<\UIM\Datasource\IFixture>  className * /
-                string className = array_filter(nameSegments).join("\\");
+                /** @var class-string<\UIM\Datasource\IFixture>  classname * /
+                string classname = array_filter(nameSegments).join("\\");
             } else {
-                /** @var class-string<\UIM\Datasource\IFixture>  className * /
-                 className = fixtureName;
+                /** @var class-string<\UIM\Datasource\IFixture>  classname * /
+                 classname = fixtureName;
             }
 
-            if (fixtures.hasKey(className)) {
+            if (fixtures.hasKey(classname)) {
                 throw new DUnexpectedValueException("Found duplicate fixture `%s`.".format(fixtureName));
             }
-            if (!class_exists(className)) {
+            if (!class_exists(classname)) {
                 throw new DUnexpectedValueException("Could not find fixture `%s`.".format(fixtureName));
             }
-            if (!cachedFixtures.hasKey(className)) {
-                // TODO cachedFixtures[className] = new className();
+            if (!cachedFixtures.hasKey(classname)) {
+                // TODO cachedFixtures[classname] = new classname();
             }
-            fixtures[className] = cachedFixtures[className];
+            fixtures[classname] = cachedFixtures[classname];
         });
         
         return fixtures;

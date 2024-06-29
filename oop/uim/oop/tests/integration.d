@@ -413,12 +413,12 @@ mixin template TIntegrationTest() {
      * \Throwable exceptionToHandle Exception to handle.
      */
     protected void _handleError(Throwable exceptionToHandle) {
-        className = configuration.get("Error.exceptionRenderer");
-        if (className.isEmpty || !class_exists(className)) {
-            className = WebExceptionRenderer.classname;
+        classname = configuration.get("Error.exceptionRenderer");
+        if (classname.isEmpty || !class_exists(classname)) {
+            classname = WebExceptionRenderer.classname;
         }
 
-        WebExceptionRenderer anInstance = new className(exceptionToHandle);
+        WebExceptionRenderer anInstance = new classname(exceptionToHandle);
         _response = anInstance.render();
     }
 

@@ -56,10 +56,10 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
     }
 
     // Resolve a behavior classname.
-    static string className(string partialClassname) {
-        return App.className(partialClassname, "Model/Behavior", "Behavior")
-            ? App.className(partialClassname, "Model/Behavior", "Behavior") : App.className(
-                partialClassname, "ORM/Behavior", "Behavior");
+    static string classname(string partialclassname) {
+        return App.classname(partialclassname, "Model/Behavior", "Behavior")
+            ? App.classname(partialclassname, "Model/Behavior", "Behavior") : App.classname(
+                partialclassname, "ORM/Behavior", "Behavior");
     }
 
     /**
@@ -67,8 +67,8 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      *
      * Part of the template method for uim\Core\ObjectRegistry.load()
      */
-    protected string _resolveClassName(string partialClassname) {
-        return className(partialClassname);
+    protected string _resolveclassname(string partialclassname) {
+        return classname(partialclassname);
     }
 
     /**
@@ -77,11 +77,11 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * Part of the template method for uim\Core\ObjectRegistry.load()
      * and uim\Core\ObjectRegistry.remove()
      *
-     * aClassName - The classname that is missing.
+     * aclassname - The classname that is missing.
      */
-    protected void _throwMissingClassError(string aClassName, string pluginName) {
+    protected void _throwMissingClassError(string aclassname, string pluginName) {
         throw new DMissingBehaviorException([
-            "class": aClassName ~ "Behavior",
+            "class": aclassname ~ "Behavior",
             "plugin": pluginName,
         ]);
     }
@@ -92,7 +92,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * Part of the template method for uim\Core\ObjectRegistry.load()
      * Enabled behaviors will be registered with the event manager.
      *
-     * @param string aClassName  The classname that is missing.
+     * @param string aclassname  The classname that is missing.
      * @param string anAlias The alias of the object.
      * @param Json[string] myConfiguration An array of config to use for the behavior.
      */
@@ -117,10 +117,10 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * declared on uim\orm.Behavior
      *
      * @param DORMBehavior instance The behavior to get methods from.
-     * @param string aClassName  The classname that is missing.
+     * @param string aclassname  The classname that is missing.
      * @param string anAlias The alias of the object.
      */
-    protected Json[string] _getMethods(Behavior instance, string aClassName, string anAlias) {
+    protected Json[string] _getMethods(Behavior instance, string aclassname, string anAlias) {
         auto finders = array_change_key_case(instance.implementedFinders());
         auto aMethodNames = array_change_key_case(instance.implementedMethods());
 
@@ -139,7 +139,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
             if (_methodMap.hasKey(myMethodKey) && this.has(_methodMap[myMethodKey][0])) {
                 duplicate = _methodMap[myMethodKey];
                 auto error =
-                    "%s contains duplicate method '%s' which is already provided by '%s'".format(aClassName,
+                    "%s contains duplicate method '%s' which is already provided by '%s'".format(aclassname,
                         method,
                         duplicate[0]
                     );

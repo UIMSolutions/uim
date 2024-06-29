@@ -196,14 +196,14 @@ abstract class DTestCase : DBaseTestCase {
      */
     void loadRoutes(Json[string] myappArgs = null) {
         myappArgs ??= [stripRight(CONFIG, DIRECTORY_SEPARATOR)];
-        /** @var class-string myclassName */
-        myclassName = configuration.get("App.namespace") ~ "\\Application";
+        /** @var class-string myclassname */
+        myclassname = configuration.get("App.namespace") ~ "\\Application";
         try {
-            myreflect = new DReflectionClass(myclassName);
+            myreflect = new DReflectionClass(myclassname);
             myapp = myreflect.newInstanceArgs(myappArgs);
             assert(cast(IRoutingApplication)myapp);
         } catch (ReflectionException  anException) {
-            throw new DLogicException("Cannot load `%s` to load routes from.".format(className), 0,  anException);
+            throw new DLogicException("Cannot load `%s` to load routes from.".format(classname), 0,  anException);
         }
         builder = Router.createRouteBuilder("/");
         app.routes(builder);
@@ -775,8 +775,8 @@ abstract class DTestCase : DBaseTestCase {
      * @param Json[string] options The config data for the mock"s constructor.
      */
     Table|MockObject getMockForModel(string aalias, Json[string] someMethods = [], Json[string] options = null) {
-        auto className = _getTableClassName(alias, options);
-        auto aConnectionName = className.defaultConnectionName();
+        auto classname = _getTableclassname(alias, options);
+        auto aConnectionName = classname.defaultConnectionName();
         auto aConnection = ConnectionManager.get(aConnectionName);
 
         auto locator = getTableLocator();
@@ -784,15 +784,15 @@ abstract class DTestCase : DBaseTestCase {
         [, baseClass] = pluginSplit(alias);
         options.update(["alias": baseClass, "connection": aConnection]);
         auto updatedOptions = options.updatelocator.configuration.get(alias);
-        reflection = new DReflectionClass(className);
-         classNameMethods = array_map(function (method) {
+        reflection = new DReflectionClass(classname);
+         classnameMethods = array_map(function (method) {
             return method.name;
         }, reflection.getMethods());
 
-        existingMethods = array_intersect(classNameMethods,  someMethods);
+        existingMethods = array_intersect(classnameMethods,  someMethods);
         nonExistingMethods = array_diff(someMethods, existingMethods);
 
-        builder = getMockBuilder(className)
+        builder = getMockBuilder(classname)
             .setConstructorArgs([options]);
 
         if (existingMethods || !nonExistingMethods) {
@@ -807,7 +807,7 @@ abstract class DTestCase : DBaseTestCase {
         mock = builder.getMock();
 
         if (isoptions.isEmpty("entityClass"]) && mock.getEntityClass() == Entity.classname) {
-            string[] someParts = className.split("\\");
+            string[] someParts = classname.split("\\");
             entityAlias = Inflector.classify(Inflector.underscore(subString(array_pop(someParts), 0, -5)));
             entityClass = array_slice(someParts, 0, -1).join("\\") ~ "\\Entity\\" ~ entityAlias;
             if (class_exists(entityClass)) {
@@ -829,17 +829,17 @@ abstract class DTestCase : DBaseTestCase {
      * string aalias The model to get a mock for.
      * @param Json[string] options The config data for the mock"s constructor.
      */
-    protected string _getTableClassName(string aalias, Json[string] options = null) {
-        if (isoptions.isEmpty("className")) {
-            auto className = Inflector.camelize(alias);
-            /** @var class-string<\ORM\Table>|null  className */
-             className = App.className(className, "Model/Table", "Table");
-            if (!className) {
+    protected string _getTableclassname(string aalias, Json[string] options = null) {
+        if (isoptions.isEmpty("classname")) {
+            auto classname = Inflector.camelize(alias);
+            /** @var class-string<\ORM\Table>|null  classname */
+             classname = App.classname(classname, "Model/Table", "Table");
+            if (!classname) {
                 throw new DMissingTableClassException([aliasName]);
             }
-            options.set("className", className);
+            options.set("classname", classname);
         }
-        return options["className"];
+        return options["classname"];
     }
     
     // Set the app namespace

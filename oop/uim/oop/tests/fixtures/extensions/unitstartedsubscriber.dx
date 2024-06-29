@@ -19,7 +19,7 @@ class DUnitStartedSubscriber : DUnitStarted {
             helper.enableQueryLogging();
             Log.drop("queries");
             Log.configuration.set("queries", [
-                "className": "Console",
+                "classname": "Console",
                 "stream": "D://stderr",
                 "scopes": ["uim.database.queries"],
             ]);

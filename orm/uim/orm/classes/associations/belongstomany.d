@@ -148,7 +148,7 @@ class DBelongsToManyAssociation : DAssociation {
                 myConfiguration = ["table": tableName, "allowFallbackClass": true.toJson];
 
                 // Propagate the connection if we"ll get an auto-model
-                if (!App.className(tableAlias, "Model/Table", "Table")) {
+                if (!App.classname(tableAlias, "Model/Table", "Table")) {
                     configuration.get("connection") = source().getConnection();
                 }
             }

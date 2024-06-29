@@ -58,15 +58,15 @@ mixin template TStaticConfig() {
             throw new BadMethodCallException("Cannot reconfigure existing key `%s`.".format(configurationName));
         }
         if (isObject(configData)) {
-            configData = ["className": configData];
+            configData = ["classname": configData];
         }
         if (isArray(configData) && configData.hasKey("url")) {
             auto parsed = parseDsn(configuration.get("url"));
             configuration.remove("url");
             configData = parsed + configData;
         }
-        if (configData.hasKey("engine") && configData["className"].isEmpty) {
-            configuration.set("className", configuration.get("engine"));
+        if (configData.hasKey("engine") && configData["classname"].isEmpty) {
+            configuration.set("classname", configuration.get("engine"));
             configuration.remove("engine");
         }
         configuration.set(aKey, configData);
@@ -137,14 +137,14 @@ mixin template TStaticConfig() {
      * dsn = "Smtp://user:secret@localhost:25?timeout=30&client=null&tls=null";
      * configData = Email.parseDsn(dsn);
      *
-     * dsn = "file:///?className=\My\Cache\Engine\FileEngine";
+     * dsn = "file:///?classname=\My\Cache\Engine\FileEngine";
      * configData = Cache.parseDsn(dsn);
      *
      * dsn = "File://?prefix=myapp_uim_core_&serialize=true&duration=+2 minutes&path=/tmp/persistent/";
      * configData = Cache.parseDsn(dsn);
      * ```
      *
-     * For all classes, the value of `scheme` is set as the value of both the `className`
+     * For all classes, the value of `scheme` is set as the value of both the `classname`
      * unless they have been otherwise specified.
      *
      * Note that querystring arguments are also parsed and set as values in the returned configuration.
@@ -229,14 +229,14 @@ REGEXP`;
         });
 
         Json[string] parsed = aQueryArgs + parsed;
-        if (isEmpty(parsed["className"])) {
-             classNameMap = getDsnClassMap();
+        if (isEmpty(parsed["classname"])) {
+             classnameMap = getDsnClassMap();
 
             /** @var string ascheme */
             scheme = parsed["scheme"];
-            parsed["className"] = scheme;
-            if (classNameMap.hasKey(scheme)) {
-                parsed["className"] = classNameMap[scheme];
+            parsed["classname"] = scheme;
+            if (classnameMap.hasKey(scheme)) {
+                parsed["classname"] = classnameMap[scheme];
             }
         }
         return parsed;

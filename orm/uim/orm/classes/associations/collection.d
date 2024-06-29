@@ -50,13 +50,13 @@ class DAssociationCollection { // }: IteratorAggregate {
     /**
      * Creates and adds the Association object to this collection.
      *
-     * @param string anClassName The name of associationClassname
+     * @param string anclassname The name of associationclassname
      * @param string associated The alias for the target table.
      * @param Json[string] options List of options to configure the association definition.
      */
-    DORMAssociation load(string associationClassname, string associated, Json[string] optionData = null) {
+    DORMAssociation load(string associationclassname, string associated, Json[string] optionData = null) {
         someOptions["tableLocator"] = getTableLocator();
-        association = new className(associated, someOptions);
+        association = new classname(associated, someOptions);
 
         return _add(association.getName(), association);
     }
@@ -102,8 +102,8 @@ class DAssociationCollection { // }: IteratorAggregate {
      *  For example "BelongsTo" or array like ["BelongsTo", "HasOne"]
      * returns an array of Association objects.
      */
-    DORMAssociation[] getByType(string[] someClassNames...) {
-        auto myClassNames = someClassNames.map!(className => className.lower).array;
+    DORMAssociation[] getByType(string[] someclassnames...) {
+        auto myclassnames = someclassnames.map!(classname => classname.lower).array;
 
         // TODO
         /* 

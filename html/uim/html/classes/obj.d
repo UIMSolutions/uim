@@ -697,8 +697,8 @@ class DH5Obj {
 
 	/* accesskey - specifies a shortcut key to activate/focus an element. */
 	//	mixin(H5Attribute("accesskey"));
-	//	// className (class) - Specifies one or more classnames for an element (refers to a class in a style sheet)
-	//	mixin(H5Attribute("className", "class"));
+	//	// classname (class) - Specifies one or more classnames for an element (refers to a class in a style sheet)
+	//	mixin(H5Attribute("classname", "class"));
 	//
 	//	// contenteditable - Specifies whether the content of an element is editable or not
 	//	mixin(H5BoolAttribute("contenteditable"));

@@ -19,16 +19,16 @@ template classes() {
 	 bool hasClasses(string[] someClasses) { foreach(c; someClasses) if (!hasClass(c)) { 
       return false; 
     } return true; }
-	 bool hasClass(string className) { return classes.has(className); }
+	 bool hasClass(string classname) { return classes.has(classname); }
 	
 	 O addClasses(this O)(string[] someClasses) { this.classes(someClasses); return cast(O)this; }
 	 O addClass(this O)(string newClass) { this.classes(newClass); return cast(O)this; }
 	
 	 O removeClass(this O)(string[] someClasses) { foreach(c; someClasses) removeClass(c); return cast(O)this; }
-	 O removeClass(this O)(string className) { if (hasclass(className)) classes = std.algorithm.mutation.remove(classes, className); return cast(O)this; }
+	 O removeClass(this O)(string classname) { if (hasclass(classname)) classes = std.algorithm.mutation.remove(classes, classname); return cast(O)this; }
 	
 	 O toggleClass(this O)(string[] someClasses) { foreach(c; someClasses) toggleclass(c); return cast(O)this; }
-	 O toggleClass(this O)(string className) { if (hasclass(className)) removeClass(className); else addClass(className); return cast(O)this; }
+	 O toggleClass(this O)(string classname) { if (hasclass(classname)) removeClass(classname); else addClass(classname); return cast(O)this; }
 	`;
 }
 

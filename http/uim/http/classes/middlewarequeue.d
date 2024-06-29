@@ -36,14 +36,14 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
             if (this.container && this.container.has(middlewareName)) {
                 middlewareName = this.container.get(middlewareName);
             } else {
-                string className = App.className(middlewareName, "Middleware", "Middleware");
-                if (className.isNull) {
+                string classname = App.classname(middlewareName, "Middleware", "Middleware");
+                if (classname.isNull) {
                     throw new DInvalidArgumentException(
                         "Middleware `%s` was not found."
                         .format(middlewareName
                    ));
                 }
-                IHttpMiddleware middlewareName = new className();
+                IHttpMiddleware middlewareName = new classname();
             }
         }
         if (cast(IHttpMiddleware)middlewareName) {
@@ -112,16 +112,16 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Params:
      * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string amiddleware The middleware to insert.
      */
-    auto insertBefore(string className, IHttpMiddleware|/*Closure|*/ string amiddleware) {
+    auto insertBefore(string classname, IHttpMiddleware|/*Closure|*/ string amiddleware) {
         bool isFound = false;
         anI = 0;
         foreach (anI: object; _queue) {
             if (
                 (
                     isString(object)
-                    && object == className
+                    && object == classname
                )
-                || isA(object,  className)
+                || isA(object,  classname)
            ) {
                 isFound = true;
                 break;
@@ -130,7 +130,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
         if (isFound) {
             return _insertAt(anI, middleware);
         }
-        throw new DLogicException("No middleware matching `%s` could be found.".format(className));
+        throw new DLogicException("No middleware matching `%s` could be found.".format(classname));
     }
     
     /**
@@ -140,10 +140,10 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * and inserts the supplied middleware after it. If the class is not found,
      * this method will behave like add().
      * Params:
-     * string className The classname to insert the middleware before.
+     * string classname The classname to insert the middleware before.
      * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string amiddleware The middleware to insert.
      */
-    auto insertAfter(string className, IHttpMiddleware|/*Closure|*/ string amiddleware) {
+    auto insertAfter(string classname, IHttpMiddleware|/*Closure|*/ string amiddleware) {
         auto found = false;
         auto anI = 0;
         foreach (anI: object; _queue) {
@@ -151,9 +151,9 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
             if (
                 (
                     isString(object)
-                    && object == className
+                    && object == classname
                )
-                || isA(object,  className)
+                || isA(object,  classname)
            ) {
                 found = true;
                 break;

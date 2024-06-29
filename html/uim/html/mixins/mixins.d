@@ -275,63 +275,63 @@ O "~name~"(this O)(string[] classes, STRINGAA attributes, DH5 content) { "~middl
  ";
 }
 
-template MyContent(string name, string className) {	
-	const char[] MyContent = h5Content(name, "this.addContent", className); }
-template MyContent(string name, string middle, string className) {	
-	const char[] MyContent = h5Content(name, middle, className); }
+template MyContent(string name, string classname) {	
+	const char[] MyContent = h5Content(name, "this.addContent", classname); }
+template MyContent(string name, string middle, string classname) {	
+	const char[] MyContent = h5Content(name, middle, classname); }
 
-template MyH5Obj(string className, string name) {		
+template MyH5Obj(string classname, string name) {		
 	const char[] MyH5Obj = "
-"~className~" _"~name~";
-"~className~" "~name~"() { return _"~name~"; }
+"~classname~" _"~name~";
+"~classname~" "~name~"() { return _"~name~"; }
 
-O "~name~"(this O)("~className~" obj) { _"~name~" = obj; return cast(O)this; }
+O "~name~"(this O)("~classname~" obj) { _"~name~" = obj; return cast(O)this; }
 
-O "~name~"(this O)(DH5Obj[] content...) { _"~name~" = new "~className~"(content); return cast(O)this; }
-O "~name~"(this O)(DH5Obj[] content) { _"~name~" = new "~className~"(content); return cast(O)this; }
-O "~name~"(this O)(DH5 content) { _"~name~" = new "~className~"(content); return cast(O)this; }
+O "~name~"(this O)(DH5Obj[] content...) { _"~name~" = new "~classname~"(content); return cast(O)this; }
+O "~name~"(this O)(DH5Obj[] content) { _"~name~" = new "~classname~"(content); return cast(O)this; }
+O "~name~"(this O)(DH5 content) { _"~name~" = new "~classname~"(content); return cast(O)this; }
 
-O "~name~"(this O)(string id) { _"~name~" = new "~className~"(id); return cast(O)this; }
-O "~name~"(this O)(string id, string content) { _"~name~" = new "~className~"(id, content); return cast(O)this; }
-O "~name~"(this O)(string id, DH5Obj[] content...) { _"~name~" = new "~className~"(id, content); return cast(O)this; }
-O "~name~"(this O)(string id, DH5Obj[] content) { _"~name~" = new "~className~"(id, content); return cast(O)this; }
-O "~name~"(this O)(string id, DH5 content) { _"~name~" = new "~className~"(id, content); return cast(O)this; }
+O "~name~"(this O)(string id) { _"~name~" = new "~classname~"(id); return cast(O)this; }
+O "~name~"(this O)(string id, string content) { _"~name~" = new "~classname~"(id, content); return cast(O)this; }
+O "~name~"(this O)(string id, DH5Obj[] content...) { _"~name~" = new "~classname~"(id, content); return cast(O)this; }
+O "~name~"(this O)(string id, DH5Obj[] content) { _"~name~" = new "~classname~"(id, content); return cast(O)this; }
+O "~name~"(this O)(string id, DH5 content) { _"~name~" = new "~classname~"(id, content); return cast(O)this; }
 
-O "~name~"(this O)(string id, string[] classes) { _"~name~" = new "~className~"(id, classes); return cast(O)this; }
-O "~name~"(this O)(string id, string[] classes, string content) { _"~name~" = new "~className~"(id, classes, content); return cast(O)this; }
-O "~name~"(this O)(string id, string[] classes, DH5Obj[] content...) { _"~name~" = new "~className~"(id, classes, content); return cast(O)this; }
-O "~name~"(this O)(string id, string[] classes, DH5Obj[] content) { _"~name~" = new "~className~"(id, classes, content); return cast(O)this; }
-O "~name~"(this O)(string id, string[] classes, DH5 content) { _"~name~" = new "~className~"(id, classes, content); return cast(O)this; }
+O "~name~"(this O)(string id, string[] classes) { _"~name~" = new "~classname~"(id, classes); return cast(O)this; }
+O "~name~"(this O)(string id, string[] classes, string content) { _"~name~" = new "~classname~"(id, classes, content); return cast(O)this; }
+O "~name~"(this O)(string id, string[] classes, DH5Obj[] content...) { _"~name~" = new "~classname~"(id, classes, content); return cast(O)this; }
+O "~name~"(this O)(string id, string[] classes, DH5Obj[] content) { _"~name~" = new "~classname~"(id, classes, content); return cast(O)this; }
+O "~name~"(this O)(string id, string[] classes, DH5 content) { _"~name~" = new "~classname~"(id, classes, content); return cast(O)this; }
 
-O "~name~"(this O)(string id, STRINGAA attributes) { _"~name~" = new "~className~"(id, attributes); return cast(O)this; }
-O "~name~"(this O)(string id, STRINGAA attributes, string content) { _"~name~" = new "~className~"(id, attributes, content); return cast(O)this; }
-O "~name~"(this O)(string id, STRINGAA attributes, DH5Obj[] content...) { _"~name~" = new "~className~"(id, attributes, content); return cast(O)this; }
-O "~name~"(this O)(string id, STRINGAA attributes, DH5Obj[] content) { _"~name~" = new "~className~"(id, attributes, content); return cast(O)this; }
-O "~name~"(this O)(string id, STRINGAA attributes, DH5 content) { _"~name~" = new "~className~"(id, attributes, content); return cast(O)this; }
+O "~name~"(this O)(string id, STRINGAA attributes) { _"~name~" = new "~classname~"(id, attributes); return cast(O)this; }
+O "~name~"(this O)(string id, STRINGAA attributes, string content) { _"~name~" = new "~classname~"(id, attributes, content); return cast(O)this; }
+O "~name~"(this O)(string id, STRINGAA attributes, DH5Obj[] content...) { _"~name~" = new "~classname~"(id, attributes, content); return cast(O)this; }
+O "~name~"(this O)(string id, STRINGAA attributes, DH5Obj[] content) { _"~name~" = new "~classname~"(id, attributes, content); return cast(O)this; }
+O "~name~"(this O)(string id, STRINGAA attributes, DH5 content) { _"~name~" = new "~classname~"(id, attributes, content); return cast(O)this; }
 
-O "~name~"(this O)(string id, string[] classes, STRINGAA attributes) { _"~name~" = new "~className~"(id, classes, attributes); return cast(O)this; }
-O "~name~"(this O)(string id, string[] classes, STRINGAA attributes, string content) { _"~name~" = new "~className~"(id, classes, attributes, content); return cast(O)this; }
-O "~name~"(this O)(string id, string[] classes, STRINGAA attributes, DH5Obj[] content...) { _"~name~" = new "~className~"(id, classes, attributes, content); return cast(O)this; }
-O "~name~"(this O)(string id, string[] classes, STRINGAA attributes, DH5Obj[] content) { _"~name~" = new "~className~"(id, classes, attributes, content); return cast(O)this; }
-O "~name~"(this O)(string id, string[] classes, STRINGAA attributes, DH5 content) { _"~name~" = new "~className~"(id, classes, attributes, content); return cast(O)this; }
+O "~name~"(this O)(string id, string[] classes, STRINGAA attributes) { _"~name~" = new "~classname~"(id, classes, attributes); return cast(O)this; }
+O "~name~"(this O)(string id, string[] classes, STRINGAA attributes, string content) { _"~name~" = new "~classname~"(id, classes, attributes, content); return cast(O)this; }
+O "~name~"(this O)(string id, string[] classes, STRINGAA attributes, DH5Obj[] content...) { _"~name~" = new "~classname~"(id, classes, attributes, content); return cast(O)this; }
+O "~name~"(this O)(string id, string[] classes, STRINGAA attributes, DH5Obj[] content) { _"~name~" = new "~classname~"(id, classes, attributes, content); return cast(O)this; }
+O "~name~"(this O)(string id, string[] classes, STRINGAA attributes, DH5 content) { _"~name~" = new "~classname~"(id, classes, attributes, content); return cast(O)this; }
 
-O "~name~"(this O)(string[] classes) { _"~name~" = new "~className~"(classes); return cast(O)this; }
-O "~name~"(this O)(string[] classes, string content) { _"~name~" = new "~className~"(classes, content); return cast(O)this; }
-O "~name~"(this O)(string[] classes, DH5Obj[] content...) { _"~name~" = new "~className~"(classes, content); return cast(O)this; }
-O "~name~"(this O)(string[] classes, DH5Obj[] content) { _"~name~" = new "~className~"(classes, content); return cast(O)this; }
-O "~name~"(this O)(string[] classes, DH5 content) { _"~name~" = new "~className~"(classes, content); return cast(O)this; }
+O "~name~"(this O)(string[] classes) { _"~name~" = new "~classname~"(classes); return cast(O)this; }
+O "~name~"(this O)(string[] classes, string content) { _"~name~" = new "~classname~"(classes, content); return cast(O)this; }
+O "~name~"(this O)(string[] classes, DH5Obj[] content...) { _"~name~" = new "~classname~"(classes, content); return cast(O)this; }
+O "~name~"(this O)(string[] classes, DH5Obj[] content) { _"~name~" = new "~classname~"(classes, content); return cast(O)this; }
+O "~name~"(this O)(string[] classes, DH5 content) { _"~name~" = new "~classname~"(classes, content); return cast(O)this; }
 
-O "~name~"(this O)(STRINGAA attributes) { _"~name~" = new "~className~"(attributes); return cast(O)this; }
-O "~name~"(this O)(STRINGAA attributes, string content) { _"~name~" = new "~className~"(attributes, content); return cast(O)this; }
-O "~name~"(this O)(STRINGAA attributes, DH5Obj[] content...) { _"~name~" = new "~className~"(attributes, content); return cast(O)this; }
-O "~name~"(this O)(STRINGAA attributes, DH5Obj[] content) { _"~name~" = new "~className~"(attributes, content); return cast(O)this; }
-O "~name~"(this O)(STRINGAA attributes, DH5 content) { _"~name~" = new "~className~"(attributes, content); return cast(O)this; }
+O "~name~"(this O)(STRINGAA attributes) { _"~name~" = new "~classname~"(attributes); return cast(O)this; }
+O "~name~"(this O)(STRINGAA attributes, string content) { _"~name~" = new "~classname~"(attributes, content); return cast(O)this; }
+O "~name~"(this O)(STRINGAA attributes, DH5Obj[] content...) { _"~name~" = new "~classname~"(attributes, content); return cast(O)this; }
+O "~name~"(this O)(STRINGAA attributes, DH5Obj[] content) { _"~name~" = new "~classname~"(attributes, content); return cast(O)this; }
+O "~name~"(this O)(STRINGAA attributes, DH5 content) { _"~name~" = new "~classname~"(attributes, content); return cast(O)this; }
 
-O "~name~"(this O)(string[] classes, STRINGAA attributes) { _"~name~" = new "~className~"(classes, attributes); return cast(O)this; }
-O "~name~"(this O)(string[] classes, STRINGAA attributes, string content) { _"~name~" = new "~className~"(classes, attributes, content); return cast(O)this; }
-O "~name~"(this O)(string[] classes, STRINGAA attributes, DH5Obj[] content...) { _"~name~" = new "~className~"(classes, attributes, content); return cast(O)this; }
-O "~name~"(this O)(string[] classes, STRINGAA attributes, DH5Obj[] content) { _"~name~" = new "~className~"(classes, attributes, content); return cast(O)this; }
-O "~name~"(this O)(string[] classes, STRINGAA attributes, DH5 content) { _"~name~" = new "~className~"(classes, attributes, content); return cast(O)this; }
+O "~name~"(this O)(string[] classes, STRINGAA attributes) { _"~name~" = new "~classname~"(classes, attributes); return cast(O)this; }
+O "~name~"(this O)(string[] classes, STRINGAA attributes, string content) { _"~name~" = new "~classname~"(classes, attributes, content); return cast(O)this; }
+O "~name~"(this O)(string[] classes, STRINGAA attributes, DH5Obj[] content...) { _"~name~" = new "~classname~"(classes, attributes, content); return cast(O)this; }
+O "~name~"(this O)(string[] classes, STRINGAA attributes, DH5Obj[] content) { _"~name~" = new "~classname~"(classes, attributes, content); return cast(O)this; }
+O "~name~"(this O)(string[] classes, STRINGAA attributes, DH5 content) { _"~name~" = new "~classname~"(classes, attributes, content); return cast(O)this; }
 ";
 }
 

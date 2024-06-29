@@ -184,9 +184,9 @@ class DSession {
         options(configuration.get("ini"));
 
         if (!configData.isEmpty("handler")) {
-            auto className = configuration.get("handler.engine");
+            auto classname = configuration.get("handler.engine");
             configuration.remove("handler.engine");
-            engine(className, configuration.get("handler"));
+            engine(classname, configuration.get("handler"));
         }
         _lifetime = (int) ini_get("session.gc_maxlifetime");
         _isCLI = (UIM_SAPI == "cli" || UIM_SAPI == "Ddbg");
@@ -205,28 +205,28 @@ class DSession {
      * If no arguments are passed it will return the currently configured handler instance
      * or null if none exists.
      * Params:
-     * \!SessionHandler|string  className The session handler to use
+     * \!SessionHandler|string  classname The session handler to use
      * @param Json[string] options the options to pass to the SessionHandler constructor
      */
     SessionHandler engine(
-        !SessionHandler | string | null className = null,
+        !SessionHandler | string | null classname = null,
         Json[string] options = null
    ) {
-        if (className.isNull) {
+        if (classname.isNull) {
             return _engine;
         }
-        if (cast(!SessionHandler) className) {
-            return _setEngine(className);
+        if (cast(!SessionHandler) classname) {
+            return _setEngine(classname);
         }
-        /** @var class-string<\!SessionHandler>|null  className */
-        className = App.className(className, "Http/Session");
-        if (className.isNull) {
+        /** @var class-string<\!SessionHandler>|null  classname */
+        classname = App.classname(classname, "Http/Session");
+        if (classname.isNull) {
             throw new DInvalidArgumentException(
                 "The class `%s` does not exist and cannot be used as a session engine"
-                    .format(className)
+                    .format(classname)
            );
         }
-        return _setEngine(new className(options));
+        return _setEngine(new classname(options));
     }
 
     /**

@@ -64,7 +64,7 @@ class DH5SidebarDropdown : DH5Component {
   <p>Some random text..</p>
 </div>`)
 .js(`* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-/*var dropdown = document.getElementsByclassName("dropdown-btn");
+/*var dropdown = document.getElementsByclassname("dropdown-btn");
 var i;
 
 for (i = 0; i < dropdown.length; i++) {

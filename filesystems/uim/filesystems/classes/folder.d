@@ -105,7 +105,7 @@ class DFolder : DFilesystemEntry, IFolder, IFolderManager, IFileManager, ILinkMa
   mixin TLinkManager!();
 
   override string toString() {
-    return this.className~": "~name;
+    return this.classname~": "~name;
   }
 }
 // mixin(FolderCalls!("Folder"));

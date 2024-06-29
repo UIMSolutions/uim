@@ -149,16 +149,16 @@ class DFilesystemEntry : IFilesystemEntry {
 	// #endregion isLink
 
 	override string toString() {
-		return this.className ~ ": " ~ name;
+		return this.classname ~ ": " ~ name;
 	}
 
 	string debugInfo() {
 		return `-----
-ClassName:    %s
+classname:    %s
 Name: 		    %s
 relPath: %s
 absolutePath: %s
------`.format(this.className, name, "relPath", "absolutePath");
+-----`.format(this.classname, name, "relPath", "absolutePath");
 	}
 }
 

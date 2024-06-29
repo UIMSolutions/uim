@@ -17,7 +17,7 @@ import uim.caches;
  *
  * ```
  * Cache.config("shared", [
- *  'className": UIM\Cache\Engine\ApcuEngine.classname,
+ *  'classname": UIM\Cache\Engine\ApcuEngine.classname,
  *  'prefix": '_app_'
  * ]);
  * ```
@@ -51,13 +51,13 @@ class DCache : UIMObject, ICache {
 
         // An array mapping URL schemes to fully qualified caching engine class names.
         _dsnClassMap = [
-            /* "array": ArrayCacheEngine.className,
-            "apcu": ApcuCacheEngine.className,
-            "file": FileCacheEngine.className, */
-            "memcached": MemoryCacheEngine.className,
-            "memory": MemoryCacheEngine.className,
-            "null": NullCacheEngine.className,
-            /* "redis": RedisCacheEngine.className, */
+            /* "array": ArrayCacheEngine.classname,
+            "apcu": ApcuCacheEngine.classname,
+            "file": FileCacheEngine.classname, */
+            "memcached": MemoryCacheEngine.classname,
+            "memory": MemoryCacheEngine.classname,
+            "null": NullCacheEngine.classname,
+            /* "redis": RedisCacheEngine.classname, */
         ];
 
         return true;
@@ -109,7 +109,7 @@ class DCache : UIMObject, ICache {
         auto myRegistry = getRegistry();
 
         // TODO 
-        /*         if (configuration.isEmpty(configName~".className")) {
+        /*         if (configuration.isEmpty(configName~".classname")) {
             throw new DInvalidArgumentException(
                 "The `%s` cache configuration does not exist."
                 .format(configName)
@@ -149,8 +149,8 @@ class DCache : UIMObject, ICache {
             }
             myRegistry.set(configName, myfallbackEngine);
         } */
-        /*         if (cast(DCacheEngine)configuration.get("className")) {
-            configData = configuration.get("className").configuration.data;
+        /*         if (cast(DCacheEngine)configuration.get("classname")) {
+            configData = configuration.get("classname").configuration.data;
         } */
         /*         if (!configuration.isEmpty("groups")) {
             (cast(DArrayData)configuration.get("groups")).values.each!((groupName) {

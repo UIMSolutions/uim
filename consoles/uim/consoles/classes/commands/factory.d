@@ -31,9 +31,9 @@ class DCommandFactory { // }: ICommandFactory {
   }
 
   /* 
-  ICommand create(string className) {
-    return _container && _container.has(aClassName)
-      ? _container.get(aClassName).clone : null;
+  ICommand create(string classname) {
+    return _container && _container.has(aclassname)
+      ? _container.get(aclassname).clone : null;
   } 
   */
 }

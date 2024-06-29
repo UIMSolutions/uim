@@ -107,7 +107,7 @@ class DController : IController { // DEventListener, IEventDispatcher {
      * - `allowedParameters` - A list of parameters users are allowed to set using request
      * parameters. Modifying this list will allow users to have more influence
      * over pagination, be careful with what you permit.
-     * - `className` - The paginator class to use. Defaults to `UIM\Datasource\Paging\NumericPaginator.classname`.
+     * - `classname` - The paginator class to use. Defaults to `UIM\Datasource\Paging\NumericPaginator.classname`.
      */
     protected Json[string] paginate;
 
@@ -217,11 +217,11 @@ class DController : IController { // DEventListener, IEventDispatcher {
     Table __get(string propertyName) {
         if (!_defaultTable.isEmpty) {
             if (_defaultTable.contains("\\")) {
-                 className = App.shortName(_defaultTable, "Model/Table", "Table");
+                 classname = App.shortName(_defaultTable, "Model/Table", "Table");
             } else {
-                [,  className] = pluginSplit(_defaultTable, true);
+                [,  classname] = pluginSplit(_defaultTable, true);
             }
-            if (className == propertyName) {
+            if (classname == propertyName) {
                 return _fetchTable();
             }
         }
@@ -488,15 +488,15 @@ class DController : IController { // DEventListener, IEventDispatcher {
         }
         // Controller or component has already made a view class decision.
         // That decision should overwrite the framework behavior.
-        if (!viewBuilder().getClassName().isNull) {
+        if (!viewBuilder().getclassname().isNull) {
             return null;
         }
 
         auto typeMap = null;
-        foreach (className; possibleViewClasses) {
-             viewContentType = className.contentType();
+        foreach (classname; possibleViewClasses) {
+             viewContentType = classname.contentType();
             if (viewContentType && !typeMap.hasKey(viewContentType)) {
-                typeMap[viewContentType] = className;
+                typeMap[viewContentType] = classname;
             }
         }
          request = getRequest();
@@ -578,14 +578,14 @@ return url[0] != "/"
         }
         settingsForPagination += this.paginate;
 
-        auto paginatorClassname = App.className(
-            settingsForPagination.getString("className", NumericPaginator.classname),
+        auto paginatorclassname = App.classname(
+            settingsForPagination.getString("classname", NumericPaginator.classname),
             "Datasource/Paging",
             "Paginator"
        );
 
-        auto paginator = new paginatorClassname();
-        settingsForPagination.remove("className");
+        auto paginator = new paginatorclassname();
+        settingsForPagination.remove("classname");
 
         try {
             results = paginator.paginate(

@@ -24,7 +24,7 @@ string classFullname(Object instance) {
     return instance.classinfo.name;
 }
 
-string className(Object instance) {
+string classname(Object instance) {
     if (instance is null) {
         return "null";
     }
@@ -44,7 +44,7 @@ unittest {
     }
 
     auto test = new Test;
-    assert(test.className == "Test");
+    assert(test.classname == "Test");
     assert(test.stringof == "test");
 
     class Test1 : Test {
@@ -54,21 +54,21 @@ unittest {
     class Test2 : Test1 {
     }
 
-    assert((new Test1).className == "Test1");
-    assert((new Test2).className == "Test2");
+    assert((new Test1).classname == "Test1");
+    assert((new Test2).classname == "Test2");
 
     writeln((new Test2).classinfo);
     writeln("Base:", (new Test2).classinfo.base);
     writeln("Name:", (new Test2).classinfo.name);
-    writeln("ClassName:", (new Test2).className);
-    writeln("fullClassname:", (new Test2).classFullname);
+    writeln("classname:", (new Test2).classname);
+    writeln("fullclassname:", (new Test2).classFullname);
     writeln("Interfaces:", (new Test).classinfo.interfaces);
 
     Object result;
     Test2 function(string) fn;
     string name = "uim.core.helpers.classes.tt";
     () @trusted { result = Object.factory(name); }();
-    debug writeln(result.className);
+    debug writeln(result.classname);
     /* debug writeln(x("uim.core.helpers.classes.tt"));*/
     debug writeln((new Test2).classinfo.create);
     auto cl = (new Test2).classinfo;

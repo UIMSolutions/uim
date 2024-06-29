@@ -77,14 +77,14 @@ static void configuration.update(string[] aKey, /* IConnection | Closure */ Json
      * dsn = "mysql://user:pass@localhost/database";
      * myConfiguration = ConnectionManager.parseDsn(dsn);
      *
-     * dsn = "uim\databases.Driver\Mysql://localhost:3306/database?className=uim\databases.Connection";
+     * dsn = "uim\databases.Driver\Mysql://localhost:3306/database?classname=uim\databases.Connection";
      * myConfiguration = ConnectionManager.parseDsn(dsn);
      *
      * dsn = "uim\databases.Connection://localhost:3306/database?driver=uim\databases.Driver\Mysql";
      * myConfiguration = ConnectionManager.parseDsn(dsn);
      * ```
      *
-     * For all classes, the value of `scheme` is set as the value of both the `className` and `driver`
+     * For all classes, the value of `scheme` is set as the value of both the `classname` and `driver`
      * unless they have been otherwise specified.
      *
      * Note that query-string arguments are also parsed and set as values in the returned configuration.
@@ -97,8 +97,8 @@ static Json[string] parseDsn(string dsnToConvert) {
     }
 
     if (data.isEmpty("driver")) {
-        data["driver"] = data.getString("className");
-        data["className"] = Connection.className;
+        data["driver"] = data.getString("classname");
+        data["classname"] = Connection.classname;
     }
     data.remove("path");
 
@@ -178,14 +178,14 @@ static IConnection get(string connectionName, bool useAliases = true) {
      * dsn = "mysql://user:pass@localhost/database";
      * configData = ConnectionManager.parseDsn(dsn);
      *
-     * dsn = "UIM\Database\Driver\Mysql://localhost:3306/database?className=UIM\Database\Connection";
+     * dsn = "UIM\Database\Driver\Mysql://localhost:3306/database?classname=UIM\Database\Connection";
      * configData = ConnectionManager.parseDsn(dsn);
      *
      * dsn = "UIM\Database\Connection://localhost:3306/database?driver=UIM\Database\Driver\Mysql";
      * configData = ConnectionManager.parseDsn(dsn);
      * ```
      *
-     * For all classes, the value of `scheme` is set as the value of both the `className` and `driver`
+     * For all classes, the value of `scheme` is set as the value of both the `classname` and `driver`
      * unless they have been otherwise specified.
      *
      * Note that query-string arguments are also parsed and set as values in the returned configuration.
@@ -199,8 +199,8 @@ static Json[string] parseDsn(string adsn) {
         configuration.get("database", subString(configuration.get("path"), 1));
     }
     if (configuration.get("driver").isEmpty) {
-        configuration.get("driver", configuration.get("className"));
-        configuration.get("className", Connection.classname);
+        configuration.get("driver", configuration.get("classname"));
+        configuration.get("classname", Connection.classname);
     }
     configuration.remove("path");
     return configData;

@@ -78,36 +78,36 @@ class DCommandScanner {
         // This ensures `Command` class is not added to the list.
         commandsToHide ~= "";
 
-        string classNamePattern = "/Command\\.d$/";
+        string classnamePattern = "/Command\\.d$/";
         auto fs = new DFilesystem();
         /** @var array<\SplFileInfo> files */
-        auto files = fs.find(somePath, classNamePattern);
+        auto files = fs.find(somePath, classnamePattern);
 
         Json[string] commands = null;
         /* foreach (fileInfo; files) {
             auto file = fileInfo.getFilename();
 
-            auto name = Inflector.underscore(to!string(preg_replace(classNamePattern, "", file)));
+            auto name = Inflector.underscore(to!string(preg_replace(classnamePattern, "", file)));
             if (commandsToHide.has(name)) {
                 continue;
             }
             
-            className = namespace ~ fileInfo.getBasename(".d");
-            if (!isSubclass_of(className, ICommand.classname)) {
+            classname = namespace ~ fileInfo.getBasename(".d");
+            if (!isSubclass_of(classname, ICommand.classname)) {
                 continue;
             }
-            reflection = new DReflectionClass(className);
+            reflection = new DReflectionClass(classname);
             if (reflection.isAbstract()) {
                 continue;
             }
-            if (isSubclass_of(className, BaseCommand.classname)) {
-                name = className.defaultName();
+            if (isSubclass_of(classname, BaseCommand.classname)) {
+                name = classname.defaultName();
             }
             commands[somePath ~ file] = [
                 "file": somePath ~ file,
                 "fullName": commandPrefix ~ name,
                 "name": name,
-                "class": className,
+                "class": classname,
             ];
         } */
         // ksort(commands);

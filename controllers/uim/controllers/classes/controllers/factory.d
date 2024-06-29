@@ -44,18 +44,18 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      */
     IController create(IServerRequest serverRequest) {
         assert(cast(DServerRequest) request);
-        auto className = getControllerClass(request);
-        if (className.isNull) {
+        auto classname = getControllerClass(request);
+        if (classname.isNull) {
             throw missingController(request);
         }
-        auto myreflection = new DReflectionClass(className);
+        auto myreflection = new DReflectionClass(classname);
         if (reflection.isAbstract()) {
             throw this.missingController(request);
         }
         // Get the controller from the container if defined.
         // The request is in the container by default.
-        return this.container.has(className)
-            ? this.container.get(className) 
+        return this.container.has(classname)
+            ? this.container.get(classname) 
             : reflection.newInstance(request);
     }
     
@@ -232,7 +232,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
             throw this.missingController(request);
         }
         /** @var class-string<\UIM\Controller\Controller>|null */
-        return App.className(pluginPath ~ controller, namespace, "Controller");
+        return App.classname(pluginPath ~ controller, namespace, "Controller");
     }
     
     /**

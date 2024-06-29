@@ -158,7 +158,7 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
      * will not be resolved with the application container. Instead you will
      * need to pass the command as an object with all of its dependencies.
      */
-    ulong executeCommand(string commandClassname, Json[string] commandArguments = null, DConsoleIo aConsoleIo = null) {
+    ulong executeCommand(string commandclassname, Json[string] commandArguments = null, DConsoleIo aConsoleIo = null) {
         /* assert(
             isSubclass_of(command, ICommand.classname),
             "Command `%s` is not a subclass of `%s`.".format(command, ICommand.classname)

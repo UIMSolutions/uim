@@ -350,7 +350,7 @@ class DConsoleIo {
      * through uim`s Log class, call this auto with `enable=false`.
      *
      * If you would like to take full control of how console application logging
-     * to stdout works add a logger that uses `'className": 'Console'`. By
+     * to stdout works add a logger that uses `'classname": 'Console'`. By
      * providing a console logger you replace the framework default behavior.
      * Params:
      * int|bool enable Use a boolean to enable/toggle all logging. Use

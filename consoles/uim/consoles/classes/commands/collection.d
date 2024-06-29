@@ -116,10 +116,10 @@ class DCommandCollection { // : IteratorAggregate, Countable {
                 infoName = anInfo["fullName"];
             }
 
-             className = anInfo["class"];
-             result[infoName] = className;
+             classname = anInfo["class"];
+             result[infoName] = classname;
             if (addLong) {
-                 result[anInfo["fullName"]] = className;
+                 result[anInfo["fullName"]] = classname;
             }
         }
 

@@ -62,7 +62,7 @@ class DFileLogger : DLogger {
         "mask": Json(null),
         "dirMask": 0770.toJson,
         "formatter": [
-            "className": StandardLogFormatter.classname,
+            "classname": StandardLogFormatter.classname,
         ].toJson,
     ]);
 

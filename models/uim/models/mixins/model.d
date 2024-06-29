@@ -24,7 +24,7 @@ string modelThis(string name) {
     `;
     
       /* return `
-    this() { super("`~name~`"); this.className("`~name~`"); }
+    this() { super("`~name~`"); this.classname("`~name~`"); }
     this(Json[string] configSettings = nullData) { super("`~name~`", configData); }
     this(IModelManager aManager, Json[string] configData = null) { this(configData).application(aManager); }
 
@@ -51,15 +51,15 @@ string modelCalls(string name) {
     auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
   `;  
   /* return `
-    auto `~shortName~`() { return new `~className~`; }
-    auto `~shortName~`(IModelManager aManager) { return new `~className~`(aManager); }
-    auto `~shortName~`(string aName) { return new `~className~`(aName); }
-    auto `~shortName~`(STRINGAA someParameters) { return new `~className~`(someParameters); }
+    auto `~shortName~`() { return new `~classname~`; }
+    auto `~shortName~`(IModelManager aManager) { return new `~classname~`(aManager); }
+    auto `~shortName~`(string aName) { return new `~classname~`(aName); }
+    auto `~shortName~`(STRINGAA someParameters) { return new `~classname~`(someParameters); }
 
-    auto `~shortName~`(string aName, STRINGAA someParameters) { return new `~className~`(aName, someParameters); }
+    auto `~shortName~`(string aName, STRINGAA someParameters) { return new `~classname~`(aName, someParameters); }
 
-    auto `~shortName~`(IModelManager aManager, string aName) { return new `~className~`(aManager, aName); }
-    auto `~shortName~`(IModelManager aManager, STRINGAA someParameters) { return new `~className~`(aManager, someParameters); }
+    auto `~shortName~`(IModelManager aManager, string aName) { return new `~classname~`(aManager, aName); }
+    auto `~shortName~`(IModelManager aManager, STRINGAA someParameters) { return new `~classname~`(aManager, someParameters); }
   `; */
 }
 

@@ -43,7 +43,7 @@ class DModel : UIMObject, IModel {
     return true;
   }
 
-  mixin(TProperty!("string", "className"));
+  mixin(TProperty!("string", "classname"));
   mixin(TProperty!("string", "registerPath"));
   mixin(TProperty!("IModelManager", "manager"));
   mixin(TProperty!("STRINGAA", "parameters"));

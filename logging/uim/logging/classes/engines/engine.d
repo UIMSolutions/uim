@@ -31,5 +31,5 @@ class DLogEngine : ILogEngine {
 
   mixin(TProperty!("ILogFormatter", "formatter"));
   mixin(TProperty!("string", "name"));
-  mixin(TProperty!("string", "className"));
+  mixin(TProperty!("string", "classname"));
 }

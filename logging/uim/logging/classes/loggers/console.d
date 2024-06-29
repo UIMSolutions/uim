@@ -12,7 +12,7 @@ class DConsoleLogger : DLogger {
         "scopes": Json.emptyArray,
         "outputAs": Json(null),
         "formatter": [
-            "className": StandardLogFormatter.classname,
+            "classname": StandardLogFormatter.classname,
             "includeTags": true.toJson,
         ],
     ];

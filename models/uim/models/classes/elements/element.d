@@ -32,17 +32,17 @@ class DElement : UIMObject, IElement {
 
   mixin(TProperty!("bool", "isStatic"));
 
-  mixin(TProperty!("string", "className"));
+  mixin(TProperty!("string", "classname"));
   /// 
   unittest {
     auto element = new DElement;
-    element.className = "newClassName";
-    assert(element.className == "newClassName");
-    assert(element.className != "noClassName");
+    element.classname = "newclassname";
+    assert(element.classname == "newclassname");
+    assert(element.classname != "noclassname");
 
-    element.className("otherClassName");
-    assert(element.className == "otherClassName");
-    assert(element.className != "noClassName");
+    element.classname("otherclassname");
+    assert(element.classname == "otherclassname");
+    assert(element.classname != "noclassname");
   }
 
   mixin(TProperty!("string", "registerPath"));
@@ -118,8 +118,8 @@ class DElement : UIMObject, IElement {
   // Returns data in string format (HTML compatible)
   string opIndex(string key) {
     switch (key) {
-    case "className": 
-      return className;
+    case "classname": 
+      return classname;
     case "requestPrefix": 
       return requestPrefix;
     case "registerPath": 
@@ -188,8 +188,8 @@ class DElement : UIMObject, IElement {
   // Set data 
   void opIndexAssign(string newValue, string key) {
     switch (key) {
-    case "className": 
-      this.className(newValue);
+    case "classname": 
+      this.classname(newValue);
       break;
     case "name": 
       this.name(newValue);
@@ -340,8 +340,8 @@ class DElement : UIMObject, IElement {
       auto k = keyvalue.key;
       auto v = keyvalue.value;
       switch (k) {
-      case "className": 
-        this.className(v.get!string);
+      case "classname": 
+        this.classname(v.get!string);
         break;
       case "name": 
         this.name(v.get!string);

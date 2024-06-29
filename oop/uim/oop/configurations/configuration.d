@@ -150,9 +150,25 @@ abstract class DConfiguration : IConfiguration {
     }
 
     string[] getStringArray(string key) {
-        Json json = get(key);
-        return !json.isNull && json.isArray
-            ? json.toStringArray : [getString(key)];
+        Json[] array = getArray(key);
+        return array.map!(item => item.getString).array;
+    }
+
+    Json[] getArray(string key) {
+        return get(key).getArray;
+    }
+
+    Json[string] getMap(string key) {
+        return get(key).getMapp;
+    }
+    
+    string[string] getStringMap(string key) {
+        Json[string] map = getMap(key);
+        string[string] result;
+        if (!map.isNull) {
+            map.byKeyValue.each!(kv => result[kv.key] = kv.value.get!string);
+        }
+        return result; 
     }
 
     Json getJson(string key) {

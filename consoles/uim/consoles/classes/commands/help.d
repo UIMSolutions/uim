@@ -31,18 +31,18 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     // Output text.
     protected void asText(DConsoleIo aConsoleIo, STRINGAA commandCollection) {
         string[][string] myInvert = null;
-        foreach (name, className; commands) {
-            /* if (isObject(className)) {
-                 className = className.class;
+        foreach (name, classname; commands) {
+            /* if (isObject(classname)) {
+                 classname = classname.class;
             }*/
-            myInvert.require(className, null);
-            myInvert[className] ~= name;
+            myInvert.require(classname, null);
+            myInvert[classname] ~= name;
         }
 
         auto anGrouped = null;
         auto plugins = Plugin.loaded();
-        myInvert.byKeyValue.each!((className) {
-            // preg_match("/^(.+)\\\\Command\\\\/",  className, matches);
+        myInvert.byKeyValue.each!((classname) {
+            // preg_match("/^(.+)\\\\Command\\\\/",  classname, matches);
             // Probably not a useful class
             /*             if (matches.isEmpty) { continue; }
             
@@ -62,8 +62,8 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
             }
             anGrouped[prefix] ~= [
                 "name": shortestName,
-                "description": isSubclass_of(className, BaseCommand.class) 
-                    ?  className.getDescription()
+                "description": isSubclass_of(classname, BaseCommand.class) 
+                    ?  classname.getDescription()
                     : ""
             ];
  */
@@ -135,7 +135,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     protected void asXml(DConsoleIo aConsoleIo, STRINGAA commandNames) {
         auto shells = new DSimpleXMLElement("<shells></shells>");
         commandNames.byKeyValue
-            .each(nameClassname => shells.addCommandToShells(nameClassname.key, nameClassname.value));
+            .each(nameclassname => shells.addCommandToShells(nameclassname.key, nameclassname.value));
 
         /*         aConsoleIo.setOutputAs(ConsoleOutput.RAW);
         aConsoleIo.out(castto!string(xmlShells.saveXML())); */
@@ -146,11 +146,11 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         addCommandToShells(shells, commandName, command.classname);
     } */
 
-    void addCommandToShells(DSimpleXMLElement shells, string commandName, string commandClassname) {
+    void addCommandToShells(DSimpleXMLElement shells, string commandName, string commandclassname) {
         auto shell = shells.addChild("shell");
         shell.addAttribute("name", commandName);
         shell.addAttribute("call_as", commandName);
-        shell.addAttribute("provider", commandClassname);
+        shell.addAttribute("provider", commandclassname);
         shell.addAttribute("help", commandName ~ " -h");
     }
 

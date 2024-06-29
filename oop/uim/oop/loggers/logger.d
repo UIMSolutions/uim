@@ -15,7 +15,7 @@ class DLogger : UIMObject, ILogger {
         configuration.updateDefaults([
             "levels": Json.emptyArray,
             "scopes": Json.emptyArray,
-            "formatter": StandardLogFormatter.classname
+            "formatter": StandardLogFormatter.classname.toJson
         ]);
 
         if (configuration.hasKey("scopes")) {
@@ -30,13 +30,13 @@ class DLogger : UIMObject, ILogger {
         auto formatter = configuration.getString("formatter", StandardLogFormatter.classname);
         if (!isObject(formatter)) {
             if (isArray(formatter)) {
-                className = formatter["className"];
+                classname = formatter["classname"];
                 options = formatter;
             } else {
-                className = formatter;
+                classname = formatter;
                 auto options = null;
             }
-            formatter = new className(options);
+            formatter = new classname(options);
         }
         _formatter = formatter; 
 

@@ -7,5 +7,5 @@ import uim.consoles;
 // An interface for abstracting creation of command and shell instances.
 interface IConsoleCommandFactory {
     // The factory method for creating Command  instances.
-    IConsoleCommand create(string commandClassName);
+    IConsoleCommand create(string commandclassname);
 }

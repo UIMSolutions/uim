@@ -243,7 +243,7 @@ class DCommandRunner { // }: IEventDispatcher {
     }
 
     // The wrapper for creating command instances.
-    protected ICommand createCommand(string className) {
+    protected ICommand createCommand(string classname) {
         if (!this.factory) {
             container = null;
             if (cast(IContainerApplication) this.app) {
@@ -251,7 +251,7 @@ class DCommandRunner { // }: IEventDispatcher {
             }
             this.factory = new DCommandFactory(container);
         }
-        return _factory.create(className);
+        return _factory.create(classname);
     }
 
     /**

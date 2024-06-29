@@ -1,4 +1,4 @@
-module uim.oop.interfaces.configuration;
+module uim.oop.configurations.interfaces;
 
 import uim.oop;
 
@@ -59,6 +59,9 @@ interface IConfiguration : INamed {
         double getDouble(string key);
         string getString(string key);
         string[] getStringArray(string key);
+        Json[] getArray(string key);
+        Json[string] getMap(string key);
+        string[string] getStringMap(string key);
     // #endregion get
 
     // #region set

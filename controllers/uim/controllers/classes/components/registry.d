@@ -41,9 +41,9 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
      *
      * Part of the template method for {@link \UIM\Core\ObjectRegistry.load()}.
      */
-    protected string _resolveClassName(string className) {
+    protected string _resolveclassname(string classname) {
         /** @var class-string<\UIM\Controller\Component>|null */
-        return App.className(className, "Controller/Component", "Component");
+        return App.classname(classname, "Controller/Component", "Component");
     }
     
     /**
@@ -52,9 +52,9 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
      * Part of the template method for {@link \UIM\Core\ObjectRegistry.load()}
      * and {@link \UIM\Core\ObjectRegistry.unload()}
      */
-    protected void _throwMissingClassError(string className, string pluginName) {
+    protected void _throwMissingClassError(string classname, string pluginName) {
         throw new DMissingComponentException([
-            "class": className ~ "Component",
+            "class": classname ~ "Component",
             "plugin": pluginName,
         ]);
     }
@@ -65,15 +65,15 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
      * Part of the template method for {@link \UIM\Core\ObjectRegistry.load()}
      * Enabled components will be registered with the event manager.
      * Params:
-     * \UIM\Controller\Component|class-string<\UIM\Controller\Component>  className The classname to create.
+     * \UIM\Controller\Component|class-string<\UIM\Controller\Component>  classname The classname to create.
      * configData - An array of config to use for the component.
      */
-    /* protected IComponent _create(string className, string componentAlias, Json[string] configData = null) {
-        if (isObject(className)) {
-            return className;
+    /* protected IComponent _create(string classname, string componentAlias, Json[string] configData = null) {
+        if (isObject(classname)) {
+            return classname;
         }
         
-        auto anInstance = new  className(this, configData);
+        auto anInstance = new  classname(this, configData);
         if (configData.getBoolean("enabled", true) {
             getEventManager().on(anInstance);
         }

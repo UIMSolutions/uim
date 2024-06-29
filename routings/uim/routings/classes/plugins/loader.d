@@ -27,7 +27,7 @@ class DPluginLoader {
     protected string _path = null;
 
     // The class path for this plugin.
-    protected string classNamePath = null;
+    protected string classnamePath = null;
 
     // The config path for this plugin.
     protected string configDataPath = null;

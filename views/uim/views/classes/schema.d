@@ -10,7 +10,7 @@ class DSchema {
 
     this() {
         initialize;
-        this.name(this.className);
+        this.name(this.classname);
     }
 
     this(Json[string] initData) {

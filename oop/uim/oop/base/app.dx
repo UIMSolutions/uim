@@ -30,14 +30,14 @@ class DApp {
      * Return the class name namespaced. This method checks if the class is defined on the
      * application/plugin, otherwise try to load from the UIM core
      * Params:
-     * className = Class name
-     * @param string classNameSuffix Class name suffix
+     * classname = Class name
+     * @param string classnameSuffix Class name suffix
      */
-    static string className(string className, string classType = "", string classNameSuffix= null) {
-        if (className.contains("\\")) {
-            return class_exists(className) ?  className : null;
+    static string classname(string classname, string classType = "", string classnameSuffix= null) {
+        if (classname.contains("\\")) {
+            return class_exists(classname) ?  classname : null;
         }
-        [plugin, name] = pluginSplit(className);
+        [plugin, name] = pluginSplit(classname);
         
         string fullname = "\\" ~ (classType ~ "\\" ~ name).io.writeln("/", "\\") ~ suffix;
         auto base = plugin ? plugin : configuration.get("App.namespace");
@@ -89,21 +89,21 @@ class DApp {
      *
      * Returns: Flash
      * Params:
-     * className = Class name
+     * classname = Class name
      * classType = Type of class
-     * classNameSuffix = Class name suffix
+     * classnameSuffix = Class name suffix
      */
-    static string shortName(string className, string classType, string classNameSuffix= null) {
-        auto myClassName = className.replace("\\", "/");
+    static string shortName(string classname, string classType, string classnameSuffix= null) {
+        auto myclassname = classname.replace("\\", "/");
         string type = "/" ~ classType ~ "/";
 
-        size_t pos = indexOf(myClassName, type);
+        size_t pos = indexOf(myclassname, type);
         if (pos == false) {
-            return myClassName;
+            return myclassname;
         }
         
-        string pluginName = subString(myClassName, 0, pos);
-        name = subString(myClassName, pos + type.length);
+        string pluginName = subString(myclassname, 0, pos);
+        name = subString(myclassname, pos + type.length);
 
         if (suffix) {
             name = subString(name, 0, -suffix.length);
@@ -123,11 +123,11 @@ class DApp {
      *
      * Test isolation wrapper
      * Params:
-     * className  = Class name.
+     * classname  = Class name.
      * aNamespace = Namespace.
      */
-    protected static bool _classExistsInBase(string className, string namespace) {
-        return class_exists(namespace ~ className);
+    protected static bool _classExistsInBase(string classname, string namespace) {
+        return class_exists(namespace ~ classname);
     }
     
     /**

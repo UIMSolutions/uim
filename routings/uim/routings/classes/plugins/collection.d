@@ -205,23 +205,23 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
         Data += ["name": pluginName];
         
         string namespace = pluginName.replace("/", "\\");
-        string className = namespace ~ "\\" ~ "Plugin";
+        string classname = namespace ~ "\\" ~ "Plugin";
         // Check for [Vendor/]Foo/Plugin class
-        if (!class_exists(className)) {
+        if (!class_exists(classname)) {
             pos = indexOf(pluginName, "/");
-            className = pos == false 
+            classname = pos == false 
                 ? namespace ~ "\\" ~ pluginName ~ "Plugin"
                 : namespace ~ "\\" ~ subString(pluginName, pos + 1) ~ "Plugin";
 
             // Check for [Vendor/]Foo/FooPlugin
-            if (!class_exists(className)) {
-                string className = BasePlugin.classname;
+            if (!class_exists(classname)) {
+                string classname = BasePlugin.classname;
                 if (Data("path").isEmpty) {
                     Data("path", _findPath(pluginName));
                 }
             }
         }
-        return new className(Data);
+        return new classname(Data);
     }
     */
 

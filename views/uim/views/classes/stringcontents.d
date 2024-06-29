@@ -282,13 +282,13 @@ class DStringContents {
     }
     
     //  Adds a class and returns a unique list either in array or space separated
-    string[] addClassnameToList(string[] classnames, string newClassname) {
-        string[] newClassnames = !newClassname.isEmpty ? newClassname.split(" ") : null;
-        return addClassnameToList(classnames, newClassnames); 
+    string[] addclassnameToList(string[] classnames, string newclassname) {
+        string[] newclassnames = !newclassname.isEmpty ? newclassname.split(" ") : null;
+        return addclassnameToList(classnames, newclassnames); 
     } 
 
-    string[] addClassnameToList(string[] classnames, string[] newClassnames) {
-        return newClassnames.isEmpty
-? classnames : uniq(chain(classnames, newClassnames)).array; 
+    string[] addclassnameToList(string[] classnames, string[] newclassnames) {
+        return newclassnames.isEmpty
+? classnames : uniq(chain(classnames, newclassnames)).array; 
     
 }

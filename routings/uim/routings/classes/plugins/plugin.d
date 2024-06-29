@@ -46,7 +46,7 @@ class DPlugin : IPlugin {
     protected string _path = null;
 
     // The class path for this plugin.
-    protected string _classNamePath = null;
+    protected string _classnamePath = null;
 
     // The config path for this plugin.
     protected string _configPath = null;
@@ -64,7 +64,7 @@ class DPlugin : IPlugin {
             return _name;
         }
         
-        string[] pathParts = _classNamePath.split("\\");
+        string[] pathParts = _classnamePath.split("\\");
         // TODO array_pop(someParts);
         _name = pathParts.join("/");
 

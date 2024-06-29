@@ -39,7 +39,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       "version": VersionElementAttribute
     ]); */
 
-    className("Entity");
+    classname("Entity");
     id(randomUUID);
     etag(toTimestamp(now));
     name(id.toString);
@@ -284,7 +284,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     if (auto myValue = values[name]) {
       myValue.value(aValue);
     }
-    else { writeln("Unknown value in "~className); }
+    else { writeln("Unknown value in "~classname); }
 
     
   } */
@@ -294,7 +294,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       return myValue.toString;
     }
 
-    writeln("Unknown value in "~className); 
+    writeln("Unknown value in "~classname); 
     return null;
   } */
 
@@ -304,7 +304,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
         myUUIDData.value(aValue);
       }
     } else {
-      writeln("Unknown value in " ~ className);
+      writeln("Unknown value in " ~ classname);
     }
   }
   /*  void addAttributes(DAttribute[] newAttributes) {

@@ -40,10 +40,10 @@ class DRouteBuilder {
     protected Json[string] _resourceMap;
 
     // Default route class to use if none is provided in connect() options.
-    // TODO protected string _routeClass = (new DRoute).className;
+    // TODO protected string _routeClass = (new DRoute).classname;
     // Set default route class.
-    void setRouteClass(string newClassname) {
-       _routeClass = newClassname;
+    void setRouteClass(string newclassname) {
+       _routeClass = newclassname;
     }
 
     // Get default route class
@@ -589,7 +589,7 @@ class DRouteBuilder {
     protected DRoute _makeRoute(Route|string myroute, Json[string] mydefaults, Json[string] options) {
         if (isString(myroute)) {
             /** @var class-string<\UIM\Routing\Route\Route>|null myrouteClass */
-            myrouteClass = App.className(options["routeClass"], "Routing/Route");
+            myrouteClass = App.classname(options["routeClass"], "Routing/Route");
             if (myrouteClass.isNull) {
                 throw new DInvalidArgumentException(
                     "Cannot find route class %s".format(options["routeClass"])

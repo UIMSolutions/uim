@@ -538,7 +538,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 return _entityClass = mydefault;
             }
             /** @var class-string<\UIM\Datasource\IORMEntity>|null myclass */
-            myclass = App.className(myname, "Model/Entity");
+            myclass = App.classname(myname, "Model/Entity");
             if (!myclass) {
                 throw new DMissingEntityException([myname]);
             }
@@ -550,7 +550,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     // Sets the class used to hydrate rows for this table.
     void setEntityClass(string nameOfClass) {
         /** @var class-string<\UIM\Datasource\IORMEntity>|null myclass */
-        auto myclass = App.className(nameOfClass, "Model/Entity");
+        auto myclass = App.classname(nameOfClass, "Model/Entity");
         if (myclass.isNull) {
             throw new DMissingEntityException([myname]);
         }
@@ -739,7 +739,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * ```
      * this.Posts.addAssociations([
      * "belongsTo": [
-     *   "Users": ["className": "App\Model\Table\UsersTable"]
+     *   "Users": ["classname": "App\Model\Table\UsersTable"]
      * ],
      * "hasMany": ["Comments"],
      * "belongsToMany": ["Tags"]
@@ -776,7 +776,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      *
      * The options array accept the following keys:
      *
-     * - className: The class name of the target table object
+     * - classname: The class name of the target table object
      * - targetTable: An instance of a table object to be used as the target table
      * - foreignKey: The name of the field to use as foreign key, if false none
      * will be used
@@ -810,7 +810,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      *
      * The options array accept the following keys:
      *
-     * - className: The class name of the target table object
+     * - classname: The class name of the target table object
      * - targetTable: An instance of a table object to be used as the target table
      * - foreignKey: The name of the field to use as foreign key, if false none
      * will be used
@@ -851,7 +851,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      *
      * The options array accept the following keys:
      *
-     * - className: The class name of the target table object
+     * - classname: The class name of the target table object
      * - targetTable: An instance of a table object to be used as the target table
      * - foreignKey: The name of the field to use as foreign key, if false none
      * will be used
@@ -899,7 +899,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      *
      * The options array accept the following keys:
      *
-     * - className: The class name of the target table object.
+     * - classname: The class name of the target table object.
      * - targetTable: An instance of a table object to be used as the target table.
      * - foreignKey: The name of the field to use as foreign key.
      * - targetForeignKey: The name of the field to use as the target foreign key.

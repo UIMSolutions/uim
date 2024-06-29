@@ -104,7 +104,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
             if (!tableLocator.exists(name)) {
                 fieldTable = tableLocator.get(name, [
-                    "className": table,
+                    "classname": table,
                     "alias": name,
                     "table": this.translationTable.getTable(),
                     "allowFallbackClass": true.toJson,
@@ -136,7 +136,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         }
 
         _table.hasMany(targetAlias, [
-            "className": table,
+            "classname": table,
             "foreignKey": "foreign_key",
             "strategy": strategy,
             "conditions": conditions,

@@ -84,17 +84,17 @@ class DAssociation : IAssociation {
     protected string _strategy = STRATEGY_JOIN;
 
     // The class name of the target table object
-    protected string _className;
+    protected string _classname;
    /**
      * Sets the class name of the target table object.
      *
-     * @param string anClassName Class name to set.
+     * @param string anclassname Class name to set.
      */
-    void setClassName(string nameToSet) {
+    void setclassname(string nameToSet) {
         if (
             _targetTable != null &&
             get_class(_targetTable) != App
-            .className(nameToSet, "Model/Table", "Table")
+            .classname(nameToSet, "Model/Table", "Table")
            ) {
             throw new DInvalidArgumentException(format(
                     "The class name '%s' doesn\"t match the target table class name of '%s'.",
@@ -102,12 +102,12 @@ class DAssociation : IAssociation {
            ));
         }
 
-        _className = nameToSet;
+        _classname = nameToSet;
     }
 
     // Gets the class name of the target table object.
-    string getClassName() {
-        return _className;
+    string getclassname() {
+        return _classname;
     }
 
     /**
@@ -156,8 +156,8 @@ class DAssociation : IAssociation {
     // Gets the table instance for the target side of the association.
     DORMTable getTarget() {
         if (_targetTable == null) {
-            if (indexOf(_className, ".")) {
-                [plugin] = pluginSplit(_className, true);
+            if (indexOf(_classname, ".")) {
+                [plugin] = pluginSplit(_classname, true);
                 registryAlias = /* (string) */ plugin._name;
             } else {
                 registryAlias = _name;
@@ -168,15 +168,15 @@ class DAssociation : IAssociation {
             myConfiguration = null;
             exists = tableLocator.exists(registryAlias);
             if (!exists) {
-                myConfiguration = ["className": _className];
+                myConfiguration = ["classname": _classname];
             }
             _targetTable = tableLocator.get(registryAlias, myConfiguration);
 
             if (exists) {
-                className = App.className(_className, "Model/Table", "Table") ?  : Table:
+                classname = App.classname(_classname, "Model/Table", "Table") ?  : Table:
                  : class;
 
-                if (!cast(className)_targetTable ) {
+                if (!cast(classname)_targetTable ) {
                     errorMessage = "%s association '%s' of type '%s' to '%s' doesn\"t match the expected class '%s'~ ";
                     errorMessage ~= "You can\"t have an association of the same name with a different target ";
                     errorMessage ~= ""c lassName" option anywhere in your app.";
@@ -187,7 +187,7 @@ class DAssociation : IAssociation {
                             getName(),
                             this.type(),
                             get_class(_targetTable),
-                            className
+                            classname
                    ));
                 }
             }
@@ -234,7 +234,7 @@ class DAssociation : IAssociation {
     this(string anAliasName, Json[string] optionData = null) {
         defaults = [
             "cascadeCallbacks",
-            "className",
+            "classname",
             "conditions",
             "dependent",
             "finder",
@@ -252,8 +252,8 @@ class DAssociation : IAssociation {
             }
         }
 
-        if (_className.isEmpty) {
-            _className = anAliasName;
+        if (_classname.isEmpty) {
+            _classname = anAliasName;
         }
 
         [, name] = pluginSplit(anAliasName);

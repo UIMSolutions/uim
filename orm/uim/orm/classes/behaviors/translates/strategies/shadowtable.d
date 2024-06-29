@@ -86,7 +86,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         auto configData = configuration.data;
         targetAlias = this.translationTable.aliasName();
         this.table.hasMany(targetAlias, [
-                "className": configuration.get("translationTable"),
+                "classname": configuration.get("translationTable"),
                 "foreignKey": Json("id"),
                 "strategy": configuration.get("strategy"),
                 "propertyName": Json("_i18n"),
@@ -154,7 +154,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             getTableLocator().get(
                 hasOneTargetAlias,
                 [
-                    "className": configuration.get("translationTable"),
+                    "classname": configuration.get("translationTable"),
                     "allowFallbackClass": true.toJson,
                 ]
            );
@@ -168,7 +168,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                 "foreignKey": ["id"],
                 "joinType": joinType,
                 "propertyName": "translation",
-                "className": configuration.getString("translationTable"),
+                "classname": configuration.getString("translationTable"),
                 "conditions": [
                     configuration.getString("hasOneAlias") ~ ".locale": locale,
 

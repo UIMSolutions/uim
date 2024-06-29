@@ -117,10 +117,10 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
             configuration,
             ["implementedFinders", "implementedMethods", "strategyClass"]
        );
-        /** @var class-string<\ORM\Behavior\Translate\ITranslateStrategy> myclassName */
-        myclassName = configuration.getString("strategyClass", mydefaultStrategyClass);
+        /** @var class-string<\ORM\Behavior\Translate\ITranslateStrategy> myclassname */
+        myclassname = configuration.getString("strategyClass", mydefaultStrategyClass);
 
-        return new myclassName(_table, configData);
+        return new myclassname(_table, configData);
     }
 
     /**

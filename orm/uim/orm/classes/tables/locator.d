@@ -23,10 +23,10 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     protected DTable[] _fallbacked = null;
 
     // Fallback class to use
-    protected string _fallbackClassName = (new DTable).className;
+    protected string _fallbackclassname = (new DTable).classname;
     // Set fallback class name.
-    void setFallbackClassName(string fallbackClassname) {
-        _fallbackClassName = fallbackClassname;
+    void setFallbackclassname(string fallbackclassname) {
+        _fallbackclassname = fallbackclassname;
     }
 
     /**
@@ -88,15 +88,15 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * and cyclic references need to be handled correctly.
      *
      * The options that can be passed are the same as in {@link \ORM\Table.__construct()}, but the
-     * `className` key is also recognized.
+     * `classname` key is also recognized.
      *
      * ### Options
      *
-     * - `className` Define the specific class name to use. If undefined, UIM will generate the
+     * - `classname` Define the specific class name to use. If undefined, UIM will generate the
      * class name based on the alias. For example "Users" would result in
      * `App\Model\Table\UsersTable` being used. If this class does not exist,
-     * then the default `UIM\ORM\Table` class will be used. By setting the `className`
-     * option you can define the specific class to use. The className option supports
+     * then the default `UIM\ORM\Table` class will be used. By setting the `classname`
+     * option you can define the specific class to use. The classname option supports
      * plugin short class references {@link \UIM\Core\App.shortName()}.
      * - `table` Define the table name to use. If undefined, this option will default to the underscored
      * version of the alias name.
@@ -119,26 +119,26 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
             [, myclassAlias] = pluginSplit(aliasName);
             options = ["alias": myclassAlias] + options;
         } else if (!options.hasKey("alias"])) {
-            options["className"] = aliasName;
+            options["classname"] = aliasName;
         }
         if (isSet(configuration.data(aliasName])) {
             auto updatedOptions = options.updateconfiguration.data(aliasName];
         }
         myallowFallbackClass = options.get("allowFallbackClass", this.allowFallbackClass);
-        myclassName = _getClassName(aliasName, options);
-        if (myclassName) {
-            options["className"] = myclassName;
+        myclassname = _getclassname(aliasName, options);
+        if (myclassname) {
+            options["classname"] = myclassname;
         } else if (myallowFallbackClass) {
-            if (isoptions.isEmpty("className")) {
-                options["className"] = aliasName;
+            if (isoptions.isEmpty("classname")) {
+                options["classname"] = aliasName;
             }
-            if (!options.hasKey("table") && !options.getString("className").contains("\\")) {
-                [, mytable] = pluginSplit(options["className"]);
+            if (!options.hasKey("table") && !options.getString("classname").contains("\\")) {
+                [, mytable] = pluginSplit(options["classname"]);
                 options["table"] = Inflector.underscore(mytable);
             }
-            options["className"] = this.fallbackClassName;
+            options["classname"] = this.fallbackclassname;
         } else {
-            mymessage = "`" ~ options.getString("className", aliasName) ~ "`";
+            mymessage = "`" ~ options.getString("classname", aliasName) ~ "`";
             if (!mymessage.contains("\\")) {
                 mymessage = "for alias " ~ mymessage;
             }
@@ -148,9 +148,9 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
             if (!options.isEmpty("connectionName")) {
                 myconnectionName = options["connectionName"];
             } else {
-                /** @var \ORM\Table myclassName */
-                myclassName = options["className"];
-                myconnectionName = myclassName.defaultConnectionName();
+                /** @var \ORM\Table myclassname */
+                myclassname = options["classname"];
+                myconnectionName = myclassname.defaultConnectionName();
             }
             options["connection"] = ConnectionManager.get(myconnectionName);
         }
@@ -164,7 +164,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         options.set("registryAlias", aliasName);
         myinstance = _create(options);
 
-        if (options["className"] == this.fallbackClassName) {
+        if (options["classname"] == this.fallbackclassname) {
            _fallbacked[aliasName] = myinstance;
         }
         return myinstance;
@@ -176,15 +176,15 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * string aliasName The alias name you want to get. Should be in CamelCase format.
      * @param Json[string] options Table options array.
      */
-    protected string _getClassName(string aliasName, Json[string] optionData = null) {
-        if (options.isEmpty("className")) {
-            options["className"] = aliasName;
+    protected string _getclassname(string aliasName, Json[string] optionData = null) {
+        if (options.isEmpty("classname")) {
+            options["classname"] = aliasName;
         }
-        if (options["className"].contains("\\") && class_exists(options["className"])) {
-            return options["className"];
+        if (options["classname"].contains("\\") && class_exists(options["classname"])) {
+            return options["classname"];
         }
         foreach (location; this.locations) {
-            myclass = App.className(options["className"], location, "Table");
+            myclass = App.classname(options["classname"], location, "Table");
             if (!myclass.isNull) {
                 return myclass;
             }
@@ -194,7 +194,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     
     // Wrapper for creating table instances
     protected ITable _create(Json[string] options) {
-        auto myclass = options["className"];
+        auto myclass = options["classname"];
         return new myclass(options);
     }
     

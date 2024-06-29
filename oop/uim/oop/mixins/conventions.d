@@ -8,8 +8,8 @@ import uim.oop;
 mixin template TConventions() {
     /*
     // Creates a fixture name
-    protected string _fixtureName(string modelClassname) {
-        return Inflector.camelize(modelClassname);
+    protected string _fixtureName(string modelclassname) {
+        return Inflector.camelize(modelclassname);
     }
     
     //  Creates the proper entity name (singular) for the specified name
@@ -22,8 +22,8 @@ mixin template TConventions() {
      *
      * If the input contains a dot, assume that the right side is the real table name.
      */
-    protected string _modelKey(string modelClassname) {
-        // TODO [, name] = pluginSplit(modelClassname);    
+    protected string _modelKey(string modelclassname) {
+        // TODO [, name] = pluginSplit(modelclassname);    
         // return Inflector.underscore(Inflector.singularize(name)) ~ "_id";
         return null; 
     }

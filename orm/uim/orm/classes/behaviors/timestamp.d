@@ -162,7 +162,7 @@ class DTimestampBehavior : DBehavior {
             .format(DateTimeType.classname)
        );
 
-        myclass = mytype.getDateTimeClassName();
+        myclass = mytype.getDateTimeclassname();
 
         entity.set(fieldName, new myclass(myts));
     }

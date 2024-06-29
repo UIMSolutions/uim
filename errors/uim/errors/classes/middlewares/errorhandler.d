@@ -57,7 +57,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
         "skipLog": Json.emptyArray,
         "log": true.toJson,
         "trace": false.toJson,
-        "exceptionRenderer": ExceptionRenderer.className,
+        "exceptionRenderer": ExceptionRenderer.classname,
     ]);
 
         return true;
@@ -146,9 +146,9 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
     // Get a error handler instance
     protected ErrorHandler getErrorHandler() {
         if (this.errorHandler.isNull) {
-            /** @var class-string<uim.errorss.ErrorHandler> myClassName */
-            myClassName = App.className("ErrorHandler", "Error");
-            this.errorHandler = new myClassName(this.configuration.data);
+            /** @var class-string<uim.errorss.ErrorHandler> myclassname */
+            myclassname = App.classname("ErrorHandler", "Error");
+            this.errorHandler = new myclassname(this.configuration.data);
         }
 
         return _errorHandler;

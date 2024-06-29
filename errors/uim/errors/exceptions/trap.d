@@ -99,18 +99,18 @@ class DExceptionTrap {
     IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {
         auto myRequest = serverRequest.isNull ? Router.getRequest() : serverRequest;
 
-        string className = _configData.hasKey("exceptionRenderer") ? _configuration.get("exceptionRenderer"] : chooseRenderer();
-        if (isString(className)) {
-            if (!isSubclass_of(className, IExceptionRenderer.className)) {
+        string classname = _configData.hasKey("exceptionRenderer") ? _configuration.get("exceptionRenderer"] : chooseRenderer();
+        if (isString(classname)) {
+            if (!isSubclass_of(classname, IExceptionRenderer.classname)) {
                 throw new DInvalidArgumentException(
-                    "Cannot use `{ className}` as an `exceptionRenderer`. " ~
+                    "Cannot use `{ classname}` as an `exceptionRenderer`. " ~
                     "It must be an instance of `UIM\Error\IExceptionRenderer`."
                );
             }
-            /** @var class-string<\UIM\Error\IExceptionRenderer>  className */
-            return new className(exceptionToRender, myRequest, _configData);
+            /** @var class-string<\UIM\Error\IExceptionRenderer>  classname */
+            return new classname(exceptionToRender, myRequest, _configData);
         }
-        return className(exceptionToRender, myRequest);
+        return classname(exceptionToRender, myRequest);
     }
     
     // Choose an exception renderer based on config or the SAPI
@@ -120,9 +120,9 @@ class DExceptionTrap {
     
     // Get an instance of the logger.
     IErrorLogger logger() {
-         className = _configData.hasKey("logger", _defaultConfigData["logger"]);
+         classname = _configData.hasKey("logger", _defaultConfigData["logger"]);
 
-        return new className(_config);
+        return new classname(_config);
     }
     
     /**
@@ -262,8 +262,8 @@ class DExceptionTrap {
     void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
         shouldLog = configuration.get("log");
         if (shouldLog) {
-            foreach (_configData.hasKey("skipLog") as  className) {
-                if (cast(className)exceptionToLog) {
+            foreach (_configData.hasKey("skipLog") as  classname) {
+                if (cast(classname)exceptionToLog) {
                     shouldLog = false;
                     break;
                 }

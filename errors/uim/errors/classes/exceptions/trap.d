@@ -112,9 +112,9 @@ class DExceptionTrap {
     IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {
         serverRequest = serverRequest ? serverRequest : Router.getRequest();
 
-        /** @var class-string|callable aClassName */
-        aClassName = configuration.get("exceptionRenderer");
-        deprecateDFileConfigEngine = (aClassName == ExceptionRenderer.class && D_SAPI == "cli");
+        /** @var class-string|callable aclassname */
+        aclassname = configuration.get("exceptionRenderer");
+        deprecateDFileConfigEngine = (aclassname == ExceptionRenderer.class && D_SAPI == "cli");
         if (deprecateDFileConfigEngine) {
             deprecationWarning(
                 "Your application is using a deprecated `Error.exceptionRenderer`~ " ~
@@ -122,28 +122,28 @@ class DExceptionTrap {
                 "one of the default exception renderers, or define a class that is not `uim\errors.ExceptionRenderer`."
            );
         }
-        if (!aClassName || deprecateDFileConfigEngine) {
+        if (!aclassname || deprecateDFileConfigEngine) {
             // Default to detecting the exception renderer if we"re
             // in a CLI context and the Web renderer is currently selected.
             // This indicates old configuration or user error, in both scenarios
             // it is preferrable to use the Console renderer instead.
-            aClassName = this.chooseRenderer();
+            aclassname = this.chooseRenderer();
         }
 
-        if (aClassName.isString) {
+        if (aclassname.isString) {
             /** @psalm-suppress ArgumentTypeCoercion */
-            if (!(method_exists(aClassName, "render") && method_exists(aClassName, "write"))) {
+            if (!(method_exists(aclassname, "render") && method_exists(aclassname, "write"))) {
                 throw new DInvalidArgumentException(
-                    "Cannot use {aClassName} as an `exceptionRenderer`~ " ~
+                    "Cannot use {aclassname} as an `exceptionRenderer`~ " ~
                     "It must implement render() and write() methods."
                );
             }
 
-            /** @var class-string<uim.errors.IExceptionRenderer> aClassName */
-            return new aClassName(exception, serverRequest, _config);
+            /** @var class-string<uim.errors.IExceptionRenderer> aclassname */
+            return new aclassname(exception, serverRequest, _config);
         }
 
-        return aClassName(exception, serverRequest);
+        return aclassname(exception, serverRequest);
     }
 
     // Choose an exception renderer based on config or the SAPI
@@ -154,10 +154,10 @@ class DExceptionTrap {
 
     // Get an instance of the logger.
     IErrorLogger logger() {
-        /** @var class-string<uim.errors.IErrorLogger> aClassName */
-        auto aClassName = configuration.get("logger", _defaultConfig["logger"]);
+        /** @var class-string<uim.errors.IErrorLogger> aclassname */
+        auto aclassname = configuration.get("logger", _defaultConfig["logger"]);
 
-        return new aClassName(_config);
+        return new aclassname(_config);
     }
 
     /**
@@ -295,8 +295,8 @@ class DExceptionTrap {
     void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
         auto shouldLog = _config["log"];
         if (shouldLog) {
-            foreach (configuration.get("skipLog") as aClassName) {
-                if (cast(aClassName)exceptionToLog ) {
+            foreach (configuration.get("skipLog") as aclassname) {
+                if (cast(aclassname)exceptionToLog ) {
                     shouldLog = false;
                 }
             }

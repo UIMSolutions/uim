@@ -6,8 +6,8 @@ import uim.errors;
 
 // Dump node for objects/class instances.
 class DClassNode : IErrorNode {
-    this(string className, int anId) {
-        _className = className;
+    this(string classname, int anId) {
+        _classname = classname;
         _id = anId;
     }
 
@@ -26,10 +26,10 @@ class DClassNode : IErrorNode {
         return this.properties;
     }
 
-    private string _className;
+    private string _classname;
     // Get the class name
     string getValue() {
-        return _className;
+        return _classname;
     }
 
     private int _id;

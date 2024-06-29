@@ -6,7 +6,7 @@ import uim.events;
 
 class DEvent : IEvent {
     this() {
-        this.name(this.className);
+        this.name(this.classname);
     }
 
     this(string name) {

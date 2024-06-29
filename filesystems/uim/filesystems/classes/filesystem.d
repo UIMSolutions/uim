@@ -41,7 +41,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
 
   mixin(TProperty!("IFilesystem", "filesystem"));
 
-  mixin(TProperty!("string", "className"));
+  mixin(TProperty!("string", "classname"));
   mixin(TProperty!("string", "rootPath"));
   mixin(TProperty!("string", "invalidCharacters"));
   mixin(TProperty!("string", "pathSeparator"));

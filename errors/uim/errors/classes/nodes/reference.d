@@ -19,19 +19,19 @@ class DReferenceNode : IErrorNode {
   /**
     
     *
-    * aClassName - The class name
+    * aclassname - The class name
     * anId - The id of the referenced class.
     */
-  this(string aClassName, int anId) {
-      _className = aClassName;
+  this(string aclassname, int anId) {
+      _classname = aclassname;
       _id = anId;
   }
 
   // #region Fields
-    private string _className;
+    private string _classname;
     // Get the class name/value
     string value() {
-        return _className;
+        return _classname;
     }
 
     private int _id;

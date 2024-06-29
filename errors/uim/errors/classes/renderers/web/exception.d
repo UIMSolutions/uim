@@ -106,19 +106,19 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
 
             factory = new DControllerFactory(new DContainer());
             // Check including plugin + prefix
-             className = factory.getControllerClass(request.withAttribute("params", params));
+             classname = factory.getControllerClass(request.withAttribute("params", params));
 
-            if (!className && !params.isEmpty("prefix")) && !empty(params["plugin"])) {
+            if (!classname && !params.isEmpty("prefix")) && !empty(params["plugin"])) {
                 params.remove("prefix");
                 // Fallback to only plugin
-                 className = factory.getControllerClass(request.withAttribute("params", params));
+                 classname = factory.getControllerClass(request.withAttribute("params", params));
             }
-            if (!className) {
+            if (!classname) {
                 // Fallback to app/core provided controller.
-                className = App.className("Error", "Controller", "Controller");
+                classname = App.classname("Error", "Controller", "Controller");
             }
-            assert(isSubclass_of(className, Controller.classname));
-            controller = new className(request);
+            assert(isSubclass_of(classname, Controller.classname));
+            controller = new classname(request);
             controller.startupProcess();
         } catch (Throwable  anException) {
         }

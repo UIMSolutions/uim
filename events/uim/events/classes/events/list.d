@@ -28,13 +28,10 @@ class DEventList { // }: ArrayAccess, Countable {
         return false;
     }
 
-    /**
-     * Offset to retrieve
-     * @param Json anOffset The offset to retrieve.
-     */
-    IEvent offsetGet(Json anOffset) {
-        /* return offsetExists(anOffset)
-            ? _events[anOffset] : null; */
+    // Offset to retrieve
+    IEvent offsetGet(Json offsetToRetrieve) {
+        /* return offsetExists(offsetToRetrieve)
+            ? _events[offsetToRetrieve] : null; */
             return null; 
     }
 

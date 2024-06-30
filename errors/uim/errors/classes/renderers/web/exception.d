@@ -260,16 +260,17 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Get template for rendering exception info.
      * Params:
      * \Throwable exception Exception instance.
-     * @param string methodName Method name.
      */
     protected string templateName(Throwable exception, string methodName, int errorCode) {
         if (cast(HttpException)exception || !configuration.hasKey("debug")) {
             return _template = errorCode < 500 ? "error400' : 'error500";
         }
-        if (cast(PDOException)exception) {
-            return _template = "pdo_error";
-        }
-        return _template = method;
+        
+        _template = cast(PDOException)exception
+            ? "pdo_error"
+            : methodName;
+            
+        return _template;
     }
     
     // Gets the appropriate http status code for exception.

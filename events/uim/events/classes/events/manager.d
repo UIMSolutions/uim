@@ -51,7 +51,7 @@ class DEventManager { // }: IEventManager {
         return _generalManager;
     }
 
-    void on( /* DEventListener |  */ string aeventKey, /* callable | */
+    void on( /* DEventListener |  */ string eventKey, /* callable | */
         Json[string] options = null, /* callable callable = null */
 
     
@@ -103,7 +103,7 @@ class DEventManager { // }: IEventManager {
 
     auto off(
         /* |callable */
-        string aeventKey, /* DEventListener|callable */
+        string eventKey, /* DEventListener|callable */
         // TODO callable aCallable = null
 
         
@@ -140,13 +140,8 @@ class DEventManager { // }: IEventManager {
         return this;
     }
 
-    /**
-     * Auxiliary auto to help detach all listeners provided by an object implementing DEventListener
-     * Params:
-     * \UIM\Event\DEventListener subscriber the subscriber to be detached
-     * @param string eventKey optional event key name to unsubscribe the listener from
-     */
-    protected void _detachSubscriber(DEventListener subscriber, string aeventKey = null) {
+    // Auxiliary auto to help detach all listeners provided by an object implementing DEventListener
+    protected void _detachSubscriber(DEventListener subscriber, string eventKey = null) {
         // TODO
         /*     events = subscriber.implementedEvents();
     if (!eventKey.isEmpty && events.isEmpty(eventKey)) {

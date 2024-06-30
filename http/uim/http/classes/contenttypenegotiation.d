@@ -97,15 +97,10 @@ class DContentTypeNegotiation {
     /**
      * Check if the request accepts a given language code.
      *
-     * Language codes in the request will be normalized to lower case and have `_` replaced
-     * with `-`.
-     * Params:
-     * \Psr\Http\Message\IRequest request The request to read headers from.
-     * @param string alang The language code to check.
+     * Language codes in the request will be normalized to lower case and have `_` replaced with `-`.
      */
-    bool acceptLanguage(IRequest request, string alang) {
-        accept = this.acceptedLanguages(request);
-
-        return isIn(lang.lower, accept, true);
+    bool acceptLanguage(IRequest request, string langCode) {
+        auto accept = acceptedLanguages(request);
+        return isIn(langCode.lower, accept, true);
     }
 }

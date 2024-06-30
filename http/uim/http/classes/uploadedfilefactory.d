@@ -16,20 +16,19 @@ class DUploadedFileFactory { //}: IUploadedFileFactory {
      *
      * @param \Psr\Http\Message\IStream stream The underlying stream representing the
      *   uploaded file content.
-     * @param int size The size of the file in bytes.
      * @param string clientFilename The filename as provided by the client, if any.
      * @param string clientMediaType The media type as provided by the client, if any.
      */
     IUploadedFile createUploadedFile(
         IStream stream,
-        int size = null,
+        size_t fileSize = null,
         int fileUploadError = UPLOAD_ERR_OK,
         string aclientFilename = null,
         string aclientMediaType = null
    ) {
-        if (size == 0) {
-            size = stream.getSize() ?? 0;
+        if (fileSize == 0) {
+            fileSize = stream.getSize() ?? 0;
         }
-        return new UploadedFile(stream, size, fileUploadError, clientFilename, clientMediaType);
+        return new UploadedFile(stream, fileSize, fileUploadError, clientFilename, clientMediaType);
     }
 }

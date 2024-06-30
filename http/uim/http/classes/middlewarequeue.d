@@ -143,10 +143,12 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * string classname The classname to insert the middleware before.
      * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|* / string amiddleware The middleware to insert.
      */
-    auto insertAfter(string classname, IHttpMiddleware|/*Closure|*/ string amiddleware) {
+    // auto insertAfter(string classname, IHttpMiddleware amiddleware) {
+    // auto insertAfter(string classname, DClosure amiddleware) {
+    auto insertAfter(string classname, string amiddleware) {
         auto found = false;
         auto anI = 0;
-        foreach (anI: object; _queue) {
+        foreach (anI, object; _queue) {
             /** @psalm-suppress ArgumentTypeCoercion */
             if (
                 (

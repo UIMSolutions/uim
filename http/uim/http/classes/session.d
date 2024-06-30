@@ -449,7 +449,8 @@ class DSession {
      * Json[string] old Set of old variables: values
      * @param Json[string] new DNew set of variable: value
      */
-    protected void _overwrite(Json[string] & old, arraynew) {
+     // TODO
+/*     protected void _overwrite(Json[string] & old, arraynew) {
        ) {
             foreach (old as aKey : var) {
                 if (new.isNull(aKey)) {
@@ -459,7 +460,7 @@ class DSession {
             new.byKeyValue
                 .each!(kv => old[kv.key] = kv.value);
         }
-
+ */
         // Helper method to destroy invalid sessions.
         void destroy() {
             if (_hasSession() && !this.started()) {

@@ -74,16 +74,11 @@ class DExceptionRenderer : IExceptionRenderer {
         MissingRouteException.class: 404,
     ];
 
-    /**
-     * Creates the controller to perform rendering on the error response.
-     *
-     * @param uim.uim.http.ServerRequest|null myRequest The request if this is set it will be used
-     *  instead of creating a new one.
-     */
-    this(DThrowable exception, ServerRequest myRequest = null) {
+    // Creates the controller to perform rendering on the error response.
+    this(DThrowable exception, ServerRequest serverRequest = null) {
         _error = exception;
-        _request = myRequest;
-        this.controller = _getController();
+        _request = serverRequest;
+        _controller = _getController();
     }
 
     /**
@@ -93,8 +88,8 @@ class DExceptionRenderer : IExceptionRenderer {
      * a bare controller will be used.
      */
     protected IController _getController() {
-        myRequest = _request;
-        routerRequest = Router.getRequest();
+        auto myRequest = _request;
+        auto routerRequest = Router.getRequest();
         // Fallback to the request in the router or make a new one from
         // _SERVER
         if (myRequest.isNull) {
@@ -337,7 +332,7 @@ class DExceptionRenderer : IExceptionRenderer {
         return [
             "error": _error,
             "request": _request,
-            "controller": this.controller,
+            "controller": _controller,
             "template": this.template,
             "method": this.method,
         ];

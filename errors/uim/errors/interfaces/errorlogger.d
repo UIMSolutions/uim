@@ -25,11 +25,10 @@ interface IErrorLogger {
     /**
      * Log an error to uim`s Log subsystem
      * Params:
-     * \UIM\Error\UimError error The error to log.
-     * @param \Psr\Http\Message\IServerRequest|null request The request if in an HTTP context.
+     * \UIM\Error\UIMError error The error to log.
      */
     void logError(
-        UimError error,
+        UIMError errorToLog,
         IServerRequest serverRequest = null,
         bool shouldLogIncludeTrace = false
    ); 

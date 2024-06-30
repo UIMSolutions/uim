@@ -50,7 +50,7 @@ class DBelongsToAssociation : DAssociation {
      * @param DORMDatasource\IORMEntity anEntity The entity that started the cascaded delete.
      * @param Json[string] options The options for the original delete.
      */
-    bool cascadeRemove(IORMEntity anEntity, Json[string] optionData = null) {
+    bool cascadeRemove(IORMEntity anEntity, Json[string] options = null) {
       return true;
     }
 
@@ -86,7 +86,7 @@ class DBelongsToAssociation : DAssociation {
      * @param DORMDatasource\IORMEntity anEntity an entity from the source table
      * @param Json[string] options options to be passed to the save method in the target table
      */
-    IORMEntity saveAssociated(IORMEntity anEntity, Json[string] optionData = null) {
+    IORMEntity saveAssociated(IORMEntity anEntity, Json[string] options = null) {
         auto targetEntity = entity.get(getProperty());
         if (targetEntity.isEmpty) || !(cast(IORMEntity)targetEntity)) {
             return entity;
@@ -113,7 +113,7 @@ class DBelongsToAssociation : DAssociation {
      *
      * @param Json[string] options list of options passed to attachTo method
      */
-    protected Expression[] _joinCondition(Json[string] optionData) {
+    protected Expression[] _joinCondition(Json[string] options) {
         auto conditions = null;
         auto tAlias = _name;
         auto sAlias = _sourceTable.aliasName();
@@ -143,7 +143,7 @@ class DBelongsToAssociation : DAssociation {
     }
 
 
-    Closure eagerLoader(Json[string] optionData) {
+    Closure eagerLoader(Json[string] options) {
         loader = new DSelectLoader([
             "alias": this.aliasName(),
             "sourceAlias": source().aliasName(),

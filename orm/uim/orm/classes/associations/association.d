@@ -231,7 +231,7 @@ class DAssociation : IAssociation {
      * anAliasName - The name given to the association
      * @param Json[string] options A list of properties to be set on this object
      */
-    this(string anAliasName, Json[string] optionData = null) {
+    this(string anAliasName, Json[string] options = null) {
         defaults = [
             "cascadeCallbacks",
             "classname",
@@ -350,7 +350,7 @@ class DAssociation : IAssociation {
      *
      * @param Json[string] options custom options key that could alter the return value
      */
-    bool canBeJoined(Json[string] optionData = null) {
+    bool canBeJoined(Json[string] options = null) {
         strategy = options.get() "strategy", getStrategy());
 
         return strategy == this.STRATEGY_JOIN;
@@ -445,7 +445,7 @@ class DAssociation : IAssociation {
      *
      * @param Json[string] options List of options used for initialization
      */
-    protected void _options(Json[string] optionData) {
+    protected void _options(Json[string] options) {
     }
 
     /**
@@ -472,7 +472,7 @@ class DAssociation : IAssociation {
      * @param DORMQuery query the query to be altered to include the target table data
      * @param Json[string] options Any extra options or overrides to be taken in account
      */
-    void attachTo(Query query, Json[string] optionData = null) {
+    void attachTo(Query query, Json[string] options = null) {
         target = getTarget();
         table = target.getTable();
 
@@ -550,9 +550,9 @@ class DAssociation : IAssociation {
      * @param DORMQuery query The query to modify
      * @param Json[string] options Options array containing the `negateMatch` key.
      */
-    protected void _appendNotMatching(DQuery query, Json[string] optionData) {
+    protected void _appendNotMatching(DQuery query, Json[string] options) {
         auto target = _targetTable;
-        if (!optionData.isEmpty("negateMatch")) {
+        if (!options.isEmpty("negateMatch")) {
             // TODO
             /* 
             primaryKeys = query.aliasFields((array) target.primaryKeys(), _name);
@@ -615,7 +615,7 @@ class DAssociation : IAssociation {
      *  it will be interpreted as the `options` parameter
      * @param Json[string] options The options to for the find
      */
-    IQuery find(type = null, Json[string] optionData = null) {
+    IQuery find(type = null, Json[string] options = null) {
         type = type ?  : getFinder();
         [type, opts] = _extractFinder(type);
 
@@ -675,7 +675,7 @@ class DAssociation : IAssociation {
      *
      * @param Json[string] options The options containing the strategy to be used.
      */
-    bool requiresKeys(Json[string] optionData = null) {
+    bool requiresKeys(Json[string] options = null) {
         strategy = options["strategy"] ?  ? getStrategy();
 
         return strategy == STRATEGY_SELECT;
@@ -699,7 +699,7 @@ class DAssociation : IAssociation {
      * @param DORMQuery surrogate the query having the fields to be copied from
      * @param Json[string] options options passed to the method `attachTo`
      */
-    protected void _appendFields(Query query, Query surrogate, Json[string] optionData) {
+    protected void _appendFields(Query query, Query surrogate, Json[string] options) {
         if (query.getEagerLoader().isAutoFieldsEnabled() == false) {
             return;
         }
@@ -729,7 +729,7 @@ class DAssociation : IAssociation {
      * target table.
      * @param Json[string] options options passed to the method `attachTo`
      */
-    protected void _formatAssociationResults(Query query, Query surrogate, Json[string] optionData) {
+    protected void _formatAssociationResults(Query query, Query surrogate, Json[string] options) {
         auto formatters = surrogate.getResultFormatters();
         if (!formatters || options.isEmpty("propertyPath")) {
             return;
@@ -789,7 +789,7 @@ class DAssociation : IAssociation {
      * @param DORMQuery surrogate the query having the containments to be attached
      * @param Json[string] options options passed to the method `attachTo`
      */
-    protected void _bindNewAssociations(Query query, Query surrogate, Json[string] optionData) {
+    protected void _bindNewAssociations(Query query, Query surrogate, Json[string] options) {
         loader = surrogate.getEagerLoader();
         contain = loader.getContain();
         matching = loader.getMatching();
@@ -823,7 +823,7 @@ class DAssociation : IAssociation {
      *
      * @param Json[string] options list of options passed to attachTo method
      */
-    protected Json[string] _joinCondition(Json[string] optionData) {
+    protected Json[string] _joinCondition(Json[string] options) {
         auto conditions = null;
         auto tAlias = _name;
         auto sAlias = source().aliasName();
@@ -948,7 +948,7 @@ class DAssociation : IAssociation {
      * - strategy: The name of strategy to use for finding target table records
      * - nestKey: The array key under which results will be found when transforming the row
      */
-    abstract Closure eagerLoader(Json[string] optionData);
+    abstract Closure eagerLoader(Json[string] options);
 
     /**
      * Handles cascading a delete from an associated model.
@@ -959,7 +959,7 @@ class DAssociation : IAssociation {
      * @param DORMDatasource\IORMEntity anEntity The entity that started the cascaded delete.
      * @param Json[string] options The options for the original delete.
      */
-    abstract bool cascadeRemove(IORMEntity anEntity, Json[string] optionData = null);
+    abstract bool cascadeRemove(IORMEntity anEntity, Json[string] options = null);
 
     /**
      * Returns whether the passed table is the owning side for this
@@ -977,5 +977,5 @@ class DAssociation : IAssociation {
      * @param DORMDatasource\IORMEntity anEntity the data to be saved
      * @param Json[string] options The options for saving associated data.
      */
-    abstract IORMEntity saveAssociated(IORMEntity anEntity, Json[string] optionData = null);
+    abstract IORMEntity saveAssociated(IORMEntity anEntity, Json[string] options = null);
 }

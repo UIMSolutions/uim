@@ -121,7 +121,7 @@ class DMarshaller {
      * Json[string] mydata The data to hydrate.
      * @param Json[string] options List of options
      */
-    IORMEntity one(Json[string] data, Json[string] optionData = null) {
+    IORMEntity one(Json[string] data, Json[string] options = null) {
         [mydata, options] = _prepareDataAndOptions(mydata, options);
 
         myprimaryKey = (array) _table.primaryKeys();
@@ -267,7 +267,7 @@ class DMarshaller {
      * Json[string] data The data to hydrate.
      * @param Json[string] options List of options
      */
-        IORMEntity[] many(Json[string] data, Json[string] optionData = null) {
+        IORMEntity[] many(Json[string] data, Json[string] options = null) {
             auto myoutput = null;
             foreach (mydata as myrecord) {
                 if (!isArray(myrecord)) {
@@ -288,7 +288,7 @@ class DMarshaller {
      * @param Json[string] data The data to convert into entities.
      * @param Json[string] options List of options.
      */
-        protected IORMEntity[] _belongsToMany(BelongsToMany myassoc, Json[string] data, Json[string] optionData = null) {
+        protected IORMEntity[] _belongsToMany(BelongsToMany myassoc, Json[string] data, Json[string] options = null) {
             auto myassociated = options.getArray("associated");
             auto myforceNew = options.get("forceNew", false);
             auto mydata = mydata.values;
@@ -426,7 +426,7 @@ class DMarshaller {
      * @param Json[string] data key value list of fields to be merged into the entity
      * @param Json[string] options List of options.
      */
-        IORMEntity merge(IORMEntity myentity, Json[string] data, Json[string] optionData = null) {
+        IORMEntity merge(IORMEntity myentity, Json[string] data, Json[string] options = null) {
             [mydata, options] = _prepareDataAndOptions(mydata, options);
 
             myisNew = myentity.isNew();
@@ -542,7 +542,7 @@ class DMarshaller {
      * @param Json[string] data list of arrays to be merged into the entities
      * @param Json[string] options List of options.
      */
-        IORMEntity[] mergeMany(Json[string] myentities, Json[string] data, Json[string] optionData = null) {
+        IORMEntity[] mergeMany(Json[string] myentities, Json[string] data, Json[string] options = null) {
             auto myprimary =  /* (array) */ _table.primaryKeys();
 
             auto myindexed = (new DCollection(mydata))
@@ -746,7 +746,7 @@ class DMarshaller {
      * @param Json[string] data readOnly mydata to use.
      * @param Json[string] options List of options that are readOnly.
      */
-        protected void dispatchAfterMarshal(IORMEntity myentity, Json[string] data, Json[string] optionData = null) {
+        protected void dispatchAfterMarshal(IORMEntity myentity, Json[string] data, Json[string] options = null) {
             auto mydata = new ArrayObject(mydata);
             auto options = new ArrayObject(options);
             _table.dispatchEvent("Model.afterMarshal", compact("entity", "data", "options"));

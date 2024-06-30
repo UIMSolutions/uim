@@ -54,7 +54,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param string associated The alias for the target table.
      * @param Json[string] options List of options to configure the association definition.
      */
-    DORMAssociation load(string associationclassname, string associated, Json[string] optionData = null) {
+    DORMAssociation load(string associationclassname, string associated, Json[string] options = null) {
         someOptions["tableLocator"] = getTableLocator();
         association = new classname(associated, someOptions);
 
@@ -147,7 +147,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *  associations not in this list will not be saved.
      * @param Json[string] options The options for the save operation.
      */
-    bool saveParents(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] optionData = null) {
+    bool saveParents(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] options = null) {
         return associations.isEmpty
             ? true : _saveAssociations(aTable, entity, associations, options, false);
     }
@@ -163,7 +163,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *  associations not in this list will not be saved.
      * @param Json[string] options The options for the save operation.
      */
-    bool saveChildren(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] optionData) {
+    bool saveChildren(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] options) {
         return associations.isEmpty
             ? true : _saveAssociations(table, entity, associations, options, true);
     }
@@ -181,7 +181,7 @@ class DAssociationCollection { // }: IteratorAggregate {
         DORMTable aTable,
         IORMEntity anEntity,
         array associations,
-        Json[string] optionData,
+        Json[string] options,
         bool isOwningSide
    ) {
         options.remove("associated");
@@ -222,16 +222,16 @@ class DAssociationCollection { // }: IteratorAggregate {
         DORMAssociation anAssociation,
         IORMEntity anEntity,
         Json[string] nested,
-        Json[string] optionData
+        Json[string] options
    ) {
         if (!anEntity.isDirty(association.getProperty())) {
             return true;
         }
         if (!nested.isEmpty) {
-            optionData = nested.update(optionData);
+            options = nested.update(options);
         }
 
-        return !association.saveAssociated(anEntity, optionData).isNull;
+        return !association.saveAssociated(anEntity, options).isNull;
     }
 
     /**

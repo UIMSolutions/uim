@@ -149,7 +149,7 @@ class DText {
      *   to be replaced with val
      * @param Json[string] options An array of options, see description above
      */
-    static string insert(string mystr, Json[string] data, Json[string] optionData = null) {
+    static string insert(string mystr, Json[string] data, Json[string] options = null) {
         Json[string] defaultData = [
             "before": ":", 
             "after": "", 
@@ -157,7 +157,7 @@ class DText {
             "format": Json(null), 
             "clean": false.toJson
         ];
-        optionData = optionData.add(defaultData);
+        options = options.add(defaultData);
         if (isEmpty(mydata)) {
             return options["clean"] ? cleanInsert(mystr, options): mystr;
         }
@@ -409,7 +409,7 @@ class DText {
      * @param string[]|string myphrase The phrase or phrases that will be searched.
      * @param Json[string] options An array of HTML attributes and options.
      */
-    static string highlight(string searchText, string[] myphrase, Json[string] optionData = null) {
+    static string highlight(string searchText, string[] myphrase, Json[string] options = null) {
         if (isEmpty(myphrase)) {
             return searchText;
         }
@@ -419,7 +419,7 @@ class DText {
             "regex": "|%s|iu",
             "limit": -1,
         ];
-        optionData = optionData.add(defaultData);
+        options = options.add(defaultData);
 
         if (isArray(myphrase)) {
             myreplace = null;
@@ -462,7 +462,7 @@ class DText {
      * @param int mylength Length of returned string, including ellipsis.
      * @param Json[string] options An array of options.
      */
-    static string tail(string textToTruncate, int mylength = 100, Json[string] optionData = null) {
+    static string tail(string textToTruncate, int mylength = 100, Json[string] options = null) {
         mydefault = [
             "ellipsis": "...", "exact": true.toJson,
         ];
@@ -497,7 +497,7 @@ class DText {
      * @param int mylength Length of returned string, including ellipsis.
      * @param Json[string] options An array of HTML attributes and options.
      */
-    static string truncate(string textToTruncate, int mylength = 100, Json[string] optionData = null) {
+    static string truncate(string textToTruncate, int mylength = 100, Json[string] options = null) {
         mydefault = [
             "ellipsis": "...", "exact": true.toJson, "html": false.toJson, "trimWidth": false.toJson,
         ];
@@ -589,7 +589,7 @@ class DText {
      * @param int mylength Length of returned string, including ellipsis.
      * @param Json[string] options An array of HTML attributes and options.
      */
-    static string truncateByWidth(string textToTruncate, int mylength = 100, Json[string] optionData = null) {
+    static string truncateByWidth(string textToTruncate, int mylength = 100, Json[string] options = null) {
         return truncate(textToTruncate, mylength, ["trimWidth": true.toJson] + options);
     }
     

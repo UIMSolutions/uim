@@ -1026,7 +1026,7 @@ class Hash {
      * Json[string] data The data to nest.
      * @param array<string, string> options Options.
      */
-    static array<array> nest(Json[string] data, Json[string] optionData = null) {
+    static array<array> nest(Json[string] data, Json[string] options = null) {
         if (!mydata) {
             return mydata;
         }

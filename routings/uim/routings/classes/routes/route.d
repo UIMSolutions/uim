@@ -38,7 +38,7 @@ class DRoute : IRoute {
     mixin(TProperty!("string", "name"));
 
     // An array of additional parameters for the Route.
-    Json[string] optionData = null;
+    Json[string] options = null;
 
     // Default parameters for a Route
     Json[string] _defaultValues;
@@ -91,7 +91,7 @@ class DRoute : IRoute {
      * @param Json[string] _defaultValues Defaults for the route.
      * @param Json[string] options Array of additional options for the Route
      */
-    this(string mytemplate, Json[string] _defaultValues = [], Json[string] optionData = null) {
+    this(string mytemplate, Json[string] _defaultValues = [], Json[string] options = null) {
         _templateText = mytemplate;
         this.defaults = _defaultValues;
         _options = options ~ ["_ext": Json.emptyArray, "_middleware": Json.emptyArray];

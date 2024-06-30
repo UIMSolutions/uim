@@ -62,10 +62,10 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
         auto cli = UIM_SAPI == "cli";
 
         foreach (name, options; Hash.normalize(Data)) {
-            Json optionData = options.dup;
-            Json onlyDebug = optionData.get("onlyDebug", null);
-            Json onlyCli = optionData.get("onlyCli", null);
-            Json optional = optionData.get("optional", null);
+            Json options = options.dup;
+            Json onlyDebug = options.get("onlyDebug", null);
+            Json onlyCli = options.get("onlyCli", null);
+            Json optional = options.get("optional", null);
 
             if ((onlyDebug && !debugData) || (onlyCli && !cli)) {
                 continue;

@@ -2397,7 +2397,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     auto multipleOptions(
         string fieldName,
-        Json[string] optionData = null,
+        Json[string] options = null,
         string myMessage = null, /*Closure|*/
         string mywhen = null
     ) {

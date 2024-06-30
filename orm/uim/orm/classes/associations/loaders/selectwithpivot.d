@@ -33,7 +33,7 @@ class DSelectWithPivotLoader : DSelectLoader {
     protected junctionConditions;
 
     /*
-    this(Json[string] optionData) {
+    this(Json[string] options) {
         super((options);
         this.junctionAssociationName = options["junctionAssociationName"];
         this.junctionProperty = options["junctionProperty"];
@@ -50,7 +50,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      *
      * @param Json[string] options options accepted by eagerLoader()
      */
-    protected DORMQuery _buildQuery(Json[string] optionData) {
+    protected DORMQuery _buildQuery(Json[string] options) {
         name = this.junctionAssociationName;
         assoc = this.junctionAssoc;
         queryBuilder = false;
@@ -112,7 +112,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      *
      * @param Json[string] options the options to use for getting the link field.
      */
-    protected string[] _linkField(Json[string] optionData) {
+    protected string[] _linkField(Json[string] options) {
         string[] links = null;
         name = this.junctionAssociationName;
 
@@ -134,7 +134,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      * @param DORMQuery fetchQuery The query to get results from
      * @param Json[string] options The options passed to the eager loader
      */
-    protected Json[string] _buildResultMap(Query fetchQuery, Json[string] optionData) {
+    protected Json[string] _buildResultMap(Query fetchQuery, Json[string] options) {
         resultMap = null;
         key = (array)options["foreignKey"];
 

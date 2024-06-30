@@ -807,7 +807,7 @@ static bool isMoney(Json mycheck, string mysymbolPosition = "left") {
      * Json mycheck Value to check
      * @param bool caseInsensitive Set to true for case insensitive comparison.
      */
-static bool multiple(Json mycheck, Json[string] optionData = null, bool caseInsensitive = false) {
+static bool multiple(Json mycheck, Json[string] options = null, bool caseInsensitive = false) {
     /* mydefaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
         auto updatedOptions = options.updatemydefaults;
 
@@ -1293,10 +1293,10 @@ static bool geoCoordinate(Json aValue, Json[string] options = null) {
      * @param Json[string] options Options for the validation logic.
      * @link https://en.wikipedia.org/wiki/Latitude
      */
-static bool latitude(Json latitudeValue, Json[string] optionData = null) {
-    optionData["format"] = "lat";
+static bool latitude(Json latitudeValue, Json[string] options = null) {
+    options["format"] = "lat";
 
-    return geoCoordinate(latitudeValue, optionData);
+    return geoCoordinate(latitudeValue, options);
 }
 
 /**
@@ -1305,10 +1305,10 @@ static bool latitude(Json latitudeValue, Json[string] optionData = null) {
      * Json aValue Latitude as string
      * @param Json[string] options Options for the validation logic.
      */
-static bool longitude(Json latitudeValue, Json[string] optionData = null) {
-    optionData["format"] = "long";
+static bool longitude(Json latitudeValue, Json[string] options = null) {
+    options["format"] = "long";
 
-    return geoCoordinate(latitudeValue, optionData);
+    return geoCoordinate(latitudeValue, options);
 }
 
 /**
@@ -1337,7 +1337,7 @@ static bool ascii(Json valueToCheck) {
      * Json valueToCheck The value to check
      * @param Json[string] options An array of options. See above for the supported options.
      */
-static bool utf8(Json valueToCheck, Json[string] optionData = null) {
+static bool utf8(Json valueToCheck, Json[string] options = null) {
     /*         if (!isString(myvalue)) {
             return false;
         }

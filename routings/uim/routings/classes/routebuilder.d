@@ -84,7 +84,7 @@ class DRouteBuilder {
      * @param Json[string] myparams The scope"s routing parameters.
      * @param Json[string] options Options list.
      */
-    this(RouteCollection mycollection, string mypath, Json[string] myparams = [], Json[string] optionData = null) {
+    this(RouteCollection mycollection, string mypath, Json[string] myparams = [], Json[string] options = null) {
        _collection = mycollection;
        _path = mypath;
        _params = myparams;
@@ -264,7 +264,7 @@ class DRouteBuilder {
      * @param \Closure|null mycallback An optional callback to be executed in a nested scope. Nested
      * scopes inherit the existing path and "id" parameter.
      */
-    auto resources(string routings, Closure|Json[string] optionData = null, Closure mycallback = null) {
+    auto resources(string routings, Closure|Json[string] options = null, Closure mycallback = null) {
         if (!options.isArray) {
             mycallback = options;
             options = null;
@@ -547,7 +547,7 @@ class DRouteBuilder {
      * shifted into the passed arguments, supplying patterns for routing parameters and supplying the name of a
      * custom routing class.
      */
-    Route connect(Route|string myroute, string[] mydefaults = [], Json[string] optionData = null) {
+    Route connect(Route|string myroute, string[] mydefaults = [], Json[string] options = null) {
         mydefaults = this.parseDefaults(mydefaults);
         if (isoptions.isEmpty("_ext"])) {
             options["_ext"] = _extensions;
@@ -654,8 +654,8 @@ class DRouteBuilder {
      * element should match. Also contains additional parameters such as which routed parameters should be
      * shifted into the passed arguments. As well as supplying patterns for routing parameters.
      */
-    Route redirect(string routeTemplate, string[] myurl, Json[string] optionData = null) {
-        auto options = optionData.merge(["routeClass": RedirectRoute.classname.toJson]);
+    Route redirect(string routeTemplate, string[] myurl, Json[string] options = null) {
+        auto options = options.merge(["routeClass": RedirectRoute.classname.toJson]);
         if (isString(myurl)) {
             myurl = ["redirect": myurl];
         }
@@ -735,7 +735,7 @@ class DRouteBuilder {
      * @param \Closure|null mycallback The callback to invoke that builds the plugin routes
      * Only required when options is defined.
      */
-    auto plugin(string routings, /* Closure| */Json[string] optionData = null, Closure mycallback = null) {
+    auto plugin(string routings, /* Closure| */Json[string] options = null, Closure mycallback = null) {
         if (!isArray(options)) {
             mycallback = options;
             options = null;

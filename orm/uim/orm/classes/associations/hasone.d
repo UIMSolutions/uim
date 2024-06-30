@@ -66,7 +66,7 @@ class DHasOneAssociation : DAssociation {
      * @param DORMDatasource\IORMEntity anEntity an entity from the source table
      * @param Json[string] options options to be passed to the save method in the target table
      */
-    IORMEntity saveAssociated(IORMEntity anEntity, Json[string] optionData = null) {
+    IORMEntity saveAssociated(IORMEntity anEntity, Json[string] options = null) {
         auto targetEntity = entity.get(getProperty());
         if (targetEntity.isEmpty || !cast(DORMTable)targetEntity) {
             return entity;
@@ -85,7 +85,7 @@ class DHasOneAssociation : DAssociation {
     }
 
 
-    Closure eagerLoader(Json[string] optionData) {
+    Closure eagerLoader(Json[string] options) {
         auto loader = new DSelectLoader([
             "alias": this.aliasName(),
             "sourceAlias": source().aliasName(),
@@ -101,7 +101,7 @@ class DHasOneAssociation : DAssociation {
     }
 
 
-    bool cascadeRemove(IORMEntity anEntity, Json[string] optionData = null) {
+    bool cascadeRemove(IORMEntity anEntity, Json[string] options = null) {
         helper = new DependentDeleteHelper();
 
         return helper.cascadeRemove(this, entity, options);

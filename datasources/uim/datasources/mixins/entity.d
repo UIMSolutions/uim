@@ -234,36 +234,36 @@ mixin template TEntity() {
      * Json[string]|string fieldName the name of field to set or a list of
      * fields with their respective values
     */
-  void set(string[] fieldName, Json valueToSet = null, Json[string] optionData = null) {
+  void set(string[] fieldName, Json valueToSet = null, Json[string] options = null) {
     bool guard;
     if (isString(fieldName) && !fieldName.isEmpty) {
       guard = false;
       fieldName = [fieldName: valueToSet];
     } else {
       guard = true;
-      optionData =  /* (array) */ valueToSet;
+      options =  /* (array) */ valueToSet;
     }
     if (!isArray(fieldName)) {
       throw new DInvalidArgumentException("Cannot set an empty field");
     }
-    auto updatedOptions = optionData.update([
+    auto updatedOptions = options.update([
       "setter": true.toJson,
       "guard": guard,
       "asOriginal": false.toJson
     ]);
 
-    if (optionData["asOriginal"] == true) {
+    if (options["asOriginal"] == true) {
       setOriginalField(fieldName.keys);
     }
     fieldName.byKeyValue
       .each((kv) {
         auto fieldName =  /* (string)  */ name;
-        if (optionData["guard"] == true && !this.isAccessible(fieldName)) {
+        if (options["guard"] == true && !this.isAccessible(fieldName)) {
           continue;
         }
         isDirty(fieldName, true);
 
-        if (optionData["setter"]) {
+        if (options["setter"]) {
           setter = _accessor(fieldName, "set");
           if (setter) {
             valueToSet = this. {

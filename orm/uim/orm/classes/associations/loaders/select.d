@@ -51,7 +51,7 @@ class DSelectLoader {
      *
      * @param Json[string] options Properties to be copied to this class
      */
-    this(Json[string] optionData) {
+    this(Json[string] options) {
         _alias = options["alias"];
         _sourceAlias = options["sourceAlias"];
         _targetAlias = options["targetAlias"];
@@ -69,7 +69,7 @@ class DSelectLoader {
      *
      * @param Json[string] options Same options as `Association.eagerLoader()`
      */
-    Closure buildEagerLoader(Json[string] optionData) {
+    Closure buildEagerLoader(Json[string] options) {
         auto updatedOptions = options.update_defaultOptions();
         fetchQuery = _buildQuery(options);
         resultMap = _buildResultMap(fetchQuery, options);
@@ -93,7 +93,7 @@ class DSelectLoader {
      * in the target table that are associated to those specified in options from
      * the source table
      */
-    protected DORMQuery _buildQuery(Json[string] optionData) {
+    protected DORMQuery _buildQuery(Json[string] options) {
         auto key = _linkField(options);
         auto filter = options["keys"];
         auto useSubquery = options["strategy"] == Association.STRATEGY_SUBQUERY;
@@ -289,7 +289,7 @@ class DSelectLoader {
      *
      * @param Json[string] options The options for getting the link field.
      */
-    protected string[] _linkField(Json[string] optionData) {
+    protected string[] _linkField(Json[string] options) {
         auto links = null;
         auto name = _aliasName;
 
@@ -380,7 +380,7 @@ class DSelectLoader {
      * @param DORMQuery fetchQuery The query to get results from
      * @param Json[string] options The options passed to the eager loader
      */
-    protected Json[string] _buildResultMap(Query fetchQuery, Json[string] optionData) {
+    protected Json[string] _buildResultMap(Query fetchQuery, Json[string] options) {
         auto resultMap = null;
         auto singleResult = isIn(this.associationType, [Association.MANY_TO_ONE, Association.ONE_TO_ONE], true);
         auto keys = isIn(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) 
@@ -413,7 +413,7 @@ class DSelectLoader {
      * @param Json[string] options The options passed to the eagerLoader method
      */
      // TODO
-    /* protected Closure _resultInjector(Query fetchQuery, Json[string] resultMap, Json[string] optionData) {
+    /* protected Closure _resultInjector(Query fetchQuery, Json[string] resultMap, Json[string] options) {
         keys = this.associationType == Association.MANY_TO_ONE ?
             _foreignKeys :
             _bindingKeys;

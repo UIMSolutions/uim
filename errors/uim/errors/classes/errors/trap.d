@@ -101,7 +101,7 @@ class DErrorTrap {
             throw new DFatalErrorException(errorDescription, errorCode, fileName, errorTriggerLine);
         }
         auto trace = /* (array) */Debugger.trace(["start": 1, "format": "points"]);
-        auto error = new UimError(errorCode, errorDescription, fileName, errorTriggerLine, trace);
+        auto error = new UIMError(errorCode, errorDescription, fileName, errorTriggerLine, trace);
 
         auto anIgnoredPaths = /* (array) */configuration.get("Error.ignoredDeprecationPaths");
         if (errorCode == ERRORS.USER_DEPRECATED &&  anIgnoredPaths) {
@@ -135,9 +135,9 @@ class DErrorTrap {
     /**
      * Logging helper method.
      * Params:
-     * \UIM\Error\UimError error The error object to log.
+     * \UIM\Error\UIMError error The error object to log.
      */
-    protected void logError(UimError error) {
+    protected void logError(UIMError error) {
         if (!configuration.hasKey("log")) {
             return;
         }

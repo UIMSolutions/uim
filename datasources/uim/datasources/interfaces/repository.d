@@ -151,10 +151,6 @@ interface IRepository {
      * ```
      * article = this.Articles.patchEntity(article, this.request[));
      * ```
-     * Params:
-     * \UIM\Datasource\IDatasourceEntity entity the entity that will get the
-     * data merged in
-     * @param Json[string] data key value list of fields to be merged into the entity
      */
     IDatasourceEntity patchEntity(IDatasourceEntity entity, Json[string] data, Json[string] options = null);
 

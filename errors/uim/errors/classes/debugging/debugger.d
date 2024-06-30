@@ -414,7 +414,6 @@ static string trimPath(string pathToShorten) {
      * applied.
      *
      * @param string file Absolute path to a UIM file.
-     * @param int line Line number to highlight.
      * @param int context Number of lines of context to extract above and below line.
      */
 static string[] excerpt(string absPathToFile, int lineNumber, int numberLinesContext = 2) {
@@ -430,7 +429,8 @@ static string[] excerpt(string absPathToFile, int lineNumber, int numberLinesCon
     if (indexOf(data, "\n") == true) {
         data = explode("\n", data);
     }
-    auto lineNumber--;
+    
+    lineNumber--;
     if (data.isNull(lineNumber)) {
         return lines;
     }

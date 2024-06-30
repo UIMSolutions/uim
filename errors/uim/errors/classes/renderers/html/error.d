@@ -15,7 +15,7 @@ class DHtmlErrorRenderer : IErrorRenderer {
         writeln(outputText);
     }
  
-    string render(UimError error, bool shouldDebug) {
+    string render(UIMError error, bool shouldDebug) {
         if (!debug) {
             return null;
         }

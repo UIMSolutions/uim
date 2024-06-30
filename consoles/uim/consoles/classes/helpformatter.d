@@ -55,14 +55,14 @@ class DHelpFormatter {
     /*
     // Get the help as formatted text suitable for output on the command line.
     string text(int withOfOutput = 72) {
-        myParser = _parser;
+        auto myParser = _parser;
         string[] result;
         auto myDescription = myParser.getDescription();
         if (!myDescription.isEmpty) {
             result ~= Text.wrap(myDescription, withOfOutput);
             result ~= "";
         }
-        result ~= "<info>Usage:</info>";
+        result ~= htmlDoubleTag("info", "Usage:");
         result ~= _generateUsage();
         result ~= "";
 

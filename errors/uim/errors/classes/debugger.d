@@ -143,13 +143,13 @@ class DDebugger {
      * @param mixed|null aValue The value to set.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      */
-    static Json[string] configSettings = nullInstance(string[] aKey = null, Json aValue = null, bool merge = true) {
+    static Json[string] configSettings = nullInstance(string[] aKey = null, Json aValue = null, bool shouldMerge = true) {
         if (aKey.isNull) {
             return getInstance().configuration.get(aKey);
         }
 
         if (isArray(aKey) || func_num_args() >= 2) {
-            return getInstance().setConfig(aKey, aValue, merge);
+            return getInstance().setConfig(aKey, aValue, shouldMerge);
         }
         return getInstance().configuration.get(aKey);
     }

@@ -220,35 +220,28 @@ class DNumericPaginator : IPaginator {
         return compact("defaults", "options", "finder");
     }
 
-    /**
-     * Build pagination params.
-     *
-     * @param Json[string] data Paginator data containing keys "options",
-     *  "count", "defaults", "finder", "numResults".
-     */
-    protected Json[string] buildParams(Json[string] data) {
-        auto limit = data.get("options.limit");
+    // Build pagination params.
+    protected Json[string] buildParams(Json[string] paginatorData) {
+        auto limit = paginatorData.get("options.limit");
 
         auto paging = [
-            "count": data.get("count"),
-            "current": data.get("numResults"),
+            "count": paginatorData.get("count"),
+            "current": paginatorData.get("numResults"),
             "perPage": limit,
-            "page": data.get("options.page"),
-            "requestedPage": data.get("options.page"),
+            "page": paginatorData.get("options.page"),
+            "requestedPage": paginatorData.get("options.page"),
         ];
 
-        paging = addPageCountParams(paging, data)
+        auto paging = addPageCountParams(paging, data)
             .addStartEndParams(paging, data)
             .addPrevNextParams(paging, data)
             .addSortingParams(paging, data);
 
-        paging += [
+        return paging.merge([
             "limit": data.get("defaults.limit") != limit ? limit: null,
             "scope": data.get("options.scope"),
             "finder": data.get("finder"),
-        ];
-
-        return paging;
+        ]);
     }
 
     // Add "page" and "pageCount" params.
@@ -260,14 +253,14 @@ class DNumericPaginator : IPaginator {
             pageCount = max((int) ceil(pagingParams["count"] / pagingParams["perPage"]), 1);
             pageNumber = min(pageNumber, pageCount);
         }
-        elseif(pagingParams["current"] == 0 && pagingParams["requestedPage"] > 1) {
+        elseif(pagingParams.getLong("current") == 0 && pagingParams.getLong("requestedPage") > 1) {
             pageNumber = 1;
         }
 
-        pagingParams["page"] = pageNumber;
-        pagingParams["pageCount"] = pageCount;
+        pagingParams.set("page", pageNumber);
+        pagingParams.set("pageCount", pageCount);
 
-        return params;
+        return pagingParams;
     }
 
     // Add "start" and "end" params.
@@ -280,8 +273,8 @@ class DNumericPaginator : IPaginator {
             end = start + pagingParams["current"] - 1;
         }
 
-        pagingParams.get("start", start);
-        pagingParams.get("end", end);
+        pagingParams.set("start", start);
+        pagingParams.set("end", end);
         return pagingParams;
     }
 

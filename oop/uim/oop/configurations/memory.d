@@ -147,6 +147,14 @@ class DMemoryConfiguration : DConfiguration {
         _data[key] = value;
         return true;
     }
+    override bool set(string key, Json[] value) {
+        _data[key] = Json(value);
+        return true;
+    }
+    override bool set(string key, Json[string] value) {
+        _data[key] = Json(value);
+        return true;
+    }
 
     override bool update(string key, Json value) {
         return set(key, value);

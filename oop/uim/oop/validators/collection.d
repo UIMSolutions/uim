@@ -5,3 +5,4 @@ import uim.oop;
 
 class DValidatorCollection : DCollection!DValidator {   
 }
+auto ValidatorCollection() { return new DValidatorCollection; }

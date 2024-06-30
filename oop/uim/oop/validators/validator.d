@@ -1,4 +1,4 @@
-module oop.uim.oop.validators.validator;
+module uim.oop.validators.validator;
 
 import uim.oop;
 @safe:

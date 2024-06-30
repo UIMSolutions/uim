@@ -6,3 +6,5 @@ import uim.oop;
 
 class DLogFormatterFactory : DFactory!DLogFormatter {
 }
+auto LogFormatterFactory() { return DLogFormatterFactory.factory; }
+

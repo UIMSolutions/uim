@@ -54,14 +54,14 @@ interface IConfiguration : INamed {
         Json get(string key, Json defaultValue = Json(null));
         Json[string] get(string[] keys, bool compressMode = false);
 
-        bool getBoolean(string key);
-        long getLong(string key);
-        double getDouble(string key);
-        string getString(string key);
-        string[] getStringArray(string key);
-        Json[] getArray(string key);
-        Json[string] getMap(string key);
-        string[string] getStringMap(string key);
+        bool getBoolean(string key, bool nullValue = false);
+        long getLong(string key, long nullValue = 0);
+        double getDouble(string key, double nullValue = 0.0);
+        string getString(string key, string nullValue = null);
+        string[] getStringArray(string key, string[] nullValue = null);
+        Json[] getArray(string key, Json[] nullValue = null);
+        Json[string] getMap(string key, Json[string] nullValue = null);
+        string[string] getStringMap(string key, string[string] nullValue = null);
     // #endregion get
 
     // #region set
@@ -75,6 +75,8 @@ interface IConfiguration : INamed {
         bool set(string key, double newValue);
         bool set(string key, string newValue);
         bool set(string key, Json newValue);
+        bool set(string key, Json[] newValue);
+        bool set(string key, Json[string] newValue);
 
         void opIndexAssign(bool newValue, string key);
         void opIndexAssign(long newValue, string key);

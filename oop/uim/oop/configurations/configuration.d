@@ -129,12 +129,12 @@ abstract class DConfiguration : IConfiguration {
         return results;
     }
 
-    abstract Json get(string key, Json nullValue = Json(null)); 
+    abstract Json get(string key, Json nullValue = Json(null));
 
     long getBoolean(string key, bool nullValue = false) {
         return hasKey(key) ? get(key).getBoolean : nullValue;
     }
-    
+
     long getLong(string key, long nullValue = 0) {
         return hasKey(key) ? get(key).getLong : nullValue;
     }
@@ -159,14 +159,11 @@ abstract class DConfiguration : IConfiguration {
     Json[string] getMap(string key) {
         return get(key).getMap;
     }
-    
+
     string[string] getStringMap(string key) {
-        Json[string] map = getMap(key);
         string[string] result;
-        if (!map.isNull) {
-            map.byKeyValue.each!(kv => result[kv.key] = kv.value.get!string);
-        }
-        return result; 
+        getMap(key).byKeyValue.each!(kv => result[kv.key] = kv.value.get!string);
+        return result;
     }
 
     Json getJson(string key) {
@@ -192,29 +189,39 @@ abstract class DConfiguration : IConfiguration {
     bool set(string key, bool newValue) {
         return set(key, Json(newValue));
     }
+
     bool set(string key, long newValue) {
         return set(key, Json(newValue));
-    } 
+    }
+
     bool set(string key, double newValue) {
         return set(key, Json(newValue));
-    } 
+    }
+
     bool set(string key, string newValue) {
         return set(key, Json(newValue));
-    } 
+    }
+
     abstract bool set(string key, Json newValue);
+    abstract bool set(string key, Json[] newValue);
+    abstract bool set(string key, Json[string] newValue);
 
     void opIndexAssign(bool newValue, string key) {
         set(key, newValue);
     }
+
     void opIndexAssign(long newValue, string key) {
         set(key, newValue);
     }
+
     void opIndexAssign(double newValue, string key) {
         set(key, newValue);
     }
+
     void opIndexAssign(string newValue, string key) {
         set(key, newValue);
     }
+
     void opIndexAssign(Json newValue, string key) {
         set(key, newValue);
     }

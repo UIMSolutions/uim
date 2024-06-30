@@ -43,7 +43,7 @@ class DObjectRegistry(T : UIMObject) {
 		}
 
 		bool hasPath(string[] path) {
-			return _objects.hasKey(path.join(_pathSeparator));
+			return _objects.hasKey(correctedKey(path));
 		}
 
 		bool hasAllKeys(string[] keys) {
@@ -55,7 +55,15 @@ class DObjectRegistry(T : UIMObject) {
 		}
 
 		bool hasKey(string key) {
-			return _objects.hasKey(key);
+			return _objects.hasKey(correctedKey(key));
+		}
+
+		string correctedKey(string[] path) {
+			return correctedKey(path.join(_pathSeparator));
+		}
+
+		string correctedKey(string key) {
+			return key.strip;
 		}
 	// #endregion keys
 
@@ -80,7 +88,7 @@ class DObjectRegistry(T : UIMObject) {
 		}
 
 		T get(string[] path) {
-			return get(path.join(_pathSeparator));
+			return get(correctedKey(path));
 		}
 
 		T opIndex(string key) {
@@ -88,7 +96,7 @@ class DObjectRegistry(T : UIMObject) {
 		}
 
 		T get(string key) {
-			return _objects.get(key, _nullValue);
+			return _objects.get(correctedKey(key), _nullValue);
 		}
 	// #endregion objects
 
@@ -96,7 +104,7 @@ class DObjectRegistry(T : UIMObject) {
 
 	// #region register
 		O register(this O)(string[] path, T newObject) {
-			register(path.join(_pathSeparator), newObject);
+			register(correctedKey(path), newObject);
 			return cast(O)this;
 		}
 
@@ -105,10 +113,23 @@ class DObjectRegistry(T : UIMObject) {
 		}
 
 		O register(this O)(string key, T newObject) {
-			_objects[key] = newObject;
+			_objects[correctedKey(key)] = newObject;
 			return cast(O)this;
 		}	
-	// #endregion remregisterove
+	// #endregion register
+
+	// #region clone
+	T create(string[] path) {
+		return create(correctedKey(path));
+	}
+
+	T create(string key) @trust {
+		if (auto obj = get(correctedKey(key))) {
+			return cast(T)factory(obj.classname);
+		}
+		return null; 
+	}
+	// #endregion clone
 
 	// #region remove
 		bool remove(string[] keys) {

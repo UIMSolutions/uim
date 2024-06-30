@@ -56,22 +56,23 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * of redirects that occurred.
      * Params:
      * Json[string] aHeaders The list of headers from the request(s)
-     * @param string acontent The response content.
+     * @param string content The response content.
      */
-    Response[] createResponses(Json[string] aHeaders, string acontent) {
-         anIndexes = responses = null;
-        foreach (aHeaders as  anI:  aHeader) {
+    Response[] createResponses(Json[string] aHeaders, string responseContent) {
+        auto anIndexes = null;
+        auto responses = null;
+        foreach (anI, aHeader; aHeaders) {
             if (subString(aHeader, 0, 5).upper == "HTTP/") {
                  anIndexes ~= anI;
             }
         }
-        last = count(anIndexes) - 1;
-        foreach (anIndexes as  anI: start) {
+        size_t last = count(anIndexes) - 1;
+        foreach (anI, start; anIndexes) {
             /** @psalm-suppress InvalidOperand */
             end = isSet(anIndexes[anI + 1]) ?  anIndexes[anI + 1] - start : null;
             /** @psalm-suppress PossiblyInvalidArgument */
              aHeaderSlice = array_slice(aHeaders, start, end);
-            body = anI == last ? content : "";
+            body = anI == last ? responseContent : "";
             responses ~= _buildResponse(aHeaderSlice, body);
         }
         return responses;

@@ -520,25 +520,18 @@ IErrorFormatter getExportFormatter() {
      * This is done to protect database credentials, which could be accidentally
      * shown in an error message if UIM is deployed in development mode.
      *
-     * @param mixed var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
      */
-static string exportVar(Json var, int maxDepth = 3) {
-    auto context = new DebugContext(maxDepth);
-    auto node = export_(var, context);
-
-    return getInstance().getExportFormatter().dump(node);
+static string exportVar(Json value, int maxOutputDepth = 3) {
+    auto context = new DDebugContext(maxOutputDepth);
+    return getInstance().getExportFormatter().dump(
+        export_(value, context));
 }
 
-/**
-     * Converts a variable to a plain text string.
-     *
-     * @param mixed var Variable to convert.
-     * @param int maxDepth The depth to output to. Defaults to 3.
-     */
-static string exportVarAsPlainText(Json var, int maxDepth = 3) {
+// Converts a variable to a plain text string.
+static string exportVarAsPlainText(Json value, int maxOutputDepth = 3) {
     return (new DTextFormatter()).dump(
-        export_(var, new DebugContext(maxDepth))
+        export_(value, new DebugContext(maxOutputDepth))
     );
 }
 

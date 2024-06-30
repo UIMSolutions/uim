@@ -97,12 +97,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
         _headers["x-download-options"] = Json(NOOPEN);
     }
     
-    /**
-     * Referrer-Policy
-     *
-     * @link https://w3c.github.io/webappsec-referrer-policy
-     * @param string policyValue Policy value.
-     */
+    // Referrer-Policy
     void setReferrerPolicy(string policyValue = SAME_ORIGIN) {
         // policyValue = Available Value: 'no-referrer", "no-referrer-when-downgrade", "origin",
         // 'origin-when-cross-origin", "same-origin", "strict-origin", "strict-origin-when-cross-origin", "unsafe-url'
@@ -151,14 +146,8 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
         _headers["x-xss-protection"] = modeValue;
     }
     
-    /**
-     * X-Permitted-Cross-Domain-Policies
-     *
-     * @link https://web.archive.org/web/20170607190356/https://www.adobe.com/devnet/adobe-media-server/articles/cross-domain-xml-for-streaming.html
-     * @param string apolicy Policy value. Available Values: 'all", "none", "master-only", "by-content-type",
-     *   'by-ftp-filename'
-     */
-    void setCrossDomainPolicy(string policyValue = ALL) {
+    // X-Permitted-Cross-Domain-Policies
+    void setCrossDomainPolicy(string policyValue = ALL) { // 'all", "none", "master-only", "by-content-type",'by-ftp-filename'
         checkValues(policyValue, [
             ALL,
             NONE,
@@ -186,8 +175,8 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      * \Psr\Http\Message\IServerRequest serverRequest The request.
      * @param \Psr\Http\Server\IRequestHandler handler The request handler.
      */
-    IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
-        response = handler.handle(request);
+    IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
+        auto response = handler.handle(requestHandler);
         _headers.byKeyValue
             .each!(headerValue => response = response.withHeader(headerValue.key, headerValue.value));
         return response;

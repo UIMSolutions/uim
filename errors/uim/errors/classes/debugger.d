@@ -85,9 +85,9 @@ class DDebugger {
      * Get a formatted URL for the active editor.
      * Params:
      * string afile The file to create a link for.
-     * @param int line The line number to create a link for.
+     * @param int lineNumber The lineNumber number to create a link for.
      */
-    static string editorUrl(string afile, int line) {
+    static string editorUrl(string afile, int lineNumber) {
         auto anInstance = getInstance();
         editor = anInstance.configuration.get("editor");
         if (!anInstance.editors.hasKey(editor)) {
@@ -97,9 +97,9 @@ class DDebugger {
         }
         templateText = anInstance.editors[editor];
         if (isString(template)) {
-            return template.replace(["{file}", "{line}"], [file, (string) line]);
+            return template.replace(["{file}", "{lineNumber}"], [file, (string) lineNumber]);
         }
-        return template(file, line);
+        return template(file, lineNumber);
     }
     /*
     //Holds current output data when outputFormat is false.

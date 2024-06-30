@@ -246,17 +246,16 @@ class DClient { // }: IClient {
      * Params:
      * string myurl The url or path you want to request.
      * @param string[] mydata The query data you want to send.
-     * @param Json[string] options Additional options for the request.
      */
-  DResponse get(string urlToRequest, string[] mydata = null, Json[string] options = null) {
+  DResponse get(string urlToRequest, string[] queryData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
     auto mybody = null;
-    if (isArray(mydata) && mydata.hasKey("_content")) {
-      mybody = mydata["_content"];
-      mydata.remove("_content");
+    if (isArray(queryData) && queryData.hasKey("_content")) {
+      mybody = queryData["_content"];
+      queryData.remove("_content");
     }
 
-    auto url = this.buildUrl(urlToRequest, mydata, requestOptions);
+    auto url = buildUrl(urlToRequest, queryData, requestOptions);
     return _doRequest(
       Request.METHOD_GET,
       myurl,
@@ -269,14 +268,14 @@ class DClient { // }: IClient {
      * Do a POST request.
      * Params:
      * string myurl The url or path you want to request.
-     * @param Json mydata The post data you want to send.
+     * @param Json postData The post data you want to send.
      * @param Json[string] requestOptions Additional requestOptions for the request.
      */
-  Response post(string myurl, Json mydata = null, Json[string] options = null) {
+  Response post(string myurl, Json postData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
-    auto myurl = this.buildUrl(myurl, [], requestOptions);
+    auto myurl = buildUrl(myurl, [], requestOptions);
 
-    return _doRequest(Request.METHOD_POST, myurl, mydata, requestOptions);
+    return _doRequest(Request.METHOD_POST, myurl, postData, requestOptions);
   }
 
   /**
@@ -288,7 +287,7 @@ class DClient { // }: IClient {
      */
   Response put(string myurl, Json requestData = nullll, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
-    auto myurl = this.buildUrl(myurl, [], requestOptions);
+    auto myurl = buildUrl(myurl, [], requestOptions);
 
     return _doRequest(Request.METHOD_PUT, myurl, requestData, requestOptions);
   }
@@ -302,7 +301,7 @@ class DClient { // }: IClient {
      */
   Response patch(string myurl, Json requestData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
-    auto myurl = this.buildUrl(myurl, [], requestOptions);
+    auto myurl = buildUrl(myurl, [], requestOptions);
 
     return _doRequest(Request.METHOD_PATCH, myurl, requestData, requestOptions);
   }
@@ -315,7 +314,7 @@ class DClient { // }: IClient {
      */
   Response requestOptions(string urlToRequest, Json sendData = null, Json[string] requestOptions = null) {
     requestOptions = _mergeOptions(requestOptions);
-    urlToRequest = this.buildUrl(urlToRequest, [], requestOptions);
+    urlToRequest = buildUrl(urlToRequest, [], requestOptions);
 
     return _doRequest(Request.METHOD_OPTIONS, urlToRequest, sendData, requestOptions);
   }
@@ -329,7 +328,7 @@ class DClient { // }: IClient {
      */
   Response trace(string myurl, Json sendData = null, Json[string] requestOptions = null) {
     requestOptions = _mergeOptions(requestOptions);
-    myurl = this.buildUrl(myurl, [], requestOptions);
+    myurl = buildUrl(myurl, [], requestOptions);
 
     return _doRequest(Request.METHOD_TRACE, myurl, sendData, requestOptions);
   }
@@ -343,7 +342,7 @@ class DClient { // }: IClient {
      */
   Response remove(string myurl, Json sendData = null, Json[string] optionsForRequest = null) {
     auto optionsForRequest = _mergeOptions(optionsForRequest);
-    auto myurl = this.buildUrl(myurl, [], optionsForRequest);
+    auto myurl = buildUrl(myurl, [], optionsForRequest);
 
     return _doRequest(Request.METHOD_DELETE, myurl, sendData, optionsForRequest);
   }
@@ -353,28 +352,27 @@ class DClient { // }: IClient {
      * Params:
      * string myurl The url or path you want to request.
      * @param Json[string] data The query string data you want to send.
-     * @param Json[string] requestOptions Additional requestOptions for the request.
      */
-  Response head(string myurl, Json[string] data = null, Json[string] optionsForRequest = null) {
-    auto optionsForRequest = _mergeOptions(optionsForRequest);
-    auto myurl = this.buildUrl(myurl, mydata, optionsForRequest);
+  Response head(string requestUrl, Json[string] queryData = null, Json[string] requestOptions = null) {
+    auto optionsForRequest = _mergeOptions(requestOptions);
+    auto requestUrl = buildUrl(requestUrl, queryData, optionsForRequest);
 
-    return _doRequest(Request.METHOD_HEAD, myurl, "", optionsForRequest);
+    return _doRequest(Request.METHOD_HEAD, requestUrl, "", optionsForRequest);
   }
 
   /**
      * Helper method for doing non-GET requests.
      * Params:
      * string mymethod HTTP method.
-     * @param string myurl URL to request.
-     * @param Json mydata The request body.
+     * @param string requestUrl URL to request.
+     * @param Json requestBody The request body.
      * @param Json[string] options The options to use. Contains auth, proxy, etc.
      */
-  protected DClientResponse _doRequest(string mymethod, string myurl, Json mydata, Json[string] options = null) {
+  protected DClientResponse _doRequest(string mymethod, string requestUrl, Json requestBody, Json[string] options = null) {
     myrequest = _createRequest(
       mymethod,
-      myurl,
-      mydata,
+      requestUrl,
+      requestBody,
       options
    );
 
@@ -413,7 +411,7 @@ class DClient { // }: IClient {
         auto requestUrl = myrequest.getUri();
 
         mylocation = myresponse.getHeaderLine("Location");
-        mylocationUrl = this.buildUrl(mylocation, [], [
+        mylocationUrl = buildUrl(mylocation, [], [
             "host": requestUrl.getHost(),
             "port": requestUrl.getPort(),
             "scheme": requestUrl.getScheme(),
@@ -449,31 +447,27 @@ class DClient { // }: IClient {
      * Params:
      * string mymethod The HTTP method being mocked.
      * @param string myurl The URL being matched. See above for examples.
-     * @param \UIM\Http\Client\Response  myresponse The response that matches the request.
-     * @param Json[string] options See above.
      */
-  static void addMockResponse(string mymethod, string myurl, Response myresponse, Json[string] options = null) {
+  static void addMockResponse(string mymethod, string url, Response response, Json[string] options = null) {
     if (!_mockAdapter) {
       _mockAdapter = new DMockAdapter();
     }
-    auto myrequest = new DRequest(myurl, mymethod);
-    _mockAdapter.addResponse(myrequest, myresponse, options);
+    _mockAdapter.addResponse(new DRequest(url, mymethod), response, options);
   }
 
   /**
      * Send a request without redirection.
      * Params:
      * \Psr\Http\Message\IRequest  myrequest The request to send.
-     * @param Json[string] options Additional options to use.
      */
-  protected DClientResponse _sendRequest(IRequest myrequest, Json[string] options = null) {
+  protected DClientResponse _sendRequest(IRequest requestToSend, Json[string] options = null) {
     if (_mockAdapter) {
-      myresponses = _mockAdapter.send(myrequest, options);
+      myresponses = _mockAdapter.send(requestToSend, options);
     }
     if (myresponses.isEmpty) {
-      myresponses = _adapter.send(myrequest, options);
+      myresponses = _adapter.send(requestToSend, options);
     }
-    myresponses.each!(response => _cookies = _cookies.addFromResponse(response, myrequest));
+    myresponses.each!(response => _cookies = _cookies.addFromResponse(response, requestToSend));
 
     /** @var \UIM\Http\Client\Response */
     return array_pop(myresponses);
@@ -527,20 +521,20 @@ class DClient { // }: IClient {
      * Params:
      * string mymethod HTTP method name.
      * @param string myurl The url including query string.
-     * @param Json mydata The request body.
+     * @param Json requestBody The request body.
      * @param Json[string] options The options to use. Contains auth, proxy, etc.
      */
-  protected DRequest _createRequest(string mymethod, string myurl, Json mydata, Json[string] options = null) {
+  protected DRequest _createRequest(string mymethod, string myurl, Json requestBody, Json[string] options = null) {
     /** @var array<non-empty-string, non-empty-string>  myheaders */
     auto myheaders = options.get("headers");
     if (options.hasKey("type")) {
       myheaders = chain(myheaders, _typeHeaders(options["type"]));
     }
-    if (isString(mydata) && myheaders.isNull("Content-Type") && 
+    if (isString(requestBody) && myheaders.isNull("Content-Type") && 
         myheaders.isNull("content-type")) {
       myheaders["Content-Type"] = "application/x-www-form-urlencoded";
     }
-    auto myrequest = new DRequest(myurl, mymethod, myheaders, mydata);
+    auto myrequest = new DRequest(myurl, mymethod, myheaders, requestBody);
     myrequest = myrequest.withProtocolVersion(_configData.hasKey("protocolVersion"));
     mycookies = options["cookies"] ?  ? [];
     /** @var \UIM\Http\Client\Request  myrequest */

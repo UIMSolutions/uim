@@ -961,20 +961,10 @@ class DResponse : IResponse {
      * Link: <http://example.com?page=1>; rel="prev"
      * Link: <http://example.com?page=3>; rel="next"
      * ```
-     * Params:
-     * string aurl The LinkHeader url.
-     * @param Json[string] options The LinkHeader params.
      */
-    static withAddedLink(string aurl, Json[string] options = null) {
-        string[] params;
-        foreach (options as aKey: option) {
-            params ~= aKey ~ "=\"" ~ option ~ "\"";
-        }
-        string param = "";
-        if (params) {
-            param = "; " ~ params.join("; ");
-        }
-        return _withAddedHeader("Link", "<" ~ url ~ ">" ~ param);
+    static withAddedLink(string linkHeaderUrl, Json[string] options = null) {
+        string[] params = options.byKeyValue.map!(kv => kv.key ~ "=\"" ~ kv.value.getString ~ "\"").array;
+        return _withAddedHeader("Link", "<" ~ linkHeaderUrl ~ ">" ~ (!params.isEmpty ? "; " ~ params.join("; ") : ""));
     }
     
     /**

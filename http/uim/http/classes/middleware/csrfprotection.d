@@ -272,22 +272,17 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
        ));
     }
     
-    /**
-     * Create response cookie
-     * Params:
-     * string avalue Cookie value
-     * @param \Psr\Http\Message\IServerRequest serverRequest The request object.
-     */
+    // Create response cookie
     protected ICookie _createCookie(string cookieValue, IServerRequest serverRequest) {
         return Cookie.create(
-           configuration.get("cookieName"],
+           configuration.get("cookieName"),
             cookieValue,
             [
-                'expires": configuration.get("expiry"] ?: null,
-                'path": request.getAttribute("webroot"),
-                `secure": configuration.get("secure"],
-                'httponly": configuration.get("httponly"],
-                `samesite": configuration.get("samesite"],
+                "expires": configuration.get("expiry"),
+                "path": request.getAttribute("webroot"),
+                "secure": configuration.get("secure"),
+                "httponly": configuration.get("httponly"),
+                "samesite": configuration.get("samesite"),
             ]
        );
     } */ 

@@ -72,7 +72,6 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Creates the controller to perform rendering on the error response.
      * Params:
      * \Throwable exception Exception.
-     * @param \UIM\Http\ServerRequest|null request The request if this is set it will be used
      * instead of creating a new one.
      */
     this(DThrowable exception, ServerRequest serverRequest = null) {
@@ -269,7 +268,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         _template = cast(PDOException)exception
             ? "pdo_error"
             : methodName;
-            
+
         return _template;
     }
     

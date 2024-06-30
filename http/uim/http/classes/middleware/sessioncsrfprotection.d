@@ -208,11 +208,8 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      *
      * Replace the token in the session and request attribute. Replacing
      * tokens is a good idea during privilege escalation or privilege reduction.
-     * Params:
-     * \UIM\Http\ServerRequest serverRequest The request to update
-     * @param string key The session key/attribute to set.
      */
-    static ServerRequest replaceToken(ServerRequest serverRequest, string key = "csrfToken") {
+    static DServerRequest replaceToken(ServerRequest serverRequest, string key = "csrfToken") {
         auto middleware = new DSessionCsrfProtectionMiddleware(["key": key]);
 
         auto createdToken = middleware.createToken();

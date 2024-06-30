@@ -117,19 +117,15 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
             UNSAFE_URL,
         ];
 
-        this.checkValues(policyValue, available);
+        checkValues(policyValue, available);
         _headers["referrer-policy"] = policyValue;
     }
     
-    /**
-     * X-Frame-Options
-     *
-     * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
-     * @param string optionValue Option value. Available Values: 'deny", "sameorigin", "allow-from <uri>'
-     * @param string url URL if mode is `allow-from`
-     */
-    void setXFrameOptions(string optionValue = SAMEORIGIN, string aurl = null) {
-        this.checkValues(optionValue, [DENY, SAMEORIGIN, ALLOW_FROM]);
+    // X-Frame-Options
+    // optionValue - Option value. Available Values: 'deny", "sameorigin", "allow-from <uri>'
+    // url - URL if mode is `allow-from`
+    void setXFrameOptions(string optionValue = SAMEORIGIN, string url = null) {
+        checkValues(optionValue, [DENY, SAMEORIGIN, ALLOW_FROM]);
 
         if (optionValue == ALLOW_FROM) {
             if (url.isEmpty) {
@@ -137,7 +133,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
             }
             optionValue ~= " " ~ url;
         }
-        _headers["x-frame-options"] = optionValue;
+        _headers.set("x-frame-options", optionValue);
     }
     
     /**
@@ -151,7 +147,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
         if (modeValue == XSS_BLOCK) {
             modeValue = XSS_ENABLED_BLOCK;
         }
-        this.checkValues(modeValue, [XSS_ENABLED, XSS_DISABLED, XSS_ENABLED_BLOCK]);
+        checkValues(modeValue, [XSS_ENABLED, XSS_DISABLED, XSS_ENABLED_BLOCK]);
         _headers["x-xss-protection"] = modeValue;
     }
     
@@ -163,7 +159,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      *   'by-ftp-filename'
      */
     void setCrossDomainPolicy(string policyValue = ALL) {
-        this.checkValues(policyValue, [
+        checkValues(policyValue, [
             ALL,
             NONE,
             MASTER_ONLY,

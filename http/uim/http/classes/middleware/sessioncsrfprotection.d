@@ -178,9 +178,8 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * Validate the request data against the cookie token.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request to validate against.
-     * @param \UIM\Http\Session session The session instance.
      */
-    protected void validateToken(IServerRequest serverRequest, Session session) {
+    protected void validateToken(IServerRequest serverRequest, DSession session) {
         auto token = session.read(configuration.get("key"]);
         if (!token || !isString(token)) {
             throw new DInvalidCsrfTokenException(__d("uim", "Missing or incorrect CSRF session key"));

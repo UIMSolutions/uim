@@ -257,8 +257,8 @@ class DSession {
         if (session_status() == UIM_SESSION_ACTIVE || headers_sent()) {
             return;
         }
-        foreach (setting : aValue; options) {
-            if (ini_set(setting, to!string(aValue)) == false) {
+        foreach (setting, value; options) {
+            if (ini_set(setting, to!string(value)) == false) {
                 throw new DException(
                     "Unable to configure the session, setting %s failed.".format(setting)
                );
@@ -390,29 +390,25 @@ class DSession {
         return result;
     }
 
-    /**
-     * Writes value to given session variable name.
-     * Params:
-     * string[] aName Name of variable
-     * @param Json aValue Value to write
-     */
-    void write(string[] aName, Json aValue = null) {
-        started = this.started() || this.start();
+    // Writes value to given session variable name.
+    void write(string variableName, Json value = null) {
+        write([variableName: value], value);
+    }
+    void write(string[string] variables, Json value = null) {
+        bool started = this.started() || this.start();
         if (!started) {
-            message = "Could not start the session";
-            if (this.headerSentInfo!is null) {
+            auto message = "Could not start the session";
+            if (_headerSentInfo !is null) {
                 message ~=
                     ", headers already sent in file `%s` on line `%s`"
-                    .format(Debugger.trimPath(this.headerSentInfo["filename"]),
-                        this.headerSentInfo["line"]
+                    .format(Debugger.trimPath(_headerSentInfo.getString("filename")),
+                        _headerSentInfo["line"]
                    );
             }
             throw new DException(message);
         }
-        if (!isArray(name)) {
-            name = [name: aValue];
-        }
-        someData = _SESSION ?  ? [];
+
+        auto someData = _SESSION ?  _SESSION : [];
         name.byKeyValue
             .each(kv => someData = Hash.insert(someData, kv.key, kv.value));
 

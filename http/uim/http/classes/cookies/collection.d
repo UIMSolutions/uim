@@ -196,8 +196,8 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      */
     protected Json[string] findMatchingCookies(string ascheme, string ahost, string aPath) {
          auto result;
-        now = new DateTimeImmutable("now", new DateTimeZone("UTC"));
-        foreach (_cookies as cookie) {
+        auto now = new DateTimeImmutable("now", new DateTimeZone("UTC"));
+        foreach (cookie; _cookies) {
             if (scheme == "http" && cookie.isSecure()) {
                 continue;
             }

@@ -421,7 +421,6 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string[]|string atype The type of request you want to check. If an array
      * this method will return true if the request matches any type.
-     * @param Json[string] arguments List of arguments
      */
     /* bool is(string[] atype, Json[string] arguments) {
         if (isArray(type)) {

@@ -41,7 +41,6 @@ class DRunner : IRequestHandler {
 
     /**
      * @param \UIM\Http\MiddlewareQueue queue The middleware queue
-     * @param \Psr\Http\Message\IServerRequest serverRequest The Server Request
      * @param \Psr\Http\Server\IRequestHandler|null fallbackHandler Fallback request handler.
      * returns A response object
      */
@@ -56,11 +55,11 @@ class DRunner : IRequestHandler {
 
         if (
             cast(IRoutingApplication)fallbackHandler  &&
-            cast(DServerRequest)request
+            cast(DServerRequest)serverRequest
        ) {
-            Router.setRequest(request);
+            Router.setRequest(serverRequest);
         }
-        return _handle(request);
+        return _handle(serverRequest);
     }
     
     /**

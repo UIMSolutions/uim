@@ -57,7 +57,6 @@ mixin template THttpClient() {
      * Add a mock response for a DELETE request.
      * Params:
      * @param \UIM\Http\Client\Response response The response for the mock.
-     * @param Json[string] options Additional options. See Client.addMockResponse()
      */
     void mockClientDelete(string UrlToMock, Response response, Json[string] options = null) {
         Client.addMockResponse("DELETE", UrlToMock, response, options);

@@ -21,14 +21,13 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      * array|null server _SERVER superglobal
      * @param array|null aQuery _GET superglobal
      * @param array|null parsedBody _POST superglobal
-     * @param array|null cookies _COOKIE superglobal
      * @param array|null files _FILES superglobal
      */
-    static ServerRequest fromGlobals(
+    static DServerRequest fromGlobals(
         Json[string] server = null,
         Json[string] aQuery = null,
         Json[string] parsedBody = null,
-        Json[string] cookies = null,
+        Json[string] cookies = null, // _COOKIE superglobal
         Json[string] files = null
     ) {
         auto server = normalizeServer(server ?  ? _SERVER);

@@ -101,11 +101,7 @@ class DOauth {
 
     /**
      * Use HMAC-SHA1 signing.
-     *
      * This method is suitable for plain HTTP or HTTPS.
-     * Params:
-     * \UIM\Http\Client\Request request The request object.
-     * @param Json[string] authCredentials Authentication authCredentials.
      */
     protected string _hmacSha1(Request request, Json[string] authCredentials) {
         auto nonce = authCredentials["nonce"] ?  ? uniqid();

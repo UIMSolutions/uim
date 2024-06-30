@@ -46,7 +46,6 @@ class DCookie : ICookie {
      * DateTime or DateTimeImmutable object instead an integer.
      *
      * @link https://D.net/manual/en/function.setcookie.d
-     * @param string cookieName Cookie name
      * @param string[]|float|bool aValue Value of the cookie
      * @param \IDateTime|null expiresAt Expiration time and date
      * @param string somePath Path

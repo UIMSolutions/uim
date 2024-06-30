@@ -21,14 +21,9 @@ class DFormatterLocator {
         //TODO     .each!(nameSpec => set(nameSpec.key, nameSpec.value));
     }
     
-    /**
-     * Sets a formatter into the registry by name.
-     * Params:
-     * 
-     * @param class-string<\UIM\I18n\II18NFormatter>  classname A FQCN for a formatter.
-     */
-    void set(string formatterName, string classname) {
-        _registry[formatterName] = classname;
+    // Sets a formatter into the registry by name.
+    void set(string formatterName, string formatterClassname) {
+        _registry[formatterName] = formatterClassname;
         _converted[formatterName] = false;
     }
     

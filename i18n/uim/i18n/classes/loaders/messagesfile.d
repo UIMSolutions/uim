@@ -74,8 +74,6 @@ class DMessagesFileLoader {
      * string domainName The name (domain) of the translations catalog.
      * @param string alocale The locale to load, this will be mapped to a folder
      * in the system.
-     * @param string fileExtension The file extension to use. This will also be mapped
-     * to a messages parser class.
      */
     this(string domainName, string alocale, string fileExtension = "po") {
         this();

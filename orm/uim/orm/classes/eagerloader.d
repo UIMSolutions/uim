@@ -182,7 +182,7 @@ class DEagerLoader {
      * options to the filtering query
      * @param Json[string] options Extra options for the association matching.
      */
-    void setMatching(string associationPath, callable builder = null, Json[string] optionData = null) {
+    void setMatching(string associationPath, callable builder = null, Json[string] options = null) {
         if (_matching == null) {
             _matching = new static();
         }
@@ -405,7 +405,7 @@ class DEagerLoader {
      * chain of associations to be loaded. The second value is the path to follow in
      * entities" properties to fetch a record of the corresponding association.
      */
-    protected DEagerLoadable _normalizeContain(DORMTable parent, string aliasName, Json[string] optionData, Json[string] paths) {
+    protected DEagerLoadable _normalizeContain(DORMTable parent, string aliasName, Json[string] options, Json[string] paths) {
         auto defaults = _containOptions;
         auto instance = parent.getAssociation(aliasName);
 

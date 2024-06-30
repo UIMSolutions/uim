@@ -103,32 +103,27 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
        _cacher = cacher;
     }
     
-    /**
-     * Gets a translator from the registry by catalog for a locale.
-     * Params:
-     * string catalogName The translator catalog to retrieve.
-     * @param string locale The locale to use; if empty, uses the default
-     * locale
-     */
-    Translator get(string catalogName, string localName = null) {
-        locale ??= locale();
+    // Gets a translator from the registry by catalog for a locale.
+    DTranslator get(string catalogName, string localName = null) {
+        auto locale = locale : locale();
 
-        if (isSet(this.registry[catalogName][localName])) {
-            return _registry[catalogName][localName];
+        if (registry.hasKey([catalogName, localName])) {
+            return _registry.get([catalogName, localName]);
         }
+
         if (_cacher.isNull) {
-            return _registry[catalogName][localName] = _getTranslator(catalogName, locale);
+            _registry.register([catalogName, localName], _getTranslator(catalogName, locale)).get([catalogName, localName]);
         }
         // Cache keys cannot contain / if they go to file engine.
-        keyName = name.replace("/", ".");
-        aKey = "translations.{keyName}.{localName}";
+        auto keyName = name.replace("/", ".");
+        auto aKey = "translations.{keyName}.{localName}";
         
-        Translator translator = _cacher.get(aKey);
+        DTranslator translator = _cacher.get(aKey);
         if (!translator) {
             translator = _getTranslator(catalogName, locale);
            _cacher.set(aKey, translator);
         }
-        return _registry[catalogName][localName] = translator;
+        return _registry.register([catalogName, localName], translator).get([catalogName, localName]);
     }
     
     // Gets a translator from the registry by catalog for a locale.

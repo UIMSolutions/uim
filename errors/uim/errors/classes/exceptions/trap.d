@@ -104,7 +104,7 @@ class DExceptionTrap {
     // Track if this trap was removed from the global handler.
     protected bool disabled = false;
 
-    this(Json[string] optionData = null) {
+    this(Json[string] options = null) {
         configuration.update(options);
     }
 

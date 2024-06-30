@@ -78,14 +78,14 @@ class Xml {
      * /* object */ string[] myinput XML string, a path to a file, a URL or an array
      * @param Json[string] options The options to use
      */
-    static SimpleXMLElement | DOMDocument build(object | string[] myinput, Json[string] optionData = null) {
+    static SimpleXMLElement | DOMDocument build(object | string[] myinput, Json[string] options = null) {
         Json[string] defaultOptions = [
             "return": Json("simplexml"),
             "loadEntities": BooleanData(false),
             "readFile": BooleanData(false),
             "parseHuge": BooleanData(false)
         ];                
-        auto optionData = optionData.update(defaultOptions);
+        auto options = options.update(defaultOptions);
 
         if (isArray(myinput) || isObject(myinput)) {
             return fromArray(myinput, options);
@@ -130,12 +130,12 @@ class Xml {
      * string myinput The input html string to load.
      * @param Json[string] options The options to use. See Xml.build()
      */
-            static SimpleXMLElement | DOMDocument loadHtml(string myinput, Json[string] optionData = null) {
+            static SimpleXMLElement | DOMDocument loadHtml(string myinput, Json[string] options = null) {
                 Json[string] defaultData = [
                     "return": "simplexml",
                     "loadEntities": false.toJson,
                 ];
-                optionData = optionData.add(defaultData);
+                options = options.add(defaultData);
 
                 return load(
                     myinput,
@@ -211,7 +211,7 @@ class Xml {
      * object|array myinput Array with data or a collection instance.
      * @param Json[string] options The options to use.
      */
-                    static SimpleXMLElement | DOMDocument fromArray(object | array myinput, Json[string] optionData = null) {
+                    static SimpleXMLElement | DOMDocument fromArray(object | array myinput, Json[string] options = null) {
                         if (isObject(myinput) && method_exists(myinput, "toArray") && isCallable([myinput, "toArray"])) {
                             myinput = myinput.toArray();
                         }
@@ -229,7 +229,7 @@ class Xml {
                             "return": Json("simplexml"),
                             "pretty": BooleanData(false)
                         ];
-                        optionData = optionData.add(defaultData);
+                        options = options.add(defaultData);
 
                         auto domDocument = new DOMDocument(options["version"], options["encoding"]);
                         if (options["pretty"]) {
@@ -238,7 +238,7 @@ class Xml {
                         self._fromArray(domDocument, domDocument, myinput, options["format"]);
 
                         options.set("return", options.getString("return").lower);
-                        if (optionData.getString("return") == "simplexml" || optionData.getString("return") == "simplexmlelement") {
+                        if (options.getString("return") == "simplexml" || options.getString("return") == "simplexmlelement") {
                             return new DSimpleXMLElement(to!string(domDocument.saveXML()));
                         }
                         return domDocument;

@@ -19,12 +19,11 @@ mixin template THttpClient() {
      * Create a new response.
      * Params:
      * @param string[] aHeaders A list of headers for the response. Example `Content-Type: application/Json`
-     * @param string abody The body for the response.
      */
-    Response newClientResponse(int responseCode = 200, Json[string] aHeaders = null, string abody= null) {
+    Response newClientResponse(int responseCode = 200, Json[string] aHeaders = null, string responseBody= null) {
          aHeaders = chain(["HTTP/1.1 {code}"],  aHeaders);
 
-        return new DResponse(aHeaders, body);
+        return new DResponse(aHeaders, responseBody);
     }
     
     // Add a mock response for a POST request.

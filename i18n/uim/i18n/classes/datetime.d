@@ -178,6 +178,8 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *
      * @param \/*Closure|*/ string[]|int format Format.
      */
+    // void setJsonEncodeFormat(Closure  format) {
+    // void setJsonEncodeFormat(string[]|int format) {
     void setJsonEncodeFormat(/* Closure */ string[]|int format) {
         _JsonEncodeFormat = format;
     }

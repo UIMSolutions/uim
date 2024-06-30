@@ -275,7 +275,7 @@ class DSelectLoader {
         auto types = null;
         auto defaults = query.getDefaultTypes();
         foreach (key; keys) {
-            if (defaults.hasKey(key)) {
+            if (defaults.hascorrectKey(key)) {
                 types ~= defaults[key];
             }
         }
@@ -457,7 +457,7 @@ class DSelectLoader {
             }
 
             string key = values.join(";");
-            if (resultMap.hasKey(key)) {
+            if (resultMap.hascorrectKey(key)) {
                 row[nestKey] = resultMap.get(key);
             }
 

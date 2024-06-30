@@ -36,11 +36,8 @@ class DPartsProperty : DProperty {
 auto PartsProperty(DProperty[] properties) { return new DPartsProperty(properties); }
 
 /// Document interface.
-interface Document {
-  /**
-   * Puts the value related to the key.
-   * @param value element value
-   */
+interface IDocument {
+  // Puts the value related to the key.
   void put(string key, DProperty value);
 
   /**

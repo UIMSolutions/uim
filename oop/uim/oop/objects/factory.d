@@ -71,7 +71,7 @@ class DFactory(T : UIMObject) : IKeyAndPath, INamed {
         }
 
 		bool hasAllKeys(string[] keys) {
-            return keys.all!(key => hasKey(key));
+            return keys.all!(key => hascorrectKey(key));
         }
 
 		bool hasAnyKeys(string[] keys...) {
@@ -79,18 +79,18 @@ class DFactory(T : UIMObject) : IKeyAndPath, INamed {
         }
 
 		bool hasAnyKeys(string[] keys) {
-            return keys.any!(key => hasKey(key));
+            return keys.any!(key => hascorrectKey(key));
         }
 
 		bool hasKey(string key) {
             return key in _workers ? true : false;
         }
 
-        string correctedKey(string[] path) {
-            return correctedKey(path.join(_pathSeparator));
+        string correctKey(string[] path) {
+            return correctKey(path.join(_pathSeparator));
         }
 
-        string correctedKey(string key) {
+        string correctKey(string key) {
             return key.strip;
         }
 	// #endregion keys
@@ -100,12 +100,12 @@ class DFactory(T : UIMObject) : IKeyAndPath, INamed {
     }
 
     T get(string[] path, Json[string] options = null) @safe {
-        return get(correctedKey(path), options);
+        return get(correctKey(path), options);
     }
 
     T get(string key, Json[string] options = null) @safe {
-        return correctedKey(key) in _workers
-            ? _workers[correctedKey(key)](options) : null;
+        return correctedcorrectKey(key) in _workers
+            ? _workers[correctedcorrectKey(key)](options) : null;
     }
     T opIndex(string key, Json[string] options = null) {
         return get(key, options);
@@ -117,7 +117,7 @@ class DFactory(T : UIMObject) : IKeyAndPath, INamed {
         }
 
 		bool removePath(string[] path) {
-            return removeKey(correctedKey(path));
+            return removeKey(correctKey(path));
         }
 
 		bool removeKeys(string[] keys...) {
@@ -125,11 +125,11 @@ class DFactory(T : UIMObject) : IKeyAndPath, INamed {
         }
 
 		bool removeKeys(string[] keys) {
-            return keys.all!(key => removeKey(key));
+            return keys.all!(key => removecorrectKey(key));
         }
 
 		bool removeKey(string key) {
-            return removeKey(correctedKey(key));
+            return removeKey(correctedcorrectKey(key));
         } 
 
 		void clear() {

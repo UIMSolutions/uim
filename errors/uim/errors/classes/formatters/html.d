@@ -54,13 +54,13 @@ class DHtmlErrorFormatter : IErrorFormatter {
     
     // Convert a tree of IErrorNode objects into HTML
     string dump(IErrorNode nodeToDump) {
-        auto html = this.export_(nodeToDump, 0);
+        auto content = export_(nodeToDump, 0);
         string head = "";
         if (!outputHeader) {
             outputHeader = true;
             head = this.dumpHeader();
         }
-        return head ~ "<div class=\"uim-debug\">" ~ html ~ "</div>";
+        return head ~ htmlDoubleTag("div", ["uim-debug"], content);
     }
     
     /**
@@ -96,25 +96,24 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * Export an array type object
      * Params:
      * \UIM\Error\Debug\ArrayNode var The array to export.
-     * @param int indentLevel The current indentation level.
      */
     protected string exportArray(ArrayNode tvar, int indentLevel) {
-        open = "<span class="uim-debug-array">' .
-           style("punct", "[") .
-            '<samp class="uim-debug-array-items">";
-        vars = null;
-        break = "\n" ~ str_repeat("  ",  indentLevel);
-        endBreak = "\n" ~ str_repeat("  ",  indentLevel - 1);
+        auto open = "<span class="uim-debug-array">" ~
+           style("punct", "[") ~
+            "<samp class="uim-debug-array-items">";
+        auto vars = null;
+        auto breakText = "\n" ~ str_repeat("  ",  indentLevel);
+        auto endBreak = "\n" ~ str_repeat("  ",  indentLevel - 1);
 
-        arrow =style("punct", ": ");
+        auto arrow = style("punct", ": ");
         var.getChildren().each!((item) {
             val = anItem.getValue();
-            vars ~= break ~ "<span class=\"uim-debug-array-item\">" ~
-                this.export_(item.getKey(),  indentLevel) ~ arrow ~ this.export_(val,  indentLevel) ~
-               style("punct", ",") ~ "</span>";
+            vars ~= breakText ~ htmlDoubleTag("span", ["uim-debug-array-item"], 
+                export_(item.getKey(),  indentLevel) ~ arrow ~ export_(val,  indentLevel) ~
+                style("punct", ","));
         });
 
-        close = "</samp>" ~
+        auto close = "</samp>" ~
             endBreak ~
            style("punct", "]") ~
             "</span>";
@@ -134,16 +133,15 @@ class DHtmlErrorFormatter : IErrorFormatter {
         auto endBreak = "\n" ~ str_repeat("  ",  indentLevel - 1);
 
         if (cast(ReferenceNode)var) {
-            link = "<a class="uim-debug-ref" href="#%s">id: %s</a>"
+            auto link = "<a class="uim-debug-ref" href="#%s">id: %s</a>"
                 .format(objectId, var.getId());
 
-            return "<span class=\"uim-debug-ref\">" ~
+            return htmlDoubleTag("span", ["uim-debug-ref"], 
                style("punct", "object(") ~
                style("class", var.getValue()) ~
                style("punct", ") ") ~
                 link ~
-               style("punct", " {}") ~
-                "</span>";
+               style("punct", " {}"));
         }
          result ~= style("punct", "object(") ~
            style("class", var.getValue()) ~

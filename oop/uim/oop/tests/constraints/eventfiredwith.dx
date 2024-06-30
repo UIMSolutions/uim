@@ -24,12 +24,12 @@ class DEventFiredWith : DConstraint {
      * Constructor
      * Params:
      * \UIM\Event\EventManager eventManager Event manager to check
-     * @param string dataKey Data key
+     * @param string key Data key
      * @param Json someDataValue Data value
      */
-    this(DEventManager eventManager, string dataKey, Json someDataValue) {
+    this(DEventManager eventManager, string key, Json someDataValue) {
        _eventManager = eventManager;
-       _dataKey = dataKey;
+       _dataKey = key;
        _dataValue = someDataValue;
 
         if (_eventManager.getEventList().isNull) {

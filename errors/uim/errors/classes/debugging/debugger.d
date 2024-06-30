@@ -1,4 +1,3 @@
-
 /*********************************************************************************************************
 	Copyright: © 2015-2024 Ozan Nurettin Süel (UIManufaktur)                                        
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
@@ -56,32 +55,32 @@ class DDebugger {
             // These templates are not actually used, as Debugger.log() is called instead.
             "trace": "{:reference} - {:path}, line {:line}",
             "error": "{:error} ({:code}): {:description} in [{:file}, line {:line}]",
-        ],
-        "js": [
-            "error": "",
-            "info": "",
-            "trace": "<pre class=\"stack-trace\">{:trace}</pre>",
-            "code": "",
-            "context": "",
-            "links": [],
-            "escapeContext": true.toJson,
-        ],
-        "html": [
-            "trace": "<pre class=\"uim-error trace\"><b>Trace</b> <p>{:trace}</p></pre>",
-            "context": "<pre class=\"uim-error context\"><b>Context</b> <p>{:context}</p></pre>",
-            "escapeContext": true,
-        ],
-        "txt": [
-            "error": "{:error}: {:code} . {:description} on line {:line} of {:path}\n{:info}",
-            "code": "",
-            "info": "",
-        ],
-        "base": [
-            "traceLine": "{:reference} - {:path}, line {:line}",
-            "trace": "Trace:\n{:trace}\n",
-            "context": "Context:\n{:context}\n",
-        ],
-    ];
+        
+    ],
+    "js" : [
+        "error": "",
+        "info": "",
+        "trace": "<pre class=\"stack-trace\">{:trace}</pre>",
+        "code": "",
+        "context": "",
+        "links": [],
+        "escapeContext": true.toJson,
+    ],
+    "html" : [
+        "trace": "<pre class=\"uim-error trace\"><b>Trace</b> <p>{:trace}</p></pre>",
+        "context": "<pre class=\"uim-error context\"><b>Context</b> <p>{:context}</p></pre>",
+        "escapeContext": true,
+    ],
+    "txt" : [
+        "error": "{:error}: {:code} . {:description} on line {:line} of {:path}\n{:info}",
+        "code": "",
+        "info": "",
+    ],
+    "base" : [
+        "traceLine": "{:reference} - {:path}, line {:line}",
+        "trace": "Trace:\n{:trace}\n",
+        "context": "Context:\n{:context}\n",
+    ],];
 
     /**
      * Mapping for error renderers.
@@ -119,7 +118,7 @@ class DDebugger {
             define("ERRORS.RECOVERABLE_ERROR", 4096);
         }
 
-        aConfig = array_intersectinternalKey(/* (array) */Configure.read("Debugger"), _defaultConfig);
+        aConfig = array_intersectinternalKey( /* (array) */ Configure.read("Debugger"), _defaultConfig);
         configuration.update(aConfig);
 
         e = `<pre class="uim-error">`;
@@ -148,20 +147,23 @@ class DDebugger {
         link ~= "\"none\" ? \"\" : \"none\")\">Context</a>";
         links["context"] = link;
 
-        _stringContents["js.links"] = links;
+        _stringContents.set("js.links", links);
 
-        _stringContents["js.context"] = "<pre id=\"{:id}-context\" class=\"uim-context uim-debug\" ";
-        _stringContents["js.context"] ~= "style=\"display: none;\">{:context}</pre>";
+        _stringContents.set("js.context", htmlDoubleTag("pre", "{:id}-context", [
+                    "uim-context", "uim-debug"
+                ], ["style": "display: none;"], "{:context}"));
+        _stringContents.set("js.code", htmlDoubleTag("pre", "{:id}-code", [
+                    "uim-code-dump"
+                ], ["style": "display: none;"], "{:code}"));
 
-        _stringContents["js.code"] = "<pre id=\"{:id}-code\" class=\"uim-code-dump\" ";
-        _stringContents["js.code"] ~= "style=\"display: none;\">{:code}</pre>";
+        _stringContents.set("html.error", htmlDoubleTag("pre", ["uim-error"],
+                htmlDoubleTag("b", "{:error}") ~ "({:code}) : {:description} [<b>{:path}</b>, line <b>{:line}]</b>"));
 
-        e = "<pre class=\"uim-error\"><b>{:error}</b> ({:code}) : {:description} ";
-        e ~= "[<b>{:path}</b>, line <b>{:line}]</b></pre>";
-        _stringContents["html.error"] = e;
-
-        _stringContents["html.context"] = "<pre class=\"uim-context uim-debug\"><b>Context</b> ";
-        _stringContents["html.context"] ~= "<p>{:context}</p></pre>";
+        _stringContents.set("html.context", htmlDoubleTag("pre", [
+                    "uim-context uim-debug"
+                ],
+                htmlDoubleTag("b", "Context") ~
+                htmlDoubleTag("p", "{:context}")));
     }
 
     // Returns a reference to the Debugger singleton object instance.
@@ -216,9 +218,10 @@ class DDebugger {
      */
     static void addEditor(string editorName, /* Closure */ string templateName) {
         auto instance = getInstance();
-        if (!templatenName.isString && !(cast(Closure)templatenName)) {
+        if (!templatenName.isString && !(cast(Closure) templatenName)) {
             auto type = getTypeName(templatenName);
-            throw new DRuntimeException("Invalid editor type of `{type}`. Expected string or Closure.");
+            throw new DRuntimeException(
+                "Invalid editor type of `{type}`. Expected string or Closure.");
         }
         instance.editors[editorName] = templatenName;
     }
@@ -243,13 +246,13 @@ class DDebugger {
         auto instance = getInstance();
         auto editor = instance.getConfig("editor");
         if (instance.editors.isNull(editor)) {
-            throw new DRuntimeException("Cannot format editor URL `{editor}` is not a known editor.");
+            throw new DRuntimeException(
+                "Cannot format editor URL `{editor}` is not a known editor.");
         }
 
         auto templateText = instance.editors[editor];
         return templateText.isString
-            ? templateText.mustache(["file":file, "line": lineNumber])
-            : templateText(file, lineNumber);
+            ? templateText.mustache(["file": file, "line": lineNumber]) : templateText(file, lineNumber);
     }
 
     // Recursively formats and outputs the contents of the supplied variable.
@@ -267,7 +270,7 @@ class DDebugger {
         Log.write(
             logLevel,
             "\n" ~ source ~ exportVarAsPlainText(varToLog, maxOutputDepth)
-       );
+        );
     }
 
     /**
@@ -303,9 +306,10 @@ class DDebugger {
      * @return array|string Formatted stack trace.
      */
     static function formatTrace(backtrace, Json[string] options = null) {
-        if (cast(Throwable)backtrace ) {
+        if (cast(Throwable) backtrace) {
             backtrace = backtrace.getTrace();
         }
+
         auto self = Debugger.getInstance();
         auto defaults = [
             "depth": 999,
@@ -332,12 +336,13 @@ class DDebugger {
             string signature = "[main]";
             string reference = "[main]";
 
-            if (backtrace[i + 1] !is null) {
+            if (backtrace[i + 1]!is null) {
                 next = backtrace[i + 1] + _trace;
                 signature = reference = next["function"];
 
                 if (!next.isEmpty("class")) {
-                    string signature = next.getString("class") ~ "." ~ next.getString("class")"function");
+                    string signature = next.getString(
+                        "class") ~ "." ~ next.getString("class") "function");
                     reference = signature ~ "(";
                     if (options.isNull("args") && next.hasKey("args")) {
                         auto args = next["args"].map!(arg => Debugger.exportVar(arg)).array;
@@ -353,7 +358,8 @@ class DDebugger {
             auto formatValue = options.getString("format");
             if (formatValue == "points") {
                 back ~= ["file": trace["file"], "line": trace["line"], "reference": reference];
-            } elseif (formatValue == "array") {
+            }
+            elseif(formatValue == "array") {
                 if (!options.hasKey("args")) {
                     trace.remove("args");
                 }
@@ -361,40 +367,39 @@ class DDebugger {
             } else {
                 formatValue = options.getString("format");
                 tpl = _stringContents.hasKey(formatValue ~ ".traceLine")
-                    ? _stringContents[formatValue~".traceLine"];
-                    : _stringContents["base.traceLine"];
-                }
-                trace["path"] = trimPath(trace["file"]);
-                trace["reference"] = reference;
-                remove(trace["object"], trace["args"]);
-                back ~= Text.insert(tpl, trace, ["before": "{:", "after": "}"]);
+                    ? _stringContents[formatValue ~ ".traceLine"];
+                 : _stringContents["base.traceLine"];
             }
+            trace["path"] = trimPath(trace["file"]);
+            trace["reference"] = reference;
+            remove(trace["object"], trace["args"]);
+            back ~= Text.insert(tpl, trace, ["before": "{:", "after": "}"]);
         }
-
-        return ["array", "points"].has(options.getString("format"))
-            ? back 
-            : back.join("\n");
     }
 
-    /**
+    return ["array", "points"].has(options.getString("format"))
+        ? back : back.join("\n");
+}
+
+/**
      * Shortens file paths by replacing the application base path with "APP", and the UIM core
      * path with "CORE".
      */
-    static string trimPath(string pathToShorten) {
-        if (defined("APP") && indexOf(path, APP) == 0) {
-            return replace(APP, "APP/", path);
-        }
-        if (defined("UIM_CORE_INCLUDE_PATH") && indexOf(path, UIM_CORE_INCLUDE_PATH) == 0) {
-            return replace(uim_CORE_INCLUDE_PATH, "CORE", path);
-        }
-        if (defined("ROOT") && indexOf(path, ROOT) == 0) {
-            return replace(ROOT, "ROOT", path);
-        }
-
-        return path;
+static string trimPath(string pathToShorten) {
+    if (defined("APP") && indexOf(path, APP) == 0) {
+        return replace(APP, "APP/", path);
+    }
+    if (defined("UIM_CORE_INCLUDE_PATH") && indexOf(path, UIM_CORE_INCLUDE_PATH) == 0) {
+        return replace(uim_CORE_INCLUDE_PATH, "CORE", path);
+    }
+    if (defined("ROOT") && indexOf(path, ROOT) == 0) {
+        return replace(ROOT, "ROOT", path);
     }
 
-    /**
+    return path;
+}
+
+/**
      * Grabs an excerpt from a file and highlights a given line of code.
      *
      * Usage:
@@ -412,91 +417,93 @@ class DDebugger {
      * @param int line Line number to highlight.
      * @param int context Number of lines of context to extract above and below line.
      */
-    static string[] excerpt(string absPathToFile, int lineNumber, int numberLinesContext = 2) {
-        auto lines = null;
-        if (!fileExists(absPathToFile)) {
-            return [];
-        }
-        auto data = file_get_contents(absPathToFile);
-        if (data.isEmpty) {
-            return lines;
-        }
-
-        if (indexOf(data, "\n") == true) {
-            data = explode("\n", data);
-        }
-        auto lineNumber--;
-        if (data.isNull(lineNumber)) {
-            return lines;
-        }
-        for (i = lineNumber - numberLinesContext; i < lineNumber + numberLinesContext + 1; i++) {
-            if (data.isNull(i)) {
-                continue;
-            }
-            string text = replace(["\r\n", "\n"], "", _highlight(data[i]));
-            lines ~= i == lineNumber 
-                ? htmlDoubletag("span", ["code-highlight"], text)
-                : text;
-        }
-
+static string[] excerpt(string absPathToFile, int lineNumber, int numberLinesContext = 2) {
+    auto lines = null;
+    if (!fileExists(absPathToFile)) {
+        return [];
+    }
+    auto data = file_get_contents(absPathToFile);
+    if (data.isEmpty) {
         return lines;
     }
 
-    /**
+    if (indexOf(data, "\n") == true) {
+        data = explode("\n", data);
+    }
+    auto lineNumber--;
+    if (data.isNull(lineNumber)) {
+        return lines;
+    }
+    for (i = lineNumber - numberLinesContext; i < lineNumber + numberLinesContext + 1;
+        i++) {
+        if (data.isNull(i)) {
+            continue;
+        }
+        string text = replace(["\r\n", "\n"], "", _highlight(data[i]));
+        lines ~= i == lineNumber
+            ? htmlDoubletag("span", ["code-highlight"], text) : text;
+    }
+
+    return lines;
+}
+
+/**
      * Wraps the highlight_string function in case the server API does not
      * implement the function as it is the case of the HipHop interpreter
      *
      * @param string str The string to convert.
      */
-    protected static string _highlight(string stringToConvert) {
-        if (function_exists("hD_log") || function_exists("hD_gettid")) {
-            return htmlentities(stringToConvert);
-        }
-        added = false;
-        if (indexOf(str, "<?D") == false) {
-            added = true;
-            stringToConvert = "<?D \n" ~ stringToConvert;
-        }
-        highlight = highlight_string(stringToConvert, true);
-        if (added) {
-            highlight = replace(
-                ["&lt;?D&nbsp;<br/>", "&lt;?D&nbsp;<br />"],
-                "",
-                highlight
-           );
-        }
-
-        return highlight;
+protected static string _highlight(string stringToConvert) {
+    if (function_exists("hD_log") || function_exists("hD_gettid")) {
+        return htmlentities(stringToConvert);
+    }
+    added = false;
+    if (indexOf(str, "<?D") == false) {
+        added = true;
+        stringToConvert = "<?D \n" ~ stringToConvert;
+    }
+    highlight = highlight_string(stringToConvert, true);
+    if (added) {
+        highlight = replace(
+            ["&lt;?D&nbsp;<br/>", "&lt;?D&nbsp;<br />"],
+            "",
+            highlight
+        );
     }
 
-    /**
+    return highlight;
+}
+
+/**
      * Get the configured export formatter or infer one based on the environment.
      *
      * @return uim.errors.debugs.IErrorFormatter
      * @unstable This method is not stable and may change in the future.
      */
-    IErrorFormatter getExportFormatter() {
-        auto instance = getInstance();
-        auto aclassname = instance.getConfig("exportFormatter");
-        if (!aclassname) {
-            if (ConsoleFormatter.environmentMatches()) {
-                aclassname = ConsoleFormatter.class;
-            } elseif (HtmlFormatter.environmentMatches()) {
-                aclassname = HtmlFormatter.class;
-            } else {
-                aclassname = TextFormatter.class;
-            }
+IErrorFormatter getExportFormatter() {
+    auto instance = getInstance();
+    auto aclassname = instance.getConfig("exportFormatter");
+    if (!aclassname) {
+        if (ConsoleFormatter.environmentMatches()) {
+            aclassname = ConsoleFormatter.class;
         }
-        auto instance = new aclassname();
-        if (!cast(IErrorFormatter)instance) {
-            throw new DRuntimeException(
-                "The `{aclassname}` formatter does not implement " ~ IErrorFormatter.class
-           );
+        elseif(HtmlFormatter.environmentMatches()) {
+            aclassname = HtmlFormatter.class;
+        } else {
+            aclassname = TextFormatter.class;
         }
-        return instance;
     }
 
-    /**
+    auto instance = new aclassname();
+    if (!cast(IErrorFormatter) instance) {
+        throw new DRuntimeException(
+            "The `{aclassname}` formatter does not implement " ~ IErrorFormatter.class
+        );
+    }
+    return instance;
+}
+
+/**
      * Converts a variable to a string for debug output.
      *
      * *Note:* The following keys will have their contents
@@ -516,26 +523,26 @@ class DDebugger {
      * @param mixed var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
      */
-    static string exportVar(Json var, int maxDepth = 3) {
-        auto context = new DebugContext(maxDepth);
-        auto node = export_(var, context);
+static string exportVar(Json var, int maxDepth = 3) {
+    auto context = new DebugContext(maxDepth);
+    auto node = export_(var, context);
 
-        return getInstance().getExportFormatter().dump(node);
-    }
+    return getInstance().getExportFormatter().dump(node);
+}
 
-    /**
+/**
      * Converts a variable to a plain text string.
      *
      * @param mixed var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
      */
-    static string exportVarAsPlainText(Json var, int maxDepth = 3) {
-        return (new DTextFormatter()).dump(
-            export_(var, new DebugContext(maxDepth))
-       );
-    }
+static string exportVarAsPlainText(Json var, int maxDepth = 3) {
+    return (new DTextFormatter()).dump(
+        export_(var, new DebugContext(maxDepth))
+    );
+}
 
-    /**
+/**
      * Convert the variable to the internal node tree.
      *
      * The node tree can be manipulated and serialized more easily
@@ -543,37 +550,37 @@ class DDebugger {
      *
      * @param int maxDepth The depth to generate nodes to. Defaults to 3.
      */
-    static IErrorNode exportVarAsNodes(Json varToConvert, int maxDepth = 3) {
-        return export_(varToConvert, new DebugContext(maxDepth));
-    }
+static IErrorNode exportVarAsNodes(Json varToConvert, int maxDepth = 3) {
+    return export_(varToConvert, new DebugContext(maxDepth));
+}
 
-    /**
+/**
      * Protected export function used to keep track of indentation and recursion.
      * @param uim.errors.debugs.DebugContext context Dump context
      */
-    protected static IErrorNode export_(varToDump, DebugContext dumpContext) {
-        type = getType(varToDump);
-        switch (type) {
-            case "float": 
-            case "string": 
-            case "resource": 
-            case "resource (closed)": 
-            case "null": 
-                return new DScalarNode(type, varToDump);
-            case "boolean": 
-                return new DScalarNode("bool", varToDump);
-            case "integer": 
-                return new DScalarNode("int", varToDump);
-            case "array": 
-                return exportArray(varToDump, context.withAddedDepth());
-            case "unknown": 
-                return new DSpecialNode("(unknown)");
-            default:
-                return exportObject(varToDump, context.withAddedDepth());
-        }
+protected static IErrorNode export_(varToDump, DebugContext dumpContext) {
+    type = getType(varToDump);
+    switch (type) {
+    case "float":
+    case "string":
+    case "resource":
+    case "resource (closed)":
+    case "null":
+        return new DScalarNode(type, varToDump);
+    case "boolean":
+        return new DScalarNode("bool", varToDump);
+    case "integer":
+        return new DScalarNode("int", varToDump);
+    case "array":
+        return exportArray(varToDump, context.withAddedDepth());
+    case "unknown":
+        return new DSpecialNode("(unknown)");
+    default:
+        return exportObject(varToDump, context.withAddedDepth());
     }
+}
 
-    /**
+/**
      * Export an array type object. Filters out keys used in datasource configuration.
      *
      * The following keys are replaced with ***"s
@@ -590,159 +597,162 @@ class DDebugger {
      * @param uim.errors.debugs.DebugContext context The current dump context.
      * @return uim.errors.debugs.ArrayNode Exported array.
      */
-    protected static function exportArray(Json[string] var, DebugContext context): ArrayNode
-    {
-        items = null;
+protected static function exportArray(Json[string] var, DebugContext context) : ArrayNode {
+    items = null;
 
-        remaining = context.remainingDepth();
-        if (remaining >= 0) {
-            outputMask = outputMask();
-            foreach (var as key: val) {
-                if (array_key_exists(key, outputMask)) {
-                    node = new DScalarNode("string", outputMask[key]);
-                } elseif (val != var) {
-                    // Dump all the items without increasing depth.
-                    node = export_(val, context);
-                } else {
-                    // Likely recursion, so we increase depth.
-                    node = export_(val, context.withAddedDepth());
-                }
-                items ~= new DArrayItemErrorNode(export_(key, context), node);
+    remaining = context.remainingDepth();
+    if (remaining >= 0) {
+        outputMask = outputMask();
+        foreach (var as key : val) {
+            if (array_key_exists(key, outputMask)) {
+                node = new DScalarNode("string", outputMask[key]);
             }
-        } else {
-            items ~= new DArrayItemErrorNode(
-                new DScalarNode("string", ""),
-                new DSpecialNode("[maximum depth reached]")
-           );
+            elseif(val != var) {
+                // Dump all the items without increasing depth.
+                node = export_(val, context);
+            } else {
+                // Likely recursion, so we increase depth.
+                node = export_(val, context.withAddedDepth());
+            }
+            items ~= new DArrayItemErrorNode(export_(key, context), node);
         }
-
-        return new ArrayNode(items);
+    } else {
+        items ~= new DArrayItemErrorNode(
+            new DScalarNode("string", ""),
+            new DSpecialNode("[maximum depth reached]")
+        );
     }
 
-    /**
+    return new ArrayNode(items);
+}
+
+/**
      * Handles object to node conversion.
      *
      * @param object var Object to convert.
      * @param uim.errors.debugs.DebugContext context The dump context.
      * @return uim.errors.debugs.IErrorNode
      */
-    protected static function exportObject(object var, DebugContext context): IErrorNode
-    {
-        isRef = context.hasReference(var);
-        refNum = context.getReferenceId(var);
+protected static function exportObject(object var, DebugContext context) : IErrorNode {
+    isRef = context.hasReference(var);
+    refNum = context.getReferenceId(var);
 
-        aclassnameName = get_class(var);
-        if (isRef) {
-            return new DReferenceNode(aclassnameName, refNum);
-        }
-        node = new DClassNode(aclassnameName, refNum);
+    aclassnameName = get_class(var);
+    if (isRef) {
+        return new DReferenceNode(aclassnameName, refNum);
+    }
+    node = new DClassNode(aclassnameName, refNum);
 
-        remaining = context.remainingDepth();
-        if (remaining > 0) {
-            if (method_exists(var, "__debugInfo")) {
-                try {
-                    foreach (/* (array) */var.__debugInfo() as key: val) {
-                        node.addProperty(new DPropertyNode(""{key}"", null, export_(val, context)));
-                    }
-
-                    return node;
-                } catch (Exception e) {
-                    return new DSpecialNode("(unable to export object: {e.getMessage()})");
+    remaining = context.remainingDepth();
+    if (remaining > 0) {
+        if (method_exists(var, "__debugInfo")) {
+            try {
+                foreach ( /* (array) */ var.__debugInfo() as key : val) {
+                    node.addProperty(new DPropertyNode("" {
+                            key
+                        }
+                    "", null, export_(val, context)));
                 }
+
+                return node;
+            } catch (Exception e) {
+                return new DSpecialNode("(unable to export object: {e.getMessage()})");
             }
+        }
 
-            outputMask = outputMask();
-            objectVars = get_object_vars(var);
-            foreach (objectVars as key: value) {
-                if (array_key_exists(key, outputMask)) {
-                    value = outputMask[key];
-                }
-                /** @psalm-suppress RedundantCast */
+        outputMask = outputMask();
+        objectVars = get_object_vars(var);
+        foreach (objectVars as key : value) {
+            if (array_key_exists(key, outputMask)) {
+                value = outputMask[key];
+            }
+            /** @psalm-suppress RedundantCast */
+            node.addProperty(
+                new DPropertyNode((string) key, "public", export_(value, context.withAddedDepth()))
+            );
+        }
+
+        ref = new DReflectionObject(var);
+
+        filters = [
+            ReflectionProperty.IS_PROTECTED: "protected",
+            ReflectionProperty.IS_PRIVATE: "private",
+        ];
+        foreach (filters as filter : visibility) {
+            reflectionProperties = ref.getProperties(filter);
+            foreach (reflectionProperties as reflectionProperty) {
+                reflectionProperty.setAccessible(true);
+
+                value = method_exists(reflectionProperty, "isInitialized") && !reflectionProperty.isInitialized(var)
+                    ? new DSpecialNode(
+                        "[uninitialized]") : export_(reflectionProperty.getValue(var), context.withAddedDepth());
+
                 node.addProperty(
-                    new DPropertyNode((string)key, "public", export_(value, context.withAddedDepth()))
-               );
-            }
-
-            ref = new DReflectionObject(var);
-
-            filters = [
-                ReflectionProperty.IS_PROTECTED: "protected",
-                ReflectionProperty.IS_PRIVATE: "private",
-            ];
-            foreach (filters as filter: visibility) {
-                reflectionProperties = ref.getProperties(filter);
-                foreach (reflectionProperties as reflectionProperty) {
-                    reflectionProperty.setAccessible(true);
-
-                    value = method_exists(reflectionProperty, "isInitialized") && !reflectionProperty.isInitialized(var) 
-                        ? new DSpecialNode("[uninitialized]")
-                        : export_(reflectionProperty.getValue(var), context.withAddedDepth());
-
-                    node.addProperty(
-                        new DPropertyNode(
-                            reflectionProperty.getName(),
-                            visibility,
-                            value
-                       )
-                   );
-                }
+                    new DPropertyNode(
+                        reflectionProperty.getName(),
+                        visibility,
+                        value
+                )
+                );
             }
         }
-
-        return node;
     }
 
-    /**
+    return node;
+}
+
+/**
      * Get the type of the given variable. Will return the class name
      * for objects.
      */
-    static string getType(Json var) {
-        type = getTypeName(var);
+static string getType(Json var) {
+    type = getTypeName(var);
 
-        if (type == "NULL") {
-            return "null";
-        }
-
-        if (type == "double") {
-            return "float";
-        }
-
-        if (type == "unknown type") {
-            return "unknown";
-        }
-
-        return type;
+    if (type == "NULL") {
+        return "null";
     }
 
-    /**
+    if (type == "double") {
+        return "float";
+    }
+
+    if (type == "unknown type") {
+        return "unknown";
+    }
+
+    return type;
+}
+
+/**
      * Prints out debug information about given variable.
      *
      * @param mixed var Variable to show debug information for.
      * @param Json[string] location If contains keys "file" and "line" their values will
      *   be used to show location info.
      */
-    static void printVar(Json varToShow, Json[string] location = null, bool showHtml = false) {
-        auto location += ["file": null, "line": null];
-        if (location["file"]) {
-            location["file"] = trimPath((string)location["file"]);
-        }
-
-        auto debugger = getInstance();
-        restore = null;
-        if (showHtml != null) {
-            restore = debugger.getConfig("exportFormatter");
-            debugger.configuration.set("exportFormatter", showHtml ? HtmlFormatter.class : TextFormatter.class);
-        }
-        contents = exportVar(varToShow, 25);
-        formatter = debugger.getExportFormatter();
-
-        if (restore) {
-            debugger.setConfig("exportFormatter", restore);
-        }
-        writeln(formatter.formatWrapper(contents, location);
+static void printVar(Json varToShow, Json[string] location = null, bool showHtml = false) {
+    auto location += ["file": null, "line": null];
+    if (location["file"]) {
+        location["file"] = trimPath((string) location["file"]);
     }
 
-    /**
+    auto debugger = getInstance();
+    restore = null;
+    if (showHtml != null) {
+        restore = debugger.getConfig("exportFormatter");
+        debugger.configuration.set("exportFormatter", showHtml ? HtmlFormatter
+                .class : TextFormatter.class);
+    }
+    contents = exportVar(varToShow, 25);
+    formatter = debugger.getExportFormatter();
+
+    if (restore) {
+        debugger.setConfig("exportFormatter", restore);
+    }
+    writeln(formatter.formatWrapper(contents, location);
+}
+
+/**
      * Format an exception message to be HTML formatted.
      *
      * Does the following formatting operations:
@@ -751,22 +761,22 @@ class DDebugger {
      * - Convert `bool` into `<code>bool</code>`
      * - Convert newlines into `<br />`
      */
-    static string formatHtmlMessage(string messageToFormat) {
-        messageToFormat = htmlAttributeEscape(messageToFormat);
-        messageToFormat = preg_replace("/`([^`]+)`/", "<code>1</code>", messageToFormat);
+static string formatHtmlMessage(string messageToFormat) {
+    messageToFormat = htmlAttributeEscape(messageToFormat);
+    messageToFormat = preg_replace("/`([^`]+)`/", "<code>1</code>", messageToFormat);
 
-        return nl2br(messageToFormat);
-    }
+    return nl2br(messageToFormat);
+}
 
-    // Verifies that the application"s salt and cipher seed value has been changed from the default value.
-    static void checkSecurityKeys() {
-        salt = Security.getSalt();
-        if (salt == "__SALT__" || strlen(salt) < 32) {
-            trigger_error(
-                "Please change the value of `Security.salt` in `ROOT/config/app_local.D` " .
-                "to a random value of at least 32 characters.",
+// Verifies that the application"s salt and cipher seed value has been changed from the default value.
+static void checkSecurityKeys() {
+    salt = Security.getSalt();
+    if (salt == "__SALT__" || strlen(salt) < 32) {
+        trigger_error(
+            "Please change the value of `Security.salt` in `ROOT/config/app_local.D` "
+                ."to a random value of at least 32 characters.",
                 ERRORS.USER_NOTICE
-           );
-        }
+        );
     }
+}
 }

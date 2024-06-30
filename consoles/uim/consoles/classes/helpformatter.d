@@ -82,7 +82,7 @@ class DHelpFormatter {
         auto parserArguments = myParser.arguments();
         if (!parserArguments.isEmpty) {
             max = _getMaxLength(parserArguments) + 2;
-            result ~= "<info>Arguments:</info>";
+            result ~= htmlDoubleTag("info", "Arguments");
             result ~= "";
             parserArguments.each!(argument => 
                 result ~= Text.wrapBlock(argument.help(max), [
@@ -93,9 +93,10 @@ class DHelpFormatter {
             }
             result ~= "";
         }
-        epilog = myParser.getEpilog();
+        
+        auto epilog = myParser.getEpilog();
         if (!epilog.isEmpty) {
-            result ~= Text.wrap(epilog, withOfOutput);
+            result ~= Text.wrap(epilog, withOfOutput)
             result ~= "";
         }
         return result.join("\n");

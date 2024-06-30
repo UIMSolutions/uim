@@ -43,26 +43,26 @@ class DObjectRegistry(T : UIMObject) {
 	}
 
 	bool hasPath(string[] path) {
-		return _objects.hasKey(correctedKey(path));
+		return _objects.hasKey(correctKey(path));
 	}
 
 	bool hasAllKeys(string[] keys) {
-		return keys.all!(key => hasKey(key));
+		return keys.all!(key => hascorrectKey(key));
 	}
 
 	bool hasAnyKeys(string[] keys) {
-		return keys.any!(key => hasKey(key));
+		return keys.any!(key => hascorrectKey(key));
 	}
 
 	bool hasKey(string key) {
-		return _objects.hasKey(correctedKey(key));
+		return _objects.hasKey(correctedcorrectKey(key));
 	}
 
-	string correctedKey(string[] path) {
-		return correctedKey(path.join(_pathSeparator));
+	string correctKey(string[] path) {
+		return correctKey(path.join(_pathSeparator));
 	}
 
-	string correctedKey(string key) {
+	string correctKey(string key) {
 		return key.strip;
 	}
 	// #endregion keys
@@ -88,7 +88,7 @@ class DObjectRegistry(T : UIMObject) {
 	}
 
 	T get(string[] path) {
-		return get(correctedKey(path));
+		return get(correctKey(path));
 	}
 
 	T opIndex(string key) {
@@ -96,7 +96,7 @@ class DObjectRegistry(T : UIMObject) {
 	}
 
 	T get(string key) {
-		return _objects.get(correctedKey(key), _nullValue);
+		return _objects.get(correctedcorrectKey(key), _nullValue);
 	}
 	// #endregion objects
 
@@ -104,7 +104,7 @@ class DObjectRegistry(T : UIMObject) {
 
 	// #region register
 	O register(this O)(string[] path, T newObject) {
-		register(correctedKey(path), newObject);
+		register(correctKey(path), newObject);
 		return cast(O) this;
 	}
 
@@ -113,19 +113,19 @@ class DObjectRegistry(T : UIMObject) {
 	}
 
 	O register(this O)(string key, T newObject) {
-		_objects[correctedKey(key)] = newObject;
+		_objects[correctedcorrectKey(key)] = newObject;
 		return cast(O) this;
 	}
 	// #endregion register
 
 	// #region clone
 	T create(string[] path) {
-		return create(correctedKey(path));
+		return create(correctKey(path));
 	}
 
 	T create(string key) {
 		T createdObject;
-		if (auto registerdObject = get(correctedKey(key))) {
+		if (auto registerdObject = get(correctedcorrectKey(key))) {
 			() @trusted {
 				createdObject = cast(T) factory(registerdObject.classname);
 			}();

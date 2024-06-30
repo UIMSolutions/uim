@@ -196,7 +196,7 @@ class DBehavior : DEventListener {
      */
     void verifyConfig() {
         ["implementedFinders", "implementedMethods"]
-            filter(key => configuration.hasKey(key))
+            filter(key => configuration.hascorrectKey(key))
             .each!((key) {
                 foreach (method; configuration.getStringArray(key)) {
                     if (!is_callable([this, method])) {

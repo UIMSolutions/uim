@@ -47,14 +47,13 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
 
     // Prints an exception to stderr.
     protected void _displayException(Throwable exception) {
-        errorName = "Exception:";
+        string errorName = "Exception:";
         if (cast(DFatalErrorException)exception) {
             errorName = "Fatal Error:";
         }
 
-        message = "<error>%s</error> %s\nIn [%s, line %s]\n"
-            .format(errorName, exception.getMessage(), exception.getFile(), exception.getLine());
-        _stderr.write(message);
+        _stderr.write("<error>%s</error> %s\nIn [%s, line %s]\n"
+            .format(errorName, exception.getMessage(), exception.getFile(), exception.getLine()));
     }
 
     /**
@@ -66,10 +65,8 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
         string message = "%s\nIn [%s, line %s]"
             .format(errorData["description"], errorData["file"], errorData["line"]);
 
-        string message = "<error>%s Error:</error> %s\n"
-            .format(errorData["error"], message);
-
-        _stderr.write(message);
+        _stderr.write((htmlDoubleTag("error", "%s Error:")~"%s\n")
+            .format(errorData["error"], message));
     }
 
     // Stop the execution and set the exit code for the process.

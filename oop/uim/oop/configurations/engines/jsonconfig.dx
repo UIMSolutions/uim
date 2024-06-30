@@ -81,11 +81,10 @@ class DJsonConfig : DConfigEngine {
      * Params:
      * string aKey The identifier to write to. If the key has a ~ it will
      * be treated as a plugin prefix.
-     * @param Json[string] data Data to dump.
          */
-    bool dump(string dataId, Json[string] data) {
+    bool dump(string dataId, Json[string] dataToDump) {
         auto filename = _getFileKey(dataId);
 
-        return file_put_contents(filename, Json_encode(someData, Json_PRETTY_PRINT)) > 0;
+        return file_put_contents(filename, Json_encode(dataToDump, Json_PRETTY_PRINT)) > 0;
     }
 }

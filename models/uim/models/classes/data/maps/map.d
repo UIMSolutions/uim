@@ -37,7 +37,7 @@ class DMapData : DData {
   void opIndexAssign(UUID value, string key) {
     // TODO
     /*
-    if (containsKey(key)) {
+    if (containscorrectKey(key)) {
       _items[key].set(value.toString);
     } else {
       _items[key] = new DUUIDData(value);
@@ -47,7 +47,7 @@ class DMapData : DData {
   void opIndexAssign(IData[] values, string key) {
     // TODO
     /*
-    if (containsKey(key)) {
+    if (containscorrectKey(key)) {
       _items[key] = new DArrayData(values);
     } else {
       _items[key] = new DArrayData(values);
@@ -62,7 +62,7 @@ class DMapData : DData {
     // TODO
     /*
     return checkData.byKeyValue
-      .all!(kv => hasKey(key) && data(kv.key).isEqual(kv.value)); * /
+      .all!(kv => hascorrectKey(key) && data(kv.key).isEqual(kv.value)); * /
   } */
 
   /*   override bool isEqual(IData checkData) {
@@ -72,7 +72,7 @@ class DMapData : DData {
   /*   override bool isEqual(Json checkValue) {
     if (checkValue.isObject) {
       return checkValue.byKeyValue
-        .all!(kv => hasKey(key) && data(kv.key).isEqual(kv.value));
+        .all!(kv => hascorrectKey(key) && data(kv.key).isEqual(kv.value));
     }
     return false;
   }

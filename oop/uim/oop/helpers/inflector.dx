@@ -183,22 +183,21 @@ class DInflector {
      * Params:
      * string mytype The type of inflection, either "plural", "singular",
      *  or "uninflected".
-     * @param Json[string] myrules Array of rules to be added.
      */
-  static void rules(string mytype, Json[string] myrules, bool shouldReset = false) {
+  static void rules(string mytype, Json[string] rules, bool shouldReset = false) {
     auto myvar = "_" ~ mytype;
 
     if (shouldReset) {
-      static.my {myvar} = myrules;
+      static.my {myvar} = rules;
     }
     else if(mytype == "uninflected") {
-      _uninflected = chain(myrules, _uninflected
+      _uninflected = chain(rules, _uninflected
       );
     } else {
       my {
         myvar
       }
-      = myrules + my {
+      = rules + my {
         myvar
       };
     }
@@ -301,14 +300,14 @@ class DInflector {
   /**
      * Returns the input lower_case_delimited_string as a CamelCasedString.
      * Params:
-     * @param string mydelimiter the delimiter in the input string
+     * @param string stringDelimiter the delimiter in the input string
      */
-  static string camelize(string text, string mydelimiter = "_") :  {
-    string mycacheKey = __FUNCTION__ ~ mydelimiter;
+  static string camelize(string text, string stringDelimiter = "_") :  {
+    string mycacheKey = __FUNCTION__ ~ stringDelimiter;
 
     string result = _cache(mycacheKey, text);
     if (result.isNull) {
-      result = humanize(text, mydelimiter)..replace(" ", "");
+      result = humanize(text, stringDelimiter)..replace(" ", "");
       static._cache(mycacheKey, text, result);
     }
     
@@ -342,15 +341,15 @@ class DInflector {
      * (Underscores are replaced by spaces and capitalized following words.)
      * Params:
      * string mystring String to be humanized
-     * @param string mydelimiter the character to replace with a space
+     * @param string stringDelimiter the character to replace with a space
      */
-  static string humanize(string mystring, string mydelimiter = "_") {
-    mycacheKey = __FUNCTION__ ~ mydelimiter;
+  static string humanize(string mystring, string stringDelimiter = "_") {
+    mycacheKey = __FUNCTION__ ~ stringDelimiter;
 
     result = _cache(mycacheKey, mystring);
 
     if (result == false) {
-      string[] result = mystring.replace(mydelimiter, " ").split(" ");
+      string[] result = mystring.replace(stringDelimiter, " ").split(" ");
       result.each!(ref word => word = mb_strtoupper(mb_subString(word, 0, 1)) ~ mb_subString(word, 1));
       result = result.join(" ");
       _cache(mycacheKey, mystring, result);
@@ -362,15 +361,14 @@ class DInflector {
      * Expects a CamelCasedInputString, and produces a lower_case_delimited_string
      * Params:
      * string mystring String to delimit
-     * @param string mydelimiter the character to use as a delimiter
      */
-  static string delimit(string mystring, string mydelimiter = "_") :  {
-    mycacheKey = __FUNCTION__ ~ mydelimiter;
+  static string delimit(string mystring, string stringDelimiter = "_") :  {
+    mycacheKey = __FUNCTION__ ~ stringDelimiter;
 
     result = _cache(mycacheKey, mystring);
 
     if (result == false) {
-      result = mb_strtolower((string) preg_replace("/(?<=\\w)([A-Z])/", mydelimiter ~ "\\1", mystring));
+      result = mb_strtolower((string) preg_replace("/(?<=\\w)([A-Z])/", stringDelimiter ~ "\\1", mystring));
       static._cache(mycacheKey, mystring, result);
     }
     return result;

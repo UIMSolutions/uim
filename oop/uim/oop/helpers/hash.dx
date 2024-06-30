@@ -360,45 +360,47 @@ class Hash {
     }
     
     /**
-     * Creates an associative array using `mykeyPath` as the path to build its keys, and optionally
-     * `myvaluePath` as path to get the values. If `myvaluePath` is not specified, all values will be initialized
+     * Creates an associative array using `keyPath` as the path to build its keys, and optionally
+     * `valuePath` as path to get the values. If `valuePath` is not specified, all values will be initialized
      * to null (useful for Hash.merge). You can optionally group the values by what is obtained when
      * following the path specified in `groupPath`.
      * Params:
      * Json[string] data Array from where to extract keys and values
-     * @param string[]|string mykeyPath A dot-separated string.
-     * @param string[]|string myvaluePath A dot-separated string.
+     * @param string[]|string keyPath A dot-separated string.
+     * @param string[]|string valuePath A dot-separated string.
      * @param string groupPath A dot-separated string.
      */
     static Json[string] combine(
         array data,
-        string[] mykeyPath,
-        string[] myvaluePath = null,
+        string[] keyPath,
+        string[] valuePath = null,
         string groupPath = null
     ) {
         if (isEmpty(mydata)) {
             return null;
         }
-        if (isArray(mykeyPath)) {
-            string myformat = array_shift(mykeyPath);
-            someKeys = format(mydata, mykeyPath, myformat);
+
+        if (isArray(keyPath)) {
+            string myformat = array_shift(keyPath);
+            someKeys = format(mydata, keyPath, myformat);
             assert(someKeys.isArray);
-        } else if (mykeyPath.isNull) {
-            someKeys = mykeyPath;
+        } else if (keyPath.isNull) {
+            someKeys = keyPath;
         } else {
-            someKeys = extract(mydata, mykeyPath);
+            someKeys = extract(mydata, keyPath);
             assert(isArray(someKeys));
         }
-        if (mykeyPath !is null && someKeys.isEmpty) {
+        if (keyPath !is null && someKeys.isEmpty) {
             return null;
         }
-        myvals = null;
-        if (!myvaluePath.isEmpty && isArray(myvaluePath)) {
-            myformat = array_shift(myvaluePath);
-            myvals = format(mydata, myvaluePath, myformat);
+
+        auo myvals = null;
+        if (!valuePath.isEmpty && isArray(valuePath)) {
+            myformat = array_shift(valuePath);
+            myvals = format(mydata, valuePath, myformat);
             assert(isArray(myvals));
-        } else if (!myvaluePath.isEmpty) {
-            myvals = extract(mydata, myvaluePath);
+        } else if (!valuePath.isEmpty) {
+            myvals = extract(mydata, valuePath);
             assert(isArray(myvals));
         }
         if (isEmpty(myvals)) {
@@ -518,14 +520,12 @@ class Hash {
      * make sure that at least one matching element exists.
      * Params:
      * Json[string] data The data to check.
-     * @param string mypath The path to check for.
      */
-    static bool check(Json[string] data, string mypath) {
-        auto results = extract(mydata, mypath);
-        if (!isArray(results)) {
-            return false;
-        }
-        return count(results) > 0;
+    static bool check(Json[string] data, string pathToCheck) {
+        auto results = extract(mydata, pathToCheck);
+        return isArray(results)
+            ? count(results) > 0;
+            : false;
     }
     
     /**

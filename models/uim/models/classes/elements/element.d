@@ -125,7 +125,7 @@ class DElement : UIMObject, IElement {
     case "registerPath": 
       return registerPath;
     default:
-      if (auto value = valueOfKey(key)) {
+      if (auto value = valueOfcorrectKey(key)) {
         return value.toString;
       }
       break;
@@ -140,7 +140,7 @@ class DElement : UIMObject, IElement {
       v[key] = newValue;  
       values(v); */
     } else { // Not dynamic
-      if (auto myValue = valueOfKey(key)) {
+      if (auto myValue = valueOfcorrectKey(key)) {
         // myValue.value(newValue.toJson);
       }
     }
@@ -159,7 +159,7 @@ class DElement : UIMObject, IElement {
 
   // Set data 
   void opIndexAssign(Json newValue, string key) {
-    if (auto myValue = valueOfKey(key)) {
+    if (auto myValue = valueOfcorrectKey(key)) {
       // TODO myValue.set(newValue);
       return;
     }
@@ -201,7 +201,7 @@ class DElement : UIMObject, IElement {
       this.registerPath(newValue);
       break;
     default:
-      if (auto myValue = valueOfKey(key)) {
+      if (auto myValue = valueOfcorrectKey(key)) {
         // myValue.set(newValue);
         return;
       }
@@ -264,7 +264,7 @@ class DElement : UIMObject, IElement {
 
   // Set UUID value
   void opIndexAssign(UUID value, string key) {
-    /* if (auto myValue = cast(DUUIDData) valueOfKey(key)) {
+    /* if (auto myValue = cast(DUUIDData) valueOfcorrectKey(key)) {
       // values[key] exists and value of DUUIDData
       myValue.set(value);
     } */
@@ -272,7 +272,7 @@ class DElement : UIMObject, IElement {
 
   // Set long value
   void opIndexAssign(long value, string key) {
-    if (Json keyValue = valueOfKey(key)) {
+    if (Json keyValue = valueOfcorrectKey(key)) {
       // values[key] exists and value of DIntegerData
       // keyValue.set(value);
     }
@@ -280,7 +280,7 @@ class DElement : UIMObject, IElement {
 
   // Set bool value
   void opIndexAssign(bool value, string key) {
-    if (Json keyValue = valueOfKey(key)) {
+    if (Json keyValue = valueOfcorrectKey(key)) {
       // values[key] exists and value of DBooleanData
       // myValue.set(keyValue);
     }
@@ -288,7 +288,7 @@ class DElement : UIMObject, IElement {
 
   // Set field(key) if type Entity
   void opIndexAssign(DElement value, string key) {
-    /* if (auto myValue = cast(DElementData) valueOfKey(key)) {
+    /* if (auto myValue = cast(DElementData) valueOfcorrectKey(key)) {
       // values[key] exists and value of DElementData
       myValue.value = value;
     } */

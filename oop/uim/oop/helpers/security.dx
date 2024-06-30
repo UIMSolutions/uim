@@ -32,10 +32,10 @@ class DSecurity {
      * Sets the HMAC salt to be used for encryption/decryption
      * routines.
      * Params:
-     * string mysalt The salt to use for encryption routines.
+     * string salt The salt to use for encryption routines.
      */
-    static void setSalt(string mysalt) {
-        _salt = mysalt;
+    static void setSalt(string salt) {
+        _salt = salt;
     } */
     // The crypto implementation to use.
     protected static Object _instance = null;
@@ -47,10 +47,10 @@ class DSecurity {
      * @param string myalgorithm Hashing algo to use (i.e. sha1, sha256 etc.).
      * Can be any valid algo included in list returned by hash_algos().
      * If no value is passed the type specified by `Security.defaultHashType` is used.
-     * @param string mysalt If true, automatically prepends the value returned by
+     * @param string salt If true, automatically prepends the value returned by
      * Security.getSalt() to mystring.
      */
-    static string hash(string mystring, string hashType = null, string mysalt = false) {
+    static string hash(string mystring, string hashType = null, string salt = null) {
         string hashType = hashType.isEmpty ? defaultHashType : hashType.lower;
 
         myavailableAlgorithms = hash_algos();
@@ -60,11 +60,11 @@ class DSecurity {
                 .format(hashType, join(", ", myavailableAlgorithms)
             ));
         }
-        if (mysalt) {
-            if (!isString(mysalt)) {
-                mysalt = getSalt();
+        if (salt) {
+            if (!isString(salt)) {
+                salt = getSalt();
             }
-            mystring = mysalt ~ mystring;
+            mystring = salt ~ mystring;
         }
         return hash(hashType, mystring);
     }

@@ -27,9 +27,9 @@ interface IKeyAndPath {
 
 		bool hasKey(string key);
 
-        string correctedKey(string[] path);
+        string correctKey(string[] path);
 
-		string correctedKey(string key);
+		string correctKey(string key);
 	// #endregion keys
 
 	// #region remove

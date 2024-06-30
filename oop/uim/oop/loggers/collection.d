@@ -5,3 +5,4 @@ import uim.oop;
 
 class DLoggerCollection : DCollection!DLogger {   
 }
+auto LoggerCollection() { return new DLoggerCollection; }

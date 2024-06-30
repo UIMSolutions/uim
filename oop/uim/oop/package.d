@@ -55,4 +55,5 @@ public {
   import uim.oop.simple;
   import uim.oop.tests;
   import uim.oop.tools;
+  import uim.oop.validators;
 }

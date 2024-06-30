@@ -130,30 +130,19 @@ mixin template TEmail() {
      * Params:
      * string afilename Filename
      * @param Json[string] file Additional file properties
-     * @param string amessage Message
      */
-    void assertMailContainsAttachment(string afilename, Json[string] file = [], string amessage = null) {
+    void assertMailContainsAttachment(string afilename, Json[string] file = [], string message = null) {
         this.assertThat([filename, file], new DMailContainsAttachment(), message);
     }
     
-    /**
-     * Asserts an email contains expected html contents
-     * Params:
-     * string acontents Contents
-     * @param string amessage Message
-     */
-    void assertMailContainsHtml(string acontents, string amessage = null) {
+    // Asserts an email contains expected html contents
+    void assertMailContainsHtml(string contents, string message = null) {
         this.assertThat(contents, new DMailContainsHtml(), message);
     }
     
-    /**
-     * Asserts an email contains an expected text content
-     * Params:
-     * string aexpected Expected text.
-     * @param string amessage Message to display if assertion fails.
-     */
-    void assertMailContainsText(string aexpected, string amessage = "") {
-        this.assertThat(expected, new DMailContainsText(), message);
+    // Asserts an email contains an expected text content
+    void assertMailContainsText(string expectedText, string message = null) {
+        this.assertThat(expectedText, new DMailContainsText(), message);
     }
     
     /**

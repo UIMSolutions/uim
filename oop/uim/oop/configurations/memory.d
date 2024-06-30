@@ -75,12 +75,12 @@ class DMemoryConfiguration : DConfiguration {
     // #region key
     alias hasAnyKeys = DConfiguration.hasAnyKeys;
     override bool hasAnyKeys(string[] keys) {
-        return keys.any!(key => hasKey(key));
+        return keys.any!(key => hascorrectKey(key));
     }
 
     alias hasAllKeys = DConfiguration.hasAllKeys;
     override bool hasAllKeys(string[] keys) {
-        return keys.all!(key => hasKey(key));
+        return keys.all!(key => hascorrectKey(key));
     }
 
     override bool hasKey(string key) {
@@ -107,7 +107,7 @@ class DMemoryConfiguration : DConfiguration {
     override Json[] values(string[] includedKeys = null) {
         return includedKeys.length == 0
             ? _data.values : includedKeys
-            .filter!(key => hasKey(key))
+            .filter!(key => hascorrectKey(key))
             .map!(key => get(key)).array;
     }
     // #endregion value
@@ -161,7 +161,7 @@ class DMemoryConfiguration : DConfiguration {
     }
 
     override bool merge(string key, Json value) {
-        return hasKey(key)
+        return hascorrectKey(key)
             ? false : set(key, value);
     }
 

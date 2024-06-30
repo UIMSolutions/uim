@@ -89,6 +89,13 @@ mixin template TDateFormat() {
      * @param array<int>|string aformat Any format accepted by IntlDateFormatter.
      * @param \DateTimeZone|string tz The timezone for the instance
      */
+/*     protected static auto _parseDateTime(
+        string atime,
+        string[] aformat,
+        /* DateTimeZone| / string tz = null
+   ) {
+ */
+
     protected static auto _parseDateTime(
         string atime,
         string[] aformat,
@@ -102,8 +109,8 @@ mixin template TDateFormat() {
             dateFormat = timeFormat = IntlDateFormatter.FULL;
              somePattern = format;
         }
-        localName = DateTime.getDefaultLocale() ?? I18n.locale();
-        formatter = datefmt_create(
+        auto localName = DateTime.getDefaultLocale() ?? I18n.locale();
+        auto formatter = datefmt_create(
             localName,
             dateFormat,
             timeFormat,

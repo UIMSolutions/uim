@@ -668,7 +668,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       break;
     default:
       // if (key in attributes) attributes[key].value(value); 
-      if (true) { //values.hasKey(key)) {
+      if (true) { //values.hascorrectKey(key)) {
         // values[key] = value;
       } else {
         string[] keys = key.split(".");

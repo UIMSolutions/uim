@@ -320,7 +320,7 @@ class DData : UIMObject, IData {
   override IData[string] data(string[] keys) {
     IData[string] result;
     keys
-      .filter!(key => hasKey(key))
+      .filter!(key => hascorrectKey(key))
       .each!(key => result[key] = data(key));
     return result;
   }

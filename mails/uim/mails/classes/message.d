@@ -364,9 +364,8 @@ class DMessage { //: JsonSerializable {
      * Params:
      * string[] aemail String with email,
      * Array with email as key, name as value or email as value (without name)
-     * @param string name Name
      */
-    auto setBcc(string[] aemail, string aName = null) {
+    auto setBcc(string[] aemail, string name = null) {
         return _setEmail("bcc", email, name);
     }
     

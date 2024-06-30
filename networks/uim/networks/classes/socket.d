@@ -97,9 +97,9 @@ class DSocket {
             ? stream_context_create(configuration.get("context"))
             : stream_context_create();
 
-        connectAs = STREAM_CLIENT_CONNECT;
+        connectFlags = STREAM_CLIENT_CONNECT;
         if (configuration.hasKey("persistent")) {
-            connectAs |= STREAM_CLIENT_PERSISTENT;
+            connectFlags |= STREAM_CLIENT_PERSISTENT;
         }
         /**
          * @psalm-suppress InvalidArgument
@@ -118,7 +118,7 @@ class DSocket {
             errNum,
             errStr,
             to!int(configuration.get("timeout"]),
-            connectAs,
+            connectFlags,
             context
        );
         restore_error_handler();
@@ -156,15 +156,14 @@ class DSocket {
      * @param int errNum error number
      * @param string aerrStr error string
      * @param int timeout timeout
-     * @param int connectAs flags
      * @param resource context context
      */
     protected resource | null _getStreamSocketClient(
         string aremoteSocketTarget,
         int & errNum,
         string & errStr,
-        inttimeout,
-        intconnectAs,
+        int timeout,
+        ulong connectFlags,
         context
    ) {
         resource = stream_socket_client(
@@ -172,7 +171,7 @@ class DSocket {
             errNum,
             errStr,
             timeout,
-            connectAs,
+            connectFlags,
             context
        );
 

@@ -37,7 +37,7 @@ class DExistsIn {
      *   Options "allowNullableNulls" will make the rule pass if given foreign keys are set to `null`.
      *   Notice: allowNullableNulls cannot pass by database columns set to `NOT NULL`.
       */
-    this(string[] fieldNames, Table|Association|string myrepository, Json[string] optionData = null) {
+    this(string[] fieldNames, Table|Association|string myrepository, Json[string] options = null) {
         auto updatedOptions = options.update["allowNullableNulls": false.toJson];
        _options = options;
 

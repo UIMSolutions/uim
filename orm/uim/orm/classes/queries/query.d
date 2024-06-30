@@ -735,7 +735,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * options = query.getOptions();
      * ```
      */
-    void applyOptions(Json[string] optionData) {
+    void applyOptions(Json[string] options) {
         auto valid = [
             "fields": "select",
             "conditions": "where",
@@ -1072,7 +1072,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param string finder The finder method to use.
      * @param Json[string] options The options for the finder.
      */
-    static auto  find(string finder, Json[string] optionData = null) {
+    static auto  find(string finder, Json[string] options = null) {
         table = getRepository();
 
         /** @psalm-suppress LessSpecificReturnStatement */

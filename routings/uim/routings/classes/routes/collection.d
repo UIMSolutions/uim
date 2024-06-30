@@ -47,7 +47,7 @@ class DRouteCollection {
      * @param Json[string] options Additional options for the route. Primarily for the
      * `_name` option, which enables named routes.
      */
-    void add(Route myroute, Json[string] optionData = null) {
+    void add(Route myroute, Json[string] options = null) {
         // Explicit names
         if (options.hasKey("_name")) {
             if (_named.hasKey(options.getString("_name"))) {

@@ -43,7 +43,7 @@ mixin template TLocatorAware() {
      * @param Json[string] options The options you want to build the table with.
      * If a table has already been loaded the registry options will be ignored.
      */
-    Table fetchTable(string aliasName = null, Json[string] optionData = null) {
+    Table fetchTable(string aliasName = null, Json[string] options = null) {
         aliasName ??= this.defaultTable;
         if (aliasName.isEmpty) {
             throw new DUnexpectedValueException(

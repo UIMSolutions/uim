@@ -578,7 +578,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * string myname The name of the behavior. Can be a short class reference.
      * @param Json[string] options The options for the behavior to use.
      */
-    void addBehavior(string behaviorName, Json[string] optionData = null) {
+    void addBehavior(string behaviorName, Json[string] options = null) {
        _behaviors.load(behaviorName, options);
     }
     
@@ -793,7 +793,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * uniquely identify the association
      * @param Json[string] options list of options to configure the association definition
      */
-    BelongsTo belongsTo(string myassociated, Json[string] optionData = null) {
+    BelongsTo belongsTo(string myassociated, Json[string] options = null) {
         auto updatedOptions = options.update["sourceTable": this];
 
         /** @var \ORM\Association\BelongsTo */
@@ -835,7 +835,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * uniquely identify the association
      * @param Json[string] options list of options to configure the association definition
      */
-    HasOne hasOne(string myassociated, Json[string] optionData = null) {
+    HasOne hasOne(string myassociated, Json[string] options = null) {
         auto updatedOptions = options.update["sourceTable": this];
 
         return _associations.load(HasOne.classname, myassociated, options);
@@ -882,7 +882,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * uniquely identify the association
      * @param Json[string] options list of options to configure the association definition
      */
-    HasMany hasMany(string myassociated, Json[string] optionData = null) {
+    HasMany hasMany(string myassociated, Json[string] options = null) {
         auto updatedOptions = options.update["sourceTable": this];
 
         /** @var \ORM\Association\HasMany */
@@ -932,7 +932,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * uniquely identify the association
      * @param Json[string] options list of options to configure the association definition
      */
-    BelongsToMany belongsToMany(string myassociated, Json[string] optionData = null) {
+    BelongsToMany belongsToMany(string myassociated, Json[string] options = null) {
         auto updatedOptions = options.update["sourceTable": this];
 
         /** @var \ORM\Association\BelongsToMany */
@@ -1351,7 +1351,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     IORMEntity findOrCreate(
         SelectQuery|callable|array mysearch,
         callable aCallback = null,
-        Json[string] optionData = null
+        Json[string] options = null
    ) {
         options = new ArrayObject(options ~ [
             "atomic": true.toJson,
@@ -1382,7 +1382,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     protected IORMEntity _processFindOrCreate(
         SelectQuery|callable|array mysearch,
         callable aCallback = null,
-        Json[string] optionData = null
+        Json[string] options = null
    ) {
         myquery = _getFindOrCreateQuery(mysearch);
 
@@ -1598,7 +1598,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] options The options to use when saving.
      */
     IORMEntity save(IORMEntity entityToSave,
-        Json[string] optionData = null
+        Json[string] options = null
    ) {
         options = new ArrayObject(options ~ [
             "atomic": true.toJson,
@@ -1642,7 +1642,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * \UIM\Datasource\IORMEntity entityToSave the entity to be saved
      * @param Json[string] options The options to use when saving.
      */
-    IORMEntity saveOrFail(IORMEntity entityToSave, Json[string] optionData = null) {
+    IORMEntity saveOrFail(IORMEntity entityToSave, Json[string] options = null) {
         mysaved = this.save(entityToSave, options);
         if (mysaved == false) {
             throw new DPersistenceFailedException(entityToSave, ["save"]);
@@ -1880,7 +1880,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      */
     IORMEntity[] saveMany(
         range myentities,
-        Json[string] optionData = null
+        Json[string] options = null
    ) {
         try {
             return _saveMany(myentities, options);
@@ -1899,7 +1899,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * iterable<\UIM\Datasource\IORMEntity> myentities Entities to save.
      * @param Json[string] options Options used when calling Table.save() for each entity.
      */
-    iterable<\UIM\Datasource\IORMEntity> saveManyOrFail(Json[string] myentities, Json[string] optionData = null) {
+    iterable<\UIM\Datasource\IORMEntity> saveManyOrFail(Json[string] myentities, Json[string] options = null) {
         return _saveMany(myentities, options);
     }
     
@@ -1909,7 +1909,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      */
     protected IORMEntity[] _saveMany(
         range myentities,
-        Json[string] optionData = null
+        Json[string] options = null
    ): range {
         options = new ArrayObject(
             options ~ [
@@ -2009,7 +2009,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * \UIM\Datasource\IORMEntity myentity The entity to remove.
      * @param Json[string] options The options for the delete.
          */
-    bool remove(IORMEntity myentity, Json[string] optionData = null) {
+    bool remove(IORMEntity myentity, Json[string] options = null) {
         options = new ArrayObject(options ~ [
             "atomic": true.toJson,
             "checkRules": true.toJson,
@@ -2040,7 +2040,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * iterable<\UIM\Datasource\IORMEntity> myentities Entities to delete.
      * @param Json[string] options Options used when calling Table.save() for each entity.
      */
-    IORMEntity[] deleteMany(Json[string] myentities, Json[string] optionData = null) {
+    IORMEntity[] deleteMany(Json[string] myentities, Json[string] options = null) {
         auto myfailed = _deleteMany(myentities, options);
         return myfailed !is null
             ? false
@@ -2057,7 +2057,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * iterable<\UIM\Datasource\IORMEntity> myentities Entities to delete.
      * @param Json[string] options Options used when calling Table.save() for each entity.
      */
-    iterable<\UIM\Datasource\IORMEntity> deleteManyOrFail(Json[string] myentities, Json[string] optionData = null) {
+    iterable<\UIM\Datasource\IORMEntity> deleteManyOrFail(Json[string] myentities, Json[string] options = null) {
         auto myfailed = _deleteMany(myentities, options);
 
         if (myfailed !is null) {
@@ -2070,7 +2070,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * @param iterable<\UIM\Datasource\IORMEntity> myentities Entities to delete.
      * @param Json[string] options Options used.
      */
-    protected IORMEntity _deleteMany(Json[string] myentities, Json[string] optionData = null) {
+    protected IORMEntity _deleteMany(Json[string] myentities, Json[string] options = null) {
         options = new ArrayObject(options ~ [
                 "atomic": true.toJson,
                 "checkRules": true.toJson,
@@ -2103,7 +2103,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * \UIM\Datasource\IORMEntity myentity The entity to remove.
      * @param Json[string] options The options for the delete.
      */
-    bool deleteOrFail(IORMEntity myentity, Json[string] optionData = null) {
+    bool deleteOrFail(IORMEntity myentity, Json[string] options = null) {
         mydeleted = remove(myentity, options);
         if (mydeleted == false) {
             throw new DPersistenceFailedException(myentity, ["delete"]);
@@ -2435,7 +2435,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Json[string] data The data to build an entity with.
      * @param Json[string] options A list of options for the object hydration.
      */
-    IORMEntity newEntity(Json[string] data, Json[string] optionData = null) {
+    IORMEntity newEntity(Json[string] data, Json[string] options = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().one(mydata, options);
@@ -2471,7 +2471,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Json[string] data The data to build an entity with.
      * @param Json[string] options A list of options for the objects hydration.
      */
-    IORMEntity[] newEntities(Json[string] data, Json[string] optionData = null) {
+    IORMEntity[] newEntities(Json[string] data, Json[string] options = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().many(mydata, options);
@@ -2525,7 +2525,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] data key value list of fields to be merged into the entity
      * @param Json[string] options A list of options for the object hydration.
      */
-    IORMEntity patchEntity(IORMEntity myentity, Json[string] data, Json[string] optionData = null) {
+    IORMEntity patchEntity(IORMEntity myentity, Json[string] data, Json[string] options = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().merge(myentity, mydata, options);
@@ -2560,7 +2560,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] data list of arrays to be merged into the entities
      * @param Json[string] options A list of options for the objects hydration.
      */
-    IORMEntity[] patchEntities(Json[string] myentities, Json[string] data, Json[string] optionData = null) {
+    IORMEntity[] patchEntities(Json[string] myentities, Json[string] data, Json[string] options = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().mergeMany(myentities, mydata, options);

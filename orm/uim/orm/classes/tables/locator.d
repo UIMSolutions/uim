@@ -176,7 +176,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * string aliasName The alias name you want to get. Should be in CamelCase format.
      * @param Json[string] options Table options array.
      */
-    protected string _getclassname(string aliasName, Json[string] optionData = null) {
+    protected string _getclassname(string aliasName, Json[string] options = null) {
         if (options.isEmpty("classname")) {
             options["classname"] = aliasName;
         }

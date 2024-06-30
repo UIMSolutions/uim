@@ -31,7 +31,7 @@ interface ILocator { // }: BaseILocator {
      * string aliasName The alias name you want to get.
      * @param Json[string] options The options you want to build the table with.
      */
-    Table get(string aliasName, Json[string] optionData = null);
+    Table get(string aliasName, Json[string] options = null);
 
     /**
      * Set a table instance.

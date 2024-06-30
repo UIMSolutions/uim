@@ -435,7 +435,7 @@ class DDebugger {
             }
             string text = replace(["\r\n", "\n"], "", _highlight(data[i]));
             lines ~= i == lineNumber 
-                ? "<span class="code-highlight">" ~ text ~ "</span>"
+                ? htmlDoubletag("span", ["code-highlight"], text)
                 : text;
         }
 

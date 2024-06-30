@@ -221,10 +221,9 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Build a response object
      * Params:
      * Json[string] aHeaders Unparsed headers.
-     * @param string abody The response body.
      */
-    protected DResponse _buildResponse(Json[string] aHeaders, string abody) {
-        return new DResponse(aHeaders, body);
+    protected DResponse _buildResponse(Json[string] aHeaders, string requestBody) {
+        return new DResponse(aHeaders, requestBody);
     }
     
     /**

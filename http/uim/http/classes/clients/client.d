@@ -310,15 +310,14 @@ class DClient { // }: IClient {
   /**
      * Do an OPTIONS request.
      * Params:
-     * @param string myurl The url or path you want to request.
      * @param Json sendData The request data you want to send.
      * requestOptions = Additional requestOptions for the request.
      */
-  Response requestOptions(string myurl, Json sendData = null, Json[string] requestOptions = null) {
+  Response requestOptions(string urlToRequest, Json sendData = null, Json[string] requestOptions = null) {
     requestOptions = _mergeOptions(requestOptions);
-    myurl = this.buildUrl(myurl, [], requestOptions);
+    urlToRequest = this.buildUrl(urlToRequest, [], requestOptions);
 
-    return _doRequest(Request.METHOD_OPTIONS, myurl, sendData, requestOptions);
+    return _doRequest(Request.METHOD_OPTIONS, urlToRequest, sendData, requestOptions);
   }
 
   /**

@@ -1230,9 +1230,9 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * @param Json aValue The value to insert into the the request parameters.
      */
-    static auto withParam(string insertPath, Json aValue) {
-        copy = clone this;
-        copy.params = Hash.insert(copy.params, insertPath, aValue);
+    static auto withParam(string insertPath, Json valueToInsert) {
+        auto copy = clone this;
+        copy.params = Hash.insert(copy.params, insertPath, valueToInsert);
 
         return copy;
     }
@@ -1346,16 +1346,15 @@ class DServerRequest { // }: IServerRequest {
      * Recursively validate uploaded file data.
      * Params:
      * Json[string] uploadedFiles The new files array to validate.
-     * @param string aPath The path thus far.
      */
-    protected auto validateUploadedFiles(Json[string] uploadedFiles, string aPath) {
+    protected auto validateUploadedFiles(Json[string] uploadedFiles, string path) {
         foreach (aKey, file; uploadedFiles) {
             if (isArray(file)) {
                 this.validateUploadedFiles(file, aKey ~ ".");
                 continue;
             }
             if (!cast(IUploadedFile)file) {
-                throw new DInvalidArgumentException("Invalid file at `%s%s`.".format(somePath, aKey));
+                throw new DInvalidArgumentException("Invalid file at `%s%s`.".format(path, aKey));
             }
         }
     }

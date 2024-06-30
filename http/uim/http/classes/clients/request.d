@@ -26,20 +26,20 @@ class DRequest { // }: Message, IRequest {
         IUri|string aurl = "",
         string httpMethod = METHOD_GET,
         Json[string] httpHeaders = null,
-        string[] someData = null
+        string[] requestBodyData = null
    ) {
         setMethod(method);
-        this.uri = this.createUri(url);
+        _uri = createUri(url);
          aHeaders += [
             "Connection": "close",
             "User-Agent": ini_get("user_agent") ?: "UIM",
         ];
-        this.addHeaders(aHeaders);
+        addHeaders(aHeaders);
 
-        if (someData.isNull) {
+        if (requestBodyData.isNull) {
             this.stream = new DStream("D://memory", "rw");
         } else {
-            setContent(someData);
+            setContent(requestBodyData);
         }
     }
     

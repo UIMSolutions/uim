@@ -75,7 +75,6 @@ class DOauth {
      * services.
      * Params:
      * \UIM\Http\Client\Request request The request object.
-     * @param Json[string] authCredentials Authentication authCredentials.
      */
     protected string _plaintext(Request request, Json[string] authCredentials) {
         auto someValues = [

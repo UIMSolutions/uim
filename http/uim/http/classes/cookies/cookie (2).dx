@@ -55,8 +55,8 @@ class DCookie : ICookie {
     this(
         string cookieName,
         string[]|float|bool aValue = "",
-        ?IDateTime expiresAt = null,
-        string aPath = null,
+        IDateTime expiresAt = null,
+        string path = null,
         string adomain = null,
         bool isSecure = null,
         bool isHttpOnly = null,
@@ -69,7 +69,7 @@ class DCookie : ICookie {
 
         this.domain = domain ?? defaultAttributes["domain"];
         this.httpOnly = isHttpOnly ?? defaultAttributes["httponly"];
-        this.path = somePath ?? defaultAttributes["path"];
+        this.path = path ? path : defaultAttributes["path"];
         this.isSecure = isSecure ?? defaultAttributes["isSecure"];
         _sameSite = resolveSameSiteenumeration(sameSite ?? defaultAttributes["samesite"]);
 

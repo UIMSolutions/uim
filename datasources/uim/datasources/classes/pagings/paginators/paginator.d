@@ -265,12 +265,7 @@ class DPaginator : IPaginator {
         return pagingParams;
     }
 
-    /**
-     * Add "start" and "end" params.
-     *
-     * @param Json[string] pagingParams Paging params.
-     * @param Json[string] myData Paginator data.
-     */
+    // Add "start" and "end" params.
     protected Json[string] addStartEndParams(Json[string] pagingParams, Json[string] paginatorData) {
         start = end = 0;
 

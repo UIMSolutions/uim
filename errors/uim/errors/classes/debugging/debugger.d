@@ -239,7 +239,7 @@ class DDebugger {
      * @param string file The file to create a link for.
      * @param int line The line number to create a link for.
      */
-    static string editorUrl(string file, int line) {
+    static string editorUrl(string file, int lineNumber) {
         auto instance = getInstance();
         auto editor = instance.getConfig("editor");
         if (instance.editors.isNull(editor)) {
@@ -248,18 +248,13 @@ class DDebugger {
 
         auto templateText = instance.editors[editor];
         return templateText.isString
-            ? templateText.mustache(["file":file, "line": line])
-            : templateText(file, line);
+            ? templateText.mustache(["file":file, "line": lineNumber])
+            : templateText(file, lineNumber);
     }
 
-    /**
-     * Recursively formats and outputs the contents of the supplied variable.
-     *
-     * @param mixed var The variable to dump.
-     * @param int maxDepth The depth to output to. Defaults to 3.
-     */
-    static void dump(var, int maxDepth = 3) {
-        pr(exportVar(var, maxDepth));
+    // Recursively formats and outputs the contents of the supplied variable.
+    static void dump(Json dumpValue, int maxOutputDepth = 3) {
+        pr(exportVar(dumpValue, maxOutputDepth));
     }
 
     /**

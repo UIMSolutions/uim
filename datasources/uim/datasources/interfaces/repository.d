@@ -101,9 +101,8 @@ interface IRepository {
      * based on the 'dependent' option used when defining the association.
      * Params:
      * \UIM\Datasource\IDatasourceEntity entity The entity to remove.
-     * @param Json[string] optionData The options for the delete.
          */
-    bool remove(IDatasourceEntity entity, Json[string] optionData = null);
+    bool remove(IDatasourceEntity entity, Json[string] options = null);
 
     /**
      * This creates a new entity object.
@@ -127,22 +126,17 @@ interface IRepository {
      * The hydrated entity will correctly do an insert/update based
      * on the primary key data existing in the database when the entity
      * is saved. Until the entity is saved, it will be a detached record.
-     * Params:
-     * Json[string] data The data to build an entity with.
-     * @param Json[string] options A list of options for the object hydration.
      */
-    IDatasourceEntity newEntity(Json[string] data, Json[string] optionData = null);
+    IDatasourceEntity newEntity(Json[string] dataForEntity, Json[string] options = null);
 
     /**
      * Create a list of entities + associated entities from an array.
      *
      * This is most useful when hydrating request data back into entities.
      * For example, in your controller code:
-     *
      * ```
      * articles = this.Articles.newEntities(this.request[));
      * ```
-     *
      * The hydrated entities can then be iterated and saved.
      */
     IDatasourceEntity[] newEntities(Json[string] buildData, Json[string] optionDataForHydration = null);

@@ -227,25 +227,25 @@ class DNumericPaginator : IPaginator {
      *  "count", "defaults", "finder", "numResults".
      */
     protected Json[string] buildParams(Json[string] data) {
-        auto limit = data["options.limit"];
+        auto limit = data.get("options.limit");
 
         auto paging = [
-            "count": data["count"],
-            "current": data["numResults"],
+            "count": data.get("count"),
+            "current": data.get("numResults"),
             "perPage": limit,
-            "page": data["options.page"],
-            "requestedPage": data["options.page"],
+            "page": data.get("options.page"),
+            "requestedPage": data.get("options.page"),
         ];
 
-        paging = this.addPageCountParams(paging, data);
-        paging = this.addStartEndParams(paging, data);
-        paging = this.addPrevNextParams(paging, data);
-        paging = this.addSortingParams(paging, data);
+        paging = addPageCountParams(paging, data)
+            .addStartEndParams(paging, data)
+            .addPrevNextParams(paging, data)
+            .addSortingParams(paging, data);
 
         paging += [
-            "limit": data["defaults.limit"] != limit ? limit: null,
-            "scope": data["options.scope"],
-            "finder": data["finder"],
+            "limit": data.get("defaults.limit") != limit ? limit: null,
+            "scope": data.get("options.scope"),
+            "finder": data.get("finder"),
         ];
 
         return paging;
@@ -253,18 +253,18 @@ class DNumericPaginator : IPaginator {
 
     // Add "page" and "pageCount" params.
     protected Json[string] addPageCountParams(Json[string] pagingParams, Json[string] paginatorData) {
-        page = pagingParams["page"];
-        pageCount = 0;
+        auto pageNumber = pagingParams["page"];
+        auto pageCount = 0;
 
-        if (pagingParams["count"] != null) {
+        if (pagingParams.haskey("count")) {
             pageCount = max((int) ceil(pagingParams["count"] / pagingParams["perPage"]), 1);
-            page = min(page, pageCount);
+            pageNumber = min(pageNumber, pageCount);
         }
         elseif(pagingParams["current"] == 0 && pagingParams["requestedPage"] > 1) {
-            page = 1;
+            pageNumber = 1;
         }
 
-        pagingParams["page"] = page;
+        pagingParams["page"] = pageNumber;
         pagingParams["pageCount"] = pageCount;
 
         return params;

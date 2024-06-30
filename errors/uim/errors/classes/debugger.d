@@ -454,11 +454,10 @@ class DDebugger {
      * Converts a variable to a plain text string.
      * Params:
      * Json var Variable to convert.
-     * @param int maxDepth The depth to output to. Defaults to 3.
      */
-    static string exportVarAsPlainText(Json var, int maxDepth = 3) {
+    static string exportVarAsPlainText(Json var, int maxOutputDepth = 3) {
         return (new DTextFormatter()).dump(
-            export_(var, new DebugContext(maxDepth))
+            export_(var, new DebugContext(maxOutputDepth))
        );
     }
 

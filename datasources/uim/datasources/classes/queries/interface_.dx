@@ -147,8 +147,6 @@ interface IQuery {
      * query.offset(10) // generates OFFSET 10
      * query.offset(query.newExpr().add(["1 + 1"])); // OFFSET (1 + 1)
      * ```
-     *
-     * @param uim.databases.|null offset number of records to be skipped
      */
     void offset(IExpression offset);
     void offset(int offset);
@@ -217,18 +215,10 @@ interface IQuery {
     // Returns an array representation of the results after executing the query.
     Json[string] toDataArray();
 
-    /**
-     * Set the default Table object that will be used by this query
-     * and form the `FROM` clause.
-     *
-     * @param uim.Datasource\IRepository repository The default repository object to use
-     */
+    // Set repository
     void repository(IRepository repository);
 
-    /**
-     * Returns the default repository object that will be used by this query,
-     * that is, the repository that will appear in the from clause.
-     */
+    // Get repository
     IRepository getRepository();
 
     /**
@@ -337,10 +327,9 @@ interface IQuery {
      * data type automatically for you, thus securing your application from SQL injections.
      * If you use string conditions make sure that your values are correctly quoted.
      * The safest thing you can do is to never use string conditions.
-     *
-     * @param \Closure|array|string conditions The conditions to filter on.
-     * @param array<string, string> types Associative array of type names used to bind values to query
      */
-    void where(conditions = null, Json[string] types = null, bool canOverwrite = false);
+    // void where(Closure filterConditions = null, Json[string] typeNames = null, bool canOverwrite = false);
+    // void where(string[] filterConditions = null, Json[string] typeNames = null, bool canOverwrite = false);
+    void where(string filterConditions = null, Json[string] typeNames = null, bool canOverwrite = false);
 }
 

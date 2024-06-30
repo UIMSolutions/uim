@@ -20,14 +20,12 @@ class DRequest { // }: Message, IRequest {
      *
      * @Dstan-param array<non-empty-string, non-empty-string>  aHeaders
      * @param \Psr\Http\Message\IUri|string aurl The request URL
-     * @param string httpMethod The HTTP method to use.
-     * @param Json[string]  aHeaders The HTTP headers to set.
      * @param string[] someData The request body to use.
      */
     this(
         IUri|string aurl = "",
         string httpMethod = METHOD_GET,
-        Json[string]  aHeaders = null,
+        Json[string] httpHeaders = null,
         string[] someData = null
    ) {
         setMethod(method);

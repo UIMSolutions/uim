@@ -430,13 +430,11 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * string acondition The value from which the actual field and operator will
      * be extracted.
-     * @param Json aValue The value to be bound to a placeholder for the field
      */
     protected /* IExpression| */ string _parseCondition(string acondition, Json valueToBound) {
         auto expression = strip(condition);
-         operator = "=";
-
-        spaces = substr_count(expression, " ");
+        string operator = "=";
+        size_t spaces = substr_count(expression, " ");
         // Handle expression values that contain multiple spaces, such as
         // operators with a space in them like `field IS NOT` and
         // `field NOT LIKE`, or combinations with auto expressions
@@ -444,9 +442,9 @@ class DQueryExpression : DExpression { // }, Countable {
         if (spaces > 1) {
             string[] someParts = expression.split(" ");
             if (preg_match("/(is not|not \w+)$/i", expression)) {
-                 last = array_pop(someParts);
-                second = array_pop(someParts);
-                someParts ~= "{second} { last}";
+                auto last = array_pop(someParts);
+                auto second = array_pop(someParts);
+                someParts ~= "{second} {last}".mustache(["second": second, "last": last]);
             }
              operator = array_pop(someParts);
             expression = someParts.join(" ");
@@ -455,11 +453,10 @@ class DQueryExpression : DExpression { // }, Countable {
             [expression,  operator] = someParts;
         }
          operator = operator.strip.upper;
-
-        type = getTypeMap().type(expression);
-        typeMultiple = (isString(type) && type.contains("[]"));
+        auto type = getTypeMap().type(expression);
+        auto typeMultiple = (isString(type) && type.contains("[]"));
         if (isIn(operator, ["IN", "NOT IN"]) || typeMultiple) {
-            type = type ?: "string";
+            type = type ? type : "string";
             if (!typeMultiple) {
                 type ~= "[]";
             }
@@ -506,7 +503,7 @@ class DQueryExpression : DExpression { // }, Countable {
     /**
      * Returns the type name for the passed field if it was stored in the typeMap
      * Params:
-     * \UIM\Database\/* IExpression| */ string fieldName The field name to get a type for.
+     * \UIM\Database\/* IExpression| * / string fieldName The field name to get a type for.
      */
     protected string _calculateType(/* IExpression| */ string fieldName) {
         field = cast(IdentifierExpression)field ? field.getIdentifier() : field;

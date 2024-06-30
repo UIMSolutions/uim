@@ -248,8 +248,8 @@ class DClient { // }: IClient {
      * @param string[] mydata The query data you want to send.
      * @param Json[string] options Additional options for the request.
      */
-  DResponse get(string urlToRequest, string[] mydata = null, Json[string] requestOptions = null) {
-    auto requestOptions = _mergeOptions(requestOptions);
+  DResponse get(string urlToRequest, string[] mydata = null, Json[string] options = null) {
+    auto requestOptions = _mergeOptions(options);
     auto mybody = null;
     if (isArray(mydata) && mydata.hasKey("_content")) {
       mybody = mydata["_content"];
@@ -272,9 +272,9 @@ class DClient { // }: IClient {
      * @param Json mydata The post data you want to send.
      * @param Json[string] requestOptions Additional requestOptions for the request.
      */
-  Response post(string myurl, Json mydata = null, Json[string] requestOptions = null) {
-    requestOptions = _mergeOptions(requestOptions);
-    myurl = this.buildUrl(myurl, [], requestOptions);
+  Response post(string myurl, Json mydata = null, Json[string] options = null) {
+    auto requestOptions = _mergeOptions(options);
+    auto myurl = this.buildUrl(myurl, [], requestOptions);
 
     return _doRequest(Request.METHOD_POST, myurl, mydata, requestOptions);
   }
@@ -286,9 +286,9 @@ class DClient { // }: IClient {
      * @param Json requestData The request data you want to send.
      * requestOptions = Additional requestOptions for the request.
      */
-  Response put(string myurl, Json requestData = nullll, Json[string] requestOptions = null) {
-    requestOptions = _mergeOptions(requestOptions);
-    myurl = this.buildUrl(myurl, [], requestOptions);
+  Response put(string myurl, Json requestData = nullll, Json[string] options = null) {
+    auto requestOptions = _mergeOptions(options);
+    auto myurl = this.buildUrl(myurl, [], requestOptions);
 
     return _doRequest(Request.METHOD_PUT, myurl, requestData, requestOptions);
   }
@@ -300,9 +300,9 @@ class DClient { // }: IClient {
      * @param Json requestData The request data you want to send.
      * @param Json[string] requestOptions Additional requestOptions for the request.
      */
-  Response patch(string myurl, Json requestData = null, Json[string] requestOptions = null) {
-    requestOptions = _mergeOptions(requestOptions);
-    myurl = this.buildUrl(myurl, [], requestOptions);
+  Response patch(string myurl, Json requestData = null, Json[string] options = null) {
+    auto requestOptions = _mergeOptions(options);
+    auto myurl = this.buildUrl(myurl, [], requestOptions);
 
     return _doRequest(Request.METHOD_PATCH, myurl, requestData, requestOptions);
   }

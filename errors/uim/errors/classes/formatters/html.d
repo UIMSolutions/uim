@@ -26,10 +26,10 @@ class DHtmlErrorFormatter : IErrorFormatter {
     }
  
     string formatWrapper(string acontents, Json[string] location) {
-        string alineInfo = "";
+        string lineInfo = "";
         if (location.hasAllKeys("file", "line")) {
-            lineInfo = "<span><strong>%s</strong> (line <strong>%s</strong>)</span>"
-                .format(location["file"], location["line"]);
+            lineInfo = htmlDoubleTag("span", "<strong>{file}</strong> (line <strong>{line}</strong>)")
+                .moustache(location, ["file", "line"]);
         }
         
         return [
@@ -152,27 +152,19 @@ class DHtmlErrorFormatter : IErrorFormatter {
            style("punct", " {") ~
             "<samp class=\"uim-debug-object-props\">";
 
-        props = null;
-        foreach (var.getChildren() as  aProperty) {
+        auto props = null;
+        foreach (aProperty; var.getChildren()) {
             arrow = style("punct", ": ");
             visibility = aProperty.getVisibility();
             name = aProperty.name;
             if (visibility && visibility != "public") {
                 props ~= breakText ~
-                    '<span class="uim-debug-prop">' ~
-                   style("visibility", visibility) ~
-                    ' ' ~
-                   style("property", name) ~
-                    arrow ~
-                    this.export_(aProperty.getValue(),  indentLevel) ~
-                "</span>";
+                    htmlDoubleTag("span", ["uim-debug-prop"], 
+                    style("visibility", visibility) ~ ' ' ~ style("property", name) ~ arrow ~ export_(aProperty.getValue(),  indentLevel));
             } else {
                 props ~= breakText ~
-                    '<span class="uim-debug-prop">' ~
-                   style("property", name) ~
-                    arrow ~
-                    this.export_(aProperty.getValue(),  indentLevel) ~
-                    "</span>";
+                    htmlDoubleTag("span", ["uim-debug-prop"], 
+                    style("property", name) ~ arrow ~ export_(aProperty.getValue(),  indentLevel));
             }
         }
         end = "</samp>" ~
@@ -180,10 +172,9 @@ class DHtmlErrorFormatter : IErrorFormatter {
             style("punct", "}") ~
             "</span>";
 
-        if (count(props)) {
-            return result ~ props.join("") ~ end;
-        }
-        return result ~ end;
+        return count(props)
+            ? result ~ props.join("") ~ end
+            : result ~ end;
     }
     
     // Style text with HTML class names

@@ -45,13 +45,13 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable
   void setFieldDirty(string fieldName, bool isDirtyMode = true);
 
   // Checks if the entity is dirty
-  bool isDirty();
+  bool isChanged();
 
   // Checks if a field of it is dirty.
   bool isFieldDirty(string fieldName = null);
 
   // Gets the dirty fields.
-  string[] dirtyFieldNames();
+  string[] changedFieldNames();
 
   // Returns whether this entity has errors.
   bool hasErrors(bool includeNested = true);

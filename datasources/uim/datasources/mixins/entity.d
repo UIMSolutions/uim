@@ -45,10 +45,10 @@ mixin template TEntity() {
   protected Json[string] _fields = null;
 
   // Holds all fields that have been changed and their original values for this entity.
-  protected Json _original = null;
+  protected Json _originalFields = null;
 
   // Holds all fields that have been initially set on instantiation, or after marking as clean
-  protected string[] _originalFields = null;
+  protected string[] _originalFieldsFields = null;
 
   /**
      * List of field names that should **not** be included in Json or Array
@@ -67,7 +67,7 @@ mixin template TEntity() {
      * Holds a list of the fields that were modified or added after this object
      * was originally created.
     */
-  protected bool[] _isDirty;
+  protected bool[] _isChangedFields;
 
   // List of errors per field as stored in this object.
   protected Json[string] _fieldErrors;
@@ -261,7 +261,7 @@ mixin template TEntity() {
         if (options["guard"] == true && !this.isAccessible(fieldName)) {
           continue;
         }
-        isDirty(fieldName, true);
+        isChanged(fieldName, true);
 
         if (options["setter"]) {
           setter = _accessor(fieldName, "set");
@@ -273,10 +273,10 @@ mixin template TEntity() {
           }
         }
         if (
-          this.isOriginalField(fieldName) && !array_key_exists(fieldName, _original) &&
+          this.isOriginalField(fieldName) && !array_key_exists(fieldName, _originalFields) &&
         array_key_exists(fieldName, _fields) && valueToSet != _fields[fieldName]
           ) {
-          _original[fieldName] = _fields[fieldName];
+          _originalFields[fieldName] = _fields[fieldName];
         }
         _fields[fieldName] = valueToSet;
       });
@@ -321,7 +321,7 @@ mixin template TEntity() {
 
   // Returns whether a field has an original value
   bool hasOriginal(string fieldName) {
-    return array_key_exists(fieldName, _original);
+    return array_key_exists(fieldName, _originalFields);
   }
 
   // Returns the value of an original field by name
@@ -330,8 +330,8 @@ mixin template TEntity() {
       throw new DInvalidArgumentException("Cannot get an empty field");
     }
 
-    if (array_key_exists(fieldName, _original)) {
-      return _original[fieldName];
+    if (array_key_exists(fieldName, _originalFields)) {
+      return _originalFields[fieldName];
     }
 
     if (!allowFallback) {
@@ -344,7 +344,7 @@ mixin template TEntity() {
 
   // Gets all original values of the entity.
   Json[string] getOriginalValues() {
-    originals = _original;
+    originals = _originalFields;
     originalKeys = originals.keys;
     _fields.byKeyValue
       .each!((kv) {
@@ -441,7 +441,7 @@ mixin template TEntity() {
   auto remove(string[] afield) {
     field =  /* (array) */ field;
     foreach (field asp) {
-      remove(_fields[p], _isDirty[p]);
+      remove(_fields[p], _isChangedFields[p]);
     }
     return this;
   }
@@ -584,7 +584,7 @@ mixin template TEntity() {
   Json[string] extract(string[] fieldNamesToReturn, bool returnOnlyDirty = false) {
     Json[string] result;
     fieldsToReturn
-      .filter!(field => !returnOnlyDirty || this.isDirty(field))
+      .filter!(field => !returnOnlyDirty || this.isChanged(field))
       .each!(field => result[field] = get(field));
 
     return result;
@@ -635,7 +635,7 @@ mixin template TEntity() {
 
   // Returns whether a field is an original one
   bool isOriginalField(string fieldName) {
-    return isIn(fieldName, _originalFields);
+    return isIn(fieldName, _originalFieldsFields);
   }
 
   /**
@@ -643,7 +643,7 @@ mixin template TEntity() {
      * Original fields are those that the entity was initialized with.
     */
   string[] getOriginalFields() {
-    return _originalFields;
+    return _originalFieldsFields;
   }
 
   /**
@@ -652,7 +652,7 @@ mixin template TEntity() {
     */
   protected void setOriginalField(string[] fieldNames, bool shouldMerge = true) {
     if (!shouldMerge) {
-      _originalFields = fieldNames;
+      _originalFieldsFields = fieldNames;
 
       return;
     }
@@ -660,44 +660,36 @@ mixin template TEntity() {
       .each!((field) {
         field = (string) field;
         if (!isOriginalField(field)) {
-          _originalFields ~= field;
+          _originalFieldsFields ~= field;
         }
       });
   }
 
-  /**
-     * Sets the dirty status of a single field.
-     * Params:
-     * string fieldName the field to set or check status for
-     * @param bool isDirty true means the field was changed, false means
-     * it was not changed. Defaults to true.
-    */
-  bool isDirty(string fieldName, bool dirtyMode = true) {
-    if (!dirtyMode) {
+  // Sets the dirty status of a single field.
+  void isChanged(string fieldName, bool isChanged = true) {
+    if (!isChanged) {
       setOriginalField(fieldName);
 
-      _isDirty.remove(fieldName);
-      _original.remove(fieldName);
+      _isChangedFields.remove(fieldName);
+      _originalFields.remove(fieldName);
 
-      return this;
+      return;
     }
 
-    _isDirty[fiefieldNameld] = true;
-    remove(_fieldErrors[fieldName]);
-    remove(_invalidFields[fieldName]);
-
-    return this;
+    _isChangedFields[fieldName] = true;
+    _fieldErrors.remove(fieldName);
+    _invalidFields.remove(fieldName);
   }
 
   // Checks if the entity is dirty or if a single field of it is dirty.
-  bool isDirty(string fieldName = null) {
+  bool isChanged(string fieldName = null) {
     return field.isNull
-      ? !_isDirty.isEmpty : _isDirty.hasKey(field);
+      ? !_isChangedFields.isEmpty : _isChangedFields.hasKey(field);
   }
 
   // Gets the dirty fields.
-  string[] dirtyFieldNames() {
-    return _isDirty.keys;
+  string[] changedFieldNames() {
+    return _isChangedFields.keys;
   }
 
   /**
@@ -706,10 +698,10 @@ mixin template TEntity() {
      * for an initial object hydration
     */
   void clean() {
-    _isDirty = false;
+    _isChangedFields = false;
     _fieldErrors = null;
     _invalidFields = null;
-    _original = null;
+    _originalFields = null;
     setOriginalField(_fields.keys, false);
   }
 
@@ -724,7 +716,7 @@ mixin template TEntity() {
   void setNew(bool status) {
     if (status) {
       _fields.byKeyValue
-        .each!(kv => _isDirty[kv.key] = true);
+        .each!(kv => _isChangedFields[kv.key] = true);
     }
     _isNew = status;
   }
@@ -1034,9 +1026,9 @@ mixin template TEntity() {
     return fields ~ [
       "[new]": this.isNew(),
       "[accessible]": _accessible,
-      "[dirty]": _isDirty,
-      "[original]": _original,
-      "[originalFields]": _originalFields,
+      "[dirty]": _isChangedFields,
+      "[original]": _originalFields,
+      "[originalFields]": _originalFieldsFields,
       "[virtual]": _virtual,
       "[hasErrors]": hasErrors(),
       "[errors]": _fieldErrors,

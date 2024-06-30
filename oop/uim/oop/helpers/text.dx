@@ -414,7 +414,7 @@ class DText {
             return searchText;
         }
         Json[string] defaultData = [
-            "format": "<span class="highlight">\1</span>",
+            "format": htmlDoubleTag("span", ["highlight"], "\1"),
             "html": false.toJson,
             "regex": "|%s|iu",
             "limit": -1,

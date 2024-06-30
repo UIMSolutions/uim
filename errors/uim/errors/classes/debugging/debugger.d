@@ -412,12 +412,12 @@ class DDebugger {
      * @param int line Line number to highlight.
      * @param int context Number of lines of context to extract above and below line.
      */
-    static string[] excerpt(string file, int lineNumber, int numberLinesContext = 2) {
+    static string[] excerpt(string absPathToFile, int lineNumber, int numberLinesContext = 2) {
         auto lines = null;
-        if (!fileExists(file)) {
+        if (!fileExists(absPathToFile)) {
             return [];
         }
-        auto data = file_get_contents(file);
+        auto data = file_get_contents(absPathToFile);
         if (data.isEmpty) {
             return lines;
         }

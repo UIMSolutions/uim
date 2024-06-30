@@ -200,7 +200,7 @@ uim\ORM\Entity.dirty(field = null,  dirty = null)
 You may want to make code conditional based on whether or not fields have changed in an entity. For example, you may only want to validate fields when they change:
 
 // See if the title has been modified.
-article->isDirty('title');
+article->isChanged('title');
 
 You can also flag fields as being modified. This is handy when appending into array fields as this wouldn’t automatically mark the field as dirty, only exchanging completely would.:
 
@@ -213,7 +213,7 @@ In addition you can also base your conditional code on the original field values
 You can also check for changes to any field in the entity:
 
 // See if the entity has changed
-article->isDirty();
+article->isChanged();
 
 To remove the dirty mark from fields in an entity, you can use the clean() method:
 

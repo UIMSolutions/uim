@@ -103,7 +103,7 @@ abstract class DQuery : IQuery { // : IExpression {
     
     // Sets the connection instance to be used for executing and transforming this query.
     void setConnection(Connection aConnection) {
-       _isDirty();
+       _isChanged();
        _connection = aConnection;
     }
     
@@ -295,7 +295,7 @@ abstract class DQuery : IQuery { // : IExpression {
             }
         }
        _parts["with"] ~= cte;
-       _isDirty();
+       _isChanged();
 
     
     /**
@@ -322,7 +322,7 @@ abstract class DQuery : IQuery { // : IExpression {
         modifier([newModifier], shouldOverwrite) {
     }
     void modifier(/* IExpression| */ string[] modifiers, bool shouldOverwrite = false) {
-       _isDirty();
+       _isChanged();
         if (shouldOverwrite) {
            _parts["modifier"] = null;
         }
@@ -360,7 +360,7 @@ abstract class DQuery : IQuery { // : IExpression {
             ? aTables
             : array_merge(_parts["from"], aTables);
 
-       _isDirty();
+       _isChanged();
     }
     
     /**
@@ -466,7 +466,7 @@ abstract class DQuery : IQuery { // : IExpression {
              joins[aliasName ?:  anI++] = t ~ ["type": JOIN_TYPE_INNER, "aliasName": aliasName];
         }
         _parts["join"] = shouldOverwrite ?  joins : array_merge(_parts["join"],  joins);
-       _isDirty();
+       _isChanged();
 
         return this;
     }
@@ -478,7 +478,7 @@ abstract class DQuery : IQuery { // : IExpression {
      */
     auto removeJoin(string joinName) {
         _parts["join"].remove(joinName);
-       _isDirty();
+       _isChanged();
 
         return this;
     }
@@ -1021,7 +1021,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * \UIM\Database\IExpression|int aLimit number of records to be returned
      */
     auto limit(IExpression|int aLimit) {
-       _isDirty();
+       _isChanged();
        _parts["limit"] = aLimit;
 
         return this;
@@ -1045,7 +1045,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * \UIM\Database\IExpression|int anOffset number of records to be skipped
      */
     auto offset(IExpression|int anOffset) {
-       _isDirty();
+       _isChanged();
        _parts["offset"] = anOffset;
 
         return this;
@@ -1087,7 +1087,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * \UIM\Database\/* IExpression| */ string expression The expression to be appended
      */
     auto epilog(/* IExpression| */ string expression = null) {
-       _isDirty();
+       _isChanged();
        _parts["epilog"] = expression;
 
         return this;
@@ -1106,7 +1106,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * string expression The comment to be added
      */
     auto comment(string aexpression = null) {
-       _isDirty();
+       _isChanged();
        _parts["comment"] = expression;
 
         return this;
@@ -1311,14 +1311,14 @@ abstract class DQuery : IQuery { // : IExpression {
                 .add([expression, append], typesNames);
         }
        _parts[queryPart] = expression;
-       _isDirty();
+       _isChanged();
     }
     
     /**
      * Marks a query as dirty, removing any preprocessed information
      * from in memory caching.
      */
-    protected void _isDirty() {
+    protected void _isChanged() {
        _isDirty = true;
 
         if (_statement && _valueBinder) {

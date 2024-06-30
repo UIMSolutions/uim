@@ -44,7 +44,7 @@ class DRuleInvoker {
      *
      * Old options will be merged with the new ones.
      * Params:
-     * Json[string] optionData The options to set.
+     * Json[string] options The options to set.
      */
     void updateOptions(Json[string] additionalOptions = null) {
         _options = _options.update(additionalOptions);

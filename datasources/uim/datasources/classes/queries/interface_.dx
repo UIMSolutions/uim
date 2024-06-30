@@ -101,7 +101,7 @@ interface IQuery {
      * The above is an example of stacking multiple finder methods onto
      * a single query.
      */
-    static auto find(string finderMethod, Json[string] optionData = null);
+    static auto find(string finderMethod, Json[string] options = null);
 
     /**
      * Returns the first result out of executing this query, if the query has not been

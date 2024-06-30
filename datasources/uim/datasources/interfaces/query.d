@@ -90,7 +90,7 @@ interface IQuery {
      * Params:
      * Json[string] options list of query clauses to apply new parts to.
      */
-    auto applyOptions(Json[string] optionData = null);
+    auto applyOptions(Json[string] options = null);
 
     /**
      * Apply custom finds to against an existing query object.

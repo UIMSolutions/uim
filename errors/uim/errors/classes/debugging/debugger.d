@@ -302,7 +302,7 @@ class DDebugger {
      * @param Json[string] options Format for outputting stack trace.
      * @return array|string Formatted stack trace.
      */
-    static function formatTrace(backtrace, Json[string] optionData = null) {
+    static function formatTrace(backtrace, Json[string] options = null) {
         if (cast(Throwable)backtrace ) {
             backtrace = backtrace.getTrace();
         }

@@ -79,7 +79,7 @@ class DRulesChecker {
     protected bool _useI18n = false;
 
     // Takes the options to be passed to all rules.
-    this(Json[string] optionData = null) {
+    this(Json[string] options = null) {
        _options = options;
        _useI18n = function_exists("\UIM\I18n\__d");
     }
@@ -96,8 +96,8 @@ class DRulesChecker {
      *  if the rule does not pass.
      * - `message`: The error message to set to `errorField` if the rule does not pass.
      */
-    void add(callable ruleCallable, string[] ruleAlias = null, Json[string] optionData = null) {
-       _rules ~= _addError(rule, ruleAlias, optionData);
+    void add(callable ruleCallable, string[] ruleAlias = null, Json[string] options = null) {
+       _rules ~= _addError(rule, ruleAlias, options);
     }
     
     /**
@@ -111,8 +111,8 @@ class DRulesChecker {
      *  if the rule does not pass.
      * - `message`: The error message to set to `errorField` if the rule does not pass.
      */
-    void addCreate(callable rule, string[] ruleAlias = null, Json[string] optionData = null) {
-       _createRules ~= _addError(rule, ruleAlias, optionData);
+    void addCreate(callable rule, string[] ruleAlias = null, Json[string] options = null) {
+       _createRules ~= _addError(rule, ruleAlias, options);
     }
 
     /**
@@ -144,7 +144,7 @@ class DRulesChecker {
      *  if the rule does not pass.
      * - `message`: The error message to set to `errorField` if the rule does not pass.
      */
-    void addremove(callable rule, string[] ruleAlias = null, Json[string] optionData = null) {
+    void addremove(callable rule, string[] ruleAlias = null, Json[string] options = null) {
        _deleteRules ~= _addError(rule, ruleAlias, options);
     }
     
@@ -154,7 +154,7 @@ class DRulesChecker {
      * can only be RulesChecker.CREATE, RulesChecker.UPDATE or RulesChecker.DELETE
      * Params:
      */
-    bool check(IDatasourceEntity entity, string checkMode /* 'create, "update' or 'delete'*/ , Json[string] optionData = null) {
+    bool check(IDatasourceEntity entity, string checkMode /* 'create, "update' or 'delete'*/ , Json[string] options = null) {
         if (checkMode == CREATE) {
             return _checkCreate(entity, options);
         }
@@ -171,33 +171,33 @@ class DRulesChecker {
      * Runs each of the rules by passing the provided entity and returns true if all
      * of them pass. The rules selected will be only those specified to be run on 'create'
      */
-   bool checkCreate(IDatasourceEntity entityToValidityCheck, Json[string] extraOptionData = null) {
-        return _checkRules(entityToValidityCheck, extraOptionData, array_merge(_rules, _createRules));
+   bool checkCreate(IDatasourceEntity entityToValidityCheck, Json[string] extraoptions = null) {
+        return _checkRules(entityToValidityCheck, extraoptions, array_merge(_rules, _createRules));
     }
     
     /**
      * Runs each of the rules by passing the provided entity and returns true if all
      * of them pass. The rules selected will be only those specified to be run on 'update'
      */
-   bool checkUpdate(IDatasourceEntity entityToCheck, Json[string] optionData = null) {
-        return _checkRules(entityToCheck, optionData, chain(_rules, _updateRules));
+   bool checkUpdate(IDatasourceEntity entityToCheck, Json[string] options = null) {
+        return _checkRules(entityToCheck, options, chain(_rules, _updateRules));
     }
 
     /**
      * Runs each of the rules by passing the provided entity and returns true if all
      * of them pass. The rules selected will be only those specified to be run on 'delete'
      */
-    bool checkremove(IDatasourceEntity entity, Json[string] optionData = null) {
-        return _checkRules(entity, optionData, _deleteRules);
+    bool checkremove(IDatasourceEntity entity, Json[string] options = null) {
+        return _checkRules(entity, options, _deleteRules);
     }
     
     /**
      * Used by top level functions checkDelete, checkCreate and checkUpdate, this function
      * iterates an array containing the rules to be checked and checks them all.
      */
-    protected bool _checkRules(IDatasourceEntity entity, Json[string] optionData = null, Json[string] rulesToCheck = null) {
+    protected bool _checkRules(IDatasourceEntity entity, Json[string] options = null, Json[string] rulesToCheck = null) {
         bool success = true;
-        auto updatedOptions = optionData.update_options;
+        auto updatedOptions = options.update_options;
         rulesToCheck
           .each!(rule => success = rule(entity, updatedOptions) && success);
         return success;
@@ -207,7 +207,7 @@ class DRulesChecker {
      * Utility method for decorating any callable so that if it returns false, the correct
      * property in the entity is marked as invalid.
      */
-    protected DRuleInvoker _addError(callable rule, string[] ruleAlias = null, Json[string] optionData = null) {
+    protected DRuleInvoker _addError(callable rule, string[] ruleAlias = null, Json[string] options = null) {
         if (isArray(ruleAlias)) {
             options = ruleAlias;
             ruleAlias = null;

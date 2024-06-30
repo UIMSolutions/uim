@@ -55,7 +55,7 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
      * entity = new DDatasourceEntity(["id": 1, "name": "Andrew"])
      * ```
      */
-    this(Json[string] hashOfProperties = null, Json[string] optionData = null) {
+    this(Json[string] hashOfProperties = null, Json[string] options = null) {
         auto updatedOptions = options.update[
             "useSetters": true.toJson,
             "markClean": false.toJson,

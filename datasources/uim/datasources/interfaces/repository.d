@@ -92,7 +92,7 @@ interface IRepository {
      * returns the same entity after a successful save or false in case
      * of any error.
      */
-    IDatasourceEntity|false save(IDatasourceEntity entity, Json[string] optionData = null);
+    IDatasourceEntity|false save(IDatasourceEntity entity, Json[string] options = null);
 
     /**
      * Delete a single entity.
@@ -139,7 +139,7 @@ interface IRepository {
      * ```
      * The hydrated entities can then be iterated and saved.
      */
-    IDatasourceEntity[] newEntities(Json[string] buildData, Json[string] optionDataForHydration = null);
+    IDatasourceEntity[] newEntities(Json[string] buildData, Json[string] optionsForHydration = null);
 
     /**
      * Merges the passed `someData` into `entity` respecting the accessible
@@ -157,7 +157,7 @@ interface IRepository {
      * @param Json[string] data key value list of fields to be merged into the entity
      * @param Json[string] options A list of options for the object hydration.
      */
-    IDatasourceEntity patchEntity(IDatasourceEntity entity, Json[string] data, Json[string] optionData = null);
+    IDatasourceEntity patchEntity(IDatasourceEntity entity, Json[string] data, Json[string] options = null);
 
     /**
      * Merges each of the elements passed in `someData` into the entities

@@ -6,3 +6,4 @@ import uim.oop;
 
 class DErrorFactory : DFactory!DError {
 }
+auto ConsoleFactory() { return DConsoleFactory.factory; }

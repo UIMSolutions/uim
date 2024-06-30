@@ -24,21 +24,11 @@ class DLogger : UIMObject, ILogger {
         configuration.set("levels", configuration.getArray("levels"));
 
         if (configuration.hasKey("types") && configuration.get("levels").isEmpty) {
-           configuration.get("levels", configuration.get("types").toArray);
+           configuration.set("levels", configuration.get("types").toArray);
         }
 
-        auto formatter = configuration.getString("formatter", StandardLogFormatter.classname);
-        if (!isObject(formatter)) {
-            if (isArray(formatter)) {
-                classname = formatter["classname"];
-                options = formatter;
-            } else {
-                classname = formatter;
-                auto options = null;
-            }
-            formatter = new classname(options);
-        }
-        _formatter = formatter; 
+        auto formatterClassName = configuration.getString("formatter", StandardLogFormatter.classname);
+        _formatter = LogFormatterRegistry.create(formatterClassName);
 
         return true;
     }

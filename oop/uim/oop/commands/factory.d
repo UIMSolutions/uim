@@ -6,3 +6,4 @@ import uim.oop;
 
 class DCommandFactory : DFactory!DCommand {
 }
+auto CommandFactory() { return DCommandFactory.factory; }

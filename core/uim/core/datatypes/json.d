@@ -98,7 +98,7 @@ bool isNull(Json value, string[] path) {
 }
 
 bool isNull(Json value, string key) {
-  return value.isObject && value.hasKey(key);
+  return value.isObject && value.hascorrectKey(key);
 }
 
 unittest {
@@ -343,7 +343,7 @@ Json reduceKeys(Json json, string[] keys) {
   if (json.isObject) {
     Json result = Json.emptyObject;
     keys
-      .filter!(key => json.hasKey(key))
+      .filter!(key => json.hascorrectKey(key))
       .each!(key => result[key] = json[key]);
 
     return result;
@@ -509,7 +509,7 @@ unittest {
 T maxValue(T)(Json[] jsons, string key) {
   T result;
   foreach (json; jsons) { // find first value
-    if (!json.hasKey(key)) {
+    if (!json.hascorrectKey(key)) {
       continue;
     }
 
@@ -518,7 +518,7 @@ T maxValue(T)(Json[] jsons, string key) {
   } // found value
 
   foreach (j; jsons) { // compare values
-    if (!json.hasKey(key)) {
+    if (!json.hascorrectKey(key)) {
       continue;
     }
 
@@ -905,7 +905,7 @@ Json getJson(Json value, string key) {
   if (value.isNull || !value.isObject) {
     return Json(null);
   }
-  if (value.hasKey(key)) {
+  if (value.hascorrectKey(key)) {
     return value[key];
   }
   if (key.contains(".")) {
@@ -924,7 +924,7 @@ bool getBoolean(Json value, size_t index) {
 }
 
 bool getBoolean(Json value, string key) {
-  return !value.isNull && value.isObject && value.hasKey(key)
+  return !value.isNull && value.isObject && value.hascorrectKey(key)
     ? value[key].getBoolean : false;
 }
 
@@ -957,7 +957,7 @@ int getInteger(Json value, size_t index) {
 }
 
 int getInteger(Json value, string key) {
-  return !value.isNull && value.isObject && value.hasKey(key)
+  return !value.isNull && value.isObject && value.hascorrectKey(key)
     ? value[key].getInteger : 0;
 }
 
@@ -990,7 +990,7 @@ long getLong(Json value, size_t index) {
 }
 
 long getLong(Json value, string key) {
-  return !value.isNull && value.isObject && value.hasKey(key)
+  return !value.isNull && value.isObject && value.hascorrectKey(key)
     ? value[key].getLong : 0;
 }
 
@@ -1023,7 +1023,7 @@ float getFloat(Json value, size_t index) {
 }
 
 float getFloat(Json value, string key) {
-  return !value.isNull && value.isObject && value.hasKey(key)
+  return !value.isNull && value.isObject && value.hascorrectKey(key)
     ? value[key].getFloat : 0.0;
 }
 
@@ -1050,7 +1050,7 @@ unittest {
 // #endregion getFloat
 
 double getDouble(Json value, string key) {
-  return !value.isNull && value.isObject && value.hasKey(key)
+  return !value.isNull && value.isObject && value.hascorrectKey(key)
     ? value[key].getDouble : 0.0;
 }
 
@@ -1064,7 +1064,7 @@ string getString(Json value, string key) {
     return null;
   }
 
-  return value.isObject && value.hasKey(key)
+  return value.isObject && value.hascorrectKey(key)
     ? value[key].getString : null;
 }
 
@@ -1082,7 +1082,7 @@ Json[] getArray(Json value, string key) {
     return null;
   }
 
-  return value.isObject && value.hasKey(key)
+  return value.isObject && value.hascorrectKey(key)
     ? value[key].getArray : null;
 }
 
@@ -1096,7 +1096,7 @@ Json[] getArray(Json value) {
 }
 
 Json[string] getMap(Json value, string key) {
-  return value.isObject && value.hasKey(key)
+  return value.isObject && value.hascorrectKey(key)
     ? value[key].getMap : null;
 }
 

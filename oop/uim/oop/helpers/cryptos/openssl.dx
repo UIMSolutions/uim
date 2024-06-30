@@ -20,18 +20,15 @@ class OpenSsl {
      * *Caveat* You cannot properly encrypt/decrypt data with trailing null bytes.
      * Any trailing null bytes will be removed on decryption due to how UIM pads messages
      * with nulls prior to encryption.
-     * Params:
-     * string myplain The value to encrypt.
-     * @param string aKey The 256 bit/32 byte key to use as a cipherKey.
      */
-    static string encrypt(string myplain, string cipherKey) {
+    static string encrypt(string valueToEncrypt, string cipherKey) { // 256 bit/32 byte key
         auto decryptMethod = METHOD_AES_256_CBC;
         auto ivLength = openssl_cipher_iv_length(decryptMethod);
         if (ivLength == false) {
             throw new DException("Cannot get the cipher iv length for `%s`".format(decryptMethod));
         }
         string iv = openssl_random_pseudo_bytes(ivLength);
-        return myiv ~ openssl_encrypt(myplain, decryptMethod, cipherKey, OPENSSL_RAW_DATA, iv);
+        return myiv ~ openssl_encrypt(valueToEncrypt, decryptMethod, cipherKey, OPENSSL_RAW_DATA, iv);
     }
     
     // Decrypt a value using AES-256.

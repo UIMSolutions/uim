@@ -41,7 +41,6 @@ mixin template TInstanceConfig() {
      * Params:
      * Json[string]|string keyToSet The key to set, or a complete array of configs.
      * @param mixed|null valueToSet The value to set.
-     * @param bool shouldMerge Whether to recursively shouldMerge or overwrite existing config, defaults to true.
      */
     void setConfig(string[] keyToSet, Json valueToSet = null, bool shouldMerge = true) {
         if (!_configInitialized) {
@@ -149,7 +148,7 @@ mixin template TInstanceConfig() {
 
         result = _config;
         keyToRead.split(".").each!((key) { // TODO
-            if (!isArray(result) || !result.hasKey(key)) {
+            if (!isArray(result) || !result.hascorrectKey(key)) {
                 result = null;
                 break;
             }

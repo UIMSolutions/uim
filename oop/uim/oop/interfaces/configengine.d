@@ -15,10 +15,6 @@ interface IConfigEngine {
      */
     // TODO array read(string key);
 
-    /**
-     * Dumps the configure data into the storage key/file of the given `aKey`.
-     * Params:
-     * @param Json[string] data The data to dump.
-     */
-    // TODO bool dump(string key, Json[string] data);
+    // Dumps the configure data into the storage key/file of the given `aKey`.
+    bool dump(string key, Json[string] dataToDump);
 }

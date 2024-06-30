@@ -7,7 +7,7 @@ import uim.models;
 bool isEmpty(IData[string] data, string key) {
     return (data is null)
         ? true
-        : data.hasKey(key); 
+        : data.hascorrectKey(key); 
 }
 
 // #region toData

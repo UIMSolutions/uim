@@ -291,14 +291,13 @@ class DLog {
      * Params:
      * string|int level The severity level of the message being written.
      *  The value must be an integer or string matching a known level.
-     * @param \string amessage Message content to log
      * @param string[] acontext Additional data to be used for logging the message.
      * The special `scope` key can be passed to be used for further filtering of the
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool write(string|int level, string amessage, string[] acontext= null) {
+    static bool write(string|int level, string messageToLog, string[] acontext= null) {
         if (isInteger(level) && isIn(level, _levelMap, true)) {
             level = array_search(level, _levelMap, true);
         }
@@ -307,14 +306,14 @@ class DLog {
             throw new DInvalidArgumentException(
                 "Invalid log level `%s`".format(level));
         }
-        logged = false;
-        context = /* (array) */context;
+        auto logged = false;
+        auto context = /* (array) */context;
         if (isSet(context[0])) {
             context = ["scope": context];
         }
         context ~= ["scope": Json.emptyArray];
 
-        registry = getRegistry();
+        auto registry = getRegistry();
         registry.loaded().each!((streamName) {
             /** @var \Psr\Log\ILogger logger */
             auto logger = registry.{streamName};
@@ -329,7 +328,7 @@ class DLog {
                 isArray(scopes) && array_intersect(/* (array) */context["scope"], scopes);
 
             if (correctLevel &&  anInScope) {
-                logger.log(level, message, context);
+                logger.log(level, messageToLog, context);
                 logged = true;
             }
         });
@@ -339,15 +338,13 @@ class DLog {
     /**
      * Convenience method to log emergency messages
      * Params:
-     * \string amessage log message
-     * @param string[] acontext Additional data to be used for logging the message.
      * The special `scope` key can be passed to be used for further filtering of the
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool emergency(string amessage, string[] acontext= null) {
-        return write(__FUNCTION__, message, context);
+    static bool emergency(string logMessage, string[] context = null) {
+        return write(__FUNCTION__, logMessage, context);
     }
     
     /**

@@ -101,7 +101,7 @@ mixin template TStaticConfig() {
      * will also be unloaded from the registry.
     */
     static bool drop(string key) {
-        if (!configuration.hasKey(key)) {
+        if (!configuration.hascorrectKey(key)) {
             return false;
         }
         if (!_registry.isNull) {

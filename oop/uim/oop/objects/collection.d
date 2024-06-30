@@ -60,7 +60,7 @@ class DCollection(T : UIMObject) : UIMObject, IKeyAndPath, ICollection!T {
     }
 
     bool hasAllKeys(string[] keys) {
-        return keys.all!(key => hasKey(key));
+        return keys.all!(key => hascorrectKey(key));
     }
 
     bool hasAnyKeys(string[] keys...) {
@@ -68,18 +68,18 @@ class DCollection(T : UIMObject) : UIMObject, IKeyAndPath, ICollection!T {
     }
 
     bool hasAnyKeys(string[] keys) {
-        return keys.any!(key => hasKey(key));
+        return keys.any!(key => hascorrectKey(key));
     }
 
     bool hasKey(string key) {
         return key in _items ? true : false;
     }
 
-    string correctedKey(string[] path) {
-        return correctedKey(path.join(_pathSeparator));
+    string correctKey(string[] path) {
+        return correctKey(path.join(_pathSeparator));
     }
 
-    string correctedKey(string key) {
+    string correctKey(string key) {
         return key.strip;
     }
     // #endregion keys
@@ -146,7 +146,7 @@ class DCollection(T : UIMObject) : UIMObject, IKeyAndPath, ICollection!T {
         }
 
         bool removePath(string[] path) {
-            return removeKey(correctedKey(path));
+            return removeKey(correctKey(path));
         }
 
         bool removeKeys(string[] keys...) {
@@ -154,11 +154,11 @@ class DCollection(T : UIMObject) : UIMObject, IKeyAndPath, ICollection!T {
         }
 
         bool removeKeys(string[] keys) {
-            return keys.all!(key => removeKey(key));
+            return keys.all!(key => removecorrectKey(key));
         }
 
         bool removeKey(string key) {
-            return removeKey(correctedKey(key));
+            return removeKey(correctedcorrectKey(key));
         }
 
         void clear() {

@@ -737,7 +737,7 @@ class DServerRequest { // }: IServerRequest {
     static withHeader(string headerName, string[] headerValue) {
         auto result = this.clone;
         auto normalizedName = normalizeHeaderName(headerName);
-        result._environmentData[normalizedName] = aValue;
+        result._environmentData[normalizedName] = headerValue;
         return result;
     }
     
@@ -748,19 +748,18 @@ class DServerRequest { // }: IServerRequest {
      * will be appended into the existing values.
      * Params:
      * string aName The header name.
-     * @param string[] avalue The header value
      */
-    static auto withAddedHeader(string aName, aValue) {
-        new = clone this;
-        name = this.normalizeHeaderName(name);
-        existing = null;
-        if (new._environmentData[name] !is null) {
-            existing = (array)new._environmentData[name];
+    static auto withAddedHeader(string headerName, headerValue) {
+        auto newRequest = clone this;
+        string normalizedName = this.normalizeHeaderName(headerName);
+        auto existing = null;
+        if (new._environmentData[normalizedName] !is null) {
+            existing = (array)new._environmentData[normalizedName];
         }
-        existing = array_merge(existing, /* (array) */aValue);
-        new._environmentData[name] = existing;
+        existing = array_merge(existing, /* (array) */headerValue);
+        newRequest._environmentData[normalizedName] = existing;
 
-        return new;
+        return newRequest;
     }
     
     /**
@@ -1147,9 +1146,9 @@ class DServerRequest { // }: IServerRequest {
      * a *new* request object and does not mutate the request in-place.
      * Params:
      * string aKey The key you want to write to.
-     * @param string avalue Value to set
+     * @param string value Value to set
      */
-    static auto withenviroment(string aKey, string avalue) {
+    static auto withenviroment(string aKey, string value) {
         new = clone this;
         new._environmentData[aKey] = aValue;
         new.clearDetectorCache();

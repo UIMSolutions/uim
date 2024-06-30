@@ -46,15 +46,14 @@ class DCookie : ICookie {
      * DateTime or DateTimeImmutable object instead an integer.
      *
      * @link https://D.net/manual/en/function.setcookie.d
-     * @param string[]|float|bool aValue Value of the cookie
+     * @param string[]|float|bool cookieValue Value of the cookie
      * @param \IDateTime|null expiresAt Expiration time and date
-     * @param string somePath Path
      * @param string domain Domain
      * @param \UIM\Http\Cookie\SameSiteEnum|string sameSite Samesite
      */
     this(
         string cookieName,
-        string[]|float|bool aValue = "",
+        string[]|float|bool cookieValue = "",
         IDateTime expiresAt = null,
         string path = null,
         string adomain = null,
@@ -63,12 +62,12 @@ class DCookie : ICookie {
         SameSiteEnum|string sameSite = null
     ) {
         this.validateName(name);
-        this.name = name;
+        _name = name;
 
-       _setValue(aValue);
+       _setValue(cookieValue);
 
-        this.domain = domain ?? defaultAttributes["domain"];
-        this.httpOnly = isHttpOnly ?? defaultAttributes["httponly"];
+        _domain = domain ?? defaultAttributes["domain"];
+        _httpOnly = isHttpOnly ?? defaultAttributes["httponly"];
         this.path = path ? path : defaultAttributes["path"];
         this.isSecure = isSecure ?? defaultAttributes["isSecure"];
         _sameSite = resolveSameSiteenumeration(sameSite ?? defaultAttributes["samesite"]);
@@ -116,16 +115,16 @@ class DCookie : ICookie {
      * Factory method to create Cookie instances.
      * Params:
      * string cookieName Cookie name
-     * @param string[]|float|bool aValue Value of the cookie
+     * @param string[]|float|bool cookieValue Value of the cookie
      * @param Json[string] options Cookies options.
      */
-    static static create(string cookieName, string[]|float|bool aValue, Json[string] options = null) {
+    static static create(string cookieName, string[]|float|bool cookieValue, Json[string] options = null) {
         auto auto updatedOptions = options.updateoptions.update(defaultAttributes);
         options["expires"] = dateTimeInstance(options["expires"]);
 
         return new static(
             name,
-            aValue,
+            cookieValue,
             options["expires"],
             options["path"],
             options["domain"],
@@ -226,15 +225,15 @@ class DCookie : ICookie {
         }
 
         string[] aHeaderValue;
-        aHeaderValue ~= "%s=%s".format(this.name, rawUrlEncode(aValue));
+        aHeaderValue ~= "%s=%s".format(_name, rawUrlEncode(aValue));
         if (this.expiresAt) {
              aHeaderValue ~= "expires=%s".format(getFormattedExpires());
         }
         if (!this.path.isEmpty) {
              aHeaderValue ~= "path=%s".format(this.path);
         }
-        if (!this.domain.isEmpty) {
-             aHeaderValue ~= "domain=%s".format(this.domain);
+        if (!_domain.isEmpty) {
+             aHeaderValue ~= "domain=%s".format(_domain);
         }
         if (_sameSite) {
              aHeaderValue ~= "samesite=%s".format(_sameSite.value);
@@ -257,7 +256,7 @@ class DCookie : ICookie {
     }
  
     string getId() {
-        return "{this.name};{this.domain};{this.path}";
+        return "{_name};{_domain};{this.path}";
     }
  
     @property string name() {
@@ -520,9 +519,9 @@ class DCookie : ICookie {
         options = [
             "expires": to!int(getExpiresTimestamp()),
             "path": this.path,
-            "domain": this.domain,
+            "domain": _domain,
             "isSecure": this.isSecure,
-            "httponly": this.httpOnly,
+            "httponly": _httpOnly,
         ];
 
         if (!_sameSite.isNull) {
@@ -532,7 +531,7 @@ class DCookie : ICookie {
     }
     Json[string] toArray() {
         return [
-            "name": this.name,
+            "name": _name,
             "value": getScalarValue(),
         ] + getOptions();
     }

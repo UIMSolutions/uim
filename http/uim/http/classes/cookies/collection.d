@@ -193,25 +193,27 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * string ascheme The http scheme to match
      * @param string aPath The path to match
      */
-    protected Json[string] findMatchingCookies(string ascheme, string hostToMatch, string aPath) {
+    protected Json[string] findMatchingCookies(string ascheme, string hostToMatch, string pathToMatch) {
          auto result;
         auto now = new DateTimeImmutable("now", new DateTimeZone("UTC"));
         foreach (cookie; _cookies) {
             if (scheme == "http" && cookie.isSecure()) {
                 continue;
             }
-            if (!somePath.startWith(cookie.getPath())) {
+            if (!pathToMatch.startWith(cookie.getPath())) {
                 continue;
             }
-            domain = cookie.getDomain();
+            
+            auto domain = cookie.getDomain();
             if (domain.startWith(".")) {
                 domain = stripLeft(domain, ".");
             }
             if (cookie.isExpired(now)) {
                 continue;
             }
-             somePattern = "/" ~ preg_quote(domain, "/") ~ "/";
-            if (!preg_match(somePattern, hostToMatch)) {
+            
+            string pattern = "/" ~ preg_quote(domain, "/") ~ "/";
+            if (!preg_match(pattern, hostToMatch)) {
                 continue;
             }
              result[cookie.name] = cookie.getValue();
@@ -219,23 +221,18 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
         return result;
     }
     
-    /**
-     * Create a new DCollection that includes cookies from the response.
-     * Params:
-     * \Psr\Http\Message\IResponse response Response to extract cookies from.
-     * @param \Psr\Http\Message\IRequest request Request to get cookie context from.
-     */
+    // Create a new DCollection that includes cookies from the response.
     static addFromResponse(IResponse response, IRequest request) {
         anUri = request.getUri();
         host = anUri.getHost();
-        somePath = anUri.getPath() ?: '/";
+        somePath = anUri.getPath() ?: "/";
 
         cookies = createFromHeader(
             response.getHeader("Set-Cookie"),
             ["domain": host, "path": somePath]
        );
         new = clone this;
-        foreach (cookies as cookie) {
+        foreach (cookie; cookies) {
             new.cookies[cookie.getId()] = cookie;
         }
         new.removeExpiredCookies(host, somePath);

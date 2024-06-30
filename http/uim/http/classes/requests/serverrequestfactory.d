@@ -14,21 +14,16 @@ import uim.http;
 class DServerRequestFactory { // }: ServerIRequestFactory {
     /**
      * Create a request from the supplied superglobal values.
-     *
-     * If any argument is not supplied, the corresponding superglobal value will
-     * be used.
-     * Params:
-     * array|null server _SERVER superglobal
-     * @param array|null aQuery _GET superglobal
+     * If any argument is not supplied, the corresponding superglobal value will be used.
      */
     static DServerRequest fromGlobals(
-        Json[string] server = null,
-        Json[string] aQuery = null,
+        Json[string] server = null, // _SERVER superglobal
+        Json[string] aQuery = null, // _GET superglobal
         Json[string] parsedBody = null, // _POST superglobal
         Json[string] cookies = null, // _COOKIE superglobal
         Json[string] files = null // _FILES superglobal
     ) {
-        auto server = normalizeServer(server ?  ? _SERVER);
+        auto server = normalizeServer(server ?  server : _SERVER);
         ["uri": anUri, "base": base, "webroot": webroot] = UriFactory.marshalUriAndBaseFromSapi(
             server);
 

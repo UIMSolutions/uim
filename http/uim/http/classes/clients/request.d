@@ -20,7 +20,6 @@ class DRequest { // }: Message, IRequest {
      *
      * @Dstan-param array<non-empty-string, non-empty-string>  aHeaders
      * @param \Psr\Http\Message\IUri|string aurl The request URL
-     * @param string[] someData The request body to use.
      */
     this(
         IUri|string aurl = "",
@@ -28,16 +27,15 @@ class DRequest { // }: Message, IRequest {
         Json[string] httpHeaders = null,
         string[] requestBodyData = null
    ) {
-        setMethod(method);
+        setMethod(httpMethod);
         _uri = createUri(url);
-         aHeaders += [
+        addHeaders(httpHeaders.merge([
             "Connection": "close",
             "User-Agent": ini_get("user_agent") ?: "UIM",
-        ];
-        addHeaders(aHeaders);
+        ]));
 
         if (requestBodyData.isNull) {
-            this.stream = new DStream("D://memory", "rw");
+            _stream = new DStream("D://memory", "rw");
         } else {
             setContent(requestBodyData);
         }
@@ -75,6 +73,6 @@ class DRequest { // }: Message, IRequest {
         }
         stream = new DStream("D://memory", "rw");
         stream.write(myFormData);
-        this.stream = stream;
+        _stream = stream;
     }
 }

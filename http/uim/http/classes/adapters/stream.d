@@ -116,41 +116,33 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      *
      * If the request.body() is a string, it will be used as is.
      * Array data will be processed with {@link \UIM\Http\Client\FormData}
-     * Params:
-     * \Psr\Http\Message\IRequest request The request being sent.
-     * @param Json[string] options Array of options to use.
      */
     protected void _buildContent(IRequest request, Json[string] options = null) {
-        auto body_ = request.getBody();
-        body_.rewind();
-       _contextOptions["content"] = body_.getContents();
+        auto requestBody = request.getBody();
+        requestBody.rewind();
+       _contextOptions["content"] = requestBody.getContents();
     }
     
     // Build miscellaneous options for the request.
-    protected void _buildOptions(IRequest request, Json[string] optionsToUse = null) {
+    protected void _buildOptions(IRequest request, Json[string] options = null) {
        _contextOptions["method"] = request.getMethod();
        _contextOptions["protocol_version"] = request.getProtocolVersion();
        _contextOptions["ignore_errors"] = true;
 
-        if (optionsToUse.hasKey("timeout")) {
-           _contextOptions["timeout"] = optionsToUse["timeout"];
+        if (options.hasKey("timeout")) {
+           _contextOptions["timeout"] = options["timeout"];
         }
         // Redirects are handled in the client layer because of cookie handling issues.
        _contextOptions["max_redirects"] = 0;
 
-        if (optionsToUse.hasKey("proxy.proxy")) {
+        if (options.hasKey("proxy.proxy")) {
            _contextOptions["request_fulluri"] = true;
-           _contextOptions["proxy"] = optionsToUse.get("proxy.proxy");
+           _contextOptions["proxy"] = options.get("proxy.proxy");
         }
     }
     
-    /**
-     * Build SSL options for the request.
-     * Params:
-     * \Psr\Http\Message\IRequest request The request being sent.
-     * @param Json[string] optionsToUse Array of optionsToUse to use.
-     */
-    protected void _buildSslContext(IRequest request, Json[string] optionsToUse = null) {
+    // Build SSL options for the request.
+    protected void _buildSslContext(IRequest request, Json[string] options = null) {
         auto sslOptions = [
             "ssl_verify_peer",
             "ssl_verify_peer_name",
@@ -161,18 +153,18 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             "ssl_local_pk",
             "ssl_passphrase",
         ];
-        if (optionsToUse.isEmpty("ssl_cafile")) {
-            optionsToUse["ssl_cafile"] = CaBundle.getBundledCaBundlePath();
+        if (options.isEmpty("ssl_cafile")) {
+            options["ssl_cafile"] = CaBundle.getBundledCaBundlePath();
         }
-        if (!optionsToUse.isEmpty("ssl_verify_host")) {
+        if (!options.isEmpty("ssl_verify_host")) {
             url = request.getUri();
             host = parse_url(url.toString, UIM_URL_HOST);
            _sslContextOptions["peer_name"] = host;
         }
         sslOptions.each!((key) {
-            if (optionsToUse.asKey(aKey)) {
+            if (options.asKey(aKey)) {
                 name = subString(aKey, 4);
-               _sslContextOptions[name] = optionsToUse[aKey];
+               _sslContextOptions[name] = options[aKey];
             }
         });
     }

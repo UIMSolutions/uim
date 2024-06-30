@@ -225,22 +225,19 @@ class DOauth {
      *
      * - URL encode keys + values.
      * - Sort keys & values by byte value.
-     * Params:
-     * \UIM\Http\Client\Request request The request object.
-     * @param Json[string] oauthData Oauth values.
      */
     protected string _normalizedParams(Request request, Json[string] oauthData) {
-        aQuery = parse_url((string) request.getUri(), UIM_URL_QUERY);
+        auto aQuery = parse_url((string) request.getUri(), UIM_URL_QUERY);
         parse_str((string) aQuery, aQueryArgs);
 
-        post = null;
+        auto post = null;
         string contentType = request.getHeaderLine("Content-Type");
         if (contentType.isEmpty || contentType == "application/x-www-form-urlencoded") {
             parse_str(to!string(request.getBody()), post);
         }
-        someArguments = chain(aQueryArgs, oauthData, post);
-        pairs = _normalizeData(someArguments);
-        someData = null;
+        auto someArguments = chain(aQueryArgs, oauthData, post);
+        auto pairs = _normalizeData(someArguments);
+        auto someData = null;
         foreach (pairs as pair) {
             someData ~= join("=", pair);
         }

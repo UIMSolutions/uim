@@ -569,7 +569,7 @@ class DFormHelper : DHelper {
         if (mytext.isArray) {
             mytmp = null;
             foreach (key: mye; myerror) {
-                if (mytext.hasKey(key)) {
+                if (mytext.hascorrectKey(key)) {
                     mytmp ~= mytext[key];
                 } elseif (mytextm.hasKey(ye)) {
                     mytmp ~= mytext[mye];

@@ -198,8 +198,8 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
             return;
         }
         throw new DInvalidCsrfTokenException(__d(
-            'uim",
-            'CSRF token from either the request body or request headers did not match or is missing.'
+            "uim",
+            "CSRF token from either the request body or request headers did not match or is missing."
        ));
     }
     
@@ -210,14 +210,14 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * tokens is a good idea during privilege escalation or privilege reduction.
      * Params:
      * \UIM\Http\ServerRequest serverRequest The request to update
-     * @param string aKey The session key/attribute to set.
+     * @param string key The session key/attribute to set.
      */
-    static ServerRequest replaceToken(ServerRequest serverRequest, string aKey = "csrfToken") {
-        middleware = new DSessionCsrfProtectionMiddleware(["key": aKey]);
+    static ServerRequest replaceToken(ServerRequest serverRequest, string key = "csrfToken") {
+        auto middleware = new DSessionCsrfProtectionMiddleware(["key": key]);
 
-        token = middleware.createToken();
-        request.getSession().write(aKey, token);
+        auto createdToken = middleware.createToken();
+        request.getSession().write(key, createdToken);
 
-        return request.withAttribute(aKey, middleware.saltToken(token));
+        return request.withAttribute(key, middleware.saltToken(createdToken));
     }
 }

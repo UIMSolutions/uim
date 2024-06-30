@@ -423,7 +423,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
     protected void bundleTranslatedFields(IORMEntity entity) {
         auto translations = entity.getStringArray("_translations");
 
-        if (translations.isEmpty && !entity.isDirty("_translations")) {
+        if (translations.isEmpty && !entity.isChanged("_translations")) {
             return;
         }
 
@@ -435,7 +435,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         foreach (translations as lang: translation) {
             foreach (fields as field) {
-                if (!translation.isDirty(field)) {
+                if (!translation.isChanged(field)) {
                     continue;
                 }
                 find ~= ["locale": lang, "field": field, "foreign_key IS": key];

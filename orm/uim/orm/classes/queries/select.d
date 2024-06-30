@@ -845,7 +845,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     // Clears the contained associations from the current query.
     auto clearContain() {
         getEagerLoader().clearContain();
-       _isDirty();
+       _isChanged();
 
         return this;
     }
@@ -928,7 +928,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     void matching(string myassoc, IClosure mybuilder = null) {
         result = getEagerLoader().setMatching(myassoc, mybuilder).getMatching();
        _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
-       _isDirty();
+       _isChanged();
     }
     
     /**
@@ -1001,7 +1001,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             ])
             .getMatching();
        _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
-       _isDirty();
+       _isChanged();
     }
     
     /**
@@ -1045,7 +1045,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             ])
             .getMatching();
        _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
-       _isDirty();
+       _isChanged();
     }
     
     /**
@@ -1106,7 +1106,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             ])
             .getMatching();
        _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
-       _isDirty();
+       _isChanged();
     }
     
     /**
@@ -1144,7 +1144,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * query object.
      */
     void clearResult() {
-       _isDirty();
+       _isChanged();
     }
     
     // Handles cloning eager loaders.
@@ -1251,7 +1251,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * bool myenable Use a boolean to set the hydration mode.
      */
     auto enableHydration(bool myenable = true) {
-       _isDirty();
+       _isChanged();
        _hydrate = myenable;
 
         return this;
@@ -1264,7 +1264,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * instead of entities.
      */
     auto disableHydration() {
-       _isDirty();
+       _isChanged();
        _hydrate = false;
 
         return this;
@@ -1416,10 +1416,10 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Marks a query as dirty, removing any preprocessed information
      * from in memory caching such as previous results
      */
-    protected void _isDirty() {
+    protected void _isChanged() {
        _results = null;
        _resultsCount = null;
-        super._isDirty();
+        super._isChanged();
     }
  
     Json[string] debugInfo() {

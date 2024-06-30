@@ -146,7 +146,7 @@ class DTimestampBehavior : DBehavior {
     
     // Update a field, if it hasn"t been updated already
     protected void _updateField(IORMEntity entity, string fieldName, bool shouldRefreshTimestamp) {
-        if (entity.isDirty(fieldName)) {
+        if (entity.isChanged(fieldName)) {
             return;
         }
         myts = this.timestamp(null, shouldRefreshTimestamp);

@@ -1612,7 +1612,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         if (entityToSave.hasErrors(options.getBoolean("associated"))) {
             return false;
         }
-        if (entityToSave.isNew() == false && !entityToSave.isDirty()) {
+        if (entityToSave.isNew() == false && !entityToSave.isChanged()) {
             return entityToSave;
         }
         mysuccess = _executeTransaction(

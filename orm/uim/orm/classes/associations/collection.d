@@ -224,7 +224,7 @@ class DAssociationCollection { // }: IteratorAggregate {
         Json[string] nested,
         Json[string] options
    ) {
-        if (!anEntity.isDirty(association.getProperty())) {
+        if (!anEntity.isChanged(association.getProperty())) {
             return true;
         }
         if (!nested.isEmpty) {

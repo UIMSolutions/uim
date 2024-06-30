@@ -66,7 +66,7 @@ class DTreeBehavior : DBehavior {
         auto configData = configuration.data;
         parent = entity.get(configuration.get("parent"));
         primaryKeys = primaryKeys();
-        dirty = entity.isDirty(configuration.get("parent"));
+        dirty = entity.isChanged(configuration.get("parent"));
         level = configuration.get("level");
 
         if (parent && entity.get(primaryKeys) == parent) {
@@ -330,7 +330,7 @@ class DTreeBehavior : DBehavior {
      * @param Json[string] options the list of options for the query
      */
     DORMQuery findPath(Query query, Json[string] options) {
-        if (options.isEmpty("for"))) {
+        if (options.isEmpty("for")) {
             throw new DInvalidArgumentException("The 'for' key is required for find('path')");
         }
 

@@ -167,7 +167,7 @@ class DMarshaller {
             // dirty so we don"t persist empty records.
             myproperties.byKeyValue
                 .filter!(fieldValue => cast(IORMEntity) fieldValue.value)
-                .each!(fieldValue => myentity.setDirty(fieldValue.key, fieldValue.value.isDirty()));
+                .each!(fieldValue => myentity.setDirty(fieldValue.key, fieldValue.value.isChanged()));
             myentity.setErrors(myerrors);
             this.dispatchAfterMarshal(myentity, mydata, options);
 
@@ -492,7 +492,7 @@ class DMarshaller {
 
                 myproperties.byKeyValue
                     .filter!(fieldValue => cast(IORMEntity) fieldValue.value)
-                    .each!(fieldValue => myentity.setDirty(fieldValue.key, fieldValue.value.isDirty()));
+                    .each!(fieldValue => myentity.setDirty(fieldValue.key, fieldValue.value.isChanged()));
 
                 this.dispatchAfterMarshal(myentity, mydata, options);
 
@@ -505,7 +505,7 @@ class DMarshaller {
                 }
                 myentity.set(fieldName, myproperties[fieldName]);
                 if (cast(IORMEntity) myproperties[fieldName]) {
-                    myentity.setDirty(fieldName, myproperties[fieldName].isDirty());
+                    myentity.setDirty(fieldName, myproperties[fieldName].isChanged());
                 }
             }
             this.dispatchAfterMarshal(myentity, mydata, options);

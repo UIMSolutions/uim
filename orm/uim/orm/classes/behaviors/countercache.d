@@ -118,7 +118,7 @@ class DCounterCacheBehavior : DBehavior {
                     !isCallable(configData) &&
                     configuration.hasKey("ignoreDirty") &&
                     configuration.get("ignoreDirty"] == true &&
-                    myentity.myentityAlias.isDirty(fieldName)
+                    myentity.myentityAlias.isChanged(fieldName)
                ) {
                    _ignoreDirty[myregistryAlias][fieldName] = true;
                 }

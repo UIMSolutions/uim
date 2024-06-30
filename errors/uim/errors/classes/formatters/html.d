@@ -179,7 +179,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
     
     // Style text with HTML class names
     protected string style(string styleToUse, string testToStyle) {
-        return "<span class=\"uim-debug-%s\">%s</span>"
+        return htmlDoubletag("span", ["uim-debug-%s"], "%s")
             .format(styleToUse, htmlAttributeEscape(testToStyle));
     }
 }

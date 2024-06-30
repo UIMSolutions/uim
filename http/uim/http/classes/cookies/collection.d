@@ -191,10 +191,9 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * Find cookies matching the scheme, host, and path
      * Params:
      * string ascheme The http scheme to match
-     * @param string ahost The host to match.
      * @param string aPath The path to match
      */
-    protected Json[string] findMatchingCookies(string ascheme, string ahost, string aPath) {
+    protected Json[string] findMatchingCookies(string ascheme, string hostToMatch, string aPath) {
          auto result;
         auto now = new DateTimeImmutable("now", new DateTimeZone("UTC"));
         foreach (cookie; _cookies) {
@@ -212,7 +211,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
                 continue;
             }
              somePattern = "/" ~ preg_quote(domain, "/") ~ "/";
-            if (!preg_match(somePattern, host)) {
+            if (!preg_match(somePattern, hostToMatch)) {
                 continue;
             }
              result[cookie.name] = cookie.getValue();

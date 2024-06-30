@@ -165,13 +165,10 @@ class DConsoleFormatter : IErrorFormatter {
         return result ~ style("punct", "}");
     }
     
-    /**
-     * Style text with ANSI escape codes.
-     * @param string atext The text to style.
-     */
+    // Style text with ANSI escape codes.
     protected string style(string styleToUse, string textToStyle) {
         auto code = _styles[styleToUse];
 
         return "\033[{code}m{textToStyle}\033[0m";
-    } */
+    } 
 }

@@ -369,6 +369,7 @@ class DDebugger {
         if (someData.isNull(lineToHighlight)) {
             return lines;
         }
+        
         for (anI = lineToHighlight - numberOfLinesToExtract; anI < lineToHighlight + numberOfLinesToExtract + 1;
             anI++) {
             if (someData[anI] !is null)) {
@@ -376,7 +377,7 @@ class DDebugger {
             }
             string lineToHighlight = _highlight(someData[anI]).replace(["\r\n", "\n"], "");
             lines ~= anI == lineToHighlight
-                ? "<span class=\"code-highlight\">" ~ string ~ "</span>" : lineToHighlight;
+                ? htmlDoubleTag("span", ["code-highlight"], "string") : lineToHighlight;
         }
         return lines;
     }

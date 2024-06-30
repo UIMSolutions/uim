@@ -20,12 +20,11 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      * Params:
      * array|null server _SERVER superglobal
      * @param array|null aQuery _GET superglobal
-     * @param array|null parsedBody _POST superglobal
      */
     static DServerRequest fromGlobals(
         Json[string] server = null,
         Json[string] aQuery = null,
-        Json[string] parsedBody = null,
+        Json[string] parsedBody = null, // _POST superglobal
         Json[string] cookies = null, // _COOKIE superglobal
         Json[string] files = null // _FILES superglobal
     ) {

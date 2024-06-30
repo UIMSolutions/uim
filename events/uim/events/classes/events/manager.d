@@ -253,7 +253,6 @@ class DEventManager { // }: IEventManager {
      *
      * @template TSubject of object
      * @param callable listener The listener to trigger.
-     * @param \UIM\Event\IEvent<TSubject> event Event instance.
      */
     /* protected Json _callListener(callable listener, IEvent event) {
     // TODO 

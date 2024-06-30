@@ -40,19 +40,20 @@ string __n(string singularText, string pluralText, size_t count, Json[string] ar
 /**
  * Allows you to override the current domain for a single message lookup.
  *
- * @param string adomain Domain.
+ * @param string domainName Domain.
  * @param string amsg String to translate.
  * @param Json[string] arguments Array with arguments or multiple arguments in function.
  */
-string __d(string adomain, string messageToTranslate, Json[string] arguments) {
-    /* if (messageToTranslate.isEmpty) {
+string __d(string domainName, string messageToTranslate, Json[string] arguments) {
+    if (messageToTranslate.isEmpty) {
         return null;
     }
 
+    /* 
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
         someArguments = someArguments[0];
     }
-    return I18n.getTranslator(domain).translate(message, someArguments); */
+    return I18n.getTranslator(domainName).translate(message, someArguments); */
     return null;
 }
 
@@ -61,12 +62,12 @@ string __d(string adomain, string messageToTranslate, Json[string] arguments) {
  * Returns correct plural form of message identified by singular and plural for count count
  * from domain domain.
  *
- * @param string adomain Domain.
+ * @param string domainName Domain.
  * @param string asingular Singular string to translate.
  * @param string aplural Plural.
  * @param Json[string] arguments Array with arguments or multiple arguments in function.
  */
-string __dn(string adomain, string asingular, string aplural, int count, Json[string] arguments): 
+string __dn(string domainName, string asingular, string aplural, int count, Json[string] arguments): 
 {
     if (singular.isEmpty) {
         return null;
@@ -74,7 +75,7 @@ string __dn(string adomain, string asingular, string aplural, int count, Json[st
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
         someArguments = someArguments[0];
     }
-    return I18n.getTranslator(domain).translate(
+    return I18n.getTranslator(domainName).translate(
         plural,
         ["_count": count, "_singular": singular] + someArguments
    );
@@ -128,19 +129,19 @@ string __xn(string acontext, string asingular, string aplural, int count, Json[s
  * The context is a unique identifier for the translations string that makes it unique
  * within the same domain.
  *
- * @param string adomain Domain.
+ * @param string domainName Domain.
  * @param string acontext DContext of the text.
  * @param string amsg String to translate.
  * @param Json[string] arguments Array with arguments or multiple arguments in function.
  */
-string __dx(string adomain, string acontext, string amsg, Json[string] arguments) {
+string __dx(string domainName, string acontext, string amsg, Json[string] arguments) {
     if (!message) {
         return null;
     }
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
         someArguments = someArguments[0];
     }
-    return I18n.getTranslator(domain).translate(
+    return I18n.getTranslator(domainName).translate(
         message,
         ["_context": context] + someArguments
    );
@@ -152,7 +153,7 @@ string __dx(string adomain, string acontext, string amsg, Json[string] arguments
  * The context is a unique identifier for the translations string that makes it unique
  * within the same domain.
  *
- * @param string adomain Domain.
+ * @param string domainName Domain.
  * @param string acontext DContext of the text.
  * @param string asingular Singular text to translate.
  * @param string aplural Plural text.
@@ -160,7 +161,7 @@ string __dx(string adomain, string acontext, string amsg, Json[string] arguments
  * @param Json[string] arguments Array with arguments or multiple arguments in function.
  */
 string __dxn(
-    string adomain,
+    string domainName,
     string acontext,
     string asingular,
     string aplural,
@@ -173,7 +174,7 @@ string __dxn(
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
         someArguments = someArguments[0];
     }
-    return I18n.getTranslator(domain).translate(
+    return I18n.getTranslator(domainName).translate(
         plural,
         ["_count": count, "_singular": singular, "_context": context] + someArguments
    ); 

@@ -96,7 +96,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * and the existing element will be shifted one index greater.
      * Params:
      * int anIndex The index to insert at.
-     * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string amiddleware The middleware to insert.
+     * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|* / string amiddleware The middleware to insert.
      */
     auto insertAt(int anIndex, IHttpMiddleware|/*Closure|*/ string amiddleware) {
         array_splice(_queue,  anIndex, 0, [middleware]);
@@ -110,7 +110,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Finds the index of the first middleware that matches the provided class,
      * and inserts the supplied middleware before it.
      * Params:
-     * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string amiddleware The middleware to insert.
+     * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|* / string amiddleware The middleware to insert.
      */
     auto insertBefore(string classname, IHttpMiddleware|/*Closure|*/ string amiddleware) {
         bool isFound = false;
@@ -141,7 +141,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * this method will behave like add().
      * Params:
      * string classname The classname to insert the middleware before.
-     * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string amiddleware The middleware to insert.
+     * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|* / string amiddleware The middleware to insert.
      */
     auto insertAfter(string classname, IHttpMiddleware|/*Closure|*/ string amiddleware) {
         auto found = false;

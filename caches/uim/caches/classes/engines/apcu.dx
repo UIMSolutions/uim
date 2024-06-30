@@ -36,7 +36,7 @@ class DApcuCacheEngine : DCacheEngine {
 
   // Read a key from the cache
   override Json get(string itemKey, Json defaultValue = Json(null)) {
-    auto internKey = internalKey(key);
+    auto internKey = internalcorrectKey(key);
     // TODO /*     auto myValue = apcu_fetch(internalKey(internKey), mysuccess);
 
     // return mysuccess ? myValue : defaultValue;
@@ -45,7 +45,7 @@ class DApcuCacheEngine : DCacheEngine {
 
   // Increments the value of an integer cached key
   override long increment(string key, int incValue = 1) {
-    auto internKey = internalKey(key);
+    auto internKey = internalcorrectKey(key);
     // TODO return apcu_inc(internKey, incValue); */
     return 0;
   }
@@ -59,7 +59,7 @@ class DApcuCacheEngine : DCacheEngine {
 
   // Delete a key from the cache
   override bool remove(string key) {
-    auto internKey = internalKey(key);
+    auto internKey = internalcorrectKey(key);
 
     // TODO return apcu_remove(internKey);
     return false;

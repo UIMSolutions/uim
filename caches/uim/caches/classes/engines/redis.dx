@@ -102,7 +102,7 @@ class DRedisCacheEngine : DCacheEngine {
     
     // Write data for key into cache.
     override bool update(string key, Json dataToCache, long timeToLive = 0) {
-        auto internKey = internalKey(key);
+        auto internKey = internalcorrectKey(key);
         auto serializedData = serialize(dataToCache);
 
         auto myDuration = duration(timeToLive);
@@ -113,7 +113,7 @@ class DRedisCacheEngine : DCacheEngine {
     
     // Read a key from the cache
     override Json read(string key, Json defaultValue = Json(null)) {
-        auto internKey = internalKey(key);
+        auto internKey = internalcorrectKey(key);
         auto value = _redis.get(internKey);
         return value.isNull
             ? defaultValue  

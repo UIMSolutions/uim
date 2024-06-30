@@ -189,7 +189,7 @@ version (test_uim_core) {
   }
 
   bool hasAllKeys(T, S)(T[S] base, S[] keys) {
-    return keys.all!(key => base.hasKey(key));
+    return keys.all!(key => base.hascorrectKey(key));
   }
   ///
   unittest {
@@ -215,7 +215,7 @@ version (test_uim_core) {
   }
 
   bool hasAnyKeys(T, S)(T[S] base, S[] keys) {
-    return keys.any!(key => base.hasKey(key));
+    return keys.any!(key => base.hascorrectKey(key));
   }
   ///
   unittest {

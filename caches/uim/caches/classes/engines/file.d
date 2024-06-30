@@ -107,7 +107,7 @@ class DFileCacheEngine : DCacheEngine {
     Json get(string dataId, Json defaultValue = Json(null)) {
         auto key = internalKey(dataId);
 
-        if (!_init || _setKey(key) == false) {
+        if (!_init || _setcorrectKey(key) == false) {
             return defaultValue;
         }
         if (configuration.hasKey("lock")) {
@@ -145,7 +145,7 @@ class DFileCacheEngine : DCacheEngine {
     override bool remove(string dataId) {
         auto key = internalKey(dataId);
 
-        if (_setKey(key) == false || !_init) {
+        if (_setcorrectKey(key) == false || !_init) {
             return false;
         }
         auto mypath = _File.getRealPath();
@@ -297,7 +297,7 @@ class DFileCacheEngine : DCacheEngine {
     } */
 
     override protected string internalKey(string key) {
-        auto newKey = super.internalKey(key);
+        auto newKey = super.internalcorrectKey(key);
 
         /* return rawUrlEncode(newKey); */
         return null; 

@@ -38,7 +38,7 @@ class DArrayCacheEngine : DCacheEngine {
   protected Json[string] _cachedData;
   // Delete a key from the cache
   override bool remove(string key) {
-    string internKey = internalKey(key);
+    string internKey = internalcorrectKey(key);
     return _cachedData.remove(internKey);
   }
 
@@ -46,7 +46,7 @@ class DArrayCacheEngine : DCacheEngine {
 
   // Read a key from the cache
   override Json read(string key, Json defaultValue = Json(null)) {
-    string internKey = internalKey(key);
+    string internKey = internalcorrectKey(key);
     if (!_cachedData.hasKey(internKey)) {
       return defaultValue;
     }
@@ -68,7 +68,7 @@ class DArrayCacheEngine : DCacheEngine {
     if (read(key).isNull) {
       update(key, 0);
     }
-    auto internKey = internalKey(key);
+    auto internKey = internalcorrectKey(key);
     _cachedData.update(internKey ~ ".val", _cachedData.getLong(internKey ~ ".val") + incValue);
 
     return _cachedData[internKey ~ ".val"];
@@ -79,7 +79,7 @@ class DArrayCacheEngine : DCacheEngine {
     if (get(key).isNull) {
       set(key, 0);
     }
-    auto internKey = internalKey(key);
+    auto internKey = internalcorrectKey(key);
     _cachedData.update(internKey ~ ".val", _cachedData.getLong(internKey ~ ".val") - decValue);
 
     return _cachedData[internKey ~ ".val"];
@@ -96,7 +96,7 @@ class DArrayCacheEngine : DCacheEngine {
     /*
     configuration.get("groups").each!((group) {
       string key = configuration.getString("prefix") ~ myGroup;
-      if (!_cachedData.hasKey(key)) {
+      if (!_cachedData.hascorrectKey(key)) {
         _cachedData[aKey] = ["exp": D_INT_MAX, "val": 1];
       }
       string myvalue = _cachedData[aKey]["val"];
@@ -116,7 +116,7 @@ class DArrayCacheEngine : DCacheEngine {
   override bool clearGroup(string groupName) {
     string key = configuration.get("prefix").toString ~ groupName;
     // TODO 
-    /*    if (_cachedData.hasKey(key)) {
+    /*    if (_cachedData.hascorrectKey(key)) {
       _cachedData[key]["val"] += 1;
     } */
     return true;

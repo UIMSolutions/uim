@@ -547,8 +547,8 @@ mixin template TEntity() {
     auto classname = class;
 
     auto key = classname ~ "." ~ accessorType ~ "." ~ aProperty;
-    if (_accessors.hasKey(key)) {
-      return _accessors.hasKey(key);
+    if (_accessors.hascorrectKey(key)) {
+      return _accessors.hascorrectKey(key);
     }
     if (!_accessors.isEmpty(classname)) {
       _accessors(key, "");
@@ -571,7 +571,7 @@ mixin template TEntity() {
       _accessors.set(clPrefix ~ "." ~ field, method);
       _accessors.set(clPrefix ~ "." ~ titleField, method);
     });
-    if (!_accessors.hasKey(key)) {
+    if (!_accessors.hascorrectKey(key)) {
       _accessors.set(key, "");
     }
     return _accessors.get(key);

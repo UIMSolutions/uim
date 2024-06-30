@@ -268,7 +268,7 @@ override bool merge(Json[string] items, long timeToLive = 0) {
 
   // Read a key from the cache
   override Json read(string key, Json defaultValue = Json(null)) {
-    string internKey = internalKey(key);
+    string internKey = internalcorrectKey(key);
     // TODO auto myvalue = _memory.get(internKey);
     /* return _memory.getResultCode() == Memory.RES_NOTFOUND
       ? defaultValue : myvalue; */
@@ -278,18 +278,18 @@ override bool merge(Json[string] items, long timeToLive = 0) {
   // Increments the value of an integer cached key
   override long increment(string key, int incValue = 1) {
     return 1;
-    // TODO return _memory.set(internalKey(key), _memory.getLong(internalKey(key)) + incValue);
+    // TODO return _memory.set(internalcorrectKey(key), _memory.getLong(internalcorrectKey(key)) + incValue);
   }
 
   // Decrements the value of an integer cached key
   override long decrement(string key, int decValue = 1) {
     return 0;
-    // TODO return _memory.set(internalKey(key), _memory.getLong(internalKey(key)) - decValue);
+    // TODO return _memory.set(internalcorrectKey(key), _memory.getLong(internalcorrectKey(key)) - decValue);
   }
 
   // Delete a key from the cache
   override bool remove(string key) {
-    return _memory.remove(internalKey(key));
+    return _memory.remove(internalcorrectKey(key));
   }
 
   // Delete all keys from the cache
@@ -303,7 +303,7 @@ override bool merge(Json[string] items, long timeToLive = 0) {
 
   // Add a key to the cache if it does not already exist.
 /*   override bool merge(string key, Json value, long timeToLive = 0) {
-    auto internKey = internalKey(key);
+    auto internKey = internalcorrectKey(key);
     return _memory.add(internKey, value, duration);
   } */
 

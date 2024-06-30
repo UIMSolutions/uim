@@ -92,8 +92,8 @@ class DSysLogger : DLogger {
      * @param int options the options flags to be used for logged messages
      * @param int facility the stream or facility to log to
      */
-    protected void _open(string aident, int options, int facility) {
-        openlog(anIdent, options, facility);
+    protected void _open(string idPrefix, uLong optionFlags, int facility) {
+        openlog(idPrefix, optionFlags, facility);
     }
     
     /**

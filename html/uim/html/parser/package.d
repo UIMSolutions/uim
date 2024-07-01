@@ -131,7 +131,7 @@ class DH5Node {
     }
 
     _classes = items.filter!(item => item.length > 0)
-      .map(item => item).array;
+      .map!(item => item).array;
   }
 
   string classesToH5() {

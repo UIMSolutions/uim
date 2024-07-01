@@ -440,29 +440,29 @@ class DateTime /* : Chronos, JsonSerializable */ {
      */
     auto Json[string] listTimezones(
         string|int filter = null,
-        string acountry = null,
+        string countryCode = null,
         Json auto options = null
    ) {
         if (isBoolean(options)) {
             options = [
-                'group": options,
+                "group": options,
             ];
         }
         defaults = [
-            'group": true.toJson,
-            'abbr": false.toJson,
-            'before": ' - ",
-            'after": Json(null),
+            "group": true.toJson,
+            "abbr": false.toJson,
+            "before": " - ",
+            "after": Json(null),
         ];
         auto updatedOptions = options.updatedefaults;
          anGroup = options["group"];
 
-        regex = null;
+        auto regex = null;
         if (isString(filter)) {
             regex = filter;
             filter = null;
         }
-        filter ??= DateTimeZone.ALL;
+        auto filter ??= DateTimeZone.ALL;
          anIdentifiers = DateTimeZone.listIdentifiers(filter, (string)country) ?: [];
 
         if (regex) {

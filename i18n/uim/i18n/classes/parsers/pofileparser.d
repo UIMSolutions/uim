@@ -160,7 +160,6 @@ class DPoFileParser {
      * Saves a translation item to the messages.
      * Params:
      * Json[string] messages The messages array being collected from the file
-     * @param Json[string]  anItem The current item being inspected
      */
     protected void addMessage(Json[string] messages, Json itemToInspect) {
         auto ids = itemToInspect["ids"];

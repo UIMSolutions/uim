@@ -160,9 +160,6 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      *
      * Loader callbacks will get as first argument the catalog name and the locale as
      * the second argument.
-     * Params:
-     * string catalogName The name of the translator catalog to register a loader for
-     * @param callable loader A callable object that should return a ICatalog
      */
     void registerLoader(string catalogName, ILoader loader) {
         //_loaders[catalogName] = loader;

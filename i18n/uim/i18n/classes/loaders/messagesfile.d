@@ -20,7 +20,7 @@ class DMessagesFileLoader {
     bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
-        
+
         return true;
     }
 
@@ -72,24 +72,24 @@ class DMessagesFileLoader {
      * ```
      * Params:
      * string domainName The name (domain) of the translations catalog.
-     * @param string alocale The locale to load, this will be mapped to a folder
+     * @param string localToLoad The locale to load, this will be mapped to a folder
      * in the system.
      */
-    this(string domainName, string alocale, string fileExtension = "po") {
+    this(string domainName, string localToLoad, string fileExtension = "po") {
         this();
-       _name = domainName;
+        _name = domainName;
         // If space is not added after slash, the character after it remains lowercased
-        
+
         auto pluginName = Inflector.camelize(_name.replace("/", "/ "));
         if (indexOf(_name, ".")) {
             [_plugin, _name] = pluginSplit(pluginName);
         } else if (Plugin.isLoaded(pluginName)) {
-           _plugin = pluginName;
+            _plugin = pluginName;
         }
-       _locale = locale;
-       _extension = fileExtension;
+        _locale = localToLoad;
+        _extension = fileExtension;
     }
-    
+
     /**
      * Loads the translation file and parses it. Returns an instance of a translations
      * catalog containing the messages loaded from the file.
@@ -115,7 +115,7 @@ class DMessagesFileLoader {
 
         return catalog;
     }
-    
+
     /**
      * Returns the folders where the file should be looked for according to the locale
      * and catalog name.
@@ -138,11 +138,12 @@ class DMessagesFileLoader {
             localePaths ~= ROOT ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales" ~ DIRECTORY_SEPARATOR;
         }
         foreach (somePath; localePaths) {
-            folders.each!(folder => searchPaths ~= somePath ~ folder ~ DIRECTORY_SEPARATOR);;
+            folders.each!(folder => searchPaths ~= somePath ~ folder ~ DIRECTORY_SEPARATOR);
+            ;
         }
         return searchPaths;
     }
-    
+
     protected string translationFile(string[] folders, string fileName, string fileExtension) {
         auto file = null;
         auto fileName = fileName.replace("/", "_");

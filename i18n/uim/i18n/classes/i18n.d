@@ -156,15 +156,11 @@ class DI18n {
      *    return catalog;
      * });
      * ```
-     * Params:
-     * string aName The name of the translator to create a loader for
-     * @param callable loader A callable object that should return a MessageCatalog
-     * instance to be used for assembling a new translator.
      */
-    static void config(string translatorName, callable loader) {
-        translators().registerLoader(translatorView, loader);
+/*     static void config(string translatorName, callable loader) {
+        translators().registerLoader(translatorName, loader);
     }
-    
+ */    
     /**
      * Sets the default locale to use for future translator instances.
      * This also affects the `intl.default_locale` UIM setting.

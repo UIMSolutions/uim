@@ -76,7 +76,7 @@ abstract class DConfiguration : IConfiguration {
     }
 
     bool hasAnyKeys(string[] keys) {
-        return keys.any!(key => hascorrectKey(key));
+        return keys.any!(key => hasKey(key));
     }
 
     bool hasKeys(string[] keys...) {
@@ -84,7 +84,7 @@ abstract class DConfiguration : IConfiguration {
     }
 
     bool hasKeys(string[] keys) {
-        return keys.all!(key => hascorrectKey(key));
+        return keys.all!(key => hasKey(key));
     }
 
     abstract bool hasKey(string key);
@@ -132,19 +132,19 @@ abstract class DConfiguration : IConfiguration {
     abstract Json get(string key, Json nullValue = Json(null));
 
     long getBoolean(string key, bool nullValue = false) {
-        return hascorrectKey(key) ? get(key).getBoolean : nullValue;
+        return hasKey(key) ? get(key).getBoolean : nullValue;
     }
 
     long getLong(string key, long nullValue = 0) {
-        return hascorrectKey(key) ? get(key).getLong : nullValue;
+        return hasKey(key) ? get(key).getLong : nullValue;
     }
 
     double getDouble(string key, double nullValue = 0.0) {
-        return hascorrectKey(key) ? get(key).getDouble : nullValue;
+        return hasKey(key) ? get(key).getDouble : nullValue;
     }
 
     string getString(string key, string nullValue = null) {
-        return hascorrectKey(key) ? get(key).getString : nullValue;
+        return hasKey(key) ? get(key).getString : nullValue;
     }
 
     string[] getStringArray(string key, string[] nullValue = null) {

@@ -169,14 +169,9 @@ class DDebugger {
         configInstance("outputMask", keyReplaceData, shouldMerge);
     }
 
-    /**
-     * Recursively formats and outputs the contents of the supplied variable.
-     * Params:
-     * Json var The variable to dump.
-     * @param int maxDepth The depth to output to. Defaults to 3.
-     */
-    static void dump(Json var, int maxDepth = 3) {
-        pr(exportVar(var, maxDepth));
+    // Recursively formats and outputs the contents of the supplied variable.
+    static void dump(Json valueToDump, int maxOutputDepth = 3) {
+        pr(exportVar(valueToDump, maxOutputDepth));
     }
 
     /**
@@ -348,8 +343,6 @@ class DDebugger {
      * and would be wrapped in `<span class="code-highlight"></span>`. All the lines
      * are processed with highlight_string() as well, so they have basic UIM syntax highlighting
      * applied.
-     * Params:
-     * @param int context Number of lines of context to extract above and below lineToHighlight.
      */
     static string[] excerpt(string filePath, int lineToHighlight, int numberOfLinesToExtract = 2) {
         string[] lines = null;
@@ -357,21 +350,21 @@ class DDebugger {
             return null;
         }
         
-        string[] someData = file_get_contents(filePath);
-        if (someData.isEmpty) {
+        string[] contents = file_get_contents(filePath);
+        if (contents.isEmpty) {
             return lines;
         }
-        if (someData.contains("\n")) {
-            someData = someData.split("\n");
+        if (contents.contains("\n")) {
+            contents = someData.split("\n");
         }
         lineToHighlight--;
-        if (someData.isNull(lineToHighlight)) {
+        if (contents.isNull(lineToHighlight)) {
             return lines;
         }
 
         for (anI = lineToHighlight - numberOfLinesToExtract; anI < lineToHighlight + numberOfLinesToExtract + 1;
             anI++) {
-            if (someData[anI] !is null) {
+            if (contents[anI] !is null) {
                 continue;
             }
             string lineToHighlight = _highlight(someData[anI]).replace(["\r\n", "\n"], "");
@@ -389,12 +382,14 @@ class DDebugger {
         if (function_exists("hD_log") || function_exists("hD_gettid")) {
             return htmlentities(stringToConvert);
         }
-        added = false;
+        
+        bool added = false;
         if (!stringToConvert.contains("")) {
             added = true;
             stringToConvert = " \n" ~ stringToConvert;
         }
-        highlight = highlight_string(stringToConvert, true);
+        
+        string highlight = highlight_string(stringToConvert, true);
         if (added) {
             highlight = highlight.replace(
                 ["&lt;?D&nbsp;<br/>", "&lt;?D&nbsp;<br />"],

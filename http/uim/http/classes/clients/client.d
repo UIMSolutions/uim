@@ -353,24 +353,17 @@ class DClient { // }: IClient {
      * string myurl The url or path you want to request.
      * @param Json[string] data The query string data you want to send.
      */
-  Response head(string requestUrl, Json[string] queryData = null, Json[string] requestOptions = null) {
+  DResponse head(string requestUrl, Json[string] queryData = null, Json[string] requestOptions = null) {
     auto optionsForRequest = _mergeOptions(requestOptions);
     auto requestUrl = buildUrl(requestUrl, queryData, optionsForRequest);
 
     return _doRequest(Request.METHOD_HEAD, requestUrl, "", optionsForRequest);
   }
 
-  /**
-     * Helper method for doing non-GET requests.
-     * Params:
-     * string mymethod HTTP method.
-     * @param string requestUrl URL to request.
-     * @param Json requestBody The request body.
-     * @param Json[string] options The options to use. Contains auth, proxy, etc.
-     */
-  protected DClientResponse _doRequest(string mymethod, string requestUrl, Json requestBody, Json[string] options = null) {
+  // Helper method for doing non-GET requests.
+  protected DClientResponse _doRequest(string hhtpMethod, string requestUrl, Json requestBody, Json[string] options = null) {
     myrequest = _createRequest(
-      mymethod,
+      hhtpMethod,
       requestUrl,
       requestBody,
       options

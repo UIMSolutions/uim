@@ -183,11 +183,11 @@ class DH5Obj {
 		return cast(O) this;
 	}
 
-	O js(this O)(DJS[] codes...) {
+/* 	O js(this O)(DJS[] codes...) {
 		foreach (c; codes)
 			_js ~= c.toString;
 		return cast(O) this;
-	}
+	} */
 
 	// classes - wrapper for class attribute
 	// The class attribute is used to set one or more classnames for an element. 
@@ -642,10 +642,10 @@ class DH5Obj {
 		return cast(O) this;
 	}
 
-	O opCall(this O)(DJS code) {
+/* 	O opCall(this O)(DJS code) {
 		this.js(code);
 		return cast(O) this;
-	}
+	} */
 
 	// Shorties for lazy people ;-) - For Best Practice use long names
 	O add(this O)(string[] newClasses) {
@@ -884,8 +884,7 @@ class DH5Obj {
 
 	/// generate HTML in pretty format
 	string toPretty(int intendSpace = 0, int step = 2) {
-		string result;
-		result = startTag(this.tag, this.attributes).indent(intendSpace);
+		string result = startTag(this.tag, this.attributes).indent(intendSpace);
 		if (!single) {
 			result ~= "\n";
 			result ~= _html.map!(a => a ? a.toPretty(intendSpace + step, step) ~ "\n" : "").join;

@@ -11,7 +11,9 @@ class DH5A : DH5Obj {
 		super.initialize;
 
 		this
-			.tag("a");		
+			.tag("a");	
+
+		return true;	
 	}
 
 	// Attribute download - causes the browser to treat the linked URL as a download

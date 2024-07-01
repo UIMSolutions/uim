@@ -15,6 +15,8 @@ class DH5Html : DH5Obj {
 		super.initialize;
 		_head = H5Head;
 		_body_ = H5Body;
+
+		return true;
 	}
 
 	 void Add(T...)(T values) { _body.Add(values); }

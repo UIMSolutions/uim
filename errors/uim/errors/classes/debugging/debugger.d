@@ -236,13 +236,8 @@ class DDebugger {
         instance.configuration.set("editor", editorName);
     }
 
-    /**
-     * Get a formatted URL for the active editor.
-     *
-     * @param string file The file to create a link for.
-     * @param int line The line number to create a link for.
-     */
-    static string editorUrl(string file, int lineNumber) {
+    // Get a formatted URL for the active editor.
+    static string editorUrl(string filename, int lineNumber) {
         auto instance = getInstance();
         auto editor = instance.getConfig("editor");
         if (instance.editors.isNull(editor)) {
@@ -252,7 +247,7 @@ class DDebugger {
 
         auto templateText = instance.editors[editor];
         return templateText.isString
-            ? templateText.mustache(["file": file, "line": lineNumber]) : templateText(file, lineNumber);
+            ? templateText.mustache(["file": filename, "line": lineNumber]) : templateText(filename, lineNumber);
     }
 
     // Recursively formats and outputs the contents of the supplied variable.
@@ -586,21 +581,20 @@ protected static IErrorNode export_(varToDump, DebugContext dumpContext) {
      * - prefix
      * - schema
      *
-     * @param Json[string] var The array to export.
      * @param uim.errors.debugs.DebugContext context The current dump context.
      * @return uim.errors.debugs.ArrayNode Exported array.
      */
-protected static function exportArray(Json[string] var, DebugContext context) : ArrayNode {
-    items = null;
+protected static DArrayNode exportArray(Json[string] valueToExport, DDebugContext dumpContext) {
+    auto items = null;
 
-    remaining = context.remainingDepth();
+    autp remaining = context.remainingDepth();
     if (remaining >= 0) {
         outputMask = outputMask();
-        foreach (var as key : val) {
+        foreach (valueToExport as key : val) {
             if (array_key_exists(key, outputMask)) {
                 node = new DScalarNode("string", outputMask[key]);
             }
-            elseif(val != var) {
+            elseif(val != valueToExport) {
                 // Dump all the items without increasing depth.
                 node = export_(val, context);
             } else {

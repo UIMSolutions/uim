@@ -77,19 +77,14 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         return responses;
     }
     
-    /**
-     * Build the stream context out of the request object.
-     * Params:
-     * \Psr\Http\Message\IRequest request The request to build context from.
-     * @param Json[string] requestOptions Additional request requestOptions.
-     */
+    // Build the stream context out of the request object.
     protected void _buildContext(IRequest request, Json[string] requestOptions = null) {
        _buildContent(request, requestOptions);
        _buildHeaders(request, requestOptions);
        _buildOptions(request, requestOptions);
 
-        url = request.getUri();
-        scheme = parse_url(to!string(url, UIM_URL_SCHEME));
+        auto url = request.getUri();
+        auto scheme = parse_url(to!string(url, UIM_URL_SCHEME));
         if (scheme == "https") {
            _buildSslContext(request, requestOptions);
         }

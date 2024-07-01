@@ -1,6 +1,7 @@
 module uim.html.parser;
 
 import uim.html;
+
 @safe:
 
 size_t[] posOfAll(string text, string searchTxt) {
@@ -135,7 +136,7 @@ class DH5Node {
 
   string classesToH5() {
     return !_classes.isEmpty
-      ? "[%s]".format(_classes.map!(cl => `"%s"`.format(c)).join(", ")) : null;
+      ? "[%s]".format(_classes.map!(cl => `"%s"`.format(cl)).join(", ")) : null;
   }
 
   @property auto attributes() {
@@ -163,11 +164,11 @@ class DH5Node {
   }
 
   void setNodes(DH5Node[] newNodes) {
-    nodes = null;
+    auto nodes = null;
     auto min = minLevel(newNodes);
     // writeln("MinLevel = ", min, " --------------");
 
-    newNodes.each!(node => writeln("%s - %s ".format(node.level, node).indent(node.level * 2)));
+    // TODO newNodes.each!(node => writeln("%s - %s ".format(node.level, node).indent(node.level * 2)));
 
     DH5Node levelNode;
     DH5Node[] subNodes;
@@ -191,38 +192,38 @@ class DH5Node {
   }
 
   DH5Obj[] toH5() {
-    if (isRoot) {
-      return nodes.map!(node => node.toH5).array;
-    } else {
-      if (isContent)
-        return [H5String(txt)];
+    if (isRoot)
+      return nodes.map!(node => node.toH5).join;
 
-      return isStartTag && isEndTag
-        ? [H5Obj(_attributes).tag(tag)
-          .single(true)] : [H5Obj(_attributes).tag(tag).content(nodes.toH5)];
-    }
+    if (isContent)
+      return [H5String(txt)];
+
+    return isStartTag && isEndTag
+      ? [H5Obj(_attributes).tag(tag)
+        .single(true)] : [H5Obj(_attributes).tag(tag).content(nodes.toH5)];
   }
 
   string toH5String() {
     if (isRoot)
       return nodes.toH5String;
-    else {
-      if (isContent)
-        return `"` ~ txt ~ `"`;
-      string[] tagContent;
-      if (id.length > 0)
-        tagContent ~= idToH5;
-      if (classes.length > 0)
-        tagContent ~= classesToH5;
-      if (attributes.length > 0)
-        tagContent ~= attributesToH5;
-      // writeln(tagContent);
-      if (isStartTag && isEndTag)
-        return "H5%s(%s)".format(tag.capitalize, tagContent.join(","));
-      if (nodes.length > 0)
-        tagContent ~= nodes.toH5String;
+
+    if (isContent)
+      return `"` ~ txt ~ `"`;
+
+    string[] tagContent;
+    if (id.length > 0)
+      tagContent ~= idToH5;
+    if (classes.length > 0)
+      tagContent ~= classesToH5;
+    if (attributes.length > 0)
+      tagContent ~= attributesToH5;
+    // writeln(tagContent);
+    if (isStartTag && isEndTag)
       return "H5%s(%s)".format(tag.capitalize, tagContent.join(","));
-    }
+
+    if (nodes.length > 0)
+      tagContent ~= nodes.toH5String;
+    return "H5%s(%s)".format(tag.capitalize, tagContent.join(","));
   }
 }
 
@@ -242,22 +243,21 @@ auto H5Node(DH5Node myRoot, string myTagName) {
   return new DH5Node(myRoot, myTagName);
 }
 
-DH5Obj[] toH5(DH5Node[] someNodes) {
-  DH5Obj[] results;
-  foreach (node; someNodes)
-    results ~= node.toH5;
-  return results;
+DH5Obj[] toH5(DH5Node[] nodes) {
+  return nodes.map!(node => node.toH5).join;
 }
 
 auto toH5String(DH5Node[] nodes) {
-  return nodes.map!(node = node.toH5String).join(",");
+  return nodes.map!(node => node.toH5String).join(",");
 }
 
 size_t minLevel(DH5Node[] newNodes) {
-  if (newNodes.isEmpty)
+  if (newNodes.isEmpty) {
     return -1;
-  if (newNodes.length == 1)
+  }
+  if (newNodes.length == 1) {
     return newNodes[0].level;
+  }
 
   size_t result = newNodes[0].level;
   newNodes[1 .. $].each!(node => result = min(node.level, result));
@@ -547,8 +547,7 @@ string nodeToH5(DH5Node[] nodes, size_t level) {
   } else {
     foreach (node; nodes) {
       auto result = node.isContent && node.txt.length > 0
-        ? nodeToH5(node, level)
-        : nodeToH5(node, level);
+        ? nodeToH5(node, level) : nodeToH5(node, level);
 
       if (result.length > 0)
         results ~= intender("\n" ~ result, level);
@@ -574,7 +573,7 @@ string nodeToH5(DH5Node node, size_t level) {
       vals ~= node.classesToH5;
     if (node.attributes) {
       string[] ats = node.attributes.byKeyValue
-        .map!(kv => "\"%s\":\"%s\"".format(kv.key.strip, kv.value.strip));
+        .map!(kv => "\"%s\":\"%s\"".format(kv.key.strip, kv.value.strip)).array;
       if (ats)
         vals ~= "[" ~ ats.join(",") ~ "]";
     }

@@ -47,15 +47,15 @@ class DObjectRegistry(T : UIMObject) {
 	}
 
 	bool hasAllKeys(string[] keys) {
-		return keys.all!(key => hascorrectKey(key));
+		return keys.all!(key => hasKey(key));
 	}
 
 	bool hasAnyKeys(string[] keys) {
-		return keys.any!(key => hascorrectKey(key));
+		return keys.any!(key => hasKey(key));
 	}
 
 	bool hasKey(string key) {
-		return _objects.hasKey(correctedcorrectKey(key));
+		return _objects.hasKey(correctKey(key));
 	}
 
 	string correctKey(string[] path) {
@@ -96,7 +96,7 @@ class DObjectRegistry(T : UIMObject) {
 	}
 
 	T get(string key) {
-		return _objects.get(correctedcorrectKey(key), _nullValue);
+		return _objects.get(correctKey(key), _nullValue);
 	}
 	// #endregion objects
 
@@ -113,7 +113,7 @@ class DObjectRegistry(T : UIMObject) {
 	}
 
 	O register(this O)(string key, T newObject) {
-		_objects[correctedcorrectKey(key)] = newObject;
+		_objects[correctKey(key)] = newObject;
 		return cast(O) this;
 	}
 	// #endregion register
@@ -125,7 +125,7 @@ class DObjectRegistry(T : UIMObject) {
 
 	T create(string key) {
 		T createdObject;
-		if (auto registerdObject = get(correctedcorrectKey(key))) {
+		if (auto registerdObject = get(correctKey(key))) {
 			() @trusted {
 				createdObject = cast(T) factory(registerdObject.classname);
 			}();

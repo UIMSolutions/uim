@@ -71,7 +71,7 @@ class DFactory(T : UIMObject) : IKeyAndPath, INamed {
         }
 
 		bool hasAllKeys(string[] keys) {
-            return keys.all!(key => hascorrectKey(key));
+            return keys.all!(key => hasKey(key));
         }
 
 		bool hasAnyKeys(string[] keys...) {
@@ -79,7 +79,7 @@ class DFactory(T : UIMObject) : IKeyAndPath, INamed {
         }
 
 		bool hasAnyKeys(string[] keys) {
-            return keys.any!(key => hascorrectKey(key));
+            return keys.any!(key => hasKey(key));
         }
 
 		bool hasKey(string key) {
@@ -104,8 +104,8 @@ class DFactory(T : UIMObject) : IKeyAndPath, INamed {
     }
 
     T get(string key, Json[string] options = null) @safe {
-        return correctedcorrectKey(key) in _workers
-            ? _workers[correctedcorrectKey(key)](options) : null;
+        return correctKey(key) in _workers
+            ? _workers[correctKey(key)](options) : null;
     }
     T opIndex(string key, Json[string] options = null) {
         return get(key, options);
@@ -125,11 +125,11 @@ class DFactory(T : UIMObject) : IKeyAndPath, INamed {
         }
 
 		bool removeKeys(string[] keys) {
-            return keys.all!(key => removecorrectKey(key));
+            return keys.all!(key => removeKey(key));
         }
 
 		bool removeKey(string key) {
-            return removeKey(correctedcorrectKey(key));
+            return removeKey(correctKey(key));
         } 
 
 		void clear() {

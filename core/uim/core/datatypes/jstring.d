@@ -50,7 +50,7 @@ Json[string] copy(Json[string] origin) {
 // #region Getter
 Json getJson(Json[string] values, string key) {
   key = key.strip;
-  if (values.hascorrectKey(key)) {
+  if (values.hasKey(key)) {
     return values[key];
   }
   if (key.contains(".")) {

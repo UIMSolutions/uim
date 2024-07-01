@@ -141,7 +141,6 @@ class DDebugger {
      * Params:
      * Json[string]|string aKey The key to get/set, or a complete array of configs.
      * @param mixed|null aValue The value to set.
-     * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      */
     static Json[string] configSettings = nullInstance(string[] aKey = null, Json aValue = null, bool shouldMerge = true) {
         if (aKey.isNull) {

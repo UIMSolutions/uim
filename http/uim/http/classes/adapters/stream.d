@@ -55,13 +55,12 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Creates one or many response objects based on the number
      * of redirects that occurred.
      * Params:
-     * Json[string] aHeaders The list of headers from the request(s)
-     * @param string content The response content.
+     * Json[string] requestHeaders The list of headers from the request(s)
      */
-    Response[] createResponses(Json[string] aHeaders, string responseContent) {
+    DResponse[] createResponses(Json[string] requestHeaders, string responseContent) {
         auto anIndexes = null;
         auto responses = null;
-        foreach (anI, aHeader; aHeaders) {
+        foreach (anI, aHeader; requestHeaders) {
             if (subString(aHeader, 0, 5).upper == "HTTP/") {
                  anIndexes ~= anI;
             }
@@ -69,11 +68,11 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         size_t last = count(anIndexes) - 1;
         foreach (anI, start; anIndexes) {
             /** @psalm-suppress InvalidOperand */
-            end = isSet(anIndexes[anI + 1]) ?  anIndexes[anI + 1] - start : null;
+            auto end = isSet(anIndexes[anI + 1]) ?  anIndexes[anI + 1] - start : null;
             /** @psalm-suppress PossiblyInvalidArgument */
-             aHeaderSlice = array_slice(aHeaders, start, end);
-            body = anI == last ? responseContent : "";
-            responses ~= _buildResponse(aHeaderSlice, body);
+            auto headerSlice = array_slice(requestHeaders, start, end);
+            string bodyText = anI == last ? responseContent : "";
+            responses ~= _buildResponse(headerSlice, bodyText);
         }
         return responses;
     }

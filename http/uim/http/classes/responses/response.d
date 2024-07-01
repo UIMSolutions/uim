@@ -975,10 +975,8 @@ class DResponse : IResponse {
      * In order to interact with this method you must mark responses as not modified.
      * You need to set at least one of the `Last-Modified` or `Etag` response headers
      * before calling this method. Otherwise, a comparison will not be possible.
-     * Params:
-     * \UIM\Http\ServerRequest serverRequest Request object
      */
-    bool isNotModified(ServerRequest serverRequest) {
+    bool isNotModified(DServerRequest serverRequest) {
         etags = preg_split("/\s*,\s*/", serverRequest.getHeaderLine("If-None-Match"), 0, PREG_SPLIT_NO_EMPTY) ?: [];
         responseTag = getHeaderLine("Etag");
         etagMatches = null;

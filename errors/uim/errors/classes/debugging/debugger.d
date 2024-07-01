@@ -624,19 +624,18 @@ protected static function exportArray(Json[string] var, DebugContext context) : 
      *
      * @param object var Object to convert.
      * @param uim.errors.debugs.DebugContext context The dump context.
-     * @return uim.errors.debugs.IErrorNode
      */
-protected static function exportObject(object var, DebugContext context) : IErrorNode {
-    isRef = context.hasReference(var);
-    refNum = context.getReferenceId(var);
+protected static IErrorNode exportObject(object objToConvert, DebugContext context) {
+    auto isRef = context.hasReference(objToConvert);
+    auto refNum = context.getReferenceId(objToConvert);
 
-    aclassnameName = get_class(var);
+    auto aclassnameName = get_class(objToConvert);
     if (isRef) {
         return new DReferenceNode(aclassnameName, refNum);
     }
-    node = new DClassNode(aclassnameName, refNum);
+    auto node = new DClassNode(aclassnameName, refNum);
 
-    remaining = context.remainingDepth();
+    auto remaining = context.remainingDepth();
     if (remaining > 0) {
         if (method_exists(var, "__debugInfo")) {
             try {
@@ -653,27 +652,27 @@ protected static function exportObject(object var, DebugContext context) : IErro
             }
         }
 
-        outputMask = outputMask();
-        objectVars = get_object_vars(var);
-        foreach (objectVars as key : value) {
+        auto outputMask = outputMask();
+        auto objectVars = get_object_vars(var);
+        foreach (key, value; objectVars) {
             if (array_key_exists(key, outputMask)) {
                 value = outputMask[key];
             }
             /** @psalm-suppress RedundantCast */
             node.addProperty(
-                new DPropertyNode((string) key, "public", export_(value, context.withAddedDepth()))
+                new DPropertyNode(key, "public", export_(value, context.withAddedDepth()))
             );
         }
 
-        ref = new DReflectionObject(var);
+        auto reflectionObject = new DReflectionObject(var);
 
-        filters = [
+        auto filters = [
             ReflectionProperty.IS_PROTECTED: "protected",
             ReflectionProperty.IS_PRIVATE: "private",
         ];
-        foreach (filters as filter : visibility) {
-            reflectionProperties = ref.getProperties(filter);
-            foreach (reflectionProperties as reflectionProperty) {
+        foreach (filter, visibility; filters) {
+            reflectionProperties = reflectionObject.getProperties(filter);
+            foreach (reflectionProperty; reflectionProperties) {
                 reflectionProperty.setAccessible(true);
 
                 value = method_exists(reflectionProperty, "isInitialized") && !reflectionProperty.isInitialized(var)

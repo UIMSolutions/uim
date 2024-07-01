@@ -164,31 +164,31 @@ class DH5Node {
   }
 
   void setNodes(DH5Node[] newNodes) {
-    auto nodes = null;
     auto min = minLevel(newNodes);
     // writeln("MinLevel = ", min, " --------------");
 
     // TODO newNodes.each!(node => writeln("%s - %s ".format(node.level, node).indent(node.level * 2)));
 
+    DH5Node[] nodes = null;
     DH5Node levelNode;
     DH5Node[] subNodes;
-    newNodes.each!((node) {
-      if (node.level == min) {
-        if ((node.isContent) || (node.isStartTag && node.isEndTag)) { // single node
-          subNodes = null;
-          nodes ~= node;
-        } else if (node.isStartTag) { // start dode 
-          subNodes = null;
-          levelNode = node;
-        } else if (node.isEndTag) { // end Node
-          levelNode.setNodes(subNodes);
-          nodes ~= levelNode;
-          subNodes = null;
-        }
-      } else {
-        subNodes ~= node;
+    newNodes.each!(node => setNode(node, levelNode, nodes, subNodes)); 
+  }
+
+  void setNode(DH5Node node, DH5Node levelNode, DH5Node[] nodes, DH5Node[] subNodes) {    
+    if (node.level == minLevel(newNodes)) {
+      if ((node.isContent) || (node.isStartTag && node.isEndTag)) { // single node
+        nodes ~= node;
+      } else if (node.isStartTag) { // start dode 
+        levelNode = node;
+      } else if (node.isEndTag) { // end Node
+        levelNode.setNodes(subNodes);
+        nodes ~= levelNode;
       }
-    });
+      subNodes = null;
+    } else {
+      subNodes ~= node;
+    }
   }
 
   DH5Obj[] toH5() {

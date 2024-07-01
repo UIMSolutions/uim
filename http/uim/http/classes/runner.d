@@ -39,19 +39,14 @@ class DRunner : IRequestHandler {
     // Fallback handler to use if middleware queue does not generate response.
     protected IRequestHandler fallbackHandler = null;
 
-    /**
-     * @param \UIM\Http\MiddlewareQueue queue The middleware queue
-     * @param \Psr\Http\Server\IRequestHandler|null fallbackHandler Fallback request handler.
-     * returns A response object
-     */
     IResponse run(
-        MiddlewareQueue queue,
+        DMiddlewareQueue middlewareQueue,
         IServerRequest serverRequest,
         IRequestHandler fallbackHandler = null
    ) {
-        this.queue = queue;
-        this.queue.rewind();
-        this.fallbackHandler = fallbackHandler;
+        _queue = middlewareQueue;
+        _queue.rewind();
+        _fallbackHandler = fallbackHandler;
 
         if (
             cast(IRoutingApplication)fallbackHandler  &&
@@ -68,13 +63,13 @@ class DRunner : IRequestHandler {
      * \Psr\Http\Message\IServerRequest serverRequest The server request
      */
     IResponse handle(IServerRequest serverRequest) {
-        if (this.queue.valid()) {
-            middleware = this.queue.currentValue();
-            this.queue.next();
+        if (_queue.valid()) {
+            middleware = _queue.currentValue();
+            _queue.next();
 
             return middleware.process(request, this);
         }
-        if (this.fallbackHandler) {
+        if (_fallbackHandler) {
             return _fallbackHandler.handle(request);
         }
         return new DResponse([

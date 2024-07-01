@@ -135,10 +135,8 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      * X-XSS-Protection. It`s a non standard feature and outdated. For modern browsers
      * use a strong Content-Security-Policy that disables the use of inline JavaScript
      * via 'unsafe-inline' option.
-     *
-     * @param string amode Mode value. Available Values: '1", "0", "block'
      */
-    void setXssProtection(string modeValue = XSS_BLOCK) {
+    void setXssProtection(string modeValue = XSS_BLOCK) { // '1", "0", "block'
         if (modeValue == XSS_BLOCK) {
             modeValue = XSS_ENABLED_BLOCK;
         }

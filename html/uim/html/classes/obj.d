@@ -854,7 +854,7 @@ class DH5Obj {
 		result ~= renderCSS;
 		result ~= renderHTML;
 		result ~= renderJS;
-		result = result.doubleMustache(bindings[key]);
+		result = result.doubleMustache(bindings);
 
 		return result;
 	}
@@ -884,11 +884,11 @@ class DH5Obj {
 
 	/// generate HTML in pretty format
 	string toPretty(int intendSpace = 0, int step = 2) {
-		string result = startTag(this.tag, this.attributes).indent(intendSpace);
+		string result = htmlStartTag(this.tag, this.attributes).indent(intendSpace);
 		if (!single) {
 			result ~= "\n";
 			result ~= _html.map!(a => a ? a.toPretty(intendSpace + step, step) ~ "\n" : "").join;
-			result ~= endTag(this.tag).indent(intendSpace);
+			result ~= htmlEndTag(this.tag).indent(intendSpace);
 		}
 		return result;
 	}

@@ -461,12 +461,9 @@ class DDebugger {
      *
      * The node tree can be manipulated and serialized more easily
      * than many object graphs can.
-     * Params:
-     * Json var Variable to convert.
-     * @param int maxDepth The depth to generate nodes to. Defaults to 3.
      */
-    static IErrorNode exportVarAsNodes(Json var, int maxDepth = 3) {
-        return export_(var, new DebugContext(maxDepth));
+    static IErrorNode exportVarAsNodes(Json valueToConvert, int maxOutputDepth = 3) {
+        return export_(valueToConvert, new DebugContext(maxOutputDepth));
     }
 
     /**
@@ -475,11 +472,11 @@ class DDebugger {
      * Json var The variable to dump.
      * @param \UIM\Error\Debug\DebugContext context Dump context
      */
-    protected static IErrorNode export_(Json var, DebugContext context) {
-        string type = getType(var);
+    protected static IErrorNode export_(Json valueToDump, DebugContext context) {
+        string type = getType(valueToDump);
 
         if (type.startWith("resource ")) {
-            return new DScalarNode(type, var);
+            return new DScalarNode(type, valueToDump);
         }
         return null; // TODO 
         /* return match(type) {

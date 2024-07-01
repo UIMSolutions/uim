@@ -243,9 +243,6 @@ class DClient { // }: IClient {
      * for providing a request body in a GET request. This is
      * generally not used, but services like ElasticSearch use
      * this feature.
-     * Params:
-     * string myurl The url or path you want to request.
-     * @param string[] mydata The query data you want to send.
      */
   DResponse get(string urlToRequest, string[] queryData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
@@ -258,7 +255,7 @@ class DClient { // }: IClient {
     auto url = buildUrl(urlToRequest, queryData, requestOptions);
     return _doRequest(
       Request.METHOD_GET,
-      myurl,
+      urlToRequest,
       mybody,
       requestOptions
    );

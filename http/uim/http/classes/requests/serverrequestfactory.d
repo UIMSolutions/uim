@@ -92,17 +92,11 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
             ? serverRequest.withParsedBody(null) : serverRequest.withParsedBody(parsedBody);
     }
 
-    /**
-     * Process uploaded files and move things onto the parsed body.
-     * Params:
-     * Json[string] files Files array for normalization and merging in parsed body.
-     * @param \UIM\Http\ServerRequest serverRequest Request instance.
-     */
-    protected static ServerRequest marshalFiles(Json[string] files, ServerRequest serverRequest) {
-        files = normalizeUploadedFiles(files);
-        serverRequest = serverRequest.withUploadedFiles(files);
-
-        parsedBody = serverRequest.getParsedBody();
+    // Process uploaded files and move things onto the parsed body.
+    protected static ServerRequest marshalFiles(Json[string] files, DServerRequest serverRequest) {
+        auto files = normalizeUploadedFiles(files);
+        auto serverRequest = serverRequest.withUploadedFiles(files);
+        auto parsedBody = serverRequest.getParsedBody();
         if (!isArray(parsedBody)) {
             return serverRequest;
         }

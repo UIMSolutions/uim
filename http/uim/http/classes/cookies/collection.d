@@ -187,17 +187,12 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
         return request.withHeader("Cookie", cookiePairs.join("; "));
     }
     
-    /**
-     * Find cookies matching the scheme, host, and path
-     * Params:
-     * string ascheme The http scheme to match
-     * @param string aPath The path to match
-     */
-    protected Json[string] findMatchingCookies(string ascheme, string hostToMatch, string pathToMatch) {
-         auto result;
+    // Find cookies matching the scheme, host, and path
+    protected Json[string] findMatchingCookies(string hhtpScheme, string hostToMatch, string pathToMatch) {
+        Json[string] result;
         auto now = new DateTimeImmutable("now", new DateTimeZone("UTC"));
         foreach (cookie; _cookies) {
-            if (scheme == "http" && cookie.isSecure()) {
+            if (hhtpScheme == "http" && cookie.isSecure()) {
                 continue;
             }
             if (!pathToMatch.startWith(cookie.getPath())) {

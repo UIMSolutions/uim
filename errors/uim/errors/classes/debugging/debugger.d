@@ -407,9 +407,6 @@ static string trimPath(string pathToShorten) {
      * and would be wrapped in `<span class="code-highlight"></span>`. All the lines
      * are processed with highlight_string() as well, so they have basic UIM syntax highlighting
      * applied.
-     *
-     * @param string file Absolute path to a UIM file.
-     * @param int context Number of lines of context to extract above and below line.
      */
 static string[] excerpt(string absPathToFile, int lineNumber, int numberLinesContext = 2) {
     auto lines = null;

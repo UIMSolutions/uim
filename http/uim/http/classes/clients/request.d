@@ -13,22 +13,14 @@ import uim.http;
 class DRequest { // }: Message, IRequest {
     mixin TRequest;
 
-    /**
-     
-     *
-     * Provides backwards compatible defaults for some properties.
-     *
-     * @Dstan-param array<non-empty-string, non-empty-string>  aHeaders
-     * @param \Psr\Http\Message\IUri|string aurl The request URL
-     */
     this(
-        IUri|string aurl = "",
+        /* IUri| */string requestUrl = "",
         string httpMethod = METHOD_GET,
         Json[string] httpHeaders = null,
         string[] requestBodyData = null
    ) {
         setMethod(httpMethod);
-        _uri = createUri(url);
+        _uri = createUri(requestUrl);
         addHeaders(httpHeaders.merge([
             "Connection": "close",
             "User-Agent": ini_get("user_agent") ?: "UIM",

@@ -172,28 +172,26 @@ class DNumber {
      * Params:
      * Json aValue Value to format.
      * @param string currency International currency name such as 'USD", "EUR", "JPY", "CAD'
-     * @param Json[string] options Options list.
      */
-    static string currency(Json aValue, string acurrency = null, Json[string] options = null) {
-        aValue = (float)aValue;
-        currency = currency ?: getDefaultCurrency();
+    static string currency(Json value, string currency = null, Json[string] options = null) {
+        double doubleValue = value.getDouble;
+        auto currency = currency ? currency : getDefaultCurrency();
 
-        if (options.hasKey("zero"]) && !aValue) {
+        if (options.hasKey("zero") && !value) {
             return options["zero"];
         }
-        formatter = formatter(["type": getDefaultCurrencyFormat()] + options);
-        abs = abs(aValue);
+
+        auto formatter = formatter(["type": getDefaultCurrencyFormat()] + options);
+        auto abs = abs(doubleValue);
         if (!options["fractionSymbol"].isEmpty && abs > 0 && abs < 1) {
-            aValue *= 100;
+            doubleValue *= 100;
             string pos = options.get("fractionPosition", "after");
 
-            return format(aValue, ["precision": 0, pos: options["fractionSymbol"]]);
+            return format(doubleValue, ["precision": 0, pos: options["fractionSymbol"]]);
         }
-        before = options.get("before", "");
-        after = options.get("after", "");
-        aValue = formatter.formatCurrency(aValue, currency);
-
-        return before ~ aValue ~ after;
+        auto before = options.getString("before", "");
+        auto after = options.getString("after", "");
+        return before ~ formatter.formatCurrency(doubleValue, currency) ~ after;
     }
     
     /**
@@ -333,9 +331,8 @@ class DNumber {
      * For all other options see formatter().
      * Params:
      * float aValue An integer
-     * @param Json[string] options An array with options.
      */
     static string ordinal(float aValue, Json[string] options = null) {
-        return to!string(formatter(["type": NumberFormatter.ORDINAL] + options)).format(aValue);
+        return to!string(formatter(["type": NumberFormatter.ORDINAL].merge(options))).format(aValue);
     }
 }

@@ -242,7 +242,7 @@ class DMessage { //: JsonSerializable {
      * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
-    auto setSender(string[] aemail, string aName = null) {
+    auto setSender(string[] aemail, string name = null) {
         return _setEmailSingle("sender", email, name, "Sender requires only 1 email address.");
     }
     
@@ -281,9 +281,7 @@ class DMessage { //: JsonSerializable {
        );
     }
     
-    /**
-     * Gets Read Receipt (Disposition-Notification-To header).
-     */
+    // Gets Read Receipt (Disposition-Notification-To header).
     Json[string] getReadReceipt() {
         return _readReceipt;
     }
@@ -293,15 +291,12 @@ class DMessage { //: JsonSerializable {
      * Params:
      * string[] aemail String with email,
      * Array with email as key, name as value or email as value (without name)
-     * @param string name Name
      */
-    auto setReturnPath(string[] aemail, string aName = null) {
+    auto setReturnPath(string[] aemail, string name = null) {
         return _setEmailSingle("returnPath", email, name, "Return-Path requires only 1 email address.");
     }
     
-    /**
-     * Gets return path.
-     */
+    // Gets return path.
     Json[string] getReturnPath() {
         return _returnPath;
     }
@@ -313,7 +308,7 @@ class DMessage { //: JsonSerializable {
      * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
-    auto setTo(string[] aemail, string aName = null) {
+    auto setTo(string[] aemail, string name = null) {
         return _setEmail("to", email, name);
     }
     
@@ -331,7 +326,7 @@ class DMessage { //: JsonSerializable {
      * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
-    auto addTo(string[] aemail, string aName = null) {
+    auto addTo(string[] aemail, string name = null) {
         return _addEmail("to", email, name);
     }
     
@@ -342,14 +337,11 @@ class DMessage { //: JsonSerializable {
      * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
-    auto setCc(string[] aemail, string aName = null) {
+    auto setCc(string[] aemail, string name = null) {
         return _setEmail("cc", email, name);
     }
     
-    /**
-     * Gets "cc" address.
-     *
-     */
+    // Gets "cc" address.
     Json[string] getCc() {
         return _cc;
     }
@@ -379,19 +371,14 @@ class DMessage { //: JsonSerializable {
      * Params:
      * string[] aemail String with email,
      * Array with email as key, name as value or email as value (without name)
-     * @param string name Name
      */
-    auto addBcc(string[] aemail, string aName = null) {
+    auto addBcc(string[] aemail, string name = null) {
         return _addEmail("bcc", email, name);
     }
     
     mixin(TProperty!("string", "charset"));
     
-    /**
-     * HeaderCharset setter.
-     * Params:
-     * string charset Character set.
-     */
+    // HeaderCharset setter.
     void setHeaderCharset(string charset) {
         this.headerCharset = charset;
     }

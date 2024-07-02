@@ -34,23 +34,16 @@ class DTranslator : ITranslator {
     // Get / Set the catalog containing keys and translations.
     mixin(TProperty!("ICatalog", "catalog"));
 
-    /**
-     
-     * Params:
-     * string localename The locale being used.
-     * @param \UIM\I18n\MessageCatalog catalog The catalog containing keys and translations.
-     * @param \UIM\I18n\Translator|null fallback A fallback translator.
-     */
     this(
         string localeName,
-        ICatalog catalog,
+        ICatalog messageCatalog,
         II18NFormatter messageFormatter,
-        ITranslator fallback = null
+        ITranslator fallbackTranslator = null
    ) {
         /* _locale = localeName;
-        _catalog(catalog);
+        _catalog(messageCatalog);
         _formatter = messageFormatter;
-        _fallback = fallback; */
+        _fallback = fallbackTranslator; */
     }
 
     // Gets the message translation by its key.

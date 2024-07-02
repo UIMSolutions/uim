@@ -111,11 +111,11 @@ class DSocket {
         if (port > 0) {
             remoteSocketTarget ~= ": " ~ port;
         }
-        auto errNum = 0;
+        auto errorNumber = 0;
         auto errStr = "";
         _connection = _getStreamSocketClient(
             remoteSocketTarget,
-            errNum,
+            errorNumber,
             errStr,
             to!int(configuration.get("timeout"]),
             connectFlags,
@@ -123,9 +123,9 @@ class DSocket {
        );
         restore_error_handler();
 
-        if (this.connection.isNull && (!errNum || !errStr)) {
-            setLastError(errNum, errStr);
-            throw new DSocketException(errStr, errNum);
+        if (this.connection.isNull && (!errorNumber || !errStr)) {
+            setLastError(errorNumber, errStr);
+            throw new DSocketException(errStr, errorNumber);
         }
         if (this.connection.isNull && _connectionErrors) {
             throw new DSocketException(
@@ -153,14 +153,13 @@ class DSocket {
      * Create a stream socket client. Mock utility.
      * Params:
      * string aremoteSocketTarget remote socket
-     * @param int errNum error number
      * @param string aerrStr error string
      * @param int timeout timeout
      * @param resource context context
      */
     protected resource | null _getStreamSocketClient(
         string aremoteSocketTarget,
-        int & errNum,
+        int & errorNumber,
         string & errStr,
         int timeout,
         ulong connectFlags,
@@ -168,7 +167,7 @@ class DSocket {
    ) {
         resource = stream_socket_client(
             remoteSocketTarget,
-            errNum,
+            errorNumber,
             errStr,
             timeout,
             connectFlags,
@@ -210,7 +209,7 @@ class DSocket {
     }
 
     /*
-     * socket_stream_client() does not populate errNum, or errStr when there are
+     * socket_stream_client() does not populate errorNumber, or errStr when there are
      * connection errors, as in the case of SSL verification failure.
      *
      * Instead we need to handle those errors manually.
@@ -263,11 +262,11 @@ class DSocket {
     /**
      * Set the last error.
      * Params:
-     * int errNum Error code
+     * int errorNumber Error code
      * @param string aerrStr Error string
      */
     void setLastError(interrNum, string aerrStr) {
-        this.lastError = ["num": errNum, "str": errStr];
+        this.lastError = ["num": errorNumber, "str": errStr];
     }
 
     /**

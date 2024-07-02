@@ -39,9 +39,6 @@ string __n(string singularText, string pluralText, size_t count, Json[string] ar
 
 /**
  * Allows you to override the current domain for a single message lookup.
- *
- * @param string domainName Domain.
- * @param string amsg String to translate.
  * @param Json[string] arguments Array with arguments or multiple arguments in function.
  */
 string __d(string domainName, string messageToTranslate, Json[string] arguments) {
@@ -53,7 +50,7 @@ string __d(string domainName, string messageToTranslate, Json[string] arguments)
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
         someArguments = someArguments[0];
     }
-    return I18n.getTranslator(domainName).translate(message, someArguments); */
+    return I18n.getTranslator(domainName).translate(messageToTranslate, someArguments); */
     return null;
 }
 

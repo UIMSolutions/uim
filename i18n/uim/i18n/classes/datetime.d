@@ -455,14 +455,14 @@ class DateTime /* : Chronos, JsonSerializable */ {
             "after": Json(null),
         ];
         auto updatedOptions = options.updatedefaults;
-         anGroup = options["group"];
+        an anGroup = options["group"];
 
         auto regex = null;
         if (isString(filter)) {
             regex = filter;
             filter = null;
         }
-        auto filter ??= DateTimeZone.ALL;
+        auto filter ? filter : DateTimeZone.ALL;
          anIdentifiers = DateTimeZone.listIdentifiers(filter, (string)country) ?: [];
 
         if (regex) {

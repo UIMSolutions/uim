@@ -47,29 +47,24 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      */
     protected callable[] _loaders = null;
 
-    /**
-     .
-     * Params:
-     * \UIM\I18n\CatalogLocator catalogs The catalog locator.
-     * @param \UIM\I18n\FormatterLocator formatters The formatter locator.
-     */
     this(
-        DCatalogLocator catalogs,
-        DFormatterLocator formatters,
+        DCatalogLocator catalogLocator,
+        DFormatterLocator formatterLocator,
         string localName
    ) {
-        _catalogs = catalogs;
-        _formatters = formatters;
+        _catalogs = catalogLocator;
+        _formatters = formatterLocator;
         _localeName(localName);
 
-        this.registerLoader(FALLBACK_LOADER, auto (name, localName) {
+        registerLoader(FALLBACK_LOADER, auto (name, localName) {
             loader = new DChainMessagesLoader([
                 new DMessagesFileLoader(name, localName, "mo"),
                 new DMessagesFileLoader(name, localName, "po"),
             ]);
 
-            formatter = name == "uim" ? "default" : _defaultFormatter;
-            catalog = loader();
+            string formatter = name == "uim" ? "default" : _defaultFormatter;
+            
+            auto catalog = loader();
             catalog.setFormatter(formatter);
 
             return catalog;
@@ -81,9 +76,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         _locale = localName;
     }
     
-    /**
-     * Returns the default locale code.
-     */
+    // Returns the default locale code.
     string locale() {
         return _locale;
     }

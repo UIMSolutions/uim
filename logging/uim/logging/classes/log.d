@@ -291,13 +291,13 @@ class DLog {
      * Params:
      * string|int level The severity level of the message being written.
      *  The value must be an integer or string matching a known level.
-     * @param string[] acontext Additional data to be used for logging the message.
+     * @param string[] contextData Additional data to be used for logging the message.
      * The special `scope` key can be passed to be used for further filtering of the
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool write(string|int level, string messageToLog, string[] acontext= null) {
+    static bool write(string|int level, string messageToLog, string[] contextData = null) {
         if (isInteger(level) && isIn(level, _levelMap, true)) {
             level = array_search(level, _levelMap, true);
         }
@@ -351,13 +351,13 @@ class DLog {
      * Convenience method to log alert messages
      * Params:
      * \string amessage log message
-     * @param string[] acontext Additional data to be used for logging the message.
+     * @param string[] contextData Additional data to be used for logging the message.
      * The special `scope` key can be passed to be used for further filtering of the
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool alert(string amessage, string[] acontext= null) {
+    static bool alert(string amessage, string[] contextData = null) {
         return write(__FUNCTION__, message, context);
     }
     
@@ -365,13 +365,13 @@ class DLog {
      * Convenience method to log critical messages
      * Params:
      * \string amessage log message
-     * @param string[] acontext Additional data to be used for logging the message.
+     * @param string[] contextData Additional data to be used for logging the message.
      * The special `scope` key can be passed to be used for further filtering of the
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool critical(string amessage, string[] acontext= null) {
+    static bool critical(string amessage, string[] contextData = null) {
         return write(__FUNCTION__, message, context);
     }
     
@@ -379,13 +379,13 @@ class DLog {
      * Convenience method to log error messages
      * Params:
      * \string amessage log message
-     * @param string[] acontext Additional data to be used for logging the message.
+     * @param string[] contextData Additional data to be used for logging the message.
      * The special `scope` key can be passed to be used for further filtering of the
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool error(string amessage, string[] acontext= null) {
+    static bool error(string amessage, string[] contextData = null) {
         return write(__FUNCTION__, message, context);
     }
     
@@ -393,13 +393,13 @@ class DLog {
      * Convenience method to log warning messages
      * Params:
      * \string amessage log message
-     * @param string[] acontext Additional data to be used for logging the message.
+     * @param string[] contextData Additional data to be used for logging the message.
      * The special `scope` key can be passed to be used for further filtering of the
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool warning(string amessage, string[] acontext= null) {
+    static bool warning(string amessage, string[] contextData = null) {
         return write(__FUNCTION__, message, context);
     }
     
@@ -407,13 +407,13 @@ class DLog {
      * Convenience method to log notice messages
      * Params:
      * \string amessage log message
-     * @param string[] acontext Additional data to be used for logging the message.
+     * @param string[] contextData Additional data to be used for logging the message.
      * The special `scope` key can be passed to be used for further filtering of the
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool notice(string amessage, string[] acontext= null) {
+    static bool notice(string amessage, string[] contextData = null) {
         return write(__FUNCTION__, message, context);
     }
     
@@ -426,13 +426,13 @@ class DLog {
      * Convenience method to log info messages
      * Params:
      * \string amessage log message
-     * @param string[] acontext Additional data to be used for logging the message.
+     * @param string[] contextData Additional data to be used for logging the message.
      * The special `scope` key can be passed to be used for further filtering of the
      * log engines to be used. If a string or a numerically indexed array is passed, it
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool info(string amessage, string[] acontext= null) {
+    static bool info(string amessage, string[] contextData = null) {
         return write(__FUNCTION__, message, context);
     }
 }

@@ -54,17 +54,17 @@ import uim.oop;
      * @param bool dotAppend Set to true if you want the plugin to have a '.' appended to it.
      * @param string plugin Optional default plugin to use if no plugin is found. Defaults to null.
      */
-    Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string pluginName = null) {
+    Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string defaultPluginName = null) {
         // TODO
-        /* if (name.contains(".")) {
-            string[] someParts = split(".", name, 2);
+        /* if (nameToSplit.contains(".")) {
+            string[] someParts = split(".", nameToSplit, 2);
             if (dotAppend) {
                 someParts[0] ~= ".";
             }
             / ** @psalm-var array{string, string}*/
             return someParts;
         }
-        return [plugin, name]; */
+        return [defaultPluginName, nameToSplit]; */
         return null;
     }
 

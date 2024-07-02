@@ -99,15 +99,14 @@ class HFilesystem {
      * Create directory.
      * Params:
      * string mydir Directory path.
-     * @param int mymode Octal mode passed to mkdir(). Defaults to 0755.
      */
-    void mkdir(string mydir, int mymode = 0755) {
+    void mkdir(string mydir, int mkdirMode = 0755) {
         if (isDir(mydir)) {
             return;
         }
         myold = umask(0);
         // Dcs:ignore
-        if (!@mkdir(mydir, mymode, true)) {
+        if (!@mkdir(mydir, mkdirMode, true)) {
             umask(myold);
             throw new DException("Failed to create directory `%s`".format(mydir));
         }

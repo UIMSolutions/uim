@@ -116,9 +116,9 @@ class DIniConfig : DConfigEngine {
      * as a plugin prefix.
      * @param Json[string] data The data to convert to ini file.
      */
-    bool dump(string key, Json[string] data) {
+    bool dump(string key, Json[string] dataToConvert) {
         auto result;
-        someData.byKeyValue
+        dataToConvert.byKeyValue
             .each!((kv) {
                 isSection = false;
                 if (kv.key[0] != "[") {
@@ -134,7 +134,7 @@ class DIniConfig : DConfigEngine {
                 }
             });
 
-        string contents = strip(result.join("\n"));
+        string contents = result.join("\n").strip;
         auto filename = _getFilecorrectKey(key);
         return file_put_contents(filename, contents) > 0;
     }

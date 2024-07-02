@@ -80,7 +80,6 @@ class Hash {
      * - `{n}.User[id=1].name` Get the Users name with id matching `1`.
      * Params:
      * \ArrayAccess|array data The data to extract from.
-     * @param string pathToExtract The path to extract.
      */
     static ArrayAccess|array extract(ArrayAccess|array data, string pathToExtract) {
         if (isEmpty(pathToExtract)) {

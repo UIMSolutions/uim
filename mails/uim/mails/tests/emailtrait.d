@@ -49,11 +49,10 @@ mixin template TEmail() {
      * Asserts an email at a specific index was sent from an address
      * Params:
      * int at Email index
-     * @param string aaddress Email address
      * @param string amessage Message
      */
-    void assertMailSentFromAt(int at, string aaddress, string amessage= null)) {
-        this.assertThat(address, new DMailSentFrom(at), message);
+    void assertMailSentFromAt(int at, string emailAddress, string amessage= null)) {
+        this.assertThat(emailAddress, new DMailSentFrom(at), message);
     }
     
     /**

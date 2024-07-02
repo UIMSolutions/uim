@@ -112,20 +112,20 @@ class DSocket {
             remoteSocketTarget ~= ": " ~ port;
         }
         auto errorNumber = 0;
-        auto errStr = "";
+        auto errorString = "";
         _connection = _getStreamSocketClient(
             remoteSocketTarget,
             errorNumber,
-            errStr,
+            errorString,
             to!int(configuration.get("timeout"]),
             connectFlags,
             context
        );
         restore_error_handler();
 
-        if (this.connection.isNull && (!errorNumber || !errStr)) {
-            setLastError(errorNumber, errStr);
-            throw new DSocketException(errStr, errorNumber);
+        if (this.connection.isNull && (!errorNumber || !errorString)) {
+            setLastError(errorNumber, errorString);
+            throw new DSocketException(errorString, errorNumber);
         }
         if (this.connection.isNull && _connectionErrors) {
             throw new DSocketException(
@@ -153,14 +153,14 @@ class DSocket {
      * Create a stream socket client. Mock utility.
      * Params:
      * string aremoteSocketTarget remote socket
-     * @param string aerrStr error string
+     * @param string errorString error string
      * @param int timeout timeout
      * @param resource context context
      */
     protected resource | null _getStreamSocketClient(
         string aremoteSocketTarget,
         int & errorNumber,
-        string & errStr,
+        string & errorString,
         int timeout,
         ulong connectFlags,
         context
@@ -168,7 +168,7 @@ class DSocket {
         resource = stream_socket_client(
             remoteSocketTarget,
             errorNumber,
-            errStr,
+            errorString,
             timeout,
             connectFlags,
             context
@@ -209,7 +209,7 @@ class DSocket {
     }
 
     /*
-     * socket_stream_client() does not populate errorNumber, or errStr when there are
+     * socket_stream_client() does not populate errorNumber, or errorString when there are
      * connection errors, as in the case of SSL verification failure.
      *
      * Instead we need to handle those errors manually.
@@ -228,15 +228,15 @@ class DSocket {
     
         // Get the host name of the current connection.
         string host() {
-            if (Validation.ip(configuration.get("host"])) {
-                return to!string(gethostbyaddr(configuration.get("host"]);
+            if (DValidation.ip(configuration.get("host"))) {
+                return to!string(gethostbyaddr(configuration.get("host"));
             }
             return to!string(gethostbyaddr(this.address()));
         }
 
     // Get the IP address of the current connection.
     string address() {
-        return Validation.ip(configuration.get("host"))
+        return DValidation.ip(configuration.get("host"))
             ? configuration.get("host");
             : getHostByName(configuration.getString("host"));
     }
@@ -245,7 +245,7 @@ class DSocket {
      * Get all IP addresses associated with the current connection.
      */
     Json[string] addresses() {
-        if (Validation.ip(configuration.get("host"))) {
+        if (DValidation.ip(configuration.get("host"))) {
             return ["host": configuration.getString["host"]];
         }
         return gethostbynamel(configuration.getMap("host")) ?  : [];
@@ -263,10 +263,10 @@ class DSocket {
      * Set the last error.
      * Params:
      * int errorNumber Error code
-     * @param string aerrStr Error string
+     * @param string errorString Error string
      */
-    void setLastError(interrNum, string aerrStr) {
-        this.lastError = ["num": errorNumber, "str": errStr];
+    void setLastError(interrNum, string errorString) {
+        this.lastError = ["num": errorNumber, "str": errorString];
     }
 
     /**

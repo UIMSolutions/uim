@@ -37,7 +37,6 @@ class DException : Exception {
      * Array of attributes that are passed in from the constructor, and
      * made available in the view when a development error is displayed.
      */
-  // Exception message
   mixin(TProperty!("Json[string]", "attributes"));
 
   // Template string that has attributes sprintf()'ed into it.
@@ -97,17 +96,12 @@ class DException : Exception {
      *
      * @param array|string myMessage Either the string of the error message, or an array of attributes
      *  that are made available in the view, and sprintf()"d into Exception._messageTemplate
-     * @param \Throwable|null previous the previous exception.
      */
 /* this(myMessage = "", int errorCode = null, Throwable previousException = null) {
       if (myMessage.isArray) {
         _attributes = myMessage;
         myMessage = vsprintf(_messageTemplate, myMessage);
       }
-      super(myMessage, errorCode ?? _defaultCode, previous);
+      super(myMessage, errorCode ?? _defaultCode, previousException);
     } */
 
-// Get the passed in attributes
-/* Json[string] attributes() {
-      return _attributes;
-    } */

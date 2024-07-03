@@ -1330,7 +1330,7 @@ abstract class DQuery : IQuery { // : IExpression {
     void clone() {
        _statement = null;
         if (!_valueBinder.isNull) {
-           _valueBinder = clone _valueBinder;
+           _valueBinder =  _valueBinder.clone;
         }
         _parts.byKeyValue
             .filter!(namePart => !isEmpty(part))

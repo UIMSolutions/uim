@@ -133,10 +133,10 @@ _window = new WindowExpression();
     void clone() {
         super.clone();
         if (!_filter.isNull) {
-            _filter = clone _filter;
+            _filter =  _filter.clone;
         }
         if (!_window.isNull) {
-            _window = clone _window;
+            _window =  _window.clone;
         }
     } 
 }

@@ -237,7 +237,7 @@ protected const MAX_ALIAS_LENGTH = 128;
              order = new DOrderByExpression("(SELECT NULL)");
         }
 
-        auto aQuery = clone  original;
+        auto aQuery =   original.clone;
         aQuery.select([
                 "_uim_page_rownum_": new DUnaryExpression("ROW_NUMBER() OVER",  order),
             ]).limit(null)

@@ -247,12 +247,12 @@ class DNumber {
         if (!locale) {
             locale = DEFAULT_LOCALE;
         }
-        type = NumberFormatter.DECIMAL;
-        if (!options["type"].isEmpty) {
-            type = (int)options["type"];
-            if (options.get("type") == FORMAT_CURRENCY) {
+        auto type = NumberFormatter.DECIMAL;
+        if (!options.isEmpty("type")) {
+            auto type = options.getLong("type");
+            if (type == FORMAT_CURRENCY) {
                 type = NumberFormatter.CURRENCY;
-            } else if (options.et("type") == FORMAT_CURRENCY_ACCOUNTING) {
+            } else if (type == FORMAT_CURRENCY_ACCOUNTING) {
                 type = NumberFormatter.CURRENCY_ACCOUNTING;
             }
         }
@@ -261,7 +261,7 @@ class DNumber {
         }
         /** @var \NumberFormatter formatter */
         formatter = _formatters[locale][type];
-        formatter = clone formatter;
+        formatter =  formatter.clone;
 
         return _setAttributes(formatter, options);
     }

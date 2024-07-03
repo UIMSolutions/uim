@@ -751,7 +751,7 @@ class DServerRequest { // }: IServerRequest {
      * string aName The header name.
      */
     static auto withAddedHeader(string headerName, headerValue) {
-        auto newRequest = clone this;
+        auto newRequest = this.clone;
         string normalizedName = this.normalizeHeaderName(headerName);
         auto existing = null;
         if (new._environmentData[normalizedName] !is null) {
@@ -769,7 +769,7 @@ class DServerRequest { // }: IServerRequest {
      * string aName The header name to remove.
      */
     static auto withoutHeader(string aName) {
-        new = clone this;
+        new = this.clone;
         name = this.normalizeHeaderName(name);
         remove(new._environmentData[name]);
 
@@ -795,7 +795,7 @@ class DServerRequest { // }: IServerRequest {
      * Update the request method and get a new instance.
      */
     static withMethod(string httpMethod) {
-        new = clone this;
+        new = this.clone;
 
         if (!preg_match("/^[!#%&\'*+.^_`\|~0-9a-z-]+/i", method)) {
             throw new DInvalidArgumentException(
@@ -814,7 +814,7 @@ class DServerRequest { // }: IServerRequest {
      * Json[string] aQuery The query string data to use
      */
     static withQueryParams(string queryString) {
-        auto newQuery = clone this;
+        auto newQuery = this.clone;
         newQuery.query = queryString;
 
         return newQuery;
@@ -1030,7 +1030,7 @@ class DServerRequest { // }: IServerRequest {
      * \UIM\Http\Cookie\CookieCollection cookies The cookie collection
      */
     static withCookieCollection(CookieCollection cookies) {
-        new = clone this;
+        new = this.clone;
          someValues = null;
         foreach (cookies as cookie) {
              someValues[cookie.name] = cookie.getValue();
@@ -1052,7 +1052,7 @@ class DServerRequest { // }: IServerRequest {
      */
     static auto withCookieParams(Json[string] cookies): static
     {
-        new = clone this;
+        new = this.clone;
         new.cookies = cookies;
 
         return new;
@@ -1077,7 +1077,7 @@ class DServerRequest { // }: IServerRequest {
      *   typically be in an array or object.
      */
     static withParsedBody(someData) {
-        new = clone this;
+        new = this.clone;
         new.data = someData;
 
         return new;
@@ -1113,7 +1113,7 @@ class DServerRequest { // }: IServerRequest {
         if (!preg_match("/^(1\.[01]|2)/", version)) {
             throw new DInvalidArgumentException("Unsupported protocol version `%s` provided.".format(version));
         }
-        new = clone this;
+        new = this.clone;
         new.protocol = version;
 
         return new;
@@ -1142,7 +1142,7 @@ class DServerRequest { // }: IServerRequest {
      * a *new* request object and does not mutate the request in-place.
      */
     static auto withEnviroment(string aKey, string value) {
-        IRequest newRequest = clone this;
+        IRequest newRequest = this.clone;
         newRequest._environmentData[aKey] = aValue;
         newRequest.clearDetectorCache();
 
@@ -1189,7 +1189,7 @@ class DServerRequest { // }: IServerRequest {
      */
     static auto withData(string pathToInsert, Json aValue): static
     {
-        copy = clone this;
+        copy = this.clone;
 
         if (isArray(copy.data)) {
             copy.data = Hash.insert(copy.data, pathToInsert, aValue);
@@ -1206,7 +1206,7 @@ class DServerRequest { // }: IServerRequest {
      * string aName The dot separated path to remove.
      */
     static withoutData(string aName) {
-        copy = clone this;
+        copy = this.clone;
 
         if (isArray(copy.data)) {
             copy.data = Hash.remove(copy.data, name);
@@ -1221,7 +1221,7 @@ class DServerRequest { // }: IServerRequest {
      * a *new* request object and does not mutate the request in-place.
      */
     static auto withParam(string insertPath, Json valueToInsert) {
-        auto copyRequest = clone this;
+        auto copyRequest = this.clone;
         copyRequest.params = Hash.insert(copy.params, insertPath, valueToInsert);
 
         return copyRequest;
@@ -1238,7 +1238,7 @@ class DServerRequest { // }: IServerRequest {
      * @param Json aValue The value of the attribute.
      */
     static withAttribute(string attributeName, Json aValue) {
-        new = clone this;
+        new = this.clone;
         if (isIn(attributeName, this.emulatedAttributes, true)) {
             new.{attributeName} = aValue;
         } else {
@@ -1253,7 +1253,7 @@ class DServerRequest { // }: IServerRequest {
      * string aName The attribute name.
      */
     static auto withoutAttribute(string aName) {
-        new = clone this;
+        new = this.clone;
         if (isIn(name, this.emulatedAttributes, true)) {
             throw new DInvalidArgumentException(
                 "You cannot unset 'name'. It is a required UIM attribute."
@@ -1326,7 +1326,7 @@ class DServerRequest { // }: IServerRequest {
      */
     static withUploadedFiles(Json[string] uploadedFiles) {
         this.validateUploadedFiles(uploadedFiles, "");
-        new = clone this;
+        new = this.clone;
         new.uploadedFiles = uploadedFiles;
 
         return new;
@@ -1360,7 +1360,7 @@ class DServerRequest { // }: IServerRequest {
      * \Psr\Http\Message\IStream body The new request body
      */
     static auto withBody(IStream body) {
-        new = clone this;
+        new = this.clone;
         new.stream = body;
 
         return new;
@@ -1382,7 +1382,7 @@ class DServerRequest { // }: IServerRequest {
      * \Psr\Http\Message\IUri anUri The new request uri
      */
     static withUri(IUri anUri, bool preserveHost = false) {
-        new = clone this;
+        new = this.clone;
         new.uri = anUri;
 
         if (preserveHost && this.hasHeader("Host")) {
@@ -1412,11 +1412,11 @@ class DServerRequest { // }: IServerRequest {
      * request-target forms allowed in request messages)
      * @param string arequestTarget The request target.
      */
-    static withRequestTarget(string arequestTarget) {
-        new = clone this;
-        new.requestTarget = requestTarget;
+    static IRequest withRequestTarget(string requestTarget) {
+        IRequest newRequest = this.clone;
+        newRequest.requestTarget = requestTarget;
 
-        return new;
+        return newRequest;
     }
     
     /**

@@ -248,7 +248,7 @@ class DCookie : ICookie {
  
     static withName(string aName) {
         this.validateName(name);
-        new = clone this;
+        new = this.clone;
         new.name = name;
 
         return new;
@@ -291,7 +291,7 @@ class DCookie : ICookie {
  
     auto withValue(string[]|float|bool aValue): static
     {
-        new = clone this;
+        new = this.clone;
         new._setValue(aValue);
 
         return new;
@@ -309,7 +309,7 @@ class DCookie : ICookie {
  
     auto withPath(string aPath): static
     {
-        new = clone this;
+        new = this.clone;
         new.path = somePath;
 
         return new;
@@ -321,7 +321,7 @@ class DCookie : ICookie {
  
     auto withDomain(string adomain): static
     {
-        new = clone this;
+        new = this.clone;
         new.domain = domain;
 
         return new;
@@ -337,7 +337,7 @@ class DCookie : ICookie {
  
     auto withSecure(bool isSecure): static
     {
-        new = clone this;
+        new = this.clone;
         new.isSecure = isSecure;
 
         return new;
@@ -345,7 +345,7 @@ class DCookie : ICookie {
  
     auto withHttpOnly(bool isHttpOnly): static
     {
-        new = clone this;
+        new = this.clone;
         new.httpOnly = isHttpOnly;
 
         return new;
@@ -360,7 +360,7 @@ class DCookie : ICookie {
         if (cast(DateTime)dateTime) {
             dateTime = clone dateTime;
         }
-        new = clone this;
+        new = this.clone;
         new.expiresAt = dateTime.setTimezone(new DateTimeZone("GMT"));
 
         return new;
@@ -388,7 +388,7 @@ class DCookie : ICookie {
     bool isExpired(?IDateTime time = null) {
         time = time ?: new DateTimeImmutable("now", new DateTimeZone("UTC"));
         if (cast(DateTime)time) {
-            time = clone time;
+            time =  time.clone;
         }
         if (!_expiresAt) {
             return false;
@@ -398,7 +398,7 @@ class DCookie : ICookie {
  
     auto withNeverExpire(): static
     {
-        new = clone this;
+        new = this.clone;
         new.expiresAt = new DateTimeImmutable("2038-01-01");
 
         return new;
@@ -406,7 +406,7 @@ class DCookie : ICookie {
  
     auto withExpired(): static
     {
-        new = clone this;
+        new = this.clone;
         new.expiresAt = new DateTimeImmutable("@1");
 
         return new;
@@ -417,7 +417,7 @@ class DCookie : ICookie {
     }
  
     static withSameSite(SameSiteEnum|string sameSite) {
-        new = clone this;
+        new = this.clone;
         new.sameSite = resolveSameSiteenumeration(sameSite);
 
         return new;
@@ -458,7 +458,7 @@ class DCookie : ICookie {
      * @param Json aValue Value to write
      */
     static withAddedValue(string pathToWrite, Json aValue) {
-        new = clone this;
+        new = this.clone;
         if (new.isExpanded == false) {
             assert(isString(new.value), "aValue is not a string");
             new.value = new._expand(new.value);
@@ -475,7 +475,7 @@ class DCookie : ICookie {
      * string aPath Path to remove
      */
     static withoutAddedValue(string aPath) {
-        new = clone this;
+        new = this.clone;
         if (new.isExpanded == false) {
             assert(isString(new.value), "aValue is not a string");
             new.value = new._expand(new.value);

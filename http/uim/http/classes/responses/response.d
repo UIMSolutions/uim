@@ -589,7 +589,7 @@ class DResponse : IResponse {
      */
     static auto withType(string acontentType) {
         mappedType = this.resolveType(contentType);
-        new = clone this;
+        new = this.clone;
         new._setContentType(mappedType);
 
         return new;
@@ -654,7 +654,7 @@ class DResponse : IResponse {
      * string acharset Character set string.
      */
     static withCharset(string acharset) {
-        new = clone this;
+        new = this.clone;
         new._charset = charset;
         new._setContentType(getType());
 
@@ -700,7 +700,7 @@ class DResponse : IResponse {
      * @param int time time in seconds after which the response should no longer be considered fresh.
      */
     static withSharable(bool public, int time = null) {
-        new = clone this;
+        new = this.clone;
         remove(new._cacheDirectives["private"], new._cacheDirectives["public"]);
 
         aKey = ? "public" : "private";
@@ -723,7 +723,7 @@ class DResponse : IResponse {
      * int seconds The number of seconds for shared max-age
      */
     static withSharedMaxAge(int seconds) {
-        new = clone this;
+        new = this.clone;
         new._cacheDirectives["s-maxage"] = seconds;
         new._setCacheControl();
 
@@ -739,7 +739,7 @@ class DResponse : IResponse {
      * int seconds The seconds a cached response can be considered valid
      */
     static withMaxAge(int seconds) {
-        new = clone this;
+        new = this.clone;
         new._cacheDirectives["max-age"] = seconds;
         new._setCacheControl();
 
@@ -757,7 +757,7 @@ class DResponse : IResponse {
      * bool enable If boolean sets or unsets the directive.
      */
     static withMustRevalidate(bool enable) {
-        new = clone this;
+        new = this.clone;
         if (enable) {
             new._cacheDirectives["must-revalidate"] = true;
         } else {
@@ -1018,7 +1018,7 @@ class DResponse : IResponse {
      * \UIM\Http\Cookie\ICookie cookie cookie object
      */
     static auto withCookie(ICookie cookie) {
-        auto newResponse = clone this;
+        auto newResponse = this.clone;
         newResponse._cookies = new._cookies.add(cookie);
 
         return newResponse;
@@ -1039,7 +1039,7 @@ class DResponse : IResponse {
     static auto withExpiredCookie(ICookie cookie) {
         cookie = cookie.withExpired();
 
-        new = clone this;
+        new = this.clone;
         new._cookies = new._cookies.add(cookie);
 
         return new;
@@ -1086,7 +1086,7 @@ class DResponse : IResponse {
      * \UIM\Http\Cookie\CookieCollection cookieCollection Cookie collection to set.
      */
     static withCookieCollection(CookieCollection cookieCollection) {
-        new = clone this;
+        new = this.clone;
         new._cookies = cookieCollection;
 
         return new;
@@ -1132,7 +1132,7 @@ class DResponse : IResponse {
         if ((!fileExtension || !mapped) && options.isNull("download")) {
             options["download"] = true;
         }
-        auto newResponse = clone this;
+        auto newResponse = this.clone;
         if (mapped) {
             newResponse = newResponse.withType(fileExtension);
         }
@@ -1166,7 +1166,7 @@ class DResponse : IResponse {
     
     // Convenience method to set a string into the response body
     static withStringBody(string stringToSent) {
-        auto newResponse = clone this;
+        auto newResponse = this.clone;
         newResponse._createStream();
         newResponse.stream.write(stringToSent);
         return newResponse;

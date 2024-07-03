@@ -16,7 +16,7 @@ mixin template TMergeVariables() {
      */
   protected void _mergeVars(string[] properties, Json[string] propertiesToMerge = null) {
     // TODO
-    /* auto myclass = static.class;
+    /* auto myclass = static.classname;
     auto myparents = null;
     while (true) {
       myparent = get_parent_class(myclass);

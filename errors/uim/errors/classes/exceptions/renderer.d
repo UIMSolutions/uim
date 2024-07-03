@@ -70,15 +70,15 @@ class DExceptionRenderer { // }: IExceptionRenderer
      */
     protected myExceptionHttpCodes = [
         // Controller exceptions
-        InvalidParameterException.class: 404,
-        MissingActionException.class: 404,
+        InvalidParameterException.classname: 404,
+        MissingActionException.classname: 404,
         // Datasource exceptions
-        PageOutOfBoundsException.class: 404,
-        RecordNotFoundException.class: 404,
+        PageOutOfBoundsException.classname: 404,
+        RecordNotFoundException.classname: 404,
         // Http exceptions
-        MissingControllerException.class: 404,
+        MissingControllerException.classname: 404,
         // Routing exceptions
-        MissingRouteException.class: 404,
+        MissingRouteException.classname: 404,
     ];
 
     // Creates the controller to perform rendering on the error response.

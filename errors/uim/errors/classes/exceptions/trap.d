@@ -68,7 +68,7 @@ class DExceptionTrap {
      */
     configuration.updateDefaults([
         "exceptionRenderer": Json(null),
-        "logger": ErrorLogger.class,
+        "logger": ErrorLogger.classname,
         "stderr": Json(null),
         "log": true.toJson,
         "skipLog": Json.emptyArray,
@@ -114,7 +114,7 @@ class DExceptionTrap {
 
         /** @var class-string|callable aclassname */
         aclassname = configuration.get("exceptionRenderer");
-        deprecateDFileConfigEngine = (aclassname == ExceptionRenderer.class && D_SAPI == "cli");
+        deprecateDFileConfigEngine = (aclassname == ExceptionRenderer.classname && D_SAPI == "cli");
         if (deprecateDFileConfigEngine) {
             deprecationWarning(
                 "Your application is using a deprecated `Error.exceptionRenderer`~ " ~
@@ -149,7 +149,7 @@ class DExceptionTrap {
     // Choose an exception renderer based on config or the SAPI
     protected string chooseRenderer() {
         /** @var class-string<uim.errors.IExceptionRenderer> */
-        return D_SAPI == "cli" ? ConsoleExceptionRenderer.class : ExceptionRenderer.class;
+        return D_SAPI == "cli" ? ConsoleExceptionRenderer.classname : ExceptionRenderer.classname;
     }
 
     // Get an instance of the logger.

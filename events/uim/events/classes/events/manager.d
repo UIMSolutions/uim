@@ -368,7 +368,7 @@ class DEventManager { // }: IEventManager {
                 /*             try {
                 subject = event.getSubject();
                 properties["_dispatchedEvents"] ~= event.name ~ " with subject " ~ subject
-                    .class;
+                    .classname;
             } catch (DException) {
                 properties["_dispatchedEvents"] ~= event.name ~ " with no subject";
             }

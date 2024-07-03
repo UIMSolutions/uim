@@ -38,6 +38,6 @@ class DSubjectFilterDecorator : DDecorator {
             return false;
         }
 
-        return isIn(subject.class, _options["allowedSubject"], true);
+        return isIn(subject.classname, _options["allowedSubject"], true);
     } */
 }

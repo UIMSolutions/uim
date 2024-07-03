@@ -67,7 +67,8 @@ class DH5Html : DH5Obj {
 	O script(this O, T...)(T values) { _body.script(values);  return cast(O)this; }
  */
 	override string toString() { 
-	return h5Doctype~H5Obj(_id, _classes, _attributes, _head, _body_).tag("html").toString; }
+		// TODO
+	return /* h5Doctype~ */"<!doctype html>"~H5Obj(_id, _classes, _attributes, _head, _body_).tag("html").toString; }
 }
 mixin(H5Short!"Html");
 

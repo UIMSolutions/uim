@@ -60,9 +60,7 @@ unittest {
 }
 // #region startTag
 
-string doubleTag(string name) {
-	return "<" ~ name ~ ">";
-}
+
 
 unittest {
 }
@@ -73,12 +71,12 @@ string htmlEndTag(string tag) {
 }
 // #endregion htmlEndTag 
 
-string htmlDoubleTag(string tag, string content = null) {
-	return htmlStartTag(tag) ~ content ~ htmlEndTag(tag);
+string htmlDoubleTag(string tag, string id, string content = null) {
+	return htmlStartTag(tag, id) ~ content ~ htmlEndTag(tag);
 }
 unittest {
 	assert(htmlDoubleTag("p") == "<p></p>");
-	assert(htmlDoubleTag("p", "some content") == "<p>some content</p>");
+	assert(htmlDoubleTag("p", null, "some content") == "<p>some content</p>");
 }
 
 string htmlDoubleTag(string tag, string[] classes, string content = null) {
@@ -105,6 +103,22 @@ string htmlSingleTag(string tag) {
 	return htmlStartTag(tag);
 }
 
+string htmlSingleTag(string tag, string id) {
+	return htmlStartTag(tag, id);
+}
+
 string htmlSingleTag(string tag, STRINGAA attributes) {
 	return htmlStartTag(tag, null, null, attributes);
+}
+
+string htmlSingleTag(string tag, string id, STRINGAA attributes) {
+	return htmlStartTag(tag, id, null, attributes);
+}
+
+string htmlSingleTag(string tag, string[] classes,  STRINGAA attributes) {
+	return htmlStartTag(tag, null, classes, attributes);
+}
+
+string htmlSingleTag(string tag, string id, string[] classes,  STRINGAA attributes) {
+	return htmlStartTag(tag, id, classes, attributes);
 }

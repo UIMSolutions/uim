@@ -21,7 +21,7 @@ mixin template TUnitConsecutive() {
         }
         mockedMethodCall = 0;
         aCallbackCall = 0;
-        foreach (argumentList as  anIndex: argument) {
+        foreach (anIndex, argument; argumentList) {
             yield new DCallback(
                 static auto (Json actualArgument) use (
                     argumentList,

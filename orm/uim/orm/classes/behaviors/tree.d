@@ -157,7 +157,7 @@ class DTreeBehavior : DBehavior {
         ]);
 
         /** @var DORMdatasources.IORMEntity node */
-        foreach (children as node) {
+        foreach (node; children) {
             parentIdValue = node.get(configuration.get("parent"));
             depth = depths[parentIdValue] + 1;
             depths[node.get(primaryKeys)] = depth;

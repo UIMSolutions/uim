@@ -192,7 +192,7 @@ class DFixtureHelper {
         // If they do, then there might be cross-dependencies which we don"t support sorting
         // TODO 
         /*
-        foreach (constrained as ["references": references]) {
+        foreach (["references": references]; constrained) {
             if (references.any!(reference => constrained.hasKey(reference))) { return null; }; 
         }
         * /

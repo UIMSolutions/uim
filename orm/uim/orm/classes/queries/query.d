@@ -174,18 +174,16 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     }
 
     IQuery select(DORMTable anTable, bool canOverwrite = false) {
-      string[] fieldNames; 
+      string[] fieldNames = this.aliasingEnabled
+        ? this.aliasFields(anTable.getSchema().columns(), anTable.aliasName())
+        : anTable.getSchema().columns();
 
-      if (this.aliasingEnabled) {
-          fields = this.aliasFields(anTable.getSchema().columns(), anTable.aliasName());
-      } else {
-          fields = anTable.getSchema().columns();
-      }
-      return fields(fields, canOverwrite);
+      return fields(fieldNames, canOverwrite);
     }
 
     IQuery select(DORMAssociation anAssociation, bool canOverwrite = false) {
       string[] fieldNames = anAssociation.getTarget();
+      return null; 
     }
 
     IQuery select(string[] fieldNames, bool canOverwrite = false) {
@@ -1050,7 +1048,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         select = this.clause("select");
         types = null;
 
-        foreach (select as alias: value) {
+        foreach (aliasName, value; select) {
             if (cast(ITypedResult)value) {
                 types[aliasName] = value.getReturnType();
                 continue;

@@ -644,18 +644,18 @@ class DEagerLoader {
      * @param Json[string] results Results array.
      */
     protected Json[string] _collectKeys(Json[string] myexternal, SelectQuery myquery, Json[string] results) {
-        mycollectKeys = null;
-        foreach (myexternal as mymeta) {
-            myinstance = mymeta.instance();
+        auto mycollectKeys = null;
+        foreach (mymeta; myexternal) {
+            auto myinstance = mymeta.instance();
             if (!myinstance.requiresKeys(mymeta.configuration.data)) {
                 continue;
             }
-            mysource = myinstance.source();
-            someKeys = myinstance.type() == Association.MANY_TO_ONE ?
+            auto mysource = myinstance.source();
+            auto someKeys = myinstance.type() == Association.MANY_TO_ONE ?
                 /* (array) */myinstance.foreignKeys():
                 /* (array) */myinstance.getBindingKey();
 
-            aliasName = mysource.aliasName();
+            auto aliasName = mysource.aliasName();
             auto mypkFields = someKeys
                 .map!(id => key(myquery.aliasField(id, aliasName))).array;
 

@@ -445,14 +445,8 @@ class DBelongsToManyAssociation : DAssociation {
         auto table = this.junction();
         auto hasMany = source().getAssociation(table.aliasName());
         if (_cascadeCallbacks) {
-            foreach (hasMany.find("all").where(conditions).all().toList() as related) {
-                success = table.remove(related, options);
-                if (!success) {
-                    return false;
-                }
-            }
-
-            return true;
+            return hasMany.find("all").where(conditions).all().toList()
+                .all!(related => table.remove(related, options));
         }
 
         auto assocConditions = hasMany.getConditions();
@@ -1099,7 +1093,7 @@ class DBelongsToManyAssociation : DAssociation {
             }
         }
 
-        foreach (deletes as entity) {
+        foreach (entity; deletes) {
             if (!junction.remove(entity, options) && !options.isEmpty("atomic"])) {
                 return false;
             }

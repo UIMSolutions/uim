@@ -573,7 +573,7 @@ abstract class DTestCase : DBaseTestCase {
                 attrs = null;
                 explanations = null;
                  anI = 1;
-                foreach (attributes as attr: val) {
+                foreach (attr: val; attributes) {
                     if (isNumeric(attr) && preg_match("/^preg\:\/(.+)\//i", to!string(val), matches)) {
                         attrs ~= matches[1];
                         explanations ~= "Regex `%s` matches".format(matches[1]);

@@ -185,13 +185,7 @@ class DSelectLoader {
             return;
         }
         missingKey = function (fieldList, key) {
-            foreach (key as keyField) {
-                if (!isIn(keyField, fieldList, true)) {
-                    return true;
-                }
-            }
-
-            return false;
+            return key.any!(field => !isIn(field, fieldList, true));
         };
 
         missingFields = missingKey(select, key);
@@ -218,18 +212,18 @@ class DSelectLoader {
      * @param string[]|string aKey the fields that should be used for filtering
      * @param DORMQuery subquery The Subquery to use for filtering
      */
-    protected DORMQuery _addFilteringJoin(Query query, key, subquery) { 
+    protected DORMQuery _addFilteringJoin(Query query, key, DORMQuery filteringQuery) { 
         filter = null;
         aliasedTable = this.sourceAlias;
 
-        foreach (subquery.clause("select") as aliasedField: field) {
+        foreach (filteringQuery.clause("select") as aliasedField: field) {
             if (is_int(aliasedField)) {
                 filter ~= new DIdentifierExpression(field);
             } else {
                 filter[aliasedField] = field;
             }
         }
-        subquery.select(filter, true);
+        filteringQuery.select(filter, true);
 
         if ((key.isArray) {
             conditions = _createTupleCondition(query, key, filter, "=");
@@ -239,7 +233,7 @@ class DSelectLoader {
         }
 
         return query.innerJoin(
-            [aliasedTable: subquery],
+            [aliasedTable: filteringQuery],
             conditions
        );
     }
@@ -318,10 +312,8 @@ class DSelectLoader {
      * Builds a query to be used as a condition for filtering records in the
      * target table, it is constructed by cloning the original query that was used
      * to load records in the source table.
-     *
-     * @param DORMQuery query the original query used to load source records
      */
-    protected DORMQuery _buildSubquery(Query query) {
+    protected DORMQuery _buildSubquery(DORMQuery query) {
         auto filterQuery = clone query;
         filterQuery.disableAutoFields();
         filterQuery.mapReduce(null, null, true);

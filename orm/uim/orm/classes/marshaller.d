@@ -170,7 +170,7 @@ class DMarshaller {
                 .filter!(fieldValue => cast(IORMEntity) fieldValue.value)
                 .each!(fieldValue => myentity.setDirty(fieldValue.key, fieldValue.value.isChanged()));
             myentity.setErrors(myerrors);
-            this.dispatchAfterMarshal(myentity, mydata, options);
+            dispatchAfterMarshal(myentity, mydata, options);
 
             return myentity;
         }
@@ -495,11 +495,11 @@ class DMarshaller {
                     .filter!(fieldValue => cast(IORMEntity) fieldValue.value)
                     .each!(fieldValue => myentity.setDirty(fieldValue.key, fieldValue.value.isChanged()));
 
-                this.dispatchAfterMarshal(myentity, mydata, options);
+                dispatchAfterMarshal(myentity, mydata, options);
 
                 return myentity;
             }
-            foreach ( /* (array) */ options["fields"] as fieldName) {
+            foreach (fieldName; /* (array) */ options["fields"] as ) {
                 assert(isString(fieldName));
                 if (!array_key_exists(fieldName, myproperties)) {
                     continue;
@@ -509,7 +509,7 @@ class DMarshaller {
                     myentity.setDirty(fieldName, myproperties[fieldName].isChanged());
                 }
             }
-            this.dispatchAfterMarshal(myentity, mydata, options);
+            dispatchAfterMarshal(myentity, mydata, options);
 
             return myentity;
         }

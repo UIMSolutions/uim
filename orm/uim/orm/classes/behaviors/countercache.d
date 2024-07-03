@@ -104,7 +104,7 @@ class DCounterCacheBehavior : DBehavior {
         if (options.hasKey("ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
         }
-        foreach (configuration as myassoc: mysettings) {
+        foreach (myassoc, mysettings; configuration) {
             myassoc = _table.getAssociation(myassoc);
             /** @var string|int fieldName */
             foreach (mysettings as fieldName: configData) {

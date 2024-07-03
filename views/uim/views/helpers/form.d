@@ -759,7 +759,7 @@ class DFormHelper : DHelper {
     string controls(Json[string] fieldNames, Json[string] options  = null) {
         auto fieldNames = Hash.normalize(fieldNames);
         string result = "";
-        foreach (fieldNames as views: myopts) {
+        foreach (views, myopts; fieldNames) {
             if (myopts == false) {
                 continue;
             }

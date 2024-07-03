@@ -399,33 +399,26 @@ class DRoute : IRoute {
         return myroute;
     }
     
-    /**
-     * Check to see if the host matches the route requirements
-     * Params:
-     * string myhost The request"s host name
-     */
-    bool hostMatches(string myhost) {
-        mypattern = "@^" ~ preg_quote(configuration.set("_host"], "@").replace("\*", ".*") ~ "my@";
-
-        return preg_match(mypattern, myhost) != 0;
+    // Check to see if the host matches the route requirements
+    bool hostMatches(string hostName) {
+        string mypattern = "@^" ~ preg_quote(configuration.set("_host"], "@").replace("\*", ".*") ~ "my@";
+        return preg_match(mypattern, hostName) != 0;
     }
     
     /**
      * Removes the extension from myurl if it contains a registered extension.
      * If no registered extension is found, no extension is returned and the URL is returned unmodified.
-     * Params:
-     * string myurl The url to parse.
      */
-    protected Json[string] _parseExtension(string myurl) {
-        if (count(_extensions) && myurl.contains(".")) {
-            foreach (_extensions as myext) {
-                mylen = myext.length + 1;
-                if (subString(myurl, -mylen) == "." ~ myext) {
-                    return [subString(myurl, 0, mylen * -1), myext];
+    protected Json[string] _parseExtension(string urlToParse) {
+        if (count(_extensions) && urlToParse.contains(".")) {
+            foreach (extension; _extensions) {
+                auto extensionLength = myext.extension + 1;
+                if (subString(urlToParse, -extensionLength) == "." ~ myext) {
+                    return [subString(urlToParse, 0, extensionLength * -1), myext];
                 }
             }
         }
-        return [myurl, null];
+        return [urlToParse, null];
     }
     
     /**

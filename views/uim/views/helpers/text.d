@@ -118,10 +118,10 @@ class DTextHelper : DHelper {
      * @param Json[string] myhtmlOptions The options for the generated links.
      */
     protected string _linkUrls(string mytext, Json[string] myhtmlOptions) {
-        myreplace = null;
-        foreach (_placeholders as myhash: mycontent) {
-            mylink = myurl = mycontent["content"];
-            myenvelope = mycontent["envelope"];
+        auto myreplace = null;
+        foreach (myhash, mycontent; _placeholders) {
+            auto mylink = myurl = mycontent["content"];
+            auto myenvelope = mycontent["envelope"];
             if (!preg_match("#^[a-z]+\://#i", myurl)) {
                 myurl = "http://" ~ myurl;
             }
@@ -134,16 +134,15 @@ class DTextHelper : DHelper {
      * Links email addresses
      * Params:
      * string mytext The text to operate on
-     * @param Json[string] options An array of options to use for the HTML.
      */
-    protected string _linkEmails(string mytext, Json[string] options = null) {
-        myreplace = null;
-        foreach (_placeholders as myhash: mycontent) {
-            myurl = mycontent["content"];
-            myenvelope = mycontent["envelope"];
+    protected string _linkEmails(string textToOperate, Json[string] options = null) {
+        auto myreplace = null;
+        foreach (myhash, mycontent; _placeholders) {
+            auto myurl = mycontent["content"];
+            auto myenvelope = mycontent["envelope"];
             myreplace[myhash] = myenvelope[0] ~ this.Html.link(myurl, "mailto:" ~ myurl, options) ~ myenvelope[1];
         }
-        return strtr(mytext, myreplace);
+        return strtr(textToOperate, myreplace);
     }
     
     /**
@@ -160,7 +159,7 @@ class DTextHelper : DHelper {
         auto updatedOptions = options.update["escape": true.toJson];
        _placeholders = null;
 
-        myatom = "[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]";
+        auto myatom = "[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]";
         mytext = preg_replace_callback(
             "/(?<=\s|^|\(|\>|\;)(" ~ myatom ~ "*(?:\." ~ myatom ~ "+)*@[\p{L}0-9-]+(?:\.[\p{L}0-9-]+)+)/ui",
             [&this, "_insertPlaceholder"],
@@ -192,17 +191,15 @@ class DTextHelper : DHelper {
      * Formats paragraphs around given text for all line breaks
      * <br> added for single line return
      * <p> added for double line return
-     * Params:
-     * string mytext Text
      */
     string autoParagraph(string mytext) {
         string mytext = myText.ifEmpty("");
-        if (mytext.strip != "") {
+        if (!mytext.strip.isEmpty) {
             mytext = to!string(preg_replace("|<br[^>]*>\s*<br[^>]*>|i", "\n\n", mytext ~ "\n"));
             mytext = /* (string) */preg_replace("/\n\n+/", "\n\n", mytext.replace(["\r\n", "\r"], "\n"));
             mytexts = preg_split("/\n\s*\n/", mytext, -1, PREG_SPLIT_NO_EMPTY) ?: [];
             mytext = "";
-            foreach (mytexts as mytxt) {
+            foreach (mytxt; mytexts) {
                 mytext ~= "<p>" ~ nl2br(trim(mytxt, "\n")) ~ "</p>\n";
             }
             mytext = /* (string) */preg_replace("|<p>\s*</p>|", "", mytext);

@@ -12,11 +12,11 @@ import uim.routings;
  */
 class DRouteBuilder {
     // #region consts
-        // Regular expression for auto increment IDs
-        const string ID = "[0-9]+";
+    // Regular expression for auto increment IDs
+    const string ID = "[0-9]+";
 
-        // Regular expression for UUIDs
-        const string UUID = "[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}";
+    // Regular expression for UUIDs
+    const string UUID = "[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}";
     // #endregion consts
 
     this() {
@@ -26,14 +26,22 @@ class DRouteBuilder {
     // Initialization hook method.
     bool initialize(Json[string] initData = null) {
         _resourceMap = [
-              "index": Json(["action": "index", "method": "GET", "path": ""]),
-              "create": Json(["action": "add", "method": "POST", "path": ""]),
-              "view": Json(["action": "view", "method": "GET", "path": "{id}"]),
-              "update": Json(["action": "edit", "method": ["PUT", "PATCH"], "path": "{id}"]),
-              "delete": Json(["action": "delete", "method": "DELETE", "path": "{id}"]),
-          ];
+            "index": Json(["action": "index", "method": "GET", "path": ""]),
+            "create": Json(["action": "add", "method": "POST", "path": ""]),
+            "view": Json(["action": "view", "method": "GET", "path": "{id}"]),
+            "update": Json([
+                "action": "edit",
+                "method": ["PUT", "PATCH"],
+                "path": "{id}"
+            ]),
+            "delete": Json([
+                "action": "delete",
+                "method": "DELETE",
+                "path": "{id}"
+            ]),
+        ];
 
-          return true;
+        return true;
     }
 
     // Default HTTP request method: controller action map.
@@ -43,7 +51,7 @@ class DRouteBuilder {
     // TODO protected string _routeClass = (new DRoute).classname;
     // Set default route class.
     void setRouteClass(string newclassname) {
-       _routeClass = newclassname;
+        _routeClass = newclassname;
     }
 
     // Get default route class
@@ -85,25 +93,23 @@ class DRouteBuilder {
      * @param Json[string] options Options list.
      */
     this(RouteCollection mycollection, string mypath, Json[string] myparams = [], Json[string] options = null) {
-       _collection = mycollection;
-       _path = mypath;
-       _params = myparams;
+        _collection = mycollection;
+        _path = mypath;
+        _params = myparams;
         if (options.hasKey("routeClass")) {
-           _routeClass = options["routeClass"];
+            _routeClass = options["routeClass"];
         }
         if (options.hasKey("extensions")) {
-           _extensions = options["extensions"];
+            _extensions = options["extensions"];
         }
         if (options.hasKey("namePrefix")) {
-           _namePrefix = options["namePrefix"];
+            _namePrefix = options["namePrefix"];
         }
         if (options.hasKey("middleware")) {
-            this.middleware = (array)options["middleware"];
+            _middleware = (array) options["middleware"];
         }
     }
-    
 
-    
     /**
      * Set the extensions in this route builder"s scope.
      *
@@ -113,26 +119,26 @@ class DRouteBuilder {
      * string[]|string myextensions The extensions to set.
      */
     void setExtensions(string[] myextensions) {
-       _extensions = (array)myextensions;
+        _extensions = (array) myextensions;
     }
-    
+
     /**
      * Get the extensions in this route builder"s scope.
      */
     string[] getExtensions() {
         return _extensions;
     }
-    
+
     /**
      * Add additional extensions to what is already in current scope
      * Params:
      * string[]|string myextensions One or more extensions to add
      */
     void addExtensions(string[] myextensions) {
-        myextensions = array_merge(_extensions, (array)myextensions);
-       _extensions = array_unique(myextensions);
+        myextensions = array_merge(_extensions, (array) myextensions);
+        _extensions = array_unique(myextensions);
     }
-    
+
     // Get the path this scope is for.
     string path() {
         size_t myrouteKey = indexOf(_path, "{");
@@ -145,7 +151,7 @@ class DRouteBuilder {
         }
         return _path;
     }
-    
+
     /**
      * Get the parameter names/values for this scope.
      *
@@ -153,16 +159,16 @@ class DRouteBuilder {
     Json[string] params() {
         return _params;
     }
-    
+
     /**
      * Checks if there is already a route with a given name.
      * Params:
      * string routings Name.
      */
-   bool nameExists(string routings) {
+    bool nameExists(string routings) {
         return array_key_exists(routings, _collection.named());
     }
-    
+
     /**
      * Get/set the name prefix for this scope.
      *
@@ -173,11 +179,11 @@ class DRouteBuilder {
      */
     string namePrefix(string myvalue = null) {
         if (myvalue !is null) {
-           _namePrefix = myvalue;
+            _namePrefix = myvalue;
         }
         return _namePrefix;
     }
-    
+
     /**
      * Generate REST resource routes for the given controller(s).
      *
@@ -264,11 +270,12 @@ class DRouteBuilder {
      * @param \Closure|null mycallback An optional callback to be executed in a nested scope. Nested
      * scopes inherit the existing path and "id" parameter.
      */
-    auto resources(string routings, Closure|Json[string] options = null, Closure mycallback = null) {
+    auto resources(string routings, Closure | Json[string] options = null, Closure mycallback = null) {
         if (!options.isArray) {
             mycallback = options;
             options = null;
         }
+
         auto updatedOptions = options.update[
             "connectOptions": Json.emptyArray,
             "inflect": "dasherize",
@@ -280,7 +287,7 @@ class DRouteBuilder {
             "path": Json(null),
         ];
 
-        foreach (options["map"] as myKey: mymapped) {
+        foreach (options["map"] as myKey : mymapped) {
             options["map"][myKey] += ["method": "GET", "path": myKey, "action": ""];
         }
         myext = null;
@@ -294,22 +301,24 @@ class DRouteBuilder {
         }
         myresourceMap = chain(_resourceMap, options["map"]);
 
-        myonly = (array)options["only"];
+        myonly = (array) options["only"];
         if (isEmpty(myonly)) {
             myonly = myresourceMap.keys;
         }
-        
+
         string myprefix = options.getStrinf("prefix");
         if (_params.hasKey("prefix") && myprefix) {
             myprefix = _params["prefix"] ~ "/" ~ myprefix;
         }
-        foreach (myresourceMap as mymethod: myparams) {
+        foreach (myresourceMap as mymethod : myparams) {
             if (!isIn(mymethod, myonly, true)) {
                 continue;
             }
             myaction = options["actions"].get(mymethod, myparams["action"]);
 
-            string myurl = "/" ~ join("/", array_filter([options["path"], myparams["path"]]));
+            string myurl = "/" ~ join("/", array_filter([
+                    options["path"], myparams["path"]
+                ]));
             auto myparams = [
                 "controller": routings,
                 "action": myaction,
@@ -328,11 +337,11 @@ class DRouteBuilder {
         if (mycallback !is null) {
             auto myidName = Inflector.singularize(Inflector.underscore(routings)) ~ "_id";
             auto mypath = "/" ~ options.getString("path") ~ "/{" ~ myidName ~ "}";
-            this.scope(mypath, [], mycallback);
+            this.scope (mypath, [], mycallback);
         }
         return this;
     }
-    
+
     /**
      * Create a route that only responds to GET requests.
      * Params:
@@ -344,7 +353,7 @@ class DRouteBuilder {
     Route get(string mytemplate, string[] mytarget, string routings = null) {
         return _methodRoute("GET", mytemplate, mytarget, routings);
     }
-    
+
     /**
      * Create a route that only responds to POST requests.
      * Params:
@@ -356,7 +365,7 @@ class DRouteBuilder {
     Route post(string mytemplate, string[] mytarget, string routings = null) {
         return _methodRoute("POST", mytemplate, mytarget, routings);
     }
-    
+
     /**
      * Create a route that only responds to PUT requests.
      * Params:
@@ -368,7 +377,7 @@ class DRouteBuilder {
     Route put(string mytemplate, string[] mytarget, string routings = null) {
         return _methodRoute("PUT", mytemplate, mytarget, routings);
     }
-    
+
     /**
      * Create a route that only responds to PATCH requests.
      * Params:
@@ -380,7 +389,7 @@ class DRouteBuilder {
     Route patch(string mytemplate, string[] mytarget, string routings = null) {
         return _methodRoute("PATCH", mytemplate, mytarget, routings);
     }
-    
+
     /**
      * Create a route that only responds to DELETE requests.
      * Params:
@@ -392,7 +401,7 @@ class DRouteBuilder {
     Route remove(string mytemplate, string[] mytarget, string routings = null) {
         return _methodRoute("DELETE", mytemplate, mytarget, routings);
     }
-    
+
     /**
      * Create a route that only responds to HEAD requests.
      * Params:
@@ -404,7 +413,7 @@ class DRouteBuilder {
     Route head(string mytemplate, string[] mytarget, string routings = null) {
         return _methodRoute("HEAD", mytemplate, mytarget, routings);
     }
-    
+
     /**
      * Create a route that only responds to OPTIONS requests.
      * Params:
@@ -416,7 +425,7 @@ class DRouteBuilder {
     Route options(string mytemplate, string[] mytarget, string routings = null) {
         return _methodRoute("OPTIONS", mytemplate, mytarget, routings);
     }
-    
+
     /**
      * Helper to create routes that only respond to a single HTTP method.
      * Params:
@@ -433,7 +442,7 @@ class DRouteBuilder {
         options = [
             "_name": routings,
             "_ext": _extensions,
-            "_middleware": this.middleware,
+            "_middleware": _middleware,
             "routeClass": _routeClass,
         ];
 
@@ -441,11 +450,11 @@ class DRouteBuilder {
         mytarget["_method"] = mymethod;
 
         myroute = _makeRoute(mytemplate, mytarget, options);
-       _collection.add(myroute, options);
+        _collection.add(myroute, options);
 
         return myroute;
     }
-    
+
     /**
      * Load routes from a plugin.
      *
@@ -467,7 +476,7 @@ class DRouteBuilder {
 
         return this;
     }
-    
+
     /**
      * Connects a new DRoute.
      *
@@ -547,7 +556,7 @@ class DRouteBuilder {
      * shifted into the passed arguments, supplying patterns for routing parameters and supplying the name of a
      * custom routing class.
      */
-    Route connect(Route|string myroute, string[] mydefaults = [], Json[string] options = null) {
+    Route connect(Route | string myroute, string[] mydefaults = [], Json[string] options = null) {
         mydefaults = this.parseDefaults(mydefaults);
         if (isoptions.isEmpty("_ext"])) {
             options["_ext"] = _extensions;
@@ -559,14 +568,14 @@ class DRouteBuilder {
             options["_name"] = _namePrefix ~ options["_name"];
         }
         if (isoptions.isEmpty("_middleware"])) {
-            options["_middleware"] = this.middleware;
+            options["_middleware"] = _middleware;
         }
         myroute = _makeRoute(myroute, mydefaults, options);
-       _collection.add(myroute, options);
+        _collection.add(myroute, options);
 
         return myroute;
     }
-    
+
     /**
      * Parse the defaults if they"re a string
      * Params:
@@ -578,7 +587,7 @@ class DRouteBuilder {
         }
         return Router.parseRoutePath(mydefaults);
     }
-    
+
     /**
      * Create a route object, or return the provided object.
      * Params:
@@ -586,29 +595,30 @@ class DRouteBuilder {
      * @param Json[string] mydefaults Default parameters.
      * @param Json[string] options Additional options parameters.
      */
-    protected DRoute _makeRoute(Route|string myroute, Json[string] mydefaults, Json[string] options = null) {
+    protected DRoute _makeRoute(Route | string myroute, Json[string] mydefaults, Json[string] options = null) {
         if (isString(myroute)) {
             /** @var class-string<\UIM\Routing\Route\Route>|null myrouteClass */
             myrouteClass = App.classname(options["routeClass"], "Routing/Route");
             if (myrouteClass.isNull) {
                 throw new DInvalidArgumentException(
                     "Cannot find route class %s".format(options["routeClass"])
-               );
+                );
             }
             myroute = (_path ~ myroute).replace("//", "/");
             if (myroute != "/") {
                 myroute = stripRight(myroute, "/");
             }
-            foreach (_params as myparam: myval) {
+            foreach (_params as myparam : myval) {
                 if (isSet(mydefaults[myparam]) && myparam != "prefix" && mydefaults[myparam] != myval) {
-                    mymsg = "You cannot define routes that conflict with the scope. " .
-                        "Scope had %s = %s, while route had %s = %s";
+                    mymsg = "You cannot define routes that conflict with the scope. "
+                        ."Scope had %s = %s, while route had %s = %s";
                     throw new BadMethodCallException(mymsg,
-                        .format(myparam,
-                            myval,
-                            myparam,
-                            mydefaults[myparam]
-                       ));
+                        
+                            .format(myparam,
+                                myval,
+                                myparam,
+                                mydefaults[myparam]
+                            ));
                 }
             }
             mydefaults += _params ~ ["plugin": Json(null)];
@@ -619,7 +629,7 @@ class DRouteBuilder {
         }
         return myroute;
     }
-    
+
     /**
      * Connects a new redirection Route in the router.
      *
@@ -655,13 +665,15 @@ class DRouteBuilder {
      * shifted into the passed arguments. As well as supplying patterns for routing parameters.
      */
     Route redirect(string routeTemplate, string[] myurl, Json[string] options = null) {
-        auto options = options.merge(["routeClass": RedirectRoute.classname.toJson]);
+        auto options = options.merge([
+            "routeClass": RedirectRoute.classname.toJson
+        ]);
         if (isString(myurl)) {
             myurl = ["redirect": myurl];
         }
         return _connect(routeTemplate, myurl, options);
     }
-    
+
     /**
      * Add prefixed routes.
      *
@@ -692,26 +704,26 @@ class DRouteBuilder {
      * If you have no parameters, this argument can be a Closure.
      * @param \Closure|null mycallback The callback to invoke that builds the prefixed routes.
      */
-    void prefix(string routings, Closure|array myparams = null, Closure mycallback = null) {
+    void prefix(string routings, Closure | array myparams = null, Closure mycallback = null) {
         if (!myparams.isArray) {
             mycallback = myparams;
             myparams = null;
         }
-        
+
         string mypath = "/" ~ Inflector.dasherize(routings);
         string routings = Inflector.camelize(routings);
         if (myparams.hasKey("path")) {
             mypath = myparams["path"];
             myparams.remove("path");
         }
-        
+
         if (_params.hasKey("prefix")) {
             routings = _params.getString("prefix") ~ "/" ~ routings;
         }
         myparams = array_merge(myparams, ["prefix": routings]);
-        scope(mypath, myparams, mycallback);
+        scope (mypath, myparams, mycallback);
     }
-    
+
     /**
      * Add plugin routes.
      *
@@ -735,7 +747,7 @@ class DRouteBuilder {
      * @param \Closure|null mycallback The callback to invoke that builds the plugin routes
      * Only required when options is defined.
      */
-    auto plugin(string routings, /* Closure| */Json[string] options = null, Closure mycallback = null) {
+    auto plugin(string routings, /* Closure| */ Json[string] options = null, Closure mycallback = null) {
         if (!isArray(options)) {
             mycallback = options;
             options = null;
@@ -743,11 +755,11 @@ class DRouteBuilder {
         mypath = options.getString("path", "/" ~ Inflector.dasherize(routings));
         options.remove("path"]);
         options = ["plugin": routings] + options;
-        this.scope(mypath, options, mycallback);
+        this.scope (mypath, options, mycallback);
 
         return this;
     }
-    
+
     /**
      * Create a new routing scope.
      *
@@ -765,8 +777,8 @@ class DRouteBuilder {
      * @param \Closure|null mycallback The callback to invoke that builds the plugin routes.
      * Only required when myparams is defined.
      */
-    void scope(string mypath, Closure|array myparams, Closure mycallback = null) {
-        if (cast(DClosure)myparams) {
+    void scope (string mypath, Closure | array myparams, Closure mycallback = null) {
+        if (cast(DClosure) myparams) {
             mycallback = myparams;
             myparams = null;
         }
@@ -784,14 +796,14 @@ class DRouteBuilder {
 
         myparams += _params;
         mybuilder = new static(_collection, mypath, myparams, [
-            "routeClass": _routeClass,
-            "extensions": _extensions,
-            "namePrefix": routingsPrefix,
-            "middleware": this.middleware,
-        ]);
+                "routeClass": _routeClass,
+                "extensions": _extensions,
+                "namePrefix": routingsPrefix,
+                "middleware": _middleware,
+            ]);
         mycallback(mybuilder);
     }
-    
+
     /**
      * Connect the `/{controller}` and `/{controller}/{action}/*` fallback routes.
      *
@@ -801,11 +813,11 @@ class DRouteBuilder {
      * if not specified
      */
     void fallbacks(string myrouteClass = null) {
-        myrouteClass = myrouteClass ?: _routeClass;
+        myrouteClass = myrouteClass ?  : _routeClass;
         this.connect("/{controller}", ["action": "index"], compact("routeClass"));
         this.connect("/{controller}/{action}/*", [], compact("routeClass"));
     }
-    
+
     /**
      * Register a middleware with the RouteCollection.
      *
@@ -813,12 +825,13 @@ class DRouteBuilder {
      * scope or any child scopes that share the same RouteCollection.
      * Params:
      * string routings The name of the middleware. Used when applying middleware to a scope.
-     * @param \Psr\Http\Server\IRoutingMiddleware|\/*Closure|*/ string mymiddleware The middleware to register.
-     */
-    void registerMiddleware(string routings, IRoutingMiddleware|/*Closure|*/ string mymiddleware) {
-       _collection.registerMiddleware(routings, mymiddleware);
-    }
-    
+     * @param \Psr\Http\Server\IRoutingMiddleware|\/*Closure|*/
+    string mymiddleware The middleware to register.
+        *  /
+        void registerMiddleware(string routings, IRoutingMiddleware |  /*Closure|*/ string mymiddleware) {
+            _collection.registerMiddleware(routings, mymiddleware);
+        }
+
     /**
      * Apply one or many middleware to the current route scope.
      *
@@ -826,33 +839,25 @@ class DRouteBuilder {
      * Params:
      * string ...routingss The names of the middleware to apply to the current scope.
      */
-    void applyMiddleware(string ...routingss) {
-        foreach (routingss as routings) {
+    void applyMiddleware(string...routingss) {
+        foreach (routings; routingss) {
             if (!_collection.middlewareExists(routings)) {
-                mymessage = "Cannot apply "routings" middleware or middleware group. " .
-                    "Use registerMiddleware() to register middleware.";
+                auto mymessage = "Cannot apply " routings" middleware or middleware group. "
+                    ."Use registerMiddleware() to register middleware.";
                 throw new DInvalidArgumentException(mymessage);
             }
         }
-        this.middleware = array_unique(chain(this.middleware, routingss));
+        _middleware = array_unique(chain(_middleware, routingss));
     }
-    
-    /**
-     * Get the middleware that this builder will apply to routes.
-     *
-     */
+
+    // Get the middleware that this builder will apply to routes.
     Json[string] getMiddleware() {
         return _middleware;
     }
-    
-    /**
-     * Apply a set of middleware to a group
-     * Params:
-     * string routings Name of the middleware group
-     * @param string[] mymiddlewareNames Names of the middleware
-     */
-    auto middlewareGroup(string routings, Json[string] mymiddlewareNames) {
-       _collection.middlewareGroup(routings, mymiddlewareNames);
+
+    // Apply a set of middleware to a group
+    auto middlewareGroup(string groupName, Json[string] middlewareNames) {
+        _collection.middlewareGroup(groupName, middlewareNames);
 
         return this;
     }

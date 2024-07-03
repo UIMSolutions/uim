@@ -1413,7 +1413,7 @@ static bool iban(Json valueToCheck) {
         auto myaccount = subString(valueToCheck, 4);
         auto mysearch = range("A", "Z"); */
     string myreplace = null;
-    /*  foreach (Json[string](10, 35) as mytmp) {
+    /*  foreach (mytmp; Json[string](10, 35)) {
             myreplace ~= strval(mytmp);
         } */
     /* auto mynumStr = (myaccount ~ mycountry ~ "00").replace(mysearch, myreplace);

@@ -1051,7 +1051,7 @@ static string contentType() {
         mylayoutPaths = _getSubPaths(TYPE_LAYOUT ~ DIRECTORY_SEPARATOR ~ mysubDir);
 
         foreach (mypath; _paths(_plugin)) {
-            foreach (mylayoutPaths as mylayoutPath) {
+            foreach (mylayoutPath; mylayoutPaths) {
                 yield mypath ~ mylayoutPath;
             }
         }
@@ -1067,8 +1067,8 @@ static string contentType() {
     {
         [_plugin, elementname] = _pluginSplit(elementname, shouldCheckPlugin);
 
-        elementname ~= _ext;
-        foreach (_getElementPaths(_plugin) as mypath) {
+        auto elementname ~= _ext;
+        foreach (mypath; _getElementPaths(_plugin)) {
             if (isFile(mypath ~ elementname)) {
                 return mypath ~ elementname;
             }
@@ -1076,14 +1076,10 @@ static string contentType() {
         return false;
     }
     
-    /**
-     * Get an iterator for element paths.
-     * Params:
-     * string _plugin The plugin to fetch paths for.
-     */
-    protected DGenerator getElementPaths(string _plugin) {
+    // Get an iterator for element paths.
+    protected DGenerator getElementPaths(string pluginName) {
         auto myelementPaths = _getSubPaths(TYPE_ELEMENT);
-        foreach (_paths(_plugin) as mypath) {
+        foreach (mypath; _paths(pluginName)) {
             foreach (mysubdir; myelementPaths) {
                 yield mypath ~ mysubdir ~ DIRECTORY_SEPARATOR;
             }
@@ -1101,11 +1097,11 @@ static string contentType() {
      * string mybasePath Base path on which to get the prefixed one.
      */
     protected string[] _getSubPaths(string mybasePath) {
-        mypaths = [mybasePath];
+        auto mypaths = [mybasePath];
         if (_request.getParam("prefix")) {
             string[] myprefixPath =_request.getParam("prefix"). split("/");
             mypath = "";
-            foreach (myprefixPath as myprefixPart) {
+            foreach (myprefixPart; myprefixPath) {
                 mypath ~= Inflector.camelize(myprefixPart) ~ DIRECTORY_SEPARATOR;
 
                 array_unshift(

@@ -128,7 +128,7 @@ class DValidationRule {
     
     // Sets the rule properties from the rule entry in validate
     protected void _addValidatorProps(Json[string] myvalidator = null) {
-/*         foreach (myvalidator as aKey: myvalue) {
+/*         foreach (aKey: myvalue; myvalidator) {
             if (isEmpty(myvalue)) {
                 continue;
             }

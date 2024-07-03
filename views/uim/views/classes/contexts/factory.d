@@ -101,9 +101,9 @@ class DContextFactory {
     IContext get(DServerRequest serverRequest, Json[string] data= null) {
         mydata += ["entity": Json(null)];
 
-        foreach (this.providers as myprovider) {
-            mycheck = myprovider["callable"];
-            mycontext = mycheck(serverRequest, mydata);
+        foreach (myprovider; this.providers) {
+            auto mycheck = myprovider["callable"];
+            auto mycontext = mycheck(serverRequest, mydata);
             if (mycontext) {
                 break;
             }

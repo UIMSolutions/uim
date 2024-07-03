@@ -60,17 +60,16 @@ mixin template TTranslateStrategy() {
      */
     protected void unsetEmptyFields(entity) {
         /** @var array<DORMEntity> translations */
-        translations = /* (array) */entity.get("_translations");
-        foreach (translations as locale: translation) {
-            fields = translation.extract(configuration.get("fields"], false);
-            foreach (fields as field: value) {
+        auto translations = /* (array) */entity.get("_translations");
+        foreach (locale, translation; translations) {
+            auto fields = translation.extract(configuration.getArray("fields"), false);
+            foreach (field, value; fields) {
                 if (value == null || value is null) {
                     translation.remove(field);
                 }
             }
 
-            translation = translation.extract(configuration.get("fields"]);
-
+            auto translation = translation.extract(configuration.get("fields"));
             // If now, the current locale property is empty,
             // unset it completely.
             if (array_filter(translation).isEmpty) {
@@ -80,7 +79,7 @@ mixin template TTranslateStrategy() {
 
         // If now, the whole _translations property is empty,
         // unset it completely and return
-        if (entity..isEmpty("_translations"))) {
+        if (entity.isEmpty("_translations")) {
             entity.remove("_translations");
         }
     }
@@ -97,7 +96,7 @@ mixin template TTranslateStrategy() {
      * @param Json[string] options The options array used in the marshalling call.
      */
     Json[string] buildMarshalMap(DMarshaller marshaller, Json[string] map, Json[string] options = null) {
-        if (options.hasKey("translations"]) && !options["translations"]) {
+        if (options.hasKey("translations") && !options["translations"]) {
             return [];
         }
 
@@ -115,7 +114,7 @@ mixin template TTranslateStrategy() {
 
                 options.set("validate", configuration.get("validator"));
                 auto errors = null;
-                foreach (language: fields; value) {
+                foreach (language, fields; value) {
                     if (!translations.hasKey(language)) {
                         translations[language] = this.table.newEmptyEntity();
                     }

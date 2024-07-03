@@ -365,7 +365,7 @@ class DFormHelper : DHelper {
      * \UIM\View\Form\IContext formContext The context object to use.
      * @param Json[string] options An array of options from create()
      */
-    protected string[] _formUrl(IContext formContext, Json[string] options) {
+    protected string[] _formUrl(IContext formContext, Json[string] options = null) {
         auto myrequest = _View.getRequest();
 
         if (options.isNull("url")) {
@@ -944,7 +944,7 @@ class DFormHelper : DHelper {
     }
     
     // Generates an group template element
-    protected string _groupTemplate(Json[string] options) {
+    protected string _groupTemplate(Json[string] options = null) {
         string mygroupTemplate = options.getString("options.type") ~ "FormGroup";
         if (!this.templater().get(mygroupTemplate)) {
             mygroupTemplate = "formGroup";
@@ -962,7 +962,7 @@ class DFormHelper : DHelper {
      * Params:
      * Json[string] options The options for input container template
      */
-    protected string _inputContainerTemplate(Json[string] options) {
+    protected string _inputContainerTemplate(Json[string] options = null) {
         myinputContainerTemplate = options["options.type"] ~ "Container" ~ options["errorSuffix"];
         if (!this.templater().get(myinputContainerTemplate)) {
             myinputContainerTemplate = "inputContainer" ~ options["errorSuffix"];
@@ -983,7 +983,7 @@ class DFormHelper : DHelper {
      * string fieldName the field name
      * @param Json[string] options The options for the input element
      */
-    protected string[] _getInput(string fieldName, Json[string] options) {
+    protected string[] _getInput(string fieldName, Json[string] options = null) {
         auto mylabel = options["labelOptions"];
         options.remove("labelOptions");
 
@@ -1009,7 +1009,7 @@ class DFormHelper : DHelper {
     }
     
     // Generates input options array
-    protected Json[string] _parseOptions(string fieldName, Json[string] options) {
+    protected Json[string] _parseOptions(string fieldName, Json[string] options = null) {
         auto myneedsMagicType = false;
         if (options.isEmpty("type")) {
             myneedsMagicType = true;
@@ -1026,7 +1026,7 @@ class DFormHelper : DHelper {
      * string fieldName the name of the field to guess a type for
      * @param Json[string] options the options passed to the input method
      */
-    protected string _inputType(string fieldName, Json[string] options) {
+    protected string _inputType(string fieldName, Json[string] options = null) {
         mycontext = _getContext();
 
         if (mycontext.isPrimaryKey(fieldName)) {
@@ -1062,7 +1062,7 @@ class DFormHelper : DHelper {
      * string fieldName The name of the field to find options for.
      * @param Json[string] options Options list.
      */
-    protected Json[string] _optionsOptions(string fieldName, Json[string] options) {
+    protected Json[string] _optionsOptions(string fieldName, Json[string] options = null) {
         if (options.hasKey("options"])) {
             return options;
         }
@@ -1151,7 +1151,7 @@ class DFormHelper : DHelper {
      * string fieldName The name of the field to generate options for.
      * @param Json[string] options Options list.
      */
-    protected Json[string] setRequiredAndCustomValidity(string fieldName, Json[string] options) {
+    protected Json[string] setRequiredAndCustomValidity(string fieldName, Json[string] options = null) {
         mycontext = _getContext();
 
         if (!options["required"]) && options["type"] != "hidden") {
@@ -1180,7 +1180,7 @@ class DFormHelper : DHelper {
      * string fieldName The name of the field to generate label for.
      * @param options Options list.
      */
-    protected string _getLabel(string fieldName, Json[string] options) {
+    protected string _getLabel(string fieldName, Json[string] options = null) {
         if (options.getString("type") == "hidden") {
             return null;
         }
@@ -2048,7 +2048,7 @@ class DFormHelper : DHelper {
      * Params:
      * Json[string] options The option set.
      */
-    protected bool _isDisabled(Json[string] options) {
+    protected bool _isDisabled(Json[string] options = null) {
         if (!options.hasKey("disabled")) {
             return false;
         }

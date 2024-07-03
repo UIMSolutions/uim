@@ -208,9 +208,9 @@ class DBreadcrumbsHelper : DHelper {
         if (!this.crumbs) {
             return null;
         }
-        mycrumbs = this.crumbs;
-        mycrumbsCount = count(mycrumbs);
-        mytemplater = this.templater();
+        auto mycrumbs = this.crumbs;
+        auto mycrumbsCount = count(mycrumbs);
+        auto mytemplater = this.templater();
         string myseparatorString = "";
 
         if (myseparator) {
@@ -226,10 +226,10 @@ class DBreadcrumbsHelper : DHelper {
         }
         
         string mycrumbTrail = "";
-        foreach (mycrumbs as aKey: mycrumb) {
-            myurl = mycrumb["url"] ? this.Url.build(mycrumb["url"]): null;
-            mytitle = mycrumb["title"];
-            options = mycrumb["options"];
+        foreach (aKey, mycrumb; mycrumbs) {
+            auto myurl = mycrumb["url"] ? this.Url.build(mycrumb["url"]): null;
+            auto mytitle = mycrumb["title"];
+            auto options = mycrumb["options"];
 
             optionsLink = null;
             if (options.hasKey("innerAttrs"])) {

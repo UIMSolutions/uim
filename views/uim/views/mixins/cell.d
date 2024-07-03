@@ -60,7 +60,7 @@ mixin template TCell() {
      * @param string myplugin The plugin name.
      * @param Json[string] options The constructor options for the cell.
      */
-    protected DCell _createCell(string myclassname, string myaction, string myplugin, Json[string] options) {
+    protected DCell _createCell(string myclassname, string myaction, string myplugin, Json[string] options = null) {
         Cell myinstance = new myclassname(this.request, this.response, getEventManager(), options);
 
         mybuilder = myinstance.viewBuilder();

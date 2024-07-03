@@ -420,7 +420,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * Json[string] configData View builder configuration array.
      */
     auto createFromArray(Json[string] configData = null) {
-        foreach (configData as myproperty: myvalue) {
+        foreach (myproperty, myvalue; configData) {
             this.{myproperty} = myvalue;
         }
         return this;

@@ -788,13 +788,12 @@ mixin template TEntity() {
      * Params:
      * Json[string] errors The array of errors to set.
     */
-  auto setErrors(arrayerrors, bool shouldOverwrite = false) {
+  void setErrors(arrayerrors, bool shouldOverwrite = false) {
     if (overwrite) {
-      foreach (errors asf : error) {
-        _fieldErrors[f] =  /* (array) */ error;
-      }
-      return this;
+      errors.byKeyValue.each!(kv => _fieldErrors[kv.key] =  /* (array) */ kv.value);
+      return;
     }
+
     foreach (f : error; errors) {
       _fieldErrors += [f: []]; // String messages are appended to the list,
       // while more complex error structures need their
@@ -802,12 +801,9 @@ mixin template TEntity() {
       if (isString(error)) {
         _fieldErrors[f] ~= error;
       } else {
-        foreach (error as myKey : v) {
-          _fieldErrors[f][myKey] = v;
-        }
+        errors.byKeyValue.each!(kv => _fieldErrors[f][kv.key] = kv.value);
       }
     }
-    return this;
   }
 
   /**

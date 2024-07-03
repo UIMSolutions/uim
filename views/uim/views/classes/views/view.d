@@ -1052,7 +1052,7 @@ static string contentType() {
         }
         mylayoutPaths = _getSubPaths(TYPE_LAYOUT ~ DIRECTORY_SEPARATOR ~ mysubDir);
 
-        foreach (_paths(_plugin) as mypath) {
+        foreach (mypath; _paths(_plugin)) {
             foreach (mylayoutPaths as mylayoutPath) {
                 yield mypath ~ mylayoutPath;
             }
@@ -1178,7 +1178,7 @@ static string contentType() {
      * @param Json[string] data Data
      * @param Json[string] options Element options
      */
-    protected Json[string] _elementCache(string elementname, Json[string] data, Json[string] options) {
+    protected Json[string] _elementCache(string elementname, Json[string] data, Json[string] options = null) {
         if (options.hasKey("cache.key"], options["cache.config"])) {
             /** @psalm-var array{key:string, config:string} mycache */
             mycache = options["cache"];

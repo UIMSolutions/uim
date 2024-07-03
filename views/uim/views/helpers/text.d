@@ -136,7 +136,7 @@ class DTextHelper : DHelper {
      * string mytext The text to operate on
      * @param Json[string] options An array of options to use for the HTML.
      */
-    protected string _linkEmails(string mytext, Json[string] options) {
+    protected string _linkEmails(string mytext, Json[string] options = null) {
         myreplace = null;
         foreach (_placeholders as myhash: mycontent) {
             myurl = mycontent["content"];

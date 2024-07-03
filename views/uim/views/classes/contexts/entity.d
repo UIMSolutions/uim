@@ -92,7 +92,7 @@ class DEntityContext : DContext {
         if (mytable.isEmpty) {
             if (_isCollection) {
                 /** @var iterable<\UIM\Datasource\IEntity|array> myentity */
-                foreach (myentity as mye) {
+                foreach (mye; myentity) {
                     myentity = mye;
                     break;
                 }

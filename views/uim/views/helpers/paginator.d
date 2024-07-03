@@ -635,7 +635,7 @@ class DPaginatorHelper : DHelper {
      * @param Json[string] options Options from the numbers() method.
      */
                                                                             protected Json[string] _getNumbersStartAndEnd(
-                                                                                Json[string] myparams, Json[string] options) {
+                                                                                Json[string] myparams, Json[string] options = null) {
                                                                                 myhalf = (int)(
                                                                                     options["modulus"] / 2);
                                                                                     myend = max(1 + options["modulus"], myparams["currentPage"] + myhalf);
@@ -674,7 +674,7 @@ class DPaginatorHelper : DHelper {
 
                                                                             // Formats a number for the paginator number output.
                                                                             protected string _formatNumber(
-                                                                                DStringContents mytemplater, Json[string] options) {
+                                                                                DStringContents mytemplater, Json[string] options = null) {
                                                                                 myvars = [
                                                                                     "text": options["text"],
                                                                                     "url": generateUrl(
@@ -689,7 +689,7 @@ class DPaginatorHelper : DHelper {
 
                                                                             // Generates the numbers for the paginator numbers() method.
                                                                             protected string _modulusNumbers(
-                                                                                DStringContents mytemplater, Json[string] myparams, Json[string] options) {
+                                                                                DStringContents mytemplater, Json[string] myparams, Json[string] options = null) {
                                                                                 string result = "";
                                                                                     myellipsis = mytemplater.format(
                                                                                         "ellipsis", [
@@ -761,7 +761,7 @@ class DPaginatorHelper : DHelper {
      * @param Json[string] options Options from the numbers() method.
          */
                                                                             protected string _firstNumber(
-                                                                                string myellipsis, Json[string] myparams, int mystart, Json[string] options) {
+                                                                                string myellipsis, Json[string] myparams, int mystart, Json[string] options = null) {
                                                                                 string result = "";
                                                                                     myfirst = isInteger(
                                                                                         options["first"]) ? options["first"] : 0;
@@ -786,7 +786,7 @@ class DPaginatorHelper : DHelper {
      * @param Json[string] options Options from the numbers() method.
      */
                                                                             protected string _lastNumber(
-                                                                                string myellipsis, Json[string] myparams, int myend, Json[string] options) {
+                                                                                string myellipsis, Json[string] myparams, int myend, Json[string] options = null) {
                                                                                 string result = "";
                                                                                     mylast = isInteger(
                                                                                         options["last"]) ? options["last"] : 0;
@@ -807,7 +807,7 @@ class DPaginatorHelper : DHelper {
      * @param Json[string] myparams Params from the numbers() method.
      */
                                                                             protected string _numbers(
-                                                                                DStringContents mytemplater, Json[string] myparams, Json[string] options) {
+                                                                                DStringContents mytemplater, Json[string] myparams, Json[string] options = null) {
                                                                                 string result = "";
                                                                                     result ~= options.getString(
                                                                                         "before");

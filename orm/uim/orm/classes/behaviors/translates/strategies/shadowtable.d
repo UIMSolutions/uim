@@ -382,7 +382,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         // entity persists.
         if (noFields && bundled && !id) {
             foreach (
-                translatedFields() as field) {
+                field; translatedFields()) {
                 entity.setDirty(field, true);
             }
 

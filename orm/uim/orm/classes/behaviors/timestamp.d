@@ -132,9 +132,9 @@ class DTimestampBehavior : DBehavior {
             return false;
         }
         result = false;
-        myrefresh = configuration.get("refreshTimestamp"];
+        myrefresh = configuration.get("refreshTimestamp");
 
-        foreach (myevents[myeventName] as fieldName: mywhen) {
+        foreach (fieldName: mywhen; myevents[myeventName]) {
             if (isIn(mywhen, ["always", "existing"], true)) {
                 result = true;
                 myentity.setDirty(fieldName, false);

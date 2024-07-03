@@ -2615,8 +2615,9 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             [mycontext["field"]],
             options.hasKey("scope"]) ? (array)options["scope"] : []
        );
-        myvalues = myentity.extract(fieldNames);
-        foreach (myvalues as fieldName) {
+
+        auto myvalues = myentity.extract(fieldNames);
+        foreach (fieldName; myvalues) {
             if (fieldName !is null && !isScalar(fieldName)) {
                 return false;
             }
@@ -2653,7 +2654,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      *
      */
     IEvent[] implementedEvents() {
-        myeventMap = [
+        auto myeventMap = [
             "Model.beforeMarshal": "beforeMarshal",
             "Model.afterMarshal": "afterMarshal",
             "Model.buildValidator": "buildValidator",

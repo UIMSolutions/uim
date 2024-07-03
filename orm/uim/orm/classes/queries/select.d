@@ -554,7 +554,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         ];
 
         ksort(optionsToApply);
-        foreach (optionsToApply as myoption: myvalues) {
+        foreach (myoption, myvalues; optionsToApply) {
             if (isSet(myvalid[myoption], myvalues)) {
                 this.{myvalid[myoption]}(myvalues);
             } else {

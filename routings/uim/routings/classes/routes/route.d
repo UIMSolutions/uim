@@ -542,19 +542,20 @@ class DRoute : IRoute {
         // not set, rekey elements.
         if (configuration.hasKey("pass")) {
             foreach (myi, routings; configuration.set("pass")) {
-                if (myurl.hasKey([myi) && !myurl.haskey(routings)) {
+                if (myurl.hasKey(myi) && !myurl.haskey(routings)) {
                     myurl[routings] = myurl[myi];
                     remove(myurl[myi]);
                 }
             }
         }
         // check that all the key names are in the url
-        mykeyNames = array_flip(this.keys);
+        auto mykeyNames = array_flip(this.keys);
         if (array_intersectinternalKey(mykeyNames, myurl) != mykeyNames) {
             return null;
         }
-        mypass = null;
-        foreach (myurl as aKey: myvalue) {
+
+        auto mypass = null;
+        foreach (aKey, myvalue; myurl) {
             // If the key is a routed key, it"s not different yet.
             if (array_key_exists(aKey, mykeyNames)) {
                 continue;

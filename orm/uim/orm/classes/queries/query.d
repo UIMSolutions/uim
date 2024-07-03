@@ -1040,13 +1040,11 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         this.select(select, true);
     }
 
-    /**
-     * Sets the default types for converting the fields in the select clause
-     */
+    // Sets the default types for converting the fields in the select clause
     protected void _addDefaultSelectTypes() {
-        typeMap = getTypeMap().getDefaults();
-        select = this.clause("select");
-        types = null;
+        auto typeMap = getTypeMap().getDefaults();
+        auto select = this.clause("select");
+        auto types = null;
 
         foreach (aliasName, value; select) {
             if (cast(ITypedResult)value) {

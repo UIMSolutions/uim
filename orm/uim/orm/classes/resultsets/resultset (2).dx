@@ -397,7 +397,7 @@ class DResultset : IResultset {
             }
         }
 
-        foreach (_map as table: keys) {
+        foreach (table, keys; _map) {
             results[table] = array_combine(keys, array_intersectinternalKey(row, keys));
             presentAliases[table] = true;
         }

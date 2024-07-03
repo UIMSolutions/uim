@@ -660,7 +660,8 @@ class DRouter {
         if (_routePaths.haskey(myurl)) {
             return _routePaths[myurl];
         }
-        myregex = "#^
+        
+        auto myregex = "#^
             (?:(?<plugin>[a-z0-9]+(?:/[a-z0-9]+)*)\.)?
             (?:(?<prefix>[a-z0-9]+(?:/[a-z0-9]+)*)/)?
             (?<controller>[a-z0-9]+)
@@ -674,7 +675,8 @@ class DRouter {
         if (!preg_match(myregex, myurl, mymatches)) {
             throw new DInvalidArgumentException("Could not parse a string route path `%s`.".format(myurl));
         }
-        mydefaults = [
+        
+        auto mydefaults = [
             "controller": mymatches["controller"],
             "action": mymatches["action"],
         ];
@@ -684,9 +686,9 @@ class DRouter {
         if (!mymatches["prefix"].isEmpty) {
             mydefaults["prefix"] = mymatches["prefix"];
         }
-        if (mymatches.hasKey("params") && !mymatches["params"].isEmpty) {
+        if (mymatches.hasKey("params") && !mymatches.isEmpty("params")) {
             string[] myparamsArray = strip(mymatches["params"], "/").split("/");
-            foreach (myparamsArray as myparam) {
+            foreach (myparam; myparamsArray) {
                 if (indexOf(myparam, "=") == true) {
                     if (!preg_match("/(?<key>.+?)=(?<value>.*)/", myparam, myparamMatches)) {
                         throw new DInvalidArgumentException(
@@ -699,7 +701,7 @@ class DRouter {
                             "Param key `{myparamKey}` is not valid in route path `{myurl}`."
                        );
                     }
-                    mydefaults[myparamKey] = strip(myparamMatches["value"], "\""");
+                    mydefaults[myparamKey] = myparamMatches["value"].strip(`"`);
                 } else {
                     mydefaults ~= myparam;
                 }

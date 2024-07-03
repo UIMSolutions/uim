@@ -598,17 +598,18 @@ class DRouteBuilder {
     protected DRoute _makeRoute(Route | string myroute, Json[string] mydefaults, Json[string] options = null) {
         if (isString(myroute)) {
             /** @var class-string<\UIM\Routing\Route\Route>|null myrouteClass */
-            myrouteClass = App.classname(options["routeClass"], "Routing/Route");
+            auto myrouteClass = App.classname(options["routeClass"], "Routing/Route");
             if (myrouteClass.isNull) {
                 throw new DInvalidArgumentException(
                     "Cannot find route class %s".format(options["routeClass"])
                 );
             }
-            myroute = (_path ~ myroute).replace("//", "/");
+            
+            string myroute = (_path ~ myroute).replace("//", "/");
             if (myroute != "/") {
                 myroute = stripRight(myroute, "/");
             }
-            foreach (_params as myparam : myval) {
+            foreach (myparam, myval; _params) {
                 if (isSet(mydefaults[myparam]) && myparam != "prefix" && mydefaults[myparam] != myval) {
                     mymsg = "You cannot define routes that conflict with the scope. "
                         ."Scope had %s = %s, while route had %s = %s";

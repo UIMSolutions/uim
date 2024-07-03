@@ -296,7 +296,6 @@ class DDebugger {
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      *
      * @param \Throwable|array backtrace Trace as array or an exception object.
-     * @param Json[string] options Format for outputting stack trace.
      */
     static /* array| */string formatTrace(backtrace, Json[string] options = null) {
         if (cast(Throwable) backtrace) {
@@ -605,7 +604,7 @@ protected static DArrayNode exportArray(Json[string] valueToExport, DDebugContex
 /**
      * Handles object to node conversion.
      *
-     * @param object var Object to convert.
+     * @param object objToConvert Object to convert.
      * @param uim.errors.debugs.DDebugContext context The dump context.
      */
 protected static IErrorNode exportObject(object objToConvert, DDebugContext context) {
@@ -620,9 +619,9 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext cont
 
     auto remaining = context.remainingDepth();
     if (remaining > 0) {
-        if (method_exists(var, "__debugInfo")) {
+        if (method_exists(objToConvert, "__debugInfo")) {
             try {
-                foreach (key , val;  /* (array) */ var.__debugInfo()) {
+                foreach (key , val;  /* (array) */ objToConvert.__debugInfo()) {
                     node.addProperty(new DPropertyNode("" {
                             key
                         }
@@ -636,7 +635,7 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext cont
         }
 
         auto outputMask = outputMask();
-        auto objectVars = get_object_vars(var);
+        auto objectVars = get_object_vars(objToConvert);
         foreach (key, value; objectVars) {
             if (array_key_exists(key, outputMask)) {
                 value = outputMask[key];
@@ -647,7 +646,7 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext cont
             );
         }
 
-        auto reflectionObject = new DReflectionObject(var);
+        auto reflectionObject = new DReflectionObject(objToConvert);
 
         auto filters = [
             ReflectionProperty.IS_PROTECTED: "protected",
@@ -658,9 +657,9 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext cont
             foreach (reflectionProperty; reflectionProperties) {
                 reflectionProperty.setAccessible(true);
 
-                value = method_exists(reflectionProperty, "isInitialized") && !reflectionProperty.isInitialized(var)
+                value = method_exists(reflectionProperty, "isInitialized") && !reflectionProperty.isInitialized(objToConvert)
                     ? new DSpecialNode(
-                        "[uninitialized]") : export_(reflectionProperty.getValue(var), context.withAddedDepth());
+                        "[uninitialized]") : export_(reflectionProperty.getValue(objToConvert), context.withAddedDepth());
 
                 node.addProperty(
                     new DPropertyNode(
@@ -676,12 +675,9 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext cont
     return node;
 }
 
-/**
-     * Get the type of the given variable. Will return the class name
-     * for objects.
-     */
-static string getType(Json var) {
-    type = getTypeName(var);
+// Get the type of the given variable. Will return the class name for objects.
+static string getType(Json value) {
+    auto type = getTypeName(value);
 
     if (type == "NULL") {
         return "null";

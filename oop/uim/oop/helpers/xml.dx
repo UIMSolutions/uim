@@ -109,15 +109,15 @@ class Xml {
      * Params:
      * string myinput The input to load.
      */
-    protected static SimpleXMLElement | DOMDocument _loadXml(string myinput, Json[string] options = null) {
+    protected static SimpleXMLElement | DOMDocument _loadXml(string inputToLoad, Json[string] options = null) {
         return load(
-            myinput,
+            inputToLoad,
             options,
-            auto(myinput, options, myflags) {
+            auto(inputToLoad, options, myflags) {
             if (options["return"] == "simplexml" || options["return"] == "simplexmlelement") {
-                myflags |= LIBXML_NOCDATA; myxml = new DSimpleXMLElement(myinput, myflags);
+                myflags |= LIBXML_NOCDATA; myxml = new DSimpleXMLElement(inputToLoad, myflags);
             } else {
-                myxml = new DOMDocument(); myxml.loadXML(myinput, myflags);}
+                myxml = new DOMDocument(); myxml.loadXML(inputToLoad, myflags);}
                 return myxml;}
                 );
             }
@@ -125,10 +125,9 @@ class Xml {
             /**
      * Parse the input html string and create either a SimpleXmlElement object or a DOMDocument.
      * Params:
-     * string myinput The input html string to load.
-     * @param Json[string] options The options to use. See Xml.build()
+     * string inputToLoad The input html string to load.
      */
-            static SimpleXMLElement | DOMDocument loadHtml(string myinput, Json[string] options = null) {
+            static SimpleXMLElement | DOMDocument loadHtml(string inputToLoad, Json[string] options = null) {
                 Json[string] defaultData = [
                     "return": "simplexml",
                     "loadEntities": false.toJson,
@@ -136,10 +135,10 @@ class Xml {
                 options = options.add(defaultData);
 
                 return load(
-                    myinput,
+                    inputToLoad,
                     options,
-                    auto(myinput, options, myflags) {
-                    myxml = new DOMDocument(); myxml.loadHTML(myinput, myflags); if (
+                    auto(inputToLoad, options, myflags) {
+                    myxml = new DOMDocument(); myxml.loadHTML(inputToLoad, myflags); if (
                         options["return"] == "simplexml" || options["return"] == "simplexmlelement") {
                         myxml = simplexml_import_dom(myxml);}
                         return myxml;}
@@ -149,11 +148,11 @@ class Xml {
                     /**
      * Parse the input data and create either a SimpleXmlElement object or a DOMDocument.
      * Params:
-     * string myinput The input to load.
+     * string inputToLoad The input to load.
      * @param Json[string] options The options to use. See Xml.build()
      * @param \Closure mycallable Closure that should return SimpleXMLElement or DOMDocument instance.
      */
-                    protected static SimpleXMLElement | DOMDocument load(string myinput, Json[string] options, Closure mycallable) {
+                    protected static SimpleXMLElement | DOMDocument load(string inputToLoad, Json[string] options, Closure mycallable) {
                         myflags = 0;
                         if (!options.isEmpty("parseHuge"])) {
                             myflags |= LIBXML_PARSEHUGE;
@@ -163,7 +162,7 @@ class Xml {
                             myflags |= LIBXML_NOENT;
                         }
                         try {
-                            return mycallable(myinput, options, myflags);
+                            return mycallable(inputToLoad, options, myflags);
                         } catch (Exception mye) {
                             throw new XmlException("Xml cannot be read. " ~ mye.getMessage(), null, mye);
                         } finally {
@@ -207,7 +206,6 @@ class Xml {
      * `<root><tag id="1" value="defect">description</tag></root>`
      * Params:
      * object|array myinput Array with data or a collection instance.
-     * @param Json[string] options The options to use.
      */
                     static SimpleXMLElement | DOMDocument fromArray(object | array myinput, Json[string] options = null) {
                         if (isObject(myinput) && method_exists(myinput, "toArray") && isCallable([myinput, "toArray"])) {

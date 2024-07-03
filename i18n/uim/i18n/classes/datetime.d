@@ -393,7 +393,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *
      * - `from`: another Time object representing the "now" time
      * - `format`: a fall back format if the relative time is longer than the duration specified by end
-     * - `accuracy`: Specifies how accurate the date should be described /* (array) */
+     * - `accuracy`: Specifies how accurate the date should be described /* (array) * /
      *   - year:   The format if years > 0   (default "day")
      *   - month:  The format if months > 0  (default "day")
      *   - week:   The format if weeks > 0   (default "day")
@@ -418,9 +418,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * like 'Posted ' before the auto output.
      *
      * NOTE: If the difference is one week or more, the lowest level of accuracy is day
-     * Params:
-     * Json[string] options Array of options.
-     */
+      */
     string timeAgoInWords(Json[string] options = null) {
         return diffFormatter().timeAgoInWords(this, options);
     }

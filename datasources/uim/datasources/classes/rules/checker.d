@@ -152,7 +152,6 @@ class DRulesChecker {
      * Runs each of the rules by passing the provided entity and returns true if all
      * of them pass. The rules to be applied are depended on the mode parameter which
      * can only be RulesChecker.CREATE, RulesChecker.UPDATE or RulesChecker.DELETE
-     * Params:
      */
     bool check(IDatasourceEntity entity, string checkMode /* 'create, "update' or 'delete'*/ , Json[string] options = null) {
         if (checkMode == CREATE) {

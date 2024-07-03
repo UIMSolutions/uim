@@ -121,7 +121,6 @@ class DNumber {
      *  numbers representing money.
      * Params:
      * string avalue A numeric string.
-     * @param Json[string] options An array with options.
      */
     static float parseFloat(string avalue, Json[string] options = null) {
         formatter = formatter(options);
@@ -141,14 +140,12 @@ class DNumber {
      * - `after` - The string to place after decimal numbers, e.g. "]'
      * Params:
      * Json aValue A floating point number
-     * @param Json[string] options Options list.
      */
-    static string formatDelta(Json aValue, Json[string] options = null) {
+    static string formatDelta(Json value, Json[string] options = null) {
         auto updatedOptions = options.update["places": 0];
-        aValue = number_format((float)aValue, options["places"], ".", "");
-        sign = aValue > 0 ? "+" : "";
-        options["before"] = options.hasKey("before"]) ? options["before"] ~ sign : sign;
-
+        auto doubleValue = number_format(value.getDouble, options["places"], ".", "");
+        auto sign = doubleValue > 0 ? "+" : "";
+        options.set("before", options.getString("before") ~ sign);
         return format(aValue, options);
     }
     
@@ -194,34 +191,24 @@ class DNumber {
         return before ~ formatter.formatCurrency(doubleValue, currency) ~ after;
     }
     
-    /**
-     * Getter for default currency
-     */
+    // Getter for default currency
     static string getDefaultCurrency() {
         if (_defaultCurrency.isNull) {
-            locale = ini_get("intl.default_locale") ?: DEFAULT_LOCALE;
-            formatter = new DNumberFormatter(locale, NumberFormatter.CURRENCY);
+            auto locale = ini_get("intl.default_locale") ?: DEFAULT_LOCALE;
+            auto formatter = new DNumberFormatter(locale, NumberFormatter.CURRENCY);
             _defaultCurrency = formatter.getTextAttribute(NumberFormatter.CURRENCY_CODE);
         }
         return _defaultCurrency;
     }
     
-    /**
-     * Setter for default currency
-     * Params:
-     * string currency Default currency string to be used by {@link currency()}
-     * if currency argument is not provided. If null is passed, it will clear the
-     * currently stored value
-     */
-    static void setDefaultCurrency(string acurrency = null) {
+    // Setter for default currency
+    static void setDefaultCurrency(string currency = null) {
         _defaultCurrency = currency;
     }
     
-    /**
-     * Getter for default currency format
-     */
-    static string|int|falseuto getDefaultCurrencyFormat() {
-        return _defaultCurrencyFormat ??= FORMAT_CURRENCY;
+    // Getter for default currency format
+    static string/* |int|falseuto */ getDefaultCurrencyFormat() {
+        return _defaultCurrencyFormat ? _defaultCurrencyFormat :  FORMAT_CURRENCY;
     }
     
     /**
@@ -283,14 +270,10 @@ class DNumber {
      * Configure formatters.
      * Params:
      * string alocale The locale name to use for formatting the number, e.g. fr_FR
-     * @param int type The formatter type to construct. Defaults to NumberFormatter.DECIMAL.
-     * @param Json[string] options See Number.formatter() for possible options.
      */
-    static void config(string alocale, int type = NumberFormatter.DECIMAL, Json[string] options = null) {
-        _formatters[locale][type] = _setAttributes(
-            new DNumberFormatter(locale, type),
-            options
-       );
+    static void config(string localeName, int formatterType = NumberFormatter.DECIMAL, Json[string] options = null) {
+        _formatters[localeName][formatterType] = _setAttributes(
+            new DNumberFormatter(localeName, type), options);
     }
     
     /**

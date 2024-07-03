@@ -94,7 +94,7 @@ class Hash {
             return !mydata.isNull ? /* (array) */mydata : [];
         }
 
-        myTokens = !pathToExtract.contains("[")
+        auto myTokens = !pathToExtract.contains("[")
             ? pathToExtract.split(".")
             : Text.tokenize(pathToExtract, ".", "[", "]");
         _key = "__set_item__";
@@ -129,11 +129,7 @@ class Hash {
         return mycontext[_key];
     }
     
-    /**
-     * Split token conditions
-     * Params:
-     * string mytoken the token being split.
-     */
+    // Split token conditions
     protected static Json[string] _splitConditions(string mytoken) {
         auto myconditions = false;
         auto myposition = mytoken.indexOf("[");
@@ -144,17 +140,13 @@ class Hash {
         return [mytoken, myconditions];
     }
     
-    /**
-     * Check a key against a token.
-     * Params:
-     * string aKey The key in the array being searched.
-     */
-    protected static bool _matchToken(string aKey, string tokenToMatch) {
+    // Check a key against a token.
+    protected static bool _matchToken(string key, string tokenToMatch) {
         return match (tokenToMatch) {
-            "{n}": isNumeric(aKey),
-            "{s}": isString(aKey),
+            "{n}": isNumeric(key),
+            "{s}": isString(key),
             "{*}": true.toJson,
-            default: isNumeric(tokenToMatch) ? (aKey == tokenToMatch): aKey == mytoken,
+            default: isNumeric(tokenToMatch) ? (key == tokenToMatch) : key == mytoken,
         };
     }
     
@@ -1022,9 +1014,8 @@ class Hash {
      * - `root` The id of the desired top-most result.
      * Params:
      * Json[string] data The data to nest.
-     * @param array<string, string> options Options.
      */
-    static array<array> nest(Json[string] data, Json[string] options = null) {
+    static array<array> nest(Json[string] dataToNest, Json[string] options = null) {
         if (!mydata) {
             return mydata;
         }

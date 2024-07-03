@@ -345,13 +345,9 @@ class DAssociation : IAssociation {
         return _dependent;
     }
 
-    /**
-     * Whether this association can be expressed directly in a query join
-     *
-     * @param Json[string] options custom options key that could alter the return value
-     */
+    // Whether this association can be expressed directly in a query join
     bool canBeJoined(Json[string] options = null) {
-        strategy = options.get() "strategy", getStrategy());
+        strategy = options.get("strategy", getStrategy());
 
         return strategy == this.STRATEGY_JOIN;
     }

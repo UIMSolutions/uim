@@ -649,13 +649,13 @@ class DH5 {
 //	string[] options;
 //	foreach(k, v; kvOptions) options ~= "%s=\"%s\"".format(k, v);
 //	return options.join(" "); }
-//string toString(string[] vOptions) { return vOptions.join(" "); }
+//string toString(string[] options) { return options.join(" "); }
 //
-//string dtag(string name, string content = null, STRINGAA kvOptions = null, string[] vOptions = null) {
+//string dtag(string name, string content = null, STRINGAA kvOptions = null, string[] options = null) {
 //	if (!name) { return content; }
 //	
 //	string kv; if (kvOptions) kv = " "~kvOptions.toString; 
-//	string v;  if (vOptions) v = " "~vOptions.toString; 
+//	string v;  if (options) v = " "~options.toString; 
 //	
 //	return "<"~name~kv~v~">"~content~"</"~name~">";
 //}

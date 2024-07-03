@@ -294,13 +294,11 @@ class DClient { // }: IClient {
      * Params:
      * string myurl The url or path you want to request.
      * @param Json requestData The request data you want to send.
-     * @param Json[string] requestOptions Additional requestOptions for the request.
      */
-  Response patch(string myurl, Json requestData = null, Json[string] options = null) {
+  Response patch(string requestUrl, Json valueToSend = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
-    auto myurl = buildUrl(myurl, [], requestOptions);
-
-    return _doRequest(Request.METHOD_PATCH, myurl, requestData, requestOptions);
+    auto url = buildUrl(requestUrl, [], requestOptions);
+    return _doRequest(Request.METHOD_PATCH, url, valueToSend, requestOptions);
   }
 
   /**
@@ -310,8 +308,8 @@ class DClient { // }: IClient {
      * requestOptions = Additional requestOptions for the request.
      */
   Response requestOptions(string urlToRequest, Json sendData = null, Json[string] requestOptions = null) {
-    requestOptions = _mergeOptions(requestOptions);
-    urlToRequest = buildUrl(urlToRequest, [], requestOptions);
+    auto requestOptions = _mergeOptions(requestOptions);
+    auto urlToRequest = buildUrl(urlToRequest, [], requestOptions);
 
     return _doRequest(Request.METHOD_OPTIONS, urlToRequest, sendData, requestOptions);
   }
@@ -324,10 +322,9 @@ class DClient { // }: IClient {
      * @param Json[string] requestOptions Additional requestOptions for the request.
      */
   Response trace(string myurl, Json sendData = null, Json[string] requestOptions = null) {
-    requestOptions = _mergeOptions(requestOptions);
-    myurl = buildUrl(myurl, [], requestOptions);
-
-    return _doRequest(Request.METHOD_TRACE, myurl, sendData, requestOptions);
+    auto requestOptions = _mergeOptions(requestOptions);
+    auto url = buildUrl(myurl, [], requestOptions);
+   return _doRequest(Request.METHOD_TRACE, myurl, sendData, requestOptions);
   }
 
   /**

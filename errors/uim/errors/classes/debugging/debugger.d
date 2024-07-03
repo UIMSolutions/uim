@@ -297,9 +297,8 @@ class DDebugger {
      *
      * @param \Throwable|array backtrace Trace as array or an exception object.
      * @param Json[string] options Format for outputting stack trace.
-     * @return array|string Formatted stack trace.
      */
-    static function formatTrace(backtrace, Json[string] options = null) {
+    static /* array| */string formatTrace(backtrace, Json[string] options = null) {
         if (cast(Throwable) backtrace) {
             backtrace = backtrace.getTrace();
         }
@@ -335,8 +334,7 @@ class DDebugger {
                 signature = reference = next["function"];
 
                 if (!next.isEmpty("class")) {
-                    string signature = next.getString(
-                        "class") ~ "." ~ next.getString("class") "function");
+                    string signature = next.getString("class") ~ "." ~ next.getString("class") "function");
                     reference = signature ~ "(";
                     if (options.isNull("args") && next.hasKey("args")) {
                         auto args = next["args"].map!(arg => Debugger.exportVar(arg)).array;
@@ -509,8 +507,6 @@ IErrorFormatter getExportFormatter() {
      *
      * This is done to protect database credentials, which could be accidentally
      * shown in an error message if UIM is deployed in development mode.
-     *
-     * @param int maxDepth The depth to output to. Defaults to 3.
      */
 static string exportVar(Json value, int maxOutputDepth = 3) {
     auto context = new DDebugContext(maxOutputDepth);
@@ -530,11 +526,9 @@ static string exportVarAsPlainText(Json value, int maxOutputDepth = 3) {
      *
      * The node tree can be manipulated and serialized more easily
      * than many object graphs can.
-     *
-     * @param int maxDepth The depth to generate nodes to. Defaults to 3.
      */
-static IErrorNode exportVarAsNodes(Json varToConvert, int maxDepth = 3) {
-    return export_(varToConvert, new DebugContext(maxDepth));
+static IErrorNode exportVarAsNodes(Json varToConvert, int maxOutputDepth = 3) {
+    return export_(varToConvert, new DebugContext(maxOutputDepth));
 }
 
 /**

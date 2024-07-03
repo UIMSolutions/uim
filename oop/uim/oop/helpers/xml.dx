@@ -332,7 +332,7 @@ class Xml {
                             "value": Json(null),
                         ];
 
-                        auto dataKey = mydata.get("key", null);
+                        string dataKey = mydata.getString("key");
                         if (dataKey.isNull) {
                             return;
                         }

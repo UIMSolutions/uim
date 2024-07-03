@@ -15,20 +15,14 @@ import uim.http;
  * when options["auth.type"] is 'oauth'
  */
 class DOauth {
-    /**
-     * Add headers for Oauth authorization.
-     * Params:
-     * \UIM\Http\Client\Request request The request object.
-     * @param Json[string] authCredentials Authentication authCredentials.
-     */
-    Request authentication(Request request, Json[string] authCredentials) {
+    // Add headers for Oauth authorization.
+    Request authentication(DRequest request, Json[string] authCredentials) {
         if (!authCredentials.hasKey("consumerKey")) {
             return request;
         }
-        if (authCredentials.isEmpty("method")) {
-            authCredentials["method"] = "hmac-sha1";
-        }
-        authCredentials["method"] = authCredentials.getString("method").upper;
+        authCredentials["method"] = authCredentials.isEmpty("method")
+            ? "hmac-sha1"
+            : authCredentials.getString("method").upper;
 
         switch (authCredentials["method"]) {
         case "HMAC-SHA1":

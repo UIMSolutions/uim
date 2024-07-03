@@ -48,7 +48,6 @@ class DCookie : ICookie {
      * @link https://D.net/manual/en/function.setcookie.d
      * @param string[]|float|bool cookieValue Value of the cookie
      * @param \IDateTime|null expiresAt Expiration time and date
-     * @param string domain Domain
      * @param \UIM\Http\Cookie\SameSiteEnum|string sameSite Samesite
      */
     this(
@@ -56,7 +55,7 @@ class DCookie : ICookie {
         string[]|float|bool cookieValue = "",
         IDateTime expiresAt = null,
         string path = null,
-        string adomain = null,
+        string domainName = null,
         bool isSecure = null,
         bool isHttpOnly = null,
         SameSiteEnum|string sameSite = null
@@ -66,7 +65,7 @@ class DCookie : ICookie {
 
        _setValue(cookieValue);
 
-        _domain = domain ?? defaultAttributes["domain"];
+        _domain = domainName ? domainName : defaultAttributes["domain"];
         _httpOnly = isHttpOnly ?? defaultAttributes["httponly"];
         this.path = path ? path : defaultAttributes["path"];
         this.isSecure = isSecure ?? defaultAttributes["isSecure"];
@@ -81,7 +80,7 @@ class DCookie : ICookie {
         } else {
             expiresAt = defaultAttributes["expires"];
         }
-        this.expiresAt = expiresAt;
+        _expiresAt = expiresAt;
     }
     
     /**
@@ -120,7 +119,7 @@ class DCookie : ICookie {
      */
     static static create(string cookieName, string[]|float|bool cookieValue, Json[string] options = null) {
         auto auto updatedOptions = options.updateoptions.update(defaultAttributes);
-        options["expires"] = dateTimeInstance(options["expires"]);
+        options.ser("expires", dateTimeInstance(options["expires"]));
 
         return new static(
             name,
@@ -226,7 +225,7 @@ class DCookie : ICookie {
 
         string[] aHeaderValue;
         aHeaderValue ~= "%s=%s".format(_name, rawUrlEncode(aValue));
-        if (this.expiresAt) {
+        if (_expiresAt) {
              aHeaderValue ~= "expires=%s".format(getFormattedExpires());
         }
         if (!this.path.isEmpty) {
@@ -373,14 +372,14 @@ class DCookie : ICookie {
     }
  
     int getExpiresTimestamp() {
-        if (!this.expiresAt) {
+        if (!_expiresAt) {
             return null;
         }
-        return (int)this.expiresAt.format("U");
+        return (int)_expiresAt.format("U");
     }
  
     string getFormattedExpires() {
-        if (!this.expiresAt) {
+        if (!_expiresAt) {
             return "";
         }
         return _expiresAt.format(EXPIRES_FORMAT);
@@ -391,7 +390,7 @@ class DCookie : ICookie {
         if (cast(DateTime)time) {
             time = clone time;
         }
-        if (!this.expiresAt) {
+        if (!_expiresAt) {
             return false;
         }
         return _expiresAt < time;

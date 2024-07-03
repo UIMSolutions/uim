@@ -191,9 +191,6 @@ class DEventManager { // }: IEventManager {
      *
      * - `callable` - The event handler closure
      * - `settings` - The event handler settings
-     * Params:
-     * \UIM\Event\DEventListener subscriber Event subscriber
-     * @param \Closure|array|string ahandler Event eventHandler
      */
     protected Json[string] normalizeHandler(DEventListener subscriber, /* Closure|array| */ string eventHandler) {
         // auto callable = eventHandler;

@@ -89,17 +89,17 @@ class DDebugger {
      */
     static string editorUrl(string afile, int lineNumber) {
         auto anInstance = getInstance();
-        editor = anInstance.configuration.get("editor");
+        auto editor = anInstance.configuration.get("editor");
         if (!anInstance.editors.hasKey(editor)) {
             throw new DInvalidArgumentException(
                 "Cannot format editor URL `%s` is not a known editor."
                     .format(editor));
         }
-        templateText = anInstance.editors[editor];
-        if (isString(template)) {
-            return template.replace(["{file}", "{lineNumber}"], [file, (string) lineNumber]);
+        auto templateText = anInstance.editors[editor];
+        if (isString(templateText)) {
+            return templateText.replace(["{file}", "{lineNumber}"], [file, (string) lineNumber]);
         }
-        return template(file, lineNumber);
+        return templateText(file, lineNumber);
     }
     /*
     //Holds current output data when outputFormat is false.

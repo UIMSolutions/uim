@@ -52,30 +52,27 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * Checks and sets the CSRF token depending on the HTTP verb.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request.
-     * @param \Psr\Http\Server\IRequestHandler handler The request handler.
      */
-    IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
-        method = request.getMethod();
-        hasData = isIn(method, ["PUT", "POST", "DELETE", "PATCH"], true)
+    IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
+        auto method = serverRequest.getMethod();
+        auto hasData = isIn(method, ["PUT", "POST", "DELETE", "PATCH"], true)
             || request.getParsedBody();
 
         if (
             hasData
             && this.skipCheckCallback !is null
-            && call_user_func(this.skipCheckCallback, request) == true
+            && call_user_func(this.skipCheckCallback, serverRequest) == true
        ) {
-            request = this.unsetTokenField(request);
-
-            return handler.handle(request);
+            return requestHandler.handle(this.unsetTokenField(serverRequest));
         }
         session = request.getAttribute("session");
         if (!session || !(cast(DSession)session)) {
             throw new DException("You must have a `session` attribute to use session based CSRF tokens");
         }
-        token = session.read(configuration.get("key"]);
+        token = session.read(configuration.getString("key"));
         if (token.isNull) {
             token = this.createToken();
-            session.write(configuration.get("key"], token);
+            session.write(configuration.getString("key"), token);
         }
         request = request.withAttribute("csrfToken", this.saltToken(token));
 
@@ -180,7 +177,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * \Psr\Http\Message\IServerRequest serverRequest The request to validate against.
      */
     protected void validateToken(IServerRequest serverRequest, DSession session) {
-        auto token = session.read(configuration.get("key"]);
+        auto token = session.read(configuration.getString("key"));
         if (!token || !isString(token)) {
             throw new DInvalidCsrfTokenException(__d("uim", "Missing or incorrect CSRF session key"));
         }

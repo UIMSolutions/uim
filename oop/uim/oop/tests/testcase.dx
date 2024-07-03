@@ -132,7 +132,7 @@ abstract class DTestCase : DBaseTestCase {
         if (!_configure) {
            _configure = configuration.get();
         }
-        if (class_exists(Router.class, false)) {
+        if (class_exists(Router.classname, false)) {
             Router.reload();
         }
         EventManager.instance(new DEventManager());

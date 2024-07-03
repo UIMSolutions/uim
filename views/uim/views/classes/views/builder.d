@@ -392,7 +392,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * @param string aKey View var key.
      */
     protected void _checkViewVars(Json &myitem, string aKey) {
-        if (cast8Exception)myitem) {
+        if (cast(Exception)myitem) {
             myitem = to!string(myitem);
         }
         if (

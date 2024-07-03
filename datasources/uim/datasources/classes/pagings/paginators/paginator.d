@@ -418,8 +418,6 @@ class DPaginator : IPaginator {
      *
      * The default order options provided to paginate() will be merged with the user"s
      * requested sorting field/direction.
-     *
-     * @param Json[string] paginationData The pagination options being used for this request.
      */
                                 Json[string] validateSort(IRepository repository, Json[string] paginationData) {
                                     if (paginationData.hasKey("sort")) {

@@ -29,7 +29,7 @@ class DSchemacacheClearCommand : DCommand {
   override ulong execute(Json[string] arguments, IConsole aConsole = null) {
     try {
       aConnection = ConnectionManager . get(to!string(commandArguments.getOption("connection")));
-      assert(cast8Connection)aConnection);
+      assert(cast(Connection)aConnection);
 
       cache = new DSchemaCache(aConnection);
     } catch (RuntimeException anException) {

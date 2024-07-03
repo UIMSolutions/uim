@@ -115,34 +115,29 @@ class DCookie : ICookie {
      * Params:
      * string cookieName Cookie name
      * @param string[]|float|bool cookieValue Value of the cookie
-     * @param Json[string] options Cookies options.
      */
     static static create(string cookieName, string[]|float|bool cookieValue, Json[string] cookieOptions = null) {
         auto updatedOptions = cookieOptions.merge(defaultAttributes);
-        options.set("expires", dateTimeInstance(options["expires"]));
+        updatedOptions.set("expires", dateTimeInstance(updatedOptions.get("expires"));
 
         return new static(
             name,
             cookieValue,
-            updatedOptions["expires"],
-            updatedOptions["path"],
-            updatedOptions["domain"],
-            updatedOptions["isSecure"],
-            updatedOptions["httponly"],
-            updatedOptions["samesite"]
+            updatedOptions.get("expires"),
+            updatedOptions.get("path"),
+            updatedOptions.get("domain"),
+            updatedOptions.get("isSecure"),
+            updatedOptions.get("httponly"),
+            updatedOptions.get("samesite"),
         );
     }
     
-    /**
-     * Converts non null expiry value into IDateTime instance.
-     * Params:
-     * \Jsonexpires Expiry value.
-     */
-    protected static IDateTime dateTimeInstance(Jsonexpires) {
+    // Converts non null expiry value into IDateTime instance.
+    protected static IDateTime dateTimeInstance(Json expires) {
         if (expires.isNull) {
             return null;
         }
-        if (cast8IDateTime)expires) {
+        if (cast(IDateTime)expires) {
             return expires.setTimezone(new DateTimeZone("GMT"));
         }
         if (!isNumeric(expires)) {
@@ -156,8 +151,6 @@ class DCookie : ICookie {
     
     /**
      * Create Cookie instance from "set-cookie" header string.
-     * Params:
-     * @param defaultAttributes Default attributes.
      */
     static static createFromHeaderString(string cookieHeader, Json[string] defaultAttributes= null) {
         string[] someParts;
@@ -172,10 +165,10 @@ class DCookie : ICookie {
         string name = array_shift(nameValues);
         string aValue = array_shift(nameValues) ?? "";
 
-        someData = [
+        auto someData = [
                 "name": urldecode(name),
                 "value": urldecode(aValue),
-            ] + defaultAttributes;
+            ].merge(defaultAttributes);
 
         someParts.each!((part) {
             if (part.contains("=")) {

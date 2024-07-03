@@ -527,12 +527,7 @@ class DDebugger {
         return new ArrayNode(someItems);
     }
 
-    /**
-     * Handles object to node conversion.
-     * Params:
-     * object var Object to convert.
-     * @param \UIM\Error\Debug\DDebugContext dumpContext The dump dumpContext.
-     */
+    // Handles object to node conversion.
     protected static IErrorNode exportObject(object objToConvert, DDebugContext dumpContext) {
         auto isRef = dumpContext.hasReference(objToConvert);
         auto refNum = dumpContext.getReferenceId(objToConvert);

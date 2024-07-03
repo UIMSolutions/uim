@@ -565,9 +565,6 @@ protected static IErrorNode export_(varToDump, DDebugContext dumpContext) {
      * - port
      * - prefix
      * - schema
-     *
-     * @param uim.errors.debugs.DDebugContext context The current dump context.
-     * @return uim.errors.debugs.ArrayNode Exported array.
      */
 protected static DArrayNode exportArray(Json[string] valueToExport, DDebugContext dumpContext) {
     auto items = null;

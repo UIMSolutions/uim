@@ -229,8 +229,8 @@ class DOauth {
         if (contentType.isEmpty || contentType == "application/x-www-form-urlencoded") {
             parse_str(to!string(request.getBody()), post);
         }
-        auto someArguments = chain(aQueryArgs, oauthData, post);
-        auto pairs = _normalizeData(someArguments);
+        auto arguments = chain(aQueryArgs, oauthData, post);
+        auto pairs = _normalizeData(arguments);
         auto someData = null;
         foreach (pairs as pair) {
             someData ~= join("=", pair);
@@ -240,15 +240,10 @@ class DOauth {
         return join("&", someData);
     }
 
-    /**
-     * Recursively convert request data into the normalized form.
-     * Params:
-     * Json[string] someArguments The arguments to normalize.
-     * @param string aPath The current path being converted.
-     */
-    protected Json[string] _normalizeData(Json[string] someArguments, string convertedPath = null) {
+    // Recursively convert request data into the normalized form.
+    protected Json[string] _normalizeData(Json[string] arguments, string convertedPath = null) {
         auto someData = null;
-        someArguments.byKeyValue((kv) {
+        arguments.byKeyValue((kv) {
             if (convertedPath) {
                 // Fold string keys with [].
                 // Numeric keys result in a=b&a=c. While this isn`t

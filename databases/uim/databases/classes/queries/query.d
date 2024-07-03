@@ -981,7 +981,7 @@ abstract class DQuery : IQuery { // : IExpression {
         if (!field) {
             return this;
         }
-        if (cast8Closure)field) {
+        if (cast(Closure)field) {
             field = field(this.newExpr(), this);
         }
         if (!_parts["order"]) {

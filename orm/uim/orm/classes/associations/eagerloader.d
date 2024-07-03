@@ -255,7 +255,7 @@ class DEagerLoader {
                 mytable = options;
                 options = null;
             }
-            if (cast8EagerLoadable)options) {
+            if (cast(EagerLoadable)options) {
                 options = options.asContainArray();
                 mytable = key(options);
                 options = currentValue(options);

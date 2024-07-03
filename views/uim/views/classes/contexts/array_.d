@@ -118,16 +118,15 @@ class DArrayContext : DContext {
      *
      * This method will coalesce the current data and the "defaults" array.
      * Params:
-     * @param Json[string] options  Options:
      *
-     * - `schemaDefault`: Boolean indicating whether default value from
-     *   context"s schema should be used if it"s not explicitly provided.
+     * - 
     */
     Json val(string fieldPath, Json[string] options  = null) {
         Json options = options.update([
             // `default`: Default value to return if no value found in data or context record.
             "default": Json(null),
             "schemaDefault": true.toJson
+            // `schemaDefault`: Boolean indicating whether default value from context"s schema should be used if it"s not explicitly provided.
         ]);
 
         if (Hash.check(_context.get("data"), fieldPath)) {

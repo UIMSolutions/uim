@@ -1128,7 +1128,6 @@ static bool uploadError(Json valueToCheck, bool myallowNoFile = false) {
      * If true a missing file will pass the validator regardless of other constraints.
      * Params:
      * Json myfile The uploaded file data from D.
-     * @param Json[string] options An array of options for the validation.
      */
 static bool uploadedFile(Json myfile, Json[string] options = null) {
     /* if (!cast(IUploadedFile)myfile) {
@@ -1258,7 +1257,6 @@ static bool imageHeight(Json myfile, string myoperator, int myheight) {
      * only a part of the coordinate.
      * Params:
      * Json aValue Geographic location as string
-     * @param Json[string] options Options for the validation logic.
      */
 static bool geoCoordinate(Json aValue, Json[string] options = null) {
     /*         if (myvalue.isScalar) {
@@ -1303,7 +1301,6 @@ static bool latitude(Json latitudeValue, Json[string] options = null) {
      * Convenience method for longitude validation.
      * Params:
      * Json aValue Latitude as string
-     * @param Json[string] options Options for the validation logic.
      */
 static bool longitude(Json latitudeValue, Json[string] options = null) {
     options["format"] = "long";
@@ -1335,7 +1332,6 @@ static bool ascii(Json valueToCheck) {
      * the basic multilingual plane. Defaults to false.
      * Params:
      * Json valueToCheck The value to check
-     * @param Json[string] options An array of options. See above for the supported options.
      */
 static bool utf8(Json valueToCheck, Json[string] options = null) {
     /*         if (!isString(myvalue)) {

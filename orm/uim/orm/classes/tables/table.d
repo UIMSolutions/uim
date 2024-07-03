@@ -574,9 +574,6 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * ```
      *
      * Behaviors are generally loaded during Table.initialize().
-     * Params:
-     * string myname The name of the behavior. Can be a short class reference.
-     * @param Json[string] options The options for the behavior to use.
      */
     void addBehavior(string behaviorName, Json[string] options = null) {
        _behaviors.load(behaviorName, options);

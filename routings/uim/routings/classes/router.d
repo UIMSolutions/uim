@@ -586,14 +586,13 @@ class DRouter {
      * Create a RouteBuilder for the provided path.
      * Params:
      * string mypath The path to set the builder to.
-     * @param Json[string] options The options for the builder
      */
-    static RouteBuilder createRouteBuilder(string mypath, Json[string] builderOptions = null) {
+    static RouteBuilder createRouteBuilder(string mypath, Json[string] options = null) {
         Json[string] defaults = [
             "routeClass": Json(defaultRouteClass()),
             "extensions": Json(_defaultExtensions),
         ];
-        Json[string] updatedOptions = builderOptions.merge(defaults);
+        Json[string] updatedOptions = options.merge(defaults);
 
         return new DRouteBuilder(_collection, mypath, [], [
             "routeClass": updatedOptions["routeClass"],

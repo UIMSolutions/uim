@@ -49,8 +49,6 @@ class DExistsIn {
      * Performs the existence check
      * Params:
      * \UIM\Datasource\IORMEntity myentity The entity from where to extract the fields
-     * @param Json[string] options Options passed to the check,
-     * where the `repository` key is required.
      */
     bool __invoke(IORMEntity myentity, Json[string] options = null) {
         if (isString(_repository)) {

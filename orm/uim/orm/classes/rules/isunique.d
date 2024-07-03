@@ -23,7 +23,6 @@ class DIsUnique {
      * - `allowMultipleNulls` Allows any field to have multiple null values. Defaults to true.
      * Params:
      * string[] fieldNames The list of fields to check uniqueness for
-     * @param Json[string] options The options for unique checks.
      */
     this(Json[string] fieldNames, Json[string] options = null) {
        _fields = fieldNames;

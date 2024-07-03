@@ -346,11 +346,11 @@ class Xml {
                             dataValue = dataValue.toArray();
                         }
                         if (isArray(dataValue)) {
-                            if (isSet(dataValue["@"])) {
+                            if (dataValue.hasKey("@")) {
                                 mychildValue = to!string(dataValue["@"]);
                                 remove(dataValue["@"]);
                             }
-                            if (dataValue.haskey("xmlns:")) {
+                            if (dataValue.hasKey("xmlns:")) {
                                 mychildNS = dataValue["xmlns:"];
                                 remove(dataValue["xmlns:"]);
                             }

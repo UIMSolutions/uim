@@ -67,8 +67,8 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * @param Json[string] myConfiguration The config for this strategy.
      */
     this(DORMTable aTable, Json[string] configData) {
-        if (configuration.contains("tableLocator"])) {
-            _tableLocator = configuration.get("tableLocator"];
+        if (configuration.contains("tableLocator")) {
+            _tableLocator = configuration.get("tableLocator");
         }
 
         configuration.update(myConfiguration);
@@ -89,15 +89,15 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * used for fetching all translations for each record in the bound table.
      */
     protected void setupAssociations() {
-        fields = configuration.get("fields"];
-        table = configuration.get("translationTable"];
-        model = configuration.get("referenceName"];
-        strategy = configuration.get("strategy"];
-        filter = configuration.get("onlyTranslated"];
+        auto fields = configuration.get("fields");
+        auto table = configuration.get("translationTable");
+        auto model = configuration.get("referenceName");
+        auto strategy = configuration.get("strategy");
+        auto filter = configuration.get("onlyTranslated");
 
-        targetAlias = this.translationTable.aliasName();
-        aliasName = _table.aliasName();
-        tableLocator = getTableLocator();
+        auto targetAlias = this.translationTable.aliasName();
+        auto aliasName = _table.aliasName();
+        auto tableLocator = getTableLocator();
 
         foreach (field; fields) {
             string name = alias ~ "_" ~ field ~ "_translation";
@@ -117,7 +117,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                 name ~ ".model": model,
                 name ~ ".field": field,
             ];
-            if (configuration.hasKey("allowEmptyTranslations") {
+            if (configuration.hasKey("allowEmptyTranslations")) {
                 conditions[name ~ ".content !="] = "";
             }
 
@@ -149,19 +149,14 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * Callback method that listens to the `beforeFind` event in the bound
      * table. It modifies the passed query by eager loading the translated fields
      * and adding a formatter to copy the values into the main table records.
-     *
-     * @param DORMevents.IEvent event The beforeFind event that was fired.
-     * @param DORMQuery query Query
-     * @param \ArrayObject options The options for the query
      */
-    void beforeFind(IEvent event, Query query, ArrayObject options) {
-        locale = Hash.get(options, "locale", locale());
-
+    void beforeFind(IEvent event, DQuery query, SArrayObject options) {
+        auto locale = Hash.get(options, "locale", locale());
         if (locale == configuration.get("defaultLocale")) {
             return;
         }
 
-        conditions = function (field, locale, query, select) {
+        auto conditions = function (field, locale, query, select) {
             return function (q) use (field, locale, query, select) {
                 q.where([q.getRepository().aliasField("locale"): locale]);
 
@@ -186,8 +181,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             options["filterByCurrentLocale"] != configuration.get("onlyTranslated");
 
         foreach (field; fields) {
-            name = aliasName ~ "_" ~ field ~ "_translation";
-
+            auto name = aliasName ~ "_" ~ field ~ "_translation";
             contain[name]["queryBuilder"] = conditions(
                 field,
                 locale,
@@ -240,9 +234,9 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             return;
         }
 
-        values = entity.extract(configuration.get("fields"), true);
-        fields = values.keys;
-        noFields = fields.isEmpty;
+        auto values = entity.extract(configuration.get("fields"), true);
+        auto fields = values.keys;
+        auto noFields = fields.isEmpty;
 
         // If there are no fields and no bundled translations, or both fields
         // in the default locale and bundled translations we can
@@ -285,7 +279,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                 .indexBy("field");
         }
 
-        modified = null;
+        auto modified = null;
         foreach (field, translation; preexistent) {
             translation.set("content", values[field]);
             modified[field] = translation;

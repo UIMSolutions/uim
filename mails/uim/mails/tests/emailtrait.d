@@ -45,12 +45,7 @@ mixin template TEmail() {
         assertThat(emailAddress, new DMailSentTo(emailIndex), message);
     }
     
-    /**
-     * Asserts an email at a specific index was sent from an address
-     * Params:
-     * int at Email index
-     * @param string message Message
-     */
+    // Asserts an email at a specific index was sent from an address
     void assertMailSentFromAt(int eMailIndex, string emailAddress, string message = null) {
         assertThat(emailAddress, new DMailSentFrom(eMailIndex), message);
     }
@@ -75,14 +70,9 @@ mixin template TEmail() {
         assertThat(expected, new DMailSentWith(eMailIndex, emailGetter), message);
     }
     
-    /**
-     * Asserts an email was sent to an address
-     * Params:
-     * string aaddress Email address
-     * @param string message Message
-     */
-    void assertMailSentTo(string aaddress, string message = null) {
-        assertThat(address, new DMailSentTo(), message);
+    // Asserts an email was sent to an address
+    void assertMailSentTo(string emailAddress, string message = null) {
+        assertThat(emailAddress, new DMailSentTo(), message);
     }
     
     // Asserts an email was sent from an address
@@ -90,23 +80,14 @@ mixin template TEmail() {
         assertThat(emailAddress, new DMailSentFrom(), emailMessage);
     }
     
-    /**
-     * Asserts an email contains expected contents
-     * Params:
-     * string content Contents
-     */
+    // Asserts an email contains expected contents
     void assertMailContains(string content, string message = null) {
         assertThat(content, new DMailContains(), message);
     }
     
-    /**
-     * Asserts an email contains expected attachment
-     * Params:
-     * string afilename Filename
-     * @param Json[string] file Additional file properties
-     */
-    void assertMailContainsAttachment(string afilename, Json[string] file = [], string message = null) {
-        assertThat([filename, file], new DMailContainsAttachment(), message);
+    // Asserts an email contains expected attachment
+    void assertMailContainsAttachment(string filename, Json[string] fileProperties = [], string message = null) {
+        assertThat([filename, fileProperties], new DMailContainsAttachment(), message);
     }
     
     // Asserts an email contains expected html contents
@@ -121,10 +102,9 @@ mixin template TEmail() {
     
     /**
      * Asserts an email contains the expected value within an Email getter
-     * Params:
-     * @param string aparameter Email getter parameter (e.g. "cc", "subject")
+     * parameter : Email getter parameter (e.g. "cc", "subject")
      */
-    void assertMailSentWith(string expectedContent, string aparameter, string message = null) {
+    void assertMailSentWith(string expectedContent, string parameter, string message = null) {
         assertThat(expectedContent, new DMailSentWith(null, parameter), message);
     }
     
@@ -133,13 +113,7 @@ mixin template TEmail() {
         assertThat(content, new DMailSubjectContains(), message);
     }
     
-    /**
-     * Asserts an email at a specific index contains expected html contents
-     * Params:
-     * int at Email index
-     * @param string content Contents
-     * @param string message Message
-     */
+    // Asserts an email at a specific index contains expected html contents
     void assertMailSubjectContainsAt(int eMailIndex, string content, string message = null) {
         assertThat(content, new DMailSubjectContains(eMailIndex), message);
     }

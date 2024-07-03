@@ -149,22 +149,16 @@ class DSocket {
         return _connected;
     }
 
-    /**
-     * Create a stream socket client. Mock utility.
-     * Params:
-     * string aremoteSocketTarget remote socket
-     * @param string errorString error string
-     * @param resource context context
-     */
+    // Create a stream socket client. Mock utility.
     protected resource | null _getStreamSocketClient(
-        string aremoteSocketTarget,
-        int & errorNumber,
-        string & errorString,
+        string remoteSocketTarget,
+        ref int errorNumber,
+        ref string errorString,
         int timeout,
         ulong connectFlags,
-        context
+        Json[string] context
    ) {
-        resource = stream_socket_client(
+        auto resource = stream_socket_client(
             remoteSocketTarget,
             errorNumber,
             errorString,
@@ -173,11 +167,9 @@ class DSocket {
             context
        );
 
-        if (!resource) {
-            return null;
-        }
-
-        return resource;
+        return resource
+            ? resource
+            : null; 
     }
 
     // Configure the SSL context options.
@@ -187,15 +179,15 @@ class DSocket {
         
         .each!((kv) {
             string contextKey = subString(kv.key, 4);
-            if (isEmpty(configuration.get("context/ssl/"~contextKey])) {
+            if (configuration.isEmpty("context/ssl/"~contextKey)) {
                 configuration.set("context/ssl/"~contextKey, kv.value);
             }
             remove(configuration.getString(kv.key));
         });
-        if (!configuration.hasKey("context/ssl.SNI_enabled"])) {
+        if (!configuration.hasKey("context/ssl.SNI_enabled")) {
             configuration.set("context/ssl/SNI_enabled", true);
         }
-        if (isEmpty(configuration.get("context/ssl.peer_name"])) {
+        if (isEmpty(configuration.get("context/ssl.peer_name")) {
             configuration.set("context/ssl/peer_name", hostName);
         }
         if (configuration.isEmpty("context/ssl/cafile")) {

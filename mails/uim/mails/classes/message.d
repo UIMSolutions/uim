@@ -400,31 +400,17 @@ class DMessage { //: JsonSerializable {
         return _transferEncoding;
     }
     
-    /**
-     * EmailPattern setter/getter
-     * Params:
-     * string regex The pattern to use for email address validation,
-     * null to unset the pattern and make use of filter_var() instead.
-     */
-    auto setEmailPattern(string aregex) {
-        this.emailPattern = regex;
-
-        return this;
+    // EmailPattern setter/getter
+    void setEmailPattern(string regex) {
+        _emailPattern = regex;
     }
     
-    /**
-     * EmailPattern setter/getter
-     */
+    // EmailPattern setter/getter
     string getEmailPattern() {
         return _emailPattern;
     }
     
-    /**
-     * Set email
-     * Params:
-     * @param string[] aemail String with email,
-     * Array with email as key, name as value or email as value (without name)
-     */
+    // Set email
     protected void setEmail(string propertyName, string email, string name) {
         validateEmail(email, propertyName);
         // TODO this.{propertyName} = [email: name ?? email];
@@ -441,18 +427,13 @@ class DMessage { //: JsonSerializable {
         // TODOD this.{propertyName} = list;
     }
     
-    /**
-     * Validate email address
-     * Params:
-     * string aemail Email address to validate
-     * @param string acontext Which property was set
-     */
-    protected void validateEmail(string emailAddress, string acontext) {
-        if (this.emailPattern.isNull) {
+    // Validate email address
+    protected void validateEmail(string emailAddress, string context) {
+        if (_emailPattern.isNull) {
             if (filter_var(emailAddress, FILTER_VALIDATE_EMAIL)) {
                 return;
             }
-        } else if (preg_match(this.emailPattern, emailAddress)) {
+        } else if (preg_match(_emailPattern, emailAddress)) {
             return;
         }
         context = stripLeft(context, "_");
@@ -483,12 +464,11 @@ class DMessage { //: JsonSerializable {
      * string propertyName Property name
      * @param string[] aemail String with email,
      * Array with email as key, name as value or email as value (without name)
-     * @param string name Name
      */
-    protected void addEmail(string propertyName, STRINGAA emailValue, string aName) {
+    protected void addEmail(string propertyName, STRINGAA emailValue, string name) {
         if (!isArray(emailValue)) {
             validateEmail(emailValue, propertyName);
-            name ??= emailValue;
+            name = name ? name : emailValue;
             this.{propertyName}[emailValue] = name;
 
             return;
@@ -1157,13 +1137,8 @@ class DMessage { //: JsonSerializable {
         return mb_convert_encoding(text, charset, this.appCharset);
     }
     
-    /**
-     * Wrap the message to follow the RFC 2822 - 2.1.1
-     * Params:
-     * string message Message to wrap
-     * @param int wrapLength The line length
-     */
-    protected string[] wrap(string amessage = null, int wrapLength = LINE_LENGTH_MUST) {
+    // Wrap the message to follow the RFC 2822 - 2.1.1
+    protected string[] wrap(string message = null, int wrapLength = LINE_LENGTH_MUST) {
         if (message.isNull || message.isEmpty) {
             return [""];
         }

@@ -815,7 +815,7 @@ class DH5Obj {
 
 	string renderCSS(STRINGAA bindings = null) {
 		if (auto result = _css.toString)
-			return doubleTag("style", result);
+			return htmlDoubleTag("style", result);
 		return null;
 	}
 
@@ -830,8 +830,8 @@ class DH5Obj {
 
 		if (!_classes.isEmpty) {
 			first ~= ` class="` ~ _classes.unique.sort
-				.filter!(cl => c.length > 0)
-				.map(cl => c.strip)
+				.filter!(cl => cl.length > 0)
+				.map!(cl => cl.strip)
 				.join(" ") ~ `"`;
 		}
 
@@ -840,12 +840,12 @@ class DH5Obj {
 		first ~= ">";
 
 		return _single
-			? first : first ~ _html.toString ~ endTag(_tag);
+			? first : first ~ _html.toString ~ htmlEndTag(_tag);
 	}
 
 	string renderJS(STRINGAA bindings = null) {
 		if (_js.length > 0)
-			return doubleTag("script", this.js);
+			return htmlDoubleTag("script", this.js);
 		return null;
 	}
 
@@ -886,7 +886,7 @@ class DH5Obj {
 
 	/// generate HTML in pretty format
 	string toPretty(int intendSpace = 0, int step = 2) {
-		string result = htmlStartTag(this.tag, this.attributes).indent(intendSpace);
+		string result = htmlStartTag(this.tag, null, null, this.attributes).indent(intendSpace);
 		if (!single) {
 			result ~= "\n";
 			result ~= _html.map!(a => a ? a.toPretty(intendSpace + step, step) ~ "\n" : "").join;

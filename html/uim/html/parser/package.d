@@ -175,9 +175,9 @@ class DH5Node {
     newNodes.each!(node => setNode(node, levelNode, nodes, subNodes)); 
   }
 
-  void setNode(DH5Node node, DH5Node levelNode, DH5Node[] nodes, DH5Node[] subNodes) {    
-    if (node.level == minLevel(newNodes)) {
-      if ((node.isContent) || (node.isStartTag && node.isEndTag)) { // single node
+  void setNode(DH5Node newNode, DH5Node levelNode, DH5Node[] nodes, DH5Node[] subNodes) {    
+    if (node.level == minLevel(newNode)) {
+      if (node.isContent || (node.isStartTag && node.isEndTag)) { // single node
         nodes ~= node;
       } else if (node.isStartTag) { // start dode 
         levelNode = node;

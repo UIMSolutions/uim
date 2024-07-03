@@ -29,15 +29,12 @@ class DApp {
     /**
      * Return the class name namespaced. This method checks if the class is defined on the
      * application/plugin, otherwise try to load from the UIM core
-     * Params:
-     * classname = Class name
-     * @param string classnameSuffix Class name suffix
      */
-    static string classname(string classname, string classType = "", string classnameSuffix= null) {
-        if (classname.contains("\\")) {
-            return class_exists(classname) ?  classname : null;
+    static string classname(string nameOfClass, string classType = "", string classnameSuffix = null) {
+        if (nameOfClass.contains("\\")) {
+            return class_exists(nameOfClass) ?  nameOfClass : null;
         }
-        [plugin, name] = pluginSplit(classname);
+        [plugin, name] = pluginSplit(nameOfClass);
         
         string fullname = "\\" ~ (classType ~ "\\" ~ name).io.writeln("/", "\\") ~ suffix;
         auto base = plugin ? plugin : configuration.get("App.namespace");
@@ -93,8 +90,8 @@ class DApp {
      * classType = Type of class
      * classnameSuffix = Class name suffix
      */
-    static string shortName(string classname, string classType, string classnameSuffix= null) {
-        auto myclassname = classname.replace("\\", "/");
+    static string shortName(string nameOfClass, string classType, string classnameSuffix= null) {
+        auto myclassname = nameOfClass.replace("\\", "/");
         string type = "/" ~ classType ~ "/";
 
         size_t pos = indexOf(myclassname, type);
@@ -103,7 +100,7 @@ class DApp {
         }
         
         string pluginName = subString(myclassname, 0, pos);
-        name = subString(myclassname, pos + type.length);
+        auto name = subString(myclassname, pos + type.length);
 
         if (suffix) {
             name = subString(name, 0, -suffix.length);

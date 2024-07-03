@@ -628,7 +628,7 @@ class DBelongsToManyAssociation : DAssociation {
             }
             saved = junction.save(joint, options);
 
-            if (!saved && !options.isEmpty("atomic"])) {
+            if (!saved && !options.isEmpty("atomic")) {
                 return false;
             }
 

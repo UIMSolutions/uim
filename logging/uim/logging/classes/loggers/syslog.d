@@ -98,12 +98,9 @@ class DSysLogger : DLogger {
     /**
      * Extracts the call to syslog() in order to run unit tests on it. This function
      * will perform the actual write in the system logger
-     * Params:
-     * int priority Message priority.
-     * @param string messageToLog Message to log.
      */
-    protected bool _write(int priority, string messageToLog) {
-        return syslog(priority, message);
+    protected bool _write(int priority, string logMessage) {
+        return syslog(priority, logMessage);
     }
     
     // Closes the logger connection

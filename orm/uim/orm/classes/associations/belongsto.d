@@ -134,7 +134,7 @@ class DBelongsToAssociation : DAssociation {
         }
 
         foreach (k, f; foreignKeys) {
-            auto field =  "%s.%s".format(tAlias, bindingKey[k]);
+            auto field = "%s.%s".format(tAlias, bindingKey[k]);
             auto value = new DIdentifierExpression(format("%s.%s", sAlias, f));
             conditions[field] = value;
         }

@@ -542,7 +542,7 @@ class DMarshaller {
      * @param Json[string] options List of options.
      */
         IORMEntity[] mergeMany(Json[string] myentities, Json[string] data, Json[string] options = null) {
-            auto myprimary =  /* (array) */ _table.primaryKeys();
+            auto myprimary = /* (array) */ _table.primaryKeys();
 
             auto myindexed = (new DCollection(mydata))
                 .groupBy(function(myel) use(myprimary) {
@@ -709,7 +709,7 @@ class DMarshaller {
 
             auto mynested = null;
             if (myassociated.hasKey("_joinData")) {
-                mynested =  /* (array) */ myassociated["_joinData"];
+                mynested = /* (array) */ myassociated["_joinData"];
             }
             options["accessibleFields"] = ["_joinData": true.toJson];
 

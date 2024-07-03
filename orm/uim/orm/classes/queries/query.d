@@ -800,7 +800,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     void clone() {
         super.clone();
         if (_eagerLoader != null) {
-            _eagerLoader =  _eagerLoader.clone;
+            _eagerLoader = _eagerLoader.clone;
         }
     }
 

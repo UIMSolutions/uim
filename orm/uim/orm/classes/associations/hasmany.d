@@ -148,7 +148,7 @@ class DHasManyAssociation : DAssociation {
             }
 
             if (!options.isEmpty("atomic")) {
-                entity = clone entity;
+                entity = entity.clone;
             }
 
             if (foreignKeyReference != entity.extract(foreignKeys)) {
@@ -391,7 +391,7 @@ class DHasManyAssociation : DAssociation {
         range remainingEntities = null,
         Json[string] options = null
     ) {
-        primaryKeys =  /* (array) */ myTarget.primaryKeys();
+        primaryKeys = /* (array) */ myTarget.primaryKeys();
         exclusions = new DCollection(remainingEntities);
         // TODO
         /* 

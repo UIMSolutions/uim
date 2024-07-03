@@ -1151,7 +1151,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     auto clone() {
         super.clone();
         if (_eagerLoader !is null) {
-           _eagerLoader =  _eagerLoader.clone;
+           _eagerLoader = _eagerLoader.clone;
         }
     }
     

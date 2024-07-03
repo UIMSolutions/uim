@@ -369,7 +369,7 @@ class DBelongsToManyAssociation : DAssociation {
             .andWhere(function (QueryExpression exp) use (subquery, conds) {
                 auto identifiers = conds.keys.map!(field => new DIdentifierExpression(field));
                 identifiers = subquery.newExpr().add(identifiers).conjunctionType(",");
-                nullExp =  exp.clone;
+                nullExp = exp.clone;
 
                 return exp
                     .or([
@@ -469,7 +469,7 @@ class DBelongsToManyAssociation : DAssociation {
      */
      void setSaveStrategy(string strategyName) {
         if (![SAVE_APPEND, SAVE_REPLACE].has(strategyName)) {
-            string message =  "Invalid save strategy '%s'".format(strategyName);
+            string message = "Invalid save strategy '%s'".format(strategyName);
             throw new DInvalidArgumentException(message);
         }
 
@@ -551,7 +551,7 @@ class DBelongsToManyAssociation : DAssociation {
             }
 
             if (!options.isEmpty("atomic")) {
-                entity =  entity.clone;
+                entity = entity.clone;
             }
 
             saved = table.save(entity, options);

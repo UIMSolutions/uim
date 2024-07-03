@@ -302,7 +302,7 @@ class DSelectLoader {
      * to load records in the source table.
      */
     protected DORMQuery _buildSubquery(DORMQuery query) {
-        auto filterQuery = clone query;
+        auto filterQuery = query.clone;
         filterQuery.disableAutoFields();
         filterQuery.mapReduce(null, null, true);
         filterQuery.formatResults(null, true);

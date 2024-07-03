@@ -306,9 +306,9 @@ class DTreeBehavior : DBehavior {
         _table.updateAll(
             function (exp) use (myConfiguration) {
                 /** @var DDBExpression\QueryExpression exp */
-                leftInverse = clone exp;
+                leftInverse = exp.clone;
                 leftInverse.conjunctionType("*").add("-1");
-                rightInverse = clone leftInverse;
+                rightInverse = leftInverse.clone;
 
                 return exp
                     .eq(configuration.get("leftField"), leftInverse.add(configuration.get("leftField")))
@@ -801,10 +801,10 @@ class DTreeBehavior : DBehavior {
             query = _scope(_table.query());
             exp = query.newExpr();
 
-            movement = clone exp;
+            movement = exp.clone;
             movement.add(field).add(/* (string) */shift).conjunctionType(dir);
 
-            inverse =  exp.clone;
+            inverse = exp.clone;
             movement = mark ?
                 inverse.add(movement).conjunctionType("*").add("-1") :
                 movement;

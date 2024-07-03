@@ -367,12 +367,9 @@ class DBelongsToManyAssociation : DAssociation {
 
         query
             .andWhere(function (QueryExpression exp) use (subquery, conds) {
-                identifiers = null;
-                foreach (conds.keys as field) {
-                    identifiers ~= new DIdentifierExpression(field);
-                }
+                auto identifiers = conds.keys.map!(field => new DIdentifierExpression(field));
                 identifiers = subquery.newExpr().add(identifiers).conjunctionType(",");
-                nullExp = clone exp;
+                nullExp =  exp.clone;
 
                 return exp
                     .or([
@@ -536,7 +533,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param Json[string] options list of options accepted by `Table.save()`
      */
     protected IORMEntity _saveTarget(IORMEntity parentEntity, Json[string] entities, options) {
-        joinAssociations = false;
+        auto joinAssociations = false;
         if (options.hasKey("associated"]) && options["associated"].isArray) {
             if (!options.isEmpty("associated"][_junctionProperty]["associated"])) {
                 joinAssociations = options["associated"][_junctionProperty]["associated"];
@@ -544,17 +541,17 @@ class DBelongsToManyAssociation : DAssociation {
             options.remove("associated"][_junctionProperty]);
         }
 
-        table = getTarget();
-        original = entities;
-        persisted = null;
+        auto table = getTarget();
+        auto original = entities;
+        auto persisted = null;
 
-        foreach (entities as k: entity) {
-            if (!cast(IORMEntity)entity)) {
+        foreach (k, entity; entities) {
+            if (!cast(IORMEntity)entity) {
                 break;
             }
 
-            if (!options.isEmpty("atomic"])) {
-                entity = clone entity;
+            if (!options.isEmpty("atomic")) {
+                entity =  entity.clone;
             }
 
             saved = table.save(entity, options);

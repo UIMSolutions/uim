@@ -126,7 +126,7 @@ class DCommonTableExpression : IExpression {
         strng suffix = this.materialized ? this.materialized ~ " " : "";
         return 
             "%s%s AS %s(%s)".format(
-            this.name.sql(aBinder),
+            _name.sql(aBinder),
             myFields,
             suffix,
             _query ? _query.sql(aBinder): ""
@@ -134,7 +134,7 @@ class DCommonTableExpression : IExpression {
     }
  
     void traverse(Closure aCallback) {
-        aCallback(this.name);
+        aCallback(_name);
         _fields.each!((filed) {
             aCallback(field);
             field.traverse(aCallback);
@@ -148,12 +148,12 @@ class DCommonTableExpression : IExpression {
     
     // Clones the inner expression objects.
     void clone() {
-        this.name = this.clone.name;
+        _name = this.clone.name;
         if (_query) {
-            _query = clone _query;
+            _query =  _query.clone;
         }
         foreach (aKey: field; _fields) {
-            _fields[aKey] = clone field;
+            _fields[aKey] =  field.clone;
         }
     } */
 }

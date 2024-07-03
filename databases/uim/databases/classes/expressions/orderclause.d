@@ -49,8 +49,8 @@ class DOrderClauseExpression : DExpression { // TODO }, IField {
   // Create a deep clone of the order clause.
   void clone() {
     if (cast(IExpression) _field) {
-      _field = clone _field;
+      _field =  _field.clone;
     }
-  } */
+  } 
 }
 mixin(ExpressionCalls!("OrderClause"));

@@ -73,7 +73,7 @@ class DCookie : ICookie {
 
         if (expiresAt) {
             if (cast(DateTime)expiresAt) {
-                expiresAt = clone expiresAt;
+                expiresAt =  expiresAt.clone;
             }
             /** @var \DateTimeImmutable|\DateTime expiresAt */
             expiresAt = expiresAt.setTimezone(new DateTimeZone("GMT"));

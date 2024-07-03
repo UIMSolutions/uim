@@ -79,7 +79,7 @@ class DWhenThenExpression : DExpression {
             ));
         }
         // avoid dirtying the type map for possible consecutive `when()` calls
-        typeMap = clone _typeMap;
+        typeMap =  _typeMap.clone;
         if (
             isArray(valueType) &&
             count(valueType) > 0

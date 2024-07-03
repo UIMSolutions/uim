@@ -500,13 +500,12 @@ class DQueryExpression : DExpression { // }, Countable {
         return new DComparisonExpression(expression, valueToBound, type,  operator);
     }
     
-    /**
-     * Returns the type name for the passed field if it was stored in the typeMap
-     * Params:
-     * \UIM\Database\/* IExpression| * / string fieldName The field name to get a type for.
-     */
-    protected string _calculateType(/* IExpression| */ string fieldName) {
-        field = cast(IdentifierExpression)field ? field.getIdentifier() : field;
+    // Returns the type name for the passed field if it was stored in the typeMap
+    protected string _calculateType(IExpression fieldExpression) {
+        auto field = cast(IdentifierExpression)fieldExpression ? field.getIdentifier() : field;
+    }
+    protected string _calculateType(string fieldName) {
+        auto field = cast(IdentifierExpression)field ? field.getIdentifier() : field;
         if (!isString(field)) {
             return null;
         }
@@ -515,9 +514,9 @@ class DQueryExpression : DExpression { // }, Countable {
     
     // this.clone object and its subtree of expressions.
     void clone() {
-        foreach (anI: condition; _conditions) {
+        foreach (index: condition; _conditions) {
             if (cast(IExpression)condition) {
-               _conditions[anI] = clone condition;
+               _conditions[index] =  condition.clone;
             }
         }
     }

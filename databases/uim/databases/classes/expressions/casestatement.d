@@ -447,7 +447,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
         if (cast(IExpression)_value) {
             _value =  _value.clone;
         }
-        _when.each!(kv => _when[kv.key] = clone _when[kv.Key]);
+        _when.each!(kv => _when[kv.key] =  _when[kv.Key].clone);
         if (cast(IExpression)_else) {
             _else =  _else.clone;
         }

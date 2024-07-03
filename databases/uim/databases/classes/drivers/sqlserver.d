@@ -272,7 +272,7 @@ protected const MAX_ALIAS_LENGTH = 128;
             return aQuery;
         }
          original = aQuery;
-        aQuery = clone  original;
+        aQuery =   original.clone;
 
          distinct = aQuery.clause("distinct");
         aQuery.distinct(false);

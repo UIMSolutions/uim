@@ -732,14 +732,12 @@ class DBelongsToManyAssociation : DAssociation {
         this.junction().getConnection().transactional(
             void () use (sourceEntity, targetEntities, options) {
                 links = _collectJointEntities(sourceEntity, targetEntities);
-                foreach (links as entity) {
-                    _junctionTable.remove(entity, options);
-                }
+                links.each!(entity => _junctionTable.remove(entity, options));
             }
        );
 
         /** @var array<DORMDatasource\IORMEntity> existing */
-        existing = sourceEntity.get(property) ?: [];
+        auto existing = sourceEntity.get(property) ?: [];
         if (!options["cleanProperty"] || existing.isEmpty) {
             return true;
         }

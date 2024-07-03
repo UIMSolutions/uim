@@ -213,10 +213,10 @@ class DSelectLoader {
      * @param DORMQuery subquery The Subquery to use for filtering
      */
     protected DORMQuery _addFilteringJoin(Query query, key, DORMQuery filteringQuery) { 
-        filter = null;
-        aliasedTable = this.sourceAlias;
+        auto filter = null;
+        auto aliasedTable = this.sourceAlias;
 
-        foreach (filteringQuery.clause("select") as aliasedField: field) {
+        foreach (aliasedField, field; filteringQuery.clause("select")) {
             if (is_int(aliasedField)) {
                 filter ~= new DIdentifierExpression(field);
             } else {
@@ -225,7 +225,7 @@ class DSelectLoader {
         }
         filteringQuery.select(filter, true);
 
-        if ((key.isArray) {
+        if (key.isArray) {
             conditions = _createTupleCondition(query, key, filter, "=");
         } else {
             filter = currentValue(filter);
@@ -443,10 +443,7 @@ class DSelectLoader {
     protected DClosure _multiKeysInjector(Json[string] resultMap, string[] someSourceKeys, string nestKey) {
         // TODO 
         /* return function (row) use (resultMap, someSourceKeys, nestKey) {
-            string[] values = null;
-            foreach (someSourceKeys as key) {
-                values ~= row[key];
-            }
+            string[] values = someSourceKeys.map!(key => row[key]).array;
 
             string key = values.join(";");
             if (resultMap.hascorrectKey(key)) {

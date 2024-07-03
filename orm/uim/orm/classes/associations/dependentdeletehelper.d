@@ -29,27 +29,18 @@ class DDependentDeleteHelper {
             return true;
         }
         
-        table = anAssociation.getTarget();
+        auto table = anAssociation.getTarget();
         /** @psalm-suppress InvalidArgument */
-        foreignKey = array_map([anAssociation, "aliasField"], /* (array) */anAssociation.foreignKeys());
-        bindingKey = /* (array) */anAssociation.getBindingKey();
-        bindingValue = entity.extract(bindingKey);
+        auto foreignKey = array_map([anAssociation, "aliasField"], /* (array) */anAssociation.foreignKeys());
+        auto bindingKey = /* (array) */anAssociation.getBindingKey();
+        auto bindingValue = entity.extract(bindingKey);
         if (isIn(null, bindingValue, true)) {
             return true;
         }
         conditions = array_combine(foreignKey, bindingValue);
 
         if (anAssociation.getCascadeCallbacks()) {
-            // TODO 
-            /* 
-            foreach (anAssociation.find().where(conditions).all().toList() as related) {
-                success = table.remove(related, options);
-                if (!success) {
-                    return false;
-                }
-            } */ 
-
-            return true;
+            return anAssociation.find().where(conditions).all().toList().all!(related => table.remove(related, options));
         }
 
         anAssociation.deleteAll(conditions);

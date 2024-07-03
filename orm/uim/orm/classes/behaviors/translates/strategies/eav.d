@@ -185,7 +185,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         auto changeFilter = options.hasKey("filterByCurrentLocale") &&
             options["filterByCurrentLocale"] != configuration.get("onlyTranslated");
 
-        foreach (fields as field) {
+        foreach (field; fields) {
             name = aliasName ~ "_" ~ field ~ "_translation";
 
             contain[name]["queryBuilder"] = conditions(

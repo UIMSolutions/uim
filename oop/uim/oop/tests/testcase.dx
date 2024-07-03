@@ -510,13 +510,13 @@ abstract class DTestCase : DBaseTestCase {
      * permutation of attribute order. It will also allow whitespace between specified tags.
      * Params:
      * Json[string] expected An array, see above
-     * @param string mlText An HTML/XHTML/XML string
+     * @param string markupText An HTML/XHTML/XML string
      * @param bool fullDebug Whether more verbose output should be used.
      */
-   bool assertHtml(Json[string] expected, string mlText, bool fullDebug = false) {
-        regex = null;
-        normalized = null;
-        foreach (expected as aKey: val) {
+   bool assertHtml(Json[string] expected, string markupText, bool fullDebug = false) {
+        auto regex = null;
+        auto normalized = null;
+        foreach (aKey, val; expected) {
             if (!isNumeric(aKey)) {
                 normalized ~= [aKey: val];
             } else {
@@ -524,7 +524,7 @@ abstract class DTestCase : DBaseTestCase {
             }
         }
          anI = 0;
-        foreach (normalized as tags) {
+        foreach (tags; normalized) {
             if (!isArray(tags)) {
                 tags = to!string(tags);
             }
@@ -619,9 +619,9 @@ abstract class DTestCase : DBaseTestCase {
             auto matches = false;
             if (assertion.hasKey("attrs")) {
                 // Json[string] assertion
-                mlText = _assertAttributes(assertion, mlText, fullDebug, regex);
-                if (fullDebug == true && mlText == false) {
-                    debug(mlText, true);
+                markupText = _assertAttributes(assertion, markupText, fullDebug, regex);
+                if (fullDebug == true && markupText == false) {
+                    debug(markupText, true);
                     debug(regex, true);
                 }
                 continue;
@@ -635,21 +635,21 @@ abstract class DTestCase : DBaseTestCase {
             string expression;
             /* (array) */someExpressions.each!((expression) {
                 string expression = "/^%s/s".format(expression);
-                if (mlText && preg_match(expression, mlText, match)) {
+                if (markupText && preg_match(expression, markupText, match)) {
                     matches = true;
-                    mlText = subString(mlText, match[0].length);
+                    markupText = subString(markupText, match[0].length);
                     break;
                 }
             });
 
             if (!matches) {
                 if (fullDebug == true) {
-                    debug(mlText);
+                    debug(markupText);
                     debug(regex);
                 }
                 this.assertMatchesRegularExpression(
                     expression,
-                    to!string(mlText),
+                    to!string(markupText),
                     "Item #%d / regex #%d failed: %s".format(anItemNum,  anI, description)
                 );
 

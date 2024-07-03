@@ -27,8 +27,6 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * Sets the default table locator for associations.
      * If no locator is provided, the global one will be used.
-     *
-     * @param DORMLocator\ILocator|null tableLocator Table locator instance.
      */
     this(ILocator tableLocator = null) {
         if (tableLocator != null) {
@@ -42,8 +40,8 @@ class DAssociationCollection { // }: IteratorAggregate {
      * If the alias added contains a `.` the part preceding the `.` will be dropped.
      * This makes using plugins simpler as the Plugin.classname syntax is frequently used.
      */
-    DORMAssociation add(string anAliasName, DORMAssociation associationToAdd) {
-        string pluginName = pluginSplit(anAliasName)[1];
+    DORMAssociation add(string aliasName, DORMAssociation associationToAdd) {
+        string pluginName = pluginSplit(aliasName)[1];
         return _items[pluginName] = associationToAdd;
     }
 
@@ -55,8 +53,8 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param Json[string] options List of options to configure the association definition.
      */
     DORMAssociation load(string associationclassname, string associated, Json[string] options = null) {
-        someOptions["tableLocator"] = getTableLocator();
-        association = new classname(associated, someOptions);
+        options["tableLocator"] = getTableLocator();
+        auto association = new classname(associated, someOptions);
 
         return _add(association.getName(), association);
     }
@@ -83,7 +81,7 @@ class DAssociationCollection { // }: IteratorAggregate {
     /**
      * Check for an attached association by name.
      *
-     * @param string anAliasName The association alias to get.
+     * @param string aliasName The association alias to get.
      * return true if the association exists.
      */
     bool has(string associationName) {
@@ -186,16 +184,16 @@ class DAssociationCollection { // }: IteratorAggregate {
    ) {
         options.remove("associated");
         // TODO 
-        /* foreach (associations as alias : nested) {
-            if (is_int(alias)) {
+        /* foreach (aliasName, nested; associations ) {
+            if (is_int(aliasName)) {
                 aliasName = nested;
                 nested = null;
             }
-            relation = get(alias);
+            relation = get(aliasName);
             if (!relation) {
                 msg =
                     "Cannot save %s, it is not associated to %s"
-                    .format(alias, table.aliasName())
+                    .format(aliasName, table.aliasName())
                );
                 throw new DInvalidArgumentException(msg);
             }

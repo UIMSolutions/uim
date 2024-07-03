@@ -743,7 +743,7 @@ class DAssociation : IAssociation {
             function(ICollection results, query) use(formatters, property, propertyPath) {
             extracted = null;
             foreach (results as result) {
-                foreach (propertyPath as propertyPathItem) {
+                foreach (propertyPathItem; propertyPath) {
                     if (result.isNull(propertyPathItem)) {
                         result = null;
                         break;

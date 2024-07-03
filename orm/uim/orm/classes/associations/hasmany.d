@@ -139,10 +139,10 @@ class DHasManyAssociation : DAssociation {
         IORMEntity[] entities,
         Json[string] options
     ) {
-        foreignKey = foreignKeyReference.keys;
-        myTable = getTarget();
-        original = entities;
-        foreach (entities as k : entity) {
+        auto foreignKey = foreignKeyReference.keys;
+        auto myTable = getTarget();
+        auto original = entities;
+        foreach (k, entity; entities) {
             if (!cast(IORMEntity) entity) {
                 break;
             }
@@ -174,7 +174,6 @@ class DHasManyAssociation : DAssociation {
         }
 
         sourceEntity.set(getProperty(), entities);
-
         return true;
     }
 

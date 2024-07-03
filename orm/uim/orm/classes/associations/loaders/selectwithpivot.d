@@ -36,7 +36,7 @@ class DSelectWithPivotLoader : DSelectLoader {
     this(Json[string] options = null) {
         super((options);
         this.junctionAssociationName = options["junctionAssociationName"];
-        this.junctionProperty = options["junctionProperty"];
+        _junctionProperty = options["junctionProperty"];
         this.junctionAssoc = options["junctionAssoc"];
         this.junctionConditions = options["junctionConditions"];
     }
@@ -89,12 +89,12 @@ class DSelectWithPivotLoader : DSelectLoader {
 
         query
             .getEagerLoader()
-            .addToJoinsMap(tempName, assoc, false, this.junctionProperty);
+            .addToJoinsMap(tempName, assoc, false, _junctionProperty);
 
         assoc.attachTo(query, [
             "aliasPath": assoc.aliasName(),
             "includeFields": false.toJson,
-            "propertyPath": this.junctionProperty,
+            "propertyPath": _junctionProperty,
         ]);
         query.getTypeMap().addDefaults(types);
 
@@ -130,26 +130,20 @@ class DSelectWithPivotLoader : DSelectLoader {
     /**
      * Builds an array containing the results from fetchQuery indexed by
      * the foreignKey value corresponding to this association.
-     *
-     * @param DORMQuery fetchQuery The query to get results from
-     * @param Json[string] options The options passed to the eager loader
      */
     protected Json[string] _buildResultMap(Query fetchQuery, Json[string] options = null) {
-        resultMap = null;
-        key = (array)options["foreignKey"];
+        auto resultMap = null;
+        auto keys = options.getStringArray("foreignKey");
 
         foreach (result; fetchQuery.all()) {
-            if (result.isNull(this.junctionProperty)) {
+            if (result.isNull(_junctionProperty)) {
                 throw new DRuntimeException(format(
                     "'%s' is missing from the belongsToMany results. Results cannot be created.",
-                    this.junctionProperty
+                    _junctionProperty
                ));
             }
 
-            values = null;
-            foreach (key as k) {
-                values ~= result[this.junctionProperty][k];
-            }
+            auto values = keys.each!(key => result[_junctionProperty][k]);
             resultMap[values.join(";")] ~= result;
         }
 

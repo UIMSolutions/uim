@@ -441,8 +441,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             ]);
         entity.setDirty("_locale", false);
 
-        foreach (
-            fields as field) {
+        foreach (field; fields) {
             entity.setDirty(field, false);
         }
     }

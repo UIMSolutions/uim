@@ -93,10 +93,10 @@ mixin template TEmail() {
     /**
      * Asserts an email contains expected contents
      * Params:
-     * string acontents Contents
+     * string content Contents
      */
-    void assertMailContains(string acontents, string message = null) {
-        assertThat(contents, new DMailContains(), message);
+    void assertMailContains(string content, string message = null) {
+        assertThat(content, new DMailContains(), message);
     }
     
     /**
@@ -110,8 +110,8 @@ mixin template TEmail() {
     }
     
     // Asserts an email contains expected html contents
-    void assertMailContainsHtml(string contents, string message = null) {
-        assertThat(contents, new DMailContainsHtml(), message);
+    void assertMailContainsHtml(string content, string message = null) {
+        assertThat(content, new DMailContainsHtml(), message);
     }
     
     // Asserts an email contains an expected text content
@@ -122,32 +122,25 @@ mixin template TEmail() {
     /**
      * Asserts an email contains the expected value within an Email getter
      * Params:
-     * string aexpected Contents
      * @param string aparameter Email getter parameter (e.g. "cc", "subject")
-     * @param string message Message
      */
-    void assertMailSentWith(string aexpected, string aparameter, string message = null) {
-        assertThat(expected, new DMailSentWith(null, parameter), message);
+    void assertMailSentWith(string expectedContent, string aparameter, string message = null) {
+        assertThat(expectedContent, new DMailSentWith(null, parameter), message);
     }
     
-    /**
-     * Asserts an email subject contains expected contents
-     * Params:
-     * string acontents Contents
-     * @param string message Message
-     */
-    void assertMailSubjectContains(string acontents, string message = null) {
-        assertThat(contents, new DMailSubjectContains(), message);
+    // Asserts an email subject contains expected contents
+    void assertMailSubjectContains(string content, string message = null) {
+        assertThat(content, new DMailSubjectContains(), message);
     }
     
     /**
      * Asserts an email at a specific index contains expected html contents
      * Params:
      * int at Email index
-     * @param string acontents Contents
+     * @param string content Contents
      * @param string message Message
      */
-    void assertMailSubjectContainsAt(int eMailIndex, string acontents, string message = null) {
-        assertThat(contents, new DMailSubjectContains(eMailIndex), message);
+    void assertMailSubjectContainsAt(int eMailIndex, string content, string message = null) {
+        assertThat(content, new DMailSubjectContains(eMailIndex), message);
     }
 }

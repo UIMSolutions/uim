@@ -297,11 +297,7 @@ class DInflector {
     return pluralWord;
   }
 
-  /**
-     * Returns the input lower_case_delimited_string as a CamelCasedString.
-     * Params:
-     * @param string stringDelimiter the delimiter in the input string
-     */
+  // Returns the input lower_case_delimited_string as a CamelCasedString.
   static string camelize(string text, string stringDelimiter = "_") :  {
     string mycacheKey = __FUNCTION__ ~ stringDelimiter;
 

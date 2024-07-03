@@ -527,7 +527,7 @@ class DNumericPaginator : IPaginator {
     }
 
     // Check the limit parameter and ensure it"s within the maxLimit bounds.
-    Json[string] checkLimit(Json[string] options) {
+    Json[string] checkLimit(Json[string] options = null) {
         int limitOption = options.getLong("limit");
         if (limitOption < 1) {
             limitOption = 1;

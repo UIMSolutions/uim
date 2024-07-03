@@ -24,7 +24,7 @@ class DMarshaller {
      * Json[string] data The data being marshalled.
      * @param Json[string] options List of options containing the "associated" key.
      */
-    protected Json[string] _buildPropertyMap(Json[string] data, Json[string] options) {
+    protected Json[string] _buildPropertyMap(Json[string] data, Json[string] options = null) {
         auto mymap = null;
         auto tableSchema = _table.getSchema();
 
@@ -197,7 +197,7 @@ class DMarshaller {
      * Json[string] mydata The data to prepare.
      * @param Json[string] options The options passed to this marshaller.
      */
-        protected Json[string] _prepareDataAndOptions(Json[string] data, Json[string] options) {
+        protected Json[string] _prepareDataAndOptions(Json[string] data, Json[string] options = null) {
             auto updatedOptions = options.update["validate": true.toJson];
 
             mytableName = _table.aliasName();
@@ -219,7 +219,7 @@ class DMarshaller {
      * @param Json aValue The data to hydrate. If not an array, this method will return null.
      * @param Json[string] options List of options.
      */
-        protected IORMEntity[] _marshalAssociation(DORMAssociation myassoc, Json aValue, Json[string] options) {
+        protected IORMEntity[] _marshalAssociation(DORMAssociation myassoc, Json aValue, Json[string] options = null) {
             if (!isArray(myvalue)) {
                 return null;
             }
@@ -668,7 +668,7 @@ class DMarshaller {
      * @param Json[string] myvalue The data to hydrate
      * @param Json[string] options List of options.
      */
-        protected IORMEntity[] _mergeBelongsToMany(IORMEntity[] myoriginal, BelongsToMany associationToMarshall, Json[string] myvalue, Json[string] options) {
+        protected IORMEntity[] _mergeBelongsToMany(IORMEntity[] myoriginal, BelongsToMany associationToMarshall, Json[string] myvalue, Json[string] options = null) {
             auto myassociated = options.getArray("associated");
 
             auto myhasIds = array_key_exists("_ids", myvalue);
@@ -693,7 +693,7 @@ class DMarshaller {
      * @param Json[string] myvalue The data to hydrate
      * @param Json[string] options List of options.
      */
-        protected IORMEntity[] _mergeJoinData(Json[string] myoriginal, BelongsToMany myassoc, Json[string] myvalue, Json[string] options) {
+        protected IORMEntity[] _mergeJoinData(Json[string] myoriginal, BelongsToMany myassoc, Json[string] myvalue, Json[string] options = null) {
             auto myassociated = options.getArray("associated");
             Json[string] myextra = null;
             foreach (myentity; myoriginal) {

@@ -225,12 +225,11 @@ class Hash {
      * Params:
      * Json[string] data The data to insert into.
      * @param string mypath The path to insert at.
-     * @param Json myvalues The values to insert.
      */
-    static Json[string] insert(Json[string] data, string mypath, Json myvalues = null) {
+    static Json[string] insert(Json[string] data, string mypath, Json valuesToInsert = null) {
         auto mynoTokens = !mypath.contains("[");
         if (mynoTokens && !mypath.contains(".")) {
-            mydata[mypath] = myvalues;
+            mydata[mypath] = valuesToInsert;
 
             return mydata;
         }
@@ -240,7 +239,7 @@ class Hash {
             mytokens = Text.tokenize(mypath, ".", "[", "]");
         }
         if (mynoTokens && !mypath.contains("{")) {
-            return _simpleOp("insert", mydata, mytokens, myvalues);
+            return _simpleOp("insert", mydata, mytokens, valuesToInsert);
         }
 
         string mytoken = array_shift(mytokens);
@@ -254,8 +253,8 @@ class Hash {
                 (!myconditions || _matches(myv, myconditions))
             ) {
                 mydata[myKey] = mynextPath
-                    ? insert(myv, mynextPath, myvalues)
-                    : chain(myv, /* (array) */myvalues);
+                    ? insert(myv, mynextPath, valuesToInsert)
+                    : chain(myv, /* (array) */valuesToInsert);
             }
         }
         return mydata;

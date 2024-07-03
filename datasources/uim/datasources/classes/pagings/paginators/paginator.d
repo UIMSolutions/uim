@@ -547,7 +547,7 @@ class DPaginator : IPaginator {
     }
 
     // Check the limit parameter and ensure it"s within the maxLimit bounds.
-    Json[string] checkLimit(Json[string] options) {
+    Json[string] checkLimit(Json[string] options = null) {
         auto limit = options.getInteger("limit");
         options.set("limit", limit < 1 ? 1 : limit);
         options.set("limit", max(min(options.getInteger("limit"), options.getInteger("maxLimit")), 1));

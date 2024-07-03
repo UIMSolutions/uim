@@ -34,7 +34,7 @@ abstract class DAbstractLocator : ILocator {
     }
 
     // Create an instance of a given classname.
-    abstract protected IRepository createInstance(string repositoryAlias, Json[string] options);
+    abstract protected IRepository createInstance(string repositoryAlias, Json[string] options = null);
 
     function set(string repositoryAlias, IRepository repository) {
         return _instances[repositoryAlias] = repository;

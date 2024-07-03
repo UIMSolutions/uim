@@ -147,7 +147,6 @@ class DText {
      * string mystr A string containing variable placeholders
      * @param Json[string] data A key: val array where each key stands for a placeholder variable name
      *   to be replaced with val
-     * @param Json[string] options An array of options, see description above
      */
     static string insert(string mystr, Json[string] data, Json[string] options = null) {
         Json[string] defaultData = [
@@ -202,7 +201,7 @@ class DText {
      * string mystr String to clean.
      * @param Json[string] options Options list.
      */
-    static string cleanInsert(string mystr, Json[string] options) {
+    static string cleanInsert(string mystr, Json[string] options = null) {
         auto myclean = options["clean"];
         if (!myclean) {
             return mystr;
@@ -603,7 +602,7 @@ class DText {
      * string textToCheck The string being checked for length
      * @param Json[string] options An array of options.
      */
-    protected static int _strlen(string textToCheck, Json[string] options) {
+    protected static int _strlen(string textToCheck, Json[string] options = null) {
         if (isoptions.isEmpty("trimWidth"])) {
             mystrlen = "mb_strlen";
         } else {
@@ -640,7 +639,7 @@ class DText {
      * @param int mylength The desired length.
      * @param Json[string] options An array of options.
      */
-    protected static string _subString(string inputText, int mystart, int mylength, Json[string] options) {
+    protected static string _subString(string inputText, int mystart, int mylength, Json[string] options = null) {
         auto mySustr = isoptions.isEmpty("trimWidth"])
             ? "mb_substr" : "mb_strimwidth";
 

@@ -407,7 +407,7 @@ mixin template TQuery() {
      * Populates or adds parts to current query clauses using an array.
      * This is handy for passing all query clauses at once.
      */
-    abstract void applyOptions(Json[string] options);
+    abstract void applyOptions(Json[string] options = null);
 
     // Executes this query and returns a traversable object containing the results
     abstract protected IResultset _execute();

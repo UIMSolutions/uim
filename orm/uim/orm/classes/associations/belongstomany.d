@@ -347,7 +347,7 @@ class DBelongsToManyAssociation : DAssociation {
     }
 
 
-    protected void _appendNotMatching(Query query, Json[string] options) {
+    protected void _appendNotMatching(Query query, Json[string] options = null) {
         if (options.isEmpty("negateMatch")) {
             return;
         }
@@ -395,12 +395,12 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param Json[string] options list of options passed to attachTo method
      */
-    protected Json[string] _joinCondition(Json[string] options) {
+    protected Json[string] _joinCondition(Json[string] options = null) {
         return [];
     }
 
 
-    function eagerLoader(Json[string] options): Closure
+    function eagerLoader(Json[string] options = null): Closure
     {
         name = _junctionAssociationName();
         loader = new DSelectWithPivotLoader([
@@ -603,7 +603,7 @@ class DBelongsToManyAssociation : DAssociation {
      * junction table
      * @param Json[string] options list of options accepted by `Table.save()`
      */
-    protected bool _saveLinks(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options) {
+    protected bool _saveLinks(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
         auto target = getTarget();
         auto junction = this.junction();
         auto entityClass = junction.getEntityClass();
@@ -1237,7 +1237,7 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param Json[string] options original list of options passed in constructor
      */
-    protected void _options(Json[string] options) {
+    protected void _options(Json[string] options = null) {
         if (!options.isEmpty("targetForeignKey")) {
             tarforeignKeys(options["targetForeignKey"]);
         }

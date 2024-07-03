@@ -445,7 +445,7 @@ class DAssociation : IAssociation {
      *
      * @param Json[string] options List of options used for initialization
      */
-    protected void _options(Json[string] options) {
+    protected void _options(Json[string] options = null) {
     }
 
     /**
@@ -550,7 +550,7 @@ class DAssociation : IAssociation {
      * @param DORMQuery query The query to modify
      * @param Json[string] options Options array containing the `negateMatch` key.
      */
-    protected void _appendNotMatching(DQuery query, Json[string] options) {
+    protected void _appendNotMatching(DQuery query, Json[string] options = null) {
         auto target = _targetTable;
         if (!options.isEmpty("negateMatch")) {
             // TODO
@@ -699,7 +699,7 @@ class DAssociation : IAssociation {
      * @param DORMQuery surrogate the query having the fields to be copied from
      * @param Json[string] options options passed to the method `attachTo`
      */
-    protected void _appendFields(Query query, Query surrogate, Json[string] options) {
+    protected void _appendFields(Query query, Query surrogate, Json[string] options = null) {
         if (query.getEagerLoader().isAutoFieldsEnabled() == false) {
             return;
         }
@@ -729,7 +729,7 @@ class DAssociation : IAssociation {
      * target table.
      * @param Json[string] options options passed to the method `attachTo`
      */
-    protected void _formatAssociationResults(Query query, Query surrogate, Json[string] options) {
+    protected void _formatAssociationResults(Query query, Query surrogate, Json[string] options = null) {
         auto formatters = surrogate.getResultFormatters();
         if (!formatters || options.isEmpty("propertyPath")) {
             return;
@@ -789,7 +789,7 @@ class DAssociation : IAssociation {
      * @param DORMQuery surrogate the query having the containments to be attached
      * @param Json[string] options options passed to the method `attachTo`
      */
-    protected void _bindNewAssociations(Query query, Query surrogate, Json[string] options) {
+    protected void _bindNewAssociations(Query query, Query surrogate, Json[string] options = null) {
         loader = surrogate.getEagerLoader();
         contain = loader.getContain();
         matching = loader.getMatching();
@@ -823,7 +823,7 @@ class DAssociation : IAssociation {
      *
      * @param Json[string] options list of options passed to attachTo method
      */
-    protected Json[string] _joinCondition(Json[string] options) {
+    protected Json[string] _joinCondition(Json[string] options = null) {
         auto conditions = null;
         auto tAlias = _name;
         auto sAlias = source().aliasName();
@@ -948,7 +948,7 @@ class DAssociation : IAssociation {
      * - strategy: The name of strategy to use for finding target table records
      * - nestKey: The array key under which results will be found when transforming the row
      */
-    abstract Closure eagerLoader(Json[string] options);
+    abstract Closure eagerLoader(Json[string] options = null);
 
     /**
      * Handles cascading a delete from an associated model.

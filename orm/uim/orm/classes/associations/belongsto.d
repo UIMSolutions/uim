@@ -113,7 +113,7 @@ class DBelongsToAssociation : DAssociation {
      *
      * @param Json[string] options list of options passed to attachTo method
      */
-    protected Expression[] _joinCondition(Json[string] options) {
+    protected Expression[] _joinCondition(Json[string] options = null) {
         auto conditions = null;
         auto tAlias = _name;
         auto sAlias = _sourceTable.aliasName();
@@ -143,7 +143,7 @@ class DBelongsToAssociation : DAssociation {
     }
 
 
-    Closure eagerLoader(Json[string] options) {
+    Closure eagerLoader(Json[string] options = null) {
         loader = new DSelectLoader([
             "alias": this.aliasName(),
             "sourceAlias": source().aliasName(),

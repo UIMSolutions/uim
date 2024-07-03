@@ -163,7 +163,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *  associations not in this list will not be saved.
      * @param Json[string] options The options for the save operation.
      */
-    bool saveChildren(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] options) {
+    bool saveChildren(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] options = null) {
         return associations.isEmpty
             ? true : _saveAssociations(table, entity, associations, options, true);
     }

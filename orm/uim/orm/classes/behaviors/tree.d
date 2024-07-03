@@ -329,7 +329,7 @@ class DTreeBehavior : DBehavior {
      * @param DORMQuery query The constructed query to modify
      * @param Json[string] options the list of options for the query
      */
-    DORMQuery findPath(Query query, Json[string] options) {
+    DORMQuery findPath(Query query, Json[string] options = null) {
         if (options.isEmpty("for")) {
             throw new DInvalidArgumentException("The 'for' key is required for find('path')");
         }
@@ -382,7 +382,7 @@ class DTreeBehavior : DBehavior {
      * @param DORMQuery query Query.
      * @param Json[string] options Array of options as described above
      */
-    DORMQuery findChildren(Query query, Json[string] options) {
+    DORMQuery findChildren(Query query, Json[string] options = null) {
         auto configData = configuration.data;
         auto updatedOptions = options.update["for": Json(null), "direct": false.toJson];
         [parent, left, right] = array_map(
@@ -431,7 +431,7 @@ class DTreeBehavior : DBehavior {
      * @param DORMQuery query Query.
      * @param Json[string] options Array of options as described above.
      */
-    DORMQuery findTreeList(Query query, Json[string] options) {
+    DORMQuery findTreeList(Query query, Json[string] options = null) {
         left = _table.aliasField(this.configuration.get("left"));
 
         results = _scope(query)

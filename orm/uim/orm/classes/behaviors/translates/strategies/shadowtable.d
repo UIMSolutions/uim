@@ -448,7 +448,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
     }
 
     Json[string] buildMarshalMap(
-        DMarshaller marshaller, Json[string] map, Json[string] options) {
+        DMarshaller marshaller, Json[string] map, Json[string] options = null) {
         translatedFields();
 
         return _buildMarshalMap(

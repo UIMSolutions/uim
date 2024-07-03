@@ -93,7 +93,7 @@ import uim.orm;
  * methods should expect the following arguments:
  *
  * ```
- * findSlugged(Query query, Json[string] options)
+ * findSlugged(Query query, Json[string] options = null)
  * ```
  *
  */

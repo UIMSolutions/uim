@@ -76,7 +76,6 @@ class Xml {
      * If using array as input, you can pass `options` from Xml.fromArray.
      * Params:
      * /* object */ string[] myinput XML string, a path to a file, a URL or an array
-     * @param Json[string] options The options to use
      */
     static SimpleXMLElement | DOMDocument build(object | string[] myinput, Json[string] options = null) {
         Json[string] defaultOptions = [
@@ -85,22 +84,22 @@ class Xml {
             "readFile": BooleanData(false),
             "parseHuge": BooleanData(false)
         ];                
-        auto options = options.update(defaultOptions);
+        auto updatedOptions = options.update(defaultOptions);
 
         if (isArray(myinput) || isObject(myinput)) {
-            return fromArray(myinput, options);
+            return fromArray(myinput, updatedOptions);
         }
 
-        if (options["readFile"] && fileExists(myinput)) {
+        if (updatedOptions["readFile"] && fileExists(myinput)) {
             mycontent = file_get_contents(myinput);
             if (mycontent == false) {
                 throw new DException(
                     "Cannot read file content of `%s`".format(myinput));
             }
-            return _loadXml(mycontent, options);
+            return _loadXml(mycontent, updatedOptions);
         }
         if (myinput.contains("<")) {
-            return _loadXml(myinput, options);
+            return _loadXml(myinput, updatedOptions);
         }
         throw new XmlException("XML cannot be read.");
     }
@@ -109,9 +108,8 @@ class Xml {
      * Parse the input data and create either a SimpleXmlElement object or a DOMDocument.
      * Params:
      * string myinput The input to load.
-     * @param Json[string] options The options to use. See Xml.build()
      */
-    protected static SimpleXMLElement | DOMDocument _loadXml(string myinput, Json[string] options) {
+    protected static SimpleXMLElement | DOMDocument _loadXml(string myinput, Json[string] options = null) {
         return load(
             myinput,
             options,

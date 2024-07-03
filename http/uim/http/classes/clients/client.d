@@ -380,33 +380,27 @@ class DClient { // }: IClient {
      * ### Options
      *
      * - `match` An additional closure to match requests with.
-     * Params:
-     * string mymethod The HTTP method being mocked.
-     * @param string myurl The URL being matched. See above for examples.
      */
-  static void addMockResponse(string mymethod, string url, Response response, Json[string] options = null) {
+  static void addMockResponse(string httpMethod, string url, Response response, Json[string] options = null) {
     if (!_mockAdapter) {
       _mockAdapter = new DMockAdapter();
     }
-    _mockAdapter.addResponse(new DRequest(url, mymethod), response, options);
+    _mockAdapter.addResponse(new DRequest(url, httpMethod), response, options);
   }
 
-  /**
-     * Send a request without redirection.
-     * Params:
-     * \Psr\Http\Message\IRequest  myrequest The request to send.
-     */
+  // Send a request without redirection.
   protected DClientResponse _sendRequest(IRequest requestToSend, Json[string] options = null) {
+    DClientResponse response; 
     if (_mockAdapter) {
-      myresponses = _mockAdapter.send(requestToSend, options);
+      response = _mockAdapter.send(requestToSend, options);
     }
-    if (myresponses.isEmpty) {
-      myresponses = _adapter.send(requestToSend, options);
+    if (response.isEmpty) {
+      response = _adapter.send(requestToSend, options);
     }
-    myresponses.each!(response => _cookies = _cookies.addFromResponse(response, requestToSend));
+    response.each!(response => _cookies = _cookies.addFromResponse(response, requestToSend));
 
     /** @var \UIM\Http\Client\Response */
-    return array_pop(myresponses);
+    return array_pop(response);
   }
 
   // Generate a URL based on the scoped client options.
@@ -416,7 +410,7 @@ class DClient { // }: IClient {
     }
     Json[string] mydefaults = [
       "host": Json(null),
-      "port": Json(null,
+      "port": Json(null),
       "scheme": Json("http"),
       "basePath": "".toJson,
       "protocolRelative": false.toJson,
@@ -424,8 +418,7 @@ class DClient { // }: IClient {
     auto updatedOptions = options.update(mydefaults);
 
     if (queryData) {
-      myq = fullUrl.contains("?") ? "&' : '?";
-      fullUrl ~= myq;
+      fullUrl ~= fullUrl.contains("?") ? "&" : "?";
       fullUrl ~= isString(queryData) ? queryData : http_build_query(queryData, "", "&", UIM_QUERY_RFC3986);
     }
     if (options["protocolRelative"] && fullUrl.startWith("//")) {

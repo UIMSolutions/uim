@@ -52,13 +52,13 @@ class DCookie : ICookie {
      */
     this(
         string cookieName,
-        string[]|float|bool cookieValue = "",
+        string[] /* |float|bool */ cookieValue = "",
         IDateTime expiresAt = null,
         string path = null,
         string domainName = null,
         bool isSecure = null,
         bool isHttpOnly = null,
-        SameSiteEnum|string sameSite = null
+        /* SameSiteEnum| */ string sameSite = null
     ) {
         this.validateName(name);
         _name = name;
@@ -67,8 +67,8 @@ class DCookie : ICookie {
 
         _domain = domainName ? domainName : defaultAttributes["domain"];
         _httpOnly = isHttpOnly ?? defaultAttributes["httponly"];
-        this.path = path ? path : defaultAttributes["path"];
-        this.isSecure = isSecure ?? defaultAttributes["isSecure"];
+        _path = path ? path : defaultAttributes["path"];
+        _isSecure = isSecure ?? defaultAttributes["isSecure"];
         _sameSite = resolveSameSiteenumeration(sameSite ?? defaultAttributes["samesite"]);
 
         if (expiresAt) {
@@ -210,7 +210,7 @@ class DCookie : ICookie {
      */
     string toHeaderValue() {
         aValue = this.value;
-        if (this.isExpanded) {
+        if (_isExpanded) {
             assert(isArray(aValue), "aValue is not an array");
 
             aValue = _flatten(aValue);
@@ -221,8 +221,8 @@ class DCookie : ICookie {
         if (_expiresAt) {
              aHeaderValue ~= "expires=%s".format(getFormattedExpires());
         }
-        if (!this.path.isEmpty) {
-             aHeaderValue ~= "path=%s".format(this.path);
+        if (!_path.isEmpty) {
+             aHeaderValue ~= "path=%s".format(_path);
         }
         if (!_domain.isEmpty) {
              aHeaderValue ~= "domain=%s".format(_domain);
@@ -230,7 +230,7 @@ class DCookie : ICookie {
         if (_sameSite) {
              aHeaderValue ~= "samesite=%s".format(_sameSite.value);
         }
-        if (this.isSecure) {
+        if (_isSecure) {
              aHeaderValue ~= "Secure";
         }
         if (_httpOnly) {
@@ -248,7 +248,7 @@ class DCookie : ICookie {
     }
  
     string getId() {
-        return "{_name};{_domain};{this.path}";
+        return "{_name};{_domain};{_path}";
     }
  
     @property string name() {
@@ -272,7 +272,7 @@ class DCookie : ICookie {
     }
  
     string getScalarValue() {
-        if (this.isExpanded) {
+        if (_isExpanded) {
             assert(isArray(this.value), "aValue is not an array");
 
             return _flatten(this.value);
@@ -296,7 +296,7 @@ class DCookie : ICookie {
      * string[]|float|bool aValue The value to store.
      */
     protected void _setValue(string[]|float|bool aValue) {
-        this.isExpanded = isArray(aValue);
+        _isExpanded = isArray(aValue);
         this.value = isArray(aValue) ? aValue : (string)aValue;
     }
  
@@ -435,7 +435,7 @@ class DCookie : ICookie {
      * This method will expand serialized complex data, on first use.
      */
    bool check(string pathToCheck) {
-        if (this.isExpanded == false) {
+        if (_isExpanded == false) {
             assert(isString(this.value), "aValue is not a string");
             this.value = _expand(this.value);
         }
@@ -444,40 +444,30 @@ class DCookie : ICookie {
         return Hash.check(this.value, pathToCheck);
     }
     
-    /**
-     * Create a new cookie with updated data.
-     * Params:
-     * string aPath Path to write to
-     * @param Json aValue Value to write
-     */
-    static withAddedValue(string pathToWrite, Json aValue) {
-        new = this.clone;
-        if (new.isExpanded == false) {
+    // Create a new cookie with updated data.
+    static DCookie withAddedValue(string pathToWrite, Json valueToWrite) {
+        DCookie newCookie = this.clone;
+        if (newCookie.isExpanded == false) {
             assert(isString(new.value), "aValue is not a string");
-            new.value = new._expand(new.value);
+            newCookie.value = newCookie._expand(new.value);
         }
         assert(isArray(new.value), "aValue is not an array");
-        new.value = Hash.insert(new.value, pathToWrite, aValue);
+        newCookie.value = Hash.insert(newCookie.value, pathToWrite, valueToWrite);
 
-        return new;
+        return newCookie;
     }
     
-    /**
-     * Create a new cookie without a specific path
-     * Params:
-     * string aPath Path to remove
-     */
-    static withoutAddedValue(string aPath) {
-        new = this.clone;
-        if (new.isExpanded == false) {
+    // Create a new cookie without a specific path
+    static withoutAddedValue(string pathToRemove) {
+        DCookie newCookie = this.clone;
+        if (newCookie.isExpanded == false) {
             assert(isString(new.value), "aValue is not a string");
-            new.value = new._expand(new.value);
+            newCookie.value = newCookie._expand(new.value);
         }
         assert(isArray(new.value), "aValue is not an array");
 
-        new.value = Hash.remove(new.value, somePath);
-
-        return new;
+        newCookie.value = Hash.remove(newCookie.value, somepathToRemovePath);
+        return newCookie;
     }
     
     /**
@@ -485,21 +475,19 @@ class DCookie : ICookie {
      *
      * This method will expand serialized complex data,
      * on first use.
-     * Params:
-     * string somePath Path to read the data from
     */
-    Json read(string aPath = null) {
+    Json read(string readPath = null) {
         if (_isExpanded == false) {
             assert(isString(this.value), "aValue is not a string");
 
             this.value = _expand(this.value);
         }
-        if (somePath.isNull) {
+        if (readPath.isNull) {
             return _value;
         }
         assert(this.value.isArray, "aValue is not an array");
 
-        return Hash.get(this.value, somePath);
+        return Hash.get(this.value, readPath);
     }
     
     // Checks if the cookie value was expanded
@@ -510,14 +498,14 @@ class DCookie : ICookie {
     Json[string] getOptions() {
         options = [
             "expires": to!int(getExpiresTimestamp()),
-            "path": this.path,
+            "path": _path,
             "domain": _domain,
-            "isSecure": this.isSecure,
+            "isSecure": _isSecure,
             "httponly": _httpOnly,
         ];
 
         if (!_sameSite.isNull) {
-            options["samesite"] = _sameSite.value;
+            options.set("samesite", _sameSite.value);
         }
         return options;
     }
@@ -536,19 +524,17 @@ class DCookie : ICookie {
     /**
      * Explode method to return array from string set in CookieComponent._flatten()
      * Maintains reading backwards compatibility with 1.x CookieComponent._flatten().
-     * Params:
-     * string astring A string containing Json encoded data, or a bare string.
      */
-    protected string[] _expand(string astring) {
-        this.isExpanded = true;
-        first = subString(string, 0, 1);
+    protected string[] _expand(string encodedData) {
+        _isExpanded = true;
+        auto first = subString(string, 0, 1);
         if (first == "{" || first == "[") {
-            return Json_decode(string, true) ?? string;
+            return <Json_decode(encodedData, true) ? Json_decode(encodedData, true) : encodedData;
         }
-        Json[string] = null;
-        foreach (split(",", string) as pair) {
+        Json[string] values = null;
+        foreach (pair; encodedData.split(",")) {
             string[] aKey = pair.split("|");
-            if (aKey[1]) !is null) {
+            if (aKey[1] !is null) {
                 return aKey[0];
             }
             array[aKey[0]] = aKey[1];

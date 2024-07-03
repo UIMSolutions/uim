@@ -29,25 +29,20 @@ class DStreamFactory { // }: IStreamFactory {
      * supported by the `fopen` function.
      *
      * The `filename` MAY be any string supported by `fopen()`.
-     * Params:
-     * string afilename The filename or stream URI to use as basis of stream.
-     * @param string amode The mode with which to open the underlying filename/stream.
      */
-    IStream createStreamFromFile(string afilename, string amode = "r") {
+    IStream createStreamFromFile(string filename, string openMode = "r") {
         if (!isReadable(filename)) {
             throw new DRuntimeException("Cannot read file `%s`".format(filename));
         }
-        return new DStream(filename, mode);
+        return new DStream(filename, openMode);
     }
     
     /**
      * Create a new stream from an existing resource.
      *
      * The stream MUST be readable and may be writable.
-     * Params:
-     * resource resource The UIM resource to use as the basis for the stream.
      */
-    IStream createStreamFromResource(resource) {
+    IStream createStreamFromResource(Json[string] resource) {
         return new DStream(resource);
     }
 }

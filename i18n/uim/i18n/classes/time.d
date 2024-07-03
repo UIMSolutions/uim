@@ -86,10 +86,8 @@ class DTime { // : ChronosTime, JsonSerializable {
      *
      * Alternatively, the format can provide a callback. In this case, the callback
      * can receive this object and return a formatted string.
-     *
-     * @param \/*Closure|*/ string|int format Format.
      */
-    static void setJsonEncodeFormat(/*Closure|*/ string|int format) {
+    static void setJsonEncodeFormat(/*Closure|*/ string/* |int */ format) {
         _JsonEncodeFormat = format;
     }
     

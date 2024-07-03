@@ -77,15 +77,11 @@ class DNumber {
      *
      * - `multiply`: Multiply the input value by 100 for decimal percentages.
      * - `locale`: The locale name to use for formatting the number, e.g. fr_FR
-     * Params:
-     * Json aValue A floating point number
-     * @param int precision The precision of the returned number
-     * @param Json[string] options Options
      */
     static string toPercentage(Json aValue, int precision = 2, Json[string] options = null) {
         auto updatedOptions = options.update["multiply": false.toJson, "type": NumberFormatter.PERCENT];
         if (!options["multiply"]) {
-            aValue = (float)aValue / 100;
+            aValue = aValue.getDouble / 100;
         }
         return precision(aValue, precision, options);
     }
@@ -108,7 +104,7 @@ class DNumber {
         auto formatter = formatter(options);
         auto updatedOptions = options.update(["before": "", "after": ""]);
 
-        return updatedOptions.getString("before") ~ formatter.format((float)aValue) ~ updatedOptions.getString("after");
+        return updatedOptions.getString("before") ~ formatter.format(aValue.getDouble) ~ updatedOptions.getString("after");
     }
     
     /**
@@ -119,13 +115,10 @@ class DNumber {
      * - `locale` - The locale name to use for parsing the number, e.g. fr_FR
      * - `type` - The formatter type to construct, set it to `currency` if you need to parse
      *  numbers representing money.
-     * Params:
-     * string avalue A numeric string.
      */
-    static float parseFloat(string avalue, Json[string] options = null) {
-        formatter = formatter(options);
-
-        return (float)formatter.parse(aValue, NumberFormatter.TYPE_DOUBLE);
+    static float parseFloat(string value, Json[string] options = null) {
+        auto parseFormatter = formatter(options);
+        return /* (float) */formatter.parseFormatter(value, NumberFormatter.TYPE_DOUBLE);
     }
     
     /**
@@ -139,14 +132,13 @@ class DNumber {
      * - `before` - The string to place before whole numbers, e.g. '["
      * - `after` - The string to place after decimal numbers, e.g. "]'
      * Params:
-     * Json aValue A floating point number
      */
     static string formatDelta(Json value, Json[string] options = null) {
         auto updatedOptions = options.update["places": 0];
-        auto doubleValue = number_format(value.getDouble, options["places"], ".", "");
-        auto sign = doubleValue > 0 ? "+" : "";
-        options.set("before", options.getString("before") ~ sign);
-        return format(aValue, options);
+        auto doubleValue = number_format(value.getDouble, updatedOptions["places"], ".", "");
+        string sign = doubleValue > 0 ? "+" : "";
+        updatedOptions.set("before", updatedOptions.getString("before") ~ sign);
+        return format(aValue, updatedOptions);
     }
     
     /**
@@ -166,13 +158,10 @@ class DNumber {
      * - `pattern` - An ICU number pattern to use for formatting the number. e.g #,##0.00
      * - `useIntlCode` - Whether to replace the currency symbol with the international
      * currency code.
-     * Params:
-     * Json aValue Value to format.
-     * @param string currency International currency name such as 'USD", "EUR", "JPY", "CAD'
      */
-    static string currency(Json value, string currency = null, Json[string] options = null) {
+    static string currency(Json value, string currencyName = null, Json[string] options = null) {
         double doubleValue = value.getDouble;
-        auto currency = currency ? currency : getDefaultCurrency();
+        currencyName = currencyName ? currencyName : getDefaultCurrency();
 
         if (options.hasKey("zero") && !value) {
             return options["zero"];
@@ -188,13 +177,13 @@ class DNumber {
         }
         auto before = options.getString("before", "");
         auto after = options.getString("after", "");
-        return before ~ formatter.formatCurrency(doubleValue, currency) ~ after;
+        return before ~ formatter.formatCurrency(doubleValue, currencyName) ~ after;
     }
     
     // Getter for default currency
     static string getDefaultCurrency() {
         if (_defaultCurrency.isNull) {
-            auto locale = ini_get("intl.default_locale") ?: DEFAULT_LOCALE;
+            auto locale = ini_get("intl.default_locale") ? ini_get("intl.default_locale") : DEFAULT_LOCALE;
             auto formatter = new DNumberFormatter(locale, NumberFormatter.CURRENCY);
             _defaultCurrency = formatter.getTextAttribute(NumberFormatter.CURRENCY_CODE);
         }

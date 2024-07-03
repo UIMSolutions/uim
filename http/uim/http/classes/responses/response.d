@@ -462,22 +462,16 @@ class DResponse : IResponse {
         return new;
     }
     
-    /**
-     * Sets a header.
-     *
-     * @Dstan-param non-empty-string aheader
-     * @param string aheader Header key.
-     * @param string avalue Header value.
-     */
-    protected void _setHeader(string aheader, string avalue) {
-        auto normalized = aHeader.lower;
-        _headerNames[normalized] = aHeader;
-        _headers[aHeader] = [aValue];
+    // Sets a header.
+    protected void _setHeader(string key, string value) {
+        auto normalized = key.lower;
+        _headerNames[normalized] = key;
+        _headers[key] = [value];
     }
     
     // Clear header
-    protected void _clearHeader(string headerName) {
-        string normalized = headerName.lower;
+    protected void _clearHeader(string name) {
+        string normalized = name.lower;
         if (!_headerNames.hasKey(normalized)) {
             return;
         }

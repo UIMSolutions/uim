@@ -422,10 +422,8 @@ class DMessage { //: JsonSerializable {
     /**
      * Set email
      * Params:
-     * string propertyName Property name
      * @param string[] aemail String with email,
      * Array with email as key, name as value or email as value (without name)
-     * @param string name Name
      */
     protected void setEmail(string propertyName, string email, string name) {
         validateEmail(email, propertyName);
@@ -464,16 +462,8 @@ class DMessage { //: JsonSerializable {
         throw new DInvalidArgumentException("Invalid email set for `%s`. You passed `%s`.".format(context, emailAddress));
     }
     
-    /**
-     * Set only 1 email
-     * Params:
-     * string propertyName Property name
-     * @param string[] aemail String with email,
-     * Array with email as key, name as value or email as value (without name)
-     * @param string name Name
-     * @param string athrowMessage Exception message
-     */
-    protected void setEmailSingle(string propertyName, string[] aemail, string aName, string exceptionMessage) {
+    // Set only 1 email
+    protected void setEmailSingle(string propertyName, string[] email, string name, string exceptionMessage) {
         if (email is null) {
             this.{propertyName} = email;
             return;

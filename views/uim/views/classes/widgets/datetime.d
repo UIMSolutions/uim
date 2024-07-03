@@ -137,7 +137,7 @@ class DDateTimeWidget : DWidget {
         }
         try {
             if (cast(IDateTime)myvalue  || cast(DChronosDate)myvalue || cast(DChronosTime)myvalue) {
-                mydateTime =  myvalue.clone;
+                mydateTime = myvalue.clone;
             } elseif (isString(myvalue) && !isNumeric(myvalue)) {
                 mydateTime = new DateTime(myvalue);
             } elseif (isNumeric(myvalue)) {

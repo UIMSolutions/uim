@@ -107,11 +107,8 @@ class DAsset {
      *  Set to false to skip timestamp generation.
      *  Set to true to apply timestamps when debug is true. Set to "force" to always
      *  enable timestamping regardless of debug value.
-     * Params:
-     * string aPath Path string or URL array
-     * @param Json[string] options Options array.
      */
-    static string url(string aPath, Json[string] options = null) {
+    static string url(string urlPath, Json[string] options = null) {
         if (preg_match("/^data:[a-z]+\/[a-z]+;/", somePath)) {
             return somePath;
         }
@@ -182,10 +179,10 @@ class DAsset {
      * Configure. If Asset.timestamp is true and debug is true, or Asset.timestamp == "force"
      * a timestamp will be added.
      * Params:
-     * string aPath The file path to timestamp, the path must be inside `App.wwwRoot` in Configure.
+     * string timestampPath The file path to timestamp, the path must be inside `App.wwwRoot` in Configure.
      * @param string timestamp If set will overrule the value of `Asset.timestamp` in Configure.
      */
-    static string assetTimestamp(string aPath, string timestamp = null) {
+    static string assetTimestamp(string timestampPath, string timestamp = null) {
         if (somePath.contains("?")) {
             return somePath;
         }
@@ -225,12 +222,11 @@ class DAsset {
      * Checks if a file exists when theme is used, if no file is found default location is returned.
      *
      * ### Options:
-     *
      * - `theme` Optional theme name
      */
     static string webroot(string fileName, Json[string] options = null) {
-        auto updatedOptions = options.update["theme": Json(null)];
-        requestWebroot = requestWebroot();
+        auto updatedOptions = options.merge(["theme": Json(null)]);
+        auto requestWebroot = requestWebroot();
 
         string[] asset = fileName.split("?");
         asset[1] = asset.has(1) ? "?" ~ asset[1] : "";

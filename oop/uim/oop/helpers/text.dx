@@ -634,13 +634,11 @@ class DText {
      * - `html` If true, HTML entities will be handled as decoded characters.
      * - `trimWidth` If true, will be truncated with specified width.
      * Params:
-     * string inputText The input string.
      * @param int mystart The position to begin extracting.
      * @param int mylength The desired length.
-     * @param Json[string] options An array of options.
      */
     protected static string _subString(string inputText, int mystart, int mylength, Json[string] options = null) {
-        auto mySustr = isoptions.isEmpty("trimWidth"])
+        auto mySustr = isoptions.isEmpty("trimWidth")
             ? "mb_substr" : "mb_strimwidth";
 
         auto maxPosition = _strlen(inputText, ["trimWidth": false.toJson] + options);
@@ -663,7 +661,7 @@ class DText {
         if (mylength <= 0) {
             return "";
         }
-        if (isoptions.isEmpty("html"])) {
+        if (isoptions.isEmpty("html")) {
             return (string)mysubString(inputText, mystart, mylength);
         }
         

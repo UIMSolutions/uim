@@ -76,7 +76,6 @@ class UrlHelper : DHelper {
      * string mypath uim-relative route path.
      * @param Json[string] myparams An array specifying any additional parameters.
      * Can be also any special parameters supported by `Router.url()`.
-     * @param Json[string] options Array of options.
      */
     string buildFromPath(string mypath, Json[string] myparams = [], Json[string] options  = null) {
         return _build(["_path": mypath] + myparams, options);

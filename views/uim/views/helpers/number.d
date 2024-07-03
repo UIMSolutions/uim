@@ -76,11 +76,15 @@ class DNumberHelper : DHelper {
      * string|float mynumber Value to format.
      * @param string mycurrency International currency name such as "USD", "EUR", "JPY", "CAD"
      */
-    string currency(string|float mynumber, string mycurrency = null, Json[string] options  = null) {
-        auto formattedCurrency = Number.currency(mynumber, mycurrency, options);
-        auto auto updatedOptions = options.update["escape": true.toJson];
+    string currency(float value, string currencyName = null, Json[string] options  = null) {
+        return currency(Number.currency(value, currencyName, options), currencyName, options);
+    }
 
-        return options["escape"] ? htmlAttributeEscape(formattedCurrency) : formattedCurrency;
+    string currency(string mynumber, string currencyName = null, Json[string] options  = null) {
+        auto formattedCurrency = Number.currency(mynumber, currencyName, options);
+        auto updatedOptions = options.update["escape": true.toJson];
+
+        return updatedOptions.hasKey("escape") ? htmlAttributeEscape(formattedCurrency) : formattedCurrency;
     }
     
     /**
@@ -94,14 +98,14 @@ class DNumberHelper : DHelper {
      * - `before` - The string to place before whole numbers, e.g. "["
      * - `after` - The string to place after decimal numbers, e.g. "]"
      * - `escape` - Set to false to prevent escaping
-     * Params:
-     * string|float myvalue A floating point number
-     * @param Json[string] options Options list.
      */
-    string formatDelta(string|float myvalue, Json[string] options  = null) {
-        myformatted = Number.formatDelta(myvalue, options);
-        auto updatedOptions = options.update["escape": true.toJson];
+    string formatDelta(float value, Json[string] options  = null) {
+        return formatDelta(Number.formatDelta(value, options));
+    }
 
-        return options["escape"] ? htmlAttributeEscape(myformatted): myformatted;
+    string formatDelta(string value, Json[string] options  = null) {
+        auto formattedNumber = Number.formatDelta(value, options);
+        auto updatedOptions = options.update["escape": true.toJson];
+        return updatedOptions.hasKey("escape") ? htmlAttributeEscape(formattedNumber) : formattedNumber;
     }
 }

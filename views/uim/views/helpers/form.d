@@ -657,7 +657,6 @@ class DFormHelper : DHelper {
      * @param string mytext Text that will appear in the label field. If
      * mytext is left undefined the text will be inflected from the
      * fieldName.
-     * @param Json[string] options An array of HTML attributes.
      */
     string label(string fieldName, string mytext = null, Json[string] htmlAttributes  = null) {
         if (mytext.isNull) {
@@ -1421,9 +1420,9 @@ class DFormHelper : DHelper {
      * - `escape` - HTML entity encode the attributes of button tag. Defaults to true.
      * - `confirm` - Confirm message to show. Form execution will only continue if confirmed then.
      * Params:
-     * string mytitle The button"s caption. Not automatically HTML encoded
+     * string title The button"s caption. Not automatically HTML encoded
      */
-    string button(string mytitle, Json[string] options  = null) {
+    string button(string title, Json[string] options  = null) {
         auto updatedOptions = options.update[
             "type": "submit".toJson,
             "escapeTitle": true.toJson,
@@ -1431,7 +1430,7 @@ class DFormHelper : DHelper {
             "secure": false.toJson,
             "confirm": Json(null),
         ];
-        updatedOptions["text"] = mytitle;
+        updatedOptions["text"] = title;
 
         auto myconfirmMessage = options["confirm"];
         options.remove("confirm");
@@ -1460,21 +1459,19 @@ class DFormHelper : DHelper {
      * - `form` - Array with any option that FormHelper.create() can take
      * - Other options is the same of button method.
      * - `confirm` - Confirm message to show. Form execution will only continue if confirmed then.
-     * Params:
-     * string mytitle The button"s caption. Not automatically HTML encoded
      */
     string postButton(string caption, string[] myurl, Json[string] options  = null) {
         auto myformOptions = ["url": myurl];
-        if (options.hasKey("method"])) {
+        if (options.hasKey("method")) {
             myformOptions["type"] = options["method"];
-            options.remove("method"]);
+            options.remove("method");
         }
-        if (options.hasKey("form"]) && isArray(options["form"])) {
+        if (options.hasKey("form") && isArray(options["form"])) {
             myformOptions = options["form"] + myformOptions;
-            options.remove("form"]);
+            options.remove("form");
         }
-        result = this.create(null, myformOptions);
-        if (options.hasKey("data"]) && isArray(options["data"])) {
+        result = create(null, myformOptions);
+        if (options.hasKey("data") && isArray(options["data"])) {
             foreach (Hash.flatten(options["data"]) as aKey: myvalue) {
                 result ~= hidden(aKey, ["value": myvalue]);
             }
@@ -1508,12 +1505,11 @@ class DFormHelper : DHelper {
      * - Other options are the same of HtmlHelper.link() method.
      * - The option `onclick` will be replaced.
      * Params:
-     * string mytitle The content to be wrapped by <a> tags.
+     * string title The content to be wrapped by <a> tags.
      * @param string[] myurl uim-relative URL or array of URL parameters, or
      * external URL (starts with http://)
-     * @param Json[string] options Array of HTML attributes.
      */
-    string postLink(string mytitle, string[] myurl = null, Json[string] options  = null) {
+    string postLink(string title, string[] myurl = null, Json[string] options  = null) {
         auto updatedOptions = options.update["block": Json(null), "confirm": Json(null)];
 
         myrequestMethod = "POST";
@@ -1598,7 +1594,7 @@ class DFormHelper : DHelper {
         }
         options.set("onclick", myonClick);
 
-        result ~= _html.link(mytitle, myurl, options);
+        result ~= _html.link(title, myurl, options);
         return result;
     }
     

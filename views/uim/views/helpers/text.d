@@ -127,30 +127,22 @@ class DTextHelper : DHelper {
         return strtr(text, myreplace);
     }
     
-    /**
-     * Links email addresses
-     * Params:
-     * string text The text to operate on
-     */
-    protected string _linkEmails(string textToOperate, Json[string] options = null) {
+    // Links email addresses
+    protected string _linkEmails(string text, Json[string] options = null) {
         auto myreplace = null;
         foreach (myhash, mycontent; _placeholders) {
             auto myurl = mycontent["content"];
             auto myenvelope = mycontent["envelope"];
             myreplace[myhash] = myenvelope[0] ~ this.Html.link(myurl, "mailto:" ~ myurl, options) ~ myenvelope[1];
         }
-        return strtr(textToOperate, myreplace);
+        return strtr(text, myreplace);
     }
     
     /**
      * Adds email links (<a href="mailto:....") to a given text.
      *
      * ### Options
-     *
      * - `escape` Control HTML escaping of input. Defaults to true.
-     * Params:
-     * string text Text
-     * @param Json[string] options Array of HTML options, and options listed above.
      */
     string autoLinkEmails(string text, Json[string] options  = null) {
         auto updatedOptions = options.update["escape": true.toJson];
@@ -162,7 +154,7 @@ class DTextHelper : DHelper {
             [&this, "_insertPlaceholder"],
             text
        );
-        if (options["escape"]) {
+        if (updatedOptions.hasKey("escape")) {
             text = htmlAttributeEscape(text);
         }
         return _linkEmails(text, options);
@@ -174,14 +166,10 @@ class DTextHelper : DHelper {
      * ### Options
      *
      * - `escape` Control HTML escaping of input. Defaults to true.
-     * Params:
-     * string text Text
-     * @param Json[string] options Array of HTML options, and options listed above.
      */
     string autoLink(string text, Json[string] options  = null) {
-        text = autoLinkUrls(text, options);
-
-        return _autoLinkEmails(text, ["escape": false.toJson] + options);
+        auto linkUrls = autoLinkUrls(text, options);
+        return _autoLinkEmails(linkUrls, options.update(["escape": false.toJson]));
     }
     
     /**
@@ -205,7 +193,6 @@ class DTextHelper : DHelper {
     }
     
     // Event listeners.
-     */
     IEvent[] implementedEvents() {
         return null;
     }

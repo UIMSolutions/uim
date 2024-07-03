@@ -969,9 +969,6 @@ class DAssociation : IAssociation {
     /**
      * Extract the target"s association data our from the passed entity and proxies
      * the saving operation to the target table.
-     *
-     * @param DORMDatasource\IORMEntity anEntity the data to be saved
-     * @param Json[string] options The options for saving associated data.
      */
     abstract IORMEntity saveAssociated(IORMEntity anEntity, Json[string] options = null);
 }

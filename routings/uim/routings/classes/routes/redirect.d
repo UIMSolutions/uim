@@ -21,15 +21,13 @@ class DRedirectRoute : DRoute {
      
      * Params:
      * string mytemplate Template string with parameter placeholders
-     * @param Json[string] mydefaults Defaults for the route. Either a redirect=>value array or a UIM array URL.
-     * @param Json[string] options Array of additional options for the Route
      */
-    this(string mytemplate, Json[string] mydefaults = [], Json[string] options = null) {
-        super(mytemplate, mydefaults, options);
-        if (isSet(mydefaults["redirect"])) {
+    this(string templateText, Json[string] defaults = [], Json[string] options = null) {
+        super(templateText, defaults, options);
+        if (defaults.hasKey("redirect")) {
             mydefaults = (array) mydefaults["redirect"];
         }
-        this.redirect = mydefaults;
+        _redirect = mydefaults;
     }
 
     /**
@@ -38,14 +36,15 @@ class DRedirectRoute : DRoute {
      * Params:
      * @param string mymethod The HTTP method being used.
      */
-    Json[string] parse(string urlToParse, string mymethod = null) {
-        myparams = super.parse(urlToParse, mymethod);
+    Json[string] parse(string urlToParse, string httpMethod = null) {
+        auto myparams = super.parse(urlToParse, httpMethod);
         if (!myparams) {
             return null;
         }
-        myredirect = this.redirect;
-        if (this.redirect && count(this.redirect) == 1 && !this.redirect.hasKey("controller")) {
-            myredirect = this.redirect[0];
+        
+        auto myredirect = _redirect;
+        if (_redirect && count(_redirect) == 1 && !_redirect.hasKey("controller")) {
+            myredirect = _redirect[0];
         }
         if (configuration.hasKey("persist") && isArray(myredirect)) {
             myredirect += ["pass": myparams["pass"], "url": Json.emptyArray];
@@ -67,21 +66,12 @@ class DRedirectRoute : DRoute {
         throw new DRedirectException(Router.url(myredirect, true), statusCode);
     }
 
-    /**
-     * There is no reverse routing redirection routes.
-     * Params:
-     * Json[string] myurl Array of parameters to convert to a string.
-     * @param Json[string] mycontext Array of request context parameters.
-     */
-    string match(Json[string] myurl, Json[string] mycontext = null) {
+    // There is no reverse routing redirection routes.
+    string match(Json[string] urlParameters, Json[string] contextParameters = null) {
         return null;
     }
 
-    /**
-     * Sets the HTTP status
-     * Params:
-     * int mystatus The status code for this route
-     */
+    // Sets the HTTP status
     void setStatus(int statusCode) {
         configuration.set("status", statusCode);
     }

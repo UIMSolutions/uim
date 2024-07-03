@@ -2125,7 +2125,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a validation rule to ensure the field is an uploaded file
      * Params:
      * string fieldName The field you want to apply the rule to.
-     * @param Json[string] options An array of options.
      * @param string myMessage The error message when the rule fails.
      * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.

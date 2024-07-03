@@ -163,55 +163,47 @@ class DEntityContext : DContext {
      * Traverses the entity data and finds the value for mypath.
      * Params:
      * string fieldPath The dot separated path to the value.
-     * @param Json[string] options Options:
-     *
-     * - `default`: Default value to return if no value found in data or
-     *   entity.
-     * - `schemaDefault`: Boolean indicating whether default value from table
-     *   schema should be used if it"s not explicitly provided.
      */
     Json val(string fieldPath, Json[string] options  = null) {
-        auto updatedOptions = options.update[
+        auto updatedOptions = options.merge([
             "default": Json(null),
             "schemaDefault": true.toJson,
-        ];
+        ]);
 
-        if (isEmpty(_context["entity"])) {
-            return options["default"];
+        if (_context.isEmpty("entity")) {
+            return updatedOptions["default"];
         }
         
         string[] pathParts = fieldPath.split(".");
-        myentity = this.entity(pathParts);
-
+        
+        auto myentity = entity(pathParts);
         if (myentity && end(pathParts) == "_ids") {
             return _extractMultiple(myentity, pathParts);
         }
         if (cast(IEntity)myentity) {
-            mypart = end(pathParts);
-
+            auto mypart = end(pathParts);
             if (cast(IInvalidProperty)myentity) {
-                myval = myentity.invalidField(mypart);
-                if (myval !is null) {
-                    return myval;
+                if (auto value = myentity.invalidField(mypart))
+                    return value;
                 }
             }
-            myval = myentity.get(mypart);
-            if (myval !is null) {
-                return myval;
+            
+            if (auto value = myentity.get(mypart)) {
+                return value;
             }
             if (
-                options["default"] !is null
-                || !options["schemaDefault"]
+                updatedOptions["default"] !is null
+                || !updatedOptions["schemaDefault"]
                 || !myentity.isNew()
            ) {
-                return options["default"];
+                return updatedOptions["default"];
             }
             return _schemaDefault(pathParts);
         }
         if (isArray(myentity) || cast(DArrayAccess)myentity) {
             aKey = array_pop(pathParts);
 
-            return myentity.get(aKey, options["default"]);
+            return myentity.get(aKey, updatedOptions["default"]);
         }
         return null;
     }
@@ -222,12 +214,13 @@ class DEntityContext : DContext {
      * string[] pathParts Each one of the parts in a path for a field name
      */
     protected Json _schemaDefault(Json[string] pathParts) {
-        mytable = _getTable(pathParts);
+        auto mytable = _getTable(pathParts);
         if (mytable.isNull) {
             return null;
         }
-        fieldName = end(pathParts);
-        mydefaults = mytable.getSchema().defaultValues();
+        
+        auto fieldName = end(pathParts);
+        auto mydefaults = mytable.getSchema().defaultValues();
         if (fieldName == false || !array_key_exists(fieldName, mydefaults)) {
             return null;
         }
@@ -392,7 +385,7 @@ class DEntityContext : DContext {
      */
     bool isRequired(string fieldName) {
         string[] pathParts = fieldName.split(".");
-        auto myentity = this.entity(pathParts);
+        auto myentity = entity(pathParts);
 
         auto myisNew = true;
         if (cast(IEntity)myentity) {
@@ -472,7 +465,7 @@ class DEntityContext : DContext {
             return !isNumeric(mypart);
         });
         string aKey = mykeyParts.join(".");
-        auto myentity = this.entity(pathParts);
+        auto myentity = entity(pathParts);
 
         if (_validator.hasKey(aKey)) {
             if (isObject(myentity)) {

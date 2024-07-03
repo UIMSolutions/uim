@@ -445,11 +445,11 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
             throw new DLogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }
         if (cast(IExpression)_value) {
-            _value =  _value.clone;
+            _value = _value.clone;
         }
-        _when.each!(kv => _when[kv.key] =  _when[kv.Key].clone);
+        _when.each!(kv => _when[kv.key] = _when[kv.Key].clone);
         if (cast(IExpression)_else) {
-            _else =  _else.clone;
+            _else = _else.clone;
         }
     } 
 }

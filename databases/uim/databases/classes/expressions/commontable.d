@@ -150,10 +150,10 @@ class DCommonTableExpression : IExpression {
     void clone() {
         _name = this.clone.name;
         if (_query) {
-            _query =  _query.clone;
+            _query = _query.clone;
         }
         foreach (aKey: field; _fields) {
-            _fields[aKey] =  field.clone;
+            _fields[aKey] = field.clone;
         }
     } */
 }

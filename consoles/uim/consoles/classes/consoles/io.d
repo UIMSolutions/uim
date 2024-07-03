@@ -222,7 +222,7 @@ class DConsoleIo {
         // Output backspaces.
         writeln(str_repeat("\x08", bytesToOverwrite), 0);
 
-        auto newBytes =  /* (int) */ writeln(message, 0);
+        auto newBytes = /* (int) */ writeln(message, 0);
 
         // Fill any remaining bytes with spaces.
         auto fill = bytesToOverwrite - newBytes;

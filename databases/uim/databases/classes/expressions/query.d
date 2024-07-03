@@ -516,7 +516,7 @@ class DQueryExpression : DExpression { // }, Countable {
     void clone() {
         foreach (index: condition; _conditions) {
             if (cast(IExpression)condition) {
-               _conditions[index] =  condition.clone;
+               _conditions[index] = condition.clone;
             }
         }
     }

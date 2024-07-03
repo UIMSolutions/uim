@@ -32,17 +32,17 @@ mixin template TEmail() {
     
     // Asserts an expected number of emails were sent
     void assertMailCount(int emailCount, string message= null) {
-        this.assertThat(emailCount, new DMailCount(), message);
+        assertThat(emailCount, new DMailCount(), message);
     }
     
     // Asserts that no emails were sent
     void assertNoMailSent(string message= null) {
-        this.assertThat(null, new DNoMailSent(), message);
+        assertThat(null, new DNoMailSent(), message);
     }
     
     // Asserts an email at a specific index was sent to an address
     void assertMailSentToAt(int emailIndex, string emailAddress, string message = null) {
-        this.assertThat(emailAddress, new DMailSentTo(emailIndex), message);
+        assertThat(emailAddress, new DMailSentTo(emailIndex), message);
     }
     
     /**
@@ -51,53 +51,28 @@ mixin template TEmail() {
      * int at Email index
      * @param string amessage Message
      */
-    void assertMailSentFromAt(int at, string emailAddress, string amessage= null)) {
-        this.assertThat(emailAddress, new DMailSentFrom(at), message);
+    void assertMailSentFromAt(int eMailIndex, string emailAddress, string amessage= null)) {
+        assertThat(emailAddress, new DMailSentFrom(eMailIndex), message);
     }
     
-    /**
-     * Asserts an email at a specific index contains expected contents
-     * Params:
-     * int at Email index
-     * @param string acontents Contents
-     * @param string amessage Message
-     */
-    void assertMailContainsAt(int at, string acontents, string amessage = null) {
-        this.assertThat(contents, new DMailContains(at), message);
+    // Asserts an email at a specific index contains expected contents
+    void assertMailContainsAt(int eMailIndex, string contents, string message = null) {
+        assertThat(contents, new DMailContains(eMailIndex), message);
     }
     
-    /**
-     * Asserts an email at a specific index contains expected html contents
-     * Params:
-     * int at Email index
-     * @param string acontents Contents
-     * @param string amessage Message
-     */
-    void assertMailContainsHtmlAt(int at, string acontents, string amessage = null) {
-        this.assertThat(contents, new DMailContainsHtml(at), message);
+    // Asserts an email at a specific index contains expected html contents
+    void assertMailContainsHtmlAt(int eMailIndex, string contents, string amessage = null) {
+        assertThat(contents, new DMailContainsHtml(eMailIndex), message);
     }
     
-    /**
-     * Asserts an email at a specific index contains expected text contents
-     * Params:
-     * int at Email index
-     * @param string acontents Contents
-     * @param string amessage Message
-     */
-    void assertMailContainsTextAt(int at, string acontents, string amessage = null) {
-        this.assertThat(contents, new DMailContainsText(at), message);
+    // Asserts an email at a specific index contains expected text contents
+    void assertMailContainsTextAt(int eMailIndex, string contents, string message = null) {
+        assertThat(contents, new DMailContainsText(eMailIndex), message);
     }
     
-    /**
-     * Asserts an email at a specific index contains the expected value within an Email getter
-     * Params:
-     * int at Email index
-     * @param string aexpected Contents
-     * @param string aparameter Email getter parameter (e.g. "cc", "bcc")
-     * @param string amessage Message
-     */
-    void assertMailSentWithAt(int at, string aexpected, string aparameter, string amessage= null) {
-        this.assertThat(expected, new DMailSentWith(at, parameter), message);
+    // Asserts an email at a specific index contains the expected value within an Email getter ("cc", "bcc")
+    void assertMailSentWithAt(int eMailIndex, string aexpected, string emailGetter, string message= null) {
+        assertThat(expected, new DMailSentWith(eMailIndex, emailGetter), message);
     }
     
     /**
@@ -107,12 +82,12 @@ mixin template TEmail() {
      * @param string amessage Message
      */
     void assertMailSentTo(string aaddress, string amessage = null) {
-        this.assertThat(address, new DMailSentTo(), message);
+        assertThat(address, new DMailSentTo(), message);
     }
     
     // Asserts an email was sent from an address
     void assertMailSentFrom(string[] emailAddress, string emailMessage = null) {
-        this.assertThat(emailAddress, new DMailSentFrom(), emailMessage);
+        assertThat(emailAddress, new DMailSentFrom(), emailMessage);
     }
     
     /**
@@ -121,7 +96,7 @@ mixin template TEmail() {
      * string acontents Contents
      */
     void assertMailContains(string acontents, string message = null) {
-        this.assertThat(contents, new DMailContains(), message);
+        assertThat(contents, new DMailContains(), message);
     }
     
     /**
@@ -131,17 +106,17 @@ mixin template TEmail() {
      * @param Json[string] file Additional file properties
      */
     void assertMailContainsAttachment(string afilename, Json[string] file = [], string message = null) {
-        this.assertThat([filename, file], new DMailContainsAttachment(), message);
+        assertThat([filename, file], new DMailContainsAttachment(), message);
     }
     
     // Asserts an email contains expected html contents
     void assertMailContainsHtml(string contents, string message = null) {
-        this.assertThat(contents, new DMailContainsHtml(), message);
+        assertThat(contents, new DMailContainsHtml(), message);
     }
     
     // Asserts an email contains an expected text content
     void assertMailContainsText(string expectedText, string message = null) {
-        this.assertThat(expectedText, new DMailContainsText(), message);
+        assertThat(expectedText, new DMailContainsText(), message);
     }
     
     /**
@@ -152,7 +127,7 @@ mixin template TEmail() {
      * @param string amessage Message
      */
     void assertMailSentWith(string aexpected, string aparameter, string amessage = null) {
-        this.assertThat(expected, new DMailSentWith(null, parameter), message);
+        assertThat(expected, new DMailSentWith(null, parameter), message);
     }
     
     /**
@@ -162,7 +137,7 @@ mixin template TEmail() {
      * @param string amessage Message
      */
     void assertMailSubjectContains(string acontents, string amessage = null) {
-        this.assertThat(contents, new DMailSubjectContains(), message);
+        assertThat(contents, new DMailSubjectContains(), message);
     }
     
     /**
@@ -172,7 +147,7 @@ mixin template TEmail() {
      * @param string acontents Contents
      * @param string amessage Message
      */
-    void assertMailSubjectContainsAt(int at, string acontents, string amessage = null) {
-        this.assertThat(contents, new DMailSubjectContains(at), message);
+    void assertMailSubjectContainsAt(int eMailIndex, string acontents, string amessage = null) {
+        assertThat(contents, new DMailSubjectContains(eMailIndex), message);
     }
 }

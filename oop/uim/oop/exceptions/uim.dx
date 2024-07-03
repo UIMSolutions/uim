@@ -15,7 +15,6 @@ class DException : Exception {
      * when debug mode is off.
      * Params:
      * @param int statusCode The error code
-     * @param \Throwable|null previous the previous exception.
      */
     this(Json messageAttributes, int statusCode = 0, DException previousException = null) {
         _attributes = messageAttributes;

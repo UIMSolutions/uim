@@ -123,20 +123,18 @@ class DResponseEmitter {
      * is an array with multiple values, ensures that each is sent
      * in such a way as to create aggregate headers (instead of replace
      * the previous).
-     * Params:
-     * \Psr\Http\Message\IResponse response The response to emit
      */
     protected void emitHeaders(IResponse response) {
         auto cookies = null;
-        if (cast(Response)response) {
+        if (cast(DResponse)response) {
             cookies = iterator_to_array(response.getCookieCollection());
         }
-        foreach (name:  someValues; response.getHeaders()) {
+        foreach (name, someValues; response.getHeaders()) {
             if (name.lower == "Set-cookie") {
                 cookies = array_merge(cookies,  someValues);
                 continue;
             }
-            first = true;
+            auto first = true;
             foreach (aValue; someValues) {
                 header(
                     "%s: %s".format(
@@ -149,26 +147,16 @@ class DResponseEmitter {
         this.emitCookies(cookies);
     }
     
-    /**
-     * Emit cookies using setcookie()
-     * Params:
-     * array<\UIM\Http\Cookie\ICookie|string> cookies An array of cookies.
-     */
+    // Emit cookies using setcookie()
     protected void emitCookies(Json[string] cookies) {
-        foreach (cookie; cookies) {
-            setCookie(cookie);
-        }
+        cookies.each!(cookie => setCookie(cookie));
     }
     
-    /**
-     * Helper methods to set cookie.
-     * Params:
-     * \UIM\Http\Cookie\ICookie|string acookie Cookie.
-     */
-    protected bool setCookie(ICookie|string acookie) {
-        if (isString(cookie)) {
-            cookie = Cookie.createFromHeaderString(cookie, ["path": ""]);
-        }
+    // Helper methods to set cookie.
+    protected bool setCookie(string acookie) {
+        return setCookie(Cookie.createFromHeaderString(cookie, ["path": ""]));
+    }
+    protected bool setCookie(ICookie acookie) {
         return setcookie(cookie.name, cookie.getScalarValue(), cookie.getOptions());
     }
     
@@ -179,20 +167,15 @@ class DResponseEmitter {
      * int maxBufferLevel Flush up to this buffer level.
      */
     protected void flush(int maxBufferLevel = null) {
-        maxBufferLevel ??= ob_get_level();
+        maxBufferLevel ? maxBufferLevel : ob_get_level();
 
         while (ob_get_level() > maxBufferLevel) {
             ob_end_flush();
         }
     }
     
-    /**
-     * Parse content-range header
-     * https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.16
-     * Params:
-     * string aheader The Content-Range header to parse.
-     */
-    // TODO protected array|false parseContentRange(string aheader) {
+    // Parse content-range header
+    protected array|false parseContentRange(string header) {
         if (preg_match("/(?P<unit>[\w]+)\s+(?P<first>\d+)-(?P<last>\d+)\/(?P<length>\d+|\*)/",  aHeader, matches)) {
             return [
                 matches["unit"],

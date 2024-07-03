@@ -37,8 +37,7 @@ class DMissingRouteException : DException {
                _messageTemplate = _messageTemplateWithMethod;
             }
         }
-        super(errorMessages, errorCode, previous);
+        super(errorMessages, errorCode, previousException));
     } 
-    */
 }
 mixin(ExceptionCalls!("MissingRoute"));

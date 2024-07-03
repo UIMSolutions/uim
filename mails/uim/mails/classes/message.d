@@ -235,14 +235,8 @@ class DMessage { //: JsonSerializable {
         return _from;
     }
 
-    /**
-     * Sets the "sender" address. See RFC link below for full explanation.
-     * Params:
-     * string[] aemail String with email,
-     * Array with email as key, name as value or email as value (without name)
-     * @param string name Name
-     */
-    auto setSender(string[] aemail, string name = null) {
+    // Sets the "sender" address. See RFC link below for full explanation.
+    auto setSender(string[] email, string name = null) {
         return _setEmailSingle("sender", email, name, "Sender requires only 1 email address.");
     }
     
@@ -251,12 +245,7 @@ class DMessage { //: JsonSerializable {
         return _sender;
     }
     
-    /**
-     * Sets "Reply-To" address.
-     * Params:
-     * string[] aemail String with email,
-     * Array with email as key, name as value or email as value (without name)
-    */
+    // Sets "Reply-To" address.
     void setReplyTo(string[] aemail, string name = null) {
         return _setEmail("replyTo", email, name);
     }

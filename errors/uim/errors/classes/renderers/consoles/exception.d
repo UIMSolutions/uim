@@ -17,14 +17,14 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
     private bool _trace;
 
     this(DThrowable errorToRender, IServerRequest serverRequest, Json[string] errorHandlingData) {
-        this.error = error;
+        _error = error;
         // TODO this.output = configuration.get("stderr") ?? new DConsoleOutput("D://stderr");
-        this.trace = configuration.getBoolean("trace", true);
+        _trace = configuration.getBoolean("trace", true);
     }
     
     // Render an exception into a plain text message.
     string render() {
-        auto exceptions = [this.error];
+        auto exceptions = [_error];
         auto previous = _error.getPrevious();
         while (!previous.isNull) {
             exceptions ~= previous;
@@ -32,8 +32,8 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
         }
 
         string[] results;
-        foreach (anI: error; exceptions) {
-            parent = anI > 0 ? exceptions[anI - 1] : null;
+        foreach (index, error; exceptions) {
+            parent = index > 0 ? exceptions[index - 1] : null;
             results = chain(result, this.renderException(error, parent));
         }
         return results.join("\n");
@@ -52,9 +52,9 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
                ),
         ];
 
-        debug = configuration.get("debug");
-        if (debug && cast(DException)exceptionToRender) {
-            attributes = exceptionToRender.getAttributes();
+        auto debugValue = configuration.get("debug");
+        if (debugValue && cast(DException)exceptionToRender) {
+            auto attributes = exceptionToRender.getAttributes();
             if (attributes) {
                 result ~= "";
                 result ~= "<info>Exception Attributes</info>";
@@ -62,8 +62,8 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
                 result ~= var_export_(exceptionToRender.getAttributes(), true);
             }
         }
-        if (this.trace) {
-            stacktrace = Debugger.getUniqueFrames(exceptionToRender, parentException);
+        if (_trace) {
+            auto stacktrace = Debugger.getUniqueFrames(exceptionToRender, parentException);
             result ~= "";
             result ~= "<info>Stack Trace:</info>";
             result ~= "";

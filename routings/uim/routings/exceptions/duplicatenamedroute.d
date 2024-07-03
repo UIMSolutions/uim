@@ -29,7 +29,7 @@ class DDuplicateNamedRouteException : DException {
         if (message.isArray && message.hasKey("message")) {
            _messageTemplate = message["message"];
         }
-        super(message, errorCode, previous);
+        super(message, errorCode, previousException));
     }
 }
 

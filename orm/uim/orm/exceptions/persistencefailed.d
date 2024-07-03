@@ -49,7 +49,7 @@ mixin(ExceptionCalls!("PersistenceFailed"));
                 _messageTemplate = "Entity %s failure. Found the following errors (%s).";
             }
         }
-        super(myMessage, errorCode, previous);
+        super(myMessage, errorCode, previousException));
     }
 
     // Get the passed in entity

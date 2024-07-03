@@ -297,11 +297,13 @@ class DLog {
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
-    static bool write(string|int level, string messageToLog, string[] contextData = null) {
-        if (isInteger(level) && isIn(level, _levelMap, true)) {
-            level = array_search(level, _levelMap, true);
-        }
-        if (!isIn(level, _levels, true)) {
+    static bool write(int severityLevel, string messageToLog, string[] contextData = null) {
+        return isIn(severityLevel, _levelMap, true)
+            ? write(array_search(severityLevel, _levelMap, true), messageToLog, contextData) {
+            : false; 
+    }
+    static bool write(string severityLevel, string messageToLog, string[] contextData = null) {
+        if (!isIn(severityLevel, _levels, true)) {
             /** @psalm-suppress PossiblyFalseArgument */
             throw new DInvalidArgumentException(
                 "Invalid log level `%s`".format(level));
@@ -323,12 +325,12 @@ class DLog {
                 levels = logger.levels();
                 scopes = logger.scopes();
             }
-            auto correctLevel = levels.isEmpty || isIn(level, levels, true);
-             anInScope = scopes.isNull && context.isEmpty("scope")) || scopes is null ||
+            auto correctLevel = levels.isEmpty || isIn(severityLevel, levels, true);
+             anInScope = scopes.isNull && context.isEmpty("scope") || scopes is null ||
                 isArray(scopes) && array_intersect(/* (array) */context["scope"], scopes);
 
             if (correctLevel &&  anInScope) {
-                logger.log(level, messageToLog, context);
+                logger.log(severityLevel, messageToLog, context);
                 logged = true;
             }
         });

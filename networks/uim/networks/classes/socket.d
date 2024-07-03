@@ -154,7 +154,6 @@ class DSocket {
      * Params:
      * string aremoteSocketTarget remote socket
      * @param string errorString error string
-     * @param int timeout timeout
      * @param resource context context
      */
     protected resource | null _getStreamSocketClient(

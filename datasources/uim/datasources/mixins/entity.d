@@ -780,15 +780,10 @@ mixin template TEntity() {
      * Sets error messages to the entity
      *
      * ## Example
-     *
-
      * Sets the error messages for multiple fields at once
      * entity.setErrors(["salary": ["message"], "name": ["another message"]]);
-
-     * Params:
-     * Json[string] errors The array of errors to set.
     */
-  void setErrors(arrayerrors, bool shouldOverwrite = false) {
+  void setErrors(Json[string] errors, bool shouldOverwrite = false) {
     if (overwrite) {
       errors.byKeyValue.each!(kv => _fieldErrors[kv.key] =  /* (array) */ kv.value);
       return;

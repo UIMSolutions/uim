@@ -517,7 +517,7 @@ static string exportVar(Json value, int maxOutputDepth = 3) {
 // Converts a variable to a plain text string.
 static string exportVarAsPlainText(Json value, int maxOutputDepth = 3) {
     return (new DTextFormatter()).dump(
-        export_(value, new DebugContext(maxOutputDepth))
+        export_(value, new DDebugContext(maxOutputDepth))
     );
 }
 
@@ -528,14 +528,14 @@ static string exportVarAsPlainText(Json value, int maxOutputDepth = 3) {
      * than many object graphs can.
      */
 static IErrorNode exportVarAsNodes(Json varToConvert, int maxOutputDepth = 3) {
-    return export_(varToConvert, new DebugContext(maxOutputDepth));
+    return export_(varToConvert, new DDebugContext(maxOutputDepth));
 }
 
 /**
      * Protected export function used to keep track of indentation and recursion.
-     * @param uim.errors.debugs.DebugContext context Dump context
+     * @param uim.errors.debugs.DDebugContext context Dump context
      */
-protected static IErrorNode export_(varToDump, DebugContext dumpContext) {
+protected static IErrorNode export_(varToDump, DDebugContext dumpContext) {
     type = getType(varToDump);
     switch (type) {
     case "float":
@@ -570,7 +570,7 @@ protected static IErrorNode export_(varToDump, DebugContext dumpContext) {
      * - prefix
      * - schema
      *
-     * @param uim.errors.debugs.DebugContext context The current dump context.
+     * @param uim.errors.debugs.DDebugContext context The current dump context.
      * @return uim.errors.debugs.ArrayNode Exported array.
      */
 protected static DArrayNode exportArray(Json[string] valueToExport, DDebugContext dumpContext) {
@@ -606,9 +606,9 @@ protected static DArrayNode exportArray(Json[string] valueToExport, DDebugContex
      * Handles object to node conversion.
      *
      * @param object var Object to convert.
-     * @param uim.errors.debugs.DebugContext context The dump context.
+     * @param uim.errors.debugs.DDebugContext context The dump context.
      */
-protected static IErrorNode exportObject(object objToConvert, DebugContext context) {
+protected static IErrorNode exportObject(object objToConvert, DDebugContext context) {
     auto isRef = context.hasReference(objToConvert);
     auto refNum = context.getReferenceId(objToConvert);
 

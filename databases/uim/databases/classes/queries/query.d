@@ -1334,11 +1334,11 @@ abstract class DQuery : IQuery { // : IExpression {
         }
         _parts.byKeyValue
             .filter!(namePart => !isEmpty(part))
-            .each!(namePart => 
+            .each!((namePart) { 
             if (namePart.value.isArray) {
-                foreach (anI: piece; namePart.value) {
+                foreach (anI, piece; namePart.value) {
                     if (isArray(piece)) {
-                        foreach (piece as  j: aValue) {
+                        foreach (j, aValue; piece) {
                             if (cast(IExpression)aValue) {
                                _parts[namePart.key][anI][j] = clone aValue;
                             }
@@ -1351,7 +1351,7 @@ abstract class DQuery : IQuery { // : IExpression {
             if (cast(IExpression)namePart.value) {
                _parts[namePart.key] = clone namePart.value;
             }
-        }
+        });
     }
     
     // Returns string representation of this query (complete SQL statement).

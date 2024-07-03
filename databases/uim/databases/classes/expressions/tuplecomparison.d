@@ -73,7 +73,7 @@ class DTupleComparisonExpression : DComparisonExpression {
             if (cast(IExpression) someParts) {
                 return someParts.sql(valueBinder);
                 }
-                foreach (someParts as anI : aValue) {
+                foreach (anI, aValue; someParts) {
                     if (cast(IExpression) aValue) {
                         someValues ~= aValue.sql(valueBinder); 
                         continue;

@@ -262,7 +262,7 @@ class DExceptionTrap {
     void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
         shouldLog = configuration.get("log");
         if (shouldLog) {
-            foreach (_configData.hasKey("skipLog") as  classname) {
+            foreach (classname; _configData.hasKey("skipLog")) {
                 if (cast(classname)exceptionToLog) {
                     shouldLog = false;
                     break;

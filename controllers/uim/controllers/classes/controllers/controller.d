@@ -308,7 +308,7 @@ class DController : IController { // DEventListener, IEventDispatcher {
         // TODO
     }
     void middleware(string amiddleware, Json[string] options = null) {
-        this.middlewares ~= [
+        _middlewares ~= [
             "middleware": middleware,
             "options": options,
         ];
@@ -319,7 +319,7 @@ class DController : IController { // DEventListener, IEventDispatcher {
         auto matching = null;
         auto requestAction = _request.getParam("action");
 
-        foreach (this.middlewares as  middleware) {
+        foreach (middleware, _middlewares) {
             auto middlewareOptions = options = middleware["options"];
             if (!middlewareOptions.isEmpty("only")) {
                 if (/* (array) */middlewareOptions["only"].has(requestAction)) {

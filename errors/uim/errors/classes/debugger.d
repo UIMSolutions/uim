@@ -438,7 +438,7 @@ class DDebugger {
      * shown in an error message if UIM is deployed in development mode.
      */
     static string exportVar(Json varToConvert, int maxDepth = 3) {
-        auto context = new DebugContext(maxDepth);
+        auto context = new DDebugContext(maxDepth);
         auto node = export_(varToConvert, context);
 
         return getInstance().getExportFormatter().dump(node);
@@ -451,7 +451,7 @@ class DDebugger {
      */
     static string exportVarAsPlainText(Json var, int maxOutputDepth = 3) {
         return (new DTextFormatter()).dump(
-            export_(var, new DebugContext(maxOutputDepth))
+            export_(var, new DDebugContext(maxOutputDepth))
        );
     }
 
@@ -462,7 +462,7 @@ class DDebugger {
      * than many object graphs can.
      */
     static IErrorNode exportVarAsNodes(Json valueToConvert, int maxOutputDepth = 3) {
-        return export_(valueToConvert, new DebugContext(maxOutputDepth));
+        return export_(valueToConvert, new DDebugContext(maxOutputDepth));
     }
 
     /**
@@ -501,9 +501,9 @@ class DDebugger {
      * - schema
      * Params:
      * Json[string] exportValues The array to export.
-     * @param \UIM\Error\Debug\DebugContext context The current dump context.
+     * @param \UIM\Error\Debug\DDebugContext context The current dump context.
      */
-    protected static ArrayNode exportArray(Json[string] exportValues, DebugContext context) {
+    protected static ArrayNode exportArray(Json[string] exportValues, DDebugContext context) {
         someItems = null;
 
         remaining = context.remainingDepth();
@@ -534,11 +534,11 @@ class DDebugger {
      * Handles object to node conversion.
      * Params:
      * object var Object to convert.
-     * @param \UIM\Error\Debug\DebugContext context The dump context.
+     * @param \UIM\Error\Debug\DDebugContext context The dump context.
      */
-    protected static IErrorNode exportObject(object objToConvert, DebugContext context) {
-        isRef = context.hasReference(objToConvert);
-        refNum = context.getReferenceId(objToConvert);
+    protected static IErrorNode exportObject(object objToConvert, DDebugContext context) {
+        auto isRef = context.hasReference(objToConvert);
+        auto refNum = context.getReferenceId(objToConvert);
 
         auto objClassname = var.classname;
         if (isRef) {
@@ -550,7 +550,7 @@ class DDebugger {
         if (remaining > 0) {
             if (method_exists(objToConvert, "__debugInfo")) {
                 try {
-                    foreach (/* (array) */ objToConvert.__debugInfo() as aKey : val) {
+                    foreach (aKey, val; /* (array) */ objToConvert.__debugInfo()) {
                         node.addProperty(new DPropertyNode("'{aKey}'", null, export_(val, context)));
                     }
                     return node;

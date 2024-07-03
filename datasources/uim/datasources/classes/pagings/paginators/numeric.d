@@ -171,7 +171,7 @@ class DNumericPaginator : IPaginator {
         auto data = this.extractData(object, requestData, paginationData);
         query = getQuery(object, query, data);
 
-        cleanQuery =  query.clone;
+        cleanQuery = query.clone;
         auto results = query.all();
         data["numResults"] = count(results);
         data["count"] = getCount(cleanQuery, data);
@@ -316,7 +316,7 @@ class DNumericPaginator : IPaginator {
         paginationOptions.remove("finder"), paginationOptions["maxLimit"]);
 
         if (type.isArray) {
-            paginationOptions =  /* (array) */ currentValue(type) + paginationOptions;
+            paginationOptions = /* (array) */ currentValue(type) + paginationOptions;
             type = key(type);
         }
 

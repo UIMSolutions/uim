@@ -27,7 +27,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         ["uri": anUri, "base": base, "webroot": webroot] = UriFactory.marshalUriAndBaseFromSapi(
             server);
 
-        auto sessionConfig =  /* (array) */ configuration.get("Session") ~ [
+        auto sessionConfig = /* (array) */ configuration.get("Session") ~ [
                 "defaults": "D",
                 "cookiePath": webroot,
             ];

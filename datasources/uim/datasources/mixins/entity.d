@@ -241,7 +241,7 @@ mixin template TEntity() {
       fieldName = [fieldName: valueToSet];
     } else {
       guard = true;
-      options =  /* (array) */ valueToSet;
+      options = /* (array) */ valueToSet;
     }
     if (!isArray(fieldName)) {
       throw new DInvalidArgumentException("Cannot set an empty field");
@@ -257,7 +257,7 @@ mixin template TEntity() {
     }
     fieldName.byKeyValue
       .each((kv) {
-        auto fieldName =  /* (string)  */ name;
+        auto fieldName = /* (string)  */ name;
         if (options["guard"] == true && !this.isAccessible(fieldName)) {
           continue;
         }
@@ -439,7 +439,7 @@ mixin template TEntity() {
      * string[]|string fieldName The field to unset.
     */
   auto remove(string[] afield) {
-    field =  /* (array) */ field;
+    field = /* (array) */ field;
     foreach (field asp) {
       remove(_fields[p], _isChangedFields[p]);
     }
@@ -785,7 +785,7 @@ mixin template TEntity() {
     */
   void setErrors(Json[string] errors, bool shouldOverwrite = false) {
     if (overwrite) {
-      errors.byKeyValue.each!(kv => _fieldErrors[kv.key] =  /* (array) */ kv.value);
+      errors.byKeyValue.each!(kv => _fieldErrors[kv.key] = /* (array) */ kv.value);
       return;
     }
 

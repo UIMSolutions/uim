@@ -261,7 +261,7 @@ class DNumber {
         }
         /** @var \NumberFormatter formatter */
         formatter = _formatters[locale][type];
-        formatter =  formatter.clone;
+        formatter = formatter.clone;
 
         return _setAttributes(formatter, options);
     }

@@ -1330,7 +1330,7 @@ abstract class DQuery : IQuery { // : IExpression {
     void clone() {
        _statement = null;
         if (!_valueBinder.isNull) {
-           _valueBinder =  _valueBinder.clone;
+           _valueBinder = _valueBinder.clone;
         }
         _parts.byKeyValue
             .filter!(namePart => !isEmpty(part))
@@ -1340,16 +1340,16 @@ abstract class DQuery : IQuery { // : IExpression {
                     if (isArray(piece)) {
                         foreach (j, aValue; piece) {
                             if (cast(IExpression)aValue) {
-                               _parts[namePart.key][anI][j] =  aValue.clone;
+                               _parts[namePart.key][anI][j] = aValue.clone;
                             }
                         }
                     } elseif (cast(IExpression)piece) {
-                       _parts[namePart.key][anI] =  piece.clone;
+                       _parts[namePart.key][anI] = piece.clone;
                     }
                 }
             }
             if (cast(IExpression)namePart.value) {
-               _parts[namePart.key] =  namePart.value.clone;
+               _parts[namePart.key] = namePart.value.clone;
             }
         });
     }

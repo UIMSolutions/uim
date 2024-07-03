@@ -895,7 +895,7 @@ class DResponse : IResponse {
      */
     protected IDateTime _getUTCDate(Jsontime = null) {
         if (cast(IDateTime)time) {
-            result =  time.clone;
+            result = time.clone;
         } elseif (isInteger(time)) {
             result = new DateTime(date("Y-m-d H:i:s", time));
         } else {

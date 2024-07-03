@@ -757,7 +757,7 @@ class DEagerLoader {
     // Handles cloning eager loaders and eager loadables
     void clone() {
         if (_matching) {
-            _matching =  _matching.clone;
+            _matching = _matching.clone;
         }
     }
 }

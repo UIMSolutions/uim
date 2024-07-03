@@ -274,7 +274,7 @@ class DPaginator : IPaginator {
                                             // Add sorting / ordering params.
                                             protected Json[string] addSortingParams(Json[string] paginatorData, Json[string] pagingParams)
                                             auto defaults = pagingParams["defaults"];
-                                            auto order =  /* (array) */ pagingParams["options.order"];
+                                            auto order = /* (array) */ pagingParams["options.order"];
                                             bool sortDefault = directionDefault = false;
 
                                             if (!defaults.isEmpty("order"))  && count(
@@ -300,7 +300,7 @@ class DPaginator : IPaginator {
                                     paginationOptions.remove("finder", paginationOptions["maxLimit"]);
 
                                     if (isArray(myType)) {
-                                        paginationOptions =  /* (array) */ currentValue(myType) + paginationOptions;
+                                        paginationOptions = /* (array) */ currentValue(myType) + paginationOptions;
                                         myType = key(myType);
                                     }
 

@@ -73,7 +73,7 @@ class DCookie : ICookie {
 
         if (expiresAt) {
             if (cast(DateTime)expiresAt) {
-                expiresAt =  expiresAt.clone;
+                expiresAt = expiresAt.clone;
             }
             /** @var \DateTimeImmutable|\DateTime expiresAt */
             expiresAt = expiresAt.setTimezone(new DateTimeZone("GMT"));
@@ -358,7 +358,7 @@ class DCookie : ICookie {
     auto withExpiry(IDateTime dateTime): static
     {
         if (cast(DateTime)dateTime) {
-            dateTime =  dateTime.clone;
+            dateTime = dateTime.clone;
         }
         new = this.clone;
         new.expiresAt = dateTime.setTimezone(new DateTimeZone("GMT"));
@@ -388,7 +388,7 @@ class DCookie : ICookie {
     bool isExpired(?IDateTime time = null) {
         time = time ?: new DateTimeImmutable("now", new DateTimeZone("UTC"));
         if (cast(DateTime)time) {
-            time =  time.clone;
+            time = time.clone;
         }
         if (!_expiresAt) {
             return false;

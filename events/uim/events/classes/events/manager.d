@@ -226,7 +226,7 @@ class DEventManager { // }: IEventManager {
         if (isEmpty(listeners)) {
             return event;
         }
-        /*     foreach (listeners as listener) {
+        /*     foreach (listener; listeners) {
         if (event.isStopped()) {
             break;
         }

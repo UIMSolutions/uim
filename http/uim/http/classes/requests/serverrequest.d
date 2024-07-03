@@ -907,16 +907,14 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string type The content type to check for. Leave null to get all types a client accepts.
      */
-    string[] accepts(string atype = null) {
+    string[] accepts(string contentType = null) {
         auto content = new DContentTypeNegotiation();
-        if (type) {
-            return !content.preferredType(this, [type]).isNull;
+        if (contentType) {
+            return !content.preferredType(this, [contentType]).isNull;
         }
         
         auto accept = null;
-        foreach (content.parseAccept(this) as types) {
-            accept = array_merge(accept, types);
-        }
+        content.parseAccept(this).each!(types => accept = array_merge(accept, types))
         return accept;
     }
     
@@ -934,7 +932,7 @@ class DServerRequest { // }: IServerRequest {
      * string language The language to test.
      */
     Json acceptLanguage(string languageToTest = null) {
-        content = new DContentTypeNegotiation();
+        auto content = new DContentTypeNegotiation();
         return languageToTest.isEmpty
             ? content.acceptedLanguages(this)
             : content.acceptLanguage(this, language);
@@ -988,16 +986,13 @@ class DServerRequest { // }: IServerRequest {
      * ```
      * aValue = Hash.get(request.getParsedBody(), "Post.id");
      * ```
-     * Params:
-     * string name Dot separated name of the value to read. Or null to read all data.
-     * @param Json defaultValue The default data.
      */
-    Json getData(string aName = null, Json defaultValue = Json(null)) {
-        if (name.isNull) {
+    Json getData(string valueName = null, Json defaultValue = Json(null)) {
+        if (valueName.isNull) {
             return _data;
         }
         return !isArray(this.data)  
-            ? Hash.get(this.data, name, defaultValue)
+            ? Hash.get(this.data, valueName, defaultValue)
             : defaultValue;
     }
     

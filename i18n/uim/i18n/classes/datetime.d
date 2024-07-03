@@ -466,7 +466,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
          anIdentifiers = DateTimeZone.listIdentifiers(filter, (string)country) ?: [];
 
         if (regex) {
-            foreach (anIdentifiers as aKey: tz) {
+            foreach (aKey, tz; anIdentifiers) {
                 if (!preg_match(regex, tz)) {
                     anIdentifiers.remove(aKey);
                 }

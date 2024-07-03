@@ -831,10 +831,10 @@ class DResponse : IResponse {
      * to "304" and removing headers that describe
      * a response body.
      */
-    static withNotModified() {
-        new = this.withStatus(304);
+    static auto withNotModified() {
+        auto new = this.withStatus(304);
         new._createStream();
-        remove = [
+        auto remove = [
             "Allow",
             "Content-Encoding",
             "Content-Language",
@@ -843,7 +843,7 @@ class DResponse : IResponse {
             "Content-Type",
             "Last-Modified",
         ];
-        foreach (remove as  aHeader) {
+        foreach (aHeader; remove) {
             new = new.withoutHeader(aHeader);
         }
         return new;

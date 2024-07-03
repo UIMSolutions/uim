@@ -637,9 +637,9 @@ class DMessage { //: JsonSerializable {
 
         aHeaders.get("MIME-Version", "1.0");
         if (this.attachments) {
-             aHeaders.set("Content-Type", "multipart/mixed; boundary="" ~ /* (string) */this.boundary ~ """);
+             aHeaders.set("Content-Type", "multipart/mixed; boundary="" ~ /* (string) */_boundary ~ """);
         } else if (this.emailFormat == MESSAGE_BOTH) {
-             aHeaders.set("Content-Type", "multipart/alternative; boundary="" ~ /* (string) */this.boundary ~ """);
+             aHeaders.set("Content-Type", "multipart/alternative; boundary="" ~ /* (string) */_boundary ~ """);
         } else if (this.emailFormat == MESSAGE_TEXT) {
              aHeaders.set("Content-Type", "text/plain; charset=" ~ getContentTypeCharset());
         } else if (this.emailFormat == MESSAGE_HTML) {
@@ -901,13 +901,13 @@ class DMessage { //: JsonSerializable {
      */
     protected void createBoundary() {
         if (
-            this.boundary.isNull &&
+            _boundary.isNull &&
             (
                 this.attachments ||
                 this.emailFormat == MESSAGE_BOTH
            )
        ) {
-            this.boundary = md5(Security.randomBytes(16));
+            _boundary = md5(Security.randomBytes(16));
         }
     }
     
@@ -994,10 +994,10 @@ class DMessage { //: JsonSerializable {
     /**
      * Attach non-embedded files by adding file contents inside boundaries.
      * Params:
-     * string boundary Boundary to use. If null, will default to this.boundary
+     * string boundary Boundary to use. If null, will default to _boundary
      */
     protected string[] attachFiles(string aboundary = null) {
-        boundary ??= this.boundary;
+        boundary ??= _boundary;
 
         message = null;
         foreach (this.attachments as filename: dirEntry) {
@@ -1028,10 +1028,10 @@ class DMessage { //: JsonSerializable {
     /**
      * Attach inline/embedded files to the message.
      * Params:
-     * string boundary Boundary to use. If null, will default to this.boundary
+     * string boundary Boundary to use. If null, will default to _boundary
      */
     protected string[] attachInlineFiles(string aboundary = null) {
-        auto boundary = boundary ? baoundry :  this.boundary;
+        auto boundary = boundary ? baoundry :  _boundary;
 
         auto message = null;
         foreach (getAttachments() as filename: dirEntry) {
@@ -1093,7 +1093,7 @@ class DMessage { //: JsonSerializable {
      * content string of respective type.
      */
     auto setBody(Json[string] content) {
-        foreach (content as type: text) {
+        foreach (type, text; content) {
             if (!isIn(type, this.emailFormatAvailable, true)) {
                 throw new DInvalidArgumentException(
                     "Invalid message type: `%s`. Valid types are: `text`, `html`.".format(
@@ -1108,7 +1108,7 @@ class DMessage { //: JsonSerializable {
              aProperty = "{type}Message";
             this. aProperty = text;
         }
-        this.boundary = null;
+        _boundary = null;
         _message = null;
 
         return this;

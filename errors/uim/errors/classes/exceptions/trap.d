@@ -295,7 +295,7 @@ class DExceptionTrap {
     void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
         auto shouldLog = _config["log"];
         if (shouldLog) {
-            foreach (configuration.get("skipLog") as aclassname) {
+            foreach (aclassname, configuration.get("skipLog")) {
                 if (cast(aclassname)exceptionToLog ) {
                     shouldLog = false;
                 }

@@ -161,9 +161,9 @@ class DExceptionRenderer : IExceptionRenderer {
             return _customMethod(method, myException);
         }
 
-        myMessage = errorMessage(myException, code);
-        myUrl = _controller.getRequest().getRequestTarget();
-        response = _controller.getResponse();
+        auto myMessage = errorMessage(myException, code);
+        auto myUrl = _controller.getRequest().getRequestTarget();
+        auto response = _controller.getResponse();
 
         if (cast(DException)myException) {
             /** @psalm-suppress DeprecatedMethod */
@@ -172,22 +172,18 @@ class DExceptionRenderer : IExceptionRenderer {
             }
         }
         if (cast(HttpException)myException) {
-            foreach (myException.getHeaders() as myName: myValue) {
-                response = response.withHeader(myName, myValue);
-            }
+            myException.getHeaders().byKeyValue.each!(kv => response = response.withHeader(kv.key, kv.value));
         }
-        response = response.withStatus(code);
-
-        viewVars = [
+        auto response = response.withStatus(code);
+        auto viewVars = [
             "message": myMessage,
             "url": h(myUrl),
             "error": myException,
             "code": code,
         ];
-        serialize = ["message", "url", "code"];
 
-        isDebug = Configure.read("debug");
-        if (isDebug) {
+        auto serialize = ["message", "url", "code"];
+        if (Configure.hasKey("debug")) {
             trace = /* (array) */Debugger.formatTrace(myException.getTrace(), [
                 "format": "array",
                 "args": false,
@@ -203,10 +199,11 @@ class DExceptionRenderer : IExceptionRenderer {
             serialize ~= "file";
             serialize ~= "line";
         }
+
         _controller.set(viewVars);
         _controller.viewBuilder().setOption("serialize", serialize);
 
-        if (cast(DException)myException && isDebug) {
+        if (cast(DException)myException && Configure.hasKey("debug")) {
             _controller.set(myException.getAttributes());
         }
         _controller.setResponse(response);

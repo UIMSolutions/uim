@@ -622,7 +622,7 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext cont
     if (remaining > 0) {
         if (method_exists(var, "__debugInfo")) {
             try {
-                foreach ( /* (array) */ var.__debugInfo() as key : val) {
+                foreach (key , val;  /* (array) */ var.__debugInfo()) {
                     node.addProperty(new DPropertyNode("" {
                             key
                         }

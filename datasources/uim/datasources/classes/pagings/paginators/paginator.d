@@ -50,14 +50,14 @@ class DPaginator : IPaginator {
             "maxLimit": Json(100),
             // TODO "allowedParameters": Json.emptyArray(["limit", "sort", "page", "direction"]),
         ]);
-    
+
         return true;
     }
 
     mixin(TProperty!("string", "name"));
 
     // Paging params after pagination operation is done.
-    protected STRINGAA _pagingParams= null;
+    protected STRINGAA _pagingParams = null;
 
     /**
      * Handles automatic pagination of model records.
@@ -160,7 +160,7 @@ class DPaginator : IPaginator {
      */
     IDSResultset paginate(Query objectToPaginate, Json[string] requestData = null, Json[string] paginationData = null) {
         myQuery = null;
-        if (cast(IQuery)objectToPaginate ) {
+        if (cast(IQuery) objectToPaginate) {
             myQuery = objectToPaginate;
             objectToPaginate = myQuery.getRepository();
             if (objectToPaginate == null) {
@@ -215,16 +215,12 @@ class DPaginator : IPaginator {
 
         auto updatedOptions = options.update["page": 1, "scope": null];
         options.set("page", options.getInteger("page") < 1 ? 1 : options.getInteger("page");
-        [myFinder, options] = _extractFinder(options);
-
-        return compact("defaults", "options", "finder");
+                [myFinder, options] = _extractFinder(options); return compact("defaults", "options", "finder");
     }
 
     // Build pagination params.
     protected Json[string] buildParams(Json[string] paginatorData) {
-        limit = myData["options.limit"];
-
-        // containing keys "options",
+        limit = myData["options.limit"]; // containing keys "options",
         // "count", "defaults", "finder", "numResults".
         Json[string] paging = [
             "count": myData["count"],
@@ -232,137 +228,123 @@ class DPaginator : IPaginator {
             "perPage": limit,
             "page": myData["options.page"],
             "requestedPage": myData["options.page"],
-        ];
+        ]; paging = addPageCountParams(paging, paginatorData); paging = addStartEndParams(paging, paginatorData);
+            paging = addPrevNextParams(paging, paginatorData); paging = addSortingParams(paging, paginatorData);
 
-        paging = addPageCountParams(paging, paginatorData);
-        paging = addStartEndParams(paging, paginatorData);
-        paging = addPrevNextParams(paging, paginatorData);
-        paging = addSortingParams(paging, paginatorData);
+            paging += [
+                "limit": paginatorData["defaults.limit"] != limit ? limit: null,
+                "scope": paginatorData["options.scope"],
+                "finder": paginatorData["finder"],
+            ]; return paging;}
 
-        paging += [
-            "limit": paginatorData["defaults.limit"] != limit ? limit : null,
-            "scope": paginatorData["options.scope"],
-            "finder": paginatorData["finder"],
-        ];
+        // Add "page" and "pageCount" params.
+        protected Json[string] addPageCountParams(Json[string] pagingParams, Json[string] paginatorData) {
+            auto page = pagingParams["page"]; auto pageCount = 0; if (
+                !pagingParams.isNull("count")) {
+                pageCount = max((int) ceil(pagingParams["count"] / pagingParams["perPage"]), 1);
+                    page = min(page, pageCount);}
+                    elseif(pagingParams.getInteger("current") == 0 && pagingParams.getLon("requestedPage") > 1) {
+                        page = 1;}
 
-        return paging;
-    }
+                        pagingParams.set("page", page); pagingParams.set("pageCount", pageCount);
+                            return pagingParams;}
 
-    // Add "page" and "pageCount" params.
-    protected Json[string] addPageCountParams(Json[string] pagingParams, Json[string] paginatorData) {
-        auto page = pagingParams["page"];
-        auto pageCount = 0;
+                            // Add "start" and "end" params.
+                            protected Json[string] addStartEndParams(Json[string] pagingParams, Json[string] paginatorData) {
+                                start = end = 0; if (pagingParams["current"] > 0) {
+                                    start = ((pagingParams["page"] - 1) * pagingParams["perPage"]) + 1;
+                                        end = start + pagingParams["current"] - 1;
+                                }
 
-        if (!pagingParams.isNull("count")) {
-            pageCount = max((int)ceil(pagingParams["count"] / pagingParams["perPage"]), 1);
-            page = min(page, pageCount);
-        } elseif (pagingParams.getInteger("current") == 0 && pagingParams["requestedPage"] > 1) {
-            page = 1;
-        }
+                                pagingParams.set("start", start); pagingParams.set("end", end);
 
-        pagingParams.set("page", page);
-        pagingParams.set("pageCount", pageCount);
-        return pagingParams;
-    }
+                                    return pagingParams;}
 
-    // Add "start" and "end" params.
-    protected Json[string] addStartEndParams(Json[string] pagingParams, Json[string] paginatorData) {
-        start = end = 0;
+                                    // Add "prevPage" and "nextPage" params.
+                                    protected Json[string] addPrevNextParams(Json[string] paginatorData, Json[string] pagingParams) {
+                                        auto pageNumber = paginatorData.getLong("page");
+                                            paginatorData.set("prevPage", pageNumber > 1);
+                                            paginatorData.set("nextPage",
+                                                paginatorData.getLong("count") > 0
+                                                    ? true : paginatorData.getLong(
+                                                        "count") > pageNumber * paginatorData.getLong(
+                                                        "perPage")
+                                            ); return paginatorData;}
 
-        if (pagingParams["current"] > 0) {
-            start = ((pagingParams["page"] - 1) * pagingParams["perPage"]) + 1;
-            end = start + pagingParams["current"] - 1;
-        }
+                                            // Add sorting / ordering params.
+                                            protected Json[string] addSortingParams(Json[string] paginatorData, Json[string] pagingParams)
+                                            auto defaults = pagingParams["defaults"];
+                                            auto order =  /* (array) */ pagingParams["options.order"];
+                                            bool sortDefault = directionDefault = false;
 
-        pagingParams.set("start", start);
-        pagingParams.set("end", end);
+                                            if (!defaults.isEmpty("order"))  && count(
+                                                defaults["order"]) == 1) {
+                                            sortDefault = key(defaults["order"]);
+                                            directionDefault = currentValue(defaults["order"]);
+                                        }
 
-        return pagingParams;
-    }
+                                        return paginatorData.update([
+                                                "sort": pagingParams["options.sort"].toJson,
+                                                "direction": (pagingParams.hasKey("options.sort") && count(
+                                                    order) ? currentValue(order) : null).toJson,
+                                                "sortDefault": sortDefault.toJson,
+                                                "directionDefault": directionDefault.toJson,
+                                                "completeSort": order.toJson,
+                                            ]);
+                                    }
 
-    // Add "prevPage" and "nextPage" params.
-    protected Json[string] addPrevNextParams(Json[string] paginatorData, Json[string] pagingParams) {
-        auto pageNumber = paginatorData.getLong("page");
-        paginatorData.set("prevPage", pageNumber > 1);
-        paginatorData.set("nextPage", 
-            paginatorData.getLong("count") > 0
-            ? true
-            : paginatorData.getLong("count") > pageNumber * paginatorData.getLong("perPage")
-        );
+                                // Extracts the finder name and options out of the provided pagination options.
+                                protected Json[string] _extractFinder(Json[string] paginationOptions) {
+                                    auto myType = !paginationOptions.isEmpty("finder") ? paginationOptions["finder"]
+                                        : "all";
+                                    paginationOptions.remove("finder", paginationOptions["maxLimit"]);
 
-        return paginatorData;
-    }
+                                    if (isArray(myType)) {
+                                        paginationOptions =  /* (array) */ currentValue(myType) + paginationOptions;
+                                        myType = key(myType);
+                                    }
 
-    // Add sorting / ordering params.
-    protected Json[string] addSortingParams(Json[string] paginatorData, Json[string] pagingParams) 
-        auto defaults = pagingParams["defaults"];
-        auto order = /* (array) */pagingParams["options.order"];
-        bool sortDefault = directionDefault = false;
+                                    return [myType, paginationOptions];
+                                }
 
-        if (!defaults.isEmpty("order")) && count(defaults["order"]) == 1) {
-            sortDefault = key(defaults["order"]);
-            directionDefault = currentValue(defaults["order"]);
-        }
+                                // Get paging params after pagination operation.
+                                Json[string] pagingParams() {
+                                    return _pagingParams;
+                                }
 
-        return paginatorData.update([
-            "sort": pagingParams["options.sort"].toJson,
-            "direction": (pagingParams.hasKey("options.sort") && count(order) ? currentValue(order) : null).toJson,
-            "sortDefault": sortDefault.toJson,
-            "directionDefault": directionDefault.toJson,
-            "completeSort": order.toJson,
-        ]);
-    }
+                                // Shim method for reading the deprecated whitelist or allowedParameters options
+                                protected string[] getAllowedParameters() {
+                                    allowed = configuration.get("allowedParameters");
+                                    if (!allowed) {
+                                        allowed = null;
+                                    }
+                                    whitelist = configuration.get("whitelist");
+                                    if (whitelist) {
+                                        deprecationWarning("The `whitelist` option is deprecated. Use the `allowedParameters` option instead.");
 
-    // Extracts the finder name and options out of the provided pagination options.
-    protected Json[string] _extractFinder(Json[string] paginationOptions) {
-        auto myType = !paginationOptions.isEmpty("finder") ? paginationOptions["finder"] : "all";
-        paginationOptions.remove("finder", paginationOptions["maxLimit"]);
+                                        return array_merge(allowed, whitelist);
+                                    }
 
-        if (isArray(myType)) {
-            paginationOptions = /* (array) */currentValue(myType) + paginationOptions;
-            myType = key(myType);
-        }
+                                    return allowed;
+                                }
 
-        return [myType, paginationOptions];
-    }
+                                // Shim method for reading the deprecated sortWhitelist or sortableFields options.
+                                protected string[] getSortableFields(Json[string] configData) {
+                                    auto allowed = configData.get("sortableFields");
+                                    if (!allowed.isNull) {
+                                        return allowed;
+                                    }
 
-    // Get paging params after pagination operation.
-    Json[string] pagingParams() {
-        return _pagingParams;
-    }
+                                    auto deprecatedMode = configData.get("sortWhitelist");
+                                    if (!deprecatedMode.isNull) {
+                                        deprecationWarning(
+                                            "The `sortWhitelist` option is deprecated. Use `sortableFields` instead.");
+                                    }
 
-    // Shim method for reading the deprecated whitelist or allowedParameters options
-    protected string[] getAllowedParameters() {
-        allowed = configuration.get("allowedParameters");
-        if (!allowed) {
-            allowed = null;
-        }
-        whitelist = configuration.get("whitelist");
-        if (whitelist) {
-            deprecationWarning("The `whitelist` option is deprecated. Use the `allowedParameters` option instead.");
+                                    return deprecatedMode;
+                                }
 
-            return array_merge(allowed, whitelist);
-        }
-
-        return allowed;
-    }
-
-    // Shim method for reading the deprecated sortWhitelist or sortableFields options.
-    protected string[] getSortableFields(Json[string] configData) {
-        auto allowed = configData.get("sortableFields");
-        if (!allowed.isNull) {
-            return allowed;
-        }
-        
-        auto deprecatedMode = configData.get("sortWhitelist");
-        if (!deprecatedMode.isNull) {
-            deprecationWarning("The `sortWhitelist` option is deprecated. Use `sortableFields` instead.");
-        }
-
-        return deprecatedMode;
-    }
-
-    /**
+                                /**
      * Merges the various options that Paginator uses.
      * Pulls settings together from the following places:
      *
@@ -374,44 +356,49 @@ class DPaginator : IPaginator {
      * combined together. You can change config value `allowedParameters` to modify
      * which options/values can be set using request parameters.
      */
-    Json[string] mergeOptions(Json[string] requestData, Json[string] settingsData) {
-        if (!settingsData.isEmpty("scope"))) {
-            scope = settingsData["scope"];
-            requestData = !requestData.isEmpty(scope) ? /* (array) */requestData[scope] : [];
-        }
+                                Json[string] mergeOptions(Json[string] requestData, Json[string] settingsData) {
+                                    if (!settingsData.isEmpty("scope"))
+                                        ) {
+                                        scope = settingsData["scope"];
+                                        requestData = !requestData.isEmpty(scope) ?  /* (array) */ requestData[scope]
+                                            : [];
+                                    }
 
-        allowed = getAllowedParameters();
-        requestData = array_intersectinternalKey(requestData, array_flip(allowed));
+                                    allowed = getAllowedParameters();
+                                    requestData = array_intersectinternalKey(
+                                        requestData, array_flip(allowed));
 
-        return array_merge(settingsData, requestData);
-    }
+                                    return array_merge(settingsData, requestData);
+                                }
 
-    /**
+                                /**
      * Get the settings for a myModel. If there are no settings for a specific
      * repository, the general settings will be used.
      */
-    Json[string] getDefaults(string aliasName, Json[string] settingsData) {
-        if (settingsData.hasKey(aliasName)) {
-            settingsData = settingsData[aliasName];
-        }
+                                Json[string] getDefaults(string aliasName, Json[string] settingsData) {
+                                    if (settingsData.hasKey(aliasName)) {
+                                        settingsData = settingsData[aliasName];
+                                    }
 
-        auto defaults = configuration.data;
-        defaults["whitelist"] = defaults["allowedParameters"] = getAllowedParameters();
+                                    auto defaults = configuration.data;
+                                    defaults["whitelist"] = defaults["allowedParameters"] = getAllowedParameters();
 
-        int maxLimit = settingsData.getLong("maxLimit", defaults.getLong("maxLimit"));
-        int limit = settingsData.getLong("limit", defaults.getLong("limit"));
+                                    int maxLimit = settingsData.getLong("maxLimit", defaults.getLong(
+                                            "maxLimit"));
+                                    int limit = settingsData.getLong("limit", defaults.getLong(
+                                            "limit"));
 
-        if (limit > maxLimit) {
-            limit = maxLimit;
-        }
+                                    if (limit > maxLimit) {
+                                        limit = maxLimit;
+                                    }
 
-        settingsData["maxLimit"] = maxLimit.toJson;
-        settingsData["limit"] = limit.toJson;
+                                    settingsData["maxLimit"] = maxLimit.toJson;
+                                    settingsData["limit"] = limit.toJson;
 
-        return settingsData.merge(defaults);
-    }
+                                    return settingsData.merge(defaults);
+                                }
 
-    /**
+                                /**
      * Validate that the desired sorting can be performed on the repository.
      *
      * Only fields or virtualFields can be sorted on. The direction param will
@@ -434,124 +421,131 @@ class DPaginator : IPaginator {
      *
      * @param Json[string] paginationData The pagination options being used for this request.
      */
-    Json[string] validateSort(IRepository repository, Json[string] paginationData) {
-        if (paginationData.hasKey("sort")) {
-            direction = null;
-            if (paginationData.hasKey("direction")) {
-                direction = strtolower(paginationData["direction"]);
-            }
-            if (!["asc", "desc"].has(direction)) {
-                direction = "asc";
-            }
+                                Json[string] validateSort(IRepository repository, Json[string] paginationData) {
+                                    if (paginationData.hasKey("sort")) {
+                                        direction = null;
+                                        if (paginationData.hasKey("direction")) {
+                                            direction = strtolower(paginationData["direction"]);
+                                        }
+                                        if (!["asc", "desc"].has(direction)) {
+                                            direction = "asc";
+                                        }
 
-            order = paginationData.hasKey("order") && paginationData["order"].isArray ? paginationData["order"] : [];
-            if (order && paginationData.hasKey("sort") && indexOf(paginationData.getString("sort"), ".") == false) {
-                order = _removeAliases(order, repository.aliasName());
-            }
+                                        order = paginationData.hasKey("order") && paginationData["order"].isArray ? paginationData["order"] : [
+                                        ];
+                                        if (order && paginationData.hasKey("sort") && indexOf(
+                                                paginationData.getString("sort"), ".") == false) {
+                                            order = _removeAliases(order, repository.aliasName());
+                                        }
 
-            paginationData.set("order", [paginationData.hasKey("sort"): direction] + order);
-        } else {
-            paginationData.set("sort", null);
-        }
-        paginationData.remove("direction");
+                                        paginationData.set("order", [
+                                                paginationData.hasKey("sort"): direction
+                                            ] + order);
+                                    } else {
+                                        paginationData.set("sort", null);
+                                    }
+                                    paginationData.remove("direction");
 
-        if (paginationData.isEmpty("order")) {
-            paginationData.set("order", null);
-        }
-        if (!paginationData["order"].isArray) {
-            return paginationData;
-        }
+                                    if (paginationData.isEmpty("order")) {
+                                        paginationData.set("order", null);
+                                    }
+                                    if (!paginationData["order"].isArray) {
+                                        return paginationData;
+                                    }
 
-        auto sortAllowed = false;
-        auto allowed = getSortableFields(paginationData);
-        if (allowed !== null) {
-            paginationData.set("sortableFields", allowed);
-            paginationData.set("sortWhitelist", allowed);
+                                    auto sortAllowed = false;
+                                    auto allowed = getSortableFields(paginationData);
+                                    if (allowed !=  = null) {
+                                        paginationData.set("sortableFields", allowed);
+                                        paginationData.set("sortWhitelist", allowed);
 
-            myField = key(paginationData.hasKey("order"));
-            sortAllowed = isIn(myField, allowed, true);
-            if (!sortAllowed) {
-                paginationData["order"]= null;
-                paginationData["sort"] = null;
+                                        myField = key(paginationData.hasKey("order"));
+                                        sortAllowed = isIn(myField, allowed, true);
+                                        if (!sortAllowed) {
+                                            paginationData["order"] = null;
+                                            paginationData["sort"] = null;
 
-                return paginationData;
-            }
-        }
+                                            return paginationData;
+                                        }
+                                    }
 
-        if (
-            paginationData["sort"] == null
-            && count(paginationData["order"]) == 1
-            && !key(paginationData["order"].isNumeric)
-       ) {
-            paginationData.set("sort", key(paginationData["order"]));
-        }
+                                    if (
+                                        paginationData["sort"] == null
+                                        && count(paginationData["order"]) == 1
+                                        && !key(paginationData["order"].isNumeric)
+                                        ) {
+                                        paginationData.set("sort", key(paginationData["order"]));
+                                    }
 
-        paginationData["order"] = _prefix(repository, paginationData["order"], sortAllowed);
+                                    paginationData["order"] = _prefix(repository, paginationData["order"], sortAllowed);
 
-        return paginationData;
-    }
+                                    return paginationData;
+                                }
 
-    // Remove alias if needed.
-    protected Json[string] _removeAliases(Json[string] fieldNames, string modelAlias) {
-        Json[string] myResult = null;
-        foreach (fieldNames as myField: sort) {
-            if (indexOf(myField, ".") == false) {
-                myResult.set(myField, sort);
-                continue;
-            }
+                                // Remove alias if needed.
+                                protected Json[string] _removeAliases(
+                                    Json[string] fieldNames, string modelAlias) {
+                                    Json[string] myResult = null;
+                                    foreach (myField, sort, fieldNames as) {
+                                        if (!myField.contains(".")) {
+                                            myResult.set(myField, sort);
+                                            continue;
+                                        }
 
-            [aliasName, currentField] = explode(".", myField);
+                                        [aliasName, currentField] = explode(".", myField);
+                                        if (aliasName == modelAlias) {
+                                            myResult.set(currentField, sort);
+                                            continue;
+                                        }
 
-            if (aliasName == modelAlias) {
-                myResult.set(currentField, sort);
-                continue;
-            }
+                                        myResult.set(myField, sort);
+                                    }
 
-            myResult.set(myField, sort);
-        }
+                                    return myResult;
+                                }
 
-        return myResult;
-    }
+                                // Prefixes the field with the table alias if possible.
+                                protected Json[string] _prefix(IRepository repository, Json[string] orderData, bool isAllowed = false) {
+                                    string myTableAlias = repository.aliasName();
+                                    Json[string] myTableOrder = null;
+                                    foreach (orderData as myKey : myValue) {
+                                        if (myKey.isNumeric) {
+                                            myTableOrder ~= myValue;
+                                            continue;
+                                        }
+                                        auto myField = myKey;
+                                        auto aliasName = myTableAlias;
 
-    // Prefixes the field with the table alias if possible.
-    protected Json[string] _prefix(IRepository repository, Json[string] orderData, bool isAllowed = false) {
-        sring myTableAlias = repository.aliasName();
-        Json[string] myTableOrder = null;
-        foreach (orderData as myKey: myValue) {
-            if (myKey.isNumeric) {
-                myTableOrder ~= myValue;
-                continue;
-            }
-            myField = myKey;
-            aliasName = myTableAlias;
+                                        if (myKey.contains(".")) {
+                                            [aliasName, myField] = explode(".", myKey);
+                                        }
 
-            if (indexOf(myKey, ".") !== false) {
-                [aliasName, myField] = explode(".", myKey);
-            }
+                                        auto correctAlias = (myTableAlias == aliasName);
+                                        if (correctAlias && isAllowed) {
+                                            // Disambiguate fields in schema. As id is quite common.
+                                            if (repository.hasField(myField)) {
+                                                myField = aliasName ~ "." ~ myField;
+                                            }
+                                            myTableOrder.set(myField, myValue);
+                                        }
+                                        elseif(correctAlias && repository.hasField(myField)) {
+                                            myTableOrder.set(myTableAlias ~ "." ~ myField, myValue);
+                                        }
+                                        elseif(!correctAlias && isAllowed) {
+                                            myTableOrder.set(aliasName ~ "." ~ myField, myValue);
+                                        }
+                                    }
 
-            auto correctAlias = (myTableAlias == aliasName);
-            if (correctAlias && isAllowed) {
-                // Disambiguate fields in schema. As id is quite common.
-                if (repository.hasField(myField)) {
-                    myField = aliasName ~ "." ~ myField;
-                }
-                myTableOrder.set(myField, myValue);
-            } elseif (correctAlias && repository.hasField(myField)) {
-                myTableOrder.set(myTableAlias ~ "." ~ myField, myValue);
-            } elseif (!correctAlias && isAllowed) {
-                myTableOrder.set(aliasName ~ "." ~ myField, myValue);
-            }
-        }
+                                    return myTableOrder;
+                                }
 
-        return myTableOrder;
-    }
+                                // Check the limit parameter and ensure it"s within the maxLimit bounds.
+                                Json[string] checkLimit(Json[string] options = null) {
+                                    auto limit = options.getInteger("limit");
+                                    options.set("limit", limit < 1 ? 1 : limit);
+                                    options.set("limit", max(min(options.getInteger("limit"), options.getInteger(
+                                            "maxLimit")), 1));
 
-    // Check the limit parameter and ensure it"s within the maxLimit bounds.
-    Json[string] checkLimit(Json[string] options = null) {
-        auto limit = options.getInteger("limit");
-        options.set("limit", limit < 1 ? 1 : limit);
-        options.set("limit", max(min(options.getInteger("limit"), options.getInteger("maxLimit")), 1));
-
-        return options;
-    } 
-}
+                                    return options;
+                                }
+                            }

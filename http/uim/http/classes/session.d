@@ -452,11 +452,10 @@ class DSession {
      // TODO
 /*     protected void _overwrite(Json[string] & old, arraynew) {
        ) {
-            foreach (old as aKey : var) {
-                if (new.isNull(aKey)) {
-                    remove(old[aKey]);
-                }
-            }
+            old.byKeyValue
+                .filter!(kv => new.isNull(kv.key))
+                .each!(kv => remove(old[kv.key]));
+
             new.byKeyValue
                 .each!(kv => old[kv.key] = kv.value);
         }

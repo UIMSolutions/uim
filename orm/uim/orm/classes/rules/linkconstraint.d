@@ -47,7 +47,7 @@ class DLinkConstraint {
      * \UIM\Datasource\IORMEntity myentity The entity involved in the operation.
      * @param Json[string] options Options passed from the rules checker.
      */
-    bool __invoke(IORMEntity myentity, Json[string] options) {
+    bool __invoke(IORMEntity myentity, Json[string] options = null) {
         auto mytable = options.get("repository", null);
         if (!(cast(Table)mytable)) {
             throw new DInvalidArgumentException(

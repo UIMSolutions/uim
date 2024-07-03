@@ -22,7 +22,7 @@ class DValidCount {
      * \UIM\Datasource\IORMEntity myentity The entity from where to extract the fields.
      * @param Json[string] options Options passed to the check.
      */
-    bool __invoke(IORMEntity myentity, Json[string] options) {
+    bool __invoke(IORMEntity myentity, Json[string] options = null) {
         myvalue = myentity.{_fieldName};
         if (!isArray(myvalue) && !cast(DCountable)myvalue) {
             return false;

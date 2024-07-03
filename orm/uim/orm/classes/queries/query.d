@@ -735,7 +735,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * options = query.getOptions();
      * ```
      */
-    void applyOptions(Json[string] options) {
+    void applyOptions(Json[string] options = null) {
         auto valid = [
             "fields": "select",
             "conditions": "where",

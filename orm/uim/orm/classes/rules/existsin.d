@@ -52,7 +52,7 @@ class DExistsIn {
      * @param Json[string] options Options passed to the check,
      * where the `repository` key is required.
      */
-   bool __invoke(IORMEntity myentity, Json[string] options) {
+   bool __invoke(IORMEntity myentity, Json[string] options = null) {
         if (isString(_repository)) {
             if (!options["repository"].hasAssociation(_repository)) {
                 throw new DatabaseException(

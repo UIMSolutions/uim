@@ -96,7 +96,7 @@ mixin template TTranslateStrategy() {
      * @param Json[string] map The property map being built.
      * @param Json[string] options The options array used in the marshalling call.
      */
-    Json[string] buildMarshalMap(DMarshaller marshaller, Json[string] map, Json[string] options) {
+    Json[string] buildMarshalMap(DMarshaller marshaller, Json[string] map, Json[string] options = null) {
         if (options.hasKey("translations"]) && !options["translations"]) {
             return [];
         }

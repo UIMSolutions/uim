@@ -560,7 +560,7 @@ class DHasManyAssociation : DAssociation {
      * @param Json[string] options original list of options passed in constructor
      */
             protected void _options(
-                Json[string] options) {
+                Json[string] options = null) {
                 if (
                     !options.isEmpty("saveStrategy")) {
                     setSaveStrategy(
@@ -572,7 +572,7 @@ class DHasManyAssociation : DAssociation {
             }
 
             Closure eagerLoader(
-                Json[string] options) {
+                Json[string] options = null) {
                 auto loader = new DSelectLoader(
                     [
                     "alias": aliasName(),

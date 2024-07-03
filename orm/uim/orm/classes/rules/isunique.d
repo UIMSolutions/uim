@@ -31,7 +31,7 @@ class DIsUnique {
     }
     
     // Performs the uniqueness check
-   bool __invoke(IORMEntity entity, Json[string] options) {
+   bool __invoke(IORMEntity entity, Json[string] options = null) {
         if (!entity.extract(_fields, true)) {
             return true;
         }

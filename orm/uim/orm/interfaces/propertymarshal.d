@@ -13,5 +13,5 @@ interface IPropertyMarshal {
      * @param Json[string] mymap The property map being built.
      * @param Json[string] options The options array used in the marshalling call.
      */
-    // array buildMarshalMap(DMarshaller mymarshaller, Json[string] mymap, Json[string] options);
+    // array buildMarshalMap(DMarshaller mymarshaller, Json[string] mymap, Json[string] options = null);
 }

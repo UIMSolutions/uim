@@ -2214,7 +2214,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         if (myargs is null || isSet(myargs[0])) {
             mysecondParamType = mysecondParam?.getType();
             mysecondParamTypeName = cast(ReflectionNamedType)mysecondParamType ? mysecondParamType.name: null;
-            // Backwards compatibility of 4.x style finders with signature `findFoo(SelectQuery myquery, Json[string] options)`
+            // Backwards compatibility of 4.x style finders with signature `findFoo(SelectQuery myquery, Json[string] options = null)`
             // called as `find("foo")` or `find("foo", [..])`
             if (
                 count(myparams) == 2 &&

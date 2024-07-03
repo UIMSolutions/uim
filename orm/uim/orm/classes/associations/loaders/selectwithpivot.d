@@ -47,8 +47,6 @@ class DSelectWithPivotLoader : DSelectLoader {
      * the source table.
      *
      * This is used for eager loading records on the target table based on conditions.
-     *
-     * @param Json[string] options options accepted by eagerLoader()
      */
     protected DORMQuery _buildQuery(Json[string] options = null) {
         name = this.junctionAssociationName;
@@ -109,8 +107,6 @@ class DSelectWithPivotLoader : DSelectLoader {
     /**
      * Generates a string used as a table field that contains the values upon
      * which the filter should be applied
-     *
-     * @param Json[string] options the options to use for getting the link field.
      */
     protected string[] _linkField(Json[string] options = null) {
         string[] links = null;

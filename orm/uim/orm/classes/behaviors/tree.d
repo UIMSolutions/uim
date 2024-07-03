@@ -327,7 +327,6 @@ class DTreeBehavior : DBehavior {
      * is passed in the options containing the id of the node to get its path for.
      *
      * @param DORMQuery query The constructed query to modify
-     * @param Json[string] options the list of options for the query
      */
     DORMQuery findPath(Query query, Json[string] options = null) {
         if (options.isEmpty("for")) {
@@ -429,7 +428,6 @@ class DTreeBehavior : DBehavior {
      * - spacer: A string to be used as prefix for denoting the depth in the tree for each item
      *
      * @param DORMQuery query Query.
-     * @param Json[string] options Array of options as described above.
      */
     DORMQuery findTreeList(Query query, Json[string] options = null) {
         left = _table.aliasField(this.configuration.get("left"));
@@ -457,7 +455,6 @@ class DTreeBehavior : DBehavior {
      * - spacer: A string to be used as prefix for denoting the depth in the tree for each item.
      *
      * @param DORMQuery query The query object to format.
-     * @param Json[string] options Array of options as described above.
      */
     DORMQuery formatTreeList(Query query, Json[string] options = null) {
         return query.formatResults(function (ICollection results) use (options) {

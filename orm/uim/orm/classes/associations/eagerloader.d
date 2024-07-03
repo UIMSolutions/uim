@@ -174,7 +174,6 @@ class DEagerLoader {
      * string myassociationPath Dot separated association path, "Name1.Name2.Name3".
      * @param \Closure|null mybuilder the callback auto to be used for setting extra
      * options to the filtering query.
-     * @param Json[string] options Extra options for the association matching.
      */
     void setMatching(string myassociationPath, Closure mybuilder = null, Json[string] options = null) {
        _matching ??= new static();

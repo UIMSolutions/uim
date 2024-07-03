@@ -84,7 +84,6 @@ class DHasOneAssociation : DAssociation {
         return entity;
     }
 
-
     Closure eagerLoader(Json[string] options = null) {
         auto loader = new DSelectLoader([
             "alias": this.aliasName(),

@@ -312,7 +312,6 @@ class DBelongsToManyAssociation : DAssociation {
      * - type: The type of join to be used (e.g. INNER)
      *
      * @param DORMQuery query the query to be altered to include the target table data
-     * @param Json[string] options Any extra options or overrides to be taken in account
      */
     void attachTo(Query query, Json[string] options = null) {
         if (!options.isEmpty("negateMatch")) {
@@ -937,8 +936,6 @@ class DBelongsToManyAssociation : DAssociation {
      * @param DORMDatasource\IORMEntity sourceEntity an entity persisted in the source table for
      *  this association
      * @param Json[string] targetEntities list of entities from the target table to be linked
-     * @param Json[string] options list of options to be passed to the internal `save`/`delete` calls
-     *  when persisting/updating new links, or deleting existing ones
      */
     bool replaceLinks(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
         auto bindingKey = /* (array) */getBindingKey();
@@ -1224,11 +1221,7 @@ class DBelongsToManyAssociation : DAssociation {
         return _junctionTableName = tableName;
     }
 
-    /**
-     * Parse extra options passed in the constructor.
-     *
-     * @param Json[string] options original list of options passed in constructor
-     */
+    // Parse extra options passed in the constructor.
     protected void _options(Json[string] options = null) {
         if (!options.isEmpty("targetForeignKey")) {
             tarforeignKeys(options["targetForeignKey"]);

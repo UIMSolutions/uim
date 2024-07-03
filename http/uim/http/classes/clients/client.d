@@ -239,119 +239,69 @@ class DClient { // }: IClient {
   /**
      * Do a GET request.
      *
-     * The  mydata argument supports a special `_content` key
-     * for providing a request body in a GET request. This is
-     * generally not used, but services like ElasticSearch use
-     * this feature.
+     * The  mydata argument supports a special `_content` key for providing a request body in a GET request. 
+     * This is generally not used, but services like ElasticSearch use this feature.
      */
-  DResponse get(string urlToRequest, string[] queryData = null, Json[string] options = null) {
+  DResponse get(string requestUrl, string[] queryData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
-    auto mybody = null;
+    auto requestBody = null;
     if (isArray(queryData) && queryData.hasKey("_content")) {
-      mybody = queryData["_content"];
+      requestBody = queryData["_content"];
       queryData.remove("_content");
     }
 
-    auto url = buildUrl(urlToRequest, queryData, requestOptions);
-    return _doRequest(
-      Request.METHOD_GET,
-      urlToRequest,
-      mybody,
-      requestOptions
+    auto url = buildUrl(requestUrl, queryData, requestOptions);
+    return _doRequest(Request.METHOD_GET, url, requestBody, requestOptions
    );
   }
 
-  /**
-     * Do a POST request.
-     * Params:
-     * string myurl The url or path you want to request.
-     * @param Json postData The post data you want to send.
-     * @param Json[string] requestOptions Additional requestOptions for the request.
-     */
-  Response post(string myurl, Json postData = null, Json[string] options = null) {
+  // Do a POST request.
+  Response post(string requestUrl, Json postData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
-    auto myurl = buildUrl(myurl, [], requestOptions);
-
-    return _doRequest(Request.METHOD_POST, myurl, postData, requestOptions);
+    auto url = buildUrl(requestUrl, [], options);
+    return _doRequest(Request.METHOD_POST, url, postData, requestOptions);
   }
 
-  /**
-     * Do a PUT request.
-     * Params: 
-     * @param string myurl The url or path you want to request.
-     * @param Json requestData The request data you want to send.
-     * requestOptions = Additional requestOptions for the request.
-     */
-  Response put(string myurl, Json requestData = nullll, Json[string] options = null) {
+  // Do a PUT request.
+  Response put(string requestUrl, Json requestData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
-    auto myurl = buildUrl(myurl, [], requestOptions);
-
-    return _doRequest(Request.METHOD_PUT, myurl, requestData, requestOptions);
+    auto url = buildUrl(requestUrl, [], options);
+    return _doRequest(Request.METHOD_PUT, url, requestData, requestOptions);
   }
 
-  /**
-     * Do a PATCH request.
-     * Params:
-     * string myurl The url or path you want to request.
-     * @param Json requestData The request data you want to send.
-     */
+  // Do a PATCH request.
   Response patch(string requestUrl, Json valueToSend = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
     auto url = buildUrl(requestUrl, [], requestOptions);
     return _doRequest(Request.METHOD_PATCH, url, valueToSend, requestOptions);
   }
 
-  /**
-     * Do an OPTIONS request.
-     * Params:
-     * @param Json sendData The request data you want to send.
-     * requestOptions = Additional requestOptions for the request.
-     */
-  Response requestOptions(string urlToRequest, Json sendData = null, Json[string] requestOptions = null) {
-    auto requestOptions = _mergeOptions(requestOptions);
-    auto urlToRequest = buildUrl(urlToRequest, [], requestOptions);
-
-    return _doRequest(Request.METHOD_OPTIONS, urlToRequest, sendData, requestOptions);
+  // Do an OPTIONS request.
+  Response requestOptions(string requestUrl, Json sendData = null, Json[string] options = null) {
+    auto requestOptions = _mergeOptions(options);
+    auto url = buildUrl(urlTorequestUrlRequest, [], requestOptions);
+    return _doRequest(Request.METHOD_OPTIONS, url, sendData, requestOptions);
   }
 
-  /**
-     * Do a TRACE request.
-     * Params:
-     * string myurl The url or path you want to request.
-     * @param Json sendData The request data you want to send.
-     * @param Json[string] requestOptions Additional requestOptions for the request.
-     */
-  Response trace(string myurl, Json sendData = null, Json[string] requestOptions = null) {
-    auto requestOptions = _mergeOptions(requestOptions);
-    auto url = buildUrl(myurl, [], requestOptions);
-   return _doRequest(Request.METHOD_TRACE, myurl, sendData, requestOptions);
+  // Do a TRACE request.
+  Response trace(string requestUrl, Json sendData = null, Json[string] options = null) {
+    auto requestOptions = _mergeOptions(options);
+    auto url = buildUrl(requestUrl, [], requestOptions);
+    return _doRequest(Request.METHOD_TRACE, url, sendData, requestOptions);
   }
 
-  /**
-     * Do a DELETE request.
-     * Params:
-     * string myurl The url or path you want to request.
-     * @param Json sendData The request data you want to send.
-     * @param Json[string] requestOptions Additional requestOptions for the request.
-     */
-  Response remove(string myurl, Json sendData = null, Json[string] optionsForRequest = null) {
-    auto optionsForRequest = _mergeOptions(optionsForRequest);
-    auto myurl = buildUrl(myurl, [], optionsForRequest);
-
-    return _doRequest(Request.METHOD_DELETE, myurl, sendData, optionsForRequest);
+  // Do a DELETE request.
+  Response remove(string requestUrl, Json sendData = null, Json[string] options = null) {
+    auto requestOptions = _mergeOptions(options);
+    auto url = buildUrl(requestUrl, [], requestOptions);
+    return _doRequest(Request.METHOD_DELETE, url, sendData, requestOptions);
   }
 
-  /**
-     * Do a HEAD request.
-     * Params:
-     * string myurl The url or path you want to request.
-     * @param Json[string] data The query string data you want to send.
-     */
-  DResponse head(string requestUrl, Json[string] queryData = null, Json[string] requestOptions = null) {
-    auto optionsForRequest = _mergeOptions(requestOptions);
-    auto requestUrl = buildUrl(requestUrl, queryData, optionsForRequest);
-
-    return _doRequest(Request.METHOD_HEAD, requestUrl, "", optionsForRequest);
+  // Do a HEAD request.
+  DResponse head(string requestUrl, Json[string] queryData = null, Json[string] options = null) {
+    auto requestOptions = _mergeOptions(options);
+    auto requestUrl = buildUrl(requestUrl, queryData, requestOptions);
+    return _doRequest(Request.METHOD_HEAD, requestUrl, "", requestOptions);
   }
 
   // Helper method for doing non-GET requests.
@@ -383,7 +333,6 @@ class DClient { // }: IClient {
      * handcrafted Request objects.
      * Params:
      * \Psr\Http\Message\IRequest  myrequest The request to send.
-     * @param Json[string] options Additional options to use.
      */
   Response send(IRequest myrequest, Json[string] options = null) {
     int myredirects = 0;

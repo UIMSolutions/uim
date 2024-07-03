@@ -66,8 +66,6 @@ class DSelectLoader {
     /**
      * Returns a callable that can be used for injecting association results into a given
      * iterator. The options accepted by this method are the same as `Association.eagerLoader()`
-     *
-     * @param Json[string] options Same options as `Association.eagerLoader()`
      */
     Closure buildEagerLoader(Json[string] options = null) {
         auto updatedOptions = options.update_defaultOptions();
@@ -280,8 +278,6 @@ class DSelectLoader {
     /**
      * Generates a string used as a table field that contains the values upon
      * which the filter should be applied
-     *
-     * @param Json[string] options The options for getting the link field.
      */
     protected string[] _linkField(Json[string] options = null) {
         auto links = null;
@@ -402,7 +398,6 @@ class DSelectLoader {
      * @param DORMQuery fetchQuery the Query used to fetch results
      * @param Json[string] resultMap an array with the foreignKey as keys and
      * the corresponding target table results as value.
-     * @param Json[string] options The options passed to the eagerLoader method
      */
      // TODO
     /* protected Closure _resultInjector(Query fetchQuery, Json[string] resultMap, Json[string] options = null) {

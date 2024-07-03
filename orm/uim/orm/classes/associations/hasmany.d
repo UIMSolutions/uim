@@ -265,8 +265,6 @@ class DHasManyAssociation : DAssociation {
      * this association
      * @param Json[string] myTargetEntities list of entities persisted in the target table for
      * this association
-     * @param Json[string]|bool options list of options to be passed to the internal `delete` call.
-     *  If boolean it will be used a value for "cleanProperty" option.
      */
     void unlink(IORMEntity sourceEntity, Json[string] myTargetEntities, options = null) {
         if (isBoolean(options)) {
@@ -432,7 +430,6 @@ class DHasManyAssociation : DAssociation {
      * @param Json[string] foreignKey array of foreign key properties
      * @param DORMTable myTarget The associated table
      * @param Json[string] conditions The conditions that specifies what are the objects to be unlinked
-     * @param Json[string] options list of options accepted by `Table.remove()`
      */
     protected bool _unlink(Json[string] foreignKey, DORMTable myTarget, Json[string] conditions = null, Json[string] options = null) {
         mustBeDependent = (!_foreignKeyAcceptsNull(

@@ -440,10 +440,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                     false)
             ]);
         entity.setDirty("_locale", false);
-
-        foreach (field; fields) {
-            entity.setDirty(field, false);
-        }
+        fields.each!(field => entity.setDirty(field, false));
     }
 
     Json[string] buildMarshalMap(
@@ -463,24 +460,18 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      *
      * @param string field Field name to be aliased.
      */
-    string translationField(
-        string field) {
+    string translationField(string fieldName) {
         if (
-            locale() == getConfig(
-                "defaultLocale")) {
-            return _table
-                .aliasField(
-                    field);
+            locale() == getConfig("defaultLocale")) {
+            return _table.aliasField(fieldName);
         }
 
-        translatedFields = this
-            .translatedFields();
-        if (isIn(field, translatedFields, true)) {
-            return _configuration.getString("hasOneAlias") ~ "." ~ field;
+        auto translatedFields = this.translatedFields();
+        if (isIn(fieldName, translatedFields, true)) {
+            return _configuration.getString("hasOneAlias") ~ "." ~ fieldName;
         }
 
-        return _table.aliasField(
-            field);
+        return _table.aliasField(fieldName);
     }
 
     /**

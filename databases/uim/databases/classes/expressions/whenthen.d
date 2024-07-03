@@ -201,10 +201,10 @@ class DWhenThenExpression : DExpression {
     // Clones the inner expression objects.
     void clone() {
         if (cast(IExpression)_when) {
-            this.when = clone this.when;
+            this.when = this.clone.when;
         }
         if (cast(IExpression)this.then) {
-            this.then = clone this.then;
+            this.then = this.clone.then;
         }
     } */
 }

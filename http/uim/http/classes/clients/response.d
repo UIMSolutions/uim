@@ -185,7 +185,7 @@ class DClientResponse { // }: Message : IResponse {
     }
     
     static auto withStatus(int statusCode, string reasonPhrase = null) {
-        auto newResponse = clone this;
+        auto newResponse = this.clone;
         newResponse.code = code;
         newResponse.reasonPhrase = reasonPhrase;
 

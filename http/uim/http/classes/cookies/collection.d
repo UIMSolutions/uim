@@ -68,7 +68,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * \UIM\Http\Cookie\ICookie cookie Cookie instance to add.
      */
     static add(ICookie cookieToAdd) {
-        new = clone this;
+        new = this.clone;
         new.cookies[cookieToAdd.getId()] = cookieToAdd;
 
         return new;
@@ -121,7 +121,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * If the cookie is not in the collection, this method will do nothing.
      */
     static remove(string cookieName) {
-        auto result = clone this;
+        auto result = this.clone;
         aKey = mb_strtolower(cookieName);
         foreach (result.cookies as  anI: cookie) {
             if (mb_strtolower(cookie.cookieName) == aKey) {
@@ -226,7 +226,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
             response.getHeader("Set-Cookie"),
             ["domain": host, "path": somePath]
        );
-        new = clone this;
+        new = this.clone;
         foreach (cookie; cookies) {
             new.cookies[cookie.getId()] = cookie;
         }

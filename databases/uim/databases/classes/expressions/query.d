@@ -513,7 +513,7 @@ class DQueryExpression : DExpression { // }, Countable {
         return _getTypeMap().type(field);
     }
     
-    // Clone this object and its subtree of expressions.
+    // this.clone object and its subtree of expressions.
     void clone() {
         foreach (anI: condition; _conditions) {
             if (cast(IExpression)condition) {

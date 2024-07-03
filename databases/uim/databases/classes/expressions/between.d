@@ -74,7 +74,7 @@ class DBetweenExpression : DExpression { // TODO}, IField {
     void clone() {
         ["_field", "_from", "_to"]
             .filter!(part => cast(IExpression)this.{part})
-            .each!(part => this.{part} = clone this.{part});
+            .each!(part => this.{part} = this.clone.{part});
     }
 }
 mixin(ExpressionCalls!("Between"));

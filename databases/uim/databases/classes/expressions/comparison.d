@@ -108,7 +108,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
     void clone() {
         ["_value", "_field"]
             .filter!(prop => cast(IExpression)this.{prop})
-            .each!(prop => this.{prop} = clone this.{prop});
+            .each!(prop => this.{prop} = this.clone.{prop});
     }
     
     /**

@@ -129,7 +129,7 @@ _window = new WindowExpression();
         return result;
     }
 
-    // Clone this object and its subtree of expressions.
+    // this.clone object and its subtree of expressions.
     void clone() {
         super.clone();
         if (!_filter.isNull) {

@@ -127,15 +127,10 @@ class DDateTimeWidget : DWidget {
         return data;
     }
     
-    /**
-     * Formats the passed date/time value into required string format.
-     * Params:
-     * \UIM\Chronos\DChronosDate|\UIM\Chronos\ChronosTime|\Jsonmyvalue Value to deconstruct.
-     * @param Json[string] options Options for conversion.
-     */
+    // Formats the passed date/time value into required string format.
     protected string formatDateTime(
-        DChronosDate|ChronosTime|Jsonmyvalue,
-        Json[string] optionsForConversion
+        /* DChronosDate|ChronosTime| */Json myvalue,
+        Json[string] options
    ) {
         if (myvalue is null || myvalue.isNull) {
             return null;
@@ -153,23 +148,23 @@ class DDateTimeWidget : DWidget {
         } catch (Exception) {
             mydateTime = new DateTime();
         }
-        if (optionsForConversion.hasKey("timezone")) {
-            mytimezone = optionsForConversion["timezone"];
+        if (options.hasKey("timezone")) {
+            mytimezone = options["timezone"];
             if (!cast(DateTimeZone)mytimezone) {
                 mytimezone = new DateTimeZone(mytimezone);
             }
             mydateTime = mydateTime.setTimezone(mytimezone);
         }
         
-        if (optionsForConversion.hasKey("format")) {
-            myformat = optionsForConversion["format"];
+        if (options.hasKey("format")) {
+            myformat = options["format"];
         } else {
-            myformat = this.formatMap[optionsForConversion["type"]];
+            myformat = this.formatMap[options["type"]];
 
             if (
-                optionsForConversion.getString("type") == "datetime-local"
-                && isNumeric(optionsForConversion["step"])
-                && optionsForConversion["step"] < 1
+                options.getString("type") == "datetime-local"
+                && isNumeric(options["step"])
+                && options["step"] < 1
            ) {
                 myformat = "Y-m-d\TH:i:s.v";
             }

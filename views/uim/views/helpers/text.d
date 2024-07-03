@@ -10,12 +10,12 @@ import uim.views;
  * Text manipulations: Highlight, excerpt, truncate, strip of links, convert email addresses to mailto: links...
  *
  * @property \UIM\View\Helper\HtmlHelper myHtml
- * @method string excerpt(string mytext, string myphrase, int myradius = 100, string myending = "...") See Text.excerpt()
- * @method string highlight(string mytext, string[] myphrase, Json[string] options  = null) See Text.highlight()
+ * @method string excerpt(string text, string myphrase, int myradius = 100, string myending = "...") See Text.excerpt()
+ * @method string highlight(string text, string[] myphrase, Json[string] options  = null) See Text.highlight()
  * @method string slug(string mystring, string[] options= null) See Text.slug()
- * @method string tail(string mytext, int mylength = 100, Json[string] options  = null) See Text.tail()
+ * @method string tail(string text, int mylength = 100, Json[string] options  = null) See Text.tail()
  * @method string toList(Json[string] mylist, string myand = null, string myseparator = ", ") See Text.toList()
- * @method string truncate(string mytext, int mylength = 100, Json[string] options  = null) See Text.truncate()
+ * @method string truncate(string text, int mylength = 100, Json[string] options  = null) See Text.truncate()
  */
 class DTextHelper : DHelper {
     protected string[] _helpers = ["Html"];
@@ -43,11 +43,8 @@ class DTextHelper : DHelper {
      * ### Options
      *
      * - `escape` Control HTML escaping of input. Defaults to true.
-     * Params:
-     * string mytext Text
-     * @param Json[string] options Array of HTML options, and options listed above.
      */
-    string autoLinkUrls(string mytext, Json[string] options  = null) {
+    string autoLinkUrls(string text, Json[string] options  = null) {
         _placeholders = null;
         auto updatedOptions = options.update["escape": true.toJson];
 
@@ -68,22 +65,22 @@ class DTextHelper : DHelper {
            )/ixu";
          Generic.Files.LineLength
 
-        mytext = /* (string) */preg_replace_callback(
+        text = /* (string) */preg_replace_callback(
             mypattern,
             [&this, "_insertPlaceHolder"],
-            mytext
+            text
        );
          Generic.Files.LineLength
-        mytext = preg_replace_callback(
+        text = preg_replace_callback(
             "#(?<!href="|">)(?<!\b[[:punct:]])(?<!http://|https://|ftp://|nntp://)www\.[^\s\n\%\ <]+[^\s<\n\%\,\.\ ](?<!\))#i",
             [&this, "_insertPlaceHolder"],
-            mytext
+            text
        );
          Generic.Files.LineLength
         if (options["escape"]) {
-            mytext = htmlAttributeEscape(mytext);
+            text = htmlAttributeEscape(text);
         }
-        return _linkUrls(mytext, options);
+        return _linkUrls(text, options);
     }
     
     /**
@@ -114,10 +111,10 @@ class DTextHelper : DHelper {
     /**
      * Replace placeholders with links.
      * Params:
-     * string mytext The text to operate on.
+     * string text The text to operate on.
      * @param Json[string] myhtmlOptions The options for the generated links.
      */
-    protected string _linkUrls(string mytext, Json[string] myhtmlOptions) {
+    protected string _linkUrls(string text, Json[string] myhtmlOptions) {
         auto myreplace = null;
         foreach (myhash, mycontent; _placeholders) {
             auto mylink = myurl = mycontent["content"];
@@ -127,13 +124,13 @@ class DTextHelper : DHelper {
             }
             myreplace[myhash] = myenvelope[0] ~ this.Html.link(mylink, myurl, myhtmlOptions) ~ myenvelope[1];
         }
-        return strtr(mytext, myreplace);
+        return strtr(text, myreplace);
     }
     
     /**
      * Links email addresses
      * Params:
-     * string mytext The text to operate on
+     * string text The text to operate on
      */
     protected string _linkEmails(string textToOperate, Json[string] options = null) {
         auto myreplace = null;
@@ -152,23 +149,23 @@ class DTextHelper : DHelper {
      *
      * - `escape` Control HTML escaping of input. Defaults to true.
      * Params:
-     * string mytext Text
+     * string text Text
      * @param Json[string] options Array of HTML options, and options listed above.
      */
-    string autoLinkEmails(string mytext, Json[string] options  = null) {
+    string autoLinkEmails(string text, Json[string] options  = null) {
         auto updatedOptions = options.update["escape": true.toJson];
        _placeholders = null;
 
         auto myatom = "[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]";
-        mytext = preg_replace_callback(
+        text = preg_replace_callback(
             "/(?<=\s|^|\(|\>|\;)(" ~ myatom ~ "*(?:\." ~ myatom ~ "+)*@[\p{L}0-9-]+(?:\.[\p{L}0-9-]+)+)/ui",
             [&this, "_insertPlaceholder"],
-            mytext
+            text
        );
         if (options["escape"]) {
-            mytext = htmlAttributeEscape(mytext);
+            text = htmlAttributeEscape(text);
         }
-        return _linkEmails(mytext, options);
+        return _linkEmails(text, options);
     }
     
     /**
@@ -178,13 +175,13 @@ class DTextHelper : DHelper {
      *
      * - `escape` Control HTML escaping of input. Defaults to true.
      * Params:
-     * string mytext Text
+     * string text Text
      * @param Json[string] options Array of HTML options, and options listed above.
      */
-    string autoLink(string mytext, Json[string] options  = null) {
-        mytext = autoLinkUrls(mytext, options);
+    string autoLink(string text, Json[string] options  = null) {
+        text = autoLinkUrls(text, options);
 
-        return _autoLinkEmails(mytext, ["escape": false.toJson] + options);
+        return _autoLinkEmails(text, ["escape": false.toJson] + options);
     }
     
     /**
@@ -192,19 +189,19 @@ class DTextHelper : DHelper {
      * <br> added for single line return
      * <p> added for double line return
      */
-    string autoParagraph(string mytext) {
-        string mytext = myText.ifEmpty("");
-        if (!mytext.strip.isEmpty) {
-            mytext = to!string(preg_replace("|<br[^>]*>\s*<br[^>]*>|i", "\n\n", mytext ~ "\n"));
-            mytext = /* (string) */preg_replace("/\n\n+/", "\n\n", mytext.replace(["\r\n", "\r"], "\n"));
-            mytexts = preg_split("/\n\s*\n/", mytext, -1, PREG_SPLIT_NO_EMPTY) ?: [];
-            mytext = "";
+    string autoParagraph(string text) {
+        string text = myText.ifEmpty("");
+        if (!text.strip.isEmpty) {
+            text = to!string(preg_replace("|<br[^>]*>\s*<br[^>]*>|i", "\n\n", text ~ "\n"));
+            text = /* (string) */preg_replace("/\n\n+/", "\n\n", text.replace(["\r\n", "\r"], "\n"));
+            mytexts = preg_split("/\n\s*\n/", text, -1, PREG_SPLIT_NO_EMPTY) ?: [];
+            text = "";
             foreach (mytxt; mytexts) {
-                mytext ~= "<p>" ~ nl2br(trim(mytxt, "\n")) ~ "</p>\n";
+                text ~= "<p>" ~ nl2br(trim(mytxt, "\n")) ~ "</p>\n";
             }
-            mytext = /* (string) */preg_replace("|<p>\s*</p>|", "", mytext);
+            text = /* (string) */preg_replace("|<p>\s*</p>|", "", text);
         }
-        return mytext;
+        return text;
     }
     
     // Event listeners.

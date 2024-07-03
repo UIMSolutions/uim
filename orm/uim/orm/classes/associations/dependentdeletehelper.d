@@ -9,11 +9,7 @@ import uim.orm;
 
 @safe:
 
-/**
- * Helper class for cascading deletes in associations.
- *
- * @internal
- */
+// Helper class for cascading deletes in associations.
 class DDependentDeleteHelper {
     /**
      * Cascade a delete to remove dependent records.

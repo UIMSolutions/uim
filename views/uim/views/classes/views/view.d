@@ -1170,7 +1170,6 @@ static string contentType() {
      * Params:
      * string elementname Element name
      * @param Json[string] data Data
-     * @param Json[string] options Element options
      */
     protected Json[string] _elementCache(string elementname, Json[string] data, Json[string] options = null) {
         if (options.hasKey("cache.key"], options["cache.config"])) {

@@ -75,7 +75,6 @@ class DNumberHelper : DHelper {
      * Params:
      * string|float mynumber Value to format.
      * @param string mycurrency International currency name such as "USD", "EUR", "JPY", "CAD"
-     * @param Json[string] options Options list.
      */
     string currency(string|float mynumber, string mycurrency = null, Json[string] options  = null) {
         auto formattedCurrency = Number.currency(mynumber, mycurrency, options);

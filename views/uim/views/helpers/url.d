@@ -49,7 +49,6 @@ class UrlHelper : DHelper {
      * string[] myurl Either a relative string URL like `/products/view/23` or
      *  an array of URL parameters. Using an array for URLs will allow you to leverage
      *  the reverse routing features of UIM.
-     * @param Json[string] options Array of options.
      */
     string build(string[] myurl = null, Json[string] options  = null) {
         mydefaults = [
@@ -170,7 +169,6 @@ class UrlHelper : DHelper {
      *  enable timestamping regardless of debug value.
      * Params:
      * string mypath Path string or URL array
-     * @param Json[string] options Options array.
      */
     string assetUrl(string mypath, Json[string] options  = null) {
         auto updatedOptions = options.update["theme": _View.getTheme()];

@@ -1165,19 +1165,14 @@ static bool uploadedFile(Json myfile, Json[string] options = null) {
     return true;
 }
 
-/**
-     * Validates the size of an uploaded image.
-     * Params:
-     * Json myfile The uploaded file data from D.
-     * @param Json[string] options Options to validate width and height.
-     */
-static bool imageSize(Json myfile, Json[string] options = null) {
+// Validates the size of an uploaded image.
+static bool imageSize(Json fileData, Json[string] options = null) {
     if (!options.hasKey("height") && !options.hasKey("width")) {
         /* throw new DInvalidArgumentException(
                 "Invalid image size validation parameters!Missing `width` and / or `height`."
            ); */
     }
-    auto filename = getFilename(myfile);
+    auto filename = getFilename(fileData);
     if (filename.isNull) {
         return false;
     }
@@ -1284,13 +1279,7 @@ static bool geoCoordinate(Json aValue, Json[string] options = null) {
     return false;
 }
 
-/**
-     * Convenience method for latitude validation.
-     * Params:
-     * Json aValue Latitude as string
-     * @param Json[string] options Options for the validation logic.
-     * @link https://en.wikipedia.org/wiki/Latitude
-     */
+// Convenience method for latitude validation.
 static bool latitude(Json latitudeValue, Json[string] options = null) {
     options["format"] = "lat";
 

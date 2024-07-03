@@ -58,26 +58,25 @@ mixin template TCell() {
      * string myclassname The cell classname.
      * @param string myaction The action name.
      * @param string myplugin The plugin name.
-     * @param Json[string] options The constructor options for the cell.
      */
-    protected DCell _createCell(string myclassname, string myaction, string myplugin, Json[string] options = null) {
+    protected DCell _createCell(string myclassname, string myaction, string pluginName, Json[string] options = null) {
         Cell myinstance = new myclassname(this.request, this.response, getEventManager(), options);
 
         mybuilder = myinstance.viewBuilder();
         mybuilder.setTemplate(Inflector.underscore(myaction));
 
-        if (!myplugin.isEmpty) {
-            mybuilder.setPlugin(myplugin);
+        if (!pluginName.isEmpty) {
+            mybuilder.setPlugin(pluginName);
         }
-        if (!this.helpers.isEmpty) {
-            mybuilder.addHelpers(this.helpers);
+        if (!_helpers.isEmpty) {
+            mybuilder.addHelpers(_helpers);
         }
         if (cast(IView)this) {
-            if (!this.theme.isEmpty) {
-                mybuilder.setTheme(this.theme);
+            if (!_theme.isEmpty) {
+                mybuilder.setTheme(_theme);
             }
             myclass = class;
-            mybuilder.setclassname(myclass);
+            mybuilder.setClassname(myclass);
             myinstance.viewBuilder().setclassname(myclass);
 
             return myinstance;
@@ -85,8 +84,8 @@ mixin template TCell() {
         if (method_exists(this, "viewBuilder")) {
             mybuilder.setTheme(viewBuilder().getTheme());
 
-            if (viewBuilder().getclassname() !is null) {
-                mybuilder.setclassname(viewBuilder().getclassname());
+            if (viewBuilder().getClassname() !is null) {
+                mybuilder.setClassname(viewBuilder().getclassname());
             }
         }
         return myinstance;

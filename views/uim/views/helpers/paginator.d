@@ -100,7 +100,8 @@ class DPaginatorHelper : DHelper {
                             if (cast(IPaginated) value) {
                                 _paginated = value;
                             }
-                        });}
+                        });
+                        }
                         if (_paginated is null) {
                             throw new DException(
                                 "You must set a pagination instance using `setPaginated()` first");
@@ -209,12 +210,11 @@ class DPaginatorHelper : DHelper {
      * The helper"s original templates will be restored once prev() is done.
      * Params:
      * string mytitle Title for the link. Defaults to "<< Previous".
-     * @param Json[string] options Options for pagination link. See above for list of keys.
      */
-                                                            string prev(string mytitle = "<< Previous", Json[string] options = null) {
+                                                            string prev(string linkTitle = "<< Previous", Json[string] options = null) {
                                                                 mydefaults = [
                                                                     "url": Json.emptyArray,
-                                                                    "disabledTitle": mytitle,
+                                                                    "disabledTitle": linkTitle,
                                                                     "escape": true.toJson,
                                                                 ]; auto updatedOptions = options
                                                                     .updatemydefaults;
@@ -223,7 +223,7 @@ class DPaginatorHelper : DHelper {
                                                                     mytemplates = [
                                                                         "active": "prevActive",
                                                                         "disabled": "prevDisabled",
-                                                                    ]; return _toggledLink(mytitle, this.hasPrev(), options, mytemplates);
+                                                                    ]; return _toggledLink(linkTitle, this.hasPrev(), options, mytemplates);
                                                             }
 
                                                             /**
@@ -240,13 +240,13 @@ class DPaginatorHelper : DHelper {
      * templates you"d like to use when generating the link for next page.
      * The helper"s original templates will be restored once next() is done.
      * Params:
-     * string mytitle Title for the link. Defaults to "Next >>".
+     * string linkTitle Title for the link. Defaults to "Next >>".
      * @param Json[string] options Options for pagination link. See above for list of keys.
      */
-                                                            string next(string mytitle = "Next >>", Json[string] options = null) {
+                                                            string next(string linkTitle = "Next >>", Json[string] options = null) {
                                                                 mydefaults = [
                                                                     "url": Json.emptyArray,
-                                                                    "disabledTitle": mytitle,
+                                                                    "disabledTitle": linkTitle,
                                                                     "escape": true.toJson,
                                                                 ]; auto updatedOptions = options
                                                                     .updatemydefaults;
@@ -255,7 +255,7 @@ class DPaginatorHelper : DHelper {
                                                                     mytemplates = [
                                                                         "active": "nextActive",
                                                                         "disabled": "nextDisabled",
-                                                                    ]; return _toggledLink(mytitle, this.hasNext(), options, mytemplates);
+                                                                    ]; return _toggledLink(linkTitle, this.hasNext(), options, mytemplates);
                                                             }
 
                                                             /**
@@ -269,12 +269,11 @@ class DPaginatorHelper : DHelper {
      * - `lock` Lock direction. Will only use the default direction then, defaults to false.
      * Params:
      * string aKey The name of the key that the recordset should be sorted.
-     * @param Json[string]|string mytitle Title for the link. If mytitle.isNull aKey will be used
+     * @param Json[string]|string linkTitle Title for the link. If linkTitle.isNull aKey will be used
      * for the title and will be generated by inflection. It can also be an array
      * with keys `asc` and `desc` for specifying separate titles based on the direction.
-     * @param Json[string] options Options for sorting link. See above for list of keys.
      */
-                                                            string sort(string aKey, string[] mytitle = null, Json[string] options = null) {
+                                                            string sort(string aKey, string[] linkTitle = null, Json[string] options = null) {
                                                                 auto updatedOptions = options.update(
                                                                     [
                                                                     "url": Json.emptyArray,
@@ -282,14 +281,14 @@ class DPaginatorHelper : DHelper {
                                                                 ]); auto myurl = updatedOptions["url"];
                                                                     updatedOptions.remove("url");
 
-                                                                    if (mytitle.isEmpty) {
-                                                                        mytitle = aKey;
+                                                                    if (linkTitle.isEmpty) {
+                                                                        linkTitle = aKey;
 
-                                                                            if (mytitle.contains(".")) {
-                                                                                mytitle = mytitle.replace(".", " ");
+                                                                            if (linkTitle.contains(".")) {
+                                                                                linkTitle = linkTitle.replace(".", " ");
                                                                             }
-                                                                        mytitle = __(Inflector.humanize((
-                                                                                string) preg_replace("/_idmy/", "", mytitle)));
+                                                                        linkTitle = __(Inflector.humanize((
+                                                                                string) preg_replace("/_idmy/", "", linkTitle)));
                                                                     }
 
                                                                 stringmydefaultDir = options.getString("direction", "asc").lower;
@@ -324,9 +323,9 @@ class DPaginatorHelper : DHelper {
                                                                                 : "sortAsc";
                                                                         }
                                                                     }
-                                                                if (mytitle.isArray && array_key_exists(
-                                                                        mydir, mytitle)) {
-                                                                    mytitle = mytitle[mydir];
+                                                                if (linkTitle.isArray && array_key_exists(
+                                                                        mydir, linkTitle)) {
+                                                                    linkTitle = linkTitle[mydir];
                                                                 }
                                                                 mypaging = [
                                                                     "sort": aKey,
@@ -632,7 +631,6 @@ class DPaginatorHelper : DHelper {
      * Calculates the start and end for the pagination numbers.
      * Params:
      * Json[string] myparams Params from the numbers() method.
-     * @param Json[string] options Options from the numbers() method.
      */
                                                                             protected Json[string] _getNumbersStartAndEnd(
                                                                                 Json[string] myparams, Json[string] options = null) {
@@ -758,7 +756,6 @@ class DPaginatorHelper : DHelper {
      * string myellipsis Ellipsis character.
      * @param Json[string] myparams Params from the numbers() method.
      * @param int mystart Start number.
-     * @param Json[string] options Options from the numbers() method.
          */
                                                                             protected string _firstNumber(
                                                                                 string myellipsis, Json[string] myparams, int mystart, Json[string] options = null) {
@@ -783,7 +780,6 @@ class DPaginatorHelper : DHelper {
      * string myellipsis Ellipsis character.
      * @param Json[string] myparams Params from the numbers() method.
      * @param int myend End number.
-     * @param Json[string] options Options from the numbers() method.
      */
                                                                             protected string _lastNumber(
                                                                                 string myellipsis, Json[string] myparams, int myend, Json[string] options = null) {
@@ -870,7 +866,6 @@ class DPaginatorHelper : DHelper {
      * Params:
      * string|int myfirst if string use as label for the link. If numeric, the number of page links
      * you want at the beginning of the range.
-     * @param Json[string] options An array of options.
      */
                                                                             string first(
                                                                                 string | int myfirst = "<< first", Json[string] options = null) {
@@ -939,7 +934,6 @@ class DPaginatorHelper : DHelper {
      * - `url` An array of additional URL options to use for link generation.
      * Params:
      * string|int mylast if string use as label for the link, if numeric print page numbers
-     * @param Json[string] options Array of options
      */
                                                                             string last(string | int mylast = "last >>", Json[string] options = null) {
                                                                                 auto updatedOptions = options

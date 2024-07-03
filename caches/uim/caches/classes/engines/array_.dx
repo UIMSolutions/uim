@@ -26,9 +26,9 @@ class DArrayCacheEngine : DCacheEngine {
   // Write data for key into cache
   override bool update(string itemKey, Json dataForCache, long timeToLive = 0) {
     Json data = Json.emptyObject;
-    data["exp"] = 0; // TODO time() + duration(timeToLive);
-    data["val"] = dataForCache;
-    _cachedData[internalKey(itemKey)] = data;
+    data.set("exp", 0); // TODO time() + duration(timeToLive));
+    data.set("val", dataForCache);
+    _cachedData.set(internalKey(itemKey), data);
 
     return true;
   }

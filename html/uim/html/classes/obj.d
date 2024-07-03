@@ -840,7 +840,7 @@ class DH5Obj {
 		first ~= ">";
 
 		return _single
-			? first : first ~ _html.toString ~ htmlEndTag(_tag);
+			? first : "first ~ _html.toString ~ htmlEndTag(_tag)";
 	}
 
 	string renderJS(STRINGAA bindings = null) {

@@ -176,18 +176,18 @@ class DH5Node {
   }
 
   void setNode(DH5Node newNode, DH5Node levelNode, DH5Node[] nodes, DH5Node[] subNodes) {    
-    if (node.level == minLevel(newNode)) {
-      if (node.isContent || (node.isStartTag && node.isEndTag)) { // single node
-        nodes ~= node;
-      } else if (node.isStartTag) { // start dode 
-        levelNode = node;
-      } else if (node.isEndTag) { // end Node
+    if (newNode.level == minLevel(nodes)) {
+      if (newNode.isContent || (newNode.isStartTag && newNode.isEndTag)) { // single node
+        nodes ~= newNode;
+      } else if (newNode.isStartTag) { // start dode 
+        levelNode = newNode;
+      } else if (newNode.isEndTag) { // end Node
         levelNode.setNodes(subNodes);
         nodes ~= levelNode;
       }
       subNodes = null;
     } else {
-      subNodes ~= node;
+      subNodes ~= newNode;
     }
   }
 

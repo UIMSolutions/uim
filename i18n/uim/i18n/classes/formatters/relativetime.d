@@ -18,7 +18,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
      */
     string diffForHumans(
         /* DChronosDate| */
-        IDateTime first,/* DChronosDateeee| */
+        IDateTime first, /* DChronosDateeee| */
         IDateTime second = null,
         bool isAbsoluteTime = false
     ) {
@@ -37,13 +37,16 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         auto diffInterval = first.diff(second);
         string message;
         switch (true) {
-        case diffInterval.y > 0 : count = diffInterval.y;
+        case diffInterval.y > 0:
+            count = diffInterval.y;
             message = __dn("uim", "{0} year", "{0} years", count, count);
             break;
-        case diffInterval.m > 0 : count = diffInterval.m;
+        case diffInterval.m > 0:
+            count = diffInterval.m;
             message = __dn("uim", "{0} month", "{0} months", count, count);
             break;
-        case diffInterval.d > 0 : count = diffInterval.d;
+        case diffInterval.d > 0:
+            count = diffInterval.d;
             if (count >= DateTime.DAYS_PER_WEEK) {
                 count = (int)(count / DateTime.DAYS_PER_WEEK);
                 message = __dn("uim", "{0} week", "{0} weeks", count, count);
@@ -51,13 +54,16 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
                 message = __dn("uim", "{0} day", "{0} days", count, count);
             }
             break;
-        case diffInterval.h > 0 : count = diffInterval.h;
+        case diffInterval.h > 0:
+            count = diffInterval.h;
             message = __dn("uim", "{0} hour", "{0} hours", count, count);
             break;
-        case diffInterval.i > 0 : count = diffInterval.i;
+        case diffInterval.i > 0:
+            count = diffInterval.i;
             message = __dn("uim", "{0} minute", "{0} minutes", count, count);
             break;
-        default : count = diffInterval.s;
+        default:
+            count = diffInterval.s;
             message = __dn("uim", "{0} second", "{0} seconds", count, count);
             break;
         }
@@ -77,7 +83,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
      * Params:
      * \UIM\I18n\DateTime|\UIM\I18n\Date time The time instance to format.
      * @param Json[string] options Array of options.
-     */
+     * /
     string timeAgoInWords(DateTime | Date time, Json[string] options = null) {
         options = _options(options, DateTime.classname);
         if (options["timezone"]) {
@@ -169,7 +175,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         return _diffData(to!int(futureTime), to!int(pastTime), isBackwards, options);
     }
 
-    protected Json[string] _diffData(string | int futureTime, string | int pastTime, bool isBackwards, Json[string] options = null) {
+    protected Json[string] _diffData(string futureTime, /* string | */ int pastTime, bool isBackwards, Json[string] options = null) {
         auto diff = futureTime - pastTime;
 
         // If more than a week, then take into account the length of months
@@ -182,17 +188,17 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
                 future["d"],
                 future["m"],
                 future["Y"],
-            ] = split("/", date("H/i/s/d/m/Y", futureTime));
+            ] = date("H/i/s/d/m/Y", futureTime).split("/");
 
             auto past = null;
-            [
+            /*             [
                 past["H"],
                 past["i"],
                 past["s"],
                 past["d"],
                 past["m"],
                 past["Y"],
-            ] = split("/", date("H/i/s/d/m/Y", pastTime));
+            ] = split("/", date("H/i/s/d/m/Y", pastTime)); */
             auto weeks = days = hours = minutes = seconds = 0;
             auto years = To!int(future["Y"]) - To!int(past["Y"]);
             auto months = To!int(future["m"]) + (12 * years) - To!int(past["m"]);
@@ -205,147 +211,176 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
                     "Y") - past.getLong("Y") == 1) {
                 years--;
             }
-            if ((int) future["d"] >= past.getLong("d") {
-                    days = (int) future["d"] - (int) past["d"]; } else {
-                        auto daysInPastMonth = (int) date("t", pastTime); auto daysInFutureMonth = (
-                            int) date("t", (int) mktime(0, 0, 0, future.getLong("m") - 1, 1, future.getLong(
-                            "Y")); days = !backwards
-                            ? daysInPastMonth - past.getLong("d") + future.getLong("d");
-                         : daysInFutureMonth - past.getLong("d") + future.getLong("d");
-                    }
-                    if (future["m"] != past["m"]) {
-                        months--; }
-                    }
-                    if (!months && years >= 1 && diff < years * 31536000) {
-                        months = 11; years--; }
-                        if (months >= 12) {
-                            years++; months -= 12; }
-                            if (days >= 7) {
-                                weeks = floor(days / 7); days -= weeks * 7; }
-                            } else {
-                                years = months = weeks = 0; days = floor(diff / 86400);
+            if (future.getLong("d") >= past.getLong("d")) {
+                days = future.getLong("d") - past.getLong("d");
+            } else {
+                auto daysInPastMonth = (int) date("t", pastTime);
+                auto daysInFutureMonth =  /* (int) */ date("t", /* (int) */ mktime(0, 0, 0, future.getLong("m") - 1, 1, future
+                            .getLong("Y")));
+                auto days = !backwards
+                    ? daysInPastMonth - past.getLong("d")+future.getLong("d");
+                 : daysInFutureMonth - past.getLong("d")+future.getLong("d");
+            }
+            if (future["m"] != past["m"]) {
+                months--;
+            }
+        }
+        if (!months && years >= 1 && diff < years * 31536000) {
+            months = 11;
+            years--;
+        }
+        if (months >= 12) {
+            years++;
+            months -= 12;
+        }
+        if (days >= 7) {
+            weeks = floor(days / 7);
+            days -= weeks * 7;
+        }
+    } else {
+        years = months = weeks = 0;
+        days = floor(diff / 86400);
 
-                                    diff -= days * 86400; hours = floor(diff / 3600);
-                                    diff -= hours * 3600; minutes = floor(diff / 60);
-                                    diff -= minutes * 60; seconds = diff; }
-                                    fWord = options["accuracy.second"]; if (years > 0) {
-                                        fWord = options["accuracy.year"]; } else if (abs(months) > 0) {
-                                            fWord = options["accuracy.month"]; } else if (
-                                                abs(weeks) > 0) {
-                                                fWord = options["accuracy.week"];
-                                            } else if (abs(days) > 0) {
-                                                fWord = options["accuracy.day"]; } else if (
-                                                    abs(hours) > 0) {
-                                                    fWord = options["accuracy.hour"];
-                                                } else if (abs(minutes) > 0) {
-                                                    fWord = options["accuracy.minute"];
-                                                }
-                                                fNum = fWord.replace(
-                                                    ["year", "month", "week", "day", "hour", "minute", "second"],
-                                                    ["1", "2", "3", "4", "5", "6", "7"]
-                                                ); return [
-                                                    fNum,
-                                                    fWord,
-                                                    to!int(years),
-                                                    to!int(months),
-                                                    to!int(weeks),
-                                                    to!int(days),
-                                                    to!int(hours),
-                                                    to!int(minutes),
-                                                    to!int(seconds),
-                                                ]; }
+        diff -= days * 86400;
+        hours = floor(diff / 3600);
+        diff -= hours * 3600;
+        minutes = floor(diff / 60);
+        diff -= minutes * 60;
+        seconds = diff;
+    }
 
-                                                /**
+    fWord = options["accuracy.second"];
+    if (years > 0) {
+        fWord = options["accuracy.year"];
+    } else if (abs(months) > 0) {
+        fWord = options["accuracy.month"];
+    } else if (
+        abs(weeks) > 0) {
+        fWord = options["accuracy.week"];
+    } else if (abs(days) > 0) {
+        fWord = options["accuracy.day"];
+    } else if (
+        abs(hours) > 0) {
+        fWord = options["accuracy.hour"];
+    } else if (
+        abs(minutes) > 0) {
+        fWord = options["accuracy.minute"];
+    }
+    fNum = fWord.replace(
+        ["year", "month", "week", "day", "hour", "minute", "second"],
+        ["1", "2", "3", "4", "5", "6", "7"]
+    );
+    return [
+        fNum,
+        fWord,
+        to!int(years),
+        to!int(months),
+        to!int(weeks),
+        to!int(days),
+        to!int(hours),
+        to!int(minutes),
+        to!int(seconds),
+    ];
+}
+
+/**
      * Format a into a relative date string.
      * Params:
      * \UIM\I18n\DateTime|\UIM\I18n\Date date The date to format.
      */
-                                                string dateAgoInWords(DateTime | Date date, Json[string] options = null) {
-                                                    options = _options(options, Date.classname);
-                                                        if (cast(DateTime) date && options["timezone"]) {
-                                                            date = date.setTimezone(
-                                                                options["timezone"]);
-                                                        }
+string dateAgoInWords(DateTime | Date date, Json[string] options = null) {
+    options = _options(options, Date.classname);
+    if (cast(DateTime) date && options["timezone"]) {
+        date = date.setTimezone(
+            options["timezone"]);
+    }
 
-                                                    auto now = options["from"].format("U");
-                                                        auto anInSeconds = date.format("U");
-                                                        auto backwards = (anInSeconds > now);
+    auto now = options["from"].format("U");
+    auto anInSeconds = date.format("U");
+    auto backwards = (anInSeconds > now);
 
-                                                        auto futureTime = now; auto pastTime = anInSeconds;
-                                                        if (backwards) {
-                                                            futureTime = anInSeconds;
-                                                                pastTime = now; }
-                                                                diff = futureTime - pastTime;
+    auto futureTime = now;
+    auto pastTime = anInSeconds;
+    if (backwards) {
+        futureTime = anInSeconds;
+        pastTime = now;
+    }
+    diff = futureTime - pastTime;
 
-                                                                if (!diff) {
-                                                                    return __d("uim", "today");
-                                                                }
-                                                            if (diff > abs(now - (new Date(options["end"]))
-                                                                .format("U"))) {
-                                                                return options["absoluteString"].format(
-                                                                    date.i18nFormat(
-                                                                    options["format"]));
-                                                            }
-                                                            diffData = _diffData(futureTime, pastTime, backwards, options);
-                                                                [fNum, fWord, years, months, weeks, days] = array_values(
-                                                                    diffData); relativeDate = null;
-                                                                if (fNum >= 1 && years > 0) {
-                                                                    relativeDate ~= __dn("uim", "{0} year", "{0} years", years, years);
-                                                                }
-                                                            if (fNum >= 2 && months > 0) {
-                                                                relativeDate ~= __dn("uim", "{0} month", "{0} months", months, months);
-                                                            }
-                                                            if (fNum >= 3 && weeks > 0) {
-                                                                relativeDate ~= __dn("uim", "{0} week", "{0} weeks", weeks, weeks);
-                                                            }
-                                                            if (fNum >= 4 && days > 0) {
-                                                                relativeDate ~= __dn("uim", "{0} day", "{0} days", days, days);
-                                                            }
-                                                            relativeDate = join(", ", relativeDate);
+    if (!diff) {
+        return __d("uim", "today");
+    }
+    if (diff > abs(now - (new Date(options["end"]))
+            .format("U"))) {
+        return options["absoluteString"].format(
+            date.i18nFormat(
+                options["format"]));
+    }
+    diffData = _diffData(futureTime, pastTime, backwards, options);
+    [fNum, fWord, years, months, weeks, days] = array_values(
+        diffData);
+    relativeDate = null;
+    if (fNum >= 1 && years > 0) {
+        relativeDate ~= __dn("uim", "{0} year", "{0} years", years, years);
+    }
+    if (fNum >= 2 && months > 0) {
+        relativeDate ~= __dn("uim", "{0} month", "{0} months", months, months);
+    }
+    if (fNum >= 3 && weeks > 0) {
+        relativeDate ~= __dn("uim", "{0} week", "{0} weeks", weeks, weeks);
+    }
+    if (fNum >= 4 && days > 0) {
+        relativeDate ~= __dn("uim", "{0} day", "{0} days", days, days);
+    }
+    relativeDate = join(", ", relativeDate);
 
-                                                                // When time has passed
-                                                                if (!backwards) {
-                                                                    aboutAgo = [
-                                                                        "day": __d("uim", "about a day ago"),
-                                                                        "week": __d("uim", "about a week ago"),
-                                                                        "month": __d("uim", "about a month ago"),
-                                                                        "year": __d("uim", "about a year ago"),
-                                                                    ]; return relativeDate
-                                                                        ? options["relativeString"].format(
-                                                                            relativeDate)
-                                                                        : aboutAgo[fWord];
-                                                                }
-                                                            // When time is to come
-                                                            if (relativeDate) {
-                                                                return relativeDate;
-                                                            }
-                                                            aboutIn = [
-                                                                "day": __d("uim", "in about a day"),
-                                                                "week": __d("uim", "in about a week"),
-                                                                "month": __d("uim", "in about a month"),
-                                                                "year": __d("uim", "in about a year"),
-                                                            ]; return aboutIn[fWord];
-                                                        }
+    // When time has passed
+    if (!backwards) {
+        aboutAgo = [
+            "day": __d("uim", "about a day ago"),
+            "week": __d("uim", "about a week ago"),
+            "month": __d("uim", "about a month ago"),
+            "year": __d("uim", "about a year ago"),
+        ];
+        return relativeDate
+            ? options["relativeString"].format(
+                relativeDate) : aboutAgo[fWord];
+    }
+    // When time is to come
+    if (relativeDate) {
+        return relativeDate;
+    }
+    aboutIn = [
+        "day": __d("uim", "in about a day"),
+        "week": __d("uim", "in about a week"),
+        "month": __d("uim", "in about a month"),
+        "year": __d("uim", "in about a year"),
+    ];
+    return aboutIn[fWord];
+}
 
-                                                    // Build the options for relative date formatting.
-                                                    protected Json[string] _options(Json[string] options, string classname) {
-                                                        auto updatedOptions = options.update[
-                                                            "from": classname.now(),
-                                                            "timezone": Json(null),
-                                                            "format": classname.wordFormat,
-                                                            "accuracy": classname.wordAccuracy,
-                                                            "end": classname.wordEnd,
-                                                            "relativeString": __d("uim", "%s ago"),
-                                                            "absoluteString": __d("uim", "on %s"),
-                                                        ]; if (options.isString("accuracy")) {
-                                                            auto accuracy = options["accuracy"];
-                                                                options["accuracy"] = null;
-                                                                classname.wordAccuracy.byKeyValue
-                                                                .each!(keyLevel => options.set(
-                                                                    "accuracy." ~ keyLevel.key, accuracy));
+// Build the options for relative date formatting.
+protected Json[string] _options(Json[string] options, string classname) {
+    auto updatedOptions = options.update[
+        "from": classname.now(),
+        "timezone": Json(null),
+        "format": classname.wordFormat,
+        "accuracy": classname.wordAccuracy,
+        "end": classname.wordEnd,
+        "relativeString": __d("uim", "%s ago"),
+        "absoluteString": __d("uim", "on %s"),
+    ];
+    if (options.isString("accuracy")) {
+        auto accuracy = options["accuracy"];
+        options["accuracy"] = null;
+        classname.wordAccuracy.byKeyValue
+            .each!(keyLevel => options.set(
+                    "accuracy." ~ keyLevel.key, accuracy));
 
-                                                        } else {
-                                                            options["accuracy"] += classname
-                                                                .wordAccuracy; }
-                                                            return options; }
-                                                        }
+    } else {
+        options["accuracy"] += classname
+            .wordAccuracy;
+    }
+    return options;
+}
+}

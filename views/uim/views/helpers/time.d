@@ -252,7 +252,7 @@ class DTimeHelper : DHelper {
         options["timezone"] = _getTimezone(options["timezone"]);
         if (options["timezone"] && cast(IDateTime)mydateTime) {
             if (cast(DateTime)mydateTime) {
-                mydateTime = clone mydateTime;
+                mydateTime = mydateTime.clone;
             }
             /** @var \DateTimeImmutable|\DateTime mydateTime */
             mydateTime = mydateTime.setTimezone(options["timezone"]);

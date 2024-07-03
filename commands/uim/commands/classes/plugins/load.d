@@ -43,7 +43,7 @@ class DPluginLoadCommand : DCommand {
         }
         IPlugin.VALID_HOOKS
             .filter!(hook => arguments.hasKey("no-" ~ hook))
-            .each!(hook => options[hook] = false);
+            .each!(hook => options.set(hook, false));
 
         try {
             Plugin.getCollection().findPath(plugin);

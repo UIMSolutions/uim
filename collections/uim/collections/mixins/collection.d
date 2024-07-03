@@ -180,8 +180,8 @@ mixin template TCollection() {
     }
  
     ICollection indexBy(string mypath) {
-        mycallback = _propertyExtractor(mypath);
-        mygroup = null;
+        auto mycallback = _propertyExtractor(mypath);
+        auto mygroup = null;
         optimizeUnwrap().each!((value) {
             auto pathValue = mycallback(value);
             if (pathValue.isNull) {
@@ -190,7 +190,7 @@ mixin template TCollection() {
                     "Use a callback to return a default value for that path."
                );
             }
-            mygroup[pathValue] = value;
+            mygroup.set(pathValue, value);
         });
         return _newCollection(mygroup);
     }
@@ -210,10 +210,8 @@ mixin template TCollection() {
         }
         mycallback = _propertyExtractor(mypath);
         
-        auto sum = optimizeUnwrap().byKeyValue
+        return optimizeUnwrap().byKeyValue
             .map!(kv => mycallback(kv.value, kv.key)).sum;
-
-        return sum;
     }
  
     ICollection shuffle() {

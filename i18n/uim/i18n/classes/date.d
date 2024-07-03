@@ -41,7 +41,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      * The format should be either the formatting constants from IntlDateFormatter as described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      *
-     * @var \/*Closure|*/ string|int
+     * @var \/*Closure| * / string|int
      */
     protected static string _JsonEncodeFormat = "yyyy-MM-dd";
 
@@ -144,7 +144,8 @@ class Date { // }: DChronosDate, JsonSerializable {
             if (!cast(RelativeTimeFormatter)differenceFormatter) {
                 throw new DInvalidArgumentException("Formatter for I18n must extend RelativeTimeFormatter.");
             }
-            return diffFormatter = differenceFormatter;
+            diffFormatter = differenceFormatter;
+            return differenceFormatter;
         }
         
         return diffFormatter ? diffFormatter : new DRelativeTimeFormatter();

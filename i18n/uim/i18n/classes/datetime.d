@@ -249,11 +249,12 @@ class DateTime /* : Chronos, JsonSerializable */ {
     // }
 
     auto parseDate(string adate, string[] format = null) {
-        format ??= wordFormat;
+        /* format ??= wordFormat;
         if (isInteger(format)) {
             format = [format, IntlDateFormatter.NONE];
         }
-        return parseDateTime(date, format);
+        return parseDateTime(date, format); */
+        return null; 
     }
     
     /**
@@ -360,7 +361,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
     string i18nFormat(
         string[] format;
         /* DateTimeZone| */ string timezone = null,
-        string locale;
+        string locale
    ) {
         if (format == DateTime.UNIX_TIMESTAMP_FORMAT) {
             return _getTimestamp();

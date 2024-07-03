@@ -113,8 +113,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         return super.get(aliasName, buildOptions);
     }
  
-    protected auto createInstance(string aliasName, Json[string] options = null): Table
-    {
+    protected Table createInstance(string aliasName, Json[string] options = null) {
         if (!aliasName.contains("\\")) {
             [, myclassAlias] = pluginSplit(aliasName);
             options = ["alias": myclassAlias] + options;

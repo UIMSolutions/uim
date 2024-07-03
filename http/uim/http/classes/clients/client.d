@@ -508,7 +508,6 @@ class DClient { // }: IClient {
      * Params:
      * string mymethod HTTP method name.
      * @param string myurl The url including query string.
-     * @param Json requestBody The request body.
      * @param Json[string] options The options to use. Contains auth, proxy, etc.
      */
   protected DRequest _createRequest(string mymethod, string myurl, Json requestBody, Json[string] options = null) {

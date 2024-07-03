@@ -246,18 +246,16 @@ class DOauth {
      * Json[string] someArguments The arguments to normalize.
      * @param string aPath The current path being converted.
      */
-    protected Json[string] _normalizeData(Json[string] someArguments, string aPath = null) {
-        someData = null;
+    protected Json[string] _normalizeData(Json[string] someArguments, string convertedPath = null) {
+        auto someData = null;
         someArguments.byKeyValue((kv) {
-            if (somePath) {
+            if (convertedPath) {
                 // Fold string keys with [].
                 // Numeric keys result in a=b&a=c. While this isn`t
                 // standard behavior in D, it is common in other platforms.
-                if (!isNumeric(kv.key)) {
-                    kv.key = "{somePath}[{kv.key}]";
-                } else {
-                    kv.key = somePath;
-                }
+                kv.key = !isNumeric(kv.key)
+                    ? "{convertedPath}[{kv.key}]"
+                    : convertedPath;
             }
             if (isArray(kv.value)) {
                 uksort(kv.value, "strcmp");

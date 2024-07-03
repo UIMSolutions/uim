@@ -651,19 +651,20 @@ class DServerRequest { // }: IServerRequest {
      * string aName The name of the detector.
      * @param \Closure|array detector A Closure or options array for the detector definition.
      */
-    static void addDetector(string aName, Closure|array detector) {
-        name = name.lower;
-        if (cast(DClosure)detector) {
-            _detectors[name] = detector;
-
-            return;
+    static void addDetector(string aName, DClosure/* |array */ detector) {
+        auto loweredName = name.lower;
+            _detectors[loweredName] = detector;
         }
-        if (isSet(_detectors[name], detector["options"])) {
+    }
+
+    static void addDetector(string name, array detector) {
+        auto loweredName = name.lower;
+        if (isSet(_detectors[loweredName], detector["options"])) {
             /** @var array data */
-            someData = _detectors[name];
+            someData = _detectors[loweredName];
             detector = Hash.merge(someData, detector);
         }
-        _detectors[name] = detector;
+        _detectors[loweredName] = detector;
     }
     
     // Normalize a header name into the SERVER version.
@@ -1226,14 +1227,12 @@ class DServerRequest { // }: IServerRequest {
      *
      * Returns an updated request object. This method returns
      * a *new* request object and does not mutate the request in-place.
-     * Params:
-     * @param Json aValue The value to insert into the the request parameters.
      */
     static auto withParam(string insertPath, Json valueToInsert) {
-        auto copy = clone this;
-        copy.params = Hash.insert(copy.params, insertPath, valueToInsert);
+        auto copyRequest = clone this;
+        copyRequest.params = Hash.insert(copy.params, insertPath, valueToInsert);
 
-        return copy;
+        return copyRequest;
     }
     
     // Safely access the values in _params.

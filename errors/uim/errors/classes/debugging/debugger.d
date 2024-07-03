@@ -312,7 +312,7 @@ class DDebugger {
             "scope": null,
             "exclude": ["call_user_func_array", "trigger_error"],
         ];
-        auto options = Hash.merge(defaults, options);
+        auto mergedOptions = Hash.merge(defaults, options);
 
         auto count = count(backtrace);
         auto back = null;
@@ -324,7 +324,7 @@ class DDebugger {
             "function": "[main]".toJson,
         ];
 
-        for (i = options["start"]; i < count && i < options["depth"]; i++) {
+        for (i = mergedOptions["start"]; i < count && i < mergedOptions["depth"]; i++) {
             trace = backtrace[i] + ["file": "[internal]", "line": "??"];
             string signature = "[main]";
             string reference = "[main]";
@@ -336,28 +336,28 @@ class DDebugger {
                 if (!next.isEmpty("class")) {
                     string signature = next.getString("class") ~ "." ~ next.getString("class") "function");
                     reference = signature ~ "(";
-                    if (options.isNull("args") && next.hasKey("args")) {
+                    if (mergedOptions.isNull("args") && next.hasKey("args")) {
                         auto args = next["args"].map!(arg => Debugger.exportVar(arg)).array;
                         reference ~= args.join(", ");
                     }
                     reference ~= ")";
                 }
             }
-            if (hasAllValues(signature, options["exclude"], true)) {
+            if (hasAllValues(signature, mergedOptions["exclude"], true)) {
                 continue;
             }
 
-            auto formatValue = options.getString("format");
+            auto formatValue = mergedOptions.getString("format");
             if (formatValue == "points") {
                 back ~= ["file": trace["file"], "line": trace["line"], "reference": reference];
             }
             elseif(formatValue == "array") {
-                if (!options.hasKey("args")) {
+                if (!mergedOptions.hasKey("args")) {
                     trace.remove("args");
                 }
                 back ~= trace;
             } else {
-                formatValue = options.getString("format");
+                formatValue = mergedOptions.getString("format");
                 tpl = _stringContents.hasKey(formatValue ~ ".traceLine")
                     ? _stringContents[formatValue ~ ".traceLine"];
                  : _stringContents["base.traceLine"];
@@ -369,7 +369,7 @@ class DDebugger {
         }
     }
 
-    return ["array", "points"].has(options.getString("format"))
+    return ["array", "points"].has(mergedOptions.getString("format"))
         ? back : back.join("\n");
 }
 

@@ -85,9 +85,8 @@ class DDebugger {
      * Get a formatted URL for the active editor.
      * Params:
      * string afile The file to create a link for.
-     * @param int lineNumber The lineNumber number to create a link for.
      */
-    static string editorUrl(string afile, int lineNumber) {
+    static string editorUrl(string filename, int lineNumber) {
         auto anInstance = getInstance();
         auto editor = anInstance.configuration.get("editor");
         if (!anInstance.editors.hasKey(editor)) {
@@ -97,7 +96,7 @@ class DDebugger {
         }
         auto templateText = anInstance.editors[editor];
         if (isString(templateText)) {
-            return templateText.replace(["{file}", "{lineNumber}"], [file, (string) lineNumber]);
+            return templateText.replace(["{file}", "{lineNumber}"], [filename, to!string(lineNumber)]);
         }
         return templateText(file, lineNumber);
     }
@@ -470,9 +469,8 @@ class DDebugger {
      * Protected export auto used to keep track of indentation and recursion.
      * Params:
      * Json var The variable to dump.
-     * @param \UIM\Error\Debug\DebugContext context Dump context
      */
-    protected static IErrorNode export_(Json valueToDump, DebugContext context) {
+    protected static IErrorNode export_(Json valueToDump, DDebugContext context) {
         string type = getType(valueToDump);
 
         if (type.startWith("resource ")) {
@@ -480,12 +478,12 @@ class DDebugger {
         }
         return null; // TODO 
         /* return match(type) {
-            "float", "string", "null" : new DScalarNode(type, var),
-            "bool" : new DScalarNode("bool", var),
-            "int" : new DScalarNode("int", var),
-            "array" : exportArray(var, context.withAddedDepth()),
+            "float", "string", "null" : new DScalarNode(type, valueToDump),
+            "bool" : new DScalarNode("bool", valueToDump),
+            "int" : new DScalarNode("int", valueToDump),
+            "array" : exportArray(valueToDump, context.withAddedDepth()),
             "unknown" : new DSpecialNode("(unknown)"),
-            default : exportObject(var, context.withAddedDepth()),
+            default : exportObject(valueToDump, context.withAddedDepth()),
         }; */
     }
 
@@ -502,19 +500,19 @@ class DDebugger {
      * - prefix
      * - schema
      * Params:
-     * Json[string] var The array to export.
+     * Json[string] exportValues The array to export.
      * @param \UIM\Error\Debug\DebugContext context The current dump context.
      */
-    protected static ArrayNode exportArray(Json[string] var, DebugContext context) {
+    protected static ArrayNode exportArray(Json[string] exportValues, DebugContext context) {
         someItems = null;
 
         remaining = context.remainingDepth();
         if (remaining >= 0) {
             outputMask = outputMask();
-            foreach (aKey : val; var) {
+            foreach (aKey : val; exportValues) {
                 if (array_key_exists(aKey, outputMask)) {
                     node = new DScalarNode("string", outputMask[aKey]);
-                } else if (val != var) {
+                } else if (val != exportValues) {
                     // Dump all the items without increasing depth.
                     node = export_(val, context);
                 } else {
@@ -538,11 +536,11 @@ class DDebugger {
      * object var Object to convert.
      * @param \UIM\Error\Debug\DebugContext context The dump context.
      */
-    protected static IErrorNode exportObject(object var, DebugContext context) {
-        isRef = context.hasReference(var);
-        refNum = context.getReferenceId(var);
+    protected static IErrorNode exportObject(object objToConvert, DebugContext context) {
+        isRef = context.hasReference(objToConvert);
+        refNum = context.getReferenceId(objToConvert);
 
-        classname = var.classname;
+        auto objClassname = var.classname;
         if (isRef) {
             return new DReferenceNode(classname, refNum);
         }
@@ -550,9 +548,9 @@ class DDebugger {
 
         remaining = context.remainingDepth();
         if (remaining > 0) {
-            if (method_exists(var, "__debugInfo")) {
+            if (method_exists(objToConvert, "__debugInfo")) {
                 try {
-                    foreach (/* (array) */ var.__debugInfo() as aKey : val) {
+                    foreach (/* (array) */ objToConvert.__debugInfo() as aKey : val) {
                         node.addProperty(new DPropertyNode("'{aKey}'", null, export_(val, context)));
                     }
                     return node;
@@ -562,7 +560,7 @@ class DDebugger {
                 }
             }
             outputMask = outputMask();
-            objectVars = get_object_vars(var);
+            objectVars = get_object_vars(objToConvert);
             objectVars.byKeyValue
                 .each!((kv) {
                     if (outputMask.hasKey(kv.key)) {
@@ -572,7 +570,7 @@ class DDebugger {
                         new DPropertyNode((string) kv.key, "public", export_(kv.value, context.withAddedDepth()))
                    );
                 });
-            ref = new DReflectionObject(var);
+            ref = new DReflectionObject(objToConvert);
 
             filters = [
                 ReflectionProperty.IS_PROTECTED: "protected",
@@ -585,11 +583,11 @@ class DDebugger {
 
                     if (
                         method_exists(reflectionProperty, "isInitialized") &&
-                        !reflectionProperty.isInitialized(var)
+                        !reflectionProperty.isInitialized(objToConvert)
                        ) {
                         aValue = new DSpecialNode("[uninitialized]");
                     } else {
-                        aValue = export_(reflectionProperty.getValue(var), context.withAddedDepth());
+                        aValue = export_(reflectionProperty.getValue(objToConvert), context.withAddedDepth());
                     }
                     node.addProperty(
                         new DPropertyNode(

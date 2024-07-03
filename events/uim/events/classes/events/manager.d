@@ -242,13 +242,8 @@ class DEventManager { // }: IEventManager {
         return event;
     }
 
-    /**
-     * Calls a listener.
-     *
-     * @template TSubject of object
-     * @param callable listener The listener to trigger.
-     */
-    /* protected Json _callListener(callable listener, IEvent event) {
+    // Calls a listener.
+    /* protected Json _callListener(callable listenerToTrigger, IEvent event) {
     // TODO 
 /*     return listener(event, ...array_values(event.getData()));
  * /

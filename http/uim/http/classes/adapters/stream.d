@@ -213,12 +213,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         return new DResponse(aHeaders, requestBody);
     }
     
-    /**
-     * Open the socket and handle any connection errors.
-     * Params:
-     * string aurl The url to connect to.
-     * @param \Psr\Http\Message\IRequest request The request object.
-     */
+    // Open the socket and handle any connection errors.
     protected void _open(string urlToConnect, IRequest request) {
         if (!(bool)ini_get("allow_url_fopen")) {
             throw new DClientException("The UIM directive `allow_url_fopen` must be enabled.");

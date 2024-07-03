@@ -117,19 +117,19 @@ class DCookie : ICookie {
      * @param string[]|float|bool cookieValue Value of the cookie
      * @param Json[string] options Cookies options.
      */
-    static static create(string cookieName, string[]|float|bool cookieValue, Json[string] options = null) {
-        auto auto updatedOptions = options.updateoptions.update(defaultAttributes);
-        options.ser("expires", dateTimeInstance(options["expires"]));
+    static static create(string cookieName, string[]|float|bool cookieValue, Json[string] cookieOptions = null) {
+        auto updatedOptions = cookieOptions.merge(defaultAttributes);
+        options.set("expires", dateTimeInstance(options["expires"]));
 
         return new static(
             name,
             cookieValue,
-            options["expires"],
-            options["path"],
-            options["domain"],
-            options["isSecure"],
-            options["httponly"],
-            options["samesite"]
+            updatedOptions["expires"],
+            updatedOptions["path"],
+            updatedOptions["domain"],
+            updatedOptions["isSecure"],
+            updatedOptions["httponly"],
+            updatedOptions["samesite"]
         );
     }
     

@@ -868,7 +868,9 @@ class DH5Obj {
 	}
 
 	string toJS(string target = null) {
-		auto result = jsCreateElement(target, _tag, _classes, _attributes); //, _html.toString); // Not finish TODO
+		string result;
+		// TODO
+		/* result = jsCreateElement(target, _tag, _classes, _attributes); //, _html.toString); // Not finish TODO
 		foreach (index, h5; _html) {
 			if (h5) {
 				auto node = "child" ~ to!string(index);
@@ -878,7 +880,7 @@ class DH5Obj {
 					result ~= h5.toJS(node);
 				result ~= target ~ ".appendChild(" ~ node ~ ");";
 			}
-		}
+		} */
 		return result;
 	}
 

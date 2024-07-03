@@ -239,18 +239,18 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * Remove expired cookies from the collection.
      * Params:
      * string ahost The host to check for expired cookies on.
-     * @param string aPath The path to check for expired cookies on.
      */
-    protected void removeExpiredCookies(string ahost, string aPath) {
-        time = new DateTimeImmutable("now", new DateTimeZone("UTC"));
-        hostPattern = "/" ~ preg_quote(host, "/") ~ "/";
+    protected void removeExpiredCookies(string hostToCheck, string pathToCheck) {
+        auto time = new DateTimeImmutable("now", new DateTimeZone("UTC"));
+        string hostPattern = "/" ~ preg_quote(hostToCheck, "/") ~ "/";
 
-        foreach (_cookies as  anI: cookie) {
+        foreach (anI: cookie; _cookies) {
             if (!cookie.isExpired(time)) {
                 continue;
             }
-            somePathMatches = somePath.startWith(cookie.getPath());
-            hostMatches = preg_match(hostPattern, cookie.getDomain());
+
+            auto somePathMatches = somePath.startWith(cookie.getPath());
+            auto hostMatches = preg_match(hostPattern, cookie.getDomain());
             if (somePathMatches && hostMatches) {
                 remove(_cookies[anI]);
             }

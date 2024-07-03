@@ -59,7 +59,6 @@ string __d(string domainName, string messageToTranslate, Json[string] arguments)
  * Returns correct plural form of message identified by singular and plural for count count
  * from domain domain.
  *
- * @param string domainName Domain.
  * @param string asingular Singular string to translate.
  * @param string aplural Plural.
  * @param Json[string] arguments Array with arguments or multiple arguments in function.
@@ -154,7 +153,6 @@ string __dx(string domainName, string acontext, string amsg, Json[string] argume
  * @param string acontext DContext of the text.
  * @param string asingular Singular text to translate.
  * @param string aplural Plural text.
- * @param int count Count.
  * @param Json[string] arguments Array with arguments or multiple arguments in function.
  */
 string __dxn(

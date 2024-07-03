@@ -174,7 +174,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      * @param \Psr\Http\Server\IRequestHandler handler The request handler.
      */
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
-        auto response = handler.handle(requestHandler);
+        IResponse response = handler.handle(requestHandler);
         _headers.byKeyValue
             .each!(headerValue => response = response.withHeader(headerValue.key, headerValue.value));
         return response;

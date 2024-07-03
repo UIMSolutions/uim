@@ -15,15 +15,11 @@ mixin template THttpClient() {
         Client.clearMockResponses();
     }
     
-    /**
-     * Create a new response.
-     * Params:
-     * @param string[] aHeaders A list of headers for the response. Example `Content-Type: application/Json`
-     */
-    Response newClientResponse(int responseCode = 200, Json[string] aHeaders = null, string responseBody= null) {
-         aHeaders = chain(["HTTP/1.1 {code}"],  aHeaders);
+    // Create a new response.
+    Response newClientResponse(int responseCode = 200, Json[string] responseHeaders = null, string responseBody= null) {
+        responseHeaders = chain(["HTTP/1.1 {code}"],  responseHeaders);
 
-        return new DResponse(aHeaders, responseBody);
+        return new DResponse(responseHeaders, responseBody);
     }
     
     // Add a mock response for a POST request.

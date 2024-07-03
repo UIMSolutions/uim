@@ -302,6 +302,7 @@ class DLog {
             ? write(array_search(severityLevel, _levelMap, true), messageToLog, contextData) {
             : false; 
     }
+
     static bool write(string severityLevel, string messageToLog, string[] contextData = null) {
         if (!isIn(severityLevel, _levels, true)) {
             /** @psalm-suppress PossiblyFalseArgument */
@@ -309,11 +310,11 @@ class DLog {
                 "Invalid log level `%s`".format(level));
         }
         auto logged = false;
-        auto context = /* (array) */context;
-        if (isSet(context[0])) {
-            context = ["scope": context];
+        contextArray = /* (array) */contextData;
+        if (isSet(contextArray[0])) {
+            contextArray = ["scope": contextArray];
         }
-        context ~= ["scope": Json.emptyArray];
+        contextData ~= ["scope": Json.emptyArray];
 
         auto registry = getRegistry();
         registry.loaded().each!((streamName) {
@@ -326,11 +327,11 @@ class DLog {
                 scopes = logger.scopes();
             }
             auto correctLevel = levels.isEmpty || isIn(severityLevel, levels, true);
-             anInScope = scopes.isNull && context.isEmpty("scope") || scopes is null ||
-                isArray(scopes) && array_intersect(/* (array) */context["scope"], scopes);
+             anInScope = scopes.isNull && contextData.isEmpty("scope") || scopes is null ||
+                isArray(scopes) && array_intersect(/* (array) */contextData["scope"], scopes);
 
             if (correctLevel &&  anInScope) {
-                logger.log(severityLevel, messageToLog, context);
+                logger.log(severityLevel, messageToLog, contextData);
                 logged = true;
             }
         });

@@ -425,7 +425,7 @@ class DServerRequest { // }: IServerRequest {
     /* bool is(string[] atype, Json[string] arguments) {
         if (isArray(type)) {
             foreach (type as _type) {
-                if (this.is(_type)) {
+                if (is(_type)) {
                     return true;
                 }
             }
@@ -569,7 +569,7 @@ class DServerRequest { // }: IServerRequest {
      */
     bool isAll(Json[string] types) {
         foreach (type; types) {
-            if (!this.is(type)) {
+            if (!is(type)) {
                 return false;
             }
         }
@@ -1145,16 +1145,13 @@ class DServerRequest { // }: IServerRequest {
      *
      * Returns an updated request object. This method returns
      * a *new* request object and does not mutate the request in-place.
-     * Params:
-     * string aKey The key you want to write to.
-     * @param string value Value to set
      */
-    static auto withenviroment(string aKey, string value) {
-        new = clone this;
-        new._environmentData[aKey] = aValue;
-        new.clearDetectorCache();
+    static auto withEnviroment(string aKey, string value) {
+        IRequest newRequest = clone this;
+        newRequest._environmentData[aKey] = aValue;
+        newRequest.clearDetectorCache();
 
-        return new;
+        return newRequest;
     }
     
     /**
@@ -1173,14 +1170,14 @@ class DServerRequest { // }: IServerRequest {
      * string[]|string httpMethods Allowed HTTP request methods.
      */
     bool allowMethod(string[] amethods) {
-         someMethods = /* (array) */ someMethods;
-        foreach (someMethods as method) {
-            if (this.is(method)) {
+        auto  someMethods = /* (array) */ someMethods;
+        foreach (method; someMethods) {
+            if (is(method)) {
                 return true;
             }
         }
-        allowed = strtoupper(join(", ",  someMethods));
-         anException = new DMethodNotAllowedException();
+        auto allowed = strtoupper(join(", ",  someMethods));
+         auto anException = new DMethodNotAllowedException();
          anException.setHeader("Allow", allowed);
         throw  anException;
     }

@@ -70,10 +70,6 @@ class DMessagesFileLoader {
      *
      * Vendor prefixed plugins are expected to use `_prefix__plugin` syntax.
      * ```
-     * Params:
-     * string domainName The name (domain) of the translations catalog.
-     * @param string localToLoad The locale to load, this will be mapped to a folder
-     * in the system.
      */
     this(string domainName, string localToLoad, string fileExtension = "po") {
         this();

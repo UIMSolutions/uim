@@ -49,9 +49,9 @@ mixin template TEmail() {
      * Asserts an email at a specific index was sent from an address
      * Params:
      * int at Email index
-     * @param string amessage Message
+     * @param string message Message
      */
-    void assertMailSentFromAt(int eMailIndex, string emailAddress, string amessage= null)) {
+    void assertMailSentFromAt(int eMailIndex, string emailAddress, string message = null) {
         assertThat(emailAddress, new DMailSentFrom(eMailIndex), message);
     }
     
@@ -61,7 +61,7 @@ mixin template TEmail() {
     }
     
     // Asserts an email at a specific index contains expected html contents
-    void assertMailContainsHtmlAt(int eMailIndex, string contents, string amessage = null) {
+    void assertMailContainsHtmlAt(int eMailIndex, string contents, string message = null) {
         assertThat(contents, new DMailContainsHtml(eMailIndex), message);
     }
     
@@ -79,9 +79,9 @@ mixin template TEmail() {
      * Asserts an email was sent to an address
      * Params:
      * string aaddress Email address
-     * @param string amessage Message
+     * @param string message Message
      */
-    void assertMailSentTo(string aaddress, string amessage = null) {
+    void assertMailSentTo(string aaddress, string message = null) {
         assertThat(address, new DMailSentTo(), message);
     }
     
@@ -124,9 +124,9 @@ mixin template TEmail() {
      * Params:
      * string aexpected Contents
      * @param string aparameter Email getter parameter (e.g. "cc", "subject")
-     * @param string amessage Message
+     * @param string message Message
      */
-    void assertMailSentWith(string aexpected, string aparameter, string amessage = null) {
+    void assertMailSentWith(string aexpected, string aparameter, string message = null) {
         assertThat(expected, new DMailSentWith(null, parameter), message);
     }
     
@@ -134,9 +134,9 @@ mixin template TEmail() {
      * Asserts an email subject contains expected contents
      * Params:
      * string acontents Contents
-     * @param string amessage Message
+     * @param string message Message
      */
-    void assertMailSubjectContains(string acontents, string amessage = null) {
+    void assertMailSubjectContains(string acontents, string message = null) {
         assertThat(contents, new DMailSubjectContains(), message);
     }
     
@@ -145,9 +145,9 @@ mixin template TEmail() {
      * Params:
      * int at Email index
      * @param string acontents Contents
-     * @param string amessage Message
+     * @param string message Message
      */
-    void assertMailSubjectContainsAt(int eMailIndex, string acontents, string amessage = null) {
+    void assertMailSubjectContainsAt(int eMailIndex, string acontents, string message = null) {
         assertThat(contents, new DMailSubjectContains(eMailIndex), message);
     }
 }

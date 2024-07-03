@@ -109,13 +109,11 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      *
      * Finds the index of the first middleware that matches the provided class,
      * and inserts the supplied middleware before it.
-     * Params:
-     * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|* / string amiddleware The middleware to insert.
      */
-    auto insertBefore(string classname, IHttpMiddleware|/*Closure|*/ string amiddleware) {
+    auto insertBefore(string classname, IHttpMiddleware|/*Closure|*/ string middlewareToInsert) {
         bool isFound = false;
-        anI = 0;
-        foreach (anI: object; _queue) {
+        auto index = 0;
+        foreach (index, object; _queue) {
             if (
                 (
                     isString(object)
@@ -128,7 +126,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
             }
         }
         if (isFound) {
-            return _insertAt(anI, middleware);
+            return _insertAt(anI, middlewareToInsert);
         }
         throw new DLogicException("No middleware matching `%s` could be found.".format(classname));
     }

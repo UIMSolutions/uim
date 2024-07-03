@@ -470,9 +470,9 @@ class DResponse : IResponse {
      * @param string avalue Header value.
      */
     protected void _setHeader(string aheader, string avalue) {
-        normalized = aHeader.lower;
+        auto normalized = aHeader.lower;
         _headerNames[normalized] = aHeader;
-        this.headers[aHeader] = [aValue];
+        _headers[aHeader] = [aValue];
     }
     
     // Clear header

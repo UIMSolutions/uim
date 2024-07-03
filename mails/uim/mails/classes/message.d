@@ -422,25 +422,25 @@ class DMessage { //: JsonSerializable {
     /**
      * Set email
      * Params:
-     * string avarName Property name
+     * string propertyName Property name
      * @param string[] aemail String with email,
      * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
-    protected void setEmail(string varName, string email, string name) {
-        validateEmail(email, varName);
-        // TODO this.{varName} = [email: name ?? email];
+    protected void setEmail(string propertyName, string email, string name) {
+        validateEmail(email, propertyName);
+        // TODO this.{propertyName} = [email: name ?? email];
     }
-    protected void setEmail(string avarName, string[string] emails, string aName) {
+    protected void setEmail(string propertyName, string[string] emails, string aName) {
         string[string] list = null;
         email.byKeyValue.each!((kv) {
 /*             if (isInteger(kv.key)) {
                 kv.key = kv.value;
             } */
-            validateEmail(kv.key, varName);
+            validateEmail(kv.key, propertyName);
             list[kv.key] = kv.value ? kv.value : kv.key;
         });
-        // TODOD this.{varName} = list;
+        // TODOD this.{propertyName} = list;
     }
     
     /**
@@ -467,22 +467,22 @@ class DMessage { //: JsonSerializable {
     /**
      * Set only 1 email
      * Params:
-     * string avarName Property name
+     * string propertyName Property name
      * @param string[] aemail String with email,
      * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      * @param string athrowMessage Exception message
      */
-    protected void setEmailSingle(string avarName, string[] aemail, string aName, string exceptionMessage) {
+    protected void setEmailSingle(string propertyName, string[] aemail, string aName, string exceptionMessage) {
         if (email is null) {
-            this.{varName} = email;
+            this.{propertyName} = email;
             return;
         }
 
-        auto current = this.{varName};
-        setEmail(varName, email, name);
-        if (count(this.{varName}) != 1) {
-            this.{varName} = current;
+        auto current = this.{propertyName};
+        setEmail(propertyName, email, name);
+        if (count(this.{propertyName}) != 1) {
+            this.{propertyName} = current;
             throw new DInvalidArgumentException(exceptionMessage);
         }
     }
@@ -490,16 +490,16 @@ class DMessage { //: JsonSerializable {
     /**
      * Add email
      * Params:
-     * string avarName Property name
+     * string propertyName Property name
      * @param string[] aemail String with email,
      * Array with email as key, name as value or email as value (without name)
      * @param string name Name
      */
-    protected void addEmail(string avarName, STRINGAA emailValue, string aName) {
+    protected void addEmail(string propertyName, STRINGAA emailValue, string aName) {
         if (!isArray(emailValue)) {
-            validateEmail(emailValue, varName);
+            validateEmail(emailValue, propertyName);
             name ??= emailValue;
-            this.{varName}[emailValue] = name;
+            this.{propertyName}[emailValue] = name;
 
             return;
         }
@@ -509,10 +509,10 @@ class DMessage { //: JsonSerializable {
                 if (isInteger(aKey)) {
                     aKey = aValue;
                 }
-                validateEmail(aKey, varName);
+                validateEmail(aKey, propertyName);
                 list[aKey] = aValue;
             });
-        this.{varName} = chain(this.{varName}, list);
+        this.{propertyName} = chain(this.{propertyName}, list);
     }
     
     /**

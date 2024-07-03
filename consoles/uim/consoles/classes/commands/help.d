@@ -33,7 +33,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         string[][string] myInvert = null;
         foreach (name, classname; commands) {
             /* if (isObject(classname)) {
-                 classname = classname.class;
+                 classname = classname.classname;
             }*/
             myInvert.require(classname, null);
             myInvert[classname] ~= name;
@@ -62,7 +62,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
             }
             anGrouped[prefix] ~= [
                 "name": shortestName,
-                "description": isSubclass_of(classname, BaseCommand.class) 
+                "description": isSubclass_of(classname, BaseCommand.classname) 
                     ?  classname.getDescription()
                     : ""
             ];

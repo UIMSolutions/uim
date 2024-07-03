@@ -67,7 +67,7 @@ class DApcuCacheEngine : DCacheEngine {
 
   //  Delete all keys from the cache. This will clear every cache config using APC.
   /* override bool clear() {
-    if (class_exists(APCUIterator.class, false)) {
+    if (class_exists(APCUIterator.classname, false)) {
       auto myIterator = new APCUIterator(
         "/^" ~ preg_quote(configuration.getString("prefix"), "/") ~ "/",
         APC_ITER_NONE

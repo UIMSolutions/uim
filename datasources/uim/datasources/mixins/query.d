@@ -393,7 +393,7 @@ mixin template TQuery() {
             deprecationWarning(
                 "Calling `%s` methods, such as `%s()`, on queries is deprecated~ " ~
                 "You must call `all()` first (for example, `all().%s()`)."
-                .format(IResultset.class, methodName, methodName,), 2);
+                .format(IResultset.classname, methodName, methodName,), 2);
             results = this.all();
 
             return results.method(...methodArguments);

@@ -46,7 +46,7 @@ class DReplaceIterator : DCollection {
     if (cast(ICollection) anIterator) {
        anIterator = anIterator.unwrap();
     }
-    if (anIterator.class != ArrayIterator.class) {
+    if (anIterator.classname != ArrayIterator.classname) {
       return this;
     }
     

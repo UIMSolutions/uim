@@ -60,15 +60,15 @@ class DDebugger {
     "js" : [
         "error": "",
         "info": "",
-        "trace": "<pre class=\"stack-trace\">{:trace}</pre>",
+        "trace": htmlDoubleTag("pre", ["stack-trace"], "{:trace}"),
         "code": "",
         "context": "",
         "links": [],
         "escapeContext": true.toJson,
     ],
     "html" : [
-        "trace": "<pre class=\"uim-error trace\"><b>Trace</b> <p>{:trace}</p></pre>",
-        "context": "<pre class=\"uim-error context\"><b>Context</b> <p>{:context}</p></pre>",
+        "trace": htmlDoubleTag("pre", ["uim-error trace"], "<b>Trace</b> <p>{:trace}</p>"),
+        "context": htmlDoubleTag("pre", ["uim-error context"], "<b>Context</b> <p>{:context}</p>"),
         "escapeContext": true,
     ],
     "txt" : [
@@ -127,8 +127,7 @@ class DDebugger {
         e ~= `\"none\" ? \"\" : \"none\");"><b>{:error}</b> ({:code})</a>: {:description} `;
         e ~= `[<b>{:path}</b>, line <b>{:line}</b>]`;
 
-        e ~= `<div id="{:id}-trace" class="uim-stack-trace" style="display: none;">`;
-        e ~= `{:links}{:info}</div>`;
+        e ~= htmlDoubleTag("div", "{:id}-trace", ["uim-stack-trace"], ["style":"display: none;"], "{:links}{:info}");
         e ~= `</pre>`;
         _stringContents["js.error"] = e;
 
@@ -442,19 +441,18 @@ static string[] excerpt(string absPathToFile, int lineNumber, int numberLinesCon
 /**
      * Wraps the highlight_string function in case the server API does not
      * implement the function as it is the case of the HipHop interpreter
-     *
-     * @param string str The string to convert.
      */
 protected static string _highlight(string stringToConvert) {
     if (function_exists("hD_log") || function_exists("hD_gettid")) {
         return htmlentities(stringToConvert);
     }
-    added = false;
-    if (indexOf(str, "<?D") == false) {
+    
+    auto added = false;
+    if (indexOf(stringToConvert, "<?D") == false) {
         added = true;
         stringToConvert = "<?D \n" ~ stringToConvert;
     }
-    highlight = highlight_string(stringToConvert, true);
+    auto highlight = highlight_string(stringToConvert, true);
     if (added) {
         highlight = replace(
             ["&lt;?D&nbsp;<br/>", "&lt;?D&nbsp;<br />"],
@@ -474,22 +472,22 @@ protected static string _highlight(string stringToConvert) {
      */
 IErrorFormatter getExportFormatter() {
     auto instance = getInstance();
-    auto aclassname = instance.getConfig("exportFormatter");
-    if (!aclassname) {
+    string formaterClassname = instance.getConfig("exportFormatter");
+    if (!formaterClassname) {
         if (ConsoleFormatter.environmentMatches()) {
-            aclassname = ConsoleFormatter.class;
+            formaterClassname = ConsoleFormatter.classname;
         }
         elseif(HtmlFormatter.environmentMatches()) {
-            aclassname = HtmlFormatter.class;
+            formaterClassname = HtmlFormatter.classname;
         } else {
-            aclassname = TextFormatter.class;
+            formaterClassname = TextFormatter.classname;
         }
     }
 
     auto instance = new aclassname();
     if (!cast(IErrorFormatter) instance) {
         throw new DRuntimeException(
-            "The `{aclassname}` formatter does not implement " ~ IErrorFormatter.class
+            "The `{aclassname}` formatter does not implement " ~ IErrorFormatter.classname
         );
     }
     return instance;
@@ -724,7 +722,7 @@ static void printVar(Json varToShow, Json[string] location = null, bool showHtml
     if (showHtml != null) {
         restore = debugger.getConfig("exportFormatter");
         debugger.configuration.set("exportFormatter", showHtml ? HtmlFormatter
-                .class : TextFormatter.class);
+                .classname : TextFormatter.classname);
     }
     contents = exportVar(varToShow, 25);
     formatter = debugger.getExportFormatter();

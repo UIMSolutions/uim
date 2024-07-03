@@ -55,7 +55,7 @@ class DExtractIterator : DCollection {
       myIterator = anIterator.unwrap();
     }
     TODO 
-    /* if (myIterator.class != ArrayIterator.class) {
+    /* if (myIterator.classname != ArrayIterator.classname) {
       return this;
     } * /
     

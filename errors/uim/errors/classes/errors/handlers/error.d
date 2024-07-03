@@ -74,7 +74,7 @@ import uim.errors;
 class DErrorHandler { // }: DERRErrorHandler
     this(Json initData = null) {
         initData += [
-            "exceptionRenderer": ExceptionRenderer.class,
+            "exceptionRenderer": ExceptionRenderer.classname,
         ];
 
         configuration.update(aConfig);

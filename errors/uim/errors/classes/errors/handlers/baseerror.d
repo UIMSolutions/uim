@@ -39,7 +39,7 @@ abstract class DERRErrorHandler {
             "log": true.toJson,
             "trace": false.toJson,
             "skipLog": Json.emptyArray,
-            "errorLogger": Json("ErrorLogger.class")
+            "errorLogger": Json(ErrorLogger.classname)
         ]);
 
         return true;
@@ -273,7 +273,7 @@ abstract class DERRErrorHandler {
                 // Set the logger so that the next error can be logged.
                 this.logger = new DErrorLogger(_config);
 
-                interface = IErrorLogger.class;
+                interface = IErrorLogger.classname;
                 type = getTypeName(logger);
                 throw new DRuntimeException("Cannot create logger. `{type}` does not implement `{interface}`.");
             }

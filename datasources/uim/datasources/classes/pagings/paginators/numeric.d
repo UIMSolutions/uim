@@ -171,7 +171,7 @@ class DNumericPaginator : IPaginator {
         auto data = this.extractData(object, requestData, paginationData);
         query = getQuery(object, query, data);
 
-        cleanQuery = clone query;
+        cleanQuery =  query.clone;
         auto results = query.all();
         data["numResults"] = count(results);
         data["count"] = getCount(cleanQuery, data);

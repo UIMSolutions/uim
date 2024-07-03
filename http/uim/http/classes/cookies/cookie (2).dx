@@ -358,7 +358,7 @@ class DCookie : ICookie {
     auto withExpiry(IDateTime dateTime): static
     {
         if (cast(DateTime)dateTime) {
-            dateTime = clone dateTime;
+            dateTime =  dateTime.clone;
         }
         new = this.clone;
         new.expiresAt = dateTime.setTimezone(new DateTimeZone("GMT"));

@@ -361,7 +361,7 @@ class DViewBuilder { // }: DJsonSerializable {
     
     /**
      * Serializes the view builder object to a value that can be natively
-     * serialized and re-used to clone this builder instance.
+     * serialized and re-used to this.clone builder instance.
      *
      * There are  limitations for viewVars that are good to know:
      *

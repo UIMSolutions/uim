@@ -804,7 +804,7 @@ class DTreeBehavior : DBehavior {
             movement = clone exp;
             movement.add(field).add(/* (string) */shift).conjunctionType(dir);
 
-            inverse = clone exp;
+            inverse =  exp.clone;
             movement = mark ?
                 inverse.add(movement).conjunctionType("*").add("-1") :
                 movement;

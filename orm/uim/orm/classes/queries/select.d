@@ -1125,7 +1125,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * This method creates query clones that are useful when working with subqueries.
      */
     static cleanCopy() {
-        myclone = clone this;
+        myclone = this.clone;
         myclone.triggerBeforeFind();
         myclone.disableAutoFields();
         myclone.limit(null);
@@ -1151,7 +1151,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     auto clone() {
         super.clone();
         if (_eagerLoader !is null) {
-           _eagerLoader = clone _eagerLoader;
+           _eagerLoader =  _eagerLoader.clone;
         }
     }
     

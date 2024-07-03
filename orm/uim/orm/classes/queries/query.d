@@ -773,7 +773,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * This method creates query clones that are useful when working with subqueries.
      */
     static auto cleanCopy() {
-       /*  auto clone = clone this;
+       /*  auto clone = this.clone;
         clone.triggerBeforeFind();
         clone.disableAutoFields();
         clone.limit(null);
@@ -800,7 +800,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     void clone() {
         super.clone();
         if (_eagerLoader != null) {
-            _eagerLoader = clone _eagerLoader;
+            _eagerLoader =  _eagerLoader.clone;
         }
     }
 

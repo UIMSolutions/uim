@@ -30,26 +30,18 @@ mixin(ExceptionCalls!("PersistenceFailed"));
 
     protected _messageTemplate = "Entity %s failure.";
 
-    /**
-     .
-     *
-     * @param DORMDatasource\IORMEntity anEntity The entity on which the persistence operation failed
-     * @param string[]|string myMessage Either the string of the error message, or an array of attributes
-     *  that are made available in the view, and sprintf()"d into Exception._messageTemplate
-     */
-    this(IORMEntity anEntity, myMessage, int errorCode = null, Throwable previousException = null) {
-        _entity = entity;
-        if (myMessage.isArray) {
-            myErrors = null;
-            foreach (Hash.flatten(entity.getErrors()) as myField: myError) {
-                myErrors ~= myField ~ ": "" ~ myError ~ """;
-            }
-            if (myErrors) {
-                myMessage ~= myErrors.join(", ");
-                _messageTemplate = "Entity %s failure. Found the following errors (%s).";
-            }
+    this(IORMEntity entity, string[] myMessage, int errorCode = null, Throwable previousException = null) {
+        string[] errors = Hash.flatten(entity.getErrors()).byKeyValue.each!(kv => kv.key ~ ": \"" ~ kv.value ~ "\"");
+        if (errors) {
+            message ~= errors.join(", ");
+            _messageTemplate = "Entity %s failure. Found the following errors (%s).";
         }
-        super(myMessage, errorCode, previousException));
+        super(message, errorCode, previousException);
+    }
+
+    this(IORMEntity anEntity, string message, int errorCode = null, Throwable previousException = null) {
+        _entity = entity;
+        super(message, errorCode, previousException);
     }
 
     // Get the passed in entity

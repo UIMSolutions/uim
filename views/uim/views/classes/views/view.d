@@ -1029,7 +1029,7 @@ static string contentType() {
         [_plugin, views] = _pluginSplit(views);
         views ~= _ext;
 
-        foreach (_getLayoutPaths(_plugin) as mypath) {
+        foreach (mypath; _getLayoutPaths(_plugin)) {
             if (isFile(mypath ~ views)) {
                 return _checkFilePath(mypath ~ views, mypath);
             }

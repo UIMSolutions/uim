@@ -126,7 +126,7 @@ class DLazyEagerLoader {
                 continue;
             }
             myloaded = results[aKey];
-            foreach (myassociations as myassoc) {
+            foreach (myassoc; myassociations) {
                 myproperty = myproperties[myassoc];
                 myobject.set(myproperty, myloaded.get(myproperty), ["useSetters": false.toJson]);
                 myobject.setDirty(myproperty, false);

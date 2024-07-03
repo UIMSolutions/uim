@@ -270,7 +270,7 @@ class DMarshaller {
      */
         IORMEntity[] many(Json[string] data, Json[string] options = null) {
             auto myoutput = null;
-            foreach (mydata as myrecord) {
+            foreach (myrecord; mydata) {
                 if (!isArray(myrecord)) {
                     continue;
                 }
@@ -303,12 +303,10 @@ class DMarshaller {
                     continue;
                 }
                 if (array_intersectinternalKey(myprimaryKey, myrow) == myprimaryKey) {
-                    someKeys = array_intersectinternalKey(myrow, myprimaryKey);
+                    auto someKeys = array_intersectinternalKey(myrow, myprimaryKey);
                     if (count(someKeys) == myprimaryCount) {
-                        myrowConditions = null;
-                        foreach (someKeys as aKey : myvalue) {
-                            myrowConditions[][mytarget.aliasField(aKey)] = myvalue;
-                        }
+                        auto myrowConditions = null;
+                        someKeys.byKeyValue.each!(kv => myrowConditions[][mytarget.aliasField(kv.key)] = kv.value);
                         if (myforceNew && !mytarget.exists(myrowConditions)) {
                             myrecords[index] = this.one(myrow, options);
                         }
@@ -430,8 +428,8 @@ class DMarshaller {
         IORMEntity merge(IORMEntity myentity, Json[string] data, Json[string] options = null) {
             [mydata, options] = _prepareDataAndOptions(mydata, options);
 
-            myisNew = myentity.isNew();
-            someKeys = null;
+            auto myisNew = myentity.isNew();
+            auto someKeys = null;
 
             if (!myisNew) {
                 someKeys = myentity.extract((array) _table.primaryKeys());
@@ -441,10 +439,10 @@ class DMarshaller {
                     myentity.setAccess(aKey, myvalue);
                 }
             }
-            myerrors = _validate(mydata + someKeys, options["validate"], myisNew);
-            options["isMerge"] = true;
-            mypropertyMap = _buildPropertyMap(mydata, options);
-            myproperties = null;
+            auto myerrors = _validate(mydata + someKeys, options["validate"], myisNew);
+            options.set("isMerge", true);
+            auto mypropertyMap = _buildPropertyMap(mydata, options);
+            auto myproperties = null;
 
             // @var string aKey
             foreach (aKey, myvalue; mydata) {
@@ -499,7 +497,7 @@ class DMarshaller {
 
                 return myentity;
             }
-            foreach (fieldName; /* (array) */ options["fields"] as ) {
+            foreach (fieldName; /* (array) */ options["fields"]) {
                 assert(isString(fieldName));
                 if (!array_key_exists(fieldName, myproperties)) {
                     continue;

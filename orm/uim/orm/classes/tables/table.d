@@ -1657,25 +1657,23 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * @param \ArrayObject<string, mixed> options the options to use for the save operation
      */
     protected IORMEntity|false _processSave(IORMEntity entityToSave, ArrayObject options) {
-        myprimaryColumns = (array)this.primaryKeys();
+        auto myprimaryColumns = (array)this.primaryKeys();
 
         if (options["checkExisting"] && myprimaryColumns && entityToSave.isNew() && entityToSave.has(myprimaryColumns)) {
-            aliasName = aliasName();
-            myconditions = null;
-            foreach (entityToSave.extract(myprimaryColumns) as myKey: myv) {
-                myconditions["aliasName.myKey"] = myv;
-            }
+            auto aliasName = aliasName();
+            auto myconditions = null;
+            entityToSave.extract(myprimaryColumns).byKeyValue.each!(kv => myconditions.set(["aliasName", kv.key], kv.value));
             entityToSave.setNew(!this.exists(myconditions));
         }
-        mymode = entityToSave.isNew() ? RulesChecker.CREATE : RulesChecker.UPDATE;
+        auto mymode = entityToSave.isNew() ? RulesChecker.CREATE : RulesChecker.UPDATE;
         if (options["checkRules"] && !this.checkRules(entityToSave, mymode, options)) {
             return false;
         }
         options["associated"] = _associations.normalizeKeys(options["associated"]);
-        myevent = dispatchEvent("Model.beforeSave", compact("entity", "options"));
+        auto myevent = dispatchEvent("Model.beforeSave", compact("entity", "options"));
 
         if (myevent.isStopped()) {
-            result = myevent.getResult();
+            auto result = myevent.getResult();
             if (result.isNull) {
                 return false;
             }
@@ -1688,7 +1686,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             }
             return result;
         }
-        mysaved = _associations.saveParents(
+        auto mysaved = _associations.saveParents(
             this,
             entityToSave,
             options["associated"],
@@ -1698,10 +1696,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         if (!mysaved && options["atomic"]) {
             return false;
         }
-        mydata = entityToSave.extract(getSchema().columns(), true);
-        myisNew = entityToSave.isNew();
+        auto mydata = entityToSave.extract(getSchema().columns(), true);
+        auto myisNew = entityToSave.isNew();
 
-        mysuccess = myisNew
+        auto mysuccess = myisNew
             ? _insert(entityToSave, mydata)
             : _update(entityToSave, mydata);
 

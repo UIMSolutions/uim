@@ -681,26 +681,22 @@ class DEagerLoader {
     /**
      * Helper function used to return the keys from the query records that will be used
      * to eagerly load associations.
-     *
-     * @param array<DORMEagerLoadable> external the list of external associations to be loaded
-     * @param DORMQuery query The query from which the results where generated
-     * @param DORMdatabases.StatementInterface statement The statement to work on
      */
-    protected Json[string] _collectKeys(Json[string] external, Query query, statement) {
+    protected Json[string] _collectKeys(Json[string] external, DQuery query, IStatement statement) {
         auto collectKeys = null;
-        foreach (external as meta) {
-            instance = meta.instance();
+        foreach (meta; external) {
+            auto instance = meta.instance();
             if (!instance.requiresKeys(meta.configuration.data)) {
                 continue;
             }
 
-            source = instance.source();
-            keys = instance.type() == Association.MANY_TO_ONE ?
+            auto source = instance.source();
+            auto keys = instance.type() == Association.MANY_TO_ONE ?
                 /* (array) */instance.foreignKeys() :
                 /* (array) */instance.getBindingKey();
 
-            aliasName = source.aliasName();
-            pkFields = null;
+            auto aliasName = source.aliasName();
+            auto pkFields = null;
             foreach (keys as key) {
                 pkFields ~= key(query.aliasField(key, alias));
             }

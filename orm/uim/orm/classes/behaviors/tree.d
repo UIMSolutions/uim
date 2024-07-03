@@ -498,11 +498,11 @@ class DTreeBehavior : DBehavior {
      */
     protected IORMEntity _removeFromTree(IORMEntity node) {
         auto configData = configuration.data;
-        left = node.get(configuration.get("left"));
-        right = node.get(configuration.get("right"));
-        parent = node.get(configuration.get("parent"]);
+        auto left = node.get(configuration.get("left"));
+        auto right = node.get(configuration.get("right"));
+        auto parent = node.get(configuration.get("parent"));
 
-        node.set(configuration.get("parent"], null);
+        node.set(configuration.get("parent"), null);
 
         if (right - left == 1) {
             return _table.save(node);
@@ -510,22 +510,18 @@ class DTreeBehavior : DBehavior {
 
         primary = primaryKeys();
         _table.updateAll(
-            [configuration.get("parent"]: parent],
-            [configuration.get("parent"]: node.get(primary)]
+            [configuration.get("parent"): parent],
+            [configuration.get("parent"): node.get(primary)]
        );
         _sync(1, "-", "BETWEEN " ~ (left + 1) ~ " AND " ~ (right - 1));
         _sync(2, "-", "> {right}");
         edge = _getMax();
         node.set(configuration.get("left"), edge + 1);
         node.set(configuration.get("right"), edge + 2);
-        fields = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
+        auto fields = [configuration.get("parent"), configuration.get("left"), configuration.get("right")];
 
         _table.updateAll(node.extract(fields), [primary: node.get(primary)]);
-
-        foreach (fields as field) {
-            node.setDirty(field, false);
-        }
-
+        fields.each!(field => node.setDirty(field, false));
         return node;
     }
 
@@ -545,7 +541,6 @@ class DTreeBehavior : DBehavior {
 
         return _table.getConnection().transactional(function () use (node, number) {
             _ensureFields(node);
-
             return _moveUp(node, number);
         });
     }
@@ -561,7 +556,7 @@ class DTreeBehavior : DBehavior {
         [parent, left, right] = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
         [nodeParent, nodeLeft, nodeRight] = array_values(node.extract([parent, left, right]));
 
-        targetNode = null;
+        auto targetNode = null;
         if (number != true) {
             /** @var DORMdatasources.IORMEntity|null targetNode */
             targetNode = _scope(_table.find())

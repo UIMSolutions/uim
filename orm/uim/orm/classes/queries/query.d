@@ -425,7 +425,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param array<string, array> associations The nested tree of associations to walk.
      */
     protected void _addAssociationsToTypeMap(DORMTable aTable, TypeMap typeMap, Json[string] associations) {
-        foreach (associations as name: nested) {
+        foreach (name, nested; associations) {
             if (!table.hasAssociation(name)) {
                 continue;
             }

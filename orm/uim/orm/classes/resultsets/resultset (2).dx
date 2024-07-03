@@ -381,7 +381,7 @@ class DResultset : IResultset {
             "guard": false.toJson,
         ];
 
-        foreach (_matchingMapColumns as alias: keys) {
+        foreach (alias: keys; _matchingMapColumns) {
             matching = _matchingMap[aliasName];
             results["_matchingData"][aliasName] = array_combine(
                 keys,

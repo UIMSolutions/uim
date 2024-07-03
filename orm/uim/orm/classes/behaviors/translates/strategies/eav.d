@@ -123,7 +123,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
             _table.hasOne(name, [
                 "targetTable": fieldTable,
-                "foreignKey": "foreign_key",
+                "foreignKeys": "foreign_key",
                 "joinType": filter ? Query.JOIN_TYPE_INNER : Query.JOIN_TYPE_LEFT,
                 "conditions": conditions,
                 "propertyName": field ~ "_translation",
@@ -137,7 +137,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         _table.hasMany(targetAlias, [
             "classname": table,
-            "foreignKey": "foreign_key",
+            "foreignKeys": "foreign_key",
             "strategy": strategy,
             "conditions": conditions,
             "propertyName": "_i18n",

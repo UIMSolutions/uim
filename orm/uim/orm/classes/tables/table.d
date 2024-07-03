@@ -775,7 +775,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      *
      * - classname: The class name of the target table object
      * - targetTable: An instance of a table object to be used as the target table
-     * - foreignKey: The name of the field to use as foreign key, if false none
+     * - foreignKeys: The name of the field to use as foreign key, if false none
      * will be used
      * - conditions: array with a list of conditions to filter the join with
      * - joinType: The type of join to be used (e.g. INNER)
@@ -809,7 +809,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      *
      * - classname: The class name of the target table object
      * - targetTable: An instance of a table object to be used as the target table
-     * - foreignKey: The name of the field to use as foreign key, if false none
+     * - foreignKeys: The name of the field to use as foreign key, if false none
      * will be used
      * - dependent: Set to true if you want UIM to cascade deletes to the
      * associated table when an entity is removed on this table. The delete operation
@@ -850,7 +850,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      *
      * - classname: The class name of the target table object
      * - targetTable: An instance of a table object to be used as the target table
-     * - foreignKey: The name of the field to use as foreign key, if false none
+     * - foreignKeys: The name of the field to use as foreign key, if false none
      * will be used
      * - dependent: Set to true if you want UIM to cascade deletes to the
      * associated table when an entity is removed on this table. The delete operation
@@ -898,7 +898,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      *
      * - classname: The class name of the target table object.
      * - targetTable: An instance of a table object to be used as the target table.
-     * - foreignKey: The name of the field to use as foreign key.
+     * - foreignKeys: The name of the field to use as foreign key.
      * - targetForeignKey: The name of the field to use as the target foreign key.
      * - joinTable: The name of the table representing the link between the two
      * - through: If you choose to use an already instantiated link table, set this
@@ -1053,7 +1053,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * ```
      *
      * You can specify which property will be used as the key and which as value,
-     * when not specified, it will use the results of calling `primaryKey` and
+     * when not specified, it will use the results of calling `primaryKeys` and
      * `displayField` respectively in this table:
      *
      * ```
@@ -1748,25 +1748,25 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] data The actual data that needs to be saved
      */
     protected IORMEntity _insert(IORMEntity myentity, Json[string] data) {
-        auto primaryKey = (array)this.primaryKeys();
-        if (isEmpty(primaryKey)) {
+        auto primaryKeys = (array)this.primaryKeys();
+        if (isEmpty(primaryKeys)) {
             mymsg = "Cannot insert row in `%s` table, it has no primary key."
                 .format(getTable());
             throw new DatabaseException(mymsg);
         }
-        someKeys = array_fill(0, count(primaryKey), null);
-        myid = (array)_newId(primaryKey) + someKeys;
+        someKeys = array_fill(0, count(primaryKeys), null);
+        myid = (array)_newId(primaryKeys) + someKeys;
 
         // Generate primary keys preferring values in mydata.
-        primaryKey = array_combine(primaryKey, myid);
-        primaryKey = array_intersectinternalKey(mydata, primaryKey) + primaryKey;
+        primaryKeys = array_combine(primaryKeys, myid);
+        primaryKeys = array_intersectinternalKey(mydata, primaryKeys) + primaryKeys;
 
-        myfilteredKeys = array_filter(primaryKey, auto (myv) {
+        myfilteredKeys = array_filter(primaryKeys, auto (myv) {
             return myv !is null;
         });
         mydata += myfilteredKeys;
 
-        if (count(primaryKey) > 1) {
+        if (count(primaryKeys) > 1) {
             myschema = getSchema();
             foreach (myKey: myv; myprimary) {
                 if (!mydata.hasKey(myKey) && myschema.getColumn(myKey)["autoIncrement"].isEmpty) {

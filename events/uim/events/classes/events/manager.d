@@ -304,12 +304,7 @@ class DEventManager { // }: IEventManager {
         return _eventList;
     }
 
-    /**
-     * Adds an event to the list if the event list object is present.
-     *
-     * @template TSubject of object
-     * @param \UIM\Event\IEvent<TSubject> event An event to add to the list.
-     */
+    // Adds an event to the list if the event list object is present.
     void addEventToList(IEvent event) {
         /*     _eventList ? .add(event);
  */

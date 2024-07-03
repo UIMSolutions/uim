@@ -499,14 +499,11 @@ class DDebugger {
      * - port
      * - prefix
      * - schema
-     * Params:
-     * Json[string] exportValues The array to export.
-     * @param \UIM\Error\Debug\DDebugContext context The current dump context.
      */
-    protected static ArrayNode exportArray(Json[string] exportValues, DDebugContext context) {
+    protected static ArrayNode exportArray(Json[string] exportValues, DDebugContext dumpContext) {
         someItems = null;
 
-        remaining = context.remainingDepth();
+        remaining = dumpContext.remainingDepth();
         if (remaining >= 0) {
             outputMask = outputMask();
             foreach (aKey : val; exportValues) {
@@ -514,12 +511,12 @@ class DDebugger {
                     node = new DScalarNode("string", outputMask[aKey]);
                 } else if (val != exportValues) {
                     // Dump all the items without increasing depth.
-                    node = export_(val, context);
+                    node = export_(val, dumpContext);
                 } else {
                     // Likely recursion, so we increase depth.
-                    node = export_(val, context.withAddedDepth());
+                    node = export_(val, dumpContext.withAddedDepth());
                 }
-                someItems ~= new ArrayItemNode(export_(aKey, context), node);
+                someItems ~= new ArrayItemNode(export_(aKey, dumpContext), node);
             }
         } else {
             someItems ~= new ArrayItemNode(
@@ -534,11 +531,11 @@ class DDebugger {
      * Handles object to node conversion.
      * Params:
      * object var Object to convert.
-     * @param \UIM\Error\Debug\DDebugContext context The dump context.
+     * @param \UIM\Error\Debug\DDebugContext dumpContext The dump dumpContext.
      */
-    protected static IErrorNode exportObject(object objToConvert, DDebugContext context) {
-        auto isRef = context.hasReference(objToConvert);
-        auto refNum = context.getReferenceId(objToConvert);
+    protected static IErrorNode exportObject(object objToConvert, DDebugContext dumpContext) {
+        auto isRef = dumpContext.hasReference(objToConvert);
+        auto refNum = dumpContext.getReferenceId(objToConvert);
 
         auto objClassname = var.classname;
         if (isRef) {
@@ -546,12 +543,12 @@ class DDebugger {
         }
         node = new DClassNode(classname, refNum);
 
-        remaining = context.remainingDepth();
+        remaining = dumpContext.remainingDepth();
         if (remaining > 0) {
             if (method_exists(objToConvert, "__debugInfo")) {
                 try {
                     foreach (aKey, val; /* (array) */ objToConvert.__debugInfo()) {
-                        node.addProperty(new DPropertyNode("'{aKey}'", null, export_(val, context)));
+                        node.addProperty(new DPropertyNode("'{aKey}'", null, export_(val, dumpContext)));
                     }
                     return node;
                 } catch (Exception anException) {
@@ -567,7 +564,7 @@ class DDebugger {
                         kv.value = outputMask[kv.key];
                     }
                     node.addProperty(
-                        new DPropertyNode((string) kv.key, "public", export_(kv.value, context.withAddedDepth()))
+                        new DPropertyNode((string) kv.key, "public", export_(kv.value, dumpContext.withAddedDepth()))
                    );
                 });
             ref = new DReflectionObject(objToConvert);
@@ -587,7 +584,7 @@ class DDebugger {
                        ) {
                         aValue = new DSpecialNode("[uninitialized]");
                     } else {
-                        aValue = export_(reflectionProperty.getValue(objToConvert), context.withAddedDepth());
+                        aValue = export_(reflectionProperty.getValue(objToConvert), dumpContext.withAddedDepth());
                     }
                     node.addProperty(
                         new DPropertyNode(

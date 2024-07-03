@@ -45,7 +45,7 @@ interface IRepository {
      * ```
      */
     IDatasourceEntity get(
-        Json primaryKey,
+        Json primaryKeys,
         string[] finders = "all",
         /* ICache| */ string cache = null,
         /* Closure */ string cacheKey = null,

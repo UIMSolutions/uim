@@ -458,7 +458,6 @@ class DText {
      * Params:
      * string textToTruncate String to truncate.
      * @param int mylength Length of returned string, including ellipsis.
-     * @param Json[string] options An array of options.
      */
     static string tail(string textToTruncate, int mylength = 100, Json[string] options = null) {
         auto updatedOptions = options.merge([

@@ -752,7 +752,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Each association might define special options when eager loaded, the allowed
      * options that can be set per association are:
      *
-     * - `foreignKey`: Used to set a different field to match both tables, if set to false
+     * - `foreignKeys`: Used to set a different field to match both tables, if set to false
      * no join conditions will be generated automatically. `false` can only be used on
      * joinable associations and cannot be used with hasMany or belongsToMany associations.
      * - `fields`: An array with the fields that should be fetched from the association.
@@ -797,7 +797,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Use special join conditions for multiple containments in the same method call
      * myquery.contain([
      *   "Authors": [
-     *       "foreignKey": false.toJson,
+     *       "foreignKeys": false.toJson,
      *       "queryBuilder": auto (myq) {
      *           return myq.where(...); // Add full filtering conditions
      *       }

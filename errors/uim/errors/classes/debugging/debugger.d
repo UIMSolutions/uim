@@ -530,10 +530,7 @@ static IErrorNode exportVarAsNodes(Json varToConvert, int maxOutputDepth = 3) {
     return export_(varToConvert, new DDebugContext(maxOutputDepth));
 }
 
-/**
-     * Protected export function used to keep track of indentation and recursion.
-     * @param uim.errors.debugs.DDebugContext context Dump context
-     */
+// Protected export function used to keep track of indentation and recursion.
 protected static IErrorNode export_(varToDump, DDebugContext dumpContext) {
     type = getType(varToDump);
     switch (type) {
@@ -698,8 +695,6 @@ static string getType(Json value) {
      * Prints out debug information about given variable.
      *
      * @param mixed var Variable to show debug information for.
-     * @param Json[string] location If contains keys "file" and "line" their values will
-     *   be used to show location info.
      */
 static void printVar(Json varToShow, Json[string] location = null, bool showHtml = false) {
     auto location += ["file": null, "line": null];
@@ -708,19 +703,18 @@ static void printVar(Json varToShow, Json[string] location = null, bool showHtml
     }
 
     auto debugger = getInstance();
-    restore = null;
+    auto restore = null;
     if (showHtml != null) {
         restore = debugger.getConfig("exportFormatter");
-        debugger.configuration.set("exportFormatter", showHtml ? HtmlFormatter
-                .classname : TextFormatter.classname);
+        debugger.configuration.set("exportFormatter", showHtml ? HtmlFormatter.classname : TextFormatter.classname);
     }
-    contents = exportVar(varToShow, 25);
-    formatter = debugger.getExportFormatter();
+    auto contents = exportVar(varToShow, 25);
+    auto formatter = debugger.getExportFormatter();
 
     if (restore) {
         debugger.setConfig("exportFormatter", restore);
     }
-    writeln(formatter.formatWrapper(contents, location);
+    writeln(formatter.formatWrapper(contents, location));
 }
 
 /**

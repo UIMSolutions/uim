@@ -87,7 +87,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         targetAlias = this.translationTable.aliasName();
         this.table.hasMany(targetAlias, [
                 "classname": configuration.get("translationTable"),
-                "foreignKey": Json("id"),
+                "foreignKeys": Json("id"),
                 "strategy": configuration.get("strategy"),
                 "propertyName": Json("_i18n"),
                 "dependent": true.toJson,
@@ -165,7 +165,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                 configuration.getString("onlyTranslated") ? "INNER" : "LEFT");
 
         this.table.hasOne(configuration.get("hasOneAlias"), [
-                "foreignKey": ["id"],
+                "foreignKeys": ["id"],
                 "joinType": joinType,
                 "propertyName": "translation",
                 "classname": configuration.getString("translationTable"),

@@ -113,7 +113,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         return super.get(aliasName, buildOptions);
     }
  
-    protected auto createInstance(string aliasName, Json[string] options): Table
+    protected auto createInstance(string aliasName, Json[string] options = null): Table
     {
         if (!aliasName.contains("\\")) {
             [, myclassAlias] = pluginSplit(aliasName);
@@ -193,7 +193,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     }
     
     // Wrapper for creating table instances
-    protected ITable _create(Json[string] options) {
+    protected ITable _create(Json[string] options = null) {
         auto myclass = options["classname"];
         return new myclass(options);
     }

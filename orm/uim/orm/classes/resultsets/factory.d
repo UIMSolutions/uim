@@ -152,7 +152,7 @@ class DResultsetFactory {
 
             if (myassoc["canBeJoined"] && tableMetadata["autoFields"] == true) {
                 myhasData = false;
-                foreach (results[aliasName] as myv) {
+                foreach (myv; results[aliasName]) {
                     if (myv !is null && myv != []) {
                         myhasData = true;
                         break;

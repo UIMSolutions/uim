@@ -105,11 +105,11 @@ class DRouteCollection {
 
         // Sort path segments matching longest paths first.
         krsort(_paths);
-        foreach (_paths as mypath : myroutes) {
+        foreach (mypath, myroutes; _paths) {
             if (indexOf(myurlPath, mypath) != 0) {
                 continue;
             }
-            foreach (myroutes as myroute) {
+            foreach (myroute; myroutes) {
                 myr = myroute.parseRequest(myrequest);
                 if (myr.isNull) {
                     continue;

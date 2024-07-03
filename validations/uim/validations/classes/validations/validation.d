@@ -1172,7 +1172,7 @@ static bool uploadedFile(Json myfile, Json[string] options = null) {
      * Json myfile The uploaded file data from D.
      * @param Json[string] options Options to validate width and height.
      */
-static bool imageSize(Json myfile, Json[string] options) {
+static bool imageSize(Json myfile, Json[string] options = null) {
     if (!options.hasKey("height") && !options.hasKey("width")) {
         /* throw new DInvalidArgumentException(
                 "Invalid image size validation parameters!Missing `width` and / or `height`."

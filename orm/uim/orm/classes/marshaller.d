@@ -30,15 +30,16 @@ class DMarshaller {
 
         // Is a concrete column?
         foreach (mydata.keys as myprop) {
-            myprop = to!string(myprop);
-            mycolumnType = tableSchema.getColumnType(myprop);
+            auto myprop = to!string(myprop);
+            auto mycolumnType = tableSchema.getColumnType(myprop);
             if (mycolumnType) {
                 mymap[myprop] = fn(myvalue) : TypeFactory.build(mycolumnType).marshal(myvalue);
             }
         }
         // Map associations
         options.set("associated", options.getArray("associated"));
-        myinclude = _normalizeAssociations(options["associated"]);
+        
+        auto myinclude = _normalizeAssociations(options["associated"]);
         foreach (myinclude as aKey : mynested) {
             if (isInteger(aKey) && isScalar(mynested)) {
                 aKey = mynested;
@@ -76,7 +77,7 @@ class DMarshaller {
             mymap[myassoc.getProperty()] = mycallback;
         }
         mybehaviors = _table.behaviors();
-        foreach (mybehaviors.loaded() as myname) {
+        foreach (myname; mybehaviors.loaded()) {
             auto mybehavior = mybehaviors.get(myname);
             if (cast(IPropertyMarshal) mybehavior) {
                 mymap += mybehavior.buildMarshalMap(this, mymap, options);

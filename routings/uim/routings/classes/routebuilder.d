@@ -586,7 +586,7 @@ class DRouteBuilder {
      * @param Json[string] mydefaults Default parameters.
      * @param Json[string] options Additional options parameters.
      */
-    protected DRoute _makeRoute(Route|string myroute, Json[string] mydefaults, Json[string] options) {
+    protected DRoute _makeRoute(Route|string myroute, Json[string] mydefaults, Json[string] options = null) {
         if (isString(myroute)) {
             /** @var class-string<\UIM\Routing\Route\Route>|null myrouteClass */
             myrouteClass = App.classname(options["routeClass"], "Routing/Route");

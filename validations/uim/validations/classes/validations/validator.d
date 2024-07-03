@@ -435,7 +435,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             });
 
             auto myerrors = null;
-            foreach (myvalue as myi: myrow) {
+            foreach (myi: myrow; myvalue) {
                 if (!isArray(myrow)) {
                     return false;
                 }

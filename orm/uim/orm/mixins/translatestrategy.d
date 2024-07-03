@@ -113,9 +113,9 @@ mixin template TTranslateStrategy() {
                     translations = null;
                 }
 
-                options.set("validate", configuration.get("validator");
-                errors = null;
-                foreach (value as language: fields) {
+                options.set("validate", configuration.get("validator"));
+                auto errors = null;
+                foreach (language: fields; value) {
                     if (!translations.hasKey(language)) {
                         translations[language] = this.table.newEmptyEntity();
                     }

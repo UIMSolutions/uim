@@ -309,11 +309,11 @@ class DQueryExpression : DExpression { // }, Countable {
         if (len == 0) {
             return null;
         }
-        conjunction = _conjunction;
-        templateText = len == 1 ? "%s' : '(%s)";
-        someParts = null;
-        foreach (_conditions as part) {
-            if (cast(Query)part) {
+        auto conjunction = _conjunction;
+        auto templateText = len == 1 ? "%s' : '(%s)";
+        auto someParts = null;
+        foreach (part, _conditions) {
+            if (cast(DQuery)part) {
                 part = "(" ~ part.sql(aBinder) ~ ")";
             } elseif (cast(IExpression)part) {
                 part = part.sql(aBinder);
@@ -322,7 +322,7 @@ class DQueryExpression : DExpression { // }, Countable {
                 someParts ~= part;
             }
         }
-        return template.format(join(" conjunction ", someParts));
+        return templateText.format(join(" conjunction ", someParts));
     }
 
     void traverse(Closure aCallback) {

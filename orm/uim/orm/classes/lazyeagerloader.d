@@ -87,7 +87,7 @@ class DLazyEagerLoader {
     protected string[] _getPropertyMap(Table mysource, Json[string] myassociations) {
         auto propertyMap = null;
         auto mycontainer = mysource.associations();
-        foreach (myassociations as myassoc) {
+        foreach (myassoc; myassociations) {
             myassociation = mycontainer.get(myassoc);
             propertyMap[myassoc] = myassociation.getProperty();
         }

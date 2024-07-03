@@ -229,10 +229,10 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param DORMDORMTable aTable The table to pull types from
      */
     void addDefaultTypes(DORMTable aTable) {
-        aliasName = table.aliasName();
-        map = table.getSchema().typeMap();
-        fields = null;
-        foreach (map as f: type) {
+        auto aliasName = table.aliasName();
+        auto map = table.getSchema().typeMap();
+        auto fields = null;
+        foreach (f: type; map) {
             fields[f] = fields[alias ~ "." ~ f] = fields[alias ~ "__" ~ f] = type;
         }
         getTypeMap().addDefaults(fields);

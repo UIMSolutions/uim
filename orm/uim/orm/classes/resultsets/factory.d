@@ -168,7 +168,7 @@ class DResultsetFactory {
             }
             results = myinstance.transformRow(results, aliasName, myassoc["canBeJoined"], myassoc["targetProperty"]);
         }
-        foreach (mypresentAliases as aliasName: mypresent) {
+        foreach (aliasName, mypresent; mypresentAliases) {
             if (!results.hasKey(aliasName)) {
                 continue;
             }

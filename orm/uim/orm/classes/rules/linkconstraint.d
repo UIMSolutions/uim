@@ -75,17 +75,9 @@ class DLinkConstraint {
         return true;
     }
     
-    /**
-     * Alias fields.
-     * Params:
-     * string[] fieldNames The fields that should be aliased.
-     * @param \ORM\Table mysource The object to use for aliasing.
-     */
-    protected string[] _aliasFields(Json[string] fieldNames, Table mysource) {
-        foreach (fieldNames as aKey: myvalue) {
-            fieldNames[aKey] = mysource.aliasField(myvalue);
-        }
-        return fieldNames;
+    // Alias fields.
+    protected string[] _aliasFields(Json[string] fieldNames, Table sourceTable) {
+        return fieldNames.byKeyValue.each!(kv => fieldNames[kv.key] = sourceTable.aliasField(kv.value));
     }
     
     /**

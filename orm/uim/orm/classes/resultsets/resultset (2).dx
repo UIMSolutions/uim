@@ -323,12 +323,10 @@ class DResultset : IResultset {
     /**
      * Creates a map of row keys out of the query select clause that can be
      * used to hydrate nested result sets more quickly.
-     *
-     * @param DORMQuery query The query from where to derive the column map
      */
-    protected void _calculateColumnMap(Query query) {
-        map = null;
-        foreach (query.clause("select") as key: field) {
+    protected void _calculateColumnMap(DORMQuery query) {
+        auto map = null;
+        foreach (key, field; query.clause("select")) {
             key = strip(key, ""`[]");
 
             if (indexOf(key, "__") <= 0) {
@@ -340,7 +338,7 @@ class DResultset : IResultset {
             map[parts[0]][key] = parts[1];
         }
 
-        foreach (_matchingMap as alias: assoc) {
+        foreach (alias, assoc; _matchingMap) {
             if (map.isNull(aliasName)) {
                 continue;
             }

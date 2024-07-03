@@ -1186,7 +1186,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
 
         if (!mycomplex) {
             // Expression fields could have bound parameters.
-            foreach (myquery.clause("select") as fieldName) {
+            foreach (fieldName; myquery.clause("select")) {
                 if (cast(IExpression)fieldName) {
                     mycomplex = true;
                     break;

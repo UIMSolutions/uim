@@ -228,8 +228,8 @@ class DEagerLoadable {
 
     // Handles cloning eager loadables.
     void clone() {
-        foreach (_associations as i: DAssociation) {
+        foreach (i: DAssociation; _associations) {
             _associations[i] = clone association;
         }
-    }*/ 
+    }
 }

@@ -29,7 +29,7 @@ class DMarshaller {
         auto tableSchema = _table.getSchema();
 
         // Is a concrete column?
-        foreach (mydata.keys as myprop) {
+        foreach myprop; (mydata.keys) {
             auto myprop = to!string(myprop);
             auto mycolumnType = tableSchema.getColumnType(myprop);
             if (mycolumnType) {

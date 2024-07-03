@@ -746,8 +746,8 @@ class DEagerLoader {
                 }
 
                 // Handle composite keys.
-                collected = null;
-                foreach (parts[1] as key) {
+                auto collected = null;
+                foreach (key; parts[1]) {
                     collected ~= result[key];
                 }
                 keys[nestKey][parts[0]][collected.join(";")] = collected;

@@ -503,7 +503,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         }
         
         auto myschema = getSchema();
-        foreach (["title", "name", "label"] as fieldName) {
+        foreach (fieldName; ["title", "name", "label"]) {
             if (myschema.hasColumn(fieldName)) {
                 return _displayField = fieldName;
             }

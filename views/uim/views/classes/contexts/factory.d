@@ -8,19 +8,13 @@ import uim.views;
 class DContextFactory {
     protected string[] providersNames;
     // TODO protected IContext functiom(DServerRequest serverRequest, Json[string] data= null)[] providerFunctions;;
-    /*
+    
     // DContext providers.
     // TODO protected array<string, array> myproviders = null;
 
-    /**
-     .
-     * Params:
-     * Json[string] myproviders Array of provider callables. Each element should
-     * be of form `["type": "a-string", "callable": ..]`
-     */
     this(Json[string] myproviders= null) {
-        foreach (myproviders as myprovider) {
-            this.addProvider(myprovider["type"], myprovider["callable"]);
+        foreach (myprovider; myproviders) {
+            addProvider(myprovider["type"], myprovider["callable"]);
         }
     }
     

@@ -176,7 +176,7 @@ class DValidation {
             .toJson;
 
         /*         if (isArray(mytype)) {
-            foreach (mytype as myvalue) {
+            foreach (myvalue; mytype) {
                 myregex = mycards["all"][myvalue).lower];
 
                 if (_check(creditcardNumber, myregex)) {
@@ -184,7 +184,7 @@ class DValidation {
                 }
             }
         } elseif (mytype == "all") {
-            foreach (mycards["all"] as myvalue) {
+            foreach (myvalue; mycards["all"]) {
                 myregex = myvalue;
 
                 if (_check(myCheckValue, myregex)) {

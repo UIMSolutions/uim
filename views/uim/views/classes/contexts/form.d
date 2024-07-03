@@ -118,7 +118,7 @@ class DFormContext : DContext {
         if (!myvalidator.hasField(fieldName)) {
             return null;
         }
-        foreach (myvalidator.field(fieldName).rules() as myrule) {
+        foreach (myrule; myvalidator.field(fieldName).rules()) {
             if (myrule.get("rule") == "maxLength") {
                 return myrule.get("pass")[0];
             }

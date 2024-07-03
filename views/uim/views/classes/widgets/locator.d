@@ -128,15 +128,15 @@ class DWidgetLocator {
         if (isString(configData)) {
             configData = [configData];
         }
-        myclass = array_shift(configData);
-        myclassname = App.classname(myclass, "View/Widget", "Widget");
+        auto myclass = array_shift(configData);
+        auto myclassname = App.classname(myclass, "View/Widget", "Widget");
         if (myclassname.isNull) {
             throw new DInvalidArgumentException("Unable to locate widget class `%s`.".format(myclass));
         }
         if (count(configData)) {
-            myreflection = new DReflectionClass(myclassname);
-            myarguments = [_stringContents];
-            foreach (configData as myrequirement) {
+            auto myreflection = new DReflectionClass(myclassname);
+            auto myarguments = [_stringContents];
+            foreach (myrequirement; configData) {
                 myarguments ~= myrequirement == "_view"
                     ? _view
                     : get(myrequirement);

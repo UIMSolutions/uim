@@ -526,19 +526,12 @@ class DHtmlHelper : DHelper {
      * creates
      * "margin:10px;padding:10px;"
      * ```
-     * Params:
-     * STRINGAA mydata Style data array, keys will be used as property names, values as property values.
-     * @param bool myoneLine Whether the style block should be displayed on one line.
      */
-    string style(Json[string] data, bool myoneLine = true) {
-        string[] result;
-        foreach (mydata as aKey: myvalue) {
-            result ~= aKey ~ ": " ~ myvalue ~ ";";
-        }
-        if (myoneLine) {
-            return result.join(" ");
-        }
-        return result.join("\n");
+    string style(Json[string] data, bool shouldOneLine = true) {
+        string[] result = data.byKeyValue.map!(kv => kv.key ~ ": " ~ kv.value ~ ";").array;
+        return shouldOneLine
+            ? result.join(" ")
+            : result.join("\n");
     }
     
     /**
@@ -868,7 +861,7 @@ class DHtmlHelper : DHelper {
      * @param Json[string] htmlAttributes Array of HTML attributes, and special options above.
      */
     string media(string[] mypath, Json[string] htmlAttributes = null) {
-        htmlAttributes += [
+        auto htmlAttributes += [
             "tag": Json(null),
             "pathPrefix": "files/",
             "text": "",
@@ -879,8 +872,8 @@ class DHtmlHelper : DHelper {
             : null;
 
         if (mypath.isArray) {
-            mysourceTags = "";
-            foreach (mypath as &mysource) {
+            auto mysourceTags = "";
+            foreach (&mysource; mypath) {
                 if (isString(mysource)) {
                     mysource = [
                         "src": mysource,

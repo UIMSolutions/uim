@@ -297,7 +297,7 @@ class DFormHelper : DHelper {
             myaction = null;
         } else {
             myurl = _formUrl(formContext, options);
-            myaction = this.Url.build(myurl);
+            myaction = _url.build(myurl);
         }
        _lastAction(myurl);
         options.remove("ur","idPrefix");
@@ -1562,7 +1562,7 @@ class DFormHelper : DHelper {
         myrestoreFormProtector = _formProtector;
 
         myaction = mytemplater.formatAttributes([
-            "action": this.Url.build(myurl),
+            "action": _url.build(myurl),
             "escape": false.toJson,
         ]);
 
@@ -1673,22 +1673,20 @@ class DFormHelper : DHelper {
                         options.getString("name") ~ "_y",
                     ];
                 }
-                foreach (myunlockFields as myignore) {
-                    this.unlockField(myignore);
-                }
+                myunlockFields.each!(myignore => this.unlockField(myignore));
             }
         }
         if (myisUrl) {
-            options["src"] = mycaption;
+            options.set("src", mycaption);
         } elseif (myisImage) {
             myUrl = mycaption[0] != "/" 
-                ? this.Url.webroot(configuration.getString("App.imageBaseUrl") ~ mycaption)
-                : this.Url.webroot(trim(mycaption, "/"));
+                ? _url.webroot(configuration.getString("App.imageBaseUrl") ~ mycaption)
+                : _url.webroot(trim(mycaption, "/"));
 
-            myurl = this.Url.assetTimestamp(myurl);
-            options["src"] = myurl;
+            myurl = _url.assetTimestamp(myurl);
+            options.set("src", myurl);
         } else {
-            options["value"] = mycaption;
+            options.set("value", mycaption);
         }
         myinput = this.formatTemplate("inputSubmit", [
             "type": mytype,

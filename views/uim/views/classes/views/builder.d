@@ -168,16 +168,11 @@ class DViewBuilder { // }: DJsonSerializable {
     // Get/Set the plugin name to use. Use null to remove the current plugin name.
     mixin(TPropery!("string", "pluginName"));
     
-    /**
-     * Adds a helper to use, overwriting any existing one with that name.
-     * Params:
-     * string myhelper Helper to use.
-     * @param Json[string] options Options.
-     */
-    void addHelper(string myhelper, Json[string] options  = null) {
-        [myplugin, views] = pluginSplit(myhelper);
+    // Adds a helper to use, overwriting any existing one with that name.
+    void addHelper(string helperToUse, Json[string] options  = null) {
+        [myplugin, views] = pluginSplit(helperToUse);
         if (myplugin) {
-            options["classname"] = myhelper;
+            options["classname"] = helperToUse;
         }
        _helpers[views] = options;
     }
@@ -206,7 +201,7 @@ class DViewBuilder { // }: DJsonSerializable {
     void setHelpers(Json[string] myhelpers) {
        _helpers = null;
 
-        foreach (myhelpers as myhelper: configData) {
+        foreach (myhelper, configData; myhelpers) {
             if (isInteger(myhelper)) {
                 myhelper = configData;
                 configData = null;

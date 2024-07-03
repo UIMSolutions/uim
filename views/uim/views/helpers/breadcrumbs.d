@@ -268,7 +268,7 @@ class DBreadcrumbsHelper : DHelper {
      * string mytitle Title to find.
      */
     protected int findCrumb(string mytitle) {
-        foreach (this.crumbs as aKey: mycrumb) {
+        foreach (aKey: mycrumb; this.crumbs) {
             if (mycrumb["title"] == mytitle) {
                 return aKey;
             }

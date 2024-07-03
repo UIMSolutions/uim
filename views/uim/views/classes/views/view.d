@@ -781,11 +781,9 @@ static string contentType() {
         return _helpers().{attributeName};
     }
 
-    /**
-     * Interact with the HelperRegistry to load all the helpers.
-     */
+    // Interact with the HelperRegistry to load all the helpers.
     auto loadHelpers() {
-        foreach (_helpers as views: configData) {
+        foreach (views, configData; _helpers) {
             _loadHelper(views, configData);
         }
         return this;
@@ -1084,9 +1082,9 @@ static string contentType() {
      * string _plugin The plugin to fetch paths for.
      */
     protected DGenerator getElementPaths(string _plugin) {
-        myelementPaths = _getSubPaths(TYPE_ELEMENT);
+        auto myelementPaths = _getSubPaths(TYPE_ELEMENT);
         foreach (_paths(_plugin) as mypath) {
-            foreach (myelementPaths as mysubdir) {
+            foreach (mysubdir; myelementPaths) {
                 yield mypath ~ mysubdir ~ DIRECTORY_SEPARATOR;
             }
         }

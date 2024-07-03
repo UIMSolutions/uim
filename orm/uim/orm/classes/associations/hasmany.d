@@ -139,7 +139,7 @@ class DHasManyAssociation : DAssociation {
         IORMEntity[] entities,
         Json[string] options
     ) {
-        auto foreignKey = foreignKeyReference.keys;
+        auto foreignKeys = foreignKeyReference.keys;
         auto myTable = getTarget();
         auto original = entities;
         foreach (k, entity; entities) {
@@ -151,7 +151,7 @@ class DHasManyAssociation : DAssociation {
                 entity = clone entity;
             }
 
-            if (foreignKeyReference != entity.extract(foreignKey)) {
+            if (foreignKeyReference != entity.extract(foreignKeys)) {
                 entity.set(foreignKeyReference, [
                         "guard": false
                     ]);
@@ -295,7 +295,7 @@ class DHasManyAssociation : DAssociation {
                 return entity.extract(
                     myTargetPrimaryKey);})
                     .toList(),];
-                _unlink(foreignKey, myTarget, conditions, options);
+                _unlink(foreignKeys, myTarget, conditions, options);
 
                 myResult = sourceEntity.get(
                     property);
@@ -427,13 +427,13 @@ class DHasManyAssociation : DAssociation {
      * The action which is taken depends on the dependency between source and
      * targets and also on foreign key nullability.
      *
-     * @param Json[string] foreignKey array of foreign key properties
+     * @param Json[string] foreignKeys array of foreign key properties
      * @param DORMTable myTarget The associated table
      * @param Json[string] conditions The conditions that specifies what are the objects to be unlinked
      */
-    protected bool _unlink(Json[string] foreignKey, DORMTable myTarget, Json[string] conditions = null, Json[string] options = null) {
+    protected bool _unlink(Json[string] foreignKeys, DORMTable myTarget, Json[string] conditions = null, Json[string] options = null) {
         mustBeDependent = (!_foreignKeyAcceptsNull(
-                myTarget, foreignKey) || getDependent());
+                myTarget, foreignKeys) || getDependent());
 
         if (mustBeDependent) {
             if (
@@ -472,7 +472,7 @@ class DHasManyAssociation : DAssociation {
                 return true;
             }
 
-            updateFields = array_fill_keys(foreignKey, null);
+            updateFields = array_fill_keys(foreignKeys, null);
             this.updateAll(updateFields, conditions);
 
             return true;
@@ -575,7 +575,7 @@ class DHasManyAssociation : DAssociation {
                     "sourceAlias": source().aliasName(),
                     "targetAlias": getTarget()
                     .aliasName(),
-                    "foreignKey": foreignKeys(),
+                    "foreignKeys": foreignKeys(),
                     "bindingKey": getBindingKey(),
                     "strategy": getStrategy(),
                     "associationType": associationType(),

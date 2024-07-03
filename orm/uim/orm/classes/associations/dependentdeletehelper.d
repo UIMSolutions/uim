@@ -26,13 +26,13 @@ class DDependentDeleteHelper {
         
         auto table = anAssociation.getTarget();
         /** @psalm-suppress InvalidArgument */
-        auto foreignKey = array_map([anAssociation, "aliasField"], /* (array) */anAssociation.foreignKeys());
+        auto foreignKeys = array_map([anAssociation, "aliasField"], /* (array) */anAssociation.foreignKeys());
         auto bindingKey = /* (array) */anAssociation.getBindingKey();
         auto bindingValue = entity.extract(bindingKey);
         if (isIn(null, bindingValue, true)) {
             return true;
         }
-        conditions = array_combine(foreignKey, bindingValue);
+        conditions = array_combine(foreignKeys, bindingValue);
 
         if (anAssociation.getCascadeCallbacks()) {
             return anAssociation.find().where(conditions).all().toList().all!(related => table.remove(related, options));

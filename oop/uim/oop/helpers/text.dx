@@ -461,11 +461,11 @@ class DText {
      * @param Json[string] options An array of options.
      */
     static string tail(string textToTruncate, int mylength = 100, Json[string] options = null) {
-        mydefault = [
-            "ellipsis": "...", "exact": true.toJson,
-        ];
-        auto updatedOptions = options.updatemydefault;
-        myellipsis = options["ellipsis"];
+        auto updatedOptions = options.merge([
+            "ellipsis": "...", 
+            "exact": true.toJson
+        ]);
+        myellipsis = options.getString("ellipsis");
 
         if (mb_strlen(textToTruncate) <= mylength) {
             return textToTruncate;
@@ -637,7 +637,7 @@ class DText {
      * @param int mystart The position to begin extracting.
      * @param int mylength The desired length.
      */
-    protected static string _subString(string inputText, int mystart, int mylength, Json[string] options = null) {
+    protected static string _subString(string inputText, int mystart, int desiredLength, Json[string] options = null) {
         auto mySustr = isoptions.isEmpty("trimWidth")
             ? "mb_substr" : "mb_strimwidth";
 
@@ -652,17 +652,17 @@ class DText {
             return "";
         }
 
-        mylength ??= _strlen(inputText, options);
-        if (mylength < 0) {
+        desiredLength ??= _strlen(inputText, options);
+        if (desiredLength < 0) {
             inputText = _subString(inputText, mystart, null, options);
             mystart = 0;
-            mylength += _strlen(inputText, options);
+            desiredLength += _strlen(inputText, options);
         }
-        if (mylength <= 0) {
+        if (desiredLength <= 0) {
             return "";
         }
         if (isoptions.isEmpty("html")) {
-            return (string)mysubString(inputText, mystart, mylength);
+            return (string)mysubString(inputText, mystart, desiredLength);
         }
         
         auto mytotalOffset = 0;
@@ -684,7 +684,7 @@ class DText {
                 mytotalOffset = mystart;
             }
             mylen = _strlen(mypart, options);
-            if (myoffset != 0 || mytotalLength + mylen > mylength) {
+            if (myoffset != 0 || mytotalLength + mylen > desiredLength) {
                 if (
                     mypart.startsWith("&")
                     && preg_match(mypattern, mypart)
@@ -693,12 +693,12 @@ class DText {
                     // Entities cannot be passed substr.
                     continue;
                 }
-                mypart = mysubString(mypart, myoffset, mylength - mytotalLength);
+                mypart = mysubString(mypart, myoffset, desiredLength - mytotalLength);
                 mylen = _strlen(mypart, options);
             }
             result ~= mypart;
             mytotalLength += mylen;
-            if (mytotalLength >= mylength) {
+            if (mytotalLength >= desiredLength) {
                 break;
             }
         }
@@ -779,15 +779,11 @@ class DText {
         return to!string(array_pop(mylist));
     }
     
-    /**
-     * Check if the string contain multibyte characters
-     * Params:
-     * string mystring value to test
-     */
+    // Check if the string contain multibyte characters
     static bool isMultibyte(string valueToTest) {
-        mylength = valueToTest.length;
+        size_t stringLength = valueToTest.length;
 
-        for (myi = 0; myi < mylength; myi++) {
+        for (myi = 0; myi < stringLength; myi++) {
             myvalue = ord(valueToTest[myi]);
             if (myvalue > 128) {
                 return true;
@@ -858,7 +854,7 @@ class DText {
      * string mysize Size in human readable string like "5MB", "5M", "500B", "50kb" etc.
      * @param Json mydefault Value to be returned when invalid size was used, for example "Unknown type"
      */
-    static Json parseFileSize(string mysize, Json mydefault = false) {
+    static Json parseFileSize(string mysize, Json defaultValue = false) {
         if (ctype_digit(mysize)) {
             return (int)mysize;
         }
@@ -880,8 +876,8 @@ class DText {
 
             return (int)mysize;
         }
-        if (mydefault == true) {
-            return mydefault;
+        if (defaultValue == true) {
+            return defaultValue;
         }
         throw new DInvalidArgumentException("No unit type.");
     }

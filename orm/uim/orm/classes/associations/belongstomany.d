@@ -204,7 +204,7 @@ class DBelongsToManyAssociation : DAssociation {
             target.hasMany(junctionAlias, [
                 "targetTable": junction,
                 "bindingKey": targetBindingKey,
-                "foreignKey": tarforeignKeys(),
+                "foreignKeys": tarforeignKeys(),
                 "strategy": _strategy,
             ]);
         }
@@ -212,7 +212,7 @@ class DBelongsToManyAssociation : DAssociation {
             target.belongsToMany(sourceAlias, [
                 "sourceTable": target,
                 "targetTable": source,
-                "foreignKey": tarforeignKeys(),
+                "foreignKeys": tarforeignKeys(),
                 "targetForeignKey": foreignKeys(),
                 "through": junction,
                 "conditions": getConditions(),
@@ -246,7 +246,7 @@ class DBelongsToManyAssociation : DAssociation {
             source.hasMany(junctionAlias, [
                 "targetTable": junctionTable,
                 "bindingKey": sourceBindingKey,
-                "foreignKey": foreignKeys(),
+                "foreignKeys": foreignKeys(),
                 "strategy": _strategy,
             ]);
         }
@@ -273,7 +273,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         if (!junctionTable.hasAssociation(tAlias)) {
             junctionTable.belongsTo(tAlias, [
-                "foreignKey": tarforeignKeys(),
+                "foreignKeys": tarforeignKeys(),
                 "targetTable": target,
             ]);
         } else {
@@ -292,7 +292,7 @@ class DBelongsToManyAssociation : DAssociation {
         if (!junctionTable.hasAssociation(sourceAlias)) {
             junctionTable.belongsTo(sourceAlias, [
                 "bindingKey": getBindingKey(),
-                "foreignKey": foreignKeys(),
+                "foreignKeys": foreignKeys(),
                 "targetTable": source,
             ]);
         }
@@ -305,7 +305,7 @@ class DBelongsToManyAssociation : DAssociation {
      * The options array accept the following keys:
      *
      * - includeFields: Whether to include target model fields in the result or not
-     * - foreignKey: The name of the field to use as foreign key, if false none
+     * - foreignKeys: The name of the field to use as foreign key, if false none
      *  will be used
      * - conditions: array with a list of conditions to filter the join with
      * - fields: a list of fields in the target table to include in the result
@@ -322,7 +322,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         junction = this.junction();
         belongsTo = junction.getAssociation(source().aliasName());
-        cond = belongsTo._joinCondition(["foreignKey": belongsTo.foreignKeys()]);
+        cond = belongsTo._joinCondition(["foreignKeys": belongsTo.foreignKeys()]);
         cond += this.junctionConditions();
 
         includeFields = options.get("includeFields", null);
@@ -333,16 +333,16 @@ class DBelongsToManyAssociation : DAssociation {
         newOptions += [
             "conditions": cond,
             "includeFields": includeFields,
-            "foreignKey": false.toJson,
+            "foreignKeys": false.toJson,
         ];
         assoc.attachTo(query, newOptions);
         query.getEagerLoader().addToJoinsMap(junction.aliasName(), assoc, true);
 
         super.attachTo(query, options);
 
-        foreignKey = tarforeignKeys();
+        foreignKeys = tarforeignKeys();
         thisJoin = query.clause("join")[getName()];
-        thisJoin["conditions"].add(assoc._joinCondition(["foreignKey": foreignKey]));
+        thisJoin["conditions"].add(assoc._joinCondition(["foreignKeys": foreignKeys]));
     }
 
 
@@ -353,7 +353,7 @@ class DBelongsToManyAssociation : DAssociation {
         options.set("conditions", options.getArray("conditions"));
         auto junction = this.junction();
         auto belongsTo = junction.getAssociation(source().aliasName());
-        auto conds = belongsTo._joinCondition(["foreignKey": belongsTo.foreignKeys()]);
+        auto conds = belongsTo._joinCondition(["foreignKeys": belongsTo.foreignKeys()]);
 
         auto subquery = this.find()
             .select(array_values(conds))
@@ -406,7 +406,7 @@ class DBelongsToManyAssociation : DAssociation {
             "alias": this.aliasName(),
             "sourceAlias": source().aliasName(),
             "targetAlias": getTarget().aliasName(),
-            "foreignKey": foreignKeys(),
+            "foreignKeys": foreignKeys(),
             "bindingKey": getBindingKey(),
             "strategy": getStrategy(),
             "associationType": this.type(),
@@ -601,7 +601,7 @@ class DBelongsToManyAssociation : DAssociation {
         auto junction = this.junction();
         auto entityClass = junction.getEntityClass();
         auto belongsTo = junction.getAssociation(target.aliasName());
-        auto foreignKey = (array)foreignKeys();
+        auto foreignKeys = (array)foreignKeys();
         auto assocForeignKey = /* (array) */belongsTo.foreignKeys();
         auto targetBindingKey = /* (array) */belongsTo.getBindingKey();
         auto bindingKey = /* (array) */getBindingKey();
@@ -613,11 +613,11 @@ class DBelongsToManyAssociation : DAssociation {
             if (!joint || !cast(IORMEntity)joint) {
                 joint = new DORMEntityClass([], ["markNew": true.toJson, "source": junctionRegistryAlias]);
             }
-            sourceKeys = array_combine(foreignKey, sourceEntity.extract(bindingKey));
+            sourceKeys = array_combine(foreignKeys, sourceEntity.extract(bindingKey));
             targetKeys = array_combine(assocForeignKey, e.extract(targetBindingKey));
 
             changedKeys = (
-                sourceKeys != joint.extract(foreignKey) ||
+                sourceKeys != joint.extract(foreignKeys) ||
                 targetKeys != joint.extract(assocForeignKey)
            );
             // Keys were changed, the junction table record _could_ be
@@ -870,7 +870,7 @@ class DBelongsToManyAssociation : DAssociation {
         if (conditions == null) {
             belongsTo = junctionTable.getAssociation(getTarget().aliasName());
             conditions = belongsTo._joinCondition([
-                "foreignKey": tarforeignKeys(),
+                "foreignKeys": tarforeignKeys(),
             ]);
             conditions += this.junctionConditions();
         }
@@ -951,10 +951,10 @@ class DBelongsToManyAssociation : DAssociation {
                 junction = this.junction();
                 target = getTarget();
 
-                foreignKey = /* (array) */foreignKeys();
+                foreignKeys = /* (array) */foreignKeys();
                 assocForeignKey = (array)junction.getAssociation(target.aliasName()).foreignKeys();
 
-                prefixedForeignKey = array_map([junction, "aliasField"], foreignKey);
+                prefixedForeignKey = array_map([junction, "aliasField"], foreignKeys);
                 junctionPrimaryKey = (array)junction.primaryKeys();
                 junctionQueryAlias = junction.aliasName() ~ "__matches";
 
@@ -1030,10 +1030,10 @@ class DBelongsToManyAssociation : DAssociation {
         junction = this.junction();
         target = getTarget();
         belongsTo = junction.getAssociation(target.aliasName());
-        foreignKey = (array)foreignKeys();
+        foreignKeys = (array)foreignKeys();
         assocForeignKey = (array)belongsTo.foreignKeys();
 
-        keys = array_merge(foreignKey, assocForeignKey);
+        keys = array_merge(foreignKeys, assocForeignKey);
         deletes = unmatchedEntityKeys = present = null;
 
         foreach (jointEntities as i: entity) {
@@ -1160,10 +1160,10 @@ class DBelongsToManyAssociation : DAssociation {
 
         belongsTo = junction.getAssociation(target.aliasName());
         hasMany = source.getAssociation(junction.aliasName());
-        foreignKey = (array)foreignKeys();
-        foreignKey = array_map(function (key) {
+        foreignKeys = (array)foreignKeys();
+        foreignKeys = array_map(function (key) {
             return key ~ " IS";
-        }, foreignKey);
+        }, foreignKeys);
         assocForeignKey = (array)belongsTo.foreignKeys();
         assocForeignKey = array_map(function (key) {
             return key ~ " IS";
@@ -1173,7 +1173,7 @@ class DBelongsToManyAssociation : DAssociation {
         unions = null;
         foreach (missing as key) {
             unions ~= hasMany.find()
-                .where(array_combine(foreignKey, sourceKey))
+                .where(array_combine(foreignKeys, sourceKey))
                 .where(array_combine(assocForeignKey, key));
         }
 

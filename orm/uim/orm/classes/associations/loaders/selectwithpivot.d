@@ -112,7 +112,7 @@ class DSelectWithPivotLoader : DSelectLoader {
         string[] links = null;
         name = this.junctionAssociationName;
 
-        foreach ((array)options["foreignKey"] as key) {
+        foreach ((array)options["foreignKeys"] as key) {
             links ~=  "%s.%s".format(name, key);
         }
 
@@ -125,11 +125,11 @@ class DSelectWithPivotLoader : DSelectLoader {
 
     /**
      * Builds an array containing the results from fetchQuery indexed by
-     * the foreignKey value corresponding to this association.
+     * the foreignKeys value corresponding to this association.
      */
     protected Json[string] _buildResultMap(Query fetchQuery, Json[string] options = null) {
         auto resultMap = null;
-        auto keys = options.getStringArray("foreignKey");
+        auto keys = options.getStringArray("foreignKeys");
 
         foreach (result; fetchQuery.all()) {
             if (result.isNull(_junctionProperty)) {

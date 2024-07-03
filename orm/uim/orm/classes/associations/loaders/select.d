@@ -11,6 +11,16 @@ import uim.orm;
  */
 class DSelectLoader {
     bool initialize(Json[string] initData = null) {
+        _aliasName = options.getString("alias");
+        _sourceAlias = options.getString("sourceAlias");
+        _targetAlias = options.getString("targetAlias");
+        _foreignKey = options.getStringArray("foreignKeys");
+        _strategy = options.getString("strategy");
+        _bindingKey = options.getString("bindingKey");
+        _finder = options.get("finder");
+        _associationType = options.get("associationType");
+        _sort = options.get("sort");
+
         return true;
     }
     
@@ -46,24 +56,6 @@ class DSelectLoader {
     protected string sort;
 
     /**
-     * Copies the options array to properties in this class. The keys in the array correspond
-     * to properties in this class.
-     *
-     * @param Json[string] options Properties to be copied to this class
-     */
-    this(Json[string] options = null) {
-        _alias = options["alias"];
-        _sourceAlias = options["sourceAlias"];
-        _targetAlias = options["targetAlias"];
-        _foreignKey = options["foreignKey"];
-        _strategy = options["strategy"];
-        _bindingKey = options["bindingKey"];
-        _finder = options["finder"];
-        _associationType = options["associationType"];
-        _sort = options.get("sort";
-    }
-
-    /**
      * Returns a callable that can be used for injecting association results into a given
      * iterator. The options accepted by this method are the same as `Association.eagerLoader()`
      */
@@ -78,7 +70,7 @@ class DSelectLoader {
     // Returns the default options to use for the eagerLoader
     protected Json[string] _defaultOptions() {
         return [
-            "foreignKey": Json(_foreignKey),
+            "foreignKeys": Json(_foreignKey),
             "conditions": Json.emptyArray,
             "strategy": Json(_strategy),
             "nestKey": Json(_alias),
@@ -167,7 +159,7 @@ class DSelectLoader {
 
     /**
      * Checks that the fetching query either has auto fields on or
-     * has the foreignKey fields selected.
+     * has the foreignKeys fields selected.
      * If the required fields are missing, throws an exception.
      *
      * @param DORMQuery fetchQuery The association fetching query
@@ -283,9 +275,9 @@ class DSelectLoader {
         auto links = null;
         auto name = _aliasName;
 
-        if (options.get("foreignKey") == false && this.associationType == Association.ONE_TO_MANY) {
-            auto message = "Cannot have foreignKey = false for hasMany associations~ " ~
-                   "You must provide a foreignKey column.";
+        if (options.get("foreignKeys") == false && this.associationType == Association.ONE_TO_MANY) {
+            auto message = "Cannot have foreignKeys = false for hasMany associations~ " ~
+                   "You must provide a foreignKeys column.";
             throw new DRuntimeException(message);
         }
 
@@ -363,7 +355,7 @@ class DSelectLoader {
 
     /**
      * Builds an array containing the results from fetchQuery indexed by
-     * the foreignKey value corresponding to this association.
+     * the foreignKeys value corresponding to this association.
      *
      * @param DORMQuery fetchQuery The query to get results from
      * @param Json[string] options The options passed to the eager loader
@@ -396,7 +388,7 @@ class DSelectLoader {
      * for injecting the eager loaded rows
      *
      * @param DORMQuery fetchQuery the Query used to fetch results
-     * @param Json[string] resultMap an array with the foreignKey as keys and
+     * @param Json[string] resultMap an array with the foreignKeys as keys and
      * the corresponding target table results as value.
      */
      // TODO

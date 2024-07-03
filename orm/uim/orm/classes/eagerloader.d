@@ -54,7 +54,7 @@ class DEagerLoader {
      */
     protected int[string]_containOptions = [
         "associations": 1,
-        "foreignKey": 1,
+        "foreignKeys": 1,
         "conditions": 1,
         "fields": 1,
         "sort": 1,
@@ -103,7 +103,7 @@ class DEagerLoader {
      *
      * Accepted options per passed association:
      *
-     * - foreignKey: Used to set a different field to match both tables, if set to false
+     * - foreignKeys: Used to set a different field to match both tables, if set to false
      *  no join conditions will be generated automatically
      * - fields: An array with the fields that should be fetched from the association
      * - queryBuilder: Equivalent to passing a callable instead of an options array

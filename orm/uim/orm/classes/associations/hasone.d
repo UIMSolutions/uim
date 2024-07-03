@@ -89,7 +89,7 @@ class DHasOneAssociation : DAssociation {
             "alias": this.aliasName(),
             "sourceAlias": source().aliasName(),
             "targetAlias": getTarget().aliasName(),
-            "foreignKey": foreignKeys(),
+            "foreignKeys": foreignKeys(),
             "bindingKey": getBindingKey(),
             "strategy": getStrategy(),
             "associationType": this.type(),

@@ -29,7 +29,7 @@ mixin template TConventions() {
     }
     
     // Creates the proper model name from a foreign key
-    protected string _modelNameFromKey(string foreignKey) {
+    protected string _modelNameFromKey(string foreignKeys) {
         aKey = aKey.replace("_id", "");
 
         return Inflector.camelize(Inflector.pluralize(aKey));

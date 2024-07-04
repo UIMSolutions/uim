@@ -100,24 +100,24 @@ class DCounterCacheBehavior : DBehavior {
      * @param \UIM\Datasource\IORMEntity myentity The entity that is going to be saved
      * @param \ArrayObject<string, mixed> options The options for the query
      */
-    void beforeSave(IEvent myevent, IORMEntity myentity, ArrayObject options) {
-        if (options.hasKey("ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
+    void beforeSave(IEvent myevent, IORMEntity ormEntity, ArrayObject options) {
+        if (options.hasKey("ignoreCounterCache") && options["ignoreCounterCache"] == true) {
             return;
         }
         foreach (myassoc, mysettings; configuration) {
             myassoc = _table.getAssociation(myassoc);
             /** @var string|int fieldName */
-            foreach (mysettings as fieldName: configData) {
+            foreach fieldName, configData; mysettings) {
                 if (isInteger(fieldName)) {
                     continue;
                 }
-                myregistryAlias = myassoc.getTarget().registryKey();
-                myentityAlias = myassoc.getProperty();
 
+                auto myregistryAlias = myassoc.getTarget().registryKey();
+                auto myentityAlias = myassoc.getProperty();
                 if (
                     !isCallable(configData) &&
                     configuration.hasKey("ignoreDirty") &&
-                    configuration.get("ignoreDirty"] == true &&
+                    configuration.get("ignoreDirty") == true &&
                     myentity.myentityAlias.isChanged(fieldName)
                ) {
                    _ignoreDirty[myregistryAlias][fieldName] = true;

@@ -60,17 +60,14 @@ class DHasOneAssociation : DAssociation {
      * matching the property name for this association. The found entity will be
      * saved on the target table for this association by passing supplied
      * `options`
-     *
-     * @param DORMDatasource\IORMEntity anEntity an entity from the source table
-     * @param Json[string] options options to be passed to the save method in the target table
      */
-    IORMEntity saveAssociated(IORMEntity anEntity, Json[string] options = null) {
-        auto targetEntity = entity.get(getProperty());
+    IORMEntity saveAssociated(IORMEntity ormEntity, Json[string] options = null) {
+        auto targetEntity = ormEntity.get(getProperty());
         if (targetEntity.isEmpty || !cast(DORMTable)targetEntity) {
             return entity;
         }
 
-        auto properties = chain(foreignKeys(), entity.extract(bindingKeys()));
+        auto properties = chain(foreignKeys(), ormEntity.extract(bindingKeys()));
         targetEntity.set(properties, ["guard": false.toJson]);
 
         if (!getTarget().save(targetEntity, options)) {
@@ -98,10 +95,9 @@ class DHasOneAssociation : DAssociation {
     }
 
 
-    bool cascadeRemove(IORMEntity anEntity, Json[string] options = null) {
-        helper = new DependentDeleteHelper();
-
-        return helper.cascadeRemove(this, entity, options);
+    bool cascadeRemove(IORMEntity ormEntity, Json[string] options = null) {
+        auto helper = new DependentDeleteHelper();
+        return helper.cascadeRemove(this, ormEntity, options);
     }
 }
 mixin(AssociationCalls!("HasOne"));

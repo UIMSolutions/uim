@@ -108,14 +108,9 @@ class DEagerLoadable {
         });
     }
 
-    /**
-     * Adds a new association to be loaded from this level.
-     *
-     * @param string aName The association name.
-     * @param DORMEagerLoadable association The association to load.
-     */
-    void addAssociation(string aName, EagerLoadable association) {
-        _associations[name] = association;
+    // Adds a new association to be loaded from this level.
+    void addAssociation(string associationName, EagerLoadable association) {
+        _associations[associationName] = association;
     }
 
     // Returns the Association class instance to use for loading the records.
@@ -146,9 +141,7 @@ class DEagerLoadable {
      * ```
      * article.author.company.country
      * ```
-     *
      * The property path of `country` will be `author.company`
-     *
      */
     string propertyPath() {
         return _propertyPath;

@@ -26,11 +26,8 @@ class DORMEntity { // }: IORMEntity, IInvalidProperty {
      * ```
      * myentity = new DORMEntity(["id": 1, "name": "Andrew"])
      * ```
-     * Params:
-     * Json[string] myproperties hash of properties to set in this entity
-     * @param Json[string] options list of options to use when creating this entity
      */
-    this(Json[string] myproperties = [], Json[string] options = null) {
+    this(Json[string] properties = [], Json[string] options = null) {
         auto updatedOptions = options.merge([
             "useSetters": true.toJson,
             "markClean": false.toJson,
@@ -45,16 +42,16 @@ class DORMEntity { // }: IORMEntity, IInvalidProperty {
         if (!options.isNull("markNew")) {
             setNew(options["markNew"]);
         }
-        if (!myproperties.isEmpty) {
+        if (!properties.isEmpty) {
             //Remember the original field names here.
-            setOriginalField(myproperties.keys);
+            setOriginalField(properties.keys);
 
             if (options.hasKey("markClean") && !options.hasKey("useSetters")) {
-               _fields = myproperties;
-
+               _fields = properties;
                 return;
             }
-            set(myproperties, [
+            
+            set(properties, [
                 "setter": options.get("useSetters"),
                 "guard": options.get("guard"),
             ]);

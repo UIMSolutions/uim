@@ -15,9 +15,7 @@ class DDependentDeleteHelper {
      * Cascade a delete to remove dependent records.
      *
      * This method does nothing if the association is not dependent.
-     *
      * anAssociation - The association callbacks are being cascaded on.
-     * @param DORMDatasource\IORMEntity anEntity The entity that started the cascaded delete.
      */
     bool cascadeRemove(DORMAssociation anAssociation, IORMEntity anEntity, Json[string] options = null) {
         if (!anAssociation.getDependent()) {

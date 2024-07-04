@@ -127,12 +127,9 @@ class DHasManyAssociation : DAssociation {
     /**
      * Persists each of the entities into the target table and creates links between
      * the parent entity and each one of the saved target entities.
-     *
-     * @param Json[string] foreignKeyReference The foreign key reference defining the link between the
-     * target entity, and the parent entity.
      */
     protected bool _saveTarget(
-        array foreignKeyReference,
+        Json[string] foreignKeyReference,
         IORMEntity sourceEntity,
         IORMEntity[] entities,
         Json[string] options

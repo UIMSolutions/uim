@@ -183,17 +183,13 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * You can override these generated associations by defining associations
      * with the correct aliases.
-     *
-     * @param DORMTable junction The junction table.
-     * @param DORMTable source The source table.
-     * @param DORMTable target The target table.
      */
-    protected void _generateTargetAssociations(Table junction, Table source, Table target) {
+    protected void _generateTargetAssociations(DORMTable junction, DORMTable source, DORMTable target) {
         string junctionAlias = junction.aliasName();
         string sourceAlias = source.aliasName();
         string tAlias = target.aliasName();
 
-        targetBindingKey = null;
+        auto targetBindingKey = null;
         if (junction.hasAssociation(tAlias)) {
             targetBindingKey = junction.getAssociation(tAlias).getBindingKey();
         }

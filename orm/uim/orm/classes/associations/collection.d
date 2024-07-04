@@ -48,14 +48,13 @@ class DAssociationCollection { // }: IteratorAggregate {
     /**
      * Creates and adds the Association object to this collection.
      *
-     * @param string anclassname The name of associationclassname
      * @param string associated The alias for the target table.
      * @param Json[string] options List of options to configure the association definition.
      */
-    DORMAssociation load(string associationclassname, string associated, Json[string] options = null) {
+    DORMAssociation load(string associationClassname, string associated, Json[string] options = null) {
         options["tableLocator"] = getTableLocator();
+        
         auto association = new classname(associated, someOptions);
-
         return _add(association.getName(), association);
     }
 

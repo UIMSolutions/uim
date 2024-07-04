@@ -49,20 +49,14 @@ class DTimestampBehavior : DBehavior {
     // Current timestamp
     protected DateTime _ts;
 
-    /**
-     * There is only one event handler, it can be configured to be called for any event
-     * Params:
-     * \UIM\Event\IEvent<\ORM\Table> myevent Event instance.
-     * @param \UIM\Datasource\IORMEntity myentity Entity instance.
-     */
+    // There is only one event handler, it can be configured to be called for any event
     void handleEvent(IEvent myevent, IORMEntity myentity) {
-        myeventName = myevent.name;
-        myevents = configuration.get("events"];
+        auto myeventName = myevent.name;
+        auto myevents = configuration.get("events");
 
-        mynew = myentity.isNew() == true;
-        myrefresh = configuration.get("refreshTimestamp"];
-
-        foreach (fieldName: mywhen; myevents[myeventName]) {
+        auto mynew = myentity.isNew() == true;
+        auto myrefresh = configuration.get("refreshTimestamp");
+        foreach (fieldName, mywhen; myevents[myeventName]) {
             if (!isIn(mywhen, ["always", "new", "existing"], true)) {
                 throw new DUnexpectedValueException(
                     "When should be one of "always", "new" or "existing". The passed value `%s` is invalid."
@@ -124,17 +118,16 @@ class DTimestampBehavior : DBehavior {
      * any pre-existing value.
      * Params:
      * \UIM\Datasource\IORMEntity myentity Entity instance.
-     * @param string myeventName Event name.
      */
-    bool touch(IORMEntity myentity, string myeventName = "Model.beforeSave") {
-        myevents = configuration.get("events"];
+    bool touch(IORMEntity myentity, string eventName = "Model.beforeSave") {
+        auto myevents = configuration.get("events");
         if (isEmpty(myevents[myeventName])) {
             return false;
         }
-        result = false;
-        myrefresh = configuration.get("refreshTimestamp");
-
-        foreach (fieldName: mywhen; myevents[myeventName]) {
+        
+        auto result = false;
+        auto myrefresh = configuration.get("refreshTimestamp");
+        foreach (fieldName, mywhen; myevents[myeventName]) {
             if (isIn(mywhen, ["always", "existing"], true)) {
                 result = true;
                 myentity.setDirty(fieldName, false);

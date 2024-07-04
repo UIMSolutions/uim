@@ -56,16 +56,8 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
     /*
     mixin TLocatorAware;
-    mixin TTranslateStrategy;
+    mixin TTranslateStrategy; */
 
-  
-
-    /**
-     
-     *
-     * @param DORMDORMTable aTable The table this strategy is attached to.
-     * @param Json[string] myConfiguration The config for this strategy.
-     */
     this(DORMTable aTable, Json[string] configData) {
         if (configuration.contains("tableLocator")) {
             _tableLocator = configuration.get("tableLocator");

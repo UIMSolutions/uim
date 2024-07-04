@@ -223,14 +223,9 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * The objective here is to transparently prevent ambiguous field errors by
      * prefixing fields with the appropriate table alias. This method currently
      * expects to receive an order clause only.
-     *
-     * @param DORMQuery query the query to check.
-     * @param string aName The clause name.
-     * @param Json[string] myConfiguration The config to use for adding fields.
      */
-    protected bool iterateClause(query, name = "", myConfiguration = null) {
-        clause = query.clause(
-            name);
+    protected bool iterateClause(DORMQuery query, string clauseName = "", Json[string] myConfiguration = null) {
+        auto clause = query.clause(clauseName);
         if (!clause || !clause.count()) {
             return false;
         }

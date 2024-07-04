@@ -96,13 +96,8 @@ class DExistsIn {
         return mytarget.exists(myconditions);
     }
 
-    /**
-     * Checks whether the given entity fields are nullable and null.
-     * Params:
-     * \UIM\Datasource\IORMEntity myentity The entity to check.
-     * @param \ORM\Table mysource The table to use schema from.
-     */
-    protected bool _fieldsAreNull(IORMEntity entityToCheck, Table mysource) {
+    // Checks whether the given entity fields are nullable and null.
+    protected bool _fieldsAreNull(IORMEntity entityToCheck, DORMTable mysource) {
         auto schema = mysource.getSchema();
         auto mynulls = _fields
             .filter!(field => schema.getColumn(field) && schema.isNullable(

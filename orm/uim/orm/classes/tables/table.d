@@ -785,16 +785,12 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * and where conditions will be used from the finder.
      *
      * This method will return the association object that was built.
-     * Params:
-     * string myassociated the alias for the target table. This is used to
-     * uniquely identify the association
-     * @param Json[string] options list of options to configure the association definition
      */
-    BelongsTo belongsTo(string myassociated, Json[string] options = null) {
+    BelongsTo belongsTo(string associatedName, Json[string] options = null) {
         auto updatedOptions = options.update["sourceTable": this];
 
         /** @var \ORM\Association\BelongsTo */
-        return _associations.load(BelongsTo.classname, myassociated, options);
+        return _associations.load(BelongsTo.classname, associatedName, options);
     }
     
     /**
@@ -827,15 +823,11 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * and where conditions will be used from the finder.
      *
      * This method will return the association object that was built.
-     * Params:
-     * string myassociated the alias for the target table. This is used to
-     * uniquely identify the association
-     * @param Json[string] options list of options to configure the association definition
      */
-    HasOne hasOne(string myassociated, Json[string] options = null) {
+    HasOne hasOne(string associatedName, Json[string] options = null) {
         auto updatedOptions = options.update["sourceTable": this];
 
-        return _associations.load(HasOne.classname, myassociated, options);
+        return _associations.load(HasOne.classname, associatedName, options);
     }
     
     /**

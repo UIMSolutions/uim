@@ -60,11 +60,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     /**
      * Set the default Table object that will be used by this query
      * and form the `FROM` clause.
-     *
-     * @param \uim\Datasource\IRepository|\uim\ORM\Table myRepository The default table object to use
      */
-    IQuery repository(IRepository myRepository) {
-      _repository = myRepository;
+    IQuery repository(IRepository repository) {
+      _repository = repository;
 
       return this;
     }

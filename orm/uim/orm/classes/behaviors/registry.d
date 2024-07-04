@@ -45,11 +45,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
         }
     }
 
-    /**
-     * Attaches a table instance to this registry.
-     *
-     * @param DORMTable aTable The table this registry is attached to.
-     */
+    // Attaches a table instance to this registry.
     @property void table(DORMTable aTable) {
         _table = aTable;
         setEventManager(aTable.getEventManager());

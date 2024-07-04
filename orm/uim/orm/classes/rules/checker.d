@@ -157,14 +157,13 @@ class DRulesChecker { // }: BaseRulesChecker {
      * @param string myerrorField The name of the property to use for setting possible errors. When absent,
      * the name is inferred from `myassociation`.
      * @param string mylinkStatus The ink status required for the check to pass.
-     * @param string myruleName The alias/name of the rule.
      */
     protected DRuleInvoker _addLinkConstraintRule(
-        Association|string myassociation,
+        /* Association| */string myassociation,
         string myerrorField,
         string errorMessage,
         string mylinkStatus,
-        string myruleName
+        string ruleName
    ) {
         if (cast(DAssociation)myassociation) {
             myassociationAlias = myassociation.name;
@@ -197,7 +196,7 @@ class DRulesChecker { // }: BaseRulesChecker {
             mylinkStatus
        );
 
-        return _addError(myrule, myruleName, compact("errorField", "message"));
+        return _addError(myrule, ruleName, compact("errorField", "message"));
     }
     
     /**

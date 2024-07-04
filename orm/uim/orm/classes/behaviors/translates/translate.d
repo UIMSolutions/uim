@@ -70,9 +70,6 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * then set this option to `false`.
      * - `validator`: The validator that should be used when translation records
      * are created/modified. Default `null`.
-     * Params:
-     * \ORM\Table mytable The table this behavior is attached to.
-     * @param Json[string] configData The config for this behavior.
      */
     this(DTable mytable, Json[string] initData = null) {
         configuration += [

@@ -146,7 +146,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * If a query has caching enabled, it will do the following when executed:
      *
-     * - Check the cache for aKey. If there are results no SQL will be executed.
+     * - Check the cache for key. If there are results no SQL will be executed.
      * Instead the cached results will be returned.
      * - When the cached data is stale/missing the result set will be cached as the query
      * is executed.
@@ -159,9 +159,9 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * auto to generate key.
      * myquery.cache(function (myq) {
-     * aKey = serialize(myq.clause("select"));
-     * aKey ~= serialize(myq.clause("where"));
-     * return md5(aKey);
+     * key = serialize(myq.clause("select"));
+     * key ~= serialize(myq.clause("where"));
+     * return md5(key);
      * });
      *
      * Using a pre-built cache engine.
@@ -171,18 +171,18 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * myquery.cache(false);
      * ```
      * Params:
-     * \/*Closure|*/ string aKey Either the cache key or a auto to generate the cache key.
+     * \/*Closure|*/ string key Either the cache key or a auto to generate the cache key.
      * When using a function, this query instance will be supplied as an argument.
      * @param \Psr\SimpleCache\ICache|string configData Either the name of the cache config to use, or
      * a cache engine instance.
      */
-    void cache(/*Closure|*/ string aKey, ICache|string configData = "default") {
-        if (aKey == false) {
+    void cache(/*Closure|*/ string key, ICache|string configData = "default") {
+        if (key == false) {
            _cache = null;
 
             return;
         }
-       _cache = new DQueryCacher(aKey, configData);
+       _cache = new DQueryCacher(key, configData);
     }
     
     /**
@@ -209,9 +209,6 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * If the field is already aliased, then it will not be changed.
      * If no aliasName is passed, the default table for this query will be used.
-     * Params:
-     * string fieldName The field to alias
-     * @param string aliasName the alias used to prefix the field
      */
     STRINGAA aliasField(string fieldName, string aliasName = null) {
         if (fieldName.contains(".")) {
@@ -221,9 +218,9 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             aliasName = aliasName ?: getRepository().aliasName();
             myaliasedField = aliasName ~ "." ~ fieldName;
         }
-        aKey = "%s__%s".format(aliasName, fieldName);
-
-        return [aKey: myaliasedField];
+        
+        string key = "%s__%s".format(aliasName, fieldName);
+        return [key: myaliasedField];
     }
     
     /**

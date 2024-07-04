@@ -38,7 +38,7 @@ class DLogger : ILogger {
                 replacements["{" ~ aKey ~ "}"] = Json_encode(aValue, JsonFlags);
                 continue;
             }
-            if (cast(DArrayObject)aValue) {
+            if (cast(DJson[string])aValue) {
                 replacements["{" ~ aKey ~ "}"] = Json_encode(aValue.getArrayCopy(), JsonFlags);
                 continue;
             }

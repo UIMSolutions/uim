@@ -187,14 +187,7 @@ class DHasManyAssociation : DAssociation {
      * allArticles = articles.find("all").toJString();
      * myUsers.Articles.link(myUser, allArticles);
      * ```
-     *
      * `myUser.get("articles")` will contain all articles in `allArticles` after linking
-     *
-     * @param DORMDatasource\IORMEntity sourceEntity the row belonging to the `source` side
-     * of this association
-     * @param Json[string] myTargetEntities list of entities belonging to the `target` side
-     * of this association
-     * @param Json[string] options list of options to be passed to the internal `save` call
      */
     bool link(IORMEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
         auto saveStrategy = getSaveStrategy();

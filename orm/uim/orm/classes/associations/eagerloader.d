@@ -205,10 +205,10 @@ class DEagerLoader {
      * Additionally, it will set an "instance" key per association containing the
      * association instance from the corresponding source table
      * Params:
-     * \ORM\Table myrepository The table containing the association that
+     * \ORM\Table repository The table containing the association that
      * will be normalized.
      */
-    array normalized(Table myrepository) {
+    array normalized(DORMTable repository) {
         if (_normalized !is null || _containments.isEmpty) {
             return /* (array) */_normalized;
         }
@@ -219,7 +219,7 @@ class DEagerLoader {
                 break;
             }
             mycontain[aliasName] = _normalizeContain(
-                myrepository,
+                repository,
                 aliasName,
                 options,
                 ["root": Json(null)]
@@ -298,19 +298,19 @@ class DEagerLoader {
      * those that cannot be loaded without executing a separate query.
      * Params:
      * \ORM\Query\SelectQuery myquery The query to be modified.
-     * @param \ORM\Table myrepository The repository containing the associations
      * @param bool myincludeFields whether to append all fields from the associations
      * to the passed query. This can be overridden according to the settings defined
      * per association in the containments array.
      */
-    void attachAssociations(SelectQuery myquery, Table myrepository, bool myincludeFields) {
+    void attachAssociations(SelectQuery myquery, DORMTable repository, bool myincludeFields) {
         if (isEmpty(_containments) && _matching.isNull) {
             return;
         }
-        myattachable = this.attachableAssociations(myrepository);
-        myprocessed = null;
+        
+        auto myattachable = attachableAssociations(repository);
+        auto myprocessed = null;
         do {
-            foreach (myattachable as aliasName: myloadable) {
+            foreach (aliasName, myloadable; myattachable) {
                 configData = myloadable.configuration.data ~ [
                     "aliasPath": myloadable.aliasPath(),
                     "propertyPath": myloadable.propertyPath(),
@@ -319,7 +319,7 @@ class DEagerLoader {
                 myloadable.instance().attachTo(myquery, configData);
                 myprocessed[aliasName] = true;
             }
-            mynewAttachable = this.attachableAssociations(myrepository);
+            mynewAttachable = attachableAssociations(repository);
             myattachable = array_diffinternalKey(mynewAttachable, myprocessed);
         } while (!myattachable.isEmpty);
     }
@@ -328,13 +328,10 @@ class DEagerLoader {
      * Returns an array with the associations that can be fetched using a single query,
      * the array keys are the association aliases and the values will contain an array
      * with UIM\ORM\EagerLoadable objects.
-     * Params:
-     * \ORM\Table myrepository The table containing the associations to be
-     * attached.
      */
-    EagerLoadable[] attachableAssociations(Table myrepository) {
-        mycontain = this.normalized(myrepository);
-        mymatching = _matching ? _matching.normalized(myrepository): [];
+    DEagerLoadable[] attachableAssociations(DORMTable repository) {
+        mycontain = this.normalized(repository);
+        mymatching = _matching ? _matching.normalized(repository): [];
        _fixStrategies();
        _loadExternal = null;
 
@@ -344,15 +341,12 @@ class DEagerLoader {
     /**
      * Returns an array with the associations that need to be fetched using a
      * separate query, each array value will contain a {@link \ORM\EagerLoadable} object.
-     * Params:
-     * \ORM\Table myrepository The table containing the associations
-     * to be loaded.
      */
-    EagerLoadable[] externalAssociations(Table myrepository) {
+    EagerLoadable[] externalAssociations(DORMTable repository) {
         if (_loadExternal) {
             return _loadExternal;
         }
-        this.attachableAssociations(myrepository);
+        this.attachableAssociations(repository);
 
         return _loadExternal;
     }

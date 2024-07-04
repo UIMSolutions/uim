@@ -86,15 +86,11 @@ class DAssociation : IAssociation {
     // The class name of the target table object
     protected string _classname;
 
-   /**
-     * Sets the class name of the target table object.
-     * @param string anclassname Class name to set.
-     */
+    // Sets the class name of the target table object.
     void setClassname(string nameToSet) {
         if (
             _targetTable != null &&
-            get_class(_targetTable) != App
-            .classname(nameToSet, "Model/Table", "Table")
+            get_class(_targetTable) != App.classname(nameToSet, "Model/Table", "Table")
            ) {
             throw new DInvalidArgumentException(format(
                     "The class name '%s' doesn\"t match the target table class name of '%s'.",

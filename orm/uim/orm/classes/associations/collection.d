@@ -126,15 +126,10 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * Parent associations include any association where the given table
      * is the owning side.
-     *
-     * aTable - The table entity is for.
-     * anEntity - The entity to save associated data for.
-     * @param Json[string] associations The list of associations to save parents from.
-     *  associations not in this list will not be saved.
      */
-    bool saveParents(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] options = null) {
+    bool saveParents(DORMTable ormTable, IORMEntity ormEntity, Json[string] associations, Json[string] options = null) {
         return associations.isEmpty
-            ? true : _saveAssociations(aTable, entity, associations, options, false);
+            ? true : _saveAssociations(ormTable, ormEntity, associations, options, false);
     }
 
     /**
@@ -148,9 +143,9 @@ class DAssociationCollection { // }: IteratorAggregate {
      *  associations not in this list will not be saved.
      * @param Json[string] options The options for the save operation.
      */
-    bool saveChildren(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] options = null) {
+    bool saveChildren(DORMTable ormTable, IORMEntity anEntity, Json[string] associations, Json[string] options = null) {
         return associations.isEmpty
-            ? true : _saveAssociations(table, entity, associations, options, true);
+            ? true : _saveAssociations(ormTable, entity, associations, options, true);
     }
 
     /**
@@ -163,7 +158,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * returns True if Success
      */
     protected bool _saveAssociations(
-        DORMTable aTable,
+        DORMTable ormTable,
         IORMEntity anEntity,
         array associations,
         Json[string] options,
@@ -180,11 +175,11 @@ class DAssociationCollection { // }: IteratorAggregate {
             if (!relation) {
                 msg =
                     "Cannot save %s, it is not associated to %s"
-                    .format(aliasName, table.aliasName())
+                    .format(aliasName, ormTable.aliasName())
                );
                 throw new DInvalidArgumentException(msg);
             }
-            if (relation.isOwningSide(table) != isOwningSide) {
+            if (relation.isOwningSide(ormTable) != isOwningSide) {
                 continue;
             }
             if (!_save(relation, entity, nested, options)) {
@@ -195,28 +190,21 @@ class DAssociationCollection { // }: IteratorAggregate {
         return true;
     }
 
-    /**
-     * Helper method for saving an association"s data.
-     *
-     * @param DORMDORMAssociation anAssociation The association object to save with.
-     * @param DORMDatasource\IORMEntity anEntity The entity to save
-     * @param Json[string] nested Options for deeper associations
-     * @param Json[string] options Original options
-     */
+    // Helper method for saving an association"s data.
     protected bool _save(
-        DORMAssociation anAssociation,
-        IORMEntity anEntity,
+        DORMAssociation ormAssociation,
+        IORMEntity ormEntity,
         Json[string] nested,
         Json[string] options
    ) {
-        if (!anEntity.isChanged(association.getProperty())) {
+        if (!ormEntity.isChanged(ormAssociation.getProperty())) {
             return true;
         }
         if (!nested.isEmpty) {
             options = nested.update(options);
         }
 
-        return !association.saveAssociated(anEntity, options).isNull;
+        return !ormAssociation.saveAssociated(ormEntity, options).isNull;
     }
 
     /**
@@ -226,26 +214,20 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param DORMDatasource\IORMEntity anEntity The entity to delete associations for.
      * @param Json[string] options The options used in the delete operation.
      */
-    bool cascadeRemove(IORMEntity anEntity, Json[string] deleteOptions) {
-        noCascade = null;
+    bool cascadeRemove(IORMEntity ormEntity, Json[string] deleteOptions) {
+        auto noCascade = null;
         foreach (assoc; _items) {
             if (!assoc.getCascadeCallbacks()) {
                 noCascade ~= assoc;
                 continue;
             }
             
-            if (!assoc.cascadeRemove(anEntity, deleteOptions)) {
+            if (!assoc.cascadeRemove(ormEntity, deleteOptions)) {
                 return false;
             }
         }
 
-        foreach (assoc; noCascade) {
-            if (!assoc.cascadeRemove(anEntity, deleteOptions)) {
-                return false;
-            }
-        }
-
-        return true;
+        return noCascade.all!(assoc => assoc.cascadeRemove(ormEntity, deleteOptions));
     }
 
     /**

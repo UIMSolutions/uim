@@ -77,14 +77,11 @@ class DBelongsToAssociation : DAssociation {
      * matching the property name for this association. The found entity will be
      * saved on the target table for this association by passing supplied
      * `options`
-     *
-     * @param DORMDatasource\IORMEntity anEntity an entity from the source table
-     * @param Json[string] options options to be passed to the save method in the target table
      */
-    IORMEntity saveAssociated(IORMEntity anEntity, Json[string] options = null) {
-        auto targetEntity = entity.get(getProperty());
+    IORMEntity saveAssociated(IORMEntity ormEntity, Json[string] options = null) {
+        auto targetEntity = ormEntity.get(getProperty());
         if (targetEntity.isEmpty) || !(cast(IORMEntity)targetEntity)) {
-            return entity;
+            return ormEntity;
         }
 
         auto table = getTarget();
@@ -97,9 +94,8 @@ class DBelongsToAssociation : DAssociation {
             (array)foreignKeys(),
             targetEntity.extract(/* (array) */getBindingKey())
        );
-        entity.set(properties, ["guard": false.toJson]);
-
-        return entity;
+        ormEntity.set(properties, ["guard": false.toJson]);
+        return ormEntity;
     }
 
     /**

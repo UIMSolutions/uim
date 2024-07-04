@@ -133,9 +133,7 @@ abstract class DTestCase : DBaseTestCase {
         EventManager.instance(new DEventManager());
     }
     
-    /**
-     * teardown any static object changes and restore them.
-     */
+    // teardown any static object changes and restore them.
     protected void tearDown() {
         super.tearDown();
         this.teardownFixtures();
@@ -152,9 +150,7 @@ abstract class DTestCase : DBaseTestCase {
         }
     }
     
-    /**
-     * Initialized and loads any use fixtures.
-     */
+    // Initialized and loads any use fixtures.
     protected void setupFixtures() {
         myfixtureNames = getFixtures();
 
@@ -162,9 +158,7 @@ abstract class DTestCase : DBaseTestCase {
         this.fixtureStrategy.setupTest(myfixtureNames);
     }
     
-    /**
-     * Unloads any use fixtures.
-     */
+    // Unloads any use fixtures.
     protected void teardownFixtures() {
         if (this.fixtureStrategy) {
             this.fixtureStrategy.teardownTest();
@@ -172,9 +166,7 @@ abstract class DTestCase : DBaseTestCase {
         }
     }
     
-    /**
-     * Returns fixture strategy used by these tests.
-     */
+    // Returns fixture strategy used by these tests.
     protected IFixtureStrategy getFixtureStrategy() {
         return new DTruncateStrategy();
     }
@@ -190,11 +182,11 @@ abstract class DTestCase : DBaseTestCase {
      * array|null myappArgs Constructor parameters for the application class.
      */
     void loadRoutes(Json[string] myappArgs = null) {
-        myappArgs ??= [stripRight(CONFIG, DIRECTORY_SEPARATOR)];
+        auto myappArgs ??= [stripRight(CONFIG, DIRECTORY_SEPARATOR)];
         /** @var class-string myclassname */
-        myclassname = configuration.get("App.namespace") ~ "\\Application";
+        auto applicationClassname = configuration.get("App.namespace") ~ "\\Application";
         try {
-            myreflect = new DReflectionClass(myclassname);
+            myreflect = new DReflectionClass(applicationClassname);
             myapp = myreflect.newInstanceArgs(myappArgs);
             assert(cast(IRoutingApplication)myapp);
         } catch (ReflectionException  anException) {
@@ -209,18 +201,16 @@ abstract class DTestCase : DBaseTestCase {
      *
      * Useful to test how plugins being loaded/not loaded interact with other
      * elements in UIM or applications.
-     * Params:
-     * Json[string] plugins List of Plugins to load.
      */
-    BaseApplication loadPlugins(Json[string] plugins= null) {
-        app = new class (""): BaseApplication
+    BaseApplication loadPlugins(Json[string] plugins = null) {
+        auto app = new class (""): BaseApplication
         {
             MiddlewareQueue middleware(DMiddlewareQueue middlewareQueue) {
                 return middlewareQueue;
             }
         };
 
-        foreach (plugins as pluginName: configData) {
+        foreach (pluginName, configData; plugins) {
             if (configData.isArray) {
                 app.addPlugin(pluginName, configData);
             } else {
@@ -236,10 +226,7 @@ abstract class DTestCase : DBaseTestCase {
     
     /**
      * Remove plugins from the global plugin collection.
-     *
      * Useful in test case teardown methods.
-     * Params:
-     * string[] pluginNames A list of plugins you want to remove.
      */
     void removePlugins(Json[string] pluginNames= null) {
         auto pluginCollection = Plugin.getCollection();
@@ -248,7 +235,6 @@ abstract class DTestCase : DBaseTestCase {
     
     /**
      * Clear all plugins from the global plugin collection.
-     *
      * Useful in test case teardown methods.
      */
     void clearPlugins() {
@@ -265,7 +251,6 @@ abstract class DTestCase : DBaseTestCase {
     
     /**
      * Asserts an event was fired with data
-     *
      * If a third argument is passed, that value is used to compare with the value in someDataKey
      */
     void assertEventFiredWith(
@@ -281,11 +266,8 @@ abstract class DTestCase : DBaseTestCase {
     /**
      * Assert text equality, ignoring differences in newlines.
      * Helpful for doing cross platform tests of blocks of text.
-     * Params:
-     * string aexpected The expected value.
-     * @param string aresult The actual value.
      */
-    void assertTextNotEquals(string expectedValue, string aresult, string failureMessage = null) {
+    void assertTextNotEquals(string expectedValue, string result, string failureMessage = null) {
         auto expectedValue = expectedValue.replace(["\r\n", "\r"], "\n");
         auto result = result.replace(["\r\n", "\r"], "\n");
         this.assertNotEquals(expectedValue, result, failureMessage);
@@ -304,9 +286,6 @@ abstract class DTestCase : DBaseTestCase {
     /**
      * Asserts that a string starts with a given prefix, ignoring differences in newlines.
      * Helpful for doing cross platform tests of blocks of text.
-     * Params:
-     * string prefixToCheck The prefix to check for.
-     * @param string textToSearch The string to search in.
      */
     void assertTextStartsWith(string prefixToCheck, string textToSearch, string failureMessage = null) {
         prefixToCheck = str_replace(["\r\n", "\r"], "\n", prefixToCheck);
@@ -318,46 +297,34 @@ abstract class DTestCase : DBaseTestCase {
     /**
      * Asserts that a string starts not with a given prefix, ignoring differences in newlines.
      * Helpful for doing cross platform tests of blocks of text.
-     * Params:
-     * string prefixToCheck The prefix to not find.
-     * @param string textToSearch The string to search.
-     * @param string message The message to use for failure.
      */
-    void assertTextStartsNotWith(string prefixToCheck, string textToSearch, string message = null) {
+    void assertTextStartsNotWith(string prefixToCheck, string textToSearch, string failureMessage = null) {
         prefixToCheck = str_replace(["\r\n", "\r"], "\n", prefixToCheck);
         string = str_replace(["\r\n", "\r"], "\n", string);
         assertNotEmpty(prefixToCheck);
-        this.assertStringStartsNotWith(prefixToCheck, string, message);
+        this.assertStringStartsNotWith(prefixToCheck, string, failureMessage);
     }
     
     /**
      * Asserts that a string ends with a given prefix, ignoring differences in newlines.
      * Helpful for doing cross platform tests of blocks of text.
-     * Params:
-     * string asuffix The suffix to find.
-     * @param string textToSearch The string to search.
-     * @param string message The message to use for failure.
      */
-    void assertTextEndsWith(string asuffix, string textToSearch, string message = null) {
+    void assertTextEndsWith(string suffix, string textToSearch, string failureMessage = null) {
         suffix = suffixstr_replace(["\r\n", "\r"], "\n");
         string = .replace(["\r\n", "\r"], "\n", string);
         assertNotEmpty(suffix);
-        this.assertStringEndsWith(suffix, string, message);
+        this.assertStringEndsWith(suffix, string, failureMessage);
     }
     
     /**
      * Asserts that a string ends not with a given prefix, ignoring differences in newlines.
      * Helpful for doing cross platform tests of blocks of text.
-     * Params:
-     * string asuffix The suffix to not find.
-     * @param string textToSearch The string to search.
-     * @param string message The message to use for failure.
      */
-    void assertTextEndsNotWith(string asuffix, string searchText, string message = null) {
+    void assertTextEndsNotWith(string suffix, string textToSearch, string failureMessage = null) {
         suffix = suffix..replace(["\r\n", "\r"], "\n");
-        searchText = replace(["\r\n", "\r"], "\n", searchText);
+        textToSearch = replace(["\r\n", "\r"], "\n", textToSearch);
         assertNotEmpty(suffix);
-        this.assertStringEndsNotWith(suffix, searchText, message);
+        this.assertStringEndsNotWith(suffix, textToSearch, failureMessage);
     }
     
     /**
@@ -367,21 +334,20 @@ abstract class DTestCase : DBaseTestCase {
      * string aneedle The string to search for.
      * @param string ahaystack The string to search through.
      * @param string message The message to display on failure.
-     * @param bool anIgnoreCase Whether the search should be case-sensitive.
      */
     void assertTextContains(
-        string aneedle,
-        string ahaystack,
-        string message = "",
-        bool anIgnoreCase = false
+        string needle,
+        string haystack,
+        string failureMessage = "",
+        bool shouldIgnoreCase = false
     ) {
-        needle = needle.replace(["\r\n", "\r"], "\n");
-        haystack = str_replace(["\r\n", "\r"], "\n", haystack);
+        auto needle = needle.replace(["\r\n", "\r"], "\n");
+        auto haystack = haystack.replace(["\r\n", "\r"], "\n");
 
         if (anIgnoreCase) {
-            this.assertStringContainsStringIgnoringCase(needle, haystack, message);
+            assertStringContainsStringIgnoringCase(needle, haystack, failureMessage);
         } else {
-            this.assertStringContainsString(needle, haystack, message);
+            assertStringContainsString(needle, haystack, failureMessage);
         }
     }
     

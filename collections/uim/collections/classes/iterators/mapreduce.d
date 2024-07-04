@@ -45,7 +45,7 @@ class DMapReduce { // }: IteratorAggregate {
      * Separate all unique odd and even numbers in an array
      *
      * ```
-     * someData = new \ArrayObject([1, 2, 3, 4, 5, 3]);
+     * someData = new \Json[string]([1, 2, 3, 4, 5, 3]);
      * mapper = auto (aValue, aKey, mr) {
      *    type = (aValue % 2 == 0) ? "even' : 'odd";
      *    mr.emitIntermediate(aValue, type);

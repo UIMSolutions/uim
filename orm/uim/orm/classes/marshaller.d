@@ -193,8 +193,8 @@ class DMarshaller {
                 mydata += mydata[mytableName];
                 remove(mydata[mytableName]);
             }
-            mydata = new ArrayObject(mydata);
-            options = new ArrayObject(options);
+            mydata = new Json[string](mydata);
+            options = new Json[string](options);
             _table.dispatchEvent("Model.beforeMarshal", compact("data", "options"));
 
             return [(array) mydata, (array) options];
@@ -733,8 +733,8 @@ class DMarshaller {
      * @param Json[string] options List of options that are readOnly.
      */
         protected void dispatchAfterMarshal(IORMEntity myentity, Json[string] data, Json[string] options = null) {
-            auto mydata = new ArrayObject(mydata);
-            auto options = new ArrayObject(options);
+            auto mydata = new Json[string](mydata);
+            auto options = new Json[string](options);
             _table.dispatchEvent("Model.afterMarshal", compact("entity", "data", "options"));
         }
     }

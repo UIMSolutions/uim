@@ -28,8 +28,8 @@ mixin template TRulesAware() {
         Json[string] ruleOptions = null
    ) {
         auto rules = this.rulesChecker();
-        ruleOptions = ruleOptions ?: new ArrayObject();
-        ruleOptions = ruleOptions.isArray ? new ArrayObject(ruleOptions): ruleOptions;
+        ruleOptions = ruleOptions ?: new Json[string]();
+        ruleOptions = ruleOptions.isArray ? new Json[string](ruleOptions): ruleOptions;
         bool hasEvents = (cast(IEventDispatcher)this);
 
         if (hasEvents) {

@@ -66,9 +66,6 @@ class DRadioWidget : DWidget {
      * - `required` - Set to true to add the required attribute
      * on all generated radios.
      * - `idPrefix` Prefix for generated ID attributes.
-     * Params:
-     * Json[string] mydata The data to build radio buttons with.
-     * @param \UIM\View\Form\IContext formContext The current form context.
      */
     string render(Json[string] data, IContext formContext) {
                auto updatedData = renderData.merge(formContext.data);

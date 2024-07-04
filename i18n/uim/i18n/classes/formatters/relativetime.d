@@ -155,11 +155,11 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     }
 
     // Calculate the data needed to format a relative difference string.
-    protected Json[string] _diffData(string/* |int */ futureTime, string pastTime, bool isBackwards, Json[string] options = null) {
+    protected Json[string] _diffData(string /* |int */ futureTime, string pastTime, bool isBackwards, Json[string] options = null) {
         return _diffData(to!int(futureTime), to!int(pastTime), isBackwards, options);
     }
 
-    protected Json[string] _diffData(string/* |int */ futureTime, int pastTime, bool isBackwards, Json[string] options = null) {
+    protected Json[string] _diffData(string /* |int */ futureTime, int pastTime, bool isBackwards, Json[string] options = null) {
         auto diff = futureTime - pastTime; // If more than a week, then take into account the length of months
         if (diff >= 604800) {
             auto future = null;
@@ -238,17 +238,23 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         ["accuracy", "second"]);
     if (years > 0) {
         fWord = options.get(["accuracy", "year"]);
-    } else if (abs(months) > 0) {
+    }
+
+    elseif(abs(months) > 0) {
         fWord = options.get(["accuracy", "month"]);
-    } else if (
+    }
+    elseif(
         abs(weeks) > 0) {
         fWord = options.get(["accuracy", "week"]);
-    } else if (abs(days) > 0) {
+    }
+    elseif(abs(days) > 0) {
         fWord = options.get(["accuracy", "day"]);
-    } else if (
+    }
+    elseif(
         abs(hours) > 0) {
         fWord = options.get(["accuracy", "hour"]);
-    } else if (
+    }
+    elseif(
         abs(minutes) > 0) {
         fWord = options.get(["accuracy", "minute"]);
     }
@@ -269,83 +275,97 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     ];
 }
 
-/**
-     * Format a into a relative date string.
-     * Params:
-     * \UIM\I18n\DateTime|\UIM\I18n\Date date The date to format.
-     */
-string dateAgoInWords(DateTime | Date date, Json[string] options = null) {
+// Format a into a relative date string.
+string dateAgoInWords( /* DateTime | */ Date date, Json[string] options = null) {
     options = _options(options, Date.classname);
     if (cast(DateTime) date && options["timezone"]) {
         date = date.setTimezone(
             options.get("timezone"));
     }
 
-    auto now = options.get("from"].format("U"); auto anInSeconds = date.format("U");
-            auto backwards = (anInSeconds > now); auto futureTime = now; auto pastTime = anInSeconds;
-            if (backwards) {
-                futureTime = anInSeconds; pastTime = now;}
-                diff = futureTime - pastTime; if (!diff) {
-                    return __d("uim", "today");}
-                    if (diff > abs(now - (new Date(options["end"]))
-                        .format("U"))) {
-                        return options["absoluteString"].format(
-                            date.i18nFormat(
-                            options["format"]));}
-                        diffData = _diffData(futureTime, pastTime, backwards, options);
-                            [fNum, fWord, years, months, weeks, days] = array_values(
-                                diffData); relativeDate = null; if (fNum >= 1 && years > 0) {
-                                relativeDate ~= __dn("uim", "{0} year", "{0} years", years, years);
-                            }
-                        if (fNum >= 2 && months > 0) {
-                            relativeDate ~= __dn("uim", "{0} month", "{0} months", months, months);
-                        }
-                        if (fNum >= 3 && weeks > 0) {
-                            relativeDate ~= __dn("uim", "{0} week", "{0} weeks", weeks, weeks);
-                        }
-                        if (fNum >= 4 && days > 0) {
-                            relativeDate ~= __dn("uim", "{0} day", "{0} days", days, days);
-                        }
-                        relativeDate = join(", ", relativeDate); // When time has passed
-                        if (!backwards) {
-                            aboutAgo = [
-                                "day": __d("uim", "about a day ago"),
-                                "week": __d("uim", "about a week ago"),
-                                "month": __d("uim", "about a month ago"),
-                                "year": __d("uim", "about a year ago"),
-                            ]; return relativeDate
-                                ? options["relativeString"].format(
-                                    relativeDate) : aboutAgo[fWord];}
-                            // When time is to come
-                            if (relativeDate) {
-                                return relativeDate;}
-                                aboutIn = [
-                                    "day": __d("uim", "in about a day"),
-                                    "week": __d("uim", "in about a week"),
-                                    "month": __d("uim", "in about a month"),
-                                    "year": __d("uim", "in about a year"),
-                                ]; return aboutIn[fWord];}
+    auto now = options.get("from").format("U");
+    auto anInSeconds = date.format("U");
+    auto backwards = (anInSeconds > now);
+    auto futureTime = now;
+    auto pastTime = anInSeconds;
+    if (backwards) {
+        futureTime = anInSeconds;
+        pastTime = now;
+    }
+    diff = futureTime - pastTime;
+    if (!diff) {
+        return __d("uim", "today");
+    }
+    if (diff > abs(now - (new Date(options["end"]))
+            .format("U"))) {
+        return options["absoluteString"].format(
+            date.i18nFormat(
+                options["format"]));
+    }
+    diffData = _diffData(futureTime, pastTime, backwards, options);
+    [fNum, fWord, years, months, weeks, days] = array_values(
+        diffData);
+    relativeDate = null;
+    if (fNum >= 1 && years > 0) {
+        relativeDate ~= __dn("uim", "{0} year", "{0} years", years, years);
+    }
+    if (fNum >= 2 && months > 0) {
+        relativeDate ~= __dn("uim", "{0} month", "{0} months", months, months);
+    }
+    if (fNum >= 3 && weeks > 0) {
+        relativeDate ~= __dn("uim", "{0} week", "{0} weeks", weeks, weeks);
+    }
+    if (fNum >= 4 && days > 0) {
+        relativeDate ~= __dn("uim", "{0} day", "{0} days", days, days);
+    }
+    relativeDate = join(", ", relativeDate); // When time has passed
+    if (!backwards) {
+        aboutAgo = [
+            "day": __d("uim", "about a day ago"),
+            "week": __d("uim", "about a week ago"),
+            "month": __d("uim", "about a month ago"),
+            "year": __d("uim", "about a year ago"),
+        ];
+        return relativeDate
+            ? options["relativeString"].format(
+                relativeDate) : aboutAgo[fWord];
+    }
+    // When time is to come
+    if (relativeDate) {
+        return relativeDate;
+    }
+    aboutIn = [
+        "day": __d("uim", "in about a day"),
+        "week": __d("uim", "in about a week"),
+        "month": __d("uim", "in about a month"),
+        "year": __d("uim", "in about a year"),
+    ];
+    return aboutIn[fWord];
+}
 
-                                // Build the options for relative date formatting.
-                                protected Json[string] _options(
-                                    Json[string] options, string classname) {
-                                    auto updatedOptions = options.update[
-                                        "from": classname.now(),
-                                        "timezone": Json(null),
-                                        "format": classname.wordFormat,
-                                        "accuracy": classname.wordAccuracy,
-                                        "end": classname.wordEnd,
-                                        "relativeString": __d("uim", "%s ago"),
-                                        "absoluteString": __d("uim", "on %s"),
-                                    ]; if (options.isString("accuracy")) {
-                                        auto accuracy = options.get(
-                                            "accuracy"]; options["accuracy"] = null;
-                                            classname.wordAccuracy.byKeyValue
-                                            .each!(keyLevel => options.set(
-                                            ["accuracy", "" ~ keyLevel.key, accuracy));
-
-                                            } else {
-                                                    options["accuracy"] += classname
-                                                    .wordAccuracy;}
-                                                    return options;}
-                                                }
+// Build the options for relative date formatting.
+protected Json[string] _options(
+    Json[string] options, string classname) {
+    auto updatedOptions = options.update([
+        "from": classname.now(),
+        "timezone": Json(null),
+        "format": classname.wordFormat,
+        "accuracy": classname.wordAccuracy,
+        "end": classname.wordEnd,
+        "relativeString": __d("uim", "%s ago"),
+        "absoluteString": __d("uim", "on %s"),
+    ]);
+    if (options.isString("accuracy")) {
+        auto accuracy = options.get(
+            "accuracy");
+        options["accuracy"] = null;
+        classname.wordAccuracy.byKeyValue
+            .each!(keyLevel => options.set(
+                    "accuracy", "" ~ keyLevel.key, accuracy));
+    } else {
+        options["accuracy"] += classname
+            .wordAccuracy;
+    }
+    return options;
+}
+}

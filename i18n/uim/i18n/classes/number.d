@@ -46,11 +46,11 @@ class DNumber {
      * Options:
      * - `locale`: The locale name to use for formatting the number, e.g. fr_FR
      * Params:
-     * Json aValue A floating point number.
+     * Json value A floating point number.
      */
-    static string precision(Json aValue, int numberPrecision = 3, Json[string] formattingOptions = null) {
+    static string precision(Json value, int numberPrecision = 3, Json[string] formattingOptions = null) {
         auto formatter = formatter(["precision": precision, "places": precision] + options);
-        return to!string(formatter.format( /* (float)  */ aValue));
+        return to!string(formatter.format( /* (float)  */ value));
     }
 
     // Returns a formatted-for-humans file size.
@@ -82,13 +82,14 @@ class DNumber {
      * - `multiply`: Multiply the input value by 100 for decimal percentages.
      * - `locale`: The locale name to use for formatting the number, e.g. fr_FR
      */
-    static string toPercentage(Json aValue, int precision = 2, Json[string] options = null) {
-        auto updatedOptions = options.update["multiply": false.toJson, "type": NumberFormatter
-            .PERCENT];
+    static string toPercentage(Json value, int precision = 2, Json[string] options = null) {
+        auto updatedOptions = options.update(["multiply": false.toJson, "type": NumberFormatter
+            .PERCENT]);
+        auto doubleValue = 0.0;
         if (!options.hasKey("multiply")) {
-            aValue = aValue.getDouble / 100;
+            doubleValue = value.getDouble / 100;
         }
-        return precision(aValue, precision, options);
+        return precision(doubleValue, precision, options);
     }
 
     /**
@@ -103,15 +104,15 @@ class DNumber {
      * - `before` - The string to place before whole numbers, e.g. '["
      * - `after` - The string to place after decimal numbers, e.g. "]'
      * Params:
-     * Json aValue A floating point number.
+     * Json value A floating point number.
      */
-    static string format(Json aValue, Json[string] options = null) {
+    static string format(Json value, Json[string] options = null) {
         auto formatter = formatter(options);
         auto updatedOptions = options.merge(
             ["before": "", "after": ""]);
         return updatedOptions.getString(
             "before") ~ formatter.format(
-            aValue.getDouble) ~ updatedOptions.getString("after");
+            value.getDouble) ~ updatedOptions.getString("after");
     }
 
     /**
@@ -148,7 +149,7 @@ class DNumber {
         string sign = doubleValue > 0 ? "+" : "";
         updatedOptions.set("before", updatedOptions
                 .getString("before") ~ sign);
-        return format(aValue, updatedOptions);
+        return format(value, updatedOptions);
     }
 
     /**
@@ -312,12 +313,12 @@ class DNumber {
      *
      * For all other options see formatter().
      * Params:
-     * float aValue An integer
+     * float value An integer
      */
-                                                        static string ordinal(float aValue, Json[string] options = null) {
+                                                        static string ordinal(float value, Json[string] options = null) {
                                                             return to!string(formatter(
                                                                 [
                                                                     "type": NumberFormatter.ORDINAL
-                                                                ].merge(options))).format(aValue);
+                                                                ].merge(options))).format(value);
                                                         }
                                                     }

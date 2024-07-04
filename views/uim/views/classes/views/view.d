@@ -253,18 +253,9 @@ static string contentType() {
     // Constant for folder name containing files for overriding plugin templates.
     const string PLUGIN_TEMPLATE_FOLDER = "plugin";
 
-
-
-    /**
-     
-     * Params:
-     * \UIM\Http\ServerRequest|null _request Request instance.
-     * @param \UIM\Http\Response|null myresponse Response instance.
-     * @param \UIM\Event\IEventManager|null myeventManager Event manager instance.
-     */
     this(
-        ServerRequest serverRequest = null,
-        Response myresponse = null,
+        DServerRequest serverRequest = null,
+        DResponse myresponse = null,
         IEventManager myeventManager = null,
         Json[string] viewOptions= null
    ) {

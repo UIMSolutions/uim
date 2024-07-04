@@ -247,13 +247,9 @@ class DViewBuilder { // }: DJsonSerializable {
         return _options.get(optionName, null);
     }
     
-    /**
-     * Set view option.
-     * Params:
-     * @param Json value Value to set.
-     */
+    // Set view option.
     void setOption(string optionName, Json value) {
-       _options[optionName] = myvalue;
+       _options.set(optionName, value);
     }
     
     /**

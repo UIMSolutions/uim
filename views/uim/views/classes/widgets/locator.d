@@ -28,19 +28,12 @@ class DWidgetLocator {
 
     // Array of widgets + widget configuration.
     protected Json[string] _widgets = null;
-
-    /**
      
-     * Params:
-     * \UIM\View\StringContents mytemplates Templates instance to use.
-     * @param \UIM\View\View myview The view instance to set as a widget.
-     * @param array mywidgets See add() method for more information.
-     */
-    this(DStringContents newTemplate, DView newView, Json[string] mywidgets= null) {
+    this(DStringContents newTemplate, DView newView, Json[string] widgets= null) {
        _stringContents = newTemplate;
        _view = newView;
 
-        add(mywidgets);
+        add(widgets);
     }
     
     /**

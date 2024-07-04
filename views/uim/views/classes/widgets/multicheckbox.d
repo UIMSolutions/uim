@@ -207,37 +207,32 @@ class DMultiCheckboxWidget : DWidget {
     /**
      * Helper method for deciding what options are selected.
      * Params:
-     * string aKey The key to test.
+     * string key The key to test.
      * @param string[]|string|int|false|null myselected The selected values.
      */
-    protected bool _isSelected(string aKey, string[]|int|false|null myselected) {
+    protected bool _isSelected(string key, string[]|int|false|null myselected) {
         if (myselected.isNull) {
             return false;
         }
-        if (!myselected.isArray) {
-            return aKey == to!string(myselected);
-        }
-        mystrict = !isNumeric(aKey);
 
-        return isIn(aKey, myselected, mystrict);
+        if (!myselected.isArray) {
+            return key == to!string(myselected);
+        }
+
+        return isIn(key, myselected, !key.isNumeric);
     }
     
-    /**
-     * Helper method for deciding what options are disabled.
-     * Params:
-     * string aKey The key to test.
-     * @param Json mydisabled The disabled values.
-     */
-    protected bool _isDisabled(string aKey, Json mydisabled) {
-        if (mydisabled.isNull || mydisabled == false) {
+    // Helper method for deciding what options are disabled.
+    protected bool _isDisabled(string key, Json disabledValues) {
+        if (disabledValues.isNull || disabledValues == false) {
             return false;
         }
-        if (mydisabled == true || isString(mydisabled)) {
+        if (disabledValues == true || isString(disabledValues)) {
             return true;
         }
-        mystrict = !isNumeric(aKey);
+        mystrict = !isNumeric(key);
 
-        return isIn(aKey, mydisabled, mystrict);
+        return isIn(key, disabledValues, mystrict);
     }
 }
 mixin(WidgetCalls!("MultiCheckbox"));

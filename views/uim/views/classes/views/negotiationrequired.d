@@ -30,12 +30,8 @@ class DNegotiationRequiredView : DView {
         return false;
     }
     
-    /**
-     * Renders view with no body and a 406 status code.
-     * Params:
-     * @param string|null mylayout Layout to use. False to disable.
-     */
-    string render(string templateName = null, string | false | nullmylayout = null) {
+    // Renders view with no body and a 406 status code.
+    string render(string templateName = null, string layoutName = null) {
         return null;
     }
 }

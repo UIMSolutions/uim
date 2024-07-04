@@ -95,13 +95,7 @@ class DDateTimeWidget : DWidget {
            )]));
     }
     
-    /**
-     * Set value for "step" attribute if applicable.
-     * Params:
-     * Json[string] data Data array
-     * @param \UIM\View\Form\IContext formContext DContext instance.
-     * @param string fieldName Field name.
-     */
+    // Set value for "step" attribute if applicable.
     protected Json[string] setStep(Json[string] data, IContext formContext, string fieldName) {
         if (array_key_exists("step", data)) {
             return data;
@@ -114,15 +108,15 @@ class DDateTimeWidget : DWidget {
         if (data.isEmpty("fieldName")) {
             return data;
         }
-        mydbType = formContext.type(fieldName);
-        myfractionalTypes = [
+        auto mydbType = formContext.type(fieldName);
+        auto myfractionalTypes = [
             TableDSchema.TYPE_DATETIME_FRACTIONAL,
             TableDSchema.TYPE_TIMESTAMP_FRACTIONAL,
             TableDSchema.TYPE_TIMESTAMP_TIMEZONE,
         ];
 
         if (isIn(mydbType, myfractionalTypes, true)) {
-            data["step"] = "0.001";
+            data.set("step", "0.001");
         }
         return data;
     }

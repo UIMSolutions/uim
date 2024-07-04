@@ -159,17 +159,12 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         return aboutIn[fWord];
     }
 
-    /**
-     * Calculate the data needed to format a relative difference string.
-     * Params:
-     * string|int futureTime The timestamp from the future.
-     * @param string|int pastTime The timestamp from the past.
-     */
-    protected Json[string] _diffData(string futureTime, string pastTime, bool isBackwards, Json[string] options = null) {
+    // Calculate the data needed to format a relative difference string.
+    protected Json[string] _diffData(string/* |int */ futureTime, string pastTime, bool isBackwards, Json[string] options = null) {
         return _diffData(to!int(futureTime), to!int(pastTime), isBackwards, options);
     }
 
-    protected Json[string] _diffData(string futureTime, /* string | */ int pastTime, bool isBackwards, Json[string] options = null) {
+    protected Json[string] _diffData(string/* |int */ futureTime, int pastTime, bool isBackwards, Json[string] options = null) {
         auto diff = futureTime - pastTime; // If more than a week, then take into account the length of months
         if (diff >= 604800) {
             auto future = null;

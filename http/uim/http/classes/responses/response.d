@@ -667,23 +667,22 @@ class DResponse : IResponse {
     /**
      * Create a new instance with the headers to enable client caching.
      * Params:
-     * string|int since a valid time since the response text has not been modified
      * @param string|int time a valid time for cache expiry
      */
-    static withCache(/* string */ int since, /* int */ time = "+1 day") {
-        if (!isInteger(time)) {
-            time = strtotime(time);
-            if (time == false) {
+    static withCache(/* string */ int sinceModified, /* int */ timeExpiry = "+1 day") {
+        if (!isInteger(timeExpiry)) {
+            timeExpiry = strtotime(timeExpiry);
+            if (timeExpiry == false) {
                 throw new DInvalidArgumentException(
                     "Invalid time parameter. Ensure your time value can be parsed by strtotime"
                );
             }
         }
-        return _withHeader("Date", gmdate(DATE_RFC7231, time()))
-            .withModified(since)
-            .withExpires(time)
+        return _withHeader("Date", gmdate(DATE_RFC7231, timeExpiry()))
+            .withModified(sinceModified)
+            .withExpires(timeExpiry)
             .withSharable(true)
-            .withMaxAge(time - time());
+            .withMaxAge(timeExpiry - timeExpiry());
     }
     
     //Create a new instace with the public/private Cache-Control directive set.
@@ -781,12 +780,9 @@ class DResponse : IResponse {
      * Will set the expiration in next 24 hours
      * response.withExpires(new DateTime("+1 day"))
      * ```
-     * Params:
-     * \Jsontime Valid time string or \DateTime instance.
      */
-    static withExpires(Jsontime) {
-        date = _getUTCDate(time);
-
+    static withExpires(Json time) {
+        auto date = _getUTCDate(time);
         return _withHeader("Expires", date.format(DATE_RFC7231));
     }
     

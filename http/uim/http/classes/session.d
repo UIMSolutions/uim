@@ -347,23 +347,18 @@ class DSession {
         return Hash.get(_SESSION, variableName) !is null;
     }
 
-    /**
-     * Returns given session variable, or all of them, if no parameters given.
-     * Params:
-     * string name The name of the session variable (or a path as sent to Hash.extract)
-     * @param Json defaultValue The return value when the path does not exist
-     */
-    Json read(string aName = null, Json defaultValue = Json(null)) {
+    // Returns given session variable, or all of them, if no parameters given.
+    Json read(string variableName = null, Json defaultValue = Json(null)) {
         if (_hasSession() && !this.started()) {
             this.start();
         }
         if (_SESSION !is null)) {
             return default;
         }
-        if (name.isNull) {
+        if (variableName.isNull) {
             return _SESSION ? _SESSION : [];
         }
-        return Hash.get(_SESSION, name, default);
+        return Hash.get(_SESSION, variableName, default);
     }
 
     /**

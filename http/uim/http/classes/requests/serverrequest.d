@@ -939,14 +939,16 @@ class DServerRequest { // }: IServerRequest {
      * ```
      * aValue = Hash.get(request.queryArguments(), "Post.id");
      * ```
-     * Params:
-     * string name The name or dotted path to the query param or null to read all.
-     * @param Json defaultValue The default value if the named parameter is not set, and name is not null.
      */
-    Json getQuery(string nameOrPath = null, Json defaultValue = Json(null)) {
-        return nameOrPath.isNull
+
+    Json getQuery(string[] path, Json defaultValue = Json(null)) {
+        return getQuery(path.join("."), defaultValue);
+    }
+
+    Json getQuery(string name = null, Json defaultValue = Json(null)) {
+        return name.isNull
             ? _queryArguments
-            : Hash.get(this.query, nameOrPath, default);
+            : Hash.get(_query, name, default);
     }
     
     /**

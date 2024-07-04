@@ -132,9 +132,9 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * string classname The classname to insert the middleware before.
      * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|* / string amiddleware The middleware to insert.
      */
-    // auto insertAfter(string classname, IHttpMiddleware amiddleware) {
-    // auto insertAfter(string classname, DClosure amiddleware) {
-    auto insertAfter(string classname, string amiddleware) {
+    // auto insertAfter(string classname, IHttpMiddleware middlewareToInsert) {
+    // auto insertAfter(string classname, DClosure middlewareToInsert) {
+    auto insertAfter(string classname, string middlewareToInsert) {
         auto found = false;
         auto anI = 0;
         foreach (anI, object; _queue) {
@@ -150,10 +150,10 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
                 break;
             }
         }
-        if (found) {
-            return _insertAt(anI + 1, middleware);
-        }
-        return _add(middleware);
+        
+        return found
+            ? _insertAt(anI + 1, middlewareToInsert)
+            : _add(middlewareToInsert);
     }
     
     /**
@@ -165,35 +165,29 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
         return count(_queue);
     }
     
-    /**
-     * Seeks to a given position in the queue.
-     * Params:
-     * int position The position to seek to.
-     */
-    void seek(int position) {
-        if (_queue.isNull(position)) {
+    // Seeks to a given position in the queue.
+    void seek(int positionToSeek) {
+        if (_queue.isNull(positionToSeek)) {
             throw new DOutOfBoundsException("Invalid seek position (%s)."
-                .format(position));
+                .format(positionToSeek));
         }
-        this.position = position;
+        _position = positionToSeek;
     }
     
-    /**
-     * Rewinds back to the first element of the queue.
-     */
+    // Rewinds back to the first element of the queue.
     void rewind() {
-        this.position = 0;
+        _position = 0;
     }
     
     // Returns the current middleware.
     IHttpMiddleware currentValue() {
-        if (_queue.isNull(this.position)) {
-            throw new DOutOfBoundsException("Invalid current position (%s).".format(this.position));
+        if (_queue.isNull(_position)) {
+            throw new DOutOfBoundsException("Invalid current position (%s).".format(_position));
         }
-        if (cast(IHttpMiddleware)_queue[this.position]) {
-            return _queue[this.position];
+        if (cast(IHttpMiddleware)_queue[_position]) {
+            return _queue[_position];
         }
-        return _queue[this.position] = this.resolve(_queue[this.position]);
+        return _queue[_position] = this.resolve(_queue[_position]);
     }
     
     // Return the key of the middleware.
@@ -203,11 +197,11 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     
     // Moves the current position to the next middleware.
     void next() {
-        ++this.position;
+        ++_position;
     }
     
     // Checks if current position is valid.
     bool valid() {
-        return isSet(_queue[this.position]);
-    } */ 
+        return isSet(_queue[_position]);
+    } 
 }

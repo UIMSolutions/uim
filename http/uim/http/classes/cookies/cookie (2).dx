@@ -105,18 +105,13 @@ class DCookie : ICookie {
         defaultAttributes = options.update(defaultAttributes);
     }
     
-    /**
-     * Factory method to create Cookie instances.
-     * Params:
-     * string cookieName Cookie name
-     * @param string[]|float|bool cookieValue Value of the cookie
-     */
-    static static create(string cookieName, string[]|float|bool cookieValue, Json[string] cookieOptions = null) {
+    // Factory method to create Cookie instances.
+    static static create(string cookieName, /* string[]|float */ bool cookieValue, Json[string] cookieOptions = null) {
         auto updatedOptions = cookieOptions.merge(defaultAttributes);
-        updatedOptions.set("expires", dateTimeInstance(updatedOptions.get("expires"));
+        updatedOptions.set("expires", dateTimeInstance(updatedOptions.get("expires")));
 
         return new static(
-            name,
+            cookieName,
             cookieValue,
             updatedOptions.get("expires"),
             updatedOptions.get("path"),

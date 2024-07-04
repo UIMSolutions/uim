@@ -338,37 +338,34 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * If empty, the default will be taken from the `intl.default_locale` ini config.
      * Params:
      * array<int>|string|int format Format string.
-     * @param \DateTimeZone|string timezone Timezone string or DateTimeZone object
-     * in which the date will be displayed. The timezone stored for this object will not
-     * be changed.
      * @param string locale The locale name in which the date should be displayed (e.g. pt-BR)
      */
     string i18nFormat(
         int format = null,
         /* DateTimeZone| */string timezone = null,
-        string alocale = null
+        string localeName = null
    ) {
         string[] myFormat = [to!string(format), to!string(format)];
-        return i18nFormat(myFormat, timezone, alocale);
+        return i18nFormat(myFormat, timezone, localeName);
     }
 
     string i18nFormat(
         string[] format;
         /* DateTimeZone| */ string timezone = null,
-        string locale
+        string localeName
    ) {
         if (format == DateTime.UNIX_TIMESTAMP_FORMAT) {
             return _getTimestamp();
         }
-        time = this;
-
+        
+        auto time = this;
         if (timezone) {
             time = time.setTimezone(timezone);
         }
         format = format.ifNull(_toStringFormat);
-        locale = locale.ifEmpty(DateTime.getDefaultLocale());
+        localeName = localeName.ifEmpty(DateTime.getDefaultLocale());
 
-        return _formatObject(time, format, locale);
+        return _formatObject(time, format, localeName);
     }
     
     /**

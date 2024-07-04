@@ -167,12 +167,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
         }
     }
     
-    /**
-     * Serve assets if the path matches one.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request.
-     * @param \Psr\Http\Server\IRequestHandler handler The request handler.
-     */
+    // Serve assets if the path matches one.
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
         IResponse response = handler.handle(requestHandler);
         _headers.byKeyValue

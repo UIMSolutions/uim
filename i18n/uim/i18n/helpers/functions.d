@@ -9,11 +9,11 @@ import uim.i18n;
  * @param string singular Text to translate.
  * @param Json[string] arguments Array with arguments or multiple arguments in function.
  */
-string __(string singular, Json[string] arguments) {
-    /* if (!singular) {
+string __(string singularText, Json[string] arguments) {
+    if (!singularText) {
         return null;
     }
-    if (isSet(someArguments[0]) && isArray(someArguments[0])) {
+    /* if (isSet(someArguments[0]) && isArray(someArguments[0])) {
         someArguments = someArguments[0];
     }
     return I18n.getTranslator().translate(singular, someArguments); */

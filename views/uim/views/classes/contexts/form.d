@@ -70,7 +70,7 @@ class DFormContext : DContext {
         if (myval !is null) {
             return myval;
         }
-        if (!options["default"].isNull || !options["schemaDefault"]) {
+        if (!options.hasKey("default"].isNull || !options.hasKey("schemaDefault"]) {
             return options["default"];
         }
         return _schemaDefault(fieldName);

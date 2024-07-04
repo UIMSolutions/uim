@@ -65,22 +65,19 @@ class DSysLogger : DLogger {
      *
      * Map the level back to a LOG_constant value, split multi-line messages into multiple
      * log messages, pass all messages through the format defined in the configuration
-     * Params:
-     * Json level The severity level of log you are making.
-     * @param Json[string] context Additional information about the logged message
      */
-    void log(level, string messageToLog, Json[string] context= null) {
+    void log(Json severityLevel, string messageToLog, Json[string] context = null) {
         if (!_open) {
             configData = configuration;
            _open(configuration.get("prefix"), configuration.get("flag"), configuration.get("facility"));
            _open = true;
         }
-        priority = LOG_DEBUG;
-        if (_levelMap.hasKey(level)) {
+        auto priority = LOG_DEBUG;
+        if (_levelMap.hasKey(severityLevel)) {
             priority = _levelMap[level];
         }
-        auto myLines = interpolate(messageToLog, context).split("\n");
-        myLines.each!(line => _write(priority, this.formatter.format(level, line, context)));
+        interpolate(messageToLog, context).split("\n")
+            .each!(line => _write(priority, _formatter.format(severityLevel, line, context)));
     }
     
     /**

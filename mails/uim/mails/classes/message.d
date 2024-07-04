@@ -450,13 +450,7 @@ class DMessage { //: JsonSerializable {
         }
     }
     
-    /**
-     * Add email
-     * Params:
-     * string propertyName Property name
-     * @param string[] aemail String with email,
-     * Array with email as key, name as value or email as value (without name)
-     */
+    // Add email
     protected void addEmail(string propertyName, STRINGAA emailValue, string name) {
         if (!isArray(emailValue)) {
             validateEmail(emailValue, propertyName);
@@ -465,7 +459,8 @@ class DMessage { //: JsonSerializable {
 
             return;
         }
-        list = null;
+
+        auto list = null;
         emailValue.byKeyValue
             .each!((kv) {
                 if (isInteger(aKey)) {

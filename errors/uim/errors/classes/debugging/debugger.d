@@ -62,13 +62,13 @@ class DDebugger {
         "info": "",
         "trace": htmlDoubleTag("pre", ["stack-trace"], "{:trace}"),
         "code": "",
-        "context": "",
+        "dumpContext": "",
         "links": [],
         "escapeContext": true.toJson,
     ],
     "html" : [
         "trace": htmlDoubleTag("pre", ["uim-error trace"], "<b>Trace</b> <p>{:trace}</p>"),
-        "context": htmlDoubleTag("pre", ["uim-error context"], "<b>Context</b> <p>{:context}</p>"),
+        "dumpContext": htmlDoubleTag("pre", ["uim-error dumpContext"], "<b>Context</b> <p>{:dumpContext}</p>"),
         "escapeContext": true,
     ],
     "txt" : [
@@ -79,7 +79,7 @@ class DDebugger {
     "base" : [
         "traceLine": "{:reference} - {:path}, line {:line}",
         "trace": "Trace:\n{:trace}\n",
-        "context": "Context:\n{:context}\n",
+        "dumpContext": "Context:\n{:dumpContext}\n",
     ],];
 
     /**
@@ -132,7 +132,7 @@ class DDebugger {
         _stringContents["js.error"] = e;
 
         t = `<div id="{:id}-trace" class="uim-stack-trace" style="display: none;">`;
-        t ~= `{:context}{:code}{:trace}</div>`;
+        t ~= `{:dumpContext}{:code}{:trace}</div>`;
         _stringContents["js.info"] = t;
 
         links = null;
@@ -141,16 +141,16 @@ class DDebugger {
         link ~= "\"none\" ? \"\" : \"none\")\">Code</a>";
         links["code"] = link;
 
-        link = "<a href=\"javascript:void(0);\" onclick=\"document.getElementById(\"{:id}-context\")";
-        link ~= ".style.display = (document.getElementById(\"{:id}-context\").style.display == ";
+        link = "<a href=\"javascript:void(0);\" onclick=\"document.getElementById(\"{:id}-dumpContext\")";
+        link ~= ".style.display = (document.getElementById(\"{:id}-dumpContext\").style.display == ";
         link ~= "\"none\" ? \"\" : \"none\")\">Context</a>";
-        links["context"] = link;
+        links["dumpContext"] = link;
 
         _stringContents.set("js.links", links);
 
-        _stringContents.set("js.context", htmlDoubleTag("pre", "{:id}-context", [
-                    "uim-context", "uim-debug"
-                ], ["style": "display: none;"], "{:context}"));
+        _stringContents.set("js.dumpContext", htmlDoubleTag("pre", "{:id}-dumpContext", [
+                    "uim-dumpContext", "uim-debug"
+                ], ["style": "display: none;"], "{:dumpContext}"));
         _stringContents.set("js.code", htmlDoubleTag("pre", "{:id}-code", [
                     "uim-code-dump"
                 ], ["style": "display: none;"], "{:code}"));
@@ -158,11 +158,11 @@ class DDebugger {
         _stringContents.set("html.error", htmlDoubleTag("pre", ["uim-error"],
                 htmlDoubleTag("b", "{:error}") ~ "({:code}) : {:description} [<b>{:path}</b>, line <b>{:line}]</b>"));
 
-        _stringContents.set("html.context", htmlDoubleTag("pre", [
-                    "uim-context uim-debug"
+        _stringContents.set("html.dumpContext", htmlDoubleTag("pre", [
+                    "uim-dumpContext uim-debug"
                 ],
                 htmlDoubleTag("b", "Context") ~
-                htmlDoubleTag("p", "{:context}")));
+                htmlDoubleTag("p", "{:dumpContext}")));
     }
 
     // Returns a reference to the Debugger singleton object instance.
@@ -508,9 +508,9 @@ IErrorFormatter getExportFormatter() {
      * shown in an error message if UIM is deployed in development mode.
      */
 static string exportVar(Json value, int maxOutputDepth = 3) {
-    auto context = new DDebugContext(maxOutputDepth);
+    auto dumpContext = new DDebugContext(maxOutputDepth);
     return getInstance().getExportFormatter().dump(
-        export_(value, context));
+        export_(value, dumpContext));
 }
 
 // Converts a variable to a plain text string.
@@ -545,11 +545,11 @@ protected static IErrorNode export_(varToDump, DDebugContext dumpContext) {
     case "integer":
         return new DScalarNode("int", varToDump);
     case "array":
-        return exportArray(varToDump, context.withAddedDepth());
+        return exportArray(varToDump, dumpContext.withAddedDepth());
     case "unknown":
         return new DSpecialNode("(unknown)");
     default:
-        return exportObject(varToDump, context.withAddedDepth());
+        return exportObject(varToDump, dumpContext.withAddedDepth());
     }
 }
 
@@ -569,7 +569,7 @@ protected static IErrorNode export_(varToDump, DDebugContext dumpContext) {
 protected static DArrayNode exportArray(Json[string] valueToExport, DDebugContext dumpContext) {
     auto items = null;
 
-    autp remaining = context.remainingDepth();
+    autp remaining = dumpContext.remainingDepth();
     if (remaining >= 0) {
         outputMask = outputMask();
         foreach (valueToExport as key : val) {
@@ -578,12 +578,12 @@ protected static DArrayNode exportArray(Json[string] valueToExport, DDebugContex
             }
             elseif(val != valueToExport) {
                 // Dump all the items without increasing depth.
-                node = export_(val, context);
+                node = export_(val, dumpContext);
             } else {
                 // Likely recursion, so we increase depth.
-                node = export_(val, context.withAddedDepth());
+                node = export_(val, dumpContext.withAddedDepth());
             }
-            items ~= new DArrayItemErrorNode(export_(key, context), node);
+            items ~= new DArrayItemErrorNode(export_(key, dumpContext), node);
         }
     } else {
         items ~= new DArrayItemErrorNode(
@@ -595,23 +595,18 @@ protected static DArrayNode exportArray(Json[string] valueToExport, DDebugContex
     return new ArrayNode(items);
 }
 
-/**
-     * Handles object to node conversion.
-     *
-     * @param object objToConvert Object to convert.
-     * @param uim.errors.debugs.DDebugContext context The dump context.
-     */
-protected static IErrorNode exportObject(object objToConvert, DDebugContext context) {
-    auto isRef = context.hasReference(objToConvert);
-    auto refNum = context.getReferenceId(objToConvert);
+// Handles object to node conversion.
+protected static IErrorNode exportObject(object objToConvert, DDebugContext dumpContext) {
+    auto isRef = dumpContext.hasReference(objToConvert);
+    auto refNum = dumpContext.getReferenceId(objToConvert);
 
-    auto aclassnameName = get_class(objToConvert);
+    auto classnameName = get_class(objToConvert);
     if (isRef) {
-        return new DReferenceNode(aclassnameName, refNum);
+        return new DReferenceNode(, refNum);
     }
-    auto node = new DClassNode(aclassnameName, refNum);
 
-    auto remaining = context.remainingDepth();
+    auto node = new DClassNode(, refNum);
+    auto remaining = dumpContext.remainingDepth();
     if (remaining > 0) {
         if (method_exists(objToConvert, "__debugInfo")) {
             try {
@@ -619,7 +614,7 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext cont
                     node.addProperty(new DPropertyNode("" {
                             key
                         }
-                    "", null, export_(val, context)));
+                    "", null, export_(val, dumpContext)));
                 }
 
                 return node;
@@ -636,7 +631,7 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext cont
             }
             /** @psalm-suppress RedundantCast */
             node.addProperty(
-                new DPropertyNode(key, "public", export_(value, context.withAddedDepth()))
+                new DPropertyNode(key, "public", export_(value, dumpContext.withAddedDepth()))
             );
         }
 
@@ -653,7 +648,7 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext cont
 
                 value = method_exists(reflectionProperty, "isInitialized") && !reflectionProperty.isInitialized(objToConvert)
                     ? new DSpecialNode(
-                        "[uninitialized]") : export_(reflectionProperty.getValue(objToConvert), context.withAddedDepth());
+                        "[uninitialized]") : export_(reflectionProperty.getValue(objToConvert), dumpContext.withAddedDepth());
 
                 node.addProperty(
                     new DPropertyNode(

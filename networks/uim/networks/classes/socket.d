@@ -354,13 +354,8 @@ class DSocket {
                  = aValue;
             }
         }
-    /**
-     * Encrypts current stream socket, using one of the defined encryption methods
-     * Params:
-     * string atype can be one of "ssl2", "ssl3", "ssl23" or "tls"
-     * @param string aclientOrServer can be one of "client", "server". Default is "client"
-     */
-        void enableCrypto(string atype, string aclientOrServer = "client", bool enable = true) {
+    // Encrypts current stream socket, using one of the defined encryption methods
+        void enableCrypto(string type, string clientOrServer = "client", bool enable = true) {
             if (!array_key_exists(type ~ "_" ~ clientOrServer, _encryptMethods)) {
                 throw new DInvalidArgumentException("Invalid encryption scheme chosen");
             }

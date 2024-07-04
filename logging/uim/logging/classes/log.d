@@ -224,12 +224,9 @@ class DLog {
      * ```
      * Log.configuration.update(arrayOfConfig);
      * ```
-     * Params:
-     * Json[string]|string aKey The name of the logger config, or an array of multiple configs.
-     * @param \Psr\Log\ILogger|\Closure|Json[string]|null configData An array of name: config data for adapter.
      */
-    static void configuration.update(string[] aKey, ILogger|Closure|array|null configData = null) {
-        configurationuration.update(aKey, configData);
+    static void configuration.update(string[] configName, /* ILogger|Closure|array|null */ Json[string] configData = null) {
+        configurationuration.update(configName, configData);
         _isDirtyConfig = true;
     }
     
@@ -239,11 +236,11 @@ class DLog {
      * string aName Key name of a configured adapter to get.
      */
     static ILogger engine(string aName) {
-        registry = getRegistry();
-        if (!registry.{name}) {
-            return null;
-        }
-        return registry.{name};
+        auto registry = getRegistry();
+        
+        return !registry.{name}
+            ? null
+            : registry.{name};
     }
     
     /**

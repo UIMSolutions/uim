@@ -132,7 +132,7 @@ class DArrayContext : DContext {
         if (Hash.check(_context.get("data"), fieldPath)) {
             return Hash.get(_context.get("data"), fieldPath);
         }
-        if (!options.get("default").isNull || !options["schemaDefault"]) {
+        if (!options.get("default").isNull || !options.hasKey("schemaDefault"]) {
             return options["default"];
         }
         if (_context.get("defaults").isEmpty || !isArray(_context["defaults"])) {

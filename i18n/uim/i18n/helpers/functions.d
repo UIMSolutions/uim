@@ -6,10 +6,10 @@ import uim.i18n;
 /**
  * Returns a translated string if one is found; Otherwise, the submitted message.
  *
- * @param string asingular Text to translate.
+ * @param string singular Text to translate.
  * @param Json[string] arguments Array with arguments or multiple arguments in function.
  */
-string __(string asingular, Json[string] arguments) {
+string __(string singular, Json[string] arguments) {
     /* if (!singular) {
         return null;
     }
@@ -55,12 +55,8 @@ string __d(string domainName, string messageToTranslate, Json[string] arguments)
  * Allows you to override the current domain for a single plural message lookup.
  * Returns correct plural form of message identified by singular and plural for count count
  * from domain domain.
- *
- * @param string asingular Singular string to translate.
- * @param string aplural Plural.
- * @param Json[string] arguments Array with arguments or multiple arguments in function.
  */
-string __dn(string domainName, string asingular, string aplural, int count, Json[string] arguments): 
+string __dn(string domainName, string singularText, string pluralText, int count, Json[string] arguments): 
 {
     if (singular.isEmpty) {
         return null;
@@ -70,7 +66,7 @@ string __dn(string domainName, string asingular, string aplural, int count, Json
     }
     return I18n.getTranslator(domainName).translate(
         plural,
-        ["_count": count, "_singular": singular] + someArguments
+        ["_count": count, "_singular": singularText] + someArguments
    );
 }
 /**
@@ -79,10 +75,10 @@ string __dn(string domainName, string asingular, string aplural, int count, Json
  * within the same domain.
  *
  * @param string acontext DContext of the text.
- * @param string asingular Text to translate.
+ * @param string singular Text to translate.
  * @param Json[string] arguments Array with arguments or multiple arguments in function.
  */
-string __x(string acontext, string asingular, Json[string] arguments)
+string __x(string acontext, string singular, Json[string] arguments)
 {
     if (!singular) {
         return null;
@@ -142,15 +138,15 @@ string __dx(string domainName, string acontext, string amsg, Json[string] argume
  *
  * @param string domainName Domain.
  * @param string acontext DContext of the text.
- * @param string asingular Singular text to translate.
- * @param string aplural Plural text.
+ * @param string singular Singular text to translate.
+ * @param string pluralText Plural text.
  * @param Json[string] arguments Array with arguments or multiple arguments in function.
  */
 string __dxn(
     string domainName,
     string acontext,
-    string asingular,
-    string aplural,
+    string singular,
+    string pluralText,
     int count,
     Json[string] arguments
 ) {

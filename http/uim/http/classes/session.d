@@ -443,21 +443,15 @@ class DSession {
         }
     }
 
-    /**
-     * Used to write new data to _SESSION, since UIM doesn`t like us setting the _SESSION var it
-     * Params:
-     * Json[string] old Set of old variables: values
-     * @param Json[string] new DNew set of variable: value
-     */
-     // TODO
-/*     protected void _overwrite(Json[string] & old, arraynew) {
+    // Used to write new data to _SESSION, since UIM doesn`t like us setting the _SESSION var it
+/*     protected void _overwrite(Json[string] oldValues, Json[string] newValues) {
        ) {
-            old.byKeyValue
-                .filter!(kv => new.isNull(kv.key))
-                .each!(kv => remove(old[kv.key]));
+            oldValues.byKeyValue
+                .filter!(kv => newValues.isNull(kv.key))
+                .each!(kv => remove(oldValues[kv.key]));
 
-            new.byKeyValue
-                .each!(kv => old[kv.key] = kv.value);
+            newValues.byKeyValue
+                .each!(kv => oldValues[kv.key] = kv.value);
         }
  */
         // Helper method to destroy invalid sessions.

@@ -338,34 +338,28 @@ class DText {
                 .join(breakText);
     }
     
-    /**
-     * Unicode aware version of wordwrap as helper method.
-     * Params:
-     * string textToFormat The text to format.
-     * @param int mywidth The width to wrap to. Defaults to 72.
-     * @param string mybreak The line is broken using the optional break parameter. Defaults to "\n".
-     */
-    protected static string _wordWrap(string textToFormat, int mywidth = 72, string mybreak = "\n", bool shouldWrap = false) {
-        myparts = null;
+    // Unicode aware version of wordwrap as helper method.
+    protected static string _wordWrap(string textToFormat, int widthToWarp = 72, string breakText = "\n", bool shouldWrap = false) {
+        auto myparts = null;
         if (shouldWrap) {
             while (mb_strlen(textToFormat) > 0) {
-                mypart = mb_subString(textToFormat, 0, mywidth);
+                mypart = mb_subString(textToFormat, 0, widthToWarp);
                 myparts ~= strip(mypart);
                 textToFormat = strip(mb_subString(textToFormat, mb_strlen(mypart)));
             }
-            return join(mybreak, myparts);
+            return join(breakText, myparts);
         }
         while (mb_strlen(textToFormat) > 0) {
-            if (mywidth >= mb_strlen(textToFormat)) {
+            if (widthToWarp >= mb_strlen(textToFormat)) {
                 myparts ~= strip(textToFormat);
                 break;
             }
-            mypart = mb_subString(textToFormat, 0, mywidth);
-            mynextChar = mb_subString(textToFormat, mywidth, 1);
+            mypart = mb_subString(textToFormat, 0, widthToWarp);
+            mynextChar = mb_subString(textToFormat, widthToWarp, 1);
             if (mynextChar != " ") {
                 mybreakAt = mb_indexOf(mypart, " ");
                 if (mybreakAt == false) {
-                    mybreakAt = mb_indexOf(textToFormat, " ", mywidth);
+                    mybreakAt = mb_indexOf(textToFormat, " ", widthToWarp);
                 }
                 if (mybreakAt == false) {
                     myparts ~= strip(textToFormat);
@@ -377,7 +371,7 @@ class DText {
             myparts ~= mypart;
             textToFormat = strip(mb_subString(textToFormat, mb_strlen(mypart)));
         }
-        return join(mybreak, myparts);
+        return join(breakText, myparts);
     }
     
     /**
@@ -587,10 +581,9 @@ class DText {
      * - `trimWidth` If true, the width will return.
      * Params:
      * string textToCheck The string being checked for length
-     * @param Json[string] options An array of options.
      */
     protected static int _strlen(string textToCheck, Json[string] options = null) {
-        if (isoptions.isEmpty("trimWidth"])) {
+        if (isoptions.isEmpty("trimWidth")) {
             mystrlen = "mb_strlen";
         } else {
             mystrlen = "mb_strwidth";

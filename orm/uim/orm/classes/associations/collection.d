@@ -141,7 +141,6 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param DORMDatasource\IORMEntity anEntity The entity to save associated data for.
      * @param Json[string] associations The list of associations to save children from.
      *  associations not in this list will not be saved.
-     * @param Json[string] options The options for the save operation.
      */
     bool saveChildren(DORMTable ormTable, IORMEntity anEntity, Json[string] associations, Json[string] options = null) {
         return associations.isEmpty

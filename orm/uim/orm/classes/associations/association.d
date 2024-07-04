@@ -223,11 +223,8 @@ class DAssociation : IAssociation {
     /**
      . Subclasses can override _options function to get the original
      * list of passed options if expecting any other special key
-     *
-     * anAliasName - The name given to the association
-     * @param Json[string] options A list of properties to be set on this object
      */
-    this(string anAliasName, Json[string] options = null) {
+    this(string aliasName, Json[string] options = null) {
         defaults = [
             "cascadeCallbacks",
             "classname",
@@ -249,10 +246,10 @@ class DAssociation : IAssociation {
         }
 
         if (_classname.isEmpty) {
-            _classname = anAliasName;
+            _classname = aliasName;
         }
 
-        [, name] = pluginSplit(anAliasName);
+        [, name] = pluginSplit(aliasName);
         _name = name;
 
         _options(options);

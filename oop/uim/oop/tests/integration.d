@@ -461,18 +461,13 @@ mixin template TIntegrationTest() {
         return Hash.merge(props, _request);
     }
 
-    /**
-     * Add the CSRF and Security Component tokens if necessary.
-     * Params:
-     * string url The URL the form is being submitted on.
-     * @param Json[string] data The request body data.
-     */
+    // Add the CSRF and Security Component tokens if necessary.
     protected Json[string] _addTokens(string submittedUrl, Json[string] requestBodyData) {
         Json[string] results;
         if (_securityToken == true) {
             auto fields = array_diffinternalKey(requestBodyData, array_flip(_unlockedFields));
 
-            someKeys = array_map(function(field) {
+            auto someKeys = array_map(function(field) {
                 return preg_replace("/(\\.\\d+)+/", "", field);
             }, Hash.flatten(fields).keys);
 

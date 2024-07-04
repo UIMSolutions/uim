@@ -625,9 +625,8 @@ class DEagerLoader {
      * Params:
      * array<\ORM\EagerLoadable> myexternal The list of external associations to be loaded.
      * @param \ORM\Query\SelectQuery myquery The query from which the results where generated.
-     * @param Json[string] results Results array.
      */
-    protected Json[string] _collectKeys(Json[string] myexternal, SelectQuery myquery, Json[string] results) {
+    protected Json[string] _collectKeys(Json[string] myexternal, SelectQuery selectQuery, Json[string] results) {
         auto mycollectKeys = null;
         foreach (mymeta; myexternal) {
             auto myinstance = mymeta.instance();
@@ -641,7 +640,7 @@ class DEagerLoader {
 
             auto aliasName = mysource.aliasName();
             auto mypkFields = someKeys
-                .map!(id => key(myquery.aliasField(id, aliasName))).array;
+                .map!(id => key(selectQuery.aliasField(id, aliasName))).array;
 
             mycollectKeys[mymeta.aliasPath()] = [aliasName, mypkFields, count(mypkFields) == 1];
         }

@@ -437,9 +437,9 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * Json[string] expected An array, see above
      * @param string markupText An HTML/XHTML/XML string
-     * @param bool fullDebug Whether more verbose output should be used.
+     * @param bool shouldFullDebug Whether more verbose output should be used.
      */
-   bool assertHtml(Json[string] expected, string markupText, bool fullDebug = false) {
+   bool assertHtml(Json[string] expected, string markupText, bool shouldFullDebug = false) {
         auto regex = null;
         auto normalized = null;
         foreach (aKey, val; expected) {
@@ -545,8 +545,8 @@ abstract class DTestCase : DBaseTestCase {
             auto matches = false;
             if (assertion.hasKey("attrs")) {
                 // Json[string] assertion
-                markupText = _assertAttributes(assertion, markupText, fullDebug, regex);
-                if (fullDebug == true && markupText == false) {
+                markupText = _assertAttributes(assertion, markupText, shouldFullDebug, regex);
+                if (shouldFullDebug == true && markupText == false) {
                     debug(markupText, true);
                     debug(regex, true);
                 }
@@ -569,7 +569,7 @@ abstract class DTestCase : DBaseTestCase {
             });
 
             if (!matches) {
-                if (fullDebug == true) {
+                if (shouldFullDebug == true) {
                     debug(markupText);
                     debug(regex);
                 }
@@ -590,19 +590,16 @@ abstract class DTestCase : DBaseTestCase {
     /**
      * Check the attributes as part of an assertTags() check.
      * Params:
-     * Json[string] assertions Assertions to run.
-     * @param string mlTextToCheck The HTML string to check.
-     * @param bool fullDebug Whether more verbose output should be used.
      * @param string[] aregex Full regexp from `assertHtml`
      */
     protected string _assertAttributes(
-        array assertions,
+        Json[string] assertions,
         string mlTextToCheck,
-        bool fullDebug = false,
+        bool shouldFullDebug = false,
         string[] aregex = ""
     ) {
-        asserts = assertions["attrs"];
-        explains = assertions["explains"];
+        auto asserts = assertions["attrs"];
+        auto explains = assertions["explains"];
         do {
             matches = false;
             j = null;
@@ -616,7 +613,7 @@ abstract class DTestCase : DBaseTestCase {
                 }
             }
             if (matches == false) {
-                if (fullDebug == true) {
+                if (shouldFullDebug == true) {
                     debug(string);
                     debug(regex);
                 }
@@ -628,54 +625,30 @@ abstract class DTestCase : DBaseTestCase {
         return string;
     }
     
-    /**
-     * Normalize a path for comparison.
-     * Params:
-     * string aPath Path separated by "/" slash.
-     */
-    protected string _normalizePath(string aPath) {
-        return str_replace("/", DIRECTORY_SEPARATOR, somePath);
+    // Normalize a path for comparison.
+    protected string _normalizePath(string path) {
+        return str_replace("/", DIRECTORY_SEPARATOR, path);
     }
 // Dcs:disable
 
-    /**
-     * Compatibility auto to test if a value is between an acceptable range.
-     * Params:
-     * float expected
-     * @param float result
-     * @param float margin the rage of acceptation
-     * @param string message the text to display if the assertion is not correct
-     */
-    protected static void assertWithinRange(expected, result, margin, string message = null) {
-        upper = result + margin;
-        lower = result - margin;
-        assertTrue((expected <= upper) && (expected >= lower), message);
+    // Compatibility auto to test if a value is between an acceptable range.
+    protected static void assertWithinRange(float expected, float result, float margin, string message = null) {
+        auto upper = result + margin;
+        auto lower = result - margin;
+        assertTrue(expected <= upper && expected >= lower, message);
     }
     
-    /**
-     * Compatibility auto to test if a value is not between an acceptable range.
-     * Params:
-     * float expected
-     * @param float result
-     * @param float margin the rage of acceptation
-     * @param string message the text to display if the assertion is not correct
-     */
+    // Compatibility auto to test if a value is not between an acceptable range.
     protected static void assertNotWithinRange(float expected, float result, float margin, string message = null) {
-        upper = result + margin;
-        lower = result - margin;
-        assertTrue((expected > upper) || (expected < lower), message);
+        auto upper = result + margin;
+        auto lower = result - margin;
+        assertTrue(expected > upper || expected < lower, message);
     }
     
-    /**
-     * Compatibility auto to test paths.
-     * Params:
-     * string aexpected
-     * @param string aresult
-     * @param string message the text to display if the assertion is not correct
-     */
-    protected static auto assertPathEquals(expected, result, string message = null) {
-        expected = str_replace(DIRECTORY_SEPARATOR, "/", expected);
-        result = str_replace(DIRECTORY_SEPARATOR, "/", result);
+    // Compatibility auto to test paths.
+    protected static auto assertPathEquals(string expected, string result, string message = null) {
+        auto expected = str_replace(DIRECTORY_SEPARATOR, "/", expected);
+        auto result = str_replace(DIRECTORY_SEPARATOR, "/", result);
         assertEquals(expected, result, message);
     }
     

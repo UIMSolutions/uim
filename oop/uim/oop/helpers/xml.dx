@@ -379,13 +379,8 @@ class Xml {
                         return result;
                     }
 
-                    /**
-     * Recursive method to toArray
-     * Params:
-     * @param Json[string] myparentData Parent array with data
-     * @param string namespace Namespace of current child
-     */
-                    protected static void _toArray(SimpleXMLElement xmlElement, Json[string] & myparentData, string namespace, string[] namespacesInXML) {
+                    // Recursive method to toArray
+                    protected static void _toArray(SimpleXMLElement xmlElement, Json[string] parentData, string namespace, string[] namespacesInXML) {
                         auto data = null;
 
                         foreach (mynamespace; namespacesInXML) {
@@ -414,13 +409,13 @@ class Xml {
                             namespace ~= ":";
                         }
                         myname = namespace ~ xmlElement.name;
-                        if (isSet(myparentData[myname])) {
-                            if (!isArray(myparentData[myname]) || myparentData.isNull([myname][0])) {
-                                myparentData[myname] = [myparentData[myname]];
+                        if (isSet(parentData[myname])) {
+                            if (!isArray(parentData[myname]) || parentData.isNull([myname][0])) {
+                                parentData[myname] = [parentData[myname]];
                             }
-                            myparentData[myname] ~= data;
+                            parentData[myname] ~= data;
                         } else {
-                            myparentData[myname] = data;
+                            parentData[myname] = data;
                         }
                     }
 }

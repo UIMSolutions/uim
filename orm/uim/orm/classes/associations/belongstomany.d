@@ -488,26 +488,25 @@ class DBelongsToManyAssociation : DAssociation {
      * not deleted.
      *
      * @param DORMDatasource\IORMEntity anEntity an entity from the source table
-     * @param Json[string] options options to be passed to the save method in the target table
      */
-    IORMEntity saveAssociated(IORMEntity anEntity, Json[string] options = null) {
+    IORMEntity saveAssociated(IORMEntity ormEntity, Json[string] options = null) {
         auto targetEntity = entity.get(getProperty());
         auto strategy = getSaveStrategy();
 
-        isEmpty = isIn(targetEntity, [null, [], "", false], true);
-        if (isEmpty && entity.isNew()) {
-            return entity;
+        bool isEmpty = isIn(targetEntity, [null, [], "", false], true);
+        if (isEmpty && ormEntity.isNew()) {
+            return ormEntity;
         }
         if (isEmpty) {
             targetEntity = null;
         }
 
         if (strategy == SAVE_APPEND) {
-            return _saveTarget(entity, targetEntity, options);
+            return _saveTarget(ormEntity, targetEntity, options);
         }
 
-        if (this.replaceLinks(entity, targetEntity, options)) {
-            return entity;
+        if (replaceLinks(ormEntity, targetEntity, options)) {
+            return ormEntity;
         }
 
         return false;

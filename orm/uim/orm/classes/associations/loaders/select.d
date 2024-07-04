@@ -245,12 +245,8 @@ class DSelectLoader {
     /**
      * Appends any conditions required to load the relevant set of records in the
      * target table query given a filter key and some filtering values.
-     *
-     * @param DORMQuery  Target table"s query
-     * @param string[]|string aKey The fields that should be used for filtering
-     * @param mixed filter The value that should be used to match for key
      */
-    protected DORMQuery _addFilteringCondition(DORMQuery query, key, filter) {
+    protected DORMQuery _addFilteringCondition(DORMQuery query, /* string[]| */string key, json filter) {
         if (key.isArray) {
             conditions = _createTupleCondition(
                 query, key, filter, "IN");

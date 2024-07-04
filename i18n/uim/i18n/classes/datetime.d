@@ -422,7 +422,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * to customize the abbreviation wrapper.
      */
     auto Json[string] listTimezones(
-        string|int regexFilter = null,
+        string/* |int */ regexFilter = null,
         string countryCode = null,
         Json[string] options = null
    ) {
@@ -438,7 +438,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
             "after": Json(null),
         ];
         auto updatedOptions = options.updatedefaults;
-        an anGroup = options.get("group"];
+        auto anGroup = options.get("group"];
 
         auto regex = null;
         if (isString(regexFilter)) {

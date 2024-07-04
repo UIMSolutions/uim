@@ -201,10 +201,9 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
                 auto daysInFutureMonth =  /* (int) */ date("t", /* (int) */ mktime(0, 0, 0, future.getLong("m") - 1, 1, future
                             .getLong("Y")));
                 auto days = !backwards
-                    ? daysInPastMonth - past.getLong(
-                        "d")+future.getLong("d");
-                 : daysInFutureMonth - past.getLong(
-                    "d")+future.getLong("d");
+                    ? daysInPastMonth - past.getLong("d") + future.getLong(
+                        "d") : daysInFutureMonth - past.getLong(
+                        "d") + future.getLong("d");
             }
             if (future["m"] != past["m"]) {
                 months--;

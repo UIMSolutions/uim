@@ -35,7 +35,7 @@ class DTimeHelper : DHelper {
     // Returns a DateTime object, given either a UNIX timestamp or a valid strtotime() date string.
     DateTime fromString(
         /* DChronosDate| */
-        Json dateString,/* DateTimeZone| */
+        Json dateString, /* DateTimeZone| */
         string timezone = null
     ) {
         mytime = new DateTime(dateString);
@@ -48,7 +48,7 @@ class DTimeHelper : DHelper {
     // Returns a nicely formatted date string for given Datetime string.
     string nice(
         /* DChronosDate| */
-        Json dateString = null,/* DateTimeZone| */
+        Json dateString = null, /* DateTimeZone| */
         string timezone = null,
         string localeName = null
     ) {
@@ -59,7 +59,7 @@ class DTimeHelper : DHelper {
     // Returns true, if the given datetime string is today.
     bool isToday(
         /* DChronosDate| */
-        Json dateString,/* DateTimeZone| */
+        Json dateString, /* DateTimeZone| */
         string timezone = null
     ) {
         return (new DateTime(dateString, timezone)).isToday();
@@ -67,8 +67,9 @@ class DTimeHelper : DHelper {
 
     // Returns true, if the given datetime string is in the future.
     bool isFuture(
-        /* DChronosDate |  */Json dateString,
-        /* DateTimeZone |  */string timezone = null
+        /* DChronosDate |  */
+        Json dateString,/* DateTimeZone |  */
+        string timezone = null
     ) {
         return (new DateTime(dateString, timezone)).isFuture();
     }
@@ -77,120 +78,92 @@ class DTimeHelper : DHelper {
      * Returns true, if the given datetime string is in the past.
      */
     bool isPast(
-        /* DChronosDate |  */Json dateString,
-        /* DateTimeZone |  */string timezone = null
+        /* DChronosDate |  */
+        Json dateString,/* DateTimeZone |  */
+        string timezone = null
     ) {
         return (new DateTime(dateString, timezone)).isPast();
     }
 
-    /**
-     * Returns true if given datetime string is within this week.
-     * Params:
-     * \UIM\Chronos\DChronosDate|\Json dateString UNIX timestamp, strtotime() valid string or DateTime object
-     * @param \DateTimeZone|string timezone User"s timezone string or DateTimeZone object
-     */
+    // Returns true if given datetime string is within this week.
     bool isThisWeek(
-        /* DChronosDate |  */Json dateString,
-        /* DateTimeZone |  */string timezone = null
+        /* DChronosDate |  */
+        Json dateString,/* DateTimeZone |  */
+        string timezone = null
     ) {
         return (new DateTime(dateString, timezone)).isThisWeek();
     }
 
-    /**
-     * Returns true if given datetime string is within this month
-     * Params:
-     * \UIM\Chronos\DChronosDate|\Json dateString UNIX timestamp, strtotime() valid string or DateTime object
-     * @param \DateTimeZone|string timezone User"s timezone string or DateTimeZone object
-     */
+    // Returns true if given datetime string is within this month
     bool isThisMonth(
-        /* DChronosDate |  */Json dateString,
-        /* DateTimeZone |  */string timezone = null
+        /* DChronosDate |  */
+        Json dateString,/* DateTimeZone |  */
+        string timezone = null
     ) {
         return (new DateTime(dateString, timezone)).isThisMonth();
     }
 
-    /**
-     * Returns true if given datetime string is within the current year.
-     * Params:
-     * \UIM\Chronos\DChronosDate|\Json dateString UNIX timestamp, strtotime() valid string or DateTime object
-     * @param \DateTimeZone|string timezone User"s timezone string or DateTimeZone object
-     */
+    // Returns true if given datetime string is within the current year.
     bool isThisYear(
-        /* DChronosDate |  */Json dateString,
-        /* DateTimeZone |  */string timezone = null
+        /* DChronosDate |  */
+        Json dateString,/* DateTimeZone |  */
+        string timezone = null
     ) {
         return (new DateTime(dateString, timezone)).isThisYear();
     }
 
-    /**
-     * Returns true if given datetime string was yesterday.
-     * Params:
-     * \UIM\Chronos\DChronosDate|\Json dateString UNIX timestamp, strtotime() valid string or DateTime object
-     * @param \DateTimeZone|string timezone User"s timezone string or DateTimeZone object
-     */
+    // Returns true if given datetime string was yesterday.
     bool wasYesterday(
-        DChronosDate | Json dateString,
-        DateTimeZone | string timezone = null
+        /* DChronosDate | */
+        Json dateString,/* DateTimeZone | */
+        string timezone = null
     ) {
         return (new DateTime(dateString, timezone)).isYesterday();
     }
 
     // Returns true if given datetime string is tomorrow.
     bool isTomorrow(
-        /* DChronosDate | */ Json dateString,
-        /* DateTimeZone | */ string timezone = null
+        /* DChronosDate | */
+        Json dateString,/* DateTimeZone | */
+        string timezone = null
     ) {
         return (new DateTime(dateString, timezone)).isTomorrow();
     }
 
-    /**
-     * Returns the quarter
-     * Params:
-     * \UIM\Chronos\DChronosDate|\Json dateString UNIX timestamp, strtotime() valid string or DateTime object
-     */
+    // Returns the quarter
     string[] toQuarter(
-        /* DChronosDate | */ Json dateString,
+        /* DChronosDate | */
+        Json dateString,
         bool rangeInYmdFormat = false
     ) {
         return (new DateTime(dateString)).toQuarter(rangeInYmdFormat);
     }
 
-    /**
-     * Returns a UNIX timestamp from a textual datetime description.
-     * Params:
-     * \UIM\Chronos\DChronosDate|\Json dateString UNIX timestamp, strtotime() valid string or DateTime object
-     * @param \DateTimeZone|string timezone User"s timezone string or DateTimeZone object
-     */
+    // Returns a UNIX timestamp from a textual datetime description.
     string toUnix(
-        /* DChronosDate | */ Json dateString,
-        /* DateTimeZone | */ string timezone = null
+        /* DChronosDate | */
+        Json dateString,/* DateTimeZone | */
+        string timezone = null
     ) {
         return (new DateTime(dateString, timezone)).toUnixString();
     }
 
-    /**
-     * Returns a date formatted for Atom RSS feeds.
-     * Params:
-     * \UIM\Chronos\DChronosDate|\Json dateString UNIX timestamp, strtotime() valid string or DateTime object
-     * @param \DateTimeZone|string timezone User"s timezone string or DateTimeZone object
-     */
+    // Returns a date formatted for Atom RSS feeds.
     string toAtom(
-        /* DChronosDate | */ Json dateString,
-        /* DateTimeZone | */ string timezone = null
+        /* DChronosDate | */
+        Json dateString,/* DateTimeZone | */
+        string timezone = null
     ) {
         auto timezone = _getTimezone(timezone) ? _getTimezone(timezone) : date_default_timezone_get();
         return (new DateTime(dateString)).setTimezone(timezone).toAtomString();
     }
 
-    /**
-     * Formats date for RSS feeds
-     * Params:
-     * \UIM\Chronos\DChronosDate|\Json dateString UNIX timestamp, strtotime() valid string or DateTime object
-     * @param \DateTimeZone|string timezone User"s timezone string or DateTimeZone object
-     */
-    string toRss(
-        /* DChronosDate | */ Json dateString,
-        /* DateTimeZone | */ string timezone = null
+    
+
+    /  / Formats date for RSS feeds string toRss(
+        /* DChronosDate | */
+        Json dateString,/* DateTimeZone | */
+        string timezone = null
     ) {
         auto timezone = _getTimezone(timezone) ? _getTimezone(timezone) : date_default_timezone_get();
         return (new DateTime(dateString)).setTimezone(timezone).toRssString();
@@ -206,54 +179,52 @@ class DTimeHelper : DHelper {
      * - `tag` - The tag to use, defaults to "span".
      * - `class` - The class name to use, defaults to `time-ago-in-words`.
      * - `title` - Defaults to the mydateTime input.
-     * Params:
-     * \UIM\Chronos\DChronosDate|\JsonmydateTime UNIX timestamp, strtotime() valid
-     * string or DateTime object.
-     * @param Json[string] options Default format if timestamp is used in dateString
      */
     string timeAgoInWords(
         DChronosDate | JsonmydateTime,
         Json[string] options = null
     ) {
         myelement = null;
-        auto updatedOptions = options.update[
-            "element": Json(null),
-            "timezone": Json(null),
-        ];
-        options["timezone"] = _getTimezone(options["timezone"]);
-        if (options["timezone"] && cast(IDateTime) mydateTime) {
+        auto updatedOptions = options.merge(["element", "timezone"]);
+        options.set("timezone",  = _getTimezone(options.get("timezone")));
+        if (options.hasKey("timezone") && cast(IDateTime) mydateTime) {
             if (cast(DateTime) mydateTime) {
                 mydateTime = mydateTime.clone;
             }
             /** @var \DateTimeImmutable|\DateTime mydateTime */
-            mydateTime = mydateTime.setTimezone(options["timezone"]);
+            mydateTime = mydateTime.setTimezone(options.get("timezone"));
             options.remove("timezone");
         }
-        if (!options.isEmpty("element"])) {
+        if (!options.isEmpty("element")) {
             myelement = [
                 "tag": "span",
                 "class": "time-ago-in-words",
                 "title": mydateTime,
             ];
 
-            if (options["element"].isArray) {
-                myelement = options.get("element"] + myelement;} else {
-                    myelement["tag"] = options.get("element"];}
-                    options.remove("element"]);}
-                    myrelativeDate = (new DateTime(mydateTime)).timeAgoInWords(options);
+            if (options.isArray("element")) {
+                myelement = options.get("element") + myelement;
+            } else {
+                myelement["tag"] = options.get("element");
+            }
+            options.remove("element");
+        }
+        myrelativeDate = (new DateTime(mydateTime)).timeAgoInWords(options);
 
-                        if (myelement) {
-                            myrelativeDate =
-                                "<%s%s>%s</%s>".format(
-                                    myelement["tag"],
-                                    this.templater()
-                                    .formatAttributes(myelement, ["tag"]),
-                                    myrelativeDate,
-                                    myelement["tag"]
-                                );}
-                            return myrelativeDate;}
+        if (myelement) {
+            myrelativeDate =
+                "<%s%s>%s</%s>".format(
+                    myelement["tag"],
+                    this.templater()
+                        .formatAttributes(myelement, ["tag"]),
+                        myrelativeDate,
+                        myelement["tag"]
+                );
+        }
+        return myrelativeDate;
+    }
 
-                            /**
+    /**
      * Returns true if specified datetime was within the interval specified, else false.
      * Params:
      * string mytimeInterval the numeric value with space then time type.
@@ -261,15 +232,16 @@ class DTimeHelper : DHelper {
      * @param \UIM\Chronos\DChronosDate|\Json dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string timezone User"s timezone string or DateTimeZone object
      */
-                            bool wasWithinLast(
-                                string timeIntervalValue,
-                                DChronosDate | Json dateString,
-                                DateTimeZone | string timezone = null
-                            ) {
-                                return (new DateTime(dateString, timezone)).wasWithinLast(
-                                    timeIntervalValue);}
+    bool wasWithinLast(
+        string timeIntervalValue,/*  DChronosDate | */
+        Json dateString,/* DateTimeZone | */
+        string timezone = null
+    ) {
+        return (new DateTime(dateString, timezone)).wasWithinLast(
+            timeIntervalValue);
+    }
 
-                                /**
+    /**
      * Returns true if specified datetime is within the interval specified, else false.
      * Params:
      * string mytimeInterval the numeric value with space then time type.
@@ -277,77 +249,84 @@ class DTimeHelper : DHelper {
      * @param \UIM\Chronos\DChronosDate|\Json dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string timezone User"s timezone string or DateTimeZone object
      */
-                                bool isWithinNext(
-                                    string timeIntervalValue,
-                                    DChronosDate | Json dateString,
-                                    DateTimeZone | string timezone = null
-                                ) {
-                                    return (new DateTime(dateString, timezone)).isWithinNext(
-                                        timeIntervalValue);}
+    bool isWithinNext(
+        string timeIntervalValue,/* DChronosDate | */
+        Json dateString,/* DateTimeZone | */
+        string timezone = null
+    ) {
+        return (new DateTime(dateString, timezone)).isWithinNext(
+            timeIntervalValue);
+    }
 
-                                    /**
+    /**
      * Returns gmt as a UNIX timestamp.
      * Params:
      * \UIM\Chronos\DChronosDate|\Jsonmystring UNIX timestamp, strtotime() valid string or DateTime object
      */
-                                    string gmt(DChronosDate | Jsonmystring = null) {
-                                        return (new DateTime(mystring)).toUnixString();
-                                    }
+    string gmt( /* DChronosDate | */ Jsonmystring = null) {
+        return (new DateTime(mystring)).toUnixString();
+    }
 
-                                    /**
+    /**
      * Returns a formatted date string, given either a Time instance,
      * UNIX timestamp or a valid strtotime() date string.
      *
      * This method is an alias for TimeHelper.i18nFormat().
      * Params:
-     * \UIM\Chronos\DChronosDate|\Jsonmydate UNIX timestamp, strtotime() valid string
+     * \UIM\Chronos\DChronosDate|\Json mydate UNIX timestamp, strtotime() valid string
      * or DateTime object (or a date format string).
      * @param array<int>|string|int myformat date format string (or a UNIX timestamp,
      * `strtotime()` valid string or DateTime object).
      * @param string myinvalid Default value to display on invalid dates
      * @param \DateTimeZone|string timezone User"s timezone string or DateTimeZone object
      */
-                                    string | int | false format(
-                                        DChronosDate | Jsonmydate,
-                                        string[] | int myformat = null,
-                                        string myinvalid = false,
-                                        DateTimeZone | string timezone = null
-                                    ) {
-                                        return _i18nFormat(mydate, myformat, myinvalid, timezone);
-                                    }
+    string | int | false format(
+        /* DChronosDate  */
+        Json mydate,
+        string[] | int myformat = null,
+        string myinvalid = false,/* DateTimeZone | */
+        string timezone = null
+    ) {
+        return _i18nFormat(mydate, myformat, myinvalid, timezone);
+    }
 
-                                    /**
+    /**
      * Returns a formatted date string, given either a Datetime instance,
      * UNIX timestamp or a valid strtotime() date string.
      * Params:
-     * \UIM\Chronos\DChronosDate|\Jsonmydate UNIX timestamp, strtotime() valid string or DateTime object
+     * \UIM\Chronos\DChronosDate|\Json mydate UNIX timestamp, strtotime() valid string or DateTime object
      * @param string[]|int myformat Intl compatible format string.
      * @param string myinvalid Default value to display on invalid dates
      * @param \DateTimeZone|string timezone User"s timezone string or DateTimeZone object
      */
-                                    string | int | false i18nFormat(
-                                        DChronosDate | Jsonmydate,
-                                        string[] | int myformat = null,
-                                        string myinvalid = false,
-                                        DateTimeZone | string timezone = null
-                                    ) {
-                                        if (mydate.isNull) {
-                                            return myinvalid;}
-                                            timezone = _getTimezone(timezone);
+    string /* | int | false */ i18nFormat(
+        /* DChronosDate | */
+        Jso mydate,
+        string[] | int myformat = null,
+        string myinvalid = false,/* DateTimeZone | */
+        string timezone = null
+    ) {
+        if (mydate.isNull) {
+            return myinvalid;
+        }
+        timezone = _getTimezone(timezone);
 
-                                                try {
-                                                    mytime = new DateTime(mydate);
+        try {
+            mytime = new DateTime(mydate);
 
-                                                        return mytime.i18nFormat(myformat, timezone);
-                                                } catch (Exception mye) {
-                                                    if (myinvalid == false) {
-                                                        throw mye;}
-                                                        return myinvalid;}
-                                                    }
+            return mytime.i18nFormat(myformat, timezone);
+        } catch (Exception mye) {
+            if (myinvalid == false) {
+                throw mye;
+            }
+            return myinvalid;
+        }
+    }
 
-                                                    /**
+    /**
      * Event listeners.
      */
-                                                    IEvent[] implementedEvents() {
-                                                        return null;}
-                                                    }
+    IEvent[] implementedEvents() {
+        return null;
+    }
+}

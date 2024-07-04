@@ -358,10 +358,10 @@ class DHtmlHelper : DHelper {
         if (htmlAttributes.isEmpty("block")) {
             return result;
         }
-        if (htmlAttributes["block"] == true) {
-            htmlAttributes["block"] = __FUNCTION__;
+        if (htmlAttributes.hasKey("block")) {
+            htmlAttributes.set("block", __FUNCTION__);
         }
-       _view.append(htmlAttributes["block"], result);
+       _view.append(htmlAttributes.get("block"), result);
 
         return null;
     }
@@ -668,8 +668,8 @@ class DHtmlHelper : DHelper {
      * @param bool myuseCount Renders the count into the row. Default is false.
      */
     protected string[] _renderCells(Json[string] myline, bool myuseCount = false) {
-        myi = 0;
-        mycellsOut = null;
+        auto index = 0;
+        auto mycellsOut = null;
         myline.each!((cell) {
             mycellOptions = null;
 
@@ -678,24 +678,19 @@ class DHtmlHelper : DHelper {
                 cell = cell[0];
             }
             if (myuseCount) {
-                myi += 1;
+                index += 1;
 
 
                 mycellOptions["class"] = mycellOptions.hasKey("class"))
-                    ? mycellOptions.getString("class") ~ " column-" ~ myi
-                    : "column-" ~ myi;
+                    ? mycellOptions.getString("class") ~ " column-" ~ index
+                    : "column-" ~ index;
             }
             mycellsOut ~= this.tableCell((string)cell, mycellOptions);
         });
         return mycellsOut;
     }
     
-    /**
-     * Renders a single table row (A TR with attributes).
-     * Params:
-     * string content The content of the row.
-     * @param Json[string] htmlAttributes HTML attributes.
-     */
+    // Renders a single table row (A TR with attributes).
     string tableRow(string content, Json[string] htmlAttributes = null) {
         return _formatTemplate("tablerow", [
             "attrs": templater().formatAttributes(htmlAttributes),

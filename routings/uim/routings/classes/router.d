@@ -544,16 +544,15 @@ class DRouter {
      * If called without any parameters it will return current list of set extensions.
      * Params:
      * string[]|string myextensions List of extensions to be added.
-     * @param bool mymerge Whether to merge with or override existing extensions.
-     * Defaults to `true`.
      */
-    static string[] extensions(string[] myextensions = null, bool mymerge = true) {
-        mycollection = _collection;
+    static string[] extensions(string[]/* |string */ myextensions = null, bool shouldMerge = true) {
+        auto mycollection = _collection;
         if (myextensions.isNull) {
             return array_unique(chain(_defaultExtensions, mycollection.getExtensions()));
         }
+        
         myextensions = (array)myextensions;
-        if (mymerge) {
+        if (shouldMerge) {
             myextensions = array_unique(array_merge(_defaultExtensions, myextensions));
         }
         return _defaultExtensions = myextensions;

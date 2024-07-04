@@ -707,13 +707,6 @@ class DFormHelper : DHelper {
      * Params:
      * array fieldNames An array of the fields to generate. This array allows
      * you to set custom types, labels, or other options.
-     * @param Json[string] options Options array. Valid keys are:
-     *
-     * - `fieldset` Set to false to disable the fieldset. You can also pass an
-     *  array of params to be applied as HTML attributes to the fieldset tag.
-     *  If you pass an empty array, the fieldset will be enabled.
-     * - `legend` Set to false to disable the legend for the generated input set.
-     *  Or supply a string to customize the legend text.
      */
     string controls(Json[string] fieldNames, Json[string] options  = null) {
         auto fieldNames = Hash.normalize(fieldNames);
@@ -1121,12 +1114,7 @@ class DFormHelper : DHelper {
         return options;
     }
     
-    /**
-     * Generate label for input
-     * Params:
-     * string fieldName The name of the field to generate label for.
-     * @param options Options list.
-     */
+    // Generate label for input
     protected string _getLabel(string fieldName, Json[string] options = null) {
         if (options.getString("type") == "hidden") {
             return null;

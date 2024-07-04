@@ -45,13 +45,8 @@ class DInflectedRoute : DRoute {
     /**
      * Underscores the prefix, controller and plugin params before passing them on to the
      * parent class
-     * Params:
-     * Json[string] url Array of parameters to convert to a string.
-     * @param Json[string] mycontext An array of the current request context.
-     * Contains information such as the current host, scheme, port, and base
-     * directory.
      */
-    string match(Json[string] url, Json[string] mycontext= null) {
+    string match(Json[string] url, Json[string] mycontext = null) {
         url = _underscore(url);
         if (_inflectedDefaults.isNull) {
             this.compile();

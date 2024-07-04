@@ -69,9 +69,9 @@ class DProgressHelper { // } : Helper {
      * Json[string] commandArguments The arguments/options to use when outputing the progress bar.
      */
   void output(Json[string] commandArguments) {
-    commandArguments.merge(["callback": Json(null)]);
+    commandArguments.mergeKeys(["callback"], Json(null));
     if (commandArguments.hasKey(0)) {
-      commandArguments["callback"] = commandArguments[0];
+      commandArguments.set("callback", commandArguments[0]);
     }
     if (!commandArguments["callback"] || !isCallable(commandArguments["callback"])) {
       throw new DInvalidArgumentException("Callback option must be a callable.");

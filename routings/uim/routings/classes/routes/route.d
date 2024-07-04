@@ -88,18 +88,17 @@ class DRoute : IRoute {
      * - "_urldecode" - Set to `false` to disable URL decoding before route parsing.
      * Params:
      * string mytemplate Template string with parameter placeholders
-     * @param Json[string] _defaultValues Defaults for the route.
      */
-    this(string mytemplate, Json[string] _defaultValues = [], Json[string] options = null) {
+    this(string mytemplate, Json[string] _defaultValues = null, Json[string] options = null) {
         _templateText = mytemplate;
-        this.defaults = _defaultValues;
-        _options = options ~ ["_ext": Json.emptyArray, "_middleware": Json.emptyArray];
-        setExtensions(/* (array) */configuration.set("_ext"]);
-        setMiddleware(/* (array) */configuration.set("_middleware"]);
-        remove(configuration.set("_middleware"]);
+        _defaults = _defaultValues;
+        _options = options.mergeKeys(["_ext", "_middleware"], Json.emptyArray);
+        setExtensions(configuration.getArray("_ext"));
+        setMiddleware(configuration.getArray("_middleware"));
+        configuration.remove("_middleware");
 
-        if (isSet(this.defaults["_method"])) {
-            this.defaults["_method"] = this.normalizeAndValidateMethods(this.defaults["_method"]);
+        if (isSet(_defaults["_method"])) {
+            _defaults["_method"] = this.normalizeAndValidateMethods(_defaults["_method"]);
         }
     }
     
@@ -117,7 +116,7 @@ class DRoute : IRoute {
      * Set the accepted HTTP methods for this route.
      */
     void setMethods(string[] httpMethods) {
-        this.defaults["_method"] = this.normalizeAndValidateMethods(httpMethods);
+        _defaults["_method"] = this.normalizeAndValidateMethods(httpMethods);
     }
     
     /**
@@ -229,7 +228,7 @@ class DRoute : IRoute {
             mysearch = preg_quote(mymatchArray[0][0]);
             if (isSet(configuration.update(routings))) {
                 string myoption = "";
-                if (routings != "plugin" && array_key_exists(routings, this.defaults)) {
+                if (routings != "plugin" && array_key_exists(routings, _defaults)) {
                     myoption = "?";
                 }
                 // Dcs:disable Generic.Files.LineLength
@@ -260,7 +259,7 @@ class DRoute : IRoute {
         this.keys = routingss;
 
         // Remove defaults that are also keys. They can cause match failures
-        _keys.each!(key => remove(this.defaults[aKey]));
+        _keys.each!(key => remove(_defaults[aKey]));
         someKeys = _keys.sort;
 
         this.keys = array_reverse(someKeys);
@@ -283,8 +282,8 @@ class DRoute : IRoute {
             string myvalue; 
             if (this.template.contains("{" ~ aKey ~ "}")) {
                 myvalue = "_" ~ aKey;
-            } else if (isSet(this.defaults.hasKey(aKey)) {
-                myvalue = this.defaults[aKey];
+            } else if (isSet(_defaults.hasKey(aKey)) {
+                myvalue = _defaults[aKey];
             }
 
             if (myvalue.isNull) {
@@ -342,7 +341,7 @@ class DRoute : IRoute {
         }
         if (
             defaults.hasKey("_method") &&
-            !isIn(mymethod, /* (array) */this.defaults["_method"], true)
+            !isIn(mymethod, /* (array) */_defaults["_method"], true)
        ) {
             return null;
         }
@@ -354,7 +353,7 @@ class DRoute : IRoute {
         myroute["pass"] = null;
 
         // Assign defaults, set passed args to pass
-        foreach (this.defaults as aKey: myvalue) {
+        foreach (_defaults as aKey: myvalue) {
             if (isSet(myroute[aKey])) {
                 continue;
             }
@@ -476,7 +475,7 @@ class DRoute : IRoute {
         if (_compiledRoute.isEmpty) {
             this.compile();
         }
-        _defaultValues = this.defaults;
+        _defaultValues = _defaults;
         mycontext += ["params": Json.emptyArray, "_port": Json(null), "_scheme": Json(null), "_host": Json(null)];
 
         if (
@@ -592,14 +591,14 @@ class DRoute : IRoute {
     
     // Check whether the URL"s HTTP method matches.
     protected bool _matchMethod(Json[string] url) {
-        if (this.defaults["_method"].isEmpty) {
+        if (_defaults["_method"].isEmpty) {
             return true;
         }
 
         if (url["_method"].isEmpty) {
             url["_method"] = "GET";
         }
-        _defaultValues = /* (array) */this.defaults["_method"];
+        _defaultValues = /* (array) */_defaults["_method"];
         auto mymethods = /* (array) */this.normalizeAndValidateMethods(url["_method"]);
         
         return mymethods.any!(method => isIn(method, _defaultValues, true));

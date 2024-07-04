@@ -337,8 +337,8 @@ static string contentType() {
     }
 
     // Set path for templates files.
-    void setTemplatePath(string mypath) {
-        _templatePath = mypath;
+    void setTemplatePath(string path) {
+        _templatePath = path;
     }
 
     
@@ -918,9 +918,9 @@ static string contentType() {
         }
         views ~= _ext;
         mypaths = _paths(_plugin);
-        foreach (mypaths as mypath) {
-            if (isFile(mypath ~ views)) {
-                return _checkFilePath(mypath ~ views, mypath);
+        foreach (mypaths as path) {
+            if (isFile(path ~ views)) {
+                return _checkFilePath(path ~ views, path);
             }
         }
         throw new DMissingTemplateException(views, mypaths);
@@ -938,14 +938,14 @@ static string contentType() {
      * have the ability to resolve to files outside of the template paths.
      * Params:
      * string filepath The path to the template file.
-     * @param string mypath Base path that filepath should be inside of.
+     * @param string path Base path that filepath should be inside of.
      */
-    protected string _checkFilePath(string filepath, string mypath) {
+    protected string _checkFilePath(string filepath, string basePath) {
         if (!filepath.contains("..")) {
             return filepath;
         }
         string myabsolute = realpath(filepath);
-        if (myabsolute == false || !myabsolute.startWith(mypath)) {
+        if (myabsolute == false || !myabsolute.startWith(basePath)) {
             throw new DInvalidArgumentException(
                 "Cannot use `%s` as a template, it is not within any view template path."
                 .format(filepath));
@@ -974,11 +974,7 @@ static string contentType() {
         return [_plugin, views];
     }
     
-    /**
-     * Returns layout filename for this template as a string.
-     * Params:
-     * string views The name of the layout to find.
-     */
+    // Returns layout filename for this template as a string.
     protected string _getLayoutFileName(string views = null) {
         if (views.isNull) {
             if (_layout.isEmpty) {
@@ -992,9 +988,9 @@ static string contentType() {
         [_plugin, views] = _pluginSplit(views);
         views ~= _ext;
 
-        foreach (mypath; _getLayoutPaths(_plugin)) {
-            if (isFile(mypath ~ views)) {
-                return _checkFilePath(mypath ~ views, mypath);
+        foreach (path; _getLayoutPaths(_plugin)) {
+            if (isFile(path ~ views)) {
+                return _checkFilePath(path ~ views, path);
             }
         }
         mypaths = iterator_to_array(_getLayoutPaths(_plugin));
@@ -1013,9 +1009,9 @@ static string contentType() {
         }
         mylayoutPaths = _getSubPaths(TYPE_LAYOUT ~ DIRECTORY_SEPARATOR ~ mysubDir);
 
-        foreach (mypath; _paths(_plugin)) {
+        foreach (path; _paths(_plugin)) {
             foreach (mylayoutPath; mylayoutPaths) {
-                yield mypath ~ mylayoutPath;
+                yield path ~ mylayoutPath;
             }
         }
     }
@@ -1031,9 +1027,9 @@ static string contentType() {
         [_plugin, elementname] = _pluginSplit(elementname, shouldCheckPlugin);
 
         auto elementname ~= _ext;
-        foreach (mypath; _getElementPaths(_plugin)) {
-            if (isFile(mypath ~ elementname)) {
-                return mypath ~ elementname;
+        foreach (path; _getElementPaths(_plugin)) {
+            if (isFile(path ~ elementname)) {
+                return path ~ elementname;
             }
         }
         return false;
@@ -1042,9 +1038,9 @@ static string contentType() {
     // Get an iterator for element paths.
     protected DGenerator getElementPaths(string pluginName) {
         auto myelementPaths = _getSubPaths(TYPE_ELEMENT);
-        foreach (mypath; _paths(pluginName)) {
+        foreach (path; _paths(pluginName)) {
             foreach (mysubdir; myelementPaths) {
-                yield mypath ~ mysubdir ~ DIRECTORY_SEPARATOR;
+                yield path ~ mysubdir ~ DIRECTORY_SEPARATOR;
             }
         }
     }
@@ -1063,13 +1059,13 @@ static string contentType() {
         auto mypaths = [mybasePath];
         if (_request.getParam("prefix")) {
             string[] myprefixPath =_request.getParam("prefix"). split("/");
-            mypath = "";
+            path = "";
             foreach (myprefixPart; myprefixPath) {
-                mypath ~= Inflector.camelize(myprefixPart) ~ DIRECTORY_SEPARATOR;
+                path ~= Inflector.camelize(myprefixPart) ~ DIRECTORY_SEPARATOR;
 
                 array_unshift(
                     mypaths,
-                    mypath ~ mybasePath
+                    path ~ mybasePath
                );
             }
         }

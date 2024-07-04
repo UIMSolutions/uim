@@ -390,16 +390,15 @@ class DFormProtector {
      * @param string aintKeyMessage Message string if unexpected found in data fields indexed by int (not protected)
      * @param string astringKeyMessage Message string if tampered found in
      * data fields indexed by string (protected).
-     * @param string amissingMessage Message string if missing field
      */
     protected string[] debugCheckFields(
         Json[string] someDataFields,
         Json[string] expectedFields= null,
         string aintKeyMessage = "",
         string astringKeyMessage = "",
-        string amissingMessage = ""
+        string missingMessage = ""
    ) {
-        auto messages = this.matchExistingFields(someDataFields, expectedFields,  anIntKeyMessage, stringKeyMessage);
+        auto messages = matchExistingFields(someDataFields, expectedFields,  anIntKeyMessage, stringKeyMessage);
         auto expectedFieldsMessage = this.debugExpectedFields(expectedFields, missingMessage);
         if (!expectedFieldsMessage.isNull) {
             messages ~= expectedFieldsMessage;
@@ -447,9 +446,9 @@ class DFormProtector {
      * Generate debug message for the expected fields
      * Params:
      * Json[string] expectedFields Expected fields
-     * @param string amissingMessage Message template
+     * @param string missingMessage Message template
      */
-    protected string debugExpectedFields(Json[string] expectedFields= null, string amissingMessage= null) {
+    protected string debugExpectedFields(Json[string] expectedFields= null, string missingMessage= null) {
         if (count(expectedFields) == 0) {
             return null;
         }

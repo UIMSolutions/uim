@@ -174,21 +174,15 @@ class DMarshaller {
             return myentity;
         }
 
-        /**
-     * Returns the validation errors for a data set based on the passed options
-     * Params:
-     * Json[string] data The data to validate.
-     * @param string myvalidator Validator name or `true` for default validator.
-     * @param bool myisNew Whether it is a new DORMEntity or one to be updated.
-     */
-        protected Json[string] _validate(Json[string] data, string myvalidator, bool myisNew) {
-            if (!myvalidator) {
+        // Returns the validation errors for a data set based on the passed options
+        protected Json[string] _validate(Json[string] data, string validatorName, bool isNew) {
+            if (!validatorName) {
                 return null;
             }
-            if (myvalidator == true) {
-                myvalidator = null;
+            if (validatorName == true) {
+                validatorName = null;
             }
-            return _table.getValidator(myvalidator).validate(mydata, myisNew);
+            return _table.getValidator(validatorName).validate(mydata, isNew);
         }
 
         /**

@@ -213,16 +213,9 @@ abstract class DTestCase : DBaseTestCase {
      * Json[string] plugins List of Plugins to load.
      */
     BaseApplication loadPlugins(Json[string] plugins= null) {
-        /**
-         * @psalm-suppress MissingTemplateParam
-         */
         app = new class (""): BaseApplication
         {
-            /**
-             * @param \UIM\Http\MiddlewareQueue middlewareQueue
-             */
-            MiddlewareQueue middleware(MiddlewareQueue middlewareQueue): 
-            {
+            MiddlewareQueue middleware(DMiddlewareQueue middlewareQueue) {
                 return middlewareQueue;
             }
         };

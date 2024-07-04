@@ -46,8 +46,6 @@ class DBelongsToAssociation : DAssociation {
      * Handle cascading deletes.
      *
      * BelongsTo associations are never cleared in a cascading delete scenario.
-     *
-     * @param DORMDatasource\IORMEntity anEntity The entity that started the cascaded delete.
      */
     bool cascadeRemove(IORMEntity anEntity, Json[string] options = null) {
       return true;

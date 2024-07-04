@@ -47,8 +47,6 @@ class DSecurity {
      * @param string myalgorithm Hashing algo to use (i.e. sha1, sha256 etc.).
      * Can be any valid algo included in list returned by hash_algos().
      * If no value is passed the type specified by `Security.defaultHashType` is used.
-     * @param string salt If true, automatically prepends the value returned by
-     * Security.getSalt() to mystring.
      */
     static string hash(string mystring, string hashType = null, string salt = null) {
         string hashType = hashType.isEmpty ? defaultHashType : hashType.lower;

@@ -253,11 +253,9 @@ mixin template TIntegrationTest() {
      * The response of the dispatched request will be stored as
      * a property. You can use various assert methods to check the
      * response.
-     * Params:
-     * @param string[] adata The data for the request.
      */
-    void post(string[] urlToRequest, string[] adata= null) {
-        _sendRequest(url, "POST", someData);
+    void post(string[] urlToRequest, string[] data = null) {
+        _sendRequest(urlToRequest, "POST", data);
     }
 
     /**
@@ -268,8 +266,8 @@ mixin template TIntegrationTest() {
      * Params:
      * @param string[] adata The data for the request.
      */
-    void patch(string[] urlToRequest, string[] adata= null) {
-        _sendRequest(url, "PATCH", someData);
+    void patch(string[] urlToRequest, string[] data = null) {
+        _sendRequest(urlToRequest, "PATCH", data);
     }
 
     /**
@@ -280,8 +278,8 @@ mixin template TIntegrationTest() {
      * Params:
      * @param string[] adata The data for the request.
      */
-    void put(string[] urlToRequest, string[] adata= null) {
-        _sendRequest(url, "PUT", someData);
+    void put(string[] urlToRequest, string[] data = null) {
+        _sendRequest(urlToRequest, "PUT", someData);
     }
 
     /**
@@ -289,10 +287,8 @@ mixin template TIntegrationTest() {
      *
      * The response of the dispatched request will be stored as
      * a property. You can use various assert methods to check the response.
-     * Params:
-     * string[] aurl The URL to request.
      */
-    bool remove(string[] aurl) {
+    bool remove(string[] url) {
         _sendRequest(url, "DELETE");
         return true;
     }
@@ -312,10 +308,8 @@ mixin template TIntegrationTest() {
      *
      * The response of the dispatched request will be stored as
      * a property. You can use various assert methods to check the response.
-     * Params:
-     * string[] aurl The URL to request.
      */
-    void options(string[] aurl) {
+    void options(string[] url) {
         _sendRequest(url, "OPTIONS");
     }
 
@@ -323,13 +317,8 @@ mixin template TIntegrationTest() {
      * Creates and send the request into a Dispatcher instance.
      *
      * Receives and stores the response for future inspection.
-     * Params:
-     * string[] aurl The URL
-     * @param string httpMethod The HTTP method
-     * @param string[] adata The request data.
      */
-    protected void _sendRequest(string[] url, string httpMethod, string[] adata = [
-        ]) {
+    protected void _sendRequest(string[] url, string httpMethod, string[] adata = null) {
         dispatcher = _makeDispatcher();
         auto resolvedUrl = dispatcher.resolveUrl(url);
 

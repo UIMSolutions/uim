@@ -122,9 +122,6 @@ mixin template TInstanceConfig() {
      * ```
      * this.configShallow(["one": 'value", "another": 'value"]);
      * ```
-     * Params:
-     * Json[string]|string keyToSet The key to set, or a complete array of configs.
-     * @param mixed|null valueToSet The value to set.
      */
     void configShallow(string[] keyToSet, Json valueToSet = null) {
         if (!_configInitialized) {

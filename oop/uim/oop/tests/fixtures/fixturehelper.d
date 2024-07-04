@@ -167,12 +167,7 @@ class DFixtureHelper {
         });
     } */
     
-    /**
-     * Sort fixtures with foreign constraints last if possible, otherwise returns null.
-     * Params:
-     * \UIM\Database\Connection aConnection Database connection
-     * @param array<\UIM\Datasource\IFixture> fixtures Database fixtures
-     */
+    // Sort fixtures with foreign constraints last if possible, otherwise returns null.
     // TODO
     /* protected Json[string] sortByConstraint(Connection aConnection, Json[string] fixtures) {
         constrained = null;

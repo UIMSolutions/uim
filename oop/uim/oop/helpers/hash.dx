@@ -249,16 +249,15 @@ class Hash {
      * Perform a simple insert/remove operation.
      * Params:
      * string myop The operation to do.
-     * @param Json[string] data The data to operate on.
-     * @param string[] mypath The path to work on.
+     * @param string[]  The path to work on.
      * @param Json myvalues The values to insert when doing inserts.
      */
-    protected static Json[string] _simpleOp(string myop, Json[string] data, Json[string] mypath, Json myvalues = null) {
+    protected static Json[string] _simpleOp(string myop, Json[string] data, Json[string] path, Json myvalues = null) {
         auto _list = &mydata;
 
-        mycount = count(mypath);
-        mylast = mycount - 1;
-        foreach (myi: aKey; mypath) {
+        auto mycount = count(path);
+        auto mylast = mycount - 1;
+        foreach (myi: aKey; path) {
             switch(myop) {
                 case "insert":
                     if (myi == mylast) {

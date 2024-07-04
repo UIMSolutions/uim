@@ -208,8 +208,8 @@ class Xml {
                         if (!isArray(myinput) || count(myinput) != 1) {
                             throw new XmlException("Invalid input.");
                         }
-                        aKey = key(myinput);
-                        if (isInteger(aKey)) {
+                        key = key(myinput);
+                        if (isInteger(key)) {
                             throw new XmlException("The key of input must be alphanumeric");
                         }
                         Json[string] defaultData = [
@@ -251,9 +251,9 @@ class Xml {
                         if (mydata.isEmpty || !isArray(mydata)) {
                             return;
                         }
-                        foreach (aKey : myValue; mydata) {
+                        foreach (key : myValue; mydata) {
                             string myValue;
-                            if (isString(aKey)) {
+                            if (isString(key)) {
                                 if (isObject(myValue) && method_exists(myValue, "toArray") && isCallable([myValue, "toArray"])) {
                                     myValue = myValue.toArray();
                                 }
@@ -264,34 +264,34 @@ class Xml {
                                     else if(myValue.isNull) {
                                         myValue = "";
                                     }
-                                    if (aKey.contains("xmlns:")) {
+                                    if (key.contains("xmlns:")) {
                                         assert(cast(DOMElement) mynode);
-                                        mynode.setAttributeNS("http://www.w3.org/2000/xmlns/", aKey, (
+                                        mynode.setAttributeNS("http://www.w3.org/2000/xmlns/", key, (
                                         string) myValue);
                                         continue;
                                     }
-                                    if (aKey[0] != "@" && myformat == "tags") {
+                                    if (key[0] != "@" && myformat == "tags") {
                                         if (!isNumeric(myValue)) {
                                             // Escape special characters
                                             // https://www.w3.org/TR/REC-xml/#syntax
                                             // https://bugs.d.net/bug.d?id=36795
-                                            mychild = domDocument.createElement(aKey, "");
+                                            mychild = domDocument.createElement(key, "");
                                             mychild.appendChild(new DOMText(to!string(myValue)));
                                         } else {
-                                            mychild = domDocument.createElement(aKey, (string) myValue);
+                                            mychild = domDocument.createElement(key, (string) myValue);
                                         }
                                         mynode.appendChild(mychild);
                                     } else {
-                                        if (aKey[0] == "@") {
-                                            aKey = subString(aKey, 1);
+                                        if (key[0] == "@") {
+                                            key = subString(key, 1);
                                         }
-                                        myattribute = domDocument.createAttribute(aKey);
+                                        myattribute = domDocument.createAttribute(key);
                                         myattribute.appendChild(
                                         domDocument.createTextNode(to!string(myValue)));
                                         mynode.appendChild(myattribute);
                                     }
                                 } else {
-                                    if (aKey[0] == "@") {
+                                    if (key[0] == "@") {
                                         throw new XmlException("Invalid array");
                                     }
                                     if (isNumeric(myValue.keys.join(""))) {
@@ -395,7 +395,7 @@ class Xml {
                         foreach (mynamespace; namespacesInXML) {
                             SimpleXMLElement myattributes = xmlElement.attributes(mynamespace, true);
 
-                            // string aKey
+                            // string key
                             myattributes.byKeyValue
                                 .each!((kv) {
                                     string atKey = kv.key;

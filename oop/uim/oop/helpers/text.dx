@@ -197,12 +197,11 @@ class DText {
      * by Text.insert().
      * Params:
      * string mystr String to clean.
-     * @param Json[string] options Options list.
      */
-    static string cleanInsert(string mystr, Json[string] options = null) {
-        auto myclean = options.get("clean"];
+    static string cleanInsert(string textToClean, Json[string] options = null) {
+        auto myclean = options.get("clean");
         if (!myclean) {
-            return mystr;
+            return textToClean;
         }
         if (myclean == true) {
             myclean = ["method": "text"];
@@ -223,10 +222,10 @@ class DText {
                         myclean["word"],
                         preg_quote(options["after"], "/")
                     );
-                mystr = (string)preg_replace(mykleenex, myclean["replacement"], mystr);
+                textToClean = (string)preg_replace(mykleenex, myclean["replacement"], textToClean);
                 if (myclean["andText"]) {
                     options["clean"] = ["method": "text"];
-                    mystr = cleanInsert(mystr, options);
+                    textToClean = cleanInsert(textToClean, options);
                 }
                 break;
             case "text":
@@ -248,10 +247,10 @@ class DText {
                     myclean["word"],
                     preg_quote(options["after"], "/")
                 );
-                mystr = (string)preg_replace(mykleenex, myclean["replacement"], mystr);
+                textToClean = (string)preg_replace(mykleenex, myclean["replacement"], textToClean);
                 break;
         }
-        return mystr;
+        return textToClean;
     }
     
     /**

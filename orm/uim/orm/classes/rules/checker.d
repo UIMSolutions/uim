@@ -60,13 +60,12 @@ class DRulesChecker { // }: BaseRulesChecker {
      * Params:
      * string[]|string fieldName The field or list of fields to check for existence by
      * primary key lookup in the other table.
-     * @param \ORM\Table|\ORM\Association|string mytable The table name where the fields existence will be checked.
      * @param Json[string]|string errorMessage The error message to show in case the rule does not pass. Can
      * also be an array of options. When an array, the "message" key can be used to provide a message.
      */
     DRuleInvoker existsIn(
         string[] fieldName,
-        Table|Association|string mytable,
+        DORMTable/* |Association|string */ mytable,
         string[] errorMessage = null
    ) {
         options = null;

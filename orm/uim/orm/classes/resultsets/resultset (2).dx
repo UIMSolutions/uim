@@ -269,11 +269,9 @@ class DResultset : IResultset {
     /**
      * Calculates the list of associations that should get eager loaded
      * when fetching each record
-     *
-     * @param DORMQuery query The query from where to derive the associations
      */
-    protected void _calculateAssociationMap(Query query) {
-        map = query.getEagerLoader().associationsMap(_defaultTable);
+    protected void _calculateAssociationMap(DORMQuery query) {
+        auto map = query.getEagerLoader().associationsMap(_defaultTable);
         _matchingMap = (new DCollection(map))
             .match(["matching": true.toJson])
             .indexBy("alias")

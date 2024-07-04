@@ -85,28 +85,27 @@ class DLinkConstraint {
      * \ORM\Association myassociation The association for which to count links.
      * @param \UIM\Datasource\IORMEntity myentity The entity involved in the operation.
      */
-    protected int _countLinks(Association myassociation, IORMEntity myentity) {
-        mysource = myassociation.source();
-
-        myprimaryKey = (array)mysource.primaryKeys();
+    protected int _countLinks(DAssociation association, IORMEntity ormEntity) {
+        auto associationSource = association.source();
+        auto primaryKeys = mysource.primaryKeys();
         if (!myentity.has(myprimaryKey)) {
             throw new DatabaseException(
                 "LinkConstraint rule on `%s` requires all primary key values for building the counting " .
                 "conditions, expected values for `(%s)`, got `(%s)`."
                 .format(mysource.aliasName(),
-                join(", ", myprimaryKey),
-                join(", ", myentity.extract(myprimaryKey))
+                primaryKeys.join(", "),
+                myentity.extract(primaryKeys).join(", ")
            ));
         }
-        myaliasedPrimaryKey = _aliasFields(myprimaryKey, mysource);
+        myaliasedPrimaryKey = _aliasFields(primaryKeys, associationSource);
         myconditions = _buildConditions(
             myaliasedPrimaryKey,
-            myentity.extract(myprimaryKey)
+            myentity.extract(primaryKeys)
        );
 
         return mysource
             .find()
-            .matching(myassociation.name)
+            .matching(association.name)
             .where(myconditions)
             .count();
     }

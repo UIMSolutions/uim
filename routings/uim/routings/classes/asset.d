@@ -36,17 +36,6 @@ class DAsset {
      *
      * Depending on options passed provides full URL with domain name. Also calls
      * `Asset.assetTimestamp()` to add timestamp to local files.
-     * Params:
-     * string aPath Path string.
-     * @param Json[string] options Options array. Possible keys:
-     * `fullBase` Return full URL with domain name
-     * `pathPrefix` Path prefix for relative URLs
-     * `ext` Asset extension to append
-     * `plugin` False value will prevent parsing path as a plugin
-     * `timestamp` Overrides the value of `Asset.timestamp` in Configure.
-     *      Set to false to skip timestamp generation.
-     *      Set to true to apply timestamps when debug is true. Set to "force" to always
-     *      enable timestamping regardless of debug value.
      */
     static string cssUrl(string path, Json[string] options = null) {
         auto pathPrefix = configuration.get("App.cssBaseUrl");
@@ -168,15 +157,12 @@ class DAsset {
      * Adds a timestamp to a file based resource based on the value of `Asset.timestamp` in
      * Configure. If Asset.timestamp is true and debug is true, or Asset.timestamp == "force"
      * a timestamp will be added.
-     * Params:
-     * string timestampPath The file path to timestamp, the path must be inside `App.wwwRoot` in Configure.
-     * @param string timestamp If set will overrule the value of `Asset.timestamp` in Configure.
      */
     static string assetTimestamp(string timestampPath, string timestamp = null) {
         if (somePath.contains("?")) {
             return somePath;
         }
-        timestamp ??= configuration.get("Asset.timestamp");
+        timestamp = timestamp.ifNull(configuration.getString("Asset.timestamp"));
         timestampEnabled = timestamp == "force" || (timestamp == true && configuration.get("debug"));
         if (timestampEnabled) {
             string filepath = /* (string) */preg_replace(
@@ -196,7 +182,7 @@ class DAsset {
             }
             if (Plugin.isLoaded(plugin)) {
                 remove(segments[0]);
-                pluginPath = Plugin.path(plugin)
+                auto pluginPath = Plugin.path(plugin)
                     ~ "webroot"
                     ~ DIRECTORY_SEPARATOR
                     ~ join(DIRECTORY_SEPARATOR, segments);

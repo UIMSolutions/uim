@@ -1145,22 +1145,21 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * ```
      * Params:
      * \ORM\Query\SelectQuery myquery The query to find with
-     * @param \/*Closure|*/ string[]|string mykeyField The path to the key field.
-     * @param \/*Closure|*/ string[]|string myparentField The path to the parent field.
-     * @param string mynestingKey The key to nest children under.
+     * @param \/*Closure|* / string[]|string mykeyField The path to the key field.
+     * @param \/*Closure|* / string[]|string myparentField The path to the parent field.
      */
     SelectQuery findThreaded(
         SelectQuery myquery,
-       /* Closure */ string[]|string mykeyField = null,
-       /* Closure */ string[]|string myparentField = "parent_id",
-        string mynestingKey = "children"
+       /* Closure */ /* string[]| */string mykeyField = null,
+       /* Closure */ /* string[]| */string myparentField = "parent_id",
+        string nestingKey = "children"
    ) {
         mykeyField ??= this.primaryKeys();
 
         options = _setFieldMatchers(compact("keyField", "parentField"), ["keyField", "parentField"]);
 
         return myquery.formatResults(fn (ICollection results) =>
-            results.nest(options["keyField"], options["parentField"], mynestingKey));
+            results.nest(options["keyField"], options["parentField"], nestingKey));
     }
     
     /**

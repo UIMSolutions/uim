@@ -344,7 +344,6 @@ class DRouteBuilder {
      * string mytemplate The URL template to use.
      * @param string[] mytarget An array describing the target route parameters. These parameters
      * should indicate the plugin, prefix, controller, and action that this route points to.
-     * @param string routings The name of the route.
      */
     Route get(string mytemplate, string[] mytarget, string routings = null) {
         return _methodRoute("GET", mytemplate, mytarget, routings);

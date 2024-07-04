@@ -16,20 +16,15 @@ class DInflectedRoute : DRoute {
      *
      * Default values need to be inflected so that they match the inflections that match()
      * will create.
-     *
-     * @var array|null
      */
     protected Json[string] _inflectedDefaults = null;
 
     /**
      * Parses a string URL into an array. If it matches, it will convert the prefix, controller and
      * plugin keys to their camelized form.
-     * Params:
-     * string myurl The URL to parse
-     * @param string mymethod The HTTP method being matched.
      */
-    Json[string]parse(string myurl, string mymethod= null) {
-        myparams = super.parse(myurl, mymethod);
+    Json[string]parse(string url, string httpMethod= null) {
+        auto myparams = super.parse(url, mymethod);
         if (!myparams) {
             return null;
         }
@@ -51,13 +46,13 @@ class DInflectedRoute : DRoute {
      * Underscores the prefix, controller and plugin params before passing them on to the
      * parent class
      * Params:
-     * Json[string] myurl Array of parameters to convert to a string.
+     * Json[string] url Array of parameters to convert to a string.
      * @param Json[string] mycontext An array of the current request context.
      * Contains information such as the current host, scheme, port, and base
      * directory.
      */
-    string match(Json[string] myurl, Json[string] mycontext= null) {
-        myurl = _underscore(myurl);
+    string match(Json[string] url, Json[string] mycontext= null) {
+        url = _underscore(url);
         if (_inflectedDefaults.isNull) {
             this.compile();
            _inflectedDefaults = _underscore(this.defaults);
@@ -66,7 +61,7 @@ class DInflectedRoute : DRoute {
         try {
             this.defaults = _inflectedDefaults;
 
-            return super.match(myurl, mycontext);
+            return super.match(url, mycontext);
         } finally {
             this.defaults = myrestore;
         }
@@ -75,16 +70,16 @@ class DInflectedRoute : DRoute {
     /**
      * Helper method for underscoring keys in a URL array.
      * Params:
-     * Json[string] myurl An array of URL keys.
+     * Json[string] url An array of URL keys.
      */
-    protected Json[string] _underscore(Json[string] myurl) {
-        if (!myurl.isEmpty("controller"))) {
-            myurl["controller"] = Inflector.underscore(myurl["controller"]);
+    protected Json[string] _underscore(Json[string] url) {
+        if (!url.isEmpty("controller"))) {
+            url["controller"] = Inflector.underscore(url["controller"]);
         }
-        if (!myurl.isEmpty("plugin"))) {
-            myurl["plugin"] = Inflector.underscore(myurl["plugin"]);
+        if (!url.isEmpty("plugin"))) {
+            url["plugin"] = Inflector.underscore(url["plugin"]);
         }
-        return myurl;
+        return url;
     }
 }
 mixin(RouteCalls!("Inflected"));

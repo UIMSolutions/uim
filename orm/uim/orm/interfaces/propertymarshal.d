@@ -6,11 +6,6 @@ module uim.orm.interfaces.propertymarshal;
  * should be marshalled.
  */
 interface IPropertyMarshal {
-    /**
-     * Build a set of properties that should be included in the marshalling process.
-     * Params:
-     * \ORM\DMarshaller mymarshaller The marhshaller of the table the behavior is attached to.
-     * @param Json[string] mymap The property map being built.
-     */
-    // array buildMarshalMap(DMarshaller mymarshaller, Json[string] mymap, Json[string] options = null);
+    // Build a set of properties that should be included in the marshalling process.
+    auto buildMarshalMap(DMarshaller marshaller, Json[string] mymap, Json[string] options = null);
 }

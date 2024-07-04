@@ -114,10 +114,6 @@ class DValidation {
     /**
      * Checks that a string length is within specified range.
      * Spaces are included in the character count.
-     * Returns true if string matches value min, max, or between min and max,
-     * Params:
-     * @param int mymin Minimum value in range (inclusive)
-     * @param int mymax Maximum value in range (inclusive)
      */
     static bool lengthBetween(Json value, int minLength, int maxLength) {
         if (!isScalar(value)) {

@@ -55,10 +55,8 @@ mixin template TTranslateStrategy() {
      * Unset empty translations to avoid persistence.
      *
      * Should only be called if configuration.get("allowEmptyTranslations"] is false.
-     *
-     * @param DORMDatasource\IORMEntity anEntity The entity to check for empty translations fields inside.
      */
-    protected void unsetEmptyFields(entity) {
+    protected void unsetEmptyFields(IORMEntity entity) {
         /** @var array<DORMEntity> translations */
         auto translations = /* (array) */entity.get("_translations");
         foreach (locale, translation; translations) {

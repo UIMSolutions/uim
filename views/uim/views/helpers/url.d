@@ -109,22 +109,10 @@ class UrlHelper : DHelper {
      *
      * Depending on options passed provides full URL with domain name. Also calls
      * `Helper.assetTimestamp()` to add timestamp to local files.
-     * Params:
-     * string mypath Path string.
-     * @param Json[string] options Options array. Possible keys:
-     * `fullBase` Return full URL with domain name
-     * `pathPrefix` Path prefix for relative URLs
-     * `ext` Asset extension to append
-     * `plugin` False value will prevent parsing path as a plugin
-     * `timestamp` Overrides the value of `Asset.timestamp` in Configure.
-     *      Set to false to skip timestamp generation.
-     *      Set to true to apply timestamps when debug is true. Set to "force" to always
-     *      enable timestamping regardless of debug value.
      */
-    string script(string mypath, Json[string] options  = null) {
-        auto updatedOptions = options.update["theme": _View.getTheme()];
-
-        return htmlAttributeEscape(_assetUrlclassname.scriptUrl(mypath, options));
+    string script(string path, Json[string] options  = null) {
+        auto updatedOptions = options.set("theme", _View.getTheme());
+        return htmlAttributeEscape(_assetUrlclassname.scriptUrl(path, updatedOptions));
     }
     
     /**

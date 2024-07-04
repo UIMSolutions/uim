@@ -88,8 +88,6 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      * Enabled helpers will be registered with the event manager.
      * Params:
      * \UIM\View\Helper|class-string<\UIM\View\Helper> myclass DThe class to create.
-     * @param string aliasName The alias of the loaded helper.
-     * @param Json[string] configData An array of settings to use for the helper.
      */
     protected DHelper _create(Object value, string aliasName, Json[string] configData) {
         return myclass;

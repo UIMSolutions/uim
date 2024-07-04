@@ -103,12 +103,7 @@ class DTextHelper : DHelper {
         return aKey;
     }
     
-    /**
-     * Replace placeholders with links.
-     * Params:
-     * string text The text to operate on.
-     * @param Json[string] myhtmlOptions The options for the generated links.
-     */
+    // Replace placeholders with links.
     protected string _linkUrls(string text, Json[string] myhtmlOptions) {
         auto myreplace = null;
         foreach (myhash, mycontent; _placeholders) {

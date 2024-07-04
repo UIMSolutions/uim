@@ -86,14 +86,9 @@ class DHelper { // TODO }: DEventListener {
         return null;
     }
 
-    /**
-     * Returns a string to be used as onclick handler for confirm dialogs.
-     * Params:
-     * string myokCode Code to be executed after user chose "OK"
-     * @param string mycancelCode Code to be executed after user chose "Cancel"
-     */
-    protected string _confirm(string myokCode, string mycancelCode) {
-        return "if (confirm(this.dataset.confirmMessage)) { {myokCode} } {mycancelCode}";
+    // Returns a string to be used as onclick handler for confirm dialogs.
+    protected string _confirm(string okCode, string cancelCode) {
+        return "if (confirm(this.dataset.confirmMessage)) { {myokCode} } {cancelCode}";
     }
 
     // Adds the given class to the element options

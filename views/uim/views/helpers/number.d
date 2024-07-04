@@ -69,7 +69,6 @@ class DNumberHelper : DHelper {
      * - `escape` - Whether to escape html in resulting string
      * Params:
      * string|float mynumber Value to format.
-     * @param string mycurrency International currency name such as "USD", "EUR", "JPY", "CAD"
      */
     string currency(float value, string currencyName = null, Json[string] options  = null) {
         return currency(Number.currency(value, currencyName, options), currencyName, options);

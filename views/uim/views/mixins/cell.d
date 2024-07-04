@@ -34,36 +34,30 @@ mixin template TCell() {
      *  `cell("TagCloud.smallList", ["a1": "v1", "a2": "v2"])` maps to `View\Cell\TagCloud.smallList(v1, v2)`
      * @param Json[string] options Options for Cell"s constructor
      */
-    protected DCell cell(string mycell, Json[string] data = [], Json[string] options  = null) {
+    protected DCell cell(string mycell, Json[string] data = [], Json[string] options = null) {
         string[] myparts = mycell.split(".");
 
-            [mypluginAndCell, myaction] = count(myparts) == 2 
-                ? [myparts[0], myparts[1]]
-                : [myparts[0], "display"];
-                
+        [mypluginAndCell, myaction] = count(myparts) == 2
+            ? [myparts[0], myparts[1]] : [myparts[0], "display"];
+
         [myplugin] = pluginSplit(mypluginAndCell);
         myclassname = App.classname(mypluginAndCell, "View/Cell", "Cell");
 
         if (!myclassname) {
-            throw new DMissingCellException(["classname": mypluginAndCell ~ "Cell"]);
+            throw new DMissingCellException([
+                "classname": mypluginAndCell ~ "Cell"
+            ]);
         }
         options = ["action": myaction, "args": mydata] + options;
-
         return _createCell(myclassname, myaction, myplugin, options);
     }
-    
-    /**
-     * Create and configure the cell instance.
-     * Params:
-     * string myclassname The cell classname.
-     * @param string myaction The action name.
-     * @param string myplugin The plugin name.
-     */
-    protected DCell _createCell(string myclassname, string myaction, string pluginName, Json[string] options = null) {
-        Cell myinstance = new myclassname(this.request, this.response, getEventManager(), options);
 
-        mybuilder = myinstance.viewBuilder();
-        mybuilder.setTemplate(Inflector.underscore(myaction));
+    // Create and configure the cell instance.
+    protected DCell _createCell(string cellClassname, string actionName, string pluginName, Json[string] options = null) {
+        DCell myinstance = new myclassname(this.request, this.response, getEventManager(), options);
+
+        auto mybuilder = myinstance.viewBuilder();
+        mybuilder.setTemplate(Inflector.underscore(actionName));
 
         if (!pluginName.isEmpty) {
             mybuilder.setPlugin(pluginName);
@@ -71,7 +65,7 @@ mixin template TCell() {
         if (!_helpers.isEmpty) {
             mybuilder.addHelpers(_helpers);
         }
-        if (cast(IView)this) {
+        if (cast(IView) this) {
             if (!_theme.isEmpty) {
                 mybuilder.setTheme(_theme);
             }
@@ -90,4 +84,4 @@ mixin template TCell() {
         }
         return myinstance;
     }
-} 
+}

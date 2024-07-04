@@ -154,22 +154,9 @@ class DFormHelper : DHelper {
     // DContext factory.
     protected DContextFactory _contextFactory = null;
 
+    // Form protector
+    protected DFormProtector _formProtector = null;
 
-
-
-    /**
-     * Form protector
-     *
-     * @var \UIM\Form\FormProtector|null
-     */
-    protected DFormProtector myformProtector = null;
-
-    /**
-     * Construct the widgets and binds the default context providers
-     * Params:
-     * \UIM\View\View myview The View this helper is being attached to.
-     * @param Json[string] configData Configuration settings for the helper.
-     */
     this(IView myview, Json[string] configData = null) {
         auto mylocator = null;
         auto mywidgets = _defaultWidgets;

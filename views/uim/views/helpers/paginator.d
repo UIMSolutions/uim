@@ -70,12 +70,9 @@ class DPaginatorHelper : DHelper {
     }
     
     // Paginated results
-    protected IPaginated _paginated; /**
-     . Overridden to merge passed args with URL options.
-     * Params:
-     * \UIM\View\View myview The View this helper is being attached to.
-     * @param Json[string] configData Configuration settings for the helper.
-     */
+    protected IPaginated _paginated; 
+    
+    // Overridden to merge passed args with URL options.
     this(IView myview, Json[string] configData = null) {
         super(myview, configData); 
         auto myquery = _View.getRequest().queryArguments(); 

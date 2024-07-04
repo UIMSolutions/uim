@@ -102,8 +102,6 @@ class DHtmlHelper : DHelper {
      * Json[string]|string mytype The title of the external resource, Or an array of attributes for a
      * custom meta tag.
      * @param string[] mycontent The address of the external resource or string for content attribute
-     * @param Json[string] htmlAttributes Other attributes for the generated tag. If the type attribute is html,
-     *  rss, atom, or icon, the mime-type is returned.
      */
     string meta(string[] mytype, string[] mycontent = null, Json[string] htmlAttributes = null) {
         if (!mytype.isArray) {

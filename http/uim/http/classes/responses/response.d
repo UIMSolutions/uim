@@ -555,13 +555,13 @@ class DResponse : IResponse {
      * Sets a content type definition into the map.
      *
      * E.g.: setTypeMap("xhtml", ["application/xhtml+xml", "application/xhtml"])
-     *
      * This is needed for RequestHandlerComponent and recognition of types.
-     * Params:
-     * @param string[]|string amimeType Definition of the mime type.
      */
-    void setTypeMap(string contentType, string[] amimeType) {
+    void setTypeMap(string contentType, string mimeType) {
        _mimeTypes[contentType] = mimeType;
+    }
+    void setTypeMap(string contentType, string[] mimeTypes) {
+       _mimeTypes[contentType] = mimeTypes;
     }
     
     // Returns the current content type.

@@ -294,10 +294,8 @@ class DDebugger {
      * - `args` - Should arguments for functions be shown? If true, the arguments for each method call
      *  will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
-     *
-     * @param \Throwable|array backtrace Trace as array or an exception object.
      */
-    static /* array| */string formatTrace(backtrace, Json[string] options = null) {
+    static /* array| */string formatTrace(Throwable|array backtrace, Json[string] options = null) {
         if (cast(Throwable) backtrace) {
             backtrace = backtrace.getTrace();
         }

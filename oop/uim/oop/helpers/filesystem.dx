@@ -16,20 +16,14 @@ class HFilesystem {
     // Directory type constant
     const string TYPE_DIR = "dir";
 
-    /**
-     * Find files / directories (non-recursively) in given directory path.
-     * Params:
-     * string mypath Directory path.
-     * @param \/* Closure * / string myfilter If string will be used as regex for filtering using
-     * `RegexIterator`, if callable will be as callback for `CallbackFilterIterator`.
-     */
-    Iterator find(string mypath, /* Closure */ string myfilter = null, size_t flags = 0) {
+    // Find files / directories (non-recursively) in given directory path.
+    Iterator find(string directoryPath, /* Closure */ string myfilter = null, size_t flags = 0) {
         size_t myflags = flags != 0 ? flags : 
             FilesystemIterator.KEY_AS_PATHNAME
             | FilesystemIterator.CURRENT_AS_FILEINFO
             | FilesystemIterator.SKIP_DOTS;
-        auto mydirectory = new HFilesystemIterator(mypath, myflags);
-
+        
+        auto mydirectory = new HFilesystemIterator(directoryPath, myflags);
         return myfilter.isNull
             ? mydirectory
             : this.filterIterator(mydirectory, myfilter);

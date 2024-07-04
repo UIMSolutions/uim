@@ -70,19 +70,17 @@ string __dn(string domainName, string singularText, string pluralText, int count
  * The context is a unique identifier for the translations string that makes it unique
  * within the same domain.
  *
- * @param string acontext DContext of the text.
- * @param string singular Text to translate.
  * @param Json[string] arguments Array with arguments or multiple arguments in function.
  */
-string __x(string acontext, string singular, Json[string] arguments)
+string __x(string context, string singularText, Json[string] arguments)
 {
-    if (!singular) {
+    if (!singularText) {
         return null;
     }
     if (isSet(someArguments[0]) && someArguments[0].isArray) {
         someArguments = someArguments[0];
     }
-    return I18n.getTranslator().translate(singular, ["_context": context] + someArguments);
+    return I18n.getTranslator().translate(singularText, ["_context": context] + someArguments);
 }
 /**
  * Returns correct plural form of message identified by singular and plural for count count.

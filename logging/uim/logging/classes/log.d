@@ -292,7 +292,6 @@ class DLog {
      * The special `scope` key can be passed to be used for further filtering of the
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
-     * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      */
     static bool write(int severityLevel, string messageToLog, string[] contextData = null) {
         return isIn(severityLevel, _levelMap, true)
@@ -359,18 +358,9 @@ class DLog {
         return write(__FUNCTION__, logMessage, contextData);
     }
     
-    /**
-     * Convenience method to log critical messages
-     * Params:
-     * \string amessage log message
-     * @param string[] contextData Additional data to be used for logging the message.
-     * The special `scope` key can be passed to be used for further filtering of the
-     * log engines to be used. If a string or a numerically index array is passed, it
-     * will be treated as the `scope` key.
-     * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
-     */
-    static bool critical(string amessage, string[] contextData = null) {
-        return write(__FUNCTION__, message, context);
+    // Convenience method to log critical messages
+    static bool critical(string logMessage, string[] context = null) {
+        return write(__FUNCTION__, logMessage, context);
     }
     
     // Convenience method to log error messages

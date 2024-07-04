@@ -202,7 +202,7 @@ class DFileConfigEngine {
     static string[] configured() {
         engines = _engines.keys;
 
-        return array_map(function(aKey) { return to!string(aKey); }, engines);
+        return array_map(function(key) { return to!string(key); }, engines);
     }
 
     /**
@@ -239,19 +239,16 @@ class DFileConfigEngine {
      *
      * If using `default` config and no engine has been configured for it yet,
      * one will be automatically created using PhpConfig
-     * Params:
-     * string aKey name of configuration resource to load.
-     * @param string configData Name of the configured engine to use to read the resource identified by aKey.
      */
-    static bool load(string aKey, string configData = "default", bool shouldMerge = true) {
+    static bool load(string key, string configData = "default", bool shouldMerge = true) {
         auto engine = _getEngine(configData);
         if (!engine) {
             throw new DException(
                 "Config %s engine not found when attempting to load %s."
-                    .format(configData, aKey)
+                    .format(configData, key)
             );
         }
-        someValues = engine.read(aKey);
+        someValues = engine.read(key);
 
         if (shouldMerge) {
             someValues = Hash.merge(_values, someValues);
@@ -262,7 +259,7 @@ class DFileConfigEngine {
     }
 
     /**
-     * Dump data currently in Configure into aKey. The serialization format
+     * Dump data currently in Configure into key. The serialization format
      * is decided by the config engine attached as configData. For example, if the
      * "default" adapter is a PhpConfig, the generated file will be a D
      * configuration file loadable by the PhpConfig.
@@ -281,23 +278,19 @@ class DFileConfigEngine {
      * ```
      * Configure.dump("error", "default", ["Error", "Exception"];
      * ```
-     * Params:
-     * string aKey The identifier to create in the config adapter.
-     * This could be a filename or a cache key depending on the adapter being used.
-     * @param string[] someKeys The name of the top-level keys you want to dump.
-     * This allows you save only some data stored in Configure.
      */
-    static bool dump(string aKey, string configData = "default", Json[string] someKeys = [
+    static bool dump(string key, string configData = "default", Json[string] someKeys = [
         ]) {
         auto myEngine = _getEngine(configData);
         if (!myEngine) {
             throw new DException("There is no `%s` config engine.".format(configData));
         }
-        someValues = _values;
+        
+        auto someValues = _values;
         if (!someKeys.isEmpty) {
             someValues = array_intersectinternalKey(someValues, array_flip(someKeys));
         }
-        return myEngine.dump(aKey, someValues);
+        return myEngine.dump(key, someValues);
     }
 
     /**

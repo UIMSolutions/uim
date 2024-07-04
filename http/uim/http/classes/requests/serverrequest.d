@@ -1166,15 +1166,12 @@ class DServerRequest { // }: IServerRequest {
      * a *new* request object and does not mutate the request in-place.
      *
      * Use `withParsedBody()` if you need to replace the all request data.
-     * Params:
-     * @param Json aValue The value to insert into the request data.
      */
-    static auto withData(string pathToInsert, Json aValue): static
-    {
-        copy = this.clone;
+    static auto withData(string pathToInsert, Json value) {
+        auto copy = this.clone;
 
-        if (isArray(copy.data)) {
-            copy.data = Hash.insert(copy.data, pathToInsert, aValue);
+        if (copy.data.isArray) {
+            copy.data = Hash.insert(copy.data, pathToInsert, value);
         }
         return copy;
     }

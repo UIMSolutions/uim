@@ -266,8 +266,6 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * ```
      * time = DateTime.parseTime("11:23pm");
      * ```
-     * Params:
-     * @param string[]|int format Any format accepted by IntlDateFormatter.
      */
     auto parseTime(string timeToParse, int format) {
         auto myFormat = [IntlDateFormatter.NONE, to!string(format)];

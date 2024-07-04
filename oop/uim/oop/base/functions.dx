@@ -11,8 +11,6 @@ import uim.oop;
      *  Arrays will be mapped and have all their elements escaped. Objects will be string cast if they
      *  implement a `__toString` method. Otherwise, the class name will be used.
      *  Other scalar types will be returned unchanged.
-     * @param string charset Character set to use when escaping.
-     * Defaults to config value in `mb_internal_encoding()` or 'UTF-8'.
      */
     Json htmlAttributeEscape(Json text, bool isDouble = true, string charsetToUse = null) {
         Json result = text;

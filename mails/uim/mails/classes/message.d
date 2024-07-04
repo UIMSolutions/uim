@@ -463,11 +463,11 @@ class DMessage { //: JsonSerializable {
         auto list = null;
         emailValue.byKeyValue
             .each!((kv) {
-                if (isInteger(aKey)) {
-                    aKey = aValue;
+                if (isInteger(key)) {
+                    key = aValue;
                 }
-                validateEmail(aKey, propertyName);
-                list[aKey] = aValue;
+                validateEmail(key, propertyName);
+                list[key] = aValue;
             });
         this.{propertyName} = chain(this.{propertyName}, list);
     }
@@ -609,25 +609,21 @@ class DMessage { //: JsonSerializable {
     
     /**
      * Get headers as string.
-     * Params:
-     * string[] anInclude List of headers.
-     * @param string aeol End of line string for concatenating headers.
-     * @param \Closure|null aCallback Callback to run each header value through before stringifying.
      */
-    string getHeadersString(Json[string] anInclude = [], string aeol = "\r\n", Closure aCallback = null) {
-        auto lines = getHeaders(anInclude);
+    string getHeadersString(Json[string] includeHeader = [], string eol = "\r\n", DClosure callback = null) {
+        auto lines = getHeaders(includeHeader);
 
-        if (aCallback) {
-            lines = array_map(aCallback, lines);
+        if (callback) {
+            lines = array_map(callback, lines);
         }
         
         auto aHeaders = null;
-        foreach (aKey: aValue; lines) {
-            if (aValue.isEmpty && aValue != "0") {
+        foreach (key, value; lines) {
+            if (aValue.isEmpty && value != "0") {
                 continue;
             }
-            foreach (/* (array) */aValue as val) {
-                 aHeaders ~= aKey ~ ": " ~ val;
+            foreach (v; /* (array) */value) {
+                 aHeaders ~= key ~ ": " ~ v;
             }
         }
         return join(eol,  aHeaders);
@@ -1341,7 +1337,7 @@ class DMessage { //: JsonSerializable {
         foreach (this.serializableProperties as  aProperty) {
             array[aProperty] = this.{ aProperty};
         }
-         array_walk(array["attachments"], auto (& anItem, aKey) {
+         array_walk(array["attachments"], auto (& anItem, key) {
             if (!anItem.isEmpty("file"))) {
                  anItem["data"] = this.readFile(anItem["file"]);
                 remove(anItem["file"]);
@@ -1370,7 +1366,7 @@ class DMessage { //: JsonSerializable {
      */
     Json[string] __serialize() {
         Json[string] = this.JsonSerialize();
-        array_walk_recursive(array, void (& anItem, aKey) {
+        array_walk_recursive(array, void (& anItem, key) {
             if (cast(DSimpleXMLElement)anItem) {
                  anItem = Json_decode((string)Json_encode(/* (array) */ anItem), true);
             }

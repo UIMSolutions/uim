@@ -147,7 +147,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * default locale in forms.
      */
      // TODO 
-/*     void beforeMarshal(IEvent myevent, ArrayObject mydata, ArrayObject options) {
+/*     void beforeMarshal(IEvent myevent, Json[string] mydata, Json[string] options) {
         if (options.hasKey("translations") && !options.hasKey("translations"]) {
             return;
         }

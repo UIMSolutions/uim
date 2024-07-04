@@ -97,9 +97,9 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      *
      * @param DORMevents.IEvent event The beforeFind event that was fired.
      * @param DORMQuery query Query.
-     * @param \ArrayObject options The options for the query.
+     * @param \Json[string] options The options for the query.
      */
-    void beforeFind(IEvent event, Query query, ArrayObject options) {
+    void beforeFind(IEvent event, Query query, Json[string] options) {
         auto locale = Hash.get(options, "locale", locale());
         auto configData = configuration.data;
         if (
@@ -134,9 +134,9 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * Create a hasOne association for record with required locale.
      *
      * @param string locale Locale
-     * @param \ArrayObject options Find options
+     * @param \Json[string] options Find options
      */
-    protected void setupHasOneAssociation(string locale, ArrayObject options) {
+    protected void setupHasOneAssociation(string locale, Json[string] options) {
         auto configData = configuration.data;
         [plugin] = pluginSplit(
             configuration.get(
@@ -313,9 +313,9 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      *
      * @param DORMevents.IEvent event The beforeSave event that was fired.
      * @param DORMDatasource\IORMEntity anEntity The entity that is going to be saved.
-     * @param \ArrayObject options the options passed to the save method.
+     * @param \Json[string] options the options passed to the save method.
      */
-    void beforeSave(IEvent event, IORMEntity anEntity, ArrayObject options) {
+    void beforeSave(IEvent event, IORMEntity anEntity, Json[string] options) {
         locale = entity.get("_locale") ? entity.get("_locale") : locale();
         newOptions = [
             this.translationTable.aliasName(): [

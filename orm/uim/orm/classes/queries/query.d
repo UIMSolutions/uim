@@ -955,7 +955,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             repository = getRepository();
             repository.dispatchEvent("Model.beforeFind", [
                 this,
-                new ArrayObject(_options),
+                new Json[string](_options),
                 !this.isEagerLoaded(),
             ]);
         }

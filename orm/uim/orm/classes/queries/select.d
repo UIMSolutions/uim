@@ -1284,7 +1284,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             myrepository = getRepository();
             myrepository.dispatchEvent("Model.beforeFind", [
                 this,
-                new ArrayObject(_options),
+                new Json[string](_options),
                 !this.isEagerLoaded(),
             ]);
         }

@@ -207,21 +207,16 @@ class DSelectLoader {
      * Appends any conditions required to load the relevant set of records in the
      * target table query given a filter key and some filtering values when the
      * filtering needs to be done using a subquery.
-     *
-     * @param DORMQuery query Target table"s query
-     * @param string[]|string aKey the fields that should be used for filtering
      */
-    protected DORMQuery _addFilteringJoin(DORMQuery query, key, DORMQuery filteringQuery) {
+    protected DORMQuery _addFilteringJoin(DORMQuery query, /* string[]| */stringkey, DORMQuery filteringQuery) {
         auto filter = null;
         auto aliasedTable = this
             .sourceAlias;
 
-        foreach (aliasedField, field; filteringQuery.clause(
-                "select")) {
+        foreach (aliasedField, field; filteringQuery.clause("select")) {
             if (
                 is_int(aliasedField)) {
-                filter ~= new DIdentifierExpression(
-                    field);
+                filter ~= new DIdentifierExpression(field);
             } else {
                 filter[aliasedField] = field;
             }

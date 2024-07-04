@@ -81,19 +81,19 @@ import uim.orm;
  * You can subscribe to the events listed above in your table classes by implementing the
  * lifecycle methods below:
  *
- * - `beforeFind(IEvent myevent, SelectQuery myquery, ArrayObject options, boolean myprimary)`
- * - `beforeMarshal(IEvent myevent, ArrayObject mydata, ArrayObject options)`
- * - `afterMarshal(IEvent myevent, IORMEntity myentity, ArrayObject options)`
+ * - `beforeFind(IEvent myevent, SelectQuery myquery, Json[string] options, boolean myprimary)`
+ * - `beforeMarshal(IEvent myevent, Json[string] mydata, Json[string] options)`
+ * - `afterMarshal(IEvent myevent, IORMEntity myentity, Json[string] options)`
  * - `buildValidator(IEvent myevent, Validator myvalidator, string myname)`
  * - `buildRules(RulesChecker myrules)`
- * - `beforeRules(IEvent myevent, IORMEntity myentity, ArrayObject options, string myoperation)`
- * - `afterRules(IEvent myevent, IORMEntity myentity, ArrayObject options, bool result, string myoperation)`
- * - `beforeSave(IEvent myevent, IORMEntity myentity, ArrayObject options)`
- * - `afterSave(IEvent myevent, IORMEntity myentity, ArrayObject options)`
- * - `afterSaveCommit(IEvent myevent, IORMEntity myentity, ArrayObject options)`
- * - `beforeremove(IEvent myevent, IORMEntity myentity, ArrayObject options)`
- * - `afterremove(IEvent myevent, IORMEntity myentity, ArrayObject options)`
- * - `afterDeleteCommit(IEvent myevent, IORMEntity myentity, ArrayObject options)`
+ * - `beforeRules(IEvent myevent, IORMEntity myentity, Json[string] options, string myoperation)`
+ * - `afterRules(IEvent myevent, IORMEntity myentity, Json[string] options, bool result, string myoperation)`
+ * - `beforeSave(IEvent myevent, IORMEntity myentity, Json[string] options)`
+ * - `afterSave(IEvent myevent, IORMEntity myentity, Json[string] options)`
+ * - `afterSaveCommit(IEvent myevent, IORMEntity myentity, Json[string] options)`
+ * - `beforeremove(IEvent myevent, IORMEntity myentity, Json[string] options)`
+ * - `afterremove(IEvent myevent, IORMEntity myentity, Json[string] options)`
+ * - `afterDeleteCommit(IEvent myevent, IORMEntity myentity, Json[string] options)`
  */
 class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorAware {
     mixin TEventDispatcher;
@@ -1340,7 +1340,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         callable aCallback = null,
         Json[string] options = null
    ) {
-        options = new ArrayObject(options ~ [
+        options = new Json[string](options ~ [
             "atomic": true.toJson,
             "defaults": true.toJson,
         ]);
@@ -1535,7 +1535,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * the event it
      * - Model.beforeSave: Will be triggered just before the list of fields to be
      * persisted is calculated. It receives both the entity and the options as
-     * arguments. The options array is passed as an ArrayObject, so any changes in
+     * arguments. The options array is passed as an Json[string], so any changes in
      * it will be reflected in every listener and remembered at the end of the event
      * so it can be used for the rest of the save operation. Returning false in any
      * of the listeners will abort the saving process. If the event is stopped
@@ -1587,7 +1587,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     IORMEntity save(IORMEntity entityToSave,
         Json[string] options = null
    ) {
-        options = new ArrayObject(options ~ [
+        options = new Json[string](options ~ [
             "atomic": true.toJson,
             "associated": true.toJson,
             "checkRules": true.toJson,
@@ -1641,9 +1641,9 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Performs the actual saving of an entity based on the passed options.
      * Params:
      * \UIM\Datasource\IORMEntity entityToSave the entity to be saved
-     * @param \ArrayObject<string, mixed> options the options to use for the save operation
+     * @param \Json[string]<string, mixed> options the options to use for the save operation
      */
-    protected IORMEntity|false _processSave(IORMEntity entityToSave, ArrayObject options) {
+    protected IORMEntity|false _processSave(IORMEntity entityToSave, Json[string] options) {
         auto myprimaryColumns = (array)this.primaryKeys();
 
         if (options["checkExisting"] && myprimaryColumns && entityToSave.isNew() && entityToSave.has(myprimaryColumns)) {
@@ -1705,9 +1705,9 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * once the entity for this table has been saved successfully.
      * Params:
      * \UIM\Datasource\IORMEntity entityToSave the entity to be saved
-     * @param \ArrayObject<string, mixed> options the options to use for the save operation
+     * @param \Json[string]<string, mixed> options the options to use for the save operation
      */
-    protected bool _onSaveSuccess(IORMEntity entityToSave, ArrayObject options) {
+    protected bool _onSaveSuccess(IORMEntity entityToSave, Json[string] options) {
         mysuccess = _associations.saveChildren(
             this,
             entityToSave,
@@ -1896,7 +1896,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         range myentities,
         Json[string] options = null
    ): range {
-        options = new ArrayObject(
+        options = new Json[string](
             options ~ [
                 "atomic": true.toJson,
                 "checkRules": true.toJson,
@@ -1987,7 +1987,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * - `Model.afterDeleteCommit` Fired after the transaction is committed for
      * an atomic delete. Receives the event, entity, and options.
      *
-     * The options argument will be converted into an \ArrayObject instance
+     * The options argument will be converted into an \Json[string] instance
      * for the duration of the callbacks, this allows listeners to modify
      * the options used in the delete operation.
      * Params:
@@ -1995,7 +1995,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] options The options for the delete.
          */
     bool remove(IORMEntity myentity, Json[string] options = null) {
-        options = new ArrayObject(options ~ [
+        options = new Json[string](options ~ [
             "atomic": true.toJson,
             "checkRules": true.toJson,
             "_primary": true.toJson,
@@ -2056,7 +2056,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] options Options used.
      */
     protected IORMEntity _deleteMany(Json[string] myentities, Json[string] options = null) {
-        options = new ArrayObject(options ~ [
+        options = new Json[string](options ~ [
                 "atomic": true.toJson,
                 "checkRules": true.toJson,
                 "_primary": true.toJson,
@@ -2103,10 +2103,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * dependent associations, and clear out join tables for BelongsToMany associations.
      * Params:
      * \UIM\Datasource\IORMEntity myentity The entity to delete.
-     * @param \ArrayObject<string, mixed> options The options for the delete.
+     * @param \Json[string]<string, mixed> options The options for the delete.
      * passed entity
      */
-    protected bool _processremove(IORMEntity myentity, ArrayObject options) {
+    protected bool _processremove(IORMEntity myentity, Json[string] options) {
         if (myentity.isNew()) {
             return false;
         }

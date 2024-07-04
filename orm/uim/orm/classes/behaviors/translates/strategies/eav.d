@@ -142,7 +142,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * table. It modifies the passed query by eager loading the translated fields
      * and adding a formatter to copy the values into the main table records.
      */
-    void beforeFind(IEvent event, DQuery query, SArrayObject options) {
+    void beforeFind(IEvent event, DQuery query, SJson[string] options) {
         auto locale = Hash.get(options, "locale", locale());
         if (locale == configuration.get("defaultLocale")) {
             return;
@@ -201,9 +201,9 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * in the database too.
      *
      * @param DORMevents.IEvent event The beforeSave event that was fired
-     * @param \ArrayObject options the options passed to the save method
+     * @param \Json[string] options the options passed to the save method
      */
-    void beforeSave(IEvent event, IORMEntity ormEntity, ArrayObject options) {
+    void beforeSave(IEvent event, IORMEntity ormEntity, Json[string] options) {
         auto locale = ormEntity.get("_locale") ?: locale();
         auto newOptions = [this.translationTable.aliasName(): ["validate": false.toJson]];
         options["associated"] = newOptions + options["associated"];

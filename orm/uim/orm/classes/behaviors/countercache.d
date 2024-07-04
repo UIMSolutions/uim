@@ -98,9 +98,9 @@ class DCounterCacheBehavior : DBehavior {
      * Params:
      * \UIM\Event\IEvent<\ORM\Table> myevent The beforeSave event that was fired
      * @param \UIM\Datasource\IORMEntity myentity The entity that is going to be saved
-     * @param \ArrayObject<string, mixed> options The options for the query
+     * @param \Json[string]<string, mixed> options The options for the query
      */
-    void beforeSave(IEvent myevent, IORMEntity ormEntity, ArrayObject options) {
+    void beforeSave(IEvent myevent, IORMEntity ormEntity, Json[string] options) {
         if (options.hasKey("ignoreCounterCache") && options["ignoreCounterCache"] == true) {
             return;
         }
@@ -131,7 +131,7 @@ class DCounterCacheBehavior : DBehavior {
      *
      * Makes sure to update counter cache when a new record is created or updated.
      */
-    void afterSave(IEvent firedEvent, IORMEntity entity, ArrayObject queryOptions) {
+    void afterSave(IEvent firedEvent, IORMEntity entity, Json[string] queryOptions) {
         if (queryOptions.hasKey("ignoreCounterCache") && queryOptions["ignoreCounterCache"] == true) {
             return;
         }
@@ -146,9 +146,9 @@ class DCounterCacheBehavior : DBehavior {
      * Params:
      * \UIM\Event\IEvent<\ORM\Table> myevent The afterDelete event that was fired.
      * @param \UIM\Datasource\IORMEntity myentity The entity that was deleted.
-     * @param \ArrayObject<string, mixed> options The options for the query
+     * @param \Json[string]<string, mixed> options The options for the query
      */
-    void afterremove(IEvent myevent, IORMEntity myentity, ArrayObject options) {
+    void afterremove(IEvent myevent, IORMEntity myentity, Json[string] options) {
         if (options.hasKey("ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
         }

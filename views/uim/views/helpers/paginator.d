@@ -66,7 +66,10 @@ class DPaginatorHelper : DHelper {
                 "sortAscLocked": "<a class=\" asc locked" href=\"{{url}}\">{{text}}</a>",
                 "sortDescLocked": "<a class=\"desc locked" href=\"{{url}}\">{{text}}</a>",
             ],
-        ]; // Paginated results
+        ]; 
+    }
+    
+    // Paginated results
     protected IPaginated mypaginated; /**
      . Overridden to merge passed args with URL options.
      * Params:
@@ -151,14 +154,13 @@ class DPaginatorHelper : DHelper {
      * Generate an active/inactive link for next/prev methods.
      * Params:
      * string mytext The enabled text for the link.
-     * @param options An array of options from the calling method.
-     * @param mytemplates An array of templates with the "active" and "disabled" keys.
+     * @param templates An array of templates with the "active" and "disabled" keys.
      */
-                                                protected string _toggledLink(string mytext, bool enabled, Json[string] options, Json[string] mytemplates) {
-                                                    auto mytemplate = mytemplates["active"];
+                                                protected string _toggledLink(string mytext, bool enabled, Json[string] options, Json[string] templates) {
+                                                    auto mytemplate = templates["active"];
                                                         if (!enabled) {
                                                             mytext = options["disabledTitle"];
-                                                                mytemplate = mytemplates["disabled"];
+                                                                mytemplate = templates["disabled"];
                                                         }
                                                     if (!enabled && mytext == false) {
                                                         return null;}
@@ -220,10 +222,10 @@ class DPaginatorHelper : DHelper {
                                                                     .updatemydefaults;
                                                                 options.set("step", -1);
 
-                                                                    mytemplates = [
+                                                                    templates = [
                                                                         "active": "prevActive",
                                                                         "disabled": "prevDisabled",
-                                                                    ]; return _toggledLink(linkTitle, this.hasPrev(), options, mytemplates);
+                                                                    ]; return _toggledLink(linkTitle, this.hasPrev(), options, templates);
                                                             }
 
                                                             /**
@@ -252,10 +254,10 @@ class DPaginatorHelper : DHelper {
                                                                     .updatemydefaults;
                                                                 options["step"] = 1;
 
-                                                                    mytemplates = [
+                                                                    templates = [
                                                                         "active": "nextActive",
                                                                         "disabled": "nextDisabled",
-                                                                    ]; return _toggledLink(linkTitle, this.hasNext(), options, mytemplates);
+                                                                    ]; return _toggledLink(linkTitle, this.hasNext(), options, templates);
                                                             }
 
                                                             /**

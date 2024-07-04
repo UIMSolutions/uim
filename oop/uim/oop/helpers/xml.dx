@@ -145,16 +145,10 @@ class Xml {
                         );
                     }
 
-                    /**
-     * Parse the input data and create either a SimpleXmlElement object or a DOMDocument.
-     * Params:
-     * string inputToLoad The input to load.
-     * @param Json[string] options The options to use. See Xml.build()
-     * @param \Closure mycallable Closure that should return SimpleXMLElement or DOMDocument instance.
-     */
+                    // Parse the input data and create either a SimpleXmlElement object or a DOMDocument.
                     protected static SimpleXMLElement | DOMDocument load(string inputToLoad, Json[string] options, Closure mycallable) {
                         myflags = 0;
-                        if (!options.isEmpty("parseHuge"])) {
+                        if (!options.isEmpty("parseHuge")) {
                             myflags |= LIBXML_PARSEHUGE;
                         }
                         myinternalErrors = libxml_use_internal_errors(true);

@@ -13,7 +13,7 @@ class DFlashParamEquals : DConstraint {
     /* 
     protected ISession session;
 
-    protected string aKey;
+    protected string key;
 
     protected string aparam;
 
@@ -23,20 +23,19 @@ class DFlashParamEquals : DConstraint {
      * Constructor
      * Params:
      * \UIM\Http\Session|null session Session
-     * @param string aKey Flash key
      * @param string paramToCheck Param to check
      * @param int at Expected index
      */
-    this(ISession session, string aKey, string paramToCheck, int at = null) {
+    this(ISession session, string key, string paramToCheck, int atIndex = null) {
         if (!session) {
             string message = "There is no stored session data. Perhaps you need to run a request?";
             message ~= " Additionally, ensure `this.enableRetainFlashMessages()` has been enabled for the test.";
             throw new AssertionFailedError(message);
         }
         _session = session;
-        _key = aKey;
+        _key = key;
         _param = paramToCheck;
-        this.at = at;
+        this.atIndex = atIndex;
     }
     
     // Compare to flash message(s)
@@ -46,9 +45,9 @@ class DFlashParamEquals : DConstraint {
         // Call to Session.read will start new session (and will erase the data).
         /** @psalm-suppress InvalidScalarArgument */
         messages = /* (array) */Hash.get(_SESSION, "Flash." ~ _key);
-        if (this.at) {
+        if (_atIndex) {
             /** @psalm-suppress InvalidScalarArgument */
-            messages = [Hash.get(_SESSION, "Flash." ~ _key ~ "." ~ this.at)];
+            messages = [Hash.get(_SESSION, "Flash." ~ _key ~ "." ~ _atIndex)];
         }
         
         return messages
@@ -58,8 +57,8 @@ class DFlashParamEquals : DConstraint {
     
     // Assertion message string
     override string toString() {
-        return !this.at.isNull
-            ? "is in \"%s\" %s #%d".format(_key, _param, this.at)
+        return !_atIndex.isNull
+            ? "is in \"%s\" %s #%d".format(_key, _param, _atIndex)
             : "is in \"%s\" %s".format(_key, _param);
     }
 }

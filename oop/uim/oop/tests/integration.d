@@ -638,15 +638,8 @@ mixin template TIntegrationTest() {
         } */
     }
 
-    /**
-     * Asserts that the Location header is correct. Comparison is made against exactly the URL provided.
-     * Params:
-     * string[] url The URL you expected the client to go to. This
-     * can either be a string URL or an array compatible with Router.url(). Use null to
-     * simply check for the existence of this header.
-     * @param string amessage The failure message that will be appended to the generated message.
-     */
-    void assertRedirectEquals(string[] url = null, string failureMessage = null) {
+    // Asserts that the Location header is correct. Comparison is made against exactly the URL provided.
+    void assertRedirectEquals(string[] urls = null, string failureMessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
         }
@@ -654,8 +647,8 @@ mixin template TIntegrationTest() {
         auto verboseMessage = this.extractVerboseMessage(failureMessage);
         this.assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
 
-        if (url) {
-            this.assertThat(Router.url(url), new DHeaderEquals(_response, "Location"), verboseMessage);
+        if (urls) {
+            this.assertThat(Router.url(urls), new DHeaderEquals(_response, "Location"), verboseMessage);
         }
     }
 

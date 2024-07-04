@@ -40,11 +40,7 @@ interface IDocument {
   // Puts the value related to the key.
   void put(string key, DProperty value);
 
-  /**
-   * Gets the value for the key.
-   *
-   * @param key element key
-   */
+  // Gets the value for the key.
   DProperty get(string key);
 
   /**

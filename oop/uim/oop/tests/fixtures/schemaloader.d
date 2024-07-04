@@ -24,12 +24,7 @@ class DSchemaLoader {
         _helper = new DConnectionHelper();
     }
     
-    /**
-     * Load and apply schema sql file, or an array of files.
-     * Params:
-     * string[]|string aPaths Schema files to load
-     * @param bool shouldDropTables Drop all tables prior to loading schema files
-     */
+    // Load and apply schema sql file, or an array of files.
     void loadSqlFiles(
         string fileToLoad,
         string connectionName = "test",

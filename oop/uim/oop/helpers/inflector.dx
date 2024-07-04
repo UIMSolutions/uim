@@ -298,12 +298,12 @@ class DInflector {
   }
 
   // Returns the input lower_case_delimited_string as a CamelCasedString.
-  static string camelize(string text, string stringDelimiter = "_") :  {
-    string mycacheKey = __FUNCTION__ ~ stringDelimiter;
+  static string camelize(string text, string delimiter = "_") :  {
+    string mycacheKey = __FUNCTION__ ~ delimiter;
 
     string result = _cache(mycacheKey, text);
     if (result.isNull) {
-      result = humanize(text, stringDelimiter)..replace(" ", "");
+      result = humanize(text, delimiter)..replace(" ", "");
       static._cache(mycacheKey, text, result);
     }
     
@@ -315,7 +315,7 @@ class DInflector {
      *
      * Also replaces dashes with underscores
      * Params:
-     * string mystring CamelCasedString to be "underscorized"
+     * string text CamelCasedString to be "underscorized"
      */
   static string underscore(string inputString) :  {
     return delimit(inputString.replace("-", "_"), "_");
@@ -326,7 +326,7 @@ class DInflector {
      *
      * Also replaces underscores with dashes
      * Params:
-     * string mystring The string to dasherize.
+     * string text The string to dasherize.
      */
   static string dasherize(string stringToDasherize) {
     return delimit(stringToDasherize.replace("_", "-"), "-");
@@ -336,19 +336,18 @@ class DInflector {
      * Returns the input lower_case_delimited_string as "A Human Readable String".
      * (Underscores are replaced by spaces and capitalized following words.)
      * Params:
-     * string mystring String to be humanized
-     * @param string stringDelimiter the character to replace with a space
+     * string text String to be humanized
+     * @param string delimiter the character to replace with a space
      */
-  static string humanize(string mystring, string stringDelimiter = "_") {
-    mycacheKey = __FUNCTION__ ~ stringDelimiter;
+  static string humanize(string text, string delimiter = "_") {
+    auto mycacheKey = __FUNCTION__ ~ delimiter;
 
-    result = _cache(mycacheKey, mystring);
-
-    if (result == false) {
-      string[] result = mystring.replace(stringDelimiter, " ").split(" ");
+    string result = _cache(mycacheKey, text);
+    if (result.isEmpty) {
+      string[] result = text.replace(delimiter, " ").split(" ");
       result.each!(ref word => word = mb_strtoupper(mb_subString(word, 0, 1)) ~ mb_subString(word, 1));
       result = result.join(" ");
-      _cache(mycacheKey, mystring, result);
+      _cache(mycacheKey, text, result);
     }
     return result;
   }
@@ -356,16 +355,15 @@ class DInflector {
   /**
      * Expects a CamelCasedInputString, and produces a lower_case_delimited_string
      * Params:
-     * string mystring String to delimit
+     * string text
      */
-  static string delimit(string mystring, string stringDelimiter = "_") :  {
-    mycacheKey = __FUNCTION__ ~ stringDelimiter;
+  static string delimit(string text, string delimiter = "_") :  {
+    auto mycacheKey = __FUNCTION__ ~ delimiter;
+    string result = _cache(mycacheKey, text);
 
-    result = _cache(mycacheKey, mystring);
-
-    if (result == false) {
-      result = mb_strtolower((string) preg_replace("/(?<=\\w)([A-Z])/", stringDelimiter ~ "\\1", mystring));
-      static._cache(mycacheKey, mystring, result);
+    if (result.isEmpty) {
+      result = mb_strtolower((string) preg_replace("/(?<=\\w)([A-Z])/", delimiter ~ "\\1", text));
+      static._cache(mycacheKey, text, result);
     }
     return result;
   }

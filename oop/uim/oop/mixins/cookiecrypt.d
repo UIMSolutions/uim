@@ -21,25 +21,23 @@ mixin template TCookieCrypt() {
      * Encrypts valueToEncrypt using mytype method in Security class
      * Params:
      * string[] valueToEncrypt Value to encrypt
-     * @param string encryptionMode Encryption mode to use. False
-     * disabled encryption.
-     * @param string aKey Used as the security salt if specified.
+     * @param string key Used as the security salt if specified.
      * returns Encoded values
      */
-    protected string _encrypt(string[] valueToEncrypt, string encryptionMode, string aKey = null) {
+    protected string _encrypt(string[] valueToEncrypt, string encryptionMode, string securitySalt = null) {
         if (valueToEncrypt.isArray) {
             valueToEncrypt = _join(valueToEncrypt);
         }
-        if (encryptionMode == false) {
+        if (encryptionMode.isEmpty) {
             return valueToEncrypt;
         }
 
         _checkCipher(encryptionMode);
         string myprefix = "Q2FrZQ==.";
         string mycipher = "";
-        aKey = aKey.ifEmpty(_getCookieEncryptionKey());
+        string encryptionKey = securitySalt.ifEmpty(_getCookieEncryptionKey());
         return encryptionMode == "aes"
-            ? Security.encrypt(valueToEncrypt, aKey) 
+            ? Security.encrypt(valueToEncrypt, encryptionKey) 
             : myprefix ~ base64_encode(mycipher);
     }
 
@@ -116,11 +114,11 @@ mixin template TCookieCrypt() {
         
         auto myarray = null;
         foreach (mypair; mystring.split(",")) {
-            string[] aKey = mypair.split("|");
-            if (aKey.isNull(1)) {
-                return aKey[0];
+            string[] key = mypair.split("|");
+            if (key.isNull(1)) {
+                return key[0];
             }
-            myarray[aKey[0]] = aKey[1];
+            myarray[key[0]] = key[1];
         }
         return myarray;
     }

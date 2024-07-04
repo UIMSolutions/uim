@@ -150,16 +150,11 @@ class Hash {
         };
     }
     
-    /**
-     * Checks whether mydata matches the attribute patterns
-     * Params:
-     * \ArrayAccess|array data Array of data to match.
-     * @param string myselector The patterns to match.
-     */
-    protected static bool _matches(ArrayAccess|array data, string myselector) {
+    // Checks whether mydata matches the attribute patterns
+    protected static bool _matches(ArrayAccess|array data, string patternSelector) {
         preg_match_all(
             "/(\[(?P<attr>[^=><!]+?) (\s* (?P<op>[><!]?[=]|[><]) \s* (?P<val>(?:\/.*?\/ | [^\]]+)) )? \])/x",
-            myselector,
+            patternSelector,
             myconditions,
             PREG_SET_ORDER
         );
@@ -305,27 +300,25 @@ class Hash {
      * Json[string] data The data to operate on
      * @param string mypath A path expression to use to remove.
      */
-    static Json[string] remove(Json[string] data, string mypath) {
-        mynoTokens = !mypath.contains("[");
-        mynoExpansion = !mypath.contains("{");
+    static Json[string] remove(Json[string] data, string path) {
+        mynoTokens = !path.contains("[");
+        mynoExpansion = !path.contains("{");
 
-        if (mynoExpansion && mynoTokens && !mypath.contains(".")) {
-            remove(mydata[mypath]);
-
-            return mydata;
+        if (mynoExpansion && mynoTokens && !path.contains(".")) {
+            data.remove(path);
+            return data;
         }
 
         string[] mytokens = mynoTokens ? myPath.split("."): Text.tokenize(mypath, ".", "[", "]");
         if (mynoExpansion && mynoTokens) {
-            return _simpleOp("remove", mydata, mytokens);
+            return _simpleOp("remove", data, mytokens);
         }
 
         string mytoken = array_shift(mytokens);
         string mynextPath = join(".", mytokens);
 
         [mytoken, myconditions] = self._splitConditions(mytoken);
-
-        foreach (mydata as myKey: myv) {
+        foreach (myKey: myv; data) {
             mymatch = _matchToken(myKey, mytoken);
             if (mymatch && isArray(myv)) {
                 if (myconditions) {
@@ -337,16 +330,16 @@ class Hash {
                         }
                     }
                 } else {
-                    mydata[myKey] = remove(myv, mynextPath);
+                    data[myKey] = remove(myv, mynextPath);
                 }
-                if (mydata[myKey]..isEmpty) {
-                    remove(mydata[myKey]);
+                if (data[myKey].isEmpty) {
+                    data.remove(myKey);
                 }
             } else if (mymatch && mynextPath.isEmpty) {
-                remove(mydata[myKey]);
+                data.remove(myKey);
             }
         }
-        return mydata;
+        return data;
     }
     
     /**

@@ -115,18 +115,12 @@ class DViewBuilder { // }: DJsonSerializable {
             
     // #region Layout
 
-    /**
-     * Sets path for layout files.
-     * Params:
-     * string mypath Path for layout files.
-     */
-    void setLayoutPath(string mypath) {
-       _layoutPath = mypath;
+    // Sets path for layout files.
+    void setLayoutPath(string path) {
+       _layoutPath = path;
     }
     
-    /**
-     * Gets path for layout files.
-     */
+    // Gets path for layout files.
     string getLayoutPath() {
         return _layoutPath;
     }
@@ -140,19 +134,11 @@ class DViewBuilder { // }: DJsonSerializable {
         
     }
 
-    /**
-     * The helpers to use
-     */
+    // The helpers to use
     protected Json[string] _helpers = null;
 
-
-    /**
-     * Saves a variable for use inside a template.
-     * Params:
-     * string views A string or an array of data.
-     * @param Json aValue Value.
-     */
-    void setData(string views, Json aValue = null) {
+    // Saves a variable for use inside a template.
+    void setData(string views, Json value = null) {
        _viewData[views] = myvalue;
     }
         
@@ -264,9 +250,9 @@ class DViewBuilder { // }: DJsonSerializable {
     /**
      * Set view option.
      * Params:
-     * @param Json aValue Value to set.
+     * @param Json value Value to set.
      */
-    void setOption(string optionName, Json aValue) {
+    void setOption(string optionName, Json value) {
        _options[optionName] = myvalue;
     }
     

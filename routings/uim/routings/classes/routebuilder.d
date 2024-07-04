@@ -97,16 +97,16 @@ class DRouteBuilder {
         _path = mypath;
         _params = myparams;
         if (options.hasKey("routeClass")) {
-            _routeClass = options.get("routeClass"];
+            _routeClass = options.get("routeClass");
         }
         if (options.hasKey("extensions")) {
-            _extensions = options.get("extensions"];
+            _extensions = options.get("extensions");
         }
         if (options.hasKey("namePrefix")) {
-            _namePrefix = options.get("namePrefix"];
+            _namePrefix = options.get("namePrefix");
         }
         if (options.hasKey("middleware")) {
-            _middleware = (array) options["middleware"];
+            _middleware = options.getArray("middleware");
         }
     }
 
@@ -118,13 +118,14 @@ class DRouteBuilder {
      * Params:
      * string[]|string myextensions The extensions to set.
      */
-    void setExtensions(string[] myextensions) {
-        _extensions = (array) myextensions;
+    void setExtensions(string extension) {
+        setExtensions([extensions]);
+    }
+    void setExtensions(string[] extensions) {
+        _extensions = extensions;
     }
 
-    /**
-     * Get the extensions in this route builder"s scope.
-     */
+    // Get the extensions in this route builder"s scope.
     string[] getExtensions() {
         return _extensions;
     }

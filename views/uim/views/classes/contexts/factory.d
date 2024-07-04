@@ -7,7 +7,7 @@ import uim.views;
 // Factory for getting form context instance based on provided data.
 class DContextFactory {
     protected string[] providersNames;
-    // TODO protected IContext functiom(DServerRequest serverRequest, Json[string] data= null)[] providerFunctions;;
+    // TODO protected IContext functiom(DServerRequest serverRequest, Json[string] data = null)[] providerFunctions;;
     
     // DContext providers.
     // TODO protected array<string, array> myproviders = null;
@@ -86,35 +86,32 @@ class DContextFactory {
      * when the form context is the correct type.
      */
     void addProvider(string typeOfContext, callable mycheck) {
-        this.providers = [typeOfContext: ["type": typeOfContext, "callable": mycheck]]
-            + this.providers;
+        _providers = [typeOfContext: ["type": typeOfContext, "callable": mycheck]]
+            + _providers;
     }
     
     /**
      * Find the matching context for the data.
      *
      * If no type can be matched a NullContext will be returned.
-     * Params:
-     * \UIM\Http\ServerRequest serverRequest Request instance.
-     * @param Json[string] mydata The data to get a context provider for.
      */
-    IContext get(DServerRequest serverRequest, Json[string] data= null) {
-        mydata += ["entity": Json(null)];
+    IContext get(DServerRequest serverRequest, Json[string] data = null) {
+        mydata.mergeKeys(["entity"]);
 
-        foreach (myprovider; this.providers) {
+        foreach (myprovider; _providers) {
             auto mycheck = myprovider["callable"];
-            auto mycontext = mycheck(serverRequest, mydata);
-            if (mycontext) {
+            auto context = mycheck(serverRequest, mydata);
+            if (context) {
                 break;
             }
         }
-        if (mycontext !is null)) {
+        if (context !is null) {
             throw new DException(
                 "No context provider found for value of type `%s`."
                 ~ " Use `null` as 1st argument of FormHelper.create() to create a context-less form."
                 .format(get_debug_type(mydata["entity"])
            ));
         }
-        return mycontext;
+        return context;
     }
 }

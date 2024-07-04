@@ -28,26 +28,16 @@ class DSerializedView : DView {
         }
     }
 
-    /**
-     * Serialize view vars.
-     * Params:
-     * string[] myserialize The name(s) of the view variable(s) that
-     * need(s) to be serialized
-     */
+    // Serialize view vars.
     protected string _serialize(string[] serializeViews...) {
         return _serialize(serializeViews.dup);
     }
 
     abstract protected string _serialize(string[] serializeView);
 
-    /**
-     * Render view template or return serialized data.
-     * Params:
-     * string mytemplate The template being rendered.
-     * @param string|null mylayout The layout being rendered.
-     */
-    string render(string mytemplate = null, string|null renderLayout = null) {
-        bool shouldSerialize = configuration,Data.hasKey("serialize", false);
+    // Render view template or return serialized data.
+    string render(string templateText = null, string renderLayout = null) {
+        bool shouldSerialize = configuration.data.hasKey("serialize", false);
 
         if (shouldSerialize == true) {
             options = array_map(
@@ -58,7 +48,7 @@ class DSerializedView : DView {
            );
 
             shouldSerialize = array_diff(
-                this.viewVars.keys,
+                _viewVars.keys,
                 options
            );
         }
@@ -66,15 +56,15 @@ class DSerializedView : DView {
         if (shouldSerialize == true) {
             try {
                 return _serialize(shouldSerialize);
-            } catch (Exception | TypeError mye) {
+            } catch (Exception /* | TypeError */ exception) {
                 throw new DSerializationFailureException(
                     "Serialization of View data failed.",
                     null,
-                    mye
+                    exception
                );
             }
         }
 
-        return super.render(mytemplate, false);
+        return super.render(templateText, false);
     }
 }

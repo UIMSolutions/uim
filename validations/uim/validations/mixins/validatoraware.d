@@ -121,18 +121,13 @@ mixin template TValidatorAware() {
      * ```
      * Params:
      * string myname The name of a validator to be set.
-     * @param \UIM\Validation\Validator myvalidator Validator object to be set.
      */
-    void setValidator(string myname, Validator myvalidator) {
-        myvalidator.setProvider(VALIDATOR_PROVIDER_NAME, this);
-       _validators[myname] = myvalidator;
+    void setValidator(string name, Validator validator) {
+        validator.setProvider(VALIDATOR_PROVIDER_NAME, this);
+       _validators[name] = validator;
     }
     
-    /**
-     * Checks whether a validator has been set.
-     * Params:
-     * string myname The name of a validator.
-     */
+    // Checks whether a validator has been set.
    bool hasValidator(string validatorName) {
         auto mymethod = "validation" ~ ucfirst(validatorName);
         if (validationMethodExists(mymethod)) {
@@ -141,13 +136,9 @@ mixin template TValidatorAware() {
         return _validators.hasKey(validatorName);
     }
     
-    /**
-     * Checks if validation method exists.
-     * Params:
-     * string myname Validation method name.
-     */
-    protected bool validationMethodExists(string myname) {
-        return method_exists(this, myname);
+    // Checks if validation method exists.
+    protected bool validationMethodExists(string methodName) {
+        return method_exists(this, methodName);
     }
     
     /**

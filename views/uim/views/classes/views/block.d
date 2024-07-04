@@ -36,10 +36,6 @@ class DViewBlock {
      *
      * You can end capturing blocks using View.end(). Blocks can be output
      * using View.get();
-     * Params:
-     * @param string blockMode If ViewBlock.OVERRIDE existing content will be overridden by new content.
-     * If ViewBlock.APPEND content will be appended to existing content.
-     * If ViewBlock.PREPEND it will be prepended.
      */
     void start(string blockName, string blockMode = DViewBlock.OVERRIDE) {
         if (_activeBlocks.hasKey(blockName)) {

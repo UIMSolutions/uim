@@ -26,18 +26,11 @@ class DFormProtector {
         return _debugMessage;
     }
     
-    /*
     // Fields list.
-    protected Json[string] fields = null;
+    protected Json[string] _fields = null;
 
-    /**
-     * Validate submitted form data.
-     * Params:
-     * Json formData Form data.
-     * @param string aurl URL form was POSTed to.
-     * @param string asessionId Session id for hash generation.
-     */
-    bool validate(Json formData, string formUrl, string asessionId) {
+    // Validate submitted form data.
+    bool validate(Json formData, string formUrl, string sessionId) {
         _debugMessage = null;
 
         auto extractedToken = this.extractToken(formData);
@@ -304,9 +297,9 @@ class DFormProtector {
      * Generate the token data.
      * Params:
      * string aurl Form URL.
-     * @param string asessionId Session Id.
+     * @param string sessionId Session Id.
      */
-    STRINGAA buildTokenData(string aurl = "", string asessionId= null) {
+    STRINGAA buildTokenData(string aurl = "", string sessionId= null) {
         auto fields = _fields.dup;
         auto unlockedFields = _unlockedFields.dup;
 
@@ -346,9 +339,9 @@ class DFormProtector {
      * Json[string] fields Fields list.
      * @param string[] unlockedFields Unlocked fields.
      * @param string aurl Form URL.
-     * @param string asessionId Session Id.
+     * @param string sessionId Session Id.
      */
-    protected string generateHash(string[] fieldNames, Json[string] unlockedFields, string aurl, string asessionId) {
+    protected string generateHash(string[] fieldNames, Json[string] unlockedFields, string aurl, string sessionId) {
         hashParts = [
             url,
             serialize(fields),

@@ -85,14 +85,9 @@ class DJsonView : DSerializedView {
         return "application/Json";
     }
 
-    /**
-     * Render a Json view.
-     * Params:
-     * string mytemplate The template being rendered.
-     * @param string|null mylayout The layout being rendered.
-     */
-    string render(string mytemplate = null, string /* | false | null  */ mylayout = null) {
-        auto result = super.render(mytemplate, mylayout);
+    // Render a Json view.
+    string render(string templateText = null, string /* | false | null  */ layoutName = null) {
+        auto result = super.render(templateText, layoutName);
         if (string myJsonp = configuration.getString("Jsonp")) {
             // TODO ?? 
             /* if (myJsonp == true) {
@@ -101,7 +96,7 @@ class DJsonView : DSerializedView {
 
             if (_request.getQuery(myJsonp)) {
                 result = "%s(%s)".format(h(_request.getQuery(myJsonp)), result);
-                this.response = this.response.withType("js");
+                _response = _response.withType("js");
             }
         }
         return result;
@@ -121,15 +116,11 @@ class DJsonView : DSerializedView {
         return to!string(Json_encode(mydata, dataOptions));
     }
 
-    /**
-     * Returns data to be serialized.
-     * Params:
-     * string[] myserialize The name(s) of the view variable(s) that need(s) to be serialized.
-     */
-    protected Json _dataToSerialize(string[] myserialize) {
-        if (myserialize.isArray) {
+    // Returns data to be serialized.
+    protected Json _dataToSerialize(string[] serializeVariables) {
+        if (serializeVariables.isArray) {
             auto mydata = null;
-            myserialize.byKeyValue.each!((aliasKey) {
+            serializeVariables.byKeyValue.each!((aliasKey) {
                 if (isNumeric(aliasKey.key)) {
                     aliasKey.key = aliasKey.value;
                 }
@@ -140,6 +131,6 @@ class DJsonView : DSerializedView {
             });
             return !mydata.isEmpty ? mydata : null;
         }
-        return viewVars.get(myserialize, null);
+        return viewVars.get(serializeVariables, null);
     }
 }

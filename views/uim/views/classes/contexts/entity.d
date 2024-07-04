@@ -232,15 +232,14 @@ class DEntityContext : DContext {
      * primary key column is guessed out of the provided mypath array
      * Params:
      * Json myvalues The list from which to extract primary keys from
-     * @param string[] mypath Each one of the parts in a path for a field name
      */
-    protected Json[string] _extractMultiple(Json myvalues, Json[string] mypath) {
+    protected Json[string] _extractMultiple(Json myvalues, Json[string] mypaths) {
         if (!is_iterable(myvalues)) {
             return null;
         }
-        mytable = _getTable(mypath, false);
-        myprimary = mytable ? (array)mytable.primaryKeys(): ["id"];
 
+        auto mytable = _getTable(mypath, false);
+        auto myprimary = mytable ? mytable.primaryKeys(): ["id"];
         return (new DCollection(myvalues)).extract(myprimary[0]).toJString();
     }
     

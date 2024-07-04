@@ -139,32 +139,25 @@ class DForm : IForm { // }: DEventListener, IEventDispatcher, IValidatorAware {
     }
 
 
-    /**
-     * Used to check if someData passes this form`s validation.
-     * Params:
-     * Json[string] data The data to check.
-     * @param string validator Validator name.
-     */
-    bool validate(Json[string] data, string avalidator = null) {
-       _errors = getValidator(validator ?: DEFAULT_VALIDATOR)
-            .validate(someData);
+    // Used to check if someData passes this form`s validation.
+    bool validate(Json[string] data, string validatorName = null) {
+       _errors = getValidator(validatorName ? validatorName : DEFAULT_VALIDATOR)
+            .validate(data);
 
         return count(_errors) == 0;
     }
     
     /**
      * Get the errors in the form
-     *
-     * Will return the errors from the last call
-     * to `validate()` or `execute()`.
+     * Will return the errors from the last call to `validate()` or `execute()`.
      */
     Json[string] getErrors() {
         return _errors;
     }
 
     // Returns validation errors for the given field
-    array getError(string fieldName) {
-        return _errors[fieldName] ? _errors[fieldName] : null;
+    Json getError(string fieldName) {
+        return _errors.ifNull(fieldName);
     }
     
     /**

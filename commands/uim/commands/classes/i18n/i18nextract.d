@@ -360,8 +360,8 @@ class DI18nExtractCommand : DCommand {
             }
             [type, string, line] = countToken;
             if ((type == T_STRING) && (string == functionName) && (firstParenthesis == "(")) {
-                position = count;
-                depth = 0;
+                auto position = count;
+                auto depth = 0;
 
                 while (! depth) {
                     if (_tokens[position] == "(") {
@@ -371,24 +371,24 @@ class DI18nExtractCommand : DCommand {
                     }
                     position++;
                 }
-                mapCount = count(map);
-                strings = _getStrings(position, mapCount);
+                auto mapCount = count(map);
+                auto strings = _getStrings(position, mapCount);
 
                 if (mapCount == count(strings)) {
                     string singular = "";
-                    vars = array_combine(map, strings);
+                    auto vars = array_combine(map, strings);
                     extract(vars);
-                    domain = domain.ifEmpty("default");
-                    details = [
+                    auto domain = domain.ifEmpty("default");
+                    auto details = [
                         "file": _fileName,
                         "line": line,
                     ];
-                    details["file"] = "." ~ details["file"].replace(ROOT, "");
+                    details.set("file", "." ~ details.getString("file").replace(ROOT, ""));
                     if (plural !is null) {
-                        details["msgid_plural"] = plural;
+                        details.set("msgid_plural", plural);
                     }
                     if (context is null) {
-                        details["msgctxt"] = context;
+                        details.set("msgctxt", context);
                     }
                    _addTranslation(domain, singular, details);
                 } else {
@@ -444,7 +444,7 @@ class DI18nExtractCommand : DCommand {
                     domain != "default" && _merge 
                         ? _store("default",  aHeader, sentence)
                         : _store(domain,  aHeader, sentence);
-                }
+                });
             }
         };
     }

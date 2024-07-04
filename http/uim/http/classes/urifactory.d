@@ -9,10 +9,10 @@ import uim.http;
  */
 class UriFactory { // }: IUriFactory {
     // Create a new URI.
-    IUri createUri(string uriToParse= null) {
+    IUri createUri(string uriToParse = null) {
         return new Uri(uriToParse);
     }
-    
+
     /**
      * Get a new Uri instance and base info from the provided server data.
      * Params:
@@ -21,113 +21,110 @@ class UriFactory { // }: IUriFactory {
      */
     static Json[string] marshalUriAndBaseFromSapi(Json[string] serverData = null) {
         auto serverData ? serverData : _SERVER;
-        auto azto  aHeaders = marshalHeadersFromSapi(serverData);
+        auto azto aHeaders = marshalHeadersFromSapi(serverData);
 
-        auto anUri = DiactorosUriFactory.createFromSapi(serverData,  aHeaders);
+        auto anUri = DiactorosUriFactory.createFromSapi(serverData, aHeaders);
         ["base": base, "webroot": webroot] = getBase(anUri, serverData);
 
         // Look in PATH_INFO first, as this is the exact value we need prepared
         // by D.
         auto somePathInfo = serverData.get("PATH_INFO", null);
         anUri = somePathInfo
-            ? anUri.withPath(somePathInfo)
-            : updatePath(base, anUri);
-        }
-        if (!anUri.getHost()) {
-            anUri = anUri.withHost("localhost");
-        }
-        return ["uri": anUri, "base": base, "webroot": webroot];
+            ? anUri.withPath(somePathInfo) : updatePath(base, anUri);
     }
-    
-    /**
+
+    if (!anUri.getHost()) {
+        anUri = anUri.withHost("localhost");
+    }
+
+    return ["uri": anUri, "base": base, "webroot": webroot];
+}
+
+/**
      * Updates the request URI to remove the base directory.
      * Params:
      * string abase The base path to remove.
      * @param \Psr\Http\Message\IUri anUri The uri to update.
      */
-    protected static IUri updatePath(string basePath, IUri anUri) {
-        auto uriPath = anUri.getPath();
-        if (!basePath.isEmpty && uriPath.startWith(basePath)) {
-            uriPath = uriPath[0..basePath.length];
-        }
-        if (uriPath == "/index.d" && anUri.getQuery()) {
-            uriPath = anUri.getQuery();
-        }
-        if (uriPath.isEmpty || uriPath.isAny("/", "//", "/index.d")) {
-            uriPath = "/";
-        }
-        
-        auto endsWithIndex = "/" ~ (configuration.get("App.webroot") ?: "webroot") ~ "/index.d";
-        auto endsWithLength = endsWithIndex.length;
-        if (
-            uriPath.length >= endsWithLength &&
-            subString(uriPath, -endsWithLength) == endsWithIndex
-       ) {
-            uriPath = "/";
-        }
-        return anUri.withPath(uriPath);
+protected static IUri updatePath(string basePath, IUri anUri) {
+    auto uriPath = anUri.getPath();
+    if (!basePath.isEmpty && uriPath.startWith(basePath)) {
+        uriPath = uriPath[0 .. basePath.length];
     }
-    
-    /**
-     * Calculate the base directory and webroot directory.
-     * Params:
-     * \Psr\Http\Message\IUri anUri The Uri instance.
-     * @param Json[string] serverData The SERVER data to use.
-     */
-    protected static Json[string] getBase(IUri anUri, Json[string] serverData) {
-        auto configData = configuration.getMap("App").merge([
-            "base": Json(null),
-            "webroot": Json(null),
-            "baseUrl": Json(null),
-        ]);
-
-        string base = configuration.getString("base");
-        auto baseUrl = configuration.get("baseUrl");
-        string webroot = configuration.getString("webroot");
-
-        if (!base.isNull) {
-            return ["base": base, "webroot": base ~ "/"];
-        }
-        
-        if (!baseUrl) {
-            auto self = serverData.get("UIM_SELF");
-            if (DisNull) {
-                return ["base": "", "webroot": "/"];
-            }
-            base = dirname(serverData.get("UIM_SELF", DIRECTORY_SEPARATOR));
-            // Clean up additional / which cause following code to fail..
-            base = (string)preg_replace("#/+#", "/", base);
-
-             anIndexPos = indexOf(base, "/" ~ webroot ~ "/index.d");
-            if (anIndexPos == true) {
-                base = subString(base, 0,  anIndexPos) ~ "/" ~ webroot;
-            }
-            if (webroot == basename(base)) {
-                base = dirname(base);
-            }
-            if (base == DIRECTORY_SEPARATOR || base == ".") {
-                base = "";
-            }
-            base = array_map("rawurlencode", base.split("/")).join("/");
-
-            return ["base": base, "webroot": base ~ "/"];
-        }
-
-        string file = "/" ~ basename(baseUrl);
-        string baseDir = dirname(baseUrl);
-
-        if (baseDir == DIRECTORY_SEPARATOR || baseDir == ".") {
-            baseDir = "";
-        }
-        webrootDir = baseDir ~ "/";
-
-        docRoot = serverData.get("DOCUMENT_ROOT");
-        if (
-            (!baseDir.isEmpty || !docRoot.has(webroot))
-            && !webrootDir.contains("/" ~ webroot ~ "/")
-       ) {
-            webrootDir ~= webroot ~ "/";
-        }
-        return ["baseDir": baseDir ~ file, "webroot": webrootDir];
+    if (uriPath == "/index.d" && anUri.getQuery()) {
+        uriPath = anUri.getQuery();
     }
+    if (uriPath.isEmpty || uriPath.isAny("/", "//", "/index.d")) {
+        uriPath = "/";
+    }
+
+    auto endsWithIndex = "/" ~ (configuration.get("App.webroot") ?  : "webroot")~"/index.d";
+    auto endsWithLength = endsWithIndex.length;
+    if (
+        uriPath.length >= endsWithLength &&
+        subString(uriPath, -endsWithLength) == endsWithIndex
+        ) {
+        uriPath = "/";
+    }
+    return anUri.withPath(uriPath);
+}
+
+// Calculate the base directory and webroot directory.
+protected static Json[string] getBase(IUri uri, Json[string] serverData) {
+    auto configData = configuration.getMap("App").merge([
+        "base": Json(null),
+        "webroot": Json(null),
+        "baseUrl": Json(null),
+    ]);
+
+    string base = configuration.getString("base");
+    auto baseUrl = configuration.get("baseUrl");
+    string webroot = configuration.getString("webroot");
+
+    if (!base.isNull) {
+        return ["base": base, "webroot": base ~ "/"].toJsonMap;
+    }
+
+    if (!baseUrl) {
+        auto self = serverData.get("UIM_SELF");
+        if (DisNull) {
+            return ["base": "", "webroot": "/"].toJsonMap;
+        }
+
+        base = dirname(serverData.get("UIM_SELF", DIRECTORY_SEPARATOR));
+        // Clean up additional / which cause following code to fail..
+        base = /* (string) */ preg_replace("#/+#", "/", base);
+
+        anIndexPos = indexOf(base, "/" ~ webroot ~ "/index.d");
+        if (anIndexPos == true) {
+            base = subString(base, 0, anIndexPos) ~ "/" ~ webroot;
+        }
+        if (webroot == basename(base)) {
+            base = dirname(base);
+        }
+        if (base == DIRECTORY_SEPARATOR || base == ".") {
+            base = "";
+        }
+        base = array_map("rawurlencode", base.split("/")).join("/");
+
+        return ["base": base, "webroot": base ~ "/"].toJsonMap;
+    }
+
+    string file = "/" ~ basename(baseUrl);
+    string baseDir = dirname(baseUrl);
+
+    if (baseDir == DIRECTORY_SEPARATOR || baseDir == ".") {
+        baseDir = "";
+    }
+    webrootDir = baseDir ~ "/";
+
+    docRoot = serverData.get("DOCUMENT_ROOT");
+    if (
+        (!baseDir.isEmpty || !docRoot.has(webroot))
+        && !webrootDir.contains("/" ~ webroot ~ "/")
+        ) {
+        webrootDir ~= webroot ~ "/";
+    }
+    return ["baseDir": baseDir ~ file, "webroot": webrootDir].toJsonMap;
+}
 }

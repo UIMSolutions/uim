@@ -686,26 +686,19 @@ class DResponse : IResponse {
             .withMaxAge(time - time());
     }
     
-    /**
-     * Create a new instace with the public/private Cache-Control directive set.
-     * Params:
-     * bool anIf set to true, the Cache-Control header will be set as public
-     * if set to false, the response will be set to private.
-     * @param int time time in seconds after which the response should no longer be considered fresh.
-     */
-    static withSharable(bool public, int time = null) {
-        new = this.clone;
-        remove(new._cacheDirectives["private"], new._cacheDirectives["public"]);
+    // Create a new instace with the public/private Cache-Control directive set.
+    static withSharable(bool isPublic, int maxAge = 0) {
+        IResponse newResponse = this.clone;
+        newResponse._cacheDirectivesremove("private", "public");
 
-        aKey = ? "public" : "private";
-        new._cacheDirectives[aKey] = true;
+        newResponse._cacheDirectives.set(isPublic ? "public" : "private", true);
 
-        if (time !is null) {
-            new._cacheDirectives["max-age"] = time;
+        if (maxAge > 0) {
+            newResponse._cacheDirectives.set("max-age", maxAge);
         }
-        new._setCacheControl();
+        newResponse._setCacheControl();
 
-        return new;
+        return newResponse;
     }
     
     /**

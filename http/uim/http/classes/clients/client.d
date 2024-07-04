@@ -445,14 +445,8 @@ class DClient { // }: IClient {
     return result;
   }
 
-  /**
-     * Creates a new request object based on the parameters.
-     * Params:
-     * string mymethod HTTP method name.
-     * @param string myurl The url including query string.
-     * @param Json[string] options The options to use. Contains auth, proxy, etc.
-     */
-  protected DRequest _createRequest(string mymethod, string myurl, Json requestBody, Json[string] options = null) {
+  // Creates a new request object based on the parameters.
+  protected DRequest _createRequest(string httpMethod, string url, Json requestBody, Json[string] options = null) {
     /** @var array<non-empty-string, non-empty-string>  myheaders */
     auto myheaders = options.get("headers");
     if (options.hasKey("type")) {
@@ -462,7 +456,7 @@ class DClient { // }: IClient {
         myheaders.isNull("content-type")) {
       myheaders["Content-Type"] = "application/x-www-form-urlencoded";
     }
-    auto myrequest = new DRequest(myurl, mymethod, myheaders, requestBody);
+    auto myrequest = new DRequest(url, httpMethod, myheaders, requestBody);
     myrequest = myrequest.withProtocolVersion(_configData.hasKey("protocolVersion"));
     mycookies = options["cookies"] ?  ? [];
     /** @var \UIM\Http\Client\Request  myrequest */

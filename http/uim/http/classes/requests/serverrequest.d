@@ -1407,10 +1407,6 @@ class DServerRequest { // }: IServerRequest {
      * You can use this method to overwrite the request target that is
      * inferred from the request`s Uri. This also lets you change the request
      * target`s form to an absolute-form, authority-form or asterisk-form
-     *
-     * @link https://tools.ietf.org/html/rfc7230#section-2.7 (for the various
-     * request-target forms allowed in request messages)
-     * @param string arequestTarget The request target.
      */
     static IRequest withRequestTarget(string requestTarget) {
         IRequest newRequest = this.clone;

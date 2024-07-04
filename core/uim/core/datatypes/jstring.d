@@ -4,48 +4,80 @@ import uim.core;
 
 @safe:
 
-Json[string] data(Json[string] values, string[] keys = null) {
+Json[string] mergeKeys(Json[string] values, string[] keys, Json defaultValue = Json(null)) {
+  keys.each!(key => values.merge(key, defaultValue));
+  return values;
+}
+
+Json[string] copy(Json[string] values, string[] keys = null) {
   if (keys.length == 0) {
     return values.dup;
   }
 
   Json[string] results;
   keys
-    .filter!(key => key in values)
+    .filter!(key => values.hasKey(key))
     .each!(key => results[key] = values[key]);
 
   return results;
 }
 
 // #region merge
-Json[string] merge(Json[string] originValues, Json valuesToMerge) {
-  Json[string] mergedValues = originValues.dup;
+Json[string] merge(Json[string] values, Json[string] valuesToMerge) {
+  valuesToMerge.byKeyValue
+    .each!(kv => values.merge(kv.key, kv.value));
+
+  return values;
+}
+
+Json[string] merge(Json[string] values, Json valuesToMerge) {
   if (!valuesToMerge.isObject) {
-    return mergedValues;
+    return values;
   }
 
   valuesToMerge.byKeyValue
-    .each!(kv => mergedValues = mergedValues.merge(kv.key, kv.value));
+    .each!(kv => values.merge(kv.key, kv.value));
 
-  return mergedValues;
+  return values;
 }
 
-Json[string] merge(Json[string] baseData, string key, Json value) {
-  Json[string] mergedValues = baseData.dup;
-  if (key !in baseData) {
-    mergedValues[key] = value;
+Json[string] merge(Json[string] values, string key, bool value) {
+  if (key !in values) {
+    values[key] = Json(value);
   }
-  return mergedValues;
+  return values;
+}
+
+Json[string] merge(Json[string] values, string key, long value) {
+  if (key !in values) {
+    values[key] = Json(value);
+  }
+  return values;
+}
+
+Json[string] merge(Json[string] values, string key, double value) {
+  if (key !in values) {
+    values[key] = Json(value);
+  }
+  return values;
+}
+
+Json[string] merge(Json[string] values, string key, string value) {
+  if (key !in values) {
+    values[key] = Json(value);
+  }
+  return values;
+}
+
+Json[string] merge(Json[string] values, string key, Json value) {
+  if (key !in values) {
+    values[key] = value;
+  }
+  return values;
 }
 // #endregion merge
 
-Json[string] copy(Json[string] origin) {
-  Json[string] results;
-  origin.byKeyValue
-    .each!(kv => results[kv.key] = kv.value);
 
-  return results;
-}
 
 // #region Getter
 Json getJson(Json[string] values, string key) {
@@ -202,61 +234,61 @@ Json[string] filterKeys(Json[string] values, string[] keys) {
 }
 
 // #region setter
-Json[string] setNull(Json[string] json, string key) {
-  json[key] = Json(null);
-  return json;
+Json[string] setNull(Json[string] map, string key) {
+  map[key] = Json(null);
+  return map;
 }
 
-Json[string] set(Json[string] json, string key, bool value) {
-  json[key] = Json(value);
-  return json;
+Json[string] set(Json[string] map, string key, bool value) {
+  map[key] = Json(value);
+  return map;
 }
 
-Json[string] set(Json[string] json, string key, int value) {
-  json[key] = Json(value);
-  return json;
+Json[string] set(Json[string] map, string key, int value) {
+  map[key] = Json(value);
+  return map;
 }
 
-Json[string] set(Json[string] json, string key, long value) {
-  json[key] = Json(value);
-  return json;
+Json[string] set(Json[string] map, string key, long value) {
+  map[key] = Json(value);
+  return map;
 }
 
-Json[string] set(Json[string] json, string key, float value) {
-  json[key] = Json(value);
-  return json;
+Json[string] set(Json[string] map, string key, float value) {
+  map[key] = Json(value);
+  return map;
 }
 
-Json[string] set(Json[string] json, string key, double value) {
-  json[key] = Json(value);
-  return json;
+Json[string] set(Json[string] map, string key, double value) {
+  map[key] = Json(value);
+  return map;
 }
 
-Json[string] set(Json[string] json, string key, string value) {
-  json[key] = Json(value);
-  return json;
+Json[string] set(Json[string] map, string key, string value) {
+  map[key] = Json(value);
+  return map;
 }
 
-Json[string] set(Json[string] json, string key, Json value) {
-  json[key] = value;
-  return json;
+Json[string] set(Json[string] map, string key, Json value) {
+  map[key] = value;
+  return map;
 }
 
-Json[string] set(Json[string] json, string key, Json[] value) {
-  json[key] = value;
-  return json;
+Json[string] set(Json[string] map, string key, Json[] value) {
+  map[key] = value;
+  return map;
 }
 
-Json[string] set(T)(Json[string] json, string key, T[string] value) {
+Json[string] set(T)(Json[string] map, string key, T[string] value) {
   Json[string] convertedValues;
   value.byKeyValue.each!(kv => convertedValues[kv.key] = Json(kv.value));
-  json.set(key, convertedValues);
-  return json;
+  map.set(key, convertedValues);
+  return map;
 }
 
-Json[string] set(Json[string] json, string key, Json[string] value) {
-  json[key] = value;
-  return json;
+Json[string] set(Json[string] map, string key, Json[string] value) {
+  map[key] = value;
+  return map;
 }
 
 unittest {
@@ -266,7 +298,51 @@ unittest {
   assert(json.set("long", 1).getLong("long") == 1);
   assert(json.set("double", 0.1).getDouble("double") == 0.1);
   assert(json.set("string", "A").getString("string") == "A");
+  assert(json.set("a", "A").set("b", "B").hasAllKeys("a", "b"));
+  assert(json.set("a", "A").set("b", "B").getString("b") == "B");
+  assert(json.set("a", "A").set("b", "B").getString("b") != "C");
   // TODO assert(json.set("strings", ["x": "X", "y": "Y", "z": "Z"]) != Json(null));
   writeln(json);
 }
 // #endregion setter
+
+// #region convert
+Json[string] toJsonMap(bool[string] values, string[] excludeKeys = null) {
+  Json[string] result;
+  values.byKeyValue
+      .filter!(kv => !excludeKeys.any!(key => values.hasKey(key)))
+      .each!(kv => result[kv.key] = Json(kv.value));
+  return result;
+} 
+
+Json[string] toJsonMap(long[string] values, string[] excludeKeys = null) {
+  Json[string] result;
+  values.byKeyValue
+    .filter!(kv => !excludeKeys.any!(key => values.hasKey(key)))
+    .each!(kv => result[kv.key] = Json(kv.value));
+  return result;
+} 
+
+Json[string] toJsonMap(double[string] values, string[] excludeKeys = null) {
+  Json[string] result;
+  values.byKeyValue
+    .filter!(kv => !excludeKeys.any!(key => values.hasKey(key)))
+    .each!(kv => result[kv.key] = Json(kv.value));
+  return result;
+} 
+
+Json[string] toJsonMap(string[string] values, string[] excludeKeys = null) {
+  Json[string] result;
+  values.byKeyValue
+    .filter!(kv => !excludeKeys.any!(key => values.hasKey(key)))
+    .each!(kv => result[kv.key] = Json(kv.value));
+  return result;
+} 
+unittest {
+  assert(["a": "A", "b":"B"].toJsonMap.length == 2);
+  assert(["a": "A", "b":"B"].toJsonMap.getString("a") == "A");
+  assert(["a": "A", "b":"B"].toJsonMap(["b"]).length == 1);
+  assert(["a": "A", "b":"B"].toJsonMap(["b"]).getString("a") == "A");
+}
+// #endregion convert
+

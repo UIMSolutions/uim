@@ -211,40 +211,38 @@ class Hash {
      * `{n}` and `{s}` elements to insert mydata multiple times.
      * Params:
      * Json[string] data The data to insert into.
-     * @param string mypath The path to insert at.
      */
-    static Json[string] insert(Json[string] data, string mypath, Json valuesToInsert = null) {
+    static Json[string] insert(Json[string] dataToInsert, string pathToInsert, Json valuesToInsert = null) {
         auto mynoTokens = !mypath.contains("[");
         if (mynoTokens && !mypath.contains(".")) {
             mydata[mypath] = valuesToInsert;
 
             return mydata;
         }
-        if (mynoTokens) {
-            string[] mytokens = mypath.split(".");
-        } else {
-            mytokens = Text.tokenize(mypath, ".", "[", "]");
-        }
+
+        string[] mytokens = mynoTokens
+            ? pathToInsert.split(".")
+            : Text.tokenize(pathToInsert, ".", "[", "]");
+
         if (mynoTokens && !mypath.contains("{")) {
-            return _simpleOp("insert", mydata, mytokens, valuesToInsert);
+            return _simpleOp("insert", dataToInsert, mytokens, valuesToInsert);
         }
 
         string mytoken = array_shift(mytokens);
         string mynextPath = mytokens.join(".");
 
         [mytoken, myconditions] = _splitConditions(mytoken);
-
-        foreach (mydata as myKey: myv) {
+        dataToInsert.byKeyValue.each!((kv) => {
             if (
-                _matchToken(myKey, mytoken) &&
-                (!myconditions || _matches(myv, myconditions))
+                _matchToken(kv.key, mytoken) &&
+                (!myconditions || _matches(kv.value, myconditions))
             ) {
-                mydata[myKey] = mynextPath
-                    ? insert(myv, mynextPath, valuesToInsert)
-                    : chain(myv, /* (array) */valuesToInsert);
+                mydata[kv.key] = mynextPath
+                    ? insert(kv.value, mynextPath, valuesToInsert)
+                    : chain(kv.value, /* (array) */valuesToInsert);
             }
-        }
-        return mydata;
+        });
+        return dataToInsert;
     }
     
     /**

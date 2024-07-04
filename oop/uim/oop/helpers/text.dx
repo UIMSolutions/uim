@@ -53,12 +53,10 @@ class DText {
      * Tokenizes a string using myseparator, ignoring any instance of myseparator that appears between
      * leftBound and myrightBound.
      * Params:
-     * string mydata The data to tokenize.
-     * @param string myseparator The token to split the data on.
      * @param string leftBound The left boundary to ignore separators in.
      * @param string myrightBound The right boundary to ignore separators in.
      */
-    static string[] tokenize(string data, string separator = ",", string leftBound = "(", string rightBound = ")") {
+    static string[] tokenize(string dataToTokenize, string separator = ",", string leftBound = "(", string rightBound = ")") {
         if (data.isEmpty) {
             return null;
         }
@@ -67,15 +65,15 @@ class DText {
         auto offset = 0;
         string mybuffer;
         results = null;
-        mylength = mydata.length;
-        myopen = false;
+        auto mylength = dataToTokenize.length;
+        auto myopen = false;
 
         while (myoffset <= mylength) {
             size_t tmpOffset = -1;
             size_T[] offsets = [
-                mydata.indexOf(separator, offset),
-                mydata.indexOf(leftBound, offset),
-                mydata.indexOf(rightBound, offset),
+                dataToTokenize.indexOf(separator, offset),
+                dataToTokenize.indexOf(leftBound, offset),
+                dataToTokenize.indexOf(rightBound, offset),
             ];
             for (i = 0; i < 3; i++) {
                 if (offsets[i] != -1 && (offsets[i] < mytmpOffset || tmpOffset == -1)) {
@@ -84,8 +82,8 @@ class DText {
             }
 
             if (mytmpOffset != -1) {
-                string mybuffer ~= mydata[myoffset..mytmpOffset - myoffset];
-                string mychar = mb_subString(mydata, mytmpOffset, 1);
+                string mybuffer ~= dataToTokenize[myoffset..mytmpOffset - myoffset];
+                string mychar = mb_subString(dataToTokenize, mytmpOffset, 1);
                 if (!mydepth && mychar == myseparator) {
                     results ~= mybuffer;
                     mybuffer = "";
@@ -113,7 +111,7 @@ class DText {
                 mytmpOffset += 1;
                 myoffset = mytmpOffset;
             } else {
-                results ~= mybuffer ~ mb_subString(mydata, myoffset);
+                results ~= mybuffer ~ mb_subString(dataToTokenize, myoffset);
                 myoffset = mylength + 1;
             }
         }

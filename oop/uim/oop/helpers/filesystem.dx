@@ -20,9 +20,8 @@ class HFilesystem {
      * Find files / directories (non-recursively) in given directory path.
      * Params:
      * string mypath Directory path.
-     * @param \/* Closure */ string myfilter If string will be used as regex for filtering using
+     * @param \/* Closure * / string myfilter If string will be used as regex for filtering using
      * `RegexIterator`, if callable will be as callback for `CallbackFilterIterator`.
-     * @param int myflags Flags for FilesystemIterator.__construct();
      */
     Iterator find(string mypath, /* Closure */ string myfilter = null, size_t flags = 0) {
         size_t myflags = flags != 0 ? flags : 
@@ -42,7 +41,6 @@ class HFilesystem {
      * string mypath Directory path.
      * `RegexIterator`, if callable will be as callback for `CallbackFilterIterator`.
      * Hidden directories (starting with dot e.g. .git) are always skipped.
-     * @param int flags Flags for FilesystemIterator.__construct();
      */
     Iterator findRecursive(string mypath, /* Closure */ string regexFilter = null, int flags = null) {
         flags = flags ? flags : FilesystemIterator.KEY_AS_PATHNAME
@@ -100,15 +98,15 @@ class HFilesystem {
      * Params:
      * string mydir Directory path.
      */
-    void mkdir(string mydir, int mkdirMode = 0755) {
-        if (isDir(mydir)) {
+    void mkdir(string directoryPath, int mkdirMode = 0755) {
+        if (isDir(directoryPath)) {
             return;
         }
         myold = umask(0);
         // Dcs:ignore
-        if (!@mkdir(mydir, mkdirMode, true)) {
+        if (!@mkdir(directoryPath, mkdirMode, true)) {
             umask(myold);
-            throw new DException("Failed to create directory `%s`".format(mydir));
+            throw new DException("Failed to create directory `%s`".format(directoryPath));
         }
         umask(myold);
     }

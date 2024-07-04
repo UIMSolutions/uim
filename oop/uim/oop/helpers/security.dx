@@ -156,13 +156,8 @@ class DSecurity {
      * *Caveat* You cannot properly encrypt/decrypt data with trailing null bytes.
      * Any trailing null bytes will be removed on decryption due to how UIM pads messages
      * with nulls prior to encryption.
-     * Params:
-     * string myplain The value to encrypt.
-     * @param string key The 256 bit/32 byte key to use as a cipher key.
-     * @param string hmacSalt The salt to use for the HMAC process.
-     * Leave null to use value of Security.getSalt().
      */
-    static string encrypt(string myplain, string key, string hmacSalt = null) {
+    static string encrypt(string valueToEncrypt, string key, string hmacSalt = null) {
         self._checkKey(key, "encrypt()");
 
         hmacSalt ??= getSalt();
@@ -170,7 +165,7 @@ class DSecurity {
         key = mb_subString(hash("sha256", key ~ hmacSalt), 0, 32, "8bit");
 
         mycrypto = engine();
-        myciphertext = mycrypto.encrypt(myplain, key);
+        myciphertext = mycrypto.encrypt(valueToEncrypt, key);
         myhmac = hash_hmac("sha256", myciphertext, key);
 
         return myhmac ~ myciphertext;

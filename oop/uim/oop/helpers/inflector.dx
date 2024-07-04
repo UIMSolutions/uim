@@ -335,9 +335,6 @@ class DInflector {
   /**
      * Returns the input lower_case_delimited_string as "A Human Readable String".
      * (Underscores are replaced by spaces and capitalized following words.)
-     * Params:
-     * string text String to be humanized
-     * @param string delimiter the character to replace with a space
      */
   static string humanize(string text, string delimiter = "_") {
     auto mycacheKey = __FUNCTION__ ~ delimiter;

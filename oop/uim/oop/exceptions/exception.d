@@ -93,15 +93,12 @@ class DException : Exception {
      *
      * Allows you to create exceptions that are treated as framework errors and disabled
      * when // debugmode is off.
-     *
-     * @param array|string myMessage Either the string of the error message, or an array of attributes
-     *  that are made available in the view, and sprintf()"d into Exception._messageTemplate
      */
-/* this(myMessage = "", int errorCode = null, Throwable previousException = null) {
+/* this(/* string[] */ string myMessage = "", int errorCode = null, Throwable previousException = null) {
       if (myMessage.isArray) {
         _attributes = myMessage;
         myMessage = vsprintf(_messageTemplate, myMessage);
       }
       super(myMessage, errorCode ?? _defaultCode, previousException);
-    } */
+    } 
 

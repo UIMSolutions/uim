@@ -686,8 +686,8 @@ static string getType(Json value) {
 // Prints out debug information about given variable.
 static void printVar(Json varToShow, Json[string] location = null, bool showHtml = false) {
     location.mergeKeys(["file", "line"]);
-    if (location.hasKey("file") {
-        location.set("file", trimPath(location.getString("file"));
+    if (location.hasKey("file")) {
+        location.set("file", trimPath(location.getString("file")));
     }
 
     auto debugger = getInstance();

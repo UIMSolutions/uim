@@ -17,13 +17,7 @@ mixin template TCookieCrypt() {
     abstract protected string _getCookieEncryptionKey();
 
     // TODO
-    /**
-     * Encrypts valueToEncrypt using mytype method in Security class
-     * Params:
-     * string[] valueToEncrypt Value to encrypt
-     * @param string key Used as the security salt if specified.
-     * returns Encoded values
-     */
+    // Encrypts valueToEncrypt using mytype method in Security class
     protected string _encrypt(string[] valueToEncrypt, string encryptionMode, string securitySalt = null) {
         if (valueToEncrypt.isArray) {
             valueToEncrypt = _join(valueToEncrypt);

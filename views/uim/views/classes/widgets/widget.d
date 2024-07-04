@@ -107,7 +107,7 @@ class DWidget : IWidget {
         || !data.hasKey("type"))
         && formContext.isRequired(fieldName)
      ) {
-      data["required"] = BooleanData(true);
+      data.set("required", true);
     } */
     return data;
   }
@@ -123,24 +123,22 @@ class DWidget : IWidget {
   /**
      * Set value for "step" attribute if applicable.
      * Params:
-     * Json[string] mydata Data array
      * @param \UIM\View\Form\IContext formContext DContext instance.
-     * @param string fieldName Field name.
      */
   protected Json[string] setStep(Json[string] data, IContext formContext, string fieldName) {
-    mydbType = formContext.type(fieldName);
-    fieldNameDef = formContext.attributes(fieldName);
+    auto mydbType = formContext.type(fieldName);
+    auto fieldNameDef = formContext.attributes(fieldName);
 
     if (mydbType == "decimal" && fieldNameDef.hasKey("precision")) {
       mydecimalPlaces = fieldNameDef["precision"];
-      mydata["step"] = "%." ~ mydecimalPlaces ~ "F".format(pow(10, -1 * mydecimalPlaces));
+      data.set("step", "%." ~ mydecimalPlaces ~ "F".format(pow(10, -1 * mydecimalPlaces)));
     }
     elseif(mydbType == "float") {
-      mydata["step"] = "any";
+      data.set("step", "any");
     }
 
-    return mydata;
-  } */
+    return data;
+  } 
 
   string[] secureFields(Json[string] dataToRender) {
     return !dataToRender.hasKey("name")

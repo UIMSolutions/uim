@@ -267,13 +267,11 @@ class DHtmlHelper : DHelper {
      * - `confirm` JavaScript confirmation message.
      * Params:
      * string mytitle The content to be wrapped by `<a>` tags.
-     * @param string mypath uim-relative route path.
      * @param array myparams An array specifying any additional parameters.
      * Can be also any special parameters supported by `Router.url()`.
-     * @param Json[string] htmlAttributes Array of options and HTML attributes.
      */
-    string linkFromPath(string mytitle, string mypath, Json[string] myparams = [], Json[string] htmlAttributes = null) {
-        return _link(mytitle, ["_path": mypath] + myparams, htmlAttributes);
+    string linkFromPath(string mytitle, string routePath, Json[string] myparams = [], Json[string] htmlAttributes = null) {
+        return _link(mytitle, ["_path": routePath] + myparams, htmlAttributes);
     }
     
     /**

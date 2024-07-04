@@ -44,12 +44,6 @@ class DBreadcrumbsHelper : DHelper {
      * Params:
      * string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
-     * @param Json[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
-     * be rendered in (a <li> tag by default). It accepts two special keys:
-     *
-     * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to
-     * the link)
-     * - *templateVars*: Specific template vars in case you override the templates provided.
      */
     void add(string[] mytitle, string[] myurl = null, Json[string] options  = null) {
         if (mytitle.isArray) {

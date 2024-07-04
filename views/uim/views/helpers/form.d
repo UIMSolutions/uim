@@ -469,11 +469,11 @@ class DFormHelper : DHelper {
         auto mydebugSecurity = configuration.getBoolean("debug");
         if (mysecureAttributes.haskey("debugSecurity")) {
             mydebugSecurity = mydebugSecurity && mysecureAttributes["debugSecurity"];
-            remove(mysecureAttributes["debugSecurity"]);
+            mysecureAttributes.remove("debugSecurity");
         }
-        mysecureAttributes["secure"] = SECURE_SKIP;
 
-        mytokenData = _formProtector.buildTokenData(
+        auto mysecureAttributes["secure"] = SECURE_SKIP;
+        auto mytokenData = _formProtector.buildTokenData(
            _lastAction,
            _getFormProtectorSessionId()
        );

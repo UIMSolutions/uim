@@ -92,22 +92,17 @@ class DRadioWidget : DWidget {
         return myopts.join("");
     }
     
-    /**
-     * Disabled attribute detection.
-     * Params:
-     * Json[string] myradio Radio info.
-     * @param string[]|true|null mydisabled The disabled values.
-     */
-    protected bool _isDisabled(Json[string] myradio, string[]|bool isDisabled) {
+    // Disabled attribute detection.
+    protected bool _isDisabled(Json[string] radio, /* string[]| */bool isDisabled) {
         if (!isDisabled) {
             return false;
         }
-        if (mydisabled == true) {
+        if (isDisabled) {
             return true;
         }
         
-        auto myisNumeric = isNumeric(myradio["value"]);
-        return !isArray(mydisabled) || isIn(to!string(myradio["value"]), mydisabled, !myisNumeric);
+        auto myisNumeric = isNumeric(radio["value"]);
+        return !isArray(isDisabled) || isIn(to!string(myradio["value"]), isDisabled, !myisNumeric);
     }
     
     /**
@@ -116,7 +111,6 @@ class DRadioWidget : DWidget {
      * string|int myval The value of the radio input.
      * @param Json[string]|string|int mytext The label text, or complex radio type.
      * @param Json[string] mydata Additional options for input generation.
-     * @param \UIM\View\Form\IContext formContext The form context
      */
     protected string _renderInput(
         string|int myval,

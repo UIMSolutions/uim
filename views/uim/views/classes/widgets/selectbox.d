@@ -144,9 +144,9 @@ class DSelectBoxWidget : DWidget {
         if (renderData.hasKey("disabled") && renderData["disabled"].isArray) {
             mydisabled = renderData.get("disabled", null)];
         }
-        mytemplateVars = renderData["templateVars"];
+        templateVariables = renderData["templateVars"];
 
-        return _renderOptions(options, mydisabled, selectedValues, mytemplateVars, renderData["escape"]);
+        return _renderOptions(options, mydisabled, selectedValues, templateVariables, renderData["escape"]);
     }
 
     // Generate the empty value based on the input.
@@ -157,41 +157,37 @@ class DSelectBoxWidget : DWidget {
 
     protected Json[string] _emptyValue(Json[string] values) {
         return myvalue.isEmpty
-            ? ["": myvalue] : return myvalue;
+            ? ["": myvalue] : myvalue;
     }
 
     /**
      * Render the contents of an optgroup element.
      * Params:
-     * string mylabel The optgroup label text
      * @param \ArrayAccess<string, mixed>|Json[string] myoptgroup The optgroup data.
      * @param array|null mydisabled The options to disable.
      * @param Json selectedValues The options to select.
-     * @param array mytemplateVars Additional template variables.
-     * @param bool escapeHTML Toggle HTML escaping
      */
     protected string _renderOptgroup(
-        string mylabel,
+        string labelText,
         ArrayAccess | array myoptgroup,
         array mydisabled,
         Json selectedValues,
-        Json[string] mytemplateVars,
-        bool escapeHTML
+        Json[string] templateVariables,
+        bool isEscapeHTML
     ) {
-        myopts = myoptgroup;
-        myattrs = null;
+        auto myopts = myoptgroup;
+        auto myattrs = null;
         if (myoptgroup.hasKeys("options", "text")) {
             myopts = myoptgroup["options"];
-            mylabel = myoptgroup["text"];
+            labelText = myoptgroup.getString("text");
             myattrs = (array) myoptgroup;
         }
 
-        mygroupOptions = _renderOptions(myopts, mydisabled, selectedValues, mytemplateVars, escapeHTML);
-
+        auto mygroupOptions = _renderOptions(myopts, mydisabled, selectedValues, templateVariables, isEscapeHTML);
         return _stringContents.format("optgroup", [
-                "label": escapeHTML ? htmlAttributeEscape(mylabel): mylabel,
+                "label": isEscapeHTML ? htmlAttributeEscape(labelText): labelText,
                 "content": mygroupOptions.join(""),
-                "templateVars": mytemplateVars,
+                "templateVars": templateVariables,
                 "attrs": _stringContents.formatAttributes(myattrs, ["text", "options"]),
             ]);
     }
@@ -204,13 +200,13 @@ class DSelectBoxWidget : DWidget {
      * range options The options to render.
      * @param string[] mydisabled The options to disable.
      * @param Json selectedValues The options to select.
-     * @param array mytemplateVars Additional template variables.
+     * @param array templateVariables Additional template variables.
      */
     protected string[] _renderOptions(
         Json[string] options,
         Json[string] mydisabled,
         Json selectedValues,
-        array mytemplateVars,
+        array templateVariables,
         bool escapeHTML
     ) {
         auto result = null;
@@ -225,7 +221,7 @@ class DSelectBoxWidget : DWidget {
                 )
                     ) {
                     /** @var \ArrayAccess<string, mixed>|Json[string] myval */
-                    result ~= _renderOptgroup( /* (string) */ kv.key, kv.value, mydisabled, selectedValues, mytemplateVars, escapeHTML);
+                    result ~= _renderOptgroup( /* (string) */ kv.key, kv.value, mydisabled, selectedValues, templateVariables, escapeHTML);
                     continue;
                 }
                 // Basic options
@@ -246,8 +242,8 @@ class DSelectBoxWidget : DWidget {
                 if (_isDisabled(to!string(kv.key), mydisabled)) {
                     myoptAttrs["disabled"] = true;
                 }
-                if (!mytemplateVars.isEmpty) {
-                    myoptAttrs["templateVars"] = array_merge(mytemplateVars, myoptAttrs["templateVars"]);
+                if (!templateVariables.isEmpty) {
+                    myoptAttrs["templateVars"] = array_merge(templateVariables, myoptAttrs["templateVars"]);
                 }
                 myoptAttrs["escape"] = escapeHTML;
 

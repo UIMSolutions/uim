@@ -96,21 +96,15 @@ class DHelper { // TODO }: DEventListener {
         return "if (confirm(this.dataset.confirmMessage)) { {myokCode} } {mycancelCode}";
     }
 
-    /**
-     * Adds the given class to the element options
-     * Params:
-     * Json[string] options Array options/attributes to add a class to
-     * @param string classname The class name being added.
-     * @param string aKey the key to use for class. Defaults to `"class"`.
-     */
-    Json[string] addClass(Json[string] options, string classname, string aKey = "class") {
-        if (options.hasKey(aKey) && options.isArray(aKey)) {
-            options[aKey] ~= classname;
+    // Adds the given class to the element options
+    Json[string] addClass(Json[string] options, string classname, string key = "class") {
+        if (options.hasKey(key) && options.isArray(key)) {
+            options[key] ~= classname;
         }
-        elseif(options.hasKey(aKey) && strip(options[aKey])) {
-            options[aKey] ~= " " ~ classname;
+        elseif(options.hasKey(key) && strip(options[key])) {
+            options[key] ~= " " ~ classname;
         } else {
-            options[aKey] = classname;
+            options[key] = classname;
         }
 
         return options;
@@ -126,7 +120,7 @@ class DHelper { // TODO }: DEventListener {
      * Or if you want helpers to listen to non-standard events.
      */
     IEvent[] implementedEvents() {
-        myeventMap = [
+        auto myeventMap = [
             "View.beforeRenderFile": "beforeRenderFile",
             "View.afterRenderFile": "afterRenderFile",
             "View.beforeRender": "beforeRender",

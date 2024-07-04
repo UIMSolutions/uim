@@ -44,16 +44,11 @@ class DFlashHelper : DHelper {
      * ]);
      * ```
      *
-     * If you have several messages stored in the Session, each message will be rendered in its own
-     * element.
-     * Params:
-     * string aKey The [Flash.]key you are rendering in the view.
-     * @param Json[string] options Additional options to use for the creation of this flash message.
-     *  Supports the "params", and "element" keys that are used in the helper.
+     * If you have several messages stored in the Session, each message will be rendered in its own element.
      */
-    string render(string aKey = "flash", Json[string] options  = null) {
+    string render(string key = "flash", Json[string] options  = null) {
         // TODO 
-        /* auto mymessages = _view.getRequest().getFlash().consume(aKey);
+        /* auto mymessages = _view.getRequest().getFlash().consume(key);
         if (mymessages.isNull) {
             return null;
         } */

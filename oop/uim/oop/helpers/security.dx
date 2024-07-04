@@ -158,32 +158,27 @@ class DSecurity {
      * with nulls prior to encryption.
      * Params:
      * string myplain The value to encrypt.
-     * @param string aKey The 256 bit/32 byte key to use as a cipher key.
+     * @param string key The 256 bit/32 byte key to use as a cipher key.
      * @param string hmacSalt The salt to use for the HMAC process.
      * Leave null to use value of Security.getSalt().
      */
-    static string encrypt(string myplain, string aKey, string hmacSalt = null) {
-        self._checkKey(aKey, "encrypt()");
+    static string encrypt(string myplain, string key, string hmacSalt = null) {
+        self._checkKey(key, "encrypt()");
 
         hmacSalt ??= getSalt();
         // Generate the encryption and hmac key.
-        aKey = mb_subString(hash("sha256", aKey ~ hmacSalt), 0, 32, "8bit");
+        key = mb_subString(hash("sha256", key ~ hmacSalt), 0, 32, "8bit");
 
         mycrypto = engine();
-        myciphertext = mycrypto.encrypt(myplain, aKey);
-        myhmac = hash_hmac("sha256", myciphertext, aKey);
+        myciphertext = mycrypto.encrypt(myplain, key);
+        myhmac = hash_hmac("sha256", myciphertext, key);
 
         return myhmac ~ myciphertext;
     }
     
-    /**
-     * Check the encryption key for proper length.
-     * Params:
-     * string aKey Key to check.
-     * @param string mymethod The method the key is being checked for.
-     */
-    protected static void _checkKey(string aKey, string mymethod) {
-        if (mb_strlen(aKey, "8bit") < 32) {
+    // Check the encryption key for proper length.
+    protected static void _checkKey(string key, string methodName) {
+        if (mb_strlen(key, "8bit") < 32) {
             throw new DInvalidArgumentException(
                 "Invalid key for %s, key must be at least 256 bits (32 bytes) long.".format(mymethod)
             );
@@ -194,32 +189,32 @@ class DSecurity {
      * Decrypt a value using AES-256.
      * Params:
      * string mycipher The ciphertext to decrypt.
-     * @param string aKey The 256 bit/32 byte key to use as a cipher key.
+     * @param string key The 256 bit/32 byte key to use as a cipher key.
      * @param string hmacSalt The salt to use for the HMAC process.
      * Leave null to use value of Security.getSalt().
      */
-    static string decrypt(string mycipher, string aKey, string hmacSalt = null) {
-        self._checkKey(aKey, "decrypt()");
+    static string decrypt(string mycipher, string key, string hmacSalt = null) {
+        self._checkKey(key, "decrypt()");
         if (mycipher.isEmpty) {
             throw new DInvalidArgumentException("The data to decrypt cannot be empty.");
         }
         hmacSalt ??= getSalt();
 
         // Generate the encryption and hmac key.
-        aKey = mb_subString(hash("sha256", aKey ~ hmacSalt), 0, 32, "8bit");
+        key = mb_subString(hash("sha256", key ~ hmacSalt), 0, 32, "8bit");
 
         // Split out hmac for comparison
         mymacSize = 64;
         myhmac = mb_subString(mycipher, 0, mymacSize, "8bit");
         mycipher = mb_subString(mycipher, mymacSize, null, "8bit");
 
-        mycompareHmac = hash_hmac("sha256", mycipher, aKey);
+        mycompareHmac = hash_hmac("sha256", mycipher, key);
         if (!constantEquals(myhmac, mycompareHmac)) {
             return null;
         }
         mycrypto = engine();
 
-        return mycrypto.decrypt(mycipher, aKey);
+        return mycrypto.decrypt(mycipher, key);
     }
     
     /**

@@ -109,20 +109,14 @@ class DIniConfig : DConfigEngine {
         return someValues;
     }
     
-    /**
-     * Dumps the state of Configure data into an ini formatted string.
-     * Params:
-     * string key The identifier to write to. If the key has a ~ it will be treated
-     * as a plugin prefix.
-     * @param Json[string] data The data to convert to ini file.
-     */
+    // Dumps the state of Configure data into an ini formatted string.
     bool dump(string key, Json[string] dataToConvert) {
-        auto result;
+        string[] result;
         dataToConvert.byKeyValue
             .each!((kv) {
                 isSection = false;
                 if (kv.key[0] != "[") {
-                    result ~= "["+kv.key~"]";
+                    result ~= "["~kv.key~"]";
                     isSection = true;
                 }
                 if (isArray(aValue)) {
@@ -139,13 +133,9 @@ class DIniConfig : DConfigEngine {
         return file_put_contents(filename, contents) > 0;
     }
     
-    /**
-     * Converts a value into the ini equivalent
-     * Params:
-     * Json aValue Value to export.
-     */
+    // Converts a value into the ini equivalent
     protected string _value(Json valueToExport) {
-        return match (aValue) {
+        return match (valueToExport) {
             null: "null",
             true: "true",
             false: "false",

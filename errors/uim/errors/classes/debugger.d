@@ -60,12 +60,9 @@ class DDebugger {
      * Template strings can use the `{file}` and `{line}` placeholders.
      * Closures templates must return a string, and accept two parameters:
      * The file and line.
-     * Params:
-     * @param \/*Closure|*/ string atemplate The string template or closure
      */
-    static void addEditor(string editorName, /* IClosure */ string atemplate) {
-        auto anInstance = getInstance();
-        anInstance.editors[editorName] = template;
+    static void addEditor(string editorName, /* IClosure */ string templateText) {
+        getInstance().editors[editorName] = templateText;
     }
 
     // Choose the editor link style you want to use.

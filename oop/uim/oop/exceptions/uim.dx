@@ -6,15 +6,11 @@ import uim.oop;
 
 // Base class that all UIM Exceptions extend.
 class DException : Exception {
-
-
     /**
      * Constructor.
      *
      * Allows you to create exceptions that are treated as framework errors and disabled
      * when debug mode is off.
-     * Params:
-     * @param int statusCode The error code
      */
     this(Json messageAttributes, int statusCode = 0, DException previousException = null) {
         _attributes = messageAttributes;

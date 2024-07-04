@@ -642,14 +642,9 @@ class DServerRequest { // }: IServerRequest {
      * if a request value is in a list of options.
      *
      * `addDetector("extension", ["param": '_ext", "options": ["pdf", "csv"]]`
-     * Params:
-     * string aName The name of the detector.
-     * @param \Closure|array detector A Closure or options array for the detector definition.
      */
-    static void addDetector(string aName, DClosure/* |array */ detector) {
-        auto loweredName = name.lower;
-            _detectors[loweredName] = detector;
-        }
+    static void addDetector(string detectorName, DClosure/* |array */ detector) {
+            _detectors[detectorName.lower] = detector;
     }
 
     static void addDetector(string name, array detector) {

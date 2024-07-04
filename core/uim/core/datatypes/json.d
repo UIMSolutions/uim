@@ -1217,3 +1217,9 @@ unittest {
   assert(["a": "1", "b": "2", "c": "3"].toJson["a"] == "1");
 }
 // #endregion toJson
+
+Json match(K)(Json[K] matchValues, K key, Json defaultValue = Json(null)) {
+  return key in matchValues 
+    ? matchValues[key]
+    : defaultValue;
+}

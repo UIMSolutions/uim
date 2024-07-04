@@ -563,3 +563,9 @@ unittest {
 	assert(text.doubleMustache(["a":"x", "b":"y"]) == "A:x, B:y");
 	assert(text == "A:{{a}}, B:{{b}}");
 }
+
+string match(K)(string[K] matchValues, K key, string defaultValue = null) {
+  return key in matchValues 
+    ? matchValues[key]
+    : defaultValue;
+}

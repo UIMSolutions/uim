@@ -179,7 +179,7 @@ class DRouter {
     /**
      * Add a URL filter to Router.
      *
-     * URL filter functions are applied to every array myurl provided to
+     * URL filter functions are applied to every array url provided to
      * Router.url() before the URLs are sent to the route collection.
      *
      * Callback functions should expect the following parameters:
@@ -211,13 +211,13 @@ class DRouter {
     /**
      * Applies all the connected URL filters to the URL.
      * Params:
-     * Json[string] myurl The URL array being modified.
+     * Json[string] url The URL array being modified.
      */
-    protected static Json[string] _applyUrlFilters(Json[string] myurl) {
+    protected static Json[string] _applyUrlFilters(Json[string] url) {
         myrequest = getRequest();
         _urlFilters.each!((filter) {
             try {
-                myurl = myfilter(myurl, myrequest);
+                url = myfilter(url, myrequest);
             } catch (Throwable mye) {
                 auto reflection = new DReflectionFunction(filter);
                 auto exceptionMessage = 
@@ -227,7 +227,7 @@ class DRouter {
                 throw new DException(exceptionMessage, to!int(mye.code()), mye);
             }
         });
-        return myurl;
+        return url;
     }
     
     /**
@@ -259,16 +259,16 @@ class DRouter {
      * - `_name` - Name of route. If you have setup named routes you can use this key
      * to specify it.
      * Params:
-     * \Psr\Http\Message\IUri|string[] myurl An array specifying any of the following:
+     * \Psr\Http\Message\IUri|string[] url An array specifying any of the following:
      * "controller", "action", "plugin" additionally, you can provide routed
      * elements or query string parameters. If string it can be name any valid url
      * string or it can be an IUri instance.
      */
-    static string url(/* IUri| */string[] myurl = null, bool isFull = false) {
+    static string url(/* IUri| */string[] url = null, bool isFull = false) {
         auto context = _requestContext;
         context["_base"] ??= "";
 
-        if (myurl.isEmpty) {
+        if (url.isEmpty) {
             string myhere = getRequest()?.getRequestTarget() ?? "/";
             string myoutput = context.getString("_base") ~ myhere;
             if (isFull) {
@@ -287,39 +287,39 @@ class DRouter {
         }
         
         string myfrag;
-        if (myurl.isArray) {
-            if (myurl.hasKey("_path")) {
-                myurl = unwrapShortString(myurl);
+        if (url.isArray) {
+            if (url.hasKey("_path")) {
+                url = unwrapShortString(url);
             }
-            if (myurl.hasKey("_https")) {
-                myurl["_scheme"] = myurl["_https"] == true ? "https" : "http";
+            if (url.hasKey("_https")) {
+                url["_scheme"] = url["_https"] == true ? "https" : "http";
             }
-            if (myurl.hasKey("_full") && myurl["_full"] == true) {
+            if (url.hasKey("_full") && url["_full"] == true) {
                 isFull = true;
             }
-            if (myurl.hasKey("#")) {
-                myfrag = "#" ~ myurl["#"];
+            if (url.hasKey("#")) {
+                myfrag = "#" ~ url["#"];
             }
-            myurl.remove("_https", "_full", "#");
+            url.remove("_https", "_full", "#");
 
-            myurl = _applyUrlFilters(myurl);
+            url = _applyUrlFilters(url);
 
-            if (!myurl.hasKey("_name")) {
+            if (!url.hasKey("_name")) {
                 // Copy the current action if the controller is the current one.
                 if (
-                    myurl.isEmpty("action")) &&
+                    url.isEmpty("action")) &&
                     (
-                        myurl.isEmpty("controller")) ||
-                        myparams["controller"] == myurl["controller"]
+                        url.isEmpty("controller")) ||
+                        myparams["controller"] == url["controller"]
                    )
                ) {
-                    myurl["action"] = myparams["action"];
+                    url["action"] = myparams["action"];
                 }
                 // Keep the current prefix around if none set.
-                if (isSet(myparams["prefix"]) && !myurl.hasKey("prefix"])) {
-                    myurl["prefix"] = myparams["prefix"];
+                if (isSet(myparams["prefix"]) && !url.hasKey("prefix"])) {
+                    url["prefix"] = myparams["prefix"];
                 }
-                myurl += [
+                url += [
                     "plugin": myparams["plugin"],
                     "controller": myparams["controller"],
                     "action": "index",
@@ -328,21 +328,21 @@ class DRouter {
             }
             // If a full URL is requested with a scheme the host should default
             // to App.fullBaseUrl to avoid corrupt URLs
-            if (isFull && isSet(myurl["_scheme"]) && !myurl.hasKey("_host")) {
-                myurl["_host"] = mycontext["_host"];
+            if (isFull && isSet(url["_scheme"]) && !url.hasKey("_host")) {
+                url["_host"] = mycontext["_host"];
             }
             mycontext["params"] = myparams;
 
-            myoutput = _collection.match(myurl, mycontext);
+            myoutput = _collection.match(url, mycontext);
         } else {
-            myurl = (string)myurl;
+            url = (string)url;
 
             if (
-                myurl.startsWith(["javascript:", "mailto:", "tel:", "sms:", "#", "?", "//"]) ||
-                myurl.contains(": //")) {
-                return myurl;
+                url.startsWith(["javascript:", "mailto:", "tel:", "sms:", "#", "?", "//"]) ||
+                url.contains(": //")) {
+                return url;
             }
-            myoutput = mycontext["_base"] ~ myurl;
+            myoutput = mycontext["_base"] ~ url;
         }
         
         auto myprotocol = preg_match("#^[a-z][a-z0-9+\-.]*\://#i", myoutput);
@@ -379,16 +379,16 @@ class DRouter {
      *
      * ### Usage
      *
-     * @param string[] myurl An array specifying any of the following:
+     * @param string[] url An array specifying any of the following:
      * "controller", "action", "plugin" additionally, you can provide routed
      * elements or query string parameters. If string it can be name any valid url
      * string.
      * @param bool isFull If true, the full base URL will be prepended to the result.
      * Default is false.
      */
-    static bool routeExists(string[] myurl = null, bool isFull = false) {
+    static bool routeExists(string[] url = null, bool isFull = false) {
         try {
-            url(myurl, isFull);
+            url(url, isFull);
 
             return true;
         } catch (MissingRouteException) {
@@ -499,16 +499,10 @@ class DRouter {
      * Works similarly to Router.url(), but since parsed URL"s contain additional
      * keys like "pass", "_matchedRoute" etc. those keys need to be specially
      * handled in order to reverse a params array into a string URL.
-     * Params:
-     * \UIM\Http\ServerRequest|array myparams The params array or
-     *   {@link \UIM\Http\ServerRequest} object that needs to be reversed.
-     * @param bool isFull Set to true to include the full URL including the
-     *   protocol when reversing the URL.
      */
-    static string reverse(ServerRequest|array myparams, bool isFull = false) {
-        myparams = reverseToArray(myparams);
-
-        return url(myparams, isFull);
+    static string reverse(DServerRequest/* |array */ params, bool isFull = false) {
+        auto params = reverseToArray(params);
+        return url(params, isFull);
     }
     
     /**
@@ -516,35 +510,33 @@ class DRouter {
      *
      * Will strip the base path off and replace any double /"s.
      * It will not unify the casing and underscoring of the input value.
-     * Params:
-     * string[] myurl URL to normalize Either an array or a string URL.
      */
-    static string normalize(string[] myurl = "/") {
-        if (isArray(myurl)) {
-            myurl = url(myurl);
+    static string normalize(string[] url = "/") {
+        if (isArray(url)) {
+            url = url(url);
         }
-        if (preg_match("/^[a-z\-]+:\/\//", myurl)) {
-            return myurl;
+        if (preg_match("/^[a-z\-]+:\/\//", url)) {
+            return url;
         }
-        myrequest = getRequest();
-
+        
+        auto myrequest = getRequest();
         if (myrequest) {
             mybase = myrequest.getAttribute("base", "");
-            if (mybase != "" && stristr(myurl, mybase)) {
-                myurl = (string)preg_replace("/^" ~ preg_quote(mybase, "/") ~ "/", "", myurl, 1);
+            if (mybase != "" && stristr(url, mybase)) {
+                url = (string)preg_replace("/^" ~ preg_quote(mybase, "/") ~ "/", "", url, 1);
             }
         }
-        myurl = "/" ~ myurl;
+        url = "/" ~ url;
 
-        while (myurl.contains("//")) {
-            myurl = myurl.replace("//", "/");
+        while (url.contains("//")) {
+            url = url.replace("//", "/");
         }
-        myurl = preg_replace("/(?:(\/my))/", "", myurl);
+        url = preg_replace("/(?:(\/my))/", "", url);
 
-        if (isEmpty(myurl)) {
+        if (isEmpty(url)) {
             return "/";
         }
-        return myurl;
+        return url;
     }
     
     /**
@@ -620,24 +612,24 @@ class DRouter {
     /**
      * Inject route defaults from `_path` key
      * Params:
-     * Json[string] myurl Route array with `_path` key
+     * Json[string] url Route array with `_path` key
      */
-    protected static Json[string] unwrapShortString(Json[string] myurl) {
+    protected static Json[string] unwrapShortString(Json[string] url) {
         foreach (aKey; ["plugin", "prefix", "controller", "action"]) {
-            if (array_key_exists(aKey, myurl)) {
+            if (array_key_exists(aKey, url)) {
                 throw new DInvalidArgumentException(
                     "`aKey` cannot be used when defining route targets with a string route path."
                );
             }
         }
-        myurl += parseRoutePath(myurl["_path"]);
-        myurl += [
+        url += parseRoutePath(url["_path"]);
+        url += [
             "plugin": false.toJson,
             "prefix": false.toJson,
         ];
-        remove(myurl["_path"]);
+        remove(url["_path"]);
 
-        return myurl;
+        return url;
     }
     
     /**
@@ -649,11 +641,11 @@ class DRouter {
      * - Cms.Articles.edit
      * - Vendor/Cms.Management/Admin/Articles.view
      * Params:
-     * string myurl Route path in [Plugin.][Prefix/]Controller.action format
+     * string url Route path in [Plugin.][Prefix/]Controller.action format
      */
-    static array<string|int, string> parseRoutePath(string myurl) {
-        if (_routePaths.haskey(myurl)) {
-            return _routePaths[myurl];
+    static array<string|int, string> parseRoutePath(string url) {
+        if (_routePaths.haskey(url)) {
+            return _routePaths[url];
         }
         
         auto myregex = "#^
@@ -667,8 +659,8 @@ class DRouter {
            )+/?)?
             my#ix";
 
-        if (!preg_match(myregex, myurl, mymatches)) {
-            throw new DInvalidArgumentException("Could not parse a string route path `%s`.".format(myurl));
+        if (!preg_match(myregex, url, mymatches)) {
+            throw new DInvalidArgumentException("Could not parse a string route path `%s`.".format(url));
         }
         
         auto mydefaults = [
@@ -687,13 +679,13 @@ class DRouter {
                 if (indexOf(myparam, "=") == true) {
                     if (!preg_match("/(?<key>.+?)=(?<value>.*)/", myparam, myparamMatches)) {
                         throw new DInvalidArgumentException(
-                            "Could not parse a key=value from `{myparam}` in route path `{myurl}`."
+                            "Could not parse a key=value from `{myparam}` in route path `{url}`."
                        );
                     }
                     myparamKey = myparamMatches["key"];
                     if (!preg_match("/^[a-zA-Z_][a-zA-Z0-9_]*my/", myparamKey)) {
                         throw new DInvalidArgumentException(
-                            "Param key `{myparamKey}` is not valid in route path `{myurl}`."
+                            "Param key `{myparamKey}` is not valid in route path `{url}`."
                        );
                     }
                     mydefaults[myparamKey] = myparamMatches["value"].strip(`"`);
@@ -705,7 +697,7 @@ class DRouter {
         // Only cache 200 routes per request. Beyond that we could
         // be soaking up too much memory.
         if (count(_routePaths) < 200) {
-            _routePaths[myurl] = mydefaults;
+            _routePaths[url] = mydefaults;
         }
         return mydefaults;
     }

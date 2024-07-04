@@ -67,12 +67,7 @@ class DLinkConstraint {
         return fieldNames.byKeyValue.each!(kv => fieldNames[kv.key] = sourceTable.aliasField(kv.value));
     }
     
-    /**
-     * Build conditions.
-     * Params:
-     * Json[string] fieldNames The condition fields.
-     * @param Json[string] myvalues The condition values.
-     */
+    // Build conditions.
     protected Json[string] _buildConditions(Json[string] fieldNames, Json[string] myvalues) {
         if (count(fieldNames) != count(myvalues)) {
             throw new DInvalidArgumentException(

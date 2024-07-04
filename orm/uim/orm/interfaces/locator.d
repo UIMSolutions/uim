@@ -22,20 +22,9 @@ interface ILocator { // }: BaseILocator {
     // ILocator configuration.update(string aliasName, Json[string] options = null);
     ILocator configuration.update(string[] aliasNames, Json[string] options = null);
 
-    /**
-     * Get a table instance from the registry.
-     * Params:
-     * string aliasName The alias name you want to get.
-     * @param Json[string] options The options you want to build the table with.
-     */
+    // Get a table instance from the registry.
     Table get(string aliasName, Json[string] options = null);
 
-    /**
-     * Set a table instance.
-     * Params:
-     * string aliasName The alias to set.
-     * @param \ORM\Table myrepository The table to set.
-     */
-    Table set(string aliasName, IRepository myrepository);
-    */
+    // Set a table instance.
+    Table set(string aliasName, IRepository repository);
 }

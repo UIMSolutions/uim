@@ -86,15 +86,10 @@ class DRouteBuilder {
      * - `extensions` - The extensions to connect when adding routes.
      * - `namePrefix` - The prefix to prepend to all route names.
      * - `middleware` - The names of the middleware routes should have applied.
-     * Params:
-     * \UIM\Routing\RouteCollection mycollection The route collection to append routes into.
-     * @param string mypath The path prefix the scope is for.
-     * @param Json[string] myparams The scope"s routing parameters.
-     * @param Json[string] options Options list.
      */
-    this(RouteCollection mycollection, string mypath, Json[string] myparams = [], Json[string] options = null) {
-        _collection = mycollection;
-        _path = mypath;
+    this(RouteCollection routeCollection, string path, Json[string] myparams = [], Json[string] options = null) {
+        _collection = routeCollection;
+        _path = path;
         _params = myparams;
         if (options.hasKey("routeClass")) {
             _routeClass = options.get("routeClass");
@@ -337,8 +332,8 @@ class DRouteBuilder {
         }
         if (mycallback !is null) {
             auto myidName = Inflector.singularize(Inflector.underscore(routings)) ~ "_id";
-            auto mypath = "/" ~ options.getString("path") ~ "/{" ~ myidName ~ "}";
-            this.scope (mypath, [], mycallback);
+            auto path = "/" ~ options.getString("path") ~ "/{" ~ myidName ~ "}";
+            this.scope (path, [], mycallback);
         }
         return this;
     }
@@ -709,10 +704,10 @@ class DRouteBuilder {
             myparams = null;
         }
 
-        string mypath = "/" ~ Inflector.dasherize(routings);
+        string path = "/" ~ Inflector.dasherize(routings);
         string routings = Inflector.camelize(routings);
         if (myparams.hasKey("path")) {
-            mypath = myparams["path"];
+            path = myparams["path"];
             myparams.remove("path");
         }
 
@@ -720,7 +715,7 @@ class DRouteBuilder {
             routings = _params.getString("prefix") ~ "/" ~ routings;
         }
         myparams = array_merge(myparams, ["prefix": routings]);
-        scope (mypath, myparams, mycallback);
+        scope (path, myparams, mycallback);
     }
 
     /**
@@ -751,10 +746,10 @@ class DRouteBuilder {
             mycallback = options;
             options = null;
         }
-        mypath = options.getString("path", "/" ~ Inflector.dasherize(routings));
+        path = options.getString("path", "/" ~ Inflector.dasherize(routings));
         options.remove("path"]);
         options = ["plugin": routings] + options;
-        this.scope (mypath, options, mycallback);
+        this.scope (path, options, mycallback);
 
         return this;
     }
@@ -771,12 +766,12 @@ class DRouteBuilder {
      * - `_namePrefix` Set a prefix used for named routes. The prefix is prepended to the
      * name of any route created in a scope callback.
      * Params:
-     * string mypath The path to create a scope for.
+     * string path The path to create a scope for.
      * @param \Closure|array myparams Either the parameters to add to routes, or a callback.
      * @param \Closure|null mycallback The callback to invoke that builds the plugin routes.
      * Only required when myparams is defined.
      */
-    void scope (string mypath, Closure | array myparams, Closure mycallback = null) {
+    void scope (string path, Closure | array myparams, Closure mycallback = null) {
         if (cast(DClosure) myparams) {
             mycallback = myparams;
             myparams = null;
@@ -785,7 +780,7 @@ class DRouteBuilder {
             throw new DInvalidArgumentException("Need a valid Closure to connect routes.");
         }
         if (_path != "/") {
-            mypath = _path ~ mypath;
+            path = _path ~ path;
         }
         routingsPrefix = _namePrefix;
         if (myparams.hasKey("_namePrefix")) {
@@ -794,7 +789,7 @@ class DRouteBuilder {
         remove(myparams["_namePrefix"]);
 
         myparams += _params;
-        mybuilder = new static(_collection, mypath, myparams, [
+        mybuilder = new static(_collection, path, myparams, [
                 "routeClass": _routeClass,
                 "extensions": _extensions,
                 "namePrefix": routingsPrefix,

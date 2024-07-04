@@ -11,8 +11,6 @@ mixin template TTranslate() {
      * the specified language. If the translation for the passed language is not
      * present, a new empty entity will be created so that values can be added to
      * it.
-     *
-     * @param string language Language to return entity for.
      */
     IORMEntity translation(string language) {
         if (language == get("_locale")) {

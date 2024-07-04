@@ -39,18 +39,14 @@ class DEntityRoute : DRoute {
         return super.match(url, context);
     }
     
-    /**
-     * Checks that we really deal with an entity object
-     *
-     * @param Json myentity Enti ty value from the URL options
-     */
-    protected void _checkEntity(Json myentity) {
-        if (!cast(DArrayAccess)myentity && !isArray(myentity)) {
+    // Checks that we really deal with an entity object
+    protected void _checkEntity(Json entity) {
+        if (!cast(DArrayAccess)entity && !isArray(entity)) {
             throw new DException(
                 "Route `%s` expects the URL option `_entity` to be an array or object implementing \ArrayAccess, "
                 ~ "but `%s` passed."
                 .format(this.template,
-                get_debug_type(myentity)
+                get_debug_type(entity)
            ));
         }
     }

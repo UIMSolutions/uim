@@ -869,7 +869,6 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string myassociated the alias for the target table. This is used to
      * uniquely identify the association
-     * @param Json[string] options list of options to configure the association definition
      */
     HasMany hasMany(string myassociated, Json[string] options = null) {
         auto updatedOptions = options.update["sourceTable": this];
@@ -919,7 +918,6 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string myassociated the alias for the target table. This is used to
      * uniquely identify the association
-     * @param Json[string] options list of options to configure the association definition
      */
     BelongsToMany belongsToMany(string myassociated, Json[string] options = null) {
         auto updatedOptions = options.update["sourceTable": this];

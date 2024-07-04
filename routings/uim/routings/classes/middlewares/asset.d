@@ -51,12 +51,7 @@ class DAssetMiddleware : IRoutingMiddleware {
         return _deliverAsset(serverRequest, file);
     }
     
-    /**
-     * Check the not modified header.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request to check.
-     * @param \SplFileInfo file The file object to compare.
-     */
+    // Check the not modified header.
     protected bool isNotModified(IServerRequest serverRequest, SplFileInfo file) {
         auto modifiedSince = serverRequest.getHeaderLine("If-Modified-Since");
         if (!modifiedSince) {

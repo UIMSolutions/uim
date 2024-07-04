@@ -514,14 +514,14 @@ class DServerRequest { // }: IServerRequest {
      * Json[string] detect Detector options array.
      */
     protected bool _paramDetector(Json[string] detect) {
-        aKey = detect["param"];
+        key = detect["param"];
         if (detect.hasKey("value")) {
             aValue = detect["value"];
 
-            return _params.hasKey(aKey) ? _params[aKey] == aValue : false;
+            return _params.hasKey(key) ? _params[key] == aValue : false;
         }
         /* if (detect.hasKey("options")) {
-            return isSet(_params[aKey]) ? isIn(_params[aKey], detect["options"]): false;
+            return isSet(_params[key]) ? isIn(_params[key], detect["options"]): false;
         } */
         return false;
     }
@@ -674,7 +674,7 @@ class DServerRequest { // }: IServerRequest {
         _environmentData.byKeyValue
             .each!((kv) => {
             string name = null;
-            if (aKey.startWith("HTTP_")) {
+            if (key.startWith("HTTP_")) {
                 name = subString(kv.key, 5);
             }
             if (kv.key.startWith("CONTENT_")) {
@@ -1108,17 +1108,13 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Get a value from the request`s environment data.
      * Fallback to using enviroment() if the key is not set in the environment property.
-     * Params:
-     * string aKey The key you want to read from.
-     * @param string default Default value when trying to retrieve an environment
-     * variable`s value that does not exist.
      */
-    string getEnvironmentData(string aKey, string adefault = null) {
-        aKey = aKey.upper;
-        if (!array_key_exists(aKey, _environmentData)) {
-           _environmentData[aKey] = enviroment(aKey);
+    string getEnvironmentData(string key, string defaultValue = null) {
+        auto key = key.upper;
+        if (!array_key_exists(key, _environmentData)) {
+           _environmentData[key] = enviroment(key);
         }
-        return _environmentData[aKey] !is null ? (string)_environmentData[aKey] : default;
+        return _environmentData[key] !is null ? (string)_environmentData[key] : default;
     }
     
     /**
@@ -1127,9 +1123,9 @@ class DServerRequest { // }: IServerRequest {
      * Returns an updated request object. This method returns
      * a *new* request object and does not mutate the request in-place.
      */
-    static auto withEnviroment(string aKey, string value) {
+    static auto withEnviroment(string key, string value) {
         IRequest newRequest = this.clone;
-        newRequest._environmentData[aKey] = aValue;
+        newRequest._environmentData.set(key, aValue);
         newRequest.clearDetectorCache();
 
         return newRequest;
@@ -1151,7 +1147,7 @@ class DServerRequest { // }: IServerRequest {
      * string[]|string httpMethods Allowed HTTP request methods.
      */
     bool allowMethod(string[] amethods) {
-        auto  someMethods = /* (array) */ someMethods;
+        auto someMethods = /* (array) */ someMethods;
         foreach (method; someMethods) {
             if (is(method)) {
                 return true;
@@ -1320,13 +1316,13 @@ class DServerRequest { // }: IServerRequest {
      * Json[string] uploadedFiles The new files array to validate.
      */
     protected auto validateUploadedFiles(Json[string] uploadedFiles, string path) {
-        foreach (aKey, file; uploadedFiles) {
+        foreach (key, file; uploadedFiles) {
             if (isArray(file)) {
-                this.validateUploadedFiles(file, aKey ~ ".");
+                this.validateUploadedFiles(file, key ~ ".");
                 continue;
             }
             if (!cast(IUploadedFile)file) {
-                throw new DInvalidArgumentException("Invalid file at `%s%s`.".format(path, aKey));
+                throw new DInvalidArgumentException("Invalid file at `%s%s`.".format(path, key));
             }
         }
     }

@@ -107,21 +107,16 @@ string __xn(string context, string singularText, string pluralText, size_t count
  * Allows you to override the current domain for a single message lookup.
  * The context is a unique identifier for the translations string that makes it unique
  * within the same domain.
- *
- * @param string domainName Domain.
- * @param string acontext DContext of the text.
- * @param string amsg String to translate.
- * @param Json[string] arguments Array with arguments or multiple arguments in function.
  */
-string __dx(string domainName, string acontext, string amsg, Json[string] arguments) {
-    if (!message) {
+string __dx(string domainName, string context, string messageToTranslate, Json[string] arguments) {
+    if (!messageToTranslate) {
         return null;
     }
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
         someArguments = someArguments[0];
     }
     return I18n.getTranslator(domainName).translate(
-        message,
+        messageToTranslate,
         ["_context": context] + someArguments
    );
 }

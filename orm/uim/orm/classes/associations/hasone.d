@@ -45,8 +45,6 @@ class DHasOneAssociation : DAssociation {
      * Returns whether the passed table is the owning side for this
      * association. This means that rows in the "target" table would miss important
      * or required information if the row in "source" did not exist.
-     *
-     * @param DORMTable side The potential Table with ownership
      */
     bool isOwningSide(DORMTable side) {
         return side == source();

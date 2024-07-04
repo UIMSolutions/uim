@@ -72,7 +72,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         }
 
         configuration.update(myConfiguration);
-        this.table = table;
+        _table = table;
         this.translationTable = getTableLocator().get(
             configuration.get("translationTable"],
             ["allowFallbackClass": true.toJson]
@@ -309,21 +309,19 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * If the requested field is configured as a translation field, the `content`
      * field with an alias of a corresponding association is returned. Table-aliased
      * field name is returned for all other fields.
-     *
-     * @param string field Field name to be aliased.
      */
-    string translationField(string field) {
-        table = this.table;
+    string translationField(string fieldName) {
+        auto table = _table;
         if (locale() == configuration.get("defaultLocale")) {
-            return table.aliasField(field);
+            return table.aliasField(fieldName);
         }
-        associationName = table.aliasName() ~ "_" ~ field ~ "_translation";
-
+        
+        string associationName = table.aliasName() ~ "_" ~ fieldName ~ "_translation";
         if (table.associations().has(associationName)) {
             return associationName ~ ".content";
         }
 
-        return table.aliasField(field);
+        return table.aliasField(fieldName);
     }
 
     /**

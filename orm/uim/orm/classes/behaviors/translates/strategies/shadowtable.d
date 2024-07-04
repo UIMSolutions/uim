@@ -49,11 +49,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
     mixin(TProperty!("string", "name"));
 
-    /**     
-     * @param DORMDORMTable aTable Table instance.
-     * @param Json[string] myConfiguration Configuration.
-     */
-    this(DORMTable aTable, Json[string] configData) {
+    this(DORMTable table, Json[string] configData) {
         auto tableAlias = table.aliasName();
         [plugin] = pluginSplit(table.registryKey(), true);
         auto tableReferenceName = configuration.get("referenceName");
@@ -67,7 +63,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         }
 
         configuration.update(myConfiguration);
-        this.table = table;
+        _table = table;
         this.translationTable = getTableLocator()
             .get(
                 configuration.get("translationTable"),
@@ -85,7 +81,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
     protected void setupAssociations() {
         auto configData = configuration.data;
         targetAlias = this.translationTable.aliasName();
-        this.table.hasMany(targetAlias, [
+        _table.hasMany(targetAlias, [
                 "classname": configuration.get("translationTable"),
                 "foreignKeys": Json("id"),
                 "strategy": configuration.get("strategy"),
@@ -164,7 +160,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             ? (options["filterByCurrentLocale"] ? "INNER" : "LEFT") : (
                 configuration.getString("onlyTranslated") ? "INNER" : "LEFT");
 
-        this.table.hasOne(configuration.get("hasOneAlias"), [
+        _table.hasOne(configuration.get("hasOneAlias"), [
                 "foreignKeys": ["id"],
                 "joinType": joinType,
                 "propertyName": "translation",
@@ -373,7 +369,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         }
 
         primaryKeys = (
-            array) this.table
+            array) _table
             .primaryKeys();
         id = entity.get(
             currentValue(
@@ -609,7 +605,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         }
 
         primaryKeys = (
-            array) this.table
+            array) _table
             .primaryKeys();
         key = entity.get(
             currentValue(
@@ -646,7 +642,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             return fields;
         }
 
-        fields = this.table
+        fields = _table
             .getSchema()
             .columns();
         configuration.update(

@@ -73,14 +73,11 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      *
      * Part of the template method for UIM\Core\ObjectRegistry.load()
      * and UIM\Core\ObjectRegistry.unload()
-     * Params:
-     * string myclass DThe classname that is missing.
-     * @param string myplugin The plugin the helper is missing in.
      */
-    protected void _throwMissingClassError(string myclass, string myplugin) {
+    protected void _throwMissingClassError(string classname, string pluginName) {
         throw new DMissingHelperException([
-            "class": myclass ~ "Helper",
-            "plugin": myplugin,
+            "class": classname ~ "Helper",
+            "plugin": pluginName,
         ]);
     }
     

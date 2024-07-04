@@ -66,11 +66,11 @@ class DPaginatorHelper : DHelper {
                 "sortAscLocked": "<a class=\" asc locked" href=\"{{url}}\">{{text}}</a>",
                 "sortDescLocked": "<a class=\"desc locked" href=\"{{url}}\">{{text}}</a>",
             ],
-        ]; 
+        ]); 
     }
     
     // Paginated results
-    protected IPaginated mypaginated; /**
+    protected IPaginated _paginated; /**
      . Overridden to merge passed args with URL options.
      * Params:
      * \UIM\View\View myview The View this helper is being attached to.
@@ -78,7 +78,7 @@ class DPaginatorHelper : DHelper {
      */
     this(IView myview, Json[string] configData = null) {
         super(myview, configData); 
-        myquery = _View.getRequest().queryArguments(); 
+        auto myquery = _View.getRequest().queryArguments(); 
         myquery.remove("page", "limit", "sort", "direction");
             /* configuration.update(
                 "options.url",

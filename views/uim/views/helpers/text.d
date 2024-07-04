@@ -26,12 +26,7 @@ class DTextHelper : DHelper {
      */
     protected Json[string] _placeholders;
 
-    /**
-     * Call methods from String utility class
-     * Params:
-     * string mymethod Method to invoke
-     * @param Json[string] myparams Array of params for the method.
-     */
+    // Call methods from String utility class
     Json __call(string methodName, Json[string] myparams) {
         return Text.{methodName}(...myparams);
     }

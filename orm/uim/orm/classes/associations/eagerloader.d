@@ -82,11 +82,6 @@ class DEagerLoader {
      * main query by the results fetched by that class.
      * - `joinType`: For joinable associations, the SQL join type to use.
      * - `strategy`: The loading strategy to use (join, select, subquery)
-     * Params:
-     * string[] myassociations List of table aliases to be queried.
-     * When this method is called multiple times it will merge previous list with
-     * the new one.
-     * @param \Closure|null myqueryBuilder The query builder callback.
      */
     array contain(string[] myassociations, Closure queryBuilderCallback = null) {
         if (queryBuilderCallback) {

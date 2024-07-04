@@ -500,8 +500,11 @@ unittest {
 	// TODO create test
 }
 
-string ifNull(string value, string defaultValue) {
-	return !value.isNull ? value : defaultValue;
+string ifNull(string[] values...) {
+	foreach(value; values) {
+		if (value !is null) { return value; }
+	}
+	return null;
 }
 ///
 unittest {
@@ -519,8 +522,11 @@ unittest {
 	assert(!"xyz".isNull);
 }
 
-string ifEmpty(string value, string defaultValue) {
-	return !value.isEmpty ? value : defaultValue;
+string ifEmpty(string[] values...) {
+	foreach(value; values) {
+		if (value.length > 0) { return value; }
+	}
+	return null;
 }
 
 bool isIn(string value, string[] values) {

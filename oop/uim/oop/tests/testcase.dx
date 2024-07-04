@@ -255,37 +255,27 @@ abstract class DTestCase : DBaseTestCase {
         Plugin.getCollection().clear();
     }
     
-    /**
-     * Asserts that a global event was fired. You must track events in your event manager for this assertion to work
-     * Params:
-     * string aName Event name
-     * @param \UIM\Event\EventManager|null eventManager Event manager to check, defaults to global event manager
-     * @param string message Assertion failure message
-     */
-    void assertEventFired(string aName, EventManager eventManager = null, string message = null) {
+    // Asserts that a global event was fired. You must track events in your event manager for this assertion to work
+    void assertEventFired(string eventName, EventManager eventManager = null, string failureMessage = null) {
         if (!eventManager) {
             eventManager = EventManager.instance();
         }
-        assertThat(name, new DEventFired(eventManager), message);
+        assertThat(eventName, new DEventFired(eventManager), failureMessage);
     }
     
     /**
      * Asserts an event was fired with data
      *
      * If a third argument is passed, that value is used to compare with the value in someDataKey
-     * Params:
-     * @param Json someDataValue Data value
-     * @param \UIM\Event\EventManager|null eventManager Event manager to check, defaults to global event manager
-     * @param string message Assertion failure message
      */
     void assertEventFiredWith(
-        string eventName, string eventKey, Json someDataValue,
+        string eventName, string eventKey, Json value,
         DEventManager eventManager = null, string failureMessage = null
     ) {
         if (!eventManager) {
             eventManager = EventManager.instance();
         }
-        assertThat(eventName, new DEventFiredWith(eventManager, eventKey, someDataValue), failureMessage);
+        assertThat(eventName, new DEventFiredWith(eventManager, eventKey, value), failureMessage);
     }
     
     /**
@@ -294,12 +284,11 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * string aexpected The expected value.
      * @param string aresult The actual value.
-     * @param string message The message to use for failure.
      */
-    void assertTextNotEquals(string expectedValue, string aresult, string message = null) {
-        expectedValue = expectedValue.replace(["\r\n", "\r"], "\n");
-        result = result.replace(["\r\n", "\r"], "\n");
-        this.assertNotEquals(expectedValue, result, message);
+    void assertTextNotEquals(string expectedValue, string aresult, string failureMessage = null) {
+        auto expectedValue = expectedValue.replace(["\r\n", "\r"], "\n");
+        auto result = result.replace(["\r\n", "\r"], "\n");
+        this.assertNotEquals(expectedValue, result, failureMessage);
     }
     
     /**
@@ -318,13 +307,12 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * string prefixToCheck The prefix to check for.
      * @param string textToSearch The string to search in.
-     * @param string message The message to use for failure.
      */
-    void assertTextStartsWith(string prefixToCheck, string textToSearch, string message = null) {
+    void assertTextStartsWith(string prefixToCheck, string textToSearch, string failureMessage = null) {
         prefixToCheck = str_replace(["\r\n", "\r"], "\n", prefixToCheck);
         textToSearch = textToSearch.replace(["\r\n", "\r"], "\n");
-        this.assertNotEmpty(prefixToCheck);
-        this.assertStringStartsWith(prefixToCheck, textToSearch, message);
+        assertNotEmpty(prefixToCheck);
+        assertStringStartsWith(prefixToCheck, textToSearch, failureMessage);
     }
     
     /**
@@ -338,7 +326,7 @@ abstract class DTestCase : DBaseTestCase {
     void assertTextStartsNotWith(string prefixToCheck, string textToSearch, string message = null) {
         prefixToCheck = str_replace(["\r\n", "\r"], "\n", prefixToCheck);
         string = str_replace(["\r\n", "\r"], "\n", string);
-        this.assertNotEmpty(prefixToCheck);
+        assertNotEmpty(prefixToCheck);
         this.assertStringStartsNotWith(prefixToCheck, string, message);
     }
     
@@ -353,7 +341,7 @@ abstract class DTestCase : DBaseTestCase {
     void assertTextEndsWith(string asuffix, string textToSearch, string message = null) {
         suffix = suffixstr_replace(["\r\n", "\r"], "\n");
         string = .replace(["\r\n", "\r"], "\n", string);
-        this.assertNotEmpty(suffix);
+        assertNotEmpty(suffix);
         this.assertStringEndsWith(suffix, string, message);
     }
     
@@ -368,7 +356,7 @@ abstract class DTestCase : DBaseTestCase {
     void assertTextEndsNotWith(string asuffix, string searchText, string message = null) {
         suffix = suffix..replace(["\r\n", "\r"], "\n");
         searchText = replace(["\r\n", "\r"], "\n", searchText);
-        this.assertNotEmpty(suffix);
+        assertNotEmpty(suffix);
         this.assertStringEndsNotWith(suffix, searchText, message);
     }
     

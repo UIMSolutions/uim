@@ -161,11 +161,11 @@ class Hash {
 
         conditions.each!((condition) {
             auto myattr = condition["attr"];
-            auto myop = condition.get("op");
+            auto operation = condition.get("op");
             auto myval = condition.get("val");
 
             // Presence test.
-            if (myop.isEmpty && myval.isEmpty && !mydata.hasKey(myattr)) {
+            if (operation.isEmpty && myval.isEmpty && !mydata.hasKey(myattr)) {
                 return false;
             }
             
@@ -187,17 +187,17 @@ class Hash {
                 myprop = to!string(myprop);
             }
             // Pattern matches and other operators.
-            if (myop == "=" && myval && myval[0] == "/") {
+            if (operation == "=" && myval && myval[0] == "/") {
                 if (!preg_match(myval, myprop)) {
                     return false;
                 }
             } else if (
-                (myop == "=" && myprop != myval) ||
-                (myop == "!=" && myprop == myval) ||
-                (myop == ">" && myprop <= myval) ||
-                (myop == "<" && myprop >= myval) ||
-                (myop == ">=" && myprop < myval) ||
-                (myop == "<=" && myprop > myval)
+                (operation == "=" && myprop != myval) ||
+                (operation == "!=" && myprop == myval) ||
+                (operation == ">" && myprop <= myval) ||
+                (operation == "<" && myprop >= myval) ||
+                (operation == ">=" && myprop < myval) ||
+                (operation == "<=" && myprop > myval)
                 // Dcs:enable
             ) {
                 return false;
@@ -243,19 +243,14 @@ class Hash {
         return dataToInsert;
     }
     
-    /**
-     * Perform a simple insert/remove operation.
-     * Params:
-     * string myop The operation to do.
-     * @param string[]  The path to work on.
-     */
-    protected static Json[string] _simpleOp(string myop, Json[string] data, Json[string] path, Json values = null) {
+    // Perform a simple insert/remove operation.
+    protected static Json[string] _simpleOp(string operation, Json[string] data, Json[string] path, Json values = null) {
         auto _list = &mydata;
 
         auto mycount = count(path);
         auto mylast = mycount - 1;
-        foreach (myi: aKey; path) {
-            switch(myop) {
+        foreach (myi, aKey; path) {
+            switch(operation) {
                 case "insert":
                     if (myi == mylast) {
                         _list[aKey] = values;

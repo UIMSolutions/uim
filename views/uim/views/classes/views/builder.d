@@ -299,7 +299,7 @@ class DViewBuilder { // }: DJsonSerializable {
         DResponse response = null,
         IEventManager myevents = null
    ) {
-        string viewClassname = _classname ? viewClassname : (App.classname("App", "View", "View") ?? View.classname;
+        string viewClassname = _classname.ifEmpty(App.classname("App", "View", "View"), View.classname);
         viewClassname = viewClassname == "View"
             ? App.classname(myclassname, "View")
             : App.classname(myclassname, "View", "View");
@@ -307,7 +307,7 @@ class DViewBuilder { // }: DJsonSerializable {
         if (myclassname.isNull) {
             throw new DMissingViewException(["class": _classname]);
         }
-        auto mydata = [
+        auto data = [
             "name": _name,
             "templatePath": _templatePath,
             "template": _template,
@@ -319,7 +319,7 @@ class DViewBuilder { // }: DJsonSerializable {
             "helpers": _helpers,
             "viewVars": _viewData,
         ];
-        mydata += _options;
+        data += _options;
 
         return new myclassname(serverRequest, response, myevents, mydata);
     }

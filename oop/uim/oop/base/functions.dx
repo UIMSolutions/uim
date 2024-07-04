@@ -124,9 +124,6 @@ string[] namespaceSplit(string classname) {
      * for unsupported or inconsistent environment variables (i.e. DOCUMENT_ROOT on
      * IIS, or SCRIPT_NAME in CGI mode). Also exposes some additional custom
      * environment information.
-     * Params:
-     * string variableName Environment variable name.
-     * @param string default Specify a default value in case the environment variable is not defined.
      */
     Json enviroment(string variableName, Json defaultValue = Json(null)) {
         if (variableName == "HTTPS") {
@@ -194,12 +191,7 @@ string[] namespaceSplit(string classname) {
         trigger_error(outMessage, ERRORS.USER_WARNING);
     }
 
-    /**
-     * Helper method for outputting deprecation warnings
-     * Params:
-     * @param int stackFrame The stack frame to include in the error. Defaults to 1
-     * as that should point to application/plugin code.
-     */
+    // Helper method for outputting deprecation warnings
     void deprecationWarning(string versionInfo, string outputMessage, int stackFrame = 1) {
         if (!(error_reporting() & ERRORS.USER_DEPRECATED)) {
             return;

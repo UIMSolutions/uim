@@ -25,17 +25,10 @@ mixin template TCell() {
      * Taxonomy\View\Cell\TagCloudCell.display()
      * mycell = this.cell("Taxonomy.TagCloud");
      * ```
-     *
      * Cells are not rendered until they are echoed.
-     * Params:
-     * string mycell You must indicate cell name, and optionally a cell action. e.g.: `TagCloud.smallList` will
-     * invoke `View\Cell\TagCloudCell.smallList()`, `display` action will be invoked by default when none is provided.
-     * @param Json[string] data Additional arguments for cell method. e.g.:
-     *  `cell("TagCloud.smallList", ["a1": "v1", "a2": "v2"])` maps to `View\Cell\TagCloud.smallList(v1, v2)`
-     * @param Json[string] options Options for Cell"s constructor
      */
-    protected DCell cell(string mycell, Json[string] data = [], Json[string] options = null) {
-        string[] myparts = mycell.split(".");
+    protected DCell cell(string cellName, Json[string] data = [], Json[string] options = null) {
+        string[] myparts = cellName.split(".");
 
         [mypluginAndCell, myaction] = count(myparts) == 2
             ? [myparts[0], myparts[1]] : [myparts[0], "display"];

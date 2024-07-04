@@ -240,13 +240,12 @@ class Xml {
      * \DOMDocument domDocument Handler to DOMDocument
      * @param \DOMDocument|\DOMElement mynode Handler to DOMElement (child)
      * @param Json data Array of data to append to the mynode.
-     * @param string myformat Either "attributes" or "tags". This determines where nested keys go.
      */
                     protected static void _fromArray(
                     DOMDocument domDocument,
                     DOMDocument | DOMElement mynode,
                     Json data,
-                    string myformat
+                    string format
                     ) {
                         if (data.isEmpty || !isArray(data)) {
                             return;
@@ -270,7 +269,7 @@ class Xml {
                                         string) myValue);
                                         continue;
                                     }
-                                    if (key[0] != "@" && myformat == "tags") {
+                                    if (key[0] != "@" && format == "tags") {
                                         if (!isNumeric(myValue)) {
                                             // Escape special characters
                                             // https://www.w3.org/TR/REC-xml/#syntax

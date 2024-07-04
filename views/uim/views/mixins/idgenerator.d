@@ -22,15 +22,11 @@ mixin template TIdGenerator() {
     
     /**
      * Generate an ID attribute for an element.
-     *
      * Ensures that id"s for a given set of fields are unique.
-     * Params:
-     * string attributename The ID attribute name.
-     * @param string myval The ID attribute value.
      */
-    protected string _id(string attributename, string myval) {
+    protected string _id(string attributename, string attributeValue) {
         auto idAttName = _domId(attributename);
-        string mysuffix = _idSuffix(myval);
+        string mysuffix = _idSuffix(attributeValue);
 
         return strip(idAttName ~ "-" ~ mysuffix, "-");
     }

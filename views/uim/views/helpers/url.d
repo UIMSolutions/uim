@@ -72,13 +72,9 @@ class UrlHelper : DHelper {
      * - `escape`: If false, the URL will be returned unescaped, do only use if it is manually
      *  escaped afterwards before being displayed.
      * - `fullBase`: If true, the full base URL will be prepended to the result
-     * Params:
-     * string mypath uim-relative route path.
-     * @param Json[string] myparams An array specifying any additional parameters.
-     * Can be also any special parameters supported by `Router.url()`.
      */
-    string buildFromPath(string mypath, Json[string] myparams = [], Json[string] options  = null) {
-        return _build(["_path": mypath] + myparams, options);
+    string buildFromPath(string routePath, Json[string] myparams = [], Json[string] options  = null) {
+        return _build(["_path": routePath] + myparams, options);
     }
     
     /**
